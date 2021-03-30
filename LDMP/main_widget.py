@@ -121,40 +121,40 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
     def setupAlgorithmsTree(self):
         # setup algorithms and their hierarchy
         tree = AlgorithmGroup(name='root', name_details='root details', parent=None, algorithms=[])
-        land_degradation_group = AlgorithmGroup(name='Land degradation', name_details='SDG 15.3.1', parent=tree, algorithms=[])
-        urban_change_group = AlgorithmGroup(name='Urban change and land consumption', name_details='SDG 11.3.1', parent=tree, algorithms=[])
-        total_carbon_group = AlgorithmGroup(name='Total carbon', name_details='above and belowground, emissions and deforestation', parent=tree, algorithms=[])
-        potential_change_group = AlgorithmGroup(name='Potential change in biomass due to restoration', name_details='above and belowground woody', parent=tree, algorithms=[])
+        land_degradation_group = AlgorithmGroup(name=tr('Land degradation'), name_details=tr('SDG 15.3.1'), parent=tree, algorithms=[])
+        urban_change_group = AlgorithmGroup(name=tr('Urban change and land consumption'), name_details=tr('SDG 11.3.1'), parent=tree, algorithms=[])
+        total_carbon_group = AlgorithmGroup(name=tr('Total carbon'), name_details=tr('above and belowground, emissions and deforestation'), parent=tree, algorithms=[])
+        potential_change_group = AlgorithmGroup(name=tr('Potential change in biomass due to restoration'), name_details=tr('above and belowground woody'), parent=tree, algorithms=[])
 
         # land_degradation_group
-        land_roductivity_alg = AlgorithmDescriptor(name='Land productivity', name_details=None, brief_description=None, details=None, parent=land_degradation_group)
+        land_roductivity_alg = AlgorithmDescriptor(name=tr('Land productivity'), name_details=None, brief_description=None, details=None, parent=land_degradation_group)
         land_roductivity_alg.run_mode = AlgorithmRunMode.Remotely
-        land_roductivity_alg_details = AlgorithmDetails(name=None, name_details=None, description='TODO: Land productivity long description', parent=land_roductivity_alg)
+        land_roductivity_alg_details = AlgorithmDetails(name=None, name_details=None, description=tr('TODO: Land productivity long description'), parent=land_roductivity_alg)
         land_roductivity_alg.setDetails(land_roductivity_alg_details)
 
-        land_cover_alg = AlgorithmDescriptor(name='Land cover', name_details=None, brief_description=None, details=None, parent=land_degradation_group)
+        land_cover_alg = AlgorithmDescriptor(name=tr('Land cover'), name_details=None, brief_description=None, details=None, parent=land_degradation_group)
         land_cover_alg.run_mode = AlgorithmRunMode.Remotely
-        land_cover_alg_details = AlgorithmDetails(name=None, name_details=None, description='TODO: Land cover long description', parent=land_cover_alg)
+        land_cover_alg_details = AlgorithmDetails(name=None, name_details=None, description=tr('TODO: Land cover long description'), parent=land_cover_alg)
         land_cover_alg.setDetails(land_cover_alg_details)
 
-        soil_organic_carbon_alg = AlgorithmDescriptor(name='Soil organic carbon', name_details=None, brief_description=None, details=None, parent=land_degradation_group)
+        soil_organic_carbon_alg = AlgorithmDescriptor(name=tr('Soil organic carbon'), name_details=None, brief_description=None, details=None, parent=land_degradation_group)
         soil_organic_carbon_alg.run_mode = AlgorithmRunMode.Remotely
-        soil_organic_carbon_alg_details = AlgorithmDetails(name=None, name_details=None, description='TODO: Soil organic carbon long description', parent=soil_organic_carbon_alg)
+        soil_organic_carbon_alg_details = AlgorithmDetails(name=None, name_details=None, description=tr('TODO: Soil organic carbon long description'), parent=soil_organic_carbon_alg)
         soil_organic_carbon_alg.setDetails(soil_organic_carbon_alg_details)
 
-        all_land_degradation_alg = AlgorithmDescriptor(name='All above sub-indicators in one step', name_details=None, brief_description=None, details=None, parent=land_degradation_group)
+        all_land_degradation_alg = AlgorithmDescriptor(name=tr('All above sub-indicators in one step'), name_details=None, brief_description=None, details=None, parent=land_degradation_group)
         all_land_degradation_alg.run_mode = AlgorithmRunMode.Remotely
-        all_land_degradation_alg_details = AlgorithmDetails(name=None, name_details=None, description='TODO: All above sub-indicators in one step long description', parent=all_land_degradation_alg)
+        all_land_degradation_alg_details = AlgorithmDetails(name=None, name_details=None, description=tr('TODO: All abovesub-indicators in one step long description'), parent=all_land_degradation_alg)
         all_land_degradation_alg.setDetails(all_land_degradation_alg_details)
 
-        final_alg = AlgorithmDescriptor(name='Final SDG 15.3.1', name_details='Spatial layer and summary table for total boundary', brief_description=None, details=None, parent=land_degradation_group)
+        final_alg = AlgorithmDescriptor(name=tr('Final SDG 15.3.1'), name_details=tr('Spatial layer and summary table for total boundary'), brief_description=None, details=None, parent=land_degradation_group)
         final_alg.run_mode = AlgorithmRunMode.Locally
-        final_alg_details = AlgorithmDetails(name=None, name_details=None, description='TODO: All sub-indicators in one step long description', parent=final_alg)
+        final_alg_details = AlgorithmDetails(name=None, name_details=None, description=tr('TODO: All sub-indicators in one step long description'), parent=final_alg)
         final_alg.setDetails(final_alg_details)
 
-        area_summaries_alg = AlgorithmDescriptor(name='Area summaries of a raster on sub-units', name_details=None, brief_description=None, details=None, parent=land_degradation_group)
+        area_summaries_alg = AlgorithmDescriptor(name=tr('Area summaries of a raster on sub-units'), name_details=None, brief_description=None, details=None, parent=land_degradation_group)
         area_summaries_alg.run_mode = AlgorithmRunMode.Locally
-        area_summaries_alg_details = AlgorithmDetails(name=None, name_details=None, description='TODO: Area summaries long description', parent=area_summaries_alg)
+        area_summaries_alg_details = AlgorithmDetails(name=None, name_details=None, description=tr('TODO: Area summaries long description'), parent=area_summaries_alg)
         area_summaries_alg.setDetails(area_summaries_alg_details)
 
         land_degradation_group.algorithms.append(land_roductivity_alg)
@@ -165,42 +165,42 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         land_degradation_group.algorithms.append(area_summaries_alg)
 
         # urban_change_group
-        urban_change_alg = AlgorithmDescriptor(name='Urban change spatial layer', name_details=None, brief_description=None, details=None, parent=urban_change_group)
+        urban_change_alg = AlgorithmDescriptor(name=tr('Urban change spatial layer'), name_details=None, brief_description=None, details=None, parent=urban_change_group)
         urban_change_alg.run_mode = AlgorithmRunMode.Both
-        urban_change_alg_details = AlgorithmDetails(name=None, name_details=None, description='TODO: Urban change spatial layer long description', parent=urban_change_alg)
+        urban_change_alg_details = AlgorithmDetails(name=None, name_details=None, description=tr('TODO: Urban change spatial layer long description'), parent=urban_change_alg)
         urban_change_alg.setDetails(urban_change_alg_details)
 
-        urban_change_summary_alg = AlgorithmDescriptor(name='Urban change summary table for city', name_details=None, brief_description=None, details=None, parent=urban_change_group)
+        urban_change_summary_alg = AlgorithmDescriptor(name=tr('Urban change summary table for city'), name_details=None, brief_description=None, details=None, parent=urban_change_group)
         urban_change_summary_alg.run_mode = AlgorithmRunMode.Both
-        urban_change_summary_alg_details = AlgorithmDetails(name=None, name_details=None, description='TODO: Urban change summary table for city long description', parent=urban_change_summary_alg)
+        urban_change_summary_alg_details = AlgorithmDetails(name=None, name_details=None, description=tr('TODO: Urban change summary table for city long description'), parent=urban_change_summary_alg)
         urban_change_summary_alg.setDetails(urban_change_summary_alg_details)
 
         urban_change_group.algorithms.append(urban_change_alg)
         urban_change_group.algorithms.append(urban_change_summary_alg)
 
         # total_carbon_group
-        carbon_change_alg = AlgorithmDescriptor(name='Carbon change spatial layers', name_details=None, brief_description=None, details=None, parent=total_carbon_group)
+        carbon_change_alg = AlgorithmDescriptor(name=tr('Carbon change spatial layers'), name_details=None, brief_description=None, details=None, parent=total_carbon_group)
         carbon_change_alg.run_mode = AlgorithmRunMode.Remotely
-        carbon_change_alg_details = AlgorithmDetails(name=None, name_details=None, description='TODO: Carbon change spatial layers long description', parent=carbon_change_alg)
+        carbon_change_alg_details = AlgorithmDetails(name=None, name_details=None, description=tr('TODO: Carbon change spatial layers long description'), parent=carbon_change_alg)
         carbon_change_alg.setDetails(carbon_change_alg_details)
 
-        carbon_change_summary_alg = AlgorithmDescriptor(name='Carbon change summary table for boundary', name_details=None, brief_description=None, details=None, parent=total_carbon_group)
+        carbon_change_summary_alg = AlgorithmDescriptor(name=tr('Carbon change summary table for boundary'), name_details=None, brief_description=None, details=None, parent=total_carbon_group)
         carbon_change_summary_alg.run_mode = AlgorithmRunMode.Remotely
-        carbon_change_summary_alg_details = AlgorithmDetails(name=None, name_details=None, description='TODO: Carbon change summary table for boundary long description', parent=carbon_change_summary_alg)
+        carbon_change_summary_alg_details = AlgorithmDetails(name=None, name_details=None, description=tr('TODO: Carbon change summary table for boundary long description'), parent=carbon_change_summary_alg)
         carbon_change_summary_alg.setDetails(carbon_change_summary_alg_details)
 
         total_carbon_group.algorithms.append(carbon_change_alg)
         total_carbon_group.algorithms.append(carbon_change_summary_alg)
 
         # potential_change_group
-        estimate_biomass_change_alg = AlgorithmDescriptor(name='Estimate biomass change', name_details=None, brief_description=None, details=None, parent=potential_change_group)
+        estimate_biomass_change_alg = AlgorithmDescriptor(name=tr('Estimate biomass change'), name_details=None, brief_description=None, details=None, parent=potential_change_group)
         estimate_biomass_change_alg.run_mode = AlgorithmRunMode.Remotely
-        estimate_biomass_change_alg_details = AlgorithmDetails(name=None, name_details=None, description='TODO: Estimate biomass change long description', parent=estimate_biomass_change_alg)
+        estimate_biomass_change_alg_details = AlgorithmDetails(name=None, name_details=None, description=tr('TODO: Estimate biomass change long description'), parent=estimate_biomass_change_alg)
         estimate_biomass_change_alg.setDetails(estimate_biomass_change_alg_details)
 
-        estimate_biomass_summary_alg = AlgorithmDescriptor(name='Table summarizing likely changes in biomass', name_details=None, brief_description=None, details=None, parent=potential_change_group)
+        estimate_biomass_summary_alg = AlgorithmDescriptor(name=tr('Table summarizing likely changes in biomass'), name_details=None, brief_description=None, details=None, parent=potential_change_group)
         estimate_biomass_summary_alg.run_mode = AlgorithmRunMode.Remotely
-        estimate_biomass_summary_alg_details = AlgorithmDetails(name=None, name_details=None, description='TODO: Table summarizing likely changes in biomass long description', parent=estimate_biomass_summary_alg)
+        estimate_biomass_summary_alg_details = AlgorithmDetails(name=None, name_details=None, description=tr('TODO: Table summarizing likely changes in biomass long description'), parent=estimate_biomass_summary_alg)
         estimate_biomass_summary_alg.setDetails(estimate_biomass_summary_alg_details)
 
         potential_change_group.algorithms.append(estimate_biomass_change_alg)

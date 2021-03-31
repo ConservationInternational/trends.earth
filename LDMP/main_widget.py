@@ -77,7 +77,6 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         self.setupAlgorithmsTree()
         self.setupDatasets()
 
-
     def setupDatasets(self):
         # add sort actions
         self.toolButton_sort.setMenu(QtWidgets.QMenu())
@@ -343,15 +342,6 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         tree.algorithms.append(urban_change_group)
         tree.algorithms.append(experimental)
 
-        # set stylesheet for tree view
-        style = """
-            QTreeView::item:hover,
-            QTreeView::item:disabled:hover,
-            QTreeView::item:hover:!active, { background: transparent; background-color: transparent }
-            QTreeView::item:disabled { background: transparent; background-color: transparent }
-        """
-        self.treeView_algorithms.setStyleSheet(style)
-
         # show it
         algorithmsModel = AlgorithmTreeModel(tree)
         self.treeView_algorithms.setMouseTracking(True) # to allow emit entered events and manage editing over mouse
@@ -362,8 +352,6 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
 
         # configure View how to enter editing mode
         self.treeView_algorithms.setEditTriggers(QtWidgets.QAbstractItemView.AllEditTriggers)
-
-
 
     def closeEvent(self, event):
         super(MainWidget, self).closeEvent(event)

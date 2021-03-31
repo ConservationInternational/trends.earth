@@ -84,11 +84,6 @@ class AlgorithmItemDelegate(QStyledItemDelegate):
         model = index.model()
         item = model.data(index, Qt.ItemDataRole)
 
-        # # set background color to avoid over effect (lighter)
-        # opt = QStyleOptionViewItem(option)
-        # opt.backgroundBrush = QBrush(QColor(Qt.transparent))
-        # option.widget.style().drawPrimitive(QStyle.PE_PanelItemViewItem, opt, painter)
-
         # if a Algorithm => show custom widget
         if item.item_type == AlgorithmNodeType.Algorithm:
             # get default widget used to edit data

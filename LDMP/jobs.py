@@ -20,7 +20,7 @@ import re
 import copy
 import base64
 import binascii
-
+import copy
 import datetime
 from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtCore import (QSettings, QAbstractTableModel, Qt, pyqtSignal, 
@@ -42,7 +42,7 @@ from LDMP import log
 from LDMP.api import get_user_email, get_execution
 from LDMP.download import Download, check_hash_against_etag, DownloadError
 from LDMP.layers import add_layer
-from LDMP.schemas.schemas import LocalRaster, LocalRasterSchema
+from LDMP.schemas.schemas import LocalRaster, LocalRasterSchema, APIResponseSchema
 
 
 class tr_jobs(object):
@@ -472,3 +472,32 @@ def download_timeseries(job, tr):
     dlg_plot.plot_data(data['time'], data['y'], labels)
     dlg_plot.show()
     dlg_plot.exec_()
+
+
+class Job(object):
+
+    def __init__(self, response: APIResponseSchema):
+        super().__init__()
+        self.id = response.get('id', '')
+        self.start_date = response.get('start_date', '')
+        self.end_date = response.get('end_date', '')
+        self.status = response.get('status', '')
+        self.progress = response.get('progress', 0)
+        self.params = response.get('params', {})
+        self.results = response.get('results', None)
+        self.script = response.get('script', {})
+        self.logs = response.get('logs', '')
+
+    def dump(self):
+        base_data_directory = QSettings().value("trends_earth/advanced/base_data_directory", None)
+
+        # set location where to save basing on script(alg) used
+        out_path = os.path.join(base_data_directory, self.script['name'])
+        if not os.path.exists(out_path):
+            os.makedirs(out_path)
+
+        job_descriptor_file_name = os.path.join(out_path, self.id + '.json')
+        job_schema = APIResponseSchema()
+        with open(job_descriptor_file_name, 'w') as f:
+            json.dump(job_schema.dump(self), f, default=json_serial,
+                    sort_keys=True, indent=4, separators=(',', ': '))

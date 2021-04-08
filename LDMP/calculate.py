@@ -74,7 +74,7 @@ with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
 def get_script_slug(script_name):
     # Note that dots and underscores can't be used in the slugs, so they are 
     # replaced with dashesk
-    return script_name + '-' + scripts[script_name]['script version'].replace('.', '-')
+    return (script_name, script_name + '-' + scripts[script_name]['script version'].replace('.', '-'))
 
 # Transform CRS of a layer while optionally wrapping geometries
 # across the 180th meridian
@@ -921,7 +921,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
             return False
 
         if self.settings.value("trends_earth/region_of_interest/buffer_checked"):
-            ret = self.aoi.buffer(self.settings.value("trends_earth/region_of_interest/buffer_size"))
+            ret = self.aoi.buffer(float(self.settings.value("trends_earth/region_of_interest/buffer_size")))
             if not ret:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                         self.tr("Error buffering polygon"))

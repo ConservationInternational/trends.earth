@@ -921,7 +921,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
             return False
 
         if self.settings.value("trends_earth/region_of_interest/buffer_checked"):
-            ret = self.aoi.buffer(int(self.settings.value("trends_earth/region_of_interest/buffer_size")))
+            ret = self.aoi.buffer(float(self.settings.value("trends_earth/region_of_interest/buffer_size")))
             if not ret:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                         self.tr("Error buffering polygon"))

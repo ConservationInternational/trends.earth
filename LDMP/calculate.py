@@ -840,7 +840,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
             return (admin_polys['admin1'][admin_1_code]['geojson'])
 
     def btn_calculate(self):
-        if self.settings.value("trends_earth/region_of_interest/custom_crs_enabled"):
+        if self.settings.value("trends_earth/region_of_interest/custom_crs_enabled", False, type=bool):
             crs_dst = QgsCoordinateReferenceSystem(
                 self.settings.value("trends_earth/region_of_interest/custom_crs")
             )
@@ -852,7 +852,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
         if self.settings.value("trends_earth/region_of_interest/chosen_method") == 'country_region' or \
                 self.settings.value("trends_earth/region_of_interest/chosen_method") == 'country_city':
             if self.settings.value("trends_earth/region_of_interest/chosen_method") == 'country_city':
-                if self.settings.value("trends_earth/region_of_interest/buffer_checked") != 'True':
+                if self.settings.value("trends_earth/region_of_interest/buffer_checked", False, type=bool) != 'True':
                     QtWidgets.QMessageBox.critical(None,tr_calculate.tr("Error"),
                            tr_calculate.tr("You have chosen to run calculations for a city."
                                             "You must select a buffer distance to define the "
@@ -908,7 +908,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
             geojson = json.loads(QgsGeometry.fromPointXY(point).asJson())
             self.aoi.update_from_geojson(geojson=geojson, 
                                          wrap=self.settings.value(
-                                                 "trends_earth/region_of_interest/custom_crs_wrap"),
+                                                 "trends_earth/region_of_interest/custom_crs_wrap", False, type=bool),
                                          datatype='point')
         else:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
@@ -920,7 +920,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
                                        self.tr("Unable to read area of interest."))
             return False
 
-        if self.settings.value("trends_earth/region_of_interest/buffer_checked"):
+        if self.settings.value("trends_earth/region_of_interest/buffer_checked", False, type=bool):
             ret = self.aoi.buffer(float(self.settings.value("trends_earth/region_of_interest/buffer_size")))
             if not ret:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),

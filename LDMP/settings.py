@@ -273,7 +273,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 
     def load_settings(self):
 
-        buffer_checked = self.settings.value("trends_earth/region_of_interest/buffer_checked", False) == 'True'
+        buffer_checked = self.settings.value("trends_earth/region_of_interest/buffer_checked", False, type=bool) == 'True'
         area_from_option = self.settings.value("trends_earth/region_of_interest/chosen_method", None)
 
         if area_from_option == 'country_region' or \

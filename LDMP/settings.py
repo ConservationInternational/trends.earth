@@ -771,7 +771,7 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
     def base_directory_changed(self, new_base_directory):
         if not new_base_directory:
             # TODO: change to MessageBar().get()
-            iface.messageBox().pushWarning('Trends.Earth', self.tr('No base data directory set'))
+            iface.messageBar().pushWarning('Trends.Earth', self.tr('No base data directory set'))
             return
 
         try:
@@ -779,7 +779,7 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
                 os.makedirs(new_base_directory)
         except PermissionError:
             # TODO: change to MessageBar().get()
-            iface.messageBox().pushCritical('Trends.Earth',
+            iface.messageBar().pushCritical('Trends.Earth',
                                             self.tr("Unable to write to {}. Try a different folder.".format(
                                                 new_base_directory)))
             return

@@ -116,6 +116,17 @@ def openFolder(path):
     if not path:
         return
 
+    # check path exist and readable
+    if not os.path.exists(path):
+        message = tr('Path do not exist: ') + path
+        iface.messageBar().pushCritical('Trends.Earth', message)
+        return
+
+    if not os.access(path, mode=os.R_OK|os.W_OK):
+        message = tr('No read or write permission on path: ') + path
+        iface.messageBar().pushCritical('Trends.Earth', message)
+        return
+
     if sys.platform == 'darwin':
         subprocess.check_call(['open', path])
     elif sys.platform == 'linux':

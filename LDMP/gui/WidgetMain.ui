@@ -18,15 +18,18 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_algorithms">
        <attribute name="title">
-        <string>Algorithms</string>
+        <string>Sub indicators</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
          <widget class="QTreeView" name="treeView_algorithms">
+          <property name="selectionBehavior">
+           <enum>QAbstractItemView::SelectColumns</enum>
+          </property>
           <property name="headerHidden">
            <bool>true</bool>
           </property>

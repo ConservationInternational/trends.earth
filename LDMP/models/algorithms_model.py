@@ -62,7 +62,7 @@ class AlgorithmTreeModel(QAbstractItemModel):
                 else:
                     entry_string = '{}'.format(item.name)
                     if item.name_details:
-                        entry_string += ' [{}]'.format(item.name_details)
+                        entry_string += ' - {}'.format(item.name_details)
 
                 return entry_string
             

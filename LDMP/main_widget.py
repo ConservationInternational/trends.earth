@@ -37,6 +37,14 @@ from LDMP.models.datasets_model import DatasetsModel
 from LDMP.models.datasets_delegate import DatasetItemDelegate
 from LDMP import tr
 
+# used only as container of callback. Dialog will be never shown
+from LDMP.calculate import (
+    DlgCalculateLD,
+    DlgCalculateTC,
+    DlgCalculateRestBiomass,
+    DlgCalculateUrban
+)
+
 settings = QgsSettings()
 
 _widget = None
@@ -54,9 +62,17 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         super(MainWidget, self).__init__(parent)
 
         self.setupUi(self)
+
         # remove space before dataset item
         self.treeView_datasets.setIndentation(0)
         self.treeView_datasets.verticalScrollBar().setSingleStep(10)
+
+        # instantiate calcluate callback container to reuse most of old code
+        # do this before setting setupAlgorithmsTree
+        self.dlg_calculate_LD = DlgCalculateLD()
+        self.dlg_calculate_TC = DlgCalculateTC()
+        self.dlg_calculate_Biomass = DlgCalculateRestBiomass()
+        self.dlg_calculate_Urban = DlgCalculateUrban()
 
         self.setupAlgorithmsTree()
         self.setupDatasets()
@@ -121,56 +137,210 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
     def setupAlgorithmsTree(self):
         # setup algorithms and their hierarchy
         tree = AlgorithmGroup(name='root', name_details='root details', parent=None, algorithms=[])
-        first = AlgorithmGroup(name='Proportion of land that is degradated over total land area', name_details='SDG 15.3.1', parent=tree, algorithms=[])
-        second = AlgorithmGroup(name='Ratio of land consumption rate to population growth rate', name_details='SDG 11.3.1', parent=tree, algorithms=[])
-        third = AlgorithmGroup(name='Miscellaneous', name_details=None, parent=tree, algorithms=[])
+        land_degradation_group = AlgorithmGroup(name=tr('SDG 15.3.1'), name_details=tr('Land degradation'), parent=tree, algorithms=[])
+        urban_change_group = AlgorithmGroup(name=tr('SDG 11.3.1'), name_details=tr('Urban change and land consumption'), parent=tree, algorithms=[])
+        experimental = AlgorithmGroup(name=tr('Experimental'), name_details=None, parent=tree, algorithms=[])
+        total_carbon_group = AlgorithmGroup(name=tr('Total carbon'), name_details=tr('above and belowground, emissions and deforestation'), parent=experimental, algorithms=[])
+        potential_change_group = AlgorithmGroup(name=tr('Potential change in biomass due to restoration'), name_details=tr('above and belowground woody'), parent=experimental, algorithms=[])
 
-        alg1G1 = AlgorithmDescriptor(name='Land productivity', name_details='sub-indicator 1', brief_description=None, details=None, parent=first)
-        alg1G1.run_mode = AlgorithmRunMode.Both
-        alg1G1_details = AlgorithmDetails(name=None, name_details=None, description='alg1G1 long description', parent=alg1G1)
-        alg1G1.setDetails(alg1G1_details)
+        # land_degradation_group
+        land_productivity_alg = AlgorithmDescriptor(
+            name=tr('Land productivity'), 
+            name_details=None,
+            brief_description=None,
+            details=None,
+            parent=land_degradation_group,
+            run_callbacks={AlgorithmRunMode.Remotely: self.dlg_calculate_LD.btn_prod_clicked})
+        land_productivity_alg.run_mode = AlgorithmRunMode.Remotely
+        land_productivity_alg_details = AlgorithmDetails(
+            name=None,
+            name_details=None,
+            description=tr('TODO: Land productivity long description'),
+            parent=land_productivity_alg)
+        land_productivity_alg.setDetails(land_productivity_alg_details)
 
-        alg2G1 = AlgorithmDescriptor(name='Land productivity based on JRC LDP', name_details='sub-indicator 1', brief_description=None, details=None, parent=first)
-        alg2G1.run_mode = AlgorithmRunMode.Locally
-        alg2G1_details = AlgorithmDetails(name=None, name_details=None, description='alg2G1 long description', parent=alg2G1)
-        alg2G1.setDetails(alg2G1_details)
+        land_cover_alg = AlgorithmDescriptor(
+            name=tr('Land cover'),
+            name_details=None,
+            brief_description=None,
+            details=None,
+            parent=land_degradation_group,
+            run_callbacks={AlgorithmRunMode.Remotely: self.dlg_calculate_LD.btn_lc_clicked})
+        land_cover_alg.run_mode = AlgorithmRunMode.Remotely
+        land_cover_alg_details = AlgorithmDetails(
+            name=None,
+            name_details=None,
+            description=tr('TODO: Land cover long description'),
+            parent=land_cover_alg)
+        land_cover_alg.setDetails(land_cover_alg_details)
 
-        alg3G1 = AlgorithmDescriptor(name='Land change', name_details='sub-indicator 2', brief_description=None, details=None, parent=first)
-        alg3G1.run_mode = AlgorithmRunMode.Remotely
-        # no details here!
+        soil_organic_carbon_alg = AlgorithmDescriptor(
+            name=tr('Soil organic carbon'),
+            name_details=None,
+            brief_description=None,
+            details=None,
+            parent=land_degradation_group,
+            run_callbacks={AlgorithmRunMode.Remotely: self.dlg_calculate_LD.btn_soc_clicked})
+        soil_organic_carbon_alg.run_mode = AlgorithmRunMode.Remotely
+        soil_organic_carbon_alg_details = AlgorithmDetails(
+            name=None,
+            name_details=None,
+            description=tr('TODO: Soil organic carbon long description'),
+            parent=soil_organic_carbon_alg)
+        soil_organic_carbon_alg.setDetails(soil_organic_carbon_alg_details)
 
-        alg4G1 = AlgorithmDescriptor(name='Carbon soil', name_details='sub-indicator 3', brief_description=None, details=None, parent=first)
-        alg4G1.run_mode = AlgorithmRunMode.NotApplicable
-        alg4G1_details = AlgorithmDetails(name=None, name_details=None, description='alg4G1 long description', parent=alg4G1)
-        alg4G1.setDetails(alg4G1_details)
+        all_land_degradation_alg = AlgorithmDescriptor(
+            name=tr('All above sub-indicators in one step'),
+            name_details=None,
+            brief_description=None,
+            details=None,
+            parent=land_degradation_group,
+            run_callbacks={AlgorithmRunMode.Remotely: self.dlg_calculate_LD.btn_sdg_onestep_clicked})
+        all_land_degradation_alg.run_mode = AlgorithmRunMode.Remotely
+        all_land_degradation_alg_details = AlgorithmDetails(
+            name=None,
+            name_details=None,
+            description=tr('TODO: All abovesub-indicators in one step long description'),
+            parent=all_land_degradation_alg)
+        all_land_degradation_alg.setDetails(all_land_degradation_alg_details)
 
-        alg5G1 = AlgorithmDescriptor(name='Land degradation neutrality', name_details='main SDG 15.3.1 indicator', brief_description=None, details=None, parent=first)
-        alg5G1.run_mode = AlgorithmRunMode.Both
-        alg5G1_details = AlgorithmDetails(name=None, name_details=None, description='This is the main dindicator that bla bla bla bla bla', parent=alg5G1)
-        alg5G1.setDetails(alg5G1_details)
+        final_alg = AlgorithmDescriptor(
+            name=tr('Final SDG 15.3.1'),
+            name_details=tr('Spatial layer and summary table for total boundary'),
+            brief_description=None,
+            details=None,
+            parent=land_degradation_group,
+            run_callbacks={AlgorithmRunMode.Locally: self.dlg_calculate_LD.btn_summary_single_polygon_clicked})
+        final_alg.run_mode = AlgorithmRunMode.Locally
+        final_alg_details = AlgorithmDetails(
+            name=None,
+            name_details=None,
+            description=tr('TODO: Final SDG 15.3.1 long description'),
+            parent=final_alg)
+        final_alg.setDetails(final_alg_details)
 
-        first.algorithms.append(alg1G1)
-        first.algorithms.append(alg2G1)
-        first.algorithms.append(alg3G1)
-        first.algorithms.append(alg4G1)
-        first.algorithms.append(alg5G1)
+        area_summaries_alg = AlgorithmDescriptor(
+            name=tr('Area summaries of a raster on sub-units'),
+            name_details=None,
+            brief_description=None,
+            details=None,
+            parent=land_degradation_group,
+            run_callbacks={AlgorithmRunMode.Locally: self.dlg_calculate_LD.btn_summary_multi_polygons_clicked})
+        area_summaries_alg.run_mode = AlgorithmRunMode.Locally
+        area_summaries_alg_details = AlgorithmDetails(
+            name=None,
+            name_details=None,
+            description=tr('TODO: Area summaries long description'),
+            parent=area_summaries_alg)
+        area_summaries_alg.setDetails(area_summaries_alg_details)
 
-        alg1G2 = AlgorithmDescriptor(name='alg1G2', name_details='alg1G2 details', brief_description=None, details=None, parent=second)
-        alg1G2.run_mode = AlgorithmRunMode.Both
-        alg1G2_details = AlgorithmDetails(name=None, name_details=None, description='This is the second dindicator that bla bla bla bla bla', parent=alg1G2)
-        alg1G2.setDetails(alg1G2_details)
-        second.algorithms.append(alg1G2)
+        land_degradation_group.algorithms.append(land_productivity_alg)
+        land_degradation_group.algorithms.append(land_cover_alg)
+        land_degradation_group.algorithms.append(soil_organic_carbon_alg)
+        land_degradation_group.algorithms.append(all_land_degradation_alg)
+        land_degradation_group.algorithms.append(final_alg)
+        land_degradation_group.algorithms.append(area_summaries_alg)
 
-        alg1G3 = AlgorithmDescriptor(name='alg1G3', name_details='alg1G3 details', brief_description=None, details=None, parent=third)
-        alg1G3.run_mode = AlgorithmRunMode.NotApplicable
-        alg1G3_details = AlgorithmDetails(name=None, name_details=None, description='This is description for miscellaneous stuffs', parent=alg1G3)
-        alg1G3.setDetails(alg1G3_details)
-        third.algorithms.append(alg1G3)
+        # urban_change_group
+        urban_change_alg = AlgorithmDescriptor(
+            name=tr('Urban change spatial layer'),
+            name_details=None,
+            brief_description=None,
+            details=None,
+            parent=urban_change_group,
+            run_callbacks={AlgorithmRunMode.Locally: self.dlg_calculate_Urban.btn_calculate_urban_change_clicked})
+        urban_change_alg.run_mode = AlgorithmRunMode.Both
+        urban_change_alg_details = AlgorithmDetails(
+            name=None,
+            name_details=None,
+            description=tr('TODO: Urban change spatial layer long description'),
+            parent=urban_change_alg)
+        urban_change_alg.setDetails(urban_change_alg_details)
 
+        urban_change_summary_alg = AlgorithmDescriptor(
+            name=tr('Urban change summary table for city'),
+            name_details=None,
+            brief_description=None,
+            details=None,
+            parent=urban_change_group,
+            run_callbacks={AlgorithmRunMode.Locally: self.dlg_calculate_Urban.btn_summary_single_polygon_clicked})
+        urban_change_summary_alg.run_mode = AlgorithmRunMode.Both
+        urban_change_summary_alg_details = AlgorithmDetails(
+            name=None,
+            name_details=None,
+            description=tr('TODO: Urban change summary table for city long description'),
+            parent=urban_change_summary_alg)
+        urban_change_summary_alg.setDetails(urban_change_summary_alg_details)
 
-        tree.algorithms.append(first)
-        tree.algorithms.append(second)
-        tree.algorithms.append(third)
+        urban_change_group.algorithms.append(urban_change_alg)
+        urban_change_group.algorithms.append(urban_change_summary_alg)
+
+        # total_carbon_group
+        carbon_change_alg = AlgorithmDescriptor(
+            name=tr('Carbon change spatial layers'),
+            name_details=None,
+            brief_description=None,
+            details=None,
+            parent=total_carbon_group,
+            run_callbacks={AlgorithmRunMode.Remotely: self.dlg_calculate_TC.btn_calculate_carbon_change_clicked})
+        carbon_change_alg.run_mode = AlgorithmRunMode.Remotely
+        carbon_change_alg_details = AlgorithmDetails(
+            name=None,
+            name_details=None,
+            description=tr('TODO: Carbon change spatial layers long description'),
+            parent=carbon_change_alg)
+        carbon_change_alg.setDetails(carbon_change_alg_details)
+
+        carbon_change_summary_alg = AlgorithmDescriptor(
+            name=tr('Carbon change summary table for boundary'),
+            name_details=None,
+            brief_description=None,
+            details=None,
+            parent=total_carbon_group,
+            run_callbacks={AlgorithmRunMode.Remotely: self.dlg_calculate_TC.btn_summary_single_polygon_clicked})
+        carbon_change_summary_alg.run_mode = AlgorithmRunMode.Remotely
+        carbon_change_summary_alg_details = AlgorithmDetails(name=None, name_details=None, description=tr('TODO: Carbon change summary table for boundary long description'), parent=carbon_change_summary_alg)
+        carbon_change_summary_alg.setDetails(carbon_change_summary_alg_details)
+
+        total_carbon_group.algorithms.append(carbon_change_alg)
+        total_carbon_group.algorithms.append(carbon_change_summary_alg)
+        experimental.algorithms.append(total_carbon_group)
+
+        # potential_change_group
+        estimate_biomass_change_alg = AlgorithmDescriptor(
+            name=tr('Estimate biomass change'),
+            name_details=None,
+            brief_description=None,
+            details=None,
+            parent=potential_change_group,
+            run_callbacks={AlgorithmRunMode.Remotely: self.dlg_calculate_Biomass.btn_calculate_rest_biomass_change_clicked})
+        estimate_biomass_change_alg.run_mode = AlgorithmRunMode.Remotely
+        estimate_biomass_change_alg_details = AlgorithmDetails(
+            name=None,
+            name_details=None,
+            description=tr('TODO: Estimate biomass change long description'),
+            parent=estimate_biomass_change_alg)
+        estimate_biomass_change_alg.setDetails(estimate_biomass_change_alg_details)
+
+        estimate_biomass_summary_alg = AlgorithmDescriptor(
+            name=tr('Table summarizing likely changes in biomass'),
+            name_details=None,
+            brief_description=None,
+            details=None,
+            parent=potential_change_group,
+            run_callbacks={AlgorithmRunMode.Remotely: self.dlg_calculate_Biomass.btn_summary_single_polygon_clicked})
+        estimate_biomass_summary_alg.run_mode = AlgorithmRunMode.Remotely
+        estimate_biomass_summary_alg_details = AlgorithmDetails(name=None, name_details=None, description=tr('TODO: Table summarizing likely changes in biomass long description'), parent=estimate_biomass_summary_alg)
+        estimate_biomass_summary_alg.setDetails(estimate_biomass_summary_alg_details)
+
+        potential_change_group.algorithms.append(estimate_biomass_change_alg)
+        potential_change_group.algorithms.append(estimate_biomass_summary_alg)
+        experimental.algorithms.append(potential_change_group)
+
+        # populate tree
+        tree.algorithms.append(land_degradation_group)
+        tree.algorithms.append(urban_change_group)
+        tree.algorithms.append(experimental)
 
         # show it
         algorithmsModel = AlgorithmTreeModel(tree)
@@ -182,7 +352,6 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
 
         # configure View how to enter editing mode
         self.treeView_algorithms.setEditTriggers(QtWidgets.QAbstractItemView.AllEditTriggers)
-
 
     def closeEvent(self, event):
         super(MainWidget, self).closeEvent(event)

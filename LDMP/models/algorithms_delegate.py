@@ -32,10 +32,13 @@ from qgis.PyQt.QtWidgets import (
     QStyledItemDelegate,
     QItemDelegate,
     QWidget,
-    QAction
+    QAction,
+    QStyle
 )
 from qgis.PyQt.QtGui import (
-    QPainter
+    QPainter,
+    QBrush,
+    QColor
 )
 from LDMP.models.algorithms import (
     AlgorithmGroup,
@@ -117,13 +120,33 @@ class AlgorithmItemDelegate(QStyledItemDelegate):
             editorWidget.toolButtonAlgorithmRun.setMenu(QMenu())
 
             # add action entries of the pull down menu
-            runAction = QAction(tr('Run'), editorWidget)
-            editorWidget.toolButtonAlgorithmRun.menu().addAction(runAction)
-            editorWidget.toolButtonAlgorithmRun.setDefaultAction(runAction)
+            runAction = None
+            if item.run_mode in [AlgorithmRunMode.Locally, AlgorithmRunMode.Both]:
+                runAction = QAction(tr('Run'), editorWidget)
+                editorWidget.toolButtonAlgorithmRun.menu().addAction(runAction)
+                editorWidget.toolButtonAlgorithmRun.setDefaultAction(runAction)
 
-            if item.run_mode == AlgorithmRunMode.Both:
+                # link callback to local processing
+                if( item.run_callbacks and
+                    (AlgorithmRunMode.Locally in item.run_callbacks) and
+                    (item.run_callbacks[AlgorithmRunMode.Locally] is not None) ):
+                    runAction.triggered.connect( item.run_callbacks[AlgorithmRunMode.Locally] )
+                else:
+                    runAction.setDisabled(True)
+
+            if item.run_mode in [AlgorithmRunMode.Remotely, AlgorithmRunMode.Both]:
                 runWithDefaultAction = QAction(tr('Run with default data'), editorWidget)
                 editorWidget.toolButtonAlgorithmRun.menu().addAction(runWithDefaultAction)
+                if not runAction:
+                    editorWidget.toolButtonAlgorithmRun.setDefaultAction(runWithDefaultAction)
+
+                # link callback to remote processing
+                if( item.run_callbacks and
+                    (AlgorithmRunMode.Remotely in item.run_callbacks) and
+                    (item.run_callbacks[AlgorithmRunMode.Remotely] is not None) ):
+                    runWithDefaultAction.triggered.connect( item.run_callbacks[AlgorithmRunMode.Remotely] )
+                else:
+                    runWithDefaultAction.setDisabled(True)
 
             return editorWidget
         else:

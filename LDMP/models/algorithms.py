@@ -14,7 +14,7 @@
 __author__ = 'Luigi Pirelli / Kartoza'
 __date__ = '2021-03-03'
 
-from typing import Optional, Union, List
+from typing import Optional, Union, List, NewType, Callable, Mapping
 from enum import Enum
 import abc
 
@@ -30,6 +30,7 @@ class AlgorithmRunMode(Enum):
     Remotely = 2,
     Both = 3
 
+RunCallback = NewType('RunCallback', Mapping[AlgorithmRunMode, Callable[..., None]] )
 
 class AlgorithmBase(abc.ABC):
 
@@ -111,6 +112,7 @@ class AlgorithmDescriptor(AlgorithmBase):
             details: Optional['AlgorithmDetails'],
             parent: AlgorithmGroup, # e.g. an Alg can belogs to only a parent => 1 to 1 limitation!
             run_mode: AlgorithmRunMode = AlgorithmRunMode.Locally,
+            run_callbacks: Optional[RunCallback] = None
         ) -> None:
         super().__init__(name, name_details, parent)
         self.item_type = AlgorithmNodeType.Algorithm
@@ -121,6 +123,7 @@ class AlgorithmDescriptor(AlgorithmBase):
         self.brief_description = brief_description,
         self.details = details
         self.run_mode = AlgorithmRunMode.Remotely,
+        self.run_callbacks = run_callbacks
 
     def columnCount(self) -> int:
         return 1

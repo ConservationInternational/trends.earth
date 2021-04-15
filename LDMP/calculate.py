@@ -76,6 +76,14 @@ def get_script_slug(script_name):
     # replaced with dashesk
     return (script_name, script_name + '-' + scripts[script_name]['script version'].replace('.', '-'))
 
+def get_script_group(script_name):
+    # get the configured name of the group that belongs the script
+    group = None
+    if (script_name in scripts) and ('group' in scripts[script_name]):
+        group = scripts[script_name]['group']
+    return group
+
+
 # Transform CRS of a layer while optionally wrapping geometries
 # across the 180th meridian
 def transform_layer(l, crs_dst, datatype='polygon', wrap=False):

@@ -49,7 +49,7 @@ from LDMP.worker import AbstractWorker
 mb = iface.messageBar()
 
 
-if QSettings().value("LDMP/binaries_enabled", False) == 'True':
+if QSettings().value("LDMP/binaries_enabled", False, type=bool):
     try:
         from trends_earth_binaries.calculate_numba import *
         log("Using numba-compiled version of calculate_numba.")
@@ -852,7 +852,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
         if self.settings.value("trends_earth/region_of_interest/chosen_method") == 'country_region' or \
                 self.settings.value("trends_earth/region_of_interest/chosen_method") == 'country_city':
             if self.settings.value("trends_earth/region_of_interest/chosen_method") == 'country_city':
-                if self.settings.value("trends_earth/region_of_interest/buffer_checked", False, type=bool) != 'True':
+                if not self.settings.value("trends_earth/region_of_interest/buffer_checked", False, type=bool) :
                     QtWidgets.QMessageBox.critical(None,tr_calculate.tr("Error"),
                            tr_calculate.tr("You have chosen to run calculations for a city."
                                             "You must select a buffer distance to define the "

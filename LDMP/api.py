@@ -435,7 +435,7 @@ def run_script(script_metadata, params={}):
         start_date = start_date.astimezone(tz.tzlocal())
         # job_dict['start_date'] = datetime.strftime(start_date, '%Y/%m/%d (%H:%M)')
         # job_dict['start_date'] = start_date
-        job_dict['start_date'] = start_date.isoformat()
+        job_dict['start_date'] = start_date
         end_date = job_dict.get('end_date', None)
         if end_date:
             end_date = datetime.strptime(end_date, '%Y-%m-%dT%H:%M:%S.%f')
@@ -443,14 +443,16 @@ def run_script(script_metadata, params={}):
             end_date = end_date.astimezone(tz.tzlocal())
             # job_dict['end_date'] = datetime.strftime(end_date, '%Y/%m/%d (%H:%M)')
             # job_dict['end_date'] = end_date
-            job_dict['end_date'] = end_date.isoformat()
+            job_dict['end_date'] = end_date
         job_dict['task_name'] = job_dict['params'].get('task_name', '')
         job_dict['task_notes'] = job_dict['params'].get('task_notes', '')
         job_dict['params'] = job_dict['params']
         job_dict['script'] = {"name": script_name, "slug": script_slug}
 
-        from LDMP.jobs import Job
-        schema = APIResponseSchema()
+        # do import here to avoid circular import
+        from LDMP.jobs import Job, JobSchema
+
+        schema = JobSchema()
         response = schema.load(job_dict, partial=True, unknown=marshmallow.INCLUDE)
         job = Job(response)
         job.dump() # doing save in default location
@@ -487,6 +489,9 @@ def get_execution(id=None, date=None):
     if not resp:
         return None
     else:
+        # do import here to avoid circular import
+        from LDMP.jobs import Job, JobSchema
+
         data = resp['data']
         # Sort responses in descending order using start time by default
         data = sorted(data, key=lambda job_dict: round(datetime.strptime(job_dict['start_date'], '%Y-%m-%dT%H:%M:%S.%f').timestamp()), reverse=True)
@@ -500,6 +505,13 @@ def get_execution(id=None, date=None):
             end_date = end_date.replace(tzinfo=tz.tzutc())
             end_date = end_date.astimezone(tz.tzlocal())
             job_dict['end_date'] = end_date
+
+            # save Job descriptor in data directory
+            schema = JobSchema()
+            response = schema.load(job_dict, partial=True, unknown=marshmallow.INCLUDE)
+            job = Job(response)
+            job.dump() # doing save in default location
+
         return data
 
 

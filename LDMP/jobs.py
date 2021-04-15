@@ -22,6 +22,7 @@ import base64
 import binascii
 import copy
 import datetime
+import pprint
 from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtCore import (QSettings, QAbstractTableModel, Qt, pyqtSignal, 
         QSortFilterProxyModel, QSize, QObject, QEvent, QCoreApplication)
@@ -33,6 +34,7 @@ from qgis.utils import iface
 mb = iface.messageBar()
 
 from qgis.gui import QgsMessageBar
+from qgis.core import QgsLogger
 
 from LDMP.gui.DlgJobs import Ui_DlgJobs
 from LDMP.gui.DlgJobsDetails import Ui_DlgJobsDetails
@@ -43,7 +45,9 @@ from LDMP.api import get_user_email, get_execution
 from LDMP.download import Download, check_hash_against_etag, DownloadError
 from LDMP.layers import add_layer
 from LDMP.schemas.schemas import LocalRaster, LocalRasterSchema, APIResponseSchema
+from LDMP.calculate import get_script_group
 
+from marshmallow import Schema, fields
 
 class tr_jobs(object):
     def tr(message):
@@ -474,30 +478,64 @@ def download_timeseries(job, tr):
     dlg_plot.exec_()
 
 
+################################################################################
+# Job class and Schema for Job descriptor build from APIResponseSchema
 class Job(object):
 
     def __init__(self, response: APIResponseSchema):
         super().__init__()
-        self.id = response.get('id', '')
-        self.start_date = response.get('start_date', '')
-        self.end_date = response.get('end_date', '')
-        self.status = response.get('status', '')
-        self.progress = response.get('progress', 0)
-        self.params = response.get('params', {})
-        self.results = response.get('results', None)
-        self.script = response.get('script', {})
-        self.logs = response.get('logs', '')
+
+        QgsLogger.debug('* Build Job from response: ' + pprint.pformat(response), debuglevel=5)
+
+        self.response = {}
+        self.response['id'] = response.get('id', '')
+        self.response['start_date'] = response.get('start_date', '')
+        self.response['end_date'] = response.get('end_date', '')
+        self.response['status'] = response.get('status', '')
+        self.response['progress'] = response.get('progress', 0)
+        self.response['params'] = response.get('params', {})
+        self.response['results'] = response.get('results', None)
+        self.response['script'] = response.get('script', {})
+        self.response['logs'] = response.get('logs', '')
 
     def dump(self):
-        base_data_directory = QSettings().value("trends_earth/advanced/base_data_directory", None)
+        # create path and filname where to dump Job descriptor
+        out_path = ''
+        base_data_directory = QSettings().value("trends_earth/advanced/base_data_directory", None, type=str)
+        out_path = os.path.join(base_data_directory, 'outputs')
 
         # set location where to save basing on script(alg) used
-        out_path = os.path.join(base_data_directory, self.script['name'])
+        script_name = self.response['script']['name']
+        components = script_name.split()
+        components = components[:-1] if len(components) > 1 else components # eventually remove version that return when get exeutions list
+        formatted_script_name = '-'.join(components) # remove al version and substitutes ' ' with '-'
+        formatted_script_name = formatted_script_name.lower()
+
+        # get alg group to setup subfolder
+        group = get_script_group(formatted_script_name)
+        if not group:
+            log(tr_jobs.tr('Cannot get group of the script: ') + formatted_script_name)
+            group = 'UNKNOW_GROUP_FOR_' + formatted_script_name
+
+        # get exectuion date as subfolder name
+        processing_date_string = datetime.datetime.strftime(self.response['start_date'], '%Y_%m_%d')
+
+        out_path = os.path.join(out_path, group, processing_date_string)
         if not os.path.exists(out_path):
             os.makedirs(out_path)
 
-        job_descriptor_file_name = os.path.join(out_path, self.id + '.json')
-        job_schema = APIResponseSchema()
+        job_descriptor_file_name = self.response['id'] + '.json'
+        job_descriptor_file_name = os.path.join(out_path, job_descriptor_file_name)
+        QgsLogger.debug('* Dump job descriptor into file: '+ job_descriptor_file_name, debuglevel=4)
+
+        job_schema = JobSchema()
         with open(job_descriptor_file_name, 'w') as f:
-            json.dump(job_schema.dump(self), f, default=json_serial,
-                    sort_keys=True, indent=4, separators=(',', ': '))
+            json_to_write = json.dump(
+                job_schema.dump(self),
+                f, default=json_serial, sort_keys=True, indent=4, separators=(',', ': ')
+            )
+
+
+class JobSchema(Schema):
+    # para
+    response = fields.Nested(APIResponseSchema, many=False)

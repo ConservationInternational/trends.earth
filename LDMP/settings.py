@@ -273,7 +273,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 
     def load_settings(self):
 
-        buffer_checked = self.settings.value("trends_earth/region_of_interest/buffer_checked", False) == 'True'
+        buffer_checked = self.settings.value("trends_earth/region_of_interest/buffer_checked", False, type=bool)
         area_from_option = self.settings.value("trends_earth/region_of_interest/chosen_method", None)
 
         if area_from_option == 'country_region' or \
@@ -739,9 +739,9 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
     def showEvent(self, event):
         super(WidgetSettingsAdvanced, self).showEvent(event)
 
-        self.debug_checkbox.setChecked(QSettings().value("trends_earth/advanced/debug", False) == 'True')
+        self.debug_checkbox.setChecked(QSettings().value("trends_earth/advanced/debug", False, type=bool))
 
-        binaries_checked = QSettings().value("trends_earth/advanced/binaries_enabled", False) == 'True'
+        binaries_checked = QSettings().value("trends_earth/advanced/binaries_enabled", False, type=bool)
         # TODO: Have this actually check if they are enabled in summary_numba
         # and calculate_numba. Right now this doesn't really check if they are
         # enabled, just that they are available. Which should be the same
@@ -818,6 +818,9 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
         zip_url = 'https://s3.amazonaws.com/trends.earth/plugin_binaries/' + zip_filename
         downloads = download_files([zip_url], out_folder)
 
+        if not downloads:
+            return None
+
         try:
             with zipfile.ZipFile(os.path.join(out_folder, zip_filename), 'r') as zf:
                 zf.extractall(out_folder)
@@ -828,8 +831,13 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
                                                "Unable to write to {}. Check that you have permissions to write to this folder, and that you are not trying to overwrite the binaries that you currently have loaded in QGIS.".format(
                                                    out_folder)))
             return None
-        finally:
-            os.remove(os.path.join(out_folder, zip_filename))
+        except FileNotFoundError:
+            QtWidgets.QMessageBox.critical(None,
+                                       self.tr("Error"),
+                                       self.tr("Unable to read binaries from {}. Check that binaries were downloaded successfully.".format(out_folder)))
+            return None
+        
+        os.remove(os.path.join(out_folder, zip_filename))
 
         if downloads is None:
             QtWidgets.QMessageBox.critical(None,

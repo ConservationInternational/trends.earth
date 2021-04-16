@@ -92,24 +92,24 @@ def binaries_available():
     ret = True
     try:
         from trends_earth_binaries import summary_numba
-        if QSettings().value("LDMP/debug", False):
+        if QSettings().value("LDMP/debug", False, type=bool):
             log("Numba-compiled version of summary_numba available.")
     except (ModuleNotFoundError, ImportError) as e:
-        if QSettings().value("LDMP/debug", False):
+        if QSettings().value("LDMP/debug", False, type=bool):
             log("Numba-compiled version of summary_numba not available.")
         ret = False
     try:
         from trends_earth_binaries import calculate_numba
-        if QSettings().value("LDMP/debug", False):
+        if QSettings().value("LDMP/debug", False, type=bool):
             log("Numba-compiled version of calculate_numba available.")
     except (ModuleNotFoundError, ImportError) as e:
-        if QSettings().value("LDMP/debug", False):
+        if QSettings().value("LDMP/debug", False, type=bool):
             log("Numba-compiled version of calculate_numba not available.")
         ret = False
     return ret
 
 def debug_on():
-    QSettings().value("LDMP/debug", False) == 'True'
+    QSettings().value("LDMP/debug", False, type=bool)
 
 
 def openFolder(path):

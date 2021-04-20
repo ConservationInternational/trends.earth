@@ -506,12 +506,6 @@ def get_execution(id=None, date=None):
             end_date = end_date.astimezone(tz.tzlocal())
             job_dict['end_date'] = end_date
 
-            # save Job descriptor in data directory
-            schema = JobSchema()
-            response = schema.load(job_dict, partial=True, unknown=marshmallow.INCLUDE)
-            job = Job(response)
-            job.dump() # doing save in default location
-
         return data
 
 

@@ -14,6 +14,7 @@
 
 from builtins import zip
 from builtins import range
+from typing import Optional, List
 import os
 import json
 import re
@@ -235,6 +236,7 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
 
                 # Cache jobs for later reuse
                 QSettings().setValue("LDMP/jobs_cache", json.dumps(self.jobs, default=json_serial))
+                self.update_jobs_data_directory()
 
                 self.update_jobs_table()
                 self.connectionEvent.emit(False)
@@ -242,6 +244,62 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
 
         self.connectionEvent.emit(False)
         return False
+
+    def update_jobs_data_directory(self):
+        """Dump all jobs in appropriate folder in the base_data_directory.
+
+        Folder structure and file name are as in the belowexample. The example refer to the complete cache
+        structura in which the Job is saved.
+
+            > {trends-earth-base-dir}/
+            |   v downloaded-sample-datasets/
+            |   |    dataset_1.json
+            |   |    dataset_2.json
+            |   |    ...
+            |   |    dataset_n.json
+            |   v imported-datasets/
+            |   |    dataset_1.json
+            |   |    dataset_2.json
+            |   |    ...
+            |   |   dataset_n.json
+            |   v in-transit/
+            |   |   dataset_1.json
+            |   |   dataset_2.json
+            |   |   ...
+            |   |   dataset_n.json
+            |   v outputs/
+            |   |   v {algorithm-group-1}/
+            |   |   |   v {algorithm-name1}/
+            |   |   |   |   v {execution-date-1}/
+            |   |   |   |   |   dataset_1.json
+            |   |   |   |   |   dataset_2.json
+            |   |   |   |   |   ...
+            |   |   |   |   |   dataset_n.json
+            |   |   |   |   > {execution-date-2}/
+            |   |   |   |   > ...
+            |   |   |   |   > {execution-date-n}/
+            |   |   |   > {algorithm-name-2}/
+            |   |   |   > ...
+            |   |   |   > {algorithm-name-n}/
+            |   |   > {algorithm-group-2}/
+            |   |   > ...
+            |   |   > {algorithm-group-n}/        
+        """
+        if self.jobs:
+            for job_dict in self.jobs:
+                # save Job descriptor in data directory
+                schema = JobSchema()
+                response = schema.load(job_dict, partial=True, unknown=marshmallow.INCLUDE)
+                job = Job(response)
+                job.dump() # doing save in default location
+
+    def sync(self):
+        """Method to sync jobs in "trends_earth/advanced/base_data_directory" with that currently available.
+
+        The method parse content o base_data_directory and ????remove????? all Jobs not presents
+        in currently downloaded jobs
+        """
+        # TODO: NOT YET IMPLEMENTED
 
     def update_jobs_table(self):
         if self.jobs:
@@ -264,7 +322,6 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
             self.jobs_view.horizontalHeader().setSectionResizeMode(6, QtWidgets.QHeaderView.ResizeToContents)
 
             self.jobs_view.selectionModel().selectionChanged.connect(self.selection_changed)
-
 
     def btn_details(self):
         button = self.sender()
@@ -482,6 +539,10 @@ def download_timeseries(job, tr):
 # Job class and Schema for Job descriptor build from APIResponseSchema
 class Job(object):
 
+    # TODO: create a uniform way to manage Jobs. or self.jobs is a list of dict 
+    # or a list of Job instances. Temporarly maintaining the two structure to reduce
+    # side effects
+
     def __init__(self, response: APIResponseSchema):
         super().__init__()
 
@@ -489,8 +550,8 @@ class Job(object):
 
         self.response = {}
         self.response['id'] = response.get('id', '')
-        self.response['start_date'] = response.get('start_date', '')
-        self.response['end_date'] = response.get('end_date', '')
+        self.response['start_date'] = response.get('start_date', datetime.datetime(1,1,1))
+        self.response['end_date'] = response.get('end_date', datetime.datetime(1,1,1))
         self.response['status'] = response.get('status', '')
         self.response['progress'] = response.get('progress', 0)
         self.response['params'] = response.get('params', {})
@@ -498,7 +559,42 @@ class Job(object):
         self.response['script'] = response.get('script', {})
         self.response['logs'] = response.get('logs', '')
 
+    @property
+    def status(self) -> str:
+        # return processing status
+        return self.response['status']
+
+    @property
+    def progress(self) -> int:
+        # return processing progress
+        return self.response['progress']
+
+    @property
+    def taskName(self) -> Optional[str]:
+        # return self.response['params']['task_name'] if set, otherwise None
+        taskName = None
+        if 'task_name' in self.response['params']:
+            taskName = self.response['task_name']
+        return taskName
+
+    @property
+    def scriptName(self) -> Optional[str]:
+        scriptName = None
+        if 'name' in self.response['script']:
+            taskName = self.response['name']
+        return scriptName
+
+    @property
+    def runId(self) -> str:
+        return self.response['id']
+
+    @property
+    def startDate(self) -> datetime.datetime:
+        return self.response['start_date']
+
     def dump(self):
+        """Dump Job as JSON in a programmatically swet folder with a programmaticaly set filename.
+        """
         # create path and filname where to dump Job descriptor
         out_path = ''
         base_data_directory = QSettings().value("trends_earth/advanced/base_data_directory", None, type=str)

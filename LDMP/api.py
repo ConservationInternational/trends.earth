@@ -430,11 +430,11 @@ def run_script(script_metadata, params={}):
         job_dict = resp['data']
 
         # Convert start/end dates into datatime objects in local time zone
+        # the reason is to allog parsin using JobSchema based on APIResponseSchema
         start_date = datetime.strptime(job_dict['start_date'], '%Y-%m-%dT%H:%M:%S.%f')
         start_date = start_date.replace(tzinfo=tz.tzutc())
         start_date = start_date.astimezone(tz.tzlocal())
         # job_dict['start_date'] = datetime.strftime(start_date, '%Y/%m/%d (%H:%M)')
-        # job_dict['start_date'] = start_date
         job_dict['start_date'] = start_date
         end_date = job_dict.get('end_date', None)
         if end_date:
@@ -442,7 +442,6 @@ def run_script(script_metadata, params={}):
             end_date = end_date.replace(tzinfo=tz.tzutc())
             end_date = end_date.astimezone(tz.tzlocal())
             # job_dict['end_date'] = datetime.strftime(end_date, '%Y/%m/%d (%H:%M)')
-            # job_dict['end_date'] = end_date
             job_dict['end_date'] = end_date
         job_dict['task_name'] = job_dict['params'].get('task_name', '')
         job_dict['task_notes'] = job_dict['params'].get('task_notes', '')

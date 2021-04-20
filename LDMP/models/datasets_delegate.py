@@ -139,11 +139,15 @@ class DatasetEditorWidget(QWidget, Ui_WidgetDatasetItem):
         self.pushButtonLoad.setIcon(
             QIcon(':/plugins/LDMP/icons/mActionAddRasterLayer.svg'))
 
-        self.labelDatasetName.setText(self.dataset.name)
-        self.labelCreationDate.setText(
-            self.dataset.creation_date.strftime('%Y-%m-%d %H:%M:%S'))
-        self.labelSourceName.setText(self.dataset.source)
+        self.labelCreationDate.setText(self.dataset.creation_date.strftime('%Y-%m-%d (%H:%M)'))
         self.labelRunId.setText(self.dataset.run_id)
+        self.progressBar.setValue( self.dataset.progress )
+
+        dataset_name = self.dataset.name if self.dataset.name else '<no name set>'
+        self.labelDatasetName.setText(dataset_name)
+
+        data_source = self.dataset.source if self.dataset.source else 'Unknown'
+        self.labelSourceName.setText(self.dataset.source)
 
     def show_details(self):
         log(f"Details button clicked for dataset {self.dataset.name!r}")

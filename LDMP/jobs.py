@@ -23,6 +23,7 @@ import base64
 import binascii
 import copy
 import datetime
+from dateutil import tz
 import pprint
 from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtCore import (QSettings, QAbstractTableModel, Qt, pyqtSignal, 
@@ -48,7 +49,7 @@ from LDMP.layers import add_layer
 from LDMP.schemas.schemas import LocalRaster, LocalRasterSchema, APIResponseSchema
 from LDMP.calculate import get_script_group
 
-from marshmallow import Schema, fields
+import marshmallow
 
 class tr_jobs(object):
     def tr(message):
@@ -287,9 +288,21 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
         """
         if self.jobs:
             for job_dict in self.jobs:
+                # need to adapt start and stop date to datetime object and not string to be used in 
+                # JobSchema based on APIResponseSchema
+                cloned_job = dict(job_dict)
+
+                cloned_job['start_date'] = datetime.datetime.strptime(cloned_job['start_date'], '%Y/%m/%d (%H:%M)')
+                cloned_job['start_date'] = cloned_job['start_date'].replace(tzinfo=tz.tzutc())
+                cloned_job['start_date'] = cloned_job['start_date'].astimezone(tz.tzlocal())
+
+                cloned_job['end_date'] = datetime.datetime.strptime(cloned_job['end_date'], '%Y/%m/%d (%H:%M)')
+                cloned_job['end_date'] = cloned_job['end_date'].replace(tzinfo=tz.tzutc())
+                cloned_job['end_date'] = cloned_job['end_date'].astimezone(tz.tzlocal())
+
                 # save Job descriptor in data directory
                 schema = JobSchema()
-                response = schema.load(job_dict, partial=True, unknown=marshmallow.INCLUDE)
+                response = schema.load(cloned_job, partial=True, unknown=marshmallow.INCLUDE)
                 job = Job(response)
                 job.dump() # doing save in default location
 
@@ -548,10 +561,12 @@ class Job(object):
 
         QgsLogger.debug('* Build Job from response: ' + pprint.pformat(response), debuglevel=5)
 
+        self.raw = response
+
         self.response = {}
-        self.response['id'] = response.get('id', '')
-        self.response['start_date'] = response.get('start_date', datetime.datetime(1,1,1))
-        self.response['end_date'] = response.get('end_date', datetime.datetime(1,1,1))
+        self.response['id'] = response.get('id', 'Unknown')
+        self.response['start_date'] = response.get('start_date', datetime.datetime(1,1,1,0,0))
+        self.response['end_date'] = response.get('end_date', datetime.datetime(1,1,1,0,0))
         self.response['status'] = response.get('status', '')
         self.response['progress'] = response.get('progress', 0)
         self.response['params'] = response.get('params', {})
@@ -571,18 +586,11 @@ class Job(object):
 
     @property
     def taskName(self) -> Optional[str]:
-        # return self.response['params']['task_name'] if set, otherwise None
-        taskName = None
-        if 'task_name' in self.response['params']:
-            taskName = self.response['task_name']
-        return taskName
+        return self.response['params'].get('task_name', '')
 
     @property
     def scriptName(self) -> Optional[str]:
-        scriptName = None
-        if 'name' in self.response['script']:
-            taskName = self.response['name']
-        return scriptName
+        return self.response['script'].get('name', '')
 
     @property
     def runId(self) -> str:
@@ -614,7 +622,7 @@ class Job(object):
             group = 'UNKNOW_GROUP_FOR_' + formatted_script_name
 
         # get exectuion date as subfolder name
-        processing_date_string = datetime.datetime.strftime(self.response['start_date'], '%Y_%m_%d')
+        processing_date_string = self.response['start_date'].strftime('%Y_%m_%d')
 
         out_path = os.path.join(out_path, group, processing_date_string)
         if not os.path.exists(out_path):
@@ -632,6 +640,6 @@ class Job(object):
             )
 
 
-class JobSchema(Schema):
+class JobSchema(marshmallow.Schema):
     # para
-    response = fields.Nested(APIResponseSchema, many=False)
+    response = marshmallow.fields.Nested(APIResponseSchema, many=False)

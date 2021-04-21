@@ -14,15 +14,7 @@
 
 from qgis.gui import QgsMessageBar
 from qgis.utils import iface
-
-# singleton decorator
-def singleton(cls):
-    instances = {}
-    def wrapper(*args, **kwargs):
-        if cls not in instances:
-          instances[cls] = cls(*args, **kwargs)
-        return instances[cls]
-    return wrapper
+from LDMP import singleton
 
 @singleton
 class MessageBar(object):

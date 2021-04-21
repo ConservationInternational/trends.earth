@@ -133,3 +133,12 @@ def openFolder(path):
         subprocess.check_call(['xdg-open', path])
     elif sys.platform == 'win32':
         subprocess.check_call(['explorer', path])
+
+# singleton decorator
+def singleton(cls):
+    instances = {}
+    def wrapper(*args, **kwargs):
+        if cls not in instances:
+          instances[cls] = cls(*args, **kwargs)
+        return instances[cls]
+    return wrapper

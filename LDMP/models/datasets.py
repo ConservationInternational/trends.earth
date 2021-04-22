@@ -268,7 +268,7 @@ class Datasets(QObject):
         job_schema = JobSchema()
 
         def traverse(path):
-            # excluded_path = os.path.sep + 'Jobs' + os.path.sep
+            excluded_path = os.path.sep + 'Jobs' + os.path.sep
 
             for basepath, directories, files in os.walk(path):
                 for f in files:

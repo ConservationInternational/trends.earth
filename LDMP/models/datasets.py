@@ -273,8 +273,8 @@ class Datasets(QObject):
             for basepath, directories, files in os.walk(path):
                 for f in files:
                     # skip files in Jobs
-                    # if excluded_path.lower() in basepath.lower():
-                    #     continue
+                    if excluded_path.lower() in basepath.lower():
+                        continue
 
                     yield os.path.join(basepath, f)
 

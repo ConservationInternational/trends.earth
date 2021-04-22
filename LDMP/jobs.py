@@ -645,69 +645,6 @@ class Jobs(QObject):
         self.jobsStore = {}
         self.updated.emit()
 
-    def __update_jobs_data_directory(self):
-        """ TODO: REMOVE THIS METHOD
-        
-        Dump all jobs in appropriate folder in the base_data_directory.
-
-        Folder structure and file name are as in the belowexample. The example refer to the complete cache
-        structura in which the Job is saved.
-
-            > {trends-earth-base-dir}/
-            |   v downloaded-sample-datasets/
-            |   |    dataset_1.json
-            |   |    dataset_2.json
-            |   |    ...
-            |   |    dataset_n.json
-            |   v imported-datasets/
-            |   |    dataset_1.json
-            |   |    dataset_2.json
-            |   |    ...
-            |   |   dataset_n.json
-            |   v in-transit/
-            |   |   dataset_1.json
-            |   |   dataset_2.json
-            |   |   ...
-            |   |   dataset_n.json
-            |   v outputs/
-            |   |   v {algorithm-group-1}/
-            |   |   |   v {algorithm-name1}/
-            |   |   |   |   v {execution-date-1}/
-            |   |   |   |   |   dataset_1.json
-            |   |   |   |   |   dataset_2.json
-            |   |   |   |   |   ...
-            |   |   |   |   |   dataset_n.json
-            |   |   |   |   > {execution-date-2}/
-            |   |   |   |   > ...
-            |   |   |   |   > {execution-date-n}/
-            |   |   |   > {algorithm-name-2}/
-            |   |   |   > ...
-            |   |   |   > {algorithm-name-n}/
-            |   |   > {algorithm-group-2}/
-            |   |   > ...
-            |   |   > {algorithm-group-n}/        
-        """
-        if self.jobs:
-            for job_dict in self.jobs:
-                # need to adapt start and stop date to datetime object and not string to be used in 
-                # JobSchema based on APIResponseSchema
-                cloned_job = dict(job_dict)
-
-                cloned_job['start_date'] = datetime.datetime.strptime(cloned_job['start_date'], '%Y/%m/%d (%H:%M)')
-                cloned_job['start_date'] = cloned_job['start_date'].replace(tzinfo=tz.tzutc())
-                cloned_job['start_date'] = cloned_job['start_date'].astimezone(tz.tzlocal())
-
-                cloned_job['end_date'] = datetime.datetime.strptime(cloned_job['end_date'], '%Y/%m/%d (%H:%M)')
-                cloned_job['end_date'] = cloned_job['end_date'].replace(tzinfo=tz.tzutc())
-                cloned_job['end_date'] = cloned_job['end_date'].astimezone(tz.tzlocal())
-
-                # save Job descriptor in data directory
-                schema = JobSchema()
-                response = schema.load(cloned_job, partial=True, unknown=marshmallow.INCLUDE)
-                job = Job(response)
-                job.dump() # doing save in default location
-
-
 class JobSchema(marshmallow.Schema):
     # para
     response = marshmallow.fields.Nested(APIResponseSchema, many=False)

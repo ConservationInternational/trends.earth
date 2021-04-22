@@ -449,12 +449,8 @@ def run_script(script_metadata, params={}):
         job_dict['script'] = {"name": script_name, "slug": script_slug}
 
         # do import here to avoid circular import
-        from LDMP.jobs import Job, JobSchema
-
-        schema = JobSchema()
-        response = schema.load(job_dict, partial=True, unknown=marshmallow.INCLUDE)
-        job = Job(response)
-        job.dump() # doing save in default location
+        from LDMP.jobs import Jobs
+        Jobs().append(job_dict)
 
     return resp
 

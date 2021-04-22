@@ -74,10 +74,14 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         self.dlg_calculate_Biomass = DlgCalculateRestBiomass()
         self.dlg_calculate_Urban = DlgCalculateUrban()
 
-        self.setupAlgorithmsTree()
-        self.setupDatasets()
+        # setup Datasets singleton store and Model update mechanism
+        self.datasets = Datasets()
+        self.datasets.updated.connect(self.updateDatasetsModel)
 
-    def setupDatasets(self):
+        self.setupAlgorithmsTree()
+        self.setupDatasetsGui()
+
+    def setupDatasetsGui(self):
         # add sort actions
         self.toolButton_sort.setMenu(QtWidgets.QMenu())
 
@@ -97,10 +101,10 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         self.pushButton_download.setIcon(icon)
 
         # example of datasets
-        date_ = datetime.strptime('2021-01-20 10:30:00', '%Y-%m-%d %H:%M:%S')
+        # date_ = datetime.strptime('2021-01-20 10:30:00', '%Y-%m-%d %H:%M:%S')
         datasets = Datasets()
 
-        # sync datasets to available jobs in base_data_directory
+        # sync datasets available in base_data_directory
         datasets.sync()
         #     [
         #         Dataset('1dataset1', date_, 'Land productivity', run_id='run_id_1'),
@@ -126,7 +130,10 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         # )
 
         # show it
-        datasetsModel = DatasetsModel(datasets)
+
+    def updateDatasetsModel(self):
+        datasets = Datasets()
+        datasetsModel = DatasetsModel( datasets )  # Datasets is a singleton
         self.treeView_datasets.setMouseTracking(True) # to allow emit entered events and manage editing over mouse
         self.treeView_datasets.setWordWrap(True) # add ... to wrap DisplayRole text... to have a real wrap need a custom widget
         self.treeView_datasets.setModel(datasetsModel)
@@ -135,7 +142,6 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
 
         # configure View how to enter editing mode
         self.treeView_datasets.setEditTriggers(QtWidgets.QAbstractItemView.AllEditTriggers)
-
 
     def setupAlgorithmsTree(self):
         # setup algorithms and their hierarchy

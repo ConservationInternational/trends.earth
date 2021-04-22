@@ -14,7 +14,7 @@
 
 from builtins import zip
 from builtins import range
-from typing import Optional, List
+from typing import Optional, List, Dict
 import os
 import json
 import re
@@ -27,7 +27,7 @@ from dateutil import tz
 import pprint
 from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtCore import (QSettings, QAbstractTableModel, Qt, pyqtSignal, 
-        QSortFilterProxyModel, QSize, QObject, QEvent, QCoreApplication)
+        QSortFilterProxyModel, QSize, QObject, QEvent, QCoreApplication, QObject)
 from qgis.PyQt.QtGui import QFontMetrics
 
 from osgeo import gdal
@@ -42,7 +42,7 @@ from LDMP.gui.DlgJobs import Ui_DlgJobs
 from LDMP.gui.DlgJobsDetails import Ui_DlgJobsDetails
 from LDMP.plot import DlgPlotTimeries
 
-from LDMP import log
+from LDMP import log, singleton, json_serial
 from LDMP.api import get_user_email, get_execution
 from LDMP.download import Download, check_hash_against_etag, DownloadError
 from LDMP.layers import add_layer
@@ -56,19 +56,14 @@ class tr_jobs(object):
         return QCoreApplication.translate("tr_jobs", message)
 
 
-def json_serial(obj):
-    """JSON serializer for objects not serializable by default json code"""
-    if isinstance(obj, (datetime.datetime, datetime.date)):
-        return obj.isoformat()
-    raise TypeError("Type {} not serializable".format(type(obj)))
-
-
 def create_gee_json_metadata(json_file, job, data_file):
     # Create a copy of the job so bands can be moved to a different place in 
     # the output
     metadata = copy.deepcopy(job)
     bands = metadata['results'].pop('bands')
     metadata.pop('raw')
+
+    # TODO: how to link dumped LocalRaster data with Job class in self.jobsStore
 
     out = LocalRaster(os.path.basename(os.path.normpath(data_file)), bands, metadata)
     local_raster_schema = LocalRasterSchema()
@@ -167,7 +162,8 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
             # that were stored inappropriately in past version of Trends.Earth
             jobs_cache = {}
         if jobs_cache is not {}:
-            self.jobs = jobs_cache
+            self.jobs = Jobs()
+            self.jobs.set(jobs_cache)
             self.update_jobs_table()
 
     def connection_event_changed(self, flag):
@@ -189,7 +185,7 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
         else:
             rows = set(list(index.row() for index in self.jobs_view.selectedIndexes()))
             job_ids = [self.proxy_model.index(row, 4).data() for row in rows]
-            statuses = [job.get('status', None) for job in self.jobs if job.get('id', None) in job_ids]
+            statuses = [job.get('status', None) for job in self.jobs.list() if job.get('id', None) in job_ids]
 
             if len(statuses) > 0:
                 for status in statuses:
@@ -207,9 +203,11 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
             start_date = datetime.datetime.now() + datetime.timedelta(-14)
             jobs = get_execution(date=start_date.strftime('%Y-%m-%d'))
             if jobs:
-                self.jobs = jobs
+                self.jobs = Jobs()
+                self.jobs.set(jobs)
+                jobs_list = self.jobs.list()
                 # Add script names and descriptions to jobs list
-                for job in self.jobs:
+                for job in jobs_list:
                     # self.jobs will have prettified data for usage in table,
                     # so save a backup of the original data under key 'raw'
                     job['raw'] = job.copy()
@@ -228,7 +226,7 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
                         job['script_description'] = self.tr('Script not found')
 
                 # Pretty print dates and pull the metadata sent as input params
-                for job in self.jobs:
+                for job in jobs_list:
                     job['start_date'] = datetime.datetime.strftime(job['start_date'], '%Y/%m/%d (%H:%M)')
                     job['end_date'] = datetime.datetime.strftime(job['end_date'], '%Y/%m/%d (%H:%M)')
                     job['task_name'] = job['params'].get('task_name', '')
@@ -236,8 +234,7 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
                     job['params'] = job['params']
 
                 # Cache jobs for later reuse
-                QSettings().setValue("LDMP/jobs_cache", json.dumps(self.jobs, default=json_serial))
-                self.update_jobs_data_directory()
+                QSettings().setValue("LDMP/jobs_cache", json.dumps(jobs_list, default=json_serial))
 
                 self.update_jobs_table()
                 self.connectionEvent.emit(False)
@@ -245,66 +242,6 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
 
         self.connectionEvent.emit(False)
         return False
-
-    def update_jobs_data_directory(self):
-        """Dump all jobs in appropriate folder in the base_data_directory.
-
-        Folder structure and file name are as in the belowexample. The example refer to the complete cache
-        structura in which the Job is saved.
-
-            > {trends-earth-base-dir}/
-            |   v downloaded-sample-datasets/
-            |   |    dataset_1.json
-            |   |    dataset_2.json
-            |   |    ...
-            |   |    dataset_n.json
-            |   v imported-datasets/
-            |   |    dataset_1.json
-            |   |    dataset_2.json
-            |   |    ...
-            |   |   dataset_n.json
-            |   v in-transit/
-            |   |   dataset_1.json
-            |   |   dataset_2.json
-            |   |   ...
-            |   |   dataset_n.json
-            |   v outputs/
-            |   |   v {algorithm-group-1}/
-            |   |   |   v {algorithm-name1}/
-            |   |   |   |   v {execution-date-1}/
-            |   |   |   |   |   dataset_1.json
-            |   |   |   |   |   dataset_2.json
-            |   |   |   |   |   ...
-            |   |   |   |   |   dataset_n.json
-            |   |   |   |   > {execution-date-2}/
-            |   |   |   |   > ...
-            |   |   |   |   > {execution-date-n}/
-            |   |   |   > {algorithm-name-2}/
-            |   |   |   > ...
-            |   |   |   > {algorithm-name-n}/
-            |   |   > {algorithm-group-2}/
-            |   |   > ...
-            |   |   > {algorithm-group-n}/        
-        """
-        if self.jobs:
-            for job_dict in self.jobs:
-                # need to adapt start and stop date to datetime object and not string to be used in 
-                # JobSchema based on APIResponseSchema
-                cloned_job = dict(job_dict)
-
-                cloned_job['start_date'] = datetime.datetime.strptime(cloned_job['start_date'], '%Y/%m/%d (%H:%M)')
-                cloned_job['start_date'] = cloned_job['start_date'].replace(tzinfo=tz.tzutc())
-                cloned_job['start_date'] = cloned_job['start_date'].astimezone(tz.tzlocal())
-
-                cloned_job['end_date'] = datetime.datetime.strptime(cloned_job['end_date'], '%Y/%m/%d (%H:%M)')
-                cloned_job['end_date'] = cloned_job['end_date'].replace(tzinfo=tz.tzutc())
-                cloned_job['end_date'] = cloned_job['end_date'].astimezone(tz.tzlocal())
-
-                # save Job descriptor in data directory
-                schema = JobSchema()
-                response = schema.load(cloned_job, partial=True, unknown=marshmallow.INCLUDE)
-                job = Job(response)
-                job.dump() # doing save in default location
 
     def sync(self):
         """Method to sync jobs in "trends_earth/advanced/base_data_directory" with that currently available.
@@ -316,12 +253,12 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
 
     def update_jobs_table(self):
         if self.jobs:
-            table_model = JobsTableModel(self.jobs, self)
+            table_model = JobsTableModel(self.jobs.list(), self)
             self.proxy_model = QSortFilterProxyModel()
             self.proxy_model.setSourceModel(table_model)
             self.jobs_view.setModel(self.proxy_model)
             # Add "Details" buttons in cell
-            for row in range(0, len(self.jobs)):
+            for row in range(0, len(self.jobs.list())):
                 btn = QtWidgets.QPushButton(self.tr("Details"))
                 btn.clicked.connect(self.btn_details)
                 self.jobs_view.setIndexWidget(self.proxy_model.index(row, 6), btn)
@@ -342,7 +279,7 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
 
         details_dlg = DlgJobsDetails(self)
 
-        job = self.jobs[index.row()]
+        job = self.jobs.list()[index.row()]
 
         details_dlg.task_name.setText(job.get('task_name', ''))
         details_dlg.task_status.setText(job.get('status', ''))
@@ -355,9 +292,11 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
 
     def btn_download(self):
         # Use set below in case multiple cells within the same row are selected
+        jobs_list = self.jobs.list()
+
         rows = set(list(index.row() for index in self.jobs_view.selectedIndexes()))
         job_ids = [self.proxy_model.index(row, 4).data() for row in rows]
-        jobs = [job for job in self.jobs if job['id'] in job_ids]
+        jobs = [job for job in jobs_list if job['id'] in job_ids]
 
         filenames = []
         for job in jobs:
@@ -398,7 +337,7 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
         self.close()
 
         for row, f in zip(rows, filenames):
-            job = self.jobs[row]
+            job = jobs_list[row]
             log(u"Processing job {}.".format(job.get('id', None)))
             result_type = job['results'].get('type')
             if result_type == 'CloudResults':
@@ -410,7 +349,7 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
 
 
 class JobsTableModel(QAbstractTableModel):
-    def __init__(self, datain, parent=None, *args):
+    def __init__(self, datain: List[dict], parent=None, *args):
         QAbstractTableModel.__init__(self, parent, *args)
         self.jobs = datain
 
@@ -550,11 +489,14 @@ def download_timeseries(job, tr):
 
 ################################################################################
 # Job class and Schema for Job descriptor build from APIResponseSchema
-class Job(object):
+class Job(QObject):
 
     # TODO: create a uniform way to manage Jobs. or self.jobs is a list of dict 
     # or a list of Job instances. Temporarly maintaining the two structure to reduce
     # side effects
+
+    # emit signal when a Job is dumped (useful in case have to update Datasets)
+    dumped = pyqtSignal(str) 
 
     def __init__(self, response: APIResponseSchema):
         super().__init__()
@@ -600,13 +542,13 @@ class Job(object):
     def startDate(self) -> datetime.datetime:
         return self.response['start_date']
 
-    def dump(self):
-        """Dump Job as JSON in a programmatically swet folder with a programmaticaly set filename.
+    def dump(self) -> str:
+        """Dump Job as JSON in a programmatically set folder with a programmaticaly set filename.
         """
         # create path and filname where to dump Job descriptor
         out_path = ''
         base_data_directory = QSettings().value("trends_earth/advanced/base_data_directory", None, type=str)
-        out_path = os.path.join(base_data_directory, 'outputs')
+        out_path = os.path.join(base_data_directory, 'jobs')
 
         # set location where to save basing on script(alg) used
         script_name = self.response['script']['name']
@@ -638,6 +580,132 @@ class Job(object):
                 job_schema.dump(self),
                 f, default=json_serial, sort_keys=True, indent=4, separators=(',', ': ')
             )
+        self.dumped.emit(job_descriptor_file_name)
+        return job_descriptor_file_name
+
+
+@singleton
+class Jobs(QObject):
+    """Singleton container to separate Dialog to Job operations as retrieve and update."""
+
+    updated = pyqtSignal()
+    jobsStore = {}
+
+    def __init__(self):
+        super().__init__()
+
+    def set(self, jobs_dict: Optional[List[dict]] = None):
+        # remove previous jobs
+        self.reset()
+
+        if jobs_dict is None:
+            return
+
+        # set new ones
+        for job_dict in jobs_dict:
+            self.append(job_dict)
+        self.updated.emit()
+
+    def append(self, job_dict: dict):
+        """Append a job dictionay and Job json contrepart in base_data_directory."""
+        # save Job descriptor in data directory
+        # in this way there is also a mimimum sanity check
+        # NOTE! need to adapt start and stop date to datetime object and not string to be used in 
+        # JobSchema based on APIResponseSchema
+        cloned_job = dict(job_dict)
+
+        if isinstance(cloned_job['start_date'], str):
+            cloned_job['start_date'] = datetime.datetime.strptime(cloned_job['start_date'], '%Y/%m/%d (%H:%M)')
+        cloned_job['start_date'] = cloned_job['start_date'].replace(tzinfo=tz.tzutc())
+        if isinstance(cloned_job['end_date'], str):
+            cloned_job['end_date'] = datetime.datetime.strptime(cloned_job['end_date'], '%Y/%m/%d (%H:%M)')
+        cloned_job['end_date'] = cloned_job['end_date'].replace(tzinfo=tz.tzutc())
+        cloned_job['end_date'] = cloned_job['end_date'].astimezone(tz.tzlocal())
+
+        schema = JobSchema()
+        response = schema.load(cloned_job, partial=True, unknown=marshmallow.INCLUDE)
+        job = Job(response)
+        dump_file_name = job.dump() # doing save in default location
+
+        # add in memory store .e.g a dictionary
+        new_dict_class_pair = {
+            'job_dict': job_dict,
+            'job_class': job
+        }
+        self.jobsStore[dump_file_name] = new_dict_class_pair
+
+    def list(self):
+        return [ job_pair['job_dict'] for job_pair in self.jobsStore.values() ]
+
+    def reset(self):
+        """Remove any jobs and related json contrepart."""
+        # remove any json of the available Jobs in self.jobs
+        for file_name in self.jobsStore.keys():
+            os.remove(file_name)
+        self.jobsStore = {}
+        self.updated.emit()
+
+    def __update_jobs_data_directory(self):
+        """ TODO: REMOVE THIS METHOD
+        
+        Dump all jobs in appropriate folder in the base_data_directory.
+
+        Folder structure and file name are as in the belowexample. The example refer to the complete cache
+        structura in which the Job is saved.
+
+            > {trends-earth-base-dir}/
+            |   v downloaded-sample-datasets/
+            |   |    dataset_1.json
+            |   |    dataset_2.json
+            |   |    ...
+            |   |    dataset_n.json
+            |   v imported-datasets/
+            |   |    dataset_1.json
+            |   |    dataset_2.json
+            |   |    ...
+            |   |   dataset_n.json
+            |   v in-transit/
+            |   |   dataset_1.json
+            |   |   dataset_2.json
+            |   |   ...
+            |   |   dataset_n.json
+            |   v outputs/
+            |   |   v {algorithm-group-1}/
+            |   |   |   v {algorithm-name1}/
+            |   |   |   |   v {execution-date-1}/
+            |   |   |   |   |   dataset_1.json
+            |   |   |   |   |   dataset_2.json
+            |   |   |   |   |   ...
+            |   |   |   |   |   dataset_n.json
+            |   |   |   |   > {execution-date-2}/
+            |   |   |   |   > ...
+            |   |   |   |   > {execution-date-n}/
+            |   |   |   > {algorithm-name-2}/
+            |   |   |   > ...
+            |   |   |   > {algorithm-name-n}/
+            |   |   > {algorithm-group-2}/
+            |   |   > ...
+            |   |   > {algorithm-group-n}/        
+        """
+        if self.jobs:
+            for job_dict in self.jobs:
+                # need to adapt start and stop date to datetime object and not string to be used in 
+                # JobSchema based on APIResponseSchema
+                cloned_job = dict(job_dict)
+
+                cloned_job['start_date'] = datetime.datetime.strptime(cloned_job['start_date'], '%Y/%m/%d (%H:%M)')
+                cloned_job['start_date'] = cloned_job['start_date'].replace(tzinfo=tz.tzutc())
+                cloned_job['start_date'] = cloned_job['start_date'].astimezone(tz.tzlocal())
+
+                cloned_job['end_date'] = datetime.datetime.strptime(cloned_job['end_date'], '%Y/%m/%d (%H:%M)')
+                cloned_job['end_date'] = cloned_job['end_date'].replace(tzinfo=tz.tzutc())
+                cloned_job['end_date'] = cloned_job['end_date'].astimezone(tz.tzlocal())
+
+                # save Job descriptor in data directory
+                schema = JobSchema()
+                response = schema.load(cloned_job, partial=True, unknown=marshmallow.INCLUDE)
+                job = Job(response)
+                job.dump() # doing save in default location
 
 
 class JobSchema(marshmallow.Schema):

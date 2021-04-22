@@ -14,6 +14,8 @@
 __author__ = 'Luigi Pirelli / Kartoza'
 __date__ = '2021-03-03'
 
+from datetime import datetime
+
 import qgis.core
 from functools import partial
 from qgis.PyQt.QtCore import (
@@ -139,7 +141,12 @@ class DatasetEditorWidget(QWidget, Ui_WidgetDatasetItem):
         self.pushButtonLoad.setIcon(
             QIcon(':/plugins/LDMP/icons/mActionAddRasterLayer.svg'))
 
-        self.labelCreationDate.setText(self.dataset.creation_date.strftime('%Y-%m-%d (%H:%M)'))
+        # allow having string or datetime for start_date
+        start_date_txt = self.dataset.creation_date
+        if isinstance(self.dataset.creation_date, datetime):
+            start_date_txt = self.dataset.creation_date.strftime('%Y-%m-%d (%H:%M)')
+        self.labelCreationDate.setText(start_date_txt)
+
         self.labelRunId.setText(self.dataset.run_id)
         self.progressBar.setValue( self.dataset.progress )
 

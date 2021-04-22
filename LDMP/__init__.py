@@ -142,3 +142,11 @@ def singleton(cls):
           instances[cls] = cls(*args, **kwargs)
         return instances[cls]
     return wrapper
+
+
+def json_serial(obj):
+    """JSON serializer for objects not serializable by default json code"""
+    if isinstance(obj, (datetime.datetime, datetime.date)):
+        return obj.isoformat()
+    raise TypeError("Type {} not serializable".format(type(obj)))
+

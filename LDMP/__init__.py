@@ -18,6 +18,7 @@ import re
 import site
 import json
 import subprocess
+import datetime
 from tempfile import NamedTemporaryFile
 
 from qgis.PyQt.QtCore import (QSettings, QTranslator, qVersion, 

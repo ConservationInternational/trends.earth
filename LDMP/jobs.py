@@ -106,6 +106,8 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
 
         self.jobs_view.viewport().installEventFilter(tool_tipper(self.jobs_view))
 
+        self.jobs = Jobs()
+
     def showEvent(self, event):
         super(DlgJobs, self).showEvent(event)
 
@@ -155,16 +157,8 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
         #######################################################################
         #######################################################################
 
-        try:
-            jobs_cache = json.loads(QSettings().value("LDMP/jobs_cache", '{}'))
-        except TypeError:
-            # For backward compatibility need to handle case of jobs caches 
-            # that were stored inappropriately in past version of Trends.Earth
-            jobs_cache = {}
-        if jobs_cache is not {}:
-            self.jobs = Jobs()
-            self.jobs.set(jobs_cache)
-            self.update_jobs_table()
+        self.jobs.sync()
+        self.update_jobs_table()
 
     def connection_event_changed(self, flag):
         if flag:
@@ -203,7 +197,6 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
             start_date = datetime.datetime.now() + datetime.timedelta(-14)
             jobs = get_execution(date=start_date.strftime('%Y-%m-%d'))
             if jobs:
-                self.jobs = Jobs()
                 self.jobs.set(jobs)
                 jobs_list = self.jobs.list()
                 # Add script names and descriptions to jobs list
@@ -606,6 +599,18 @@ class Jobs(QObject):
             self.append(job_dict)
         self.updated.emit()
 
+    def sync(self) -> None:
+        """Sync Jobs from cache."""
+        try:
+            jobs_cache = json.loads(QSettings().value("LDMP/jobs_cache", '{}'))
+        except TypeError:
+            # For backward compatibility need to handle case of jobs caches 
+            # that were stored inappropriately in past version of Trends.Earth
+            jobs_cache = {}
+        if jobs_cache is not {}:
+            self.set(jobs_cache)
+            # self.update_jobs_table()
+
     def append(self, job_dict: dict):
         """Append a job dictionay and Job json contrepart in base_data_directory."""
         # save Job descriptor in data directory
@@ -628,14 +633,17 @@ class Jobs(QObject):
         dump_file_name = job.dump() # doing save in default location
 
         # add in memory store .e.g a dictionary
-        new_dict_class_pair = {
-            'job_dict': job_dict,
-            'job_class': job
-        }
-        self.jobsStore[dump_file_name] = new_dict_class_pair
+        self.jobsStore[dump_file_name] = job
 
     def list(self):
-        return [ job_pair['job_dict'] for job_pair in self.jobsStore.values() ]
+        """Return response dictionary generated the Job.
+
+        This method is to manitain good compatibility with older code e.g. with minimal refactoring
+        """
+        return [ job.raw for job in self.jobsStore.values() ]
+
+    def classes(self):
+        return [ job for job in self.jobsStore.values() ]
 
     def reset(self):
         """Remove any jobs and related json contrepart."""
@@ -646,5 +654,4 @@ class Jobs(QObject):
         self.updated.emit()
 
 class JobSchema(marshmallow.Schema):
-    # para
     response = marshmallow.fields.Nested(APIResponseSchema, many=False)

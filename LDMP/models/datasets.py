@@ -29,22 +29,27 @@ from LDMP.calculate import get_script_group
 from LDMP import log, singleton, tr, json_serial
 
 import marshmallow
+from marshmallow import fields, Schema
+from LDMP.schemas.schemas import APIResponseSchema
 
 
 class DatasetStatus(Enum):
+    """TODO: remove because simplified using the same Job status."""
     available = 0,
     being_generated = 1,
     downloading = 2,
     unavailable = 3,
     not_applicable = 4
+DatasetStatusStrings = [e.name for e in DatasetStatus]
 
 
 def getStatusEnum(status: str) -> DatasetStatus:
+    """TODO: remove as commented above"""
     # get APIResponseSchema and remap into DatasetStatus
     ds_status = DatasetStatus.not_applicable
     if status in ['PENDING']:
         ds_status = DatasetStatus.being_generated
-    elif status in ['SUCCESS']:
+    elif status in ['SUCCESS', 'FINISHED']:
         ds_status = DatasetStatus.available
     else:
         ds_status = DatasetStatus.not_applicable
@@ -67,19 +72,6 @@ class DatasetBase(abc.ABC, QObject, metaclass=FinalMeta):
     def __init__(self) -> None:
         super().__init__()
 
-    # def __init__(self,
-    #         name: str,
-    #         creation_date: datetime,
-    #         source: str,
-    #         run_id: str
-    #     ) -> None:
-    #     super().__init__()
-    #     self.status: DatasetStatus = DatasetStatus.not_applicable
-    #     self.source = source
-    #     self.run_id = run_id
-    #     self.name = name
-    #     self.creation_date = creation_date
-
     def row(self) -> int:
         return 0
 
@@ -101,28 +93,34 @@ class Dataset(DatasetBase):
     dumped = pyqtSignal(str)
 
     def __init__(self,
-            job: Job,
+            job: Optional[Job] = None,
+            dataset: Optional[Dict] = None
         ) -> None:
         super().__init__()
 
-        self.status: DatasetStatus = getStatusEnum(job.status)
-        self.progress = job.progress
-        self.source = job.scriptName
-        self.name = job.taskName
-        self.creation_date = job.startDate
-        self.run_id = job.runId
+        if job:
+            job_schema = JobSchema()
+            self.job = job_schema.dump(job)
 
-    # def __init__(self,
-    #         name: str,
-    #         creation_date: datetime,
-    #         source: str,
-    #         run_id: str,
-    #     ) -> None:
-    #     super().__init__(name, creation_date, source, run_id)
-    #     self.status: DatasetStatus = DatasetStatus.not_applicable
-    #     self.source = source
-    #     self.name = name
-    #     self.creation_date = creation_date
+            self.status: str = job.status
+            # self.status: DatasetStatus = getStatusEnum(job.status)
+            self.progress = job.progress
+            self.source = job.scriptName
+            self.name = job.taskName
+            self.creation_date = job.startDate
+            self.run_id = job.runId
+        elif dataset:
+            self.job = ''
+
+            self.status = dataset.get('status')
+            # self.status: DatasetStatus = getStatusEnum(job.status)
+            self.progress = dataset.get('progress')
+            self.source = dataset.get('source')
+            self.name = dataset.get('name')
+            self.creation_date = dataset.get('creation_date')
+            self.run_id = dataset.get('run_id')
+        else:
+            raise Exception('Nor input Job or dataset dictionary are set to build a Dataset instance')
 
     def columnCount(self) -> int:
         return 1
@@ -173,13 +171,10 @@ class Dataset(DatasetBase):
         descriptor_file_name = os.path.join(out_path, descriptor_file_name)
         QgsLogger.debug('* Dump dataset descriptor into file: '+ descriptor_file_name, debuglevel=4)
 
-        # check if it is a Job parsing with schema
-        # Datasets and Jobs historically share the same json structure
-        # so continue using JobSchema to parse it
-        job_schema = JobSchema()
+        schema = DatasetSchema()
         with open(descriptor_file_name, 'w') as f:
-            json_to_write = json.dump(
-                job_schema.dump(self),
+            json.dump(
+                schema.dump(self),
                 f, default=json_serial, sort_keys=True, indent=4, separators=(',', ': ')
             )
         self.dumped.emit(descriptor_file_name)
@@ -202,8 +197,8 @@ class Datasets(QObject):
     def reset(self, emit: bool = False):
         """Remove any Datast and related json contrepart."""
         # remove any json of the available Jobs in self.jobs
-        for file_name in self.datasetsStore.keys():
-            os.remove(file_name)
+        # for file_name in self.datasetsStore.keys():
+        #     os.remove(file_name)
         self.datasetsStore = OrderedDict()
         if emit:
             self.updated.emit()
@@ -220,24 +215,9 @@ class Datasets(QObject):
             self.append(dataset_dict)
         self.updated.emit()
 
-    # def list(self):
-    #     """Get only values of the ordered dict."""
-    #     return [pair[1] for pair in self.datasetsStore.items()]
-
-    def append(self, dataset_dict: dict):
-        """Append a dataset dictionay in base_data_directory."""
-        # Create data set instance using schema Job validation
-        schema = JobSchema()
-        try:
-            response = schema.load(dataset_dict, partial=True, unknown=marshmallow.INCLUDE)
-        except marshmallow.exceptions.ValidationError as ex:
-            log(tr('not a valid Job {} with ex: ').format(f, str(ex)))
-            raise ex
-
-        if 'response' in response:
-            response = response['response']
-        job = Job(response)
-        dataset = Dataset(job)
+    def appendFromJob(self, job: Job):
+        """Create a Dataset and dump basing an assumed valid Job."""
+        dataset = Dataset(job=job)
         dump_file_name = dataset.dump() # doing save in default location
 
         # add in memory store .e.g a dictionary
@@ -265,7 +245,6 @@ class Datasets(QObject):
         found Dataset descriptor.
         """
         base_data_directory = QSettings().value("trends_earth/advanced/base_data_directory", None, type=str)
-        job_schema = JobSchema()
 
         def traverse(path):
             excluded_path = os.path.sep + 'Jobs' + os.path.sep
@@ -275,12 +254,12 @@ class Datasets(QObject):
                     # skip files in Jobs
                     if excluded_path.lower() in basepath.lower():
                         continue
-
+                    
                     yield os.path.join(basepath, f)
 
-        # remove any previous saved Datasets
-        self.reset()
-
+        # remove any previous memorised Datasets
+        # self.reset()
+        schema = DatasetSchema()
         for json_file in traverse(base_data_directory):
             # skip larger thatn 1MB files
             statinfo = os.stat(json_file)
@@ -299,14 +278,33 @@ class Datasets(QObject):
                     continue
             
                 try:
-                    self.append(parsed_json)
+                    dataset_dict = schema.load(parsed_json, partial=True, unknown=marshmallow.INCLUDE)
+                    dataset = Dataset(dataset=dataset_dict)
+                    self.datasetsStore[json_file] = dataset
+
+                except marshmallow.exceptions.ValidationError as ex:
+                    log(tr('not a valid Dataset {} with ex: ').format(f, str(ex)))
+                    continue
                 except Exception as ex:
                     # Exception notification managed in append method
-                    log(tr('Cannot dump dataset for file {} ex: {}').format(json_file, str(ex)))
+                    log(tr('Cannot manage dataset for file {} ex: {}').format(json_file, str(ex)))
                     continue
         self.updated.emit()
 
 
+class DatasetSchema(Schema):
+    """Schema defining structure of a dumped Dataset.
+    """
+    # job = fields.Nested(APIResponseSchema, many=False, required=False)
+    job = fields.Str(required=False)
 
-
-
+    status = fields.Str(required=True)
+    # status = fields.Str(
+    #     validate=validate.OneOf(DatasetStatusStrings), 
+    #     required=True
+    # )
+    progress = fields.Integer(required=True)
+    source = fields.Str(required=True)
+    name = fields.Str()
+    creation_date = fields.DateTime(required=True)
+    run_id = fields.UUID(required=True)

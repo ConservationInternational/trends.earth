@@ -147,7 +147,7 @@ class DatasetEditorWidget(QWidget, Ui_WidgetDatasetItem):
             start_date_txt = self.dataset.creation_date.strftime('%Y-%m-%d (%H:%M)')
         self.labelCreationDate.setText(start_date_txt)
 
-        self.labelRunId.setText(self.dataset.run_id)
+        self.labelRunId.setText(str(self.dataset.run_id)) # it is UUID
         self.progressBar.setValue( self.dataset.progress )
 
         dataset_name = self.dataset.name if self.dataset.name else '<no name set>'

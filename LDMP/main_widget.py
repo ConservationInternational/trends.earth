@@ -26,6 +26,8 @@ from LDMP.models.algorithms import (
     AlgorithmRunMode,
     AlgorithmDetails
 )
+
+from LDMP.jobs import Jobs
 from LDMP.models.datasets import (
     Dataset,
     Datasets
@@ -74,12 +76,37 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         self.dlg_calculate_Biomass = DlgCalculateRestBiomass()
         self.dlg_calculate_Urban = DlgCalculateUrban()
 
+        # setup Jobs singleton store and all update mechanisms
+        # self.jobs = Jobs()
+
         # setup Datasets singleton store and Model update mechanism
-        self.datasets = Datasets()
-        self.datasets.updated.connect(self.updateDatasetsModel)
+        Datasets().updated.connect(self.updateDatasetsModel)
 
         self.setupAlgorithmsTree()
         self.setupDatasetsGui()
+        self.updateDatasetsBasedOnJobs()
+
+    def updateDatasetsBasedOnJobs(self):
+        """Sync Datasets basing on available Jobs.
+
+        The conditions are:
+        - If Job.progress < 100 => generate and dumps related Datasets
+        - If Job.progress == 100 && if related datasets is not downloaded => generate and dumps related Datasets
+        """
+        # update Jobs getting them from cached
+        Jobs().sync()
+        for job in Jobs().classes():
+            if job.progress == 100:
+                # TODO: check if dataset is in downloading or downloaded e.g. available = true
+                available = False
+                if available:
+                    continue
+            
+            Datasets().appendFromJob(job)
+
+        # add any other datasets available
+        Datasets().sync()
+        # Datasets().updated.emit()
 
     def setupDatasetsGui(self):
         # add sort actions
@@ -102,10 +129,10 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
 
         # example of datasets
         # date_ = datetime.strptime('2021-01-20 10:30:00', '%Y-%m-%d %H:%M:%S')
-        datasets = Datasets()
+        # datasets = Datasets()
 
         # sync datasets available in base_data_directory
-        datasets.sync()
+        # datasets.sync()
         #     [
         #         Dataset('1dataset1', date_, 'Land productivity', run_id='run_id_1'),
         #         Dataset('2dataset2', date_, 'Downloaded from sample dataset', run_id='run_id_2'),

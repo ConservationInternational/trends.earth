@@ -134,7 +134,7 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         self.pushButton_refresh.clicked.connect(refreshWithotAutorefresh) 
 
         # set automatic refresh
-        refresh_polling_time = QtCore.QSettings().value("trends_earth/advanced/refresh_polling_time", 30000, type=int)
+        refresh_polling_time = QtCore.QSettings().value("trends_earth/advanced/refresh_polling_time", 60000, type=int)
         if refresh_polling_time > 0:
             QtCore.QTimer.singleShot(refresh_polling_time, self.refreshDatasets)
 
@@ -192,7 +192,7 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         self.updateDatasetsBasedOnJobs()
 
         # depending on config re-trigger it
-        refresh_polling_time = QtCore.QSettings().value("trends_earth/advanced/refresh_polling_time", 30000, type=int)
+        refresh_polling_time = QtCore.QSettings().value("trends_earth/advanced/refresh_polling_time", 60000, type=int)
         if autorefresh and refresh_polling_time > 0:
             QtCore.QTimer.singleShot(refresh_polling_time, self.refreshDatasets)
 

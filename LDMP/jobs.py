@@ -611,7 +611,7 @@ class Jobs(QObject):
             self.set(jobs_cache)
             # self.update_jobs_table()
 
-    def append(self, job_dict: dict):
+    def append(self, job_dict: dict) -> (str, Job):
         """Append a job dictionay and Job json contrepart in base_data_directory."""
         # save Job descriptor in data directory
         # in this way there is also a mimimum sanity check
@@ -634,6 +634,8 @@ class Jobs(QObject):
 
         # add in memory store .e.g a dictionary
         self.jobsStore[dump_file_name] = job
+
+        return (dump_file_name, job)
 
     def list(self):
         """Return response dictionary generated the Job.

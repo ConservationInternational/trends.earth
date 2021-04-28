@@ -215,13 +215,15 @@ class Datasets(QObject):
             self.append(dataset_dict)
         self.updated.emit()
 
-    def appendFromJob(self, job: Job):
+    def appendFromJob(self, job: Job) -> (str, Dataset):
         """Create a Dataset and dump basing an assumed valid Job."""
         dataset = Dataset(job=job)
         dump_file_name = dataset.dump() # doing save in default location
 
         # add in memory store .e.g a dictionary
         self.datasetsStore[dump_file_name] = dataset
+
+        return (dump_file_name, dataset)
 
     # method useful to interface with MVC model
     def columnCount(self) -> int:

@@ -14,7 +14,7 @@
 
 from datetime import datetime
 
-from qgis.PyQt import QtWidgets, QtGui
+from qgis.PyQt import QtWidgets, QtGui, QtCore
 from qgis.core import QgsSettings
 
 from LDMP import __version__, log
@@ -130,6 +130,14 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         # link event to buttons
         self.pushButton_refresh.clicked.connect(self.refreshDatasets)
 
+        # configure view
+        self.treeView_datasets.setMouseTracking(True) # to allow emit entered events and manage editing over mouse
+        self.treeView_datasets.setWordWrap(True) # add ... to wrap DisplayRole text... to have a real wrap need a custom widget
+        delegate = DatasetItemDelegate(self.treeView_datasets)
+        self.treeView_datasets.setItemDelegate(delegate)
+        # configure View how to enter editing mode
+        self.treeView_datasets.setEditTriggers(QtWidgets.QAbstractItemView.AllEditTriggers)
+
         # example of datasets
         # date_ = datetime.strptime('2021-01-20 10:30:00', '%Y-%m-%d %H:%M:%S')
         # datasets = Datasets()
@@ -175,16 +183,8 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         self.updateDatasetsBasedOnJobs()
 
     def updateDatasetsModel(self):
-        datasets = Datasets()
-        datasetsModel = DatasetsModel( datasets )  # Datasets is a singleton
-        self.treeView_datasets.setMouseTracking(True) # to allow emit entered events and manage editing over mouse
-        self.treeView_datasets.setWordWrap(True) # add ... to wrap DisplayRole text... to have a real wrap need a custom widget
+        datasetsModel = DatasetsModel( Datasets() )  # Datasets is a singleton
         self.treeView_datasets.setModel(datasetsModel)
-        delegate = DatasetItemDelegate(self.treeView_datasets)
-        self.treeView_datasets.setItemDelegate(delegate)
-
-        # configure View how to enter editing mode
-        self.treeView_datasets.setEditTriggers(QtWidgets.QAbstractItemView.AllEditTriggers)
 
     def setupAlgorithmsTree(self):
         # setup algorithms and their hierarchy

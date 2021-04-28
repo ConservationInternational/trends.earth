@@ -142,7 +142,7 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         # configure view
         self.treeView_datasets.setMouseTracking(True) # to allow emit entered events and manage editing over mouse
         self.treeView_datasets.setWordWrap(True) # add ... to wrap DisplayRole text... to have a real wrap need a custom widget
-        delegate = DatasetItemDelegate(self.treeView_datasets)
+        delegate = DatasetItemDelegate(self.plugin, self.treeView_datasets)
         self.treeView_datasets.setItemDelegate(delegate)
         # configure View how to enter editing mode
         self.treeView_datasets.setEditTriggers(QtWidgets.QAbstractItemView.AllEditTriggers)

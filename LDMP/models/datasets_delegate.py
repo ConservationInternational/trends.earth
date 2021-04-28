@@ -53,9 +53,10 @@ from LDMP.gui.WidgetDatasetItem import Ui_WidgetDatasetItem
 
 class DatasetItemDelegate(QStyledItemDelegate):
 
-    def __init__(self, parent: QObject = None):
+    def __init__(self, plugin, parent: QObject = None):
         super().__init__(parent)
 
+        self.plugin = plugin
         self.parent = parent
 
         # manage activate editing when entering the cell (if editable)
@@ -116,7 +117,7 @@ class DatasetItemDelegate(QStyledItemDelegate):
         model = index.model()
         item = model.data(index, Qt.ItemDataRole)
         if isinstance(item, Dataset):
-            return DatasetEditorWidget(item, parent=parent)
+            return DatasetEditorWidget(item, plugin=self.plugin, parent=parent)
         else:
             return super().createEditor(parent, option, index)
 
@@ -125,8 +126,9 @@ class DatasetItemDelegate(QStyledItemDelegate):
 
 class DatasetEditorWidget(QWidget, Ui_WidgetDatasetItem):
 
-    def __init__(self, dataset: Dataset, parent=None):
+    def __init__(self, dataset: Dataset, plugin=None, parent=None):
         super(DatasetEditorWidget, self).__init__(parent)
+        self.plugin = plugin
         self.setupUi(self)
         self.setAutoFillBackground(True)  # allows hiding background prerendered pixmap
         self.dataset = dataset

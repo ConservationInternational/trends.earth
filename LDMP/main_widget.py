@@ -127,8 +127,17 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         icon = QtGui.QIcon(':/plugins/LDMP/icons/mActionSharingImport.svg')
         self.pushButton_download.setIcon(icon)
 
-        # link event to buttons
-        self.pushButton_refresh.clicked.connect(self.refreshDatasets)
+        # set manual and automatic refresh of datasets
+        # avoid using lambda or partial to allow not anonymous callback => can be remove if necessary
+        def refreshWithotAutorefresh():
+            self.refreshDatasets(autorefresh=False)
+        self.pushButton_refresh.clicked.connect(refreshWithotAutorefresh) 
+
+        # set automatic refresh
+        refresh_polling_time = QtCore.QSettings().value("trends_earth/advanced/refresh_polling_time", 30000, type=int)
+        if refresh_polling_time > 0:
+            QtCore.QTimer.singleShot(refresh_polling_time, self.refreshDatasets)
+
 
         # configure view
         self.treeView_datasets.setMouseTracking(True) # to allow emit entered events and manage editing over mouse
@@ -169,7 +178,7 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
 
         # show it
 
-    def refreshDatasets(self):
+    def refreshDatasets(self, autorefresh=True):
         """Refresh datasets is composed of the following steps:
         1) Get all executions (e.g. Jobs)
         2) Rebuild and dump Datasets based on the downloaded Jobs
@@ -181,6 +190,11 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
             return
         self.plugin.dlg_jobs.btn_refresh()
         self.updateDatasetsBasedOnJobs()
+
+        # depending on config re-trigger it
+        refresh_polling_time = QtCore.QSettings().value("trends_earth/advanced/refresh_polling_time", 30000, type=int)
+        if autorefresh and refresh_polling_time > 0:
+            QtCore.QTimer.singleShot(refresh_polling_time, self.refreshDatasets)
 
     def updateDatasetsModel(self):
         datasetsModel = DatasetsModel( Datasets() )  # Datasets is a singleton

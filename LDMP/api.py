@@ -450,7 +450,10 @@ def run_script(script_metadata, params={}):
 
         # do import here to avoid circular import
         from LDMP.jobs import Jobs
-        Jobs().append(job_dict)
+        from LDMP.models.datasets import Datasets
+        jobFileName, job = Jobs().append(job_dict)
+        Datasets().appendFromJob(job)
+        Datasets().updated.emit()
 
     return resp
 

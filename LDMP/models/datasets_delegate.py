@@ -163,7 +163,7 @@ class DatasetEditorWidget(QWidget, Ui_WidgetDatasetItem):
             self.dataset.progress == 100):
             self.progressBar.hide()
             self.pushButtonStatus.show()
-            self.pushButtonStatus.setIcon(QIcon(':/plugins/LDMP/icons/mActionAddRasterLayer.svg'))
+            self.pushButtonStatus.setIcon(QIcon(':/plugins/LDMP/icons/cloud-download.svg'))
 
         dataset_name = self.dataset.name if self.dataset.name else '<no name set>'
         self.labelDatasetName.setText(dataset_name)

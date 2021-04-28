@@ -52,16 +52,17 @@ settings = QgsSettings()
 _widget = None
 
 
-def get_trends_earth_dockwidget():
+def get_trends_earth_dockwidget(plugin):
     global _widget
     if _widget is None:
-        _widget = MainWidget()
+        _widget = MainWidget(plugin=plugin)
     return _widget
 
 
 class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
-    def __init__(self, parent=None):
+    def __init__(self, plugin=None, parent=None):
         super(MainWidget, self).__init__(parent)
+        self.plugin = plugin
 
         self.setupUi(self)
 
@@ -106,7 +107,6 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
 
         # add any other datasets available
         Datasets().sync()
-        # Datasets().updated.emit()
 
     def setupDatasetsGui(self):
         # add sort actions
@@ -126,6 +126,9 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         self.pushButton_import.setIcon(icon)
         icon = QtGui.QIcon(':/plugins/LDMP/icons/mActionSharingImport.svg')
         self.pushButton_download.setIcon(icon)
+
+        # link event to buttons
+        self.pushButton_refresh.clicked.connect(self.refreshDatasets)
 
         # example of datasets
         # date_ = datetime.strptime('2021-01-20 10:30:00', '%Y-%m-%d %H:%M:%S')
@@ -157,6 +160,19 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         # )
 
         # show it
+
+    def refreshDatasets(self):
+        """Refresh datasets is composed of the following steps:
+        1) Get all executions (e.g. Jobs)
+        2) Rebuild and dump Datasets based on the downloaded Jobs
+
+        Due to API limitation it's not possible to query a job one by one but only get all jobs in a time window.
+        """
+        # use method of toher plgun GUIs to fetch all executions
+        if not self.plugin:
+            return
+        self.plugin.dlg_jobs.btn_refresh()
+        self.updateDatasetsBasedOnJobs()
 
     def updateDatasetsModel(self):
         datasets = Datasets()

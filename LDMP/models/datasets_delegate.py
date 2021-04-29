@@ -14,6 +14,8 @@
 __author__ = 'Luigi Pirelli / Kartoza'
 __date__ = '2021-03-03'
 
+from datetime import datetime
+
 import qgis.core
 from functools import partial
 from qgis.PyQt.QtCore import (
@@ -51,9 +53,10 @@ from LDMP.gui.WidgetDatasetItem import Ui_WidgetDatasetItem
 
 class DatasetItemDelegate(QStyledItemDelegate):
 
-    def __init__(self, parent: QObject = None):
+    def __init__(self, plugin, parent: QObject = None):
         super().__init__(parent)
 
+        self.plugin = plugin
         self.parent = parent
 
         # manage activate editing when entering the cell (if editable)
@@ -114,7 +117,7 @@ class DatasetItemDelegate(QStyledItemDelegate):
         model = index.model()
         item = model.data(index, Qt.ItemDataRole)
         if isinstance(item, Dataset):
-            return DatasetEditorWidget(item, parent=parent)
+            return DatasetEditorWidget(item, plugin=self.plugin, parent=parent)
         else:
             return super().createEditor(parent, option, index)
 
@@ -123,8 +126,9 @@ class DatasetItemDelegate(QStyledItemDelegate):
 
 class DatasetEditorWidget(QWidget, Ui_WidgetDatasetItem):
 
-    def __init__(self, dataset: Dataset, parent=None):
+    def __init__(self, dataset: Dataset, plugin=None, parent=None):
         super(DatasetEditorWidget, self).__init__(parent)
+        self.plugin = plugin
         self.setupUi(self)
         self.setAutoFillBackground(True)  # allows hiding background prerendered pixmap
         self.dataset = dataset
@@ -139,11 +143,35 @@ class DatasetEditorWidget(QWidget, Ui_WidgetDatasetItem):
         self.pushButtonLoad.setIcon(
             QIcon(':/plugins/LDMP/icons/mActionAddRasterLayer.svg'))
 
-        self.labelDatasetName.setText(self.dataset.name)
-        self.labelCreationDate.setText(
-            self.dataset.creation_date.strftime('%Y-%m-%d %H:%M:%S'))
+        # allow having string or datetime for start_date
+        start_date_txt = self.dataset.creation_date
+        if isinstance(self.dataset.creation_date, datetime):
+            start_date_txt = self.dataset.creation_date.strftime('%Y-%m-%d (%H:%M)')
+        self.labelCreationDate.setText(start_date_txt)
+
+        self.labelRunId.setText(str(self.dataset.run_id)) # it is UUID
+
+        # show progress bar or download button depending on status
+        self.progressBar.setValue( self.dataset.progress )
+        self.pushButtonStatus.hide()
+        self.progressBar.show()
+        if self.dataset.status == 'PENDING':
+            self.progressBar.setFormat(self.dataset.status)
+        if (self.dataset.progress > 0 and
+            self.dataset.progress < 100):
+           self.progressBar.setFormat(self.dataset.progress)
+        # change GUI if finished
+        if (self.dataset.status in ['FINISHED', 'SUCCESS'] and
+            self.dataset.progress == 100):
+            self.progressBar.hide()
+            self.pushButtonStatus.show()
+            self.pushButtonStatus.setIcon(QIcon(':/plugins/LDMP/icons/cloud-download.svg'))
+
+        dataset_name = self.dataset.name if self.dataset.name else '<no name set>'
+        self.labelDatasetName.setText(dataset_name)
+
+        data_source = self.dataset.source if self.dataset.source else 'Unknown'
         self.labelSourceName.setText(self.dataset.source)
-        self.labelRunId.setText(self.dataset.run_id)
 
     def show_details(self):
         log(f"Details button clicked for dataset {self.dataset.name!r}")

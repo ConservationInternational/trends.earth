@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>345</width>
-    <height>152</height>
+    <height>181</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -86,12 +86,9 @@
          </widget>
         </item>
         <item>
-         <widget class="QGraphicsView" name="graphicsViewStatus">
-          <property name="maximumSize">
-           <size>
-            <width>20</width>
-            <height>20</height>
-           </size>
+         <widget class="QPushButton" name="pushButtonStatus">
+          <property name="text">
+           <string/>
           </property>
          </widget>
         </item>

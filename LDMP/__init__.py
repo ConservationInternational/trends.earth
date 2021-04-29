@@ -18,6 +18,7 @@ import re
 import site
 import json
 import subprocess
+import datetime
 from tempfile import NamedTemporaryFile
 
 from qgis.PyQt.QtCore import (QSettings, QTranslator, qVersion, 
@@ -133,3 +134,20 @@ def openFolder(path):
         subprocess.check_call(['xdg-open', path])
     elif sys.platform == 'win32':
         subprocess.check_call(['explorer', path])
+
+# singleton decorator
+def singleton(cls):
+    instances = {}
+    def wrapper(*args, **kwargs):
+        if cls not in instances:
+          instances[cls] = cls(*args, **kwargs)
+        return instances[cls]
+    return wrapper
+
+
+def json_serial(obj):
+    """JSON serializer for objects not serializable by default json code"""
+    if isinstance(obj, (datetime.datetime, datetime.date)):
+        return obj.isoformat()
+    raise TypeError("Type {} not serializable".format(type(obj)))
+

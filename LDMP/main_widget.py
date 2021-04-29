@@ -199,6 +199,7 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
 
     def updateDatasetsModel(self):
         datasetsModel = DatasetsModel( Datasets() )  # Datasets is a singleton
+        self.treeView_datasets.reset()
         self.treeView_datasets.setModel(datasetsModel)
 
     def setupAlgorithmsTree(self):

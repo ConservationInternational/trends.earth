@@ -220,8 +220,8 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
 
                 # Pretty print dates and pull the metadata sent as input params
                 for job in jobs_list:
-                    job['start_date'] = datetime.datetime.strftime(job['start_date'], '%Y/%m/%d (%H:%M)')
-                    job['end_date'] = datetime.datetime.strftime(job['end_date'], '%Y/%m/%d (%H:%M)')
+                    job['start_date'] = Job.datetimeRepr(job['start_date'])
+                    job['end_date'] = Job.datetimeRepr(job['end_date'])
                     job['task_name'] = job['params'].get('task_name', '')
                     job['task_notes'] = job['params'].get('task_notes', '')
                     job['params'] = job['params']
@@ -371,7 +371,10 @@ class JobsTableModel(QAbstractTableModel):
         elif role == Qt.TextAlignmentRole:
             return Qt.AlignCenter
         elif role == Qt.DisplayRole or role == Qt.ToolTipRole:
-            return self.jobs[index.row()].get(self.colnames_json[index.column()], '')
+            value = self.jobs[index.row()].get(self.colnames_json[index.column()], '')
+            if isinstance(value, datetime.datetime):
+                value = Job.datetimeRepr(value)
+            return value
         else:
             return None
 
@@ -535,6 +538,14 @@ class Job(QObject):
     def startDate(self) -> datetime.datetime:
         return self.response['start_date']
 
+    @staticmethod
+    def datetimeRepr(dt: datetime.datetime) -> str:
+        return datetime.datetime.strftime(dt, '%Y/%m/%d (%H:%M)')
+
+    @staticmethod
+    def toDatetime(dt: str) -> datetime.datetime:
+        return datetime.datetime.strptime(dt, '%Y/%m/%d (%H:%M)')
+
     def dump(self) -> str:
         """Dump Job as JSON in a programmatically set folder with a programmaticaly set filename.
         """
@@ -620,10 +631,10 @@ class Jobs(QObject):
         cloned_job = dict(job_dict)
 
         if isinstance(cloned_job['start_date'], str):
-            cloned_job['start_date'] = datetime.datetime.strptime(cloned_job['start_date'], '%Y/%m/%d (%H:%M)')
+            cloned_job['start_date'] = Job.toDatetime(cloned_job['start_date'])
         cloned_job['start_date'] = cloned_job['start_date'].replace(tzinfo=tz.tzutc())
         if isinstance(cloned_job['end_date'], str):
-            cloned_job['end_date'] = datetime.datetime.strptime(cloned_job['end_date'], '%Y/%m/%d (%H:%M)')
+            cloned_job['end_date'] = Job.toDatetime(cloned_job['end_date'])
         cloned_job['end_date'] = cloned_job['end_date'].replace(tzinfo=tz.tzutc())
         cloned_job['end_date'] = cloned_job['end_date'].astimezone(tz.tzlocal())
 

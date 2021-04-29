@@ -80,7 +80,8 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         # setup Jobs singleton store and all update mechanisms
         # self.jobs = Jobs()
 
-        # setup Datasets singleton store and Model update mechanism
+        # setup Datasets and Jobs singleton store and Model update mechanism
+        Jobs().updated.connect(self.updateDatasetsModel)
         Datasets().updated.connect(self.updateDatasetsModel)
 
         self.setupAlgorithmsTree()

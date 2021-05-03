@@ -14,7 +14,7 @@
 
 from datetime import datetime
 
-from qgis.PyQt import QtWidgets, QtGui
+from qgis.PyQt import QtWidgets, QtGui, QtCore
 from qgis.core import QgsSettings
 
 from LDMP import __version__, log
@@ -26,6 +26,8 @@ from LDMP.models.algorithms import (
     AlgorithmRunMode,
     AlgorithmDetails
 )
+
+from LDMP.jobs import Jobs
 from LDMP.models.datasets import (
     Dataset,
     Datasets
@@ -50,16 +52,17 @@ settings = QgsSettings()
 _widget = None
 
 
-def get_trends_earth_dockwidget():
+def get_trends_earth_dockwidget(plugin):
     global _widget
     if _widget is None:
-        _widget = MainWidget()
+        _widget = MainWidget(plugin=plugin)
     return _widget
 
 
 class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
-    def __init__(self, parent=None):
+    def __init__(self, plugin=None, parent=None):
         super(MainWidget, self).__init__(parent)
+        self.plugin = plugin
 
         self.setupUi(self)
 
@@ -74,10 +77,39 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         self.dlg_calculate_Biomass = DlgCalculateRestBiomass()
         self.dlg_calculate_Urban = DlgCalculateUrban()
 
-        self.setupAlgorithmsTree()
-        self.setupDatasets()
+        # setup Jobs singleton store and all update mechanisms
+        # self.jobs = Jobs()
 
-    def setupDatasets(self):
+        # setup Datasets and Jobs singleton store and Model update mechanism
+        Jobs().updated.connect(self.updateDatasetsModel)
+        Datasets().updated.connect(self.updateDatasetsModel)
+
+        self.setupAlgorithmsTree()
+        self.setupDatasetsGui()
+        self.updateDatasetsBasedOnJobs()
+
+    def updateDatasetsBasedOnJobs(self):
+        """Sync Datasets basing on available Jobs.
+
+        The conditions are:
+        - If Job.progress < 100 => generate and dumps related Datasets
+        - If Job.progress == 100 && if related datasets is not downloaded => generate and dumps related Datasets
+        """
+        # update Jobs getting them from cached
+        Jobs().sync()
+        for job in Jobs().classes():
+            if job.progress == 100:
+                # TODO: check if dataset is in downloading or downloaded e.g. available = true
+                available = False
+                if available:
+                    continue
+            
+            Datasets().appendFromJob(job)
+
+        # add any other datasets available
+        Datasets().sync()
+
+    def setupDatasetsGui(self):
         # add sort actions
         self.toolButton_sort.setMenu(QtWidgets.QMenu())
 
@@ -96,43 +128,79 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         icon = QtGui.QIcon(':/plugins/LDMP/icons/mActionSharingImport.svg')
         self.pushButton_download.setIcon(icon)
 
-        # example of datasets
-        date_ = datetime.strptime('2021-01-20 10:30:00', '%Y-%m-%d %H:%M:%S')
-        datasets = Datasets(
-            [
-                Dataset('1dataset1', date_, 'Land productivity', run_id='run_id_1'),
-                Dataset('2dataset2', date_, 'Downloaded from sample dataset', run_id='run_id_2'),
-                Dataset('3dataset3', date_, 'Land change', run_id='run_id_3'),
-                Dataset('11Productivity Trajectory1', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)', run_id='run_id_4'),
-                Dataset('22Productivity Trajectory2', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)', run_id='run_id_5'),
-                Dataset('33Productivity Trajectory3', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)', run_id='run_id_6'),
-                Dataset('44Productivity Trajectory4', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)', run_id='run_id_7'),
-                Dataset('55Productivity Trajectory5', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)', run_id='run_id_8'),
-                Dataset('66Productivity Trajectory6', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)', run_id='run_id_9'),
-                Dataset(
-                    '111 A very very very  much much big name with a lot of many many many many words',
-                    date_,
-                    'Land Productivity (SDG 15.3.1 sub-indicator1)', run_id='run_id_10'
-                ),
-                Dataset(
-                    '222 A very very very  much much big name with a lot of many many many many words',
-                    date_,
-                    'A very very very  much much big name with a lot of many many many many words', run_id='run_id_11'
-                ),
-            ]
-        )
+        # set manual and automatic refresh of datasets
+        # avoid using lambda or partial to allow not anonymous callback => can be remove if necessary
+        def refreshWithotAutorefresh():
+            self.refreshDatasets(autorefresh=False)
+        self.pushButton_refresh.clicked.connect(refreshWithotAutorefresh) 
 
-        # show it
-        datasetsModel = DatasetsModel(datasets)
+        # set automatic refresh
+        refresh_polling_time = QtCore.QSettings().value("trends_earth/advanced/refresh_polling_time", 60000, type=int)
+        if refresh_polling_time > 0:
+            QtCore.QTimer.singleShot(refresh_polling_time, self.refreshDatasets)
+
+
+        # configure view
         self.treeView_datasets.setMouseTracking(True) # to allow emit entered events and manage editing over mouse
         self.treeView_datasets.setWordWrap(True) # add ... to wrap DisplayRole text... to have a real wrap need a custom widget
-        self.treeView_datasets.setModel(datasetsModel)
-        delegate = DatasetItemDelegate(self.treeView_datasets)
+        delegate = DatasetItemDelegate(self.plugin, self.treeView_datasets)
         self.treeView_datasets.setItemDelegate(delegate)
-
         # configure View how to enter editing mode
         self.treeView_datasets.setEditTriggers(QtWidgets.QAbstractItemView.AllEditTriggers)
 
+        # example of datasets
+        # date_ = datetime.strptime('2021-01-20 10:30:00', '%Y-%m-%d %H:%M:%S')
+        # datasets = Datasets()
+
+        # sync datasets available in base_data_directory
+        # datasets.sync()
+        #     [
+        #         Dataset('1dataset1', date_, 'Land productivity', run_id='run_id_1'),
+        #         Dataset('2dataset2', date_, 'Downloaded from sample dataset', run_id='run_id_2'),
+        #         Dataset('3dataset3', date_, 'Land change', run_id='run_id_3'),
+        #         Dataset('11Productivity Trajectory1', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)', run_id='run_id_4'),
+        #         Dataset('22Productivity Trajectory2', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)', run_id='run_id_5'),
+        #         Dataset('33Productivity Trajectory3', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)', run_id='run_id_6'),
+        #         Dataset('44Productivity Trajectory4', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)', run_id='run_id_7'),
+        #         Dataset('55Productivity Trajectory5', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)', run_id='run_id_8'),
+        #         Dataset('66Productivity Trajectory6', date_, 'Land Productivity (SDG 15.3.1 sub-indicator1)', run_id='run_id_9'),
+        #         Dataset(
+        #             '111 A very very very  much much big name with a lot of many many many many words',
+        #             date_,
+        #             'Land Productivity (SDG 15.3.1 sub-indicator1)', run_id='run_id_10'
+        #         ),
+        #         Dataset(
+        #             '222 A very very very  much much big name with a lot of many many many many words',
+        #             date_,
+        #             'A very very very  much much big name with a lot of many many many many words', run_id='run_id_11'
+        #         ),
+        #     ]
+        # )
+
+        # show it
+
+    def refreshDatasets(self, autorefresh=True):
+        """Refresh datasets is composed of the following steps:
+        1) Get all executions (e.g. Jobs)
+        2) Rebuild and dump Datasets based on the downloaded Jobs
+
+        Due to API limitation it's not possible to query a job one by one but only get all jobs in a time window.
+        """
+        # use method of toher plgun GUIs to fetch all executions
+        if not self.plugin:
+            return
+        self.plugin.dlg_jobs.btn_refresh()
+        self.updateDatasetsBasedOnJobs()
+
+        # depending on config re-trigger it
+        refresh_polling_time = QtCore.QSettings().value("trends_earth/advanced/refresh_polling_time", 60000, type=int)
+        if autorefresh and refresh_polling_time > 0:
+            QtCore.QTimer.singleShot(refresh_polling_time, self.refreshDatasets)
+
+    def updateDatasetsModel(self):
+        datasetsModel = DatasetsModel( Datasets() )  # Datasets is a singleton
+        self.treeView_datasets.reset()
+        self.treeView_datasets.setModel(datasetsModel)
 
     def setupAlgorithmsTree(self):
         # setup algorithms and their hierarchy

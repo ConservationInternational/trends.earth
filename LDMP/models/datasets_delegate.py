@@ -157,21 +157,31 @@ class DatasetEditorWidget(QWidget, Ui_WidgetDatasetItem):
         self.progressBar.show()
         if self.dataset.status == 'PENDING':
             self.progressBar.setFormat(self.dataset.status)
-        if (self.dataset.progress > 0 and
-            self.dataset.progress < 100):
-           self.progressBar.setFormat(self.dataset.progress)
+        if ( self.dataset.progress > 0 and
+             self.dataset.progress < 100
+            ):
+            self.progressBar.setFormat(self.dataset.progress)
         # change GUI if finished
-        if (self.dataset.status in ['FINISHED', 'SUCCESS'] and
-            self.dataset.progress == 100):
+        if ( self.dataset.status in ['FINISHED', 'SUCCESS'] and
+             self.dataset.progress == 100 and
+             self.dataset.origin() != Dataset.Origin.downloaded_dataset
+            ):
             self.progressBar.hide()
             self.pushButtonStatus.show()
             self.pushButtonStatus.setIcon(QIcon(':/plugins/LDMP/icons/cloud-download.svg'))
+            # add event to download dataset
+            self.pushButtonStatus.clicked.connect(self.dataset.download)
 
         dataset_name = self.dataset.name if self.dataset.name else '<no name set>'
         self.labelDatasetName.setText(dataset_name)
 
         data_source = self.dataset.source if self.dataset.source else 'Unknown'
         self.labelSourceName.setText(self.dataset.source)
+
+        # get data differently if come from Dataset or Downloaded dataset
+        if self.dataset.origin() == Dataset.Origin.downloaded_dataset:
+            self.progressBar.hide()
+            self.pushButtonStatus.hide()
 
     def show_details(self):
         log(f"Details button clicked for dataset {self.dataset.name!r}")

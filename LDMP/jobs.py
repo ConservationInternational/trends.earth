@@ -449,10 +449,19 @@ def download_cloud_results(job, f, tr, add_to_map=True):
     else:
         url = results['urls'][0]
         out_file = f + '.tif'
-        resp = download_result(url['url'], out_file, job, 
-                               binascii.hexlify(base64.b64decode(url['md5Hash'])).decode())
-        if not resp:
-            return
+        do_download = True
+        if os.access(out_file, os.R_OK):
+            if check_hash_against_etag(url['url'], out_file, binascii.hexlify(base64.b64decode(url['md5Hash'])).decode()):
+                tr_jobs.tr(u"No download necessary for Dataset in cache: {}".format(out_file))
+                do_download = False
+            else:
+                do_download = True
+
+        if do_download:
+            resp = download_result(url['url'], out_file, job,
+                                binascii.hexlify(base64.b64decode(url['md5Hash'])).decode())
+            if not resp:
+                return
 
     create_gee_json_metadata(json_file, job, out_file)
 

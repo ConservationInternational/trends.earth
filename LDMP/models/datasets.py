@@ -91,6 +91,7 @@ class DatasetBase(abc.ABC, QObject, metaclass=FinalMeta):
 class Dataset(DatasetBase):
 
     dumped = pyqtSignal(str)
+    downloaded = pyqtSignal(str)
     class Origin(Enum):
         job = 0,
         dataset = 1,
@@ -223,6 +224,8 @@ class Dataset(DatasetBase):
 
     def download(self):
         """Download Dataset related to a specified Job in a programmatically defined filename and folder.
+
+        Because a new dataset JSON descriptor is created => Datasets sync
         """
         res = Jobs().jobById(str(self.run_id)) # casting because can be UUID
         if res is None:
@@ -260,8 +263,12 @@ class Dataset(DatasetBase):
         result_type = job.results.get('type')
         if result_type == 'CloudResults':
             download_cloud_results(job.raw, f, self.tr)
+            self.downloaded.emit(f)
+            Datasets().sync()
         elif result_type == 'TimeSeriesTable':
             download_timeseries(job.raw, self.tr)
+            self.downloaded.emit(None)
+            Datasets().sync()
         else:
             raise ValueError("Unrecognized result type in download results: {}".format(result_type))
 

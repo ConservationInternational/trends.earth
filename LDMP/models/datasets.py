@@ -371,9 +371,15 @@ class Datasets(QObject):
                 #   b4b098f8-e562-4843-b6ed-586878410a01.json
                 # a downloaded dataset could be:
                 #   b4b098f8-e562-4843-b6ed-586878410a01_Productivity 1_0_3_gen_test19.json
-                basename = os.path.basename(json_file)
+                basename = os.path.splitext(os.path.basename(json_file))[0]
                 look_for = basename + "_"
-                if look_for in json_files:
+
+                found = next((j for j in json_files if look_for in j), None) # look if some key containing 'look_for' string
+                if found:
+                    # if strored in datasetStore remove entry related to json_file Dataset
+                    self.datasetsStore.pop(json_file, None)
+
+                    log(tr('Dataset {} already downloaded => skipped').format(json_file))
                     continue
 
                 # block useful to distinguish if dataset is a downloaded dataset or not

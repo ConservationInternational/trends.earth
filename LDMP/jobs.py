@@ -671,7 +671,10 @@ class Jobs(QObject):
         """Remove any jobs and related json contrepart."""
         # remove any json of the available Jobs in self.jobs
         for file_name in self.jobsStore.keys():
-            os.remove(file_name)
+            try:
+                os.remove(file_name)
+            except:
+                pass
         self.jobsStore = {}
         self.updated.emit()
 

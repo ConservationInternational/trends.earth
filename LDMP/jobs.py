@@ -14,7 +14,7 @@
 
 from builtins import zip
 from builtins import range
-from typing import Optional, List, Dict
+from typing import Optional, List, Dict, Tuple
 import os
 import json
 import re
@@ -538,6 +538,10 @@ class Job(QObject):
     def startDate(self) -> datetime.datetime:
         return self.response['start_date']
 
+    @property
+    def results(self) -> Optional[dict]:
+        return self.response['results']
+
     @staticmethod
     def datetimeRepr(dt: datetime.datetime) -> str:
         return datetime.datetime.strftime(dt, '%Y/%m/%d (%H:%M)')
@@ -654,6 +658,11 @@ class Jobs(QObject):
         This method is to manitain good compatibility with older code e.g. with minimal refactoring
         """
         return [ job.raw for job in self.jobsStore.values() ]
+
+    def jobById(self, id: str) -> Optional[Tuple[str, Job]]:
+        """Return Job and related descriptor asociated file."""
+        jobs = [(k, j) for k,j in self.jobsStore.items() if j.runId == id]
+        return jobs[0] if len(jobs) else None
 
     def classes(self):
         return [ job for job in self.jobsStore.values() ]

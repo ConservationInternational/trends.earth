@@ -262,7 +262,7 @@ class Dataset(DatasetBase):
         log(u"Processing job {}.".format(job.runId))
         result_type = job.results.get('type')
         if result_type == 'CloudResults':
-            download_cloud_results(job.raw, f, self.tr)
+            download_cloud_results(job.raw, f, self.tr, add_to_map=False)
             self.downloaded.emit(f)
             Datasets().sync()
         elif result_type == 'TimeSeriesTable':

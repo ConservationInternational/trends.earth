@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>380</width>
+    <width>385</width>
     <height>601</height>
    </rect>
   </property>
@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab_algorithms">
        <attribute name="title">
@@ -102,6 +102,13 @@
            <widget class="QPushButton" name="pushButton_download">
             <property name="text">
              <string>Download raw data</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_load">
+            <property name="text">
+             <string>Load Base Map</string>
             </property>
            </widget>
           </item>

@@ -47,6 +47,8 @@ from LDMP.calculate import (
     DlgCalculateUrban
 )
 
+from LDMP.visualization import DlgVisualizationBasemap
+
 settings = QgsSettings()
 
 _widget = None
@@ -90,7 +92,6 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
 
     def updateDatasetsBasedOnJobs(self):
         """Sync Datasets basing on available Jobs.
-
         The conditions are:
         - If Job.progress < 100 => generate and dumps related Datasets
         - If Job.progress == 100 && if related datasets is not downloaded => generate and dumps related Datasets
@@ -127,6 +128,7 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         self.pushButton_import.setIcon(icon)
         icon = QtGui.QIcon(':/plugins/LDMP/icons/mActionSharingImport.svg')
         self.pushButton_download.setIcon(icon)
+        self.pushButton_load.clicked.connect(self.loadBaseMap)
 
         # set manual and automatic refresh of datasets
         # avoid using lambda or partial to allow not anonymous callback => can be remove if necessary
@@ -183,7 +185,6 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         """Refresh datasets is composed of the following steps:
         1) Get all executions (e.g. Jobs)
         2) Rebuild and dump Datasets based on the downloaded Jobs
-
         Due to API limitation it's not possible to query a job one by one but only get all jobs in a time window.
         """
         # use method of toher plgun GUIs to fetch all executions
@@ -420,6 +421,9 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
 
         # configure View how to enter editing mode
         self.treeView_algorithms.setEditTriggers(QtWidgets.QAbstractItemView.AllEditTriggers)
+
+    def loadBaseMap(self):
+        DlgVisualizationBasemap().exec_()
 
     def closeEvent(self, event):
         super(MainWidget, self).closeEvent(event)

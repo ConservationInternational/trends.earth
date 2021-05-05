@@ -144,9 +144,13 @@ class DatasetEditorWidget(QWidget, Ui_WidgetDatasetItem):
             QIcon(':/plugins/LDMP/icons/mActionAddRasterLayer.svg'))
 
         # allow having string or datetime for start_date
+        # setting string in a uniform format
         start_date_txt = self.dataset.creation_date
         if isinstance(self.dataset.creation_date, datetime):
-            start_date_txt = self.dataset.creation_date.strftime('%Y-%m-%d (%H:%M)')
+            start_date_txt = self.dataset.datetimeRepr(self.dataset.creation_date)
+        else:
+            dt = self.dataset.toDatetime(start_date_txt)
+            start_date_txt = self.dataset.datetimeRepr(dt)
         self.labelCreationDate.setText(start_date_txt)
 
         self.labelRunId.setText(str(self.dataset.run_id)) # it is UUID

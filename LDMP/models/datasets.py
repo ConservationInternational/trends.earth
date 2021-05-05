@@ -222,6 +222,16 @@ class Dataset(DatasetBase):
     def fileName(self):
         return self.__fileName
 
+    @staticmethod
+    def datetimeRepr(dt: datetime) -> str:
+        return datetime.strftime(dt, '%Y/%m/%d (%H:%M)')
+
+    @staticmethod
+    def toDatetime(dt: str, fmt: str = None) -> datetime:
+        if fmt is None:
+            return datetime.fromisoformat(dt)
+        return datetime.strptime(dt, fmt)
+
     def download(self, datasets_refresh: bool = True) -> None:
         """Download Dataset related to a specified Job in a programmatically defined filename and folder.
         Because a new dataset JSON descriptor is created => Datasets sync

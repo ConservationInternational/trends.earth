@@ -222,10 +222,15 @@ class Dataset(DatasetBase):
     def fileName(self):
         return self.__fileName
 
-    def download(self):
+    def download(self, datasets_refresh: bool = True) -> None:
         """Download Dataset related to a specified Job in a programmatically defined filename and folder.
-
         Because a new dataset JSON descriptor is created => Datasets sync
+
+        Args:
+            datasets_refresh (bool): if have to trigger Datasets().sync() after downloaded.
+
+        Returns:
+            None
         """
         res = Jobs().jobById(str(self.run_id)) # casting because can be UUID
         if res is None:
@@ -264,11 +269,13 @@ class Dataset(DatasetBase):
         if result_type == 'CloudResults':
             download_cloud_results(job.raw, f, self.tr, add_to_map=False)
             self.downloaded.emit(f)
-            Datasets().sync()
+            if datasets_refresh:
+                Datasets().sync()
         elif result_type == 'TimeSeriesTable':
             download_timeseries(job.raw, self.tr)
             self.downloaded.emit(None)
-            Datasets().sync()
+            if datasets_refresh:
+                Datasets().sync()
         else:
             raise ValueError("Unrecognized result type in download results: {}".format(result_type))
 
@@ -414,6 +421,19 @@ class Datasets(QObject):
                     dataset = Dataset(dataset=dataset_dict, filename=json_file)
                     self.datasetsStore[json_file] = dataset
 
+        self.updated.emit()
+
+    def triggerDownloads(self) -> None:
+        """Method to start download for each Dataset in the following state:
+        1) successufully finished e.g. dataset.status in ['FINISHED', 'SUCCESS']
+        2) dataset.origin == Dataset.Origin.dataset (e.g. not yet downloaded).
+        """
+        for json_file, dataset in self.datasetsStore.items():
+            if ( (dataset.status not in ['FINISHED', 'SUCCESS']) or
+                 (dataset.origin() != Dataset.Origin.dataset) ):
+                continue
+            # do not refresh datasets and do only after triggered all downloads
+            dataset.download(datasets_refresh=False)
         self.updated.emit()
 
     def datasetById(self, id: str) -> Optional[Tuple[str, Job]]:

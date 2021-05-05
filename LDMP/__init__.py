@@ -160,8 +160,6 @@ def json_serial(obj):
     """JSON serializer for objects not serializable by default json code"""
     if isinstance(obj, (datetime.datetime, datetime.date)):
         return obj.isoformat()
-    raise TypeError("Type {} not serializable".format(type(obj)))
-
 
 def traverse(path, excluded: List[str] = []):
     """Return a list of files traversing path recursively and excluding some of them.
@@ -173,4 +171,3 @@ def traverse(path, excluded: List[str] = []):
             continue
         for f in files:
             yield os.path.join(basepath, f)
-

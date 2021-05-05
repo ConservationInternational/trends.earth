@@ -182,7 +182,7 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
 
         # show it
 
-    def refreshDatasets(self, autorefresh=True):
+    def refreshDatasets(self, autorefresh=True, autodownload=True):
         """Refresh datasets is composed of the following steps:
         1) Get all executions (e.g. Jobs)
         2) Rebuild and dump Datasets based on the downloaded Jobs
@@ -193,6 +193,11 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
             return
         self.plugin.dlg_jobs.btn_refresh()
         self.updateDatasetsBasedOnJobs()
+
+        # trigger download for terminated jobs
+        dataset_auto_download = QtCore.QSettings().value("trends_earth/advanced/dataset_auto_download", True, type=bool)
+        if autodownload and dataset_auto_download:
+            Datasets().triggerDownloads()
 
         # depending on config re-trigger it
         refresh_polling_time = QtCore.QSettings().value("trends_earth/advanced/refresh_polling_time", 60000, type=int)

@@ -395,6 +395,12 @@ class Datasets(QObject):
                     # if strored in datasetStore remove entry related to json_file Dataset
                     self.datasetsStore.pop(json_file, None)
 
+                    # remove also the dataset json that now is nomore necessary
+                    try:
+                        os.remove(json_file)
+                    except:
+                        pass
+
                     log(tr('Dataset {} already downloaded => skipped').format(json_file))
                     continue
 

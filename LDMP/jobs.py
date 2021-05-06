@@ -15,6 +15,7 @@
 from builtins import zip
 from builtins import range
 from typing import Optional, List, Dict, Tuple
+import threading
 import os
 import json
 import re
@@ -607,20 +608,23 @@ class Jobs(QObject):
 
     updated = pyqtSignal()
     jobsStore = {}
+    lock = threading.RLock()
 
     def __init__(self):
         super().__init__()
 
     def set(self, jobs_dict: Optional[List[dict]] = None):
-        # remove previous jobs
-        self.reset()
+        with self.lock:
+            # remove previous jobs but not trigger event
+            self.reset(emit=False)
 
-        if jobs_dict is None:
-            return
+            if jobs_dict is None:
+                return
 
-        # set new ones
-        for job_dict in jobs_dict:
-            self.append(job_dict)
+            # set new ones
+            for job_dict in jobs_dict:
+                self.append(job_dict)
+
         self.updated.emit()
 
     def sync(self) -> None:
@@ -676,16 +680,19 @@ class Jobs(QObject):
     def classes(self):
         return [ job for job in self.jobsStore.values() ]
 
-    def reset(self):
+    def reset(self, emit: bool = True):
         """Remove any jobs and related json contrepart."""
         # remove any json of the available Jobs in self.jobs
-        for file_name in self.jobsStore.keys():
-            try:
-                os.remove(file_name)
-            except:
-                pass
-        self.jobsStore = {}
-        self.updated.emit()
+        with self.lock:
+            for file_name in self.jobsStore.keys():
+                try:
+                    os.remove(file_name)
+                except:
+                    pass
+            self.jobsStore = {}
+
+        if emit:
+            self.updated.emit()
 
 class JobSchema(marshmallow.Schema):
     response = marshmallow.fields.Nested(APIResponseSchema, many=False)

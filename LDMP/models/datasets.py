@@ -21,6 +21,7 @@ import abc
 import os
 import json
 from collections import OrderedDict
+import threading
 
 from qgis.PyQt.QtCore import QSettings, pyqtSignal, QObject
 from qgis.core import QgsLogger
@@ -299,30 +300,21 @@ class Datasets(QObject):
     """
     datasetsStore: Dict[str, Dataset] = OrderedDict()
     updated = pyqtSignal()
+    lock = threading.RLock()
 
     def __init__(self):
         super().__init__()
 
-    def reset(self, emit: bool = False):
+    def reset(self, emit: bool = True):
         """Remove any Datast and related json contrepart."""
         # remove any json of the available Jobs in self.jobs
         # for file_name in self.datasetsStore.keys():
         #     os.remove(file_name)
-        self.datasetsStore = OrderedDict()
+        with self.lock:
+            self.datasetsStore = OrderedDict()
+
         if emit:
             self.updated.emit()
-
-    def set(self, datasets_dict: Optional[List[dict]] = None):
-        # remove previous jobs
-        self.reset()
-
-        if datasets_dict is None:
-            return
-
-        # set new ones
-        for dataset_dict in datasets_dict:
-            self.append(dataset_dict)
-        self.updated.emit()
 
     def appendFromJob(self, job: Job) -> (str, Dataset):
         """Create a Dataset and dump basing an assumed valid Job."""

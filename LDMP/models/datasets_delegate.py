@@ -27,7 +27,8 @@ from qgis.PyQt.QtCore import (
     QRectF,
     QRect,
     QAbstractItemModel,
-    QSize
+    QSize,
+    QSettings
 )
 from qgis.PyQt.QtWidgets import (
     QStyleOptionViewItem,
@@ -155,24 +156,35 @@ class DatasetEditorWidget(QWidget, Ui_WidgetDatasetItem):
 
         self.labelRunId.setText(str(self.dataset.run_id)) # it is UUID
 
+        # disable download button by default
+        self.pushButtonStatus.setIcon(QIcon(':/plugins/LDMP/icons/cloud-download.svg'))
+        self.pushButtonStatus.setEnabled(False)
+        self.pushButtonStatus.show()
+
         # show progress bar or download button depending on status
-        self.progressBar.setValue( self.dataset.progress )
-        self.pushButtonStatus.hide()
-        self.progressBar.show()
+        self.progressBar.setValue(self.dataset.progress)
         if self.dataset.status == 'PENDING':
+            self.progressBar.setRange(0,100)
             self.progressBar.setFormat(self.dataset.status)
+            self.progressBar.show()
         if ( self.dataset.progress > 0 and
              self.dataset.progress < 100
             ):
-            self.progressBar.setFormat(self.dataset.progress)
+            # no % come from server => set progress as continue update
+            self.progressBar.show()
+            self.progressBar.setMinimum(0)
+            self.progressBar.setMaximum(0)
+            self.progressBar.setFormat('Processing...')
         # change GUI if finished
         if ( self.dataset.status in ['FINISHED', 'SUCCESS'] and
              self.dataset.progress == 100 and
              self.dataset.origin() != Dataset.Origin.downloaded_dataset
             ):
+            self.progressBar.reset()
             self.progressBar.hide()
-            self.pushButtonStatus.show()
-            self.pushButtonStatus.setIcon(QIcon(':/plugins/LDMP/icons/cloud-download.svg'))
+            # disable download button if auto download is set
+            dataset_auto_download = QSettings().value("trends_earth/advanced/dataset_auto_download", True, type=bool)
+            self.pushButtonStatus.setEnabled(not dataset_auto_download)
             # add event to download dataset
             self.pushButtonStatus.clicked.connect(self.dataset.download)
 

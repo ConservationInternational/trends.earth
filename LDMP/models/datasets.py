@@ -268,7 +268,7 @@ class Dataset(DatasetBase):
             if job.taskName:
                 fileBaseName = u'{}_{}_{}'.format(job.runId, job.scriptName, job.taskName)
             else:
-                fileBaseName = u'{}_{}_{}'.format(job.runId, job.scriptName)
+                fileBaseName = u'{}_{}'.format(job.runId, job.scriptName)
             
             # set the folder where to save result
             f = os.path.join(base_dir, fileBaseName)
@@ -483,6 +483,5 @@ class DownloadedDatasetSchema(Schema):
 
     file = fields.Str(required=True)
     metadata = fields.Nested(JobSchema, many=False, required=False)
-
 
 

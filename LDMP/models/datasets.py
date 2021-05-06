@@ -22,6 +22,8 @@ import os
 import json
 from collections import OrderedDict
 import threading
+import glob
+import shutil
 
 from qgis.PyQt.QtCore import QSettings, pyqtSignal, QObject
 from qgis.core import QgsLogger
@@ -289,6 +291,29 @@ class Dataset(DatasetBase):
                 Datasets().sync()
         else:
             raise ValueError("Unrecognized result type in download results: {}".format(result_type))
+
+    def delete(self):
+        """Download a downloaded dataset. E.g. remove any downloaded file and move descriptor only in
+        a Delete folder to take trace of deleted one and avoid to doenload again.
+        """
+        json_path = os.path.dirname(self.__fileName)
+
+        # copy json descriptor in delete folder
+        base_data_directory = QSettings().value("trends_earth/advanced/base_data_directory", None, type=str)
+        delete_path = os.path.join(base_data_directory, 'deleted')
+
+        if not os.path.exists(delete_path):
+            os.makedirs(delete_path)
+        shutil.copy(self.__fileName, delete_path)
+
+        # look for all run_id related files
+        related = glob.glob(json_path, "{}*".fromat(self.run_id), recursive=False)
+        for f in related:
+            # remove related
+            try:
+                os.remove(f)
+            except:
+                pass
 
 
 @singleton

@@ -443,8 +443,7 @@ class Datasets(QObject):
                     os.remove(json_file)
                 except:
                     pass
-
-                log(tr(f'Dataset {json_file} already marked as deleted => skipped'))
+                QgsLogger.debug(f'Dataset {json_file} already marked as deleted => skipped', debuglevel=3)
                 continue
 
             # skip if dataset has a downloaded contrepart e.g. a json file with the same UUID plus more
@@ -460,8 +459,7 @@ class Datasets(QObject):
                     os.remove(json_file)
                 except:
                     pass
-
-                log(tr(f'Dataset {json_file} already downloaded => skipped'))
+                QgsLogger.debug(f'Dataset {json_file} already downloaded => skipped', debuglevel=3)
                 continue
 
             # skip any not json file
@@ -472,7 +470,10 @@ class Datasets(QObject):
                     # no json => skip
                     continue
                 except Exception as ex:
-                    QgsLogger.debug('* Error reading file {} with ex: {}'.format(json_file, str(ex)), debuglevel=3)
+                    # because reach codec error trying to parse .tiff => avoid to clutter log
+                    extension = os.path.splitext(json_file)[1]
+                    if extension.lower() not in ['tif', 'tiff', 'png', 'jpeg', 'jpg']:
+                        QgsLogger.debug('* Error reading file {} with ex: {}'.format(json_file, str(ex)), debuglevel=3)
                     continue
 
                 # block useful to distinguish if dataset is a downloaded dataset or not

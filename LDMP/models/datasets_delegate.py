@@ -191,8 +191,6 @@ class DatasetEditorWidget(QWidget, Ui_WidgetDatasetItem):
             self.pushButtonStatus.setEnabled(True)
             # add event to download dataset
             self.pushButtonStatus.clicked.connect(self.dataset.download)
-            # allow delete if downloaded
-            self.pushButtonDelete.setEnabled(True)
 
         dataset_name = self.dataset.name if self.dataset.name else '<no name set>'
         self.labelDatasetName.setText(dataset_name)
@@ -204,6 +202,8 @@ class DatasetEditorWidget(QWidget, Ui_WidgetDatasetItem):
         if self.dataset.origin() == Dataset.Origin.downloaded_dataset:
             self.progressBar.hide()
             self.pushButtonStatus.hide()
+            # allow delete if downloaded
+            self.pushButtonDelete.setEnabled(True)
 
     def show_details(self):
         log(f"Details button clicked for dataset {self.dataset.name!r}")
@@ -213,3 +213,5 @@ class DatasetEditorWidget(QWidget, Ui_WidgetDatasetItem):
 
     def delete_dataset(self):
         log(f"Delete button clicked for dataset {self.dataset.name!r}")
+        self.dataset.delete()
+

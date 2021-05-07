@@ -29,7 +29,7 @@ from qgis.PyQt.QtCore import QSettings, pyqtSignal, QObject
 from qgis.core import QgsLogger
 from LDMP.jobs import Job, JobSchema, Jobs, download_cloud_results, download_timeseries
 from LDMP.calculate import get_script_group
-from LDMP import log, singleton, tr, json_serial
+from LDMP import log, singleton, tr, json_serial, traverse
 
 import marshmallow
 from marshmallow import fields, Schema
@@ -182,8 +182,8 @@ class Dataset(DatasetBase):
         base_data_directory = QSettings().value("trends_earth/advanced/base_data_directory", None, type=str)
 
         # TODO: set subfolder basing on the nature of Dataset
-        # for now only 'ouptuts'
-        out_path = os.path.join(base_data_directory, 'ouptuts')
+        # for now only 'outputs'
+        out_path = os.path.join(base_data_directory, 'outputs')
 
         # set location where to save basing on script(alg) used
         if self.origin() != Dataset.Origin.downloaded_dataset:
@@ -352,6 +352,21 @@ class Datasets(QObject):
 
     def appendFromJob(self, job: Job) -> (str, Dataset):
         """Create a Dataset and dump basing an assumed valid Job."""
+        # do nothing if dataset has been marked as deleted
+        base_data_directory = QSettings().value("trends_earth/advanced/base_data_directory", None, type=str)
+        if not base_data_directory:
+            return
+        deleted_subpath = os.path.join(base_data_directory, 'deleted')
+
+        # get list of all deleted Datasets
+        deleted = traverse(deleted_subpath)
+
+        # check if already deleted
+        is_deleted = next((d for d in deleted if job.runId in d), None)
+        if is_deleted:
+            return
+
+        # not deleted => create Dataset
         dataset = Dataset(job=job)
         dataset.deleted.connect(self.sync)
         dump_file_name = dataset.dump() # doing save in default location
@@ -383,27 +398,19 @@ class Datasets(QObject):
         found Dataset descriptor.
         """
         base_data_directory = QSettings().value("trends_earth/advanced/base_data_directory", None, type=str)
+        if not base_data_directory:
+            return
         jobs_subpath = os.path.join(base_data_directory, 'Jobs')
         deleted_subpath = os.path.join(base_data_directory, 'deleted')
 
         datasetSchema = DatasetSchema()
         downloadedDatasetSchema = DownloadedDatasetSchema()
 
-        def traverse(path, excluded: List[str] = []):
-            for basepath, directories, files in os.walk(path):
-                # skip if parsing an excluded path
-                is_excluded = [x for x in excluded if x.lower() in basepath.lower()]
-                if is_excluded:
-                    continue
-                for f in files:
-                    yield os.path.join(basepath, f)
-
         # remove any previous memorised Datasets
         self.reset(emit=False)
 
         # get all deleted Datasets descriptos
-        deleted_path = os.path.join(base_data_directory, 'deleted')
-        deleted = list(traverse(deleted_path))
+        deleted = list(traverse(deleted_subpath))
 
         # purge all too old deleted descriptors
         today = datetime.today()

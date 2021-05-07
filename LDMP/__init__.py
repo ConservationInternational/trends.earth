@@ -21,6 +21,7 @@ import subprocess
 import datetime
 import threading
 from tempfile import NamedTemporaryFile
+from typing import List
 
 from qgis.PyQt.QtCore import (QSettings, QTranslator, qVersion, 
         QLocale, QCoreApplication)
@@ -160,4 +161,16 @@ def json_serial(obj):
     if isinstance(obj, (datetime.datetime, datetime.date)):
         return obj.isoformat()
     raise TypeError("Type {} not serializable".format(type(obj)))
+
+
+def traverse(path, excluded: List[str] = []):
+    """Return a list of files traversing path recursively and excluding some of them.
+    """
+    for basepath, directories, files in os.walk(path):
+        # skip if parsing an excluded path
+        is_excluded = [x for x in excluded if x.lower() in basepath.lower()]
+        if is_excluded:
+            continue
+        for f in files:
+            yield os.path.join(basepath, f)
 

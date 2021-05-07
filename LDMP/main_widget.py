@@ -139,7 +139,7 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         self.pushButton_refresh.clicked.connect(refreshWithotAutorefresh) 
 
         # set automatic refreshes
-        dataset_refresh_polling_time = QtCore.QSettings().value("trends_earth/advanced/datasets_refresh_polling_time", 60000, type=int)
+        dataset_refresh_polling_time = QtCore.QSettings().value("trends_earth/advanced/datasets_refresh_polling_time", 25000, type=int)
         job_refresh_polling_time = QtCore.QSettings().value("trends_earth/advanced/jobs_refresh_polling_time", 60000, type=int)
         if dataset_refresh_polling_time > 0:
             QtCore.QTimer.singleShot(dataset_refresh_polling_time, self.refreshDatasets)
@@ -196,6 +196,11 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
             return
         self.plugin.dlg_jobs.btn_refresh()
         Jobs().sync()
+
+        # depending on config re-trigger it
+        job_refresh_polling_time = QtCore.QSettings().value("trends_earth/advanced/jobs_refresh_polling_time", 60000, type=int)
+        if autorefresh and job_refresh_polling_time > 0:
+            QtCore.QTimer.singleShot(job_refresh_polling_time, self.refreshJobs)
 
     def refreshDatasets(self, autorefresh=True, autodownload=True):
         """Refresh datasets is composed of the following steps:

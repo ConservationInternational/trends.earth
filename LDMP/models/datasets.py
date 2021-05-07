@@ -95,6 +95,7 @@ class Dataset(DatasetBase):
 
     dumped = pyqtSignal(str)
     downloaded = pyqtSignal(str)
+    deleted = pyqtSignal(str)
     class Origin(Enum):
         job = 0,
         dataset = 1,
@@ -304,16 +305,24 @@ class Dataset(DatasetBase):
 
         if not os.path.exists(delete_path):
             os.makedirs(delete_path)
-        shutil.copy(self.__fileName, delete_path)
+        try:
+            shutil.copy(self.__fileName, delete_path)
+        except Exception as ex:
+            log(tr(f'Cannot copy file: {self.__fileName} to path: {delete_path}'))
+            QgsLogger.debug(f'{str(ex)}', debuglevel=1)
+            return
 
         # look for all run_id related files
-        related = glob.glob(json_path, "{}*".fromat(self.run_id), recursive=False)
+        look_for = os.path.join(json_path, f"{self.run_id}*")
+        related = glob.glob(look_for, recursive=False)
         for f in related:
             # remove related
             try:
                 os.remove(f)
-            except:
+            except Exception as ex:
+                QgsLogger.debug(f'{str(ex)}', debuglevel=1)
                 pass
+        self.deleted.emit(self.__fileName)
 
 
 @singleton
@@ -344,6 +353,7 @@ class Datasets(QObject):
     def appendFromJob(self, job: Job) -> (str, Dataset):
         """Create a Dataset and dump basing an assumed valid Job."""
         dataset = Dataset(job=job)
+        dataset.deleted.connect(self.sync)
         dump_file_name = dataset.dump() # doing save in default location
 
         # add in memory store .e.g a dictionary
@@ -373,27 +383,85 @@ class Datasets(QObject):
         found Dataset descriptor.
         """
         base_data_directory = QSettings().value("trends_earth/advanced/base_data_directory", None, type=str)
+        jobs_subpath = os.path.join(base_data_directory, 'Jobs')
+        deleted_subpath = os.path.join(base_data_directory, 'deleted')
 
-        def traverse(path):
-            excluded_path = os.path.sep + 'Jobs' + os.path.sep
+        datasetSchema = DatasetSchema()
+        downloadedDatasetSchema = DownloadedDatasetSchema()
 
+        def traverse(path, excluded: List[str] = []):
             for basepath, directories, files in os.walk(path):
+                # skip if parsing an excluded path
+                is_excluded = [x for x in excluded if x.lower() in basepath.lower()]
+                if is_excluded:
+                    continue
                 for f in files:
-                    # skip files in Jobs
-                    if excluded_path.lower() in basepath.lower():
-                        continue
-                    
                     yield os.path.join(basepath, f)
 
         # remove any previous memorised Datasets
-        # self.reset()
-        datasetSchema = DatasetSchema()
-        downloadedDatasetSchema = DownloadedDatasetSchema()
-        json_files = list(traverse(base_data_directory)) # need traverse all to check if some dataset has been already downloaded
+        self.reset(emit=False)
+
+        # get all deleted Datasets descriptos
+        deleted_path = os.path.join(base_data_directory, 'deleted')
+        deleted = list(traverse(deleted_path))
+
+        # purge all too old deleted descriptors
+        today = datetime.today()
+        deleted_datasets_age_limit = QSettings().value("trends_earth/advanced/deleted_datasets_age_limit", 15, type=int)
+        for deleted_json in deleted:
+            creation_datetime = os.stat(deleted_json).st_ctime
+            creation_datetime = datetime.fromtimestamp(creation_datetime)
+            delta = today - creation_datetime
+            if delta.days > deleted_datasets_age_limit:
+                try:
+                    os.remove(json_file)
+                except:
+                    pass
+
+        # process all available Dataset descriptors
+        json_files = list(traverse(base_data_directory, excluded=[jobs_subpath, deleted_subpath])) # need traverse all to check if some dataset has been already downloaded
         for json_file in json_files:
             # skip larger thatn 1MB files
             statinfo = os.stat(json_file)
             if statinfo.st_size > 1024*1024:
+                continue
+
+            # Datasets descriptor json filenamehas these relations:
+            #   Dataset descriptor: b4b098f8-e562-4843-b6ed-586878410a01.json
+            #   Downloaded dataset descriptor: b4b098f8-e562-4843-b6ed-586878410a01_Productivity 1_0_3_gen_test19.json
+            # A deleted descriptor is moved in "deleted" folder
+            basename_uuid = os.path.splitext(os.path.basename(json_file))[0]
+
+            # skip if Dataset has been deleted
+            been_deleted = next((d for d in deleted if basename_uuid in d), None)
+            if been_deleted:
+                # if strored in datasetStore remove entry related to deleted Dataset
+                self.datasetsStore.pop(json_file, None)
+
+                # remove also the dataset json in case it's still present
+                try:
+                    os.remove(json_file)
+                except:
+                    pass
+
+                log(tr(f'Dataset {json_file} already marked as deleted => skipped'))
+                continue
+
+            # skip if dataset has a downloaded contrepart e.g. a json file with the same UUID plus more
+            # info in filename
+            look_for = basename_uuid + "_"
+            found = next((j for j in json_files if look_for in j), None) # look if some key containing 'look_for' string
+            if found:
+                # if strored in datasetStore remove entry related to json_file Dataset
+                self.datasetsStore.pop(json_file, None)
+
+                # remove also the dataset json that now is nomore necessary
+                try:
+                    os.remove(json_file)
+                except:
+                    pass
+
+                log(tr(f'Dataset {json_file} already downloaded => skipped'))
                 continue
 
             # skip any not json file
@@ -405,28 +473,6 @@ class Datasets(QObject):
                     continue
                 except Exception as ex:
                     QgsLogger.debug('* Error reading file {} with ex: {}'.format(json_file, str(ex)), debuglevel=3)
-                    continue
-
-                # skip if dataset has a downloaded contrepart e.g. a json file with the same UUID plus more
-                # info in filename. e.g if dataset is:
-                #   b4b098f8-e562-4843-b6ed-586878410a01.json
-                # a downloaded dataset could be:
-                #   b4b098f8-e562-4843-b6ed-586878410a01_Productivity 1_0_3_gen_test19.json
-                basename = os.path.splitext(os.path.basename(json_file))[0]
-                look_for = basename + "_"
-
-                found = next((j for j in json_files if look_for in j), None) # look if some key containing 'look_for' string
-                if found:
-                    # if strored in datasetStore remove entry related to json_file Dataset
-                    self.datasetsStore.pop(json_file, None)
-
-                    # remove also the dataset json that now is nomore necessary
-                    try:
-                        os.remove(json_file)
-                    except:
-                        pass
-
-                    log(tr('Dataset {} already downloaded => skipped').format(json_file))
                     continue
 
                 # block useful to distinguish if dataset is a downloaded dataset or not
@@ -452,6 +498,7 @@ class Datasets(QObject):
                 
                 if dataset_dict:
                     dataset = Dataset(dataset=dataset_dict, filename=json_file)
+                    dataset.deleted.connect(self.sync)
                     self.datasetsStore[json_file] = dataset
 
         self.updated.emit()

@@ -191,8 +191,6 @@ class DatasetEditorWidget(QWidget, Ui_WidgetDatasetItem):
             self.pushButtonStatus.setEnabled(True)
             # add event to download dataset
             self.pushButtonStatus.clicked.connect(self.dataset.download)
-            # allow delete if downloaded
-            self.pushButtonDelete.setEnabled(True)
 
         dataset_name = self.dataset.name if self.dataset.name else '<no name set>'
         self.labelDatasetName.setText(dataset_name)

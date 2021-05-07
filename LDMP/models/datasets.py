@@ -432,11 +432,21 @@ class Datasets(QObject):
         datasetSchema = DatasetSchema()
         downloadedDatasetSchema = DownloadedDatasetSchema()
 
+        def traverse(path, excluded: List[str] = []):
+            for basepath, directories, files in os.walk(path):
+                # skip if parsing an excluded path
+                is_excluded = [x for x in excluded if x.lower() in basepath.lower()]
+                if is_excluded:
+                    continue
+                for f in files:
+                    yield os.path.join(basepath, f)
+
         # remove any previous memorised Datasets
         self.reset(emit=False)
 
         # get all deleted Datasets descriptos
-        deleted = list(traverse(deleted_subpath))
+        deleted_path = os.path.join(base_data_directory, 'deleted')
+        deleted = list(traverse(deleted_path))
 
         # purge all too old deleted descriptors
         today = datetime.today()

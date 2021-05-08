@@ -54,6 +54,8 @@ def classFactory(iface):  # pylint: disable=invalid-name
     """
 
     from LDMP.plugin import LDMPPlugin
+    import pydevd_pycharm
+    pydevd_pycharm.settrace('localhost', port=1235, stdoutToServer=True, stderrToServer=True)
     return LDMPPlugin(iface)
 
 # Function to get a temporary filename that handles closing the file created by 

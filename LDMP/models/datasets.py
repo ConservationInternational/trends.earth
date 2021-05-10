@@ -236,7 +236,7 @@ class Dataset(DatasetBase):
             return datetime.fromisoformat(dt)
         return datetime.strptime(dt, fmt)
 
-    def download(self, datasets_refresh: bool = True) -> None:
+    def download(self, datasets_refresh: bool = True, add_to_map: bool = False) -> None:
         """Download Dataset related to a specified Job in a programmatically defined filename and folder.
         Because a new dataset JSON descriptor is created => Datasets sync
 
@@ -281,7 +281,7 @@ class Dataset(DatasetBase):
         log(u"Processing job {}.".format(job.runId))
         result_type = job.results.get('type')
         if result_type == 'CloudResults':
-            download_cloud_results(job.raw, f, self.tr, add_to_map=False)
+            download_cloud_results(job.raw, f, self.tr, add_to_map=add_to_map)
             self.downloaded.emit(f)
             if datasets_refresh:
                 Datasets().sync()
@@ -324,6 +324,12 @@ class Dataset(DatasetBase):
                 pass
         self.deleted.emit(self.__fileName)
 
+    def add(self):
+        """Add dataset in canvas.
+        Reused completly download method to try to use old code as back box and avoid introduce any
+        changes. Datasets already downloaded will not downloaded again.
+        """
+        self.download(datasets_refresh=False, add_to_map=True)
 
 @singleton
 class Datasets(QObject):

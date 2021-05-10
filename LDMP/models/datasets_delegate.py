@@ -210,6 +210,7 @@ class DatasetEditorWidget(QWidget, Ui_WidgetDatasetItem):
 
     def load_dataset(self):
         log(f"Load button clicked for dataset {self.dataset.name!r}")
+        self.dataset.add()
 
     def delete_dataset(self):
         log(f"Delete button clicked for dataset {self.dataset.name!r}")

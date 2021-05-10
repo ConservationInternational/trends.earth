@@ -159,7 +159,8 @@ class DatasetEditorWidget(QWidget, Ui_WidgetDatasetItem):
         # disable download button by default
         self.pushButtonStatus.setIcon(QIcon(':/plugins/LDMP/icons/cloud-download.svg'))
         self.pushButtonStatus.setEnabled(False)
-        self.pushButtonStatus.show()
+        dataset_auto_download = QSettings().value("trends_earth/advanced/dataset_auto_download", True, type=bool)
+        self.pushButtonStatus.setHidden(dataset_auto_download)
 
         # show progress bar or download button depending on status
         self.progressBar.setValue(self.dataset.progress)
@@ -183,8 +184,7 @@ class DatasetEditorWidget(QWidget, Ui_WidgetDatasetItem):
             self.progressBar.reset()
             self.progressBar.hide()
             # disable download button if auto download is set
-            dataset_auto_download = QSettings().value("trends_earth/advanced/dataset_auto_download", True, type=bool)
-            self.pushButtonStatus.setEnabled(not dataset_auto_download)
+            self.pushButtonStatus.setEnabled(True)
             # add event to download dataset
             self.pushButtonStatus.clicked.connect(self.dataset.download)
 

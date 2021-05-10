@@ -219,7 +219,7 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
             Datasets().triggerDownloads()
 
         # depending on config re-trigger it
-        dataset_refresh_polling_time = QtCore.QSettings().value("trends_earth/advanced/datasets_refresh_polling_time", 60000, type=int)
+        dataset_refresh_polling_time = QtCore.QSettings().value("trends_earth/advanced/datasets_refresh_polling_time", 25000, type=int)
         if autorefresh and dataset_refresh_polling_time > 0:
             QtCore.QTimer.singleShot(dataset_refresh_polling_time, self.refreshDatasets)
 

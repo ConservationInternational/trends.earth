@@ -442,7 +442,7 @@ class Datasets(QObject):
                 continue
             # do not refresh datasets and do only after triggered all downloads
             dataset.download(datasets_refresh=False)
-        self.updated.emit()
+        self.sync()
 
     def datasetById(self, id: str) -> Optional[Tuple[str, Job]]:
         """Return Dataset and related descriptor asociated file."""

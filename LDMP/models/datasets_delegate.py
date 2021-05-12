@@ -152,20 +152,23 @@ class DatasetEditorWidget(QWidget, Ui_WidgetDatasetItem):
         self.labelRunId.setText(str(self.dataset.run_id)) # it is UUID
 
         # show progress bar or download button depending on status
-        self.progressBar.setValue( self.dataset.progress )
+        if self.dataset.progress is not None:
+            self.progressBar.setValue( self.dataset.progress )
         self.pushButtonStatus.hide()
         self.progressBar.show()
         if self.dataset.status == 'PENDING':
             self.progressBar.setFormat(self.dataset.status)
-        if (self.dataset.progress > 0 and
-            self.dataset.progress < 100):
-           self.progressBar.setFormat(self.dataset.progress)
-        # change GUI if finished
-        if (self.dataset.status in ['FINISHED', 'SUCCESS'] and
-            self.dataset.progress == 100):
-            self.progressBar.hide()
-            self.pushButtonStatus.show()
-            self.pushButtonStatus.setIcon(QIcon(':/plugins/LDMP/icons/cloud-download.svg'))
+
+        if self.dataset.progress is not None:
+            if (self.dataset.progress > 0 and
+                self.dataset.progress < 100):
+               self.progressBar.setFormat(self.dataset.progress)
+            # change GUI if finished
+            if (self.dataset.status in ['FINISHED', 'SUCCESS'] and
+                self.dataset.progress == 100):
+                self.progressBar.hide()
+                self.pushButtonStatus.show()
+                self.pushButtonStatus.setIcon(QIcon(':/plugins/LDMP/icons/cloud-download.svg'))
 
         dataset_name = self.dataset.name if self.dataset.name else '<no name set>'
         self.labelDatasetName.setText(dataset_name)

@@ -48,6 +48,7 @@ from LDMP.calculate import (
 )
 
 from LDMP.download_data import DlgDownload
+from LDMP.data_io import DlgDataIO
 
 from LDMP.visualization import DlgVisualizationBasemap
 
@@ -106,7 +107,7 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
                 available = False
                 if available:
                     continue
-            
+
             Datasets().appendFromJob(job)
 
         # add any other datasets available
@@ -128,6 +129,7 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         self.pushButton_refresh.setIcon(icon)
         icon = QtGui.QIcon(':/plugins/LDMP/icons/cloud-download.svg')
         self.pushButton_import.setIcon(icon)
+        self.pushButton_import.clicked.connect(self.import_data)
         icon = QtGui.QIcon(':/plugins/LDMP/icons/mActionSharingImport.svg')
         self.pushButton_download.setIcon(icon)
         self.pushButton_download.clicked.connect(self.download_data)
@@ -138,7 +140,7 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         # avoid using lambda or partial to allow not anonymous callback => can be remove if necessary
         def refreshWithotAutorefresh():
             self.refreshDatasets(autorefresh=False)
-        self.pushButton_refresh.clicked.connect(refreshWithotAutorefresh) 
+        self.pushButton_refresh.clicked.connect(refreshWithotAutorefresh)
 
         # set automatic refresh
         refresh_polling_time = QtCore.QSettings().value("trends_earth/advanced/refresh_polling_time", 60000, type=int)
@@ -218,7 +220,7 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
 
         # land_degradation_group
         land_productivity_alg = AlgorithmDescriptor(
-            name=tr('Land productivity'), 
+            name=tr('Land productivity'),
             name_details=None,
             brief_description=None,
             details=None,
@@ -431,6 +433,9 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
 
     def download_data(self):
         DlgDownload().exec_()
+
+    def import_data(self):
+        DlgDataIO().exec_()
 
     def closeEvent(self, event):
         super(MainWidget, self).closeEvent(event)

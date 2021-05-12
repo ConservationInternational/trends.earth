@@ -35,7 +35,7 @@ from LDMP import log, singleton, tr, json_serial, traverse
 
 import marshmallow
 from marshmallow import fields, Schema
-from LDMP.schemas.schemas import APIResponseSchema
+from LDMP.schemas.schemas import APIResponseSchema, LocalRaster, LocalRasterSchema
 
 
 class DatasetStatus(Enum):
@@ -109,11 +109,13 @@ class Dataset(DatasetBase):
         job = 0,
         dataset = 1,
         downloaded_dataset = 2,
-        not_applicable = 3
+        not_applicable = 3,
+        local_raster = 4
 
     def __init__(self,
             job: Optional[Job] = None,
             dataset: Optional[Dict] = None,
+            localRaster: Optional[LocalRaster] = None,
             filename: Optional[str] = None
         ) -> None:
         super().__init__()
@@ -134,24 +136,56 @@ class Dataset(DatasetBase):
             self.__origin = Dataset.Origin.job
             self.__fileName = None
 
+        elif localRaster:
+            self.bands = localRaster.bands
+            self.file = localRaster.file
+            self.metadata = localRaster.metadata
+
+            self.status = 'COMPLETED'
+            self.progress = 100
+            self.name = localRaster.metadata.get('task_name', '')
+            self.creation_date = datetime.now()
+
+            # get source and run_id from json filename
+            self.run_id = os.path.splitext(os.path.basename(localRaster.file))[0] # e.g. get random uud of the json filename
+            date_folder = os.path.sos.path.dirname(localRaster.file) # e.g. get last path folder name that should be the generation date
+            self.source = os.path.split(os.path.sos.path.dirname(date_folder))[1] # e.g. get last path folder name that should have the name of the algorithm
+
+            self.__origin = Dataset.Origin.local_raster
+            self.__fileName = filename
+
         elif dataset:
-            # check if refer to a Dataset or Downloaded dataset
+            # should be a Downloaded dataset or Local processed Dataset
             if 'bands' in dataset:
                 self.bands = dataset.get('bands')
                 self.file = dataset.get('file')
                 self.metadata = dataset.get('metadata')
 
-                # set common dataset data get from medatata (e.g. original Job)
-                self.status = self.metadata.get('status')
-                self.progress = self.metadata.get('progress')
-                self.source = self.metadata.get('script_name')
-                self.name = self.metadata.get('task_name')
-                self.creation_date = self.metadata.get('start_date')
-                self.run_id = self.metadata.get('id')
+                # get data depending if remote processed downloaded dataset or local processed
+                source = self.metadata.get('script_name', None)
+                if source:
+                    # it is a remote processed dataset => set common dataset data 
+                    # getting from medatata (e.g. original Job)
+                    self.status = self.metadata.get('status')
+                    self.progress = self.metadata.get('progress')
+                    self.source = self.metadata.get('script_name')
+                    self.name = self.metadata.get('task_name')
+                    self.creation_date = self.metadata.get('start_date')
+                    self.run_id = self.metadata.get('id')
+                    self.__origin = Dataset.Origin.downloaded_dataset
+                    self.__fileName = filename
+                else:
+                    # it is a local processed dataset
+                    self.status = 'COMPLETED'
+                    self.progress = 100
+                    self.source = self.metadata.get('source')
+                    self.name = localRaster.metadata.get('task_name', '')
+                    self.creation_date = self.metadata.get('start_date', '')
+                    self.run_id = self.metadata.get('id')
+                    self.__origin = Dataset.Origin.local_raster
+                    self.__fileName = filename
 
-                self.__origin = Dataset.Origin.downloaded_dataset
-                self.__fileName = filename
-
+            # should be a Dataset form cloud processing
             else:
                 self.job = ''
 
@@ -165,8 +199,9 @@ class Dataset(DatasetBase):
 
                 self.__origin = Dataset.Origin.dataset
                 self.__fileName = filename
+
         else:
-            raise Exception('Nor input Job or dataset dictionary are set to build a Dataset instance')
+            raise Exception('Lack of inputs to build a Dataset instance')
 
     def origin(self) -> 'Dataset.Origin':
         return self.__origin
@@ -195,7 +230,8 @@ class Dataset(DatasetBase):
         out_path = os.path.join(base_data_directory, 'outputs')
 
         # set location where to save basing on script(alg) used
-        if self.origin() != Dataset.Origin.downloaded_dataset:
+        formatted_script_name = self.source.lower()
+        if self.origin() == Dataset.Origin.job:
             script_name = self.source
             components = script_name.split()
             components = components[:-1] if len(components) > 1 else components # eventually remove version that return when get exeutions list
@@ -431,6 +467,7 @@ class Datasets(QObject):
 
         datasetSchema = DatasetSchema()
         downloadedDatasetSchema = DownloadedDatasetSchema()
+        localRasterSchema = LocalRasterSchema()
 
         # remove any previous memorised Datasets
         self.reset(emit=False)
@@ -514,6 +551,15 @@ class Datasets(QObject):
                 try:
                     # check if DownloadedDataset
                     dataset_dict = downloadedDatasetSchema.load(parsed_json, partial=False, unknown=marshmallow.RAISE)
+
+                    script = None
+                    metadata = dataset_dict.get('metadata', None)
+                    if metadata:
+                        scripts = metadata.get('script', None)
+                    
+                    # it is not from GEE cloud processing => check if local processing
+                    if not script:
+                        dataset_dict = localRasterSchema.load(parsed_json, partial=False, unknown=marshmallow.RAISE)
 
                 except marshmallow.exceptions.ValidationError as ex:
 

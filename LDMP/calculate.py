@@ -738,6 +738,7 @@ class CalculationHidedOutputWidget(QtWidgets.QWidget, Ui_WidgetCalculationOutput
         if not base_data_directory:
             return
 
+        group = get_script_group(self.subclass_name)
         initial_path = os.path.join(base_data_directory, 'outputs', self.subclass_name)
         if not initial_path:
             return

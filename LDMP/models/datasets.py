@@ -14,17 +14,18 @@
 __author__ = 'Luigi Pirelli / Kartoza'
 __date__ = '2021-03-23'
 
-from typing import Optional, Union, List, Dict
+from typing import Optional, Union, List, Dict, Tuple
 from datetime import datetime
 from enum import Enum
 import abc
 import os
 import json
 from collections import OrderedDict
+import threading
 
 from qgis.PyQt.QtCore import QSettings, pyqtSignal, QObject
 from qgis.core import QgsLogger
-from LDMP.jobs import Job, JobSchema
+from LDMP.jobs import Job, JobSchema, Jobs, download_cloud_results, download_timeseries
 from LDMP.calculate import get_script_group
 from LDMP import log, singleton, tr, json_serial
 
@@ -91,13 +92,21 @@ class DatasetBase(abc.ABC, QObject, metaclass=FinalMeta):
 class Dataset(DatasetBase):
 
     dumped = pyqtSignal(str)
+    downloaded = pyqtSignal(str)
+    class Origin(Enum):
+        job = 0,
+        dataset = 1,
+        downloaded_dataset = 2,
+        not_applicable = 3
 
     def __init__(self,
             job: Optional[Job] = None,
-            dataset: Optional[Dict] = None
+            dataset: Optional[Dict] = None,
+            filename: Optional[str] = None
         ) -> None:
         super().__init__()
 
+        self.__origin = Dataset.Origin.not_applicable
         if job:
             job_schema = JobSchema()
             self.job = job_schema.dump(job)
@@ -109,18 +118,46 @@ class Dataset(DatasetBase):
             self.name = job.taskName
             self.creation_date = job.startDate
             self.run_id = job.runId
-        elif dataset:
-            self.job = ''
 
-            self.status = dataset.get('status')
-            # self.status: DatasetStatus = getStatusEnum(job.status)
-            self.progress = dataset.get('progress')
-            self.source = dataset.get('source')
-            self.name = dataset.get('name')
-            self.creation_date = dataset.get('creation_date')
-            self.run_id = dataset.get('run_id')
+            self.__origin = Dataset.Origin.job
+            self.__fileName = None
+
+        elif dataset:
+            # check if refer to a Dataset or Downloaded dataset
+            if 'bands' in dataset:
+                self.bands = dataset.get('bands')
+                self.file = dataset.get('file')
+                self.metadata = dataset.get('metadata')
+
+                # set common dataset data get from medatata (e.g. original Job)
+                self.status = self.metadata.get('status')
+                self.progress = self.metadata.get('progress')
+                self.source = self.metadata.get('script_name')
+                self.name = self.metadata.get('task_name')
+                self.creation_date = self.metadata.get('start_date')
+                self.run_id = self.metadata.get('id')
+
+                self.__origin = Dataset.Origin.downloaded_dataset
+                self.__fileName = filename
+
+            else:
+                self.job = ''
+
+                self.status = dataset.get('status')
+                # self.status: DatasetStatus = getStatusEnum(job.status)
+                self.progress = dataset.get('progress')
+                self.source = dataset.get('source')
+                self.name = dataset.get('name')
+                self.creation_date = dataset.get('creation_date')
+                self.run_id = dataset.get('run_id')
+
+                self.__origin = Dataset.Origin.dataset
+                self.__fileName = filename
         else:
             raise Exception('Nor input Job or dataset dictionary are set to build a Dataset instance')
+
+    def origin(self) -> 'Dataset.Origin':
+        return self.__origin
 
     def columnCount(self) -> int:
         return 1
@@ -146,11 +183,12 @@ class Dataset(DatasetBase):
         out_path = os.path.join(base_data_directory, 'ouptuts')
 
         # set location where to save basing on script(alg) used
-        script_name = self.source
-        components = script_name.split()
-        components = components[:-1] if len(components) > 1 else components # eventually remove version that return when get exeutions list
-        formatted_script_name = '-'.join(components) # remove al version and substitutes ' ' with '-'
-        formatted_script_name = formatted_script_name.lower()
+        if self.origin() != Dataset.Origin.downloaded_dataset:
+            script_name = self.source
+            components = script_name.split()
+            components = components[:-1] if len(components) > 1 else components # eventually remove version that return when get exeutions list
+            formatted_script_name = '-'.join(components) # remove al version and substitutes ' ' with '-'
+            formatted_script_name = formatted_script_name.lower()
 
         # get alg group to setup subfolder
         group = get_script_group(formatted_script_name)
@@ -178,7 +216,79 @@ class Dataset(DatasetBase):
                 f, default=json_serial, sort_keys=True, indent=4, separators=(',', ': ')
             )
         self.dumped.emit(descriptor_file_name)
+
+        self.__fileName = descriptor_file_name
         return descriptor_file_name
+
+    def fileName(self):
+        return self.__fileName
+
+    @staticmethod
+    def datetimeRepr(dt: datetime) -> str:
+        return datetime.strftime(dt, '%Y/%m/%d (%H:%M)')
+
+    @staticmethod
+    def toDatetime(dt: str, fmt: str = None) -> datetime:
+        if fmt is None:
+            return datetime.fromisoformat(dt)
+        return datetime.strptime(dt, fmt)
+
+    def download(self, datasets_refresh: bool = True) -> None:
+        """Download Dataset related to a specified Job in a programmatically defined filename and folder.
+        Because a new dataset JSON descriptor is created => Datasets sync
+
+        Args:
+            datasets_refresh (bool): if have to trigger Datasets().sync() after downloaded.
+
+        Returns:
+            None
+        """
+        res = Jobs().jobById(str(self.run_id)) # casting because can be UUID
+        if res is None:
+            log(tr('No Job available in cache with run id: {}').format(str(self.run_id)))
+            return
+        job_filename, job = res # unwrap tuple
+
+        # get path of the current dataset descriptos
+        res = Datasets().datasetById(str(self.run_id)) # casting because can be UUID
+        if res is None:
+            log(tr('No Dataset available in cache with run id: {}').format(str(self.run_id)))
+            return
+        dataset_filename = res[0]
+
+        # Check if we need a download filename - some tasks don't need to 
+        # save data, but if any of the chosen tasks do, then we need to 
+        # choose a folder. Right now only TimeSeriesTable doesn't need a 
+        # filename.
+        base_dir = os.path.dirname(dataset_filename)
+        f = None
+        if job.results.get('type') != 'TimeSeriesTable':
+            # create result filename basing on:
+            # run_id + scriptName + task_name (if any)
+            fileBaseName = None
+            if job.taskName:
+                fileBaseName = u'{}_{}_{}'.format(job.runId, job.scriptName, job.taskName)
+            else:
+                fileBaseName = u'{}_{}'.format(job.runId, job.scriptName)
+            
+            # set the folder where to save result
+            f = os.path.join(base_dir, fileBaseName)
+            log(u"Downloading results to {} with basename {}".format(os.path.dirname(f), os.path.basename(f)))
+
+        log(u"Processing job {}.".format(job.runId))
+        result_type = job.results.get('type')
+        if result_type == 'CloudResults':
+            download_cloud_results(job.raw, f, self.tr, add_to_map=False)
+            self.downloaded.emit(f)
+            if datasets_refresh:
+                Datasets().sync()
+        elif result_type == 'TimeSeriesTable':
+            download_timeseries(job.raw, self.tr)
+            self.downloaded.emit(None)
+            if datasets_refresh:
+                Datasets().sync()
+        else:
+            raise ValueError("Unrecognized result type in download results: {}".format(result_type))
 
 
 @singleton
@@ -190,30 +300,21 @@ class Datasets(QObject):
     """
     datasetsStore: Dict[str, Dataset] = OrderedDict()
     updated = pyqtSignal()
+    lock = threading.RLock()
 
     def __init__(self):
         super().__init__()
 
-    def reset(self, emit: bool = False):
+    def reset(self, emit: bool = True):
         """Remove any Datast and related json contrepart."""
         # remove any json of the available Jobs in self.jobs
         # for file_name in self.datasetsStore.keys():
         #     os.remove(file_name)
-        self.datasetsStore = OrderedDict()
+        with self.lock:
+            self.datasetsStore = OrderedDict()
+
         if emit:
             self.updated.emit()
-
-    def set(self, datasets_dict: Optional[List[dict]] = None):
-        # remove previous jobs
-        self.reset()
-
-        if datasets_dict is None:
-            return
-
-        # set new ones
-        for dataset_dict in datasets_dict:
-            self.append(dataset_dict)
-        self.updated.emit()
 
     def appendFromJob(self, job: Job) -> (str, Dataset):
         """Create a Dataset and dump basing an assumed valid Job."""
@@ -261,8 +362,10 @@ class Datasets(QObject):
 
         # remove any previous memorised Datasets
         # self.reset()
-        schema = DatasetSchema()
-        for json_file in traverse(base_data_directory):
+        datasetSchema = DatasetSchema()
+        downloadedDatasetSchema = DownloadedDatasetSchema()
+        json_files = list(traverse(base_data_directory)) # need traverse all to check if some dataset has been already downloaded
+        for json_file in json_files:
             # skip larger thatn 1MB files
             statinfo = os.stat(json_file)
             if statinfo.st_size > 1024*1024:
@@ -276,26 +379,81 @@ class Datasets(QObject):
                     # no json => skip
                     continue
                 except Exception as ex:
-                    log(tr('Error reading file {} with ex: ').format(json_file, str(ex)))
+                    QgsLogger.debug('* Error reading file {} with ex: {}'.format(json_file, str(ex)), debuglevel=3)
                     continue
-            
+
+                # skip if dataset has a downloaded contrepart e.g. a json file with the same UUID plus more
+                # info in filename. e.g if dataset is:
+                #   b4b098f8-e562-4843-b6ed-586878410a01.json
+                # a downloaded dataset could be:
+                #   b4b098f8-e562-4843-b6ed-586878410a01_Productivity 1_0_3_gen_test19.json
+                basename = os.path.splitext(os.path.basename(json_file))[0]
+                look_for = basename + "_"
+
+                found = next((j for j in json_files if look_for in j), None) # look if some key containing 'look_for' string
+                if found:
+                    # if strored in datasetStore remove entry related to json_file Dataset
+                    self.datasetsStore.pop(json_file, None)
+
+                    # remove also the dataset json that now is nomore necessary
+                    try:
+                        os.remove(json_file)
+                    except:
+                        pass
+
+                    log(tr('Dataset {} already downloaded => skipped').format(json_file))
+                    continue
+
+                # block useful to distinguish if dataset is a downloaded dataset or not
+                dataset_dict = None
                 try:
-                    dataset_dict = schema.load(parsed_json, partial=True, unknown=marshmallow.INCLUDE)
-                    dataset = Dataset(dataset=dataset_dict)
-                    self.datasetsStore[json_file] = dataset
+                    # check if DownloadedDataset
+                    dataset_dict = downloadedDatasetSchema.load(parsed_json, partial=False, unknown=marshmallow.RAISE)
 
                 except marshmallow.exceptions.ValidationError as ex:
-                    log(tr('not a valid Dataset {} with ex: ').format(f, str(ex)))
-                    continue
+
+                    # now check if a normal Dataset (not yet donwloaded). e.g. previous schema parse failed
+                    try:
+                        dataset_dict = datasetSchema.load(parsed_json, partial=True, unknown=marshmallow.INCLUDE)
+
+                    except marshmallow.exceptions.ValidationError as ex:
+                        log(tr('not a valid Dataset {} with ex: {}').format(f, str(ex)))
+                        continue
+
                 except Exception as ex:
                     # Exception notification managed in append method
                     log(tr('Cannot manage dataset for file {} ex: {}').format(json_file, str(ex)))
                     continue
+                
+                if dataset_dict:
+                    dataset = Dataset(dataset=dataset_dict, filename=json_file)
+                    self.datasetsStore[json_file] = dataset
+
         self.updated.emit()
+
+    def triggerDownloads(self) -> None:
+        """Method to start download for each Dataset in the following state:
+        1) successufully finished e.g. dataset.status in ['FINISHED', 'SUCCESS']
+        2) dataset.origin == Dataset.Origin.dataset (e.g. not yet downloaded).
+        """
+        for json_file, dataset in self.datasetsStore.items():
+            if ( (dataset.status not in ['FINISHED', 'SUCCESS']) or
+                 (dataset.origin() != Dataset.Origin.dataset) ):
+                continue
+            # do not refresh datasets and do only after triggered all downloads
+            dataset.download(datasets_refresh=False)
+        self.sync()
+
+    def datasetById(self, id: str) -> Optional[Tuple[str, Job]]:
+        """Return Dataset and related descriptor asociated file."""
+        datasets = [(k, d) for k,d in self.datasetsStore.items() if str(d.run_id) == id]
+        return datasets[0] if len(datasets) else None
 
 
 class DatasetSchema(Schema):
     """Schema defining structure of a dumped Dataset.
+    !!! BEAWARE !!! this schema represent only a dataset not yet downloaded.
+    A downloaded dataset has a different schema as described in DownloadedDatasetSchema
     """
     # job = fields.Nested(APIResponseSchema, many=False, required=False)
     job = fields.Str(required=False)
@@ -310,3 +468,18 @@ class DatasetSchema(Schema):
     name = fields.Str()
     creation_date = fields.DateTime(required=True)
     run_id = fields.UUID(required=True)
+
+
+class DownloadedDatasetSchema(Schema):
+    """Schema defining structure of a dounloaded Dataset.
+    !!! BEAWARE !!! this schema represent only a dataset ALREADY downloaded.
+    A "TO DOWNLOAD" dataset has a different schema as described in
+    DatasetSchema
+    """
+    # bands leaved with a fixed schema
+    bands = fields.List(fields.Dict(required=True), required=True)
+
+    file = fields.Str(required=True)
+    metadata = fields.Nested(JobSchema, many=False, required=False)
+
+

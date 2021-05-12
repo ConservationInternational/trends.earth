@@ -19,6 +19,7 @@ import site
 import json
 import subprocess
 import datetime
+import threading
 from tempfile import NamedTemporaryFile
 
 from qgis.PyQt.QtCore import (QSettings, QTranslator, qVersion, 
@@ -139,8 +140,17 @@ def openFolder(path):
 def singleton(cls):
     instances = {}
     def wrapper(*args, **kwargs):
+        # eventually lock getting the instance in case it is in modiry state
+        if hasattr(cls, 'lock'):
+            cls.lock.acquire()
+        
         if cls not in instances:
           instances[cls] = cls(*args, **kwargs)
+        
+        # eventually unlock
+        if hasattr(cls, 'lock'):
+            cls.lock.release()
+
         return instances[cls]
     return wrapper
 

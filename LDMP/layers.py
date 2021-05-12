@@ -478,11 +478,14 @@ def tr_style_text(label, band_info=None):
             return str(label)
 
 
-def get_band_infos(data_file):
+def get_band_infos(data_file, name=None):
     json_file = os.path.splitext(data_file)[0] + '.json'
     m = get_file_metadata(json_file)
     if m:
-        return m['bands']
+        if name:
+            return [bi for bi in m['bands'] if bi['name'] == name]
+        else:
+            return m['bands']
     else:
         return None
 

@@ -14,7 +14,8 @@
 
 from builtins import zip
 from builtins import range
-from typing import Optional, List, Dict
+from typing import Optional, List, Dict, Tuple
+import threading
 import os
 import json
 import re
@@ -449,10 +450,19 @@ def download_cloud_results(job, f, tr, add_to_map=True):
     else:
         url = results['urls'][0]
         out_file = f + '.tif'
-        resp = download_result(url['url'], out_file, job, 
-                               binascii.hexlify(base64.b64decode(url['md5Hash'])).decode())
-        if not resp:
-            return
+        do_download = True
+        if os.access(out_file, os.R_OK):
+            if check_hash_against_etag(url['url'], out_file, binascii.hexlify(base64.b64decode(url['md5Hash'])).decode()):
+                tr_jobs.tr(u"No download necessary for Dataset in cache: {}".format(out_file))
+                do_download = False
+            else:
+                do_download = True
+
+        if do_download:
+            resp = download_result(url['url'], out_file, job,
+                                binascii.hexlify(base64.b64decode(url['md5Hash'])).decode())
+            if not resp:
+                return
 
     create_gee_json_metadata(json_file, job, out_file)
 
@@ -538,6 +548,10 @@ class Job(QObject):
     def startDate(self) -> datetime.datetime:
         return self.response['start_date']
 
+    @property
+    def results(self) -> Optional[dict]:
+        return self.response['results']
+
     @staticmethod
     def datetimeRepr(dt: datetime.datetime) -> str:
         return datetime.datetime.strftime(dt, '%Y/%m/%d (%H:%M)')
@@ -594,20 +608,23 @@ class Jobs(QObject):
 
     updated = pyqtSignal()
     jobsStore = {}
+    lock = threading.RLock()
 
     def __init__(self):
         super().__init__()
 
     def set(self, jobs_dict: Optional[List[dict]] = None):
-        # remove previous jobs
-        self.reset()
+        with self.lock:
+            # remove previous jobs but not trigger event
+            self.reset(emit=False)
 
-        if jobs_dict is None:
-            return
+            if jobs_dict is None:
+                return
 
-        # set new ones
-        for job_dict in jobs_dict:
-            self.append(job_dict)
+            # set new ones
+            for job_dict in jobs_dict:
+                self.append(job_dict)
+
         self.updated.emit()
 
     def sync(self) -> None:
@@ -655,16 +672,27 @@ class Jobs(QObject):
         """
         return [ job.raw for job in self.jobsStore.values() ]
 
+    def jobById(self, id: str) -> Optional[Tuple[str, Job]]:
+        """Return Job and related descriptor asociated file."""
+        jobs = [(k, j) for k,j in self.jobsStore.items() if j.runId == id]
+        return jobs[0] if len(jobs) else None
+
     def classes(self):
         return [ job for job in self.jobsStore.values() ]
 
-    def reset(self):
+    def reset(self, emit: bool = True):
         """Remove any jobs and related json contrepart."""
         # remove any json of the available Jobs in self.jobs
-        for file_name in self.jobsStore.keys():
-            os.remove(file_name)
-        self.jobsStore = {}
-        self.updated.emit()
+        with self.lock:
+            for file_name in self.jobsStore.keys():
+                try:
+                    os.remove(file_name)
+                except:
+                    pass
+            self.jobsStore = {}
+
+        if emit:
+            self.updated.emit()
 
 class JobSchema(marshmallow.Schema):
     response = marshmallow.fields.Nested(APIResponseSchema, many=False)

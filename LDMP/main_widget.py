@@ -47,6 +47,8 @@ from LDMP.calculate import (
     DlgCalculateUrban
 )
 
+from LDMP.download_data import DlgDownload
+
 from LDMP.visualization import DlgVisualizationBasemap
 
 settings = QgsSettings()
@@ -128,6 +130,7 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         self.pushButton_import.setIcon(icon)
         icon = QtGui.QIcon(':/plugins/LDMP/icons/mActionSharingImport.svg')
         self.pushButton_download.setIcon(icon)
+        self.pushButton_download.clicked.connect(self.download_data)
         self.pushButton_load.setIcon(QtGui.QIcon(':/plugins/LDMP/icons/document.svg'))
         self.pushButton_load.clicked.connect(self.loadBaseMap)
 
@@ -425,6 +428,9 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
 
     def loadBaseMap(self):
         DlgVisualizationBasemap().exec_()
+
+    def download_data(self):
+        DlgDownload().exec_()
 
     def closeEvent(self, event):
         super(MainWidget, self).closeEvent(event)

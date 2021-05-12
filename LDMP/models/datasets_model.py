@@ -18,6 +18,7 @@ from typing import Optional
 from qgis.PyQt.QtCore import (
     QAbstractItemModel,
     QModelIndex,
+    QSortFilterProxyModel,
     Qt
 )
 from LDMP.models.datasets import (
@@ -91,3 +92,14 @@ class DatasetsModel(QAbstractItemModel):
             return False
 
         return True
+
+
+class DatasetsSortFilterProxyModel(QSortFilterProxyModel):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+    def filterAcceptsRow(self, source_row: int, source_parent: QModelIndex):
+        index = self.sourceModel().index(source_row, 0, source_parent)
+
+        match = self.filterRegularExpression().match(self.sourceModel().data(index).name)
+        return match.hasMatch()

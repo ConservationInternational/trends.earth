@@ -74,7 +74,7 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         self.treeView_datasets.setIndentation(0)
         self.treeView_datasets.verticalScrollBar().setSingleStep(10)
 
-        # instantiate calcluate callback container to reuse most of old code
+        # instantiate calculate callback container to reuse most of old code
         # do this before setting setupAlgorithmsTree
         self.dlg_calculate_LD = DlgCalculateLD()
         self.dlg_calculate_TC = DlgCalculateTC()

@@ -40,6 +40,8 @@ class DatasetStatus(Enum):
     downloading = 2,
     unavailable = 3,
     not_applicable = 4
+
+
 DatasetStatusStrings = [e.name for e in DatasetStatus]
 
 
@@ -53,7 +55,7 @@ def getStatusEnum(status: str) -> DatasetStatus:
         ds_status = DatasetStatus.available
     else:
         ds_status = DatasetStatus.not_applicable
-    
+
     return ds_status
 
 
@@ -66,6 +68,8 @@ class FinalMeta(type(abc.ABC), type(QObject)):
     """trick to allow multiple hineritance. Need to allow also QObject
     hineritance to allow emitting pyqtSingla."""
     pass
+
+
 class DatasetBase(abc.ABC, QObject, metaclass=FinalMeta):
     """implemented a base class in case need to expand the three with new nodes."""
 
@@ -89,13 +93,12 @@ class DatasetBase(abc.ABC, QObject, metaclass=FinalMeta):
 
 
 class Dataset(DatasetBase):
-
     dumped = pyqtSignal(str)
 
     def __init__(self,
-            job: Optional[Job] = None,
-            dataset: Optional[Dict] = None
-        ) -> None:
+                 job: Optional[Job] = None,
+                 dataset: Optional[Dict] = None
+                 ) -> None:
         super().__init__()
 
         if job:
@@ -127,29 +130,30 @@ class Dataset(DatasetBase):
 
     def rowCount(self) -> int:
         return 0
-    
+
     def child(self, row: int) -> None:
         return None
-    
+
     def columnName(self, column: int) -> Union[str, None]:
         return None
 
     def dump(self) -> str:
-        """Dump Dataset as JSON in a programmatically set folder with a programmaticaly set filename.
+        """Dump Dataset as JSON in a programmatically set folder with a programmatically set filename.
         """
-        # create path and filname where to dump Job descriptor
+        # create path and filename where to dump Job descriptor
         out_path = ''
         base_data_directory = QSettings().value("trends_earth/advanced/base_data_directory", None, type=str)
 
         # TODO: set subfolder basing on the nature of Dataset
-        # for now only 'ouptuts'
-        out_path = os.path.join(base_data_directory, 'ouptuts')
+        # for now only 'outputs'
+        out_path = os.path.join(base_data_directory, 'outputs')
 
         # set location where to save basing on script(alg) used
         script_name = self.source
         components = script_name.split()
-        components = components[:-1] if len(components) > 1 else components # eventually remove version that return when get exeutions list
-        formatted_script_name = '-'.join(components) # remove al version and substitutes ' ' with '-'
+        components = components[:-1] if len(components) > 1 else components  # eventually remove version that return
+        # when getting executions list
+        formatted_script_name = '-'.join(components)  # remove al version and substitutes ' ' with '-'
         formatted_script_name = formatted_script_name.lower()
 
         # get alg group to setup subfolder
@@ -158,7 +162,7 @@ class Dataset(DatasetBase):
             log(tr('Cannot get group of the script: ') + formatted_script_name)
             group = 'UNKNOW_GROUP_FOR_' + formatted_script_name
 
-        # get exectuion date as subfolder name
+        # get execution date as subfolder name
         processing_date_string = self.creation_date
         if isinstance(processing_date_string, datetime):
             processing_date_string = self.creation_date.strftime('%Y_%m_%d')
@@ -169,7 +173,7 @@ class Dataset(DatasetBase):
 
         descriptor_file_name = self.run_id + '.json'
         descriptor_file_name = os.path.join(out_path, descriptor_file_name)
-        QgsLogger.debug('* Dump dataset descriptor into file: '+ descriptor_file_name, debuglevel=4)
+        QgsLogger.debug('* Dump dataset descriptor into file: ' + descriptor_file_name, debuglevel=4)
 
         schema = DatasetSchema()
         with open(descriptor_file_name, 'w') as f:
@@ -195,7 +199,7 @@ class Datasets(QObject):
         super().__init__()
 
     def reset(self, emit: bool = False):
-        """Remove any Datast and related json contrepart."""
+        """Remove any Dataset and related json counterpart."""
         # remove any json of the available Jobs in self.jobs
         # for file_name in self.datasetsStore.keys():
         #     os.remove(file_name)
@@ -218,7 +222,7 @@ class Datasets(QObject):
     def appendFromJob(self, job: Job) -> (str, Dataset):
         """Create a Dataset and dump basing an assumed valid Job."""
         dataset = Dataset(job=job)
-        dump_file_name = dataset.dump() # doing save in default location
+        dump_file_name = dataset.dump()  # doing save in default location
 
         # add in memory store .e.g a dictionary
         self.datasetsStore[dump_file_name] = dataset
@@ -231,12 +235,12 @@ class Datasets(QObject):
 
     def rowCount(self) -> int:
         return len(self.datasetsStore)
-    
+
     def child(self, row: int) -> Optional['Dataset']:
         if row < 0 or row >= len(self.datasetsStore):
             return None
         return list(self.datasetsStore.items())[row][1]
-    
+
     def columnName(self, column: int) -> Optional[str]:
         return None
 
@@ -256,7 +260,7 @@ class Datasets(QObject):
                     # skip files in Jobs
                     if excluded_path.lower() in basepath.lower():
                         continue
-                    
+
                     yield os.path.join(basepath, f)
 
         # remove any previous memorised Datasets
@@ -265,10 +269,10 @@ class Datasets(QObject):
         for json_file in traverse(base_data_directory):
             # skip larger thatn 1MB files
             statinfo = os.stat(json_file)
-            if statinfo.st_size > 1024*1024:
+            if statinfo.st_size > 1024 * 1024:
                 continue
 
-            # skip any not json file
+            # skip any non json file
             with open(json_file, 'r') as fd:
                 try:
                     parsed_json = json.load(fd)
@@ -278,7 +282,7 @@ class Datasets(QObject):
                 except Exception as ex:
                     log(tr('Error reading file {} with ex: ').format(json_file, str(ex)))
                     continue
-            
+
                 try:
                     dataset_dict = schema.load(parsed_json, partial=True, unknown=marshmallow.INCLUDE)
                     dataset = Dataset(dataset=dataset_dict)

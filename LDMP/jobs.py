@@ -26,13 +26,14 @@ import datetime
 from dateutil import tz
 import pprint
 from qgis.PyQt import QtWidgets
-from qgis.PyQt.QtCore import (QSettings, QAbstractTableModel, Qt, pyqtSignal, 
-        QSortFilterProxyModel, QSize, QObject, QEvent, QCoreApplication, QObject)
+from qgis.PyQt.QtCore import (QSettings, QAbstractTableModel, Qt, pyqtSignal,
+                              QSortFilterProxyModel, QSize, QObject, QEvent, QCoreApplication, QObject)
 from qgis.PyQt.QtGui import QFontMetrics
 
 from osgeo import gdal
 
 from qgis.utils import iface
+
 mb = iface.messageBar()
 
 from qgis.gui import QgsMessageBar
@@ -51,6 +52,7 @@ from LDMP.calculate import get_script_group
 
 import marshmallow
 
+
 class tr_jobs(object):
     def tr(message):
         return QCoreApplication.translate("tr_jobs", message)
@@ -68,7 +70,7 @@ def create_gee_json_metadata(json_file, job, data_file):
     out = LocalRaster(os.path.basename(os.path.normpath(data_file)), bands, metadata)
     local_raster_schema = LocalRasterSchema()
     with open(json_file, 'w') as f:
-        json.dump(local_raster_schema.dump(out), f, default=json_serial, 
+        json.dump(local_raster_schema.dump(out), f, default=json_serial,
                   sort_keys=True, indent=4, separators=(',', ': '))
 
 
@@ -306,9 +308,12 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
                     else:
                         job_info = job['script_name']
                     f, _ = QtWidgets.QFileDialog.getSaveFileName(self,
-                                                          self.tr(u'Choose a filename. Downloading results of: {}'.format(job_info)),
-                                                          QSettings().value("trends_earth/advanced/base_data_directory", None),
-                                                          self.tr('Base filename (*.json)'))
+                                                                 self.tr(
+                                                                     u'Choose a filename. Downloading results of: {}'.format(
+                                                                         job_info)),
+                                                                 QSettings().value(
+                                                                     "trends_earth/advanced/base_data_directory", None),
+                                                                 self.tr('Base filename (*.json)'))
 
                     # Strip the extension so that it is a basename
                     f = os.path.splitext(f)[0]
@@ -316,12 +321,15 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
                     if f:
                         if os.access(os.path.dirname(f), os.W_OK):
                             # QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
-                            log(u"Downloading results to {} with basename {}".format(os.path.dirname(f), os.path.basename(f)))
+                            log(u"Downloading results to {} with basename {}".format(os.path.dirname(f),
+                                                                                     os.path.basename(f)))
                         else:
                             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                                       self.tr(u"Cannot write to {}. Choose a different base filename.".format(f)))
+                                                           self.tr(
+                                                               u"Cannot write to {}. Choose a different base filename.".format(
+                                                                   f)))
                     else:
-                            return False
+                        return False
 
                 filenames.append(f)
             else:
@@ -429,16 +437,17 @@ def download_cloud_results(job, f, tr, add_to_map=True):
     json_file = f + '.json'
     if len(results['urls']) > 1:
         # Save a VRT if there are multiple files for this download
-        urls = results['urls'] 
+        urls = results['urls']
         tiles = []
         for n in range(len(urls)):
             tiles.append(f + '_{}.tif'.format(n))
             # If file already exists, check its hash and skip redownloading if 
             # it matches
             if os.access(tiles[n], os.R_OK):
-                if check_hash_against_etag(urls[n]['url'], tiles[n], binascii.hexlify(base64.b64decode(urls[n]['md5Hash'])).decode()):
+                if check_hash_against_etag(urls[n]['url'], tiles[n],
+                                           binascii.hexlify(base64.b64decode(urls[n]['md5Hash'])).decode()):
                     continue
-            resp = download_result(urls[n]['url'], tiles[n], job, 
+            resp = download_result(urls[n]['url'], tiles[n], job,
                                    binascii.hexlify(base64.b64decode(urls[n]['md5Hash'])).decode())
             if not resp:
                 return
@@ -449,7 +458,7 @@ def download_cloud_results(job, f, tr, add_to_map=True):
     else:
         url = results['urls'][0]
         out_file = f + '.tif'
-        resp = download_result(url['url'], out_file, job, 
+        resp = download_result(url['url'], out_file, job,
                                binascii.hexlify(base64.b64decode(url['md5Hash'])).decode())
         if not resp:
             return
@@ -486,13 +495,12 @@ def download_timeseries(job, tr):
 ################################################################################
 # Job class and Schema for Job descriptor build from APIResponseSchema
 class Job(QObject):
-
-    # TODO: create a uniform way to manage Jobs. or self.jobs is a list of dict 
-    # or a list of Job instances. Temporarly maintaining the two structure to reduce
+    # TODO: create a uniform way to manage Jobs. or self.jobs is a list of dict
+    # or a list of Job instances. Temporary maintaining the two structure to reduce
     # side effects
 
     # emit signal when a Job is dumped (useful in case have to update Datasets)
-    dumped = pyqtSignal(str) 
+    dumped = pyqtSignal(str)
 
     def __init__(self, response: APIResponseSchema):
         super().__init__()
@@ -503,8 +511,8 @@ class Job(QObject):
 
         self.response = {}
         self.response['id'] = response.get('id', 'Unknown')
-        self.response['start_date'] = response.get('start_date', datetime.datetime(1,1,1,0,0))
-        self.response['end_date'] = response.get('end_date', datetime.datetime(1,1,1,0,0))
+        self.response['start_date'] = response.get('start_date', datetime.datetime(1, 1, 1, 0, 0))
+        self.response['end_date'] = response.get('end_date', datetime.datetime(1, 1, 1, 0, 0))
         self.response['status'] = response.get('status', '')
         self.response['progress'] = response.get('progress', 0)
         self.response['params'] = response.get('params', {})
@@ -557,8 +565,9 @@ class Job(QObject):
         # set location where to save basing on script(alg) used
         script_name = self.response['script']['name']
         components = script_name.split()
-        components = components[:-1] if len(components) > 1 else components # eventually remove version that return when get exeutions list
-        formatted_script_name = '-'.join(components) # remove al version and substitutes ' ' with '-'
+        components = components[:-1] if len(components) > 1 else components  # eventually remove version that return
+        # when get executions list
+        formatted_script_name = '-'.join(components)  # remove al version and substitutes ' ' with '-'
         formatted_script_name = formatted_script_name.lower()
 
         # get alg group to setup subfolder
@@ -567,7 +576,7 @@ class Job(QObject):
             log(tr_jobs.tr('Cannot get group of the script: ') + formatted_script_name)
             group = 'UNKNOW_GROUP_FOR_' + formatted_script_name
 
-        # get exectuion date as subfolder name
+        # get execution date as subfolder name
         processing_date_string = self.response['start_date'].strftime('%Y_%m_%d')
 
         out_path = os.path.join(out_path, group, processing_date_string)
@@ -576,7 +585,7 @@ class Job(QObject):
 
         job_descriptor_file_name = self.response['id'] + '.json'
         job_descriptor_file_name = os.path.join(out_path, job_descriptor_file_name)
-        QgsLogger.debug('* Dump job descriptor into file: '+ job_descriptor_file_name, debuglevel=4)
+        QgsLogger.debug('* Dump job descriptor into file: ' + job_descriptor_file_name, debuglevel=4)
 
         job_schema = JobSchema()
         with open(job_descriptor_file_name, 'w') as f:
@@ -623,9 +632,9 @@ class Jobs(QObject):
             # self.update_jobs_table()
 
     def append(self, job_dict: dict) -> (str, Job):
-        """Append a job dictionay and Job json contrepart in base_data_directory."""
+        """Append a job dictionary and Job json counterpart in base_data_directory."""
         # save Job descriptor in data directory
-        # in this way there is also a mimimum sanity check
+        # in this way there is also a minimum sanity check
         # NOTE! need to adapt start and stop date to datetime object and not string to be used in 
         # JobSchema based on APIResponseSchema
         cloned_job = dict(job_dict)
@@ -641,7 +650,7 @@ class Jobs(QObject):
         schema = JobSchema()
         response = schema.load(cloned_job, partial=True, unknown=marshmallow.INCLUDE)
         job = Job(response)
-        dump_file_name = job.dump() # doing save in default location
+        dump_file_name = job.dump()  # doing save in default location
 
         # add in memory store .e.g a dictionary
         self.jobsStore[dump_file_name] = job
@@ -651,20 +660,21 @@ class Jobs(QObject):
     def list(self):
         """Return response dictionary generated the Job.
 
-        This method is to manitain good compatibility with older code e.g. with minimal refactoring
+        This method is to maintain good compatibility with older code e.g. with minimal refactoring
         """
-        return [ job.raw for job in self.jobsStore.values() ]
+        return [job.raw for job in self.jobsStore.values()]
 
     def classes(self):
-        return [ job for job in self.jobsStore.values() ]
+        return [job for job in self.jobsStore.values()]
 
     def reset(self):
-        """Remove any jobs and related json contrepart."""
+        """Remove any jobs and related json counterpart."""
         # remove any json of the available Jobs in self.jobs
         for file_name in self.jobsStore.keys():
             os.remove(file_name)
         self.jobsStore = {}
         self.updated.emit()
+
 
 class JobSchema(marshmallow.Schema):
     response = marshmallow.fields.Nested(APIResponseSchema, many=False)

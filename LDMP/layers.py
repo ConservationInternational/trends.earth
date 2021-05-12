@@ -34,7 +34,7 @@ from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtGui import QColor
 from qgis.PyQt.QtCore import QCoreApplication
 
-from LDMP import log
+from LDMP import log, json_serial
 
 from LDMP.schemas.schemas import LocalRaster, LocalRasterSchema
 
@@ -328,19 +328,24 @@ def get_file_metadata(json_file):
         return d
 
 
-def json_serial(obj):
-    """JSON serializer for objects not serializable by default json code"""
-    if isinstance(obj, (datetime.datetime, datetime.date)):
-        return obj.isoformat()
-    raise TypeError("Type {} not serializable".format(type(obj)))
-
-
 def create_local_json_metadata(json_file, data_file, bands, metadata={}):
+    # NOTE: json_file is NOT used after refactoring and delegate filenaming
+    # convetion to Dataset.dump method
+
     out = LocalRaster(os.path.basename(os.path.normpath(data_file)), bands, metadata)
-    local_raster_schema = LocalRasterSchema()
-    with open(json_file, 'w') as f:
-        json.dump(local_raster_schema.dump(out), f, default=json_serial, 
-                  sort_keys=True, indent=4, separators=(',', ': '))
+    # local_raster_schema = LocalRasterSchema()
+    # hook LocalRasterSchema to be used as Dataset
+    from LDMP.models.datasets import ( # import here to avoid circular import problem
+        Dataset,
+        Datasets
+    )
+    dataset = Dataset(localRaster=out)
+    dataset.dump()
+    Datasets().sync()
+
+    # with open(json_file, 'w') as f:
+    #     json.dump(local_raster_schema.dump(out), f, default=json_serial, 
+    #               sort_keys=True, indent=4, separators=(',', ': '))
 
 
 def add_layer(f, band_number, band_info, activated='default'):

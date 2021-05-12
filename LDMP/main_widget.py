@@ -225,8 +225,15 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
 
     def updateDatasetsModel(self):
         datasetsModel = DatasetsModel( Datasets() )  # Datasets is a singleton
+        # set filtering functionality
+        filter_model = QtCore.QSortFilterProxyModel(Datasets())
+        filter_model.setSourceModel(datasetsModel)
+        filter_model.setFilterKeyColumn(1)
+
+        self.lineEdit_search.valueChanged.connect(filter_model.setFilterFixedString)
+
         self.treeView_datasets.reset()
-        self.treeView_datasets.setModel(datasetsModel)
+        self.treeView_datasets.setModel(filter_model)
 
     def setupAlgorithmsTree(self):
         # setup algorithms and their hierarchy

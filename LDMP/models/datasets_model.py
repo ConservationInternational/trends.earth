@@ -25,6 +25,7 @@ from LDMP.models.datasets import (
     Datasets
 )
 
+
 class DatasetsModel(QAbstractItemModel):
 
     def __init__(self, tree: Datasets, parent=None):
@@ -56,7 +57,7 @@ class DatasetsModel(QAbstractItemModel):
         item = index.internalPointer()
         if role == Qt.DisplayRole:
             if index.column() == 0:
-                return list(self.rootItem.items())[index.row()].name
+                return list(self.rootItem.items())[index.row()][1]
 
         if role == Qt.ItemDataRole:
             return item

@@ -17,6 +17,7 @@ import os
 from pathlib import Path
 import json
 import tempfile
+import uuid
 
 from osgeo import gdal, ogr, osr
 
@@ -714,6 +715,65 @@ class CalculationOutputWidget(QtWidgets.QWidget, Ui_WidgetCalculationOutput):
         return True
 
 
+class CalculationHidedOutputWidget(QtWidgets.QWidget, Ui_WidgetCalculationOutput):
+    def __init__(self, suffixes, subclass_name, parent=None):
+        super(CalculationHidedOutputWidget, self).__init__(parent)
+
+        self.output_suffixes = suffixes
+        self.subclass_name = subclass_name
+
+        self.setupUi(self)
+        self.hide()
+
+        # set default output basename
+        self.set_output_basename()
+
+    def set_output_basename(self):
+        """Set default ouptut filename of the local calculation.
+        """
+        # TODO: check where used "LDMP/output_dir" to avoid side effects
+
+        # path where to store result
+        base_data_directory = QSettings().value("trends_earth/advanced/base_data_directory", None, type=str)
+        if not base_data_directory:
+            return
+
+        initial_path = os.path.join(base_data_directory, 'outputs', self.subclass_name)
+        if not initial_path:
+            return
+
+        # set result basename as a random UUID
+        uuid_str = str(uuid.uuid4())
+        f = os.path.join(initial_path, uuid_str)
+
+        self.output_basename.setText(f)
+        self.set_output_summary(f)
+
+        # create folder if does not exist
+        if not os.access(os.path.dirname(f), os.W_OK):
+            os.makedirs(os.path.dirname(f), exist_ok=True)
+
+        if os.access(os.path.dirname(f), os.W_OK):
+            log(f'Writing outputs with basename: {f}')
+
+            QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
+            self.output_basename.setText(f)
+            self.set_output_summary(f)
+        else:
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                                        self.tr(u"Cannot write to {}. Choose a different file.".format(f)))
+
+    def set_output_summary(self, f):
+        out_files = [f + suffix for suffix in self.output_suffixes]
+        self.output_summary.setText("\n".join(["{}"]*len(out_files)).format(*out_files))
+
+    def check_overwrites(self):
+        """Method maintained only for retro compatibility with old code. Overwrite can't happen because 
+        filename is choosed randomly.
+        """
+        return True
+
+
 class DlgCalculateBase(QtWidgets.QDialog):
     """Base class for individual indicator calculate dialogs"""
     firstShowEvent = pyqtSignal()
@@ -767,18 +827,23 @@ class DlgCalculateBase(QtWidgets.QDialog):
         
         # If this dialog has an output_basename widget then set it up with any 
         # saved values in QSettings
-        if self._has_output:
-            f = QSettings().value("LDMP/output_basename_{}".format(self.get_subclass_name()), None)
-            if f:
-                self.output_tab.output_basename.setText(f)
-                self.output_tab.set_output_summary(f)
+        # NOTE: now output value is set automagically
+        # if self._has_output:
+        #     f = QSettings().value("LDMP/output_basename_{}".format(self.get_subclass_name()), None)
+        #     if f:
+        #         self.output_tab.output_basename.setText(f)
+        #         self.output_tab.set_output_summary(f)
 
     def firstShow(self):
 
         if self._has_output:
-            self.output_tab = CalculationOutputWidget(self.output_suffixes, self.get_subclass_name())
+            # self.output_tab = CalculationOutputWidget(self.output_suffixes, self.get_subclass_name())
+            self.output_tab = CalculationHidedOutputWidget(self.output_suffixes, self.get_subclass_name())
             self.output_tab.setParent(self)
-            self.TabBox.addTab(self.output_tab, self.tr('Output'))
+            # NOTE: do not add Output tab it's valueas are set automagically
+            # but the widget is added to have less inpact in old code that
+            # get output names from the GUI.
+            # self.TabBox.addTab(self.output_tab, self.tr('Output'))
 
         self.options_tab = CalculationOptionsWidget()
         self.options_tab.setParent(self)

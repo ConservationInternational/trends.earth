@@ -206,7 +206,6 @@ class AOI(object):
         geometries = []
         n = 1
         for f in self.get_layer_wgs84().getFeatures():
-            # Get an OGR geometry from the QGIS geometry
             geom = f.geometry()
             if not geom.isGeosValid():
                 log(u'Invalid feature in row {}.'.format(n))
@@ -319,6 +318,9 @@ class AOI(object):
         """
         return self.l
 
+    def get_crs_wkt(self):
+        return self.l.sourceCrs().toWkt()
+
     def get_layer_wgs84(self):
         """
         Return layer in WGS84 (WPGS:4326)
@@ -426,6 +428,26 @@ class AOI(object):
             frac = aoi_geom.Intersection(in_geom).GetArea() / geom_area
             log('Fractional area of overlap: {}'.format(frac))
         return frac
+
+    def get_geojson(self, split=False):
+        geojson= {"type": "FeatureCollection", "features" :[]}
+
+        if split:
+            geojson['features'].append(meridian_split(out_type='layer', out_format='geojson'))
+        else:
+            n = 1
+            for f in self.get_layer_wgs84().getFeatures():
+                geom = f.geometry()
+                if not geom.isGeosValid():
+                    log(u'Invalid feature in row {}.'.format(n))
+                    QtWidgets.QMessageBox.critical(None,
+                                                   tr_calculate.tr("Error"),
+                                                   tr_calculate.tr('Invalid geometry in row {}. Check that all input geom_jsons are valid before processing. Try using the check validity tool on the "Vector" menu on the toolbar for more information on which features are invalid (Under "Vector" - "Geometry Tools" - "Check Validity").'.format(n)))
+                    return None
+                geojson['features'].append({"type": "Feature", "geometry": json.loads(geom.asJson())})
+                n += 1
+
+        return geojson
 
 
 class DlgCalculate(QtWidgets.QDialog, Ui_DlgCalculate):

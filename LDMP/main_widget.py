@@ -35,7 +35,7 @@ from LDMP.models.datasets import (
 from LDMP.models.algorithms_model import AlgorithmTreeModel
 from LDMP.models.algorithms_delegate import AlgorithmItemDelegate
 
-from LDMP.models.datasets_model import DatasetsModel
+from LDMP.models.datasets_model import DatasetsModel, DatasetsSortFilterProxyModel
 from LDMP.models.datasets_delegate import DatasetItemDelegate
 from LDMP import tr
 
@@ -225,8 +225,21 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
 
     def updateDatasetsModel(self):
         datasetsModel = DatasetsModel( Datasets() )  # Datasets is a singleton
+        # set filtering functionality
+        self.proxy_model = DatasetsSortFilterProxyModel(Datasets())
+        self.proxy_model.setSourceModel(datasetsModel)
+
+        self.lineEdit_search.valueChanged.connect(self.filter_changed)
+
         self.treeView_datasets.reset()
-        self.treeView_datasets.setModel(datasetsModel)
+        self.treeView_datasets.setModel(self.proxy_model)
+
+    def filter_changed(self, filter_string: str):
+        options = QtCore.QRegularExpression.NoPatternOption
+        options |= QtCore.QRegularExpression.CaseInsensitiveOption
+        regular_expression = QtCore.QRegularExpression(filter_string, options)
+        self.proxy_model.setFilterRegularExpression(regular_expression)
+
 
     def setupAlgorithmsTree(self):
         # setup algorithms and their hierarchy

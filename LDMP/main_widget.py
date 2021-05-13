@@ -14,6 +14,7 @@
 
 import os
 from datetime import datetime
+from _functools import partial
 
 from qgis.PyQt import QtWidgets, QtGui, QtCore
 from qgis.core import QgsSettings
@@ -36,7 +37,7 @@ from LDMP.models.datasets import (
 from LDMP.models.algorithms_model import AlgorithmTreeModel
 from LDMP.models.algorithms_delegate import AlgorithmItemDelegate
 
-from LDMP.models.datasets_model import DatasetsModel, DatasetsSortFilterProxyModel
+from LDMP.models.datasets_model import DatasetsModel, DatasetsSortFilterProxyModel, SortField
 from LDMP.models.datasets_delegate import DatasetItemDelegate
 from LDMP import tr
 
@@ -155,6 +156,23 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
             tr('Sort the datasets using the selected property.')
         )
 
+        sort_field = {
+            SortField.NAME: "Name",
+            SortField.DATE: "Date",
+            SortField.ALGORITHM: "Algorithm",
+            SortField.STATUS: "Status",
+        }
+        self.toolButton_sort.setPopupMode(QtWidgets.QToolButton.MenuButtonPopup)
+        self.toolButton_sort.setMenu(QtWidgets.QMenu())
+
+        for field_type, text in sort_field.items():
+            sort_action = QtWidgets.QAction(tr(text), self)
+            sort_datasets = partial(self.sort_field_changed, sort_action, field_type)
+            sort_action.triggered.connect(sort_datasets)
+            self.toolButton_sort.menu().addAction(sort_action)
+            if field_type == SortField.DATE:
+                self.toolButton_sort.setDefaultAction(sort_action)
+
         # set icons
         icon = QtGui.QIcon(':/plugins/LDMP/icons/mActionRefresh.svg')
         self.pushButton_refresh.setIcon(icon)
@@ -271,6 +289,10 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         regular_expression = QtCore.QRegularExpression(filter_string, options)
         self.proxy_model.setFilterRegularExpression(regular_expression)
 
+    def sort_field_changed(self, action: QtWidgets.QAction, field: SortField):
+        self.toolButton_sort.menu().setActiveAction(action)
+        self.proxy_model.setDatasetSortField(field)
+        self.proxy_model.sort(0, QtCore.Qt.AscendingOrder)
 
     def setupAlgorithmsTree(self):
         # setup algorithms and their hierarchy

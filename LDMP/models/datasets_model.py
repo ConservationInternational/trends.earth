@@ -14,6 +14,10 @@
 __author__ = 'Luigi Pirelli / Kartoza'
 __date__ = '2021-03-03'
 
+import enum
+
+from datetime import datetime
+
 from typing import Optional
 from qgis.PyQt.QtCore import (
     QAbstractItemModel,
@@ -25,6 +29,13 @@ from LDMP.models.datasets import (
     Dataset,
     Datasets
 )
+
+
+class SortField(enum.Enum):
+    NAME = 'name'
+    DATE = 'date'
+    ALGORITHM = 'algorithm'
+    STATUS = 'status'
 
 
 class DatasetsModel(QAbstractItemModel):
@@ -93,9 +104,29 @@ class DatasetsModel(QAbstractItemModel):
 class DatasetsSortFilterProxyModel(QSortFilterProxyModel):
     def __init__(self, parent=None):
         super().__init__(parent)
+        self.dataset_sort_field = SortField.DATE
 
     def filterAcceptsRow(self, source_row: int, source_parent: QModelIndex):
         index = self.sourceModel().index(source_row, 0, source_parent)
 
         match = self.filterRegularExpression().match(self.sourceModel().data(index).name)
         return match.hasMatch()
+
+    def lessThan(self, left: QModelIndex, right: QModelIndex):
+        left_dataset = self.sourceModel().data(left)
+        right_dataset = self.sourceModel().data(right)
+
+        if self.dataset_sort_field == SortField.NAME:
+            return left_dataset.name < right_dataset.name
+        elif self.dataset_sort_field == SortField.DATE and \
+                isinstance(left_dataset.creation_date, datetime) \
+                and isinstance(right_dataset.creation_date, datetime):
+            return left_dataset.creation_date < right_dataset.creation_date
+        elif self.dataset_sort_field == SortField.ALGORITHM:
+            return left_dataset.source < right_dataset.source
+        elif self.dataset_sort_field == SortField.STATUS:
+            return left_dataset.status < right_dataset.status
+        return False
+
+    def setDatasetSortField(self, field: SortField):
+        self.dataset_sort_field = field

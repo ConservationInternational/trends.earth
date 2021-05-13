@@ -16,6 +16,7 @@ import os
 from datetime import datetime
 from _functools import partial
 
+from qgis.core import Qgis
 from qgis.PyQt import QtWidgets, QtGui, QtCore
 from qgis.core import QgsSettings
 
@@ -84,6 +85,7 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         self.dlg_calculate_Biomass = DlgCalculateRestBiomass()
         self.dlg_calculate_Urban = DlgCalculateUrban()
 
+        self.message_bar_sort_filter = None
         # setup Jobs singleton store and all update mechanisms
         # self.jobs = Jobs()
 
@@ -145,18 +147,7 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
     def setupDatasetsGui(self):
         # add sort actions
         self.toolButton_sort.setMenu(QtWidgets.QMenu())
-
-        # add action entries of the pull down menu
-        byNameSortAction = QtWidgets.QAction(tr('Name'), self)
-        self.toolButton_sort.menu().addAction(byNameSortAction)
-        self.toolButton_sort.setDefaultAction(byNameSortAction)
-        byDateSortAction = QtWidgets.QAction(tr('Date'), self)
-        self.toolButton_sort.menu().addAction(byDateSortAction)
-        self.toolButton_sort.defaultAction().setToolTip(
-            tr('Sort the datasets using the selected property.')
-        )
-
-        sort_field = {
+        sort_fields = {
             SortField.NAME: "Name",
             SortField.DATE: "Date",
             SortField.ALGORITHM: "Algorithm",
@@ -165,13 +156,16 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         self.toolButton_sort.setPopupMode(QtWidgets.QToolButton.MenuButtonPopup)
         self.toolButton_sort.setMenu(QtWidgets.QMenu())
 
-        for field_type, text in sort_field.items():
+        for field_type, text in sort_fields.items():
             sort_action = QtWidgets.QAction(tr(text), self)
-            sort_datasets = partial(self.sort_field_changed, sort_action, field_type)
+            sort_datasets = partial(self.sort_datasets, sort_action, field_type)
             sort_action.triggered.connect(sort_datasets)
             self.toolButton_sort.menu().addAction(sort_action)
             if field_type == SortField.DATE:
                 self.toolButton_sort.setDefaultAction(sort_action)
+        self.toolButton_sort.defaultAction().setToolTip(
+            tr('Sort the datasets using the selected property.')
+        )
 
         # set icons
         icon = QtGui.QIcon(':/plugins/LDMP/icons/mActionRefresh.svg')
@@ -277,11 +271,13 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         # set filtering functionality
         self.proxy_model = DatasetsSortFilterProxyModel(Datasets())
         self.proxy_model.setSourceModel(datasetsModel)
+        self.proxy_model.layoutChanged.connect(self.clear_message_bar)
 
         self.lineEdit_search.valueChanged.connect(self.filter_changed)
 
         self.treeView_datasets.reset()
         self.treeView_datasets.setModel(self.proxy_model)
+        self.toolButton_sort.defaultAction().trigger()
 
     def filter_changed(self, filter_string: str):
         options = QtCore.QRegularExpression.NoPatternOption
@@ -289,10 +285,29 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         regular_expression = QtCore.QRegularExpression(filter_string, options)
         self.proxy_model.setFilterRegularExpression(regular_expression)
 
-    def sort_field_changed(self, action: QtWidgets.QAction, field: SortField):
-        self.toolButton_sort.menu().setActiveAction(action)
+    def sort_datasets(self, action: QtWidgets.QAction, field: SortField):
+        # Show sorting progress, some Datasets takes a bit long to sort
+        self.add_sort_filter_progress(tr("Sorting Datasets..."))
+        self.toolButton_sort.setDefaultAction(action)
         self.proxy_model.setDatasetSortField(field)
-        self.proxy_model.sort(0, QtCore.Qt.AscendingOrder)
+        order = QtCore.Qt.AscendingOrder if not self.reverse_box.isChecked() else QtCore.Qt.DescendingOrder
+        self.proxy_model.sort(0, order)
+
+    def add_sort_filter_progress(self, message):
+        self.message_bar_sort_filter = MessageBar().get().createMessage(message)
+        progress_bar = QtWidgets.QProgressBar()
+        progress_bar.setAlignment(QtCore.Qt.AlignLeft | QtCore.Qt.AlignVCenter)
+        progress_bar.setMinimum(0)
+        progress_bar.setMaximum(0)
+        self.message_bar_sort_filter.layout().addWidget(progress_bar)
+        MessageBar().get().pushWidget(self.message_bar_sort_filter, Qgis.Info)
+
+    def clear_message_bar(self):
+        # Using try and catch block message bar item might be already deleted.
+        try:
+            MessageBar().get().popWidget(self.message_bar_sort_filter)
+        except RuntimeError:
+            pass
 
     def setupAlgorithmsTree(self):
         # setup algorithms and their hierarchy

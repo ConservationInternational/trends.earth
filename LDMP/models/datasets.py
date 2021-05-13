@@ -179,7 +179,7 @@ class Dataset(DatasetBase):
                     self.status = 'COMPLETED'
                     self.progress = 100
                     self.source = self.metadata.get('source')
-                    self.name = localRaster.metadata.get('task_name', '')
+                    self.name = self.metadata.get('task_name', '')
                     self.creation_date = self.metadata.get('start_date', '')
                     self.run_id = self.metadata.get('id')
                     self.__origin = Dataset.Origin.local_raster

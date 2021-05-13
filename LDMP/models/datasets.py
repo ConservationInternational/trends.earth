@@ -176,7 +176,7 @@ class Dataset(DatasetBase):
                     self.__fileName = filename
                 else:
                     # it is a local processed dataset
-                    self.status = 'COMPLETED'
+                    self.status = 'FINISHED'
                     self.progress = 100
                     self.source = self.metadata.get('source')
                     self.name = self.metadata.get('task_name', '')

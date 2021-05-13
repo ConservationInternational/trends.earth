@@ -80,13 +80,13 @@ class DatasetItemDelegate(QStyledItemDelegate):
             return
 
         # activate editor
-        item = model.data(index, Qt.ItemDataRole)
+        item = model.data(index, Qt.DisplayRole)
         self.parent.openPersistentEditor(self.enteredCell)
 
     def paint(self, painter: QPainter, option: QStyleOptionViewItem, index: QModelIndex):
         # get item and manipulate painter basing on idetm data
         model = index.model()
-        item = model.data(index, Qt.ItemDataRole)
+        item = model.data(index, Qt.DisplayRole)
 
         # if a Dataset => show custom widget
         if isinstance(item, Dataset):
@@ -103,7 +103,7 @@ class DatasetItemDelegate(QStyledItemDelegate):
 
     def sizeHint(self, option: QStyleOptionViewItem, index: QModelIndex):
         model = index.model()
-        item = model.data(index, Qt.ItemDataRole)
+        item = model.data(index, Qt.DisplayRole)
 
         if isinstance(item, Dataset):
             widget = self.createEditor(None, option, index) # parent swet to none otherwise remain painted in the widget
@@ -116,7 +116,7 @@ class DatasetItemDelegate(QStyledItemDelegate):
     def createEditor(self, parent: QWidget, option: QStyleOptionViewItem, index: QModelIndex):
         # get item and manipulate painter basing on item data
         model = index.model()
-        item = model.data(index, Qt.ItemDataRole)
+        item = model.data(index, Qt.DisplayRole)
         if isinstance(item, Dataset):
             return DatasetEditorWidget(item, plugin=self.plugin, parent=parent)
         else:

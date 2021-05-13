@@ -25,7 +25,9 @@ import threading
 import glob
 import shutil
 
+from qgis.utils import iface
 from qgis.PyQt.QtCore import QSettings, pyqtSignal, QObject
+from qgis.PyQt.QtWidgets import QMessageBox
 from qgis.core import QgsLogger
 from LDMP.jobs import Job, JobSchema, Jobs, download_cloud_results, download_timeseries
 from LDMP.calculate import get_script_group
@@ -293,14 +295,25 @@ class Dataset(DatasetBase):
         else:
             raise ValueError("Unrecognized result type in download results: {}".format(result_type))
 
-    def delete(self):
+    def delete(self, ask_confirmation=True):
         """Download a downloaded dataset. E.g. remove any downloaded file and move descriptor only in
         a Delete folder to take trace of deleted one and avoid to doenload again.
         """
         json_path = os.path.dirname(self.__fileName)
 
+        if iface and ask_confirmation:
+            identifier = self.name if self.name else self.run_id
+            resp = QMessageBox.question(iface.mainWindow(),
+                    self.tr(f'Deleting dataset'),
+                    self.tr(f'Do you really want to delete: {identifier}'),
+                    QMessageBox.Yes|QMessageBox.No, QMessageBox.NoButton)
+            if resp == QMessageBox.No:
+                return
+
         # copy json descriptor in delete folder
         base_data_directory = QSettings().value("trends_earth/advanced/base_data_directory", None, type=str)
+        if base_data_directory is None:
+            return
         delete_path = os.path.join(base_data_directory, 'deleted')
 
         if not os.path.exists(delete_path):

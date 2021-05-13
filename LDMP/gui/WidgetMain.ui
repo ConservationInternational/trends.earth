@@ -86,6 +86,13 @@ for running algorithms and their results.</string>
             </property>
            </widget>
           </item>
+          <item>
+           <widget class="QCheckBox" name="reverse_box">
+            <property name="text">
+             <string>Reverse</string>
+            </property>
+           </widget>
+          </item>
          </layout>
         </item>
         <item>

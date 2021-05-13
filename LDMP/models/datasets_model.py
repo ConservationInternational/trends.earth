@@ -56,11 +56,7 @@ class DatasetsModel(QAbstractItemModel):
             return None
 
         item = index.internalPointer()
-        if role == Qt.DisplayRole:
-            if index.column() == 0:
-                return list(self.rootItem.items())[index.row()][1]
-
-        if role == Qt.ItemDataRole:
+        if role == Qt.DisplayRole or role == Qt.ItemDataRole:
             return item
 
     def flags(self, index: QModelIndex = QModelIndex()) -> Qt.ItemFlags:

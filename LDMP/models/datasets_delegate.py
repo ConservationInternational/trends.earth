@@ -152,8 +152,12 @@ class DatasetEditorWidget(QWidget, Ui_WidgetDatasetItem):
         if isinstance(self.dataset.creation_date, datetime):
             start_date_txt = self.dataset.datetimeRepr(self.dataset.creation_date)
         else:
-            dt = self.dataset.toDatetime(start_date_txt)
-            start_date_txt = self.dataset.datetimeRepr(dt)
+            # manage in case no start_date is available
+            if start_date_txt:
+                dt = self.dataset.toDatetime(start_date_txt)
+                start_date_txt = self.dataset.datetimeRepr(dt)
+            else:
+                start_date_txt = '<No start date set>'
         self.labelCreationDate.setText(start_date_txt)
 
         self.labelRunId.setText(str(self.dataset.run_id)) # it is UUID

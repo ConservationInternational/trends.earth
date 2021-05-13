@@ -203,7 +203,7 @@ class DatasetEditorWidget(QWidget, Ui_WidgetDatasetItem):
         self.labelSourceName.setText(self.dataset.source)
 
         # get data differently if come from Dataset or Downloaded dataset
-        if self.dataset.origin() == Dataset.Origin.downloaded_dataset:
+        if self.dataset.origin() in [Dataset.Origin.downloaded_dataset, Dataset.Origin.local_raster]:
             self.progressBar.hide()
             self.pushButtonStatus.hide()
             # allow delete if downloaded

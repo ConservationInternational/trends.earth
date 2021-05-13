@@ -341,9 +341,6 @@ class Datasets(QObject):
     def columnName(self, column: int) -> Optional[str]:
         return None
 
-    def items(self):
-        return self.datasetsStore.items()
-
     def sync(self):
         """Method to sync with Datasets available in "trends_earth/advanced/base_data_directory".
 

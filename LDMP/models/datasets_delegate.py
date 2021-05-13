@@ -143,6 +143,8 @@ class DatasetEditorWidget(QWidget, Ui_WidgetDatasetItem):
             QIcon(':/plugins/LDMP/icons/mActionPropertiesWidget.svg'))
         self.pushButtonLoad.setIcon(
             QIcon(':/plugins/LDMP/icons/mActionAddRasterLayer.svg'))
+        self.pushButtonStatus.setIcon(
+            QIcon(':/plugins/LDMP/icons/cloud-download.svg'))
 
         # allow having string or datetime for start_date
         # setting string in a uniform format
@@ -156,8 +158,10 @@ class DatasetEditorWidget(QWidget, Ui_WidgetDatasetItem):
 
         self.labelRunId.setText(str(self.dataset.run_id)) # it is UUID
 
+        # disable delete button by default
+        self.pushButtonDelete.setEnabled(False)
+
         # disable download button by default
-        self.pushButtonStatus.setIcon(QIcon(':/plugins/LDMP/icons/cloud-download.svg'))
         self.pushButtonStatus.setEnabled(False)
         dataset_auto_download = QSettings().value("trends_earth/advanced/dataset_auto_download", True, type=bool)
         self.pushButtonStatus.setHidden(dataset_auto_download)
@@ -198,6 +202,8 @@ class DatasetEditorWidget(QWidget, Ui_WidgetDatasetItem):
         if self.dataset.origin() == Dataset.Origin.downloaded_dataset:
             self.progressBar.hide()
             self.pushButtonStatus.hide()
+            # allow delete if downloaded
+            self.pushButtonDelete.setEnabled(True)
 
     def show_details(self):
         log(f"Details button clicked for dataset {self.dataset.name!r}")
@@ -207,3 +213,5 @@ class DatasetEditorWidget(QWidget, Ui_WidgetDatasetItem):
 
     def delete_dataset(self):
         log(f"Delete button clicked for dataset {self.dataset.name!r}")
+        self.dataset.delete()
+

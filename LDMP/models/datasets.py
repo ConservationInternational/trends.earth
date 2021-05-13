@@ -22,12 +22,16 @@ import os
 import json
 from collections import OrderedDict
 import threading
+import glob
+import shutil
 
+from qgis.utils import iface
 from qgis.PyQt.QtCore import QSettings, pyqtSignal, QObject
+from qgis.PyQt.QtWidgets import QMessageBox
 from qgis.core import QgsLogger
 from LDMP.jobs import Job, JobSchema, Jobs, download_cloud_results, download_timeseries
 from LDMP.calculate import get_script_group
-from LDMP import log, singleton, tr, json_serial
+from LDMP import log, singleton, tr, json_serial, traverse
 
 import marshmallow
 from marshmallow import fields, Schema
@@ -93,6 +97,7 @@ class Dataset(DatasetBase):
 
     dumped = pyqtSignal(str)
     downloaded = pyqtSignal(str)
+    deleted = pyqtSignal(str)
     class Origin(Enum):
         job = 0,
         dataset = 1,
@@ -179,8 +184,8 @@ class Dataset(DatasetBase):
         base_data_directory = QSettings().value("trends_earth/advanced/base_data_directory", None, type=str)
 
         # TODO: set subfolder basing on the nature of Dataset
-        # for now only 'ouptuts'
-        out_path = os.path.join(base_data_directory, 'ouptuts')
+        # for now only 'outputs'
+        out_path = os.path.join(base_data_directory, 'outputs')
 
         # set location where to save basing on script(alg) used
         if self.origin() != Dataset.Origin.downloaded_dataset:
@@ -290,6 +295,48 @@ class Dataset(DatasetBase):
         else:
             raise ValueError("Unrecognized result type in download results: {}".format(result_type))
 
+    def delete(self, ask_confirmation=True):
+        """Download a downloaded dataset. E.g. remove any downloaded file and move descriptor only in
+        a Delete folder to take trace of deleted one and avoid to doenload again.
+        """
+        json_path = os.path.dirname(self.__fileName)
+
+        if iface and ask_confirmation:
+            identifier = self.name if self.name else self.run_id
+            resp = QMessageBox.question(iface.mainWindow(),
+                    self.tr(f'Deleting dataset'),
+                    self.tr(f'Do you really want to delete: {identifier}'),
+                    QMessageBox.Yes|QMessageBox.No, QMessageBox.NoButton)
+            if resp == QMessageBox.No:
+                return
+
+        # copy json descriptor in delete folder
+        base_data_directory = QSettings().value("trends_earth/advanced/base_data_directory", None, type=str)
+        if base_data_directory is None:
+            return
+        delete_path = os.path.join(base_data_directory, 'deleted')
+
+        if not os.path.exists(delete_path):
+            os.makedirs(delete_path)
+        try:
+            shutil.copy(self.__fileName, delete_path)
+        except Exception as ex:
+            log(tr(f'Cannot copy file: {self.__fileName} to path: {delete_path}'))
+            QgsLogger.debug(f'{str(ex)}', debuglevel=1)
+            return
+
+        # look for all run_id related files
+        look_for = os.path.join(json_path, f"{self.run_id}*")
+        related = glob.glob(look_for, recursive=False)
+        for f in related:
+            # remove related
+            try:
+                os.remove(f)
+            except Exception as ex:
+                QgsLogger.debug(f'{str(ex)}', debuglevel=1)
+                pass
+        self.deleted.emit(self.__fileName)
+
 
 @singleton
 class Datasets(QObject):
@@ -318,7 +365,23 @@ class Datasets(QObject):
 
     def appendFromJob(self, job: Job) -> (str, Dataset):
         """Create a Dataset and dump basing an assumed valid Job."""
+        # do nothing if dataset has been marked as deleted
+        base_data_directory = QSettings().value("trends_earth/advanced/base_data_directory", None, type=str)
+        if not base_data_directory:
+            return
+        deleted_subpath = os.path.join(base_data_directory, 'deleted')
+
+        # get list of all deleted Datasets
+        deleted = traverse(deleted_subpath)
+
+        # check if already deleted
+        is_deleted = next((d for d in deleted if job.runId in d), None)
+        if is_deleted:
+            return
+
+        # not deleted => create Dataset
         dataset = Dataset(job=job)
+        dataset.deleted.connect(self.sync)
         dump_file_name = dataset.dump() # doing save in default location
 
         # add in memory store .e.g a dictionary
@@ -348,27 +411,75 @@ class Datasets(QObject):
         found Dataset descriptor.
         """
         base_data_directory = QSettings().value("trends_earth/advanced/base_data_directory", None, type=str)
+        if not base_data_directory:
+            return
+        jobs_subpath = os.path.join(base_data_directory, 'Jobs')
+        deleted_subpath = os.path.join(base_data_directory, 'deleted')
 
-        def traverse(path):
-            excluded_path = os.path.sep + 'Jobs' + os.path.sep
-
-            for basepath, directories, files in os.walk(path):
-                for f in files:
-                    # skip files in Jobs
-                    if excluded_path.lower() in basepath.lower():
-                        continue
-                    
-                    yield os.path.join(basepath, f)
-
-        # remove any previous memorised Datasets
-        # self.reset()
         datasetSchema = DatasetSchema()
         downloadedDatasetSchema = DownloadedDatasetSchema()
-        json_files = list(traverse(base_data_directory)) # need traverse all to check if some dataset has been already downloaded
+
+        # remove any previous memorised Datasets
+        self.reset(emit=False)
+
+        # get all deleted Datasets descriptos
+        deleted = list(traverse(deleted_subpath))
+
+        # purge all too old deleted descriptors
+        today = datetime.today()
+        deleted_datasets_age_limit = QSettings().value("trends_earth/advanced/deleted_datasets_age_limit", 15, type=int)
+        for deleted_json in deleted:
+            creation_datetime = os.stat(deleted_json).st_ctime
+            creation_datetime = datetime.fromtimestamp(creation_datetime)
+            delta = today - creation_datetime
+            if delta.days > deleted_datasets_age_limit:
+                try:
+                    os.remove(json_file)
+                except:
+                    pass
+
+        # process all available Dataset descriptors
+        json_files = list(traverse(base_data_directory, excluded=[jobs_subpath, deleted_subpath])) # need traverse all to check if some dataset has been already downloaded
         for json_file in json_files:
             # skip larger thatn 1MB files
             statinfo = os.stat(json_file)
             if statinfo.st_size > 1024*1024:
+                continue
+
+            # Datasets descriptor json filenamehas these relations:
+            #   Dataset descriptor: b4b098f8-e562-4843-b6ed-586878410a01.json
+            #   Downloaded dataset descriptor: b4b098f8-e562-4843-b6ed-586878410a01_Productivity 1_0_3_gen_test19.json
+            # A deleted descriptor is moved in "deleted" folder
+            basename_uuid = os.path.splitext(os.path.basename(json_file))[0]
+
+            # skip if Dataset has been deleted
+            been_deleted = next((d for d in deleted if basename_uuid in d), None)
+            if been_deleted:
+                # if strored in datasetStore remove entry related to deleted Dataset
+                self.datasetsStore.pop(json_file, None)
+
+                # remove also the dataset json in case it's still present
+                try:
+                    os.remove(json_file)
+                except:
+                    pass
+                QgsLogger.debug(f'Dataset {json_file} already marked as deleted => skipped', debuglevel=3)
+                continue
+
+            # skip if dataset has a downloaded contrepart e.g. a json file with the same UUID plus more
+            # info in filename
+            look_for = basename_uuid + "_"
+            found = next((j for j in json_files if look_for in j), None) # look if some key containing 'look_for' string
+            if found:
+                # if strored in datasetStore remove entry related to json_file Dataset
+                self.datasetsStore.pop(json_file, None)
+
+                # remove also the dataset json that now is nomore necessary
+                try:
+                    os.remove(json_file)
+                except:
+                    pass
+                QgsLogger.debug(f'Dataset {json_file} already downloaded => skipped', debuglevel=3)
                 continue
 
             # skip any not json file
@@ -379,29 +490,10 @@ class Datasets(QObject):
                     # no json => skip
                     continue
                 except Exception as ex:
-                    QgsLogger.debug('* Error reading file {} with ex: {}'.format(json_file, str(ex)), debuglevel=3)
-                    continue
-
-                # skip if dataset has a downloaded contrepart e.g. a json file with the same UUID plus more
-                # info in filename. e.g if dataset is:
-                #   b4b098f8-e562-4843-b6ed-586878410a01.json
-                # a downloaded dataset could be:
-                #   b4b098f8-e562-4843-b6ed-586878410a01_Productivity 1_0_3_gen_test19.json
-                basename = os.path.splitext(os.path.basename(json_file))[0]
-                look_for = basename + "_"
-
-                found = next((j for j in json_files if look_for in j), None) # look if some key containing 'look_for' string
-                if found:
-                    # if strored in datasetStore remove entry related to json_file Dataset
-                    self.datasetsStore.pop(json_file, None)
-
-                    # remove also the dataset json that now is nomore necessary
-                    try:
-                        os.remove(json_file)
-                    except:
-                        pass
-
-                    log(tr('Dataset {} already downloaded => skipped').format(json_file))
+                    # because reach codec error trying to parse .tiff => avoid to clutter log
+                    extension = os.path.splitext(json_file)[1]
+                    if extension.lower() not in ['tif', 'tiff', 'png', 'jpeg', 'jpg']:
+                        QgsLogger.debug('* Error reading file {} with ex: {}'.format(json_file, str(ex)), debuglevel=3)
                     continue
 
                 # block useful to distinguish if dataset is a downloaded dataset or not
@@ -427,6 +519,7 @@ class Datasets(QObject):
                 
                 if dataset_dict:
                     dataset = Dataset(dataset=dataset_dict, filename=json_file)
+                    dataset.deleted.connect(self.sync)
                     self.datasetsStore[json_file] = dataset
 
         self.updated.emit()

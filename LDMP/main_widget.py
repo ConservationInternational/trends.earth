@@ -12,6 +12,7 @@
  ***************************************************************************/
 """
 
+import os
 from datetime import datetime
 
 from qgis.PyQt import QtWidgets, QtGui, QtCore
@@ -89,9 +90,36 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         Jobs().updated.connect(self.updateDatasetsModel)
         Datasets().updated.connect(self.updateDatasetsModel)
 
+        self.cleanEmptyFolders()
         self.setupAlgorithmsTree()
         self.setupDatasetsGui()
         self.updateDatasetsBasedOnJobs()
+
+    def cleanEmptyFolders(self):
+        """Remove andy Job or Dataset empty folder. Job or Dataset folder can be empty 
+        due to delete action by the user.
+        """
+        base_data_directory = QtCore.QSettings().value("trends_earth/advanced/base_data_directory", None, type=str)
+        if not base_data_directory:
+            return
+
+        def clean(folders):
+            for folder in folders:
+                # floder leaf is empty if ('folder', [], [])
+                if ( not folder[1] and
+                     not folder[2] ):
+                    os.rmdir(folder[0])
+
+
+        # remove empty Jobs folders
+        jobs_path = os.path.join(base_data_directory, 'Jobs')
+        folders = list(os.walk(jobs_path))[1:]
+        clean(folders)
+
+        # remove empty Datasets folders
+        datasets_path = os.path.join(base_data_directory, 'outputs')
+        folders = list(os.walk(datasets_path))[1:]
+        clean(folders)
 
     def updateDatasetsBasedOnJobs(self):
         """Sync Datasets basing on available Jobs.

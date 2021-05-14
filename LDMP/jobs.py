@@ -430,6 +430,7 @@ def download_cloud_results(job, f, tr, add_to_map=True):
             # it matches
             if os.access(tiles[n], os.R_OK):
                 if check_hash_against_etag(urls[n]['url'], tiles[n], binascii.hexlify(base64.b64decode(urls[n]['md5Hash'])).decode()):
+                    QgsLogger.debug(tr_jobs.tr(u"No download necessary for tile already in cache: {}".format(urls[n]['url'])), debuglevel=3)
                     continue
             resp = download_result(urls[n]['url'], tiles[n], job, 
                                    binascii.hexlify(base64.b64decode(urls[n]['md5Hash'])).decode())
@@ -445,7 +446,7 @@ def download_cloud_results(job, f, tr, add_to_map=True):
         do_download = True
         if os.access(out_file, os.R_OK):
             if check_hash_against_etag(url['url'], out_file, binascii.hexlify(base64.b64decode(url['md5Hash'])).decode()):
-                tr_jobs.tr(u"No download necessary for Dataset in cache: {}".format(out_file))
+                QgsLogger.debug(tr_jobs.tr(u"No download necessary for Dataset in cache: {}".format(out_file)), debuglevel=3)
                 do_download = False
             else:
                 do_download = True

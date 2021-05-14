@@ -14,6 +14,8 @@
 __author__ = 'Luigi Pirelli / Kartoza'
 __date__ = '2021-03-03'
 
+from datetime import datetime
+
 import qgis.core
 from functools import partial
 from qgis.PyQt.QtCore import (
@@ -25,7 +27,8 @@ from qgis.PyQt.QtCore import (
     QRectF,
     QRect,
     QAbstractItemModel,
-    QSize
+    QSize,
+    QSettings
 )
 from qgis.PyQt.QtWidgets import (
     QStyleOptionViewItem,
@@ -51,9 +54,10 @@ from LDMP.gui.WidgetDatasetItem import Ui_WidgetDatasetItem
 
 class DatasetItemDelegate(QStyledItemDelegate):
 
-    def __init__(self, parent: QObject = None):
+    def __init__(self, plugin, parent: QObject = None):
         super().__init__(parent)
 
+        self.plugin = plugin
         self.parent = parent
 
         # manage activate editing when entering the cell (if editable)
@@ -76,13 +80,13 @@ class DatasetItemDelegate(QStyledItemDelegate):
             return
 
         # activate editor
-        item = model.data(index, Qt.ItemDataRole)
+        item = model.data(index, Qt.DisplayRole)
         self.parent.openPersistentEditor(self.enteredCell)
 
     def paint(self, painter: QPainter, option: QStyleOptionViewItem, index: QModelIndex):
         # get item and manipulate painter basing on idetm data
         model = index.model()
-        item = model.data(index, Qt.ItemDataRole)
+        item = model.data(index, Qt.DisplayRole)
 
         # if a Dataset => show custom widget
         if isinstance(item, Dataset):
@@ -99,7 +103,7 @@ class DatasetItemDelegate(QStyledItemDelegate):
 
     def sizeHint(self, option: QStyleOptionViewItem, index: QModelIndex):
         model = index.model()
-        item = model.data(index, Qt.ItemDataRole)
+        item = model.data(index, Qt.DisplayRole)
 
         if isinstance(item, Dataset):
             widget = self.createEditor(None, option, index) # parent swet to none otherwise remain painted in the widget
@@ -112,9 +116,9 @@ class DatasetItemDelegate(QStyledItemDelegate):
     def createEditor(self, parent: QWidget, option: QStyleOptionViewItem, index: QModelIndex):
         # get item and manipulate painter basing on item data
         model = index.model()
-        item = model.data(index, Qt.ItemDataRole)
+        item = model.data(index, Qt.DisplayRole)
         if isinstance(item, Dataset):
-            return DatasetEditorWidget(item, parent=parent)
+            return DatasetEditorWidget(item, plugin=self.plugin, parent=parent)
         else:
             return super().createEditor(parent, option, index)
 
@@ -123,8 +127,9 @@ class DatasetItemDelegate(QStyledItemDelegate):
 
 class DatasetEditorWidget(QWidget, Ui_WidgetDatasetItem):
 
-    def __init__(self, dataset: Dataset, parent=None):
+    def __init__(self, dataset: Dataset, plugin=None, parent=None):
         super(DatasetEditorWidget, self).__init__(parent)
+        self.plugin = plugin
         self.setupUi(self)
         self.setAutoFillBackground(True)  # allows hiding background prerendered pixmap
         self.dataset = dataset
@@ -138,12 +143,67 @@ class DatasetEditorWidget(QWidget, Ui_WidgetDatasetItem):
             QIcon(':/plugins/LDMP/icons/mActionPropertiesWidget.svg'))
         self.pushButtonLoad.setIcon(
             QIcon(':/plugins/LDMP/icons/mActionAddRasterLayer.svg'))
+        self.pushButtonStatus.setIcon(
+            QIcon(':/plugins/LDMP/icons/cloud-download.svg'))
 
-        self.labelDatasetName.setText(self.dataset.name)
-        self.labelCreationDate.setText(
-            self.dataset.creation_date.strftime('%Y-%m-%d %H:%M:%S'))
+        # allow having string or datetime for start_date
+        # setting string in a uniform format
+        start_date_txt = self.dataset.creation_date
+        if isinstance(self.dataset.creation_date, datetime):
+            start_date_txt = self.dataset.datetimeRepr(self.dataset.creation_date)
+        else:
+            dt = self.dataset.toDatetime(start_date_txt)
+            start_date_txt = self.dataset.datetimeRepr(dt)
+        self.labelCreationDate.setText(start_date_txt)
+
+        self.labelRunId.setText(str(self.dataset.run_id)) # it is UUID
+
+        # disable delete button by default
+        self.pushButtonDelete.setEnabled(False)
+
+        # disable download button by default
+        self.pushButtonStatus.setEnabled(False)
+        dataset_auto_download = QSettings().value("trends_earth/advanced/dataset_auto_download", True, type=bool)
+        self.pushButtonStatus.setHidden(dataset_auto_download)
+
+        # show progress bar or download button depending on status
+        self.progressBar.setValue(self.dataset.progress)
+        if self.dataset.status == 'PENDING':
+            self.progressBar.setRange(0,100)
+            self.progressBar.setFormat(self.dataset.status)
+            self.progressBar.show()
+        if ( self.dataset.progress > 0 and
+             self.dataset.progress < 100
+            ):
+            # no % come from server => set progress as continue update
+            self.progressBar.show()
+            self.progressBar.setMinimum(0)
+            self.progressBar.setMaximum(0)
+            self.progressBar.setFormat('Processing...')
+        # change GUI if finished
+        if ( self.dataset.status in ['FINISHED', 'SUCCESS'] and
+             self.dataset.progress == 100 and
+             self.dataset.origin() != Dataset.Origin.downloaded_dataset
+            ):
+            self.progressBar.reset()
+            self.progressBar.hide()
+            # disable download button if auto download is set
+            self.pushButtonStatus.setEnabled(True)
+            # add event to download dataset
+            self.pushButtonStatus.clicked.connect(self.dataset.download)
+
+        dataset_name = self.dataset.name if self.dataset.name else '<no name set>'
+        self.labelDatasetName.setText(dataset_name)
+
+        data_source = self.dataset.source if self.dataset.source else 'Unknown'
         self.labelSourceName.setText(self.dataset.source)
-        self.labelRunId.setText(self.dataset.run_id)
+
+        # get data differently if come from Dataset or Downloaded dataset
+        if self.dataset.origin() == Dataset.Origin.downloaded_dataset:
+            self.progressBar.hide()
+            self.pushButtonStatus.hide()
+            # allow delete if downloaded
+            self.pushButtonDelete.setEnabled(True)
 
     def show_details(self):
         log(f"Details button clicked for dataset {self.dataset.name!r}")
@@ -153,3 +213,5 @@ class DatasetEditorWidget(QWidget, Ui_WidgetDatasetItem):
 
     def delete_dataset(self):
         log(f"Delete button clicked for dataset {self.dataset.name!r}")
+        self.dataset.delete()
+

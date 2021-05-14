@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>345</width>
-    <height>152</height>
+    <height>181</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -51,6 +51,12 @@
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
          <widget class="QLabel" name="labelDatasetName">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>31</height>
+           </size>
+          </property>
           <property name="font">
            <font>
             <weight>75</weight>
@@ -86,12 +92,9 @@
          </widget>
         </item>
         <item>
-         <widget class="QGraphicsView" name="graphicsViewStatus">
-          <property name="maximumSize">
-           <size>
-            <width>20</width>
-            <height>20</height>
-           </size>
+         <widget class="QPushButton" name="pushButtonStatus">
+          <property name="text">
+           <string/>
           </property>
          </widget>
         </item>

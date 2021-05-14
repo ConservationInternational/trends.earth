@@ -252,7 +252,7 @@ class LDMPPlugin(object):
     def run_docked_interface(self, checked):
         if checked:
             # add docked main interface
-            self.dock_widget = get_trends_earth_dockwidget()
+            self.dock_widget = get_trends_earth_dockwidget(plugin=self)
             self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dock_widget)
             self.dock_widget.show()
         else:

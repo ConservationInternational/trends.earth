@@ -18,7 +18,10 @@ import re
 import site
 import json
 import subprocess
+import datetime
+import threading
 from tempfile import NamedTemporaryFile
+from typing import List
 
 from qgis.PyQt.QtCore import (QSettings, QTranslator, qVersion, 
         QLocale, QCoreApplication)
@@ -133,3 +136,41 @@ def openFolder(path):
         subprocess.check_call(['xdg-open', path])
     elif sys.platform == 'win32':
         subprocess.check_call(['explorer', path])
+
+# singleton decorator
+def singleton(cls):
+    instances = {}
+    def wrapper(*args, **kwargs):
+        # eventually lock getting the instance in case it is in modiry state
+        if hasattr(cls, 'lock'):
+            cls.lock.acquire()
+        
+        if cls not in instances:
+          instances[cls] = cls(*args, **kwargs)
+        
+        # eventually unlock
+        if hasattr(cls, 'lock'):
+            cls.lock.release()
+
+        return instances[cls]
+    return wrapper
+
+
+def json_serial(obj):
+    """JSON serializer for objects not serializable by default json code"""
+    if isinstance(obj, (datetime.datetime, datetime.date)):
+        return obj.isoformat()
+    raise TypeError("Type {} not serializable".format(type(obj)))
+
+
+def traverse(path, excluded: List[str] = []):
+    """Return a list of files traversing path recursively and excluding some of them.
+    """
+    for basepath, directories, files in os.walk(path):
+        # skip if parsing an excluded path
+        is_excluded = [x for x in excluded if x.lower() in basepath.lower()]
+        if is_excluded:
+            continue
+        for f in files:
+            yield os.path.join(basepath, f)
+

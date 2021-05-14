@@ -14,16 +14,18 @@
 __author__ = 'Luigi Pirelli / Kartoza'
 __date__ = '2021-03-03'
 
-from typing import Optional, Union
+from typing import Optional
 from qgis.PyQt.QtCore import (
     QAbstractItemModel,
     QModelIndex,
+    QSortFilterProxyModel,
     Qt
 )
 from LDMP.models.datasets import (
     Dataset,
     Datasets
 )
+
 
 class DatasetsModel(QAbstractItemModel):
 
@@ -49,16 +51,12 @@ class DatasetsModel(QAbstractItemModel):
 
         return self.rootItem.columnCount()
 
-    def data(self, index: QModelIndex = QModelIndex(), role: Qt.ItemDataRole = Qt.DisplayRole ) -> Union[Dataset, None]:
+    def data(self, index: QModelIndex = QModelIndex(), role: Qt.ItemDataRole = Qt.DisplayRole ) -> Optional[Dataset]:
         if not index.isValid():
             return None
 
         item = index.internalPointer()
-        if role == Qt.DisplayRole:
-            if index.column() == 0:
-                return item.name
-            
-        if role == Qt.ItemDataRole:
+        if role == Qt.DisplayRole or role == Qt.ItemDataRole:
             return item
 
     def flags(self, index: QModelIndex = QModelIndex()) -> Qt.ItemFlags:
@@ -90,3 +88,14 @@ class DatasetsModel(QAbstractItemModel):
             return False
 
         return True
+
+
+class DatasetsSortFilterProxyModel(QSortFilterProxyModel):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+    def filterAcceptsRow(self, source_row: int, source_parent: QModelIndex):
+        index = self.sourceModel().index(source_row, 0, source_parent)
+
+        match = self.filterRegularExpression().match(self.sourceModel().data(index).name)
+        return match.hasMatch()

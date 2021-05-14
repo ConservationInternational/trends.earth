@@ -18,6 +18,7 @@ from pathlib import Path
 import json
 import tempfile
 import uuid
+from datetime import datetime
 
 from osgeo import gdal, ogr, osr
 
@@ -66,6 +67,11 @@ class tr_calculate(object):
     def tr(message):
         return QCoreApplication.translate("tr_calculate", message)
 
+# set mapping among GUI interface and algorithm group. Can be done via a JSON configuration as in scripts.py
+# bu algorithms are almost stable (as in alg list in main widget tab) => leaved as static dictionary
+local_scripts = {}
+local_scripts['DlgCalculateLDNSummaryTableAdmin'] = 'SDG 15.3.1'
+local_scripts['DlgCalculateUrbanSummaryTable'] = 'SDG 11.3.1'
 
 # Make a function to get a script slug from a script name, including the script 
 # version string
@@ -82,6 +88,9 @@ def get_script_group(script_name):
     group = None
     if (script_name in scripts) and ('group' in scripts[script_name]):
         group = scripts[script_name]['group']
+    if not group:
+        # check if no belogs to remote scripts and it is a local script/process
+        group = local_scripts.get(script_name, None)
     return group
 
 
@@ -738,8 +747,9 @@ class CalculationHidedOutputWidget(QtWidgets.QWidget, Ui_WidgetCalculationOutput
         if not base_data_directory:
             return
 
+        processing_date_string = datetime.now().strftime('%Y_%m_%d')
         group = get_script_group(self.subclass_name)
-        initial_path = os.path.join(base_data_directory, 'outputs', self.subclass_name)
+        initial_path = os.path.join(base_data_directory, 'outputs', group, processing_date_string)
         if not initial_path:
             return
 

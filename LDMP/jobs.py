@@ -420,6 +420,7 @@ def download_result(url, out_file, job, expected_etag):
 def download_cloud_results(job, f, tr, add_to_map=True):
     results = job['results']
     json_file = f + '.json'
+    downloaded = False
     if len(results['urls']) > 1:
         # Save a VRT if there are multiple files for this download
         urls = results['urls'] 
@@ -436,6 +437,7 @@ def download_cloud_results(job, f, tr, add_to_map=True):
                                    binascii.hexlify(base64.b64decode(urls[n]['md5Hash'])).decode())
             if not resp:
                 return
+            downloaded = True
         # Make a VRT mosaicing the tiles so they can be treated as one file 
         # during further processing
         out_file = f + '.vrt'
@@ -456,6 +458,7 @@ def download_cloud_results(job, f, tr, add_to_map=True):
                                 binascii.hexlify(base64.b64decode(url['md5Hash'])).decode())
             if not resp:
                 return
+            downloaded = True
 
     create_gee_json_metadata(json_file, job, out_file)
 
@@ -466,9 +469,11 @@ def download_cloud_results(job, f, tr, add_to_map=True):
             if band_info['add_to_map']:
                 add_layer(out_file, band_number, band_info)
 
-    mb.pushMessage(tr_jobs.tr("Downloaded"),
-                   tr_jobs.tr(u"Downloaded results to {}".format(out_file)),
-                   level=0, duration=5)
+    # if already dowloaded no download is triggered
+    if downloaded:
+        mb.pushMessage(tr_jobs.tr("Downloaded"),
+                    tr_jobs.tr(u"Downloaded results to {}".format(out_file)),
+                    level=0, duration=5)
 
 
 def download_timeseries(job, tr):

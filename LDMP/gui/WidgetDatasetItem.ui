@@ -93,6 +93,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="pushButtonStatus">
+          <property name="toolTip">
+           <string>Dataset status</string>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -159,6 +162,9 @@
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
          <widget class="QPushButton" name="pushButtonLoad">
+          <property name="toolTip">
+           <string>Load dataset into QGIS</string>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -170,6 +176,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="pushButtonDetails">
+          <property name="toolTip">
+           <string>Click to view dataset details</string>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -194,6 +203,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="pushButtonDelete">
+          <property name="toolTip">
+           <string>Delete dataset</string>
+          </property>
           <property name="text">
            <string/>
           </property>

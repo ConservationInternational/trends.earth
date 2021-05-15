@@ -46,6 +46,9 @@
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
            <widget class="QPushButton" name="pushButton_refresh">
+            <property name="toolTip">
+             <string>Refresh to fetch new datasets</string>
+            </property>
             <property name="text">
              <string/>
             </property>
@@ -53,6 +56,9 @@
           </item>
           <item>
            <widget class="QgsFilterLineEdit" name="lineEdit_search">
+            <property name="toolTip">
+             <string>Search for datasets</string>
+            </property>
             <property name="placeholderText">
              <string>Search...</string>
             </property>
@@ -66,6 +72,9 @@
           </item>
           <item>
            <widget class="QToolButton" name="toolButton_sort">
+            <property name="toolTip">
+             <string>Choose property to sort the datasets</string>
+            </property>
             <property name="text">
              <string>...</string>
             </property>
@@ -93,6 +102,9 @@
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
            <widget class="QPushButton" name="pushButton_import">
+            <property name="toolTip">
+             <string>Import datasets</string>
+            </property>
             <property name="text">
              <string>Import</string>
             </property>
@@ -100,6 +112,9 @@
           </item>
           <item>
            <widget class="QPushButton" name="pushButton_download">
+            <property name="toolTip">
+             <string>Download raw data</string>
+            </property>
             <property name="text">
              <string>Download raw data</string>
             </property>
@@ -107,6 +122,9 @@
           </item>
           <item>
            <widget class="QPushButton" name="pushButton_load">
+            <property name="toolTip">
+             <string>Load base map into QGIS</string>
+            </property>
             <property name="text">
              <string>Load Base Map</string>
             </property>
@@ -138,7 +156,7 @@
   <customwidget>
    <class>QgsFilterLineEdit</class>
    <extends>QLineEdit</extends>
-   <header>qgis.gui</header>
+   <header>qgsfilterlineedit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

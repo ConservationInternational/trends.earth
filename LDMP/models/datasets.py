@@ -48,6 +48,13 @@ class DatasetStatus(Enum):
 DatasetStatusStrings = [e.name for e in DatasetStatus]
 
 
+class SortField(Enum):
+    NAME = 'name'
+    DATE = 'date'
+    ALGORITHM = 'algorithm'
+    STATUS = 'status'
+
+
 def getStatusEnum(status: str) -> DatasetStatus:
     """TODO: remove as commented above"""
     # get APIResponseSchema and remap into DatasetStatus
@@ -547,6 +554,46 @@ class Datasets(QObject):
         """Return Dataset and related descriptor asociated file."""
         datasets = [(k, d) for k,d in self.datasetsStore.items() if str(d.run_id) == id]
         return datasets[0] if len(datasets) else None
+
+    def sort(self, column, order, field: SortField):
+        self.datasetsStore = OrderedDict(self.__merge_sort(list(self.datasetsStore.items()), field))
+
+    def __merge_sort(self, items: List, field):
+        if len(items) <= 1:
+            return items
+        mid = int((len(items) / 2))
+
+        left = self.__merge_sort(items[:mid], field)
+        right = self.__merge_sort(items[mid:], field)
+        return self.__merge(left, right, field)
+
+    def __merge(self, left, right, field):
+        sorted_dict = []
+        i = j = 0
+
+        while i < len(left) and j < len(right):
+            if self.__less_than(left[i][1], right[j][1], field):
+                sorted_dict.append(left[i])
+                i += 1
+            else:
+                sorted_dict.append(right[j])
+                j += 1
+        sorted_dict.extend(left[i:])
+        sorted_dict.extend(right[j:])
+        return sorted_dict
+
+    def __less_than(self, left_dataset, right_dataset, field: SortField):
+        if field == SortField.NAME:
+            return left_dataset.name < right_dataset.name
+        elif field == SortField.DATE and \
+                isinstance(left_dataset.creation_date, datetime) \
+                and isinstance(right_dataset.creation_date, datetime):
+            return left_dataset.creation_date < right_dataset.creation_date
+        elif field == SortField.ALGORITHM:
+            return left_dataset.source < right_dataset.source
+        elif field == SortField.STATUS:
+            return left_dataset.status < right_dataset.status
+        return False
 
 
 class DatasetSchema(Schema):

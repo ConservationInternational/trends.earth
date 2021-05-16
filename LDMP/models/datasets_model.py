@@ -27,15 +27,9 @@ from qgis.PyQt.QtCore import (
 )
 from LDMP.models.datasets import (
     Dataset,
-    Datasets
+    Datasets,
+    SortField
 )
-
-
-class SortField(enum.Enum):
-    NAME = 'name'
-    DATE = 'date'
-    ALGORITHM = 'algorithm'
-    STATUS = 'status'
 
 
 class DatasetsModel(QAbstractItemModel):
@@ -100,6 +94,9 @@ class DatasetsModel(QAbstractItemModel):
 
         return True
 
+    def rootModel(self):
+        return self.rootItem
+
 
 class DatasetsSortFilterProxyModel(QSortFilterProxyModel):
     def __init__(self, parent=None):
@@ -130,3 +127,6 @@ class DatasetsSortFilterProxyModel(QSortFilterProxyModel):
 
     def setDatasetSortField(self, field: SortField):
         self.dataset_sort_field = field
+
+    def sort(self, column: int, order):
+        self.sourceModel().rootModel().sort(column, order, self.dataset_sort_field)

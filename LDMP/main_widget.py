@@ -38,7 +38,8 @@ from LDMP.models.datasets import (
 from LDMP.models.algorithms_model import AlgorithmTreeModel
 from LDMP.models.algorithms_delegate import AlgorithmItemDelegate
 
-from LDMP.models.datasets_model import DatasetsModel, DatasetsSortFilterProxyModel, SortField
+from LDMP.models.datasets_model import DatasetsModel, DatasetsSortFilterProxyModel
+from LDMP.models.datasets import SortField
 from LDMP.models.datasets_delegate import DatasetItemDelegate
 from LDMP import tr
 
@@ -287,7 +288,7 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
 
     def sort_datasets(self, action: QtWidgets.QAction, field: SortField):
         # Show sorting progress, some Datasets takes a bit long to sort
-        self.add_sort_filter_progress(tr("Sorting Datasets..."))
+        #self.add_sort_filter_progress(tr("Sorting Datasets..."))
         self.toolButton_sort.setDefaultAction(action)
         self.proxy_model.setDatasetSortField(field)
         order = QtCore.Qt.AscendingOrder if not self.reverse_box.isChecked() else QtCore.Qt.DescendingOrder

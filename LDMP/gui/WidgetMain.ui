@@ -57,7 +57,7 @@
           <item>
            <widget class="QgsFilterLineEdit" name="lineEdit_search">
             <property name="toolTip">
-             <string>Search for datasets</string>
+             <string>Search datasets by using their names</string>
             </property>
             <property name="placeholderText">
              <string>Search...</string>
@@ -73,7 +73,7 @@
           <item>
            <widget class="QToolButton" name="toolButton_sort">
             <property name="toolTip">
-             <string>Choose property to sort the datasets</string>
+             <string>Sort the datasets using the selected property.</string>
             </property>
             <property name="text">
              <string>...</string>
@@ -103,7 +103,7 @@
           <item>
            <widget class="QPushButton" name="pushButton_import">
             <property name="toolTip">
-             <string>Import datasets</string>
+             <string>Add datasets from a local location</string>
             </property>
             <property name="text">
              <string>Import</string>
@@ -113,7 +113,7 @@
           <item>
            <widget class="QPushButton" name="pushButton_download">
             <property name="toolTip">
-             <string>Download raw data</string>
+             <string>Download data from a remote server</string>
             </property>
             <property name="text">
              <string>Download raw data</string>
@@ -156,7 +156,7 @@
   <customwidget>
    <class>QgsFilterLineEdit</class>
    <extends>QLineEdit</extends>
-   <header>qgsfilterlineedit.h</header>
+   <header>qgis.gui</header>
   </customwidget>
  </customwidgets>
  <resources/>

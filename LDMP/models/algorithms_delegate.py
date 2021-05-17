@@ -119,35 +119,41 @@ class AlgorithmItemDelegate(QStyledItemDelegate):
             editorWidget.toolButtonAlgorithmRun.setPopupMode(QToolButton.MenuButtonPopup)
             editorWidget.toolButtonAlgorithmRun.setMenu(QMenu())
 
-            # add action entries of the pull down menu
-            runAction = None
-            if item.run_mode in [AlgorithmRunMode.Locally, AlgorithmRunMode.Both]:
-                runAction = QAction(tr('Run'), editorWidget)
-                editorWidget.toolButtonAlgorithmRun.menu().addAction(runAction)
-                editorWidget.toolButtonAlgorithmRun.setDefaultAction(runAction)
+            # add action entries to be used on the pull down menu and the push button
+            action_modes = {
+                AlgorithmRunMode.Locally: 'Run',
+                AlgorithmRunMode.Remotely: 'Run with default data',
+            }
 
-                # link callback to local processing
-                if( item.run_callbacks and
-                    (AlgorithmRunMode.Locally in item.run_callbacks) and
-                    (item.run_callbacks[AlgorithmRunMode.Locally] is not None) ):
-                    runAction.triggered.connect( item.run_callbacks[AlgorithmRunMode.Locally] )
+            if item.run_mode is AlgorithmRunMode.Both:
+                editorWidget.pushButton.hide()
+                for action_mode, action_text in action_modes.items():
+                    runAction = QAction(tr(action_text), editorWidget)
+                    editorWidget.toolButtonAlgorithmRun.menu().addAction(runAction)
+                    editorWidget.toolButtonAlgorithmRun.setDefaultAction(runAction)
+
+                    # link callback to local processing
+                    if(item.run_callbacks and
+                        (action_mode in item.run_callbacks) and
+                        (item.run_callbacks[action_mode] is not None)):
+                        runAction.triggered.connect(item.run_callbacks[action_mode])
+                    else:
+                        runAction.setDisabled(True)
+            elif item.run_mode in action_modes.keys():
+                editorWidget.toolButtonAlgorithmRun.hide()
+
+                editorWidget.pushButton.setText(tr(action_modes[item.run_mode]))
+
+                # link callback to algorithm processing
+                if (item.run_callbacks and
+                        (item.run_mode in item.run_callbacks) and
+                        (item.run_callbacks[item.run_mode] is not None)):
+                    editorWidget.pushButton.clicked.connect(item.run_callbacks[item.run_mode])
                 else:
-                    runAction.setDisabled(True)
-
-            if item.run_mode in [AlgorithmRunMode.Remotely, AlgorithmRunMode.Both]:
-                runWithDefaultAction = QAction(tr('Run with default data'), editorWidget)
-                editorWidget.toolButtonAlgorithmRun.menu().addAction(runWithDefaultAction)
-                if not runAction:
-                    editorWidget.toolButtonAlgorithmRun.setDefaultAction(runWithDefaultAction)
-
-                # link callback to remote processing
-                if( item.run_callbacks and
-                    (AlgorithmRunMode.Remotely in item.run_callbacks) and
-                    (item.run_callbacks[AlgorithmRunMode.Remotely] is not None) ):
-                    runWithDefaultAction.triggered.connect( item.run_callbacks[AlgorithmRunMode.Remotely] )
-                else:
-                    runWithDefaultAction.setDisabled(True)
-
+                    editorWidget.pushButton.setDisabled(True)
+            else:
+                editorWidget.pushButton.hide()
+                editorWidget.toolButtonAlgorithmRun.hide()
             return editorWidget
         else:
             return super().createEditor(parent, option, index)

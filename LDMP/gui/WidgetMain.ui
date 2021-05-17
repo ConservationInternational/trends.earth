@@ -47,7 +47,7 @@
           <item>
            <widget class="QPushButton" name="pushButton_refresh">
             <property name="toolTip">
-             <string>Refresh to fetch new datasets</string>
+             <string>Refresh dataset list manually. This scans the Trends.Earth base directory for new datasets. It also scans the remote Google Earth Engine server for running algorithms and their results.</string>
             </property>
             <property name="text">
              <string/>
@@ -57,7 +57,7 @@
           <item>
            <widget class="QgsFilterLineEdit" name="lineEdit_search">
             <property name="toolTip">
-             <string>Search datasets by using their names</string>
+             <string>Filter the list of datasets according with their name</string>
             </property>
             <property name="placeholderText">
              <string>Search...</string>
@@ -103,7 +103,7 @@
           <item>
            <widget class="QPushButton" name="pushButton_import">
             <property name="toolTip">
-             <string>Add datasets from a local location</string>
+             <string>Import external datasets from a local directory into Trends.Earth</string>
             </property>
             <property name="text">
              <string>Import</string>
@@ -113,7 +113,7 @@
           <item>
            <widget class="QPushButton" name="pushButton_download">
             <property name="toolTip">
-             <string>Download data from a remote server</string>
+             <string>Download datasets from the official Trends.Earth remote server</string>
             </property>
             <property name="text">
              <string>Download raw data</string>
@@ -123,7 +123,7 @@
           <item>
            <widget class="QPushButton" name="pushButton_load">
             <property name="toolTip">
-             <string>Load base map into QGIS</string>
+             <string>Load a set of base layers that were prepared by Trends.Earth into QGIS in order to serve as a reference map</string>
             </property>
             <property name="text">
              <string>Load Base Map</string>

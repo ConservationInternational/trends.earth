@@ -163,7 +163,7 @@
         <item>
          <widget class="QPushButton" name="pushButtonLoad">
           <property name="toolTip">
-           <string>Load dataset into QGIS</string>
+           <string>Load dataset into QGIS main map area</string>
           </property>
           <property name="text">
            <string/>

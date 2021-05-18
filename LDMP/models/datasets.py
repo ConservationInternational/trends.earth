@@ -26,7 +26,7 @@ import glob
 import shutil
 
 from qgis.utils import iface
-from qgis.PyQt.QtCore import QSettings, pyqtSignal, QObject
+from qgis.PyQt.QtCore import QSettings, pyqtSignal, QObject, Qt
 from qgis.PyQt.QtWidgets import QMessageBox
 from qgis.core import QgsLogger
 from LDMP.jobs import Job, JobSchema, Jobs, download_cloud_results, download_timeseries
@@ -555,24 +555,35 @@ class Datasets(QObject):
         datasets = [(k, d) for k,d in self.datasetsStore.items() if str(d.run_id) == id]
         return datasets[0] if len(datasets) else None
 
-    def sort(self, column, order, field: SortField):
-        self.datasetsStore = OrderedDict(self.__merge_sort(list(self.datasetsStore.items()), field))
+    def sort(self,
+             order: Qt.SortOrder = Qt.AscendingOrder,
+             field: SortField = SortField.DATE
+             ):
+        self.datasetsStore = OrderedDict(
+            self.__merge_sort(
+                list(self.datasetsStore.items()),
+                order,
+                field
+            )
+        )
 
-    def __merge_sort(self, items: List, field):
+    def __merge_sort(self, items: List, order, field: SortField):
         if len(items) <= 1:
             return items
         mid = int((len(items) / 2))
 
-        left = self.__merge_sort(items[:mid], field)
-        right = self.__merge_sort(items[mid:], field)
-        return self.__merge(left, right, field)
+        left = self.__merge_sort(items[:mid], order, field)
+        right = self.__merge_sort(items[mid:], order, field)
+        return self.__merge(left, right, order, field)
 
-    def __merge(self, left, right, field):
+    def __merge(self, left, right, order, field):
         sorted_dict = []
-        i = j = 0
+        i = 0
+        j = 0
 
         while i < len(left) and j < len(right):
-            if self.__less_than(left[i][1], right[j][1], field):
+            condition = self.__less_than(left[i][1], right[j][1], field)
+            if condition ^ (order is Qt.DescendingOrder):
                 sorted_dict.append(left[i])
                 i += 1
             else:

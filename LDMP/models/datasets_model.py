@@ -101,7 +101,6 @@ class DatasetsModel(QAbstractItemModel):
 class DatasetsSortFilterProxyModel(QSortFilterProxyModel):
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.dataset_sort_field = SortField.DATE
 
     def filterAcceptsRow(self, source_row: int, source_parent: QModelIndex):
         index = self.sourceModel().index(source_row, 0, source_parent)
@@ -109,24 +108,7 @@ class DatasetsSortFilterProxyModel(QSortFilterProxyModel):
         match = self.filterRegularExpression().match(self.sourceModel().data(index).name)
         return match.hasMatch()
 
-    def lessThan(self, left: QModelIndex, right: QModelIndex):
-        left_dataset = self.sourceModel().data(left)
-        right_dataset = self.sourceModel().data(right)
-
-        if self.dataset_sort_field == SortField.NAME:
-            return left_dataset.name < right_dataset.name
-        elif self.dataset_sort_field == SortField.DATE and \
-                isinstance(left_dataset.creation_date, datetime) \
-                and isinstance(right_dataset.creation_date, datetime):
-            return left_dataset.creation_date < right_dataset.creation_date
-        elif self.dataset_sort_field == SortField.ALGORITHM:
-            return left_dataset.source < right_dataset.source
-        elif self.dataset_sort_field == SortField.STATUS:
-            return left_dataset.status < right_dataset.status
-        return False
-
-    def setDatasetSortField(self, field: SortField):
-        self.dataset_sort_field = field
-
-    def sort(self, column: int, order):
-        self.sourceModel().rootModel().sort(column, order, self.dataset_sort_field)
+    def sort(self, column: int, order, field: SortField = None):
+        if field is not None:
+            self.sourceModel().rootModel().sort(order, field)
+            self.layoutChanged.emit()

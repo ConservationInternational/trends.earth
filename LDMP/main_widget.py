@@ -272,13 +272,12 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         # set filtering functionality
         self.proxy_model = DatasetsSortFilterProxyModel(Datasets())
         self.proxy_model.setSourceModel(datasetsModel)
-        self.proxy_model.layoutChanged.connect(self.clear_message_bar)
+        self.proxy_model.layoutChanged.connect(self.model_layout_changed)
 
         self.lineEdit_search.valueChanged.connect(self.filter_changed)
 
         self.treeView_datasets.reset()
         self.treeView_datasets.setModel(self.proxy_model)
-        self.toolButton_sort.defaultAction().trigger()
 
     def filter_changed(self, filter_string: str):
         options = QtCore.QRegularExpression.NoPatternOption
@@ -287,28 +286,13 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         self.proxy_model.setFilterRegularExpression(regular_expression)
 
     def sort_datasets(self, action: QtWidgets.QAction, field: SortField):
-        # Show sorting progress, some Datasets takes a bit long to sort
-        #self.add_sort_filter_progress(tr("Sorting Datasets..."))
         self.toolButton_sort.setDefaultAction(action)
-        self.proxy_model.setDatasetSortField(field)
+        self.toolButton_sort.setEnabled(False)
         order = QtCore.Qt.AscendingOrder if not self.reverse_box.isChecked() else QtCore.Qt.DescendingOrder
-        self.proxy_model.sort(0, order)
+        self.proxy_model.sort(0, order, field)
 
-    def add_sort_filter_progress(self, message):
-        self.message_bar_sort_filter = MessageBar().get().createMessage(message)
-        progress_bar = QtWidgets.QProgressBar()
-        progress_bar.setAlignment(QtCore.Qt.AlignLeft | QtCore.Qt.AlignVCenter)
-        progress_bar.setMinimum(0)
-        progress_bar.setMaximum(0)
-        self.message_bar_sort_filter.layout().addWidget(progress_bar)
-        MessageBar().get().pushWidget(self.message_bar_sort_filter, Qgis.Info)
-
-    def clear_message_bar(self):
-        # Using try and catch block message bar item might be already deleted.
-        try:
-            MessageBar().get().popWidget(self.message_bar_sort_filter)
-        except RuntimeError:
-            pass
+    def model_layout_changed(self):
+        self.toolButton_sort.setEnabled(True)
 
     def setupAlgorithmsTree(self):
         # setup algorithms and their hierarchy

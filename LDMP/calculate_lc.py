@@ -279,7 +279,12 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
                      BandInfo("Land cover (7 class)", metadata={'year': year_target}),
                      BandInfo("Land cover transitions", add_to_map=True, metadata={'year_baseline': year_baseline, 'year_target': year_target})]
         out_json = os.path.splitext(out_f)[0] + '.json'
-        create_local_json_metadata(out_json, out_f, band_info)
+        create_local_json_metadata(out_json, out_f, band_info, metadata={
+                                                'task_name': self.options_tab.task_name.text(),
+                                                'task_notes': self.options_tab.task_notes.toPlainText(),
+                                                'source': self.get_subclass_name(),   # linked to calculate.local_script
+                                                'id': self.output_tab.process_id,
+                                                'start_date': self.output_tab.process_datetime_str})
         schema = BandInfoSchema()
         for band_number in range(len(band_info)):
             b = schema.dump(band_info[band_number])

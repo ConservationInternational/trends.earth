@@ -303,7 +303,10 @@ class DlgCalculateRestBiomassSummaryTable(DlgCalculateBase, Ui_DlgCalculateRestB
             item['no_data_value'] = -32767
         create_local_json_metadata(output_biomass_diff_json, output_file, band_infos,
                                    metadata={'task_name': self.options_tab.task_name.text(),
-                                             'task_notes': self.options_tab.task_notes.toPlainText()})
+                                             'task_notes': self.options_tab.task_notes.toPlainText(),
+                                             'source': self.get_subclass_name(),   # linked to calculate.local_script
+                                             'id': self.output_tab.process_id,
+                                             'start_date': self.output_tab.process_datetime_str})
         schema = BandInfoSchema()
         for n in range(1, len(band_infos)):
             add_layer(output_file, n + 1, schema.dump(band_infos[n]))

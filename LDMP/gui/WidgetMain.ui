@@ -47,7 +47,10 @@
           <item>
            <widget class="QPushButton" name="pushButton_refresh">
             <property name="toolTip">
-             <string>Refresh dataset list manually. This scans the Trends.Earth base directory for new datasets. It also scans the remote Google Earth Engine server for running algorithms and their results.</string>
+             <string>Refresh dataset list manually.
+This scans the Trends.Earth base directory for new datasets.
+It also scans the remote Google Earth Engine server 
+for running algorithms and their results.</string>
             </property>
             <property name="text">
              <string/>

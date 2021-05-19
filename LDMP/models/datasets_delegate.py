@@ -50,7 +50,7 @@ from LDMP.models.datasets import (
 from LDMP.models.algorithms import AlgorithmDescriptor
 from LDMP import __version__, log, tr
 from LDMP.gui.WidgetDatasetItem import Ui_WidgetDatasetItem
-
+from LDMP.calculate import local_scripts
 
 class DatasetItemDelegate(QStyledItemDelegate):
 
@@ -171,7 +171,11 @@ class DatasetEditorWidget(QWidget, Ui_WidgetDatasetItem):
         self.pushButtonStatus.setHidden(dataset_auto_download)
 
         # show progress bar or download button depending on status
-        self.progressBar.setValue(self.dataset.progress)
+        if hasattr(self.dataset, 'progress'):
+            self.progressBar.setValue(self.dataset.progress)
+        else:
+            self.progressBar.hide()
+
         if self.dataset.status == 'PENDING':
             self.progressBar.setRange(0,100)
             self.progressBar.setFormat(self.dataset.status)
@@ -199,8 +203,12 @@ class DatasetEditorWidget(QWidget, Ui_WidgetDatasetItem):
         dataset_name = self.dataset.name if self.dataset.name else '<no name set>'
         self.labelDatasetName.setText(dataset_name)
 
+        # set data source string
         data_source = self.dataset.source if self.dataset.source else 'Unknown'
-        self.labelSourceName.setText(self.dataset.source)
+        metadata = local_scripts.get(data_source, None)
+        if metadata:
+            data_source = metadata['display_name']
+        self.labelSourceName.setText(data_source)
 
         # get data differently if come from Dataset or Downloaded dataset
         if self.dataset.origin() in [Dataset.Origin.downloaded_dataset, Dataset.Origin.local_raster]:
@@ -208,6 +216,8 @@ class DatasetEditorWidget(QWidget, Ui_WidgetDatasetItem):
             self.pushButtonStatus.hide()
             # allow delete if downloaded
             self.pushButtonDelete.setEnabled(True)
+        
+            
 
     def show_details(self):
         log(f"Details button clicked for dataset {self.dataset.name!r}")

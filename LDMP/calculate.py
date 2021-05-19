@@ -70,9 +70,16 @@ class tr_calculate(object):
 # set mapping among GUI interface and algorithm group. Can be done via a JSON configuration as in scripts.py
 # bu algorithms are almost stable (as in alg list in main widget tab) => leaved as static dictionary
 local_scripts = {}
-local_scripts['DlgCalculateLDNSummaryTableAdmin'] = 'SDG 15.3.1'
-local_scripts['DlgCalculateUrbanSummaryTable'] = 'SDG 11.3.1'
-
+local_scripts['DlgCalculateLDNSummaryTableAdmin'] = {
+    'group': 'SDG 15.3.1',
+    'display_name': 'Final SDG 15.3.1 - Summary Table',
+    'source': 'LDNSummaryTable'
+}
+local_scripts['DlgCalculateUrbanSummaryTable'] = {
+    'group': 'SDG 11.3.1',
+    'display_name': 'SDG 11.3.1 - Urban Summary Table',
+    'source': 'UrbanSummaryTable'
+}
 # Make a function to get a script slug from a script name, including the script 
 # version string
 with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
@@ -90,7 +97,11 @@ def get_script_group(script_name):
         group = scripts[script_name]['group']
     if not group:
         # check if no belogs to remote scripts and it is a local script/process
-        group = local_scripts.get(script_name, None)
+        metadata = local_scripts.get(script_name, None)
+        if not metadata:
+            group = None
+        else:
+            group = metadata['group']
     return group
 
 
@@ -731,15 +742,25 @@ class CalculationHidedOutputWidget(QtWidgets.QWidget, Ui_WidgetCalculationOutput
         self.output_suffixes = suffixes
         self.subclass_name = subclass_name
 
+        self.process_id = None
+        self.process_datetime = None
+        self.process_datetime_str = None
+
         self.setupUi(self)
         self.hide()
 
         # set default output basename
-        self.set_output_basename()
+        # commented and executed just before run to allow 
+        # setting new process_id
+        #self.set_output_basename() 
 
     def set_output_basename(self):
         """Set default ouptut filename of the local calculation.
         """
+        self.process_id = str(uuid.uuid4())
+        self.process_datetime = datetime.now()
+        self.process_datetime_str = self.process_datetime.isoformat()
+
         # TODO: check where used "LDMP/output_dir" to avoid side effects
 
         # path where to store result
@@ -747,15 +768,14 @@ class CalculationHidedOutputWidget(QtWidgets.QWidget, Ui_WidgetCalculationOutput
         if not base_data_directory:
             return
 
-        processing_date_string = datetime.now().strftime('%Y_%m_%d')
+        processing_date_string = self.process_datetime.strftime('%Y_%m_%d')
         group = get_script_group(self.subclass_name)
         initial_path = os.path.join(base_data_directory, 'outputs', group, processing_date_string)
         if not initial_path:
             return
 
         # set result basename as a random UUID
-        uuid_str = str(uuid.uuid4())
-        f = os.path.join(initial_path, uuid_str)
+        f = os.path.join(initial_path, self.process_id)
 
         self.output_basename.setText(f)
         self.set_output_summary(f)
@@ -924,6 +944,10 @@ class DlgCalculateBase(QtWidgets.QDialog):
             return (admin_polys['admin1'][admin_1_code]['geojson'])
 
     def btn_calculate(self):
+        # setup output. Setting here at every run to allow setting a new id value each run
+        if self._has_output:
+            self.output_tab.set_output_basename()
+
         if self.settings.value("trends_earth/region_of_interest/custom_crs_enabled", False, type=bool):
             crs_dst = QgsCoordinateReferenceSystem(
                 self.settings.value("trends_earth/region_of_interest/custom_crs")

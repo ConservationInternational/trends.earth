@@ -151,6 +151,9 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         self.toolButton_sort.setDefaultAction(byNameSortAction)
         byDateSortAction = QtWidgets.QAction(tr('Date'), self)
         self.toolButton_sort.menu().addAction(byDateSortAction)
+        self.toolButton_sort.defaultAction().setToolTip(
+            tr('Sort the datasets using the selected property.')
+        )
 
         # set icons
         icon = QtGui.QIcon(':/plugins/LDMP/icons/mActionRefresh.svg')

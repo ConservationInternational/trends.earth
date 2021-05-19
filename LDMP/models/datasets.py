@@ -386,9 +386,9 @@ class Dataset(DatasetBase):
             # e.g. not yet downloaded
             self.download(datasets_refresh=False, add_to_map=True)
 
-        # add directly layer if Dataset already downloaded (=> no mor job is necessary) or 
-        # is a local processing
-        if self.origin() in [Dataset.Origin.downloaded_dataset, Dataset.Origin.local_raster]:
+        # add directly layer if Dataset already downloaded (=> no mor job is necessary)
+        # are added only bands that are marked as "add_to_map":True
+        if self.origin() in [Dataset.Origin.downloaded_dataset]:
             # get raster file name located in the same folder of the descriptor json
             current_folder = os.path.dirname(self.__fileName)
             image_file = os.path.join(current_folder, self.file)
@@ -397,6 +397,18 @@ class Dataset(DatasetBase):
                 band_info = self.bands[band_number - 1]
                 if band_info['add_to_map']:
                     add_layer(image_file, band_number, band_info)
+
+        # if is a local processing => show bands depending on type of product
+        if self.origin() in [Dataset.Origin.local_raster]:
+            # get raster file name located in the same folder of the descriptor json
+            current_folder = os.path.dirname(self.__fileName)
+            image_file = os.path.join(current_folder, self.file)
+
+            if self.source == 'DlgCalculateLDNSummaryTableAdmin': # e.g Final SDG 15.3.1 - Summary Table
+                add_layer(image_file, 1, self.bands[0])
+                if ( 'prod_mode' in self.metadata and
+                     self.metadata.prod_mode == 'Trends.Earth productivity'):
+                    add_layer(image_file, 2, self.bands[1])
 
 
 @singleton

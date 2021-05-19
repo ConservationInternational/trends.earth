@@ -289,6 +289,7 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         self.toolButton_sort.setDefaultAction(action)
         self.toolButton_sort.setEnabled(False)
         order = QtCore.Qt.AscendingOrder if not self.reverse_box.isChecked() else QtCore.Qt.DescendingOrder
+        self.treeView_datasets.reset()
         self.proxy_model.sort(0, order, field)
 
     def model_layout_changed(self):

@@ -77,9 +77,30 @@ local_scripts['DlgCalculateLDNSummaryTableAdmin'] = {
 }
 local_scripts['DlgCalculateUrbanSummaryTable'] = {
     'group': 'SDG 11.3.1',
-    'display_name': 'SDG 11.3.1 - Urban Summary Table',
+    'display_name': 'Urban Summary Table',
     'source': 'UrbanSummaryTable'
 }
+local_scripts['DlgCalculateRestBiomassSummaryTable'] = {
+    'group': 'Potencial change in biomass',
+    'display_name': 'Rest Biomass Summary Table',
+    'source': 'RestBiomassSummaryTable'
+}
+local_scripts['DlgCalculateLC'] = {
+    'group': 'SDG 15.3.1',
+    'display_name': 'Land cover (locally)',
+    'source': 'CalculateLC'
+}
+local_scripts['DlgCalculateTCData'] = {
+    'group': 'total-carbon',
+    'display_name': 'Total Carbon (locally)',
+    'source': 'CalculateTCData'
+}
+local_scripts['DlgCalculateSOC'] = {
+    'group': 'SDG 15.3.1',
+    'display_name': 'Soil Organic Carbon (locally)',
+    'source': 'CalculateSOC'
+}
+
 # Make a function to get a script slug from a script name, including the script 
 # version string
 with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),

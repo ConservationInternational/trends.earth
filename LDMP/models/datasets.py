@@ -404,11 +404,44 @@ class Dataset(DatasetBase):
             current_folder = os.path.dirname(self.__fileName)
             image_file = os.path.join(current_folder, self.file)
 
-            if self.source == 'DlgCalculateLDNSummaryTableAdmin': # e.g Final SDG 15.3.1 - Summary Table
+            # Show custom bands in case of:
+            #   DlgCalculateLDNSummaryTableAdmin
+            if self.source == 'DlgCalculateLDNSummaryTableAdmin': 
                 add_layer(image_file, 1, self.bands[0])
                 if ( 'prod_mode' in self.metadata and
                      self.metadata.prod_mode == 'Trends.Earth productivity'):
                     add_layer(image_file, 2, self.bands[1])
+
+            # show configured bands for locally processed datasets as:
+            #   DlgCalculateLC (Land Cover)
+            #   DlgCalculateSOC
+            #   DlgCalculateTCData
+            elif self.source in ['DlgCalculateLC', 
+                                 'DlgCalculateSOC',
+                                 'DlgCalculateTCData',
+                                 ]:
+                for band_number in range(1, len(self.bands) + 1):
+                    # The minus 1 is because band numbers start at 1, not zero
+                    band_info = self.bands[band_number - 1]
+                    if band_info['add_to_map']:
+                        add_layer(image_file, band_number, band_info)
+
+            # show custom bands in case of:
+            #   DlgCalculateUrbanSummaryTable
+            elif self.source == 'DlgCalculateUrbanSummaryTable':
+                for band_number in range(1, 4):
+                    # The minus 1 is because band numbers start at 1, not zero
+                    band_info = self.bands[band_number - 1]
+                    add_layer(image_file, band_number, band_info)
+
+            # for all other cases show all bands in ase of:
+            #   DlgCalculateRestBiomassSummaryTable
+            else:
+                for band_number in range(1, len(self.bands) + 1):
+                    # The minus 1 is because band numbers start at 1, not zero
+                    band_info = self.bands[band_number - 1]
+                    add_layer(image_file, band_number, band_info)
+
 
 
 @singleton

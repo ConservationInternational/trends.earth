@@ -875,7 +875,11 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
             gdal.BuildVRT(output_file, output_sdg_tifs)
         create_local_json_metadata(output_sdg_json, output_file, 
                 output_sdg_bandinfos, metadata={'task_name': self.options_tab.task_name.text(),
-                                                'task_notes': self.options_tab.task_notes.toPlainText()})
+                                                'task_notes': self.options_tab.task_notes.toPlainText(),
+                                                'source': self.get_subclass_name(),   # linked to calculate.local_script
+                                                'id': self.output_tab.process_id,
+                                                'start_date': self.output_tab.process_datetime_str,
+                                                'prod_mode': prod_mode})
         schema = BandInfoSchema()
         add_layer(output_file, 1, schema.dump(output_sdg_bandinfos[0]))
         if prod_mode == 'Trends.Earth productivity':

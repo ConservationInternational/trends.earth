@@ -159,6 +159,7 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
 
         for field_type, text in sort_fields.items():
             sort_action = QtWidgets.QAction(tr(text), self)
+            sort_action.setData(field_type)
             sort_datasets = partial(self.sort_datasets, sort_action, field_type)
             sort_action.triggered.connect(sort_datasets)
             self.toolButton_sort.menu().addAction(sort_action)
@@ -278,6 +279,8 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
 
         self.treeView_datasets.reset()
         self.treeView_datasets.setModel(self.proxy_model)
+        self.sort_datasets(self.toolButton_sort.defaultAction(),
+                           self.toolButton_sort.defaultAction().data())
 
     def filter_changed(self, filter_string: str):
         options = QtCore.QRegularExpression.NoPatternOption

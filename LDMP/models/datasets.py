@@ -559,13 +559,13 @@ class Datasets(QObject):
              order: Qt.SortOrder = Qt.AscendingOrder,
              field: SortField = SortField.DATE
              ):
-        self.datasetsStore = OrderedDict(
-            self.__merge_sort(
+        sorted_items = self.__merge_sort(
                 list(self.datasetsStore.items()),
                 order,
                 field
             )
-        )
+        if sorted_items is not None:
+            self.datasetsStore = OrderedDict(sorted_items)
 
     def __merge_sort(self, items: List, order, field: SortField):
         if len(items) <= 1:
@@ -583,7 +583,8 @@ class Datasets(QObject):
 
         while i < len(left) and j < len(right):
             condition = self.__less_than(left[i][1], right[j][1], field)
-            if condition ^ (order is Qt.DescendingOrder):
+            condition = condition if order is Qt.AscendingOrder else not condition
+            if condition:
                 sorted_dict.append(left[i])
                 i += 1
             else:
@@ -595,15 +596,15 @@ class Datasets(QObject):
 
     def __less_than(self, left_dataset, right_dataset, field: SortField):
         if field == SortField.NAME:
-            return left_dataset.name < right_dataset.name
+            return left_dataset.name <= right_dataset.name
         elif field == SortField.DATE and \
                 isinstance(left_dataset.creation_date, datetime) \
                 and isinstance(right_dataset.creation_date, datetime):
-            return left_dataset.creation_date < right_dataset.creation_date
+            return left_dataset.creation_date <= right_dataset.creation_date
         elif field == SortField.ALGORITHM:
-            return left_dataset.source < right_dataset.source
+            return left_dataset.source <= right_dataset.source
         elif field == SortField.STATUS:
-            return left_dataset.status < right_dataset.status
+            return left_dataset.status <= right_dataset.status
         return False
 
 

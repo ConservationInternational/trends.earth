@@ -596,16 +596,36 @@ class Datasets(QObject):
 
     def __less_than(self, left_dataset, right_dataset, field: SortField):
         if field == SortField.NAME:
-            return left_dataset.name <= right_dataset.name
-        elif field == SortField.DATE and \
-                isinstance(left_dataset.creation_date, datetime) \
-                and isinstance(right_dataset.creation_date, datetime):
-            return left_dataset.creation_date <= right_dataset.creation_date
+            if left_dataset.name != right_dataset.name:
+                return left_dataset.name <= right_dataset.name
+        elif field == SortField.DATE:
+            return self.__compare_dates(
+                left_dataset.creation_date,
+                right_dataset.creation_date
+            )
         elif field == SortField.ALGORITHM:
-            return left_dataset.source <= right_dataset.source
+            if left_dataset.source != right_dataset.source:
+                return left_dataset.source <= right_dataset.source
         elif field == SortField.STATUS:
-            return left_dataset.status <= right_dataset.status
-        return False
+            if left_dataset.status != right_dataset.status:
+                return left_dataset.status <= right_dataset.status
+
+        return self.__compare_dates(
+            left_dataset.creation_date,
+            right_dataset.creation_date
+        )
+
+    def __compare_dates(self, left, right):
+
+        if isinstance(left, datetime) and isinstance(right, str):
+            right = datetime.fromisoformat(right)
+        elif isinstance(left, str) and isinstance(right, datetime):
+            left = datetime.fromisoformat(left)
+        elif isinstance(left, str) and isinstance(right, str):
+            left = datetime.fromisoformat(left)
+            right = datetime.fromisoformat(right)
+
+        return left <= right
 
 
 class DatasetSchema(Schema):

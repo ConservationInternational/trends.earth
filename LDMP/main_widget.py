@@ -14,7 +14,9 @@
 
 import os
 from datetime import datetime
+from _functools import partial
 
+from qgis.core import Qgis
 from qgis.PyQt import QtWidgets, QtGui, QtCore
 from qgis.core import QgsSettings
 
@@ -37,6 +39,7 @@ from LDMP.models.algorithms_model import AlgorithmTreeModel
 from LDMP.models.algorithms_delegate import AlgorithmItemDelegate
 
 from LDMP.models.datasets_model import DatasetsModel, DatasetsSortFilterProxyModel
+from LDMP.models.datasets import SortField
 from LDMP.models.datasets_delegate import DatasetItemDelegate
 from LDMP import tr
 
@@ -83,6 +86,7 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         self.dlg_calculate_Biomass = DlgCalculateRestBiomass()
         self.dlg_calculate_Urban = DlgCalculateUrban()
 
+        self.message_bar_sort_filter = None
         # setup Jobs singleton store and all update mechanisms
         # self.jobs = Jobs()
 
@@ -144,13 +148,23 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
     def setupDatasetsGui(self):
         # add sort actions
         self.toolButton_sort.setMenu(QtWidgets.QMenu())
+        sort_fields = {
+            SortField.NAME: "Name",
+            SortField.DATE: "Date",
+            SortField.ALGORITHM: "Algorithm",
+            SortField.STATUS: "Status",
+        }
+        self.toolButton_sort.setPopupMode(QtWidgets.QToolButton.MenuButtonPopup)
+        self.toolButton_sort.setMenu(QtWidgets.QMenu())
 
-        # add action entries of the pull down menu
-        byNameSortAction = QtWidgets.QAction(tr('Name'), self)
-        self.toolButton_sort.menu().addAction(byNameSortAction)
-        self.toolButton_sort.setDefaultAction(byNameSortAction)
-        byDateSortAction = QtWidgets.QAction(tr('Date'), self)
-        self.toolButton_sort.menu().addAction(byDateSortAction)
+        for field_type, text in sort_fields.items():
+            sort_action = QtWidgets.QAction(tr(text), self)
+            sort_action.setData(field_type)
+            sort_datasets = partial(self.sort_datasets, sort_action, field_type)
+            sort_action.triggered.connect(sort_datasets)
+            self.toolButton_sort.menu().addAction(sort_action)
+            if field_type == SortField.DATE:
+                self.toolButton_sort.setDefaultAction(sort_action)
         self.toolButton_sort.defaultAction().setToolTip(
             tr('Sort the datasets using the selected property.')
         )
@@ -259,11 +273,14 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         # set filtering functionality
         self.proxy_model = DatasetsSortFilterProxyModel(Datasets())
         self.proxy_model.setSourceModel(datasetsModel)
+        self.proxy_model.layoutChanged.connect(self.model_layout_changed)
 
         self.lineEdit_search.valueChanged.connect(self.filter_changed)
 
         self.treeView_datasets.reset()
         self.treeView_datasets.setModel(self.proxy_model)
+        self.sort_datasets(self.toolButton_sort.defaultAction(),
+                           self.toolButton_sort.defaultAction().data())
 
     def filter_changed(self, filter_string: str):
         options = QtCore.QRegularExpression.NoPatternOption
@@ -271,6 +288,15 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         regular_expression = QtCore.QRegularExpression(filter_string, options)
         self.proxy_model.setFilterRegularExpression(regular_expression)
 
+    def sort_datasets(self, action: QtWidgets.QAction, field: SortField):
+        self.toolButton_sort.setDefaultAction(action)
+        self.toolButton_sort.setEnabled(False)
+        order = QtCore.Qt.AscendingOrder if not self.reverse_box.isChecked() else QtCore.Qt.DescendingOrder
+        self.treeView_datasets.reset()
+        self.proxy_model.sort(0, order, field)
+
+    def model_layout_changed(self):
+        self.toolButton_sort.setEnabled(True)
 
     def setupAlgorithmsTree(self):
         # setup algorithms and their hierarchy

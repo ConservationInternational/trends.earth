@@ -26,7 +26,7 @@ import glob
 import shutil
 
 from qgis.utils import iface
-from qgis.PyQt.QtCore import QSettings, pyqtSignal, QObject
+from qgis.PyQt.QtCore import QSettings, pyqtSignal, QObject, Qt
 from qgis.PyQt.QtWidgets import QMessageBox
 from qgis.core import QgsLogger
 from LDMP.jobs import Job, JobSchema, Jobs, download_cloud_results, download_timeseries
@@ -46,6 +46,13 @@ class DatasetStatus(Enum):
     unavailable = 3,
     not_applicable = 4
 DatasetStatusStrings = [e.name for e in DatasetStatus]
+
+
+class SortField(Enum):
+    NAME = 'name'
+    DATE = 'date'
+    ALGORITHM = 'algorithm'
+    STATUS = 'status'
 
 
 def getStatusEnum(status: str) -> DatasetStatus:
@@ -547,6 +554,77 @@ class Datasets(QObject):
         """Return Dataset and related descriptor asociated file."""
         datasets = [(k, d) for k,d in self.datasetsStore.items() if str(d.run_id) == id]
         return datasets[0] if len(datasets) else None
+
+    def sort(self,
+             order: Qt.SortOrder = Qt.AscendingOrder,
+             field: SortField = SortField.DATE
+             ):
+        sorted_items = self.__merge_sort(
+                list(self.datasetsStore.items()),
+                order,
+                field
+            )
+        if sorted_items is not None:
+            self.datasetsStore = OrderedDict(sorted_items)
+
+    def __merge_sort(self, items: List, order, field: SortField):
+        if len(items) <= 1:
+            return items
+        mid = int((len(items) / 2))
+
+        left = self.__merge_sort(items[:mid], order, field)
+        right = self.__merge_sort(items[mid:], order, field)
+        return self.__merge(left, right, order, field)
+
+    def __merge(self, left, right, order, field):
+        sorted_dict = []
+        i = 0
+        j = 0
+
+        while i < len(left) and j < len(right):
+            condition = self.__less_than(left[i][1], right[j][1], field)
+            condition = condition if order is Qt.AscendingOrder else not condition
+            if condition:
+                sorted_dict.append(left[i])
+                i += 1
+            else:
+                sorted_dict.append(right[j])
+                j += 1
+        sorted_dict.extend(left[i:])
+        sorted_dict.extend(right[j:])
+        return sorted_dict
+
+    def __less_than(self, left_dataset, right_dataset, field: SortField):
+        if field == SortField.NAME:
+            if left_dataset.name != right_dataset.name:
+                return left_dataset.name < right_dataset.name
+        elif field == SortField.DATE:
+            return self.__compare_dates(
+                left_dataset.creation_date,
+                right_dataset.creation_date
+            )
+        elif field == SortField.ALGORITHM:
+            if left_dataset.source != right_dataset.source:
+                return left_dataset.source < right_dataset.source
+        elif field == SortField.STATUS:
+            if left_dataset.status != right_dataset.status:
+                return left_dataset.status < right_dataset.status
+
+        return self.__compare_dates(
+            left_dataset.creation_date,
+            right_dataset.creation_date
+        )
+
+    def __compare_dates(self, left, right):
+
+        if isinstance(left, datetime) and isinstance(right, str):
+            right = datetime.fromisoformat(right)
+        if isinstance(left, str):
+            left = datetime.fromisoformat(left)
+        if isinstance(right, str):
+            right = datetime.fromisoformat(right)
+
+        return left <= right
 
 
 class DatasetSchema(Schema):

@@ -288,7 +288,7 @@ class Test(object):
         QAbstractItemModelTester(algorithmsModel, QAbstractItemModelTester.FailureReportingMode.Warning)
 
         view = QTreeView()
-        view.setStyleSheet('QTreeView { selection-background-color: white }')
+        view.setStyleSheet('QTreeView { selection-background-color: white; selection-color: black }')
         view.setMouseTracking(True) # to allow emit entered events and manage editing over mouse
         view.setWordWrap(True)
         view.setEditTriggers(QAbstractItemView.AllEditTriggers)

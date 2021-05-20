@@ -597,7 +597,7 @@ class Datasets(QObject):
     def __less_than(self, left_dataset, right_dataset, field: SortField):
         if field == SortField.NAME:
             if left_dataset.name != right_dataset.name:
-                return left_dataset.name <= right_dataset.name
+                return left_dataset.name < right_dataset.name
         elif field == SortField.DATE:
             return self.__compare_dates(
                 left_dataset.creation_date,
@@ -605,10 +605,10 @@ class Datasets(QObject):
             )
         elif field == SortField.ALGORITHM:
             if left_dataset.source != right_dataset.source:
-                return left_dataset.source <= right_dataset.source
+                return left_dataset.source < right_dataset.source
         elif field == SortField.STATUS:
             if left_dataset.status != right_dataset.status:
-                return left_dataset.status <= right_dataset.status
+                return left_dataset.status < right_dataset.status
 
         return self.__compare_dates(
             left_dataset.creation_date,

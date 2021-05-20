@@ -619,10 +619,9 @@ class Datasets(QObject):
 
         if isinstance(left, datetime) and isinstance(right, str):
             right = datetime.fromisoformat(right)
-        elif isinstance(left, str) and isinstance(right, datetime):
+        if isinstance(left, str):
             left = datetime.fromisoformat(left)
-        elif isinstance(left, str) and isinstance(right, str):
-            left = datetime.fromisoformat(left)
+        if isinstance(right, str):
             right = datetime.fromisoformat(right)
 
         return left <= right

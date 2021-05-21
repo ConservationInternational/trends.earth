@@ -68,6 +68,15 @@ def get_trends_earth_dockwidget(plugin):
     return _widget
 
 
+# instantiate calcluate callback container to reuse most of old code
+# do this before setting setupAlgorithmsTree
+# guis setup during plugin load to reduce GUI startup
+dlg_calculate_LD = DlgCalculateLD()
+dlg_calculate_TC = DlgCalculateTC()
+dlg_calculate_Biomass = DlgCalculateRestBiomass()
+dlg_calculate_Urban = DlgCalculateUrban()
+
+
 class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
     def __init__(self, plugin=None, parent=None):
         super(MainWidget, self).__init__(parent)
@@ -78,13 +87,6 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         # remove space before dataset item
         self.treeView_datasets.setIndentation(0)
         self.treeView_datasets.verticalScrollBar().setSingleStep(10)
-
-        # instantiate calcluate callback container to reuse most of old code
-        # do this before setting setupAlgorithmsTree
-        self.dlg_calculate_LD = DlgCalculateLD()
-        self.dlg_calculate_TC = DlgCalculateTC()
-        self.dlg_calculate_Biomass = DlgCalculateRestBiomass()
-        self.dlg_calculate_Urban = DlgCalculateUrban()
 
         self.message_bar_sort_filter = None
         # setup Jobs singleton store and all update mechanisms
@@ -314,7 +316,7 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
             brief_description=None,
             details=None,
             parent=land_degradation_group,
-            run_callbacks={AlgorithmRunMode.Remotely: self.dlg_calculate_LD.btn_prod_clicked})
+            run_callbacks={AlgorithmRunMode.Remotely: dlg_calculate_LD.btn_prod_clicked})
         land_productivity_alg.run_mode = AlgorithmRunMode.Remotely
         land_productivity_alg_details = AlgorithmDetails(
             name=None,
@@ -329,7 +331,7 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
             brief_description=None,
             details=None,
             parent=land_degradation_group,
-            run_callbacks={AlgorithmRunMode.Remotely: self.dlg_calculate_LD.btn_lc_clicked})
+            run_callbacks={AlgorithmRunMode.Remotely: dlg_calculate_LD.btn_lc_clicked})
         land_cover_alg.run_mode = AlgorithmRunMode.Remotely
         land_cover_alg_details = AlgorithmDetails(
             name=None,
@@ -344,7 +346,7 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
             brief_description=None,
             details=None,
             parent=land_degradation_group,
-            run_callbacks={AlgorithmRunMode.Remotely: self.dlg_calculate_LD.btn_soc_clicked})
+            run_callbacks={AlgorithmRunMode.Remotely: dlg_calculate_LD.btn_soc_clicked})
         soil_organic_carbon_alg.run_mode = AlgorithmRunMode.Remotely
         soil_organic_carbon_alg_details = AlgorithmDetails(
             name=None,
@@ -359,7 +361,7 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
             brief_description=None,
             details=None,
             parent=land_degradation_group,
-            run_callbacks={AlgorithmRunMode.Remotely: self.dlg_calculate_LD.btn_sdg_onestep_clicked})
+            run_callbacks={AlgorithmRunMode.Remotely: dlg_calculate_LD.btn_sdg_onestep_clicked})
         all_land_degradation_alg.run_mode = AlgorithmRunMode.Remotely
         all_land_degradation_alg_details = AlgorithmDetails(
             name=None,
@@ -374,7 +376,7 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
             brief_description=None,
             details=None,
             parent=land_degradation_group,
-            run_callbacks={AlgorithmRunMode.Locally: self.dlg_calculate_LD.btn_summary_single_polygon_clicked})
+            run_callbacks={AlgorithmRunMode.Locally: dlg_calculate_LD.btn_summary_single_polygon_clicked})
         final_alg.run_mode = AlgorithmRunMode.Locally
         final_alg_details = AlgorithmDetails(
             name=None,
@@ -389,7 +391,7 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
             brief_description=None,
             details=None,
             parent=land_degradation_group,
-            run_callbacks={AlgorithmRunMode.Locally: self.dlg_calculate_LD.btn_summary_multi_polygons_clicked})
+            run_callbacks={AlgorithmRunMode.Locally: dlg_calculate_LD.btn_summary_multi_polygons_clicked})
         area_summaries_alg.run_mode = AlgorithmRunMode.Locally
         area_summaries_alg_details = AlgorithmDetails(
             name=None,
@@ -412,7 +414,7 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
             brief_description=None,
             details=None,
             parent=urban_change_group,
-            run_callbacks={AlgorithmRunMode.Locally: self.dlg_calculate_Urban.btn_calculate_urban_change_clicked})
+            run_callbacks={AlgorithmRunMode.Locally: dlg_calculate_Urban.btn_calculate_urban_change_clicked})
         urban_change_alg.run_mode = AlgorithmRunMode.Both
         urban_change_alg_details = AlgorithmDetails(
             name=None,
@@ -427,7 +429,7 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
             brief_description=None,
             details=None,
             parent=urban_change_group,
-            run_callbacks={AlgorithmRunMode.Locally: self.dlg_calculate_Urban.btn_summary_single_polygon_clicked})
+            run_callbacks={AlgorithmRunMode.Locally: dlg_calculate_Urban.btn_summary_single_polygon_clicked})
         urban_change_summary_alg.run_mode = AlgorithmRunMode.Both
         urban_change_summary_alg_details = AlgorithmDetails(
             name=None,
@@ -446,7 +448,7 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
             brief_description=None,
             details=None,
             parent=total_carbon_group,
-            run_callbacks={AlgorithmRunMode.Remotely: self.dlg_calculate_TC.btn_calculate_carbon_change_clicked})
+            run_callbacks={AlgorithmRunMode.Remotely: dlg_calculate_TC.btn_calculate_carbon_change_clicked})
         carbon_change_alg.run_mode = AlgorithmRunMode.Remotely
         carbon_change_alg_details = AlgorithmDetails(
             name=None,
@@ -461,7 +463,7 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
             brief_description=None,
             details=None,
             parent=total_carbon_group,
-            run_callbacks={AlgorithmRunMode.Remotely: self.dlg_calculate_TC.btn_summary_single_polygon_clicked})
+            run_callbacks={AlgorithmRunMode.Remotely: dlg_calculate_TC.btn_summary_single_polygon_clicked})
         carbon_change_summary_alg.run_mode = AlgorithmRunMode.Remotely
         carbon_change_summary_alg_details = AlgorithmDetails(name=None, name_details=None, description=tr('TODO: Carbon change summary table for boundary long description'), parent=carbon_change_summary_alg)
         carbon_change_summary_alg.setDetails(carbon_change_summary_alg_details)
@@ -477,7 +479,7 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
             brief_description=None,
             details=None,
             parent=potential_change_group,
-            run_callbacks={AlgorithmRunMode.Remotely: self.dlg_calculate_Biomass.btn_calculate_rest_biomass_change_clicked})
+            run_callbacks={AlgorithmRunMode.Remotely: dlg_calculate_Biomass.btn_calculate_rest_biomass_change_clicked})
         estimate_biomass_change_alg.run_mode = AlgorithmRunMode.Remotely
         estimate_biomass_change_alg_details = AlgorithmDetails(
             name=None,
@@ -492,7 +494,7 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
             brief_description=None,
             details=None,
             parent=potential_change_group,
-            run_callbacks={AlgorithmRunMode.Remotely: self.dlg_calculate_Biomass.btn_summary_single_polygon_clicked})
+            run_callbacks={AlgorithmRunMode.Remotely: dlg_calculate_Biomass.btn_summary_single_polygon_clicked})
         estimate_biomass_summary_alg.run_mode = AlgorithmRunMode.Remotely
         estimate_biomass_summary_alg_details = AlgorithmDetails(name=None, name_details=None, description=tr('TODO: Table summarizing likely changes in biomass long description'), parent=estimate_biomass_summary_alg)
         estimate_biomass_summary_alg.setDetails(estimate_biomass_summary_alg_details)

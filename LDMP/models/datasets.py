@@ -547,7 +547,7 @@ class Datasets(QObject):
             delta = today - creation_datetime
             if delta.days > deleted_datasets_age_limit:
                 try:
-                    os.remove(json_file)
+                    os.remove(deleted_json)
                 except:
                     pass
 

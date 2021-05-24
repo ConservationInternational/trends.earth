@@ -16,6 +16,7 @@ __date__ = '2021-03-23'
 
 from typing import Optional, Union, List, Dict, Tuple
 from datetime import datetime
+import pytz
 from enum import Enum
 import abc
 import os
@@ -744,12 +745,22 @@ class Datasets(QObject):
 
     def __compare_dates(self, left, right):
 
-        if isinstance(left, datetime) and isinstance(right, str):
-            right = datetime.fromisoformat(right)
         if isinstance(left, str):
             left = datetime.fromisoformat(left)
         if isinstance(right, str):
             right = datetime.fromisoformat(right)
+
+        # manage if the two data has timezone anc convert to local one
+        try:
+            left = pytz.utc.localize(left)
+        except:
+            # in case timezone is already set do nothing
+            pass
+        try:
+            right = pytz.utc.localize(right)
+        except:
+            # in case timezone is already set do nothing
+            pass
 
         return left <= right
 

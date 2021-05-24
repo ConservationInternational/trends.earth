@@ -38,6 +38,11 @@ import marshmallow
 from marshmallow import fields, Schema
 from LDMP.schemas.schemas import APIResponseSchema, LocalRaster, LocalRasterSchema
 
+class SortField(Enum):
+    NAME = 'name'
+    DATE = 'date'
+    ALGORITHM = 'algorithm'
+    STATUS = 'status'
 
 class FinalMeta(type(abc.ABC), type(QObject)):
     """trick to allow multiple hineritance. Need to allow also QObject

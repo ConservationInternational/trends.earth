@@ -123,6 +123,12 @@ class Dataset(DatasetBase):
             dt = localRaster.metadata.get('start_date', None)
             if isinstance(dt, str):
                 dt = datetime.fromisoformat(dt)
+                # manage if the two data has timezone anc convert to local one
+                try:
+                    dt = pytz.utc.localize(dt)
+                except:
+                    # in case timezone is already set do nothing
+                    pass
             self.creation_date = dt
             self.run_id = localRaster.metadata.get('id', None)
 
@@ -281,7 +287,14 @@ class Dataset(DatasetBase):
     def toDatetime(dt: str, fmt: str = None) -> datetime:
         if fmt is None:
             return datetime.fromisoformat(dt)
-        return datetime.strptime(dt, fmt)
+        newDt = datetime.strptime(dt, fmt)
+        # manage if the two data has timezone anc convert to local one
+        try:
+            newDt = pytz.utc.localize(newDt)
+        except:
+            # in case timezone is already set do nothing
+            pass
+        return newDt
 
     def download(self, datasets_refresh: bool = True, add_to_map: bool = False) -> None:
         """Download Dataset related to a specified Job in a programmatically defined filename and folder.

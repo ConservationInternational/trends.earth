@@ -18,7 +18,7 @@ from pathlib import Path
 import json
 import tempfile
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 
 from osgeo import gdal, ogr, osr
 
@@ -779,7 +779,7 @@ class CalculationHidedOutputWidget(QtWidgets.QWidget, Ui_WidgetCalculationOutput
         """Set default ouptut filename of the local calculation.
         """
         self.process_id = str(uuid.uuid4())
-        self.process_datetime = datetime.now()
+        self.process_datetime = datetime.now(timezone.utc)
         self.process_datetime_str = self.process_datetime.isoformat()
 
         # TODO: check where used "LDMP/output_dir" to avoid side effects

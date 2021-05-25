@@ -117,14 +117,24 @@ def get_script_group(script_name):
     if (script_name in scripts) and ('group' in scripts[script_name]):
         group = scripts[script_name]['group']
     if not group:
-        # check if no belogs to remote scripts and it is a local script/process
-        metadata = local_scripts.get(script_name, None)
+        # check if it is a local script/process
+        metadata = get_local_script_metadata(script_name)
         if not metadata:
-            group = None
-        else:
-            group = metadata['group']
+            return None
+        group = metadata.get('group', None)
+
     return group
 
+def get_local_script_metadata(script_name):
+    """Get a specific value from local_script dictionary.
+    """
+    # main key acess is the name of the local processing GUI class.
+    metadata = local_scripts.get(script_name, None)
+    if not metadata:
+        # source value can be looked for into source value
+        metadata = next((metadata for metadata in local_scripts.values() if metadata['source'] == script_name), None)
+
+    return metadata
 
 # Transform CRS of a layer while optionally wrapping geometries
 # across the 180th meridian

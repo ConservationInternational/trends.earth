@@ -36,7 +36,7 @@ from qgis.PyQt.QtCore import QSettings, QDate, QCoreApplication
 from LDMP import log
 from LDMP.api import run_script
 from LDMP.calculate import (DlgCalculateBase, get_script_slug, ClipWorker,
-    json_geom_to_geojson)
+    json_geom_to_geojson, local_scripts)
 from LDMP.layers import add_layer, create_local_json_metadata, get_band_infos
 from LDMP.worker import AbstractWorker, StartWorker
 from LDMP.gui.DlgCalculateRestBiomassData import Ui_DlgCalculateRestBiomassData
@@ -304,7 +304,7 @@ class DlgCalculateRestBiomassSummaryTable(DlgCalculateBase, Ui_DlgCalculateRestB
         create_local_json_metadata(output_biomass_diff_json, output_file, band_infos,
                                    metadata={'task_name': self.options_tab.task_name.text(),
                                              'task_notes': self.options_tab.task_notes.toPlainText(),
-                                             'source': self.get_subclass_name(),   # linked to calculate.local_script
+                                             'source': local_scripts[self.get_subclass_name()]['source'],   # linked to calculate.local_script
                                              'id': self.output_tab.process_id,
                                              'start_date': self.output_tab.process_datetime_str})
         schema = BandInfoSchema()

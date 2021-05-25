@@ -50,7 +50,7 @@ from LDMP.models.datasets import (
 from LDMP.models.algorithms import AlgorithmDescriptor
 from LDMP import __version__, log, tr
 from LDMP.gui.WidgetDatasetItem import Ui_WidgetDatasetItem
-from LDMP.calculate import local_scripts
+from LDMP.calculate import get_local_script_metadata
 
 class DatasetItemDelegate(QStyledItemDelegate):
 
@@ -203,11 +203,13 @@ class DatasetEditorWidget(QWidget, Ui_WidgetDatasetItem):
         dataset_name = self.dataset.name if self.dataset.name else '<no name set>'
         self.labelDatasetName.setText(dataset_name)
 
-        # set data source string
-        data_source = self.dataset.source if self.dataset.source else 'Unknown'
-        metadata = local_scripts.get(data_source, None)
+        # set data source string. If it's a remote script get it's value (e.g. no key in local_scripts). If it's a local script
+        # get it's value from metadata of local_script dictionary
+        data_source = self.dataset.source
+        metadata = get_local_script_metadata(data_source)
         if metadata:
             data_source = metadata['display_name']
+
         self.labelSourceName.setText(data_source)
 
         # get data differently if come from Dataset or Downloaded dataset

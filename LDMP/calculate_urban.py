@@ -33,7 +33,7 @@ from qgis.PyQt.QtCore import QSettings, QDate, QCoreApplication
 from LDMP import log
 from LDMP.api import run_script
 from LDMP.calculate import DlgCalculateBase, get_script_slug, ClipWorker, \
-    json_geom_to_geojson
+    json_geom_to_geojson, local_scripts
 from LDMP.gui.DlgCalculateUrbanData import Ui_DlgCalculateUrbanData
 from LDMP.gui.DlgCalculateUrbanSummaryTable import Ui_DlgCalculateUrbanSummaryTable
 from LDMP.layers import get_band_infos, create_local_json_metadata, add_layer
@@ -361,7 +361,7 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
         create_local_json_metadata(output_indicator_json, output_file, 
                 output_indicator_bandinfos, metadata={'task_name': self.options_tab.task_name.text(),
                                              'task_notes': self.options_tab.task_notes.toPlainText(),
-                                             'source': self.get_subclass_name(),   # linked to calculate.local_script
+                                             'source': local_scripts[self.get_subclass_name()]['source'],   # linked to calculate.local_script
                                              'id': self.output_tab.process_id,
                                              'start_date': self.output_tab.process_datetime_str})
         schema = BandInfoSchema()

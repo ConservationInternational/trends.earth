@@ -37,7 +37,8 @@ from LDMP import log, __version__
 from LDMP.api import run_script
 from LDMP.calculate import (DlgCalculateBase, get_script_slug, MaskWorker,
     json_geom_to_geojson, ldn_recode_state, ldn_recode_traj, ldn_make_prod5, 
-    ldn_total_deg, ldn_total_by_trans)
+    ldn_total_deg, ldn_total_by_trans,
+    local_scripts)
 from LDMP.lc_setup import lc_setup_widget, lc_define_deg_widget
 from LDMP.layers import (add_layer, create_local_json_metadata, get_band_infos,
     delete_layer_by_filename)
@@ -876,7 +877,7 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
         create_local_json_metadata(output_sdg_json, output_file, 
                 output_sdg_bandinfos, metadata={'task_name': self.options_tab.task_name.text(),
                                                 'task_notes': self.options_tab.task_notes.toPlainText(),
-                                                'source': self.get_subclass_name(),   # linked to calculate.local_script
+                                                'source': local_scripts[self.get_subclass_name()]['source'],   # linked to calculate.local_script
                                                 'id': self.output_tab.process_id,
                                                 'start_date': self.output_tab.process_datetime_str,
                                                 'prod_mode': prod_mode})

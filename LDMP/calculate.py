@@ -12,6 +12,7 @@
  ***************************************************************************/
 """
 
+from typing import Optional
 from builtins import object
 import os
 from pathlib import Path
@@ -111,7 +112,7 @@ def get_script_slug(script_name):
     # replaced with dashesk
     return (script_name, script_name + '-' + scripts[script_name]['script version'].replace('.', '-'))
 
-def get_script_group(script_name):
+def get_script_group(script_name) -> Optional[str]:
     # get the configured name of the group that belongs the script
     group = None
     if (script_name in scripts) and ('group' in scripts[script_name]):
@@ -125,7 +126,7 @@ def get_script_group(script_name):
 
     return group
 
-def get_local_script_metadata(script_name):
+def get_local_script_metadata(script_name) -> Optional[dict]:
     """Get a specific value from local_script dictionary.
     """
     # main key acess is the name of the local processing GUI class.
@@ -135,6 +136,15 @@ def get_local_script_metadata(script_name):
         metadata = next((metadata for metadata in local_scripts.values() if metadata['source'] == script_name), None)
 
     return metadata
+
+def is_local_script(script_name: str = None) -> bool:
+    """check if the script name (aka source) is a local processed alg source.
+    """
+    if script_name in local_scripts:
+        return True
+    if next((metadata['source'] for metadata in local_scripts.values() if metadata['source'] == script_name), None):
+        return True
+    return False
 
 # Transform CRS of a layer while optionally wrapping geometries
 # across the 180th meridian
@@ -785,7 +795,7 @@ class CalculationHidedOutputWidget(QtWidgets.QWidget, Ui_WidgetCalculationOutput
         # setting new process_id
         #self.set_output_basename() 
 
-    def set_output_basename(self):
+    def set_output_basename(self, alg_name: str = '', task_name: str = ''):
         """Set default ouptut filename of the local calculation.
         """
         self.process_id = str(uuid.uuid4())
@@ -808,6 +818,13 @@ class CalculationHidedOutputWidget(QtWidgets.QWidget, Ui_WidgetCalculationOutput
         # set result basename as a random UUID
         f = os.path.join(initial_path, self.process_id)
 
+        # add context tags in the base filename eg. task_name and alg_name
+        if alg_name:
+            f = f'{f}_{alg_name}'
+        if task_name:
+            f = f'{f}_{task_name}'
+
+        # set the base names used to define every output filename of the algorithm
         self.output_basename.setText(f)
         self.set_output_summary(f)
 
@@ -975,9 +992,13 @@ class DlgCalculateBase(QtWidgets.QDialog):
             return (admin_polys['admin1'][admin_1_code]['geojson'])
 
     def btn_calculate(self):
-        # setup output. Setting here at every run to allow setting a new id value each run
+        # setup output. Setting here at every run to allow setting a new id value each run plus
+        # some data related with alg name and eventually user defined task_name
         if self._has_output:
-            self.output_tab.set_output_basename()
+            self.output_tab.set_output_basename(
+                alg_name = local_scripts[self.get_subclass_name()]['source'],
+                task_name = self.options_tab.task_name.text()
+            )
 
         if self.settings.value("trends_earth/region_of_interest/custom_crs_enabled", False, type=bool):
             crs_dst = QgsCoordinateReferenceSystem(

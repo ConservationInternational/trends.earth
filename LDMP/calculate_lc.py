@@ -250,9 +250,11 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
                                        self.tr("Area of interest is not entirely within the final land cover layer."))
             return
 
-        out_f = self.get_save_raster()
-        if not out_f:
-            return
+        # do not ask for file name and use automatic set of self.output_tab.output_basename to build filename
+        # out_f = self.get_save_raster()
+        # if not out_f:
+        #     return
+        out_f = self.output_tab.output_basename + '.tif'
 
         self.close()
 

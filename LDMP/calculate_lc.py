@@ -29,7 +29,7 @@ mb = iface.messageBar()
 
 from LDMP import log
 from LDMP.api import run_script
-from LDMP.calculate import DlgCalculateBase, get_script_slug
+from LDMP.calculate import DlgCalculateBase, get_script_slug, local_scripts
 from LDMP.layers import create_local_json_metadata, add_layer
 from LDMP.lc_setup import lc_setup_widget, lc_define_deg_widget
 from LDMP.worker import AbstractWorker, StartWorker
@@ -282,7 +282,7 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
         create_local_json_metadata(out_json, out_f, band_info, metadata={
                                                 'task_name': self.options_tab.task_name.text(),
                                                 'task_notes': self.options_tab.task_notes.toPlainText(),
-                                                'source': self.get_subclass_name(),   # linked to calculate.local_script
+                                                'source': local_scripts[self.get_subclass_name()]['source'],   # linked to calculate.local_script
                                                 'id': self.output_tab.process_id,
                                                 'start_date': self.output_tab.process_datetime_str})
         schema = BandInfoSchema()

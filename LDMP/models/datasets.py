@@ -31,7 +31,7 @@ from qgis.PyQt.QtCore import QSettings, pyqtSignal, QObject, Qt
 from qgis.PyQt.QtWidgets import QMessageBox
 from qgis.core import QgsLogger
 from LDMP.jobs import Job, JobSchema, Jobs, download_cloud_results, download_timeseries
-from LDMP.calculate import get_script_group, local_scripts
+from LDMP.calculate import get_script_group, is_local_script
 from LDMP.layers import add_layer
 from LDMP import log, singleton, tr, json_serial, traverse
 
@@ -195,7 +195,7 @@ class Dataset(DatasetBase):
                 self.creation_date = dataset.get('creation_date')
                 self.run_id = dataset.get('run_id')
 
-                if self.source in local_scripts:
+                if is_local_script(self.source):
                     self.__origin = Dataset.Origin.local_raster
                 else:
                     self.__origin = Dataset.Origin.dataset
@@ -262,7 +262,7 @@ class Dataset(DatasetBase):
         if not os.path.exists(out_path):
             os.makedirs(out_path)
 
-        descriptor_file_name = self.run_id + '.json'
+        descriptor_file_name = f'{self.run_id}_{self.source}_{self.name}.json'
         descriptor_file_name = os.path.join(out_path, descriptor_file_name)
         QgsLogger.debug('* Dump dataset descriptor into file: '+ descriptor_file_name, debuglevel=4)
 
@@ -401,7 +401,7 @@ class Dataset(DatasetBase):
         changes. Datasets already downloaded will not downloaded again.
         """
         # do download if a Dataset generated from a remote Job
-        if self.origin() in [Dataset.Origin.job]:
+        if self.origin() in [Dataset.Origin.job, Dataset.Origin.dataset]:
             # e.g. not yet downloaded
             self.download(datasets_refresh=False, add_to_map=True)
 
@@ -425,19 +425,19 @@ class Dataset(DatasetBase):
 
             # Show custom bands in case of:
             #   DlgCalculateLDNSummaryTableAdmin
-            if self.source == 'DlgCalculateLDNSummaryTableAdmin': 
+            if self.source in ['DlgCalculateLDNSummaryTableAdmin', 'LDNSummaryTable']:
                 add_layer(image_file, 1, self.bands[0])
                 if ( 'prod_mode' in self.metadata and
-                     self.metadata.prod_mode == 'Trends.Earth productivity'):
+                     self.metadata['prod_mode'] == 'Trends.Earth productivity'):
                     add_layer(image_file, 2, self.bands[1])
 
             # show configured bands for locally processed datasets as:
             #   DlgCalculateLC (Land Cover)
             #   DlgCalculateSOC
             #   DlgCalculateTCData
-            elif self.source in ['DlgCalculateLC', 
-                                 'DlgCalculateSOC',
-                                 'DlgCalculateTCData',
+            elif self.source in ['DlgCalculateLC', 'CalculateLC',
+                                 'DlgCalculateSOC', 'CalculateSOC',
+                                 'DlgCalculateTCData', 'CalculateTCData',
                                  ]:
                 for band_number in range(1, len(self.bands) + 1):
                     # The minus 1 is because band numbers start at 1, not zero
@@ -447,7 +447,7 @@ class Dataset(DatasetBase):
 
             # show custom bands in case of:
             #   DlgCalculateUrbanSummaryTable
-            elif self.source == 'DlgCalculateUrbanSummaryTable':
+            elif self.source in ['DlgCalculateUrbanSummaryTable', 'UrbanSummaryTable']:
                 for band_number in range(1, 4):
                     # The minus 1 is because band numbers start at 1, not zero
                     band_info = self.bands[band_number - 1]

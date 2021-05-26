@@ -540,6 +540,12 @@ class Job(QObject):
         return self.response['script'].get('name', '')
 
     @property
+    def scriptSlug(self) -> Optional[str]:
+        """No idea the meaning of slug, but it's the alg name + version.
+        """
+        return self.response['script'].get('slug', '')
+
+    @property
     def runId(self) -> str:
         return self.response['id']
 

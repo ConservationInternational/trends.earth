@@ -473,11 +473,7 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
 
         out_json = os.path.splitext(out_f)[0] + '.json'
         create_local_json_metadata(out_json, out_f, band_infos,
-                                    metadata={'task_name': self.options_tab.task_name.text(),
-                                             'task_notes': self.options_tab.task_notes.toPlainText(),
-                                             'source': local_scripts[self.get_subclass_name()]['source'],   # linked to calculate.local_script
-                                             'id': self.output_tab.process_id,
-                                             'start_date': self.output_tab.process_datetime_str})
+                                    metadata=self.setMetadata())
         schema = BandInfoSchema()
         for band_number in range(len(band_infos)):
             b = schema.dump(band_infos[band_number])

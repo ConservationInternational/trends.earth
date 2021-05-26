@@ -359,11 +359,7 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
             output_file = os.path.splitext(output_indicator_json)[0] + '.vrt'
             gdal.BuildVRT(output_file, output_indicator_tifs)
         create_local_json_metadata(output_indicator_json, output_file, 
-                output_indicator_bandinfos, metadata={'task_name': self.options_tab.task_name.text(),
-                                             'task_notes': self.options_tab.task_notes.toPlainText(),
-                                             'source': local_scripts[self.get_subclass_name()]['source'],   # linked to calculate.local_script
-                                             'id': self.output_tab.process_id,
-                                             'start_date': self.output_tab.process_datetime_str})
+                output_indicator_bandinfos, metadata=self.setMetadata())
         schema = BandInfoSchema()
         add_layer(output_file, 1, schema.dump(output_indicator_bandinfos[0]))
         add_layer(output_file, 2, schema.dump(output_indicator_bandinfos[1]))

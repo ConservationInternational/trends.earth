@@ -103,6 +103,7 @@ class Dataset(DatasetBase):
             self.progress = job.progress
             self.source = job.scriptName
             self.name = job.taskName
+            self.slug = job.scriptSlug
             self.creation_date = job.startDate
             self.run_id = job.runId
 
@@ -202,6 +203,14 @@ class Dataset(DatasetBase):
                 self.__fileName = filename
                 self.__schema = DatasetSchema()
 
+            # get slug if available
+            # NOTE: this influence the generated Dataset filename using "slug" instead of "name"
+            # creating filename
+            if hasattr(dataset, 'metadata'):
+                script_section = self.metadata.get('script', None)
+                if script_section:
+                    self.slug = script_section.get('slug', '')
+
         else:
             raise Exception('Lack of inputs to build a Dataset instance')
 
@@ -262,7 +271,10 @@ class Dataset(DatasetBase):
         if not os.path.exists(out_path):
             os.makedirs(out_path)
 
-        descriptor_file_name = f'{self.run_id}_{self.source}_{self.name}.json'
+        source_name = self.source
+        if hasattr(self, 'slug'):
+            source_name = self.slug
+        descriptor_file_name = f'{self.run_id}_{source_name}_{self.name}.json'
         descriptor_file_name = os.path.join(out_path, descriptor_file_name)
         QgsLogger.debug('* Dump dataset descriptor into file: '+ descriptor_file_name, debuglevel=4)
 
@@ -327,12 +339,12 @@ class Dataset(DatasetBase):
         f = None
         if job.results.get('type') != 'TimeSeriesTable':
             # create result filename basing on:
-            # run_id + scriptName + task_name (if any)
+            # run_id + scriptSlug + task_name (if any)
             fileBaseName = None
             if job.taskName:
-                fileBaseName = u'{}_{}_{}'.format(job.runId, job.scriptName, job.taskName)
+                fileBaseName = u'{}_{}_{}'.format(job.runId, job.scriptSlug, job.taskName)
             else:
-                fileBaseName = u'{}_{}'.format(job.runId, job.scriptName)
+                fileBaseName = u'{}_{}'.format(job.runId, job.scriptSlug)
             
             # set the folder where to save result
             f = os.path.join(base_dir, fileBaseName)

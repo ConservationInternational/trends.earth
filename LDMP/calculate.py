@@ -74,32 +74,32 @@ local_scripts = {}
 local_scripts['DlgCalculateLDNSummaryTableAdmin'] = {
     'group': 'SDG 15.3.1',
     'display_name': 'Final SDG 15.3.1 - Summary Table',
-    'source': 'LDNSummaryTable'
+    'source': 'final-sdg-15-3-1-summary-table'
 }
 local_scripts['DlgCalculateUrbanSummaryTable'] = {
     'group': 'SDG 11.3.1',
     'display_name': 'Urban Summary Table',
-    'source': 'UrbanSummaryTable'
+    'source': 'urban-change-summary-table'
 }
 local_scripts['DlgCalculateRestBiomassSummaryTable'] = {
     'group': 'Potencial change in biomass',
     'display_name': 'Rest Biomass Summary Table',
-    'source': 'RestBiomassSummaryTable'
+    'source': 'change-biomass-summary-table'
 }
 local_scripts['DlgCalculateLC'] = {
     'group': 'SDG 15.3.1',
     'display_name': 'Land cover (locally)',
-    'source': 'CalculateLC'
+    'source': 'local-land-cover'
 }
 local_scripts['DlgCalculateTCData'] = {
     'group': 'total-carbon',
     'display_name': 'Total Carbon (locally)',
-    'source': 'CalculateTCData'
+    'source': 'local-total-carbon'
 }
 local_scripts['DlgCalculateSOC'] = {
     'group': 'SDG 15.3.1',
     'display_name': 'Soil Organic Carbon (locally)',
-    'source': 'CalculateSOC'
+    'source': 'local-soil-organic-carbon'
 }
 
 # Make a function to get a script slug from a script name, including the script 

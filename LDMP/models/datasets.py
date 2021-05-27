@@ -439,8 +439,8 @@ class Dataset(DatasetBase):
             #   DlgCalculateLDNSummaryTableAdmin
             if self.source in ['DlgCalculateLDNSummaryTableAdmin', 'LDNSummaryTable']:
                 add_layer(image_file, 1, self.bands[0])
-                if ( 'prod_mode' in self.metadata and
-                     self.metadata['prod_mode'] == 'Trends.Earth productivity'):
+                if ( 'prod_mode' in self.metadata['params'] and
+                     self.metadata['params']['prod_mode'] == 'Trends.Earth productivity'):
                     add_layer(image_file, 2, self.bands[1])
 
             # show configured bands for locally processed datasets as:

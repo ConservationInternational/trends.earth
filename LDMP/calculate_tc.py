@@ -123,6 +123,10 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
 
         self.setupUi(self)
 
+        # hack to allow add HiddenOutputpTab that automatically set
+        # out files in case of local process
+        self.add_output_tab(['.json', '.tif'])
+
         self.first_show = True
 
     def showEvent(self, event):
@@ -255,9 +259,10 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
                                        self.tr("Area of interest is not entirely within the final land cover layer."))
             return
 
-        out_f = self.get_save_raster()
-        if not out_f:
-            return
+        # out_f = self.get_save_raster()
+        # if not out_f:
+        #     return
+        out_f = self.output_tab.output_basename + '.tif'
 
         self.close()
 
@@ -325,8 +330,26 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
             band_infos.append(BandInfo("Land cover (7 class)", metadata={'year': year}))
 
         out_json = os.path.splitext(out_f)[0] + '.json'
+
+        # set alg metadata
+        metadata = self.setMetadata()
+        metadata['params'] = {}
+        metadata['params']['year_baseline'] = int(year_baseline)
+        metadata['params']['year_target'] = int(year_target)
+        metadata['params']['hansen_fc_threshold'] = self.hansen_fc_threshold.text()
+        metadata['params']['use_hansen'] = self.use_hansen.isChecked()
+        metadata['params']['method'] = method
+        metadata['params']['biomass_data'] = biomass_data
+        metadata['params']['lc_initial'] = self.lc_setup_tab.use_custom_initial.get_data_file()
+        metadata['params']['lc_final'] = self.lc_setup_tab.use_custom_final.get_data_file()
+
+        metadata['params']['crs'] = self.aoi.get_crs_dst_wkt()
+        crosses_180th, geojsons = self.gee_bounding_box
+        metadata['params']['geojsons'] = json.dumps(geojsons)
+        metadata['params']['crosses_180th'] = crosses_180th
+
         create_local_json_metadata(out_json, out_f, band_infos,
-                                    metadata=self.setMetadata())
+                                    metadata=metadata)
         schema = BandInfoSchema()
         for band_number in range(len(band_infos)):
             b = schema.dump(band_infos[band_number])

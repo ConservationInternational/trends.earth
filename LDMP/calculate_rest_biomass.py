@@ -301,8 +301,20 @@ class DlgCalculateRestBiomassSummaryTable(DlgCalculateBase, Ui_DlgCalculateRestB
         # no data value, so that stretches are more likely to compute correctly
         for item in band_infos:
             item['no_data_value'] = -32767
+
+        # set metadata 
+        metadata = self.setMetadata()
+        metadata['params'] = {}
+        metadata['params']['prod_mode'] = prod_mode
+        metadata['params']['layer_biomass_diff'] = in_file
+
+        metadata['params']['crs'] = self.aoi.get_crs_dst_wkt()
+        crosses_180th, geojsons = self.gee_bounding_box
+        metadata['params']['geojsons'] = json.dumps(geojsons)
+        metadata['params']['crosses_180th'] = crosses_180th
+
         create_local_json_metadata(output_biomass_diff_json, output_file, band_infos,
-                                   metadata=self.setMetadata())
+                                   metadata=metadata)
         schema = BandInfoSchema()
         for n in range(1, len(band_infos)):
             add_layer(output_file, n + 1, schema.dump(band_infos[n]))

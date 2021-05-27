@@ -281,7 +281,22 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
                      BandInfo("Land cover (7 class)", metadata={'year': year_target}),
                      BandInfo("Land cover transitions", add_to_map=True, metadata={'year_baseline': year_baseline, 'year_target': year_target})]
         out_json = os.path.splitext(out_f)[0] + '.json'
-        create_local_json_metadata(out_json, out_f, band_info, metadata=self.setMetadata())
+
+        # add in metadata all source layers
+        metadata = self.setMetadata()
+        metadata['params'] = {}
+        metadata['params']['trans_matrix'] = trans_matrix
+        metadata['params']['persistence_remap'] = persistence_remap
+        metadata['params']['lc_initial_vrt'] = self.lc_setup_tab.use_custom_initial.get_data_file()
+        metadata['params']['lc_final_vrt'] = self.lc_setup_tab.use_custom_final.get_data_file()
+        metadata['params']['year_baseline'] = int(year_baseline)
+        metadata['params']['year_target'] = int(year_target)
+        metadata['params']['crs'] = self.aoi.get_crs_dst_wkt()
+        crosses_180th, geojsons = self.gee_bounding_box
+        metadata['params']['geojsons'] = json.dumps(geojsons)
+        metadata['params']['crosses_180th'] = crosses_180th
+
+        create_local_json_metadata(out_json, out_f, band_info, metadata=metadata)
         schema = BandInfoSchema()
         for band_number in range(len(band_info)):
             b = schema.dump(band_info[band_number])

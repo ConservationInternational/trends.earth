@@ -401,8 +401,8 @@ def make_summary_table(areas, populations, out_file):
     try:
         wb.save(out_file)
         log(u'Summary table saved to {}'.format(out_file))
-        QtWidgets.QMessageBox.information(None, tr_calculate_urban.tr("Success"),
-                                      tr_calculate_urban.tr(u'Summary table saved to {}'.format(out_file)))
+        # QtWidgets.QMessageBox.information(None, tr_calculate_urban.tr("Success"),
+        #                               tr_calculate_urban.tr(u'Summary table saved to {}'.format(out_file)))
 
     except IOError:
         log(u'Error saving {}'.format(out_file))

@@ -388,8 +388,8 @@ def make_summary_table(out_file, biomass_initial, biomass_change, area_site,
     try:
         wb.save(out_file)
         log(u'Summary table saved to {}'.format(out_file))
-        QtWidgets.QMessageBox.information(None, tr_calculate_rest_biomass.tr("Success"),
-                                      tr_calculate_rest_biomass.tr(u'Summary table saved to {}'.format(out_file)))
+        # QtWidgets.QMessageBox.information(None, tr_calculate_rest_biomass.tr("Success"),
+        #                               tr_calculate_rest_biomass.tr(u'Summary table saved to {}'.format(out_file)))
 
     except IOError:
         log(u'Error saving {}'.format(out_file))

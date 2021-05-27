@@ -877,7 +877,21 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
         
         # set metadata 
         metadata = self.setMetadata()
-        metadata['prod_mode'] = prod_mode
+        metadata['params'] = {}
+        metadata['params']['prod_mode'] = prod_mode
+        if prod_mode == 'Trends.Earth productivity':
+            metadata['params']['layer_traj'] = self.combo_layer_traj.get_data_file()
+            metadata['params']['layer_perf'] = self.combo_layer_perf.get_data_file()
+            metadata['params']['layer_state'] = self.combo_layer_state.get_data_file()
+        else:
+            metadata['params']['layer_lpd'] = self.combo_layer_lpd.get_data_file()
+        metadata['params']['layer_lc'] = self.combo_layer_lc.get_data_file()
+        metadata['params']['layer_soc'] = self.combo_layer_soc.get_data_file()
+
+        metadata['params']['crs'] = self.aoi.get_crs_dst_wkt()
+        crosses_180th, geojsons = self.gee_bounding_box
+        metadata['params']['geojsons'] = json.dumps(geojsons)
+        metadata['params']['crosses_180th'] = crosses_180th
 
         create_local_json_metadata(output_sdg_json, output_file, 
                 output_sdg_bandinfos, metadata=metadata)

@@ -1074,8 +1074,8 @@ def make_summary_table(soc_totals, lc_totals, trans_prod_xtab, sdg_tbl_overall,
     try:
         wb.save(out_file)
         log(u'Indicator table saved to {}'.format(out_file))
-        QtWidgets.QMessageBox.information(None, tr_calculate_ldn.tr("Success"),
-                                      tr_calculate_ldn.tr(u'Indicator table saved to {}'.format(out_file)))
+        # QtWidgets.QMessageBox.information(None, tr_calculate_ldn.tr("Success"),
+        #                               tr_calculate_ldn.tr(u'Indicator table saved to {}'.format(out_file)))
 
     except IOError:
         log(u'Error saving {}'.format(out_file))

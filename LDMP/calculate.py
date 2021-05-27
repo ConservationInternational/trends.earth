@@ -74,7 +74,7 @@ local_scripts = {}
 local_scripts['DlgCalculateLDNSummaryTableAdmin'] = {
     'group': 'SDG 15.3.1',
     'display_name': 'Final SDG 15.3.1 - Summary Table',
-    'source': 'final-sdg-15-3-1-summary-table'
+    'source': 'final-sdg-15-3-1'
 }
 local_scripts['DlgCalculateUrbanSummaryTable'] = {
     'group': 'SDG 11.3.1',

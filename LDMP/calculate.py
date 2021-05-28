@@ -12,11 +12,14 @@
  ***************************************************************************/
 """
 
+from typing import Optional
 from builtins import object
 import os
 from pathlib import Path
 import json
 import tempfile
+import uuid
+from datetime import datetime, timezone
 
 from osgeo import gdal, ogr, osr
 
@@ -65,6 +68,39 @@ class tr_calculate(object):
     def tr(message):
         return QCoreApplication.translate("tr_calculate", message)
 
+# set mapping among GUI interface and algorithm group. Can be done via a JSON configuration as in scripts.py
+# bu algorithms are almost stable (as in alg list in main widget tab) => leaved as static dictionary
+local_scripts = {}
+local_scripts['DlgCalculateLDNSummaryTableAdmin'] = {
+    'group': 'SDG 15.3.1',
+    'display_name': 'Final SDG 15.3.1 - Summary Table',
+    'source': 'final-sdg-15-3-1'
+}
+local_scripts['DlgCalculateUrbanSummaryTable'] = {
+    'group': 'SDG 11.3.1',
+    'display_name': 'Urban Summary Table',
+    'source': 'urban-change-summary-table'
+}
+local_scripts['DlgCalculateRestBiomassSummaryTable'] = {
+    'group': 'Potencial change in biomass',
+    'display_name': 'Rest Biomass Summary Table',
+    'source': 'change-biomass-summary-table'
+}
+local_scripts['DlgCalculateLC'] = {
+    'group': 'SDG 15.3.1',
+    'display_name': 'Land cover (locally)',
+    'source': 'local-land-cover'
+}
+local_scripts['DlgCalculateTCData'] = {
+    'group': 'total-carbon',
+    'display_name': 'Total Carbon (locally)',
+    'source': 'local-total-carbon'
+}
+local_scripts['DlgCalculateSOC'] = {
+    'group': 'SDG 15.3.1',
+    'display_name': 'Soil Organic Carbon (locally)',
+    'source': 'local-soil-organic-carbon'
+}
 
 # Make a function to get a script slug from a script name, including the script 
 # version string
@@ -76,13 +112,39 @@ def get_script_slug(script_name):
     # replaced with dashesk
     return (script_name, script_name + '-' + scripts[script_name]['script version'].replace('.', '-'))
 
-def get_script_group(script_name):
+def get_script_group(script_name) -> Optional[str]:
     # get the configured name of the group that belongs the script
     group = None
     if (script_name in scripts) and ('group' in scripts[script_name]):
         group = scripts[script_name]['group']
+    if not group:
+        # check if it is a local script/process
+        metadata = get_local_script_metadata(script_name)
+        if not metadata:
+            return None
+        group = metadata.get('group', None)
+
     return group
 
+def get_local_script_metadata(script_name) -> Optional[dict]:
+    """Get a specific value from local_script dictionary.
+    """
+    # main key acess is the name of the local processing GUI class.
+    metadata = local_scripts.get(script_name, None)
+    if not metadata:
+        # source value can be looked for into source value
+        metadata = next((metadata for metadata in local_scripts.values() if metadata['source'] == script_name), None)
+
+    return metadata
+
+def is_local_script(script_name: str = None) -> bool:
+    """check if the script name (aka source) is a local processed alg source.
+    """
+    if script_name in local_scripts:
+        return True
+    if next((metadata['source'] for metadata in local_scripts.values() if metadata['source'] == script_name), None):
+        return True
+    return False
 
 # Transform CRS of a layer while optionally wrapping geometries
 # across the 180th meridian
@@ -714,6 +776,83 @@ class CalculationOutputWidget(QtWidgets.QWidget, Ui_WidgetCalculationOutput):
         return True
 
 
+class CalculationHidedOutputWidget(QtWidgets.QWidget, Ui_WidgetCalculationOutput):
+    def __init__(self, suffixes, subclass_name, parent=None):
+        super(CalculationHidedOutputWidget, self).__init__(parent)
+
+        self.output_suffixes = suffixes
+        self.subclass_name = subclass_name
+
+        self.process_id = None
+        self.process_datetime = None
+        self.process_datetime_str = None
+
+        self.setupUi(self)
+        self.hide()
+
+        # set default output basename
+        # commented and executed just before run to allow 
+        # setting new process_id
+        #self.set_output_basename() 
+
+    def set_output_basename(self, alg_name: str = '', task_name: str = ''):
+        """Set default ouptut filename of the local calculation.
+        """
+        self.process_id = str(uuid.uuid4())
+        self.process_datetime = datetime.now(timezone.utc)
+        self.process_datetime_str = self.process_datetime.isoformat()
+
+        # TODO: check where used "LDMP/output_dir" to avoid side effects
+
+        # path where to store result
+        base_data_directory = QSettings().value("trends_earth/advanced/base_data_directory", None, type=str)
+        if not base_data_directory:
+            return
+
+        processing_date_string = self.process_datetime.strftime('%Y_%m_%d')
+        group = get_script_group(self.subclass_name)
+        initial_path = os.path.join(base_data_directory, 'outputs', group, processing_date_string)
+        if not initial_path:
+            return
+
+        # set result basename as a random UUID
+        f = os.path.join(initial_path, self.process_id)
+
+        # add context tags in the base filename eg. task_name and alg_name
+        if alg_name:
+            f = f'{f}_{alg_name}'
+        if task_name:
+            f = f'{f}_{task_name}'
+
+        # set the base names used to define every output filename of the algorithm
+        self.output_basename.setText(f)
+        self.set_output_summary(f)
+
+        # create folder if does not exist
+        if not os.access(os.path.dirname(f), os.W_OK):
+            os.makedirs(os.path.dirname(f), exist_ok=True)
+
+        if os.access(os.path.dirname(f), os.W_OK):
+            log(f'Writing outputs with basename: {f}')
+
+            QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
+            self.output_basename.setText(f)
+            self.set_output_summary(f)
+        else:
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                                        self.tr(u"Cannot write to {}. Choose a different file.".format(f)))
+
+    def set_output_summary(self, f):
+        out_files = [f + suffix for suffix in self.output_suffixes]
+        self.output_summary.setText("\n".join(["{}"]*len(out_files)).format(*out_files))
+
+    def check_overwrites(self):
+        """Method maintained only for retro compatibility with old code. Overwrite can't happen because 
+        filename is choosed randomly.
+        """
+        return True
+
+
 class DlgCalculateBase(QtWidgets.QDialog):
     """Base class for individual indicator calculate dialogs"""
     firstShowEvent = pyqtSignal()
@@ -767,18 +906,23 @@ class DlgCalculateBase(QtWidgets.QDialog):
         
         # If this dialog has an output_basename widget then set it up with any 
         # saved values in QSettings
-        if self._has_output:
-            f = QSettings().value("LDMP/output_basename_{}".format(self.get_subclass_name()), None)
-            if f:
-                self.output_tab.output_basename.setText(f)
-                self.output_tab.set_output_summary(f)
+        # NOTE: now output value is set automagically
+        # if self._has_output:
+        #     f = QSettings().value("LDMP/output_basename_{}".format(self.get_subclass_name()), None)
+        #     if f:
+        #         self.output_tab.output_basename.setText(f)
+        #         self.output_tab.set_output_summary(f)
 
     def firstShow(self):
 
         if self._has_output:
-            self.output_tab = CalculationOutputWidget(self.output_suffixes, self.get_subclass_name())
+            # self.output_tab = CalculationOutputWidget(self.output_suffixes, self.get_subclass_name())
+            self.output_tab = CalculationHidedOutputWidget(self.output_suffixes, self.get_subclass_name())
             self.output_tab.setParent(self)
-            self.TabBox.addTab(self.output_tab, self.tr('Output'))
+            # NOTE: do not add Output tab it's valueas are set automagically
+            # but the widget is added to have less inpact in old code that
+            # get output names from the GUI.
+            # self.TabBox.addTab(self.output_tab, self.tr('Output'))
 
         self.options_tab = CalculationOptionsWidget()
         self.options_tab.setParent(self)
@@ -848,6 +992,14 @@ class DlgCalculateBase(QtWidgets.QDialog):
             return (admin_polys['admin1'][admin_1_code]['geojson'])
 
     def btn_calculate(self):
+        # setup output. Setting here at every run to allow setting a new id value each run plus
+        # some data related with alg name and eventually user defined task_name
+        if self._has_output:
+            self.output_tab.set_output_basename(
+                alg_name = local_scripts[self.get_subclass_name()]['source'],
+                task_name = self.options_tab.task_name.text()
+            )
+
         if self.settings.value("trends_earth/region_of_interest/custom_crs_enabled", False, type=bool):
             crs_dst = QgsCoordinateReferenceSystem(
                 self.settings.value("trends_earth/region_of_interest/custom_crs")
@@ -968,6 +1120,38 @@ class DlgCalculateBase(QtWidgets.QDialog):
                 return False
 
         return True
+
+    def setMetadata(self) -> dict:
+        """Create base metadata to be strored in Dataset descriptor. Each derived class should overload
+        this metod adding adding specific algorithm data in metadata dictionary.
+
+        Seems that this method is called only in case of local processed algorithms
+        """
+        task_name = task_notes = process_id = start_date = source = ''
+        out_files = []
+        if self._has_output:
+            task_name = self.options_tab.task_name.text()
+            task_notes = self.options_tab.task_notes.toPlainText()
+            process_id = self.output_tab.process_id
+            start_date = self.output_tab.process_datetime_str
+            # get form output_summary text window already populated with all
+            # files generated byu the subclasxs algorithm
+            out_files = list(self.output_tab.output_summary.toPlainText().split())
+
+        script_metadata = get_local_script_metadata(self.get_subclass_name())
+        if script_metadata:
+            source = script_metadata['source']
+
+        metadata = {
+            'task_name': task_name,
+            'task_notes': task_notes,
+            'source': source,   # linked to calculate.local_script
+            'id': process_id,
+            'start_date': start_date,
+            'out_files': out_files
+        }
+
+        return metadata
 
 
 class ClipWorker(AbstractWorker):

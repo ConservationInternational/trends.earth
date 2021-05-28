@@ -24,6 +24,7 @@ import base64
 import binascii
 import copy
 import datetime
+import pytz
 from dateutil import tz
 import pprint
 from qgis.PyQt import QtWidgets
@@ -195,7 +196,7 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
         self.connectionEvent.emit(True)
         email = get_user_email()
         if email:
-            start_date = datetime.datetime.now() + datetime.timedelta(-14)
+            start_date = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(-14)
             jobs = get_execution(date=start_date.strftime('%Y-%m-%d'))
             if jobs:
                 self.jobs.set(jobs)
@@ -511,8 +512,8 @@ class Job(QObject):
 
         self.response = {}
         self.response['id'] = response.get('id', 'Unknown')
-        self.response['start_date'] = response.get('start_date', datetime.datetime(1,1,1,0,0))
-        self.response['end_date'] = response.get('end_date', datetime.datetime(1,1,1,0,0))
+        self.response['start_date'] = response.get('start_date', datetime.datetime(1,1,1,0,0,tzinfo=datetime.timezone.utc))
+        self.response['end_date'] = response.get('end_date', datetime.datetime(1,1,1,0,0,tzinfo=datetime.timezone.utc))
         self.response['status'] = response.get('status', '')
         self.response['progress'] = response.get('progress', 0)
         self.response['params'] = response.get('params', {})
@@ -539,6 +540,12 @@ class Job(QObject):
         return self.response['script'].get('name', '')
 
     @property
+    def scriptSlug(self) -> Optional[str]:
+        """No idea the meaning of slug, but it's the alg name + version.
+        """
+        return self.response['script'].get('slug', '')
+
+    @property
     def runId(self) -> str:
         return self.response['id']
 
@@ -556,7 +563,13 @@ class Job(QObject):
 
     @staticmethod
     def toDatetime(dt: str) -> datetime.datetime:
-        return datetime.datetime.strptime(dt, '%Y/%m/%d (%H:%M)')
+        newDt = datetime.datetime.strptime(dt, '%Y/%m/%d (%H:%M)')
+        try:
+            newDt = pytz.utc.localize(newDt)
+        except:
+            # in case timezone is already set do nothing
+            pass
+        return newDt
 
     def dump(self) -> str:
         """Dump Job as JSON in a programmatically set folder with a programmaticaly set filename.

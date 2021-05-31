@@ -36,7 +36,7 @@ from qgis.PyQt.QtCore import QSettings, QDate, QCoreApplication
 from LDMP import log
 from LDMP.api import run_script
 from LDMP.calculate import (DlgCalculateBase, get_script_slug, ClipWorker,
-    json_geom_to_geojson)
+    json_geom_to_geojson, local_scripts)
 from LDMP.layers import add_layer, create_local_json_metadata, get_band_infos
 from LDMP.worker import AbstractWorker, StartWorker
 from LDMP.gui.DlgCalculateRestBiomassData import Ui_DlgCalculateRestBiomassData
@@ -301,9 +301,20 @@ class DlgCalculateRestBiomassSummaryTable(DlgCalculateBase, Ui_DlgCalculateRestB
         # no data value, so that stretches are more likely to compute correctly
         for item in band_infos:
             item['no_data_value'] = -32767
+
+        # set metadata 
+        metadata = self.setMetadata()
+        metadata['params'] = {}
+        metadata['params']['prod_mode'] = prod_mode
+        metadata['params']['layer_biomass_diff'] = in_file
+
+        metadata['params']['crs'] = self.aoi.get_crs_dst_wkt()
+        crosses_180th, geojsons = self.gee_bounding_box
+        metadata['params']['geojsons'] = json.dumps(geojsons)
+        metadata['params']['crosses_180th'] = crosses_180th
+
         create_local_json_metadata(output_biomass_diff_json, output_file, band_infos,
-                                   metadata={'task_name': self.options_tab.task_name.text(),
-                                             'task_notes': self.options_tab.task_notes.toPlainText()})
+                                   metadata=metadata)
         schema = BandInfoSchema()
         for n in range(1, len(band_infos)):
             add_layer(output_file, n + 1, schema.dump(band_infos[n]))
@@ -377,8 +388,8 @@ def make_summary_table(out_file, biomass_initial, biomass_change, area_site,
     try:
         wb.save(out_file)
         log(u'Summary table saved to {}'.format(out_file))
-        QtWidgets.QMessageBox.information(None, tr_calculate_rest_biomass.tr("Success"),
-                                      tr_calculate_rest_biomass.tr(u'Summary table saved to {}'.format(out_file)))
+        # QtWidgets.QMessageBox.information(None, tr_calculate_rest_biomass.tr("Success"),
+        #                               tr_calculate_rest_biomass.tr(u'Summary table saved to {}'.format(out_file)))
 
     except IOError:
         log(u'Error saving {}'.format(out_file))

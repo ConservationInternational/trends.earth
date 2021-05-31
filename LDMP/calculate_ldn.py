@@ -37,7 +37,8 @@ from LDMP import log, __version__
 from LDMP.api import run_script
 from LDMP.calculate import (DlgCalculateBase, get_script_slug, MaskWorker,
     json_geom_to_geojson, ldn_recode_state, ldn_recode_traj, ldn_make_prod5, 
-    ldn_total_deg, ldn_total_by_trans)
+    ldn_total_deg, ldn_total_by_trans,
+    local_scripts)
 from LDMP.lc_setup import lc_setup_widget, lc_define_deg_widget
 from LDMP.layers import (add_layer, create_local_json_metadata, get_band_infos,
     delete_layer_by_filename)
@@ -873,9 +874,27 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
         else:
             output_file = os.path.splitext(output_sdg_json)[0] + '.vrt'
             gdal.BuildVRT(output_file, output_sdg_tifs)
+        
+        # set metadata 
+        metadata = self.setMetadata()
+        metadata['params'] = {}
+        metadata['params']['prod_mode'] = prod_mode
+        if prod_mode == 'Trends.Earth productivity':
+            metadata['params']['layer_traj'] = self.combo_layer_traj.get_data_file()
+            metadata['params']['layer_perf'] = self.combo_layer_perf.get_data_file()
+            metadata['params']['layer_state'] = self.combo_layer_state.get_data_file()
+        else:
+            metadata['params']['layer_lpd'] = self.combo_layer_lpd.get_data_file()
+        metadata['params']['layer_lc'] = self.combo_layer_lc.get_data_file()
+        metadata['params']['layer_soc'] = self.combo_layer_soc.get_data_file()
+
+        metadata['params']['crs'] = self.aoi.get_crs_dst_wkt()
+        crosses_180th, geojsons = self.gee_bounding_box
+        metadata['params']['geojsons'] = json.dumps(geojsons)
+        metadata['params']['crosses_180th'] = crosses_180th
+
         create_local_json_metadata(output_sdg_json, output_file, 
-                output_sdg_bandinfos, metadata={'task_name': self.options_tab.task_name.text(),
-                                                'task_notes': self.options_tab.task_notes.toPlainText()})
+                output_sdg_bandinfos, metadata=metadata)
         schema = BandInfoSchema()
         add_layer(output_file, 1, schema.dump(output_sdg_bandinfos[0]))
         if prod_mode == 'Trends.Earth productivity':
@@ -1055,8 +1074,8 @@ def make_summary_table(soc_totals, lc_totals, trans_prod_xtab, sdg_tbl_overall,
     try:
         wb.save(out_file)
         log(u'Indicator table saved to {}'.format(out_file))
-        QtWidgets.QMessageBox.information(None, tr_calculate_ldn.tr("Success"),
-                                      tr_calculate_ldn.tr(u'Indicator table saved to {}'.format(out_file)))
+        # QtWidgets.QMessageBox.information(None, tr_calculate_ldn.tr("Success"),
+        #                               tr_calculate_ldn.tr(u'Indicator table saved to {}'.format(out_file)))
 
     except IOError:
         log(u'Error saving {}'.format(out_file))

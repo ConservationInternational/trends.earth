@@ -24,6 +24,7 @@ import base64
 import binascii
 import copy
 import datetime
+import pytz
 from dateutil import tz
 import pprint
 from qgis.PyQt import QtWidgets
@@ -43,7 +44,7 @@ from LDMP.gui.DlgJobs import Ui_DlgJobs
 from LDMP.gui.DlgJobsDetails import Ui_DlgJobsDetails
 from LDMP.plot import DlgPlotTimeries
 
-from LDMP import log, singleton, json_serial
+from LDMP import log, singleton, json_serial, traverse
 from LDMP.api import get_user_email, get_execution
 from LDMP.download import Download, check_hash_against_etag, DownloadError
 from LDMP.layers import add_layer
@@ -195,7 +196,7 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
         self.connectionEvent.emit(True)
         email = get_user_email()
         if email:
-            start_date = datetime.datetime.now() + datetime.timedelta(-14)
+            start_date = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(-14)
             jobs = get_execution(date=start_date.strftime('%Y-%m-%d'))
             if jobs:
                 self.jobs.set(jobs)
@@ -236,14 +237,6 @@ class DlgJobs(QtWidgets.QDialog, Ui_DlgJobs):
 
         self.connectionEvent.emit(False)
         return False
-
-    def sync(self):
-        """Method to sync jobs in "trends_earth/advanced/base_data_directory" with that currently available.
-
-        The method parse content o base_data_directory and ????remove????? all Jobs not presents
-        in currently downloaded jobs
-        """
-        # TODO: NOT YET IMPLEMENTED
 
     def update_jobs_table(self):
         if self.jobs:
@@ -428,6 +421,7 @@ def download_result(url, out_file, job, expected_etag):
 def download_cloud_results(job, f, tr, add_to_map=True):
     results = job['results']
     json_file = f + '.json'
+    downloaded = False
     if len(results['urls']) > 1:
         # Save a VRT if there are multiple files for this download
         urls = results['urls'] 
@@ -438,11 +432,13 @@ def download_cloud_results(job, f, tr, add_to_map=True):
             # it matches
             if os.access(tiles[n], os.R_OK):
                 if check_hash_against_etag(urls[n]['url'], tiles[n], binascii.hexlify(base64.b64decode(urls[n]['md5Hash'])).decode()):
+                    QgsLogger.debug(tr_jobs.tr(u"No download necessary for tile already in cache: {}".format(urls[n]['url'])), debuglevel=3)
                     continue
             resp = download_result(urls[n]['url'], tiles[n], job, 
                                    binascii.hexlify(base64.b64decode(urls[n]['md5Hash'])).decode())
             if not resp:
                 return
+            downloaded = True
         # Make a VRT mosaicing the tiles so they can be treated as one file 
         # during further processing
         out_file = f + '.vrt'
@@ -453,7 +449,7 @@ def download_cloud_results(job, f, tr, add_to_map=True):
         do_download = True
         if os.access(out_file, os.R_OK):
             if check_hash_against_etag(url['url'], out_file, binascii.hexlify(base64.b64decode(url['md5Hash'])).decode()):
-                tr_jobs.tr(u"No download necessary for Dataset in cache: {}".format(out_file))
+                QgsLogger.debug(tr_jobs.tr(u"No download necessary for Dataset in cache: {}".format(out_file)), debuglevel=3)
                 do_download = False
             else:
                 do_download = True
@@ -463,6 +459,7 @@ def download_cloud_results(job, f, tr, add_to_map=True):
                                 binascii.hexlify(base64.b64decode(url['md5Hash'])).decode())
             if not resp:
                 return
+            downloaded = True
 
     create_gee_json_metadata(json_file, job, out_file)
 
@@ -473,9 +470,11 @@ def download_cloud_results(job, f, tr, add_to_map=True):
             if band_info['add_to_map']:
                 add_layer(out_file, band_number, band_info)
 
-    mb.pushMessage(tr_jobs.tr("Downloaded"),
-                   tr_jobs.tr(u"Downloaded results to {}".format(out_file)),
-                   level=0, duration=5)
+    # if already dowloaded no download is triggered
+    if downloaded:
+        mb.pushMessage(tr_jobs.tr("Downloaded"),
+                    tr_jobs.tr(u"Downloaded results to {}".format(out_file)),
+                    level=0, duration=5)
 
 
 def download_timeseries(job, tr):
@@ -513,8 +512,8 @@ class Job(QObject):
 
         self.response = {}
         self.response['id'] = response.get('id', 'Unknown')
-        self.response['start_date'] = response.get('start_date', datetime.datetime(1,1,1,0,0))
-        self.response['end_date'] = response.get('end_date', datetime.datetime(1,1,1,0,0))
+        self.response['start_date'] = response.get('start_date', datetime.datetime(1,1,1,0,0,tzinfo=datetime.timezone.utc))
+        self.response['end_date'] = response.get('end_date', datetime.datetime(1,1,1,0,0,tzinfo=datetime.timezone.utc))
         self.response['status'] = response.get('status', '')
         self.response['progress'] = response.get('progress', 0)
         self.response['params'] = response.get('params', {})
@@ -541,6 +540,12 @@ class Job(QObject):
         return self.response['script'].get('name', '')
 
     @property
+    def scriptSlug(self) -> Optional[str]:
+        """No idea the meaning of slug, but it's the alg name + version.
+        """
+        return self.response['script'].get('slug', '')
+
+    @property
     def runId(self) -> str:
         return self.response['id']
 
@@ -558,7 +563,13 @@ class Job(QObject):
 
     @staticmethod
     def toDatetime(dt: str) -> datetime.datetime:
-        return datetime.datetime.strptime(dt, '%Y/%m/%d (%H:%M)')
+        newDt = datetime.datetime.strptime(dt, '%Y/%m/%d (%H:%M)')
+        try:
+            newDt = pytz.utc.localize(newDt)
+        except:
+            # in case timezone is already set do nothing
+            pass
+        return newDt
 
     def dump(self) -> str:
         """Dump Job as JSON in a programmatically set folder with a programmaticaly set filename.
@@ -637,7 +648,23 @@ class Jobs(QObject):
             jobs_cache = {}
         if jobs_cache is not {}:
             self.set(jobs_cache)
-            # self.update_jobs_table()
+
+        # remove any Job not present in the jobs_cache
+        base_data_directory = QSettings().value("trends_earth/advanced/base_data_directory", None, type=str)
+        if not base_data_directory:
+            return
+        jobs_subpath = os.path.join(base_data_directory, 'Jobs')
+
+        current_jobs = list(traverse(jobs_subpath))
+        for job_json in current_jobs:
+            # check if job descriptor is in job cache
+            if job_json in self.jobsStore.keys():
+                continue
+
+            try:
+                os.remove(job_json)
+            except:
+                pass
 
     def append(self, job_dict: dict) -> (str, Job):
         """Append a job dictionay and Job json contrepart in base_data_directory."""

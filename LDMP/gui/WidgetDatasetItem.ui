@@ -69,6 +69,9 @@
           <property name="wordWrap">
            <bool>true</bool>
           </property>
+          <property name="textInteractionFlags">
+           <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+          </property>
          </widget>
         </item>
         <item>
@@ -93,6 +96,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="pushButtonStatus">
+          <property name="toolTip">
+           <string>Dataset status</string>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -113,6 +119,9 @@
          <widget class="QLabel" name="labelCreationDate">
           <property name="text">
            <string>creation date</string>
+          </property>
+          <property name="textInteractionFlags">
+           <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
           </property>
          </widget>
         </item>
@@ -137,6 +146,9 @@
           <property name="wordWrap">
            <bool>true</bool>
           </property>
+          <property name="textInteractionFlags">
+           <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+          </property>
          </widget>
         </item>
         <item row="2" column="0">
@@ -151,6 +163,9 @@
           <property name="text">
            <string>run id string</string>
           </property>
+          <property name="textInteractionFlags">
+           <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+          </property>
          </widget>
         </item>
        </layout>
@@ -159,6 +174,9 @@
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
          <widget class="QPushButton" name="pushButtonLoad">
+          <property name="toolTip">
+           <string>Load dataset into QGIS main map area</string>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -170,6 +188,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="pushButtonDetails">
+          <property name="toolTip">
+           <string>Click to view dataset details</string>
+          </property>
           <property name="text">
            <string/>
           </property>
@@ -194,6 +215,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="pushButtonDelete">
+          <property name="toolTip">
+           <string>Delete dataset</string>
+          </property>
           <property name="text">
            <string/>
           </property>

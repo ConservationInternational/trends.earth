@@ -33,7 +33,7 @@ from qgis.PyQt.QtCore import QSettings, QDate, QCoreApplication
 from LDMP import log
 from LDMP.api import run_script
 from LDMP.calculate import DlgCalculateBase, get_script_slug, ClipWorker, \
-    json_geom_to_geojson
+    json_geom_to_geojson, local_scripts
 from LDMP.gui.DlgCalculateUrbanData import Ui_DlgCalculateUrbanData
 from LDMP.gui.DlgCalculateUrbanSummaryTable import Ui_DlgCalculateUrbanSummaryTable
 from LDMP.layers import get_band_infos, create_local_json_metadata, add_layer
@@ -358,9 +358,18 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
         else:
             output_file = os.path.splitext(output_indicator_json)[0] + '.vrt'
             gdal.BuildVRT(output_file, output_indicator_tifs)
+
+        # set alg metadata
+        metadata = self.setMetadata()
+        metadata['params'] = {}
+        metadata['params']['layer_urban_series'] = self.combo_layer_urban_series.get_data_file()
+        metadata['params']['crs'] = self.aoi.get_crs_dst_wkt()
+        crosses_180th, geojsons = self.gee_bounding_box
+        metadata['params']['geojsons'] = json.dumps(geojsons)
+        metadata['params']['crosses_180th'] = crosses_180th
+
         create_local_json_metadata(output_indicator_json, output_file, 
-                output_indicator_bandinfos, metadata={'task_name': self.options_tab.task_name.text(),
-                                                'task_notes': self.options_tab.task_notes.toPlainText()})
+                output_indicator_bandinfos, metadata=metadata)
         schema = BandInfoSchema()
         add_layer(output_file, 1, schema.dump(output_indicator_bandinfos[0]))
         add_layer(output_file, 2, schema.dump(output_indicator_bandinfos[1]))
@@ -392,8 +401,8 @@ def make_summary_table(areas, populations, out_file):
     try:
         wb.save(out_file)
         log(u'Summary table saved to {}'.format(out_file))
-        QtWidgets.QMessageBox.information(None, tr_calculate_urban.tr("Success"),
-                                      tr_calculate_urban.tr(u'Summary table saved to {}'.format(out_file)))
+        # QtWidgets.QMessageBox.information(None, tr_calculate_urban.tr("Success"),
+        #                               tr_calculate_urban.tr(u'Summary table saved to {}'.format(out_file)))
 
     except IOError:
         log(u'Error saving {}'.format(out_file))

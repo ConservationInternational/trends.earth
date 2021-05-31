@@ -14,6 +14,10 @@
 __author__ = 'Luigi Pirelli / Kartoza'
 __date__ = '2021-03-03'
 
+import enum
+
+from datetime import datetime
+
 from typing import Optional
 from qgis.PyQt.QtCore import (
     QAbstractItemModel,
@@ -23,7 +27,8 @@ from qgis.PyQt.QtCore import (
 )
 from LDMP.models.datasets import (
     Dataset,
-    Datasets
+    Datasets,
+    SortField
 )
 
 
@@ -89,6 +94,9 @@ class DatasetsModel(QAbstractItemModel):
 
         return True
 
+    def rootModel(self):
+        return self.rootItem
+
 
 class DatasetsSortFilterProxyModel(QSortFilterProxyModel):
     def __init__(self, parent=None):
@@ -99,3 +107,8 @@ class DatasetsSortFilterProxyModel(QSortFilterProxyModel):
 
         match = self.filterRegularExpression().match(self.sourceModel().data(index).name)
         return match.hasMatch()
+
+    def sort(self, column: int, order, field: SortField = None):
+        if field is not None:
+            self.sourceModel().rootModel().sort(order, field)
+            self.layoutChanged.emit()

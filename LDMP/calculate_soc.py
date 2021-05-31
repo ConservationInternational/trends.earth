@@ -32,7 +32,7 @@ from qgis.PyQt.QtCore import QSettings, QCoreApplication
 
 from LDMP import log
 from LDMP.api import run_script
-from LDMP.calculate import DlgCalculateBase, get_script_slug
+from LDMP.calculate import DlgCalculateBase, get_script_slug, local_scripts
 from LDMP.layers import add_layer, create_local_json_metadata
 from LDMP.lc_setup import lc_setup_widget
 from LDMP.worker import AbstractWorker, StartWorker
@@ -286,7 +286,11 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
         super(DlgCalculateSOC, self).__init__(parent)
 
         self.setupUi(self)
-        
+
+        # hack to allow add HiddenOutputpTab that automatically set
+        # out files in case of local process
+        self.add_output_tab(['.json', '.tif'])
+
         self.regimes = [('Temperate dry (Fl = 0.80)', .80),
                         ('Temperate moist (Fl = 0.69)', .69),
                         ('Tropical dry (Fl = 0.58)', .58),
@@ -404,9 +408,10 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
                                        self.tr("Area of interest is not entirely within the final land cover layer."))
             return
 
-        out_f = self.get_save_raster()
-        if not out_f:
-            return
+        # out_f = self.get_save_raster()
+        # if not out_f:
+        #     return
+        out_f = self.output_tab.output_basename + '.tif'
 
         self.close()
 
@@ -472,7 +477,23 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
             band_infos.append(BandInfo("Land cover (7 class)", metadata={'year': year}))
 
         out_json = os.path.splitext(out_f)[0] + '.json'
-        create_local_json_metadata(out_json, out_f, band_infos)
+
+        # set alg metadata
+        metadata = self.setMetadata()
+        metadata['params'] = {}
+        metadata['params']['year_baseline'] = int(year_baseline)
+        metadata['params']['year_target'] = int(year_target)
+        metadata['params']['lc_initial'] = self.lc_setup_tab.use_custom_initial.get_data_file()
+        metadata['params']['lc_final'] = self.lc_setup_tab.use_custom_final.get_data_file()
+        metadata['params']['soc'] = self.comboBox_custom_soc.get_data_file()
+
+        metadata['params']['crs'] = self.aoi.get_crs_dst_wkt()
+        crosses_180th, geojsons = self.gee_bounding_box
+        metadata['params']['geojsons'] = json.dumps(geojsons)
+        metadata['params']['crosses_180th'] = crosses_180th
+
+        create_local_json_metadata(out_json, out_f, band_infos,
+                                    metadata=metadata)
         schema = BandInfoSchema()
         for band_number in range(len(band_infos)):
             b = schema.dump(band_infos[band_number])

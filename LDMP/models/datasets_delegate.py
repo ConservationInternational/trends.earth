@@ -50,7 +50,7 @@ from LDMP.models.datasets import (
 from LDMP.models.algorithms import AlgorithmDescriptor
 from LDMP import __version__, log, tr
 from LDMP.gui.WidgetDatasetItem import Ui_WidgetDatasetItem
-
+from LDMP.calculate import get_local_script_metadata
 
 class DatasetItemDelegate(QStyledItemDelegate):
 
@@ -152,8 +152,12 @@ class DatasetEditorWidget(QWidget, Ui_WidgetDatasetItem):
         if isinstance(self.dataset.creation_date, datetime):
             start_date_txt = self.dataset.datetimeRepr(self.dataset.creation_date)
         else:
-            dt = self.dataset.toDatetime(start_date_txt)
-            start_date_txt = self.dataset.datetimeRepr(dt)
+            # manage in case no start_date is available
+            if start_date_txt:
+                dt = self.dataset.toDatetime(start_date_txt)
+                start_date_txt = self.dataset.datetimeRepr(dt)
+            else:
+                start_date_txt = '<No start date set>'
         self.labelCreationDate.setText(start_date_txt)
 
         self.labelRunId.setText(str(self.dataset.run_id)) # it is UUID
@@ -167,7 +171,11 @@ class DatasetEditorWidget(QWidget, Ui_WidgetDatasetItem):
         self.pushButtonStatus.setHidden(dataset_auto_download)
 
         # show progress bar or download button depending on status
-        self.progressBar.setValue(self.dataset.progress)
+        if hasattr(self.dataset, 'progress'):
+            self.progressBar.setValue(self.dataset.progress)
+        else:
+            self.progressBar.hide()
+
         if self.dataset.status == 'PENDING':
             self.progressBar.setRange(0,100)
             self.progressBar.setFormat(self.dataset.status)
@@ -195,21 +203,30 @@ class DatasetEditorWidget(QWidget, Ui_WidgetDatasetItem):
         dataset_name = self.dataset.name if self.dataset.name else '<no name set>'
         self.labelDatasetName.setText(dataset_name)
 
-        data_source = self.dataset.source if self.dataset.source else 'Unknown'
-        self.labelSourceName.setText(self.dataset.source)
+        # set data source string. If it's a remote script get it's value (e.g. no key in local_scripts). If it's a local script
+        # get it's value from metadata of local_script dictionary
+        data_source = self.dataset.source
+        metadata = get_local_script_metadata(data_source)
+        if metadata:
+            data_source = metadata['display_name']
+
+        self.labelSourceName.setText(data_source)
 
         # get data differently if come from Dataset or Downloaded dataset
-        if self.dataset.origin() == Dataset.Origin.downloaded_dataset:
+        if self.dataset.origin() in [Dataset.Origin.downloaded_dataset, Dataset.Origin.local_raster]:
             self.progressBar.hide()
             self.pushButtonStatus.hide()
             # allow delete if downloaded
             self.pushButtonDelete.setEnabled(True)
+        
+            
 
     def show_details(self):
         log(f"Details button clicked for dataset {self.dataset.name!r}")
 
     def load_dataset(self):
         log(f"Load button clicked for dataset {self.dataset.name!r}")
+        self.dataset.add()
 
     def delete_dataset(self):
         log(f"Delete button clicked for dataset {self.dataset.name!r}")

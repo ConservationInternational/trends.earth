@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>669</width>
-    <height>880</height>
+    <height>1024</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -279,9 +279,9 @@ p, li { white-space: pre-wrap; }
       </widget>
      </item>
      <item>
-      <widget class="QToolButton" name="export_tool_button">
+      <widget class="QPushButton" name="export_button">
        <property name="text">
-        <string>...</string>
+        <string>Export as a ZIP</string>
        </property>
       </widget>
      </item>

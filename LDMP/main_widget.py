@@ -510,6 +510,7 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
 
         # show it
         algorithmsModel = AlgorithmTreeModel(tree)
+        self.treeView_algorithms.setStyleSheet('QTreeView { selection-background-color: white; selection-color: black }')
         self.treeView_algorithms.setMouseTracking(True) # to allow emit entered events and manage editing over mouse
         self.treeView_algorithms.setWordWrap(True) # add ... to wrap DisplayRole text... to have a real wrap need a custom widget
         self.treeView_algorithms.setModel(algorithmsModel)

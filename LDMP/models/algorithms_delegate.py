@@ -89,8 +89,10 @@ class AlgorithmItemDelegate(QStyledItemDelegate):
             # get default widget used to edit data
             editorWidget = self.createEditor(self.parent, option, index)
             editorWidget.setGeometry(option.rect)
-            pixmap = editorWidget.grab()
 
+            # then grab and paint it
+            pixmap = editorWidget.grab()
+            del editorWidget
             painter.drawPixmap(option.rect.x(), option.rect.y(), pixmap)
         else:
             super().paint(painter, option, index)
@@ -100,8 +102,10 @@ class AlgorithmItemDelegate(QStyledItemDelegate):
         item = model.data(index, Qt.ItemDataRole)
 
         if item.item_type == AlgorithmNodeType.Algorithm:
-            widget = self.createEditor(None, option, index)
-            return widget.size()
+            widget = self.createEditor(None, option, index) # parent set to none otherwise remain painted in the widget
+            size = widget.size()
+            del widget
+            return size
         return super().sizeHint(option, index)
 
     def createEditor(self, parent: QWidget, option: QStyleOptionViewItem, index: QModelIndex):
@@ -154,9 +158,20 @@ class AlgorithmItemDelegate(QStyledItemDelegate):
             else:
                 editorWidget.pushButton.hide()
                 editorWidget.toolButtonAlgorithmRun.hide()
+
+            # set the value of Alg description if a leaf is available
+            if item.details:
+                editorWidget.labelDescription.setText( f'  > {item.details.description}' )
+            else:
+                editorWidget.labelDescription.hide()
+
             return editorWidget
         else:
             return super().createEditor(parent, option, index)
+
+    def updateEditorGeometry(self, editor: QWidget, option: QStyleOptionViewItem, index: QModelIndex):
+        editor.setGeometry(option.rect)
+
 
 class AlgorithmEditorWidget(QWidget, Ui_WidgetAlgorithmLeafItem):
     def __init__(self, parent=None):

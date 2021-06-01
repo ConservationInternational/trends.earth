@@ -106,7 +106,7 @@ class DatasetItemDelegate(QStyledItemDelegate):
         item = model.data(index, Qt.DisplayRole)
 
         if isinstance(item, Dataset):
-            widget = self.createEditor(None, option, index) # parent swet to none otherwise remain painted in the widget
+            widget = self.createEditor(None, option, index) # parent set to none otherwise remain painted in the widget
             size = widget.size()
             del widget
             return size
@@ -124,6 +124,7 @@ class DatasetItemDelegate(QStyledItemDelegate):
 
     def updateEditorGeometry(self, editor: QWidget, option: QStyleOptionViewItem, index: QModelIndex):
         editor.setGeometry(option.rect)
+
 
 class DatasetEditorWidget(QWidget, Ui_WidgetDatasetItem):
 

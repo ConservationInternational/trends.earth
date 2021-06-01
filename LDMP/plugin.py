@@ -186,49 +186,6 @@ class LDMPPlugin(object):
             status_tip=self.tr('Trends.Earth Settings'))
 
         self.add_action(
-            ':/plugins/LDMP/icons/graph.svg',
-            text=self.tr(u'Plot data'),
-            add_to_toolbar=False,
-            callback=self.run_plot,
-            parent=self.iface.mainWindow(),
-            status_tip=self.tr('Plot time series datasets'))
-
-        self.add_action(
-            ':/plugins/LDMP/icons/calculator.svg',
-            text=self.tr(u'Calculate indicators'),
-            callback=self.run_calculate,
-            parent=self.iface.mainWindow(),
-            status_tip=self.tr('Calculate indicators'))
-
-        self.add_action(
-            ':/plugins/LDMP/icons/cloud-download.svg',
-            text=self.tr(u'View Google Earth Engine tasks'),
-            callback=self.get_jobs,
-            parent=self.iface.mainWindow(),
-            status_tip=self.tr('View cloud processing tasks'))
-
-        self.add_action(
-            ':/plugins/LDMP/icons/document.svg',
-            text=self.tr(u'Visualization tool'),
-            callback=self.run_visualization,
-            parent=self.iface.mainWindow(),
-            status_tip=self.tr('Visualize and summarize data'))
-
-        self.add_action(
-            ':/plugins/LDMP/icons/folder.svg',
-            text=self.tr(u'Load data'),
-            callback=self.data_io,
-            parent=self.iface.mainWindow(),
-            status_tip=self.tr('Load local data'))
-
-        self.add_action(
-            ':/plugins/LDMP/icons/globe.svg',
-            text=self.tr(u'Download raw data'),
-            callback=self.run_download,
-            parent=self.iface.mainWindow(),
-            status_tip=self.tr('Download raw datasets'))
-
-        self.add_action(
             ':/plugins/LDMP/icons/info.svg',
             text=self.tr(u'About'),
             add_to_toolbar=False,
@@ -262,32 +219,6 @@ class LDMPPlugin(object):
     def run_settings(self):
         self.dlg_settings.show()
         result = self.dlg_settings.exec_()
-
-    def run_download(self):
-        self.dlg_download.show()
-        result = self.dlg_download.exec_()
-
-    def run_calculate(self):
-        # show the dialog
-        self.dlg_calculate.show()
-        result = self.dlg_calculate.exec_()
-
-    def get_jobs(self):
-        # show the dialog
-        self.dlg_jobs.show()
-        result = self.dlg_jobs.exec_()
-
-    def run_plot(self):
-        self.dlg_timeseries.show()
-        result = self.dlg_timeseries.exec_()
-
-    def run_visualization(self):
-        self.dlg_visualization.show()
-        result = self.dlg_visualization.exec_()
-
-    def data_io(self):
-        self.dlg_data_io.show()
-        result = self.dlg_data_io.exec_()
 
     def run_about(self):
         self.dlg_about.show()

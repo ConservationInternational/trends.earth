@@ -131,7 +131,8 @@ class AlgorithmDescriptor(AlgorithmBase):
     def rowCount(self) -> int:
         if self.details is None:
             return 0
-        return 1
+        # do not show other leaf
+        return 0
 
     def child(self, row: int) -> None:
         if row != 0:

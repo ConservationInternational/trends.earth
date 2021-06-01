@@ -15,27 +15,27 @@
 from builtins import object
 import os
 
+from qgis.core import QgsApplication, QgsMessageLog, Qgis
 from qgis.PyQt.QtCore import QCoreApplication, Qt
 from qgis.PyQt.QtWidgets import QAction, QMessageBox, QApplication, QMenu, QToolButton
 from qgis.PyQt.QtGui import QIcon
 
-from LDMP import __version__, __release_date__, __revision__, log
-from LDMP.settings import DlgSettings
-from LDMP.download_data import DlgDownload
-from LDMP.calculate import DlgCalculate
-from LDMP.jobs import DlgJobs
-from LDMP.timeseries import DlgTimeseries
-from LDMP.visualization import DlgVisualization
-from LDMP.data_io import DlgDataIO
-from LDMP.about import DlgAbout
-from LDMP.processing_provider.provider import Provider
-from LDMP.main_widget import get_trends_earth_dockwidget
+from . import log
+from .about import DlgAbout
+from .calculate import DlgCalculate
+from .data_io import DlgDataIO
+from .download_data import DlgDownload
+from .jobs import DlgJobs
+from .main_widget import get_trends_earth_dockwidget
+from .processing_provider.provider import Provider
+from .settings import DlgSettings
+from .timeseries import DlgTimeseries
+from .visualization import DlgVisualization
 
-from qgis.core import QgsApplication, QgsMessageLog, Qgis
-from qgis.utils import showPluginHelp
 
 # Initialize Qt resources from file resources.py
-import LDMP.resources
+from . import resources
+
 
 class LDMPPlugin(object):
     """QGIS Plugin Implementation."""

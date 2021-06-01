@@ -13,59 +13,41 @@
 """
 
 import os
-import json
-import re
 import zipfile
-import subprocess
+import typing
 from pathlib import Path
 
-from qgis.PyQt.QtCore import QSettings, pyqtSignal, Qt
-from qgis.PyQt import QtWidgets
-from qgis.PyQt.QtGui import QIcon, QPixmap, QDoubleValidator
-
-from qgis.core import (
-    QgsCoordinateReferenceSystem,
-    QgsCoordinateTransform,
-    QgsProject,
-    QgsSettings,
-    QgsVectorLayer
-)
-from qgis.gui import QgsMapToolEmitPoint, QgsMapToolPan
-
+import qgis.core
+import qgis.gui
 from qgis.utils import iface
-
-from qgis.core import QgsApplication
-
-from LDMP.gui.DlgSettings import Ui_DlgSettings
-from LDMP.gui.DlgSettingsEdit import Ui_DlgSettingsEdit
-from LDMP.gui.DlgSettingsEditForgotPassword import Ui_DlgSettingsEditForgotPassword
-from LDMP.gui.DlgSettingsEditUpdate import Ui_DlgSettingsEditUpdate
-from LDMP.gui.DlgSettingsLogin import Ui_DlgSettingsLogin
-from LDMP.gui.DlgSettingsRegister import Ui_DlgSettingsRegister
-
-from LDMP.gui.WidgetSettingsAdvanced import Ui_WidgetSettingsAdvanced
-from LDMP.gui.DlgSettingsAdvanced import Ui_DlgSettingsAdvanced
-from LDMP.gui.WidgetSelectArea import Ui_WidgetSelectArea
-
-from LDMP import binaries_available, __version__, openFolder
-from LDMP.api import (
-    get_user_email,
-    get_user,
-    delete_user,
-    login,
-    register,
-    update_user,
-    recover_pwd,
-    init_auth_config,
-    remove_current_auth_config,
-    AUTH_CONFIG_NAME
+from qgis.PyQt import (
+    QtCore,
+    QtGui,
+    QtWidgets,
 )
 
-from LDMP import log
-from LDMP.download import download_files, get_admin_bounds, read_json, get_cities
-from LDMP.message_bar import MessageBar
+from LDMP import (
+    __version__,
+    api,
+    binaries_available,
+    log,
+    openFolder,
+)
+from . import download
+from .conf import (
+    Setting,
+    settings_manager,
+)
+from .gui.DlgSettings import Ui_DlgSettings
+from .gui.DlgSettingsEditForgotPassword import Ui_DlgSettingsEditForgotPassword
+from .gui.DlgSettingsEditUpdate import Ui_DlgSettingsEditUpdate
+from .gui.DlgSettingsLogin import Ui_DlgSettingsLogin
+from .gui.DlgSettingsRegister import Ui_DlgSettingsRegister
+from .gui.WidgetSelectArea import Ui_WidgetSelectArea
+from .gui.WidgetSettingsAdvanced import Ui_WidgetSettingsAdvanced
+from .message_bar import MessageBar
 
-settings = QSettings()
+settings = QtCore.QSettings()
 
 
 # Function to indicate if child is a folder within parent
@@ -109,7 +91,7 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
         self.pushButton_forgot_pwd.clicked.connect(self.forgot_pwd)
 
         self.buttonBox.accepted.connect(self.close)
-        self.settings = QgsSettings()
+        self.settings = qgis.core.QgsSettings()
 
         self.area_widget = AreaWidget()
         layout = QtWidgets.QVBoxLayout()
@@ -136,7 +118,7 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
         self.authConfigSelect_authentication.clearMessage()
 
         authConfigId = settings.value("trends_earth/authId", None)
-        configs = QgsApplication.authManager().availableAuthMethodConfigs()
+        configs = qgis.core.QgsApplication.authManager().availableAuthMethodConfigs()
         if authConfigId in configs.keys():
             self.authConfigSelect_authentication.setConfigId(authConfigId)
 
@@ -156,9 +138,9 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
             return
 
         # try to login with current credentials
-        resp = login(authConfigId)
+        resp = api.login(authConfigId)
         if resp:
-            username = get_user_email()
+            username = api.get_user_email()
             QtWidgets.QMessageBox.information(None,
                                               self.tr("Success"),
                                               self.tr(u"""Logged in to the Trends.Earth server as {}.<html><p>Welcome to Trends.Earth!<p/><p>
@@ -172,14 +154,14 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
         dlg_settings_edit_forgot_password.exec_()
 
     def update_profile(self):
-        user = get_user()
+        user = api.get_user()
         if not user:
             return
         dlg_settings_edit_update = DlgSettingsEditUpdate(user)
         dlg_settings_edit_update.exec_()
 
     def delete(self):
-        email = get_user_email()
+        email = api.get_user_email()
         if not email:
             return
 
@@ -195,7 +177,7 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
             QtWidgets.QMessageBox.No
         )
         if reply == QtWidgets.QMessageBox.Yes:
-            resp = delete_user(email)
+            resp = api.delete_user(email)
             if resp:
                 QtWidgets.QMessageBox.information(
                     None,
@@ -204,12 +186,13 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
                         'LDMP', u"User {} deleted.".format(email))
                 )
                 # remove current used config (as set in QSettings) and trigger GUI
-                remove_current_auth_config()
+                api.remove_current_auth_config()
                 self.reloadAuthConfigurations()
                 # self.authConfigUpdated.emit()
 
     def accept(self):
         self.area_widget.save_settings()
+        self.widgetSettingsAdvanced.update_settings()
         super().accept()
 
 
@@ -220,15 +203,14 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.setupUi(self)
 
         self.canvas = iface.mapCanvas()
-        self.settings = QgsSettings()
         self.vector_file = None
         self.current_cities_key = None
 
-        self.admin_bounds_key = get_admin_bounds()
+        self.admin_bounds_key = download.get_admin_bounds()
         if not self.admin_bounds_key:
             raise ValueError('Admin boundaries not available')
 
-        self.cities = get_cities()
+        self.cities = download.get_cities()
         if not self.cities:
             raise ValueError('Cities list not available')
 
@@ -255,69 +237,62 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.radioButton_secondLevel_region.clicked.connect(self.radioButton_secondLevel_toggle)
         self.radioButton_secondLevel_city.clicked.connect(self.radioButton_secondLevel_toggle)
 
-        icon = QIcon(QPixmap(':/plugins/LDMP/icons/map-marker.svg'))
+        icon = QtGui.QIcon(QtGui.QPixmap(':/plugins/LDMP/icons/map-marker.svg'))
         self.area_frompoint_choose_point.setIcon(icon)
         self.area_frompoint_choose_point.clicked.connect(self.point_chooser)
         # TODO: Set range to only accept valid coordinates for current map coordinate system
-        self.area_frompoint_point_x.setValidator(QDoubleValidator())
+        self.area_frompoint_point_x.setValidator(QtGui.QDoubleValidator())
         # TODO: Set range to only accept valid coordinates for current map coordinate system
-        self.area_frompoint_point_y.setValidator(QDoubleValidator())
+        self.area_frompoint_point_y.setValidator(QtGui.QDoubleValidator())
         self.area_frompoint.clicked.connect(self.area_type_toggle)
 
         # Setup point chooser
-        self.choose_point_tool = QgsMapToolEmitPoint(self.canvas)
+        self.choose_point_tool = qgis.gui.QgsMapToolEmitPoint(self.canvas)
         self.choose_point_tool.canvasClicked.connect(self.set_point_coords)
 
         self.load_settings()
         self.generate_name_setting()
 
     def load_settings(self):
-
-        buffer_checked = self.settings.value("trends_earth/region_of_interest/buffer_checked", False, type=bool)
-        area_from_option = self.settings.value("trends_earth/region_of_interest/chosen_method", None)
-
-        if area_from_option == 'country_region' or \
-                area_from_option == 'country_city':
+        area_from_option = settings_manager.get_value(Setting.AREA_FROM_OPTION)
+        if area_from_option == 'country_region' or area_from_option == 'country_city':
             self.area_fromadmin.setChecked(True)
         elif area_from_option == 'point':
             self.area_frompoint.setChecked(True)
         elif area_from_option == 'vector_layer':
             self.area_fromfile.setChecked(True)
-        self.area_frompoint_point_x.setText(self.settings.value("trends_earth/region_of_interest/point/x", None))
-        self.area_frompoint_point_y.setText(self.settings.value("trends_earth/region_of_interest/point/y", None))
-        self.area_fromfile_file.setText(self.settings.value("trends_earth/region_of_interest/vector_file", None))
+        self.area_frompoint_point_x.setText(
+            str(settings_manager.get_value(Setting.POINT_X)))
+        self.area_frompoint_point_y.setText(
+            str(settings_manager.get_value(Setting.POINT_Y)))
+        self.area_fromfile_file.setText(
+            settings_manager.get_value(Setting.VECTOR_FILE_PATH))
         self.area_type_toggle()
-
-        admin_0 = self.settings.value("trends_earth/region_of_interest/country/country_name", None)
+        admin_0 = settings_manager.get_value(Setting.COUNTRY_NAME)
         if admin_0:
             self.area_admin_0.setCurrentIndex(self.area_admin_0.findText(admin_0))
             self.populate_admin_1()
 
-        area_from_option_secondLevel = self.settings.value("trends_earth/region_of_interest/chosen_method", None)
-        if area_from_option_secondLevel == 'country_region':
+        if area_from_option == 'country_region':
             self.radioButton_secondLevel_region.setChecked(True)
-        elif area_from_option_secondLevel == 'country_city':
+        elif area_from_option == 'country_city':
             self.radioButton_secondLevel_city.setChecked(True)
         self.radioButton_secondLevel_toggle()
 
-        secondLevel_area_admin_1 = self.settings.value("trends_earth/region_of_interest/country/region_name", None)
+        secondLevel_area_admin_1 = settings_manager.get_value(Setting.REGION_NAME)
         if secondLevel_area_admin_1:
             self.secondLevel_area_admin_1.setCurrentIndex(
                 self.secondLevel_area_admin_1.findText(secondLevel_area_admin_1))
-        secondLevel_city = self.settings.value("trends_earth/region_of_interest/country/city_name", None)
-
+        secondLevel_city = settings_manager.get_value(Setting.CITY_NAME)
         if secondLevel_city:
             self.populate_cities()
             self.secondLevel_city.setCurrentIndex(self.secondLevel_city.findText(secondLevel_city))
-
-        buffer_size = self.settings.value("trends_earth/region_of_interest/buffer_size", None)
+        buffer_size = settings_manager.get_value(Setting.BUFFER_SIZE)
         if buffer_size:
             self.buffer_size_km.setValue(float(buffer_size))
+        buffer_checked = settings_manager.get_value(Setting.BUFFER_CHECKED)
         self.checkbox_buffer.setChecked(buffer_checked)
-
-        self.area_settings_name.setText(
-            self.settings.value("trends_earth/region_of_interest/area_settings_name", '')
-        )
+        self.area_settings_name.setText(settings_manager.get_value(Setting.AREA_NAME))
 
     def populate_cities(self):
         self.secondLevel_city.clear()
@@ -383,17 +358,17 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
                 return
         elif self.area_fromfile.isChecked():
             if self.area_fromfile_file.text() is not '':
-                layer = QgsVectorLayer(
+                layer = qgis.core.QgsVectorLayer(
                     self.area_fromfile_file.text(),
                     "area",
                     "ogr")
                 if layer.isValid():
                     centroid = layer.extent().center()
                     # Store point in EPSG:4326 crs
-                    coord_transform = QgsCoordinateTransform(
+                    coord_transform = qgis.core.QgsCoordinateTransform(
                         layer.sourceCrs(),
-                        QgsCoordinateReferenceSystem(4326),
-                        QgsProject.instance())
+                        qgis.core.QgsCoordinateReferenceSystem(4326),
+                        qgis.core.QgsProject.instance())
                     point = coord_transform.transform(centroid)
                     name = "shape-lon{:.3f}lat{:.3f}".format(
                         point.x(),
@@ -415,7 +390,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         # TODO: Show a messagebar while tool is active, and then remove the bar when a point is chosen.
         self.point = point
         # Disable the choose point tool
-        self.canvas.setMapTool(QgsMapToolPan(self.canvas))
+        self.canvas.setMapTool(qgis.gui.QgsMapToolPan(self.canvas))
         # Don't reset_tab_on_show as it would lead to return to first tab after
         # using the point chooser
         self.window().reset_tab_on_showEvent = False
@@ -424,10 +399,10 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.point = self.canvas.getCoordinateTransform().toMapCoordinates(self.canvas.mouseLastXY())
 
         # Store point in EPSG:4326 crs
-        transform_instance = QgsCoordinateTransform(
-            QgsProject.instance().crs(),
-            QgsCoordinateReferenceSystem(4326),
-            QgsProject.instance())
+        transform_instance = qgis.core.QgsCoordinateTransform(
+            qgis.core.QgsProject.instance().crs(),
+            qgis.core.QgsCoordinateReferenceSystem(4326),
+            qgis.core.QgsProject.instance())
         transformed_point = transform_instance.transform(self.point)
 
         log("Chose point: {}, {}.".format(transformed_point.x(), transformed_point.y()))
@@ -435,80 +410,69 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.area_frompoint_point_y.setText("{:.8f}".format(transformed_point.y()))
 
     def open_vector_browse(self):
-        initial_path = self.settings.value("trends_earth/input_shapefile", None)
+        initial_path = settings_manager.get_value(Setting.VECTOR_FILE_PATH)
         if not initial_path:
-            initial_path = self.settings.value("trends_earth/input_shapefile_dir", None)
+            initial_path = settings_manager.get_value(Setting.VECTOR_FILE_DIR)
         if not initial_path:
             initial_path = str(Path.home())
 
-        vector_file, _ = QtWidgets.QFileDialog.getOpenFileName(self,
-                                                               self.tr('Select a file defining the area of interest'),
-                                                               initial_path,
-                                                               self.tr('Vector file (*.shp *.kml *.kmz *.geojson)'))
+        vector_file, _ = QtWidgets.QFileDialog.getOpenFileName(
+            self,
+            self.tr('Select a file defining the area of interest'),
+            initial_path,
+            self.tr('Vector file (*.shp *.kml *.kmz *.geojson)')
+        )
         if vector_file:
             if os.access(vector_file, os.R_OK):
                 self.vector_file = vector_file
                 self.area_fromfile_file.setText(vector_file)
                 return True
             else:
-                QtWidgets.QMessageBox.critical(None,
-                                               self.tr("Error"),
-                                               self.tr(u"Cannot read {}. Choose a different file.".format(vector_file)))
+                QtWidgets.QMessageBox.critical(
+                    None,
+                    self.tr("Error"),
+                    self.tr(
+                        u"Cannot read {}. Choose a different file.".format(vector_file))
+                )
                 return False
         else:
             return False
 
     def save_settings(self):
-
         if self.area_fromadmin.isChecked():
-            self.settings.setValue(
-                "trends_earth/region_of_interest/country/country_name",
-                self.area_admin_0.currentText())
+            settings_manager.write_value(Setting.COUNTRY_NAME, self.area_admin_0.currentText())
         else:
-            self.settings.setValue(
-                "trends_earth/region_of_interest/country/country_name",
-                None)
+            settings_manager.write_value(Setting.COUNTRY_NAME, "")
         if self.radioButton_secondLevel_region.isChecked():
-            self.settings.setValue("trends_earth/region_of_interest/country/region_name",
-                                   self.secondLevel_area_admin_1.currentText())
+            settings_manager.write_value(
+                Setting.REGION_NAME, self.secondLevel_area_admin_1.currentText())
         else:
-            self.settings.setValue("trends_earth/region_of_interest/country/region_name",
-                                   None)
+            settings_manager.write_value(Setting.REGION_NAME, "")
         if self.radioButton_secondLevel_city.isChecked():
-            self.settings.setValue(
-                "trends_earth/region_of_interest/country/city_name",
-                self.secondLevel_city.currentText())
+            settings_manager.write_value(
+                Setting.CITY_NAME, self.secondLevel_city.currentText())
         else:
-            self.settings.setValue(
-                "trends_earth/region_of_interest/country/city_name",
-                None)
+            settings_manager.write_value(Setting.CITY_NAME, None)
+
         if self.area_frompoint.isChecked():
-            self.settings.setValue(
-                "trends_earth/region_of_interest/point/x",
-                self.area_frompoint_point_x.text())
-            self.settings.setValue(
-                "trends_earth/region_of_interest/point/y",
-                self.area_frompoint_point_y.text())
+            settings_manager.write_value(
+                Setting.POINT_X, self.area_frompoint_point_x.text())
+            settings_manager.write_value(
+                Setting.POINT_Y, self.area_frompoint_point_y.text())
         else:
-            self.settings.setValue("trends_earth/region_of_interest/point/x", None)
-            self.settings.setValue("trends_earth/region_of_interest/point/y", None)
+            settings_manager.write_value(Setting.POINT_X, 0.0)
+            settings_manager.write_value(Setting.POINT_Y, 0.0)
         if self.area_fromfile.isChecked():
-            self.settings.setValue(
-                "trends_earth/region_of_interest/vector_layer",
-                self.area_fromfile_file.text())
+            settings_manager.write_value(
+                Setting.VECTOR_FILE_PATH, self.area_fromfile_file.text())
         else:
-            self.settings.setValue(
-                "trends_earth/region_of_interest/vector_layer",
-                None)
+            settings_manager.write_value(Setting.VECTOR_FILE_PATH, "")
 
-        self.settings.setValue(
-            "trends_earth/region_of_interest/buffer_checked",
-            self.checkbox_buffer.isChecked())
-        self.settings.setValue(
-            "trends_earth/region_of_interest/buffer_size",
-            self.buffer_size_km.value())
+        settings_manager.write_value(
+            Setting.BUFFER_CHECKED, self.checkbox_buffer.isChecked())
+        settings_manager.write_value(
+            Setting.BUFFER_SIZE, self.buffer_size_km.value())
 
-        area_value = None
         if self.area_frompoint.isChecked():
             area_value = 'point'
         elif self.area_fromadmin.isChecked():
@@ -518,30 +482,31 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
                 area_value = 'country_region'
         elif self.area_fromfile.isChecked():
             area_value = 'vector_layer'
+        else:
+            area_value = None
 
         if area_value is not None:
-            self.settings.setValue("trends_earth/region_of_interest/chosen_method", area_value)
+            settings_manager.write_value(Setting.AREA_FROM_OPTION, area_value)
 
         if self.vector_file is not None:
-            self.settings.setValue("trends_earth/input_shapefile", self.vector_file)
-            self.settings.setValue("trends_earth/input_shapefile_dir", os.path.dirname(self.vector_file))
+            settings_manager.write_value(Setting.VECTOR_FILE_PATH, self.vector_file)
+            settings_manager.write_value(
+                Setting.VECTOR_FILE_DIR, os.path.dirname(self.vector_file))
 
         if self.current_cities_key is not None:
-            self.settings.setValue("trends_earth/region_of_interest/current_cities_key", self.current_cities_key)
-
-        self.settings.setValue("trends_earth/region_of_interest/area_settings_name",
-                               self.area_settings_name.text())
+            settings_manager.write_value(Setting.CITY_KEY, self.current_cities_key)
+        settings_manager.write_value(Setting.AREA_NAME, self.area_settings_name.text())
 
 
 class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):
-    authConfigInitialised = pyqtSignal(str)
+    authConfigInitialised = QtCore.pyqtSignal(str)
 
     def __init__(self, parent=None):
         super(DlgSettingsRegister, self).__init__(parent)
 
         self.setupUi(self)
 
-        self.admin_bounds_key = get_admin_bounds()
+        self.admin_bounds_key = download.get_admin_bounds()
         self.country.addItems(sorted(self.admin_bounds_key.keys()))
 
         self.buttonBox.accepted.connect(self.register)
@@ -561,17 +526,17 @@ class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):
             QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your country."))
             return
 
-        resp = register(self.email.text(), self.name.text(), self.organization.text(), self.country.currentText())
+        resp = api.register(self.email.text(), self.name.text(), self.organization.text(), self.country.currentText())
         if resp:
             self.close()
             QtWidgets.QMessageBox.information(None,
                                               self.tr("Success"),
                                               self.tr(
                                                   u"User registered. Your password has been emailed to {}. Then set it in {} configuration".format(
-                                                      self.email.text(), AUTH_CONFIG_NAME)))
+                                                      self.email.text(), api.AUTH_CONFIG_NAME)))
 
             # add a new auth conf that have to be completed with pwd
-            authConfidId = init_auth_config(email=self.email.text())
+            authConfidId = api.init_auth_config(email=self.email.text())
             if authConfidId:
                 self.authConfigInitialised.emit(authConfidId)
 
@@ -592,7 +557,7 @@ class DlgSettingsLogin(QtWidgets.QDialog, Ui_DlgSettingsLogin):
     def showEvent(self, event):
         super(DlgSettingsLogin, self).showEvent(event)
 
-        email = get_user_email(warn=False)
+        email = api.get_user_email(warn=False)
         if email:
             self.email.setText(email)
         password = settings.value("LDMP/password", None)
@@ -609,7 +574,7 @@ class DlgSettingsLogin(QtWidgets.QDialog, Ui_DlgSettingsLogin):
                                            self.tr("Enter your password."))
             return
 
-        resp = login(self.email.text(), self.password.text())
+        resp = api.login(self.email.text(), self.password.text())
         if resp:
             QtWidgets.QMessageBox.information(None,
                                               self.tr("Success"),
@@ -635,7 +600,7 @@ class DlgSettingsEditForgotPassword(QtWidgets.QDialog, Ui_DlgSettingsEditForgotP
     def showEvent(self, event):
         super(DlgSettingsEditForgotPassword, self).showEvent(event)
 
-        email = get_user_email(warn=False)
+        email = api.get_user_email(warn=False)
         if email:
             self.email.setText(email)
 
@@ -652,7 +617,7 @@ class DlgSettingsEditForgotPassword(QtWidgets.QDialog, Ui_DlgSettingsEditForgotP
                                                QtWidgets.QMessageBox.Yes, QtWidgets.QMessageBox.No)
 
         if reply == QtWidgets.QMessageBox.Yes:
-            resp = recover_pwd(self.email.text())
+            resp = api.recover_pwd(self.email.text())
             if resp:
                 self.close()
                 QtWidgets.QMessageBox.information(None,
@@ -671,7 +636,7 @@ class DlgSettingsEditUpdate(QtWidgets.QDialog, Ui_DlgSettingsEditUpdate):
 
         self.user = user
 
-        self.admin_bounds_key = get_admin_bounds()
+        self.admin_bounds_key = download.get_admin_bounds()
 
         self.email.setText(user['email'])
         self.name.setText(user['name'])
@@ -702,7 +667,7 @@ class DlgSettingsEditUpdate(QtWidgets.QDialog, Ui_DlgSettingsEditUpdate):
             QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your country."))
             return
 
-        resp = update_user(self.email.text(), self.name.text(),
+        resp = api.update_user(self.email.text(), self.name.text(),
                            self.organization.text(), self.country.currentText())
 
         if resp:
@@ -713,35 +678,74 @@ class DlgSettingsEditUpdate(QtWidgets.QDialog, Ui_DlgSettingsEditUpdate):
 
 
 class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
+    _settings_base_path: str = "trends_earth/advanced"
+    _qgis_settings = qgis.core.QgsSettings()
+
+    binaries_gb = QtWidgets.QGroupBox
+    binaries_dir_le = QtWidgets.QLineEdit
+    debug_checkbox: QtWidgets.QCheckBox
+    polling_frequency_gb: QtWidgets.QGroupBox
+    polling_frequency_sb: QtWidgets.QSpinBox
+    download_remote_datasets_chb: QtWidgets.QCheckBox
+    qgsFileWidget_base_directory: qgis.gui.QgsFileWidget
+
     def __init__(self, parent=None):
         super(WidgetSettingsAdvanced, self).__init__(parent)
-
         self.setupUi(self)
-
         self.binaries_browse_button.clicked.connect(self.binary_folder_browse)
         self.binaries_download_button.clicked.connect(self.binaries_download)
-        self.debug_checkbox.clicked.connect(self.debug_toggle)
-        self.binaries_checkbox.clicked.connect(self.binaries_toggle)
-        self.qgsFileWidget_base_directory.fileChanged.connect(self.base_directory_changed)
+        self.qgsFileWidget_base_directory.fileChanged.connect(
+            self.base_directory_changed)
         self.pushButton_open_base_directory.clicked.connect(self.open_base_directory)
-
         # Flag that can be used to indicate if binary state has changed (i.e.
         # if new binaries have been downloaded)
         self.binary_state_changed = False
 
     def closeEvent(self, event):
         super(WidgetSettingsAdvanced, self).closeEvent(event)
-        if self.binaries_checkbox.isChecked() != self.binaries_checkbox_initial or self.binary_state_changed:
-            QtWidgets.QMessageBox.warning(None,
-                                          self.tr("Warning"),
-                                          self.tr("You must restart QGIS for these changes to take effect."))
+        if self.binaries_gb.isChecked() != self.binaries_checkbox_initial or self.binary_state_changed:
+            QtWidgets.QMessageBox.warning(
+                None,
+                self.tr("Warning"),
+                self.tr("You must restart QGIS for these changes to take effect.")
+            )
+
+    def update_settings(self):
+        """Store the current value of each setting in QgsSettings"""
+        log(f"poll remote: {self.polling_frequency_gb.isChecked()}")
+        settings_manager.write_value(
+            Setting.POLL_REMOTE, self.polling_frequency_gb.isChecked())
+        settings_manager.write_value(
+            Setting.REMOTE_POLLING_FREQUENCY, self.polling_frequency_sb.value())
+        settings_manager.write_value(
+            Setting.DOWNLOAD_RESULTS, self.download_remote_datasets_chb.isChecked())
+        # TODO: save the current region of interest
+        settings_manager.write_value(
+            Setting.BASE_DIR, self.qgsFileWidget_base_directory.filePath())
+        settings_manager.write_value(
+            Setting.DEBUG, self.debug_checkbox.isChecked())
+        settings_manager.write_value(
+            Setting.BINARIES_ENABLED, self.binaries_gb.isChecked())
+        settings_manager.write_value(
+            Setting.BINARIES_DIR, self.binaries_dir_le.text())
+
+    def show_settings(self):
+        self.debug_checkbox.setChecked(settings_manager.get_value(Setting.DEBUG))
+        self.binaries_dir_le.setText(
+            settings_manager.get_value(Setting.BINARIES_DIR) or "")
+        self.qgsFileWidget_base_directory.setFilePath(
+            settings_manager.get_value(Setting.BASE_DIR) or "")
+        self.polling_frequency_gb.setChecked(
+            settings_manager.get_value(Setting.POLL_REMOTE))
+        self.polling_frequency_sb.setValue(
+            settings_manager.get_value(Setting.REMOTE_POLLING_FREQUENCY))
+        self.download_remote_datasets_chb.setChecked(
+            settings_manager.get_value(Setting.DOWNLOAD_RESULTS))
 
     def showEvent(self, event):
         super(WidgetSettingsAdvanced, self).showEvent(event)
-
-        self.debug_checkbox.setChecked(QSettings().value("trends_earth/advanced/debug", False, type=bool))
-
-        binaries_checked = QSettings().value("trends_earth/advanced/binaries_enabled", False, type=bool)
+        self.show_settings()
+        binaries_checked = settings_manager.get_value(Setting.BINARIES_ENABLED)
         # TODO: Have this actually check if they are enabled in summary_numba
         # and calculate_numba. Right now this doesn't really check if they are
         # enabled, just that they are available. Which should be the same
@@ -753,25 +757,15 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
         # Set a flag that will be used to indicate whether the status of using
         # binaries or not has changed (needed to allow displaying a message to
         # the user that they need to restart when this setting is changed)
-
-        binaries_folder = QSettings().value("trends_earth/advanced/binaries_folder", None)
-        if binaries_folder is not None:
-            self.binaries_folder.setText(binaries_folder)
-
         self.binaries_checkbox_initial = binaries_checked
-        self.binaries_checkbox.setChecked(binaries_checked)
+        self.binaries_gb.setChecked(binaries_checked)
         self.binaries_toggle()
-
-        base_data_directory = QSettings().value(
-            "trends_earth/advanced/base_data_directory",
-            str(Path.home() / "trends_earth_data")
-        )
-        self.qgsFileWidget_base_directory.setFilePath(base_data_directory)
 
     def base_directory_changed(self, new_base_directory):
         if not new_base_directory:
             # TODO: change to MessageBar().get()
-            iface.messageBar().pushWarning('Trends.Earth', self.tr('No base data directory set'))
+            iface.messageBar().pushWarning(
+                'Trends.Earth', self.tr('No base data directory set'))
             return
 
         try:
@@ -779,19 +773,20 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
                 os.makedirs(new_base_directory)
         except PermissionError:
             # TODO: change to MessageBar().get()
-            iface.messageBar().pushCritical('Trends.Earth',
-                                            self.tr("Unable to write to {}. Try a different folder.".format(
-                                                new_base_directory)))
+            iface.messageBar().pushCritical(
+                'Trends.Earth',
+                self.tr("Unable to write to {}. Try a different folder.".format(
+                    new_base_directory))
+            )
             return
 
-        QSettings().setValue("trends_earth/advanced/base_data_directory", str(new_base_directory))
+        settings_manager.write_value(Setting.BASE_DIR, str(new_base_directory))
 
     def open_base_directory(self):
-        base_data_directory = QSettings().value("trends_earth/advanced/base_data_directory", None)
-        openFolder(base_data_directory)
+        openFolder(self.qgsFileWidget_base_directory.filePath())
 
     def binaries_download(self):
-        out_folder = os.path.join(self.binaries_folder.text())
+        out_folder = os.path.join(self.binaries_dir_le.text())
         if out_folder == '':
             QtWidgets.QMessageBox.information(None,
                                               self.tr("Choose a folder"),
@@ -816,7 +811,7 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
 
         zip_filename = 'trends_earth_binaries_{}.zip'.format(__version__.replace('.', '_'))
         zip_url = 'https://s3.amazonaws.com/trends.earth/plugin_binaries/' + zip_filename
-        downloads = download_files([zip_url], out_folder)
+        downloads = download.download_files([zip_url], out_folder)
 
         if not downloads:
             return None
@@ -855,41 +850,46 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
                                                self.tr("All binaries up to date.".format(out_folder)))
 
     def binaries_toggle(self):
-        state = self.binaries_checkbox.isChecked()
-        QSettings().setValue("trends_earth/advanced/binaries_enabled", str(state))
-        self.binaries_folder.setEnabled(state)
+        state = self.binaries_gb.isChecked()
+        settings_manager.write_value(Setting.BINARIES_ENABLED, state)
+        self.binaries_dir_le.setEnabled(state)
         self.binaries_browse_button.setEnabled(state)
         self.binaries_download_button.setEnabled(state)
         self.binaries_label.setEnabled(state)
 
-    def debug_toggle(self):
-        QSettings().setValue("trends_earth/advanced/debug", str(self.debug_checkbox.isChecked()))
-
     def binary_folder_browse(self):
-        initial_path = QSettings().value("trends_earth/advanced/binaries_folder", None)
+        initial_path = self.binaries_dir_le.text()
         if not initial_path:
             initial_path = str(Path.home())
 
-        folder = QtWidgets.QFileDialog.getExistingDirectory(self,
-                                                            self.tr('Select folder containing Trends.Earth binaries'),
-                                                            initial_path)
-        if folder:
-            plugin_folder = os.path.normpath(os.path.realpath(os.path.dirname(__file__)))
-            if is_subdir(folder, plugin_folder):
-                QtWidgets.QMessageBox.critical(None,
-                                               self.tr("Error"),
-                                               self.tr(
-                                                   u"Choose a different folder - cannot install binaries within the Trends.Earth QGIS plugin installation folder.".format(
-                                                       plugin_folder)))
+        folder_path = QtWidgets.QFileDialog.getExistingDirectory(
+            self,
+            self.tr('Select folder containing Trends.Earth binaries'),
+            initial_path
+        )
+        if folder_path:
+            plugin_folder = os.path.normpath(
+                os.path.realpath(os.path.dirname(__file__)))
+            if is_subdir(folder_path, plugin_folder):
+                QtWidgets.QMessageBox.critical(
+                    None,
+                    self.tr("Error"),
+                    self.tr(
+                        "Choose a different folder - cannot install binaries within "
+                        "the Trends.Earth QGIS plugin installation folder.")
+                )
                 return False
-            if os.access(folder, os.W_OK):
-                QSettings().setValue("trends_earth/advanced/binaries_folder", folder)
-                self.binaries_folder.setText(folder)
+            if os.access(folder_path, os.W_OK):
+                settings_manager.write_value(Setting.BINARIES_DIR, folder_path)
+                self.binaries_dir_le.setText(folder_path)
                 self.binary_state_changed = True
                 return True
             else:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                               self.tr(u"Cannot read {}. Choose a different folder.".format(folder)))
+                QtWidgets.QMessageBox.critical(
+                    None,
+                    self.tr("Error"),
+                    self.tr(f"Cannot read {folder_path!r}. Choose a different folder.")
+                )
                 return False
         else:
             return False

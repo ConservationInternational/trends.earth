@@ -12,9 +12,11 @@
  ***************************************************************************/
 """
 
+import datetime as dt
 import os
-from datetime import datetime
+import typing
 from _functools import partial
+from pathlib import Path
 
 from qgis.core import Qgis
 from qgis.PyQt import QtWidgets, QtGui, QtCore
@@ -30,9 +32,12 @@ from LDMP.models.algorithms import (
     AlgorithmDetails
 )
 
+from .conf import (
+    Setting,
+    settings_manager,
+)
 from LDMP.jobs import Jobs
 from LDMP.models.datasets import (
-    Dataset,
     Datasets
 )
 from LDMP.models.algorithms_model import AlgorithmTreeModel
@@ -68,7 +73,7 @@ def get_trends_earth_dockwidget(plugin):
     return _widget
 
 
-# instantiate calcluate callback container to reuse most of old code
+# instantiate calculate callback container to reuse most of old code
 # do this before setting setupAlgorithmsTree
 # guis setup during plugin load to reduce GUI startup
 dlg_calculate_LD = DlgCalculateLD()
@@ -78,11 +83,16 @@ dlg_calculate_Urban = DlgCalculateUrban()
 
 
 class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
+
+    last_refreshed_local_state: typing.Optional[dt.datetime]
+    last_refreshed_remote_state: typing.Optional[dt.datetime]
+
     def __init__(self, plugin=None, parent=None):
         super(MainWidget, self).__init__(parent)
         self.plugin = plugin
-
         self.setupUi(self)
+        self.last_refreshed_remote_state = None
+        self.last_refreshed_local_state = None
 
         # remove space before dataset item
         self.treeView_datasets.setIndentation(0)
@@ -100,12 +110,41 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         self.setupAlgorithmsTree()
         self.setupDatasetsGui()
         self.updateDatasetsBasedOnJobs()
+        self.timer = QtCore.QTimer()
+        self.timer.timeout.connect(self.perform_periodic_tasks)
+        self.timer.start(
+            settings_manager.get_value(Setting.UPDATE_FREQUENCY_MILLISECONDS))
+
+    def perform_periodic_tasks(self):
+        local_polling_frequency = settings_manager.get_value(
+            Setting.LOCAL_POLLING_FREQUENCY)
+        now = dt.datetime.now(tz=dt.timezone.utc)
+        try:
+            local_delta = now - self.last_refreshed_local_state
+        except TypeError:
+            local_delta = dt.timedelta(seconds=local_polling_frequency)
+        if local_delta.seconds >= local_polling_frequency:
+            self.update_local_state()
+        auto_refresh_remote_state = settings_manager.get_value(Setting.POLL_REMOTE)
+        log(f"auto_refresh_remote_state: {auto_refresh_remote_state}")
+        if auto_refresh_remote_state:
+            remote_polling_frequency = settings_manager.get_value(
+                Setting.REMOTE_POLLING_FREQUENCY)
+            try:
+                remote_delta = now - self.last_refreshed_remote_state
+            except TypeError:
+                remote_delta = dt.timedelta(seconds=remote_polling_frequency)
+            log(f"remote_delta: {remote_delta}")
+            if remote_delta.seconds >= remote_polling_frequency:
+                log(f"updating remote state...")
+                self.update_remote_state()
 
     def cleanEmptyFolders(self):
-        """Remove andy Job or Dataset empty folder. Job or Dataset folder can be empty 
+        """Remove any Job or Dataset empty folder. Job or Dataset folder can be empty
         due to delete action by the user.
         """
-        base_data_directory = QtCore.QSettings().value("trends_earth/advanced/base_data_directory", None, type=str)
+
+        base_data_directory = settings_manager.get_value(Setting.BASE_DIR)
         if not base_data_directory:
             return
 
@@ -183,21 +222,9 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
         self.pushButton_load.setIcon(QtGui.QIcon(':/plugins/LDMP/icons/document.svg'))
         self.pushButton_load.clicked.connect(self.loadBaseMap)
 
-        # set manual and automatic refresh of datasets
-        # avoid using lambda or partial to allow not anonymous callback => can be removed if necessary
-        def refreshWithotAutorefresh():
-            self.refreshDatasets(autorefresh=False)
-            self.refreshJobs(autorefresh=False)
-        self.pushButton_refresh.clicked.connect(refreshWithotAutorefresh) 
-
-        # set automatic refreshes
-        dataset_refresh_polling_time = QtCore.QSettings().value("trends_earth/advanced/datasets_refresh_polling_time", 25000, type=int)
-        job_refresh_polling_time = QtCore.QSettings().value("trends_earth/advanced/jobs_refresh_polling_time", 60000, type=int)
-        if dataset_refresh_polling_time > 0:
-            QtCore.QTimer.singleShot(dataset_refresh_polling_time, self.refreshDatasets)
-        if job_refresh_polling_time > 0:
-            QtCore.QTimer.singleShot(job_refresh_polling_time, self.refreshJobs)
-
+        self.pushButton_refresh.clicked.connect(self.perform_single_update)
+        # self.refreshDatasets()
+        # self.refreshJobs()
 
         # configure view
         self.treeView_datasets.setMouseTracking(True) # to allow emit entered events and manage editing over mouse
@@ -238,37 +265,29 @@ class MainWidget(QtWidgets.QDockWidget, Ui_dockWidget_trends_earth):
 
         # show it
 
-    def refreshJobs(self, autorefresh=True):
-        """Refresh Jobs is composed of the following steps:
-        1) Get all executions (e.g. Jobs)
-        Due to API limitation it's not possible to query a job one by one but only get all jobs in a time window.
-        """
-        # use method of other plguin GUIs to fetch all executions
+    def perform_single_update(self):
+        self.update_remote_state()
+        self.update_local_state()
+
+    def update_remote_state(self):
+        log("updating remote state...")
+        # use method of other plugin GUIs to fetch all executions
         if not self.plugin:
             return
         self.plugin.dlg_jobs.btn_refresh()
         Jobs().sync()
+        self.last_refreshed_remote_state = dt.datetime.now(tz=dt.timezone.utc)
 
-        # depending on config re-trigger it
-        job_refresh_polling_time = QtCore.QSettings().value("trends_earth/advanced/jobs_refresh_polling_time", 60000, type=int)
-        if autorefresh and job_refresh_polling_time > 0:
-            QtCore.QTimer.singleShot(job_refresh_polling_time, self.refreshJobs)
-
-    def refreshDatasets(self, autorefresh=True, autodownload=True):
-        """Refresh datasets is composed of the following steps:
-        1) Rebuild and dump Datasets based on the downloaded Jobs
-        """
+    def update_local_state(self):
+        """Update the state of local datasets"""
+        log("updating local state...")
         self.updateDatasetsBasedOnJobs()
 
         # trigger download for terminated jobs
-        dataset_auto_download = QtCore.QSettings().value("trends_earth/advanced/dataset_auto_download", True, type=bool)
-        if autodownload and dataset_auto_download:
+        dataset_auto_download = settings_manager.get_value(Setting.DOWNLOAD_RESULTS)
+        if dataset_auto_download:
             Datasets().triggerDownloads()
-
-        # depending on config re-trigger it
-        dataset_refresh_polling_time = QtCore.QSettings().value("trends_earth/advanced/datasets_refresh_polling_time", 25000, type=int)
-        if autorefresh and dataset_refresh_polling_time > 0:
-            QtCore.QTimer.singleShot(dataset_refresh_polling_time, self.refreshDatasets)
+        self.last_refreshed_local_state = dt.datetime.now(tz=dt.timezone.utc)
 
     def updateDatasetsModel(self):
         datasetsModel = DatasetsModel( Datasets() )  # Datasets is a singleton

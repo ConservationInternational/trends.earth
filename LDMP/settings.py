@@ -26,19 +26,18 @@ from qgis.PyQt import (
     QtWidgets,
 )
 
-from . import (
+from LDMP import (
     __version__,
     api,
     binaries_available,
     log,
     openFolder,
-    download,
 )
+from . import download
 from .conf import (
     Setting,
     settings_manager,
 )
-from .jobs.manager import job_manager
 from .gui.DlgSettings import Ui_DlgSettings
 from .gui.DlgSettingsEditForgotPassword import Ui_DlgSettingsEditForgotPassword
 from .gui.DlgSettingsEditUpdate import Ui_DlgSettingsEditUpdate
@@ -109,10 +108,6 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
         # add message bar for all dialog communication
         MessageBar().init()
         self.layout().insertWidget(0, MessageBar().get())
-
-    def closeEvent(self, event):
-        self.widgetSettingsAdvanced.closeEvent(event)
-        super().closeEvent(event)
 
     def close(self):
         super(DlgSettings, self).close()
@@ -202,9 +197,6 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
 
 
 class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
-    admin_bounds_key: typing.Dict[str, download.Country]
-    cities: typing.Dict[str, typing.Dict[str, download.City]]
-
     def __init__(self, parent=None):
         super(AreaWidget, self).__init__(parent)
 
@@ -304,21 +296,15 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 
     def populate_cities(self):
         self.secondLevel_city.clear()
-        country_code = self.admin_bounds_key[self.area_admin_0.currentText()].code
-        self.current_cities_key = {}
-        for wof_id, city in self.cities[country_code].items():
-            self.current_cities_key[city.name_en] = wof_id
+        adm0_a3 = self.admin_bounds_key[self.area_admin_0.currentText()]['code']
+        self.current_cities_key = {value['name_en']: key for key, value in self.cities[adm0_a3].items()}
         self.secondLevel_city.addItems(sorted(self.current_cities_key.keys()))
 
     def populate_admin_1(self):
         self.secondLevel_area_admin_1.clear()
         self.secondLevel_area_admin_1.addItems(['All regions'])
         self.secondLevel_area_admin_1.addItems(
-            sorted(
-                self.admin_bounds_key[
-                    self.area_admin_0.currentText()].level1_regions.keys()
-            )
-        )
+            sorted(self.admin_bounds_key[self.area_admin_0.currentText()]['admin1'].keys()))
 
     def area_type_toggle(self):
         # if self.area_frompoint.isChecked():
@@ -735,17 +721,13 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
             Setting.DOWNLOAD_RESULTS, self.download_remote_datasets_chb.isChecked())
         # TODO: save the current region of interest
         settings_manager.write_value(
+            Setting.BASE_DIR, self.qgsFileWidget_base_directory.filePath())
+        settings_manager.write_value(
             Setting.DEBUG, self.debug_checkbox.isChecked())
         settings_manager.write_value(
             Setting.BINARIES_ENABLED, self.binaries_gb.isChecked())
         settings_manager.write_value(
             Setting.BINARIES_DIR, self.binaries_dir_le.text())
-
-        old_base_dir = settings_manager.get_value(Setting.BASE_DIR)
-        new_base_dir = self.qgsFileWidget_base_directory.filePath()
-        settings_manager.write_value(Setting.BASE_DIR, new_base_dir)
-        if old_base_dir != new_base_dir:
-            job_manager.clear_known_jobs()
 
     def show_settings(self):
         self.debug_checkbox.setChecked(settings_manager.get_value(Setting.DEBUG))

@@ -26,8 +26,10 @@ class Setting(enum.Enum):
     BINARIES_DIR = "advanced/binaries_folder"
     BASE_DIR = "advanced/base_data_directory"
     POLL_REMOTE = "advanced/poll_remote_server"
+    LOCAL_POLLING_FREQUENCY = "advanced/local_polling_frequency_seconds"
     REMOTE_POLLING_FREQUENCY = "advanced/remote_polling_frequency_seconds"
     DOWNLOAD_RESULTS = "advanced/download_remote_results_automatically"
+    UPDATE_FREQUENCY_MILLISECONDS = "update_frequency_milliseconds"
     BUFFER_CHECKED = "region_of_interest/buffer_checked"
     AREA_FROM_OPTION = "region_of_interest/chosen_method"
     POINT_X = "region_of_interest/point/x"
@@ -86,6 +88,9 @@ class SettingsManager:
         return self._base_path
 
     def get_value(self, key: Setting):
+        type_ = type(self.DEFAULT_SETTINGS[key])
+        return self._settings.value(
+            f"{self.base_path}/{key.value}", self.DEFAULT_SETTINGS[key], type=type_)
         if key == Setting.LOCAL_POLLING_FREQUENCY:
             result = self.DEFAULT_SETTINGS[key]
         elif key == Setting.UPDATE_FREQUENCY_MILLISECONDS:

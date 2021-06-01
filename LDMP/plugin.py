@@ -20,15 +20,17 @@ from qgis.PyQt.QtCore import QCoreApplication, Qt
 from qgis.PyQt.QtWidgets import QAction, QMessageBox, QApplication, QMenu, QToolButton
 from qgis.PyQt.QtGui import QIcon
 
-from . import (
-    about,
-    conf,
-    log,
-    main_widget,
-)
-from .jobs.manager import job_manager
+from . import log
+from .about import DlgAbout
+from .calculate import DlgCalculate
+from .data_io import DlgDataIO
+from .download_data import DlgDownload
+from .jobs import DlgJobs
+from .main_widget import get_trends_earth_dockwidget
 from .processing_provider.provider import Provider
 from .settings import DlgSettings
+from .timeseries import DlgTimeseries
+from .visualization import DlgVisualization
 
 
 # Initialize Qt resources from file resources.py
@@ -46,7 +48,9 @@ class LDMPPlugin(object):
             application at run time.
         :type iface: QgsInterface
         """
+        # Save reference to the QGIS interface
         self.iface = iface
+        # initialize plugin directory
         self.plugin_dir = os.path.dirname(__file__)
 
         self.provider = None
@@ -67,7 +71,13 @@ class LDMPPlugin(object):
         self.actions.append(self.toolBtnAction)
 
         self.dlg_settings = DlgSettings()
-        self.dlg_about = about.DlgAbout()
+        self.dlg_calculate = DlgCalculate()
+        self.dlg_jobs = DlgJobs()
+        self.dlg_timeseries = DlgTimeseries()
+        self.dlg_visualization = DlgVisualization()
+        self.dlg_download = DlgDownload()
+        self.dlg_data_io = DlgDataIO()
+        self.dlg_about = DlgAbout()
 
     def initProcessing(self):
         self.provider = Provider()
@@ -176,6 +186,49 @@ class LDMPPlugin(object):
             status_tip=self.tr('Trends.Earth Settings'))
 
         self.add_action(
+            ':/plugins/LDMP/icons/graph.svg',
+            text=self.tr(u'Plot data'),
+            add_to_toolbar=False,
+            callback=self.run_plot,
+            parent=self.iface.mainWindow(),
+            status_tip=self.tr('Plot time series datasets'))
+
+        self.add_action(
+            ':/plugins/LDMP/icons/calculator.svg',
+            text=self.tr(u'Calculate indicators'),
+            callback=self.run_calculate,
+            parent=self.iface.mainWindow(),
+            status_tip=self.tr('Calculate indicators'))
+
+        self.add_action(
+            ':/plugins/LDMP/icons/cloud-download.svg',
+            text=self.tr(u'View Google Earth Engine tasks'),
+            callback=self.get_jobs,
+            parent=self.iface.mainWindow(),
+            status_tip=self.tr('View cloud processing tasks'))
+
+        self.add_action(
+            ':/plugins/LDMP/icons/document.svg',
+            text=self.tr(u'Visualization tool'),
+            callback=self.run_visualization,
+            parent=self.iface.mainWindow(),
+            status_tip=self.tr('Visualize and summarize data'))
+
+        self.add_action(
+            ':/plugins/LDMP/icons/folder.svg',
+            text=self.tr(u'Load data'),
+            callback=self.data_io,
+            parent=self.iface.mainWindow(),
+            status_tip=self.tr('Load local data'))
+
+        self.add_action(
+            ':/plugins/LDMP/icons/globe.svg',
+            text=self.tr(u'Download raw data'),
+            callback=self.run_download,
+            parent=self.iface.mainWindow(),
+            status_tip=self.tr('Download raw datasets'))
+
+        self.add_action(
             ':/plugins/LDMP/icons/info.svg',
             text=self.tr(u'About'),
             add_to_toolbar=False,
@@ -198,8 +251,8 @@ class LDMPPlugin(object):
 
     def run_docked_interface(self, checked):
         if checked:
-            self.dock_widget = main_widget.MainWidget(
-                self.iface, parent=self.iface.mainWindow())
+            # add docked main interface
+            self.dock_widget = get_trends_earth_dockwidget(plugin=self)
             self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dock_widget)
             self.dock_widget.show()
         else:
@@ -207,14 +260,34 @@ class LDMPPlugin(object):
                 self.dock_widget.hide()
 
     def run_settings(self):
-        old_base_dir = conf.settings_manager.get_value(conf.Setting.BASE_DIR)
         self.dlg_settings.show()
-        self.dlg_settings.exec_()  # TODO: Use open() instead of exec_()
-        new_base_dir = conf.settings_manager.get_value(conf.Setting.BASE_DIR)
-        if old_base_dir != new_base_dir:
-            job_manager.clear_known_jobs()
-            if hasattr(self, "dock_widget") and self.dock_widget.isVisible():
-                self.dock_widget.refresh_after_cache_update()
+        result = self.dlg_settings.exec_()
+
+    def run_download(self):
+        self.dlg_download.show()
+        result = self.dlg_download.exec_()
+
+    def run_calculate(self):
+        # show the dialog
+        self.dlg_calculate.show()
+        result = self.dlg_calculate.exec_()
+
+    def get_jobs(self):
+        # show the dialog
+        self.dlg_jobs.show()
+        result = self.dlg_jobs.exec_()
+
+    def run_plot(self):
+        self.dlg_timeseries.show()
+        result = self.dlg_timeseries.exec_()
+
+    def run_visualization(self):
+        self.dlg_visualization.show()
+        result = self.dlg_visualization.exec_()
+
+    def data_io(self):
+        self.dlg_data_io.show()
+        result = self.dlg_data_io.exec_()
 
     def run_about(self):
         self.dlg_about.show()

@@ -138,7 +138,7 @@
        <item>
         <widget class="QSpinBox" name="polling_frequency_sb">
          <property name="minimum">
-          <number>60</number>
+          <number>20</number>
          </property>
          <property name="maximum">
           <number>3600</number>

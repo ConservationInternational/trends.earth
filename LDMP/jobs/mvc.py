@@ -9,10 +9,7 @@ from PyQt5 import (
     uic,
 )
 
-from .. import (
-    layers,
-    log,
-)
+from .. import log
 from ..conf import (
     Setting,
     settings_manager,
@@ -31,7 +28,21 @@ class JobsModel(QtCore.QAbstractItemModel):
 
     def __init__(self, job_manager: manager.JobManager, parent=None):
         super().__init__(parent)
-        self._relevant_jobs = job_manager.relevant_jobs
+        self._relevant_jobs = self._get_relevant_jobs(job_manager)
+
+    def _get_relevant_jobs(
+            self, job_manager: manager.JobManager) -> typing.List[models.Job]:
+        relevant_statuses = (
+            models.JobStatus.RUNNING,
+            models.JobStatus.FINISHED,
+            models.JobStatus.DOWNLOADED,
+        )
+        result = []
+        for status in relevant_statuses:
+            result.extend(job_manager.known_jobs[status].values())
+        # self.dataChanged.emit(
+        #     self.createIndex(0, 0), self.createIndex(0, len(self._relevant_jobs)))
+        return result
 
     def index(
             self,
@@ -82,13 +93,47 @@ class JobsModel(QtCore.QAbstractItemModel):
             result = QtCore.Qt.NoItemFlags
         return result
 
+    def sort(self, column: int, order: QtCore.Qt.SortOrder = ...) -> None:
+        reverse = order == QtCore.Qt.AscendingOrder
+        jobs = self._relevant_jobs[:]
+        for index, member in enumerate(models.SortField):
+            if index == column:
+                if member == models.SortField.NAME:
+                    jobs.sort(key=lambda job: job.params.task_name, reverse=reverse)
+                elif member == models.SortField.DATE:
+                    jobs.sort(key=lambda job: job.start_date, reverse=reverse)
+                elif member == models.SortField.STATUS:
+                    jobs.sort(key=lambda job: job.status, reverse=reverse)
+                elif member == models.SortField.ALGORITHM:
+                    jobs.sort(key=lambda job: job.script.name, reverse=reverse)
+                else:
+                    raise NotImplementedError
+                break
+        else:
+            log(f"Invalid sort column: {column}")
+
+    # def headerData(
+    #         self,
+    #         section: int,
+    #         orientation: QtCore.Qt.Orientation,
+    #         role: QtCore.Qt.ItemDataRole
+    # ):
+    #     if orientation == QtCore.Qt.Horizontal and role == QtCore.Qt.DisplayRole:
+    #         result = self.rootItem.columnName(section)
+    #     else:
+    #         result = None
+    #     return result
+
+    # def setData(
+    #         self,
+    #         index: QtCore.QModelIndex,
+    #         value,
+    #         role: QtCore.Qt.ItemDataRole
+    # ) -> bool:
+    #     return True if role == QtCore.Qt.EditRole else False
+
 
 class JobsSortFilterProxyModel(QtCore.QSortFilterProxyModel):
-    current_sort_field: typing.Optional[models.SortField]
-
-    def __init__(self, current_sort_field: models.SortField, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.current_sort_field = current_sort_field
 
     def filterAcceptsRow(self, source_row: int, source_parent: QtCore.QModelIndex):
         jobs_model = self.sourceModel()
@@ -96,23 +141,6 @@ class JobsSortFilterProxyModel(QtCore.QSortFilterProxyModel):
         job: models.Job = jobs_model.data(index)
         match = self.filterRegularExpression().match(job.params.task_name)
         return match.hasMatch()
-
-    def lessThan(self, left: QtCore.QModelIndex, right: QtCore.QModelIndex) -> bool:
-        model = self.sourceModel()
-        left_job: models.Job = model.data(left)
-        right_job: models.Job = model.data(right)
-        to_sort = (left_job, right_job)
-        if self.current_sort_field == models.SortField.NAME:
-            result = sorted(to_sort, key=lambda j: j.params.task_name)[0] == left_job
-        elif self.current_sort_field == models.SortField.DATE:
-            result = sorted(to_sort, key=lambda j: j.start_date)[0] == left_job
-        elif self.current_sort_field == models.SortField.STATUS:
-            result = sorted(to_sort, key=lambda j: j.status)[0] == left_job
-        elif self.current_sort_field == models.SortField.ALGORITHM:
-            result = sorted(to_sort, key=lambda j: j.script.name)[0] == left_job
-        else:
-            raise NotImplementedError
-        return result
 
 
 class JobItemDelegate(QtWidgets.QStyledItemDelegate):
@@ -237,14 +265,16 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             QtGui.QIcon(':/plugins/LDMP/icons/cloud-download.svg'))
 
         self.name_la.setText(str(self.job.params.task_name))
-        self.generated_by_la.setText(str(self.job.script.name))
+        self.generated_by_la.setText(str(self.job.script.name))  # FIXME: need to establish a correspondece between the remote scripts and the local algorithms
         self.creation_date_la.setText(
             self.job.start_date.strftime("%Y-%m-%dT%H:%M:%S.%f"))
         self.run_id_la.setText(str(self.job.id))
 
         self.download_pb.setEnabled(False)
 
-        self.delete_pb.setEnabled(True)
+        job_is_deletable = self.job.status in (
+            models.JobStatus.FINISHED, models.JobStatus.DOWNLOADED)
+        self.delete_pb.setEnabled(job_is_deletable)
 
         # set visibility of progress bar and download button
         if self.job.status in (models.JobStatus.RUNNING, models.JobStatus.PENDING):
@@ -254,6 +284,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             self.progressBar.show()
             self.download_pb.hide()
             self.add_to_canvas_pb.setEnabled(False)
+            self.delete_pb.setEnabled(False)
         elif self.job.status == models.JobStatus.FINISHED:
             self.progressBar.hide()
             result_auto_download = settings_manager.get_value(Setting.DOWNLOAD_RESULTS)
@@ -263,32 +294,24 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                 self.download_pb.show()
                 self.download_pb.setEnabled(True)
                 self.download_pb.clicked.connect(
-                    functools.partial(manager.job_manager.download_job_results, job)
+                    functools.partial(manager.job_manager.download_job_results,job)
                 )
             self.add_to_canvas_pb.setEnabled(False)
+            self.delete_pb.setEnabled(False)
         elif self.job.status == models.JobStatus.DOWNLOADED:
             self.progressBar.hide()
             self.download_pb.hide()
             self.add_to_canvas_pb.setEnabled(True)
+            # self.add_to_canvas_pb.clicked.connect()  # FIXME
+            self.delete_pb.setEnabled(True)
 
     def show_details(self):
-        log(f"Details button clicked for job {self.job.params.task_name!r}")
+        log(f"Details button clicked for dataset {self.dataset.name!r}")
 
     def load_dataset(self):
-        manager.job_manager.display_job_results(self.job)
+        log(f"Load button clicked for job {self.job.id!r}")
+        # TODO
 
     def delete_dataset(self):
-        message_box = QtWidgets.QMessageBox()
-        message_box.setText(
-            f"You are about to delete job {self.job.params.task_name!r}")
-        message_box.setInformativeText("Confirm?")
-        message_box.setStandardButtons(
-            QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.Cancel)
-        message_box.setDefaultButton(QtWidgets.QMessageBox.Cancel)
-        message_box.setIcon(QtWidgets.QMessageBox.Information)
-        result = QtWidgets.QMessageBox.Res = message_box.exec_()
-        if result == QtWidgets.QMessageBox.Yes:
-            log("About to delete the dataset")
-            for path in self.job.results.local_paths:
-                layers.delete_layer_by_filename(str(path))
-            manager.job_manager.delete_job(self.job)
+        log(f"Delete button clicked for dataset {self.job.id!r}")
+        # TODO

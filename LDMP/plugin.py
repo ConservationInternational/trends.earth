@@ -25,7 +25,7 @@ from .about import DlgAbout
 from .calculate import DlgCalculate
 from .data_io import DlgDataIO
 from .download_data import DlgDownload
-from .jobs import DlgJobs
+# from .jobs import DlgJobs
 from .main_widget import get_trends_earth_dockwidget
 from .processing_provider.provider import Provider
 from .settings import DlgSettings
@@ -48,9 +48,7 @@ class LDMPPlugin(object):
             application at run time.
         :type iface: QgsInterface
         """
-        # Save reference to the QGIS interface
         self.iface = iface
-        # initialize plugin directory
         self.plugin_dir = os.path.dirname(__file__)
 
         self.provider = None
@@ -72,7 +70,7 @@ class LDMPPlugin(object):
 
         self.dlg_settings = DlgSettings()
         self.dlg_calculate = DlgCalculate()
-        self.dlg_jobs = DlgJobs()
+        # self.dlg_jobs = DlgJobs()
         self.dlg_timeseries = DlgTimeseries()
         self.dlg_visualization = DlgVisualization()
         self.dlg_download = DlgDownload()
@@ -200,12 +198,12 @@ class LDMPPlugin(object):
             parent=self.iface.mainWindow(),
             status_tip=self.tr('Calculate indicators'))
 
-        self.add_action(
-            ':/plugins/LDMP/icons/cloud-download.svg',
-            text=self.tr(u'View Google Earth Engine tasks'),
-            callback=self.get_jobs,
-            parent=self.iface.mainWindow(),
-            status_tip=self.tr('View cloud processing tasks'))
+        # self.add_action(
+        #     ':/plugins/LDMP/icons/cloud-download.svg',
+        #     text=self.tr(u'View Google Earth Engine tasks'),
+        #     callback=self.get_jobs,
+        #     parent=self.iface.mainWindow(),
+        #     status_tip=self.tr('View cloud processing tasks'))
 
         self.add_action(
             ':/plugins/LDMP/icons/document.svg',
@@ -272,10 +270,10 @@ class LDMPPlugin(object):
         self.dlg_calculate.show()
         result = self.dlg_calculate.exec_()
 
-    def get_jobs(self):
-        # show the dialog
-        self.dlg_jobs.show()
-        result = self.dlg_jobs.exec_()
+    # def get_jobs(self):
+    #     # show the dialog
+    #     self.dlg_jobs.show()
+    #     result = self.dlg_jobs.exec_()
 
     def run_plot(self):
         self.dlg_timeseries.show()

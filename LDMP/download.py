@@ -19,6 +19,7 @@ import zipfile
 import json
 import requests
 import hashlib
+from pathlib import Path
 
 from qgis.PyQt import QtWidgets, uic, QtCore
 from qgis.PyQt.QtCore import QAbstractTableModel, Qt, QCoreApplication
@@ -33,6 +34,23 @@ from LDMP.worker import AbstractWorker, start_worker
 class tr_download(object):
     def tr(message):
         return QCoreApplication.translate("tr_download", message)
+
+
+def local_check_hash_against_etag(path: Path, expected: str) -> bool:
+    try:
+        path_hash = hashlib.md5(path.read_bytes()).hexdigest()
+    except FileNotFoundError:
+        result = False
+    else:
+        result = path_hash == expected
+        if result:
+            log(f"File hash verified for {path}")
+        else:
+            log(
+                f"Failed verification of file hash for {path}. Expected {expected}, "
+                f"but got {path_hash}"
+            )
+    return result
 
 
 def check_hash_against_etag(url, filename, expected=None):

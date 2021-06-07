@@ -50,7 +50,7 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_2">
         <item>
-         <widget class="QLabel" name="labelDatasetName">
+         <widget class="QLabel" name="name_la">
           <property name="minimumSize">
            <size>
             <width>0</width>
@@ -95,7 +95,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButtonStatus">
+         <widget class="QPushButton" name="download_pb">
           <property name="toolTip">
            <string>Dataset status</string>
           </property>
@@ -116,7 +116,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QLabel" name="labelCreationDate">
+         <widget class="QLabel" name="creation_date_la">
           <property name="text">
            <string>creation date</string>
           </property>
@@ -133,7 +133,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QLabel" name="labelSourceName">
+         <widget class="QLabel" name="generated_by_la">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
             <horstretch>0</horstretch>
@@ -159,7 +159,7 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QLabel" name="labelRunId">
+         <widget class="QLabel" name="run_id_la">
           <property name="text">
            <string>run id string</string>
           </property>
@@ -173,7 +173,7 @@
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
-         <widget class="QPushButton" name="pushButtonLoad">
+         <widget class="QPushButton" name="add_to_canvas_pb">
           <property name="toolTip">
            <string>Load dataset into QGIS main map area</string>
           </property>
@@ -187,7 +187,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButtonDetails">
+         <widget class="QPushButton" name="open_details_pb">
           <property name="toolTip">
            <string>Click to view dataset details</string>
           </property>
@@ -214,7 +214,7 @@
          </spacer>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButtonDelete">
+         <widget class="QPushButton" name="delete_pb">
           <property name="toolTip">
            <string>Delete dataset</string>
           </property>

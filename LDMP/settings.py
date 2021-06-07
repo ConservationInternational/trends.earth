@@ -109,6 +109,10 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
         MessageBar().init()
         self.layout().insertWidget(0, MessageBar().get())
 
+    def closeEvent(self, event):
+        self.widgetSettingsAdvanced.closeEvent(event)
+        super().closeEvent(event)
+
     def close(self):
         super(DlgSettings, self).close()
         MessageBar().reset()

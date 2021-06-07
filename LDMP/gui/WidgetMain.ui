@@ -26,7 +26,7 @@
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <widget class="QTreeView" name="treeView_algorithms">
+         <widget class="QTreeView" name="algorithms_tv">
           <property name="selectionBehavior">
            <enum>QAbstractItemView::SelectColumns</enum>
           </property>
@@ -96,7 +96,7 @@ for running algorithms and their results.</string>
          </layout>
         </item>
         <item>
-         <widget class="QTreeView" name="treeView_datasets">
+         <widget class="QTreeView" name="datasets_tv">
           <property name="verticalScrollMode">
            <enum>QAbstractItemView::ScrollPerPixel</enum>
           </property>

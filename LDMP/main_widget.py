@@ -97,7 +97,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.setup_datasets_page_gui()
 
         # FIXME: this is a test, remove when working
-        # self.update_local_state()
+        self.update_local_state()
 
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self.perform_periodic_tasks)
@@ -108,20 +108,17 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         # add sort actions
         self.toolButton_sort.setMenu(QtWidgets.QMenu())
         self.toolButton_sort.setPopupMode(QtWidgets.QToolButton.MenuButtonPopup)
-        # self.toolButton_sort.setMenu(QtWidgets.QMenu())
-
-        for field_index, member in enumerate(SortField):
+        for member in SortField:
             sort_action = QtWidgets.QAction(tr(member.value), self)
-            sort_action.setData(field_index)
-            sort_datasets = functools.partial(self.sort_jobs, sort_action, field_index)
-            sort_action.triggered.connect(sort_datasets)
+            sort_action.setData(member)
+            sort_action.triggered.connect(
+                functools.partial(self.sort_jobs, sort_action))
             self.toolButton_sort.menu().addAction(sort_action)
             if member == SortField.DATE:
                 self.toolButton_sort.setDefaultAction(sort_action)
         self.toolButton_sort.defaultAction().setToolTip(
             tr('Sort the datasets using the selected property.')
         )
-
         self.pushButton_refresh.setIcon(
             QtGui.QIcon(':/plugins/LDMP/icons/mActionRefresh.svg'))
         self.pushButton_import.setIcon(
@@ -129,7 +126,6 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.pushButton_download.setIcon(
             QtGui.QIcon(':/plugins/LDMP/icons/mActionSharingImport.svg'))
         self.pushButton_load.setIcon(QtGui.QIcon(':/plugins/LDMP/icons/document.svg'))
-
         self.pushButton_import.clicked.connect(self.import_data)
         self.pushButton_download.clicked.connect(self.download_data)
         self.pushButton_load.clicked.connect(self.load_base_map)
@@ -137,7 +133,6 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
         self.datasets_tv.setMouseTracking(True)  # to allow emit entered events and manage editing over mouse
         self.datasets_tv.setWordWrap(True)  # add ... to wrap DisplayRole text... to have a real wrap need a custom widget
-        # delegate = DatasetItemDelegate(self.plugin, self.datasets_tv)
         delegate = jobs_mvc.JobItemDelegate(parent=self.datasets_tv)
         self.datasets_tv.setItemDelegate(delegate)
         self.datasets_tv.setEditTriggers(
@@ -164,27 +159,27 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         """
 
         local_frequency = settings_manager.get_value(Setting.LOCAL_POLLING_FREQUENCY)
-        if _should_run(local_frequency, self.last_refreshed_local_state):
-            # TODO: disable editing widgets while the refresh is working in order to avoid
-            # potential mess up of the file system cache caused by the user mashing
-            # the refresh button too quickly.
-            self.toggle_editing_widgets(False)
-            self.update_local_state()
-            # # TODO: Re-enable this later
-            # # lets check if we also need to update from remote, as that takes precedence
-            # if settings_manager.get_value(Setting.POLL_REMOTE):
-            #     remote_frequency = settings_manager.get_value(
-            #         Setting.REMOTE_POLLING_FREQUENCY)
-            #     if _should_run(remote_frequency, self.last_refreshed_remote_state):
-            #         self.update_remote_state()
-            #     else:
-            #         # go ahead and update the local state
-            #         self.update_local_state()
-            # else:
-            #     # go ahead and update the local state
-            #     self.update_local_state()
-        else:
-            pass  # there is nothing to do
+        # TODO: Re-enable this later
+        # if _should_run(local_frequency, self.last_refreshed_local_state):
+        #     # TODO: disable editing widgets while the refresh is working in order to avoid
+        #     # potential mess up of the file system cache caused by the user mashing
+        #     # the refresh button too quickly.
+        #     self.toggle_editing_widgets(False)
+        #     self.update_local_state()
+        #     # lets check if we also need to update from remote, as that takes precedence
+        #     if settings_manager.get_value(Setting.POLL_REMOTE):
+        #         remote_frequency = settings_manager.get_value(
+        #             Setting.REMOTE_POLLING_FREQUENCY)
+        #         if _should_run(remote_frequency, self.last_refreshed_remote_state):
+        #             self.update_remote_state()
+        #         else:
+        #             # go ahead and update the local state
+        #             self.update_local_state()
+        #     else:
+        #         # go ahead and update the local state
+        #         self.update_local_state()
+        # else:
+        #     pass  # there is nothing to do
 
     def toggle_editing_widgets(self, enable: bool):
         for widget in self._editing_widgets:
@@ -234,28 +229,12 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
     def refresh_after_cache_update(self):
         log("Inside refresh_after_cache_update")
         maybe_download_finished_results()
-        self.update_jobs_model()
-        self.toggle_editing_widgets(True)
-
-    def update_jobs_model(self):
-        """Update the Qt model used for the datasets UI controls"""
-        log("Inside update_jobs_model")
         model = jobs_mvc.JobsModel(job_manager)
-
-        # TODO: Re-enable this when it works OK
-        # self.proxy_model = jobs_mvc.JobsSortFilterProxyModel()
-        # self.proxy_model.setSourceModel(model)
-        # self.proxy_model.layoutChanged.connect(self.model_layout_changed)
-        #
-        # self.lineEdit_search.valueChanged.connect(self.filter_changed)
-
-        self.datasets_tv.reset()
-        # self.datasets_tv.setModel(self.proxy_model)
-        self.datasets_tv.setModel(model)
-        # self.sort_jobs(
-        #     self.toolButton_sort.defaultAction(),
-        #     self.toolButton_sort.defaultAction().data()
-        # )
+        self.proxy_model = jobs_mvc.JobsSortFilterProxyModel(SortField.DATE)
+        self.proxy_model.setSourceModel(model)
+        self.lineEdit_search.valueChanged.connect(self.filter_changed)
+        self.datasets_tv.setModel(self.proxy_model)
+        self.toggle_editing_widgets(True)
 
     def filter_changed(self, filter_string: str):
         options = QtCore.QRegularExpression.NoPatternOption
@@ -263,16 +242,17 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         regular_expression = QtCore.QRegularExpression(filter_string, options)
         self.proxy_model.setFilterRegularExpression(regular_expression)
 
-    def sort_jobs(self, action: QtWidgets.QAction, field_index: int):
-        #self.toolButton_sort.setDefaultAction(action)
-        self.toolButton_sort.setEnabled(False)
-        order = QtCore.Qt.AscendingOrder if not self.reverse_box.isChecked() else QtCore.Qt.DescendingOrder
-        #self.datasets_tv.reset()
-        self.proxy_model.sort(field_index, order)
-        self.toolButton_sort.setEnabled(True)
+    def sort_jobs(self, action: QtWidgets.QAction):
+        sort_field: SortField = action.data()
+        self.toolButton_sort.setDefaultAction(action)
+        order = (
+            QtCore.Qt.AscendingOrder if self.reverse_box.isChecked() else
+            QtCore.Qt.DescendingOrder
+        )
 
-    def model_layout_changed(self):
-        self.toolButton_sort.setEnabled(True)
+        self.proxy_model.current_sort_field = sort_field
+        sort_field_index = list(SortField).index(sort_field)
+        self.proxy_model.sort(sort_field_index, order)
 
     def setup_algorithms_tree(self):
         self.algorithms_tv.setStyleSheet(
@@ -289,10 +269,8 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             self.algorithms_tv
         )
         self.algorithms_tv.setItemDelegate(self.algorithms_tv_delegate)
-        # configure View how to enter editing mode
         self.algorithms_tv.setEditTriggers(
             QtWidgets.QAbstractItemView.AllEditTriggers)
-        # self.algorithms_tv.clicked.connect(self.manage_algorithm_tree_view)
         self.algorithms_tv.entered.connect(self._manage_algorithm_tree_view)
 
     def launch_algorithm_execution_dialogue(
@@ -357,6 +335,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 def maybe_download_finished_results():
     dataset_auto_download = settings_manager.get_value(Setting.DOWNLOAD_RESULTS)
     if dataset_auto_download:
+        log("downloading results...")
         for job in job_manager.known_jobs[JobStatus.FINISHED].values():
             job_manager.download_job_results(job)
 

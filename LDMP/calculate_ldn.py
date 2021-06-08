@@ -77,6 +77,10 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.setupUi(self)
         self.update_time_bounds()
         self.mode_te_prod.toggled.connect(self.update_time_bounds)
+        self.lc_setup_widget = LCSetupWidget()
+        self.lc_define_deg_widget = LCDefineDegradationWidget()
+
+        self.initiliaze_settings()
 
     def update_time_bounds(self):
         if self.mode_te_prod.isChecked():
@@ -100,26 +104,93 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.year_initial.setMaximumDate(end_year)
         self.year_final.setMinimumDate(start_year)
         self.year_final.setMaximumDate(end_year)
+
+    def splitter_toggled(self):
+        if self.splitter_collapsed:
+            self.splitter.restoreState(self.splitter_state)
+            self.collapse_button.setArrowType(Qt.RightArrow)
+        else:
+            self.splitter_state = self.splitter.saveState()
+            self.splitter.setSizes([1, 0])
+            self.collapse_button.setArrowType(Qt.LeftArrow)
+        self.splitter_collapsed = not self.splitter_collapsed
+
+    def initiliaze_settings(self):
+
+        ok_button = self.button_box.button(
+            QtWidgets.QDialogButtonBox.Ok
+        )
+        ok_button.setText(self.tr("Schedule execution"))
+        ok_button.clicked.connect(self.btn_calculate)
+
+        region = QgsSettings().value("trends_earth/region_of_interest/area_settings_name")
+        self.execution_name_le.setText(f"LDN_{region}_{datetime.strftime(datetime.now(), '%Y%m%d%H%M%S')}")
+
+        self.region_button.clicked.connect(self.run_settings)
+
+        # adding a collapsible arrow on the splitter
+        self.splitter_state = self.splitter.saveState()
+        self.splitter.setCollapsible(0, False)
+        splitter_handle = self.splitter.handle(1)
+        handle_layout = QtWidgets.QVBoxLayout()
+        handle_layout.setContentsMargins(0, 0, 0, 0)
+        self.collapse_button = QtWidgets.QToolButton(splitter_handle)
+        self.collapse_button.setAutoRaise(True)
+        self.collapse_button.setFixedSize(12, 12)
+        self.collapse_button.setCursor(Qt.ArrowCursor)
+        handle_layout.addWidget(self.collapse_button)
+
+        handle_layout.addStretch()
+        splitter_handle.setLayout(handle_layout)
+
+        arrow_type = Qt.RightArrow if self.splitter.sizes()[1] == 0 else Qt.LeftArrow
+
+        self.collapse_button.setArrowType(arrow_type)
+        self.collapse_button.clicked.connect(self.splitter_toggled)
+        self.splitter_collapsed = self.splitter.sizes()[1] != 0
+
+        QgsGui.enableAutoGeometryRestore(self)
+
+        self.region_la.setText(self.tr(f"Current region: {region}"))
+
+    def run_settings(self):
+        dlg_settings = DlgSettings()
+        dlg_settings.show()
+        result = dlg_settings.exec_()
         
     def showEvent(self, event):
         super(DlgCalculateOneStep, self).showEvent(event)
-
-        self.lc_setup_tab = LCSetupWidget()
-        self.TabBox.insertTab(1, self.lc_setup_tab, self.tr('Land Cover Setup'))
-
         # TODO: Temporarily hide these boxes until custom LC support for SOC is 
         # implemented on GEE
-        self.lc_setup_tab.use_esa.setChecked(True)
-        self.lc_setup_tab.use_custom.hide()
-        self.lc_setup_tab.groupBox_custom_bl.hide()
-        self.lc_setup_tab.groupBox_custom_tg.hide()
-
-        self.lc_define_deg_tab = LCDefineDegradationWidget()
-        self.TabBox.insertTab(2, self.lc_define_deg_tab, self.tr('Define Effects of Land Cover Change'))
+        self.lc_setup_widget.use_esa.setChecked(True)
+        self.lc_setup_widget.use_custom.hide()
+        self.lc_setup_widget.groupBox_custom_bl.hide()
+        self.lc_setup_widget.groupBox_custom_tg.hide()
         
         # Hide the land cover ESA period box, since only one period is used in 
         # this dialog - the one on the main setup tab
-        self.lc_setup_tab.groupBox_esa_period.hide()
+        self.lc_setup_widget.groupBox_esa_period.hide()
+
+        if self.land_cover_contents.layout() is None:
+            layout = QtWidgets.QVBoxLayout()
+            layout.setContentsMargins(0, 0, 0, 0)
+            layout.setSpacing(1)
+            layout.addWidget(self.lc_setup_widget)
+            self.land_cover_contents.setFrameShape(0)
+            self.land_cover_contents.setLayout(layout)
+
+        if self.scroll_area.layout() is None:
+            scroll_container = QtWidgets.QWidget()
+            layout = QtWidgets.QVBoxLayout()
+            layout.setContentsMargins(0, 0, 0, 0)
+            layout.setSpacing(1)
+            layout.addWidget(self.lc_define_deg_widget)
+            scroll_container.setLayout(layout)
+            self.scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+            self.scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+            self.scroll_area.setWidgetResizable(True)
+            self.scroll_area.setWidget(scroll_container)
+
 
         #######################################################################
         #######################################################################
@@ -256,10 +327,9 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                    'ndvi_gee_dataset': 'users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2019',
                    'climate_gee_dataset': None,
                    'fl': .80,
-                   'trans_matrix': self.lc_define_deg_tab.trans_matrix_get(),
-                   'remap_matrix': self.lc_setup_tab.dlg_esa_agg.get_agg_as_list(),
-                   'task_name': self.options_tab.task_name.text(),
-                   'task_notes': self.options_tab.task_notes.toPlainText()}
+                   'trans_matrix': self.lc_define_deg_widget.trans_matrix_get(),
+                   'remap_matrix': self.lc_setup_widget.dlg_esa_agg.get_agg_as_list(),
+                   'task_name': self.execution_name_le.text()}
 
         resp = job_manager.submit_remote_job(payload, self.script.id)
 

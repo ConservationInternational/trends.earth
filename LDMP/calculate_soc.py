@@ -15,8 +15,9 @@ import json
 import os
 from pathlib import Path
 
+from datetime import datetime
+
 import numpy as np
-import qgis.core
 import qgis.gui
 from osgeo import (
     gdal,
@@ -27,6 +28,8 @@ from PyQt5 import (
     QtWidgets,
     uic,
 )
+
+mb = iface.messageBar()
 
 from . import (
     calculate,
@@ -73,7 +76,7 @@ class SOCWorker(worker.AbstractWorker):
         driver = gdal.GetDriverByName("GTiff")
         # Need a band for SOC degradation, plus bands for annual SOC, and for 
         # annual LC
-        ds_out = driver.Create(self.out_f, xsize, ysize, 1 + len(self.lc_years)*2, gdal.GDT_Int16, 
+        ds_out = driver.Create(self.out_f, xsize, ysize, 1 + len(self.lc_years) * 2, gdal.GDT_Int16,
                                ['COMPRESS=LZW'])
         src_gt = ds_in.GetGeoTransform()
         ds_out.SetGeoTransform(src_gt)
@@ -82,8 +85,8 @@ class SOCWorker(worker.AbstractWorker):
         ds_out.SetProjection(out_srs.ExportToWkt())
 
         # Setup a raster of climate regimes to use for coding Fl automatically
-        clim_fl_map = np.array([[0,   1,  2,   3,   4,   5,  6,   7,   8,   9,  10,  11,  12],
-                                [0, .69, .8, .69,  .8, .69, .8, .69,  .8, .64, .48, .48, .58]])
+        clim_fl_map = np.array([[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+                                [0, .69, .8, .69, .8, .69, .8, .69, .8, .64, .48, .48, .58]])
 
         # stock change factor for land use - note the 99 and -99 will be 
         # recoded using the chosen Fl option
@@ -94,13 +97,13 @@ class SOCWorker(worker.AbstractWorker):
                                     51, 52, 53, 54, 55, 56, 57,
                                     61, 62, 63, 64, 65, 66, 67,
                                     71, 72, 73, 74, 75, 76, 77],
-                                  [  1,   1,   99,        1, 0.1, 0.1, 1,
-                                     1,   1,   99,        1, 0.1, 0.1, 1,
-                                   -99, -99,    1, 1 / 0.71, 0.1, 0.1, 1,
-                                     1,   1, 0.71,        1, 0.1, 0.1, 1,
-                                     2,   2,    2,        2,   1,   1, 1,
-                                     2,   2,    2,        2,   1,   1, 1,
-                                     1,   1,    1,        1,   1,   1, 1]])
+                                   [1, 1, 99, 1, 0.1, 0.1, 1,
+                                    1, 1, 99, 1, 0.1, 0.1, 1,
+                                    -99, -99, 1, 1 / 0.71, 0.1, 0.1, 1,
+                                    1, 1, 0.71, 1, 0.1, 0.1, 1,
+                                    2, 2, 2, 2, 1, 1, 1,
+                                    2, 2, 2, 2, 1, 1, 1,
+                                    1, 1, 1, 1, 1, 1, 1]])
 
         # stock change factor for management regime
         lc_tr_fm_map = [[11, 12, 13, 14, 15, 16, 17,
@@ -179,8 +182,8 @@ class SOCWorker(worker.AbstractWorker):
                     # compute transition map (first digit for baseline land 
                     # cover, and second digit for target year land cover), but 
                     # only update where changes actually ocurred.
-                    lc_tr = lc_t0*10 + lc_t1
-                    lc_tr[(lc_t0 < 1) | (lc_t1 < 1)] <- -32768
+                    lc_tr = lc_t0 * 10 + lc_t1
+                    lc_tr[(lc_t0 < 1) | (lc_t1 < 1)] < - -32768
 
                     ######################################################
                     # If more than one year has elapsed, need to split the 
@@ -210,11 +213,11 @@ class SOCWorker(worker.AbstractWorker):
                         yrs_lc_0[yrs_lc_0 > 20] = 20
                         soc = soc - soc_chg * yrs_lc_0
                         soc_chg[yrs_lc_0 == 20] = 0
-                        
+
                     ######################################################
                     # Calculate new soc_chg and apply it over the second 
                     # half of the period
-                    
+
                     # stock change factor for land use
                     lc_tr_fl = remap(np.array(lc_tr).astype(np.float32), lc_tr_fl_0_map)
                     if self.fl == 'per pixel':
@@ -233,7 +236,7 @@ class SOCWorker(worker.AbstractWorker):
                     # Set the transition year to the middle of the period for 
                     # pixels that had a change in cover
                     tr_year[lc_t0 != lc_t1] = t_mid
-                    
+
                     # Calculate a new soc change for pixels that changed
                     soc_chg[lc_t0 != lc_t1] = (soc[lc_t0 != lc_t1] - \
                                                soc[lc_t0 != lc_t1] * \
@@ -250,7 +253,7 @@ class SOCWorker(worker.AbstractWorker):
                     yrs_lc_1[yrs_lc_1 > 20] = 20
                     soc = soc - soc_chg * yrs_lc_1
                     soc_chg[yrs_lc_1 == 20] = 0
-                    
+
                     # Write out this SOC layer. Note the first band of ds_out 
                     # is soc degradation, and the second band is the initial 
                     # soc. As n starts at 0, need to add 3 so that the first 
@@ -298,7 +301,6 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
     comboBox_custom_soc: data_io.WidgetDataIOSelectTELayerImport
 
     LOCAL_SCRIPT_NAME = "local-soil-organic-carbon"
-
     def __init__(
             self,
             iface: qgis.gui.QgisInterface,
@@ -315,6 +317,11 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
             ('Tropical moist (Fl = 0.48)', .48),
             ('Tropical montane (Fl = 0.64)', .64)
         ]
+        self.lc_setup_widget = LCSetupWidget()
+
+        self.splitter_collapsed = False
+
+        self.initiliaze_settings()
 
         self.fl_chooseRegime_comboBox.addItems([r[0] for r in self.regimes])
         self.fl_chooseRegime_comboBox.setEnabled(False)
@@ -328,25 +335,67 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
         self.fl_radio_chooseRegime.toggled.connect(self.fl_radios_toggled)
         self.fl_radio_custom.toggled.connect(self.fl_radios_toggled)
 
+
     def showEvent(self, event):
         super().showEvent(event)
 
-        self.lc_setup_tab = LCSetupWidget()
-        self.TabBox.insertTab(0, self.lc_setup_tab, self.tr('Land Cover Setup'))
+        ok_button = self.button_box.button(
+            QtWidgets.QDialogButtonBox.Ok
+        )
+        ok_button.setText(self.tr("Schedule execution"))
+        ok_button.clicked.connect(self.btn_calculate)
+
+        region = QgsSettings().value("trends_earth/region_of_interest/area_settings_name")
+        self.execution_name_le.setText(f"LDN_{region}_{datetime.strftime(datetime.now(), '%Y%m%d%H%M%S')}")
+
+        self.region_button.clicked.connect(self.run_settings)
+
+        # adding a collapsible arrow on the splitter
+        self.splitter_state = self.splitter.saveState()
+        self.splitter.setCollapsible(0, False)
+        splitter_handle = self.splitter.handle(1)
+        handle_layout = QtWidgets.QVBoxLayout()
+        handle_layout.setContentsMargins(0, 0, 0, 0)
+        self.collapse_button = QtWidgets.QToolButton(splitter_handle)
+        self.collapse_button.setAutoRaise(True)
+        self.collapse_button.setFixedSize(12, 12)
+        self.collapse_button.setCursor(Qt.ArrowCursor)
+        handle_layout.addWidget(self.collapse_button)
+
+        handle_layout.addStretch()
+        splitter_handle.setLayout(handle_layout)
+
+        self.lc_setup_widget = LCSetupWidget()
         # These boxes may have been hidden if this widget was last shown on the 
         # SDG one step dialog
-        self.lc_setup_tab.groupBox_esa_period.show()
-        self.lc_setup_tab.use_custom.show()
-        self.lc_setup_tab.groupBox_custom_bl.show()
-        self.lc_setup_tab.groupBox_custom_tg.show()
+        self.lc_setup_widget.groupBox_esa_period.show()
+        self.lc_setup_widget.use_custom.show()
+        self.lc_setup_widget.groupBox_custom_bl.show()
+        self.lc_setup_widget.groupBox_custom_tg.show()
 
-        self.comboBox_custom_soc.populate()
-        self.lc_setup_tab.use_custom_initial.populate()
-        self.lc_setup_tab.use_custom_final.populate()
+        arrow_type = Qt.RightArrow if self.splitter.sizes()[1] == 0 else Qt.LeftArrow
 
+        self.collapse_button.setArrowType(arrow_type)
+        self.collapse_button.clicked.connect(self.splitter_toggled)
+        self.splitter_collapsed = self.splitter.sizes()[1] != 0
 
-        if self.reset_tab_on_showEvent:
-            self.TabBox.setCurrentIndex(0)
+        QgsGui.enableAutoGeometryRestore(self)
+
+        self.region_la.setText(self.tr(f"Current region: {region}"))
+
+    def run_settings(self):
+        dlg_settings = DlgSettings()
+        dlg_settings.show()
+        result = dlg_settings.exec_()
+
+    def showEvent(self, event):
+        super(DlgCalculateSOC, self).showEvent(event)
+
+        if self.setup_frame.layout() is None:
+            setup_layout = QtWidgets.QVBoxLayout(self.setup_frame)
+            setup_layout.setContentsMargins(0, 0, 0, 0)
+            setup_layout.addWidget(lc_setup_widget)
+            self.setup_frame.setLayout(setup_layout)
 
     def fl_radios_toggled(self):
         if self.fl_radio_custom.isChecked():
@@ -375,7 +424,7 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
         if not ret:
             return
 
-        if self.lc_setup_tab.use_custom.isChecked() or \
+        if self.lc_setup_widget.use_custom.isChecked() or \
                 self.groupBox_custom_SOC.isChecked():
             self.calculate_locally()
         else:
@@ -392,7 +441,7 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
                 )
             )
             return
-        if not self.lc_setup_tab.use_custom.isChecked():
+        if not self.lc_setup_widget.use_custom.isChecked():
             QtWidgets.QMessageBox.critical(
                 None,
                 self.tr("Error"),
@@ -414,8 +463,8 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
             )
             return
 
-        year_baseline = self.lc_setup_tab.get_initial_year()
-        year_target = self.lc_setup_tab.get_final_year()
+        year_baseline = self.lc_setup_widget.get_initial_year()
+        year_target = self.lc_setup_widget.get_final_year()
         if int(year_baseline) >= int(year_target):
             QtWidgets.QMessageBox.information(
                 None,
@@ -427,7 +476,7 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
                 )
             )
 
-        initial_layer = self.lc_setup_tab.use_custom_initial.get_layer()
+        initial_layer = self.lc_setup_widget.use_custom_initial.get_layer()
         initial_extent_geom = qgis.core.QgsGeometry.fromRect(initial_layer.extent())
         if self.aoi.calc_frac_overlap(initial_extent_geom) < .99:
             QtWidgets.QMessageBox.critical(
@@ -440,7 +489,7 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
             )
             return
 
-        final_layer = self.lc_setup_tab.use_custom_final.get_layer()
+        final_layer = self.lc_setup_widget.use_custom_final.get_layer()
         final_extent_geom = qgis.core.QgsGeometry.fromRect(final_layer.extent())
         if self.aoi.calc_frac_overlap(final_extent_geom) < .99:
             QtWidgets.QMessageBox.critical(
@@ -455,13 +504,13 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
 
         self.close()
 
-        initial_usable = self.lc_setup_tab.use_custom_initial.get_usable_band_info()
-        final_usable = self.lc_setup_tab.use_custom_final.get_usable_band_info()
+        initial_usable = self.lc_setup_widget.use_custom_initial.get_usable_band_info()
+        final_usable = self.lc_setup_widget.use_custom_final.get_usable_band_info()
         soc_usable = self.comboBox_custom_soc.get_usable_band_info()
 
         job_params = {
-            "task_name": self.options_tab.task_name.text(),
-            "task_notes": self.options_tab.task_notes.toPlainText(),
+            "task_name": self.execution_name_le.text(),
+            "task_notes": self.task_notes.toPlainText(),
             "lc_initial_path": str(initial_usable.path),
             "lc_initial_band_index": initial_usable.band_index,
             "lc_final_path": str(final_usable.path),
@@ -481,17 +530,18 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
 
         crosses_180th, geojsons = self.gee_bounding_box
         payload = {
-            'year_start': self.lc_setup_tab.use_esa_bl_year.date().year(),
-            'year_end': self.lc_setup_tab.use_esa_tg_year.date().year(),
+            'year_start': self.lc_setup_widget.use_esa_bl_year.date().year(),
+            'year_end': self.lc_setup_widget.use_esa_tg_year.date().year(),
             'fl': self.get_fl(),
             'download_annual_lc': self.download_annual_lc.isChecked(),
             'geojsons': json.dumps(geojsons),
             'crs': self.aoi.get_crs_dst_wkt(),
             'crosses_180th': crosses_180th,
-            'remap_matrix': self.lc_setup_tab.dlg_esa_agg.get_agg_as_list(),
-            'task_name': self.options_tab.task_name.text(),
+            'remap_matrix': self.lc_setup_widget.dlg_esa_agg.get_agg_as_list(),
+            'task_name': self.execution_name_le.text(),
             'task_notes': self.options_tab.task_notes.toPlainText()
         }
+
         resp = job_manager.submit_remote_job(payload, self.script.id)
         if resp:
             main_msg = "Submitted"

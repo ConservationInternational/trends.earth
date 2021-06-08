@@ -93,47 +93,13 @@ class JobsModel(QtCore.QAbstractItemModel):
             result = QtCore.Qt.NoItemFlags
         return result
 
-    def sort(self, column: int, order: QtCore.Qt.SortOrder = ...) -> None:
-        reverse = order == QtCore.Qt.AscendingOrder
-        jobs = self._relevant_jobs[:]
-        for index, member in enumerate(models.SortField):
-            if index == column:
-                if member == models.SortField.NAME:
-                    jobs.sort(key=lambda job: job.params.task_name, reverse=reverse)
-                elif member == models.SortField.DATE:
-                    jobs.sort(key=lambda job: job.start_date, reverse=reverse)
-                elif member == models.SortField.STATUS:
-                    jobs.sort(key=lambda job: job.status, reverse=reverse)
-                elif member == models.SortField.ALGORITHM:
-                    jobs.sort(key=lambda job: job.script.name, reverse=reverse)
-                else:
-                    raise NotImplementedError
-                break
-        else:
-            log(f"Invalid sort column: {column}")
-
-    # def headerData(
-    #         self,
-    #         section: int,
-    #         orientation: QtCore.Qt.Orientation,
-    #         role: QtCore.Qt.ItemDataRole
-    # ):
-    #     if orientation == QtCore.Qt.Horizontal and role == QtCore.Qt.DisplayRole:
-    #         result = self.rootItem.columnName(section)
-    #     else:
-    #         result = None
-    #     return result
-
-    # def setData(
-    #         self,
-    #         index: QtCore.QModelIndex,
-    #         value,
-    #         role: QtCore.Qt.ItemDataRole
-    # ) -> bool:
-    #     return True if role == QtCore.Qt.EditRole else False
-
 
 class JobsSortFilterProxyModel(QtCore.QSortFilterProxyModel):
+    current_sort_field: typing.Optional[models.SortField]
+
+    def __init__(self, current_sort_field: models.SortField, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.current_sort_field = current_sort_field
 
     def filterAcceptsRow(self, source_row: int, source_parent: QtCore.QModelIndex):
         jobs_model = self.sourceModel()
@@ -141,6 +107,23 @@ class JobsSortFilterProxyModel(QtCore.QSortFilterProxyModel):
         job: models.Job = jobs_model.data(index)
         match = self.filterRegularExpression().match(job.params.task_name)
         return match.hasMatch()
+
+    def lessThan(self, left: QtCore.QModelIndex, right: QtCore.QModelIndex) -> bool:
+        model = self.sourceModel()
+        left_job: models.Job = model.data(left)
+        right_job: models.Job = model.data(right)
+        to_sort = (left_job, right_job)
+        if self.current_sort_field == models.SortField.NAME:
+            result = sorted(to_sort, key=lambda j: j.params.task_name)[0] == left_job
+        elif self.current_sort_field == models.SortField.DATE:
+            result = sorted(to_sort, key=lambda j: j.start_date)[0] == left_job
+        elif self.current_sort_field == models.SortField.STATUS:
+            result = sorted(to_sort, key=lambda j: j.status)[0] == left_job
+        elif self.current_sort_field == models.SortField.ALGORITHM:
+            result = sorted(to_sort, key=lambda j: j.script.name)[0] == left_job
+        else:
+            raise NotImplementedError
+        return result
 
 
 class JobItemDelegate(QtWidgets.QStyledItemDelegate):

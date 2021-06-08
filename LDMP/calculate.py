@@ -843,50 +843,18 @@ class DlgCalculateBase(QtWidgets.QDialog):
             self._firstShowEvent = False
             self.firstShowEvent.emit()
 
-        if self.reset_tab_on_showEvent:
-            self.TabBox.setCurrentIndex(0)
-
     def firstShow(self):
+
+        if self._has_output:
+            # self.output_tab = CalculationOutputWidget(self.output_suffixes, self.get_subclass_name())
+            self.output_tab = CalculationHidedOutputWidget(self.output_suffixes, self.get_subclass_name())
+            self.output_tab.setParent(self)
+
         self.options_tab = CalculationOptionsWidget()
         self.options_tab.setParent(self)
-        self.TabBox.addTab(self.options_tab, self.tr('Options'))
 
         # By default show the local or cloud option
-        #self.options_tab.toggle_show_where_to_run(True)
         self.options_tab.toggle_show_where_to_run(False)
-        
-        self.button_calculate.clicked.connect(self.btn_calculate)
-        self.button_prev.clicked.connect(self.tab_back)
-        self.button_next.clicked.connect(self.tab_forward)
-
-        # Start on first tab so button_prev and calculate should be disabled
-        self.button_prev.setEnabled(False)
-        self.button_calculate.setEnabled(False)
-        self.TabBox.currentChanged.connect(self.tab_changed)
-
-    def tab_back(self):
-        if self.TabBox.currentIndex() - 1 >= 0:
-            self.TabBox.setCurrentIndex(self.TabBox.currentIndex() - 1)
-
-    def tab_forward(self):
-        if self.TabBox.currentIndex() + 1 < self.TabBox.count():
-            self.TabBox.setCurrentIndex(self.TabBox.currentIndex() + 1)
-
-    def tab_changed(self):
-        if self.TabBox.currentIndex() > 0:
-            self.button_prev.setEnabled(True)
-        else:
-            self.button_prev.setEnabled(False)
-
-        if self.TabBox.currentIndex() < (self.TabBox.count() - 1):
-            self.button_next.setEnabled(True)
-        else:
-            self.button_next.setEnabled(False)
-
-        if self.TabBox.currentIndex() == (self.TabBox.count() - 1):
-            self.button_calculate.setEnabled(True)
-        else:
-            self.button_calculate.setEnabled(False)
 
     def btn_cancel(self):
         self.close()

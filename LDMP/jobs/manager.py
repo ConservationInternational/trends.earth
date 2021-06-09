@@ -12,6 +12,7 @@ from osgeo import gdal
 from .. import (
     api,
     download as ldmp_download,
+    layers,
     log,
 )
 from ..conf import (
@@ -20,10 +21,10 @@ from ..conf import (
 )
 from .models import (
     Job,
+    JobLocalContext,
     JobStatus,
     JobResult,
     JobUrl,
-    RemoteScript,
 )
 
 
@@ -39,14 +40,13 @@ class JobManager(QtCore.QObject):
     refreshed_local_state: QtCore.pyqtSignal = QtCore.pyqtSignal()
     refreshed_from_remote: QtCore.pyqtSignal = QtCore.pyqtSignal()
     downloaded_job_results: QtCore.pyqtSignal = QtCore.pyqtSignal(Job)
+    downloaded_available_jobs_results: QtCore.pyqtSignal = QtCore.pyqtSignal()
     deleted_job: QtCore.pyqtSignal = QtCore.pyqtSignal(Job)
+    submitted_job: QtCore.pyqtSignal = QtCore.pyqtSignal(Job)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self._known_running_jobs = {}
-        self._known_finished_jobs = {}
-        self._known_deleted_jobs = {}
-        self._known_downloaded_jobs = {}
+        self.clear_known_jobs()
 
     @property
     def known_jobs(self):
@@ -56,6 +56,18 @@ class JobManager(QtCore.QObject):
             JobStatus.DELETED: self._known_deleted_jobs,
             JobStatus.DOWNLOADED: self._known_downloaded_jobs,
         }
+
+    @property
+    def relevant_jobs(self) -> typing.List[Job]:
+        relevant_statuses = (
+            JobStatus.RUNNING,
+            JobStatus.FINISHED,
+            JobStatus.DOWNLOADED,
+        )
+        result = []
+        for status in relevant_statuses:
+            result.extend(self.known_jobs[status].values())
+        return result
 
     @property
     def running_jobs_dir(self) -> Path:
@@ -73,6 +85,12 @@ class JobManager(QtCore.QObject):
     def downloaded_datasets_dir(self) -> Path:
         return Path(
             settings_manager.get_value(Setting.BASE_DIR)) / "downloaded-datasets"
+
+    def clear_known_jobs(self):
+        self._known_running_jobs = {}
+        self._known_finished_jobs = {}
+        self._known_deleted_jobs = {}
+        self._known_downloaded_jobs = {}
 
     def refresh_local_state(self):
         """Update dataset manager's in-memory cache by scanning the local filesystem
@@ -95,7 +113,7 @@ class JobManager(QtCore.QObject):
         self._get_local_finished_jobs()
         self.refreshed_local_state.emit()
 
-    def refresh_from_remote_state(self):
+    def refresh_from_remote_state(self, emit_signal: bool = True):
         """Request the latest state from the remote server
 
         Then update filesystem directories too.
@@ -142,10 +160,10 @@ class JobManager(QtCore.QObject):
         # - local downloaded jobs, this is done immediately after new results are
         #   downloaded
         # - local deleted jobs, as the remote server has no relation with these
-        self.refreshed_from_remote.emit()
+        if emit_signal:
+            self.refreshed_from_remote.emit()
 
-    # TODO: maybe we can use a `Job` as a parameter for this method, it would allow removing some code
-    def delete_job(self, job_id: uuid.UUID):
+    def delete_job(self, job: Job):
         """Delete a job metadata file and any associated datasets from the local disk
 
         The job metadata file is moved to the `deleted-jobs` dir. This shall prevent
@@ -153,19 +171,44 @@ class JobManager(QtCore.QObject):
 
         """
 
-        job = self._find_cached_job_by_id(job_id)
-        if job is not None:
-            if job.status != JobStatus.DELETED:
-                _delete_job_datasets(job)
-                self._change_job_status(job, JobStatus.DELETED, force_rewrite=False)
-            else:
-                log(f"job {job_id!r} has already been deleted, skipping...")
+        if job.status != JobStatus.DELETED:
+            _delete_job_datasets(job)
+            self._change_job_status(job, JobStatus.DELETED, force_rewrite=False)
         else:
-            log(
-                f"Could not find job {job_id!r}, which is unexpected behavior, "
-                f"skipping..."
-            )
+            log(f"job {job!r} has already been deleted, skipping...")
         self.deleted_job.emit(job)
+
+    def submit_job(
+            self,
+            params: typing.Dict,
+            script_id: uuid.UUID,
+            # script_slug: str,
+    ) -> typing.Optional[Job]:
+        """Submit a job for remote execution
+
+        Creation of new jobs entails:
+        1. submitting a process for remote execution
+        2. waiting server response with a job metadata file
+        3. storing returned job metadata file on disk, on the `running-jobs` directory
+
+        """
+
+        # Note - this is a reimplementation of api.run_script
+        final_params = params.copy()
+        final_params["task_notes"] = _add_local_context_to_task_notes(params["task_notes"])
+        # url_fragment = urllib.parse.quote_plus(f"/api/v1/script/{script_slug}/run")
+        # url_fragment = urllib.parse.quote_plus(f"/api/v1/script/{script_id}/run")
+        url_fragment = f"/api/v1/script/{script_id}/run"
+        response = api.call_api(url_fragment, "post", final_params, use_token=True)
+        try:
+            raw_job = response["data"]
+        except TypeError:
+            job = None
+        else:
+            job = Job.deserialize(raw_job)
+            self.write_job_metadata_file(job)
+            self.submitted_job.emit(job)
+        return job
 
     def download_job_results(self, job: Job) -> Job:
         handler = {
@@ -180,6 +223,37 @@ class JobManager(QtCore.QObject):
         self.downloaded_job_results.emit(job)
         # TODO: maybe we don't need to return anything here
         return job
+
+    def download_available_results(self):
+        """Download all finished jobs' results.
+
+        Downloading remote results entails:
+        - For each job that is known to be in a FINISHED state, we retrieve the relevant
+          download URL(s)
+        - We try to download all results into some subdir under the `downloaded-datasets`
+          directory
+        - If the download was successful, we now create a result metadata file and put it
+          in the `downloaded-datasets` directory. If not, we do not do anything and will
+          allow the user to retry downloading later
+        - When we have created the result metadata file we delete the job metadata file,
+          as it is not necessary anymore
+
+        """
+        # NOTE: We copy the dictionary before iterating in order to avoid having it
+        # change size during the bulk download process. The original
+        # `self.known_jobs[JobStatus.FINISHED]` dict is being updated as each
+        # job result is being downloaded
+        frozen_finished_jobs = self.known_jobs[JobStatus.FINISHED].copy()
+        if len(frozen_finished_jobs) > 0:
+            for job in frozen_finished_jobs.values():
+                self.download_job_results(job)
+            self.downloaded_available_jobs_results.emit()
+
+    def display_job_results(self, job: Job):
+        for path in job.results.local_paths:
+            for band_index, band in enumerate(job.results.bands):
+                if band.add_to_map:
+                    layers.add_layer(str(path), band_index+1, band.serialize())
 
     def _change_job_status(
             self, job: Job, target: JobStatus, force_rewrite: bool = True):
@@ -221,19 +295,6 @@ class JobManager(QtCore.QObject):
 
     def _download_timeseries_table(self, job: Job) -> typing.Optional[Path]:
         raise NotImplementedError
-
-    def _find_cached_job_by_id(self, job_id: uuid.UUID) -> typing.Optional[Job]:
-        """Retrieve a job from the in-memory cache"""
-        return self._known_running_jobs.get(
-            job_id,
-            self._known_finished_jobs.get(
-                job_id,
-                self._known_deleted_jobs.get(
-                    job_id,
-                    self._known_downloaded_jobs.get(job_id)
-                )
-            )
-        )
 
     def _refresh_local_running_jobs(
             self, remote_jobs: typing.List[Job]) -> typing.Dict[uuid.UUID, Job]:
@@ -310,7 +371,10 @@ class JobManager(QtCore.QObject):
         for job_metadata_path in base_dir.glob("*.json"):
             with job_metadata_path.open(encoding=self._encoding) as fh:
                 raw_job = json.load(fh)
-                job = Job.deserialize(raw_job)
+                try:
+                    job = Job.deserialize(raw_job)
+                except RuntimeError as exc:
+                    log(str(exc))
                 result.append(job)
         return result
 
@@ -376,56 +440,10 @@ class JobManager(QtCore.QObject):
             old_path.unlink()  # not using the `missing_ok` param as it was introduced only in Python 3.8
 
 
-def submit_job(
-        params: typing.Dict,
-        script_slug: str,
-        manager: JobManager
-) -> typing.Optional[Job]:
-    """Submit a job for remote execution
-
-    Creation of new jobs entails:
-    1. submitting a process for remote execution
-    2. waiting server response with a job metadata file
-    3. storing returned job metadata file on disk, on the `running-jobs` directory
-
-    """
-
-    # Note - this is a reimplementation of api.run_script
-    # TODO: Add the local context to params
-    url_fragment = urllib.parse.quote_plus(f"/api/v1/script/{script_slug}/run")
-    response = api.call_api(url_fragment, "post", params, use_token=True)
-    try:
-        raw_job = response["data"]
-    except TypeError:
-        job = None
-    else:
-        job = Job.deserialize(raw_job)
-        manager.write_job_metadata_file(job)
-    return job
-
-
-def download_available_results(manager: JobManager):
-    """Download all finished jobs' results.
-
-    Downloading remote results entails:
-    - For each job that is known to be in a FINISHED state, we retrieve the relevant
-      download URL(s)
-    - We try to download all results into some subdir under the `downloaded-datasets`
-      directory
-    - If the download was successful, we now create a result metadata file and put it
-      in the `downloaded-datasets` directory. If not, we do not do anything and will
-      allow the user to retry downloading later
-    - When we have created the result metadata file we delete the job metadata file,
-      as it is not necessary anymore
-
-    """
-    for job in manager.known_jobs[JobStatus.FINISHED].values():
-        manager.download_job_results(job)
-
-
-@functools.lru_cache(maxsize=None)  # not using functools.cache, as it was only introduced in Python 3.9
-def get_remote_scripts():
-    return [RemoteScript.deserialize(raw_script) for raw_script in api.get_script()]
+def _add_local_context_to_task_notes(task_notes: str) -> str:
+    separator = settings_manager.get_value(Setting.LOCAL_CONTEXT_SEPARATOR)
+    context = JobLocalContext(base_dir=settings_manager.get_value(Setting.BASE_DIR))
+    return separator.join((task_notes, context.serialize()))
 
 
 def find_job(target: Job, source: typing.List[Job]) -> typing.Optional[Job]:
@@ -519,7 +537,20 @@ def get_remote_jobs(end_date: typing.Optional[dt.datetime] = None) -> typing.Lis
         log("Invalid response format")
         remote_jobs = []
     else:
-        remote_jobs = [Job.deserialize(raw_job) for raw_job in raw_jobs]
+        remote_jobs = []
+        for raw_job in raw_jobs:
+            try:
+                job = Job.deserialize(raw_job)
+                has_results = job.results is not None
+                if has_results and job.results.type == JobResult.TIME_SERIES_TABLE:
+                    log(
+                        f"Ignoring job {job.id!r} because it contains timeseries "
+                        f"results. Those are not currently implemented"
+                    )
+                else:
+                    remote_jobs.append(job)
+            except RuntimeError as exc:
+                log(str(exc))
     return remote_jobs
 
 

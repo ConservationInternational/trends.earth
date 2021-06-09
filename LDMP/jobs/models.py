@@ -16,9 +16,11 @@ from .. import (
     log,
 )
 from ..conf import (
+    KNOWN_SCRIPTS,
     Setting,
     settings_manager,
 )
+from ..algorithms.models import ExecutionScript
 
 
 class SortField(enum.Enum):
@@ -114,12 +116,10 @@ class JobNotes:
     user_notes: str
     local_context: JobLocalContext
 
-    _local_context_separator: str = "-*-*-*-local_context-*-*-*-"
-
     @classmethod
     def deserialize(cls, raw_notes: str):
-        user_notes, raw_local_context = raw_notes.partition(
-            cls._local_context_separator)[::2]
+        separator = settings_manager.get_value(Setting.LOCAL_CONTEXT_SEPARATOR)
+        user_notes, raw_local_context = raw_notes.partition(separator)[::2]
         if raw_local_context != "":
             local_context = JobLocalContext.deserialize(raw_local_context)
         else:
@@ -131,7 +131,8 @@ class JobNotes:
             serialized_local_context = self.local_context.serialize()
         else:
             serialized_local_context = ""
-        return self._local_context_separator.join(
+        separator = settings_manager.get_value(Setting.LOCAL_CONTEXT_SEPARATOR)
+        return separator.join(
             (self.user_notes, serialized_local_context))
 
 
@@ -268,8 +269,7 @@ class Job:
     params: JobParameters
     progress: int
     results: typing.Union[JobCloudResults, TimeSeriesTableResult]
-    script: RemoteScript
-    # script_id: uuid.UUID
+    script: ExecutionScript
     status: JobStatus
     user_id: uuid.UUID
     start_date: dt.datetime
@@ -286,7 +286,7 @@ class Job:
         else:
             end_date = None
 
-        raw_results = raw_job["results"]
+        raw_results = raw_job.get("results") or {}
         try:
             type_ = JobResult(raw_results["type"])
         except KeyError:
@@ -300,15 +300,13 @@ class Job:
             else:
                 raise RuntimeError(f"Invalid results type: {type_!r}")
         script_id = uuid.UUID(raw_job["script_id"])
-        known_scripts = get_remote_scripts()
-        script = [script for script in known_scripts if script.id == script_id][0]
+        script = _get_job_script(script_id)
         return cls(
             id=uuid.UUID(raw_job["id"]),
             params=JobParameters.deserialize(raw_job["params"]),
             progress=raw_job["progress"],
             results=results,
             script=script,
-            # script_id=uuid.UUID(raw_job["script_id"]),
             status=JobStatus(raw_job["status"]),
             user_id=uuid.UUID(raw_job["user_id"]),
             start_date=dt.datetime.strptime(
@@ -324,7 +322,6 @@ class Job:
             "params": self.params.serialize(),
             "progress": self.progress,
             "results": None if self.results is None else self.results.serialize(),
-            # "script_id": str(self.script_id),
             "script_id": str(self.script.id),
             "status": self.status.value,
             "user_id": str(self.user_id),
@@ -337,4 +334,26 @@ class Job:
 
 @functools.lru_cache(maxsize=None)  # not using functools.cache, as it was only introduced in Python 3.9
 def get_remote_scripts():
-    return [RemoteScript.deserialize(raw_script) for raw_script in api.get_script()]
+    """Query the remote server for existing scripts
+
+    The information returned from the remote shall be enough to at least display Jobs
+    which came from a version which is not known locally.
+
+    """
+
+    raw_remote = api.get_script()
+    return [ExecutionScript.deserialize_from_remote_response(r) for r in raw_remote]
+
+
+def _get_job_script(script_id: uuid.UUID) -> ExecutionScript:
+    try:
+        script = [s for s in KNOWN_SCRIPTS.values() if s.id == script_id][0]
+    except IndexError:
+        log(f"script {script_id!r} is not known locally")
+        remote_scripts = get_remote_scripts()
+        try:
+            script = [s for s in remote_scripts if s.id == script_id][0]
+        except IndexError:
+            raise RuntimeError(
+                f"script {script_id!r} is not known on the remote server")
+    return script

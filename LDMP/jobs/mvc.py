@@ -9,7 +9,10 @@ from PyQt5 import (
     uic,
 )
 
-from .. import log
+from .. import (
+    layers,
+    log,
+)
 from ..conf import (
     Setting,
     settings_manager,
@@ -28,21 +31,7 @@ class JobsModel(QtCore.QAbstractItemModel):
 
     def __init__(self, job_manager: manager.JobManager, parent=None):
         super().__init__(parent)
-        self._relevant_jobs = self._get_relevant_jobs(job_manager)
-
-    def _get_relevant_jobs(
-            self, job_manager: manager.JobManager) -> typing.List[models.Job]:
-        relevant_statuses = (
-            models.JobStatus.RUNNING,
-            models.JobStatus.FINISHED,
-            models.JobStatus.DOWNLOADED,
-        )
-        result = []
-        for status in relevant_statuses:
-            result.extend(job_manager.known_jobs[status].values())
-        # self.dataChanged.emit(
-        #     self.createIndex(0, 0), self.createIndex(0, len(self._relevant_jobs)))
-        return result
+        self._relevant_jobs = job_manager.relevant_jobs
 
     def index(
             self,
@@ -248,16 +237,14 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             QtGui.QIcon(':/plugins/LDMP/icons/cloud-download.svg'))
 
         self.name_la.setText(str(self.job.params.task_name))
-        self.generated_by_la.setText(str(self.job.script.name))  # FIXME: need to establish a correspondece between the remote scripts and the local algorithms
+        self.generated_by_la.setText(str(self.job.script.name))
         self.creation_date_la.setText(
             self.job.start_date.strftime("%Y-%m-%dT%H:%M:%S.%f"))
         self.run_id_la.setText(str(self.job.id))
 
         self.download_pb.setEnabled(False)
 
-        job_is_deletable = self.job.status in (
-            models.JobStatus.FINISHED, models.JobStatus.DOWNLOADED)
-        self.delete_pb.setEnabled(job_is_deletable)
+        self.delete_pb.setEnabled(True)
 
         # set visibility of progress bar and download button
         if self.job.status in (models.JobStatus.RUNNING, models.JobStatus.PENDING):
@@ -267,7 +254,6 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             self.progressBar.show()
             self.download_pb.hide()
             self.add_to_canvas_pb.setEnabled(False)
-            self.delete_pb.setEnabled(False)
         elif self.job.status == models.JobStatus.FINISHED:
             self.progressBar.hide()
             result_auto_download = settings_manager.get_value(Setting.DOWNLOAD_RESULTS)
@@ -277,24 +263,32 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                 self.download_pb.show()
                 self.download_pb.setEnabled(True)
                 self.download_pb.clicked.connect(
-                    functools.partial(manager.job_manager.download_job_results,job)
+                    functools.partial(manager.job_manager.download_job_results, job)
                 )
             self.add_to_canvas_pb.setEnabled(False)
-            self.delete_pb.setEnabled(False)
         elif self.job.status == models.JobStatus.DOWNLOADED:
             self.progressBar.hide()
             self.download_pb.hide()
             self.add_to_canvas_pb.setEnabled(True)
-            # self.add_to_canvas_pb.clicked.connect()  # FIXME
-            self.delete_pb.setEnabled(True)
 
     def show_details(self):
-        log(f"Details button clicked for dataset {self.dataset.name!r}")
+        log(f"Details button clicked for job {self.job.params.task_name!r}")
 
     def load_dataset(self):
-        log(f"Load button clicked for job {self.job.id!r}")
-        # TODO
+        manager.job_manager.display_job_results(self.job)
 
     def delete_dataset(self):
-        log(f"Delete button clicked for dataset {self.job.id!r}")
-        # TODO
+        message_box = QtWidgets.QMessageBox()
+        message_box.setText(
+            f"You are about to delete job {self.job.params.task_name!r}")
+        message_box.setInformativeText("Confirm?")
+        message_box.setStandardButtons(
+            QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.Cancel)
+        message_box.setDefaultButton(QtWidgets.QMessageBox.Cancel)
+        message_box.setIcon(QtWidgets.QMessageBox.Information)
+        result = QtWidgets.QMessageBox.Res = message_box.exec_()
+        if result == QtWidgets.QMessageBox.Yes:
+            log("About to delete the dataset")
+            for path in self.job.results.local_paths:
+                layers.delete_layer_by_filename(str(path))
+            manager.job_manager.delete_job(self.job)

@@ -82,9 +82,10 @@ class JobManager(QtCore.QObject):
         return Path(settings_manager.get_value(Setting.BASE_DIR)) / "deleted-jobs"
 
     @property
-    def downloaded_datasets_dir(self) -> Path:
+    def datasets_dir(self) -> Path:
         return Path(
-            settings_manager.get_value(Setting.BASE_DIR)) / "downloaded-datasets"
+            settings_manager.get_value(Setting.BASE_DIR)) / "datasets"
+
 
     def clear_known_jobs(self):
         self._known_running_jobs = {}
@@ -365,7 +366,7 @@ class JobManager(QtCore.QObject):
             JobStatus.FINISHED: self.finished_jobs_dir,
             JobStatus.RUNNING: self.running_jobs_dir,
             JobStatus.DELETED: self.deleted_jobs_dir,
-            JobStatus.DOWNLOADED: self.downloaded_datasets_dir,
+            JobStatus.DOWNLOADED: self.datasets_dir,
         }[status]
         result = []
         for job_metadata_path in base_dir.glob("*.json"):
@@ -416,14 +417,14 @@ class JobManager(QtCore.QObject):
         elif job.status == JobStatus.DELETED:
             base = self.deleted_jobs_dir
         elif job.status == JobStatus.DOWNLOADED:
-            base = self.downloaded_datasets_dir
+            base = self.datasets_dir
         else:
             raise RuntimeError(
                 f"Could not retrieve file path for job with state {job.status}")
         return base / f"{job.id}_{job.script.slug}_{job.params.task_name}.json"
 
     def get_downloaded_dataset_base_file_path(self, job: Job):
-        base = self.downloaded_datasets_dir
+        base = self.datasets_dir
         return base / f"{job.id}_{job.script.slug}_{job.params.task_name}"
 
     def write_job_metadata_file(self, job: Job):

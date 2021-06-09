@@ -46,6 +46,7 @@ class JobStatus(enum.Enum):
 
 class JobResult(enum.Enum):
     CLOUD_RESULTS = "CloudResults"
+    LOCAL_RESULTS = "LocalResults"
     TIME_SERIES_TABLE = "TimeSeriesTable"
 
 
@@ -216,10 +217,10 @@ class JobUrl:
 @dataclasses.dataclass()
 class JobCloudResults:
     name: str
-    type: JobResult
     bands: typing.List[JobBand]
     urls: typing.List[JobUrl]
     local_paths: typing.List[Path]
+    type: JobResult = JobResult.CLOUD_RESULTS
 
     @classmethod
     def deserialize(cls, raw_results: typing.Dict):
@@ -244,8 +245,8 @@ class JobCloudResults:
 @dataclasses.dataclass()
 class TimeSeriesTableResult:
     name: str
-    type: JobResult
     table: typing.List[typing.Dict]
+    type: JobResult = JobResult.TIME_SERIES_TABLE
 
     @classmethod
     def deserialize(cls, raw_results: typing.Dict):
@@ -264,16 +265,26 @@ class TimeSeriesTableResult:
 
 
 @dataclasses.dataclass()
+class JobLocalResults:
+    name: str
+    bands: typing.List[JobBand]
+    local_paths: typing.List[Path]
+    type: JobResult = JobResult.LOCAL_RESULTS
+
+
+@dataclasses.dataclass()
 class Job:
     id: uuid.UUID
     params: JobParameters
     progress: int
-    results: typing.Union[JobCloudResults, TimeSeriesTableResult]
+    results: typing.Optional[
+        typing.Union[JobCloudResults, JobLocalResults, TimeSeriesTableResult]
+    ]
     script: ExecutionScript
     status: JobStatus
-    user_id: uuid.UUID
     start_date: dt.datetime
     end_date: typing.Optional[dt.datetime] = None
+    user_id: typing.Optional[uuid.UUID] = None
 
     _date_format: str = "%Y-%m-%dT%H:%M:%S.%f"
 

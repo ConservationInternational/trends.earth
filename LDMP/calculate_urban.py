@@ -144,6 +144,7 @@ class DlgCalculateUrbanData(DlgCalculateBase, Ui_DlgCalculateUrbanData):
 
         self.spinBox_pct_urban.valueChanged.connect(self.urban_thresholds_updated)
         self.spinBox_pct_suburban.valueChanged.connect(self.urban_thresholds_updated)
+        self.initiliaze_settings()
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
@@ -180,6 +181,7 @@ class DlgCalculateUrbanData(DlgCalculateBase, Ui_DlgCalculateUrbanData):
         self.close()
 
         crosses_180th, geojsons = self.gee_bounding_box
+
         payload = {
             'un_adju': self.get_pop_def_is_un(),
             'isi_thr': self.spinBox_isi_thr.value(),
@@ -191,11 +193,12 @@ class DlgCalculateUrbanData(DlgCalculateBase, Ui_DlgCalculateUrbanData):
             'geojsons': json.dumps(geojsons),
             'crs': self.aoi.get_crs_dst_wkt(),
             'crosses_180th': crosses_180th,
-            'task_name': self.options_tab.task_name.text(),
+            'task_name': self.execution_name_le.text(),
             'task_notes': self.options_tab.task_notes.toPlainText()
         }
 
         resp = job_manager.submit_remote_job(payload, self.script.id)
+
         if resp:
             main_msg = "Submitted"
             description = (
@@ -219,6 +222,7 @@ class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummar
         self.setupUi(self)
 
         self.add_output_tab(['.xlsx', '.json', '.tif'])
+        self.initiliaze_settings()
 
     def showEvent(self, event):
         super(DlgCalculateUrbanSummaryTable, self).showEvent(event)

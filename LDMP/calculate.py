@@ -1,8 +1,7 @@
-# -*- coding: utf-8 -*-
 """
 /***************************************************************************
  LDMP - A QGIS plugin
- This plugin supports monitoring and reporting of land degradation to the UNCCD 
+ This plugin supports monitoring and reporting of land degradation to the UNCCD
  and in support of the SDG Land Degradation Neutrality (LDN) target.
                               -------------------
         begin                : 2017-05-23
@@ -12,105 +11,88 @@
  ***************************************************************************/
 """
 
-from typing import Optional
-from builtins import object
-import os
-from pathlib import Path
-import json
-import tempfile
+import datetime as dt
+import typing
 import uuid
-from datetime import datetime, timezone
+from pathlib import Path
+from typing import Optional
 
-from osgeo import gdal, ogr, osr
+from osgeo import (
+    gdal,
+    ogr,
+)
 
-from qgis.PyQt import QtWidgets
-from qgis.PyQt.QtGui import QIcon, QPixmap, QDoubleValidator
-from qgis.PyQt.QtCore import (QTextCodec, QSettings, pyqtSignal,
-    QCoreApplication)
+from PyQt5 import (
+    QtCore,
+    QtGui,
+    QtWidgets,
+    uic,
+)
 
-from qgis.core import (QgsFeature, QgsPointXY, QgsGeometry, QgsJsonUtils,
-    QgsVectorLayer, QgsCoordinateTransform, QgsCoordinateReferenceSystem,
-    Qgis, QgsProject, QgsLayerTreeGroup, QgsLayerTreeLayer,
-    QgsVectorFileWriter, QgsFields, QgsWkbTypes,
-    QgsSettings)
+import qgis.gui
+import qgis.core
 from qgis.utils import iface
-from qgis.gui import QgsMapToolEmitPoint, QgsMapToolPan
 
-from LDMP import log, GetTempFilename
-from LDMP.api import run_script
-from LDMP.gui.DlgCalculate import Ui_DlgCalculate
-from LDMP.gui.DlgCalculateLD import Ui_DlgCalculateLD
-from LDMP.gui.DlgCalculateTC import Ui_DlgCalculateTC
-from LDMP.gui.DlgCalculateRestBiomass import Ui_DlgCalculateRestBiomass
-from LDMP.gui.DlgCalculateUrban import Ui_DlgCalculateUrban
-from LDMP.gui.WidgetSelectArea import Ui_WidgetSelectArea
-from LDMP.gui.WidgetCalculationOptions import Ui_WidgetCalculationOptions
-from LDMP.gui.WidgetCalculationOutput import Ui_WidgetCalculationOutput
-from LDMP.download import read_json, get_admin_bounds, get_cities
-from LDMP.worker import AbstractWorker
+from . import (
+    GetTempFilename,
+    download,
+    log,
+    worker,
+)
+from .algorithms import models
+from .conf import (
+    Setting,
+    AreaSetting,
+    KNOWN_SCRIPTS,
+    settings_manager,
+)
 
-mb = iface.messageBar()
-
-
-if QSettings().value("LDMP/binaries_enabled", False, type=bool):
+if settings_manager.get_value(Setting.BINARIES_ENABLED):
     try:
         from trends_earth_binaries.calculate_numba import *
         log("Using numba-compiled version of calculate_numba.")
     except (ModuleNotFoundError, ImportError) as e:
-        from LDMP.calculate_numba import *
+        from .calculate_numba import *
         log("Failed import of numba-compiled code, falling back to python version of calculate_numba.")
 else:
     from LDMP.calculate_numba import *
     log("Using python version of calculate_numba.")
 
+DlgCalculateUi, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/DlgCalculate.ui"))
+DlgCalculateLDUi, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/DlgCalculateLD.ui"))
+DlgCalculateTCUi, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/DlgCalculateTC.ui"))
+DlgCalculateRestBiomassUi, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/DlgCalculateRestBiomass.ui"))
+DlgCalculateUrbanUi, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/DlgCalculateUrban.ui"))
+WidgetCalculationOptionsUi, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/WidgetCalculationOptions.ui"))
+WidgetCalculationOutputUi, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/WidgetCalculationOutput.ui"))
+
+mb = iface.messageBar()
+
 
 class tr_calculate(object):
     def tr(message):
-        return QCoreApplication.translate("tr_calculate", message)
+        return QtCore.QCoreApplication.translate("tr_calculate", message)
 
-# set mapping among GUI interface and algorithm group. Can be done via a JSON configuration as in scripts.py
-# bu algorithms are almost stable (as in alg list in main widget tab) => leaved as static dictionary
-local_scripts = {}
-local_scripts['DlgCalculateLDNSummaryTableAdmin'] = {
-    'group': 'SDG 15.3.1',
-    'display_name': 'Final SDG 15.3.1 - Summary Table',
-    'source': 'final-sdg-15-3-1'
-}
-local_scripts['DlgCalculateUrbanSummaryTable'] = {
-    'group': 'SDG 11.3.1',
-    'display_name': 'Urban Summary Table',
-    'source': 'urban-change-summary-table'
-}
-local_scripts['DlgCalculateRestBiomassSummaryTable'] = {
-    'group': 'Potencial change in biomass',
-    'display_name': 'Rest Biomass Summary Table',
-    'source': 'change-biomass-summary-table'
-}
-local_scripts['DlgCalculateLC'] = {
-    'group': 'SDG 15.3.1',
-    'display_name': 'Land cover (locally)',
-    'source': 'local-land-cover'
-}
-local_scripts['DlgCalculateTCData'] = {
-    'group': 'total-carbon',
-    'display_name': 'Total Carbon (locally)',
-    'source': 'local-total-carbon'
-}
-local_scripts['DlgCalculateSOC'] = {
-    'group': 'SDG 15.3.1',
-    'display_name': 'Soil Organic Carbon (locally)',
-    'source': 'local-soil-organic-carbon'
-}
 
-# Make a function to get a script slug from a script name, including the script 
+# Make a function to get a script slug from a script name, including the script
 # version string
 with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
                        'data', 'scripts.json')) as script_file:
     scripts = json.load(script_file)
+
+
 def get_script_slug(script_name):
     # Note that dots and underscores can't be used in the slugs, so they are 
     # replaced with dashesk
     return (script_name, script_name + '-' + scripts[script_name]['script version'].replace('.', '-'))
+
 
 def get_script_group(script_name) -> Optional[str]:
     # get the configured name of the group that belongs the script
@@ -126,6 +108,7 @@ def get_script_group(script_name) -> Optional[str]:
 
     return group
 
+
 def get_local_script_metadata(script_name) -> Optional[dict]:
     """Get a specific value from local_script dictionary.
     """
@@ -137,6 +120,7 @@ def get_local_script_metadata(script_name) -> Optional[dict]:
 
     return metadata
 
+
 def is_local_script(script_name: str = None) -> bool:
     """check if the script name (aka source) is a local processed alg source.
     """
@@ -145,6 +129,7 @@ def is_local_script(script_name: str = None) -> bool:
     if next((metadata['source'] for metadata in local_scripts.values() if metadata['source'] == script_name), None):
         return True
     return False
+
 
 # Transform CRS of a layer while optionally wrapping geometries
 # across the 180th meridian
@@ -159,13 +144,15 @@ def transform_layer(l, crs_dst, datatype='polygon', wrap=False):
             log('Can\'t wrap layer in non-geographic coordinate system: "{}"'.format(crs_src_string))
             return None
         crs_src_string = crs_src_string + ' +lon_wrap=180'
-    crs_src = QgsCoordinateReferenceSystem()
+    crs_src = qgis.core.QgsCoordinateReferenceSystem()
     crs_src.createFromProj(crs_src_string)
-    t = QgsCoordinateTransform(crs_src, crs_dst, QgsProject.instance())
+    t = qgis.core.QgsCoordinateTransform(crs_src, crs_dst, qgis.core.QgsProject.instance())
 
-    l_w = QgsVectorLayer("{datatype}?crs=proj4:{crs}".format(datatype=datatype, 
-                         crs=crs_dst.toProj()), "calculation boundary (transformed)",  
-                         "memory")
+    l_w = qgis.core.QgsVectorLayer(
+        "{datatype}?crs=proj4:{crs}".format(datatype=datatype, crs=crs_dst.toProj()),
+        "calculation boundary (transformed)",
+        "memory"
+    )
     feats = []
     for f in l.getFeatures():
         geom = f.geometry()
@@ -173,7 +160,7 @@ def transform_layer(l, crs_dst, datatype='polygon', wrap=False):
             n = 0
             p = geom.vertexAt(n)
             # Note vertexAt returns QgsPointXY(0, 0) on error
-            while p != QgsPointXY(0, 0):
+            while p != qgis.core.QgsPointXY(0, 0):
                 if p.x() < 0:
                     geom.moveVertex(p.x() + 360, p.y(), n)
                 n += 1
@@ -207,22 +194,22 @@ class AOI(object):
 
     def update_from_file(self, f, wrap=False):
         log(u'Setting up AOI from file at {}"'.format(f))
-        l = QgsVectorLayer(f, "calculation boundary", "ogr")
+        l = qgis.core.QgsVectorLayer(f, "calculation boundary", "ogr")
         if not l.isValid():
             QtWidgets.QMessageBox.critical(None,
                     tr_calculate.tr("Error"),
                     tr_calculate.tr(u"Unable to load area of interest from {}. There may be a problem with the file or coordinate system. Try manually loading this file into QGIS to verify that it displays properly. If you continue to have problems with this file, send us a message at trends.earth@conservation.org.".format(f)))
             log("Unable to load area of interest.")
             return
-        if l.wkbType() == QgsWkbTypes.Polygon \
-                or l.wkbType() == QgsWkbTypes.PolygonZ \
-                or l.wkbType() == QgsWkbTypes.MultiPolygon \
-                or l.wkbType() == QgsWkbTypes.MultiPolygonZ:
+        if l.wkbType() == qgis.core.QgsWkbTypes.Polygon \
+                or l.wkbType() == qgis.core.QgsWkbTypes.PolygonZ \
+                or l.wkbType() == qgis.core.QgsWkbTypes.MultiPolygon \
+                or l.wkbType() == qgis.core.QgsWkbTypes.MultiPolygonZ:
             self.datatype = "polygon"
-        elif l.wkbType() == QgsWkbTypes.Point \
-                or l.wkbType() == QgsWkbTypes.PointZ \
-                or l.wkbType() == QgsWkbTypes.MultiPoint \
-                or l.wkbType() == QgsWkbTypes.MultiPointZ:
+        elif l.wkbType() == qgis.core.QgsWkbTypes.Point \
+                or l.wkbType() == qgis.core.QgsWkbTypes.PointZ \
+                or l.wkbType() == qgis.core.QgsWkbTypes.MultiPoint \
+                or l.wkbType() == qgis.core.QgsWkbTypes.MultiPointZ:
             self.datatype = "point"
         else:
             QtWidgets.QMessageBox.critical(None,
@@ -238,14 +225,18 @@ class AOI(object):
         log('Setting up AOI with geojson. Wrap is {}.'.format(wrap))
         self.datatype = datatype
         # Note geojson is assumed to be in 4326
-        l = QgsVectorLayer("{datatype}?crs={crs}".format(datatype=self.datatype, crs=crs_src), "calculation boundary", "memory")
+        l = qgis.core.QgsVectorLayer(
+            "{datatype}?crs={crs}".format(datatype=self.datatype, crs=crs_src),
+            "calculation boundary",
+            "memory"
+        )
         ds = ogr.Open(json.dumps(geojson))
         layer_in = ds.GetLayer()
         feats_out = []
         for i in range(0, layer_in.GetFeatureCount()):
             feat_in = layer_in.GetFeature(i)
-            feat = QgsFeature(l.fields())
-            geom = QgsGeometry()
+            feat = qgis.core.QgsFeature(l.fields())
+            geom = qgis.core.QgsGeometry()
             geom.fromWkb(feat_in.geometry().ExportToWkb())
             feat.setGeometry(geom)
             feats_out.append(feat)
@@ -287,18 +278,18 @@ class AOI(object):
                 return None
             geometries.append(geom)
             n += 1
-        union = QgsGeometry.unaryUnion(geometries)
+        union = qgis.core.QgsGeometry.unaryUnion(geometries)
 
         log(u'Calculating east and west intersections to test if AOI crosses 180th meridian.')
-        hemi_e = QgsGeometry.fromWkt('POLYGON ((0 -90, 0 90, 180 90, 180 -90, 0 -90))')
-        hemi_w = QgsGeometry.fromWkt('POLYGON ((-180 -90, -180 90, 0 90, 0 -90, -180 -90))')
+        hemi_e = qgis.core.QgsGeometry.fromWkt('POLYGON ((0 -90, 0 90, 180 90, 180 -90, 0 -90))')
+        hemi_w = qgis.core.QgsGeometry.fromWkt('POLYGON ((-180 -90, -180 90, 0 90, 0 -90, -180 -90))')
         intersections = [hemi.intersection(union) for hemi in [hemi_e, hemi_w]]
 
         if out_type == 'extent':
-            pieces = [QgsGeometry.fromRect(i.boundingBox()) for i in intersections if not i.isEmpty()]
+            pieces = [qgis.core.QgsGeometry.fromRect(i.boundingBox()) for i in intersections if not i.isEmpty()]
         elif out_type == 'layer':
             pieces = [i for i in intersections if not i.isEmpty()]
-        pieces_union = QgsGeometry.unaryUnion(pieces)
+        pieces_union = qgis.core.QgsGeometry.unaryUnion(pieces)
 
         if out_format == 'geojson':
             pieces_txt = [json.loads(piece.asJson()) for piece in pieces]
@@ -359,7 +350,7 @@ class AOI(object):
         return [left, bottom, right, top]
 
     def get_area(self):
-        wgs84_crs = QgsCoordinateReferenceSystem('EPSG:4326')
+        wgs84_crs = qgis.core.QgsCoordinateReferenceSystem('EPSG:4326')
         
         # Returns area of aoi components in sq m
         wkts = self.meridian_split(out_format='wkt', warn=False)[1]
@@ -367,11 +358,11 @@ class AOI(object):
             return None
         area = 0.
         for wkt in wkts:
-            geom = QgsGeometry.fromWkt(wkt)
+            geom = qgis.core.QgsGeometry.fromWkt(wkt)
             # Lambert azimuthal equal area centered on polygon centroid
             centroid = geom.centroid().asPoint()
-            laea_crs = QgsCoordinateReferenceSystem.fromProj('+proj=laea +lat_0={} +lon_0={}'.format(centroid.y(), centroid.x()))
-            to_laea = QgsCoordinateTransform(wgs84_crs, laea_crs, QgsProject.instance())
+            laea_crs = qgis.core.QgsCoordinateReferenceSystem.fromProj('+proj=laea +lat_0={} +lon_0={}'.format(centroid.y(), centroid.x()))
+            to_laea = qgis.core.QgsCoordinateTransform(wgs84_crs, laea_crs, qgis.core.QgsProject.instance())
 
             try:
                 ret = geom.transform(to_laea)
@@ -395,13 +386,13 @@ class AOI(object):
         Return layer in WGS84 (WPGS:4326)
         """
         # Setup settings for AOI provided to GEE:
-        wgs84_crs = QgsCoordinateReferenceSystem()
+        wgs84_crs = qgis.core.QgsCoordinateReferenceSystem()
         wgs84_crs.createFromProj('+proj=longlat +datum=WGS84 +no_defs')
         return transform_layer(self.l, wgs84_crs, datatype=self.datatype, wrap=False)
 
     def bounding_box_geom(self):
         'Returns bounding box in chosen destination coordinate system'
-        return QgsGeometry.fromRect(self.l.extent())
+        return qgis.core.QgsGeometry.fromRect(self.l.extent())
 
     def bounding_box_gee_geojson(self):
         '''
@@ -443,9 +434,9 @@ class AOI(object):
             # centroid
             centroid = geom.centroid().asPoint()
             geom.centroid()
-            wgs84_crs = QgsCoordinateReferenceSystem('EPSG:4326')
-            aeqd_crs = QgsCoordinateReferenceSystem.fromProj('+proj=aeqd +lat_0={} +lon_0={}'.format(centroid.y(), centroid.x()))
-            to_aeqd = QgsCoordinateTransform(wgs84_crs, aeqd_crs, QgsProject.instance())
+            wgs84_crs = qgis.core.QgsCoordinateReferenceSystem('EPSG:4326')
+            aeqd_crs = qgis.core.QgsCoordinateReferenceSystem.fromProj('+proj=aeqd +lat_0={} +lon_0={}'.format(centroid.y(), centroid.x()))
+            to_aeqd = qgis.core.QgsCoordinateTransform(wgs84_crs, aeqd_crs, qgis.core.QgsProject.instance())
 
             try:
                 ret = geom.transform(to_aeqd)
@@ -457,14 +448,16 @@ class AOI(object):
             # Need to convert from km to meters
             geom_buffered = geom.buffer(d * 1000, 100)
             log('Feature area in sq km after buffering (and in aeqd) is: {}'.format(geom_buffered.area()/(1000 * 1000)))
-            geom_buffered.transform(to_aeqd, QgsCoordinateTransform.TransformDirection.ReverseTransform)
+            geom_buffered.transform(to_aeqd, qgis.core.QgsCoordinateTransform.TransformDirection.ReverseTransform)
             f.setGeometry(geom_buffered)
             feats.append(f)
             log('Feature area after buffering (and in WGS84) is: {}'.format(geom_buffered.area()))
 
-        l_buffered = QgsVectorLayer("polygon?crs=proj4:{crs}".format(crs=self.l.crs().toProj()),
-                                    "calculation boundary (transformed)",  
-                                    "memory")
+        l_buffered = qgis.core.QgsVectorLayer(
+            "polygon?crs=proj4:{crs}".format(crs=self.l.crs().toProj()),
+            "calculation boundary (transformed)",
+            "memory"
+        )
         l_buffered.dataProvider().addFeatures(feats)
         l_buffered.commitChanges()
 
@@ -499,9 +492,9 @@ class AOI(object):
         return frac
 
 
-class DlgCalculate(QtWidgets.QDialog, Ui_DlgCalculate):
+class DlgCalculate(QtWidgets.QDialog, DlgCalculateUi):
     def __init__(self, parent=None):
-        super(DlgCalculate, self).__init__(parent)
+        super().__init__(parent)
 
         self.setupUi(self)
 
@@ -532,9 +525,9 @@ class DlgCalculate(QtWidgets.QDialog, Ui_DlgCalculate):
         result = self.dlg_calculate_urban.exec_()
 
 
-class DlgCalculateLD(QtWidgets.QDialog, Ui_DlgCalculateLD):
+class DlgCalculateLD(QtWidgets.QDialog, DlgCalculateLDUi):
     def __init__(self, parent=None):
-        super(DlgCalculateLD, self).__init__(parent)
+        super().__init__(parent)
 
         self.setupUi(self)
 
@@ -581,9 +574,9 @@ class DlgCalculateLD(QtWidgets.QDialog, Ui_DlgCalculateLD):
                                       self.tr("Multiple polygon summary table calculation coming soon!"))
 
 
-class DlgCalculateTC(QtWidgets.QDialog, Ui_DlgCalculateTC):
+class DlgCalculateTC(QtWidgets.QDialog, DlgCalculateTCUi):
     def __init__(self, parent=None):
-        super(DlgCalculateTC, self).__init__(parent)
+        super().__init__(parent)
 
         self.setupUi(self)
 
@@ -605,9 +598,9 @@ class DlgCalculateTC(QtWidgets.QDialog, Ui_DlgCalculateTC):
         result = self.dlg_calculate_tc_summary.exec_()
 
 
-class DlgCalculateRestBiomass(QtWidgets.QDialog, Ui_DlgCalculateRestBiomass):
+class DlgCalculateRestBiomass(QtWidgets.QDialog, DlgCalculateRestBiomassUi):
     def __init__(self, parent=None):
-        super(DlgCalculateRestBiomass, self).__init__(parent)
+        super().__init__(parent)
 
         self.setupUi(self)
 
@@ -629,9 +622,9 @@ class DlgCalculateRestBiomass(QtWidgets.QDialog, Ui_DlgCalculateRestBiomass):
         result = self.dlg_calculate_rest_biomass_summary.exec_()
 
 
-class DlgCalculateUrban(QtWidgets.QDialog, Ui_DlgCalculateUrban):
+class DlgCalculateUrban(QtWidgets.QDialog, DlgCalculateUrbanUi):
     def __init__(self, parent=None):
-        super(DlgCalculateUrban, self).__init__(parent)
+        super().__init__(parent)
 
         self.setupUi(self)
 
@@ -653,7 +646,7 @@ class DlgCalculateUrban(QtWidgets.QDialog, Ui_DlgCalculateUrban):
         result = self.dlg_calculate_urban_summary.exec_()
 
 
-class CalculationOptionsWidget(QtWidgets.QWidget, Ui_WidgetCalculationOptions):
+class CalculationOptionsWidget(QtWidgets.QWidget, WidgetCalculationOptionsUi):
     def __init__(self, parent=None):
         super(CalculationOptionsWidget, self).__init__(parent)
 
@@ -668,19 +661,20 @@ class CalculationOptionsWidget(QtWidgets.QWidget, Ui_WidgetCalculationOptions):
     def showEvent(self, event):
         super(CalculationOptionsWidget, self).showEvent(event)
 
-        local_data_folder = QSettings().value("LDMP/localdata_dir", None)
+        local_data_folder = QtCore.QSettings().value("LDMP/localdata_dir", None)
         if local_data_folder and os.access(local_data_folder, os.R_OK):
             self.lineEdit_local_data_folder.setText(local_data_folder)
         else:
             self.lineEdit_local_data_folder.setText(None)
-        self.task_name.setText(QSettings().value("LDMP/CalculationOptionsWidget/task_name", None))
-        self.task_notes.setHtml(QSettings().value("LDMP/CalculationOptionsWidget/task_notes", None))
+        self.task_name.setText(settings_manager.get_value(Setting.STORED_TASK_NAME))
+        self.task_notes.setText(settings_manager.get_value(Setting.STORED_TASK_NOTES))
 
     def task_name_changed(self, value=None):
-        QSettings().setValue("LDMP/CalculationOptionsWidget/task_name", value)
+        settings_manager.write_value(Setting.STORED_TASK_NAME, value)
 
     def task_notes_changed(self):
-        QSettings().setValue("LDMP/CalculationOptionsWidget/task_notes", self.task_notes.toHtml())
+        settings_manager.write_value(
+            Setting.STORED_TASK_NOTES, self.task_notes.toHtml())
 
     def radioButton_run_in_cloud_changed(self):
         if self.radioButton_run_in_cloud.isChecked():
@@ -693,12 +687,14 @@ class CalculationOptionsWidget(QtWidgets.QWidget, Ui_WidgetCalculationOptions):
     def open_folder_browse(self):
         self.lineEdit_local_data_folder.clear()
 
-        folder = QtWidgets.QFileDialog.getExistingDirectory(self,
-                                                        self.tr('Select folder containing data'),
-                                                        QSettings().value("LDMP/localdata_dir", None))
+        folder = QtWidgets.QFileDialog.getExistingDirectory(
+            self,
+            self.tr('Select folder containing data'),
+            QtCore.QSettings().value("LDMP/localdata_dir", None)
+        )
         if folder:
             if os.access(folder, os.R_OK):
-                QSettings().setValue("LDMP/localdata_dir", os.path.dirname(folder))
+                QtCore.QSettings().setValue("LDMP/localdata_dir", os.path.dirname(folder))
                 self.lineEdit_local_data_folder.setText(folder)
                 return True
             else:
@@ -717,7 +713,7 @@ class CalculationOptionsWidget(QtWidgets.QWidget, Ui_WidgetCalculationOptions):
             self.groupBox_where_to_run.hide()
 
 
-class CalculationOutputWidget(QtWidgets.QWidget, Ui_WidgetCalculationOutput):
+class CalculationOutputWidget(QtWidgets.QWidget, WidgetCalculationOutputUi):
     def __init__(self, suffixes, subclass_name, parent=None):
         super(CalculationOutputWidget, self).__init__(parent)
 
@@ -729,11 +725,11 @@ class CalculationOutputWidget(QtWidgets.QWidget, Ui_WidgetCalculationOutput):
         self.browse_output_basename.clicked.connect(self.select_output_basename)
 
     def select_output_basename(self):
-        local_name = QSettings().value("LDMP/output_basename_{}".format(self.subclass_name), None)
+        local_name = QtCore.QSettings().value("LDMP/output_basename_{}".format(self.subclass_name), None)
         if local_name:
             initial_path = local_name
         else:
-            initial_path = QSettings().value("LDMP/output_dir", None)
+            initial_path = QtCore.QSettings().value("LDMP/output_dir", None)
 
 
         f, _ = QtWidgets.QFileDialog.getSaveFileName(self,
@@ -743,8 +739,8 @@ class CalculationOutputWidget(QtWidgets.QWidget, Ui_WidgetCalculationOutput):
 
         if f:
             if os.access(os.path.dirname(f), os.W_OK):
-                QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
-                QSettings().setValue("LDMP/output_basename_{}".format(self.subclass_name), f)
+                QtCore.QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
+                QtCore.QSettings().setValue("LDMP/output_basename_{}".format(self.subclass_name), f)
                 self.output_basename.setText(f)
                 self.set_output_summary(f)
             else:
@@ -776,7 +772,10 @@ class CalculationOutputWidget(QtWidgets.QWidget, Ui_WidgetCalculationOutput):
         return True
 
 
-class CalculationHidedOutputWidget(QtWidgets.QWidget, Ui_WidgetCalculationOutput):
+class CalculationHidedOutputWidget(QtWidgets.QWidget, WidgetCalculationOutputUi):
+    process_id: uuid.UUID
+    process_datetime: dt.datetime
+
     def __init__(self, suffixes, subclass_name, parent=None):
         super(CalculationHidedOutputWidget, self).__init__(parent)
 
@@ -785,7 +784,6 @@ class CalculationHidedOutputWidget(QtWidgets.QWidget, Ui_WidgetCalculationOutput
 
         self.process_id = None
         self.process_datetime = None
-        self.process_datetime_str = None
 
         self.setupUi(self)
         self.hide()
@@ -796,16 +794,13 @@ class CalculationHidedOutputWidget(QtWidgets.QWidget, Ui_WidgetCalculationOutput
         #self.set_output_basename() 
 
     def set_output_basename(self, alg_name: str = '', task_name: str = ''):
-        """Set default ouptut filename of the local calculation.
-        """
-        self.process_id = str(uuid.uuid4())
-        self.process_datetime = datetime.now(timezone.utc)
-        self.process_datetime_str = self.process_datetime.isoformat()
+        """Set default output filename of the local calculation."""
+        self.process_id = uuid.uuid4()
+        self.process_datetime = dt.datetime.now(dt.timezone.utc)
 
-        # TODO: check where used "LDMP/output_dir" to avoid side effects
 
         # path where to store result
-        base_data_directory = QSettings().value("trends_earth/advanced/base_data_directory", None, type=str)
+        base_data_directory = settings_manager.get_value(Setting.BASE_DIR)
         if not base_data_directory:
             return
 
@@ -835,7 +830,7 @@ class CalculationHidedOutputWidget(QtWidgets.QWidget, Ui_WidgetCalculationOutput
         if os.access(os.path.dirname(f), os.W_OK):
             log(f'Writing outputs with basename: {f}')
 
-            QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
+            QtCore.QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
             self.output_basename.setText(f)
             self.set_output_summary(f)
         else:
@@ -855,36 +850,44 @@ class CalculationHidedOutputWidget(QtWidgets.QWidget, Ui_WidgetCalculationOutput
 
 class DlgCalculateBase(QtWidgets.QDialog):
     """Base class for individual indicator calculate dialogs"""
-    firstShowEvent = pyqtSignal()
+    iface: qgis.gui.QgisInterface
+    canvas: qgis.gui.QgsMapCanvas
+    admin_bounds_key: typing.Dict[str, download.Country]
+    cities: typing.Dict[str, typing.Dict[str, download.City]]
+    script: models.ExecutionScript
+    datasets: typing.Dict[str, typing.Dict]
+    _has_output: bool
+    _firstShowEvent: bool
+    reset_tab_on_showEvent: bool
+    _max_area: int = 5e7  # maximum size task the tool supports
+
+    firstShowEvent = QtCore.pyqtSignal()
 
     @classmethod
     def get_subclass_name(cls):
         return cls.__name__
 
-    def __init__(self, parent=None):
-        super(DlgCalculateBase, self).__init__(parent)
-
-        with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
-                               'data', 'scripts.json')) as script_file:
-            self.scripts = json.load(script_file)
-
-        with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
-                               'data', 'gee_datasets.json')) as datasets_file:
-            self.datasets = json.load(datasets_file)
-
+    def __init__(
+            self,
+            iface: qgis.gui.QgisInterface,
+            script: models.ExecutionScript,
+            parent: QtWidgets.QWidget = None
+    ):
+        super().__init__(parent)
+        self.iface = iface
+        self.script = script
         self._has_output = False
         self._firstShowEvent = True
         self.reset_tab_on_showEvent = True
-        self._max_area = 5e7 # maximum size task the tool supports
-        self.settings = QgsSettings()
-
         self.canvas = iface.mapCanvas()
+        self.settings = qgis.core.QgsSettings()
 
-        self.admin_bounds_key = get_admin_bounds()
+        self.admin_bounds_key = download.get_admin_bounds()
         if not self.admin_bounds_key:
             raise ValueError('Admin boundaries not available')
 
-        self.cities = get_cities()
+
+        self.cities = download.get_cities()
         if not self.cities:
             raise ValueError('Cities list not available')
 
@@ -908,7 +911,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
         # saved values in QSettings
         # NOTE: now output value is set automagically
         # if self._has_output:
-        #     f = QSettings().value("LDMP/output_basename_{}".format(self.get_subclass_name()), None)
+        #     f = QtCore.QSettings().value("LDMP/output_basename_{}".format(self.get_subclass_name()), None)
         #     if f:
         #         self.output_tab.output_basename.setText(f)
         #         self.output_tab.set_output_summary(f)
@@ -968,28 +971,56 @@ class DlgCalculateBase(QtWidgets.QDialog):
     def btn_cancel(self):
         self.close()
 
-    def get_city_geojson(self):
-        adm0_a3 = self.admin_bounds_key[self.settings.value(
-            "trends_earth/region_of_interest/country/country_name")]['code']
-        wof_id = self.settings.value("trends_earth/region_of_interest/current_cities_key")[
-            self.settings.value("trends_earth/region_of_interest/country/city_name")
-        ]
-        return (self.cities[adm0_a3][wof_id]['geojson'])
+    def get_city_geojson(self) -> typing.Dict:
+        current_country = settings_manager.get_value(Setting.COUNTRY_NAME)
+        country_code = self.admin_bounds_key[current_country].code
+        current_city = settings_manager.get_value(Setting.CITY_NAME)
+        current_country_cities = settings_manager.get_value(Setting.CITY_KEY)
+        wof_id = current_country_cities[current_city]
+        return self.cities[country_code][wof_id].geojson
 
     def get_admin_poly_geojson(self):
-        adm0_a3 = self.admin_bounds_key[self.settings.value(
-            "trends_earth/region_of_interest/country/country_name")]['code']
-        admin_polys = read_json(u'admin_bounds_polys_{}.json.gz'.format(adm0_a3), verify=False)
+        current_country = settings_manager.get_value(Setting.COUNTRY_NAME)
+        country_code = self.admin_bounds_key[current_country].code
+        admin_polys_filename = f"admin_bounds_polys_{country_code}"
+        admin_polys = download.read_json(admin_polys_filename, verify=False)
         if not admin_polys:
             return None
-        if not self.settings.value("trends_earth/region_of_interest/country/region_name") or \
-                self.settings.value("trends_earth/region_of_interest/country/region_name") == 'All regions':
-            return (admin_polys['geojson'])
+        current_region = settings_manager.get_value(Setting.REGION_NAME)
+        if not current_region or current_region.lower() == "all regions":
+            result = admin_polys['geojson']
         else:
-            admin_1_code = self.admin_bounds_key[self.settings.value(
-                "trends_earth/region_of_interest/country/country_name")][
-                'admin1'][self.settings.value("trends_earth/region_of_interest/country/region_name")]['code']
-            return (admin_polys['admin1'][admin_1_code]['geojson'])
+            region_code = self.admin_bounds_key[
+                current_country].level1_regions[current_region]
+            result = admin_polys["admin1"][region_code]["geojson"]
+        return result
+
+    def validate_country_region(
+            self) -> typing.Tuple[typing.Optional[typing.Dict], str]:
+        error_msg  = ""
+        country_name = settings_manager.get_value(Setting.COUNTRY_NAME)
+        if not country_name:
+            geojson = None
+            error_msg = "Choose a first level administrative boundary."
+
+        geojson = self.get_admin_poly_geojson()
+        if not geojson:
+            geojson = None
+            error_msg = "Unable to load administrative boundaries."
+        return geojson, error_msg
+
+    def validate_vector_path(self) -> typing.Tuple[Path, str]:
+        error_msg = ""
+        try:
+            vector_path = Path(settings_manager.get_value(Setting.VECTOR_FILE_PATH))
+        except TypeError:
+            vector_path = None
+            error_msg = "Choose a file to define the area of interest."
+        else:
+            if not vector_path.is_file():
+                error_msg = f"File {vector_path!r} cannot be accessed"
+        return vector_path, error_msg
+
 
     def btn_calculate(self):
         # setup output. Setting here at every run to allow setting a new id value each run plus
@@ -1001,59 +1032,58 @@ class DlgCalculateBase(QtWidgets.QDialog):
             )
 
         if self.settings.value("trends_earth/region_of_interest/custom_crs_enabled", False, type=bool):
-            crs_dst = QgsCoordinateReferenceSystem(
+            crs_dst = qgis.core.QgsCoordinateReferenceSystem(
                 self.settings.value("trends_earth/region_of_interest/custom_crs")
             )
         else:
-            crs_dst = QgsCoordinateReferenceSystem('epsg:4326')
+            crs_dst = qgis.core.QgsCoordinateReferenceSystem('epsg:4326')
 
         self.aoi = AOI(crs_dst)
 
-        if self.settings.value("trends_earth/region_of_interest/chosen_method") == 'country_region' or \
-                self.settings.value("trends_earth/region_of_interest/chosen_method") == 'country_city':
-            if self.settings.value("trends_earth/region_of_interest/chosen_method") == 'country_city':
-                if not self.settings.value("trends_earth/region_of_interest/buffer_checked", False, type=bool) :
-                    QtWidgets.QMessageBox.critical(None,tr_calculate.tr("Error"),
-                           tr_calculate.tr("You have chosen to run calculations for a city."
-                                            "You must select a buffer distance to define the "
-                                           "calculation area when you are processing a city."))
-                    return False
-                geojson = self.get_city_geojson()
-                self.aoi.update_from_geojson(geojson=geojson, 
-                                             wrap=self.settings.value(
-                                                 "trends_earth/region_of_interest/custom_crs_wrap"),
-                                             datatype='point')
-            else:
-                if not self.settings.value("trends_earth/region_of_interest/country/country_name"):
-                    QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                               self.tr("Choose a first level administrative boundary."))
-                    return False
-                self.button_calculate.setEnabled(False)
-                geojson = self.get_admin_poly_geojson()
-                self.button_calculate.setEnabled(True)
-                if not geojson:
-                    QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                               self.tr("Unable to load administrative boundaries."))
-                    return False
-                self.aoi.update_from_geojson(geojson=geojson, 
-                                             wrap=self.settings.value(
-                                                 "trends_earth/region_of_interest/custom_crs_wrap"))
-        elif self.settings.value("trends_earth/region_of_interest/chosen_method") == 'vector_layer':
-            if not self.settings.value("trends_earth/region_of_interest/vector_layer"):
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Choose a file to define the area of interest."))
+        area_method = settings_manager.get_value(Setting.AREA_FROM_OPTION)
+        has_buffer = settings_manager.get_value(Setting.BUFFER_CHECKED)
+        if area_method == AreaSetting.COUNTRY_CITY.value and not has_buffer:
+            QtWidgets.QMessageBox.critical(
+                None,
+                tr_calculate.tr("Error"),
+                tr_calculate.tr(
+                    "You have chosen to run calculations for a city. You must select "
+                    "a buffer distance to define the calculation area when you are "
+                    "processing a city."
+                )
+            )
+            return False
+        elif area_method == AreaSetting.COUNTRY_CITY.value:
+            geojson = self.get_city_geojson()
+            self.aoi.update_from_geojson(
+                geojson=geojson,
+                wrap=self.settings.value("trends_earth/region_of_interest/custom_crs_wrap"),  # FIXME
+                datatype='point'
+            )
+        elif area_method == AreaSetting.COUNTRY_REGION.value:
+            geojson, error_msg = self.validate_country_region()
+            if geojson is None:
+                QtWidgets.QMessageBox.critical(
+                    None, self.tr("Error"), self.tr(error_msg))
                 return False
-            if not os.access(self.settings.value("trends_earth/region_of_interest/vector_layer"), os.R_OK):
-                QtWidgets.QMessageBox.critical(None,
-                                               self.tr("Error"),
-                                               self.tr("Unable to read {}.".format(
-                                                   self.settings.value(
-                                                       "trends_earth/region_of_interest/vector_layer")
-                                               )))
+
+            self.aoi.update_from_geojson(
+                geojson=geojson,
+                wrap=self.settings.value(
+                    "trends_earth/region_of_interest/custom_crs_wrap")  # FIXME
+            )
+        elif area_method == AreaSetting.VECTOR_LAYER.value:
+            vector_path, error_msg = self.validate_vector_path()
+            if vector_path is None:
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr(error_msg))
                 return False
-            self.aoi.update_from_file(f=self.settings.value("trends_earth/region_of_interest/area_vector_layer"),
-                                      wrap=self.settings.value(
-                                                 "trends_earth/region_of_interest/custom_crs_wrap"))
+
+            self.aoi.update_from_file(
+                f=self.settings.value(
+                    "trends_earth/region_of_interest/area_vector_layer"),
+                wrap=self.settings.value(
+                    "trends_earth/region_of_interest/custom_crs_wrap")
+            )
         elif self.settings.value("trends_earth/region_of_interest/chosen_method") == 'point':
             # Area from point
             if not self.settings.value("trends_earth/region_of_interest/point/x") or not \
@@ -1061,11 +1091,11 @@ class DlgCalculateBase(QtWidgets.QDialog):
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Choose a point to define the area of interest."))
                 return False
-            point = QgsPointXY(float(self.settings.value("trends_earth/region_of_interest/point/x")),
+            point = qgis.core.QgsPointXY(float(self.settings.value("trends_earth/region_of_interest/point/x")),
                                float(self.settings.value("trends_earth/region_of_interest/point/y")))
-            crs_src = QgsCoordinateReferenceSystem(self.canvas.mapSettings().destinationCrs().authid())
-            point = QgsCoordinateTransform(crs_src, crs_dst, QgsProject.instance()).transform(point)
-            geojson = json.loads(QgsGeometry.fromPointXY(point).asJson())
+            crs_src = qgis.core.QgsCoordinateReferenceSystem(self.canvas.mapSettings().destinationCrs().authid())
+            point = qgis.core.QgsCoordinateTransform(crs_src, crs_dst, qgis.core.QgsProject.instance()).transform(point)
+            geojson = json.loads(qgis.core.QgsGeometry.fromPointXY(point).asJson())
             self.aoi.update_from_geojson(geojson=geojson, 
                                          wrap=self.settings.value(
                                                  "trends_earth/region_of_interest/custom_crs_wrap", False, type=bool),
@@ -1154,9 +1184,9 @@ class DlgCalculateBase(QtWidgets.QDialog):
         return metadata
 
 
-class ClipWorker(AbstractWorker):
+class ClipWorker(worker.AbstractWorker):
     def __init__(self, in_file, out_file, geojson, output_bounds=None):
-        AbstractWorker.__init__(self)
+        worker.AbstractWorker.__init__(self)
 
         self.in_file = in_file
         self.out_file = out_file
@@ -1197,9 +1227,9 @@ class ClipWorker(AbstractWorker):
             return True
 
 
-class MaskWorker(AbstractWorker):
+class MaskWorker(worker.AbstractWorker):
     def __init__(self, out_file, geojson, model_file=None):
-        AbstractWorker.__init__(self)
+        worker.AbstractWorker.__init__(self)
 
         self.out_file = out_file
         self.geojson = geojson

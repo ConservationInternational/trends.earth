@@ -14,15 +14,22 @@
 
 from builtins import str
 from builtins import range
+import typing
 import os
 import json
 from operator import attrgetter
+from pathlib import Path
 from math import floor, log10
 
 from marshmallow import ValidationError
 
-from qgis.core import (QgsColorRampShader, QgsRasterShader, 
-        QgsSingleBandPseudoColorRenderer, QgsRasterLayer, QgsProject)
+from qgis.core import (
+    QgsColorRampShader,
+    QgsRasterShader,
+    QgsSingleBandPseudoColorRenderer,
+    QgsRasterLayer,
+    QgsProject
+)
 from qgis.utils import iface
 mb = iface.messageBar()
 
@@ -499,20 +506,32 @@ def get_band_title(band_info):
     else:
         return band_info['name']
 
-def delete_layer_by_filename(f):
-    f = os.path.abspath(f)
+
+def find_loaded_layer_id(layer_path: Path) -> typing.Optional[str]:
     project = QgsProject.instance()
-    for lyr_id in project.mapLayers():
-        lyr = project.mapLayer(lyr_id)
-        source = os.path.abspath(lyr.source())
-        if source == f:
-            log('Removing map layer prior to deletion of {}'.format(f))
-            project.removeMapLayer(lyr_id)
-            try:
-                log('Removing file {}'.format(f))
-                os.remove(f)
-            except:
-                log('Error removing file at {}'.format(f))
-                return False
+    for layer_id in project.mapLayers():
+        layer = project.mapLayer(layer_id)
+        layer_source = os.path.abspath(layer.source())
+        if layer_source == str(layer_path):
+            result = layer_id
             break
-    return True
+    else:
+        result = None
+    return result
+
+
+def delete_layer_by_filename(f: str) -> bool:
+    path = Path(os.path.abspath(f))
+    project = QgsProject.instance()
+    layer_id = find_loaded_layer_id(path)
+    if layer_id is not None:
+        project.removeMapLayer(layer_id)
+    else:
+        log(f"Path {path} is not currently loaded on QGIS")
+    result = False
+    try:
+        path.unlink()
+        result = True
+    except FileNotFoundError:  # file already deleted
+        pass
+    return result

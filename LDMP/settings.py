@@ -202,6 +202,9 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
 
 
 class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
+    admin_bounds_key: typing.Dict[str, download.Country]
+    cities: typing.Dict[str, typing.Dict[str, download.City]]
+
     def __init__(self, parent=None):
         super(AreaWidget, self).__init__(parent)
 
@@ -301,15 +304,21 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 
     def populate_cities(self):
         self.secondLevel_city.clear()
-        adm0_a3 = self.admin_bounds_key[self.area_admin_0.currentText()]['code']
-        self.current_cities_key = {value['name_en']: key for key, value in self.cities[adm0_a3].items()}
+        country_code = self.admin_bounds_key[self.area_admin_0.currentText()].code
+        self.current_cities_key = {}
+        for wof_id, city in self.cities[country_code].items():
+            self.current_cities_key[city.name_en] = wof_id
         self.secondLevel_city.addItems(sorted(self.current_cities_key.keys()))
 
     def populate_admin_1(self):
         self.secondLevel_area_admin_1.clear()
         self.secondLevel_area_admin_1.addItems(['All regions'])
         self.secondLevel_area_admin_1.addItems(
-            sorted(self.admin_bounds_key[self.area_admin_0.currentText()]['admin1'].keys()))
+            sorted(
+                self.admin_bounds_key[
+                    self.area_admin_0.currentText()].level1_regions.keys()
+            )
+        )
 
     def area_type_toggle(self):
         # if self.area_frompoint.isChecked():

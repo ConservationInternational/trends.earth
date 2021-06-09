@@ -42,6 +42,7 @@ from . import (
 from .algorithms import models
 from .conf import (
     Setting,
+    AreaSetting,
     KNOWN_SCRIPTS,
     settings_manager,
 )
@@ -772,6 +773,9 @@ class CalculationOutputWidget(QtWidgets.QWidget, WidgetCalculationOutputUi):
 
 
 class CalculationHidedOutputWidget(QtWidgets.QWidget, WidgetCalculationOutputUi):
+    process_id: uuid.UUID
+    process_datetime: dt.datetime
+
     def __init__(self, suffixes, subclass_name, parent=None):
         super(CalculationHidedOutputWidget, self).__init__(parent)
 
@@ -780,7 +784,6 @@ class CalculationHidedOutputWidget(QtWidgets.QWidget, WidgetCalculationOutputUi)
 
         self.process_id = None
         self.process_datetime = None
-        self.process_datetime_str = None
 
         self.setupUi(self)
         self.hide()
@@ -791,13 +794,10 @@ class CalculationHidedOutputWidget(QtWidgets.QWidget, WidgetCalculationOutputUi)
         #self.set_output_basename() 
 
     def set_output_basename(self, alg_name: str = '', task_name: str = ''):
-        """Set default ouptut filename of the local calculation.
-        """
-        self.process_id = str(uuid.uuid4())
+        """Set default output filename of the local calculation."""
+        self.process_id = uuid.uuid4()
         self.process_datetime = dt.datetime.now(dt.timezone.utc)
-        self.process_datetime_str = self.process_datetime.isoformat()
 
-        # TODO: check where used "LDMP/output_dir" to avoid side effects
 
         # path where to store result
         base_data_directory = settings_manager.get_value(Setting.BASE_DIR)
@@ -852,10 +852,10 @@ class DlgCalculateBase(QtWidgets.QDialog):
     """Base class for individual indicator calculate dialogs"""
     iface: qgis.gui.QgisInterface
     canvas: qgis.gui.QgsMapCanvas
-    cities: typing.Dict
+    admin_bounds_key: typing.Dict[str, download.Country]
+    cities: typing.Dict[str, typing.Dict[str, download.City]]
     script: models.ExecutionScript
     datasets: typing.Dict[str, typing.Dict]
-    admin_bounds_key: typing.Dict
     _has_output: bool
     _firstShowEvent: bool
     reset_tab_on_showEvent: bool
@@ -880,10 +880,12 @@ class DlgCalculateBase(QtWidgets.QDialog):
         self._firstShowEvent = True
         self.reset_tab_on_showEvent = True
         self.canvas = iface.mapCanvas()
+        self.settings = qgis.core.QgsSettings()
 
         self.admin_bounds_key = download.get_admin_bounds()
         if not self.admin_bounds_key:
             raise ValueError('Admin boundaries not available')
+
 
         self.cities = download.get_cities()
         if not self.cities:
@@ -969,28 +971,56 @@ class DlgCalculateBase(QtWidgets.QDialog):
     def btn_cancel(self):
         self.close()
 
-    def get_city_geojson(self):
-        adm0_a3 = self.admin_bounds_key[self.settings.value(
-            "trends_earth/region_of_interest/country/country_name")]['code']
-        wof_id = self.settings.value("trends_earth/region_of_interest/current_cities_key")[
-            self.settings.value("trends_earth/region_of_interest/country/city_name")
-        ]
-        return (self.cities[adm0_a3][wof_id]['geojson'])
+    def get_city_geojson(self) -> typing.Dict:
+        current_country = settings_manager.get_value(Setting.COUNTRY_NAME)
+        country_code = self.admin_bounds_key[current_country].code
+        current_city = settings_manager.get_value(Setting.CITY_NAME)
+        current_country_cities = settings_manager.get_value(Setting.CITY_KEY)
+        wof_id = current_country_cities[current_city]
+        return self.cities[country_code][wof_id].geojson
 
     def get_admin_poly_geojson(self):
-        adm0_a3 = self.admin_bounds_key[self.settings.value(
-            "trends_earth/region_of_interest/country/country_name")]['code']
-        admin_polys = download.read_json(u'admin_bounds_polys_{}.json.gz'.format(adm0_a3), verify=False)
+        current_country = settings_manager.get_value(Setting.COUNTRY_NAME)
+        country_code = self.admin_bounds_key[current_country].code
+        admin_polys_filename = f"admin_bounds_polys_{country_code}"
+        admin_polys = download.read_json(admin_polys_filename, verify=False)
         if not admin_polys:
             return None
-        if not self.settings.value("trends_earth/region_of_interest/country/region_name") or \
-                self.settings.value("trends_earth/region_of_interest/country/region_name") == 'All regions':
-            return (admin_polys['geojson'])
+        current_region = settings_manager.get_value(Setting.REGION_NAME)
+        if not current_region or current_region.lower() == "all regions":
+            result = admin_polys['geojson']
         else:
-            admin_1_code = self.admin_bounds_key[self.settings.value(
-                "trends_earth/region_of_interest/country/country_name")][
-                'admin1'][self.settings.value("trends_earth/region_of_interest/country/region_name")]['code']
-            return (admin_polys['admin1'][admin_1_code]['geojson'])
+            region_code = self.admin_bounds_key[
+                current_country].level1_regions[current_region]
+            result = admin_polys["admin1"][region_code]["geojson"]
+        return result
+
+    def validate_country_region(
+            self) -> typing.Tuple[typing.Optional[typing.Dict], str]:
+        error_msg  = ""
+        country_name = settings_manager.get_value(Setting.COUNTRY_NAME)
+        if not country_name:
+            geojson = None
+            error_msg = "Choose a first level administrative boundary."
+
+        geojson = self.get_admin_poly_geojson()
+        if not geojson:
+            geojson = None
+            error_msg = "Unable to load administrative boundaries."
+        return geojson, error_msg
+
+    def validate_vector_path(self) -> typing.Tuple[Path, str]:
+        error_msg = ""
+        try:
+            vector_path = Path(settings_manager.get_value(Setting.VECTOR_FILE_PATH))
+        except TypeError:
+            vector_path = None
+            error_msg = "Choose a file to define the area of interest."
+        else:
+            if not vector_path.is_file():
+                error_msg = f"File {vector_path!r} cannot be accessed"
+        return vector_path, error_msg
+
 
     def btn_calculate(self):
         # setup output. Setting here at every run to allow setting a new id value each run plus
@@ -1010,51 +1040,50 @@ class DlgCalculateBase(QtWidgets.QDialog):
 
         self.aoi = AOI(crs_dst)
 
-        if self.settings.value("trends_earth/region_of_interest/chosen_method") == 'country_region' or \
-                self.settings.value("trends_earth/region_of_interest/chosen_method") == 'country_city':
-            if self.settings.value("trends_earth/region_of_interest/chosen_method") == 'country_city':
-                if not self.settings.value("trends_earth/region_of_interest/buffer_checked", False, type=bool) :
-                    QtWidgets.QMessageBox.critical(None,tr_calculate.tr("Error"),
-                           tr_calculate.tr("You have chosen to run calculations for a city."
-                                            "You must select a buffer distance to define the "
-                                           "calculation area when you are processing a city."))
-                    return False
-                geojson = self.get_city_geojson()
-                self.aoi.update_from_geojson(geojson=geojson, 
-                                             wrap=self.settings.value(
-                                                 "trends_earth/region_of_interest/custom_crs_wrap"),
-                                             datatype='point')
-            else:
-                if not self.settings.value("trends_earth/region_of_interest/country/country_name"):
-                    QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                               self.tr("Choose a first level administrative boundary."))
-                    return False
-                self.button_calculate.setEnabled(False)
-                geojson = self.get_admin_poly_geojson()
-                self.button_calculate.setEnabled(True)
-                if not geojson:
-                    QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                               self.tr("Unable to load administrative boundaries."))
-                    return False
-                self.aoi.update_from_geojson(geojson=geojson, 
-                                             wrap=self.settings.value(
-                                                 "trends_earth/region_of_interest/custom_crs_wrap"))
-        elif self.settings.value("trends_earth/region_of_interest/chosen_method") == 'vector_layer':
-            if not self.settings.value("trends_earth/region_of_interest/vector_layer"):
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Choose a file to define the area of interest."))
+        area_method = settings_manager.get_value(Setting.AREA_FROM_OPTION)
+        has_buffer = settings_manager.get_value(Setting.BUFFER_CHECKED)
+        if area_method == AreaSetting.COUNTRY_CITY.value and not has_buffer:
+            QtWidgets.QMessageBox.critical(
+                None,
+                tr_calculate.tr("Error"),
+                tr_calculate.tr(
+                    "You have chosen to run calculations for a city. You must select "
+                    "a buffer distance to define the calculation area when you are "
+                    "processing a city."
+                )
+            )
+            return False
+        elif area_method == AreaSetting.COUNTRY_CITY.value:
+            geojson = self.get_city_geojson()
+            self.aoi.update_from_geojson(
+                geojson=geojson,
+                wrap=self.settings.value("trends_earth/region_of_interest/custom_crs_wrap"),  # FIXME
+                datatype='point'
+            )
+        elif area_method == AreaSetting.COUNTRY_REGION.value:
+            geojson, error_msg = self.validate_country_region()
+            if geojson is None:
+                QtWidgets.QMessageBox.critical(
+                    None, self.tr("Error"), self.tr(error_msg))
                 return False
-            if not os.access(self.settings.value("trends_earth/region_of_interest/vector_layer"), os.R_OK):
-                QtWidgets.QMessageBox.critical(None,
-                                               self.tr("Error"),
-                                               self.tr("Unable to read {}.".format(
-                                                   self.settings.value(
-                                                       "trends_earth/region_of_interest/vector_layer")
-                                               )))
+
+            self.aoi.update_from_geojson(
+                geojson=geojson,
+                wrap=self.settings.value(
+                    "trends_earth/region_of_interest/custom_crs_wrap")  # FIXME
+            )
+        elif area_method == AreaSetting.VECTOR_LAYER.value:
+            vector_path, error_msg = self.validate_vector_path()
+            if vector_path is None:
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr(error_msg))
                 return False
-            self.aoi.update_from_file(f=self.settings.value("trends_earth/region_of_interest/area_vector_layer"),
-                                      wrap=self.settings.value(
-                                                 "trends_earth/region_of_interest/custom_crs_wrap"))
+
+            self.aoi.update_from_file(
+                f=self.settings.value(
+                    "trends_earth/region_of_interest/area_vector_layer"),
+                wrap=self.settings.value(
+                    "trends_earth/region_of_interest/custom_crs_wrap")
+            )
         elif self.settings.value("trends_earth/region_of_interest/chosen_method") == 'point':
             # Area from point
             if not self.settings.value("trends_earth/region_of_interest/point/x") or not \

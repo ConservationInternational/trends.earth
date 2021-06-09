@@ -1206,22 +1206,14 @@ def _get_layers(node):
 def get_usable_bands(
         band_name: typing.Optional[str] = "any"
 ) -> typing.List[UsableBandInfo]:
-    # NOTE: this is a replacement for get_TE_TOC_layers
-    log(f"inside get_usable_bands - band_name: {band_name}")
     result = []
     for job in job_manager.relevant_jobs:
-        log(f"checking job {job.params.task_name!r}...")
         job: job_models.Job
         is_downloaded = job.status == job_models.JobStatus.DOWNLOADED
-        log(f"is_downloaded: {is_downloaded}")
-        log(f"has cloud results: {job.results.type == job_models.JobResult.CLOUD_RESULTS}")
         if is_downloaded and job.results.type == job_models.JobResult.CLOUD_RESULTS:
-            log(f"checking job results...")
             path = job.results.local_paths[0]
             for band_index, band_info in enumerate(job.results.bands):
-                log(f"checking band {band_info.name!r}...")
                 if band_info.name == band_name:
-                    log(f"band is good")
                     result.append(
                         UsableBandInfo(
                             job=job,
@@ -1230,41 +1222,8 @@ def get_usable_bands(
                             band_info=band_info
                         )
                     )
+    result.sort(key=lambda ub: ub.job.start_date, reverse=True)
     return result
-
-
-# Get a list of layers of a particular type, out of those in the TOC that were
-# produced by trends.earth
-def get_TE_TOC_layers(layer_type=None):
-    root = qgis.core.QgsProject.instance().layerTreeRoot()
-    layers_filtered = []
-    layers = _get_layers(root)
-    if len(layers) > 0:
-        for l in layers:
-            if not isinstance(l, qgis.core.QgsRasterLayer):
-                # Allows skipping other layer types, like OpenLayers layers, that
-                # are irrelevant for the toolbox
-                continue
-            data_file = os.path.normcase(os.path.normpath(l.dataProvider().dataSourceUri()))
-            band_infos = layers.get_band_infos(data_file)
-            # Layers not produced by trends.earth won't have bandinfo, and 
-            # aren't of interest, so skip if there is no bandinfo.
-            if band_infos:
-                # If a band_number is not supplied, use the one that is used by 
-                # this raster's renderer
-                band_number = l.renderer().usesBands()
-                if len(band_number) == 1:
-                    band_number = band_number[0]
-                else:
-                    # Can't handle multi-band rasters right now
-                    continue
-                band_info = band_infos[band_number - 1]
-                if layer_type == band_info['name'] or layer_type == 'any':
-                    # Note the layer name here could be different from the 
-                    # band_info derived name, since the name accompanying the 
-                    # layer is the one in the TOC
-                    layers_filtered.append((data_file, l.name(), band_number, band_info))
-    return layers_filtered
 
 
 def get_layer_info_from_file(json_file, layer_type='any'):
@@ -1306,9 +1265,7 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
 
         self.layer_list = job_manager.relevant_jobs
 
-        #self.layer_list = get_TE_TOC_layers(self.property("layer_type"))
         usable_bands = get_usable_bands(self.property("layer_type"))
-        log(f"Found usable bands: {usable_bands}")
         self.layer_list = usable_bands
         self.comboBox_layers.clear()
         items = []

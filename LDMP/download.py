@@ -12,9 +12,10 @@
  ***************************************************************************/
 """
 
-from builtins import object
+import dataclasses
 import os
 import gzip
+import typing
 import zipfile
 import json
 import requests
@@ -30,6 +31,60 @@ from LDMP import log
 
 from LDMP.api import get_header
 from LDMP.worker import AbstractWorker, start_worker
+
+
+@dataclasses.dataclass()
+class City:
+    wof_id: str
+    name: str
+    geojson: typing.Dict
+    name_de: str
+    name_en: str
+    name_es: str
+    name_fr: str
+    name_pt: str
+    name_ru: str
+    name_zh: str
+
+    @classmethod
+    def deserialize(cls, wof_id: str, raw_city: typing.Dict):
+        return cls(
+            wof_id=wof_id,
+            name=raw_city["ADM1NAME"],
+            geojson=raw_city["geojson"],
+            name_de=raw_city["name_de"],
+            name_en=raw_city["name_en"],
+            name_es=raw_city["name_es"],
+            name_fr=raw_city["name_fr"],
+            name_pt=raw_city["name_pt"],
+            name_ru=raw_city["name_ru"],
+            name_zh=raw_city["name_zh"],
+        )
+
+
+@dataclasses.dataclass()
+class Country:
+    name: str
+    code: str
+    crs: str
+    wrap: bool
+    level1_regions: typing.Dict[str, str]
+
+    @classmethod
+    def deserialize(cls, name: str, raw_country: typing.Dict):
+        regions = {}
+        for admin_level1_name, details in raw_country.get("admin1").items():
+            regions[admin_level1_name] = details["code"]
+
+        return cls(
+            name=name,
+            code=raw_country["code"],
+            crs=raw_country["crs"],
+            wrap=raw_country["wrap"],
+            level1_regions=regions
+        )
+
+
 
 class tr_download(object):
     def tr(message):
@@ -189,14 +244,23 @@ def download_files(urls, out_folder):
     return downloads
 
 
-def get_admin_bounds():
-    admin_bounds_key = read_json('admin_bounds_key.json.gz', verify=False)
-    return admin_bounds_key
+def get_admin_bounds() -> typing.Dict[str, Country]:
+    raw_admin_bounds = read_json('admin_bounds_key.json.gz', verify=False)
+    countries_regions = {}
+    for country_name, raw_country in raw_admin_bounds.items():
+        countries_regions[country_name] = Country.deserialize(country_name, raw_country)
+    return countries_regions
 
 
-def get_cities():
+def get_cities() -> typing.Dict[str, typing.Dict[str, City]]:
     cities_key = read_json('cities.json.gz', verify=False)
-    return cities_key
+    countries_cities = {}
+    for country_code, city_details in cities_key.items():
+        country_cities = {}
+        for wof_id, further_details in city_details.items():
+            country_cities[wof_id] = City.deserialize(wof_id, further_details)
+        countries_cities[country_code] = country_cities
+    return countries_cities
 
 
 class DownloadError(Exception):

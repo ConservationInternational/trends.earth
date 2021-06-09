@@ -129,6 +129,8 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
 
         self.first_show = True
 
+        self.initiliaze_settings()
+
     def showEvent(self, event):
         super(DlgCalculateTCData, self).showEvent(event)
 
@@ -136,9 +138,6 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
         self.use_custom_final.populate()
 
         self.radioButton_carbon_custom.setEnabled(False)
-
-        if self.reset_tab_on_showEvent:
-            self.TabBox.setCurrentIndex(0)
 
         if self.first_show:
             self.first_show = False
@@ -268,7 +267,7 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
 
         # Select the initial and final bands from initial and final datasets 
         # (in case there is more than one lc band per dataset)
-        lc_initial_vrt = self.lc_setup_tab.use_custom_initial.get_vrt()
+        lc_initial_vrt = self.lc_setup_widget.use_custom_initial.get_vrt()
         lc_final_vrt = self.lc_setup_tab.use_custom_final.get_vrt()
         lc_files = [lc_initial_vrt, lc_final_vrt]
         lc_years = [self.lc_setup_tab.get_initial_year(), self.lc_setup_tab.get_final_year()]
@@ -369,8 +368,7 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
                    'geojsons': json.dumps(geojsons),
                    'crs': self.aoi.get_crs_dst_wkt(),
                    'crosses_180th': crosses_180th,
-                   'task_name': self.options_tab.task_name.text(),
-                   'task_notes': self.options_tab.task_notes.toPlainText()}
+                   'task_name': self.execution_name_le.text()}
 
         resp = run_script(get_script_slug('total-carbon'), payload)
 
@@ -664,6 +662,7 @@ class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable
         self.setupUi(self)
 
         self.add_output_tab(['.xlsx'])
+        self.initiliaze_settings()
 
     def showEvent(self, event):
         super(DlgCalculateTCSummaryTable, self).showEvent(event)

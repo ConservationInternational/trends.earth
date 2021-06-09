@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1029</width>
-    <height>710</height>
+    <width>1027</width>
+    <height>650</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -401,14 +401,14 @@ p, li { white-space: pre-wrap; }
    </hints>
   </connection>
   <connection>
-   <sender>DlgCalculateSOC</sender>
+   <sender>button_box</sender>
    <signal>rejected()</signal>
    <receiver>DlgCalculateSOC</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>442</x>
-     <y>675</y>
+     <x>513</x>
+     <y>628</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>

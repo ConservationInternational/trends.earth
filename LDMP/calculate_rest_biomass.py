@@ -57,12 +57,10 @@ class DlgCalculateRestBiomassData(DlgCalculateBase, Ui_DlgCalculateRestBiomassDa
         self.setupUi(self)
 
         self.first_show = True
+        self.initiliaze_settings()
 
     def showEvent(self, event):
         super(DlgCalculateRestBiomassData, self).showEvent(event)
-
-        if self.reset_tab_on_showEvent:
-            self.TabBox.setCurrentIndex(0)
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
@@ -92,8 +90,7 @@ class DlgCalculateRestBiomassData(DlgCalculateBase, Ui_DlgCalculateRestBiomassDa
                    'geojsons': json.dumps(geojsons),
                    'crs': self.aoi.get_crs_dst_wkt(),
                    'crosses_180th': crosses_180th,
-                   'task_name': self.options_tab.task_name.text(),
-                   'task_notes': self.options_tab.task_notes.toPlainText()}
+                   'task_name': self.execution_name_le.text()}
 
         resp = run_script(get_script_slug('restoration-biomass'), payload)
 
@@ -190,6 +187,7 @@ class RestBiomassSummaryWorker(AbstractWorker):
 
         return list((biomass_initial, biomass_change, area_site))
 
+
 class DlgCalculateRestBiomassSummaryTable(DlgCalculateBase, Ui_DlgCalculateRestBiomassSummaryTable):
     def __init__(self, parent=None):
         super(DlgCalculateRestBiomassSummaryTable, self).__init__(parent)
@@ -197,6 +195,7 @@ class DlgCalculateRestBiomassSummaryTable(DlgCalculateBase, Ui_DlgCalculateRestB
         self.setupUi(self)
 
         self.add_output_tab(['.json', '.tif', '.xlsx'])
+        self.initiliaze_settings()
 
     def showEvent(self, event):
         super(DlgCalculateRestBiomassSummaryTable, self).showEvent(event)

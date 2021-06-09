@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>853</width>
-    <height>696</height>
+    <width>554</width>
+    <height>282</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -108,216 +108,40 @@
          <property name="collapsed">
           <bool>true</bool>
          </property>
-         <widget class="QScrollArea" name="scroll_area">
-          <property name="geometry">
-           <rect>
-            <x>4</x>
-            <y>0</y>
-            <width>539</width>
-            <height>266</height>
-           </rect>
+         <layout class="QVBoxLayout" name="verticalLayout_4">
+          <property name="leftMargin">
+           <number>1</number>
           </property>
-          <property name="frameShape">
-           <enum>QFrame::NoFrame</enum>
+          <property name="topMargin">
+           <number>1</number>
           </property>
-          <property name="widgetResizable">
-           <bool>true</bool>
+          <property name="rightMargin">
+           <number>1</number>
           </property>
-          <widget class="QWidget" name="scrollAreaWidgetContents">
-           <property name="geometry">
-            <rect>
-             <x>0</x>
-             <y>0</y>
-             <width>539</width>
-             <height>266</height>
-            </rect>
-           </property>
-           <widget class="QGroupBox" name="groupBox_custom_SOC">
-            <property name="geometry">
-             <rect>
-              <x>0</x>
-              <y>232</y>
-              <width>711</width>
-              <height>74</height>
-             </rect>
+          <property name="bottomMargin">
+           <number>1</number>
+          </property>
+          <item>
+           <widget class="QScrollArea" name="scroll_area">
+            <property name="frameShape">
+             <enum>QFrame::NoFrame</enum>
             </property>
-            <property name="title">
-             <string>Custom initial soil organic carbon dataset</string>
-            </property>
-            <property name="checkable">
+            <property name="widgetResizable">
              <bool>true</bool>
             </property>
-            <property name="checked">
-             <bool>false</bool>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_2">
-             <item>
-              <widget class="WidgetDataIOSelectTELayerImport" name="comboBox_custom_soc">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>0</width>
-                 <height>30</height>
-                </size>
-               </property>
-               <property name="layer_type" stdset="0">
-                <string notr="true">Soil organic carbon</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
+            <widget class="QWidget" name="scrollAreaWidgetContents">
+             <property name="geometry">
+              <rect>
+               <x>0</x>
+               <y>0</y>
+               <width>242</width>
+               <height>94</height>
+              </rect>
+             </property>
+            </widget>
            </widget>
-           <widget class="QGroupBox" name="groupBox_2">
-            <property name="geometry">
-             <rect>
-              <x>0</x>
-              <y>152</y>
-              <width>711</width>
-              <height>74</height>
-             </rect>
-            </property>
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="title">
-             <string>Additional files to download</string>
-            </property>
-            <layout class="QGridLayout" name="gridLayout_4">
-             <item row="1" column="0">
-              <widget class="QCheckBox" name="download_annual_lc">
-               <property name="minimumSize">
-                <size>
-                 <width>0</width>
-                 <height>30</height>
-                </size>
-               </property>
-               <property name="maximumSize">
-                <size>
-                 <width>16777215</width>
-                 <height>16777215</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>Download annual land cover layers (only first and last land cover layer are downloaded by default)</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-           <widget class="QGroupBox" name="groupBox">
-            <property name="geometry">
-             <rect>
-              <x>0</x>
-              <y>0</y>
-              <width>711</width>
-              <height>146</height>
-             </rect>
-            </property>
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="title">
-             <string>Climate regime</string>
-            </property>
-            <layout class="QGridLayout" name="gridLayout_2">
-             <item row="1" column="0">
-              <widget class="QRadioButton" name="fl_radio_chooseRegime">
-               <property name="minimumSize">
-                <size>
-                 <width>0</width>
-                 <height>30</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>Specify regime</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="0">
-              <widget class="QRadioButton" name="fl_radio_custom">
-               <property name="minimumSize">
-                <size>
-                 <width>0</width>
-                 <height>30</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>Custom value</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
-              <widget class="QComboBox" name="fl_chooseRegime_comboBox">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>0</width>
-                 <height>30</height>
-                </size>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="1">
-              <widget class="QLineEdit" name="fl_custom_lineEdit">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>0</width>
-                 <height>30</height>
-                </size>
-               </property>
-               <property name="inputMethodHints">
-                <set>Qt::ImhNone</set>
-               </property>
-               <property name="maxLength">
-                <number>6</number>
-               </property>
-               <property name="placeholderText">
-                <string/>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="0" colspan="2">
-              <widget class="QRadioButton" name="fl_radio_default">
-               <property name="minimumSize">
-                <size>
-                 <width>0</width>
-                 <height>30</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>Default (determined per-pixel using global climate data)</string>
-               </property>
-               <property name="checked">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </widget>
-         </widget>
+          </item>
+         </layout>
         </widget>
        </item>
        <item>
@@ -402,11 +226,6 @@ p, li { white-space: pre-wrap; }
    <header>qgis.gui</header>
    <container>1</container>
   </customwidget>
-  <customwidget>
-   <class>WidgetDataIOSelectTELayerImport</class>
-   <extends>QComboBox</extends>
-   <header>LDMP/data_io.h</header>
-  </customwidget>
  </customwidgets>
  <resources/>
  <connections>
@@ -417,12 +236,12 @@ p, li { white-space: pre-wrap; }
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>797</x>
-     <y>764</y>
+     <x>544</x>
+     <y>272</y>
     </hint>
     <hint type="destinationlabel">
-     <x>588</x>
-     <y>-14</y>
+     <x>553</x>
+     <y>0</y>
     </hint>
    </hints>
   </connection>
@@ -433,12 +252,12 @@ p, li { white-space: pre-wrap; }
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>515</x>
-     <y>772</y>
+     <x>524</x>
+     <y>272</y>
     </hint>
     <hint type="destinationlabel">
      <x>515</x>
-     <y>396</y>
+     <y>281</y>
     </hint>
    </hints>
   </connection>

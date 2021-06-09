@@ -24,6 +24,7 @@ from qgis.PyQt.QtCore import QSettings, Qt
 
 from osgeo import gdal, osr
 import qgis.gui
+
 from qgis.core import QgsGeometry
 from qgis.utils import iface
 mb = iface.messageBar()
@@ -177,59 +178,6 @@ class DlgCalculateLC(calculate.DlgCalculateBase, Ui_DlgCalculateLC):
         else:
             self.calculate_locally()
 
-    def splitter_toggled(self):
-        if self.splitter_collapsed:
-            self.splitter.restoreState(self.splitter_state)
-            self.collapse_button.setArrowType(Qt.RightArrow)
-        else:
-            self.splitter_state = self.splitter.saveState()
-            self.splitter.setSizes([1, 0])
-            self.collapse_button.setArrowType(Qt.LeftArrow)
-        self.splitter_collapsed = not self.splitter_collapsed
-
-    def initiliaze_settings(self):
-
-        ok_button = self.button_box.button(
-            QtWidgets.QDialogButtonBox.Ok
-        )
-        ok_button.setText(self.tr("Schedule execution"))
-        ok_button.clicked.connect(self.btn_calculate)
-
-        region = QgsSettings().value("trends_earth/region_of_interest/area_settings_name")
-        self.execution_name_le.setText(f"LDN_{region}_{datetime.strftime(datetime.now(), '%Y%m%d%H%M%S')}")
-
-        self.region_button.clicked.connect(self.run_settings)
-
-        # adding a collapsible arrow on the splitter
-        self.splitter_state = self.splitter.saveState()
-        self.splitter.setCollapsible(0, False)
-        splitter_handle = self.splitter.handle(1)
-        handle_layout = QtWidgets.QVBoxLayout()
-        handle_layout.setContentsMargins(0, 0, 0, 0)
-        self.collapse_button = QtWidgets.QToolButton(splitter_handle)
-        self.collapse_button.setAutoRaise(True)
-        self.collapse_button.setFixedSize(12, 12)
-        self.collapse_button.setCursor(Qt.ArrowCursor)
-        handle_layout.addWidget(self.collapse_button)
-
-        handle_layout.addStretch()
-        splitter_handle.setLayout(handle_layout)
-
-        arrow_type = Qt.RightArrow if self.splitter.sizes()[1] == 0 else Qt.LeftArrow
-
-        self.collapse_button.setArrowType(arrow_type)
-        self.collapse_button.clicked.connect(self.splitter_toggled)
-        self.splitter_collapsed = self.splitter.sizes()[1] != 0
-
-        QgsGui.enableAutoGeometryRestore(self)
-
-        self.region_la.setText(self.tr(f"Current region: {region}"))
-
-    def run_settings(self):
-        dlg_settings = DlgSettings()
-        dlg_settings.show()
-        result = dlg_settings.exec_()
-
     def calculate_on_GEE(self):
         self.close()
         crosses_180th, geojsons = self.gee_bounding_box
@@ -319,12 +267,12 @@ class DlgCalculateLC(calculate.DlgCalculateBase, Ui_DlgCalculateLC):
             QtWidgets.QMessageBox.information(None, self.tr("Warning"),
                 self.tr('The initial year ({}) is greater than or equal to the target year ({}) - this analysis might generate strange results.'.format(year_baseline, year_target)))
 
-        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.use_custom_initial.get_layer().extent())) < .99:
+        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.lc_setup_widget.use_custom_initial.get_layer().extent())) < .99:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Area of interest is not entirely within the initial land cover layer."))
             return
 
-        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.use_custom_initial.get_layer().extent())) < .99:
+        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.lc_setup_widget.use_custom_initial.get_layer().extent())) < .99:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Area of interest is not entirely within the final land cover layer."))
             return
@@ -366,8 +314,8 @@ class DlgCalculateLC(calculate.DlgCalculateBase, Ui_DlgCalculateLC):
         metadata['params'] = {}
         metadata['params']['trans_matrix'] = trans_matrix
         metadata['params']['persistence_remap'] = persistence_remap
-        metadata['params']['lc_initial_vrt'] = self.use_custom_initial.get_data_file()
-        metadata['params']['lc_final_vrt'] = self.use_custom_final.get_data_file()
+        metadata['params']['lc_initial_vrt'] = self.lc_setup_widget.use_custom_initial.get_data_file()
+        metadata['params']['lc_final_vrt'] = self.lc_setup_widget.use_custom_final.get_data_file()
         metadata['params']['year_baseline'] = int(year_baseline)
         metadata['params']['year_target'] = int(year_target)
         metadata['params']['crs'] = self.aoi.get_crs_dst_wkt()

@@ -15,7 +15,6 @@ import json
 import os
 from pathlib import Path
 
-from datetime import datetime
 
 import numpy as np
 import qgis.gui
@@ -40,7 +39,6 @@ from . import (
 from .algorithms import models
 from .jobs.manager import job_manager
 from .lc_setup import LCSetupWidget
-
 
 DlgCalculateSocUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateSOC.ui"))
@@ -318,7 +316,6 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
             ('Tropical montane (Fl = 0.64)', .64)
         ]
         self.lc_setup_widget = LCSetupWidget()
-
         self.splitter_collapsed = False
 
         self.initiliaze_settings()
@@ -334,59 +331,7 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
         self.fl_radio_default.toggled.connect(self.fl_radios_toggled)
         self.fl_radio_chooseRegime.toggled.connect(self.fl_radios_toggled)
         self.fl_radio_custom.toggled.connect(self.fl_radios_toggled)
-
-
-    def showEvent(self, event):
-        super().showEvent(event)
-
-        ok_button = self.button_box.button(
-            QtWidgets.QDialogButtonBox.Ok
-        )
-        ok_button.setText(self.tr("Schedule execution"))
-        ok_button.clicked.connect(self.btn_calculate)
-
-        region = QgsSettings().value("trends_earth/region_of_interest/area_settings_name")
-        self.execution_name_le.setText(f"LDN_{region}_{datetime.strftime(datetime.now(), '%Y%m%d%H%M%S')}")
-
-        self.region_button.clicked.connect(self.run_settings)
-
-        # adding a collapsible arrow on the splitter
-        self.splitter_state = self.splitter.saveState()
-        self.splitter.setCollapsible(0, False)
-        splitter_handle = self.splitter.handle(1)
-        handle_layout = QtWidgets.QVBoxLayout()
-        handle_layout.setContentsMargins(0, 0, 0, 0)
-        self.collapse_button = QtWidgets.QToolButton(splitter_handle)
-        self.collapse_button.setAutoRaise(True)
-        self.collapse_button.setFixedSize(12, 12)
-        self.collapse_button.setCursor(Qt.ArrowCursor)
-        handle_layout.addWidget(self.collapse_button)
-
-        handle_layout.addStretch()
-        splitter_handle.setLayout(handle_layout)
-
-        self.lc_setup_widget = LCSetupWidget()
-        # These boxes may have been hidden if this widget was last shown on the 
-        # SDG one step dialog
-        self.lc_setup_widget.groupBox_esa_period.show()
-        self.lc_setup_widget.use_custom.show()
-        self.lc_setup_widget.groupBox_custom_bl.show()
-        self.lc_setup_widget.groupBox_custom_tg.show()
-
-        arrow_type = Qt.RightArrow if self.splitter.sizes()[1] == 0 else Qt.LeftArrow
-
-        self.collapse_button.setArrowType(arrow_type)
-        self.collapse_button.clicked.connect(self.splitter_toggled)
-        self.splitter_collapsed = self.splitter.sizes()[1] != 0
-
-        QgsGui.enableAutoGeometryRestore(self)
-
-        self.region_la.setText(self.tr(f"Current region: {region}"))
-
-    def run_settings(self):
-        dlg_settings = DlgSettings()
-        dlg_settings.show()
-        result = dlg_settings.exec_()
+        self.initiliaze_settings()
 
     def showEvent(self, event):
         super(DlgCalculateSOC, self).showEvent(event)
@@ -394,8 +339,17 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
         if self.setup_frame.layout() is None:
             setup_layout = QtWidgets.QVBoxLayout(self.setup_frame)
             setup_layout.setContentsMargins(0, 0, 0, 0)
-            setup_layout.addWidget(lc_setup_widget)
+            setup_layout.addWidget(self.lc_setup_widget)
             self.setup_frame.setLayout(setup_layout)
+
+        self.lc_setup_widget.groupBox_esa_period.show()
+        self.lc_setup_widget.use_custom.show()
+        self.lc_setup_widget.groupBox_custom_bl.show()
+        self.lc_setup_widget.groupBox_custom_tg.show()
+
+        self.comboBox_custom_soc.populate()
+        self.lc_setup_widget.use_custom_initial.populate()
+        self.lc_setup_widget.use_custom_final.populate()
 
     def fl_radios_toggled(self):
         if self.fl_radio_custom.isChecked():

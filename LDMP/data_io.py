@@ -12,54 +12,66 @@
  ***************************************************************************/
 """
 
-from builtins import str
-from builtins import zip
-from builtins import range
+import dataclasses
 import os
-import re
-import tempfile
+import typing
+from pathlib import Path
 
 import json
-from marshmallow import ValidationError
 
-from qgis.PyQt import QtWidgets
-from qgis.PyQt.QtCore import QSettings, Qt, QCoreApplication, pyqtSignal, \
-    QVariant, QStringListModel, QItemSelectionModel
+from PyQt5 import (
+    QtCore,
+    QtWidgets,
+)
+from PyQt5.QtCore import QSettings
 
-from qgis.core import QgsRasterShader, QgsVectorLayer, QgsRasterLayer, \
-    QgsProject, QgsLayerTreeLayer, QgsLayerTreeGroup, QgsVectorFileWriter, \
-    Qgis, QgsCoordinateTransform, QgsCoordinateReferenceSystem, QgsField, \
-    QgsFields, QgsFeature, QgsWkbTypes
-from qgis.utils import iface
+import qgis.core
+import qgis.utils
 
-mb = iface.messageBar()
 
 import numpy as np
 
-from osgeo import ogr, gdal, osr
+from osgeo import (
+    gdal,
+    osr,
+)
 
-from LDMP import log, GetTempFilename
-from LDMP.layers import create_local_json_metadata, add_layer, \
-    get_file_metadata, get_band_title, get_sample, get_band_infos
-from LDMP.worker import AbstractWorker, StartWorker
-from LDMP.gui.DlgDataIO import Ui_DlgDataIO
-from LDMP.gui.DlgDataIOLoadTE import Ui_DlgDataIOLoadTE
-from LDMP.gui.DlgDataIOLoadTESingleLayer import Ui_DlgDataIOLoadTESingleLayer
-from LDMP.gui.DlgDataIOImportLC import Ui_DlgDataIOImportLC
-from LDMP.gui.DlgDataIOImportSOC import Ui_DlgDataIOImportSOC
-from LDMP.gui.DlgDataIOImportProd import Ui_DlgDataIOImportProd
-from LDMP.gui.DlgJobsDetails import Ui_DlgJobsDetails
-from LDMP.gui.WidgetDataIOImportSelectFileInput import Ui_WidgetDataIOImportSelectFileInput
-from LDMP.gui.WidgetDataIOImportSelectRasterOutput import Ui_WidgetDataIOImportSelectRasterOutput
-from LDMP.gui.WidgetDataIOSelectTELayerExisting import Ui_WidgetDataIOSelectTELayerExisting
-from LDMP.gui.WidgetDataIOSelectTELayerImport import Ui_WidgetDataIOSelectTELayerImport
-from LDMP.schemas.schemas import BandInfo, BandInfoSchema
+from . import (
+    GetTempFilename,
+    layers,
+    log,
+    worker,
+)
+from .gui.DlgDataIO import Ui_DlgDataIO
+from .gui.DlgDataIOLoadTE import Ui_DlgDataIOLoadTE
+from .gui.DlgDataIOLoadTESingleLayer import Ui_DlgDataIOLoadTESingleLayer
+from .gui.DlgDataIOImportLC import Ui_DlgDataIOImportLC
+from .gui.DlgDataIOImportSOC import Ui_DlgDataIOImportSOC
+from .gui.DlgDataIOImportProd import Ui_DlgDataIOImportProd
+from .gui.DlgJobsDetails import Ui_DlgJobsDetails
+from .gui.WidgetDataIOImportSelectFileInput import Ui_WidgetDataIOImportSelectFileInput
+from .gui.WidgetDataIOImportSelectRasterOutput import Ui_WidgetDataIOImportSelectRasterOutput
+from .gui.WidgetDataIOSelectTELayerExisting import Ui_WidgetDataIOSelectTELayerExisting
+from .gui.WidgetDataIOSelectTELayerImport import Ui_WidgetDataIOSelectTELayerImport
+from .jobs.manager import job_manager
+from .jobs import models as job_models
+from .schemas import schemas
+
+mb = qgis.utils.iface.messageBar()
 
 
-class RemapVectorWorker(AbstractWorker):
+@dataclasses.dataclass()
+class UsableBandInfo:
+    job: job_models.Job
+    path: Path
+    band_index: int
+    band_info: job_models.JobBand
+
+
+class RemapVectorWorker(worker.AbstractWorker):
     def __init__(self, l, out_file, attribute, remap_dict, in_data_type, 
                  out_res, out_data_type=gdal.GDT_Int16):
-        AbstractWorker.__init__(self)
+        worker.AbstractWorker.__init__(self)
 
         self.l = l
         self.out_file = out_file
@@ -74,15 +86,19 @@ class RemapVectorWorker(AbstractWorker):
         self.toggle_show_cancel.emit(True)
 
         crs_src_string = self.l.crs().toProj()
-        crs_src = QgsCoordinateReferenceSystem()
+        crs_src = qgis.core.QgsCoordinateReferenceSystem()
         crs_src.createFromProj(crs_src_string)
-        crs_dst = QgsCoordinateReferenceSystem('epsg:4326')
-        t = QgsCoordinateTransform(crs_src, crs_dst, QgsProject.instance())
+        crs_dst = qgis.core.QgsCoordinateReferenceSystem('epsg:4326')
+        t = qgis.core.QgsCoordinateTransform(
+            crs_src, crs_dst, qgis.core.QgsProject.instance())
 
-        l_out = QgsVectorLayer(u"{datatype}?crs=proj4:{crs}".format(datatype=self.in_data_type, crs=crs_dst.toProj()),
-                               "land cover (transformed)",  
-                               "memory")
-        l_out.dataProvider().addAttributes([QgsField('code', QVariant.Int)])
+        l_out = qgis.core.QgsVectorLayer(
+            u"{datatype}?crs=proj4:{crs}".format(datatype=self.in_data_type, crs=crs_dst.toProj()),
+            "land cover (transformed)",
+            "memory"
+        )
+        l_out.dataProvider().addAttributes(
+            [qgis.core.QgsField('code', QtCore.QVariant.Int)])
         l_out.updateFields()
 
         feats = []
@@ -93,7 +109,7 @@ class RemapVectorWorker(AbstractWorker):
                 return None
             geom = f.geometry()
             geom.transform(t)
-            new_f = QgsFeature()
+            new_f = qgis.core.QgsFeature()
             new_f.setGeometry(geom)
             new_f.setAttributes([self.remap_dict[f.attribute(self.attribute)]])
             feats.append(new_f)
@@ -115,8 +131,9 @@ class RemapVectorWorker(AbstractWorker):
         # Write l_out to a shapefile for usage by gdal rasterize
         temp_shp = GetTempFilename('.shp')
         log(u'Writing temporary shapefile to {}'.format(temp_shp))
-        err = QgsVectorFileWriter.writeAsVectorFormat(l_out, temp_shp, "UTF-8", crs_dst, "ESRI Shapefile")
-        if err != QgsVectorFileWriter.NoError:
+        err = qgis.core.QgsVectorFileWriter.writeAsVectorFormat(
+            l_out, temp_shp, "UTF-8", crs_dst, "ESRI Shapefile")
+        if err != qgis.core.QgsVectorFileWriter.NoError:
             log(u'Error writing layer to {}'.format(temp_shp))
             return None
 
@@ -142,10 +159,10 @@ class RemapVectorWorker(AbstractWorker):
             self.progress.emit(100 * fraction)
             return True
 
-class RasterizeWorker(AbstractWorker):
+class RasterizeWorker(worker.AbstractWorker):
     def __init__(self, in_file, out_file, out_res, 
                  attribute, out_data_type=gdal.GDT_Int16):
-        AbstractWorker.__init__(self)
+        worker.AbstractWorker.__init__(self)
 
         self.in_file = in_file
         self.out_file = out_file
@@ -179,10 +196,10 @@ class RasterizeWorker(AbstractWorker):
             return True
 
 
-class RasterImportWorker(AbstractWorker):
+class RasterImportWorker(worker.AbstractWorker):
     def __init__(self, in_file, out_file, out_res, 
                  resample_mode, out_data_type=gdal.GDT_Int16):
-        AbstractWorker.__init__(self)
+        worker.AbstractWorker.__init__(self)
 
         self.in_file = in_file
         self.out_file = out_file
@@ -223,9 +240,9 @@ class RasterImportWorker(AbstractWorker):
             return True
 
 
-class RemapRasterWorker(AbstractWorker):
+class RemapRasterWorker(worker.AbstractWorker):
     def __init__(self, in_file, out_file, remap_list):
-        AbstractWorker.__init__(self)
+        worker.AbstractWorker.__init__(self)
 
         self.in_file = in_file
         self.out_file = out_file
@@ -314,7 +331,7 @@ def get_raster_stats(f, band_num, sample=True, min_min=0, max_max=1000, nodata=0
     if sample:
         # Note need float to correctly mark and ignore nodata for for nanmin 
         # and nanmax 
-        values = get_sample(f, band_num, n=1e6).astype('float32')
+        values = layers.get_sample(f, band_num, n=1e6).astype('float32')
         return _get_min_max_tuple(values, min_min, max_max, nodata)
     else:
         src_ds = gdal.Open(f)
@@ -353,7 +370,7 @@ def get_raster_stats(f, band_num, sample=True, min_min=0, max_max=1000, nodata=0
 
 def get_unique_values_raster(f, band_num, sample=True, max_unique=60):
     if sample:
-        values = np.unique(get_sample(f, band_num, n=1e6)).tolist()
+        values = np.unique(layers.get_sample(f, band_num, n=1e6)).tolist()
         if len(values) > max_unique:
             values = None
         return values
@@ -431,14 +448,14 @@ class DlgDataIO(QtWidgets.QDialog, Ui_DlgDataIO):
         self.dlg_DataIOLoad_prod.exec_()
 
 class DlgDataIOLoadTEBase(QtWidgets.QDialog):
-    layers_loaded = pyqtSignal(list)
+    layers_loaded = QtCore.pyqtSignal(list)
 
     def __init__(self, parent=None):
         super(DlgDataIOLoadTEBase, self).__init__(parent)
 
         self.setupUi(self)
 
-        self.layers_model = QStringListModel()
+        self.layers_model = QtCore.QStringListModel()
         self.layers_view.setModel(self.layers_model)
         self.layers_model.setStringList([])
 
@@ -458,7 +475,8 @@ class DlgDataIOLoadTEBase(QtWidgets.QDialog):
                 f = os.path.normcase(os.path.normpath(self.layer_list[row][0]))
                 # Note that the third item in the tuple is the band number, and 
                 # the fourth (layer_list[3]) is the band info object
-                resp = add_layer(f, self.layer_list[row][2], self.layer_list[row][3], activated=True)
+                resp = layers.add_layer(
+                    f, self.layer_list[row][2], self.layer_list[row][3], activated=True)
                 if resp:
                     added_layers.append(self.layer_list[row])
                 else:
@@ -519,7 +537,10 @@ class DlgDataIOLoadTE(DlgDataIOLoadTEBase, Ui_DlgDataIOLoadTE):
                 self.layers_view.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
                 for n in range(len(self.layer_list)):
                     if self.layer_list[n][3]['add_to_map']:
-                        self.layers_view.selectionModel().select(self.layers_model.createIndex(n, 0), QItemSelectionModel.Select)
+                        self.layers_view.selectionModel().select(
+                            self.layers_model.createIndex(n, 0),
+                            QtCore.QItemSelectionModel.Select
+                        )
             else:
                 self.layers_model.setStringList([])
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
@@ -537,7 +558,7 @@ class DlgDataIOLoadTE(DlgDataIOLoadTEBase, Ui_DlgDataIOLoadTE):
 
     def view_metadata(self):
         details_dlg = DlgJobsDetails(self)
-        m = get_file_metadata(self.file)
+        m = layers.get_file_metadata(self.file)
         m = m['metadata']
         if m:
             details_dlg.task_name.setText(m.get('task_name', ''))
@@ -563,8 +584,8 @@ class DlgDataIOLoadTESingleLayer(DlgDataIOLoadTEBase, Ui_DlgDataIOLoadTESingleLa
 
 
 class ImportSelectFileInputWidget(QtWidgets.QWidget, Ui_WidgetDataIOImportSelectFileInput):
-    inputFileChanged = pyqtSignal(bool)
-    inputTypeChanged = pyqtSignal(bool)
+    inputFileChanged = QtCore.pyqtSignal(bool)
+    inputTypeChanged = QtCore.pyqtSignal(bool)
 
     def __init__(self, parent=None):
         super(ImportSelectFileInputWidget, self).__init__(parent)
@@ -633,7 +654,7 @@ class ImportSelectFileInputWidget(QtWidgets.QWidget, Ui_WidgetDataIOImportSelect
             self.update_raster_layer(raster_file)
 
     def update_raster_layer(self, raster_file):
-        l = QgsRasterLayer(raster_file, "raster file", "gdal")
+        l = qgis.core.QgsRasterLayer(raster_file, "raster file", "gdal")
 
         if not os.access(raster_file, os.R_OK or not l.isValid()):
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
@@ -663,7 +684,7 @@ class ImportSelectFileInputWidget(QtWidgets.QWidget, Ui_WidgetDataIOImportSelect
             self.update_vector_layer(vector_file)
 
     def update_vector_layer(self, vector_file):
-        l = QgsVectorLayer(vector_file, "vector file", "ogr")
+        l = qgis.core.QgsVectorLayer(vector_file, "vector file", "ogr")
 
         if not os.access(vector_file, os.R_OK) or not l.isValid():
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
@@ -679,7 +700,8 @@ class ImportSelectFileInputWidget(QtWidgets.QWidget, Ui_WidgetDataIOImportSelect
             return True
 
     def get_vector_layer(self):
-        return QgsVectorLayer(self.lineEdit_vector_file.text(), "vector file", "ogr")
+        return qgis.core.QgsVectorLayer(
+            self.lineEdit_vector_file.text(), "vector file", "ogr")
 
 
 class ImportSelectRasterOutput(QtWidgets.QWidget, Ui_WidgetDataIOImportSelectRasterOutput):
@@ -712,7 +734,7 @@ class ImportSelectRasterOutput(QtWidgets.QWidget, Ui_WidgetDataIOImportSelectRas
 
 class DlgDataIOImportBase(QtWidgets.QDialog):
     """Base class for individual data loading dialogs"""
-    layer_loaded = pyqtSignal(list)
+    layer_loaded = QtCore.pyqtSignal(list)
 
     def __init__(self, parent=None):
         super(DlgDataIOImportBase, self).__init__(parent)
@@ -733,10 +755,12 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
 
     def center_dialog(self):
         # Center the dialog on whatver screen has QGIS app on it
-        self.setGeometry(QtWidgets.QStyle.alignedRect(Qt.LeftToRight,
-                                                  Qt.AlignCenter,
-                                                  self.size(),
-                                                  QtWidgets.qApp.desktop().screenGeometry(iface.mainWindow())))
+        self.setGeometry(QtWidgets.QStyle.alignedRect(
+            QtCore.Qt.LeftToRight,
+            QtCore.Qt.AlignCenter,
+            self.size(),
+            QtWidgets.qApp.desktop().screenGeometry(qgis.utils.iface.mainWindow()))
+        )
 
     def validate_input(self, value):
         if self.input_widget.radio_raster_input.isChecked():
@@ -749,9 +773,9 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Choose an input polygon dataset."))
                 return
             l = self.input_widget.get_vector_layer()
-            if l.wkbType() == QgsWkbTypes.Polygon or l.wkbType() == QgsWkbTypes.MultiPolygon:
+            if l.wkbType() == qgis.core.QgsWkbTypes.Polygon or l.wkbType() == qgis.core.QgsWkbTypes.MultiPolygon:
                 self.vector_datatype = "polygon"
-            elif l.wkbType() == QgsWkbTypes.Point:
+            elif l.wkbType() == qgis.core.QgsWkbTypes.Point:
                 self.vector_datatype = "point"
             else:
                 QtWidgets.QMessageBox.critical(None,
@@ -788,7 +812,8 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         in_srs = osr.SpatialReference()
         in_srs.ImportFromWkt(ds_in.GetProjectionRef())
 
-        tx = osr.CoordinateTransformation(in_srs, wgs84_srs, QgsProject.instance())
+        tx = osr.CoordinateTransformation(
+            in_srs, wgs84_srs, qgis.core.QgsProject.instance())
 
         geo_t = ds_in.GetGeoTransform()
         x_size = ds_in.RasterXSize
@@ -812,14 +837,16 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         out_res = self.get_out_res_wgs84()
         log(u'Remapping and rasterizing {} using output resolution {}, and field "{}"'.format(out_file, out_res, attribute))
         log(u'Remap dict "{}"'.format(remap_dict))
-        remap_vector_worker = StartWorker(RemapVectorWorker,
-                                          'rasterizing and remapping values',
-                                          l,
-                                          out_file,
-                                          attribute,
-                                          remap_dict,
-                                          self.vector_datatype,
-                                          out_res)
+        remap_vector_worker = worker.StartWorker(
+            RemapVectorWorker,
+            'rasterizing and remapping values',
+            l,
+            out_file,
+            attribute,
+            remap_dict,
+            self.vector_datatype,
+            out_res
+        )
         if not remap_vector_worker.success:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Vector remapping failed."))
@@ -834,9 +861,8 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         if not warp_ret:
             return False
 
-        remap_raster_worker = StartWorker(RemapRasterWorker,
-                                          'remapping values', temp_tif, 
-                                           out_file, remap_list)
+        remap_raster_worker = worker.StartWorker(
+            RemapRasterWorker, 'remapping values', temp_tif, out_file, remap_list)
         os.remove(temp_tif)
         if not remap_raster_worker.success:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
@@ -848,9 +874,10 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
     def rasterize_vector(self, in_file, out_file, attribute):
         out_res = self.get_out_res_wgs84()
         log(u'Rasterizing {} using output resolution {}, and field "{}"'.format(out_file, out_res, attribute))
-        rasterize_worker = StartWorker(RasterizeWorker,
-                                       'rasterizing vector file',
-                                       in_file, out_file, out_res, attribute)
+        rasterize_worker = worker.StartWorker(
+            RasterizeWorker, 'rasterizing vector file', in_file,
+            out_file, out_res, attribute
+        )
         if not rasterize_worker.success:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Rasterizing failed."))
@@ -872,9 +899,10 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         else:
             out_res = None
             resample_mode = gdal.GRA_NearestNeighbour
-        raster_import_worker = StartWorker(RasterImportWorker,
-                                           'importing raster', temp_vrt, 
-                                           out_file, out_res, resample_mode)
+        raster_import_worker = worker.StartWorker(
+            RasterImportWorker, 'importing raster', temp_vrt,
+            out_file, out_res, resample_mode
+        )
         os.remove(temp_vrt)
         if not raster_import_worker.success:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
@@ -886,12 +914,12 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
     def add_layer(self, band_name, metadata):
         out_file = os.path.normcase(os.path.normpath(self.output_widget.lineEdit_output_file.text()))
         out_json = os.path.splitext(out_file)[0] + '.json'
-        band_info = [BandInfo(band_name, add_to_map=True, metadata=metadata)]
-        create_local_json_metadata(out_json, out_file, band_info)
-        schema = BandInfoSchema()
+        band_info = [schemas.BandInfo(band_name, add_to_map=True, metadata=metadata)]
+        layers.create_local_json_metadata(out_json, out_file, band_info)
+        schema = schemas.BandInfoSchema()
         band_info_dict = schema.dump(band_info[0])
-        add_layer(out_file, 1, band_info_dict)
-        return (out_file, get_band_title(band_info_dict), 1, schema.dump(band_info[0]))
+        layers.add_layer(out_file, 1, band_info_dict)
+        return (out_file, layers.get_band_title(band_info_dict), 1, schema.dump(band_info[0]))
 
 
 class DlgDataIOImportLC(DlgDataIOImportBase, Ui_DlgDataIOImportLC):
@@ -1164,9 +1192,9 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
 
 def _get_layers(node):
     l = []
-    if isinstance(node, QgsLayerTreeGroup):
+    if isinstance(node, qgis.core.QgsLayerTreeGroup):
         for child in node.children():
-            if isinstance(child, QgsLayerTreeLayer):
+            if isinstance(child, qgis.core.QgsLayerTreeLayer):
                 l.append(child.layer())
             else:
                 l.extend(_get_layers(child))
@@ -1175,43 +1203,32 @@ def _get_layers(node):
     return l
 
 
-# Get a list of layers of a particular type, out of those in the TOC that were
-# produced by trends.earth
-def get_TE_TOC_layers(layer_type=None):
-    root = QgsProject.instance().layerTreeRoot()
-    layers_filtered = []
-    layers = _get_layers(root)
-    if len(layers) > 0:
-        for l in layers:
-            if not isinstance(l, QgsRasterLayer):
-                # Allows skipping other layer types, like OpenLayers layers, that
-                # are irrelevant for the toolbox
-                continue
-            data_file = os.path.normcase(os.path.normpath(l.dataProvider().dataSourceUri()))
-            band_infos = get_band_infos(data_file)
-            # Layers not produced by trends.earth won't have bandinfo, and 
-            # aren't of interest, so skip if there is no bandinfo.
-            if band_infos:
-                # If a band_number is not supplied, use the one that is used by 
-                # this raster's renderer
-                band_number = l.renderer().usesBands()
-                if len(band_number) == 1:
-                    band_number = band_number[0]
-                else:
-                    # Can't handle multi-band rasters right now
-                    continue
-                band_info = band_infos[band_number - 1]
-                if layer_type == band_info['name'] or layer_type == 'any':
-                    # Note the layer name here could be different from the 
-                    # band_info derived name, since the name accompanying the 
-                    # layer is the one in the TOC
-                    layers_filtered.append((data_file, l.name(), band_number, band_info))
-    return layers_filtered
+def get_usable_bands(
+        band_name: typing.Optional[str] = "any"
+) -> typing.List[UsableBandInfo]:
+    result = []
+    for job in job_manager.relevant_jobs:
+        job: job_models.Job
+        is_downloaded = job.status == job_models.JobStatus.DOWNLOADED
+        if is_downloaded and job.results.type == job_models.JobResult.CLOUD_RESULTS:
+            path = job.results.local_paths[0]
+            for band_index, band_info in enumerate(job.results.bands):
+                if band_info.name == band_name:
+                    result.append(
+                        UsableBandInfo(
+                            job=job,
+                            path=path,
+                            band_index=band_index+1,
+                            band_info=band_info
+                        )
+                    )
+    result.sort(key=lambda ub: ub.job.start_date, reverse=True)
+    return result
 
 
 def get_layer_info_from_file(json_file, layer_type='any'):
-    m = get_file_metadata(json_file)
-    band_infos = get_band_infos(json_file)
+    m = layers.get_file_metadata(json_file)
+    band_infos = layers.get_band_infos(json_file)
     if band_infos is None:
         return None
     layers_filtered = []
@@ -1220,18 +1237,20 @@ def get_layer_info_from_file(json_file, layer_type='any'):
         data_file = os.path.normcase(os.path.normpath(os.path.join(os.path.dirname(json_file), m['file'])))
         if layer_type == band_info['name'] or layer_type == 'any':
             # Band numbers start at 1, not zero
-            layers_filtered.append((data_file, get_band_title(band_info), n + 1, band_info))
+            layers_filtered.append((data_file, layers.get_band_title(band_info), n + 1, band_info))
     return layers_filtered
 
     
 class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
+    comboBox_layers: QtWidgets.QComboBox
+    pushButton_load_existing: QtWidgets.QPushButton
+    dlg_layer: DlgDataIOLoadTESingleLayer
+    layer_list: typing.Optional[typing.List[UsableBandInfo]]
+
     def __init__(self, parent=None):
-        super(WidgetDataIOSelectTELayerBase, self).__init__(parent)
-
+        super().__init__(parent)
         self.setupUi(self)
-
         self.pushButton_load_existing.clicked.connect(self.load_file)
-
         self.dlg_layer = DlgDataIOLoadTESingleLayer()
 
         self.dlg_layer.layers_loaded.connect(self.populate)
@@ -1243,39 +1262,54 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
             last_layer = self.layer_list[self.comboBox_layers.currentIndex()]
         else:
             last_layer = None
-        self.layer_list = get_TE_TOC_layers(self.property("layer_type"))
-        self.comboBox_layers.clear()
-        self.comboBox_layers.addItems([l[1] for l in self.layer_list])
 
-        # Set the selected layer to the one that was just loaded, or to the 
-        # last layer that was selected
-        if selected_layer:
-            assert(len(selected_layer) == 1)
-            set_layer = selected_layer[0]
-        elif last_layer:
-            set_layer = last_layer
-        else:
-            set_layer = None
-        if set_layer:
-            # It is possible the last or selected layer has been removed, in 
-            # which case an exception will be thrown
-            try:
-                self.comboBox_layers.setCurrentIndex(self.layer_list.index(set_layer))
-            except ValueError:
-                log(u"Failed to locate {} in layer list ({})".format(set_layer, self.layer_list))
-                pass
+        self.layer_list = job_manager.relevant_jobs
+
+        usable_bands = get_usable_bands(self.property("layer_type"))
+        self.layer_list = usable_bands
+        self.comboBox_layers.clear()
+        items = []
+        for usable_band in usable_bands:
+            items.append(
+                f"{usable_band.job.params.task_name} - {usable_band.band_info.name}")
+        self.comboBox_layers.addItems(items)
+        # self.comboBox_layers.addItems([l[1] for l in self.layer_list])
+
+        # # Set the selected layer to the one that was just loaded, or to the
+        # # last layer that was selected
+        # if selected_layer:
+        #     assert(len(selected_layer) == 1)
+        #     set_layer = selected_layer[0]
+        # elif last_layer:
+        #     set_layer = last_layer
+        # else:
+        #     set_layer = None
+        # if set_layer:
+        #     # It is possible the last or selected layer has been removed, in
+        #     # which case an exception will be thrown
+        #     try:
+        #         self.comboBox_layers.setCurrentIndex(self.layer_list.index(set_layer))
+        #     except ValueError:
+        #         log(u"Failed to locate {} in layer list ({})".format(set_layer, self.layer_list))
+        #         pass
 
     def load_file(self):
         while True:
-            f, _ = QtWidgets.QFileDialog.getOpenFileName(self,
-                                                  self.tr('Select a Trends.Earth output file'),
-                                                  QSettings().value("LDMP/output_dir", None),
-                                                  self.tr('Trends.Earth metadata file (*.json)'))
+            f, _ = QtWidgets.QFileDialog.getOpenFileName(
+                self,
+                self.tr('Select a Trends.Earth output file'),
+                QSettings().value("LDMP/output_dir", None),
+                self.tr('Trends.Earth metadata file (*.json)')
+            )
             if f:
                 if os.access(f, os.R_OK):
                     QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
 
-                    new_layers = get_layer_info_from_file(os.path.normcase(os.path.normpath(f)), self.property("layer_type"))
+                    new_layers = get_layer_info_from_file(
+                        os.path.normcase(os.path.normpath(f)),
+                        self.property("layer_type")
+                    )
+
                     if new_layers:
                         self.dlg_layer.file = f
                         self.dlg_layer.update_layer_list(new_layers)
@@ -1296,28 +1330,36 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
         return self.layer_list[self.comboBox_layers.currentIndex()][0]
 
     def get_layer(self):
-        return QgsRasterLayer(self.layer_list[self.comboBox_layers.currentIndex()][0], "raster file", "gdal")
-
-    def get_bandnumber(self):
-        return self.layer_list[self.comboBox_layers.currentIndex()][2]
+        return qgis.core.QgsRasterLayer(
+            self.layer_list[self.comboBox_layers.currentIndex()][0],
+            "raster file",
+            "gdal"
+        )
 
     def get_band_info(self):
-        return self.layer_list[self.comboBox_layers.currentIndex()][3]
+        usable_band_info = self.layer_list[self.comboBox_layers.currentIndex()]
+        return usable_band_info.band_info
 
     def get_vrt(self):
         f = GetTempFilename('.vrt')
-        gdal.BuildVRT(f,
-                      self.layer_list[self.comboBox_layers.currentIndex()][0],
-                      bandList=[self.get_bandnumber()])
+        usable_band_info = self.layer_list[self.comboBox_layers.currentIndex()]
+        gdal.BuildVRT(
+            f,
+            str(usable_band_info.path),
+            bandList=[usable_band_info.band_index]
+        )
         return f
 
     def currentText(self):
         return self.comboBox_layers.currentText()
 
 
-class WidgetDataIOSelectTELayerExisting(WidgetDataIOSelectTELayerBase, Ui_WidgetDataIOSelectTELayerExisting):
+class WidgetDataIOSelectTELayerExisting(
+    WidgetDataIOSelectTELayerBase,
+    Ui_WidgetDataIOSelectTELayerExisting
+):
     def __init__(self, parent=None):
-        super(WidgetDataIOSelectTELayerExisting, self).__init__(parent)
+        super().__init__(parent)
 
 
 class WidgetDataIOSelectTELayerImport(WidgetDataIOSelectTELayerBase, Ui_WidgetDataIOSelectTELayerImport):

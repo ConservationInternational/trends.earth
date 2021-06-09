@@ -5,6 +5,7 @@ import os
 import typing
 from pathlib import Path
 
+import qgis.gui
 from PyQt5 import (
     QtWidgets,
     QtGui,
@@ -39,15 +40,11 @@ DockWidgetTrendsEarthUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/WidgetMain.ui"))
 
 
-@functools.lru_cache(maxsize=None)
-def get_trends_earth_dockwidget(plugin):
-    return MainWidget(plugin=plugin)
-
-
 class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
     _SUB_INDICATORS_TAB_PAGE: int = 0
     _DATASETS_TAB_PAGE: int = 1
 
+    iface: qgis.gui.QgisInterface
     busy: bool
     last_refreshed_local_state: typing.Optional[dt.datetime]
     last_refreshed_remote_state: typing.Optional[dt.datetime]
@@ -69,10 +66,14 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
     _editing_widgets: typing.List[QtWidgets.QWidget]
 
-    def __init__(self, plugin=None, parent=None):
+    def __init__(
+            self,
+            iface: qgis.gui.QgisInterface,
+            parent: typing.Optional[QtWidgets.QWidget] = None
+    ):
         super().__init__(parent)
+        self.iface = iface
         self.busy = False
-        self.plugin = plugin
         self.setupUi(self)
         self._editing_widgets = [
             self.pushButton_refresh,
@@ -90,15 +91,13 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         job_manager.refreshed_local_state.connect(self.refresh_after_cache_update)
         job_manager.refreshed_from_remote.connect(self.refresh_after_cache_update)
         job_manager.downloaded_job_results.connect(self.refresh_after_cache_update)
-
+        job_manager.downloaded_available_jobs_results.connect(
+            self.refresh_after_cache_update)
+        job_manager.deleted_job.connect(self.refresh_after_cache_update)
         self.clean_empty_directories()
         self.setup_algorithms_tree()
-
         self.setup_datasets_page_gui()
-
-        # FIXME: this is a test, remove when working
-        self.update_local_state()
-
+        self.update_local_state()  # perform an initial update, before the scheduler kicks in
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self.perform_periodic_tasks)
         self.timer.start(
@@ -159,27 +158,23 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         """
 
         local_frequency = settings_manager.get_value(Setting.LOCAL_POLLING_FREQUENCY)
-        # TODO: Re-enable this later
-        # if _should_run(local_frequency, self.last_refreshed_local_state):
-        #     # TODO: disable editing widgets while the refresh is working in order to avoid
-        #     # potential mess up of the file system cache caused by the user mashing
-        #     # the refresh button too quickly.
-        #     self.toggle_editing_widgets(False)
-        #     self.update_local_state()
-        #     # lets check if we also need to update from remote, as that takes precedence
-        #     if settings_manager.get_value(Setting.POLL_REMOTE):
-        #         remote_frequency = settings_manager.get_value(
-        #             Setting.REMOTE_POLLING_FREQUENCY)
-        #         if _should_run(remote_frequency, self.last_refreshed_remote_state):
-        #             self.update_remote_state()
-        #         else:
-        #             # go ahead and update the local state
-        #             self.update_local_state()
-        #     else:
-        #         # go ahead and update the local state
-        #         self.update_local_state()
-        # else:
-        #     pass  # there is nothing to do
+        if _should_run(local_frequency, self.last_refreshed_local_state):
+            # TODO: disable editing widgets while the refresh is working in order to avoid
+            # potential mess up of the file system cache caused by the user mashing
+            # the refresh button too quickly.
+            self.toggle_editing_widgets(False)
+            # lets check if we also need to update from remote, as that takes precedence
+            if settings_manager.get_value(Setting.POLL_REMOTE):
+                remote_frequency = settings_manager.get_value(
+                    Setting.REMOTE_POLLING_FREQUENCY)
+                if _should_run(remote_frequency, self.last_refreshed_remote_state):
+                    self.update_remote_state()
+                else:
+                    self.update_local_state()
+            else:
+                self.update_local_state()
+        else:
+            pass  # nothing to do, move along
 
     def toggle_editing_widgets(self, enable: bool):
         for widget in self._editing_widgets:
@@ -227,7 +222,6 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.last_refreshed_local_state = dt.datetime.now(tz=dt.timezone.utc)
 
     def refresh_after_cache_update(self):
-        log("Inside refresh_after_cache_update")
         maybe_download_finished_results()
         model = jobs_mvc.JobsModel(job_manager)
         self.proxy_model = jobs_mvc.JobsSortFilterProxyModel(SortField.DATE)
@@ -275,12 +269,13 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
     def launch_algorithm_execution_dialogue(
             self,
-            algorithm: algorithm_models.AlgorithmDescriptor,
+            algorithm: algorithm_models.Algorithm,
             run_mode: algorithm_models.AlgorithmRunMode
     ):
-        dialog_class_path = algorithm.execution_dialogues[run_mode]
+        algorithm_script = _get_script(algorithm, run_mode)
+        dialog_class_path = algorithm_script.parametrization_dialogue
         dialog_class = _load_object(dialog_class_path)
-        dialog = dialog_class(parent=self)
+        dialog = dialog_class(self.iface, algorithm_script.script, parent=self)
         dialog.exec_()
 
     def _manage_algorithm_tree_view(self, index: QtCore.QModelIndex):
@@ -297,7 +292,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         if index.isValid():
             current_item = index.internalPointer()
             current_item: typing.Union[
-                algorithm_models.AlgorithmGroup, algorithm_models.AlgorithmDescriptor]
+                algorithm_models.AlgorithmGroup, algorithm_models.Algorithm]
             is_algorithm = (
                     current_item.item_type ==
                     algorithm_models.AlgorithmNodeType.Algorithm
@@ -335,10 +330,9 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 def maybe_download_finished_results():
     dataset_auto_download = settings_manager.get_value(Setting.DOWNLOAD_RESULTS)
     if dataset_auto_download:
-        log("downloading results...")
-        for job in job_manager.known_jobs[JobStatus.FINISHED].values():
-            job_manager.download_job_results(job)
-
+        if len(job_manager.known_jobs[JobStatus.FINISHED]) > 0:
+            log("downloading results...")
+            job_manager.download_available_results()
 
 def _should_run(periodic_frequency_seconds: int, last_run: dt.datetime):
     """Check whether some periodic task should be run"""
@@ -354,3 +348,19 @@ def _load_object(python_path: str) -> typing.Any:
     module_path, object_name = python_path.rpartition(".")[::2]
     loaded_module = importlib.import_module(module_path)
     return getattr(loaded_module, object_name)
+
+
+def _get_script(
+        algorithm: algorithm_models.Algorithm,
+        run_mode: algorithm_models.AlgorithmRunMode
+) -> algorithm_models.AlgorithmScript:
+    for algorithm_script in algorithm.scripts:
+        if algorithm_script.script.run_mode == run_mode:
+            result = algorithm_script
+            break
+    else:
+        raise RuntimeError(
+            f"invalid algorithm configuration for {algorithm.name!r} - Could not "
+            f"find a script for run mode: {run_mode}"
+        )
+    return result

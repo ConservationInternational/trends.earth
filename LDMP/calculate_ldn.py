@@ -12,56 +12,78 @@
  ***************************************************************************/
 """
 
-from builtins import range
-import os
-import json
 import tempfile
+from pathlib import Path
 
-import numpy as np
-
-#import cProfile
-
-from osgeo import ogr, osr, gdal
+from osgeo import (
+    gdal,
+    ogr,
+    osr,
+)
 
 import openpyxl
 from openpyxl.drawing.image import Image
 
-from qgis.PyQt import QtWidgets, uic, QtXml
-from qgis.PyQt.QtCore import QSettings, QDate, QCoreApplication
+from PyQt5 import (
+    QtCore,
+    QtWidgets,
+    uic,
+)
 
+import qgis.gui
 from qgis.core import QgsGeometry
 from qgis.utils import iface
-mb = iface.messageBar()
 
-from LDMP import log, __version__
-from LDMP.api import run_script
-from LDMP.calculate import (DlgCalculateBase, get_script_slug, MaskWorker,
-    json_geom_to_geojson, ldn_recode_state, ldn_recode_traj, ldn_make_prod5, 
-    ldn_total_deg, ldn_total_by_trans,
-    local_scripts)
-from LDMP.lc_setup import lc_setup_widget, lc_define_deg_widget
-from LDMP.layers import (add_layer, create_local_json_metadata, get_band_infos,
-    delete_layer_by_filename)
-from LDMP.schemas.schemas import BandInfo, BandInfoSchema
-from LDMP.gui.DlgCalculateOneStep import Ui_DlgCalculateOneStep
-from LDMP.gui.DlgCalculateLDNSummaryTableAdmin import Ui_DlgCalculateLDNSummaryTableAdmin
-from LDMP.worker import AbstractWorker, StartWorker
-from LDMP.summary import *
+from . import (
+    api,
+    data_io,
+    layers,
+    log,
+    worker,
+)
+from .algorithms import models
+from .calculate import (
+    DlgCalculateBase,
+    get_script_slug,
+    MaskWorker,
+    json_geom_to_geojson,
+    ldn_recode_state,
+    ldn_recode_traj,
+    ldn_make_prod5,
+    ldn_total_deg,
+    ldn_total_by_trans,
+)
+from .lc_setup import (
+    lc_setup_widget,
+    lc_define_deg_widget,
+)
+from .schemas import schemas
+from .summary import *
+
+DlgCalculateOneStepUi, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/DlgCalculateOneStep.ui"))
+DlgCalculateLdnSummaryTableAdminUi, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/DlgCalculateLDNSummaryTableAdmin.ui"))
+
+mb = iface.messageBar()
 
 
 class tr_calculate_ldn(object):
     def tr(message):
-        return QCoreApplication.translate("tr_calculate_ldn", message)
+        return QtCore.QCoreApplication.translate("tr_calculate_ldn", message)
 
 
-class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
-    def __init__(self, parent=None):
-        super(DlgCalculateOneStep, self).__init__(parent)
+class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
+    def __init__(
+            self,
+            iface: qgis.gui.QgisInterface,
+            script: models.ExecutionScript,
+            parent: QtWidgets.QWidget = None
+    ):
+        super().__init__(iface, script, parent)
         self.setupUi(self)
-
         self.update_time_bounds()
-
         self.mode_te_prod.toggled.connect(self.update_time_bounds)
 
     def update_time_bounds(self):
@@ -78,8 +100,8 @@ class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
         end_year_lc = lc_dataset['End year']
 
         
-        start_year = QDate(max(start_year_ndvi, start_year_lc), 1, 1)
-        end_year = QDate(min(end_year_ndvi, end_year_lc), 1, 1)
+        start_year = QtCore.QDate(max(start_year_ndvi, start_year_lc), 1, 1)
+        end_year = QtCore.QDate(min(end_year_ndvi, end_year_lc), 1, 1)
 
         self.year_initial.setMinimumDate(start_year)
         self.year_initial.setMaximumDate(end_year)
@@ -246,7 +268,7 @@ class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
                    'task_name': self.options_tab.task_name.text(),
                    'task_notes': self.options_tab.task_notes.toPlainText()}
 
-        resp = run_script(get_script_slug('sdg-sub-indicators'), payload)
+        resp = api.run_script(get_script_slug('sdg-sub-indicators'), payload)
 
         if resp:
             mb.pushMessage(self.tr("Submitted"),
@@ -274,10 +296,10 @@ def ldn_total_by_trans_merge(total1, trans1, total2, trans2):
     return trans, totals
 
 
-class DegradationSummaryWorkerSDG(AbstractWorker):
+class DegradationSummaryWorkerSDG(worker.AbstractWorker):
     def __init__(self, src_file, prod_band_nums, prod_mode, prod_out_file, 
                  lc_band_nums, soc_band_nums, mask_file):
-        AbstractWorker.__init__(self)
+        worker.AbstractWorker.__init__(self)
         
         self.src_file = src_file
         self.prod_band_nums = [int(x) for x in prod_band_nums]
@@ -556,14 +578,31 @@ class DegradationSummaryWorkerSDG(AbstractWorker):
                          sdg_tbl_lc * 1e-6))
 
 
-class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSummaryTableAdmin):
-    def __init__(self, parent=None):
-        super(DlgCalculateLDNSummaryTableAdmin, self).__init__(parent)
+class DlgCalculateLDNSummaryTableAdmin(
+    DlgCalculateBase,
+    DlgCalculateLdnSummaryTableAdminUi
+):
+    mode_te_prod_rb: QtWidgets.QRadioButton
+    mode_lpd_jrc: QtWidgets.QRadioButton
+    combo_layer_traj: data_io.WidgetDataIOSelectTELayerExisting
+    combo_layer_perf: data_io.WidgetDataIOSelectTELayerExisting
+    combo_layer_state: data_io.WidgetDataIOSelectTELayerExisting
+    combo_layer_lpd: data_io.WidgetDataIOSelectTELayerImport
+    combo_layer_lc: data_io.WidgetDataIOSelectTELayerExisting
+    combo_layer_soc: data_io.WidgetDataIOSelectTELayerExisting
+    button_prev: QtWidgets.QPushButton
+    button_next: QtWidgets.QPushButton
+    button_calculate: QtWidgets.QPushButton
 
+    def __init__(
+            self,
+            iface: qgis.gui.QgisInterface,
+            script: models.ExecutionScript,
+            parent: QtWidgets.QWidget = None
+    ):
+        super().__init__(iface, script, parent)
         self.setupUi(self)
-
         self.add_output_tab(['.json', '.tif', '.xlsx'])
-
         self.mode_lpd_jrc.toggled.connect(self.mode_lpd_jrc_toggled)
         self.mode_lpd_jrc_toggled()
 
@@ -587,7 +626,6 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
 
     def showEvent(self, event):
         super(DlgCalculateLDNSummaryTableAdmin, self).showEvent(event)
-
         self.combo_layer_lpd.populate()
         self.combo_layer_traj.populate()
         self.combo_layer_perf.populate()
@@ -599,7 +637,7 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
         # as well.
-        ret = super(DlgCalculateLDNSummaryTableAdmin, self).btn_calculate()
+        ret = super().btn_calculate()
         if not ret:
             return
 
@@ -613,69 +651,137 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
         # Check that all needed input layers are selected
         if prod_mode == 'Trends.Earth productivity':
             if len(self.combo_layer_traj.layer_list) == 0:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("You must add a productivity trajectory indicator layer to your map before you can use the SDG calculation tool."))
+                QtWidgets.QMessageBox.critical(
+                    None,
+                    self.tr("Error"),
+                    self.tr(
+                        "You must add a productivity trajectory indicator layer to "
+                        "your map before you can use the SDG calculation tool."
+                    )
+                )
                 return
             if len(self.combo_layer_state.layer_list) == 0:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("You must add a productivity state indicator layer to your map before you can use the SDG calculation tool."))
+                QtWidgets.QMessageBox.critical(
+                    None,
+                    self.tr("Error"),
+                    self.tr(
+                        "You must add a productivity state indicator layer to your "
+                        "map before you can use the SDG calculation tool."
+                    )
+                )
                 return
             if len(self.combo_layer_perf.layer_list) == 0:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("You must add a productivity performance indicator layer to your map before you can use the SDG calculation tool."))
+                QtWidgets.QMessageBox.critical(
+                    None,
+                    self.tr("Error"),
+                    self.tr(
+                        "You must add a productivity performance indicator layer to "
+                        "your map before you can use the SDG calculation tool."
+                    )
+                )
                 return
 
         else:
             if len(self.combo_layer_lpd.layer_list) == 0:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("You must add a land productivity dynamics indicator layer to your map before you can use the SDG calculation tool."))
+                QtWidgets.QMessageBox.critical(
+                    None,
+                    self.tr("Error"),
+                    self.tr(
+                        "You must add a land productivity dynamics indicator layer to "
+                        "your map before you can use the SDG calculation tool."
+                    )
+                )
                 return
 
         if len(self.combo_layer_lc.layer_list) == 0:
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("You must add a land cover indicator layer to your map before you can use the SDG calculation tool."))
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr(
+                    "You must add a land cover indicator layer to your map before you "
+                    "can use the SDG calculation tool."
+                )
+            )
             return
 
         if len(self.combo_layer_soc.layer_list) == 0:
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("You must add a soil organic carbon indicator layer to your map before you can use the SDG calculation tool."))
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr(
+                    "You must add a soil organic carbon indicator layer to your map "
+                    "before you can use the SDG calculation tool."
+                )
+            )
             return
 
         #######################################################################
         # Check that the layers cover the full extent needed
         if prod_mode == 'Trends.Earth productivity':
             if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_traj.get_layer().extent())) < .99:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Area of interest is not entirely within the trajectory layer."))
+                QtWidgets.QMessageBox.critical(
+                    None,
+                    self.tr("Error"),
+                    self.tr(
+                        "Area of interest is not entirely within the trajectory layer."
+                    )
+                )
                 return
             if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_perf.get_layer().extent())) < .99:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Area of interest is not entirely within the performance layer."))
+                QtWidgets.QMessageBox.critical(
+                    None,
+                    self.tr("Error"),
+                    self.tr(
+                        "Area of interest is not entirely within the "
+                        "performance layer."
+                    )
+                )
                 return
             if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_state.get_layer().extent())) < .99:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Area of interest is not entirely within the state layer."))
+                QtWidgets.QMessageBox.critical(
+                    None,
+                    self.tr("Error"),
+                    self.tr("Area of interest is not entirely within the state layer.")
+                )
                 return
         else:
             if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_lpd.get_layer().extent())) < .99:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Area of interest is not entirely within the land productivity dynamics layer."))
+                QtWidgets.QMessageBox.critical(
+                    None,
+                    self.tr("Error"),
+                    self.tr(
+                        "Area of interest is not entirely within the land "
+                        "productivity dynamics layer."
+                    )
+                )
                 return
 
         if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_lc.get_layer().extent())) < .99:
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Area of interest is not entirely within the land cover layer."))
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr("Area of interest is not entirely within the land cover layer.")
+            )
             return
         if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_soc.get_layer().extent())) < .99:
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Area of interest is not entirely within the soil organic carbon layer."))
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr(
+                    "Area of interest is not entirely within the soil organic "
+                    "carbon layer."
+                )
+            )
             return
 
         #######################################################################
         # Check that all of the productivity layers have the same resolution 
         # and CRS
         def res(layer):
-            return (round(layer.rasterUnitsPerPixelX(), 10), round(layer.rasterUnitsPerPixelY(), 10))
+            return (
+                round(layer.rasterUnitsPerPixelX(), 10),
+                round(layer.rasterUnitsPerPixelY(), 10)
+            )
 
         if prod_mode == 'Trends.Earth productivity':
             if res(self.combo_layer_traj.get_layer()) != res(self.combo_layer_state.get_layer()):
@@ -710,12 +816,12 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
         #######################################################################
         # Select baseline and target land cover and SOC layers based on chosen
         # degradation layers for these datasets
-        lc_band_infos = get_band_infos(self.combo_layer_lc.get_data_file())
+        lc_band_infos = layers.get_band_infos(self.combo_layer_lc.get_data_file())
         lc_annual_band_indices = [i for i, bi in enumerate(lc_band_infos) if bi['name'] == 'Land cover (7 class)']
         lc_annual_band_indices.sort(key=lambda i: lc_band_infos[i]['metadata']['year'])
         lc_years = [bi['metadata']['year'] for bi in lc_band_infos if bi['name'] == 'Land cover (7 class)']
 
-        soc_band_infos = get_band_infos(self.combo_layer_soc.get_data_file())
+        soc_band_infos = layers.get_band_infos(self.combo_layer_soc.get_data_file())
         soc_annual_band_indices = [i for i, bi in enumerate(soc_band_infos) if bi['name'] == 'Soil organic carbon']
         soc_annual_band_indices.sort(key=lambda i: soc_band_infos[i]['metadata']['year'])
         soc_years = [bi['metadata']['year'] for bi in soc_band_infos if bi['name'] == 'Soil organic carbon']
@@ -789,8 +895,13 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
             mask_vrt = tempfile.NamedTemporaryFile(suffix='.tif').name
             log(u'Saving mask to {}'.format(mask_vrt))
             geojson = json_geom_to_geojson(QgsGeometry.fromWkt(wkts[n]).asJson())
-            deg_lc_mask_worker = StartWorker(MaskWorker, 'generating mask (part {} of {})'.format(n + 1, len(wkts)), 
-                                             mask_vrt, geojson, indic_vrt)
+            deg_lc_mask_worker = worker.StartWorker(
+                MaskWorker,
+                'generating mask (part {} of {})'.format(n + 1, len(wkts)),
+                mask_vrt,
+                geojson,
+                indic_vrt
+            )
             if not deg_lc_mask_worker.success:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Error creating mask."))
                 log('deg_lc_mask_worker return value: {}'.format(deg_lc_mask_worker.success))
@@ -811,12 +922,12 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
             # doesn't throw an error when it tries to overwrite it
             if os.path.exists(f):
                 log('File {} exists. Will attempt to remove from QGIS and delete file.'.format(output_sdg_tif))
-                ret = delete_layer_by_filename(output_sdg_tif)
+                ret = layers.delete_layer_by_filename(output_sdg_tif)
                 if not ret:
                     QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                                   self.tr("Error writing results to {}. Make sure this file is closed, and is not open in QGIS or any other software.".format(output_sdg_tif)))
                     return
-            deg_worker = StartWorker(DegradationSummaryWorkerSDG,
+            deg_worker = worker.StartWorker(DegradationSummaryWorkerSDG,
                                     'calculating summary table (part {} of {})'.format(n + 1, len(wkts)),
                                      indic_vrt,
                                      prod_band_nums,
@@ -865,9 +976,9 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
 
 
         # Add the SDG layers to the map
-        output_sdg_bandinfos = [BandInfo("SDG 15.3.1 Indicator")]
+        output_sdg_bandinfos = [schemas.BandInfo("SDG 15.3.1 Indicator")]
         if prod_mode == 'Trends.Earth productivity':
-            output_sdg_bandinfos.append(BandInfo("SDG 15.3.1 Productivity Indicator"))
+            output_sdg_bandinfos.append(schemas.BandInfo("SDG 15.3.1 Productivity Indicator"))
         
         if len(output_sdg_tifs) == 1:
             output_file = output_sdg_tifs[0]
@@ -893,12 +1004,12 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
         metadata['params']['geojsons'] = json.dumps(geojsons)
         metadata['params']['crosses_180th'] = crosses_180th
 
-        create_local_json_metadata(output_sdg_json, output_file, 
-                output_sdg_bandinfos, metadata=metadata)
-        schema = BandInfoSchema()
-        add_layer(output_file, 1, schema.dump(output_sdg_bandinfos[0]))
+        layers.create_local_json_metadata(
+            output_sdg_json, output_file, output_sdg_bandinfos, metadata=metadata)
+        schema = schemas.BandInfoSchema()
+        layers.add_layer(output_file, 1, schema.dump(output_sdg_bandinfos[0]))
         if prod_mode == 'Trends.Earth productivity':
-            add_layer(output_file, 2, schema.dump(output_sdg_bandinfos[1]))
+            layers.add_layer(output_file, 2, schema.dump(output_sdg_bandinfos[1]))
 
         return True
 

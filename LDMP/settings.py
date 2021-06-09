@@ -26,18 +26,19 @@ from qgis.PyQt import (
     QtWidgets,
 )
 
-from LDMP import (
+from . import (
     __version__,
     api,
     binaries_available,
     log,
     openFolder,
+    download,
 )
-from . import download
 from .conf import (
     Setting,
     settings_manager,
 )
+from .jobs.manager import job_manager
 from .gui.DlgSettings import Ui_DlgSettings
 from .gui.DlgSettingsEditForgotPassword import Ui_DlgSettingsEditForgotPassword
 from .gui.DlgSettingsEditUpdate import Ui_DlgSettingsEditUpdate
@@ -725,13 +726,17 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
             Setting.DOWNLOAD_RESULTS, self.download_remote_datasets_chb.isChecked())
         # TODO: save the current region of interest
         settings_manager.write_value(
-            Setting.BASE_DIR, self.qgsFileWidget_base_directory.filePath())
-        settings_manager.write_value(
             Setting.DEBUG, self.debug_checkbox.isChecked())
         settings_manager.write_value(
             Setting.BINARIES_ENABLED, self.binaries_gb.isChecked())
         settings_manager.write_value(
             Setting.BINARIES_DIR, self.binaries_dir_le.text())
+
+        old_base_dir = settings_manager.get_value(Setting.BASE_DIR)
+        new_base_dir = self.qgsFileWidget_base_directory.filePath()
+        settings_manager.write_value(Setting.BASE_DIR, new_base_dir)
+        if old_base_dir != new_base_dir:
+            job_manager.clear_known_jobs()
 
     def show_settings(self):
         self.debug_checkbox.setChecked(settings_manager.get_value(Setting.DEBUG))

@@ -46,7 +46,7 @@ class AlgorithmTreeModel(QtCore.QAbstractItemModel):
     def _find_current_row(
             self,
             current_item: typing.Union[
-                models.AlgorithmGroup, models.AlgorithmDescriptor],
+                models.AlgorithmGroup, models.Algorithm],
             parent_group: models.AlgorithmGroup
     ) -> typing.Optional[int]:
         relevant_items = parent_group.groups + parent_group.algorithms
@@ -63,7 +63,7 @@ class AlgorithmTreeModel(QtCore.QAbstractItemModel):
         if index.isValid():
             current_item = index.internalPointer()
             current_item: typing.Optional[
-                models.AlgorithmGroup, models.AlgorithmDescriptor]
+                models.AlgorithmGroup, models.Algorithm]
             parent_item = current_item.parent
             if parent_item is None:
                 row = 0
@@ -87,7 +87,7 @@ class AlgorithmTreeModel(QtCore.QAbstractItemModel):
         elif index.isValid():
             current_item = index.internalPointer()
             current_item: typing.Optional[
-                models.AlgorithmGroup, models.AlgorithmDescriptor]
+                models.AlgorithmGroup, models.Algorithm]
             if current_item is not None:
                 if current_item.item_type == models.AlgorithmNodeType.Group:
                     result = len(current_item.groups) + len(current_item.algorithms)
@@ -107,7 +107,7 @@ class AlgorithmTreeModel(QtCore.QAbstractItemModel):
             index: QtCore.QModelIndex = QtCore.QModelIndex(),
             role: QtCore.Qt.ItemDataRole = QtCore.Qt.DisplayRole
     ) -> typing.Optional[
-        typing.Union[models.AlgorithmGroup, models.AlgorithmDescriptor]
+        typing.Union[models.AlgorithmGroup, models.Algorithm]
     ]:
         if index.isValid():
             current_item = index.internalPointer()
@@ -218,7 +218,7 @@ class AlgorithmEditorWidget(QtWidgets.QWidget, WidgetAlgorithmLeafUi):
 
     def __init__(
             self,
-            algorithm: models.AlgorithmDescriptor,
+            algorithm: models.Algorithm,
             execution_handler: typing.Callable,
             parent=None
     ):
@@ -231,7 +231,7 @@ class AlgorithmEditorWidget(QtWidgets.QWidget, WidgetAlgorithmLeafUi):
             models.AlgorithmRunMode.LOCAL: "Run",
             models.AlgorithmRunMode.REMOTE: "Run with default data",
         }
-        if len(algorithm.run_modes) >= 2:
+        if len(algorithm.scripts) >= 2:
             self.multiple_execution_modes_tb.setPopupMode(
                 QtWidgets.QToolButton.MenuButtonPopup)
             self.multiple_execution_modes_tb.setMenu(QtWidgets.QMenu())
@@ -241,9 +241,9 @@ class AlgorithmEditorWidget(QtWidgets.QWidget, WidgetAlgorithmLeafUi):
                 action.triggered.connect(
                     functools.partial(execution_handler, algorithm, action_type))
                 self.multiple_execution_modes_tb.menu().addAction(action)
-        elif len(algorithm.run_modes) == 1:
+        elif len(algorithm.scripts) == 1:
             self.multiple_execution_modes_tb.hide()
-            run_mode = list(algorithm.execution_dialogues.keys())[0]
+            run_mode = algorithm.scripts[0].script.run_mode
             label = action_labels[run_mode]
             self.single_execution_mode_pb.setText(tr(label))
             self.single_execution_mode_pb.clicked.connect(

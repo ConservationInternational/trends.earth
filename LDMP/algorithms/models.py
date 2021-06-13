@@ -34,10 +34,10 @@ class ExecutionScript:
     @classmethod
     def deserialize(cls, name: str, raw_script: typing.Dict):
         raw = dict(raw_script)
-        run_mode = AlgorithmRunMode(raw.pop("run_mode"))
         raw_id = raw.pop("id", None)
         version = raw.pop("version", "")
         description = raw.pop("description", "")
+        run_mode = AlgorithmRunMode(raw.pop("run_mode"))
         return cls(
             name=name,
             id=uuid.UUID(raw_id) if raw_id is not None else None,

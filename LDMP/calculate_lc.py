@@ -23,17 +23,24 @@ from qgis.PyQt.QtCore import QSettings
 
 from osgeo import gdal, osr
 
+import qgis.gui
 from qgis.core import QgsGeometry
 from qgis.utils import iface
 mb = iface.messageBar()
 
-from LDMP import log
-from LDMP.api import run_script
-from LDMP.calculate import DlgCalculateBase, get_script_slug, local_scripts
-from LDMP.layers import create_local_json_metadata, add_layer
-from LDMP.lc_setup import lc_setup_widget, lc_define_deg_widget
-from LDMP.worker import AbstractWorker, StartWorker
-from LDMP.gui.DlgCalculateLC import Ui_DlgCalculateLC
+from . import (
+    calculate,
+    log,
+)
+from .algorithms.models import ExecutionScript
+from .jobs.manager import job_manager
+from .layers import create_local_json_metadata, add_layer
+from .lc_setup import (
+    LCDefineDegradationWidget,
+    LCSetupWidget,
+)
+from .worker import AbstractWorker, StartWorker
+from .gui.DlgCalculateLC import Ui_DlgCalculateLC
 
 from LDMP.schemas.schemas import BandInfo, BandInfoSchema
 
@@ -110,19 +117,24 @@ class LandCoverChangeWorker(AbstractWorker):
         else:
             return True
 
-class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
-    def __init__(self, parent=None):
-        super(DlgCalculateLC, self).__init__(parent)
+class DlgCalculateLC(calculate.DlgCalculateBase, Ui_DlgCalculateLC):
+    def __init__(
+            self,
+            iface: qgis.gui.QgisInterface,
+            script: ExecutionScript,
+            parent:QtWidgets.QWidget
+    ):
+        super().__init__(iface, script, parent)
 
         self.setupUi(self)
 
     def showEvent(self, event):
         super(DlgCalculateLC, self).showEvent(event)
 
-        self.lc_setup_tab = lc_setup_widget
+        self.lc_setup_tab = LCSetupWidget()
         self.TabBox.insertTab(0, self.lc_setup_tab, self.tr('Land Cover Setup'))
 
-        self.lc_define_deg_tab = lc_define_deg_widget
+        self.lc_define_deg_tab = LCDefineDegradationWidget()
         self.TabBox.insertTab(1, self.lc_define_deg_tab, self.tr('Define Degradation'))
         # These boxes may have been hidden if this widget was last shown on the 
         # SDG one step dialog
@@ -156,28 +168,31 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
 
     def calculate_on_GEE(self):
         self.close()
-
         crosses_180th, geojsons = self.gee_bounding_box
-        payload = {'year_baseline': self.lc_setup_tab.use_esa_bl_year.date().year(),
-                   'year_target': self.lc_setup_tab.use_esa_tg_year.date().year(),
-                   'geojsons': json.dumps(geojsons),
-                   'crs': self.aoi.get_crs_dst_wkt(),
-                   'crosses_180th': crosses_180th,
-                   'trans_matrix': self.lc_define_deg_tab.trans_matrix_get(),
-                   'remap_matrix': self.lc_setup_tab.dlg_esa_agg.get_agg_as_list(),
-                   'task_name': self.options_tab.task_name.text(),
-                   'task_notes': self.options_tab.task_notes.toPlainText()}
-
-        resp = run_script(get_script_slug('land-cover'), payload)
-
+        payload = {
+            'year_baseline': self.lc_setup_tab.use_esa_bl_year.date().year(),
+            'year_target': self.lc_setup_tab.use_esa_tg_year.date().year(),
+            'geojsons': json.dumps(geojsons),
+            'crs': self.aoi.get_crs_dst_wkt(),
+            'crosses_180th': crosses_180th,
+            'trans_matrix': self.lc_define_deg_tab.trans_matrix_get(),
+            'remap_matrix': self.lc_setup_tab.dlg_esa_agg.get_agg_as_list(),
+            'task_name': self.options_tab.task_name.text(),
+            'task_notes': self.options_tab.task_notes.toPlainText()
+        }
+        resp = job_manager.submit_remote_job(payload, self.script.id)
         if resp:
-            mb.pushMessage(self.tr("Submitted"),
-                           self.tr("Land cover task submitted to Google Earth Engine."),
-                           level=0, duration=5)
+            main_msg = "Submitted"
+            description = "Land cover task submitted to Google Earth Engine."
         else:
-            mb.pushMessage(self.tr("Error"),
-                           self.tr( "Unable to submit land cover task to Google Earth Engine."),
-                           level=0, duration=5)
+            main_msg = "Error"
+            description = "Unable to submit land cover task to Google Earth Engine."
+        self.mb.pushMessage(
+            self.tr(main_msg),
+            self.tr(description),
+            level=0,
+            duration=5
+        )
 
     def get_save_raster(self):
         raster_file, _ = QtWidgets.QFileDialog.getSaveFileName(self,

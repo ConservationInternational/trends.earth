@@ -236,11 +236,15 @@ class AlgorithmEditorWidget(QtWidgets.QWidget, WidgetAlgorithmLeafUi):
                 QtWidgets.QToolButton.MenuButtonPopup)
             self.multiple_execution_modes_tb.setMenu(QtWidgets.QMenu())
             self.single_execution_mode_pb.hide()
+            default_action = None
             for action_type, action_label in action_labels.items():
                 action = QtWidgets.QAction(tr(action_label), self)
                 action.triggered.connect(
                     functools.partial(execution_handler, algorithm, action_type))
                 self.multiple_execution_modes_tb.menu().addAction(action)
+                if action_type == models.AlgorithmRunMode.LOCAL:
+                    default_action = action
+            self.multiple_execution_modes_tb.setDefaultAction(default_action)
         elif len(algorithm.scripts) == 1:
             self.multiple_execution_modes_tb.hide()
             run_mode = algorithm.scripts[0].script.run_mode

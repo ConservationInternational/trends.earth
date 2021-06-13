@@ -35,6 +35,7 @@ from qgis.utils import iface
 
 from . import (
     GetTempFilename,
+    areaofinterest,
     download,
     log,
     worker,
@@ -648,33 +649,21 @@ class DlgCalculateUrban(QtWidgets.QDialog, DlgCalculateUrbanUi):
 
 class CalculationOptionsWidget(QtWidgets.QWidget, WidgetCalculationOptionsUi):
     def __init__(self, parent=None):
-        super(CalculationOptionsWidget, self).__init__(parent)
-
+        super().__init__(parent)
         self.setupUi(self)
-
         self.radioButton_run_in_cloud.toggled.connect(self.radioButton_run_in_cloud_changed)
         self.btn_local_data_folder_browse.clicked.connect(self.open_folder_browse)
 
-        self.task_name.textChanged.connect(self.task_name_changed)
-        self.task_notes.textChanged.connect(self.task_notes_changed)
-
     def showEvent(self, event):
-        super(CalculationOptionsWidget, self).showEvent(event)
+        super().showEvent(event)
 
         local_data_folder = QtCore.QSettings().value("LDMP/localdata_dir", None)
         if local_data_folder and os.access(local_data_folder, os.R_OK):
             self.lineEdit_local_data_folder.setText(local_data_folder)
         else:
             self.lineEdit_local_data_folder.setText(None)
-        self.task_name.setText(settings_manager.get_value(Setting.STORED_TASK_NAME))
-        self.task_notes.setText(settings_manager.get_value(Setting.STORED_TASK_NOTES))
-
-    def task_name_changed(self, value=None):
-        settings_manager.write_value(Setting.STORED_TASK_NAME, value)
-
-    def task_notes_changed(self):
-        settings_manager.write_value(
-            Setting.STORED_TASK_NOTES, self.task_notes.toHtml())
+        self.task_name.setText("")
+        self.task_notes.setText("")
 
     def radioButton_run_in_cloud_changed(self):
         if self.radioButton_run_in_cloud.isChecked():
@@ -788,55 +777,6 @@ class CalculationHidedOutputWidget(QtWidgets.QWidget, WidgetCalculationOutputUi)
         self.setupUi(self)
         self.hide()
 
-        # set default output basename
-        # commented and executed just before run to allow 
-        # setting new process_id
-        #self.set_output_basename() 
-
-    def set_output_basename(self, alg_name: str = '', task_name: str = ''):
-        """Set default output filename of the local calculation."""
-        self.process_id = uuid.uuid4()
-        self.process_datetime = dt.datetime.now(dt.timezone.utc)
-
-
-        # path where to store result
-        base_data_directory = settings_manager.get_value(Setting.BASE_DIR)
-        if not base_data_directory:
-            return
-
-        processing_date_string = self.process_datetime.strftime('%Y_%m_%d')
-        group = get_script_group(self.subclass_name)
-        initial_path = os.path.join(base_data_directory, 'outputs', group, processing_date_string)
-        if not initial_path:
-            return
-
-        # set result basename as a random UUID
-        f = os.path.join(initial_path, self.process_id)
-
-        # add context tags in the base filename eg. task_name and alg_name
-        if alg_name:
-            f = f'{f}_{alg_name}'
-        if task_name:
-            f = f'{f}_{task_name}'
-
-        # set the base names used to define every output filename of the algorithm
-        self.output_basename.setText(f)
-        self.set_output_summary(f)
-
-        # create folder if does not exist
-        if not os.access(os.path.dirname(f), os.W_OK):
-            os.makedirs(os.path.dirname(f), exist_ok=True)
-
-        if os.access(os.path.dirname(f), os.W_OK):
-            log(f'Writing outputs with basename: {f}')
-
-            QtCore.QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
-            self.output_basename.setText(f)
-            self.set_output_summary(f)
-        else:
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                        self.tr(u"Cannot write to {}. Choose a different file.".format(f)))
-
     def set_output_summary(self, f):
         out_files = [f + suffix for suffix in self.output_suffixes]
         self.output_summary.setText("\n".join(["{}"]*len(out_files)).format(*out_files))
@@ -850,6 +790,8 @@ class CalculationHidedOutputWidget(QtWidgets.QWidget, WidgetCalculationOutputUi)
 
 class DlgCalculateBase(QtWidgets.QDialog):
     """Base class for individual indicator calculate dialogs"""
+    SCRIPT_NAME: str = ""
+
     iface: qgis.gui.QgisInterface
     canvas: qgis.gui.QgsMapCanvas
     admin_bounds_key: typing.Dict[str, download.Country]
@@ -863,10 +805,6 @@ class DlgCalculateBase(QtWidgets.QDialog):
 
     firstShowEvent = QtCore.pyqtSignal()
 
-    @classmethod
-    def get_subclass_name(cls):
-        return cls.__name__
-
     def __init__(
             self,
             iface: qgis.gui.QgisInterface,
@@ -876,6 +814,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
         super().__init__(parent)
         self.iface = iface
         self.script = script
+        self.mb = iface.messageBar()
         self._has_output = False
         self._firstShowEvent = True
         self.reset_tab_on_showEvent = True
@@ -893,9 +832,9 @@ class DlgCalculateBase(QtWidgets.QDialog):
 
         self.firstShowEvent.connect(self.firstShow)
 
-    def add_output_tab(self, suffixes=['.json', '.tif']):
-        self._has_output = True
-        self.output_suffixes = suffixes
+    @classmethod
+    def get_subclass_name(cls):
+        return cls.__name__
 
     def showEvent(self, event):
         super(DlgCalculateBase, self).showEvent(event)
@@ -906,27 +845,8 @@ class DlgCalculateBase(QtWidgets.QDialog):
 
         if self.reset_tab_on_showEvent:
             self.TabBox.setCurrentIndex(0)
-        
-        # If this dialog has an output_basename widget then set it up with any 
-        # saved values in QSettings
-        # NOTE: now output value is set automagically
-        # if self._has_output:
-        #     f = QtCore.QSettings().value("LDMP/output_basename_{}".format(self.get_subclass_name()), None)
-        #     if f:
-        #         self.output_tab.output_basename.setText(f)
-        #         self.output_tab.set_output_summary(f)
 
     def firstShow(self):
-
-        if self._has_output:
-            # self.output_tab = CalculationOutputWidget(self.output_suffixes, self.get_subclass_name())
-            self.output_tab = CalculationHidedOutputWidget(self.output_suffixes, self.get_subclass_name())
-            self.output_tab.setParent(self)
-            # NOTE: do not add Output tab it's valueas are set automagically
-            # but the widget is added to have less inpact in old code that
-            # get output names from the GUI.
-            # self.TabBox.addTab(self.output_tab, self.tr('Output'))
-
         self.options_tab = CalculationOptionsWidget()
         self.options_tab.setParent(self)
         self.TabBox.addTab(self.options_tab, self.tr('Options'))
@@ -971,172 +891,18 @@ class DlgCalculateBase(QtWidgets.QDialog):
     def btn_cancel(self):
         self.close()
 
-    def get_city_geojson(self) -> typing.Dict:
-        current_country = settings_manager.get_value(Setting.COUNTRY_NAME)
-        country_code = self.admin_bounds_key[current_country].code
-        current_city = settings_manager.get_value(Setting.CITY_NAME)
-        current_country_cities = settings_manager.get_value(Setting.CITY_KEY)
-        wof_id = current_country_cities[current_city]
-        return self.cities[country_code][wof_id].geojson
-
-    def get_admin_poly_geojson(self):
-        current_country = settings_manager.get_value(Setting.COUNTRY_NAME)
-        country_code = self.admin_bounds_key[current_country].code
-        admin_polys_filename = f"admin_bounds_polys_{country_code}"
-        admin_polys = download.read_json(admin_polys_filename, verify=False)
-        if not admin_polys:
-            return None
-        current_region = settings_manager.get_value(Setting.REGION_NAME)
-        if not current_region or current_region.lower() == "all regions":
-            result = admin_polys['geojson']
-        else:
-            region_code = self.admin_bounds_key[
-                current_country].level1_regions[current_region]
-            result = admin_polys["admin1"][region_code]["geojson"]
-        return result
-
-    def validate_country_region(
-            self) -> typing.Tuple[typing.Optional[typing.Dict], str]:
-        error_msg  = ""
-        country_name = settings_manager.get_value(Setting.COUNTRY_NAME)
-        if not country_name:
-            geojson = None
-            error_msg = "Choose a first level administrative boundary."
-
-        geojson = self.get_admin_poly_geojson()
-        if not geojson:
-            geojson = None
-            error_msg = "Unable to load administrative boundaries."
-        return geojson, error_msg
-
-    def validate_vector_path(self) -> typing.Tuple[Path, str]:
-        error_msg = ""
-        try:
-            vector_path = Path(settings_manager.get_value(Setting.VECTOR_FILE_PATH))
-        except TypeError:
-            vector_path = None
-            error_msg = "Choose a file to define the area of interest."
-        else:
-            if not vector_path.is_file():
-                error_msg = f"File {vector_path!r} cannot be accessed"
-        return vector_path, error_msg
-
-
     def btn_calculate(self):
-        # setup output. Setting here at every run to allow setting a new id value each run plus
-        # some data related with alg name and eventually user defined task_name
-        if self._has_output:
-            self.output_tab.set_output_basename(
-                alg_name = local_scripts[self.get_subclass_name()]['source'],
-                task_name = self.options_tab.task_name.text()
-            )
-
-        if self.settings.value("trends_earth/region_of_interest/custom_crs_enabled", False, type=bool):
-            crs_dst = qgis.core.QgsCoordinateReferenceSystem(
-                self.settings.value("trends_earth/region_of_interest/custom_crs")
-            )
-        else:
-            crs_dst = qgis.core.QgsCoordinateReferenceSystem('epsg:4326')
-
-        self.aoi = AOI(crs_dst)
-
-        area_method = settings_manager.get_value(Setting.AREA_FROM_OPTION)
-        has_buffer = settings_manager.get_value(Setting.BUFFER_CHECKED)
-        if area_method == AreaSetting.COUNTRY_CITY.value and not has_buffer:
-            QtWidgets.QMessageBox.critical(
-                None,
-                tr_calculate.tr("Error"),
-                tr_calculate.tr(
-                    "You have chosen to run calculations for a city. You must select "
-                    "a buffer distance to define the calculation area when you are "
-                    "processing a city."
-                )
-            )
-            return False
-        elif area_method == AreaSetting.COUNTRY_CITY.value:
-            geojson = self.get_city_geojson()
-            self.aoi.update_from_geojson(
-                geojson=geojson,
-                wrap=self.settings.value("trends_earth/region_of_interest/custom_crs_wrap"),  # FIXME
-                datatype='point'
-            )
-        elif area_method == AreaSetting.COUNTRY_REGION.value:
-            geojson, error_msg = self.validate_country_region()
-            if geojson is None:
-                QtWidgets.QMessageBox.critical(
-                    None, self.tr("Error"), self.tr(error_msg))
-                return False
-
-            self.aoi.update_from_geojson(
-                geojson=geojson,
-                wrap=self.settings.value(
-                    "trends_earth/region_of_interest/custom_crs_wrap")  # FIXME
-            )
-        elif area_method == AreaSetting.VECTOR_LAYER.value:
-            vector_path, error_msg = self.validate_vector_path()
-            if vector_path is None:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr(error_msg))
-                return False
-
-            self.aoi.update_from_file(
-                f=self.settings.value(
-                    "trends_earth/region_of_interest/area_vector_layer"),
-                wrap=self.settings.value(
-                    "trends_earth/region_of_interest/custom_crs_wrap")
-            )
-        elif self.settings.value("trends_earth/region_of_interest/chosen_method") == 'point':
-            # Area from point
-            if not self.settings.value("trends_earth/region_of_interest/point/x") or not \
-                    self.settings.value("trends_earth/region_of_interest/point/y"):
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Choose a point to define the area of interest."))
-                return False
-            point = qgis.core.QgsPointXY(float(self.settings.value("trends_earth/region_of_interest/point/x")),
-                               float(self.settings.value("trends_earth/region_of_interest/point/y")))
-            crs_src = qgis.core.QgsCoordinateReferenceSystem(self.canvas.mapSettings().destinationCrs().authid())
-            point = qgis.core.QgsCoordinateTransform(crs_src, crs_dst, qgis.core.QgsProject.instance()).transform(point)
-            geojson = json.loads(qgis.core.QgsGeometry.fromPointXY(point).asJson())
-            self.aoi.update_from_geojson(geojson=geojson, 
-                                         wrap=self.settings.value(
-                                                 "trends_earth/region_of_interest/custom_crs_wrap", False, type=bool),
-                                         datatype='point')
-        else:
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Choose an area of interest."))
-            return False
-
-        if self.aoi and (self.aoi.datatype == "unknown" or not self.aoi.isValid()):
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Unable to read area of interest."))
-            return False
-
-        if self.settings.value("trends_earth/region_of_interest/buffer_checked", False, type=bool):
-            ret = self.aoi.buffer(float(self.settings.value("trends_earth/region_of_interest/buffer_size")))
-            if not ret:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                        self.tr("Error buffering polygon"))
-                return False
-
-        # Check that a bounding box can be created successfully from this aoi
+        self.aoi = areaofinterest.prepare_area_of_interest(self._max_area)
         ret = self.aoi.bounding_box_gee_geojson()
         if not ret:
-            QtWidgets.QMessageBox.critical(None,
-                                           self.tr("Error"),
-                                           self.tr("Unable to calculate bounding box."))
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr("Unable to calculate bounding box.")
+            )
             return False
         else:
             self.gee_bounding_box = ret
-
-        # Limit processing area to be no greater than 10^7 sq km if using a 
-        # custom shapefile
-        if self.settings.value("trends_earth/region_of_interest/chosen_method") != 'country_city' and \
-                self.settings.value("trends_earth/region_of_interest/chosen_method") != 'country_region':
-            aoi_area = self.aoi.get_area() / (1000 * 1000)
-            if aoi_area > self._max_area:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                        self.tr("The bounding box for the requested area (approximately {:.6n}) sq km "
-                                "is too large. Choose a smaller area to process.".format(aoi_area)))
-                return False
 
         if self._has_output:
             if not self.output_tab.output_basename.text():

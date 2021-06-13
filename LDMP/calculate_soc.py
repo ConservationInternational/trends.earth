@@ -12,33 +12,30 @@
  ***************************************************************************/
 """
 
-from builtins import zip
-from builtins import range
+import json
 import os
 import tempfile
-import json
 
 import numpy as np
-
+import qgis.gui
 from osgeo import gdal, osr
-
-from qgis.utils import iface
 from qgis.core import QgsGeometry
-mb = iface.messageBar()
-
 from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtGui import QDoubleValidator
 from qgis.PyQt.QtCore import QSettings, QCoreApplication
 
-from LDMP import log
-from LDMP.api import run_script
-from LDMP.calculate import DlgCalculateBase, get_script_slug, local_scripts
-from LDMP.layers import add_layer, create_local_json_metadata
-from LDMP.lc_setup import lc_setup_widget
-from LDMP.worker import AbstractWorker, StartWorker
-from LDMP.gui.DlgCalculateSOC import Ui_DlgCalculateSOC
+from . import (
+    calculate,
+    log,
+)
+from .algorithms import models
+from .jobs.manager import job_manager
+from .layers import add_layer, create_local_json_metadata
+from .lc_setup import LCSetupWidget
+from .worker import AbstractWorker, StartWorker
+from .gui.DlgCalculateSOC import Ui_DlgCalculateSOC
 
-from LDMP.schemas.schemas import BandInfo, BandInfoSchema
+from .schemas.schemas import BandInfo, BandInfoSchema
 
 
 def remap(a, remap_list):
@@ -281,15 +278,16 @@ class SOCWorker(AbstractWorker):
         else:
             return True
 
-class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
-    def __init__(self, parent=None):
-        super(DlgCalculateSOC, self).__init__(parent)
+class DlgCalculateSOC(calculate.DlgCalculateBase, Ui_DlgCalculateSOC):
 
+    def __init__(
+            self,
+            iface: qgis.gui.QgisInterface,
+            script: models.ExecutionScript,
+            parent: QtWidgets.QWidget = None,
+    ):
+        super().__init__(iface, script, parent)
         self.setupUi(self)
-
-        # hack to allow add HiddenOutputpTab that automatically set
-        # out files in case of local process
-        self.add_output_tab(['.json', '.tif'])
 
         self.regimes = [('Temperate dry (Fl = 0.80)', .80),
                         ('Temperate moist (Fl = 0.69)', .69),
@@ -312,7 +310,7 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
     def showEvent(self, event):
         super(DlgCalculateSOC, self).showEvent(event)
 
-        self.lc_setup_tab = lc_setup_widget
+        self.lc_setup_tab = LCSetupWidget()
         self.TabBox.insertTab(0, self.lc_setup_tab, self.tr('Land Cover Setup'))
         # These boxes may have been hidden if this widget was last shown on the 
         # SDG one step dialog
@@ -505,24 +503,30 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
         self.close()
 
         crosses_180th, geojsons = self.gee_bounding_box
-        payload = {'year_start': self.lc_setup_tab.use_esa_bl_year.date().year(),
-                   'year_end': self.lc_setup_tab.use_esa_tg_year.date().year(),
-                   'fl': self.get_fl(),
-                   'download_annual_lc': self.download_annual_lc.isChecked(),
-                   'geojsons': json.dumps(geojsons),
-                   'crs': self.aoi.get_crs_dst_wkt(),
-                   'crosses_180th': crosses_180th,
-                   'remap_matrix': self.lc_setup_tab.dlg_esa_agg.get_agg_as_list(),
-                   'task_name': self.options_tab.task_name.text(),
-                   'task_notes': self.options_tab.task_notes.toPlainText()}
-
-        resp = run_script(get_script_slug('soil-organic-carbon'), payload)
-
+        payload = {
+            'year_start': self.lc_setup_tab.use_esa_bl_year.date().year(),
+            'year_end': self.lc_setup_tab.use_esa_tg_year.date().year(),
+            'fl': self.get_fl(),
+            'download_annual_lc': self.download_annual_lc.isChecked(),
+            'geojsons': json.dumps(geojsons),
+            'crs': self.aoi.get_crs_dst_wkt(),
+            'crosses_180th': crosses_180th,
+            'remap_matrix': self.lc_setup_tab.dlg_esa_agg.get_agg_as_list(),
+            'task_name': self.options_tab.task_name.text(),
+            'task_notes': self.options_tab.task_notes.toPlainText()
+        }
+        resp = job_manager.submit_remote_job(payload, self.script.id)
         if resp:
-            mb.pushMessage(self.tr("Submitted"),
-                           self.tr("Soil organic carbon submitted to Google Earth Engine."),
-                           level=0, duration=5)
+            main_msg = "Submitted"
+            description = "Soil organic carbon task submitted to Google Earth Engine."
+
         else:
-            mb.pushMessage(self.tr("Error"),
-                           self.tr("Unable to submit soil organic carbon task to Google Earth Engine."),
-                           level=0, duration=5)
+            main_msg = "Error"
+            description = (
+                "Unable to submit Soil organic carbon task to Google Earth Engine.")
+        self.mb.pushMessage(
+            self.tr(main_msg),
+            self.tr(description),
+            level=0,
+            duration=5
+        )

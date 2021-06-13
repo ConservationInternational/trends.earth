@@ -12,6 +12,7 @@ from PyQt5 import (
 from .. import (
     layers,
     log,
+    openFolder,
 )
 from ..conf import (
     Setting,
@@ -116,32 +117,12 @@ class JobsSortFilterProxyModel(QtCore.QSortFilterProxyModel):
 
 
 class JobItemDelegate(QtWidgets.QStyledItemDelegate):
+    current_index: typing.Optional[QtCore.QModelIndex]
 
     def __init__(self, parent: QtCore.QObject = None):
         super().__init__(parent)
         self.parent = parent
-        # manage activate editing when entering the cell (if editable)
-        self.enteredCell = None
-        self.parent.entered.connect(self.manage_editing)
-
-    def manage_editing(self, index: QtCore.QModelIndex):
-        # close previous editor
-        if index == self.enteredCell:
-            return
-        else:
-            if self.enteredCell:
-                self.parent.closePersistentEditor(self.enteredCell)
-        self.enteredCell = index
-
-        # do nothing if cell is not editable
-        model = index.model()
-        flags = model.flags(index)
-        if not (flags & QtCore.Qt.ItemIsEditable):
-            return
-
-        # activate editor
-        item = model.data(index, QtCore.Qt.DisplayRole)
-        self.parent.openPersistentEditor(self.enteredCell)
+        self.current_index = None
 
     def paint(
             self,
@@ -150,18 +131,18 @@ class JobItemDelegate(QtWidgets.QStyledItemDelegate):
             index: QtCore.QModelIndex
     ):
         # get item and manipulate painter basing on idetm data
-        model = index.model()
-        item = model.data(index, QtCore.Qt.DisplayRole)
+        proxy_model: QtCore.QSortFilterProxyModel = index.model()
+        source_index = proxy_model.mapToSource(index)
+        source_model = source_index.model()
+        item = source_model.data(source_index, QtCore.Qt.DisplayRole)
 
         # if a Dataset => show custom widget
         if isinstance(item, models.Job):
             # get default widget used to edit data
-            editorWidget = self.createEditor(self.parent, option, index)
-            editorWidget.setGeometry(option.rect)
-
-            # then grab and paint it
-            pixmap = editorWidget.grab()
-            del editorWidget
+            editor_widget = self.createEditor(self.parent, option, index)
+            editor_widget.setGeometry(option.rect)
+            pixmap = editor_widget.grab()
+            del editor_widget
             painter.drawPixmap(option.rect.x(), option.rect.y(), pixmap)
         else:
             super().paint(painter, option, index)
@@ -171,8 +152,10 @@ class JobItemDelegate(QtWidgets.QStyledItemDelegate):
             option: QtWidgets.QStyleOptionViewItem,
             index: QtCore.QModelIndex
     ):
-        model = index.model()
-        item = model.data(index, QtCore.Qt.DisplayRole)
+        proxy_model: QtCore.QSortFilterProxyModel = index.model()
+        source_index = proxy_model.mapToSource(index)
+        source_model = source_index.model()
+        item = source_model.data(source_index, QtCore.Qt.DisplayRole)
 
         if isinstance(item, models.Job):
             widget = self.createEditor(None, option, index)  # parent set to none otherwise remain painted in the widget
@@ -189,8 +172,12 @@ class JobItemDelegate(QtWidgets.QStyledItemDelegate):
             index: QtCore.QModelIndex
     ):
         # get item and manipulate painter basing on item data
-        model = index.model()
-        item = model.data(index, QtCore.Qt.DisplayRole)
+        proxy_model: QtCore.QSortFilterProxyModel = index.model()
+        source_index = proxy_model.mapToSource(index)
+        source_model = source_index.model()
+        item = source_model.data(source_index, QtCore.Qt.DisplayRole)
+
+        # item = model.data(index, QtCore.Qt.DisplayRole)
         if isinstance(item, models.Job):
             return DatasetEditorWidget(item, parent=parent)
         else:
@@ -208,43 +195,47 @@ class JobItemDelegate(QtWidgets.QStyledItemDelegate):
 class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
     job: models.Job
 
-    add_to_canvas_pb: QtWidgets.QPushButton
+    add_to_canvas_tb: QtWidgets.QToolButton
     creation_date_la: QtWidgets.QLabel
-    delete_pb: QtWidgets.QPushButton
-    download_pb: QtWidgets.QPushButton
-    generated_by_la: QtWidgets.QLabel
+    delete_tb: QtWidgets.QToolButton
+    download_tb: QtWidgets.QToolButton
     name_la: QtWidgets.QLabel
-    open_details_pb: QtWidgets.QPushButton
+    open_details_tb: QtWidgets.QToolButton
+    open_directory_tb: QtWidgets.QToolButton
     progressBar: QtWidgets.QProgressBar
-    run_id_la: QtWidgets.QLabel
 
     def __init__(self, job: models.Job, parent=None):
         super().__init__(parent)
         self.setupUi(self)
         self.job = job
         self.setAutoFillBackground(True)  # allows hiding background prerendered pixmap
-        self.add_to_canvas_pb.clicked.connect(self.load_dataset)
-        self.open_details_pb.clicked.connect(self.show_details)
-        self.delete_pb.clicked.connect(self.delete_dataset)
+        self.add_to_canvas_tb.clicked.connect(self.load_dataset)
+        self.open_details_tb.clicked.connect(self.show_details)
+        self.open_directory_tb.clicked.connect(self.open_job_directory)
+        self.delete_tb.clicked.connect(self.delete_dataset)
 
-        self.delete_pb.setIcon(
-            QtGui.QIcon(':/plugins/LDMP/icons/mActionDeleteSelected.svg'))
-        self.open_details_pb.setIcon(
-            QtGui.QIcon(':/plugins/LDMP/icons/mActionPropertiesWidget.svg'))
-        self.add_to_canvas_pb.setIcon(
-            QtGui.QIcon(':/plugins/LDMP/icons/mActionAddRasterLayer.svg'))
-        self.download_pb.setIcon(
+        self.delete_tb.setIcon(
+            QtGui.QIcon(':/images/themes/default/mActionDeleteSelected.svg'))
+        self.open_details_tb.setIcon(
+            QtGui.QIcon(':/images/themes/default/mActionPropertiesWidget.svg'))
+        self.open_directory_tb.setIcon(
+            QtGui.QIcon(':/images/themes/default/mActionFileOpen.svg'))
+        self.add_to_canvas_tb.setIcon(
+            QtGui.QIcon(':/images/themes/default/mActionAddRasterLayer.svg'))
+        self.download_tb.setIcon(
             QtGui.QIcon(':/plugins/LDMP/icons/cloud-download.svg'))
 
-        self.name_la.setText(str(self.job.params.task_name))
-        self.generated_by_la.setText(str(self.job.script.name))
-        self.creation_date_la.setText(
-            self.job.start_date.strftime("%Y-%m-%dT%H:%M:%S.%f"))
-        self.run_id_la.setText(str(self.job.id))
+        task_name = self.job.params.task_name
+        if task_name != "":
+            name = f"{task_name}({self.job.script.name})"
+        else:
+            name = self.job.script.name
+        self.name_la.setText(name)
+        self.creation_date_la.setText(self.job.start_date.strftime("%Y-%m-%d %H:%M"))
 
-        self.download_pb.setEnabled(False)
+        self.download_tb.setEnabled(False)
 
-        self.delete_pb.setEnabled(True)
+        self.delete_tb.setEnabled(True)
 
         # set visibility of progress bar and download button
         if self.job.status in (models.JobStatus.RUNNING, models.JobStatus.PENDING):
@@ -252,27 +243,35 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             self.progressBar.setMaximum(0)
             self.progressBar.setFormat('Processing...')
             self.progressBar.show()
-            self.download_pb.hide()
-            self.add_to_canvas_pb.setEnabled(False)
+            self.download_tb.hide()
+            self.add_to_canvas_tb.setEnabled(False)
         elif self.job.status == models.JobStatus.FINISHED:
             self.progressBar.hide()
             result_auto_download = settings_manager.get_value(Setting.DOWNLOAD_RESULTS)
             if result_auto_download:
-                self.download_pb.hide()
+                self.download_tb.hide()
             else:
-                self.download_pb.show()
-                self.download_pb.setEnabled(True)
-                self.download_pb.clicked.connect(
+                self.download_tb.show()
+                self.download_tb.setEnabled(True)
+                self.download_tb.clicked.connect(
                     functools.partial(manager.job_manager.download_job_results, job)
                 )
-            self.add_to_canvas_pb.setEnabled(False)
-        elif self.job.status == models.JobStatus.DOWNLOADED:
+            self.add_to_canvas_tb.setEnabled(False)
+        elif self.job.status in (
+                models.JobStatus.DOWNLOADED, models.JobStatus.GENERATED_LOCALLY):
             self.progressBar.hide()
-            self.download_pb.hide()
-            self.add_to_canvas_pb.setEnabled(True)
+            self.download_tb.hide()
+            self.add_to_canvas_tb.setEnabled(True)
 
     def show_details(self):
         log(f"Details button clicked for job {self.job.params.task_name!r}")
+
+    def open_job_directory(self):
+        log(f"Open directory button clicked for job {self.job.params.task_name!r}")
+        job_directory = manager.job_manager.get_job_file_path(self.job).parent
+        # NOTE: not using QDesktopServices.openUrl here, since it seems to not be
+        # working correctly (as of Jun 2021 on Ubuntu)
+        openFolder(str(job_directory))
 
     def load_dataset(self):
         manager.job_manager.display_job_results(self.job)

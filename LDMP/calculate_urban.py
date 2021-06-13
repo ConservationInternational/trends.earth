@@ -12,34 +12,30 @@
  ***************************************************************************/
 """
 
-import os
 import tempfile
-import json
-
-import numpy as np
-
-from osgeo import gdal, osr
 
 import openpyxl
 from openpyxl.drawing.image import Image
+from osgeo import gdal, osr
 
-from qgis.utils import iface
+import qgis.gui
 from qgis.core import QgsGeometry
-mb = iface.messageBar()
-
 from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtCore import QSettings, QDate, QCoreApplication
 
-from LDMP import log
-from LDMP.api import run_script
-from LDMP.calculate import DlgCalculateBase, get_script_slug, ClipWorker, \
-    json_geom_to_geojson, local_scripts
-from LDMP.gui.DlgCalculateUrbanData import Ui_DlgCalculateUrbanData
-from LDMP.gui.DlgCalculateUrbanSummaryTable import Ui_DlgCalculateUrbanSummaryTable
-from LDMP.layers import get_band_infos, create_local_json_metadata, add_layer
-from LDMP.worker import AbstractWorker, StartWorker
-from LDMP.schemas.schemas import BandInfo, BandInfoSchema
-from LDMP.summary import *
+from .algorithms import models
+from .calculate import (
+    DlgCalculateBase,
+    ClipWorker,
+    json_geom_to_geojson,
+)
+from .gui.DlgCalculateUrbanData import Ui_DlgCalculateUrbanData
+from .gui.DlgCalculateUrbanSummaryTable import Ui_DlgCalculateUrbanSummaryTable
+from .jobs.manager import job_manager
+from .layers import get_band_infos, create_local_json_metadata, add_layer
+from .worker import AbstractWorker, StartWorker
+from .schemas.schemas import BandInfo, BandInfoSchema
+from .summary import *
 
 
 class tr_calculate_urban(object):
@@ -135,11 +131,15 @@ class UrbanSummaryWorker(AbstractWorker):
 
 
 class DlgCalculateUrbanData(DlgCalculateBase, Ui_DlgCalculateUrbanData):
-    def __init__(self, parent=None):
-        super(DlgCalculateUrbanData, self).__init__(parent)
 
+    def __init__(
+            self,
+            iface: qgis.gui.QgisInterface,
+            script: models.ExecutionScript,
+            parent: QtWidgets.QWidget = None,
+    ):
+        super().__init__(iface, script, parent)
         self.setupUi(self)
-
         self.urban_thresholds_updated()
 
         self.spinBox_pct_urban.valueChanged.connect(self.urban_thresholds_updated)
@@ -180,29 +180,36 @@ class DlgCalculateUrbanData(DlgCalculateBase, Ui_DlgCalculateUrbanData):
         self.close()
 
         crosses_180th, geojsons = self.gee_bounding_box
-        payload = {'un_adju': self.get_pop_def_is_un(),
-                   'isi_thr': self.spinBox_isi_thr.value(),
-                   'ntl_thr': self.spinBox_ntl_thr.value(),
-                   'wat_thr': self.spinBox_wat_thr.value(),
-                   'cap_ope': self.spinBox_cap_ope.value(),
-                   'pct_suburban': self.spinBox_pct_suburban.value()/100.,
-                   'pct_urban': self.spinBox_pct_urban.value()/100.,
-                   'geojsons': json.dumps(geojsons),
-                   'crs': self.aoi.get_crs_dst_wkt(),
-                   'crosses_180th': crosses_180th,
-                   'task_name': self.options_tab.task_name.text(),
-                   'task_notes': self.options_tab.task_notes.toPlainText()}
+        payload = {
+            'un_adju': self.get_pop_def_is_un(),
+            'isi_thr': self.spinBox_isi_thr.value(),
+            'ntl_thr': self.spinBox_ntl_thr.value(),
+            'wat_thr': self.spinBox_wat_thr.value(),
+            'cap_ope': self.spinBox_cap_ope.value(),
+            'pct_suburban': self.spinBox_pct_suburban.value()/100.,
+            'pct_urban': self.spinBox_pct_urban.value()/100.,
+            'geojsons': json.dumps(geojsons),
+            'crs': self.aoi.get_crs_dst_wkt(),
+            'crosses_180th': crosses_180th,
+            'task_name': self.options_tab.task_name.text(),
+            'task_notes': self.options_tab.task_notes.toPlainText()
+        }
 
-        resp = run_script(get_script_slug('urban-area'), payload)
-
+        resp = job_manager.submit_remote_job(payload, self.script.id)
         if resp:
-            mb.pushMessage(self.tr("Submitted"),
-                           self.tr("Urban area change calculation submitted to Google Earth Engine."),
-                           level=0, duration=5)
+            main_msg = "Submitted"
+            description = (
+                "Urban area change calculation submitted to Google Earth Engine.")
+
         else:
-            mb.pushMessage(self.tr("Error"),
-                           self.tr("Unable to submit urban area task to Google Earth Engine."),
-                           level=0, duration=5)
+            main_msg = "Error"
+            description = "Unable to submit urban area task Google Earth Engine."
+        self.mb.pushMessage(
+            self.tr(main_msg),
+            self.tr(description),
+            level=0,
+            duration=5
+        )
 
 
 class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummaryTable):

@@ -288,18 +288,21 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
 
         # This will add in the trajectory-method parameter for productivity 
         # trajectory
-        current_trajectory_function = self.trajectory_functions[self.traj_indic.currentText()]
+        current_trajectory_function = self.trajectory_functions[
+            self.traj_indic.currentText()]
         payload.update(current_trajectory_function["params"])
 
-        # resp = api.run_script(get_script_slug('productivity'), payload)
-        resp = job_manager.submit_job(payload, self.script.id)
-
-
+        resp = job_manager.submit_remote_job(payload, self.script.id)
         if resp:
-            self.mb.pushMessage(self.tr("Submitted"),
-                           self.tr("Productivity task submitted to Google Earth Engine."),
-                           level=0, duration=5)
+            main_msg = "Submitted"
+            description = "Productivity task submitted to Google Earth Engine."
+
         else:
-            self.mb.pushMessage(self.tr("Error"),
-                           self.tr("Unable to submit productivity task to Google Earth Engine."),
-                           level=0, duration=5)
+            main_msg = "Error"
+            description = "Unable to submit productivity task to Google Earth Engine."
+        self.mb.pushMessage(
+            self.tr(main_msg),
+            self.tr(description),
+            level=0,
+            duration=5
+        )

@@ -12,7 +12,6 @@
  ***************************************************************************/
 """
 
-import tempfile
 from pathlib import Path
 
 from osgeo import (
@@ -20,9 +19,6 @@ from osgeo import (
     ogr,
     osr,
 )
-
-import openpyxl
-from openpyxl.drawing.image import Image
 
 from PyQt5 import (
     QtCore,
@@ -35,29 +31,25 @@ from qgis.core import QgsGeometry
 from qgis.utils import iface
 
 from . import (
-    api,
+    conf,
     data_io,
-    layers,
-    log,
     worker,
 )
 from .algorithms import models
 from .calculate import (
     DlgCalculateBase,
-    get_script_slug,
-    MaskWorker,
-    json_geom_to_geojson,
     ldn_recode_state,
     ldn_recode_traj,
     ldn_make_prod5,
     ldn_total_deg,
     ldn_total_by_trans,
 )
+from .jobs.manager import job_manager
 from .lc_setup import (
-    lc_setup_widget,
-    lc_define_deg_widget,
+    LCSetupWidget,
+    LCDefineDegradationWidget,
 )
-from .schemas import schemas
+from .localexecution import ldn
 from .summary import *
 
 DlgCalculateOneStepUi, _ = uic.loadUiType(
@@ -88,14 +80,15 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
     def update_time_bounds(self):
         if self.mode_te_prod.isChecked():
-            ndvi_dataset = self.datasets['NDVI']['MODIS (MOD13Q1, annual)']
+            ndvi_dataset = conf.REMOTE_DATASETS["NDVI"]["MODIS (MOD13Q1, annual)"]
+            # ndvi_dataset = self.datasets['NDVI']['MODIS (MOD13Q1, annual)']
             start_year_ndvi = ndvi_dataset['Start year']
             end_year_ndvi = ndvi_dataset['End year']
         else:
             start_year_ndvi = 2000
             end_year_ndvi = 2015
 
-        lc_dataset = self.datasets['Land cover']['ESA CCI']
+        lc_dataset = conf.REMOTE_DATASETS["Land cover"]["ESA CCI"]
         start_year_lc = lc_dataset['Start year']
         end_year_lc = lc_dataset['End year']
 
@@ -111,7 +104,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
     def showEvent(self, event):
         super(DlgCalculateOneStep, self).showEvent(event)
 
-        self.lc_setup_tab = lc_setup_widget
+        self.lc_setup_tab = LCSetupWidget()
         self.TabBox.insertTab(1, self.lc_setup_tab, self.tr('Land Cover Setup'))
 
         # TODO: Temporarily hide these boxes until custom LC support for SOC is 
@@ -121,7 +114,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.lc_setup_tab.groupBox_custom_bl.hide()
         self.lc_setup_tab.groupBox_custom_tg.hide()
 
-        self.lc_define_deg_tab = lc_define_deg_widget
+        self.lc_define_deg_tab = LCDefineDegradationWidget()
         self.TabBox.insertTab(2, self.lc_define_deg_tab, self.tr('Define Effects of Land Cover Change'))
         
         # Hide the land cover ESA period box, since only one period is used in 
@@ -268,17 +261,21 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                    'task_name': self.options_tab.task_name.text(),
                    'task_notes': self.options_tab.task_notes.toPlainText()}
 
-        resp = api.run_script(get_script_slug('sdg-sub-indicators'), payload)
+        resp = job_manager.submit_remote_job(payload, self.script.id)
 
         if resp:
-            mb.pushMessage(self.tr("Submitted"),
-                           self.tr("SDG sub-indicator task submitted to Google Earth Engine."),
-                           level=0, duration=5)
+            main_msg = "Submitted"
+            description = "SDG sub-indicator task submitted to Google Earth Engine."
         else:
-            mb.pushMessage(self.tr("Error"),
-                           self.tr("Unable to submit SDG sub-indicator task to Google Earth Engine."),
-                           level=0, duration=5)
-
+            main_msg = "Error"
+            description = (
+                "Unable to submit SDG sub-indicator task to Google Earth Engine.")
+        mb.pushMessage(
+            self.tr(main_msg),
+            self.tr(description),
+            level=0,
+            duration=5
+        )
 
 #TODO: Get this working in the jitted version in Numba
 def ldn_total_by_trans_merge(total1, trans1, total2, trans2):
@@ -582,6 +579,8 @@ class DlgCalculateLDNSummaryTableAdmin(
     DlgCalculateBase,
     DlgCalculateLdnSummaryTableAdminUi
 ):
+    SCRIPT_NAME: str = "final-sdg-15-3-1"
+
     mode_te_prod_rb: QtWidgets.QRadioButton
     mode_lpd_jrc: QtWidgets.QRadioButton
     combo_layer_traj: data_io.WidgetDataIOSelectTELayerExisting
@@ -602,7 +601,7 @@ class DlgCalculateLDNSummaryTableAdmin(
     ):
         super().__init__(iface, script, parent)
         self.setupUi(self)
-        self.add_output_tab(['.json', '.tif', '.xlsx'])
+        # self.add_output_tab(['.json', '.tif', '.xlsx'])
         self.mode_lpd_jrc.toggled.connect(self.mode_lpd_jrc_toggled)
         self.mode_lpd_jrc_toggled()
 
@@ -718,7 +717,10 @@ class DlgCalculateLDNSummaryTableAdmin(
         #######################################################################
         # Check that the layers cover the full extent needed
         if prod_mode == 'Trends.Earth productivity':
-            if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_traj.get_layer().extent())) < .99:
+            trajectory_layer_extent = self.combo_layer_traj.get_layer().extent()
+            extent_geom = QgsGeometry.fromRect(trajectory_layer_extent)
+            overlaps_by = self.aoi.calc_frac_overlap(extent_geom)
+            if overlaps_by < 0.99:
                 QtWidgets.QMessageBox.critical(
                     None,
                     self.tr("Error"),
@@ -804,391 +806,17 @@ class DlgCalculateLDNSummaryTableAdmin(
 
         self.close()
 
-        #######################################################################
-        # Load all datasets to VRTs (to select only the needed bands)
-        if prod_mode == 'Trends.Earth productivity':
-            traj_vrt = self.combo_layer_traj.get_vrt()
-            perf_vrt = self.combo_layer_perf.get_vrt()
-            state_vrt = self.combo_layer_state.get_vrt()
-        else:
-            lpd_vrt = self.combo_layer_lpd.get_vrt()
-
-        #######################################################################
-        # Select baseline and target land cover and SOC layers based on chosen
-        # degradation layers for these datasets
-        lc_band_infos = layers.get_band_infos(self.combo_layer_lc.get_data_file())
-        lc_annual_band_indices = [i for i, bi in enumerate(lc_band_infos) if bi['name'] == 'Land cover (7 class)']
-        lc_annual_band_indices.sort(key=lambda i: lc_band_infos[i]['metadata']['year'])
-        lc_years = [bi['metadata']['year'] for bi in lc_band_infos if bi['name'] == 'Land cover (7 class)']
-
-        soc_band_infos = layers.get_band_infos(self.combo_layer_soc.get_data_file())
-        soc_annual_band_indices = [i for i, bi in enumerate(soc_band_infos) if bi['name'] == 'Soil organic carbon']
-        soc_annual_band_indices.sort(key=lambda i: soc_band_infos[i]['metadata']['year'])
-        soc_years = [bi['metadata']['year'] for bi in soc_band_infos if bi['name'] == 'Soil organic carbon']
-
-        # Make the LC degradation file first in the list
-        lc_deg_f = self.combo_layer_lc.get_vrt()
-        lc_files = [lc_deg_f]
-        for i in lc_annual_band_indices:
-            f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-            # Add once since band numbers don't start at zero
-            gdal.BuildVRT(f,
-                          self.combo_layer_lc.get_data_file(),
-                          bandList=[i + 1])
-            lc_files.append(f)
-
-        # Make the SOC degradation file first in the list
-        soc_deg_f = self.combo_layer_soc.get_vrt()
-        soc_files = [soc_deg_f]
-        for i in soc_annual_band_indices:
-            f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-            # Add once since band numbers don't start at zero
-            gdal.BuildVRT(f,
-                          self.combo_layer_soc.get_data_file(),
-                          bandList=[i + 1])
-            soc_files.append(f)
-
-        in_files = list(lc_files)
-        in_files.extend(soc_files)
-        lc_band_nums = np.arange(len(lc_files)) + 1
-        soc_band_nums = np.arange(len(soc_files)) + 1 + lc_band_nums.max()
-
-        # Remember the first value is an indication of whether dataset is 
-        # wrapped across 180th meridian
-        wkts = self.aoi.meridian_split('layer', 'wkt', warn=False)[1]
-        # Compute the pixel-aligned bounding box (slightly larger than aoi). 
-        # Use this instead of croptocutline in gdal.Warp in order to keep the 
-        # pixels aligned with the chosen productivity layer.
-        if prod_mode == 'Trends.Earth productivity':
-            bbs = self.aoi.get_aligned_output_bounds(traj_vrt)
-        else:
-            bbs = self.aoi.get_aligned_output_bounds(lpd_vrt)
-
-        output_sdg_tifs = []
-        output_sdg_json = self.output_tab.output_basename.text() + '.json'
-        for n in range(len(wkts)):
-            # Combines SDG 15.3.1 input raster into a VRT and crop to the AOI
-            indic_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
-            log(u'Saving indicator VRT to: {}'.format(indic_vrt))
-            # The plus one is because band numbers start at 1, not zero
-            if prod_mode == 'Trends.Earth productivity':
-                gdal.BuildVRT(indic_vrt,
-                              in_files + [traj_vrt, perf_vrt, state_vrt],
-                              outputBounds=bbs[n],
-                              resolution='highest',
-                              resampleAlg=gdal.GRA_NearestNeighbour,
-                              separate=True)
-                prod_band_nums = np.arange(3) + 1 + soc_band_nums.max()
-            else:
-                gdal.BuildVRT(indic_vrt,
-                              in_files + [lpd_vrt],
-                              outputBounds=bbs[n],
-                              resolution='highest',
-                              resampleAlg=gdal.GRA_NearestNeighbour,
-                              separate=True)
-                prod_band_nums = [max(soc_band_nums) + 1]
-
-            # Compute a mask layer that will be used in the tabulation code to 
-            # mask out areas outside of the AOI. Do this instead of using 
-            # gdal.Clip to save having to clip and rewrite all of the layers in 
-            # the VRT
-            mask_vrt = tempfile.NamedTemporaryFile(suffix='.tif').name
-            log(u'Saving mask to {}'.format(mask_vrt))
-            geojson = json_geom_to_geojson(QgsGeometry.fromWkt(wkts[n]).asJson())
-            deg_lc_mask_worker = worker.StartWorker(
-                MaskWorker,
-                'generating mask (part {} of {})'.format(n + 1, len(wkts)),
-                mask_vrt,
-                geojson,
-                indic_vrt
-            )
-            if not deg_lc_mask_worker.success:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Error creating mask."))
-                log('deg_lc_mask_worker return value: {}'.format(deg_lc_mask_worker.success))
-                return
-
-            ######################################################################
-            #  Calculate SDG 15.3.1 layers
-            log('Calculating summary table...')
-            if len(wkts) > 1:
-                output_sdg_tif = os.path.splitext(output_sdg_json)[0] + '_{}.tif'.format(n)
-            else:
-                output_sdg_tif = os.path.splitext(output_sdg_json)[0] + '.tif'
-
-            output_sdg_tifs.append(output_sdg_tif)
-
-            # Manually remove any existing outfiles, including checking to see 
-            # that they are not loaded in the QGIS project, to ensure that GDAL 
-            # doesn't throw an error when it tries to overwrite it
-            if os.path.exists(f):
-                log('File {} exists. Will attempt to remove from QGIS and delete file.'.format(output_sdg_tif))
-                ret = layers.delete_layer_by_filename(output_sdg_tif)
-                if not ret:
-                    QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                                  self.tr("Error writing results to {}. Make sure this file is closed, and is not open in QGIS or any other software.".format(output_sdg_tif)))
-                    return
-            deg_worker = worker.StartWorker(DegradationSummaryWorkerSDG,
-                                    'calculating summary table (part {} of {})'.format(n + 1, len(wkts)),
-                                     indic_vrt,
-                                     prod_band_nums,
-                                     prod_mode, 
-                                     output_sdg_tif,
-                                     lc_band_nums, 
-                                     soc_band_nums,
-                                     mask_vrt)
-            if not deg_worker.success:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Error calculating SDG 15.3.1 summary table."))
-                return
-            else:
-                if n == 0:
-                    soc_totals, \
-                            lc_totals, \
-                            trans_prod_xtab, \
-                            sdg_tbl_overall, \
-                            sdg_tbl_prod, \
-                            sdg_tbl_soc, \
-                            sdg_tbl_lc = deg_worker.get_return()
-                else:
-                    this_soc_totals, \
-                            this_lc_totals, \
-                            this_trans_prod_xtab, \
-                            this_sdg_tbl_overall, \
-                            this_sdg_tbl_prod, \
-                            this_sdg_tbl_soc, \
-                            this_sdg_tbl_lc = deg_worker.get_return()
-
-                    for n in range(len(soc_totals)):
-                        soc_totals[n] = merge_area_tables(soc_totals[n], this_soc_totals[n])
-                    lc_totals = lc_totals + this_lc_totals
-                    if this_trans_prod_xtab[0][0].size != 0:
-                        trans_prod_xtab = merge_xtabs(trans_prod_xtab[0], trans_prod_xtab[1], trans_prod_xtab[2],
-                                                          this_trans_prod_xtab[0], this_trans_prod_xtab[1], this_trans_prod_xtab[2])
-                    sdg_tbl_overall = sdg_tbl_overall + this_sdg_tbl_overall
-                    sdg_tbl_prod = sdg_tbl_prod + this_sdg_tbl_prod
-                    sdg_tbl_soc = sdg_tbl_soc + this_sdg_tbl_soc
-                    sdg_tbl_lc = sdg_tbl_lc + this_sdg_tbl_lc
-
-        make_summary_table(soc_totals, lc_totals, trans_prod_xtab, 
-                           sdg_tbl_overall, sdg_tbl_prod, sdg_tbl_soc, 
-                           sdg_tbl_lc, lc_years, soc_years,
-                           self.output_tab.output_basename.text() + '.xlsx')
-
-
-        # Add the SDG layers to the map
-        output_sdg_bandinfos = [schemas.BandInfo("SDG 15.3.1 Indicator")]
-        if prod_mode == 'Trends.Earth productivity':
-            output_sdg_bandinfos.append(schemas.BandInfo("SDG 15.3.1 Productivity Indicator"))
-        
-        if len(output_sdg_tifs) == 1:
-            output_file = output_sdg_tifs[0]
-        else:
-            output_file = os.path.splitext(output_sdg_json)[0] + '.vrt'
-            gdal.BuildVRT(output_file, output_sdg_tifs)
-        
-        # set metadata 
-        metadata = self.setMetadata()
-        metadata['params'] = {}
-        metadata['params']['prod_mode'] = prod_mode
-        if prod_mode == 'Trends.Earth productivity':
-            metadata['params']['layer_traj'] = self.combo_layer_traj.get_data_file()
-            metadata['params']['layer_perf'] = self.combo_layer_perf.get_data_file()
-            metadata['params']['layer_state'] = self.combo_layer_state.get_data_file()
-        else:
-            metadata['params']['layer_lpd'] = self.combo_layer_lpd.get_data_file()
-        metadata['params']['layer_lc'] = self.combo_layer_lc.get_data_file()
-        metadata['params']['layer_soc'] = self.combo_layer_soc.get_data_file()
-
-        metadata['params']['crs'] = self.aoi.get_crs_dst_wkt()
-        crosses_180th, geojsons = self.gee_bounding_box
-        metadata['params']['geojsons'] = json.dumps(geojsons)
-        metadata['params']['crosses_180th'] = crosses_180th
-
-        layers.create_local_json_metadata(
-            output_sdg_json, output_file, output_sdg_bandinfos, metadata=metadata)
-        schema = schemas.BandInfoSchema()
-        layers.add_layer(output_file, 1, schema.dump(output_sdg_bandinfos[0]))
-        if prod_mode == 'Trends.Earth productivity':
-            layers.add_layer(output_file, 2, schema.dump(output_sdg_bandinfos[1]))
-
-        return True
-
-
-def get_lc_area(table, code):
-    ind = np.where(table[0] == code)[0]
-    if ind.size == 0:
-        return 0
-    else:
-        return float(table[1][ind])
-
-
-def get_lpd_table(table,
-                  lc_classes=list(range(1, 6 + 1)), # Don't include water bodies in the table
-                  lpd_classes=[1, 2, 3, 4, 5, -32768]):
-    out = np.zeros((len(lc_classes), len(lpd_classes)))
-    for lc_class_num in range(len(lc_classes)):
-        for prod_num in range(len(lpd_classes)):
-            transition = int('{}{}'.format(lc_classes[lc_class_num], lc_classes[lc_class_num]))
-            out[lc_class_num, prod_num] = get_xtab_area(table, lpd_classes[prod_num], transition)
-    return out
-
-
-def get_prod_table(table, prod_class, classes=list(range(1, 7 + 1))):
-    out = np.zeros((len(classes), len(classes)))
-    for bl_class in range(len(classes)):
-        for tg_class in range(len(classes)):
-            transition = int('{}{}'.format(classes[bl_class], classes[tg_class]))
-            out[bl_class, tg_class] = get_xtab_area(table, prod_class, transition)
-    return out
-
-
-
-# Note classes for this function go from 1-6 to exclude water from the SOC 
-# totals
-def write_soc_stock_change_table(sheet, first_row, first_col, soc_bl_totals, 
-                                 soc_tg_totals, classes=list(range(1, 6 + 1))):
-    for row in range(len(classes)):
-        for col in range(len(classes)):
-            cell = sheet.cell(row=row + first_row, column=col + first_col)
-            transition = int('{}{}'.format(classes[row], classes[col]))
-            bl_soc = get_soc_total(soc_bl_totals, transition)
-            tg_soc = get_soc_total(soc_tg_totals, transition)
-            try:
-                cell.value = (tg_soc - bl_soc) / bl_soc
-            except ZeroDivisionError:
-                cell.value = ''
-    
-
-# Note classes for this function go from 1-6 to exclude water from the SOC 
-# totals
-def get_soc_total_by_class(trans_prod_xtab, soc_totals, classes=list(range(1, 6 + 1)), uselog=False):
-    out = np.zeros((len(classes), 1))
-    for row in range(len(classes)):
-        area = 0
-        soc = 0
-        # Need to sum up the total soc across the pixels and then divide by 
-        # total area
-        for n in range(len(classes)):
-            trans = int('{}{}'.format(classes[row], classes[n]))
-            area += get_xtab_area(trans_prod_xtab, None, trans)
-            soc += get_soc_total(soc_totals, trans)
-
-        # Note areas are in sq km. Need to convert to ha
-        if soc != 0 and area != 0:
-            out[row][0] = soc / (area * 100)
-        else:
-            out[row][0]
-    return out
-
-
-def get_lc_table(table, classes=list(range(1, 7 + 1))):
-    out = np.zeros((len(classes), len(classes)))
-    for bl_class in range(len(classes)):
-        for tg_class in range(len(classes)):
-            transition = int('{}{}'.format(classes[bl_class], classes[tg_class]))
-            out[bl_class, tg_class] = get_xtab_area(table, None, transition)
-    return out
-
-
-def get_soc_total(soc_table, transition):
-    ind = np.where(soc_table[0] == transition)[0]
-    if ind.size == 0:
-        return 0
-    else:
-        return float(soc_table[1][ind])
-
-
-def make_summary_table(soc_totals, lc_totals, trans_prod_xtab, sdg_tbl_overall, 
-                       sdg_tbl_prod, sdg_tbl_soc, sdg_tbl_lc, lc_years, 
-                       soc_years, out_file):
-
-    wb = openpyxl.load_workbook(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'summary_table_ldn_sdg.xlsx'))
-
-    ##########################################################################
-    # SDG table
-    ws_sdg = wb['SDG 15.3.1']
-    write_table_to_sheet(ws_sdg, np.transpose(sdg_tbl_overall), 6, 6)
-
-    ##########################################################################
-    # Productivity tables
-    ws_prod = wb['Productivity']
-    write_table_to_sheet(ws_prod, np.transpose(sdg_tbl_prod), 6, 6)
-
-    write_table_to_sheet(ws_prod, get_prod_table(trans_prod_xtab, 5), 16, 3)
-    write_table_to_sheet(ws_prod, get_prod_table(trans_prod_xtab, 4), 28, 3)
-    write_table_to_sheet(ws_prod, get_prod_table(trans_prod_xtab, 3), 40, 3)
-    write_table_to_sheet(ws_prod, get_prod_table(trans_prod_xtab, 2), 52, 3)
-    write_table_to_sheet(ws_prod, get_prod_table(trans_prod_xtab, 1), 64, 3)
-    write_table_to_sheet(ws_prod, get_prod_table(trans_prod_xtab, -32768), 76, 3)
-
-    ##########################################################################
-    # Soil organic carbon tables
-    ws_soc = wb['Soil organic carbon']
-    write_table_to_sheet(ws_soc, np.transpose(sdg_tbl_soc), 6, 6)
-
-    # First write baseline
-    write_table_to_sheet(ws_soc, get_soc_total_by_class(trans_prod_xtab, soc_totals[0]), 16, 3)
-    # Now write target
-    write_table_to_sheet(ws_soc, get_soc_total_by_class(trans_prod_xtab, soc_totals[-1]), 16, 4)
-
-    # Write table of baseline areas
-    lc_trans_table_no_water = get_lc_table(trans_prod_xtab, classes=np.arange(1, 6 + 1))
-    write_table_to_sheet(ws_soc, np.reshape(np.sum(lc_trans_table_no_water, 1), (-1, 1)), 16, 5)
-    # Write table of target areas
-    write_table_to_sheet(ws_soc, np.reshape(np.sum(lc_trans_table_no_water, 0), (-1, 1)), 16, 6)
-    
-    # write_soc_stock_change_table has its own writing function as it needs to write a 
-    # mix of numbers and strings
-    write_soc_stock_change_table(ws_soc, 27, 3, soc_totals[0], soc_totals[-1])
-
-    ##########################################################################
-    # Land cover tables
-    ws_lc = wb['Land cover']
-    write_table_to_sheet(ws_lc, np.transpose(sdg_tbl_lc), 6, 6)
-
-    write_table_to_sheet(ws_lc, get_lc_table(trans_prod_xtab), 26, 3)
-
-    ##########################################################################
-    # UNCCD tables
-    ws_unccd = wb['UNCCD Reporting']
-
-    for i in range(len(lc_years)):
-        log('lc_years len: {}'.format(len(lc_years)))
-        # Water bodies
-        cell = ws_unccd.cell(5 + i, 4)
-        cell.value = lc_totals[i][6]
-        # Other classes
-        write_row_to_sheet(ws_unccd, np.append(lc_years[i], lc_totals[i][0:6]), 38 + i, 2)
-
-    write_table_to_sheet(ws_unccd, get_lpd_table(trans_prod_xtab), 82, 3)
-
-    for i in range(len(soc_years)):
-        write_row_to_sheet(ws_unccd, np.append(soc_years[i], get_soc_total_by_class(trans_prod_xtab, soc_totals[i], uselog=True)), 92 + i, 2)
-
-    try:
-        ws_sdg_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
-        ws_sdg.add_image(ws_sdg_logo, 'H1')
-        ws_prod_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
-        ws_prod.add_image(ws_prod_logo, 'H1')
-        ws_soc_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
-        ws_soc.add_image(ws_soc_logo, 'H1')
-        ws_lc_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
-        ws_lc.add_image(ws_lc_logo, 'H1')
-        ws_unccd_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
-        ws_unccd.add_image(ws_unccd_logo, 'G1')
-    except ImportError:
-        # add_image will fail on computers without PIL installed (this will be 
-        # an issue on some Macs, likely others). it is only used here to add 
-        # our logo, so no big deal.
-        pass
-
-    try:
-        wb.save(out_file)
-        log(u'Indicator table saved to {}'.format(out_file))
-        # QtWidgets.QMessageBox.information(None, tr_calculate_ldn.tr("Success"),
-        #                               tr_calculate_ldn.tr(u'Indicator table saved to {}'.format(out_file)))
-
-    except IOError:
-        log(u'Error saving {}'.format(out_file))
-        QtWidgets.QMessageBox.critical(None, tr_calculate_ldn.tr("Error"),
-                                   tr_calculate_ldn.tr(u"Error saving output table - check that {} is accessible and not already open.".format(out_file)))
+        params = ldn.get_main_sdg_15_3_1_job_params(
+            task_name=self.options_tab.task_name.text(),
+            aoi=self.aoi,
+            prod_mode=prod_mode,
+            combo_layer_lc=self.combo_layer_lc,
+            combo_layer_soc=self.combo_layer_soc,
+            combo_layer_traj=self.combo_layer_traj,
+            combo_layer_perf=self.combo_layer_perf,
+            combo_layer_state=self.combo_layer_state,
+            combo_layer_lpd=self.combo_layer_lpd,
+            task_notes=self.options_tab.task_notes.toPlainText()
+        )
+        job_manager.submit_local_job(
+            params, script_name=self.SCRIPT_NAME, area_of_interest=self.aoi)

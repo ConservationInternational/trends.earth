@@ -6,6 +6,7 @@ from pathlib import Path
 
 import qgis.core
 
+from . import download
 from .algorithms import models as algorithm_models
 
 
@@ -25,6 +26,8 @@ class Setting(enum.Enum):
     BINARIES_ENABLED = "advanced/binaries_enabled"
     BINARIES_DIR = "advanced/binaries_folder"
     BASE_DIR = "advanced/base_data_directory"
+    CUSTOM_CRS_ENABLED = "region_of_interest/custom_crs_enabled"
+    CUSTOM_CRS = "region_of_interest/custom_crs"
     POLL_REMOTE = "advanced/poll_remote_server"
     REMOTE_POLLING_FREQUENCY = "advanced/remote_polling_frequency_seconds"
     DOWNLOAD_RESULTS = "advanced/download_remote_results_automatically"
@@ -41,8 +44,6 @@ class Setting(enum.Enum):
     BUFFER_SIZE = "region_of_interest/buffer_size"
     AREA_NAME = "region_of_interest/area_settings_name"
     JOB_FILE_AGE_LIMIT_DAYS = "advanced/deleted_datasets_age_limit"
-    STORED_TASK_NAME = "advanced/stored_task_name"
-    STORED_TASK_NOTES = "advanced/stored_task_notes"
 
 
 class SettingsManager:
@@ -58,6 +59,8 @@ class SettingsManager:
         Setting.BINARIES_ENABLED: False,
         Setting.BINARIES_DIR: str(Path.home()),
         Setting.BASE_DIR: str(Path.home() / "trends_earth_data"),
+        Setting.CUSTOM_CRS_ENABLED: False,
+        Setting.CUSTOM_CRS: "epsg:4326",
         Setting.POLL_REMOTE: True,
         Setting.DOWNLOAD_RESULTS: True,
         Setting.BUFFER_CHECKED: False,
@@ -73,8 +76,6 @@ class SettingsManager:
         Setting.BUFFER_SIZE: 0.0,
         Setting.AREA_NAME: "",
         Setting.JOB_FILE_AGE_LIMIT_DAYS: 15,
-        Setting.STORED_TASK_NAME: "",
-        Setting.STORED_TASK_NOTES: "",
     }
 
     def __init__(self):
@@ -712,6 +713,7 @@ REMOTE_DATASETS = {
 _SCRIPT_CONFIG = {
     "final-sdg-15-3-1": {
         "run_mode": "local",
+        "execution_callable": "LDMP.localexecution.ldn.compute_ldn",
     },
     "urban-change-summary-table": {
         "run_mode": "local",
@@ -770,7 +772,7 @@ _SCRIPT_CONFIG = {
         "description": "Calculate soil organic carbon.",
         "run_mode": "remote",
     },
-    "sdg-sub-indicators": {
+    "three-sdg-15-3-1-sub-indicators": {
         "id": "4e9e106f-bdc5-4153-afc5-b8378a98670a",
         "description": "Calculate all three SDG sub-indicators in one step.",
         "run_mode": "remote",
@@ -847,7 +849,7 @@ _ALGORITHM_CONFIG = [
                 "description": "TODO: All SDG 15.3.1 sub-indicators in one step long description",
                 "scripts": [
                     {
-                        "script": KNOWN_SCRIPTS["sdg-sub-indicators"],
+                        "script": KNOWN_SCRIPTS["three-sdg-15-3-1-sub-indicators"],
                         "parametrization_dialogue": "LDMP.calculate_ldn.DlgCalculateOneStep",
                     }
                 ],
@@ -957,3 +959,5 @@ _ALGORITHM_CONFIG = [
 
 ALGORITHM_TREE = _load_algorithm_config(_ALGORITHM_CONFIG)
 settings_manager = SettingsManager()
+ADMIN_BOUNDS_KEY = download.get_admin_bounds()
+CITIES = download.get_cities()

@@ -1263,7 +1263,6 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
         else:
             last_layer = None
 
-        self.layer_list = job_manager.relevant_jobs
 
         usable_bands = get_usable_bands(self.property("layer_type"))
         self.layer_list = usable_bands
@@ -1271,7 +1270,9 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
         items = []
         for usable_band in usable_bands:
             items.append(
-                f"{usable_band.job.params.task_name} - {usable_band.band_info.name}")
+                f"{usable_band.job.params.task_name} - {usable_band.band_info.name} - "
+                f"{usable_band.band_info.metadata}"
+            )
         self.comboBox_layers.addItems(items)
         # self.comboBox_layers.addItems([l[1] for l in self.layer_list])
 
@@ -1301,48 +1302,48 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
                 QSettings().value("LDMP/output_dir", None),
                 self.tr('Trends.Earth metadata file (*.json)')
             )
-            if f:
-                if os.access(f, os.R_OK):
-                    QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
-
-                    new_layers = get_layer_info_from_file(
-                        os.path.normcase(os.path.normpath(f)),
-                        self.property("layer_type")
+            chosen_path = Path(f)
+            if chosen_path.is_file():
+                QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
+                new_layers = get_layer_info_from_file(
+                    os.path.normcase(os.path.normpath(f)),
+                    self.property("layer_type")
+                )
+                if new_layers:
+                    self.dlg_layer.file = f
+                    self.dlg_layer.update_layer_list(new_layers)
+                    self.dlg_layer.exec_()
+                    break
+                else:  # otherwise warn, and raise the layer selector again
+                    QtWidgets.QMessageBox.critical(
+                        None,
+                        self.tr("Error"),
+                        self.tr(
+                            u"{} failed to load or does not contain any layers of "
+                            u"this layer type. Choose a different file.".format(f))
                     )
-
-                    if new_layers:
-                        self.dlg_layer.file = f
-                        self.dlg_layer.update_layer_list(new_layers)
-                        self.dlg_layer.exec_()
-                        break
-                    else:
-                        # otherwise warn, and raise the layer selector again
-                        QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                                   self.tr(u"{} failed to load or does not contain any layers of this layer type. Choose a different file.".format(f)))
-                else:
-                    # otherwise warn, and raise the layer selector again
-                    QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                               self.tr(u"Cannot read {}. Choose a different file.".format(f)))
             else:
                 break
 
-    def get_data_file(self):
-        return self.layer_list[self.comboBox_layers.currentIndex()][0]
+    def get_data_file(self) -> Path:
+        current_index = self.comboBox_layers.currentIndex()
+        current_usable_band_info = self.layer_list[current_index]
+        return current_usable_band_info.path
 
-    def get_layer(self):
+    def get_layer(self) -> qgis.core.QgsRasterLayer:
         return qgis.core.QgsRasterLayer(
-            self.layer_list[self.comboBox_layers.currentIndex()][0],
-            "raster file",
-            "gdal"
-        )
+            str(self.get_data_file()), "raster file", "gdal")
+
+    def get_usable_band_info(self) -> UsableBandInfo:
+        return self.layer_list[self.comboBox_layers.currentIndex()]
 
     def get_band_info(self):
-        usable_band_info = self.layer_list[self.comboBox_layers.currentIndex()]
+        usable_band_info = self.get_usable_band_info()
         return usable_band_info.band_info
 
     def get_vrt(self):
         f = GetTempFilename('.vrt')
-        usable_band_info = self.layer_list[self.comboBox_layers.currentIndex()]
+        usable_band_info = self.get_usable_band_info()
         gdal.BuildVRT(
             f,
             str(usable_band_info.path),

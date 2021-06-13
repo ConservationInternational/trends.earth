@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>345</width>
-    <height>181</height>
+    <height>134</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -48,34 +48,100 @@
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <widget class="QLabel" name="name_la">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>31</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>dataset name</string>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="creation_date_la">
+        <property name="toolTip">
+         <string>Creation date</string>
+        </property>
+        <property name="text">
+         <string>Creation date</string>
+        </property>
+        <property name="textInteractionFlags">
+         <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>18</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
-         <widget class="QLabel" name="name_la">
-          <property name="minimumSize">
-           <size>
-            <width>0</width>
-            <height>31</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <weight>75</weight>
-            <bold>true</bold>
-           </font>
+         <widget class="QToolButton" name="download_tb">
+          <property name="toolTip">
+           <string>Download dataset</string>
           </property>
           <property name="text">
-           <string>dataset name</string>
-          </property>
-          <property name="wordWrap">
-           <bool>true</bool>
-          </property>
-          <property name="textInteractionFlags">
-           <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
+           <string>...</string>
           </property>
          </widget>
         </item>
         <item>
-         <spacer name="horizontalSpacer_2">
+         <widget class="QToolButton" name="add_to_canvas_tb">
+          <property name="toolTip">
+           <string>Load dataset onto QGIS map area</string>
+          </property>
+          <property name="text">
+           <string>...</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="open_details_tb">
+          <property name="toolTip">
+           <string>View dataset details</string>
+          </property>
+          <property name="text">
+           <string>...</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="open_directory_tb">
+          <property name="toolTip">
+           <string>Open dataset directory</string>
+          </property>
+          <property name="text">
+           <string>...</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -95,113 +161,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="download_pb">
-          <property name="toolTip">
-           <string>Dataset status</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QFormLayout" name="formLayout">
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_3">
-          <property name="text">
-           <string>Creation date:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLabel" name="creation_date_la">
-          <property name="text">
-           <string>creation date</string>
-          </property>
-          <property name="textInteractionFlags">
-           <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_5">
-          <property name="text">
-           <string>Generated by:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLabel" name="generated_by_la">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-          <property name="text">
-           <string>Source name</string>
-          </property>
-          <property name="wordWrap">
-           <bool>true</bool>
-          </property>
-          <property name="textInteractionFlags">
-           <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label">
-          <property name="text">
-           <string>Run id:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="2" column="1">
-         <widget class="QLabel" name="run_id_la">
-          <property name="text">
-           <string>run id string</string>
-          </property>
-          <property name="textInteractionFlags">
-           <set>Qt::LinksAccessibleByMouse|Qt::TextSelectableByKeyboard|Qt::TextSelectableByMouse</set>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
-         <widget class="QPushButton" name="add_to_canvas_pb">
-          <property name="toolTip">
-           <string>Load dataset into QGIS main map area</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="icon">
-           <iconset>
-            <normaloff>../icons/symbologyAdd.svg</normaloff>../icons/symbologyAdd.svg</iconset>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="open_details_pb">
-          <property name="toolTip">
-           <string>Click to view dataset details</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="icon">
-           <iconset>
-            <normaloff>../icons/mActionIdentify.svg</normaloff>../icons/mActionIdentify.svg</iconset>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer">
+         <spacer name="horizontalSpacer_2">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -214,16 +174,12 @@
          </spacer>
         </item>
         <item>
-         <widget class="QPushButton" name="delete_pb">
+         <widget class="QToolButton" name="delete_tb">
           <property name="toolTip">
            <string>Delete dataset</string>
           </property>
           <property name="text">
-           <string/>
-          </property>
-          <property name="icon">
-           <iconset>
-            <normaloff>../icons/mActionDeleteSelected.svg</normaloff>../icons/mActionDeleteSelected.svg</iconset>
+           <string>...</string>
           </property>
          </widget>
         </item>

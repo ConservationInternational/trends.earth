@@ -13,12 +13,8 @@ from pathlib import Path
 
 from .. import (
     api,
+    conf,
     log,
-)
-from ..conf import (
-    KNOWN_SCRIPTS,
-    Setting,
-    settings_manager,
 )
 from ..algorithms.models import ExecutionScript
 
@@ -42,6 +38,7 @@ class JobStatus(enum.Enum):
     FAILED = "FAILED"
     DELETED = "DELETED"
     DOWNLOADED = "DOWNLOADED"
+    GENERATED_LOCALLY = "GENERATED_LOCALLY"
 
 
 class JobResult(enum.Enum):
@@ -88,11 +85,18 @@ class RemoteScript:
 @dataclasses.dataclass()
 class JobLocalContext:
     base_dir: Path
+    area_of_interest_name: str
+
+    _unknown_area_of_interest: str = "unknown-area-name"
 
     @classmethod
     def deserialize(cls, raw_local_context: str):
         parsed = json.loads(raw_local_context)
-        return cls(base_dir=Path(parsed["base_dir"]))
+        return cls(
+            base_dir=Path(parsed["base_dir"]),
+            area_of_interest_name=parsed.get(
+                "area_of_interest_name", cls._unknown_area_of_interest)
+        )
 
     @classmethod
     def create_default(cls):
@@ -102,12 +106,16 @@ class JobLocalContext:
 
         """
 
-        return cls(base_dir=Path(settings_manager.get_value(Setting.BASE_DIR)))
+        return cls(
+            base_dir=Path(conf.settings_manager.get_value(conf.Setting.BASE_DIR)),
+            area_of_interest_name=cls._unknown_area_of_interest
+        )
 
     def serialize(self) -> str:
         return json.dumps(
             {
                 "base_dir": str(self.base_dir),
+                "area_of_interest_name": self.area_of_interest_name,
             }
         )
 
@@ -119,7 +127,8 @@ class JobNotes:
 
     @classmethod
     def deserialize(cls, raw_notes: str):
-        separator = settings_manager.get_value(Setting.LOCAL_CONTEXT_SEPARATOR)
+        separator = conf.settings_manager.get_value(
+            conf.Setting.LOCAL_CONTEXT_SEPARATOR)
         user_notes, raw_local_context = raw_notes.partition(separator)[::2]
         if raw_local_context != "":
             local_context = JobLocalContext.deserialize(raw_local_context)
@@ -132,7 +141,8 @@ class JobNotes:
             serialized_local_context = self.local_context.serialize()
         else:
             serialized_local_context = ""
-        separator = settings_manager.get_value(Setting.LOCAL_CONTEXT_SEPARATOR)
+        separator = conf.settings_manager.get_value(
+            conf.Setting.LOCAL_CONTEXT_SEPARATOR)
         return separator.join(
             (self.user_notes, serialized_local_context))
 
@@ -165,11 +175,11 @@ class JobParameters:
 
 @dataclasses.dataclass()
 class JobBand:
-    activated: bool
-    add_to_map: bool
     metadata: typing.Dict
     name: str
     no_data_value: float
+    activated: typing.Optional[bool] = True
+    add_to_map: typing.Optional[bool] = True
 
     @classmethod
     def deserialize(cls, raw_band: typing.Dict):
@@ -271,6 +281,22 @@ class JobLocalResults:
     local_paths: typing.List[Path]
     type: JobResult = JobResult.LOCAL_RESULTS
 
+    @classmethod
+    def deserialize(cls, raw_results: typing.Dict):
+        return cls(
+            name=raw_results["name"],
+            bands=[JobBand.deserialize(raw_band) for raw_band in raw_results["bands"]],
+            local_paths=[Path(local_path) for local_path in raw_results["local_paths"]],
+        )
+
+    def serialize(self) -> typing.Dict:
+        return {
+            "name": self.name,
+            "type": self.type.value,
+            "bands": [band.serialize() for band in self.bands],
+            "local_paths": [str(path) for path in self.local_paths]
+        }
+
 
 @dataclasses.dataclass()
 class Job:
@@ -306,12 +332,19 @@ class Job:
         else:
             if type_ == JobResult.CLOUD_RESULTS:
                 results = JobCloudResults.deserialize(raw_results)
+            elif type_ == JobResult.LOCAL_RESULTS:
+                results = JobLocalResults.deserialize(raw_results)
             elif type_ == JobResult.TIME_SERIES_TABLE:
                 results = TimeSeriesTableResult.deserialize(raw_results)
             else:
                 raise RuntimeError(f"Invalid results type: {type_!r}")
-        script_id = uuid.UUID(raw_job["script_id"])
-        script = _get_job_script(script_id)
+        try:
+            script_id = uuid.UUID(raw_job["script_id"])
+            script = _get_job_script(script_id)
+        except ValueError:
+            script_name = raw_job["script_id"]
+            script = get_job_local_script(script_name)
+        raw_user_id = raw_job.get("user_id")
         return cls(
             id=uuid.UUID(raw_job["id"]),
             params=JobParameters.deserialize(raw_job["params"]),
@@ -319,7 +352,7 @@ class Job:
             results=results,
             script=script,
             status=JobStatus(raw_job["status"]),
-            user_id=uuid.UUID(raw_job["user_id"]),
+            user_id=uuid.UUID(raw_user_id) if raw_user_id is not None else None,
             start_date=dt.datetime.strptime(
                 raw_job["start_date"],
                 cls._date_format
@@ -328,14 +361,17 @@ class Job:
         )
 
     def serialize(self) -> typing.Dict:
+        # local scripts are identified by their name, they do not have an id
+        script_identifier = (
+            str(self.script.id) if self.script.id is not None else self.script.name)
         raw_job = {
             "id": str(self.id),
             "params": self.params.serialize(),
             "progress": self.progress,
             "results": None if self.results is None else self.results.serialize(),
-            "script_id": str(self.script.id),
+            "script_id": script_identifier,
             "status": self.status.value,
-            "user_id": str(self.user_id),
+            "user_id": str(self.user_id) if self.user_id is not None else None,
             "start_date": self.start_date.strftime(self._date_format)
         }
         if self.end_date is not None:
@@ -356,9 +392,13 @@ def get_remote_scripts():
     return [ExecutionScript.deserialize_from_remote_response(r) for r in raw_remote]
 
 
+def get_job_local_script(script_name: str) -> ExecutionScript:
+    return conf.KNOWN_SCRIPTS[script_name]
+
+
 def _get_job_script(script_id: uuid.UUID) -> ExecutionScript:
     try:
-        script = [s for s in KNOWN_SCRIPTS.values() if s.id == script_id][0]
+        script = [s for s in conf.KNOWN_SCRIPTS.values() if s.id == script_id][0]
     except IndexError:
         log(f"script {script_id!r} is not known locally")
         remote_scripts = get_remote_scripts()

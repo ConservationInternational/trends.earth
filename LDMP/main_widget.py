@@ -1,6 +1,5 @@
 import datetime as dt
 import functools
-import importlib
 import os
 import typing
 from pathlib import Path
@@ -31,9 +30,11 @@ from .download_data import DlgDownload
 from .jobs.manager import job_manager
 from .jobs import mvc as jobs_mvc
 from .jobs.models import (
+    Job,
     JobStatus,
     SortField,
 )
+from .utils import load_object
 from .visualization import DlgVisualizationBasemap
 
 DockWidgetTrendsEarthUi, _ = uic.loadUiType(
@@ -94,6 +95,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         job_manager.downloaded_available_jobs_results.connect(
             self.refresh_after_cache_update)
         job_manager.deleted_job.connect(self.refresh_after_cache_update)
+        job_manager.submitted_job.connect(self.refresh_after_job_submitted)
         self.clean_empty_directories()
         self.setup_algorithms_tree()
         self.setup_datasets_page_gui()
@@ -132,10 +134,31 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
         self.datasets_tv.setMouseTracking(True)  # to allow emit entered events and manage editing over mouse
         self.datasets_tv.setWordWrap(True)  # add ... to wrap DisplayRole text... to have a real wrap need a custom widget
-        delegate = jobs_mvc.JobItemDelegate(parent=self.datasets_tv)
-        self.datasets_tv.setItemDelegate(delegate)
+        self.datasets_tv_delegate = jobs_mvc.JobItemDelegate(self.datasets_tv)
+        self.datasets_tv.setItemDelegate(self.datasets_tv_delegate)
         self.datasets_tv.setEditTriggers(
             QtWidgets.QAbstractItemView.AllEditTriggers)
+        # self.datasets_tv.clicked.connect(self._manage_datasets_tree_view)
+        self.datasets_tv.entered.connect(self._manage_datasets_tree_view)
+
+    def refresh_after_cache_update(self):
+        current_dataset_index = self.datasets_tv_delegate.current_index
+        if current_dataset_index is not None:
+            has_open_editor = self.datasets_tv.isPersistentEditorOpen(
+                current_dataset_index)
+            if has_open_editor:
+                self.datasets_tv.closePersistentEditor(current_dataset_index)
+            self.datasets_tv_delegate.current_index = None
+
+        maybe_download_finished_results()
+        model = jobs_mvc.JobsModel(job_manager)
+        # self.datasets_tv.setModel(model)
+
+        self.proxy_model = jobs_mvc.JobsSortFilterProxyModel(SortField.DATE)
+        self.proxy_model.setSourceModel(model)
+        self.lineEdit_search.valueChanged.connect(self.filter_changed)
+        self.datasets_tv.setModel(self.proxy_model)
+        self.toggle_editing_widgets(True)
 
     def perform_periodic_tasks(self):
         """Handle periodic execution of plugin related tasks
@@ -221,14 +244,8 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         job_manager.refresh_local_state()
         self.last_refreshed_local_state = dt.datetime.now(tz=dt.timezone.utc)
 
-    def refresh_after_cache_update(self):
-        maybe_download_finished_results()
-        model = jobs_mvc.JobsModel(job_manager)
-        self.proxy_model = jobs_mvc.JobsSortFilterProxyModel(SortField.DATE)
-        self.proxy_model.setSourceModel(model)
-        self.lineEdit_search.valueChanged.connect(self.filter_changed)
-        self.datasets_tv.setModel(self.proxy_model)
-        self.toggle_editing_widgets(True)
+    def refresh_after_job_submitted(self, job: Job):
+        self.refresh_after_cache_update()
 
     def filter_changed(self, filter_string: str):
         options = QtCore.QRegularExpression.NoPatternOption
@@ -274,9 +291,45 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
     ):
         algorithm_script = _get_script(algorithm, run_mode)
         dialog_class_path = algorithm_script.parametrization_dialogue
-        dialog_class = _load_object(dialog_class_path)
+        dialog_class = load_object(dialog_class_path)
         dialog = dialog_class(self.iface, algorithm_script.script, parent=self)
         dialog.exec_()
+
+    def _manage_datasets_tree_view(self, index: QtCore.QModelIndex):
+        """Manage dataset treeview's editing
+
+        Since we are using a custom delegate for providing editing functionalities to
+        the datasets treeview, we need to manage when the delegate should have an
+        open editor widget. In this case we are not doing any real editing, but since we
+        do show some buttons on the custom widget, we need the delegate to be in
+        editing mode so that we can interact with the buttons
+
+        """
+
+        if index.isValid():
+            # current_item = index.internalPointer()
+            source_index = self.proxy_model.mapToSource(index)
+            current_item = source_index.internalPointer()
+            current_item: Job
+            if current_item is not None:
+                previous_index = self.datasets_tv_delegate.current_index
+                index_changed = index != previous_index
+                if previous_index is not None:
+                    previously_open = self.datasets_tv.isPersistentEditorOpen(
+                        previous_index)
+                else:
+                    previously_open = False
+                if index_changed and previously_open:
+                    self.datasets_tv.closePersistentEditor(previous_index)
+                    self.datasets_tv.openPersistentEditor(index)
+                elif index_changed and not previously_open:
+                    self.datasets_tv.openPersistentEditor(index)
+                elif not index_changed and previously_open:
+                    pass
+                elif not index_changed and not previously_open:
+                    self.datasets_tv.openPersistentEditor(index)
+
+            self.datasets_tv_delegate.current_index = index
 
     def _manage_algorithm_tree_view(self, index: QtCore.QModelIndex):
         """Manage algorithm treeview's editing
@@ -342,12 +395,6 @@ def _should_run(periodic_frequency_seconds: int, last_run: dt.datetime):
     except TypeError:
         delta = dt.timedelta(seconds=periodic_frequency_seconds)
     return True if delta.seconds >= periodic_frequency_seconds else False
-
-
-def _load_object(python_path: str) -> typing.Any:
-    module_path, object_name = python_path.rpartition(".")[::2]
-    loaded_module = importlib.import_module(module_path)
-    return getattr(loaded_module, object_name)
 
 
 def _get_script(

@@ -26,6 +26,7 @@ import openpyxl
 from openpyxl.drawing.image import Image
 from openpyxl.styles import Font, Alignment
 
+import qgis.gui
 from qgis.utils import iface
 from qgis.core import QgsGeometry
 mb = iface.messageBar()
@@ -33,16 +34,20 @@ mb = iface.messageBar()
 from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtCore import QSettings, QDate, QCoreApplication
 
-from LDMP import log
-from LDMP.api import run_script
-from LDMP.calculate import (DlgCalculateBase, get_script_slug, ClipWorker,
-    json_geom_to_geojson, local_scripts)
-from LDMP.layers import add_layer, create_local_json_metadata, get_band_infos
-from LDMP.worker import AbstractWorker, StartWorker
-from LDMP.gui.DlgCalculateRestBiomassData import Ui_DlgCalculateRestBiomassData
-from LDMP.gui.DlgCalculateRestBiomassSummaryTable import Ui_DlgCalculateRestBiomassSummaryTable
-from LDMP.schemas.schemas import BandInfo, BandInfoSchema
-from LDMP.summary import *
+from .api import run_script
+from .algorithms import models
+
+from .calculate import (
+    DlgCalculateBase,
+    get_script_slug,
+    ClipWorker,
+    json_geom_to_geojson)
+from .layers import add_layer, create_local_json_metadata, get_band_infos
+from .worker import AbstractWorker, StartWorker
+from .gui.DlgCalculateRestBiomassData import Ui_DlgCalculateRestBiomassData
+from .gui.DlgCalculateRestBiomassSummaryTable import Ui_DlgCalculateRestBiomassSummaryTable
+from .schemas.schemas import BandInfo, BandInfoSchema
+from .summary import *
 
 
 class tr_calculate_rest_biomass(object):
@@ -51,8 +56,13 @@ class tr_calculate_rest_biomass(object):
 
 
 class DlgCalculateRestBiomassData(DlgCalculateBase, Ui_DlgCalculateRestBiomassData):
-    def __init__(self, parent=None):
-        super(DlgCalculateRestBiomassData, self).__init__(parent)
+    def __init__(
+            self,
+            iface: qgis.gui.QgisInterface,
+            script: models.ExecutionScript,
+            parent: QtWidgets.QWidget = None,
+    ):
+        super().__init__(iface, script, parent)
 
         self.setupUi(self)
 
@@ -189,12 +199,15 @@ class RestBiomassSummaryWorker(AbstractWorker):
 
 
 class DlgCalculateRestBiomassSummaryTable(DlgCalculateBase, Ui_DlgCalculateRestBiomassSummaryTable):
-    def __init__(self, parent=None):
-        super(DlgCalculateRestBiomassSummaryTable, self).__init__(parent)
+    def __init__(
+            self,
+            iface: qgis.gui.QgisInterface,
+            script: models.ExecutionScript,
+            parent: QtWidgets.QWidget = None,
+    ):
+        super().__init__(iface, script, parent)
 
         self.setupUi(self)
-
-        self.add_output_tab(['.json', '.tif', '.xlsx'])
         self.initiliaze_settings()
 
     def showEvent(self, event):

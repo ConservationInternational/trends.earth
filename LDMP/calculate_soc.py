@@ -21,12 +21,22 @@ import numpy as np
 import qgis.gui
 from osgeo import gdal, osr
 from qgis.core import QgsGeometry
+from qgis.utils import iface
 
-mb = iface.messageBar()
+from PyQt5 import (
+    QtCore,
+    QtGui,
+    QtWidgets,
+)
 
 from . import (
     calculate,
     log,
+)
+
+from .conf import(
+    settings_manager,
+    Setting
 )
 from .algorithms import models
 from .jobs.manager import job_manager
@@ -35,6 +45,9 @@ from .lc_setup import LCSetupWidget
 from .worker import AbstractWorker, StartWorker
 from .gui.DlgCalculateSOC import Ui_DlgCalculateSOC
 from .schemas.schemas import BandInfo, BandInfoSchema
+
+
+mb = iface.messageBar()
 
 
 def remap(a, remap_list):
@@ -291,10 +304,6 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, Ui_DlgCalculateSOC):
 
         self.lc_setup_widget = LCSetupWidget()
 
-        # hack to allow add HiddenOutputpTab that automatically set
-        # out files in case of local process
-        self.add_output_tab(['.json', '.tif'])
-
         self.regimes = [('Temperate dry (Fl = 0.80)', .80),
                         ('Temperate moist (Fl = 0.69)', .69),
                         ('Tropical dry (Fl = 0.58)', .58),
@@ -305,7 +314,7 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, Ui_DlgCalculateSOC):
         self.fl_chooseRegime_comboBox.setEnabled(False)
         self.fl_custom_lineEdit.setEnabled(False)
         # Setup validator for lineedit entries
-        validator = QDoubleValidator()
+        validator = QtGui.QDoubleValidator()
         validator.setBottom(0)
         validator.setDecimals(3)
         self.fl_custom_lineEdit.setValidator(validator)
@@ -320,7 +329,7 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, Ui_DlgCalculateSOC):
         if self.setup_frame.layout() is None:
             setup_layout = QtWidgets.QVBoxLayout(self.setup_frame)
             setup_layout.setContentsMargins(0, 0, 0, 0)
-            setup_layout.addWidget(lc_setup_widget)
+            setup_layout.addWidget(self.lc_setup_widget)
             self.setup_frame.setLayout(setup_layout)
 
         self.lc_setup_widget.groupBox_esa_period.show()
@@ -368,8 +377,7 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, Ui_DlgCalculateSOC):
     def get_save_raster(self):
         raster_file, _ = QtWidgets.QFileDialog.getSaveFileName(self,
                                                                self.tr('Choose a name for the output file'),
-                                                               QSettings().value(
-                                                                   "trends_earth/advanced/base_data_directory", None),
+                                                               settings_manager.get_value(Setting.BASE_DIR),
                                                                self.tr('Raster file (*.tif)'))
         if raster_file:
             if os.access(os.path.dirname(raster_file), os.W_OK):

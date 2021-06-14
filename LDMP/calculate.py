@@ -11,6 +11,8 @@
  ***************************************************************************/
 """
 
+import os
+import json
 import datetime as dt
 import typing
 import uuid
@@ -46,6 +48,7 @@ from .conf import (
     KNOWN_SCRIPTS,
     settings_manager,
 )
+from .settings import DlgSettings
 
 if settings_manager.get_value(Setting.BINARIES_ENABLED):
     try:
@@ -824,10 +827,17 @@ class DlgCalculateBase(QtWidgets.QDialog):
         if not self.admin_bounds_key:
             raise ValueError('Admin boundaries not available')
 
-
         self.cities = download.get_cities()
         if not self.cities:
             raise ValueError('Cities list not available')
+
+        with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
+                               'data', 'scripts.json')) as script_file:
+            self.scripts = json.load(script_file)
+
+        with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
+                               'data', 'gee_datasets.json')) as datasets_file:
+            self.datasets = json.load(datasets_file)
 
         self.firstShowEvent.connect(self.firstShow)
 
@@ -838,11 +848,11 @@ class DlgCalculateBase(QtWidgets.QDialog):
     def splitter_toggled(self):
         if self.splitter_collapsed:
             self.splitter.restoreState(self.splitter_state)
-            self.collapse_button.setArrowType(Qt.RightArrow)
+            self.collapse_button.setArrowType(QtCore.Qt.RightArrow)
         else:
             self.splitter_state = self.splitter.saveState()
             self.splitter.setSizes([1, 0])
-            self.collapse_button.setArrowType(Qt.LeftArrow)
+            self.collapse_button.setArrowType(QtCore.Qt.LeftArrow)
         self.splitter_collapsed = not self.splitter_collapsed
 
     def initiliaze_settings(self):
@@ -853,8 +863,8 @@ class DlgCalculateBase(QtWidgets.QDialog):
         ok_button.setText(self.tr("Schedule execution"))
         ok_button.clicked.connect(self.btn_calculate)
 
-        region = QgsSettings().value("trends_earth/region_of_interest/area_settings_name")
-        self.execution_name_le.setText(f"LDN_{region}_{datetime.strftime(datetime.now(), '%Y%m%d%H%M%S')}")
+        region = settings_manager.get_value(Setting.REGION_NAME)
+        self.execution_name_le.setText(f"LDN_{region}_{dt.datetime.strftime(dt.datetime.now(), '%Y%m%d%H%M%S')}")
 
         self.region_button.clicked.connect(self.run_settings)
 
@@ -867,19 +877,19 @@ class DlgCalculateBase(QtWidgets.QDialog):
         self.collapse_button = QtWidgets.QToolButton(splitter_handle)
         self.collapse_button.setAutoRaise(True)
         self.collapse_button.setFixedSize(12, 12)
-        self.collapse_button.setCursor(Qt.ArrowCursor)
+        self.collapse_button.setCursor(QtCore.Qt.ArrowCursor)
         handle_layout.addWidget(self.collapse_button)
 
         handle_layout.addStretch()
         splitter_handle.setLayout(handle_layout)
 
-        arrow_type = Qt.RightArrow if self.splitter.sizes()[1] == 0 else Qt.LeftArrow
+        arrow_type = QtCore.Qt.RightArrow if self.splitter.sizes()[1] == 0 else QtCore.Qt.LeftArrow
 
         self.collapse_button.setArrowType(arrow_type)
         self.collapse_button.clicked.connect(self.splitter_toggled)
         self.splitter_collapsed = self.splitter.sizes()[1] != 0
 
-        QgsGui.enableAutoGeometryRestore(self)
+        qgis.gui.QgsGui.enableAutoGeometryRestore(self)
 
         self.region_la.setText(self.tr(f"Current region: {region}"))
 

@@ -12,6 +12,8 @@
  ***************************************************************************/
 """
 
+import os
+import json
 import tempfile
 
 import openpyxl
@@ -216,12 +218,15 @@ class DlgCalculateUrbanData(DlgCalculateBase, Ui_DlgCalculateUrbanData):
 
 
 class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummaryTable):
-    def __init__(self, parent=None):
-        super(DlgCalculateUrbanSummaryTable, self).__init__(parent)
-
+    def __init__(
+            self,
+            iface: qgis.gui.QgisInterface,
+            script: models.ExecutionScript,
+            parent: QtWidgets.QWidget = None
+    ):
+        super().__init__(iface, script, parent)
         self.setupUi(self)
 
-        self.add_output_tab(['.xlsx', '.json', '.tif'])
         self.initiliaze_settings()
 
     def showEvent(self, event):

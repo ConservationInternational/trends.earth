@@ -12,38 +12,49 @@
  ***************************************************************************/
 """
 
-from builtins import zip
-from builtins import range
 import os
 import json
-
-import numpy as np
 
 from osgeo import gdal, osr
 
 import openpyxl
 from openpyxl.drawing.image import Image
 
+import qgis.gui
 from qgis import processing
 from qgis.utils import iface
-from qgis.core import (QgsApplication, QgsGeometry, QgsProcessingAlgRunnerTask, 
-        QgsTask)
 
 mb = iface.messageBar()
+from qgis.core import (
+    QgsApplication,
+    QgsGeometry,
+    QgsProcessingAlgRunnerTask,
+    QgsTask,
+)
 
 from qgis.PyQt import QtWidgets
-from qgis.PyQt.QtCore import QSettings, QDate, QCoreApplication
+from qgis.PyQt.QtCore import QDate, QCoreApplication
 
 from LDMP import log, GetTempFilename
 from LDMP.api import run_script
-from LDMP.calculate import (DlgCalculateBase, get_script_slug, 
-        json_geom_to_geojson, local_scripts)
-from LDMP.layers import add_layer, create_local_json_metadata
-from LDMP.worker import AbstractWorker, StartWorker
-from LDMP.gui.DlgCalculateTCData import Ui_DlgCalculateTCData
-from LDMP.gui.DlgCalculateTCSummaryTable import Ui_DlgCalculateTCSummaryTable
-from LDMP.schemas.schemas import BandInfo, BandInfoSchema
-from LDMP.summary import *
+from .calculate import (
+    DlgCalculateBase,
+    get_script_slug,
+    json_geom_to_geojson
+)
+from .layers import (
+    add_layer,
+    create_local_json_metadata
+)
+from .worker import (
+    AbstractWorker,
+    StartWorker,
+)
+from .gui.DlgCalculateTCData import Ui_DlgCalculateTCData
+from .gui.DlgCalculateTCSummaryTable import Ui_DlgCalculateTCSummaryTable
+from .schemas.schemas import BandInfo, BandInfoSchema
+from .summary import *
+from .algorithms import models
 
 
 class tr_calculate_tc(object):
@@ -118,14 +129,15 @@ class TCWorker(AbstractWorker):
 
 
 class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
-    def __init__(self, parent=None):
-        super(DlgCalculateTCData, self).__init__(parent)
+    def __init__(
+            self,
+            iface: qgis.gui.QgisInterface,
+            script: models.ExecutionScript,
+            parent: QtWidgets.QWidget = None,
+    ):
+        super().__init__(iface, script, parent)
 
         self.setupUi(self)
-
-        # hack to allow add HiddenOutputpTab that automatically set
-        # out files in case of local process
-        self.add_output_tab(['.json', '.tif'])
 
         self.first_show = True
 
@@ -655,13 +667,18 @@ class SummaryTask(QgsTask):
             QtWidgets.QMessageBox.critical(None, tr_calculate_tc.tr("Error"),
                                        tr_calculate_tc.tr(u"Error saving output table - check that {} is accessible and not already open.".format(self.output_file)))
 
+
 class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable):
-    def __init__(self, parent=None):
-        super(DlgCalculateTCSummaryTable, self).__init__(parent)
+    def __init__(
+            self,
+            iface: qgis.gui.QgisInterface,
+            script: models.ExecutionScript,
+            parent: QtWidgets.QWidget = None,
+    ):
+        super().__init__(iface, script, parent)
 
         self.setupUi(self)
 
-        self.add_output_tab(['.xlsx'])
         self.initiliaze_settings()
 
     def showEvent(self, event):

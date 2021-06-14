@@ -17,6 +17,7 @@ from pathlib import Path
 
 import numpy as np
 import qgis.core
+import qgis.gui
 from osgeo import gdal
 
 from PyQt5 import (
@@ -35,11 +36,23 @@ from . import (
 from .algorithms.models import ExecutionScript
 from .jobs.manager import job_manager
 
+from qgis.utils import iface
+mb = iface.messageBar()
 
 DlgCalculateRestBiomassDataUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateRestBiomassData.ui"))
 DlgCalculateRestBiomassSummaryTableUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateRestBiomassSummaryTable.ui"))
+
+from .algorithms import models
+
+from .calculate import (
+    DlgCalculateBase,
+)
+from .gui.DlgCalculateRestBiomassData import Ui_DlgCalculateRestBiomassData
+from .gui.DlgCalculateRestBiomassSummaryTable import Ui_DlgCalculateRestBiomassSummaryTable
+from .summary import *
+
 
 
 class tr_calculate_rest_biomass(object):

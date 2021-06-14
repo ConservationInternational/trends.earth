@@ -136,7 +136,7 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
         self.setupUi(self)
 
         self.lc_setup_widget = LCSetupWidget()
-        self.lc_define_deg_widget = LCDefineDegradationWidget
+        self.lc_define_deg_widget = LCDefineDegradationWidget()
 
         self.initiliaze_settings()
 

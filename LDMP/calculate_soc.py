@@ -27,8 +27,13 @@ from PyQt5 import (
     QtWidgets,
     uic,
 )
+from qgis.utils import iface
 
-mb = iface.messageBar()
+from PyQt5 import (
+    QtCore,
+    QtGui,
+    QtWidgets,
+)
 
 from . import (
     calculate,
@@ -36,12 +41,20 @@ from . import (
     log,
     worker,
 )
+
+from .conf import(
+    settings_manager,
+    Setting
+)
 from .algorithms import models
 from .jobs.manager import job_manager
 from .lc_setup import LCSetupWidget
 
 DlgCalculateSocUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateSOC.ui"))
+
+
+mb = iface.messageBar()
 
 
 def remap(a, remap_list):
@@ -299,6 +312,7 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
     comboBox_custom_soc: data_io.WidgetDataIOSelectTELayerImport
 
     LOCAL_SCRIPT_NAME = "local-soil-organic-carbon"
+
     def __init__(
             self,
             iface: qgis.gui.QgisInterface,

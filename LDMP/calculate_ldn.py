@@ -136,8 +136,8 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             layout.setSpacing(1)
             layout.addWidget(self.lc_define_deg_widget)
             scroll_container.setLayout(layout)
-            self.scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-            self.scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+            self.scroll_area.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
+            self.scroll_area.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
             self.scroll_area.setWidgetResizable(True)
             self.scroll_area.setWidget(scroll_container)
 

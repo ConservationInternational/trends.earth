@@ -13,6 +13,8 @@
 """
 
 from pathlib import Path
+import os
+import json
 
 from osgeo import (
     gdal,
@@ -23,6 +25,7 @@ from openpyxl.drawing.image import Image
 
 import processing
 import qgis.core
+import qgis.gui
 #from qgis import processing
 from qgis.utils import iface
 

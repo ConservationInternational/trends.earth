@@ -182,7 +182,7 @@
         "ESA CCI": {
             "Data source": "ESA",
             "Start year": 1992,
-            "End year": 2019,
+            "End year": 2020,
             "Spatial Resolution": "300 m",
             "Temporal resolution": "annual",
             "Min Latitude": "-90",
@@ -192,7 +192,7 @@
             "Units": "Land cover classes",
             "Description": "The CCI-LC project delivers consistent global LC maps at 300 m spatial resolution on an annual basis from 1992 to 2018. The Coordinate Reference System used for the global land cover database is a geographic coordinate system (GCS) based on the World Geodetic System 84 (WGS84) reference ellipsoid.",
             "Link to Dataset": "http://maps.elie.ucl.ac.be/CCI/viewer/index.php",
-            "GEE Dataset": "users/geflanddegradation/toolbox_datasets/lcov_esacc_1992_2019",
+            "GEE Dataset": "users/geflanddegradation/toolbox_datasets/lcov_esacc_1992_2020",
             "Source code": "c04_esa_cci_landcover_global_assets",
             "Status": "Stored as assets",
             "License": "CC by-SA 3.0",

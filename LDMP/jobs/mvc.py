@@ -1,6 +1,11 @@
+import os
 import functools
 import typing
+import json
 from pathlib import Path
+from zipfile import ZipFile
+
+import qgis.core
 
 from PyQt5 import (
     QtCore,
@@ -13,6 +18,7 @@ from .. import (
     layers,
     log,
     openFolder,
+    tr,
 )
 from ..conf import (
     Setting,
@@ -22,9 +28,15 @@ from . import (
     manager,
     models,
 )
+from ..message_bar import(
+    MessageBar,
+)
 
 WidgetDatasetItemUi, _ = uic.loadUiType(
     str(Path(__file__).parents[1] / "gui/WidgetDatasetItem.ui"))
+
+WidgetDatasetItemDetailsUi, _ = uic.loadUiType(
+    str(Path(__file__).parents[1] / "gui/WidgetDatasetItemDetails.ui"))
 
 
 class JobsModel(QtCore.QAbstractItemModel):
@@ -192,7 +204,30 @@ class JobItemDelegate(QtWidgets.QStyledItemDelegate):
         editor.setGeometry(option.rect)
 
 
-class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
+class DatasetActions:
+    job: models.Job
+
+    def load_dataset(self):
+        manager.job_manager.display_job_results(self.job)
+
+    def delete_dataset(self):
+        message_box = QtWidgets.QMessageBox()
+        message_box.setText(
+            f"You are about to delete job {self.job.params.task_name!r}")
+        message_box.setInformativeText("Confirm?")
+        message_box.setStandardButtons(
+            QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.Cancel)
+        message_box.setDefaultButton(QtWidgets.QMessageBox.Cancel)
+        message_box.setIcon(QtWidgets.QMessageBox.Information)
+        result = QtWidgets.QMessageBox.Res = message_box.exec_()
+        if result == QtWidgets.QMessageBox.Yes:
+            log("About to delete the dataset")
+            for path in self.job.results.local_paths:
+                layers.delete_layer_by_filename(str(path))
+            manager.job_manager.delete_job(self.job)
+
+
+class DatasetEditorWidget(QtWidgets.QWidget, DatasetActions,  WidgetDatasetItemUi):
     job: models.Job
 
     add_to_canvas_tb: QtWidgets.QToolButton
@@ -274,6 +309,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
 
     def show_details(self):
         log(f"Details button clicked for job {self.job.params.task_name!r}")
+        result = DatasetDetailsWidget(self.job).exec_()
 
     def open_job_directory(self):
         log(f"Open directory button clicked for job {self.job.params.task_name!r}")
@@ -282,21 +318,59 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         # working correctly (as of Jun 2021 on Ubuntu)
         openFolder(str(job_directory))
 
-    def load_dataset(self):
-        manager.job_manager.display_job_results(self.job)
+class DatasetDetailsWidget(QtWidgets.QDialog, DatasetActions, WidgetDatasetItemDetailsUi):
 
-    def delete_dataset(self):
-        message_box = QtWidgets.QMessageBox()
-        message_box.setText(
-            f"You are about to delete job {self.job.params.task_name!r}")
-        message_box.setInformativeText("Confirm?")
-        message_box.setStandardButtons(
-            QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.Cancel)
-        message_box.setDefaultButton(QtWidgets.QMessageBox.Cancel)
-        message_box.setIcon(QtWidgets.QMessageBox.Information)
-        result = QtWidgets.QMessageBox.Res = message_box.exec_()
-        if result == QtWidgets.QMessageBox.Yes:
-            log("About to delete the dataset")
-            for path in self.job.results.local_paths:
-                layers.delete_layer_by_filename(str(path))
-            manager.job_manager.delete_job(self.job)
+    def __init__(self, job: models.Job, parent=None):
+        super(DatasetDetailsWidget, self).__init__(parent)
+        self.setupUi(self)
+
+        self.job = job
+
+        self.name_le.setText(self.job.params.task_name)
+        self.state_le.setText(self.job.status.value)
+        self.created_at_le.setText(str(self.job.start_date))
+
+        self.alg_le.setText(self.job.script.name)
+        self.path = None
+
+        for path in self.job.results.local_paths:
+            if 'tif' in str(path):
+                self.path = str(path)
+        self.path_le.setText(self.path)
+
+        self.load_job_details()
+        self.export_button.clicked.connect(self.export_dataset)
+        self.pushButtonDelete.setEnabled(
+            self.job.status == models.JobStatus.DOWNLOADED
+        )
+        self.pushButtonDelete.clicked.connect(self.__delete_dataset)
+        self.pushButtonLoad.clicked.connect(self.load_dataset)
+
+    def __delete_dataset(self):
+        self.delete_dataset()
+        self.close()
+
+    def export_dataset(self):
+        log(f"Exporting dataset {self.job.params.task_name!r}")
+        files = [str(path) for path in self.job.results.local_paths]
+        base_dir = os.path.dirname(self.path)
+
+        try:
+            zipped_file = f"{base_dir}/dataset.zip"
+            with ZipFile(zipped_file, 'w') as zip:
+                for file in files:
+                    zip.write(file, os.path.basename(file))
+        except Exception:
+            message_bar_item = MessageBar().get().createMessage(
+                tr(f"Error exporting dataset {zipped_file}"))
+            MessageBar().get().pushWidget(message_bar_item, qgis.core.Qgis.Critical)
+        message_bar_item = MessageBar().get().createMessage(
+            tr(f"Dataset exported to {zipped_file}"))
+        MessageBar().get().pushWidget(message_bar_item, qgis.core.Qgis.Info)
+
+    def load_job_details(self):
+        self.task_name.setText(self.job.params.task_name)
+        self.task_status.setText(self.job.status.value)
+        self.comments.setText(self.job.params.task_notes.user_notes)
+        self.input.setText(json.dumps(self.job.params.params, indent=4, sort_keys=True))
+        self.output.setText(json.dumps(self.job.results.serialize(), indent=4, sort_keys=True))

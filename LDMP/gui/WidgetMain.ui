@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>385</width>
+    <width>426</width>
     <height>601</height>
    </rect>
   </property>
@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab_algorithms">
        <attribute name="title">
@@ -111,12 +111,9 @@ for running algorithms and their results.</string>
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
-           <widget class="QPushButton" name="pushButton_import">
-            <property name="toolTip">
-             <string>Import external datasets from a local directory into Trends.Earth</string>
-            </property>
+           <widget class="QPushButton" name="import_dataset_pb">
             <property name="text">
-             <string>Import</string>
+             <string>Import dataset...</string>
             </property>
            </widget>
           </item>

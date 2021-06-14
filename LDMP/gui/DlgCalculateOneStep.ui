@@ -249,6 +249,57 @@
         </layout>
        </item>
        <item>
+        <widget class="QgsCollapsibleGroupBox" name="options_group">
+         <property name="title">
+          <string>Options</string>
+         </property>
+         <property name="collapsed">
+          <bool>true</bool>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_6">
+          <item>
+           <widget class="QLabel" name="execution_name_la">
+            <property name="text">
+             <string>Execution name:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="execution_name_le"/>
+          </item>
+          <item>
+           <widget class="QLabel" name="task_notes_la">
+            <property name="text">
+             <string>Notes:</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QTextEdit" name="task_notes">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>0</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>100</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
         <widget class="QgsCollapsibleGroupBox" name="land_cover">
          <property name="title">
           <string>Land Cover Setup</string>
@@ -305,7 +356,7 @@
                <x>0</x>
                <y>0</y>
                <width>786</width>
-               <height>187</height>
+               <height>186</height>
               </rect>
              </property>
             </widget>
@@ -313,26 +364,6 @@
           </item>
          </layout>
         </widget>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_2">
-         <property name="leftMargin">
-          <number>2</number>
-         </property>
-         <item>
-          <widget class="QLabel" name="execution_name_la">
-           <property name="toolTip">
-            <string>Auto generated name for the task which can be edited</string>
-           </property>
-           <property name="text">
-            <string>Execution name</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="execution_name_le"/>
-         </item>
-        </layout>
        </item>
        <item>
         <spacer name="verticalSpacer">

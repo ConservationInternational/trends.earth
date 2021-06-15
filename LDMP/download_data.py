@@ -12,31 +12,28 @@
  ***************************************************************************/
 """
 
-from builtins import range
-import os
 import json
-
-from qgis.utils import iface
-mb = iface.messageBar()
-
-from qgis.PyQt import QtWidgets, QtCore
-from qgis.PyQt.QtCore import (QSettings, QAbstractTableModel, Qt, QDate, 
-        QObject, QEvent, QSortFilterProxyModel)
-from qgis.PyQt.QtGui import QFontMetrics
-
-from LDMP import log
-
-from LDMP.api import run_script
-from LDMP.calculate import DlgCalculateBase, get_script_slug
-from LDMP.gui.DlgDownload import Ui_DlgDownload
+import os
 
 
-class tool_tipper(QObject):
+import qgis.gui
+from PyQt5 import (
+    QtCore,
+    QtGui,
+    QtWidgets,
+)
+from . import calculate
+from .algorithms import models
+from .gui.DlgDownload import Ui_DlgDownload
+from .jobs.manager import job_manager
+
+
+class tool_tipper(QtCore.QObject):
     def __init__(self, parent=None):
-        super(QObject, self).__init__(parent)
+        super().__init__(parent)
 
     def eventFilter(self, obj, event):
-        if (event.type() == QEvent.ToolTip):
+        if (event.type() == QtCore.QEvent.ToolTip):
             view = obj.parent()
             if not view:
                 return False
@@ -47,9 +44,9 @@ class tool_tipper(QObject):
                 return False
 
             itemText = str(view.model().data(index))
-            itemTooltip = view.model().data(index, Qt.ToolTipRole)
+            itemTooltip = view.model().data(index, QtCore.Qt.ToolTipRole)
 
-            fm = QFontMetrics(view.font())
+            fm = QtGui.QFontMetrics(view.font())
             itemTextWidth = fm.width(itemText)
             rect = view.visualRect(index)
             rectWidth = rect.width()
@@ -62,9 +59,9 @@ class tool_tipper(QObject):
         return False
 
 
-class DataTableModel(QAbstractTableModel):
+class DataTableModel(QtCore.QAbstractTableModel):
     def __init__(self, datain, parent=None, *args):
-        QAbstractTableModel.__init__(self, parent, *args)
+        QtCore.QAbstractTableModel.__init__(self, parent, *args)
         self.datasets = datain
 
         # Column names as tuples with json name in [0], pretty name in [1]
@@ -91,28 +88,31 @@ class DataTableModel(QAbstractTableModel):
     def data(self, index, role):
         if not index.isValid():
             return None
-        elif role == Qt.TextAlignmentRole and index.column() in [2, 3, 4, 5, 6, 7]:
-            return Qt.AlignCenter
-        elif role != Qt.DisplayRole:
+        elif role == QtCore.Qt.TextAlignmentRole and index.column() in [2, 3, 4, 5, 6, 7]:
+            return QtCore.Qt.AlignCenter
+        elif role != QtCore.Qt.DisplayRole:
             return None
         return self.datasets[index.row()].get(self.colnames_json[index.column()], '')
 
-    def headerData(self, section, orientation, role=Qt.DisplayRole):
-        if role == Qt.DisplayRole and orientation == Qt.Horizontal:
+    def headerData(self, section, orientation, role=QtCore.Qt.DisplayRole):
+        if role == QtCore.Qt.DisplayRole and orientation == QtCore.Qt.Horizontal:
             return self.colnames_pretty[section]
-        return QAbstractTableModel.headerData(self, section, orientation, role)
+        return QtCore.QAbstractTableModel.headerData(self, section, orientation, role)
 
 
-class DlgDownload(DlgCalculateBase, Ui_DlgDownload):
-    def __init__(self, parent=None):
-        """Constructor."""
-        super(DlgDownload, self).__init__(parent)
+class DlgDownload(calculate.DlgCalculateBase, Ui_DlgDownload):
+
+    def __init__(
+            self,
+            iface: qgis.gui.QgisInterface,
+            script: models.ExecutionScript,
+            parent: QtWidgets.QWidget = None
+    ):
+        super().__init__(iface, script, parent)
 
         # Allow the download tool to support data downloads of any size (in 
         # terms of area)
         self._max_area = 1e10
-
-        self.settings = QSettings()
 
         self.setupUi(self)
 
@@ -154,8 +154,8 @@ class DlgDownload(DlgCalculateBase, Ui_DlgDownload):
             else:
                 self.first_year.setEnabled(True)
                 self.last_year.setEnabled(True)
-                first_year = QDate(first_year, 12, 31)
-                last_year = QDate(last_year, 12, 31)
+                first_year = QtCore.QDate(first_year, 12, 31)
+                last_year = QtCore.QDate(last_year, 12, 31)
                 self.first_year.setMinimumDate(first_year)
                 self.first_year.setMaximumDate(last_year)
                 self.last_year.setMinimumDate(first_year)
@@ -181,7 +181,7 @@ class DlgDownload(DlgCalculateBase, Ui_DlgDownload):
 
     def update_data_table(self):
         table_model = DataTableModel(self.datasets, self)
-        self.proxy_model = QSortFilterProxyModel()
+        self.proxy_model = QtCore.QSortFilterProxyModel()
         self.proxy_model.setSourceModel(table_model)
         self.data_view.setModel(self.proxy_model)
 
@@ -226,24 +226,31 @@ class DlgDownload(DlgCalculateBase, Ui_DlgDownload):
 
         crosses_180th, geojsons = self.gee_bounding_box
         for dataset in selected_datasets:
-            payload = {'geojsons': json.dumps(geojsons),
-                       'crs': self.aoi.get_crs_dst_wkt(),
-                       'year_start': self.first_year.date().year(),
-                       'year_end': self.last_year.date().year(),
-                       'crosses_180th': crosses_180th,
-                       'asset': dataset['GEE Dataset'],
-                       'name': dataset['title'],
-                       'temporal_resolution': dataset['Temporal resolution'],
-                       'task_name': self.options_tab.task_name.text(),
-                       'task_notes': self.options_tab.task_notes.toPlainText()}
+            payload = {
+                'geojsons': json.dumps(geojsons),
+                'crs': self.aoi.get_crs_dst_wkt(),
+                'year_start': self.first_year.date().year(),
+                'year_end': self.last_year.date().year(),
+                'crosses_180th': crosses_180th,
+                'asset': dataset['GEE Dataset'],
+                'name': dataset['title'],
+                'temporal_resolution': dataset['Temporal resolution'],
+                'task_name': self.options_tab.task_name.text(),
+                'task_notes': self.options_tab.task_notes.toPlainText()
+            }
 
-            resp = run_script(get_script_slug('download-data'), payload)
-
+            resp = job_manager.submit_remote_job(payload, self.script.id)
             if resp:
-                mb.pushMessage(self.tr("Success"),
-                               self.tr("Download request submitted to Google Earth Engine."),
-                               level=0, duration=5)
+                main_msg = "Success"
+                description = "Download request submitted to Google Earth Engine."
+
             else:
-                mb.pushMessage(self.tr("Error"),
-                               self.tr("Unable to submit download request to Google Earth Engine."),
-                               level=0, duration=5)
+                main_msg = "Error"
+                description = (
+                    "Unable to submit download request to Google Earth Engine.")
+            self.mb.pushMessage(
+                self.tr(main_msg),
+                self.tr(description),
+                level=0,
+                duration=5
+            )

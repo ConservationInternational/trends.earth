@@ -6,6 +6,7 @@ from pathlib import Path
 from zipfile import ZipFile
 
 import qgis.core
+import qgis.gui
 
 from PyQt5 import (
     QtCore,
@@ -27,9 +28,6 @@ from ..conf import (
 from . import (
     manager,
     models,
-)
-from ..message_bar import(
-    MessageBar,
 )
 
 WidgetDatasetItemUi, _ = uic.loadUiType(
@@ -346,12 +344,19 @@ class DatasetDetailsWidget(QtWidgets.QDialog, DatasetActions, WidgetDatasetItemD
         self.pushButtonDelete.clicked.connect(self.__delete_dataset)
         self.pushButtonLoad.clicked.connect(self.load_dataset)
 
+        self.bar = qgis.gui.QgsMessageBar()
+        self.bar.setSizePolicy(
+            QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed
+        )
+        self.layout().addWidget(self.bar, 0, 0, alignment=QtCore.Qt.AlignTop)
+
     def __delete_dataset(self):
         self.delete_dataset()
         self.close()
 
     def export_dataset(self):
         log(f"Exporting dataset {self.job.params.task_name!r}")
+        self.export_button.setEnabled(False)
         files = [str(path) for path in self.job.results.local_paths]
         base_dir = os.path.dirname(self.path)
 
@@ -361,16 +366,19 @@ class DatasetDetailsWidget(QtWidgets.QDialog, DatasetActions, WidgetDatasetItemD
                 for file in files:
                     zip.write(file, os.path.basename(file))
         except Exception:
-            message_bar_item = MessageBar().get().createMessage(
+            self.bar.clearWidgets()
+            message_bar_item = self.bar.createMessage(
                 tr(f"Error exporting dataset {zipped_file}"))
-            MessageBar().get().pushWidget(message_bar_item, qgis.core.Qgis.Critical)
-        message_bar_item = MessageBar().get().createMessage(
+            self.bar.pushWidget(message_bar_item, level=qgis.core.Qgis.Critical, duration=5)
+
+        self.bar.clearWidgets()
+        message_bar_item = self.bar.createMessage(
             tr(f"Dataset exported to {zipped_file}"))
-        MessageBar().get().pushWidget(message_bar_item, qgis.core.Qgis.Info)
+        self.bar.pushWidget(message_bar_item, level=qgis.core.Qgis.Info, duration=5)
+
+        self.export_button.setEnabled(True)
 
     def load_job_details(self):
-        self.task_name.setText(self.job.params.task_name)
-        self.task_status.setText(self.job.status.value)
         self.comments.setText(self.job.params.task_notes.user_notes)
         self.input.setText(json.dumps(self.job.params.params, indent=4, sort_keys=True))
         self.output.setText(json.dumps(self.job.results.serialize(), indent=4, sort_keys=True))

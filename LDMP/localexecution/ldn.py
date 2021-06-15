@@ -2,10 +2,8 @@ import dataclasses
 import datetime as dt
 import enum
 import json
-import os
 import tempfile
 import typing
-import uuid
 from pathlib import Path
 
 import numpy as np
@@ -18,10 +16,10 @@ from .. import (
     areaofinterest,
     calculate,
     calculate_ldn,
-    conf,
     data_io,
     log,
     summary,
+    utils,
     worker,
 )
 from ..jobs import (
@@ -79,17 +77,6 @@ def _get_ldn_inputs(
         aux_band_indexes=aux_band_indexes,
         years=years
     )
-
-
-def _save_vrt(source_path: Path, source_band_index: int) -> str:
-    temporary_file = tempfile.NamedTemporaryFile(suffix=".vrt", delete=False)
-    temporary_file.close()
-    gdal.BuildVRT(
-        temporary_file.name,
-        str(source_path),
-        bandList=[source_band_index]
-    )
-    return temporary_file.name
 
 
 def get_main_sdg_15_3_1_job_params(
@@ -230,10 +217,10 @@ def _prepare_land_cover_file_paths(ldn_job: models.Job) -> typing.List[str]:
     lc_main_band_index = ldn_job.params.params["layer_lc_main_band_index"]
     lc_aux_band_indexes = ldn_job.params.params["layer_lc_aux_band_indexes"]
     lc_files = [
-        _save_vrt(lc_path, lc_main_band_index)
+        utils.save_vrt(lc_path, lc_main_band_index)
     ]
     for lc_aux_band_index in lc_aux_band_indexes:
-        lc_files.append(_save_vrt(lc_path, lc_aux_band_index))
+        lc_files.append(utils.save_vrt(lc_path, lc_aux_band_index))
     return lc_files
 
 
@@ -243,24 +230,24 @@ def _prepare_soil_organic_carbon_file_paths(
     soc_main_band_index = ldn_job.params.params["layer_soc_main_band_index"]
     soc_aux_band_indexes = ldn_job.params.params["layer_soc_aux_band_indexes"]
     soc_files = [
-        _save_vrt(soc_path, soc_main_band_index)
+        utils.save_vrt(soc_path, soc_main_band_index)
     ]
     for soc_aux_band_index in soc_aux_band_indexes:
-        soc_files.append(_save_vrt(soc_path, soc_aux_band_index))
+        soc_files.append(utils.save_vrt(soc_path, soc_aux_band_index))
     return soc_files
 
 
 def _prepare_trends_earth_mode_vrt_paths(
         ldn_job: models.Job) -> typing.Tuple[str, str, str]:
-    traj_vrt_path = _save_vrt(
+    traj_vrt_path = utils.save_vrt(
         ldn_job.params.params["layer_traj_path"],
         ldn_job.params.params["layer_traj_band_index"],
     )
-    perf_vrt_path = _save_vrt(
+    perf_vrt_path = utils.save_vrt(
         ldn_job.params.params["layer_perf_path"],
         ldn_job.params.params["layer_perf_band_index"],
     )
-    state_vrt_path = _save_vrt(
+    state_vrt_path = utils.save_vrt(
         ldn_job.params.params["layer_state_path"],
         ldn_job.params.params["layer_state_band_index"],
     )
@@ -269,7 +256,7 @@ def _prepare_trends_earth_mode_vrt_paths(
 
 def _prepare_jrc_lpd_mode_vrt_path(
         ldn_job: models.Job) -> str:
-    return _save_vrt(
+    return utils.save_vrt(
         ldn_job.params.params["layer_lpd_path"],
         ldn_job.params.params["layer_lpd_band_index"],
     )

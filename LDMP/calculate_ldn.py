@@ -579,7 +579,7 @@ class DlgCalculateLDNSummaryTableAdmin(
     DlgCalculateBase,
     DlgCalculateLdnSummaryTableAdminUi
 ):
-    SCRIPT_NAME: str = "final-sdg-15-3-1"
+    LOCAL_SCRIPT_NAME: str = "final-sdg-15-3-1"
 
     mode_te_prod_rb: QtWidgets.QRadioButton
     mode_lpd_jrc: QtWidgets.QRadioButton
@@ -819,4 +819,4 @@ class DlgCalculateLDNSummaryTableAdmin(
             task_notes=self.options_tab.task_notes.toPlainText()
         )
         job_manager.submit_local_job(
-            params, script_name=self.SCRIPT_NAME, area_of_interest=self.aoi)
+            params, script_name=self.LOCAL_SCRIPT_NAME, area_of_interest=self.aoi)

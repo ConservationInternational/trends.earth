@@ -28,6 +28,6 @@
     <file>icons/mActionDeleteSelected.svg</file>
     <file>icons/mActionPropertiesWidget.svg</file>
     <file>icons/mActionAddRasterLayer.svg</file>
+    <file>icons/export_zip.svg</file>
   </qresource>
 </RCC>
-

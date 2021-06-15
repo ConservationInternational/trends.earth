@@ -177,7 +177,7 @@ class JobParameters:
 class JobBand:
     metadata: typing.Dict
     name: str
-    no_data_value: float
+    no_data_value: typing.Optional[float] = -32768.0
     activated: typing.Optional[bool] = True
     add_to_map: typing.Optional[bool] = True
 

@@ -31,23 +31,21 @@ mb = iface.messageBar()
 from . import (
     calculate,
     log,
+    worker,
 )
 from .algorithms.models import ExecutionScript
 from .jobs.manager import job_manager
-from .layers import create_local_json_metadata, add_layer
 from .lc_setup import (
     LCDefineDegradationWidget,
     LCSetupWidget,
 )
-from .worker import AbstractWorker, StartWorker
+from .localexecution import landcover
 from .gui.DlgCalculateLC import Ui_DlgCalculateLC
 
-from LDMP.schemas.schemas import BandInfo, BandInfoSchema
 
-
-class LandCoverChangeWorker(AbstractWorker):
+class LandCoverChangeWorker(worker.AbstractWorker):
     def __init__(self, in_f, out_f, trans_matrix, persistence_remap):
-        AbstractWorker.__init__(self)
+        worker.AbstractWorker.__init__(self)
         self.in_f = in_f
         self.out_f = out_f
         self.trans_matrix = trans_matrix
@@ -118,18 +116,19 @@ class LandCoverChangeWorker(AbstractWorker):
             return True
 
 class DlgCalculateLC(calculate.DlgCalculateBase, Ui_DlgCalculateLC):
+    LOCAL_SCRIPT_NAME = "local-land-cover"
+
     def __init__(
             self,
             iface: qgis.gui.QgisInterface,
             script: ExecutionScript,
-            parent:QtWidgets.QWidget
+            parent: QtWidgets.QWidget
     ):
         super().__init__(iface, script, parent)
-
         self.setupUi(self)
 
     def showEvent(self, event):
-        super(DlgCalculateLC, self).showEvent(event)
+        super().showEvent(event)
 
         self.lc_setup_tab = LCSetupWidget()
         self.TabBox.insertTab(0, self.lc_setup_tab, self.tr('Land Cover Setup'))
@@ -194,127 +193,75 @@ class DlgCalculateLC(calculate.DlgCalculateBase, Ui_DlgCalculateLC):
             duration=5
         )
 
-    def get_save_raster(self):
-        raster_file, _ = QtWidgets.QFileDialog.getSaveFileName(self,
-                                                        self.tr('Choose a name for the output file'),
-                                                        QSettings().value("trends_earth/advanced/base_data_directory", None),
-                                                        self.tr('Raster file (*.tif)'))
-        if raster_file:
-            if os.access(os.path.dirname(raster_file), os.W_OK):
-                # QSettings().setValue("LDMP/output_dir", os.path.dirname(raster_file))
-                return raster_file
-            else:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr(u"Cannot write to {}. Choose a different file.".format(raster_file)))
-                return False
-
     def calculate_locally(self):
-        trans_matrix = [[11, 12, 13, 14, 15, 16, 17,
-                         21, 22, 23, 24, 25, 26, 27,
-                         31, 32, 33, 34, 35, 36, 37,
-                         41, 42, 43, 44, 45, 46, 47,
-                         51, 52, 53, 54, 55, 56, 57,
-                         61, 62, 63, 64, 65, 66, 67],
-                        self.lc_define_deg_tab.trans_matrix_get()]
-
-        # Remap the persistence classes so they are sequential, making them 
-        # easier to assign a clear color ramp in QGIS
-        persistence_remap = [[11, 12, 13, 14, 15, 16, 17,
-                              21, 22, 23, 24, 25, 26, 27,
-                              31, 32, 33, 34, 35, 36, 37,
-                              41, 42, 43, 44, 45, 46, 47,
-                              51, 52, 53, 54, 55, 56, 57,
-                              61, 62, 63, 64, 65, 66, 67,
-                              71, 72, 73, 74, 75, 76, 77],
-                             [1, 12, 13, 14, 15, 16, 17,
-                              21, 2, 23, 24, 25, 26, 27,
-                              31, 32, 3, 34, 35, 36, 37,
-                              41, 42, 43, 4, 45, 46, 47,
-                              51, 52, 53, 54, 5, 56, 57,
-                              61, 62, 63, 64, 65, 6, 67,
-                              71, 72, 73, 74, 75, 76, 7]]
-
         if len(self.lc_setup_tab.use_custom_initial.layer_list) == 0:
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("You must add an initial land cover layer to your map before you can run the calculation."))
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr(
+                    "You must add an initial land cover layer to your map before you "
+                    "can run the calculation."
+                )
+            )
             return
 
         if len(self.lc_setup_tab.use_custom_final.layer_list) == 0:
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("You must add a final land cover layer to your map before you can run the calculation."))
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr(
+                    "You must add a final land cover layer to your map before you "
+                    "can run the calculation."
+                )
+            )
             return
 
-        # Select the initial and final bands from initial and final datasets 
-        # (in case there is more than one lc band per dataset)
-        lc_initial_vrt = self.lc_setup_tab.use_custom_initial.get_vrt()
-        lc_final_vrt = self.lc_setup_tab.use_custom_final.get_vrt()
 
         year_baseline = self.lc_setup_tab.get_initial_year()
         year_target = self.lc_setup_tab.get_final_year()
         if int(year_baseline) >= int(year_target):
-            QtWidgets.QMessageBox.information(None, self.tr("Warning"),
-                self.tr('The initial year ({}) is greater than or equal to the target year ({}) - this analysis might generate strange results.'.format(year_baseline, year_target)))
+            QtWidgets.QMessageBox.information(
+                None,
+                self.tr("Warning"),
+                self.tr(
+                    'The initial year ({}) is greater than or equal to the target '
+                    'year ({}) - this analysis might generate strange '
+                    'results.'.format(year_baseline, year_target)
+                )
+            )
 
         if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.lc_setup_tab.use_custom_initial.get_layer().extent())) < .99:
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Area of interest is not entirely within the initial land cover layer."))
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr(
+                    "Area of interest is not entirely within the initial land cover "
+                    "layer."
+                )
+            )
             return
 
         if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.lc_setup_tab.use_custom_initial.get_layer().extent())) < .99:
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Area of interest is not entirely within the final land cover layer."))
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr(
+                    "Area of interest is not entirely within the final land "
+                    "cover layer."
+                )
+            )
             return
-
-        # do not ask for file name and use automatic set of self.output_tab.output_basename to build filename
-        # out_f = self.get_save_raster()
-        # if not out_f:
-        #     return
-        out_f = self.output_tab.output_basename + '.tif'
 
         self.close()
 
-        # Add the lc layers to a VRT in case they don't match in resolution, 
-        # and set proper output bounds
-        in_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        gdal.BuildVRT(in_vrt,
-                      [lc_initial_vrt, lc_final_vrt], 
-                      resolution='highest', 
-                      resampleAlg=gdal.GRA_NearestNeighbour,
-                      outputBounds=self.aoi.get_aligned_output_bounds_deprecated(lc_initial_vrt),
-                      separate=True)
-        
-        lc_change_worker = StartWorker(LandCoverChangeWorker,
-                                       'calculating land cover change', in_vrt, 
-                                       out_f, trans_matrix, persistence_remap)
-        if not lc_change_worker.success:
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Error calculating land cover change."))
-            return
-
-        band_info = [BandInfo("Land cover (degradation)", add_to_map=True, metadata={'year_baseline': year_baseline, 'year_target': year_target}),
-                     BandInfo("Land cover (7 class)", metadata={'year': year_baseline}),
-                     BandInfo("Land cover (7 class)", metadata={'year': year_target}),
-                     BandInfo("Land cover transitions", add_to_map=True, metadata={'year_baseline': year_baseline, 'year_target': year_target})]
-        out_json = os.path.splitext(out_f)[0] + '.json'
-
-        # add in metadata all source layers
-        metadata = self.setMetadata()
-        metadata['params'] = {}
-        metadata['params']['trans_matrix'] = trans_matrix
-        metadata['params']['persistence_remap'] = persistence_remap
-        metadata['params']['lc_initial_vrt'] = self.lc_setup_tab.use_custom_initial.get_data_file()
-        metadata['params']['lc_final_vrt'] = self.lc_setup_tab.use_custom_final.get_data_file()
-        metadata['params']['year_baseline'] = int(year_baseline)
-        metadata['params']['year_target'] = int(year_target)
-        metadata['params']['crs'] = self.aoi.get_crs_dst_wkt()
-        crosses_180th, geojsons = self.gee_bounding_box
-        metadata['params']['geojsons'] = json.dumps(geojsons)
-        metadata['params']['crosses_180th'] = crosses_180th
-
-        create_local_json_metadata(out_json, out_f, band_info, metadata=metadata)
-        schema = BandInfoSchema()
-        for band_number in range(len(band_info)):
-            b = schema.dump(band_info[band_number])
-            if b['add_to_map']:
-                # The +1 is because band numbers start at 1, not zero
-                add_layer(out_f, band_number + 1, b)
+        params = landcover.get_land_cover_job_params(
+            task_name=self.options_tab.task_name.text(),
+            aoi=self.aoi,
+            year_baseline=year_baseline,
+            year_target=year_target,
+            combo_initial_layer=self.lc_setup_tab.use_custom_initial,
+            combo_final_layer=self.lc_setup_tab.use_custom_final,
+            transformation_matrix=self.lc_define_deg_tab.trans_matrix_get(),
+            task_notes=self.options_tab.task_notes.toPlainText()
+        )
+        job_manager.submit_local_job(params, self.LOCAL_SCRIPT_NAME, self.aoi)

@@ -208,6 +208,13 @@ class DatasetActions:
     def load_dataset(self):
         manager.job_manager.display_job_results(self.job)
 
+    def open_job_directory(self):
+        log(f"Open directory button clicked for job {self.job.params.task_name!r}")
+        job_directory = manager.job_manager.get_job_file_path(self.job).parent
+        # NOTE: not using QDesktopServices.openUrl here, since it seems to not be
+        # working correctly (as of Jun 2021 on Ubuntu)
+        openFolder(str(job_directory))
+
     def delete_dataset(self):
         message_box = QtWidgets.QMessageBox()
         message_box.setText(
@@ -309,12 +316,6 @@ class DatasetEditorWidget(QtWidgets.QWidget, DatasetActions,  WidgetDatasetItemU
         log(f"Details button clicked for job {self.job.params.task_name!r}")
         result = DatasetDetailsWidget(self.job).exec_()
 
-    def open_job_directory(self):
-        log(f"Open directory button clicked for job {self.job.params.task_name!r}")
-        job_directory = manager.job_manager.get_job_file_path(self.job).parent
-        # NOTE: not using QDesktopServices.openUrl here, since it seems to not be
-        # working correctly (as of Jun 2021 on Ubuntu)
-        openFolder(str(job_directory))
 
 class DatasetDetailsWidget(QtWidgets.QDialog, DatasetActions, WidgetDatasetItemDetailsUi):
 
@@ -328,6 +329,14 @@ class DatasetDetailsWidget(QtWidgets.QDialog, DatasetActions, WidgetDatasetItemD
         self.state_le.setText(self.job.status.value)
         self.created_at_le.setText(str(self.job.start_date))
 
+        self.load_btn.clicked.connect(self.load_dataset)
+        self.delete_btn.clicked.connect(self.__delete_dataset)
+        self.open_directory_btn.clicked.connect(self.open_job_directory)
+        self.export_btn.clicked.connect(self.export_dataset)
+        self.delete_btn.setEnabled(
+            self.job.status == models.JobStatus.DOWNLOADED
+        )
+
         self.alg_le.setText(self.job.script.name)
         self.path = None
 
@@ -338,16 +347,12 @@ class DatasetDetailsWidget(QtWidgets.QDialog, DatasetActions, WidgetDatasetItemD
 
         self.load_btn.setIcon(
             QtGui.QIcon(':/plugins/LDMP/icons/mActionAddRasterLayer.svg'))
+        self.open_directory_btn.setIcon(
+            QtGui.QIcon(':/images/themes/default/mActionFileOpen.svg'))
         self.export_btn.setIcon(
             QtGui.QIcon(':/plugins/LDMP/icons/export_zip.svg'))
         self.delete_btn.setIcon(
             QtGui.QIcon(':/plugins/LDMP/icons/mActionDeleteSelected.svg'))
-        self.export_btn.clicked.connect(self.export_dataset)
-        self.delete_btn.setEnabled(
-            self.job.status == models.JobStatus.DOWNLOADED
-        )
-        self.delete_btn.clicked.connect(self.__delete_dataset)
-        self.load_btn.clicked.connect(self.load_dataset)
 
         self.load_job_details()
 

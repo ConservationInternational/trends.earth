@@ -110,11 +110,29 @@ def get_main_sdg_15_3_1_job_params(
         combo_layer_soc, "Soil organic carbon")
     crosses_180th, geojsons = aoi.bounding_box_gee_geojson()
 
-    # TODO: check whether these raise errors when not filled in
-    traj_band_info = combo_layer_traj.get_usable_band_info()
-    perf_band_info = combo_layer_perf.get_usable_band_info()
-    state_band_info = combo_layer_state.get_usable_band_info()
-    lpd_band_info = combo_layer_lpd.get_usable_band_info()
+    traj_path = None
+    traj_index = None
+    perf_path = None
+    perf_index = None
+    state_path = None
+    state_index = None
+    lpd_path = None
+    lpd_index = None
+    if prod_mode == LdnProductivityMode.TRENDS_EARTH.value:
+        traj_band_info = combo_layer_traj.get_usable_band_info()
+        traj_path = str(traj_band_info.path)
+        traj_index = traj_band_info.band_index
+        perf_band_info = combo_layer_perf.get_usable_band_info()
+        perf_path = str(perf_band_info.path)
+        perf_index = perf_band_info.band_index
+        state_band_info = combo_layer_state.get_usable_band_info()
+        state_path = str(state_band_info.path)
+        state_index = state_band_info.band_index
+    elif prod_mode == LdnProductivityMode.JRC_LPD.value:
+        lpd_band_info = combo_layer_lpd.get_usable_band_info()
+        lpd_path = str(lpd_band_info.path)
+        lpd_index = lpd_band_info.band_index
+
     return {
         "task_name": task_name,
         "task_notes": task_notes,
@@ -127,14 +145,14 @@ def get_main_sdg_15_3_1_job_params(
         "layer_soc_main_band_index": soil_organic_carbon_input_paths.main_band_index,
         "layer_soc_aux_band_indexes": soil_organic_carbon_input_paths.aux_band_indexes,
         "layer_soc_years": soil_organic_carbon_input_paths.years,
-        "layer_traj_path": str(traj_band_info.path),
-        "layer_traj_band_index": traj_band_info.band_index,
-        "layer_perf_path": str(perf_band_info.path),
-        "layer_perf_band_index": perf_band_info.band_index,
-        "layer_state_path": str(state_band_info.path),
-        "layer_state_band_index": state_band_info.band_index,
-        "layer_lpd_path": str(lpd_band_info.path),
-        "layer_lpd_band_index": lpd_band_info.band_index,
+        "layer_traj_path": traj_path,
+        "layer_traj_band_index": traj_index,
+        "layer_perf_path": perf_path,
+        "layer_perf_band_index": perf_index,
+        "layer_state_path": state_path,
+        "layer_state_band_index": state_index,
+        "layer_lpd_path": lpd_path,
+        "layer_lpd_band_index": lpd_index,
         "crs": aoi.get_crs_dst_wkt(),
         "geojsons": json.dumps(geojsons),
         "crosses_180th": crosses_180th,
@@ -192,6 +210,14 @@ def compute_ldn(
     )
     ldn_job.end_date = dt.datetime.now(dt.timezone.utc)
     ldn_job.progress = 100
+    ldn_job.results.bands.append(
+        models.JobBand(
+            name="SDG 15.3.1 Indicator",
+            no_data_value=-32768.0,
+            metadata={},
+            activated=True
+        )
+    )
     ldn_job.results.local_paths = [
         output_ldn_path,
         summary_table_output_path

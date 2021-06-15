@@ -790,7 +790,7 @@ class CalculationHidedOutputWidget(QtWidgets.QWidget, WidgetCalculationOutputUi)
 
 class DlgCalculateBase(QtWidgets.QDialog):
     """Base class for individual indicator calculate dialogs"""
-    SCRIPT_NAME: str = ""
+    LOCAL_SCRIPT_NAME: str = ""
 
     iface: qgis.gui.QgisInterface
     canvas: qgis.gui.QgsMapCanvas

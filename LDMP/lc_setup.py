@@ -12,30 +12,39 @@
  ***************************************************************************/
 """
 
-from builtins import str
-from builtins import range
-import os
 import json
+import os
+from pathlib import Path
 
-from qgis.PyQt import QtWidgets
-from qgis.PyQt.QtGui import (QColor, QRegExpValidator, QFont, QPainter)
-from qgis.PyQt.QtCore import (QSettings, QDate, Qt, QSize, QAbstractTableModel, 
-        QRegExp, QJsonValue, QSortFilterProxyModel, QAbstractListModel, 
-        QCoreApplication)
+from PyQt5 import (
+    QtCore,
+    QtGui,
+    QtWidgets,
+    uic
+)
 
 from qgis.utils import iface
-mb = iface.messageBar()
 
-from LDMP import log
-from LDMP.gui.DlgCalculateLCSetAggregation import Ui_DlgCalculateLCSetAggregation
-from LDMP.gui.WidgetLCDefineDegradation import Ui_WidgetLCDefineDegradation
-from LDMP.gui.WidgetLCSetup import Ui_WidgetLCSetup
-from LDMP.layers import tr_style_text
+from . import (
+    conf,
+    data_io,
+    log,
+)
+from .layers import tr_style_text
+
+DlgCalculateLcSetAggregationUi, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/DlgCalculateLCSetAggregation.ui"))
+WidgetLcDefineDegradationUi, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/WidgetLCDefineDegradation.ui"))
+WidgetLcSetupUi, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/WidgetLCSetup.ui"))
+
+mb = iface.messageBar()
 
 
 class tr_lc_setup(object):
     def tr(message):
-        return QCoreApplication.translate("tr_lc_setup", message)
+        return QtCore.QCoreApplication.translate("tr_lc_setup", message)
 
 
 # Load the default classes and their assigned color codes
@@ -51,7 +60,7 @@ for key in classes.keys():
 def json_serial(obj):
     """JSON serializer for objects not serializable by default json code"""
     #TODO: This was QPyNullVariant under pyqt4 - check the below works on pyqt5
-    if isinstance(obj, QJsonValue.Null):
+    if isinstance(obj, QtCore.QJsonValue.Null):
         return None
     raise TypeError("Type {} not serializable".format(type(obj)))
 
@@ -61,18 +70,18 @@ class VerticalLabel(QtWidgets.QLabel):
         super(VerticalLabel, self).__init__(parent)
 
     def paintEvent(self, paint_event):
-        painter = QPainter(self)
+        painter = QtGui.QPainter(self)
         painter.translate(self.sizeHint().width(), self.sizeHint().height())
         painter.rotate(270)
         painter.drawText(0, 0, self.text())
 
     def minimumSizeHint(self):
         s = QtWidgets.QLabel.minimumSizeHint(self)
-        return QSize(s.height(), s.width())
+        return QtCore.QSize(s.height(), s.width())
 
     def sizeHint(self):
         s = QtWidgets.QLabel.sizeHint(self)
-        return QSize(s.height(), s.width())
+        return QtCore.QSize(s.height(), s.width())
 
 
 class TransMatrixEdit(QtWidgets.QLineEdit):
@@ -102,12 +111,12 @@ class LCClassComboBox(QtWidgets.QComboBox):
         self.addItems(sorted(list(final_classes), key = lambda k: final_classes[k]['value']))
 
         for n in range(0, len(final_classes.keys())):
-            color = final_classes[self.itemData(n, Qt.DisplayRole)]['color']
-            self.setItemData(n, QColor(color), Qt.BackgroundRole)
+            color = final_classes[self.itemData(n, QtCore.Qt.DisplayRole)]['color']
+            self.setItemData(n, QtGui.QColor(color), QtCore.Qt.BackgroundRole)
             if color == '#000000':
-                self.setItemData(n, QColor('#FFFFFF'), Qt.ForegroundRole)
+                self.setItemData(n, QtGui.QColor('#FFFFFF'), QtCore.Qt.ForegroundRole)
             else:
-                self.setItemData(n, QColor('#000000'), Qt.ForegroundRole)
+                self.setItemData(n, QtGui.QColor('#000000'), QtCore.Qt.ForegroundRole)
 
         self.index_changed()
         self.currentIndexChanged.connect(self.index_changed)
@@ -119,9 +128,9 @@ class LCClassComboBox(QtWidgets.QComboBox):
         else:
             self.setStyleSheet('QComboBox:editable {{background-color: {};}}'.format(color))
 
-class LCAggTableModel(QAbstractTableModel):
+class LCAggTableModel(QtCore.QAbstractTableModel):
     def __init__(self, datain, parent=None, *args):
-        QAbstractTableModel.__init__(self, parent, *args)
+        QtCore.QAbstractTableModel.__init__(self, parent, *args)
         self.classes = datain
         
         # Column names as tuples with json name in [0], pretty name in [1]
@@ -142,16 +151,16 @@ class LCAggTableModel(QAbstractTableModel):
     def data(self, index, role):
         if not index.isValid():
             return None
-        elif role == Qt.TextAlignmentRole and index.column() in [0, 2, 3]:
-            return Qt.AlignCenter
-        elif role != Qt.DisplayRole:
+        elif role == QtCore.Qt.TextAlignmentRole and index.column() in [0, 2, 3]:
+            return QtCore.Qt.AlignCenter
+        elif role != QtCore.Qt.DisplayRole:
             return None
         return self.classes[index.row()].get(self.colnames_json[index.column()], '')
 
-    def headerData(self, section, orientation, role=Qt.DisplayRole):
-        if role == Qt.DisplayRole and orientation == Qt.Horizontal:
+    def headerData(self, section, orientation, role=QtCore.Qt.DisplayRole):
+        if role == QtCore.Qt.DisplayRole and orientation == QtCore.Qt.Horizontal:
             return self.colnames_pretty[section]
-        return QAbstractTableModel.headerData(self, section, orientation, role)
+        return QtCore.QAbstractTableModel.headerData(self, section, orientation, role)
 
 
 # Function to read a file defining land cover aggegation
@@ -180,9 +189,9 @@ def read_class_file(f):
         return classes
 
 
-class DlgCalculateLCSetAggregation(QtWidgets.QDialog, Ui_DlgCalculateLCSetAggregation):
+class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLcSetAggregationUi):
     def __init__(self, default_classes, parent=None):
-        super(DlgCalculateLCSetAggregation, self).__init__(parent)
+        super().__init__(parent)
 
         self.default_classes = default_classes
 
@@ -201,17 +210,22 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, Ui_DlgCalculateLCSetAggreg
         self.close()
 
     def btn_load_pressed(self):
-        f, _ = QtWidgets.QFileDialog.getOpenFileName(self,
-                                              self.tr('Select a land cover definition file'),
-                                              QSettings().value("LDMP/lc_def_dir", None),
-                                              self.tr('Land cover definition (*.json)'))
+        f, _ = QtWidgets.QFileDialog.getOpenFileName(
+            self,
+            self.tr('Select a land cover definition file'),
+            conf.settings_manager.get_value(conf.Setting.DEFINITIONS_DIRECTORY),
+            self.tr('Land cover definition (*.json)')
+        )
         if f:
             if os.access(f, os.R_OK):
-                QSettings().setValue("LDMP/lc_def_dir", os.path.dirname(f))
+                conf.settings_manager.write_value(
+                    conf.Setting.DEFINITIONS_DIRECTORY, os.path.dirname(f))
             else:
-                QtWidgets.QMessageBox.critical(None,
-                                               self.tr("Error"),
-                                               self.tr(u"Cannot read {}. Choose a different file.".format(f)))
+                QtWidgets.QMessageBox.critical(
+                    None,
+                    self.tr("Error"),
+                    self.tr(u"Cannot read {}. Choose a different file.".format(f))
+                )
         else:
             return
         classes = read_class_file(f)
@@ -220,17 +234,21 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, Ui_DlgCalculateLCSetAggreg
             self.setup_class_table(classes)
 
     def btn_save_pressed(self):
-        f, _ = QtWidgets.QFileDialog.getSaveFileName(self,
-                                                     self.tr('Choose where to save this land cover definition'),
-                                                     QSettings().value("LDMP/lc_def_dir", None),
-                                                     self.tr('Land cover definition (*.json)'))
+        f, _ = QtWidgets.QFileDialog.getSaveFileName(
+            self,
+            self.tr('Choose where to save this land cover definition'),
+            conf.settings_manager.get_value(conf.Setting.DEFINITIONS_DIRECTORY),
+            self.tr('Land cover definition (*.json)')
+        )
         if f:
             if os.access(os.path.dirname(f), os.W_OK):
-                QSettings().setValue("LDMP/lc_def_dir", os.path.dirname(f))
+                conf.settings_manager.write_value(
+                    conf.Setting.DEFINITIONS_DIRECTORY, os.path.dirname(f))
             else:
-                QtWidgets.QMessageBox.critical(None,
-                                               self.tr("Error"),
-                                               self.tr(u"Cannot write to {}. Choose a different file.".format(f)))
+                QtWidgets.QMessageBox.critical(
+                    None,
+                    self.tr("Error"),
+                    self.tr(u"Cannot write to {}. Choose a different file.".format(f)))
                 return
 
             class_def = self.get_agg_as_dict_list()
@@ -317,7 +335,7 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, Ui_DlgCalculateLCSetAggreg
             classes = self.default_classes
 
         table_model = LCAggTableModel(classes, parent=self)
-        proxy_model = QSortFilterProxyModel()
+        proxy_model = QtCore.QSortFilterProxyModel()
         proxy_model.setSourceModel(table_model)
         self.remap_view.setModel(proxy_model)
 
@@ -359,9 +377,9 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, Ui_DlgCalculateLCSetAggreg
         self.setup_class_table()
 
 
-class LCDefineDegradationWidget(QtWidgets.QWidget, Ui_WidgetLCDefineDegradation):
+class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
     def __init__(self, parent=None):
-        super(LCDefineDegradationWidget, self).__init__(parent)
+        super().__init__(parent)
 
         self.setupUi(self)
 
@@ -387,8 +405,8 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, Ui_WidgetLCDefineDegradation)
         for row in range(0, self.deg_def_matrix.rowCount()):
             for col in range(0, self.deg_def_matrix.columnCount()):
                 line_edit = TransMatrixEdit()
-                line_edit.setValidator(QRegExpValidator(QRegExp("[-0+]")))
-                line_edit.setAlignment(Qt.AlignHCenter)
+                line_edit.setValidator(QtGui.QRegExpValidator(QtCore.QRegExp("[-0+]")))
+                line_edit.setAlignment(QtCore.Qt.AlignHCenter)
                 self.deg_def_matrix.setCellWidget(row, col, line_edit)
         self.trans_matrix_set()
 
@@ -400,11 +418,11 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, Ui_WidgetLCDefineDegradation)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.label_lc_target_year.sizePolicy().hasHeightForWidth())
         label_lc_baseline_year.setSizePolicy(sizePolicy)
-        font = QFont()
+        font = QtGui.QFont()
         font.setBold(True)
         font.setWeight(75)
         label_lc_baseline_year.setFont(font)
-        self.lc_trans_table_layout.addWidget(label_lc_baseline_year, 1, 0, 1, 1, Qt.AlignCenter)
+        self.lc_trans_table_layout.addWidget(label_lc_baseline_year, 1, 0, 1, 1, QtCore.Qt.AlignCenter)
 
         self.deg_def_matrix.setStyleSheet('QTableWidget {border: 0px;}')
         self.deg_def_matrix.horizontalHeader().setStyleSheet('QHeaderView::section {background-color: white;border: 0px;}')
@@ -424,17 +442,22 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, Ui_WidgetLCDefineDegradation)
         self.legend_stable.setStyleSheet('QLineEdit {background: #FFFFE0;} QLineEdit:hover {border: 1px solid gray; background: #FFFFE0;}')
 
     def trans_matrix_loadfile(self):
-        f, _ = QtWidgets.QFileDialog.getOpenFileName(self,
-                                              self.tr('Select a transition matrix definition file'),
-                                              QSettings().value("LDMP/lc_def_dir", None),
-                                              self.tr('Transition matrix definition (*.json)'))
+        f, _ = QtWidgets.QFileDialog.getOpenFileName(
+            self,
+            self.tr('Select a transition matrix definition file'),
+            conf.settings_manager.get_value(conf.Setting.DEFINITIONS_DIRECTORY),
+            self.tr('Transition matrix definition (*.json)')
+        )
         if f:
             if os.access(f, os.R_OK):
-                QSettings().setValue("LDMP/lc_def_dir", os.path.dirname(f))
+                conf.settings_manager.write_value(
+                    conf.Setting.DEFINITIONS_DIRECTORY, os.path.dirname(f))
             else:
-                QtWidgets.QMessageBox.critical(None,
-                                               self.tr("Error"),
-                                               self.tr(u"Cannot read {}. Choose a different file.".format(f)))
+                QtWidgets.QMessageBox.critical(
+                    None,
+                    self.tr("Error"),
+                    self.tr(u"Cannot read {}. Choose a different file.".format(f))
+                )
         else:
             return None
 
@@ -454,13 +477,16 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, Ui_WidgetLCDefineDegradation)
             return True
 
     def trans_matrix_savefile(self):
-        f, _ = QtWidgets.QFileDialog.getSaveFileName(self,
-                                                     self.tr('Choose where to save this transition matrix definition'),
-                                                     QSettings().value("LDMP/lc_def_dir", None),
-                                                     self.tr('Transition matrix definition (*.json)'))
+        f, _ = QtWidgets.QFileDialog.getSaveFileName(
+            self,
+            self.tr('Choose where to save this transition matrix definition'),
+            conf.settings_manager.get_value(conf.Setting.DEFINITIONS_DIRECTORY),
+            self.tr('Transition matrix definition (*.json)')
+        )
         if f:
             if os.access(os.path.dirname(f), os.W_OK):
-                QSettings().setValue("LDMP/lc_def_dir", os.path.dirname(f))
+                conf.settings_manager.write_value(
+                    conf.Setting.DEFINITIONS_DIRECTORY, os.path.dirname(f))
             else:
                 QtWidgets.QMessageBox.critical(None,
                                                self.tr("Error"),
@@ -509,9 +535,12 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, Ui_WidgetLCDefineDegradation)
         return trans_matrix
 
 
-class LCSetupWidget(QtWidgets.QWidget, Ui_WidgetLCSetup):
+class LCSetupWidget(QtWidgets.QWidget, WidgetLcSetupUi):
+    use_custom_initial: data_io.WidgetDataIOSelectTELayerImport
+    use_custom_final: data_io.WidgetDataIOSelectTELayerImport
+
     def __init__(self, parent=None):
-        super(LCSetupWidget, self).__init__(parent)
+        super().__init__(parent)
 
         with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
                                'data', 'gee_datasets.json')) as datasets_file:
@@ -523,8 +552,8 @@ class LCSetupWidget(QtWidgets.QWidget, Ui_WidgetLCSetup):
                                          'data', 'land_cover_classes_ESA_to_IPCC.json')
         self.dlg_esa_agg = DlgCalculateLCSetAggregation(read_class_file(default_class_file), parent=self)
 
-        lc_start_year = QDate(self.datasets['Land cover']['ESA CCI']['Start year'], 1, 1)
-        lc_end_year = QDate(self.datasets['Land cover']['ESA CCI']['End year'], 12, 31)
+        lc_start_year = QtCore.QDate(self.datasets['Land cover']['ESA CCI']['Start year'], 1, 1)
+        lc_end_year = QtCore.QDate(self.datasets['Land cover']['ESA CCI']['End year'], 12, 31)
         self.use_esa_bl_year.setMinimumDate(lc_start_year)
         self.use_esa_bl_year.setMaximumDate(lc_end_year)
         self.use_esa_tg_year.setMinimumDate(lc_start_year)
@@ -561,10 +590,12 @@ class LCSetupWidget(QtWidgets.QWidget, Ui_WidgetLCSetup):
             self.groupBox_custom_tg.setEnabled(True)
 
     def get_initial_year(self):
-        return self.use_custom_initial.get_band_info()['metadata']['year']
+        usable_band_info = self.use_custom_initial.get_usable_band_info()
+        return usable_band_info.band_info.metadata["year"]
 
     def get_final_year(self):
-        return self.use_custom_final.get_band_info()['metadata']['year']
+        usable_band_info = self.use_custom_final.get_usable_band_info()
+        return usable_band_info.band_info.metadata["year"]
 
     def esa_agg_custom_edit(self):
         self.dlg_esa_agg.exec_()

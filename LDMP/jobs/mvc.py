@@ -327,13 +327,20 @@ class DatasetDetailsWidget(QtWidgets.QDialog, DatasetActions, WidgetDatasetItemD
                 self.path = str(path)
         self.path_le.setText(self.path)
 
-        self.load_job_details()
-        self.export_button.clicked.connect(self.export_dataset)
-        self.pushButtonDelete.setEnabled(
+        self.load_btn.setIcon(
+            QtGui.QIcon(':/plugins/LDMP/icons/mActionAddRasterLayer.svg'))
+        self.export_btn.setIcon(
+            QtGui.QIcon(':/plugins/LDMP/icons/mActionSharingImport.svg'))
+        self.delete_btn.setIcon(
+            QtGui.QIcon(':/plugins/LDMP/icons/mActionDeleteSelected.svg'))
+        self.export_btn.clicked.connect(self.export_dataset)
+        self.delete_btn.setEnabled(
             self.job.status == models.JobStatus.DOWNLOADED
         )
-        self.pushButtonDelete.clicked.connect(self.__delete_dataset)
-        self.pushButtonLoad.clicked.connect(self.load_dataset)
+        self.delete_btn.clicked.connect(self.__delete_dataset)
+        self.load_btn.clicked.connect(self.load_dataset)
+
+        self.load_job_details()
 
         self.bar = qgis.gui.QgsMessageBar()
         self.bar.setSizePolicy(
@@ -347,12 +354,20 @@ class DatasetDetailsWidget(QtWidgets.QDialog, DatasetActions, WidgetDatasetItemD
 
     def export_dataset(self):
         log(f"Exporting dataset {self.job.params.task_name!r}")
-        self.export_button.setEnabled(False)
-        files = [str(path) for path in self.job.results.local_paths]
-        base_dir = os.path.dirname(self.path)
+        self.export_btn.setEnabled(False)
+
+        # collect all files related to the dataset and compress them
+        # into one zip file.
+        dataset_base_dir = Path(os.path.dirname(self.path))
+        file_name = os.path.splitext(os.path.basename(self.path))[0]
+        folder_contents = dataset_base_dir.glob(f"{file_name}.*")
+        files = [f for f in folder_contents if f.is_file()]
+
+        manager.job_manager.exports_dir.mkdir(exist_ok=True)
 
         try:
-            zipped_file = f"{base_dir}/dataset.zip"
+            zipped_file = f"{str(manager.job_manager.exports_dir)}/" \
+                          f"{self.job.params.task_name}.zip"
             with ZipFile(zipped_file, 'w') as zip:
                 for file in files:
                     zip.write(file, os.path.basename(file))
@@ -360,14 +375,14 @@ class DatasetDetailsWidget(QtWidgets.QDialog, DatasetActions, WidgetDatasetItemD
             self.bar.clearWidgets()
             message_bar_item = self.bar.createMessage(
                 tr(f"Error exporting dataset {zipped_file}"))
-            self.bar.pushWidget(message_bar_item, level=qgis.core.Qgis.Critical, duration=5)
+            self.bar.pushWidget(message_bar_item, level=qgis.core.Qgis.Critical)
 
         self.bar.clearWidgets()
         message_bar_item = self.bar.createMessage(
             tr(f"Dataset exported to {zipped_file}"))
-        self.bar.pushWidget(message_bar_item, level=qgis.core.Qgis.Info, duration=5)
+        self.bar.pushWidget(message_bar_item, level=qgis.core.Qgis.Info)
 
-        self.export_button.setEnabled(True)
+        self.export_btn.setEnabled(True)
 
     def load_job_details(self):
         self.comments.setText(self.job.params.task_notes.user_notes)

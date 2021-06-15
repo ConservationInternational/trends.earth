@@ -330,7 +330,7 @@ class DatasetDetailsWidget(QtWidgets.QDialog, DatasetActions, WidgetDatasetItemD
         self.load_btn.setIcon(
             QtGui.QIcon(':/plugins/LDMP/icons/mActionAddRasterLayer.svg'))
         self.export_btn.setIcon(
-            QtGui.QIcon(':/plugins/LDMP/icons/mActionSharingImport.svg'))
+            QtGui.QIcon(':/plugins/LDMP/icons/export_zip.svg'))
         self.delete_btn.setIcon(
             QtGui.QIcon(':/plugins/LDMP/icons/mActionDeleteSelected.svg'))
         self.export_btn.clicked.connect(self.export_dataset)

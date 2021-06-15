@@ -624,7 +624,7 @@ class DlgCalculateLDNSummaryTableAdmin(
             self.combo_layer_state_label.setEnabled(True)
 
     def showEvent(self, event):
-        super(DlgCalculateLDNSummaryTableAdmin, self).showEvent(event)
+        super().showEvent(event)
         self.combo_layer_lpd.populate()
         self.combo_layer_traj.populate()
         self.combo_layer_perf.populate()

@@ -102,7 +102,8 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         job_manager.downloaded_available_jobs_results.connect(
             self.refresh_after_cache_update)
         job_manager.deleted_job.connect(self.refresh_after_cache_update)
-        job_manager.submitted_job.connect(self.refresh_after_job_submitted)
+        job_manager.submitted_job.connect(self.refresh_after_job_modified)
+        job_manager.imported_job.connect(self.refresh_after_job_modified)
         self.clean_empty_directories()
         self.setup_algorithms_tree()
         self.setup_datasets_page_gui()
@@ -273,7 +274,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         job_manager.refresh_local_state()
         self.last_refreshed_local_state = dt.datetime.now(tz=dt.timezone.utc)
 
-    def refresh_after_job_submitted(self, job: Job):
+    def refresh_after_job_modified(self, job: Job):
         self.refresh_after_cache_update()
 
     def filter_changed(self, filter_string: str):
@@ -400,7 +401,9 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             self.algorithms_tv_delegate.current_index = index
 
     def load_base_map(self):
-        DlgVisualizationBasemap().exec_()
+        dialogue = DlgVisualizationBasemap(self)
+        dialogue.exec_()
+
 
     def download_data(self):
         dialogue = DlgDownload(
@@ -411,7 +414,6 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         dialogue.exec_()
 
     def import_known_dataset(self, action: QtWidgets.QAction):
-        log("import_known_dataset called")
         dialogue = DlgDataIOLoadTE(self)
         dialogue.exec_()
 

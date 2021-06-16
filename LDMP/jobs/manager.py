@@ -37,6 +37,7 @@ class JobManager(QtCore.QObject):
     deleted_job: QtCore.pyqtSignal = QtCore.pyqtSignal(Job)
     submitted_job: QtCore.pyqtSignal = QtCore.pyqtSignal(Job)
     processed_local_job: QtCore.pyqtSignal = QtCore.pyqtSignal(Job)
+    imported_job: QtCore.pyqtSignal = QtCore.pyqtSignal(Job)
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -299,9 +300,61 @@ class JobManager(QtCore.QObject):
 
     def display_job_results(self, job: Job):
         for path in job.results.local_paths:
-            for band_index, band in enumerate(job.results.bands):
-                if band.add_to_map:
-                    layers.add_layer(str(path), band_index+1, band.serialize())
+            if path.suffix == ".tif":
+                for band_index, band in enumerate(job.results.bands):
+                    if band.add_to_map:
+                        layers.add_layer(str(path), band_index+1, band.serialize())
+
+    def import_job(self, job: Job):
+        self._move_job_to_dir(job, job.status, force_rewrite=True)
+        if job.status == models.JobStatus.PENDING:
+            status = models.JobStatus.RUNNING
+        elif job.status == models.JobStatus.GENERATED_LOCALLY:
+            status = models.JobStatus.DOWNLOADED
+        else:
+            status = job.status
+        self.known_jobs[status][job.id] = job
+        self.imported_job.emit(job)
+
+    def create_job_from_dataset(
+            self,
+            dataset_path: Path,
+            band_name: str,
+            band_metadata: typing.Dict
+    ) -> Job:
+        band_info = models.JobBand(
+            name=band_name, no_data_value=-32768.0, metadata=band_metadata.copy())
+        if band_name == "Land cover (7 class)":
+            script = conf.KNOWN_SCRIPTS["local-land-cover"]
+        elif band_name == "Soil organic carbon":
+            script = conf.KNOWN_SCRIPTS["local-soil-organic-carbon"]
+        elif band_name == "Land Productivity Dynamics (LPD)":
+            script = conf.KNOWN_SCRIPTS["productivity"]
+        else:
+            raise RuntimeError(f"Invalid band name: {band_name!r}")
+        now = dt.datetime.now(dt.timezone.utc)
+        job = Job(
+            id=uuid.uuid4(),
+            params=models.JobParameters(
+                task_name="Imported dataset",
+                task_notes=models.JobNotes(
+                    user_notes="",
+                    local_context=models.JobLocalContext.create_default()
+                ),
+                params={}
+            ),
+            progress=100,
+            results=models.JobLocalResults(
+                name=f"{band_name} results",
+                bands=[band_info],
+                local_paths=[dataset_path]
+            ),
+            script=script,
+            status=models.JobStatus.GENERATED_LOCALLY,
+            start_date=now,
+            end_date=now,
+        )
+        return job
 
     def _update_known_jobs_with_newly_submitted_job(self, job: Job):
         status = job.status

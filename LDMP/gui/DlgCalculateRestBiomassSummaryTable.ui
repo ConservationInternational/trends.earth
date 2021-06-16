@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>554</width>
-    <height>262</height>
+    <width>629</width>
+    <height>458</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -155,54 +155,42 @@
         </layout>
        </item>
        <item>
-        <widget class="QgsCollapsibleGroupBox" name="options_group">
-         <property name="title">
-          <string>Options</string>
+        <widget class="QLabel" name="execution_name_la">
+         <property name="text">
+          <string>Execution name:</string>
          </property>
-         <property name="collapsed">
-          <bool>true</bool>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="execution_name_le"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="task_notes_la">
+         <property name="text">
+          <string>Notes:</string>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_4">
-          <item>
-           <widget class="QLabel" name="execution_name_la">
-            <property name="text">
-             <string>Execution name:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="execution_name_le"/>
-          </item>
-          <item>
-           <widget class="QLabel" name="task_notes_la">
-            <property name="text">
-             <string>Notes:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QTextEdit" name="task_notes">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>100</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QTextEdit" name="task_notes">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>100</height>
+          </size>
+         </property>
         </widget>
        </item>
        <item>
@@ -261,12 +249,6 @@ p, li { white-space: pre-wrap; }
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>QgsCollapsibleGroupBox</class>
-   <extends>QGroupBox</extends>
-   <header>qgis.gui</header>
-   <container>1</container>
-  </customwidget>
   <customwidget>
    <class>WidgetDataIOSelectTELayerExisting</class>
    <extends>QComboBox</extends>

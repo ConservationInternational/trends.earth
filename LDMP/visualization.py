@@ -12,54 +12,38 @@
  ***************************************************************************/
 """
 
-from builtins import range
-from builtins import object
 import os
+from pathlib import Path
 
-from qgis.PyQt import QtWidgets, uic, QtXml
-from qgis.PyQt.QtCore import QSettings, QEventLoop, QTimer
+from PyQt5 import (
+    QtWidgets,
+    QtXml,
+    uic
+)
 
-from qgis.core import QgsProject, QgsVectorLayer, QgsFeature, \
-    QgsLayerDefinition, QgsReadWriteContext
+from qgis.core import (
+    QgsLayerDefinition,
+    QgsProject,
+    QgsReadWriteContext,
+)
 from qgis.utils import iface
+
+from . import (
+    conf,
+    download,
+    log,
+)
+
+DlgVisualizationBasemapUi, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/DlgVisualizationBasemap.ui"))
+DlgVisualizationCreateMapUi, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/DlgVisualizationCreateMap.ui"))
+
 mb = iface.messageBar()
 
-from LDMP import log
-from LDMP.calculate import DlgCalculateBase
-from LDMP.download import extract_zipfile, get_admin_bounds
-from LDMP.gui.DlgVisualization import Ui_DlgVisualization
-from LDMP.gui.DlgVisualizationBasemap import Ui_DlgVisualizationBasemap
-from LDMP.gui.DlgVisualizationCreateMap import Ui_DlgVisualizationCreateMap
 
-
-class DlgVisualization(QtWidgets.QDialog, Ui_DlgVisualization):
-    def __init__(self, parent=None):
-        super(DlgVisualization, self).__init__(parent)
-        self.setupUi(self)
-
-        self.dlg_basemap = DlgVisualizationBasemap()
-        self.dlg_create_map = DlgVisualizationCreateMap()
-
-        self.btn_basemap.clicked.connect(self.clicked_basemap)
-        self.btn_create_map.clicked.connect(self.clicked_create_map)
-        
-    def clicked_create_map(self):
-        QtWidgets.QMessageBox.information(None, self.tr("Coming soon"),
-                                    self.tr("Create Print Map coming soon!"))
-
-    #def clicked_create_map(self):
-        #self.close()
-        #self.dlg_create_map.exec_()
-
-    def clicked_basemap(self):
-        self.close()
-        self.dlg_basemap.exec_()
-        
-        
-
-
-# Function to set brush style for a map layer in an XML layer definition
 def set_fill_style(maplayers, id, style='no'):
+    # Function to set brush style for a map layer in an XML layer definition
     for n in range(maplayers.length()):
         m_l = maplayers.at(n)
         # Note that firstChild is needed as id is an element node, 
@@ -70,6 +54,7 @@ def set_fill_style(maplayers, id, style='no'):
                 elem = layer_props.at(m).toElement()
                 if elem.attribute('k') == 'style':
                     elem.setAttribute('v', style)
+
 
 class zoom_to_admin_poly(object):
     def __init__(self, admin_code, admin_1=False):
@@ -110,15 +95,17 @@ class zoom_to_admin_poly(object):
         self.canvas.setExtent(self.bbox)
         self.canvas.refresh()
 
-class DlgVisualizationBasemap(QtWidgets.QDialog, Ui_DlgVisualizationBasemap):
+
+class DlgVisualizationBasemap(QtWidgets.QDialog, DlgVisualizationBasemapUi):
     def __init__(self, parent=None):
-        super(DlgVisualizationBasemap, self).__init__(parent)
+        super().__init__(parent)
         self.setupUi(self)
 
-        self.admin_bounds_key = get_admin_bounds()
-        if not self.admin_bounds_key:
+        if not conf.ADMIN_BOUNDS_KEY:
             raise Exception('Admin boundaries not available')
-        self.area_admin_0.addItems(sorted(self.admin_bounds_key.keys()))
+        self.area_admin_0.addItems(
+            sorted(conf.ADMIN_BOUNDS_KEY.keys())
+        )
         self.populate_admin_1()
 
         self.area_admin_0.currentIndexChanged.connect(self.populate_admin_1)
@@ -145,13 +132,15 @@ class DlgVisualizationBasemap(QtWidgets.QDialog, Ui_DlgVisualizationBasemap):
     def populate_admin_1(self):
         self.area_admin_1.clear()
         self.area_admin_1.addItems(['All regions'])
-        self.area_admin_1.addItems(sorted(self.admin_bounds_key[self.area_admin_0.currentText()]['admin1'].keys()))
-
+        current_country_name = self.area_admin_0.currentText()
+        country = conf.ADMIN_BOUNDS_KEY[current_country_name]
+        admin1_regions = sorted(country.level1_regions.keys())
+        self.area_admin_1.addItems(admin1_regions)
 
     def ok_clicked(self):
         self.close()
 
-        ret = extract_zipfile('trends.earth_basemap_data.zip', verify=False)
+        ret = download.extract_zipfile('trends.earth_basemap_data.zip', verify=False)
 
         if ret:
             f = open(os.path.join(os.path.dirname(__file__), 'data', 'basemap.qlr'), 'rt')
@@ -163,10 +152,12 @@ class DlgVisualizationBasemap(QtWidgets.QDialog, Ui_DlgVisualizationBasemap):
             lyr_def_content = lyr_def_content.replace('DATA_FOLDER', os.path.join(os.path.dirname(__file__), 'data'))
 
             if self.checkBox_mask.isChecked():
+                current_country_name = self.area_admin_0.currentText()
+                current_country = conf.ADMIN_BOUNDS_KEY[current_country_name]
                 if not self.area_admin_1.currentText() or self.area_admin_1.currentText() == 'All regions':
-                    admin_code = self.admin_bounds_key[self.area_admin_0.currentText()]['code']
-                    # Mask out a level 0 admin area - this is default, so don't 
+                    # Mask out a level 0 admin area - this is default, so don't
                     # need to edit the brrush styles
+                    admin_code = current_country.code
                     lyr_def_content = lyr_def_content.replace('MASK_SQL_ADMIN0', "|subset=&quot;ISO_A3&quot; != '{}'".format(admin_code))
                     lyr_def_content = lyr_def_content.replace('MASK_SQL_ADMIN1', '')
                     document = QtXml.QDomDocument()
@@ -175,8 +166,9 @@ class DlgVisualizationBasemap(QtWidgets.QDialog, Ui_DlgVisualizationBasemap):
                     zoomer = zoom_to_admin_poly(admin_code)
                 else:
                     # Mask out a level 1 admin area
+                    current_region_name = self.area_admin_1.currentText()
+                    admin_code = current_country.level1_regions[current_region_name]
                     lyr_def_content = lyr_def_content.replace('MASK_SQL_ADMIN0', '')
-                    admin_code = self.admin_bounds_key[self.area_admin_0.currentText()]['admin1'][self.area_admin_1.currentText()]['code']
                     lyr_def_content = lyr_def_content.replace('MASK_SQL_ADMIN1', "|subset=&quot;adm1_code&quot; != '{}'".format(admin_code))
 
                     # Set national borders to no brush, and regional borders to 
@@ -219,9 +211,9 @@ class DlgVisualizationBasemap(QtWidgets.QDialog, Ui_DlgVisualizationBasemap):
         self.close()
 
 
-class DlgVisualizationCreateMap(QtWidgets.QDialog, Ui_DlgVisualizationCreateMap):
+class DlgVisualizationCreateMap(QtWidgets.QDialog, DlgVisualizationCreateMapUi):
     def __init__(self, parent=None):
-        super(DlgVisualizationCreateMap, self).__init__(parent)
+        super().__init__(parent)
 
         self.setupUi(self)
 

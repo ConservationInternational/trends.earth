@@ -2,10 +2,8 @@ import dataclasses
 import datetime as dt
 import enum
 import json
-import os
 import tempfile
 import typing
-import uuid
 from pathlib import Path
 
 import numpy as np
@@ -18,10 +16,10 @@ from .. import (
     areaofinterest,
     calculate,
     calculate_ldn,
-    conf,
     data_io,
     log,
     summary,
+    utils,
     worker,
 )
 from ..jobs import (
@@ -81,17 +79,6 @@ def _get_ldn_inputs(
     )
 
 
-def _save_vrt(source_path: Path, source_band_index: int) -> str:
-    temporary_file = tempfile.NamedTemporaryFile(suffix=".vrt", delete=False)
-    temporary_file.close()
-    gdal.BuildVRT(
-        temporary_file.name,
-        str(source_path),
-        bandList=[source_band_index]
-    )
-    return temporary_file.name
-
-
 def get_main_sdg_15_3_1_job_params(
         task_name: str,
         aoi,
@@ -110,11 +97,29 @@ def get_main_sdg_15_3_1_job_params(
         combo_layer_soc, "Soil organic carbon")
     crosses_180th, geojsons = aoi.bounding_box_gee_geojson()
 
-    # TODO: check whether these raise errors when not filled in
-    traj_band_info = combo_layer_traj.get_usable_band_info()
-    perf_band_info = combo_layer_perf.get_usable_band_info()
-    state_band_info = combo_layer_state.get_usable_band_info()
-    lpd_band_info = combo_layer_lpd.get_usable_band_info()
+    traj_path = None
+    traj_index = None
+    perf_path = None
+    perf_index = None
+    state_path = None
+    state_index = None
+    lpd_path = None
+    lpd_index = None
+    if prod_mode == LdnProductivityMode.TRENDS_EARTH.value:
+        traj_band_info = combo_layer_traj.get_usable_band_info()
+        traj_path = str(traj_band_info.path)
+        traj_index = traj_band_info.band_index
+        perf_band_info = combo_layer_perf.get_usable_band_info()
+        perf_path = str(perf_band_info.path)
+        perf_index = perf_band_info.band_index
+        state_band_info = combo_layer_state.get_usable_band_info()
+        state_path = str(state_band_info.path)
+        state_index = state_band_info.band_index
+    elif prod_mode == LdnProductivityMode.JRC_LPD.value:
+        lpd_band_info = combo_layer_lpd.get_usable_band_info()
+        lpd_path = str(lpd_band_info.path)
+        lpd_index = lpd_band_info.band_index
+
     return {
         "task_name": task_name,
         "task_notes": task_notes,
@@ -127,14 +132,14 @@ def get_main_sdg_15_3_1_job_params(
         "layer_soc_main_band_index": soil_organic_carbon_input_paths.main_band_index,
         "layer_soc_aux_band_indexes": soil_organic_carbon_input_paths.aux_band_indexes,
         "layer_soc_years": soil_organic_carbon_input_paths.years,
-        "layer_traj_path": str(traj_band_info.path),
-        "layer_traj_band_index": traj_band_info.band_index,
-        "layer_perf_path": str(perf_band_info.path),
-        "layer_perf_band_index": perf_band_info.band_index,
-        "layer_state_path": str(state_band_info.path),
-        "layer_state_band_index": state_band_info.band_index,
-        "layer_lpd_path": str(lpd_band_info.path),
-        "layer_lpd_band_index": lpd_band_info.band_index,
+        "layer_traj_path": traj_path,
+        "layer_traj_band_index": traj_index,
+        "layer_perf_path": perf_path,
+        "layer_perf_band_index": perf_index,
+        "layer_state_path": state_path,
+        "layer_state_band_index": state_index,
+        "layer_lpd_path": lpd_path,
+        "layer_lpd_band_index": lpd_index,
         "crs": aoi.get_crs_dst_wkt(),
         "geojsons": json.dumps(geojsons),
         "crosses_180th": crosses_180th,
@@ -192,6 +197,14 @@ def compute_ldn(
     )
     ldn_job.end_date = dt.datetime.now(dt.timezone.utc)
     ldn_job.progress = 100
+    ldn_job.results.bands.append(
+        models.JobBand(
+            name="SDG 15.3.1 Indicator",
+            no_data_value=-32768.0,
+            metadata={},
+            activated=True
+        )
+    )
     ldn_job.results.local_paths = [
         output_ldn_path,
         summary_table_output_path
@@ -204,10 +217,10 @@ def _prepare_land_cover_file_paths(ldn_job: models.Job) -> typing.List[str]:
     lc_main_band_index = ldn_job.params.params["layer_lc_main_band_index"]
     lc_aux_band_indexes = ldn_job.params.params["layer_lc_aux_band_indexes"]
     lc_files = [
-        _save_vrt(lc_path, lc_main_band_index)
+        utils.save_vrt(lc_path, lc_main_band_index)
     ]
     for lc_aux_band_index in lc_aux_band_indexes:
-        lc_files.append(_save_vrt(lc_path, lc_aux_band_index))
+        lc_files.append(utils.save_vrt(lc_path, lc_aux_band_index))
     return lc_files
 
 
@@ -217,24 +230,24 @@ def _prepare_soil_organic_carbon_file_paths(
     soc_main_band_index = ldn_job.params.params["layer_soc_main_band_index"]
     soc_aux_band_indexes = ldn_job.params.params["layer_soc_aux_band_indexes"]
     soc_files = [
-        _save_vrt(soc_path, soc_main_band_index)
+        utils.save_vrt(soc_path, soc_main_band_index)
     ]
     for soc_aux_band_index in soc_aux_band_indexes:
-        soc_files.append(_save_vrt(soc_path, soc_aux_band_index))
+        soc_files.append(utils.save_vrt(soc_path, soc_aux_band_index))
     return soc_files
 
 
 def _prepare_trends_earth_mode_vrt_paths(
         ldn_job: models.Job) -> typing.Tuple[str, str, str]:
-    traj_vrt_path = _save_vrt(
+    traj_vrt_path = utils.save_vrt(
         ldn_job.params.params["layer_traj_path"],
         ldn_job.params.params["layer_traj_band_index"],
     )
-    perf_vrt_path = _save_vrt(
+    perf_vrt_path = utils.save_vrt(
         ldn_job.params.params["layer_perf_path"],
         ldn_job.params.params["layer_perf_band_index"],
     )
-    state_vrt_path = _save_vrt(
+    state_vrt_path = utils.save_vrt(
         ldn_job.params.params["layer_state_path"],
         ldn_job.params.params["layer_state_band_index"],
     )
@@ -243,7 +256,7 @@ def _prepare_trends_earth_mode_vrt_paths(
 
 def _prepare_jrc_lpd_mode_vrt_path(
         ldn_job: models.Job) -> str:
-    return _save_vrt(
+    return utils.save_vrt(
         ldn_job.params.params["layer_lpd_path"],
         ldn_job.params.params["layer_lpd_band_index"],
     )

@@ -220,7 +220,7 @@ class DlgCalculateUrbanSummaryTable(
 ):
     LOCAL_SCRIPT_NAME = "urban-change-summary-table"
 
-    combo_layer_urban_cities: data_io.WidgetDataIOSelectTELayerExisting
+    combo_layer_urban_series: data_io.WidgetDataIOSelectTELayerExisting
 
     def __init__(
             self,
@@ -259,7 +259,7 @@ class DlgCalculateUrbanSummaryTable(
 
         #######################################################################
         # Check that the layers cover the full extent needed
-        urban_layer = self.combo_layer_urban_cities.get_layer()
+        urban_layer = self.combo_layer_urban_series.get_layer()
         urban_layer_extent_geom = qgis.core.QgsGeometry.fromRect(urban_layer.extent())
         if self.aoi.calc_frac_overlap(urban_layer_extent_geom) < .99:
             QtWidgets.QMessageBox.critical(
@@ -272,31 +272,31 @@ class DlgCalculateUrbanSummaryTable(
 
         self.close()
 
-        urban_usable_info = self.combo_layer_urban_cities.get_usable_band_info()
+        urban_usable_info = self.combo_layer_urban_series.get_usable_band_info()
         urban_annual_band_indices = []
         pop_annual_band_indices = []
-        urban_years = []
-        pop_years = []
+
+        urban_indices_years = []
+        pop_indices_years = []
+
         for index, band in enumerate(urban_usable_info.job.results.bands):
             band_index = index + 1
-            band_year = band.metadata["year"]
+            band_year = band.metadata.get("year")
             if band.name.lower() == "urban":
                 urban_annual_band_indices.append(band_index)
-                urban_years.append(band_year)
+                urban_indices_years.append((band_index, band_year))
             elif band.name.lower() == "population":
                 pop_annual_band_indices.append(band_index)
-                pop_years.append(band_year)
-        urban_annual_band_indices.sort(key=lambda idx: urban_years[idx])
-        pop_annual_band_indices.sort(key=lambda idx: pop_years[idx])
-        if len(urban_annual_band_indices) != len(pop_annual_band_indices):
+                pop_indices_years.append((band_index, band_year))
+        urban_indices_years.sort(key=lambda entry: entry[1])
+        pop_indices_years.sort(key=lambda entry: entry[1])
+        if len(urban_indices_years) != len(pop_indices_years):
             raise RuntimeError("Urban files and pop files do not have the same length")
-        if len(pop_years) != len(urban_years):
-            raise RuntimeError("Urban years and pop years do not have the same length")
         job_params = {
             "task_name": self.options_tab.task_name.text(),
             "task_notes": self.options_tab.task_notes.toPlainText(),
             "urban_layer_path": str(urban_usable_info.path),
-            "urban_layer_band_indexes": urban_annual_band_indices,
-            "urban_layer_pop_band_indexes": pop_annual_band_indices,
+            "urban_layer_band_indexes": [entry[0] for entry in urban_indices_years],
+            "urban_layer_pop_band_indexes": [entry[0] for entry in pop_indices_years],
         }
         job_manager.submit_local_job(job_params, self.LOCAL_SCRIPT_NAME, self.aoi)

@@ -721,6 +721,8 @@ _SCRIPT_CONFIG = {
     },
     "urban-change-summary-table": {
         "run_mode": "local",
+        "execution_callable": (
+            "LDMP.localexecution.urbanchange.compute_urban_change_summary_table"),
     },
     "change-biomass-summary-table": {
         "run_mode": "local",

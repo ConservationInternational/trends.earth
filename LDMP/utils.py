@@ -43,7 +43,7 @@ def get_local_job_output_paths(job: models.Job) -> typing.Tuple[Path, Path]:
 
 def maybe_add_image_to_sheet(image_filename: str, sheet):
     try:
-        image_path = Path(__file__).parents[1] / "data" / image_filename
+        image_path = Path(__file__).parent / "data" / image_filename
         logo = Image(image_path)
         sheet.add_image(logo, 'H1')
     except ImportError:

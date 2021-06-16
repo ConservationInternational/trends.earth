@@ -734,6 +734,8 @@ _SCRIPT_CONFIG = {
     },
     "local-soil-organic-carbon": {
         "run_mode": "local",
+        "execution_callable": (
+            "LDMP.localexecution.soilorganiccarbon.compute_soil_organic_carbon"),
     },
     "time-series": {
         "id": "2a051dcb-b102-44c3-b383-60aa1063ab86",

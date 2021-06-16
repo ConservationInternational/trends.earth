@@ -726,6 +726,8 @@ _SCRIPT_CONFIG = {
     },
     "change-biomass-summary-table": {
         "run_mode": "local",
+        "execution_callable": (
+            "LDMP.localexecution.biomassrestoration.compute_biomass_restoration"),
     },
     "local-land-cover": {
         "run_mode": "local",

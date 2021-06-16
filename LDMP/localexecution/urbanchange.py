@@ -136,9 +136,8 @@ def save_summary_table(areas, populations, out_file):
         workbook.save(out_file)
         log(u'Summary table saved to {}'.format(out_file))
 
-    except IOError:
-        error_message = (
+    except IOError as exc:
+        raise RuntimeError(
             f"Error saving output table - check that {out_file!r} is accessible and "
-            f"not already open."
+            f"not already open. - {str(exc)}"
         )
-        log(error_message)

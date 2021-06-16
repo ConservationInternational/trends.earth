@@ -12,50 +12,59 @@
  ***************************************************************************/
 """
 
-import os
-import tempfile
-import json
-
 from copy import copy
-
-import numpy as np
-
-from osgeo import gdal, osr
+from pathlib import Path
 
 import openpyxl
 from openpyxl.drawing.image import Image
-from openpyxl.styles import Font, Alignment
+from openpyxl.styles import (
+    Alignment,
+    Font,
+)
+import qgis.core
+from osgeo import gdal
 
-from qgis.utils import iface
-from qgis.core import QgsGeometry
-mb = iface.messageBar()
+from PyQt5 import (
+    QtCore,
+    QtWidgets,
+    uic,
+)
 
-from qgis.PyQt import QtWidgets
-from qgis.PyQt.QtCore import QSettings, QDate, QCoreApplication
+from . import (
+    calculate,
+    layers,
+    log,
+    worker,
+)
+from .algorithms.models import ExecutionScript
+from .jobs.manager import job_manager
+from .schemas.schemas import BandInfoSchema
+from .summary import *
 
-from LDMP import log
-from LDMP.api import run_script
-from LDMP.calculate import (DlgCalculateBase, get_script_slug, ClipWorker,
-    json_geom_to_geojson, local_scripts)
-from LDMP.layers import add_layer, create_local_json_metadata, get_band_infos
-from LDMP.worker import AbstractWorker, StartWorker
-from LDMP.gui.DlgCalculateRestBiomassData import Ui_DlgCalculateRestBiomassData
-from LDMP.gui.DlgCalculateRestBiomassSummaryTable import Ui_DlgCalculateRestBiomassSummaryTable
-from LDMP.schemas.schemas import BandInfo, BandInfoSchema
-from LDMP.summary import *
+DlgCalculateRestBiomassDataUi, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/DlgCalculateRestBiomassData.ui"))
+DlgCalculateRestBiomassSummaryTableUi, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/DlgCalculateRestBiomassSummaryTable.ui"))
 
 
 class tr_calculate_rest_biomass(object):
     def tr(message):
-        return QCoreApplication.translate("tr_calculate_rest_biomass", message)
+        return QtCore.QCoreApplication.translate("tr_calculate_rest_biomass", message)
 
 
-class DlgCalculateRestBiomassData(DlgCalculateBase, Ui_DlgCalculateRestBiomassData):
-    def __init__(self, parent=None):
-        super(DlgCalculateRestBiomassData, self).__init__(parent)
+class DlgCalculateRestBiomassData(
+    calculate.DlgCalculateBase,
+    DlgCalculateRestBiomassDataUi
+):
 
+    def __init__(
+            self,
+            iface: qgis.gui.QgisInterface,
+            script: ExecutionScript,
+            parent: QtWidgets.QWidget
+    ):
+        super().__init__(iface, script, parent)
         self.setupUi(self)
-
         self.first_show = True
 
     def showEvent(self, event):
@@ -71,7 +80,6 @@ class DlgCalculateRestBiomassData(DlgCalculateBase, Ui_DlgCalculateRestBiomassDa
         ret = super(DlgCalculateRestBiomassData, self).btn_calculate()
         if not ret:
             return
-
         self.calculate_on_GEE()
 
     def get_rest_type(self):
@@ -85,30 +93,38 @@ class DlgCalculateRestBiomassData(DlgCalculateBase, Ui_DlgCalculateRestBiomassDa
 
     def calculate_on_GEE(self):
         self.close()
-
         crosses_180th, geojsons = self.gee_bounding_box
-        payload = {'length_yr': self.spinBox_years.value(),
-                   'rest_type': self.get_rest_type(),
-                   'geojsons': json.dumps(geojsons),
-                   'crs': self.aoi.get_crs_dst_wkt(),
-                   'crosses_180th': crosses_180th,
-                   'task_name': self.options_tab.task_name.text(),
-                   'task_notes': self.options_tab.task_notes.toPlainText()}
+        payload = {
+            'length_yr': self.spinBox_years.value(),
+            'rest_type': self.get_rest_type(),
+            'geojsons': json.dumps(geojsons),
+            'crs': self.aoi.get_crs_dst_wkt(),
+            'crosses_180th': crosses_180th,
+            'task_name': self.options_tab.task_name.text(),
+            'task_notes': self.options_tab.task_notes.toPlainText()
+        }
 
-        resp = run_script(get_script_slug('restoration-biomass'), payload)
-
+        resp = job_manager.submit_remote_job(payload, self.script.id)
         if resp:
-            mb.pushMessage(self.tr("Submitted"),
-                           self.tr("Restoration biomass change submitted to Google Earth Engine."),
-                           level=0, duration=5)
+            main_msg = "Submitted"
+            description = "Restoration biomass change submitted to Google Earth Engine."
         else:
-            mb.pushMessage(self.tr("Error"),
-                           self.tr("Unable to submit restoration biomass change task to Google Earth Engine."),
-                           level=0, duration=5)
+            main_msg = "Error"
+            description = (
+                "Unable to submit restoration biomass change task to Google Earth "
+                "Engine."
+            )
+        self.mb.pushMessage(
+            self.tr(main_msg),
+            self.tr(description),
+            level=0,
+            duration=5
+        )
 
-class RestBiomassSummaryWorker(AbstractWorker):
+
+class RestBiomassSummaryWorker(worker.AbstractWorker):
     def __init__(self, src_file):
-        AbstractWorker.__init__(self)
+        worker.AbstractWorker.__init__(self)
 
         self.src_file = src_file
 
@@ -190,13 +206,20 @@ class RestBiomassSummaryWorker(AbstractWorker):
 
         return list((biomass_initial, biomass_change, area_site))
 
-class DlgCalculateRestBiomassSummaryTable(DlgCalculateBase, Ui_DlgCalculateRestBiomassSummaryTable):
-    def __init__(self, parent=None):
-        super(DlgCalculateRestBiomassSummaryTable, self).__init__(parent)
 
+class DlgCalculateRestBiomassSummaryTable(
+    calculate.DlgCalculateBase,
+    DlgCalculateRestBiomassSummaryTableUi
+):
+    def __init__(
+            self,
+            iface: qgis.gui.QgisInterface,
+            script: ExecutionScript,
+            parent: QtWidgets.QWidget
+    ):
+        super().__init__(iface, script, parent)
         self.setupUi(self)
-
-        self.add_output_tab(['.json', '.tif', '.xlsx'])
+        #self.add_output_tab(['.json', '.tif', '.xlsx'])
 
     def showEvent(self, event):
         super(DlgCalculateRestBiomassSummaryTable, self).showEvent(event)
@@ -219,7 +242,7 @@ class DlgCalculateRestBiomassSummaryTable(DlgCalculateBase, Ui_DlgCalculateRestB
             return
         #######################################################################
         # Check that the layers cover the full extent needed
-        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_biomass_diff.get_layer().extent())) < .99:
+        if self.aoi.calc_frac_overlap(qgis.core.QgsGeometry.fromRect(self.combo_layer_biomass_diff.get_layer().extent())) < .99:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Area of interest is not entirely within the biomass layer."))
             return
@@ -245,8 +268,8 @@ class DlgCalculateRestBiomassSummaryTable(DlgCalculateBase, Ui_DlgCalculateRestB
             output_biomass_diff_tifs.append(output_biomass_diff_tif)
 
             log(u'Saving clipped biomass file to {}'.format(output_biomass_diff_tif))
-            geojson = json_geom_to_geojson(QgsGeometry.fromWkt(wkts[n]).asJson())
-            clip_worker = StartWorker(ClipWorker, 'masking layers (part {} of {})'.format(n + 1, len(wkts)), 
+            geojson = calculate.json_geom_to_geojson(qgis.core.QgsGeometry.fromWkt(wkts[n]).asJson())
+            clip_worker = worker.StartWorker(calculate.ClipWorker, 'masking layers (part {} of {})'.format(n + 1, len(wkts)),
                                       in_file, output_biomass_diff_tif, 
                                       geojson, bbs[n])
             if not clip_worker.success:
@@ -257,7 +280,7 @@ class DlgCalculateRestBiomassSummaryTable(DlgCalculateBase, Ui_DlgCalculateRestB
             ######################################################################
             #  Calculate biomass change summary table
             log('Calculating summary table...')
-            rest_summary_worker = StartWorker(RestBiomassSummaryWorker,
+            rest_summary_worker = worker.StartWorker(RestBiomassSummaryWorker,
                                               'calculating summary table (part {} of {})'.format(n + 1, len(wkts)),
                                               output_biomass_diff_tif)
             if not rest_summary_worker.success:
@@ -283,7 +306,7 @@ class DlgCalculateRestBiomassSummaryTable(DlgCalculateBase, Ui_DlgCalculateRestB
 
         # Figure out how many years of restoration this data is for, take this 
         # from the second band in the in file
-        band_infos = get_band_infos(in_file)
+        band_infos = layers.get_band_infos(in_file)
         length_yr = band_infos[1]['metadata']['years']
         # And make a list of the restoration types
         rest_types = [band_info['metadata']['type'] for band_info in band_infos[1:len(band_infos)]]
@@ -313,11 +336,13 @@ class DlgCalculateRestBiomassSummaryTable(DlgCalculateBase, Ui_DlgCalculateRestB
         metadata['params']['geojsons'] = json.dumps(geojsons)
         metadata['params']['crosses_180th'] = crosses_180th
 
-        create_local_json_metadata(output_biomass_diff_json, output_file, band_infos,
-                                   metadata=metadata)
+        layers.create_local_json_metadata(
+            output_biomass_diff_json, output_file, band_infos,
+            metadata=metadata
+        )
         schema = BandInfoSchema()
         for n in range(1, len(band_infos)):
-            add_layer(output_file, n + 1, schema.dump(band_infos[n]))
+            layers.add_layer(output_file, n + 1, schema.dump(band_infos[n]))
 
         return True
 

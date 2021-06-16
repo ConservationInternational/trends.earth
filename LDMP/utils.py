@@ -5,6 +5,11 @@ from pathlib import Path
 
 from osgeo import gdal
 
+from .jobs import (
+    manager,
+    models,
+)
+
 
 def load_object(python_path: str) -> typing.Any:
     module_path, object_name = python_path.rpartition(".")[::2]
@@ -21,3 +26,15 @@ def save_vrt(source_path: Path, source_band_index: int) -> str:
         bandList=[source_band_index]
     )
     return temporary_file.name
+
+
+def get_local_job_output_paths(job: models.Job) -> typing.Tuple[Path, Path]:
+    """Retrieve output path for a job so that it can be sent to the local processor"""
+    # NOTE: temporarily setting the status as the final value in order to determine
+    # the target filepath for the processing's outputs
+    previous_status = job.status
+    job.status = models.JobStatus.GENERATED_LOCALLY
+    job_output_path = manager.job_manager.get_job_file_path(job)
+    dataset_output_path = job_output_path.parent / f"{job_output_path.stem}.tif"
+    job.status = previous_status
+    return job_output_path, dataset_output_path

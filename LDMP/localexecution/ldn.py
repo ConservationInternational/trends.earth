@@ -153,15 +153,7 @@ def compute_ldn(
     lc_band_nums = np.arange(len(lc_files)) + 1
     soc_files = _prepare_soil_organic_carbon_file_paths(ldn_job)
     soc_band_nums = np.arange(len(lc_files)) + 1 + lc_band_nums.max()
-
-    # NOTE: temporarily setting the status as the final value in order to determine
-    # the target filepath for the processing's outputs
-    previous_status = ldn_job.status
-    ldn_job.status = models.JobStatus.GENERATED_LOCALLY
-    job_output_path = manager.job_manager.get_job_file_path(ldn_job)
-    ldn_job.status = previous_status
-    log(f"inside compute_ldn current job status: {ldn_job.status}")
-
+    job_output_path, _ = utils.get_local_job_output_paths(ldn_job)
     _, wkt_bounding_boxes = area_of_interest.meridian_split("layer", "wkt", warn=False)
     summary_table_stable_kwargs = {
         "wkt_bounding_boxes": wkt_bounding_boxes,

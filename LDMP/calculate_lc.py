@@ -141,17 +141,14 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
         self.initiliaze_settings()
 
     def showEvent(self, event):
-        super().showEvent(event)
+        super(DlgCalculateLC, self).showEvent(event)
 
-        # These boxes may have been hidden if this widget was last shown on the 
+        # These boxes may have been hidden if this widget was last shown on the
         # SDG one step dialog
         self.lc_setup_widget.groupBox_esa_period.show()
         self.lc_setup_widget.use_custom.show()
         self.lc_setup_widget.groupBox_custom_bl.show()
         self.lc_setup_widget.groupBox_custom_tg.show()
-
-    def showEvent(self, event):
-        super(DlgCalculateLC, self).showEvent(event)
 
         if self.setup_frame.layout() is None:
             setup_layout = QtWidgets.QVBoxLayout(self.setup_frame)

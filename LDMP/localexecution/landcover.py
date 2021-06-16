@@ -1,47 +1,17 @@
 import datetime as dt
 import tempfile
-import typing
 from pathlib import Path
 
 from osgeo import gdal
 
 from .. import (
     calculate_lc,
-    data_io,
     utils,
     worker,
 )
 
 from ..areaofinterest import AOI
-from ..jobs import (
-    models,
-    manager,
-)
-
-
-def get_land_cover_job_params(
-        task_name: str,
-        aoi: AOI,
-        year_baseline: int,
-        year_target: int,
-        combo_initial_layer: data_io.WidgetDataIOSelectTELayerImport,
-        combo_final_layer: data_io.WidgetDataIOSelectTELayerImport,
-        transformation_matrix: typing.List,
-        task_notes: typing.Optional[str] = "",
-) -> typing.Dict:
-    initial_path_band_info = combo_initial_layer.get_usable_band_info()
-    final_path_band_info = combo_final_layer.get_usable_band_info()
-    return {
-        "task_name": task_name,
-        "task_notes": task_notes,
-        "year_baseline": year_baseline,
-        "year_target": year_target,
-        "lc_initial_path": str(initial_path_band_info.path),
-        "lc_initial_band_index": initial_path_band_info.band_index,
-        "lc_final_path": str(final_path_band_info.path),
-        "lc_final_band_index": final_path_band_info.band_index,
-        "transformation_matrix": transformation_matrix
-    }
+from ..jobs import models
 
 
 def _prepare_land_cover_inputs(job: models.Job, area_of_interest: AOI) -> Path:
@@ -71,16 +41,7 @@ def _prepare_land_cover_inputs(job: models.Job, area_of_interest: AOI) -> Path:
 
 def compute_land_cover(lc_job: models.Job, area_of_interest: AOI) -> models.Job:
     in_vrt = _prepare_land_cover_inputs(lc_job, area_of_interest)
-
-    # NOTE: temporarily setting the status as the final value in order to determine
-    # the target filepath for the processing's outputs
-    previous_status = lc_job.status
-    lc_job.status = models.JobStatus.GENERATED_LOCALLY
-    job_output_path = manager.job_manager.get_job_file_path(lc_job)
-    dataset_output_path = job_output_path.parent / f"{job_output_path.stem}.tif"
-    lc_job.status = previous_status
-
-
+    job_output_path, dataset_output_path = utils.get_local_job_output_paths(lc_job)
     trans_matrix = [
         [
             11, 12, 13, 14, 15, 16, 17,

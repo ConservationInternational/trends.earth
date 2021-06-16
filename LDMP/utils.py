@@ -4,6 +4,7 @@ import typing
 from pathlib import Path
 
 from osgeo import gdal
+from openpyxl.drawing.image import Image
 
 from .jobs import (
     manager,
@@ -38,3 +39,15 @@ def get_local_job_output_paths(job: models.Job) -> typing.Tuple[Path, Path]:
     dataset_output_path = job_output_path.parent / f"{job_output_path.stem}.tif"
     job.status = previous_status
     return job_output_path, dataset_output_path
+
+
+def maybe_add_image_to_sheet(image_filename: str, sheet):
+    try:
+        image_path = Path(__file__).parent / "data" / image_filename
+        logo = Image(image_path)
+        sheet.add_image(logo, 'H1')
+    except ImportError:
+        # add_image will fail on computers without PIL installed (this will be
+        # an issue on some Macs, likely others). it is only used here to add
+        # our logo, so no big deal.
+        pass

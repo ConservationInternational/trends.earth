@@ -559,7 +559,6 @@ class JobManager(QtCore.QObject):
         with output_path.open("w", encoding=self._encoding) as fh:
             raw_job = job.serialize()
             json.dump(raw_job, fh, indent=2)
-        log(f"Wrote job metadata file to {output_path}")
 
     def _remove_job_metadata_file(self, job: Job):
         old_path = self.get_job_file_path(job)

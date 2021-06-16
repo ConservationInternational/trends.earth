@@ -261,7 +261,16 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                 models.JobStatus.DOWNLOADED, models.JobStatus.GENERATED_LOCALLY):
             self.progressBar.hide()
             self.download_tb.hide()
-            self.add_to_canvas_tb.setEnabled(True)
+            self.add_to_canvas_tb.setEnabled(self.has_loadable_result())
+
+    def has_loadable_result(self):
+        for local_path in self.job.results.local_paths:
+            if local_path.suffix == ".tif":
+                result = True
+                break
+        else:
+            result = False
+        return result
 
     def show_details(self):
         log(f"Details button clicked for job {self.job.params.task_name!r}")

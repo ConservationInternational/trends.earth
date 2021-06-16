@@ -36,7 +36,6 @@ from .lc_setup import (
     LCDefineDegradationWidget,
     LCSetupWidget,
 )
-from .localexecution import landcover
 
 DlgCalculateLcUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateLC.ui"))

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1098</width>
-    <height>817</height>
+    <width>865</width>
+    <height>549</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -19,7 +19,7 @@
   <property name="windowTitle">
    <string>SDG 15.3.1 Indicator (one-step) | Land Degradation</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
+  <layout class="QVBoxLayout" name="verticalLayout_6">
    <item>
     <widget class="QSplitter" name="splitter">
      <property name="orientation">
@@ -249,117 +249,120 @@
         </layout>
        </item>
        <item>
-        <widget class="QgsCollapsibleGroupBox" name="options_group">
-         <property name="title">
-          <string>Options</string>
+        <widget class="QLabel" name="execution_name_la">
+         <property name="text">
+          <string>Execution name:</string>
          </property>
-         <property name="collapsed">
-          <bool>true</bool>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_6">
-          <item>
-           <widget class="QLabel" name="execution_name_la">
-            <property name="text">
-             <string>Execution name:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="execution_name_le"/>
-          </item>
-          <item>
-           <widget class="QLabel" name="task_notes_la">
-            <property name="text">
-             <string>Notes:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QTextEdit" name="task_notes">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>100</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-         </layout>
         </widget>
        </item>
        <item>
-        <widget class="QgsCollapsibleGroupBox" name="land_cover">
-         <property name="title">
-          <string>Land Cover Setup</string>
+        <widget class="QLineEdit" name="execution_name_le"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="task_notes_la">
+         <property name="text">
+          <string>Notes:</string>
          </property>
-         <property name="collapsed">
-          <bool>true</bool>
+        </widget>
+       </item>
+       <item>
+        <widget class="QTextEdit" name="task_notes">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>100</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QgsCollapsibleGroupBox" name="advance_configurations">
+         <property name="title">
+          <string>Advance Configurations</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_5">
-          <property name="leftMargin">
-           <number>1</number>
-          </property>
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="rightMargin">
-           <number>1</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
           <item>
-           <widget class="QFrame" name="land_cover_contents">
-            <property name="frameShape">
-             <enum>QFrame::StyledPanel</enum>
+           <widget class="QGroupBox" name="land_cover">
+            <property name="title">
+             <string>Land Cover Setup</string>
             </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
+            <layout class="QVBoxLayout" name="verticalLayout">
+             <property name="leftMargin">
+              <number>1</number>
+             </property>
+             <property name="topMargin">
+              <number>1</number>
+             </property>
+             <property name="rightMargin">
+              <number>1</number>
+             </property>
+             <property name="bottomMargin">
+              <number>1</number>
+             </property>
+             <item>
+              <widget class="QFrame" name="land_cover_contents">
+               <property name="frameShape">
+                <enum>QFrame::StyledPanel</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Raised</enum>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="QgsCollapsibleGroupBox" name="land_cover_effects">
-         <property name="title">
-          <string>Define Effects of Land Cover Change</string>
-         </property>
-         <property name="collapsed">
-          <bool>true</bool>
-         </property>
-         <layout class="QVBoxLayout" name="verticalLayout_2">
           <item>
-           <widget class="QScrollArea" name="scroll_area">
-            <property name="frameShape">
-             <enum>QFrame::NoFrame</enum>
+           <widget class="QGroupBox" name="land_cover_effects">
+            <property name="title">
+             <string>Define Effects of Land Cover Change</string>
             </property>
-            <property name="widgetResizable">
-             <bool>true</bool>
-            </property>
-            <widget class="QWidget" name="scrollAreaWidgetContents">
-             <property name="geometry">
-              <rect>
-               <x>0</x>
-               <y>0</y>
-               <width>786</width>
-               <height>186</height>
-              </rect>
+            <layout class="QVBoxLayout" name="verticalLayout_2">
+             <property name="leftMargin">
+              <number>1</number>
              </property>
-            </widget>
+             <property name="topMargin">
+              <number>1</number>
+             </property>
+             <property name="rightMargin">
+              <number>1</number>
+             </property>
+             <property name="bottomMargin">
+              <number>1</number>
+             </property>
+             <item>
+              <widget class="QScrollArea" name="scroll_area">
+               <property name="frameShape">
+                <enum>QFrame::NoFrame</enum>
+               </property>
+               <property name="widgetResizable">
+                <bool>true</bool>
+               </property>
+               <widget class="QWidget" name="scrollAreaWidgetContents">
+                <property name="geometry">
+                 <rect>
+                  <x>0</x>
+                  <y>0</y>
+                  <width>709</width>
+                  <height>16</height>
+                 </rect>
+                </property>
+               </widget>
+              </widget>
+             </item>
+            </layout>
            </widget>
           </item>
          </layout>

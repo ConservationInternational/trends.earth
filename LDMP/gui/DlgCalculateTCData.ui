@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>950</width>
-    <height>923</height>
+    <width>877</width>
+    <height>761</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -377,168 +377,166 @@
         </layout>
        </item>
        <item>
-        <widget class="QgsCollapsibleGroupBox" name="options_group">
-         <property name="title">
-          <string>Options</string>
+        <widget class="QLabel" name="execution_name_la">
+         <property name="text">
+          <string>Execution name:</string>
          </property>
-         <property name="collapsed">
-          <bool>true</bool>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="execution_name_le"/>
+       </item>
+       <item>
+        <widget class="QLabel" name="task_notes_la">
+         <property name="text">
+          <string>Notes:</string>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_7">
-          <item>
-           <widget class="QLabel" name="execution_name_la">
-            <property name="text">
-             <string>Execution name:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="execution_name_le"/>
-          </item>
-          <item>
-           <widget class="QLabel" name="task_notes_la">
-            <property name="text">
-             <string>Notes:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QTextEdit" name="task_notes">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>0</width>
-              <height>0</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>100</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QTextEdit" name="task_notes">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>100</height>
+          </size>
+         </property>
         </widget>
        </item>
        <item>
         <widget class="QgsCollapsibleGroupBox" name="method_box">
          <property name="title">
-          <string>Method</string>
+          <string>Advance Configurations</string>
          </property>
          <property name="collapsed">
           <bool>true</bool>
          </property>
-         <layout class="QVBoxLayout" name="verticalLayout_6">
-          <item>
-           <widget class="QGroupBox" name="groupBox">
-            <property name="title">
-             <string>Aboveground biomass dataset</string>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_5">
-             <item>
-              <widget class="QRadioButton" name="radioButton_carbon_woods_hole">
-               <property name="text">
-                <string>Woods Hole Research Center (30 m resolution)</string>
-               </property>
-               <property name="checked">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QRadioButton" name="radioButton_carbon_geocarbon">
-               <property name="minimumSize">
-                <size>
-                 <width>0</width>
-                 <height>30</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>GEOCARBON (1 km resolution, global)</string>
-               </property>
-               <property name="checked">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QRadioButton" name="radioButton_carbon_custom">
-               <property name="minimumSize">
-                <size>
-                 <width>0</width>
-                 <height>30</height>
-                </size>
-               </property>
-               <property name="text">
-                <string>Custom dataset - COMING SOON!</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="WidgetDataIOSelectTELayerExisting" name="combo_layer_traj">
-               <property name="enabled">
-                <bool>false</bool>
-               </property>
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="minimumSize">
-                <size>
-                 <width>0</width>
-                 <height>30</height>
-                </size>
-               </property>
-               <property name="layer_type" stdset="0">
-                <string notr="true">Productivity trajectory (significance)</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item>
-           <widget class="QGroupBox" name="groupBox_2">
-            <property name="title">
-             <string>Method for calculation of root to shoot ratio</string>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_2">
-             <item>
-              <widget class="QRadioButton" name="radioButton_rootshoot_mokany">
-               <property name="text">
-                <string>Mokany et al. 2006</string>
-               </property>
-               <property name="checked">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QRadioButton" name="radioButton_rootshoot_ipcc">
-               <property name="enabled">
-                <bool>true</bool>
-               </property>
-               <property name="text">
-                <string>IPCC</string>
-               </property>
-               <property name="checked">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-         </layout>
+         <widget class="QGroupBox" name="groupBox">
+          <property name="geometry">
+           <rect>
+            <x>9</x>
+            <y>9</y>
+            <width>366</width>
+            <height>175</height>
+           </rect>
+          </property>
+          <property name="title">
+           <string>Aboveground biomass dataset</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_5">
+           <item>
+            <widget class="QRadioButton" name="radioButton_carbon_woods_hole">
+             <property name="text">
+              <string>Woods Hole Research Center (30 m resolution)</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="radioButton_carbon_geocarbon">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>30</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>GEOCARBON (1 km resolution, global)</string>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="radioButton_carbon_custom">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>30</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Custom dataset - COMING SOON!</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="WidgetDataIOSelectTELayerExisting" name="combo_layer_traj">
+             <property name="enabled">
+              <bool>false</bool>
+             </property>
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>30</height>
+              </size>
+             </property>
+             <property name="layer_type" stdset="0">
+              <string notr="true">Productivity trajectory (significance)</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QGroupBox" name="groupBox_2">
+          <property name="geometry">
+           <rect>
+            <x>9</x>
+            <y>190</y>
+            <width>177</width>
+            <height>96</height>
+           </rect>
+          </property>
+          <property name="title">
+           <string>Method for calculation of root to shoot ratio</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_2">
+           <item>
+            <widget class="QRadioButton" name="radioButton_rootshoot_mokany">
+             <property name="text">
+              <string>Mokany et al. 2006</string>
+             </property>
+             <property name="checked">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QRadioButton" name="radioButton_rootshoot_ipcc">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="text">
+              <string>IPCC</string>
+             </property>
+             <property name="checked">
+              <bool>false</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </widget>
        </item>
        <item>
@@ -604,14 +602,14 @@ p, li { white-space: pre-wrap; }
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>WidgetDataIOSelectTELayerExisting</class>
-   <extends>QComboBox</extends>
-   <header>LDMP/data_io</header>
-  </customwidget>
-  <customwidget>
    <class>WidgetDataIOSelectTELayerImport</class>
    <extends>QComboBox</extends>
    <header>LDMP/data_io.h</header>
+  </customwidget>
+  <customwidget>
+   <class>WidgetDataIOSelectTELayerExisting</class>
+   <extends>QComboBox</extends>
+   <header>LDMP/data_io</header>
   </customwidget>
  </customwidgets>
  <resources/>

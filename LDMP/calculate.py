@@ -863,7 +863,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
         ok_button.setText(self.tr("Schedule execution"))
         ok_button.clicked.connect(self.btn_calculate)
 
-        region = settings_manager.get_value(Setting.REGION_NAME)
+        region = settings_manager.get_value(Setting.AREA_NAME)
         self.execution_name_le.setText(f"LDN_{region}_{dt.datetime.strftime(dt.datetime.now(), '%Y%m%d%H%M%S')}")
 
         self.region_button.clicked.connect(self.run_settings)

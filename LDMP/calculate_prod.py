@@ -61,20 +61,14 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
         self.end_year_climate = 9999
         self.start_year_ndvi = 0
         self.end_year_ndvi = 9999
-
         self.dataset_ndvi_changed()
         self.traj_climate_changed()
-
         self.dataset_ndvi.currentIndexChanged.connect(self.dataset_ndvi_changed)
         self.traj_climate.currentIndexChanged.connect(self.traj_climate_changed)
-
         self.mode_te_prod.toggled.connect(self.mode_te_prod_toggled)
-
         self.mode_te_prod_toggled()
-
         self.resize(self.width(), 711)
-
-        self.initiliaze_settings()
+        self._finish_initialization()
 
     @property
     def trajectory_functions(self) -> typing.Dict:

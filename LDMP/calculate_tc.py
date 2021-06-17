@@ -13,8 +13,6 @@
 """
 
 from pathlib import Path
-import os
-import json
 
 from osgeo import (
     gdal,
@@ -26,7 +24,6 @@ from openpyxl.drawing.image import Image
 import processing
 import qgis.core
 import qgis.gui
-#from qgis import processing
 from qgis.utils import iface
 
 from PyQt5 import (
@@ -156,8 +153,7 @@ class DlgCalculateTCData(calculate.DlgCalculateBase, DlgCalculateTcDataUi):
         # # out files in case of local process
         # self.add_output_tab(['.json', '.tif'])
         self.first_show = True
-
-        self.initiliaze_settings()
+        self._finish_initialization()
 
     def showEvent(self, event):
         super().showEvent(event)
@@ -733,8 +729,7 @@ class DlgCalculateTCSummaryTable(
     ):
         super().__init__(iface, script, parent)
         self.setupUi(self)
-        #self.add_output_tab(['.xlsx'])
-        self.initiliaze_settings()
+        self._finish_initialization()
 
     def showEvent(self, event):
         super(DlgCalculateTCSummaryTable, self).showEvent(event)

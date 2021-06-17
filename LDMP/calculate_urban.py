@@ -147,7 +147,7 @@ class DlgCalculateUrbanData(calculate.DlgCalculateBase, DlgCalculateUrbanDataUi)
 
         self.spinBox_pct_urban.valueChanged.connect(self.urban_thresholds_updated)
         self.spinBox_pct_suburban.valueChanged.connect(self.urban_thresholds_updated)
-        self.initiliaze_settings()
+        self._finish_initialization()
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
@@ -233,8 +233,7 @@ class DlgCalculateUrbanSummaryTable(
     ):
         super().__init__(iface, script, parent)
         self.setupUi(self)
-        # self.add_output_tab(['.xlsx', '.json', '.tif'])
-        self.initiliaze_settings()
+        self._finish_initialization()
 
     def showEvent(self, event):
         super().showEvent(event)

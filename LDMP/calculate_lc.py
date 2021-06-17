@@ -16,22 +16,16 @@ import os
 import json
 from pathlib import Path
 
-from osgeo import gdal, osr
 from PyQt5 import (
     QtWidgets,
     uic
 )
-from builtins import zip
-from builtins import range
-from datetime import datetime
 
 from qgis.PyQt import QtWidgets
-from qgis.PyQt.QtCore import QSettings, Qt
 
 import qgis.core
 from osgeo import gdal, osr
 import qgis.gui
-from qgis.utils import iface
 
 from . import (
     calculate,
@@ -47,8 +41,6 @@ from .lc_setup import (
 
 DlgCalculateLcUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateLC.ui"))
-
-mb = iface.messageBar()
 
 
 class LandCoverChangeWorker(worker.AbstractWorker):
@@ -139,10 +131,10 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
         self.lc_setup_widget = LCSetupWidget()
         self.lc_define_deg_widget = LCDefineDegradationWidget()
 
-        self.initiliaze_settings()
+        self._finish_initialization()
 
     def showEvent(self, event):
-        super(DlgCalculateLC, self).showEvent(event)
+        super().showEvent(event)
 
         # These boxes may have been hidden if this widget was last shown on the
         # SDG one step dialog
@@ -163,6 +155,9 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
             layout.addWidget(self.lc_define_deg_widget)
             self.configurations_frame.setLayout(layout)
 
+        self.lc_setup_widget.use_custom_initial.populate()
+        self.lc_setup_widget.use_custom_final.populate()
+
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
@@ -179,19 +174,20 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
     def calculate_on_GEE(self):
         self.close()
         crosses_180th, geojsons = self.gee_bounding_box
-        payload = {'year_baseline': self.lc_setup_widget.use_esa_bl_year.date().year(),
-                   'year_target': self.lc_setup_widget.use_esa_tg_year.date().year(),
-                   'geojsons': json.dumps(geojsons),
-                   'crs': self.aoi.get_crs_dst_wkt(),
-                   'crosses_180th': crosses_180th,
-                   'trans_matrix': self.lc_define_deg_widget.trans_matrix_get(),
-                   'remap_matrix': self.lc_setup_widget.dlg_esa_agg.get_agg_as_list(),
-                   'task_name': self.execution_name_le.text(),
-                   'task_notes': self.task_notes.toPlainText()}
+        payload = {
+            "year_baseline": self.lc_setup_widget.use_esa_bl_year.date().year(),
+            "year_target": self.lc_setup_widget.use_esa_tg_year.date().year(),
+            "geojsons": json.dumps(geojsons),
+            "crs": self.aoi.get_crs_dst_wkt(),
+            "crosses_180th": crosses_180th,
+            "trans_matrix": self.lc_define_deg_widget.trans_matrix_get(),
+            "remap_matrix": self.lc_setup_widget.dlg_esa_agg.get_agg_as_list(),
+            "task_name": self.execution_name_le.text(),
+            "task_notes": self.task_notes.toPlainText()
+        }
+        job = job_manager.submit_remote_job(payload, self.script.id)
 
-        resp = job_manager.submit_remote_job(payload, self.script.id)
-
-        if resp:
+        if job is not None:
             main_msg = "Submitted"
             description = "Land cover task submitted to Google Earth Engine."
         else:
@@ -227,8 +223,9 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
             )
             return
 
-        year_baseline = self.get_initial_year()
-        year_target = self.get_final_year()
+        year_baseline = self.lc_setup_widget.get_initial_year()
+        year_target = self.lc_setup_widget.get_final_year()
+
         if int(year_baseline) >= int(year_target):
             QtWidgets.QMessageBox.information(
                 None,
@@ -279,6 +276,6 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
             "lc_initial_band_index": initial_usable.band_index,
             "lc_final_path": str(final_usable.path),
             "lc_final_band_index": final_usable.band_index,
-            "transformation_matrix": self.lc_define_deg_tab.trans_matrix_get()
+            "transformation_matrix": self.lc_define_deg_widget.trans_matrix_get()
         }
         job_manager.submit_local_job(job_params, self.LOCAL_SCRIPT_NAME, self.aoi)

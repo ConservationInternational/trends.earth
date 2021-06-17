@@ -12,9 +12,6 @@
  ***************************************************************************/
 """
 
-import os
-import json
-
 from pathlib import Path
 
 from osgeo import (
@@ -83,7 +80,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.lc_setup_widget = LCSetupWidget()
         self.lc_define_deg_widget = LCDefineDegradationWidget()
 
-        self.initiliaze_settings()
+        self._finish_initialization()
 
     def update_time_bounds(self):
         if self.mode_te_prod.isChecked():
@@ -251,29 +248,32 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             prod_mode = 'JRC LPD'
 
         crosses_180th, geojsons = self.gee_bounding_box
-        payload = {'prod_mode': prod_mode,
-                   'prod_traj_year_initial': prod_traj_year_initial,
-                   'prod_traj_year_final': prod_traj_year_final,
-                   'prod_perf_year_initial': prod_perf_year_initial,
-                   'prod_perf_year_final': prod_perf_year_final,
-                   'prod_state_year_bl_start': prod_state_year_bl_start,
-                   'prod_state_year_bl_end': prod_state_year_bl_end,
-                   'prod_state_year_tg_start': prod_state_year_tg_start,
-                   'prod_state_year_tg_end': prod_state_year_tg_end,
-                   'lc_year_initial': lc_year_initial,
-                   'lc_year_final': lc_year_final,
-                   'soc_year_initial': soc_year_initial,
-                   'soc_year_final': soc_year_final,
-                   'geojsons': json.dumps(geojsons),
-                   'crs': self.aoi.get_crs_dst_wkt(),
-                   'crosses_180th': crosses_180th,
-                   'prod_traj_method': 'ndvi_trend',
-                   'ndvi_gee_dataset': 'users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2019',
-                   'climate_gee_dataset': None,
-                   'fl': .80,
-                   'trans_matrix': self.lc_define_deg_widget.trans_matrix_get(),
-                   'remap_matrix': self.lc_setup_widget.dlg_esa_agg.get_agg_as_list(),
-                   'task_name': self.execution_name_le.text()}
+        payload = {
+            'prod_mode': prod_mode,
+            'prod_traj_year_initial': prod_traj_year_initial,
+            'prod_traj_year_final': prod_traj_year_final,
+            'prod_perf_year_initial': prod_perf_year_initial,
+            'prod_perf_year_final': prod_perf_year_final,
+            'prod_state_year_bl_start': prod_state_year_bl_start,
+            'prod_state_year_bl_end': prod_state_year_bl_end,
+            'prod_state_year_tg_start': prod_state_year_tg_start,
+            'prod_state_year_tg_end': prod_state_year_tg_end,
+            'lc_year_initial': lc_year_initial,
+            'lc_year_final': lc_year_final,
+            'soc_year_initial': soc_year_initial,
+            'soc_year_final': soc_year_final,
+            'geojsons': json.dumps(geojsons),
+            'crs': self.aoi.get_crs_dst_wkt(),
+            'crosses_180th': crosses_180th,
+            'prod_traj_method': 'ndvi_trend',
+            'ndvi_gee_dataset': 'users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2019',
+            'climate_gee_dataset': None,
+            'fl': .80,
+            'trans_matrix': self.lc_define_deg_widget.trans_matrix_get(),
+            'remap_matrix': self.lc_setup_widget.dlg_esa_agg.get_agg_as_list(),
+            'task_name': self.execution_name_le.text(),
+            'task_notes': self.task_notes.toPlainText()
+        }
 
         resp = job_manager.submit_remote_job(payload, self.script.id)
 
@@ -618,7 +618,7 @@ class DlgCalculateLDNSummaryTableAdmin(
         # self.add_output_tab(['.json', '.tif', '.xlsx'])
         self.mode_lpd_jrc.toggled.connect(self.mode_lpd_jrc_toggled)
         self.mode_lpd_jrc_toggled()
-        self.initiliaze_settings()
+        self._finish_initialization()
 
     def mode_lpd_jrc_toggled(self):
         if self.mode_lpd_jrc.isChecked():

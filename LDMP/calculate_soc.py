@@ -15,7 +15,6 @@ import json
 import os
 from pathlib import Path
 
-
 import numpy as np
 import qgis.gui
 from osgeo import (
@@ -27,13 +26,6 @@ from PyQt5 import (
     QtWidgets,
     uic,
 )
-from qgis.utils import iface
-
-from PyQt5 import (
-    QtCore,
-    QtGui,
-    QtWidgets,
-)
 
 from . import (
     calculate,
@@ -42,19 +34,12 @@ from . import (
     worker,
 )
 
-from .conf import(
-    settings_manager,
-    Setting
-)
 from .algorithms import models
 from .jobs.manager import job_manager
 from .lc_setup import LCSetupWidget
 
 DlgCalculateSocUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateSOC.ui"))
-
-
-mb = iface.messageBar()
 
 
 def remap(a, remap_list):
@@ -332,8 +317,6 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
         self.lc_setup_widget = LCSetupWidget()
         self.splitter_collapsed = False
 
-        self.initiliaze_settings()
-
         self.fl_chooseRegime_comboBox.addItems([r[0] for r in self.regimes])
         self.fl_chooseRegime_comboBox.setEnabled(False)
         self.fl_custom_lineEdit.setEnabled(False)
@@ -345,10 +328,10 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
         self.fl_radio_default.toggled.connect(self.fl_radios_toggled)
         self.fl_radio_chooseRegime.toggled.connect(self.fl_radios_toggled)
         self.fl_radio_custom.toggled.connect(self.fl_radios_toggled)
-        self.initiliaze_settings()
+        self._finish_initialization()
 
     def showEvent(self, event):
-        super(DlgCalculateSOC, self).showEvent(event)
+        super().showEvent(event)
 
         if self.setup_frame.layout() is None:
             setup_layout = QtWidgets.QVBoxLayout(self.setup_frame)
@@ -494,6 +477,7 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
         job_manager.submit_local_job(job_params, self.LOCAL_SCRIPT_NAME, self.aoi)
 
     def calculate_on_GEE(self):
+        log("inside calculate_on_GEE...")
         self.close()
 
         crosses_180th, geojsons = self.gee_bounding_box
@@ -525,3 +509,4 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
             level=0,
             duration=5
         )
+        log("leaving calculate_on_GEE...")

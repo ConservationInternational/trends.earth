@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 /***************************************************************************
  LDMP - A QGIS plugin
@@ -21,7 +20,6 @@ import qgis.gui
 from osgeo import gdal
 
 from PyQt5 import (
-    QtCore,
     QtWidgets,
     uic,
 )
@@ -36,28 +34,11 @@ from . import (
 from .algorithms.models import ExecutionScript
 from .jobs.manager import job_manager
 
-from qgis.utils import iface
-mb = iface.messageBar()
 
 DlgCalculateRestBiomassDataUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateRestBiomassData.ui"))
 DlgCalculateRestBiomassSummaryTableUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateRestBiomassSummaryTable.ui"))
-
-from .algorithms import models
-
-from .calculate import (
-    DlgCalculateBase,
-)
-from .gui.DlgCalculateRestBiomassData import Ui_DlgCalculateRestBiomassData
-from .gui.DlgCalculateRestBiomassSummaryTable import Ui_DlgCalculateRestBiomassSummaryTable
-from .summary import *
-
-
-
-class tr_calculate_rest_biomass(object):
-    def tr(message):
-        return QtCore.QCoreApplication.translate("tr_calculate_rest_biomass", message)
 
 
 class DlgCalculateRestBiomassData(
@@ -74,7 +55,7 @@ class DlgCalculateRestBiomassData(
         super().__init__(iface, script, parent)
         self.setupUi(self)
         self.first_show = True
-        self.initiliaze_settings()
+        self._finish_initialization()
 
     def showEvent(self, event):
         super(DlgCalculateRestBiomassData, self).showEvent(event)
@@ -229,7 +210,7 @@ class DlgCalculateRestBiomassSummaryTable(
     ):
         super().__init__(iface, script, parent)
         self.setupUi(self)
-        self.initiliaze_settings()
+        self._finish_initialization()
 
     def showEvent(self, event):
         super().showEvent(event)

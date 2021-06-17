@@ -16,14 +16,16 @@ import os
 import json
 from pathlib import Path
 
-from osgeo import gdal, osr
 from PyQt5 import (
     QtWidgets,
     uic
 )
-import qgis.gui
+
+from qgis.PyQt import QtWidgets
+
 import qgis.core
-from qgis.utils import iface
+from osgeo import gdal, osr
+import qgis.gui
 
 from . import (
     calculate,
@@ -39,8 +41,6 @@ from .lc_setup import (
 
 DlgCalculateLcUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateLC.ui"))
-
-mb = iface.messageBar()
 
 
 class LandCoverChangeWorker(worker.AbstractWorker):
@@ -115,6 +115,7 @@ class LandCoverChangeWorker(worker.AbstractWorker):
         else:
             return True
 
+
 class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
     LOCAL_SCRIPT_NAME = "local-land-cover"
 
@@ -127,30 +128,35 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
         super().__init__(iface, script, parent)
         self.setupUi(self)
 
+        self.lc_setup_widget = LCSetupWidget()
+        self.lc_define_deg_widget = LCDefineDegradationWidget()
+
+        self._finish_initialization()
+
     def showEvent(self, event):
         super().showEvent(event)
 
-        self.lc_setup_tab = LCSetupWidget()
-        self.TabBox.insertTab(0, self.lc_setup_tab, self.tr('Land Cover Setup'))
-
-        self.lc_define_deg_tab = LCDefineDegradationWidget()
-        self.TabBox.insertTab(1, self.lc_define_deg_tab, self.tr('Define Degradation'))
-        # These boxes may have been hidden if this widget was last shown on the 
+        # These boxes may have been hidden if this widget was last shown on the
         # SDG one step dialog
-        self.lc_setup_tab.groupBox_esa_period.show()
-        self.lc_setup_tab.use_custom.show()
-        self.lc_setup_tab.groupBox_custom_bl.show()
-        self.lc_setup_tab.groupBox_custom_tg.show()
+        self.lc_setup_widget.groupBox_esa_period.show()
+        self.lc_setup_widget.use_custom.show()
+        self.lc_setup_widget.groupBox_custom_bl.show()
+        self.lc_setup_widget.groupBox_custom_tg.show()
 
-        # This box may have been hidden if this widget was last shown on the 
-        # SDG one step dialog
-        self.lc_setup_tab.groupBox_esa_period.show()
+        if self.setup_frame.layout() is None:
+            setup_layout = QtWidgets.QVBoxLayout(self.setup_frame)
+            setup_layout.setContentsMargins(0, 0, 0, 0)
+            setup_layout.addWidget(self.lc_setup_widget)
+            self.setup_frame.setLayout(setup_layout)
 
-        if self.reset_tab_on_showEvent:
-            self.TabBox.setCurrentIndex(0)
+            layout = QtWidgets.QVBoxLayout()
+            layout.setContentsMargins(1, 1, 1, 1)
+            layout.setSpacing(1)
+            layout.addWidget(self.lc_define_deg_widget)
+            self.configurations_frame.setLayout(layout)
 
-        self.lc_setup_tab.use_custom_initial.populate()
-        self.lc_setup_tab.use_custom_final.populate()
+        self.lc_setup_widget.use_custom_initial.populate()
+        self.lc_setup_widget.use_custom_final.populate()
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
@@ -160,7 +166,7 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
         if not ret:
             return
 
-        if self.lc_setup_tab.use_esa.isChecked():
+        if self.lc_setup_widget.use_esa.isChecked():
             self.calculate_on_GEE()
         else:
             self.calculate_locally()
@@ -169,18 +175,19 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
         self.close()
         crosses_180th, geojsons = self.gee_bounding_box
         payload = {
-            'year_baseline': self.lc_setup_tab.use_esa_bl_year.date().year(),
-            'year_target': self.lc_setup_tab.use_esa_tg_year.date().year(),
-            'geojsons': json.dumps(geojsons),
-            'crs': self.aoi.get_crs_dst_wkt(),
-            'crosses_180th': crosses_180th,
-            'trans_matrix': self.lc_define_deg_tab.trans_matrix_get(),
-            'remap_matrix': self.lc_setup_tab.dlg_esa_agg.get_agg_as_list(),
-            'task_name': self.options_tab.task_name.text(),
-            'task_notes': self.options_tab.task_notes.toPlainText()
+            "year_baseline": self.lc_setup_widget.use_esa_bl_year.date().year(),
+            "year_target": self.lc_setup_widget.use_esa_tg_year.date().year(),
+            "geojsons": json.dumps(geojsons),
+            "crs": self.aoi.get_crs_dst_wkt(),
+            "crosses_180th": crosses_180th,
+            "trans_matrix": self.lc_define_deg_widget.trans_matrix_get(),
+            "remap_matrix": self.lc_setup_widget.dlg_esa_agg.get_agg_as_list(),
+            "task_name": self.execution_name_le.text(),
+            "task_notes": self.task_notes.toPlainText()
         }
-        resp = job_manager.submit_remote_job(payload, self.script.id)
-        if resp:
+        job = job_manager.submit_remote_job(payload, self.script.id)
+
+        if job is not None:
             main_msg = "Submitted"
             description = "Land cover task submitted to Google Earth Engine."
         else:
@@ -194,7 +201,7 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
         )
 
     def calculate_locally(self):
-        if len(self.lc_setup_tab.use_custom_initial.layer_list) == 0:
+        if len(self.lc_setup_widget.use_custom_initial.layer_list) == 0:
             QtWidgets.QMessageBox.critical(
                 None,
                 self.tr("Error"),
@@ -205,7 +212,7 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
             )
             return
 
-        if len(self.lc_setup_tab.use_custom_final.layer_list) == 0:
+        if len(self.lc_setup_widget.use_custom_final.layer_list) == 0:
             QtWidgets.QMessageBox.critical(
                 None,
                 self.tr("Error"),
@@ -216,9 +223,9 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
             )
             return
 
+        year_baseline = self.lc_setup_widget.get_initial_year()
+        year_target = self.lc_setup_widget.get_final_year()
 
-        year_baseline = self.lc_setup_tab.get_initial_year()
-        year_target = self.lc_setup_tab.get_final_year()
         if int(year_baseline) >= int(year_target):
             QtWidgets.QMessageBox.information(
                 None,
@@ -230,7 +237,7 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
                 )
             )
 
-        initial_layer = self.lc_setup_tab.use_custom_initial.get_layer()
+        initial_layer = self.lc_setup_widget.use_custom_initial.get_layer()
         initial_extent_geom = qgis.core.QgsGeometry.fromRect(initial_layer.extent())
         if self.aoi.calc_frac_overlap(initial_extent_geom) < .99:
             QtWidgets.QMessageBox.critical(
@@ -243,7 +250,7 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
             )
             return
 
-        final_layer = self.lc_setup_tab.use_custom_final.get_layer()
+        final_layer = self.lc_setup_widget.use_custom_final.get_layer()
         final_extent_geom = qgis.core.QgsGeometry.fromRect(final_layer.extent())
         if self.aoi.calc_frac_overlap(final_extent_geom) < .99:
             QtWidgets.QMessageBox.critical(
@@ -258,17 +265,17 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
 
         self.close()
 
-        initial_usable = self.lc_setup_tab.use_custom_initial.get_usable_band_info()
-        final_usable = self.lc_setup_tab.use_custom_final.get_usable_band_info()
+        initial_usable = self.lc_setup_widget.use_custom_initial.get_usable_band_info()
+        final_usable = self.lc_setup_widget.use_custom_final.get_usable_band_info()
         job_params = {
-            "task_name": self.options_tab.task_name.text(),
-            "task_notes": self.options_tab.task_notes.toPlainText(),
+            "task_name": self.execution_name_le.text(),
+            "task_notes": self.task_notes.toPlainText(),
             "year_baseline": year_baseline,
             "year_target": year_target,
             "lc_initial_path": str(initial_usable.path),
             "lc_initial_band_index": initial_usable.band_index,
             "lc_final_path": str(final_usable.path),
             "lc_final_band_index": final_usable.band_index,
-            "transformation_matrix": self.lc_define_deg_tab.trans_matrix_get()
+            "transformation_matrix": self.lc_define_deg_widget.trans_matrix_get()
         }
         job_manager.submit_local_job(job_params, self.LOCAL_SCRIPT_NAME, self.aoi)

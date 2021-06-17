@@ -14,6 +14,18 @@
    <string>Form</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>9</number>
+   </property>
+   <property name="bottomMargin">
+    <number>9</number>
+   </property>
    <item>
     <widget class="QRadioButton" name="use_esa">
      <property name="text">
@@ -50,13 +62,6 @@
           <height>35</height>
          </size>
         </property>
-        <property name="date">
-         <date>
-          <year>2015</year>
-          <month>1</month>
-          <day>1</day>
-         </date>
-        </property>
         <property name="minimumDateTime">
          <datetime>
           <hour>0</hour>
@@ -83,6 +88,13 @@
         </property>
         <property name="displayFormat">
          <string notr="true">yyyy</string>
+        </property>
+        <property name="date">
+         <date>
+          <year>2015</year>
+          <month>1</month>
+          <day>1</day>
+         </date>
         </property>
        </widget>
       </item>
@@ -138,13 +150,6 @@
           <height>35</height>
          </size>
         </property>
-        <property name="date">
-         <date>
-          <year>2001</year>
-          <month>1</month>
-          <day>1</day>
-         </date>
-        </property>
         <property name="maximumDate">
          <date>
           <year>2015</year>
@@ -161,6 +166,13 @@
         </property>
         <property name="displayFormat">
          <string notr="true">yyyy</string>
+        </property>
+        <property name="date">
+         <date>
+          <year>2001</year>
+          <month>1</month>
+          <day>1</day>
+         </date>
         </property>
        </widget>
       </item>
@@ -287,22 +299,6 @@
       </item>
      </layout>
     </widget>
-   </item>
-   <item>
-    <spacer name="verticalSpacer">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeType">
-      <enum>QSizePolicy::Expanding</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
    </item>
   </layout>
  </widget>

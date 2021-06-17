@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 /***************************************************************************
  LDMP - A QGIS plugin
@@ -17,10 +16,10 @@ from pathlib import Path
 
 import numpy as np
 import qgis.core
+import qgis.gui
 from osgeo import gdal
 
 from PyQt5 import (
-    QtCore,
     QtWidgets,
     uic,
 )
@@ -42,11 +41,6 @@ DlgCalculateRestBiomassSummaryTableUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateRestBiomassSummaryTable.ui"))
 
 
-class tr_calculate_rest_biomass(object):
-    def tr(message):
-        return QtCore.QCoreApplication.translate("tr_calculate_rest_biomass", message)
-
-
 class DlgCalculateRestBiomassData(
     calculate.DlgCalculateBase,
     DlgCalculateRestBiomassDataUi
@@ -61,12 +55,10 @@ class DlgCalculateRestBiomassData(
         super().__init__(iface, script, parent)
         self.setupUi(self)
         self.first_show = True
+        self._finish_initialization()
 
     def showEvent(self, event):
         super(DlgCalculateRestBiomassData, self).showEvent(event)
-
-        if self.reset_tab_on_showEvent:
-            self.TabBox.setCurrentIndex(0)
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
@@ -95,8 +87,8 @@ class DlgCalculateRestBiomassData(
             'geojsons': json.dumps(geojsons),
             'crs': self.aoi.get_crs_dst_wkt(),
             'crosses_180th': crosses_180th,
-            'task_name': self.options_tab.task_name.text(),
-            'task_notes': self.options_tab.task_notes.toPlainText()
+            'task_name': self.execution_name_le.text(),
+            'task_notes': self.task_notes.toPlainText()
         }
 
         resp = job_manager.submit_remote_job(payload, self.script.id)
@@ -218,6 +210,7 @@ class DlgCalculateRestBiomassSummaryTable(
     ):
         super().__init__(iface, script, parent)
         self.setupUi(self)
+        self._finish_initialization()
 
     def showEvent(self, event):
         super().showEvent(event)

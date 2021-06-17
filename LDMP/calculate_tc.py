@@ -23,7 +23,7 @@ from openpyxl.drawing.image import Image
 
 import processing
 import qgis.core
-#from qgis import processing
+import qgis.gui
 from qgis.utils import iface
 
 from PyQt5 import (
@@ -153,14 +153,13 @@ class DlgCalculateTCData(calculate.DlgCalculateBase, DlgCalculateTcDataUi):
         # # out files in case of local process
         # self.add_output_tab(['.json', '.tif'])
         self.first_show = True
+        self._finish_initialization()
 
     def showEvent(self, event):
         super().showEvent(event)
         self.use_custom_initial.populate()
         self.use_custom_final.populate()
         self.radioButton_carbon_custom.setEnabled(False)
-        if self.reset_tab_on_showEvent:
-            self.TabBox.setCurrentIndex(0)
         if self.first_show:
             self.first_show = False
             # Ensure the special value text (set to " ") is displayed by 
@@ -295,7 +294,7 @@ class DlgCalculateTCData(calculate.DlgCalculateBase, DlgCalculateTcDataUi):
 
         # Select the initial and final bands from initial and final datasets 
         # (in case there is more than one lc band per dataset)
-        lc_initial_vrt = self.lc_setup_tab.use_custom_initial.get_vrt()
+        lc_initial_vrt = self.lc_setup_widget.use_custom_initial.get_vrt()
         lc_final_vrt = self.lc_setup_tab.use_custom_final.get_vrt()
         lc_files = [lc_initial_vrt, lc_final_vrt]
         lc_years = [self.lc_setup_tab.get_initial_year(), self.lc_setup_tab.get_final_year()]
@@ -396,8 +395,8 @@ class DlgCalculateTCData(calculate.DlgCalculateBase, DlgCalculateTcDataUi):
             'geojsons': json.dumps(geojsons),
             'crs': self.aoi.get_crs_dst_wkt(),
             'crosses_180th': crosses_180th,
-            'task_name': self.options_tab.task_name.text(),
-            'task_notes': self.options_tab.task_notes.toPlainText()
+            'task_name': self.execution_name_le.text(),
+            'task_notes': self.task_notes.toPlainText()
         }
         resp = job_manager.submit_remote_job(payload, self.script.id)
         if resp:
@@ -730,7 +729,7 @@ class DlgCalculateTCSummaryTable(
     ):
         super().__init__(iface, script, parent)
         self.setupUi(self)
-        #self.add_output_tab(['.xlsx'])
+        self._finish_initialization()
 
     def showEvent(self, event):
         super(DlgCalculateTCSummaryTable, self).showEvent(event)

@@ -539,24 +539,21 @@ class DlgCalculateBase(QtWidgets.QDialog):
 
     def _finish_initialization(self):
 
+        cancel_btn = self.button_box.button(QtWidgets.QDialogButtonBox.Cancel)
+        cancel_btn.clicked.connect(self.reject)
         ok_button = self.button_box.button(
             QtWidgets.QDialogButtonBox.Ok
         )
-        cancel_btn = self.button_box.button(QtWidgets.QDialogButtonBox.Cancel)
-        cancel_btn.clicked.connect(self.reject)
-
-        if self.script.run_mode == models.AlgorithmRunMode.REMOTE:
-            ok_button.setText(self.tr("Schedule execution"))
-        else:
-            ok_button.setText(self.tr("Execute"))
         ok_button.clicked.connect(self.btn_calculate)
+        if self.script.run_mode == models.AlgorithmRunMode.REMOTE:
+            ok_button.setText(self.tr("Schedule remote execution"))
+        else:
+            ok_button.setText(self.tr("Execute locally"))
 
-        region = settings_manager.get_value(Setting.AREA_NAME)
-
+        self.update_current_region()
         self.region_button.clicked.connect(self.run_settings)
 
         # adding a collapsible arrow on the splitter
-        self.splitter_state = self.splitter.saveState()
         self.splitter.setCollapsible(0, False)
         splitter_handle = self.splitter.handle(1)
         handle_layout = QtWidgets.QVBoxLayout()
@@ -570,19 +567,23 @@ class DlgCalculateBase(QtWidgets.QDialog):
         handle_layout.addStretch()
         splitter_handle.setLayout(handle_layout)
 
-        arrow_type = QtCore.Qt.RightArrow if self.splitter.sizes()[1] == 0 else QtCore.Qt.LeftArrow
-
+        right_collapsed = self.splitter.sizes()[1] == 0
+        arrow_type = QtCore.Qt.RightArrow if right_collapsed else QtCore.Qt.LeftArrow
         self.collapse_button.setArrowType(arrow_type)
         self.collapse_button.clicked.connect(self.splitter_toggled)
-        self.splitter_collapsed = self.splitter.sizes()[1] != 0
+        self.splitter_collapsed = right_collapsed
 
         qgis.gui.QgsGui.enableAutoGeometryRestore(self)
+        self.splitter.setStretchFactor(0, 10)
 
+    def update_current_region(self):
+        region = settings_manager.get_value(Setting.AREA_NAME)
         self.region_la.setText(self.tr(f"Current region: {region}"))
 
     def run_settings(self):
         dlg_settings = DlgSettings(parent=self)
-        dlg_settings.exec_()
+        if dlg_settings.exec_():
+            self.update_current_region()
 
     def showEvent(self, event):
         super(DlgCalculateBase, self).showEvent(event)

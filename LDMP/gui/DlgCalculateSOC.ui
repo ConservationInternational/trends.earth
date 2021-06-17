@@ -73,6 +73,16 @@
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_5">
            <item>
+            <widget class="QFrame" name="setup_frame">
+             <property name="frameShape">
+              <enum>QFrame::NoFrame</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Raised</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
             <layout class="QHBoxLayout" name="horizontalLayout">
              <property name="leftMargin">
               <number>5</number>
@@ -107,16 +117,6 @@
               </widget>
              </item>
             </layout>
-           </item>
-           <item>
-            <widget class="QFrame" name="setup_frame">
-             <property name="frameShape">
-              <enum>QFrame::NoFrame</enum>
-             </property>
-             <property name="frameShadow">
-              <enum>QFrame::Raised</enum>
-             </property>
-            </widget>
            </item>
            <item>
             <widget class="QLabel" name="execution_name_la">
@@ -414,13 +414,13 @@ p, li { white-space: pre-wrap; }
   <customwidget>
    <class>QgsCollapsibleGroupBox</class>
    <extends>QGroupBox</extends>
-   <header>qgis.gui</header>
+   <header>qgscollapsiblegroupbox.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>WidgetDataIOSelectTELayerImport</class>
    <extends>QComboBox</extends>
-   <header>LDMP/data_io.h</header>
+   <header>LDMP/data_io</header>
   </customwidget>
  </customwidgets>
  <resources/>

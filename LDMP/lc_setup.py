@@ -14,6 +14,7 @@
 
 import json
 import os
+import typing
 from pathlib import Path
 
 from PyQt5 import (
@@ -36,8 +37,11 @@ DlgCalculateLcSetAggregationUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateLCSetAggregation.ui"))
 WidgetLcDefineDegradationUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/WidgetLCDefineDegradation.ui"))
-WidgetLcSetupUi, _ = uic.loadUiType(
-    str(Path(__file__).parent / "gui/WidgetLCSetup.ui"))
+
+WidgetLandCoverSetupLocalExecutionUi, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/land_cover_setup_widget_local.ui"))
+WidgetLandCoverSetupRemoteExecutionUi, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/land_cover_setup_widget.ui"))
 
 mb = iface.messageBar()
 
@@ -535,71 +539,71 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
         return trans_matrix
 
 
-class LCSetupWidget(QtWidgets.QWidget, WidgetLcSetupUi):
-    use_custom_initial: data_io.WidgetDataIOSelectTELayerImport
-    use_custom_final: data_io.WidgetDataIOSelectTELayerImport
+class LandCoverSetupLocalExecutionWidget(
+    QtWidgets.QWidget,
+    WidgetLandCoverSetupLocalExecutionUi
+):
+    initial_year_layer_cb: data_io.WidgetDataIOSelectTELayerImport
+    target_year_layer_cb: data_io.WidgetDataIOSelectTELayerImport
 
     def __init__(self, parent=None):
         super().__init__(parent)
-
-        with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
-                               'data', 'gee_datasets.json')) as datasets_file:
-            self.datasets = json.load(datasets_file)
-
         self.setupUi(self)
-
-        default_class_file = os.path.join(os.path.dirname(os.path.realpath(__file__)),
-                                         'data', 'land_cover_classes_ESA_to_IPCC.json')
-        self.dlg_esa_agg = DlgCalculateLCSetAggregation(read_class_file(default_class_file), parent=self)
-
-        lc_start_year = QtCore.QDate(self.datasets['Land cover']['ESA CCI']['Start year'], 1, 1)
-        lc_end_year = QtCore.QDate(self.datasets['Land cover']['ESA CCI']['End year'], 12, 31)
-        self.use_esa_bl_year.setMinimumDate(lc_start_year)
-        self.use_esa_bl_year.setMaximumDate(lc_end_year)
-        self.use_esa_tg_year.setMinimumDate(lc_start_year)
-        self.use_esa_tg_year.setMaximumDate(lc_end_year)
-
-        self.use_esa.toggled.connect(self.lc_source_changed)
-        self.use_custom.toggled.connect(self.lc_source_changed)
-
-        # Below is a bugfix for checkable group boxes created in QtDesigner - 
-        # if they aren't checked by default in Qt Designer then checking them 
-        # in the final gui doesn't enable their children. 
-        self.groupBox_esa_agg.setChecked(False)
-
-        self.use_esa_agg_edit.clicked.connect(self.esa_agg_custom_edit)
-
-        # Make sure the custom data boxes are turned off by default
-        self.lc_source_changed()
-
-        # Ensure that if a LC layer is loaded in one box it shows up also in 
-        # the other
-        #self.use_custom_initial.layers_added.connect(self.use_custom_final.populate)
-        #self.use_custom_final.layers_added.connect(self.use_custom_initial.populate)
-
-    def lc_source_changed(self):
-        if self.use_esa.isChecked():
-            self.groupBox_esa_period.setEnabled(True)
-            self.groupBox_esa_agg.setEnabled(True)
-            self.groupBox_custom_bl.setEnabled(False)
-            self.groupBox_custom_tg.setEnabled(False)
-        elif self.use_custom.isChecked():
-            self.groupBox_esa_period.setEnabled(False)
-            self.groupBox_esa_agg.setEnabled(False)
-            self.groupBox_custom_bl.setEnabled(True)
-            self.groupBox_custom_tg.setEnabled(True)
+        self.initial_year_layer_cb.populate()
+        self.target_year_layer_cb.populate()
 
     def get_initial_year(self):
-        usable_band_info = self.use_custom_initial.get_usable_band_info()
+        usable_band_info = self.initial_year_layer_cb.get_usable_band_info()
         return usable_band_info.band_info.metadata["year"]
 
     def get_final_year(self):
-        usable_band_info = self.use_custom_final.get_usable_band_info()
+        usable_band_info = self.target_year_layer_cb.get_usable_band_info()
         return usable_band_info.band_info.metadata["year"]
 
-    def esa_agg_custom_edit(self):
-        self.dlg_esa_agg.exec_()
 
-# LC widgets shared across dialogs
-lc_define_deg_widget = LCDefineDegradationWidget()
-lc_setup_widget = LCSetupWidget()
+class LandCoverSetupRemoteExecutionWidget(
+    QtWidgets.QWidget,
+    WidgetLandCoverSetupRemoteExecutionUi
+):
+    initial_year_la: QtWidgets.QLabel
+    initial_year_de: QtWidgets.QDateEdit
+    target_year_de: QtWidgets.QDateEdit
+    target_year_la: QtWidgets.QLabel
+    aggregation_method_pb: QtWidgets.QPushButton
+    aggregation_dialog: QtWidgets.QDialog
+
+    def __init__(
+            self,
+            parent=None,
+            hide_min_year: typing.Optional[bool] = False,
+            hide_max_year: typing.Optional[bool] = False,
+            selected_min_year: typing.Optional[int] = 2001,
+            selected_max_year: typing.Optional[int] = 2015,
+    ):
+        super().__init__(parent)
+        self.setupUi(self)
+        esa_cci_lc_conf = conf.REMOTE_DATASETS["Land cover"]["ESA CCI"]
+        min_year = QtCore.QDate(esa_cci_lc_conf["Start year"], 1, 1)
+        max_year = QtCore.QDate(esa_cci_lc_conf["End year"], 12, 31)
+        self.initial_year_de.setMinimumDate(min_year)
+        self.initial_year_de.setMaximumDate(max_year)
+        self.target_year_de.setMinimumDate(min_year)
+        self.target_year_de.setMaximumDate(max_year)
+        self.initial_year_de.setDate(QtCore.QDate(selected_min_year, 1, 1))
+        self.target_year_de.setDate(QtCore.QDate(selected_max_year, 12, 31))
+        if hide_min_year:
+            self.initial_year_la.hide()
+            self.initial_year_de.hide()
+        if hide_max_year:
+            self.target_year_la.hide()
+            self.target_year_de.hide()
+        self.aggregation_method_pb.clicked.connect(self.open_aggregation_method_dialog)
+        default_class_file = (
+                Path(__file__).parent / "data/land_cover_classes_ESA_to_IPCC.json")
+        self.aggregation_dialog = DlgCalculateLCSetAggregation(
+            read_class_file(str(default_class_file)),
+            parent=self
+        )
+
+    def open_aggregation_method_dialog(self):
+        self.aggregation_dialog.exec_()

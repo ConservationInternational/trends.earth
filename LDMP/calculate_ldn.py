@@ -28,11 +28,11 @@ from PyQt5 import (
 
 import qgis.gui
 from qgis.core import QgsGeometry
-from qgis.utils import iface
 
 from . import (
     conf,
     data_io,
+    lc_setup,
     worker,
 )
 from .algorithms import models
@@ -45,10 +45,6 @@ from .calculate import (
     ldn_total_by_trans,
 )
 from .jobs.manager import job_manager
-from .lc_setup import (
-    LCSetupWidget,
-    LCDefineDegradationWidget,
-)
 from .localexecution import ldn
 from .summary import *
 
@@ -56,8 +52,6 @@ DlgCalculateOneStepUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateOneStep.ui"))
 DlgCalculateLdnSummaryTableAdminUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateLDNSummaryTableAdmin.ui"))
-
-mb = iface.messageBar()
 
 
 class tr_calculate_ldn(object):
@@ -77,8 +71,13 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.setupUi(self)
         self.update_time_bounds()
         self.mode_te_prod.toggled.connect(self.update_time_bounds)
-        self.lc_setup_widget = LCSetupWidget()
-        self.lc_define_deg_widget = LCDefineDegradationWidget()
+        self.lc_setup_widget = lc_setup.LandCoverSetupRemoteExecutionWidget(
+            self,
+            hide_min_year=True,
+            hide_max_year=True
+        )
+
+        self.lc_define_deg_widget = lc_setup.LCDefineDegradationWidget()
 
         self._finish_initialization()
 
@@ -107,17 +106,6 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         
     def showEvent(self, event):
         super(DlgCalculateOneStep, self).showEvent(event)
-        # TODO: Temporarily hide these boxes until custom LC support for SOC is 
-        # implemented on GEE
-        self.lc_setup_widget.use_esa.setChecked(True)
-        self.lc_setup_widget.use_custom.hide()
-        self.lc_setup_widget.groupBox_custom_bl.hide()
-        self.lc_setup_widget.groupBox_custom_tg.hide()
-        
-        # Hide the land cover ESA period box, since only one period is used in 
-        # this dialog - the one on the main setup tab
-        self.lc_setup_widget.groupBox_esa_period.hide()
-
         if self.land_cover_content.layout() is None:
             layout = QtWidgets.QVBoxLayout()
             layout.setContentsMargins(0, 0, 0, 0)
@@ -270,7 +258,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             'climate_gee_dataset': None,
             'fl': .80,
             'trans_matrix': self.lc_define_deg_widget.trans_matrix_get(),
-            'remap_matrix': self.lc_setup_widget.dlg_esa_agg.get_agg_as_list(),
+            'remap_matrix': self.lc_setup_widget.aggregation_dialog.get_agg_as_list(),
             'task_name': self.execution_name_le.text(),
             'task_notes': self.task_notes.toPlainText()
         }
@@ -284,7 +272,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             main_msg = "Error"
             description = (
                 "Unable to submit SDG sub-indicator task to Google Earth Engine.")
-        mb.pushMessage(
+        self.mb.pushMessage(
             self.tr(main_msg),
             self.tr(description),
             level=0,

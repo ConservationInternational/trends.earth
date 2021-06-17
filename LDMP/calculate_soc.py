@@ -30,13 +30,13 @@ from PyQt5 import (
 from . import (
     calculate,
     data_io,
+    lc_setup,
     log,
     worker,
 )
 
 from .algorithms import models
 from .jobs.manager import job_manager
-from .lc_setup import LCSetupWidget
 
 DlgCalculateSocUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateSOC.ui"))
@@ -285,7 +285,6 @@ class SOCWorker(worker.AbstractWorker):
 
 
 class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
-    lc_setup_tab: LCSetupWidget
     TabBox: QtWidgets.QTabWidget
     fl_radio_default: QtWidgets.QRadioButton
     fl_radio_chooseRegime: QtWidgets.QRadioButton
@@ -314,7 +313,16 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
             ('Tropical moist (Fl = 0.48)', .48),
             ('Tropical montane (Fl = 0.64)', .64)
         ]
-        self.lc_setup_widget = LCSetupWidget()
+
+        lc_setup_widget_class = {
+            models.AlgorithmRunMode.LOCAL: lc_setup.LandCoverSetupLocalExecutionWidget,
+            models.AlgorithmRunMode.REMOTE: (
+                lc_setup.LandCoverSetupRemoteExecutionWidget),
+        }[self.script.run_mode]
+        self.lc_setup_widget = lc_setup_widget_class(self)
+
+        # self.lc_setup_widget = lc_setup.LCSetupWidget()
+
         self.splitter_collapsed = False
 
         self.fl_chooseRegime_comboBox.addItems([r[0] for r in self.regimes])
@@ -339,20 +347,20 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
             setup_layout.addWidget(self.lc_setup_widget)
             self.setup_frame.setLayout(setup_layout)
 
-        self.lc_setup_widget.groupBox_esa_period.show()
-        self.lc_setup_widget.groupBox_custom_bl.show()
-        self.lc_setup_widget.groupBox_custom_tg.show()
+        # self.lc_setup_widget.groupBox_esa_period.show()
+        # self.lc_setup_widget.groupBox_custom_bl.show()
+        # self.lc_setup_widget.groupBox_custom_tg.show()
 
         self.comboBox_custom_soc.populate()
-        self.lc_setup_widget.use_custom_initial.populate()
-        self.lc_setup_widget.use_custom_final.populate()
+        # self.lc_setup_widget.use_custom_initial.populate()
+        # self.lc_setup_widget.use_custom_final.populate()
 
-        self.lc_setup_widget.default_frame.setVisible(
-            self.script.run_mode == models.AlgorithmRunMode.REMOTE
-        )
-        self.lc_setup_widget.custom_frame.setVisible(
-            self.script.run_mode == models.AlgorithmRunMode.LOCAL
-        )
+        # self.lc_setup_widget.default_frame.setVisible(
+        #     self.script.run_mode == models.AlgorithmRunMode.REMOTE
+        # )
+        # self.lc_setup_widget.custom_frame.setVisible(
+        #     self.script.run_mode == models.AlgorithmRunMode.LOCAL
+        # )
 
     def fl_radios_toggled(self):
         if self.fl_radio_custom.isChecked():
@@ -433,7 +441,8 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
                 )
             )
 
-        initial_layer = self.lc_setup_widget.use_custom_initial.get_layer()
+        initial_layer = self.lc_setup_widget.initial_year_layer_cb.get_layer()
+        # initial_layer = self.lc_setup_widget.use_custom_initial.get_layer()
         initial_extent_geom = qgis.core.QgsGeometry.fromRect(initial_layer.extent())
         if self.aoi.calc_frac_overlap(initial_extent_geom) < .99:
             QtWidgets.QMessageBox.critical(
@@ -446,7 +455,8 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
             )
             return
 
-        final_layer = self.lc_setup_widget.use_custom_final.get_layer()
+        final_layer = self.lc_setup_widget.target_year_layer_cb.get_layer()
+        # final_layer = self.lc_setup_widget.use_custom_final.get_layer()
         final_extent_geom = qgis.core.QgsGeometry.fromRect(final_layer.extent())
         if self.aoi.calc_frac_overlap(final_extent_geom) < .99:
             QtWidgets.QMessageBox.critical(
@@ -461,8 +471,11 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
 
         self.close()
 
-        initial_usable = self.lc_setup_widget.use_custom_initial.get_usable_band_info()
-        final_usable = self.lc_setup_widget.use_custom_final.get_usable_band_info()
+        initial_usable = (
+            self.lc_setup_widget.initial_year_layer_cb.get_usable_band_info())
+        final_usable = self.lc_setup_widget.target_year_layer_cb.get_usable_band_info()
+        # initial_usable = self.lc_setup_widget.use_custom_initial.get_usable_band_info()
+        # final_usable = self.lc_setup_widget.use_custom_final.get_usable_band_info()
         soc_usable = self.comboBox_custom_soc.get_usable_band_info()
 
         job_params = {
@@ -488,14 +501,14 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
 
         crosses_180th, geojsons = self.gee_bounding_box
         payload = {
-            'year_start': self.lc_setup_widget.use_esa_bl_year.date().year(),
-            'year_end': self.lc_setup_widget.use_esa_tg_year.date().year(),
+            "year_start": self.lc_setup_widget.initial_year_de.date().year(),
+            "year_end": self.lc_setup_widget.target_year_de.date().year(),
             'fl': self.get_fl(),
             'download_annual_lc': self.download_annual_lc.isChecked(),
             'geojsons': json.dumps(geojsons),
             'crs': self.aoi.get_crs_dst_wkt(),
             'crosses_180th': crosses_180th,
-            'remap_matrix': self.lc_setup_widget.dlg_esa_agg.get_agg_as_list(),
+            "remap_matrix": self.lc_setup_widget.aggregation_dialog.get_agg_as_list(),
             'task_name': self.execution_name_le.text(),
             'task_notes': self.options_tab.task_notes.toPlainText()
         }

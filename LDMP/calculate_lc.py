@@ -123,6 +123,7 @@ class LandCoverChangeWorker(worker.AbstractWorker):
         else:
             return True
 
+
 class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
     LOCAL_SCRIPT_NAME = "local-land-cover"
 
@@ -156,17 +157,11 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
             setup_layout.addWidget(self.lc_setup_widget)
             self.setup_frame.setLayout(setup_layout)
 
-            scroll_container = QtWidgets.QWidget()
             layout = QtWidgets.QVBoxLayout()
             layout.setContentsMargins(1, 1, 1, 1)
             layout.setSpacing(1)
             layout.addWidget(self.lc_define_deg_widget)
-            scroll_container.setLayout(layout)
-            scroll_container.setLayout(layout)
-            self.scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-            self.scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-            self.scroll_area.setWidgetResizable(True)
-            self.scroll_area.setWidget(scroll_container)
+            self.configurations_frame.setLayout(layout)
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it

@@ -32,7 +32,10 @@ from . import (
     log,
     worker,
 )
-from .algorithms.models import ExecutionScript
+from .algorithms.models import (
+    AlgorithmRunMode,
+    ExecutionScript,
+)
 from .jobs.manager import job_manager
 from .lc_setup import (
     LCDefineDegradationWidget,
@@ -139,7 +142,6 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
         # These boxes may have been hidden if this widget was last shown on the
         # SDG one step dialog
         self.lc_setup_widget.groupBox_esa_period.show()
-        self.lc_setup_widget.use_custom.show()
         self.lc_setup_widget.groupBox_custom_bl.show()
         self.lc_setup_widget.groupBox_custom_tg.show()
 
@@ -158,6 +160,13 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
         self.lc_setup_widget.use_custom_initial.populate()
         self.lc_setup_widget.use_custom_final.populate()
 
+        self.lc_setup_widget.default_frame.setVisible(
+            self.script.run_mode == AlgorithmRunMode.REMOTE
+        )
+        self.lc_setup_widget.custom_frame.setVisible(
+            self.script.run_mode == AlgorithmRunMode.LOCAL
+        )
+
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
@@ -166,10 +175,12 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
         if not ret:
             return
 
-        if self.lc_setup_widget.use_esa.isChecked():
+        if self.script.run_mode == AlgorithmRunMode.REMOTE:
             self.calculate_on_GEE()
-        else:
+        elif self.script.run_mode == AlgorithmRunMode.LOCAL:
             self.calculate_locally()
+        else:
+            raise NotImplementedError
 
     def calculate_on_GEE(self):
         self.close()

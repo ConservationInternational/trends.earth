@@ -340,13 +340,19 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
             self.setup_frame.setLayout(setup_layout)
 
         self.lc_setup_widget.groupBox_esa_period.show()
-        self.lc_setup_widget.use_custom.show()
         self.lc_setup_widget.groupBox_custom_bl.show()
         self.lc_setup_widget.groupBox_custom_tg.show()
 
         self.comboBox_custom_soc.populate()
         self.lc_setup_widget.use_custom_initial.populate()
         self.lc_setup_widget.use_custom_final.populate()
+
+        self.lc_setup_widget.default_frame.setVisible(
+            self.script.run_mode == models.AlgorithmRunMode.REMOTE
+        )
+        self.lc_setup_widget.custom_frame.setVisible(
+            self.script.run_mode == models.AlgorithmRunMode.LOCAL
+        )
 
     def fl_radios_toggled(self):
         if self.fl_radio_custom.isChecked():
@@ -375,7 +381,7 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
         if not ret:
             return
 
-        if self.lc_setup_widget.use_custom.isChecked() or \
+        if self.script.run_mode == models.AlgorithmRunMode.LOCAL or \
                 self.groupBox_custom_SOC.isChecked():
             self.calculate_locally()
         else:
@@ -392,7 +398,7 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
                 )
             )
             return
-        if not self.lc_setup_widget.use_custom.isChecked():
+        if self.script.run_mode != models.AlgorithmRunMode.LOCAL:
             QtWidgets.QMessageBox.critical(
                 None,
                 self.tr("Error"),

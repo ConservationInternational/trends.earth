@@ -121,25 +121,19 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         # this dialog - the one on the main setup tab
         self.lc_setup_widget.groupBox_esa_period.hide()
 
-        if self.land_cover_contents.layout() is None:
+        if self.land_cover_content.layout() is None:
             layout = QtWidgets.QVBoxLayout()
             layout.setContentsMargins(0, 0, 0, 0)
             layout.setSpacing(1)
             layout.addWidget(self.lc_setup_widget)
-            self.land_cover_contents.setFrameShape(0)
-            self.land_cover_contents.setLayout(layout)
+            self.land_cover_content.setLayout(layout)
 
-        if self.scroll_area.layout() is None:
-            scroll_container = QtWidgets.QWidget()
+        if self.effects_content.layout() is None:
             layout = QtWidgets.QVBoxLayout()
             layout.setContentsMargins(0, 0, 0, 0)
             layout.setSpacing(1)
             layout.addWidget(self.lc_define_deg_widget)
-            scroll_container.setLayout(layout)
-            self.scroll_area.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOn)
-            self.scroll_area.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-            self.scroll_area.setWidgetResizable(True)
-            self.scroll_area.setWidget(scroll_container)
+            self.effects_content.setLayout(layout)
 
 
         #######################################################################

@@ -8,7 +8,6 @@ from pathlib import Path
 
 import numpy as np
 import openpyxl
-from openpyxl.drawing.image import Image
 from osgeo import gdal
 import qgis.core
 
@@ -23,7 +22,6 @@ from .. import (
     worker,
 )
 from ..jobs import (
-    manager,
     models,
 )
 
@@ -153,15 +151,7 @@ def compute_ldn(
     lc_band_nums = np.arange(len(lc_files)) + 1
     soc_files = _prepare_soil_organic_carbon_file_paths(ldn_job)
     soc_band_nums = np.arange(len(lc_files)) + 1 + lc_band_nums.max()
-
-    # NOTE: temporarily setting the status as the final value in order to determine
-    # the target filepath for the processing's outputs
-    previous_status = ldn_job.status
-    ldn_job.status = models.JobStatus.GENERATED_LOCALLY
-    job_output_path = manager.job_manager.get_job_file_path(ldn_job)
-    ldn_job.status = previous_status
-    log(f"inside compute_ldn current job status: {ldn_job.status}")
-
+    job_output_path, _ = utils.get_local_job_output_paths(ldn_job)
     _, wkt_bounding_boxes = area_of_interest.meridian_split("layer", "wkt", warn=False)
     summary_table_stable_kwargs = {
         "wkt_bounding_boxes": wkt_bounding_boxes,
@@ -314,7 +304,7 @@ def save_summary_table(
     template_summary_table_path = Path(
         __file__).parents[1] / "data/summary_table_ldn_sdg.xlsx"
     workbook = openpyxl.load_workbook(str(template_summary_table_path))
-    _render_workbook(
+    _render_ldn_workbook(
         workbook, summary_table, land_cover_years, soil_organic_carbon_years)
     try:
         workbook.save(output_path)
@@ -328,7 +318,7 @@ def save_summary_table(
         log(error_message)
 
 
-def _render_workbook(
+def _render_ldn_workbook(
         template_workbook,
         summary_table: SummaryTable,
         lc_years,
@@ -508,22 +498,10 @@ def _accumulate_bounding_boxes_summary_tables(
     return first
 
 
-def _maybe_add_image_to_sheet(image_filename: str, sheet):
-    try:
-        image_path = Path(__file__).parents[1] / "data" / image_filename
-        logo = Image(image_path)
-        sheet.add_image(logo, 'H1')
-    except ImportError:
-        # add_image will fail on computers without PIL installed (this will be
-        # an issue on some Macs, likely others). it is only used here to add
-        # our logo, so no big deal.
-        pass
-
-
 def _write_overview_sdg_sheet(sheet, summary_table: SummaryTable):
     summary.write_table_to_sheet(
         sheet, np.transpose(summary_table.sdg_tbl_overall), 6, 6)
-    _maybe_add_image_to_sheet("trends_earth_logo_bl_300width.png", sheet)
+    utils.maybe_add_image_to_sheet("trends_earth_logo_bl_300width.png", sheet)
 
 
 def _write_productivity_sdg_sheet(sheet, summary_table: SummaryTable):
@@ -541,7 +519,7 @@ def _write_productivity_sdg_sheet(sheet, summary_table: SummaryTable):
         sheet, _get_prod_table(summary_table.trans_prod_xtab, 1), 64, 3)
     summary.write_table_to_sheet(
         sheet, _get_prod_table(summary_table.trans_prod_xtab, -32768), 76, 3)
-    _maybe_add_image_to_sheet("trends_earth_logo_bl_300width.png", sheet)
+    utils.maybe_add_image_to_sheet("trends_earth_logo_bl_300width.png", sheet)
 
 
 def _write_soc_sdg_sheet(sheet, summary_table: SummaryTable):
@@ -576,14 +554,14 @@ def _write_soc_sdg_sheet(sheet, summary_table: SummaryTable):
     # mix of numbers and strings
     _write_soc_stock_change_table(
         sheet, 27, 3, summary_table.soc_totals[0], summary_table.soc_totals[-1])
-    _maybe_add_image_to_sheet("trends_earth_logo_bl_300width.png", sheet)
+    utils.maybe_add_image_to_sheet("trends_earth_logo_bl_300width.png", sheet)
 
 
 def _write_land_cover_sdg_sheet(sheet, summary_table: SummaryTable):
     summary.write_table_to_sheet(sheet, np.transpose(summary_table.sdg_tbl_lc), 6, 6)
     summary.write_table_to_sheet(
         sheet, _get_lc_table(summary_table.trans_prod_xtab), 26, 3)
-    _maybe_add_image_to_sheet("trends_earth_logo_bl_300width.png", sheet)
+    utils.maybe_add_image_to_sheet("trends_earth_logo_bl_300width.png", sheet)
 
 
 def _write_unccd_reporting_sheet(
@@ -619,7 +597,7 @@ def _write_unccd_reporting_sheet(
             92 + i,
             2
         )
-    _maybe_add_image_to_sheet("trends_earth_logo_bl_300width.png", sheet)
+    utils.maybe_add_image_to_sheet("trends_earth_logo_bl_300width.png", sheet)
 
 
 def _get_prod_table(table, prod_class, classes=list(range(1, 7 + 1))):

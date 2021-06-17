@@ -12,22 +12,26 @@
  ***************************************************************************/
 """
 
+import os
+import json
+from pathlib import Path
+
+from osgeo import gdal, osr
+from PyQt5 import (
+    QtWidgets,
+    uic
+)
 from builtins import zip
 from builtins import range
 from datetime import datetime
-import os
-import json
-import tempfile
 
 from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtCore import QSettings, Qt
 
+import qgis.core
 from osgeo import gdal, osr
 import qgis.gui
-
-from qgis.core import QgsGeometry
 from qgis.utils import iface
-mb = iface.messageBar()
 
 from . import (
     calculate,
@@ -40,8 +44,11 @@ from .lc_setup import (
     LCDefineDegradationWidget,
     LCSetupWidget,
 )
-from .localexecution import landcover
-from .gui.DlgCalculateLC import Ui_DlgCalculateLC
+
+DlgCalculateLcUi, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/DlgCalculateLC.ui"))
+
+mb = iface.messageBar()
 
 
 class LandCoverChangeWorker(worker.AbstractWorker):
@@ -117,7 +124,7 @@ class LandCoverChangeWorker(worker.AbstractWorker):
             return True
 
 
-class DlgCalculateLC(calculate.DlgCalculateBase, Ui_DlgCalculateLC):
+class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
     LOCAL_SCRIPT_NAME = "local-land-cover"
 
     def __init__(
@@ -150,17 +157,11 @@ class DlgCalculateLC(calculate.DlgCalculateBase, Ui_DlgCalculateLC):
             setup_layout.addWidget(self.lc_setup_widget)
             self.setup_frame.setLayout(setup_layout)
 
-            scroll_container = QtWidgets.QWidget()
             layout = QtWidgets.QVBoxLayout()
             layout.setContentsMargins(1, 1, 1, 1)
             layout.setSpacing(1)
             layout.addWidget(self.lc_define_deg_widget)
-            scroll_container.setLayout(layout)
-            scroll_container.setLayout(layout)
-            self.scroll_area.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-            self.scroll_area.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-            self.scroll_area.setWidgetResizable(True)
-            self.scroll_area.setWidget(scroll_container)
+            self.configurations_frame.setLayout(layout)
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
@@ -239,7 +240,9 @@ class DlgCalculateLC(calculate.DlgCalculateBase, Ui_DlgCalculateLC):
                 )
             )
 
-        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.lc_setup_widget.use_custom_initial.get_layer().extent())) < .99:
+        initial_layer = self.lc_setup_widget.use_custom_initial.get_layer()
+        initial_extent_geom = qgis.core.QgsGeometry.fromRect(initial_layer.extent())
+        if self.aoi.calc_frac_overlap(initial_extent_geom) < .99:
             QtWidgets.QMessageBox.critical(
                 None,
                 self.tr("Error"),
@@ -250,7 +253,9 @@ class DlgCalculateLC(calculate.DlgCalculateBase, Ui_DlgCalculateLC):
             )
             return
 
-        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.lc_setup_widget.use_custom_initial.get_layer().extent())) < .99:
+        final_layer = self.lc_setup_widget.use_custom_final.get_layer()
+        final_extent_geom = qgis.core.QgsGeometry.fromRect(final_layer.extent())
+        if self.aoi.calc_frac_overlap(final_extent_geom) < .99:
             QtWidgets.QMessageBox.critical(
                 None,
                 self.tr("Error"),
@@ -263,14 +268,17 @@ class DlgCalculateLC(calculate.DlgCalculateBase, Ui_DlgCalculateLC):
 
         self.close()
 
-        params = landcover.get_land_cover_job_params(
-            task_name=self.execution_name_le.text(),
-            aoi=self.aoi,
-            year_baseline=year_baseline,
-            year_target=year_target,
-            combo_initial_layer=self.lc_setup_tab.use_custom_initial,
-            combo_final_layer=self.lc_setup_tab.use_custom_final,
-            transformation_matrix=self.lc_define_deg_tab.trans_matrix_get(),
-            task_notes=self.task_notes.toPlainText()
-        )
-        job_manager.submit_local_job(params, self.LOCAL_SCRIPT_NAME, self.aoi)
+        initial_usable = self.lc_setup_widget.use_custom_initial.get_usable_band_info()
+        final_usable = self.lc_setup_widget.use_custom_final.get_usable_band_info()
+        job_params = {
+            "task_name": self.execution_name_le.text(),
+            "task_notes": self.task_notes.toPlainText(),
+            "year_baseline": year_baseline,
+            "year_target": year_target,
+            "lc_initial_path": str(initial_usable.path),
+            "lc_initial_band_index": initial_usable.band_index,
+            "lc_final_path": str(final_usable.path),
+            "lc_final_band_index": final_usable.band_index,
+            "transformation_matrix": self.lc_define_deg_tab.trans_matrix_get()
+        }
+        job_manager.submit_local_job(job_params, self.LOCAL_SCRIPT_NAME, self.aoi)

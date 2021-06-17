@@ -12,60 +12,60 @@
  ***************************************************************************/
 """
 
+from pathlib import Path
 import os
 import json
 
-from osgeo import gdal, osr
-
+from osgeo import (
+    gdal,
+    osr,
+)
 import openpyxl
 from openpyxl.drawing.image import Image
 
+import processing
+import qgis.core
 import qgis.gui
-from qgis import processing
+#from qgis import processing
 from qgis.utils import iface
 
-mb = iface.messageBar()
-from qgis.core import (
-    QgsApplication,
-    QgsGeometry,
-    QgsProcessingAlgRunnerTask,
-    QgsTask,
+from PyQt5 import (
+    QtWidgets,
+    QtCore,
+    uic,
 )
 
-from qgis.PyQt import QtWidgets
-from qgis.PyQt.QtCore import QDate, QCoreApplication
-
-from LDMP import log, GetTempFilename
-from LDMP.api import run_script
-from .calculate import (
-    DlgCalculateBase,
-    get_script_slug,
-    json_geom_to_geojson
+from . import (
+    GetTempFilename,
+    conf,
+    data_io,
+    layers,
+    log,
+    calculate,
+    worker,
 )
-from .layers import (
-    add_layer,
-    create_local_json_metadata
-)
-from .worker import (
-    AbstractWorker,
-    StartWorker,
-)
-from .gui.DlgCalculateTCData import Ui_DlgCalculateTCData
-from .gui.DlgCalculateTCSummaryTable import Ui_DlgCalculateTCSummaryTable
+from .algorithms.models import ExecutionScript
+from .jobs.manager import job_manager
 from .schemas.schemas import BandInfo, BandInfoSchema
 from .summary import *
-from .algorithms import models
+
+DlgCalculateTcDataUi, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/DlgCalculateTCData.ui"))
+DlgCalculateTcSummaryTableUi, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/DlgCalculateTCSummaryTable.ui"))
+
+mb = iface.messageBar()
 
 
 class tr_calculate_tc(object):
     def tr(message):
-        return QCoreApplication.translate("tr_calculate_tc", message)
+        return QtCore.QCoreApplication.translate("tr_calculate_tc", message)
 
 
 # TODO: Still need to code below for local calculation of Total Carbon change
-class TCWorker(AbstractWorker):
+class TCWorker(worker.AbstractWorker):
     def __init__(self, in_vrt, out_f, lc_band_nums, lc_years):
-        AbstractWorker.__init__(self)
+        worker.AbstractWorker.__init__(self)
         self.in_vrt = in_vrt
         self.out_f = out_f
         self.lc_years = lc_years
@@ -128,44 +128,60 @@ class TCWorker(AbstractWorker):
             return True
 
 
-class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
+class DlgCalculateTCData(calculate.DlgCalculateBase, DlgCalculateTcDataUi):
+    use_hansen: QtWidgets.QRadioButton
+    hansen_bl_year: QtWidgets.QDateEdit
+    hansen_tg_year: QtWidgets.QDateEdit
+    hansen_fc_threshold: QtWidgets.QSpinBox
+    use_custom: QtWidgets.QRadioButton
+    use_custom_initial: data_io.WidgetDataIOSelectTELayerImport
+    use_custom_final: data_io.WidgetDataIOSelectTELayerImport
+    radioButton_carbon_woods_hole: QtWidgets.QRadioButton
+    radioButton_carbon_geocarbon: QtWidgets.QRadioButton
+    radioButton_carbon_custom: QtWidgets.QRadioButton
+    combo_layer_traj: data_io.WidgetDataIOSelectTELayerExisting
+    radioButton_rootshoot_mokany: QtWidgets.QRadioButton
+    radioButton_rootshoot_ipcc: QtWidgets.QRadioButton
+
     def __init__(
             self,
             iface: qgis.gui.QgisInterface,
-            script: models.ExecutionScript,
-            parent: QtWidgets.QWidget = None,
+            script: ExecutionScript,
+            parent: QtWidgets.QWidget
     ):
         super().__init__(iface, script, parent)
-
         self.setupUi(self)
 
+        # # hack to allow add HiddenOutputpTab that automatically set
+        # # out files in case of local process
+        # self.add_output_tab(['.json', '.tif'])
         self.first_show = True
 
         self.initiliaze_settings()
 
     def showEvent(self, event):
-        super(DlgCalculateTCData, self).showEvent(event)
-
+        super().showEvent(event)
         self.use_custom_initial.populate()
         self.use_custom_final.populate()
-
         self.radioButton_carbon_custom.setEnabled(False)
-
         if self.first_show:
             self.first_show = False
             # Ensure the special value text (set to " ") is displayed by 
             # default
             self.hansen_fc_threshold.setSpecialValueText(' ')
             self.hansen_fc_threshold.setValue(self.hansen_fc_threshold.minimum())
-
         self.use_hansen.toggled.connect(self.lc_source_changed)
         self.use_custom.toggled.connect(self.lc_source_changed)
         # Ensure that dialogs are enabled/disabled as appropriate
         self.lc_source_changed()
 
         # Setup bounds for Hansen data
-        start_year = QDate(self.datasets['Forest cover']['Hansen']['Start year'], 1, 1)
-        end_year = QDate(self.datasets['Forest cover']['Hansen']['End year'], 12, 31)
+        hansen_start_year = conf.REMOTE_DATASETS["Forest cover"]["Hansen"]["Start year"]
+        hansen_end_year = conf.REMOTE_DATASETS["Forest cover"]["Hansen"]["End year"]
+        start_year = QtCore.QDate(hansen_start_year, 1, 1)
+        end_year = QtCore.QDate(hansen_end_year, 12, 31)
+
+
         self.hansen_bl_year.setMinimumDate(start_year)
         self.hansen_bl_year.setMaximumDate(end_year)
         self.hansen_tg_year.setMinimumDate(start_year)
@@ -178,8 +194,11 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
             self.groupBox_custom_bl.setEnabled(False)
             self.groupBox_custom_tg.setEnabled(False)
         elif self.use_custom.isChecked():
-            QtWidgets.QMessageBox.information(None, self.tr("Coming soon!"),
-                                       self.tr("Custom forest cover data support is coming soon!"))
+            QtWidgets.QMessageBox.information(
+                None,
+                self.tr("Coming soon!"),
+                self.tr("Custom forest cover data support is coming soon!")
+            )
             self.use_hansen.setChecked(True)
             # self.groupBox_hansen_period.setEnabled(False)
             # self.groupBox_hansen_threshold.setEnabled(False)
@@ -236,11 +255,11 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
     def get_save_raster(self):
         raster_file, _ = QtWidgets.QFileDialog.getSaveFileName(self,
                                                         self.tr('Choose a name for the output file'),
-                                                        QSettings().value("trends_earth/advanced/base_data_directory", None),
+                                                        QtCore.QSettings().value("trends_earth/advanced/base_data_directory", None),
                                                         self.tr('Raster file (*.tif)'))
         if raster_file:
             if os.access(os.path.dirname(raster_file), os.W_OK):
-                # QSettings().setValue("LDMP/output_dir", os.path.dirname(raster_file))
+                # QtCore.QSettings().setValue("LDMP/output_dir", os.path.dirname(raster_file))
                 return raster_file
             else:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
@@ -260,12 +279,12 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
             QtWidgets.QMessageBox.information(None, self.tr("Warning"),
                 self.tr('The baseline year ({}) is greater than or equal to the target year ({}) - this analysis might generate strange results.'.format(year_baseline, year_target)))
 
-        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.lc_setup_tab.use_custom_initial.get_layer().extent())) < .99:
+        if self.aoi.calc_frac_overlap(qgis.core.QgsGeometry.fromRect(self.lc_setup_tab.use_custom_initial.get_layer().extent())) < .99:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Area of interest is not entirely within the initial land cover layer."))
             return
 
-        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.lc_setup_tab.use_custom_final.get_layer().extent())) < .99:
+        if self.aoi.calc_frac_overlap(qgis.core.QgsGeometry.fromRect(self.lc_setup_tab.use_custom_final.get_layer().extent())) < .99:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Area of interest is not entirely within the final land cover layer."))
             return
@@ -316,7 +335,7 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
             os.remove(f)
 
         log(u'Saving total carbon to {}'.format(out_f))
-        tc_task = StartWorker(TCWorker,
+        tc_task = worker.StartWorker(TCWorker,
                                  'calculating change in total carbon', 
                                  in_vrt,
                                  out_f,
@@ -359,44 +378,48 @@ class DlgCalculateTCData(DlgCalculateBase, Ui_DlgCalculateTCData):
         metadata['params']['geojsons'] = json.dumps(geojsons)
         metadata['params']['crosses_180th'] = crosses_180th
 
-        create_local_json_metadata(out_json, out_f, band_infos,
-                                    metadata=metadata)
+        layers.create_local_json_metadata(
+            out_json, out_f, band_infos, metadata=metadata)
         schema = BandInfoSchema()
         for band_number in range(len(band_infos)):
             b = schema.dump(band_infos[band_number])
             if b['add_to_map']:
                 # The +1 is because band numbers start at 1, not zero
-                add_layer(out_f, band_number + 1, b)
+                layers.add_layer(out_f, band_number + 1, b)
 
     def calculate_on_GEE(self, method, biomass_data):
         self.close()
-
         crosses_180th, geojsons = self.gee_bounding_box
-        payload = {'year_start': self.hansen_bl_year.date().year(),
-                   'year_end': self.hansen_tg_year.date().year(),
-                   'fc_threshold': int(self.hansen_fc_threshold.text().replace('%', '')),
-                   'method': method,
-                   'biomass_data': biomass_data,
-                   'geojsons': json.dumps(geojsons),
-                   'crs': self.aoi.get_crs_dst_wkt(),
-                   'crosses_180th': crosses_180th,
-                   'task_name': self.execution_name_le.text()}
-
-        resp = run_script(get_script_slug('total-carbon'), payload)
-
+        payload = {
+            'year_start': self.hansen_bl_year.date().year(),
+            'year_end': self.hansen_tg_year.date().year(),
+            'fc_threshold': int(self.hansen_fc_threshold.text().replace('%', '')),
+            'method': method,
+            'biomass_data': biomass_data,
+            'geojsons': json.dumps(geojsons),
+            'crs': self.aoi.get_crs_dst_wkt(),
+            'crosses_180th': crosses_180th,
+            'task_name': self.execution_name_le.text(),
+            'task_notes': self.task_notes.toPlainText()
+        }
+        resp = job_manager.submit_remote_job(payload, self.script.id)
         if resp:
-            mb.pushMessage(self.tr("Submitted"),
-                           self.tr("Total carbon submitted to Google Earth Engine."),
-                           level=0, duration=5)
+            main_msg = "Submitted"
+            description = "Total carbon submitted to Google Earth Engine."
         else:
-            mb.pushMessage(self.tr("Error"),
-                           self.tr("Unable to submit total carbon task to Google Earth Engine."),
-                           level=0, duration=5)
+            main_msg = "Error"
+            description = "Unable to submit total carbon task to Google Earth Engine."
+        self.mb.pushMessage(
+            self.tr(main_msg),
+            self.tr(description),
+            level=0,
+            duration=5
+        )
 
 
-class TCSummaryWorker(AbstractWorker):
+class TCSummaryWorker(worker.AbstractWorker):
     def __init__(self, src_file, year_start, year_end):
-        AbstractWorker.__init__(self)
+        worker.AbstractWorker.__init__(self)
 
         self.src_file = src_file
         self.year_start = year_start
@@ -503,9 +526,19 @@ class TCSummaryWorker(AbstractWorker):
                      initial_carbon_total))
 
 
-def write_excel_summary(forest_loss, carbon_loss, area_missing, area_water, 
-                       area_non_forest, area_site, area_forest, 
-                       initial_carbon_total, year_start, year_end, out_file):
+def write_excel_summary(
+        forest_loss,
+        carbon_loss,
+        area_missing,
+        area_water,
+        area_non_forest,
+        area_site,
+        area_forest,
+        initial_carbon_total,
+        year_start,
+        year_end,
+        out_file
+):
                           
     wb = openpyxl.load_workbook(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'summary_table_tc.xlsx'))
 
@@ -537,17 +570,18 @@ def write_excel_summary(forest_loss, carbon_loss, area_missing, area_water,
     try:
         wb.save(out_file)
 
-    except IOError:
-        log(u'Error saving {}'.format(out_file))
+    except IOError as exc:
+        log(f'Error saving {out_file}: {str(exc)}')
         return False
 
-    log(u'Summary table saved to {}'.format(out_file))
+    log(f'Summary table saved to {out_file}')
     return True
 
-class SummaryTask(QgsTask):
+
+class SummaryTask(qgis.core.QgsTask):
     def __init__(self, aoi, year_start, year_end, f_loss_vrt, tc_vrt, 
             output_file):
-        super().__init__('Total carbon summary table calculation', QgsTask.CanCancel)
+        super().__init__('Total carbon summary table calculation', qgis.core.QgsTask.CanCancel)
         
         self.aoi = aoi
         self.year_start = year_start
@@ -581,12 +615,12 @@ class SummaryTask(QgsTask):
 
             clipped_vrt = GetTempFilename('.tif')
             log(u'Saving forest loss/carbon clipped file to {}'.format(clipped_vrt))
-            #clip_task = QgsProcessingAlgRunnerTask(
+            #clip_task = qgis.core.QgsProcessingAlgRunnerTask(
             clip_task = processing.run(
                     'trendsearth:raster_clip',
                     {
                         'INPUT': indic_vrt,
-                        'GEOJSON': json.dumps(json_geom_to_geojson(QgsGeometry.fromWkt(wkts[n]).asJson())),
+                        'GEOJSON': json.dumps(calculate.json_geom_to_geojson(qgis.core.QgsGeometry.fromWkt(wkts[n]).asJson())),
                         'OUTPUT_BOUNDS': str(bbs[n]).strip('[]'),
                         'OUTPUT': clipped_vrt
                     })
@@ -651,10 +685,19 @@ class SummaryTask(QgsTask):
         log('forest loss: {}'.format(forest_loss))
         log('carbon loss: {}'.format(carbon_loss))
 
-        write_excel_summary(forest_loss, carbon_loss, area_missing, area_water, 
-                           area_non_forest, area_site, area_forest, 
-                           initial_carbon_total, self.year_start, 
-                           self.year_end, self.output_file)
+        write_excel_summary(
+            forest_loss,
+            carbon_loss,
+            area_missing,
+            area_water,
+            area_non_forest,
+            area_site,
+            area_forest,
+            initial_carbon_total,
+            self.year_start,
+            self.year_end,
+            self.output_file
+        )
         return True
 
     def finished(self, result):
@@ -664,21 +707,33 @@ class SummaryTask(QgsTask):
             QtWidgets.QMessageBox.information(None, tr_calculate_tc.tr("Success"),
                                           tr_calculate_tc.tr(u'Summary table saved to {}'.format(self.outout_file)))
         else:
-            QtWidgets.QMessageBox.critical(None, tr_calculate_tc.tr("Error"),
-                                       tr_calculate_tc.tr(u"Error saving output table - check that {} is accessible and not already open.".format(self.output_file)))
+            QtWidgets.QMessageBox.critical(
+                None,
+                tr_calculate_tc.tr("Error"),
+                tr_calculate_tc.tr(
+                    f"Error saving output table - check that {self.output_file} is "
+                    f"accessible and not already open."
+                )
+            )
 
 
-class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable):
+class DlgCalculateTCSummaryTable(
+    calculate.DlgCalculateBase, DlgCalculateTcSummaryTableUi
+):
+    LOCAL_SCRIPT_NAME = "total-carbon-summary"
+
+    combo_layer_f_loss: data_io.WidgetDataIOSelectTELayerExisting
+    combo_layer_tc: data_io.WidgetDataIOSelectTELayerExisting
+
     def __init__(
             self,
             iface: qgis.gui.QgisInterface,
-            script: models.ExecutionScript,
-            parent: QtWidgets.QWidget = None,
+            script: ExecutionScript,
+            parent: QtWidgets.QWidget
     ):
         super().__init__(iface, script, parent)
-
         self.setupUi(self)
-
+        #self.add_output_tab(['.xlsx'])
         self.initiliaze_settings()
 
     def showEvent(self, event):
@@ -698,52 +753,78 @@ class DlgCalculateTCSummaryTable(DlgCalculateBase, Ui_DlgCalculateTCSummaryTable
         ######################################################################
         # Check that all needed input layers are selected
         if len(self.combo_layer_f_loss.layer_list) == 0:
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("You must add a forest loss layer to your map before you can use the carbon change summary tool."))
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr(
+                    "You must add a forest loss layer to your map before you can use "
+                    "the carbon change summary tool."
+                )
+            )
             return
         if len(self.combo_layer_tc.layer_list) == 0:
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("You must add a total carbon layer to your map before you can use the carbon change summary tool."))
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr(
+                    "You must add a total carbon layer to your map before you can "
+                    "use the carbon change summary tool."
+                )
+            )
             return
         #######################################################################
         # Check that the layers cover the full extent needed
-        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_f_loss.get_layer().extent())) < .99:
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Area of interest is not entirely within the forest loss layer."))
+        layer_f_loss = self.combo_layer_f_loss.get_layer()
+        layer_f_loss_extent_geom = qgis.core.QgsGeometry.fromRect(layer_f_loss.extent())
+        if self.aoi.calc_frac_overlap(layer_f_loss_extent_geom) < .99:
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr(
+                    "Area of interest is not entirely within the forest loss layer.")
+            )
             return
-        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_tc.get_layer().extent())) < .99:
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Area of interest is not entirely within the total carbon layer."))
+        layer_tc = self.combo_layer_tc.get_layer()
+        layer_tc_extent_geom = qgis.core.QgsGeometry.fromRect(layer_tc.extent())
+        if self.aoi.calc_frac_overlap(layer_tc_extent_geom) < .99:
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr(
+                    "Area of interest is not entirely within the total carbon layer.")
+            )
             return
 
         #######################################################################
         # Check that all of the productivity layers have the same resolution 
         # and CRS
         def res(layer):
-            return (round(layer.rasterUnitsPerPixelX(), 10), round(layer.rasterUnitsPerPixelY(), 10))
+            return (
+                round(layer.rasterUnitsPerPixelX(), 10),
+                round(layer.rasterUnitsPerPixelY(), 10)
+            )
 
-        if res(self.combo_layer_f_loss.get_layer()) != res(self.combo_layer_tc.get_layer()):
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Resolutions of forest loss and total carbon layers do not match."))
+        if res(layer_f_loss) != res(layer_tc):
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr(
+                    "Resolutions of forest loss and total carbon layers do not match.")
+            )
             return
 
         self.close()
 
-        # Load all datasets to VRTs (to select only the needed bands)
-        f_loss_vrt = self.combo_layer_f_loss.get_vrt()
-        tc_vrt = self.combo_layer_tc.get_vrt()
-
-        # Figure out start and end dates
-        year_start = self.combo_layer_f_loss.get_band_info()['metadata']['year_start']
-        year_end = self.combo_layer_f_loss.get_band_info()['metadata']['year_end']
-
-        summary_task = SummaryTask(self.aoi, year_start, year_end, 
-                f_loss_vrt, tc_vrt, self.output_tab.output_basename.text() + '.xlsx')
-        log("Adding task to task manager")
-        QgsApplication.taskManager().addTask(summary_task)
-        if summary_task.status() not in [QgsTask.Complete, QgsTask.Terminated]:
-            QCoreApplication.processEvents()
-        # while QgsApplication.taskManager().countActiveTasks() > 0:
-        #         QCoreApplication.processEvents()
-
-        return True
+        f_loss_usable = self.combo_layer_f_loss.get_usable_band_info()
+        tc_usable = self.combo_layer_tc.get_usable_band_info()
+        job_params = {
+            "task_name": self.options_tab.task_name.text(),
+            "task_notes": self.options_tab.task_notes.toPlainText(),
+            "f_loss_path": str(f_loss_usable.path),
+            "f_loss_band_index": f_loss_usable.band_index,
+            "tc_path": str(tc_usable.path),
+            "tc_band_index": tc_usable.band_index,
+            "year_start": f_loss_usable.band_info.metadata["year_start"],
+            "year_end": f_loss_usable.band_info.metadata["year_end"],
+        }
+        job_manager.submit_local_job(job_params, self.LOCAL_SCRIPT_NAME, self.aoi)

@@ -27,7 +27,6 @@ from .conf import (
     settings_manager,
 )
 from .data_io import (
-    DlgDataIO,
     DlgDataIOLoadTE,
     DlgDataIOImportLC,
     DlgDataIOImportSOC,
@@ -54,6 +53,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
     iface: qgis.gui.QgisInterface
     busy: bool
+    paused: bool
     last_refreshed_local_state: typing.Optional[dt.datetime]
     last_refreshed_remote_state: typing.Optional[dt.datetime]
 
@@ -82,6 +82,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         super().__init__(parent)
         self.iface = iface
         self.busy = False
+        self.paused = False
         self.setupUi(self)
         self._editing_widgets = [
             self.pushButton_refresh,
@@ -164,7 +165,8 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
         self.datasets_tv.setMouseTracking(True)  # to allow emit entered events and manage editing over mouse
         self.datasets_tv.setWordWrap(True)  # add ... to wrap DisplayRole text... to have a real wrap need a custom widget
-        self.datasets_tv_delegate = jobs_mvc.JobItemDelegate(self.datasets_tv)
+        self.datasets_tv_delegate = jobs_mvc.JobItemDelegate(
+            self, parent=self.datasets_tv)
         self.datasets_tv.setItemDelegate(self.datasets_tv_delegate)
         self.datasets_tv.setEditTriggers(
             QtWidgets.QAbstractItemView.AllEditTriggers)
@@ -211,23 +213,29 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         """
 
         local_frequency = settings_manager.get_value(Setting.LOCAL_POLLING_FREQUENCY)
-        if _should_run(local_frequency, self.last_refreshed_local_state):
-            # TODO: disable editing widgets while the refresh is working in order to avoid
-            # potential mess up of the file system cache caused by the user mashing
-            # the refresh button too quickly.
-            self.toggle_editing_widgets(False)
-            # lets check if we also need to update from remote, as that takes precedence
-            if settings_manager.get_value(Setting.POLL_REMOTE):
-                remote_frequency = settings_manager.get_value(
-                    Setting.REMOTE_POLLING_FREQUENCY)
-                if _should_run(remote_frequency, self.last_refreshed_remote_state):
-                    self.update_remote_state()
+        if self.busy:
+            log("we are busy, skipping...")
+        elif self.paused:
+            log("we are paused, skipping...")
+        else:
+            log("we are not paused, lets maybe do stuff...")
+            if _should_run(local_frequency, self.last_refreshed_local_state):
+                # TODO: disable editing widgets while the refresh is working in order to avoid
+                # potential mess up of the file system cache caused by the user mashing
+                # the refresh button too quickly.
+                self.toggle_editing_widgets(False)
+                # lets check if we also need to update from remote, as that takes precedence
+                if settings_manager.get_value(Setting.POLL_REMOTE):
+                    remote_frequency = settings_manager.get_value(
+                        Setting.REMOTE_POLLING_FREQUENCY)
+                    if _should_run(remote_frequency, self.last_refreshed_remote_state):
+                        self.update_remote_state()
+                    else:
+                        self.update_local_state()
                 else:
                     self.update_local_state()
             else:
-                self.update_local_state()
-        else:
-            pass  # nothing to do, move along
+                pass  # nothing to do, move along
 
     def toggle_editing_widgets(self, enable: bool):
         for widget in self._editing_widgets:
@@ -323,7 +331,9 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         dialog_class_path = algorithm_script.parametrization_dialogue
         dialog_class = load_object(dialog_class_path)
         dialog = dialog_class(self.iface, algorithm_script.script, parent=self)
+        self.paused = True
         dialog.exec_()
+        self.paused = False
 
     def _manage_datasets_tree_view(self, index: QtCore.QModelIndex):
         """Manage dataset treeview's editing

@@ -122,10 +122,16 @@ class JobsSortFilterProxyModel(QtCore.QSortFilterProxyModel):
 
 class JobItemDelegate(QtWidgets.QStyledItemDelegate):
     current_index: typing.Optional[QtCore.QModelIndex]
+    main_dock: "MainWidget"
 
-    def __init__(self, parent: QtCore.QObject = None):
+    def __init__(
+            self,
+            main_dock: "MainWidget",
+            parent: QtCore.QObject = None,
+    ):
         super().__init__(parent)
         self.parent = parent
+        self.main_dock = main_dock
         self.current_index = None
 
     def paint(
@@ -183,7 +189,7 @@ class JobItemDelegate(QtWidgets.QStyledItemDelegate):
 
         # item = model.data(index, QtCore.Qt.DisplayRole)
         if isinstance(item, models.Job):
-            return DatasetEditorWidget(item, parent=parent)
+            return DatasetEditorWidget(item, self.main_dock, parent=parent)
         else:
             return super().createEditor(parent, option, index)
 
@@ -198,6 +204,7 @@ class JobItemDelegate(QtWidgets.QStyledItemDelegate):
 
 class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
     job: models.Job
+    main_dock: "MainWidget"
 
     add_to_canvas_tb: QtWidgets.QToolButton
     creation_date_la: QtWidgets.QLabel
@@ -208,10 +215,11 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
     open_directory_tb: QtWidgets.QToolButton
     progressBar: QtWidgets.QProgressBar
 
-    def __init__(self, job: models.Job, parent=None):
+    def __init__(self, job: models.Job, main_dock: "MainWidget", parent=None):
         super().__init__(parent)
         self.setupUi(self)
         self.job = job
+        self.main_dock = main_dock
         self.setAutoFillBackground(True)  # allows hiding background prerendered pixmap
         self.add_to_canvas_tb.clicked.connect(self.load_dataset)
         self.open_details_tb.clicked.connect(self.show_details)
@@ -274,10 +282,12 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
 
     def show_details(self):
         log(f"Details button clicked for job {self.job.params.task_name!r}")
-        result = DatasetDetailsDialogue(
+        self.main_dock.paused = True
+        DatasetDetailsDialogue(
             self.job,
             parent=iface.mainWindow()
         ).exec_()
+        self.main_dock.paused = False
 
     def open_job_directory(self):
         log(f"Open directory button clicked for job {self.job.params.task_name!r}")

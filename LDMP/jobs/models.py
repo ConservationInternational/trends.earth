@@ -157,7 +157,7 @@ class JobParameters:
     def deserialize(cls, raw_params: typing.Dict):
         params = raw_params.copy()
         name = params.pop("task_name")
-        notes = JobNotes.deserialize(params.pop("task_notes"))
+        notes = JobNotes.deserialize(params.pop("task_notes", ""))
         return cls(
             task_name=name,
             task_notes=notes,
@@ -360,6 +360,15 @@ class Job:
             end_date=end_date
         )
 
+    @property
+    def visible_name(self) -> str:
+        task_name = self.params.task_name
+        if task_name != "":
+            name = f"{task_name}({self.script.name})"
+        else:
+            name = self.script.name
+        return name
+
     def serialize(self) -> typing.Dict:
         # local scripts are identified by their name, they do not have an id
         script_identifier = (
@@ -377,6 +386,7 @@ class Job:
         if self.end_date is not None:
             raw_job["end_date"] = self.end_date.strftime(self._date_format)
         return raw_job
+
 
 
 @functools.lru_cache(maxsize=None)  # not using functools.cache, as it was only introduced in Python 3.9

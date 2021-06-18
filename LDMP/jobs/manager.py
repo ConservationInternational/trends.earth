@@ -171,14 +171,19 @@ class JobManager(QtCore.QObject):
 
         now = dt.datetime.now(tz=dt.timezone.utc)
         relevant_date = now - dt.timedelta(days=self._relevant_job_age_threshold_days)
-        remote_jobs = get_remote_jobs(end_date=relevant_date)
-        relevant_remote_jobs = get_relevant_remote_jobs(remote_jobs)
-        self._refresh_local_running_jobs(relevant_remote_jobs)
-        self._refresh_local_finished_jobs(relevant_remote_jobs)
-        self._refresh_local_generated_jobs()
-        self._refresh_local_deleted_jobs()
-        if emit_signal:
-            self.refreshed_from_remote.emit()
+        try:
+            remote_jobs = get_remote_jobs(end_date=relevant_date)
+        except TypeError as exc:
+            log(f"Could not retrieve remote jobs: {str(exc)}")
+        else:
+            relevant_remote_jobs = get_relevant_remote_jobs(remote_jobs)
+            self._refresh_local_running_jobs(relevant_remote_jobs)
+            self._refresh_local_finished_jobs(relevant_remote_jobs)
+            self._refresh_local_generated_jobs()
+            self._refresh_local_deleted_jobs()
+        finally:
+            if emit_signal:
+                self.refreshed_from_remote.emit()
 
     def delete_job(self, job: Job):
         """Delete a job metadata file and any associated datasets from the local disk
@@ -633,14 +638,18 @@ def _download_result(url: str, output_path: Path) -> bool:
             pass
     return result
 
+
 def _delete_job_datasets(job: Job):
-    for path in job.results.local_paths:
-        try:
-            # not using the `missing_ok` param since it was introduced only on Python 3.8
-            path.unlink()
-        except FileNotFoundError:
-            log(f"Could not find path {path!r}, skipping deletion...")
-    job.results.local_paths = []
+    if job.results is not None:
+        for path in job.results.local_paths:
+            try:
+                # not using the `missing_ok` param since it was introduced only on Python 3.8
+                path.unlink()
+            except FileNotFoundError:
+                log(f"Could not find path {path!r}, skipping deletion...")
+        job.results.local_paths = []
+    else:
+        log("This job has no results to be deleted, skipping...")
 
 
 def get_remote_jobs(end_date: typing.Optional[dt.datetime] = None) -> typing.List[Job]:

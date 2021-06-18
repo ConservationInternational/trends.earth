@@ -99,7 +99,7 @@ class JobsSortFilterProxyModel(QtCore.QSortFilterProxyModel):
         jobs_model = self.sourceModel()
         index = jobs_model.index(source_row, 0, source_parent)
         job: models.Job = jobs_model.data(index)
-        match = self.filterRegularExpression().match(job.params.task_name)
+        match = self.filterRegularExpression().match(job.visible_name)
         return match.hasMatch()
 
     def lessThan(self, left: QtCore.QModelIndex, right: QtCore.QModelIndex) -> bool:
@@ -108,7 +108,7 @@ class JobsSortFilterProxyModel(QtCore.QSortFilterProxyModel):
         right_job: models.Job = model.data(right)
         to_sort = (left_job, right_job)
         if self.current_sort_field == models.SortField.NAME:
-            result = sorted(to_sort, key=lambda j: j.params.task_name)[0] == left_job
+            result = sorted(to_sort, key=lambda j: j.visible_name)[0] == left_job
         elif self.current_sort_field == models.SortField.DATE:
             result = sorted(to_sort, key=lambda j: j.start_date)[0] == left_job
         elif self.current_sort_field == models.SortField.STATUS:
@@ -230,12 +230,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         self.download_tb.setIcon(
             QtGui.QIcon(':/plugins/LDMP/icons/cloud-download.svg'))
 
-        task_name = self.job.params.task_name
-        if task_name != "":
-            name = f"{task_name}({self.job.script.name})"
-        else:
-            name = self.job.script.name
-        self.name_la.setText(name)
+        self.name_la.setText(self.job.visible_name)
         self.creation_date_la.setText(self.job.start_date.strftime("%Y-%m-%d %H:%M"))
 
         self.download_tb.setEnabled(False)
@@ -293,19 +288,3 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
 
     def load_dataset(self):
         manager.job_manager.display_job_results(self.job)
-
-    def delete_dataset(self):
-        message_box = QtWidgets.QMessageBox()
-        message_box.setText(
-            f"You are about to delete job {self.job.params.task_name!r}")
-        message_box.setInformativeText("Confirm?")
-        message_box.setStandardButtons(
-            QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.Cancel)
-        message_box.setDefaultButton(QtWidgets.QMessageBox.Cancel)
-        message_box.setIcon(QtWidgets.QMessageBox.Information)
-        result = QtWidgets.QMessageBox.Res = message_box.exec_()
-        if result == QtWidgets.QMessageBox.Yes:
-            log("About to delete the dataset")
-            for path in self.job.results.local_paths:
-                layers.delete_layer_by_filename(str(path))
-            manager.job_manager.delete_job(self.job)

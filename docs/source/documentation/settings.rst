@@ -144,6 +144,9 @@ From the advanced settings, you can change settings including:
 - setting the polling frequency,
 - and loading pe-compiled binaries to speed up calculations in Trends.Earth.
 
+Base data directory
+__________
+The base data directory is the local folder on your machine where the 
 
 Debug mode
 __________

@@ -126,7 +126,7 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
             # into one zip file.
             dataset_base_dir = self.raster_file_path.parents[0]
             folder_contents = dataset_base_dir.glob(f"{self.raster_file_path.stem}.*")
-            files = [f for f in folder_contents if f.is_file()]
+            files = [content for content in folder_contents if content.is_file()]
 
             manager.job_manager.exports_dir.mkdir(exist_ok=True)
 

@@ -131,8 +131,16 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
             manager.job_manager.exports_dir.mkdir(exist_ok=True)
 
             try:
+                # using dataset raster file basename for the zip if
+                # the job task name is empty.
+                if self.job.params.task_name is not None and \
+                        self.job.params.task_name is not '':
+                    zip_file_name = self.job.params.task_name
+                else:
+                    zip_file_name = self.raster_file_path.stem
+
                 zipped_file = f"{str(manager.job_manager.exports_dir)}/" \
-                              f"{self.job.params.task_name}.zip"
+                              f"{zip_file_name}.zip"
                 with ZipFile(zipped_file, 'w') as zip:
                     for file in files:
                         zip.write(file, Path(file).name)

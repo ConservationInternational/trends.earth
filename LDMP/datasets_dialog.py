@@ -56,14 +56,25 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
         self.export_btn.clicked.connect(self.export_dataset)
         self.alg_le.setText(self.job.script.name)
         empty_paths_msg = "This dataset does not have local paths"
+
+        local_paths_exist = False
         if self.job.results is not None:
             local_paths = self.job.results.local_paths
             if len(local_paths) > 0:
                 path_le_text = ", ".join(str(p) for p in local_paths)
+                local_paths_exist = True
             else:
                 path_le_text = empty_paths_msg
         else:
             path_le_text = f"{empty_paths_msg}_yet"
+
+        is_loadable = self.job.status in (
+                        models.JobStatus.DOWNLOADED,
+                        models.JobStatus.GENERATED_LOCALLY) \
+                        and local_paths_exist
+
+        self.load_btn.setEnabled(is_loadable)
+
         self.path_le.setText(path_le_text)
         self.load_btn.setIcon(
             QtGui.QIcon(':/plugins/LDMP/icons/mActionAddRasterLayer.svg'))

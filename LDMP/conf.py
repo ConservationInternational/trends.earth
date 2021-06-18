@@ -825,7 +825,11 @@ _ALGORITHM_CONFIG = [
         "algorithms": [
             {
                 "name": "Land Productivity",
-                "description": "TODO: Land Productivity long description",
+                "description": (
+                    "Land productivity is the biological productive capacity of the "
+                    "land, the source of all the food, fiber and fuel that sustains "
+                    "humans"
+                ),
                 "scripts": [
                     {
                         "script": KNOWN_SCRIPTS["productivity"],

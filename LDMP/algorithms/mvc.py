@@ -226,6 +226,7 @@ class AlgorithmEditorWidget(QtWidgets.QWidget, WidgetAlgorithmLeafUi):
         self.setupUi(self)
         self.setAutoFillBackground(True)  # this allow to hide background prerendered pixmap
         self.name_la.setText(algorithm.name)
+        self.name_la.adjustSize()
         self.description_la.setText(algorithm.description)
         action_labels = {
             models.AlgorithmRunMode.LOCAL: "Run",

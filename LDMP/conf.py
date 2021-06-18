@@ -825,7 +825,11 @@ _ALGORITHM_CONFIG = [
         "algorithms": [
             {
                 "name": "Land Productivity",
-                "description": "TODO: Land Productivity long description",
+                "description": (
+                    "Land productivity is the biological productive capacity of the "
+                    "land, the source of all the food, fiber and fuel that sustains "
+                    "humans"
+                ),
                 "scripts": [
                     {
                         "script": KNOWN_SCRIPTS["productivity"],
@@ -835,7 +839,11 @@ _ALGORITHM_CONFIG = [
             },
             {
                 "name": "Land Cover",
-                "description": "TODO: Land Cover long description",
+                "description": (
+                    "Land cover is the physical material at the surface of the earth. "
+                    "Land covers include grass, asphalt, trees, bare ground, water, "
+                    "etc"
+                ),
                 "scripts": [
                     {
                         "script": KNOWN_SCRIPTS["local-land-cover"],
@@ -849,7 +857,10 @@ _ALGORITHM_CONFIG = [
             },
             {
                 "name": "Soil Organic Carbon",
-                "description": "TODO: Soil Organic Carbon long description",
+                "description": (
+                    "Soil organic carbon is a measureable component of soil organic "
+                    "matter"
+                ),
                 "scripts": [
                     {
                         "script": KNOWN_SCRIPTS["local-soil-organic-carbon"],
@@ -863,7 +874,10 @@ _ALGORITHM_CONFIG = [
             },
             {
                 "name": "All SDG 15.3.1 sub-indicators in one step",
-                "description": "TODO: All SDG 15.3.1 sub-indicators in one step long description",
+                "description": (
+                    "Calculate Productivity, Land Cover and Soil Organic carbon "
+                    "sub-indicators simultaneously"
+                ),
                 "scripts": [
                     {
                         "script": KNOWN_SCRIPTS["three-sdg-15-3-1-sub-indicators"],
@@ -874,7 +888,9 @@ _ALGORITHM_CONFIG = [
             {
                 "name": "Main SDG 15.3.1 indicator",
                 "name_details": "Spatial layer and summary table for total boundary",
-                "description": "TODO: Main SDG 15.3.1 indicator long description",
+                "description": (
+                    "Proportion of land that is degraded over total land area"
+                ),
                 "scripts": [
                     {
                         "script": KNOWN_SCRIPTS["final-sdg-15-3-1"],

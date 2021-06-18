@@ -264,12 +264,12 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             self.add_to_canvas_tb.setEnabled(self.has_loadable_result())
 
     def has_loadable_result(self):
-        for local_path in self.job.results.local_paths:
-            if local_path.suffix == ".tif":
-                result = True
-                break
-        else:
-            result = False
+        result = False
+        if self.job.results is not None:
+            for local_path in self.job.results.local_paths:
+                if local_path.suffix == ".tif":
+                    result = True
+                    break
         return result
 
     def show_details(self):

@@ -1,7 +1,7 @@
 Registration and settings
 =========================
 
-.. image:: /static/documentation/settings/trends_earth_toolbar_highlight_settings.png
+.. image:: ../../resources/en/documentation/settings/trends_earth_toolbar_highlight_settings.png
    :align: center
 
 .. _registration:
@@ -14,38 +14,38 @@ using any of the cloud-based functions.
 
 To register your email address and obtain a free account, select "|iconWrench| Settings" from the Trends.Earth toolbar drop down menu. This will open up the "Settings" dialog box:
 
-.. image:: /static/documentation/settings/settings_dialog_highlight_register.png
+.. image:: ../../resources/en/documentation/settings/settings_dialog_highlight_register.png
    :align: center
 
 To Register, click the "Register" button. Enter your email, name, 
 organization and country of residence and select "Ok":
 
-.. image:: /static/documentation/settings/register_new_user_dialog.png
+.. image:: ../../resources/en/documentation/settings/register_new_user_dialog.png
    :align: center
 
 You will see a message indicating your user has been registered:
 
-.. image:: /static/documentation/settings/registration_success.png
+.. image:: ../../resources/en/documentation/settings/registration_success.png
    :align: center
 
 After registering, you will receive an email from api@trends.earth with your password. Once you receive this email, click on the "Edit selected configuration" icon in the "Settings" dialog: 
 
-.. image:: /static/documentation/settings/settings_dialog_highlight_edit_selected_configuration.png
+.. image:: ../../resources/en/documentation/settings/settings_dialog_highlight_edit_selected_configuration.png
    :align: center
 
 This will bring up the "Authentication" dialog asking for your password. Enter the password you received from api@trends.earth and click "Save":
 
-.. image:: /static/documentation/settings/authenication_dialog.png
+.. image:: ../../resources/en/documentation/settings/authenication_dialog.png
    :align: center
 
 From the "Settings" dialog  click on "Test connection": 
 
-.. image:: /static/documentation/settings/settings_dialog_highlight_test_connection.png
+.. image:: ../../resources/en/documentation/settings/settings_dialog_highlight_test_connection.png
    :align: center
 
 You will see a message indicating you have successfully been logged in:
 
-.. image:: /static/documentation/settings/login_success.png
+.. image:: ../../resources/en/documentation/settings/login_success.png
    :align: center
 
 Updating your user
@@ -53,17 +53,17 @@ Updating your user
 
 If you already are registered for |Trends.Earth| but want to change your login information; update your name, organization, or country; click on "Update profile" from the "Settings" dialog: 
 
-.. image:: /static/documentation/settings/settings_dialog_highlight_update_profile.png
+.. image:: ../../resources/en/documentation/settings/settings_dialog_highlight_update_profile.png
    :align: center
 
 Update your information in the box that appears and click “Save”:
 
-.. image:: /static/documentation/settings/update_user_information_dialog.png
+.. image:: ../../resources/en/documentation/settings/update_user_information_dialog.png
    :align: center
 
 A message will appear showing that the update(s) to your login information has been saved:
 
-.. image:: /static/documentation/settings/updated_user_information.png
+.. image:: ../../resources/en/documentation/settings/updated_user_information.png
    :align: center
 
 Changing your user
@@ -73,39 +73,39 @@ To register a new user, see :ref:`registration`.
 
 If you want to change your user, click on the "Edit selected configuration" icon from the "Settings" dialog: 
 
-.. image:: /static/documentation/settings/settings_dialog_highlight_edit_selected_configuration.png
+.. image:: ../../resources/en/documentation/settings/settings_dialog_highlight_edit_selected_configuration.png
    :align: center
 
 In the "Authentication" dialog that appears, enter the username and password of the account you wish to switch to and click "Save":
 
-.. image:: /static/documentation/settings/authentication_change_user.png
+.. image:: ../../resources/en/documentation/settings/authentication_change_user.png
    :align: center
 
 From the "Settings" dialog  click on "Test connection": 
 
-.. image:: /static/documentation/settings/settings_dialog_highlight_test_connection.png
+.. image:: ../../resources/en/documentation/settings/settings_dialog_highlight_test_connection.png
    :align: center
 
 You will see a message indicating you have successfully been logged in as the new account:
 
-.. image:: /static/documentation/settings/login_success_change_user.png
+.. image:: ../../resources/en/documentation/settings/login_success_change_user.png
    :align: center
 
 Deleting your user
 ------------------
 To delete your user, click "Delete user" from the "Settings" dialog:
 
-.. image:: /static/documentation/settings/settings_dialog_highlight_delete_user.png
+.. image:: ../../resources/en/documentation/settings/settings_dialog_highlight_delete_user.png
    :align: center
 
 A warning message will appear. Click "Ok" if you are sure you want to delete your user:
 
-.. image:: /static/documentation/settings/delete_user.png
+.. image:: ../../resources/en/documentation/settings/delete_user.png
    :align: center
 
 A message will appear confirming that the user has been deleted. Click "Ok":
 
-.. image:: /static/documentation/settings/delete_user_success.png
+.. image:: ../../resources/en/documentation/settings/delete_user_success.png
    :align: center
 
 
@@ -115,12 +115,12 @@ Forgot password
 If you forget your password, click on "Reset password" from the "Settings" dialog 
 box: 
 
-.. image:: /static/documentation/settings/settings_dialog_highlight_reset_password.png
+.. image:: ../../resources/en/documentation/settings/settings_dialog_highlight_reset_password.png
    :align: center
 
 Enter the email address you used to register for |Trends.Earth| then Click "Ok":
 
-.. image:: /static/documentation/settings/forgot_password.png
+.. image:: ../../resources/en/documentation/settings/forgot_password.png
    :align: center 
 
 Click "Yes" in the "Reset password?" confirmation dialog box then click "Ok" in the "Success" message box that appears. 
@@ -131,7 +131,7 @@ Once you receive your new password, return to the "Settings" screen and use the 
 Advanced settings
 -----------------
 
-.. image:: /static/documentation/settings/settings_dialog_advanced.png
+.. image:: ../../resources/en/documentation/settings/settings_dialog_advanced.png
    :align: center
    
 

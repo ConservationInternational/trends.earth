@@ -61,18 +61,14 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
         self.end_year_climate = 9999
         self.start_year_ndvi = 0
         self.end_year_ndvi = 9999
-
         self.dataset_ndvi_changed()
         self.traj_climate_changed()
-
         self.dataset_ndvi.currentIndexChanged.connect(self.dataset_ndvi_changed)
         self.traj_climate.currentIndexChanged.connect(self.traj_climate_changed)
-
         self.mode_te_prod.toggled.connect(self.mode_te_prod_toggled)
-
         self.mode_te_prod_toggled()
-
         self.resize(self.width(), 711)
+        self._finish_initialization()
 
     @property
     def trajectory_functions(self) -> typing.Dict:
@@ -282,10 +278,9 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
             'crosses_180th': crosses_180th,
             'ndvi_gee_dataset': ndvi_dataset,
             'climate_gee_dataset': climate_gee_dataset,
-            'task_name': self.options_tab.task_name.text(),
-            'task_notes': self.options_tab.task_notes.toPlainText()
+            'task_name': self.execution_name_le.text(),
+            'task_notes': self.task_notes.toPlainText()
         }
-
         # This will add in the trajectory-method parameter for productivity 
         # trajectory
         current_trajectory_function = self.trajectory_functions[

@@ -277,11 +277,14 @@ def get_sample(f, band_number, n=1e6):
         return out
 
 
-def get_cutoff(f, band_number, band_info, percentiles):
+def _get_cutoff(
+        data_sample: np.ndarray,
+        no_data_value: typing.Union[int, float],
+        percentiles
+):
     if len(percentiles) != 1 and len(percentiles) != 2:
         raise ValueError("Percentiles must have length 1 or 2. Percentiles that were passed: {}".format(percentiles))
-    d = get_sample(f, band_number)
-    md = np.ma.masked_where(d == band_info['no_data_value'], d)
+    md = np.ma.masked_where(data_sample == no_data_value, data_sample)
     if md.size == 0:
         # If all of the values are no data, return 0
         log('All values are no data')
@@ -297,13 +300,13 @@ def get_cutoff(f, band_number, band_info, percentiles):
 
         elif cutoffs.size == 1:
             if cutoffs < 0:
-                # Negative cutoffs are not allowed as stretch is either zero 
+                # Negative cutoffs are not allowed as stretch is either zero
                 # centered or starting at zero
                 return 0
             else:
                 return round_to_n(cutoffs, 2)
         else:
-            # We only get here if cutoffs is not size 1 or 2, which should 
+            # We only get here if cutoffs is not size 1 or 2, which should
             # never happen, so raise
             raise ValueError("Stretch calculation returned cutoffs array of size {} ({})".format(cutoffs.size, cutoffs))
 
@@ -355,123 +358,225 @@ def create_local_json_metadata(json_file, data_file, bands, metadata={}):
     #               sort_keys=True, indent=4, separators=(',', ': '))
 
 
-def add_layer(f, band_number, band_info, activated='default'):
+def _create_categorical_color_ramp(style_config: typing.Dict):
+    ramp_items = style_config["ramp"]["items"]
+    result = []
+    for item in ramp_items:
+        result.append(
+            QgsColorRampShader.ColorRampItem(
+                item['value'],
+                QColor(item['color']),
+                tr_style_text(item['label'])
+            )
+        )
+    return result
+
+
+def _create_categorical_with_dynamic_ramp_color_ramp(
+        style_config: typing.Dict, band_info):
+    ramp_items = style_config["ramp"]["items"]
+    result = []
+    for item in ramp_items:
+        result.append(
+            QgsColorRampShader.ColorRampItem(
+                item['value'],
+                QColor(item['color']),
+                tr_style_text(item['label'])
+            )
+        )
+    # Now add in the continuous ramp with min/max values and labels
+    # determined from the band info min/max
+    result.append(
+        QgsColorRampShader.ColorRampItem(
+            band_info['metadata']['ramp_min'],
+            QColor(style_config['ramp']['ramp min']['color']),
+            tr_style_text(style_config['ramp']['ramp min']['label'], band_info)
+        )
+    )
+    result.append(
+        QgsColorRampShader.ColorRampItem(
+            band_info['metadata']['ramp_max'],
+            QColor(style_config['ramp']['ramp max']['color']),
+            tr_style_text(style_config['ramp']['ramp max']['label'], band_info)
+        )
+    )
+    return result
+
+
+def _create_zero_centered_stretch_color_ramp(
+        style_config: typing.Dict, data_sample, no_data_value):
+    # Set a colormap centred on zero, going to the max of the min and max
+    # extreme value significant to three figures.
+    cutoff = _get_cutoff(
+        data_sample,
+        no_data_value,
+        [
+            style_config['ramp']['percent stretch'],
+            100 - style_config['ramp']['percent stretch']
+        ]
+    )
+    log('Cutoff for {} percent stretch: {}'.format(
+        style_config['ramp']['percent stretch'], cutoff))
+    result = [
+        QgsColorRampShader.ColorRampItem(
+            -cutoff,
+            QColor(style_config['ramp']['min']['color']),
+            '{}'.format(-cutoff)
+        ),
+        QgsColorRampShader.ColorRampItem(
+            0,
+            QColor(style_config['ramp']['zero']['color']),
+            '0'
+        ),
+        QgsColorRampShader.ColorRampItem(
+            cutoff,
+            QColor(style_config['ramp']['max']['color']),
+            '{}'.format(cutoff)
+        ),
+        QgsColorRampShader.ColorRampItem(
+            style_config['ramp']['no data']['value'],
+            QColor(style_config['ramp']['no data']['color']),
+            tr_style_text(style_config['ramp']['no data']['label'])
+        )
+    ]
+    return result
+
+
+def _create_min_zero_stretch_color_ramp(style_config: typing.Dict, data_sample, no_data_value):
+    # Set a colormap from zero to percent stretch significant to
+    # three figures.
+    cutoff = _get_cutoff(
+        data_sample,
+        no_data_value,
+        [100 - style_config['ramp']['percent stretch']]
+    )
+    log('Cutoff for min zero max {} percent stretch: {}'.format(
+        100 - style_config['ramp']['percent stretch'], cutoff))
+    result = [
+        QgsColorRampShader.ColorRampItem(
+            0,
+            QColor(style_config['ramp']['zero']['color']),
+            '0'
+        )
+    ]
+    if 'mid' in style_config['ramp']:
+        result.append(
+            QgsColorRampShader.ColorRampItem(
+                cutoff / 2,
+                QColor(style_config['ramp']['mid']['color']),
+                str(cutoff / 2)
+            )
+        )
+    result.append(
+        QgsColorRampShader.ColorRampItem(
+            cutoff,
+            QColor(style_config['ramp']['max']['color']),
+            '{}'.format(cutoff)
+        )
+    )
+    result.append(
+        QgsColorRampShader.ColorRampItem(
+            style_config['ramp']['no data']['value'],
+            QColor(style_config['ramp']['no data']['color']),
+            tr_style_text(style_config['ramp']['no data']['label'])
+        )
+    )
+    return result
+
+
+def _create_color_ramp(
+        layer_path: str,
+        band_number: int,
+        style_config: typing.Dict,
+        band_info: typing.Dict,
+):
+    ramp_type = style_config["ramp"]["type"]
+    if ramp_type == 'categorical':
+        result = _create_categorical_color_ramp(style_config)
+    elif ramp_type == 'categorical with dynamic ramp':
+        result = _create_categorical_with_dynamic_ramp_color_ramp(style_config, band_info)
+    elif ramp_type == 'zero-centered stretch':
+        # Set a colormap centred on zero, going to the max of the min and max
+        # extreme value significant to three figures.
+        data_sample = get_sample(layer_path, band_number)
+        result = _create_zero_centered_stretch_color_ramp(
+            style_config, data_sample, band_info["no_data_value"])
+    elif ramp_type == 'min zero stretch':
+        # Set a colormap from zero to percent stretch significant to
+        # three figures.
+        data_sample = get_sample(layer_path, band_number)
+        result = _create_min_zero_stretch_color_ramp(
+            style_config, data_sample, band_info["no_data_value"])
+    else:
+        raise RuntimeError("Failed to load Trends.Earth style.")
+    return result
+
+
+def add_layer(
+        layer_path: str,
+        band_number: int,
+        band_info: typing.Dict,
+        activated: str ='default'
+):
     try:
         style = styles[band_info['name']]
     except KeyError:
-        QtWidgets.QMessageBox.information(None,
-                                      tr_layers.tr("Information"),
-                                      tr_layers.tr(u'Trends.Earth does not have a style assigned for "{}" (band {} in {}). To use this layer, manually add it to your map.'.format(band_info['name'], band_number, f)))
-        log(u'No style found for "{}" in {}'.format(band_info['name'], band_number, f))
+        QtWidgets.QMessageBox.information(
+            None,
+            tr_layers.tr("Information"),
+            tr_layers.tr(
+                u'Trends.Earth does not have a style assigned for "{}" (band {} '
+                u'in {}). To use this layer, manually add it to your map.'.format(
+                    band_info['name'], band_number, layer_path)
+            )
+        )
+        log(u'No style found for "{}" in {}'.format(band_info['name'], band_number, layer_path))
         return False
 
     title = get_band_title(band_info)
-    log('Band title: {}'.format(title))
-
-    l = iface.addRasterLayer(f, title)
-    if not l.isValid():
+    layer = iface.addRasterLayer(layer_path, title)
+    if not layer.isValid():
         log('Failed to add layer')
         return False
-
-    if style['ramp']['type'] == 'categorical':
-        r = []
-        for item in style['ramp']['items']:
-            r.append(QgsColorRampShader.ColorRampItem(item['value'],
-                                                      QColor(item['color']),
-                                                      tr_style_text(item['label'])))
-    elif style['ramp']['type'] == 'categorical with dynamic ramp':
-        r = []
-        for item in style['ramp']['items']:
-            r.append(QgsColorRampShader.ColorRampItem(item['value'],
-                                                      QColor(item['color']),
-                                                      tr_style_text(item['label'])))
-        # Now add in the continuous ramp with min/max values and labels 
-        # determined from the band info min/max
-        r.append(QgsColorRampShader.ColorRampItem(band_info['metadata']['ramp_min'],
-                                                  QColor(style['ramp']['ramp min']['color']),
-                                                  tr_style_text(style['ramp']['ramp min']['label'], band_info)))
-        r.append(QgsColorRampShader.ColorRampItem(band_info['metadata']['ramp_max'],
-                                                  QColor(style['ramp']['ramp max']['color']),
-                                                  tr_style_text(style['ramp']['ramp max']['label'], band_info)))
-
-    elif style['ramp']['type'] == 'zero-centered stretch':
-        # Set a colormap centred on zero, going to the max of the min and max 
-        # extreme value significant to three figures.
-        cutoff = get_cutoff(f, band_number, band_info, [style['ramp']['percent stretch'], 100 - style['ramp']['percent stretch']])
-        log('Cutoff for {} percent stretch: {}'.format(style['ramp']['percent stretch'], cutoff))
-        r = []
-        r.append(QgsColorRampShader.ColorRampItem(-cutoff,
-                                                  QColor(style['ramp']['min']['color']),
-                                                  '{}'.format(-cutoff)))
-        r.append(QgsColorRampShader.ColorRampItem(0,
-                                                  QColor(style['ramp']['zero']['color']),
-                                                  '0'))
-        r.append(QgsColorRampShader.ColorRampItem(cutoff,
-                                                  QColor(style['ramp']['max']['color']),
-                                                  '{}'.format(cutoff)))
-        r.append(QgsColorRampShader.ColorRampItem(style['ramp']['no data']['value'],
-                                                  QColor(style['ramp']['no data']['color']),
-                                                  tr_style_text(style['ramp']['no data']['label'])))
-
-    elif style['ramp']['type'] == 'min zero stretch':
-        # Set a colormap from zero to percent stretch significant to
-        # three figures.
-        cutoff = get_cutoff(f, band_number, band_info, [100 - style['ramp']['percent stretch']])
-        log('Cutoff for min zero max {} percent stretch: {}'.format(100 - style['ramp']['percent stretch'], cutoff))
-        r = []
-        r.append(QgsColorRampShader.ColorRampItem(0,
-                                                  QColor(style['ramp']['zero']['color']),
-                                                  '0'))
-        if 'mid' in style['ramp']:
-            r.append(QgsColorRampShader.ColorRampItem(cutoff/2,
-                                                      QColor(style['ramp']['mid']['color']),
-                                                      str(cutoff/2)))
-        r.append(QgsColorRampShader.ColorRampItem(cutoff,
-                                                  QColor(style['ramp']['max']['color']),
-                                                  '{}'.format(cutoff)))
-        r.append(QgsColorRampShader.ColorRampItem(style['ramp']['no data']['value'],
-                                                  QColor(style['ramp']['no data']['color']),
-                                                  tr_style_text(style['ramp']['no data']['label'])))
-
-    else:
-        log('Failed to load Trends.Earth style. Adding layer using QGIS defaults.')
-        QtWidgets.QMessageBox.critical(None,
-                                       tr_layers.tr("Error"),
-                                       tr_layers.tr("Failed to load Trends.Earth style. Adding layer using QGIS defaults."))
+    try:
+        color_ramp = _create_color_ramp(layer_path, band_number, style, band_info)
+        log(f"color_ramp: {color_ramp}")
+        log(f"color_ramp is None: {color_ramp is None}")
+    except RuntimeError as exc:
+        log(f"Could not create color ramp: {str(exc)}")
         return False
-
-    fcn = QgsColorRampShader()
-    if style['ramp']['shader'] == 'exact':
-        fcn.setColorRampType("EXACT")
-    elif style['ramp']['shader'] == 'discrete':
-        fcn.setColorRampType("DISCRETE")
-    elif style['ramp']['shader'] == 'interpolated':
-        fcn.setColorRampType("INTERPOLATED")
     else:
-        raise TypeError("Unrecognized color ramp type: {}".format(style['ramp']['shader']))
-    # Make sure the items in the color ramp are sorted by value (weird display 
-    # errors will otherwise result)
-    r = sorted(r, key=attrgetter('value'))
-    fcn.setColorRampItemList(r)
-    shader = QgsRasterShader()
-    shader.setRasterShaderFunction(fcn)
-    pseudoRenderer = QgsSingleBandPseudoColorRenderer(l.dataProvider(),
-                                                      band_number,
-                                                      shader)
-    l.setRenderer(pseudoRenderer)
-    l.triggerRepaint()
-    if activated == 'default':
-        if 'activated' in band_info and not band_info['activated']:
-            QgsProject.instance().layerTreeRoot().findLayer(l.id()).setItemVisibilityChecked(False)
-    elif activated:
-        # The layer is visible by default, so if activated is true, don't need 
-        # to change anything in order to make it visible
-        pass
-    elif not activated:
-        QgsProject.instance().layerTreeRoot().findLayer(l.id()).setItemVisibilityChecked(False)
-    iface.layerTreeView().refreshLayerSymbology(l.id())
-
-    return True
+        fcn = QgsColorRampShader()
+        ramp_shader = style["ramp"]["shader"]
+        if ramp_shader == 'exact':
+            fcn.setColorRampType("EXACT")
+        elif ramp_shader == 'discrete':
+            fcn.setColorRampType("DISCRETE")
+        elif ramp_shader == 'interpolated':
+            fcn.setColorRampType("INTERPOLATED")
+        else:
+            raise TypeError("Unrecognized color ramp type: {}".format(ramp_shader))
+        # Make sure the items in the color ramp are sorted by value (weird display
+        # errors will otherwise result)
+        color_ramp.sort(key=attrgetter('value'))
+        fcn.setColorRampItemList(color_ramp)
+        shader = QgsRasterShader()
+        shader.setRasterShaderFunction(fcn)
+        renderer = QgsSingleBandPseudoColorRenderer(
+            layer.dataProvider(), band_number, shader)
+        layer.setRenderer(renderer)
+        layer.triggerRepaint()
+        if activated == 'default':
+            if 'activated' in band_info and not band_info['activated']:
+                QgsProject.instance().layerTreeRoot().findLayer(layer.id()).setItemVisibilityChecked(False)
+        elif activated:
+            # The layer is visible by default, so if activated is true, don't need
+            # to change anything in order to make it visible
+            pass
+        elif not activated:
+            QgsProject.instance().layerTreeRoot().findLayer(layer.id()).setItemVisibilityChecked(False)
+        iface.layerTreeView().refreshLayerSymbology(layer.id())
+        return True
 
 
 def tr_style_text(label, band_info=None):
@@ -501,10 +606,18 @@ def get_band_infos(data_file):
 
 def get_band_title(band_info):
     style = styles.get(band_info['name'], None)
+    result = band_info["name"]
     if style:
-        return tr_style_text(style['title']).format(**band_info['metadata'])
-    else:
-        return band_info['name']
+        title_pattern = tr_style_text(style["title"])
+        try:
+            result = title_pattern.format(**band_info['metadata'])
+        except KeyError as exc:
+            log(
+                f"Unable to find a proper name for this layer because of the following "
+                f"exception: {str(exc)}"
+            )
+    return result
+
 
 
 def find_loaded_layer_id(layer_path: Path) -> typing.Optional[str]:

@@ -37,6 +37,7 @@ from osgeo import (
 )
 
 from . import (
+    conf,
     GetTempFilename,
     layers,
     log,
@@ -55,7 +56,6 @@ from .gui.WidgetDataIOSelectTELayerExisting import Ui_WidgetDataIOSelectTELayerE
 from .gui.WidgetDataIOSelectTELayerImport import Ui_WidgetDataIOSelectTELayerImport
 from .jobs.manager import job_manager
 from .jobs import models as job_models
-from .schemas import schemas
 
 mb = qgis.utils.iface.messageBar()
 
@@ -448,11 +448,13 @@ class DlgDataIO(QtWidgets.QDialog, Ui_DlgDataIO):
         self.dlg_DataIOLoad_prod.exec_()
 
 class DlgDataIOLoadTEBase(QtWidgets.QDialog):
+    layers_view: QtWidgets.QListView
+    layers_model: QtCore.QStringListModel
+
     layers_loaded = QtCore.pyqtSignal(list)
 
     def __init__(self, parent=None):
-        super(DlgDataIOLoadTEBase, self).__init__(parent)
-
+        super().__init__(parent)
         self.setupUi(self)
 
         self.layers_model = QtCore.QStringListModel()
@@ -460,10 +462,7 @@ class DlgDataIOLoadTEBase(QtWidgets.QDialog):
         self.layers_model.setStringList([])
 
         self.buttonBox.accepted.connect(self.ok_clicked)
-        self.buttonBox.rejected.connect(self.cancel_clicked)
-
-    def cancel_clicked(self):
-        self.close()
+        self.buttonBox.rejected.connect(self.reject)
 
     def ok_clicked(self):
         rows = []
@@ -490,86 +489,87 @@ class DlgDataIOLoadTEBase(QtWidgets.QDialog):
         self.close()
 
 
-class DlgDataIOLoadTE(DlgDataIOLoadTEBase, Ui_DlgDataIOLoadTE):
+class DlgDataIOLoadTE(QtWidgets.QDialog, Ui_DlgDataIOLoadTE):
+    file_browse_btn: QtWidgets.QPushButton
+    file_lineedit: QtWidgets.QLineEdit
+    parsed_name_la: QtWidgets.QLabel
+    parsed_name_le: QtWidgets.QLineEdit
+    parsed_result_la: QtWidgets.QLabel
+    parsed_result_path_le: QtWidgets.QLineEdit
+
+    buttonBox: QtWidgets.QDialogButtonBox
+
+    job: typing.Optional[job_models.Job]
+
+
     def __init__(self, parent=None):
-        super(DlgDataIOLoadTE, self).__init__(parent)
+        super().__init__(parent)
+        self.setupUi(self)
+        self.reset_widgets()
+        self.job = None
+        self.file_browse_btn.clicked.connect(self.parse_job_file)
+        self.buttonBox.accepted.connect(self.ok_clicked)
+        self.buttonBox.rejected.connect(self.reject)
+        self.buttonBox.button(self.buttonBox.Ok).setEnabled(False)
 
-        self.file_browse_btn.clicked.connect(self.browse_file)
-        self.btn_view_metadata.clicked.connect(self.view_metadata)
+    def reset_widgets(self):
+        self.parsed_name_la.setEnabled(False)
+        self.parsed_name_le.clear()
+        self.parsed_name_le.setEnabled(False)
+        self.parsed_result_la.setEnabled(False)
+        self.parsed_result_path_le.clear()
+        self.parsed_result_path_le.setEnabled(False)
 
-    def showEvent(self, e):
-        super(DlgDataIOLoadTE, self).showEvent(e)
+    def show_job_info(self):
+        self.parsed_name_la.setEnabled(True)
+        self.parsed_name_le.setText(job_manager.get_job_basename(self.job))
+        self.parsed_name_le.setEnabled(True)
+        self.parsed_result_la.setEnabled(True)
+        try:
+            local_path = str(self.job.results.local_paths[0])
+        except IndexError:
+            local_path = ""
+        self.parsed_result_path_le.setText(local_path)
+        self.parsed_result_path_le.setEnabled(True)
 
-        self.file_lineedit.clear()
-        self.file = None
-        self.layers_model.setStringList([])
-        self.btn_view_metadata.setEnabled(False)
-
-    def browse_file(self):
-        f, _ = QtWidgets.QFileDialog.getOpenFileName(self,
-                                              self.tr('Select a Trends.Earth output file'),
-                                              QSettings().value("LDMP/output_dir", None),
-                                              self.tr('Trends.Earth metadata file (*.json)'))
-        log(u"Chose path: {}.".format(f))
-        if f:
-            if os.access(f, os.R_OK):
-                QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
-                self.file = f
+    def parse_job_file(self):
+        self.reset_widgets()
+        self.job = None
+        self.buttonBox.button(self.buttonBox.Ok).setEnabled(False)
+        file_dialog = QtWidgets.QFileDialog(self)
+        file_dialog.setFileMode(QtWidgets.QFileDialog.ExistingFile)
+        file_dialog.setNameFilter("*.json")
+        file_dialog.setDirectory(conf.settings_manager.get_value(conf.Setting.BASE_DIR))
+        if file_dialog.exec_():
+            chosen_raw_path = file_dialog.selectedFiles()[0]
+            job, error_message = self.parse_chosen_path(chosen_raw_path)
+            if job is not None:
+                self.file_lineedit.setText(chosen_raw_path)
+                self.job = job
+                self.show_job_info()
+                self.buttonBox.button(self.buttonBox.Ok).setEnabled(True)
             else:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr(u"Cannot read {}. Choose a different file.".format(f)))
-                return
-        else:
-            return
+                self.file_lineedit.clear()
+                QtWidgets.QMessageBox.critical(
+                    self, self.tr("Could not load file"), error_message)
 
-        res = self.update_layer_list(f)
-        if res:
-            self.file_lineedit.setText(f)
-        else:
-            self.file_lineedit.clear()
+    def parse_chosen_path(
+            self, raw_path: str) -> typing.Tuple[typing.Optional[job_models.Job], str]:
+        path = Path(raw_path)
+        job = None
+        error_message = ""
+        if path.is_file():
+            try:
+                raw_job = json.loads(path.read_text())
+                job = job_models.Job.deserialize(raw_job)
+            except json.JSONDecodeError:
+                error_message = "Could not parse the selected file into a valid JSON"
+        return job, error_message
 
-    def update_layer_list(self, f):
-        if f:
-            self.layer_list = get_layer_info_from_file(os.path.normcase(os.path.normpath(f)))
-            if self.layer_list:
-                bands = [u'Band {}: {}'.format(layer[2], layer[1]) for layer in self.layer_list]
-                self.layers_model.setStringList(bands)
-                self.layers_view.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
-                for n in range(len(self.layer_list)):
-                    if self.layer_list[n][3]['add_to_map']:
-                        self.layers_view.selectionModel().select(
-                            self.layers_model.createIndex(n, 0),
-                            QtCore.QItemSelectionModel.Select
-                        )
-            else:
-                self.layers_model.setStringList([])
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr(u"{} does not appear to be a Trends.Earth output file".format(f)))
-                self.layers_model.setStringList([])
-                self.btn_view_metadata.setEnabled(False)
-                return None
-        else:
-            self.btn_view_metadata.setEnabled(False)
-            self.layers_model.setStringList([])
-            return None
-
-        self.btn_view_metadata.setEnabled(True)
-        return True
-
-    def view_metadata(self):
-        details_dlg = DlgJobsDetails(self)
-        m = layers.get_file_metadata(self.file)
-        m = m['metadata']
-        if m:
-            details_dlg.task_name.setText(m.get('task_name', ''))
-            details_dlg.comments.setText(m.get('task_notes', ''))
-            details_dlg.input.setText(json.dumps(m.get('params', {}), indent=4, sort_keys=True))
-            details_dlg.output.setText(json.dumps(m.get('results', {}), indent=4, sort_keys=True))
-            details_dlg.show()
-            details_dlg.exec_()
-        else:
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr(u"Cannot read {}. Choose a different file.".format(self.file)))
+    def ok_clicked(self):
+        log("Importing job...")
+        job_manager.import_job(self.job)
+        self.accept()
 
 
 class DlgDataIOLoadTESingleLayer(DlgDataIOLoadTEBase, Ui_DlgDataIOLoadTESingleLayer):
@@ -716,29 +716,38 @@ class ImportSelectRasterOutput(QtWidgets.QWidget, Ui_WidgetDataIOImportSelectRas
         if self.lineEdit_output_file.text():
             initial_file = self.lineEdit_output_file.text()
         else:
-            initial_file = QSettings().value("LDMP/output_dir", None)
-        raster_file, _ = QtWidgets.QFileDialog.getSaveFileName(self,
-                                                        self.tr('Choose a name for the output file'),
-                                                        initial_file,
-                                                        self.tr('Raster file (*.tif)'))
-        if raster_file:
-            if os.access(os.path.dirname(raster_file), os.W_OK):
-                QSettings().setValue("LDMP/output_dir", os.path.dirname(raster_file))
-                self.lineEdit_output_file.setText(raster_file)
+            initial_file = conf.settings_manager.get_value(conf.Setting.BASE_DIR)
+        raw_output_path, _ = QtWidgets.QFileDialog.getSaveFileName(
+            self,
+            self.tr('Choose a name for the output file'),
+            initial_file,
+            self.tr('Raster file (*.tif)')
+        )
+        if raw_output_path:
+            output_path = Path(raw_output_path)
+            output_path = output_path.parent / f"{output_path.stem}.tif"
+            if os.access(os.path.dirname(str(output_path)), os.W_OK):
+                self.lineEdit_output_file.setText(str(output_path))
                 return True
             else:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr(u"Cannot write to {}. Choose a different file.".format(raster_file)))
+                QtWidgets.QMessageBox.critical(
+                    self,
+                    self.tr("Error"),
+                    self.tr(u"Cannot write to {}. Choose a different file.".format(
+                        raw_output_path))
+                )
                 return False
 
 
 class DlgDataIOImportBase(QtWidgets.QDialog):
     """Base class for individual data loading dialogs"""
+
+    input_widget: ImportSelectFileInputWidget
+
     layer_loaded = QtCore.pyqtSignal(list)
 
     def __init__(self, parent=None):
-        super(DlgDataIOImportBase, self).__init__(parent)
-
+        super().__init__(parent)
         self.setupUi(self)
 
         self.input_widget = ImportSelectFileInputWidget()
@@ -747,20 +756,6 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         # The datatype determines whether the dataset resampling is done with 
         # nearest neighbor and mode or nearest neighbor and mean
         self.datatype = 'categorical'
-
-    def showEvent(self, event):
-        super(DlgDataIOImportBase, self).showEvent(event)
-
-        self.center_dialog()
-
-    def center_dialog(self):
-        # Center the dialog on whatver screen has QGIS app on it
-        self.setGeometry(QtWidgets.QStyle.alignedRect(
-            QtCore.Qt.LeftToRight,
-            QtCore.Qt.AlignCenter,
-            self.size(),
-            QtWidgets.qApp.desktop().screenGeometry(qgis.utils.iface.mainWindow()))
-        )
 
     def validate_input(self, value):
         if self.input_widget.radio_raster_input.isChecked():
@@ -911,20 +906,11 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         else:
             return True
 
-    def add_layer(self, band_name, metadata):
-        out_file = os.path.normcase(os.path.normpath(self.output_widget.lineEdit_output_file.text()))
-        out_json = os.path.splitext(out_file)[0] + '.json'
-        band_info = [schemas.BandInfo(band_name, add_to_map=True, metadata=metadata)]
-        layers.create_local_json_metadata(out_json, out_file, band_info)
-        schema = schemas.BandInfoSchema()
-        band_info_dict = schema.dump(band_info[0])
-        layers.add_layer(out_file, 1, band_info_dict)
-        return (out_file, layers.get_band_title(band_info_dict), 1, schema.dump(band_info[0]))
-
 
 class DlgDataIOImportLC(DlgDataIOImportBase, Ui_DlgDataIOImportLC):
+
     def __init__(self, parent=None):
-        super(DlgDataIOImportLC, self).__init__(parent)
+        super().__init__(parent)
 
         # This needs to be inserted after the lc definition widget but before 
         # the button box with ok/cancel
@@ -955,7 +941,7 @@ class DlgDataIOImportLC(DlgDataIOImportBase, Ui_DlgDataIOImportLC):
         if value == QtWidgets.QDialog.Accepted:
             self.validate_input(value)
         else:
-            super(DlgDataIOImportLC, self).done(value)
+            super().done(value)
 
     def validate_input(self, value):
         if self.output_widget.lineEdit_output_file.text() == '':
@@ -1042,21 +1028,25 @@ class DlgDataIOImportLC(DlgDataIOImportBase, Ui_DlgDataIOImportLC):
         if not remap_ret:
             return False
 
-        l_info = self.add_layer('Land cover (7 class)',
-                                {'year': int(self.input_widget.spinBox_data_year.text()),
-                                'source': 'custom data'})
+        job = job_manager.create_job_from_dataset(
+            Path(out_file),
+            "Land cover (7 class)",
+            {
+                'year': int(self.input_widget.spinBox_data_year.text()),
+                'source': 'custom data'
+            }
+        )
+        job_manager.import_job(job)
 
-        self.layer_loaded.emit([l_info])
 
 class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
     def __init__(self, parent=None):
-        super(DlgDataIOImportSOC, self).__init__(parent)
+        super().__init__(parent)
 
         # This needs to be inserted after the input widget but before the 
         # button box with ok/cancel
         self.output_widget = ImportSelectRasterOutput()
         self.verticalLayout.insertWidget(1, self.output_widget)
-
         self.datatype = 'continuous'
 
     def done(self, value):
@@ -1117,15 +1107,22 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
         if not ret:
             return False
 
-        l_info = self.add_layer('Soil organic carbon',
-                                {'year': int(self.input_widget.spinBox_data_year.text()),
-                                'source': 'custom data'})
-        self.layer_loaded.emit([l_info])
+        job = job_manager.create_job_from_dataset(
+            Path(out_file),
+            "Soil organic carbon",
+            {
+                'year': int(self.input_widget.spinBox_data_year.text()),
+                'source': 'custom data'
+            }
+        )
+        job_manager.import_job(job)
 
 
 class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
+    output_widget: ImportSelectRasterOutput
+
     def __init__(self, parent=None):
-        super(DlgDataIOImportProd, self).__init__(parent)
+        super().__init__(parent)
 
         # This needs to be inserted after the input widget but before the 
         # button box with ok/cancel
@@ -1145,7 +1142,7 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
             QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Choose an output file."))
             return
 
-        ret = super(DlgDataIOImportProd, self).validate_input(value)
+        ret = super().validate_input(value)
         if not ret:
             return
 
@@ -1169,7 +1166,7 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
         if len(invalid_values) > 0:
             QtWidgets.QMessageBox.warning(None, self.tr("Warning"), self.tr(u"The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.".format(in_file, len(invalid_values))))
 
-        super(DlgDataIOImportProd, self).done(value)
+        super().done(value)
 
         self.ok_clicked()
 
@@ -1185,9 +1182,14 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
         if not ret:
             return False
 
-        l_info = self.add_layer("Land Productivity Dynamics (LPD)",
-                                {'source': 'custom data'})
-        self.layer_loaded.emit([l_info])
+        job = job_manager.create_job_from_dataset(
+            Path(out_file),
+            "Land Productivity Dynamics (LPD)",
+            {
+                "source": "custom data"
+            }
+        )
+        job_manager.import_job(job)
 
 
 def _get_layers(node):
@@ -1225,32 +1227,15 @@ def get_usable_bands(
     result.sort(key=lambda ub: ub.job.start_date, reverse=True)
     return result
 
-
-def get_layer_info_from_file(json_file, layer_type='any'):
-    m = layers.get_file_metadata(json_file)
-    band_infos = layers.get_band_infos(json_file)
-    if band_infos is None:
-        return None
-    layers_filtered = []
-    for n in range(len(band_infos)):
-        band_info = band_infos[n]
-        data_file = os.path.normcase(os.path.normpath(os.path.join(os.path.dirname(json_file), m['file'])))
-        if layer_type == band_info['name'] or layer_type == 'any':
-            # Band numbers start at 1, not zero
-            layers_filtered.append((data_file, layers.get_band_title(band_info), n + 1, band_info))
-    return layers_filtered
-
     
 class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
     comboBox_layers: QtWidgets.QComboBox
-    pushButton_load_existing: QtWidgets.QPushButton
     dlg_layer: DlgDataIOLoadTESingleLayer
     layer_list: typing.Optional[typing.List[UsableBandInfo]]
 
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
-        self.pushButton_load_existing.clicked.connect(self.load_file)
         self.dlg_layer = DlgDataIOLoadTESingleLayer()
 
         self.dlg_layer.layers_loaded.connect(self.populate)
@@ -1258,12 +1243,6 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
         self.layer_list = None
 
     def populate(self, selected_layer=None):
-        if self.layer_list:
-            last_layer = self.layer_list[self.comboBox_layers.currentIndex()]
-        else:
-            last_layer = None
-
-
         usable_bands = get_usable_bands(self.property("layer_type"))
         self.layer_list = usable_bands
         self.comboBox_layers.clear()
@@ -1274,56 +1253,6 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
                 f"{usable_band.band_info.metadata}"
             )
         self.comboBox_layers.addItems(items)
-        # self.comboBox_layers.addItems([l[1] for l in self.layer_list])
-
-        # # Set the selected layer to the one that was just loaded, or to the
-        # # last layer that was selected
-        # if selected_layer:
-        #     assert(len(selected_layer) == 1)
-        #     set_layer = selected_layer[0]
-        # elif last_layer:
-        #     set_layer = last_layer
-        # else:
-        #     set_layer = None
-        # if set_layer:
-        #     # It is possible the last or selected layer has been removed, in
-        #     # which case an exception will be thrown
-        #     try:
-        #         self.comboBox_layers.setCurrentIndex(self.layer_list.index(set_layer))
-        #     except ValueError:
-        #         log(u"Failed to locate {} in layer list ({})".format(set_layer, self.layer_list))
-        #         pass
-
-    def load_file(self):
-        while True:
-            f, _ = QtWidgets.QFileDialog.getOpenFileName(
-                self,
-                self.tr('Select a Trends.Earth output file'),
-                QSettings().value("LDMP/output_dir", None),
-                self.tr('Trends.Earth metadata file (*.json)')
-            )
-            chosen_path = Path(f)
-            if chosen_path.is_file():
-                QSettings().setValue("LDMP/output_dir", os.path.dirname(f))
-                new_layers = get_layer_info_from_file(
-                    os.path.normcase(os.path.normpath(f)),
-                    self.property("layer_type")
-                )
-                if new_layers:
-                    self.dlg_layer.file = f
-                    self.dlg_layer.update_layer_list(new_layers)
-                    self.dlg_layer.exec_()
-                    break
-                else:  # otherwise warn, and raise the layer selector again
-                    QtWidgets.QMessageBox.critical(
-                        None,
-                        self.tr("Error"),
-                        self.tr(
-                            u"{} failed to load or does not contain any layers of "
-                            u"this layer type. Choose a different file.".format(f))
-                    )
-            else:
-                break
 
     def get_data_file(self) -> Path:
         current_index = self.comboBox_layers.currentIndex()
@@ -1363,21 +1292,8 @@ class WidgetDataIOSelectTELayerExisting(
         super().__init__(parent)
 
 
-class WidgetDataIOSelectTELayerImport(WidgetDataIOSelectTELayerBase, Ui_WidgetDataIOSelectTELayerImport):
-    def __init__(self, parent=None):
-        super(WidgetDataIOSelectTELayerImport, self).__init__(parent)
+class WidgetDataIOSelectTELayerImport(
+    WidgetDataIOSelectTELayerBase, Ui_WidgetDataIOSelectTELayerImport
+):
+    pass
 
-        self.pushButton_import.clicked.connect(self.import_file)
-
-    def import_file(self):
-        if self.property("layer_type") == 'Land Productivity Dynamics (LPD)':
-            self.dlg_load = DlgDataIOImportProd()
-        elif self.property("layer_type") == 'Land cover (7 class)':
-            self.dlg_load = DlgDataIOImportLC()
-        elif self.property("layer_type") == 'Soil organic carbon':
-            self.dlg_load = DlgDataIOImportSOC()
-        else:
-            log(u'Unsupported import file type: {}'.format(self.property("layer_type")))
-            return
-        self.dlg_load.layer_loaded.connect(self.populate)
-        self.dlg_load.exec_()

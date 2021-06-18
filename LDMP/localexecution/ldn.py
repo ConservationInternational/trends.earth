@@ -2,15 +2,12 @@ import dataclasses
 import datetime as dt
 import enum
 import json
-import os
 import tempfile
 import typing
-import uuid
 from pathlib import Path
 
 import numpy as np
 import openpyxl
-from openpyxl.drawing.image import Image
 from osgeo import gdal
 import qgis.core
 
@@ -18,14 +15,13 @@ from .. import (
     areaofinterest,
     calculate,
     calculate_ldn,
-    conf,
     data_io,
     log,
     summary,
+    utils,
     worker,
 )
 from ..jobs import (
-    manager,
     models,
 )
 
@@ -81,17 +77,6 @@ def _get_ldn_inputs(
     )
 
 
-def _save_vrt(source_path: Path, source_band_index: int) -> str:
-    temporary_file = tempfile.NamedTemporaryFile(suffix=".vrt", delete=False)
-    temporary_file.close()
-    gdal.BuildVRT(
-        temporary_file.name,
-        str(source_path),
-        bandList=[source_band_index]
-    )
-    return temporary_file.name
-
-
 def get_main_sdg_15_3_1_job_params(
         task_name: str,
         aoi,
@@ -110,11 +95,29 @@ def get_main_sdg_15_3_1_job_params(
         combo_layer_soc, "Soil organic carbon")
     crosses_180th, geojsons = aoi.bounding_box_gee_geojson()
 
-    # TODO: check whether these raise errors when not filled in
-    traj_band_info = combo_layer_traj.get_usable_band_info()
-    perf_band_info = combo_layer_perf.get_usable_band_info()
-    state_band_info = combo_layer_state.get_usable_band_info()
-    lpd_band_info = combo_layer_lpd.get_usable_band_info()
+    traj_path = None
+    traj_index = None
+    perf_path = None
+    perf_index = None
+    state_path = None
+    state_index = None
+    lpd_path = None
+    lpd_index = None
+    if prod_mode == LdnProductivityMode.TRENDS_EARTH.value:
+        traj_band_info = combo_layer_traj.get_usable_band_info()
+        traj_path = str(traj_band_info.path)
+        traj_index = traj_band_info.band_index
+        perf_band_info = combo_layer_perf.get_usable_band_info()
+        perf_path = str(perf_band_info.path)
+        perf_index = perf_band_info.band_index
+        state_band_info = combo_layer_state.get_usable_band_info()
+        state_path = str(state_band_info.path)
+        state_index = state_band_info.band_index
+    elif prod_mode == LdnProductivityMode.JRC_LPD.value:
+        lpd_band_info = combo_layer_lpd.get_usable_band_info()
+        lpd_path = str(lpd_band_info.path)
+        lpd_index = lpd_band_info.band_index
+
     return {
         "task_name": task_name,
         "task_notes": task_notes,
@@ -127,14 +130,14 @@ def get_main_sdg_15_3_1_job_params(
         "layer_soc_main_band_index": soil_organic_carbon_input_paths.main_band_index,
         "layer_soc_aux_band_indexes": soil_organic_carbon_input_paths.aux_band_indexes,
         "layer_soc_years": soil_organic_carbon_input_paths.years,
-        "layer_traj_path": str(traj_band_info.path),
-        "layer_traj_band_index": traj_band_info.band_index,
-        "layer_perf_path": str(perf_band_info.path),
-        "layer_perf_band_index": perf_band_info.band_index,
-        "layer_state_path": str(state_band_info.path),
-        "layer_state_band_index": state_band_info.band_index,
-        "layer_lpd_path": str(lpd_band_info.path),
-        "layer_lpd_band_index": lpd_band_info.band_index,
+        "layer_traj_path": traj_path,
+        "layer_traj_band_index": traj_index,
+        "layer_perf_path": perf_path,
+        "layer_perf_band_index": perf_index,
+        "layer_state_path": state_path,
+        "layer_state_band_index": state_index,
+        "layer_lpd_path": lpd_path,
+        "layer_lpd_band_index": lpd_index,
         "crs": aoi.get_crs_dst_wkt(),
         "geojsons": json.dumps(geojsons),
         "crosses_180th": crosses_180th,
@@ -148,15 +151,7 @@ def compute_ldn(
     lc_band_nums = np.arange(len(lc_files)) + 1
     soc_files = _prepare_soil_organic_carbon_file_paths(ldn_job)
     soc_band_nums = np.arange(len(lc_files)) + 1 + lc_band_nums.max()
-
-    # NOTE: temporarily setting the status as the final value in order to determine
-    # the target filepath for the processing's outputs
-    previous_status = ldn_job.status
-    ldn_job.status = models.JobStatus.GENERATED_LOCALLY
-    job_output_path = manager.job_manager.get_job_file_path(ldn_job)
-    ldn_job.status = previous_status
-    log(f"inside compute_ldn current job status: {ldn_job.status}")
-
+    job_output_path, _ = utils.get_local_job_output_paths(ldn_job)
     _, wkt_bounding_boxes = area_of_interest.meridian_split("layer", "wkt", warn=False)
     summary_table_stable_kwargs = {
         "wkt_bounding_boxes": wkt_bounding_boxes,
@@ -192,6 +187,14 @@ def compute_ldn(
     )
     ldn_job.end_date = dt.datetime.now(dt.timezone.utc)
     ldn_job.progress = 100
+    ldn_job.results.bands.append(
+        models.JobBand(
+            name="SDG 15.3.1 Indicator",
+            no_data_value=-32768.0,
+            metadata={},
+            activated=True
+        )
+    )
     ldn_job.results.local_paths = [
         output_ldn_path,
         summary_table_output_path
@@ -204,10 +207,10 @@ def _prepare_land_cover_file_paths(ldn_job: models.Job) -> typing.List[str]:
     lc_main_band_index = ldn_job.params.params["layer_lc_main_band_index"]
     lc_aux_band_indexes = ldn_job.params.params["layer_lc_aux_band_indexes"]
     lc_files = [
-        _save_vrt(lc_path, lc_main_band_index)
+        utils.save_vrt(lc_path, lc_main_band_index)
     ]
     for lc_aux_band_index in lc_aux_band_indexes:
-        lc_files.append(_save_vrt(lc_path, lc_aux_band_index))
+        lc_files.append(utils.save_vrt(lc_path, lc_aux_band_index))
     return lc_files
 
 
@@ -217,24 +220,24 @@ def _prepare_soil_organic_carbon_file_paths(
     soc_main_band_index = ldn_job.params.params["layer_soc_main_band_index"]
     soc_aux_band_indexes = ldn_job.params.params["layer_soc_aux_band_indexes"]
     soc_files = [
-        _save_vrt(soc_path, soc_main_band_index)
+        utils.save_vrt(soc_path, soc_main_band_index)
     ]
     for soc_aux_band_index in soc_aux_band_indexes:
-        soc_files.append(_save_vrt(soc_path, soc_aux_band_index))
+        soc_files.append(utils.save_vrt(soc_path, soc_aux_band_index))
     return soc_files
 
 
 def _prepare_trends_earth_mode_vrt_paths(
         ldn_job: models.Job) -> typing.Tuple[str, str, str]:
-    traj_vrt_path = _save_vrt(
+    traj_vrt_path = utils.save_vrt(
         ldn_job.params.params["layer_traj_path"],
         ldn_job.params.params["layer_traj_band_index"],
     )
-    perf_vrt_path = _save_vrt(
+    perf_vrt_path = utils.save_vrt(
         ldn_job.params.params["layer_perf_path"],
         ldn_job.params.params["layer_perf_band_index"],
     )
-    state_vrt_path = _save_vrt(
+    state_vrt_path = utils.save_vrt(
         ldn_job.params.params["layer_state_path"],
         ldn_job.params.params["layer_state_band_index"],
     )
@@ -243,7 +246,7 @@ def _prepare_trends_earth_mode_vrt_paths(
 
 def _prepare_jrc_lpd_mode_vrt_path(
         ldn_job: models.Job) -> str:
-    return _save_vrt(
+    return utils.save_vrt(
         ldn_job.params.params["layer_lpd_path"],
         ldn_job.params.params["layer_lpd_band_index"],
     )
@@ -301,7 +304,7 @@ def save_summary_table(
     template_summary_table_path = Path(
         __file__).parents[1] / "data/summary_table_ldn_sdg.xlsx"
     workbook = openpyxl.load_workbook(str(template_summary_table_path))
-    _render_workbook(
+    _render_ldn_workbook(
         workbook, summary_table, land_cover_years, soil_organic_carbon_years)
     try:
         workbook.save(output_path)
@@ -315,7 +318,7 @@ def save_summary_table(
         log(error_message)
 
 
-def _render_workbook(
+def _render_ldn_workbook(
         template_workbook,
         summary_table: SummaryTable,
         lc_years,
@@ -495,22 +498,10 @@ def _accumulate_bounding_boxes_summary_tables(
     return first
 
 
-def _maybe_add_image_to_sheet(image_filename: str, sheet):
-    try:
-        image_path = Path(__file__).parents[1] / "data" / image_filename
-        logo = Image(image_path)
-        sheet.add_image(logo, 'H1')
-    except ImportError:
-        # add_image will fail on computers without PIL installed (this will be
-        # an issue on some Macs, likely others). it is only used here to add
-        # our logo, so no big deal.
-        pass
-
-
 def _write_overview_sdg_sheet(sheet, summary_table: SummaryTable):
     summary.write_table_to_sheet(
         sheet, np.transpose(summary_table.sdg_tbl_overall), 6, 6)
-    _maybe_add_image_to_sheet("trends_earth_logo_bl_300width.png", sheet)
+    utils.maybe_add_image_to_sheet("trends_earth_logo_bl_300width.png", sheet)
 
 
 def _write_productivity_sdg_sheet(sheet, summary_table: SummaryTable):
@@ -528,7 +519,7 @@ def _write_productivity_sdg_sheet(sheet, summary_table: SummaryTable):
         sheet, _get_prod_table(summary_table.trans_prod_xtab, 1), 64, 3)
     summary.write_table_to_sheet(
         sheet, _get_prod_table(summary_table.trans_prod_xtab, -32768), 76, 3)
-    _maybe_add_image_to_sheet("trends_earth_logo_bl_300width.png", sheet)
+    utils.maybe_add_image_to_sheet("trends_earth_logo_bl_300width.png", sheet)
 
 
 def _write_soc_sdg_sheet(sheet, summary_table: SummaryTable):
@@ -563,14 +554,14 @@ def _write_soc_sdg_sheet(sheet, summary_table: SummaryTable):
     # mix of numbers and strings
     _write_soc_stock_change_table(
         sheet, 27, 3, summary_table.soc_totals[0], summary_table.soc_totals[-1])
-    _maybe_add_image_to_sheet("trends_earth_logo_bl_300width.png", sheet)
+    utils.maybe_add_image_to_sheet("trends_earth_logo_bl_300width.png", sheet)
 
 
 def _write_land_cover_sdg_sheet(sheet, summary_table: SummaryTable):
     summary.write_table_to_sheet(sheet, np.transpose(summary_table.sdg_tbl_lc), 6, 6)
     summary.write_table_to_sheet(
         sheet, _get_lc_table(summary_table.trans_prod_xtab), 26, 3)
-    _maybe_add_image_to_sheet("trends_earth_logo_bl_300width.png", sheet)
+    utils.maybe_add_image_to_sheet("trends_earth_logo_bl_300width.png", sheet)
 
 
 def _write_unccd_reporting_sheet(
@@ -606,7 +597,7 @@ def _write_unccd_reporting_sheet(
             92 + i,
             2
         )
-    _maybe_add_image_to_sheet("trends_earth_logo_bl_300width.png", sheet)
+    utils.maybe_add_image_to_sheet("trends_earth_logo_bl_300width.png", sheet)
 
 
 def _get_prod_table(table, prod_class, classes=list(range(1, 7 + 1))):

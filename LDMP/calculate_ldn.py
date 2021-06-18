@@ -28,11 +28,11 @@ from PyQt5 import (
 
 import qgis.gui
 from qgis.core import QgsGeometry
-from qgis.utils import iface
 
 from . import (
     conf,
     data_io,
+    lc_setup,
     worker,
 )
 from .algorithms import models
@@ -45,10 +45,6 @@ from .calculate import (
     ldn_total_by_trans,
 )
 from .jobs.manager import job_manager
-from .lc_setup import (
-    LCSetupWidget,
-    LCDefineDegradationWidget,
-)
 from .localexecution import ldn
 from .summary import *
 
@@ -56,8 +52,6 @@ DlgCalculateOneStepUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateOneStep.ui"))
 DlgCalculateLdnSummaryTableAdminUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateLDNSummaryTableAdmin.ui"))
-
-mb = iface.messageBar()
 
 
 class tr_calculate_ldn(object):
@@ -77,6 +71,15 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.setupUi(self)
         self.update_time_bounds()
         self.mode_te_prod.toggled.connect(self.update_time_bounds)
+        self.lc_setup_widget = lc_setup.LandCoverSetupRemoteExecutionWidget(
+            self,
+            hide_min_year=True,
+            hide_max_year=True
+        )
+
+        self.lc_define_deg_widget = lc_setup.LCDefineDegradationWidget()
+
+        self._finish_initialization()
 
     def update_time_bounds(self):
         if self.mode_te_prod.isChecked():
@@ -103,23 +106,20 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         
     def showEvent(self, event):
         super(DlgCalculateOneStep, self).showEvent(event)
+        if self.land_cover_content.layout() is None:
+            layout = QtWidgets.QVBoxLayout()
+            layout.setContentsMargins(0, 0, 0, 0)
+            layout.setSpacing(1)
+            layout.addWidget(self.lc_setup_widget)
+            self.land_cover_content.setLayout(layout)
 
-        self.lc_setup_tab = LCSetupWidget()
-        self.TabBox.insertTab(1, self.lc_setup_tab, self.tr('Land Cover Setup'))
+        if self.effects_content.layout() is None:
+            layout = QtWidgets.QVBoxLayout()
+            layout.setContentsMargins(0, 0, 0, 0)
+            layout.setSpacing(1)
+            layout.addWidget(self.lc_define_deg_widget)
+            self.effects_content.setLayout(layout)
 
-        # TODO: Temporarily hide these boxes until custom LC support for SOC is 
-        # implemented on GEE
-        self.lc_setup_tab.use_esa.setChecked(True)
-        self.lc_setup_tab.use_custom.hide()
-        self.lc_setup_tab.groupBox_custom_bl.hide()
-        self.lc_setup_tab.groupBox_custom_tg.hide()
-
-        self.lc_define_deg_tab = LCDefineDegradationWidget()
-        self.TabBox.insertTab(2, self.lc_define_deg_tab, self.tr('Define Effects of Land Cover Change'))
-        
-        # Hide the land cover ESA period box, since only one period is used in 
-        # this dialog - the one on the main setup tab
-        self.lc_setup_tab.groupBox_esa_period.hide()
 
         #######################################################################
         #######################################################################
@@ -236,30 +236,32 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             prod_mode = 'JRC LPD'
 
         crosses_180th, geojsons = self.gee_bounding_box
-        payload = {'prod_mode': prod_mode,
-                   'prod_traj_year_initial': prod_traj_year_initial,
-                   'prod_traj_year_final': prod_traj_year_final,
-                   'prod_perf_year_initial': prod_perf_year_initial,
-                   'prod_perf_year_final': prod_perf_year_final,
-                   'prod_state_year_bl_start': prod_state_year_bl_start,
-                   'prod_state_year_bl_end': prod_state_year_bl_end,
-                   'prod_state_year_tg_start': prod_state_year_tg_start,
-                   'prod_state_year_tg_end': prod_state_year_tg_end,
-                   'lc_year_initial': lc_year_initial,
-                   'lc_year_final': lc_year_final,
-                   'soc_year_initial': soc_year_initial,
-                   'soc_year_final': soc_year_final,
-                   'geojsons': json.dumps(geojsons),
-                   'crs': self.aoi.get_crs_dst_wkt(),
-                   'crosses_180th': crosses_180th,
-                   'prod_traj_method': 'ndvi_trend',
-                   'ndvi_gee_dataset': 'users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2019',
-                   'climate_gee_dataset': None,
-                   'fl': .80,
-                   'trans_matrix': self.lc_define_deg_tab.trans_matrix_get(),
-                   'remap_matrix': self.lc_setup_tab.dlg_esa_agg.get_agg_as_list(),
-                   'task_name': self.options_tab.task_name.text(),
-                   'task_notes': self.options_tab.task_notes.toPlainText()}
+        payload = {
+            'prod_mode': prod_mode,
+            'prod_traj_year_initial': prod_traj_year_initial,
+            'prod_traj_year_final': prod_traj_year_final,
+            'prod_perf_year_initial': prod_perf_year_initial,
+            'prod_perf_year_final': prod_perf_year_final,
+            'prod_state_year_bl_start': prod_state_year_bl_start,
+            'prod_state_year_bl_end': prod_state_year_bl_end,
+            'prod_state_year_tg_start': prod_state_year_tg_start,
+            'prod_state_year_tg_end': prod_state_year_tg_end,
+            'lc_year_initial': lc_year_initial,
+            'lc_year_final': lc_year_final,
+            'soc_year_initial': soc_year_initial,
+            'soc_year_final': soc_year_final,
+            'geojsons': json.dumps(geojsons),
+            'crs': self.aoi.get_crs_dst_wkt(),
+            'crosses_180th': crosses_180th,
+            'prod_traj_method': 'ndvi_trend',
+            'ndvi_gee_dataset': 'users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2019',
+            'climate_gee_dataset': None,
+            'fl': .80,
+            'trans_matrix': self.lc_define_deg_widget.trans_matrix_get(),
+            'remap_matrix': self.lc_setup_widget.aggregation_dialog.get_agg_as_list(),
+            'task_name': self.execution_name_le.text(),
+            'task_notes': self.task_notes.toPlainText()
+        }
 
         resp = job_manager.submit_remote_job(payload, self.script.id)
 
@@ -270,7 +272,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             main_msg = "Error"
             description = (
                 "Unable to submit SDG sub-indicator task to Google Earth Engine.")
-        mb.pushMessage(
+        self.mb.pushMessage(
             self.tr(main_msg),
             self.tr(description),
             level=0,
@@ -579,7 +581,7 @@ class DlgCalculateLDNSummaryTableAdmin(
     DlgCalculateBase,
     DlgCalculateLdnSummaryTableAdminUi
 ):
-    SCRIPT_NAME: str = "final-sdg-15-3-1"
+    LOCAL_SCRIPT_NAME: str = "final-sdg-15-3-1"
 
     mode_te_prod_rb: QtWidgets.QRadioButton
     mode_lpd_jrc: QtWidgets.QRadioButton
@@ -604,6 +606,7 @@ class DlgCalculateLDNSummaryTableAdmin(
         # self.add_output_tab(['.json', '.tif', '.xlsx'])
         self.mode_lpd_jrc.toggled.connect(self.mode_lpd_jrc_toggled)
         self.mode_lpd_jrc_toggled()
+        self._finish_initialization()
 
     def mode_lpd_jrc_toggled(self):
         if self.mode_lpd_jrc.isChecked():
@@ -624,7 +627,7 @@ class DlgCalculateLDNSummaryTableAdmin(
             self.combo_layer_state_label.setEnabled(True)
 
     def showEvent(self, event):
-        super(DlgCalculateLDNSummaryTableAdmin, self).showEvent(event)
+        super().showEvent(event)
         self.combo_layer_lpd.populate()
         self.combo_layer_traj.populate()
         self.combo_layer_perf.populate()
@@ -819,4 +822,4 @@ class DlgCalculateLDNSummaryTableAdmin(
             task_notes=self.options_tab.task_notes.toPlainText()
         )
         job_manager.submit_local_job(
-            params, script_name=self.SCRIPT_NAME, area_of_interest=self.aoi)
+            params, script_name=self.LOCAL_SCRIPT_NAME, area_of_interest=self.aoi)

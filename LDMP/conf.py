@@ -44,11 +44,13 @@ class Setting(enum.Enum):
     BUFFER_SIZE = "region_of_interest/buffer_size"
     AREA_NAME = "region_of_interest/area_settings_name"
     JOB_FILE_AGE_LIMIT_DAYS = "advanced/deleted_datasets_age_limit"
+    DEFINITIONS_DIRECTORY = "advanced/definitions_directory"
 
 
 class SettingsManager:
     _settings: qgis.core.QgsSettings
     _base_path: str = "trends_earth"
+    _base_data_path: str = "trends_earth_data"
 
     DEFAULT_SETTINGS = {
         Setting.UPDATE_FREQUENCY_MILLISECONDS: 10000,
@@ -58,7 +60,9 @@ class SettingsManager:
         Setting.DEBUG: False,
         Setting.BINARIES_ENABLED: False,
         Setting.BINARIES_DIR: str(Path.home()),
-        Setting.BASE_DIR: str(Path.home() / "trends_earth_data"),
+        Setting.BASE_DIR: str(Path.home() / _base_data_path),
+        Setting.DEFINITIONS_DIRECTORY: str(
+            Path.home() / _base_data_path / "definitions"),
         Setting.CUSTOM_CRS_ENABLED: False,
         Setting.CUSTOM_CRS: "epsg:4326",
         Setting.POLL_REMOTE: True,
@@ -717,18 +721,22 @@ _SCRIPT_CONFIG = {
     },
     "urban-change-summary-table": {
         "run_mode": "local",
+        "execution_callable": (
+            "LDMP.localexecution.urbanchange.compute_urban_change_summary_table"),
     },
     "change-biomass-summary-table": {
         "run_mode": "local",
+        "execution_callable": (
+            "LDMP.localexecution.biomassrestoration.compute_biomass_restoration"),
     },
     "local-land-cover": {
         "run_mode": "local",
-    },
-    "local-total-carbon": {
-        "run_mode": "local",
+        "execution_callable": "LDMP.localexecution.landcover.compute_land_cover",
     },
     "local-soil-organic-carbon": {
         "run_mode": "local",
+        "execution_callable": (
+            "LDMP.localexecution.soilorganiccarbon.compute_soil_organic_carbon"),
     },
     "time-series": {
         "id": "2a051dcb-b102-44c3-b383-60aa1063ab86",
@@ -786,6 +794,15 @@ _SCRIPT_CONFIG = {
         "id": "3045dfee-247e-4fe9-bd74-769a1f57aee0",
         "description": "Calculate total carbon in biomass (above and below ground).",
         "run_mode": "remote"
+    },
+    "local-total-carbon": {
+        "run_mode": "local",
+        "execution_callable": None, #  FIXME
+    },
+    "total-carbon-summary": {
+        "run_mode": "local",
+        "execution_callable": (
+            "LDMP.localexecution.totalcarbon.compute_total_carbon_summary_table"),
     },
     "urban-area": {
         "id": "88f78043-512d-4b24-9f44-80029d02e294",
@@ -904,10 +921,11 @@ _ALGORITHM_CONFIG = [
                         "name": "Carbon change spatial layers",
                         "description": "TODO: Carbon change spatial layers long description",
                         "scripts": [
-                            {
-                                "script": KNOWN_SCRIPTS["local-total-carbon"],
-                                "parametrization_dialogue": "LDMP.calculate_tc.DlgCalculateTCData",
-                            },
+                            # TODO: enable and tweak this when support for local calculations of total carbon is implemented
+                            # {
+                            #     "script": KNOWN_SCRIPTS["local-total-carbon"],
+                            #     "parametrization_dialogue": "LDMP.calculate_tc.DlgCalculateTCData",
+                            # },
                             {
                                 "script": KNOWN_SCRIPTS["total-carbon"],
                                 "parametrization_dialogue": "LDMP.calculate_tc.DlgCalculateTCData",
@@ -919,7 +937,7 @@ _ALGORITHM_CONFIG = [
                         "description": "TODO: Carbon change summary table for boundary long description",
                         "scripts": [
                             {
-                                "script": KNOWN_SCRIPTS["total-carbon"],
+                                "script": KNOWN_SCRIPTS["total-carbon-summary"],
                                 "parametrization_dialogue": "LDMP.calculate_tc.DlgCalculateTCSummaryTable",
                             }
                         ],

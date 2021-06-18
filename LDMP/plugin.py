@@ -66,7 +66,7 @@ class LDMPPlugin(object):
         self.toolBtnAction = self.toolbar.addWidget(self.toolButton)
         self.actions.append(self.toolBtnAction)
 
-        self.dlg_settings = DlgSettings()
+        self.dlg_settings = DlgSettings(parent=self.iface.mainWindow())
         self.dlg_about = about.DlgAbout()
 
     def initProcessing(self):
@@ -208,7 +208,6 @@ class LDMPPlugin(object):
 
     def run_settings(self):
         old_base_dir = conf.settings_manager.get_value(conf.Setting.BASE_DIR)
-        self.dlg_settings.show()
         self.dlg_settings.exec_()  # TODO: Use open() instead of exec_()
         new_base_dir = conf.settings_manager.get_value(conf.Setting.BASE_DIR)
         if old_base_dir != new_base_dir:

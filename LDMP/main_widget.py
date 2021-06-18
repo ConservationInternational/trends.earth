@@ -22,10 +22,17 @@ from .algorithms import (
 )
 from .conf import (
     ALGORITHM_TREE,
+    KNOWN_SCRIPTS,
     Setting,
     settings_manager,
 )
-from .data_io import DlgDataIO
+from .data_io import (
+    DlgDataIO,
+    DlgDataIOLoadTE,
+    DlgDataIOImportLC,
+    DlgDataIOImportSOC,
+    DlgDataIOImportProd,
+)
 from .download_data import DlgDownload
 from .jobs.manager import job_manager
 from .jobs import mvc as jobs_mvc
@@ -54,7 +61,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
     algorithms_tv_delegate: algorithms_mvc.AlgorithmItemDelegate
     datasets_tv: QtWidgets.QTreeView
     lineEdit_search: QtWidgets.QLineEdit
-    pushButton_import: QtWidgets.QPushButton
+    import_dataset_pb: QtWidgets.QPushButton
     pushButton_load: QtWidgets.QPushButton
     pushButton_download: QtWidgets.QPushButton
     pushButton_refresh: QtWidgets.QPushButton
@@ -95,7 +102,8 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         job_manager.downloaded_available_jobs_results.connect(
             self.refresh_after_cache_update)
         job_manager.deleted_job.connect(self.refresh_after_cache_update)
-        job_manager.submitted_job.connect(self.refresh_after_job_submitted)
+        job_manager.submitted_job.connect(self.refresh_after_job_modified)
+        job_manager.imported_job.connect(self.refresh_after_job_modified)
         self.clean_empty_directories()
         self.setup_algorithms_tree()
         self.setup_datasets_page_gui()
@@ -122,12 +130,34 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         )
         self.pushButton_refresh.setIcon(
             QtGui.QIcon(':/plugins/LDMP/icons/mActionRefresh.svg'))
-        self.pushButton_import.setIcon(
-            QtGui.QIcon(':/plugins/LDMP/icons/cloud-download.svg'))
+        self.import_menu = QtWidgets.QMenu()
+        action_import_known_dataset = self.import_menu.addAction(
+            tr("Load existing Trends.Earth output file...")
+        )
+        action_import_known_dataset.triggered.connect(self.import_known_dataset)
+        action_import_productivity_dataset = self.import_menu.addAction(
+            tr("Import custom Productivity dataset...")
+        )
+        action_import_productivity_dataset.triggered.connect(
+            self.import_productivity_dataset)
+        action_import_land_cover_dataset = self.import_menu.addAction(
+            tr("Import custom Land Cover dataset...")
+        )
+        action_import_land_cover_dataset.triggered.connect(
+            self.import_land_cover_dataset)
+        action_import_soil_organic_carbon_dataset = self.import_menu.addAction(
+            tr("Import custom Soil Organic Carbon dataset...")
+        )
+        action_import_soil_organic_carbon_dataset.triggered.connect(
+            self.import_soil_organic_carbon_dataset)
+        self.import_dataset_pb.setMenu(self.import_menu)
+        self.import_dataset_pb.setIcon(
+            QtGui.QIcon(":/plugins/LDMP/icons/mActionSharingImport.svg"))
+
+
         self.pushButton_download.setIcon(
-            QtGui.QIcon(':/plugins/LDMP/icons/mActionSharingImport.svg'))
+            QtGui.QIcon(":/plugins/LDMP/icons/cloud-download.svg"))
         self.pushButton_load.setIcon(QtGui.QIcon(':/plugins/LDMP/icons/document.svg'))
-        self.pushButton_import.clicked.connect(self.import_data)
         self.pushButton_download.clicked.connect(self.download_data)
         self.pushButton_load.clicked.connect(self.load_base_map)
         self.pushButton_refresh.clicked.connect(self.perform_single_update)
@@ -244,7 +274,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         job_manager.refresh_local_state()
         self.last_refreshed_local_state = dt.datetime.now(tz=dt.timezone.utc)
 
-    def refresh_after_job_submitted(self, job: Job):
+    def refresh_after_job_modified(self, job: Job):
         self.refresh_after_cache_update()
 
     def filter_changed(self, filter_string: str):
@@ -371,13 +401,36 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             self.algorithms_tv_delegate.current_index = index
 
     def load_base_map(self):
-        DlgVisualizationBasemap().exec_()
+        dialogue = DlgVisualizationBasemap(self)
+        dialogue.exec_()
+
 
     def download_data(self):
-        DlgDownload().exec_()
+        dialogue = DlgDownload(
+            self.iface,
+            KNOWN_SCRIPTS["download-data"],
+            self
+        )
+        dialogue.exec_()
 
-    def import_data(self):
-        DlgDataIO().exec_()
+    def import_known_dataset(self, action: QtWidgets.QAction):
+        dialogue = DlgDataIOLoadTE(self)
+        dialogue.exec_()
+
+    def import_productivity_dataset(self, action: QtWidgets.QAction):
+        log("import_productivity_dataset called")
+        dialogue = DlgDataIOImportProd(self)
+        dialogue.exec_()
+
+    def import_land_cover_dataset(self, action: QtWidgets.QAction):
+        log("import_land_cover_dataset called")
+        dialogue = DlgDataIOImportLC(self)
+        dialogue.exec_()
+
+    def import_soil_organic_carbon_dataset(self, action: QtWidgets.QAction):
+        log("import_soil_organic_carbon_dataset called")
+        dialogue = DlgDataIOImportSOC(self)
+        dialogue.exec_()
 
 
 def maybe_download_finished_results():

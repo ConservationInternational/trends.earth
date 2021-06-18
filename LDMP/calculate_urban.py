@@ -12,40 +12,43 @@
  ***************************************************************************/
 """
 
-import tempfile
+from pathlib import Path
+import json
 
-import openpyxl
-from openpyxl.drawing.image import Image
-from osgeo import gdal, osr
-
+import numpy as np
 import qgis.gui
-from qgis.core import QgsGeometry
-from qgis.PyQt import QtWidgets
-from qgis.PyQt.QtCore import QSettings, QDate, QCoreApplication
-
-from .algorithms import models
-from .calculate import (
-    DlgCalculateBase,
-    ClipWorker,
-    json_geom_to_geojson,
+import qgis.core
+from osgeo import gdal
+from PyQt5 import (
+    QtCore,
+    QtWidgets,
+    uic
 )
-from .gui.DlgCalculateUrbanData import Ui_DlgCalculateUrbanData
-from .gui.DlgCalculateUrbanSummaryTable import Ui_DlgCalculateUrbanSummaryTable
+
+from . import (
+    calculate,
+    data_io,
+    log,
+    summary,
+    worker,
+)
+from .algorithms.models import ExecutionScript
 from .jobs.manager import job_manager
-from .layers import get_band_infos, create_local_json_metadata, add_layer
-from .worker import AbstractWorker, StartWorker
-from .schemas.schemas import BandInfo, BandInfoSchema
-from .summary import *
+
+DlgCalculateUrbanDataUi, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/DlgCalculateUrbanData.ui"))
+DlgCalculateUrbanSummaryTableUi, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/DlgCalculateUrbanSummaryTable.ui"))
 
 
 class tr_calculate_urban(object):
     def tr(message):
-        return QCoreApplication.translate("tr_calculate_urban", message)
+        return QtCore.QCoreApplication.translate("tr_calculate_urban", message)
 
 
-class UrbanSummaryWorker(AbstractWorker):
+class UrbanSummaryWorker(worker.AbstractWorker):
     def __init__(self, src_file, urban_band_nums, pop_band_nums, n_classes):
-        AbstractWorker.__init__(self)
+        worker.AbstractWorker.__init__(self)
 
         self.src_file = src_file
         self.urban_band_nums = [int(x) for x in urban_band_nums]
@@ -97,7 +100,7 @@ class UrbanSummaryWorker(AbstractWorker):
                     cols = xsize - x
 
                 # Caculate cell area for each horizontal line
-                cell_areas = np.array([calc_cell_area(lat + pixel_height*n, lat + pixel_height*(n + 1), long_width) for n in range(rows)])
+                cell_areas = np.array([summary.calc_cell_area(lat + pixel_height*n, lat + pixel_height*(n + 1), long_width) for n in range(rows)])
                 # Convert areas from meters into hectares
                 cell_areas = cell_areas * 1e-4
                 cell_areas.shape = (cell_areas.size, 1)
@@ -130,12 +133,12 @@ class UrbanSummaryWorker(AbstractWorker):
             return list((areas, populations))
 
 
-class DlgCalculateUrbanData(DlgCalculateBase, Ui_DlgCalculateUrbanData):
+class DlgCalculateUrbanData(calculate.DlgCalculateBase, DlgCalculateUrbanDataUi):
 
     def __init__(
             self,
             iface: qgis.gui.QgisInterface,
-            script: models.ExecutionScript,
+            script: ExecutionScript,
             parent: QtWidgets.QWidget = None,
     ):
         super().__init__(iface, script, parent)
@@ -144,6 +147,7 @@ class DlgCalculateUrbanData(DlgCalculateBase, Ui_DlgCalculateUrbanData):
 
         self.spinBox_pct_urban.valueChanged.connect(self.urban_thresholds_updated)
         self.spinBox_pct_suburban.valueChanged.connect(self.urban_thresholds_updated)
+        self._finish_initialization()
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
@@ -180,6 +184,7 @@ class DlgCalculateUrbanData(DlgCalculateBase, Ui_DlgCalculateUrbanData):
         self.close()
 
         crosses_180th, geojsons = self.gee_bounding_box
+
         payload = {
             'un_adju': self.get_pop_def_is_un(),
             'isi_thr': self.spinBox_isi_thr.value(),
@@ -191,11 +196,12 @@ class DlgCalculateUrbanData(DlgCalculateBase, Ui_DlgCalculateUrbanData):
             'geojsons': json.dumps(geojsons),
             'crs': self.aoi.get_crs_dst_wkt(),
             'crosses_180th': crosses_180th,
-            'task_name': self.options_tab.task_name.text(),
+            'task_name': self.execution_name_le.text(),
             'task_notes': self.options_tab.task_notes.toPlainText()
         }
 
         resp = job_manager.submit_remote_job(payload, self.script.id)
+
         if resp:
             main_msg = "Submitted"
             description = (
@@ -212,206 +218,88 @@ class DlgCalculateUrbanData(DlgCalculateBase, Ui_DlgCalculateUrbanData):
         )
 
 
-class DlgCalculateUrbanSummaryTable(DlgCalculateBase, Ui_DlgCalculateUrbanSummaryTable):
-    def __init__(self, parent=None):
-        super(DlgCalculateUrbanSummaryTable, self).__init__(parent)
+class DlgCalculateUrbanSummaryTable(
+    calculate.DlgCalculateBase, DlgCalculateUrbanSummaryTableUi
+):
+    LOCAL_SCRIPT_NAME = "urban-change-summary-table"
 
+    combo_layer_urban_series: data_io.WidgetDataIOSelectTELayerExisting
+
+    def __init__(
+            self,
+            iface: qgis.gui.QgisInterface,
+            script: ExecutionScript,
+            parent: QtWidgets.QWidget
+    ):
+        super().__init__(iface, script, parent)
         self.setupUi(self)
-
-        self.add_output_tab(['.xlsx', '.json', '.tif'])
+        self._finish_initialization()
 
     def showEvent(self, event):
-        super(DlgCalculateUrbanSummaryTable, self).showEvent(event)
-
+        super().showEvent(event)
         self.combo_layer_urban_series.populate()
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
         # as well.
-        ret = super(DlgCalculateUrbanSummaryTable, self).btn_calculate()
+        ret = super().btn_calculate()
         if not ret:
             return
 
         ######################################################################
         # Check that all needed input layers are selected
         if len(self.combo_layer_urban_series.layer_list) == 0:
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("You must add an urban series layer to your map before you can use the urban change summary tool."))
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr(
+                    "You must add an urban series layer to your map before you can "
+                    "use the urban change summary tool."
+                )
+            )
             return
 
         #######################################################################
         # Check that the layers cover the full extent needed
-        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_urban_series.get_layer().extent())) < .99:
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Area of interest is not entirely within the urban series layer."))
+        urban_layer = self.combo_layer_urban_series.get_layer()
+        urban_layer_extent_geom = qgis.core.QgsGeometry.fromRect(urban_layer.extent())
+        if self.aoi.calc_frac_overlap(urban_layer_extent_geom) < .99:
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr(
+                    "Area of interest is not entirely within the urban series layer.")
+            )
             return
 
         self.close()
 
-        #######################################################################
-        # Load all datasets to VRTs (to select only the needed bands)
-        band_infos = get_band_infos(self.combo_layer_urban_series.get_data_file())
+        urban_usable_info = self.combo_layer_urban_series.get_usable_band_info()
+        urban_annual_band_indices = []
+        pop_annual_band_indices = []
 
-        urban_annual_band_indices = [i for i, bi in enumerate(band_infos) if bi['name'] == 'Urban']
-        urban_annual_band_indices.sort(key=lambda i: band_infos[i]['metadata']['year'])
-        urban_years = [bi['metadata']['year'] for bi in band_infos if bi['name'] == 'Urban']
-        urban_files = []
-        for i in urban_annual_band_indices:
-            f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-            # Add once since band numbers don't start at zero
-            gdal.BuildVRT(f,
-                          self.combo_layer_urban_series.get_data_file(),
-                          bandList=[i + 1])
-            urban_files.append(f)
+        urban_indices_years = []
+        pop_indices_years = []
 
-
-        pop_annual_band_indices = [i for i, bi in enumerate(band_infos) if bi['name'] == 'Population']
-        pop_annual_band_indices.sort(key=lambda i: band_infos[i]['metadata']['year'])
-        pop_years = [bi['metadata']['year'] for bi in band_infos if bi['name'] == 'Population']
-        pop_files = []
-        for i in pop_annual_band_indices:
-            f = tempfile.NamedTemporaryFile(suffix='.vrt').name
-            # Add once since band numbers don't start at zero
-            gdal.BuildVRT(f,
-                          self.combo_layer_urban_series.get_data_file(),
-                          bandList=[i + 1])
-            pop_files.append(f)
-
-        assert (len(pop_files) == len(urban_files))
-        assert (urban_years == pop_years)
-
-        in_files = list(urban_files)
-        in_files.extend(pop_files)
-        urban_band_nums = np.arange(len(urban_files)) + 1
-        pop_band_nums = np.arange(len(pop_files)) + 1 + urban_band_nums.max()
-
-        # Remember the first value is an indication of whether dataset is 
-        # wrapped across 180th meridian
-        wkts = self.aoi.meridian_split('layer', 'wkt', warn=False)[1]
-        bbs = self.aoi.get_aligned_output_bounds(urban_files[1])
-
-        ######################################################################
-        # Process the wkts using a summary worker
-        output_indicator_tifs = []
-        output_indicator_json = self.output_tab.output_basename.text() + '.json'
-        for n in range(len(wkts)):
-            # Compute the pixel-aligned bounding box (slightly larger than 
-            # aoi). Use this instead of croptocutline in gdal.Warp in order to 
-            # keep the pixels aligned with the chosen productivity layer.
-        
-            # Combines SDG 15.3.1 input raster into a VRT and crop to the AOI
-            indic_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
-            log(u'Saving indicator VRT to: {}'.format(indic_vrt))
-            # The plus one is because band numbers start at 1, not zero
-            gdal.BuildVRT(indic_vrt,
-                          in_files,
-                          outputBounds=bbs[n],
-                          resolution='highest',
-                          resampleAlg=gdal.GRA_NearestNeighbour,
-                          separate=True)
-
-            if len(wkts) > 1:
-                output_indicator_tif = os.path.splitext(output_indicator_json)[0] + '_{}.tif'.format(n)
-            else:
-                output_indicator_tif = os.path.splitext(output_indicator_json)[0] + '.tif'
-            output_indicator_tifs.append(output_indicator_tif)
-
-            log(u'Saving urban clipped files to {}'.format(output_indicator_tif))
-            geojson = json_geom_to_geojson(QgsGeometry.fromWkt(wkts[n]).asJson())
-            clip_worker = StartWorker(ClipWorker, 'masking layers (part {} of {})'.format(n + 1, len(wkts)), 
-                                      indic_vrt, output_indicator_tif,
-                                      geojson, bbs[n])
-            if not clip_worker.success:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Error masking urban change input layers."))
-                return
-
-            ######################################################################
-            #  Calculate urban change table
-            log('Calculating summary table...')
-            urban_summary_worker = StartWorker(UrbanSummaryWorker,
-                                               'calculating summary table (part {} of {})'.format(n + 1, len(wkts)),
-                                               output_indicator_tif,
-                                               urban_band_nums, pop_band_nums, 9)
-            if not urban_summary_worker.success:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Error calculating urban change summary table."))
-                return
-            else:
-                if n == 0:
-                     areas, \
-                             populations = urban_summary_worker.get_return()
-                else:
-                     these_areas, \
-                             these_populations = urban_summary_worker.get_return()
-                     areas = areas + these_areas
-                     populations = populations + these_populations
-
-        make_summary_table(areas, populations, 
-                self.output_tab.output_basename.text() + '.xlsx')
-
-        # Add the indicator layers to the map
-        output_indicator_bandinfos = [BandInfo("Urban", add_to_map=True, metadata={'year': 2000}),
-                                      BandInfo("Urban", add_to_map=True, metadata={'year': 2005}),
-                                      BandInfo("Urban", add_to_map=True, metadata={'year': 2010}),
-                                      BandInfo("Urban", add_to_map=True, metadata={'year': 2015}),
-                                      BandInfo("Population", metadata={'year': 2000}),
-                                      BandInfo("Population", metadata={'year': 2005}),
-                                      BandInfo("Population", metadata={'year': 2010}),
-                                      BandInfo("Population", metadata={'year': 2015})]
-        if len(output_indicator_tifs) == 1:
-            output_file = output_indicator_tifs[0]
-        else:
-            output_file = os.path.splitext(output_indicator_json)[0] + '.vrt'
-            gdal.BuildVRT(output_file, output_indicator_tifs)
-
-        # set alg metadata
-        metadata = self.setMetadata()
-        metadata['params'] = {}
-        metadata['params']['layer_urban_series'] = self.combo_layer_urban_series.get_data_file()
-        metadata['params']['crs'] = self.aoi.get_crs_dst_wkt()
-        crosses_180th, geojsons = self.gee_bounding_box
-        metadata['params']['geojsons'] = json.dumps(geojsons)
-        metadata['params']['crosses_180th'] = crosses_180th
-
-        create_local_json_metadata(output_indicator_json, output_file, 
-                output_indicator_bandinfos, metadata=metadata)
-        schema = BandInfoSchema()
-        add_layer(output_file, 1, schema.dump(output_indicator_bandinfos[0]))
-        add_layer(output_file, 2, schema.dump(output_indicator_bandinfos[1]))
-        add_layer(output_file, 3, schema.dump(output_indicator_bandinfos[2]))
-        add_layer(output_file, 4, schema.dump(output_indicator_bandinfos[3]))
-
-        return True
-
-
-def make_summary_table(areas, populations, out_file):
-    wb = openpyxl.load_workbook(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'data', 'summary_table_urban.xlsx'))
-
-    ##########################################################################
-    # SDG table
-    ws_summary = wb['SDG 11.3.1 Summary Table']
-    write_table_to_sheet(ws_summary, areas, 23, 2)
-    write_table_to_sheet(ws_summary, populations, 37, 2)
-
-    try:
-        ws_summary_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
-        ws_summary.add_image(ws_summary_logo, 'E1')
-    except ImportError:
-        # add_image will fail on computers without PIL installed (this will be 
-        # an issue on some Macs, likely others). it is only used here to add 
-        # our logo, so no big deal.
-        log('Adding Trends.Earth logo to worksheet FAILED')
-        pass
-
-    try:
-        wb.save(out_file)
-        log(u'Summary table saved to {}'.format(out_file))
-        # QtWidgets.QMessageBox.information(None, tr_calculate_urban.tr("Success"),
-        #                               tr_calculate_urban.tr(u'Summary table saved to {}'.format(out_file)))
-
-    except IOError:
-        log(u'Error saving {}'.format(out_file))
-        QtWidgets.QMessageBox.critical(None, tr_calculate_urban.tr("Error"),
-                                   tr_calculate_urban.tr(u"Error saving output table - check that {} is accessible and not already open.".format(out_file)))
+        for index, band in enumerate(urban_usable_info.job.results.bands):
+            band_index = index + 1
+            band_year = band.metadata.get("year")
+            if band.name.lower() == "urban":
+                urban_annual_band_indices.append(band_index)
+                urban_indices_years.append((band_index, band_year))
+            elif band.name.lower() == "population":
+                pop_annual_band_indices.append(band_index)
+                pop_indices_years.append((band_index, band_year))
+        urban_indices_years.sort(key=lambda entry: entry[1])
+        pop_indices_years.sort(key=lambda entry: entry[1])
+        if len(urban_indices_years) != len(pop_indices_years):
+            raise RuntimeError("Urban files and pop files do not have the same length")
+        job_params = {
+            "task_name": self.options_tab.task_name.text(),
+            "task_notes": self.options_tab.task_notes.toPlainText(),
+            "urban_layer_path": str(urban_usable_info.path),
+            "urban_layer_band_indexes": [entry[0] for entry in urban_indices_years],
+            "urban_layer_pop_band_indexes": [entry[0] for entry in pop_indices_years],
+        }
+        job_manager.submit_local_job(job_params, self.LOCAL_SCRIPT_NAME, self.aoi)

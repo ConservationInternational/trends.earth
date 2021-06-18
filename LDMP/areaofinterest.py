@@ -14,7 +14,6 @@ from . import (
     download,
     log,
 )
-from .jobs import models
 
 
 def get_city_geojson() -> typing.Dict:
@@ -23,7 +22,7 @@ def get_city_geojson() -> typing.Dict:
     current_city = conf.settings_manager.get_value(conf.Setting.CITY_NAME)
     current_country_cities = conf.settings_manager.get_value(conf.Setting.CITY_KEY)
     wof_id = current_country_cities[current_city]
-    return conf.CITIES[country_code][wof_id].geojson
+    return conf.CITIES[country_code][str(wof_id)].geojson
 
 
 def get_admin_poly_geojson():

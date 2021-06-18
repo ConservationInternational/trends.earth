@@ -213,8 +213,7 @@ class AlgorithmItemDelegate(QtWidgets.QStyledItemDelegate):
 class AlgorithmEditorWidget(QtWidgets.QWidget, WidgetAlgorithmLeafUi):
     name_la: QtWidgets.QLabel
     description_la: QtWidgets.QLabel
-    single_execution_mode_pb: QtWidgets.QPushButton
-    multiple_execution_modes_tb: QtWidgets.QToolButton
+    open_execution_dialogue_tb: QtWidgets.QToolButton
 
     def __init__(
             self,
@@ -226,33 +225,37 @@ class AlgorithmEditorWidget(QtWidgets.QWidget, WidgetAlgorithmLeafUi):
         self.setupUi(self)
         self.setAutoFillBackground(True)  # this allow to hide background prerendered pixmap
         self.name_la.setText(algorithm.name)
-        self.name_la.adjustSize()
         self.description_la.setText(algorithm.description)
         action_labels = {
-            models.AlgorithmRunMode.LOCAL: "Run",
-            models.AlgorithmRunMode.REMOTE: "Run with default data",
+            models.AlgorithmRunMode.LOCAL: "Execute locally",
+            models.AlgorithmRunMode.REMOTE: "Execute remotely",
         }
+        self.open_execution_dialogue_tb.setToolButtonStyle(
+            QtCore.Qt.ToolButtonTextBesideIcon)
+        action_icon = QtGui.QIcon(":/images/themes/default/processingAlgorithm.svg")
         if len(algorithm.scripts) >= 2:
-            self.multiple_execution_modes_tb.setPopupMode(
+            self.open_execution_dialogue_tb.setPopupMode(
                 QtWidgets.QToolButton.MenuButtonPopup)
-            self.multiple_execution_modes_tb.setMenu(QtWidgets.QMenu())
-            self.single_execution_mode_pb.hide()
+            self.open_execution_dialogue_tb.setMenu(QtWidgets.QMenu())
             default_action = None
             for action_type, action_label in action_labels.items():
-                action = QtWidgets.QAction(tr(action_label), self)
+                action = QtWidgets.QAction(action_icon, tr(action_label), self)
                 action.triggered.connect(
                     functools.partial(execution_handler, algorithm, action_type))
-                self.multiple_execution_modes_tb.menu().addAction(action)
+                self.open_execution_dialogue_tb.menu().addAction(action)
                 if action_type == models.AlgorithmRunMode.LOCAL:
                     default_action = action
-            self.multiple_execution_modes_tb.setDefaultAction(default_action)
+            self.open_execution_dialogue_tb.setDefaultAction(default_action)
         elif len(algorithm.scripts) == 1:
-            self.multiple_execution_modes_tb.hide()
             run_mode = algorithm.scripts[0].script.run_mode
-            label = action_labels[run_mode]
-            self.single_execution_mode_pb.setText(tr(label))
-            self.single_execution_mode_pb.clicked.connect(
+            action = QtWidgets.QAction(
+                action_icon,
+                tr(action_labels[run_mode]),
+                self
+            )
+            action.triggered.connect(
                 functools.partial(execution_handler, algorithm, run_mode))
+            self.open_execution_dialogue_tb.addAction(action)
+            self.open_execution_dialogue_tb.setDefaultAction(action)
         else:
-            self.single_execution_mode_pb.hide()
-            self.multiple_execution_modes_tb.hide()
+            self.open_execution_dialogue_tb.hide()

@@ -55,14 +55,16 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
         self.open_directory_btn.clicked.connect(self.open_job_directory)
         self.export_btn.clicked.connect(self.export_dataset)
         self.alg_le.setText(self.job.script.name)
-
-        if len(self.job.results.local_paths) > 0:
-            path_le_text = ", ".join(str(p) for p in self.job.results.local_paths)
+        empty_paths_msg = "This dataset does not have local paths"
+        if self.job.results is not None:
+            local_paths = self.job.results.local_paths
+            if len(local_paths) > 0:
+                path_le_text = ", ".join(str(p) for p in local_paths)
+            else:
+                path_le_text = empty_paths_msg
         else:
-            path_le_text = "This dataset does not have local paths"
-            self.delete_btn.setEnabled(False)
+            path_le_text = f"{empty_paths_msg}_yet"
         self.path_le.setText(path_le_text)
-
         self.load_btn.setIcon(
             QtGui.QIcon(':/plugins/LDMP/icons/mActionAddRasterLayer.svg'))
         self.open_directory_btn.setIcon(
@@ -104,8 +106,9 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
         openFolder(str(job_directory))
 
     def delete_dataset(self):
-        utils.delete_dataset(self.job)
-        self.accept()
+        result = utils.delete_dataset(self.job)
+        if result == QtWidgets.QMessageBox.Yes:
+            self.accept()
 
     def export_dataset(self):
         log(f"Exporting dataset {self.job.params.task_name!r}...")

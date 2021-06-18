@@ -3,16 +3,13 @@ import tempfile
 import typing
 from pathlib import Path
 
+import qgis.core
 from osgeo import gdal
 from openpyxl.drawing.image import Image
 from PyQt5 import (
     QtWidgets,
 )
 
-from . import (
-    layers,
-    log,
-)
 from .jobs import (
     manager,
     models,
@@ -60,7 +57,7 @@ def maybe_add_image_to_sheet(image_filename: str, sheet):
         pass
 
 
-def delete_dataset(job: models.Job):
+def delete_dataset(job: models.Job) -> int:
     message_box = QtWidgets.QMessageBox()
     message_box.setText(
         f"You are about to delete job {job.params.task_name!r}")
@@ -71,7 +68,18 @@ def delete_dataset(job: models.Job):
     message_box.setIcon(QtWidgets.QMessageBox.Information)
     result = QtWidgets.QMessageBox.Res = message_box.exec_()
     if result == QtWidgets.QMessageBox.Yes:
-        log("About to delete the dataset")
-        for path in job.results.local_paths:
-            layers.delete_layer_by_filename(str(path))
+        if job.results is not None:
+            for path in job.results.local_paths:
+                remove_layer_from_qgis(path)
         manager.job_manager.delete_job(job)
+    return result
+
+
+def remove_layer_from_qgis(path: Path):
+    project = qgis.core.QgsProject.instance()
+    for layer_id in project.mapLayers():
+        layer = project.mapLayer(layer_id)
+        layer_source = Path(layer.source()).absolute()
+        if layer_source == path:
+            project.removeMapLayer(layer_id)
+            break

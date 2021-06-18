@@ -96,7 +96,8 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
         self.layout().insertWidget(0, self.bar, alignment=QtCore.Qt.AlignTop)
 
     def load_dataset(self):
-        manager.job_manager.display_job_results(self.job)
+        if self.job.results is not None:
+            manager.job_manager.display_job_results(self.job)
 
     def open_job_directory(self):
         log(f"Open directory button clicked for job {self.job.params.task_name!r}")

@@ -1,3 +1,4 @@
+"""Datasets details dialog for Trends.Earth QGIS plugin."""
 
 import json
 from pathlib import Path

@@ -136,12 +136,13 @@ Advanced settings
    
 
 From the advanced settings, you can change settings including:
+
+- set the base data directory,
 - enabling/disabling debug mode,
-- enabling or disabling the automatic download of the remotely-generated datasets,
-- enabling or disabling the periodic polling of the remote processing server,
+- enabling/disabling the automatic download of the remotely-generated datasets,
+- enabling/disabling the periodic polling of the remote processing server,
 - setting the polling frequency,
-- and loading pre-compiled binaries to speed up 
-calculations in Trends.Earth.
+- and loading pe-compiled binaries to speed up calculations in Trends.Earth.
 
 
 Debug mode

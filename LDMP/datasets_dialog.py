@@ -15,10 +15,10 @@ from PyQt5 import (
 )
 
 from . import (
-    layers,
     log,
     openFolder,
     tr,
+    utils,
 )
 from .jobs import (
     manager,
@@ -41,15 +41,10 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
         self.name_le.setText(self.job.params.task_name)
         self.state_le.setText(self.job.status.value)
         self.created_at_le.setText(str(self.job.start_date))
-
         self.load_btn.clicked.connect(self.load_dataset)
         self.delete_btn.clicked.connect(self.delete_dataset)
         self.open_directory_btn.clicked.connect(self.open_job_directory)
         self.export_btn.clicked.connect(self.export_dataset)
-        self.delete_btn.setEnabled(
-            self.job.status == models.JobStatus.DOWNLOADED
-        )
-
         self.alg_le.setText(self.job.script.name)
         self.raster_file_path = None
 
@@ -100,21 +95,8 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
         openFolder(str(job_directory))
 
     def delete_dataset(self):
-        message_box = QtWidgets.QMessageBox()
-        message_box.setText(
-            f"You are about to delete job {self.job.params.task_name!r}")
-        message_box.setInformativeText("Confirm?")
-        message_box.setStandardButtons(
-            QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.Cancel)
-        message_box.setDefaultButton(QtWidgets.QMessageBox.Cancel)
-        message_box.setIcon(QtWidgets.QMessageBox.Information)
-        result = QtWidgets.QMessageBox.Res = message_box.exec_()
-        if result == QtWidgets.QMessageBox.Yes:
-            log("About to delete the dataset")
-            for path in self.job.results.local_paths:
-                layers.delete_layer_by_filename(str(path))
-            manager.job_manager.delete_job(self.job)
-            self.accept()
+        utils.delete_dataset(self.job)
+        self.accept()
 
     def export_dataset(self):
         log(f"Exporting dataset {self.job.params.task_name!r}")

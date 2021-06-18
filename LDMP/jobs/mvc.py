@@ -14,6 +14,7 @@ from .. import (
     layers,
     log,
     openFolder,
+    utils,
 )
 from ..conf import (
     Setting,
@@ -215,7 +216,8 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         self.add_to_canvas_tb.clicked.connect(self.load_dataset)
         self.open_details_tb.clicked.connect(self.show_details)
         self.open_directory_tb.clicked.connect(self.open_job_directory)
-        self.delete_tb.clicked.connect(self.delete_dataset)
+        self.delete_tb.clicked.connect(
+            functools.partial(utils.delete_dataset, self.job))
 
         self.delete_tb.setIcon(
             QtGui.QIcon(':/images/themes/default/mActionDeleteSelected.svg'))

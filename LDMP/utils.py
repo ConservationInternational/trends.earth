@@ -5,7 +5,14 @@ from pathlib import Path
 
 from osgeo import gdal
 from openpyxl.drawing.image import Image
+from PyQt5 import (
+    QtWidgets,
+)
 
+from . import (
+    layers,
+    log,
+)
 from .jobs import (
     manager,
     models,
@@ -51,3 +58,20 @@ def maybe_add_image_to_sheet(image_filename: str, sheet):
         # an issue on some Macs, likely others). it is only used here to add
         # our logo, so no big deal.
         pass
+
+
+def delete_dataset(job: models.Job):
+    message_box = QtWidgets.QMessageBox()
+    message_box.setText(
+        f"You are about to delete job {job.params.task_name!r}")
+    message_box.setInformativeText("Confirm?")
+    message_box.setStandardButtons(
+        QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.Cancel)
+    message_box.setDefaultButton(QtWidgets.QMessageBox.Cancel)
+    message_box.setIcon(QtWidgets.QMessageBox.Information)
+    result = QtWidgets.QMessageBox.Res = message_box.exec_()
+    if result == QtWidgets.QMessageBox.Yes:
+        log("About to delete the dataset")
+        for path in job.results.local_paths:
+            layers.delete_layer_by_filename(str(path))
+        manager.job_manager.delete_job(job)

@@ -2,17 +2,19 @@ import functools
 import typing
 from pathlib import Path
 
+from qgis.utils import iface
+
 from PyQt5 import (
     QtCore,
     QtGui,
     QtWidgets,
     uic,
 )
-
 from .. import (
     layers,
     log,
     openFolder,
+    utils,
 )
 from ..conf import (
     Setting,
@@ -22,6 +24,8 @@ from . import (
     manager,
     models,
 )
+
+from ..datasets_dialog import DatasetDetailsDialogue
 
 WidgetDatasetItemUi, _ = uic.loadUiType(
     str(Path(__file__).parents[1] / "gui/WidgetDatasetItem.ui"))
@@ -212,7 +216,8 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         self.add_to_canvas_tb.clicked.connect(self.load_dataset)
         self.open_details_tb.clicked.connect(self.show_details)
         self.open_directory_tb.clicked.connect(self.open_job_directory)
-        self.delete_tb.clicked.connect(self.delete_dataset)
+        self.delete_tb.clicked.connect(
+            functools.partial(utils.delete_dataset, self.job))
 
         self.delete_tb.setIcon(
             QtGui.QIcon(':/images/themes/default/mActionDeleteSelected.svg'))
@@ -274,6 +279,10 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
 
     def show_details(self):
         log(f"Details button clicked for job {self.job.params.task_name!r}")
+        result = DatasetDetailsDialogue(
+            self.job,
+            parent=iface.mainWindow()
+        ).exec_()
 
     def open_job_directory(self):
         log(f"Open directory button clicked for job {self.job.params.task_name!r}")

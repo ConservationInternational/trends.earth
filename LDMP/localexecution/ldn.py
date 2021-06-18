@@ -1,3 +1,4 @@
+import os
 import dataclasses
 import datetime as dt
 import enum
@@ -8,7 +9,10 @@ from pathlib import Path
 
 import numpy as np
 import openpyxl
-from osgeo import gdal
+from osgeo import (
+    gdal,
+    osr,
+)
 import qgis.core
 
 from .. import (
@@ -318,6 +322,302 @@ def save_summary_table(
         log(error_message)
 
 
+class DegradationSummaryWorkerSDG(worker.AbstractWorker):
+    def __init__(self, src_file, prod_band_nums, prod_mode, prod_out_file,
+                 lc_band_nums, soc_band_nums, mask_file):
+        worker.AbstractWorker.__init__(self)
+
+        self.src_file = src_file
+        self.prod_band_nums = [int(x) for x in prod_band_nums]
+        self.prod_mode = prod_mode
+        self.prod_out_file = prod_out_file
+        # Note the first entry in the lc_band_nums, and soc_band_nums lists is
+        # the degradation layer for that dataset
+        self.lc_band_nums = [int(x) for x in lc_band_nums]
+        self.soc_band_nums = [int(x) for x in soc_band_nums]
+        self.mask_file = mask_file
+
+    def work(self):
+        self.toggle_show_progress.emit(True)
+        self.toggle_show_cancel.emit(True)
+
+        src_ds = gdal.Open(self.src_file)
+
+        band_lc_deg = src_ds.GetRasterBand(self.lc_band_nums[0])
+        band_lc_bl = src_ds.GetRasterBand(self.lc_band_nums[1])
+        band_lc_tg = src_ds.GetRasterBand(self.lc_band_nums[-1])
+        band_soc_deg = src_ds.GetRasterBand(self.soc_band_nums[0])
+
+        mask_ds = gdal.Open(self.mask_file)
+        band_mask = mask_ds.GetRasterBand(1)
+
+        if self.prod_mode == 'Trends.Earth productivity':
+            traj_band = src_ds.GetRasterBand(self.prod_band_nums[0])
+            perf_band = src_ds.GetRasterBand(self.prod_band_nums[1])
+            state_band = src_ds.GetRasterBand(self.prod_band_nums[2])
+            block_sizes = traj_band.GetBlockSize()
+            xsize = traj_band.XSize
+            ysize = traj_band.YSize
+            # Save the combined productivity indicator as well, in the second
+            # layer in the deg file
+            n_out_bands = 2
+        else:
+            lpd_band = src_ds.GetRasterBand(self.prod_band_nums[0])
+            block_sizes = band_lc_deg.GetBlockSize()
+            xsize = band_lc_deg.XSize
+            ysize = band_lc_deg.YSize
+            n_out_bands = 1
+
+        x_block_size = block_sizes[0]
+        y_block_size = block_sizes[1]
+
+        # Setup output file for SDG degradation indicator and combined
+        # productivity bands
+        driver = gdal.GetDriverByName("GTiff")
+        dst_ds_deg = driver.Create(self.prod_out_file, xsize, ysize, n_out_bands,
+                                   gdal.GDT_Int16, options=['COMPRESS=LZW'])
+        src_gt = src_ds.GetGeoTransform()
+        dst_ds_deg.SetGeoTransform(src_gt)
+        dst_srs = osr.SpatialReference()
+        dst_srs.ImportFromWkt(src_ds.GetProjectionRef())
+        dst_ds_deg.SetProjection(dst_srs.ExportToWkt())
+
+        # Width of cells in longitude
+        long_width = src_gt[1]
+        # Set initial lat ot the top left corner latitude
+        lat = src_gt[3]
+        # Width of cells in latitude
+        pixel_height = src_gt[5]
+
+        # log('long_width: {}'.format(long_width))
+        # log('lat: {}'.format(lat))
+        # log('pixel_height: {}'.format(pixel_height))
+
+        xt = None
+        # The first array in each row stores transitions, the second stores SOC
+        # totals for each transition
+        soc_totals_table = [[np.array([], dtype=np.int16), np.array([], dtype=np.float32)] for i in
+                            range(len(self.soc_band_nums) - 1)]
+        # The 8 below is for eight classes plus no data, and the minus one is
+        # because one of the bands is a degradation layer
+        lc_totals_table = np.zeros((len(self.lc_band_nums) - 1, 8))
+        sdg_tbl_overall = np.zeros((1, 4))
+        sdg_tbl_prod = np.zeros((1, 4))
+        sdg_tbl_soc = np.zeros((1, 4))
+        sdg_tbl_lc = np.zeros((1, 4))
+
+        # pr = cProfile.Profile()
+        # pr.enable()
+
+        blocks = 0
+        for y in range(0, ysize, y_block_size):
+            if y + y_block_size < ysize:
+                rows = y_block_size
+            else:
+                rows = ysize - y
+            for x in range(0, xsize, x_block_size):
+                if self.killed:
+                    log("Processing killed by user after processing {} out of {} blocks.".format(y, ysize))
+                    break
+                self.progress.emit(100 * (float(y) + (float(x) / xsize) * y_block_size) / ysize)
+                if x + x_block_size < xsize:
+                    cols = x_block_size
+                else:
+                    cols = xsize - x
+
+                mask_array = band_mask.ReadAsArray(x, y, cols, rows)
+
+                # Calculate cell area for each horizontal line
+                # log('y: {}'.format(y))
+                # log('x: {}'.format(x))
+                # log('rows: {}'.format(rows))
+                cell_areas = np.array(
+                    [summary.calc_cell_area(lat + pixel_height * n, lat + pixel_height * (n + 1), long_width) for n in
+                     range(rows)])
+                cell_areas.shape = (cell_areas.size, 1)
+                # Make an array of the same size as the input arrays containing
+                # the area of each cell (which is identical for all cells ina
+                # given row - cell areas only vary among rows)
+                cell_areas_array = np.repeat(cell_areas, cols, axis=1).astype(np.float32)
+
+                if self.prod_mode == 'Trends.Earth productivity':
+                    traj_recode = calculate.ldn_recode_traj(
+                        traj_band.ReadAsArray(x, y, cols, rows))
+
+                    state_recode = calculate.ldn_recode_state(
+                        state_band.ReadAsArray(x, y, cols, rows))
+
+                    perf_array = perf_band.ReadAsArray(x, y, cols, rows)
+                    prod5 = calculate.ldn_make_prod5(
+                        traj_recode, state_recode, perf_array, mask_array)
+
+                    # Save combined productivity indicator for later visualization
+                    dst_ds_deg.GetRasterBand(2).WriteArray(prod5, x, y)
+                else:
+                    lpd_array = lpd_band.ReadAsArray(x, y, cols, rows)
+                    prod5 = lpd_array
+                    # TODO: Below is temporary until missing data values are
+                    # fixed in LPD layer on GEE and missing data values are
+                    # fixed in LPD layer made by UNCCD for SIDS
+                    prod5[(prod5 == 0) | (prod5 == 15)] = -32768
+                    # Mask areas outside of AOI
+                    prod5[mask_array == -32767] = -32767
+
+                # Recode prod5 as stable, degraded, improved (prod3)
+                prod3 = prod5.copy()
+                prod3[(prod5 >= 1) & (prod5 <= 3)] = -1
+                prod3[prod5 == 4] = 0
+                prod3[prod5 == 5] = 1
+
+                ################
+                # Calculate SDG
+                deg_sdg = prod3.copy()
+
+                lc_array = band_lc_deg.ReadAsArray(x, y, cols, rows)
+                deg_sdg[lc_array == -1] = -1
+
+                a_lc_bl = band_lc_bl.ReadAsArray(x, y, cols, rows)
+                a_lc_bl[mask_array == -32767] = -32767
+                a_lc_tg = band_lc_tg.ReadAsArray(x, y, cols, rows)
+                a_lc_tg[mask_array == -32767] = -32767
+                water = a_lc_tg == 7
+                water = water.astype(bool, copy=False)
+
+                # Note SOC array is coded in percent change, so change of
+                # greater than 10% is improvement or decline.
+                soc_array = band_soc_deg.ReadAsArray(x, y, cols, rows)
+                deg_sdg[(soc_array <= -10) & (soc_array >= -100)] = -1
+
+                # Allow improvements by lc or soc, only where one of the other
+                # two indicators doesn't indicate a decline
+                deg_sdg[(deg_sdg == 0) & (lc_array == 1)] = 1
+                deg_sdg[(deg_sdg == 0) & (soc_array >= 10) & (soc_array <= 100)] = 1
+
+                # Ensure all NAs are carried over - note this was already done
+                # for the productivity layer above but need to do it again in
+                # case values from another layer overwrote those missing value
+                # indicators.
+
+                # No data
+                deg_sdg[(prod3 == -32768) | (lc_array == -32768) | (soc_array == -32768)] = -32768
+
+                # Masked
+                deg_sdg[mask_array == -32767] = -32767
+
+                dst_ds_deg.GetRasterBand(1).WriteArray(deg_sdg, x, y)
+
+                ###########################################################
+                # Tabulate SDG 15.3.1 indicator
+                # log('deg_sdg.dtype: {}'.format(str(deg_sdg.dtype)))
+                # log('water.dtype: {}'.format(str(water.dtype)))
+                # log('cell_areas.dtype: {}'.format(str(cell_areas.dtype)))
+
+                sdg_tbl_overall = sdg_tbl_overall + calculate.ldn_total_deg(
+                    deg_sdg, water, cell_areas_array)
+                sdg_tbl_prod = sdg_tbl_prod + calculate.ldn_total_deg(
+                    prod3, water, cell_areas_array)
+                sdg_tbl_lc = sdg_tbl_lc + calculate.ldn_total_deg(
+                    lc_array,
+                    np.array((mask_array == -32767) | water).astype(bool),
+                    cell_areas_array
+                )
+
+                ###########################################################
+                # Calculate SOC totals by transition, on annual basis
+                a_trans_bl_tg = a_lc_bl * 10 + a_lc_tg
+                a_trans_bl_tg[np.logical_or(a_lc_bl < 1, a_lc_tg < 1)] = -32768
+                a_trans_bl_tg[mask_array == -32767] = -32767
+
+                # Calculate SOC totals). Note final units of soc_totals tables
+                # are tons C (summed over the total area of each class). Start
+                # at one because the first soc band is the degradation layer.
+                for i in range(1, len(self.soc_band_nums)):
+                    band_soc = src_ds.GetRasterBand(self.soc_band_nums[i])
+                    a_soc = band_soc.ReadAsArray(x, y, cols, rows)
+                    # Convert soilgrids data from per ha to per meter since
+                    # cell_area is in meters
+                    a_soc = a_soc.astype(np.float32) / (100 * 100)  # From per ha to per m
+                    a_soc[mask_array == -32767] = -32767
+
+                    this_trans, this_totals = calculate.ldn_total_by_trans(
+                        a_soc, a_trans_bl_tg, cell_areas_array)
+
+                    new_trans, totals = ldn_total_by_trans_merge(
+                        this_totals,
+                        this_trans,
+                        soc_totals_table[i - 1][1],
+                        soc_totals_table[i - 1][0]
+                    )
+                    soc_totals_table[i - 1][0] = new_trans
+                    soc_totals_table[i - 1][1] = totals
+                    if i == 1:
+                        # This is the baseline SOC - save it for later
+                        a_soc_bl = a_soc.copy()
+                    elif i == (len(self.soc_band_nums) - 1):
+                        # This is the target (tg) SOC - save it for later
+                        a_soc_tg = a_soc.copy()
+
+                ###########################################################
+                # Calculate transition crosstabs for productivity indicator
+                this_rh, this_ch, this_xt = summary.xtab(
+                    prod5, a_trans_bl_tg, cell_areas_array)
+                # Don't use this transition xtab if it is empty (could
+                # happen if take a xtab where all of the values are nan's)
+                if this_rh.size != 0:
+                    if xt is None:
+                        rh = this_rh
+                        ch = this_ch
+                        xt = this_xt
+                    else:
+                        rh, ch, xt = summary.merge_xtabs(
+                            this_rh, this_ch, this_xt, rh, ch, xt)
+
+                a_soc_frac_chg = a_soc_tg / a_soc_bl
+                # Degradation in terms of SOC is defined as a decline of more
+                # than 10% (and improving increase greater than 10%)
+                a_deg_soc = a_soc_frac_chg.astype(np.int16)
+                a_deg_soc[(a_soc_frac_chg >= 0) & (a_soc_frac_chg <= .9)] = -1
+                a_deg_soc[(a_soc_frac_chg > .9) & (a_soc_frac_chg < 1.1)] = 0
+                a_deg_soc[a_soc_frac_chg >= 1.1] = 1
+                # Mark areas that were no data in SOC
+                a_deg_soc[a_soc_tg == -32768] = -32768  # No data
+                # Carry over areas that were 1) originally masked, or 2) are
+                # outside the AOI, or 3) are water
+                sdg_tbl_soc = sdg_tbl_soc + calculate.ldn_total_deg(
+                    a_deg_soc, water, cell_areas_array)
+
+                # Start at one because remember the first lc band is the
+                # degradation layer
+                for i in range(1, len(self.lc_band_nums)):
+                    band_lc = src_ds.GetRasterBand(self.lc_band_nums[i])
+                    a_lc = band_lc.ReadAsArray(x, y, cols, rows)
+                    a_lc[mask_array == -32767] = -32767
+                    lc_totals_table[i - 1] = np.add(
+                        [np.sum((a_lc == c) * cell_areas_array) for c in [1, 2, 3, 4, 5, 6, 7, -32768]],
+                        lc_totals_table[i - 1])
+
+                blocks += 1
+            lat += pixel_height * rows
+        self.progress.emit(100)
+
+        # pr.disable()
+        # pr.dump_stats('calculate_ldn_stats')
+
+        if self.killed:
+            del dst_ds_deg
+            os.remove(self.prod_out_file)
+            return None
+        else:
+            # Convert all area tables from meters into square kilometers
+            return list((soc_totals_table,
+                         lc_totals_table * 1e-6,
+                         ((rh, ch), xt * 1e-6),
+                         sdg_tbl_overall * 1e-6,
+                         sdg_tbl_prod * 1e-6,
+                         sdg_tbl_soc * 1e-6,
+                         sdg_tbl_lc * 1e-6))
+
+
 def _render_ldn_workbook(
         template_workbook,
         summary_table: SummaryTable,
@@ -383,7 +683,7 @@ def _calculate_summary_table(
         #  Calculate SDG 15.3.1 layers
         log('Calculating summary table...')
         deg_worker = worker.StartWorker(
-            calculate_ldn.DegradationSummaryWorkerSDG,
+            DegradationSummaryWorkerSDG,
             deg_worker_process_name,
             indic_vrt,
             prod_band_nums,
@@ -477,7 +777,7 @@ def _compute_ldn_summary_table(
 def _accumulate_bounding_boxes_summary_tables(
         first: SummaryTable, second: SummaryTable) -> SummaryTable:
     for n in range(len(first.soc_totals)):
-        first.soc_totals[n] = calculate_ldn.merge_area_tables(
+        first.soc_totals[n] = summary.merge_area_tables(
             first.soc_totals[n],
             second.soc_totals[n]
         )
@@ -686,3 +986,19 @@ def _get_soc_total(soc_table, transition):
         return 0
     else:
         return float(soc_table[1][ind])
+
+
+#TODO: Get this working in the jitted version in Numba
+def ldn_total_by_trans_merge(total1, trans1, total2, trans2):
+    """Calculates a total table for an array"""
+    # Combine past totals with these totals
+    trans = np.unique(np.concatenate((trans1, trans2)))
+    totals = np.zeros(trans.size, dtype=np.float32)
+    for i in range(trans.size):
+        trans1_loc = np.where(trans1 == trans[i])[0]
+        trans2_loc = np.where(trans2 == trans[i])[0]
+        if trans1_loc.size > 0:
+            totals[i] = totals[i] + total1[trans1_loc[0]]
+        if trans2_loc.size > 0:
+            totals[i] = totals[i] + total2[trans2_loc[0]]
+    return trans, totals

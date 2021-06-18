@@ -14,10 +14,8 @@
 import json
 from pathlib import Path
 
-import numpy as np
 import qgis.core
 import qgis.gui
-from osgeo import gdal
 
 from PyQt5 import (
     QtWidgets,
@@ -27,9 +25,6 @@ from PyQt5 import (
 from . import (
     calculate,
     data_io,
-    log,
-    summary,
-    worker,
 )
 from .algorithms.models import ExecutionScript
 from .jobs.manager import job_manager
@@ -107,91 +102,6 @@ class DlgCalculateRestBiomassData(
             level=0,
             duration=5
         )
-
-
-class RestBiomassSummaryWorker(worker.AbstractWorker):
-    def __init__(self, src_file):
-        worker.AbstractWorker.__init__(self)
-
-        self.src_file = src_file
-
-    def work(self):
-        self.toggle_show_progress.emit(True)
-        self.toggle_show_cancel.emit(True)
-
-        src_ds = gdal.Open(self.src_file)
-
-        band_biomass_initial = src_ds.GetRasterBand(1)
-        # First band is initial biomass, and all other bands are for different 
-        # types of restoration
-        n_types = src_ds.RasterCount - 1
-
-        block_sizes = band_biomass_initial.GetBlockSize()
-        xsize = band_biomass_initial.XSize
-        ysize = band_biomass_initial.YSize
-
-        x_block_size = block_sizes[0]
-        y_block_size = block_sizes[1]
-
-        src_gt = src_ds.GetGeoTransform()
-
-        # Width of cells in longitude
-        long_width = src_gt[1]
-        # Set initial lat ot the top left corner latitude
-        lat = src_gt[3]
-        # Width of cells in latitude
-        pixel_height = src_gt[5]
-
-        area_site = 0
-        biomass_initial = 0
-        biomass_change = np.zeros(n_types)
-
-        blocks = 0
-        for y in range(0, ysize, y_block_size):
-            if y + y_block_size < ysize:
-                rows = y_block_size
-            else:
-                rows = ysize - y
-            for x in range(0, xsize, x_block_size):
-                if self.killed:
-                    log("Processing of {} killed by user after processing {} out of {} blocks.".format(self.prod_out_file, y, ysize))
-                    break
-                self.progress.emit(100 * (float(y) + (float(x)/xsize)*y_block_size) / ysize)
-                if x + x_block_size < xsize:
-                    cols = x_block_size
-                else:
-                    cols = xsize - x
-
-                biomass_initial_array = band_biomass_initial.ReadAsArray(x, y, cols, rows)
-
-                # Caculate cell area for each horizontal line
-                cell_areas = np.array([summary.calc_cell_area(lat + pixel_height*n, lat + pixel_height*(n + 1), long_width) for n in range(rows)])
-                cell_areas.shape = (cell_areas.size, 1)
-                # Make an array of the same size as the input arrays containing 
-                # the area of each cell (which is identicalfor all cells in a 
-                # given row - cell areas only vary among rows)
-                cell_areas_array = np.repeat(cell_areas, cols, axis=1)
-                # Convert cell areas to hectares
-                cell_areas_array = cell_areas_array * 1e-4
-
-                # The site area includes everything that isn't masked
-                site_pixels = biomass_initial_array != -32767
-                
-                area_site = area_site + np.sum(site_pixels * cell_areas_array)
-                biomass_initial = biomass_initial + np.sum(site_pixels * cell_areas_array * biomass_initial_array)
-
-                for n in range(n_types):
-                    biomass_rest_array = src_ds.GetRasterBand(n + 2).ReadAsArray(x, y, cols, rows)
-                    biomass_change[n] = biomass_change[n] + np.sum((biomass_rest_array) * cell_areas_array * site_pixels)
-
-                blocks += 1
-            lat += pixel_height * rows
-        self.progress.emit(100)
-
-        if self.killed:
-            return None
-
-        return list((biomass_initial, biomass_change, area_site))
 
 
 class DlgCalculateRestBiomassSummaryTable(

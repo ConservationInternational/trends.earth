@@ -32,6 +32,15 @@ WidgetDatasetItemDetailsUi, _ = uic.loadUiType(
 class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
     job: models.Job
 
+    alg_le: QtWidgets.QLineEdit
+    created_at_le: QtWidgets.QLineEdit
+    delete_btn: QtWidgets.QPushButton
+    export_btn: QtWidgets.QPushButton
+    load_btn: QtWidgets.QPushButton
+    name_le: QtWidgets.QLineEdit
+    state_le: QtWidgets.QLineEdit
+    path_le: QtWidgets.QLineEdit
+
     def __init__(self, job: models.Job, parent=None):
         super(DatasetDetailsDialogue, self).__init__(parent)
         self.setupUi(self)
@@ -46,13 +55,13 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
         self.open_directory_btn.clicked.connect(self.open_job_directory)
         self.export_btn.clicked.connect(self.export_dataset)
         self.alg_le.setText(self.job.script.name)
-        self.raster_file_path = None
 
-        if self.job.results is not None:
-            for path in self.job.results.local_paths:
-                if 'tif' in str(path):
-                    self.raster_file_path = path
-        self.path_le.setText(str(self.raster_file_path))
+        if len(self.job.results.local_paths) > 0:
+            path_le_text = ", ".join(str(p) for p in self.job.results.local_paths)
+        else:
+            path_le_text = "This dataset does not have local paths"
+            self.delete_btn.setEnabled(False)
+        self.path_le.setText(path_le_text)
 
         self.load_btn.setIcon(
             QtGui.QIcon(':/plugins/LDMP/icons/mActionAddRasterLayer.svg'))
@@ -82,7 +91,7 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
         self.bar.setSizePolicy(
             QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed
         )
-        self.layout().addWidget(self.bar, 0, 0, alignment=QtCore.Qt.AlignTop)
+        self.layout().insertWidget(0, self.bar, alignment=QtCore.Qt.AlignTop)
 
     def load_dataset(self):
         manager.job_manager.display_job_results(self.job)
@@ -99,46 +108,25 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
         self.accept()
 
     def export_dataset(self):
-        log(f"Exporting dataset {self.job.params.task_name!r}")
+        log(f"Exporting dataset {self.job.params.task_name!r}...")
         self.export_btn.setEnabled(False)
         self.bar.clearWidgets()
-
-        if self.raster_file_path is not None:
-            # collect all files related to the dataset and compress them
-            # into one zip file.
-            dataset_base_dir = self.raster_file_path.parents[0]
-            folder_contents = dataset_base_dir.glob(f"{self.raster_file_path.stem}.*")
-            files = [content for content in folder_contents if content.is_file()]
-
-            manager.job_manager.exports_dir.mkdir(exist_ok=True)
-
-            try:
-                # using dataset raster file basename for the zip if
-                # the job task name is empty.
-                if self.job.params.task_name is not None and \
-                        self.job.params.task_name is not '':
-                    zip_file_name = self.job.params.task_name
-                else:
-                    zip_file_name = self.raster_file_path.stem
-
-                zipped_file = f"{str(manager.job_manager.exports_dir)}/" \
-                              f"{zip_file_name}.zip"
-                with ZipFile(zipped_file, 'w') as zip:
-                    for file in files:
-                        zip.write(file, Path(file).name)
-            except RuntimeError:
-                message_bar_item = self.bar.createMessage(
-                    tr(f"Error exporting dataset {zipped_file}"))
-                self.bar.pushWidget(message_bar_item, level=qgis.core.Qgis.Critical)
-
+        manager.job_manager.exports_dir.mkdir(exist_ok=True)
+        current_job_file_path = manager.job_manager.get_job_file_path(self.job)
+        target_zip_name = f"{current_job_file_path.stem}.zip"
+        target_path = manager.job_manager.exports_dir / target_zip_name
+        paths_to_zip = self.job.results.local_paths + [current_job_file_path]
+        try:
+            with ZipFile(target_path, 'w') as zip:
+                for path in paths_to_zip:
+                    zip.write(str(path), path.name)
+        except RuntimeError:
             message_bar_item = self.bar.createMessage(
-                tr(f"Dataset exported to {zipped_file}"))
-            self.bar.pushWidget(message_bar_item, level=qgis.core.Qgis.Info)
-
+                tr(f"Error exporting dataset {self.job}"))
+            self.bar.pushWidget(message_bar_item, level=qgis.core.Qgis.Critical)
         else:
             message_bar_item = self.bar.createMessage(
-                tr(f"Couldn't export dataset {self.job.params.task_name},"
-                   f" it has no data files."))
+                tr(f"Dataset exported to {target_path!r}"))
             self.bar.pushWidget(message_bar_item, level=qgis.core.Qgis.Info)
-
-        self.export_btn.setEnabled(True)
+        finally:
+            self.export_btn.setEnabled(True)

@@ -29,7 +29,7 @@ import sphinx_rtd_theme
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 #extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode', 'rinoh.frontend.sphinx']
 #extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode', 'rst2pdf.pdfbuilder']
-extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode']
+extensions = ['sphinx_rtd_theme','sphinx.ext.todo', 'sphinx.ext.viewcode']
 
 todo_include_todos=True
 
@@ -83,6 +83,8 @@ rst_epilog = """
 .. |iconWrench| image:: /static/common/icon-wrench.png
    :width: 2em
 .. |iconFolder| image:: /static/common/icon-folder.png
+   :width: 2em
+.. |iconTrendsEarth| image:: /static/common/icon-trends_earth.png
    :width: 2em
 .. |iconVisualization| image:: /static/common/icon-reporting.png
    :width: 2em

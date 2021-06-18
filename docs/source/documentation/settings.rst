@@ -1,7 +1,7 @@
 Registration and settings
 =========================
 
-.. image:: /static/common/ldmt_toolbar_highlight_settings.png
+.. image:: /static/documentation/settings/trends_earth_toolbar_highlight_settings.png
    :align: center
 
 .. _registration:
@@ -12,29 +12,35 @@ Registration
 The toolbox is free to use, but you must register an email address prior to 
 using any of the cloud-based functions.
 
-To register your email address and obtain a free account, select the wrench 
-icon (|iconWrench|). This will open up the "Settings" dialog box:
+To register your email address and obtain a free account, select "|iconWrench| Settings" from the Trends.Earth toolbar drop down menu. This will open up the "Settings" dialog box:
 
-.. image:: /static/documentation/settings/settings.png
+.. image:: /static/documentation/settings/settings_dialog_highlight_register.png
    :align: center
 
-To Register, click the "Step 1: Register" button. Enter your email, name, 
+To Register, click the "Register" button. Enter your email, name, 
 organization and country of residence and select "Ok":
 
-.. image:: /static/documentation/settings/registration.png
+.. image:: /static/documentation/settings/register_new_user_dialog.png
    :align: center
 
-You will see a meesage indicating your user has been registered:
+You will see a message indicating your user has been registered:
 
 .. image:: /static/documentation/settings/registration_success.png
    :align: center
 
-After registering, you will receive an email from api@trends.earth with your 
-password. Once you receive this email, click on "Step 2: Enter login". This 
-will bring up a dialog asking for your email and password. Enter the password 
-you received from api@trends.earth and click "Ok":
+After registering, you will receive an email from api@trends.earth with your password. Once you receive this email, click on the "Edit selected configuration" icon in the "Settings" dialog: 
 
-.. image:: /static/documentation/settings/login.png
+.. image:: /static/documentation/settings/settings_dialog_highlight_edit_selected_configuration.png
+   :align: center
+
+This will bring up the "Authentication" dialog asking for your password. Enter the password you received from api@trends.earth and click "Save":
+
+.. image:: /static/documentation/settings/authenication_dialog.png
+   :align: center
+
+From the "Settings" dialog  click on "Test connection": 
+
+.. image:: /static/documentation/settings/settings_dialog_highlight_test_connection.png
    :align: center
 
 You will see a message indicating you have successfully been logged in:
@@ -45,62 +51,96 @@ You will see a message indicating you have successfully been logged in:
 Updating your user
 ------------------
 
-If you already are registered for |Trends.Earth| but want to change your login 
-information; update your name, organization, or country; or delete your user, 
-click on "Update user" from the "Settings" dialog.
+If you already are registered for |Trends.Earth| but want to change your login information; update your name, organization, or country; click on "Update profile" from the "Settings" dialog: 
 
-.. image:: /static/documentation/settings/settings_update.png
+.. image:: /static/documentation/settings/settings_dialog_highlight_update_profile.png
    :align: center
 
-If you want to change your username, click on "Change user". Note that this 
-function is only useful if you already have another existing |trends.earth| 
-account you want to switch to. To register a new user, see :ref:`registration`.
-To change your user, enter the email and password you wish to change to and 
-click "Ok":
+Update your information in the box that appears and click “Save”:
 
-.. image:: /static/documentation/settings/login.png
+.. image:: /static/documentation/settings/update_user_information_dialog.png
    :align: center
 
-If you want to update your profile, click on "Update profile". Update your 
-information in the box that appears and click "Save":
+A message will appear showing that the update(s) to your login information has been saved:
 
-.. image:: /static/documentation/settings/settings_update_details.png
+.. image:: /static/documentation/settings/updated_user_information.png
    :align: center
 
-To delete your user, click "Delete user". A warning message will appear. Click
-"Ok" if you are sure you want to delete your user:
+Changing your user
+------------------
+Please note that you can only change your user if you already have another existing |trends.earth| account you want to switch to.
+To register a new user, see :ref:`registration`.
+
+If you want to change your user, click on the "Edit selected configuration" icon from the "Settings" dialog: 
+
+.. image:: /static/documentation/settings/settings_dialog_highlight_edit_selected_configuration.png
+   :align: center
+
+In the "Authentication" dialog that appears, enter the username and password of the account you wish to switch to and click "Save":
+
+.. image:: /static/documentation/settings/authentication_change_user.png
+   :align: center
+
+From the "Settings" dialog  click on "Test connection": 
+
+.. image:: /static/documentation/settings/settings_dialog_highlight_test_connection.png
+   :align: center
+
+You will see a message indicating you have successfully been logged in as the new account:
+
+.. image:: /static/documentation/settings/login_success_change_user.png
+   :align: center
+
+Deleting your user
+------------------
+To delete your user, click "Delete user" from the "Settings" dialog:
+
+.. image:: /static/documentation/settings/settings_dialog_highlight_delete_user.png
+   :align: center
+
+A warning message will appear. Click "Ok" if you are sure you want to delete your user:
 
 .. image:: /static/documentation/settings/delete_user.png
+   :align: center
+
+A message will appear confirming that the user has been deleted. Click "Ok":
+
+.. image:: /static/documentation/settings/delete_user_success.png
    :align: center
 
 
 Forgot password
 ---------------
 
-If you forget your password, click on "Reset password" from the settings dialog 
-box.
+If you forget your password, click on "Reset password" from the "Settings" dialog 
+box: 
 
-A password will be sent to your email. Please check your Junk folder if you 
-cannot find it within your inbox. The email will come from api@trends.earth.
+.. image:: /static/documentation/settings/settings_dialog_highlight_reset_password.png
+   :align: center
 
-Once you receive your new password, return to the "Settings" screen and use 
-"Step 2: Enter login" to enter your new pasword.
+Enter the email address you used to register for |Trends.Earth| then Click "Ok":
 
 .. image:: /static/documentation/settings/forgot_password.png
-   :align: center
+   :align: center 
+
+Click "Yes" in the "Reset password?" confirmation dialog box then click "Ok" in the "Success" message box that appears. 
+A password will be sent to your email. Please check your Junk folder if you cannot find it within your inbox. The email will come from api@trends.earth.
+
+Once you receive your new password, return to the "Settings" screen and use the "Edit selected configuration" to enter your new password, then click on "Test connection" from the "Settings" dialog, to log in. 
 
 Advanced settings
 -----------------
 
-Click "Edit advanced options" to bring up the advanced settings page:
-
-
-.. image:: /static/documentation/settings/advanced.png
+.. image:: /static/documentation/settings/settings_dialog_advanced.png
    :align: center
    
 
-From the advanced settings page, you can change settings including 
-enabling/disabling debug mode, and loading pre-compiled binaries to speed up 
+From the advanced settings, you can change settings including:
+- enabling/disabling debug mode,
+- enabling or disabling the automatic download of the remotely-generated datasets,
+- enabling or disabling the periodic polling of the remote processing server,
+- setting the polling frequency,
+- and loading pre-compiled binaries to speed up 
 calculations in Trends.Earth.
 
 
@@ -134,7 +174,7 @@ To access the binaries, first choose a folder on your machine where you would
 like to have them saved, by clicking the "Browse" button on the advanced 
 settings screen. Once you have chosen a folder, click "Download" to download 
 the binaries to your machine. After downloading the binaries, restart QGIS in 
-order to enable them. Check the advanced settings page after restarting. If 
+order to enable them. Check the advanced settings after restarting. If 
 they are working correctly, you will see a message saying "Binaries **are** 
 loaded". If you have any trouble enabling the binaries, reach out to the 
 `Trends.Earth discussion group 

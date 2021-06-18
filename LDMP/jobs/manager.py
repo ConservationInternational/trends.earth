@@ -84,6 +84,12 @@ class JobManager(QtCore.QObject):
         return Path(
             conf.settings_manager.get_value(conf.Setting.BASE_DIR)) / "datasets"
 
+    @property
+    def exports_dir(self) -> Path:
+        return Path(
+            conf.settings_manager.get_value(conf.Setting.BASE_DIR)) / \
+               "exported"
+
     @classmethod
     def get_job_basename(cls, job: Job):
         separator = "_"

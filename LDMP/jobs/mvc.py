@@ -281,16 +281,14 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         return result
 
     def show_details(self):
-        log(f"Details button clicked for job {self.job.params.task_name!r}")
-        self.main_dock.paused = True
+        self.main_dock.pause_scheduler()
         DatasetDetailsDialogue(
             self.job,
             parent=iface.mainWindow()
         ).exec_()
-        self.main_dock.paused = False
+        self.main_dock.resume_scheduler()
 
     def open_job_directory(self):
-        log(f"Open directory button clicked for job {self.job.params.task_name!r}")
         job_directory = manager.job_manager.get_job_file_path(self.job).parent
         # NOTE: not using QDesktopServices.openUrl here, since it seems to not be
         # working correctly (as of Jun 2021 on Ubuntu)

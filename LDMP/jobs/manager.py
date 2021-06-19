@@ -35,7 +35,8 @@ class JobManager(QtCore.QObject):
     downloaded_job_results: QtCore.pyqtSignal = QtCore.pyqtSignal(Job)
     downloaded_available_jobs_results: QtCore.pyqtSignal = QtCore.pyqtSignal()
     deleted_job: QtCore.pyqtSignal = QtCore.pyqtSignal(Job)
-    submitted_job: QtCore.pyqtSignal = QtCore.pyqtSignal(Job)
+    submitted_remote_job: QtCore.pyqtSignal = QtCore.pyqtSignal(Job)
+    submitted_local_job: QtCore.pyqtSignal = QtCore.pyqtSignal(Job)
     processed_local_job: QtCore.pyqtSignal = QtCore.pyqtSignal(Job)
     imported_job: QtCore.pyqtSignal = QtCore.pyqtSignal(Job)
 
@@ -231,7 +232,7 @@ class JobManager(QtCore.QObject):
             job = Job.deserialize(raw_job)
             self.write_job_metadata_file(job)
             self._update_known_jobs_with_newly_submitted_job(job)
-            self.submitted_job.emit(job)
+            self.submitted_remote_job.emit(job)
         return job
 
     def submit_local_job(
@@ -258,7 +259,7 @@ class JobManager(QtCore.QObject):
         )
         self.write_job_metadata_file(job)
         self._update_known_jobs_with_newly_submitted_job(job)
-        self.submitted_job.emit(job)
+        self.submitted_local_job.emit(job)
         self.process_local_job(job, area_of_interest)
 
     def process_local_job(self, job: Job, area_of_interest: areaofinterest.AOI):

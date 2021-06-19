@@ -12,6 +12,7 @@
 """
 
 import datetime as dt
+import functools
 import typing
 import uuid
 from pathlib import Path
@@ -475,17 +476,19 @@ class DlgCalculateBase(QtWidgets.QDialog):
     """Base class for individual indicator calculate dialogs"""
     LOCAL_SCRIPT_NAME: str = ""
 
-    iface: qgis.gui.QgisInterface
-    canvas: qgis.gui.QgsMapCanvas
     admin_bounds_key: typing.Dict[str, download.Country]
+    aoi: areaofinterest.AOI
+    button_box: QtWidgets.QDialogButtonBox
+    canvas: qgis.gui.QgsMapCanvas
     cities: typing.Dict[str, typing.Dict[str, download.City]]
-    script: models.ExecutionScript
     datasets: typing.Dict[str, typing.Dict]
+    iface: qgis.gui.QgisInterface
+    main_dock: "MainWidget"
+    script: models.ExecutionScript
     _has_output: bool
     _firstShowEvent: bool
     reset_tab_on_showEvent: bool
     _max_area: int = 5e7  # maximum size task the tool supports
-    aoi: areaofinterest.AOI
 
     firstShowEvent = QtCore.pyqtSignal()
 
@@ -493,10 +496,11 @@ class DlgCalculateBase(QtWidgets.QDialog):
             self,
             iface: qgis.gui.QgisInterface,
             script: models.ExecutionScript,
-            parent: QtWidgets.QWidget = None
+            parent: "MainWidget" = None
     ):
         super().__init__(parent)
         self.iface = iface
+        self.main_dock = parent
         self.script = script
         self.mb = iface.messageBar()
         self._has_output = False
@@ -527,6 +531,10 @@ class DlgCalculateBase(QtWidgets.QDialog):
     # def get_subclass_name(cls):
     #     return cls.__name__
 
+    def toggle_execution_button(self, enabled: bool):
+        submit_button = self.button_box.button(self.button_box.Ok)
+        submit_button.setEnabled(enabled)
+
     def splitter_toggled(self):
         if self.splitter_collapsed:
             self.splitter.restoreState(self.splitter_state)
@@ -549,6 +557,11 @@ class DlgCalculateBase(QtWidgets.QDialog):
             ok_button.setText(self.tr("Schedule remote execution"))
         else:
             ok_button.setText(self.tr("Execute locally"))
+        self.main_dock.cache_refresh_about_to_begin.connect(
+            functools.partial(self.toggle_execution_button, False))
+        self.main_dock.cache_refresh_finished.connect(
+            functools.partial(self.toggle_execution_button, True))
+        self.toggle_execution_button(not self.main_dock.refreshing_filesystem_cache)
 
         self.update_current_region()
         self.region_button.clicked.connect(self.run_settings)

@@ -406,56 +406,6 @@ def register(email, name, organization, country):
     return call_api('/api/v1/user', method='post', payload=payload)
 
 
-def run_script(script_metadata, params={}):
-    # TODO: check before submission whether this payload and script ID has
-    # been sent recently - or even whether there are results already
-    # available for it. Notify the user if this is the case to prevent, or
-    # at least reduce, repeated identical submissions.
-    script_name = script_metadata[0]
-    script_slug = script_metadata[1]
-
-    # run a script needs the following steps
-    # 1st step) run it
-    resp = call_api(u'/api/v1/script/{}/run'.format(quote_plus(script_slug)), 'post', params, use_token=True)
-
-    # 2nd step) save returned processing data as json file as process placeholder
-    if resp:
-        # data = resp['data']
-        # only a job should be available as response
-        # if len(data) != 1:
-        #     QMessageBox.critical(None, "Error", tr_api.tr(u"More than one jobs returned running script. Only newest will be get as run representative"))
-        # data = sorted(data, key=lambda job_dict: round(datetime.strptime(job_dict['start_date'], '%Y-%m-%dT%H:%M:%S.%f').timestamp()), reverse=True)
-        job_dict = resp['data']
-
-        # Convert start/end dates into datatime objects in local time zone
-        # the reason is to allog parsin using JobSchema based on APIResponseSchema
-        start_date = datetime.strptime(job_dict['start_date'], '%Y-%m-%dT%H:%M:%S.%f')
-        start_date = start_date.replace(tzinfo=tz.tzutc())
-        start_date = start_date.astimezone(tz.tzlocal())
-        # job_dict['start_date'] = datetime.strftime(start_date, '%Y/%m/%d (%H:%M)')
-        job_dict['start_date'] = start_date
-        end_date = job_dict.get('end_date', None)
-        if end_date:
-            end_date = datetime.strptime(end_date, '%Y-%m-%dT%H:%M:%S.%f')
-            end_date = end_date.replace(tzinfo=tz.tzutc())
-            end_date = end_date.astimezone(tz.tzlocal())
-            # job_dict['end_date'] = datetime.strftime(end_date, '%Y/%m/%d (%H:%M)')
-            job_dict['end_date'] = end_date
-        job_dict['task_name'] = job_dict['params'].get('task_name', '')
-        job_dict['task_notes'] = job_dict['params'].get('task_notes', '')
-        job_dict['params'] = job_dict['params']
-        job_dict['script'] = {"name": script_name, "slug": script_slug}
-
-        # do import here to avoid circular import
-        from LDMP.jobs import Jobs
-        from LDMP.models.datasets import Datasets
-        jobFileName, job = Jobs().append(job_dict)
-        Datasets().appendFromJob(job)
-        Datasets().updated.emit()
-
-    return resp
-
-
 def update_user(email, name, organization, country):
     payload = {"email": email,
                "name": name,

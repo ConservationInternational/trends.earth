@@ -12,23 +12,20 @@
  ***************************************************************************/
 """
 
-import os
 import json
 
 from qgis.PyQt import QtWidgets, uic
 
 from qgis.PyQt.QtCore import QDate, QTextCodec
-from qgis.gui import QgsMapToolEmitPoint, QgsMapToolPan
 from qgis.utils import iface
 
 from . import log
 from .conf import KNOWN_SCRIPTS
 from .calculate import (
     DlgCalculateBase,
-    get_script_slug,
 )
 from .gui.DlgTimeseries import Ui_DlgTimeseries
-from .api import run_script
+from .jobs.manager import job_manager
 
 
 mb = iface.messageBar()
@@ -170,8 +167,7 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
                 self.traj_indic.currentText()]['params']
         )
 
-        resp = run_script(get_script_slug('time-series'), payload)
-
+        resp = job_manager.submit_remote_job(payload, self.script.id)
         if resp:
             mb.pushMessage(self.tr("Submitted"),
                            self.tr("Time series calculation task submitted to Google Earth Engine."),

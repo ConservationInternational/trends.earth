@@ -338,26 +338,6 @@ def get_file_metadata(json_file):
         return d
 
 
-def create_local_json_metadata(json_file, data_file, bands, metadata={}):
-    # NOTE: json_file is NOT used after refactoring and delegate filenaming
-    # convetion to Dataset.dump method
-
-    out = LocalRaster(os.path.basename(os.path.normpath(data_file)), bands, metadata)
-    # local_raster_schema = LocalRasterSchema()
-    # hook LocalRasterSchema to be used as Dataset
-    from LDMP.models.datasets import ( # import here to avoid circular import problem
-        Dataset,
-        Datasets
-    )
-    dataset = Dataset(localRaster=out)
-    dataset.dump()
-    Datasets().sync()
-
-    # with open(json_file, 'w') as f:
-    #     json.dump(local_raster_schema.dump(out), f, default=json_serial, 
-    #               sort_keys=True, indent=4, separators=(',', ': '))
-
-
 def _create_categorical_color_ramp(style_config: typing.Dict):
     ramp_items = style_config["ramp"]["items"]
     result = []
@@ -593,15 +573,6 @@ def tr_style_text(label, band_info=None):
             return label
         else:
             return str(label)
-
-
-def get_band_infos(data_file):
-    json_file = os.path.splitext(data_file)[0] + '.json'
-    m = get_file_metadata(json_file)
-    if m:
-        return m['bands']
-    else:
-        return None
 
 
 def get_band_title(band_info):

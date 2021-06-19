@@ -117,6 +117,8 @@ class TCWorker(worker.AbstractWorker):
 
 
 class DlgCalculateTCData(calculate.DlgCalculateBase, DlgCalculateTcDataUi):
+    groupBox_custom_bl: QtWidgets.QGroupBox
+    groupBox_custom_tg: QtWidgets.QGroupBox
     use_hansen: QtWidgets.QRadioButton
     hansen_bl_year: QtWidgets.QDateEdit
     hansen_tg_year: QtWidgets.QDateEdit
@@ -167,12 +169,17 @@ class DlgCalculateTCData(calculate.DlgCalculateBase, DlgCalculateTcDataUi):
         hansen_end_year = conf.REMOTE_DATASETS["Forest cover"]["Hansen"]["End year"]
         start_year = QtCore.QDate(hansen_start_year, 1, 1)
         end_year = QtCore.QDate(hansen_end_year, 12, 31)
-
-
+        # TODO: remove this when local calculations are ready to be enabled
+        self._disable_local_calculation_gui_elements()
         self.hansen_bl_year.setMinimumDate(start_year)
         self.hansen_bl_year.setMaximumDate(end_year)
         self.hansen_tg_year.setMinimumDate(start_year)
         self.hansen_tg_year.setMaximumDate(end_year)
+
+    def _disable_local_calculation_gui_elements(self):
+        self.use_custom.setHidden(True)
+        self.groupBox_custom_bl.setHidden(True)
+        self.groupBox_custom_tg.setHidden(True)
 
     def lc_source_changed(self):
         if self.use_hansen.isChecked():
@@ -238,20 +245,6 @@ class DlgCalculateTCData(calculate.DlgCalculateBase, DlgCalculateTcDataUi):
             self.calculate_locally(method, biomass_data)
         else:
             self.calculate_on_GEE(method, biomass_data)
-
-    def get_save_raster(self):
-        raster_file, _ = QtWidgets.QFileDialog.getSaveFileName(self,
-                                                        self.tr('Choose a name for the output file'),
-                                                        QtCore.QSettings().value("trends_earth/advanced/base_data_directory", None),
-                                                        self.tr('Raster file (*.tif)'))
-        if raster_file:
-            if os.access(os.path.dirname(raster_file), os.W_OK):
-                # QtCore.QSettings().setValue("LDMP/output_dir", os.path.dirname(raster_file))
-                return raster_file
-            else:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr(u"Cannot write to {}. Choose a different file.".format(raster_file)))
-                return False
 
     def calculate_locally(self, method, biomass_data):
         if not self.use_custom.isChecked():
@@ -347,32 +340,10 @@ class DlgCalculateTCData(calculate.DlgCalculateBase, DlgCalculateTcDataUi):
             band_infos.append(BandInfo("Land cover (7 class)", metadata={'year': year}))
 
         out_json = os.path.splitext(out_f)[0] + '.json'
+        # TODO: finish implementation
+        # - create payload
+        # use job_manager to submit a local job
 
-        # set alg metadata
-        metadata = self.setMetadata()
-        metadata['params'] = {}
-        metadata['params']['year_baseline'] = int(year_baseline)
-        metadata['params']['year_target'] = int(year_target)
-        metadata['params']['hansen_fc_threshold'] = self.hansen_fc_threshold.text()
-        metadata['params']['use_hansen'] = self.use_hansen.isChecked()
-        metadata['params']['method'] = method
-        metadata['params']['biomass_data'] = biomass_data
-        metadata['params']['lc_initial'] = self.lc_setup_tab.use_custom_initial.get_data_file()
-        metadata['params']['lc_final'] = self.lc_setup_tab.use_custom_final.get_data_file()
-
-        metadata['params']['crs'] = self.aoi.get_crs_dst_wkt()
-        crosses_180th, geojsons = self.gee_bounding_box
-        metadata['params']['geojsons'] = json.dumps(geojsons)
-        metadata['params']['crosses_180th'] = crosses_180th
-
-        layers.create_local_json_metadata(
-            out_json, out_f, band_infos, metadata=metadata)
-        schema = BandInfoSchema()
-        for band_number in range(len(band_infos)):
-            b = schema.dump(band_infos[band_number])
-            if b['add_to_map']:
-                # The +1 is because band numbers start at 1, not zero
-                layers.add_layer(out_f, band_number + 1, b)
 
     def calculate_on_GEE(self, method, biomass_data):
         self.close()

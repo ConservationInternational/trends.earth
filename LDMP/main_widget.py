@@ -27,7 +27,6 @@ from .conf import (
     settings_manager,
 )
 from .data_io import (
-    DlgDataIO,
     DlgDataIOLoadTE,
     DlgDataIOImportLC,
     DlgDataIOImportSOC,
@@ -53,7 +52,8 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
     _DATASETS_TAB_PAGE: int = 1
 
     iface: qgis.gui.QgisInterface
-    busy: bool
+    refreshing_filesystem_cache: bool
+    scheduler_paused: bool
     last_refreshed_local_state: typing.Optional[dt.datetime]
     last_refreshed_remote_state: typing.Optional[dt.datetime]
 
@@ -69,10 +69,10 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
     tab_widget: QtWidgets.QTabWidget
     toolButton_sort: QtWidgets.QToolButton
 
-    cache_synchronization_began = QtCore.pyqtSignal()
-    cache_synchronization_ended = QtCore.pyqtSignal()
+    cache_refresh_about_to_begin = QtCore.pyqtSignal()
+    cache_refresh_finished = QtCore.pyqtSignal()
 
-    _editing_widgets: typing.List[QtWidgets.QWidget]
+    _cache_refresh_togglable_widgets: typing.List[QtWidgets.QWidget]
 
     def __init__(
             self,
@@ -81,9 +81,10 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
     ):
         super().__init__(parent)
         self.iface = iface
-        self.busy = False
+        self.refreshing_filesystem_cache = False
+        self.scheduler_paused = False
         self.setupUi(self)
-        self._editing_widgets = [
+        self._cache_refresh_togglable_widgets = [
             self.pushButton_refresh,
             self.toolButton_sort,
         ]
@@ -99,11 +100,20 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         job_manager.refreshed_local_state.connect(self.refresh_after_cache_update)
         job_manager.refreshed_from_remote.connect(self.refresh_after_cache_update)
         job_manager.downloaded_job_results.connect(self.refresh_after_cache_update)
-        job_manager.downloaded_available_jobs_results.connect(
-            self.refresh_after_cache_update)
         job_manager.deleted_job.connect(self.refresh_after_cache_update)
-        job_manager.submitted_job.connect(self.refresh_after_job_modified)
+        job_manager.submitted_remote_job.connect(self.refresh_after_job_modified)
+        job_manager.processed_local_job.connect(self.refresh_after_job_modified)
         job_manager.imported_job.connect(self.refresh_after_job_modified)
+
+        self.cache_refresh_about_to_begin.connect(
+            functools.partial(self.toggle_ui_for_cache_refresh, True))
+        self.cache_refresh_finished.connect(
+            functools.partial(self.toggle_ui_for_cache_refresh, False))
+        self.cache_refresh_about_to_begin.connect(
+            functools.partial(self.toggle_refreshing_state, True))
+        self.cache_refresh_finished.connect(
+            functools.partial(self.toggle_refreshing_state, False))
+
         self.clean_empty_directories()
         self.setup_algorithms_tree()
         self.setup_datasets_page_gui()
@@ -164,7 +174,8 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
         self.datasets_tv.setMouseTracking(True)  # to allow emit entered events and manage editing over mouse
         self.datasets_tv.setWordWrap(True)  # add ... to wrap DisplayRole text... to have a real wrap need a custom widget
-        self.datasets_tv_delegate = jobs_mvc.JobItemDelegate(self.datasets_tv)
+        self.datasets_tv_delegate = jobs_mvc.JobItemDelegate(
+            self, parent=self.datasets_tv)
         self.datasets_tv.setItemDelegate(self.datasets_tv_delegate)
         self.datasets_tv.setEditTriggers(
             QtWidgets.QAbstractItemView.AllEditTriggers)
@@ -183,12 +194,12 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         maybe_download_finished_results()
         model = jobs_mvc.JobsModel(job_manager)
         # self.datasets_tv.setModel(model)
-
         self.proxy_model = jobs_mvc.JobsSortFilterProxyModel(SortField.DATE)
         self.proxy_model.setSourceModel(model)
         self.lineEdit_search.valueChanged.connect(self.filter_changed)
         self.datasets_tv.setModel(self.proxy_model)
-        self.toggle_editing_widgets(True)
+        self.resume_scheduler()
+        self.cache_refresh_finished.emit()
 
     def perform_periodic_tasks(self):
         """Handle periodic execution of plugin related tasks
@@ -211,27 +222,25 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         """
 
         local_frequency = settings_manager.get_value(Setting.LOCAL_POLLING_FREQUENCY)
-        if _should_run(local_frequency, self.last_refreshed_local_state):
-            # TODO: disable editing widgets while the refresh is working in order to avoid
-            # potential mess up of the file system cache caused by the user mashing
-            # the refresh button too quickly.
-            self.toggle_editing_widgets(False)
-            # lets check if we also need to update from remote, as that takes precedence
-            if settings_manager.get_value(Setting.POLL_REMOTE):
-                remote_frequency = settings_manager.get_value(
-                    Setting.REMOTE_POLLING_FREQUENCY)
-                if _should_run(remote_frequency, self.last_refreshed_remote_state):
-                    self.update_remote_state()
+        if self.refreshing_filesystem_cache:
+            log("Filesystem cache is already being refreshed, skipping...")
+        elif self.scheduler_paused:
+            log("Scheduling is paused, skipping...")
+        else:
+            log("Lets maybe do stuff...")
+            if _should_run(local_frequency, self.last_refreshed_local_state):
+                # lets check if we also need to update from remote, as that takes precedence
+                if settings_manager.get_value(Setting.POLL_REMOTE):
+                    remote_frequency = settings_manager.get_value(
+                        Setting.REMOTE_POLLING_FREQUENCY)
+                    if _should_run(remote_frequency, self.last_refreshed_remote_state):
+                        self.update_from_remote_state()
+                    else:
+                        self.update_local_state()
                 else:
                     self.update_local_state()
             else:
-                self.update_local_state()
-        else:
-            pass  # nothing to do, move along
-
-    def toggle_editing_widgets(self, enable: bool):
-        for widget in self._editing_widgets:
-            widget.setEnabled(enable)
+                pass  # nothing to do, move along
 
     def clean_empty_directories(self):
         """Remove any Job or Dataset empty folder. Job or Dataset folder can be empty
@@ -261,18 +270,29 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         clean(folders)
 
     def perform_single_update(self):
-        self.update_remote_state()
+        self.update_from_remote_state()
 
-    def update_remote_state(self):
+    def update_from_remote_state(self):
         log("updating remote state...")
+        self.cache_refresh_about_to_begin.emit()
         job_manager.refresh_from_remote_state()
         self.last_refreshed_remote_state = dt.datetime.now(tz=dt.timezone.utc)
 
     def update_local_state(self):
         """Update the state of local datasets"""
         log("updating local state...")
+        self.cache_refresh_about_to_begin.emit()
         job_manager.refresh_local_state()
         self.last_refreshed_local_state = dt.datetime.now(tz=dt.timezone.utc)
+
+    def toggle_ui_for_cache_refresh(self, refresh_started: bool):
+        log(f"toggle_ui_for_cache_refresh called. refresh_started: {refresh_started}")
+        for widget in self._cache_refresh_togglable_widgets:
+            widget.setEnabled(not refresh_started)
+
+    def toggle_refreshing_state(self, refresh_started: bool):
+        log(f"toggle_refreshing_state called. refresh_started: {refresh_started}")
+        self.refreshing_filesystem_cache = refresh_started
 
     def refresh_after_job_modified(self, job: Job):
         self.refresh_after_cache_update()
@@ -307,12 +327,19 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.algorithms_tv.setModel(model)
         self.algorithms_tv_delegate = algorithms_mvc.AlgorithmItemDelegate(
             self.launch_algorithm_execution_dialogue,
+            self,
             self.algorithms_tv
         )
         self.algorithms_tv.setItemDelegate(self.algorithms_tv_delegate)
         self.algorithms_tv.setEditTriggers(
             QtWidgets.QAbstractItemView.AllEditTriggers)
         self.algorithms_tv.entered.connect(self._manage_algorithm_tree_view)
+
+    def pause_scheduler(self):
+        self.scheduler_paused = True
+
+    def resume_scheduler(self):
+        self.scheduler_paused = False
 
     def launch_algorithm_execution_dialogue(
             self,
@@ -323,7 +350,14 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         dialog_class_path = algorithm_script.parametrization_dialogue
         dialog_class = load_object(dialog_class_path)
         dialog = dialog_class(self.iface, algorithm_script.script, parent=self)
-        dialog.exec_()
+        self.pause_scheduler()
+        result = dialog.exec_()
+        if result == QtWidgets.QDialog.Rejected:
+            self.resume_scheduler()
+        else:
+            # if the dialog has been accepted we will resume the scheduler only after
+            # the datasets treeview has been refreshed
+            pass
 
     def _manage_datasets_tree_view(self, index: QtCore.QModelIndex):
         """Manage dataset treeview's editing

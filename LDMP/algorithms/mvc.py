@@ -145,14 +145,17 @@ class AlgorithmTreeModel(QtCore.QAbstractItemModel):
 class AlgorithmItemDelegate(QtWidgets.QStyledItemDelegate):
     current_index: typing.Optional[QtCore.QModelIndex]
     algorithm_execution_handler: typing.Callable
+    main_dock: "MainWidget"
 
     def __init__(
             self,
             algorithm_execution_handler: typing.Callable,
+            main_dock: "MainWidget",
             parent: QtCore.QObject = None
     ):
         super().__init__(parent)
         self.parent = parent
+        self.main_dock = main_dock
         self.current_index = None
         self.algorithm_execution_handler = algorithm_execution_handler
 
@@ -196,7 +199,11 @@ class AlgorithmItemDelegate(QtWidgets.QStyledItemDelegate):
         item = index.internalPointer()
         if item.item_type == models.AlgorithmNodeType.Algorithm:
             result = AlgorithmEditorWidget(
-                item, execution_handler=self.algorithm_execution_handler, parent=parent)
+                item,
+                execution_handler=self.algorithm_execution_handler,
+                main_dock=self.main_dock,
+                parent=parent
+            )
         else:
             result = super().createEditor(parent, option, index)
         return result
@@ -214,16 +221,19 @@ class AlgorithmEditorWidget(QtWidgets.QWidget, WidgetAlgorithmLeafUi):
     name_la: QtWidgets.QLabel
     description_la: QtWidgets.QLabel
     open_execution_dialogue_tb: QtWidgets.QToolButton
+    main_dock: "MainWidget"
 
     def __init__(
             self,
             algorithm: models.Algorithm,
             execution_handler: typing.Callable,
+            main_dock: "MainWidget",
             parent=None
     ):
         super().__init__(parent)
         self.setupUi(self)
         self.setAutoFillBackground(True)  # this allow to hide background prerendered pixmap
+        self.main_dock = main_dock
         self.name_la.setText(algorithm.name)
         self.description_la.setText(algorithm.description)
         action_labels = {

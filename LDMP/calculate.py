@@ -527,10 +527,6 @@ class DlgCalculateBase(QtWidgets.QDialog):
 
         self.firstShowEvent.connect(self.firstShow)
 
-    # @classmethod
-    # def get_subclass_name(cls):
-    #     return cls.__name__
-
     def toggle_execution_button(self, enabled: bool):
         submit_button = self.button_box.button(self.button_box.Ok)
         submit_button.setEnabled(enabled)
@@ -580,11 +576,10 @@ class DlgCalculateBase(QtWidgets.QDialog):
         handle_layout.addStretch()
         splitter_handle.setLayout(handle_layout)
 
-        right_collapsed = self.splitter.sizes()[1] == 0
-        arrow_type = QtCore.Qt.RightArrow if right_collapsed else QtCore.Qt.LeftArrow
+        arrow_type = QtCore.Qt.RightArrow
         self.collapse_button.setArrowType(arrow_type)
         self.collapse_button.clicked.connect(self.splitter_toggled)
-        self.splitter_collapsed = right_collapsed
+        self.splitter_collapsed = False
 
         qgis.gui.QgsGui.enableAutoGeometryRestore(self)
         self.splitter.setStretchFactor(0, 10)

@@ -94,17 +94,17 @@ class JobManager(QtCore.QObject):
     @classmethod
     def get_job_basename(cls, job: Job):
         separator = "_"
+        name_fragments = []
         task_name = job.params.task_name
-        first_part = separator.join((
-            str(job.id),
+        if task_name != "":
+            name_fragments.append(task_name)
+        name_fragments.extend([
             job.script.slug,
             job.params.task_notes.local_context.area_of_interest_name,
-        ))
-        if task_name != "":
-            result = f"{first_part}{separator}{task_name}"
-        else:
-            result = first_part
-        return result
+            job.start_date.strftime("%Y%m%d%H%M"),
+            str(job.id)
+        ])
+        return separator.join(name_fragments)
 
     def clear_known_jobs(self):
         self._known_running_jobs = {}

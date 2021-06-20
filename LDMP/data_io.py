@@ -1248,10 +1248,20 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
         self.comboBox_layers.clear()
         items = []
         for usable_band in usable_bands:
-            items.append(
-                f"{usable_band.job.params.task_name} - {usable_band.band_info.name} - "
-                f"{usable_band.band_info.metadata}"
+            task_name = usable_band.job.params.task_name
+            if task_name != "":
+                name_info_parts = [task_name]
+            else:
+                name_info_parts = []
+            name_info_parts.extend(
+                [
+                    usable_band.band_info.name,
+                    str(usable_band.band_info.metadata),
+                    usable_band.job.params.task_notes.local_context.area_of_interest_name,
+                    usable_band.job.start_date.strftime("%Y-%m-%d %H:%M")
+                ]
             )
+            items.append(" - ".join(name_info_parts))
         self.comboBox_layers.addItems(items)
 
     def get_data_file(self) -> Path:

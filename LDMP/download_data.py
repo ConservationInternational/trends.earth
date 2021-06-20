@@ -14,6 +14,7 @@
 
 import json
 import os
+from pathlib import Path
 
 
 import qgis.gui
@@ -21,11 +22,17 @@ from PyQt5 import (
     QtCore,
     QtGui,
     QtWidgets,
+    uic,
 )
-from . import calculate
+from . import (
+    calculate,
+    conf,
+    log,
+)
 from .algorithms import models
-from .gui.DlgDownload import Ui_DlgDownload
 from .jobs.manager import job_manager
+
+DlgDownloadUi, _ = uic.loadUiType(str(Path(__file__).parent / "gui/DlgDownload.ui"))
 
 
 class tool_tipper(QtCore.QObject):
@@ -100,7 +107,7 @@ class DataTableModel(QtCore.QAbstractTableModel):
         return QtCore.QAbstractTableModel.headerData(self, section, orientation, role)
 
 
-class DlgDownload(calculate.DlgCalculateBase, Ui_DlgDownload):
+class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
 
     def __init__(
             self,
@@ -113,17 +120,12 @@ class DlgDownload(calculate.DlgCalculateBase, Ui_DlgDownload):
         # Allow the download tool to support data downloads of any size (in 
         # terms of area)
         self._max_area = 1e10
-
         self.setupUi(self)
-
-        with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
-                               'data', 'gee_datasets.json')) as f:
-            data_dict = json.load(f)
-
+        self.button_calculate.clicked.connect(self.btn_calculate)
         self.datasets = []
-        for cat in list(data_dict.keys()):
-            for title in list(data_dict[cat].keys()):
-                item = data_dict[cat][title]
+        for cat in list(conf.REMOTE_DATASETS.keys()):
+            for title in list(conf.REMOTE_DATASETS[cat].keys()):
+                item = conf.REMOTE_DATASETS[cat][title].copy()
                 item.update({'category': cat, 'title': title})
                 min_x = item.get('Min Longitude', None)
                 max_x = item.get('Max Longitude', None)
@@ -137,9 +139,7 @@ class DlgDownload(calculate.DlgCalculateBase, Ui_DlgDownload):
                 self.datasets.append(item)
 
         self.update_data_table()
-
         self.data_view.selectionModel().selectionChanged.connect(self.selection_changed)
-
         self.data_view.viewport().installEventFilter(tool_tipper(self.data_view))
 
     def selection_changed(self):
@@ -172,6 +172,8 @@ class DlgDownload(calculate.DlgCalculateBase, Ui_DlgDownload):
         super(DlgDownload, self).firstShow()
         # Don't show the time selector for now
         self.TabBox.removeTab(1)
+        self.button_prev.setHidden(True)
+        self.button_next.setHidden(True)
 
     def showEvent(self, event):
         super(DlgDownload, self).showEvent(event)
@@ -212,9 +214,12 @@ class DlgDownload(calculate.DlgCalculateBase, Ui_DlgDownload):
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
         # as well.
+        log("btn_calculate clicked")
         ret = super(DlgDownload, self).btn_calculate()
+        log(f"ret: {ret}")
         if not ret:
             return
+        log(f"continuing...")
 
         rows = list(set(index.row() for index in self.data_view.selectedIndexes()))
         # Construct unique dataset names as the concatenation of the category 
@@ -225,6 +230,7 @@ class DlgDownload(calculate.DlgCalculateBase, Ui_DlgDownload):
         self.close()
 
         crosses_180th, geojsons = self.gee_bounding_box
+        log(f"selected_datasets: {selected_datasets}")
         for dataset in selected_datasets:
             payload = {
                 'geojsons': json.dumps(geojsons),

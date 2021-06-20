@@ -41,6 +41,7 @@ from . import (
 )
 from .algorithms import models
 from .conf import (
+    REMOTE_DATASETS,
     Setting,
     settings_manager,
 )
@@ -521,10 +522,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
                                'data', 'scripts.json')) as script_file:
             self.scripts = json.load(script_file)
 
-        with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
-                               'data', 'gee_datasets.json')) as datasets_file:
-            self.datasets = json.load(datasets_file)
-
+        self.datasets = REMOTE_DATASETS
         self.firstShowEvent.connect(self.firstShow)
 
     def toggle_execution_button(self, enabled: bool):

@@ -62,45 +62,45 @@ version = '1.0.3'
 release = '1.0.3'
 
 rst_epilog = """
-.. |iconCalculator| image:: /static/common/icon-calculator.png
+.. |iconCalculator| image:: ../../resources/en/common/icon-calculator.png
    :width: 2em
-.. |iconChart| image:: /static/common/icon-chart.png
+.. |iconChart| image:: ../../resources/en/common/icon-chart.png
    :width: 2em
-.. |iconClipboard| image:: /static/common/icon-clipboard.png
+.. |iconClipboard| image:: ../../resources/en/common/icon-clipboard.png
    :width: 2em
-.. |iconCloudDownload| image:: /static/common/icon-cloud-download.png
+.. |iconCloudDownload| image:: ../../resources/en/common/icon-cloud-download.png
    :width: 2em
-.. |iconCog| image:: /static/common/icon-cog.png
+.. |iconCog| image:: ../../resources/en/common/icon-cog.png
    :width: 2em
-.. |iconGlobe| image:: /static/common/icon-globe.png
+.. |iconGlobe| image:: ../../resources/en/common/icon-globe.png
    :width: 2em
-.. |iconGraph| image:: /static/common/icon-graph.png
+.. |iconGraph| image:: ../../resources/en/common/icon-graph.png
    :width: 2em
-.. |iconInfo| image:: /static/common/icon-info.png
+.. |iconInfo| image:: ../../resources/en/common/icon-info.png
    :width: 2em
-.. |iconMarkMarker| image:: /static/common/icon-map-marker.png
+.. |iconMarkMarker| image:: ../../resources/en/common/icon-map-marker.png
    :width: 2em
-.. |iconWrench| image:: /static/common/icon-wrench.png
+.. |iconWrench| image:: ../../resources/en/common/icon-wrench.png
    :width: 2em
-.. |iconFolder| image:: /static/common/icon-folder.png
+.. |iconFolder| image:: ../../resources/en/common/icon-folder.png
    :width: 2em
-.. |iconTrendsEarth| image:: /static/common/icon-trends_earth.png
+.. |iconTrendsEarth| image:: ../../resources/en/common/icon-trends_earth.png
    :width: 2em
-.. |iconVisualization| image:: /static/common/icon-reporting.png
+.. |iconVisualization| image:: ../../resources/en/common/icon-reporting.png
    :width: 2em
-.. |trends.earth| image:: /static/common/trends_earth_logo_bl_print.png
+.. |trends.earth| image:: ../../resources/en/common/trends_earth_logo_bl_print.png
    :width: 7em
    :alt: Trends.Earth
-.. |logoCI| image:: /static/common/logo_CI_square.png
+.. |logoCI| image:: ../../resources/en/common/logo_CI_square.png
     :width: 150
     :target: http://www.conservation.org
-.. |logoLund| image:: /static/common/logo_Lund_square.png
+.. |logoLund| image:: ../../resources/en/common/logo_Lund_square.png
     :width: 125
     :target: http://www.lunduniversity.lu.se
-.. |logoNASA| image:: /static/common/logo_NASA_square.png
+.. |logoNASA| image:: ../../resources/en/common/logo_NASA_square.png
     :width: 125
     :target: http://www.nasa.gov
-.. |logoGEF| image:: /static/common/logo_GEF.png
+.. |logoGEF| image:: ../../resources/en/common/logo_GEF.png
     :width: 125
     :target: https://www.thegef.org
 .. |CURRENT| replace:: {current_version}

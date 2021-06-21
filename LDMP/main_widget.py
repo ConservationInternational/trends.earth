@@ -178,6 +178,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         model = jobs_mvc.JobsModel(job_manager)
         # self.datasets_tv.setModel(model)
         self.proxy_model = jobs_mvc.JobsSortFilterProxyModel(SortField.DATE)
+        self.filter_changed("")
         self.proxy_model.setSourceModel(model)
         self.lineEdit_search.valueChanged.connect(self.filter_changed)
         self.datasets_tv.setModel(self.proxy_model)
@@ -286,10 +287,25 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.refresh_after_cache_update()
 
     def filter_changed(self, filter_string: str):
-        options = QtCore.QRegularExpression.NoPatternOption
-        options |= QtCore.QRegularExpression.CaseInsensitiveOption
-        regular_expression = QtCore.QRegularExpression(filter_string, options)
-        self.proxy_model.setFilterRegularExpression(regular_expression)
+        special_chars = [
+            "*",
+            ".",
+            "[",
+            "]",
+        ]
+        has_special_char = False
+        for char in filter_string:
+            if char in special_chars:
+                has_special_char = True
+                break
+        filter_ = filter_string if has_special_char else f"{filter_string}*"
+        self.proxy_model.setFilterRegExp(
+            QtCore.QRegExp(
+                filter_,
+                QtCore.Qt.CaseInsensitive,
+                QtCore.QRegExp.Wildcard
+            )
+        )
 
     def setup_algorithms_tree(self):
         self.algorithms_tv.setStyleSheet(

@@ -99,8 +99,8 @@ class JobsSortFilterProxyModel(QtCore.QSortFilterProxyModel):
         jobs_model = self.sourceModel()
         index = jobs_model.index(source_row, 0, source_parent)
         job: models.Job = jobs_model.data(index)
-        match = self.filterRegularExpression().match(job.visible_name)
-        return match.hasMatch()
+        reg_exp = self.filterRegExp()
+        return reg_exp.exactMatch(job.visible_name)
 
     def lessThan(self, left: QtCore.QModelIndex, right: QtCore.QModelIndex) -> bool:
         model = self.sourceModel()

@@ -114,7 +114,12 @@ class AlgorithmTreeModel(QtCore.QAbstractItemModel):
             if role == QtCore.Qt.DisplayRole:
                 if index.column() == 0:
                     try:
-                        result = f"{current_item.name} - {current_item.name_details}"
+                        name_parts = [
+                            current_item.name,
+                        ]
+                        if current_item.name_details:
+                            name_parts.append(current_item.name_details)
+                        result = " - ".join(name_parts)
                     except AttributeError:
                         result = f"{current_item.name}"
                 else:

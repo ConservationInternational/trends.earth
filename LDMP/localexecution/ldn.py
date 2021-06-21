@@ -15,12 +15,12 @@ from osgeo import (
 )
 import qgis.core
 
+import LDMP.logger
 from .. import (
     areaofinterest,
     calculate,
     calculate_ldn,
     data_io,
-    log,
     summary,
     utils,
     worker,
@@ -61,8 +61,8 @@ def _get_ldn_inputs(
         sort_property: str = "year"
 ) -> LdnInputInfo:
     usable_band_info = data_selection_widget.get_usable_band_info()
-    log(f"usable_band_info: {usable_band_info}")
-    log(f"usable_band_info.path: {usable_band_info.path}")
+    LDMP.logger.log(f"usable_band_info: {usable_band_info}")
+    LDMP.logger.log(f"usable_band_info.path: {usable_band_info.path}")
     main_band = usable_band_info.band_info
     main_band_index = usable_band_info.band_index
     aux_bands = []
@@ -312,14 +312,14 @@ def save_summary_table(
         workbook, summary_table, land_cover_years, soil_organic_carbon_years)
     try:
         workbook.save(output_path)
-        log(u'Indicator table saved to {}'.format(output_path))
+        LDMP.logger.log(u'Indicator table saved to {}'.format(output_path))
 
     except IOError:
         error_message = (
             f"Error saving output table - check that {output_path!r} is accessible "
             f"and not already open."
         )
-        log(error_message)
+        LDMP.logger.log(error_message)
 
 
 class DegradationSummaryWorkerSDG(worker.AbstractWorker):
@@ -389,9 +389,9 @@ class DegradationSummaryWorkerSDG(worker.AbstractWorker):
         # Width of cells in latitude
         pixel_height = src_gt[5]
 
-        # log('long_width: {}'.format(long_width))
-        # log('lat: {}'.format(lat))
-        # log('pixel_height: {}'.format(pixel_height))
+        # utils.log('long_width: {}'.format(long_width))
+        # utils.log('lat: {}'.format(lat))
+        # utils.log('pixel_height: {}'.format(pixel_height))
 
         xt = None
         # The first array in each row stores transitions, the second stores SOC
@@ -417,7 +417,7 @@ class DegradationSummaryWorkerSDG(worker.AbstractWorker):
                 rows = ysize - y
             for x in range(0, xsize, x_block_size):
                 if self.killed:
-                    log("Processing killed by user after processing {} out of {} blocks.".format(y, ysize))
+                    LDMP.logger.log("Processing killed by user after processing {} out of {} blocks.".format(y, ysize))
                     break
                 self.progress.emit(100 * (float(y) + (float(x) / xsize) * y_block_size) / ysize)
                 if x + x_block_size < xsize:
@@ -428,9 +428,9 @@ class DegradationSummaryWorkerSDG(worker.AbstractWorker):
                 mask_array = band_mask.ReadAsArray(x, y, cols, rows)
 
                 # Calculate cell area for each horizontal line
-                # log('y: {}'.format(y))
-                # log('x: {}'.format(x))
-                # log('rows: {}'.format(rows))
+                # utils.log('y: {}'.format(y))
+                # utils.log('x: {}'.format(x))
+                # utils.log('rows: {}'.format(rows))
                 cell_areas = np.array(
                     [summary.calc_cell_area(lat + pixel_height * n, lat + pixel_height * (n + 1), long_width) for n in
                      range(rows)])
@@ -508,9 +508,9 @@ class DegradationSummaryWorkerSDG(worker.AbstractWorker):
 
                 ###########################################################
                 # Tabulate SDG 15.3.1 indicator
-                # log('deg_sdg.dtype: {}'.format(str(deg_sdg.dtype)))
-                # log('water.dtype: {}'.format(str(water.dtype)))
-                # log('cell_areas.dtype: {}'.format(str(cell_areas.dtype)))
+                # utils.log('deg_sdg.dtype: {}'.format(str(deg_sdg.dtype)))
+                # utils.log('water.dtype: {}'.format(str(water.dtype)))
+                # utils.log('cell_areas.dtype: {}'.format(str(cell_areas.dtype)))
 
                 sdg_tbl_overall = sdg_tbl_overall + calculate.ldn_total_deg(
                     deg_sdg, water, cell_areas_array)
@@ -651,7 +651,7 @@ def _calculate_summary_table(
     # build vrt
     # Combines SDG 15.3.1 input raster into a VRT and crop to the AOI
     indic_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
-    log(u'Saving indicator VRT to: {}'.format(indic_vrt))
+    LDMP.logger.log(u'Saving indicator VRT to: {}'.format(indic_vrt))
     # The plus one is because band numbers start at 1, not zero
     gdal.BuildVRT(
         indic_vrt,
@@ -667,7 +667,7 @@ def _calculate_summary_table(
     # gdal.Clip to save having to clip and rewrite all of the layers in
     # the VRT
     mask_vrt = tempfile.NamedTemporaryFile(suffix='.tif').name
-    log(u'Saving mask to {}'.format(mask_vrt))
+    LDMP.logger.log(u'Saving mask to {}'.format(mask_vrt))
     geojson = calculate.json_geom_to_geojson(
         qgis.core.QgsGeometry.fromWkt(bbox).asJson())
     deg_lc_mask_worker = worker.StartWorker(
@@ -681,7 +681,7 @@ def _calculate_summary_table(
     if deg_lc_mask_worker.success:
         ######################################################################
         #  Calculate SDG 15.3.1 layers
-        log('Calculating summary table...')
+        LDMP.logger.log('Calculating summary table...')
         deg_worker = worker.StartWorker(
             DegradationSummaryWorkerSDG,
             deg_worker_process_name,
@@ -868,7 +868,7 @@ def _write_unccd_reporting_sheet(
         sheet, summary_table: SummaryTable, land_cover_years, soil_organic_carbon_years):
 
     for i in range(len(land_cover_years)):
-        log('lc_years len: {}'.format(len(land_cover_years)))
+        LDMP.logger.log('lc_years len: {}'.format(len(land_cover_years)))
         # Water bodies
         cell = sheet.cell(5 + i, 4)
         cell.value = summary_table.lc_totals[i][6]

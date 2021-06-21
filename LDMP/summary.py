@@ -12,16 +12,10 @@
  ***************************************************************************/
 """
 
-from builtins import zip
-from builtins import range
+from . import conf
+from .logger import log
 
-from qgis.PyQt.QtCore import QSettings
-
-import numpy as np
-
-from LDMP import log
-
-if QSettings().value("LDMP/binaries_enabled", False, type=bool):
+if conf.settings_manager.get_value(conf.Setting.BINARIES_ENABLED):
     try:
         from trends_earth_binaries.summary_numba import *
         log("Using numba-compiled version of summary_numba.")

@@ -9,8 +9,8 @@ from osgeo import (
     osr,
 )
 
+import LDMP.logger
 from .. import (
-    log,
     utils,
     worker,
 )
@@ -56,7 +56,7 @@ def compute_soil_organic_carbon(
     ] + lc_vrts
 
     in_vrt_path = tempfile.NamedTemporaryFile(suffix='.vrt').name
-    log(u'Saving SOC input files to {}'.format(in_vrt_path))
+    LDMP.logger.log(u'Saving SOC input files to {}'.format(in_vrt_path))
     gdal.BuildVRT(
         in_vrt_path,
         in_files,
@@ -67,11 +67,11 @@ def compute_soil_organic_carbon(
         separate=True
     )
     job_output_path, dataset_output_path = utils.get_local_job_output_paths(soc_job)
-    log(f'Saving soil organic carbon to {dataset_output_path!r}')
+    LDMP.logger.log(f'Saving soil organic carbon to {dataset_output_path!r}')
     # Lc bands start on band 3 as band 1 is initial soc, and band 2 is
     # climate zones
     lc_band_nums = list(range(3, len(lc_files) + 3))
-    log(f'lc_band_nums: {lc_band_nums}')
+    LDMP.logger.log(f'lc_band_nums: {lc_band_nums}')
     soc_worker = worker.StartWorker(
         SOCWorker,
         'calculating change in soil organic carbon',
@@ -204,7 +204,7 @@ class SOCWorker(worker.AbstractWorker):
         blocks = 0
         for y in range(0, ysize, y_block_size):
             if self.killed:
-                log("Processing killed by user after processing {} out of {} blocks.".format(y, ysize))
+                LDMP.logger.log("Processing killed by user after processing {} out of {} blocks.".format(y, ysize))
                 break
             self.progress.emit(100 * float(y) / ysize)
             if y + y_block_size < ysize:
@@ -235,7 +235,7 @@ class SOCWorker(worker.AbstractWorker):
                     t0 = float(self.lc_years[n])
                     t1 = float(self.lc_years[n + 1])
 
-                    log(u'self.lc_band_nums: {}'.format(self.lc_band_nums))
+                    LDMP.logger.log(u'self.lc_band_nums: {}'.format(self.lc_band_nums))
                     lc_t0 = ds_in.GetRasterBand(self.lc_band_nums[n]).ReadAsArray(x, y, cols, rows)
                     lc_t1 = ds_in.GetRasterBand(self.lc_band_nums[n + 1]).ReadAsArray(x, y, cols, rows)
 

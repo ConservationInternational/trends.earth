@@ -15,7 +15,6 @@ from PyQt5 import (
 )
 
 from . import (
-    log,
     openFolder,
     tr,
     utils,
@@ -24,6 +23,7 @@ from .jobs import (
     manager,
     models,
 )
+from .logger import log
 
 WidgetDatasetItemDetailsUi, _ = uic.loadUiType(
     str(Path(__file__).parents[0] / "gui/WidgetDatasetItemDetails.ui"))

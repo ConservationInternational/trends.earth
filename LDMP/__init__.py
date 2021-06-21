@@ -18,16 +18,19 @@ import re
 import site
 import json
 import subprocess
-import datetime
-import threading
 from tempfile import NamedTemporaryFile
-from typing import List
 
-from qgis.PyQt.QtCore import (QSettings, QTranslator, qVersion, 
-        QLocale, QCoreApplication)
-
-from qgis.core import QgsMessageLog, QgsApplication
+from PyQt5 import (
+    QtCore,
+)
+from qgis.core import QgsApplication
 from qgis.utils import iface
+
+import LDMP.logger
+from . import (
+    conf,
+    utils,
+)
 
 plugin_dir = os.path.dirname(os.path.realpath(__file__))
 
@@ -40,11 +43,7 @@ __release_date__ = version_info['release_date']
 
 
 def tr(message):
-    return QCoreApplication.translate('trends.earth', message)
-
-
-def log(message, level=0):
-    QgsMessageLog.logMessage(message, tag='trends.earth', level=level)
+    return QtCore.QCoreApplication.translate('trends.earth', message)
 
 
 def classFactory(iface):  # pylint: disable=invalid-name
@@ -66,26 +65,29 @@ def GetTempFilename(suffix):
 
 # initialize translation
 i18n_dir = os.path.join(plugin_dir, 'i18n')
-log(u'Starting trends.earth version {} (rev: {}, released {}).'.format(__version__, __revision__, __release_date__))
+LDMP.logger.log(
+    f'Starting trends.earth version {__version__} (rev: {__revision__}, '
+    f'released {__release_date__}).'
+)
 
-translator = QTranslator()
-locale = QLocale(QgsApplication.locale())
-log('Trying to load locale {} from {}.'.format(locale.name(), i18n_dir))
+translator = QtCore.QTranslator()
+locale = QtCore.QLocale(QgsApplication.locale())
+LDMP.logger.log('Trying to load locale {} from {}.'.format(locale.name(), i18n_dir))
 translator.load(locale, 'LDMP', prefix='.', directory=i18n_dir, suffix='.qm')
-ret = QCoreApplication.installTranslator(translator)
+ret = QtCore.QCoreApplication.installTranslator(translator)
 if ret:
-    log("Translator installed for {}.".format(locale.name()))
+    LDMP.logger.log("Translator installed for {}.".format(locale.name()))
 else:
-    log("FAILED while trying to install translator for {}.".format(locale.name()))
+    LDMP.logger.log("FAILED while trying to install translator for {}.".format(locale.name()))
 
 # Ensure that the ext-libs, and binaries folder (if available) are near the 
 # front of the path (important on Linux)
 ext_libs_path = os.path.join(plugin_dir, 'ext-libs')
-binaries_folder = QSettings().value("LDMP/binaries_folder", None)
+binaries_folder = conf.settings_manager.get_value(conf.Setting.BINARIES_DIR)
 sys.path, remainder = sys.path[:1], sys.path[1:]
 site.addsitedir(ext_libs_path)
 if binaries_folder:
-    log('Adding {} to path for binaries.'.format(binaries_folder))
+    LDMP.logger.log('Adding {} to path for binaries.'.format(binaries_folder))
     site.addsitedir(os.path.join(binaries_folder,
         'trends_earth_binaries_{}'.format(__version__.replace('.', '_'))))
 sys.path.extend(remainder)
@@ -93,26 +95,24 @@ sys.path.extend(remainder)
 
 def binaries_available():
     ret = True
+    debug_enabled = conf.settings_manager.get_value(conf.Setting.DEBUG)
     try:
         from trends_earth_binaries import summary_numba
-        if QSettings().value("LDMP/debug", False, type=bool):
-            log("Numba-compiled version of summary_numba available.")
+        if debug_enabled:
+            LDMP.logger.log("Numba-compiled version of summary_numba available.")
     except (ModuleNotFoundError, ImportError) as e:
-        if QSettings().value("LDMP/debug", False, type=bool):
-            log("Numba-compiled version of summary_numba not available.")
+        if debug_enabled:
+            LDMP.logger.log("Numba-compiled version of summary_numba not available.")
         ret = False
     try:
         from trends_earth_binaries import calculate_numba
-        if QSettings().value("LDMP/debug", False, type=bool):
-            log("Numba-compiled version of calculate_numba available.")
+        if debug_enabled:
+            LDMP.logger.log("Numba-compiled version of calculate_numba available.")
     except (ModuleNotFoundError, ImportError) as e:
-        if QSettings().value("LDMP/debug", False, type=bool):
-            log("Numba-compiled version of calculate_numba not available.")
+        if debug_enabled:
+            LDMP.logger.log("Numba-compiled version of calculate_numba not available.")
         ret = False
     return ret
-
-def debug_on():
-    QSettings().value("LDMP/debug", False, type=bool)
 
 
 def openFolder(path):
@@ -136,41 +136,3 @@ def openFolder(path):
         subprocess.check_call(['xdg-open', path])
     elif sys.platform == 'win32':
         subprocess.check_call(['explorer', path])
-
-# singleton decorator
-def singleton(cls):
-    instances = {}
-    def wrapper(*args, **kwargs):
-        # eventually lock getting the instance in case it is in modiry state
-        if hasattr(cls, 'lock'):
-            cls.lock.acquire()
-        
-        if cls not in instances:
-          instances[cls] = cls(*args, **kwargs)
-        
-        # eventually unlock
-        if hasattr(cls, 'lock'):
-            cls.lock.release()
-
-        return instances[cls]
-    return wrapper
-
-
-def json_serial(obj):
-    """JSON serializer for objects not serializable by default json code"""
-    if isinstance(obj, (datetime.datetime, datetime.date)):
-        return obj.isoformat()
-    raise TypeError("Type {} not serializable".format(type(obj)))
-
-
-def traverse(path, excluded: List[str] = []):
-    """Return a list of files traversing path recursively and excluding some of them.
-    """
-    for basepath, directories, files in os.walk(path):
-        # skip if parsing an excluded path
-        is_excluded = [x for x in excluded if x.lower() in basepath.lower()]
-        if is_excluded:
-            continue
-        for f in files:
-            yield os.path.join(basepath, f)
-

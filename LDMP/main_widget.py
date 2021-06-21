@@ -13,7 +13,6 @@ from PyQt5 import (
 )
 
 from . import (
-    log,
     tr,
 )
 from .algorithms import (
@@ -40,7 +39,10 @@ from .jobs.models import (
     JobStatus,
     SortField,
 )
-from .utils import load_object
+from .utils import (
+    load_object,
+)
+from .logger import log
 from .visualization import DlgVisualizationBasemap
 
 DockWidgetTrendsEarthUi, _ = uic.loadUiType(
@@ -65,7 +67,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
     pushButton_load: QtWidgets.QPushButton
     pushButton_download: QtWidgets.QPushButton
     pushButton_refresh: QtWidgets.QPushButton
-    tab_widget: QtWidgets.QTabWidget
+    tabWidget: QtWidgets.QTabWidget
 
     cache_refresh_about_to_begin = QtCore.pyqtSignal()
     cache_refresh_finished = QtCore.pyqtSignal()
@@ -184,11 +186,6 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.datasets_tv.setModel(self.proxy_model)
         self.resume_scheduler()
         self.cache_refresh_finished.emit()
-
-        # default sorting
-        self.proxy_model.current_sort_field = SortField.DATE
-        sort_field_index = list(SortField).index(SortField.DATE)
-        self.proxy_model.sort(sort_field_index, QtCore.Qt.DescendingOrder)
 
     def perform_periodic_tasks(self):
         """Handle periodic execution of plugin related tasks
@@ -326,6 +323,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.algorithms_tv.setEditTriggers(
             QtWidgets.QAbstractItemView.AllEditTriggers)
         self.algorithms_tv.entered.connect(self._manage_algorithm_tree_view)
+        self.tabWidget.setCurrentIndex(self._SUB_INDICATORS_TAB_PAGE)
 
     def pause_scheduler(self):
         self.scheduler_paused = True

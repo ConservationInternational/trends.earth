@@ -19,14 +19,13 @@ from qgis.PyQt import QtWidgets, uic
 from qgis.PyQt.QtCore import QDate, QTextCodec
 from qgis.utils import iface
 
-from . import log
 from .conf import KNOWN_SCRIPTS
 from .calculate import (
     DlgCalculateBase,
 )
 from .gui.DlgTimeseries import Ui_DlgTimeseries
 from .jobs.manager import job_manager
-
+from .logger import log
 
 mb = iface.messageBar()
 

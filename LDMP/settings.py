@@ -17,20 +17,19 @@ import zipfile
 import typing
 from pathlib import Path
 
-import qgis.core
-import qgis.gui
-from qgis.utils import iface
-from qgis.PyQt import (
+from PyQt5 import (
     QtCore,
     QtGui,
     QtWidgets,
 )
+import qgis.core
+import qgis.gui
+from qgis.utils import iface
 
 from . import (
     __version__,
     api,
     binaries_available,
-    log,
     openFolder,
     download,
 )
@@ -46,7 +45,7 @@ from .gui.DlgSettingsLogin import Ui_DlgSettingsLogin
 from .gui.DlgSettingsRegister import Ui_DlgSettingsRegister
 from .gui.WidgetSelectArea import Ui_WidgetSelectArea
 from .gui.WidgetSettingsAdvanced import Ui_WidgetSettingsAdvanced
-from .message_bar import MessageBar
+from .logger import log
 
 settings = QtCore.QSettings()
 
@@ -69,13 +68,17 @@ def is_subdir(child, parent):
 
 
 class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
+    message_bar: qgis.gui.QgsMessageBar
+
     def __init__(self, parent=None):
         super(DlgSettings, self).__init__(parent)
 
         self.setupUi(self)
+        self.message_bar = qgis.gui.QgsMessageBar(self)
 
         # add subcomponent widgets
-        self.widgetSettingsAdvanced = WidgetSettingsAdvanced()
+        self.widgetSettingsAdvanced = WidgetSettingsAdvanced(
+            message_bar=self.message_bar)
         self.verticalLayout_advanced.layout().insertWidget(0, self.widgetSettingsAdvanced)
 
         # set Dialog UIs
@@ -107,8 +110,7 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
     def showEvent(self, event):
         super(DlgSettings, self).showEvent(event)
         # add message bar for all dialog communication
-        MessageBar().init()
-        self.layout().insertWidget(0, MessageBar().get())
+        self.layout().insertWidget(0, self.message_bar)
 
     def closeEvent(self, event):
         self.widgetSettingsAdvanced.closeEvent(event)
@@ -116,7 +118,6 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
 
     def close(self):
         super(DlgSettings, self).close()
-        MessageBar().reset()
 
     def reloadAuthConfigurations(self):
         self.authConfigSelect_authentication.populateConfigSelector()
@@ -139,7 +140,8 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
         # retrieve basic auth from QGIS authManager
         authConfigId = self.authConfigSelect_authentication.configId()
         if not authConfigId:
-            MessageBar().get().pushCritical('Trends.Earth', self.tr('Please select a authentication profile'))
+            self.message_bar.pushCritical(
+                'Trends.Earth', self.tr('Please select a authentication profile'))
             return
 
         # try to login with current credentials
@@ -681,8 +683,12 @@ class DlgSettingsEditUpdate(QtWidgets.QDialog, Ui_DlgSettingsEditUpdate):
             QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your country."))
             return
 
-        resp = api.update_user(self.email.text(), self.name.text(),
-                           self.organization.text(), self.country.currentText())
+        resp = api.update_user(
+            self.email.text(),
+            self.name.text(),
+            self.organization.text(),
+            self.country.currentText()
+        )
 
         if resp:
             QtWidgets.QMessageBox.information(None, self.tr("Saved"),
@@ -703,9 +709,12 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
     download_remote_datasets_chb: QtWidgets.QCheckBox
     qgsFileWidget_base_directory: qgis.gui.QgsFileWidget
 
-    def __init__(self, parent=None):
+    message_bar: qgis.gui.QgsMessageBar
+
+    def __init__(self, message_bar: qgis.gui.QgsMessageBar, parent=None):
         super(WidgetSettingsAdvanced, self).__init__(parent)
         self.setupUi(self)
+        self.message_bar = message_bar
         self.binaries_browse_button.clicked.connect(self.binary_folder_browse)
         self.binaries_download_button.clicked.connect(self.binaries_download)
         self.qgsFileWidget_base_directory.fileChanged.connect(
@@ -781,8 +790,7 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
 
     def base_directory_changed(self, new_base_directory):
         if not new_base_directory:
-            # TODO: change to MessageBar().get()
-            iface.messageBar().pushWarning(
+            self.message_bar.pushWarning(
                 'Trends.Earth', self.tr('No base data directory set'))
             return
 
@@ -790,8 +798,7 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
             if not os.path.exists(new_base_directory):
                 os.makedirs(new_base_directory)
         except PermissionError:
-            # TODO: change to MessageBar().get()
-            iface.messageBar().pushCritical(
+            self.message_bar.pushCritical(
                 'Trends.Earth',
                 self.tr("Unable to write to {}. Try a different folder.".format(
                     new_base_directory))

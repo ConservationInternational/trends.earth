@@ -21,8 +21,6 @@ from operator import attrgetter
 from pathlib import Path
 from math import floor, log10
 
-from marshmallow import ValidationError
-
 from qgis.core import (
     QgsColorRampShader,
     QgsRasterShader,
@@ -41,9 +39,8 @@ from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtGui import QColor
 from qgis.PyQt.QtCore import QCoreApplication
 
-from LDMP import log, json_serial
+from .logger import log
 
-from LDMP.schemas.schemas import LocalRaster, LocalRasterSchema
 
 
 class tr_layers(object):
@@ -309,33 +306,6 @@ def _get_cutoff(
             # We only get here if cutoffs is not size 1 or 2, which should
             # never happen, so raise
             raise ValueError("Stretch calculation returned cutoffs array of size {} ({})".format(cutoffs.size, cutoffs))
-
-
-def get_file_metadata(json_file):
-    try:
-        with open(json_file) as f:
-            d = json.load(f)
-    except (OSError, IOError, ValueError) as e:
-        log(u'Error loading {}'.format(json_file))
-        return None
-
-    local_raster_schema = LocalRasterSchema()
-
-    try:
-        d = local_raster_schema.load(d)
-    except ValidationError:
-        log(u'Unable to parse {}'.format(json_file))
-        return None
-
-    # Below is a fix for older versions of LDMP<0.43 that stored the full path 
-    # in the metadata
-    f = os.path.join(os.path.dirname(json_file),
-                     os.path.basename(os.path.normpath(d['file'])))
-    if not os.access(f, os.R_OK):
-        log(u'Data file {} is missing'.format(f))
-        return None
-    else:
-        return d
 
 
 def _create_categorical_color_ramp(style_config: typing.Dict):

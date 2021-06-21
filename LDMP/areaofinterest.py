@@ -12,8 +12,8 @@ from osgeo import (
 from . import (
     conf,
     download,
-    log,
 )
+from .logger import log
 
 
 def get_city_geojson() -> typing.Dict:
@@ -362,7 +362,7 @@ class AOI(object):
         return frac
 
 
-def prepare_area_of_interest(max_area: int) -> AOI:
+def prepare_area_of_interest() -> AOI:
     if conf.settings_manager.get_value(conf.Setting.CUSTOM_CRS_ENABLED):
         crs_dst = qgis.core.QgsCoordinateReferenceSystem(
             conf.settings_manager.get_value(conf.Setting.CUSTOM_CRS))
@@ -436,6 +436,7 @@ def prepare_area_of_interest(max_area: int) -> AOI:
 
     # Limit processing area to be no greater than 10^7 sq km if using a
     # custom shapefile
+    max_area: int = 5e7  # maximum size task the tool supports
     if not is_city and not is_region:
         aoi_area = area_of_interest.get_area() / (1000 * 1000)
         if aoi_area > max_area:

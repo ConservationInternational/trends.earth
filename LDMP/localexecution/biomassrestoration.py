@@ -11,11 +11,11 @@ from openpyxl.styles import (
 )
 from osgeo import gdal
 
+import LDMP.logger
 from .. import (
     areaofinterest,
     calculate,
     calculate_rest_biomass,
-    log,
     summary,
     utils,
     worker,
@@ -44,7 +44,7 @@ def compute_biomass_restoration(
                     job_output_path.parent / f"{job_output_path.stem}.tif")
         output_biomass_diff_tifs.append(output_biomass_diff_tif)
 
-        log(u'Saving clipped biomass file to {}'.format(output_biomass_diff_tif))
+        LDMP.logger.log(u'Saving clipped biomass file to {}'.format(output_biomass_diff_tif))
         geojson = calculate.json_geom_to_geojson(
             qgis.core.QgsGeometry.fromWkt(wkts[n]).asJson())
         clip_worker = worker.StartWorker(
@@ -58,7 +58,7 @@ def compute_biomass_restoration(
         if clip_worker.success:
             ######################################################################
             #  Calculate biomass change summary table
-            log('Calculating summary table...')
+            LDMP.logger.log('Calculating summary table...')
             rest_summary_worker = worker.StartWorker(
                 calculate_rest_biomass.RestBiomassSummaryWorker,
                 f'calculating summary table (part {n+1} of {len(wkts)})',
@@ -80,9 +80,9 @@ def compute_biomass_restoration(
         else:
             raise RuntimeError("Error masking input layers.")
 
-    log(f'area_site: {area_site}')
-    log(f'biomass_initial: {biomass_initial}')
-    log(f'biomass_change: {biomass_change}')
+    LDMP.logger.log(f'area_site: {area_site}')
+    LDMP.logger.log(f'biomass_initial: {biomass_initial}')
+    LDMP.logger.log(f'biomass_change: {biomass_change}')
 
     summary_table_output_path = job_output_path.parent / f"{job_output_path.stem}.xlsx"
     _save_summary_table(
@@ -188,7 +188,7 @@ def _save_summary_table(
 
     try:
         workbook.save(out_file)
-        log(u'Summary table saved to {}'.format(out_file))
+        LDMP.logger.log(u'Summary table saved to {}'.format(out_file))
     except IOError as exc:
         raise RuntimeError(
             f"Error saving output table - check that {out_file} is accessible and "
@@ -250,7 +250,7 @@ class RestBiomassSummaryWorker(worker.AbstractWorker):
                 rows = ysize - y
             for x in range(0, xsize, x_block_size):
                 if self.killed:
-                    log("Processing of {} killed by user after processing {} out of {} blocks.".format(
+                    LDMP.logger.log("Processing of {} killed by user after processing {} out of {} blocks.".format(
                         self.prod_out_file, y, ysize))
                     break
                 self.progress.emit(100 * (float(y) + (float(x) / xsize) * y_block_size) / ysize)

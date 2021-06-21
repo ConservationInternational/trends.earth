@@ -25,11 +25,11 @@ from . import (
     calculate,
     data_io,
     lc_setup,
-    log,
 )
 
 from .algorithms import models
 from .jobs.manager import job_manager
+from .logger import log
 
 DlgCalculateSocUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateSOC.ui"))

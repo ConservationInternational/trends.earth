@@ -7,11 +7,11 @@ import openpyxl
 import qgis.core
 from osgeo import gdal
 
+import LDMP.logger
 from .. import (
     areaofinterest,
     calculate,
     calculate_urban,
-    log,
     summary,
     utils,
     worker,
@@ -44,7 +44,7 @@ def compute_urban_change_summary_table(
         # aoi). Use this instead of croptocutline in gdal.Warp in order to
         # keep the pixels aligned with the chosen productivity layer.
         indic_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        log(u'Saving indicator VRT to: {}'.format(indic_vrt))
+        LDMP.logger.log(u'Saving indicator VRT to: {}'.format(indic_vrt))
         gdal.BuildVRT(
             indic_vrt,
             in_files,
@@ -63,7 +63,7 @@ def compute_urban_change_summary_table(
                     job_output_path.parent / f"{job_output_path.stem}.tif")
         output_indicator_tifs.append(output_indicator_tif)
 
-        log(f'Saving urban clipped files to {output_indicator_tif}')
+        LDMP.logger.log(f'Saving urban clipped files to {output_indicator_tif}')
         geojson = calculate.json_geom_to_geojson(
             qgis.core.QgsGeometry.fromWkt(wkts[n]).asJson()
         )
@@ -76,7 +76,7 @@ def compute_urban_change_summary_table(
             bbs[n]
         )
         if clip_worker.success:
-            log('Calculating summary table...')
+            LDMP.logger.log('Calculating summary table...')
             urban_summary_worker = worker.StartWorker(
                 UrbanSummaryWorker,
                 'calculating summary table (part {} of {})'.format(n + 1, len(wkts)),
@@ -134,7 +134,7 @@ def save_summary_table(areas, populations, out_file):
     utils.maybe_add_image_to_sheet('trends_earth_logo_bl_300width.png', sheet)
     try:
         workbook.save(out_file)
-        log(u'Summary table saved to {}'.format(out_file))
+        LDMP.logger.log(u'Summary table saved to {}'.format(out_file))
 
     except IOError as exc:
         raise RuntimeError(
@@ -189,7 +189,7 @@ class UrbanSummaryWorker(worker.AbstractWorker):
                 rows = ysize - y
             for x in range(0, xsize, x_block_size):
                 if self.killed:
-                    log("Processing of {} killed by user after processing {} out of {} blocks.".format(self.prod_out_file, y, ysize))
+                    LDMP.logger.log("Processing of {} killed by user after processing {} out of {} blocks.".format(self.prod_out_file, y, ysize))
                     break
                 self.progress.emit(100 * (float(y) + (float(x)/xsize)*y_block_size) / ysize)
                 if x + x_block_size < xsize:

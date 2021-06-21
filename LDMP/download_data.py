@@ -27,10 +27,10 @@ from PyQt5 import (
 from . import (
     calculate,
     conf,
-    log,
 )
 from .algorithms import models
 from .jobs.manager import job_manager
+from .logger import log
 
 DlgDownloadUi, _ = uic.loadUiType(str(Path(__file__).parent / "gui/DlgDownload.ui"))
 

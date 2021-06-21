@@ -13,12 +13,11 @@ from PyQt5 import (
     QtWidgets,
 )
 
-
+import LDMP.logger
 from .. import (
     GetTempFilename,
     areaofinterest,
     calculate,
-    log,
     summary,
     utils,
 )
@@ -48,7 +47,7 @@ def compute_total_carbon_summary_table(
         tc_vrt,
         str(summary_table_output_path)
     )
-    log("Adding task to task manager...")
+    LDMP.logger.log("Adding task to task manager...")
     qgis.core.QgsApplication.taskManager().addTask(summary_task)
     terminal_statuses = [
         qgis.core.QgsTask.Complete,
@@ -92,7 +91,7 @@ class SummaryTask(qgis.core.QgsTask):
 
             # Combines SDG 15.3.1 input raster into a VRT and crop to the AOI
             indic_vrt = GetTempFilename('.vrt')
-            log(u'Saving indicator VRT to: {}'.format(indic_vrt))
+            LDMP.logger.log(u'Saving indicator VRT to: {}'.format(indic_vrt))
             # The plus one is because band numbers start at 1, not zero
             gdal.BuildVRT(indic_vrt,
                           [self.f_loss_vrt, self.tc_vrt],
@@ -102,7 +101,7 @@ class SummaryTask(qgis.core.QgsTask):
                           separate=True)
 
             clipped_vrt = GetTempFilename('.tif')
-            log(u'Saving forest loss/carbon clipped file to {}'.format(clipped_vrt))
+            LDMP.logger.log(u'Saving forest loss/carbon clipped file to {}'.format(clipped_vrt))
             # clip_task = qgis.core.QgsProcessingAlgRunnerTask(
             clip_task = processing.run(
                 'trendsearth:raster_clip',
@@ -124,7 +123,7 @@ class SummaryTask(qgis.core.QgsTask):
 
             ######################################################################
             #  Calculate carbon change table
-            log('Calculating summary table...')
+            LDMP.logger.log('Calculating summary table...')
             summary_task = processing.run(
                 'trendsearth:carbon_summary',
                 {
@@ -165,14 +164,14 @@ class SummaryTask(qgis.core.QgsTask):
                 area_site = area_site + summary_task['AREA_SITE']
                 initial_carbon_total = initial_carbon_total + summary_task['CARBON_INITIAL']
 
-        log('area_missing: {}'.format(area_missing))
-        log('area_water: {}'.format(area_water))
-        log('area_non_forest: {}'.format(area_non_forest))
-        log('area_site: {}'.format(area_site))
-        log('area_forest: {}'.format(area_forest))
-        log('initial_carbon_total: {}'.format(initial_carbon_total))
-        log('forest loss: {}'.format(forest_loss))
-        log('carbon loss: {}'.format(carbon_loss))
+        LDMP.logger.log('area_missing: {}'.format(area_missing))
+        LDMP.logger.log('area_water: {}'.format(area_water))
+        LDMP.logger.log('area_non_forest: {}'.format(area_non_forest))
+        LDMP.logger.log('area_site: {}'.format(area_site))
+        LDMP.logger.log('area_forest: {}'.format(area_forest))
+        LDMP.logger.log('initial_carbon_total: {}'.format(initial_carbon_total))
+        LDMP.logger.log('forest loss: {}'.format(forest_loss))
+        LDMP.logger.log('carbon loss: {}'.format(carbon_loss))
 
         write_excel_summary(
             forest_loss,
@@ -251,8 +250,8 @@ def write_excel_summary(
         wb.save(out_file)
 
     except IOError as exc:
-        log(f'Error saving {out_file}: {str(exc)}')
+        LDMP.logger.log(f'Error saving {out_file}: {str(exc)}')
         return False
 
-    log(f'Summary table saved to {out_file}')
+    LDMP.logger.log(f'Summary table saved to {out_file}')
     return True

@@ -25,6 +25,9 @@
      </item>
      <item row="0" column="1">
       <widget class="QDateEdit" name="initial_year_de">
+       <property name="toolTip">
+        <string>Select the initial year, should be less than target year</string>
+       </property>
        <property name="displayFormat">
         <string>yyyy</string>
        </property>
@@ -46,6 +49,9 @@
      </item>
      <item row="1" column="1">
       <widget class="QDateEdit" name="target_year_de">
+       <property name="toolTip">
+        <string>Select the target year, should be great than initial year</string>
+       </property>
        <property name="displayFormat">
         <string>yyyy</string>
        </property>

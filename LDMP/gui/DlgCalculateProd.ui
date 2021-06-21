@@ -185,6 +185,9 @@
                      <height>40</height>
                     </size>
                    </property>
+                   <property name="toolTip">
+                    <string>Select the type of the NDVI dataset.</string>
+                   </property>
                   </widget>
                  </item>
                 </layout>
@@ -220,7 +223,7 @@
              <item>
               <widget class="QPushButton" name="region_button">
                <property name="toolTip">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
                <property name="text">
                 <string>Change region</string>
@@ -239,7 +242,7 @@
            <item>
             <widget class="QLineEdit" name="execution_name_le">
              <property name="toolTip">
-              <string>Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.</string>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
             </widget>
            </item>
@@ -1007,7 +1010,7 @@ p, li { white-space: pre-wrap; }
   <customwidget>
    <class>QgsCollapsibleGroupBox</class>
    <extends>QGroupBox</extends>
-   <header>qgis.gui</header>
+   <header>qgscollapsiblegroupbox.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

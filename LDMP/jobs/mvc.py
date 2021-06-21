@@ -107,16 +107,12 @@ class JobsSortFilterProxyModel(QtCore.QSortFilterProxyModel):
         left_job: models.Job = model.data(left)
         right_job: models.Job = model.data(right)
         to_sort = (left_job, right_job)
-        if self.current_sort_field == models.SortField.NAME:
-            result = sorted(to_sort, key=lambda j: j.visible_name)[0] == left_job
-        elif self.current_sort_field == models.SortField.DATE:
+
+        if self.current_sort_field == models.SortField.DATE:
             result = sorted(to_sort, key=lambda j: j.start_date)[0] == left_job
-        elif self.current_sort_field == models.SortField.STATUS:
-            result = sorted(to_sort, key=lambda j: j.status)[0] == left_job
-        elif self.current_sort_field == models.SortField.ALGORITHM:
-            result = sorted(to_sort, key=lambda j: j.script.name)[0] == left_job
         else:
             raise NotImplementedError
+
         return result
 
 

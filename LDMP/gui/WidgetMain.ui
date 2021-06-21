@@ -18,7 +18,7 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab_algorithms">
        <attribute name="title">
@@ -70,26 +70,6 @@ for running algorithms and their results.</string>
             </property>
             <property name="qgisRelation" stdset="0">
              <string notr="true"/>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QToolButton" name="toolButton_sort">
-            <property name="toolTip">
-             <string>Sort the datasets using the selected property.</string>
-            </property>
-            <property name="text">
-             <string>...</string>
-            </property>
-            <property name="popupMode">
-             <enum>QToolButton::MenuButtonPopup</enum>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="reverse_box">
-            <property name="text">
-             <string>Reverse</string>
             </property>
            </widget>
           </item>

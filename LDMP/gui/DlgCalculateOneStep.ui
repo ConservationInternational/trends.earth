@@ -19,6 +19,9 @@
   <property name="windowTitle">
    <string>SDG 15.3.1 Indicator (one-step) | Land Degradation</string>
   </property>
+  <property name="toolTip">
+   <string>User notes associated with the executed task.</string>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout_6">
    <item>
     <widget class="QSplitter" name="splitter">
@@ -271,7 +274,11 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="execution_name_le"/>
+            <widget class="QLineEdit" name="execution_name_le">
+             <property name="toolTip">
+              <string>Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.</string>
+             </property>
+            </widget>
            </item>
            <item>
             <widget class="QLabel" name="task_notes_la">
@@ -300,6 +307,9 @@
                <height>100</height>
               </size>
              </property>
+             <property name="toolTip">
+              <string>User notes associated with the executed task.</string>
+             </property>
             </widget>
            </item>
            <item>
@@ -308,7 +318,7 @@
               <string>Advanced configuration</string>
              </property>
              <property name="collapsed">
-              <bool>false</bool>
+              <bool>true</bool>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_5">
               <item>

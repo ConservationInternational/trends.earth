@@ -177,7 +177,11 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="execution_name_le"/>
+            <widget class="QLineEdit" name="execution_name_le">
+             <property name="toolTip">
+              <string>Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.</string>
+             </property>
+            </widget>
            </item>
            <item>
             <widget class="QLabel" name="task_notes_la">
@@ -205,6 +209,9 @@
                <width>16777215</width>
                <height>100</height>
               </size>
+             </property>
+             <property name="toolTip">
+              <string>User notes associated with the executed task.</string>
              </property>
             </widget>
            </item>

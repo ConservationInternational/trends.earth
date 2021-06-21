@@ -63,7 +63,7 @@
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-258</y>
+            <y>0</y>
             <width>690</width>
             <height>996</height>
            </rect>
@@ -84,6 +84,19 @@
                  <string>Period</string>
                 </property>
                 <layout class="QGridLayout" name="gridLayout_9">
+                 <item row="1" column="1">
+                  <widget class="QLabel" name="label_4">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="text">
+                    <string>Target year:</string>
+                   </property>
+                  </widget>
+                 </item>
                  <item row="2" column="1">
                   <widget class="QDateEdit" name="hansen_tg_year">
                    <property name="sizePolicy">
@@ -103,6 +116,9 @@
                      <width>120</width>
                      <height>35</height>
                     </size>
+                   </property>
+                   <property name="toolTip">
+                    <string>Select the target year, should be great than the initial year</string>
                    </property>
                    <property name="minimumDateTime">
                     <datetime>
@@ -159,16 +175,13 @@
                    </property>
                   </widget>
                  </item>
-                 <item row="1" column="1">
-                  <widget class="QLabel" name="label_4">
-                   <property name="minimumSize">
-                    <size>
-                     <width>0</width>
-                     <height>30</height>
-                    </size>
-                   </property>
+                 <item row="0" column="0">
+                  <widget class="QRadioButton" name="use_hansen">
                    <property name="text">
-                    <string>Target year:</string>
+                    <string>Hansen et. al. Global Forest Change product (30 m resolution)</string>
+                   </property>
+                   <property name="checked">
+                    <bool>true</bool>
                    </property>
                   </widget>
                  </item>
@@ -191,6 +204,9 @@
                      <width>120</width>
                      <height>35</height>
                     </size>
+                   </property>
+                   <property name="toolTip">
+                    <string>Select the initial year, should be less than the final year.</string>
                    </property>
                    <property name="maximumDate">
                     <date>
@@ -215,16 +231,6 @@
                      <month>1</month>
                      <day>1</day>
                     </date>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="0">
-                  <widget class="QRadioButton" name="use_hansen">
-                   <property name="text">
-                    <string>Hansen et. al. Global Forest Change product (30 m resolution)</string>
-                   </property>
-                   <property name="checked">
-                    <bool>true</bool>
                    </property>
                   </widget>
                  </item>
@@ -382,7 +388,7 @@
              <item>
               <widget class="QPushButton" name="region_button">
                <property name="toolTip">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
                <property name="text">
                 <string>Change region</string>
@@ -399,7 +405,11 @@
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="execution_name_le"/>
+            <widget class="QLineEdit" name="execution_name_le">
+             <property name="toolTip">
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+             </property>
+            </widget>
            </item>
            <item>
             <widget class="QLabel" name="task_notes_la">
@@ -427,6 +437,9 @@
                <width>16777215</width>
                <height>100</height>
               </size>
+             </property>
+             <property name="toolTip">
+              <string>User notes associated with the executed task.</string>
              </property>
             </widget>
            </item>
@@ -613,7 +626,7 @@ p, li { white-space: pre-wrap; }
   <customwidget>
    <class>WidgetDataIOSelectTELayerImport</class>
    <extends>QComboBox</extends>
-   <header>LDMP/data_io.h</header>
+   <header>LDMP/data_io</header>
   </customwidget>
   <customwidget>
    <class>WidgetDataIOSelectTELayerExisting</class>

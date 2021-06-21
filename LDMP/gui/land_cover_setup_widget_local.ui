@@ -40,6 +40,9 @@
      </item>
      <item row="0" column="1">
       <widget class="WidgetDataIOSelectTELayerImport" name="initial_year_layer_cb">
+       <property name="toolTip">
+        <string>Select initial year from a dataset, make sure the year is not equal or great than the target year</string>
+       </property>
        <property name="layer_type" stdset="0">
         <string>Land cover (7 class)</string>
        </property>
@@ -59,6 +62,9 @@
          <horstretch>0</horstretch>
          <verstretch>0</verstretch>
         </sizepolicy>
+       </property>
+       <property name="toolTip">
+        <string>Select target year from a dataset, make sure the year is not equal or less than the initial year</string>
        </property>
        <property name="layer_type" stdset="0">
         <string>Land cover (7 class)</string>

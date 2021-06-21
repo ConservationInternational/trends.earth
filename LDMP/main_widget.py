@@ -65,9 +65,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
     pushButton_load: QtWidgets.QPushButton
     pushButton_download: QtWidgets.QPushButton
     pushButton_refresh: QtWidgets.QPushButton
-    reverse_box: QtWidgets.QCheckBox
     tab_widget: QtWidgets.QTabWidget
-    toolButton_sort: QtWidgets.QToolButton
 
     cache_refresh_about_to_begin = QtCore.pyqtSignal()
     cache_refresh_finished = QtCore.pyqtSignal()
@@ -86,7 +84,6 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.setupUi(self)
         self._cache_refresh_togglable_widgets = [
             self.pushButton_refresh,
-            self.toolButton_sort,
         ]
         self.last_refreshed_remote_state = None
         self.last_refreshed_local_state = None
@@ -124,20 +121,6 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             settings_manager.get_value(Setting.UPDATE_FREQUENCY_MILLISECONDS))
 
     def setup_datasets_page_gui(self):
-        # add sort actions
-        self.toolButton_sort.setMenu(QtWidgets.QMenu())
-        self.toolButton_sort.setPopupMode(QtWidgets.QToolButton.MenuButtonPopup)
-        for member in SortField:
-            sort_action = QtWidgets.QAction(tr(member.value), self)
-            sort_action.setData(member)
-            sort_action.triggered.connect(
-                functools.partial(self.sort_jobs, sort_action))
-            self.toolButton_sort.menu().addAction(sort_action)
-            if member == SortField.DATE:
-                self.toolButton_sort.setDefaultAction(sort_action)
-        self.toolButton_sort.defaultAction().setToolTip(
-            tr('Sort the datasets using the selected property.')
-        )
         self.pushButton_refresh.setIcon(
             QtGui.QIcon(':/plugins/LDMP/icons/mActionRefresh.svg'))
         self.import_menu = QtWidgets.QMenu()
@@ -200,6 +183,11 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.datasets_tv.setModel(self.proxy_model)
         self.resume_scheduler()
         self.cache_refresh_finished.emit()
+
+        # default sorting
+        self.proxy_model.current_sort_field = SortField.DATE
+        sort_field_index = list(SortField).index(SortField.DATE)
+        self.proxy_model.sort(sort_field_index, QtCore.Qt.DescendingOrder)
 
     def perform_periodic_tasks(self):
         """Handle periodic execution of plugin related tasks
@@ -302,18 +290,6 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         options |= QtCore.QRegularExpression.CaseInsensitiveOption
         regular_expression = QtCore.QRegularExpression(filter_string, options)
         self.proxy_model.setFilterRegularExpression(regular_expression)
-
-    def sort_jobs(self, action: QtWidgets.QAction):
-        sort_field: SortField = action.data()
-        self.toolButton_sort.setDefaultAction(action)
-        order = (
-            QtCore.Qt.AscendingOrder if self.reverse_box.isChecked() else
-            QtCore.Qt.DescendingOrder
-        )
-
-        self.proxy_model.current_sort_field = sort_field
-        sort_field_index = list(SortField).index(sort_field)
-        self.proxy_model.sort(sort_field_index, order)
 
     def setup_algorithms_tree(self):
         self.algorithms_tv.setStyleSheet(

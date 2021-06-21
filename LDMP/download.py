@@ -27,10 +27,10 @@ from qgis.PyQt.QtCore import QAbstractTableModel, Qt, QCoreApplication
 
 from qgis.utils import iface
 
-from LDMP import log
+from .logger import log
 
-from LDMP.api import get_header
-from LDMP.worker import AbstractWorker, start_worker
+from .api import get_header
+from .worker import AbstractWorker, start_worker
 
 
 @dataclasses.dataclass()

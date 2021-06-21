@@ -28,12 +28,12 @@ from PyQt5 import (
 from . import (
     calculate,
     data_io,
-    log,
     summary,
     worker,
 )
 from .algorithms.models import ExecutionScript
 from .jobs.manager import job_manager
+from .logger import log
 
 DlgCalculateUrbanDataUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateUrbanData.ui"))

@@ -14,9 +14,9 @@ from pathlib import Path
 from .. import (
     api,
     conf,
-    log,
 )
 from ..algorithms.models import ExecutionScript
+from ..logger import log
 
 
 class SortField(enum.Enum):

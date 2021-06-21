@@ -31,8 +31,8 @@ from qgis.utils import iface
 from . import (
     conf,
     download,
-    log,
 )
+from .logger import log
 
 DlgVisualizationBasemapUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgVisualizationBasemap.ui"))

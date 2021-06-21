@@ -14,19 +14,17 @@
 
 from future import standard_library
 standard_library.install_aliases()
-from builtins import object
-import sys
-import time
-import json
+
 from datetime import datetime
 from dateutil import tz
 import requests
 import json
 from urllib.parse import quote_plus
 
-import marshmallow
-from qgis.PyQt.QtCore import QCoreApplication, QSettings, QEventLoop
-from qgis.PyQt.QtWidgets import QMessageBox
+from PyQt5 import (
+    QtCore,
+    QtWidgets
+)
 
 from qgis.utils import iface
 from qgis.core import (
@@ -34,18 +32,23 @@ from qgis.core import (
     QgsApplication
 )
 
-from LDMP.worker import AbstractWorker, start_worker
 
-from LDMP import log, debug_on
-from LDMP.message_bar import MessageBar
+from . import conf
+from .logger import log
+from .worker import (
+    AbstractWorker,
+    start_worker,
+)
 
 API_URL = 'https://api.trends.earth'
 TIMEOUT = 20
 AUTH_CONFIG_NAME = 'Trends.Earth'
 
+
 class tr_api(object):
     def tr(message):
-        return QCoreApplication.translate("tr_api", message)
+        return QtCore.QCoreApplication.translate("tr_api", message)
+
 
 def init_auth_config(email=None):
     currentAuthConfig = None
@@ -74,64 +77,89 @@ def init_auth_config(email=None):
     if not previousAuthExist:
         # store a new auth config
         if not QgsApplication.authManager().storeAuthenticationConfig(currentAuthConfig):
-            MessageBar().get().pushCritical('Trends.Earth', tr_api.tr('Cannot init auth configuration'))
+            iface.messageBar().pushCritical(
+                'Trends.Earth', tr_api.tr('Cannot init auth configuration'))
             return None
     else:
         # update existing
          if not QgsApplication.authManager().updateAuthenticationConfig(currentAuthConfig):
-            MessageBar().get().pushCritical('Trends.Earth', tr_api.tr('Cannot update auth configuration'))
+            iface.messageBar().pushCritical(
+                'Trends.Earth', tr_api.tr('Cannot update auth configuration'))
             return None
 
-    QSettings().setValue("trends_earth/authId", currentAuthConfig.id())
+    QtCore.QSettings().setValue("trends_earth/authId", currentAuthConfig.id())
     return currentAuthConfig.id()
 
 def remove_current_auth_config():
-    authConfigId = QSettings().value("trends_earth/authId", None)
+    authConfigId = QtCore.QSettings().value("trends_earth/authId", None)
     if not authConfigId:
-        MessageBar().get().pushCritical('Trends.Earth', tr_api.tr('No authentication set. Do it in Trends.Earth settings'))
+        iface.messageBar().pushCritical('Trends.Earth', tr_api.tr('No authentication set. Do it in Trends.Earth settings'))
         return None
     log('remove_current_auth_config with authId {}'.format(authConfigId))
 
     if not QgsApplication.authManager().removeAuthenticationConfig( authConfigId ):
-        MessageBar().get().pushCritical('Trends.Earth', tr_api.tr('Cannot remove auth configuration with id: {}').format(authConfigId))
+        iface.messageBar().pushCritical('Trends.Earth', tr_api.tr('Cannot remove auth configuration with id: {}').format(authConfigId))
         return False
 
-    QSettings().setValue("trends_earth/authId", None)
+    QtCore.QSettings().setValue("trends_earth/authId", None)
     return True
 
 def get_auth_config(authConfigId=None, warn=True):
     if not authConfigId:
         # not set? then retrieve from config if set
-        authConfigId = QSettings().value("trends_earth/authId", None)
+        authConfigId = QtCore.QSettings().value("trends_earth/authId", None)
         if not authConfigId:
             if warn:
-                MessageBar().get().pushCritical('Trends.Earth', tr_api.tr('No authentication set. Do it in Trends.Earth settings'))
+                iface.messageBar().pushCritical('Trends.Earth', tr_api.tr('No authentication set. Do it in Trends.Earth settings'))
             return None
     log('get_auth_config with authId {}'.format(authConfigId))
 
     configs = QgsApplication.authManager().availableAuthMethodConfigs()
+    message_bar = iface.messageBar()
     if not authConfigId in configs.keys():
         if warn:
-            MessageBar().get().pushCritical('Trends.Earth', tr_api.tr('Cannot retrieve credentials with authId: {} setup correct credentials before').format(authConfigId))
+            message_bar.pushCritical(
+                'Trends.Earth',
+                tr_api.tr(
+                    f'Cannot retrieve credentials with authId: {authConfigId} setup '
+                    f'correct credentials before'
+                )
+            )
+
         return None
 
     authConfig = QgsAuthMethodConfig()
     ok = QgsApplication.authManager().loadAuthenticationConfig(authConfigId, authConfig, True)
     if not ok:
         if warn:
-            MessageBar().get().pushCritical('Trends.Earth', tr_api.tr('Cannot retrieve credentials with authId: {} setup correct credentials before').format(authConfigId))
+            message_bar.pushCritical(
+                'Trends.Earth',
+                tr_api.tr(
+                    f'Cannot retrieve credentials with authId: {authConfigId} setup '
+                    f'correct credentials before'
+                )
+            )
         return None
     
     if not authConfig.isValid():
         if warn:
-            MessageBar().get().pushCritical('Trends.Earth', tr_api.tr('Not valid auth configuration with authId: {}').format(authConfigId))
+            message_bar.pushCritical(
+                'Trends.Earth',
+                tr_api.tr(f'Not valid auth configuration with authId: {authConfigId}')
+            )
         return None
 
     # check if auth method is the only supported for no
     if authConfig.method() != 'Basic':
         if warn:
-            MessageBar().get().pushCritical('Trends.Earth',
-                tr_api.tr('Auth method with authId: {} is {}. Only basic auth is supported by Trend.Earth').format( authConfigId, authConfig.method() ))
+            message_bar.pushCritical(
+                'Trends.Earth',
+                tr_api.tr(
+                    f'Auth method with authId: {authConfigId} is '
+                    f'{authConfig.method()}. Only basic auth is supported '
+                    f'by Trend.Earth'
+                )
+            )
         return None
     
     return authConfig
@@ -144,7 +172,11 @@ def get_user_email(warn=True):
 
     email = authConfig.config('username')
     if warn and email is None:
-        QMessageBox.critical(None, tr_api.tr("Error"), tr_api.tr( "Please register with Trends.Earth before using this function."))
+        QtWidgets.QMessageBox.critical(
+            None,
+            tr_api.tr("Error"),
+            tr_api.tr("Please register with Trends.Earth before using this function.")
+        )
         return None
     else:
         return email
@@ -198,7 +230,7 @@ class Request(object):
     def start(self):
         try:
             worker = RequestWorker(self.url, self.method, self.payload, self.headers)
-            pause = QEventLoop()
+            pause = QtCore.QEventLoop()
             worker.finished.connect(pause.quit)
             worker.successfully_finished.connect(self.save_resp)
             worker.error.connect(self.save_exception)
@@ -208,15 +240,22 @@ class Request(object):
                 raise self.get_exception()
         except requests.exceptions.ConnectionError:
             log('API unable to access server - check internet connection')
-            QMessageBox.critical(None,
-                                       tr_api.tr("Error"),
-                                       tr_api.tr(u"Unable to login to {} server. Check your internet connection.".format(self.server_name)))
+            QtWidgets.QMessageBox.critical(
+                None,
+                tr_api.tr("Error"),
+                tr_api.tr(
+                    f"Unable to login to {self.server_name} server. Check your "
+                    f"internet connection."
+                )
+            )
             resp = None
         except requests.exceptions.Timeout:
             log('API unable to login - general error')
-            QMessageBox.critical(None,
-                                       tr_api.tr("Error"),
-                                       tr_api.tr(u"Unable to connect to {} server.".format(self.server_name)))
+            QtWidgets.QMessageBox.critical(
+                None,
+                tr_api.tr("Error"),
+                tr_api.tr(u"Unable to connect to {} server.".format(self.server_name))
+            )
             resp = None
 
     def save_resp(self, resp):
@@ -274,9 +313,12 @@ def login(authConfigId=None):
     authConfig = get_auth_config(authConfigId=authConfigId)
     if not authConfig :
         log('API unable to login - setup auth configuration before')
-        QMessageBox.critical(None,
-                            tr_api.tr("Error"),
-                            tr_api.tr("Unable to login to Trends.Earth. Setup auth configuration before."))
+        QtWidgets.QMessageBox.critical(
+            None,
+            tr_api.tr("Error"),
+            tr_api.tr(
+                "Unable to login to Trends.Earth. Setup auth configuration before.")
+        )
         return None
 
     email = authConfig.config('username')
@@ -284,15 +326,19 @@ def login(authConfigId=None):
 
     if not email or not password:
         log('API unable to login - set username/password in auth config with id: {}'.format(authConfig.id()))
-        QMessageBox.critical(None,
-                            tr_api.tr("Error"),
-                            tr_api.tr("Unable to login to Trends.Earth. Set your username and password in auth config: '{}'".format(authConfig.name())) )
+        QtWidgets.QMessageBox.critical(
+            None,
+            tr_api.tr("Error"),
+            tr_api.tr(
+                f"Unable to login to Trends.Earth. Set your username and password in auth config: {authConfig.name()!r}"
+            )
+        )
         return None
 
     resp = call_api('/auth', method='post', payload={"email": email, "password": password})
 
     if resp != None:
-        QSettings().setValue("trends_earth/authId", authConfig.id())
+        QtCore.QSettings().setValue("trends_earth/authId", authConfig.id())
 
     return resp
 
@@ -326,7 +372,7 @@ def call_api(endpoint, method='get', payload=None, use_token=False):
             log(u'API response from "{}" request (code): {}'.format(method, resp.status_code))
         else:
             log(u'API response from "{}" request was None'.format(method))
-        if debug_on():
+        if conf.settings_manager.get_value(conf.Setting.DEBUG):
             log(u'API response from "{}" request (data): {}'.format(method, clean_api_response(resp)))
     else:
         resp = None
@@ -336,7 +382,8 @@ def call_api(endpoint, method='get', payload=None, use_token=False):
             ret = resp.json()
         else:
             desc, status = get_error_status(resp)
-            QMessageBox.critical(None, "Error", u"Error: {} (status {}).".format(desc, status))
+            QtWidgets.QMessageBox.critical(
+                None, "Error", u"Error: {} (status {}).".format(desc, status))
             ret = None
     else:
         ret = None
@@ -355,7 +402,8 @@ def get_header(url):
             ret = resp.headers
         else:
             desc, status = get_error_status(resp)
-            QMessageBox.critical(None, "Error", u"Error: {} (status {}).".format(desc, status))
+            QtWidgets.QMessageBox.critical(
+                None, "Error", u"Error: {} (status {}).".format(desc, status))
             ret = None
     else:
         log('Header request failed')

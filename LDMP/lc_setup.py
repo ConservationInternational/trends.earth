@@ -29,9 +29,9 @@ from qgis.utils import iface
 from . import (
     conf,
     data_io,
-    log,
 )
 from .layers import tr_style_text
+from .logger import log
 
 DlgCalculateLcSetAggregationUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateLCSetAggregation.ui"))

@@ -12,7 +12,6 @@ from PyQt5 import (
 )
 from .. import (
     layers,
-    log,
     openFolder,
     utils,
 )

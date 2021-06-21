@@ -23,7 +23,6 @@ from qgis.PyQt.QtGui import QIcon
 from . import (
     about,
     conf,
-    log,
     main_widget,
 )
 from .jobs.manager import job_manager

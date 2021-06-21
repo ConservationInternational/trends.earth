@@ -24,6 +24,7 @@ from osgeo import (
 )
 from PyQt5 import (
     QtCore,
+    QtGui,
     QtWidgets,
     uic,
 )
@@ -36,7 +37,6 @@ from . import (
     GetTempFilename,
     areaofinterest,
     download,
-    log,
     worker,
 )
 from .algorithms import models
@@ -46,6 +46,7 @@ from .conf import (
     settings_manager,
 )
 from .settings import DlgSettings
+from .logger import log
 
 if settings_manager.get_value(Setting.BINARIES_ENABLED):
     try:
@@ -489,7 +490,6 @@ class DlgCalculateBase(QtWidgets.QDialog):
     _has_output: bool
     _firstShowEvent: bool
     reset_tab_on_showEvent: bool
-    _max_area: int = 5e7  # maximum size task the tool supports
 
     firstShowEvent = QtCore.pyqtSignal()
 
@@ -558,6 +558,9 @@ class DlgCalculateBase(QtWidgets.QDialog):
         self.toggle_execution_button(not self.main_dock.refreshing_filesystem_cache)
 
         self.update_current_region()
+        self.region_button.setIcon(
+            QtGui.QIcon(':/plugins/LDMP/icons/wrench.svg')
+        )
         self.region_button.clicked.connect(self.run_settings)
 
         # adding a collapsible arrow on the splitter
@@ -605,7 +608,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
         self.options_tab.toggle_show_where_to_run(False)
 
     def btn_calculate(self):
-        self.aoi = areaofinterest.prepare_area_of_interest(self._max_area)
+        self.aoi = areaofinterest.prepare_area_of_interest()
         ret = self.aoi.bounding_box_gee_geojson()
         if not ret:
             QtWidgets.QMessageBox.critical(

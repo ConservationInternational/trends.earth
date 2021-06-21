@@ -40,7 +40,6 @@ from . import (
     conf,
     GetTempFilename,
     layers,
-    log,
     worker,
 )
 from .gui.DlgDataIO import Ui_DlgDataIO
@@ -56,6 +55,7 @@ from .gui.WidgetDataIOSelectTELayerExisting import Ui_WidgetDataIOSelectTELayerE
 from .gui.WidgetDataIOSelectTELayerImport import Ui_WidgetDataIOSelectTELayerImport
 from .jobs.manager import job_manager
 from .jobs import models as job_models
+from .logger import log
 
 mb = qgis.utils.iface.messageBar()
 

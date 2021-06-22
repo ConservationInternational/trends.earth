@@ -74,6 +74,7 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
                         and local_paths_exist
 
         self.load_btn.setEnabled(is_loadable)
+        self.export_btn.setEnabled(local_paths_exist)
 
         self.path_le.setText(path_le_text)
         self.load_btn.setIcon(

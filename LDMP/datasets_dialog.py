@@ -67,15 +67,8 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
                 path_le_text = empty_paths_msg
         else:
             path_le_text = f"{empty_paths_msg}_yet"
-
-        is_loadable = self.job.status in (
-                        models.JobStatus.DOWNLOADED,
-                        models.JobStatus.GENERATED_LOCALLY) \
-                        and local_paths_exist
-
-        self.load_btn.setEnabled(is_loadable)
+        self.load_btn.setEnabled(local_paths_exist)
         self.export_btn.setEnabled(local_paths_exist)
-
         self.path_le.setText(path_le_text)
         self.load_btn.setIcon(
             QtGui.QIcon(':/plugins/LDMP/icons/mActionAddRasterLayer.svg'))

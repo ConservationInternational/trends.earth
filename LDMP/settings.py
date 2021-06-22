@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 /***************************************************************************
  LDMP - A QGIS plugin
@@ -75,17 +74,20 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
 
         self.setupUi(self)
         self.message_bar = qgis.gui.QgsMessageBar(self)
+        self.layout().insertWidget(0, self.message_bar)
 
         # add subcomponent widgets
         self.widgetSettingsAdvanced = WidgetSettingsAdvanced(
             message_bar=self.message_bar)
-        self.verticalLayout_advanced.layout().insertWidget(0, self.widgetSettingsAdvanced)
+        self.verticalLayout_advanced.layout().insertWidget(
+            0, self.widgetSettingsAdvanced)
 
         # set Dialog UIs
         self.dlg_settings_register = DlgSettingsRegister()
         self.dlg_settings_login = DlgSettingsLogin()
 
-        self.dlg_settings_register.authConfigInitialised.connect(self.selectDefaultAuthConfiguration)
+        self.dlg_settings_register.authConfigInitialised.connect(
+            self.selectDefaultAuthConfiguration)
 
         self.pushButton_register.clicked.connect(self.register)
         self.pushButton_login.clicked.connect(self.login)
@@ -107,22 +109,14 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
         # load gui default value from settings
         self.reloadAuthConfigurations()
 
-    def showEvent(self, event):
-        super(DlgSettings, self).showEvent(event)
-        # add message bar for all dialog communication
-        self.layout().insertWidget(0, self.message_bar)
-
     def closeEvent(self, event):
         self.widgetSettingsAdvanced.closeEvent(event)
+        self.area_widget.closeEvent(event)
         super().closeEvent(event)
-
-    def close(self):
-        super(DlgSettings, self).close()
 
     def reloadAuthConfigurations(self):
         self.authConfigSelect_authentication.populateConfigSelector()
         self.authConfigSelect_authentication.clearMessage()
-
         authConfigId = settings.value("trends_earth/authId", None)
         configs = qgis.core.QgsApplication.authManager().availableAuthMethodConfigs()
         if authConfigId in configs.keys():
@@ -455,63 +449,48 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
             return False
 
     def save_settings(self):
+        country_name = ""
+        region_name = ""
+        city_name = ""
+        point = (0, 0)
+        vector_path = ""
         if self.area_fromadmin.isChecked():
-            settings_manager.write_value(Setting.COUNTRY_NAME, self.area_admin_0.currentText())
+            country_name = self.area_admin_0.currentText()
+            if self.radioButton_secondLevel_region.isChecked():
+                area_name = "country_region"
+                region_name = self.secondLevel_area_admin_1.currentText()
+            else:
+                area_name = "country_city"
+                city_name = self.secondLevel_city.currentText()
+        elif self.area_frompoint.isChecked():
+            area_name = "point"
+            point = (
+                self.area_frompoint_point_x.text(),
+                self.area_frompoint_point_y.text(),
+            )
+        elif self.area_fromfile.isChecked():
+            area_name = "vector_layer"
+            vector_path = self.area_fromfile_file.text()
         else:
-            settings_manager.write_value(Setting.COUNTRY_NAME, "")
-        if self.radioButton_secondLevel_region.isChecked():
-            settings_manager.write_value(
-                Setting.REGION_NAME, self.secondLevel_area_admin_1.currentText())
-        else:
-            settings_manager.write_value(Setting.REGION_NAME, "")
-        if self.radioButton_secondLevel_city.isChecked():
-            settings_manager.write_value(
-                Setting.CITY_NAME, self.secondLevel_city.currentText())
-        else:
-            settings_manager.write_value(Setting.CITY_NAME, None)
-
-        if self.area_frompoint.isChecked():
-            settings_manager.write_value(
-                Setting.POINT_X, self.area_frompoint_point_x.text())
-            settings_manager.write_value(
-                Setting.POINT_Y, self.area_frompoint_point_y.text())
-        else:
-            settings_manager.write_value(Setting.POINT_X, 0.0)
-            settings_manager.write_value(Setting.POINT_Y, 0.0)
-        if self.area_fromfile.isChecked():
-            settings_manager.write_value(
-                Setting.VECTOR_FILE_PATH, self.area_fromfile_file.text())
-        else:
-            settings_manager.write_value(Setting.VECTOR_FILE_PATH, "")
-
+            raise RuntimeError("Invalid area type")
+        settings_manager.write_value(Setting.AREA_FROM_OPTION, area_name)
+        settings_manager.write_value(Setting.COUNTRY_NAME, country_name)
+        settings_manager.write_value(Setting.REGION_NAME, region_name)
+        settings_manager.write_value(Setting.CITY_NAME, city_name)
+        settings_manager.write_value(Setting.POINT_X, point[0])
+        settings_manager.write_value(Setting.POINT_Y, point[1])
+        settings_manager.write_value(Setting.VECTOR_FILE_PATH, vector_path)
+        settings_manager.write_value(
+            Setting.VECTOR_FILE_DIR, str(Path(vector_path).parent))
         settings_manager.write_value(
             Setting.BUFFER_CHECKED, self.checkbox_buffer.isChecked())
         settings_manager.write_value(
             Setting.BUFFER_SIZE, self.buffer_size_km.value())
-
-        if self.area_frompoint.isChecked():
-            area_value = 'point'
-        elif self.area_fromadmin.isChecked():
-            if self.radioButton_secondLevel_city.isChecked():
-                area_value = 'country_city'
-            else:
-                area_value = 'country_region'
-        elif self.area_fromfile.isChecked():
-            area_value = 'vector_layer'
-        else:
-            area_value = None
-
-        if area_value is not None:
-            settings_manager.write_value(Setting.AREA_FROM_OPTION, area_value)
-
-        if self.vector_file is not None:
-            settings_manager.write_value(Setting.VECTOR_FILE_PATH, self.vector_file)
-            settings_manager.write_value(
-                Setting.VECTOR_FILE_DIR, os.path.dirname(self.vector_file))
-
+        settings_manager.write_value(
+            Setting.AREA_NAME, self.area_settings_name.text())
         if self.current_cities_key is not None:
             settings_manager.write_value(Setting.CITY_KEY, self.current_cities_key)
-        settings_manager.write_value(Setting.AREA_NAME, self.area_settings_name.text())
+        log("area settings have been saved")
 
 
 class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):

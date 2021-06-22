@@ -1,7 +1,7 @@
 ﻿Trends.Earth
 ============
 
-.. image:: ../../resources/en/common/trends_earth_logo_bl_1200.png
+.. image:: /static/common/trends_earth_logo_bl_1200.png
    :align: center
    :alt: trends.earth
 
@@ -19,7 +19,7 @@
 
    </center>
 
-.. image:: ../../resources/en/common/LDMP_Animation.*
+.. image:: /static/common/LDMP_Animation.*
    :align: center
    :alt: trends.earth
 
@@ -48,7 +48,7 @@ Trends.Earth was produced by a partnership of Conservation International, Lund
 University, and the National Aeronautics and Space Administration (NASA), with 
 the support of the Global Environment Facility (GEF).
 
-.. image:: ../../resources/en/common/Logos_All_Partners.png
+.. image:: /static/common/Logos_All_Partners.png
     :align: center
     :width: 600
 

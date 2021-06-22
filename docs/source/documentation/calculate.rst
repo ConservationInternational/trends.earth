@@ -1,7 +1,7 @@
 ﻿Calculate indicators
 ====================
 
-.. image:: ../../resources/en/documentation/calculate/trends_earth_toolbar_highlight_TrendsEarth.png
+.. image:: /static/common/ldmt_toolbar_highlight_calculate.png
    :align: center
 
 Sustainable Development Goal 15.3 intends to combat desertification, restore 
@@ -14,180 +14,161 @@ in soil organic carbon.
 
 .. contents::
 
-To select the methods and datasets to calculate these indicators, click on "|iconTrendsEarth| Trends.Earth" from the
-Trends.Earth toolbar drop down menu. This will open up the "Trends.Earth" dock, on the right side of the QGIS main
-window.
+To select the methods and datasets to calculate these indicators, indicators 
+click on the calculator icon (|iconCalculator|). This will open up the 
+"Calculate Indicators" dialog box.
 
-.. image:: ../../resources/en/documentation/calculate/trends_earth_panel.png
+.. image:: /static/documentation/calculate/LDindicator.png
    :align: center
 
-In the Indicators tab, click on the arrow next to the Land degradation indicator (SDG indicator 15.3.1) to expand the
-various options available for this analysis.
+Select the Land degradation indicator (SDG indicator 15.3.1) to open the window for this analysis.
 
-.. image:: ../../resources/en/documentation/calculate/trends_earth_panel_higlight_land_degradation.png
+.. image:: /static/documentation/calculate/SDG15.png
    :align: center
 
-.. image:: ../../resources/en/documentation/calculate/trends_earth_panel_land_degradation_expanded.png
-   :align: center
-
-There are several options for calculating the SDG 15.3.1 Land Degradation Indicator. 
+There are several options for calculating the SDG 15.3.1 Indicator. 
 |trends.earth| supports calculating the indicator using the same process as was 
 used by the UNCCD for the default data provided to countries for the 2018 
 reporting process. The tool also supports customizing this data, or even 
 replacing individual datasets with national-level or other global datasets.
 
-- To calculate the all three SDG 15.3.1 sub-indicators in one step, using default settings for most of
-  the sub-indicators, click "All SDG 15.3.1 sub-indicators in one step".
+- To calculate all three SDG 15.3.1 indicators in one step, using default 
+  settings for most of the indicators, click "Calculate all three indicators in 
+  one step".
 
-- To calculate one of the three SDG 15.3.1 sub-indicators, using customized settings, or national-level data,
-  click "Land Productivity", "Land Cover", or "Soil Organic Carbon".
+- To calculate one of the three SDG 15.3.1 indicators, using customized 
+  settings, or national-level data, click "Productivity", "Land cover", or 
+  "Soil organic carbon".
+
+- To calculate a summary table showing statistics on each of the three 
+  indicators, click "Calculate final SDG 15.3.1 indicator and summary table". 
+  Note that you must first compute the indicators using one of the above 
+  options.
   
-- To calculate a summary table showing statistics on each of the three sub-indicators, click
-  "Main SDG 15.3.1 indicator". Note that you must first compute the sub-indicators using one of the above options.
+- To calculate a summary table showing statistics on each of the three 
+  indicators for multiple sub-divisions, click "Calculate area summaries of a raster on sub-units". 
+  Note that you must first compute the indicators using one of the above 
+  options.
 
-There are three different sub-indicators that are combined to create the SDG 15.3.1 indicator:
+There are three different indicators that are combined to create the SDG 15.3.1 
+indicator
 
-- Land productivity: measures the trajectory, performance and state of primary productivity
+- Productivity: measures the trajectory, performance and state of primary 
+  productivity
 
-- Land cover: calculates land cover change relative to a baseline period, enter a transition matrix indicating
-  which transitions indicate degradation, stability or improvement.
+- Land cover: calculates land cover change relative to a baseline period, enter 
+  a transition matrix indicating which transitions indicate degradation, 
+  stability or improvement.
 
-- Soil organic carbon: compute changes in soil organic carbon as a consequence of changes in land cover.
+- Soil carbon: compute changes in soil organic carbon as a consequence of 
+  changes in land cover.
 
 .. note::
-    Refer to the :ref:`indicator-15-3-1` section of this manual for a detailed explanation of how each of these sub-indicators is computed in |trends.earth|
+    Refer to the :ref:`indicator-15-3-1` section of this manual for a detailed 
+    explanation of how each of these sub-indicators is computed in 
+    |trends.earth|
 
-There are two ways to calculate the sub-indicators:
+There are two ways to calculate the indicators: 1) using a simplified tool that 
+will calculate all three indicators at once, but with limited options for 
+customization, or 2) using individual tools for each indicator that offer 
+complete control over how they are calculated.
 
-1. using the "All SDG 15.3.1. sub-indicators in one step" tool that will calculate all three sub-indicators at once,
-   but with limited options for customization
-
-2. using individual tools for each sub-indicator that offer complete control over how they are calculated.
-
-.. _All sub indicators at once:
-
-Calculate all sub-indicators at once
+Calculate indicators with simplified tool
 _________________________________________
 
 This tool allows users to calculate all three sub-indicators in one step. 
+Select the "Calculate all three sub-indicators in one step" button.
 
-1. Click on the "Execute remotely" button next to the "All SDG 15.3.1. sub-indicators in one step" heading in the
-   Sub indicators tab of the Trends.Earth panel. The "SDG 15.3.1 Indicator (one-step) | Land Degradation" dialog
-   box will appear.
+1. Select the parameters for Setup. The Period is the Initial and Final year 
+   for the analysis and select one of the two Land Productivity datasets. 
+   Select Next.
 
-.. image:: ../../resources/en/documentation/calculate/all_sub-indicators_at_once.png
+.. image:: /static/documentation/calculate/image022.png
+   :align: center
+   
+2. Select the Land Cover dataset. The first option is the default ESA dataset.
+
+.. image:: /static/documentation/calculate/image023.png
    :align: center
 
-2. Select the Initial year and Final year for the analysis and select one of the two Land productivity datasets. 
+3. Select Edit definition to change the aggregation from the ESA Land Cover 
+   dataset into 7 classes.
 
-.. image:: ../../resources/en/documentation/calculate/all_sub-indicators_at_once_parameters.png
+.. image:: /static/documentation/calculate/image024.png
    :align: center
 
-3. Define the study area on which to perform the analysis. Click on the "Change region" button.  Under the Algorithm
-   region of interest heading in the "Settings" dialog box that appears, select either a region or city in a
-   country/region, specify a point using longitude and latitude coordinates or upload a shapefile boundary using
-   the area from file option. Click "Ok".
+The second option allows users to upload a custom land cover dataset. This 
+requires two datasets to compare change over time. Select Next.
+
+.. image:: /static/documentation/calculate/image025.png
+   :align: center
+
+4. The user can now define the effects of land cover change and how it is 
+   classified as degrading or improving.
+
+.. image:: /static/documentation/calculate/image026.png
+   :align: center
+
+5. Select an area to run the analysis or upload a shapefile boundary
 
 .. note::
-   The provided boundaries are from `Natural Earth 
-   <http://www.naturalearthdata.com>`_, and are in the `public domain
-   <https://creativecommons.org/publicdomain>`_. The boundaries and names 
-   used, and the designations used, in Trends.Earth do not imply official 
-   endorsement or acceptance by Conservation International Foundation, or by 
-   its partner organizations and contributors.
+    The provided boundaries are from `Natural Earth 
+    <http://www.naturalearthdata.com>`_, and are in the `public domain
+    <https://creativecommons.org/publicdomain>`_. The boundaries and names 
+    used, and the designations used, in Trends.Earth do not imply official 
+    endorsement or acceptance by Conservation International Foundation, or by 
+    its partner organizations and contributors.
 
-   If using Trends.Earth for official purposes, it is recommended that users 
-   choose an official boundary provided by the designated office of their 
-   country.
+    If using Trends.Earth for official purposes, it is recommended that users 
+    choose an official boundary provided by the designated office of their 
+    country.
 
-.. image:: ../../resources/en/documentation/calculate/settings_dialog_algorithm_region_of_interest.png
+.. image:: /static/documentation/calculate/image027.png
    :align: center
+
+6. Name the task and make notes for future reference
+
+7. Click on "Calculate" to submit your task to Google Earth Engine
+
    
-4. Optionally, name the task and make notes for future reference using the "Execution name:" and "Notes:" input
-   fields respectively.
-   
-5. Optionally, in the Land Cover Setup under the Advanced configuration heading, click on the "Edit definition"
-   button to change the aggregation method from the European Space Agency CCI-LC Land Cover dataset into 7 classes.
-
-.. image:: ../../resources/en/documentation/calculate/set_up_of_land_cover_aggregation.png
+.. image:: /static/documentation/calculate/image028.png
    :align: center
-
-6. Optionally, now define the effects of land cover change and how it is classified as degrading or improving.
-
-.. image:: ../../resources/en/documentation/calculate/define_effects_of_land_cover_change.png
-   :align: center
-
-7. Click on "Schedule remote execution" to submit the task to Google Earth Engine for computing. The three
-   sub-indicators shall then be calculated on the remote server.
-
-.. image:: ../../resources/en/documentation/calculate/all_sub_indicators_at_once_schedule_remote_execution.png
-   :align: center
-
-Track the progress of the Google Earth Engine task in the the Datasets tab of the Trends.Earth panel.
-
-.. image:: ../../resources/en/documentation/calculate/all_sub_indicators_at_once_analysis_submitted.png
-   :align: center
-
-8. When the Google Earth Engine task has completed (processing time will vary depending on server usage, but for
-   most countries it takes only a few minutes most of the time), you’ll receive an email notifying the successful
-   completion. You can then load the layer into your current QGIS project. As soon as the plugin detects that
-   results are ready, it will automatically download them (note however that this behavior can also be disabled
-   in the settings).
-
-.. image:: ../../resources/en/documentation/calculate/all_sub-indicators_at_once_output.png
-   :align: center
-
 
 Calculate productivity
 ______________________
 
 .. note::
-   Refer to the :ref:`indicator-productivity` background information in this manual for a detailed explanation of how productivity is computed.
+    Refer to the :ref:`indicator-productivity` background information in this 
+    manual for a detailed explanation of how productivity is computed.
 
 Productivity measures the trajectory, performance and state of primary 
 productivity using either 8km AVHRR or 250m MODIS datasets. The user can select 
 one or multiple indicators to calculate, the NDVI dataset, name the tasks and 
 enter in explanatory notes for their intended reporting area.
 
-1) Click on the "Execute remotely" button next to the "Land Productivity" heading in the Sub indicators tab of the
-   Trends.Earth panel. The "Land Productivity | Land Degradation" dialog box will appear.
+Productivity Trajectory
+~~~~~~~~~~~~~~~~~~~~~~~
 
-.. image:: ../../resources/en/documentation/calculate/trends_earth_panel_highlight_land_productivity.png 
-   :align: center    
-  
-2) Select the productivity calculation method to be used.
+Trajectory assesses the rate of change of productivity over time. To calculate 
+trajectory:
 
-.. image:: ../../resources/en/documentation/calculate/land_productivity.png
-   :align: center
+.. note::
+    Refer to the :ref:`indicator-productivity-trajectory` section in this 
+    manual for a detailed explanation of this indicator is computed.
 
-3) If using the *Trends.Earth productivity* method, select the NDVI dataset to use as input for the calculations.
+1) Select an indicator to calculate
+
+2) Select NDVI dataset to use and select Next
 
 .. note::
     The valid date range is set by the NDVI dataset selected within the first 
     tab: AVHRR dates compare 1982-2015 and MODIS 2001-2016.
 
-4) Optionally, redefine the study area on which to perform the analysis.  Click on the "Change region" button. Under
-   the Algorithm region of interest heading in the "Settings" dialog box that appears, select either a region or
-   city in a country/region, specify a point using longitude and latitude coordinates or upload a shapefile boundary
-   using the area from file option. Click "Ok".
- 
-.. image:: ../../resources/en/documentation/calculate/settings_dialog_algorithm_region_of_interest.png
+.. image:: /static/documentation/calculate/image029.png
    :align: center
 
-5) Optionally, provide a task name and some notes to indicate which options were selected for the analysis using the
-   "Execution name:" and "Notes:" input fields respectively.
-   
-Productivity Trajectory
-~~~~~~~~~~~~~~~~~~~~~~~
-
-If you select the *Trends.Earth productivity* method, it is possible to configure parameters of the Productivity
-trajectory sub-indicator. Trajectory assesses the rate of change of productivity over time. To calculate trajectory:
-
-.. note::
-    Refer  to the :ref:`indicator-productivity-trajectory` section in this manual for a detailed explanation of this indicator is computed.
-
-1) In the Advanced configuration, select the method to be used to compute the productivity trajectory analysis
-   (trajectory indicator) and the start and end year of the period of analysis. The options are:
+3) In the tab "Advanced", select the method to be used to compute the 
+   productivity trajectory analysis. The options are:
 
 .. note::
     Refer to the :ref:`indicator-productivity-climate-correction` information 
@@ -219,54 +200,67 @@ trajectory sub-indicator. Trajectory assesses the rate of change of productivity
 * **WUE**: is defined as the ratio between net primary production (NPP), in 
   this case annual integrals of NDVI, and evapotranspiration.
 
-.. image:: ../../resources/en/documentation/calculate/land_productivity_advanced_configuration.png
+.. image:: /static/documentation/calculate/image030.png
    :align: center
 
 Productivity Performance
 ~~~~~~~~~~~~~~~~~~~~~~~~
-
-If you select the *Trends.Earth productivity* method, it is possible to configure parameters of the Productivity
-Performance sub-indicator.
-
-Performance is a comparison of how productivity in an area compares to
+Performance is a comparison of how productivity in an area compares to 
 productivity in similar areas at the same point in time. To calculate 
 performance:
 
-7) Select the start and end year of the period of analysis  for comparison. 
+1) Select the start and end year of the period of analysis  for comparison. 
 
 .. note::
     Refer to the :ref:`indicator-productivity-performance` section in this 
     manual for a detailed explanation of this indicator is computed.
 
-.. image:: ../../resources/en/documentation/calculate/land_productivity_advanced_configuration_2.png
-    :align: center
-    
 Productivity State
 ~~~~~~~~~~~~~~~~~~
-
-If you select the *Trends.Earth productivity* method, it is possible to configure parameters of the Productivity
-State sub-indicator.
-
-State performs a comparison of how current productivity in an area compares to
+State performs a comparison of how current productivity in an area compares to 
 past productivity. To calculate state:
 
-8) Define the baseline (initial) and comparison periods for the computation of the State sub-indicator.
+1) Define the baseline and comparison periods for the computation of the State 
+   sub-indicator.
 
 .. note::
     Refer to the :ref:`indicator-productivity-state` section in this manual for 
     a detailed explanation of this indicator is computed.
 
-9) When all the parameters have been defined, click on "Schedule remote execution" to submit the task to Google Earth Engine for computing. The user can track the progress of the Google Earth Engine task in the the Datasets tab of the Trends.Earth panel. 
+The next step is to define the study area on which to perform the analysis. The 
+tool allows selecting the area of interest in one of two ways:
 
-.. image:: ../../resources/en/documentation/calculate/land_productivity_task_submitted.png
+1. Selects first (i.e. country) and/or second (i.e. province or state) 
+   administrative boundary from a drop-down menu. 
+
+2. The user can provide a shapefile, KML, or geojson defining an area of 
+   interest. Once this is done, Select Next.
+
+.. image:: /static/documentation/calculate/image031.png
+   :align: center
+   
+3. The next step is to write a Task name and some notes to indicate which 
+   options were selected for the analysis.
+
+.. image:: /static/documentation/calculate/image032.png
+   :align: center
+   
+4. When all the parameters have been defined, click "Calculate", and the task 
+   will be submitted to Google Earth Engine for computing. When the task is 
+   completed (processing time will vary depending on server usage, but for most 
+   countries it takes only a few minutes most of the time), you’ll receive an 
+   email notifying the successful completion.
+
+5. When the Google Earth Engine task has completed and you received the email, 
+   click "Refresh List" and the status will show FINISHED. Click on the task 
+   and select "Download results" at the bottom of the window. A pop up window 
+   will open for you to select where to save the layer and to assign it a name. 
+   Then click "Save". The layer will be saved on your computer and 
+   automatically loaded into yoour current QGIS project.
+
+.. image:: /static/documentation/calculate/output_productivity.png
    :align: center
 
-10) When the Google Earth Engine task has completed (processing time will vary depending on server usage, but for
-    most countries it takes only a few minutes most of the time), you’ll receive an email notifying the successful
-    completion. You can then load the layer into your current QGIS project.
-
-.. image:: ../../resources/en/documentation/calculate/land_productivity_output.png
-   :align: center
 
 Calculate land cover
 ____________________
@@ -283,74 +277,87 @@ enter a transition matrix indicating which transitions indicate degradation,
 stability or improvement.
 
 .. note::
-   Refer to the :ref:`indicator-land-cover` background information in this manual for a detailed explanation of how land cover change is computed.
+    Refer to the :ref:`indicator-land-cover` background information in this 
+    manual for a detailed explanation of how land cover change is computed.
 
-To calculate the land cover change sub-indicator:
+To calculate the land cover change indicator:
 
-1. Click on the "Execute remotely" button next to the Land Cover heading, in the Sub indicators tab of the Trends.Earth panel. The "Land Cover | Land Degradation " dialog box will appear.  
+1. Click on the Calculate Indicators button from the toolbox bar, then select 
+   Land cover.
    
-.. image:: ../../resources/en/documentation/calculate/land_cover.png
+.. image:: /static/documentation/calculate/image033.png
    :align: center
 
-2. Select the initial and target years.
+2. Within the "Land Cover Setup tab" the user selects the baseline and target years
 
-.. image:: ../../resources/en/documentation/calculate/land_cover_dialog_box.png
+.. image:: /static/documentation/calculate/image034.png
    :align: center
    
-3. Optionally, the land cover aggregation can be customized using the "Edit definition" button. The user can define
-   their own aggregation of land cover classes from  the 37 ESA land cover classes to the 7 UNCCD categories. Edit the
-   aggregation suitable for the area of interest then click "Save".
+3. The land cover aggregation can be customized using the 'Edit definition' 
+   button. The user can define their own aggregation of land cover classes from 
+   the 37 ESA land cover classes to the 7 UNCCD categories.
 
-.. image:: ../../resources/en/documentation/calculate/land_cover_aggregation.png
-   :align: center
- 
-4. Optionally, redefine the study area on which to perform the analysis.  Click on the "Change region" button.
-   Under the Algorithm region of interest heading in the "Settings" dialog box that appears, select either a region or
-   city in a country/region, specify a point using longitude and latitude coordinates or upload a shapefile boundary
-   using the area from file option. Click "Ok".
- 
-.. image:: ../../resources/en/documentation/calculate/settings_dialog_algorithm_region_of_interest.png
-      :align: center
-   
-5. Optionally, add a task name and relevant notes for the analysis using the "Execution name:" and "Notes:" input
-   fields respectively.
-     
-6. Within the "Advanced configuration"  it is possible to define the meaning of each land cover transition in terms of
-   degradation. The options are: stable (0), degradation (-) or improvement (+). For example, the default for cropland
-  to cropland is 0 because the land cover stays the same and is therefore stable. The default for forest to
-  cropland is -1 because forest is likely cut to  clear way for agriculture and would be considered deforestation.
-  The user is encouraged to thoroughly evaluate the meaning of each transition based on their knowledge of the
-  study area, since this matrix will have an important effect on the land degradation identified by this
-  sub-indicator.
+   A. Select the dial button for the "Custom" option and select "Create new 
+      definition" 
 
-   Users can keep the default values or create unique transition values of their own.
-   
-.. image:: ../../resources/en/documentation/calculate/land_cover_dialog_box_advanced_configuration.png
+   B. Edit the aggregation suitable for the area of interest
+
+   C. Select "Save definition" and select Next
+
+.. image:: /static/documentation/calculate/image035.png
    :align: center
    
+4. Within the "Define Degradation tab" user define the meaning of each land 
+   cover transition in terms of degradation. The options are: stable (0), 
+   degradation (-) or improvement (+). For example, the default for cropland to 
+   cropland is 0 because the land cover stays the same and is therefore stable. 
+   The default for forest to cropland is -1 because forest is likely cut to 
+   clear way for agriculture and would be considered deforestation. The user is 
+   encouraged to thoroughly evaluate the meaning of each transition based on 
+   their knowledge of the study area, since this matrix will have an important 
+   effect on the land degradation identified by this subindicator.
+
+   Users can keep the default values or create unique transition values of 
+   their own.
    
-7. When all parameters have been defined, click on "Schedule remote execution" to submit the task to Google Earth Engine for computing. The user can track the progress of the Google Earth Engine task in the the Datasets tab of the Trends.Earth panel. 
+.. image:: /static/documentation/calculate/image036.png
+   :align: center
    
-.. image:: ../../resources/en/documentation/calculate/land_cover_task_submitted.png
-      :align: center
-   
-8. When the Google Earth Engine task has completed (processing time will vary depending on server usage, but for most
-   countries it takes only a few minutes most of the time), you’ll receive an email notifying the successful
-   completion. You can then load the layer into your current QGIS project.
-   
-.. image:: ../../resources/en/documentation/calculate/land_cover_output.png
+5. The next step is to define the study area on which to perform the analysis. 
+   The toolbox allows this task to be completed in one of two ways:
+
+   A. The user selects first (i.e. country) and second (i.e. province or state) 
+      administrative boundary from a drop-down menu.
+
+   B. The user can upload a shapefile with an area of interest.
+
+.. image:: /static/documentation/calculate/image037.png
    :align: center
 
-.. note::
-    You can calculate the land cover change sub-indicator by executing locally, only if you have a downloaded initial
-    year land cover layer and target year land cover layer. See :ref:`All sub indicators at once`.
+6. The next step is to add the task name and relevant notes for the analysis.
 
-.. image:: ../../resources/en/documentation/calculate/land_cover_execute_locally.png
+.. image:: /static/documentation/calculate/image038.png
    :align: center
- 
+   
+7. When all the parameters have been defined, click "Calculate", and the task 
+   will be submitted to Google Earth Engine for computing. When the task is 
+   completed (processing time will vary depending on server usage, but for most 
+   countries it takes only a few minutes most of the time), you’ll receive an 
+   email notifying the successful completion.
 
-Calculate soil organic carbon
-_____________________________
+
+8. When the Google Earth Engine task has completed and you received the email, 
+   click "Refresh List" and the status will show FINISHED. Click on the task 
+   and select "Download results" at the bottom of the window. A pop up window 
+   will open for you to select where to save the layer and to assign it a name. 
+   Then click "Save". The layer will be saved on your computer and 
+   automatically loaded into yoour current QGIS project.
+
+.. image:: /static/documentation/calculate/output_landcover.png
+   :align: center
+   
+Calculate soil carbon
+_____________________
 
 Soil Organic Carbon is calculated as a proxy for carbon stocks. It is measured 
 using soil data and changes in land cover.
@@ -361,54 +368,48 @@ using soil data and changes in land cover.
 
 To calculate degradation in soil organic carbon:
 
-1. Click on the "Execute remotely" button next to the Soil Organic Carbon heading in the Sub indicators tab of the
-   Trends.Earth panel.  The "Soil Organic Carbon | Land Degradation" dialog box will appear.
-
-.. image:: ../../resources/en/documentation/calculate/soil_organic_carbon.png
+.. image:: /static/documentation/calculate/image039.png
    :align: center
 
-2. Define the period for analysis by selecting the initial and target year. Users can select the "Edit definition"
-   button to change the land cover aggregation method or upload a dataset.
+1. Select Soil organic carbon button under Calculate Indicators
 
-.. image:: ../../resources/en/documentation/calculate/soil_organic_carbon_parameters.png
-   :align: center
-   
-3. Optionally, redefine the study area on which to perform the analysis.  Click on the "Change region" button.  Under
-   the Algorithm region of interest heading in the "Settings" dialog box that appears, select either a region or
-   city in a country/region, specify a point using longitude and latitude coordinates or upload a shapefile boundary
-   using the area from file option. Click "Ok".
- 
-.. image:: ../../resources/en/documentation/calculate/settings_dialog_algorithm_region_of_interest.png
-      :align: center
-
-4. The "Advanced configuration" allows users to specify the Climate regime, select whether the annual land cover layers
-   should be downloaded as additional files and choose a custom initial soil organic carbon dataset.
-
-.. image:: ../../resources/en/documentation/calculate/soil_organic_carbon_advanced_configuration.png
-   :align: center
-   
-5. Optionally, add a task name and relevant notes for the analysis using the "Execution name:" and "Notes:" input fields respectively.
-   
-6. When all parameters have been defined, click on "Schedule remote execution" to submit the task to Google Earth
-   Engine for computing. The user can track the progress of the Google Earth Engine task in the the Datasets tab of the Trends.Earth panel.
-   
-.. image:: ../../resources/en/documentation/calculate/soil_organic_carbon_task_submitted.png
-      :align: center
-   
-7. When the Google Earth Engine task has completed (processing time will vary depending on server usage, but for most
-   countries it takes only a few minutes most of the time), you’ll receive an email notifying the successful
-   completion. You can then load the layer into your current QGIS project.
-   
-.. image:: ../../resources/en/documentation/calculate/soil_organic_carbon_output.png
+.. image:: /static/documentation/calculate/image040.png
    :align: center
 
-.. note::
-    You can calculate the degradation in soil organic carbon by executing locally, only if you have a downloaded
-    initial year land cover layer and target year land cover layer. See :ref:`All sub indicators at once`.
+2. The Land Cover Setup tab allows the user to define the period for analysis 
+   with the baseline and target year. Users can select the Edit definition 
+   button to change the land cover aggregation method or upload a datasets.   
 
-.. image:: ../../resources/en/documentation/calculate/soil_organic_carbon_execute_locally.png
+.. image:: /static/documentation/calculate/image041.png
+   :align: center
+   
+3. The "Advanced" tab allows users to specify the Climate regime.
+
+.. image:: /static/documentation/calculate/image042.png
+   :align: center
+   
+4. Users can select an area or upload a polygon shapefile for analysis
+   
+.. image:: /static/documentation/calculate/image043.png
    :align: center
 
+6. The next step is to add the task name and relevant notes for the analysis.
+   
+7. When all the parameters have been defined, click "Calculate", and the task 
+   will be submitted to Google Earth Engine for computing. When the task is 
+   completed (processing time will vary depending on server usage, but for most 
+   countries it takes only a few minutes most of the time), you’ll receive an 
+   email notifying the successful completion.
+
+8. When the Google Earth Engine task has completed and you received the email, 
+   click "Refresh List" and the status will show FINISHED. Click on the task 
+   and select "Download results" at the bottom of the window. A pop up window 
+   will open for you to select where to save the layer and to assign it a name. 
+   Then click "Save". The layer will be saved on your computer and 
+   automatically loaded into your current QGIS project.
+
+.. image:: /static/documentation/calculate/output_soc.png
+   :align: center
 
 Compute SDG Indicator 15.3.1
 ____________________________
@@ -418,45 +419,56 @@ ____________________________
     manual for a detailed explanation of how the sub-indicators are combined to 
     calculate the final SDG 15.3.1 indicator.
 
-1. Once you have computed the three sub-indicators (land productivity, land cover 
-   and soil organic carbon), Click on the "Execute locally" button next to the "Main SDG 15.3.1 indicator" heading in
-   the Sub indicators tab of the Trends.Earth panel. This will open up the "SDG 15.3.1 Indicator (Summary) | Land Degradation" dialog box.
+1. Once you have computed the three sub-indicators (productivity, land cover 
+   and soil organic carbon), and they are loaded into the QGIS project. Click 
+   on the Calculate icon (|iconCalculator|). This will open up the "Calculate 
+   Indicator" dialog box. This time click on Step 2 "Calculate final SDG 15.3.1 
+   indicator and summary table".
 
-2. The "SDG 15.3.1 Indicator (Summary) | Land Degradation" dialog box will open already populated with the correct
-   sub-indicators. You can modify the prepopulated combo boxes in case the default selection is not correct.
+2. The input window will open already populated with the correct sub-indicators 
+   (that if you have them loaded to the QGIS map)
 
-.. image:: ../../resources/en/documentation/calculate/sdg_summary_input.png
+.. image:: /static/documentation/calculate/sdg_input.png
    :align: center
 
-3. Optionally, redefine the study area on which to perform the analysis.  Click on the "Change region" button.
-   Under the Algorithm region of interest heading in the "Settings" dialog box that appears, select either a region
-   or city in a country/region, specify a point using longitude and latitude coordinates or upload a shapefile
-   boundary using the area from file option. Click "Ok".
+3. Select the name and location where to save the output raster layer and the 
+   excel file with the areas computed.  
  
-.. image:: ../../resources/en/documentation/calculate/settings_dialog_algorithm_region_of_interest.png
-      :align: center
-
-4. Optionally, add a task name and relevant notes for the analysis using the "Execution name:" and "Notes:" input fields respectively.
-   
-5. When all the parameters have been defined, click on "Execute locally" to run this calculation on your computer.
-   Depending on the size of the area and the computing power of your computer, it could take a few minutes.
-
-.. image:: ../../resources/en/documentation/calculate/sdg_summary_calculate.png
-      :align: center
-
-6. When completed, load the final SDG indicator into the QGIS map. This indicator actually generates an additional
-   result type, which is a Microsoft Excel file with aggregated statistics about the spatial dataset. This file is
-   saved in the same directory as the spatial dataset.
-
-.. image:: ../../resources/en/documentation/calculate/sdg_summary_output.png
+.. image:: /static/documentation/calculate/sdg_output.png
    :align: center
 
-7. Use the relevant button to open the dataset's output directory. Open the Excel file and inspect the generated
-   result. NOTE: You may get an error message when opening the file,
+4. Define the area of analysis. In this example, the country boundary.
+  
+.. image:: /static/documentation/calculate/sdg_area.png
+   :align: center
+   
+5. Give a name to the task and click "Calculate"
+   
+.. image:: /static/documentation/calculate/sdg_options.png
+   :align: center
+
+6. This calculation is run on your computer, so depending on the size of the 
+   area and the computing power of your computer, it could take a few minutes. 
+   When completed, the final SDG indicator will be loaded into the QGIS map and 
+   the Excel file with the areas will be saved in the folder you selected. when 
+   done, a message will pop up.
+
+.. image:: /static/documentation/calculate/sdg_done.png
+   :align: center
+   
+7. Click OK and two layers will be loaded to your map: the **5 classes 
+   productivity** and the **SDG 15.3.1** indicators.
+
+.. image:: /static/documentation/calculate/sdg_maps.png
+   :align: center
+
+8. If you navigate to the folder you selected for storing the files, you can 
+   open the Excel files with the areas computed for each of the sub-indicators 
+   and the final SDG. NOTE: You may get an error message when opening the file, 
    just click ok and the file will open regardless. We are working to fix this 
    error.
 
-.. image:: ../../resources/en/documentation/calculate/sdg_output_xls.png
+.. image:: /static/documentation/calculate/sdg_excel.png
    :align: center
   
    

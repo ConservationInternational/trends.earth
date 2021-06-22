@@ -18,11 +18,11 @@
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_algorithms">
        <attribute name="title">
-        <string>Sub indicators</string>
+        <string>Indicators</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>

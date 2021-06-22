@@ -29,7 +29,7 @@ import sphinx_rtd_theme
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 #extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode', 'rinoh.frontend.sphinx']
 #extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode', 'rst2pdf.pdfbuilder']
-extensions = ['sphinx_rtd_theme','sphinx.ext.todo', 'sphinx.ext.viewcode']
+extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode']
 
 todo_include_todos=True
 
@@ -62,52 +62,43 @@ version = '1.0.3'
 release = '1.0.3'
 
 rst_epilog = """
-.. |iconCalculator| image:: ../../resources/en/common/icon-calculator.png
+.. |iconCalculator| image:: /static/common/icon-calculator.png
    :width: 2em
-.. |iconChart| image:: ../../resources/en/common/icon-chart.png
+.. |iconChart| image:: /static/common/icon-chart.png
    :width: 2em
-.. |iconClipboard| image:: ../../resources/en/common/icon-clipboard.png
+.. |iconClipboard| image:: /static/common/icon-clipboard.png
    :width: 2em
-.. |iconCloudDownload| image:: ../../resources/en/common/icon-cloud-download.png
+.. |iconCloudDownload| image:: /static/common/icon-cloud-download.png
    :width: 2em
-.. |iconCog| image:: ../../resources/en/common/icon-cog.png
+.. |iconCog| image:: /static/common/icon-cog.png
    :width: 2em
-.. |iconDeletedataset| image:: ../../resources/en/common/icon-delete_dataset.png
+.. |iconGlobe| image:: /static/common/icon-globe.png
    :width: 2em
-.. |iconGlobe| image:: ../../resources/en/common/icon-globe.png
+.. |iconGraph| image:: /static/common/icon-graph.png
    :width: 2em
-.. |iconGraph| image:: ../../resources/en/common/icon-graph.png
+.. |iconInfo| image:: /static/common/icon-info.png
    :width: 2em
-.. |iconInfo| image:: ../../resources/en/common/icon-info.png
+.. |iconMarkMarker| image:: /static/common/icon-map-marker.png
    :width: 2em
-.. |iconLoaddataset| image:: ../../resources/en/common/icon-load_dataset_onto_qgis_map_area.png
-.. |iconMarkMarker| image:: ../../resources/en/common/icon-map-marker.png
+.. |iconWrench| image:: /static/common/icon-wrench.png
    :width: 2em
-.. |iconOpendatasetdirectory| image:: ../../resources/en/common/icon-open_dataset_directory.png
+.. |iconFolder| image:: /static/common/icon-folder.png
    :width: 2em
-.. |iconViewdatasetdetails| image:: ../../resources/en/common/icon-view_dataset_details.png
+.. |iconVisualization| image:: /static/common/icon-reporting.png
    :width: 2em
-.. |iconWrench| image:: ../../resources/en/common/icon-wrench.png
-   :width: 2em
-.. |iconFolder| image:: ../../resources/en/common/icon-folder.png
-   :width: 2em
-.. |iconTrendsEarth| image:: ../../resources/en/common/icon-trends_earth.png
-   :width: 2em
-.. |iconVisualization| image:: ../../resources/en/common/icon-reporting.png
-   :width: 2em
-.. |trends.earth| image:: ../../resources/en/common/trends_earth_logo_bl_print.png
+.. |trends.earth| image:: /static/common/trends_earth_logo_bl_print.png
    :width: 7em
    :alt: Trends.Earth
-.. |logoCI| image:: ../../resources/en/common/logo_CI_square.png
+.. |logoCI| image:: /static/common/logo_CI_square.png
     :width: 150
     :target: http://www.conservation.org
-.. |logoLund| image:: ../../resources/en/common/logo_Lund_square.png
+.. |logoLund| image:: /static/common/logo_Lund_square.png
     :width: 125
     :target: http://www.lunduniversity.lu.se
-.. |logoNASA| image:: ../../resources/en/common/logo_NASA_square.png
+.. |logoNASA| image:: /static/common/logo_NASA_square.png
     :width: 125
     :target: http://www.nasa.gov
-.. |logoGEF| image:: ../../resources/en/common/logo_GEF.png
+.. |logoGEF| image:: /static/common/logo_GEF.png
     :width: 125
     :target: https://www.thegef.org
 .. |CURRENT| replace:: {current_version}

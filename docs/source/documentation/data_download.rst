@@ -1,5 +1,5 @@
-Download data
-=============
+Download default input datasets
+===============================
 
 .. image:: ../../resources/en/documentation/data_download/download_data.png
    :align: center

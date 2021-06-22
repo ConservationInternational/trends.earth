@@ -146,7 +146,9 @@ From the advanced settings, you can change settings including:
 Base data directory
 ___________________
 
-The base data directory is the local folder on your computer where the finished jobs, runnning jobs, and the locally and remotely generated |trends.earth| assets are stored.
+The base data directory is the local directory on your computer where the finished jobs, runnning jobs, and the locally
+and remotely generated |trends.earth| assets are stored.
+
 
 Debug mode
 __________
@@ -159,12 +161,16 @@ To enable logging of debug messages, check the box. These messages may be
 useful when trying to problem-solve any issues you might encounter while using 
 Trends.Earth.
 
+
 Automatic download of remotely generated datasets
 _________________________________________________
 
-After submitting a calculation using |trends.earth|, it is sent to Google Earth Engine to run calculations in the cloud.  This setting enables the automatic download of the results into your base data directory. 
+After submitting a calculation using |trends.earth|, it is sent to Google Earth Engine to run calculations in the
+cloud.  This setting enables the automatic download of the results into your base data directory.
 
-Disabling this setting means the results have to be downloaded manually by clicking on the |iconCloudDownload| icon below the user defined task name.  
+Disabling this setting means the results have to be downloaded manually by clicking on the |iconCloudDownload| icon
+below the user defined task name - note that this icon is only visible when this option is turned off.
+
 
 Use binaries for faster processing
 __________________________________

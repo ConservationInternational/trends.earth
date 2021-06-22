@@ -457,11 +457,18 @@ class JobManager(QtCore.QObject):
             j.id: j for j in self._get_local_jobs(models.JobStatus.FINISHED)}
         local_ids = self._known_finished_jobs.keys()
         deleted_ids = self._known_deleted_jobs.keys()
+        downloaded_ids = self._known_downloaded_jobs.keys()
         remote_finished = [
             j for j in remote_jobs if j.status == models.JobStatus.FINISHED]
         for remote_job in remote_finished:
-            is_deleted = remote_job.id in deleted_ids
-            if remote_job.id not in local_ids and not is_deleted:
+            if remote_job.id in deleted_ids:
+                continue  # this job has previously been deleted by the user
+            elif remote_job.id in downloaded_ids:
+                continue  # this job has already been downloaded
+            elif remote_job.id in local_ids:
+                continue  # we already know about this job
+            else:
+                # this is a new job that we are interested in, lets get it
                 self._known_finished_jobs[remote_job.id] = remote_job
                 self.write_job_metadata_file(remote_job)
         return self._known_finished_jobs

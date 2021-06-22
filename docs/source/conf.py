@@ -72,13 +72,20 @@ rst_epilog = """
    :width: 2em
 .. |iconCog| image:: ../../resources/en/common/icon-cog.png
    :width: 2em
+.. |iconDeletedataset| image:: ../../resources/en/common/icon-delete_dataset.png
+   :width: 2em
 .. |iconGlobe| image:: ../../resources/en/common/icon-globe.png
    :width: 2em
 .. |iconGraph| image:: ../../resources/en/common/icon-graph.png
    :width: 2em
 .. |iconInfo| image:: ../../resources/en/common/icon-info.png
    :width: 2em
+.. |iconLoaddataset| image:: ../../resources/en/common/icon-load_dataset_onto_qgis_map_area.png
 .. |iconMarkMarker| image:: ../../resources/en/common/icon-map-marker.png
+   :width: 2em
+.. |iconOpendatasetdirectory| image:: ../../resources/en/common/icon-open_dataset_directory.png
+   :width: 2em
+.. |iconViewdatasetdetails| image:: ../../resources/en/common/icon-view_dataset_details.png
    :width: 2em
 .. |iconWrench| image:: ../../resources/en/common/icon-wrench.png
    :width: 2em

@@ -134,7 +134,6 @@ Advanced settings
 .. image:: ../../resources/en/documentation/settings/settings_dialog_advanced.png
    :align: center
    
-
 From the advanced settings, you can change settings including:
 
 - set the base data directory,
@@ -145,8 +144,9 @@ From the advanced settings, you can change settings including:
 - and loading pe-compiled binaries to speed up calculations in Trends.Earth.
 
 Base data directory
-__________
-The base data directory is the local folder on your machine where the 
+___________________
+
+The base data directory is the local folder on your computer where the finished jobs, runnning jobs, and the locally and remotely generated |trends.earth| assets are stored.
 
 Debug mode
 __________
@@ -158,6 +158,13 @@ Panel" under "View" and then "Panels" on the QGIS menu bar).
 To enable logging of debug messages, check the box. These messages may be 
 useful when trying to problem-solve any issues you might encounter while using 
 Trends.Earth.
+
+Automatic download of remotely generated datasets
+_________________________________________________
+
+After submitting a calculation using |trends.earth|, it is sent to Google Earth Engine to run calculations in the cloud.  This setting enables the automatic download of the results into your base data directory. 
+
+Disabling this setting means the results have to be downloaded manually by clicking on the |iconCloudDownload| icon below the user defined task name.  
 
 Use binaries for faster processing
 __________________________________

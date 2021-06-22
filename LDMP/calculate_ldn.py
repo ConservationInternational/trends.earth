@@ -16,6 +16,7 @@ from builtins import range
 import os
 import json
 import tempfile
+import datetime
 
 import numpy as np
 
@@ -33,7 +34,7 @@ from qgis.core import QgsGeometry
 from qgis.utils import iface
 mb = iface.messageBar()
 
-from LDMP import log, __version__
+from LDMP import log, __version__, __revision__, __release_date__
 from LDMP.api import run_script
 from LDMP.calculate import (DlgCalculateBase, get_script_slug, MaskWorker,
     json_geom_to_geojson, ldn_recode_state, ldn_recode_traj, ldn_make_prod5, 
@@ -41,9 +42,14 @@ from LDMP.calculate import (DlgCalculateBase, get_script_slug, MaskWorker,
 from LDMP.lc_setup import lc_setup_widget, lc_define_deg_widget
 from LDMP.layers import (add_layer, create_local_json_metadata, get_band_infos,
     delete_layer_by_filename)
-from LDMP.schemas.schemas import BandInfo, BandInfoSchema
+
+from LDMP.schemas.schemas import AreaOfInterest, BandInfo, BandInfoSchema
+from LDMP.schemas.reporting import *
+from LDMP.schemas.land_cover import *
+
 from LDMP.gui.DlgCalculateOneStep import Ui_DlgCalculateOneStep
 from LDMP.gui.DlgCalculateLDNSummaryTableAdmin import Ui_DlgCalculateLDNSummaryTableAdmin
+from LDMP.gui.DlgCalculateDegUNCCDReporting import Ui_DlgCalculateDegUNCCDReporting
 from LDMP.worker import AbstractWorker, StartWorker
 from LDMP.summary import *
 
@@ -561,7 +567,7 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
 
         self.setupUi(self)
 
-        self.add_output_tab(['.json', '.tif', '.xlsx'])
+        self.add_output_tab(['.json', '.tif', '.xlsx', '_report.json', '_report.xlsx'])
 
         self.mode_lpd_jrc.toggled.connect(self.mode_lpd_jrc_toggled)
         self.mode_lpd_jrc_toggled()
@@ -698,17 +704,24 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
         self.close()
 
         #######################################################################
-        # Load all datasets to VRTs (to select only the needed bands)
+        # Load productivity datasets to VRTs (to select only the needed bands)
         if prod_mode == 'Trends.Earth productivity':
             traj_vrt = self.combo_layer_traj.get_vrt()
             perf_vrt = self.combo_layer_perf.get_vrt()
             state_vrt = self.combo_layer_state.get_vrt()
+            prod_band_info = get_band_infos(self.combo_layer_traj.get_data_file(), 'Productivity trajectory (trend)')
+            if len(prod_band_info) > 1:
+                raise ValueError('More than one productivity trajectory band found in "{}"'.format(self.combo_layer_traj.get_data_file()))
+            else:
+                prod_band_info = prod_band_info[0]
         else:
             lpd_vrt = self.combo_layer_lpd.get_vrt()
+            prod_band_info = get_band_infos(self.combo_layer_lpd.get_data_file())
+        prod_years = [prod_band_info['metadata']['year_start'], prod_band_info['metadata']['year_end']]
 
         #######################################################################
         # Select baseline and target land cover and SOC layers based on chosen
-        # degradation layers for these datasets
+        # degradation layers for these datasets and load them to VRTs
         lc_band_infos = get_band_infos(self.combo_layer_lc.get_data_file())
         lc_annual_band_indices = [i for i, bi in enumerate(lc_band_infos) if bi['name'] == 'Land cover (7 class)']
         lc_annual_band_indices.sort(key=lambda i: lc_band_infos[i]['metadata']['year'])
@@ -857,11 +870,23 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
                     sdg_tbl_soc = sdg_tbl_soc + this_sdg_tbl_soc
                     sdg_tbl_lc = sdg_tbl_lc + this_sdg_tbl_lc
 
+        json_out_file = self.output_tab.output_basename.text() + '_report.json'
+        make_summary_json(soc_totals, lc_totals, trans_prod_xtab, 
+                           sdg_tbl_overall, sdg_tbl_prod, sdg_tbl_soc, 
+                           sdg_tbl_lc, lc_years, soc_years, prod_years,
+                           self.options_tab.task_name.text(),
+                           self.aoi,
+                           self.lc_setup_tab.dlg_esa_agg.get_agg_as_json(),
+                           json_out_file)
+
+        excel_out_file = self.output_tab.output_basename.text() + '_report.xlsx'
         make_summary_table(soc_totals, lc_totals, trans_prod_xtab, 
                            sdg_tbl_overall, sdg_tbl_prod, sdg_tbl_soc, 
-                           sdg_tbl_lc, lc_years, soc_years,
-                           self.output_tab.output_basename.text() + '.xlsx')
+                           sdg_tbl_lc, lc_years, soc_years, excel_out_file)
 
+        log(u'Summary report saved to {}'.format(out_file))
+        QtWidgets.QMessageBox.information(None, tr_calculate_ldn.tr("Success"),
+                                          tr_calculate_ldn.tr(u'Summary report saved to {}'.format(excel_out_file)))
 
         # Add the SDG layers to the map
         output_sdg_bandinfos = [BandInfo("SDG 15.3.1 Indicator")]
@@ -912,7 +937,6 @@ def get_prod_table(table, prod_class, classes=list(range(1, 7 + 1))):
     return out
 
 
-
 # Note classes for this function go from 1-6 to exclude water from the SOC 
 # totals
 def write_soc_stock_change_table(sheet, first_row, first_col, soc_bl_totals, 
@@ -931,7 +955,7 @@ def write_soc_stock_change_table(sheet, first_row, first_col, soc_bl_totals,
 
 # Note classes for this function go from 1-6 to exclude water from the SOC 
 # totals
-def get_soc_total_by_class(trans_prod_xtab, soc_totals, classes=list(range(1, 6 + 1)), uselog=False):
+def get_soc_total_by_class(trans_prod_xtab, soc_totals, classes=list(range(1, 6 + 1))):
     out = np.zeros((len(classes), 1))
     for row in range(len(classes)):
         area = 0
@@ -1023,7 +1047,6 @@ def make_summary_table(soc_totals, lc_totals, trans_prod_xtab, sdg_tbl_overall,
     ws_unccd = wb['UNCCD Reporting']
 
     for i in range(len(lc_years)):
-        log('lc_years len: {}'.format(len(lc_years)))
         # Water bodies
         cell = ws_unccd.cell(5 + i, 4)
         cell.value = lc_totals[i][6]
@@ -1033,7 +1056,7 @@ def make_summary_table(soc_totals, lc_totals, trans_prod_xtab, sdg_tbl_overall,
     write_table_to_sheet(ws_unccd, get_lpd_table(trans_prod_xtab), 82, 3)
 
     for i in range(len(soc_years)):
-        write_row_to_sheet(ws_unccd, np.append(soc_years[i], get_soc_total_by_class(trans_prod_xtab, soc_totals[i], uselog=True)), 92 + i, 2)
+        write_row_to_sheet(ws_unccd, np.append(soc_years[i], get_soc_total_by_class(trans_prod_xtab, soc_totals[i])), 92 + i, 2)
 
     try:
         ws_sdg_logo = Image(os.path.join(os.path.dirname(__file__), 'data', 'trends_earth_logo_bl_300width.png'))
@@ -1054,11 +1077,181 @@ def make_summary_table(soc_totals, lc_totals, trans_prod_xtab, sdg_tbl_overall,
 
     try:
         wb.save(out_file)
-        log(u'Indicator table saved to {}'.format(out_file))
-        QtWidgets.QMessageBox.information(None, tr_calculate_ldn.tr("Success"),
-                                      tr_calculate_ldn.tr(u'Indicator table saved to {}'.format(out_file)))
+        return True
 
     except IOError:
         log(u'Error saving {}'.format(out_file))
         QtWidgets.QMessageBox.critical(None, tr_calculate_ldn.tr("Error"),
-                                   tr_calculate_ldn.tr(u"Error saving output table - check that {} is accessible and not already open.".format(out_file)))
+                                   tr_calculate_ldn.tr(u"Error saving indicator table - check that {} is accessible and not already open.".format(out_file)))
+        return False
+
+
+def make_summary_json(soc_totals, lc_totals, trans_prod_xtab, sdg_tbl_overall, 
+                       sdg_tbl_prod, sdg_tbl_soc, sdg_tbl_lc, lc_years, 
+                       soc_years, prod_years, task_name, aoi, 
+                       lc_legend_nesting, out_file):
+
+    ##########################################################################
+    # Area summary tables
+    sdg_tbl_overall = AreaList('SDG Indicator 15.3.1', 'sq km',
+            [Area('Improved', sdg_tbl_overall[0, 0]),
+             Area('Stable', sdg_tbl_overall[0, 1]),
+             Area('Degraded', sdg_tbl_overall[0, 2]),
+             Area('No data', sdg_tbl_overall[0, 3])])
+
+    sdg_tbl_prod = AreaList('Productivity', 'sq km',
+            [Area('Improved', sdg_tbl_prod[0, 0]),
+             Area('Stable', sdg_tbl_prod[0, 1]),
+             Area('Degraded', sdg_tbl_prod[0, 2]),
+             Area('No data', sdg_tbl_prod[0, 3])])
+
+    sdg_tbl_soc = AreaList('Soil organic carbon', 'sq km',
+            [Area('Improved', sdg_tbl_soc[0, 0]),
+             Area('Stable', sdg_tbl_soc[0, 1]),
+             Area('Degraded', sdg_tbl_soc[0, 2]),
+             Area('No data', sdg_tbl_soc[0, 3])])
+
+    sdg_tbl_lc = AreaList('Land cover', 'sq km',
+            [Area('Improved', sdg_tbl_lc[0, 0]),
+             Area('Stable', sdg_tbl_lc[0, 1]),
+             Area('Degraded', sdg_tbl_lc[0, 2]),
+             Area('No data', sdg_tbl_lc[0, 3])])
+
+
+    ##########################################################################
+    # Productivity tables
+
+    classes = ['Tree-covered',
+               'Grassland',
+               'Cropland',
+               'Wetland',
+               'Artificial',
+               'Other land',
+               'Water body']
+    class_codes = list(range(len(classes)))
+
+    crosstab_prod = []
+    for name, code in zip(['Improving', 'Stable', 'Stressed', 'Moderate decline', 'Declining', 'No data'],
+                         [5, 4, 3, 2, 1, -32768]):
+        crosstab_prod.append(CrossTab(name,
+             unit = 'sq km',
+             initial_year = prod_years[0],
+             final_year = prod_years[-1],
+             values = [CrossTabEntry(classes[i], classes[j], value=get_prod_table(trans_prod_xtab, code)[i, j]) for i in range(len(classes)) for j in range(len(classes))]))
+
+    ##########################################################################
+    # Land cover tables
+
+    ###
+    # LC transition cross tab
+    lc_table = get_lc_table(trans_prod_xtab)
+    crosstab_lc = CrossTab('Land cover change',
+         unit = 'sq km',
+         initial_year = lc_years[0],
+         final_year = lc_years[-1],
+         values = [CrossTabEntry(classes[i], classes[j], value=lc_table[i, j]) for i in range(1, len(classes) - 1) for j in range(1, len(classes) - 1)])
+
+    ###
+    # LC by year
+    lc_by_year = []
+    for i in range(len(soc_years)):
+        lc_by_year.append(AnnualValueList(name='Land cover',
+                           year=lc_years[i],
+                           unit='sq km',
+                           values = [Value(classes[j], lc_totals[i][j]) for j in range(len(classes))]))
+
+    ###
+    # Degradation matrix (defining meaning of each land cover transition)
+
+
+
+    ##########################################################################
+    # Soil organic carbon tables
+    
+    ###
+    # SOC by transition type
+    def get_soc_chg(initial, final):
+        transition = int('{}{}'.format(initial, final))
+        bl_soc = get_soc_total(soc_totals[-1], transition)
+        tg_soc = get_soc_total(soc_totals[0], transition)
+        try:
+            return (tg_soc - bl_soc) / bl_soc
+        except ZeroDivisionError:
+            return None
+
+    crosstab_soc = CrossTab('Soil organic carbon change',
+         unit='Fraction of initial carbon stock',
+         initial_year = soc_years[0],
+         final_year = soc_years[-1],
+         values = [CrossTabEntry(classes[i], classes[j], value=get_soc_chg(i, j)) for i in range(1, len(classes) - 1) for j in range(1, len(classes) - 1)])
+
+    ###
+    # SOC by year by land cover class
+    soc_by_year = []
+    for i in range(len(soc_years)):
+        soc_by_year.append(AnnualValueList(name='Soil organic carbon',
+                           year=soc_years[i],
+                           unit='tonnes per hectare',
+                           values = [Value(classes[j], get_soc_total_by_class(trans_prod_xtab, soc_totals[i], classes=class_codes).transpose()[0][j]) for j in range(len(classes))]))
+
+    ##########################################################################
+    # Format final JSON output
+    te_summary = TrendsEarthSummary(
+            metadata = ReportMetadata(
+                title = 'Trends.Earth Summary Report',
+                date = datetime.datetime.now(datetime.timezone.utc),
+
+                trends_earth_version = TrendsEarthVersion(
+                    version = __version__,
+                    revision = __revision__,
+                    release_date = datetime.datetime.strptime(__release_date__,'%Y/%m/%d %H:%M:%SZ')),
+
+                area_of_interest = AreaOfInterest(
+                    name = task_name, #TODO replace this with area of interest name once implemented in TE
+                    geojson = aoi.get_geojson(),
+                    crs_wkt = aoi.get_crs_wkt()
+                    )
+            ),
+
+            land_condition = {
+                    baseline = {
+
+                        "sdg": SDG15Report(summary = sdg_tbl_overall),
+
+                        "productivity": ProductivityReport(
+                            summary = sdg_tbl_prod,
+                            crosstabs_by_productivity_class = crosstab_prod),
+
+                        "land_cover": LandCoverReport(
+                            summary = sdg_tbl_lc,
+                            legend_nesting = lc_legend_nesting,
+                            crosstab_by_land_cover_class = crosstab_lc,
+                            land_cover_areas_by_year = lc_by_year),
+
+                        "soil_organic_carbon": SoilOrganicCarbonReport(
+                            summary = sdg_tbl_soc,
+                            crosstab_by_land_cover_class = crosstab_soc,
+                            soc_stock_by_year = soc_by_year)
+                        },
+                    },
+
+                    progress = {
+                    }
+            }
+
+            affected_population= {},
+
+            drought= {})
+
+    try:
+        te_summary_json = json.loads(TrendsEarthSummary.Schema().dumps(te_summary))
+        with open(out_file, 'w') as f:
+            json.dump(te_summary_json, f, indent=4)
+        return True
+
+    except IOError:
+        log(u'Error saving {}'.format(out_file))
+        QtWidgets.QMessageBox.critical(None,
+                tr_calculate_ldn.tr("Error"),
+                tr_calculate_ldn.tr(u"Error saving indicator table JSON - check that {} is accessible and not already open.".format(out_file)))
+        return False

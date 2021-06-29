@@ -14,6 +14,7 @@ import json
 import ee
 
 from landdegradation.land_cover import land_cover
+from landdegradation.schemas.land_cover import LCTransMatrix, LCLegendNesting
 
 
 def run(params, logger):
@@ -23,8 +24,8 @@ def run(params, logger):
     year_target = params.get('year_target')
     geojsons = json.loads(params.get('geojsons'))
     crs = params.get('crs')
-    trans_matrix = params.get('trans_matrix')
-    remap_matrix = params.get('remap_matrix')
+    trans_matrix = LCTransMatrix.Schema().loads(params.get('trans_matrix'))
+    remap_matrix = LCLegendNesting.Schema().loads(params.get('remap_matrix'))
 
     if len(trans_matrix) != 49:
         raise GEEIOError("Transition matrix must be a list with 49 entries")

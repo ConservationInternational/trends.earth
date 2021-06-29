@@ -1149,7 +1149,8 @@ def make_summary_json(soc_totals, lc_totals, trans_prod_xtab, sdg_tbl_overall,
          unit = 'sq km',
          initial_year = lc_years[0],
          final_year = lc_years[-1],
-         values = [CrossTabEntry(classes[i], classes[j], value=lc_table[i, j]) for i in range(1, len(classes) - 1) for j in range(1, len(classes) - 1)])
+         #TODO: Check indexing as may be missing a class 
+         values = [CrossTabEntry(classes[i], classes[j], value=lc_table[i, j]) for i in range(0, len(classes) - 1) for j in range(0, len(classes) - 1)])
 
     ###
     # LC by year

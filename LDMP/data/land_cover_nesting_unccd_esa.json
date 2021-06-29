@@ -1,0 +1,373 @@
+{
+    "parent": {
+        "name": "UNCCD Land Cover",
+        "key": [
+            {
+                "code": 3,
+                "name_long": "Cropland",
+                "name_short": null,
+                "description": null,
+                "color": "#FFFB6E"
+            },
+            {
+                "code": 1,
+                "name_long": "Tree-covered",
+                "name_short": null,
+                "description": null,
+                "color": "#787F1B"
+            },
+            {
+                "code": 2,
+                "name_long": "Grassland",
+                "name_short": null,
+                "description": null,
+                "color": "#FFAC42"
+            },
+            {
+                "code": 4,
+                "name_long": "Wetland",
+                "name_short": null,
+                "description": null,
+                "color": "#00DB84"
+            },
+            {
+                "code": 5,
+                "name_long": "Artificial",
+                "name_short": null,
+                "description": null,
+                "color": "#E60017"
+            },
+            {
+                "code": 6,
+                "name_long": "Other land",
+                "name_short": null,
+                "description": null,
+                "color": "#FFF3D7"
+            },
+            {
+                "code": 7,
+                "name_long": "Water body",
+                "name_short": null,
+                "description": null,
+                "color": "#0053C4"
+            }
+        ]
+    },
+    "child": {
+        "name": "ESA CCI Land Cover",
+        "key": [
+            {
+                "code": 10,
+                "name_long": "Cropland, rainfed",
+                "name_short": null,
+                "description": null,
+                "color": "#FFFB6E"
+            },
+            {
+                "code": 11,
+                "name_long": "Herbaceous cover",
+                "name_short": null,
+                "description": null,
+                "color": "#FFFB6E"
+            },
+            {
+                "code": 12,
+                "name_long": "Tree or shrub cover",
+                "name_short": null,
+                "description": null,
+                "color": "#FFFB6E"
+            },
+            {
+                "code": 20,
+                "name_long": "Cropland, irrigated or post-flooding",
+                "name_short": null,
+                "description": null,
+                "color": "#76F1EF"
+            },
+            {
+                "code": 30,
+                "name_long": "Mosaic cropland (>50%) / natural vegetation (tree, shrub, herbaceous cover) (<50%)",
+                "name_short": null,
+                "description": null,
+                "color": "#DAEC6C"
+            },
+            {
+                "code": 40,
+                "name_long": "Mosaic natural vegetation (tree, shrub, herbaceous cover) (>50%) / cropland (<50%)",
+                "name_short": null,
+                "description": null,
+                "color": "#CDC369"
+            },
+            {
+                "code": 50,
+                "name_long": "Tree cover, broadleaved, evergreen, closed to open (>15%)",
+                "name_short": null,
+                "description": null,
+                "color": "#006313"
+            },
+            {
+                "code": 60,
+                "name_long": "Tree cover, broadleaved, deciduous, closed to open (>15%)",
+                "name_short": null,
+                "description": null,
+                "color": "#009E1D"
+            },
+            {
+                "code": 61,
+                "name_long": "Tree cover, broadleaved, deciduous, closed (>40%)",
+                "name_short": null,
+                "description": null,
+                "color": "#009E1D"
+            },
+            {
+                "code": 62,
+                "name_long": "Tree cover, broadleaved, deciduous, open (15-40%)",
+                "name_short": null,
+                "description": null,
+                "color": "#A3C329"
+            },
+            {
+                "code": 70,
+                "name_long": "Tree cover, needleleaved, evergreen, closed to open (>15%)",
+                "name_short": null,
+                "description": null,
+                "color": "#003E0C"
+            },
+            {
+                "code": 71,
+                "name_long": "Tree cover, needleleaved, evergreen, closed (>40%)",
+                "name_short": null,
+                "description": null,
+                "color": "#003E0C"
+            },
+            {
+                "code": 72,
+                "name_long": "Tree cover, needleleaved, evergreen, open (15-40%)",
+                "name_short": null,
+                "description": null,
+                "color": "#00500F"
+            },
+            {
+                "code": 80,
+                "name_long": "Tree cover, needleleaved, deciduous, closed to open (>15%)",
+                "name_short": null,
+                "description": null,
+                "color": "#00500F"
+            },
+            {
+                "code": 81,
+                "name_long": "Tree cover, needleleaved, deciduous, closed (>40%)",
+                "name_short": null,
+                "description": null,
+                "color": "#00500F"
+            },
+            {
+                "code": 82,
+                "name_long": "Tree cover, needleleaved, deciduous, open (15-40%)",
+                "name_short": null,
+                "description": null,
+                "color": "#006313"
+            },
+            {
+                "code": 90,
+                "name_long": "Tree cover, mixed leaf type (broadleaved and needleleaved)",
+                "name_short": null,
+                "description": null,
+                "color": "#787F1B"
+            },
+            {
+                "code": 100,
+                "name_long": "Mosaic tree and shrub (>50%) / herbaceous cover (<50%)",
+                "name_short": null,
+                "description": null,
+                "color": "#8A9C21"
+            },
+            {
+                "code": 110,
+                "name_long": "Mosaic herbaceous cover (>50%) / tree and shrub (<50%)",
+                "name_short": null,
+                "description": null,
+                "color": "#D09022"
+            },
+            {
+                "code": 120,
+                "name_long": "Shrubland",
+                "name_short": null,
+                "description": null,
+                "color": "#A86019"
+            },
+            {
+                "code": 121,
+                "name_long": "Shrubland evergreen",
+                "name_short": null,
+                "description": null,
+                "color": "#874913"
+            },
+            {
+                "code": 122,
+                "name_long": "Shrubland deciduous",
+                "name_short": null,
+                "description": null,
+                "color": "#A86019"
+            },
+            {
+                "code": 130,
+                "name_long": "Grassland",
+                "name_short": null,
+                "description": null,
+                "color": "#FFAC42"
+            },
+            {
+                "code": 140,
+                "name_long": "Lichens and mosses",
+                "name_short": null,
+                "description": null,
+                "color": "#FFD9D1"
+            },
+            {
+                "code": 150,
+                "name_long": "Sparse vegetation (tree, shrub, herbaceous cover) (<15%)",
+                "name_short": null,
+                "description": null,
+                "color": "#FFE7B0"
+            },
+            {
+                "code": 151,
+                "name_long": "Sparse trees (<15%)",
+                "name_short": null,
+                "description": null,
+                "color": "#FFC16A"
+            },
+            {
+                "code": 152,
+                "name_long": "Sparse shrub (<15%)",
+                "name_short": null,
+                "description": null,
+                "color": "#FFCC7C"
+            },
+            {
+                "code": 153,
+                "name_long": "Sparse herbaceous cover (<15%)",
+                "name_short": null,
+                "description": null,
+                "color": "#FFE7B0"
+            },
+            {
+                "code": 160,
+                "name_long": "Tree cover, flooded, fresh or brakish water",
+                "name_short": null,
+                "description": null,
+                "color": "#00785B"
+            },
+            {
+                "code": 170,
+                "name_long": "Tree cover, flooded, saline water",
+                "name_short": null,
+                "description": null,
+                "color": "#009577"
+            },
+            {
+                "code": 180,
+                "name_long": "Shrub or herbaceous cover, flooded, fresh/saline/brakish water",
+                "name_short": null,
+                "description": null,
+                "color": "#00DB84"
+            },
+            {
+                "code": 190,
+                "name_long": "Urban areas",
+                "name_short": null,
+                "description": null,
+                "color": "#E60017"
+            },
+            {
+                "code": 200,
+                "name_long": "Bare areas",
+                "name_short": null,
+                "description": null,
+                "color": "#FFF3D7"
+            },
+            {
+                "code": 201,
+                "name_long": "Consolidated bare areas",
+                "name_short": null,
+                "description": null,
+                "color": "#DCDCDC"
+            },
+            {
+                "code": 202,
+                "name_long": "Unconsolidated bare areas",
+                "name_short": null,
+                "description": null,
+                "color": "#FFF3D7"
+            },
+            {
+                "code": 210,
+                "name_long": "Water bodies",
+                "name_short": null,
+                "description": null,
+                "color": "#0053C4"
+            },
+            {
+                "code": 220,
+                "name_long": "Permanent snow and ice",
+                "name_short": null,
+                "description": null,
+                "color": "#FFFFFF"
+            }
+        ]
+    },
+    "nesting": {
+        "3": [
+            10,
+            11,
+            12,
+            20,
+            30,
+            40
+        ],
+        "1": [
+            50,
+            60,
+            61,
+            62,
+            70,
+            71,
+            72,
+            80,
+            81,
+            82,
+            90,
+            100
+        ],
+        "2": [
+            110,
+            120,
+            121,
+            122,
+            130,
+            140,
+            150,
+            151,
+            152,
+            153
+        ],
+        "4": [
+            160,
+            170,
+            180
+        ],
+        "5": [
+            190
+        ],
+        "6": [
+            200,
+            201,
+            202,
+            220
+        ],
+        "7": [
+            210
+        ]
+    }
+}

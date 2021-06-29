@@ -123,16 +123,16 @@ class LCClassComboBox(QtWidgets.QComboBox):
             self.setStyleSheet('QComboBox:editable {{background-color: {};}}'.format(color))
 
 class LCAggTableModel(QAbstractTableModel):
-    def __init__(self, datain, parent=None, *args):
+    def __init__(self, nesting, parent=None, *args):
         QAbstractTableModel.__init__(self, parent, *args)
-        self.nesting = datain
+        self.nesting = nesting
         
         # Column names as tuples with json name in [0], pretty name in [1]
         # Note that the columns with json names set to to INVALID aren't loaded
         # into the shell, but shown from a widget.
-        colname_tuples = [('Initial_Code', tr_lc_setup.tr('Input code')),
-                          ('Initial_Label', tr_lc_setup.tr('Input class')),
-                          ('Final_Label', tr_lc_setup.tr('Output class'))]
+        colname_tuples = [('Child_Code', tr_lc_setup.tr('Input code')),
+                          ('Child_Label', tr_lc_setup.tr('Input class')),
+                          ('Parent_Label', tr_lc_setup.tr('Output class'))]
         self.colnames_json = [x[0] for x in colname_tuples]
         self.colnames_pretty = [x[1] for x in colname_tuples]
 
@@ -143,18 +143,26 @@ class LCAggTableModel(QAbstractTableModel):
         return len(self.colnames_json)
 
     def data(self, index, role):
-        log('getting data for index row {} and role {}'.format(index.row(), role))
+        log('getting data for row {}, and col {}, role {}...'.format(index.row(), index.column(), role))
         if not index.isValid():
             log('index not valid')
             return None
         elif role == Qt.TextAlignmentRole and index.column() in [0, 2, 3]:
-            log('qt align center')
+            log('align center')
             return Qt.AlignCenter
         elif role != Qt.DisplayRole:
             log('not display role')
             return None
-        log('here')
-        log('data for index {} and role {}: {}'.format(index, role, self.nesting.parent.key[index.row()].get(self.colnames_json[index.column()], '')))
+        col_name = self.colnames_json[index.column()]
+        log('getting data for role {}, row {}, and col {} (col_name name: {})...'.format(role, index.row(), index.column(), col_name))
+        initial_class = self.nesting.child.key[index.row()]
+        if col_name == 'Child_Code':
+            return initial_class.code
+        elif col_name == 'Child_Label':
+            return initial_class.name_long
+        elif col_name == 'Parent_Label':
+            return self.nesting.parentClassForChild(initial_class).name_long
+
         return self.nesting.parent.key[index.row()].get(self.colnames_json[index.column()], '')
 
     def headerData(self, section, orientation, role=Qt.DisplayRole):
@@ -253,11 +261,11 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, Ui_DlgCalculateLCSetAggreg
         lc_classes_unccd = []
         lc_nesting = {}
         for item in lc_def:
-            lc_class_custom = LCClass(item['Initial_Code'], item['Initial_Label'], color=styles_custom[item['Initial_Code']])
+            lc_class_custom = LCClass(item['Child_Code'], item['Child_Label'], color=styles_custom[item['Child_Code']])
             if lc_class_custom not in lc_classes_custom:
                 lc_classes_custom.append(lc_class_custom)
 
-            lc_class_unccd = LCClass(item['Final_Code'], item['Final_Label'], color=styles_unccd[item['Final_Code']])
+            lc_class_unccd = LCClass(item['Parent_Code'], item['Parent_Label'], color=styles_unccd[item['Parent_Code']])
             if lc_class_unccd not in lc_classes_unccd:
                 lc_classes_unccd.append(lc_class_unccd)
 
@@ -298,10 +306,10 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, Ui_DlgCalculateLCSetAggreg
         # custom user data file when this class is instantiated from the 
         # DlgDataIOImportLC class.
         if nesting:
-            input_codes = sorted([c['Initial_Code'] for c in nesting])
-            default_codes = sorted([c['Initial_Code'] for c in self.nesting])
-            new_codes = [c for c in input_codes if c not in default_codes]
-            missing_codes = [c for c in default_codes if c not in input_codes]
+            child_codes = sorted([c['Child_Code'] for c in nesting])
+            default_codes = sorted([c['Child_Code'] for c in self.nesting])
+            new_codes = [c for c in child_codes if c not in default_codes]
+            missing_codes = [c for c in default_codes if c not in child_codes]
             if len(new_codes) > 0:
                 QtWidgets.QMessageBox.warning(None,
                                               self.tr("Warning"),
@@ -314,8 +322,8 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, Ui_DlgCalculateLCSetAggreg
             # Setup a new nesting list with the new class codes for all classes 
             # included in default classes, and any other class codes that are 
             # missing added from the default class list
-            nesting = [c for c in nesting if c['Initial_Code'] in default_codes]
-            nesting.extend([c for c in self.nesting if c['Initial_Code'] not in input_codes])
+            nesting = [c for c in nesting if c['Child_Code'] in default_codes]
+            nesting.extend([c for c in self.nesting if c['Child_Code'] not in child_codes])
         else:
             nesting = self.nesting
 
@@ -334,18 +342,20 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, Ui_DlgCalculateLCSetAggreg
             
             # Get the input code for this row and the final label it should map 
             # to by default
-            input_code = table_model.index(row, 0).data()
-            log('input code: {}'.format(input_code))
-            final_label = [nesting.parentCodeForChild(c.code) for c in nesting.child.key if c.code == input_code][0]
+            child_code = table_model.index(row, 0).data()
+            log('row: {}'.format(row))
+            log('child_code: {}'.format(child_code))
+            parent_class = [nesting.parentClassForChild(c) for c in nesting.child.key if c.code == child_code][0]
 
-            # Figure out which label translation this Final_Label (in English) 
+            log('parent_code: {}'.format(parent_class.code))
+
+            # Figure out which label translation this Parent_Label (in English) 
             # is equivalent to
-            label_to_label_tr = {nesting[key]['label']: key for key in nesting.keys()}
-            final_label_tr = label_to_label_tr[final_label]
+            parent_label_tr = tr_style_text(parent_class.name_long)
 
             # Now find the index in the combo box of this translated final 
             # label
-            ind = lc_class_combo.findText(final_label_tr)
+            ind = lc_class_combo.findText(parent_label_tr)
             if ind != -1:
                 lc_class_combo.setCurrentIndex(ind)
             self.remap_view.setIndexWidget(proxy_model.index(row, 2), lc_class_combo)

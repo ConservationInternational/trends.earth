@@ -5,7 +5,6 @@ from pathlib import Path
 
 import qgis.core
 from osgeo import gdal
-from openpyxl.drawing.image import Image
 from PyQt5 import (
     QtWidgets,
 )
@@ -46,6 +45,7 @@ def get_local_job_output_paths(job: models.Job) -> typing.Tuple[Path, Path]:
 
 
 def maybe_add_image_to_sheet(image_filename: str, sheet):
+    from openpyxl.drawing.image import Image
     try:
         image_path = Path(__file__).parent / "data" / image_filename
         logo = Image(image_path)

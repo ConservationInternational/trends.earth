@@ -601,7 +601,7 @@
             "Max Longitude": 180,
             "Description": "The Gridded Population of the World, Version 4 (GPWv4): Population Count, Revision 11 consists of estimates of human population (number of persons per pixel), consistent with national censuses and population registers, for the years 2000, 2005, 2010, 2015, and 2020.",
             "Link to Dataset": "",
-            "GEE Dataset": "CIESIN/GPWv411/GPW_Population_Count"),
+            "GEE Dataset": "CIESIN/GPWv411/GPW_Population_Count",
             "License": "Creative Commons CC BY 4.0",
             "License URL": "https://creativecommons.org/licenses/by/4.0/",
             "Source": "https://sedac.ciesin.columbia.edu/data/set/gpw-v4-population-count-rev11/data-download"

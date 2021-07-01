@@ -182,7 +182,7 @@
         "ESA CCI": {
             "Data source": "ESA",
             "Start year": 1992,
-            "End year": 2020,
+            "End year": 2019,
             "Spatial Resolution": "300 m",
             "Temporal resolution": "annual",
             "Min Latitude": "-90",

@@ -985,7 +985,9 @@ ns.configure({
             'docs',
             'gee',
             'util',
-            '*.pyc'
+            '*.pyc',
+            'LDMP/schemas/.gitgnore',
+            'LDMP/schemas/.git'
             ],
         # skip certain files inadvertently found by exclude pattern globbing
         'skip_exclude': []

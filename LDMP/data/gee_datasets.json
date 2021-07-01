@@ -572,8 +572,8 @@
 	"WorldPop": {
         "Gridded Population Count": {
             "Data source":"https://www.worldpop.org/project/categories?id=3" ,
-            "Start year": "2000",
-            "End year": "2020",
+            "Start year": 2000,
+            "End year": 2020,
             "Spatial resolution": "1 km",
             "Temporal resolution": "annual",
             "Min Latitude": -90,
@@ -591,8 +591,8 @@
 	"GPWv411": {
         "Gridded Population of the World v411": {
             "Data source":"https://sedac.ciesin.columbia.edu/data/set/gpw-v4-population-count-rev11" ,
-            "Start year": "2000",
-            "End year": "2020",
+            "Start year": 2000,
+            "End year": 2020,
             "Spatial resolution": "1 km",
             "Temporal resolution": "5 years",
             "Min Latitude": -90,

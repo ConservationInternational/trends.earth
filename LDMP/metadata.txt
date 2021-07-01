@@ -2,7 +2,7 @@
 name=trends.earth
 qgisMinimumVersion=3.10.3
 description=Analyze land change in support of sustainable land management, achieving the Land Degradation Neutrality (LDN) Sustainable Development Goal (SDG), and to support reporting to the Global Environment Facility (GEF) and United Nations Convention to Combat Desertification (UNCCD)
-version=1.0.3
+version=1.0.4
 author=Conservation International
 email=trends.earth@conservation.org
 
@@ -32,7 +32,6 @@ changelog=1.0.4 (June 30, 2021)
       datasets available through Trends.Earth
     - Update to allow access to ESA-CCI land cover through 2020
     - Update GPCC and GPCP datasets
-    - 
     - Fix bug when non-integer buffers are used
     - Minor documentation typo fixes
   1.0.2 (August 14, 2020)

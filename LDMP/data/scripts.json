@@ -1,14 +1,14 @@
 {
     "time-series": {
-        "script version": "1.0.3",
+        "script version": "1.0.4",
         "description": "Calculate time series."
     },
     "land-cover": {
-        "script version": "1.0.3",
+        "script version": "1.0.4",
         "description": "Calculate land cover change indicator."
     },
     "productivity": {
-        "script version": "1.0.3",
+        "script version": "1.0.4",
         "description": "Calculate productivity state, performance, and/or trajectory indicators.",
         "trajectory functions": {
             "NDVI trends": {
@@ -34,27 +34,27 @@
         }
     },
     "soil-organic-carbon": {
-        "script version": "1.0.3",
+        "script version": "1.0.4",
         "description": "Calculate soil organic carbon."
     },
     "sdg-sub-indicators": {
-        "script version": "1.0.3",
+        "script version": "1.0.4",
         "description": "Calculate all three SDG sub-indicators in one step."
     },
     "download-data": {
-        "script version": "1.0.3",
+        "script version": "1.0.4",
         "description": "Download data from Google Earth Engine assets."
     },
     "total-carbon": {
-        "script version": "1.0.3",
+        "script version": "1.0.4",
         "description": "Calculate total carbon in biomass (above and below ground)."
     },
     "urban-area": {
-        "script version": "1.0.3",
+        "script version": "1.0.4",
         "description": "Calculate urban area."
     },
     "restoration-biomass": {
-        "script version": "1.0.3",
+        "script version": "1.0.4",
         "description": "Calculate potential change in biomass with restoration."
     }
 }

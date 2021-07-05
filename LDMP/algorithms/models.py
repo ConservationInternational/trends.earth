@@ -117,6 +117,7 @@ class AlgorithmGroup:
 
 
 class Algorithm:
+    id: uuid.UUID
     name: str
     scripts: typing.List[AlgorithmScript]
     name_details: typing.Optional[str]
@@ -127,6 +128,7 @@ class Algorithm:
 
     def __init__(
             self,
+            id: uuid.UUID,
             name: str,
             scripts: typing.List[AlgorithmScript],
             name_details: typing.Optional[str] = "",
@@ -134,6 +136,7 @@ class Algorithm:
             description: typing.Optional[str] = "",
             parent: typing.Optional[AlgorithmGroup] = None,
     ) -> None:
+        self.id = id
         self.name = name
         self.scripts = list(scripts)
         self.name_details = name_details
@@ -150,6 +153,7 @@ class Algorithm:
         for raw_script_config in raw_algorithm["scripts"]:
             scripts.append(AlgorithmScript.deserialize(raw_script_config))
         return cls(
+            id=uuid.UUID(raw_algorithm["id"]),
             name=raw_algorithm["name"],
             name_details=raw_algorithm.get("name_details", ""),
             brief_description=raw_algorithm.get("brief_description", ""),

@@ -824,6 +824,35 @@ _ALGORITHM_CONFIG = [
         "name_details": "Land degradation",
         "algorithms": [
             {
+                "id": "bdad3786-bc36-46aa-8e3d-d6cede915cef",
+                "name": "All SDG 15.3.1 sub-indicators in one step",
+                "description": (
+                    "Calculate Productivity, Land Cover and Soil Organic carbon "
+                    "sub-indicators simultaneously"
+                ),
+                "scripts": [
+                    {
+                        "script": KNOWN_SCRIPTS["three-sdg-15-3-1-sub-indicators"],
+                        "parametrization_dialogue": "LDMP.calculate_ldn.DlgCalculateOneStep",
+                    }
+                ],
+            },
+            {
+                "id": "fe1cffa7-33f7-4148-ac7b-fc726402d59d",
+                "name": "Main SDG 15.3.1 indicator",
+                "name_details": "Spatial layer and summary table for total boundary",
+                "description": (
+                    "Proportion of land that is degraded over total land area"
+                ),
+                "scripts": [
+                    {
+                        "script": KNOWN_SCRIPTS["final-sdg-15-3-1"],
+                        "parametrization_dialogue": "LDMP.calculate_ldn.DlgCalculateLDNSummaryTableAdmin",
+                    }
+                ],
+            },
+            {
+                "id": "e25d2a72-2274-45fa-9b69-74e87873054e",
                 "name": "Land Productivity",
                 "description": (
                     "Land productivity is the biological productive capacity of the "
@@ -838,6 +867,7 @@ _ALGORITHM_CONFIG = [
                 ],
             },
             {
+                "id": "277f87e6-5362-4533-ab1d-c28251576884",
                 "name": "Land Cover",
                 "description": (
                     "Land cover is the physical material at the surface of the earth. "
@@ -856,6 +886,7 @@ _ALGORITHM_CONFIG = [
                 ],
             },
             {
+                "id": "f32fd29b-2af8-4564-9189-3dd440758be6",
                 "name": "Soil Organic Carbon",
                 "description": (
                     "Soil organic carbon is a measureable component of soil organic "
@@ -872,32 +903,6 @@ _ALGORITHM_CONFIG = [
                     },
                 ],
             },
-            {
-                "name": "All SDG 15.3.1 sub-indicators in one step",
-                "description": (
-                    "Calculate Productivity, Land Cover and Soil Organic carbon "
-                    "sub-indicators simultaneously"
-                ),
-                "scripts": [
-                    {
-                        "script": KNOWN_SCRIPTS["three-sdg-15-3-1-sub-indicators"],
-                        "parametrization_dialogue": "LDMP.calculate_ldn.DlgCalculateOneStep",
-                    }
-                ],
-            },
-            {
-                "name": "Main SDG 15.3.1 indicator",
-                "name_details": "Spatial layer and summary table for total boundary",
-                "description": (
-                    "Proportion of land that is degraded over total land area"
-                ),
-                "scripts": [
-                    {
-                        "script": KNOWN_SCRIPTS["final-sdg-15-3-1"],
-                        "parametrization_dialogue": "LDMP.calculate_ldn.DlgCalculateLDNSummaryTableAdmin",
-                    }
-                ],
-            },
         ]
     },
     {
@@ -905,6 +910,7 @@ _ALGORITHM_CONFIG = [
         "name_details": "Urban Change and Land Consumption",
         "algorithms": [
             {
+                "id": "bdce0a12-c5ab-485b-ac47-278cedbce789",
                 "name": "Urban change spatial layer",
                 "description": "TODO: Urban change spatial layer long description",
                 "scripts": [
@@ -915,6 +921,7 @@ _ALGORITHM_CONFIG = [
                 ],
             },
             {
+                "id": "748780b4-39bb-4460-b203-0f2367d7c699",
                 "name": "Urban change summary table for city",
                 "description": "TODO: Urban change summary table for city long description",
                 "scripts": [
@@ -934,6 +941,7 @@ _ALGORITHM_CONFIG = [
                 "name_details": "Above and below ground, emissions and deforestation",
                 "algorithms": [
                     {
+                        "id": "96f243a2-c8bd-436a-9775-424f20a1b188",
                         "name": "Carbon change spatial layers",
                         "description": "TODO: Carbon change spatial layers long description",
                         "scripts": [
@@ -949,6 +957,7 @@ _ALGORITHM_CONFIG = [
                         ],
                     },
                     {
+                        "id": "a753f2c9-be4c-4d97-9e21-09b8882e8899",
                         "name": "Carbon change summary table for boundary",
                         "description": "TODO: Carbon change summary table for boundary long description",
                         "scripts": [
@@ -965,6 +974,7 @@ _ALGORITHM_CONFIG = [
                 "name_details": "Above and below ground woody",
                 "algorithms": [
                     {
+                        "id": "61839d52-0d81-428d-90e6-83ea5ed3c032",
                         "name": "Estimate biomass change",
                         "description": "TODO: Estimate biomass change long description",
                         "scripts": [
@@ -975,6 +985,7 @@ _ALGORITHM_CONFIG = [
                         ],
                     },
                     {
+                        "id": "cb425356-09cf-4390-89dc-8542cdf0805c",
                         "name": "Table summarizing likely changes in biomass",
                         "description": "TODO: Table summarizing likely changes in biomass long description",
                         "scripts": [

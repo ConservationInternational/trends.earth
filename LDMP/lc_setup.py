@@ -26,7 +26,7 @@ from qgis.PyQt.QtCore import (QSettings, QDate, Qt, QSize, QAbstractTableModel,
 from qgis.utils import iface
 mb = iface.messageBar()
 
-from LDMP import log
+from LDMP import log, debug_on
 from LDMP.gui.DlgCalculateLCSetAggregation import Ui_DlgCalculateLCSetAggregation
 from LDMP.gui.WidgetLCDefineDegradation import Ui_WidgetLCDefineDegradation
 from LDMP.gui.WidgetLCSetup import Ui_WidgetLCSetup
@@ -38,17 +38,6 @@ from marshmallow.exceptions import ValidationError
 class tr_lc_setup(object):
     def tr(message):
         return QCoreApplication.translate("tr_lc_setup", message)
-
-
-def get_lc_nesting():
-    nesting = QSettings().value("LDMP/land_cover_nesting", None)
-    if nesting is None:
-        nesting = read_lc_nesting_file(os.path.join(os.path.dirname(os.path.realpath(__file__)),
-            'data', 'land_cover_nesting_UNCCD_ESA.json'))
-        QSettings().setValue("LDMP/land_cover_nesting", LCLegendNesting.Schema().dumps(nesting))
-    else:
-        nesting = LCLegendNesting.Schema().loads(nesting)
-    return nesting
 
 def json_serial(obj):
     """JSON serializer for objects not serializable by default json code"""
@@ -97,15 +86,15 @@ class TransMatrixEdit(QtWidgets.QLineEdit):
 
 
 class LCClassComboBox(QtWidgets.QComboBox):
-    def __init__(self, classes, parent=None, *args):
+    def __init__(self, nesting, parent=None, *args):
         super(LCClassComboBox, self).__init__(parent)
-        self.classes = classes
+        self.nesting = nesting
 
         # Add the translations of the item labels in order of their codes
-        self.addItems([c.name_long for c in classes.orderByCode().key])
+        self.addItems([c.name_long for c in self.nesting.parent.orderByCode().key])
 
-        for n in range(0, len(classes.key)):
-            color = classes.classByNameLong(self.itemData(n, Qt.DisplayRole)).color
+        for n in range(0, len(nesting.parent.key)):
+            color = self.nesting.parent.classByNameLong(self.itemData(n, Qt.DisplayRole)).color
             self.setItemData(n, QColor(color), Qt.BackgroundRole)
             if color == '#000000':
                 self.setItemData(n, QColor('#FFFFFF'), Qt.ForegroundRole)
@@ -116,7 +105,7 @@ class LCClassComboBox(QtWidgets.QComboBox):
         self.currentIndexChanged.connect(self.index_changed)
 
     def index_changed(self):
-        color = self.classes.classByNameLong(self.currentText()).color
+        color = self.nesting.parent.classByNameLong(self.currentText()).color
         if color == '#000000':
             self.setStyleSheet('QComboBox:editable {{background-color: {}; color: #FFFFFF;}}'.format(color))
         else:
@@ -137,24 +126,29 @@ class LCAggTableModel(QAbstractTableModel):
         self.colnames_pretty = [x[1] for x in colname_tuples]
 
     def rowCount(self, parent):
-        return len(self.nesting.parent.key)
+        return len(self.nesting.child.key)
 
     def columnCount(self, parent):
         return len(self.colnames_json)
 
     def data(self, index, role):
-        log('getting data for row {}, and col {}, role {}...'.format(index.row(), index.column(), role))
+        if debug_on():
+            log('getting data for row {}, and col {}, role {}...'.format(index.row(), index.column(), role))
         if not index.isValid():
-            log('index not valid')
+            if debug_on():
+                log('index not valid')
             return None
         elif role == Qt.TextAlignmentRole and index.column() in [0, 2, 3]:
-            log('align center')
+            if debug_on():
+                log('align center')
             return Qt.AlignCenter
         elif role != Qt.DisplayRole:
-            log('not display role')
+            if debug_on():
+                log('not display role')
             return None
         col_name = self.colnames_json[index.column()]
-        log('getting data for role {}, row {}, and col {} (col_name name: {})...'.format(role, index.row(), index.column(), col_name))
+        if debug_on():
+            log('getting data for role {}, row {}, and col {} (col_name name: {})...'.format(role, index.row(), index.column(), col_name))
         initial_class = self.nesting.child.key[index.row()]
         if col_name == 'Child_Code':
             return initial_class.code
@@ -178,8 +172,6 @@ def read_lc_nesting_file(f):
                 tr_lc_setup.tr("Error"),
                 tr_lc_setup.tr(u"Cannot read {}.".format(f)))
         return None
-
-    log('class file: {}'.format(f))
 
     try:
         with open(f) as class_file:
@@ -232,6 +224,7 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, Ui_DlgCalculateLCSetAggreg
         nesting = read_lc_nesting_file(f)
 
         if nesting:
+            self.nesting = nesting
             self.setup_class_table(nesting)
 
     def btn_save_pressed(self):
@@ -249,48 +242,9 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, Ui_DlgCalculateLCSetAggreg
                 return
 
             with open(f, 'w') as outfile:
-                json.dump(LCLegend.Schema().dump(self.get_LCLegendNesting()), 
-                        outfile, sort_keys=True, indent=4,
-                        separators=(',', ':'), default=json_serial)
-
-
-    def get_LCLegendNesting(self):
-        '''Returns a json describing how to aggregate the land cover data'''
-        #TODO: store this in "self.nesting"
-        lc_classes_custom = []
-        lc_classes_unccd = []
-        lc_nesting = {}
-        for item in lc_def:
-            lc_class_custom = LCClass(item['Child_Code'], item['Child_Label'], color=styles_custom[item['Child_Code']])
-            if lc_class_custom not in lc_classes_custom:
-                lc_classes_custom.append(lc_class_custom)
-
-            lc_class_unccd = LCClass(item['Parent_Code'], item['Parent_Label'], color=styles_unccd[item['Parent_Code']])
-            if lc_class_unccd not in lc_classes_unccd:
-                lc_classes_unccd.append(lc_class_unccd)
-
-            if lc_class_unccd.code in lc_nesting:
-                lc_nesting[lc_class_unccd.code].append(lc_class_custom.code)
-            else:
-                lc_nesting[lc_class_unccd.code] = [lc_class_custom.code]
-
-        lc_legend_unccd = LCLegend('UNCCD Land Cover', lc_classes_unccd)
-        lc_legend_custom = LCLegend('ESA CCI Land Cover', lc_classes_custom) #TODO: allow user to set this name
-
-        # with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
-        #                        'data', 'land_cover_legend_unccd.json'), 'w') as f:
-        #     j = json.loads(LCLegend.Schema().dumps(lc_legend_unccd))
-        #     json.dump(j, f, indent=4)
-        # with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
-        #                        'data', 'land_cover_legend_esa.json'), 'w') as f:
-        #     j = json.loads(LCLegend.Schema().dumps(lc_legend_custom))
-        #     json.dump(j, f, indent=4)
-        # with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
-        #                        'data', 'land_cover_nesting_unccd_esa.json'), 'w') as f:
-        #     j = json.loads(LCLegendNesting.Schema().dumps(LCLegendNesting(lc_legend_unccd, lc_legend_custom, lc_nesting)))
-        #     json.dump(j, f, indent=4)
-        #
-        return LCLegendNesting(lc_legend_unccd, lc_legend_custom, lc_nesting)
+                json.dump(LCLegendNesting.Schema().dump(self.nesting), 
+                          outfile, sort_keys=True, indent=4,
+                          separators=(',', ':'), default=json_serial)
 
 
     def setup_class_table(self, nesting=None):
@@ -306,6 +260,7 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, Ui_DlgCalculateLCSetAggreg
         # custom user data file when this class is instantiated from the 
         # DlgDataIOImportLC class.
         if nesting:
+            log('generating nesting from specified table')
             child_codes = sorted([c['Child_Code'] for c in nesting])
             default_codes = sorted([c['Child_Code'] for c in self.nesting])
             new_codes = [c for c in child_codes if c not in default_codes]
@@ -325,6 +280,7 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, Ui_DlgCalculateLCSetAggreg
             nesting = [c for c in nesting if c['Child_Code'] in default_codes]
             nesting.extend([c for c in self.nesting if c['Child_Code'] not in child_codes])
         else:
+            log('using nesting from self.nesting')
             nesting = self.nesting
 
         table_model = LCAggTableModel(nesting, parent=self)
@@ -334,27 +290,22 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, Ui_DlgCalculateLCSetAggreg
 
         # Add selector in cell
         for row in range(0, len(nesting.child.key)):
-            lc_class_combo = LCClassComboBox(nesting.parent)
-
-            # Now Set the default final codes for each row. Note that the 
-            # QComboBox entries are potentially translated, so need to link the 
+            # Set the default final codes for each row. Note that the QComboBox 
+            # entries are potentially translated, so need to link the 
             # translated names back to a particular code.
             
             # Get the input code for this row and the final label it should map 
             # to by default
             child_code = table_model.index(row, 0).data()
-            log('row: {}'.format(row))
-            log('child_code: {}'.format(child_code))
             parent_class = [nesting.parentClassForChild(c) for c in nesting.child.key if c.code == child_code][0]
-
-            log('parent_code: {}'.format(parent_class.code))
 
             # Figure out which label translation this Parent_Label (in English) 
             # is equivalent to
             parent_label_tr = tr_style_text(parent_class.name_long)
 
-            # Now find the index in the combo box of this translated final 
-            # label
+            lc_class_combo = LCClassComboBox(nesting)
+
+            # Find the index in the combo box of this translated final label
             ind = lc_class_combo.findText(parent_label_tr)
             if ind != -1:
                 lc_class_combo.setCurrentIndex(ind)
@@ -547,8 +498,16 @@ class LCSetupWidget(QtWidgets.QWidget, Ui_WidgetLCSetup):
 
         self.setupUi(self)
 
-        nesting = get_lc_nesting()
-        self.dlg_esa_agg = DlgCalculateLCSetAggregation(nesting, parent=self)
+        nesting = QSettings().value("LDMP/land_cover_nesting", None)
+        if nesting is None:
+            nesting = read_lc_nesting_file(os.path.join(os.path.dirname(os.path.realpath(__file__)),
+                'data', 'land_cover_nesting_UNCCD_ESA.json'))
+            QSettings().setValue("LDMP/land_cover_nesting", LCLegendNesting.Schema().dumps(nesting))
+        else:
+            nesting = LCLegendNesting.Schema().loads(nesting)
+        self.nesting = nesting
+
+        self.dlg_lc_nesting = DlgCalculateLCSetAggregation(self.nesting, parent=self)
 
         lc_start_year = QDate(self.datasets['Land cover']['ESA CCI']['Start year'], 1, 1)
         lc_end_year = QDate(self.datasets['Land cover']['ESA CCI']['End year'], 12, 31)
@@ -594,7 +553,7 @@ class LCSetupWidget(QtWidgets.QWidget, Ui_WidgetLCSetup):
         return self.use_custom_final.get_band_info()['metadata']['year']
 
     def esa_agg_custom_edit(self):
-        self.dlg_esa_agg.exec_()
+        self.dlg_lc_nesting.exec_()
 
 # LC widgets shared across dialogs
 lc_define_deg_widget = LCDefineDegradationWidget()

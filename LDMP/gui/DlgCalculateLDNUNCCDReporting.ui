@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DlgCalculateLDNSummaryTableAdmin</class>
- <widget class="QDialog" name="DlgCalculateLDNSummaryTableAdmin">
+ <class>DlgCalculateLDNUNCCDReporting</class>
+ <widget class="QDialog" name="DlgCalculateLDNUNCCDReporting">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>464</width>
-    <height>595</height>
+    <width>770</width>
+    <height>735</height>
    </rect>
   </property>
   <property name="sizePolicy">

@@ -127,7 +127,7 @@ def ldn_total_by_trans(d, trans_a, cell_areas):
 #     return trans, totals
 
 
-@cc.export('ldn_total_deg', 'f4[4](i2[:,:], b1[:,:], f4[:,:])')
+@cc.export('ldn_total_deg', 'f4[:](i2[:,:], b1[:,:], f4[:,:])')
 def ldn_total_deg(x, water, cell_areas):
     """Calculates a total table for an array"""
     x = x.ravel()

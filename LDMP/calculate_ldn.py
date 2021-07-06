@@ -49,7 +49,7 @@ from LDMP.schemas.land_cover import *
 
 from LDMP.gui.DlgCalculateOneStep import Ui_DlgCalculateOneStep
 from LDMP.gui.DlgCalculateLDNSummaryTableAdmin import Ui_DlgCalculateLDNSummaryTableAdmin
-from LDMP.gui.DlgCalculateDegUNCCDReporting import Ui_DlgCalculateDegUNCCDReporting
+from LDMP.gui.DlgCalculateLDNUNCCDReporting import Ui_DlgCalculateLDNUNCCDReporting
 from LDMP.worker import AbstractWorker, StartWorker
 from LDMP.summary import *
 
@@ -247,7 +247,7 @@ class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
                    'climate_gee_dataset': None,
                    'fl': .80,
                    'trans_matrix': self.lc_define_deg_tab.trans_matrix_get(),
-                   'remap_matrix': self.lc_setup_tab.dlg_esa_agg.get_agg_as_list(),
+                   'remap_matrix': self.lc_setup_tab.dlg_lc_nesting.get_agg_as_list(),
                    'task_name': self.options_tab.task_name.text(),
                    'task_notes': self.options_tab.task_notes.toPlainText()}
 
@@ -876,7 +876,7 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
                            sdg_tbl_lc, lc_years, soc_years, prod_years,
                            self.options_tab.task_name.text(),
                            self.aoi,
-                           self.lc_setup_tab.dlg_esa_agg.get_agg_as_json(),
+                           self.lc_setup_tab.dlg_lc_nesting.get_agg_as_json(),
                            json_out_file)
 
         excel_out_file = self.output_tab.output_basename.text() + '_report.xlsx'
@@ -1215,8 +1215,7 @@ def make_summary_json(soc_totals, lc_totals, trans_prod_xtab, sdg_tbl_overall,
             ),
 
             land_condition = {
-                    baseline = {
-
+                "baseline" : {
                         "sdg": SDG15Report(summary = sdg_tbl_overall),
 
                         "productivity": ProductivityReport(
@@ -1233,14 +1232,13 @@ def make_summary_json(soc_totals, lc_totals, trans_prod_xtab, sdg_tbl_overall,
                             summary = sdg_tbl_soc,
                             crosstab_by_land_cover_class = crosstab_soc,
                             soc_stock_by_year = soc_by_year)
-                        },
-                    },
+                },
 
-                    progress = {
-                    }
-            }
+                "progress": {
+                }
+            },
 
-            affected_population= {},
+            affected_population = {},
 
             drought= {})
 

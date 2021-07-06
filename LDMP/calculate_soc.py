@@ -491,7 +491,7 @@ class DlgCalculateSOC(DlgCalculateBase, Ui_DlgCalculateSOC):
                    'geojsons': json.dumps(geojsons),
                    'crs': self.aoi.get_crs_dst_wkt(),
                    'crosses_180th': crosses_180th,
-                   'remap_matrix': self.lc_setup_tab.dlg_esa_agg.get_agg_as_list(),
+                   'remap_matrix': self.lc_setup_tab.dlg_lc_nesting.get_agg_as_list(),
                    'task_name': self.options_tab.task_name.text(),
                    'task_notes': self.options_tab.task_notes.toPlainText()}
 

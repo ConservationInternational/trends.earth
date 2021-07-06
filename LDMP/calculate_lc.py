@@ -141,8 +141,6 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
         self.lc_setup_tab.use_custom_initial.populate()
         self.lc_setup_tab.use_custom_final.populate()
 
-        log('json: {}'.format(self.lc_setup_tab.dlg_esa_agg.get_agg_as_json()))
-
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
@@ -166,7 +164,7 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
                    'crs': self.aoi.get_crs_dst_wkt(),
                    'crosses_180th': crosses_180th,
                    'trans_matrix': self.lc_define_deg_tab.trans_matrix_get(),
-                   'remap_matrix': self.lc_setup_tab.dlg_esa_agg.get_agg_as_json(),
+                   'nesting': self.lc_setup_tab.dlg_lc_nesting.nesting(),
                    'task_name': self.options_tab.task_name.text(),
                    'task_notes': self.options_tab.task_notes.toPlainText()}
 

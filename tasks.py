@@ -147,6 +147,7 @@ def set_version(c, v=None):
 
         gee_id_regex = re.compile('(, )?"id": "[0-9a-z-]*"(, )?')
         gee_script_name_regex = re.compile('("name": "[0-9a-zA-Z -]*)( [0-9]+(_[0-9]+)+)?"')
+        gee_script_requirements_regex = re.compile('(landdegradation.git)([v@.0-9]*)')
 
         # Set version for GEE scripts
         for subdir, dirs, files in os.walk(c.gee.script_dir):
@@ -159,6 +160,10 @@ def set_version(c, v=None):
                     _replace(filepath, gee_script_name_regex, '\g<1> ' + v_gee + '"')
                     # Clear the ID since a new one will be assigned due to the new name
                     _replace(filepath, gee_id_regex, '')
+                elif file == 'requirements.txt':
+                    print('Setting version to {} in {}'.format(v, filepath))
+                    # Validate the version matches the regex
+                    _replace(filepath, gee_script_requirements_regex, '\g<1>@v' + v)
                 elif file == '__init__.py':
                     print('Setting version to {} in {}'.format(v, filepath))
                     init_version_regex = re.compile('^(__version__[ ]*=[ ]*["\'])[0-9]+([.][0-9]+)+')
@@ -984,7 +989,9 @@ ns.configure({
             'docs',
             'gee',
             'util',
-            '*.pyc'
+            '*.pyc',
+            'LDMP/schemas/.gitgnore',
+            'LDMP/schemas/.git'
             ],
         # skip certain files inadvertently found by exclude pattern globbing
         'skip_exclude': []

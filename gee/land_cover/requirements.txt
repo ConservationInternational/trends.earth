@@ -1,3 +1,3 @@
 earthengine-api==0.1.232
 rollbar==0.14.7
-git+git://github.com/conservationinternational/landdegradation.git#egg=landdegradation
+git+git://github.com/conservationinternational/landdegradation.git@v1.0.4#egg=landdegradation

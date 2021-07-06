@@ -3,32 +3,32 @@
 <context>
     <name>AreaWidget</name>
     <message>
-        <location filename="../calculate.py" line="876"/>
+        <location filename="../calculate.py" line="879"/>
         <source>Point chooser</source>
         <translation>Selector de punto</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="876"/>
+        <location filename="../calculate.py" line="879"/>
         <source>Click the map to choose a point.</source>
         <translation>Haga clic en el mapa para elegir un punto.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="901"/>
+        <location filename="../calculate.py" line="904"/>
         <source>Select a file defining the area of interest</source>
         <translation>Seleccione un archivo que defina el área de interés</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="901"/>
+        <location filename="../calculate.py" line="904"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation>Archivo vectorial (* .shp * .kml * .kmz * .geojson)</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="912"/>
+        <location filename="../calculate.py" line="915"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="912"/>
+        <location filename="../calculate.py" line="915"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>No puedo leer {}. Elija un archivo diferente.</translation>
     </message>
@@ -36,17 +36,17 @@
 <context>
     <name>CalculationOptionsWidget</name>
     <message>
-        <location filename="../calculate.py" line="622"/>
+        <location filename="../calculate.py" line="625"/>
         <source>Select folder containing data</source>
         <translation>Seleccionar carpeta que contenga datos</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="631"/>
+        <location filename="../calculate.py" line="634"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="631"/>
+        <location filename="../calculate.py" line="634"/>
         <source>Cannot read {}. Choose a different folder.</source>
         <translation>No se puede leer {}. Elige una carpeta diferente.</translation>
     </message>
@@ -54,42 +54,42 @@
 <context>
     <name>CalculationOutputWidget</name>
     <message>
-        <location filename="../calculate.py" line="664"/>
+        <location filename="../calculate.py" line="667"/>
         <source>Choose a prefix to be used when naming output files</source>
         <translation>Elija un prefijo para usar al nombrar archivos de salida</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="664"/>
+        <location filename="../calculate.py" line="667"/>
         <source>Base name (*)</source>
         <translation>Nombre base (*)</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="676"/>
+        <location filename="../calculate.py" line="679"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="676"/>
+        <location filename="../calculate.py" line="679"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>No se puede escribir en {}. Elija un archivo diferente.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="690"/>
+        <location filename="../calculate.py" line="693"/>
         <source>Overwrite file?</source>
         <translation>¿Sobre escribir el archivo?</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="690"/>
+        <location filename="../calculate.py" line="693"/>
         <source>Using the prefix &quot;{}&quot; would lead to overwriting existing file(s) {}. Do you want to overwrite these file(s)?</source>
         <translation>El uso del prefijo &quot;{}&quot; llevaría a sobrescribir los archivos existentes {}. ¿Desea sobrescribir estos archivos?</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="697"/>
+        <location filename="../calculate.py" line="700"/>
         <source>Information</source>
         <translation>Información</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="697"/>
+        <location filename="../calculate.py" line="700"/>
         <source>Choose a different output prefix and try again.</source>
         <translation>Elija un prefijo de salida diferente e intente nuevamente.</translation>
     </message>
@@ -238,77 +238,77 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateBase</name>
     <message>
-        <location filename="../calculate.py" line="971"/>
+        <location filename="../calculate.py" line="974"/>
         <source>Area</source>
         <translation>Zona</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="976"/>
+        <location filename="../calculate.py" line="979"/>
         <source>Output</source>
         <translation>Resultado</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="980"/>
+        <location filename="../calculate.py" line="983"/>
         <source>Options</source>
         <translation>Opciones</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1136"/>
+        <location filename="../calculate.py" line="1139"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1061"/>
+        <location filename="../calculate.py" line="1064"/>
         <source>Choose a first level administrative boundary.</source>
         <translation>Elija un límite administrativo de primer nivel.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1068"/>
+        <location filename="../calculate.py" line="1071"/>
         <source>Unable to load administrative boundaries.</source>
         <translation>No se pueden cargar los límites administrativos.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1075"/>
+        <location filename="../calculate.py" line="1078"/>
         <source>Choose a file to define the area of interest.</source>
         <translation>Elija un archivo para definir el área de interés.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1088"/>
+        <location filename="../calculate.py" line="1091"/>
         <source>Choose a point to define the area of interest.</source>
         <translation>Elija un punto para definir el área de interés.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1099"/>
+        <location filename="../calculate.py" line="1102"/>
         <source>Choose an area of interest.</source>
         <translation>Elija un área de interés.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1104"/>
+        <location filename="../calculate.py" line="1107"/>
         <source>Unable to read area of interest.</source>
         <translation>No se puede leer el área de interés.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1111"/>
+        <location filename="../calculate.py" line="1114"/>
         <source>Error buffering polygon</source>
         <translation>Error al generar el buffer para el polígono</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1130"/>
+        <location filename="../calculate.py" line="1133"/>
         <source>The bounding box for the requested area (approximately {:.6n}) sq km is too large. Choose a smaller area to process.</source>
         <translation>El cuadro delimitador para el área solicitada (aproximadamente {:.6n}) km2 es demasiado grande. Elija un área más pequeña para procesar.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1136"/>
+        <location filename="../calculate.py" line="1139"/>
         <source>Choose an output base name.</source>
         <translation>Elija un nombre base de salida.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1118"/>
+        <location filename="../calculate.py" line="1121"/>
         <source>Unable to calculate bounding box.</source>
         <translation>No se puede calcular el cuadro delimitador.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1079"/>
+        <location filename="../calculate.py" line="1082"/>
         <source>Unable to read {}.</source>
         <translation>No se puede leer {}.</translation>
     </message>
@@ -557,12 +557,12 @@ p, li { white-space: pre-wrap; }
         <translation>Calcular resúmenes de área de un ráster en subunidades</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="506"/>
+        <location filename="../calculate.py" line="509"/>
         <source>Coming soon!</source>
         <translation>¡Próximamente!</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="506"/>
+        <location filename="../calculate.py" line="509"/>
         <source>Multiple polygon summary table calculation coming soon!</source>
         <translation>Múltiples cálculos de la tabla de resumen de polígonos próximamente</translation>
     </message>
@@ -863,7 +863,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../calculate_ldn.py" line="188"/>
         <source>Initial and final year must be at least 10 years apart.</source>
-        <translation>El año inicial y final debe tener al menos 10 años de diferencia.</translation>
+        <translation type="obsolete">El año inicial y final debe tener al menos 10 años de diferencia.</translation>
     </message>
     <message>
         <location filename="../calculate_ldn.py" line="251"/>
@@ -879,6 +879,11 @@ p, li { white-space: pre-wrap; }
         <location filename="../calculate_ldn.py" line="255"/>
         <source>Unable to submit SDG sub-indicator task to Google Earth Engine.</source>
         <translation>No se puede enviar la tarea de cáclulo de los subindicadores del ODS a Google Earth Engine.</translation>
+    </message>
+    <message>
+        <location filename="../calculate_ldn.py" line="188"/>
+        <source>Initial and final year are less 10 years apart - more reliable results will be given if more data (years) are included in the analysis.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -1750,8 +1755,8 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="../calculate_urban.py" line="160"/>
-        <source>The bounding box of the requested area (approximately {:.6n} sq km) is too large. The urban area change tool can process a maximum area of 10,000 sq km at a time. Choose a smaller area to process.</source>
-        <translation>El cuadro delimitador del área solicitada (aproximadamente {:.6n} km2) es demasiado grande. La herramienta de cambio de área urbana puede procesar un área máxima de 10,000 kilómetros cuadrados a la vez. Elija un área más pequeña para procesar.</translation>
+        <source>The bounding box of the requested area (approximately {:.6n} sq km) is too large. The urban area change tool can process a maximum area of 25,000 sq. km at a time. Choose a smaller area to process.</source>
+        <translation type="unfinished">El cuadro delimitador del área solicitada (aproximadamente {:.6n} km2) es demasiado grande. La herramienta de cambio de área urbana puede procesar un área máxima de 10,000 kilómetros cuadrados a la vez. Elija un área más pequeña para procesar.</translation>
     </message>
     <message>
         <location filename="../calculate_urban.py" line="199"/>
@@ -3845,7 +3850,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>tr_calculate</name>
     <message>
-        <location filename="../calculate.py" line="1052"/>
+        <location filename="../calculate.py" line="1055"/>
         <source>Error</source>
         <translation>Error</translation>
     </message>
@@ -3885,7 +3890,7 @@ p, li { white-space: pre-wrap; }
         <translation>Error al transformar las coordenadas. Verifique que la geometría de entrada sea válida.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="1052"/>
+        <location filename="../calculate.py" line="1055"/>
         <source>You have chosen to run calculations for a city. You must select a buffer distance to define the calculation area when you are processing a city.</source>
         <translation>Has elegido ejecutar cálculos para una ciudad. Debe seleccionar una distancia de búfer para definir el área de cálculo cuando está procesando una ciudad.</translation>
     </message>

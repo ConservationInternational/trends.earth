@@ -260,9 +260,10 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, Ui_DlgCalculateLCSetAggreg
         # custom user data file when this class is instantiated from the 
         # DlgDataIOImportLC class.
         if nesting:
+            #TODO Fix loading of existing/new class definitions
             log('generating nesting from specified table')
-            child_codes = sorted([c['Child_Code'] for c in nesting])
-            default_codes = sorted([c['Child_Code'] for c in self.nesting])
+            child_codes = sorted([c.code for c in nesting.child.key])
+            default_codes = sorted([c.code for c in self.nesting.child.key])
             new_codes = [c for c in child_codes if c not in default_codes]
             missing_codes = [c for c in default_codes if c not in child_codes]
             if len(new_codes) > 0:

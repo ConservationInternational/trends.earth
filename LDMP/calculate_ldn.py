@@ -237,7 +237,7 @@ class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
                    'crs': self.aoi.get_crs_dst_wkt(),
                    'crosses_180th': crosses_180th,
                    'prod_traj_method': 'ndvi_trend',
-                   'ndvi_gee_dataset': 'users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2019',
+                   'ndvi_gee_dataset': self.datasets['NDVI']['MODIS (MOD13Q1, annual)']['GEE Dataset'],
                    'climate_gee_dataset': None,
                    'fl': .80,
                    'trans_matrix': self.lc_define_deg_tab.trans_matrix_get(),

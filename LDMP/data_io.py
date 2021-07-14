@@ -53,7 +53,7 @@ from LDMP.gui.WidgetDataIOImportSelectFileInput import Ui_WidgetDataIOImportSele
 from LDMP.gui.WidgetDataIOImportSelectRasterOutput import Ui_WidgetDataIOImportSelectRasterOutput
 from LDMP.gui.WidgetDataIOSelectTELayerExisting import Ui_WidgetDataIOSelectTELayerExisting
 from LDMP.gui.WidgetDataIOSelectTELayerImport import Ui_WidgetDataIOSelectTELayerImport
-from LDMP.schemas.schemas import BandInfo, BandInfoSchema
+from te_schemas.schemas import BandInfo, BandInfoSchema
 
 
 class RemapVectorWorker(AbstractWorker):

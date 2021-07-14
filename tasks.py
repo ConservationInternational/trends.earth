@@ -147,7 +147,7 @@ def set_version(c, v=None):
 
         gee_id_regex = re.compile('(, )?"id": "[0-9a-z-]*"(, )?')
         gee_script_name_regex = re.compile('("name": "[0-9a-zA-Z -]*)( [0-9]+(_[0-9]+)+)?"')
-        gee_script_requirements_regex = re.compile('(landdegradation.git)([v@.0-9]*)')
+        gee_script_requirements_regex = re.compile('(landdegradation.git)([@.0-9]*)')
 
         # Set version for GEE scripts
         for subdir, dirs, files in os.walk(c.gee.script_dir):
@@ -163,7 +163,7 @@ def set_version(c, v=None):
                 elif file == 'requirements.txt':
                     print('Setting version to {} in {}'.format(v, filepath))
                     # Validate the version matches the regex
-                    _replace(filepath, gee_script_requirements_regex, '\g<1>@v' + v)
+                    _replace(filepath, gee_script_requirements_regex, '\g<1>@' + v)
                 elif file == '__init__.py':
                     print('Setting version to {} in {}'.format(v, filepath))
                     init_version_regex = re.compile('^(__version__[ ]*=[ ]*["\'])[0-9]+([.][0-9]+)+')
@@ -174,10 +174,9 @@ def set_version(c, v=None):
         scripts_regex = re.compile('("script version": ")[0-9]+([-._][0-9]+)+', re.IGNORECASE)
         _replace(os.path.join(c.plugin.source_dir, 'data', 'scripts.json'), scripts_regex, '\g<1>' + v)
 
-        # Set in setup.py
-        print('Setting version to {} in trends.earth-schemas setup.py'.format(v))
-        setup_regex = re.compile("^([ ]*version=[ ]*')[0-9]+([.][0-9]+)+")
-        _replace(os.path.join(c.schemas.setup_dir, 'setup.py'), setup_regex, '\g<1>' + v)
+        print('Setting version to {} in package requirements.txt'.format(v))
+        requirements_schemas_regex = re.compile('(trends.earth-schemas.git)([@.0-9]*)')
+        _replace(os.path.join(c.plugin.source_dir, 'data', 'scripts.json'), requirements_schemas_regex, '\g<1>@' + v)
 
 
 def check_tecli_python_version():

@@ -41,7 +41,7 @@ from LDMP.layers import add_layer, create_local_json_metadata, get_band_infos
 from LDMP.worker import AbstractWorker, StartWorker
 from LDMP.gui.DlgCalculateRestBiomassData import Ui_DlgCalculateRestBiomassData
 from LDMP.gui.DlgCalculateRestBiomassSummaryTable import Ui_DlgCalculateRestBiomassSummaryTable
-from LDMP.schemas.schemas import BandInfo, BandInfoSchema
+from te_schemas.schemas import BandInfo, BandInfoSchema
 from LDMP.summary import *
 
 

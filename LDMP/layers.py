@@ -36,7 +36,7 @@ from qgis.PyQt.QtCore import QCoreApplication
 
 from LDMP import log
 
-from LDMP.schemas.schemas import LocalRaster, LocalRasterSchema
+from te_schemas.schemas import LocalRaster, LocalRasterSchema
 
 
 class tr_layers(object):

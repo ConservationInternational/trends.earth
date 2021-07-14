@@ -38,7 +38,7 @@ from LDMP.lc_setup import lc_setup_widget
 from LDMP.worker import AbstractWorker, StartWorker
 from LDMP.gui.DlgCalculateSOC import Ui_DlgCalculateSOC
 
-from LDMP.schemas.schemas import BandInfo, BandInfoSchema
+from te_schemas.schemas import BandInfo, BandInfoSchema
 
 
 def remap(a, remap_list):

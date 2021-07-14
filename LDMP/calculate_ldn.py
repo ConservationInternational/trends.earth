@@ -41,7 +41,7 @@ from LDMP.calculate import (DlgCalculateBase, get_script_slug, MaskWorker,
 from LDMP.lc_setup import lc_setup_widget, lc_define_deg_widget
 from LDMP.layers import (add_layer, create_local_json_metadata, get_band_infos,
     delete_layer_by_filename)
-from LDMP.schemas.schemas import BandInfo, BandInfoSchema
+from te_schemas.schemas import BandInfo, BandInfoSchema
 from LDMP.gui.DlgCalculateOneStep import Ui_DlgCalculateOneStep
 from LDMP.gui.DlgCalculateLDNSummaryTableAdmin import Ui_DlgCalculateLDNSummaryTableAdmin
 from LDMP.worker import AbstractWorker, StartWorker

@@ -444,11 +444,7 @@ def plugin_install(c, clean=False, version=3, profile='default', fast=False):
         print("Linking plugin development folder to QGIS version {} plugin folder at {}".format(version, dst_this_plugin))
         os.symlink(src, dst_this_plugin)
     else:
-        if clean:
-            if os.path.exists(dst_this_plugin):
-                rmtree(dst_this_plugin)
-        else:
-            print("Not linking - plugin folder for QGIS version {} already exists at {}".format(version, dst_this_plugin))
+        print("Not linking - plugin folder for QGIS version {} already exists at {}".format(version, dst_this_plugin))
 
 # Compile all ui and resource files
 def compile_files(c, version, clean, fast=False):

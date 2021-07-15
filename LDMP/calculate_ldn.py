@@ -43,9 +43,10 @@ from LDMP.lc_setup import lc_setup_widget, lc_define_deg_widget
 from LDMP.layers import (add_layer, create_local_json_metadata, get_band_infos,
     delete_layer_by_filename)
 
-from LDMP.schemas.schemas import AreaOfInterest, BandInfo, BandInfoSchema
-from LDMP.schemas.reporting import *
-from LDMP.schemas.land_cover import *
+from te_schemas.schemas import BandInfo, BandInfoSchema
+from te_schemas.schemas.schemas import AreaOfInterest, BandInfo, BandInfoSchema
+from te_schemas.schemas.reporting import *
+from te_schemas.schemas.land_cover import *
 
 from LDMP.gui.DlgCalculateOneStep import Ui_DlgCalculateOneStep
 from LDMP.gui.DlgCalculateLDNSummaryTableAdmin import Ui_DlgCalculateLDNSummaryTableAdmin
@@ -243,7 +244,7 @@ class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
                    'crs': self.aoi.get_crs_dst_wkt(),
                    'crosses_180th': crosses_180th,
                    'prod_traj_method': 'ndvi_trend',
-                   'ndvi_gee_dataset': 'users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2019',
+                   'ndvi_gee_dataset': self.datasets['NDVI']['MODIS (MOD13Q1, annual)']['GEE Dataset'],
                    'climate_gee_dataset': None,
                    'fl': .80,
                    'trans_matrix': self.lc_define_deg_tab.trans_matrix_get(),

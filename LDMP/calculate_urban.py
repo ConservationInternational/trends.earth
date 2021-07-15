@@ -38,7 +38,7 @@ from LDMP.gui.DlgCalculateUrbanData import Ui_DlgCalculateUrbanData
 from LDMP.gui.DlgCalculateUrbanSummaryTable import Ui_DlgCalculateUrbanSummaryTable
 from LDMP.layers import get_band_infos, create_local_json_metadata, add_layer
 from LDMP.worker import AbstractWorker, StartWorker
-from LDMP.schemas.schemas import BandInfo, BandInfoSchema
+from te_schemas.schemas import BandInfo, BandInfoSchema
 from LDMP.summary import *
 
 

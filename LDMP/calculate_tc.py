@@ -42,7 +42,7 @@ from LDMP.layers import add_layer, create_local_json_metadata
 from LDMP.worker import AbstractWorker, StartWorker
 from LDMP.gui.DlgCalculateTCData import Ui_DlgCalculateTCData
 from LDMP.gui.DlgCalculateTCSummaryTable import Ui_DlgCalculateTCSummaryTable
-from LDMP.schemas.schemas import BandInfo, BandInfoSchema
+from te_schemas.schemas import BandInfo, BandInfoSchema
 from LDMP.summary import *
 
 

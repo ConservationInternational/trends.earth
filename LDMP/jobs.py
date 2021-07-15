@@ -42,7 +42,7 @@ from LDMP import log
 from LDMP.api import get_user_email, get_execution
 from LDMP.download import Download, check_hash_against_etag, DownloadError
 from LDMP.layers import add_layer
-from LDMP.schemas.schemas import LocalRaster, LocalRasterSchema
+from te_schemas.schemas import LocalRaster, LocalRasterSchema
 
 
 class tr_jobs(object):

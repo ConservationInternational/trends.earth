@@ -185,21 +185,35 @@ def set_version(c, v=None):
             # Last number in version string is even, so use a tagged version of 
             # schemas matching this version
             _replace('requirements.txt', requirements_txt_regex, '\g<1>v' + v)
-            print('Tagging version {} and pushing tag to origin'.format(v))
-            ret = subprocess.run(['git', 'tag', '-l', 'v{}'.format(v)], 
-                    capture_output=True, text=True)
-            ret.check_returncode()
-            if 'v{}'.format(v) in ret.stdout:
-                # Try to delete this tag on remote in case it exists there
-                ret = subprocess.run(['git', 'push', 'origin', '--delete', 'v{}'.format(v)])
-                if ret.returncode == 0:
-                    print('Deleted tag v{} on origin'.format(v))
-            subprocess.check_call(['git', 'tag', '-a', '-f', 'v{}'.format(v), '-m', 'Version {}'.format(v)])
-            subprocess.check_call(['git', 'push', 'origin', 'v{}'.format(v)])
+            set_github_tags(v)
         else:
             # Last number in version string is odd, so this is a development 
             # version, so use development version of schemas
             _replace('requirements.txt', requirements_txt_regex, '\g<1>develop')
+
+def set_github_tags(v):
+    ret = subprocess.run(['git', 'diff-index', 'HEAD', '--'], 
+                          capture_output=True, text=True)
+    if ret.stdout is not '':
+        ret = query_yes_no('Uncommitted changes exist in repository. Commit these?')
+        if ret:
+            ret = subprocess.run(['git', 'commit', '-m', 'Updating version tags for v{}'.format(v)])
+            ret.check_returncode()
+        else:
+            print('Changes not committed - VERSION TAG NOT SET'.format(v))
+            return
+
+    print('Tagging version {} and pushing tag to origin'.format(v))
+    ret = subprocess.run(['git', 'tag', '-l', 'v{}'.format(v)], 
+            capture_output=True, text=True)
+    ret.check_returncode()
+    if 'v{}'.format(v) in ret.stdout:
+        # Try to delete this tag on remote in case it exists there
+        ret = subprocess.run(['git', 'push', 'origin', '--delete', 'v{}'.format(v)])
+        if ret.returncode == 0:
+            print('Deleted tag v{} on origin'.format(v))
+    subprocess.check_call(['git', 'tag', '-a', '-f', 'v{}'.format(v), '-m', 'Version {}'.format(v)])
+    subprocess.check_call(['git', 'push', 'origin', 'v{}'.format(v)])
 
 def check_tecli_python_version():
     if sys.version_info[0] < 3:

@@ -5,6 +5,7 @@ import sys
 import platform
 import fnmatch
 import re
+import requests
 import glob
 import stat
 import shutil
@@ -147,7 +148,7 @@ def set_version(c, v=None):
 
         gee_id_regex = re.compile('(, )?"id": "[0-9a-z-]*"(, )?')
         gee_script_name_regex = re.compile('("name": "[0-9a-zA-Z -]*)( [0-9]+(_[0-9]+)+)?"')
-        gee_script_requirements_regex = re.compile('(landdegradation.git)([v@.0-9]*)')
+        requirements_txt_regex = re.compile('((trends.earth-schemas.git@)|(landdegradation.git@))([.0-9a-z]*)')
 
         # Set version for GEE scripts
         for subdir, dirs, files in os.walk(c.gee.script_dir):
@@ -162,8 +163,14 @@ def set_version(c, v=None):
                     _replace(filepath, gee_id_regex, '')
                 elif file == 'requirements.txt':
                     print('Setting version to {} in {}'.format(v, filepath))
-                    # Validate the version matches the regex
-                    _replace(filepath, gee_script_requirements_regex, '\g<1>@v' + v)
+                    if (int(v.split('.')[-1]) % 2) == 0:
+                        # Last number in version string is even, so use a tagged version of 
+                        # schemas matching this version
+                        _replace(filepath, requirements_txt_regex, '\g<1>v' + v)
+                    else:
+                        # Last number in version string is odd, so this is a development 
+                        # version, so use development version of schemas
+                        _replace(filepath, requirements_txt_regex, '\g<1>develop')
                 elif file == '__init__.py':
                     print('Setting version to {} in {}'.format(v, filepath))
                     init_version_regex = re.compile('^(__version__[ ]*=[ ]*["\'])[0-9]+([.][0-9]+)+')
@@ -174,11 +181,66 @@ def set_version(c, v=None):
         scripts_regex = re.compile('("script version": ")[0-9]+([-._][0-9]+)+', re.IGNORECASE)
         _replace(os.path.join(c.plugin.source_dir, 'data', 'scripts.json'), scripts_regex, '\g<1>' + v)
 
-        # Set in setup.py
-        print('Setting version to {} in trends.earth-schemas setup.py'.format(v))
-        setup_regex = re.compile("^([ ]*version=[ ]*')[0-9]+([.][0-9]+)+")
-        _replace(os.path.join(c.schemas.setup_dir, 'setup.py'), setup_regex, '\g<1>' + v)
+        print('Setting version to {} in package requirements.txt'.format(v))
+        if (int(v.split('.')[-1]) % 2) == 0:
+            # Last number in version string is even, so use a tagged version of 
+            # schemas matching this version
+            _replace('requirements.txt', requirements_txt_regex, '\g<1>v' + v)
+        else:
+            # Last number in version string is odd, so this is a development 
+            # version, so use development version of schemas
+            _replace('requirements.txt', requirements_txt_regex, '\g<1>develop')
 
+@task()
+def release_github(c):
+    v = get_version(c)
+
+    # TODO: Add zipfile as an asset
+    # https://docs.github.com/en/rest/reference/repos#upload-a-release-asset
+
+    # Make release
+    payload = {
+        'tag_name': 'v{}'.format(v),
+        'name': 'Version {}'.format(v),
+        'body': """To install this release, download the LDMP.zip file below and then follow [the instructions for installing a release from Github](https://github.com/ConservationInternational/trends.earth#stable-version-from-zipfile)."""
+    }
+
+    s = requests.Session()
+    res = s.get('https://github.com')
+    cookies = dict(res.cookies)
+
+    r = requests.post('{}/repos/{}/{}/releases'.format(c.github.api_url, c.github.repo_owner, c.github.repo_name),
+                      json = payload,
+                      headers = {'Authorization': 'token {}'.format(c.github.token)},
+                      cookies=cookies)
+    r.raise_for_status()
+    # TODO: Link asset to release. See:
+    # https://docs.github.com/en/rest/reference/repos#update-a-release-asset
+
+@task()
+def set_tag(c):
+    v = get_version(c)
+    ret = subprocess.run(['git', 'diff-index', 'HEAD', '--'], 
+                          capture_output=True, text=True)
+    if ret.stdout != '':
+        ret = query_yes_no('Uncommitted changes exist in repository. Commit these?')
+        if ret:
+            ret = subprocess.run(['git', 'commit', '-m', 'Updating version tags for v{}'.format(v)])
+            ret.check_returncode()
+        else:
+            print('Changes not committed - VERSION TAG NOT SET'.format(v))
+
+    print('Tagging version {} and pushing tag to origin'.format(v))
+    ret = subprocess.run(['git', 'tag', '-l', 'v{}'.format(v)], 
+                         capture_output=True, text=True)
+    ret.check_returncode()
+    if 'v{}'.format(v) in ret.stdout:
+        # Try to delete this tag on remote in case it exists there
+        ret = subprocess.run(['git', 'push', 'origin', '--delete', 'v{}'.format(v)])
+        if ret.returncode == 0:
+            print('Deleted tag v{} on origin'.format(v))
+    subprocess.check_call(['git', 'tag', '-f', '-a', 'v{}'.format(v), '-m', 'Version {}'.format(v)])
+    subprocess.check_call(['git', 'push', 'origin', 'v{}'.format(v)])
 
 def check_tecli_python_version():
     if sys.version_info[0] < 3:
@@ -711,6 +773,7 @@ def changelog_build(c):
 def zipfile_build(c, clean=False, version=3, tests=False, filename=None, pip='pip'):
     """Create plugin package"""
     set_version(c)
+    set_tag(c)
 
     plugin_setup(c, clean,  pip)
     compile_files(c, version, clean)
@@ -953,12 +1016,14 @@ def binaries_compile(c, clean=False, python='python'):
 # Options
 ###############################################################################
 
-ns = Collection(set_version, plugin_setup, plugin_install,
+ns = Collection(set_version, set_tag,
+                plugin_setup, plugin_install,
                 docs_build, translate_pull, translate_push,
                 tecli_login, tecli_clear, tecli_config, tecli_publish, 
                 tecli_run, tecli_info, tecli_logs, zipfile_build, 
                 zipfile_deploy, binaries_compile, binaries_sync, 
-                binaries_deploy, testdata_sync)
+                binaries_deploy, release_github,
+                testdata_sync)
 
 ns.configure({
     'plugin': {
@@ -1024,5 +1089,11 @@ ns.configure({
                            'Trends.Earth_Tutorial09_Loading_a_Basemap.tex',
                            'Trends.Earth_Tutorial10_Forest_Carbon.tex',
 						   'Trends.Earth_Tutorial11_Urban_Change_SDG_Indicator.tex']
-    }
+    },
+    'github' : {
+        'api_url': 'https://api.github.com',
+        'repo_owner': 'ConservationInternational',
+        'repo_name': 'trends.earth',
+        'token': None,
+    },
 })

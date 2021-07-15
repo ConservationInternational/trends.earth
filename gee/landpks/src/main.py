@@ -38,7 +38,7 @@ from matplotlib_scalebar.scalebar import ScaleBar
 
 import pandas as pd
 
-from landdegradation.schemas.schemas import Url, ImageryPNG, \
+from te_schemas.schemas import Url, ImageryPNG, \
         ImageryPNGSchema
 
 

@@ -35,7 +35,7 @@ from LDMP.lc_setup import lc_setup_widget, lc_define_deg_widget
 from LDMP.worker import AbstractWorker, StartWorker
 from LDMP.gui.DlgCalculateLC import Ui_DlgCalculateLC
 
-from LDMP.schemas.schemas import BandInfo, BandInfoSchema
+from te_schemas.schemas import BandInfo, BandInfoSchema
 
 
 class LandCoverChangeWorker(AbstractWorker):

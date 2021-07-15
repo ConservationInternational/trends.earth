@@ -1,3 +1,0 @@
-[submodule "schemas"]
-	path = LDMP/schemas
-	url = https://github.com/ConservationInternational/trends.earth-schemas.git

@@ -13,7 +13,7 @@ import json
 import ee
 
 from landdegradation.util import TEImage
-from te_schemas.schemas.schemas import BandInfo
+from te_schemas.schemas import BandInfo
 
 def restoration_carbon(rest_type, length_yr, crs, geojsons, EXECUTION_ID,
                        logger):

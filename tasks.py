@@ -185,16 +185,18 @@ def set_version(c, v=None):
             # Last number in version string is even, so use a tagged version of 
             # schemas matching this version
             _replace('requirements.txt', requirements_txt_regex, '\g<1>v' + v)
-            set_github_tags(v)
+            set_tag(c)
         else:
             # Last number in version string is odd, so this is a development 
             # version, so use development version of schemas
             _replace('requirements.txt', requirements_txt_regex, '\g<1>develop')
 
-def set_github_tags(v):
+@task()
+def set_tag(c):
+    v = get_version(c)
     ret = subprocess.run(['git', 'diff-index', 'HEAD', '--'], 
                           capture_output=True, text=True)
-    if ret.stdout is not '':
+    if ret.stdout != '':
         ret = query_yes_no('Uncommitted changes exist in repository. Commit these?')
         if ret:
             ret = subprocess.run(['git', 'commit', '-m', 'Updating version tags for v{}'.format(v)])
@@ -984,7 +986,8 @@ def binaries_compile(c, clean=False, python='python'):
 # Options
 ###############################################################################
 
-ns = Collection(set_version, plugin_setup, plugin_install,
+ns = Collection(set_version, set_tag,
+                plugin_setup, plugin_install,
                 docs_build, translate_pull, translate_push,
                 tecli_login, tecli_clear, tecli_config, tecli_publish, 
                 tecli_run, tecli_info, tecli_logs, zipfile_build, 

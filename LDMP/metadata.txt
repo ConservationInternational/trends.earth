@@ -27,7 +27,13 @@ deprecated=False
 hasProcessingProvider=yes
 
 # Uncomment the following line and add your changelog:
-changelog=1.0.4 (June 30, 2021)
+changelog=1.0.6 (July 15, 2021)
+    - Remove trends.earth-schemas as a submodule and install through setup.py 
+      (much cleaner for version tracking, development, etc.)
+    - Fix bug in loading 2020 NDVI data in GEE code (asset name wasn't set 
+      right so 2020 wasn't loading)
+    - Various invoke tasks added to help with plugin development/release.
+  1.0.4 (June 30, 2021)
     - Add WorldPop and Gridded Population of the World version 4 (GPWv4) to the 
       datasets available through Trends.Earth
     - Update to allow access to ESA-CCI land cover through 2020

@@ -14,6 +14,7 @@
 import sys
 import os
 import sphinx_rtd_theme
+from datetime import date
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -47,7 +48,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Trends.Earth'
-copyright = u'2018, Conservation International'
+copyright = u'2017-{}, Conservation International'.format(date.today().year)
 
 locale_dirs = ['../i18n/']
 gettext_compact = False

@@ -5,6 +5,7 @@ import sys
 import platform
 import fnmatch
 import re
+import requests
 import glob
 import stat
 import shutil
@@ -191,6 +192,32 @@ def set_version(c, v=None):
             _replace('requirements.txt', requirements_txt_regex, '\g<1>develop')
 
 @task()
+def release_github(c):
+    v = get_version(c)
+
+    # TODO: Add zipfile as an asset
+    # https://docs.github.com/en/rest/reference/repos#upload-a-release-asset
+
+    # Make release
+    payload = {
+        'tag_name': 'v{}'.format(v),
+        'name': 'Version {}'.format(v),
+        'body': """To install this release, download the LDMP.zip file below and then follow [the instructions for installing a release from Github](https://github.com/ConservationInternational/trends.earth#stable-version-from-zipfile)."""
+    }
+
+    s = requests.Session()
+    res = s.get('https://github.com')
+    cookies = dict(res.cookies)
+
+    r = requests.post('{}/repos/{}/{}/releases'.format(c.github.api_url, c.github.repo_owner, c.github.repo_name),
+                      json = payload,
+                      headers = {'Authorization': 'token {}'.format(c.github.token)},
+                      cookies=cookies)
+    r.raise_for_status()
+    # TODO: Link asset to release. See:
+    # https://docs.github.com/en/rest/reference/repos#update-a-release-asset
+
+@task()
 def set_tag(c):
     v = get_version(c)
     ret = subprocess.run(['git', 'diff-index', 'HEAD', '--'], 
@@ -202,18 +229,17 @@ def set_tag(c):
             ret.check_returncode()
         else:
             print('Changes not committed - VERSION TAG NOT SET'.format(v))
-            return
 
     print('Tagging version {} and pushing tag to origin'.format(v))
     ret = subprocess.run(['git', 'tag', '-l', 'v{}'.format(v)], 
-            capture_output=True, text=True)
+                         capture_output=True, text=True)
     ret.check_returncode()
     if 'v{}'.format(v) in ret.stdout:
         # Try to delete this tag on remote in case it exists there
         ret = subprocess.run(['git', 'push', 'origin', '--delete', 'v{}'.format(v)])
         if ret.returncode == 0:
             print('Deleted tag v{} on origin'.format(v))
-    subprocess.check_call(['git', 'tag', '-a', '-f', 'v{}'.format(v), '-m', 'Version {}'.format(v)])
+    subprocess.check_call(['git', 'tag', '-f', '-a', 'v{}'.format(v), '-m', 'Version {}'.format(v)])
     subprocess.check_call(['git', 'push', 'origin', 'v{}'.format(v)])
 
 def check_tecli_python_version():
@@ -992,7 +1018,8 @@ ns = Collection(set_version, set_tag,
                 tecli_login, tecli_clear, tecli_config, tecli_publish, 
                 tecli_run, tecli_info, tecli_logs, zipfile_build, 
                 zipfile_deploy, binaries_compile, binaries_sync, 
-                binaries_deploy, testdata_sync)
+                binaries_deploy, release_github,
+                testdata_sync)
 
 ns.configure({
     'plugin': {
@@ -1058,5 +1085,11 @@ ns.configure({
                            'Trends.Earth_Tutorial09_Loading_a_Basemap.tex',
                            'Trends.Earth_Tutorial10_Forest_Carbon.tex',
 						   'Trends.Earth_Tutorial11_Urban_Change_SDG_Indicator.tex']
-    }
+    },
+    'github' : {
+        'api_url': 'https://api.github.com',
+        'repo_owner': 'ConservationInternational',
+        'repo_name': 'trends.earth',
+        'token': None,
+    },
 })

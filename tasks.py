@@ -185,7 +185,6 @@ def set_version(c, v=None):
             # Last number in version string is even, so use a tagged version of 
             # schemas matching this version
             _replace('requirements.txt', requirements_txt_regex, '\g<1>v' + v)
-            set_tag(c)
         else:
             # Last number in version string is odd, so this is a development 
             # version, so use development version of schemas
@@ -744,6 +743,7 @@ def changelog_build(c):
 def zipfile_build(c, clean=False, version=3, tests=False, filename=None, pip='pip'):
     """Create plugin package"""
     set_version(c)
+    set_tag(c)
 
     plugin_setup(c, clean,  pip)
     compile_files(c, version, clean)

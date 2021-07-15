@@ -4,6 +4,4 @@ pyqtgraph==0.11.0
 openpyxl==3.0.7
 marshmallow==3.12.2
 marshmallow_dataclass==8.4.2
-git+git://github.com/conservationinternational/trends.earth-schemas@develop#egg=te_schemas
-
-# test requirements
+git+https://github.com/ConservationInternational/trends.earth-schemas.git@develop

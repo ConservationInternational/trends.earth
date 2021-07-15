@@ -16,7 +16,7 @@ import ee
 from landdegradation.productivity import productivity_trajectory, \
     productivity_performance, productivity_state
 from landdegradation.download import download
-from te_schemas.schemas.schemas import CloudResultsSchema
+from te_schemas.schemas import CloudResultsSchema
 
 
 def run(params, logger):

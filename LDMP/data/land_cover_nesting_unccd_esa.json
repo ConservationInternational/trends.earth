@@ -3,51 +3,51 @@
         "name": "UNCCD Land Cover",
         "key": [
             {
-                "code": 3,
-                "name_long": "Cropland",
-                "name_short": null,
-                "description": null,
-                "color": "#FFFB6E"
-            },
-            {
                 "code": 1,
                 "name_long": "Tree-covered",
-                "name_short": null,
+                "name_short": "Tree-covered",
                 "description": null,
                 "color": "#787F1B"
             },
             {
                 "code": 2,
                 "name_long": "Grassland",
-                "name_short": null,
+                "name_short": "Grassland",
                 "description": null,
                 "color": "#FFAC42"
             },
             {
+                "code": 3,
+                "name_long": "Cropland",
+                "name_short": "Cropland",
+                "description": null,
+                "color": "#FFFB6E"
+            },
+            {
                 "code": 4,
                 "name_long": "Wetland",
-                "name_short": null,
+                "name_short": "Wetland",
                 "description": null,
                 "color": "#00DB84"
             },
             {
                 "code": 5,
                 "name_long": "Artificial",
-                "name_short": null,
+                "name_short": "Artificial",
                 "description": null,
                 "color": "#E60017"
             },
             {
                 "code": 6,
                 "name_long": "Other land",
-                "name_short": null,
+                "name_short": "Bar land",
                 "description": null,
                 "color": "#FFF3D7"
             },
             {
                 "code": 7,
                 "name_long": "Water body",
-                "name_short": null,
+                "name_short": "Water body",
                 "description": null,
                 "color": "#0053C4"
             }
@@ -318,14 +318,6 @@
         ]
     },
     "nesting": {
-        "3": [
-            10,
-            11,
-            12,
-            20,
-            30,
-            40
-        ],
         "1": [
             50,
             60,
@@ -351,6 +343,14 @@
             151,
             152,
             153
+        ],
+        "3": [
+            10,
+            11,
+            12,
+            20,
+            30,
+            40
         ],
         "4": [
             160,

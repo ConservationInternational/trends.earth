@@ -43,10 +43,10 @@ from LDMP.lc_setup import lc_setup_widget, lc_define_deg_widget
 from LDMP.layers import (add_layer, create_local_json_metadata, get_band_infos,
     delete_layer_by_filename)
 
-from te_schemas.schemas import BandInfo, BandInfoSchema
-from te_schemas.schemas.schemas import AreaOfInterest, BandInfo, BandInfoSchema
-from te_schemas.schemas.reporting import *
-from te_schemas.schemas.land_cover import *
+from te_schemas.schemas import (BandInfo, BandInfoSchema, AreaOfInterest, 
+        BandInfo, BandInfoSchema)
+from te_schemas.reporting import *
+from te_schemas.land_cover import *
 
 from LDMP.gui.DlgCalculateOneStep import Ui_DlgCalculateOneStep
 from LDMP.gui.DlgCalculateLDNSummaryTableAdmin import Ui_DlgCalculateLDNSummaryTableAdmin
@@ -86,11 +86,10 @@ class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
         
         start_year = QDate(max(start_year_ndvi, start_year_lc), 1, 1)
         end_year = QDate(min(end_year_ndvi, end_year_lc), 1, 1)
-
-        self.year_initial.setMinimumDate(start_year)
-        self.year_initial.setMaximumDate(end_year)
-        self.year_final.setMinimumDate(start_year)
-        self.year_final.setMaximumDate(end_year)
+        self.year_initial_baseline.setMinimumDate(start_year)
+        self.year_initial_baseline.setMaximumDate(end_year)
+        self.year_final_baseline.setMinimumDate(start_year)
+        self.year_final_baseline.setMaximumDate(end_year)
         
     def showEvent(self, event):
         super(DlgCalculateOneStep, self).showEvent(event)
@@ -191,7 +190,7 @@ class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
         if not ret:
             return
 
-        if (self.year_final.date().year() - self.year_initial.date().year()) < 10:
+        if (self.year_final_baseline.date().year() - self.year_initial_baseline.date().year()) < 10:
             QtWidgets.QMessageBox.warning(None, self.tr("Error"),
                                        self.tr("Initial and final year are less 10 years apart - more reliable results will be given if more data (years) are included in the analysis."))
         #     return
@@ -201,25 +200,25 @@ class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
         #######################################################################
         # Online
 
-        prod_traj_year_initial = self.year_initial.date().year()
-        prod_traj_year_final = self.year_final.date().year()
+        prod_traj_year_initial = self.year_initial_baseline.date().year()
+        prod_traj_year_final = self.year_final_baseline.date().year()
 
-        prod_perf_year_initial = self.year_initial.date().year()
-        prod_perf_year_final = self.year_final.date().year()
+        prod_perf_year_initial = self.year_initial_baseline.date().year()
+        prod_perf_year_final = self.year_final_baseline.date().year()
 
         # Have productivity state consider the last 3 years for the current 
         # period, and the years preceding those last 3 for the baseline
-        prod_state_year_bl_start = self.year_initial.date().year()
-        prod_state_year_bl_end = self.year_final.date().year() - 3
+        prod_state_year_bl_start = self.year_initial_baseline.date().year()
+        prod_state_year_bl_end = self.year_final_baseline.date().year() - 3
         prod_state_year_tg_start = prod_state_year_bl_end + 1
         prod_state_year_tg_end = prod_state_year_bl_end + 3
-        assert (prod_state_year_tg_end == self.year_final.date().year())
+        assert (prod_state_year_tg_end == self.year_final_baseline.date().year())
 
-        lc_year_initial = self.year_initial.date().year()
-        lc_year_final = self.year_final.date().year()
+        lc_year_initial = self.year_initial_baseline.date().year()
+        lc_year_final = self.year_final_baseline.date().year()
 
-        soc_year_initial = self.year_initial.date().year()
-        soc_year_final = self.year_final.date().year()
+        soc_year_initial = self.year_initial_baseline.date().year()
+        soc_year_final = self.year_final_baseline.date().year()
 
         if self.mode_te_prod.isChecked():
             prod_mode = 'Trends.Earth productivity'

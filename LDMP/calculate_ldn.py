@@ -2,7 +2,7 @@
 """
 /***************************************************************************
  LDMP - A QGIS plugin
- This plugin supports monitoring and reporting of land degradation to the UNCCD 
+ This plugin supports monitoring and reporting of land degradation to the UNCCD
  and in support of the SDG Land Degradation Neutrality (LDN) target.
                               -------------------
         begin                : 2017-05-23
@@ -11,6 +11,7 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
+# pylint: disable=import-error
 
 from builtins import range
 import os
@@ -18,45 +19,40 @@ import json
 import tempfile
 import datetime
 
+from . import log, __version__, __revision__, __release_date__
+from .api import run_script
+from .calculate import (DlgCalculateBase, get_script_slug, MaskWorker,
+                        json_geom_to_geojson, ldn_recode_state, 
+                        ldn_recode_traj, ldn_make_prod5,
+                        ldn_total_deg, ldn_total_by_trans)
+from .lc_setup import lc_setup_widget, lc_define_deg_widget
+from .layers import (add_layer, create_local_json_metadata, get_band_infos,
+                     delete_layer_by_filename)
+from .gui.DlgCalculateOneStep import Ui_DlgCalculateOneStep
+from .gui.DlgCalculateLDNSummaryTableAdmin import (
+        Ui_DlgCalculateLDNSummaryTableAdmin)
+from .worker import AbstractWorker, StartWorker
+from .summary import *
+
 import numpy as np
-
-#import cProfile
-
 from osgeo import ogr, osr, gdal
 
 import openpyxl
 from openpyxl.drawing.image import Image
 
-from qgis.PyQt import QtWidgets, uic, QtXml
-from qgis.PyQt.QtCore import QSettings, QDate, QCoreApplication
-
+from qgis.PyQt import QtWidgets
+from qgis.PyQt.QtCore import QDate, QCoreApplication
 from qgis.core import QgsGeometry
 from qgis.utils import iface
 mb = iface.messageBar()
 
-from LDMP import log, __version__, __revision__, __release_date__
-from LDMP.api import run_script
-from LDMP.calculate import (DlgCalculateBase, get_script_slug, MaskWorker,
-    json_geom_to_geojson, ldn_recode_state, ldn_recode_traj, ldn_make_prod5, 
-    ldn_total_deg, ldn_total_by_trans)
-from LDMP.lc_setup import lc_setup_widget, lc_define_deg_widget
-from LDMP.layers import (add_layer, create_local_json_metadata, get_band_infos,
-    delete_layer_by_filename)
-
-from te_schemas.schemas import (BandInfo, BandInfoSchema, AreaOfInterest, 
-        BandInfo, BandInfoSchema)
+from te_schemas.schemas import (AreaOfInterest, BandInfo, BandInfoSchema)
 from te_schemas.reporting import *
 from te_schemas.land_cover import *
 
-from LDMP.gui.DlgCalculateOneStep import Ui_DlgCalculateOneStep
-from LDMP.gui.DlgCalculateLDNSummaryTableAdmin import Ui_DlgCalculateLDNSummaryTableAdmin
-from LDMP.gui.DlgCalculateLDNUNCCDReporting import Ui_DlgCalculateLDNUNCCDReporting
-from LDMP.worker import AbstractWorker, StartWorker
-from LDMP.summary import *
-
 
 class tr_calculate_ldn(object):
-    def tr(message):
+    def tr(self, message):
         return QCoreApplication.translate("tr_calculate_ldn", message)
 
 
@@ -83,7 +79,6 @@ class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
         start_year_lc = lc_dataset['Start year']
         end_year_lc = lc_dataset['End year']
 
-        
         start_year = QDate(max(start_year_ndvi, start_year_lc), 1, 1)
         end_year = QDate(min(end_year_ndvi, end_year_lc), 1, 1)
         self.year_initial_baseline.setMinimumDate(start_year)
@@ -95,9 +90,10 @@ class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
         super(DlgCalculateOneStep, self).showEvent(event)
 
         self.lc_setup_tab = lc_setup_widget
-        self.TabBox.insertTab(1, self.lc_setup_tab, self.tr('Land Cover Setup'))
+        self.TabBox.insertTab(1, self.lc_setup_tab,
+                self.tr('Land Cover Setup'))
 
-        # TODO: Temporarily hide these boxes until custom LC support for SOC is 
+        # TODO: Temporarily hide these boxes until custom LC support for SOC is
         # implemented on GEE
         self.lc_setup_tab.use_esa.setChecked(True)
         self.lc_setup_tab.use_custom.hide()
@@ -106,8 +102,8 @@ class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
 
         self.lc_define_deg_tab = lc_define_deg_widget
         self.TabBox.insertTab(2, self.lc_define_deg_tab, self.tr('Define Effects of Land Cover Change'))
-        
-        # Hide the land cover ESA period box, since only one period is used in 
+
+        # Hide the land cover ESA period box, since only one period is used in
         # this dialog - the one on the main setup tab
         self.lc_setup_tab.groupBox_esa_period.hide()
 
@@ -170,7 +166,7 @@ class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
         #     log(name)
         #     # self.options_tab.task_name.setText(name)
         #     # self.btn_calculate()
-        #     
+        #
         #     # Sleep without freezing interface
         #     sleep_worker = StartWorker(SleepWorker, 'sleeping', 60)
         #     if not deg_lc_clip_worker.success:
@@ -190,9 +186,10 @@ class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
         if not ret:
             return
 
-        if (self.year_final_baseline.date().year() - self.year_initial_baseline.date().year()) < 10:
+        if (self.year_final_baseline.date().year() -
+                self.year_initial_baseline.date().year()) < 10:
             QtWidgets.QMessageBox.warning(None, self.tr("Error"),
-                                       self.tr("Initial and final year are less 10 years apart - more reliable results will be given if more data (years) are included in the analysis."))
+                                          self.tr("Initial and final year are less 10 years apart - more reliable results will be given if more data (years) are included in the analysis."))
         #     return
 
         self.close()

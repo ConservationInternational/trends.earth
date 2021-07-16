@@ -373,10 +373,11 @@ def read_requirements():
     return not_comments(0, idx), not_comments(idx+1, None)
 
 @task(help={'clean': 'Clean out dependencies first',
+            'development': 'Symlink dependendencies to their local repos',
             'pip': 'Path to pip (usually "pip" or "pip3"'})
-def plugin_setup(c, clean=False, pip='pip'):
+def plugin_setup(c, clean=False, development=False, pip='pip'):
     '''install dependencies'''
-    ext_libs = os.path.abspath(c.plugin.ext_libs)
+    ext_libs = os.path.abspath(c.plugin.ext_libs.path)
     if clean and os.path.exists(ext_libs):
         shutil.rmtree(ext_libs)
     if sys.version_info[0] < 3:
@@ -388,12 +389,24 @@ def plugin_setup(c, clean=False, pip='pip'):
 
     os.environ['PYTHONPATH'] = ext_libs
     for req in runtime + test:
+        continue
         # Don't install numpy with pyqtgraph as QGIS already has numpy. 
         # So use the --no-deps flag (-N for short) with that package only.
         if 'pyqtgraph' in req:
             subprocess.check_call([pip, 'install', '--upgrade', '--no-deps', '-t', ext_libs, req])
         else:
             subprocess.check_call([pip, 'install', '--upgrade', '-t', ext_libs, req])
+
+    if development:
+        for module in c.plugin.ext_libs.module_symlinks:
+            link = os.path.abspath(c.plugin.ext_libs.path) + os.path.sep + module['name']
+            print(module)
+            if os.path.islink(link):
+                print("Local repo of {} already linked to plugin ext_libs".format(module['name']))
+            else:
+                print("Linking local repo of {} to plugin ext_libs".format(module['name']))
+                shutil.rmtree(link)
+                os.symlink(module['path'], link)
 
 @task(help={'clean': "run rmtree",
             'version': 'what version of QGIS to install to',
@@ -1026,7 +1039,15 @@ ns.configure({
         'name': 'LDMP',
         'version_file_raw': 'version.txt',
         'version_file_details': 'LDMP/version.json',
-        'ext_libs': 'LDMP/ext-libs',
+        'ext_libs': {
+            'path': 'LDMP/ext-libs',
+            'module_symlinks': [
+                {
+                    'name': 'te_schemas',
+                    'path': 'D:/Code/LandDegradation/trends.earth-schemas/te_schemas'
+                },
+            ],
+        },
         'gui_dir': 'LDMP/gui',
         'source_dir': 'LDMP',
         'i18n_dir': 'LDMP/i18n',
@@ -1055,7 +1076,7 @@ ns.configure({
             'LDMP/schemas/.git'
             ],
         # skip certain files inadvertently found by exclude pattern globbing
-        'skip_exclude': []
+        'skip_exclude': [],
     },
     'schemas': {
         'setup_dir': 'LDMP/schemas',

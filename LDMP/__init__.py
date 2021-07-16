@@ -11,6 +11,7 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
+# pylint: disable=import-error
 
 import sys
 import os

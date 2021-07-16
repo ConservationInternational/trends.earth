@@ -222,9 +222,10 @@ def get_trans_matrix():
     matrix = QSettings().value("LDMP/land_cover_transition_matrix", None)
     if matrix is None:
         matrix = read_lc_matrix_file(os.path.join(os.path.dirname(os.path.realpath(__file__)),
-            'data', 'land_cover_transition_matrix_UNCCD.json'))
+                                     'data', 'land_cover_transition_matrix_UNCCD.json'))
         QSettings().setValue("LDMP/land_cover_transition_matrix", LCTransMatrix.Schema().dumps(matrix))
     else:
+        log('Matrix for LCTransMatrix {}'.format(matrix))
         matrix = LCTransMatrix.Schema().loads(matrix)
     return matrix
 

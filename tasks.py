@@ -398,8 +398,9 @@ def plugin_setup(c, clean=False, pip='pip'):
 @task(help={'clean': "run rmtree",
             'version': 'what version of QGIS to install to',
             'profile': 'what profile to install to (only applies to QGIS3',
-            'fast': 'Skip compiling numba files'})
-def plugin_install(c, clean=False, version=3, profile='default', fast=False):
+            'fast': 'Skip compiling numba files',
+            'symlink': 'Skip compiling numba files'})
+def plugin_install(c, clean=False, version=3, profile='default', fast=False, symlink=True):
     '''install plugin to qgis'''
     set_version(c)
     compile_files(c, version, clean, fast)
@@ -425,7 +426,7 @@ def plugin_install(c, clean=False, version=3, profile='default', fast=False):
     src = os.path.abspath(src)
     dst_this_plugin = os.path.abspath(dst_this_plugin)
 
-    if not hasattr(os, 'symlink'):
+    if (not hasattr(os, 'symlink') or (not symlink):
         print("Copying plugin to QGIS version {} plugin folder at {}".format(version, dst_this_plugin))
         if clean:
             if os.path.exists(dst_this_plugin):

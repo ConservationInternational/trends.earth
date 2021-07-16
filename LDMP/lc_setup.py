@@ -32,7 +32,7 @@ from LDMP.gui.WidgetLCDefineDegradation import Ui_WidgetLCDefineDegradation
 from LDMP.gui.WidgetLCSetup import Ui_WidgetLCSetup
 from LDMP.layers import tr_style_text
 
-from LDMP.schemas.land_cover import *
+from te_schemas.land_cover import *
 
 from marshmallow.exceptions import ValidationError
 class tr_lc_setup(object):
@@ -165,7 +165,6 @@ class LCAggTableModel(QAbstractTableModel):
         return QAbstractTableModel.headerData(self, section, orientation, role)
 
 
-# Function to read a file defining land cover aggregation
 def read_lc_nesting_file(f):
     if not os.access(f, os.R_OK):
         QtWidgets.QMessageBox.critical(None,
@@ -174,8 +173,8 @@ def read_lc_nesting_file(f):
         return None
 
     try:
-        with open(f) as class_file:
-            j = LCLegendNesting.Schema().loads(class_file.read())
+        with open(f) as nesting_file:
+            nesting = LCLegendNesting.Schema().loads(nesting_file.read())
     except ValidationError as e:
         log(u'Error loading land cover legend nesting definition from {}: {}'.format(f, e))
         QtWidgets.QMessageBox.critical(None,
@@ -184,7 +183,50 @@ def read_lc_nesting_file(f):
         return None
     else:
         log(u'Loaded land cover legend nesting definition from {}'.format(f))
-        return j
+        return nesting 
+
+
+def read_lc_matrix_file(f):
+    if not os.access(f, os.R_OK):
+        QtWidgets.QMessageBox.critical(None,
+                tr_lc_setup.tr("Error"),
+                tr_lc_setup.tr(u"Cannot read {}.".format(f)))
+        return None
+
+    try:
+        with open(f) as matrix_file:
+            matrix  = LCTransMatrix.Schema().loads(matrix_file.read())
+    except ValidationError as e:
+        log(u'Error loading land cover transition matrix from {}: {}'.format(f, e))
+        QtWidgets.QMessageBox.critical(None,
+                                       tr_lc_setup.tr("Error"),
+                                       tr_lc_setup.tr("{} does not appear to contain a valid land cover transition matrix definition.".format(f)))
+        return None
+    else:
+        log(u'Loaded land cover transition matrix definition from {}'.format(f))
+        return matrix
+
+
+def get_lc_nesting():
+    nesting = QSettings().value("LDMP/land_cover_nesting", None)
+    if nesting is None:
+        nesting = read_lc_nesting_file(os.path.join(os.path.dirname(os.path.realpath(__file__)),
+            'data', 'land_cover_nesting_UNCCD_ESA.json'))
+        QSettings().setValue("LDMP/land_cover_nesting", LCLegendNesting.Schema().dumps(nesting))
+    else:
+        nesting = LCLegendNesting.Schema().loads(nesting)
+    return nesting
+
+
+def get_trans_matrix():
+    matrix = QSettings().value("LDMP/land_cover_transition_matrix", None)
+    if matrix is None:
+        matrix = read_lc_matrix_file(os.path.join(os.path.dirname(os.path.realpath(__file__)),
+            'data', 'land_cover_transition_matrix_UNCCD.json'))
+        QSettings().setValue("LDMP/land_cover_transition_matrix", LCTransMatrix.Schema().dumps(matrix))
+    else:
+        matrix = LCTransMatrix.Schema().loads(matrix)
+    return matrix
 
 
 class DlgCalculateLCSetAggregation(QtWidgets.QDialog, Ui_DlgCalculateLCSetAggregation):
@@ -330,32 +372,22 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, Ui_WidgetLCDefineDegradation)
 
         self.setupUi(self)
 
-        self.classes = [self.tr("Tree-covered"),
-                        self.tr("Grassland"),
-                        self.tr("Cropland"),
-                        self.tr("Wetland"),
-                        self.tr("Artificial"),
-                        self.tr("Bare land"),
-                        self.tr("Water body")]
-        self.deg_def_matrix.setRowCount(len(self.classes))
-        self.deg_def_matrix.setColumnCount(len(self.classes))
-        self.deg_def_matrix.setHorizontalHeaderLabels(self.classes)
-        self.deg_def_matrix.setVerticalHeaderLabels(self.classes)
+        self.nesting = get_lc_nesting()
 
-        self.trans_matrix_default = [0, -1, -1, -1, -1, -1, 0, # Tree-covered
-                                     1, 0, 1, -1, -1, -1, 0, # grassland
-                                     1, -1, 0, -1, -1, -1, 0, # cropland
-                                     -1, -1, -1, 0, -1, -1, 0, # wetland
-                                     1, 1, 1, 1, 0, 1, 0, # artificial
-                                     1, 1, 1, 1, -1, 0, 0, # Other land
-                                     0, 0, 0, 0, 0, 0, 0] # water body
+        self.trans_matrix = get_trans_matrix()
+
+        self.deg_def_matrix.setRowCount(len(self.trans_matrix.legend.key))
+        self.deg_def_matrix.setColumnCount(len(self.trans_matrix.legend.key))
+        self.deg_def_matrix.setHorizontalHeaderLabels([c.name_short for c in self.trans_matrix.legend.key])
+        self.deg_def_matrix.setVerticalHeaderLabels([c.name_short for c in self.trans_matrix.legend.key])
+
         for row in range(0, self.deg_def_matrix.rowCount()):
             for col in range(0, self.deg_def_matrix.columnCount()):
                 line_edit = TransMatrixEdit()
                 line_edit.setValidator(QRegExpValidator(QRegExp("[-0+]")))
                 line_edit.setAlignment(Qt.AlignHCenter)
                 self.deg_def_matrix.setCellWidget(row, col, line_edit)
-        self.trans_matrix_set()
+        self.set_trans_matrix()
 
         # Setup the vertical label for the rows of the table
         label_lc_baseline_year = VerticalLabel(self)
@@ -380,7 +412,7 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, Ui_WidgetLCDefineDegradation)
         for col in range(0, self.deg_def_matrix.columnCount()):
             self.deg_def_matrix.verticalHeader().setSectionResizeMode(col, QtWidgets.QHeaderView.Stretch)
 
-        self.btn_transmatrix_reset.clicked.connect(self.trans_matrix_set)
+        self.btn_transmatrix_reset.clicked.connect(self.set_trans_matrix)
         self.btn_transmatrix_loadfile.clicked.connect(self.trans_matrix_loadfile)
         self.btn_transmatrix_savefile.clicked.connect(self.trans_matrix_savefile)
 
@@ -403,19 +435,14 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, Ui_WidgetLCDefineDegradation)
         else:
             return None
 
-        with open(f) as matrix_file:
-            matrix = json.load(matrix_file)
-
-        flag = False
-        if isinstance(matrix, list) and len(matrix) == (len(self.classes) * len(self.classes)):
-            flag = self.trans_matrix_set(matrix)
-
-        if not flag:
+        matrix = read_lc_matrix_file(f)
+        if not matrix:
             QtWidgets.QMessageBox.critical(None,
                                            self.tr("Error"),
                                            self.tr("{} does not appear to contain a valid matrix definition.".format(f)))
             return None
         else:
+            self.set_trans_matrix(matrix)
             return True
 
     def trans_matrix_savefile(self):
@@ -432,62 +459,53 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, Ui_WidgetLCDefineDegradation)
                                                self.tr(u"Cannot write to {}. Choose a different file.".format(f)))
                 return
 
-            matrix = self.trans_matrix_get()
             with open(f, 'w') as outfile:
-                json.dump(matrix, outfile, sort_keys=True, indent=4, separators=(',', ': '))
+                json.dump(LCTransMatrix.Schema().dump(self.trans_matrix_get_json()),
+                          outfile, sort_keys=True, indent=4,
+                          separators=(',', ':'), default=json_serial)
 
-    def trans_matrix_set(self, matrix=None):
-        if not matrix:
-            matrix = self.trans_matrix_default
+    def set_trans_matrix(self, matrix=None):
+        if matrix:
+            QSettings().setValue("LDMP/land_cover_transition_matrix", LCTransMatrix.Schema().dumps(matrix))
+        else:
+            matrix = get_trans_matrix()
         for row in range(0, self.deg_def_matrix.rowCount()):
+            initial_class = matrix.legend.key[row]
             for col in range(0, self.deg_def_matrix.columnCount()):
-                # Matrix is actually a list of length NUM_CLASSES * NUM_CLASSES
-                val = matrix[len(self.classes) * row + col]
-                if val == 0:
-                    val_str = '0'
-                elif val == -1:
-                    val_str = '-'
-                elif val == 1:
-                    val_str = '+'
+                final_class = matrix.legend.key[col]
+                meaning = matrix.meaningByTransition(initial_class, final_class)
+                if meaning == 'stable':
+                    code = '0'
+                elif meaning == 'degradation':
+                    code = '-'
+                elif meaning == 'improvement':
+                    code = '+'
                 else:
-                    log('unrecognized value "{}" when setting transition matrix'.format(val))
+                    log('unrecognized value "{}" when setting transition matrix'.format(meaning))
                     return False
-                self.deg_def_matrix.cellWidget(row, col).setText(val_str)
+                self.deg_def_matrix.cellWidget(row, col).setText(code)
         return True
 
-    def trans_matrix_get(self):
+    def trans_matrix_get_json(self):
         # Extract trans_matrix from the QTableWidget
-        trans_matrix = []
+        transitions = []
         for row in range(0, self.deg_def_matrix.rowCount()):
             for col in range(0, self.deg_def_matrix.columnCount()):
                 val = self.deg_def_matrix.cellWidget(row, col).text()
                 if val == "" or val == "0":
-                    val = 0
+                    meaning = "stable"
                 elif val == "-":
-                    val = -1
+                    meaning = "degradation"
                 elif val == "+":
-                    val = 1
+                    meaning = "improvement"
                 else:
-                    log('unrecognized value "{}" when getting transition matrix'.format(val))
-                    raise ValueError('unrecognized value "{}" in transition matrix'.format(val))
-                trans_matrix.append(val)
-        return trans_matrix
-
-    def trans_matrix_get(self):
-        legend = self.get_legend()
-        m = self.trans_matrix_get()
-        #
-        # for row in range(0, self.deg_def_matrix.rowCount()):
-        #     for col in range(0, self.deg_def_matrix.columnCount()):
-        #         initial = LCClass(self.classes[row]
-        #
-        # transitions = []
-        # initial = LCClass(code_initial, name_short_initial, name_long_initial, description_initial)
-        # final = LCClass(code_initial, name_short_initial, name_long_initial, description_initial)
-        # LCTransMeaning(initial, final, meaning)
-
-        return LCTransMatrix(legend, transitions)
-
+                    log('unrecognized value "{}" when reading transition matrix JSON'.format(val))
+                    raise ValueError('unrecognized value "{}" when reading transition matrix JSON'.format(val))
+                transitions.append(LCTransMeaning(self.nesting.parent.key[row],
+                                                  self.nesting.parent.key[col],
+                                                  meaning))
+        return LCTransMatrix(self.nesting.parent,
+                             transitions)
 
 class LCSetupWidget(QtWidgets.QWidget, Ui_WidgetLCSetup):
     def __init__(self, parent=None):
@@ -499,14 +517,7 @@ class LCSetupWidget(QtWidgets.QWidget, Ui_WidgetLCSetup):
 
         self.setupUi(self)
 
-        nesting = QSettings().value("LDMP/land_cover_nesting", None)
-        if nesting is None:
-            nesting = read_lc_nesting_file(os.path.join(os.path.dirname(os.path.realpath(__file__)),
-                'data', 'land_cover_nesting_UNCCD_ESA.json'))
-            QSettings().setValue("LDMP/land_cover_nesting", LCLegendNesting.Schema().dumps(nesting))
-        else:
-            nesting = LCLegendNesting.Schema().loads(nesting)
-        self.nesting = nesting
+        self.nesting = get_lc_nesting()
 
         self.dlg_lc_nesting = DlgCalculateLCSetAggregation(self.nesting, parent=self)
 

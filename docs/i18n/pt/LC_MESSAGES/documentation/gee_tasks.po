@@ -1,20 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2018, Conservation International
+# Copyright (C) 2017-2021, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018
 # Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020
+# Alex Zvoleff <azvoleff@conservation.org>, 2021
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 1.0.1\n"
+"Project-Id-Version: Trends.Earth 1.0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-27 17:17-0400\n"
+"POT-Creation-Date: 2021-07-15 21:04-0400\n"
 "PO-Revision-Date: 2017-11-20 21:06+0000\n"
-"Last-Translator: Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2021\n"
 "Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,11 +23,11 @@ msgstr ""
 "Language: pt\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\gee_tasks.rst:2
+#: ../../source/documentation/gee_tasks.rst:2
 msgid "View and download results"
 msgstr "Visualizar e baixar resultados"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\gee_tasks.rst:6
+#: ../../source/documentation/gee_tasks.rst:6
 msgid ""
 "Once you have submitted a calculation using |trends.earth|, it is sent to "
 "Google Earth Engine to run the calculations in the cloud. To view the Google"
@@ -41,7 +42,15 @@ msgstr ""
 "(|iconCloudDownload|). Isso abrirá a caixa de diálogo \"Baixar resultados do"
 " Google Earth Engine\"."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\gee_tasks.rst:12
+#: ../../../<rst_epilog>:26 ../../../<rst_epilog>:26
+msgid "Trends.Earth"
+msgstr "Trends.Earth"
+
+#: ../../../<rst_epilog>:8 ../../../<rst_epilog>:8
+msgid "iconCloudDownload"
+msgstr ""
+
+#: ../../source/documentation/gee_tasks.rst:12
 msgid ""
 "Click `Refresh List` to show all the tasks you have submitted and their "
 "status."
@@ -49,7 +58,7 @@ msgstr ""
 "Clique em `Atualizar lista` para mostrar todas as tarefas que você enviou e "
 "seu status."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\gee_tasks.rst:14
+#: ../../source/documentation/gee_tasks.rst:14
 msgid ""
 "Users can view their current and previous tasks here. the table shows the "
 "task name provided by the user, which analysis is running (job), the start "
@@ -64,7 +73,7 @@ msgstr ""
 "Detalhes descreve as diferentes opções que o usuário escolheu para cada "
 "tarefa."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\gee_tasks.rst:26
+#: ../../source/documentation/gee_tasks.rst:26
 msgid ""
 "To download results to the computer once a task has finished, click on the "
 "task you are interested in downloading results for, then click `Download "
@@ -80,3 +89,63 @@ msgstr ""
 "vários arquivos - todos esses arquivos precisam ser mantidos juntos se os "
 "resultados forem movidos para um local diferente no computador (ou salvos em"
 " um pendrive)."
+
+#: ../../../<rst_epilog>:2
+msgid "iconCalculator"
+msgstr ""
+
+#: ../../../<rst_epilog>:4
+msgid "iconChart"
+msgstr ""
+
+#: ../../../<rst_epilog>:6
+msgid "iconClipboard"
+msgstr ""
+
+#: ../../../<rst_epilog>:10
+msgid "iconCog"
+msgstr ""
+
+#: ../../../<rst_epilog>:12
+msgid "iconGlobe"
+msgstr ""
+
+#: ../../../<rst_epilog>:14
+msgid "iconGraph"
+msgstr ""
+
+#: ../../../<rst_epilog>:16
+msgid "iconInfo"
+msgstr ""
+
+#: ../../../<rst_epilog>:18
+msgid "iconMarkMarker"
+msgstr ""
+
+#: ../../../<rst_epilog>:20
+msgid "iconWrench"
+msgstr ""
+
+#: ../../../<rst_epilog>:22
+msgid "iconFolder"
+msgstr ""
+
+#: ../../../<rst_epilog>:24
+msgid "iconVisualization"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoCI"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoLund"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoNASA"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoGEF"
+msgstr ""

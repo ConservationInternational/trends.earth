@@ -1,20 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2018, Conservation International
+# Copyright (C) 2017-2021, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2020
 # Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020
+# Alex Zvoleff <azvoleff@conservation.org>, 2021
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 1.0.1\n"
+"Project-Id-Version: Trends.Earth 1.0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-27 17:17-0400\n"
+"POT-Creation-Date: 2021-07-15 21:04-0400\n"
 "PO-Revision-Date: 2018-03-14 19:31+0000\n"
-"Last-Translator: Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2021\n"
 "Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,11 +23,11 @@ msgstr ""
 "Language: pt\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:2
+#: ../../source/about/faq.rst:2
 msgid "Frequently asked questions"
 msgstr "Perguntas frequentes"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:4
+#: ../../source/about/faq.rst:4
 msgid ""
 "This page lists some Frequently Asked Questions (FAQs) for the "
 "|trends.earth| tool."
@@ -34,17 +35,21 @@ msgstr ""
 "Esta página lista algumas Perguntas frequentes (FAQs) para a ferramenta "
 "|trends.earth|"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:8
+#: ../../../<rst_epilog>:26 ../../../<rst_epilog>:26 ../../../<rst_epilog>:26
+msgid "Trends.Earth"
+msgstr "Trends.Earth"
+
+#: ../../source/about/faq.rst:8
 msgid "General Questions"
 msgstr "Questões gerais"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:11
+#: ../../source/about/faq.rst:11
 msgid "Is there a user group I can share experiences with and learn from?"
 msgstr ""
 "Existe um grupo de usuários com quem eu possa compartilhar experiências e "
 "aprender?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:13
+#: ../../source/about/faq.rst:13
 msgid ""
 "Yes, we recently created a `Google group for Trends.Earth users "
 "<https://groups.google.com/forum/#!forum/trends_earth_users>`_ so please "
@@ -70,11 +75,11 @@ msgstr ""
 "experiências e experiências únicas. O grupo também será usado para anúncios "
 "sobre atualizações de ferramentas e esforços de capacitação."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:25
+#: ../../source/about/faq.rst:25
 msgid "How do I find more information on the project?"
 msgstr "Como encontro mais informações sobre o projeto?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:27
+#: ../../source/about/faq.rst:27
 msgid ""
 "More information on the toolbox can be found at `trends.earth "
 "<http://trends.earth>`_ and reports are available on the `Vital Signs "
@@ -91,11 +96,11 @@ msgstr ""
 "<http://vitalsigns.org/gef-ldmp/email-distribution-list>`_ para ficar em "
 "contato com qualquer avanços com a lista de distrubtion dos projetos."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:35
+#: ../../source/about/faq.rst:35
 msgid "How can I provide feedback on the tool?"
 msgstr "Como posso fornecer feedback sobre a ferramenta?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:37
+#: ../../source/about/faq.rst:37
 msgid ""
 "There are three ways to give feedback, emailing the project team, visiting "
 "the project site and messaging through the anonymous form or rate the "
@@ -117,16 +122,16 @@ msgstr ""
 " selecionando o número de estrelas que você gostaria de dar ao plugin, sendo"
 " que 5 estrelas estão muito satisfeitas."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:47
+#: ../../source/about/faq.rst:47
 msgid "Installation of Trends.Earth"
 msgstr "Instalação de Trends.Earth"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:51
+#: ../../source/about/faq.rst:51
 msgid "What version of Quantum GIS (QGIS) do I need for the toolbox?"
 msgstr ""
 "Qual versão do Quantum GIS (QGIS) eu preciso para a caixa de ferramentas?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:53
+#: ../../source/about/faq.rst:53
 msgid ""
 "To download QGIS, please go to the QGIS Downloads page. As of February 2018,"
 " version 3.0 was released. Please use version 2.18 for the trends.earth "
@@ -138,11 +143,11 @@ msgstr ""
 "trends.earth. Uma versão compatível com a versão mais recente será lançada "
 "em futuras iterações do projeto."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:59
+#: ../../source/about/faq.rst:59
 msgid "Do I need to download a 32-bit or 64 bit version of QGIS?"
 msgstr "Preciso fazer o download de uma versão de 32 ou 64 bits do QGIS?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:61
+#: ../../source/about/faq.rst:61
 msgid ""
 "We recommend downloading 64-bit version (2.18), but you may need to download"
 " the 32-bit version for 32-bit operating systems. To find out if your "
@@ -158,11 +163,11 @@ msgstr ""
 "Painel de Controle e abrirá uma janela que diz o tipo de sistema. Exemplo: "
 "Tipo de sistema: Sistema operacional de 64 bits, processador baseado em x64."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:68
+#: ../../source/about/faq.rst:68
 msgid "Windows 7 or Windows Vista:"
 msgstr "Windows 7 ou Windows Vista:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:70
+#: ../../source/about/faq.rst:70
 msgid ""
 "Open System by clicking the Start button , right-clicking Computer, and then"
 " clicking Properties."
@@ -170,33 +175,33 @@ msgstr ""
 "Abra o sistema clicando no botão Iniciar, clicando com o botão direito do "
 "mouse em Computador e, em seguida, clicando em Propriedades."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:72
+#: ../../source/about/faq.rst:72
 msgid "Under System, you can view the system type."
 msgstr "Em Sistema, você pode visualizar o tipo de sistema."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:74
+#: ../../source/about/faq.rst:74
 msgid "Windows 8 or Windows 10:"
 msgstr "Windows 8 ou Windows 10:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:76
+#: ../../source/about/faq.rst:76
 msgid "From the Start screen, type This PC."
 msgstr "Na tela inicial, digite Meu Computador."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:77
+#: ../../source/about/faq.rst:77
 msgid "Right Click (or tap and hold) This PC, and click Properties."
 msgstr "Clique com o botão direito (ou toque e segure) em Meu Computador"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:79
+#: ../../source/about/faq.rst:79
 msgid "Mac:"
 msgstr "Mac:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:81
+#: ../../source/about/faq.rst:81
 msgid "Click the Apple icon in the top left and select \"About this Mac\"."
 msgstr ""
 "Clique no ícone da Apple no canto superior esquerdo e selecione \"Sobre este"
 " Mac\"."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:82
+#: ../../source/about/faq.rst:82
 msgid ""
 "For more advanced details click \"More Info...\" in the About This Mac "
 "window."
@@ -204,11 +209,11 @@ msgstr ""
 "Para detalhes mais avançados, clique em \"Mais informações...\" na janela "
 "Sobre este Mac."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:85
+#: ../../source/about/faq.rst:85
 msgid "How do I install the plugin?"
 msgstr "Como instalo o plugin?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:87
+#: ../../source/about/faq.rst:87
 msgid ""
 "Open QGIS, navigate to Plugins on the menu bar, and select Manage and "
 "install plugins. On the side menu, select All to view the plugins available "
@@ -220,11 +225,11 @@ msgstr ""
 "visualizar os todos plugins disponíveis no QGIS. Pesquise trends.earth e "
 "selecione Instalar plugin na parte inferior da janela."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:92
+#: ../../source/about/faq.rst:92
 msgid "How do I upgrade the plugin?"
 msgstr "Como atualizo o plugin?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:94
+#: ../../source/about/faq.rst:94
 msgid ""
 "If you have already installed the plugin, navigate to Plugins on the menu "
 "bar, and select Manage and install plugins. On the side menu, select "
@@ -238,11 +243,11 @@ msgstr ""
 " Na parte inferior da janela, selecione Atualizar Tudo para atualizar a "
 "ferramenta para a versão mais recente."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:100
+#: ../../source/about/faq.rst:100
 msgid "How do I uninstall the plugin?"
 msgstr "Como eu desinstalo o plugin?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:102
+#: ../../source/about/faq.rst:102
 msgid ""
 "If you would like to uninstall the plugin, normally you can do so with the "
 "QGIS plugins manager. To access the tool, choose \"Plugins\" and then "
@@ -258,7 +263,7 @@ msgstr ""
 "à esquerda. Em seguida, clique em \"Trends.Earth\" na lista de plugins e em "
 "\"Desinstalar plug-in\" para desinstalá-lo."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:109
+#: ../../source/about/faq.rst:109
 msgid ""
 "If you encounter an error uninstalling the plugin, it is also possible to "
 "remove it manually. To manually remove the plugin:"
@@ -266,11 +271,11 @@ msgstr ""
 "Se você encontrar um erro ao desinstalar o plugin, também é possível removê-"
 "lo manualmente. Para remover manualmente o plugin:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:112
+#: ../../source/about/faq.rst:112
 msgid "Open QGIS"
 msgstr "Abra o QGIS"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:113
+#: ../../source/about/faq.rst:113
 msgid ""
 "Navigate to where the plugin is installed by selecting \"Open Active Profile"
 " Folder\" from the menu under \"Settings\" - \"User Profiles\" on the menu "
@@ -280,7 +285,7 @@ msgstr ""
 "perfil ativo\" no menu em \"Configurações\" - \"Perfis de usuário\" na barra"
 " de menus."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:115
+#: ../../source/about/faq.rst:115
 msgid ""
 "Quit QGIS. You may not be able to uninstall the plugin if QGIS is not "
 "closed."
@@ -288,7 +293,7 @@ msgstr ""
 "Saia do QGIS. Talvez você não consiga desinstalar o plugin se o QGIS não "
 "estiver fechado."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:117
+#: ../../source/about/faq.rst:117
 msgid ""
 "In the file browser window that opened, double click on \"python\", and then"
 " double click on \"plugins\". Delete the LDMP folder within that directory."
@@ -297,19 +302,19 @@ msgstr ""
 "\"python\" e, em seguida, clique duas vezes em \"plugins\". Exclua a pasta "
 "LDMP dentro desse diretório."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:119
+#: ../../source/about/faq.rst:119
 msgid "Restart QGIS."
 msgstr "Reinicie o QGIS."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:122
+#: ../../source/about/faq.rst:122
 msgid "Datasets"
 msgstr "Conjuntos de dados"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:125
+#: ../../source/about/faq.rst:125
 msgid "When will you update datasets for the current year?"
 msgstr "Quando você atualizará os conjuntos de dados para o ano atual?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:127
+#: ../../source/about/faq.rst:127
 msgid ""
 "Trends.Earth uses publicly available data, as such the most up to date "
 "datasets will be added to the toolbox as soon as the original data providers"
@@ -321,11 +326,11 @@ msgstr ""
 " as fontes de dados originais os tornarem públicos. Se você notar alguma "
 "atualização que tenha perdido, informe-nos."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:132
+#: ../../source/about/faq.rst:132
 msgid "Is there an option to download the original data?"
 msgstr "Existe uma opção para baixar os dados originais?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:134
+#: ../../source/about/faq.rst:134
 msgid ""
 "Users can download the original data using the Download option within the "
 "toolbox."
@@ -333,12 +338,12 @@ msgstr ""
 "Os usuários podem baixar os dados originais usando a opção Download na caixa"
 " de ferramentas."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:138
+#: ../../source/about/faq.rst:138
 msgid "Will the toolbox support higher resolution datasets?"
 msgstr ""
 "A caixa de ferramentas suporta conjuntos de dados de resolução mais alta?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:140
+#: ../../source/about/faq.rst:140
 msgid ""
 "The toolbox currently supports AVHRR (8km) and MODIS (250m) data for primary"
 " productivity analysis, and ESA LCC CCI (300m) for land cover change "
@@ -348,13 +353,13 @@ msgstr ""
 "análise primária da produtividade, e CCC LCC da ESA (300 m) para análise da "
 "alteração da cobertura do solo."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:144
+#: ../../source/about/faq.rst:144
 msgid "Can the toolbox support analysis with national-level datasets?"
 msgstr ""
 "A caixa de ferramentas pode suportar análises com conjuntos de dados em "
 "nível nacional?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:146
+#: ../../source/about/faq.rst:146
 msgid ""
 "This is a common request from users, and one the team is working on. "
 "Trends.Earth will allow loading of national-level soil carbon and land cover"
@@ -369,15 +374,15 @@ msgstr ""
 " de dados existentes que podem ser de maior qualidade em nível nacional do "
 "que os conjuntos de dados globais que são os padrões na ferramenta."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:153
+#: ../../source/about/faq.rst:153
 msgid "Methods"
 msgstr "Métodos"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:156
+#: ../../source/about/faq.rst:156
 msgid "Who was the default time period for the analysis determined?"
 msgstr "Qual foi o período de tempo padrão para a análise determinado?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:158
+#: ../../source/about/faq.rst:158
 msgid ""
 "The default time period of analysis is from years 2001 to 2015. These were "
 "recommended by the `Good Practice Guidelines "
@@ -393,15 +398,15 @@ msgstr ""
 " um documento que fornece recomendações detalhadas para medir a degradação "
 "do solo e que foi adotado pela UNCCD."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:165
+#: ../../source/about/faq.rst:165
 msgid "Productivity"
 msgstr "Produtividade"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:168
+#: ../../source/about/faq.rst:168
 msgid "How does the result provided by state differs from trajectory?"
 msgstr "Como o resultado fornecido pelo estado difere da trajetória?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:170
+#: ../../source/about/faq.rst:170
 msgid ""
 "The trajectory analysis uses linear regressions and non-parametric tests to "
 "identify long term significant trends in primary productivity. This method "
@@ -418,11 +423,11 @@ msgstr ""
 "com o período mais recente, o estado é capaz de capturar essas mudanças mais"
 " recentes."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:179
+#: ../../source/about/faq.rst:179
 msgid "Land cover"
 msgstr "Cobertura da terra"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:182
+#: ../../source/about/faq.rst:182
 msgid ""
 "Currently, the land cover aggregation is done following the UNCCD "
 "guidelines, but that classification does not take into account country level"
@@ -434,7 +439,7 @@ msgstr ""
 "características do país. Seria possível permitir ao usuário definir os "
 "critérios de agregação?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:184
+#: ../../source/about/faq.rst:184
 msgid ""
 "Users are able to make these changes using the advanced settings in the land"
 " cover GUI so that appropriate aggregations occur depending on the context "
@@ -444,12 +449,12 @@ msgstr ""
 "na GUI de cobertura do solo para que as agregações apropriadas ocorram "
 "dependendo do contexto de seu país."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:189
+#: ../../source/about/faq.rst:189
 msgid "How can we isolate woody plant encroachment within the toolbox?"
 msgstr ""
 "Como podemos isolar a invasão de plantas lenhosas dentro da ferramentas?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:191
+#: ../../source/about/faq.rst:191
 msgid ""
 "This can be altered using the land cover change matrix in the toolbox. For "
 "every transition, the user can mark the change as stable, improvement or "
@@ -463,11 +468,11 @@ msgstr ""
 "naturais/pastagem para arbustos pode indicar invasão lenhosa e esta "
 "transição pode ser marcada como um indicador de degradação."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:198
+#: ../../source/about/faq.rst:198
 msgid "Carbon stocks"
 msgstr "Estoques de carbono"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:201
+#: ../../source/about/faq.rst:201
 msgid ""
 "Why use soil organic carbon (SOC) instead of above and below-ground carbon "
 "to  measure carbon stocks?"
@@ -475,7 +480,7 @@ msgstr ""
 "Por que usar carbono orgânico do solo (SOC) em vez de carbono acima e abaixo"
 " do solo para medir os estoques de carbono?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:203
+#: ../../source/about/faq.rst:203
 msgid ""
 "The original proposed indicator is Carbon Stocks, which would include above "
 "and below ground biomass. However, given the lack of consistently generated "
@@ -495,7 +500,7 @@ msgstr ""
 "links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_"
 "  publicado pelo UNCCD recomenda, por enquanto, usar SOC como indicador."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:212
+#: ../../source/about/faq.rst:212
 msgid ""
 "Is it possible to measure identify processes of degradation linked to "
 "salinization using this tool?"
@@ -503,7 +508,7 @@ msgstr ""
 "É possível medir processos de degradação ligados à salinização usando esta "
 "ferramenta?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:214
+#: ../../source/about/faq.rst:214
 msgid ""
 "Not directly. If salinization caused a reduction in primary productivity, "
 "that decrease would be identified by the productivity indicators, but the "
@@ -514,18 +519,18 @@ msgstr ""
 "produtividade, mas os usuários teriam que usar seu conhecimento local para "
 "atribuir as causas."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:219
+#: ../../source/about/faq.rst:219
 msgid "Land degradation outputs"
 msgstr "Produtos gerados para degradação do solo"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:222
+#: ../../source/about/faq.rst:222
 msgid ""
 "How were the layers combined to define the final land degradation layer?"
 msgstr ""
 "Como as camadas foram combinadas para definir a camada final de degradação "
 "do solo?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:224
+#: ../../source/about/faq.rst:224
 msgid ""
 "Performance, state, and trajectory (the three indicators of change in "
 "productivity_) are combined following a modified version of the good "
@@ -545,7 +550,7 @@ msgstr ""
 "houver um declínio em qualquer um dos três indicadores em um pixel "
 "específico, esse pixel será mapeado como \"degradado\"."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:233
+#: ../../source/about/faq.rst:233
 msgid ""
 "Why do I see areas the data says are improving or degrading when I know they"
 " are not?"
@@ -553,7 +558,7 @@ msgstr ""
 "Por que vejo áreas que os dados dizem estar melhorando ou degradando quando "
 "sei que não estão?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:235
+#: ../../source/about/faq.rst:235
 msgid ""
 "The final output should be interpreted as showing areas potentially "
 "degraded. The indicator of land degradation is based on changes in "
@@ -583,7 +588,7 @@ msgstr ""
 "que não serão os mais relevantes em todas as escalas e regiões geográficas. "
 "Uma funcionalidade para usar dados locais será adicionada em breve."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:249
+#: ../../source/about/faq.rst:249
 msgid ""
 "All of the sub-indicators are measuring vegetation: how does this contribute"
 " to understanding and identifying land degradation?"
@@ -591,7 +596,7 @@ msgstr ""
 "Todos os subindicadores estão medindo a vegetação: como isso contribui para "
 "entender e identificar a degradação do solo?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:251
+#: ../../source/about/faq.rst:251
 msgid ""
 "Vegetation is a key component of most ecosystems, and serve as a good proxy "
 "for their overall functioning and health. The three subindicators used for "
@@ -624,15 +629,15 @@ msgstr ""
 "global do solo, há um consenso de que, neste momento e globalmente, esta é a"
 " melhor abordagem."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:266
+#: ../../source/about/faq.rst:266
 msgid "Future plans"
 msgstr "Planos futuros"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:269
+#: ../../source/about/faq.rst:269
 msgid "When will there be an offline version of the toolbox?"
 msgstr "Quando haverá uma versão offline da ferramenta?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:271
+#: ../../source/about/faq.rst:271
 msgid ""
 "The final toolbox will be available as both as an offline and online "
 "version. The online version allows users to access current datasets more "
@@ -655,11 +660,11 @@ msgstr ""
 "ferramenta e fornecer aos países dados relevantes para relatórios em nível "
 "nacional nos países do projeto piloto."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:282
+#: ../../source/about/faq.rst:282
 msgid "Will you create a trends.earth toolbox for ESRI users?"
 msgstr "Vocês irão criar uma ferramenta trends.earth para usuários de ESRI?"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\faq.rst:284
+#: ../../source/about/faq.rst:284
 msgid ""
 "The toolbox is currently available as a plugin to QGIS, an open source "
 "software package. This allows users around the world free access to the "
@@ -670,3 +675,67 @@ msgstr ""
 "pacote de software de código aberto. Isso permite que usuários de todo o "
 "mundo tenham acesso gratuito à ferramenta. Atualmente não há planos para "
 "construir uma caixa de ferramentas dentro do ArcGIS ou ArcPro."
+
+#: ../../../<rst_epilog>:2
+msgid "iconCalculator"
+msgstr ""
+
+#: ../../../<rst_epilog>:4
+msgid "iconChart"
+msgstr ""
+
+#: ../../../<rst_epilog>:6
+msgid "iconClipboard"
+msgstr ""
+
+#: ../../../<rst_epilog>:8
+msgid "iconCloudDownload"
+msgstr ""
+
+#: ../../../<rst_epilog>:10
+msgid "iconCog"
+msgstr ""
+
+#: ../../../<rst_epilog>:12
+msgid "iconGlobe"
+msgstr ""
+
+#: ../../../<rst_epilog>:14
+msgid "iconGraph"
+msgstr ""
+
+#: ../../../<rst_epilog>:16
+msgid "iconInfo"
+msgstr ""
+
+#: ../../../<rst_epilog>:18
+msgid "iconMarkMarker"
+msgstr ""
+
+#: ../../../<rst_epilog>:20
+msgid "iconWrench"
+msgstr ""
+
+#: ../../../<rst_epilog>:22
+msgid "iconFolder"
+msgstr ""
+
+#: ../../../<rst_epilog>:24
+msgid "iconVisualization"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoCI"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoLund"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoNASA"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoGEF"
+msgstr ""

@@ -1,5 +1,5 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2018, Conservation International
+# Copyright (C) 2017-2021, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
@@ -10,9 +10,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 1.0.1\n"
+"Project-Id-Version: Trends.Earth 1.0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-27 17:17-0400\n"
+"POT-Creation-Date: 2021-07-15 21:04-0400\n"
 "PO-Revision-Date: 2018-03-14 19:33+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2020\n"
 "Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
@@ -22,11 +22,11 @@ msgstr ""
 "Language: sw\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:2
+#: ../../source/documentation/load_data.rst:2
 msgid "Load data tool"
 msgstr "Weka chombo cha data"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:6
+#: ../../source/documentation/load_data.rst:6
 msgid ""
 "The \"Load data\" function allows the user to load data into QGIS and "
 "|trends.earth| for analysis."
@@ -34,7 +34,12 @@ msgstr ""
 "Kazi ya \"Dhibiti data\" inaruhusu mtumiaji kupakia data katika QGIS na | "
 "trends.earth | kwa uchambuzi."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:9
+#: ../../../<rst_epilog>:26 ../../../<rst_epilog>:26 ../../../<rst_epilog>:26
+#: ../../../<rst_epilog>:26 ../../../<rst_epilog>:26
+msgid "Trends.Earth"
+msgstr ""
+
+#: ../../source/documentation/load_data.rst:9
 msgid ""
 "There are two options, to load results of |trends.earth| analysis or to load"
 " custom datasets which will be used to compute the indicators."
@@ -42,23 +47,23 @@ msgstr ""
 "Kuna chaguzi mbili, kupakia matokeo ya | trends.earth | uchambuzi au kupakia"
 " dasaset za desturi zitakazotumiwa kuhesabu viashiria."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:16
+#: ../../source/documentation/load_data.rst:16
 msgid "Load a dataset produced by Trends.Earth"
 msgstr "Weka dasaset iliyotolewa na Trends.Earth"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:18
+#: ../../source/documentation/load_data.rst:18
 msgid ""
 "This option lets you load already downloaded results from |trends.earth|."
 msgstr ""
 "Chaguo hili inakuwezesha kupakia matokeo tayari kupakuliwa kutoka | "
 "trends.earth |."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:21
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:111
+#: ../../source/documentation/load_data.rst:21
+#: ../../source/documentation/load_data.rst:111
 msgid "Productivity"
 msgstr "Uzalishaji"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:23
+#: ../../source/documentation/load_data.rst:23
 msgid ""
 "Use this function to load into the QGIS map pre-computed productivity "
 "indicators which had been processed to identify land degradation."
@@ -66,7 +71,7 @@ msgstr ""
 "Tumia kazi hii kupakia kwenye ramani ya QGIS ramani ambazo hazijaanzishwa "
 "kabla ya kuchambuliwa ambazo zimekusanywa kutambua uharibifu wa ardhi."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:26
+#: ../../source/documentation/load_data.rst:26
 msgid ""
 "Navigate to the folder where you stored the downloaded file and select it. "
 "The downloaded file is an 8 band raster, with each band representing the "
@@ -84,21 +89,21 @@ msgstr ""
 "default: trajectory (uharibifu na mteremko), utendaji na hali. Ikiwa unataka"
 " kupakia tabaka zingine, chagua tu na bofya OK."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:34
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:56
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:81
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:100
+#: ../../source/documentation/load_data.rst:34
+#: ../../source/documentation/load_data.rst:56
+#: ../../source/documentation/load_data.rst:81
+#: ../../source/documentation/load_data.rst:100
 msgid ""
 "The layers will be loaded in the QGIS map with its corresponding symbology."
 msgstr ""
 "Vipande vilivyowekwa kwenye ramani ya QGIS na ishara yake inayofanana."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:40
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:129
+#: ../../source/documentation/load_data.rst:40
+#: ../../source/documentation/load_data.rst:129
 msgid "Land cover"
 msgstr "Bima ya ardhi"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:42
+#: ../../source/documentation/load_data.rst:42
 msgid ""
 "This option lets you load pre-computed land cover indicators which had been "
 "processed to identify land degradation."
@@ -106,7 +111,7 @@ msgstr ""
 "Chaguo hili inakuwezesha kupakia vigezo vya kifuniko cha ardhi kabla ya "
 "kuchambuliwa ambayo imechukuliwa ili kutambua uharibifu wa ardhi."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:45
+#: ../../source/documentation/load_data.rst:45
 msgid ""
 "Navigate to the folder where you stored the downloaded file and select it. "
 "The downloaded file is a multi band raster. The number of bands will depend "
@@ -120,7 +125,7 @@ msgstr ""
 "ya ardhi ya ESA CCI cha kutumiwa ilitumiwa, kwa mfano, ramani za ramani za "
 "kila mwaka zitapakuliwa."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:49
+#: ../../source/documentation/load_data.rst:49
 msgid ""
 "The bands in the stack represent: initial and final land cover (annual if "
 "available) both in the original classification scheme and using the UNCCD 7 "
@@ -135,12 +140,12 @@ msgstr ""
 "na subindicator hii. Ikiwa unataka kupakia tabaka zingine ambazo "
 "hazichaguliwa kwa default, chagua tu na bonyeza OK."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:63
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:145
+#: ../../source/documentation/load_data.rst:63
+#: ../../source/documentation/load_data.rst:145
 msgid "Soil organic carbon"
 msgstr "Mkaa kaboni ya udongo"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:65
+#: ../../source/documentation/load_data.rst:65
 msgid ""
 "This option lets you load pre-computed soil organic carbon indicators which "
 "had been processed to identify land degradation."
@@ -148,7 +153,7 @@ msgstr ""
 "Chaguo hili inakuwezesha kupakia viashiria vya kaboni za kaboni ambavyo "
 "vilikuwa vimeongezwa ili kutambua uharibifu wa ardhi."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:68
+#: ../../source/documentation/load_data.rst:68
 msgid ""
 "Navigate to the folder where you stored the downloaded file and select it. "
 "The downloaded file is a multi band raster. The number of bands will depend "
@@ -162,7 +167,7 @@ msgstr ""
 "ya ardhi ya ESA CCI cha kutumiwa ilitumiwa, kwa mfano, ramani za kila kaboni"
 " za kaboni za udongo zitapakuliwa."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:72
+#: ../../source/documentation/load_data.rst:72
 msgid ""
 "The bands in the stack represent: initial and final soil organic carbon "
 "stocks (annual soc if annual land data is available), initial and final land"
@@ -182,11 +187,11 @@ msgstr ""
 "uharibifu kulingana na ishara ya mabadiliko. Ikiwa unataka kupakia tabaka "
 "zingine ambazo hazichaguliwa kwa default, chagua tu na bonyeza OK."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:88
+#: ../../source/documentation/load_data.rst:88
 msgid "SDG 15.3.1 indicator"
 msgstr "SDG 15.3.1 kiashiria"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:90
+#: ../../source/documentation/load_data.rst:90
 msgid ""
 "This option lets you load pre-computed productivity subindicator (the "
 "integration of trajectory, performance and state) as well as the final SDG "
@@ -196,7 +201,7 @@ msgstr ""
 "(ushirikiano wa trajectory, utendaji na hali) pamoja na SDG ya mwisho 15.3.1"
 " (ushirikiano wa tija, bomba la ardhi na kaboni ya kaboni ya udongo)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:94
+#: ../../source/documentation/load_data.rst:94
 msgid ""
 "Navigate to the folder where you stored the downloaded file and select it. "
 "The downloaded file is an 2 band raster, the first one containing "
@@ -207,11 +212,11 @@ msgstr ""
 "iliyopakuliwa ni raster 2 ya bandari, ya kwanza iliyo na habari kwenye SDG "
 "na ya pili kwenye subindicator ya uzalishaji wa madarasa 5."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:107
+#: ../../source/documentation/load_data.rst:107
 msgid "Load a custom input dataset"
 msgstr "Weka dasaset ya pembejeo ya desturi"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:113
+#: ../../source/documentation/load_data.rst:113
 msgid ""
 "Use this option to load productivity datasets which have already been "
 "generated outside of |trends.earth|."
@@ -219,13 +224,13 @@ msgstr ""
 "Tumia chaguo hili kupakia dasasets za uzalishaji ambayo tayari imezalishwa "
 "nje ya | trends.earth |."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:115
+#: ../../source/documentation/load_data.rst:115
 msgid "Productivity classes in the input data must be coded as follows:"
 msgstr ""
 "Madarasa ya uzalishaji katika data ya pembejeo lazima ionyeshe kama "
 "ifuatavyo:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:117
+#: ../../source/documentation/load_data.rst:117
 msgid ""
 "1: Declining 2: Early signs of decline 3: Stable but stressed 4: Stable 5: "
 "Increasing 0 or -32768: No data"
@@ -233,7 +238,7 @@ msgstr ""
 "1: Kupungua 2: Ishara za mapema ya kushuka kwa 3: imara lakini imesisitiza "
 "4: imara 5: kuongeza 0 au -32768: hakuna data"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:131
+#: ../../source/documentation/load_data.rst:131
 msgid ""
 "Use this option to load land cover datasets which will then be used for land"
 " cover change analysis and/or soil organic carbon change analysis."
@@ -242,7 +247,7 @@ msgstr ""
 "kwa uchambuzi wa mabadiliko ya bima ya ardhi na / au uchambuzi wa mabadiliko"
 " ya kaboni ya kaboni."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:137
+#: ../../source/documentation/load_data.rst:137
 msgid ""
 "If you'll be using the `CORINE land cover data "
 "<https://www.eea.europa.eu/publications/COR0-landcover>`_, you can use `this"
@@ -259,7 +264,7 @@ msgstr ""
 "ardhi huko Corine ili kuwabadilisha kwenye madarasa ya 7 ya UNCCD ya bima ya"
 " ardhi."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:147
+#: ../../source/documentation/load_data.rst:147
 msgid ""
 "Processing of custom soil organic carbon data can be handled using this "
 "tool."
@@ -267,7 +272,7 @@ msgstr ""
 "Usindikaji wa data ya kaboni ya kikaboni ya ardhi inaweza kushughulikiwa kwa"
 " kutumia zana hii."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\load_data.rst:150
+#: ../../source/documentation/load_data.rst:150
 msgid ""
 "This tool assumes that the units of the raster layer to be imported are "
 "**Metrics Tons of organic carbon per hectare**. If your layer is in "
@@ -278,3 +283,67 @@ msgstr ""
 "Metroni Tani za kaboni hai kwa hekta moja. Ikiwa safu yako iko katika "
 "vitengo tofauti, tafadhali fanya ubadilishaji unaohitajika kabla ya kuitumia"
 " katika Mtaala.Earth."
+
+#: ../../../<rst_epilog>:2
+msgid "iconCalculator"
+msgstr ""
+
+#: ../../../<rst_epilog>:4
+msgid "iconChart"
+msgstr ""
+
+#: ../../../<rst_epilog>:6
+msgid "iconClipboard"
+msgstr ""
+
+#: ../../../<rst_epilog>:8
+msgid "iconCloudDownload"
+msgstr ""
+
+#: ../../../<rst_epilog>:10
+msgid "iconCog"
+msgstr ""
+
+#: ../../../<rst_epilog>:12
+msgid "iconGlobe"
+msgstr ""
+
+#: ../../../<rst_epilog>:14
+msgid "iconGraph"
+msgstr ""
+
+#: ../../../<rst_epilog>:16
+msgid "iconInfo"
+msgstr ""
+
+#: ../../../<rst_epilog>:18
+msgid "iconMarkMarker"
+msgstr ""
+
+#: ../../../<rst_epilog>:20
+msgid "iconWrench"
+msgstr ""
+
+#: ../../../<rst_epilog>:22
+msgid "iconFolder"
+msgstr ""
+
+#: ../../../<rst_epilog>:24
+msgid "iconVisualization"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoCI"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoLund"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoNASA"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoGEF"
+msgstr ""

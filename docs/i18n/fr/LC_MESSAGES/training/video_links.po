@@ -1,5 +1,5 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2018, Conservation International
+# Copyright (C) 2017-2021, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
@@ -10,9 +10,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 1.0.1\n"
+"Project-Id-Version: Trends.Earth 1.0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-27 17:17-0400\n"
+"POT-Creation-Date: 2021-07-15 21:04-0400\n"
 "PO-Revision-Date: 2017-11-21 20:57+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
@@ -22,31 +22,31 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\video_links.rst:2
+#: ../../source/training/video_links.rst:2
 msgid "Video Overviews"
 msgstr "Présentation des vidéos"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\video_links.rst:4
+#: ../../source/training/video_links.rst:4
 msgid "`Installing QGIS (English) <https://youtu.be/d7qCSpauj0g>`_"
 msgstr "`Installation de QGIS (en anglais) <https://youtu.be/d7qCSpauj0g>`_"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\video_links.rst:5
+#: ../../source/training/video_links.rst:5
 msgid "`Toolbox installation (English) <https://youtu.be/uSTvNMpZF4I>`_"
 msgstr ""
 "`Installation de la boîte à outils (en anglais) "
 "<https://youtu.be/uSTvNMpZF4I>`_"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\video_links.rst:6
+#: ../../source/training/video_links.rst:6
 msgid "`Toolbox setup (English) <https://youtu.be/qm5LFF-jhaM>`_"
 msgstr ""
 "`Configuration de la boîte à outils (en anglais) <https://youtu.be/qm5LFF-"
 "jhaM>`_"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\video_links.rst:7
+#: ../../source/training/video_links.rst:7
 msgid "Download data (English)"
 msgstr "Télécharger les données (en anglais)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\video_links.rst:8
+#: ../../source/training/video_links.rst:8
 msgid ""
 "`Calculate Indicators - Trends.Earth Overview (English) "
 "<https://youtu.be/MY1iuedIkFE>`_"
@@ -54,7 +54,7 @@ msgstr ""
 "`Calculer les indicateurs - Aperçu de Trends.Earth (Anglais) "
 "<https://youtu.be/MY1iuedIkFE> `_"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\video_links.rst:9
+#: ../../source/training/video_links.rst:9
 msgid ""
 "`Calculate Indicators - Detailed Trends.Earth Tutorial (English) "
 "<https://youtu.be/MY1iuedIkFE>`_"
@@ -62,32 +62,100 @@ msgstr ""
 "`Calculer les indicateurs - Détaillé Trends.Earth Tutorial (Anglais) "
 "<https://youtu.be/MY1iuedIkFE> `_"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\video_links.rst:10
+#: ../../source/training/video_links.rst:10
 msgid "Calculate Indicators - Productivity(English)"
 msgstr "Calculate Indicators - Productivity (Anglais)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\video_links.rst:11
+#: ../../source/training/video_links.rst:11
 msgid "Calculate Indicators - Land Cover (English)"
 msgstr "Calculate Indicators - Land Cover (Anglais)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\video_links.rst:12
+#: ../../source/training/video_links.rst:12
 msgid "Calculate Indicators - Soil Organic Carbon (English)"
 msgstr "Indicateurs de calcul - Carbone organique du sol (anglais)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\video_links.rst:13
+#: ../../source/training/video_links.rst:13
 msgid "Visualizing indicators (English)"
 msgstr "Visualisation des indicateurs (en anglais)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\video_links.rst:14
+#: ../../source/training/video_links.rst:14
 msgid "`Plotting time series data (English) <https://youtu.be/w3J6o9HMbJ0>`_"
 msgstr ""
 "`Tracer des données de séries chronologiques (en anglais) "
 "<https://youtu.be/w3J6o9HMbJ0>`_"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\video_links.rst:15
+#: ../../source/training/video_links.rst:15
 msgid "Reporting SDG and UNCCD (English)"
 msgstr "Notification des ODD et de la CNULCD (en anglais)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\video_links.rst:16
+#: ../../source/training/video_links.rst:16
 msgid "Interpreting results (English)"
 msgstr "Interprétation des résultats (en anglais)"
+
+#: ../../../<rst_epilog>:2
+msgid "iconCalculator"
+msgstr ""
+
+#: ../../../<rst_epilog>:4
+msgid "iconChart"
+msgstr ""
+
+#: ../../../<rst_epilog>:6
+msgid "iconClipboard"
+msgstr ""
+
+#: ../../../<rst_epilog>:8
+msgid "iconCloudDownload"
+msgstr ""
+
+#: ../../../<rst_epilog>:10
+msgid "iconCog"
+msgstr ""
+
+#: ../../../<rst_epilog>:12
+msgid "iconGlobe"
+msgstr ""
+
+#: ../../../<rst_epilog>:14
+msgid "iconGraph"
+msgstr ""
+
+#: ../../../<rst_epilog>:16
+msgid "iconInfo"
+msgstr ""
+
+#: ../../../<rst_epilog>:18
+msgid "iconMarkMarker"
+msgstr ""
+
+#: ../../../<rst_epilog>:20
+msgid "iconWrench"
+msgstr ""
+
+#: ../../../<rst_epilog>:22
+msgid "iconFolder"
+msgstr ""
+
+#: ../../../<rst_epilog>:24
+msgid "iconVisualization"
+msgstr ""
+
+#: ../../../<rst_epilog>:26
+msgid "Trends.Earth"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoCI"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoLund"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoNASA"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoGEF"
+msgstr ""

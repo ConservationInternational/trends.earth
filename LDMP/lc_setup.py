@@ -223,7 +223,8 @@ def get_trans_matrix():
     if matrix is None:
         matrix = read_lc_matrix_file(os.path.join(os.path.dirname(os.path.realpath(__file__)),
                                      'data', 'land_cover_transition_matrix_UNCCD.json'))
-        QSettings().setValue("LDMP/land_cover_transition_matrix", LCTransMatrix.Schema().dumps(matrix))
+        if matrix:
+            QSettings().setValue("LDMP/land_cover_transition_matrix", LCTransMatrix.Schema().dumps(matrix))
     else:
         log('Matrix for LCTransMatrix {}'.format(matrix))
         matrix = LCTransMatrix.Schema().loads(matrix)
@@ -438,9 +439,6 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, Ui_WidgetLCDefineDegradation)
 
         matrix = read_lc_matrix_file(f)
         if not matrix:
-            QtWidgets.QMessageBox.critical(None,
-                                           self.tr("Error"),
-                                           self.tr("{} does not appear to contain a valid matrix definition.".format(f)))
             return None
         else:
             self.set_trans_matrix(matrix)
@@ -461,7 +459,7 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, Ui_WidgetLCDefineDegradation)
                 return
 
             with open(f, 'w') as outfile:
-                json.dump(LCTransMatrix.Schema().dump(self.trans_matrix_get_json()),
+                json.dump(LCTransMatrix.Schema().dump(self.trans_matrix_get()),
                           outfile, sort_keys=True, indent=4,
                           separators=(',', ':'), default=json_serial)
 
@@ -487,7 +485,7 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, Ui_WidgetLCDefineDegradation)
                 self.deg_def_matrix.cellWidget(row, col).setText(code)
         return True
 
-    def trans_matrix_get_json(self):
+    def trans_matrix_get(self):
         # Extract trans_matrix from the QTableWidget
         transitions = []
         for row in range(0, self.deg_def_matrix.rowCount()):

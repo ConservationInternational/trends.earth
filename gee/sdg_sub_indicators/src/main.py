@@ -18,7 +18,9 @@ from landdegradation.productivity import productivity_trajectory, \
 from landdegradation.land_cover import land_cover
 from landdegradation.soc import soc
 from landdegradation.download import download
+
 from te_schemas.schemas import CloudResultsSchema
+from te_schemas.land_cover import LCTransMatrix, LCLegendNesting
 
 
 def run(params, logger):
@@ -43,13 +45,8 @@ def run(params, logger):
     ndvi_gee_dataset = params.get('ndvi_gee_dataset')
     climate_gee_dataset = params.get('climate_gee_dataset')
     fl = params.get('fl')
-    trans_matrix = params.get('trans_matrix')
-    remap_matrix = params.get('remap_matrix')
-
-    if len(trans_matrix) != 49:
-        raise GEEIOError("Transition matrix must be a list with 49 entries")
-    if len(remap_matrix) != 2 or len(remap_matrix[0]) != 37 or len(remap_matrix[1]) != 37:
-        raise GEEIOError("Transition matrix must be a list of two lists with 37 entries each")
+    trans_matrix = LCTransMatrix.Schema().loads(params.get('trans_matrix'))
+    nesting = LCLegendNesting.Schema().loads(params.get('nesting'))
 
     # Check the ENV. Are we running this locally or in prod?
     if params.get('ENV') == 'dev':

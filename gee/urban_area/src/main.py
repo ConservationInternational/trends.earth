@@ -14,7 +14,7 @@ import ee
 
 from landdegradation.util import get_coords, TEImage
 from landdegradation.urban_area import urban_area
-from landdegradation.schemas.schemas import BandInfo, CloudResultsSchema
+from te_schemas.schemas import BandInfo, CloudResultsSchema
 
 def urban(isi_thr, ntl_thr, wat_thr, cap_ope, pct_suburban, pct_urban, un_adju,
           crs, geojsons, EXECUTION_ID, logger):

@@ -1,20 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2018, Conservation International
+# Copyright (C) 2017-2021, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
 # Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020
+# Alex Zvoleff <azvoleff@conservation.org>, 2021
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 1.0.1\n"
+"Project-Id-Version: Trends.Earth 1.0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-27 17:17-0400\n"
+"POT-Creation-Date: 2021-07-15 21:04-0400\n"
 "PO-Revision-Date: 2019-07-18 21:12+0000\n"
-"Last-Translator: Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2021\n"
 "Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,11 +23,11 @@ msgstr ""
 "Language: pt\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:4
+#: ../../source/background/understanding_indicators15.rst:4
 msgid "SDG Indicator 15.3.1"
 msgstr "Indicador ODS 15.3.1"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:6
+#: ../../source/background/understanding_indicators15.rst:6
 msgid ""
 "As part of the \"2030 Agenda for Sustainable Development\", Sustainable "
 "Development Goal (SDG) 15 is to:"
@@ -34,7 +35,7 @@ msgstr ""
 "Como parte da \"Agenda 2030 para o Desenvolvimento Sustentável\", o Objetivo"
 " de Desenvolvimento Sustentável (ODS) 15 é:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:9
+#: ../../source/background/understanding_indicators15.rst:9
 msgid ""
 "\"Protect, restore and promote sustainable use of terrestrial ecosystems, "
 "sustainably manage forests, combat desertification, and halt and reverse "
@@ -45,7 +46,7 @@ msgstr ""
 "desertificação e deter e reverter a degradação da terra e deter a perda de "
 "biodiversidade\""
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:13
+#: ../../source/background/understanding_indicators15.rst:13
 msgid ""
 "Each SDG has specific targets addressing different components, in this case,"
 " of life on land. Target 15.3 aims to:"
@@ -53,7 +54,7 @@ msgstr ""
 "Cada ODS tem metas específicas que abordam diferentes componentes, neste "
 "caso, da vida terrestre. A meta 15.3 visa:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:16
+#: ../../source/background/understanding_indicators15.rst:16
 msgid ""
 "\"By 2030, combat desertification, restore degraded land and soil, including"
 " land affected by desertification, drought and floods, and strive to achieve"
@@ -63,7 +64,7 @@ msgstr ""
 "incluindo terras pela desertificação, secas e inundações, e esforçar-se por "
 "alcançar um mundo neutro em termos de degradação da terra\""
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:20
+#: ../../source/background/understanding_indicators15.rst:20
 msgid ""
 "Indicators will be used then to assess the progress of each SDG target. In "
 "the case of SDG 15.3 the progress towards a land degradation neutral world "
@@ -73,11 +74,11 @@ msgstr ""
 "ODS. No caso do ODS 15.3, o progresso em direção a um mundo neutro de "
 "degradação da terra será avaliado usando o indicador 15.3.1:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:24
+#: ../../source/background/understanding_indicators15.rst:24
 msgid "\"proportion of land that is degraded over total land area\""
 msgstr "\"proporção de terra degradada sobre de área total de terra\""
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:26
+#: ../../source/background/understanding_indicators15.rst:26
 msgid ""
 "As the custodian agency for SDG 15.3, the United Nations Convention to "
 "Combat Desertification (UNCCD) has developed a `Good Practice Guidance (GPG)"
@@ -91,7 +92,7 @@ msgstr ""
 "links/2017-10/Good%20Practiceuidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_."
 " fornecendo recomendações sobre como calcular o Indicador ODS 15.3.1."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:31
+#: ../../source/background/understanding_indicators15.rst:31
 msgid ""
 "This document provides a brief introduction to SDG Indicator 15.3.1 and "
 "describes how each indicator is calculated by |trends.earth|."
@@ -99,7 +100,16 @@ msgstr ""
 "Este documento fornece uma breve introdução ao Indicador 15.3.1 do ODS e "
 "descreve como cada indicador é calculado por |trends.earth|."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:34
+#: ../../../<rst_epilog>:26 ../../../<rst_epilog>:26 ../../../<rst_epilog>:26
+#: ../../../<rst_epilog>:26 ../../../<rst_epilog>:26 ../../../<rst_epilog>:26
+#: ../../../<rst_epilog>:26 ../../../<rst_epilog>:26 ../../../<rst_epilog>:26
+#: ../../../<rst_epilog>:26 ../../../<rst_epilog>:26 ../../../<rst_epilog>:26
+#: ../../../<rst_epilog>:26 ../../../<rst_epilog>:26 ../../../<rst_epilog>:26
+#: ../../../<rst_epilog>:26 ../../../<rst_epilog>:26
+msgid "Trends.Earth"
+msgstr "Trends.Earth"
+
+#: ../../source/background/understanding_indicators15.rst:34
 msgid ""
 "In order to assess the area degraded, SDG Indicator 15.3.1 uses information "
 "from 3 sub-indicators:"
@@ -107,21 +117,21 @@ msgstr ""
 "Para avaliar a área degradada, o Indicador 15.3.1 do ODS usa informações de "
 "três subindicadores:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:37
+#: ../../source/background/understanding_indicators15.rst:37
 msgid "Vegetation productivity"
 msgstr "Produtividade da vegetação"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:38
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:265
+#: ../../source/background/understanding_indicators15.rst:38
+#: ../../source/background/understanding_indicators15.rst:265
 msgid "Land cover"
 msgstr "Cobertura da terra"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:39
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:298
+#: ../../source/background/understanding_indicators15.rst:39
+#: ../../source/background/understanding_indicators15.rst:298
 msgid "Soil organic carbon"
 msgstr "Carbono orgânico do solo"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:44
+#: ../../source/background/understanding_indicators15.rst:44
 msgid ""
 "|trends.earth| allows the user to compute each of these subindicators in a "
 "spatially explicit way generating raster maps which are then integrated into"
@@ -134,15 +144,15 @@ msgstr ""
 "relatório de resultados de tabela potencialmente melhorada e degradada para "
 "a área de análise."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:50
+#: ../../source/background/understanding_indicators15.rst:50
 msgid "Sub-indicators"
 msgstr "Sub-indicadores"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:55
+#: ../../source/background/understanding_indicators15.rst:55
 msgid "Productivity"
 msgstr "Produtividade"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:57
+#: ../../source/background/understanding_indicators15.rst:57
 msgid ""
 "Land productivity is the biological productive capacity of the land, the "
 "source of all the food, fiber and fuel that sustains humans (United Nations "
@@ -163,7 +173,7 @@ msgstr ""
 " nos baseamos em informações de sensoriamento remoto para derivar "
 "indicadores de PPL."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:66
+#: ../../source/background/understanding_indicators15.rst:66
 msgid ""
 "One of the most commonly used surrogates of NPP is the Normalized Difference"
 " Vegetation Index (NDVI), computed using information from the red and near "
@@ -182,7 +192,7 @@ msgstr ""
 "NDVI são então usadas para calcular cada um dos indicadores de produtividade"
 " explicados abaixo."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:74
+#: ../../source/background/understanding_indicators15.rst:74
 msgid ""
 "Land productivity is assessed in |trends.earth| using three measures of "
 "change derived from NDVI time series data: trajectory, performance and state"
@@ -191,11 +201,11 @@ msgstr ""
 " mudança derivadas dos dados da série temporal do NDVI: trajetória, "
 "desempenho e estado"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:83
+#: ../../source/background/understanding_indicators15.rst:83
 msgid "Productivity Trajectory"
 msgstr "Trajetória da Produtividade"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:85
+#: ../../source/background/understanding_indicators15.rst:85
 msgid ""
 "Trajectory measures the rate of change in primary productivity over time. As"
 " indicated in the figure below, |trends.earth| computes a linear regression "
@@ -216,11 +226,11 @@ msgstr ""
 " condição da terra e tendências negativas significativas na degradação "
 "potencial."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:100
+#: ../../source/background/understanding_indicators15.rst:100
 msgid "Correcting for the effects of climate"
 msgstr "Corrigindo os efeitos do clima"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:102
+#: ../../source/background/understanding_indicators15.rst:102
 msgid ""
 "Within a given ecosystem, primary productivity is affected by several "
 "factors, such as temperature, and the availability of light, nutrients and "
@@ -243,7 +253,7 @@ msgstr ""
 "identificadas como a degradação do solo causada pelo homem, quando elas são "
 "impulsionadas por padrões regionais de mudanças na disponibilidade de água."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:112
+#: ../../source/background/understanding_indicators15.rst:112
 msgid ""
 "|trends.earth| allows the user to perform different types of analysis to "
 "separate the climatic causes of the changes in primary productivity, from "
@@ -255,7 +265,7 @@ msgstr ""
 "daquelas que poderiam ser uma consequência das decisões de uso da terra no "
 "solo. Os métodos atualmente suportados para as correções climáticas são:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:117
+#: ../../source/background/understanding_indicators15.rst:117
 msgid ""
 "**Residual Trend Analysis (RESTREND):** RESTREND uses linear regression "
 "models to predict NDVI for a given rainfall amount. Trends in the difference"
@@ -275,7 +285,7 @@ msgstr ""
 "F.; Scholes, R.J. Limits to detectability of land degradation by trend "
 "analysis of vegetation index data. Remote Sens. Environ. 2012, 125, 10–22.`"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:126
+#: ../../source/background/understanding_indicators15.rst:126
 msgid ""
 "**Rain Use Efficiency (RUE):** RUE Is the ratio of annual NPP to annual "
 "precipitation. |trends.earth| uses the annual integrals of NDVI as a proxy "
@@ -305,7 +315,7 @@ msgstr ""
 "degradation be distinguished from the effects of rainfall variability? A "
 "case study in South Africa. J. Arid Environ. 2007, 68, 271–297.`"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:139
+#: ../../source/background/understanding_indicators15.rst:139
 msgid ""
 "**Water Use Efficiency (WUE):** RUE assumes that there is a linear "
 "relationship between the amount of water that falls in the form of "
@@ -333,7 +343,7 @@ msgstr ""
 "significativas positivas no WUE indicariam potencial melhoria na condição da"
 " terra e tendências negativas significativas na degradação potencial."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:151
+#: ../../source/background/understanding_indicators15.rst:151
 msgid ""
 "The table below list the datasets available in |trends.earth| to perform "
 "NDVI trend analysis over time using the original NDVI data or with climatic "
@@ -343,11 +353,11 @@ msgstr ""
 "para realizar a análise de tendência NDVI ao longo do tempo usando os dados "
 "originais do NDVI ou com correções climáticas:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:161
+#: ../../source/background/understanding_indicators15.rst:161
 msgid "Productivity State"
 msgstr "Estado da Produtividade"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:163
+#: ../../source/background/understanding_indicators15.rst:163
 msgid ""
 "The Productivity State indicator allows for the detection of recent changes "
 "in primary productivity as compared to a baseline period. The indicator is "
@@ -357,7 +367,7 @@ msgstr ""
 "recentes na produtividade primária em comparação com um período de "
 "referência. O indicador é calculado da seguinte forma:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:167
+#: ../../source/background/understanding_indicators15.rst:167
 msgid ""
 "Define the baseline period (historical period to which to compare recent "
 "primary productivity)."
@@ -365,7 +375,7 @@ msgstr ""
 "Defina o período de linha de base (período histórico ao qual comparar a "
 "produtividade primária recente)."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:170
+#: ../../source/background/understanding_indicators15.rst:170
 msgid ""
 "Define the comparison period (recent years used to compute comparison). It "
 "is recommended to use a 3-year to avoid annual fluctuations related to "
@@ -375,7 +385,7 @@ msgstr ""
 "comparação). Recomenda-se usar um período de 3 anos para evitar flutuações "
 "anuais relacionadas ao clima."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:174
+#: ../../source/background/understanding_indicators15.rst:174
 msgid ""
 "For each pixel, use the annual integrals of NDVI for the baseline period to "
 "compute a frequency distribution. In case the baseline period missed some "
@@ -390,7 +400,7 @@ msgstr ""
 "expandida é então usada para definir os valores de corte das classes de 10 "
 "percentis."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:180
+#: ../../source/background/understanding_indicators15.rst:180
 msgid ""
 "Compute the mean NDVI for the baseline period, and determine the percentile "
 "class it belongs to. Assign to the mean NDVI for the baseline period the "
@@ -402,7 +412,7 @@ msgstr ""
 "referência o número correspondente a essa classe de percentil. Os valores "
 "possíveis variam de 1 (classe mais baixa) a 10 (classe mais alta)."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:185
+#: ../../source/background/understanding_indicators15.rst:185
 msgid ""
 "Compute the mean NDVI for the comparison period, and determine the "
 "percentile class it belongs to. Assign to the mean NDVI for the comparison "
@@ -414,7 +424,7 @@ msgstr ""
 "comparação o número correspondente a essa classe de percentis. Os valores "
 "possíveis variam de 1 (classe mais baixa) a 10 (classe mais alta)."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:190
+#: ../../source/background/understanding_indicators15.rst:190
 msgid ""
 "Determine the difference in class number between the comparison and the "
 "baseline period (comparison minus baseline)."
@@ -422,7 +432,7 @@ msgstr ""
 "Determine a diferença no número da classe entre a comparação e o período da "
 "linha de base (comparação menos a linha de base)."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:193
+#: ../../source/background/understanding_indicators15.rst:193
 msgid ""
 "If the difference in class between the baseline and the comparison period is"
 " ≤ 2, then that pixel could potentially be degraded. If the difference is ≥ "
@@ -434,7 +444,7 @@ msgstr ""
 "2, esse pixel indicará uma melhoria recente em termos de produtividade "
 "primária. Pixels com pequenas alterações são considerados estáveis."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:201
+#: ../../source/background/understanding_indicators15.rst:201
 msgid ""
 "The table below list the datasets available in |trends.earth| to compute the"
 " Productivity State indicator:"
@@ -442,11 +452,11 @@ msgstr ""
 "A tabela abaixo lista os conjuntos de dados disponíveis em |trends.earth| "
 "para calcular o indicador do Estado de Produtividade:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:210
+#: ../../source/background/understanding_indicators15.rst:210
 msgid "Productivity Performance"
 msgstr "Desempenho da Produtividade"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:212
+#: ../../source/background/understanding_indicators15.rst:212
 msgid ""
 "The Productivity Performance indicator measures local productivity relative "
 "to other similar vegetation types in similar land cover types or bioclimatic"
@@ -465,7 +475,7 @@ msgstr ""
 " pela ESA CCI a 300m de resolução) para definir estas áreas de análise. O "
 "indicador é calculado da seguinte forma:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:220
+#: ../../source/background/understanding_indicators15.rst:220
 msgid ""
 "Define the analysis period, and use the time series of NDVI to compute mean "
 "the NDVI for each pixel."
@@ -473,7 +483,7 @@ msgstr ""
 "Defina o período de análise e use a série temporal do NDVI para calcular o "
 "NDVI de cada pixel."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:223
+#: ../../source/background/understanding_indicators15.rst:223
 msgid ""
 "Define similar ecologically similar units as the unique intersection of land"
 " cover and soil type."
@@ -481,7 +491,7 @@ msgstr ""
 "Defina unidades semelhantes ecologicamente semelhantes à interseção única de"
 " cobertura da terra e tipo de solo."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:226
+#: ../../source/background/understanding_indicators15.rst:226
 msgid ""
 "For each unit, extract all the mean NDVI values computed in step 1, and "
 "create a frequency distribution. From this distribution determine the value "
@@ -497,7 +507,7 @@ msgstr ""
 "de outliers). O valor que representa o 90º percentil será considerado a "
 "produtividade máxima para aquela unidade."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:233
+#: ../../source/background/understanding_indicators15.rst:233
 msgid ""
 "Compute the ratio of mean NDVI and maximum productivity (in each case "
 "compare the mean observed value to the maximum for its corresponding unit)."
@@ -505,7 +515,7 @@ msgstr ""
 "Calcule a razão média do NDVI e a produtividade máxima (em cada caso, "
 "compare o valor médio observado com o máximo para a unidade correspondente)."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:236
+#: ../../source/background/understanding_indicators15.rst:236
 msgid ""
 "If observed mean NDVI is lower than 50% than the maximum productivity, that "
 "pixel is considered potentially degraded for this indicator."
@@ -513,7 +523,7 @@ msgstr ""
 "Se o NDVI médio observado for inferior a 50% da produtividade máxima, esse "
 "pixel é considerado potencialmente degradado para este indicador."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:242
+#: ../../source/background/understanding_indicators15.rst:242
 msgid ""
 "The table below list the datasets available in |trends.earth| to compute the"
 " Productivity Performance indicator:"
@@ -521,11 +531,11 @@ msgstr ""
 "A tabela abaixo lista os conjuntos de dados disponíveis em |trends.earth| "
 "para calcular o indicador de desempenho de produtividade:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:251
+#: ../../source/background/understanding_indicators15.rst:251
 msgid "Combining Productivity Indicators"
 msgstr "Combinando Indicadores de Produtividade"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:253
+#: ../../source/background/understanding_indicators15.rst:253
 msgid ""
 "The three productivity sub-indicators are then combined as indicated in the "
 "tables below. For SDG 15.3.1 reporting, the 3-class indicator is required, "
@@ -539,7 +549,7 @@ msgstr ""
 "aproveita as informações fornecidas pelo Estado para informar o tipo de "
 "degradação que ocorre na área."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:267
+#: ../../source/background/understanding_indicators15.rst:267
 msgid ""
 "To assess changes in land cover users need land cover maps covering the "
 "study area for the baseline and target years. These maps need to be of "
@@ -556,7 +566,7 @@ msgstr ""
 "os mapas locais também podem ser usados. O indicador é calculado da seguinte"
 " forma:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:273
+#: ../../source/background/understanding_indicators15.rst:273
 msgid ""
 "Reclassify both land cover maps to the 7 land cover classes needed for "
 "reporting to the UNCCD (forest, grassland, cropland, wetland, artificial "
@@ -566,7 +576,7 @@ msgstr ""
 "cobertura da terra necessárias para reportar à UNCCD (floresta, pastagem, "
 "terra de cultivo, zona húmida, área artificial, solo exposto e água)."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:277
+#: ../../source/background/understanding_indicators15.rst:277
 msgid ""
 "Perform a land cover transition analysis to identify which pixels remained "
 "in the same land cover class, and which ones changed."
@@ -575,7 +585,7 @@ msgstr ""
 "quais pixels permaneceram na mesma classe de cobertura territorial e quais "
 "mudaram."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:280
+#: ../../source/background/understanding_indicators15.rst:280
 msgid ""
 "Based on your local knowledge of the conditions in the study area and the "
 "land degradation processed occurring there, use the table below to identify "
@@ -587,7 +597,7 @@ msgstr ""
 "identificar quais transições correspondem à degradação (sinal), melhoria "
 "(sinal +) ou nenhuma mudança em termos de condição da terra (zero)."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:288
+#: ../../source/background/understanding_indicators15.rst:288
 msgid ""
 "|trends.earth| will combine the information from the land cover maps and the"
 " table of degradation typologies by land cover transition to compute the "
@@ -597,7 +607,7 @@ msgstr ""
 "tabela de tipologias de degradação por transição de cobertura da terra para "
 "calcular o subindicador de cobertura da terra."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:300
+#: ../../source/background/understanding_indicators15.rst:300
 msgid ""
 "The third sub-indicator for monitoring land degradation as part of the SDG "
 "process quantifies changes in soil organic carbon (SOC) over the reporting "
@@ -621,7 +631,7 @@ msgstr ""
 "SOC e identificar áreas potencialmente degradadas. O indicador é calculado "
 "da seguinte forma:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:310
+#: ../../source/background/understanding_indicators15.rst:310
 msgid ""
 "Determine the SOC reference values. |trends.earth| uses SoilGrids 250m "
 "carbon stocks for the first 30 cm of the soil profile as the reference "
@@ -637,7 +647,7 @@ msgstr ""
 "portanto, atribuir uma data para cálculos pode causar imprecisões nos "
 "cálculos de mudança de estoque)."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:317
+#: ../../source/background/understanding_indicators15.rst:317
 msgid ""
 "Reclassify the land cover maps to the 7 land cover classes needed for "
 "reporting to the UNCCD (forest, grassland, cropland, wetland, artificial "
@@ -650,7 +660,7 @@ msgstr ""
 "mapas de cobertura de terra anuais são preferidos, mas pelo menos mapas de "
 "cobertura de terra para os anos inicial e final são necessários."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:322
+#: ../../source/background/understanding_indicators15.rst:322
 msgid ""
 "To estimate the changes in C stocks for the reporting period C conversion "
 "coefficients for changes in land use, management and inputs are recommended "
@@ -674,7 +684,7 @@ msgstr ""
 "coeficientes representam os estoques proporcionais em C após 20 anos de "
 "mudança da cobertura da terra."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:335
+#: ../../source/background/understanding_indicators15.rst:335
 msgid ""
 "Changes in SOC are better studied for land cover transitions involving "
 "agriculture, and for that reason there is a different set of coefficients "
@@ -688,7 +698,7 @@ msgstr ""
 "temperada (f = 0,80), úmida temperada (f = 0,69), Seco (f = 0,58), Tropical "
 "úmido (f = 0,48) e Tropical Montanhoso (f = 0,64)."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:341
+#: ../../source/background/understanding_indicators15.rst:341
 msgid ""
 "Compute relative different in SOC between the baseline and the target "
 "period, areas which experienced a loss in SOC of 10% of more during the "
@@ -700,11 +710,11 @@ msgstr ""
 "relatório serão consideradas potencialmente degradadas e áreas que "
 "experimentarem um ganho de 10% ou mais como potencialmente melhoradas."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:351
+#: ../../source/background/understanding_indicators15.rst:351
 msgid "Combining indicators"
 msgstr "Combinando indicadores"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators15.rst:353
+#: ../../source/background/understanding_indicators15.rst:353
 msgid ""
 "The integration of the three SDG 15.3.1 sub-indicators is done following the"
 " one-out all-out rule, this means that if an area was identified as "
@@ -715,3 +725,67 @@ msgstr ""
 " \"um fora, todos fora\", o que significa que se uma área foi identificada "
 "como potencialmente degradada por qualquer um dos subindicadores, então essa"
 " área será considerada potencialmente degradada para fins de relatório."
+
+#: ../../../<rst_epilog>:2
+msgid "iconCalculator"
+msgstr ""
+
+#: ../../../<rst_epilog>:4
+msgid "iconChart"
+msgstr ""
+
+#: ../../../<rst_epilog>:6
+msgid "iconClipboard"
+msgstr ""
+
+#: ../../../<rst_epilog>:8
+msgid "iconCloudDownload"
+msgstr ""
+
+#: ../../../<rst_epilog>:10
+msgid "iconCog"
+msgstr ""
+
+#: ../../../<rst_epilog>:12
+msgid "iconGlobe"
+msgstr ""
+
+#: ../../../<rst_epilog>:14
+msgid "iconGraph"
+msgstr ""
+
+#: ../../../<rst_epilog>:16
+msgid "iconInfo"
+msgstr ""
+
+#: ../../../<rst_epilog>:18
+msgid "iconMarkMarker"
+msgstr ""
+
+#: ../../../<rst_epilog>:20
+msgid "iconWrench"
+msgstr ""
+
+#: ../../../<rst_epilog>:22
+msgid "iconFolder"
+msgstr ""
+
+#: ../../../<rst_epilog>:24
+msgid "iconVisualization"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoCI"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoLund"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoNASA"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoGEF"
+msgstr ""

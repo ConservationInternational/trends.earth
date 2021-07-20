@@ -1,16 +1,16 @@
 {
     "time-series": {
-        "script version": "1.0.3",
+        "script version": "1.0.7",
         "description": "Calculate time series.",
         "group": ""
     },
     "land-cover": {
-        "script version": "1.0.3",
+        "script version": "1.0.7",
         "description": "Calculate land cover change indicator.",
         "group": "SDG 15.3.1"
     },
     "productivity": {
-        "script version": "1.0.3",
+        "script version": "1.0.7",
         "description": "Calculate productivity state, performance, and/or trajectory indicators.",
         "group": "SDG 15.3.1",
         "trajectory functions": {
@@ -37,32 +37,32 @@
         }
     },
     "soil-organic-carbon": {
-        "script version": "1.0.3",
+        "script version": "1.0.7",
         "description": "Calculate soil organic carbon.",
         "group": "SDG 15.3.1"
     },
     "sdg-sub-indicators": {
-        "script version": "1.0.3",
+        "script version": "1.0.7",
         "description": "Calculate all three SDG sub-indicators in one step.",
         "group": "SDG 15.3.1"
     },
     "download-data": {
-        "script version": "1.0.3",
+        "script version": "1.0.7",
         "description": "Download data from Google Earth Engine assets.",
         "group": ""
     },
     "total-carbon": {
-        "script version": "1.0.3",
+        "script version": "1.0.7",
         "description": "Calculate total carbon in biomass (above and below ground).",
         "group": "total-carbon"
     },
     "urban-area": {
-        "script version": "1.0.3",
+        "script version": "1.0.7",
         "description": "Calculate urban area.",
         "group": "SDG 11.3.1"
     },
     "restoration-biomass": {
-        "script version": "1.0.3",
+        "script version": "1.0.7",
         "description": "Calculate potential change in biomass with restoration.",
         "group": "potential-change"
     }

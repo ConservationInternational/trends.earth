@@ -41,6 +41,7 @@ from qgis.PyQt.QtCore import QCoreApplication
 
 from .logger import log
 
+from te_schemas.schemas import LocalRaster, LocalRasterSchema
 
 
 class tr_layers(object):
@@ -543,6 +544,18 @@ def tr_style_text(label, band_info=None):
             return label
         else:
             return str(label)
+
+
+def get_band_infos(data_file, name=None):
+    json_file = os.path.splitext(data_file)[0] + '.json'
+    m = get_file_metadata(json_file)
+    if m:
+        if name:
+            return [bi for bi in m['bands'] if bi['name'] == name]
+        else:
+            return m['bands']
+    else:
+        return None
 
 
 def get_band_title(band_info):

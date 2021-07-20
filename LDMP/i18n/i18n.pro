@@ -1,5 +1,6 @@
 FORMS = ../gui/DlgAbout.ui \ 
 ../gui/DlgCalculate.ui \
+../gui/DlgCalculateDegUNCCDReporting.ui \
 ../gui/DlgCalculateLC.ui \
 ../gui/DlgCalculateLCSetAggregation.ui \
 ../gui/DlgCalculateLD.ui \

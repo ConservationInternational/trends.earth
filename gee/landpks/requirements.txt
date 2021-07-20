@@ -1,8 +1,9 @@
-Pillow==7.2.0
+Pillow==8.3.1
 pandas==1.1.2
 numpy==1.19.0
 matplotlib==3.3.1
 matplotlib-scalebar==0.6.2
 earthengine-api==0.1.232
 rollbar==0.14.7
-git+git://github.com/conservationinternational/landdegradation.git#egg=landdegradation
+git+https://github.com/conservationinternational/landdegradation.git@develop
+git+https://github.com/ConservationInternational/trends.earth-schemas.git@develop

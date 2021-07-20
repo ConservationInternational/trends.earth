@@ -36,6 +36,9 @@ DlgCalculateRestBiomassSummaryTableUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateRestBiomassSummaryTable.ui"))
 
 
+
+from te_schemas.schemas import BandInfo, BandInfoSchema
+
 class DlgCalculateRestBiomassData(
     calculate.DlgCalculateBase,
     DlgCalculateRestBiomassDataUi

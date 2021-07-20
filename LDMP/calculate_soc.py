@@ -35,6 +35,9 @@ DlgCalculateSocUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateSOC.ui"))
 
 
+from te_schemas.schemas import BandInfo, BandInfoSchema
+
+
 class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
     TabBox: QtWidgets.QTabWidget
     fl_radio_default: QtWidgets.QRadioButton

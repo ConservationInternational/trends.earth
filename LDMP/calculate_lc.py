@@ -35,6 +35,7 @@ from .jobs.manager import job_manager
 DlgCalculateLcUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateLC.ui"))
 
+from te_schemas.schemas import BandInfo, BandInfoSchema
 
 class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
     LOCAL_SCRIPT_NAME = "local-land-cover"
@@ -88,7 +89,7 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
             "crs": self.aoi.get_crs_dst_wkt(),
             "crosses_180th": crosses_180th,
             "trans_matrix": self.lc_define_deg_widget.trans_matrix_get(),
-            "remap_matrix": self.lc_setup_widget.aggregation_dialog.get_agg_as_list(),
+            "nesting": self.lc_setup_widget.aggregation_dialog.nesting(),
             "task_name": self.execution_name_le.text(),
             "task_notes": self.task_notes.toPlainText()
         }
@@ -173,6 +174,7 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
 
         self.close()
 
+        #TODO: Fix trans matrix and persistence remap to use new locations for these variables
         initial_usable = (
             self.lc_setup_widget.initial_year_layer_cb.get_usable_band_info())
         final_usable = self.lc_setup_widget.target_year_layer_cb.get_usable_band_info()

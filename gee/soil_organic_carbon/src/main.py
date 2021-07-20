@@ -14,6 +14,7 @@ import json
 import ee
 
 from landdegradation.soc import soc
+from te_schemas.land_cover import LCLegendNesting
 
 
 def run(params, logger):
@@ -25,10 +26,7 @@ def run(params, logger):
     dl_annual_lc = params.get('download_annual_lc')
     geojsons = json.loads(params.get('geojsons'))
     crs = params.get('crs')
-    remap_matrix = params.get('remap_matrix')
-
-    if len(remap_matrix) != 2 or len(remap_matrix[0]) != 37 or len(remap_matrix[1]) != 37:
-        raise GEEIOError("Transition matrix must be a list of two lists with 37 entries each")
+    nesting = LCLegendNesting.Schema().loads(params.get('nesting'))
 
     # Check the ENV. Are we running this locally or in prod?
     if params.get('ENV') == 'dev':

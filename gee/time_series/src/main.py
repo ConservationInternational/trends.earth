@@ -16,7 +16,7 @@ import json
 import ee
 
 from landdegradation.productivity import productivity_trajectory
-from landdegradation.schemas.schemas import TimeSeries, TimeSeriesTable, TimeSeriesTableSchema
+from te_schemas.schemas import TimeSeries, TimeSeriesTable, TimeSeriesTableSchema
 
 
 def zonal_stats(gee_dataset, geojsons, EXECUTION_ID, logger):

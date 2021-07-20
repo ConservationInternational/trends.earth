@@ -1,5 +1,5 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2018, Conservation International
+# Copyright (C) 2017-2021, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
@@ -10,9 +10,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 1.0.1\n"
+"Project-Id-Version: Trends.Earth 1.0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-27 17:17-0400\n"
+"POT-Creation-Date: 2021-07-15 21:04-0400\n"
 "PO-Revision-Date: 2017-11-20 21:06+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2020\n"
 "Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
@@ -22,11 +22,11 @@ msgstr ""
 "Language: sw\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:4
+#: ../../source/background/before_installing.rst:4
 msgid "Before installing the toolbox"
 msgstr "Kabla ya kufunga sanduku la zana"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:6
+#: ../../source/background/before_installing.rst:6
 msgid ""
 "Before installing the toolbox, QGIS version |qgisMinVersion| or higher needs"
 " to be installed on your computer."
@@ -34,22 +34,22 @@ msgstr ""
 "Kabla ya kufunga sanduku la zana, toleo la QGIS | qgisMinVersion | au ya juu"
 " inahitaji kusanikishwa kwenye kompyuta yako."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:10
+#: ../../source/background/before_installing.rst:10
 msgid "Download QGIS"
 msgstr "Pakua QGIS"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:12
+#: ../../source/background/before_installing.rst:12
 msgid ""
 "To install the plugin, first install QGIS 3.10.3+ following the below steps:"
 msgstr ""
 "Ili kusanikisha programu-jalizi, kwanza sasisha QGIS 3.10.3+ kufuata hatua "
 "hapa chini."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:15
+#: ../../source/background/before_installing.rst:15
 msgid "Choose either 32 or 64 bit version"
 msgstr "Chagua toleo 32 au 64 bit"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:17
+#: ../../source/background/before_installing.rst:17
 msgid ""
 "You have the option of installing a 32-bit or 64-bit version of QGIS. To "
 "know which version to install, check which type of operating system you have"
@@ -63,25 +63,25 @@ msgstr ""
 "toleo la 64 kidogo kwanza. Ikiwa toleo hilo halijafanya kazi vizuri, "
 "lisanikishe kisha usakinishe toleo la 32 kidogo."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:23
+#: ../../source/background/before_installing.rst:23
 msgid "Windows 8 or Windows 10"
 msgstr "Windows 8 au Windows 10"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:25
+#: ../../source/background/before_installing.rst:25
 msgid "From the \"Start\" screen, type \"This PC\"."
 msgstr "Kutoka skrini ya &quot;Mwanzo&quot;, funga &quot;PC hii&quot;."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:27
+#: ../../source/background/before_installing.rst:27
 msgid "Right click (or tap and hold) \"This PC\", and click \"Properties\"."
 msgstr ""
 "Bofya haki (au bomba na ushikilie) &quot;PC hii&quot;, na bofya "
 "&quot;Mali&quot;."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:29
+#: ../../source/background/before_installing.rst:29
 msgid "Windows 7, or Vista"
 msgstr "Windows 7, au Vista"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:31
+#: ../../source/background/before_installing.rst:31
 msgid ""
 "Open \"System\" by clicking the \"Start\" button , right-clicking "
 "\"Computer\", and then clicking \"Properties\"."
@@ -89,17 +89,17 @@ msgstr ""
 "Fungua &quot;Mfumo&quot; kwa kubonyeza kifungo cha &quot;Kuanza&quot;, "
 "kubonyeza haki &quot;Kompyuta&quot;, na kisha kubofya &quot;Mali&quot;."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:34
+#: ../../source/background/before_installing.rst:34
 msgid "Under System, you can view the system type."
 msgstr "Chini ya Mfumo, unaweza kuona aina ya mfumo."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:36
+#: ../../source/background/before_installing.rst:36
 msgid "Mac: Click the Apple icon in the top left and select \"About this Mac\"."
 msgstr ""
 "Mac: Bonyeza icon ya Apple upande wa kushoto na chagua &quot;Kuhusu Mac "
 "hii&quot;."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:38
+#: ../../source/background/before_installing.rst:38
 msgid ""
 "After determining whether you need the 32 or 64 bit version, download the "
 "appropriate installer:"
@@ -107,7 +107,7 @@ msgstr ""
 "Baada ya kuamua ikiwa unahitaji toleo la 32 au la 64, pakua kisakinishi "
 "kinachofaa:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:41
+#: ../../source/background/before_installing.rst:41
 msgid ""
 "Windows: `Download Windows installer from here "
 "<https://qgis.org/en/site/forusers/download.html#windows>`_."
@@ -115,7 +115,7 @@ msgstr ""
 "Windows: `Pakua kisakinishaji cha Windows kutoka hapa "
 "<https://qgis.org/en/site/forusers/download.html#windows> `_."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:44
+#: ../../source/background/before_installing.rst:44
 msgid ""
 "MacOS: `Download MacOS installer from here "
 "<https://qgis.org/en/site/forusers/download.html#mac>`_."
@@ -123,7 +123,7 @@ msgstr ""
 "MacOS: `Pakua kisakinishaji cha MacOS kutoka hapa "
 "<https://qgis.org/en/site/forusers/download.html#mac> `_."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:47
+#: ../../source/background/before_installing.rst:47
 msgid ""
 "Linux: `Download Linux installer from here, or from the repository for your "
 "Linux distribution "
@@ -132,11 +132,11 @@ msgstr ""
 "Linux: `Pakua kisakinishi cha Linux kutoka hapa, au kutoka kwa usambazaji "
 "wako wa Linux <https://qgis.org/en/site/forusers/download.html#linux> `_."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:52
+#: ../../source/background/before_installing.rst:52
 msgid "Install QGIS"
 msgstr "Sakinisha QGIS"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:54
+#: ../../source/background/before_installing.rst:54
 msgid ""
 "Once the installer is downloaded from the website, it needs to be run "
 "(double click on it). Select the Default settings for all options."
@@ -145,11 +145,11 @@ msgstr ""
 "(bonyeza mara mbili juu yake). Chagua mipangilio ya chaguo-msingi kwa "
 "chaguzi zote."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:59
+#: ../../source/background/before_installing.rst:59
 msgid "Installing older versions of QGIS"
 msgstr "Kufunga matoleo ya zamani ya QGIS"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:61
+#: ../../source/background/before_installing.rst:61
 msgid ""
 "Older versions of QGIS can be accessed at the below links. We recommend the "
 "latest version of QGIS (see instructions above) but the below links might be"
@@ -162,7 +162,7 @@ msgstr ""
 "la kupata toleo la zamani la programu ya Trends.Earth (kwa mfano toleo la "
 "QGIS2 la programu-jalizi)."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:66
+#: ../../source/background/before_installing.rst:66
 msgid ""
 "Windows: `Download older versions of QGIS for Windows here "
 "<https://qgis.org/downloads/>`_."
@@ -170,10 +170,78 @@ msgstr ""
 "Windows: `Pakua toleo za zamani za QGIS za Windows hapa "
 "<https://qgis.org/downloads/> `_."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\before_installing.rst:69
+#: ../../source/background/before_installing.rst:69
 msgid ""
 "MacOS: `Download older versions of QGIS for MacOS here "
 "<https://qgis.org/downloads/macOS>`_."
 msgstr ""
 "MacOS: `Pakua toleo za zamani za QGIS za MacOS hapa "
 "<https://qgis.org/downloads/macOS> `_."
+
+#: ../../../<rst_epilog>:2
+msgid "iconCalculator"
+msgstr ""
+
+#: ../../../<rst_epilog>:4
+msgid "iconChart"
+msgstr ""
+
+#: ../../../<rst_epilog>:6
+msgid "iconClipboard"
+msgstr ""
+
+#: ../../../<rst_epilog>:8
+msgid "iconCloudDownload"
+msgstr ""
+
+#: ../../../<rst_epilog>:10
+msgid "iconCog"
+msgstr ""
+
+#: ../../../<rst_epilog>:12
+msgid "iconGlobe"
+msgstr ""
+
+#: ../../../<rst_epilog>:14
+msgid "iconGraph"
+msgstr ""
+
+#: ../../../<rst_epilog>:16
+msgid "iconInfo"
+msgstr ""
+
+#: ../../../<rst_epilog>:18
+msgid "iconMarkMarker"
+msgstr ""
+
+#: ../../../<rst_epilog>:20
+msgid "iconWrench"
+msgstr ""
+
+#: ../../../<rst_epilog>:22
+msgid "iconFolder"
+msgstr ""
+
+#: ../../../<rst_epilog>:24
+msgid "iconVisualization"
+msgstr ""
+
+#: ../../../<rst_epilog>:26
+msgid "Trends.Earth"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoCI"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoLund"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoNASA"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoGEF"
+msgstr ""

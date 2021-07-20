@@ -182,7 +182,7 @@
         "ESA CCI": {
             "Data source": "ESA",
             "Start year": 1992,
-            "End year": 2019,
+            "End year": 2020,
             "Spatial Resolution": "300 m",
             "Temporal resolution": "annual",
             "Min Latitude": "-90",
@@ -192,7 +192,7 @@
             "Units": "Land cover classes",
             "Description": "The CCI-LC project delivers consistent global LC maps at 300 m spatial resolution on an annual basis from 1992 to 2018. The Coordinate Reference System used for the global land cover database is a geographic coordinate system (GCS) based on the World Geodetic System 84 (WGS84) reference ellipsoid.",
             "Link to Dataset": "http://maps.elie.ucl.ac.be/CCI/viewer/index.php",
-            "GEE Dataset": "users/geflanddegradation/toolbox_datasets/lcov_esacc_1992_2019",
+            "GEE Dataset": "users/geflanddegradation/toolbox_datasets/lcov_esacc_1992_2020",
             "Source code": "c04_esa_cci_landcover_global_assets",
             "Status": "Stored as assets",
             "License": "CC by-SA 3.0",
@@ -491,7 +491,7 @@
         "Hansen": {
             "Data source": "http://earthenginepartners.appspot.com/science-2013-global-forest",
             "Start year": 2000,
-            "End year": 2019,
+            "End year": 2020,
             "Spatial resolution": "30 m",
             "Temporal resolution": "annual",
             "Min Latitude": -57,
@@ -501,7 +501,7 @@
             "Units": "Percent tree cover",
             "Description": "Results from time-series analysis of Landsat images characterizing forest extent and change.Trees are defined as vegetation taller than 5m in height and are expressed as a percentage per output grid cell as ‘2000 Percent Tree Cover’. ‘Forest Cover Loss’ is defined as a stand-replacement disturbance, or a change from a forest to non-forest state, during the period 2000–2019. ‘Forest Cover Gain’ is defined as the inverse of loss, or a non-forest to forest change entirely within the period 2000–2012. ‘Forest Loss Year’ is a disaggregation of total ‘Forest Loss’ to annual time scales. Reference 2000 and 2019 imagery are median observations from a set of quality assessment-passed growing season observations.",
             "Link to Dataset": "http://earthenginepartners.appspot.com/science-2013-global-forest/download_v1.7.html",
-            "GEE Dataset": "UMD/hansen/global_forest_change_2019_v1_7",
+            "GEE Dataset": "UMD/hansen/global_forest_change_2020_v1_8",
             "License": "CC by-SA 4.0",
             "License URL": "https://creativecommons.org/licenses/by/4.0/",
             "Source": "Hansen, M. C., P. V. Potapov, R. Moore, M. Hancher, S. A. Turubanova, A. Tyukavina, D. Thau, S. V. Stehman, S. J. Goetz, T. R. Loveland, A. Kommareddy, A. Egorov, L. Chini, C. O. Justice, and J. R. G. Townshend. 2013. “High-Resolution Global Maps of 21st-Century Forest Cover Change.” Science 342 (15 November): 850–53",
@@ -567,6 +567,44 @@
             "License": "",
             "License URL": "",
             "Source": ""
+        }
+    },
+	"WorldPop": {
+        "Gridded Population Count": {
+            "Data source":"https://www.worldpop.org/project/categories?id=3" ,
+            "Start year": 2000,
+            "End year": 2020,
+            "Spatial resolution": "1 km",
+            "Temporal resolution": "annual",
+            "Min Latitude": -90,
+            "Max Latitude": 90,
+            "Min Longitude": -180,
+            "Max Longitude": 180,
+            "Description": "",
+            "Link to Dataset": "",
+            "GEE Dataset": "users/geflanddegradation/toolbox_datasets/worldpop_ppp_2000_2020_1km_global",
+            "License": "Creative Commons CC BY 4.0",
+            "License URL": "https://creativecommons.org/licenses/by/4.0/",
+            "Source": "https://www.worldpop.org/doi/10.5258/SOTON/WP00647"
+        }
+    },
+	"GPWv411": {
+        "Gridded Population of the World v411": {
+            "Data source":"https://sedac.ciesin.columbia.edu/data/set/gpw-v4-population-count-rev11" ,
+            "Start year": 2000,
+            "End year": 2020,
+            "Spatial resolution": "1 km",
+            "Temporal resolution": "5 years",
+            "Min Latitude": -90,
+            "Max Latitude": 90,
+            "Min Longitude": -180,
+            "Max Longitude": 180,
+            "Description": "The Gridded Population of the World, Version 4 (GPWv4): Population Count, Revision 11 consists of estimates of human population (number of persons per pixel), consistent with national censuses and population registers, for the years 2000, 2005, 2010, 2015, and 2020.",
+            "Link to Dataset": "",
+            "GEE Dataset": "CIESIN/GPWv411/GPW_Population_Count",
+            "License": "Creative Commons CC BY 4.0",
+            "License URL": "https://creativecommons.org/licenses/by/4.0/",
+            "Source": "https://sedac.ciesin.columbia.edu/data/set/gpw-v4-population-count-rev11/data-download"
         }
     }
 }

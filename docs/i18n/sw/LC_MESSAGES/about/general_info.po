@@ -1,5 +1,5 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2018, Conservation International
+# Copyright (C) 2017-2021, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
@@ -10,9 +10,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 1.0.1\n"
+"Project-Id-Version: Trends.Earth 1.0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-27 17:17-0400\n"
+"POT-Creation-Date: 2021-07-15 21:04-0400\n"
 "PO-Revision-Date: 2019-01-28 02:04+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
@@ -22,11 +22,11 @@ msgstr ""
 "Language: sw\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\general_info.rst:2
+#: ../../source/about/general_info.rst:2
 msgid "General information"
 msgstr "Habari za jumla"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\general_info.rst:4
+#: ../../source/about/general_info.rst:4
 msgid ""
 "|trends.earth| was produced as part of the project \"Enabling the use of "
 "global data sources to assess and monitor land degradation at multiple "
@@ -37,11 +37,18 @@ msgstr ""
 "katika ukubwa tofauti tofauti \", ukifadhiliwa na Global Environment "
 "Facility yaani Taasisi ya Mazingira Duniani."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\general_info.rst:9
+#: ../../../<rst_epilog>:26 ../../../<rst_epilog>:26 ../../../<rst_epilog>:26
+#: ../../../<rst_epilog>:26 ../../../<rst_epilog>:26 ../../../<rst_epilog>:26
+#: ../../../<rst_epilog>:26 ../../../<rst_epilog>:26 ../../../<rst_epilog>:26
+#: ../../../<rst_epilog>:26 ../../../<rst_epilog>:26
+msgid "Trends.Earth"
+msgstr ""
+
+#: ../../source/about/general_info.rst:9
 msgid "Contacting the team"
 msgstr "Kuwasiliana na timu ya Itrends.earthI"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\general_info.rst:11
+#: ../../source/about/general_info.rst:11
 msgid ""
 "Contact the `Trends.Earth <mailto:trends.earth@conservation.org>`_ team with"
 " any comments or suggestions. If you have specific bugs to report or "
@@ -57,11 +64,11 @@ msgstr ""
 "<https://github.com/ConservationInternational/trends.earth/issues>`_ kwa "
 "|trends.earth|."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\general_info.rst:19
+#: ../../source/about/general_info.rst:19
 msgid "Authors"
 msgstr "Waandishi"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\general_info.rst:21
+#: ../../source/about/general_info.rst:21
 msgid ""
 "The Land Degradation Monitoring Project is a partnership of Conservation "
 "International, Lund University, and the National Aeronautics and Space "
@@ -73,7 +80,7 @@ msgstr ""
 "and Space (NASA), na unafadhiliwa na Global Environment Facility (GEF)/ "
 "Chombo cha Mazingira Duniani."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\general_info.rst:25
+#: ../../source/about/general_info.rst:25
 msgid ""
 "Contributors to the documentation and to |trends.earth| include Yengoh "
 "Genesis, Lennart Olsson, Mariano Gonzalez-Roglich, Monica Noon, Tristan "
@@ -83,7 +90,7 @@ msgstr ""
 "Yengoh Genesis, Lennart Olsson, Mariano Gonzalez-Roglich, Monica Noon, "
 "Tristan Schnader, Anna Tengberg, na Alex Zvoleff."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\general_info.rst:33
+#: ../../source/about/general_info.rst:33
 msgid ""
 "|trends.earth| uses `Google Earth Engine <https://earthengine.google.com>`_ "
 "to compute indicators in the cloud."
@@ -92,11 +99,11 @@ msgstr ""
 "<https://earthengine.google.com>`_ kupitia mtandao kukokotoa viashiria vya "
 "uharibifu wa ardhi."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\general_info.rst:42
+#: ../../source/about/general_info.rst:42
 msgid "Acknowledgements"
 msgstr "Shukrani"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\general_info.rst:44
+#: ../../source/about/general_info.rst:44
 msgid ""
 "The feedback provided by early users of |trends.earth| and by the "
 "participants in the webinars and workshops held by the GEF Land Degradation "
@@ -106,7 +113,7 @@ msgstr ""
 "njia ya video na warsha zilizofanywa na Mradi wa Ufuatiliaji wa Uharibifu wa"
 " Ardhi ya GEF zimekuwa muhimu kwa maendeleo ya chombo hiki."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\general_info.rst:48
+#: ../../source/about/general_info.rst:48
 msgid ""
 "Neil Sims, Sasha Alexander, Renato Cumani, and Sara Minelli provided input "
 "on the implementation of the SDG 15.3 and LDN indicators in |trends.earth|, "
@@ -119,7 +126,7 @@ msgstr ""
 "mchakato wa kuripoti kwa UNCCD, na pia walitoa mapendekezo ya awali na "
 "kujaribiwa kwa utendaji kazi wa chombo."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\general_info.rst:53
+#: ../../source/about/general_info.rst:53
 msgid ""
 "The project acknowledges the participants of the workshop held in Morogoro, "
 "Tanzania in October, 2017 for sharing their feedback and suggestions on the "
@@ -143,16 +150,16 @@ msgstr ""
 "Ndeye Kany Sarr, Mamadou Adama Sarr, Edward Senyonjo, Olipa Simon, Samba "
 "Sow, Felly Mugizi Tusiime na John Wasige."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\general_info.rst:65
+#: ../../source/about/general_info.rst:65
 msgid "Citation"
 msgstr "Citation"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\general_info.rst:67
+#: ../../source/about/general_info.rst:67
 msgid "If you wish to cite |trends.earth|, please use the following citation:"
 msgstr ""
 "Ikiwa ungependa kutaja | trends.earth |, tafadhali tumia funguo ifuatayo:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\general_info.rst:69
+#: ../../source/about/general_info.rst:69
 msgid ""
 "Trends.Earth. Conservation International. Available online at: "
 "`http://trends.earth <http://trends.earth>`_. 2018."
@@ -160,11 +167,11 @@ msgstr ""
 "Mwelekeo. Uhifadhi wa Kimataifa. Inapatikana mtandaoni kwa: "
 "`http://trends.earth <http://trends.earth> `_. 2018."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\general_info.rst:73
+#: ../../source/about/general_info.rst:73
 msgid "License"
 msgstr "Leseni"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\general_info.rst:75
+#: ../../source/about/general_info.rst:75
 msgid ""
 "|trends.earth| is free and open-source. It is licensed under the `GNU "
 "General Public License, version 2.0 or later <https://www.gnu.org/licenses"
@@ -175,7 +182,7 @@ msgstr ""
 "toleo 2.0 au zaidi <https://www.gnu.org/licenses/old-"
 "licenses/gpl-2.0.en.html>`_."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\general_info.rst:79
+#: ../../source/about/general_info.rst:79
 msgid ""
 "This site and the products of |trends.earth| are made available under the "
 "terms of the `Creative Commons Attribution 4.0 International License (CC BY "
@@ -190,3 +197,67 @@ msgstr ""
 "majina yaliyotumika katika |trends.earth| haimaanishi vimeidhinishwa rasmi "
 "au kukubaliwa na Conservation International Foundation, au mashirika "
 "washirika wake na wachangiaji."
+
+#: ../../../<rst_epilog>:2
+msgid "iconCalculator"
+msgstr ""
+
+#: ../../../<rst_epilog>:4
+msgid "iconChart"
+msgstr ""
+
+#: ../../../<rst_epilog>:6
+msgid "iconClipboard"
+msgstr ""
+
+#: ../../../<rst_epilog>:8
+msgid "iconCloudDownload"
+msgstr ""
+
+#: ../../../<rst_epilog>:10
+msgid "iconCog"
+msgstr ""
+
+#: ../../../<rst_epilog>:12
+msgid "iconGlobe"
+msgstr ""
+
+#: ../../../<rst_epilog>:14
+msgid "iconGraph"
+msgstr ""
+
+#: ../../../<rst_epilog>:16
+msgid "iconInfo"
+msgstr ""
+
+#: ../../../<rst_epilog>:18
+msgid "iconMarkMarker"
+msgstr ""
+
+#: ../../../<rst_epilog>:20
+msgid "iconWrench"
+msgstr ""
+
+#: ../../../<rst_epilog>:22
+msgid "iconFolder"
+msgstr ""
+
+#: ../../../<rst_epilog>:24
+msgid "iconVisualization"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoCI"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoLund"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoNASA"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoGEF"
+msgstr ""

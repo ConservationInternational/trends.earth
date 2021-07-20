@@ -46,20 +46,13 @@ WidgetLandCoverSetupRemoteExecutionUi, _ = uic.loadUiType(
 mb = iface.messageBar()
 
 
+from te_schemas.land_cover import (LCLegend, LCLegendNesting, LCTransitionDeg,
+                                   LCTransitionMatrixDeg)
+
+from marshmallow.exceptions import ValidationError
 class tr_lc_setup(object):
     def tr(message):
         return QtCore.QCoreApplication.translate("tr_lc_setup", message)
-
-
-# Load the default classes and their assigned color codes
-with open(os.path.join(os.path.dirname(os.path.realpath(__file__)),
-                       'data', 'land_cover_classes_IPCC.json')) as class_file:
-    classes = json.load(class_file)
-final_classes = {}
-for key in classes.keys():
-    classes[key]['label'] = key
-    final_classes[tr_style_text(key)] = classes[key]
-
 
 def json_serial(obj):
     """JSON serializer for objects not serializable by default json code"""
@@ -108,15 +101,16 @@ class TransMatrixEdit(QtWidgets.QLineEdit):
 
 
 class LCClassComboBox(QtWidgets.QComboBox):
-    def __init__(self, parent=None, *args):
+    def __init__(self, nesting, parent=None, *args):
         super(LCClassComboBox, self).__init__(parent)
+        self.nesting = nesting
 
         # Add the translations of the item labels in order of their codes
-        self.addItems(sorted(list(final_classes), key = lambda k: final_classes[k]['value']))
+        self.addItems([c.name_long for c in self.nesting.parent.orderByCode().key])
 
-        for n in range(0, len(final_classes.keys())):
-            color = final_classes[self.itemData(n, QtCore.Qt.DisplayRole)]['color']
-            self.setItemData(n, QtGui.QColor(color), QtCore.Qt.BackgroundRole)
+        for n in range(0, len(nesting.parent.key)):
+            color = self.nesting.parent.classByNameLong(n, QtCore.Qt.DisplayRole).color
+            self.setItemData(n, QtGui.QColor(color), QCore.Qt.BackgroundRole)
             if color == '#000000':
                 self.setItemData(n, QtGui.QColor('#FFFFFF'), QtCore.Qt.ForegroundRole)
             else:
@@ -126,28 +120,28 @@ class LCClassComboBox(QtWidgets.QComboBox):
         self.currentIndexChanged.connect(self.index_changed)
 
     def index_changed(self):
-        color = final_classes[self.currentText()]['color']
+        color = self.nesting.parent.classByNameLong(self.currentText()).color
         if color == '#000000':
             self.setStyleSheet('QComboBox:editable {{background-color: {}; color: #FFFFFF;}}'.format(color))
         else:
             self.setStyleSheet('QComboBox:editable {{background-color: {};}}'.format(color))
 
 class LCAggTableModel(QtCore.QAbstractTableModel):
-    def __init__(self, datain, parent=None, *args):
+    def __init__(self, nesting, parent=None, *args):
         QtCore.QAbstractTableModel.__init__(self, parent, *args)
-        self.classes = datain
+        self.nesting = nesting
         
         # Column names as tuples with json name in [0], pretty name in [1]
         # Note that the columns with json names set to to INVALID aren't loaded
         # into the shell, but shown from a widget.
-        colname_tuples = [('Initial_Code', tr_lc_setup.tr('Input code')),
-                          ('Initial_Label', tr_lc_setup.tr('Input class')),
-                          ('Final_Label', tr_lc_setup.tr('Output class'))]
+        colname_tuples = [('Child_Code', tr_lc_setup.tr('Input code')),
+                          ('Child_Label', tr_lc_setup.tr('Input class')),
+                          ('Parent_Label', tr_lc_setup.tr('Output class'))]
         self.colnames_json = [x[0] for x in colname_tuples]
         self.colnames_pretty = [x[1] for x in colname_tuples]
 
     def rowCount(self, parent):
-        return len(self.classes)
+        return len(self.nesting.child.key)
 
     def columnCount(self, parent):
         return len(self.colnames_json)
@@ -159,7 +153,14 @@ class LCAggTableModel(QtCore.QAbstractTableModel):
             return QtCore.Qt.AlignCenter
         elif role != QtCore.Qt.DisplayRole:
             return None
-        return self.classes[index.row()].get(self.colnames_json[index.column()], '')
+        col_name = self.colnames_json[index.column()]
+        initial_class = self.nesting.child.key[index.row()]
+        if col_name == 'Child_Code':
+            return initial_class.code
+        elif col_name == 'Child_Label':
+            return initial_class.name_long
+        elif col_name == 'Parent_Label':
+            return self.nesting.parentClassForChild(initial_class).name_long
 
     def headerData(self, section, orientation, role=QtCore.Qt.DisplayRole):
         if role == QtCore.Qt.DisplayRole and orientation == QtCore.Qt.Horizontal:
@@ -167,37 +168,76 @@ class LCAggTableModel(QtCore.QAbstractTableModel):
         return QtCore.QAbstractTableModel.headerData(self, section, orientation, role)
 
 
-# Function to read a file defining land cover aggegation
-def read_class_file(f):
+def read_lc_nesting_file(f):
     if not os.access(f, os.R_OK):
         QtWidgets.QMessageBox.critical(None,
                 tr_lc_setup.tr("Error"),
                 tr_lc_setup.tr(u"Cannot read {}.".format(f)))
         return None
 
-    with open(f) as class_file:
-        classes = json.load(class_file)
-    if (not isinstance(classes, list)
-            or not len(classes) > 0
-            or not isinstance(classes[0], dict)
-            or 'Initial_Code' not in classes[0]
-            or 'Final_Code' not in classes[0]
-            or 'Final_Label' not in classes[0]):
-
+    try:
+        with open(f) as nesting_file:
+            nesting = LCLegendNesting.Schema().loads(nesting_file.read())
+    except ValidationError as e:
+        log(u'Error loading land cover legend nesting definition from {}: {}'.format(f, e))
         QtWidgets.QMessageBox.critical(None,
                                        tr_lc_setup.tr("Error"),
-                                       tr_lc_setup.tr("{} does not appear to contain a valid class definition.".format(f)))
+                                       tr_lc_setup.tr("{} does not appear to contain a valid land cover legend nesting definition.".format(f)))
         return None
     else:
-        log(u'Loaded class definition from {}'.format(f))
-        return classes
+        log(u'Loaded land cover legend nesting definition from {}'.format(f))
+        return nesting 
 
 
-class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLcSetAggregationUi):
-    def __init__(self, default_classes, parent=None):
+def read_lc_matrix_file(f):
+    if not os.access(f, os.R_OK):
+        QtWidgets.QMessageBox.critical(None,
+                tr_lc_setup.tr("Error"),
+                tr_lc_setup.tr(u"Cannot read {}.".format(f)))
+        return None
+
+    try:
+        with open(f) as matrix_file:
+            matrix  = LCTransitionMatrixDeg.Schema().loads(matrix_file.read())
+    except ValidationError as e:
+        log(u'Error loading land cover transition matrix from {}: {}'.format(f, e))
+        QtWidgets.QMessageBox.critical(None,
+                                       tr_lc_setup.tr("Error"),
+                                       tr_lc_setup.tr("{} does not appear to contain a valid land cover transition matrix definition.".format(f)))
+        return None
+    else:
+        log(u'Loaded land cover transition matrix definition from {}'.format(f))
+        return matrix
+
+
+def get_lc_nesting():
+    nesting = QSettings().value("LDMP/land_cover_nesting", None)
+    if nesting is None:
+        nesting = read_lc_nesting_file(os.path.join(os.path.dirname(os.path.realpath(__file__)),
+            'data', 'land_cover_nesting_UNCCD_ESA.json'))
+        QSettings().setValue("LDMP/land_cover_nesting", LCLegendNesting.Schema().dumps(nesting))
+    else:
+        nesting = LCLegendNesting.Schema().loads(nesting)
+    return nesting
+
+
+def get_trans_matrix():
+    matrix = QSettings().value("LDMP/land_cover_transition_matrix", None)
+    if matrix is None:
+        matrix = read_lc_matrix_file(os.path.join(os.path.dirname(os.path.realpath(__file__)),
+                                     'data', 'land_cover_transition_matrix_UNCCD.json'))
+        if matrix:
+            QSettings().setValue("LDMP/land_cover_transition_matrix", LCTransitionMatrixDeg.Schema().dumps(matrix))
+    else:
+        matrix = LCTransitionMatrixDeg.Schema().loads(matrix)
+    return matrix
+
+
+class DlgCalculateLCSetAggregation(QtWidgets.QDialog, Ui_DlgCalculateLCSetAggregation):
+    def __init__(self, nesting, parent=None):
         super().__init__(parent)
 
-        self.default_classes = default_classes
+        self.nesting = nesting
 
         self.setupUi(self)
 
@@ -232,10 +272,11 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLcSetAggregati
                 )
         else:
             return
-        classes = read_class_file(f)
+        nesting = read_lc_nesting_file(f)
 
-        if classes:
-            self.setup_class_table(classes)
+        if nesting:
+            self.nesting = nesting
+            self.setup_class_table(nesting)
 
     def btn_save_pressed(self):
         f, _ = QtWidgets.QFileDialog.getSaveFileName(
@@ -255,72 +296,30 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLcSetAggregati
                     self.tr(u"Cannot write to {}. Choose a different file.".format(f)))
                 return
 
-            class_def = self.get_agg_as_dict_list()
             with open(f, 'w') as outfile:
-                json.dump(class_def, outfile, sort_keys=True, indent=4, 
-                          separators=(',', ': '), default=json_serial)
+                json.dump(LCLegendNesting.Schema().dump(self.nesting), 
+                          outfile, sort_keys=True, indent=4,
+                          separators=(',', ':'), default=json_serial)
 
-    def get_agg_as_dict(self):
-        '''Returns the chosen land cover definition as a dictionary'''
-        out = {}
-        for row in range(0, self.remap_view.model().rowCount()):
-            initial_code = self.remap_view.model().index(row, 0).data()
-            label_widget_index = self.remap_view.model().index(row, self.remap_view.model().columnCount() - 1)
-            label_widget = self.remap_view.indexWidget(label_widget_index)
-            out[initial_code] = final_classes[label_widget.currentText()]['value']
-        return out
 
-    def get_agg_as_dict_list(self):
-        '''Returns the chosen land cover definition as a list of dictionaries'''
-        out = []
-        for row in range(0, self.remap_view.model().rowCount()):
-            this_out = {}
-            initial_code = self.remap_view.model().index(row, 0).data()
-            this_out['Initial_Code'] = initial_code
-            initial_label = self.remap_view.model().index(row, 1).data()
-            this_out['Initial_Label'] = initial_label
-            # Get the currently assigned label for this code
-            label_widget_index = self.remap_view.model().index(row, self.remap_view.model().columnCount() - 1)
-            label_widget = self.remap_view.indexWidget(label_widget_index)
-            this_out['Final_Label'] = final_classes[label_widget.currentText()]['label']
-            this_out['Final_Code'] = final_classes[label_widget.currentText()]['value']
-
-            out.append(this_out)
-        # Sort output by initial code
-        out = sorted(out, key=lambda k: k['Initial_Code'])
-        return out
-
-    def get_agg_as_list(self):
-        '''Returns a list describing how to aggregate the land cover data'''
-        out = [[], []]
-        for row in range(0, self.remap_view.model().rowCount()):
-            initial_code = self.remap_view.model().index(row, 0).data()
-
-            # Get the currently assigned label for this code
-            label_widget_index = self.remap_view.model().index(row, 2)
-            label_widget = self.remap_view.indexWidget(label_widget_index)
-            final_code = final_classes[label_widget.currentText()]['value']
-            out[0].append(initial_code)
-            out[1].append(final_code)
-        return out
-
-    def setup_class_table(self, classes=[]):
+    def setup_class_table(self, nesting=None):
         # Load the codes each class will be recoded to.
         # 
-        # The "classes" parameter will include any mappings derived from a 
+        # The "nesting" parameter will include any mappings derived from a 
         # class definition file, or, in the case or reading in user land cover 
-        # files, classes from the file itself.
+        # files, nesting from the file itself.
         # 
-        # The default codes stored in self.default_classes are derived either 
-        # from the data/land_cover_classes_ESA_to_IPCC.json file when this class is 
-        # instantiated from the LCSetupWidget, or from the values within a 
+        # The default codes stored in self.nesting are derived either 
+        # from the data/land_cover_nesting_UNCCD_ESA.json file when this class 
+        # is instantiated from the LCSetupWidget, or from the values within a 
         # custom user data file when this class is instantiated from the 
         # DlgDataIOImportLC class.
-        if len(classes) > 0:
-            input_codes = sorted([c['Initial_Code'] for c in classes])
-            default_codes = sorted([c['Initial_Code'] for c in self.default_classes])
-            new_codes = [c for c in input_codes if c not in default_codes]
-            missing_codes = [c for c in default_codes if c not in input_codes]
+        if nesting:
+            #TODO Fix loading of existing/new class definitions
+            child_codes = sorted([c.code for c in nesting.child.key])
+            default_codes = sorted([c.code for c in self.nesting.child.key])
+            new_codes = [c for c in child_codes if c not in default_codes]
+            missing_codes = [c for c in default_codes if c not in child_codes]
             if len(new_codes) > 0:
                 QtWidgets.QMessageBox.warning(None,
                                               self.tr("Warning"),
@@ -330,41 +329,38 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLcSetAggregati
                                               self.tr("Warning"),
                                               self.tr(u"Some of the class codes ({}) in the data file do not appear in the chosen definition file.".format(', '.join([str(c) for c in missing_codes]))))
 
-            # Setup a new classes list with the new class codes for all classes 
+            # Setup a new nesting list with the new class codes for all classes 
             # included in default classes, and any other class codes that are 
             # missing added from the default class list
-            classes = [c for c in classes if c['Initial_Code'] in default_codes]
-            classes.extend([c for c in self.default_classes if c['Initial_Code'] not in input_codes])
+            nesting = [c for c in nesting if c['Child_Code'] in default_codes]
+            nesting.extend([c for c in self.nesting if c['Child_Code'] not in child_codes])
         else:
-            classes = self.default_classes
+            nesting = self.nesting
 
-        table_model = LCAggTableModel(classes, parent=self)
+        table_model = LCAggTableModel(nesting, parent=self)
         proxy_model = QtCore.QSortFilterProxyModel()
         proxy_model.setSourceModel(table_model)
         self.remap_view.setModel(proxy_model)
 
         # Add selector in cell
-        for row in range(0, len(classes)):
-            lc_class_combo = LCClassComboBox()
-
-
-            # Now Set the default final codes for each row. Note that the 
-            # QComboBox entries are potentially translated, so need to link the 
+        for row in range(0, len(nesting.child.key)):
+            # Set the default final codes for each row. Note that the QComboBox 
+            # entries are potentially translated, so need to link the 
             # translated names back to a particular code.
             
             # Get the input code for this row and the final label it should map 
             # to by default
-            input_code = table_model.index(row, 0).data()
-            final_label = [c['Final_Label'] for c in classes if c['Initial_Code'] == input_code][0]
+            child_code = table_model.index(row, 0).data()
+            parent_class = [nesting.parentClassForChild(c) for c in nesting.child.key if c.code == child_code][0]
 
-            # Figure out which label translation this Final_Label (in English) 
+            # Figure out which label translation this Parent_Label (in English) 
             # is equivalent to
-            label_to_label_tr = {final_classes[key]['label']: key for key in final_classes.keys()}
-            final_label_tr = label_to_label_tr[final_label]
+            parent_label_tr = tr_style_text(parent_class.name_long)
 
-            # Now find the index in the combo box of this translated final 
-            # label
-            ind = lc_class_combo.findText(final_label_tr)
+            lc_class_combo = LCClassComboBox(nesting)
+
+            # Find the index in the combo box of this translated final label
+            ind = lc_class_combo.findText(parent_label_tr)
             if ind != -1:
                 lc_class_combo.setCurrentIndex(ind)
             self.remap_view.setIndexWidget(proxy_model.index(row, 2), lc_class_combo)
@@ -387,32 +383,22 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
 
         self.setupUi(self)
 
-        self.classes = [self.tr("Tree-covered"),
-                        self.tr("Grassland"),
-                        self.tr("Cropland"),
-                        self.tr("Wetland"),
-                        self.tr("Artificial"),
-                        self.tr("Bare land"),
-                        self.tr("Water body")]
-        self.deg_def_matrix.setRowCount(len(self.classes))
-        self.deg_def_matrix.setColumnCount(len(self.classes))
-        self.deg_def_matrix.setHorizontalHeaderLabels(self.classes)
-        self.deg_def_matrix.setVerticalHeaderLabels(self.classes)
+        self.nesting = get_lc_nesting()
 
-        self.trans_matrix_default = [0, -1, -1, -1, -1, -1, 0, # Tree-covered
-                                     1, 0, 1, -1, -1, -1, 0, # grassland
-                                     1, -1, 0, -1, -1, -1, 0, # cropland
-                                     -1, -1, -1, 0, -1, -1, 0, # wetland
-                                     1, 1, 1, 1, 0, 1, 0, # artificial
-                                     1, 1, 1, 1, -1, 0, 0, # Other land
-                                     0, 0, 0, 0, 0, 0, 0] # water body
+        self.trans_matrix = get_trans_matrix()
+
+        self.deg_def_matrix.setRowCount(len(self.trans_matrix.legend.key))
+        self.deg_def_matrix.setColumnCount(len(self.trans_matrix.legend.key))
+        self.deg_def_matrix.setHorizontalHeaderLabels([c.name_short for c in self.trans_matrix.legend.key])
+        self.deg_def_matrix.setVerticalHeaderLabels([c.name_short for c in self.trans_matrix.legend.key])
+
         for row in range(0, self.deg_def_matrix.rowCount()):
             for col in range(0, self.deg_def_matrix.columnCount()):
                 line_edit = TransMatrixEdit()
                 line_edit.setValidator(QtGui.QRegExpValidator(QtCore.QRegExp("[-0+]")))
                 line_edit.setAlignment(QtCore.Qt.AlignHCenter)
                 self.deg_def_matrix.setCellWidget(row, col, line_edit)
-        self.trans_matrix_set()
+        self.set_trans_matrix()
 
         # Setup the vertical label for the rows of the table
         label_lc_baseline_year = VerticalLabel(self)
@@ -437,7 +423,7 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
         for col in range(0, self.deg_def_matrix.columnCount()):
             self.deg_def_matrix.verticalHeader().setSectionResizeMode(col, QtWidgets.QHeaderView.Stretch)
 
-        self.btn_transmatrix_reset.clicked.connect(self.trans_matrix_set)
+        self.btn_transmatrix_reset.clicked.connect(self.set_trans_matrix)
         self.btn_transmatrix_loadfile.clicked.connect(self.trans_matrix_loadfile)
         self.btn_transmatrix_savefile.clicked.connect(self.trans_matrix_savefile)
 
@@ -465,19 +451,11 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
         else:
             return None
 
-        with open(f) as matrix_file:
-            matrix = json.load(matrix_file)
-
-        flag = False
-        if isinstance(matrix, list) and len(matrix) == (len(self.classes) * len(self.classes)):
-            flag = self.trans_matrix_set(matrix)
-
-        if not flag:
-            QtWidgets.QMessageBox.critical(None,
-                                           self.tr("Error"),
-                                           self.tr("{} does not appear to contain a valid matrix definition.".format(f)))
+        matrix = read_lc_matrix_file(f)
+        if not matrix:
             return None
         else:
+            self.set_trans_matrix(matrix)
             return True
 
     def trans_matrix_savefile(self):
@@ -497,47 +475,53 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
                                                self.tr(u"Cannot write to {}. Choose a different file.".format(f)))
                 return
 
-            matrix = self.trans_matrix_get()
             with open(f, 'w') as outfile:
-                json.dump(matrix, outfile, sort_keys=True, indent=4, separators=(',', ': '))
+                json.dump(LCTransitionMatrixDeg.Schema().dump(self.trans_matrix_get()),
+                          outfile, sort_keys=True, indent=4,
+                          separators=(',', ':'), default=json_serial)
 
-    def trans_matrix_set(self, matrix=None):
-        if not matrix:
-            matrix = self.trans_matrix_default
+    def set_trans_matrix(self, matrix=None):
+        if matrix:
+            QSettings().setValue("LDMP/land_cover_transition_matrix", LCTransitionMatrixDeg.Schema().dumps(matrix))
+        else:
+            matrix = get_trans_matrix()
         for row in range(0, self.deg_def_matrix.rowCount()):
+            initial_class = matrix.legend.key[row]
             for col in range(0, self.deg_def_matrix.columnCount()):
-                # Matrix is actually a list of length NUM_CLASSES * NUM_CLASSES
-                val = matrix[len(self.classes) * row + col]
-                if val == 0:
-                    val_str = '0'
-                elif val == -1:
-                    val_str = '-'
-                elif val == 1:
-                    val_str = '+'
+                final_class = matrix.legend.key[col]
+                meaning = matrix.meaningByTransition(initial_class, final_class)
+                if meaning == 'stable':
+                    code = '0'
+                elif meaning == 'degradation':
+                    code = '-'
+                elif meaning == 'improvement':
+                    code = '+'
                 else:
-                    log('unrecognized value "{}" when setting transition matrix'.format(val))
+                    log('unrecognized value "{}" when setting transition matrix'.format(meaning))
                     return False
-                self.deg_def_matrix.cellWidget(row, col).setText(val_str)
+                self.deg_def_matrix.cellWidget(row, col).setText(code)
         return True
 
     def trans_matrix_get(self):
         # Extract trans_matrix from the QTableWidget
-        trans_matrix = []
+        transitions = []
         for row in range(0, self.deg_def_matrix.rowCount()):
             for col in range(0, self.deg_def_matrix.columnCount()):
                 val = self.deg_def_matrix.cellWidget(row, col).text()
                 if val == "" or val == "0":
-                    val = 0
+                    meaning = "stable"
                 elif val == "-":
-                    val = -1
+                    meaning = "degradation"
                 elif val == "+":
-                    val = 1
+                    meaning = "improvement"
                 else:
-                    log('unrecognized value "{}" when getting transition matrix'.format(val))
-                    raise ValueError('unrecognized value "{}" in transition matrix'.format(val))
-                trans_matrix.append(val)
-        return trans_matrix
-
+                    log('unrecognized value "{}" when reading transition matrix JSON'.format(val))
+                    raise ValueError('unrecognized value "{}" when reading transition matrix JSON'.format(val))
+                transitions.append(LCTransitionDeg(self.nesting.parent.key[row],
+                                                  self.nesting.parent.key[col],
+                                                  meaning))
+        return LCTransitionMatrixDeg(self.nesting.parent,
+                             transitions)
 
 class LandCoverSetupLocalExecutionWidget(
     QtWidgets.QWidget,

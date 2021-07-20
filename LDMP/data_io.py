@@ -1017,12 +1017,14 @@ class DlgDataIOImportLC(DlgDataIOImportBase, Ui_DlgDataIOImportLC):
         out_file = self.output_widget.lineEdit_output_file.text()
         if self.input_widget.radio_raster_input.isChecked():
             in_file = self.input_widget.lineEdit_raster_file.text()
+            #TODO: Fix this for new nesting format
             remap_ret = self.remap_raster(in_file, out_file, self.dlg_agg.get_agg_as_list())
         else:
             attribute = self.input_widget.comboBox_fieldname.currentText()
             l = self.input_widget.get_vector_layer()
             remap_ret = self.remap_vector(l,
                                           out_file, 
+            #TODO: Fix this for new nesting format
                                           self.dlg_agg.get_agg_as_dict(), 
                                           attribute)
         if not remap_ret:

@@ -1,7 +1,7 @@
 ﻿"""
 /***************************************************************************
  LDMP - A QGIS plugin
- This plugin supports monitoring and reporting of land degradation to the UNCCD 
+ This plugin supports monitoring and reporting of land degradation to the UNCCD
  and in support of the SDG Land Degradation Neutrality (LDN) target.
                               -------------------
         begin                : 2017-05-23
@@ -10,9 +10,11 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
+# pylint: disable=import-error
 
 import json
 from pathlib import Path
+import datetime
 
 from PyQt5 import (
     QtCore,
@@ -42,7 +44,7 @@ DlgCalculateLdnSummaryTableAdminUi, _ = uic.loadUiType(
 
 
 class tr_calculate_ldn(object):
-    def tr(message):
+    def tr(self, message):
         return QtCore.QCoreApplication.translate("tr_calculate_ldn", message)
 
 
@@ -82,14 +84,12 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         start_year_lc = lc_dataset['Start year']
         end_year_lc = lc_dataset['End year']
 
-        
         start_year = QtCore.QDate(max(start_year_ndvi, start_year_lc), 1, 1)
         end_year = QtCore.QDate(min(end_year_ndvi, end_year_lc), 1, 1)
-
-        self.year_initial.setMinimumDate(start_year)
-        self.year_initial.setMaximumDate(end_year)
-        self.year_final.setMinimumDate(start_year)
-        self.year_final.setMaximumDate(end_year)
+        self.year_initial_baseline.setMinimumDate(start_year)
+        self.year_initial_baseline.setMaximumDate(end_year)
+        self.year_final_baseline.setMinimumDate(start_year)
+        self.year_final_baseline.setMaximumDate(end_year)
         
     def showEvent(self, event):
         super(DlgCalculateOneStep, self).showEvent(event)
@@ -167,7 +167,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         #     log(name)
         #     # self.options_tab.task_name.setText(name)
         #     # self.btn_calculate()
-        #     
+        #
         #     # Sleep without freezing interface
         #     sleep_worker = StartWorker(SleepWorker, 'sleeping', 60)
         #     if not deg_lc_clip_worker.success:
@@ -187,9 +187,10 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         if not ret:
             return
 
-        if (self.year_final.date().year() - self.year_initial.date().year()) < 10:
+        if (self.year_final_baseline.date().year() -
+                self.year_initial_baseline.date().year()) < 10:
             QtWidgets.QMessageBox.warning(None, self.tr("Error"),
-                                       self.tr("Initial and final year are less 10 years apart - more reliable results will be given if more data (years) are included in the analysis."))
+                                          self.tr("Initial and final year are less 10 years apart - more reliable results will be given if more data (years) are included in the analysis."))
         #     return
 
         self.close()
@@ -197,25 +198,25 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         #######################################################################
         # Online
 
-        prod_traj_year_initial = self.year_initial.date().year()
-        prod_traj_year_final = self.year_final.date().year()
+        prod_traj_year_initial = self.year_initial_baseline.date().year()
+        prod_traj_year_final = self.year_final_baseline.date().year()
 
-        prod_perf_year_initial = self.year_initial.date().year()
-        prod_perf_year_final = self.year_final.date().year()
+        prod_perf_year_initial = self.year_initial_baseline.date().year()
+        prod_perf_year_final = self.year_final_baseline.date().year()
 
         # Have productivity state consider the last 3 years for the current 
         # period, and the years preceding those last 3 for the baseline
-        prod_state_year_bl_start = self.year_initial.date().year()
-        prod_state_year_bl_end = self.year_final.date().year() - 3
+        prod_state_year_bl_start = self.year_initial_baseline.date().year()
+        prod_state_year_bl_end = self.year_final_baseline.date().year() - 3
         prod_state_year_tg_start = prod_state_year_bl_end + 1
         prod_state_year_tg_end = prod_state_year_bl_end + 3
-        assert (prod_state_year_tg_end == self.year_final.date().year())
+        assert (prod_state_year_tg_end == self.year_final_baseline.date().year())
 
-        lc_year_initial = self.year_initial.date().year()
-        lc_year_final = self.year_final.date().year()
+        lc_year_initial = self.year_initial_baseline.date().year()
+        lc_year_final = self.year_final_baseline.date().year()
 
-        soc_year_initial = self.year_initial.date().year()
-        soc_year_final = self.year_final.date().year()
+        soc_year_initial = self.year_initial_baseline.date().year()
+        soc_year_final = self.year_final_baseline.date().year()
 
         if self.mode_te_prod.isChecked():
             prod_mode = 'Trends.Earth productivity'
@@ -244,8 +245,8 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             'ndvi_gee_dataset': 'users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2019',
             'climate_gee_dataset': None,
             'fl': .80,
-            'trans_matrix': self.lc_define_deg_widget.trans_matrix_get(),
-            'remap_matrix': self.lc_setup_widget.aggregation_dialog.get_agg_as_list(),
+            'trans_matrix': LCTransMatrix.Schema().dump(self.lc_define_deg_widget.trans_matrix),
+            'nesting': LCLegendNesting.Schema().dump(self.lc_setup_widget.aggregation_dialog.nesting),
             'task_name': self.execution_name_le.text(),
             'task_notes': self.task_notes.toPlainText()
         }

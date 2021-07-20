@@ -245,6 +245,12 @@ class AlgorithmEditorWidget(QtWidgets.QWidget, WidgetAlgorithmLeafUi):
             models.AlgorithmRunMode.LOCAL: "Execute locally",
             models.AlgorithmRunMode.REMOTE: "Execute remotely",
         }
+        special_alg_ids = [
+                    "bdad3786-bc36-46aa-8e3d-d6cede915cef",
+                    "fe1cffa7-33f7-4148-ac7b-fc726402d59d"
+                ]
+        if str(algorithm.id) in special_alg_ids:
+            self.setStyleSheet("font-size: 17px;")
         self.open_execution_dialogue_tb.setToolButtonStyle(
             QtCore.Qt.ToolButtonTextBesideIcon)
         action_icon = QtGui.QIcon(":/images/themes/default/processingAlgorithm.svg")

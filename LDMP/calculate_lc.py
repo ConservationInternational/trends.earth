@@ -252,12 +252,12 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
                                        self.tr("Error calculating land cover change."))
             return
 
-        band_info = [BandInfo("Land cover (degradation)", add_to_map=True, 
+        band_info = [BandInfo("Land cover (degradation)", add_to_map=True,
                               metadata={'year_baseline': year_baseline,
-                                        'year_target': year_target
-                                        'trans_matrix': trans_matrix.dumps()}),
+                                        'year_target': year_target,
+                                        'trans_matrix': self.lc_define_deg_tab.trans_matrix_get().dumps()}),
                      BandInfo("Land cover (7 class)",
-                         metadata={'year': year_baseline}),
+                              metadata={'year': year_baseline}),
                      BandInfo("Land cover (7 class)",
                               metadata={'year': year_target}),
                      BandInfo("Land cover transitions", add_to_map=True,

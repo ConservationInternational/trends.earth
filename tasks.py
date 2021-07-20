@@ -268,11 +268,12 @@ def tecli_config(c, key):
         return
     subprocess.check_call(['python', os.path.abspath(c.gee.tecli), 'config', 'set', 'EE_SERVICE_ACCOUNT_JSON', key])
 
-@task(help={'script': 'Script name'})
-def tecli_publish(c, script=None):
+@task(help={'script': 'Script name',
+            'overwrite': 'Overwrite scripts if existing?'})
+def tecli_publish(c, script=None, overwrite=False):
     if not check_tecli_python_version():
         return
-    if not script:
+    if not script and not overwrite:
         ret = query_yes_no('WARNING: this will overwrite all scripts on the server with version {}.\nDo you wish to continue?'.format(get_version(c)))
         if not ret:
             return

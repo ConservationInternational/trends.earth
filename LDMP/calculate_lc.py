@@ -164,7 +164,7 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
                    'crs': self.aoi.get_crs_dst_wkt(),
                    'crosses_180th': crosses_180th,
                    'trans_matrix': self.lc_define_deg_tab.trans_matrix_get(),
-                   'nesting': self.lc_setup_tab.dlg_lc_nesting.nesting(),
+                   'nesting': self.lc_setup_tab.dlg_lc_nesting.nesting,
                    'task_name': self.options_tab.task_name.text(),
                    'task_notes': self.options_tab.task_notes.toPlainText()}
 
@@ -194,31 +194,6 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
                 return False
 
     def calculate_locally(self):
-        trans_matrix = [[11, 12, 13, 14, 15, 16, 17,
-                         21, 22, 23, 24, 25, 26, 27,
-                         31, 32, 33, 34, 35, 36, 37,
-                         41, 42, 43, 44, 45, 46, 47,
-                         51, 52, 53, 54, 55, 56, 57,
-                         61, 62, 63, 64, 65, 66, 67],
-                        self.lc_define_deg_tab.trans_matrix_get()]
-
-        # Remap the persistence classes so they are sequential, making them 
-        # easier to assign a clear color ramp in QGIS
-        persistence_remap = [[11, 12, 13, 14, 15, 16, 17,
-                              21, 22, 23, 24, 25, 26, 27,
-                              31, 32, 33, 34, 35, 36, 37,
-                              41, 42, 43, 44, 45, 46, 47,
-                              51, 52, 53, 54, 55, 56, 57,
-                              61, 62, 63, 64, 65, 66, 67,
-                              71, 72, 73, 74, 75, 76, 77],
-                             [1, 12, 13, 14, 15, 16, 17,
-                              21, 2, 23, 24, 25, 26, 27,
-                              31, 32, 3, 34, 35, 36, 37,
-                              41, 42, 43, 4, 45, 46, 47,
-                              51, 52, 53, 54, 5, 56, 57,
-                              61, 62, 63, 64, 65, 6, 67,
-                              71, 72, 73, 74, 75, 76, 7]]
-
         if len(self.lc_setup_tab.use_custom_initial.layer_list) == 0:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("You must add an initial land cover layer to your map before you can run the calculation."))
@@ -268,16 +243,26 @@ class DlgCalculateLC(DlgCalculateBase, Ui_DlgCalculateLC):
         
         lc_change_worker = StartWorker(LandCoverChangeWorker,
                                        'calculating land cover change', in_vrt, 
-                                       out_f, trans_matrix, persistence_remap)
+                                       out_f,
+                                       self.lc_define_deg_tab.trans_matrix_get().get_list(),
+                                       self.lc_define_deg_tab.trans_matrix_get().get_persistence_list())
+                        
         if not lc_change_worker.success:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                        self.tr("Error calculating land cover change."))
             return
 
-        band_info = [BandInfo("Land cover (degradation)", add_to_map=True, metadata={'year_baseline': year_baseline, 'year_target': year_target}),
-                     BandInfo("Land cover (7 class)", metadata={'year': year_baseline}),
-                     BandInfo("Land cover (7 class)", metadata={'year': year_target}),
-                     BandInfo("Land cover transitions", add_to_map=True, metadata={'year_baseline': year_baseline, 'year_target': year_target})]
+        band_info = [BandInfo("Land cover (degradation)", add_to_map=True, 
+                              metadata={'year_baseline': year_baseline,
+                                        'year_target': year_target
+                                        'trans_matrix': trans_matrix.dumps()}),
+                     BandInfo("Land cover (7 class)",
+                         metadata={'year': year_baseline}),
+                     BandInfo("Land cover (7 class)",
+                              metadata={'year': year_target}),
+                     BandInfo("Land cover transitions", add_to_map=True,
+                              metadata={'year_baseline': year_baseline,
+                                        'year_target': year_target})]
         out_json = os.path.splitext(out_f)[0] + '.json'
         create_local_json_metadata(out_json, out_f, band_info)
         schema = BandInfoSchema()

@@ -13,8 +13,8 @@ import json
 
 import ee
 
-from landdegradation.productivity import productivity_trajectory, \
-    productivity_performance, productivity_state
+from landdegradation.productivity import (
+        productivity_trajectory, productivity_performance, productivity_state)
 from landdegradation.land_cover import land_cover
 from landdegradation.soc import soc
 from landdegradation.download import download
@@ -39,14 +39,14 @@ def run(params, logger):
     lc_year_final = params.get('lc_year_final')
     soc_year_initial = params.get('soc_year_initial')
     soc_year_final = params.get('soc_year_final')
-    geojsons = json.loads(params.get('geojsons'))
+    geojsons = params.get('geojsons')
     crs = params.get('crs')
     prod_traj_method = params.get('prod_traj_method')
     ndvi_gee_dataset = params.get('ndvi_gee_dataset')
     climate_gee_dataset = params.get('climate_gee_dataset')
     fl = params.get('fl')
-    trans_matrix = LCTransMatrix.Schema().loads(params.get('trans_matrix'))
-    nesting = LCLegendNesting.Schema().loads(params.get('nesting'))
+    trans_matrix = LCTransMatrix.Schema().load(params.get('trans_matrix'))
+    nesting = LCLegendNesting.Schema().load(params.get('nesting'))
 
     # Check the ENV. Are we running this locally or in prod?
     if params.get('ENV') == 'dev':
@@ -84,14 +84,14 @@ def run(params, logger):
             out.merge(prod_state)
 
             logger.debug("Running land cover indicator.")
-            lc = land_cover(lc_year_initial, lc_year_final, trans_matrix, remap_matrix, 
+            lc = land_cover(lc_year_initial, lc_year_final, trans_matrix, nesting, 
                             EXECUTION_ID, logger)
             lc.selectBands(['Land cover (degradation)',
                             'Land cover (7 class)'])
             out.merge(lc)
 
             logger.debug("Running soil organic carbon indicator.")
-            soc_out = soc(soc_year_initial, soc_year_final, fl, remap_matrix, False, 
+            soc_out = soc(soc_year_initial, soc_year_final, fl, nesting, False, 
                           EXECUTION_ID, logger)
             soc_out.selectBands(['Soil organic carbon (degradation)',
                                  'Soil organic carbon'])
@@ -108,7 +108,7 @@ def run(params, logger):
             outs.append(out.export([geojson], 'sdg_sub_indicators', crs, logger,
                                    EXECUTION_ID, proj))
 
-        # First need to deserialize the data that was prepared for output from 
+        # First need to deserialize the data that was prepared for output from
         # the productivity functions, so that new urls can be appended
         schema = CloudResultsSchema()
         logger.debug("Deserializing")
@@ -117,7 +117,7 @@ def run(params, logger):
             this_out = schema.load(o)
             final_prod.urls.extend(this_out.urls)
         logger.debug("Serializing")
-        # Now serialize the output again so the remaining layers can be added 
+        # Now serialize the output again so the remaining layers can be added
         # to it
         return schema.dump(final_prod)
 
@@ -129,14 +129,14 @@ def run(params, logger):
         out.image = out.image.int16()
 
         logger.debug("Running land cover indicator.")
-        lc = land_cover(lc_year_initial, lc_year_final, trans_matrix, remap_matrix, 
+        lc = land_cover(lc_year_initial, lc_year_final, trans_matrix, nesting,
                         EXECUTION_ID, logger)
         lc.selectBands(['Land cover (degradation)',
                         'Land cover (7 class)'])
         out.merge(lc)
 
         logger.debug("Running soil organic carbon indicator.")
-        soc_out = soc(soc_year_initial, soc_year_final, fl, remap_matrix, False, 
+        soc_out = soc(soc_year_initial, soc_year_final, fl, nesting, False,
                       EXECUTION_ID, logger)
         soc_out.selectBands(['Soil organic carbon (degradation)',
                              'Soil organic carbon'])

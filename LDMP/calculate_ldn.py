@@ -236,15 +236,15 @@ class DlgCalculateOneStep(DlgCalculateBase, Ui_DlgCalculateOneStep):
                    'lc_year_final': lc_year_final,
                    'soc_year_initial': soc_year_initial,
                    'soc_year_final': soc_year_final,
-                   'geojsons': json.dumps(geojsons),
+                   'geojsons': geojsons,
                    'crs': self.aoi.get_crs_dst_wkt(),
                    'crosses_180th': crosses_180th,
                    'prod_traj_method': 'ndvi_trend',
                    'ndvi_gee_dataset': self.datasets['NDVI']['MODIS (MOD13Q1, annual)']['GEE Dataset'],
                    'climate_gee_dataset': None,
                    'fl': .80,
-                   'trans_matrix': self.lc_define_deg_tab.trans_matrix_get(),
-                   'remap_matrix': self.lc_setup_tab.dlg_lc_nesting.get_agg_as_list(),
+                   'trans_matrix': LCTransMatrix.Schema().dump(self.lc_define_deg_tab.trans_matrix),
+                   'nesting': LCLegendNesting.Schema().dump(self.lc_setup_tab.dlg_lc_nesting.nesting),
                    'task_name': self.options_tab.task_name.text(),
                    'task_notes': self.options_tab.task_notes.toPlainText()}
 
@@ -873,7 +873,8 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
                            sdg_tbl_lc, lc_years, soc_years, prod_years,
                            self.options_tab.task_name.text(),
                            self.aoi,
-                           self.lc_setup_tab.dlg_lc_nesting.get_agg_as_json(),
+                           self.lc_setup_tab.dlg_lc_nesting.nesting,
+                           self.lc_define_deg_tab.trans_matrix,
                            json_out_file)
 
         excel_out_file = self.output_tab.output_basename.text() + '_report.xlsx'
@@ -1086,7 +1087,7 @@ def make_summary_table(soc_totals, lc_totals, trans_prod_xtab, sdg_tbl_overall,
 def make_summary_json(soc_totals, lc_totals, trans_prod_xtab, sdg_tbl_overall, 
                        sdg_tbl_prod, sdg_tbl_soc, sdg_tbl_lc, lc_years, 
                        soc_years, prod_years, task_name, aoi, 
-                       lc_legend_nesting, out_file):
+                       lc_legend_nesting, lc_trans_matrix, out_file):
 
     ##########################################################################
     # Area summary tables
@@ -1222,6 +1223,7 @@ def make_summary_json(soc_totals, lc_totals, trans_prod_xtab, sdg_tbl_overall,
                         "land_cover": LandCoverReport(
                             summary = sdg_tbl_lc,
                             legend_nesting = lc_legend_nesting,
+                            transition_matrix = trans_matrix,
                             crosstab_by_land_cover_class = crosstab_lc,
                             land_cover_areas_by_year = lc_by_year),
 

@@ -14,7 +14,7 @@ import json
 import ee
 
 from landdegradation.soc import soc
-from te_schemas.land_cover import LCTransMatrix, LCLegendNesting
+from te_schemas.land_cover import LCLegendNesting
 
 
 def run(params, logger):

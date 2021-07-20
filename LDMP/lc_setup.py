@@ -132,23 +132,13 @@ class LCAggTableModel(QAbstractTableModel):
         return len(self.colnames_json)
 
     def data(self, index, role):
-        if debug_on():
-            log('getting data for row {}, and col {}, role {}...'.format(index.row(), index.column(), role))
         if not index.isValid():
-            if debug_on():
-                log('index not valid')
             return None
         elif role == Qt.TextAlignmentRole and index.column() in [0, 2, 3]:
-            if debug_on():
-                log('align center')
             return Qt.AlignCenter
         elif role != Qt.DisplayRole:
-            if debug_on():
-                log('not display role')
             return None
         col_name = self.colnames_json[index.column()]
-        if debug_on():
-            log('getting data for role {}, row {}, and col {} (col_name name: {})...'.format(role, index.row(), index.column(), col_name))
         initial_class = self.nesting.child.key[index.row()]
         if col_name == 'Child_Code':
             return initial_class.code
@@ -226,7 +216,6 @@ def get_trans_matrix():
         if matrix:
             QSettings().setValue("LDMP/land_cover_transition_matrix", LCTransMatrix.Schema().dumps(matrix))
     else:
-        log('Matrix for LCTransMatrix {}'.format(matrix))
         matrix = LCTransMatrix.Schema().loads(matrix)
     return matrix
 
@@ -305,7 +294,6 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, Ui_DlgCalculateLCSetAggreg
         # DlgDataIOImportLC class.
         if nesting:
             #TODO Fix loading of existing/new class definitions
-            log('generating nesting from specified table')
             child_codes = sorted([c.code for c in nesting.child.key])
             default_codes = sorted([c.code for c in self.nesting.child.key])
             new_codes = [c for c in child_codes if c not in default_codes]
@@ -325,7 +313,6 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, Ui_DlgCalculateLCSetAggreg
             nesting = [c for c in nesting if c['Child_Code'] in default_codes]
             nesting.extend([c for c in self.nesting if c['Child_Code'] not in child_codes])
         else:
-            log('using nesting from self.nesting')
             nesting = self.nesting
 
         table_model = LCAggTableModel(nesting, parent=self)

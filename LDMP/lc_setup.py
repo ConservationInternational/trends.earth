@@ -32,7 +32,8 @@ from LDMP.gui.WidgetLCDefineDegradation import Ui_WidgetLCDefineDegradation
 from LDMP.gui.WidgetLCSetup import Ui_WidgetLCSetup
 from LDMP.layers import tr_style_text
 
-from te_schemas.land_cover import *
+from te_schemas.land_cover import (LCLegend, LCLegendNesting, LCTransitionDeg,
+                                   LCTransitionMatrixDeg)
 
 from marshmallow.exceptions import ValidationError
 class tr_lc_setup(object):
@@ -185,7 +186,7 @@ def read_lc_matrix_file(f):
 
     try:
         with open(f) as matrix_file:
-            matrix  = LCTransMatrix.Schema().loads(matrix_file.read())
+            matrix  = LCTransitionMatrixDeg.Schema().loads(matrix_file.read())
     except ValidationError as e:
         log(u'Error loading land cover transition matrix from {}: {}'.format(f, e))
         QtWidgets.QMessageBox.critical(None,
@@ -214,9 +215,9 @@ def get_trans_matrix():
         matrix = read_lc_matrix_file(os.path.join(os.path.dirname(os.path.realpath(__file__)),
                                      'data', 'land_cover_transition_matrix_UNCCD.json'))
         if matrix:
-            QSettings().setValue("LDMP/land_cover_transition_matrix", LCTransMatrix.Schema().dumps(matrix))
+            QSettings().setValue("LDMP/land_cover_transition_matrix", LCTransitionMatrixDeg.Schema().dumps(matrix))
     else:
-        matrix = LCTransMatrix.Schema().loads(matrix)
+        matrix = LCTransitionMatrixDeg.Schema().loads(matrix)
     return matrix
 
 
@@ -446,13 +447,13 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, Ui_WidgetLCDefineDegradation)
                 return
 
             with open(f, 'w') as outfile:
-                json.dump(LCTransMatrix.Schema().dump(self.trans_matrix_get()),
+                json.dump(LCTransitionMatrixDeg.Schema().dump(self.trans_matrix_get()),
                           outfile, sort_keys=True, indent=4,
                           separators=(',', ':'), default=json_serial)
 
     def set_trans_matrix(self, matrix=None):
         if matrix:
-            QSettings().setValue("LDMP/land_cover_transition_matrix", LCTransMatrix.Schema().dumps(matrix))
+            QSettings().setValue("LDMP/land_cover_transition_matrix", LCTransitionMatrixDeg.Schema().dumps(matrix))
         else:
             matrix = get_trans_matrix()
         for row in range(0, self.deg_def_matrix.rowCount()):
@@ -487,10 +488,10 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, Ui_WidgetLCDefineDegradation)
                 else:
                     log('unrecognized value "{}" when reading transition matrix JSON'.format(val))
                     raise ValueError('unrecognized value "{}" when reading transition matrix JSON'.format(val))
-                transitions.append(LCTransMeaning(self.nesting.parent.key[row],
+                transitions.append(LCTransitionDeg(self.nesting.parent.key[row],
                                                   self.nesting.parent.key[col],
                                                   meaning))
-        return LCTransMatrix(self.nesting.parent,
+        return LCTransitionMatrixDeg(self.nesting.parent,
                              transitions)
 
 class LCSetupWidget(QtWidgets.QWidget, Ui_WidgetLCSetup):

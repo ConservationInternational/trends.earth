@@ -390,9 +390,8 @@ def plugin_setup(c, clean=False, development=False, pip='pip'):
 
     os.environ['PYTHONPATH'] = ext_libs
     for req in runtime + test:
-        continue
-        # Don't install numpy with pyqtgraph as QGIS already has numpy. 
-        # So use the --no-deps flag (-N for short) with that package only.
+        # Don't install numpy with pyqtgraph as QGIS already has numpy. So use 
+        # the --no-deps flag (-N for short) with that package only.
         if 'pyqtgraph' in req:
             subprocess.check_call([pip, 'install', '--upgrade', '--no-deps', '-t', ext_libs, req])
         else:
@@ -401,7 +400,6 @@ def plugin_setup(c, clean=False, development=False, pip='pip'):
     if development:
         for module in c.plugin.ext_libs.module_symlinks:
             link = os.path.abspath(c.plugin.ext_libs.path) + os.path.sep + module['name']
-            print(module)
             if os.path.islink(link):
                 print("Local repo of {} already linked to plugin ext_libs".format(module['name']))
             else:

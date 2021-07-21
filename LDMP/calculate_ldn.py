@@ -38,6 +38,7 @@ from .calculate import (
 )
 from .jobs.manager import job_manager
 from .localexecution import ldn
+from .logger import log
 
 DlgCalculateOneStepUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateOneStep.ui"))
@@ -240,7 +241,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             'lc_year_final': lc_year_final,
             'soc_year_initial': soc_year_initial,
             'soc_year_final': soc_year_final,
-            'geojsons': json.dumps(geojsons),
+            'geojsons': geojsons,
             'crs': self.aoi.get_crs_dst_wkt(),
             'crosses_180th': crosses_180th,
             'prod_traj_method': 'ndvi_trend',

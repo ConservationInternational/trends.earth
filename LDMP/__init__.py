@@ -24,16 +24,27 @@ from tempfile import NamedTemporaryFile
 from PyQt5 import (
     QtCore,
 )
-from qgis.core import QgsApplication
+from qgis.core import QgsApplication, QgsSettings
 from qgis.utils import iface
 
 import LDMP.logger
-from . import (
-    conf,
-    utils,
-)
 
+# Ensure that the ext-libs, and binaries folder (if available) are near the 
+# front of the path (important on Linux)
 plugin_dir = os.path.dirname(os.path.realpath(__file__))
+ext_libs_path = os.path.join(plugin_dir, 'ext-libs')
+sys.path, remainder = sys.path[:1], sys.path[1:]
+site.addsitedir(ext_libs_path)
+# TODO: Can't get below setting value from settings manager as that would lead 
+# to too many LDMP modules loading (and needing dependencies that are in 
+# ext_libs). Figure out how to get it directly...
+#binaries_folder = QgsSettings().value("trends_earth/advanced/binaries_folder", None)
+binaries_folder = None
+if binaries_folder:
+    LDMP.logger.log('Adding {} to path for binaries.'.format(binaries_folder))
+    site.addsitedir(os.path.join(binaries_folder,
+        'trends_earth_binaries_{}'.format(__version__.replace('.', '_'))))
+sys.path.extend(remainder)
 
 with open(os.path.join(plugin_dir, 'version.json')) as f:
     version_info = json.load(f)
@@ -81,17 +92,11 @@ if ret:
 else:
     LDMP.logger.log("FAILED while trying to install translator for {}.".format(locale.name()))
 
-# Ensure that the ext-libs, and binaries folder (if available) are near the 
-# front of the path (important on Linux)
-ext_libs_path = os.path.join(plugin_dir, 'ext-libs')
-binaries_folder = conf.settings_manager.get_value(conf.Setting.BINARIES_DIR)
-sys.path, remainder = sys.path[:1], sys.path[1:]
-site.addsitedir(ext_libs_path)
-if binaries_folder:
-    LDMP.logger.log('Adding {} to path for binaries.'.format(binaries_folder))
-    site.addsitedir(os.path.join(binaries_folder,
-        'trends_earth_binaries_{}'.format(__version__.replace('.', '_'))))
-sys.path.extend(remainder)
+
+from . import (
+    conf,
+    utils,
+)
 
 
 def binaries_available():

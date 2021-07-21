@@ -520,7 +520,7 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
                 else:
                     log('unrecognized value "{}" when reading transition matrix JSON'.format(val))
                     raise ValueError('unrecognized value "{}" when reading transition matrix JSON'.format(val))
-                transitions.append(LCTransitionDeg(self.nesting.parent.key[row],
+                transitions.append(LCTransitionMeaningDeg(self.nesting.parent.key[row],
                                                   self.nesting.parent.key[col],
                                                   meaning))
         return LCTransitionDefinitionDeg(self.nesting.parent,

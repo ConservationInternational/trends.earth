@@ -14,7 +14,7 @@ import json
 import ee
 
 from landdegradation.land_cover import land_cover
-from te_schemas.land_cover import LCTransMatrix, LCLegendNesting
+from te_schemas.land_cover import LCTransitionDefinitionDeg, LCLegendNesting
 
 
 def run(params, logger):
@@ -24,7 +24,7 @@ def run(params, logger):
     year_target = params.get('year_target')
     geojsons = json.loads(params.get('geojsons'))
     crs = params.get('crs')
-    trans_matrix = LCTransMatrix.Schema().loads(params.get('trans_matrix'))
+    trans_matrix = LCTransitionDefinitionDeg.Schema().loads(params.get('trans_matrix'))
     nesting = LCLegendNesting.Schema().loads(params.get('nesting'))
 
     # Check the ENV. Are we running this locally or in prod?

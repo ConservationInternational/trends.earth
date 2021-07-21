@@ -211,9 +211,10 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         if self.refreshing_filesystem_cache:
             log("Filesystem cache is already being refreshed, skipping...")
         elif self.scheduler_paused:
-            log("Scheduling is paused, skipping...")
+            #log("Scheduling is paused, skipping...")
+            pass
         else:
-            log("Lets maybe do stuff...")
+            #log("Lets maybe do stuff...")
             if _should_run(local_frequency, self.last_refreshed_local_state):
                 # lets check if we also need to update from remote, as that takes precedence
                 if settings_manager.get_value(Setting.POLL_REMOTE):

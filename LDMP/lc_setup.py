@@ -33,7 +33,7 @@ from . import (
 from .layers import tr_style_text
 from .logger import log
 
-DlgCalculateLcSetAggregationUi, _ = uic.loadUiType(
+DlgCalculateLCSetAggregationUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateLCSetAggregation.ui"))
 WidgetLcDefineDegradationUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/WidgetLCDefineDegradation.ui"))
@@ -46,8 +46,10 @@ WidgetLandCoverSetupRemoteExecutionUi, _ = uic.loadUiType(
 mb = iface.messageBar()
 
 
-from te_schemas.land_cover import (LCLegend, LCLegendNesting, LCTransitionDeg,
-                                   LCTransitionMatrixDeg)
+from te_schemas.land_cover import (
+        LCLegend, LCLegendNesting,
+        LCTransitionMeaningDeg,
+        LCTransitionDefinitionDeg)
 
 from marshmallow.exceptions import ValidationError
 class tr_lc_setup(object):
@@ -109,8 +111,8 @@ class LCClassComboBox(QtWidgets.QComboBox):
         self.addItems([c.name_long for c in self.nesting.parent.orderByCode().key])
 
         for n in range(0, len(nesting.parent.key)):
-            color = self.nesting.parent.classByNameLong(n, QtCore.Qt.DisplayRole).color
-            self.setItemData(n, QtGui.QColor(color), QCore.Qt.BackgroundRole)
+            color = self.nesting.parent.classByNameLong(self.itemData(n, QtCore.Qt.DisplayRole)).color
+            self.setItemData(n, QtGui.QColor(color), QtCore.Qt.BackgroundRole)
             if color == '#000000':
                 self.setItemData(n, QtGui.QColor('#FFFFFF'), QtCore.Qt.ForegroundRole)
             else:
@@ -182,7 +184,7 @@ def read_lc_nesting_file(f):
         log(u'Error loading land cover legend nesting definition from {}: {}'.format(f, e))
         QtWidgets.QMessageBox.critical(None,
                                        tr_lc_setup.tr("Error"),
-                                       tr_lc_setup.tr("{} does not appear to contain a valid land cover legend nesting definition.".format(f)))
+                                       tr_lc_setup.tr("{} does not appear to contain a valid land cover legend nesting definition: {}".format(f, e)))
         return None
     else:
         log(u'Loaded land cover legend nesting definition from {}'.format(f))
@@ -198,12 +200,12 @@ def read_lc_matrix_file(f):
 
     try:
         with open(f) as matrix_file:
-            matrix  = LCTransitionMatrixDeg.Schema().loads(matrix_file.read())
+            matrix = LCTransitionDefinitionDeg.Schema().loads(matrix_file.read())
     except ValidationError as e:
         log(u'Error loading land cover transition matrix from {}: {}'.format(f, e))
         QtWidgets.QMessageBox.critical(None,
                                        tr_lc_setup.tr("Error"),
-                                       tr_lc_setup.tr("{} does not appear to contain a valid land cover transition matrix definition.".format(f)))
+                                       tr_lc_setup.tr("{} does not appear to contain a valid land cover transition matrix definition: {}".format(f, e)))
         return None
     else:
         log(u'Loaded land cover transition matrix definition from {}'.format(f))
@@ -211,29 +213,30 @@ def read_lc_matrix_file(f):
 
 
 def get_lc_nesting():
-    nesting = QSettings().value("LDMP/land_cover_nesting", None)
+    nesting = QtCore.QSettings().value("LDMP/land_cover_nesting", None)
     if nesting is None:
         nesting = read_lc_nesting_file(os.path.join(os.path.dirname(os.path.realpath(__file__)),
             'data', 'land_cover_nesting_UNCCD_ESA.json'))
-        QSettings().setValue("LDMP/land_cover_nesting", LCLegendNesting.Schema().dumps(nesting))
+        QtCore.QSettings().setValue("LDMP/land_cover_nesting", LCLegendNesting.Schema().dumps(nesting))
     else:
         nesting = LCLegendNesting.Schema().loads(nesting)
     return nesting
 
 
 def get_trans_matrix():
-    matrix = QSettings().value("LDMP/land_cover_transition_matrix", None)
+    matrix = QtCore.QSettings().value("LDMP/land_cover_transition_matrix", None)
+    matrix = None
     if matrix is None:
         matrix = read_lc_matrix_file(os.path.join(os.path.dirname(os.path.realpath(__file__)),
                                      'data', 'land_cover_transition_matrix_UNCCD.json'))
         if matrix:
-            QSettings().setValue("LDMP/land_cover_transition_matrix", LCTransitionMatrixDeg.Schema().dumps(matrix))
+            QtCore.QSettings().setValue("LDMP/land_cover_transition_matrix", LCTransitionDefinitionDeg.Schema().dumps(matrix))
     else:
-        matrix = LCTransitionMatrixDeg.Schema().loads(matrix)
+        matrix = LCTransitionDefinitionDeg.Schema().loads(matrix)
     return matrix
 
 
-class DlgCalculateLCSetAggregation(QtWidgets.QDialog, Ui_DlgCalculateLCSetAggregation):
+class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregationUi):
     def __init__(self, nesting, parent=None):
         super().__init__(parent)
 
@@ -476,20 +479,20 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
                 return
 
             with open(f, 'w') as outfile:
-                json.dump(LCTransitionMatrixDeg.Schema().dump(self.trans_matrix_get()),
+                json.dump(LCTransitionDefinitionDeg.Schema().dump(self.trans_matrix_get()),
                           outfile, sort_keys=True, indent=4,
                           separators=(',', ':'), default=json_serial)
 
     def set_trans_matrix(self, matrix=None):
         if matrix:
-            QSettings().setValue("LDMP/land_cover_transition_matrix", LCTransitionMatrixDeg.Schema().dumps(matrix))
+            QtCore.QSettings().setValue("LDMP/land_cover_transition_matrix", LCTransitionDefinitionDeg.Schema().dumps(matrix))
         else:
             matrix = get_trans_matrix()
         for row in range(0, self.deg_def_matrix.rowCount()):
             initial_class = matrix.legend.key[row]
             for col in range(0, self.deg_def_matrix.columnCount()):
                 final_class = matrix.legend.key[col]
-                meaning = matrix.meaningByTransition(initial_class, final_class)
+                meaning = matrix.definitions.meaningByTransition(initial_class, final_class)
                 if meaning == 'stable':
                     code = '0'
                 elif meaning == 'degradation':
@@ -520,7 +523,7 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
                 transitions.append(LCTransitionDeg(self.nesting.parent.key[row],
                                                   self.nesting.parent.key[col],
                                                   meaning))
-        return LCTransitionMatrixDeg(self.nesting.parent,
+        return LCTransitionDefinitionDeg(self.nesting.parent,
                              transitions)
 
 class LandCoverSetupLocalExecutionWidget(
@@ -582,10 +585,8 @@ class LandCoverSetupRemoteExecutionWidget(
             self.target_year_la.hide()
             self.target_year_de.hide()
         self.aggregation_method_pb.clicked.connect(self.open_aggregation_method_dialog)
-        default_class_file = (
-                Path(__file__).parent / "data/land_cover_classes_ESA_to_IPCC.json")
         self.aggregation_dialog = DlgCalculateLCSetAggregation(
-            read_class_file(str(default_class_file)),
+            nesting=get_lc_nesting(),
             parent=self
         )
 

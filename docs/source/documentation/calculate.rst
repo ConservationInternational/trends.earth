@@ -312,16 +312,19 @@ To calculate the land cover change sub-indicator:
 .. image:: ../../resources/en/documentation/calculate/settings_dialog_algorithm_region_of_interest.png
       :align: center
    
-5. Optionally, add a task name and relevant notes for the analysis using the "Execution name:" and "Notes:" input
-   fields respectively.
+5. Optionally, add a task name and relevant notes for the analysis using the 
+   "Execution name:" and "Notes:" input fields respectively.
      
-6. Within the "Advanced configuration"  it is possible to define the meaning of each land cover transition in terms of
-   degradation. The options are: stable (0), degradation (-) or improvement (+). For example, the default for cropland
-  to cropland is 0 because the land cover stays the same and is therefore stable. The default for forest to
-  cropland is -1 because forest is likely cut to  clear way for agriculture and would be considered deforestation.
-  The user is encouraged to thoroughly evaluate the meaning of each transition based on their knowledge of the
-  study area, since this matrix will have an important effect on the land degradation identified by this
-  sub-indicator.
+6. Within the "Advanced configuration"  it is possible to define the meaning of 
+   each land cover transition in terms of degradation. The options are: stable 
+   (0), degradation (-) or improvement (+). For example, the default for 
+   cropland to cropland is 0 because the land cover stays the same and is 
+   therefore stable. The default for forest to cropland is -1 because forest is 
+   likely cut to  clear way for agriculture and would be considered 
+   deforestation. The user is encouraged to thoroughly evaluate the meaning of 
+   each transition based on their knowledge of the study area, since this 
+   matrix will have an important effect on the land degradation identified by 
+   this sub-indicator.
 
    Users can keep the default values or create unique transition values of their own.
    

@@ -139,6 +139,7 @@ def _load_algorithm_config(
     )
 
 
+#TODO: revert this change and read these in from gee_datasets.json so can be updated independently of the plugin
 REMOTE_DATASETS = {
     "Trends.Earth Global Results": {
         "Land cover (degradation)": {
@@ -781,7 +782,7 @@ _SCRIPT_CONFIG = {
         "run_mode": "remote",
     },
     "three-sdg-15-3-1-sub-indicators": {
-        "id": "4e9e106f-bdc5-4153-afc5-b8378a98670a",
+        "id": "fe4b2680-4be3-4c85-822b-27ed852842a0",
         "description": "Calculate all three SDG sub-indicators in one step.",
         "run_mode": "remote",
     },

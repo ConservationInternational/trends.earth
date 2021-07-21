@@ -39,8 +39,9 @@ from . import (
 )
 from .algorithms.models import ExecutionScript
 from .jobs.manager import job_manager
-from .schemas.schemas import BandInfo, BandInfoSchema
 from .summary import *
+
+from te_schemas.schemas import BandInfo, BandInfoSchema
 
 DlgCalculateTcDataUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateTCData.ui"))

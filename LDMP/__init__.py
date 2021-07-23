@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 """
 /***************************************************************************
  LDMP - A QGIS plugin
@@ -141,4 +142,9 @@ def openFolder(path):
     elif sys.platform == 'linux':
         subprocess.check_call(['xdg-open', path])
     elif sys.platform == 'win32':
-        subprocess.check_call(['explorer', path])
+        res = subprocess.run(['explorer', path])
+        # For some reason windows "explorer" often returns 1 on success (as
+        # apparently do other windows GUI programs...)
+        if res.returncode not in [0, 1]:
+            raise subprocess.CalledProcessError
+        

@@ -374,9 +374,9 @@ def read_requirements():
     return not_comments(0, idx), not_comments(idx+1, None)
 
 @task(help={'clean': 'Clean out dependencies first',
-            'development': 'Symlink dependendencies to their local repos',
+            'link': 'Symlink dependendencies to their local repos',
             'pip': 'Path to pip (usually "pip" or "pip3"'})
-def plugin_setup(c, clean=False, development=False, pip='pip'):
+def plugin_setup(c, clean=False, link=False, pip='pip'):
     '''install dependencies'''
     ext_libs = os.path.abspath(c.plugin.ext_libs.path)
     if clean and os.path.exists(ext_libs):
@@ -397,7 +397,7 @@ def plugin_setup(c, clean=False, development=False, pip='pip'):
         else:
             subprocess.check_call([pip, 'install', '--upgrade', '-t', ext_libs, req])
 
-    if development:
+    if link:
         for module in c.plugin.ext_libs.module_symlinks:
             link = os.path.abspath(c.plugin.ext_libs.path) + os.path.sep + module['name']
             if os.path.islink(link):

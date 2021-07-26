@@ -45,10 +45,10 @@ def run(params, logger):
     ndvi_gee_dataset = params.get('ndvi_gee_dataset')
     climate_gee_dataset = params.get('climate_gee_dataset')
     fl = params.get('fl')
-    trans_matrix_lc = LCTransitionDefinitionDeg.Schema().load(params.get('trans_matrix'))
+    lc_trans_matrix = LCTransitionDefinitionDeg.Schema().load(params.get('trans_matrix'))
     #TODO: Use SOC matrix for the below once defined
-    trans_matrix_soc = LCTransitionDefinitionDeg.Schema().load(params.get('trans_matrix'))
-    nesting = LCLegendNesting.Schema().load(params.get('nesting'))
+    soc_trans_matrix = LCTransitionDefinitionDeg.Schema().load(params.get('trans_matrix'))
+    lc_legend_nesting = LCLegendNesting.Schema().load(params.get('nesting'))
 
     # Check the ENV. Are we running this locally or in prod?
     if params.get('ENV') == 'dev':
@@ -86,15 +86,15 @@ def run(params, logger):
             out.merge(prod_state)
 
             logger.debug("Running land cover indicator.")
-            lc = land_cover(lc_year_initial, lc_year_final, trans_matrix_soc,
-                            nesting,  EXECUTION_ID, logger)
+            lc = land_cover(lc_year_initial, lc_year_final, soc_trans_matrix,
+                            lc_legend_nesting,  EXECUTION_ID, logger)
             lc.selectBands(['Land cover (degradation)',
                             'Land cover (7 class)'])
             out.merge(lc)
 
             logger.debug("Running soil organic carbon indicator.")
             soc_out = soc(soc_year_initial, soc_year_final, fl,
-                          trans_matrix_soc, nesting, False, EXECUTION_ID,
+                          soc_trans_matrix, nesting, False, EXECUTION_ID,
                           logger)
             soc_out.selectBands(['Soil organic carbon (degradation)',
                                  'Soil organic carbon'])
@@ -132,14 +132,14 @@ def run(params, logger):
         out.image = out.image.int16()
 
         logger.debug("Running land cover indicator.")
-        lc = land_cover(lc_year_initial, lc_year_final, trans_matrix_lc, nesting,
+        lc = land_cover(lc_year_initial, lc_year_final, lc_trans_matrix, nesting,
                         EXECUTION_ID, logger)
         lc.selectBands(['Land cover (degradation)',
                         'Land cover (7 class)'])
         out.merge(lc)
 
         logger.debug("Running soil organic carbon indicator.")
-        soc_out = soc(soc_year_initial, soc_year_final, fl, trans_matrix_soc,
+        soc_out = soc(soc_year_initial, soc_year_final, fl, soc_trans_matrix,
                       nesting, False, EXECUTION_ID, logger)
         soc_out.selectBands(['Soil organic carbon (degradation)',
                              'Soil organic carbon'])

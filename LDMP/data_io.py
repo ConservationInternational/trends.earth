@@ -15,6 +15,7 @@
 import dataclasses
 import os
 import typing
+import uuid
 from pathlib import Path
 
 import json
@@ -53,6 +54,7 @@ from .gui.WidgetDataIOImportSelectFileInput import Ui_WidgetDataIOImportSelectFi
 from .gui.WidgetDataIOImportSelectRasterOutput import Ui_WidgetDataIOImportSelectRasterOutput
 from .gui.WidgetDataIOSelectTELayerExisting import Ui_WidgetDataIOSelectTELayerExisting
 from .gui.WidgetDataIOSelectTELayerImport import Ui_WidgetDataIOSelectTELayerImport
+from .gui.WidgetDataIOSelectTEDatasetExisting import Ui_WidgetDataIOSelectTEDatasetExisting
 from .jobs.manager import job_manager
 from .jobs import models as job_models
 from .logger import log
@@ -66,6 +68,12 @@ class UsableBandInfo:
     path: Path
     band_index: int
     band_info: job_models.JobBand
+
+
+@dataclasses.dataclass()
+class UsableDatasetInfo:
+    job: job_models.Job
+    path: Path
 
 
 class RemapVectorWorker(worker.AbstractWorker):
@@ -1208,13 +1216,17 @@ def _get_layers(node):
 
 
 def get_usable_bands(
-        band_name: typing.Optional[str] = "any"
+        band_name: typing.Optional[str] = "any",
+        job_filter: uuid.UUID = None,
 ) -> typing.List[UsableBandInfo]:
     result = []
     for job in job_manager.relevant_jobs:
         job: job_models.Job
         is_downloaded = job.status == job_models.JobStatus.DOWNLOADED
-        if is_downloaded and job.results.type == job_models.JobResult.CLOUD_RESULTS:
+        is_of_interest = (job_filter is None) or (job.id == job_filter)
+        is_valid_type = job.results.type in (job_models.JobResult.CLOUD_RESULTS,
+                                             job_models.JobResult.LOCAL_RESULTS)
+        if is_downloaded and is_of_interest and is_valid_type:
             path = job.results.local_paths[0]
             for band_index, band_info in enumerate(job.results.bands):
                 if band_info.name == band_name:
@@ -1308,4 +1320,69 @@ class WidgetDataIOSelectTELayerImport(
     WidgetDataIOSelectTELayerBase, Ui_WidgetDataIOSelectTELayerImport
 ):
     pass
+
+
+def get_usable_datasets(
+        dataset_name: typing.Optional[str] = "any"
+) -> typing.List[UsableDatasetInfo]:
+    result = []
+    for job in job_manager.relevant_jobs:
+        job: job_models.Job
+        is_downloaded = job.status == job_models.JobStatus.DOWNLOADED
+        is_valid_type = job.results.type in (job_models.JobResult.CLOUD_RESULTS,
+                                             job_models.JobResult.LOCAL_RESULTS)
+        if is_downloaded and is_valid_type:
+            path = job.results.local_paths[0]
+            if job.script.name == dataset_name:
+                result.append(
+                    UsableDatasetInfo(
+                        job=job,
+                        path=path,
+                    )
+                )
+    result.sort(key=lambda ub: ub.job.start_date, reverse=True)
+    return result
+
+
+class WidgetDataIOSelectTEDatasetExisting(
+        QtWidgets.QWidget,
+        Ui_WidgetDataIOSelectTEDatasetExisting
+):
+    comboBox_datasets: QtWidgets.QComboBox
+    #dlg_dataset: DlgDataIOLoadTEDataset
+    dataset_list: typing.Optional[typing.List[UsableDatasetInfo]]
+
+    def __init__(self, parent=None):
+        super(WidgetDataIOSelectTEDatasetExisting, self).__init__(parent)
+        self.setupUi(self)
+
+        self.dataset_list = None
+
+    def populate(self, selected_dataset=None):
+        usable_datasets = get_usable_datasets(self.property("dataset_type"))
+        self.dataset_list = usable_datasets
+        self.comboBox_datasets.clear()
+        items = []
+        for usable_dataset in usable_datasets:
+            task_name = usable_dataset.job.params.task_name
+            if task_name != "":
+                name_info_parts = [task_name]
+            else:
+                name_info_parts = []
+            name_info_parts.extend(
+                [
+                    usable_dataset.job.visible_name,
+                    usable_dataset.job.params.task_notes.local_context.area_of_interest_name,
+                    usable_dataset.job.start_date.strftime("%Y-%m-%d %H:%M")
+                ]
+            )
+            items.append(" - ".join(name_info_parts))
+        self.comboBox_datasets.addItems(items)
+
+    def get_usable_bands(self, band_name) -> UsableBandInfo:
+        job_id = self.dataset_list[self.comboBox_datasets.currentIndex()].id
+        return get_usable_bands(band_name, job_id)
+
+    def currentText(self):
+        return self.comboBox_datasets.currentText()
 

@@ -248,8 +248,9 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             'ndvi_gee_dataset': 'users/geflanddegradation/toolbox_datasets/ndvi_modis_2001_2019',
             'climate_gee_dataset': None,
             'fl': .80,
-            'trans_matrix': LCTransitionDefinitionDeg.Schema().dump(self.lc_define_deg_widget.trans_matrix),
-            'nesting': LCLegendNesting.Schema().dump(self.lc_setup_widget.aggregation_dialog.nesting),
+            'lc_legend_nesting': LCLegendNesting.Schema().dump(self.lc_setup_widget.aggregation_dialog.nesting),
+            'lc_trans_matrix': LCTransitionDefinitionDeg.Schema().dump(self.lc_define_deg_widget.trans_matrix),
+            'soc_trans_matrix': LCTransitionDefinitionDeg.Schema().dump(self.lc_define_deg_widget.trans_matrix), #TODO: Use SOC matrix for the below once defined
             'task_name': self.execution_name_le.text(),
             'task_notes': self.task_notes.toPlainText()
         }

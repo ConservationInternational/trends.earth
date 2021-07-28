@@ -516,6 +516,8 @@ class JobManager(QtCore.QObject):
                     job = Job.deserialize(raw_job)
                 except json.decoder.JSONDecodeError as exc:
                     LDMP.logger.log(f"Unable to decode file {job_metadata_path!r} as valid json")
+                except KeyError:
+                    LDMP.logger.log(f"Unable to decode file {job_metadata_path!r} as job json - no script_id in file")
                 except RuntimeError as exc:
                     LDMP.logger.log(str(exc))
                 else:

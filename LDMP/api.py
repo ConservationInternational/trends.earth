@@ -364,7 +364,9 @@ def call_api(endpoint, method='get', payload=None, use_token=False):
                 clean_payload['password'] = '**REMOVED**'
         else:
             clean_payload = payload
-        log(u'API calling {} with method "{}" and payload: {}'.format(endpoint, method, clean_payload))
+        log(u'API calling {} with method "{}"'.format(endpoint, method))
+        if conf.settings_manager.get_value(conf.Setting.DEBUG):
+            log(u'API call payload: {}'.format(clean_payload))
         worker = Request(API_URL + endpoint, method, payload, headers)
         worker.start()
         resp = worker.get_resp()

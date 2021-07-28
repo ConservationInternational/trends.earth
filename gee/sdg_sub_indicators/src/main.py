@@ -37,6 +37,8 @@ def run(params, logger):
     prod_state_year_tg_end = params.get('prod_state_year_tg_end')
     lc_year_initial = params.get('lc_year_initial')
     lc_year_final = params.get('lc_year_final')
+    lc_trans_matrix = LCTransitionDefinitionDeg.Schema().load(params.get('lc_trans_matrix'))
+    lc_legend_nesting = LCLegendNesting.Schema().load(params.get('lc_legend_nesting'))
     soc_year_initial = params.get('soc_year_initial')
     soc_year_final = params.get('soc_year_final')
     geojsons = params.get('geojsons')
@@ -45,10 +47,7 @@ def run(params, logger):
     ndvi_gee_dataset = params.get('ndvi_gee_dataset')
     climate_gee_dataset = params.get('climate_gee_dataset')
     fl = params.get('fl')
-    lc_trans_matrix = LCTransitionDefinitionDeg.Schema().load(params.get('trans_matrix'))
-    #TODO: Use SOC matrix for the below once defined
-    soc_trans_matrix = LCTransitionDefinitionDeg.Schema().load(params.get('trans_matrix'))
-    lc_legend_nesting = LCLegendNesting.Schema().load(params.get('nesting'))
+    soc_trans_matrix = LCTransitionDefinitionDeg.Schema().load(params.get('soc_trans_matrix'))
 
     # Check the ENV. Are we running this locally or in prod?
     if params.get('ENV') == 'dev':
@@ -94,8 +93,8 @@ def run(params, logger):
 
             logger.debug("Running soil organic carbon indicator.")
             soc_out = soc(soc_year_initial, soc_year_final, fl,
-                          soc_trans_matrix, nesting, False, EXECUTION_ID,
-                          logger)
+                          soc_trans_matrix, lc_legend_nesting, False,
+                          EXECUTION_ID, logger)
             soc_out.selectBands(['Soil organic carbon (degradation)',
                                  'Soil organic carbon'])
             out.merge(soc_out)
@@ -140,7 +139,7 @@ def run(params, logger):
 
         logger.debug("Running soil organic carbon indicator.")
         soc_out = soc(soc_year_initial, soc_year_final, fl, soc_trans_matrix,
-                      nesting, False, EXECUTION_ID, logger)
+                      lc_legend_nesting, False, EXECUTION_ID, logger)
         soc_out.selectBands(['Soil organic carbon (degradation)',
                              'Soil organic carbon'])
         out.merge(soc_out)

@@ -7,6 +7,8 @@ import tempfile
 import typing
 from pathlib import Path
 
+from PyQt5 import QtWidgets
+
 import numpy as np
 import openpyxl
 from osgeo import (
@@ -15,6 +17,12 @@ from osgeo import (
 )
 import qgis.core
 
+from te_schemas import (
+    schemas,
+    land_cover,
+    reporting
+)
+
 import LDMP.logger
 from .. import (
     areaofinterest,
@@ -22,8 +30,12 @@ from .. import (
     calculate_ldn,
     data_io,
     summary,
+    tr,
     utils,
     worker,
+    __version__,
+    __revision__,
+    __release_date__
 )
 from ..jobs import (
     models,
@@ -61,8 +73,6 @@ def _get_ldn_inputs(
         sort_property: str = "year"
 ) -> LdnInputInfo:
     usable_band_info = data_selection_widget.get_usable_band_info()
-    LDMP.logger.log(f"usable_band_info: {usable_band_info}")
-    LDMP.logger.log(f"usable_band_info.path: {usable_band_info.path}")
     main_band = usable_band_info.band_info
     main_band_index = usable_band_info.band_index
     aux_bands = []
@@ -93,6 +103,7 @@ def get_main_sdg_15_3_1_job_params(
         combo_layer_lpd: data_io.WidgetDataIOSelectTELayerImport,
         task_notes: typing.Optional[str] = "",
 ) -> typing.Dict:
+
     land_cover_input_paths = _get_ldn_inputs(
         combo_layer_lc, "Land cover (7 class)")
     soil_organic_carbon_input_paths = _get_ldn_inputs(
@@ -130,10 +141,14 @@ def get_main_sdg_15_3_1_job_params(
         "layer_lc_main_band_index": land_cover_input_paths.main_band_index,
         "layer_lc_aux_band_indexes": land_cover_input_paths.aux_band_indexes,
         "layer_lc_years": land_cover_input_paths.years,
+        "layer_lc_trans_matrix": land_cover_input_paths.main_band.metadata['trans_matrix'],
+        "layer_lc_nesting": land_cover_input_paths.main_band.metadata['nesting'],
         "layer_soc_path": str(soil_organic_carbon_input_paths.path),
         "layer_soc_main_band_index": soil_organic_carbon_input_paths.main_band_index,
         "layer_soc_aux_band_indexes": soil_organic_carbon_input_paths.aux_band_indexes,
         "layer_soc_years": soil_organic_carbon_input_paths.years,
+        "layer_soc_trans_matrix": soil_organic_carbon_input_paths.main_band.metadata['trans_matrix'],
+        "layer_soc_nesting": soil_organic_carbon_input_paths.main_band.metadata['nesting'],
         "layer_traj_path": traj_path,
         "layer_traj_band_index": traj_index,
         "layer_perf_path": perf_path,
@@ -149,7 +164,8 @@ def get_main_sdg_15_3_1_job_params(
 
 
 def compute_ldn(
-        ldn_job: models.Job, area_of_interest: areaofinterest.AOI) -> models.Job:
+        ldn_job: models.Job,
+        area_of_interest: areaofinterest.AOI) -> models.Job:
     """Calculate final SDG 15.3.1 indicator and save its outputs to disk too."""
     lc_files = _prepare_land_cover_file_paths(ldn_job)
     lc_band_nums = np.arange(len(lc_files)) + 1
@@ -161,9 +177,14 @@ def compute_ldn(
         "wkt_bounding_boxes": wkt_bounding_boxes,
         "in_files": lc_files + soc_files,
         "lc_band_nums": lc_band_nums,
+        "lc_legend_nesting": land_cover.LCLegendNesting.Schema().loads(ldn_job.params.params["layer_lc_nesting"]),
+        "lc_trans_matrix": land_cover.LCTransitionDefinitionDeg.Schema().loads(ldn_job.params.params["layer_lc_trans_matrix"]),
         "soc_band_nums": soc_band_nums,
-        "output_job_path": job_output_path
+        "soc_legend_nesting": land_cover.LCLegendNesting.Schema().loads(ldn_job.params.params["layer_soc_nesting"]),
+        "soc_trans_matrix": land_cover.LCTransitionDefinitionDeg.Schema().loads(ldn_job.params.params["layer_soc_trans_matrix"]),
+        "output_job_path": job_output_path,
     }
+    LDMP.logger.log('lc_legend_nesting: {}'.format(summary_table_stable_kwargs['lc_legend_nesting']))
     prod_mode = ldn_job.params.params["prod_mode"]
     if prod_mode == LdnProductivityMode.TRENDS_EARTH.value:
         traj, perf, state = _prepare_trends_earth_mode_vrt_paths(ldn_job)
@@ -188,6 +209,17 @@ def compute_ldn(
         summary_table,
         ldn_job.params.params["layer_lc_years"],
         ldn_job.params.params["layer_soc_years"],
+    )
+    summary_json_output_path = job_output_path.parent / f"{job_output_path.stem}_summary.json"
+    save_reporting_json(
+        summary_json_output_path,
+        summary_table,
+        ldn_job.params.params["layer_lc_years"],
+        ldn_job.params.params["layer_soc_years"],
+        ldn_job.params.task_name,
+        area_of_interest,
+        summary_table_stable_kwargs['lc_legend_nesting'],
+        summary_table_stable_kwargs['lc_trans_matrix'],
     )
     ldn_job.end_date = dt.datetime.now(dt.timezone.utc)
     ldn_job.progress = 100
@@ -263,9 +295,14 @@ def _compute_summary_table_from_te_productivity(
         perf_vrt,
         state_vrt,
         lc_band_nums,
+        lc_legend_nesting: land_cover.LCLegendNesting,
+        lc_trans_matrix: land_cover.LCTransitionDefinitionDeg,
         soc_band_nums,
+        soc_legend_nesting: land_cover.LCLegendNesting,
+        soc_trans_matrix: land_cover.LCTransitionDefinitionDeg,
         output_job_path: Path,
 ) -> typing.Tuple[SummaryTable, Path]:
+    '''Compute summary table if a trends.earth productivity dataset is used'''
     return _compute_ldn_summary_table(
         wkt_bounding_boxes=wkt_bounding_boxes,
         vrt_sources=in_files + [traj_vrt, perf_vrt, state_vrt],
@@ -274,7 +311,9 @@ def _compute_summary_table_from_te_productivity(
         lc_band_nums=lc_band_nums,
         soc_band_nums=soc_band_nums,
         output_job_path=output_job_path,
-        prod_band_nums=np.arange(3) + 1 + soc_band_nums.max()
+        prod_band_nums=np.arange(3) + 1 + soc_band_nums.max(),
+        lc_legend_nesting=lc_legend_nesting,
+        lc_trans_matrix=lc_trans_matrix,
     )
 
 
@@ -282,10 +321,15 @@ def _compute_summary_table_from_lpd_productivity(
         wkt_bounding_boxes,
         in_files,
         lc_band_nums,
+        lc_legend_nesting: land_cover.LCLegendNesting,
+        lc_trans_matrix: land_cover.LCTransitionDefinitionDeg,
         soc_band_nums,
+        soc_legend_nesting: land_cover.LCLegendNesting,
+        soc_trans_matrix: land_cover.LCTransitionDefinitionDeg,
         lpd_vrt,
         output_job_path: Path,
 ) -> typing.Tuple[SummaryTable, Path]:
+    '''Compute summary table if a JRC LPD productivity dataset is used'''
     return _compute_ldn_summary_table(
         wkt_bounding_boxes=wkt_bounding_boxes,
         vrt_sources=in_files + [lpd_vrt],
@@ -294,7 +338,9 @@ def _compute_summary_table_from_lpd_productivity(
         lc_band_nums=lc_band_nums,
         soc_band_nums=soc_band_nums,
         output_job_path=output_job_path,
-        prod_band_nums=[max(soc_band_nums) + 1]
+        prod_band_nums=[max(soc_band_nums) + 1],
+        lc_legend_nesting=lc_legend_nesting,
+        lc_trans_matrix=lc_trans_matrix,
     )
 
 
@@ -322,9 +368,216 @@ def save_summary_table(
         LDMP.logger.log(error_message)
 
 
+def save_reporting_json(
+        output_path: Path,
+        summary_table: SummaryTable,
+        land_cover_years: typing.List[int],
+        soil_organic_carbon_years: typing.List[int],
+        task_name: str,
+        aoi: areaofinterest.AOI,
+        lc_legend_nesting: land_cover.LCLegendNesting,
+        lc_trans_matrix: land_cover.LCTransitionDefinitionDeg):
+
+    ##########################################################################
+    # Area summary tables
+    sdg_tbl_overall = reporting.AreaList('SDG Indicator 15.3.1', 'sq km',
+            [reporting.Area('Improved', summary_table.sdg_tbl_overall[0, 0]),
+             reporting.Area('Stable', summary_table.sdg_tbl_overall[0, 1]),
+             reporting.Area('Degraded', summary_table.sdg_tbl_overall[0, 2]),
+             reporting.Area('No data', summary_table.sdg_tbl_overall[0, 3])])
+
+    sdg_tbl_prod = reporting.AreaList('Productivity', 'sq km',
+            [reporting.Area('Improved', summary_table.sdg_tbl_prod[0, 0]),
+             reporting.Area('Stable', summary_table.sdg_tbl_prod[0, 1]),
+             reporting.Area('Degraded', summary_table.sdg_tbl_prod[0, 2]),
+             reporting.Area('No data', summary_table.sdg_tbl_prod[0, 3])])
+
+    sdg_tbl_soc = reporting.AreaList('Soil organic carbon', 'sq km',
+            [reporting.Area('Improved', summary_table.sdg_tbl_soc[0, 0]),
+             reporting.Area('Stable', summary_table.sdg_tbl_soc[0, 1]),
+             reporting.Area('Degraded', summary_table.sdg_tbl_soc[0, 2]),
+             reporting.Area('No data', summary_table.sdg_tbl_soc[0, 3])])
+
+    sdg_tbl_lc = reporting.AreaList('Land cover', 'sq km',
+            [reporting.Area('Improved', summary_table.sdg_tbl_lc[0, 0]),
+             reporting.Area('Stable', summary_table.sdg_tbl_lc[0, 1]),
+             reporting.Area('Degraded', summary_table.sdg_tbl_lc[0, 2]),
+             reporting.Area('No data', summary_table.sdg_tbl_lc[0, 3])])
+
+
+    ##########################################################################
+    # Productivity tables
+
+    #TODO: Remove these hardcoded values
+    classes = ['Tree-covered',
+               'Grassland',
+               'Cropland',
+               'Wetland',
+               'Artificial',
+               'Other land',
+               'Water body']
+    class_codes = list(range(len(classes)))
+
+    #TODO: Remove these hardcoded values
+    # Hard code prod_years for now
+    prod_years = [2001, 2015]
+
+    crosstab_prod = []
+    for name, code in zip(['Improving', 'Stable', 'Stressed', 'Moderate decline', 'Declining', 'No data'],
+                         [5, 4, 3, 2, 1, -32768]):
+        crosstab_prod.append(reporting.CrossTab(name,
+             unit = 'sq km',
+             initial_year = prod_years[0],
+             final_year = prod_years[-1],
+             values = [reporting.CrossTabEntry(classes[i], classes[j], value=_get_prod_table(summary_table.trans_prod_xtab, code)[i, j]) for i in range(len(classes)) for j in range(len(classes))]))
+
+    ##########################################################################
+    # Land cover tables
+
+    ###
+    # LC transition cross tab
+    lc_table = _get_lc_table(summary_table.trans_prod_xtab)
+    crosstab_lc = reporting.CrossTab('Land cover change',
+         unit = 'sq km',
+         initial_year = land_cover_years[0],
+         final_year = land_cover_years[-1],
+         #TODO: Check indexing as may be missing a class 
+         values = [reporting.CrossTabEntry(classes[i], classes[j], value=lc_table[i, j]) for i in range(0, len(classes) - 1) for j in range(0, len(classes) - 1)])
+
+    ###
+    # LC by year
+    lc_by_year = []
+    for i in range(len(soil_organic_carbon_years)):
+        lc_by_year.append(reporting.AnnualValueList(name='Land cover',
+                           year=land_cover_years[i],
+                           unit='sq km',
+                           values = [reporting.Value(classes[j], summary_table.lc_totals[i][j]) for j in range(len(classes))]))
+
+    ###
+    # Degradation matrix (defining meaning of each land cover transition)
+
+
+
+    ##########################################################################
+    # Soil organic carbon tables
+    
+    ###
+    # SOC by transition type
+    def get_soc_chg(initial, final):
+        transition = int('{}{}'.format(initial, final))
+        bl_soc = _get_soc_total(summary_table.soc_totals[-1], transition)
+        tg_soc = _get_soc_total(summary_table.soc_totals[0], transition)
+        try:
+            return (tg_soc - bl_soc) / bl_soc
+        except ZeroDivisionError:
+            return None
+
+    crosstab_soc = reporting.CrossTab('Soil organic carbon change',
+         unit='Fraction of initial carbon stock',
+         initial_year = soil_organic_carbon_years[0],
+         final_year = soil_organic_carbon_years[-1],
+         values = [reporting.CrossTabEntry(classes[i], classes[j], value=get_soc_chg(i, j)) for i in range(1, len(classes) - 1) for j in range(1, len(classes) - 1)])
+
+    ###
+    # SOC by year by land cover class
+    soc_by_year = []
+    for i in range(len(soil_organic_carbon_years)):
+        soc_by_year.append(reporting.AnnualValueList(name='Soil organic carbon',
+                           year=soil_organic_carbon_years[i],
+                           unit='tonnes per hectare',
+                           values = [reporting.Value(classes[j], _get_soc_total_by_class(summary_table.trans_prod_xtab, summary_table.soc_totals[i], classes=class_codes).transpose()[0][j]) for j in range(len(classes))]))
+
+    ##########################################################################
+    # Format final JSON output
+    te_summary = reporting.TrendsEarthSummary(
+            metadata=reporting.ReportMetadata(
+                title='Trends.Earth Summary Report',
+                date=dt.datetime.now(dt.timezone.utc),
+
+                trends_earth_version=schemas.TrendsEarthVersion(
+                    version=__version__,
+                    revision=__revision__,
+                    release_date=dt.datetime.strptime(__release_date__,'%Y/%m/%d %H:%M:%SZ')),
+
+                area_of_interest=schemas.AreaOfInterest(
+                    name=task_name, #TODO replace this with area of interest name once implemented in TE
+                    geojson=aoi.get_geojson(),
+                    crs_wkt=aoi.get_crs_wkt()
+                    )
+            ),
+
+            land_condition={
+                "baseline": reporting.LandConditionReport(
+                    sdg=reporting.SDG15Report(summary=sdg_tbl_overall),
+
+                    productivity=reporting.ProductivityReport(
+                        summary=sdg_tbl_prod,
+                        crosstabs_by_productivity_class=crosstab_prod),
+
+                    land_cover=reporting.LandCoverReport(
+                        summary=sdg_tbl_lc,
+                        legend_nesting=lc_legend_nesting,
+                        transition_matrix=lc_trans_matrix,
+                        crosstab_by_land_cover_class=crosstab_lc,
+                        land_cover_areas_by_year=lc_by_year),
+
+                    soil_organic_carbon=reporting.SoilOrganicCarbonReport(
+                        summary=sdg_tbl_soc,
+                        crosstab_by_land_cover_class=crosstab_soc,
+                        soc_stock_by_year=soc_by_year)
+                ),
+                "progress": reporting.LandConditionReport(
+                    sdg=reporting.SDG15Report(summary=sdg_tbl_overall),
+
+                    productivity=reporting.ProductivityReport(
+                        summary=sdg_tbl_prod,
+                        crosstabs_by_productivity_class=crosstab_prod),
+
+                    land_cover=reporting.LandCoverReport(
+                        summary=sdg_tbl_lc,
+                        legend_nesting=lc_legend_nesting,
+                        transition_matrix=lc_trans_matrix,
+                        crosstab_by_land_cover_class=crosstab_lc,
+                        land_cover_areas_by_year=lc_by_year),
+
+                    soil_organic_carbon=reporting.SoilOrganicCarbonReport(
+                        summary=sdg_tbl_soc,
+                        crosstab_by_land_cover_class=crosstab_soc,
+                        soc_stock_by_year=soc_by_year)
+                ),
+            },
+
+            affected_population={},
+
+            drought={}
+        )
+
+    try:
+        te_summary_json = json.loads(reporting.TrendsEarthSummary.Schema().dumps(te_summary))
+        with open(output_path, 'w') as f:
+            json.dump(te_summary_json, f, indent=4)
+        return True
+
+    except IOError:
+        LDMP.logger.log(u'Error saving {}'.format(output_path))
+        QtWidgets.QMessageBox.critical(None,
+                tr("Error"),
+                tr(u"Error saving indicator table JSON - check that {} is accessible and not already open.".format(output_path)))
+        return False
+
+
 class DegradationSummaryWorkerSDG(worker.AbstractWorker):
-    def __init__(self, src_file, prod_band_nums, prod_mode, prod_out_file,
-                 lc_band_nums, soc_band_nums, mask_file):
+    def __init__(self,
+                 src_file,
+                 prod_band_nums,
+                 prod_mode,
+                 prod_out_file,
+                 lc_band_nums,
+                 soc_band_nums,
+                 mask_file,
+                 nesting: land_cover.LCLegendNesting,
+                 trans_matrix: land_cover.LCTransitionDefinitionDeg):
+
         worker.AbstractWorker.__init__(self)
 
         self.src_file = src_file
@@ -336,6 +589,8 @@ class DegradationSummaryWorkerSDG(worker.AbstractWorker):
         self.lc_band_nums = [int(x) for x in lc_band_nums]
         self.soc_band_nums = [int(x) for x in soc_band_nums]
         self.mask_file = mask_file
+        self.nesting = nesting
+        self.trans_matrix = trans_matrix
 
     def work(self):
         self.toggle_show_progress.emit(True)
@@ -398,6 +653,8 @@ class DegradationSummaryWorkerSDG(worker.AbstractWorker):
         # totals for each transition
         soc_totals_table = [[np.array([], dtype=np.int16), np.array([], dtype=np.float32)] for i in
                             range(len(self.soc_band_nums) - 1)]
+        # TODO: Source the size of the lc_totals_table from the size of the 
+        # legend in self.nesting
         # The 8 below is for eight classes plus no data, and the minus one is
         # because one of the bands is a degradation layer
         lc_totals_table = np.zeros((len(self.lc_band_nums) - 1, 8))
@@ -642,6 +899,8 @@ def _calculate_summary_table(
         prod_mode: str,
         lc_band_nums,
         soc_band_nums,
+        lc_legend_nesting: land_cover.LCLegendNesting,
+        lc_trans_matrix: land_cover.LCTransitionDefinitionDeg,
         mask_worker_process_name,
         deg_worker_process_name,
 ) -> typing.Tuple[
@@ -691,7 +950,9 @@ def _calculate_summary_table(
             str(output_sdg_path),
             lc_band_nums,
             soc_band_nums,
-            mask_vrt
+            mask_vrt,
+            lc_legend_nesting,
+            lc_trans_matrix 
         )
         if not deg_worker.success:
             error_message = "Error calculating SDG 15.3.1 summary table."
@@ -723,6 +984,8 @@ def _compute_ldn_summary_table(
         soc_band_nums,
         output_job_path: Path,
         prod_band_nums,
+        lc_legend_nesting: land_cover.LCLegendNesting,
+        lc_trans_matrix: land_cover.LCTransitionDefinitionDeg
 ) -> typing.Tuple[SummaryTable, Path]:
     """Computes summary table and the output tif file(s)"""
     bbs = areaofinterest.get_aligned_output_bounds(compute_bbs_from, wkt_bounding_boxes)
@@ -744,6 +1007,8 @@ def _compute_ldn_summary_table(
         "prod_mode": prod_mode,
         "lc_band_nums": lc_band_nums,
         "soc_band_nums": soc_band_nums,
+        "lc_legend_nesting": lc_legend_nesting,
+        "lc_trans_matrix": lc_trans_matrix,
     }
     output_path = output_job_path.parent / output_name_pattern.format(index=1)
     summary_table, error_message = _calculate_summary_table(
@@ -868,7 +1133,6 @@ def _write_unccd_reporting_sheet(
         sheet, summary_table: SummaryTable, land_cover_years, soil_organic_carbon_years):
 
     for i in range(len(land_cover_years)):
-        LDMP.logger.log('lc_years len: {}'.format(len(land_cover_years)))
         # Water bodies
         cell = sheet.cell(5 + i, 4)
         cell.value = summary_table.lc_totals[i][6]

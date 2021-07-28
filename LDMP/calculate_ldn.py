@@ -583,6 +583,7 @@ class DlgCalculateLDNSummaryTableAdmin(
     combo_layer_lpd: data_io.WidgetDataIOSelectTELayerImport
     combo_layer_lc: data_io.WidgetDataIOSelectTELayerExisting
     combo_layer_soc: data_io.WidgetDataIOSelectTELayerExisting
+    combo_datasets: data_io.WidgetDataIOSelectTEDatasetExisting
     button_prev: QtWidgets.QPushButton
     button_next: QtWidgets.QPushButton
     button_calculate: QtWidgets.QPushButton
@@ -626,6 +627,7 @@ class DlgCalculateLDNSummaryTableAdmin(
         self.combo_layer_state.populate()
         self.combo_layer_lc.populate()
         self.combo_layer_soc.populate()
+        self.combo_datasets.populate()
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it

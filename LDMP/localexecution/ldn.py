@@ -439,23 +439,20 @@ def save_reporting_json(
     lc_table = _get_lc_table(summary_table.trans_prod_xtab)
     crosstab_lc = reporting.CrossTab('Land cover change',
          unit = 'sq km',
-         initial_year = land_cover_years[0],
-         final_year = land_cover_years[-1],
+         initial_year = int(land_cover_years[0]),
+         final_year = int(land_cover_years[-1]),
          #TODO: Check indexing as may be missing a class 
          values = [reporting.CrossTabEntry(classes[i], classes[j], value=lc_table[i, j]) for i in range(0, len(classes) - 1) for j in range(0, len(classes) - 1)])
 
     ###
     # LC by year
-    lc_by_year = []
+    lc_by_year = {}
     for i in range(len(soil_organic_carbon_years)):
-        lc_by_year.append(reporting.AnnualValueList(name='Land cover',
-                           year=land_cover_years[i],
-                           unit='sq km',
-                           values = [reporting.Value(classes[j], summary_table.lc_totals[i][j]) for j in range(len(classes))]))
-
-    ###
-    # Degradation matrix (defining meaning of each land cover transition)
-
+        year = int(land_cover_years[i])
+        lc_by_year[year] = {classes[j]: summary_table.lc_totals[i][j] for j in range(len(classes))}
+    lc_by_year_by_class = reporting.ValuesByYearDict(name='Area by year by land cover class',
+                                                     unit='sq km',
+                                                     values=lc_by_year)
 
 
     ##########################################################################
@@ -480,12 +477,13 @@ def save_reporting_json(
 
     ###
     # SOC by year by land cover class
-    soc_by_year = []
+    soc_by_year = {}
     for i in range(len(soil_organic_carbon_years)):
-        soc_by_year.append(reporting.AnnualValueList(name='Soil organic carbon',
-                           year=soil_organic_carbon_years[i],
-                           unit='tonnes per hectare',
-                           values = [reporting.Value(classes[j], _get_soc_total_by_class(summary_table.trans_prod_xtab, summary_table.soc_totals[i], classes=class_codes).transpose()[0][j]) for j in range(len(classes))]))
+        year = int(soil_organic_carbon_years[i])
+        soc_by_year[year] = {classes[j]:_get_soc_total_by_class(summary_table.trans_prod_xtab, summary_table.soc_totals[i], classes=class_codes).transpose()[0][j] for j in range(len(classes))}
+    soc_by_year_by_class = reporting.ValuesByYearDict(name='Soil organic carbon by year by land cover class',
+                                                      unit='tonnes per hectare',
+                                                      values=soc_by_year)
 
     ##########################################################################
     # Format final JSON output
@@ -519,12 +517,12 @@ def save_reporting_json(
                         legend_nesting=lc_legend_nesting,
                         transition_matrix=lc_trans_matrix,
                         crosstab_by_land_cover_class=crosstab_lc,
-                        land_cover_areas_by_year=lc_by_year),
+                        land_cover_areas_by_year=lc_by_year_by_class),
 
                     soil_organic_carbon=reporting.SoilOrganicCarbonReport(
                         summary=sdg_tbl_soc,
                         crosstab_by_land_cover_class=crosstab_soc,
-                        soc_stock_by_year=soc_by_year)
+                        soc_stock_by_year=soc_by_year_by_class)
                 ),
                 "progress": reporting.LandConditionReport(
                     sdg=reporting.SDG15Report(summary=sdg_tbl_overall),
@@ -538,12 +536,12 @@ def save_reporting_json(
                         legend_nesting=lc_legend_nesting,
                         transition_matrix=lc_trans_matrix,
                         crosstab_by_land_cover_class=crosstab_lc,
-                        land_cover_areas_by_year=lc_by_year),
+                        land_cover_areas_by_year=lc_by_year_by_class),
 
                     soil_organic_carbon=reporting.SoilOrganicCarbonReport(
                         summary=sdg_tbl_soc,
                         crosstab_by_land_cover_class=crosstab_soc,
-                        soc_stock_by_year=soc_by_year)
+                        soc_stock_by_year=soc_by_year_by_class)
                 ),
             },
 

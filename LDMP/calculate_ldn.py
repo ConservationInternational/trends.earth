@@ -601,6 +601,8 @@ class DlgCalculateLDNSummaryTableAdmin(
         self.mode_lpd_jrc_toggled()
         self._finish_initialization()
 
+        self.combo_datasets.job_selected.connect(self.set_combo_selections_from_job_id)
+
     def mode_lpd_jrc_toggled(self):
         if self.mode_lpd_jrc.isChecked():
             self.combo_layer_lpd.setEnabled(True)
@@ -621,13 +623,24 @@ class DlgCalculateLDNSummaryTableAdmin(
 
     def showEvent(self, event):
         super().showEvent(event)
+        self.combo_datasets.populate()
+        self.populate_layer_combo_boxes()
+
+    def populate_layer_combo_boxes(self):
         self.combo_layer_lpd.populate()
         self.combo_layer_traj.populate()
         self.combo_layer_perf.populate()
         self.combo_layer_state.populate()
         self.combo_layer_lc.populate()
         self.combo_layer_soc.populate()
-        self.combo_datasets.populate()
+
+    def set_combo_selections_from_job_id(self, job_id):
+        self.combo_layer_lpd.set_index_from_job_id(job_id)
+        self.combo_layer_traj.set_index_from_job_id(job_id)
+        self.combo_layer_perf.set_index_from_job_id(job_id)
+        self.combo_layer_state.set_index_from_job_id(job_id)
+        self.combo_layer_lc.set_index_from_job_id(job_id)
+        self.combo_layer_soc.set_index_from_job_id(job_id)
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it

@@ -1217,13 +1217,13 @@ def _get_layers(node):
 
 def get_usable_bands(
         band_name: typing.Optional[str] = "any",
-        job_filter: uuid.UUID = None,
+        selected_job_id: uuid.UUID = None,
 ) -> typing.List[UsableBandInfo]:
     result = []
     for job in job_manager.relevant_jobs:
         job: job_models.Job
         is_downloaded = job.status == job_models.JobStatus.DOWNLOADED
-        is_of_interest = (job_filter is None) or (job.id == job_filter)
+        is_of_interest = (selected_job_id is None) or (job.id == selected_job_id)
         is_valid_type = job.results.type in (job_models.JobResult.CLOUD_RESULTS,
                                              job_models.JobResult.LOCAL_RESULTS)
         if is_downloaded and is_of_interest and is_valid_type:
@@ -1256,27 +1256,47 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
 
         self.layer_list = None
 
-    def populate(self, selected_layer=None):
-        usable_bands = get_usable_bands(self.property("layer_type"))
+    def populate(self, selected_job_id=None):
+        usable_bands = get_usable_bands(self.property("layer_type"), selected_job_id)
         self.layer_list = usable_bands
+        old_text = self.currentText()
         self.comboBox_layers.clear()
-        items = []
+        self.comboBox_layers.addItem('')
+        i = 0
         for usable_band in usable_bands:
             task_name = usable_band.job.params.task_name
             if task_name != "":
                 name_info_parts = [task_name]
             else:
                 name_info_parts = []
+            hover_info_parts = name_info_parts[:]
             name_info_parts.extend(
                 [
                     usable_band.band_info.name,
-                    str(usable_band.band_info.metadata),
-                    usable_band.job.params.task_notes.local_context.area_of_interest_name,
-                    usable_band.job.start_date.strftime("%Y-%m-%d %H:%M")
+                    usable_band.job.params.task_notes.local_context.area_of_interest_name
                 ]
             )
-            items.append(" - ".join(name_info_parts))
-        self.comboBox_layers.addItems(items)
+            hover_info_parts.extend(
+                [
+                    usable_band.band_info.name + ' - ',
+                    usable_band.job.params.task_notes.local_context.area_of_interest_name + '\n',
+                    usable_band.job.start_date.strftime("%Y-%m-%d %H:%M") + '\n',
+                    # TODO: figure out a way to cleanup the metadata so it is 
+                    # presentable and useful - likely need to have each script 
+                    # contain a dictionary of metadata fields that should be 
+                    # shown to the user by default
+                    #str(usable_band.band_info.metadata),
+                ]
+            )
+            self.comboBox_layers.addItem(" - ".join(name_info_parts))
+            # the "+ 1" below is to account for blank entry at the beginning of 
+            # the combobox
+            self.comboBox_layers.setItemData(i + 1, "".join(hover_info_parts), QtCore.Qt.ToolTipRole)
+            i += 1
+        if not self.set_index_from_text(old_text):
+            # Set current index to 1 so that the blank line isn't chosen by 
+            # default
+            self.comboBox_layers.setCurrentIndex(1)
 
     def get_data_file(self) -> Path:
         current_index = self.comboBox_layers.currentIndex()
@@ -1293,6 +1313,26 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
     def get_band_info(self):
         usable_band_info = self.get_usable_band_info()
         return usable_band_info.band_info
+
+    def set_index_from_job_id(self, job_id):
+        if self.layer_list:
+            for i in range(len(self.layer_list)):
+                if self.layer_list[i].job.id == job_id:
+                    # the "+ 1" below is to account for blank entry
+                    # at the beginning of the combobox
+                    self.comboBox_layers.setCurrentIndex(i + 1)
+                    return True
+        return False
+
+    def set_index_from_text(self, text):
+        if self.layer_list:
+            for i in range(len(self.layer_list)):
+                if self.layer_list[i] == text:
+                    # the "+ 1" below is to account for blank entry
+                    # at the beginning of the combobox
+                    self.comboBox_layers.setCurrentIndex(i + 1)
+                    return True
+        return False
 
     def get_vrt(self):
         f = GetTempFilename('.vrt')
@@ -1349,8 +1389,9 @@ class WidgetDataIOSelectTEDatasetExisting(
         Ui_WidgetDataIOSelectTEDatasetExisting
 ):
     comboBox_datasets: QtWidgets.QComboBox
-    #dlg_dataset: DlgDataIOLoadTEDataset
+    # dlg_dataset: DlgDataIOLoadTEDataset
     dataset_list: typing.Optional[typing.List[UsableDatasetInfo]]
+    job_selected = QtCore.pyqtSignal(uuid.UUID)
 
     def __init__(self, parent=None):
         super(WidgetDataIOSelectTEDatasetExisting, self).__init__(parent)
@@ -1358,17 +1399,22 @@ class WidgetDataIOSelectTEDatasetExisting(
 
         self.dataset_list = None
 
-    def populate(self, selected_dataset=None):
+        self.comboBox_datasets.currentIndexChanged.connect(self.selected_job_changed)
+
+    def populate(self):
         usable_datasets = get_usable_datasets(self.property("dataset_type"))
         self.dataset_list = usable_datasets
+        # Ensure selected_job_changed is called only once when adding items to 
+        # combobox
+        self.comboBox_datasets.currentIndexChanged.disconnect(self.selected_job_changed)
+        old_text = self.currentText()
         self.comboBox_datasets.clear()
-        items = []
+        # Add a blank item to be shown when no dataset is chosen
+        self.comboBox_datasets.addItem('')
+        i = 0
         for usable_dataset in usable_datasets:
-            task_name = usable_dataset.job.params.task_name
-            if task_name != "":
-                name_info_parts = [task_name]
-            else:
-                name_info_parts = []
+            name_info_parts = []
+            hover_info_parts = []
             name_info_parts.extend(
                 [
                     usable_dataset.job.visible_name,
@@ -1376,13 +1422,48 @@ class WidgetDataIOSelectTEDatasetExisting(
                     usable_dataset.job.start_date.strftime("%Y-%m-%d %H:%M")
                 ]
             )
-            items.append(" - ".join(name_info_parts))
-        self.comboBox_datasets.addItems(items)
-
-    def get_usable_bands(self, band_name) -> UsableBandInfo:
-        job_id = self.dataset_list[self.comboBox_datasets.currentIndex()].id
-        return get_usable_bands(band_name, job_id)
+            hover_info_parts.extend(
+                [
+                    usable_dataset.job.visible_name + ' - ',
+                    usable_dataset.job.params.task_notes.local_context.area_of_interest_name + '\n',
+                    usable_dataset.job.start_date.strftime("%Y-%m-%d %H:%M")
+                ]
+            )
+            self.comboBox_datasets.addItem(" - ".join(name_info_parts))
+            # the "+ 1" below is to account for blank entry at the beginning of 
+            # the combobox
+            self.comboBox_datasets.setItemData(i + 1, "".join(hover_info_parts), QtCore.Qt.ToolTipRole)
+            i += 1
+        if not self.set_index_from_text(old_text):
+            # Set current index to 1 so that the blank line isn't chosen by 
+            # default
+            self.comboBox_datasets.setCurrentIndex(1)
+        self.selected_job_changed()
+        self.comboBox_datasets.currentIndexChanged.connect(self.selected_job_changed)
 
     def currentText(self):
         return self.comboBox_datasets.currentText()
 
+    def set_index_from_text(self, text):
+        if self.dataset_list:
+            for i in range(len(self.dataset_list)):
+                if self.dataset_list[i] == text:
+                    # the "+ 1" below is to account for blank entry
+                    # at the beginning of the combobox
+                    self.comboBox_datasets.setCurrentIndex(i + 1)
+                    return True
+        return False
+
+    def selected_job_changed(self):
+        # the "- 1" below is to account for blank entry
+        # at the beginning of the combobox
+        current_job = self.dataset_list[self.comboBox_datasets.currentIndex() - 1]
+        # Allow for a current_job of '' (no job selected)
+        if current_job != '':
+            # the "- 1" below i
+            # s to account for blank entry
+            # at the beginning of the combobox
+            job_id = current_job.job.id
+        else:
+            job_id = None
+        self.job_selected.emit(job_id)

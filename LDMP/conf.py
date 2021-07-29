@@ -101,6 +101,7 @@ class SettingsManager:
             type_ = type(self.DEFAULT_SETTINGS[key])
             result = self._settings.value(
                 f"{self.base_path}/{key.value}", self.DEFAULT_SETTINGS[key], type=type_)
+
         return result
 
     def write_value(self, key: Setting, value: typing.Any):
@@ -109,6 +110,7 @@ class SettingsManager:
     def _initialize_settings(self):
         for setting, default_value in self.DEFAULT_SETTINGS.items():
             current_value = self._settings.value(f"{self.base_path}/{setting.value}")
+
             if current_value is None:
                 self.write_value(setting, self.DEFAULT_SETTINGS[setting])
 
@@ -117,9 +119,11 @@ def _load_script_config(
         script_config: typing.Dict
 ) -> typing.Dict[str, algorithm_models.ExecutionScript]:
     result = {}
+
     for name, raw_config in script_config.items():
         script = algorithm_models.ExecutionScript.deserialize(name, raw_config)
         result[script.name] = script
+
     return result
 
 
@@ -127,10 +131,12 @@ def _load_algorithm_config(
         algorithm_config: typing.List[typing.Dict],
 ) -> algorithm_models.AlgorithmGroup:
     top_level_groups = []
+
     for raw_top_level_group in algorithm_config:
         group = algorithm_models.AlgorithmGroup.deserialize(
             raw_top_level_group)
         top_level_groups.append(group)
+
     return algorithm_models.AlgorithmGroup(
         name="root",
         name_details="root_details",

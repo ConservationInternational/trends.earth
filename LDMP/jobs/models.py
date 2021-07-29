@@ -364,7 +364,7 @@ class Job:
     def visible_name(self) -> str:
         task_name = self.params.task_name
         if task_name != "":
-            name = f"{task_name}({self.script.name})"
+            name = f"{task_name} ({self.script.name})"
         else:
             name = self.script.name
         return name

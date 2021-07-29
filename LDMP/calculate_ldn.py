@@ -96,6 +96,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         
     def showEvent(self, event):
         super(DlgCalculateOneStep, self).showEvent(event)
+
         if self.land_cover_content.layout() is None:
             layout = QtWidgets.QVBoxLayout()
             layout.setContentsMargins(0, 0, 0, 0)
@@ -187,6 +188,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         # returns False, which would mean this function should stop execution
         # as well.
         ret = super(DlgCalculateOneStep, self).btn_calculate()
+
         if not ret:
             return
 
@@ -647,6 +649,7 @@ class DlgCalculateLDNSummaryTableAdmin(
         # returns False, which would mean this function should stop execution
         # as well.
         ret = super().btn_calculate()
+
         if not ret:
             return
 
@@ -658,6 +661,7 @@ class DlgCalculateLDNSummaryTableAdmin(
 
         ######################################################################
         # Check that all needed input layers are selected
+
         if prod_mode == 'Trends.Earth productivity':
             if len(self.combo_layer_traj.layer_list) == 0:
                 QtWidgets.QMessageBox.critical(
@@ -668,7 +672,9 @@ class DlgCalculateLDNSummaryTableAdmin(
                         "your map before you can use the SDG calculation tool."
                     )
                 )
+
                 return
+
             if len(self.combo_layer_state.layer_list) == 0:
                 QtWidgets.QMessageBox.critical(
                     None,
@@ -678,7 +684,9 @@ class DlgCalculateLDNSummaryTableAdmin(
                         "map before you can use the SDG calculation tool."
                     )
                 )
+
                 return
+
             if len(self.combo_layer_perf.layer_list) == 0:
                 QtWidgets.QMessageBox.critical(
                     None,
@@ -688,6 +696,7 @@ class DlgCalculateLDNSummaryTableAdmin(
                         "your map before you can use the SDG calculation tool."
                     )
                 )
+
                 return
 
         else:
@@ -700,6 +709,7 @@ class DlgCalculateLDNSummaryTableAdmin(
                         "your map before you can use the SDG calculation tool."
                     )
                 )
+
                 return
 
         if len(self.combo_layer_lc.layer_list) == 0:
@@ -711,6 +721,7 @@ class DlgCalculateLDNSummaryTableAdmin(
                     "can use the SDG calculation tool."
                 )
             )
+
             return
 
         if len(self.combo_layer_soc.layer_list) == 0:
@@ -722,14 +733,17 @@ class DlgCalculateLDNSummaryTableAdmin(
                     "before you can use the SDG calculation tool."
                 )
             )
+
             return
 
         #######################################################################
         # Check that the layers cover the full extent needed
+
         if prod_mode == 'Trends.Earth productivity':
             trajectory_layer_extent = self.combo_layer_traj.get_layer().extent()
             extent_geom = QgsGeometry.fromRect(trajectory_layer_extent)
             overlaps_by = self.aoi.calc_frac_overlap(extent_geom)
+
             if overlaps_by < 0.99:
                 QtWidgets.QMessageBox.critical(
                     None,
@@ -738,7 +752,9 @@ class DlgCalculateLDNSummaryTableAdmin(
                         "Area of interest is not entirely within the trajectory layer."
                     )
                 )
+
                 return
+
             if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_perf.get_layer().extent())) < .99:
                 QtWidgets.QMessageBox.critical(
                     None,
@@ -748,13 +764,16 @@ class DlgCalculateLDNSummaryTableAdmin(
                         "performance layer."
                     )
                 )
+
                 return
+
             if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_state.get_layer().extent())) < .99:
                 QtWidgets.QMessageBox.critical(
                     None,
                     self.tr("Error"),
                     self.tr("Area of interest is not entirely within the state layer.")
                 )
+
                 return
         else:
             if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_lpd.get_layer().extent())) < .99:
@@ -766,6 +785,7 @@ class DlgCalculateLDNSummaryTableAdmin(
                         "productivity dynamics layer."
                     )
                 )
+
                 return
 
         if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_lc.get_layer().extent())) < .99:
@@ -774,7 +794,9 @@ class DlgCalculateLDNSummaryTableAdmin(
                 self.tr("Error"),
                 self.tr("Area of interest is not entirely within the land cover layer.")
             )
+
             return
+
         if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_soc.get_layer().extent())) < .99:
             QtWidgets.QMessageBox.critical(
                 None,
@@ -784,6 +806,7 @@ class DlgCalculateLDNSummaryTableAdmin(
                     "carbon layer."
                 )
             )
+
             return
 
         #######################################################################
@@ -799,19 +822,25 @@ class DlgCalculateLDNSummaryTableAdmin(
             if res(self.combo_layer_traj.get_layer()) != res(self.combo_layer_state.get_layer()):
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Resolutions of trajectory layer and state layer do not match."))
+
                 return
+
             if res(self.combo_layer_traj.get_layer()) != res(self.combo_layer_perf.get_layer()):
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Resolutions of trajectory layer and performance layer do not match."))
+
                 return
 
             if self.combo_layer_traj.get_layer().crs() != self.combo_layer_state.get_layer().crs():
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Coordinate systems of trajectory layer and state layer do not match."))
+
                 return
+
             if self.combo_layer_traj.get_layer().crs() != self.combo_layer_perf.get_layer().crs():
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Coordinate systems of trajectory layer and performance layer do not match."))
+
                 return
 
         self.close()

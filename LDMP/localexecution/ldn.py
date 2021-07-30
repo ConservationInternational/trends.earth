@@ -59,6 +59,57 @@ class SummaryTable:
 
 
 @dataclasses.dataclass()
+class SummaryTableWidgets:
+    '''Combo boxes and methods used in the SDG 15.3.1 summary table widget'''
+    combo_datasets: data_io.WidgetDataIOSelectTEDatasetExisting
+    combo_layer_traj: data_io.WidgetDataIOSelectTELayerExisting
+    combo_layer_perf: data_io.WidgetDataIOSelectTELayerExisting
+    combo_layer_state: data_io.WidgetDataIOSelectTELayerExisting
+    combo_layer_lpd: data_io.WidgetDataIOSelectTELayerImport
+    combo_layer_lc: data_io.WidgetDataIOSelectTELayerExisting
+    combo_layer_soc: data_io.WidgetDataIOSelectTELayerExisting
+    radio_te_prod: QtWidgets.QRadioButton
+    radio_lpd_jrc: QtWidgets.QRadioButton
+
+    def __post_init__(self):
+        self.radio_lpd_jrc.toggled.connect(self.radio_lpd_jrc_toggled)
+        self.radio_lpd_jrc_toggled()
+        self.combo_datasets.job_selected.connect(self.set_combo_selections_from_job_id)
+
+    def populate(self):
+        self.combo_datasets.populate()
+        self.populate_layer_combo_boxes()
+
+    def radio_lpd_jrc_toggled(self):
+        if self.radio_lpd_jrc.isChecked():
+            self.combo_layer_lpd.setEnabled(True)
+            self.combo_layer_traj.setEnabled(False)
+            self.combo_layer_perf.setEnabled(False)
+            self.combo_layer_state.setEnabled(False)
+        else:
+            self.combo_layer_lpd.setEnabled(False)
+            self.combo_layer_traj.setEnabled(True)
+            self.combo_layer_perf.setEnabled(True)
+            self.combo_layer_state.setEnabled(True)
+
+    def populate_layer_combo_boxes(self):
+        self.combo_layer_lpd.populate()
+        self.combo_layer_traj.populate()
+        self.combo_layer_perf.populate()
+        self.combo_layer_state.populate()
+        self.combo_layer_lc.populate()
+        self.combo_layer_soc.populate()
+
+    def set_combo_selections_from_job_id(self, job_id):
+        self.combo_layer_lpd.set_index_from_job_id(job_id)
+        self.combo_layer_traj.set_index_from_job_id(job_id)
+        self.combo_layer_perf.set_index_from_job_id(job_id)
+        self.combo_layer_state.set_index_from_job_id(job_id)
+        self.combo_layer_lc.set_index_from_job_id(job_id)
+        self.combo_layer_soc.set_index_from_job_id(job_id)
+
+
+@dataclasses.dataclass()
 class LdnInputInfo:
     path: Path
     main_band: models.JobBand

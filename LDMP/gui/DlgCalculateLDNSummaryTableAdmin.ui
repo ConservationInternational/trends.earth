@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1167</width>
-    <height>835</height>
+    <width>1006</width>
+    <height>644</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -18,6 +18,9 @@
   </property>
   <property name="windowTitle">
    <string>SDG 15.3.1 Indicator (Summary) | Land Degradation</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -64,8 +67,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>875</width>
-            <height>786</height>
+            <width>714</width>
+            <height>595</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -96,11 +99,11 @@
               </font>
              </property>
              <property name="title">
-              <string>Input dataset</string>
+              <string>Baseline dataset</string>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_8">
               <item>
-               <widget class="WidgetDataIOSelectTEDatasetExisting" name="combo_datasets">
+               <widget class="WidgetDataIOSelectTEDatasetExisting" name="combo_datasets_baseline">
                 <property name="sizePolicy">
                  <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
                   <horstretch>0</horstretch>
@@ -122,9 +125,15 @@
             </widget>
            </item>
            <item>
-            <widget class="QgsCollapsibleGroupBox" name="advanced_configuration">
+            <widget class="QgsCollapsibleGroupBox" name="advanced_configuration_baseline">
+             <property name="styleSheet">
+              <string notr="true">QgsCollapsibleGroupBoxBasic::title, QgsCollapsibleGroupBox::title {  subcontrol-origin: margin;  subcontrol-position: top left;  margin-left: 20px;  margin-right: 5px;  left: 0px;  top: 2px; }QgsCollapsibleGroupBoxBasic::title, QgsCollapsibleGroupBox::title {  subcontrol-origin: margin;  subcontrol-position: top left;  margin-left: 20px;  margin-right: 5px;  left: 0px;  top: 2px;}QgsCollapsibleGroupBoxBasic::title, QgsCollapsibleGroupBox::title {  subcontrol-origin: margin;  subcontrol-position: top left;  margin-left: 20px;  margin-right: 5px;  left: 0px;  top: 2px;}QgsCollapsibleGroupBoxBasic::title, QgsCollapsibleGroupBox::title {  subcontrol-origin: margin;  subcontrol-position: top left;  margin-left: 20px;  margin-right: 5px;  left: 0px;  top: 2px;}QgsCollapsibleGroupBoxBasic::title, QgsCollapsibleGroupBox::title {  subcontrol-origin: margin;  subcontrol-position: top left;  margin-left: 20px;  margin-right: 5px;  left: 0px;  top: 2px;}QgsCollapsibleGroupBoxBasic::title, QgsCollapsibleGroupBox::title {  subcontrol-origin: margin;  subcontrol-position: top left;  margin-left: 20px;  margin-right: 5px;  left: 0px;  top: 2px;}QgsCollapsibleGroupBoxBasic::title, QgsCollapsibleGroupBox::title {  subcontrol-origin: margin;  subcontrol-position: top left;  margin-left: 20px;  margin-right: 5px;  left: 0px;  top: 2px;}QgsCollapsibleGroupBoxBasic::title, QgsCollapsibleGroupBox::title {  subcontrol-origin: margin;  subcontrol-position: top left;  margin-left: 20px;  margin-right: 5px;  left: 0px;  top: 2px;} QgsCollapsibleGroupBoxBasic { border: none; }QgsCollapsibleGroupBoxBasic::title, QgsCollapsibleGroupBox::title {  subcontrol-origin: margin;  subcontrol-position: top left;  margin-left: 20px;  margin-right: 5px;  left: 0px;  top: 2px;}QgsCollapsibleGroupBoxBasic::title, QgsCollapsibleGroupBox::title {  subcontrol-origin: margin;  subcontrol-position: top left;  margin-left: 20px;  margin-right: 5px;  left: 0px;  top: 2px;}</string>
+             </property>
              <property name="title">
               <string>Advanced</string>
+             </property>
+             <property name="checkable">
+              <bool>false</bool>
              </property>
              <property name="collapsed">
               <bool>true</bool>
@@ -155,7 +164,7 @@
                 </property>
                 <layout class="QGridLayout" name="gridLayout">
                  <item row="4" column="0">
-                  <widget class="WidgetDataIOSelectTELayerExisting" name="combo_layer_traj">
+                  <widget class="WidgetDataIOSelectTELayerExisting" name="combo_layer_traj_baseline">
                    <property name="enabled">
                     <bool>true</bool>
                    </property>
@@ -177,7 +186,7 @@
                   </widget>
                  </item>
                  <item row="6" column="0">
-                  <widget class="WidgetDataIOSelectTELayerExisting" name="combo_layer_perf">
+                  <widget class="WidgetDataIOSelectTELayerExisting" name="combo_layer_perf_baseline">
                    <property name="enabled">
                     <bool>true</bool>
                    </property>
@@ -199,7 +208,7 @@
                   </widget>
                  </item>
                  <item row="8" column="0">
-                  <widget class="WidgetDataIOSelectTELayerExisting" name="combo_layer_state">
+                  <widget class="WidgetDataIOSelectTELayerExisting" name="combo_layer_state_baseline">
                    <property name="enabled">
                     <bool>true</bool>
                    </property>
@@ -221,7 +230,7 @@
                   </widget>
                  </item>
                  <item row="2" column="0">
-                  <widget class="QRadioButton" name="mode_te_prod">
+                  <widget class="QRadioButton" name="radio_te_prod_baseline">
                    <property name="text">
                     <string>Trends.Earth land productivity</string>
                    </property>
@@ -285,7 +294,7 @@
                   </widget>
                  </item>
                  <item row="10" column="0">
-                  <widget class="WidgetDataIOSelectTELayerImport" name="combo_layer_lpd">
+                  <widget class="WidgetDataIOSelectTELayerImport" name="combo_layer_lpd_baseline">
                    <property name="enabled">
                     <bool>false</bool>
                    </property>
@@ -307,12 +316,12 @@
                   </widget>
                  </item>
                  <item row="9" column="0">
-                  <widget class="QRadioButton" name="mode_lpd_jrc">
+                  <widget class="QRadioButton" name="radio_lpd_jrc_baseline">
                    <property name="enabled">
                     <bool>true</bool>
                    </property>
                    <property name="text">
-                    <string>UNCCD default data (Land Productivity Dynamics (LPD) 1999-2013 Product from Joint Research Commission)</string>
+                    <string>Land Productivity Dynamics (LPD) from European Joint Research Commission</string>
                    </property>
                    <property name="checked">
                     <bool>false</bool>
@@ -353,7 +362,7 @@
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_6">
                  <item>
-                  <widget class="WidgetDataIOSelectTELayerExisting" name="combo_layer_lc">
+                  <widget class="WidgetDataIOSelectTELayerExisting" name="combo_layer_lc_baseline">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
                      <horstretch>0</horstretch>
@@ -402,7 +411,7 @@
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_7">
                  <item>
-                  <widget class="WidgetDataIOSelectTELayerExisting" name="combo_layer_soc">
+                  <widget class="WidgetDataIOSelectTELayerExisting" name="combo_layer_soc_baseline">
                    <property name="sizePolicy">
                     <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
                      <horstretch>0</horstretch>
@@ -421,6 +430,65 @@
                   </widget>
                  </item>
                 </layout>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QCheckBox" name="checkBox_progress_period">
+             <property name="text">
+              <string>Include progress period (for comparison to baseline)</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox_progress_period">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>16777215</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <weight>50</weight>
+               <bold>false</bold>
+              </font>
+             </property>
+             <property name="title">
+              <string>Progress dataset</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_9">
+              <item>
+               <widget class="WidgetDataIOSelectTEDatasetExisting" name="combo_datasets_progress">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>30</height>
+                 </size>
+                </property>
+                <property name="dataset_type" stdset="0">
+                 <string notr="true">three-sdg-15-3-1-sub-indicators</string>
+                </property>
                </widget>
               </item>
              </layout>
@@ -447,6 +515,362 @@
               <property name="bottomMargin">
                <number>0</number>
               </property>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QgsCollapsibleGroupBox" name="advanced_configuration_progress">
+             <property name="styleSheet">
+              <string notr="true"> QgsCollapsibleGroupBoxBasic { border: none; }QgsCollapsibleGroupBoxBasic::title, QgsCollapsibleGroupBox::title {  subcontrol-origin: margin;  subcontrol-position: top left;  margin-left: 20px;  margin-right: 5px;  left: 0px;  top: 2px;} </string>
+             </property>
+             <property name="title">
+              <string>Advanced (progress period)</string>
+             </property>
+             <property name="collapsed">
+              <bool>true</bool>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_10">
+              <item>
+               <widget class="QLabel" name="label">
+                <property name="text">
+                 <string>Comparison approach</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QFrame" name="frame_2">
+                <property name="frameShape">
+                 <enum>QFrame::NoFrame</enum>
+                </property>
+                <property name="frameShadow">
+                 <enum>QFrame::Plain</enum>
+                </property>
+                <layout class="QHBoxLayout" name="horizontalLayout_3">
+                 <item>
+                  <widget class="QRadioButton" name="radioButton_comparison_te">
+                   <property name="text">
+                    <string>Trends.Earth</string>
+                   </property>
+                   <property name="checked">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QRadioButton" name="radioButton_comparison_gpgv2">
+                   <property name="text">
+                    <string>UNCCD Good Practice Guidance Version 2</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="QGroupBox" name="groupBox_combos_progress_prod">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <weight>50</weight>
+                  <bold>false</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
+                <property name="title">
+                 <string>Productivity</string>
+                </property>
+                <property name="checkable">
+                 <bool>false</bool>
+                </property>
+                <layout class="QGridLayout" name="gridLayout_2">
+                 <item row="4" column="0">
+                  <widget class="WidgetDataIOSelectTELayerExisting" name="combo_layer_traj_progress">
+                   <property name="enabled">
+                    <bool>true</bool>
+                   </property>
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="layer_type" stdset="0">
+                    <string notr="true">Productivity trajectory (significance)</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="6" column="0">
+                  <widget class="WidgetDataIOSelectTELayerExisting" name="combo_layer_perf_progress">
+                   <property name="enabled">
+                    <bool>true</bool>
+                   </property>
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="layer_type" stdset="0">
+                    <string notr="true">Productivity performance (degradation)</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="8" column="0">
+                  <widget class="WidgetDataIOSelectTELayerExisting" name="combo_layer_state_progress">
+                   <property name="enabled">
+                    <bool>true</bool>
+                   </property>
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="layer_type" stdset="0">
+                    <string notr="true">Productivity state (degradation)</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="0">
+                  <widget class="QRadioButton" name="radio_te_prod_progress">
+                   <property name="text">
+                    <string>Trends.Earth land productivity</string>
+                   </property>
+                   <property name="checked">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="5" column="0">
+                  <widget class="QLabel" name="combo_layer_perf_label_2">
+                   <property name="enabled">
+                    <bool>true</bool>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <weight>50</weight>
+                     <bold>false</bold>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Performance (degradation):</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="7" column="0">
+                  <widget class="QLabel" name="combo_layer_state_label_2">
+                   <property name="enabled">
+                    <bool>true</bool>
+                   </property>
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <weight>50</weight>
+                     <bold>false</bold>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>State (degradation):</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="0">
+                  <widget class="QLabel" name="combo_layer_traj_label_2">
+                   <property name="enabled">
+                    <bool>true</bool>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <weight>50</weight>
+                     <bold>false</bold>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Trajectory (degradation):</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="10" column="0">
+                  <widget class="WidgetDataIOSelectTELayerImport" name="combo_layer_lpd_progress">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="layer_type" stdset="0">
+                    <string notr="true">Land Productivity Dynamics (LPD)</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="9" column="0">
+                  <widget class="QRadioButton" name="radio_lpd_jrc_progress">
+                   <property name="enabled">
+                    <bool>true</bool>
+                   </property>
+                   <property name="text">
+                    <string>Land Productivity Dynamics (LPD) from European Joint Research Commission</string>
+                   </property>
+                   <property name="checked">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="QGroupBox" name="groupBox_combos_progress_land_cover">
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <weight>50</weight>
+                  <bold>false</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
+                <property name="title">
+                 <string>Land cover (degradation)</string>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_11">
+                 <item>
+                  <widget class="WidgetDataIOSelectTELayerExisting" name="combo_layer_lc_progress">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="layer_type" stdset="0">
+                    <string notr="true">Land cover (degradation)</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
+              <item>
+               <widget class="QGroupBox" name="groupBox_combos_progress_soil_organic_carbon">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="maximumSize">
+                 <size>
+                  <width>16777215</width>
+                  <height>16777215</height>
+                 </size>
+                </property>
+                <property name="font">
+                 <font>
+                  <weight>50</weight>
+                  <bold>false</bold>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true"/>
+                </property>
+                <property name="title">
+                 <string>Soil carbon (degradation)</string>
+                </property>
+                <layout class="QVBoxLayout" name="verticalLayout_12">
+                 <item>
+                  <widget class="WidgetDataIOSelectTELayerExisting" name="combo_layer_soc_progress">
+                   <property name="sizePolicy">
+                    <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+                     <horstretch>0</horstretch>
+                     <verstretch>0</verstretch>
+                    </sizepolicy>
+                   </property>
+                   <property name="minimumSize">
+                    <size>
+                     <width>275</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="layer_type" stdset="0">
+                    <string notr="true">Soil organic carbon (degradation)</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+              </item>
              </layout>
             </widget>
            </item>

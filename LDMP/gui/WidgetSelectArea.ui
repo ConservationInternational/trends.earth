@@ -41,7 +41,7 @@
       </sizepolicy>
      </property>
      <property name="title">
-      <string>Algorithm region of interest</string>
+      <string>Region of interest</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_4">
       <item>

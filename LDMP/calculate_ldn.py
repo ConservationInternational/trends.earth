@@ -15,6 +15,7 @@
 import json
 from pathlib import Path
 import datetime
+import typing
 
 from PyQt5 import (
     QtCore,
@@ -62,7 +63,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         super().__init__(iface, script, parent)
         self.setupUi(self)
         self.update_time_bounds()
-        self.mode_te_prod.toggled.connect(self.update_time_bounds)
+        self.radio_te_prod.toggled.connect(self.update_time_bounds)
         self.lc_setup_widget = lc_setup.LandCoverSetupRemoteExecutionWidget(
             self,
             hide_min_year=True,
@@ -77,7 +78,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self._finish_initialization()
 
     def update_time_bounds(self):
-        if self.mode_te_prod.isChecked():
+        if self.radio_te_prod.isChecked():
             ndvi_dataset = conf.REMOTE_DATASETS["NDVI"]["MODIS (MOD13Q1, annual)"]
             start_year_ndvi = ndvi_dataset['Start year']
             end_year_ndvi = ndvi_dataset['End year']
@@ -134,7 +135,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         if not ret:
             return
 
-        if self.mode_te_prod.isChecked():
+        if self.radio_te_prod.isChecked():
             prod_mode = 'Trends.Earth productivity'
         else:
             prod_mode = 'JRC LPD'
@@ -231,25 +232,14 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             duration=5
         )
 
-
 class DlgCalculateLDNSummaryTableAdmin(
     DlgCalculateBase,
     DlgCalculateLdnSummaryTableAdminUi
 ):
     LOCAL_SCRIPT_NAME: str = "final-sdg-15-3-1"
 
-    mode_te_prod_rb: QtWidgets.QRadioButton
-    mode_lpd_jrc: QtWidgets.QRadioButton
-    combo_layer_traj: data_io.WidgetDataIOSelectTELayerExisting
-    combo_layer_perf: data_io.WidgetDataIOSelectTELayerExisting
-    combo_layer_state: data_io.WidgetDataIOSelectTELayerExisting
-    combo_layer_lpd: data_io.WidgetDataIOSelectTELayerImport
-    combo_layer_lc: data_io.WidgetDataIOSelectTELayerExisting
-    combo_layer_soc: data_io.WidgetDataIOSelectTELayerExisting
-    combo_datasets: data_io.WidgetDataIOSelectTEDatasetExisting
-    button_prev: QtWidgets.QPushButton
-    button_next: QtWidgets.QPushButton
     button_calculate: QtWidgets.QPushButton
+    combo_boxes: typing.Dict[str, ldn.SummaryTableWidgets] = {}
 
     def __init__(
             self,
@@ -259,51 +249,47 @@ class DlgCalculateLDNSummaryTableAdmin(
     ):
         super().__init__(iface, script, parent)
         self.setupUi(self)
-        # self.add_output_tab(['.json', '.tif', '.xlsx'])
-        self.mode_lpd_jrc.toggled.connect(self.mode_lpd_jrc_toggled)
-        self.mode_lpd_jrc_toggled()
+
+        self.checkBox_progress_period.toggled.connect(self.toggle_progress_period)
+
         self._finish_initialization()
 
-        self.combo_datasets.job_selected.connect(self.set_combo_selections_from_job_id)
-
-    def mode_lpd_jrc_toggled(self):
-        if self.mode_lpd_jrc.isChecked():
-            self.combo_layer_lpd.setEnabled(True)
-            self.combo_layer_traj.setEnabled(False)
-            self.combo_layer_traj_label.setEnabled(False)
-            self.combo_layer_perf.setEnabled(False)
-            self.combo_layer_perf_label.setEnabled(False)
-            self.combo_layer_state.setEnabled(False)
-            self.combo_layer_state_label.setEnabled(False)
-        else:
-            self.combo_layer_lpd.setEnabled(False)
-            self.combo_layer_traj.setEnabled(True)
-            self.combo_layer_traj_label.setEnabled(True)
-            self.combo_layer_perf.setEnabled(True)
-            self.combo_layer_perf_label.setEnabled(True)
-            self.combo_layer_state.setEnabled(True)
-            self.combo_layer_state_label.setEnabled(True)
+        self.combo_boxes['baseline'] = ldn.SummaryTableWidgets(
+            combo_datasets=self.combo_datasets_baseline,
+            combo_layer_traj=self.combo_layer_traj_baseline,
+            combo_layer_perf=self.combo_layer_perf_baseline,
+            combo_layer_state=self.combo_layer_state_baseline,
+            combo_layer_lpd=self.combo_layer_lpd_baseline,
+            combo_layer_lc=self.combo_layer_lc_baseline,
+            combo_layer_soc=self.combo_layer_soc_baseline,
+            radio_te_prod=self.radio_te_prod_baseline,
+            radio_lpd_jrc=self.radio_lpd_jrc_baseline
+        )
+        self.combo_boxes['progress'] = ldn.SummaryTableWidgets(
+            combo_datasets=self.combo_datasets_progress,
+            combo_layer_traj=self.combo_layer_traj_progress,
+            combo_layer_perf=self.combo_layer_perf_progress,
+            combo_layer_state=self.combo_layer_state_progress,
+            combo_layer_lpd=self.combo_layer_lpd_progress,
+            combo_layer_lc=self.combo_layer_lc_progress,
+            combo_layer_soc=self.combo_layer_soc_progress,
+            radio_te_prod=self.radio_te_prod_progress,
+            radio_lpd_jrc=self.radio_lpd_jrc_progress
+        )
 
     def showEvent(self, event):
         super().showEvent(event)
-        self.combo_datasets.populate()
-        self.populate_layer_combo_boxes()
+        self.combo_boxes['baseline'].populate()
+        self.combo_boxes['progress'].populate()
+        self.toggle_progress_period()
 
-    def populate_layer_combo_boxes(self):
-        self.combo_layer_lpd.populate()
-        self.combo_layer_traj.populate()
-        self.combo_layer_perf.populate()
-        self.combo_layer_state.populate()
-        self.combo_layer_lc.populate()
-        self.combo_layer_soc.populate()
-
-    def set_combo_selections_from_job_id(self, job_id):
-        self.combo_layer_lpd.set_index_from_job_id(job_id)
-        self.combo_layer_traj.set_index_from_job_id(job_id)
-        self.combo_layer_perf.set_index_from_job_id(job_id)
-        self.combo_layer_state.set_index_from_job_id(job_id)
-        self.combo_layer_lc.set_index_from_job_id(job_id)
-        self.combo_layer_soc.set_index_from_job_id(job_id)
+    def toggle_progress_period(self):
+        if self.checkBox_progress_period.isChecked():
+            self.groupBox_progress_period.setVisible(True)
+            self.advanced_configuration_progress.setVisible(True)
+        else:
+            self.groupBox_progress_period.setVisible(False)
+            self.advanced_configuration_progress.setVisible(False)
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
@@ -314,7 +300,7 @@ class DlgCalculateLDNSummaryTableAdmin(
         if not ret:
             return
 
-        if self.mode_te_prod.isChecked():
+        if self.radio_te_prod.isChecked():
             prod_mode = 'Trends.Earth productivity'
         else:
             prod_mode = 'JRC LPD'

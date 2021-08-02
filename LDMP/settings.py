@@ -1,7 +1,7 @@
 """
 /***************************************************************************
  LDMP - A QGIS plugin
- This plugin supports monitoring and reporting of land degradation to the UNCCD 
+ This plugin supports monitoring and reporting of land degradation to the UNCCD
  and in support of the SDG Land Degradation Neutrality (LDN) target.
                               -------------------
         begin                : 2017-05-23
@@ -53,11 +53,13 @@ settings = QtCore.QSettings()
 def is_subdir(child, parent):
     parent = os.path.normpath(os.path.realpath(parent))
     child = os.path.normpath(os.path.realpath(child))
+
     if not os.path.isdir(parent) or not os.path.isdir(child):
         return False
     elif child == parent:
         return True
     head, tail = os.path.split(child)
+
     if head == parent:
         return True
     elif tail == '':
@@ -115,40 +117,35 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
         super().closeEvent(event)
 
     def reloadAuthConfigurations(self):
-        self.authConfigSelect_authentication.populateConfigSelector()
-        self.authConfigSelect_authentication.clearMessage()
         authConfigId = settings.value("trends_earth/authId", None)
+
+        if not authConfigId:
+            self.message_bar.pushCritical(
+                'Trends.Earth',
+                self.tr('Please register in order to use Trends.Earth')
+            )
+
+            return
         configs = qgis.core.QgsApplication.authManager().availableAuthMethodConfigs()
-        if authConfigId in configs.keys():
-            self.authConfigSelect_authentication.setConfigId(authConfigId)
+        if authConfigId not in configs.keys():
+            QtCore.QSettings().setValue("trends_earth/trends_earth_api_authId", None)
 
     def selectDefaultAuthConfiguration(self, authConfigId):
         self.reloadAuthConfigurations()
-        if authConfigId:
-            self.authConfigSelect_authentication.setConfigId(authConfigId)
 
     def register(self):
-        result = self.dlg_settings_register.exec_()
-
+        self.dlg_settings_register.exec_()
+        #
+        # if not authConfigId:
+        #     self.message_bar.pushCritical(
+        #         'Trends.Earth',
+        #         self.tr('Please register in order to use Trends.Earth')
+        #     )
+        #
+        #     return
+        #
     def login(self):
-        # retrieve basic auth from QGIS authManager
-        authConfigId = self.authConfigSelect_authentication.configId()
-        if not authConfigId:
-            self.message_bar.pushCritical(
-                'Trends.Earth', self.tr('Please select a authentication profile'))
-            return
-
-        # try to login with current credentials
-        resp = api.login(authConfigId)
-        if resp:
-            username = api.get_user_email()
-            QtWidgets.QMessageBox.information(None,
-                                              self.tr("Success"),
-                                              self.tr(u"""Logged in to the Trends.Earth server as {}.<html><p>Welcome to Trends.Earth!<p/><p>
-                    <a href= 'https://groups.google.com/forum/#!forum/trends_earth_users/join'>Join the Trends.Earth Users google groups<a/></p><p> Make sure to join the google groups for the Trends.Earth users to keep up with updates and Q&A about the tool, methods, and datasets in support of Sustainable Development Goals monitoring.</p>""").format(
-                                                  username))
-            settings.setValue("LDMP/jobs_cache", None)
-            self.ok = True
+        self.dlg_settings_login.exec_()
 
     def forgot_pwd(self):
         dlg_settings_edit_forgot_password = DlgSettingsEditForgotPassword()
@@ -156,6 +153,7 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
 
     def update_profile(self):
         user = api.get_user()
+
         if not user:
             return
         dlg_settings_edit_update = DlgSettingsEditUpdate(user)
@@ -163,6 +161,7 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
 
     def delete(self):
         email = api.get_user_email()
+
         if not email:
             return
 
@@ -177,16 +176,20 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
             QtWidgets.QMessageBox.Yes,
             QtWidgets.QMessageBox.No
         )
+
         if reply == QtWidgets.QMessageBox.Yes:
             resp = api.delete_user(email)
+
             if resp:
                 QtWidgets.QMessageBox.information(
                     None,
                     self.tr("Success"),
                     QtWidgets.QApplication.translate(
-                        'LDMP', u"User {} deleted.".format(email))
+                        f'Trends.Earth user {email} deleted.'
+                    )
                 )
-                # remove current used config (as set in QSettings) and trigger GUI
+                # remove currently used config (as set in QSettings) and 
+                # trigger GUI
                 api.remove_current_auth_config()
                 self.reloadAuthConfigurations()
                 # self.authConfigUpdated.emit()
@@ -211,10 +214,12 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.current_cities_key = None
 
         self.admin_bounds_key = download.get_admin_bounds()
+
         if not self.admin_bounds_key:
             raise ValueError('Admin boundaries not available')
 
         self.cities = download.get_cities()
+
         if not self.cities:
             raise ValueError('Cities list not available')
 
@@ -259,6 +264,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 
     def load_settings(self):
         area_from_option = settings_manager.get_value(Setting.AREA_FROM_OPTION)
+
         if area_from_option == 'country_region' or area_from_option == 'country_city':
             self.area_fromadmin.setChecked(True)
         elif area_from_option == 'point':
@@ -273,6 +279,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
             settings_manager.get_value(Setting.VECTOR_FILE_PATH))
         self.area_type_toggle()
         admin_0 = settings_manager.get_value(Setting.COUNTRY_NAME)
+
         if admin_0:
             self.area_admin_0.setCurrentIndex(self.area_admin_0.findText(admin_0))
             self.populate_admin_1()
@@ -284,14 +291,17 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.radioButton_secondLevel_toggle()
 
         secondLevel_area_admin_1 = settings_manager.get_value(Setting.REGION_NAME)
+
         if secondLevel_area_admin_1:
             self.secondLevel_area_admin_1.setCurrentIndex(
                 self.secondLevel_area_admin_1.findText(secondLevel_area_admin_1))
         secondLevel_city = settings_manager.get_value(Setting.CITY_NAME)
+
         if secondLevel_city:
             self.populate_cities()
             self.secondLevel_city.setCurrentIndex(self.secondLevel_city.findText(secondLevel_city))
         buffer_size = settings_manager.get_value(Setting.BUFFER_SIZE)
+
         if buffer_size:
             self.buffer_size_km.setValue(float(buffer_size))
         buffer_checked = settings_manager.get_value(Setting.BUFFER_CHECKED)
@@ -302,6 +312,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.secondLevel_city.clear()
         country_code = self.admin_bounds_key[self.area_admin_0.currentText()].code
         self.current_cities_key = {}
+
         for wof_id, city in self.cities[country_code].items():
             self.current_cities_key[city.name_en] = wof_id
         self.secondLevel_city.addItems(sorted(self.current_cities_key.keys()))
@@ -372,6 +383,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
                     self.area_fromfile_file.text(),
                     "area",
                     "ogr")
+
                 if layer.isValid():
                     centroid = layer.extent().center()
                     # Store point in EPSG:4326 crs
@@ -388,6 +400,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
                     return
             else:
                 return
+
         if self.checkbox_buffer.isChecked():
             name = "{}-buffer-{:.3f}".format(
                 name,
@@ -421,8 +434,10 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 
     def open_vector_browse(self):
         initial_path = settings_manager.get_value(Setting.VECTOR_FILE_PATH)
+
         if not initial_path:
             initial_path = settings_manager.get_value(Setting.VECTOR_FILE_DIR)
+
         if not initial_path:
             initial_path = str(Path.home())
 
@@ -432,10 +447,12 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
             initial_path,
             self.tr('Vector file (*.shp *.kml *.kmz *.geojson)')
         )
+
         if vector_file:
             if os.access(vector_file, os.R_OK):
                 self.vector_file = vector_file
                 self.area_fromfile_file.setText(vector_file)
+
                 return True
             else:
                 QtWidgets.QMessageBox.critical(
@@ -444,6 +461,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
                     self.tr(
                         u"Cannot read {}. Choose a different file.".format(vector_file))
                 )
+
                 return False
         else:
             return False
@@ -454,8 +472,10 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         city_name = ""
         point = (0, 0)
         vector_path = ""
+
         if self.area_fromadmin.isChecked():
             country_name = self.area_admin_0.currentText()
+
             if self.radioButton_secondLevel_region.isChecked():
                 area_name = "country_region"
                 region_name = self.secondLevel_area_admin_1.currentText()
@@ -488,6 +508,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
             Setting.BUFFER_SIZE, self.buffer_size_km.value())
         settings_manager.write_value(
             Setting.AREA_NAME, self.area_settings_name.text())
+
         if self.current_cities_key is not None:
             settings_manager.write_value(Setting.CITY_KEY, self.current_cities_key)
         log("area settings have been saved")
@@ -510,32 +531,43 @@ class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):
     def register(self):
         if not self.email.text():
             QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your email address."))
+
             return
         elif not self.name.text():
             QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your name."))
+
             return
         elif not self.organization.text():
             QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your organization."))
+
             return
         elif not self.country.currentText():
             QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your country."))
+
             return
 
         resp = api.register(self.email.text(), self.name.text(), self.organization.text(), self.country.currentText())
+
         if resp:
             self.close()
-            QtWidgets.QMessageBox.information(None,
-                                              self.tr("Success"),
-                                              self.tr(
-                                                  u"User registered. Your password has been emailed to {}. Then set it in {} configuration".format(
-                                                      self.email.text(), api.AUTH_CONFIG_NAME)))
+            QtWidgets.QMessageBox.information(
+                None,
+                self.tr("Success"),
+                self.tr("User registered. Your password "
+                        f"has been emailed to {self.email.text()}. "
+                        f"Then set it in {api.AUTH_CONFIG_NAME} "
+                        "configuration")
+            )
 
             # add a new auth conf that have to be completed with pwd
             authConfidId = api.init_auth_config(email=self.email.text())
+
             if authConfidId:
                 self.authConfigInitialised.emit(authConfidId)
 
-            return True
+            return authConfigId
+        else:
+            return None
 
 
 class DlgSettingsLogin(QtWidgets.QDialog, Ui_DlgSettingsLogin):
@@ -553,32 +585,41 @@ class DlgSettingsLogin(QtWidgets.QDialog, Ui_DlgSettingsLogin):
         super(DlgSettingsLogin, self).showEvent(event)
 
         email = api.get_user_email(warn=False)
+
         if email:
             self.email.setText(email)
-        password = settings.value("LDMP/password", None)
-        if password:
-            self.password.setText(password)
+
 
     def login(self):
         if not self.email.text():
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Enter your email address."))
+
             return
         elif not self.password.text():
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Enter your password."))
+
             return
 
-        resp = api.login(self.email.text(), self.password.text())
-        if resp:
-            QtWidgets.QMessageBox.information(None,
-                                              self.tr("Success"),
-                                              self.tr(u"""Logged in to the Trends.Earth server as {}.<html><p>Welcome to Trends.Earth!<p/><p>
-                    <a href= 'https://groups.google.com/forum/#!forum/trends_earth_users/join'>Join the Trends.Earth Users google groups<a/></p><p> Make sure to join the google groups for the Trends.Earth users to keep up with updates and Q&A about the tool, methods, and datasets in support of Sustainable Development Goals monitoring.</p>""").format(
-                                                  self.email.text()))
-            settings.setValue("LDMP/jobs_cache", None)
-            self.done(QtWidgets.QDialog.Accepted)
+        if api.login_test(self.email.text(), self.password.text()):
+            QtWidgets.QMessageBox.information(
+                None,
+                self.tr("Success"),
+                self.tr(
+                    'Logged in to the Trends.Earth server as '
+                    f'{self.email.text()}.<html><p>Welcome to '
+                    'Trends.Earth!<p/><p><a href= "'
+                    'https://groups.google.com/forum/#!forum/trends_earth_users/join">Join '
+                    'the Trends.Earth Users email group<a/></p><p> Make sure '
+                    'to join the Trends.Earth users email group to keep up '
+                    'with updates and Q&A about the tool, methods, and '
+                    'datasets in support of Sustainable Development Goals '
+                    'monitoring.')
+            )
+            api.init_auth_config(self.email.text(), self.password.text())
             self.ok = True
+            self.close()
 
 
 class DlgSettingsEditForgotPassword(QtWidgets.QDialog, Ui_DlgSettingsEditForgotPassword):
@@ -596,6 +637,7 @@ class DlgSettingsEditForgotPassword(QtWidgets.QDialog, Ui_DlgSettingsEditForgotP
         super(DlgSettingsEditForgotPassword, self).showEvent(event)
 
         email = api.get_user_email(warn=False)
+
         if email:
             self.email.setText(email)
 
@@ -603,6 +645,7 @@ class DlgSettingsEditForgotPassword(QtWidgets.QDialog, Ui_DlgSettingsEditForgotP
         if not self.email.text():
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr("Enter your email address to reset your password."))
+
             return
 
         reply = QtWidgets.QMessageBox.question(None, self.tr("Reset password?"),
@@ -613,6 +656,7 @@ class DlgSettingsEditForgotPassword(QtWidgets.QDialog, Ui_DlgSettingsEditForgotP
 
         if reply == QtWidgets.QMessageBox.Yes:
             resp = api.recover_pwd(self.email.text())
+
             if resp:
                 self.close()
                 QtWidgets.QMessageBox.information(None,
@@ -640,6 +684,7 @@ class DlgSettingsEditUpdate(QtWidgets.QDialog, Ui_DlgSettingsEditUpdate):
         # Add countries, and set index to currently chosen country
         self.country.addItems(sorted(self.admin_bounds_key.keys()))
         index = self.country.findText(user['country'])
+
         if index != -1:
             self.country.setCurrentIndex(index)
 
@@ -651,15 +696,19 @@ class DlgSettingsEditUpdate(QtWidgets.QDialog, Ui_DlgSettingsEditUpdate):
     def update_profile(self):
         if not self.email.text():
             QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your email address."))
+
             return
         elif not self.name.text():
             QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your name."))
+
             return
         elif not self.organization.text():
             QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your organization."))
+
             return
         elif not self.country.currentText():
             QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your country."))
+
             return
 
         resp = api.update_user(
@@ -705,6 +754,7 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
 
     def closeEvent(self, event):
         super(WidgetSettingsAdvanced, self).closeEvent(event)
+
         if self.binaries_gb.isChecked() != self.binaries_checkbox_initial or self.binary_state_changed:
             QtWidgets.QMessageBox.warning(
                 None,
@@ -732,6 +782,7 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
         old_base_dir = settings_manager.get_value(Setting.BASE_DIR)
         new_base_dir = self.qgsFileWidget_base_directory.filePath()
         settings_manager.write_value(Setting.BASE_DIR, new_base_dir)
+
         if old_base_dir != new_base_dir:
             job_manager.clear_known_jobs()
 
@@ -756,6 +807,7 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
         # and calculate_numba. Right now this doesn't really check if they are
         # enabled, just that they are available. Which should be the same
         # thing, but might not always be...
+
         if binaries_available() and binaries_checked:
             self.binaries_label.setText(self.tr('Binaries <b>are</b> loaded.'))
         else:
@@ -771,6 +823,7 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
         if not new_base_directory:
             self.message_bar.pushWarning(
                 'Trends.Earth', self.tr('No base data directory set'))
+
             return
 
         try:
@@ -782,6 +835,7 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
                 self.tr("Unable to write to {}. Try a different folder.".format(
                     new_base_directory))
             )
+
             return
 
         settings_manager.write_value(Setting.BASE_DIR, str(new_base_directory))
@@ -791,10 +845,12 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
 
     def binaries_download(self):
         out_folder = os.path.join(self.binaries_dir_le.text())
+
         if out_folder == '':
             QtWidgets.QMessageBox.information(None,
                                               self.tr("Choose a folder"),
                                               self.tr("Choose a folder before downloading binaries."))
+
             return
 
         if not os.access(out_folder, os.W_OK):
@@ -802,6 +858,7 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
                                            self.tr("Error"),
                                            self.tr(
                                                "Unable to write to {}. Choose a different folder.".format(out_folder)))
+
             return
 
         try:
@@ -811,6 +868,7 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
             QtWidgets.QMessageBox.critical(None,
                                            self.tr("Error"),
                                            self.tr("Unable to write to {}. Try a different folder.".format(filename)))
+
             return None
 
         zip_filename = 'trends_earth_binaries_{}.zip'.format(__version__.replace('.', '_'))
@@ -829,13 +887,15 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
                                            self.tr(
                                                "Unable to write to {}. Check that you have permissions to write to this folder, and that you are not trying to overwrite the binaries that you currently have loaded in QGIS.".format(
                                                    out_folder)))
+
             return None
         except FileNotFoundError:
             QtWidgets.QMessageBox.critical(None,
                                        self.tr("Error"),
                                        self.tr("Unable to read binaries from {}. Check that binaries were downloaded successfully.".format(out_folder)))
+
             return None
-        
+
         os.remove(os.path.join(out_folder, zip_filename))
 
         if downloads is None:
@@ -863,6 +923,7 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
 
     def binary_folder_browse(self):
         initial_path = self.binaries_dir_le.text()
+
         if not initial_path:
             initial_path = str(Path.home())
 
@@ -871,9 +932,11 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
             self.tr('Select folder containing Trends.Earth binaries'),
             initial_path
         )
+
         if folder_path:
             plugin_folder = os.path.normpath(
                 os.path.realpath(os.path.dirname(__file__)))
+
             if is_subdir(folder_path, plugin_folder):
                 QtWidgets.QMessageBox.critical(
                     None,
@@ -882,11 +945,14 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
                         "Choose a different folder - cannot install binaries within "
                         "the Trends.Earth QGIS plugin installation folder.")
                 )
+
                 return False
+
             if os.access(folder_path, os.W_OK):
                 settings_manager.write_value(Setting.BINARIES_DIR, folder_path)
                 self.binaries_dir_le.setText(folder_path)
                 self.binary_state_changed = True
+
                 return True
             else:
                 QtWidgets.QMessageBox.critical(
@@ -894,6 +960,7 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
                     self.tr("Error"),
                     self.tr(f"Cannot read {folder_path!r}. Choose a different folder.")
                 )
+
                 return False
         else:
             return False

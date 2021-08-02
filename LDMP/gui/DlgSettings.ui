@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>608</width>
-    <height>887</height>
+    <width>616</width>
+    <height>904</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -45,8 +45,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>595</width>
-        <height>832</height>
+        <width>606</width>
+        <height>865</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -90,30 +90,33 @@
           </font>
          </property>
          <property name="title">
-          <string>Trends.Earth remote server</string>
+          <string>Trends.Earth login information</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout">
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout">
             <item>
-             <widget class="QgsAuthConfigSelect" name="authConfigSelect_authentication">
+             <widget class="QPushButton" name="pushButton_register">
               <property name="sizePolicy">
-               <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+               <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
                 <horstretch>0</horstretch>
                 <verstretch>0</verstretch>
                </sizepolicy>
               </property>
               <property name="minimumSize">
                <size>
-                <width>0</width>
+                <width>80</width>
                 <height>30</height>
                </size>
               </property>
               <property name="font">
                <font>
-                <weight>50</weight>
-                <bold>false</bold>
+                <weight>75</weight>
+                <bold>true</bold>
                </font>
+              </property>
+              <property name="text">
+               <string>Register for Trends.Earth (step 1)</string>
               </property>
              </widget>
             </item>
@@ -133,12 +136,12 @@
               </property>
               <property name="font">
                <font>
-                <weight>50</weight>
-                <bold>false</bold>
+                <weight>75</weight>
+                <bold>true</bold>
                </font>
               </property>
               <property name="text">
-               <string>Test connection</string>
+               <string>Enter username and password (step 2)</string>
               </property>
              </widget>
             </item>
@@ -146,31 +149,6 @@
           </item>
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_2">
-            <item>
-             <widget class="QPushButton" name="pushButton_register">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>80</width>
-                <height>30</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <weight>50</weight>
-                <bold>false</bold>
-               </font>
-              </property>
-              <property name="text">
-               <string>Register</string>
-              </property>
-             </widget>
-            </item>
             <item>
              <widget class="QPushButton" name="pushButton_update_profile">
               <property name="sizePolicy">
@@ -312,11 +290,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>QgsAuthConfigSelect</class>
-   <extends>QWidget</extends>
-   <header>qgis.gui</header>
-  </customwidget>
   <customwidget>
    <class>QgsScrollArea</class>
    <extends>QScrollArea</extends>

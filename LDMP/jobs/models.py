@@ -341,6 +341,8 @@ class Job:
         try:
             script_id = uuid.UUID(raw_job["script_id"])
             script = _get_job_script(script_id)
+            if script is None:
+                raise ValueError
         except ValueError:
             script_name = raw_job["script_id"]
             script = get_job_local_script(script_name)
@@ -399,7 +401,10 @@ def get_remote_scripts():
     """
 
     raw_remote = api.get_script()
-    return [ExecutionScript.deserialize_from_remote_response(r) for r in raw_remote]
+    if raw_remote is None:
+        return
+    else:
+        return [ExecutionScript.deserialize_from_remote_response(r) for r in raw_remote]
 
 
 def get_job_local_script(script_name: str) -> ExecutionScript:
@@ -412,6 +417,8 @@ def _get_job_script(script_id: uuid.UUID) -> ExecutionScript:
     except IndexError:
         log(f"script {script_id!r} is not known locally")
         remote_scripts = get_remote_scripts()
+        if remote_scripts is None:
+            return
         try:
             script = [s for s in remote_scripts if s.id == script_id][0]
         except IndexError:

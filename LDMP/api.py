@@ -109,19 +109,20 @@ def get_auth_config(authConfigId=None, warn=True):
         authConfigId = QtCore.QSettings().value("trends_earth/trends_earth_api_authId", None)
         if not authConfigId:
             if warn:
-                iface.messageBar().pushCritical('Trends.Earth', tr_api.tr('No authentication set. Do it in Trends.Earth settings'))
+                iface.messageBar().pushCritical('Trends.Earth', tr_api.tr('No authenti'
+                    'cation set. Do it in Trends.Earth settings'))
             return None
     log('get_auth_config with trends_earth_api_authId {}'.format(authConfigId))
 
     configs = QgsApplication.authManager().availableAuthMethodConfigs()
     message_bar = iface.messageBar()
-    if not authConfigId in configs.keys():
+    if authConfigId not in configs.keys():
         if warn:
             message_bar.pushCritical(
                 'Trends.Earth',
                 tr_api.tr(
-                    f'Cannot retrieve credentials with trends_earth_api_authId: {authConfigId} setup '
-                    f'correct credentials before'
+                    f'Cannot retrieve credentials with id {authConfigId}. '
+                    "Setup username and password before using Trends.Earth."
                 )
             )
 
@@ -134,8 +135,9 @@ def get_auth_config(authConfigId=None, warn=True):
             message_bar.pushCritical(
                 'Trends.Earth',
                 tr_api.tr(
-                    f'Cannot retrieve credentials with trends_earth_api_authId: {authConfigId} setup '
-                    f'correct credentials before'
+                    'Cannot retrieve Trends.Earth credentials with id '
+                    f'{authConfigId}. Setup username and password before '
+                    'using Trends.Earth.'
                 )
             )
         return None
@@ -144,7 +146,11 @@ def get_auth_config(authConfigId=None, warn=True):
         if warn:
             message_bar.pushCritical(
                 'Trends.Earth',
-                tr_api.tr(f'Not valid auth configuration with trends_earth_api_authId: {authConfigId}')
+                tr_api.tr(
+                    f'Trends.Earth credentials with id {authConfigId} are not '
+                    'valid. Setup username and password before using '
+                    'Trends.Earth.'
+                )
             )
         return None
 
@@ -154,9 +160,9 @@ def get_auth_config(authConfigId=None, warn=True):
             message_bar.pushCritical(
                 'Trends.Earth',
                 tr_api.tr(
-                    f'Auth method with trends_earth_api_authId: {authConfigId} is '
+                    f'Auth method with id {authConfigId} is '
                     f'{authConfig.method()}. Only basic auth is supported '
-                    f'by Trend.Earth'
+                    'by Trend.Earth'
                 )
             )
         return None

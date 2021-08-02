@@ -28,7 +28,7 @@ from PyQt5 import (
 from qgis.core import QgsApplication, QgsSettings
 from qgis.utils import iface
 
-import LDMP.logger
+from . import logger
 
 # Ensure that the ext-libs, and binaries folder (if available) are near the 
 # front of the path (important on Linux)
@@ -42,7 +42,7 @@ site.addsitedir(ext_libs_path)
 #binaries_folder = QgsSettings().value("trends_earth/advanced/binaries_folder", None)
 binaries_folder = None
 if binaries_folder:
-    LDMP.logger.log('Adding {} to path for binaries.'.format(binaries_folder))
+    logger.log('Adding {} to path for binaries.'.format(binaries_folder))
     site.addsitedir(os.path.join(binaries_folder,
         'trends_earth_binaries_{}'.format(__version__.replace('.', '_'))))
 sys.path.extend(remainder)
@@ -78,20 +78,20 @@ def GetTempFilename(suffix):
 
 # initialize translation
 i18n_dir = os.path.join(plugin_dir, 'i18n')
-LDMP.logger.log(
+logger.log(
     f'Starting trends.earth version {__version__} (rev: {__revision__}, '
     f'released {__release_date__}).'
 )
 
 translator = QtCore.QTranslator()
 locale = QtCore.QLocale(QgsApplication.locale())
-LDMP.logger.log('Trying to load locale {} from {}.'.format(locale.name(), i18n_dir))
+logger.log('Trying to load locale {} from {}.'.format(locale.name(), i18n_dir))
 translator.load(locale, 'LDMP', prefix='.', directory=i18n_dir, suffix='.qm')
 ret = QtCore.QCoreApplication.installTranslator(translator)
 if ret:
-    LDMP.logger.log("Translator installed for {}.".format(locale.name()))
+    logger.log("Translator installed for {}.".format(locale.name()))
 else:
-    LDMP.logger.log("FAILED while trying to install translator for {}.".format(locale.name()))
+    logger.log("FAILED while trying to install translator for {}.".format(locale.name()))
 
 
 from . import (
@@ -106,18 +106,18 @@ def binaries_available():
     try:
         from trends_earth_binaries import summary_numba
         if debug_enabled:
-            LDMP.logger.log("Numba-compiled version of summary_numba available.")
+            logger.log("Numba-compiled version of summary_numba available.")
     except (ModuleNotFoundError, ImportError) as e:
         if debug_enabled:
-            LDMP.logger.log("Numba-compiled version of summary_numba not available.")
+            logger.log("Numba-compiled version of summary_numba not available.")
         ret = False
     try:
         from trends_earth_binaries import calculate_numba
         if debug_enabled:
-            LDMP.logger.log("Numba-compiled version of calculate_numba available.")
+            logger.log("Numba-compiled version of calculate_numba available.")
     except (ModuleNotFoundError, ImportError) as e:
         if debug_enabled:
-            LDMP.logger.log("Numba-compiled version of calculate_numba not available.")
+            logger.log("Numba-compiled version of calculate_numba not available.")
         ret = False
     return ret
 

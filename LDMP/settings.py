@@ -117,7 +117,7 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
         super().closeEvent(event)
 
     def reloadAuthConfigurations(self):
-        authConfigId = settings.value("trends_earth/authId", None)
+        authConfigId = settings.value("trends_earth/trends_earth_api_authId", None)
 
         if not authConfigId:
             self.message_bar.pushCritical(
@@ -592,8 +592,11 @@ class DlgSettingsLogin(QtWidgets.QDialog, Ui_DlgSettingsLogin):
 
     def login(self):
         if not self.email.text():
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Enter your email address."))
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr("Enter your email address.")
+            )
 
             return
         elif not self.password.text():
@@ -622,7 +625,10 @@ class DlgSettingsLogin(QtWidgets.QDialog, Ui_DlgSettingsLogin):
             self.close()
 
 
-class DlgSettingsEditForgotPassword(QtWidgets.QDialog, Ui_DlgSettingsEditForgotPassword):
+class DlgSettingsEditForgotPassword(
+    QtWidgets.QDialog,
+    Ui_DlgSettingsEditForgotPassword
+):
     def __init__(self, parent=None):
         super(DlgSettingsEditForgotPassword, self).__init__(parent)
 

@@ -86,18 +86,27 @@ def init_auth_config(email=None, password=None):
                 'Trends.Earth', tr_api.tr('Cannot update auth configuration'))
             return None
 
-    QtCore.QSettings().setValue("trends_earth/trends_earth_api_authId", currentAuthConfig.id())
+    QtCore.QSettings().setValue("trends_earth/trends_earth_api_authId",
+                                currentAuthConfig.id())
     return currentAuthConfig.id()
 
 def remove_current_auth_config():
     authConfigId = QtCore.QSettings().value("trends_earth/trends_earth_api_authId", None)
     if not authConfigId:
-        iface.messageBar().pushCritical('Trends.Earth', tr_api.tr('No authentication set. Do it in Trends.Earth settings'))
+        iface.messageBar().pushCritical(
+            'Trends.Earth',
+            tr_api.tr('No authentication set. Do it in Trends.Earth settings')
+        )
         return None
     log('remove_current_auth_config with trends_earth_api_authId {}'.format(authConfigId))
 
-    if not QgsApplication.authManager().removeAuthenticationConfig( authConfigId ):
-        iface.messageBar().pushCritical('Trends.Earth', tr_api.tr('Cannot remove auth configuration with id: {}').format(authConfigId))
+    if not QgsApplication.authManager().removeAuthenticationConfig(authConfigId):
+        iface.messageBar().pushCritical(
+            'Trends.Earth',
+            tr_api.tr(
+                f'Cannot remove auth configuration with id: {authConfigId}'
+            )
+        )
         return False
 
     QtCore.QSettings().setValue("trends_earth/trends_earth_api_authId", None)
@@ -105,12 +114,17 @@ def remove_current_auth_config():
 
 def get_auth_config(authConfigId=None, warn=True):
     if not authConfigId:
-        # not set? then retrieve from config if set
+        # not set then retrieve from config if set
         authConfigId = QtCore.QSettings().value("trends_earth/trends_earth_api_authId", None)
         if not authConfigId:
             if warn:
-                iface.messageBar().pushCritical('Trends.Earth', tr_api.tr('No authenti'
-                    'cation set. Do it in Trends.Earth settings'))
+                iface.messageBar().pushCritical(
+                    'Trends.Earth',
+                    tr_api.tr(
+                        'No authentication set. Setup username and password '
+                        'before using Trends.Earth.'
+                    )
+                )
             return None
     log('get_auth_config with trends_earth_api_authId {}'.format(authConfigId))
 
@@ -319,14 +333,7 @@ def login(authConfigId=None):
     if (not authConfig or
             not authConfig.config('username') or
             not authConfig.config('password')):
-        log('API unable to login - setup auth configuration before')
-        QtWidgets.QMessageBox.critical(
-            None,
-            tr_api.tr("Error"),
-            tr_api.tr(
-                "Unable to login to Trends.Earth. "
-                "Setup username and password before using the plugin.")
-        )
+        log('API unable to login - setup auth configuration before using')
         return None
 
     resp = call_api(

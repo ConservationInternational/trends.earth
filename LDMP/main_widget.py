@@ -32,6 +32,7 @@ from .data_io import (
     DlgDataIOImportProd,
 )
 from .download_data import DlgDownload
+from .landpks import DlgLandPKSDownload
 from .jobs.manager import job_manager
 from .jobs import mvc as jobs_mvc
 from .jobs.models import (
@@ -149,11 +150,22 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.import_dataset_pb.setIcon(
             QtGui.QIcon(":/plugins/LDMP/icons/mActionSharingImport.svg"))
 
-
+        self.download_menu = QtWidgets.QMenu()
+        action_download_raw = self.download_menu.addAction(
+            tr("Download raw dataset used in Trends.Earth...")
+        )
+        action_download_raw.triggered.connect(self.download_data)
+        action_download_landpks = self.download_menu.addAction(
+            tr("Download Land Potential Knowledge System (LandPKS) data...")
+        )
+        action_download_landpks.triggered.connect(self.download_landpks)
+        self.pushButton_download.setMenu(self.download_menu)
         self.pushButton_download.setIcon(
             QtGui.QIcon(":/plugins/LDMP/icons/cloud-download.svg"))
-        self.pushButton_load.setIcon(QtGui.QIcon(':/plugins/LDMP/icons/document.svg'))
+
         self.pushButton_download.clicked.connect(self.download_data)
+
+        self.pushButton_load.setIcon(QtGui.QIcon(':/plugins/LDMP/icons/document.svg'))
         self.pushButton_load.clicked.connect(self.load_base_map)
         self.pushButton_refresh.clicked.connect(self.perform_single_update)
 
@@ -434,6 +446,14 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         dialogue = DlgDownload(
             self.iface,
             KNOWN_SCRIPTS["download-data"],
+            self
+        )
+        dialogue.exec_()
+
+    def download_landpks(self):
+        dialogue = DlgLandPKSDownload(
+            self.iface,
+            KNOWN_SCRIPTS["download-landpks"],
             self
         )
         dialogue.exec_()

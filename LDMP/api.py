@@ -2,7 +2,7 @@
 """
 /***************************************************************************
  LDMP - A QGIS plugin
- This plugin supports monitoring and reporting of land degradation to the UNCCD 
+ This plugin supports monitoring and reporting of land degradation to the UNCCD
  and in support of the SDG Land Degradation Neutrality (LDN) target.
                               -------------------
         begin                : 2017-05-23
@@ -33,7 +33,10 @@ from qgis.core import (
 )
 
 
-from . import conf
+from . import (
+    conf,
+    auth
+)
 from .logger import log
 from .worker import (
     AbstractWorker,
@@ -42,163 +45,10 @@ from .worker import (
 
 API_URL = 'https://api.trends.earth'
 TIMEOUT = 20
-AUTH_CONFIG_NAME = 'Trends.Earth'
 
+def tr(message):
+    return QtCore.QCoreApplication.translate("tr_api", message)
 
-class tr_api(object):
-    def tr(message):
-        return QtCore.QCoreApplication.translate("tr_api", message)
-
-
-def init_auth_config(email=None, password=None):
-    currentAuthConfig = None
-
-    # check if an auth method with name AUTH_CONFIG_NAME was already set
-    configs = QgsApplication.authManager().availableAuthMethodConfigs()
-    previousAuthExist = False
-    for config in configs.values():
-        if config.name() == AUTH_CONFIG_NAME:
-            currentAuthConfig = config
-            previousAuthExist = True
-            break
-
-    if not previousAuthExist:
-        # not found => create a new one
-        currentAuthConfig = QgsAuthMethodConfig()
-        currentAuthConfig.setName(AUTH_CONFIG_NAME)
-
-    # reset it's config values to set later new password when received
-    currentAuthConfig.setMethod('Basic')
-    currentAuthConfig.setUri(API_URL + '/auth')
-    currentAuthConfig.setConfig('username', email)
-    currentAuthConfig.setConfig('password', password)
-
-    if not previousAuthExist:
-        # store a new auth config
-        if not QgsApplication.authManager().storeAuthenticationConfig(currentAuthConfig):
-            iface.messageBar().pushCritical(
-                'Trends.Earth', tr_api.tr('Cannot init auth configuration'))
-            return None
-    else:
-        # update existing
-         if not QgsApplication.authManager().updateAuthenticationConfig(currentAuthConfig):
-            iface.messageBar().pushCritical(
-                'Trends.Earth', tr_api.tr('Cannot update auth configuration'))
-            return None
-
-    QtCore.QSettings().setValue("trends_earth/trends_earth_api_authId",
-                                currentAuthConfig.id())
-    return currentAuthConfig.id()
-
-def remove_current_auth_config():
-    authConfigId = QtCore.QSettings().value("trends_earth/trends_earth_api_authId", None)
-    if not authConfigId:
-        iface.messageBar().pushCritical(
-            'Trends.Earth',
-            tr_api.tr('No authentication set. Do it in Trends.Earth settings')
-        )
-        return None
-    log('remove_current_auth_config with trends_earth_api_authId {}'.format(authConfigId))
-
-    if not QgsApplication.authManager().removeAuthenticationConfig(authConfigId):
-        iface.messageBar().pushCritical(
-            'Trends.Earth',
-            tr_api.tr(
-                f'Cannot remove auth configuration with id: {authConfigId}'
-            )
-        )
-        return False
-
-    QtCore.QSettings().setValue("trends_earth/trends_earth_api_authId", None)
-    return True
-
-def get_auth_config(authConfigId=None, warn=True):
-    if not authConfigId:
-        # not set then retrieve from config if set
-        authConfigId = QtCore.QSettings().value("trends_earth/trends_earth_api_authId", None)
-        if not authConfigId:
-            if warn:
-                iface.messageBar().pushCritical(
-                    'Trends.Earth',
-                    tr_api.tr(
-                        'No authentication set. Setup username and password '
-                        'before using Trends.Earth.'
-                    )
-                )
-            return None
-    log('get_auth_config with trends_earth_api_authId {}'.format(authConfigId))
-
-    configs = QgsApplication.authManager().availableAuthMethodConfigs()
-    message_bar = iface.messageBar()
-    if authConfigId not in configs.keys():
-        if warn:
-            message_bar.pushCritical(
-                'Trends.Earth',
-                tr_api.tr(
-                    f'Cannot retrieve credentials with id {authConfigId}. '
-                    "Setup username and password before using Trends.Earth."
-                )
-            )
-
-        return None
-
-    authConfig = QgsAuthMethodConfig()
-    ok = QgsApplication.authManager().loadAuthenticationConfig(authConfigId, authConfig, True)
-    if not ok:
-        if warn:
-            message_bar.pushCritical(
-                'Trends.Earth',
-                tr_api.tr(
-                    'Cannot retrieve Trends.Earth credentials with id '
-                    f'{authConfigId}. Setup username and password before '
-                    'using Trends.Earth.'
-                )
-            )
-        return None
-    
-    if not authConfig.isValid():
-        if warn:
-            message_bar.pushCritical(
-                'Trends.Earth',
-                tr_api.tr(
-                    f'Trends.Earth credentials with id {authConfigId} are not '
-                    'valid. Setup username and password before using '
-                    'Trends.Earth.'
-                )
-            )
-        return None
-
-    # check if auth method is the only supported for no
-    if authConfig.method() != 'Basic':
-        if warn:
-            message_bar.pushCritical(
-                'Trends.Earth',
-                tr_api.tr(
-                    f'Auth method with id {authConfigId} is '
-                    f'{authConfig.method()}. Only basic auth is supported '
-                    'by Trend.Earth'
-                )
-            )
-        return None
-    
-    return authConfig
-
-def get_user_email(warn=True):
-    # get mail from authConfig
-    authConfig = get_auth_config(warn=warn)
-    if not authConfig:
-        return None
-
-    email = authConfig.config('username')
-    if warn and email is None:
-        QtWidgets.QMessageBox.critical(
-            None,
-            tr_api.tr("Error"),
-            tr_api.tr("Please register with Trends.Earth before using this function.")
-        )
-        return None
-    else:
-        return email
 
 ###############################################################################
 # Threading functions for calls to requests
@@ -217,6 +67,7 @@ class RequestWorker(AbstractWorker):
     def work(self):
         self.toggle_show_progress.emit(False)
         self.toggle_show_cancel.emit(False)
+
         if self.method == 'get':
             resp = requests.get(self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT)
         elif self.method == 'post':
@@ -232,6 +83,7 @@ class RequestWorker(AbstractWorker):
         else:
             raise ValueError("Unrecognized method: {}".format(method))
             resp = None
+
         return resp
 
 
@@ -253,16 +105,17 @@ class Request(object):
             worker.finished.connect(pause.quit)
             worker.successfully_finished.connect(self.save_resp)
             worker.error.connect(self.save_exception)
-            start_worker(worker, iface, tr_api.tr(u'Contacting {} server...'.format(self.server_name)))
+            start_worker(worker, iface, tr(u'Contacting {} server...'.format(self.server_name)))
             pause.exec_()
+
             if self.get_exception():
                 raise self.get_exception()
         except requests.exceptions.ConnectionError:
             log('API unable to access server - check internet connection')
             QtWidgets.QMessageBox.critical(
                 None,
-                tr_api.tr("Error"),
-                tr_api.tr(
+                tr("Error"),
+                tr(
                     f"Unable to login to {self.server_name} server. Check your "
                     f"internet connection."
                 )
@@ -272,8 +125,8 @@ class Request(object):
             log('API unable to login - general error')
             QtWidgets.QMessageBox.critical(
                 None,
-                tr_api.tr("Error"),
-                tr_api.tr(u"Unable to connect to {} server.".format(self.server_name))
+                tr("Error"),
+                tr(u"Unable to connect to {} server.".format(self.server_name))
             )
             resp = None
 
@@ -302,13 +155,16 @@ def clean_api_response(resp):
             # JSON conversion will fail if the server didn't return a json
             # response
             response = resp.json().copy()
+
             if 'password' in response:
                 response['password'] = '**REMOVED**'
+
             if 'access_token' in response:
                 response['access_token'] = '**REMOVED**'
             response = json.dumps(response, indent=4, sort_keys=True)
         except ValueError:
             response = resp.text
+
     return response
 
 
@@ -320,20 +176,28 @@ def get_error_status(resp):
     except ValueError:
         return ('Unknown error', None)
     status = resp.get('status', None)
+
     if not status:
         status = resp.get('status_code', 'None')
     desc = resp.get('detail', None)
+
     if not desc:
         desc = resp.get('description', 'Generic error')
+
     return (desc, status)
 
 
 def login(authConfigId=None):
-    authConfig = get_auth_config(authConfigId=authConfigId)
+    authConfig = auth.get_auth_config(
+        auth.TE_API_AUTH_SETUP,
+        authConfigId=authConfigId
+    )
+
     if (not authConfig or
             not authConfig.config('username') or
             not authConfig.config('password')):
         log('API unable to login - setup auth configuration before using')
+
         return None
 
     resp = call_api(
@@ -346,18 +210,21 @@ def login(authConfigId=None):
     )
     try:
         token = resp.get('access_token', None)
+
         if token is None:
             raise KeyError
     except KeyError:
         log('API unable to login - check username and password')
         QtWidgets.QMessageBox.critical(
             None,
-            tr_api.tr("Error"),
-            tr_api.tr(
+            tr("Error"),
+            tr(
                 "Unable to login to Trends.Earth. Check username and password."
             )
         )
+
         return None
+
     return token
 
 
@@ -366,10 +233,11 @@ def login_test(email, password):
         '/auth',
         method='post',
         payload={
-            "email": email, 
+            "email": email,
             "password": password
         }
     )
+
     if resp:
         return True
     else:
@@ -378,17 +246,19 @@ def login_test(email, password):
                 "username/password")
             QtWidgets.QMessageBox.critical(
                 None,
-                tr_api.tr("Error"),
-                tr_api.tr(
+                tr("Error"),
+                tr(
                     "Unable to login to Trends.Earth. Check that "
                     "username and password are correct."
                 )
             )
+
         return False
 
 def call_api(endpoint, method='get', payload=None, use_token=False):
     if use_token:
         token = login()
+
         if token:
             log("API loaded token.")
             headers = {'Authorization': f'Bearer {token}'}
@@ -399,24 +269,30 @@ def call_api(endpoint, method='get', payload=None, use_token=False):
         headers = {}
 
     # Only continue if don't need token or if token load was successful
+
     if (not use_token) or token:
         # Strip password out of payload for printing to QGIS logs
+
         if payload:
             clean_payload = payload.copy()
+
             if 'password' in clean_payload:
                 clean_payload['password'] = '**REMOVED**'
         else:
             clean_payload = payload
         log(u'API calling {} with method "{}"'.format(endpoint, method))
+
         if conf.settings_manager.get_value(conf.Setting.DEBUG):
             log(u'API call payload: {}'.format(clean_payload))
         worker = Request(API_URL + endpoint, method, payload, headers)
         worker.start()
         resp = worker.get_resp()
+
         if resp is not None:
             log(f'API response from "{method}" request: {resp.status_code}')
         else:
             log(u'API response from "{}" request was None'.format(method))
+
         if conf.settings_manager.get_value(conf.Setting.DEBUG):
             log(u'API response from "{}" request (data): {}'.format(method, clean_api_response(resp)))
     else:
@@ -443,6 +319,7 @@ def get_header(url):
 
     if resp != None:
         log(u'Response from "{}" header request: {}'.format(url, resp.status_code))
+
         if resp.status_code == 200:
             ret = resp.headers
         else:
@@ -477,6 +354,7 @@ def recover_pwd(email):
 
 def get_user(email='me'):
     resp = call_api(u'/api/v1/user/{}'.format(quote_plus(email)), use_token=True)
+
     if resp:
         return resp['data']
     else:
@@ -485,6 +363,7 @@ def get_user(email='me'):
 
 def delete_user(email='me'):
     resp = call_api('/api/v1/user/me', 'delete', use_token=True)
+
     if resp:
         return True
     else:
@@ -496,6 +375,7 @@ def register(email, name, organization, country):
                "name": name,
                "institution": organization,
                "country": country}
+
     return call_api('/api/v1/user', method='post', payload=payload)
 
 
@@ -504,6 +384,7 @@ def update_user(email, name, organization, country):
                "name": name,
                "institution": organization,
                "country": country}
+
     return call_api('/api/v1/user/me', 'patch', payload, use_token=True)
 
 
@@ -512,19 +393,23 @@ def update_password(password, repeatPassword):
                "name": name,
                "institution": organization,
                "country": country}
+
     return call_api(u'/api/v1/user/{}'.format(quote_plus(email)), 'patch', payload, use_token=True)
 
 
 def get_execution(id=None, date=None):
     log('Fetching executions')
     query = ['include=script']
+
     if id:
         query.append(u'user_id={}'.format(quote_plus(id)))
+
     if date:
         query.append(u'updated_at={}'.format(date))
     query = "?" + "&".join(query)
 
     resp = call_api(u'/api/v1/execution{}'.format(query), method='get', use_token=True)
+
     if not resp:
         return None
     else:
@@ -535,6 +420,7 @@ def get_execution(id=None, date=None):
         # Sort responses in descending order using start time by default
         data = sorted(data, key=lambda job_dict: round(datetime.strptime(job_dict['start_date'], '%Y-%m-%dT%H:%M:%S.%f').timestamp()), reverse=True)
         # Convert start/end dates into datatime objects in local time zone
+
         for job_dict in data:
             start_date = datetime.strptime(job_dict['start_date'], '%Y-%m-%dT%H:%M:%S.%f')
             start_date = start_date.replace(tzinfo=tz.tzutc())
@@ -553,6 +439,7 @@ def get_script(id=None):
         resp = call_api(u'/api/v1/script/{}'.format(quote_plus(id)), 'get', use_token=True)
     else:
         resp = call_api(u'/api/v1/script', 'get', use_token=True)
+
     if resp:
         return resp['data']
     else:

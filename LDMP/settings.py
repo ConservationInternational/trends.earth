@@ -28,6 +28,7 @@ from qgis.utils import iface
 from . import (
     __version__,
     api,
+    auth,
     binaries_available,
     openFolder,
     download,
@@ -48,7 +49,7 @@ from .logger import log
 
 settings = QtCore.QSettings()
 
-
+        
 # Function to indicate if child is a folder within parent
 def is_subdir(child, parent):
     parent = os.path.normpath(os.path.realpath(parent))
@@ -66,6 +67,28 @@ def is_subdir(child, parent):
         return False
     else:
         return is_subdir(head, parent)
+
+
+def _get_user_email(auth_setup, warn=True):
+    '''get user email for a particular service from authConfig'''
+    authConfig = auth.get_auth_config(
+        auth_setup,
+        warn=warn
+    )
+    if not authConfig:
+        return None
+
+    email = authConfig.config('username')
+    if warn and email is None:
+        QtWidgets.QMessageBox.critical(
+            None,
+            tr("Error"),
+            tr("Please setup access to {auth_setup.name} before "
+               "using this function.")
+        )
+        return None
+    else:
+        return email
 
 
 class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
@@ -117,18 +140,22 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
         super().closeEvent(event)
 
     def reloadAuthConfigurations(self):
-        authConfigId = settings.value("trends_earth/trends_earth_api_authId", None)
-
+        authConfigId = settings.value(
+            f"trends_earth/{auth.TE_API_AUTH_SETUP.key}",
+            None
+        )
         if not authConfigId:
             self.message_bar.pushCritical(
                 'Trends.Earth',
                 self.tr('Please register in order to use Trends.Earth')
             )
-
             return
         configs = qgis.core.QgsApplication.authManager().availableAuthMethodConfigs()
         if authConfigId not in configs.keys():
-            QtCore.QSettings().setValue("trends_earth/trends_earth_api_authId", None)
+            QtCore.QSettings().setValue(
+                f"trends_earth/{auth.TE_API_AUTH_SETUP.key}",
+                None
+            )
 
     def selectDefaultAuthConfiguration(self, authConfigId):
         self.reloadAuthConfigurations()
@@ -160,7 +187,7 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
         dlg_settings_edit_update.exec_()
 
     def delete(self):
-        email = api.get_user_email()
+        email = _get_user_email(auth.TE_API_AUTH_SETUP)
 
         if not email:
             return
@@ -190,7 +217,7 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
                 )
                 # remove currently used config (as set in QSettings) and 
                 # trigger GUI
-                api.remove_current_auth_config()
+                auth.remove_current_auth_config(auth.TE_API_AUTH_SETUP)
                 self.reloadAuthConfigurations()
                 # self.authConfigUpdated.emit()
 
@@ -530,23 +557,36 @@ class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):
 
     def register(self):
         if not self.email.text():
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your email address."))
+            QtWidgets.QMessageBox.critical(None,
+                                           self.tr("Error"),
+                                           self.tr("Enter your email address."))
 
             return
         elif not self.name.text():
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your name."))
+            QtWidgets.QMessageBox.critical(None,
+                                           self.tr("Error"),
+                                           self.tr("Enter your name."))
 
             return
         elif not self.organization.text():
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your organization."))
+            QtWidgets.QMessageBox.critical(None,
+                                           self.tr("Error"),
+                                           self.tr("Enter your organization."))
 
             return
         elif not self.country.currentText():
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Enter your country."))
+            QtWidgets.QMessageBox.critical(None,
+                                           self.tr("Error"),
+                                           self.tr("Enter your country."))
 
             return
 
-        resp = api.register(self.email.text(), self.name.text(), self.organization.text(), self.country.currentText())
+        resp = api.register(
+            self.email.text(),
+            self.name.text(),
+            self.organization.text(),
+            self.country.currentText()
+        )
 
         if resp:
             self.close()
@@ -555,12 +595,15 @@ class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):
                 self.tr("Success"),
                 self.tr("User registered. Your password "
                         f"has been emailed to {self.email.text()}. "
-                        f"Then set it in {api.AUTH_CONFIG_NAME} "
-                        "configuration")
+                        "Enter that password in Trends.Earth settings "
+                        "to finish setting up the plugin.")
             )
 
             # add a new auth conf that have to be completed with pwd
-            authConfidId = api.init_auth_config(email=self.email.text())
+            authConfidId = auth.init_auth_config(
+                auth.TE_API_AUTH_SETUP,
+                email=self.email.text()
+            )
 
             if authConfidId:
                 self.authConfigInitialised.emit(authConfidId)
@@ -584,7 +627,7 @@ class DlgSettingsLogin(QtWidgets.QDialog, Ui_DlgSettingsLogin):
     def showEvent(self, event):
         super(DlgSettingsLogin, self).showEvent(event)
 
-        email = api.get_user_email(warn=False)
+        email = _get_user_email(auth.TE_API_AUTH_SETUP, warn=False)
 
         if email:
             self.email.setText(email)
@@ -600,8 +643,11 @@ class DlgSettingsLogin(QtWidgets.QDialog, Ui_DlgSettingsLogin):
 
             return
         elif not self.password.text():
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Enter your password."))
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr("Enter your password.")
+            )
 
             return
 
@@ -620,9 +666,83 @@ class DlgSettingsLogin(QtWidgets.QDialog, Ui_DlgSettingsLogin):
                     'datasets in support of Sustainable Development Goals '
                     'monitoring.')
             )
-            api.init_auth_config(self.email.text(), self.password.text())
+            auth.init_auth_config(
+                auth.TE_API_AUTH_SETUP,
+                self.email.text(),
+                self.password.text()
+            )
             self.ok = True
             self.close()
+
+
+class DlgSettingsLoginLandPKS(QtWidgets.QDialog, Ui_DlgSettingsLogin):
+    def __init__(self, parent=None):
+        super(DlgSettingsLoginLandPKS, self).__init__(parent)
+
+        self.setupUi(self)
+
+        self.buttonBox.accepted.connect(self.login)
+        self.buttonBox.rejected.connect(self.close)
+
+        self.ok = False
+
+    def showEvent(self, event):
+        super(DlgSettingsLoginLandPKS, self).showEvent(event)
+
+        email = _get_user_email(auth.LANDPKS_AUTH_SETUP, warn=False)
+
+        if email:
+            self.email.setText(email)
+
+
+    def login(self):
+        if not self.email.text():
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr("Enter your email address.")
+            )
+
+            return
+        elif not self.password.text():
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr("Enter your password.")
+            )
+
+            return
+        
+        #######################################
+        #######################################
+        # TODO: Do something here to authorize
+        # access to LandPKS...
+        #######################################
+        #######################################
+
+        # IF the authorization works, run the below line - otherwise print an 
+        # error message telling the user how to fix it and return None
+        auth.init_auth_config(
+            auth.LANDPKS_AUTH_SETUP,
+            self.email.text(),
+            self.password.text()
+        )
+
+        QtWidgets.QMessageBox.information(
+            None,
+            self.tr("Success"),
+            self.tr(
+                'Successfully setup login to the LandPKS server as '
+                f'{self.email.text()}.'
+            )
+        )
+
+        self.ok = True
+        self.close()
+
+
+def tr(message):
+    return QtCore.QCoreApplication.translate("tr_settings", message)
 
 
 class DlgSettingsEditForgotPassword(
@@ -642,34 +762,46 @@ class DlgSettingsEditForgotPassword(
     def showEvent(self, event):
         super(DlgSettingsEditForgotPassword, self).showEvent(event)
 
-        email = api.get_user_email(warn=False)
+        email = _get_user_email(auth.TE_API_AUTH_SETUP, warn=False)
 
         if email:
             self.email.setText(email)
 
     def reset_password(self):
         if not self.email.text():
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Enter your email address to reset your password."))
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr("Enter your email address to reset your password.")
+            )
 
             return
 
-        reply = QtWidgets.QMessageBox.question(None, self.tr("Reset password?"),
-                                               self.tr(
-                                                   u"Are you sure you want to reset the password for {}? Your new password will be emailed to you.".format(
-                                                       self.email.text())),
-                                               QtWidgets.QMessageBox.Yes, QtWidgets.QMessageBox.No)
+        reply = QtWidgets.QMessageBox.question(
+            None,
+            self.tr("Reset password?"),
+            self.tr(
+                "Are you sure you want to reset the password for "
+                f"{self.email.text()}? Your new password will be emailed "
+                "to you."),
+            QtWidgets.QMessageBox.Yes,
+            QtWidgets.QMessageBox.No
+        )
 
         if reply == QtWidgets.QMessageBox.Yes:
             resp = api.recover_pwd(self.email.text())
 
             if resp:
                 self.close()
-                QtWidgets.QMessageBox.information(None,
-                                                  self.tr("Success"),
-                                                  self.tr(
-                                                      u"The password has been reset for {}. Check your email for the new password, and then return to Trends.Earth to enter it.").format(
-                                                      self.email.text()))
+                QtWidgets.QMessageBox.information(
+                    None,
+                    self.tr("Success"),
+                    self.tr(
+                        f"The password has been reset for {self.email.text()}. "
+                        "Check your email for the new password, and then "
+                        "return to Trends.Earth to enter it."
+                    )
+                )
                 self.ok = True
 
 
@@ -748,12 +880,18 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
     def __init__(self, message_bar: qgis.gui.QgsMessageBar, parent=None):
         super(WidgetSettingsAdvanced, self).__init__(parent)
         self.setupUi(self)
+
         self.message_bar = message_bar
+
+        self.dlg_settings_login_landpks = DlgSettingsLoginLandPKS()
+
+        self.pushButton_login_landpks.clicked.connect(self.login_landpks)
         self.binaries_browse_button.clicked.connect(self.binary_folder_browse)
         self.binaries_download_button.clicked.connect(self.binaries_download)
         self.qgsFileWidget_base_directory.fileChanged.connect(
             self.base_directory_changed)
         self.pushButton_open_base_directory.clicked.connect(self.open_base_directory)
+
         # Flag that can be used to indicate if binary state has changed (i.e.
         # if new binaries have been downloaded)
         self.binary_state_changed = False
@@ -791,6 +929,9 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
 
         if old_base_dir != new_base_dir:
             job_manager.clear_known_jobs()
+
+    def login_landpks(self):
+        self.dlg_settings_login_landpks.exec_()
 
     def show_settings(self):
         self.debug_checkbox.setChecked(settings_manager.get_value(Setting.DEBUG))

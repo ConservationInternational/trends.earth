@@ -22,7 +22,7 @@
       </property>
       <widget class="QWidget" name="tab_algorithms">
        <attribute name="title">
-        <string>Indicators</string>
+        <string>Algorithms</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
@@ -103,7 +103,7 @@ for running algorithms and their results.</string>
              <string>Download datasets from the official Trends.Earth remote server</string>
             </property>
             <property name="text">
-             <string>Download raw data</string>
+             <string>Download data...</string>
             </property>
            </widget>
           </item>

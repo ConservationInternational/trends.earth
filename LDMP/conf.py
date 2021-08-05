@@ -792,6 +792,11 @@ _SCRIPT_CONFIG = {
         "description": "Calculate all three SDG sub-indicators in one step.",
         "run_mode": "remote",
     },
+    "download-landpks": {
+        "description": "Download LandPKS data",
+        "execution_callable": None, #FIXME
+        "run_mode": "local",
+    },
     "download-data": {
         "id": "a06c8f97-ffa1-4d4e-ac86-ecf33f1023aa",
         "description": "Download data from Google Earth Engine assets.",

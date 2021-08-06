@@ -342,6 +342,7 @@ class Job:
             script_id = uuid.UUID(raw_job["script_id"])
             script = _get_job_script(script_id)
             if script is None:
+                log(f"Failed to get script by id for {script_id}")
                 raise ValueError
         except ValueError:
             script_name = raw_job["script_id"]

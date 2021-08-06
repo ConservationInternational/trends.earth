@@ -30,29 +30,37 @@ from qgis.utils import iface
 
 from . import logger
 
-# Ensure that the ext-libs, and binaries folder (if available) are near the 
-# front of the path (important on Linux)
-plugin_dir = os.path.dirname(os.path.realpath(__file__))
-ext_libs_path = os.path.join(plugin_dir, 'ext-libs')
-sys.path, remainder = sys.path[:1], sys.path[1:]
-site.addsitedir(ext_libs_path)
-# TODO: Can't get below setting value from settings manager as that would lead 
-# to too many LDMP modules loading (and needing dependencies that are in 
-# ext_libs). Figure out how to get it directly...
-#binaries_folder = QgsSettings().value("trends_earth/advanced/binaries_folder", None)
-binaries_folder = None
-if binaries_folder:
-    logger.log('Adding {} to path for binaries.'.format(binaries_folder))
-    site.addsitedir(os.path.join(binaries_folder,
-        'trends_earth_binaries_{}'.format(__version__.replace('.', '_'))))
-sys.path.extend(remainder)
 
+plugin_dir = os.path.dirname(os.path.realpath(__file__))
 with open(os.path.join(plugin_dir, 'version.json')) as f:
     version_info = json.load(f)
 __version__ = version_info['version']
 __version_major__ = re.sub(r'([0-9]+)(\.[0-9]+)+$', r'\g<1>', __version__)
 __revision__ = version_info['revision']
 __release_date__ = version_info['release_date']
+
+
+def _add_at_front_of_path(d):
+    '''add a folder at front of path'''
+    sys.path, remainder = sys.path[:1], sys.path[1:]
+    site.addsitedir(d)
+    sys.path.extend(remainder)
+
+
+# Ensure that the ext-libs, and binaries folder (if available) are near the 
+# front of the path (important on Linux)
+binaries_folder = QtCore.QSettings().value(
+    "trends_earth/advanced/binaries_folder",
+    None
+)
+# TODO: Fix this
+# if binaries_folder:
+#     logger.log('Adding {} to path for binaries.'.format(binaries_folder))
+#     _add_at_front_of_path(os.path.join(
+#         binaries_folder,
+#         'trends_earth_binaries_{}'.format(__version__.replace('.', '_')))
+#     )
+_add_at_front_of_path(os.path.join(plugin_dir, 'ext-libs'))
 
 
 def tr(message):
@@ -107,17 +115,17 @@ def binaries_available():
         from trends_earth_binaries import summary_numba
         if debug_enabled:
             logger.log("Numba-compiled version of summary_numba available.")
-    except (ModuleNotFoundError, ImportError) as e:
+    except (ModuleNotFoundError, ImportError, RuntimeError) as e:
         if debug_enabled:
-            logger.log("Numba-compiled version of summary_numba not available.")
+            logger.log("Numba-compiled version of summary_numba not available: {}".format(e))
         ret = False
     try:
         from trends_earth_binaries import calculate_numba
         if debug_enabled:
             logger.log("Numba-compiled version of calculate_numba available.")
-    except (ModuleNotFoundError, ImportError) as e:
+    except (ModuleNotFoundError, ImportError, RuntimeError) as e:
         if debug_enabled:
-            logger.log("Numba-compiled version of calculate_numba not available.")
+            logger.log("Numba-compiled version of calculate_numba not available: {}".format(e))
         ret = False
     return ret
 

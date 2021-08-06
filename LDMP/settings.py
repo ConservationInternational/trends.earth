@@ -887,6 +887,7 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
 
         self.pushButton_login_landpks.clicked.connect(self.login_landpks)
         self.binaries_browse_button.clicked.connect(self.binary_folder_browse)
+        self.binaries_gb.toggled.connect(self.binaries_toggle)
         self.binaries_download_button.clicked.connect(self.binaries_download)
         self.qgsFileWidget_base_directory.fileChanged.connect(
             self.base_directory_changed)

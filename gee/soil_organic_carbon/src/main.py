@@ -36,6 +36,6 @@ def run(params, logger):
 
     logger.debug("Running main script.")
     out = soc(year_start, year_end, fl, remap_matrix, dl_annual_lc, 
-              EXECUTION_ID, logger)
+              logger)
 
     return out.export(geojsons, 'soil_organic_carbon', crs, logger, EXECUTION_ID)

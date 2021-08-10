@@ -1,5 +1,7 @@
 """Configuration utilities for Trends.Earth QGIS plugin."""
 
+import os
+import json
 import enum
 import typing
 from pathlib import Path
@@ -740,113 +742,13 @@ REMOTE_DATASETS = {
 
 }
 
-
-_SCRIPT_CONFIG = {
-    "final-sdg-15-3-1": {
-        "run_mode": "local",
-        "execution_callable": "LDMP.localexecution.ldn.compute_ldn",
-    },
-    "urban-change-summary-table": {
-        "run_mode": "local",
-        "execution_callable": (
-            "LDMP.localexecution.urbanchange.compute_urban_change_summary_table"),
-    },
-    "change-biomass-summary-table": {
-        "run_mode": "local",
-        "execution_callable": (
-            "LDMP.localexecution.biomassrestoration.compute_biomass_restoration"),
-    },
-    "local-land-cover": {
-        "run_mode": "local",
-        "execution_callable": "LDMP.localexecution.landcover.compute_land_cover",
-    },
-    "local-soil-organic-carbon": {
-        "run_mode": "local",
-        "execution_callable": (
-            "LDMP.localexecution.soilorganiccarbon.compute_soil_organic_carbon"),
-    },
-    "time-series": {
-        "id": "2a051dcb-b102-44c3-b383-60aa1063ab86",
-        "description": "Calculate time series.",
-        "run_mode": "remote",
-    },
-    "land-cover": {
-        "id": "92aa0759-ef83-4bc5-9395-bc5609b4780d",
-        "description": "Calculate land cover change indicator.",
-        "run_mode": "remote",
-    },
-    "productivity": {
-        "id": "5b713a51-f91d-4094-a7fb-67e5992f8b62",
-        "description": "Calculate productivity state, performance, and/or trajectory indicators.",
-        "run_mode": "remote",
-        "trajectory functions": {
-            "NDVI trends": {
-                "params": {"trajectory_method": "ndvi_trend"},
-                "climate types": [],
-                "description": "Calculate trend of annually integrated NDVI."
-            },
-            "Pixel RESTREND": {
-                "params": {"trajectory_method": "p_restrend"},
-                "climate types": ["Precipitation", "Soil moisture", "Evapotranspiration"],
-                "description": "Calculate pixel residual trend (RESTREND of annually integrated NDVI, after removing trend associated with a climate indicator."
-            },
-            "Water Use Efficiency (WUE)": {
-                "params": {"trajectory_method": "ue"},
-                "climate types": ["Evapotranspiration"],
-                "description": "Calculate water use efficiency (evapotranspiration divided by NDVI)."
-            },
-            "Rain Use Efficiency (RUE)": {
-                "params": {"trajectory_method": "ue"},
-                "climate types": ["Precipitation"],
-                "description": "Calculate rain use efficiency (precipitation divided by NDVI)."
-            }
-        }
-    },
-    "soil-organic-carbon": {
-        "id": "d2ce447e-5f15-4577-9230-e4b379870229",
-        "description": "Calculate soil organic carbon.",
-        "run_mode": "remote",
-    },
-    "three-sdg-15-3-1-sub-indicators": {
-        "id": "fe4b2680-4be3-4c85-822b-27ed852842a0",
-        "description": "Calculate all three SDG sub-indicators in one step.",
-        "run_mode": "remote",
-    },
-    "download-landpks": {
-        "description": "Download LandPKS data",
-        "execution_callable": None, #FIXME
-        "run_mode": "local",
-    },
-    "download-data": {
-        "id": "a06c8f97-ffa1-4d4e-ac86-ecf33f1023aa",
-        "description": "Download data from Google Earth Engine assets.",
-        "run_mode": "remote"
-    },
-    "total-carbon": {
-        "id": "3045dfee-247e-4fe9-bd74-769a1f57aee0",
-        "description": "Calculate total carbon in biomass (above and below ground).",
-        "run_mode": "remote"
-    },
-    "local-total-carbon": {
-        "run_mode": "local",
-        "execution_callable": None, #  FIXME
-    },
-    "total-carbon-summary": {
-        "run_mode": "local",
-        "execution_callable": (
-            "LDMP.localexecution.totalcarbon.compute_total_carbon_summary_table"),
-    },
-    "urban-area": {
-        "id": "88f78043-512d-4b24-9f44-80029d02e294",
-        "description": "Calculate urban area.",
-        "run_mode": "remote"
-    },
-    "restoration-biomass": {
-        "id": "4bfcc39c-b7df-4e2e-8f08-97be0a48a445",
-        "description": "Calculate potential change in biomass with restoration.",
-        "run_mode": "remote"
-    },
-}
+script_file = os.path.join(
+    os.path.dirname(os.path.realpath(__file__)),
+    'data',
+    'scripts.json'
+)
+with open(script_file) as f:
+    _SCRIPT_CONFIG = json.load(f)
 
 KNOWN_SCRIPTS = _load_script_config(_SCRIPT_CONFIG)
 
@@ -864,7 +766,7 @@ _ALGORITHM_CONFIG = [
                 ),
                 "scripts": [
                     {
-                        "script": KNOWN_SCRIPTS["three-sdg-15-3-1-sub-indicators"],
+                        "script": KNOWN_SCRIPTS["sdg-15-3-1-sub-indicators"],
                         "parametrization_dialogue": "LDMP.calculate_ldn.DlgCalculateOneStep",
                     }
                 ],

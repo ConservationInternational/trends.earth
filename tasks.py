@@ -293,8 +293,9 @@ def tecli_publish(c, script=None, overwrite=False):
         print('Script "{}" not found.'.format(script))
 
 @task(help={'script': 'Script name',
-            'params': 'Parameters'})
-def tecli_run(c, script, params=None):
+            'queryParams': 'Parameters',
+            'payload': 'Parameters (as json'})
+def tecli_run(c, script, queryParams=None, payload=None):
     if not check_tecli_python_version():
         return
     dirs = next(os.walk(c.gee.script_dir))[1]
@@ -305,9 +306,14 @@ def tecli_run(c, script, params=None):
         if os.path.exists(os.path.join(script_dir, 'configuration.json')) and \
                  script == dir:
             print('Running {}...'.format(dir))
-            if params:
-                subprocess.check_call(['python', os.path.abspath(c.gee.tecli), 'start', '--queryParams={}'.format(params)], cwd=script_dir)
+            if queryParams:
+                print('Using given query parameters as input to script.')
+                subprocess.check_call(['python', os.path.abspath(c.gee.tecli), 'start', '--queryParams={}'.format(queryParams)], cwd=script_dir)
+            elif payload:
+                print('Using given payload as input to script.')
+                subprocess.check_call(['python', os.path.abspath(c.gee.tecli), 'start', '--payload={}'.format(os.path.abspath(payload))], cwd=script_dir)
             else:
+                print('Running script without any input parameters.')
                 subprocess.check_call(['python', os.path.abspath(c.gee.tecli), 'start'], cwd=script_dir)
 
             n += 1

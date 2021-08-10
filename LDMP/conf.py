@@ -145,7 +145,6 @@ def _load_algorithm_config(
     )
 
 
-#TODO: revert this change and read these in from gee_datasets.json so can be updated independently of the plugin
 REMOTE_DATASETS = {
     "Trends.Earth Global Results": {
         "Land cover (degradation)": {
@@ -426,7 +425,28 @@ REMOTE_DATASETS = {
             "Max Longitude": "180",
             "Units": "",
             "Description": "The Land Productivity Dynamics (LPD) dataset is produced by the Joint research Ommission. The land-productivity dynamics dataset is calculated from vegetation indices derived from long-term low-resolution satellite time series such as the GIMMS3g dataset combined with productivity efficiency measurements derived from short, recent, medium resolution data such as those from the SPOT VEGETATION sensor. The limited set of NDVI variables is extended by a number of phenological and productivity relevant variables. Keeping statistical solidity, qualitative approaches have been selected to classify, interpret and integrate these several variables. Intermediate products are produced that are then combined into a Land-productivity Dynamics data layer. Land-productivity dynamics can indicate levels of sustained land-quality and is therefore used as first step in the land degradation assessment.",
-            "Link to Dataset": "None availab.e",
+            "Link to Dataset": "None available",
+            "GEE Dataset": "users/geflanddegradation/toolbox_datasets/lpd_300m_longlat",
+            "Source code": "None available.",
+            "Status": "Stored as assets",
+            "License": "",
+            "License URL": "",
+            "Source": "United Nations Convention to Combat Desertification, 2017. The Global Land Outlook, first edition. Bonn, Germany. Available from: http://www2.unccd.int/actions/global-land-outlook-glo",
+            "Comments": ""
+        },
+        "Land Productivity Dynamics (LPD), 2021 update": {
+            "Data source": "Joint Research Commission (JRC)",
+            "Start year": "NA",
+            "End year": "NA",
+            "Spatial resolution": "1 km",
+            "Temporal resolution": "one time",
+            "Min Latitude": "-90",
+            "Max Latitude": "90",
+            "Min Longitude": "-180",
+            "Max Longitude": "180",
+            "Units": "",
+            "Description": "The Land Productivity Dynamics (LPD) dataset is produced by the Joint research Ommission. The land-productivity dynamics dataset is calculated from vegetation indices derived from long-term low-resolution satellite time series such as the GIMMS3g dataset combined with productivity efficiency measurements derived from short, recent, medium resolution data such as those from the SPOT VEGETATION sensor. The limited set of NDVI variables is extended by a number of phenological and productivity relevant variables. Keeping statistical solidity, qualitative approaches have been selected to classify, interpret and integrate these several variables. Intermediate products are produced that are then combined into a Land-productivity Dynamics data layer. Land-productivity dynamics can indicate levels of sustained land-quality and is therefore used as first step in the land degradation assessment.",
+            "Link to Dataset": "None available",
             "GEE Dataset": "users/geflanddegradation/toolbox_datasets/lpd_300m_longlat",
             "Source code": "None available.",
             "Status": "Stored as assets",

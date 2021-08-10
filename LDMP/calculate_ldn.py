@@ -12,7 +12,6 @@
 """
 # pylint: disable=import-error
 
-import json
 from pathlib import Path
 import datetime
 import typing
@@ -79,19 +78,19 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
     def update_time_bounds(self):
         if self.radio_te_prod.isChecked():
-            ndvi_dataset = conf.REMOTE_DATASETS["NDVI"]["MODIS (MOD13Q1, annual)"]
-            start_year_ndvi = ndvi_dataset['Start year']
-            end_year_ndvi = ndvi_dataset['End year']
+            prod_dataset = conf.REMOTE_DATASETS["NDVI"]["MODIS (MOD13Q1, annual)"]
+            start_year_prod = prod_dataset['Start year']
+            end_year_prod = prod_dataset['End year']
         else:
-            start_year_ndvi = 2000
-            end_year_ndvi = 2015
+            start_year_prod = 2000
+            end_year_prod = 2015
 
         lc_dataset = conf.REMOTE_DATASETS["Land cover"]["ESA CCI"]
         start_year_lc = lc_dataset['Start year']
         end_year_lc = lc_dataset['End year']
 
-        start_year = QtCore.QDate(max(start_year_ndvi, start_year_lc), 1, 1)
-        end_year = QtCore.QDate(min(end_year_ndvi, end_year_lc), 1, 1)
+        start_year = QtCore.QDate(max(start_year_prod, start_year_lc), 1, 1)
+        end_year = QtCore.QDate(min(end_year_prod, end_year_lc), 1, 1)
 
         self.year_initial_baseline.setMinimumDate(start_year)
         self.year_initial_baseline.setMaximumDate(end_year)
@@ -102,7 +101,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.year_initial_progress.setMaximumDate(end_year)
         self.year_final_progress.setMinimumDate(start_year)
         self.year_final_progress.setMaximumDate(end_year)
-        
+
     def showEvent(self, event):
         super(DlgCalculateOneStep, self).showEvent(event)
 
@@ -142,34 +141,41 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
         payload = {'baseline': {
             'period_year_start': self.year_initial_baseline.date().year(),
-            'period_year_final': self.year_final_baseline.date().year()
+            'period_year_final': self.year_final_baseline.date().year(),
             }
         }
 
         if self.checkBox_progress_period.isChecked():
-            payload = {'progress': {
-                'period_year_start': self.year_initial_progress.date().year(),
-                'period_year_final': self.year_final_progress.date().year()
+            payload.update({
+                'progress': {
+                    'period_year_start': self.year_initial_progress.date().year(),
+                    'period_year_final': self.year_final_progress.date().year(),
                 }
-            }
+            })
 
         crosses_180th, geojsons = self.gee_bounding_box
 
         periods = payload.keys()
+
         for period in periods:
             year_start = payload[period]['period_year_start']
             year_final = payload[period]['period_year_final']
 
             if (year_final - year_start) < 10:
-                QtWidgets.QMessageBox.warning(None, self.tr("Error"),
-                    self.tr("Initial and final year are less 10 years "
-                            "apart in {} period - results will be more "
-                            "reliable if more data (years) are included "
-                            "in the analysis.".format(period)))
+                QtWidgets.QMessageBox.warning(
+                    None,
+                    self.tr("Error"),
+                    self.tr(
+                        "Initial and final year are less 10 years "
+                        "apart in {} period - results will be more "
+                        "reliable if more data (years) are included "
+                        "in the analysis.".format(period)
+                    )
+                )
 
                 return
 
-            # Have productivity state consider the last 3 years for the current 
+            # Have productivity state consider the last 3 years for the current
             # period, and the years preceding those last 3 for the baseline
             prod_state_year_bl_start = year_start
             prod_state_year_bl_end = year_final - 3
@@ -177,8 +183,17 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             prod_state_year_tg_end = prod_state_year_bl_end + 3
             assert (prod_state_year_tg_end == year_final)
 
+            if prod_mode == 'Trends.Earth productivity':
+                prod_asset = conf.REMOTE_DATASETS["NDVI"]["MODIS (MOD13Q1, annual)"]["GEE Dataset"]
+            elif prod_mode == 'JRC LPD':
+                if period == 'baseline':
+                    prod_asset = conf.REMOTE_DATASETS["Land productivity"]["Land Productivity Dynamics (LPD)"]["GEE Dataset"]
+                else:
+                    prod_asset = conf.REMOTE_DATASETS["Land productivity"]["Land Productivity Dynamics (LPD), 2021 update"]["GEE Dataset"]
+
             payload[period]['productivity'] = {
                 'mode': prod_mode,
+                'prod_asset': prod_asset,
                 'traj_method': 'ndvi_trend',
                 'traj_year_initial': year_start,
                 'traj_year_final': year_final,
@@ -188,23 +203,28 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                 'state_year_bl_end': prod_state_year_bl_end,
                 'state_year_tg_start': prod_state_year_tg_start,
                 'state_year_tg_end': prod_state_year_tg_end,
-                'ndvi_gee_dataset': conf.REMOTE_DATASETS["NDVI"]["MODIS (MOD13Q1, annual)"],
-                'climate_gee_dataset': None,
+                'climate_asset': None,
             }
             payload[period]['land_cover'] = {
                 'year_initial': year_start,
                 'year_final': year_final,
                 'legend_nesting': LCLegendNesting.Schema().dump(
-                    self.lc_setup_widget.aggregation_dialog.nesting),
+                    self.lc_setup_widget.aggregation_dialog.nesting
+                ),
                 'trans_matrix': LCTransitionDefinitionDeg.Schema().dump(
-                    self.lc_define_deg_widget.trans_matrix),
+                    self.lc_define_deg_widget.trans_matrix
+                ),
             }
             payload[period]['soil_organic_carbon'] = {
                 'year_initial': year_start,
                 'year_final': year_final,
                 'fl': .80,
+                'legend_nesting': LCLegendNesting.Schema().dump(
+                    self.lc_setup_widget.aggregation_dialog.nesting
+                ), # TODO: Use SOC matrix for the above once defined
                 'trans_matrix': LCTransitionDefinitionDeg.Schema().dump(
-                    self.lc_define_deg_widget.trans_matrix),  # TODO: Use SOC matrix for the below once defined
+                    self.lc_define_deg_widget.trans_matrix
+                ), # TODO: Use SOC matrix for the above once defined
             }
 
         payload.update({
@@ -304,7 +324,6 @@ class DlgCalculateLDNSummaryTableAdmin(
             prod_mode = 'Trends.Earth productivity'
         else:
             prod_mode = 'JRC LPD'
-
 
         ######################################################################
         # Check that all needed input layers are selected
@@ -457,7 +476,7 @@ class DlgCalculateLDNSummaryTableAdmin(
             return
 
         #######################################################################
-        # Check that all of the productivity layers have the same resolution 
+        # Check that all of the productivity layers have the same resolution
         # and CRS
         def res(layer):
             return (

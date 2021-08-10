@@ -35,6 +35,6 @@ def run(params, logger):
 
     logger.debug("Running main script.")
     out = land_cover(year_baseline, year_target, trans_matrix,
-                     nesting, EXECUTION_ID, logger)
+                     nesting, logger)
 
     return out.export(geojsons, 'land_cover', crs, logger, EXECUTION_ID)

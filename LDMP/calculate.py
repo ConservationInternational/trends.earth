@@ -83,24 +83,9 @@ class tr_calculate(object):
 
 
 def get_script_slug(script_name):
-    # Note that dots and underscores can't be used in the slugs, so they are 
-    # replaced with dashesk
+    # dots and underscores can't be used in the slugs, so they are replaced 
+    # with dashes
     return (script_name, script_name + '-' + scripts[script_name]['script version'].replace('.', '-'))
-
-
-def get_script_group(script_name) -> Optional[str]:
-    # get the configured name of the group that belongs the script
-    group = None
-    if (script_name in scripts) and ('group' in scripts[script_name]):
-        group = scripts[script_name]['group']
-    if not group:
-        # check if it is a local script/process
-        metadata = get_local_script_metadata(script_name)
-        if not metadata:
-            return None
-        group = metadata.get('group', None)
-
-    return group
 
 
 def get_local_script_metadata(script_name) -> Optional[dict]:

@@ -1,69 +1,125 @@
 {
-    "time-series": {
-        "script version": "1.0.7",
-        "description": "Calculate time series.",
-        "group": ""
+    "change-biomass-summary-table": {
+        "execution_callable": "LDMP.localexecution.biomassrestoration.compute_biomass_restoration",
+        "run_mode": "local"
+    },
+    "download-data": {
+        "description": "Download data from Google Earth Engine assets.",
+        "id": "a06c8f97-ffa1-4d4e-ac86-ecf33f1023aa",
+        "run_mode": "remote"
+    },
+    "download-landpks": {
+        "description": "Download LandPKS data",
+        "execution_callable": null,
+        "run_mode": "local"
+    },
+    "final-sdg-15-3-1": {
+        "execution_callable": "LDMP.localexecution.ldn.compute_ldn",
+        "run_mode": "local"
     },
     "land-cover": {
-        "script version": "1.0.7",
         "description": "Calculate land cover change indicator.",
-        "group": "SDG 15.3.1"
+        "id": "92aa0759-ef83-4bc5-9395-bc5609b4780d",
+        "run_mode": "remote",
+        "script version": "1.0.7",
+    },
+    "local-land-cover": {
+        "execution_callable": "LDMP.localexecution.landcover.compute_land_cover",
+        "run_mode": "local"
+    },
+    "local-soil-organic-carbon": {
+        "execution_callable": "LDMP.localexecution.soilorganiccarbon.compute_soil_organic_carbon",
+        "run_mode": "local"
+    },
+    "local-total-carbon": {
+        "execution_callable": null,
+        "run_mode": "local"
     },
     "productivity": {
-        "script version": "1.0.7",
         "description": "Calculate productivity state, performance, and/or trajectory indicators.",
-        "group": "SDG 15.3.1",
+        "id": "5b713a51-f91d-4094-a7fb-67e5992f8b62",
+        "run_mode": "remote",
+        "script version": "1.0.7",
         "trajectory functions": {
             "NDVI trends": {
-                "params": {"trajectory_method": "ndvi_trend"},
                 "climate types": [],
-                "description": "Calculate trend of annually integrated NDVI."
+                "description": "Calculate trend of annually integrated NDVI.",
+                "params": {
+                    "trajectory_method": "ndvi_trend"
+                }
             },
             "Pixel RESTREND": {
-                "params": {"trajectory_method": "p_restrend"},
-                "climate types": ["Precipitation", "Soil moisture", "Evapotranspiration"],
-                "description": "Calculate pixel residual trend (RESTREND of annually integrated NDVI, after removing trend associated with a climate indicator."
-            },
-            "Water Use Efficiency (WUE)": {
-                "params": {"trajectory_method": "ue"},
-                "climate types": ["Evapotranspiration"],
-                "description": "Calculate water use efficiency (evapotranspiration divided by NDVI)."
+                "climate types": [
+                    "Precipitation",
+                    "Soil moisture",
+                    "Evapotranspiration"
+                ],
+                "description": "Calculate pixel residual trend (RESTREND of annually integrated NDVI, after removing trend associated with a climate indicator.",
+                    "params": {
+                        "trajectory_method": "p_restrend"
+                    }
             },
             "Rain Use Efficiency (RUE)": {
-                "params": {"trajectory_method": "ue"},
-                "climate types": ["Precipitation"],
-                "description": "Calculate rain use efficiency (precipitation divided by NDVI)."
+                "climate types": [
+                    "Precipitation"
+                ],
+                "description": "Calculate rain use efficiency (precipitation divided by NDVI).",
+                "params": {
+                    "trajectory_method": "ue"
+                }
+            },
+            "Water Use Efficiency (WUE)": {
+                "climate types": [
+                    "Evapotranspiration"
+                ],
+                "description": "Calculate water use efficiency (evapotranspiration divided by NDVI).",
+                "params": {
+                    "trajectory_method": "ue"
+                }
             }
         }
     },
+    "restoration-biomass": {
+        "description": "Calculate potential change in biomass with restoration.",
+        "id": "4bfcc39c-b7df-4e2e-8f08-97be0a48a445",
+        "run_mode": "remote",
+        "script version": "1.0.7",
+    },
     "soil-organic-carbon": {
-        "script version": "1.0.7",
         "description": "Calculate soil organic carbon.",
-        "group": "SDG 15.3.1"
-    },
-    "sdg-sub-indicators": {
+        "id": "d2ce447e-5f15-4577-9230-e4b379870229",
+        "run_mode": "remote",
         "script version": "1.0.7",
+    },
+    "sdg-15-3-1-sub-indicators": {
         "description": "Calculate all three SDG sub-indicators in one step.",
-        "group": "SDG 15.3.1"
+        "id": "d67c2160-89a7-4273-bacb-49a48dccf6e4",
+        "run_mode": "remote",
+        "script version": "1.0.7"
     },
-    "download-data": {
-        "script version": "1.0.7",
-        "description": "Download data from Google Earth Engine assets.",
-        "group": ""
+    "time-series": {
+        "description": "Calculate time series.",
+        "id": "2a051dcb-b102-44c3-b383-60aa1063ab86",
+        "run_mode": "remote"
     },
     "total-carbon": {
-        "script version": "1.0.7",
         "description": "Calculate total carbon in biomass (above and below ground).",
-        "group": "total-carbon"
+        "id": "3045dfee-247e-4fe9-bd74-769a1f57aee0",
+        "run_mode": "remote",
+        "script version": "1.0.7"
+    },
+    "total-carbon-summary": {
+        "execution_callable": "LDMP.localexecution.totalcarbon.compute_total_carbon_summary_table",
+        "run_mode": "local"
     },
     "urban-area": {
-        "script version": "1.0.7",
         "description": "Calculate urban area.",
-        "group": "SDG 11.3.1"
+        "id": "88f78043-512d-4b24-9f44-80029d02e294",
+        "run_mode": "remote",
+        "script version": "1.0.7"
     },
-    "restoration-biomass": {
-        "script version": "1.0.7",
-        "description": "Calculate potential change in biomass with restoration.",
-        "group": "potential-change"
+    "urban-change-summary-table": {
+        "execution_callable": "LDMP.localexecution.urbanchange.compute_urban_change_summary_table",
+        "run_mode": "local"
     }
 }

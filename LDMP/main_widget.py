@@ -181,9 +181,11 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
     def refresh_after_cache_update(self):
         current_dataset_index = self.datasets_tv_delegate.current_index
+
         if current_dataset_index is not None:
             has_open_editor = self.datasets_tv.isPersistentEditorOpen(
                 current_dataset_index)
+
             if has_open_editor:
                 self.datasets_tv.closePersistentEditor(current_dataset_index)
             self.datasets_tv_delegate.current_index = None
@@ -220,6 +222,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         """
 
         local_frequency = settings_manager.get_value(Setting.LOCAL_POLLING_FREQUENCY)
+
         if self.refreshing_filesystem_cache:
             log("Filesystem cache is already being refreshed, skipping...")
         elif self.scheduler_paused:
@@ -227,11 +230,14 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             pass
         else:
             #log("Lets maybe do stuff...")
+
             if _should_run(local_frequency, self.last_refreshed_local_state):
                 # lets check if we also need to update from remote, as that takes precedence
+
                 if settings_manager.get_value(Setting.POLL_REMOTE):
                     remote_frequency = settings_manager.get_value(
                         Setting.REMOTE_POLLING_FREQUENCY)
+
                     if _should_run(remote_frequency, self.last_refreshed_remote_state):
                         self.update_from_remote_state()
                     else:
@@ -247,12 +253,14 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         """
 
         base_data_directory = settings_manager.get_value(Setting.BASE_DIR)
+
         if not base_data_directory:
             return
 
         def clean(folders):
             for folder in folders:
                 # floder leaf is empty if ('folder', [], [])
+
                 if ( not folder[1] and
                      not folder[2] ):
                     os.rmdir(folder[0])
@@ -286,6 +294,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
     def toggle_ui_for_cache_refresh(self, refresh_started: bool):
         log(f"toggle_ui_for_cache_refresh called. refresh_started: {refresh_started}")
+
         for widget in self._cache_refresh_togglable_widgets:
             widget.setEnabled(not refresh_started)
 
@@ -304,9 +313,11 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             "]",
         ]
         has_special_char = False
+
         for char in filter_string:
             if char in special_chars:
                 has_special_char = True
+
                 break
         filter_ = filter_string if has_special_char else f"{filter_string}*"
         self.proxy_model.setFilterRegExp(
@@ -355,6 +366,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         dialog = dialog_class(self.iface, algorithm_script.script, parent=self)
         self.pause_scheduler()
         result = dialog.exec_()
+
         if result == QtWidgets.QDialog.Rejected:
             self.resume_scheduler()
         else:
@@ -378,14 +390,17 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             source_index = self.proxy_model.mapToSource(index)
             current_item = source_index.internalPointer()
             current_item: Job
+
             if current_item is not None:
                 previous_index = self.datasets_tv_delegate.current_index
                 index_changed = index != previous_index
+
                 if previous_index is not None:
                     previously_open = self.datasets_tv.isPersistentEditorOpen(
                         previous_index)
                 else:
                     previously_open = False
+
                 if index_changed and previously_open:
                     self.datasets_tv.closePersistentEditor(previous_index)
                     self.datasets_tv.openPersistentEditor(index)
@@ -421,11 +436,13 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             if current_item is not None and is_algorithm:
                 previous_index = self.algorithms_tv_delegate.current_index
                 index_changed = index != previous_index
+
                 if previous_index is not None:
                     previously_open = self.algorithms_tv.isPersistentEditorOpen(
                         previous_index)
                 else:
                     previously_open = False
+
                 if index_changed and previously_open:
                     self.algorithms_tv.closePersistentEditor(previous_index)
                     self.algorithms_tv.openPersistentEditor(index)
@@ -480,6 +497,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
 def maybe_download_finished_results():
     dataset_auto_download = settings_manager.get_value(Setting.DOWNLOAD_RESULTS)
+
     if dataset_auto_download:
         if len(job_manager.known_jobs[JobStatus.FINISHED]) > 0:
             log("downloading results...")
@@ -492,6 +510,7 @@ def _should_run(periodic_frequency_seconds: int, last_run: dt.datetime):
         delta = now - last_run
     except TypeError:
         delta = dt.timedelta(seconds=periodic_frequency_seconds)
+
     return True if delta.seconds >= periodic_frequency_seconds else False
 
 
@@ -502,10 +521,12 @@ def _get_script(
     for algorithm_script in algorithm.scripts:
         if algorithm_script.script.run_mode == run_mode:
             result = algorithm_script
+
             break
     else:
         raise RuntimeError(
             f"invalid algorithm configuration for {algorithm.name!r} - Could not "
             f"find a script for run mode: {run_mode}"
         )
+
     return result

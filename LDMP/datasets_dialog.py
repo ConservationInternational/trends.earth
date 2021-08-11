@@ -38,6 +38,7 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
     export_btn: QtWidgets.QPushButton
     load_btn: QtWidgets.QPushButton
     name_le: QtWidgets.QLineEdit
+    id_le: QtWidgets.QLineEdit
     state_le: QtWidgets.QLineEdit
     path_le: QtWidgets.QLineEdit
 
@@ -48,6 +49,7 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
         self.job = job
 
         self.name_le.setText(self.job.params.task_name)
+        self.id_le.setText(str(self.job.id))
         self.state_le.setText(self.job.status.value)
         self.created_at_le.setText(str(self.job.start_date))
         self.load_btn.clicked.connect(self.load_dataset)

@@ -29,7 +29,8 @@ from PyQt5 import (
 from qgis.utils import iface
 from qgis.core import (
     QgsAuthMethodConfig,
-    QgsApplication
+    QgsApplication,
+    QgsTask,
 )
 
 
@@ -53,94 +54,66 @@ def tr(message):
 ###############################################################################
 # Threading functions for calls to requests
 
-
-class RequestWorker(AbstractWorker):
-    """worker, implement the work method here and raise exceptions if needed"""
-
-    def __init__(self, url, method, payload, headers):
-        AbstractWorker.__init__(self)
+class RequestTask(QgsTask):
+    def __init__(self, description, url, method, payload, headers):
+        super().__init__(description, QgsTask.CanCancel)
+        self.description = description
         self.url = url
         self.method = method
         self.payload = payload
         self.headers = headers
-
-    def work(self):
-        self.toggle_show_progress.emit(False)
-        self.toggle_show_cancel.emit(False)
-
-        if self.method == 'get':
-            resp = requests.get(self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT)
-        elif self.method == 'post':
-            resp = requests.post(self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT)
-        elif self.method == 'update':
-            resp = requests.update(self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT)
-        elif self.method == 'delete':
-            resp = requests.delete(self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT)
-        elif self.method == 'patch':
-            resp = requests.patch(self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT)
-        elif self.method == 'head':
-            resp = requests.head(self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT)
-        else:
-            raise ValueError("Unrecognized method: {}".format(method))
-            resp = None
-
-        return resp
-
-
-class Request(object):
-    def __init__(self, url, method='get', payload=None, headers={}, server_name='Trends.Earth'):
-        self.resp = None
         self.exception = None
+        self.resp = None
 
-        self.url = url
-        self.method = method
-        self.payload = payload
-        self.headers = headers
-        self.server_name = server_name
+    def run(self):
+        if self.method == 'get':
+            self.resp = requests.get(self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT)
+        elif self.method == 'post':
+            self.resp = requests.post(self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT)
+        elif self.method == 'update':
+            self.resp = requests.update(self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT)
+        elif self.method == 'delete':
+            self.resp = requests.delete(self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT)
+        elif self.method == 'patch':
+            self.resp = requests.patch(self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT)
+        elif self.method == 'head':
+            self.resp = requests.head(self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT)
+        else:
+            self.exception = ValueError("Unrecognized method: {}".format(self.method))
+            return False
 
-    def start(self):
-        try:
-            worker = RequestWorker(self.url, self.method, self.payload, self.headers)
-            pause = QtCore.QEventLoop()
-            worker.finished.connect(pause.quit)
-            worker.successfully_finished.connect(self.save_resp)
-            worker.error.connect(self.save_exception)
-            start_worker(worker, iface, tr(u'Contacting {} server...'.format(self.server_name)))
-            pause.exec_()
+        return True
 
-            if self.get_exception():
-                raise self.get_exception()
-        except requests.exceptions.ConnectionError:
-            log('API unable to access server - check internet connection')
-            QtWidgets.QMessageBox.critical(
-                None,
-                tr("Error"),
-                tr(
-                    f"Unable to login to {self.server_name} server. Check your "
-                    f"internet connection."
+    def finished(self, result):
+        if result:
+            log('Task completed')
+        else:
+            if self.exception is None:
+                log(f'API {self.method} not successful - probably cancelled')
+
+            elif self.exception is requests.exceptions.ConnectionError:
+                log('API unable to access server - check internet connection')
+                self.error_message = tr(
+                    "Unable to login to Trends.Earth server. Check your "
+                    "internet connection."
                 )
-            )
-            resp = None
-        except requests.exceptions.Timeout:
-            log('API unable to login - general error')
-            QtWidgets.QMessageBox.critical(
-                None,
-                tr("Error"),
-                tr(u"Unable to connect to {} server.".format(self.server_name))
-            )
-            resp = None
 
-    def save_resp(self, resp):
-        self.resp = resp
+            elif self.exception is requests.exceptions.Timeout:
+                log('API unable to login - general error')
+                self.error_message = tr(f"Unable to connect to Trends.Earth  server.")
 
-    def get_resp(self):
-        return self.resp
+            else:
+                log(f'API {self.method} not successful - exception: {self.exception}')
+                raise self.exception
 
-    def save_exception(self, exception):
-        self.exception = exception
+        if self.resp is not None:
+            log(f'API response from "{self.method}" request: {self.resp.status_code}')
+        else:
+            log(f'API response from "{self.method}" request was None')
 
-    def get_exception(self):
-        return self.exception
+        if conf.settings_manager.get_value(conf.Setting.DEBUG):
+            log(f'API response from "{self.method}" request (data): '
+                '{clean_api_response(self.resp))}')
 
 ###############################################################################
 # Other helper functions for api calls
@@ -255,6 +228,14 @@ def login_test(email, password):
 
         return False
 
+
+def _make_request(description, **kwargs):
+    api_task = RequestTask(description, **kwargs)
+    QgsApplication.taskManager().addTask(api_task)
+    api_task.waitForFinished((TIMEOUT + 1) * 1000)
+    return api_task.resp
+
+
 def call_api(endpoint, method='get', payload=None, use_token=False):
     if use_token:
         token = login()
@@ -284,17 +265,14 @@ def call_api(endpoint, method='get', payload=None, use_token=False):
 
         if conf.settings_manager.get_value(conf.Setting.DEBUG):
             log(u'API call payload: {}'.format(clean_payload))
-        worker = Request(API_URL + endpoint, method, payload, headers)
-        worker.start()
-        resp = worker.get_resp()
+        resp = _make_request(
+            'Trends.Earth API call',
+            url=API_URL + endpoint,
+            method=method,
+            payload=payload,
+            headers=headers
+        )
 
-        if resp is not None:
-            log(f'API response from "{method}" request: {resp.status_code}')
-        else:
-            log(u'API response from "{}" request was None'.format(method))
-
-        if conf.settings_manager.get_value(conf.Setting.DEBUG):
-            log(u'API response from "{}" request (data): {}'.format(method, clean_api_response(resp)))
     else:
         resp = None
 
@@ -313,9 +291,11 @@ def call_api(endpoint, method='get', payload=None, use_token=False):
 
 
 def get_header(url):
-    worker = Request(url, 'head')
-    worker.start()
-    resp = worker.get_resp()
+    resp = _make_request(
+        'Get head',
+        url=url,
+        method='head'
+    )
 
     if resp != None:
         log(u'Response from "{}" header request: {}'.format(url, resp.status_code))

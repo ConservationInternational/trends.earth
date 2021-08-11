@@ -8,7 +8,6 @@ from pathlib import Path
 from PyQt5 import QtCore
 from osgeo import gdal
 
-import LDMP.logger
 from .. import (
     api,
     areaofinterest,
@@ -19,6 +18,7 @@ from .. import (
 )
 from . import models
 from .models import Job
+from ..logger import log
 
 
 class JobManager(QtCore.QObject):
@@ -172,19 +172,16 @@ class JobManager(QtCore.QObject):
 
         now = dt.datetime.now(tz=dt.timezone.utc)
         relevant_date = now - dt.timedelta(days=self._relevant_job_age_threshold_days)
-        try:
-            remote_jobs = get_remote_jobs(end_date=relevant_date)
-        except TypeError as exc:
-            LDMP.logger.log(f"Could not retrieve remote jobs: {str(exc)}")
-        else:
-            relevant_remote_jobs = get_relevant_remote_jobs(remote_jobs)
-            self._refresh_local_running_jobs(relevant_remote_jobs)
-            self._refresh_local_finished_jobs(relevant_remote_jobs)
-            self._refresh_local_generated_jobs()
-            self._refresh_local_deleted_jobs()
-        finally:
-            if emit_signal:
-                self.refreshed_from_remote.emit()
+        remote_jobs = get_remote_jobs(end_date=relevant_date)
+        relevant_remote_jobs = get_relevant_remote_jobs(remote_jobs)
+
+        self._refresh_local_running_jobs(relevant_remote_jobs)
+        self._refresh_local_finished_jobs(relevant_remote_jobs)
+        self._refresh_local_generated_jobs()
+        self._refresh_local_deleted_jobs()
+
+        if emit_signal:
+            self.refreshed_from_remote.emit()
 
     def delete_job(self, job: Job):
         """Delete a job metadata file and any associated datasets from the local disk
@@ -198,7 +195,7 @@ class JobManager(QtCore.QObject):
             _delete_job_datasets(job)
             self._change_job_status(job, models.JobStatus.DELETED, force_rewrite=False)
         else:
-            LDMP.logger.log(f"job {job!r} has already been deleted, skipping...")
+            log(f"job {job!r} has already been deleted, skipping...")
         self.deleted_job.emit(job)
 
     def submit_remote_job(
@@ -399,7 +396,7 @@ class JobManager(QtCore.QObject):
             else:  # multiple files, download them then save VRT
                 output_path = self._get_multiple_cloud_results(job, base_output_path)
         else:
-            LDMP.logger.log(f"job {job} does not have downloadable results")
+            log(f"job {job} does not have downloadable results")
         return output_path
 
     def _get_multiple_cloud_results(self, job: Job, base_output_path: Path) -> Path:
@@ -429,7 +426,7 @@ class JobManager(QtCore.QObject):
             remote_job = find_job(old_running_job, remote_jobs)
             if remote_job is None:  # unexpected behavior, remove the local job file
                 self._remove_job_metadata_file(old_running_job)
-                LDMP.logger.log(
+                log(
                     f"Could not find job {old_running_job.id!r} on the remote server "
                     f"anymore. Deleting job metadata file from the base directory... "
                 )
@@ -443,7 +440,7 @@ class JobManager(QtCore.QObject):
         for remote in remote_jobs:
             remote_running = remote.status == models.JobStatus.RUNNING
             if remote_running and remote.id not in known_running:
-                LDMP.logger.log(
+                log(
                     f"Found new remote job: {remote.id!r}. Adding it to local base "
                     f"directory..."
                 )
@@ -499,7 +496,7 @@ class JobManager(QtCore.QObject):
                 job.status = new_status
                 self.write_job_metadata_file(job)
             else:
-                LDMP.logger.log("No need to move the job file, it is already in place")
+                log("No need to move the job file, it is already in place")
 
     def _get_local_jobs(self, status: models.JobStatus) -> typing.List[Job]:
         base_dir = {
@@ -515,11 +512,11 @@ class JobManager(QtCore.QObject):
                     raw_job = json.load(fh)
                     job = Job.deserialize(raw_job)
                 except json.decoder.JSONDecodeError as exc:
-                    LDMP.logger.log(f"Unable to decode file {job_metadata_path!r} as valid json")
+                    log(f"Unable to decode file {job_metadata_path!r} as valid json")
                 except KeyError:
-                    LDMP.logger.log(f"Unable to decode file {job_metadata_path!r} as job json - no script_id in file")
+                    log(f"Unable to decode file {job_metadata_path!r} as job json - no script_id in file")
                 except RuntimeError as exc:
-                    LDMP.logger.log(str(exc))
+                    log(str(exc))
                 else:
                     result.append(job)
         return result
@@ -545,7 +542,7 @@ class JobManager(QtCore.QObject):
         for finished_job in self._get_local_jobs(models.JobStatus.FINISHED):
             job_age = now - finished_job.end_date
             if job_age.days > self._relevant_job_age_threshold_days:
-                LDMP.logger.log(
+                log(
                     f"Removing job {finished_job!r} as it is no longer possible to "
                     f"download its results..."
                 )
@@ -600,7 +597,7 @@ def find_job(target: Job, source: typing.List[Job]) -> typing.Optional[Job]:
     try:
         result = [j for j in source if j.id == target.id][0]
     except IndexError:
-        LDMP.logger.log(f"Could not find job {target.id!r} on the list of jobs")
+        log(f"Could not find job {target.id!r} on the list of jobs")
         result = None
     return result
 
@@ -611,11 +608,14 @@ def _get_access_token():
 
 
 def _get_user_id() -> uuid:
-    LDMP.logger.log('Retrieving user id...')
+    log('Retrieving user id...')
     get_user_reply = api.get_user()
-    LDMP.logger.log(f"get_user_reply: {get_user_reply}")
-    user_id = get_user_reply["id"]
-    return uuid.UUID(user_id)
+    log(f"get_user_reply: {get_user_reply}")
+    if get_user_reply:
+        user_id = get_user_reply.get("id", None)
+        return uuid.UUID(user_id)
+    else:
+        return None
 
 
 def _get_single_cloud_result(
@@ -624,7 +624,7 @@ def _get_single_cloud_result(
     hash_matches = ldmp_download.local_check_hash_against_etag(
         output_path, url.decoded_md5_hash)
     if path_exists and hash_matches:
-        LDMP.logger.log(f"No download necessary, result already present in {output_path!r}")
+        log(f"No download necessary, result already present in {output_path!r}")
         result = output_path
     else:
         _download_result(url.url, output_path)
@@ -656,16 +656,18 @@ def _delete_job_datasets(job: Job):
                 # not using the `missing_ok` param since it was introduced only on Python 3.8
                 path.unlink()
             except FileNotFoundError:
-                LDMP.logger.log(f"Could not find path {path!r}, skipping deletion...")
+                log(f"Could not find path {path!r}, skipping deletion...")
         job.results.local_paths = []
     else:
-        LDMP.logger.log("This job has no results to be deleted, skipping...")
+        log("This job has no results to be deleted, skipping...")
 
 
 def get_remote_jobs(end_date: typing.Optional[dt.datetime] = None) -> typing.List[Job]:
     """Get a list of remote jobs, as returned by the server"""
     # Note - this is a reimplementation of api.get_execution
     user_id = _get_user_id()
+    if not user_id:
+        raise TypeError
     query = {
         "include": "script",
         "user_id": str(user_id),
@@ -680,7 +682,7 @@ def get_remote_jobs(end_date: typing.Optional[dt.datetime] = None) -> typing.Lis
         #
         # we can verify that the server is actually checking for job's end_date
         query["updated_at"] = end_date.strftime("%Y-%m-%d")
-    LDMP.logger.log('Retrieving executions...')
+    log('Retrieving executions...')
     response = api.call_api(
         f"/api/v1/execution?{urllib.parse.urlencode(query)}",
         method="get",
@@ -689,24 +691,27 @@ def get_remote_jobs(end_date: typing.Optional[dt.datetime] = None) -> typing.Lis
     try:
         raw_jobs = response["data"]
     except TypeError:
-        LDMP.logger.log("Invalid response format")
+        log("Invalid response format")
         remote_jobs = []
     else:
         remote_jobs = []
+        log(f'Processing {len(raw_jobs)} raw jobs...')
         for raw_job in raw_jobs:
             try:
                 job = Job.deserialize(raw_job)
                 has_results = job.results is not None
                 if (job.results is not None and
                         job.results.type == models.JobResult.TIME_SERIES_TABLE):
-                    LDMP.logger.log(
+                    log(
                         f"Ignoring job {job.id!r} because it contains timeseries "
                         f"results. Those are not currently implemented"
                     )
                 else:
                     remote_jobs.append(job)
             except RuntimeError as exc:
-                LDMP.logger.log(str(exc))
+                log(str(exc))
+            except TypeError as exc:
+                log(f"Could not retrieve remote job {raw_job['id']}: {str(exc)}")
     return remote_jobs
 
 

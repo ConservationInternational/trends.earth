@@ -327,7 +327,7 @@ class Job:
         try:
             type_ = JobResult(raw_results["type"])
         except KeyError:
-            log(f"Could not extract type of results from {raw_results!r}")
+            log(f"Could not extract type of results from job {raw_job['id']} with raw_results {raw_results!r}")
             results = None
         else:
             if type_ == JobResult.CLOUD_RESULTS:

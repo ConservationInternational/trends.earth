@@ -342,17 +342,6 @@ def recover_pwd(email):
 
 
 def get_user(email='me'):
-    return call_api(u'/api/v1/user/{}'.format(quote_plus(email)), use_token=True)
-
-################################################################################
-# Functions supporting access to individual api endpoints
-
-
-def recover_pwd(email):
-    return call_api(u'/api/v1/user/{}/recover-password'.format(quote_plus(email)), 'post')
-
-
-def get_user(email='me'):
     resp = call_api(u'/api/v1/user/{}'.format(quote_plus(email)), use_token=True)
 
     if resp:

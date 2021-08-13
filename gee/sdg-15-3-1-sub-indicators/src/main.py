@@ -31,11 +31,49 @@ from te_schemas.schemas import CloudResultsSchema
 from te_schemas.land_cover import LCTransitionDefinitionDeg, LCLegendNesting
 
 
-def run_te_for_period(params, EXECUTION_ID, logger):
+def _run_lc(params, logger):
+    logger.debug("Running land cover indicator.")
+    lc = land_cover(
+        params.get('year_initial'),
+        params.get('year_final'),
+        LCTransitionDefinitionDeg.Schema().load(
+            params.get('trans_matrix')
+        ),
+        LCLegendNesting.Schema().load(
+            params.get('legend_nesting')
+        ),
+        logger
+    )
+    lc.selectBands(['Land cover (degradation)',
+                    'Land cover (7 class)'])
+
+    return lc
+
+
+def _run_soc(params, logger):
+    logger.debug("Running soil organic carbon indicator.")
+    soc_out = soc(
+        params.get('year_initial'),
+        params.get('year_final'),
+        params.get('fl'),
+        LCTransitionDefinitionDeg.Schema().load(
+            params.get('trans_matrix')
+        ),
+        LCLegendNesting.Schema().load(
+            params.get('legend_nesting')
+        ),
+        False,
+        logger
+    )
+    soc_out.selectBands(['Soil organic carbon (degradation)',
+                         'Soil organic carbon'])
+
+    return soc_out
+
+
+def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
     '''Run indicators using Trends.Earth productivity'''
     prod_params = params.get('productivity')
-    lc_params = params.get('land_cover')
-    soc_params = params.get('soil_organic_carbon')
 
     prod_asset = prod_params.get('prod_asset')
     proj = ee.Image(prod_asset).projection()
@@ -45,70 +83,70 @@ def run_te_for_period(params, EXECUTION_ID, logger):
     outs = []
 
     for geojson in params.get('geojsons'):
-        # TODO: pass performance a second geojson defining the entire
-        # extent of all input geojsons so that the performance is
-        # calculated the same over all input areas.
-        out = productivity_trajectory(
-            prod_params.get('traj_year_initial'),
-            prod_params.get('traj_year_final'),
-            prod_params.get('traj_method'),
-            prod_asset,
-            prod_params.get('climate_asset'),
-            logger
-        )
+        with ThreadPoolExecutor(max_workers=max_workers) as executor:
+            res = []
 
-        prod_perf = productivity_performance(
-            prod_params.get('perf_year_initial'),
-            prod_params.get('perf_year_final'),
-            prod_asset,
-            geojson,
-            logger
-        )
-        out.merge(prod_perf)
+            res.append(
+                executor.submit(
+                    productivity_trajectory,
+                    prod_params.get('traj_year_initial'),
+                    prod_params.get('traj_year_final'),
+                    prod_params.get('traj_method'),
+                    prod_asset,
+                    prod_params.get('climate_asset'),
+                    logger
+                )
+            )
 
-        prod_state = productivity_state(
-            prod_params.get('state_year_bl_start'),
-            prod_params.get('state_year_bl_end'),
-            prod_params.get('state_year_tg_start'),
-            prod_params.get('state_year_tg_end'),
-            prod_asset,
-            logger
-        )
-        out.merge(prod_state)
+            # TODO: pass performance a second geojson defining the entire
+            # extent of all input geojsons so that the performance is
+            # calculated the same over all input areas.
+            res.append(
+                executor.submit(
+                    productivity_performance,
+                    prod_params.get('perf_year_initial'),
+                    prod_params.get('perf_year_final'),
+                    prod_asset,
+                    geojson,
+                    logger
+                )
+            )
 
-        logger.debug("Running land cover indicator.")
-        lc = land_cover(
-            lc_params.get('year_initial'),
-            lc_params.get('year_final'),
-            LCTransitionDefinitionDeg.Schema().load(
-                lc_params.get('trans_matrix')
-            ),
-            LCLegendNesting.Schema().load(
-                lc_params.get('legend_nesting')
-            ),
-            logger
-        )
-        lc.selectBands(['Land cover (degradation)',
-                        'Land cover (7 class)'])
-        out.merge(lc)
+            res.append(
+                executor.submit(
+                    productivity_state,
+                    prod_params.get('state_year_bl_start'),
+                    prod_params.get('state_year_bl_end'),
+                    prod_params.get('state_year_tg_start'),
+                    prod_params.get('state_year_tg_end'),
+                    prod_asset,
+                    logger
+                )
+            )
 
-        logger.debug("Running soil organic carbon indicator.")
-        soc_out = soc(
-            soc_params.get('year_initial'),
-            soc_params.get('year_final'),
-            soc_params.get('fl'),
-            LCTransitionDefinitionDeg.Schema().load(
-                soc_params.get('trans_matrix')
-            ),
-            LCLegendNesting.Schema().load(
-                soc_params.get('legend_nesting')
-            ),
-            False,
-            logger
-        )
-        soc_out.selectBands(['Soil organic carbon (degradation)',
-                             'Soil organic carbon'])
-        out.merge(soc_out)
+            res.append(
+                executor.submit(
+                    _run_lc,
+                    params.get('land_cover'),
+                    logger
+                )
+            )
+
+            res.append(
+                executor.submit(
+                    _run_soc,
+                    params.get('soil_organic_carbon'),
+                    logger
+                )
+            )
+
+            out = None
+
+            for this_res in as_completed(res):
+                if out is None:
+                    out = this_res.result()
+                else:
+                    out.merge(this_res.result())
 
         logger.debug("Setting up layers to add to the map.")
         out.setAddToMap(['Soil organic carbon (degradation)',
@@ -147,9 +185,6 @@ def run_te_for_period(params, EXECUTION_ID, logger):
 
 def run_jrc_for_period(params, EXECUTION_ID, logger):
     '''Run indicators using JRC LPD for productivity'''
-    lc_params = params.get('land_cover')
-    soc_params = params.get('soil_organic_carbon')
-
     prod_asset = params.get('prod_asset')
     proj = ee.Image(prod_asset).projection()
     out = download(
@@ -163,39 +198,9 @@ def run_jrc_for_period(params, EXECUTION_ID, logger):
     # Save as int16 to be compatible with other data
     out.image = out.image.int16()
 
-    logger.debug("Running land cover indicator.")
-    lc = land_cover(
-        lc_params.get('year_initial'),
-        lc_params.get('year_final'),
-        LCTransitionDefinitionDeg.Schema().load(
-            lc_params.get('trans_matrix')
-        ),
-        LCLegendNesting.Schema().load(
-            lc_params.get('legend_nesting')
-        ),
-        logger
-    )
-    lc.selectBands(['Land cover (degradation)',
-                    'Land cover (7 class)'])
-    out.merge(lc)
+    out.merge(_run_lc(params.get('land_cover'), logger))
 
-    logger.debug("Running soil organic carbon indicator.")
-    soc_out = soc(
-        soc_params.get('year_initial'),
-        soc_params.get('year_final'),
-        soc_params.get('fl'),
-        LCTransitionDefinitionDeg.Schema().load(
-            soc_params.get('trans_matrix')
-        ),
-        LCLegendNesting.Schema().load(
-            soc_params.get('legend_nesting')
-        ),
-        False,
-        logger
-    )
-    soc_out.selectBands(['Soil organic carbon (degradation)',
-                         'Soil organic carbon'])
-    out.merge(soc_out)
+    out.merge(_run_soc(params.get('soil_organic_carbon'), logger))
 
     out.setAddToMap(['Soil organic carbon (degradation)',
                      'Land cover (degradation)',
@@ -213,13 +218,11 @@ def run_jrc_for_period(params, EXECUTION_ID, logger):
         proj
     )
 
-    return out
-
-def run_period(params, EXECUTION_ID, logger):
+def run_period(params, max_workers, EXECUTION_ID, logger):
     '''Run indicators for a given period, using JRC or Trends.Earth'''
 
     if params['productivity']['mode'] == 'Trends.Earth productivity':
-        out = run_te_for_period(params, EXECUTION_ID, logger)
+        out = run_te_for_period(params, max_workers, EXECUTION_ID, logger)
     elif params['productivity']['mode'] == 'JRC LPD':
         out = run_jrc_for_period(params, EXECUTION_ID, logger)
     else:
@@ -236,11 +239,6 @@ def run(params, logger):
     """."""
     logger.debug("Loading parameters.")
 
-    period_params = {'baseline': params.get('baseline')}
-
-    if 'progress' in params:
-        period_params['progress'] = params.get('progress')
-
     # Check the ENV. Are we running this locally or in prod?
 
     if params.get('ENV') == 'dev':
@@ -248,27 +246,8 @@ def run(params, logger):
     else:
         EXECUTION_ID = params.get('EXECUTION_ID', None)
 
-    with ThreadPoolExecutor(max_workers=2) as executor:
-        res = []
+    max_workers = 4
 
-        for period, values in period_params.items():
-            values.update(
-                {
-                    'geojsons': params.get('geojsons'),
-                    'crs': params.get('crs')
-                }
-            )
-            res.append(
-                executor.submit(
-                    run_period,
-                    values,
-                    EXECUTION_ID,
-                    logger
-                )
-            )
-        out = []
-
-        for this_res in as_completed(res):
-            out.append(this_res.result())
+    out = run_period(params, max_workers, EXECUTION_ID, logger)
 
     return out

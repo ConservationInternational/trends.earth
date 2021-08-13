@@ -703,8 +703,9 @@ def get_remote_jobs(end_date: typing.Optional[dt.datetime] = None) -> typing.Lis
                 if (job.results is not None and
                         job.results.type == models.JobResult.TIME_SERIES_TABLE):
                     log(
-                        f"Ignoring job {job.id!r} because it contains timeseries "
-                        f"results. Those are not currently implemented"
+                        f"Ignoring job {job.id!r} because it contains "
+                        "timeseries results. Support for timeseries results "
+                        "is not currently implemented"
                     )
                 else:
                     remote_jobs.append(job)

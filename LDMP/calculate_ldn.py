@@ -139,14 +139,14 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         else:
             prod_mode = 'JRC LPD'
 
-        payload = {'baseline': {
+        periods = {'baseline': {
             'period_year_start': self.year_initial_baseline.date().year(),
             'period_year_final': self.year_final_baseline.date().year(),
             }
         }
 
         if self.checkBox_progress_period.isChecked():
-            payload.update({
+            periods.update({
                 'progress': {
                     'period_year_start': self.year_initial_progress.date().year(),
                     'period_year_final': self.year_final_progress.date().year(),
@@ -155,11 +155,11 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
         crosses_180th, geojsons = self.gee_bounding_box
 
-        periods = payload.keys()
-
-        for period in periods:
-            year_start = payload[period]['period_year_start']
-            year_final = payload[period]['period_year_final']
+        payloads = []
+        for period, values in periods.items():
+            payload = {}
+            year_start = values['period_year_start']
+            year_final = values['period_year_final']
 
             if (year_final - year_start) < 10:
                 QtWidgets.QMessageBox.warning(
@@ -181,7 +181,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             prod_state_year_bl_end = year_final - 3
             prod_state_year_tg_start = prod_state_year_bl_end + 1
             prod_state_year_tg_end = prod_state_year_bl_end + 3
-            assert (prod_state_year_tg_end == year_final)
+            assert prod_state_year_tg_end == year_final
 
             if prod_mode == 'Trends.Earth productivity':
                 prod_asset = conf.REMOTE_DATASETS["NDVI"]["MODIS (MOD13Q1, annual)"]["GEE Dataset"]
@@ -191,7 +191,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                 else:
                     prod_asset = conf.REMOTE_DATASETS["Land productivity"]["Land Productivity Dynamics (LPD), 2021 update"]["GEE Dataset"]
 
-            payload[period]['productivity'] = {
+            payload['productivity'] = {
                 'mode': prod_mode,
                 'prod_asset': prod_asset,
                 'traj_method': 'ndvi_trend',
@@ -205,7 +205,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                 'state_year_tg_end': prod_state_year_tg_end,
                 'climate_asset': None,
             }
-            payload[period]['land_cover'] = {
+            payload['land_cover'] = {
                 'year_initial': year_start,
                 'year_final': year_final,
                 'legend_nesting': LCLegendNesting.Schema().dump(
@@ -215,7 +215,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                     self.lc_define_deg_widget.trans_matrix
                 ),
             }
-            payload[period]['soil_organic_carbon'] = {
+            payload['soil_organic_carbon'] = {
                 'year_initial': year_start,
                 'year_final': year_final,
                 'fl': .80,
@@ -227,30 +227,38 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                 ), # TODO: Use SOC matrix for the above once defined
             }
 
-        payload.update({
-            'geojsons': geojsons,
-            'crs': self.aoi.get_crs_dst_wkt(),
-            'crosses_180th': crosses_180th,
-            'task_name': self.execution_name_le.text(),
-            'task_notes': self.task_notes.toPlainText()
-        })
+            task_name = self.execution_name_le.text()
+            if period == 'progress':
+                task_name = f'{task_name} - progress'
+
+            payload.update({
+                'geojsons': geojsons,
+                'crs': self.aoi.get_crs_dst_wkt(),
+                'crosses_180th': crosses_180th,
+                'task_name': task_name,
+                'task_notes': self.task_notes.toPlainText(),
+                'period': period
+            })
+
+            payloads.append(payload)
 
         self.close()
 
-        resp = job_manager.submit_remote_job(payload, self.script.id)
+        for payload in payloads:
+            resp = job_manager.submit_remote_job(payload, self.script.id)
 
-        if resp:
-            main_msg = "Submitted"
-            description = "SDG sub-indicator task submitted to Google Earth Engine."
-        else:
-            main_msg = "Error"
-            description = "Unable to submit SDG sub-indicator task to Google Earth Engine."
-        self.mb.pushMessage(
-            self.tr(main_msg),
-            self.tr(description),
-            level=0,
-            duration=5
-        )
+            if resp:
+                main_msg = "Submitted"
+                description = "SDG sub-indicator task submitted to Google Earth Engine."
+            else:
+                main_msg = "Error"
+                description = "Unable to submit SDG sub-indicator task to Google Earth Engine."
+            self.mb.pushMessage(
+                self.tr(main_msg),
+                self.tr(description),
+                level=0,
+                duration=5
+            )
 
 class DlgCalculateLDNSummaryTableAdmin(
     DlgCalculateBase,

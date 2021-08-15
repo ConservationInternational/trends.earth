@@ -235,6 +235,19 @@ def run_period(params, max_workers, EXECUTION_ID, logger):
     return out
 
 
+def _gen_metadata_str(params):
+    metadata = {
+        'metadata': {
+            'one liner': f'{params["script"]["name"]} ({params["period"]["name"]}, {params["period"]["year_start"]}-{params["period"]["year_end"]})',
+            'full': f'{params["script"]["name"]}\n'
+                    f'Period: {params["period"]["name"]} ({params["period"]["year_start"]}-{params["period"]["year_end"]})'
+                    f'Productivity {params["producitivity"]["mode"]}:\n'
+                    f'\tTrajectory ({params["productivity"]["traj_year_initial"]} {params["productivity"]["traj_year_final"]}'
+        }
+    }
+    return metadata
+
+
 def run(params, logger):
     """."""
     logger.debug("Loading parameters.")
@@ -247,6 +260,9 @@ def run(params, logger):
         EXECUTION_ID = params.get('EXECUTION_ID', None)
 
     max_workers = 4
+
+    # Add metadata strings into parameters
+    params.update(_gen_metadata_str(params))
 
     out = run_period(params, max_workers, EXECUTION_ID, logger)
 

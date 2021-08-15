@@ -780,7 +780,7 @@ _ALGORITHM_CONFIG = [
                 ),
                 "scripts": [
                     {
-                        "script": KNOWN_SCRIPTS["final-sdg-15-3-1"],
+                        "script": KNOWN_SCRIPTS["sdg-15-3-1-summary"],
                         "parametrization_dialogue": "LDMP.calculate_ldn.DlgCalculateLDNSummaryTableAdmin",
                     }
                 ],

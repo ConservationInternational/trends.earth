@@ -32,6 +32,7 @@ class ScriptStatus(enum.Enum):
 
 
 class JobStatus(enum.Enum):
+    READY = "READY"
     PENDING = "PENDING"
     FINISHED = "FINISHED"
     RUNNING = "RUNNING"

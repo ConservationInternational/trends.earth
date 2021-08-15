@@ -224,7 +224,8 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         local_frequency = settings_manager.get_value(Setting.LOCAL_POLLING_FREQUENCY)
 
         if self.refreshing_filesystem_cache:
-            log("Filesystem cache is already being refreshed, skipping...")
+            #log("Filesystem cache is already being refreshed, skipping...")
+            pass
         elif self.scheduler_paused:
             #log("Scheduling is paused, skipping...")
             pass

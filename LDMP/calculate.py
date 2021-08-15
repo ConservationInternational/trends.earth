@@ -82,12 +82,6 @@ class tr_calculate(object):
         return QtCore.QCoreApplication.translate("tr_calculate", message)
 
 
-def get_script_slug(script_name):
-    # dots and underscores can't be used in the slugs, so they are replaced 
-    # with dashes
-    return (script_name, script_name + '-' + scripts[script_name]['script version'].replace('.', '-'))
-
-
 def get_local_script_metadata(script_name) -> Optional[dict]:
     """Get a specific value from local_script dictionary.
     """

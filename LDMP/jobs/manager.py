@@ -99,7 +99,7 @@ class JobManager(QtCore.QObject):
         if task_name != "":
             name_fragments.append(task_name)
         name_fragments.extend([
-            job.script.slug,
+            job.script.name,
             job.params.task_notes.local_context.area_of_interest_name,
             job.start_date.strftime("%Y%m%d%H%M"),
             str(job.id)
@@ -192,7 +192,13 @@ class JobManager(QtCore.QObject):
         """
 
         if job.status != models.JobStatus.DELETED:
-            _delete_job_datasets(job)
+            try:
+                _delete_job_datasets(job)
+            except PermissionError:
+                log(f"Permissions error on path skipping deletion of {job.id}...")
+                # TODO: add back in old code used for removing visible layers 
+                # prior to deletion
+                return
             self._change_job_status(job, models.JobStatus.DELETED, force_rewrite=False)
         else:
             log(f"job {job!r} has already been deleted, skipping...")
@@ -202,7 +208,6 @@ class JobManager(QtCore.QObject):
             self,
             params: typing.Dict,
             script_id: uuid.UUID,
-            # script_slug: str,
     ) -> typing.Optional[Job]:
         """Submit a job for remote execution
 
@@ -217,8 +222,6 @@ class JobManager(QtCore.QObject):
         final_params = params.copy()
         final_params["task_notes"] = _add_local_context_to_task_notes(
             params["task_notes"])
-        # url_fragment = urllib.parse.quote_plus(f"/api/v1/script/{script_slug}/run")
-        # url_fragment = urllib.parse.quote_plus(f"/api/v1/script/{script_id}/run")
         url_fragment = f"/api/v1/script/{script_id}/run"
         response = api.call_api(url_fragment, "post", final_params, use_token=True)
         try:

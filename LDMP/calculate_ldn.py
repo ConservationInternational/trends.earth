@@ -237,7 +237,12 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                 'crosses_180th': crosses_180th,
                 'task_name': task_name,
                 'task_notes': self.task_notes.toPlainText(),
-                'period': period
+                'script': models.ExecutionScript.Schema().dump(self.script),
+                'period': {
+                    'name': period,
+                    'year_start': year_start,
+                    'year_final': year_final
+                }
             })
 
             payloads.append(payload)
@@ -264,7 +269,7 @@ class DlgCalculateLDNSummaryTableAdmin(
     DlgCalculateBase,
     DlgCalculateLdnSummaryTableAdminUi
 ):
-    LOCAL_SCRIPT_NAME: str = "final-sdg-15-3-1"
+    LOCAL_SCRIPT_NAME: str = "sdg-15-3-1-summary"
 
     button_calculate: QtWidgets.QPushButton
     combo_boxes: typing.Dict[str, ldn.SummaryTableWidgets] = {}

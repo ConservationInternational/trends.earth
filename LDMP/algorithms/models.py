@@ -1,8 +1,17 @@
-import dataclasses
+from dataclasses import (
+    field,
+    dataclass
+)
 import enum
 import functools
 import typing
 import uuid
+
+import marshmallow_dataclass
+from marshmallow_enum import EnumField
+
+from te_schemas import SchemaBase
+
 
 
 class AlgorithmNodeType(enum.Enum):
@@ -18,18 +27,15 @@ class AlgorithmRunMode(enum.Enum):
     BOTH = "both"
 
 
-@dataclasses.dataclass()
-class ExecutionScript:
+@marshmallow_dataclass.dataclass
+class ExecutionScript(SchemaBase):
     name: str
-    run_mode: AlgorithmRunMode
-    id: typing.Optional[uuid.UUID] = None
-    version: typing.Optional[str] = ""
-    description: typing.Optional[str] = ""
-    additional_configuration: typing.Optional[typing.Dict] = None
-
-    @property
-    def slug(self) -> str:
-        return self.name.replace(" ", "-").lower()
+    run_mode: str = EnumField(AlgorithmRunMode)
+    id: typing.Optional[uuid.UUID] = field(default=None)
+    version: typing.Optional[str] = field(default="")
+    description: typing.Optional[str] = field(default="")
+    name_readable: typing.Optional[str] = field(default="")
+    additional_configuration: typing.Optional[dict] = field(default_factory=dict)
 
     @classmethod
     def deserialize(cls, name: str, raw_script: typing.Dict):
@@ -37,13 +43,15 @@ class ExecutionScript:
         raw_id = raw.pop("id", None)
         version = raw.pop("version", "")
         description = raw.pop("description", "")
+        name_readable = raw.pop("name_readable", "")
         run_mode = AlgorithmRunMode(raw.pop("run_mode"))
         return cls(
             name=name,
             id=uuid.UUID(raw_id) if raw_id is not None else None,
-            version=version,
             run_mode=run_mode,
+            version=version,
             description=description,
+            name_readable=name_readable,
             additional_configuration=raw
         )
 
@@ -51,13 +59,15 @@ class ExecutionScript:
     def deserialize_from_remote_response(cls, raw_remote_script: typing.Dict):
         return cls(
             name=raw_remote_script["name"],
-            run_mode=AlgorithmRunMode.REMOTE,
             id=uuid.UUID(raw_remote_script["id"]),
+            run_mode=AlgorithmRunMode.REMOTE,
             description=raw_remote_script["description"],
+            name_readable=raw_remote_script["name_readable"],
         )
 
 
-@dataclasses.dataclass()
+
+@dataclass()
 class AlgorithmScript:
     script: ExecutionScript
     parametrization_dialogue: str

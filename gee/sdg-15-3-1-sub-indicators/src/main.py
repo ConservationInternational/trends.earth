@@ -237,11 +237,11 @@ def run_period(params, max_workers, EXECUTION_ID, logger):
 
 def _gen_metadata_str(params):
     metadata = {
-        'metadata': {
-            'one liner': f'{params["script"]["name"]} ({params["period"]["name"]}, {params["period"]["year_start"]}-{params["period"]["year_end"]})',
+        'visible_metadata': {
+            'one liner': f'{params["script"]["name"]} ({params["period"]["name"]}, {params["period"]["year_start"]}-{params["period"]["year_final"]})',
             'full': f'{params["script"]["name"]}\n'
-                    f'Period: {params["period"]["name"]} ({params["period"]["year_start"]}-{params["period"]["year_end"]})'
-                    f'Productivity {params["producitivity"]["mode"]}:\n'
+                    f'Period: {params["period"]["name"]} ({params["period"]["year_start"]}-{params["period"]["year_final"]})'
+                    f'Productivity {params["productivity"]["mode"]}:\n'
                     f'\tTrajectory ({params["productivity"]["traj_year_initial"]} {params["productivity"]["traj_year_final"]}'
         }
     }

@@ -410,7 +410,10 @@ class JobManager(QtCore.QObject):
             if tile_path is not None:
                 vrt_tiles.append(tile_path)
         vrt_file_path = base_output_path.parent / f"{base_output_path.name}.vrt"
-        gdal.BuildVRT(str(vrt_file_path), vrt_tiles)
+        log(f'vrt_file_path: {vrt_file_path}')
+        log(f'vrt_tiles: {[str(vrt_tile) for vrt_tile in vrt_tiles]}')
+        
+        gdal.BuildVRT(str(vrt_file_path), [str(vrt_tile) for vrt_tile in vrt_tiles])
         return vrt_file_path
 
     def _download_timeseries_table(self, job: Job) -> typing.Optional[Path]:
@@ -614,8 +617,6 @@ def _get_user_id() -> uuid:
     if get_user_reply:
         user_id = get_user_reply.get("id", None)
         return uuid.UUID(user_id)
-    else:
-        return None
 
 
 def _get_single_cloud_result(
@@ -665,54 +666,57 @@ def _delete_job_datasets(job: Job):
 def get_remote_jobs(end_date: typing.Optional[dt.datetime] = None) -> typing.List[Job]:
     """Get a list of remote jobs, as returned by the server"""
     # Note - this is a reimplementation of api.get_execution
-    user_id = _get_user_id()
-    if not user_id:
-        raise TypeError
-    query = {
-        "include": "script",
-        "user_id": str(user_id),
-    }
-    if end_date is not None:
-        # NOTE: Even though the API query param is called `updated_at`, inspecting the
-        # source code at:
-        #
-        # https://github.com/ConservationInternational/trends.earth-API/blob/
-        # 2421eb0a5d44151d1b17c0c0841b72b55359b258/gefapi/services/
-        # execution_service.py#L45
-        #
-        # we can verify that the server is actually checking for job's end_date
-        query["updated_at"] = end_date.strftime("%Y-%m-%d")
-    log('Retrieving executions...')
-    response = api.call_api(
-        f"/api/v1/execution?{urllib.parse.urlencode(query)}",
-        method="get",
-        use_token=True
-    )
     try:
-        raw_jobs = response["data"]
+        user_id = _get_user_id()
     except TypeError:
-        log("Invalid response format")
+        log("Unable to load user id")
         remote_jobs = []
     else:
-        remote_jobs = []
-        log(f'Processing {len(raw_jobs)} raw jobs...')
-        for raw_job in raw_jobs:
-            try:
-                job = Job.deserialize(raw_job)
-                has_results = job.results is not None
-                if (job.results is not None and
-                        job.results.type == models.JobResult.TIME_SERIES_TABLE):
-                    log(
-                        f"Ignoring job {job.id!r} because it contains "
-                        "timeseries results. Support for timeseries results "
-                        "is not currently implemented"
-                    )
-                else:
-                    remote_jobs.append(job)
-            except RuntimeError as exc:
-                log(str(exc))
-            except TypeError as exc:
-                log(f"Could not retrieve remote job {raw_job['id']}: {str(exc)}")
+        query = {
+            "include": "script",
+            "user_id": str(user_id),
+        }
+        if end_date is not None:
+            # NOTE: Even though the API query param is called `updated_at`, inspecting the
+            # source code at:
+            #
+            # https://github.com/ConservationInternational/trends.earth-API/blob/
+            # 2421eb0a5d44151d1b17c0c0841b72b55359b258/gefapi/services/
+            # execution_service.py#L45
+            #
+            # we can verify that the server is actually checking for job's end_date
+            query["updated_at"] = end_date.strftime("%Y-%m-%d")
+        log('Retrieving executions...')
+        response = api.call_api(
+            f"/api/v1/execution?{urllib.parse.urlencode(query)}",
+            method="get",
+            use_token=True
+        )
+        try:
+            raw_jobs = response["data"]
+        except TypeError:
+            log("Invalid response format")
+            remote_jobs = []
+        else:
+            remote_jobs = []
+            log(f'Processing {len(raw_jobs)} raw jobs...')
+            for raw_job in raw_jobs:
+                try:
+                    job = Job.deserialize(raw_job)
+                    has_results = job.results is not None
+                    if (job.results is not None and
+                            job.results.type == models.JobResult.TIME_SERIES_TABLE):
+                        log(
+                            f"Ignoring job {job.id!r} because it contains "
+                            "timeseries results. Support for timeseries results "
+                            "is not currently implemented"
+                        )
+                    else:
+                        remote_jobs.append(job)
+                except RuntimeError as exc:
+                    log(str(exc))
+                except TypeError as exc:
+                    log(f"Could not retrieve remote job {raw_job['id']}: {str(exc)}")
     return remote_jobs
 
 

@@ -147,7 +147,7 @@ style_text_dict = {
     'lpd_imp': tr_layers.tr(u'Increasing'),
 
     # SDG 15.3.1 indicator layer
-    'combined_sdg_title': tr_layers.tr(u'SDG 15.3.1 Indicator (Trends.Earth)'),
+    'combined_sdg_title': tr_layers.tr(u'SDG 15.3.1 Indicator (Trends.Earth) {year_start}-{year_final}'),
     'combined_sdg_deg_deg': tr_layers.tr(u'Degradation'),
     'combined_sdg_deg_stable': tr_layers.tr(u'Stable'),
     'combined_sdg_deg_imp': tr_layers.tr(u'Improvement'),

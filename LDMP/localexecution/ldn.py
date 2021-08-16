@@ -231,8 +231,8 @@ def compute_ldn(
 
     job_output_path, _ = utils.get_local_job_output_paths(ldn_job)
 
+    summary_tables = {}
     summary_table_stable_kwargs = {}
-
     for period, period_params in ldn_job.params.params.items():
         lc_files = _prepare_land_cover_file_paths(period_params)
         lc_band_nums = np.arange(len(lc_files)) + 1
@@ -293,6 +293,8 @@ def compute_ldn(
         else:
             raise RuntimeError(f"Invalid prod_mode: {prod_mode!r}")
 
+        summary_tables[period] = summary_table
+
         ldn_job.results.bands.append(
             models.JobBand(
                 name="SDG 15.3.1 Indicator",
@@ -321,7 +323,7 @@ def compute_ldn(
     summary_json_output_path = job_output_path.parent / f"{job_output_path.stem}_reporting.json"
     save_reporting_json(
         summary_json_output_path,
-        summary_table,
+        summary_tables,
         ldn_job.params.params,
         ldn_job.params.task_name,
         area_of_interest,
@@ -475,7 +477,7 @@ def save_summary_table(
 
 def save_reporting_json(
         output_path: Path,
-        summary_table: SummaryTable,
+        summary_tables: typing.List[SummaryTable],
         params: dict,
         task_name: str,
         aoi: areaofinterest.AOI,
@@ -490,28 +492,28 @@ def save_reporting_json(
         lc_trans_matrix = summary_table_kwargs[period]['lc_trans_matrix']
 
         sdg_tbl_overall = reporting.AreaList('SDG Indicator 15.3.1', 'sq km',
-                [reporting.Area('Improved', summary_table.sdg_tbl_overall[0, 0]),
-                 reporting.Area('Stable', summary_table.sdg_tbl_overall[0, 1]),
-                 reporting.Area('Degraded', summary_table.sdg_tbl_overall[0, 2]),
-                 reporting.Area('No data', summary_table.sdg_tbl_overall[0, 3])])
+                [reporting.Area('Improved', summary_tables[period].sdg_tbl_overall[0, 0]),
+                 reporting.Area('Stable', summary_tables[period].sdg_tbl_overall[0, 1]),
+                 reporting.Area('Degraded', summary_tables[period].sdg_tbl_overall[0, 2]),
+                 reporting.Area('No data', summary_tables[period].sdg_tbl_overall[0, 3])])
 
         sdg_tbl_prod = reporting.AreaList('Productivity', 'sq km',
-                [reporting.Area('Improved', summary_table.sdg_tbl_prod[0, 0]),
-                 reporting.Area('Stable', summary_table.sdg_tbl_prod[0, 1]),
-                 reporting.Area('Degraded', summary_table.sdg_tbl_prod[0, 2]),
-                 reporting.Area('No data', summary_table.sdg_tbl_prod[0, 3])])
+                [reporting.Area('Improved', summary_tables[period].sdg_tbl_prod[0, 0]),
+                 reporting.Area('Stable', summary_tables[period].sdg_tbl_prod[0, 1]),
+                 reporting.Area('Degraded', summary_tables[period].sdg_tbl_prod[0, 2]),
+                 reporting.Area('No data', summary_tables[period].sdg_tbl_prod[0, 3])])
 
         sdg_tbl_soc = reporting.AreaList('Soil organic carbon', 'sq km',
-                [reporting.Area('Improved', summary_table.sdg_tbl_soc[0, 0]),
-                 reporting.Area('Stable', summary_table.sdg_tbl_soc[0, 1]),
-                 reporting.Area('Degraded', summary_table.sdg_tbl_soc[0, 2]),
-                 reporting.Area('No data', summary_table.sdg_tbl_soc[0, 3])])
+                [reporting.Area('Improved', summary_tables[period].sdg_tbl_soc[0, 0]),
+                 reporting.Area('Stable', summary_tables[period].sdg_tbl_soc[0, 1]),
+                 reporting.Area('Degraded', summary_tables[period].sdg_tbl_soc[0, 2]),
+                 reporting.Area('No data', summary_tables[period].sdg_tbl_soc[0, 3])])
 
         sdg_tbl_lc = reporting.AreaList('Land cover', 'sq km',
-                [reporting.Area('Improved', summary_table.sdg_tbl_lc[0, 0]),
-                 reporting.Area('Stable', summary_table.sdg_tbl_lc[0, 1]),
-                 reporting.Area('Degraded', summary_table.sdg_tbl_lc[0, 2]),
-                 reporting.Area('No data', summary_table.sdg_tbl_lc[0, 3])])
+                [reporting.Area('Improved', summary_tables[period].sdg_tbl_lc[0, 0]),
+                 reporting.Area('Stable', summary_tables[period].sdg_tbl_lc[0, 1]),
+                 reporting.Area('Degraded', summary_tables[period].sdg_tbl_lc[0, 2]),
+                 reporting.Area('No data', summary_tables[period].sdg_tbl_lc[0, 3])])
 
 
         #######################################################################
@@ -546,7 +548,7 @@ def save_reporting_json(
                             classes[i],
                             classes[j],
                             value=_get_prod_table(
-                                summary_table.trans_prod_xtab, code)[i, j]
+                                summary_tables[period].trans_prod_xtab, code)[i, j]
                         ) for i in range(len(classes)) for j in range(len(classes))
                     ]
                 )
@@ -559,7 +561,7 @@ def save_reporting_json(
 
         ###
         # LC transition cross tab
-        lc_table = _get_lc_table(summary_table.trans_prod_xtab)
+        lc_table = _get_lc_table(summary_tables[period].trans_prod_xtab)
         lc_by_transition_type = []
         for i in range(0, len(classes) - 1):
             for f in range(0, len(classes) - 1):
@@ -592,7 +594,7 @@ def save_reporting_json(
         for i in range(len(land_cover_years)):
             year = int(land_cover_years[i])
             lc_by_year[year] = {
-                classes[j]: summary_table.lc_totals[i][j] for j in range(len(classes))
+                classes[j]: summary_tables[period].lc_totals[i][j] for j in range(len(classes))
             }
         lc_by_year_by_class = reporting.ValuesByYearDict(
             name='Area by year by land cover class',
@@ -611,8 +613,8 @@ def save_reporting_json(
         # for i in range(1, len(classes) - 1):
         #     for f in range(1, len(classes) - 1):
         #         transition = int('{}{}'.format(i, f))
-        #         bl_soc = _get_soc_total(summary_table.soc_totals[0], transition)
-        #         tg_soc = _get_soc_total(summary_table.soc_totals[-1], transition)
+        #         bl_soc = _get_soc_total(summary_tables[period].soc_totals[0], transition)
+        #         tg_soc = _get_soc_total(summary_tables[period].soc_totals[-1], transition)
         #         try:
         #             fraction = (tg_soc - bl_soc) / bl_soc
         #         except ZeroDivisionError:
@@ -643,7 +645,7 @@ def save_reporting_json(
                     reporting.CrossTabEntryInitialFinal(
                         initial_label=classes[i],
                         final_label=classes[f],
-                        initial_value=_get_soc_total(summary_table.soc_totals[0], transition),
+                        initial_value=_get_soc_total(summary_tables[period].soc_totals[0], transition),
                         final_value=_get_soc_total(summary_table.soc_totals[-1], transition)
                     )
                 )
@@ -663,9 +665,8 @@ def save_reporting_json(
             year = int(soil_organic_carbon_years[i])
             soc_by_year[year] = {
                 classes[j]:_get_soc_total_by_class(
-                    summary_table.
-                    trans_prod_xtab,
-                    summary_table.soc_totals[i], classes=class_codes).transpose()[0][j] for j in range(len(classes))
+                    summary_tables[period].trans_prod_xtab,
+                    summary_tables[period].soc_totals[i], classes=class_codes).transpose()[0][j] for j in range(len(classes))
             }
         soc_by_year_by_class = reporting.ValuesByYearDict(
             name='Soil organic carbon by year by land cover class',

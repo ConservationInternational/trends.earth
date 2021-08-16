@@ -1300,7 +1300,8 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
 
     def get_data_file(self) -> Path:
         current_index = self.comboBox_layers.currentIndex()
-        current_usable_band_info = self.layer_list[current_index]
+        # Minus 1 below to account for blank line at beginning
+        current_usable_band_info = self.layer_list[current_index - 1]
         return current_usable_band_info.path
 
     def get_layer(self) -> qgis.core.QgsRasterLayer:
@@ -1308,7 +1309,8 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
             str(self.get_data_file()), "raster file", "gdal")
 
     def get_usable_band_info(self) -> UsableBandInfo:
-        return self.layer_list[self.comboBox_layers.currentIndex()]
+        # Minus 1 below to account for blank line at beginning
+        return self.layer_list[self.comboBox_layers.currentIndex() - 1]
 
     def get_band_info(self):
         usable_band_info = self.get_usable_band_info()

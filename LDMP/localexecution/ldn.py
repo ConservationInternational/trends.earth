@@ -231,6 +231,7 @@ def compute_ldn(
 
     job_output_path, _ = utils.get_local_job_output_paths(ldn_job)
 
+    ldn_job.results.local_paths = []
     summary_tables = {}
     summary_table_stable_kwargs = {}
     for period, period_params in ldn_job.params.params.items():
@@ -307,7 +308,7 @@ def compute_ldn(
             )
         )
 
-        summary_table_output_path = sub_job_output_path.parent / f"{sub_job_output_path.stem}.xlsx"
+        summary_table_output_path = sub_job_output_path.parent / f"{job_output_path.stem}.xlsx"
         save_summary_table(
             summary_table_output_path,
             summary_table,
@@ -315,10 +316,10 @@ def compute_ldn(
             period_params["layer_soc_years"],
         )
 
-        ldn_job.results.local_paths = [
+        ldn_job.results.local_paths.append([
             output_ldn_path,
             summary_table_output_path
-        ]
+        ])
 
     summary_json_output_path = job_output_path.parent / f"{job_output_path.stem}_reporting.json"
     save_reporting_json(
@@ -329,6 +330,7 @@ def compute_ldn(
         area_of_interest,
         summary_table_stable_kwargs
     )
+    ldn_job.results.local_paths.append([summary_json_output_path])
     ldn_job.end_date = dt.datetime.now(dt.timezone.utc)
     ldn_job.progress = 100
 
@@ -651,7 +653,7 @@ def save_reporting_json(
                 )
         crosstab_soc_by_transition_per_ha = reporting.CrossTab(
             name='Initial and final carbon stock by transition type',
-            unit='tons',
+            unit='tons / ha',
             initial_year=soil_organic_carbon_years[0],
             final_year=soil_organic_carbon_years[-1],
             values=soc_by_transition

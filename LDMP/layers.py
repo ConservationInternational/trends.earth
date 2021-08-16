@@ -131,7 +131,7 @@ style_text_dict = {
     'soc_deg_imp': tr_layers.tr(u'Improvement'),
 
     # Trends.Earth land productivity
-    'sdg_prod_combined_title': tr_layers.tr(u'Land productivity (Trends.Earth)'),
+    'sdg_prod_combined_title': tr_layers.tr(u'Land productivity (Trends.Earth, {year_start}-{year_final})'),
     'sdg_prod_combined_declining': tr_layers.tr(u'Declining'),
     'sdg_prod_combined_earlysigns': tr_layers.tr(u'Early signs of decline'),
     'sdg_prod_combined_stabbutstress': tr_layers.tr(u'Stable but stressed'),
@@ -139,7 +139,7 @@ style_text_dict = {
     'sdg_prod_combined_imp': tr_layers.tr(u'Increasing'),
 
     # LPD
-    'lpd_title': tr_layers.tr(u'Land productivity dynamics (LPD)'),
+    'lpd_title': tr_layers.tr(u'Land productivity dynamics (LPD, {year_start}-{year_final})'),
     'lpd_declining': tr_layers.tr(u'Declining'),
     'lpd_earlysigns': tr_layers.tr(u'Moderate decline'),
     'lpd_stabbutstress': tr_layers.tr(u'Stressed'),
@@ -147,7 +147,7 @@ style_text_dict = {
     'lpd_imp': tr_layers.tr(u'Increasing'),
 
     # SDG 15.3.1 indicator layer
-    'combined_sdg_title': tr_layers.tr(u'SDG 15.3.1 Indicator (Trends.Earth) {year_start}-{year_final}'),
+    'combined_sdg_title': tr_layers.tr(u'SDG 15.3.1 Indicator (Trends.Earth, {year_start}-{year_final})'),
     'combined_sdg_deg_deg': tr_layers.tr(u'Degradation'),
     'combined_sdg_deg_stable': tr_layers.tr(u'Stable'),
     'combined_sdg_deg_imp': tr_layers.tr(u'Improvement'),

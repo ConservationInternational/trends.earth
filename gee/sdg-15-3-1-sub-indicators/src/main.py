@@ -153,8 +153,7 @@ def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
                          'Land cover (degradation)',
                          'Productivity trajectory (significance)',
                          'Productivity state (degradation)',
-                         'Productivity performance (degradation)',
-                         'Land Productivity Dynamics (LPD)'])
+                         'Productivity performance (degradation)'])
 
         outs.append(
             out.export(
@@ -204,9 +203,6 @@ def run_jrc_for_period(params, EXECUTION_ID, logger):
 
     out.setAddToMap(['Soil organic carbon (degradation)',
                      'Land cover (degradation)',
-                     'Productivity trajectory (significance)',
-                     'Productivity state (degradation)',
-                     'Productivity performance (degradation)',
                      'Land Productivity Dynamics (LPD)'])
 
     return out.export(

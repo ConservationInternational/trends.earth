@@ -265,6 +265,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                 duration=5
             )
 
+
 class DlgCalculateLDNSummaryTableAdmin(
     DlgCalculateBase,
     DlgCalculateLdnSummaryTableAdminUi
@@ -324,25 +325,10 @@ class DlgCalculateLDNSummaryTableAdmin(
             self.groupBox_progress_period.setVisible(False)
             self.advanced_configuration_progress.setVisible(False)
 
-    def btn_calculate(self):
-        # Note that the super class has several tests in it - if they fail it
-        # returns False, which would mean this function should stop execution
-        # as well.
-        ret = super().btn_calculate()
-
-        if not ret:
-            return
-
-        if self.radio_te_prod.isChecked():
-            prod_mode = 'Trends.Earth productivity'
-        else:
-            prod_mode = 'JRC LPD'
-
-        ######################################################################
-        # Check that all needed input layers are selected
-
+    def validate_layer_selections(self, combo_boxes, prod_mode):
+        '''validate all needed layers are selected'''
         if prod_mode == 'Trends.Earth productivity':
-            if len(self.combo_layer_traj.layer_list) == 0:
+            if len(combo_boxes.combo_layer_traj.layer_list) == 0:
                 QtWidgets.QMessageBox.critical(
                     None,
                     self.tr("Error"),
@@ -352,9 +338,9 @@ class DlgCalculateLDNSummaryTableAdmin(
                     )
                 )
 
-                return
+                return False
 
-            if len(self.combo_layer_state.layer_list) == 0:
+            if len(combo_boxes.combo_layer_state.layer_list) == 0:
                 QtWidgets.QMessageBox.critical(
                     None,
                     self.tr("Error"),
@@ -364,9 +350,9 @@ class DlgCalculateLDNSummaryTableAdmin(
                     )
                 )
 
-                return
+                return False
 
-            if len(self.combo_layer_perf.layer_list) == 0:
+            if len(combo_boxes.combo_layer_perf.layer_list) == 0:
                 QtWidgets.QMessageBox.critical(
                     None,
                     self.tr("Error"),
@@ -376,10 +362,10 @@ class DlgCalculateLDNSummaryTableAdmin(
                     )
                 )
 
-                return
+                return False
 
         else:
-            if len(self.combo_layer_lpd.layer_list) == 0:
+            if len(combo_boxes.combo_layer_lpd.layer_list) == 0:
                 QtWidgets.QMessageBox.critical(
                     None,
                     self.tr("Error"),
@@ -389,9 +375,9 @@ class DlgCalculateLDNSummaryTableAdmin(
                     )
                 )
 
-                return
+                return False
 
-        if len(self.combo_layer_lc.layer_list) == 0:
+        if len(combo_boxes.combo_layer_lc.layer_list) == 0:
             QtWidgets.QMessageBox.critical(
                 None,
                 self.tr("Error"),
@@ -401,9 +387,9 @@ class DlgCalculateLDNSummaryTableAdmin(
                 )
             )
 
-            return
+            return False
 
-        if len(self.combo_layer_soc.layer_list) == 0:
+        if len(combo_boxes.combo_layer_soc.layer_list) == 0:
             QtWidgets.QMessageBox.critical(
                 None,
                 self.tr("Error"),
@@ -413,17 +399,19 @@ class DlgCalculateLDNSummaryTableAdmin(
                 )
             )
 
-            return
+            return False
 
-        #######################################################################
-        # Check that the layers cover the full extent needed
+        return True
+
+    def validate_layer_extents(self, combo_boxes, prod_mode):
+        '''Check that the layers cover the full extent of the AOI'''
 
         if prod_mode == 'Trends.Earth productivity':
-            trajectory_layer_extent = self.combo_layer_traj.get_layer().extent()
-            extent_geom = QgsGeometry.fromRect(trajectory_layer_extent)
-            overlaps_by = self.aoi.calc_frac_overlap(extent_geom)
-
-            if overlaps_by < 0.99:
+            if self.aoi.calc_frac_overlap(
+                QgsGeometry.fromRect(
+                    combo_boxes.combo_layer_traj.get_layer().extent()
+                )
+            ) < 0.99:
                 QtWidgets.QMessageBox.critical(
                     None,
                     self.tr("Error"),
@@ -432,30 +420,46 @@ class DlgCalculateLDNSummaryTableAdmin(
                     )
                 )
 
-                return
+                return False
 
-            if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_perf.get_layer().extent())) < .99:
+            log(f'aoi extent: {self.aoi.get_layer_wgs84().extent().toString()}')
+            log(f'traj extent: {combo_boxes.combo_layer_traj.get_layer().extent().toString()}')
+            log(f'perf extent: {combo_boxes.combo_layer_perf.get_layer().extent().toString()}')
+
+            if self.aoi.calc_frac_overlap(
+                QgsGeometry.fromRect(
+                    combo_boxes.combo_layer_perf.get_layer().extent()
+                )
+            ) < .99:
                 QtWidgets.QMessageBox.critical(
                     None,
-                    self.tr("Error"),
+                    self.tr("error"),
                     self.tr(
-                        "Area of interest is not entirely within the "
+                        "area of interest is not entirely within the "
                         "performance layer."
                     )
                 )
 
-                return
+                return False
 
-            if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_state.get_layer().extent())) < .99:
+            if self.aoi.calc_frac_overlap(
+                QgsGeometry.fromRect(
+                    combo_boxes.combo_layer_state.get_layer().extent()
+                )
+            ) < .99:
                 QtWidgets.QMessageBox.critical(
                     None,
                     self.tr("Error"),
                     self.tr("Area of interest is not entirely within the state layer.")
                 )
 
-                return
+                return False
         else:
-            if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_lpd.get_layer().extent())) < .99:
+            if self.aoi.calc_frac_overlap(
+                 QgsGeometry.fromRect(
+                    combo_boxes.combo_layer_lpd.get_layer().extent()
+                )
+            ) < .99:
                 QtWidgets.QMessageBox.critical(
                     None,
                     self.tr("Error"),
@@ -465,18 +469,18 @@ class DlgCalculateLDNSummaryTableAdmin(
                     )
                 )
 
-                return
+                return False
 
-        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_lc.get_layer().extent())) < .99:
+        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(combo_boxes.combo_layer_lc.get_layer().extent())) < .99:
             QtWidgets.QMessageBox.critical(
                 None,
                 self.tr("Error"),
                 self.tr("Area of interest is not entirely within the land cover layer.")
             )
 
-            return
+            return False
 
-        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(self.combo_layer_soc.get_layer().extent())) < .99:
+        if self.aoi.calc_frac_overlap(QgsGeometry.fromRect(combo_boxes.combo_layer_soc.get_layer().extent())) < .99:
             QtWidgets.QMessageBox.critical(
                 None,
                 self.tr("Error"),
@@ -486,55 +490,131 @@ class DlgCalculateLDNSummaryTableAdmin(
                 )
             )
 
-            return
+            return False
 
-        #######################################################################
-        # Check that all of the productivity layers have the same resolution
-        # and CRS
+        return True
+
+    def validate_layer_crs(self, combo_boxes):
+        '''check all productivity layers have the same resolution and CRS'''
         def res(layer):
             return (
                 round(layer.rasterUnitsPerPixelX(), 10),
                 round(layer.rasterUnitsPerPixelY(), 10)
             )
 
-        if prod_mode == 'Trends.Earth productivity':
-            if res(self.combo_layer_traj.get_layer()) != res(self.combo_layer_state.get_layer()):
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Resolutions of trajectory layer and state layer do not match."))
+        if res(combo_boxes.combo_layer_traj.get_layer()) != res(combo_boxes.combo_layer_state.get_layer()):
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Resolutions of trajectory layer and state layer do not match."))
 
+            return False
+
+        if res(combo_boxes.combo_layer_traj.get_layer()) != res(combo_boxes.combo_layer_perf.get_layer()):
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Resolutions of trajectory layer and performance layer do not match."))
+
+            return False
+
+        if combo_boxes.combo_layer_traj.get_layer().crs() != combo_boxes.combo_layer_state.get_layer().crs():
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Coordinate systems of trajectory layer and state layer do not match."))
+
+            return False
+
+        if combo_boxes.combo_layer_traj.get_layer().crs() != combo_boxes.combo_layer_perf.get_layer().crs():
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                                       self.tr("Coordinate systems of trajectory layer and performance layer do not match."))
+
+            return False
+
+        return True
+
+
+    def btn_calculate(self):
+        # Note that the super class has several tests in it - if they fail it
+        # returns False, which would mean this function should stop execution
+        # as well.
+        ret = super().btn_calculate()
+
+        if not ret:
+            return
+        ##########
+        # Baseline
+        if self.radio_te_prod_baseline.isChecked():
+            prod_mode_baseline = 'Trends.Earth productivity'
+        else:
+            prod_mode_baseline = 'JRC LPD'
+
+        if (
+            not self.validate_layer_selections(
+                self.combo_boxes['baseline'],
+                prod_mode_baseline) or
+            not self.validate_layer_crs(
+                self.combo_boxes['baseline']) or
+            not self.validate_layer_extents(
+                self.combo_boxes['baseline'],
+                prod_mode_baseline)
+        ):
+            log('failed baseline layer validation')
+            return
+
+
+        params = {
+            'baseline': ldn.get_main_sdg_15_3_1_job_params(
+                task_name=self.options_tab.task_name.text(),
+                aoi=self.aoi,
+                prod_mode=prod_mode_baseline,
+                combo_layer_lc=self.combo_boxes['baseline'].combo_layer_lc,
+                combo_layer_soc=self.combo_boxes['baseline'].combo_layer_soc,
+                combo_layer_traj=self.combo_boxes['baseline'].combo_layer_traj,
+                combo_layer_perf=self.combo_boxes['baseline'].combo_layer_perf,
+    
+                combo_layer_state=self.combo_boxes['baseline'].combo_layer_state,
+                combo_layer_lpd=self.combo_boxes['baseline'].combo_layer_lpd,
+                task_notes=self.options_tab.task_notes.toPlainText()
+            )
+        }
+
+        ##########
+        # Progress
+        if self.checkBox_progress_period.isChecked():
+            if self.radio_te_prod_progress.isChecked():
+                prod_mode_progress = 'Trends.Earth productivity'
+            else:
+                prod_mode_progress = 'JRC LPD'
+            if (
+                not self.validate_layer_selections(
+                    self.combo_boxes['progress'],
+                    prod_mode_progress) or
+                not self.validate_layer_crs(
+                    self.combo_boxes['baseline']) or
+                not self.validate_layer_extents(
+                    self.combo_boxes['progress'],
+                    prod_mode_progress)
+            ):
+                log('failed progress layer validation')
                 return
 
-            if res(self.combo_layer_traj.get_layer()) != res(self.combo_layer_perf.get_layer()):
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Resolutions of trajectory layer and performance layer do not match."))
+            params.update({
+                'progress': ldn.get_main_sdg_15_3_1_job_params(
+                    task_name=self.options_tab.task_name.text(),
+                    aoi=self.aoi,
+                    prod_mode=prod_mode_progress,
+                    combo_layer_lc=self.combo_boxes['progress'].combo_layer_lc,
+                    combo_layer_soc=self.combo_boxes['progress'].combo_layer_soc,
+                    combo_layer_traj=self.combo_boxes['progress'].combo_layer_traj,
+                    combo_layer_perf=self.combo_boxes['progress'].combo_layer_perf,
+                    combo_layer_state=self.combo_boxes['progress'].combo_layer_state,
+                    combo_layer_lpd=self.combo_boxes['progress'].combo_layer_lpd,
+                    task_notes=self.options_tab.task_notes.toPlainText()
+                )
+            })
 
-                return
-
-            if self.combo_layer_traj.get_layer().crs() != self.combo_layer_state.get_layer().crs():
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Coordinate systems of trajectory layer and state layer do not match."))
-
-                return
-
-            if self.combo_layer_traj.get_layer().crs() != self.combo_layer_perf.get_layer().crs():
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr("Coordinate systems of trajectory layer and performance layer do not match."))
-
-                return
+        params['task_name'] = self.options_tab.task_name.text()
+        params['task_notes'] = self.options_tab.task_notes.toPlainText()
+        job_manager.submit_local_job(
+            params,
+            script_name=self.LOCAL_SCRIPT_NAME,
+            area_of_interest=self.aoi
+        )
 
         self.close()
-
-        params = ldn.get_main_sdg_15_3_1_job_params(
-            task_name=self.options_tab.task_name.text(),
-            aoi=self.aoi,
-            prod_mode=prod_mode,
-            combo_layer_lc=self.combo_layer_lc,
-            combo_layer_soc=self.combo_layer_soc,
-            combo_layer_traj=self.combo_layer_traj,
-            combo_layer_perf=self.combo_layer_perf,
-            combo_layer_state=self.combo_layer_state,
-            combo_layer_lpd=self.combo_layer_lpd,
-            task_notes=self.options_tab.task_notes.toPlainText()
-        )
-        job_manager.submit_local_job(
-            params, script_name=self.LOCAL_SCRIPT_NAME, area_of_interest=self.aoi)

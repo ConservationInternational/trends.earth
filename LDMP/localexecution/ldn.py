@@ -307,7 +307,7 @@ def compute_ldn(
             )
         )
 
-        summary_table_output_path = sub_job_output_path.parent / f"{job_output_path.stem}.xlsx"
+        summary_table_output_path = sub_job_output_path.parent / f"{sub_job_output_path.stem}.xlsx"
         save_summary_table(
             summary_table_output_path,
             summary_table,
@@ -646,12 +646,12 @@ def save_reporting_json(
                         initial_label=classes[i],
                         final_label=classes[f],
                         initial_value=_get_soc_total(summary_tables[period].soc_totals[0], transition),
-                        final_value=_get_soc_total(summary_table.soc_totals[-1], transition)
+                        final_value=_get_soc_total(summary_tables[period].soc_totals[-1], transition)
                     )
                 )
         crosstab_soc_by_transition_per_ha = reporting.CrossTab(
             name='Initial and final carbon stock by transition type',
-            unit='tons / ha',
+            unit='tons',
             initial_year=soil_organic_carbon_years[0],
             final_year=soil_organic_carbon_years[-1],
             values=soc_by_transition
@@ -679,19 +679,22 @@ def save_reporting_json(
 
             productivity=reporting.ProductivityReport(
                 summary=sdg_tbl_prod,
-                crosstabs_by_productivity_class=crosstab_prod),
+                crosstabs_by_productivity_class=crosstab_prod
+            ),
 
             land_cover=reporting.LandCoverReport(
                 summary=sdg_tbl_lc,
                 legend_nesting=lc_legend_nesting,
                 transition_matrix=lc_trans_matrix,
                 crosstab_by_land_cover_class=crosstab_lc,
-                land_cover_areas_by_year=lc_by_year_by_class),
+                land_cover_areas_by_year=lc_by_year_by_class
+            ),
 
             soil_organic_carbon=reporting.SoilOrganicCarbonReport(
                 summary=sdg_tbl_soc,
                 crosstab_by_land_cover_class=crosstab_soc_by_transition_per_ha,
-                soc_stock_by_year=soc_by_year_by_class)
+                soc_stock_by_year=soc_by_year_by_class
+            )
         )
 
     ##########################################################################
@@ -704,13 +707,14 @@ def save_reporting_json(
                 trends_earth_version=schemas.TrendsEarthVersion(
                     version=__version__,
                     revision=__revision__,
-                    release_date=dt.datetime.strptime(__release_date__,'%Y/%m/%d %H:%M:%SZ')),
+                    release_date=dt.datetime.strptime(__release_date__,'%Y/%m/%d %H:%M:%SZ')
+                ),
 
                 area_of_interest=schemas.AreaOfInterest(
                     name=task_name, #TODO replace this with area of interest name once implemented in TE
                     geojson=aoi.get_geojson(),
                     crs_wkt=aoi.get_crs_wkt()
-                    )
+                )
             ),
 
             land_condition=land_condition_reports,

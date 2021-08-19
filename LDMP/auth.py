@@ -2,7 +2,7 @@
 """
 /***************************************************************************
  LDMP - A QGIS plugin
- This plugin supports monitoring and reporting of land degradation to the UNCCD 
+ This plugin supports monitoring and reporting of land degradation to the UNCCD
  and in support of the SDG Land Degradation Neutrality (LDN) target.
                               -------------------
         begin                : 2017-05-23
@@ -14,7 +14,7 @@
 
 import dataclasses
 
-from PyQt5 import (
+from qgis.PyQt import (
     QtCore,
 )
 
@@ -168,7 +168,7 @@ def get_auth_config(
                 )
             )
         return None
-    
+
     if not authConfig.isValid():
         if warn:
             message_bar.pushCritical(
@@ -193,5 +193,5 @@ def get_auth_config(
                 )
             )
         return None
-    
+
     return authConfig

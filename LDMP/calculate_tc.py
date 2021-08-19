@@ -2,7 +2,7 @@
 """
 /***************************************************************************
  LDMP - A QGIS plugin
- This plugin supports monitoring and reporting of land degradation to the UNCCD 
+ This plugin supports monitoring and reporting of land degradation to the UNCCD
  and in support of the SDG Land Degradation Neutrality (LDN) target.
                               -------------------
         begin                : 2017-05-23
@@ -23,7 +23,7 @@ import qgis.core
 import qgis.gui
 from qgis.utils import iface
 
-from PyQt5 import (
+from qgis.PyQt import (
     QtWidgets,
     QtCore,
     uic,
@@ -73,10 +73,10 @@ class TCWorker(worker.AbstractWorker):
         ysize = soc_band.YSize
 
         driver = gdal.GetDriverByName("GTiff")
-        # Need a band for SOC degradation, plus bands for annual SOC, and for 
+        # Need a band for SOC degradation, plus bands for annual SOC, and for
         # annual LC
         ds_out = driver.Create(self.out_f, xsize, ysize,
-                1 + len(self.lc_years)*2, gdal.GDT_Int16, 
+                1 + len(self.lc_years)*2, gdal.GDT_Int16,
                                ['COMPRESS=LZW'])
         src_gt = ds_in.GetGeoTransform()
         ds_out.SetGeoTransform(src_gt)
@@ -100,8 +100,8 @@ class TCWorker(worker.AbstractWorker):
                 else:
                     cols = xsize - x
 
-                # Write initial soc to band 2 of the output file. Read SOC in 
-                # as float so the soc change calculations won't accumulate 
+                # Write initial soc to band 2 of the output file. Read SOC in
+                # as float so the soc change calculations won't accumulate
                 # error due to repeated truncation of ints
                 soc = np.array(soc_band.ReadAsArray(x, y, cols, rows)).astype(np.float32)
                 ds_out.GetRasterBand(2).WriteArray(soc, x, y)
@@ -156,7 +156,7 @@ class DlgCalculateTCData(calculate.DlgCalculateBase, DlgCalculateTcDataUi):
         self.radioButton_carbon_custom.setEnabled(False)
         if self.first_show:
             self.first_show = False
-            # Ensure the special value text (set to " ") is displayed by 
+            # Ensure the special value text (set to " ") is displayed by
             # default
             self.hansen_fc_threshold.setSpecialValueText(' ')
             self.hansen_fc_threshold.setValue(self.hansen_fc_threshold.minimum())
@@ -277,7 +277,7 @@ class DlgCalculateTCData(calculate.DlgCalculateBase, DlgCalculateTcDataUi):
 
         self.close()
 
-        # Select the initial and final bands from initial and final datasets 
+        # Select the initial and final bands from initial and final datasets
         # (in case there is more than one lc band per dataset)
         lc_initial_vrt = self.lc_setup_widget.use_custom_initial.get_vrt()
         lc_final_vrt = self.lc_setup_tab.use_custom_final.get_vrt()
@@ -291,7 +291,7 @@ class DlgCalculateTCData(calculate.DlgCalculateBase, DlgCalculateTcDataUi):
                           lc_files[i],
                           bandList=[i + 1],
                           outputBounds=self.aoi.get_aligned_output_bounds_deprecated(lc_initial_vrt),
-                          resolution='highest', 
+                          resolution='highest',
                           resampleAlg=gdal.GRA_NearestNeighbour,
                           separate=True)
             lc_vrts.append(f)
@@ -304,11 +304,11 @@ class DlgCalculateTCData(calculate.DlgCalculateBase, DlgCalculateTcDataUi):
         log(u'Saving SOC input files to {}'.format(in_vrt))
         gdal.BuildVRT(in_vrt,
                       in_files,
-                      resolution='highest', 
+                      resolution='highest',
                       resampleAlg=gdal.GRA_NearestNeighbour,
                       outputBounds=self.aoi.get_aligned_output_bounds_deprecated(lc_initial_vrt),
                       separate=True)
-        # Lc bands start on band 3 as band 1 is initial soc, and band 2 is 
+        # Lc bands start on band 3 as band 1 is initial soc, and band 2 is
         # climate zones
         lc_band_nums = np.arange(len(lc_files)) + 3
         # Remove temporary files
@@ -317,7 +317,7 @@ class DlgCalculateTCData(calculate.DlgCalculateBase, DlgCalculateTcDataUi):
 
         log(u'Saving total carbon to {}'.format(out_f))
         tc_task = worker.StartWorker(TCWorker,
-                                 'calculating change in total carbon', 
+                                 'calculating change in total carbon',
                                  in_vrt,
                                  out_f,
                                  lc_band_nums,
@@ -441,8 +441,8 @@ class TCSummaryWorker(worker.AbstractWorker):
                 # Caculate cell area for each horizontal line
                 cell_areas = np.array([calc_cell_area(lat + pixel_height*n, lat + pixel_height*(n + 1), long_width) for n in range(rows)])
                 cell_areas.shape = (cell_areas.size, 1)
-                # Make an array of the same size as the input arrays containing 
-                # the area of each cell (which is identicalfor all cells ina 
+                # Make an array of the same size as the input arrays containing
+                # the area of each cell (which is identicalfor all cells ina
                 # given row - cell areas only vary among rows)
                 cell_areas_array = np.repeat(cell_areas, cols, axis=1)
 
@@ -480,8 +480,8 @@ class TCSummaryWorker(worker.AbstractWorker):
             # Note that carbon is scaled by 10
             initial_carbon_total = initial_carbon_total * 1e-4 / 10
 
-        return list((forest_loss, carbon_loss, area_missing, area_water, 
-                     area_non_forest, area_site, initial_forest_area, 
+        return list((forest_loss, carbon_loss, area_missing, area_water,
+                     area_non_forest, area_site, initial_forest_area,
                      initial_carbon_total))
 
 
@@ -563,7 +563,7 @@ class DlgCalculateTCSummaryTable(
             return
 
         #######################################################################
-        # Check that all of the productivity layers have the same resolution 
+        # Check that all of the productivity layers have the same resolution
         # and CRS
         def res(layer):
             return (

@@ -2,7 +2,7 @@
 """
 /***************************************************************************
  LDMP - A QGIS plugin
- This plugin supports monitoring and reporting of land degradation to the UNCCD 
+ This plugin supports monitoring and reporting of land degradation to the UNCCD
  and in support of the SDG Land Degradation Neutrality (LDN) target.
                               -------------------
         begin                : 2017-05-23
@@ -17,7 +17,7 @@ import os
 import typing
 from pathlib import Path
 
-from PyQt5 import (
+from qgis.PyQt import (
     QtCore,
     QtGui,
     QtWidgets,
@@ -132,7 +132,7 @@ class LCAggTableModel(QtCore.QAbstractTableModel):
     def __init__(self, nesting, parent=None, *args):
         QtCore.QAbstractTableModel.__init__(self, parent, *args)
         self.nesting = nesting
-        
+
         # Column names as tuples with json name in [0], pretty name in [1]
         # Note that the columns with json names set to to INVALID aren't loaded
         # into the shell, but shown from a widget.
@@ -188,7 +188,7 @@ def read_lc_nesting_file(f):
         return None
     else:
         log(u'Loaded land cover legend nesting definition from {}'.format(f))
-        return nesting 
+        return nesting
 
 
 def read_lc_matrix_file(f):
@@ -249,7 +249,7 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
         self.btn_reset.clicked.connect(self.reset_class_table)
         self.btn_close.clicked.connect(self.btn_close_pressed)
 
-        # Setup the class table so that the table is defined when a user first 
+        # Setup the class table so that the table is defined when a user first
         # loads the dialog
         self.reset_class_table()
 
@@ -300,22 +300,22 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
                 return
 
             with open(f, 'w') as outfile:
-                json.dump(LCLegendNesting.Schema().dump(self.nesting), 
+                json.dump(LCLegendNesting.Schema().dump(self.nesting),
                           outfile, sort_keys=True, indent=4,
                           separators=(',', ':'), default=json_serial)
 
 
     def setup_class_table(self, nesting=None):
         # Load the codes each class will be recoded to.
-        # 
-        # The "nesting" parameter will include any mappings derived from a 
-        # class definition file, or, in the case or reading in user land cover 
+        #
+        # The "nesting" parameter will include any mappings derived from a
+        # class definition file, or, in the case or reading in user land cover
         # files, nesting from the file itself.
-        # 
-        # The default codes stored in self.nesting are derived either 
-        # from the data/land_cover_nesting_UNCCD_ESA.json file when this class 
-        # is instantiated from the LCSetupWidget, or from the values within a 
-        # custom user data file when this class is instantiated from the 
+        #
+        # The default codes stored in self.nesting are derived either
+        # from the data/land_cover_nesting_UNCCD_ESA.json file when this class
+        # is instantiated from the LCSetupWidget, or from the values within a
+        # custom user data file when this class is instantiated from the
         # DlgDataIOImportLC class.
         if nesting:
             #TODO Fix loading of existing/new class definitions
@@ -332,8 +332,8 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
                                               self.tr("Warning"),
                                               self.tr(u"Some of the class codes ({}) in the data file do not appear in the chosen definition file.".format(', '.join([str(c) for c in missing_codes]))))
 
-            # Setup a new nesting list with the new class codes for all classes 
-            # included in default classes, and any other class codes that are 
+            # Setup a new nesting list with the new class codes for all classes
+            # included in default classes, and any other class codes that are
             # missing added from the default class list
             nesting = [c for c in nesting if c['Child_Code'] in default_codes]
             nesting.extend([c for c in self.nesting if c['Child_Code'] not in child_codes])
@@ -347,16 +347,16 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
 
         # Add selector in cell
         for row in range(0, len(nesting.child.key)):
-            # Set the default final codes for each row. Note that the QComboBox 
-            # entries are potentially translated, so need to link the 
+            # Set the default final codes for each row. Note that the QComboBox
+            # entries are potentially translated, so need to link the
             # translated names back to a particular code.
-            
-            # Get the input code for this row and the final label it should map 
+
+            # Get the input code for this row and the final label it should map
             # to by default
             child_code = table_model.index(row, 0).data()
             parent_class = [nesting.parentClassForChild(c) for c in nesting.child.key if c.code == child_code][0]
 
-            # Figure out which label translation this Parent_Label (in English) 
+            # Figure out which label translation this Parent_Label (in English)
             # is equivalent to
             parent_label_tr = tr_style_text(parent_class.name_long)
 
@@ -371,7 +371,7 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
         self.remap_view.horizontalHeader().setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeToContents)
         self.remap_view.horizontalHeader().setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)
         self.remap_view.horizontalHeader().setSectionResizeMode(2, QtWidgets.QHeaderView.ResizeToContents)
-        
+
         self.remap_view.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
 
         return True

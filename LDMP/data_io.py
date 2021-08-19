@@ -2,7 +2,7 @@
 """
 /***************************************************************************
  LDMP - A QGIS plugin
- This plugin supports monitoring and reporting of land degradation to the UNCCD 
+ This plugin supports monitoring and reporting of land degradation to the UNCCD
  and in support of the SDG Land Degradation Neutrality (LDN) target.
                               -------------------
         begin                : 2017-05-23
@@ -20,11 +20,12 @@ from pathlib import Path
 
 import json
 
-from PyQt5 import (
+from qgis.PyQt import (
+    uic,
     QtCore,
     QtWidgets,
 )
-from PyQt5.QtCore import QSettings
+from qgis.PyQt.QtCore import QSettings
 
 import qgis.core
 import qgis.utils
@@ -43,23 +44,24 @@ from . import (
     layers,
     worker,
 )
-from .gui.DlgDataIO import Ui_DlgDataIO
-from .gui.DlgDataIOLoadTE import Ui_DlgDataIOLoadTE
-from .gui.DlgDataIOLoadTESingleLayer import Ui_DlgDataIOLoadTESingleLayer
-from .gui.DlgDataIOImportLC import Ui_DlgDataIOImportLC
-from .gui.DlgDataIOImportSOC import Ui_DlgDataIOImportSOC
-from .gui.DlgDataIOImportProd import Ui_DlgDataIOImportProd
-from .gui.DlgJobsDetails import Ui_DlgJobsDetails
-from .gui.WidgetDataIOImportSelectFileInput import Ui_WidgetDataIOImportSelectFileInput
-from .gui.WidgetDataIOImportSelectRasterOutput import Ui_WidgetDataIOImportSelectRasterOutput
-from .gui.WidgetDataIOSelectTELayerExisting import Ui_WidgetDataIOSelectTELayerExisting
-from .gui.WidgetDataIOSelectTELayerImport import Ui_WidgetDataIOSelectTELayerImport
-from .gui.WidgetDataIOSelectTEDatasetExisting import Ui_WidgetDataIOSelectTEDatasetExisting
 from .jobs.manager import job_manager
 from .jobs import models as job_models
 from .logger import log
 
 mb = qgis.utils.iface.messageBar()
+
+Ui_DlgDataIO, _ = uic.loadUiType(str(Path(__file__).parent / "gui/DlgDataIO.ui"))
+Ui_DlgDataIOLoadTE, _ = uic.loadUiType(str(Path(__file__).parent / "gui/DlgDataIOLoadTE.ui"))
+Ui_DlgDataIOLoadTESingleLayer, _ = uic.loadUiType(str(Path(__file__).parent / "gui/DlgDataIOLoadTESingleLayer.ui"))
+Ui_DlgDataIOImportLC, _ = uic.loadUiType(str(Path(__file__).parent / "gui/DlgDataIOImportLC.ui"))
+Ui_DlgDataIOImportSOC, _ = uic.loadUiType(str(Path(__file__).parent / "gui/DlgDataIOImportSOC.ui"))
+Ui_DlgDataIOImportProd, _ = uic.loadUiType(str(Path(__file__).parent / "gui/DlgDataIOImportProd.ui"))
+Ui_DlgJobsDetails, _ = uic.loadUiType(str(Path(__file__).parent / "gui/DlgJobsDetails.ui"))
+Ui_WidgetDataIOImportSelectFileInput, _ = uic.loadUiType(str(Path(__file__).parent / "gui/WidgetDataIOImportSelectFileInput.ui"))
+Ui_WidgetDataIOImportSelectRasterOutput, _ = uic.loadUiType(str(Path(__file__).parent / "gui/WidgetDataIOImportSelectRasterOutput.ui"))
+Ui_WidgetDataIOSelectTELayerExisting, _ = uic.loadUiType(str(Path(__file__).parent / "gui/WidgetDataIOSelectTELayerExisting.ui"))
+Ui_WidgetDataIOSelectTELayerImport, _ = uic.loadUiType(str(Path(__file__).parent / "gui/WidgetDataIOSelectTELayerImport.ui"))
+Ui_WidgetDataIOSelectTEDatasetExisting, _ = uic.loadUiType(str(Path(__file__).parent / "gui/WidgetDataIOSelectTEDatasetExisting.ui"))
 
 
 @dataclasses.dataclass()
@@ -77,7 +79,7 @@ class UsableDatasetInfo:
 
 
 class RemapVectorWorker(worker.AbstractWorker):
-    def __init__(self, l, out_file, attribute, remap_dict, in_data_type, 
+    def __init__(self, l, out_file, attribute, remap_dict, in_data_type,
                  out_res, out_data_type=gdal.GDT_Int16):
         worker.AbstractWorker.__init__(self)
 
@@ -122,13 +124,13 @@ class RemapVectorWorker(worker.AbstractWorker):
             new_f.setAttributes([self.remap_dict[f.attribute(self.attribute)]])
             feats.append(new_f)
             n += 1
-            # Commit the changes every 5% of the way through the length of the 
+            # Commit the changes every 5% of the way through the length of the
             # features
             if n > (self.l.featureCount() / 20):
                 l_out.dataProvider().addFeatures(feats)
                 l_out.commitChanges()
-                # Note there will be two progress bars that will fill to 100%, 
-                # first one for this loop, and then another for rasterize, both 
+                # Note there will be two progress bars that will fill to 100%,
+                # first one for this loop, and then another for rasterize, both
                 # with the same title.
                 self.progress.emit(100 * float(n)/self.l.featureCount())
                 feats = []
@@ -168,7 +170,7 @@ class RemapVectorWorker(worker.AbstractWorker):
             return True
 
 class RasterizeWorker(worker.AbstractWorker):
-    def __init__(self, in_file, out_file, out_res, 
+    def __init__(self, in_file, out_file, out_res,
                  attribute, out_data_type=gdal.GDT_Int16):
         worker.AbstractWorker.__init__(self)
 
@@ -205,7 +207,7 @@ class RasterizeWorker(worker.AbstractWorker):
 
 
 class RasterImportWorker(worker.AbstractWorker):
-    def __init__(self, in_file, out_file, out_res, 
+    def __init__(self, in_file, out_file, out_res,
                  resample_mode, out_data_type=gdal.GDT_Int16):
         worker.AbstractWorker.__init__(self)
 
@@ -259,7 +261,7 @@ class RemapRasterWorker(worker.AbstractWorker):
     def work(self):
         self.toggle_show_progress.emit(True)
         self.toggle_show_cancel.emit(True)
-        
+
         ds_in = gdal.Open(self.in_file)
 
         band = ds_in.GetRasterBand(1)
@@ -271,7 +273,7 @@ class RemapRasterWorker(worker.AbstractWorker):
         ysize = band.YSize
 
         driver = gdal.GetDriverByName("GTiff")
-        ds_out = driver.Create(self.out_file, xsize, ysize, 1, gdal.GDT_Int16, 
+        ds_out = driver.Create(self.out_file, xsize, ysize, 1, gdal.GDT_Int16,
                                ['COMPRESS=LZW'])
         src_gt = ds_in.GetGeoTransform()
         ds_out.SetGeoTransform(src_gt)
@@ -337,8 +339,8 @@ def get_vector_stats(l, attribute, min_min=0, max_max=1000, nodata=0):
 def get_raster_stats(f, band_num, sample=True, min_min=0, max_max=1000, nodata=0):
     # Note that anything less than nodata value is considered no data
     if sample:
-        # Note need float to correctly mark and ignore nodata for for nanmin 
-        # and nanmax 
+        # Note need float to correctly mark and ignore nodata for for nanmin
+        # and nanmax
         values = layers.get_sample(f, band_num, n=1e6).astype('float32')
         return _get_min_max_tuple(values, min_min, max_max, nodata)
     else:
@@ -480,14 +482,14 @@ class DlgDataIOLoadTEBase(QtWidgets.QDialog):
             added_layers = []
             for row in rows:
                 f = os.path.normcase(os.path.normpath(self.layer_list[row][0]))
-                # Note that the third item in the tuple is the band number, and 
+                # Note that the third item in the tuple is the band number, and
                 # the fourth (layer_list[3]) is the band info object
                 resp = layers.add_layer(
                     f, self.layer_list[row][2], self.layer_list[row][3], activated=True)
                 if resp:
                     added_layers.append(self.layer_list[row])
                 else:
-                    QtWidgets.QMessageBox.critical(None, self.tr("Error"), 
+                    QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                                    self.tr(u'Unable to automatically add "{}". No style is defined for this type of layer.'.format(self.layer_list[row][2]['name'])))
             self.layers_loaded.emit(added_layers)
         else:
@@ -641,7 +643,7 @@ class ImportSelectFileInputWidget(QtWidgets.QWidget, Ui_WidgetDataIOImportSelect
         self.inputTypeChanged.emit(has_file)
 
     def output_res_toggled(self):
-        # Ensure the groupBox_output_resolution remains checked if vector 
+        # Ensure the groupBox_output_resolution remains checked if vector
         # output is chosen
         if self.radio_raster_input.isChecked():
             pass
@@ -761,7 +763,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         self.input_widget = ImportSelectFileInputWidget()
         self.verticalLayout.insertWidget(0, self.input_widget)
 
-        # The datatype determines whether the dataset resampling is done with 
+        # The datatype determines whether the dataset resampling is done with
         # nearest neighbor and mode or nearest neighbor and mean
         self.datatype = 'categorical'
 
@@ -802,7 +804,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
             else:
                 raise ValueError('Unknown datatype')
         else:
-            # If output resolution is finer than the original data, use nearest 
+            # If output resolution is finer than the original data, use nearest
             # neighbor
             log(u'Resampling with nearest neighbor (in res: {}, out_res: {}'.format(in_res, out_res))
             return gdal.GRA_NearestNeighbour
@@ -827,7 +829,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
                                                      geo_t[3] + geo_t[5]*y_size)
         log(u'ulx: {}, uly: {}, ulz: {}'.format(ulx, uly, ulz))
         log(u'lrx: {}, lry: {}, lrz: {}'.format(lrx, lry, lrz))
-        # As an approximation of what the output res would be in WGS4, use an 
+        # As an approximation of what the output res would be in WGS4, use an
         # average of the x and y res of this image
         return ((lrx - ulx)/float(x_size) + (lry - uly)/float(y_size)) / 2
 
@@ -894,7 +896,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         band_number = int(self.input_widget.comboBox_bandnumber.currentText())
         temp_vrt = GetTempFilename('.vrt')
         gdal.BuildVRT(temp_vrt, in_file, bandList=[band_number])
-                      
+
         log(u'Importing {} to {}'.format(in_file, out_file))
         if self.input_widget.groupBox_output_resolution.isChecked():
             out_res = self.get_out_res_wgs84()
@@ -920,7 +922,7 @@ class DlgDataIOImportLC(DlgDataIOImportBase, Ui_DlgDataIOImportLC):
     def __init__(self, parent=None):
         super().__init__(parent)
 
-        # This needs to be inserted after the lc definition widget but before 
+        # This needs to be inserted after the lc definition widget but before
         # the button box with ok/cancel
         self.output_widget = ImportSelectRasterOutput()
         self.verticalLayout.insertWidget(2, self.output_widget)
@@ -938,7 +940,7 @@ class DlgDataIOImportLC(DlgDataIOImportBase, Ui_DlgDataIOImportLC):
     def showEvent(self, event):
         super(DlgDataIOImportLC, self).showEvent(event)
 
-        # Reset flags to avoid reloading of unique values when files haven't 
+        # Reset flags to avoid reloading of unique values when files haven't
         # changed:
         self.last_raster = None
         self.last_band_number = None
@@ -1031,9 +1033,9 @@ class DlgDataIOImportLC(DlgDataIOImportBase, Ui_DlgDataIOImportLC):
             attribute = self.input_widget.comboBox_fieldname.currentText()
             l = self.input_widget.get_vector_layer()
             remap_ret = self.remap_vector(l,
-                                          out_file, 
+                                          out_file,
             #TODO: Fix this for new nesting format
-                                          self.dlg_agg.get_agg_as_dict(), 
+                                          self.dlg_agg.get_agg_as_dict(),
                                           attribute)
         if not remap_ret:
             return False
@@ -1053,7 +1055,7 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
     def __init__(self, parent=None):
         super().__init__(parent)
 
-        # This needs to be inserted after the input widget but before the 
+        # This needs to be inserted after the input widget but before the
         # button box with ok/cancel
         self.output_widget = ImportSelectRasterOutput()
         self.verticalLayout.insertWidget(1, self.output_widget)
@@ -1076,7 +1078,7 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
         ret = super(DlgDataIOImportSOC, self).validate_input(value)
         if not ret:
             return
-        
+
         if self.input_widget.radio_raster_input.isChecked():
             in_file = self.input_widget.lineEdit_raster_file.text()
             stats = get_raster_stats(in_file, int(self.input_widget.comboBox_bandnumber.currentText()))
@@ -1134,7 +1136,7 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
     def __init__(self, parent=None):
         super().__init__(parent)
 
-        # This needs to be inserted after the input widget but before the 
+        # This needs to be inserted after the input widget but before the
         # button box with ok/cancel
         self.output_widget = ImportSelectRasterOutput()
         self.verticalLayout.insertWidget(1, self.output_widget)
@@ -1241,7 +1243,7 @@ def get_usable_bands(
     result.sort(key=lambda ub: ub.job.start_date, reverse=True)
     return result
 
-    
+
 class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
     comboBox_layers: QtWidgets.QComboBox
     dlg_layer: DlgDataIOLoadTESingleLayer
@@ -1281,20 +1283,20 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
                     usable_band.band_info.name + ' - ',
                     usable_band.job.params.task_notes.local_context.area_of_interest_name + '\n',
                     usable_band.job.start_date.strftime("%Y-%m-%d %H:%M") + '\n',
-                    # TODO: figure out a way to cleanup the metadata so it is 
-                    # presentable and useful - likely need to have each script 
-                    # contain a dictionary of metadata fields that should be 
+                    # TODO: figure out a way to cleanup the metadata so it is
+                    # presentable and useful - likely need to have each script
+                    # contain a dictionary of metadata fields that should be
                     # shown to the user by default
                     #str(usable_band.band_info.metadata),
                 ]
             )
             self.comboBox_layers.addItem(" - ".join(name_info_parts))
-            # the "+ 1" below is to account for blank entry at the beginning of 
+            # the "+ 1" below is to account for blank entry at the beginning of
             # the combobox
             self.comboBox_layers.setItemData(i + 1, "".join(hover_info_parts), QtCore.Qt.ToolTipRole)
             i += 1
         if not self.set_index_from_text(old_text):
-            # Set current index to 1 so that the blank line isn't chosen by 
+            # Set current index to 1 so that the blank line isn't chosen by
             # default
             self.comboBox_layers.setCurrentIndex(1)
 
@@ -1406,7 +1408,7 @@ class WidgetDataIOSelectTEDatasetExisting(
     def populate(self):
         usable_datasets = get_usable_datasets(self.property("dataset_type"))
         self.dataset_list = usable_datasets
-        # Ensure selected_job_changed is called only once when adding items to 
+        # Ensure selected_job_changed is called only once when adding items to
         # combobox
         self.comboBox_datasets.currentIndexChanged.disconnect(self.selected_job_changed)
         old_text = self.currentText()
@@ -1432,12 +1434,12 @@ class WidgetDataIOSelectTEDatasetExisting(
                 ]
             )
             self.comboBox_datasets.addItem(" - ".join(name_info_parts))
-            # the "+ 1" below is to account for blank entry at the beginning of 
+            # the "+ 1" below is to account for blank entry at the beginning of
             # the combobox
             self.comboBox_datasets.setItemData(i + 1, "".join(hover_info_parts), QtCore.Qt.ToolTipRole)
             i += 1
         if not self.set_index_from_text(old_text):
-            # Set current index to 1 so that the blank line isn't chosen by 
+            # Set current index to 1 so that the blank line isn't chosen by
             # default
             self.comboBox_datasets.setCurrentIndex(1)
         self.selected_job_changed()

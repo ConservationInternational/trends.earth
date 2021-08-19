@@ -1,8 +1,12 @@
+
+import os
 from qgis.PyQt.QtGui import QIcon
 from qgis.core import QgsProcessingProvider
-
+from pathlib import Path
 from .carbon import TCSummary
 from .utilities import GenerateMask, ClipRaster
+
+ICON_PATH = os.path.join(os.path.dirname(__file__), 'icons')
 
 
 class Provider(QgsProcessingProvider):
@@ -22,4 +26,4 @@ class Provider(QgsProcessingProvider):
         """Should return a QIcon which is used for your provider inside
         the Processing toolbox.
         """
-        return QIcon(':/plugins/LDMP/trends_earth_logo_square_32x32.png')
+        return QIcon(os.path.join(ICON_PATH, 'trends_earth_logo_square_32x32.png'))

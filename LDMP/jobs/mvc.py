@@ -1,10 +1,11 @@
+import os
 import functools
 import typing
 from pathlib import Path
 
 from qgis.utils import iface
 
-from PyQt5 import (
+from qgis.PyQt import (
     QtCore,
     QtGui,
     QtWidgets,
@@ -28,6 +29,9 @@ from ..datasets_dialog import DatasetDetailsDialogue
 
 WidgetDatasetItemUi, _ = uic.loadUiType(
     str(Path(__file__).parents[1] / "gui/WidgetDatasetItem.ui"))
+
+ICON_PATH = os.path.join(os.path.dirname(
+    __file__), os.path.pardir, 'icons')
 
 
 class JobsModel(QtCore.QAbstractItemModel):
@@ -163,7 +167,8 @@ class JobItemDelegate(QtWidgets.QStyledItemDelegate):
         item = source_model.data(source_index, QtCore.Qt.DisplayRole)
 
         if isinstance(item, models.Job):
-            widget = self.createEditor(None, option, index)  # parent set to none otherwise remain painted in the widget
+            # parent set to none otherwise remain painted in the widget
+            widget = self.createEditor(None, option, index)
             size = widget.size()
             del widget
             return size
@@ -215,7 +220,8 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         self.setupUi(self)
         self.job = job
         self.main_dock = main_dock
-        self.setAutoFillBackground(True)  # allows hiding background prerendered pixmap
+        # allows hiding background prerendered pixmap
+        self.setAutoFillBackground(True)
         self.add_to_canvas_tb.clicked.connect(self.load_dataset)
         self.open_details_tb.clicked.connect(self.show_details)
         self.open_directory_tb.clicked.connect(self.open_job_directory)
@@ -223,18 +229,19 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             functools.partial(utils.delete_dataset, self.job))
 
         self.delete_tb.setIcon(
-            QtGui.QIcon(':/images/themes/default/mActionDeleteSelected.svg'))
+            QtGui.QIcon(os.path.join(ICON_PATH, 'mActionDeleteSelected.svg')))
         self.open_details_tb.setIcon(
-            QtGui.QIcon(':/images/themes/default/mActionPropertiesWidget.svg'))
+            QtGui.QIcon(os.path.join(ICON_PATH, 'mActionPropertiesWidget.svg')))
         self.open_directory_tb.setIcon(
-            QtGui.QIcon(':/images/themes/default/mActionFileOpen.svg'))
+            QtGui.QIcon(os.path.join(ICON_PATH, 'mActionFileOpen.svg')))
         self.add_to_canvas_tb.setIcon(
-            QtGui.QIcon(':/images/themes/default/mActionAddRasterLayer.svg'))
+            QtGui.QIcon(os.path.join(ICON_PATH, 'mActionAddRasterLayer.svg')))
         self.download_tb.setIcon(
-            QtGui.QIcon(':/plugins/LDMP/icons/cloud-download.svg'))
+            QtGui.QIcon(os.path.join(ICON_PATH, 'cloud-download.svg')))
 
         self.name_la.setText(self.job.visible_name)
-        self.creation_date_la.setText(self.job.start_date.strftime("%Y-%m-%d %H:%M"))
+        self.creation_date_la.setText(
+            self.job.start_date.strftime("%Y-%m-%d %H:%M"))
 
         self.download_tb.setEnabled(False)
 
@@ -250,14 +257,16 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             self.add_to_canvas_tb.setEnabled(False)
         elif self.job.status == models.JobStatus.FINISHED:
             self.progressBar.hide()
-            result_auto_download = settings_manager.get_value(Setting.DOWNLOAD_RESULTS)
+            result_auto_download=settings_manager.get_value(
+                Setting.DOWNLOAD_RESULTS)
             if result_auto_download:
                 self.download_tb.hide()
             else:
                 self.download_tb.show()
                 self.download_tb.setEnabled(True)
                 self.download_tb.clicked.connect(
-                    functools.partial(manager.job_manager.download_job_results, job)
+                    functools.partial(
+                        manager.job_manager.download_job_results, job)
                 )
             self.add_to_canvas_tb.setEnabled(False)
         elif self.job.status in (
@@ -267,11 +276,11 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             self.add_to_canvas_tb.setEnabled(self.has_loadable_result())
 
     def has_loadable_result(self):
-        result = False
+        result=False
         if self.job.results is not None:
             for local_path in self.job.results.local_paths:
                 if local_path.suffix == ".tif":
-                    result = True
+                    result=True
                     break
         return result
 
@@ -284,7 +293,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         self.main_dock.resume_scheduler()
 
     def open_job_directory(self):
-        job_directory = manager.job_manager.get_job_file_path(self.job).parent
+        job_directory=manager.job_manager.get_job_file_path(self.job).parent
         # NOTE: not using QDesktopServices.openUrl here, since it seems to not be
         # working correctly (as of Jun 2021 on Ubuntu)
         openFolder(str(job_directory))

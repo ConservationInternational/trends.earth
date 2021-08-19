@@ -2,7 +2,7 @@
 """
 /***************************************************************************
  LDMP - A QGIS plugin
- This plugin supports monitoring and reporting of land degradation to the UNCCD 
+ This plugin supports monitoring and reporting of land degradation to the UNCCD
  and in support of the SDG Land Degradation Neutrality (LDN) target.
                               -------------------
         begin                : 2017-05-23
@@ -30,10 +30,6 @@ from .processing_provider.provider import Provider
 from .settings import DlgSettings
 
 
-# Initialize Qt resources from file resources.py
-from . import resources
-
-
 class LDMPPlugin(object):
     """QGIS Plugin Implementation."""
 
@@ -53,7 +49,9 @@ class LDMPPlugin(object):
         # Declare instance attributes
         self.actions = []
         self.menu = QMenu(self.tr(u'&Trends.Earth'))
-        self.menu.setIcon(QIcon(':/plugins/LDMP/trends_earth_logo_square_32x32.png'))
+        self.menu.setIcon(
+            QIcon(os.path.join(os.path.dirname(__file__),
+                  'trends_earth_logo_square_32x32.png')))
         self.raster_menu = self.iface.rasterMenu()
         self.raster_menu.addMenu(self.menu)
 
@@ -72,7 +70,7 @@ class LDMPPlugin(object):
 
     def tr(self, message):
         return QCoreApplication.translate("plugin", message)
-        
+
     def add_action(
             self,
             icon_path,
@@ -156,8 +154,7 @@ class LDMPPlugin(object):
         self.initProcessing()
 
         """Create Main manu icon and plugins menu entries."""
-        start_action = self.add_action(
-            ':/plugins/LDMP/icons/trends_earth_logo_square_32x32.ico',
+        start_action = self.add_action(os.path.join(os.path.dirname(__file__), 'icons', 'trends_earth_logo_square_32x32.ico'),
             text='Trends.Earth',
             callback=self.run_docked_interface,
             parent=self.iface.mainWindow(),
@@ -166,14 +163,14 @@ class LDMPPlugin(object):
         start_action.setCheckable(True)
 
         self.add_action(
-            ':/plugins/LDMP/icons/wrench.svg',
+            os.path.join(os.path.dirname(__file__), 'icons', 'wrench.svg'),
             text=self.tr(u'Settings'),
             callback=self.run_settings,
             parent=self.iface.mainWindow(),
             status_tip=self.tr('Trends.Earth Settings'))
 
         self.add_action(
-            ':/plugins/LDMP/icons/info.svg',
+            os.path.join(os.path.dirname(__file__), 'icons', 'info.svg'),
             text=self.tr(u'About'),
             add_to_toolbar=False,
             callback=self.run_about,

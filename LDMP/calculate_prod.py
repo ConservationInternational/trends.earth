@@ -2,7 +2,7 @@
 """
 /***************************************************************************
  LDMP - A QGIS plugin
- This plugin supports monitoring and reporting of land degradation to the UNCCD 
+ This plugin supports monitoring and reporting of land degradation to the UNCCD
  and in support of the SDG Land Degradation Neutrality (LDN) target.
                               -------------------
         begin                : 2017-05-23
@@ -16,7 +16,7 @@ import json
 import typing
 from pathlib import Path
 
-from PyQt5 import (
+from qgis.PyQt import (
     QtCore,
     QtWidgets,
     uic,
@@ -281,7 +281,7 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
             'task_name': self.execution_name_le.text(),
             'task_notes': self.task_notes.toPlainText()
         }
-        # This will add in the trajectory-method parameter for productivity 
+        # This will add in the trajectory-method parameter for productivity
         # trajectory
         current_trajectory_function = self.trajectory_functions[
             self.traj_indic.currentText()]

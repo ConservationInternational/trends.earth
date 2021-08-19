@@ -5,7 +5,7 @@ from pathlib import Path
 
 import qgis.core
 from osgeo import gdal
-from PyQt5 import (
+from qgis.PyQt import (
     QtWidgets,
 )
 

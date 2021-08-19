@@ -22,7 +22,7 @@ from osgeo import (
     gdal,
     ogr,
 )
-from PyQt5 import (
+from qgis.PyQt import (
     QtCore,
     QtGui,
     QtWidgets,
@@ -76,6 +76,8 @@ WidgetCalculationOutputUi, _ = uic.loadUiType(
 
 mb = iface.messageBar()
 
+ICON_PATH = os.path.join(os.path.dirname(__file__), 'icons')
+
 
 class tr_calculate(object):
     def tr(message):
@@ -89,7 +91,8 @@ def get_local_script_metadata(script_name) -> Optional[dict]:
     metadata = local_scripts.get(script_name, None)
     if not metadata:
         # source value can be looked for into source value
-        metadata = next((metadata for metadata in local_scripts.values() if metadata['source'] == script_name), None)
+        metadata = next((metadata for metadata in local_scripts.values(
+        ) if metadata['source'] == script_name), None)
 
     return metadata
 
@@ -107,22 +110,25 @@ def is_local_script(script_name: str = None) -> bool:
 # Transform CRS of a layer while optionally wrapping geometries
 # across the 180th meridian
 def transform_layer(l, crs_dst, datatype='polygon', wrap=False):
-    log('Transforming layer from "{}" to "{}". Wrap is {}. Datatype is {}.'.format(l.crs().toProj(), crs_dst.toProj(), wrap, datatype))
+    log('Transforming layer from "{}" to "{}". Wrap is {}. Datatype is {}.'.format(
+        l.crs().toProj(), crs_dst.toProj(), wrap, datatype))
 
     crs_src_string = l.crs().toProj()
     if wrap:
         if not l.crs().isGeographic():
-            QtWidgets.QMessageBox.critical(None,tr_calculate.tr("Error"),
+            QtWidgets.QMessageBox.critical(None, tr_calculate.tr("Error"),
                    tr_calculate.tr("Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian."))
             log('Can\'t wrap layer in non-geographic coordinate system: "{}"'.format(crs_src_string))
             return None
         crs_src_string = crs_src_string + ' +lon_wrap=180'
     crs_src = qgis.core.QgsCoordinateReferenceSystem()
     crs_src.createFromProj(crs_src_string)
-    t = qgis.core.QgsCoordinateTransform(crs_src, crs_dst, qgis.core.QgsProject.instance())
+    t = qgis.core.QgsCoordinateTransform(
+        crs_src, crs_dst, qgis.core.QgsProject.instance())
 
     l_w = qgis.core.QgsVectorLayer(
-        "{datatype}?crs=proj4:{crs}".format(datatype=datatype, crs=crs_dst.toProj()),
+        "{datatype}?crs=proj4:{crs}".format(
+            datatype=datatype, crs=crs_dst.toProj()),
         "calculation boundary (transformed)",
         "memory"
     )
@@ -144,7 +150,8 @@ def transform_layer(l, crs_dst, datatype='polygon', wrap=False):
     l_w.dataProvider().addFeatures(feats)
     l_w.commitChanges()
     if not l_w.isValid():
-        log('Error transforming layer from "{}" to "{}" (wrap is {})'.format(crs_src_string, crs_dst.toProj(), wrap))
+        log('Error transforming layer from "{}" to "{}" (wrap is {})'.format(
+            crs_src_string, crs_dst.toProj(), wrap))
         return None
     else:
         return l_w
@@ -171,7 +178,8 @@ class DlgCalculate(QtWidgets.QDialog, DlgCalculateUi):
 
         self.pushButton_ld.clicked.connect(self.btn_ld_clicked)
         self.pushButton_tc.clicked.connect(self.btn_tc_clicked)
-        self.pushButton_rest_biomass.clicked.connect(self.btn_rest_biomass_clicked)
+        self.pushButton_rest_biomass.clicked.connect(
+            self.btn_rest_biomass_clicked)
         self.pushButton_urban.clicked.connect(self.btn_urban_clicked)
 
     def btn_ld_clicked(self):
@@ -212,8 +220,10 @@ class DlgCalculateLD(QtWidgets.QDialog, DlgCalculateLDUi):
         self.btn_lc.clicked.connect(self.btn_lc_clicked)
         self.btn_soc.clicked.connect(self.btn_soc_clicked)
         self.btn_sdg_onestep.clicked.connect(self.btn_sdg_onestep_clicked)
-        self.btn_summary_single_polygon.clicked.connect(self.btn_summary_single_polygon_clicked)
-        self.btn_summary_multi_polygons.clicked.connect(self.btn_summary_multi_polygons_clicked)
+        self.btn_summary_single_polygon.clicked.connect(
+            self.btn_summary_single_polygon_clicked)
+        self.btn_summary_multi_polygons.clicked.connect(
+            self.btn_summary_multi_polygons_clicked)
 
     def btn_prod_clicked(self):
         self.close()
@@ -252,8 +262,10 @@ class DlgCalculateTC(QtWidgets.QDialog, DlgCalculateTCUi):
         self.dlg_calculate_tc_data = DlgCalculateTCData()
         self.dlg_calculate_tc_summary = DlgCalculateTCSummaryTable()
 
-        self.btn_calculate_carbon_change.clicked.connect(self.btn_calculate_carbon_change_clicked)
-        self.btn_summary_single_polygon.clicked.connect(self.btn_summary_single_polygon_clicked)
+        self.btn_calculate_carbon_change.clicked.connect(
+            self.btn_calculate_carbon_change_clicked)
+        self.btn_summary_single_polygon.clicked.connect(
+            self.btn_summary_single_polygon_clicked)
 
     def btn_calculate_carbon_change_clicked(self):
         self.close()
@@ -276,8 +288,10 @@ class DlgCalculateRestBiomass(QtWidgets.QDialog, DlgCalculateRestBiomassUi):
         self.dlg_calculate_rest_biomass_data = DlgCalculateRestBiomassData()
         self.dlg_calculate_rest_biomass_summary = DlgCalculateRestBiomassSummaryTable()
 
-        self.btn_calculate_rest_biomass_change.clicked.connect(self.btn_calculate_rest_biomass_change_clicked)
-        self.btn_summary_single_polygon.clicked.connect(self.btn_summary_single_polygon_clicked)
+        self.btn_calculate_rest_biomass_change.clicked.connect(
+            self.btn_calculate_rest_biomass_change_clicked)
+        self.btn_summary_single_polygon.clicked.connect(
+            self.btn_summary_single_polygon_clicked)
 
     def btn_calculate_rest_biomass_change_clicked(self):
         self.close()
@@ -300,8 +314,10 @@ class DlgCalculateUrban(QtWidgets.QDialog, DlgCalculateUrbanUi):
         self.dlg_calculate_urban_data = DlgCalculateUrbanData()
         self.dlg_calculate_urban_summary = DlgCalculateUrbanSummaryTable()
 
-        self.btn_calculate_urban_change.clicked.connect(self.btn_calculate_urban_change_clicked)
-        self.btn_summary_single_polygon.clicked.connect(self.btn_summary_single_polygon_clicked)
+        self.btn_calculate_urban_change.clicked.connect(
+            self.btn_calculate_urban_change_clicked)
+        self.btn_summary_single_polygon.clicked.connect(
+            self.btn_summary_single_polygon_clicked)
 
     def btn_calculate_urban_change_clicked(self):
         self.close()
@@ -316,8 +332,10 @@ class CalculationOptionsWidget(QtWidgets.QWidget, WidgetCalculationOptionsUi):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
-        self.radioButton_run_in_cloud.toggled.connect(self.radioButton_run_in_cloud_changed)
-        self.btn_local_data_folder_browse.clicked.connect(self.open_folder_browse)
+        self.radioButton_run_in_cloud.toggled.connect(
+            self.radioButton_run_in_cloud_changed)
+        self.btn_local_data_folder_browse.clicked.connect(
+            self.open_folder_browse)
 
     def showEvent(self, event):
         super().showEvent(event)
@@ -376,15 +394,16 @@ class CalculationOutputWidget(QtWidgets.QWidget, WidgetCalculationOutputUi):
 
         self.setupUi(self)
 
-        self.browse_output_basename.clicked.connect(self.select_output_basename)
+        self.browse_output_basename.clicked.connect(
+            self.select_output_basename)
 
     def select_output_basename(self):
-        local_name = QtCore.QSettings().value("LDMP/output_basename_{}".format(self.subclass_name), None)
+        local_name = QtCore.QSettings().value(
+            "LDMP/output_basename_{}".format(self.subclass_name), None)
         if local_name:
             initial_path = local_name
         else:
             initial_path = QtCore.QSettings().value("LDMP/output_dir", None)
-
 
         f, _ = QtWidgets.QFileDialog.getSaveFileName(self,
                 self.tr('Choose a prefix to be used when naming output files'),
@@ -403,13 +422,15 @@ class CalculationOutputWidget(QtWidgets.QWidget, WidgetCalculationOutputUi):
 
     def set_output_summary(self, f):
         out_files = [f + suffix for suffix in self.output_suffixes]
-        self.output_summary.setText("\n".join(["{}"]*len(out_files)).format(*out_files))
+        self.output_summary.setText(
+            "\n".join(["{}"]*len(out_files)).format(*out_files))
 
     def check_overwrites(self):
         overwrites = []
-        for suffix in self.output_suffixes: 
+        for suffix in self.output_suffixes:
             if os.path.exists(self.output_basename.text() + suffix):
-                overwrites.append(os.path.basename(self.output_basename.text() + suffix))
+                overwrites.append(os.path.basename(
+                    self.output_basename.text() + suffix))
 
         if len(overwrites) > 0:
             resp = QtWidgets.QMessageBox.question(self,
@@ -444,10 +465,11 @@ class CalculationHidedOutputWidget(QtWidgets.QWidget, WidgetCalculationOutputUi)
 
     def set_output_summary(self, f):
         out_files = [f + suffix for suffix in self.output_suffixes]
-        self.output_summary.setText("\n".join(["{}"]*len(out_files)).format(*out_files))
+        self.output_summary.setText(
+            "\n".join(["{}"]*len(out_files)).format(*out_files))
 
     def check_overwrites(self):
-        """Method maintained only for retro compatibility with old code. Overwrite can't happen because 
+        """Method maintained only for retro compatibility with old code. Overwrite can't happen because
         filename is choosed randomly.
         """
         return True
@@ -534,20 +556,21 @@ class DlgCalculateBase(QtWidgets.QDialog):
             functools.partial(self.toggle_execution_button, False))
         self.main_dock.cache_refresh_finished.connect(
             functools.partial(self.toggle_execution_button, True))
-        self.toggle_execution_button(not self.main_dock.refreshing_filesystem_cache)
+        self.toggle_execution_button(
+            not self.main_dock.refreshing_filesystem_cache)
 
         self.update_current_region()
         self.region_button.setIcon(
-            QtGui.QIcon(':/plugins/LDMP/icons/wrench.svg')
+            QtGui.QIcon(os.path.join(ICON_PATH, 'wrench.svg'))
         )
         self.region_button.clicked.connect(self.run_settings)
 
         # adding a collapsible arrow on the splitter
         self.splitter.setCollapsible(0, False)
-        splitter_handle = self.splitter.handle(1)
-        handle_layout = QtWidgets.QVBoxLayout()
+        splitter_handle=self.splitter.handle(1)
+        handle_layout=QtWidgets.QVBoxLayout()
         handle_layout.setContentsMargins(0, 0, 0, 0)
-        self.collapse_button = QtWidgets.QToolButton(splitter_handle)
+        self.collapse_button=QtWidgets.QToolButton(splitter_handle)
         self.collapse_button.setAutoRaise(True)
         self.collapse_button.setFixedSize(12, 12)
         self.collapse_button.setCursor(QtCore.Qt.ArrowCursor)
@@ -556,20 +579,20 @@ class DlgCalculateBase(QtWidgets.QDialog):
         handle_layout.addStretch()
         splitter_handle.setLayout(handle_layout)
 
-        arrow_type = QtCore.Qt.RightArrow
+        arrow_type=QtCore.Qt.RightArrow
         self.collapse_button.setArrowType(arrow_type)
         self.collapse_button.clicked.connect(self.splitter_toggled)
-        self.splitter_collapsed = False
+        self.splitter_collapsed=False
 
         qgis.gui.QgsGui.enableAutoGeometryRestore(self)
         self.splitter.setStretchFactor(0, 10)
 
     def update_current_region(self):
-        region = settings_manager.get_value(Setting.AREA_NAME)
+        region=settings_manager.get_value(Setting.AREA_NAME)
         self.region_la.setText(self.tr(f"Current region: {region}"))
 
     def run_settings(self):
-        dlg_settings = DlgSettings(parent=self)
+        dlg_settings=DlgSettings(parent=self)
         if dlg_settings.exec_():
             self.update_current_region()
 
@@ -577,18 +600,18 @@ class DlgCalculateBase(QtWidgets.QDialog):
         super(DlgCalculateBase, self).showEvent(event)
 
         if self._firstShowEvent:
-            self._firstShowEvent = False
+            self._firstShowEvent=False
             self.firstShowEvent.emit()
 
     def firstShow(self):
-        self.options_tab = CalculationOptionsWidget()
+        self.options_tab=CalculationOptionsWidget()
         self.options_tab.setParent(self)
         # By default show the local or cloud option
         self.options_tab.toggle_show_where_to_run(False)
 
     def btn_calculate(self):
-        self.aoi = areaofinterest.prepare_area_of_interest()
-        ret = self.aoi.bounding_box_gee_geojson()
+        self.aoi=areaofinterest.prepare_area_of_interest()
+        ret=self.aoi.bounding_box_gee_geojson()
         if not ret:
             QtWidgets.QMessageBox.critical(
                 None,
@@ -597,7 +620,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
             )
             return False
         else:
-            self.gee_bounding_box = ret
+            self.gee_bounding_box=ret
 
         if self._has_output:
             if not self.output_tab.output_basename.text():
@@ -606,7 +629,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
                 return False
 
             # Check if the chosen basename would lead to an  overwrite(s):
-            ret = self.output_tab.check_overwrites()
+            ret=self.output_tab.check_overwrites()
             if not ret:
                 return False
 
@@ -617,23 +640,23 @@ class ClipWorker(worker.AbstractWorker):
     def __init__(self, in_file, out_file, geojson, output_bounds=None):
         worker.AbstractWorker.__init__(self)
 
-        self.in_file = in_file
-        self.out_file = out_file
-        self.output_bounds = output_bounds
+        self.in_file=in_file
+        self.out_file=out_file
+        self.output_bounds=output_bounds
 
-        self.geojson = geojson
+        self.geojson=geojson
 
     def work(self):
         self.toggle_show_progress.emit(True)
         self.toggle_show_cancel.emit(True)
 
-        json_file = GetTempFilename('.geojson')
+        json_file=GetTempFilename('.geojson')
         with open(json_file, 'w') as f:
             json.dump(self.geojson, f, separators=(',', ': '))
 
         gdal.UseExceptions()
-        res = gdal.Warp(self.out_file, self.in_file, format='GTiff',
-                        cutlineDSName=json_file, srcNodata=-32768, 
+        res=gdal.Warp(self.out_file, self.in_file, format='GTiff',
+                        cutlineDSName=json_file, srcNodata=-32768,
                         outputBounds=self.output_bounds,
                         dstNodata=-32767,
                         dstSRS="epsg:4326",
@@ -660,16 +683,16 @@ class MaskWorker(worker.AbstractWorker):
     def __init__(self, out_file, geojson, model_file=None):
         worker.AbstractWorker.__init__(self)
 
-        self.out_file = out_file
-        self.geojson = geojson
-        self.model_file = model_file
+        self.out_file=out_file
+        self.geojson=geojson
+        self.model_file=model_file
 
     def work(self):
         self.toggle_show_progress.emit(True)
         self.toggle_show_cancel.emit(True)
 
 
-        json_file = GetTempFilename('.geojson')
+        json_file=GetTempFilename('.geojson')
         with open(json_file, 'w') as f:
             json.dump(self.geojson, f, separators=(',', ': '))
 
@@ -677,24 +700,24 @@ class MaskWorker(worker.AbstractWorker):
 
         if self.model_file:
             # Assumes an image with no rotation
-            gt = gdal.Info(self.model_file, format='json')['geoTransform']
-            x_size, y_size= gdal.Info(self.model_file, format='json')['size']
-            x_min = min(gt[0], gt[0] + x_size * gt[1])
-            x_max = max(gt[0], gt[0] + x_size * gt[1])
-            y_min = min(gt[3], gt[3] + y_size * gt[5])
-            y_max = max(gt[3], gt[3] + y_size * gt[5])
-            output_bounds = [x_min, y_min, x_max, y_max]
-            x_res = gt[1]
-            y_res = gt[5]
+            gt=gdal.Info(self.model_file, format='json')['geoTransform']
+            x_size, y_size=gdal.Info(self.model_file, format='json')['size']
+            x_min=min(gt[0], gt[0] + x_size * gt[1])
+            x_max=max(gt[0], gt[0] + x_size * gt[1])
+            y_min=min(gt[3], gt[3] + y_size * gt[5])
+            y_max=max(gt[3], gt[3] + y_size * gt[5])
+            output_bounds=[x_min, y_min, x_max, y_max]
+            x_res=gt[1]
+            y_res=gt[5]
         else:
-            output_bounds = None
-            x_res = None
-            y_res = None
+            output_bounds=None
+            x_res=None
+            y_res=None
 
-        res = gdal.Rasterize(self.out_file, json_file, format='GTiff',
+        res=gdal.Rasterize(self.out_file, json_file, format='GTiff',
                              outputBounds=output_bounds,
-                             initValues=-32767, # Areas that are masked out
-                             burnValues=1, # Areas that are NOT masked out
+                             initValues=-32767,  # Areas that are masked out
+                             burnValues=1,  # Areas that are NOT masked out
                              xRes=x_res,
                              yRes=y_res,
                              outputSRS="epsg:4326",

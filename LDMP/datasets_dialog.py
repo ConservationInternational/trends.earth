@@ -1,5 +1,6 @@
 """Datasets details dialog for Trends.Earth QGIS plugin."""
 
+import os
 import json
 from pathlib import Path
 from zipfile import ZipFile
@@ -7,7 +8,7 @@ from zipfile import ZipFile
 import qgis.core
 import qgis.gui
 
-from PyQt5 import (
+from qgis.PyQt import (
     QtCore,
     QtGui,
     QtWidgets,
@@ -27,6 +28,9 @@ from .logger import log
 
 WidgetDatasetItemDetailsUi, _ = uic.loadUiType(
     str(Path(__file__).parents[0] / "gui/WidgetDatasetItemDetails.ui"))
+
+
+ICON_PATH = os.path.join(os.path.dirname(__file__), 'icons')
 
 
 class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
@@ -73,13 +77,13 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
         self.export_btn.setEnabled(local_paths_exist)
         self.path_le.setText(path_le_text)
         self.load_btn.setIcon(
-            QtGui.QIcon(':/plugins/LDMP/icons/mActionAddRasterLayer.svg'))
+            QtGui.QIcon(os.path.join(ICON_PATH, 'mActionAddRasterLayer.svg')))
         self.open_directory_btn.setIcon(
-            QtGui.QIcon(':/images/themes/default/mActionFileOpen.svg'))
+            QtGui.QIcon(os.path.join(ICON_PATH, 'mActionFileOpen.svg')))
         self.export_btn.setIcon(
-            QtGui.QIcon(':/plugins/LDMP/icons/export_zip.svg'))
+            QtGui.QIcon(os.path.join(ICON_PATH, 'export_zip.svg')))
         self.delete_btn.setIcon(
-            QtGui.QIcon(':/plugins/LDMP/icons/mActionDeleteSelected.svg'))
+            QtGui.QIcon(os.path.join(ICON_PATH, 'mActionDeleteSelected.svg')))
 
         self.comments.setText(self.job.params.task_notes.user_notes)
         self.input.setText(
@@ -96,7 +100,7 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
                     sort_keys=True)
             )
 
-        self.bar = qgis.gui.QgsMessageBar()
+        self.bar=qgis.gui.QgsMessageBar()
         self.bar.setSizePolicy(
             QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed
         )
@@ -108,14 +112,15 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
             self.accept()
 
     def open_job_directory(self):
-        log(f"Open directory button clicked for job {self.job.params.task_name!r}")
-        job_directory = manager.job_manager.get_job_file_path(self.job).parent
+        log(
+            f"Open directory button clicked for job {self.job.params.task_name!r}")
+        job_directory=manager.job_manager.get_job_file_path(self.job).parent
         # NOTE: not using QDesktopServices.openUrl here, since it seems to not be
         # working correctly (as of Jun 2021 on Ubuntu)
         openFolder(str(job_directory))
 
     def delete_dataset(self):
-        result = utils.delete_dataset(self.job)
+        result=utils.delete_dataset(self.job)
         if result == QtWidgets.QMessageBox.Yes:
             self.accept()
 
@@ -124,20 +129,21 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
         self.export_btn.setEnabled(False)
         self.bar.clearWidgets()
         manager.job_manager.exports_dir.mkdir(exist_ok=True)
-        current_job_file_path = manager.job_manager.get_job_file_path(self.job)
-        target_zip_name = f"{current_job_file_path.stem}.zip"
-        target_path = manager.job_manager.exports_dir / target_zip_name
-        paths_to_zip = self.job.results.local_paths + [current_job_file_path]
+        current_job_file_path=manager.job_manager.get_job_file_path(self.job)
+        target_zip_name=f"{current_job_file_path.stem}.zip"
+        target_path=manager.job_manager.exports_dir / target_zip_name
+        paths_to_zip=self.job.results.local_paths + [current_job_file_path]
         try:
             with ZipFile(target_path, 'w') as zip:
                 for path in paths_to_zip:
                     zip.write(str(path), path.name)
         except RuntimeError:
-            message_bar_item = self.bar.createMessage(
+            message_bar_item=self.bar.createMessage(
                 tr(f"Error exporting dataset {self.job}"))
-            self.bar.pushWidget(message_bar_item, level=qgis.core.Qgis.Critical)
+            self.bar.pushWidget(
+                message_bar_item, level=qgis.core.Qgis.Critical)
         else:
-            message_bar_item = self.bar.createMessage(
+            message_bar_item=self.bar.createMessage(
                 tr(f"Dataset exported to {target_path!r}"))
             self.bar.pushWidget(message_bar_item, level=qgis.core.Qgis.Info)
         finally:

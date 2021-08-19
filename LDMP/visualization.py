@@ -2,7 +2,7 @@
 """
 /***************************************************************************
  LDMP - A QGIS plugin
- This plugin supports monitoring and reporting of land degradation to the UNCCD 
+ This plugin supports monitoring and reporting of land degradation to the UNCCD
  and in support of the SDG Land Degradation Neutrality (LDN) target.
                               -------------------
         begin                : 2017-05-23
@@ -15,7 +15,7 @@
 import os
 from pathlib import Path
 
-from PyQt5 import (
+from qgis.PyQt import (
     QtWidgets,
     QtXml,
     uic
@@ -46,7 +46,7 @@ def set_fill_style(maplayers, id, style='no'):
     # Function to set brush style for a map layer in an XML layer definition
     for n in range(maplayers.length()):
         m_l = maplayers.at(n)
-        # Note that firstChild is needed as id is an element node, 
+        # Note that firstChild is needed as id is an element node,
         # so its text is stored in the first child of that node
         if m_l.namedItem('id').firstChild().nodeValue() == id:
             layer_props = m_l.namedItem('renderer-v2').namedItem('symbols').namedItem('symbol').namedItem('layer').childNodes()
@@ -65,7 +65,7 @@ class zoom_to_admin_poly(object):
         else:
             self.lyr_source = os.path.normpath(os.path.join(os.path.dirname(__file__), 'data', 'ne_10m_admin_0_countries.shp'))
             self.field = 'ISO_A3'
-    
+
     def zoom(self):
         layer = None
         for lyr in QgsProject.instance().layerStore().mapLayers().values():
@@ -74,8 +74,8 @@ class zoom_to_admin_poly(object):
                 break
         if not layer:
             raise LookupError('Unable to locate layer for extent for admin code {}'.format(self.admin_code))
-        # Note that this layer will have the selected admin region filtered out, so 
-        # that data will not be masked in this area. So need to temporarily remove 
+        # Note that this layer will have the selected admin region filtered out, so
+        # that data will not be masked in this area. So need to temporarily remove
         # this filter and then reapply it.
         subset_string = layer.subsetString()
         layer.setSubsetString('')
@@ -147,7 +147,7 @@ class DlgVisualizationBasemap(QtWidgets.QDialog, DlgVisualizationBasemapUi):
             lyr_def_content = f.read()
             f.close()
 
-            # The basemap data, when downloaded, is stored in the data 
+            # The basemap data, when downloaded, is stored in the data
             # subfolder of the plugin directory
             lyr_def_content = lyr_def_content.replace('DATA_FOLDER', os.path.join(os.path.dirname(__file__), 'data'))
 
@@ -171,7 +171,7 @@ class DlgVisualizationBasemap(QtWidgets.QDialog, DlgVisualizationBasemapUi):
                     lyr_def_content = lyr_def_content.replace('MASK_SQL_ADMIN0', '')
                     lyr_def_content = lyr_def_content.replace('MASK_SQL_ADMIN1', "|subset=&quot;adm1_code&quot; != '{}'".format(admin_code))
 
-                    # Set national borders to no brush, and regional borders to 
+                    # Set national borders to no brush, and regional borders to
                     # solid brush
                     document = QtXml.QDomDocument()
                     document.setContent(lyr_def_content)
@@ -179,7 +179,7 @@ class DlgVisualizationBasemap(QtWidgets.QDialog, DlgVisualizationBasemapUi):
                     set_fill_style(maplayers, 'ne_10m_admin_0_countries', 'no')
                     set_fill_style(maplayers, 'ne_10m_admin_1_states_provinces', 'solid')
 
-                    # Set the flag used in the zoom function to know this is an 
+                    # Set the flag used in the zoom function to know this is an
                     # admin 1 code
                     zoomer = zoom_to_admin_poly(admin_code, True)
             else:

@@ -5,7 +5,7 @@ import urllib.parse
 import uuid
 from pathlib import Path
 
-from PyQt5 import QtCore
+from qgis.PyQt import QtCore
 from osgeo import gdal
 
 from .. import (
@@ -196,7 +196,7 @@ class JobManager(QtCore.QObject):
                 _delete_job_datasets(job)
             except PermissionError:
                 log(f"Permissions error on path skipping deletion of {job.id}...")
-                # TODO: add back in old code used for removing visible layers 
+                # TODO: add back in old code used for removing visible layers
                 # prior to deletion
                 return
             self._change_job_status(job, models.JobStatus.DELETED, force_rewrite=False)
@@ -415,7 +415,7 @@ class JobManager(QtCore.QObject):
         vrt_file_path = base_output_path.parent / f"{base_output_path.name}.vrt"
         log(f'vrt_file_path: {vrt_file_path}')
         log(f'vrt_tiles: {[str(vrt_tile) for vrt_tile in vrt_tiles]}')
-        
+
         gdal.BuildVRT(str(vrt_file_path), [str(vrt_tile) for vrt_tile in vrt_tiles])
         return vrt_file_path
 

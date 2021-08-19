@@ -16,7 +16,7 @@ from pathlib import Path
 import datetime
 import typing
 
-from PyQt5 import (
+from qgis.PyQt import (
     QtCore,
     QtWidgets,
     uic,
@@ -567,7 +567,7 @@ class DlgCalculateLDNSummaryTableAdmin(
                 combo_layer_soc=self.combo_boxes['baseline'].combo_layer_soc,
                 combo_layer_traj=self.combo_boxes['baseline'].combo_layer_traj,
                 combo_layer_perf=self.combo_boxes['baseline'].combo_layer_perf,
-    
+
                 combo_layer_state=self.combo_boxes['baseline'].combo_layer_state,
                 combo_layer_lpd=self.combo_boxes['baseline'].combo_layer_lpd,
                 task_notes=self.options_tab.task_notes.toPlainText()

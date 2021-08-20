@@ -62,7 +62,8 @@ class ExecutionScript(SchemaBase):
             id=uuid.UUID(raw_remote_script["id"]),
             run_mode=AlgorithmRunMode.REMOTE,
             description=raw_remote_script["description"],
-            name_readable=raw_remote_script["name_readable"],
+            version=raw_remote_script.get("version", None),
+            name_readable=raw_remote_script.get("name_readable", None),
         )
 
 

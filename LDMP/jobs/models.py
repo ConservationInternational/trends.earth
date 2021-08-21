@@ -88,7 +88,7 @@ class JobLocalContext:
     base_dir: Path
     area_of_interest_name: str
 
-    _unknown_area_of_interest: str = "unknown-area-name"
+    _unknown_area_of_interest: str = "unknown-area"
 
     @classmethod
     def deserialize(cls, raw_local_context: str):

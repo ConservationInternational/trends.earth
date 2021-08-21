@@ -294,7 +294,9 @@ def get_header(url):
     resp = _make_request(
         'Get head',
         url=url,
-        method='head'
+        method='head',
+        payload=None,
+        headers=None
     )
 
     if resp != None:

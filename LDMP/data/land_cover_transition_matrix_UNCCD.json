@@ -89,7 +89,7 @@
                     "name_long":"Cropland",
                     "name_short":"Cropland"
                 },
-                "meaning":"degradation"
+                "meaning":"improvement"
             },
             {
                 "final":{
@@ -191,7 +191,7 @@
                     "name_long":"Tree-covered",
                     "name_short":"Tree-covered"
                 },
-                "meaning":"improvement"
+                "meaning":"degradation"
             },
             {
                 "final":{
@@ -225,7 +225,7 @@
                     "name_long":"Tree-covered",
                     "name_short":"Tree-covered"
                 },
-                "meaning":"improvement"
+                "meaning":"degradation"
             },
             {
                 "final":{
@@ -327,7 +327,7 @@
                     "name_long":"Grassland",
                     "name_short":"Grassland"
                 },
-                "meaning":"degradation"
+                "meaning":"improvement"
             },
             {
                 "final":{

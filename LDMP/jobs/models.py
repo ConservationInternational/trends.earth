@@ -157,7 +157,7 @@ class JobParameters:
     @classmethod
     def deserialize(cls, raw_params: typing.Dict):
         params = raw_params.copy()
-        name = params.pop("task_name")
+        name = params.pop("task_name", "")
         notes = JobNotes.deserialize(params.pop("task_notes", ""))
         return cls(
             task_name=name,

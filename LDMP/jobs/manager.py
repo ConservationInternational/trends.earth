@@ -4,6 +4,8 @@ import typing
 import urllib.parse
 import uuid
 from pathlib import Path
+import unicodedata
+import re
 
 from PyQt5 import QtCore
 from osgeo import gdal
@@ -19,6 +21,23 @@ from .. import (
 from . import models
 from .models import Job
 from ..logger import log
+
+
+def slugify(value, allow_unicode=False):
+    """
+    Taken from https://github.com/django/django/blob/master/django/utils/text.py
+    Convert to ASCII if 'allow_unicode' is False. Convert spaces or repeated
+    dashes to single dashes. Remove characters that aren't alphanumerics,
+    underscores, or hyphens. Convert to lowercase. Also strip leading and
+    trailing whitespace, dashes, and underscores.
+    """
+    value = str(value)
+    if allow_unicode:
+        value = unicodedata.normalize('NFKC', value)
+    else:
+        value = unicodedata.normalize('NFKD', value).encode('ascii', 'ignore').decode('ascii')
+    value = re.sub(r'[^\w\s-]', '', value.lower())
+    return re.sub(r'[-\s]+', '-', value).strip('-_')
 
 
 class JobManager(QtCore.QObject):
@@ -95,7 +114,7 @@ class JobManager(QtCore.QObject):
     def get_job_basename(cls, job: Job):
         separator = "_"
         name_fragments = []
-        task_name = job.params.task_name
+        task_name = slugify(job.params.task_name)
         if task_name != "":
             name_fragments.append(task_name)
         name_fragments.extend([
@@ -128,7 +147,15 @@ class JobManager(QtCore.QObject):
             j.id: j for j in self._get_local_jobs(models.JobStatus.DOWNLOADED)}
         self._known_deleted_jobs = {
             j.id: j for j in self._get_local_jobs(models.JobStatus.DELETED)}
-        # NOTE: finished jobs are treated differently here because we also make sure
+        # move any downloaded jobs with missing local paths back to FINISHED
+        for j in self._known_downloaded_jobs:
+            missing_local_paths = [p for p in j.local_paths if not p.exists()]
+            if missing_local_paths != []:
+                j.local_paths = []
+                self._change_job_status(
+                    j, models.JobStatus.FINISHED, force_rewrite=True)
+        # NOTE: finished jobs are treated differently here because we also make 
+        # sure
         # to delete those that are old and never got downloaded
         self._get_local_finished_jobs()
         self.refreshed_local_state.emit()
@@ -566,7 +593,7 @@ class JobManager(QtCore.QObject):
             base = self.deleted_jobs_dir
         elif job.status in (
                 models.JobStatus.DOWNLOADED, models.JobStatus.GENERATED_LOCALLY):
-            base = self.datasets_dir
+            base = self.datasets_dir / f"{job.id!s}"
         else:
             raise RuntimeError(
                 f"Could not retrieve file path for job with state {job.status}")
@@ -574,7 +601,7 @@ class JobManager(QtCore.QObject):
 
     def get_downloaded_dataset_base_file_path(self, job: Job):
         base = self.datasets_dir
-        return base / f"{self.get_job_basename(job)}"
+        return base / f"{job.id!s}" / f"{self.get_job_basename(job)}"
 
     def write_job_metadata_file(self, job: Job):
         output_path = self.get_job_file_path(job)

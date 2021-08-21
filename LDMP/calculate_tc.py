@@ -296,7 +296,7 @@ class DlgCalculateTCData(calculate.DlgCalculateBase, DlgCalculateTcDataUi):
                           separate=True)
             lc_vrts.append(f)
 
-        climate_zones = os.path.join(os.path.dirname(__file__), 'data', 'IPCC_Climate_Zones.tif')
+        climate_zones = os.path.join(os.path.dirname(__file__), 'data', 'ipcc_climate_zones.tif')
         in_files = [climate_zones]
         in_files.extend(lc_vrts)
 

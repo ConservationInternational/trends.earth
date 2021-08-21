@@ -216,7 +216,7 @@ def get_lc_nesting():
     nesting = QtCore.QSettings().value("LDMP/land_cover_nesting", None)
     if nesting is None:
         nesting = read_lc_nesting_file(os.path.join(os.path.dirname(os.path.realpath(__file__)),
-            'data', 'land_cover_nesting_UNCCD_ESA.json'))
+            'data', 'land_cover_nesting_unccd_esa.json'))
         QtCore.QSettings().setValue("LDMP/land_cover_nesting", LCLegendNesting.Schema().dumps(nesting))
     else:
         nesting = LCLegendNesting.Schema().loads(nesting)
@@ -228,7 +228,7 @@ def get_trans_matrix():
     matrix = None
     if matrix is None:
         matrix = read_lc_matrix_file(os.path.join(os.path.dirname(os.path.realpath(__file__)),
-                                     'data', 'land_cover_transition_matrix_UNCCD.json'))
+                                     'data', 'land_cover_transition_matrix_unccd.json'))
         if matrix:
             QtCore.QSettings().setValue("LDMP/land_cover_transition_matrix", LCTransitionDefinitionDeg.Schema().dumps(matrix))
     else:
@@ -313,7 +313,7 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
         # files, nesting from the file itself.
         # 
         # The default codes stored in self.nesting are derived either 
-        # from the data/land_cover_nesting_UNCCD_ESA.json file when this class 
+        # from the data/land_cover_nesting_unccd_esa.json file when this class 
         # is instantiated from the LCSetupWidget, or from the values within a 
         # custom user data file when this class is instantiated from the 
         # DlgDataIOImportLC class.

@@ -486,8 +486,8 @@ def add_layer(
 
     title = get_band_title(band_info)
     layer = iface.addRasterLayer(layer_path, title)
-    if not layer.isValid():
-        log('Failed to add layer')
+    if not layer or not layer.isValid():
+        log(f'Failed to add layer {layer_path}, band number {band_number}')
         return False
     try:
         color_ramp = _create_color_ramp(layer_path, band_number, style, band_info)

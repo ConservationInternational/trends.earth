@@ -270,7 +270,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         result = False
         if self.job.results is not None:
             for local_path in self.job.results.local_paths:
-                if local_path.suffix == ".tif" and local_path.exists():
+                if local_path.suffix in [".vrt", ".tif"] and local_path.exists():
                     result = True
                     break
         return result

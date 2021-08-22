@@ -39,6 +39,7 @@ def get_local_job_output_paths(job: models.Job) -> typing.Tuple[Path, Path]:
     previous_status = job.status
     job.status = models.JobStatus.GENERATED_LOCALLY
     job_output_path = manager.job_manager.get_job_file_path(job)
+    job_output_path.parent.mkdir(parents=True, exist_ok=True)
     dataset_output_path = job_output_path.parent / f"{job_output_path.stem}.tif"
     job.status = previous_status
     return job_output_path, dataset_output_path

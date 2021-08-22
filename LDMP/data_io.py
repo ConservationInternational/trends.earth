@@ -1371,8 +1371,12 @@ def get_usable_datasets(
     for job in job_manager.relevant_jobs:
         job: job_models.Job
         is_downloaded = job.status == job_models.JobStatus.DOWNLOADED
-        is_valid_type = job.results.type in (job_models.JobResult.CLOUD_RESULTS,
-                                             job_models.JobResult.LOCAL_RESULTS)
+        try:
+            is_valid_type = job.results.type in (job_models.JobResult.CLOUD_RESULTS,
+                                                 job_models.JobResult.LOCAL_RESULTS)
+        except AttributeError:
+            # Catch case of an invalid type
+            continue
         if is_downloaded and is_valid_type:
             path = job.results.local_paths[0]
             if job.script.name == dataset_name:

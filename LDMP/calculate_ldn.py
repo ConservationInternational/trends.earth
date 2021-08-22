@@ -422,10 +422,6 @@ class DlgCalculateLDNSummaryTableAdmin(
 
                 return False
 
-            log(f'aoi extent: {self.aoi.get_layer_wgs84().extent().toString()}')
-            log(f'traj extent: {combo_boxes.combo_layer_traj.get_layer().extent().toString()}')
-            log(f'perf extent: {combo_boxes.combo_layer_perf.get_layer().extent().toString()}')
-
             if self.aoi.calc_frac_overlap(
                 QgsGeometry.fromRect(
                     combo_boxes.combo_layer_perf.get_layer().extent()

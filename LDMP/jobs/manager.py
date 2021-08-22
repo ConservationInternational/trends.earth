@@ -145,18 +145,24 @@ class JobManager(QtCore.QObject):
             j.id: j for j in self._get_local_jobs(models.JobStatus.RUNNING)}
         self._known_downloaded_jobs = {
             j.id: j for j in self._get_local_jobs(models.JobStatus.DOWNLOADED)}
-        self._known_deleted_jobs = {
-            j.id: j for j in self._get_local_jobs(models.JobStatus.DELETED)}
         # move any downloaded jobs with missing local paths back to FINISHED
-        for j in self._known_downloaded_jobs:
-            missing_local_paths = [p for p in j.local_paths if not p.exists()]
-            if missing_local_paths != []:
-                j.local_paths = []
+        for j_id, j in self._known_downloaded_jobs.items():
+            missing_local_paths = [p for p in j.results.local_paths if not p.exists()]
+            if len(missing_local_paths) > 0:
+                log(f'job {j_id} currently marked as DOWNLOADED but has missing paths, so moving back to FINISHED status')
+                j.results.local_paths = []
                 self._change_job_status(
                     j, models.JobStatus.FINISHED, force_rewrite=True)
+        # filter list in case any jobs were moved from downloaded to finished
+        self._known_downloaded_jobs = {
+            j_id: j
+            for j_id, j
+            in self._known_downloaded_jobs.items()
+            if j.status == models.JobStatus.DOWNLOADED
+        }
+
         # NOTE: finished jobs are treated differently here because we also make 
-        # sure
-        # to delete those that are old and never got downloaded
+        # sure to delete those that are old and never got downloaded
         self._get_local_finished_jobs()
         self.refreshed_local_state.emit()
 
@@ -339,7 +345,7 @@ class JobManager(QtCore.QObject):
 
     def display_job_results(self, job: Job):
         for path in job.results.local_paths:
-            if path.suffix == ".tif":
+            if path.suffix in [".tif", ".vrt"]:
                 for band_index, band in enumerate(job.results.bands):
                     if band.add_to_map:
                         layers.add_layer(str(path), band_index+1, band.serialize())
@@ -539,7 +545,7 @@ class JobManager(QtCore.QObject):
             models.JobStatus.DOWNLOADED: self.datasets_dir,
         }[status]
         result = []
-        for job_metadata_path in base_dir.glob("*.json"):
+        for job_metadata_path in base_dir.glob("**/*.json"):
             with job_metadata_path.open(encoding=self._encoding) as fh:
                 try:
                     raw_job = json.load(fh)
@@ -673,10 +679,7 @@ def _download_result(url: str, output_path: Path) -> bool:
     download_worker.start()
     result = bool(download_worker.get_resp())
     if not result:
-        try:
-            output_path.parent.rmdir()
-        except PermissionError:
-            pass
+        output_path.unlink()
     return result
 
 

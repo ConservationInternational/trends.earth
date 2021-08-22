@@ -491,8 +491,8 @@ def add_layer(
         return False
     try:
         color_ramp = _create_color_ramp(layer_path, band_number, style, band_info)
-        log(f"color_ramp: {color_ramp}")
-        log(f"color_ramp is None: {color_ramp is None}")
+        # log(f"color_ramp: {color_ramp}")
+        # log(f"color_ramp is None: {color_ramp is None}")
     except RuntimeError as exc:
         log(f"Could not create color ramp: {str(exc)}")
         return False

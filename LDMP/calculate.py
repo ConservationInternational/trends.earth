@@ -668,7 +668,6 @@ class MaskWorker(worker.AbstractWorker):
         self.toggle_show_progress.emit(True)
         self.toggle_show_cancel.emit(True)
 
-
         json_file = GetTempFilename('.geojson')
         with open(json_file, 'w') as f:
             json.dump(self.geojson, f, separators=(',', ': '))

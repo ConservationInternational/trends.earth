@@ -713,3 +713,35 @@ class MaskWorker(worker.AbstractWorker):
         else:
             self.progress.emit(100 * fraction)
             return True
+
+
+class TranslateWorker(worker.AbstractWorker):
+    def __init__(self, out_file, in_file):
+        worker.AbstractWorker.__init__(self)
+
+        self.out_file = out_file
+        self.in_file = in_file
+
+    def work(self):
+        self.toggle_show_progress.emit(True)
+        self.toggle_show_cancel.emit(True)
+
+        gdal.UseExceptions()
+
+        res = gdal.Translate(
+            self.out_file,
+            self.in_file,
+            creationOptions=['COMPRESS=LZW'],
+            callback=self.progress_callback)
+
+        if res:
+            return True
+        else:
+            return None
+
+    def progress_callback(self, fraction, message, data):
+        if self.killed:
+            return False
+        else:
+            self.progress.emit(100 * fraction)
+            return True

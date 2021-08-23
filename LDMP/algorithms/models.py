@@ -13,7 +13,6 @@ from marshmallow_enum import EnumField
 from te_schemas import SchemaBase
 
 
-
 class AlgorithmNodeType(enum.Enum):
     Group = 1
     Algorithm = 2

@@ -144,7 +144,7 @@ def prod5_to_prod3(prod5):
 
 
 @jit(nopython=True)
-def calc_deg_soc(soc, water, mask):
+def recode_deg_soc(soc, water, mask):
     '''recode SOC change layer from percent change into a categorical map'''
     # Degradation in terms of SOC is defined as a decline of more
     # than 10% (and improving increase greater than 10%)
@@ -159,6 +159,25 @@ def calc_deg_soc(soc, water, mask):
     out[water] = -32768  # don't count soc in water
     out[mask] = -32767
     return(np.reshape(out, shp))
+
+
+@jit(nopython=True)
+def calc_deg_soc(soc_bl, soc_tg, water, mask):
+    '''recode SOC change layer from percent change into a categorical map'''
+    # Degradation in terms of SOC is defined as a decline of more
+    # than 10% (and improving increase greater than 10%)
+    shp = soc_bl.shape
+    soc_bl = soc_bl.ravel()
+    soc_tg = soc_tg.ravel()
+    soc_chg = (soc_tg / soc_bl) * 100
+    water = water.ravel()
+    mask = mask.ravel()
+    soc_chg[(soc_chg >= -101) & (soc_chg <= -10)] = -1
+    soc_chg[(soc_chg > -10) & (soc_chg < 10)] = 0
+    soc_chg[soc_chg >= 10] = 1
+    soc_chg[water] = -32768  # don't count soc in water
+    soc_chg[mask] = -32767
+    return(np.reshape(soc_chg, shp))
 
 
 @jit(nopython=True)
@@ -218,6 +237,7 @@ def bizonal_total(z1, z2, d, mask):
     return tab
 
 
+@jit(nopython=True)
 def accumulate_dicts(z):
     out = z[0]
     for d in z[1:]:

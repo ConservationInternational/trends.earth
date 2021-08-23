@@ -18,6 +18,9 @@ from .. import (
 from ..algorithms.models import ExecutionScript
 from ..logger import log
 
+from te_schemas import SchemaBase
+
+import marshmallow_dataclass
 
 class SortField(enum.Enum):
     NAME = 'name'
@@ -174,13 +177,13 @@ class JobParameters:
         return result
 
 
-@dataclasses.dataclass()
-class JobBand:
-    metadata: typing.Dict
+@marshmallow_dataclass.dataclass
+class JobBand(SchemaBase):
+    metadata: dict
     name: str
-    no_data_value: typing.Optional[float] = -32768.0
-    activated: typing.Optional[bool] = True
-    add_to_map: typing.Optional[bool] = True
+    no_data_value: typing.Optional[float] = dataclasses.field(default= -32768.0)
+    activated: typing.Optional[bool] = dataclasses.field(default=True)
+    add_to_map: typing.Optional[bool] = dataclasses.field(default=True)
 
     @classmethod
     def deserialize(cls, raw_band: typing.Dict):

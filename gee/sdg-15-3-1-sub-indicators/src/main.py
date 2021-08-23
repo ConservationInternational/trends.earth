@@ -141,7 +141,6 @@ def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
             )
 
             out = None
-
             for this_res in as_completed(res):
                 if out is None:
                     out = this_res.result()

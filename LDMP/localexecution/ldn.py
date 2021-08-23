@@ -425,16 +425,16 @@ def compute_ldn(
 
         if prod_mode == LdnProductivityMode.TRENDS_EARTH.value:
             traj, perf, state = _prepare_trends_earth_mode_vrt_paths(period_params)
-            in_dfs=lc_dfs + soc_dfs + [traj, perf, state]
-            summary_table, output_ldn_path = _compute_summary_table_from_te_productivity(
+            in_dfs = lc_dfs + soc_dfs + [traj, perf, state]
+            summary_table, output_ldn_path, reproj_tifs = _compute_summary_table_from_te_productivity(
                 in_dfs=in_dfs,
                 compute_bbs_from=traj.path,
                 **summary_table_stable_kwargs[period]
             )
         elif prod_mode == LdnProductivityMode.JRC_LPD.value:
             lpd = _prepare_jrc_lpd_mode_vrt_path(period_params)
-            in_dfs=lc_dfs + soc_dfs + [lpd]
-            summary_table, output_ldn_path = _compute_summary_table_from_lpd_productivity(
+            in_dfs = lc_dfs + soc_dfs + [lpd]
+            summary_table, output_ldn_path, reproj_tifs = _compute_summary_table_from_lpd_productivity(
                 in_dfs=in_dfs,
                 compute_bbs_from=lpd.path,
                 **summary_table_stable_kwargs[period],
@@ -467,10 +467,14 @@ def compute_ldn(
             )
             ldn_job.results.bands.append(sdg_prod_band)
 
+        reproj_tif_df = _combine_data_files(reproj_tifs, in_dfs)
         out_dfs = [
+            DataFile(utils.save_vrt(reproj_tifs_df.path), job_band)
+            for job_band in enumerate(reproj_tifs_df.bands)
+        ].extend[
             DataFile(utils.save_vrt(output_ldn_path, 1), [sdg_band]),
             DataFile(utils.save_vrt(output_ldn_path, 1), [sdg_prod_band])
-        ] + in_dfs
+        ]
 
         out_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
         gdal.BuildVRT(
@@ -554,7 +558,7 @@ class DataFile:
 
 def _combine_data_files(
     path,
-    datafiles: List[DataFile]
+    datafiles: List[models.JobBand]
 ) -> DataFile:
 
     return DataFile(
@@ -1498,6 +1502,7 @@ def _calculate_summary_table(
         prod_mode: str,
         lc_legend_nesting: land_cover.LCLegendNesting,
         lc_trans_matrix: land_cover.LCTransitionDefinitionDeg,
+        reproject_worker_process_name,
         mask_worker_process_name,
         deg_worker_process_name,
         period
@@ -1518,52 +1523,64 @@ def _calculate_summary_table(
         resampleAlg=gdal.GRA_NearestNeighbour,
         separate=True
     )
-
-    # Compute a mask layer that will be used in the tabulation code to
-    # mask out areas outside of the AOI. Do this instead of using
-    # gdal.Clip to save having to clip and rewrite all of the layers in
-    # the VRT
-    mask_vrt = tempfile.NamedTemporaryFile(suffix='.tif').name
-    log(u'Saving mask to {}'.format(mask_vrt))
-    geojson = calculate.json_geom_to_geojson(
-        qgis.core.QgsGeometry.fromWkt(bbox).asJson())
-    deg_lc_mask_worker = worker.StartWorker(
-        calculate.MaskWorker,
-        mask_worker_process_name,
-        mask_vrt,
-        geojson,
+    reproj_tif = tempfile.NamedTemporaryFile(suffix='.tif').name
+    log(u'Reprojecting indicator VRT and saving to: {}'.format(reproj_tif))
+    reproject_worker = worker.StartWorker(
+        calculate.TranslateWorker,
+        reproject_worker_process_name,
+        reproj_tif,
         indic_vrt
     )
     error_message = ""
 
-    if deg_lc_mask_worker.success:
-        in_df = _combine_data_files(indic_vrt, in_dfs)
-        ######################################################################
-        #  Calculate SDG 15.3.1 layers
-        log('Calculating summary table...')
-        deg_worker = worker.StartWorker(
-            DegradationSummaryWorker,
-            deg_worker_process_name,
-            DegradationSummaryWorkerParams(
-                in_df=in_df,
-                prod_mode=prod_mode,
-                prod_out_file=str(output_sdg_path),
-                mask_file=mask_vrt,
-                nesting=lc_legend_nesting,
-                trans_matrix=lc_trans_matrix,
-                period=period
-            )
+    if reproject_worker.success:
+        # Compute a mask layer that will be used in the tabulation code to
+        # mask out areas outside of the AOI. Do this instead of using
+        # gdal.Clip to save having to clip and rewrite all of the layers in
+        # the VRT
+        mask_vrt = tempfile.NamedTemporaryFile(suffix='.tif').name
+        log(u'Saving mask to {}'.format(mask_vrt))
+        geojson = calculate.json_geom_to_geojson(
+            qgis.core.QgsGeometry.fromWkt(bbox).asJson())
+        mask_worker = worker.StartWorker(
+            calculate.MaskWorker,
+            mask_worker_process_name,
+            mask_vrt,
+            geojson,
+            reproj_tif
         )
+        if mask_worker.success:
+            in_df = _combine_data_files(reproj_tif, in_dfs)
+            ######################################################################
+            #  Calculate SDG 15.3.1 layers
+            log('Calculating summary table...')
+            deg_worker = worker.StartWorker(
+                DegradationSummaryWorker,
+                deg_worker_process_name,
+                DegradationSummaryWorkerParams(
+                    in_df=in_df,
+                    prod_mode=prod_mode,
+                    prod_out_file=str(output_sdg_path),
+                    mask_file=mask_vrt,
+                    nesting=lc_legend_nesting,
+                    trans_matrix=lc_trans_matrix,
+                    period=period
+                )
+            )
 
-        if not deg_worker.success:
-            error_message = "Error calculating SDG 15.3.1 summary table."
-            result = None
+            if not deg_worker.success:
+                error_message = "Error calculating SDG 15.3.1 summary table."
+                result = None
+
+            else:
+                result = (reproj_tig, deg_worker.get_return())
 
         else:
-            result = deg_worker.get_return()
-    else:
+            error_message = "Error creating mask."
+            result = None
+
+        error_message = "Error reprojecting layers."
         result = None
-        error_message = "Error creating mask."
 
     return result, error_message
 
@@ -1587,6 +1604,10 @@ def _compute_ldn_summary_table(
         1: f"{output_job_path.stem}.tif",
         2: f"{output_job_path.stem}" + "_{index}.tif"
     }[len(wkt_bounding_boxes)]
+    reproject_name_fragment = {
+        1: "Reprojecting layers",
+        2: "Reprojecting layers (part {index} of 2)",
+    }[len(wkt_bounding_boxes)]
     mask_name_fragment = {
         1: "Generating mask",
         2: "Generating mask (part {index} of 2)",
@@ -1603,36 +1624,44 @@ def _compute_ldn_summary_table(
         "period": period,
     }
     output_path = output_job_path.parent / output_name_pattern.format(index=1)
-    summary_table, error_message = _calculate_summary_table(
+    result, error_message = _calculate_summary_table(
         bbox=wkt_bounding_boxes[0],
         pixel_aligned_bbox=bbs[0],
         output_sdg_path=output_path,
+        reproject_worker_process_name=reproject_name_fragment.format(index=1),
         mask_worker_process_name=mask_name_fragment.format(index=1),
         deg_worker_process_name=deg_name_fragment.format(index=1),
         **stable_kwargs
     )
+    reproj_tifs = [result[0]]
+    summary_table = result[1]
 
     if summary_table is None:
         raise RuntimeError(error_message)
 
     if len(wkt_bounding_boxes) > 1:
         tile_output_path = output_job_path.parent / output_name_pattern.format(index=2)
-        bbox2_summary_table, error_message = _calculate_summary_table(
+        result_2, error_message = _calculate_summary_table(
             bbox=wkt_bounding_boxes[1],
             pixel_aligned_bbox=bbs[1],
             output_sdg_path=tile_output_path,
+            reproject_worker_process_name=reproject_name_fragment.format(index=2),
             mask_worker_process_name=mask_name_fragment.format(index=2),
             deg_worker_process_name=deg_name_fragment.format(index=2),
             **stable_kwargs
         )
+        reproj_tif_2 = result[0]
+        summary_table_2 = result_2[1]
 
-        if bbox2_summary_table is None:
+        if summary_table_2 is None:
             raise RuntimeError(error_message)
         summary_table = _accumulate_summary_tables(
-            summary_table, bbox2_summary_table)
+            summary_table, summary_table_2)
         output_path = output_job_path.parent / f"{output_job_path.stem}.vrt"
 
-    return summary_table, output_path
+        reproj_tifs.append = [reproj_tif_2]
+
+    return summary_table, output_path, reproj_tifs
 
 
 def _write_overview_sdg_sheet(sheet, summary_table: SummaryTable):

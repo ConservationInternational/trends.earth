@@ -405,13 +405,13 @@ def plugin_setup(c, clean=False, link=False, pip='pip'):
 
     if link:
         for module in c.plugin.ext_libs.module_symlinks:
-            link = os.path.abspath(c.plugin.ext_libs.path) + os.path.sep + module['name']
-            if os.path.islink(link):
+            l = os.path.abspath(c.plugin.ext_libs.path) + os.path.sep + module['name']
+            if os.path.islink(l):
                 print("Local repo of {} already linked to plugin ext_libs".format(module['name']))
             else:
                 print("Linking local repo of {} to plugin ext_libs".format(module['name']))
-                shutil.rmtree(link)
-                os.symlink(module['path'], link)
+                shutil.rmtree(l)
+                os.symlink(module['path'], l)
 
 @task(help={'clean': "run rmtree",
             'version': 'what version of QGIS to install to',
@@ -789,8 +789,8 @@ def zipfile_build(c, clean=False, version=3, tests=False, filename=None, pip='pi
     set_version(c)
     set_tag(c)
 
-    plugin_setup(c, clean,  pip)
-    compile_files(c, version, clean)
+    plugin_setup(c, clean=clean,  pip=pip)
+    compile_files(c, version=version, clean=clean)
 
     package_dir = c.plugin.package_dir
     if sys.version_info[0] < 3:

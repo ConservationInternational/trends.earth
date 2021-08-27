@@ -1,6 +1,3 @@
-import os
-import json
-
 import numpy as np
 
 
@@ -53,9 +50,9 @@ def calc_cell_area(ymin, ymax, x_width):
             * (x_width / 360.))
 
 
-#@cc.export('ldn_recode_traj', 'i2[:,:](i2[:,:])')
+#@cc.export('recode_traj', 'i2[:,:](i2[:,:])')
 @jit(nopython=True)
-def ldn_recode_traj(x):
+def recode_traj(x):
     # Recode trajectory into deg, stable, imp. Capture trends that are at least 
     # 95% significant.
     #
@@ -76,9 +73,9 @@ def ldn_recode_traj(x):
     return(np.reshape(x, shp))
 
 
-#@cc.export('ldn_recode_state', 'i2[:,:](i2[:,:])')
+#@cc.export('recode_state', 'i2[:,:](i2[:,:])')
 @jit(nopython=True)
-def ldn_recode_state(x):
+def recode_state(x):
     # Recode state into deg, stable, imp. Note the >= -10 is so no data 
     # isn't coded as degradation. More than two changes in class is defined 
     # as degradation in state.
@@ -90,7 +87,6 @@ def ldn_recode_state(x):
     return(np.reshape(x, shp))
 
 
-#@cc.export('ldn_make_prod5', 'i2[:,:](i2[:,:], i2[:,:], i2[:,:] ,i2[:,:])')
 @jit(nopython=True)
 def calc_prod5(traj, state, perf, mask):
     # Coding of LPD (prod5)

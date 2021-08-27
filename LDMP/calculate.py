@@ -11,6 +11,8 @@
  ***************************************************************************/
 """
 
+import os
+import json
 import datetime as dt
 import functools
 import typing
@@ -48,16 +50,6 @@ from .conf import (
 from .settings import DlgSettings
 from .logger import log
 
-if settings_manager.get_value(Setting.BINARIES_ENABLED):
-    try:
-        from trends_earth_binaries.calculate_numba import *
-        log("Using numba-compiled version of calculate_numba.")
-    except (ModuleNotFoundError, ImportError) as e:
-        from .calculate_numba import *
-        log("Failed import of numba-compiled code, falling back to python version of calculate_numba.")
-else:
-    from LDMP.calculate_numba import *
-    log("Using python version of calculate_numba.")
 
 DlgCalculateUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculate.ui"))
@@ -690,16 +682,20 @@ class MaskWorker(worker.AbstractWorker):
             x_res = None
             y_res = None
 
-        res = gdal.Rasterize(self.out_file, json_file, format='GTiff',
-                             outputBounds=output_bounds,
-                             initValues=-32767, # Areas that are masked out
-                             burnValues=1, # Areas that are NOT masked out
-                             xRes=x_res,
-                             yRes=y_res,
-                             outputSRS="epsg:4326",
-                             outputType=gdal.GDT_Int16,
-                             creationOptions=['COMPRESS=LZW'],
-                             callback=self.progress_callback)
+        res = gdal.Rasterize(
+            self.out_file,
+            json_file,
+            format='GTiff',
+            outputBounds=output_bounds,
+            initValues=-32767,  # Areas that are masked out
+            burnValues=1,  # Areas that are NOT masked out
+            xRes=x_res,
+            yRes=y_res,
+            outputSRS="epsg:4326",
+            outputType=gdal.GDT_Int16,
+            creationOptions=['COMPRESS=LZW'],
+            callback=self.progress_callback
+        )
         os.remove(json_file)
 
         if res:
@@ -732,7 +728,8 @@ class TranslateWorker(worker.AbstractWorker):
             self.out_file,
             self.in_file,
             creationOptions=['COMPRESS=LZW'],
-            callback=self.progress_callback)
+            callback=self.progress_callback
+        )
 
         if res:
             return True

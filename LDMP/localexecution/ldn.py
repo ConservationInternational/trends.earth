@@ -34,16 +34,20 @@ from te_schemas import (
     SchemaBase
 )
 
-from .ldn_numba import (
-    calc_prod5,
-    prod5_to_prod3,
-    calc_deg_soc,
-    recode_deg_soc,
-    calc_deg_sdg,
-    accumulate_dicts,
-    zonal_total,
-    bizonal_total,
-)
+
+# if settings_manager.get_value(Setting.BINARIES_ENABLED):
+#     try:
+#         from trends_earth_binaries.ldn_numba import *
+#         log("Using numba-compiled version of calculate_numba.")
+#     except (ModuleNotFoundError, ImportError) as e:
+#         from .calculate_numba import *
+#         log("Failed import of numba-compiled code, falling back to python version of calculate_numba.")
+# else:
+#     from .ldn_numba import *
+#     log("Using python version of ldn_numba.")
+#
+
+from .ldn_numba import *
 
 from .. import (
     areaofinterest,
@@ -98,76 +102,77 @@ class SummaryTable(SchemaBase):
     lc_summary: Dict[int, float]
 
 
-def _accumulate_summary_tables(
-    first: SummaryTable,
-    second: SummaryTable
-) -> SummaryTable:
+def _accumulate_summary_tables(tables: List[SummaryTable]) -> SummaryTable:
+    if len(tables) == 1:
+        return tables[0]
+    else:
+        out = tables[0]
+        for table in tables[1:]:
+            out.soc_by_lc_annual_totals = [
+                accumulate_dicts([a,  b])
+                for a, b in zip(
+                    out.soc_by_lc_annual_totals,
+                    table.soc_by_lc_annual_totals
+                )
+            ]
+            out.lc_annual_totals = [
+                accumulate_dicts([a,  b])
+                for a, b in zip(
+                    out.lc_annual_totals,
+                    table.lc_annual_totals
+                )
+            ]
+            out.lc_trans_zonal_areas = [
+                accumulate_dicts([a,  b])
+                for a, b in zip(
+                    out.lc_trans_zonal_areas,
+                    table.lc_trans_zonal_areas
+                )
+            ]
+            out.lc_trans_prod_bizonal = accumulate_dicts(
+                [
+                    out.lc_trans_prod_bizonal,
+                    table.lc_trans_prod_bizonal
+                ]
+            )
+            out.lc_trans_zonal_soc_initial = accumulate_dicts(
+                [
+                    out.lc_trans_zonal_soc_initial,
+                    table.lc_trans_zonal_soc_initial
+                ]
+            )
+            out.lc_trans_zonal_soc_final = accumulate_dicts(
+                [
+                    out.lc_trans_zonal_soc_final,
+                    table.lc_trans_zonal_soc_final
+                ]
+            )
+            out.sdg_summary = accumulate_dicts(
+                [
+                    out.sdg_summary,
+                    table.sdg_summary
+                ]
+            )
+            out.prod_summary = accumulate_dicts(
+                [
+                    out.prod_summary,
+                    table.prod_summary
+                ]
+            )
+            out.soc_summary = accumulate_dicts(
+                [
+                  out.soc_summary,
+                    table.soc_summary
+                ]
+            )
+            out.lc_summary = accumulate_dicts(
+                [
+                    out.lc_summary,
+                    table.lc_summary
+                ]
+            )
 
-    first.soc_by_lc_annual_totals = [
-        accumulate_dicts([a,  b])
-        for a, b in zip(
-            first.soc_by_lc_annual_totals,
-            second.soc_by_lc_annual_totals
-        )
-    ]
-    first.lc_annual_totals = [
-        accumulate_dicts([a,  b])
-        for a, b in zip(
-            first.lc_annual_totals,
-            second.lc_annual_totals
-        )
-    ]
-    first.lc_trans_zonal_areas = [
-        accumulate_dicts([a,  b])
-        for a, b in zip(
-            first.lc_trans_zonal_areas,
-            second.lc_trans_zonal_areas
-        )
-    ]
-    first.lc_trans_prod_bizonal = accumulate_dicts(
-        [
-            first.lc_trans_prod_bizonal,
-            second.lc_trans_prod_bizonal
-        ]
-    )
-    first.lc_trans_zonal_soc_initial = accumulate_dicts(
-        [
-            first.lc_trans_zonal_soc_initial,
-            second.lc_trans_zonal_soc_initial
-        ]
-    )
-    first.lc_trans_zonal_soc_final = accumulate_dicts(
-        [
-            first.lc_trans_zonal_soc_final,
-            second.lc_trans_zonal_soc_final
-        ]
-    )
-    first.sdg_summary = accumulate_dicts(
-        [
-            first.sdg_summary,
-            second.sdg_summary
-        ]
-    )
-    first.prod_summary = accumulate_dicts(
-        [
-            first.prod_summary,
-            second.prod_summary
-        ]
-    )
-    first.soc_summary = accumulate_dicts(
-        [
-          first.soc_summary,
-            second.soc_summary
-        ]
-    )
-    first.lc_summary = accumulate_dicts(
-        [
-            first.lc_summary,
-            second.lc_summary
-        ]
-    )
-
-    return first
+        return out
 
 
 @dataclasses.dataclass()
@@ -363,6 +368,49 @@ def get_main_sdg_15_3_1_job_params(
     }
 
 
+@marshmallow_dataclass.dataclass
+class DataFile(SchemaBase):
+    path: str
+    bands: List[models.JobBand]
+
+    def band_nums_for_name(self, name_filter):
+        names = [b.name for b in self.bands]
+
+        return [
+            index for index, name in enumerate(names, start=1)
+            if name == name_filter
+        ]
+
+    def band_num_for_name(self, name_filter):
+        '''just used so an error is thrown if more than one result'''
+        names = [b.name for b in self.bands]
+
+        out = [
+            index for index, name in enumerate(names, start=1)
+            if name == name_filter
+        ]
+        if len(out) > 1:
+            raise RuntimeError(
+                f'more than one band found for name {name_filter}'
+            )
+        else:
+            return out[0]
+
+
+def _combine_data_files(
+    path,
+    datafiles: List[models.JobBand]
+) -> DataFile:
+    '''combine multiple datafiles with same path into one object'''
+
+    return DataFile(
+        path=path,
+        bands=[
+            b for d in datafiles for b in d.bands
+        ]
+    )
+
+
 def compute_ldn(
         ldn_job: models.Job,
         area_of_interest: areaofinterest.AOI) -> models.Job:
@@ -426,7 +474,7 @@ def compute_ldn(
         if prod_mode == LdnProductivityMode.TRENDS_EARTH.value:
             traj, perf, state = _prepare_trends_earth_mode_vrt_paths(period_params)
             in_dfs = lc_dfs + soc_dfs + [traj, perf, state]
-            summary_table, output_ldn_path, reproj_tifs = _compute_summary_table_from_te_productivity(
+            summary_table, sdg_path, reproj_path = _compute_summary_table_from_te_prod(
                 in_dfs=in_dfs,
                 compute_bbs_from=traj.path,
                 **summary_table_stable_kwargs[period]
@@ -434,7 +482,7 @@ def compute_ldn(
         elif prod_mode == LdnProductivityMode.JRC_LPD.value:
             lpd = _prepare_jrc_lpd_mode_vrt_path(period_params)
             in_dfs = lc_dfs + soc_dfs + [lpd]
-            summary_table, output_ldn_path, reproj_tifs = _compute_summary_table_from_lpd_productivity(
+            summary_table, sdg_path, reproj_path = _compute_summary_table_from_lpd_prod(
                 in_dfs=in_dfs,
                 compute_bbs_from=lpd.path,
                 **summary_table_stable_kwargs[period],
@@ -454,6 +502,7 @@ def compute_ldn(
             activated=True
         )
         ldn_job.results.bands.append(sdg_band)
+        sdg_df = DataFile(sdg_path, [sdg_band])
 
         if prod_mode == LdnProductivityMode.TRENDS_EARTH.value:
             sdg_prod_band = models.JobBand(
@@ -466,37 +515,14 @@ def compute_ldn(
                 activated=True
             )
             ldn_job.results.bands.append(sdg_prod_band)
+            sdg_df.bands.append(sdg_band)
 
-        reproj_tif_df = _combine_data_files(reproj_tifs, in_dfs)
-        out_dfs = [
-            DataFile(utils.save_vrt(reproj_tifs_df.path), job_band)
-            for job_band in enumerate(reproj_tifs_df.bands)
-        ].extend[
-            DataFile(utils.save_vrt(output_ldn_path, 1), [sdg_band]),
-            DataFile(utils.save_vrt(output_ldn_path, 1), [sdg_prod_band])
-        ]
+        reproj_df = _combine_data_files(reproj_path, in_dfs)
 
-        out_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        gdal.BuildVRT(
-            out_vrt,
-            [item.path for item in out_dfs],
-            resolution='highest',
-            resampleAlg=gdal.GRA_NearestNeighbour,
-            separate=True
-        )
-        out_combined_tif_path = job_output_path.parent / f"{job_output_path.stem}_{period}_layers.tif"
-        gdal.Translate(
-            str(out_combined_tif_path),
-            out_vrt
-        )
-
-        out_combined_tif_path = job_output_path.parent / f"{job_output_path.stem}_{period}_layers_key.json"
-        # Prep datafiles for writing to json
-        out_dfs_str = []
-        for df in out_dfs:
-            out_dfs_str.append(models.JobBand.Schema().dump(df.bands[0]))
-        with open(out_combined_tif_path, 'w') as f:
-            json.dump(out_dfs_str, f, indent=4)
+        for df in [sdg_df, reproj_df]:
+            key_json = df.path.parent / f'{df.path.stem}_key.json'
+            with open(key_json, 'w') as f:
+                json.dump(DataFile.Schema().dump(df), f, indent=4)
 
         # summary_table_output_path = sub_job_output_path.parent / f"{sub_job_output_path.stem}.xlsx"
         # save_summary_table(
@@ -507,7 +533,8 @@ def compute_ldn(
         # )
 
         ldn_job.results.local_paths.extend([
-            output_ldn_path,
+            sdg_path,
+            reproj_path,
             #summary_table_output_path
         ])
 
@@ -525,48 +552,6 @@ def compute_ldn(
     ldn_job.progress = 100
 
     return ldn_job
-
-
-@dataclasses.dataclass()
-class DataFile:
-    path: str
-    bands: List[models.JobBand]
-
-    def band_nums_for_name(self, name_filter):
-        names = [b.name for b in self.bands]
-
-        return [
-            index for index, name in enumerate(names, start=1)
-            if name == name_filter
-        ]
-
-    def band_num_for_name(self, name_filter):
-        '''just used so an error is thrown if more than one result'''
-        names = [b.name for b in self.bands]
-
-        out = [
-            index for index, name in enumerate(names, start=1)
-            if name == name_filter
-        ]
-        if len(out) > 1:
-            raise RuntimeError(
-                f'more than one band found for name {name_filter}'
-            )
-        else:
-            return out[0]
-
-
-def _combine_data_files(
-    path,
-    datafiles: List[models.JobBand]
-) -> DataFile:
-
-    return DataFile(
-        path=path,
-        bands=[
-            b for d in datafiles for b in d.bands
-        ]
-    )
 
 
 def _prepare_land_cover_file_paths(params: Dict) -> List[DataFile]:
@@ -667,7 +652,7 @@ def _prepare_jrc_lpd_mode_vrt_path(
     )
 
 
-def _compute_summary_table_from_te_productivity(
+def _compute_summary_table_from_te_prod(
         wkt_bounding_boxes,
         in_dfs,
         lc_legend_nesting: land_cover.LCLegendNesting,
@@ -692,7 +677,7 @@ def _compute_summary_table_from_te_productivity(
     )
 
 
-def _compute_summary_table_from_lpd_productivity(
+def _compute_summary_table_from_lpd_prod(
         wkt_bounding_boxes,
         in_dfs,
         lc_legend_nesting: land_cover.LCLegendNesting,
@@ -1117,14 +1102,14 @@ def _process_block(
             traj_band = src_ds.GetRasterBand(
                 params.in_df.band_num_for_name(TRAJ_BAND_NAME)
             )
-            traj_recode = calculate.ldn_recode_traj(
+            traj_recode = recode_traj(
                 traj_band.ReadAsArray(x, y, cols, rows)
             )
 
             state_band = src_ds.GetRasterBand(
                 params.in_df.band_num_for_name(STATE_BAND_NAME)
             )
-            state_recode = calculate.ldn_recode_state(
+            state_recode = recode_state(
                 state_band.ReadAsArray(x, y, cols, rows)
             )
 
@@ -1351,7 +1336,7 @@ class DegradationSummaryWorker(worker.AbstractWorker):
 
         mask_ds = gdal.Open(self.params.mask_file)
 
-        src_ds = gdal.Open(self.params.in_df.path)
+        src_ds = gdal.Open(str(self.params.in_df.path))
 
         if self.params.prod_mode == 'Trends.Earth productivity':
             traj_band = src_ds.GetRasterBand(
@@ -1451,21 +1436,15 @@ class DegradationSummaryWorker(worker.AbstractWorker):
 
                 lat += pixel_height * rows
 
-            out = None
-            res_counter = 0
-            for this_res in as_completed(res):
-                self.progress.emit((res_counter / len(res)) * 100)
+            for n, this_res in enumerate(as_completed(res)):
+                self.progress.emit((n / len(res)) * 100)
 
-                if out is None:
-                    out = this_res.result()
+                if n == 0:
+                    out = [this_res.result()]
                 else:
-                    out = _accumulate_summary_tables(
-                        out,
-                        this_res.result()
-                    )
-                res_counter += 1
+                    out.append(this_res.result())
 
-            self.progress.emit(100)
+        self.progress.emit(100)
 
         # pr.disable()
         # pr.dump_stats('calculate_ldn_stats')
@@ -1476,7 +1455,7 @@ class DegradationSummaryWorker(worker.AbstractWorker):
 
             return None
         else:
-            return out
+            return _accumulate_summary_tables(out)
 
 def _render_ldn_workbook(
         template_workbook,
@@ -1499,6 +1478,7 @@ def _calculate_summary_table(
         pixel_aligned_bbox,
         in_dfs: List[DataFile],
         output_sdg_path: Path,
+        output_layers_path: Path,
         prod_mode: str,
         lc_legend_nesting: land_cover.LCLegendNesting,
         lc_trans_matrix: land_cover.LCTransitionDefinitionDeg,
@@ -1523,12 +1503,11 @@ def _calculate_summary_table(
         resampleAlg=gdal.GRA_NearestNeighbour,
         separate=True
     )
-    reproj_tif = tempfile.NamedTemporaryFile(suffix='.tif').name
-    log(u'Reprojecting indicator VRT and saving to: {}'.format(reproj_tif))
+    log(u'Reprojecting indicator VRT and saving to: {}'.format(output_layers_path))
     reproject_worker = worker.StartWorker(
         calculate.TranslateWorker,
         reproject_worker_process_name,
-        reproj_tif,
+        str(output_layers_path),
         indic_vrt
     )
     error_message = ""
@@ -1547,13 +1526,13 @@ def _calculate_summary_table(
             mask_worker_process_name,
             mask_vrt,
             geojson,
-            reproj_tif
+            str(output_layers_path)
         )
         if mask_worker.success:
-            in_df = _combine_data_files(reproj_tif, in_dfs)
+            in_df = _combine_data_files(output_layers_path, in_dfs)
             ######################################################################
             #  Calculate SDG 15.3.1 layers
-            log('Calculating summary table...')
+            log(u'Calculating summary table and saving SDG to: {}'.format(output_sdg_path))
             deg_worker = worker.StartWorker(
                 DegradationSummaryWorker,
                 deg_worker_process_name,
@@ -1573,12 +1552,13 @@ def _calculate_summary_table(
                 result = None
 
             else:
-                result = (reproj_tig, deg_worker.get_return())
+                result = deg_worker.get_return()
 
         else:
             error_message = "Error creating mask."
             result = None
 
+    else:
         error_message = "Error reprojecting layers."
         result = None
 
@@ -1594,15 +1574,15 @@ def _compute_ldn_summary_table(
     lc_legend_nesting: land_cover.LCLegendNesting,
     lc_trans_matrix: land_cover.LCTransitionDefinitionDeg,
     period
-) -> Tuple[SummaryTable, Path]:
+) -> Tuple[SummaryTable, Path, Path]:
     """Computes summary table and the output tif file(s)"""
     bbs = areaofinterest.get_aligned_output_bounds(
         compute_bbs_from,
         wkt_bounding_boxes
     )
     output_name_pattern = {
-        1: f"{output_job_path.stem}.tif",
-        2: f"{output_job_path.stem}" + "_{index}.tif"
+        1: f"{output_job_path.stem}" + "_{layer}.tif",
+        2: f"{output_job_path.stem}" + "{layer}_{index}.tif"
     }[len(wkt_bounding_boxes)]
     reproject_name_fragment = {
         1: "Reprojecting layers",
@@ -1623,45 +1603,53 @@ def _compute_ldn_summary_table(
         "lc_trans_matrix": lc_trans_matrix,
         "period": period,
     }
-    output_path = output_job_path.parent / output_name_pattern.format(index=1)
-    result, error_message = _calculate_summary_table(
-        bbox=wkt_bounding_boxes[0],
-        pixel_aligned_bbox=bbs[0],
-        output_sdg_path=output_path,
-        reproject_worker_process_name=reproject_name_fragment.format(index=1),
-        mask_worker_process_name=mask_name_fragment.format(index=1),
-        deg_worker_process_name=deg_name_fragment.format(index=1),
-        **stable_kwargs
-    )
-    reproj_tifs = [result[0]]
-    summary_table = result[1]
 
-    if summary_table is None:
-        raise RuntimeError(error_message)
-
-    if len(wkt_bounding_boxes) > 1:
-        tile_output_path = output_job_path.parent / output_name_pattern.format(index=2)
-        result_2, error_message = _calculate_summary_table(
-            bbox=wkt_bounding_boxes[1],
-            pixel_aligned_bbox=bbs[1],
-            output_sdg_path=tile_output_path,
-            reproject_worker_process_name=reproject_name_fragment.format(index=2),
-            mask_worker_process_name=mask_name_fragment.format(index=2),
-            deg_worker_process_name=deg_name_fragment.format(index=2),
+    summary_tables = []
+    reproj_paths = []
+    sdg_paths = []
+    for index, ( 
+        wkt_bounding_box,
+        pixel_aligned_bbox
+    ) in enumerate(zip(wkt_bounding_boxes, bbs), start=1):
+        sdg_path = output_job_path.parent / output_name_pattern.format(
+            layer="sdg", index=index
+        )
+        sdg_paths.append(sdg_path)
+        reproj_path = output_job_path.parent / output_name_pattern.format(
+            layer="inputs", index=index
+        )
+        reproj_paths.append(reproj_path)
+        result, error_message = _calculate_summary_table(
+            bbox=wkt_bounding_box,
+            pixel_aligned_bbox=pixel_aligned_bbox,
+            output_sdg_path=sdg_path,
+            output_layers_path=reproj_path,
+            reproject_worker_process_name=reproject_name_fragment.format(index),
+            mask_worker_process_name=mask_name_fragment.format(index),
+            deg_worker_process_name=deg_name_fragment.format(index),
             **stable_kwargs
         )
-        reproj_tif_2 = result[0]
-        summary_table_2 = result_2[1]
-
-        if summary_table_2 is None:
+        if result is None:
             raise RuntimeError(error_message)
-        summary_table = _accumulate_summary_tables(
-            summary_table, summary_table_2)
-        output_path = output_job_path.parent / f"{output_job_path.stem}.vrt"
+        else:
+            summary_tables.append(result)
 
-        reproj_tifs.append = [reproj_tif_2]
+    log(f'len(summary_tables): {len(summary_tables)}')
+    summary_table = _accumulate_summary_tables(summary_tables)
 
-    return summary_table, output_path, reproj_tifs
+    if len(reproj_paths) > 1:
+        reproj_path = output_job_path.parent / f"{output_job_path.stem}_inputs.vrt"
+        gdal.BuildVRT(str(reproj_path), [str(p) for p in reproj_paths])
+    else:
+        reproj_path = reproj_paths[0]
+
+    if len(sdg_paths) > 1:
+        sdg_path = output_job_path.parent / f"{output_job_path.stem}_sdg.vrt"
+        gdal.BuildVRT(str(sdg_path), [str(p) for p in sdg_paths])
+    else:
+        sdg_path = sdg_paths[0]
+
+    return summary_table, sdg_path, reproj_path
 
 
 def _write_overview_sdg_sheet(sheet, summary_table: SummaryTable):
@@ -1865,23 +1853,3 @@ def _get_soc_total(soc_table, transition):
         return 0
     else:
         return float(soc_table[1][ind])
-
-
-#TODO: Get this working in the jitted version in Numba
-def ldn_total_by_trans_merge(total1, trans1, total2, trans2):
-    """Calculates a total table for an array"""
-    # Combine past totals with these totals
-    trans = np.unique(np.concatenate((trans1, trans2)))
-    totals = np.zeros(trans.size, dtype=np.float32)
-
-    for i in range(trans.size):
-        trans1_loc = np.where(trans1 == trans[i])[0]
-        trans2_loc = np.where(trans2 == trans[i])[0]
-
-        if trans1_loc.size > 0:
-            totals[i] = totals[i] + total1[trans1_loc[0]]
-
-        if trans2_loc.size > 0:
-            totals[i] = totals[i] + total2[trans2_loc[0]]
-
-    return trans, totals

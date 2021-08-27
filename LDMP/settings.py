@@ -49,6 +49,10 @@ from .logger import log
 
 settings = QtCore.QSettings()
 
+
+def tr(message):
+    return QtCore.QCoreApplication.translate("tr_settings", message)
+
         
 # Function to indicate if child is a folder within parent
 def is_subdir(child, parent):
@@ -211,9 +215,7 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
                 QtWidgets.QMessageBox.information(
                     None,
                     self.tr("Success"),
-                    QtWidgets.QApplication.translate(
-                        f'Trends.Earth user {email} deleted.'
-                    )
+                    tr(f'Trends.Earth user {email} deleted.')
                 )
                 # remove currently used config (as set in QSettings) and 
                 # trigger GUI
@@ -600,15 +602,14 @@ class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):
             )
 
             # add a new auth conf that have to be completed with pwd
-            authConfidId = auth.init_auth_config(
+            authConfigId = auth.init_auth_config(
                 auth.TE_API_AUTH_SETUP,
                 email=self.email.text()
             )
 
-            if authConfidId:
-                self.authConfigInitialised.emit(authConfidId)
-
-            return authConfigId
+            if authConfigId:
+                self.authConfigInitialised.emit(authConfigId)
+                return authConfigId
         else:
             return None
 
@@ -739,10 +740,6 @@ class DlgSettingsLoginLandPKS(QtWidgets.QDialog, Ui_DlgSettingsLogin):
 
         self.ok = True
         self.close()
-
-
-def tr(message):
-    return QtCore.QCoreApplication.translate("tr_settings", message)
 
 
 class DlgSettingsEditForgotPassword(

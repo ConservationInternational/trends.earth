@@ -1038,12 +1038,6 @@ class DegradationSummaryWorkerParams(SchemaBase):
     trans_matrix: land_cover.LCTransitionDefinitionDeg
     period: str
 
-def _get_lc_trans(lc_bl, lc_tg, mask):
-    a_trans_bl_tg = lc_bl * 10 + lc_tg
-    a_trans_bl_tg[np.logical_or(lc_bl < 1, lc_tg < 1)] = NODATA_VALUE
-    a_trans_bl_tg[mask] = MASK_VALUE
-    return a_trans_bl_tg
-
 def _process_block(
     params: DegradationSummaryWorkerParams,
     src_ds,
@@ -1120,8 +1114,7 @@ def _process_block(
             deg_prod5 = calc_prod5(
                 traj_recode,
                 state_recode,
-                perf_array,
-                mask
+                perf_array
             )
 
             # Save combined productivity indicator for later visualization
@@ -1136,8 +1129,6 @@ def _process_block(
             # fixed in LPD layer on GEE and missing data values are
             # fixed in LPD layer made by UNCCD for SIDS
             deg_prod5[(deg_prod5 == 0) | (deg_prod5 == 15)] = NODATA_VALUE
-            # Mask areas outside of AOI
-            deg_prod5[mask] = MASK_VALUE
 
         # Recode deg_prod5 as stable, degraded, improved (deg_prod3)
         deg_prod3 = prod5_to_prod3(deg_prod5)
@@ -1148,12 +1139,10 @@ def _process_block(
             a_lc_bl = src_ds.GetRasterBand(
                 lc_bands[0]
             ).ReadAsArray(x, y, cols, rows)
-            a_lc_bl[mask] = MASK_VALUE
             a_lc_tg = src_ds.GetRasterBand(
                 lc_bands[-1]
             ).ReadAsArray(x, y, cols, rows)
-            a_lc_tg[mask] = MASK_VALUE
-            a_trans_bl_tg = _get_lc_trans(a_lc_bl, a_lc_tg, mask)
+            a_trans_bl_tg = calc_lc_trans(a_lc_bl, a_lc_tg)
             a_trans_bl_tg_prod = a_trans_bl_tg
             # For baseline don't need a land cover crosstab of last four years
             lc_trans_arrays = [a_trans_bl_tg]
@@ -1162,19 +1151,16 @@ def _process_block(
             a_lc_bl = src_ds.GetRasterBand(
                 lc_bands[-4]
             ).ReadAsArray(x, y, cols, rows)
-            a_lc_bl[mask] = MASK_VALUE
             band_lc_tg = src_ds.GetRasterBand(lc_bands[-1])
             a_lc_tg = band_lc_tg.ReadAsArray(x, y, cols, rows)
-            a_lc_tg[mask] = MASK_VALUE
-            a_trans_bl_tg = _get_lc_trans(a_lc_bl, a_lc_tg, mask)
+            a_trans_bl_tg = calc_lc_trans(a_lc_bl, a_lc_tg)
 
             # For progress period, need a transition matrix over just four 
             # years
             a_lc_bl_prod = src_ds.GetRasterBand(
                 lc_bands[-1]
             ).ReadAsArray(x, y, cols, rows)
-            a_lc_bl_prod[mask] = MASK_VALUE
-            a_trans_bl_tg_prod = _get_lc_trans(a_lc_bl_prod, a_lc_tg, mask)
+            a_trans_bl_tg_prod = calc_lc_trans(a_lc_bl_prod, a_lc_tg)
             # For progress need a land cover crosstab of last four years
             lc_trans_arrays = [a_trans_bl_tg_prod, a_trans_bl_tg]
 
@@ -1263,11 +1249,11 @@ def _process_block(
         )
         soc_array = band_soc_deg.ReadAsArray(x, y, cols, rows)
         if params.period == 'baseline':
-            deg_soc = recode_deg_soc(soc_array, water, mask)
+            deg_soc = recode_deg_soc(soc_array, water)
         if params.period == 'progress':
-            deg_soc = calc_deg_soc(a_soc_bl, a_soc_tg, water, mask)
+            deg_soc = calc_deg_soc(a_soc_bl, a_soc_tg, water)
 
-        deg_sdg = calc_deg_sdg(deg_prod3, deg_lc, deg_soc, mask)
+        deg_sdg = calc_deg_sdg(deg_prod3, deg_lc, deg_soc)
         dst_ds_deg.GetRasterBand(1).WriteArray(deg_sdg, x, y)
 
         ###########################################################

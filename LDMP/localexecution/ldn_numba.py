@@ -18,6 +18,9 @@ except ImportError:
 from numba import jit
 
 
+NODATA_VALUE = -32768
+MASK_VALUE = -32767
+
 # Calculate the area of a slice of the globe from the equator to the parallel
 # at latitude f (on WGS84 ellipsoid). Based on:
 # https://gis.stackexchange.com/questions/127165/more-accurate-way-to-calculate-area-of-rasters
@@ -70,7 +73,7 @@ def recode_traj(x):
     x[(x >= -3) & (x < -1)] = -1
     # -1 and 1 are not signif at 95%, so stable
     x[(x > 1) & (x <= 3)] = 1
-    return(np.reshape(x, shp))
+    return np.reshape(x, shp)
 
 
 #@cc.export('recode_state', 'i2[:,:](i2[:,:])')
@@ -84,11 +87,11 @@ def recode_state(x):
     x[(x > -2) & (x < 2)] = 0
     x[(x >= -10) & (x <= -2)] = -1
     x[x >= 2] = 1
-    return(np.reshape(x, shp))
+    return np.reshape(x, shp)
 
 
 @jit(nopython=True)
-def calc_prod5(traj, state, perf, mask):
+def calc_prod5(traj, state, perf):
     # Coding of LPD (prod5)
     # 1: declining
     # 2: early signs of decline
@@ -102,7 +105,6 @@ def calc_prod5(traj, state, perf, mask):
     traj = traj.ravel()
     state = state.ravel()
     perf = perf.ravel()
-    mask = mask.ravel()
 
     x = traj.copy()
 
@@ -120,12 +122,18 @@ def calc_prod5(traj, state, perf, mask):
     x[(traj == 0) & (state == -1) & (perf == 0)] = 2
 
     # Ensure NAs carry over to productivity indicator layer
-    x[(traj == -32768) | (perf == -32768) | (state == -32768)] = -32768
+    x[(traj == NODATA_VALUE) | (perf == NODATA_VALUE) | (state == NODATA_VALUE)] = NODATA_VALUE
 
-    # Ensure masked areas carry over to productivity indicator
-    x[mask == -32767] = -32767
+    return np.reshape(x, shp)
 
-    return(np.reshape(x, shp))
+@jit(nopython=True)
+def calc_lc_trans(lc_bl, lc_tg):
+    lc_bl = lc_bl.ravel()
+    lc_tg = lc_tg.ravel()
+    shp = lc_bl.shape
+    a_trans_bl_tg = lc_bl * 10 + lc_tg
+    a_trans_bl_tg[np.logical_or(lc_bl < 1, lc_tg < 1)] = NODATA_VALUE
+    return np.reshape(a_trans_bl_tg, shp)
 
 
 @jit(nopython=True)
@@ -136,53 +144,48 @@ def prod5_to_prod3(prod5):
     out[(prod5 >= 1) & (prod5 <= 3)] = -1
     out[prod5 == 4] = 0
     out[prod5 == 5] = 1
-    return(np.reshape(out, shp))
+    return np.reshape(out, shp)
 
 
 @jit(nopython=True)
-def recode_deg_soc(soc, water, mask):
+def recode_deg_soc(soc, water):
     '''recode SOC change layer from percent change into a categorical map'''
     # Degradation in terms of SOC is defined as a decline of more
     # than 10% (and improving increase greater than 10%)
     shp = soc.shape
     soc = soc.ravel()
     water = water.ravel()
-    mask = mask.ravel()
     out = soc.copy()
     out[(soc >= -101) & (soc <= -10)] = -1
     out[(soc > -10) & (soc < 10)] = 0
     out[soc >= 10] = 1
-    out[water] = -32768  # don't count soc in water
-    out[mask] = -32767
-    return(np.reshape(out, shp))
+    out[water] = NODATA_VALUE  # don't count soc in water
+    return np.reshape(out, shp)
 
 
 @jit(nopython=True)
-def calc_deg_soc(soc_bl, soc_tg, water, mask):
+def calc_deg_soc(soc_bl, soc_tg, water):
     '''recode SOC change layer from percent change into a categorical map'''
     # Degradation in terms of SOC is defined as a decline of more
     # than 10% (and improving increase greater than 10%)
     shp = soc_bl.shape
     soc_bl = soc_bl.ravel()
     soc_tg = soc_tg.ravel()
-    soc_chg = (soc_tg / soc_bl) * 100
     water = water.ravel()
-    mask = mask.ravel()
+    soc_chg = (soc_tg / soc_bl) * 100
     soc_chg[(soc_chg >= -101) & (soc_chg <= -10)] = -1
     soc_chg[(soc_chg > -10) & (soc_chg < 10)] = 0
     soc_chg[soc_chg >= 10] = 1
-    soc_chg[water] = -32768  # don't count soc in water
-    soc_chg[mask] = -32767
-    return(np.reshape(soc_chg, shp))
+    soc_chg[water] = NODATA_VALUE  # don't count soc in water
+    return np.reshape(soc_chg, shp)
 
 
 @jit(nopython=True)
-def calc_deg_sdg(deg_prod3, deg_lc, deg_soc, mask):
+def calc_deg_sdg(deg_prod3, deg_lc, deg_soc):
     shp = deg_prod3.shape
     deg_prod3 = deg_prod3.ravel()
     deg_lc = deg_lc.ravel()
     deg_soc = deg_soc.ravel()
-    mask = mask.ravel()
     out = deg_prod3.copy()
 
     # Degradation by either lc or soc (or prod3)
@@ -192,13 +195,14 @@ def calc_deg_sdg(deg_prod3, deg_lc, deg_soc, mask):
     # three indicators doesn't indicate a decline
     out[(out == 0) & ((deg_lc == 1) | (deg_soc == 1))] = 1
 
-    # Note masking was already done for prod3, but need to do it again in
+    # nodata masking was already done for prod3, but need to do it again in
     # case values from another layer overwrote those missing value
-    # indicators. -32678 is missing, -32767 is mask
-    out[(deg_prod3 == -32768) | (deg_lc == -32768) | (deg_soc == -32768)] = -32768
-    out[mask] = -32767
+    # indicators. -32678 is missing
+    out[(deg_prod3 == NODATA_VALUE) |
+        (deg_lc == NODATA_VALUE) |
+        (deg_soc == NODATA_VALUE)] = NODATA_VALUE
 
-    return(np.reshape(out, shp))
+    return np.reshape(out, shp)
 
 
 @jit(nopython=True)
@@ -206,7 +210,7 @@ def zonal_total(z, d, mask):
     z = z.ravel()
     d = d.ravel()
     mask = mask.ravel()
-    z[mask] = -32767
+    z[mask] = MASK_VALUE
     totals = dict()
     for i in range(z.shape[0]):
         if z[i] not in totals:
@@ -222,8 +226,8 @@ def bizonal_total(z1, z2, d, mask):
     z2 = z2.ravel()
     d = d.ravel()
     mask = mask.ravel()
-    z1[mask] = -32767
-    z2[mask] = -32767
+    z1[mask] = MASK_VALUE
+    z2[mask] = MASK_VALUE
     tab = dict()
     for i in range(z1.shape[0]):
         if (z1[i], z2[i]) not in tab:

@@ -172,12 +172,28 @@ def calc_deg_soc(soc_bl, soc_tg, water):
     soc_bl = soc_bl.ravel()
     soc_tg = soc_tg.ravel()
     water = water.ravel()
-    soc_chg = (soc_tg / soc_bl) * 100
-    soc_chg[(soc_chg >= -101) & (soc_chg <= -10)] = -1
-    soc_chg[(soc_chg > -10) & (soc_chg < 10)] = 0
-    soc_chg[soc_chg >= 10] = 1
-    soc_chg[water] = NODATA_VALUE  # don't count soc in water
-    return np.reshape(soc_chg, shp)
+    out = np.zeros(soc_bl.shape, dtype=np.int16)
+    soc_chg = (soc_tg.astype(np.float64) / soc_bl.astype(np.float64)) * 100.
+    soc_chg[(soc_bl == NODATA_VALUE) | (soc_tg == NODATA_VALUE)] = NODATA_VALUE
+    out[(soc_chg >= -101.) & (soc_chg <= -10.)] = -1
+    out[(soc_chg > -10.) & (soc_chg < 10.)] = 0
+    out[soc_chg >= 10.] = 1
+    out[water] = NODATA_VALUE  # don't count soc in water
+    return np.reshape(out, shp)
+
+
+@jit(nopython=True)
+def calc_deg_lc(lc_bl, lc_tg, trans_code, trans_meaning):
+    '''calculate land cover degradation'''
+    shp = lc_bl.shape
+    trans = calc_lc_trans(lc_bl, lc_tg)
+    lc_bl = lc_bl.ravel()
+    lc_tg = lc_tg.ravel()
+    out = np.zeros(lc_bl.shape, dtype=np.int16)
+    for code, meaning in zip(trans_code, trans_meaning):
+        out[trans == code] = meaning
+    out[np.logical_or(lc_bl == NODATA_VALUE, lc_tg == NODATA_VALUE)] = NODATA_VALUE
+    return np.reshape(out, shp)
 
 
 @jit(nopython=True)
@@ -211,12 +227,33 @@ def zonal_total(z, d, mask):
     d = d.ravel()
     mask = mask.ravel()
     z[mask] = MASK_VALUE
+    # Carry over nodata values from data layer to z so that they aren't
+    # included in the totals
+    z[d == NODATA_VALUE] = NODATA_VALUE
     totals = dict()
     for i in range(z.shape[0]):
         if z[i] not in totals:
             totals[z[i]] = d[i]
         else:
             totals[z[i]] += d[i]
+    return totals
+
+@jit(nopython=True)
+def zonal_total_weighted(z, d, weights, mask):
+    z = z.ravel()
+    d = d.ravel()
+    weights = weights.ravel()
+    mask = mask.ravel()
+    z[mask] = MASK_VALUE
+    # Carry over nodata values from data layer to z so that they aren't
+    # included in the totals
+    z[d == NODATA_VALUE] = NODATA_VALUE
+    totals = dict()
+    for i in range(z.shape[0]):
+        if z[i] not in totals:
+            totals[z[i]] = d[i] * weights[i]
+        else:
+            totals[z[i]] += d[i] * weights[i]
     return totals
 
 
@@ -227,7 +264,13 @@ def bizonal_total(z1, z2, d, mask):
     d = d.ravel()
     mask = mask.ravel()
     z1[mask] = MASK_VALUE
+    # Carry over nodata values from data layer to z so that they aren't
+    # included in the totals
+    z1[d == NODATA_VALUE] = NODATA_VALUE
     z2[mask] = MASK_VALUE
+    # Carry over nodata values from data layer to z so that they aren't
+    # included in the totals
+    z2[d == NODATA_VALUE] = NODATA_VALUE
     tab = dict()
     for i in range(z1.shape[0]):
         if (z1[i], z2[i]) not in tab:

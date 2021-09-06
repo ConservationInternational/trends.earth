@@ -1224,8 +1224,15 @@ def get_usable_bands(
         job: job_models.Job
         is_downloaded = job.status == job_models.JobStatus.DOWNLOADED
         is_of_interest = (selected_job_id is None) or (job.id == selected_job_id)
-        is_valid_type = job.results.type in (job_models.JobResult.CLOUD_RESULTS,
-                                             job_models.JobResult.LOCAL_RESULTS)
+        is_valid_type = (
+            job.results and 
+            (
+                job.results.type in (
+                    job_models.JobResult.CLOUD_RESULTS,
+                    job_models.JobResult.LOCAL_RESULTS
+                )
+            )
+        )
         if is_downloaded and is_of_interest and is_valid_type:
             path = job.results.local_paths[0]
             for band_index, band_info in enumerate(job.results.bands):

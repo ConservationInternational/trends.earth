@@ -181,24 +181,34 @@ def login(authConfigId=None):
             "password": authConfig.config('password')
         }
     )
-    try:
-        token = resp.get('access_token', None)
 
-        if token is None:
-            raise KeyError
-    except KeyError:
-        log('API unable to login - check username and password')
-        QtWidgets.QMessageBox.critical(
-            None,
-            tr("Error"),
-            tr(
-                "Unable to login to Trends.Earth. Check username and password."
-            )
-        )
+    error_message = ''
+    if resp:
+        try:
+            token = resp.get('access_token', None)
 
-        return None
+            if token is None:
+                log('Unable to read Trends.Earth token in API response')
+                error_message = tr("Unable to read token for Trends.Earth "
+                                   "server. Check username and password.")
+                ret = None
+        except KeyError:
+            log('API unable to login - check username and password')
+            error_message = tr("Unable to login to Trends.Earth. "
+                               "Check username and password.")
+            ret = None
+        else:
+            ret = token
+    else:
+        log('Unable to access Trends.Earth server')
+        error_message = tr("Unable to access Trends.Earth server. Check your "
+                           "internet connection")
+        ret = None
 
-    return token
+    if error_message:
+        QtWidgets.QMessageBox.critical(None, tr("Error"), tr(error_message))
+
+    return ret
 
 
 def login_test(email, password):

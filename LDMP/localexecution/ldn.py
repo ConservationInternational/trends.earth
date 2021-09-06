@@ -92,7 +92,7 @@ class LdnProductivityMode(enum.Enum):
 class SummaryTable(SchemaBase):
     soc_by_lc_annual_totals: List[Dict[int, float]]
     lc_annual_totals: List[Dict[int, float]]
-    lc_trans_zonal_areas: Dict[int, float]
+    lc_trans_zonal_areas: List[Dict[int, float]]
     lc_trans_prod_bizonal: List[Dict[Tuple[int, int], float]]
     lc_trans_zonal_soc_initial: Dict[int, float]
     lc_trans_zonal_soc_final: Dict[int, float]
@@ -373,22 +373,18 @@ class DataFile(SchemaBase):
     path: str
     bands: List[models.JobBand]
 
-    def band_nums_for_name(self, name_filter):
+    def array_rows_for_name(self, name_filter):
         names = [b.name for b in self.bands]
 
         return [
-            index for index, name in enumerate(names, start=1)
+            index for index, name in enumerate(names)
             if name == name_filter
         ]
 
-    def band_num_for_name(self, name_filter):
-        '''just used so an error is thrown if more than one result'''
-        names = [b.name for b in self.bands]
+    def array_row_for_name(self, name_filter):
+        '''throw an error if more than one result'''
+        out = self.array_rows_for_name(name_filter)
 
-        out = [
-            index for index, name in enumerate(names, start=1)
-            if name == name_filter
-        ]
         if len(out) > 1:
             raise RuntimeError(
                 f'more than one band found for name {name_filter}'
@@ -538,7 +534,7 @@ def compute_ldn(
             #summary_table_output_path
         ])
 
-    summary_json_output_path = job_output_path.parent / f"{job_output_path.stem}_reporting.json"
+    summary_json_output_path = job_output_path.parent / f"{job_output_path.stem}_summary.json"
     save_reporting_json(
         summary_json_output_path,
         summary_tables,
@@ -832,9 +828,10 @@ def save_reporting_json(
         # Land cover tables
         land_cover_years = period_params["layer_lc_years"]
 
-        i = 0
+        n = 0
         crosstab_lcs = []
         for lc_trans_zonal_areas in st.lc_trans_zonal_areas:
+            log(f'processing lc_trans_zonal_areas {i} for {period}')
             ###
             # LC transition cross tab
             lc_by_transition_type = []
@@ -856,7 +853,7 @@ def save_reporting_json(
             )
             # TODO: VERY hackish, fix this after default data generation (years 
             # should be carried with the data)
-            if i == 0:
+            if n == 0:
                 initial_lc_year = int(land_cover_years[0])
             else:
                 initial_lc_year = int(land_cover_years[-4])
@@ -869,7 +866,7 @@ def save_reporting_json(
                 values=lc_by_transition_type
             )
             crosstab_lcs.append(crosstab_lc)
-            i += 1
+            n += 1
 
         ###
         # LC by year
@@ -1040,269 +1037,241 @@ class DegradationSummaryWorkerParams(SchemaBase):
 
 def _process_block(
     params: DegradationSummaryWorkerParams,
-    src_ds,
-    mask_ds,
-    dst_ds_deg,
-    y: int,
-    rows: int,
-    xsize: int,
-    ysize: int,
-    x_block_size: int,
-    y_block_size: int,
+    in_array,
+    mask,
+    xoff: int,
+    yoff: int,
     cell_areas_raw
-):
+) -> Tuple[SummaryTable, Dict]:
 
-    lc_bands = params.in_df.band_nums_for_name(LC_BAND_NAME)
-    lc_annual_totals = [[] for i in range(len(lc_bands))]
-    soc_bands = params.in_df.band_nums_for_name(SOC_BAND_NAME)
-    soc_tg_index = len(soc_bands) - 1
+    lc_bands = params.in_df.array_rows_for_name(LC_BAND_NAME)
+    soc_bands = params.in_df.array_rows_for_name(SOC_BAND_NAME)
+    soc_final_index = len(soc_bands) - 1
     if params.period == 'baseline':
-        lc_trans_zonal_areas = [[]]
         soc_band_counter_start = 0
     if params.period == 'progress':
-        lc_trans_zonal_areas = [[], []]
         soc_band_counter_start = len(soc_bands) - 4
         soc_bands = soc_bands[-4:]
-    soc_by_lc_annual_totals = [[] for i in range(len(soc_bands))]
-    lc_trans_prod_bizonal = []
-    lc_trans_zonal_soc_initial = []
-    lc_trans_zonal_soc_final = []
-    sdg_summary = []
-    prod_summary = []
-    soc_summary = []
-    lc_summary = []
 
-    for x in range(0, xsize, x_block_size):
-        if x + x_block_size < xsize:
-            cols = x_block_size
-        else:
-            cols = xsize - x
+    # Create output array wit 2 bands
+    #write_array = np.zeros((2, mask.shape[0], mask.shape[1]), dtype=np.int8)
+    write_arrays = {}
 
-        band_mask = mask_ds.GetRasterBand(1)
-        mask = band_mask.ReadAsArray(x, y, cols, rows)
-        mask = mask == MASK_VALUE
+    # Calculate cell area for each horizontal line
+    # log('y: {}'.format(y))
+    # log('x: {}'.format(x))
+    # log('rows: {}'.format(rows))
 
-        # Calculate cell area for each horizontal line
-        # log('y: {}'.format(y))
-        # log('x: {}'.format(x))
-        # log('rows: {}'.format(rows))
+    # Make an array of the same size as the input arrays containing
+    # the area of each cell (which is identical for all cells in a
+    # given row - cell areas only vary among rows)
+    cell_areas = np.repeat(cell_areas_raw, mask.shape[1], axis=1).astype(np.float)
 
-        # Make an array of the same size as the input arrays containing
-        # the area of each cell (which is identical for all cells in a
-        # given row - cell areas only vary among rows)
-        cell_areas = np.repeat(cell_areas_raw, cols, axis=1).astype(np.float32)
+    if params.prod_mode == 'Trends.Earth productivity':
+        traj_array = in_array[params.in_df.array_row_for_name(TRAJ_BAND_NAME), :, :]
+        traj_recode = recode_traj(traj_array)
 
-        if params.prod_mode == 'Trends.Earth productivity':
-            traj_band = src_ds.GetRasterBand(
-                params.in_df.band_num_for_name(TRAJ_BAND_NAME)
-            )
-            traj_recode = recode_traj(
-                traj_band.ReadAsArray(x, y, cols, rows)
-            )
+        state_array = in_array[params.in_df.array_row_for_name(STATE_BAND_NAME), :, :]
+        state_recode = recode_state(state_array)
 
-            state_band = src_ds.GetRasterBand(
-                params.in_df.band_num_for_name(STATE_BAND_NAME)
-            )
-            state_recode = recode_state(
-                state_band.ReadAsArray(x, y, cols, rows)
-            )
-
-            perf_band = src_ds.GetRasterBand(
-                params.in_df.band_num_for_name(PERF_BAND_NAME)
-            )
-            perf_array = perf_band.ReadAsArray(x, y, cols, rows)
-            deg_prod5 = calc_prod5(
-                traj_recode,
-                state_recode,
-                perf_array
-            )
-
-            # Save combined productivity indicator for later visualization
-            dst_ds_deg.GetRasterBand(2).WriteArray(deg_prod5, x, y)
-        else:
-            lpd_band = src_ds.GetRasterBand(
-                params.in_df.band_num_for_name(LPD_BAND_NAME)
-            )
-            lpd_array = lpd_band.ReadAsArray(x, y, cols, rows)
-            deg_prod5 = lpd_array
-            # TODO: Below is temporary until missing data values are
-            # fixed in LPD layer on GEE and missing data values are
-            # fixed in LPD layer made by UNCCD for SIDS
-            deg_prod5[(deg_prod5 == 0) | (deg_prod5 == 15)] = NODATA_VALUE
-
-        # Recode deg_prod5 as stable, degraded, improved (deg_prod3)
-        deg_prod3 = prod5_to_prod3(deg_prod5)
-
-        ###########################################################
-        # Calculate SOC totals by transition, on annual basis
-        if params.period == 'baseline':
-            a_lc_bl = src_ds.GetRasterBand(
-                lc_bands[0]
-            ).ReadAsArray(x, y, cols, rows)
-            a_lc_tg = src_ds.GetRasterBand(
-                lc_bands[-1]
-            ).ReadAsArray(x, y, cols, rows)
-            a_trans_bl_tg = calc_lc_trans(a_lc_bl, a_lc_tg)
-            a_trans_bl_tg_prod = a_trans_bl_tg
-            # For baseline don't need a land cover crosstab of last four years
-            lc_trans_arrays = [a_trans_bl_tg]
-
-        if params.period == 'progress':
-            a_lc_bl = src_ds.GetRasterBand(
-                lc_bands[-4]
-            ).ReadAsArray(x, y, cols, rows)
-            band_lc_tg = src_ds.GetRasterBand(lc_bands[-1])
-            a_lc_tg = band_lc_tg.ReadAsArray(x, y, cols, rows)
-            a_trans_bl_tg = calc_lc_trans(a_lc_bl, a_lc_tg)
-
-            # For progress period, need a transition matrix over just four 
-            # years
-            a_lc_bl_prod = src_ds.GetRasterBand(
-                lc_bands[-1]
-            ).ReadAsArray(x, y, cols, rows)
-            a_trans_bl_tg_prod = calc_lc_trans(a_lc_bl_prod, a_lc_tg)
-            # For progress need a land cover crosstab of last four years
-            lc_trans_arrays = [a_trans_bl_tg_prod, a_trans_bl_tg]
-
-        # Calculate SOC totals by year. Note final units of soc_totals
-        # tables are tons C (summed over the total area of each class).
-        for index, band_soc in enumerate(soc_bands, start=soc_band_counter_start):
-            band_soc = src_ds.GetRasterBand(band_soc)
-            band_lc = src_ds.GetRasterBand(lc_bands[index])
-            a_lc = band_lc.ReadAsArray(x, y, cols, rows)
-            a_soc = band_soc.ReadAsArray(x, y, cols, rows)
-            # Convert soilgrids data from per ha to per sq kilometer
-            a_soc = a_soc.astype(np.float32) * 100
-            soc_by_lc_annual_totals[index - soc_band_counter_start].append(
-                zonal_total(
-                    a_lc,
-                    a_soc*cell_areas,
-                    mask
-                )
-            )
-
-            if index == soc_band_counter_start:
-                # This is the baseline SOC - save it for later
-                a_soc_bl = a_soc.copy()
-            elif index == soc_tg_index:
-                # This is the target (tg) SOC - save it for later
-                a_soc_tg = a_soc.copy()
-
-        lc_trans_zonal_soc_initial.append(
-            zonal_total(
-                a_trans_bl_tg,
-                a_soc_bl * cell_areas,
-                mask
-            )
+        perf_array = in_array[params.in_df.array_row_for_name(PERF_BAND_NAME), :, :]
+        deg_prod5 = calc_prod5(
+            traj_recode,
+            state_recode,
+            perf_array
         )
-        lc_trans_zonal_soc_final.append(
-            zonal_total(
-                a_trans_bl_tg,
-                a_soc_tg * cell_areas,
+
+        # Save combined productivity indicator for later visualization
+        write_arrays[2] = {
+            'array': deg_prod5,
+            'xoff': xoff,
+            'yoff': yoff
+        }
+    else:
+        # TODO: Fix for accessing LPD
+        lpd_array = in_array[params.in_df.array_row_for_name(LPD_BAND_NAME), :, :]
+        deg_prod5 = lpd_array
+        # TODO: Below is temporary until missing data values are
+        # fixed in LPD layer on GEE and missing data values are
+        # fixed in LPD layer made by UNCCD for SIDS
+        deg_prod5[(deg_prod5 == 0) | (deg_prod5 == 15)] = NODATA_VALUE
+
+    # Recode deg_prod5 as stable, degraded, improved (deg_prod3)
+    deg_prod3 = prod5_to_prod3(deg_prod5)
+
+    ###########################################################
+    # Calculate SOC totals by transition, on annual basis
+    a_trans_bl_tg_prod = calc_lc_trans(
+        in_array[lc_bands[0], :, :],
+        in_array[lc_bands[-1], :, :]
+    )
+
+    if params.period == 'baseline':
+        # For baseline period crosstabs are over same period for all indicators
+        a_trans_bl_tg = a_trans_bl_tg_prod
+        lc_trans_arrays = [a_trans_bl_tg]
+        lc_deg_bl = in_array[lc_bands[0], :, :]
+        lc_deg_final = in_array[lc_bands[-1], :, :]
+
+    if params.period == 'progress':
+        # For progress period, need a transition matrix over just four years 
+        # for SOC and LC
+        a_trans_bl_tg = calc_lc_trans(
+            in_array[lc_bands[-4], :, :],
+            in_array[lc_bands[-1], :, :]
+        )
+        # For progress need a land cover crosstab of last four years in 
+        # addition to full period crosstab
+        lc_trans_arrays = [a_trans_bl_tg_prod, a_trans_bl_tg]
+        lc_deg_bl = in_array[lc_bands[0], :, :]
+        lc_deg_final = in_array[lc_bands[-4], :, :]
+
+    # Calculate SOC totals by year. Note final units of soc_totals
+    # tables are tons C (summed over the total area of each class).
+    soc_by_lc_annual_totals = []
+    for index, band_soc in enumerate(soc_bands, start=soc_band_counter_start):
+        a_soc = in_array[band_soc, :, :]
+        a_lc = in_array[lc_bands[index], :, :]
+        soc_by_lc_annual_totals.append(
+            zonal_total_weighted(
+                a_lc,
+                a_soc,
+                cell_areas * 100,  # from sq km to hectares
                 mask
             )
         )
 
-        ###########################################################
-        # Calculate crosstabs for productivity
-        lc_trans_prod_bizonal.append(
-            bizonal_total(
-                a_trans_bl_tg_prod,
-                deg_prod5,
-                cell_areas,
-                mask
-            )
-        )
-        for index, band_lc in enumerate(lc_bands):
-            band_lc = src_ds.GetRasterBand(band_lc)
-            a_lc = band_lc.ReadAsArray(x, y, cols, rows)
-            lc_annual_totals[index].append(
-                zonal_total(
-                    a_lc,
-                    cell_areas,
-                    mask
-                )
-            )
+        if index == soc_band_counter_start:
+            # This is the baseline SOC - save it for later
+            a_soc_bl = a_soc.copy()
+        elif index == soc_final_index:
+            # This is the target (tg) SOC - save it for later
+            a_soc_final = a_soc.copy()
 
-        ###########################################################
-        # Calculate crosstabs for land cover
-        for index, a_trans in enumerate(lc_trans_arrays):
-            lc_trans_zonal_areas[index].append(
-                zonal_total(
-                    a_trans,
-                    cell_areas,
-                    mask
-                )
-            )
+    # log(f'in_array shape: {in_array.shape}')
+    # log(f'soc_bands {soc_bands}')
+    # log(f'band_soc {band_soc}')
+    # log(f'index {index}')
+    # log(f'lc_bands {lc_bands}')
+    # log(f'lc_bands[index] {lc_bands[index]}')
+    # return 
 
-        ################
-        # Calculate SDG
-        band_lc_deg = src_ds.GetRasterBand(
-            params.in_df.band_num_for_name(LC_DEG_BAND_NAME)
-        )
-        deg_lc = band_lc_deg.ReadAsArray(x, y, cols, rows)
-        water = a_lc_tg == 7
-        water = water.astype(bool, copy=False)
+    lc_trans_zonal_soc_initial = zonal_total_weighted(
+        a_trans_bl_tg,
+        a_soc_bl,
+        cell_areas * 100,  # from sq km to hectares
+        mask
+    )
+    lc_trans_zonal_soc_final = zonal_total_weighted(
+        a_trans_bl_tg,
+        a_soc_final,
+        cell_areas * 100,  # from sq km to hectares
+        mask
+    )
 
-        band_soc_deg = src_ds.GetRasterBand(
-            params.in_df.band_num_for_name(SOC_DEG_BAND_NAME)
-        )
-        soc_array = band_soc_deg.ReadAsArray(x, y, cols, rows)
-        if params.period == 'baseline':
-            deg_soc = recode_deg_soc(soc_array, water)
-        if params.period == 'progress':
-            deg_soc = calc_deg_soc(a_soc_bl, a_soc_tg, water)
-
-        deg_sdg = calc_deg_sdg(deg_prod3, deg_lc, deg_soc)
-        dst_ds_deg.GetRasterBand(1).WriteArray(deg_sdg, x, y)
-
-        ###########################################################
-        # Tabulate SDG 15.3.1 indicator
-        # utils.log('deg_sdg.dtype: {}'.format(str(deg_sdg.dtype)))
-        # utils.log('water.dtype: {}'.format(str(water.dtype)))
-        # utils.log('cell_areas.dtype: {}'.format(str(cell_areas.dtype)))
-        sdg_summary.append(
+    ###########################################################
+    # Calculate crosstabs for productivity
+    lc_trans_prod_bizonal = bizonal_total(
+        a_trans_bl_tg_prod,
+        deg_prod5,
+        cell_areas,
+        mask
+    )
+    lc_annual_totals = []
+    for band_lc in lc_bands:
+        a_lc = in_array[band_lc, :, :]
+        lc_annual_totals.append(
             zonal_total(
-                deg_sdg,
-                cell_areas,
-                mask
-            )
-        )
-        prod_summary.append(
-            zonal_total(
-                deg_prod3,
-                cell_areas,
-                mask
-            )
-        )
-        lc_summary.append(
-            zonal_total(
-                deg_lc,
+                a_lc,
                 cell_areas,
                 mask
             )
         )
 
-        soc_summary.append(
+    ###########################################################
+    # Calculate crosstabs for land cover
+    lc_trans_zonal_areas = []
+    for a_trans in lc_trans_arrays:
+        lc_trans_zonal_areas.append(
             zonal_total(
-                deg_soc,
+                a_trans,
                 cell_areas,
                 mask
             )
         )
 
+    ################
+    # Calculate SDG
+    # Derive a water mask from last lc year
+    water = in_array[lc_bands[-1], :, :] == 7
+    water = water.astype(bool, copy=False)
 
-    return SummaryTable(
-        [accumulate_dicts(item) for item in soc_by_lc_annual_totals],
-        [accumulate_dicts(item) for item in lc_annual_totals],
-        [accumulate_dicts(item) for item in lc_trans_zonal_areas],
-        accumulate_dicts(lc_trans_prod_bizonal),
-        accumulate_dicts(lc_trans_zonal_soc_initial),
-        accumulate_dicts(lc_trans_zonal_soc_final),
-        accumulate_dicts(sdg_summary),
-        accumulate_dicts(prod_summary),
-        accumulate_dicts(soc_summary),
-        accumulate_dicts(lc_summary)
+    if params.period == 'baseline':
+        deg_soc = in_array[params.in_df.array_row_for_name(SOC_DEG_BAND_NAME), :, :]
+        deg_soc = recode_deg_soc(deg_soc, water)
+        deg_lc = in_array[params.in_df.array_row_for_name(LC_DEG_BAND_NAME), :, :]
+    if params.period == 'progress':
+        deg_soc = calc_deg_soc(a_soc_bl, a_soc_final, water)
+        lc_trans_matrix = params.trans_matrix.get_list()
+        deg_lc = calc_deg_lc(
+            lc_deg_bl,
+            lc_deg_final,
+            trans_code=lc_trans_matrix[0],
+            trans_meaning=lc_trans_matrix[1]
+        )
+    # write_arrays[3] = {
+    #     'array': deg_lc,
+    #     'xoff': xoff,
+    #     'yoff': yoff
+    # }
+
+
+    deg_sdg = calc_deg_sdg(deg_prod3, deg_lc, deg_soc)
+    write_arrays[1] = {
+        'array': deg_sdg,
+        'xoff': xoff,
+        'yoff': yoff
+    }
+
+    ###########################################################
+    # Tabulate SDG 15.3.1 indicator
+    sdg_summary = zonal_total(
+        deg_sdg,
+        cell_areas,
+        mask
+    )
+    prod_summary = zonal_total(
+        deg_prod3,
+        cell_areas,
+        mask
+    )
+    lc_summary = zonal_total(
+        deg_lc,
+        cell_areas,
+        mask
+    )
+
+    # TODO:
+    soc_summary = zonal_total(
+        deg_soc,
+        cell_areas,
+        mask
+    )
+
+    return (
+        SummaryTable(
+            soc_by_lc_annual_totals,
+            lc_annual_totals,
+            lc_trans_zonal_areas,
+            lc_trans_prod_bizonal,
+            lc_trans_zonal_soc_initial,
+            lc_trans_zonal_soc_final,
+            sdg_summary,
+            prod_summary,
+            soc_summary,
+            lc_summary
+        ),
+        write_arrays
     )
 
 
@@ -1321,12 +1290,13 @@ class DegradationSummaryWorker(worker.AbstractWorker):
         self.toggle_show_cancel.emit(True)
 
         mask_ds = gdal.Open(self.params.mask_file)
+        band_mask = mask_ds.GetRasterBand(1)
 
         src_ds = gdal.Open(str(self.params.in_df.path))
 
         if self.params.prod_mode == 'Trends.Earth productivity':
             traj_band = src_ds.GetRasterBand(
-                self.params.in_df.band_num_for_name(TRAJ_BAND_NAME)
+                self.params.in_df.array_row_for_name(TRAJ_BAND_NAME)
             )
             block_sizes = traj_band.GetBlockSize()
             xsize = traj_band.XSize
@@ -1336,10 +1306,10 @@ class DegradationSummaryWorker(worker.AbstractWorker):
             n_out_bands = 2
         else:
             lpd_band = src_ds.GetRasterBand(
-                self.params.in_df.band_num_for_name(LPD_BAND_NAME)
+                self.params.in_df.array_row_for_name(LPD_BAND_NAME)
             )
             band_lc_deg = src_ds.GetRasterBand(
-                self.params.in_df.band_num_for_name(LC_DEG_BAND_NAME)
+                self.params.in_df.array_row_for_name(LC_DEG_BAND_NAME)
             )
             block_sizes = band_lc_deg.GetBlockSize()
             xsize = band_lc_deg.XSize
@@ -1388,9 +1358,9 @@ class DegradationSummaryWorker(worker.AbstractWorker):
                     break
 
                 if y + y_block_size < ysize:
-                    rows = y_block_size
+                    win_ysize = y_block_size
                 else:
-                    rows = ysize - y
+                    win_ysize = ysize - y
 
                 cell_areas = np.array(
                     [
@@ -1398,37 +1368,56 @@ class DegradationSummaryWorker(worker.AbstractWorker):
                             lat + pixel_height * n,
                             lat + pixel_height * (n + 1),
                             long_width
-                        ) for n in range(rows)
+                        ) for n in range(win_ysize)
                     ]
                 ) * 1e-6  # 1e-6 is to convert from meters to kilometers
                 cell_areas.shape = (cell_areas.size, 1)
 
-                res.append(
-                    executor.submit(
-                        _process_block,
-                        self.params,
-                        src_ds,
-                        mask_ds,
-                        dst_ds_deg,
-                        y,
-                        rows,
-                        xsize,
-                        ysize,
-                        x_block_size,
-                        y_block_size,
-                        cell_areas
-                    )
-                )
+                for x in range(0, xsize, x_block_size):
+                    if x + x_block_size < xsize:
+                        win_xsize = x_block_size
+                    else:
+                        win_xsize = xsize - x
 
-                lat += pixel_height * rows
+                    src_array = src_ds.ReadAsArray(
+                        xoff=x,
+                        yoff=y,
+                        xsize=win_xsize,
+                        ysize=win_ysize
+                    )
+
+                    mask_array = band_mask.ReadAsArray(
+                        xoff=x,
+                        yoff=y,
+                        win_xsize=win_xsize,
+                        win_ysize=win_ysize
+                    )
+                    mask_array = mask_array == MASK_VALUE
+
+                    res.append(
+                        executor.submit(
+                            _process_block,
+                            self.params,
+                            src_array,
+                            mask_array,
+                            x,
+                            y,
+                            cell_areas
+                        )
+                    )
+
+                lat += pixel_height * win_ysize
 
             for n, this_res in enumerate(as_completed(res)):
                 self.progress.emit((n / len(res)) * 100)
-
+                
                 if n == 0:
-                    out = [this_res.result()]
+                    out = [this_res.result()[0]]
                 else:
-                    out.append(this_res.result())
+                    out.append(this_res.result()[0])
+
+                for key, value in this_res.result()[1].items():
+                    dst_ds_deg.GetRasterBand(key).WriteArray(**value)
 
         self.progress.emit(100)
 
@@ -1797,7 +1786,7 @@ def _get_lc_table(table, classes=list(range(1, 7 + 1))):
 
 def _write_soc_stock_change_table(
         sheet, first_row, first_col, soc_bl_totals,
-        soc_tg_totals, classes=list(range(1, 6 + 1))
+        soc_final_totals, classes=list(range(1, 6 + 1))
 ):
     # Note classes for this function go from 1-6 to exclude water from the SOC
     # totals
@@ -1807,7 +1796,7 @@ def _write_soc_stock_change_table(
             cell = sheet.cell(row=row + first_row, column=col + first_col)
             transition = int('{}{}'.format(classes[row], classes[col]))
             bl_soc = _get_soc_total(soc_bl_totals, transition)
-            tg_soc = _get_soc_total(soc_tg_totals, transition)
+            tg_soc = _get_soc_total(soc_final_totals, transition)
             try:
                 cell.value = (tg_soc - bl_soc) / bl_soc
             except ZeroDivisionError:

@@ -906,7 +906,7 @@ def save_reporting_json(
                             transition,
                             0.
                         ),
-                        final_value=st.lc_trans_zonal_soc_initial.get(
+                        final_value=st.lc_trans_zonal_soc_final.get(
                             transition,
                             0.
                         )
@@ -1251,7 +1251,6 @@ def _process_block(
         mask
     )
 
-    # TODO:
     soc_summary = zonal_total(
         deg_soc,
         cell_areas,

@@ -1060,10 +1060,11 @@ ns.configure({
         'translations': ['fr', 'es', 'sw', 'pt'],
         'resource_files': ['LDMP/resources.qrc'],
         'numba': {
-            'aot_files': ['LDMP/calculate_numba.py',
+            'aot_files': ['LDMP/localexecution/ldn_numba.py',
                           'LDMP/summary_numba.py'],
-            'binary_extensions': ['.so',
-                                  '.pyd'],
+            'binary_extensions': [
+                '.so',
+                '.pyd'],
             'binary_folder':  'LDMP/binaries',
             'binary_list': 'LDMP/data/binaries.txt'
             },

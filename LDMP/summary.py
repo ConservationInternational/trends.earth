@@ -15,6 +15,8 @@
 from . import conf
 from .logger import log
 
+import numpy as np
+
 if conf.settings_manager.get_value(conf.Setting.BINARIES_ENABLED):
     try:
         from trends_earth_binaries.summary_numba import *

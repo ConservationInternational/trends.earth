@@ -54,7 +54,7 @@ def calc_cell_area(ymin, ymax, x_width):
             * (x_width / 360.))
 
 
-@numba.jit(nopython=True, parallel=True)
+@numba.jit(nopython=True)
 @cc.export('recode_traj', 'i2[:,:](i2[:,:])')
 def recode_traj(x):
     # Recode trajectory into deg, stable, imp. Capture trends that are at least 
@@ -77,7 +77,7 @@ def recode_traj(x):
     return np.reshape(x, shp)
 
 
-@numba.jit(nopython=True, parallel=True)
+@numba.jit(nopython=True)
 @cc.export('recode_state', 'i2[:,:](i2[:,:])')
 def recode_state(x):
     # Recode state into deg, stable, imp. Note the >= -10 is so no data 
@@ -91,7 +91,7 @@ def recode_state(x):
     return np.reshape(x, shp)
 
 
-@numba.jit(nopython=True, parallel=True)
+@numba.jit(nopython=True)
 @cc.export('calc_prod_5', 'i2[:,:](i2[:,:], i2[:,:], i2[:,:])')
 def calc_prod5(traj, state, perf):
     # Coding of LPD (prod5)
@@ -124,12 +124,14 @@ def calc_prod5(traj, state, perf):
     x[(traj == 0) & (state == -1) & (perf == 0)] = 2
 
     # Ensure NAs carry over to productivity indicator layer
-    x[(traj == NODATA_VALUE) | (perf == NODATA_VALUE) | (state == NODATA_VALUE)] = NODATA_VALUE
+    x[(traj == NODATA_VALUE) |
+      (perf == NODATA_VALUE) |
+      (state == NODATA_VALUE)] = NODATA_VALUE
 
     return np.reshape(x, shp)
 
 
-@numba.jit(nopython=True, parallel=True)
+@numba.jit(nopython=True)
 @cc.export('pro5_to_prod3', 'i2[:,:](i2[:,:])')
 def prod5_to_prod3(prod5):
     shp = prod5.shape
@@ -143,7 +145,6 @@ def prod5_to_prod3(prod5):
 
 @numba.jit(
     nopython=True,
-    parallel=True,
     locals={'a_trans_bl_tg': numba.types.int16[::1]}
 )
 @cc.export('calc_lc_trans', 'i2[:,:](i2[:,:], i2[:,:])')
@@ -156,7 +157,7 @@ def calc_lc_trans(lc_bl, lc_tg):
     return np.reshape(a_trans_bl_tg, shp)
 
 
-@numba.jit(nopython=True, parallel=True)
+@numba.jit(nopython=True)
 @cc.export('recode_deg_soc', 'i2[:,:](i2[:,:], i2[:,:])')
 def recode_deg_soc(soc, water):
     '''recode SOC change layer from percent change into a categorical map'''
@@ -173,7 +174,7 @@ def recode_deg_soc(soc, water):
     return np.reshape(out, shp)
 
 
-@numba.jit(nopython=True, parallel=True)
+@numba.jit(nopython=True)
 @cc.export('calc_deg_soc', 'i2[:,:](i2[:,:], i2[:,:], i2[:,:])')
 def calc_deg_soc(soc_bl, soc_tg, water):
     '''recode SOC change layer from percent change into a categorical map'''
@@ -195,7 +196,6 @@ def calc_deg_soc(soc_bl, soc_tg, water):
 
 @numba.jit(
     nopython=True,
-    parallel=True,
     locals={'trans': numba.types.int16[::1]}
 )
 @cc.export('calc_deg_lc', 'i2[:,:](i2[:,:], i2[:,:], i2[:], i2[:])')
@@ -213,7 +213,7 @@ def calc_deg_lc(lc_bl, lc_tg, trans_code, trans_meaning):
     return np.reshape(out, shp)
 
 
-@numba.jit(nopython=True, parallel=True)
+@numba.jit(nopython=True)
 @cc.export('calc_deg_sdg', 'i2[:,:](i2[:,:], i2[:,:], i2[:,:])')
 def calc_deg_sdg(deg_prod3, deg_lc, deg_soc):
     shp = deg_prod3.shape
@@ -239,7 +239,7 @@ def calc_deg_sdg(deg_prod3, deg_lc, deg_soc):
     return np.reshape(out, shp)
 
 
-@numba.jit(nopython=True, parallel=True)
+@numba.jit(nopython=True)
 @cc.export('zonal_total', '(i2[:,:], f8[:,:], i2[:,:])')
 def zonal_total(z, d, mask):
     z = z.ravel()
@@ -258,7 +258,7 @@ def zonal_total(z, d, mask):
     return totals
 
 
-@numba.jit(nopython=True, parallel=True)
+@numba.jit(nopython=True)
 @cc.export('zonal_total_weighted', '(i2[:,:], i2[:,:], f8[:,:], i2[:,:])')
 def zonal_total_weighted(z, d, weights, mask):
     z = z.ravel()
@@ -278,7 +278,7 @@ def zonal_total_weighted(z, d, weights, mask):
     return totals
 
 
-@numba.jit(nopython=True, parallel=True)
+@numba.jit(nopython=True)
 @cc.export('bizonal_total', '(i2[:,:], i2[:,:], f8[:,:], i2[:,:])')
 def bizonal_total(z1, z2, d, mask):
     z1 = z1.ravel()

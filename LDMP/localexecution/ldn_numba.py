@@ -2,6 +2,7 @@ import numpy as np
 
 
 try:
+    import numba
     from numba.pycc import CC
     cc = CC('ldn_numba')
 except ImportError:
@@ -15,17 +16,17 @@ except ImportError:
     cc = CCSubstitute()
 
 
-from numba import jit
+# Ensure mask and nodata values are saved as 16 bit integers to keep numba 
+# happy
+NODATA_VALUE = np.array([-32768], dtype=np.int16)
+MASK_VALUE = np.array([-32767], dtype=np.int16)
 
-
-NODATA_VALUE = -32768
-MASK_VALUE = -32767
 
 # Calculate the area of a slice of the globe from the equator to the parallel
 # at latitude f (on WGS84 ellipsoid). Based on:
 # https://gis.stackexchange.com/questions/127165/more-accurate-way-to-calculate-area-of-rasters
-#@cc.export('slice_area', 'f8(f8)')
-@jit(nopython=True)
+@numba.jit(nopython=True)
+@cc.export('slice_area', 'f8(f8)')
 def slice_area(f):
     a = 6378137.  # in meters
     b = 6356752.3142  # in meters,
@@ -33,13 +34,13 @@ def slice_area(f):
     zp = 1 + e * np.sin(f)
     zm = 1 - e * np.sin(f)
     return (np.pi * pow(b, 2) * ((2 * np.arctanh(e * np.sin(f))) /
-            (2 * e) + np.sin(f) / (zp * zm)))
+        (2 * e) + np.sin(f) / (zp * zm)))
 
 
 # Formula to calculate area of a raster cell on WGS84 ellipsoid, following
 # https://gis.stackexchange.com/questions/127165/more-accurate-way-to-calculate-area-of-rasters
-#@cc.export('calc_cell_area', 'f8(f8, f8, f8)')
-@jit(nopython=True)
+@numba.jit(nopython=True)
+@cc.export('calc_cell_area', 'f8(f8, f8, f8)')
 def calc_cell_area(ymin, ymax, x_width):
     if (ymin > ymax):
         temp = 0
@@ -53,8 +54,8 @@ def calc_cell_area(ymin, ymax, x_width):
             * (x_width / 360.))
 
 
-#@cc.export('recode_traj', 'i2[:,:](i2[:,:])')
-@jit(nopython=True)
+@numba.jit(nopython=True, parallel=True)
+@cc.export('recode_traj', 'i2[:,:](i2[:,:])')
 def recode_traj(x):
     # Recode trajectory into deg, stable, imp. Capture trends that are at least 
     # 95% significant.
@@ -69,15 +70,15 @@ def recode_traj(x):
     #  3: 99% signif increase
     shp = x.shape
     x = x.ravel()
+    # -1 and 1 are not signif at 95%, so stable
     x[(x >= -1) & (x <= 1)] = 0
     x[(x >= -3) & (x < -1)] = -1
-    # -1 and 1 are not signif at 95%, so stable
     x[(x > 1) & (x <= 3)] = 1
     return np.reshape(x, shp)
 
 
-#@cc.export('recode_state', 'i2[:,:](i2[:,:])')
-@jit(nopython=True)
+@numba.jit(nopython=True, parallel=True)
+@cc.export('recode_state', 'i2[:,:](i2[:,:])')
 def recode_state(x):
     # Recode state into deg, stable, imp. Note the >= -10 is so no data 
     # isn't coded as degradation. More than two changes in class is defined 
@@ -90,7 +91,8 @@ def recode_state(x):
     return np.reshape(x, shp)
 
 
-@jit(nopython=True)
+@numba.jit(nopython=True, parallel=True)
+@cc.export('calc_prod_5', 'i2[:,:](i2[:,:], i2[:,:], i2[:,:])')
 def calc_prod5(traj, state, perf):
     # Coding of LPD (prod5)
     # 1: declining
@@ -126,17 +128,9 @@ def calc_prod5(traj, state, perf):
 
     return np.reshape(x, shp)
 
-@jit(nopython=True)
-def calc_lc_trans(lc_bl, lc_tg):
-    lc_bl = lc_bl.ravel()
-    lc_tg = lc_tg.ravel()
-    shp = lc_bl.shape
-    a_trans_bl_tg = lc_bl * 10 + lc_tg
-    a_trans_bl_tg[np.logical_or(lc_bl < 1, lc_tg < 1)] = NODATA_VALUE
-    return np.reshape(a_trans_bl_tg, shp)
 
-
-@jit(nopython=True)
+@numba.jit(nopython=True, parallel=True)
+@cc.export('pro5_to_prod3', 'i2[:,:](i2[:,:])')
 def prod5_to_prod3(prod5):
     shp = prod5.shape
     prod5 = prod5.ravel()
@@ -147,7 +141,23 @@ def prod5_to_prod3(prod5):
     return np.reshape(out, shp)
 
 
-@jit(nopython=True)
+@numba.jit(
+    nopython=True,
+    parallel=True,
+    locals={'a_trans_bl_tg': numba.types.int16[::1]}
+)
+@cc.export('calc_lc_trans', 'i2[:,:](i2[:,:], i2[:,:])')
+def calc_lc_trans(lc_bl, lc_tg):
+    shp = lc_bl.shape
+    lc_bl = lc_bl.ravel()
+    lc_tg = lc_tg.ravel()
+    a_trans_bl_tg = lc_bl * np.array([10], dtype=np.int16) + lc_tg
+    a_trans_bl_tg[np.logical_or(lc_bl < 1, lc_tg < 1)] = NODATA_VALUE
+    return np.reshape(a_trans_bl_tg, shp)
+
+
+@numba.jit(nopython=True, parallel=True)
+@cc.export('recode_deg_soc', 'i2[:,:](i2[:,:], i2[:,:])')
 def recode_deg_soc(soc, water):
     '''recode SOC change layer from percent change into a categorical map'''
     # Degradation in terms of SOC is defined as a decline of more
@@ -163,7 +173,8 @@ def recode_deg_soc(soc, water):
     return np.reshape(out, shp)
 
 
-@jit(nopython=True)
+@numba.jit(nopython=True, parallel=True)
+@cc.export('calc_deg_soc', 'i2[:,:](i2[:,:], i2[:,:], i2[:,:])')
 def calc_deg_soc(soc_bl, soc_tg, water):
     '''recode SOC change layer from percent change into a categorical map'''
     # Degradation in terms of SOC is defined as a decline of more
@@ -182,11 +193,17 @@ def calc_deg_soc(soc_bl, soc_tg, water):
     return np.reshape(out, shp)
 
 
-@jit(nopython=True)
+@numba.jit(
+    nopython=True,
+    parallel=True,
+    locals={'trans': numba.types.int16[::1]}
+)
+@cc.export('calc_deg_lc', 'i2[:,:](i2[:,:], i2[:,:], i2[:], i2[:])')
 def calc_deg_lc(lc_bl, lc_tg, trans_code, trans_meaning):
     '''calculate land cover degradation'''
     shp = lc_bl.shape
     trans = calc_lc_trans(lc_bl, lc_tg)
+    trans = trans.ravel()
     lc_bl = lc_bl.ravel()
     lc_tg = lc_tg.ravel()
     out = np.zeros(lc_bl.shape, dtype=np.int16)
@@ -196,7 +213,8 @@ def calc_deg_lc(lc_bl, lc_tg, trans_code, trans_meaning):
     return np.reshape(out, shp)
 
 
-@jit(nopython=True)
+@numba.jit(nopython=True, parallel=True)
+@cc.export('calc_deg_sdg', 'i2[:,:](i2[:,:], i2[:,:], i2[:,:])')
 def calc_deg_sdg(deg_prod3, deg_lc, deg_soc):
     shp = deg_prod3.shape
     deg_prod3 = deg_prod3.ravel()
@@ -221,7 +239,8 @@ def calc_deg_sdg(deg_prod3, deg_lc, deg_soc):
     return np.reshape(out, shp)
 
 
-@jit(nopython=True)
+@numba.jit(nopython=True, parallel=True)
+@cc.export('zonal_total', '(i2[:,:], f8[:,:], i2[:,:])')
 def zonal_total(z, d, mask):
     z = z.ravel()
     d = d.ravel()
@@ -230,15 +249,17 @@ def zonal_total(z, d, mask):
     # Carry over nodata values from data layer to z so that they aren't
     # included in the totals
     z[d == NODATA_VALUE] = NODATA_VALUE
-    totals = dict()
+    totals = numba.typed.Dict.empty(numba.types.int64, numba.types.float64)
     for i in range(z.shape[0]):
         if z[i] not in totals:
-            totals[z[i]] = d[i]
+            totals[int(z[i])] = d[i]
         else:
-            totals[z[i]] += d[i]
+            totals[int(z[i])] += d[i]
     return totals
 
-@jit(nopython=True)
+
+@numba.jit(nopython=True, parallel=True)
+@cc.export('zonal_total_weighted', '(i2[:,:], i2[:,:], f8[:,:], i2[:,:])')
 def zonal_total_weighted(z, d, weights, mask):
     z = z.ravel()
     d = d.ravel()
@@ -248,16 +269,17 @@ def zonal_total_weighted(z, d, weights, mask):
     # Carry over nodata values from data layer to z so that they aren't
     # included in the totals
     z[d == NODATA_VALUE] = NODATA_VALUE
-    totals = dict()
+    totals = numba.typed.Dict.empty(numba.types.int64, numba.types.float64)
     for i in range(z.shape[0]):
         if z[i] not in totals:
-            totals[z[i]] = d[i] * weights[i]
+            totals[int(z[i])] = d[i] * weights[i]
         else:
-            totals[z[i]] += d[i] * weights[i]
+            totals[int(z[i])] += d[i] * weights[i]
     return totals
 
 
-@jit(nopython=True)
+@numba.jit(nopython=True, parallel=True)
+@cc.export('bizonal_total', '(i2[:,:], i2[:,:], f8[:,:], i2[:,:])')
 def bizonal_total(z1, z2, d, mask):
     z1 = z1.ravel()
     z2 = z2.ravel()
@@ -271,6 +293,10 @@ def bizonal_total(z1, z2, d, mask):
     # Carry over nodata values from data layer to z so that they aren't
     # included in the totals
     z2[d == NODATA_VALUE] = NODATA_VALUE
+    # tab = numba.typed.Dict.empty(
+    #     key_type=numba.types.UniTuple(numba.types.int64, 2),
+    #     value_type=numba.types.int64
+    # )
     tab = dict()
     for i in range(z1.shape[0]):
         if (z1[i], z2[i]) not in tab:
@@ -280,7 +306,7 @@ def bizonal_total(z1, z2, d, mask):
     return tab
 
 
-@jit(nopython=True)
+@numba.jit(nopython=True)
 def accumulate_dicts(z):
     out = z[0]
     for d in z[1:]:
@@ -288,7 +314,7 @@ def accumulate_dicts(z):
     return out
 
 
-@jit(nopython=True)
+@numba.jit(nopython=True)
 def _combine_dicts(z1, z2):
     out = z1
     for key in z2:

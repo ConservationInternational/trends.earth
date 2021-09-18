@@ -511,7 +511,7 @@ def compute_ldn(
                 activated=True
             )
             ldn_job.results.bands.append(sdg_prod_band)
-            sdg_df.bands.append(sdg_band)
+            sdg_df.bands.append(DataFile(sdg_path, [sdg_prod_band]))
 
         reproj_df = _combine_data_files(reproj_path, in_dfs)
 
@@ -1340,9 +1340,6 @@ class DegradationSummaryWorker(worker.AbstractWorker):
         lat = src_gt[3]
         # Width of cells in latitude
         pixel_height = src_gt[5]
-
-        xt = None
-        # Minus 1 as first band is degradation, not an annual layer
 
         # pr = cProfile.Profile()
         # pr.enable()

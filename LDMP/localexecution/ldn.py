@@ -34,20 +34,10 @@ from te_schemas import (
     SchemaBase
 )
 
-
-# if settings_manager.get_value(Setting.BINARIES_ENABLED):
-#     try:
-#         from trends_earth_binaries.ldn_numba import *
-#         log("Using numba-compiled version of calculate_numba.")
-#     except (ModuleNotFoundError, ImportError) as e:
-#         from .calculate_numba import *
-#         log("Failed import of numba-compiled code, falling back to python version of calculate_numba.")
-# else:
-#     from .ldn_numba import *
-#     log("Using python version of ldn_numba.")
-#
-
-from .ldn_numba import *
+from ..conf import (
+    settings_manager,
+    Setting
+)
 
 from .. import (
     areaofinterest,
@@ -66,6 +56,18 @@ from ..jobs import (
     models,
 )
 from ..logger import log
+
+if settings_manager.get_value(Setting.BINARIES_ENABLED):
+    try:
+        from trends_earth_binaries.ldn_numba import *
+        log("Using numba-compiled version of ldn_numba.")
+    except (ModuleNotFoundError, ImportError) as e:
+        from .ldn_numba import *
+        log(f"Failed import of numba-compiled code: {e}. "
+            "Falling back to python version of ldn_numba.")
+else:
+    from .ldn_numba import *
+    log("Using python version of ldn_numba.")
 
 import marshmallow_dataclass
 
@@ -1065,7 +1067,7 @@ def _process_block(
     # Make an array of the same size as the input arrays containing
     # the area of each cell (which is identical for all cells in a
     # given row - cell areas only vary among rows)
-    cell_areas = np.repeat(cell_areas_raw, mask.shape[1], axis=1).astype(np.float)
+    cell_areas = np.repeat(cell_areas_raw, mask.shape[1], axis=1).astype(np.float64)
 
     if params.prod_mode == 'Trends.Earth productivity':
         traj_array = in_array[params.in_df.array_row_for_name(TRAJ_BAND_NAME), :, :]
@@ -1075,6 +1077,7 @@ def _process_block(
         state_recode = recode_state(state_array)
 
         perf_array = in_array[params.in_df.array_row_for_name(PERF_BAND_NAME), :, :]
+
         deg_prod5 = calc_prod5(
             traj_recode,
             state_recode,
@@ -1360,7 +1363,7 @@ class DegradationSummaryWorker(worker.AbstractWorker):
 
                 cell_areas = np.array(
                     [
-                        summary.calc_cell_area(
+                        calc_cell_area(
                             lat + pixel_height * n,
                             lat + pixel_height * (n + 1),
                             long_width

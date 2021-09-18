@@ -7,13 +7,20 @@ try:
     cc = CC('ldn_numba')
 except ImportError:
     # Will use these as regular Python functions if numba is not present.
-    class CCSubstitute(object):
+    class DecoratorSubstitute(object):
         # Make a cc.export that doesn't do anything
         def export(*args, **kwargs):
             def wrapper(func):
                 return func
             return wrapper
-    cc = CCSubstitute()
+
+        # Make a numba.jit that doesn't do anything
+        def jit(*args, **kwargs):
+            def wrapper(func):
+                return func
+            return wrapper
+    cc = DecoratorSubstitute()
+    numba = DecoratorSubstitute()
 
 
 # Ensure mask and nodata values are saved as 16 bit integers to keep numba 
@@ -92,7 +99,7 @@ def recode_state(x):
 
 
 @numba.jit(nopython=True)
-@cc.export('calc_prod_5', 'i2[:,:](i2[:,:], i2[:,:], i2[:,:])')
+@cc.export('calc_prod5', 'i2[:,:](i2[:,:], i2[:,:], i2[:,:])')
 def calc_prod5(traj, state, perf):
     # Coding of LPD (prod5)
     # 1: declining
@@ -132,7 +139,7 @@ def calc_prod5(traj, state, perf):
 
 
 @numba.jit(nopython=True)
-@cc.export('pro5_to_prod3', 'i2[:,:](i2[:,:])')
+@cc.export('prod5_to_prod3', 'i2[:,:](i2[:,:])')
 def prod5_to_prod3(prod5):
     shp = prod5.shape
     prod5 = prod5.ravel()
@@ -143,10 +150,7 @@ def prod5_to_prod3(prod5):
     return np.reshape(out, shp)
 
 
-@numba.jit(
-    nopython=True,
-    locals={'a_trans_bl_tg': numba.types.int16[::1]}
-)
+@numba.jit(nopython=True)
 @cc.export('calc_lc_trans', 'i2[:,:](i2[:,:], i2[:,:])')
 def calc_lc_trans(lc_bl, lc_tg):
     shp = lc_bl.shape
@@ -194,10 +198,7 @@ def calc_deg_soc(soc_bl, soc_tg, water):
     return np.reshape(out, shp)
 
 
-@numba.jit(
-    nopython=True,
-    locals={'trans': numba.types.int16[::1]}
-)
+@numba.jit(nopython=True)
 @cc.export('calc_deg_lc', 'i2[:,:](i2[:,:], i2[:,:], i2[:], i2[:])')
 def calc_deg_lc(lc_bl, lc_tg, trans_code, trans_meaning):
     '''calculate land cover degradation'''
@@ -249,7 +250,8 @@ def zonal_total(z, d, mask):
     # Carry over nodata values from data layer to z so that they aren't
     # included in the totals
     z[d == NODATA_VALUE] = NODATA_VALUE
-    totals = numba.typed.Dict.empty(numba.types.int64, numba.types.float64)
+    #totals = numba.typed.Dict.empty(numba.types.int64, numba.types.float64)
+    totals = dict()
     for i in range(z.shape[0]):
         if z[i] not in totals:
             totals[int(z[i])] = d[i]
@@ -269,7 +271,8 @@ def zonal_total_weighted(z, d, weights, mask):
     # Carry over nodata values from data layer to z so that they aren't
     # included in the totals
     z[d == NODATA_VALUE] = NODATA_VALUE
-    totals = numba.typed.Dict.empty(numba.types.int64, numba.types.float64)
+    #totals = numba.typed.Dict.empty(numba.types.int64, numba.types.float64)
+    totals = dict()
     for i in range(z.shape[0]):
         if z[i] not in totals:
             totals[int(z[i])] = d[i] * weights[i]
@@ -293,10 +296,6 @@ def bizonal_total(z1, z2, d, mask):
     # Carry over nodata values from data layer to z so that they aren't
     # included in the totals
     z2[d == NODATA_VALUE] = NODATA_VALUE
-    # tab = numba.typed.Dict.empty(
-    #     key_type=numba.types.UniTuple(numba.types.int64, 2),
-    #     value_type=numba.types.int64
-    # )
     tab = dict()
     for i in range(z1.shape[0]):
         if (z1[i], z2[i]) not in tab:

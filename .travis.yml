@@ -1,5 +1,6 @@
 services:
 - docker
+
 install:
 - docker-compose up -d
 - sleep 10
@@ -16,11 +17,13 @@ install:
 - docker cp trends.earth_admin_user_credentials.json trendsearth_qgis_1:/LDMP/test/trends.earth_admin_user_credentials.json
 - docker exec -it trendsearth_qgis_1 sh -c "rm -f  /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/LDMP"
 - docker exec -it trendsearth_qgis_1 sh -c "ln -s /LDMP/ /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/LDMP"
+
 script:
 - export BRANCH=$(if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then echo $TRAVIS_BRANCH;
   else echo $TRAVIS_PULL_REQUEST_BRANCH; fi)
 - docker exec -it trendsearth_qgis_1 sh -c "cd /LDMP && qgis_testrunner.sh LDMP.test.testplugin"
 #- docker exec -it trendsearth_qgis_1 sh -c "cd /LDMP && pytest --cov=LDMP test/"
+
 after_success:
 - |
   if [ "${TRAVIS_PULL_REQUEST}" = "false" ] && [ "${TRAVIS_BRANCH}" = "master" ]; then

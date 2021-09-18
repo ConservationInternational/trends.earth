@@ -21,6 +21,7 @@ import site
 import json
 import subprocess
 from tempfile import NamedTemporaryFile
+from pathlib import Path
 
 from PyQt5 import (
     QtCore,
@@ -53,14 +54,14 @@ binaries_folder = QtCore.QSettings().value(
     "trends_earth/advanced/binaries_folder",
     None
 )
-# TODO: Fix this
-# if binaries_folder:
-#     logger.log('Adding {} to path for binaries.'.format(binaries_folder))
-#     _add_at_front_of_path(os.path.join(
-#         binaries_folder,
-#         'trends_earth_binaries_{}'.format(__version__.replace('.', '_')))
-#     )
-_add_at_front_of_path(os.path.join(plugin_dir, 'ext-libs'))
+logger.log(f'sys.path is: {sys.path}')
+if binaries_folder:
+    binaries_path = Path(binaries_folder) / f"trends_earth_binaries_{__version__.replace('.', '_')}"
+    _add_at_front_of_path(str(binaries_path))
+logger.log(f'sys.path is: {sys.path}')
+
+_add_at_front_of_path(str(Path(plugin_dir) / 'ext-libs'))
+logger.log(f'sys.path is: {sys.path}')
 
 
 def tr(message):
@@ -120,12 +121,12 @@ def binaries_available():
             logger.log("Numba-compiled version of summary_numba not available: {}".format(e))
         ret = False
     try:
-        from trends_earth_binaries import calculate_numba
+        from trends_earth_binaries import ldn_numba
         if debug_enabled:
-            logger.log("Numba-compiled version of calculate_numba available.")
+            logger.log("Numba-compiled version of ldn_numba available.")
     except (ModuleNotFoundError, ImportError, RuntimeError) as e:
         if debug_enabled:
-            logger.log("Numba-compiled version of calculate_numba not available: {}".format(e))
+            logger.log("Numba-compiled version of ldn_numba not available: {}".format(e))
         ret = False
     return ret
 

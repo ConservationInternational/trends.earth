@@ -91,7 +91,7 @@ class SummaryTable(SchemaBase):
     soc_by_lc_annual_totals: List[Dict[int, float]]
     lc_annual_totals: List[Dict[int, float]]
     lc_trans_zonal_areas: List[Dict[int, float]]
-    lc_trans_prod_bizonal: List[Dict[Tuple[int, int], float]]
+    lc_trans_prod_bizonal: Dict[Tuple[int, int], float]
     lc_trans_zonal_soc_initial: Dict[int, float]
     lc_trans_zonal_soc_final: Dict[int, float]
     sdg_summary: Dict[int, float]
@@ -518,13 +518,16 @@ def compute_ldn(
             with open(key_json, 'w') as f:
                 json.dump(DataFile.Schema().dump(df), f, indent=4)
 
-        # summary_table_output_path = sub_job_output_path.parent / f"{sub_job_output_path.stem}.xlsx"
-        # save_summary_table(
-        #     summary_table_output_path,
-        #     summary_table,
-        #     period_params["layer_lc_years"],
-        #     period_params["layer_soc_years"],
-        # )
+        summary_table_output_path = sub_job_output_path.parent / f"{sub_job_output_path.stem}.xlsx"
+        save_summary_table_excel(
+            summary_table_output_path,
+            summary_table,
+            period_params["layer_lc_years"],
+            period_params["layer_soc_years"],
+            summary_table_stable_kwargs[period]['lc_legend_nesting'],
+            summary_table_stable_kwargs[period]['lc_trans_matrix'],
+            period
+        )
 
         ldn_job.results.local_paths.extend([
             sdg_path,
@@ -696,18 +699,28 @@ def _compute_summary_table_from_lpd_prod(
     )
 
 
-def save_summary_table(
+def save_summary_table_excel(
         output_path: Path,
         summary_table: SummaryTable,
         land_cover_years: List[int],
-        soil_organic_carbon_years: List[int]
+        soil_organic_carbon_years: List[int],
+        lc_legend_nesting: land_cover.LCLegendNesting,
+        lc_trans_matrix: land_cover.LCTransitionDefinitionDeg,
+        period
 ):
     """Save summary table into an xlsx file on disk"""
     template_summary_table_path = Path(
         __file__).parents[1] / "data/summary_table_ldn_sdg.xlsx"
     workbook = openpyxl.load_workbook(str(template_summary_table_path))
     _render_ldn_workbook(
-        workbook, summary_table, land_cover_years, soil_organic_carbon_years)
+        workbook,
+        summary_table,
+        land_cover_years,
+        soil_organic_carbon_years,
+        lc_legend_nesting,
+        lc_trans_matrix,
+        period
+    )
     try:
         workbook.save(output_path)
         log(u'Indicator table saved to {}'.format(output_path))
@@ -1108,22 +1121,22 @@ def _process_block(
 
     if params.period == 'baseline':
         # For baseline period crosstabs are over same period for all indicators
-        a_trans_bl_tg = a_trans_bl_tg_prod
-        lc_trans_arrays = [a_trans_bl_tg]
+        a_trans_bl_tg_soc_lc = a_trans_bl_tg_prod
+        lc_trans_arrays = [a_trans_bl_tg_soc_lc]
         lc_deg_bl = in_array[lc_bands[0], :, :]
         lc_deg_final = in_array[lc_bands[-1], :, :]
 
     if params.period == 'progress':
         # For progress period, need a transition matrix over just four years 
         # for SOC and LC
-        a_trans_bl_tg = calc_lc_trans(
+        a_trans_bl_tg_soc_lc = calc_lc_trans(
             in_array[lc_bands[-4], :, :],
             in_array[lc_bands[-1], :, :],
             params.trans_matrix.get_multiplier()
         )
         # For progress need a land cover crosstab of last four years in 
         # addition to full period crosstab
-        lc_trans_arrays = [a_trans_bl_tg_prod, a_trans_bl_tg]
+        lc_trans_arrays = [a_trans_bl_tg_prod, a_trans_bl_tg_soc_lc]
         lc_deg_bl = in_array[lc_bands[0], :, :]
         lc_deg_final = in_array[lc_bands[-4], :, :]
 
@@ -1150,13 +1163,13 @@ def _process_block(
             a_soc_final = a_soc.copy()
 
     lc_trans_zonal_soc_initial = zonal_total_weighted(
-        a_trans_bl_tg,
+        a_trans_bl_tg_soc_lc,
         a_soc_bl,
         cell_areas * 100,  # from sq km to hectares
         mask
     )
     lc_trans_zonal_soc_final = zonal_total_weighted(
-        a_trans_bl_tg,
+        a_trans_bl_tg_soc_lc,
         a_soc_final,
         cell_areas * 100,  # from sq km to hectares
         mask
@@ -1418,20 +1431,31 @@ class DegradationSummaryWorker(worker.AbstractWorker):
 
 
 def _render_ldn_workbook(
-        template_workbook,
-        summary_table: SummaryTable,
-        lc_years,
-        soc_years,
+    template_workbook,
+    summary_table: SummaryTable,
+    lc_years: List[int],
+    soc_years: List[int],
+    lc_legend_nesting: land_cover.LCLegendNesting,
+    lc_trans_matrix: land_cover.LCTransitionDefinitionDeg,
+    period
 ):
-    _write_overview_sdg_sheet(template_workbook["SDG 15.3.1"], summary_table)
-    _write_productivity_sdg_sheet(template_workbook["Productivity"], summary_table)
-    _write_soc_sdg_sheet(template_workbook["Soil organic carbon"], summary_table)
-    _write_land_cover_sdg_sheet(template_workbook["Land cover"], summary_table)
-    _write_unccd_reporting_sheet(
-        template_workbook["UNCCD Reporting"],
+    _write_overview_sheet(template_workbook["SDG 15.3.1"], summary_table)
+    _write_productivity_sheet(
+        template_workbook["Productivity"],
         summary_table,
-        lc_years,
-        soc_years
+        lc_trans_matrix
+    )
+    _write_soc_sheet(
+        template_workbook["Soil organic carbon"],
+        summary_table,
+        lc_trans_matrix,
+        period
+    )
+    _write_land_cover_sheet(
+        template_workbook["Land cover"],
+        summary_table,
+        lc_trans_matrix,
+        period
     )
 
     return template_workbook
@@ -1599,7 +1623,6 @@ def _compute_ldn_summary_table(
         else:
             summary_tables.append(result)
 
-    log(f'len(summary_tables): {len(summary_tables)}')
     summary_table = _accumulate_summary_tables(summary_tables)
 
     if len(reproj_paths) > 1:
@@ -1617,197 +1640,232 @@ def _compute_ldn_summary_table(
     return summary_table, sdg_path, reproj_path
 
 
-def _write_overview_sdg_sheet(sheet, summary_table: SummaryTable):
-    summary.write_table_to_sheet(
-        sheet, np.transpose(summary_table.sdg_summary), 6, 6)
+def _get_summary_array(d):
+    '''pulls summary values for excel sheet from a summary dictionary'''
+    return np.array([
+        d.get(1, 0.),
+        d.get(0, 0.),
+        d.get(-1, 0.),
+        d.get(-32768, 0.)
+    ])
+
+
+def _write_overview_sheet(sheet, summary_table: SummaryTable):
+    summary.write_col_to_sheet(
+        sheet,
+        _get_summary_array(summary_table.sdg_summary),
+        6, 6
+    )
     utils.maybe_add_image_to_sheet("trends_earth_logo_bl_300width.png", sheet)
 
 
-def _write_productivity_sdg_sheet(sheet, summary_table: SummaryTable):
-    summary.write_table_to_sheet(
-        sheet, np.transpose(summary_table.prod_summary), 6, 6)
-    summary.write_table_to_sheet(
-        sheet, _get_prod_table(summary_table.trans_prod_xtab, 5), 16, 3)
-    summary.write_table_to_sheet(
-        sheet, _get_prod_table(summary_table.trans_prod_xtab, 4), 28, 3)
-    summary.write_table_to_sheet(
-        sheet, _get_prod_table(summary_table.trans_prod_xtab, 3), 40, 3)
-    summary.write_table_to_sheet(
-        sheet, _get_prod_table(summary_table.trans_prod_xtab, 2), 52, 3)
-    summary.write_table_to_sheet(
-        sheet, _get_prod_table(summary_table.trans_prod_xtab, 1), 64, 3)
-    summary.write_table_to_sheet(
-        sheet, _get_prod_table(summary_table.trans_prod_xtab, NODATA_VALUE), 76, 3)
-    utils.maybe_add_image_to_sheet("trends_earth_logo_bl_300width.png", sheet)
-
-
-def _write_soc_sdg_sheet(sheet, summary_table: SummaryTable):
-    summary.write_table_to_sheet(sheet, np.transpose(summary_table.soc_summary), 6, 6)
-    # First write baseline
+def _write_productivity_sheet(
+    sheet,
+    st: SummaryTable,
+    lc_trans_matrix: land_cover.LCTransitionDefinitionDeg
+):
+    summary.write_col_to_sheet(
+        sheet, _get_summary_array(st.prod_summary),
+        6, 6
+    )
     summary.write_table_to_sheet(
         sheet,
-        _get_soc_total_by_class(
-            summary_table.trans_prod_xtab, summary_table.soc_totals[0]),
-        16,
-        3
+        _get_prod_table(st.lc_trans_prod_bizonal, 5, lc_trans_matrix),
+        16, 3
+    )
+    summary.write_table_to_sheet(
+        sheet,
+        _get_prod_table(st.lc_trans_prod_bizonal, 4, lc_trans_matrix),
+        28, 3
+    )
+    summary.write_table_to_sheet(
+        sheet,
+        _get_prod_table(st.lc_trans_prod_bizonal, 3, lc_trans_matrix),
+        40, 3
+    )
+    summary.write_table_to_sheet(
+        sheet,
+        _get_prod_table(st.lc_trans_prod_bizonal, 2, lc_trans_matrix),
+        52, 3
+    )
+    summary.write_table_to_sheet(
+        sheet,
+        _get_prod_table(st.lc_trans_prod_bizonal, 1, lc_trans_matrix),
+        64, 3
+    )
+    summary.write_table_to_sheet(
+        sheet,
+        _get_prod_table(st.lc_trans_prod_bizonal, NODATA_VALUE, lc_trans_matrix),
+        76, 3
+    )
+    utils.maybe_add_image_to_sheet("trends_earth_logo_bl_300width.png", sheet)
+
+
+def _write_soc_sheet(
+    sheet,
+    st: SummaryTable,
+    lc_trans_matrix: land_cover.LCTransitionDefinitionDeg,
+    period
+):
+    summary.write_col_to_sheet(
+        sheet, _get_summary_array(st.soc_summary),
+        6, 6
+    )
+
+    # First write baseline
+    summary.write_col_to_sheet(
+        sheet,
+        _get_totals_by_lc_class_as_array(
+            st.soc_by_lc_annual_totals[0],
+            lc_trans_matrix,
+            excluded_codes=[6]  # exclude water
+        ),
+        7, 16,
     )
     # Now write target
-    summary.write_table_to_sheet(
+    summary.write_col_to_sheet(
         sheet,
-        _get_soc_total_by_class(
-            summary_table.trans_prod_xtab, summary_table.soc_totals[-1]),
-        16,
-        4
+        _get_totals_by_lc_class_as_array(
+            st.soc_by_lc_annual_totals[-1],
+            lc_trans_matrix,
+            excluded_codes=[6]  # exclude water
+        ),
+        8, 16
     )
-
+    if period == 'progress':
+        # Progress period has shorter period for soc and lc
+        baseline_index = -4
+    else:
+        baseline_index = 0
     # Write table of baseline areas
-    lc_trans_table_no_water = _get_lc_table(
-        summary_table.trans_prod_xtab, classes=np.arange(1, 6 + 1))
-    summary.write_table_to_sheet(
-        sheet, np.reshape(np.sum(lc_trans_table_no_water, 1), (-1, 1)), 16, 5)
-    # Write table of target areas
-    summary.write_table_to_sheet(
-        sheet, np.reshape(np.sum(lc_trans_table_no_water, 0), (-1, 1)), 16, 6)
+    lc_bl_no_water = _get_totals_by_lc_class_as_array(
+        st.lc_annual_totals[baseline_index],
+        lc_trans_matrix,
+        excluded_codes=[6]  # exclude water
+    )
+    summary.write_col_to_sheet(
+        sheet,
+        lc_bl_no_water,
+        5, 16
+    )
+    # Write table of final year areas
+    lc_final_no_water = _get_totals_by_lc_class_as_array(
+        st.lc_annual_totals[-1],
+        lc_trans_matrix,
+        excluded_codes=[6]  # exclude water
+    )
+    summary.write_col_to_sheet(
+        sheet,
+        lc_final_no_water,
+        6, 16
+    )
 
     # write_soc_stock_change_table has its own writing function as it needs to write a
     # mix of numbers and strings
     _write_soc_stock_change_table(
-        sheet, 27, 3, summary_table.soc_totals[0], summary_table.soc_totals[-1])
+        sheet,
+        27, 3,
+        st.lc_trans_zonal_soc_initial,
+        st.lc_trans_zonal_soc_final,
+        lc_trans_matrix,
+        excluded_codes=[6]  # exclude water
+    )
     utils.maybe_add_image_to_sheet("trends_earth_logo_bl_300width.png", sheet)
 
 
-def _write_land_cover_sdg_sheet(sheet, summary_table: SummaryTable):
-    summary.write_table_to_sheet(sheet, np.transpose(summary_table.lc_summary), 6, 6)
-    summary.write_table_to_sheet(
-        sheet, _get_lc_table(summary_table.trans_prod_xtab), 26, 3)
-    utils.maybe_add_image_to_sheet("trends_earth_logo_bl_300width.png", sheet)
-
-
-def _write_unccd_reporting_sheet(
-        sheet, summary_table: SummaryTable,
-        land_cover_years,
-        soil_organic_carbon_years):
-
-    for i in range(len(land_cover_years)):
-        # Water bodies
-        cell = sheet.cell(5 + i, 4)
-        cell.value = summary_table.lc_totals[i][6]
-        # Other classes
-        summary.write_row_to_sheet(
-            sheet,
-            np.append(land_cover_years[i], summary_table.lc_totals[i][0:6]),
-            38 + i,
-            2
-        )
-
-    summary.write_table_to_sheet(
-        sheet, _get_lpd_table(summary_table.trans_prod_xtab), 82, 3)
-
-    for i in range(len(soil_organic_carbon_years)):
-        summary.write_row_to_sheet(
-            sheet,
-            np.append(
-                soil_organic_carbon_years[i],
-                _get_soc_total_by_class(
-                    summary_table.trans_prod_xtab,
-                    summary_table.soc_totals[i],
-                    uselog=True
-                )
-            ),
-            92 + i,
-            2
-        )
-    utils.maybe_add_image_to_sheet("trends_earth_logo_bl_300width.png", sheet)
-
-
-def _get_prod_table(table, prod_class, classes=list(range(1, 7 + 1))):
-    out = np.zeros((len(classes), len(classes)))
-
-    for bl_class in range(len(classes)):
-        for tg_class in range(len(classes)):
-            transition = int('{}{}'.format(classes[bl_class], classes[tg_class]))
-            out[bl_class, tg_class] = summary.get_xtab_area(
-                table, prod_class, transition)
-
-    return out
-
-
-def _get_soc_total_by_class(
-        trans_prod_xtab,
-        soc_totals,
-        classes=list(range(1, 6 + 1)),
-        uselog=False
+def _write_land_cover_sheet(
+    sheet,
+    st: SummaryTable,
+    lc_trans_matrix: land_cover.LCTransitionDefinitionDeg,
+    period
 ):
-    # Note classes for this function go from 1-6 to exclude water from the SOC
-    # totals
-    out = np.zeros((len(classes), 1))
+    if period == 'progress':
+        # Progress period has shorter period for soc and lc
+        lc_trans_totals = st.lc_trans_zonal_areas[1]
+    else:
+        lc_trans_totals = st.lc_trans_zonal_areas[0]
 
-    for row in range(len(classes)):
-        area = 0
-        soc = 0
-        # Need to sum up the total soc across the pixels and then divide by
-        # total area
+    summary.write_col_to_sheet(
+        sheet, _get_summary_array(st.lc_summary),
+        6, 6
+    )
+    summary.write_table_to_sheet(
+        sheet,
+        _get_lc_trans_table(
+            lc_trans_totals,
+            lc_trans_matrix
+        ),
+        26, 3
+    )
+    utils.maybe_add_image_to_sheet("trends_earth_logo_bl_300width.png", sheet)
 
-        for n in range(len(classes)):
-            trans = int('{}{}'.format(classes[row], classes[n]))
-            area += summary.get_xtab_area(trans_prod_xtab, None, trans)
-            soc += _get_soc_total(soc_totals, trans)
 
-        # Note areas are in sq km. Need to convert to ha
-
-        if soc != 0 and area != 0:
-            out[row][0] = soc / (area * 100)
-        else:
-            out[row][0]
-
+def _get_prod_table(lc_trans_prod_bizonal, prod_code, lc_trans_matrix):
+    lc_codes = sorted([c.code for c in lc_trans_matrix.legend.key])
+    out = np.zeros((len(lc_codes), len(lc_codes)))
+    for i, i_code in enumerate(lc_codes):
+        for f, f_code in enumerate(lc_codes):
+            transition = i_code * lc_trans_matrix.get_multiplier() + f_code
+            out[i, f] = lc_trans_prod_bizonal.get((transition, prod_code), 0.)
     return out
 
 
-def _get_lc_table(table, classes=list(range(1, 7 + 1))):
-    out = np.zeros((len(classes), len(classes)))
-
-    for bl_class in range(len(classes)):
-        for tg_class in range(len(classes)):
-            transition = int('{}{}'.format(classes[bl_class], classes[tg_class]))
-            out[bl_class, tg_class] = summary.get_xtab_area(table, None, transition)
-
-    return out
+def _get_totals_by_lc_class_as_array(
+    annual_totals,
+    lc_trans_matrix,
+    excluded_codes=[]  # to exclude water when used on SOC table
+):
+    lc_codes = sorted(
+        [
+            c.code for c in lc_trans_matrix.legend.key
+            if c.code not in excluded_codes
+        ]
+    )
+    return np.array([annual_totals.get(lc_code, 0.) for lc_code in lc_codes])
 
 
 def _write_soc_stock_change_table(
-        sheet, first_row, first_col, soc_bl_totals,
-        soc_final_totals, classes=list(range(1, 6 + 1))
+    sheet,
+    first_row,
+    first_col,
+    soc_bl_totals,
+    soc_final_totals,
+    lc_trans_matrix,
+    excluded_codes=[]  # to exclude water
 ):
-    # Note classes for this function go from 1-6 to exclude water from the SOC
-    # totals
-
-    for row in range(len(classes)):
-        for col in range(len(classes)):
-            cell = sheet.cell(row=row + first_row, column=col + first_col)
-            transition = int('{}{}'.format(classes[row], classes[col]))
-            bl_soc = _get_soc_total(soc_bl_totals, transition)
-            tg_soc = _get_soc_total(soc_final_totals, transition)
+    lc_codes = sorted(
+        [
+            c.code for c in lc_trans_matrix.legend.key
+            if c.code not in excluded_codes
+        ]
+    )
+    for i, i_code in enumerate(lc_codes):
+        for f, f_code in enumerate(lc_codes):
+            cell = sheet.cell(row=i + first_row, column=f + first_col)
+            transition = i_code * lc_trans_matrix.get_multiplier() + f_code
+            bl_soc = soc_bl_totals.get(transition, 0.)
+            final_soc = soc_final_totals.get(transition, 0.)
             try:
-                cell.value = (tg_soc - bl_soc) / bl_soc
+                cell.value = (final_soc - bl_soc) / bl_soc
             except ZeroDivisionError:
                 cell.value = ''
 
-
-def _get_lpd_table(
-        table,
-        lc_classes=list(range(1, 6 + 1)),  # Don't include water bodies in the table
-        lpd_classes=[1, 2, 3, 4, 5, NODATA_VALUE]
+def _get_lc_trans_table(
+    lc_trans_totals,
+    lc_trans_matrix,
+    excluded_codes=[]
 ):
-    out = np.zeros((len(lc_classes), len(lpd_classes)))
-
-    for lc_class_num in range(len(lc_classes)):
-        for prod_num in range(len(lpd_classes)):
-            transition = int(
-                '{}{}'.format(lc_classes[lc_class_num], lc_classes[lc_class_num])
-            )
-            out[lc_class_num, prod_num] = summary.get_xtab_area(
-                table, lpd_classes[prod_num], transition)
-
+    lc_codes = sorted(
+        [
+            c.code for c in lc_trans_matrix.legend.key
+            if c.code not in excluded_codes
+        ]
+    )
+    out = np.zeros((len(lc_codes), len(lc_codes)))
+    for i, i_code in enumerate(lc_codes):
+        for f, f_code in enumerate(lc_codes):
+            transition = i_code * lc_trans_matrix.get_multiplier() + f_code
+            out[i, f] = lc_trans_totals.get(transition, 0.)
     return out
 
 

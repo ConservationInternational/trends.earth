@@ -75,7 +75,7 @@ def recode_traj(x):
     #  2: 95% signif increase
     #  3: 99% signif increase
     shp = x.shape
-    x = x.ravel()
+    x = x.copy().ravel()
     # -1 and 1 are not signif at 95%, so stable
     x[(x >= -1) & (x <= 1)] = 0
     x[(x >= -3) & (x < -1)] = -1
@@ -90,7 +90,7 @@ def recode_state(x):
     # isn't coded as degradation. More than two changes in class is defined 
     # as degradation in state.
     shp = x.shape
-    x = x.ravel()
+    x = x.copy().ravel()
     x[(x > -2) & (x < 2)] = 0
     x[(x >= -10) & (x <= -2)] = -1
     x[x >= 2] = 1
@@ -244,13 +244,13 @@ def calc_deg_sdg(deg_prod3, deg_lc, deg_soc):
 @numba.jit(nopython=True)
 @cc.export('zonal_total', 'DictType(i2, f8)(i2[:,:], f8[:,:], b1[:,:])')
 def zonal_total(z, d, mask):
-    z = z.ravel()
+    z = z.copy().ravel()
     d = d.ravel()
     mask = mask.ravel()
-    z[mask] = MASK_VALUE
     # Carry over nodata values from data layer to z so that they aren't
     # included in the totals
     z[d == NODATA_VALUE] = NODATA_VALUE
+    z[mask] = MASK_VALUE
     #totals = numba.typed.Dict.empty(numba.types.int16, numba.types.float64)
     totals = dict()
     for i in range(z.shape[0]):
@@ -264,14 +264,14 @@ def zonal_total(z, d, mask):
 @numba.jit(nopython=True, boundscheck=True)
 @cc.export('zonal_total_weighted', 'DictType(i2, f8)(i2[:,:], i2[:,:], f8[:,:], b1[:,:])')
 def zonal_total_weighted(z, d, weights, mask):
-    z = z.ravel()
+    z = z.copy().ravel()
     d = d.ravel()
     weights = weights.ravel()
     mask = mask.ravel()
-    z[mask] = MASK_VALUE
     # Carry over nodata values from data layer to z so that they aren't
     # included in the totals
     z[d == NODATA_VALUE] = NODATA_VALUE
+    z[mask] = MASK_VALUE
     #totals = numba.typed.Dict.empty(numba.types.int16, numba.types.float64)
     totals = dict()
     for i in range(z.shape[0]):
@@ -285,18 +285,18 @@ def zonal_total_weighted(z, d, weights, mask):
 @numba.jit(nopython=True)
 @cc.export('bizonal_total', 'DictType(UniTuple(i2, 2), f8)(i2[:,:], i2[:,:], f8[:,:], b1[:,:])')
 def bizonal_total(z1, z2, d, mask):
-    z1 = z1.ravel()
-    z2 = z2.ravel()
+    z1 = z1.copy().ravel()
+    z2 = z2.copy().ravel()
     d = d.ravel()
     mask = mask.ravel()
-    z1[mask] = MASK_VALUE
     # Carry over nodata values from data layer to z so that they aren't
     # included in the totals
     z1[d == NODATA_VALUE] = NODATA_VALUE
-    z2[mask] = MASK_VALUE
+    z1[mask] = MASK_VALUE
     # Carry over nodata values from data layer to z so that they aren't
     # included in the totals
     z2[d == NODATA_VALUE] = NODATA_VALUE
+    z2[mask] = MASK_VALUE
     #tab = numba.typed.Dict.empty(numba.types.int64, numba.types.float64)
     tab = dict()
     for i in range(z1.shape[0]):

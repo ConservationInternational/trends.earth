@@ -14,6 +14,7 @@
 import os
 import zipfile
 import typing
+import re
 from pathlib import Path
 
 from PyQt5 import (
@@ -30,6 +31,7 @@ from . import (
     api,
     auth,
     binaries_available,
+    binaries_name,
     openFolder,
     download,
 )
@@ -1016,7 +1018,7 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
 
             return None
 
-        zip_filename = 'trends_earth_binaries_{}.zip'.format(__version__.replace('.', '_'))
+        zip_filename = f"{binaries_name}.zip"
         zip_url = 'https://s3.amazonaws.com/trends.earth/plugin_binaries/' + zip_filename
         downloads = download.download_files([zip_url], out_folder)
 

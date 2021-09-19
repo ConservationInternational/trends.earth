@@ -26,7 +26,7 @@ from pathlib import Path
 from PyQt5 import (
     QtCore,
 )
-from qgis.core import QgsApplication, QgsSettings
+from qgis.core import QgsApplication, QgsSettings, Qgis
 from qgis.utils import iface
 
 from . import logger
@@ -48,20 +48,25 @@ def _add_at_front_of_path(d):
     sys.path.extend(remainder)
 
 
-# Ensure that the ext-libs, and binaries folder (if available) are near the 
-# front of the path (important on Linux)
+# Put binaries folder (if available) near the front of the path (important on 
+# Linux)
 binaries_folder = QtCore.QSettings().value(
     "trends_earth/advanced/binaries_folder",
     None
 )
-logger.log(f'sys.path is: {sys.path}')
+te_version = __version__.replace('.', '-')
+qgis_version = re.match(
+    '^[0-9]*\.[0-9]*',
+    Qgis.QGIS_VERSION
+)[0].replace('.', '-')
+binaries_name = f"trends_earth_binaries_{te_version}_{qgis_version}"
 if binaries_folder:
-    binaries_path = Path(binaries_folder) / f"trends_earth_binaries_{__version__.replace('.', '_')}"
+    binaries_path = Path(binaries_folder) / f"{binaries_name}"
+    logger.log(f'Adding {binaries_path} to path')
     _add_at_front_of_path(str(binaries_path))
-logger.log(f'sys.path is: {sys.path}')
 
+# Put ext-libs folder near the front of the path (important on Linux)
 _add_at_front_of_path(str(Path(plugin_dir) / 'ext-libs'))
-logger.log(f'sys.path is: {sys.path}')
 
 
 def tr(message):
@@ -112,14 +117,6 @@ from . import (
 def binaries_available():
     ret = True
     debug_enabled = conf.settings_manager.get_value(conf.Setting.DEBUG)
-    try:
-        from trends_earth_binaries import summary_numba
-        if debug_enabled:
-            logger.log("Numba-compiled version of summary_numba available.")
-    except (ModuleNotFoundError, ImportError, RuntimeError) as e:
-        if debug_enabled:
-            logger.log("Numba-compiled version of summary_numba not available: {}".format(e))
-        ret = False
     try:
         from trends_earth_binaries import ldn_numba
         if debug_enabled:

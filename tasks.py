@@ -958,19 +958,26 @@ def find_binaries(c, folder, version=None):
     files = []
     for pattern in c.plugin.numba.binary_extensions:
         if version:
-            files.append([f for f in os.listdir(folder) if re.search(r'{}.*{}$'.format(version, pattern), f)])
+            files.append(
+                [
+                    f for f in os.listdir(folder)
+                    if re.search(f'{version}.*{pattern}$', f)
+                ]
+            )
         else:
             files.append([f for f in os.listdir(folder) if re.search(r'.*{}$'.format(pattern), f)])
     # Return a flattened list
     return [item for sublist in files for item in sublist]
 
-@task
-def binaries_deploy(c):
+
+@task(help={'qgis': 'QGIS version string'})
+def binaries_deploy(c, qgis):
     # Copy down any missing binaries
     binaries_sync(c)
 
-    v = get_version(c).replace('.', '_')
-    zipfile_basename = 'trends_earth_binaries_{}'.format(v)
+    v = get_version(c).replace('.', '-')
+    qgis = qgis.replace('.', '-')
+    zipfile_basename = f'trends_earth_binaries_{v}_{qgis}'
     files = find_binaries(c, c.plugin.numba.binary_folder, v)
     with TemporaryDirectory() as tmpdir:
         # Make module dir within the tmp dir, inside a folder containing the 
@@ -984,7 +991,7 @@ def binaries_deploy(c):
         # Copy binaries to temp folder for later zipping
         for f in files:
             # Strip version string from files before placing them in zipfile
-            out_path_no_v = os.path.join(moduledir, re.sub('_[0-9]+_[0-9]+(_[0-9]+)?', '', os.path.basename(f)))
+            out_path_no_v = os.path.join(moduledir, re.sub('_[0-9]+-[0-9]+(-[0-9]+)?', '', os.path.basename(f)))
             shutil.copy(os.path.join(c.plugin.numba.binary_folder, f), out_path_no_v)
 
         # Save to zipfile
@@ -1012,14 +1019,14 @@ def binaries_compile(c, clean=False, python='python'):
         subprocess.check_call([python, numba_file])
         n += 1
 
-    v = get_version(c).replace('.', '_')
+    v = get_version(c).replace('.', '-')
     for folder in set([os.path.dirname(f) for f in c.plugin.numba.aot_files]):
         files = find_binaries(c, folder)
         for f in files:
             # Add version strings to the compiled files so they won't overwrite 
             # files from other Trends.Earth versions when synced to S3
             module_name_regex = re.compile("([a-zA-Z0-9_])\.(.*)")
-            out_file = module_name_regex.sub('\g<1>_{}.\g<2>'.format(v), os.path.basename(f))
+            out_file = module_name_regex.sub(f'\g<1>_{v}.\g<2>', os.path.basename(f))
             out_path_with_v = os.path.join(c.plugin.numba.binary_folder, out_file)
             shutil.move(os.path.join(folder, f), out_path_with_v)
     
@@ -1046,28 +1053,30 @@ ns.configure({
         'version_file_details': 'LDMP/version.json',
         'ext_libs': {
             'path': 'LDMP/ext-libs',
-            'module_symlinks': [
-                {
-                    'name': 'te_schemas',
-                    'path': 'D:/Code/LandDegradation/trends.earth-schemas/te_schemas'
-                },
-            ],
+            'module_symlinks': []
         },
         'gui_dir': 'LDMP/gui',
         'source_dir': 'LDMP',
         'i18n_dir': 'LDMP/i18n',
         #'translations': ['fr', 'es', 'pt', 'sw', 'ar', 'ru', 'zh'],
-        'translations': ['fr', 'es', 'sw', 'pt'],
+        'translations': [
+            'fr',
+            'es',
+            'sw',
+            'pt'
+        ],
         'resource_files': ['LDMP/resources.qrc'],
         'numba': {
-            'aot_files': ['LDMP/localexecution/ldn_numba.py',
-                          'LDMP/summary_numba.py'],
+            'aot_files': [
+                'LDMP/localexecution/ldn_numba.py'
+            ],
             'binary_extensions': [
                 '.so',
-                '.pyd'],
+                '.pyd'
+            ],
             'binary_folder':  'LDMP/binaries',
             'binary_list': 'LDMP/data/binaries.txt'
-            },
+        },
         'testdata_patterns': ['LDMP/test/integration/fixtures/*'],
         'package_dir': 'build',
         'tests': ['LDMP/test'],
@@ -1080,7 +1089,7 @@ ns.configure({
             '*.pyc',
             'LDMP/schemas/.gitgnore',
             'LDMP/schemas/.git'
-            ],
+        ],
         # skip certain files inadvertently found by exclude pattern globbing
         'skip_exclude': [],
     },

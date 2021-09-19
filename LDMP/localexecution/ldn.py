@@ -4,7 +4,6 @@ import datetime as dt
 import enum
 import json
 import tempfile
-from time import sleep
 
 from typing import (
     List,
@@ -1134,8 +1133,6 @@ def _process_block(
     for index, band_soc in enumerate(soc_bands, start=soc_band_counter_start):
         a_lc = in_array[lc_bands[index], :, :]
         a_soc = in_array[band_soc, :, :]
-        log('made it here 0')
-        sleep(1)
         soc_by_lc_annual_totals.append(
             zonal_total_weighted(
                 a_lc,
@@ -1144,9 +1141,6 @@ def _process_block(
                 mask
             )
         )
-
-        log('made it here 1')
-        sleep(1)
 
         if index == soc_band_counter_start:
             # This is the baseline SOC - save it for later
@@ -1161,8 +1155,6 @@ def _process_block(
         cell_areas * 100,  # from sq km to hectares
         mask
     )
-    log('made it here 2')
-    sleep(1)
     lc_trans_zonal_soc_final = zonal_total_weighted(
         a_trans_bl_tg,
         a_soc_final,
@@ -1176,11 +1168,8 @@ def _process_block(
         a_trans_bl_tg_prod,
         deg_prod5,
         cell_areas,
-        mask,
-        params.trans_matrix.get_multiplier()
+        mask
     )
-    log('made it here 3')
-    sleep(1)
     lc_annual_totals = []
     for band_lc in lc_bands:
         a_lc = in_array[band_lc, :, :]
@@ -1191,8 +1180,6 @@ def _process_block(
                 mask
             )
         )
-    log('made it here 4')
-    sleep(1)
 
     ###########################################################
     # Calculate crosstabs for land cover

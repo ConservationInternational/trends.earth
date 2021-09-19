@@ -261,7 +261,7 @@ def zonal_total(z, d, mask):
     return totals
 
 
-@numba.jit(nopython=True, locals={'totals': 'DictType(i2, f8)'})
+@numba.jit(nopython=True, boundscheck=True)
 @cc.export('zonal_total_weighted', 'DictType(i2, f8)(i2[:,:], i2[:,:], f8[:,:], b1[:,:])')
 def zonal_total_weighted(z, d, weights, mask):
     z = z.ravel()
@@ -283,8 +283,8 @@ def zonal_total_weighted(z, d, weights, mask):
 
 
 @numba.jit(nopython=True)
-@cc.export('bizonal_total', 'DictType(i8, f8)(i2[:,:], i2[:,:], f8[:,:], b1[:,:], i4)')
-def bizonal_total(z1, z2, d, mask, multiplier):
+@cc.export('bizonal_total', 'DictType(UniTuple(i2, 2), f8)(i2[:,:], i2[:,:], f8[:,:], b1[:,:])')
+def bizonal_total(z1, z2, d, mask):
     z1 = z1.ravel()
     z2 = z2.ravel()
     d = d.ravel()
@@ -300,7 +300,7 @@ def bizonal_total(z1, z2, d, mask, multiplier):
     #tab = numba.typed.Dict.empty(numba.types.int64, numba.types.float64)
     tab = dict()
     for i in range(z1.shape[0]):
-        key = z1[i] * multiplier + z2[i]
+        key = (z1[i], z2[i])
         if key not in tab:
             tab[key] = d[i]
         else:

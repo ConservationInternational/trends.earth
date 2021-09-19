@@ -28,7 +28,6 @@ except ImportError:
 NODATA_VALUE = np.array([-32768], dtype=np.int16)
 MASK_VALUE = np.array([-32767], dtype=np.int16)
 
-
 # Calculate the area of a slice of the globe from the equator to the parallel
 # at latitude f (on WGS84 ellipsoid). Based on:
 # https://gis.stackexchange.com/questions/127165/more-accurate-way-to-calculate-area-of-rasters
@@ -151,12 +150,12 @@ def prod5_to_prod3(prod5):
 
 
 @numba.jit(nopython=True)
-@cc.export('calc_lc_trans', 'i2[:,:](i2[:,:], i2[:,:])')
-def calc_lc_trans(lc_bl, lc_tg):
+@cc.export('calc_lc_trans', 'i4[:,:](i2[:,:], i2[:,:], i4)')
+def calc_lc_trans(lc_bl, lc_tg, multiplier):
     shp = lc_bl.shape
     lc_bl = lc_bl.ravel()
     lc_tg = lc_tg.ravel()
-    a_trans_bl_tg = lc_bl * np.array([10], dtype=np.int16) + lc_tg
+    a_trans_bl_tg = lc_bl * multiplier + lc_tg
     a_trans_bl_tg[np.logical_or(lc_bl < 1, lc_tg < 1)] = NODATA_VALUE
     return np.reshape(a_trans_bl_tg, shp)
 
@@ -199,18 +198,20 @@ def calc_deg_soc(soc_bl, soc_tg, water):
 
 
 @numba.jit(nopython=True)
-@cc.export('calc_deg_lc', 'i2[:,:](i2[:,:], i2[:,:], i2[:], i2[:])')
-def calc_deg_lc(lc_bl, lc_tg, trans_code, trans_meaning):
+@cc.export('calc_deg_lc', 'i2[:,:](i2[:,:], i2[:,:], i2[:], i2[:], i4)')
+def calc_deg_lc(lc_bl, lc_tg, trans_code, trans_meaning, multiplier):
     '''calculate land cover degradation'''
     shp = lc_bl.shape
-    trans = calc_lc_trans(lc_bl, lc_tg)
+    trans = calc_lc_trans(lc_bl, lc_tg, multiplier)
     trans = trans.ravel()
     lc_bl = lc_bl.ravel()
     lc_tg = lc_tg.ravel()
     out = np.zeros(lc_bl.shape, dtype=np.int16)
     for code, meaning in zip(trans_code, trans_meaning):
         out[trans == code] = meaning
-    out[np.logical_or(lc_bl == NODATA_VALUE, lc_tg == NODATA_VALUE)] = NODATA_VALUE
+    out[
+        np.logical_or(lc_bl == NODATA_VALUE, lc_tg == NODATA_VALUE)
+    ] = NODATA_VALUE
     return np.reshape(out, shp)
 
 
@@ -241,7 +242,7 @@ def calc_deg_sdg(deg_prod3, deg_lc, deg_soc):
 
 
 @numba.jit(nopython=True)
-@cc.export('zonal_total', '(i2[:,:], f8[:,:], i2[:,:])')
+@cc.export('zonal_total', 'DictType(i2, f8)(i2[:,:], f8[:,:], b1[:,:])')
 def zonal_total(z, d, mask):
     z = z.ravel()
     d = d.ravel()
@@ -250,18 +251,18 @@ def zonal_total(z, d, mask):
     # Carry over nodata values from data layer to z so that they aren't
     # included in the totals
     z[d == NODATA_VALUE] = NODATA_VALUE
-    #totals = numba.typed.Dict.empty(numba.types.int64, numba.types.float64)
+    #totals = numba.typed.Dict.empty(numba.types.int16, numba.types.float64)
     totals = dict()
     for i in range(z.shape[0]):
         if z[i] not in totals:
-            totals[int(z[i])] = d[i]
+            totals[z[i]] = d[i]
         else:
-            totals[int(z[i])] += d[i]
+            totals[z[i]] += d[i]
     return totals
 
 
-@numba.jit(nopython=True)
-@cc.export('zonal_total_weighted', '(i2[:,:], i2[:,:], f8[:,:], i2[:,:])')
+@numba.jit(nopython=True, locals={'totals': 'DictType(i2, f8)'})
+@cc.export('zonal_total_weighted', 'DictType(i2, f8)(i2[:,:], i2[:,:], f8[:,:], b1[:,:])')
 def zonal_total_weighted(z, d, weights, mask):
     z = z.ravel()
     d = d.ravel()
@@ -271,19 +272,19 @@ def zonal_total_weighted(z, d, weights, mask):
     # Carry over nodata values from data layer to z so that they aren't
     # included in the totals
     z[d == NODATA_VALUE] = NODATA_VALUE
-    #totals = numba.typed.Dict.empty(numba.types.int64, numba.types.float64)
+    #totals = numba.typed.Dict.empty(numba.types.int16, numba.types.float64)
     totals = dict()
     for i in range(z.shape[0]):
         if z[i] not in totals:
-            totals[int(z[i])] = d[i] * weights[i]
+            totals[z[i]] = d[i] * weights[i]
         else:
-            totals[int(z[i])] += d[i] * weights[i]
+            totals[z[i]] += d[i] * weights[i]
     return totals
 
 
 @numba.jit(nopython=True)
-@cc.export('bizonal_total', '(i2[:,:], i2[:,:], f8[:,:], i2[:,:])')
-def bizonal_total(z1, z2, d, mask):
+@cc.export('bizonal_total', 'DictType(i8, f8)(i2[:,:], i2[:,:], f8[:,:], b1[:,:], i4)')
+def bizonal_total(z1, z2, d, mask, multiplier):
     z1 = z1.ravel()
     z2 = z2.ravel()
     d = d.ravel()
@@ -296,12 +297,14 @@ def bizonal_total(z1, z2, d, mask):
     # Carry over nodata values from data layer to z so that they aren't
     # included in the totals
     z2[d == NODATA_VALUE] = NODATA_VALUE
+    #tab = numba.typed.Dict.empty(numba.types.int64, numba.types.float64)
     tab = dict()
     for i in range(z1.shape[0]):
-        if (z1[i], z2[i]) not in tab:
-            tab[(z1[i], z2[i])] = d[i]
+        key = z1[i] * multiplier + z2[i]
+        if key not in tab:
+            tab[key] = d[i]
         else:
-            tab[(z1[i], z2[i])] += d[i]
+            tab[key] += d[i]
     return tab
 
 

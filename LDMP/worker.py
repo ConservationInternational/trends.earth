@@ -184,6 +184,9 @@ class StartWorker(object):
     def get_return(self):
         return self.return_val
 
+    def was_killed(self):
+        return self.worker.killed
+
     def save_exception(self, exception):
         self.exception = exception
 

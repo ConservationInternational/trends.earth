@@ -4,10 +4,7 @@ import datetime as dt
 import enum
 import json
 import tempfile
-from concurrent.futures import (
-    ThreadPoolExecutor,
-    as_completed
-)
+from time import sleep
 
 from typing import (
     List,
@@ -1106,7 +1103,8 @@ def _process_block(
     # Calculate SOC totals by transition, on annual basis
     a_trans_bl_tg_prod = calc_lc_trans(
         in_array[lc_bands[0], :, :],
-        in_array[lc_bands[-1], :, :]
+        in_array[lc_bands[-1], :, :],
+        params.trans_matrix.get_multiplier()
     )
 
     if params.period == 'baseline':
@@ -1121,7 +1119,8 @@ def _process_block(
         # for SOC and LC
         a_trans_bl_tg = calc_lc_trans(
             in_array[lc_bands[-4], :, :],
-            in_array[lc_bands[-1], :, :]
+            in_array[lc_bands[-1], :, :],
+            params.trans_matrix.get_multiplier()
         )
         # For progress need a land cover crosstab of last four years in 
         # addition to full period crosstab
@@ -1133,8 +1132,10 @@ def _process_block(
     # tables are tons C (summed over the total area of each class).
     soc_by_lc_annual_totals = []
     for index, band_soc in enumerate(soc_bands, start=soc_band_counter_start):
-        a_soc = in_array[band_soc, :, :]
         a_lc = in_array[lc_bands[index], :, :]
+        a_soc = in_array[band_soc, :, :]
+        log('made it here 0')
+        sleep(1)
         soc_by_lc_annual_totals.append(
             zonal_total_weighted(
                 a_lc,
@@ -1144,6 +1145,9 @@ def _process_block(
             )
         )
 
+        log('made it here 1')
+        sleep(1)
+
         if index == soc_band_counter_start:
             # This is the baseline SOC - save it for later
             a_soc_bl = a_soc.copy()
@@ -1151,20 +1155,14 @@ def _process_block(
             # This is the target (tg) SOC - save it for later
             a_soc_final = a_soc.copy()
 
-    # log(f'in_array shape: {in_array.shape}')
-    # log(f'soc_bands {soc_bands}')
-    # log(f'band_soc {band_soc}')
-    # log(f'index {index}')
-    # log(f'lc_bands {lc_bands}')
-    # log(f'lc_bands[index] {lc_bands[index]}')
-    # return 
-
     lc_trans_zonal_soc_initial = zonal_total_weighted(
         a_trans_bl_tg,
         a_soc_bl,
         cell_areas * 100,  # from sq km to hectares
         mask
     )
+    log('made it here 2')
+    sleep(1)
     lc_trans_zonal_soc_final = zonal_total_weighted(
         a_trans_bl_tg,
         a_soc_final,
@@ -1178,8 +1176,11 @@ def _process_block(
         a_trans_bl_tg_prod,
         deg_prod5,
         cell_areas,
-        mask
+        mask,
+        params.trans_matrix.get_multiplier()
     )
+    log('made it here 3')
+    sleep(1)
     lc_annual_totals = []
     for band_lc in lc_bands:
         a_lc = in_array[band_lc, :, :]
@@ -1190,6 +1191,8 @@ def _process_block(
                 mask
             )
         )
+    log('made it here 4')
+    sleep(1)
 
     ###########################################################
     # Calculate crosstabs for land cover
@@ -1215,12 +1218,13 @@ def _process_block(
         deg_lc = in_array[params.in_df.array_row_for_name(LC_DEG_BAND_NAME), :, :]
     if params.period == 'progress':
         deg_soc = calc_deg_soc(a_soc_bl, a_soc_final, water)
-        lc_trans_matrix = params.trans_matrix.get_list()
+        lc_trans_matrix_list = params.trans_matrix.get_list()
         deg_lc = calc_deg_lc(
             lc_deg_bl,
             lc_deg_final,
-            trans_code=lc_trans_matrix[0],
-            trans_meaning=lc_trans_matrix[1]
+            trans_code=lc_trans_matrix_list[0],
+            trans_meaning=lc_trans_matrix_list[1],
+            multiplier=params.trans_matrix.get_multiplier()
         )
     # write_arrays[3] = {
     #     'array': deg_lc,
@@ -1344,92 +1348,87 @@ class DegradationSummaryWorker(worker.AbstractWorker):
         # Width of cells in latitude
         pixel_height = src_gt[5]
 
+        n_blocks = len(np.arange(0, xsize, x_block_size)) * len(np.arange(0, ysize, y_block_size))
+
         # pr = cProfile.Profile()
         # pr.enable()
-        with ThreadPoolExecutor(max_workers=4) as executor:
-            res = []
+        n = 0
+        out = []
+        for y in range(0, ysize, y_block_size):
+            if y + y_block_size < ysize:
+                win_ysize = y_block_size
+            else:
+                win_ysize = ysize - y
 
-            for y in range(0, ysize, y_block_size):
+            cell_areas = np.array(
+                [
+                    calc_cell_area(
+                        lat + pixel_height * n,
+                        lat + pixel_height * (n + 1),
+                        long_width
+                    ) for n in range(win_ysize)
+                ]
+            ) * 1e-6  # 1e-6 is to convert from meters to kilometers
+            cell_areas.shape = (cell_areas.size, 1)
+
+            for x in range(0, xsize, x_block_size):
                 if self.killed:
                     log("Processing killed by user after processing "
-                        f"{y} out of {y_size} blocks.")
-
+                        f"{n} out of {n_blocks} blocks.")
                     break
-
-                if y + y_block_size < ysize:
-                    win_ysize = y_block_size
-                else:
-                    win_ysize = ysize - y
-
-                cell_areas = np.array(
-                    [
-                        calc_cell_area(
-                            lat + pixel_height * n,
-                            lat + pixel_height * (n + 1),
-                            long_width
-                        ) for n in range(win_ysize)
-                    ]
-                ) * 1e-6  # 1e-6 is to convert from meters to kilometers
-                cell_areas.shape = (cell_areas.size, 1)
-
-                for x in range(0, xsize, x_block_size):
-                    if x + x_block_size < xsize:
-                        win_xsize = x_block_size
-                    else:
-                        win_xsize = xsize - x
-
-                    src_array = src_ds.ReadAsArray(
-                        xoff=x,
-                        yoff=y,
-                        xsize=win_xsize,
-                        ysize=win_ysize
-                    )
-
-                    mask_array = band_mask.ReadAsArray(
-                        xoff=x,
-                        yoff=y,
-                        win_xsize=win_xsize,
-                        win_ysize=win_ysize
-                    )
-                    mask_array = mask_array == MASK_VALUE
-
-                    res.append(
-                        executor.submit(
-                            _process_block,
-                            self.params,
-                            src_array,
-                            mask_array,
-                            x,
-                            y,
-                            cell_areas
-                        )
-                    )
-
-                lat += pixel_height * win_ysize
-
-            for n, this_res in enumerate(as_completed(res)):
-                self.progress.emit((n / len(res)) * 100)
+                self.progress.emit((n / n_blocks) * 100)
                 
-                if n == 0:
-                    out = [this_res.result()[0]]
+                if x + x_block_size < xsize:
+                    win_xsize = x_block_size
                 else:
-                    out.append(this_res.result()[0])
+                    win_xsize = xsize - x
 
-                for key, value in this_res.result()[1].items():
+                src_array = src_ds.ReadAsArray(
+                    xoff=x,
+                    yoff=y,
+                    xsize=win_xsize,
+                    ysize=win_ysize
+                )
+
+                mask_array = band_mask.ReadAsArray(
+                    xoff=x,
+                    yoff=y,
+                    win_xsize=win_xsize,
+                    win_ysize=win_ysize
+                )
+                mask_array = mask_array == MASK_VALUE
+
+                result = _process_block(
+                    self.params,
+                    src_array,
+                    mask_array,
+                    x,
+                    y,
+                    cell_areas
+                )
+
+                out.append(result[0])
+
+                for key, value in result[1].items():
                     dst_ds_deg.GetRasterBand(key).WriteArray(**value)
 
-        self.progress.emit(100)
+                n += 1
+            if self.killed:
+                break
+
+            lat += pixel_height * win_ysize
 
         # pr.disable()
         # pr.dump_stats('calculate_ldn_stats')
 
         if self.killed:
             del dst_ds_deg
-            os.remove(self.prod_out_file)
-
+            os.remove(self.params.prod_out_file)
             return None
         else:
+            self.progress.emit(100)
             return _accumulate_summary_tables(out)
+
 
 def _render_ldn_workbook(
         template_workbook,
@@ -1442,7 +1441,11 @@ def _render_ldn_workbook(
     _write_soc_sdg_sheet(template_workbook["Soil organic carbon"], summary_table)
     _write_land_cover_sdg_sheet(template_workbook["Land cover"], summary_table)
     _write_unccd_reporting_sheet(
-        template_workbook["UNCCD Reporting"], summary_table, lc_years, soc_years)
+        template_workbook["UNCCD Reporting"],
+        summary_table,
+        lc_years,
+        soc_years
+    )
 
     return template_workbook
 
@@ -1520,11 +1523,12 @@ def _calculate_summary_table(
                     period=period
                 )
             )
-
             if not deg_worker.success:
-                error_message = "Error calculating SDG 15.3.1 summary table."
+                if deg_worker.was_killed():
+                    error_message = "Cancelled calculation of summary table."
+                else:
+                    error_message = "Error calculating SDG 15.3.1 summary table."
                 result = None
-
             else:
                 result = deg_worker.get_return()
 

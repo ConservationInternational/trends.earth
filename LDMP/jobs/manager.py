@@ -46,6 +46,7 @@ class JobManager(QtCore.QObject):
 
     _known_running_jobs: typing.Dict[uuid.UUID, Job]
     _known_finished_jobs: typing.Dict[uuid.UUID, Job]
+    _known_failed_jobs: typing.Dict[uuid.UUID, Job]
     _known_deleted_jobs: typing.Dict[uuid.UUID, Job]
     _known_downloaded_jobs: typing.Dict[uuid.UUID, Job]
 
@@ -68,6 +69,7 @@ class JobManager(QtCore.QObject):
         return {
             models.JobStatus.RUNNING: self._known_running_jobs,
             models.JobStatus.FINISHED: self._known_finished_jobs,
+            models.JobStatus.FAILED: self._known_failed_jobs,
             models.JobStatus.DELETED: self._known_deleted_jobs,
             models.JobStatus.DOWNLOADED: self._known_downloaded_jobs,
         }
@@ -77,6 +79,7 @@ class JobManager(QtCore.QObject):
         relevant_statuses = (
             models.JobStatus.RUNNING,
             models.JobStatus.FINISHED,
+            models.JobStatus.FAILED,
             models.JobStatus.DOWNLOADED,
         )
         result = []
@@ -93,6 +96,11 @@ class JobManager(QtCore.QObject):
     def finished_jobs_dir(self) -> Path:
         return Path(
             conf.settings_manager.get_value(conf.Setting.BASE_DIR)) / "finished-jobs"
+
+    @property
+    def failed_jobs_dir(self) -> Path:
+        return Path(
+            conf.settings_manager.get_value(conf.Setting.BASE_DIR)) / "failed-jobs"
 
     @property
     def deleted_jobs_dir(self) -> Path:
@@ -128,6 +136,7 @@ class JobManager(QtCore.QObject):
     def clear_known_jobs(self):
         self._known_running_jobs = {}
         self._known_finished_jobs = {}
+        self._known_failed_jobs = {}
         self._known_deleted_jobs = {}
         self._known_downloaded_jobs = {}
 
@@ -138,13 +147,11 @@ class JobManager(QtCore.QObject):
         consistency of the in-memory cache with the actual filesystem state.
         The filesystem is the source of truth for existing job metadata files and
         available results.
-
         """
 
         self._known_running_jobs = {
             j.id: j for j in self._get_local_jobs(models.JobStatus.RUNNING)}
-        self._known_downloaded_jobs = {
-            j.id: j for j in self._get_local_jobs(models.JobStatus.DOWNLOADED)}
+        self._refresh_local_downloaded_jobs()
         # move any downloaded jobs with missing local paths back to FINISHED
         for j_id, j in self._known_downloaded_jobs.items():
             missing_local_paths = [p for p in j.results.local_paths if not p.exists()]
@@ -158,12 +165,17 @@ class JobManager(QtCore.QObject):
             j_id: j
             for j_id, j
             in self._known_downloaded_jobs.items()
-            if j.status in [models.JobStatus.DOWNLOADED, models.JobStatus.GENERATED_LOCALLY]
+            if j.status in [
+                models.JobStatus.DOWNLOADED,
+                models.JobStatus.GENERATED_LOCALLY
+            ]
         }
 
-        # NOTE: finished jobs are treated differently here because we also make 
-        # sure to delete those that are old and never got downloaded
+        # NOTE: finished and failed jobs are treated differently here because 
+        # we also make sure to delete those that are old and never got 
+        # downloaded (or are old and failed)
         self._get_local_finished_jobs()
+        self._get_local_failed_jobs()
         self.refreshed_local_state.emit()
 
     def refresh_from_remote_state(self, emit_signal: bool = True):
@@ -210,6 +222,7 @@ class JobManager(QtCore.QObject):
 
         self._refresh_local_running_jobs(relevant_remote_jobs)
         self._refresh_local_finished_jobs(relevant_remote_jobs)
+        self._refresh_local_downloaded_jobs()
         self._refresh_local_generated_jobs()
         self._refresh_local_deleted_jobs()
 
@@ -446,8 +459,6 @@ class JobManager(QtCore.QObject):
             if tile_path is not None:
                 vrt_tiles.append(tile_path)
         vrt_file_path = base_output_path.parent / f"{base_output_path.name}.vrt"
-        log(f'vrt_file_path: {vrt_file_path}')
-        log(f'vrt_tiles: {[str(vrt_tile) for vrt_tile in vrt_tiles]}')
         
         gdal.BuildVRT(str(vrt_file_path), [str(vrt_tile) for vrt_tile in vrt_tiles])
         return vrt_file_path
@@ -509,9 +520,13 @@ class JobManager(QtCore.QObject):
                 self.write_job_metadata_file(remote_job)
         return self._known_finished_jobs
 
-    def _refresh_local_generated_jobs(self):
+    def _refresh_local_downloaded_jobs(self):
         self._known_downloaded_jobs = {
             j.id: j for j in self._get_local_jobs(models.JobStatus.DOWNLOADED)}
+
+    def _refresh_local_generated_jobs(self):
+        self._known_downloaded_jobs = {
+            j.id: j for j in self._get_local_jobs(models.JobStatus.GENERATED_LOCALLY)}
 
     def _refresh_local_deleted_jobs(self):
         self._known_deleted_jobs = {
@@ -540,6 +555,7 @@ class JobManager(QtCore.QObject):
     def _get_local_jobs(self, status: models.JobStatus) -> typing.List[Job]:
         base_dir = {
             models.JobStatus.FINISHED: self.finished_jobs_dir,
+            models.JobStatus.FAILED: self.failed_jobs_dir,
             models.JobStatus.RUNNING: self.running_jobs_dir,
             models.JobStatus.DELETED: self.deleted_jobs_dir,
             models.JobStatus.DOWNLOADED: self.datasets_dir,
@@ -574,7 +590,6 @@ class JobManager(QtCore.QObject):
         metadata files which correspond to these no longer available job results get
         deleted from disk, in order to avoid showing the user download options that are
         expected to fail.
-
         """
 
         now = dt.datetime.now(tz=dt.timezone.utc)
@@ -591,9 +606,37 @@ class JobManager(QtCore.QObject):
                 self._known_finished_jobs[finished_job.id] = finished_job
         return self._known_finished_jobs
 
+    def _get_local_failed_jobs(self) -> typing.Dict[uuid.UUID, Job]:
+        """Synchronize the in-memory cache and filesystem with regard to failed jobs.
+
+        This method takes care of checking the local filesystem directory for relevant
+        failed jobs and updates the in-memory cache. Relevant failed jobs are those
+        that still appear on the server.
+
+        The remote server is expected to only keep execution results for a certain
+        amount of time.  As such, this also method ensures that any job
+        metadata files which correspond to these no longer available job results get
+        deleted from disk.
+        """
+
+        now = dt.datetime.now(tz=dt.timezone.utc)
+        self._known_failed_jobs = {}
+        for failed_job in self._get_local_jobs(models.JobStatus.FAILED):
+            job_age = now - failed_job.end_date
+            if job_age.days > self._relevant_job_age_threshold_days:
+                log(
+                    f"Removing job {failed_job!r} as it is no longer on server"
+                )
+                self._remove_job_metadata_file(failed_job)
+            else:
+                self._known_failed_jobs[failed_job.id] = failed_job
+        return self._known_failed_jobs
+
     def get_job_file_path(self, job: Job) -> Path:
         if job.status in (models.JobStatus.RUNNING, models.JobStatus.PENDING):
             base = self.running_jobs_dir
+        elif job.status == models.JobStatus.FAILED:
+            base = self.failed_jobs_dir
         elif job.status == models.JobStatus.FINISHED:
             base = self.finished_jobs_dir
         elif job.status == models.JobStatus.DELETED:
@@ -650,7 +693,6 @@ def _get_access_token():
 def _get_user_id() -> uuid:
     log('Retrieving user id...')
     get_user_reply = api.get_user()
-    log(f"get_user_reply: {get_user_reply}")
     if get_user_reply:
         user_id = get_user_reply.get("id", None)
         return uuid.UUID(user_id)
@@ -686,13 +728,17 @@ def _download_result(url: str, output_path: Path) -> bool:
 
 def _delete_job_datasets(job: Job):
     if job.results is not None:
+        parent_paths = []
         for path in job.results.local_paths:
             try:
                 # not using the `missing_ok` param since it was introduced only on Python 3.8
                 path.unlink()
             except FileNotFoundError:
                 log(f"Could not find path {path!r}, skipping deletion...")
-        job.results.local_paths = []
+        #     if path.parent not in parent_paths:
+        #         parent_paths.append(path.parent)
+        # for parent_path in parent_paths:
+        #     parent_path.unlink()
     else:
         log("This job has no results to be deleted, skipping...")
 
@@ -733,7 +779,6 @@ def get_remote_jobs(end_date: typing.Optional[dt.datetime] = None) -> typing.Lis
             remote_jobs = []
         else:
             remote_jobs = []
-            log(f'Processing {len(raw_jobs)} raw jobs...')
             for raw_job in raw_jobs:
                 try:
                     job = Job.deserialize(raw_job)

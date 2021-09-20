@@ -531,7 +531,7 @@ def compute_ldn(
 
         ldn_job.results.local_paths.extend([
             sdg_path,
-            reproj_path
+            #reproj_path  # TODO: Need to figure out how to enumerate bands in this file properly
         ])
 
     summary_json_output_path = job_output_path.parent / f"{job_output_path.stem}_summary.json"

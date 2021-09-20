@@ -60,8 +60,20 @@ def maybe_add_image_to_sheet(image_filename: str, sheet):
 
 def delete_dataset(job: models.Job) -> int:
     message_box = QtWidgets.QMessageBox()
+
+    separator = "_"
+    name_fragments = []
+    if job.params.task_name != "":
+        name_fragments.append(job.params.task_name)
+    name_fragments.extend([
+        job.script.name,
+        job.params.task_notes.local_context.area_of_interest_name,
+        job.start_date.strftime("%Y%m%d%H%M"),
+        str(job.id)
+    ])
+
     message_box.setText(
-        f"You are about to delete job {job.params.task_name!r}")
+        f"You are about to delete job {separator.join(name_fragments)!r}")
     message_box.setInformativeText("Confirm?")
     message_box.setStandardButtons(
         QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.Cancel)

@@ -816,11 +816,14 @@ def _make_zip(zipFile, c):
             zipFile.write(os.path.join(root, f), os.path.join(relpath, f))
         _filter_excludes(root, dirs, c)
  
-@task(help={'clean': 'Clean out dependencies before packaging',
-            'pip': 'Path to pip (usually "pip" or "pip3"'})
-def zipfile_deploy(c, clean=False, pip='pip'):
+@task(help={
+    'qgis': 'QGIS version to target',
+    'clean': 'Clean out dependencies before packaging',
+    'pip': 'Path to pip (usually "pip" or "pip3"'
+})
+def zipfile_deploy(c, qgis, clean=False, pip='pip'):
     binaries_sync(c)
-    binaries_deploy(c)
+    binaries_deploy(c, qgis=qgis)
     print('Binaries uploaded')
 
     filename = zipfile_build(c, pip=pip)
@@ -970,7 +973,7 @@ def find_binaries(c, folder, version=None):
     return [item for sublist in files for item in sublist]
 
 
-@task(help={'qgis': 'QGIS version string'})
+@task(help={'qgis': 'QGIS version to target'})
 def binaries_deploy(c, qgis):
     # Copy down any missing binaries
     binaries_sync(c)

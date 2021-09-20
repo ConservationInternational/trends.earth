@@ -1468,15 +1468,16 @@ class WidgetDataIOSelectTEDatasetExisting(
         return False
 
     def selected_job_changed(self):
-        # the "- 1" below is to account for blank entry
-        # at the beginning of the combobox
-        current_job = self.dataset_list[self.comboBox_datasets.currentIndex() - 1]
-        # Allow for a current_job of '' (no job selected)
-        if current_job != '':
-            # the "- 1" below i
-            # s to account for blank entry
+        if len(self.dataset_list) > 1:
+            # the "- 1" below is to account for blank entry
             # at the beginning of the combobox
-            job_id = current_job.job.id
-        else:
-            job_id = None
-        self.job_selected.emit(job_id)
+            current_job = self.dataset_list[self.comboBox_datasets.currentIndex() - 1]
+            # Allow for a current_job of '' (no job selected)
+            if current_job != '':
+                # the "- 1" below i
+                # s to account for blank entry
+                # at the beginning of the combobox
+                job_id = current_job.job.id
+            else:
+                job_id = None
+            self.job_selected.emit(job_id)

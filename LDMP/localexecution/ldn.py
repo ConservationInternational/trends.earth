@@ -531,8 +531,7 @@ def compute_ldn(
 
         ldn_job.results.local_paths.extend([
             sdg_path,
-            reproj_path,
-            #summary_table_output_path
+            reproj_path
         ])
 
     summary_json_output_path = job_output_path.parent / f"{job_output_path.stem}_summary.json"
@@ -544,7 +543,6 @@ def compute_ldn(
         area_of_interest,
         summary_table_stable_kwargs
     )
-    ldn_job.results.local_paths.append(summary_json_output_path)
     ldn_job.end_date = dt.datetime.now(dt.timezone.utc)
     ldn_job.progress = 100
 

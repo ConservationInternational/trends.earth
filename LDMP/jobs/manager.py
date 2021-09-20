@@ -158,7 +158,7 @@ class JobManager(QtCore.QObject):
             j_id: j
             for j_id, j
             in self._known_downloaded_jobs.items()
-            if j.status == models.JobStatus.DOWNLOADED
+            if j.status in [models.JobStatus.DOWNLOADED, models.JobStatus.GENERATED_LOCALLY]
         }
 
         # NOTE: finished jobs are treated differently here because we also make 
@@ -543,6 +543,7 @@ class JobManager(QtCore.QObject):
             models.JobStatus.RUNNING: self.running_jobs_dir,
             models.JobStatus.DELETED: self.deleted_jobs_dir,
             models.JobStatus.DOWNLOADED: self.datasets_dir,
+            models.JobStatus.GENERATED_LOCALLY: self.datasets_dir,
         }[status]
         result = []
         for job_metadata_path in base_dir.glob("**/*.json"):

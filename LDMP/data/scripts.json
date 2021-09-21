@@ -27,7 +27,7 @@
     "land-cover": {
         "name_readable": "Land cover change",
         "description": "Calculate land cover change",
-        "id": "92aa0759-ef83-4bc5-9395-bc5609b4780d",
+        "id": "4b5bd44f-9fa4-45e0-ba7e-237387c0d09d",
         "run_mode": "remote",
         "version": "1.0.7"
     },
@@ -52,7 +52,7 @@
     "productivity": {
         "name_readable": "Land productivity",
         "description": "Calculate productivity state, performance, and/or trajectory indicators",
-        "id": "5b713a51-f91d-4094-a7fb-67e5992f8b62",
+        "id": "6c6e8db6-b9a4-486b-8098-1ad4121841e8",
         "run_mode": "remote",
         "version": "1.0.7",
         "trajectory functions": {
@@ -104,7 +104,7 @@
     "soil-organic-carbon": {
         "name_readable": "Soil organic carbon change",
         "description": "Calculate change in soil organic carbon",
-        "id": "d2ce447e-5f15-4577-9230-e4b379870229",
+        "id": "abbaccf8-af54-4553-99e2-5053c9cdf4df",
         "run_mode": "remote",
         "version": "1.0.7"
     },
@@ -124,7 +124,7 @@
     "total-carbon": {
         "name_readable": "Total carbon change",
         "description": "Calculates total carbon in biomass (above and below ground).",
-        "id": "3045dfee-247e-4fe9-bd74-769a1f57aee0",
+        "id": "f540a44b-ce8c-45a0-9489-a47726806dd7",
         "run_mode": "remote",
         "version": "1.0.7"
     },

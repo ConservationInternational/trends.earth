@@ -27,10 +27,10 @@ from .conf import (
 )
 from .data_io import (
     DlgDataIOLoadTE,
-    DlgDataIOImportLC,
     DlgDataIOImportSOC,
     DlgDataIOImportProd,
 )
+from .lc_setup import DlgDataIOImportLC
 from .download_data import DlgDownload
 from .landpks import DlgLandPKSDownload
 from .jobs.manager import job_manager

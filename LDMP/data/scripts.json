@@ -103,7 +103,7 @@
         "version": "1.0.7"
     },
     "sdg-15-3-1-summary": {
-        "description": "Calculate change in soil organic carbon",
+        "description": "Calculate change in SDG 15.3.1",
         "execution_callable": "LDMP.localexecution.ldn.compute_ldn",
         "name_readable": "SDG 15.3.1",
         "run_mode": "local"

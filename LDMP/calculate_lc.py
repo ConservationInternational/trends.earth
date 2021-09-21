@@ -36,6 +36,7 @@ DlgCalculateLcUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateLC.ui"))
 
 from te_schemas.schemas import BandInfo, BandInfoSchema
+from te_schemas.land_cover import LCTransitionDefinitionDeg, LCLegendNesting
 
 class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
     LOCAL_SCRIPT_NAME = "local-land-cover"
@@ -88,8 +89,12 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
             "geojsons": json.dumps(geojsons),
             "crs": self.aoi.get_crs_dst_wkt(),
             "crosses_180th": crosses_180th,
-            "trans_matrix": self.lc_define_deg_widget.trans_matrix_get(),
-            "nesting": self.lc_setup_widget.aggregation_dialog.nesting(),
+            'legend_nesting': LCLegendNesting.Schema().dump(
+                self.lc_setup_widget.aggregation_dialog.nesting
+            ),
+            'trans_matrix': LCTransitionDefinitionDeg.Schema().dump(
+                self.lc_define_deg_widget.trans_matrix
+            ),
             "task_name": self.execution_name_le.text(),
             "task_notes": self.task_notes.toPlainText()
         }

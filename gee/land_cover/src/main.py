@@ -24,8 +24,12 @@ def run(params, logger):
     year_target = params.get('year_target')
     geojsons = json.loads(params.get('geojsons'))
     crs = params.get('crs')
-    trans_matrix = LCTransitionDefinitionDeg.Schema().loads(params.get('trans_matrix'))
-    nesting = LCLegendNesting.Schema().loads(params.get('nesting'))
+    trans_matrix = LCTransitionDefinitionDeg.Schema().load(
+        params.get('trans_matrix')
+    )
+    legend_nesting = LCLegendNesting.Schema().load(
+        params.get('legend_nesting')
+    )
 
     # Check the ENV. Are we running this locally or in prod?
     if params.get('ENV') == 'dev':
@@ -34,7 +38,12 @@ def run(params, logger):
         EXECUTION_ID = params.get('EXECUTION_ID', None)
 
     logger.debug("Running main script.")
-    out = land_cover(year_baseline, year_target, trans_matrix,
-                     nesting, logger)
+    out = land_cover(
+        year_baseline,
+        year_target,
+        trans_matrix,
+        legend_nesting,
+        logger
+    )
 
     return out.export(geojsons, 'land_cover', crs, logger, EXECUTION_ID)

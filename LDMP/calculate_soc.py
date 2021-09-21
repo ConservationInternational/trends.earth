@@ -30,12 +30,14 @@ from . import (
 from .algorithms import models
 from .jobs.manager import job_manager
 from .logger import log
+from .lc_setup import get_lc_nesting, get_trans_matrix
 
 DlgCalculateSocUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateSOC.ui"))
 
 
 from te_schemas.schemas import BandInfo, BandInfoSchema
+from te_schemas.land_cover import LCTransitionDefinitionDeg, LCLegendNesting
 
 
 class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
@@ -262,7 +264,12 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
             'geojsons': json.dumps(geojsons),
             'crs': self.aoi.get_crs_dst_wkt(),
             'crosses_180th': crosses_180th,
-            "remap_matrix": self.lc_setup_widget.aggregation_dialog.get_agg_as_list(),
+            'legend_nesting': LCLegendNesting.Schema().dump(
+                get_lc_nesting()
+            ),
+            'trans_matrix': LCTransitionDefinitionDeg.Schema().dump(
+                get_trans_matrix()
+            ),
             'task_name': self.execution_name_le.text(),
             'task_notes': self.options_tab.task_notes.toPlainText()
         }

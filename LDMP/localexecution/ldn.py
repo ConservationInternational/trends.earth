@@ -509,7 +509,7 @@ def compute_ldn(
                 activated=True
             )
             ldn_job.results.bands.append(sdg_prod_band)
-            sdg_df.bands.append(DataFile(sdg_path, [sdg_prod_band]))
+            sdg_df.bands.append(sdg_prod_band)
 
         reproj_df = _combine_data_files(reproj_path, in_dfs)
 
@@ -534,6 +534,9 @@ def compute_ldn(
             #reproj_path  # TODO: Need to figure out how to enumerate bands in this file properly
         ])
 
+    # combined_vrt_path = job_output_path.parent / f"{job_output_path.stem}_all_bands.vrt"
+    # _combine_all_bands_into_vrt([reproj_path, sdg_path], combined_vrt_path)
+
     summary_json_output_path = job_output_path.parent / f"{job_output_path.stem}_summary.json"
     save_reporting_json(
         summary_json_output_path,
@@ -548,6 +551,65 @@ def compute_ldn(
 
     return ldn_job
 
+
+def _combine_all_bands_into_vrt(in_files: List[Path], out_file: Path):
+    '''creates a vrt file combining all bands of in_files
+
+    All bands must have the same extent, resolution, and crs
+    '''
+
+
+    simple_source_raw = '''<SimpleSource>
+    <SourceFilename relativeToVRT="1">{relative_path}</SourceFilename>
+    <SourceBand>1</SourceBand>
+    <SrcRect xOff="0" yOff="0" xSize="{out_Xsize}" ySize="{out_Ysize}"/>
+    <DstRect xOff="0" yOff="0" xSize="{out_Xsize}" ySize="{out_Ysize}"/>
+</SimpleSource>'''
+    
+    for file_num, in_file in enumerate(in_files):
+        ds = gdal.Open(str(in_file))
+        this_gt = ds.GetGeoTransform()
+        this_proj = ds.GetProjectionRef()
+        if file_num == 0:
+            out_gt = this_gt
+            out_proj = this_proj
+        else:
+            assert out_gt == this_gt
+            assert out_proj == this_proj
+
+        for band_num in range(1, ds.RasterCount + 1):
+            this_dt = ds.GetRasterBand(band_num).DataType
+            this_band = ds.GetRasterBand(band_num)
+            this_Xsize = this_band.XSize
+            this_Ysize = this_band.YSize
+            if band_num == 1:
+                out_dt = this_dt
+                out_Xsize = this_Xsize
+                out_Ysize = this_Ysize
+                if file_num == 0:
+                    # If this is the first band of the first file, need to 
+                    # create the output VRT file (in memory)
+                    driver = gdal.GetDriverByName("VRT")
+                    mem_ds = driver.Create(
+                        str(out_file),
+                        out_Xsize,
+                        out_Ysize,
+                        0,
+                        out_dt
+                    )
+                    mem_ds.SetGeoTransform(out_gt)
+                    mem_srs = osr.SpatialReference()
+                    mem_srs.ImportFromWkt(out_proj)
+                    mem_ds.SetProjection(mem_srs.ExportToWkt())
+            else:
+                assert this_dt == out_dt
+                assert this_Xsize == out_Xsize
+                assert this_Ysize == out_Ysize
+
+            mem_ds.AddBand(out_dt)
+            mem_ds.SetMetadata()
+
+    return True
 
 def _prepare_land_cover_file_paths(params: Dict) -> List[DataFile]:
     lc_path = params["layer_lc_path"]

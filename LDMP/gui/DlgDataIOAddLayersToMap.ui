@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>DlgDataIOLoadTESingleLayer</class>
- <widget class="QDialog" name="DlgDataIOLoadTESingleLayer">
+ <class>DlgDataIOAddLayersToMap</class>
+ <widget class="QDialog" name="DlgDataIOAddLayersToMap">
   <property name="windowModality">
    <enum>Qt::ApplicationModal</enum>
   </property>
@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>294</width>
-    <height>272</height>
+    <height>282</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -20,7 +20,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Open a Trends.Earth file</string>
+   <string>Select layers to add to the map</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="3" column="0">
@@ -51,7 +51,7 @@
          </size>
         </property>
         <property name="selectionMode">
-         <enum>QAbstractItemView::SingleSelection</enum>
+         <enum>QAbstractItemView::ExtendedSelection</enum>
         </property>
        </widget>
       </item>

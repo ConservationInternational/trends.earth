@@ -233,17 +233,22 @@ class JobCloudResults:
     name: str
     bands: typing.List[JobBand]
     urls: typing.List[JobUrl]
-    local_paths: typing.List[Path]
+    data_path: Path
+    other_paths: typing.List[Path]
     type: JobResult = JobResult.CLOUD_RESULTS
 
     @classmethod
     def deserialize(cls, raw_results: typing.Dict):
+        data_path = raw_results.get("data_path", None)
+        if data_path:
+            data_path = Path(data_path)
         return cls(
             name=raw_results["name"],
             type=JobResult(raw_results["type"]),
             bands=[JobBand.deserialize(raw_band) for raw_band in raw_results["bands"]],
             urls=[JobUrl.deserialize(raw_url) for raw_url in raw_results["urls"]],
-            local_paths=[Path(p) for p in raw_results.get("local_paths", [])]
+            data_path=data_path,
+            other_paths=[Path(p) for p in raw_results.get("other_paths", [])]
         )
 
     def serialize(self) -> typing.Dict:
@@ -252,7 +257,8 @@ class JobCloudResults:
             "type": self.type.value,
             "bands": [band.serialize() for band in self.bands],
             "urls": [url.serialize() for url in self.urls],
-            "local_paths": [str(p) for p in self.local_paths]
+            "data_path": str(self.data_path),
+            "other_paths": [str(p) for p in self.other_paths]
         }
 
 
@@ -282,15 +288,20 @@ class TimeSeriesTableResult:
 class JobLocalResults:
     name: str
     bands: typing.List[JobBand]
-    local_paths: typing.List[Path]
+    data_path: Path
+    other_paths: typing.List[Path]
     type: JobResult = JobResult.LOCAL_RESULTS
 
     @classmethod
     def deserialize(cls, raw_results: typing.Dict):
+        data_path = raw_results.get("data_path", None)
+        if data_path:
+            data_path = Path(data_path)
         return cls(
             name=raw_results["name"],
             bands=[JobBand.deserialize(raw_band) for raw_band in raw_results["bands"]],
-            local_paths=[Path(local_path) for local_path in raw_results["local_paths"]],
+            data_path=data_path,
+            other_paths=[Path(p) for p in raw_results.get("other_paths", [])]
         )
 
     def serialize(self) -> typing.Dict:
@@ -298,7 +309,8 @@ class JobLocalResults:
             "name": self.name,
             "type": self.type.value,
             "bands": [band.serialize() for band in self.bands],
-            "local_paths": [str(path) for path in self.local_paths]
+            "data_path": str(self.data_path),
+            "other_paths": [str(p) for p in self.other_paths]
         }
 
 

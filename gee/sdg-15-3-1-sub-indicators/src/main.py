@@ -26,8 +26,9 @@ from landdegradation.productivity import (
 from landdegradation.land_cover import land_cover
 from landdegradation.soc import soc
 from landdegradation.download import download
+from landdegradation.util import TEImage
 
-from te_schemas.schemas import CloudResultsSchema
+from te_schemas.schemas import CloudResultsSchema, BandInfo
 from te_schemas.land_cover import LCTransitionDefinitionDeg, LCLegendNesting
 
 
@@ -140,6 +141,22 @@ def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
                 )
             )
 
+            res.append(
+                executor.submit(
+                    _get_population,
+                    params.get('population'),
+                    logger
+                )
+            )
+
+            res.append(
+                executor.submit(
+                    _get_spi,
+                    params.get('spi'),
+                    logger
+                )
+            )
+
             out = None
             for this_res in as_completed(res):
                 if out is None:
@@ -179,6 +196,42 @@ def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
     # added to it
 
     return schema.dump(final_prod)
+
+
+
+def _get_population(params, logger):
+    '''Return worldpop population data for a given year'''
+    logger.debug("Returning population image")
+    year = params.get('year')
+
+    wp_col = ee.Image("users/geflanddegradation/toolbox_datasets/worldpop_ppp_2000_2020_1km_global")
+    wp = wp_col.select(f'p{year}')
+
+    return TEImage(
+        wp.unmask(-32768).divide(10).int16(),
+        [BandInfo(
+            "Population (number of people)",
+            metadata={'year': year, 'data source': 'WorldPop', 'scaling': 10}
+        )]
+    )
+
+
+def _get_spi(params, logger):
+    '''Return SPI image for a particular year and lag'''
+    logger.debug("Returning SPI image")
+    year = params.get('year')
+    lag = params.get('lag')
+
+    spi_series = ee.Image(f'projects/trends_earth/spi/spi_GPCC_monthly_v2020_1971-2019_monthly_gamma_SPI_lag{lag}')
+    spi_img = spi_series.select(f'spi_{year}_12')
+
+    return TEImage(
+        spi_img.unmask(-32768).int16(),
+        [BandInfo(
+            "Standardized Precipitation Index (SPI)",
+            metadata={'year': year, 'lag': lag, 'data source': 'GPCC'}
+        )]
+    )
 
 
 def run_jrc_for_period(params, EXECUTION_ID, logger):

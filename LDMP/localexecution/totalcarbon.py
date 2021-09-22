@@ -60,7 +60,7 @@ def compute_total_carbon_summary_table(
     tc_job.progress = 100
     bands = []
     tc_job.results.bands = bands
-    tc_job.results.local_paths = [summary_table_output_path]
+    tc_job.results.data_path = summary_table_output_path
     return tc_job
 
 

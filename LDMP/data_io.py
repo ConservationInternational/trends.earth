@@ -23,6 +23,7 @@ import json
 from PyQt5 import (
     QtCore,
     QtWidgets,
+    uic
 )
 from PyQt5.QtCore import QSettings
 
@@ -43,17 +44,28 @@ from . import (
     layers,
     worker,
 )
-from .gui.DlgDataIO import Ui_DlgDataIO
-from .gui.DlgDataIOLoadTE import Ui_DlgDataIOLoadTE
-from .gui.DlgDataIOLoadTESingleLayer import Ui_DlgDataIOLoadTESingleLayer
-from .gui.DlgDataIOImportSOC import Ui_DlgDataIOImportSOC
-from .gui.DlgDataIOImportProd import Ui_DlgDataIOImportProd
-from .gui.DlgJobsDetails import Ui_DlgJobsDetails
-from .gui.WidgetDataIOImportSelectFileInput import Ui_WidgetDataIOImportSelectFileInput
-from .gui.WidgetDataIOImportSelectRasterOutput import Ui_WidgetDataIOImportSelectRasterOutput
-from .gui.WidgetDataIOSelectTELayerExisting import Ui_WidgetDataIOSelectTELayerExisting
-from .gui.WidgetDataIOSelectTELayerImport import Ui_WidgetDataIOSelectTELayerImport
-from .gui.WidgetDataIOSelectTEDatasetExisting import Ui_WidgetDataIOSelectTEDatasetExisting
+
+Ui_DlgDataIOLoadTE, _ = uic.loadUiType(
+    str(Path(__file__).parents[0] / "gui/DlgDataIOLoadTE.ui"))
+Ui_DlgDataIOImportSOC, _ = uic.loadUiType(
+    str(Path(__file__).parents[0] / "gui/DlgDataIOImportSOC.ui"))
+Ui_DlgDataIOImportProd, _ = uic.loadUiType(
+    str(Path(__file__).parents[0] / "gui/DlgDataIOImportProd.ui"))
+Ui_DlgDataIOAddLayersToMap, _ = uic.loadUiType(
+    str(Path(__file__).parents[0] / "gui/DlgDataIOAddLayersToMap.ui"))
+Ui_DlgJobsDetails, _ = uic.loadUiType(
+    str(Path(__file__).parents[0] / "gui/DlgJobsDetails.ui"))
+Ui_WidgetDataIOImportSelectFileInput, _ = uic.loadUiType(
+    str(Path(__file__).parents[0] / "gui/WidgetDataIOImportSelectFileInput.ui"))
+Ui_WidgetDataIOImportSelectRasterOutput, _ = uic.loadUiType(
+    str(Path(__file__).parents[0] / "gui/WidgetDataIOImportSelectRasterOutput.ui"))
+Ui_WidgetDataIOSelectTELayerExisting, _ = uic.loadUiType(
+    str(Path(__file__).parents[0] / "gui/WidgetDataIOSelectTELayerExisting.ui"))
+Ui_WidgetDataIOSelectTELayerImport, _ = uic.loadUiType(
+    str(Path(__file__).parents[0] / "gui/WidgetDataIOSelectTELayerImport.ui"))
+Ui_WidgetDataIOSelectTEDatasetExisting, _ = uic.loadUiType(
+    str(Path(__file__).parents[0] / "gui/WidgetDataIOSelectTEDatasetExisting.ui"))
+
 from .jobs.manager import job_manager
 from .jobs import models as job_models
 from .logger import log
@@ -422,79 +434,6 @@ class DlgJobsDetails(QtWidgets.QDialog, Ui_DlgJobsDetails):
         self.task_status.hide()
         self.statusLabel.hide()
 
-class DlgDataIO(QtWidgets.QDialog, Ui_DlgDataIO):
-    def __init__(self, parent=None):
-        super(DlgDataIO, self).__init__(parent)
-
-        self.setupUi(self)
-
-        self.dlg_DataIOLoad_te = DlgDataIOLoadTE()
-        self.dlg_DataIOLoad_lc = DlgDataIOImportLC()
-        self.dlg_DataIOLoad_soc = DlgDataIOImportSOC()
-        self.dlg_DataIOLoad_prod = DlgDataIOImportProd()
-
-        self.btn_te.clicked.connect(self.run_te)
-        self.btn_lc.clicked.connect(self.run_lc)
-        self.btn_soc.clicked.connect(self.run_soc)
-        self.btn_prod.clicked.connect(self.run_prod)
-
-    def run_te(self):
-        self.close()
-        self.dlg_DataIOLoad_te.exec_()
-
-    def run_lc(self):
-        self.close()
-        self.dlg_DataIOLoad_lc.exec_()
-
-    def run_soc(self):
-        self.close()
-        self.dlg_DataIOLoad_soc.exec_()
-
-    def run_prod(self):
-        self.close()
-        self.dlg_DataIOLoad_prod.exec_()
-
-class DlgDataIOLoadTEBase(QtWidgets.QDialog):
-    layers_view: QtWidgets.QListView
-    layers_model: QtCore.QStringListModel
-
-    layers_loaded = QtCore.pyqtSignal(list)
-
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.setupUi(self)
-
-        self.layers_model = QtCore.QStringListModel()
-        self.layers_view.setModel(self.layers_model)
-        self.layers_model.setStringList([])
-
-        self.buttonBox.accepted.connect(self.ok_clicked)
-        self.buttonBox.rejected.connect(self.reject)
-
-    def ok_clicked(self):
-        rows = []
-        for i in self.layers_view.selectionModel().selectedRows():
-            rows.append(i.row())
-        if len(rows) > 0:
-            added_layers = []
-            for row in rows:
-                f = os.path.normcase(os.path.normpath(self.layer_list[row][0]))
-                # Note that the third item in the tuple is the band number, and 
-                # the fourth (layer_list[3]) is the band info object
-                resp = layers.add_layer(
-                    f, self.layer_list[row][2], self.layer_list[row][3], activated=True)
-                if resp:
-                    added_layers.append(self.layer_list[row])
-                else:
-                    QtWidgets.QMessageBox.critical(None, self.tr("Error"), 
-                                                   self.tr(u'Unable to automatically add "{}". No style is defined for this type of layer.'.format(self.layer_list[row][2]['name'])))
-            self.layers_loaded.emit(added_layers)
-        else:
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Select a layer to load."))
-            return
-
-        self.close()
-
 
 class DlgDataIOLoadTE(QtWidgets.QDialog, Ui_DlgDataIOLoadTE):
     file_browse_btn: QtWidgets.QPushButton
@@ -533,7 +472,7 @@ class DlgDataIOLoadTE(QtWidgets.QDialog, Ui_DlgDataIOLoadTE):
         self.parsed_name_le.setEnabled(True)
         self.parsed_result_la.setEnabled(True)
         try:
-            local_path = str(self.job.results.local_paths[0])
+            local_path = str(self.job.results.data_path)
         except IndexError:
             local_path = ""
         self.parsed_result_path_le.setText(local_path)
@@ -577,17 +516,6 @@ class DlgDataIOLoadTE(QtWidgets.QDialog, Ui_DlgDataIOLoadTE):
         log("Importing job...")
         job_manager.import_job(self.job)
         self.accept()
-
-
-class DlgDataIOLoadTESingleLayer(DlgDataIOLoadTEBase, Ui_DlgDataIOLoadTESingleLayer):
-    def __init__(self, parent=None):
-        super(DlgDataIOLoadTESingleLayer, self).__init__(parent)
-
-    def update_layer_list(self, layers):
-        self.layer_list = layers
-        bands = [layer[1] for layer in layers]
-        self.layers_model.setStringList(bands)
-        self.layers_view.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
 
 
 class ImportSelectFileInputWidget(QtWidgets.QWidget, Ui_WidgetDataIOImportSelectFileInput):
@@ -864,25 +792,38 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
             return False
 
         remap_raster_worker = worker.StartWorker(
-            RemapRasterWorker, 'remapping values', temp_tif, out_file, remap_list)
+            RemapRasterWorker,
+            'remapping values',
+            temp_tif,
+            out_file,
+            remap_list
+        )
         os.remove(temp_tif)
         if not remap_raster_worker.success:
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Raster remapping failed."))
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr("Raster remapping failed.")
+            )
             return False
         else:
             return True
 
     def rasterize_vector(self, in_file, out_file, attribute):
         out_res = self.get_out_res_wgs84()
-        log(u'Rasterizing {} using output resolution {}, and field "{}"'.format(out_file, out_res, attribute))
+        log(
+            f"Rasterizing {out_file} using output resolution {out_res}, "
+            f'and field "{attribute}"'
+        )
         rasterize_worker = worker.StartWorker(
             RasterizeWorker, 'rasterizing vector file', in_file,
             out_file, out_res, attribute
         )
         if not rasterize_worker.success:
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Rasterizing failed."))
+            QtWidgets.QMessageBox.critical(
+                None, self.tr("Error"),
+                self.tr("Rasterizing failed.")
+            )
             return False
         else:
             return True
@@ -932,10 +873,14 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
 
     def validate_input(self, value):
         if self.output_widget.lineEdit_output_file.text() == '':
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Choose an output file."))
+            QtWidgets.QMessageBox.critical(
+                None, self.tr("Error"), self.tr("Choose an output file."))
             return
         if self.input_widget.spinBox_data_year.text() == self.input_widget.spinBox_data_year.specialValueText():
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr(u"Enter the year of the input data."))
+            QtWidgets.QMessageBox.critical(
+                None, self.tr("Error"),
+                self.tr(u"Enter the year of the input data.")
+            )
             return
 
         ret = super(DlgDataIOImportSOC, self).validate_input(value)
@@ -1099,7 +1044,7 @@ def get_usable_bands(
             )
         )
         if is_downloaded and is_of_interest and is_valid_type:
-            path = job.results.local_paths[0]
+            path = job.results.data_path
             for band_index, band_info in enumerate(job.results.bands):
                 if band_info.name == band_name:
                     result.append(
@@ -1116,15 +1061,11 @@ def get_usable_bands(
     
 class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
     comboBox_layers: QtWidgets.QComboBox
-    dlg_layer: DlgDataIOLoadTESingleLayer
     layer_list: typing.Optional[typing.List[UsableBandInfo]]
 
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
-        self.dlg_layer = DlgDataIOLoadTESingleLayer()
-
-        self.dlg_layer.layers_loaded.connect(self.populate)
 
         self.layer_list = None
 
@@ -1144,14 +1085,14 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
             hover_info_parts = name_info_parts[:]
             name_info_parts.extend(
                 [
-                    usable_band.band_info.name,
-                    usable_band.job.params.task_notes.local_context.area_of_interest_name
+                    usable_band.job.params.task_notes.local_context.area_of_interest_name,
+                    layers.get_band_title(usable_band.band_info.serialize())
                 ]
             )
             hover_info_parts.extend(
                 [
-                    usable_band.band_info.name + ' - ',
                     usable_band.job.params.task_notes.local_context.area_of_interest_name + '\n',
+                    layers.get_band_title(usable_band.band_info.serialize()) + '\n',
                     usable_band.job.start_date.strftime("%Y-%m-%d %H:%M") + '\n',
                     # TODO: figure out a way to cleanup the metadata so it is 
                     # presentable and useful - likely need to have each script 
@@ -1250,7 +1191,7 @@ def get_usable_datasets(
             # Catch case of an invalid type
             continue
         if is_downloaded and is_valid_type:
-            path = job.results.local_paths[0]
+            path = job.results.data_path
             if job.script.name == dataset_name:
                 result.append(
                     UsableDatasetInfo(
@@ -1262,12 +1203,76 @@ def get_usable_datasets(
     return result
 
 
+class DlgDataIOAddLayersToMap(
+    QtWidgets.QDialog,
+    Ui_DlgDataIOAddLayersToMap
+):
+    layers_view: QtWidgets.QListView
+    layers_model: QtCore.QStringListModel
+
+
+    def __init__(self, parent, job):
+        super().__init__(parent)
+        self.setupUi(self)
+
+        self.layers_model = QtCore.QStringListModel()
+        self.layers_view.setModel(self.layers_model)
+        self.layers_model.setStringList([])
+
+        self.buttonBox.accepted.connect(self.ok_clicked)
+        self.buttonBox.rejected.connect(self.reject)
+
+        self.job = job
+
+        self.layers_model.setStringList([])
+
+        self.update_band_list()
+
+
+    def ok_clicked(self):
+        band_numbers = []
+        for i in self.layers_view.selectionModel().selectedRows():
+            band_numbers.append(i.row() + 1)  # band numbers start at 1
+        if len(band_numbers) > 0:
+            job_manager.display_selected_job_results(self.job, band_numbers)
+            self.close()
+
+            # QtWidgets.QMessageBox.critical(
+            #     None,
+            #     self.tr("Error"), 
+            #     self.tr(f'Unable to automatically add "{band.name}". '
+            #             'No style is defined for this type of layer.')
+            # )
+        else:
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr("Select a layer to load.")
+            )
+
+    def update_band_list(self):
+        self.layer_list = self.job.results.bands
+
+        band_strings = [
+            f'Band {n}: {layers.get_band_title(band.serialize())}'
+            for n, band in enumerate(self.layer_list)
+        ]
+        self.layers_model.setStringList(band_strings)
+        self.layers_view.setEditTriggers(
+                QtWidgets.QAbstractItemView.NoEditTriggers)
+        for n in range(len(self.layer_list)):
+            if self.layer_list[n].add_to_map:
+                self.layers_view.selectionModel().select(
+                    self.layers_model.createIndex(n, 0),
+                    QtCore.QItemSelectionModel.Select
+                )
+
+
 class WidgetDataIOSelectTEDatasetExisting(
         QtWidgets.QWidget,
         Ui_WidgetDataIOSelectTEDatasetExisting
 ):
     comboBox_datasets: QtWidgets.QComboBox
-    # dlg_dataset: DlgDataIOLoadTEDataset
     dataset_list: typing.Optional[typing.List[UsableDatasetInfo]]
     job_selected = QtCore.pyqtSignal(uuid.UUID)
 

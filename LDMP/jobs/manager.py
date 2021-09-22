@@ -154,10 +154,10 @@ class JobManager(QtCore.QObject):
         self._refresh_local_downloaded_jobs()
         # move any downloaded jobs with missing local paths back to FINISHED
         for j_id, j in self._known_downloaded_jobs.items():
-            missing_local_paths = [p for p in j.results.local_paths if not p.exists()]
-            if len(missing_local_paths) > 0:
-                log(f'job {j_id} currently marked as DOWNLOADED but has missing paths, so moving back to FINISHED status')
-                j.results.local_paths = []
+            if j.results.data_path and not j.results.data_path.exists():
+                log(f'job {j_id} currently marked as DOWNLOADED but has '
+                    'missing paths, so moving back to FINISHED status')
+                j.results.data_path = None
                 self._change_job_status(
                     j, models.JobStatus.FINISHED, force_rewrite=True)
         # filter list in case any jobs were moved from downloaded to finished
@@ -297,7 +297,8 @@ class JobManager(QtCore.QObject):
             results=models.JobLocalResults(
                 name=script_name,
                 bands=[],
-                local_paths=[]
+                data_path=None,
+                other_paths=[]
             ),
             script=models.get_job_local_script(script_name),
             status=models.JobStatus.PENDING,
@@ -324,7 +325,7 @@ class JobManager(QtCore.QObject):
         handler: typing.Callable
         output_path = handler(job)
         if output_path is not None:
-            job.results.local_paths = [output_path]
+            job.results.data_path = output_path
             self._change_job_status(
                 job, models.JobStatus.DOWNLOADED, force_rewrite=True)
         self.downloaded_job_results.emit(job)
@@ -356,12 +357,25 @@ class JobManager(QtCore.QObject):
                 self.download_job_results(job)
             self.downloaded_available_jobs_results.emit()
 
-    def display_job_results(self, job: Job):
-        for path in job.results.local_paths:
-            if path.suffix in [".tif", ".vrt"]:
-                for band_index, band in enumerate(job.results.bands):
-                    if band.add_to_map:
-                        layers.add_layer(str(path), band_index+1, band.serialize())
+    def display_default_job_results(self, job: Job):
+        if job.results.data_path.suffix in [".tif", ".vrt"]:
+            for band_index, band in enumerate(job.results.bands, start=1):
+                if band.add_to_map:
+                    layers.add_layer(
+                        str(job.results.data_path),
+                        band_index,
+                        band.serialize()
+                    )
+
+    def display_selected_job_results(self, job:Job, band_numbers):
+        if job.results.data_path.suffix in [".tif", ".vrt"]:
+            for n, band in enumerate(job.results.bands, start=1):
+                if n in band_numbers:
+                    layers.add_layer(
+                        str(job.results.data_path),
+                        n,
+                        band.serialize()
+                    )
 
     def import_job(self, job: Job):
         self._move_job_to_dir(job, job.status, force_rewrite=True)
@@ -405,7 +419,8 @@ class JobManager(QtCore.QObject):
             results=models.JobLocalResults(
                 name=f"{band_name} results",
                 bands=[band_info],
-                local_paths=[dataset_path]
+                data_path=dataset_path,
+                other_paths=[]
             ),
             script=script,
             status=models.JobStatus.GENERATED_LOCALLY,
@@ -598,7 +613,7 @@ class JobManager(QtCore.QObject):
             job_age = now - finished_job.end_date
             if job_age.days > self._relevant_job_age_threshold_days:
                 log(
-                    f"Removing job {finished_job!r} as it is no longer possible to "
+                    f"Removing job {finished_job.id!r} as it is no longer possible to "
                     f"download its results..."
                 )
                 self._remove_job_metadata_file(finished_job)
@@ -728,22 +743,20 @@ def _download_result(url: str, output_path: Path) -> bool:
 
 def _delete_job_datasets(job: Job):
     if job.results is not None:
-        parent_paths = []
-        for path in job.results.local_paths:
-            try:
-                # not using the `missing_ok` param since it was introduced only on Python 3.8
-                path.unlink()
-            except FileNotFoundError:
-                log(f"Could not find path {path!r}, skipping deletion...")
-        #     if path.parent not in parent_paths:
-        #         parent_paths.append(path.parent)
-        # for parent_path in parent_paths:
-        #     parent_path.unlink()
+        try:
+            # not using the `missing_ok` param since it was introduced only on 
+            # Python 3.8
+            job.results.data_path.unlink()
+        except FileNotFoundError:
+            log(f"Could not find path {job.results.data_path!r}, "
+                "skipping deletion...")
     else:
         log("This job has no results to be deleted, skipping...")
 
 
-def get_remote_jobs(end_date: typing.Optional[dt.datetime] = None) -> typing.List[Job]:
+def get_remote_jobs(
+    end_date: typing.Optional[dt.datetime] = None
+) -> typing.List[Job]:
     """Get a list of remote jobs, as returned by the server"""
     # Note - this is a reimplementation of api.get_execution
     try:

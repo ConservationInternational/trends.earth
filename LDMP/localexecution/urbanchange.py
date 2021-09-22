@@ -120,7 +120,7 @@ def compute_urban_change_summary_table(
     else:
         output_path = job_output_path.parent / f"{job_output_path.stem}.vrt"
         gdal.BuildVRT(str(output_path), [str(path) for path in output_indicator_tifs])
-    urban_change_job.results.local_paths = [output_path]
+    urban_change_job.results.data_path = output_path
     return urban_change_job
 
 

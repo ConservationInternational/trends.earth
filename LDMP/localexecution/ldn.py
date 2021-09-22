@@ -414,7 +414,6 @@ def compute_ldn(
 
     job_output_path, _ = utils.get_local_job_output_paths(ldn_job)
 
-    ldn_job.results.local_paths = []
     summary_tables = {}
     summary_table_stable_kwargs = {}
 
@@ -548,7 +547,7 @@ def compute_ldn(
     _combine_all_bands_into_vrt(period_vrts, overall_vrt_path)
     out_df = _combine_data_files(overall_vrt_path, period_dfs)
 
-    ldn_job.results.local_paths.append(overall_vrt_path)
+    ldn_job.results.data_path = overall_vrt_path
     ldn_job.results.bands.extend(out_df.bands)
 
     # Also save bands to a key file for ease of use in PRAIS

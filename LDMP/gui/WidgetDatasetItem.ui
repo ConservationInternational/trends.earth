@@ -111,7 +111,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QToolButton" name="add_to_canvas_tb">
+         <widget class="QPushButton" name="add_to_canvas_pb">
           <property name="toolTip">
            <string>Load dataset onto QGIS map area</string>
           </property>

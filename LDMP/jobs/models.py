@@ -413,7 +413,7 @@ def get_remote_scripts():
 
 
 def get_job_local_script(script_name: str) -> ExecutionScript:
-    return conf.KNOWN_SCRIPTS[script_name]
+    return conf.KNOWN_SCRIPTS.get(script_name, None)
 
 
 def _get_job_script(script_id: uuid.UUID) -> ExecutionScript:

@@ -208,9 +208,9 @@ def _get_population(params, logger):
     wp = wp_col.select(f'p{year}')
 
     return TEImage(
-        wp.unmask(-32768).divide(10).int16(),
+        wp.unmask(-32768).int16(),
         [BandInfo(
-            "Population (number of people)",
+            "Population",
             metadata={'year': year, 'data source': 'WorldPop', 'scaling': 10}
         )]
     )

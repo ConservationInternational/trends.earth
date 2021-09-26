@@ -338,6 +338,10 @@ def update_script_ids(c):
             try:
                 script_name = re.compile('( [0-9]+(_[0-9]+)+$)').sub('', config['name'])
                 scripts[script_name]['id'] = config['id']
+                script_version = re.compile(
+                    '^[a-zA-Z0-9-]* ').sub(
+                    '', config['name']).replace('_', '.')
+                scripts[script_name]['version'] = script_version
             except KeyError:
                 print(f'Skipping {script_name} as not found in scripts.json')
     with open(c.gee.scripts_json_file, 'w') as f_out:

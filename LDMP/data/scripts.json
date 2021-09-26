@@ -10,7 +10,7 @@
         "id": "6b6c2d67-dbc6-4ee4-a147-16ee5145fb45",
         "name_readable": "Download raw data",
         "run_mode": "remote",
-        "version": "1.0.7"
+        "version": "1.0.9"
     },
     "download-landpks": {
         "description": "Download LandPKS data",
@@ -23,7 +23,7 @@
         "id": "368306cc-f9f9-4ee1-a83f-1ab9d223ffec",
         "name_readable": "Land cover change",
         "run_mode": "remote",
-        "version": "1.0.7"
+        "version": "1.0.9"
     },
     "local-land-cover": {
         "description": "Calculate land cover change",
@@ -86,21 +86,21 @@
                 }
             }
         },
-        "version": "1.0.7"
+        "version": "1.0.9"
     },
     "restoration-biomass": {
         "description": "Calculate potential change in biomass with restoration",
         "id": "ab184b9b-59c5-44af-b3ca-776210f7812b",
         "name_readable": "Biomass change",
         "run_mode": "remote",
-        "version": "1.0.7"
+        "version": "1.0.9"
     },
     "sdg-15-3-1-sub-indicators": {
         "description": "Calculate all three SDG 15.3.1 sub-indicators in one step",
         "id": "c5ab9fb5-5889-44d6-b2c5-07b6ac914a03",
         "name_readable": "SDG 15.3.1 sub-indicators",
         "run_mode": "remote",
-        "version": "1.0.7"
+        "version": "1.0.9"
     },
     "sdg-15-3-1-summary": {
         "description": "Calculate change in SDG 15.3.1",
@@ -113,20 +113,21 @@
         "id": "da0c658b-57df-4cef-95b7-51f230d098d6",
         "name_readable": "Soil organic carbon change",
         "run_mode": "remote",
-        "version": "1.0.7"
+        "version": "1.0.9"
     },
     "time-series": {
         "description": "Calculates time series of Trends.Earth data",
         "id": "708d9f90-0494-4877-8c08-9045cc72d425",
         "name_readable": "Time series",
-        "run_mode": "remote"
+        "run_mode": "remote",
+        "version": "1.0.9"
     },
     "total-carbon": {
         "description": "Calculates total carbon in biomass (above and below ground).",
         "id": "68b94101-496e-4f40-a3be-dccc3d701099",
         "name_readable": "Total carbon change",
         "run_mode": "remote",
-        "version": "1.0.7"
+        "version": "1.0.9"
     },
     "total-carbon-summary": {
         "execution_callable": "LDMP.localexecution.totalcarbon.compute_total_carbon_summary_table",
@@ -138,7 +139,7 @@
         "id": "df85ce6c-017e-4ec7-8d46-c0c89f05bb72",
         "name_readable": "Urban area change (summary)",
         "run_mode": "remote",
-        "version": "1.0.7"
+        "version": "1.0.9"
     },
     "urban-change-summary-table": {
         "description": "Summarizes urban area change (land consumption rate)",

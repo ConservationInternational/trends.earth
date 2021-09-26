@@ -24,8 +24,8 @@ from math import floor, log10
 from qgis.core import (
     QgsColorRampShader,
     QgsRasterShader,
+    QgsRasterBandStats,
     QgsSingleBandPseudoColorRenderer,
-    QgsRasterLayer,
     QgsProject
 )
 from qgis.utils import iface
@@ -189,6 +189,9 @@ style_text_dict = {
     # Population
     'population_title': tr_layers.tr(u'Population ({year})'),
 
+    # SPI
+    'spi_title': tr_layers.tr(u'Standardized Precipitation Index (SPI, {year}, {lag} month lag)'),
+
     # Biomass
     'biomass_title': tr_layers.tr(u'Biomass (tonnes CO2e per ha, {year})'),
     'biomass_difference_title': tr_layers.tr(u'Change in biomass\n(tonnes CO2e per ha, {type} after {years} years)'),
@@ -273,6 +276,17 @@ def get_sample(f, band_number, n=1e6):
             out[n, :] = b.ReadAsArray(0, int(rows[n]), xsize, 1)[:, cols]
 
         return out
+
+
+# def _set_statistics(
+#     band_number: int,
+#     no_data_value: typing.Union[int, float],
+#     f: str,
+# ):
+#     ds = gdal.Open(f)
+#     b = ds.GetRasterBand(band_number)
+#     b.SetNoDataValue(no_data_value)
+#     return b.GetStatistics(True, True)
 
 
 def _get_cutoff(
@@ -393,7 +407,11 @@ def _create_zero_centered_stretch_color_ramp(
     return result
 
 
-def _create_min_zero_stretch_color_ramp(style_config: typing.Dict, data_sample, no_data_value):
+def _create_min_zero_stretch_color_ramp(
+    style_config: typing.Dict,
+    data_sample,
+    no_data_value
+):
     # Set a colormap from zero to percent stretch significant to
     # three figures.
     cutoff = _get_cutoff(
@@ -486,6 +504,9 @@ def add_layer(
 
     title = get_band_title(band_info)
     layer = iface.addRasterLayer(layer_path, title)
+    # # Initialize statistics for this layer
+    # _set_statistics(band_number, band_info["no_data_value"], layer_path)
+           
     if not layer or not layer.isValid():
         log(f'Failed to add layer {layer_path}, band number {band_number}')
         return False

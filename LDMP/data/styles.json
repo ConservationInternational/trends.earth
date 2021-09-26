@@ -474,6 +474,19 @@
             "no data": {"value": -32768, "color": "#000000", "label": "nodata"}
         }
     },
+    "Standardized Precipitation Index (SPI)": {
+        "title": "spi_title",
+        "ramp": {
+            "type": "zero-centered stretch",
+            "shader": "interpolated",
+            "percent stretch": 2,
+            "min": {"color": "#9b2779"},
+            "zero": {"color": "#ffffe0"},
+            "max": {"color": "#006500"},
+            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
+            }
+        }
+    },
     "Biomass (tonnes CO2e per ha)": {
         "title": "biomass_title",
         "ramp": {

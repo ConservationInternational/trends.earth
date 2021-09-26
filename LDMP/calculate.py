@@ -53,8 +53,6 @@ from .logger import log
 
 DlgCalculateUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculate.ui"))
-DlgCalculateLDUi, _ = uic.loadUiType(
-    str(Path(__file__).parent / "gui/DlgCalculateLD.ui"))
 DlgCalculateTCUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateTC.ui"))
 DlgCalculateRestBiomassUi, _ = uic.loadUiType(
@@ -156,7 +154,6 @@ class DlgCalculate(QtWidgets.QDialog, DlgCalculateUi):
 
         self.setupUi(self)
 
-        self.dlg_calculate_ld = DlgCalculateLD()
         self.dlg_calculate_tc = DlgCalculateTC()
         self.dlg_calculate_rest_biomass = DlgCalculateRestBiomass()
         self.dlg_calculate_urban = DlgCalculateUrban()
@@ -181,55 +178,6 @@ class DlgCalculate(QtWidgets.QDialog, DlgCalculateUi):
     def btn_urban_clicked(self):
         self.close()
         result = self.dlg_calculate_urban.exec_()
-
-
-class DlgCalculateLD(QtWidgets.QDialog, DlgCalculateLDUi):
-    def __init__(self, parent=None):
-        super().__init__(parent)
-
-        self.setupUi(self)
-
-        # TODO: Bad style - fix when refactoring
-        from LDMP.calculate_prod import DlgCalculateProd
-        from LDMP.calculate_lc import DlgCalculateLC
-        from LDMP.calculate_soc import DlgCalculateSOC
-        from LDMP.calculate_ldn import DlgCalculateOneStep, DlgCalculateLDNSummaryTableAdmin
-        self.dlg_calculate_prod = DlgCalculateProd()
-        self.dlg_calculate_lc = DlgCalculateLC()
-        self.dlg_calculate_soc = DlgCalculateSOC()
-        self.dlg_calculate_ldn_onestep = DlgCalculateOneStep()
-        self.dlg_calculate_ldn_advanced = DlgCalculateLDNSummaryTableAdmin()
-
-        self.btn_prod.clicked.connect(self.btn_prod_clicked)
-        self.btn_lc.clicked.connect(self.btn_lc_clicked)
-        self.btn_soc.clicked.connect(self.btn_soc_clicked)
-        self.btn_sdg_onestep.clicked.connect(self.btn_sdg_onestep_clicked)
-        self.btn_summary_single_polygon.clicked.connect(self.btn_summary_single_polygon_clicked)
-        self.btn_summary_multi_polygons.clicked.connect(self.btn_summary_multi_polygons_clicked)
-
-    def btn_prod_clicked(self):
-        self.close()
-        result = self.dlg_calculate_prod.exec_()
-
-    def btn_lc_clicked(self):
-        self.close()
-        result = self.dlg_calculate_lc.exec_()
-
-    def btn_soc_clicked(self):
-        self.close()
-        result = self.dlg_calculate_soc.exec_()
-
-    def btn_sdg_onestep_clicked(self):
-        self.close()
-        result = self.dlg_calculate_ldn_onestep.exec_()
-
-    def btn_summary_single_polygon_clicked(self):
-        self.close()
-        result = self.dlg_calculate_ldn_advanced.exec_()
-
-    def btn_summary_multi_polygons_clicked(self):
-        QtWidgets.QMessageBox.information(None, self.tr("Coming soon!"),
-                                      self.tr("Multiple polygon summary table calculation coming soon!"))
 
 
 class DlgCalculateTC(QtWidgets.QDialog, DlgCalculateTCUi):

@@ -149,14 +149,6 @@ def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
                 )
             )
 
-            res.append(
-                executor.submit(
-                    _get_spi,
-                    params.get('spi'),
-                    logger
-                )
-            )
-
             out = None
             for this_res in as_completed(res):
                 if out is None:
@@ -212,24 +204,6 @@ def _get_population(params, logger):
         [BandInfo(
             "Population",
             metadata={'year': year, 'data source': 'WorldPop', 'scaling': 10}
-        )]
-    )
-
-
-def _get_spi(params, logger):
-    '''Return SPI image for a particular year and lag'''
-    logger.debug("Returning SPI image")
-    year = params.get('year')
-    lag = params.get('lag')
-
-    spi_series = ee.Image(f'projects/trends_earth/spi/spi_GPCC_monthly_v2020_1971-2019_monthly_gamma_SPI_lag{lag}')
-    spi_img = spi_series.select(f'spi_{year}_12')
-
-    return TEImage(
-        spi_img.unmask(-32768).int16(),
-        [BandInfo(
-            "Standardized Precipitation Index (SPI)",
-            metadata={'year': year, 'lag': lag, 'data source': 'GPCC'}
         )]
     )
 

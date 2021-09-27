@@ -119,7 +119,7 @@ def compute_land_cover(lc_job: models.Job, area_of_interest: AOI) -> models.Job:
                 }
             ),
         ]
-        lc_job.results.local_paths = [dataset_output_path]
+        lc_job.results.data_path = dataset_output_path
     else:
         raise RuntimeError("Error calculating land cover change.")
     return lc_job

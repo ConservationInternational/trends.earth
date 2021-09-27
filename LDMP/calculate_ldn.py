@@ -227,6 +227,15 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                 ), # TODO: Use SOC matrix for the above once defined
             }
 
+            payload['population'] = {
+                'year': year_final
+            }
+
+            payload['spi'] = {
+                'year': year_final,
+                'lag': 12
+            }
+
             task_name = self.execution_name_le.text()
             if period == 'progress':
                 task_name = f'{task_name} - progress'

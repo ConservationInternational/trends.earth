@@ -35,6 +35,8 @@ from .logger import log
 
 DlgCalculateLCSetAggregationUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateLCSetAggregation.ui"))
+DlgDataIOImportLCUi, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/DlgDataIOImportLC.ui"))
 WidgetLcDefineDegradationUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/WidgetLCDefineDegradation.ui"))
 
@@ -47,9 +49,12 @@ mb = iface.messageBar()
 
 
 from te_schemas.land_cover import (
-        LCLegend, LCLegendNesting,
-        LCTransitionMeaningDeg,
-        LCTransitionDefinitionDeg)
+    LCLegend,
+    LCLegendNesting,
+    LCClass,
+    LCTransitionMeaningDeg,
+    LCTransitionDefinitionDeg
+)
 
 from marshmallow.exceptions import ValidationError
 class tr_lc_setup(object):
@@ -132,7 +137,7 @@ class LCAggTableModel(QtCore.QAbstractTableModel):
     def __init__(self, nesting, parent=None, *args):
         QtCore.QAbstractTableModel.__init__(self, parent, *args)
         self.nesting = nesting
-        
+
         # Column names as tuples with json name in [0], pretty name in [1]
         # Note that the columns with json names set to to INVALID aren't loaded
         # into the shell, but shown from a widget.
@@ -181,43 +186,69 @@ def read_lc_nesting_file(f):
         with open(f) as nesting_file:
             nesting = LCLegendNesting.Schema().loads(nesting_file.read())
     except ValidationError as e:
-        log(u'Error loading land cover legend nesting definition from {}: {}'.format(f, e))
-        QtWidgets.QMessageBox.critical(None,
-                                       tr_lc_setup.tr("Error"),
-                                       tr_lc_setup.tr("{} does not appear to contain a valid land cover legend nesting definition: {}".format(f, e)))
+        log("Error loading land cover legend "
+            f"nesting definition from {f}: {e}")
+        QtWidgets.QMessageBox.critical(
+            None,
+            tr_lc_setup.tr("Error"),
+            tr_lc_setup.tr(
+                f"{f} does not appear to contain a valid land cover legend "
+                f"nesting definition: {e}"
+            )
+        )
         return None
     else:
         log(u'Loaded land cover legend nesting definition from {}'.format(f))
-        return nesting 
+        return nesting
 
 
 def read_lc_matrix_file(f):
     if not os.access(f, os.R_OK):
-        QtWidgets.QMessageBox.critical(None,
-                tr_lc_setup.tr("Error"),
-                tr_lc_setup.tr(u"Cannot read {}.".format(f)))
+        QtWidgets.QMessageBox.critical(
+            None,
+            tr_lc_setup.tr("Error"),
+            tr_lc_setup.tr(u"Cannot read {}.".format(f))
+        )
         return None
 
     try:
         with open(f) as matrix_file:
-            matrix = LCTransitionDefinitionDeg.Schema().loads(matrix_file.read())
+            matrix = LCTransitionDefinitionDeg.Schema().loads(
+                matrix_file.read())
     except ValidationError as e:
-        log(u'Error loading land cover transition matrix from {}: {}'.format(f, e))
-        QtWidgets.QMessageBox.critical(None,
-                                       tr_lc_setup.tr("Error"),
-                                       tr_lc_setup.tr("{} does not appear to contain a valid land cover transition matrix definition: {}".format(f, e)))
+        log(f'Error loading land cover transition matrix from {f}: {e}')
+        QtWidgets.QMessageBox.critical(
+            None,
+            tr_lc_setup.tr("Error"),
+            tr_lc_setup.tr(
+                f"{f} does not appear to contain a valid land cover "
+                f"transition matrix definition: {e}"
+            )
+        )
         return None
     else:
-        log(u'Loaded land cover transition matrix definition from {}'.format(f))
+        log(f'Loaded land cover transition matrix definition from {f}')
         return matrix
 
 
-def get_lc_nesting():
-    nesting = QtCore.QSettings().value("LDMP/land_cover_nesting", None)
+def get_lc_nesting(get_default=False):
+    if not get_default:
+        nesting = QtCore.QSettings().value("LDMP/land_cover_nesting", None)
+    else:
+        nesting = None
+
     if nesting is None:
-        nesting = read_lc_nesting_file(os.path.join(os.path.dirname(os.path.realpath(__file__)),
-            'data', 'land_cover_nesting_unccd_esa.json'))
-        QtCore.QSettings().setValue("LDMP/land_cover_nesting", LCLegendNesting.Schema().dumps(nesting))
+        nesting = read_lc_nesting_file(
+            os.path.join(
+                os.path.dirname(os.path.realpath(__file__)),
+                'data',
+                'land_cover_nesting_unccd_esa.json'
+            )
+        )
+        QtCore.QSettings().setValue(
+            "LDMP/land_cover_nesting",
+            LCLegendNesting.Schema().dumps(nesting)
+        )
     else:
         nesting = LCLegendNesting.Schema().loads(nesting)
     return nesting
@@ -241,6 +272,7 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
         super().__init__(parent)
 
         self.nesting = nesting
+        self.child_legend = self.nesting.child
 
         self.setupUi(self)
 
@@ -300,15 +332,20 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
                 return
 
             with open(f, 'w') as outfile:
-                json.dump(LCLegendNesting.Schema().dump(self.nesting), 
-                          outfile, sort_keys=True, indent=4,
-                          separators=(',', ':'), default=json_serial)
+                json.dump(
+                    LCLegendNesting.Schema().dump(self.nesting), 
+                    outfile,
+                    sort_keys=True,
+                    indent=4,
+                    separators=(',', ':'),
+                    default=json_serial
+                )
 
 
-    def setup_class_table(self, nesting=None):
+    def setup_class_table(self, nesting_input=None):
         # Load the codes each class will be recoded to.
         # 
-        # The "nesting" parameter will include any mappings derived from a 
+        # The "nesting_input" parameter will include any mappings derived from a 
         # class definition file, or, in the case or reading in user land cover 
         # files, nesting from the file itself.
         # 
@@ -317,28 +354,73 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
         # is instantiated from the LCSetupWidget, or from the values within a 
         # custom user data file when this class is instantiated from the 
         # DlgDataIOImportLC class.
-        if nesting:
-            #TODO Fix loading of existing/new class definitions
-            child_codes = sorted([c.code for c in nesting.child.key])
-            default_codes = sorted([c.code for c in self.nesting.child.key])
-            new_codes = [c for c in child_codes if c not in default_codes]
-            missing_codes = [c for c in default_codes if c not in child_codes]
-            if len(new_codes) > 0:
-                QtWidgets.QMessageBox.warning(None,
-                                              self.tr("Warning"),
-                                              self.tr(u"Some of the class codes ({}) in the definition file do not appear in the chosen data file.".format(', '.join([str(c) for c in new_codes]))))
-            if len(missing_codes) > 0:
-                QtWidgets.QMessageBox.warning(None,
-                                              self.tr("Warning"),
-                                              self.tr(u"Some of the class codes ({}) in the data file do not appear in the chosen definition file.".format(', '.join([str(c) for c in missing_codes]))))
+        if nesting_input:
+            valid_child_codes = sorted([c.code for c in self.child_legend.key])
+            child_code_input = sorted([c.code for c in nesting_input.child.key])
+            log(f'valid_child_codes: {valid_child_codes}')
+            log(f'child_code_input: {child_code_input}')
+            unnecessary_child_codes = sorted([
+                c for c in child_code_input
+                if c not in valid_child_codes
+            ])
+            child_codes_missing_from_input = sorted([
+                c for c in valid_child_codes
+                if c not in child_code_input
+            ])
+            if len(unnecessary_child_codes) > 0:
+                QtWidgets.QMessageBox.warning(
+                    None,
+                    self.tr("Warning"),
+                    self.tr(
+                        f"Some of the class codes ({unnecessary_child_codes!r}) "
+                        "in the definition file do not appear in the chosen data "
+                        "file."
+                    )
+                )
+            if len(child_codes_missing_from_input) > 0:
+                QtWidgets.QMessageBox.warning(
+                    None,
+                    self.tr("Warning"),
+                    self.tr(
+                        f"Some of the class codes ({child_codes_missing_from_input!r}) "
+                        "in the data file do not appear in the chosen definition "
+                        "file."
+                    )
+                )
 
-            # Setup a new nesting list with the new class codes for all classes 
-            # included in default classes, and any other class codes that are 
-            # missing added from the default class list
-            nesting = [c for c in nesting if c['Child_Code'] in default_codes]
-            nesting.extend([c for c in self.nesting if c['Child_Code'] not in child_codes])
-        else:
-            nesting = self.nesting
+            # Remove unnecessary classes from the input child legend
+            nesting_input.child.key = [
+                c for c in nesting_input.child.key
+                if c.code in valid_child_codes
+            ]
+
+            # Supplement input child legend with missing classes
+            nesting_input.child.key.extend([
+                c for c in self.child_legend.key
+                if c.code in child_codes_missing_from_input
+            ])
+            log(f'nesting_input.child.key (post edit): {nesting_input.child.key}')
+
+            # Remove dropped classes from the nesting dict
+            new_child_codes = [c.code for c in nesting_input.child.key]
+            new_nesting_dict = {}
+            for key, values in nesting_input.nesting.items():
+                new_nesting_dict.update({
+                    key: [v for v in values if v in new_child_codes]
+                })
+            # And add into the nesting dict any classes that are in the data 
+            # but were missing from the input
+            log(f'new_nesting_dict pre edit: {new_nesting_dict}')
+            new_nesting_dict.update({
+                -32768: new_nesting_dict.get(-32768, []) + child_codes_missing_from_input
+            })
+
+            log(f'new_nesting_dict post edit: {new_nesting_dict}')
+            nesting_input.nesting = new_nesting_dict
+           
+            self.nesting = nesting_input
+
+        nesting = self.nesting
 
         table_model = LCAggTableModel(nesting, parent=self)
         proxy_model = QtCore.QSortFilterProxyModel()
@@ -378,6 +460,157 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
 
     def reset_class_table(self):
         self.setup_class_table()
+
+
+class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
+
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+        # This needs to be inserted after the lc definition widget but before 
+        # the button box with ok/cancel
+        self.output_widget = data_io.ImportSelectRasterOutput()
+        self.verticalLayout.insertWidget(2, self.output_widget)
+
+        self.input_widget.inputFileChanged.connect(self.input_changed)
+        self.input_widget.inputTypeChanged.connect(self.input_changed)
+
+        self.checkBox_use_sample.stateChanged.connect(self.clear_dlg_agg)
+
+        self.btn_agg_edit_def.clicked.connect(self.agg_edit)
+        self.btn_agg_edit_def.setEnabled(False)
+
+        self.dlg_agg = None
+
+    def showEvent(self, event):
+        super(DlgDataIOImportLC, self).showEvent(event)
+
+        # Reset flags to avoid reloading of unique values when files haven't 
+        # changed:
+        self.last_raster = None
+        self.last_band_number = None
+        self.last_vector = None
+        self.idx = None
+
+    def done(self, value):
+        if value == QtWidgets.QDialog.Accepted:
+            self.validate_input(value)
+        else:
+            super().done(value)
+
+    def validate_input(self, value):
+        if self.output_widget.lineEdit_output_file.text() == '':
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Choose an output file."))
+            return
+        if  not self.dlg_agg:
+            QtWidgets.QMessageBox.information(None, self.tr("No definition set"), self.tr('Click "Edit Definition" to define the land cover definition before exporting.', None))
+            return
+        if self.input_widget.spinBox_data_year.text() == self.input_widget.spinBox_data_year.specialValueText():
+            QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr(u"Enter the year of the input data."))
+            return
+
+        ret = super(DlgDataIOImportLC, self).validate_input(value)
+        if not ret:
+            return
+
+        super(DlgDataIOImportLC, self).done(value)
+
+        self.ok_clicked()
+
+    def clear_dlg_agg(self):
+        self.dlg_agg = None
+
+    def input_changed(self, valid):
+        if valid:
+            self.btn_agg_edit_def.setEnabled(True)
+        else:
+            self.btn_agg_edit_def.setEnabled(False)
+        self.clear_dlg_agg()
+        if self.input_widget.radio_raster_input.isChecked():
+            self.checkBox_use_sample.setEnabled(True)
+            self.checkBox_use_sample_description.setEnabled(True)
+        else:
+            self.checkBox_use_sample.setEnabled(False)
+            self.checkBox_use_sample_description.setEnabled(False)
+
+    def load_agg(self, values):
+        # Set all of the classes to no data by default, and default to nesting 
+        # be under the CCD legend
+        default_nesting = get_lc_nesting(get_default=True)
+
+        # From the default nesting class instance, setup the actual nesting 
+        # dictionary so that all the default classes have no values nested 
+        # under them, except for no data - nest all of the values in this 
+        # dataset under nodata (-32768) until the user determines otherwise
+        nest = {
+            c: [] for c in default_nesting.parent.codes()
+        }
+        nest.update({-32768: values})
+
+        nesting = LCLegendNesting(
+            parent=default_nesting.parent,
+            child=LCLegend(
+                'Default remap',
+                [LCClass(value, str(value)) for value in sorted(values)]
+            ),
+            nesting=nest
+        )
+        self.dlg_agg = DlgCalculateLCSetAggregation(nesting, parent=self)
+
+    def agg_edit(self):
+        if self.input_widget.radio_raster_input.isChecked():
+            f = self.input_widget.lineEdit_raster_file.text()
+            band_number = int(self.input_widget.comboBox_bandnumber.currentText())
+            if not self.dlg_agg or \
+                    (self.last_raster != f or self.last_band_number != band_number):
+                values = data_io.get_unique_values_raster(f, int(self.input_widget.comboBox_bandnumber.currentText()), self.checkBox_use_sample.isChecked())
+                if not values:
+                    QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Error reading data. Trends.Earth supports a maximum of 60 different land cover classes"))
+                    return
+                self.last_raster = f
+                self.last_band_number = band_number
+                self.load_agg(values)
+        else:
+            f = self.input_widget.lineEdit_vector_file.text()
+            l = self.input_widget.get_vector_layer()
+            idx = l.fields().lookupField(self.input_widget.comboBox_fieldname.currentText())
+            if not self.dlg_agg or \
+                    (self.last_vector != f or self.last_idx != idx):
+                values = data_io.get_unique_values_vector(l, self.input_widget.comboBox_fieldname.currentText())
+                if not values:
+                    QtWidgets.QMessageBox.critical(None, self.tr("Error"), self.tr("Error reading data. Trends.Earth supports a maximum of 60 different land cover classes"))
+                    return
+                self.last_vector = f
+                self.last_idx = idx
+                self.load_agg(values)
+        self.dlg_agg.exec_()
+
+    def ok_clicked(self):
+        out_file = self.output_widget.lineEdit_output_file.text()
+        if self.input_widget.radio_raster_input.isChecked():
+            in_file = self.input_widget.lineEdit_raster_file.text()
+            #TODO: Fix this for new nesting format
+            remap_ret = self.remap_raster(in_file, out_file, self.dlg_agg.get_agg_as_list())
+        else:
+            attribute = self.input_widget.comboBox_fieldname.currentText()
+            l = self.input_widget.get_vector_layer()
+            remap_ret = self.remap_vector(l,
+                                          out_file, 
+            #TODO: Fix this for new nesting format
+                                          self.dlg_agg.get_agg_as_dict(), 
+                                          attribute)
+        if not remap_ret:
+            return False
+
+        job = job_manager.create_job_from_dataset(
+            Path(out_file),
+            "Land cover (7 class)",
+            {
+                'year': int(self.input_widget.spinBox_data_year.text()),
+                'source': 'custom data'
+            }
+        )
+        job_manager.import_job(job)
 
 
 class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):

@@ -27,6 +27,7 @@ from landdegradation.land_cover import land_cover
 from landdegradation.population import get_worldpop
 from landdegradation.soc import soc
 from landdegradation.download import download
+from landdegradation.util import TEImage
 
 from te_schemas.schemas import CloudResultsSchema, BandInfo
 from te_schemas.land_cover import LCTransitionDefinitionDeg, LCLegendNesting
@@ -164,8 +165,9 @@ def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
 
             res.append(
                 executor.submit(
-                    _get_worldpop,
-                    params.get('year_final')
+                    _get_population,
+                    params.get('population'),
+                    logger
                 )
             )
 
@@ -208,6 +210,24 @@ def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
     # added to it
 
     return schema.dump(final_prod)
+
+
+
+def _get_population(params, logger):
+    '''Return worldpop population data for a given year'''
+    logger.debug("Returning population image")
+    year = params.get('year')
+
+    wp_col = ee.Image("users/geflanddegradation/toolbox_datasets/worldpop_ppp_2000_2020_1km_global")
+    wp = wp_col.select(f'p{year}')
+
+    return TEImage(
+        wp.unmask(-32768).int16(),
+        [BandInfo(
+            "Population",
+            metadata={'year': year, 'data source': 'WorldPop', 'scaling': 10}
+        )]
+    )
 
 
 def run_jrc_for_period(params, EXECUTION_ID, logger):

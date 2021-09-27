@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>581</width>
-    <height>344</height>
+    <height>380</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -61,7 +61,7 @@
          <bool>true</bool>
         </property>
         <property name="text">
-         <string>Raster dataset (.tif, .dat, .img)</string>
+         <string>Raster dataset (.tif, .dat, .img, .vrt)</string>
         </property>
         <property name="checked">
          <bool>true</bool>

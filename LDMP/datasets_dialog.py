@@ -59,18 +59,18 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
         self.alg_le.setText(self.job.script.name)
         empty_paths_msg = "This dataset does not have local paths"
 
-        local_paths_exist = False
+        data_path_exist = False
         if self.job.results is not None:
-            local_paths = self.job.results.local_paths
-            if len(local_paths) > 0:
-                path_le_text = ", ".join(str(p) for p in local_paths)
-                local_paths_exist = True
+            data_path = self.job.results.data_path
+            if data_path:
+                path_le_text = str(data_path)
+                data_path_exist = True
             else:
                 path_le_text = empty_paths_msg
         else:
             path_le_text = f"{empty_paths_msg}_yet"
-        self.load_btn.setEnabled(local_paths_exist)
-        self.export_btn.setEnabled(local_paths_exist)
+        self.load_btn.setEnabled(data_path_exist)
+        self.export_btn.setEnabled(data_path_exist)
         self.path_le.setText(path_le_text)
         self.load_btn.setIcon(
             QtGui.QIcon(':/plugins/LDMP/icons/mActionAddRasterLayer.svg'))
@@ -104,7 +104,7 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
 
     def load_dataset(self):
         if self.job.results is not None:
-            manager.job_manager.display_job_results(self.job)
+            manager.job_manager.display_default_job_results(self.job)
             self.accept()
 
     def open_job_directory(self):
@@ -127,7 +127,7 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
         current_job_file_path = manager.job_manager.get_job_file_path(self.job)
         target_zip_name = f"{current_job_file_path.stem}.zip"
         target_path = manager.job_manager.exports_dir / target_zip_name
-        paths_to_zip = self.job.results.local_paths + [current_job_file_path]
+        paths_to_zip = [self.job.results.data_path] + self.job.results.other_paths + [current_job_file_path]
         try:
             with ZipFile(target_path, 'w') as zip:
                 for path in paths_to_zip:

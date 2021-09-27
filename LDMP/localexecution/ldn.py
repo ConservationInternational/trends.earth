@@ -81,6 +81,8 @@ LC_DEG_BAND_NAME = "Land cover (degradation)"
 LC_BAND_NAME = "Land cover (7 class)"
 SOC_DEG_BAND_NAME = "Soil organic carbon (degradation)"
 SOC_BAND_NAME = "Soil organic carbon"
+POPULATION_BAND_NAME = "Population"
+SPI_BAND_NAME = "Standarized Precipitation Index (SPI)"
 
 
 class LdnProductivityMode(enum.Enum):
@@ -185,6 +187,8 @@ class SummaryTableWidgets:
     combo_layer_lpd: data_io.WidgetDataIOSelectTELayerImport
     combo_layer_lc: data_io.WidgetDataIOSelectTELayerExisting
     combo_layer_soc: data_io.WidgetDataIOSelectTELayerExisting
+    combo_layer_pop: data_io.WidgetDataIOSelectTELayerExisting
+    combo_layer_spi: data_io.WidgetDataIOSelectTELayerExisting
     radio_te_prod: QtWidgets.QRadioButton
     radio_lpd_jrc: QtWidgets.QRadioButton
 
@@ -216,6 +220,8 @@ class SummaryTableWidgets:
         self.combo_layer_state.populate()
         self.combo_layer_lc.populate()
         self.combo_layer_soc.populate()
+        self.combo_layer_pop.populate()
+        self.combo_layer_spi.populate()
 
     def set_combo_selections_from_job_id(self, job_id):
         self.combo_layer_lpd.set_index_from_job_id(job_id)
@@ -276,14 +282,21 @@ def get_main_sdg_15_3_1_job_params(
         combo_layer_traj: data_io.WidgetDataIOSelectTELayerExisting,
         combo_layer_perf: data_io.WidgetDataIOSelectTELayerExisting,
         combo_layer_state: data_io.WidgetDataIOSelectTELayerExisting,
-        combo_layer_lpd: data_io.WidgetDataIOSelectTELayerImport,
+        combo_layer_lpd: data_io.WidgetDataIOSelectTELayerExisting,
+        combo_layer_spi: data_io.WidgetDataIOSelectTELayerExisting,
+        combo_layer_pop: data_io.WidgetDataIOSelectTELayerExisting,
         task_notes: Optional[str] = "",
 ) -> Dict:
 
     land_cover_inputs = _get_ldn_inputs(
-        combo_layer_lc, "Land cover (7 class)")
+        combo_layer_lc, LC_BAND_NAME)
     soil_organic_carbon_inputs = _get_ldn_inputs(
-        combo_layer_soc, "Soil organic carbon")
+        combo_layer_soc, SOC_BAND_NAME)
+    spi_input = _get_ldn_inputs(
+        combo_layer_soc, SPI_BAND_NAME)
+    population_input = _get_ldn_inputs(
+        combo_layer_soc, POPULATION_BAND_NAME)
+
     crosses_180th, geojsons = aoi.bounding_box_gee_geojson()
 
     traj_path = None
@@ -362,6 +375,8 @@ def get_main_sdg_15_3_1_job_params(
         "layer_lpd_path": lpd_path,
         "layer_lpd_band": models.JobBand.Schema().dump(lpd_band),
         "layer_lpd_band_index": lpd_index,
+        "layer_pop_path": str(population_input.path),
+        "layer_spi_path": str(spi_input.path),
         "crs": aoi.get_crs_dst_wkt(),
         "geojsons": json.dumps(geojsons),
         "crosses_180th": crosses_180th,
@@ -421,8 +436,10 @@ def compute_ldn(
     period_vrts = []
 
     for period, period_params in ldn_job.params.params.items():
-        lc_dfs = _prepare_land_cover_file_paths(period_params)
-        soc_dfs = _prepare_soil_organic_carbon_file_paths(period_params)
+        lc_dfs = _prepare_land_cover_dfs(period_params)
+        soc_dfs = _prepare_soil_organic_carbon_dfs(period_params)
+        spi_df = _prepare_spi_df(period_params)
+        population_df = _prepare_population_df(period_params)
         sub_job_output_path = job_output_path.parent / f"{job_output_path.stem}_{period}.json"
         _, wkt_bounding_boxes = area_of_interest.meridian_split("layer", "wkt", warn=False)
         prod_mode = period_params["prod_mode"]
@@ -470,16 +487,16 @@ def compute_ldn(
         }
 
         if prod_mode == LdnProductivityMode.TRENDS_EARTH.value:
-            traj, perf, state = _prepare_trends_earth_mode_vrt_paths(period_params)
-            in_dfs = lc_dfs + soc_dfs + [traj, perf, state]
+            traj, perf, state = _prepare_trends_earth_mode_dfs(period_params)
+            in_dfs = lc_dfs + soc_dfs + [traj, perf, state] + spi_df + population_df
             summary_table, sdg_path, reproj_path = _compute_summary_table_from_te_prod(
                 in_dfs=in_dfs,
                 compute_bbs_from=traj.path,
                 **summary_table_stable_kwargs[period]
             )
         elif prod_mode == LdnProductivityMode.JRC_LPD.value:
-            lpd = _prepare_jrc_lpd_mode_vrt_path(period_params)
-            in_dfs = lc_dfs + soc_dfs + [lpd]
+            lpd = _prepare_jrc_lpd_mode_df(period_params)
+            in_dfs = lc_dfs + soc_dfs + [lpd] + spi_df + population_df
             summary_table, sdg_path, reproj_path = _compute_summary_table_from_lpd_prod(
                 in_dfs=in_dfs,
                 compute_bbs_from=lpd.path,
@@ -657,7 +674,7 @@ def _combine_all_bands_into_vrt(in_files: List[Path], out_file: Path):
     return True
 
 
-def _prepare_land_cover_file_paths(params: Dict) -> List[DataFile]:
+def _prepare_land_cover_dfs(params: Dict) -> List[DataFile]:
     lc_path = params["layer_lc_path"]
     lc_dfs = [
         DataFile(
@@ -685,7 +702,37 @@ def _prepare_land_cover_file_paths(params: Dict) -> List[DataFile]:
     return lc_dfs
 
 
-def _prepare_soil_organic_carbon_file_paths(
+def _prepare_spi_df(
+    params: Dict
+) -> List[DataFile]:
+    spi_path = params["layer_spi_path"]
+    spi_df = DataFile(
+        path=utils.save_vrt(
+            spi_path,
+            params["layer_spi_main_band_index"]
+        ),
+        bands=[models.JobBand(**params["layer_spi_main_band"])]
+    )
+
+    return spi_df
+
+
+def _prepare_population_df(
+    params: Dict
+) -> List[DataFile]:
+    population_path = params["layer_pop_path"]
+    population_df = DataFile(
+        path=utils.save_vrt(
+            population_path,
+            params["layer_population_main_band_index"]
+        ),
+        bands=[models.JobBand(**params["layer_population_main_band"])]
+    )
+
+    return population_df
+
+
+def _prepare_soil_organic_carbon_dfs(
     params: Dict
 ) -> List[DataFile]:
     soc_path = params["layer_soc_path"]
@@ -716,7 +763,7 @@ def _prepare_soil_organic_carbon_file_paths(
     return soc_dfs
 
 
-def _prepare_trends_earth_mode_vrt_paths(
+def _prepare_trends_earth_mode_dfs(
     params: Dict
 ) -> Tuple[DataFile, DataFile, DataFile]:
     traj_vrt_df = DataFile(
@@ -743,7 +790,7 @@ def _prepare_trends_earth_mode_vrt_paths(
     return traj_vrt_df, perf_vrt_df, state_vrt_df
 
 
-def _prepare_jrc_lpd_mode_vrt_path(
+def _prepare_jrc_lpd_mode_df(
     params: Dict
 ) -> DataFile:
     return DataFile(
@@ -1369,6 +1416,13 @@ def _process_block(
         cell_areas,
         mask
     )
+
+    ###########################################################
+    # Population affected by drought
+
+    ###########################################################
+    # Population affected by degradation
+    pop_bands = params.in_df.array_rows_for_name(POPULATION_BAND_NAME)
 
     return (
         SummaryTable(

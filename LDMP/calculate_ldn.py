@@ -305,6 +305,8 @@ class DlgCalculateLDNSummaryTableAdmin(
             combo_layer_lpd=self.combo_layer_lpd_baseline,
             combo_layer_lc=self.combo_layer_lc_baseline,
             combo_layer_soc=self.combo_layer_soc_baseline,
+            combo_layer_pop=self.combo_layer_population_baseline,
+            combo_layer_spi=self.combo_layer_spi_baseline,
             radio_te_prod=self.radio_te_prod_baseline,
             radio_lpd_jrc=self.radio_lpd_jrc_baseline
         )
@@ -316,6 +318,8 @@ class DlgCalculateLDNSummaryTableAdmin(
             combo_layer_lpd=self.combo_layer_lpd_progress,
             combo_layer_lc=self.combo_layer_lc_progress,
             combo_layer_soc=self.combo_layer_soc_progress,
+            combo_layer_pop=self.combo_layer_population_progress,
+            combo_layer_spi=self.combo_layer_spi_progress,
             radio_te_prod=self.radio_te_prod_progress,
             radio_lpd_jrc=self.radio_lpd_jrc_progress
         )
@@ -572,9 +576,10 @@ class DlgCalculateLDNSummaryTableAdmin(
                 combo_layer_soc=self.combo_boxes['baseline'].combo_layer_soc,
                 combo_layer_traj=self.combo_boxes['baseline'].combo_layer_traj,
                 combo_layer_perf=self.combo_boxes['baseline'].combo_layer_perf,
-    
                 combo_layer_state=self.combo_boxes['baseline'].combo_layer_state,
                 combo_layer_lpd=self.combo_boxes['baseline'].combo_layer_lpd,
+                combo_layer_pop=self.combo_boxes['baseline'].combo_layer_pop,
+                combo_layer_spi=self.combo_boxes['baseline'].combo_layer_spi,
                 task_notes=self.options_tab.task_notes.toPlainText()
             )
         }
@@ -610,6 +615,8 @@ class DlgCalculateLDNSummaryTableAdmin(
                     combo_layer_perf=self.combo_boxes['progress'].combo_layer_perf,
                     combo_layer_state=self.combo_boxes['progress'].combo_layer_state,
                     combo_layer_lpd=self.combo_boxes['progress'].combo_layer_lpd,
+                    combo_layer_pop=self.combo_boxes['baseline'].combo_layer_pop,
+                    combo_layer_spi=self.combo_boxes['baseline'].combo_layer_spi,
                     task_notes=self.options_tab.task_notes.toPlainText()
                 )
             })

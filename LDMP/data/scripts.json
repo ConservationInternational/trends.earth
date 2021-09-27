@@ -18,6 +18,19 @@
         "name_readable": "Download LandPKS data",
         "run_mode": "local"
     },
+    "drought-vulnerability": {
+        "description": "Calculate indicators of drought vulnerability",
+        "id": "c5ab9fb5-5889-44d6-b2c5-07b6ac914a03",
+        "name_readable": "Drought vulnerability",
+        "run_mode": "remote",
+        "version": "1.0.9"
+    },
+    "drought-vulnerability-summary": {
+        "description": "Calculate change in drought vulnerability indicators",
+        "execution_callable": "LDMP.localexecution.drought.compute_drought_vulnerability",
+        "name_readable": "Drought vulnerability summary",
+        "run_mode": "local"
+    },
     "land-cover": {
         "description": "Calculate land cover change",
         "id": "368306cc-f9f9-4ee1-a83f-1ab9d223ffec",

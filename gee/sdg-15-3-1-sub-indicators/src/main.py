@@ -24,14 +24,12 @@ from landdegradation.productivity import (
     productivity_state
 )
 from landdegradation.land_cover import land_cover
-from landdegradation.population import get_worldpop
 from landdegradation.soc import soc
 from landdegradation.download import download
 from landdegradation.util import TEImage
 
 from te_schemas.schemas import CloudResultsSchema, BandInfo
 from te_schemas.land_cover import LCTransitionDefinitionDeg, LCLegendNesting
-from landdegradation.util import TEImage
 
 
 def _run_lc(params, logger):
@@ -72,26 +70,6 @@ def _run_soc(params, logger):
                          'Soil organic carbon'])
 
     return soc_out
-
-
-def _get_worldpop(
-    year,
-    population_asset='users/geflanddegradation/toolbox_datasets/worldpop_ppp_2000_2020_1km_global'
-):
-    '''Return WorldPop data for given year'''
-
-    year_string = 'p' + str(year)
-
-    pop_img_col = ee.Image(population_asset)
-    pop_img = pop_img_col.select(year_string)
-
-    band_info = [BandInfo(
-        'Population',
-        add_to_map=False,
-        metadata=pop_img.getInfo()['properties']
-    )]
-
-    return TEImage(pop_img, band_info)
 
 
 def run_te_for_period(params, max_workers, EXECUTION_ID, logger):

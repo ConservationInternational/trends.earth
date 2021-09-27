@@ -4,6 +4,8 @@ import datetime as dt
 import enum
 import json
 import tempfile
+import re
+import shutil
 
 from typing import (
     List,
@@ -412,9 +414,11 @@ def compute_ldn(
 
     job_output_path, _ = utils.get_local_job_output_paths(ldn_job)
 
-    ldn_job.results.local_paths = []
     summary_tables = {}
     summary_table_stable_kwargs = {}
+
+    period_dfs = []
+    period_vrts = []
 
     for period, period_params in ldn_job.params.params.items():
         lc_dfs = _prepare_land_cover_file_paths(period_params)
@@ -495,7 +499,6 @@ def compute_ldn(
             },
             activated=True
         )
-        ldn_job.results.bands.append(sdg_band)
         sdg_df = DataFile(sdg_path, [sdg_band])
 
         if prod_mode == LdnProductivityMode.TRENDS_EARTH.value:
@@ -508,15 +511,26 @@ def compute_ldn(
                 },
                 activated=True
             )
-            ldn_job.results.bands.append(sdg_prod_band)
             sdg_df.bands.append(sdg_prod_band)
 
         reproj_df = _combine_data_files(reproj_path, in_dfs)
+        # Don't add any of the input layers to the map by default - only SDG 
+        # and prod, which are already marked add_to_map=True
+        for band in reproj_df.bands:
+            band.add_to_map = False
 
-        for df in [sdg_df, reproj_df]:
-            key_json = df.path.parent / f'{df.path.stem}_key.json'
-            with open(key_json, 'w') as f:
-                json.dump(DataFile.Schema().dump(df), f, indent=4)
+        period_vrt = job_output_path.parent / f"{sub_job_output_path.stem}_rasterdata.vrt"
+        _combine_all_bands_into_vrt([reproj_path, sdg_path], period_vrt)
+
+        # Now that there is a single VRT with all files in it, combine the DFs 
+        # into it so that it can be used to source band names/metadata for the 
+        # job bands list
+        period_df = _combine_data_files(period_vrt, [sdg_df, reproj_df])
+        for band in period_df.bands:
+            band.metadata['period'] = period
+        period_dfs.append(period_df)
+        
+        period_vrts.append(period_vrt)
 
         summary_table_output_path = sub_job_output_path.parent / f"{sub_job_output_path.stem}.xlsx"
         save_summary_table_excel(
@@ -529,13 +543,18 @@ def compute_ldn(
             period
         )
 
-        ldn_job.results.local_paths.extend([
-            sdg_path,
-            #reproj_path  # TODO: Need to figure out how to enumerate bands in this file properly
-        ])
+    overall_vrt_path = job_output_path.parent / f"{job_output_path.stem}.vrt"
+    _combine_all_bands_into_vrt(period_vrts, overall_vrt_path)
+    out_df = _combine_data_files(overall_vrt_path, period_dfs)
 
-    # combined_vrt_path = job_output_path.parent / f"{job_output_path.stem}_all_bands.vrt"
-    # _combine_all_bands_into_vrt([reproj_path, sdg_path], combined_vrt_path)
+    ldn_job.results.data_path = overall_vrt_path
+    ldn_job.results.bands.extend(out_df.bands)
+
+    # Also save bands to a key file for ease of use in PRAIS
+    key_json = job_output_path.parent / f"{job_output_path.stem}_band_key.json"
+    with open(key_json, 'w') as f:
+        json.dump(DataFile.Schema().dump(out_df), f, indent=4)
+
 
     summary_json_output_path = job_output_path.parent / f"{job_output_path.stem}_summary.json"
     save_reporting_json(
@@ -558,18 +577,17 @@ def _combine_all_bands_into_vrt(in_files: List[Path], out_file: Path):
     All bands must have the same extent, resolution, and crs
     '''
 
-
-    simple_source_raw = '''<SimpleSource>
-    <SourceFilename relativeToVRT="1">{relative_path}</SourceFilename>
-    <SourceBand>1</SourceBand>
-    <SrcRect xOff="0" yOff="0" xSize="{out_Xsize}" ySize="{out_Ysize}"/>
-    <DstRect xOff="0" yOff="0" xSize="{out_Xsize}" ySize="{out_Ysize}"/>
-</SimpleSource>'''
+    simple_source_raw = '''    <SimpleSource>
+        <SourceFilename relativeToVRT="1">{relative_path}</SourceFilename>
+        <SourceBand>{source_band_num}</SourceBand>
+        <SrcRect xOff="0" yOff="0" xSize="{out_Xsize}" ySize="{out_Ysize}"/>
+        <DstRect xOff="0" yOff="0" xSize="{out_Xsize}" ySize="{out_Ysize}"/>
+    </SimpleSource>'''
     
     for file_num, in_file in enumerate(in_files):
-        ds = gdal.Open(str(in_file))
-        this_gt = ds.GetGeoTransform()
-        this_proj = ds.GetProjectionRef()
+        in_ds = gdal.Open(str(in_file))
+        this_gt = in_ds.GetGeoTransform()
+        this_proj = in_ds.GetProjectionRef()
         if file_num == 0:
             out_gt = this_gt
             out_proj = this_proj
@@ -577,9 +595,9 @@ def _combine_all_bands_into_vrt(in_files: List[Path], out_file: Path):
             assert out_gt == this_gt
             assert out_proj == this_proj
 
-        for band_num in range(1, ds.RasterCount + 1):
-            this_dt = ds.GetRasterBand(band_num).DataType
-            this_band = ds.GetRasterBand(band_num)
+        for band_num in range(1, in_ds.RasterCount + 1):
+            this_dt = in_ds.GetRasterBand(band_num).DataType
+            this_band = in_ds.GetRasterBand(band_num)
             this_Xsize = this_band.XSize
             this_Ysize = this_band.YSize
             if band_num == 1:
@@ -588,28 +606,56 @@ def _combine_all_bands_into_vrt(in_files: List[Path], out_file: Path):
                 out_Ysize = this_Ysize
                 if file_num == 0:
                     # If this is the first band of the first file, need to 
-                    # create the output VRT file (in memory)
+                    # create the output VRT file
                     driver = gdal.GetDriverByName("VRT")
-                    mem_ds = driver.Create(
+                    out_ds = driver.Create(
                         str(out_file),
                         out_Xsize,
                         out_Ysize,
                         0,
                         out_dt
                     )
-                    mem_ds.SetGeoTransform(out_gt)
-                    mem_srs = osr.SpatialReference()
-                    mem_srs.ImportFromWkt(out_proj)
-                    mem_ds.SetProjection(mem_srs.ExportToWkt())
+                    out_ds.SetGeoTransform(out_gt)
+                    out_srs = osr.SpatialReference()
+                    out_srs.ImportFromWkt(out_proj)
+                    out_ds.SetProjection(out_srs.ExportToWkt())
             else:
                 assert this_dt == out_dt
                 assert this_Xsize == out_Xsize
                 assert this_Ysize == out_Ysize
 
-            mem_ds.AddBand(out_dt)
-            mem_ds.SetMetadata()
+            out_ds.AddBand(out_dt)
+            # The new band will always be last band in out_ds
+            band = out_ds.GetRasterBand(out_ds.RasterCount)
+
+
+            md = {}
+            log(f'in_file.name: {in_file.name}')
+            md['source_0'] = simple_source_raw.format(
+                relative_path=in_file,
+                source_band_num=band_num,
+                out_Xsize=out_Xsize,
+                out_Ysize=out_Ysize
+            )
+            band.SetMetadata(md, 'vrt_sources')
+
+    out_ds = None
+
+    # Use a regex to remove the parent elements from the paths for each band 
+    # (have to include them when setting metadata or else GDAL throws an error)
+    fh, new_file = tempfile.mkstemp()
+    new_file = Path(new_file)
+    with new_file.open('w') as fh_new:
+        with out_file.open() as fh_old:
+            for line in fh_old:
+                fh_new.write(
+                    line.replace(str(out_file.parents[0]), '.')
+                )
+    out_file.unlink()
+    shutil.copy(str(new_file), str(out_file))
 
     return True
+
 
 def _prepare_land_cover_file_paths(params: Dict) -> List[DataFile]:
     lc_path = params["layer_lc_path"]

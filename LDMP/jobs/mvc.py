@@ -24,6 +24,7 @@ from . import (
     models,
 )
 
+from ..data_io import DlgDataIOAddLayersToMap
 from ..datasets_dialog import DatasetDetailsDialogue
 
 WidgetDatasetItemUi, _ = uic.loadUiType(
@@ -201,7 +202,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
     job: models.Job
     main_dock: "MainWidget"
 
-    add_to_canvas_tb: QtWidgets.QToolButton
+    add_to_canvas_pb: QtWidgets.QPushButton
     creation_date_la: QtWidgets.QLabel
     delete_tb: QtWidgets.QToolButton
     download_tb: QtWidgets.QToolButton
@@ -216,7 +217,10 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         self.job = job
         self.main_dock = main_dock
         self.setAutoFillBackground(True)  # allows hiding background prerendered pixmap
-        self.add_to_canvas_tb.clicked.connect(self.load_dataset)
+
+        self.load_data_menu_setup()
+        self.add_to_canvas_pb.setMenu(self.load_data_menu)
+
         self.open_details_tb.clicked.connect(self.show_details)
         self.open_directory_tb.clicked.connect(self.open_job_directory)
         self.delete_tb.clicked.connect(
@@ -228,7 +232,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             QtGui.QIcon(':/images/themes/default/mActionPropertiesWidget.svg'))
         self.open_directory_tb.setIcon(
             QtGui.QIcon(':/images/themes/default/mActionFileOpen.svg'))
-        self.add_to_canvas_tb.setIcon(
+        self.add_to_canvas_pb.setIcon(
             QtGui.QIcon(':/images/themes/default/mActionAddRasterLayer.svg'))
         self.download_tb.setIcon(
             QtGui.QIcon(':/plugins/LDMP/icons/cloud-download.svg'))
@@ -247,7 +251,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             self.progressBar.setFormat('Processing...')
             self.progressBar.show()
             self.download_tb.hide()
-            self.add_to_canvas_tb.setEnabled(False)
+            self.add_to_canvas_pb.setEnabled(False)
         elif self.job.status == models.JobStatus.FINISHED:
             self.progressBar.hide()
             result_auto_download = settings_manager.get_value(Setting.DOWNLOAD_RESULTS)
@@ -259,20 +263,20 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                 self.download_tb.clicked.connect(
                     functools.partial(manager.job_manager.download_job_results, job)
                 )
-            self.add_to_canvas_tb.setEnabled(False)
+            self.add_to_canvas_pb.setEnabled(False)
         elif self.job.status in (
                 models.JobStatus.DOWNLOADED, models.JobStatus.GENERATED_LOCALLY):
             self.progressBar.hide()
             self.download_tb.hide()
-            self.add_to_canvas_tb.setEnabled(self.has_loadable_result())
+            self.add_to_canvas_pb.setEnabled(self.has_loadable_result())
 
     def has_loadable_result(self):
         result = False
         if self.job.results is not None:
-            for local_path in self.job.results.local_paths:
-                if local_path.suffix in [".vrt", ".tif"] and local_path.exists():
-                    result = True
-                    break
+            if (self.job.results.data_path and
+                    self.job.results.data_path.suffix in [".vrt", ".tif"] and
+                    self.job.results.data_path.exists()):
+                result = True
         return result
 
     def show_details(self):
@@ -289,5 +293,25 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         # working correctly (as of Jun 2021 on Ubuntu)
         openFolder(str(job_directory))
 
+    def load_data_menu_setup(self):
+        self.load_data_menu = QtWidgets.QMenu()
+        action_add_default_data_to_map = self.load_data_menu.addAction(
+            self.tr("Add default layers from this dataset to map")
+        )
+        action_add_default_data_to_map.triggered.connect(
+            self.load_dataset)
+        action_choose_layers_to_add_to_map = self.load_data_menu.addAction(
+            self.tr("Select specific layers from this dataset to add to map...")
+        )
+        action_choose_layers_to_add_to_map.triggered.connect(
+            self.load_dataset_choose_layers)
+
     def load_dataset(self):
-        manager.job_manager.display_job_results(self.job)
+        manager.job_manager.display_default_job_results(self.job)
+
+    def load_dataset_choose_layers(self):
+        dialogue = DlgDataIOAddLayersToMap(
+            self,
+            self.job
+        )
+        dialogue.exec_()

@@ -110,7 +110,7 @@ def compute_soil_organic_carbon(
             )
             bands.append(lc_band)
         soc_job.results.bands = bands
-        soc_job.results.local_paths = [dataset_output_path]
+        soc_job.results.data_path = dataset_output_path
     else:
         raise RuntimeError("Error calculating soil organic carbon")
     return soc_job

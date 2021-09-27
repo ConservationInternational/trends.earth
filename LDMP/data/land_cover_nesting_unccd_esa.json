@@ -50,6 +50,13 @@
                 "name_short": "Water body",
                 "description": null,
                 "color": "#0053C4"
+            },
+            {
+                "code": -32768,
+                "name_long": "No data",
+                "name_short": "No data",
+                "description": null,
+                "color": "#000000"
             }
         ]
     },
@@ -314,6 +321,13 @@
                 "name_short": null,
                 "description": null,
                 "color": "#FFFFFF"
+            },
+            {
+                "code": -32768,
+                "name_long": "No data",
+                "name_short": "No data",
+                "description": null,
+                "color": "#000000"
             }
         ]
     },
@@ -368,6 +382,9 @@
         ],
         "7": [
             210
+        ],
+        "-32768": [
+            -32768
         ]
     }
 }

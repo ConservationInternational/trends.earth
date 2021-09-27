@@ -102,10 +102,8 @@ def compute_biomass_restoration(
     else:
         output_path = job_output_path.parent / f"{job_output_path.stem}.vrt"
         gdal.BuildVRT(str(output_path), output_biomass_diff_tifs)
-    biomass_job.results.local_paths = [
-        output_path,
-        summary_table_output_path,
-    ]
+    biomass_job.results.data_path = output_path
+    biomass_job.results.other_paths = [summary_table_output_path]
 
     # Update the band infos to use the masking value (-32767) as the file
     # no data value, so that stretches are more likely to compute correctly

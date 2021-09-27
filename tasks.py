@@ -322,6 +322,37 @@ def tecli_run(c, script, queryParams=None, payload=None):
         print('Script "{}" not found.'.format(script))
 
 
+@task
+def update_script_ids(c):
+    with open(c.gee.scripts_json_file, 'r') as fin:
+        scripts = json.load(fin)
+
+    dirs = next(os.walk(c.gee.script_dir))[1]
+    n = 0
+    script_dir = None
+    for dir in dirs:
+        script_dir = os.path.join(c.gee.script_dir, dir) 
+        if os.path.exists(os.path.join(script_dir, 'configuration.json')):
+            with open(os.path.join(script_dir, 'configuration.json'), 'r') as fin:
+                config = json.load(fin)
+            try:
+                script_name = re.compile('( [0-9]+(_[0-9]+)+$)').sub('', config['name'])
+                scripts[script_name]['id'] = config['id']
+                script_version = re.compile(
+                    '^[a-zA-Z0-9-]* ').sub(
+                    '', config['name']).replace('_', '.')
+                scripts[script_name]['version'] = script_version
+            except KeyError:
+                print(f'Skipping {script_name} as not found in scripts.json')
+    with open(c.gee.scripts_json_file, 'w') as f_out:
+        json.dump(
+            scripts,
+            f_out,
+            sort_keys=True,
+            indent=4
+        )
+
+
 @task(help={'script': 'Script name'})
 def tecli_info(c, script=None):
     if not check_tecli_python_version():
@@ -1043,10 +1074,10 @@ def binaries_compile(c, clean=False, python='python'):
 ns = Collection(set_version, set_tag,
                 plugin_setup, plugin_install,
                 docs_build, translate_pull, translate_push,
-                tecli_login, tecli_clear, tecli_config, tecli_publish, 
-                tecli_run, tecli_info, tecli_logs, zipfile_build, 
-                zipfile_deploy, binaries_compile, binaries_sync, 
-                binaries_deploy, release_github,
+                tecli_login, tecli_clear, tecli_config, tecli_publish,
+                tecli_run, tecli_info, tecli_logs, zipfile_build,
+                zipfile_deploy, binaries_compile, binaries_sync,
+                binaries_deploy, release_github, update_script_ids,
                 testdata_sync)
 
 ns.configure({
@@ -1101,6 +1132,7 @@ ns.configure({
     },
     'gee': {
         'script_dir': 'gee',
+        'scripts_json_file': 'LDMP/data/scripts.json',
         'tecli': '../trends.earth-CLI/tecli'
     },
     'sphinx' : {

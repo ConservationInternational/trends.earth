@@ -53,7 +53,8 @@ from te_schemas.land_cover import (
     LCLegendNesting,
     LCClass,
     LCTransitionMeaningDeg,
-    LCTransitionDefinitionDeg
+    LCTransitionDefinitionDeg,
+    LCTransitionMatrixDeg
 )
 
 from marshmallow.exceptions import ValidationError
@@ -214,7 +215,8 @@ def read_lc_matrix_file(f):
     try:
         with open(f) as matrix_file:
             matrix = LCTransitionDefinitionDeg.Schema().loads(
-                matrix_file.read())
+                matrix_file.read()
+            )
     except ValidationError as e:
         log(f'Error loading land cover transition matrix from {f}: {e}')
         QtWidgets.QMessageBox.critical(
@@ -712,9 +714,16 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
                 return
 
             with open(f, 'w') as outfile:
-                json.dump(LCTransitionDefinitionDeg.Schema().dump(self.trans_matrix_get()),
-                          outfile, sort_keys=True, indent=4,
-                          separators=(',', ':'), default=json_serial)
+                json.dump(
+                    LCTransitionDefinitionDeg.Schema().dump(
+                        self.trans_matrix_get()
+                    ),
+                    outfile,
+                    sort_keys=True,
+                    indent=4,
+                    separators=(',', ':'),
+                    default=json_serial
+                )
 
     def set_trans_matrix(self, matrix=None):
         if matrix:
@@ -753,11 +762,21 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
                 else:
                     log('unrecognized value "{}" when reading transition matrix JSON'.format(val))
                     raise ValueError('unrecognized value "{}" when reading transition matrix JSON'.format(val))
-                transitions.append(LCTransitionMeaningDeg(self.nesting.parent.key[row],
-                                                  self.nesting.parent.key[col],
-                                                  meaning))
-        return LCTransitionDefinitionDeg(self.nesting.parent,
-                             transitions)
+                transitions.append(
+                    LCTransitionMeaningDeg(
+                        self.nesting.parent.key[row],
+                        self.nesting.parent.key[col],
+                        meaning
+                    )
+                )
+        return LCTransitionDefinitionDeg(
+            legend=self.nesting.parent,
+            name="Land cover transition definition matrix",
+            definitions=LCTransitionMatrixDeg(
+                name="Degradation matrix",
+                transitions=transitions
+            )
+        )
 
 class LandCoverSetupLocalExecutionWidget(
     QtWidgets.QWidget,

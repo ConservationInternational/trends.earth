@@ -192,6 +192,8 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
             "lc_initial_band_index": initial_usable.band_index,
             "lc_final_path": str(final_usable.path),
             "lc_final_band_index": final_usable.band_index,
-            "transformation_matrix": self.lc_define_deg_widget.trans_matrix_get()
+            'transformation_matrix': LCTransitionDefinitionDeg.Schema().dumps(
+                self.lc_define_deg_widget.trans_matrix
+            )
         }
         job_manager.submit_local_job(job_params, self.LOCAL_SCRIPT_NAME, self.aoi)

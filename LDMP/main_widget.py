@@ -281,26 +281,30 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.update_from_remote_state()
 
     def update_from_remote_state(self):
-        log("updating remote state...")
+        if settings_manager.get_value(Setting.DEBUG):
+            log("updating remote state...")
         self.cache_refresh_about_to_begin.emit()
         job_manager.refresh_from_remote_state()
         self.last_refreshed_remote_state = dt.datetime.now(tz=dt.timezone.utc)
 
     def update_local_state(self):
         """Update the state of local datasets"""
-        log("updating local state...")
+        if settings_manager.get_value(Setting.DEBUG):
+            log("updating local state...")
         self.cache_refresh_about_to_begin.emit()
         job_manager.refresh_local_state()
         self.last_refreshed_local_state = dt.datetime.now(tz=dt.timezone.utc)
 
     def toggle_ui_for_cache_refresh(self, refresh_started: bool):
-        log(f"toggle_ui_for_cache_refresh called. refresh_started: {refresh_started}")
+        if settings_manager.get_value(Setting.DEBUG):
+            log(f"toggle_ui_for_cache_refresh called. refresh_started: {refresh_started}")
 
         for widget in self._cache_refresh_togglable_widgets:
             widget.setEnabled(not refresh_started)
 
     def toggle_refreshing_state(self, refresh_started: bool):
-        log(f"toggle_refreshing_state called. refresh_started: {refresh_started}")
+        if settings_manager.get_value(Setting.DEBUG):
+            log(f"toggle_refreshing_state called. refresh_started: {refresh_started}")
         self.refreshing_filesystem_cache = refresh_started
 
     def refresh_after_job_modified(self, job: Job):

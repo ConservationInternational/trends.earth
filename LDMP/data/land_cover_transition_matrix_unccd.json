@@ -52,7 +52,14 @@
                 "name_short":"Water body"
             }
         ],
-        "name":"UNCCD Land Cover"
+        "name":"UNCCD Land Cover",
+        "nodata": {
+            "code": -32768,
+            "name_long": "No data",
+            "name_short": "No data",
+            "description": null,
+            "color": "#000000"
+        }
     },
     "definitions": {
         "name": "Land cover degradation transition meanings",

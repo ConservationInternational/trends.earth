@@ -1255,7 +1255,7 @@ class DlgDataIOAddLayersToMap(
 
         band_strings = [
             f'Band {n}: {layers.get_band_title(band.serialize())}'
-            for n, band in enumerate(self.layer_list)
+            for n, band in enumerate(self.layer_list, start=1)
         ]
         self.layers_model.setStringList(band_strings)
         self.layers_view.setEditTriggers(

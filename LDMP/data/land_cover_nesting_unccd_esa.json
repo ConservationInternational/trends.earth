@@ -50,15 +50,15 @@
                 "name_short": "Water body",
                 "description": null,
                 "color": "#0053C4"
-            },
-            {
-                "code": -32768,
-                "name_long": "No data",
-                "name_short": "No data",
-                "description": null,
-                "color": "#000000"
             }
-        ]
+        ],
+        "nodata": {
+            "code": -32768,
+            "name_long": "No data",
+            "name_short": "No data",
+            "description": null,
+            "color": "#000000"
+        }
     },
     "child": {
         "name": "ESA CCI Land Cover",
@@ -321,15 +321,15 @@
                 "name_short": null,
                 "description": null,
                 "color": "#FFFFFF"
-            },
-            {
-                "code": -32768,
-                "name_long": "No data",
-                "name_short": "No data",
-                "description": null,
-                "color": "#000000"
             }
-        ]
+        ],
+        "nodata": {
+            "code": -32768,
+            "name_long": "No data",
+            "name_short": "No data",
+            "description": null,
+            "color": "#000000"
+        }
     },
     "nesting": {
         "1": [

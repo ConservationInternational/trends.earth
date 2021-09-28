@@ -583,9 +583,11 @@ class JobManager(QtCore.QObject):
                     raw_job = json.load(fh)
                     job = Job.deserialize(raw_job)
                 except json.decoder.JSONDecodeError as exc:
-                    log(f"Unable to decode file {job_metadata_path!r} as valid json")
+                    if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                        log(f"Unable to decode file {job_metadata_path!r} as valid json")
                 except KeyError:
-                    log(f"Unable to decode file {job_metadata_path!r} as job json - no script_id in file")
+                    if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                        log(f"Unable to decode file {job_metadata_path!r} as job json - no script_id in file")
                 except RuntimeError as exc:
                     log(str(exc))
                 else:
@@ -612,10 +614,11 @@ class JobManager(QtCore.QObject):
         for finished_job in self._get_local_jobs(models.JobStatus.FINISHED):
             job_age = now - finished_job.end_date
             if job_age.days > self._relevant_job_age_threshold_days:
-                log(
-                    f"Removing job {finished_job.id!r} as it is no longer possible to "
-                    f"download its results..."
-                )
+                if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                    log(
+                        f"Removing job {finished_job.id!r} as it is no longer possible to "
+                        f"download its results..."
+                    )
                 self._remove_job_metadata_file(finished_job)
             else:
                 self._known_finished_jobs[finished_job.id] = finished_job
@@ -706,7 +709,8 @@ def _get_access_token():
 
 
 def _get_user_id() -> uuid:
-    log('Retrieving user id...')
+    if conf.settings_manager.get_value(conf.Setting.DEBUG):
+        log('Retrieving user id...')
     get_user_reply = api.get_user()
     if get_user_reply:
         user_id = get_user_reply.get("id", None)
@@ -779,7 +783,8 @@ def get_remote_jobs(
             #
             # we can verify that the server is actually checking for job's end_date
             query["updated_at"] = end_date.strftime("%Y-%m-%d")
-        log('Retrieving executions...')
+        if conf.settings_manager.get_value(conf.Setting.DEBUG):
+            log('Retrieving executions...')
         response = api.call_api(
             f"/api/v1/execution?{urllib.parse.urlencode(query)}",
             method="get",

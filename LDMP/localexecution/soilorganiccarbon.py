@@ -71,7 +71,6 @@ def compute_soil_organic_carbon(
     # Lc bands start on band 3 as band 1 is initial soc, and band 2 is
     # climate zones
     lc_band_nums = list(range(3, len(lc_files) + 3))
-    LDMP.logger.log(f'lc_band_nums: {lc_band_nums}')
     soc_worker = worker.StartWorker(
         SOCWorker,
         'calculating change in soil organic carbon',
@@ -235,7 +234,6 @@ class SOCWorker(worker.AbstractWorker):
                     t0 = float(self.lc_years[n])
                     t1 = float(self.lc_years[n + 1])
 
-                    LDMP.logger.log(u'self.lc_band_nums: {}'.format(self.lc_band_nums))
                     lc_t0 = ds_in.GetRasterBand(self.lc_band_nums[n]).ReadAsArray(x, y, cols, rows)
                     lc_t1 = ds_in.GetRasterBand(self.lc_band_nums[n + 1]).ReadAsArray(x, y, cols, rows)
 

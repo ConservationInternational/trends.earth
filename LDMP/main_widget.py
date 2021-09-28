@@ -281,14 +281,16 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.update_from_remote_state()
 
     def update_from_remote_state(self):
-        log("updating remote state...")
+        if settings_manager.get_value(Setting.DEBUG):
+            log("updating remote state...")
         self.cache_refresh_about_to_begin.emit()
         job_manager.refresh_from_remote_state()
         self.last_refreshed_remote_state = dt.datetime.now(tz=dt.timezone.utc)
 
     def update_local_state(self):
         """Update the state of local datasets"""
-        log("updating local state...")
+        if settings_manager.get_value(Setting.DEBUG):
+            log("updating local state...")
         self.cache_refresh_about_to_begin.emit()
         job_manager.refresh_local_state()
         self.last_refreshed_local_state = dt.datetime.now(tz=dt.timezone.utc)

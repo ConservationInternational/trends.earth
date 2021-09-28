@@ -32,6 +32,7 @@ from . import (
 )
 from .layers import tr_style_text
 from .logger import log
+from .jobs.manager import job_manager
 
 DlgCalculateLCSetAggregationUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateLCSetAggregation.ui"))
@@ -235,7 +236,7 @@ def read_lc_matrix_file(f):
 
 def get_lc_nesting(get_default=False):
     if not get_default:
-        nesting = QtCore.QSettings().value("LDMP/land_cover_nesting", None)
+        nesting = QtCore.QSettings().value("LDMP/land_cover_legend_nesting", None)
     else:
         nesting = None
 
@@ -247,23 +248,32 @@ def get_lc_nesting(get_default=False):
                 'land_cover_nesting_unccd_esa.json'
             )
         )
-        QtCore.QSettings().setValue(
-            "LDMP/land_cover_nesting",
-            LCLegendNesting.Schema().dumps(nesting)
-        )
+        if nesting:
+            QtCore.QSettings().setValue(
+                "LDMP/land_cover_legend_nesting",
+                LCLegendNesting.Schema().dumps(nesting)
+            )
     else:
         nesting = LCLegendNesting.Schema().loads(nesting)
     return nesting
 
 
-def get_trans_matrix():
-    matrix = QtCore.QSettings().value("LDMP/land_cover_transition_matrix", None)
-    matrix = None
+def get_trans_matrix(get_default=False):
+    if not get_default:
+        matrix = QtCore.QSettings().value("LDMP/land_cover_deg_trans_matrix", None)
+    else:
+        matrix = None
+
     if matrix is None:
-        matrix = read_lc_matrix_file(os.path.join(os.path.dirname(os.path.realpath(__file__)),
-                                     'data', 'land_cover_transition_matrix_unccd.json'))
+        matrix = read_lc_matrix_file(
+            os.path.join(
+                os.path.dirname(os.path.realpath(__file__)),
+                'data',
+                'land_cover_transition_matrix_unccd.json'
+            )
+        )
         if matrix:
-            QtCore.QSettings().setValue("LDMP/land_cover_transition_matrix", LCTransitionDefinitionDeg.Schema().dumps(matrix))
+            QtCore.QSettings().setValue("LDMP/land_cover_deg_trans_matrix", LCTransitionDefinitionDeg.Schema().dumps(matrix))
     else:
         matrix = LCTransitionDefinitionDeg.Schema().loads(matrix)
     return matrix
@@ -285,7 +295,7 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
 
         # Setup the class table so that the table is defined when a user first 
         # loads the dialog
-        self.reset_class_table()
+        self.setup_class_table(self.nesting)
 
     def btn_close_pressed(self):
         self.close()
@@ -312,6 +322,7 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
         nesting = read_lc_nesting_file(f)
 
         if nesting:
+            log(f'Loaded nesting from {f}')
             self.nesting = nesting
             self.setup_class_table(nesting)
 
@@ -359,8 +370,6 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
         if nesting_input:
             valid_child_codes = sorted([c.code for c in self.child_legend.key])
             child_code_input = sorted([c.code for c in nesting_input.child.key])
-            log(f'valid_child_codes: {valid_child_codes}')
-            log(f'child_code_input: {child_code_input}')
             unnecessary_child_codes = sorted([
                 c for c in child_code_input
                 if c not in valid_child_codes
@@ -401,7 +410,6 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
                 c for c in self.child_legend.key
                 if c.code in child_codes_missing_from_input
             ])
-            log(f'nesting_input.child.key (post edit): {nesting_input.child.key}')
 
             # Remove dropped classes from the nesting dict
             new_child_codes = [c.code for c in nesting_input.child.key]
@@ -411,13 +419,16 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
                     key: [v for v in values if v in new_child_codes]
                 })
             # And add into the nesting dict any classes that are in the data 
-            # but were missing from the input
-            log(f'new_nesting_dict pre edit: {new_nesting_dict}')
+            # but were missing from the input, including the child legend no 
+            # data code (it should be nested under parent nodata as well)
+            if nesting_input.child.nodata.code not in child_codes_missing_from_input:
+                child_codes_missing_from_input.append(nesting_input.child.nodata.code)
             new_nesting_dict.update({
-                -32768: new_nesting_dict.get(-32768, []) + child_codes_missing_from_input
+                nesting_input.parent.nodata.code: new_nesting_dict.get(
+                    nesting_input.parent.nodata.code, []
+                ) + child_codes_missing_from_input
             })
 
-            log(f'new_nesting_dict post edit: {new_nesting_dict}')
             nesting_input.nesting = new_nesting_dict
            
             self.nesting = nesting_input
@@ -461,6 +472,8 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
         return True
 
     def reset_class_table(self):
+        self.nesting = get_lc_nesting(get_default=True)
+        self.child_legend = self.nesting.child
         self.setup_class_table()
 
 
@@ -478,6 +491,8 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
         self.input_widget.inputTypeChanged.connect(self.input_changed)
 
         self.checkBox_use_sample.stateChanged.connect(self.clear_dlg_agg)
+
+        self.input_widget.lineEdit_nodata.setValidator(QtGui.QIntValidator())
 
         self.btn_agg_edit_def.clicked.connect(self.agg_edit)
         self.btn_agg_edit_def.setEnabled(False)
@@ -535,7 +550,7 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
             self.checkBox_use_sample.setEnabled(False)
             self.checkBox_use_sample_description.setEnabled(False)
 
-    def load_agg(self, values):
+    def load_agg(self, values, child_nodata_code=-32768):
         # Set all of the classes to no data by default, and default to nesting 
         # be under the CCD legend
         default_nesting = get_lc_nesting(get_default=True)
@@ -543,17 +558,26 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
         # From the default nesting class instance, setup the actual nesting 
         # dictionary so that all the default classes have no values nested 
         # under them, except for no data - nest all of the values in this 
-        # dataset under nodata (-32768) until the user determines otherwise
+        # dataset under nodata (-32768 for the default data) until the user 
+        # determines otherwise
         nest = {
             c: [] for c in default_nesting.parent.codes()
         }
-        nest.update({-32768: values})
+        # The child nodata code also needs to be handled. Nest this under the 
+        # parent nodata code as well.
+        if child_nodata_code not in values:
+            values = values + [child_nodata_code]
+        nest.update({default_nesting.parent.nodata.code: values})
 
         nesting = LCLegendNesting(
             parent=default_nesting.parent,
             child=LCLegend(
-                'Default remap',
-                [LCClass(value, str(value)) for value in sorted(values)]
+                name='Default remap',
+                key=[
+                    LCClass(value, str(value)) for value in sorted(values)
+                    if value != child_nodata_code
+                ],
+                nodata=LCClass(child_nodata_code, 'No data')
             ),
             nesting=nest
         )
@@ -571,7 +595,7 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
                     return
                 self.last_raster = f
                 self.last_band_number = band_number
-                self.load_agg(values)
+                self.load_agg(values, child_nodata_code=self.get_nodata_value())
         else:
             f = self.input_widget.lineEdit_vector_file.text()
             l = self.input_widget.get_vector_layer()
@@ -584,23 +608,30 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
                     return
                 self.last_vector = f
                 self.last_idx = idx
-                self.load_agg(values)
+                self.load_agg(values, child_nodata_code=self.get_nodata_value())
         self.dlg_agg.exec_()
+
+    def get_nodata_value(self):
+        return int(self.input_widget.lineEdit_nodata.text())
 
     def ok_clicked(self):
         out_file = self.output_widget.lineEdit_output_file.text()
         if self.input_widget.radio_raster_input.isChecked():
             in_file = self.input_widget.lineEdit_raster_file.text()
-            #TODO: Fix this for new nesting format
-            remap_ret = self.remap_raster(in_file, out_file, self.dlg_agg.get_agg_as_list())
+            remap_ret = self.remap_raster(
+                in_file,
+                out_file,
+                self.dlg_agg.nesting.get_list()
+            )
         else:
             attribute = self.input_widget.comboBox_fieldname.currentText()
             l = self.input_widget.get_vector_layer()
-            remap_ret = self.remap_vector(l,
-                                          out_file, 
-            #TODO: Fix this for new nesting format
-                                          self.dlg_agg.get_agg_as_dict(), 
-                                          attribute)
+            remap_ret = self.remap_vector(
+                    l,
+                    out_file,
+                    self.dlg_agg.nesting.nesting,
+                    attribute
+            )
         if not remap_ret:
             return False
 
@@ -609,6 +640,9 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
             "Land cover (7 class)",
             {
                 'year': int(self.input_widget.spinBox_data_year.text()),
+                'nesting': LCLegendNesting.Schema().dump(
+                    self.dlg_agg.nesting
+                ),
                 'source': 'custom data'
             }
         )
@@ -622,7 +656,6 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
         self.setupUi(self)
 
         self.nesting = get_lc_nesting()
-
         self.trans_matrix = get_trans_matrix()
 
         self.deg_def_matrix.setRowCount(len(self.trans_matrix.legend.key))
@@ -661,7 +694,7 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
         for col in range(0, self.deg_def_matrix.columnCount()):
             self.deg_def_matrix.verticalHeader().setSectionResizeMode(col, QtWidgets.QHeaderView.Stretch)
 
-        self.btn_transmatrix_reset.clicked.connect(self.set_trans_matrix)
+        self.btn_transmatrix_reset.clicked.connect(lambda: self.set_trans_matrix(get_default=True))
         self.btn_transmatrix_loadfile.clicked.connect(self.trans_matrix_loadfile)
         self.btn_transmatrix_savefile.clicked.connect(self.trans_matrix_savefile)
 
@@ -725,11 +758,10 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
                     default=json_serial
                 )
 
-    def set_trans_matrix(self, matrix=None):
-        if matrix:
-            QtCore.QSettings().setValue("LDMP/land_cover_transition_matrix", LCTransitionDefinitionDeg.Schema().dumps(matrix))
-        else:
-            matrix = get_trans_matrix()
+    def set_trans_matrix(self, matrix=None, get_default=False):
+        if not matrix:
+            matrix = get_trans_matrix(get_default)
+        QtCore.QSettings().setValue("LDMP/land_cover_deg_trans_matrix", LCTransitionDefinitionDeg.Schema().dumps(matrix))
         for row in range(0, self.deg_def_matrix.rowCount()):
             initial_class = matrix.legend.key[row]
             for col in range(0, self.deg_def_matrix.columnCount()):
@@ -742,7 +774,7 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
                 elif meaning == 'improvement':
                     code = '+'
                 else:
-                    log('unrecognized value "{}" when setting transition matrix'.format(meaning))
+                    log('unrecognized transition meaning "{}" when setting transition matrix'.format(meaning))
                     return False
                 self.deg_def_matrix.cellWidget(row, col).setText(code)
         return True
@@ -760,8 +792,8 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
                 elif val == "+":
                     meaning = "improvement"
                 else:
-                    log('unrecognized value "{}" when reading transition matrix JSON'.format(val))
-                    raise ValueError('unrecognized value "{}" when reading transition matrix JSON'.format(val))
+                    log('unrecognized value "{}" when reading transition meaning from cellWidget'.format(val))
+                    raise ValueError('unrecognized value "{}" when reading transition meaning from cellWidget'.format(val))
                 transitions.append(
                     LCTransitionMeaningDeg(
                         self.nesting.parent.key[row],

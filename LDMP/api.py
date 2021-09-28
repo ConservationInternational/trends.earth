@@ -251,12 +251,14 @@ def call_api(endpoint, method='get', payload=None, use_token=False):
         token = login()
 
         if token:
-            log("API loaded token.")
+            if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                log("API loaded token.")
             headers = {'Authorization': f'Bearer {token}'}
         else:
             return
     else:
-        log("API no token required.")
+        if conf.settings_manager.get_value(conf.Setting.DEBUG):
+            log("API no token required.")
         headers = {}
 
     # Only continue if don't need token or if token load was successful

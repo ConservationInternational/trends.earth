@@ -709,7 +709,8 @@ def _get_access_token():
 
 
 def _get_user_id() -> uuid:
-    log('Retrieving user id...')
+    if conf.settings_manager.get_value(conf.Setting.DEBUG):
+        log('Retrieving user id...')
     get_user_reply = api.get_user()
     if get_user_reply:
         user_id = get_user_reply.get("id", None)
@@ -782,7 +783,8 @@ def get_remote_jobs(
             #
             # we can verify that the server is actually checking for job's end_date
             query["updated_at"] = end_date.strftime("%Y-%m-%d")
-        log('Retrieving executions...')
+        if conf.settings_manager.get_value(conf.Setting.DEBUG):
+            log('Retrieving executions...')
         response = api.call_api(
             f"/api/v1/execution?{urllib.parse.urlencode(query)}",
             method="get",

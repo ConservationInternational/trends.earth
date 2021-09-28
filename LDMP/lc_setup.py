@@ -290,12 +290,12 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
 
         self.btn_save.clicked.connect(self.btn_save_pressed)
         self.btn_load.clicked.connect(self.btn_load_pressed)
-        self.btn_reset.clicked.connect(self.reset_class_table)
+        self.btn_reset.clicked.connect(self.reset_nesting_table)
         self.btn_close.clicked.connect(self.btn_close_pressed)
 
         # Setup the class table so that the table is defined when a user first 
         # loads the dialog
-        self.setup_class_table(self.nesting)
+        self.setup_nesting_table(self.nesting)
 
     def btn_close_pressed(self):
         self.close()
@@ -324,7 +324,7 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
         if nesting:
             log(f'Loaded nesting from {f}')
             self.nesting = nesting
-            self.setup_class_table(nesting)
+            self.setup_nesting_table(nesting)
 
     def btn_save_pressed(self):
         f, _ = QtWidgets.QFileDialog.getSaveFileName(
@@ -355,7 +355,7 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
                 )
 
 
-    def setup_class_table(self, nesting_input=None):
+    def setup_nesting_table(self, nesting_input=None):
         # Load the codes each class will be recoded to.
         # 
         # The "nesting_input" parameter will include any mappings derived from a 
@@ -471,10 +471,42 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
 
         return True
 
-    def reset_class_table(self):
+    def get_nesting_table_from_widget(self):
+        # TODO: need to implement this
+        # Extract nesting from the QTableWidget
+        transitions = []
+        for row in range(0, self.deg_def_matrix.rowCount()):
+            for col in range(0, self.deg_def_matrix.columnCount()):
+                val = self.deg_def_matrix.cellWidget(row, col).text()
+                if val == "" or val == "0":
+                    meaning = "stable"
+                elif val == "-":
+                    meaning = "degradation"
+                elif val == "+":
+                    meaning = "improvement"
+                else:
+                    log('unrecognized value "{}" when reading transition meaning from cellWidget'.format(val))
+                    raise ValueError('unrecognized value "{}" when reading transition meaning from cellWidget'.format(val))
+                transitions.append(
+                    LCTransitionMeaningDeg(
+                        self.nesting.parent.key[row],
+                        self.nesting.parent.key[col],
+                        meaning
+                    )
+                )
+        return LCTransitionDefinitionDeg(
+            legend=self.nesting.parent,
+            name="Land cover transition definition matrix",
+            definitions=LCTransitionMatrixDeg(
+                name="Degradation matrix",
+                transitions=transitions
+            )
+        )
+
+    def reset_nesting_table(self):
         self.nesting = get_lc_nesting(get_default=True)
         self.child_legend = self.nesting.child
-        self.setup_class_table()
+        self.setup_nesting_table()
 
 
 class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
@@ -749,7 +781,7 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
             with open(f, 'w') as outfile:
                 json.dump(
                     LCTransitionDefinitionDeg.Schema().dump(
-                        self.trans_matrix_get()
+                        self.get_trans_matrix_from_widget()
                     ),
                     outfile,
                     sort_keys=True,
@@ -779,7 +811,7 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
                 self.deg_def_matrix.cellWidget(row, col).setText(code)
         return True
 
-    def trans_matrix_get(self):
+    def get_trans_matrix_from_widget(self):
         # Extract trans_matrix from the QTableWidget
         transitions = []
         for row in range(0, self.deg_def_matrix.rowCount()):

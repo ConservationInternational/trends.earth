@@ -343,7 +343,8 @@ class Job:
         try:
             type_ = JobResult(raw_results["type"])
         except KeyError:
-            log(f"Could not extract type of results from job {raw_job['id']} with raw_results {raw_results!r}")
+            if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                log(f"Could not extract type of results from job {raw_job['id']} with raw_results {raw_results!r}")
             results = None
         else:
             if type_ == JobResult.CLOUD_RESULTS:
@@ -432,7 +433,8 @@ def _get_job_script(script_id: uuid.UUID) -> ExecutionScript:
     try:
         script = [s for s in conf.KNOWN_SCRIPTS.values() if s.id == script_id][0]
     except IndexError:
-        log(f"script {script_id!r} is not known locally")
+        if conf.settings_manager.get_value(conf.Setting.DEBUG):
+            log(f"script {script_id!r} is not known locally")
         remote_scripts = get_remote_scripts()
         if remote_scripts is None:
             return

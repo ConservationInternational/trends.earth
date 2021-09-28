@@ -294,13 +294,15 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.last_refreshed_local_state = dt.datetime.now(tz=dt.timezone.utc)
 
     def toggle_ui_for_cache_refresh(self, refresh_started: bool):
-        log(f"toggle_ui_for_cache_refresh called. refresh_started: {refresh_started}")
+        if settings_manager.get_value(Setting.DEBUG):
+            log(f"toggle_ui_for_cache_refresh called. refresh_started: {refresh_started}")
 
         for widget in self._cache_refresh_togglable_widgets:
             widget.setEnabled(not refresh_started)
 
     def toggle_refreshing_state(self, refresh_started: bool):
-        log(f"toggle_refreshing_state called. refresh_started: {refresh_started}")
+        if settings_manager.get_value(Setting.DEBUG):
+            log(f"toggle_refreshing_state called. refresh_started: {refresh_started}")
         self.refreshing_filesystem_cache = refresh_started
 
     def refresh_after_job_modified(self, job: Job):

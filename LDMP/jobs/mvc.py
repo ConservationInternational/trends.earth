@@ -1,6 +1,7 @@
 import functools
 import typing
 from pathlib import Path
+from datetime import datetime, timezone
 
 from qgis.utils import iface
 
@@ -29,6 +30,10 @@ from ..datasets_dialog import DatasetDetailsDialogue
 
 WidgetDatasetItemUi, _ = uic.loadUiType(
     str(Path(__file__).parents[1] / "gui/WidgetDatasetItem.ui"))
+
+
+def utc_to_local(utc_dt):
+    return utc_dt.replace(tzinfo=timezone.utc).astimezone(tz=None)
 
 
 class JobsModel(QtCore.QAbstractItemModel):
@@ -203,7 +208,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
     main_dock: "MainWidget"
 
     add_to_canvas_pb: QtWidgets.QPushButton
-    creation_date_la: QtWidgets.QLabel
+    notes_la: QtWidgets.QLabel
     delete_tb: QtWidgets.QToolButton
     download_tb: QtWidgets.QToolButton
     name_la: QtWidgets.QLabel
@@ -238,7 +243,14 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             QtGui.QIcon(':/plugins/LDMP/icons/cloud-download.svg'))
 
         self.name_la.setText(self.job.visible_name)
-        self.creation_date_la.setText(self.job.start_date.strftime("%Y-%m-%d %H:%M"))
+
+        area_name = self.job.params.task_notes.local_context.area_of_interest_name
+        job_start_date = utc_to_local(self.job.start_date).strftime("%Y-%m-%d %H:%M")
+        if area_name:
+            notes_text = f'{area_name} ({job_start_date})'
+        else:
+            notes_text = f'{job_start_date}'
+        self.notes_la.setText(notes_text)
 
         self.download_tb.setEnabled(False)
 

@@ -73,7 +73,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QLabel" name="creation_date_la">
+       <widget class="QLabel" name="notes_la">
         <property name="toolTip">
          <string>Creation date</string>
         </property>

@@ -20,7 +20,7 @@
     },
     "drought-vulnerability": {
         "description": "Calculate indicators of drought vulnerability",
-        "id": "c5ab9fb5-5889-44d6-b2c5-07b6ac914a03",
+        "id": "1eb43e75-cbe2-4fd4-80f1-0eca78193275",
         "name_readable": "Drought vulnerability",
         "run_mode": "remote",
         "version": "1.0.9"
@@ -145,6 +145,19 @@
     "total-carbon-summary": {
         "execution_callable": "LDMP.localexecution.totalcarbon.compute_total_carbon_summary_table",
         "name_readable": "Total carbon change (summary)",
+        "run_mode": "local"
+    },
+    "unccd-default-data": {
+        "description": "Generate default data for UNCCD reporting",
+        "id": "68b94101-496e-4f40-a3be-dccc3d701099",
+        "name_readable": "UNCCD default data",
+        "run_mode": "remote",
+        "version": "1.0.9"
+    },
+    "unccd-report": {
+        "description": "Generate package for UNCCD reporting",
+        "execution_callable": "LDMP.localexecution.calculate_unccd.generate_unccd_report",
+        "name_readable": "UNCCD reporting package",
         "run_mode": "local"
     },
     "urban-area": {

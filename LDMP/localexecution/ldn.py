@@ -81,8 +81,8 @@ LC_DEG_BAND_NAME = "Land cover (degradation)"
 LC_BAND_NAME = "Land cover (7 class)"
 SOC_DEG_BAND_NAME = "Soil organic carbon (degradation)"
 SOC_BAND_NAME = "Soil organic carbon"
-POPULATION_BAND_NAME = "Population"
-SPI_BAND_NAME = "Standarized Precipitation Index (SPI)"
+POPULATION_BAND_NAME = "Population (density, persons per sq km / 10)"
+SPI_BAND_NAME = "Standardized Precipitation Index (SPI)"
 
 
 class LdnProductivityMode(enum.Enum):
@@ -91,20 +91,21 @@ class LdnProductivityMode(enum.Enum):
 
 
 @marshmallow_dataclass.dataclass
-class SummaryTable(SchemaBase):
+class SummaryTableLDN(SchemaBase):
     soc_by_lc_annual_totals: List[Dict[int, float]]
     lc_annual_totals: List[Dict[int, float]]
     lc_trans_zonal_areas: List[Dict[int, float]]
     lc_trans_prod_bizonal: Dict[Tuple[int, int], float]
     lc_trans_zonal_soc_initial: Dict[int, float]
     lc_trans_zonal_soc_final: Dict[int, float]
+    sdg_zonal_population_total: Dict[int, float]
     sdg_summary: Dict[int, float]
     prod_summary: Dict[int, float]
     soc_summary: Dict[int, float]
     lc_summary: Dict[int, float]
 
 
-def _accumulate_summary_tables(tables: List[SummaryTable]) -> SummaryTable:
+def _accumulate_summary_tables(tables: List[SummaryTableLDN]) -> SummaryTableLDN:
     if len(tables) == 1:
         return tables[0]
     else:
@@ -149,6 +150,12 @@ def _accumulate_summary_tables(tables: List[SummaryTable]) -> SummaryTable:
                     table.lc_trans_zonal_soc_final
                 ]
             )
+            out.sdg_zonal_population_total = accumulate_dicts(
+                [
+                    out.sdg_zonal_population_total,
+                    table.sdg_zonal_population_total
+                ]
+            )
             out.sdg_summary = accumulate_dicts(
                 [
                     out.sdg_summary,
@@ -178,7 +185,7 @@ def _accumulate_summary_tables(tables: List[SummaryTable]) -> SummaryTable:
 
 
 @dataclasses.dataclass()
-class SummaryTableWidgets:
+class SummaryTableLDNWidgets:
     '''Combo boxes and methods used in the SDG 15.3.1 summary table widget'''
     combo_datasets: data_io.WidgetDataIOSelectTEDatasetExisting
     combo_layer_traj: data_io.WidgetDataIOSelectTELayerExisting
@@ -230,6 +237,8 @@ class SummaryTableWidgets:
         self.combo_layer_state.set_index_from_job_id(job_id)
         self.combo_layer_lc.set_index_from_job_id(job_id)
         self.combo_layer_soc.set_index_from_job_id(job_id)
+        self.combo_layer_pop.set_index_from_job_id(job_id)
+        self.combo_layer_spi.set_index_from_job_id(job_id)
 
 
 @dataclasses.dataclass()
@@ -293,9 +302,9 @@ def get_main_sdg_15_3_1_job_params(
     soil_organic_carbon_inputs = _get_ldn_inputs(
         combo_layer_soc, SOC_BAND_NAME)
     spi_input = _get_ldn_inputs(
-        combo_layer_soc, SPI_BAND_NAME)
+        combo_layer_spi, SPI_BAND_NAME)
     population_input = _get_ldn_inputs(
-        combo_layer_soc, POPULATION_BAND_NAME)
+        combo_layer_pop, POPULATION_BAND_NAME)
 
     crosses_180th, geojsons = aoi.bounding_box_gee_geojson()
 
@@ -375,8 +384,16 @@ def get_main_sdg_15_3_1_job_params(
         "layer_lpd_path": lpd_path,
         "layer_lpd_band": models.JobBand.Schema().dump(lpd_band),
         "layer_lpd_band_index": lpd_index,
-        "layer_pop_path": str(population_input.path),
+        "layer_population_path": str(population_input.path),
+        "layer_population_band": models.JobBand.Schema().dump(
+            population_input.main_band
+        ),
+        "layer_population_band_index": population_input.main_band_index,
         "layer_spi_path": str(spi_input.path),
+        "layer_spi_band": models.JobBand.Schema().dump(
+            spi_input.main_band
+        ),
+        "layer_spi_band_index": spi_input.main_band_index,
         "crs": aoi.get_crs_dst_wkt(),
         "geojsons": json.dumps(geojsons),
         "crosses_180th": crosses_180th,
@@ -486,9 +503,10 @@ def compute_ldn(
             "period": period,
         }
 
+        log(f'population df is: {population_df}')
         if prod_mode == LdnProductivityMode.TRENDS_EARTH.value:
             traj, perf, state = _prepare_trends_earth_mode_dfs(period_params)
-            in_dfs = lc_dfs + soc_dfs + [traj, perf, state] + spi_df + population_df
+            in_dfs = lc_dfs + soc_dfs + [traj, perf, state, spi_df, population_df]
             summary_table, sdg_path, reproj_path = _compute_summary_table_from_te_prod(
                 in_dfs=in_dfs,
                 compute_bbs_from=traj.path,
@@ -496,7 +514,7 @@ def compute_ldn(
             )
         elif prod_mode == LdnProductivityMode.JRC_LPD.value:
             lpd = _prepare_jrc_lpd_mode_df(period_params)
-            in_dfs = lc_dfs + soc_dfs + [lpd] + spi_df + population_df
+            in_dfs = lc_dfs + soc_dfs + [lpd, spi_df, population_df]
             summary_table, sdg_path, reproj_path = _compute_summary_table_from_lpd_prod(
                 in_dfs=in_dfs,
                 compute_bbs_from=lpd.path,
@@ -645,9 +663,7 @@ def _combine_all_bands_into_vrt(in_files: List[Path], out_file: Path):
             # The new band will always be last band in out_ds
             band = out_ds.GetRasterBand(out_ds.RasterCount)
 
-
             md = {}
-            log(f'in_file.name: {in_file.name}')
             md['source_0'] = simple_source_raw.format(
                 relative_path=in_file,
                 source_band_num=band_num,
@@ -666,7 +682,7 @@ def _combine_all_bands_into_vrt(in_files: List[Path], out_file: Path):
         with out_file.open() as fh_old:
             for line in fh_old:
                 fh_new.write(
-                    line.replace(str(out_file.parents[0]), '.')
+                    line.replace(str(out_file.parents[0]) + '/', '')
                 )
     out_file.unlink()
     shutil.copy(str(new_file), str(out_file))
@@ -709,9 +725,9 @@ def _prepare_spi_df(
     spi_df = DataFile(
         path=utils.save_vrt(
             spi_path,
-            params["layer_spi_main_band_index"]
+            params["layer_spi_band_index"]
         ),
-        bands=[models.JobBand(**params["layer_spi_main_band"])]
+        bands=[models.JobBand(**params["layer_spi_band"])]
     )
 
     return spi_df
@@ -720,13 +736,13 @@ def _prepare_spi_df(
 def _prepare_population_df(
     params: Dict
 ) -> List[DataFile]:
-    population_path = params["layer_pop_path"]
+    population_path = params["layer_population_path"]
     population_df = DataFile(
         path=utils.save_vrt(
             population_path,
-            params["layer_population_main_band_index"]
+            params["layer_population_band_index"]
         ),
-        bands=[models.JobBand(**params["layer_population_main_band"])]
+        bands=[models.JobBand(**params["layer_population_band"])]
     )
 
     return population_df
@@ -812,7 +828,7 @@ def _compute_summary_table_from_te_prod(
         output_job_path: Path,
         period,
         compute_bbs_from
-) -> Tuple[SummaryTable, Path]:
+) -> Tuple[SummaryTableLDN, Path]:
     '''Compute summary table if a trends.earth productivity dataset is used'''
 
     return _compute_ldn_summary_table(
@@ -837,7 +853,7 @@ def _compute_summary_table_from_lpd_prod(
         output_job_path: Path,
         period,
         compute_bbs_from
-) -> Tuple[SummaryTable, Path]:
+) -> Tuple[SummaryTableLDN, Path]:
     '''Compute summary table if a JRC LPD productivity dataset is used'''
 
     return _compute_ldn_summary_table(
@@ -854,7 +870,7 @@ def _compute_summary_table_from_lpd_prod(
 
 def save_summary_table_excel(
         output_path: Path,
-        summary_table: SummaryTable,
+        summary_table: SummaryTableLDN,
         land_cover_years: List[int],
         soil_organic_carbon_years: List[int],
         lc_legend_nesting: land_cover.LCLegendNesting,
@@ -888,13 +904,14 @@ def save_summary_table_excel(
 
 def save_reporting_json(
         output_path: Path,
-        summary_tables: List[SummaryTable],
+        summary_tables: List[SummaryTableLDN],
         params: dict,
         task_name: str,
         aoi: areaofinterest.AOI,
         summary_table_kwargs: dict):
 
     land_condition_reports = {}
+    affected_pop_reports = {}
 
     for period, period_params in params.items():
         st = summary_tables[period]
@@ -1112,7 +1129,7 @@ def save_reporting_json(
 
 
         ###
-        # Setup this period's report
+        # Setup this period's land condition report
         land_condition_reports[period] = reporting.LandConditionReport(
             sdg=reporting.SDG15Report(summary=sdg_summary),
 
@@ -1135,6 +1152,88 @@ def save_reporting_json(
                 soc_stock_by_year=soc_by_year_by_class
             )
         )
+
+        ###
+        # Setup this period's affected population report
+
+        affected_by_deg_summary = reporting.PopulationList(
+            'Population by degradation class',
+            [
+                reporting.Population(
+                    'Improved',
+                    st.sdg_zonal_population_total.get(1, 0.),
+                    'Total population'
+                ),
+                reporting.Population(
+                    'Stable',
+                    st.sdg_zonal_population_total.get(0, 0.),
+                    'Total population'
+                ),
+                reporting.Population(
+                    'Degraded',
+                    st.sdg_zonal_population_total.get(-1, 0.),
+                    'Total population'
+                ),
+                reporting.Population(
+                    'No data',
+                    st.sdg_zonal_population_total.get(NODATA_VALUE, 0),
+                    'Total population'
+                )
+            ]
+        )
+
+        affected_pop_reports[period] = reporting.AffectedPopulationReport(
+            affected_by_deg_summary
+        ) 
+
+    ###
+    # Setup drought vulnerability reports
+    drought_tier_one = []
+    drought_tier_two = []
+    for year in range(2001, 2019):
+        drought_tier_one.append(
+            reporting.AreaList(
+                f'year',
+                'sq km',
+                [reporting.Area('Mild drought', st.sdg_summary.get(1, 0.)),
+                 reporting.Area('Moderate drought', st.sdg_summary.get(0, 0.)),
+                 reporting.Area('Severe drought', st.sdg_summary.get(-1, 0.)),
+                 reporting.Area('Extreme drought', st.sdg_summary.get(-1, 0.)),
+                 reporting.Area('Non-drought', 0),
+                 reporting.Area('No-data', 0)]
+            )
+        )
+
+        for drought_class in (
+            'Mild drought', 'Moderate drought',
+            'Severe drought', 'Extreme drought'
+        ):
+            drought_tier_two.append(
+                [reporting.DroughtExposedPopulation(
+                    drought_class,
+                    year,
+                    [
+                        reporting.Population(
+                            name="Population exposed to drought",
+                            population=15000,
+                            type='Male population'
+                        ),
+                        reporting.Population(
+                            name="Population exposed to drought",
+                            population=15000,
+                            type='Female population'
+                        ),
+                        reporting.Population(
+                            name="Population exposed to drought",
+                            population=30000,
+                            type='Total population'
+                        )
+                    ]
+                )]
+            )
+
+    drought_tier_three = []
+
 
     ##########################################################################
     # Format final JSON output
@@ -1161,9 +1260,9 @@ def save_reporting_json(
 
             land_condition=land_condition_reports,
 
-            affected_population={},
+            affected_population=affected_pop_reports,
 
-            drought={}
+            drought=None
         )
 
     try:
@@ -1206,7 +1305,7 @@ def _process_block(
     xoff: int,
     yoff: int,
     cell_areas_raw
-) -> Tuple[SummaryTable, Dict]:
+) -> Tuple[SummaryTableLDN, Dict]:
 
     lc_bands = params.in_df.array_rows_for_name(LC_BAND_NAME)
     soc_bands = params.in_df.array_rows_for_name(SOC_BAND_NAME)
@@ -1418,20 +1517,23 @@ def _process_block(
     )
 
     ###########################################################
-    # Population affected by drought
-
-    ###########################################################
     # Population affected by degradation
-    pop_bands = params.in_df.array_rows_for_name(POPULATION_BAND_NAME)
+    pop_array = in_array[params.in_df.array_row_for_name(POPULATION_BAND_NAME), :, :]
+    sdg_zonal_population_total = zonal_total(
+        deg_sdg,
+        pop_array * 10. * cell_areas,  # Account for scaling and convert from density
+        mask
+    )
 
     return (
-        SummaryTable(
+        SummaryTableLDN(
             soc_by_lc_annual_totals,
             lc_annual_totals,
             lc_trans_zonal_areas,
             lc_trans_prod_bizonal,
             lc_trans_zonal_soc_initial,
             lc_trans_zonal_soc_final,
+            sdg_zonal_population_total,
             sdg_summary,
             prod_summary,
             soc_summary,
@@ -1592,7 +1694,7 @@ class DegradationSummaryWorker(worker.AbstractWorker):
 
 def _render_ldn_workbook(
     template_workbook,
-    summary_table: SummaryTable,
+    summary_table: SummaryTableLDN,
     lc_years: List[int],
     soc_years: List[int],
     lc_legend_nesting: land_cover.LCLegendNesting,
@@ -1617,6 +1719,11 @@ def _render_ldn_workbook(
         lc_trans_matrix,
         period
     )
+    _write_population_sheet(
+        template_workbook["Population"],
+        summary_table,
+        period
+    )
 
     return template_workbook
 
@@ -1635,7 +1742,7 @@ def _calculate_summary_table(
         deg_worker_process_name,
         period
 ) -> Tuple[
-    Optional[SummaryTable],
+    Optional[SummaryTableLDN],
     str
 ]:
     # build vrt
@@ -1723,7 +1830,7 @@ def _compute_ldn_summary_table(
     lc_legend_nesting: land_cover.LCLegendNesting,
     lc_trans_matrix: land_cover.LCTransitionDefinitionDeg,
     period
-) -> Tuple[SummaryTable, Path, Path]:
+) -> Tuple[SummaryTableLDN, Path, Path]:
     """Computes summary table and the output tif file(s)"""
     bbs = areaofinterest.get_aligned_output_bounds(
         compute_bbs_from,
@@ -1810,7 +1917,7 @@ def _get_summary_array(d):
     ])
 
 
-def _write_overview_sheet(sheet, summary_table: SummaryTable):
+def _write_overview_sheet(sheet, summary_table: SummaryTableLDN):
     summary.write_col_to_sheet(
         sheet,
         _get_summary_array(summary_table.sdg_summary),
@@ -1821,7 +1928,7 @@ def _write_overview_sheet(sheet, summary_table: SummaryTable):
 
 def _write_productivity_sheet(
     sheet,
-    st: SummaryTable,
+    st: SummaryTableLDN,
     lc_trans_matrix: land_cover.LCTransitionDefinitionDeg
 ):
     summary.write_col_to_sheet(
@@ -1863,7 +1970,7 @@ def _write_productivity_sheet(
 
 def _write_soc_sheet(
     sheet,
-    st: SummaryTable,
+    st: SummaryTableLDN,
     lc_trans_matrix: land_cover.LCTransitionDefinitionDeg,
     period
 ):
@@ -1935,7 +2042,7 @@ def _write_soc_sheet(
 
 def _write_land_cover_sheet(
     sheet,
-    st: SummaryTable,
+    st: SummaryTableLDN,
     lc_trans_matrix: land_cover.LCTransitionDefinitionDeg,
     period
 ):
@@ -1956,6 +2063,18 @@ def _write_land_cover_sheet(
             lc_trans_matrix
         ),
         26, 3
+    )
+    utils.maybe_add_image_to_sheet("trends_earth_logo_bl_300width.png", sheet)
+
+def _write_population_sheet(
+    sheet,
+    st: SummaryTableLDN,
+    period
+):
+
+    summary.write_col_to_sheet(
+        sheet, _get_summary_array(st.sdg_zonal_population_total),
+        6, 6
     )
     utils.maybe_add_image_to_sheet("trends_earth_logo_bl_300width.png", sheet)
 

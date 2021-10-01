@@ -254,6 +254,62 @@ _ALGORITHM_CONFIG = [
         ]
     },
     {
+        "name": "Drought",
+        "name_details": "Calculate indicators of drought vulnerability and exposure",
+        "algorithms": [
+            {
+                "id": "afb8d95a-20a5-11ec-9621-0242ac130002",
+                "name": "Drought vulnerability indicators",
+                "description": "Calculate indicators of drought vulnerability consistent with United Nations Convention to Combat Desertification (UNCCD) Good Practice Guidance for Strategic Objective 3 (SO3)",
+                "scripts": [
+                    {
+                        "script": KNOWN_SCRIPTS["drought-vulnerability"],
+                        "parametrization_dialogue": "LDMP.calculate_drought_vulnerability.DlgCalculateDrought",
+                    },
+                ],
+            },
+            {
+                "id": "bb5df452-20a5-11ec-9621-0242ac130002",
+                "name": "Drought vulnerability summary table",
+                "description": "Summarize drought indicators (in alignment with UNCCD SO3 reporting requirements)",
+                "scripts": [
+                    {
+                        "script": KNOWN_SCRIPTS["drought-vulnerability-summary"],
+                        "parametrization_dialogue": "LDMP.calculate_drought_vulnerability.DlgCalculateDroughtSummary",
+                    },
+                ],
+            },
+        ]
+    },
+    {
+        "name": "UNCCD Reporting",
+        "name_details": "Summarize data for reporting",
+        "algorithms": [
+            {
+                "id": "052b3fbc-20a7-11ec-9621-0242ac130002",
+                "name": "Calculate default data for UNCCD reporting",
+                "description": "Generate the default datasets for submission to United Nations Convention to Combat Desertification (UNCCD), consistent with relevant Good Practice Guidances",
+                "scripts": [
+                    {
+                        "script": KNOWN_SCRIPTS["unccd-default-data"],
+                        "parametrization_dialogue": "LDMP.calculate_unccd.DlgCalculateUNCCDDefaultData",
+                    },
+                ],
+            },
+            {
+                "id": "052b3fbc-20a7-11ec-9621-0242ac130002",
+                "name": "Generate data package for UNCCD reporting",
+                "description": "Summarize land degradation, population affected by degradation, and drought datasets for submission to UNCCD",
+                "scripts": [
+                    {
+                        "script": KNOWN_SCRIPTS["unccd-report"],
+                        "parametrization_dialogue": "LDMP.calculate_unccd.DlgCalculateUNCCDReport",
+                    },
+                ],
+            },
+        ]
+    },
+    {
         "name": "SDG 11.3.1",
         "name_details": "Urban Change and Land Consumption",
         "algorithms": [

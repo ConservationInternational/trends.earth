@@ -228,7 +228,9 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             }
 
             payload['population'] = {
-                'year': year_final
+                'year': year_final,
+                'population_asset': "users/geflanddegradation/toolbox_datasets/worldpop_ppp_2000_2020_1km_global",
+                'population_source_name': "WorldPop"
             }
 
             payload['spi'] = {
@@ -282,7 +284,7 @@ class DlgCalculateLDNSummaryTableAdmin(
     LOCAL_SCRIPT_NAME: str = "sdg-15-3-1-summary"
 
     button_calculate: QtWidgets.QPushButton
-    combo_boxes: typing.Dict[str, ldn.SummaryTableWidgets] = {}
+    combo_boxes: typing.Dict[str, ldn.SummaryTableLDNWidgets] = {}
 
     def __init__(
             self,
@@ -297,7 +299,7 @@ class DlgCalculateLDNSummaryTableAdmin(
 
         self._finish_initialization()
 
-        self.combo_boxes['baseline'] = ldn.SummaryTableWidgets(
+        self.combo_boxes['baseline'] = ldn.SummaryTableLDNWidgets(
             combo_datasets=self.combo_datasets_baseline,
             combo_layer_traj=self.combo_layer_traj_baseline,
             combo_layer_perf=self.combo_layer_perf_baseline,
@@ -310,7 +312,7 @@ class DlgCalculateLDNSummaryTableAdmin(
             radio_te_prod=self.radio_te_prod_baseline,
             radio_lpd_jrc=self.radio_lpd_jrc_baseline
         )
-        self.combo_boxes['progress'] = ldn.SummaryTableWidgets(
+        self.combo_boxes['progress'] = ldn.SummaryTableLDNWidgets(
             combo_datasets=self.combo_datasets_progress,
             combo_layer_traj=self.combo_layer_traj_progress,
             combo_layer_perf=self.combo_layer_perf_progress,

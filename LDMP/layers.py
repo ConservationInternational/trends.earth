@@ -186,8 +186,9 @@ style_text_dict = {
     'urban_captured_open_space_water': tr_layers.tr(u'Open space (captured, water)'),
     'urban_rural_open_space_water': tr_layers.tr(u'Open space (rural, water)'),
 
-    # Population
+    # Population titles
     'population_title': tr_layers.tr(u'Population ({year})'),
+    'population_density_title': tr_layers.tr(u'Population density ({year}, per sq km / 10)'),
 
     # SPI
     'spi_title': tr_layers.tr(u'Standardized Precipitation Index (SPI, {year}, {lag} month lag)'),

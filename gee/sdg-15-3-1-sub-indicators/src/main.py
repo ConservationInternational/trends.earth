@@ -145,6 +145,7 @@ def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
                 executor.submit(
                     _get_population,
                     params.get('population'),
+                    proj,
                     logger
                 )
             )
@@ -191,19 +192,30 @@ def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
 
 
 
-def _get_population(params, logger):
+def _get_population(params, proj, logger):
     '''Return worldpop population data for a given year'''
     logger.debug("Returning population image")
-    year = params.get('year')
+    year = params['year']
 
-    wp_col = ee.Image("users/geflanddegradation/toolbox_datasets/worldpop_ppp_2000_2020_1km_global")
-    wp = wp_col.select(f'p{year}')
+    wp = ee.Image(params['population_asset']).select(f'p{year}')
+    wp = wp.select(f'p{year}')
+    # Convert to population density per sq km (ee.image.pixelArea gives area in 
+    # sq meters, so need to convert). Then scale by 10 so max densities will 
+    # fit in an int16
+    wp = wp.divide(ee.Image.pixelArea()).multiply(1000*1000).divide(10).int16()
+    wp = wp.reduceResolution(
+        reducer=ee.Reducer.first(), maxPixels=1024
+    ).reproject(proj)
 
     return TEImage(
-        wp.unmask(-32768).int16(),
+        wp,
         [BandInfo(
-            "Population",
-            metadata={'year': year, 'data source': 'WorldPop', 'scaling': 10}
+            "Population (density, persons per sq km / 10)",
+            metadata={
+                'year': year,
+                'data_source': params['population_source_name'],
+                'scaling': .1
+            }
         )]
     )
 

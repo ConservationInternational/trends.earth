@@ -233,11 +233,6 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                 'population_source_name': "WorldPop"
             }
 
-            payload['spi'] = {
-                'year': year_final,
-                'lag': 12
-            }
-
             task_name = self.execution_name_le.text()
             if period == 'progress':
                 task_name = f'{task_name} - progress'
@@ -308,7 +303,6 @@ class DlgCalculateLDNSummaryTableAdmin(
             combo_layer_lc=self.combo_layer_lc_baseline,
             combo_layer_soc=self.combo_layer_soc_baseline,
             combo_layer_pop=self.combo_layer_population_baseline,
-            combo_layer_spi=self.combo_layer_spi_baseline,
             radio_te_prod=self.radio_te_prod_baseline,
             radio_lpd_jrc=self.radio_lpd_jrc_baseline
         )
@@ -321,7 +315,6 @@ class DlgCalculateLDNSummaryTableAdmin(
             combo_layer_lc=self.combo_layer_lc_progress,
             combo_layer_soc=self.combo_layer_soc_progress,
             combo_layer_pop=self.combo_layer_population_progress,
-            combo_layer_spi=self.combo_layer_spi_progress,
             radio_te_prod=self.radio_te_prod_progress,
             radio_lpd_jrc=self.radio_lpd_jrc_progress
         )
@@ -581,7 +574,6 @@ class DlgCalculateLDNSummaryTableAdmin(
                 combo_layer_state=self.combo_boxes['baseline'].combo_layer_state,
                 combo_layer_lpd=self.combo_boxes['baseline'].combo_layer_lpd,
                 combo_layer_pop=self.combo_boxes['baseline'].combo_layer_pop,
-                combo_layer_spi=self.combo_boxes['baseline'].combo_layer_spi,
                 task_notes=self.options_tab.task_notes.toPlainText()
             )
         }
@@ -598,7 +590,7 @@ class DlgCalculateLDNSummaryTableAdmin(
                     self.combo_boxes['progress'],
                     prod_mode_progress) or
                 not self.validate_layer_crs(
-                    self.combo_boxes['baseline']) or
+                    self.combo_boxes['progress']) or
                 not self.validate_layer_extents(
                     self.combo_boxes['progress'],
                     prod_mode_progress)
@@ -617,8 +609,7 @@ class DlgCalculateLDNSummaryTableAdmin(
                     combo_layer_perf=self.combo_boxes['progress'].combo_layer_perf,
                     combo_layer_state=self.combo_boxes['progress'].combo_layer_state,
                     combo_layer_lpd=self.combo_boxes['progress'].combo_layer_lpd,
-                    combo_layer_pop=self.combo_boxes['baseline'].combo_layer_pop,
-                    combo_layer_spi=self.combo_boxes['baseline'].combo_layer_spi,
+                    combo_layer_pop=self.combo_boxes['progress'].combo_layer_pop,
                     task_notes=self.options_tab.task_notes.toPlainText()
                 )
             })

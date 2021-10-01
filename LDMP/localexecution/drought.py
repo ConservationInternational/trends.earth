@@ -73,110 +73,44 @@ import marshmallow_dataclass
 NODATA_VALUE = -32768
 MASK_VALUE = -32767
 
-TRAJ_BAND_NAME = "Productivity trajectory (significance)"
-PERF_BAND_NAME = "Productivity performance (degradation)"
-STATE_BAND_NAME = "Productivity state (degradation)"
-LPD_BAND_NAME = "SDG 15.3.1 Indicator (LPD)"
-LC_DEG_BAND_NAME = "Land cover (degradation)"
-LC_BAND_NAME = "Land cover (7 class)"
-SOC_DEG_BAND_NAME = "Soil organic carbon (degradation)"
-SOC_BAND_NAME = "Soil organic carbon"
 POPULATION_BAND_NAME = "Population (density, persons per sq km / 10)"
-
-
-class LdnProductivityMode(enum.Enum):
-    TRENDS_EARTH = "Trends.Earth productivity"
-    JRC_LPD = "JRC LPD"
-
+SPI_BAND_NAME = "Standardized Precipitation Index (SPI)"
 
 @marshmallow_dataclass.dataclass
-class SummaryTableLDN(SchemaBase):
-    soc_by_lc_annual_totals: List[Dict[int, float]]
-    lc_annual_totals: List[Dict[int, float]]
-    lc_trans_zonal_areas: List[Dict[int, float]]
-    lc_trans_prod_bizonal: Dict[Tuple[int, int], float]
-    lc_trans_zonal_soc_initial: Dict[int, float]
-    lc_trans_zonal_soc_final: Dict[int, float]
-    sdg_zonal_population_total: Dict[int, float]
-    sdg_summary: Dict[int, float]
-    prod_summary: Dict[int, float]
-    soc_summary: Dict[int, float]
-    lc_summary: Dict[int, float]
+class SummaryTableDrought(SchemaBase):
+    annual_area_by_drought_class_total: Dict[Tuple[int, int], float]
+    annual_population_by_drought_class_total: Dict[Tuple[int, int], int]
+    annual_population_by_drought_class_male: Dict[Tuple[int, int], int]
+    annual_population_by_drought_class_female: Dict[Tuple[int, int], int]
 
-
-def _accumulate_summary_tables(tables: List[SummaryTableLDN]) -> SummaryTableLDN:
+def _accumulate_summary_tables(tables: List[SummaryTableDrought]) -> SummaryTableDrought:
     if len(tables) == 1:
         return tables[0]
     else:
         out = tables[0]
         for table in tables[1:]:
-            out.soc_by_lc_annual_totals = [
-                accumulate_dicts([a,  b])
-                for a, b in zip(
-                    out.soc_by_lc_annual_totals,
-                    table.soc_by_lc_annual_totals
-                )
-            ]
-            out.lc_annual_totals = [
-                accumulate_dicts([a,  b])
-                for a, b in zip(
-                    out.lc_annual_totals,
-                    table.lc_annual_totals
-                )
-            ]
-            out.lc_trans_zonal_areas = [
-                accumulate_dicts([a,  b])
-                for a, b in zip(
-                    out.lc_trans_zonal_areas,
-                    table.lc_trans_zonal_areas
-                )
-            ]
-            out.lc_trans_prod_bizonal = accumulate_dicts(
+            out.annual_area_by_drought_class = accumulate_dicts(
                 [
-                    out.lc_trans_prod_bizonal,
-                    table.lc_trans_prod_bizonal
+                    out.annual_area_by_drought_class,
+                    table.annual_area_by_drought_class
                 ]
             )
-            out.lc_trans_zonal_soc_initial = accumulate_dicts(
+            out.annual_population_by_drought_class = accumulate_dicts(
                 [
-                    out.lc_trans_zonal_soc_initial,
-                    table.lc_trans_zonal_soc_initial
+                    out.annual_population_by_drought_class_total,
+                    table.annual_population_by_drought_class_total
                 ]
             )
-            out.lc_trans_zonal_soc_final = accumulate_dicts(
+            out.annual_population_by_drought_class = accumulate_dicts(
                 [
-                    out.lc_trans_zonal_soc_final,
-                    table.lc_trans_zonal_soc_final
+                    out.annual_population_by_drought_class_male,
+                    table.annual_population_by_drought_class_male
                 ]
             )
-            out.sdg_zonal_population_total = accumulate_dicts(
+            out.annual_population_by_drought_class = accumulate_dicts(
                 [
-                    out.sdg_zonal_population_total,
-                    table.sdg_zonal_population_total
-                ]
-            )
-            out.sdg_summary = accumulate_dicts(
-                [
-                    out.sdg_summary,
-                    table.sdg_summary
-                ]
-            )
-            out.prod_summary = accumulate_dicts(
-                [
-                    out.prod_summary,
-                    table.prod_summary
-                ]
-            )
-            out.soc_summary = accumulate_dicts(
-                [
-                  out.soc_summary,
-                    table.soc_summary
-                ]
-            )
-            out.lc_summary = accumulate_dicts(
-                [
-                    out.lc_summary,
-                    table.lc_summary
+                    out.annual_population_by_drought_class_female,
+                    table.annual_population_by_drought_class_female
                 ]
             )
 
@@ -184,61 +118,21 @@ def _accumulate_summary_tables(tables: List[SummaryTableLDN]) -> SummaryTableLDN
 
 
 @dataclasses.dataclass()
-class SummaryTableLDNWidgets:
+class SummaryTableDroughtWidgets:
     '''Combo boxes and methods used in the SDG 15.3.1 summary table widget'''
-    combo_datasets: data_io.WidgetDataIOSelectTEDatasetExisting
-    combo_layer_traj: data_io.WidgetDataIOSelectTELayerExisting
-    combo_layer_perf: data_io.WidgetDataIOSelectTELayerExisting
-    combo_layer_state: data_io.WidgetDataIOSelectTELayerExisting
-    combo_layer_lpd: data_io.WidgetDataIOSelectTELayerImport
-    combo_layer_lc: data_io.WidgetDataIOSelectTELayerExisting
-    combo_layer_soc: data_io.WidgetDataIOSelectTELayerExisting
     combo_layer_pop: data_io.WidgetDataIOSelectTELayerExisting
-    radio_te_prod: QtWidgets.QRadioButton
-    radio_lpd_jrc: QtWidgets.QRadioButton
-
-    def __post_init__(self):
-        self.radio_lpd_jrc.toggled.connect(self.radio_lpd_jrc_toggled)
-        self.radio_lpd_jrc_toggled()
-        self.combo_datasets.job_selected.connect(self.set_combo_selections_from_job_id)
+    combo_layer_spi: data_io.WidgetDataIOSelectTELayerExisting
 
     def populate(self):
         self.combo_datasets.populate()
-        self.populate_layer_combo_boxes()
-
-    def radio_lpd_jrc_toggled(self):
-        if self.radio_lpd_jrc.isChecked():
-            self.combo_layer_lpd.setEnabled(True)
-            self.combo_layer_traj.setEnabled(False)
-            self.combo_layer_perf.setEnabled(False)
-            self.combo_layer_state.setEnabled(False)
-        else:
-            self.combo_layer_lpd.setEnabled(False)
-            self.combo_layer_traj.setEnabled(True)
-            self.combo_layer_perf.setEnabled(True)
-            self.combo_layer_state.setEnabled(True)
 
     def populate_layer_combo_boxes(self):
-        self.combo_layer_lpd.populate()
-        self.combo_layer_traj.populate()
-        self.combo_layer_perf.populate()
-        self.combo_layer_state.populate()
-        self.combo_layer_lc.populate()
-        self.combo_layer_soc.populate()
         self.combo_layer_pop.populate()
-
-    def set_combo_selections_from_job_id(self, job_id):
-        self.combo_layer_lpd.set_index_from_job_id(job_id)
-        self.combo_layer_traj.set_index_from_job_id(job_id)
-        self.combo_layer_perf.set_index_from_job_id(job_id)
-        self.combo_layer_state.set_index_from_job_id(job_id)
-        self.combo_layer_lc.set_index_from_job_id(job_id)
-        self.combo_layer_soc.set_index_from_job_id(job_id)
-        self.combo_layer_pop.set_index_from_job_id(job_id)
+        self.combo_layer_spi.populate()
 
 
 @dataclasses.dataclass()
-class LdnInputInfo:
+class DroughtInputInfo:
     path: Path
     main_band: models.JobBand
     main_band_index: int
@@ -251,7 +145,7 @@ def _get_ldn_inputs(
     data_selection_widget: data_io.WidgetDataIOSelectTELayerExisting,
     aux_band_name: str,
     sort_property: str = "year"
-) -> LdnInputInfo:
+) -> DroughtInputInfo:
     usable_band_info = data_selection_widget.get_usable_band_info()
     main_band = usable_band_info.band_info
     main_band_index = usable_band_info.band_index
@@ -268,7 +162,7 @@ def _get_ldn_inputs(
     aux_band_indexes = [info[1] for info in sorted_aux_bands]
     years = [i[0].metadata[sort_property] for i in sorted_aux_bands]
 
-    return LdnInputInfo(
+    return DroughtInputInfo(
         path=usable_band_info.path,
         main_band=main_band,
         main_band_index=main_band_index,
@@ -278,110 +172,34 @@ def _get_ldn_inputs(
     )
 
 
-def get_main_sdg_15_3_1_job_params(
+def get_main_drought_summary_job_params(
         task_name: str,
         aoi,
-        prod_mode: str,
-        combo_layer_lc: data_io.WidgetDataIOSelectTELayerExisting,
-        combo_layer_soc: data_io.WidgetDataIOSelectTELayerExisting,
-        combo_layer_traj: data_io.WidgetDataIOSelectTELayerExisting,
-        combo_layer_perf: data_io.WidgetDataIOSelectTELayerExisting,
-        combo_layer_state: data_io.WidgetDataIOSelectTELayerExisting,
-        combo_layer_lpd: data_io.WidgetDataIOSelectTELayerExisting,
+        combo_layer_spi: data_io.WidgetDataIOSelectTELayerExisting,
         combo_layer_pop: data_io.WidgetDataIOSelectTELayerExisting,
         task_notes: Optional[str] = "",
 ) -> Dict:
 
-    land_cover_inputs = _get_ldn_inputs(
-        combo_layer_lc, LC_BAND_NAME)
-    soil_organic_carbon_inputs = _get_ldn_inputs(
-        combo_layer_soc, SOC_BAND_NAME)
+    spi_input = _get_ldn_inputs(
+        combo_layer_spi, SPI_BAND_NAME)
     population_input = _get_ldn_inputs(
         combo_layer_pop, POPULATION_BAND_NAME)
 
     crosses_180th, geojsons = aoi.bounding_box_gee_geojson()
 
-    traj_path = None
-    traj_band = None
-    traj_index = None
-    traj_year_initial = None
-    traj_year_final = None
-    perf_path = None
-    perf_band = None
-    perf_index = None
-    state_path = None
-    state_band = None
-    state_index = None
-    lpd_path = None
-    lpd_band = None
-    lpd_index = None
-
-    if prod_mode == LdnProductivityMode.TRENDS_EARTH.value:
-        traj_band_info = combo_layer_traj.get_usable_band_info()
-        traj_band = traj_band_info.band_info
-        traj_path = str(traj_band_info.path)
-        traj_index = traj_band_info.band_index
-        traj_year_initial = traj_band_info.band_info.metadata['year_start']
-        traj_year_final = traj_band_info.band_info.metadata['year_end']
-        perf_band_info = combo_layer_perf.get_usable_band_info()
-        perf_band = perf_band_info.band_info
-        perf_path = str(perf_band_info.path)
-        perf_index = perf_band_info.band_index
-        state_band_info = combo_layer_state.get_usable_band_info()
-        state_band = state_band_info.band_info
-        state_path = str(state_band_info.path)
-        state_index = state_band_info.band_index
-    elif prod_mode == LdnProductivityMode.JRC_LPD.value:
-        lpd_band_info = combo_layer_lpd.get_usable_band_info()
-        lpd_band = lpd_band_info.band_info
-        lpd_path = str(lpd_band_info.path)
-        lpd_index = lpd_band_info.band_index
-
     return {
         "task_name": task_name,
         "task_notes": task_notes,
-        "prod_mode": prod_mode,
-        "layer_lc_path": str(land_cover_inputs.path),
-        "layer_lc_main_band": models.JobBand.Schema().dump(
-            land_cover_inputs.main_band
-        ),
-        "layer_lc_main_band_index": land_cover_inputs.main_band_index,
-        "layer_lc_aux_bands": [
-            models.JobBand.Schema().dump(b)
-            for b in land_cover_inputs.aux_bands
-        ],
-        "layer_lc_aux_band_indexes": land_cover_inputs.aux_band_indexes,
-        "layer_lc_years": land_cover_inputs.years,
-        "layer_soc_path": str(soil_organic_carbon_inputs.path),
-        "layer_soc_main_band": models.JobBand.Schema().dump(
-            soil_organic_carbon_inputs.main_band
-        ),
-        "layer_soc_main_band_index": soil_organic_carbon_inputs.main_band_index,
-        "layer_soc_aux_bands": [
-            models.JobBand.Schema().dump(b)
-            for b in soil_organic_carbon_inputs.aux_bands
-        ],
-        "layer_soc_aux_band_indexes": soil_organic_carbon_inputs.aux_band_indexes,
-        "layer_soc_years": soil_organic_carbon_inputs.years,
-        "layer_traj_path": traj_path,
-        "layer_traj_band": models.JobBand.Schema().dump(traj_band),
-        "layer_traj_band_index": traj_index,
-        "layer_traj_year_initial": traj_year_initial,
-        "layer_traj_year_final": traj_year_final,
-        "layer_perf_band": models.JobBand.Schema().dump(perf_band),
-        "layer_perf_path": perf_path,
-        "layer_perf_band_index": perf_index,
-        "layer_state_path": state_path,
-        "layer_state_band": models.JobBand.Schema().dump(state_band),
-        "layer_state_band_index": state_index,
-        "layer_lpd_path": lpd_path,
-        "layer_lpd_band": models.JobBand.Schema().dump(lpd_band),
-        "layer_lpd_band_index": lpd_index,
         "layer_population_path": str(population_input.path),
         "layer_population_band": models.JobBand.Schema().dump(
             population_input.main_band
         ),
         "layer_population_band_index": population_input.main_band_index,
+        "layer_spi_path": str(spi_input.path),
+        "layer_spi_band": models.JobBand.Schema().dump(
+            spi_input.main_band
+        ),
+        "layer_spi_band_index": spi_input.main_band_index,
         "crs": aoi.get_crs_dst_wkt(),
         "geojsons": json.dumps(geojsons),
         "crosses_180th": crosses_180th,
@@ -443,6 +261,7 @@ def compute_ldn(
     for period, period_params in ldn_job.params.params.items():
         lc_dfs = _prepare_land_cover_dfs(period_params)
         soc_dfs = _prepare_soil_organic_carbon_dfs(period_params)
+        spi_df = _prepare_spi_df(period_params)
         population_df = _prepare_population_df(period_params)
         sub_job_output_path = job_output_path.parent / f"{job_output_path.stem}_{period}.json"
         _, wkt_bounding_boxes = area_of_interest.meridian_split("layer", "wkt", warn=False)
@@ -493,7 +312,7 @@ def compute_ldn(
         log(f'population df is: {population_df}')
         if prod_mode == LdnProductivityMode.TRENDS_EARTH.value:
             traj, perf, state = _prepare_trends_earth_mode_dfs(period_params)
-            in_dfs = lc_dfs + soc_dfs + [traj, perf, state, population_df]
+            in_dfs = lc_dfs + soc_dfs + [traj, perf, state, spi_df, population_df]
             summary_table, sdg_path, reproj_path = _compute_summary_table_from_te_prod(
                 in_dfs=in_dfs,
                 compute_bbs_from=traj.path,
@@ -501,7 +320,7 @@ def compute_ldn(
             )
         elif prod_mode == LdnProductivityMode.JRC_LPD.value:
             lpd = _prepare_jrc_lpd_mode_df(period_params)
-            in_dfs = lc_dfs + soc_dfs + [lpd, population_df]
+            in_dfs = lc_dfs + soc_dfs + [lpd, spi_df, population_df]
             summary_table, sdg_path, reproj_path = _compute_summary_table_from_lpd_prod(
                 in_dfs=in_dfs,
                 compute_bbs_from=lpd.path,
@@ -705,6 +524,21 @@ def _prepare_land_cover_dfs(params: Dict) -> List[DataFile]:
     return lc_dfs
 
 
+def _prepare_spi_df(
+    params: Dict
+) -> List[DataFile]:
+    spi_path = params["layer_spi_path"]
+    spi_df = DataFile(
+        path=utils.save_vrt(
+            spi_path,
+            params["layer_spi_band_index"]
+        ),
+        bands=[models.JobBand(**params["layer_spi_band"])]
+    )
+
+    return spi_df
+
+
 def _prepare_population_df(
     params: Dict
 ) -> List[DataFile]:
@@ -800,7 +634,7 @@ def _compute_summary_table_from_te_prod(
         output_job_path: Path,
         period,
         compute_bbs_from
-) -> Tuple[SummaryTableLDN, Path]:
+) -> Tuple[SummaryTableDrought, Path]:
     '''Compute summary table if a trends.earth productivity dataset is used'''
 
     return _compute_ldn_summary_table(
@@ -825,7 +659,7 @@ def _compute_summary_table_from_lpd_prod(
         output_job_path: Path,
         period,
         compute_bbs_from
-) -> Tuple[SummaryTableLDN, Path]:
+) -> Tuple[SummaryTableDrought, Path]:
     '''Compute summary table if a JRC LPD productivity dataset is used'''
 
     return _compute_ldn_summary_table(
@@ -842,7 +676,7 @@ def _compute_summary_table_from_lpd_prod(
 
 def save_summary_table_excel(
         output_path: Path,
-        summary_table: SummaryTableLDN,
+        summary_table: SummaryTableDrought,
         land_cover_years: List[int],
         soil_organic_carbon_years: List[int],
         lc_legend_nesting: land_cover.LCLegendNesting,
@@ -876,7 +710,7 @@ def save_summary_table_excel(
 
 def save_reporting_json(
         output_path: Path,
-        summary_tables: List[SummaryTableLDN],
+        summary_tables: List[SummaryTableDrought],
         params: dict,
         task_name: str,
         aoi: areaofinterest.AOI,
@@ -1277,7 +1111,7 @@ def _process_block(
     xoff: int,
     yoff: int,
     cell_areas_raw
-) -> Tuple[SummaryTableLDN, Dict]:
+) -> Tuple[SummaryTableDrought, Dict]:
 
     lc_bands = params.in_df.array_rows_for_name(LC_BAND_NAME)
     soc_bands = params.in_df.array_rows_for_name(SOC_BAND_NAME)
@@ -1498,7 +1332,7 @@ def _process_block(
     )
 
     return (
-        SummaryTableLDN(
+        SummaryTableDrought(
             soc_by_lc_annual_totals,
             lc_annual_totals,
             lc_trans_zonal_areas,
@@ -1666,7 +1500,7 @@ class DegradationSummaryWorker(worker.AbstractWorker):
 
 def _render_ldn_workbook(
     template_workbook,
-    summary_table: SummaryTableLDN,
+    summary_table: SummaryTableDrought,
     lc_years: List[int],
     soc_years: List[int],
     lc_legend_nesting: land_cover.LCLegendNesting,
@@ -1714,7 +1548,7 @@ def _calculate_summary_table(
         deg_worker_process_name,
         period
 ) -> Tuple[
-    Optional[SummaryTableLDN],
+    Optional[SummaryTableDrought],
     str
 ]:
     # build vrt
@@ -1802,7 +1636,7 @@ def _compute_ldn_summary_table(
     lc_legend_nesting: land_cover.LCLegendNesting,
     lc_trans_matrix: land_cover.LCTransitionDefinitionDeg,
     period
-) -> Tuple[SummaryTableLDN, Path, Path]:
+) -> Tuple[SummaryTableDrought, Path, Path]:
     """Computes summary table and the output tif file(s)"""
     bbs = areaofinterest.get_aligned_output_bounds(
         compute_bbs_from,
@@ -1889,7 +1723,7 @@ def _get_summary_array(d):
     ])
 
 
-def _write_overview_sheet(sheet, summary_table: SummaryTableLDN):
+def _write_overview_sheet(sheet, summary_table: SummaryTableDrought):
     summary.write_col_to_sheet(
         sheet,
         _get_summary_array(summary_table.sdg_summary),
@@ -1900,7 +1734,7 @@ def _write_overview_sheet(sheet, summary_table: SummaryTableLDN):
 
 def _write_productivity_sheet(
     sheet,
-    st: SummaryTableLDN,
+    st: SummaryTableDrought,
     lc_trans_matrix: land_cover.LCTransitionDefinitionDeg
 ):
     summary.write_col_to_sheet(
@@ -1942,7 +1776,7 @@ def _write_productivity_sheet(
 
 def _write_soc_sheet(
     sheet,
-    st: SummaryTableLDN,
+    st: SummaryTableDrought,
     lc_trans_matrix: land_cover.LCTransitionDefinitionDeg,
     period
 ):
@@ -2014,7 +1848,7 @@ def _write_soc_sheet(
 
 def _write_land_cover_sheet(
     sheet,
-    st: SummaryTableLDN,
+    st: SummaryTableDrought,
     lc_trans_matrix: land_cover.LCTransitionDefinitionDeg,
     period
 ):
@@ -2040,7 +1874,7 @@ def _write_land_cover_sheet(
 
 def _write_population_sheet(
     sheet,
-    st: SummaryTableLDN,
+    st: SummaryTableDrought,
     period
 ):
 

@@ -42,6 +42,7 @@ from . import (
     conf,
     GetTempFilename,
     layers,
+    utils,
     worker,
 )
 
@@ -1093,7 +1094,7 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
                 [
                     usable_band.job.params.task_notes.local_context.area_of_interest_name + '\n',
                     layers.get_band_title(usable_band.band_info.serialize()) + '\n',
-                    usable_band.job.start_date.strftime("%Y-%m-%d %H:%M") + '\n',
+                    utils.utc_to_local(usable_band.job.start_date).strftime("%Y-%m-%d %H:%M") + '\n',
                     # TODO: figure out a way to cleanup the metadata so it is 
                     # presentable and useful - likely need to have each script 
                     # contain a dictionary of metadata fields that should be 
@@ -1302,14 +1303,14 @@ class WidgetDataIOSelectTEDatasetExisting(
                 [
                     usable_dataset.job.visible_name,
                     usable_dataset.job.params.task_notes.local_context.area_of_interest_name,
-                    usable_dataset.job.start_date.strftime("%Y-%m-%d %H:%M")
+                    utils.utc_to_local(usable_dataset.job.start_date).strftime("%Y-%m-%d %H:%M")
                 ]
             )
             hover_info_parts.extend(
                 [
                     usable_dataset.job.visible_name + ' - ',
                     usable_dataset.job.params.task_notes.local_context.area_of_interest_name + '\n',
-                    usable_dataset.job.start_date.strftime("%Y-%m-%d %H:%M")
+                    utils.utc_to_local(usable_dataset.job.start_date).strftime("%Y-%m-%d %H:%M")
                 ]
             )
             self.comboBox_datasets.addItem(" - ".join(name_info_parts))

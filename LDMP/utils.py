@@ -2,6 +2,7 @@ import importlib
 import tempfile
 import typing
 from pathlib import Path
+from datetime import datetime, timezone
 
 import qgis.core
 from osgeo import gdal
@@ -13,6 +14,10 @@ from .jobs import (
     manager,
     models,
 )
+
+
+def utc_to_local(utc_dt):
+    return utc_dt.replace(tzinfo=timezone.utc).astimezone(tz=None)
 
 
 def load_object(python_path: str) -> typing.Any:

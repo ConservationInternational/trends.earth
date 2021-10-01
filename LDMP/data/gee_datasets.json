@@ -288,6 +288,30 @@
             "Comments": ""
         }
     },
+    "SPI": {
+        "GPCC V6 (Global Precipitation Climatology Centre)": {
+            "Data source": "https://www.esrl.noaa.gov/psd/data/gridded/data.gpcc.html",
+            "Start year": 1971,
+            "End year": 2019,
+            "Spatial resolution": "5 km",
+            "Temporal resolution": "annual",
+            "Min Latitude": "-90",
+            "Max Latitude": "90",
+            "Min Longitude": "-180",
+            "Max Longitude": "180",
+            "Units": "mm/year",
+            "Description": "SPI derived from GPCC data",
+            "Lags": [2, 3, 6, 9, 12, 24],
+            "Link to Dataset": "http://apps.ecmwf.int/datasets/data/interim-full-moda/levtype=sfc/",
+            "GEE Dataset": "projects/trends_earth/spi/spi_GPCC_monthly_v2020_1971-2019_monthly_gamma_SPI_lag",
+            "Source code": "c08_gpcc",
+            "Status": "Stored as assets",
+            "License": "Public Domain",
+            "License URL": "https://creativecommons.org/publicdomain/zero/1.0/",
+            "Source": "Ziese, Markus; Becker, Andreas; Finger, Peter; Meyer-Christoffer, Anja; Rudolf, Bruno; Schneider, Udo (2011): GPCC First Guess Product at 1.0°: Near Real-Time First Guess monthly Land Surface Precipitation from Rain-Gauges based on SYNOP Data. DOI: 10.5676/DWD_GPCC/FG_M_100 ",
+            "Comments": "Full V7 until Jan 2013; V4 monitoring after."
+        }
+    },
     "Precipitation": {
         "CHIRPS": {
             "Data source": "GEE",

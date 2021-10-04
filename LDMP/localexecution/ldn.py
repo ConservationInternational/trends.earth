@@ -1214,7 +1214,7 @@ def save_reporting_json(
 
     ##########################################################################
     # Format final JSON output
-    te_summary = reporting.TrendsEarthSummary(
+    te_summary = reporting.TrendsEarthLandConditionSummary(
             metadata=reporting.ReportMetadata(
                 title='Trends.Earth Summary Report',
                 date=dt.datetime.now(dt.timezone.utc),
@@ -1244,7 +1244,7 @@ def save_reporting_json(
 
     try:
         te_summary_json = json.loads(
-            reporting.TrendsEarthSummary.Schema().dumps(te_summary)
+            reporting.TrendsEarthLandConditionSummary.Schema().dumps(te_summary)
         )
         with open(output_path, 'w') as f:
             json.dump(te_summary_json, f, indent=4)

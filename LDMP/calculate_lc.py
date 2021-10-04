@@ -181,8 +181,8 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
 
         #TODO: Fix trans matrix and persistence remap to use new locations for these variables
         initial_usable = (
-            self.lc_setup_widget.initial_year_layer_cb.get_usable_band_info())
-        final_usable = self.lc_setup_widget.target_year_layer_cb.get_usable_band_info()
+            self.lc_setup_widget.initial_year_layer_cb.get_current_band())
+        final_usable = self.lc_setup_widget.target_year_layer_cb.get_current_band()
         job_params = {
             "task_name": self.execution_name_le.text(),
             "task_notes": self.task_notes.toPlainText(),

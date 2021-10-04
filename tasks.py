@@ -1102,7 +1102,9 @@ ns.configure({
         'resource_files': ['LDMP/resources.qrc'],
         'numba': {
             'aot_files': [
-                'LDMP/localexecution/ldn_numba.py'
+                'LDMP/localexecution/ldn_numba.py',
+                'LDMP/localexecution/drought_numba.py',
+                'LDMP/localexecution/util_numba.py'
             ],
             'binary_extensions': [
                 '.so',

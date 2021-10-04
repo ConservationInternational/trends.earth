@@ -228,11 +228,11 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
         self.close()
 
         initial_usable = (
-            self.lc_setup_widget.initial_year_layer_cb.get_usable_band_info())
-        final_usable = self.lc_setup_widget.target_year_layer_cb.get_usable_band_info()
-        # initial_usable = self.lc_setup_widget.use_custom_initial.get_usable_band_info()
-        # final_usable = self.lc_setup_widget.use_custom_final.get_usable_band_info()
-        soc_usable = self.comboBox_custom_soc.get_usable_band_info()
+            self.lc_setup_widget.initial_year_layer_cb.get_current_band())
+        final_usable = self.lc_setup_widget.target_year_layer_cb.get_current_band()
+        # initial_usable = self.lc_setup_widget.use_custom_initial.get_current_band()
+        # final_usable = self.lc_setup_widget.use_custom_final.get_current_band()
+        soc_usable = self.comboBox_custom_soc.get_current_band()
 
         job_params = {
             "task_name": self.execution_name_le.text(),

@@ -57,9 +57,14 @@ from ..logger import log
 
 if settings_manager.get_value(Setting.BINARIES_ENABLED):
     try:
+        from trends_earth_binaries.util_numba import *
+        log("Using numba-compiled version of util_numba.")
         from trends_earth_binaries.ldn_numba import *
         log("Using numba-compiled version of ldn_numba.")
     except (ModuleNotFoundError, ImportError) as e:
+        from .util_numba import *
+        log(f"Failed import of numba-compiled code: {e}. "
+            "Falling back to python version of util_numba.")
         from .ldn_numba import *
         log(f"Failed import of numba-compiled code: {e}. "
             "Falling back to python version of ldn_numba.")
@@ -252,7 +257,7 @@ def _get_ldn_inputs(
     aux_band_name: str,
     sort_property: str = "year"
 ) -> LdnInputInfo:
-    usable_band_info = data_selection_widget.get_usable_band_info()
+    usable_band_info = data_selection_widget.get_current_band()
     main_band = usable_band_info.band_info
     main_band_index = usable_band_info.band_index
     aux_bands = []
@@ -317,22 +322,22 @@ def get_main_sdg_15_3_1_job_params(
     lpd_index = None
 
     if prod_mode == LdnProductivityMode.TRENDS_EARTH.value:
-        traj_band_info = combo_layer_traj.get_usable_band_info()
+        traj_band_info = combo_layer_traj.get_current_band()
         traj_band = traj_band_info.band_info
         traj_path = str(traj_band_info.path)
         traj_index = traj_band_info.band_index
         traj_year_initial = traj_band_info.band_info.metadata['year_start']
         traj_year_final = traj_band_info.band_info.metadata['year_end']
-        perf_band_info = combo_layer_perf.get_usable_band_info()
+        perf_band_info = combo_layer_perf.get_current_band()
         perf_band = perf_band_info.band_info
         perf_path = str(perf_band_info.path)
         perf_index = perf_band_info.band_index
-        state_band_info = combo_layer_state.get_usable_band_info()
+        state_band_info = combo_layer_state.get_current_band()
         state_band = state_band_info.band_info
         state_path = str(state_band_info.path)
         state_index = state_band_info.band_index
     elif prod_mode == LdnProductivityMode.JRC_LPD.value:
-        lpd_band_info = combo_layer_lpd.get_usable_band_info()
+        lpd_band_info = combo_layer_lpd.get_current_band()
         lpd_band = lpd_band_info.band_info
         lpd_path = str(lpd_band_info.path)
         lpd_index = lpd_band_info.band_index
@@ -430,7 +435,7 @@ def _combine_data_files(
 def compute_ldn(
         ldn_job: models.Job,
         area_of_interest: areaofinterest.AOI) -> models.Job:
-    """Calculate final SDG 15.3.1 indicator and save its outputs to disk too."""
+    """Calculate final SDG 15.3.1 indicator and save to disk"""
 
     job_output_path, _ = utils.get_local_job_output_paths(ldn_job)
 
@@ -707,7 +712,7 @@ def _prepare_land_cover_dfs(params: Dict) -> List[DataFile]:
 
 def _prepare_population_df(
     params: Dict
-) -> List[DataFile]:
+) -> DataFile:
     population_path = params["layer_population_path"]
     population_df = DataFile(
         path=utils.save_vrt(
@@ -1536,7 +1541,7 @@ class DegradationSummaryWorker(worker.AbstractWorker):
 
         if self.params.prod_mode == 'Trends.Earth productivity':
             traj_band = src_ds.GetRasterBand(
-                self.params.in_df.array_row_for_name(TRAJ_BAND_NAME)
+                self.params.in_df.array_row_for_name(TRAJ_BAND_NAME) + 1
             )
             block_sizes = traj_band.GetBlockSize()
             xsize = traj_band.XSize
@@ -1546,10 +1551,10 @@ class DegradationSummaryWorker(worker.AbstractWorker):
             n_out_bands = 2
         else:
             lpd_band = src_ds.GetRasterBand(
-                self.params.in_df.array_row_for_name(LPD_BAND_NAME)
+                self.params.in_df.array_row_for_name(LPD_BAND_NAME) + 1
             )
             band_lc_deg = src_ds.GetRasterBand(
-                self.params.in_df.array_row_for_name(LC_DEG_BAND_NAME)
+                self.params.in_df.array_row_for_name(LC_DEG_BAND_NAME) + 1
             )
             block_sizes = band_lc_deg.GetBlockSize()
             xsize = band_lc_deg.XSize

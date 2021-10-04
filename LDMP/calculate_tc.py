@@ -582,8 +582,8 @@ class DlgCalculateTCSummaryTable(
 
         self.close()
 
-        f_loss_usable = self.combo_layer_f_loss.get_usable_band_info()
-        tc_usable = self.combo_layer_tc.get_usable_band_info()
+        f_loss_usable = self.combo_layer_f_loss.get_current_band()
+        tc_usable = self.combo_layer_tc.get_current_band()
         job_params = {
             "task_name": self.options_tab.task_name.text(),
             "task_notes": self.options_tab.task_notes.toPlainText(),

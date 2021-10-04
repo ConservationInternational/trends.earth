@@ -75,7 +75,7 @@ mb = qgis.utils.iface.messageBar()
 
 
 @dataclasses.dataclass()
-class UsableBandInfo:
+class Band:
     job: job_models.Job
     path: Path
     band_index: int
@@ -83,7 +83,7 @@ class UsableBandInfo:
 
 
 @dataclasses.dataclass()
-class UsableDatasetInfo:
+class Dataset:
     job: job_models.Job
     path: Path
 
@@ -1026,10 +1026,10 @@ def _get_layers(node):
     return l
 
 
-def get_usable_bands(
+def _get_usable_bands(
         band_name: typing.Optional[str] = "any",
         selected_job_id: uuid.UUID = None,
-) -> typing.List[UsableBandInfo]:
+) -> typing.List[Band]:
     result = []
     for job in job_manager.relevant_jobs:
         job: job_models.Job
@@ -1047,9 +1047,9 @@ def get_usable_bands(
         if is_downloaded and is_of_interest and is_valid_type:
             path = job.results.data_path
             for band_index, band_info in enumerate(job.results.bands):
-                if band_info.name == band_name:
+                if band_info.name == band_name or band_name == 'any':
                     result.append(
-                        UsableBandInfo(
+                        Band(
                             job=job,
                             path=path,
                             band_index=band_index+1,
@@ -1062,7 +1062,7 @@ def get_usable_bands(
     
 class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
     comboBox_layers: QtWidgets.QComboBox
-    layer_list: typing.Optional[typing.List[UsableBandInfo]]
+    layer_list: typing.Optional[typing.List[Band]]
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -1071,7 +1071,7 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
         self.layer_list = None
 
     def populate(self, selected_job_id=None):
-        usable_bands = get_usable_bands(self.property("layer_type"), selected_job_id)
+        usable_bands = _get_usable_bands(self.property("layer_type"), selected_job_id)
         self.layer_list = usable_bands
         old_text = self.currentText()
         self.comboBox_layers.clear()
@@ -1112,23 +1112,22 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
             # default
             self.comboBox_layers.setCurrentIndex(1)
 
-    def get_data_file(self) -> Path:
-        current_index = self.comboBox_layers.currentIndex()
+    def get_current_extent(self, band_name):
+        band = self.get_current_band()
+        return qgis.core.QgsRasterLayer(
+            str(band.path), "raster file", "gdal").extent()
+
+    def get_current_data_file(self) -> Path:
         # Minus 1 below to account for blank line at beginning
-        current_usable_band_info = self.layer_list[current_index - 1]
-        return current_usable_band_info.path
+        return self.get_current_band().path
 
     def get_layer(self) -> qgis.core.QgsRasterLayer:
         return qgis.core.QgsRasterLayer(
-            str(self.get_data_file()), "raster file", "gdal")
+            str(self.get_current_data_file()), "raster file", "gdal")
 
-    def get_usable_band_info(self) -> UsableBandInfo:
+    def get_current_band(self) -> Band:
         # Minus 1 below to account for blank line at beginning
         return self.layer_list[self.comboBox_layers.currentIndex() - 1]
-
-    def get_band_info(self):
-        usable_band_info = self.get_usable_band_info()
-        return usable_band_info.band_info
 
     def set_index_from_job_id(self, job_id):
         if self.layer_list:
@@ -1152,11 +1151,11 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
 
     def get_vrt(self):
         f = GetTempFilename('.vrt')
-        usable_band_info = self.get_usable_band_info()
+        band = self.get_current_band()
         gdal.BuildVRT(
             f,
-            str(usable_band_info.path),
-            bandList=[usable_band_info.band_index]
+            str(band.path),
+            bandList=[band.band_index]
         )
         return f
 
@@ -1180,7 +1179,7 @@ class WidgetDataIOSelectTELayerImport(
 
 def get_usable_datasets(
         dataset_name: typing.Optional[str] = "any"
-) -> typing.List[UsableDatasetInfo]:
+) -> typing.List[Dataset]:
     result = []
     for job in job_manager.relevant_jobs:
         job: job_models.Job
@@ -1195,7 +1194,7 @@ def get_usable_datasets(
             path = job.results.data_path
             if job.script.name == dataset_name:
                 result.append(
-                    UsableDatasetInfo(
+                    Dataset(
                         job=job,
                         path=path,
                     )
@@ -1274,7 +1273,7 @@ class WidgetDataIOSelectTEDatasetExisting(
         Ui_WidgetDataIOSelectTEDatasetExisting
 ):
     comboBox_datasets: QtWidgets.QComboBox
-    dataset_list: typing.Optional[typing.List[UsableDatasetInfo]]
+    dataset_list: typing.Optional[typing.List[Dataset]]
     job_selected = QtCore.pyqtSignal(uuid.UUID)
 
     def __init__(self, parent=None):
@@ -1325,8 +1324,22 @@ class WidgetDataIOSelectTEDatasetExisting(
         self.selected_job_changed()
         self.comboBox_datasets.currentIndexChanged.connect(self.selected_job_changed)
 
+    def get_current_data_file(self) -> Path:
+        return self.get_current_dataset().path
+
     def currentText(self):
         return self.comboBox_datasets.currentText()
+
+    def get_current_dataset(self):
+        return self.dataset_list[self.comboBox_datasets.currentIndex() - 1]
+
+    def get_current_extent(self):
+        band = self.get_bands('any')[0]
+        return qgis.core.QgsRasterLayer(
+            str(band.path), "raster file", "gdal").extent()
+
+    def get_bands(self, band_name) -> Band:
+        return _get_usable_bands(band_name, self.get_current_dataset().job.id)
 
     def set_index_from_text(self, text):
         if self.dataset_list:

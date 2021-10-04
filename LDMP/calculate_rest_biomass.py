@@ -163,7 +163,7 @@ class DlgCalculateRestBiomassSummaryTable(
             return
 
         self.close()
-        usable_in_file = self.combo_layer_biomass_diff.get_usable_band_info()
+        usable_in_file = self.combo_layer_biomass_diff.get_current_band()
         restoration_types = []
         for band in usable_in_file.job.results.bands[1:]:
             restoration_types.append(band.metadata["type"])

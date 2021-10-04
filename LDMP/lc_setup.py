@@ -856,11 +856,11 @@ class LandCoverSetupLocalExecutionWidget(
         self.target_year_layer_cb.populate()
 
     def get_initial_year(self):
-        usable_band_info = self.initial_year_layer_cb.get_usable_band_info()
+        usable_band_info = self.initial_year_layer_cb.get_current_band()
         return usable_band_info.band_info.metadata["year"]
 
     def get_final_year(self):
-        usable_band_info = self.target_year_layer_cb.get_usable_band_info()
+        usable_band_info = self.target_year_layer_cb.get_current_band()
         return usable_band_info.band_info.metadata["year"]
 
 

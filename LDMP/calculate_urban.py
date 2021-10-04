@@ -275,7 +275,7 @@ class DlgCalculateUrbanSummaryTable(
 
         self.close()
 
-        urban_usable_info = self.combo_layer_urban_series.get_usable_band_info()
+        urban_usable_info = self.combo_layer_urban_series.get_current_band()
         urban_annual_band_indices = []
         pop_annual_band_indices = []
 

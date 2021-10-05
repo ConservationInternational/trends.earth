@@ -292,12 +292,12 @@ _ALGORITHM_CONFIG = [
                 "scripts": [
                     {
                         "script": KNOWN_SCRIPTS["unccd-default-data"],
-                        "parametrization_dialogue": "LDMP.calculate_unccd.DlgCalculateUNCCDDefaultData",
+                        "parametrization_dialogue": "LDMP.calculate_unccd.DlgCalculateUNCCD",
                     },
                 ],
             },
             {
-                "id": "052b3fbc-20a7-11ec-9621-0242ac130002",
+                "id": "5293b2b2-d90f-4f1f-9556-4b0fe1c6ba91",
                 "name": "Generate data package for UNCCD reporting",
                 "description": "Summarize land degradation, population affected by degradation, and drought datasets for submission to UNCCD",
                 "scripts": [

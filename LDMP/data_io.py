@@ -1033,7 +1033,8 @@ def _get_usable_bands(
     result = []
     for job in job_manager.relevant_jobs:
         job: job_models.Job
-        is_downloaded = job.status == job_models.JobStatus.DOWNLOADED
+        is_available = job.status in (job_models.JobStatus.DOWNLOADED,
+                                      job_models.JobStatus.GENERATED_LOCALLY)
         is_of_interest = (selected_job_id is None) or (job.id == selected_job_id)
         is_valid_type = (
             job.results and 
@@ -1044,7 +1045,7 @@ def _get_usable_bands(
                 )
             )
         )
-        if is_downloaded and is_of_interest and is_valid_type:
+        if is_available and is_of_interest and is_valid_type:
             path = job.results.data_path
             for band_index, band_info in enumerate(job.results.bands):
                 if band_info.name == band_name or band_name == 'any':
@@ -1183,14 +1184,15 @@ def get_usable_datasets(
     result = []
     for job in job_manager.relevant_jobs:
         job: job_models.Job
-        is_downloaded = job.status == job_models.JobStatus.DOWNLOADED
+        is_available = job.status in (job_models.JobStatus.DOWNLOADED,
+                                      job_models.JobStatus.GENERATED_LOCALLY)
         try:
             is_valid_type = job.results.type in (job_models.JobResult.CLOUD_RESULTS,
                                                  job_models.JobResult.LOCAL_RESULTS)
         except AttributeError:
             # Catch case of an invalid type
             continue
-        if is_downloaded and is_valid_type:
+        if is_available and is_valid_type:
             path = job.results.data_path
             if job.script.name == dataset_name:
                 result.append(

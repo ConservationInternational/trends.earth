@@ -175,6 +175,7 @@ class AOI(object):
         elif out_type == 'layer':
             pieces = [i for i in intersections if not i.isEmpty()]
         pieces_union = qgis.core.QgsGeometry.unaryUnion(pieces)
+        pieces_bounding = qgis.core.QgsGeometry.fromRect(pieces_union.boundingBox())
 
         if out_format == 'geojson':
             pieces_txt = [json.loads(piece.asJson()) for piece in pieces]
@@ -183,16 +184,25 @@ class AOI(object):
             pieces_txt = [piece.asWkt() for piece in pieces]
             pieces_union_txt = pieces_union.asWkt()
 
-        if (len(pieces) == 0) or (sum([piece.area() for piece in pieces]) > (pieces_union.area() / 2)):
+        total_pieces_area = sum([piece.area() for piece in pieces])
+        if (
+            (not pieces_bounding.area() > total_pieces_area) and (
+            (
+                len(pieces) == 1) or
+                (total_pieces_area > (pieces_union.area() / 2))
+            )
+        ):
             # If there is no area in one of the hemispheres, return the
             # original layer, or extent of the original layer. Also return the
             # original layer (or extent) if the area of the combined pieces
             # from both hemispheres is not significantly smaller than that of
             # the original polygon.
-            log("AOI being processed in one piece (does not cross 180th meridian)")
+            log("AOI being processed in one piece "
+                "(does not cross 180th meridian)")
             return (False, [pieces_union_txt])
         else:
-            log("AOI crosses 180th meridian - splitting AOI into two geojsons.")
+            log("AOI crosses 180th meridian - "
+                "splitting AOI into two geojsons.")
             return (True, pieces_txt)
 
     def get_aligned_output_bounds(self, f):

@@ -127,9 +127,7 @@ class JobManager(QtCore.QObject):
             name_fragments.append(task_name)
         name_fragments.extend([
             job.script.name,
-            job.params.task_notes.local_context.area_of_interest_name,
-            job.start_date.strftime("%Y%m%d%H%M"),
-            str(job.id)
+            job.params.task_notes.local_context.area_of_interest_name
         ])
         return separator.join(name_fragments)
 
@@ -750,7 +748,8 @@ def _delete_job_datasets(job: Job):
         try:
             # not using the `missing_ok` param since it was introduced only on 
             # Python 3.8
-            job.results.data_path.unlink()
+            if job.results.data_path:
+                job.results.data_path.unlink()
         except FileNotFoundError:
             log(f"Could not find path {job.results.data_path!r}, "
                 "skipping deletion...")

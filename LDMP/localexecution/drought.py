@@ -83,7 +83,7 @@ SPI_BAND_NAME = "Standardized Precipitation Index (SPI)"
 
 @marshmallow_dataclass.dataclass
 class SummaryTableDrought(SchemaBase):
-    annual_area_by_drought_class_total: List[Dict[int, float]]
+    annual_area_by_drought_class: List[Dict[int, float]]
     annual_population_by_drought_class_total: List[Dict[int, float]]
     annual_population_by_drought_class_male: List[Dict[int, float]]
     annual_population_by_drought_class_female: List[Dict[int, float]]
@@ -97,44 +97,45 @@ def _accumulate_summary_tables(
     else:
         out = tables[0]
         for table in tables[1:]:
-            out.annual_area_by_drought_class = accumulate_dicts(
-                [
+            out.annual_area_by_drought_class = [
+                accumulate_dicts([a,  b])
+                for a, b in zip(
                     out.annual_area_by_drought_class,
                     table.annual_area_by_drought_class
-                ]
-            )
-            out.annual_population_by_drought_class = accumulate_dicts(
-                [
+                )
+            ]
+            out.annual_population_by_drought_class_total = [
+                accumulate_dicts([a,  b])
+                for a, b in zip(
                     out.annual_population_by_drought_class_total,
                     table.annual_population_by_drought_class_total
-                ]
-            )
-            out.annual_population_by_drought_class = accumulate_dicts(
-                [
+                )
+            ]
+            out.annual_population_by_drought_class_male = [
+                accumulate_dicts([a,  b])
+                for a, b in zip(
                     out.annual_population_by_drought_class_male,
                     table.annual_population_by_drought_class_male
-                ]
-            )
-            out.annual_population_by_drought_class = accumulate_dicts(
-                [
+                )
+            ]
+            out.annual_population_by_drought_class_female = [
+                accumulate_dicts([a,  b])
+                for a, b in zip(
                     out.annual_population_by_drought_class_female,
                     table.annual_population_by_drought_class_female
-                ]
-            )
+                )
+            ]
 
         return out
 
 
 @dataclasses.dataclass()
 class SummaryTableDroughtWidgets:
-    '''Combo boxes and methods used in the SDG 15.3.1 summary table widget'''
+    '''Combo boxes and methods used in the drought summary table widget'''
     combo_dataset_drought: data_io.WidgetDataIOSelectTEDatasetExisting
 
     def populate(self):
         self.combo_dataset_drought.populate()
-
-    def populate_layer_combo_boxes(self):
-        self.combo_layer_drought.populate()
 
 
 @dataclasses.dataclass()
@@ -348,6 +349,13 @@ def compute_drought_vulnerability(
     )
 
     drought_job.results.data_path = out_path
+    drought_job.results.other_paths.append(
+        [
+            summary_json_output_path,
+            summary_table_output_path,
+            key_json
+        ]
+    )
     drought_job.end_date = dt.datetime.now(dt.timezone.utc)
     drought_job.progress = 100
 
@@ -546,22 +554,22 @@ def save_reporting_json(
             [
                 reporting.Area(
                     'Mild drought',
-                    st.annual_area_by_drought_class_total[n].get(1, 0.)),
+                    st.annual_area_by_drought_class[n].get(1, 0.)),
                 reporting.Area(
                     'Moderate drought',
-                    st.annual_area_by_drought_class_total[n].get(2, 0.)),
+                    st.annual_area_by_drought_class[n].get(2, 0.)),
                 reporting.Area(
                     'Severe drought',
-                    st.annual_area_by_drought_class_total[n].get(3, 0.)),
+                    st.annual_area_by_drought_class[n].get(3, 0.)),
                 reporting.Area(
                     'Extreme drought',
-                    st.annual_area_by_drought_class_total[n].get(4, 0.)),
+                    st.annual_area_by_drought_class[n].get(4, 0.)),
                 reporting.Area(
                     'Non-drought',
-                    st.annual_area_by_drought_class_total[n].get(0, 0.)),
+                    st.annual_area_by_drought_class[n].get(0, 0.)),
                 reporting.Area(
                     'No data',
-                    st.annual_area_by_drought_class_total[n].get(-32768, 0.))
+                    st.annual_area_by_drought_class[n].get(-32768, 0.))
             ]
         )
 
@@ -671,14 +679,14 @@ def _process_block(
     assert len(spi_rows) == len(pop_rows)
 
     # Calculate well annual totals of area and population exposed to drought
-    annual_area_by_drought_class_total = []
+    annual_area_by_drought_class = []
     annual_population_by_drought_class_total = []
     annual_population_by_drought_class_male = []
     annual_population_by_drought_class_female = []
     for spi_row, pop_row in zip(spi_rows, pop_rows):
         a_drought_class = drought_class(in_array[spi_row, :, :])
 
-        annual_area_by_drought_class_total.append(
+        annual_area_by_drought_class.append(
             zonal_total(
                 a_drought_class,
                 cell_areas,
@@ -686,11 +694,16 @@ def _process_block(
             )
         )
 
-        a_pop = in_array[pop_row, :, :].copy()
+        a_pop = in_array[pop_row, :, :]
+        pop_mask = mask.copy()
+        a_pop_masked = a_pop.copy()
+        # Account for scaling and convert from density
+        a_pop_masked = a_pop * 10. * cell_areas
+        a_pop_masked[a_pop == NODATA_VALUE] = 0
         annual_population_by_drought_class_total.append(
             zonal_total(
                 a_drought_class,
-                a_pop * 10. * cell_areas,  # Account for scaling and convert from density
+                a_pop_masked,
                 mask
             )
         )
@@ -713,6 +726,11 @@ def _process_block(
         max_drought = np.take_along_axis(spis, min_indices, axis=0)
         pop_at_max_drought = np.take_along_axis(pops, min_indices, axis=0)
 
+        pop_at_max_drought_masked = pop_at_max_drought.copy()
+        # Account for scaling and convert from density
+        pop_at_max_drought_masked = pop_at_max_drought * 10. * cell_areas
+        pop_at_max_drought_masked[pop_at_max_drought == NODATA_VALUE] = 0
+
         # Add one as output band numbers start at 1, not zero
         write_arrays[2*period_number + 1] = {
             'array': max_drought.squeeze(),  # remove zero dim of len 1
@@ -723,14 +741,14 @@ def _process_block(
         # Add two as output band numbers start at 1, not zero, and this is the 
         # second band for this period
         write_arrays[2*period_number + 2] = {
-            'array': pop_at_max_drought.squeeze() * 10. * cell_areas,
+            'array': pop_at_max_drought_masked.squeeze(),
             'xoff': xoff,
             'yoff': yoff
         }
 
     return (
         SummaryTableDrought(
-            annual_area_by_drought_class_total,
+            annual_area_by_drought_class,
             annual_population_by_drought_class_total,
             annual_population_by_drought_class_male,
             annual_population_by_drought_class_female
@@ -1013,8 +1031,8 @@ def _compute_drought_summary_table(
             bbox=wkt_bounding_box,
             pixel_aligned_bbox=pixel_aligned_bbox,
             output_tif_path=out_path,
-            mask_worker_process_name=mask_name_fragment.format(index),
-            drought_worker_process_name=drought_name_fragment.format(index),
+            mask_worker_process_name=mask_name_fragment.format(index=index),
+            drought_worker_process_name=drought_name_fragment.format(index=index),
             in_dfs=in_dfs,
             drought_period=drought_period
         )
@@ -1057,37 +1075,37 @@ def _write_drought_area_sheet(
     summary.write_col_to_sheet(
         sheet,
         _get_col_for_drought_class(
-            st.annual_area_by_drought_class_total, 1),
+            st.annual_area_by_drought_class, 1),
         4, 7
     )
     summary.write_col_to_sheet(
         sheet,
         _get_col_for_drought_class(
-            st.annual_area_by_drought_class_total, 2),
+            st.annual_area_by_drought_class, 2),
         6, 7
     )
     summary.write_col_to_sheet(
         sheet,
         _get_col_for_drought_class(
-            st.annual_area_by_drought_class_total, 3),
+            st.annual_area_by_drought_class, 3),
         8, 7
     )
     summary.write_col_to_sheet(
         sheet,
         _get_col_for_drought_class(
-            st.annual_area_by_drought_class_total, 4),
+            st.annual_area_by_drought_class, 4),
         10, 7
     )
     summary.write_col_to_sheet(
         sheet,
         _get_col_for_drought_class(
-            st.annual_area_by_drought_class_total, 0),
+            st.annual_area_by_drought_class, 0),
         12, 7
     )
     summary.write_col_to_sheet(
         sheet,
         _get_col_for_drought_class(
-            st.annual_area_by_drought_class_total, -32768),
+            st.annual_area_by_drought_class, -32768),
         14, 7
     )
     utils.maybe_add_image_to_sheet(

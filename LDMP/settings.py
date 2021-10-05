@@ -21,6 +21,7 @@ from PyQt5 import (
     QtCore,
     QtGui,
     QtWidgets,
+    uic
 )
 import qgis.core
 import qgis.gui
@@ -40,13 +41,23 @@ from .conf import (
     settings_manager,
 )
 from .jobs.manager import job_manager
-from .gui.DlgSettings import Ui_DlgSettings
-from .gui.DlgSettingsEditForgotPassword import Ui_DlgSettingsEditForgotPassword
-from .gui.DlgSettingsEditUpdate import Ui_DlgSettingsEditUpdate
-from .gui.DlgSettingsLogin import Ui_DlgSettingsLogin
-from .gui.DlgSettingsRegister import Ui_DlgSettingsRegister
-from .gui.WidgetSelectArea import Ui_WidgetSelectArea
-from .gui.WidgetSettingsAdvanced import Ui_WidgetSettingsAdvanced
+
+Ui_DlgSettings, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/DlgSettings.ui"))
+Ui_DlgSettingsEditForgotPassword, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/DlgSettingsEditForgotPassword.ui"))
+Ui_DlgSettingsEditUpdate, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/DlgSettingsEditUpdate.ui"))
+Ui_DlgSettingsLogin, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/DlgSettingsLogin.ui"))
+Ui_DlgSettingsRegister, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/DlgSettingsRegister.ui"))
+Ui_WidgetSelectArea, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/WidgetSelectArea.ui"))
+Ui_WidgetSettingsAdvanced, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/WidgetSettingsAdvanced.ui"))
+
+
 from .logger import log
 
 settings = QtCore.QSettings()

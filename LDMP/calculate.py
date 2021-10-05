@@ -94,52 +94,6 @@ def is_local_script(script_name: str = None) -> bool:
     return False
 
 
-# Transform CRS of a layer while optionally wrapping geometries
-# across the 180th meridian
-def transform_layer(l, crs_dst, datatype='polygon', wrap=False):
-    log('Transforming layer from "{}" to "{}". Wrap is {}. Datatype is {}.'.format(l.crs().toProj(), crs_dst.toProj(), wrap, datatype))
-
-    crs_src_string = l.crs().toProj()
-    if wrap:
-        if not l.crs().isGeographic():
-            QtWidgets.QMessageBox.critical(None,tr_calculate.tr("Error"),
-                   tr_calculate.tr("Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian."))
-            log('Can\'t wrap layer in non-geographic coordinate system: "{}"'.format(crs_src_string))
-            return None
-        crs_src_string = crs_src_string + ' +lon_wrap=180'
-    crs_src = qgis.core.QgsCoordinateReferenceSystem()
-    crs_src.createFromProj(crs_src_string)
-    t = qgis.core.QgsCoordinateTransform(crs_src, crs_dst, qgis.core.QgsProject.instance())
-
-    l_w = qgis.core.QgsVectorLayer(
-        "{datatype}?crs=proj4:{crs}".format(datatype=datatype, crs=crs_dst.toProj()),
-        "calculation boundary (transformed)",
-        "memory"
-    )
-    feats = []
-    for f in l.getFeatures():
-        geom = f.geometry()
-        if wrap:
-            n = 0
-            p = geom.vertexAt(n)
-            # Note vertexAt returns QgsPointXY(0, 0) on error
-            while p != qgis.core.QgsPointXY(0, 0):
-                if p.x() < 0:
-                    geom.moveVertex(p.x() + 360, p.y(), n)
-                n += 1
-                p = geom.vertexAt(n)
-        geom.transform(t)
-        f.setGeometry(geom)
-        feats.append(f)
-    l_w.dataProvider().addFeatures(feats)
-    l_w.commitChanges()
-    if not l_w.isValid():
-        log('Error transforming layer from "{}" to "{}" (wrap is {})'.format(crs_src_string, crs_dst.toProj(), wrap))
-        return None
-    else:
-        return l_w
-
-
 def json_geom_to_geojson(txt):
     d = {'type': 'FeatureCollection',
          'features': [{'type': 'Feature',

@@ -83,7 +83,7 @@ def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
     # geojson.
     outs = []
 
-    for geojson in params.get('geojsons'):
+    for geojson_num, geojson in enumerate(params.get('geojsons')):
         with ThreadPoolExecutor(max_workers=max_workers) as executor:
             res = []
 
@@ -170,26 +170,25 @@ def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
                 'sdg_sub_indicators',
                 params.get('crs'),
                 logger,
-                EXECUTION_ID,
+                str(EXECUTION_ID) + str(geojson_num),
                 proj
             )
         )
 
-    # Deserialize the data that was prepared for output from the productivity
-    # functions, so that new urls can be appended
     schema = CloudResultsSchema()
     logger.debug("Deserializing")
-    final_prod = schema.load(outs[0])
+    final_output = schema.load(outs[0])
 
+    logger.debug(f"Initial url list: {final_output.urls}")
     for o in outs[1:]:
         this_out = schema.load(o)
-        final_prod.urls.extend(this_out.urls)
+        logger.debug(f"Urls: {this_out.urls}")
+        final_output.urls.extend(this_out.urls)
     logger.debug("Serializing")
     # Now serialize the output again so the remaining layers can be
     # added to it
 
-    return schema.dump(final_prod)
-
+    return schema.dump(final_output)
 
 
 def _get_population(params, proj, logger):
@@ -244,12 +243,12 @@ def run_jrc_for_period(params, EXECUTION_ID, logger):
                      'Land Productivity Dynamics (LPD)'])
 
     return out.export(
-        params.get('geojsons'),
-        'sdg_sub_indicators',
-        params.get('crs'),
-        logger,
-        EXECUTION_ID,
-        proj
+        geojsons=params.get('geojsons'),
+        task_name='sdg_sub_indicators',
+        crs=params.get('crs'),
+        logger=logger,
+        execution_id=EXECUTION_ID,
+        proj=proj
     )
 
 

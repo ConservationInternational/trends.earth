@@ -450,7 +450,7 @@ def compute_ldn(
         soc_dfs = _prepare_soil_organic_carbon_dfs(period_params)
         population_df = _prepare_population_df(period_params)
         sub_job_output_path = job_output_path.parent / f"{job_output_path.stem}_{period}.json"
-        _, wkt_bounding_boxes = area_of_interest.meridian_split("layer", "wkt", warn=False)
+        _, wkt_aois = area_of_interest.meridian_split("layer", "wkt", warn=False)
         prod_mode = period_params["prod_mode"]
 
         period_params["layer_lc_main_band"]["metadata"]['nesting']
@@ -478,7 +478,7 @@ def compute_ldn(
                     "year_final": 2013  # TODO: fix this when new JRC added, and don't hardcode
                 }
         summary_table_stable_kwargs[period] = {
-            "wkt_bounding_boxes": wkt_bounding_boxes,
+            "wkt_aois": wkt_aois,
             "lc_legend_nesting": land_cover.LCLegendNesting.Schema().loads(
                 period_params["layer_lc_main_band"]["metadata"]['nesting'],
             ),
@@ -570,6 +570,10 @@ def compute_ldn(
             period
         )
 
+        ldn_job.results.other_paths.append(
+            summary_table_output_path
+        )
+
     overall_vrt_path = job_output_path.parent / f"{job_output_path.stem}.vrt"
     _combine_all_bands_into_vrt(period_vrts, overall_vrt_path)
     out_df = _combine_data_files(overall_vrt_path, period_dfs)
@@ -592,6 +596,14 @@ def compute_ldn(
         area_of_interest,
         summary_table_stable_kwargs
     )
+
+    ldn_job.results.other_paths.append(
+        [
+            summary_json_output_path,
+            key_json
+        ]
+    )
+
     ldn_job.end_date = dt.datetime.now(dt.timezone.utc)
     ldn_job.progress = 100
 
@@ -796,7 +808,7 @@ def _prepare_jrc_lpd_mode_df(
 
 
 def _compute_summary_table_from_te_prod(
-        wkt_bounding_boxes,
+        wkt_aois,
         in_dfs,
         lc_legend_nesting: land_cover.LCLegendNesting,
         lc_trans_matrix: land_cover.LCTransitionDefinitionDeg,
@@ -809,7 +821,7 @@ def _compute_summary_table_from_te_prod(
     '''Compute summary table if a trends.earth productivity dataset is used'''
 
     return _compute_ldn_summary_table(
-        wkt_bounding_boxes=wkt_bounding_boxes,
+        wkt_aois=wkt_aois,
         in_dfs=in_dfs,
         compute_bbs_from=compute_bbs_from,
         prod_mode=LdnProductivityMode.TRENDS_EARTH.value,
@@ -821,7 +833,7 @@ def _compute_summary_table_from_te_prod(
 
 
 def _compute_summary_table_from_lpd_prod(
-        wkt_bounding_boxes,
+        wkt_aois,
         in_dfs,
         lc_legend_nesting: land_cover.LCLegendNesting,
         lc_trans_matrix: land_cover.LCTransitionDefinitionDeg,
@@ -834,7 +846,7 @@ def _compute_summary_table_from_lpd_prod(
     '''Compute summary table if a JRC LPD productivity dataset is used'''
 
     return _compute_ldn_summary_table(
-        wkt_bounding_boxes=wkt_bounding_boxes,
+        wkt_aois=wkt_aois,
         in_dfs=in_dfs,
         compute_bbs_from=compute_bbs_from,
         prod_mode=LdnProductivityMode.JRC_LPD.value,
@@ -1163,55 +1175,6 @@ def save_reporting_json(
             affected_by_deg_summary
         ) 
 
-    ###
-    # Setup drought vulnerability reports
-    drought_tier_one = []
-    drought_tier_two = []
-    for year in range(2001, 2019):
-        drought_tier_one.append(
-            reporting.AreaList(
-                f'year',
-                'sq km',
-                [reporting.Area('Mild drought', st.sdg_summary.get(1, 0.)),
-                 reporting.Area('Moderate drought', st.sdg_summary.get(0, 0.)),
-                 reporting.Area('Severe drought', st.sdg_summary.get(-1, 0.)),
-                 reporting.Area('Extreme drought', st.sdg_summary.get(-1, 0.)),
-                 reporting.Area('Non-drought', 0),
-                 reporting.Area('No-data', 0)]
-            )
-        )
-
-        for drought_class in (
-            'Mild drought', 'Moderate drought',
-            'Severe drought', 'Extreme drought'
-        ):
-            drought_tier_two.append(
-                [reporting.DroughtExposedPopulation(
-                    drought_class,
-                    year,
-                    [
-                        reporting.Population(
-                            name="Population exposed to drought",
-                            population=15000,
-                            type='Male population'
-                        ),
-                        reporting.Population(
-                            name="Population exposed to drought",
-                            population=15000,
-                            type='Female population'
-                        ),
-                        reporting.Population(
-                            name="Population exposed to drought",
-                            population=30000,
-                            type='Total population'
-                        )
-                    ]
-                )]
-            )
-
-    drought_tier_three = []
-
-
     ##########################################################################
     # Format final JSON output
     te_summary = reporting.TrendsEarthLandConditionSummary(
@@ -1238,8 +1201,6 @@ def save_reporting_json(
             land_condition=land_condition_reports,
 
             affected_population=affected_pop_reports,
-
-            drought=None
         )
 
     try:
@@ -1495,11 +1456,15 @@ def _process_block(
 
     ###########################################################
     # Population affected by degradation
-    pop_array = in_array[params.in_df.array_row_for_name(POPULATION_BAND_NAME), :, :]
+    pop_array = in_array[
+        params.in_df.array_row_for_name(POPULATION_BAND_NAME), :, :]
+    pop_array_masked = pop_array.copy()
+    pop_array_masked = pop_array * 10. * cell_areas  # Account for scaling and convert from density
+    pop_array_masked[pop_array == NODATA_VALUE] = NODATA_VALUE
     sdg_zonal_population_total = zonal_total(
         deg_sdg,
-        pop_array * 10. * cell_areas,  # Account for scaling and convert from density
-        mask
+        pop_array_masked,
+        pop_mask
     )
 
     return (
@@ -1799,7 +1764,7 @@ def _calculate_summary_table(
 
 
 def _compute_ldn_summary_table(
-    wkt_bounding_boxes,
+    wkt_aois,
     in_dfs,
     compute_bbs_from,
     prod_mode,
@@ -1811,24 +1776,25 @@ def _compute_ldn_summary_table(
     """Computes summary table and the output tif file(s)"""
     bbs = areaofinterest.get_aligned_output_bounds(
         compute_bbs_from,
-        wkt_bounding_boxes
+        wkt_aois
     )
+
     output_name_pattern = {
         1: f"{output_job_path.stem}" + "_{layer}.tif",
         2: f"{output_job_path.stem}" + "{layer}_{index}.tif"
-    }[len(wkt_bounding_boxes)]
+    }[len(wkt_aois)]
     reproject_name_fragment = {
         1: "Reprojecting layers",
         2: "Reprojecting layers (part {index} of 2)",
-    }[len(wkt_bounding_boxes)]
+    }[len(wkt_aois)]
     mask_name_fragment = {
         1: "Generating mask",
         2: "Generating mask (part {index} of 2)",
-    }[len(wkt_bounding_boxes)]
+    }[len(wkt_aois)]
     deg_name_fragment = {
         1: "Calculating summary table",
         2: "Calculating summary table (part {index} of 2)",
-    }[len(wkt_bounding_boxes)]
+    }[len(wkt_aois)]
     stable_kwargs = {
         "in_dfs": in_dfs,
         "prod_mode": prod_mode,
@@ -1840,10 +1806,10 @@ def _compute_ldn_summary_table(
     summary_tables = []
     reproj_paths = []
     sdg_paths = []
-    for index, ( 
+    for index, (
         wkt_bounding_box,
         pixel_aligned_bbox
-    ) in enumerate(zip(wkt_bounding_boxes, bbs), start=1):
+    ) in enumerate(zip(wkt_aois, bbs), start=1):
         sdg_path = output_job_path.parent / output_name_pattern.format(
             layer="sdg", index=index
         )
@@ -1852,14 +1818,16 @@ def _compute_ldn_summary_table(
             layer="inputs", index=index
         )
         reproj_paths.append(reproj_path)
+
+        log('pixel_aligned_bbox: {pixel_aligned_bbox}')
         result, error_message = _calculate_summary_table(
             bbox=wkt_bounding_box,
             pixel_aligned_bbox=pixel_aligned_bbox,
             output_sdg_path=sdg_path,
             output_layers_path=reproj_path,
-            reproject_worker_process_name=reproject_name_fragment.format(index),
-            mask_worker_process_name=mask_name_fragment.format(index),
-            deg_worker_process_name=deg_name_fragment.format(index),
+            reproject_worker_process_name=reproject_name_fragment.format(index=index),
+            mask_worker_process_name=mask_name_fragment.format(index=index),
+            deg_worker_process_name=deg_name_fragment.format(index=index),
             **stable_kwargs
         )
         if result is None:

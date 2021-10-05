@@ -499,6 +499,22 @@
             }
         }
     },
+    "Drought Vulnerability (JRC)": {
+        "title": "jrc_drought_vulnerability_title",
+        "title": "prod_state_classes_title",
+        "ramp": {
+            "type": "categorical",
+            "shader": "interpolated",
+            "items": [
+                {"value": -32768, "color": "#000000", "label": "nodata"},
+                {"value": 0, "color": "#3B0F6F", "label": "0th percentile"},
+                {"value": 0.25, "color": "#8C2981", "label": "25th percentile"},
+                {"value": 0.5, "color": "#DD4A69", "label": "50th percentile"},
+                {"value": 0.75, "color": "#FE9F6D", "label": "75th percentile"},
+                {"value": 1, "color": "#FCFDBF", "label": "100th percentile"}
+            ]
+        }
+    },
     "Biomass (tonnes CO2e per ha)": {
         "title": "biomass_title",
         "ramp": {

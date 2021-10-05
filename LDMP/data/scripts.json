@@ -156,7 +156,7 @@
     },
     "unccd-report": {
         "description": "Generate package for UNCCD reporting",
-        "execution_callable": "LDMP.localexecution.calculate_unccd.generate_unccd_report",
+        "execution_callable": "LDMP.localexecution.unccd.compute_unccd_report",
         "name_readable": "UNCCD reporting package",
         "run_mode": "local"
     },

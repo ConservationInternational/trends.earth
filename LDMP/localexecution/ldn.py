@@ -576,7 +576,7 @@ def compute_ldn(
 
     overall_vrt_path = job_output_path.parent / f"{job_output_path.stem}.vrt"
     _combine_all_bands_into_vrt(period_vrts, overall_vrt_path)
-    out_df = _combine_data_files(overall_vrt_path, period_dfs)
+    out_df = _combine_data_files(overall_vrt_path.name, period_dfs)
 
     ldn_job.results.data_path = overall_vrt_path
     ldn_job.results.bands.extend(out_df.bands)
@@ -1460,11 +1460,11 @@ def _process_block(
         params.in_df.array_row_for_name(POPULATION_BAND_NAME), :, :]
     pop_array_masked = pop_array.copy()
     pop_array_masked = pop_array * 10. * cell_areas  # Account for scaling and convert from density
-    pop_array_masked[pop_array == NODATA_VALUE] = NODATA_VALUE
+    pop_array_masked[pop_array == NODATA_VALUE] = 0
     sdg_zonal_population_total = zonal_total(
         deg_sdg,
         pop_array_masked,
-        pop_mask
+        mask
     )
 
     return (

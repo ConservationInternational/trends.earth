@@ -62,21 +62,15 @@ class DlgCalculateUNCCD(DlgCalculateBase, DlgCalculateUNCCDUi):
         super().__init__(iface, script, parent)
         self.setupUi(self)
 
-        # TODO: add an option of different population and SPI datasets...
         self.population_dataset_name = "Gridded Population Count"
         self.population_dataset = conf.REMOTE_DATASETS["WorldPop"][self.population_dataset_name]
 
         self.spi_dataset_name = "GPCC V6 (Global Precipitation Climatology Centre)"
         self.spi_dataset = conf.REMOTE_DATASETS["SPI"][self.spi_dataset_name]
 
-        self.precip_chirps_radio.toggled.connect(self.update_time_bounds)
         self.update_time_bounds()
-        self.populate_spi_lags()
 
         self._finish_initialization()
-
-    def populate_spi_lags(self):
-        self.lag_cb.addItems([str(lag) for lag in self.spi_dataset['Lags']])
 
     def update_time_bounds(self):
         start_year_pop = self.population_dataset['Start year']
@@ -87,15 +81,32 @@ class DlgCalculateUNCCD(DlgCalculateBase, DlgCalculateUNCCDUi):
         start_year = QtCore.QDate(max(start_year_pop, start_year_spi), 1, 1)
         end_year = QtCore.QDate(min(end_year_pop, end_year_spi), 1, 1)
 
-        self.year_initial_de.setMinimumDate(start_year)
-        self.year_initial_de.setMaximumDate(end_year)
-        self.year_final_de.setMinimumDate(start_year)
-        self.year_final_de.setMaximumDate(end_year)
+        self.year_initial_baseline.setMinimumDate(start_year)
+        self.year_initial_baseline.setMaximumDate(end_year)
+        self.year_final_baseline.setMinimumDate(start_year)
+        self.year_final_baseline.setMaximumDate(end_year)
+
+        self.year_initial_progress.setMinimumDate(start_year)
+        self.year_initial_progress.setMaximumDate(end_year)
+        self.year_final_progress.setMinimumDate(start_year)
+        self.year_final_progress.setMaximumDate(end_year)
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
         # as well.
+
+        QtWidgets.QMessageBox.information(
+            None,
+            self.tr("Coming soon!"),
+            self.tr(
+                "This function coming soon!"
+            )
+        )
+        self.close()
+        return
+
+
         ret = super(DlgCalculateUNCCD, self).btn_calculate()
 
         if not ret:
@@ -194,6 +205,7 @@ class DlgCalculateUNCCDReport(
 
     def validate_dataset_selections(self, combo_boxes):
         '''validate all needed datasets are selected'''
+
         if combo_boxes.combo_dataset_so1_so2.currentText == '':
             QtWidgets.QMessageBox.critical(
                 None,
@@ -233,6 +245,7 @@ class DlgCalculateUNCCDReport(
             not self.validate_dataset_selections(self.combo_boxes)
         ):
             log('failed dataset validation')
+
             return
 
         params = {

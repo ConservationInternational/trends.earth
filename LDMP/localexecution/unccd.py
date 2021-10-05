@@ -94,6 +94,7 @@ def get_main_unccd_report_job_params(
         task_name: str,
         combo_dataset_so1_so2: data_io.WidgetDataIOSelectTEDatasetExisting,
         combo_dataset_so3: data_io.WidgetDataIOSelectTEDatasetExisting,
+        combo_layer_jrc_vulnerability: data_io.WidgetDataIOSelectTELayerExisting,
         task_notes: Optional[str] = "",
 ) -> Dict:
 

@@ -322,7 +322,7 @@ def compute_drought_vulnerability(
             activated=True
         ))
 
-    out_df = DataFile(out_path, out_bands)
+    out_df = DataFile(out_path.name, out_bands)
 
     drought_job.results.bands.extend(out_df.bands)
 
@@ -695,7 +695,6 @@ def _process_block(
         )
 
         a_pop = in_array[pop_row, :, :]
-        pop_mask = mask.copy()
         a_pop_masked = a_pop.copy()
         # Account for scaling and convert from density
         a_pop_masked = a_pop * 10. * cell_areas

@@ -426,7 +426,7 @@ def plugin_install(c, clean=False, version=3, profile='default', fast=False, sym
     src = os.path.abspath(src)
     dst_this_plugin = os.path.abspath(dst_this_plugin)
 
-    if (not hasattr(os, 'symlink') or (not symlink):
+    if (not hasattr(os, 'symlink')) or (not symlink):
         print("Copying plugin to QGIS version {} plugin folder at {}".format(version, dst_this_plugin))
         if clean:
             if os.path.exists(dst_this_plugin):

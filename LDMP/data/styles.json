@@ -462,6 +462,18 @@
             ]
         }
     },
+    "Population density at maximum SPI over period": {
+        "title": "population_density_title",
+        "ramp": {
+            "type": "min zero stretch",
+            "shader": "interpolated",
+            "percent stretch": 2,
+            "zero": {"color": "#461554"},
+            "mid": {"color": "#28898C"},
+            "max": {"color": "#FDE629"},
+            "no data": {"value": -32768, "color": "#000000", "label": "nodata"}
+        }
+    },
     "Population (density, persons per sq km / 10)": {
         "title": "population_density_title",
         "ramp": {
@@ -489,29 +501,53 @@
     "Standardized Precipitation Index (SPI)": {
         "title": "spi_title",
         "ramp": {
-            "type": "zero-centered stretch",
+            "type": "categorical",
             "shader": "interpolated",
-            "percent stretch": 2,
-            "min": {"color": "#9b2779"},
-            "zero": {"color": "#ffffe0"},
-            "max": {"color": "#006500"},
-            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
-            }
+            "items": [
+               {"value": -32768, "color": "#000000", "label": "nodata"},
+               {"value": -2500, "color": "#8c510a", "label": "spi_extreme_drought"},
+               {"value": -2000, "color": "#bf812d", "label": "spi_severe_drought"},
+               {"value": -1500, "color": "#dfc27d", "label": "spi_moderate_drought"},
+               {"value": -1000, "color": "#f6e8c3", "label": "spi_mild_drought"},
+               {"value": 0, "color": "#f5f5f5", "label": "spi_normal"},
+               {"value": 1000, "color": "#c7eae5", "label": "spi_mild_wet"},
+               {"value": 1500, "color": "#80cdc1", "label": "spi_moderate_wet"},
+               {"value": 2000, "color": "#35978f", "label": "spi_severe_wet"},
+               {"value": 2500, "color": "#01665e", "label": "spi_extreme_wet"}
+            ]
+        }
+    },
+    "Maximum SPI over period": {
+        "title": "maximum_spi_over_period_title",
+        "ramp": {
+            "type": "categorical",
+            "shader": "interpolated",
+            "items": [
+               {"value": -32768, "color": "#000000", "label": "nodata"},
+               {"value": -2500, "color": "#8c510a", "label": "spi_extreme_drought"},
+               {"value": -2000, "color": "#bf812d", "label": "spi_severe_drought"},
+               {"value": -1500, "color": "#dfc27d", "label": "spi_moderate_drought"},
+               {"value": -1000, "color": "#f6e8c3", "label": "spi_mild_drought"},
+               {"value": 0, "color": "#f5f5f5", "label": "spi_normal"},
+               {"value": 1000, "color": "#c7eae5", "label": ""},
+               {"value": 1500, "color": "#80cdc1", "label": ""},
+               {"value": 2000, "color": "#35978f", "label": ""},
+               {"value": 2500, "color": "#01665e", "label": ""}
+            ]
         }
     },
     "Drought Vulnerability (JRC)": {
         "title": "jrc_drought_vulnerability_title",
-        "title": "prod_state_classes_title",
         "ramp": {
             "type": "categorical",
             "shader": "interpolated",
             "items": [
                 {"value": -32768, "color": "#000000", "label": "nodata"},
                 {"value": 0, "color": "#3B0F6F", "label": "0th percentile"},
-                {"value": 0.25, "color": "#8C2981", "label": "25th percentile"},
-                {"value": 0.5, "color": "#DD4A69", "label": "50th percentile"},
-                {"value": 0.75, "color": "#FE9F6D", "label": "75th percentile"},
-                {"value": 1, "color": "#FCFDBF", "label": "100th percentile"}
+                {"value": 250, "color": "#8C2981", "label": "25th percentile"},
+                {"value": 500, "color": "#DD4A69", "label": "50th percentile"},
+                {"value": 750, "color": "#FE9F6D", "label": "75th percentile"},
+                {"value": 1000, "color": "#FCFDBF", "label": "100th percentile"}
             ]
         }
     },

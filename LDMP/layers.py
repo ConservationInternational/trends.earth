@@ -191,7 +191,17 @@ style_text_dict = {
     'population_density_title': tr_layers.tr(u'Population density ({year}, per sq km / 10)'),
 
     # SPI
-    'spi_title': tr_layers.tr(u'Standardized Precipitation Index (SPI, {year}, {lag} month lag)'),
+    'spi_title': tr_layers.tr(u'Standardized Precipitation Index (SPI, {year}, {lag} month lag, * 1000)'),
+    'jrc_drought_vulnerability_title': tr_layers.tr(u'Drought Vulnerability (JRC, {year}, * 1000)'),
+    'spi_extreme_drought': tr_layers.tr(u'Extreme drought'),
+    'spi_severe_drought': tr_layers.tr(u'Severe drought'),
+    'spi_moderate_drought': tr_layers.tr(u'Moderate drought'),
+    'spi_mild_drought': tr_layers.tr(u'Mild drought'),
+    'spi_normal': tr_layers.tr(u'Normal'),
+    'spi_mild_wet': tr_layers.tr(u'Mildly wet'),
+    'spi_moderate_wet': tr_layers.tr(u'Moderately wet'),
+    'spi_severe_wet': tr_layers.tr(u'Severely wet'),
+    'spi_extreme_wet': tr_layers.tr(u'Extremely wet'),
 
     # Biomass
     'biomass_title': tr_layers.tr(u'Biomass (tonnes CO2e per ha, {year})'),

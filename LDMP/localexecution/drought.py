@@ -79,6 +79,7 @@ MASK_VALUE = -32767
 
 POPULATION_BAND_NAME = "Population (density, persons per sq km / 10)"
 SPI_BAND_NAME = "Standardized Precipitation Index (SPI)"
+JRC_BAND_NAME = "Standardized Precipitation Index (SPI)"
 
 
 @marshmallow_dataclass.dataclass
@@ -133,9 +134,11 @@ def _accumulate_summary_tables(
 class SummaryTableDroughtWidgets:
     '''Combo boxes and methods used in the drought summary table widget'''
     combo_dataset_drought: data_io.WidgetDataIOSelectTEDatasetExisting
+    combo_layer_jrc_vulnerability: data_io.WidgetDataIOSelectTELayerExisting
 
     def populate(self):
         self.combo_dataset_drought.populate()
+        self.combo_layer_jrc_vulnerability.populate()
 
 
 @dataclasses.dataclass()
@@ -173,7 +176,8 @@ def get_main_drought_summary_job_params(
         task_name: str,
         aoi,
         combo_dataset_drought: data_io.WidgetDataIOSelectTEDatasetExisting,
-        task_notes: Optional[str] = "",
+        combo_layer_jrc_vulnerability: data_io.WidgetDataIOSelectTELayerExisting,
+        task_notes: Optional[str] = ""
 ) -> Dict:
 
     spi_input = _get_drought_inputs(
@@ -313,7 +317,7 @@ def compute_drought_vulnerability(
         ))
 
         out_bands.append(models.JobBand(
-            name="Population at maximum SPI over period",
+            name="Population density at maximum SPI over period",
             no_data_value=NODATA_VALUE,
             metadata={
                 'year_start': year_start,

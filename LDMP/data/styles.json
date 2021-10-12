@@ -529,10 +529,10 @@
                {"value": -1500, "color": "#dfc27d", "label": "spi_moderate_drought"},
                {"value": -1000, "color": "#f6e8c3", "label": "spi_mild_drought"},
                {"value": 0, "color": "#f5f5f5", "label": "spi_normal"},
-               {"value": 1000, "color": "#c7eae5", "label": ""},
-               {"value": 1500, "color": "#80cdc1", "label": ""},
-               {"value": 2000, "color": "#35978f", "label": ""},
-               {"value": 2500, "color": "#01665e", "label": ""}
+               {"value": 1000, "color": "#c7eae5", "label": "spi_mild_wet"},
+               {"value": 1500, "color": "#80cdc1", "label": "spi_moderate_wet"},
+               {"value": 2000, "color": "#35978f", "label": "spi_severe_wet"},
+               {"value": 2500, "color": "#01665e", "label": "spi_extreme_wet"}
             ]
         }
     },

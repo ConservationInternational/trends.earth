@@ -173,10 +173,10 @@ _ALGORITHM_CONFIG = [
         "algorithms": [
             {
                 "id": "bdad3786-bc36-46aa-8e3d-d6cede915cef",
-                "name": "All SDG 15.3.1 sub-indicators in one step",
+                "name": "Sub-indicators for SDG 15.3.1",
                 "description": (
-                    "Calculate Productivity, Land Cover and Soil Organic carbon "
-                    "sub-indicators simultaneously"
+                    "Calculate SDG 15.3.1 sub-indicators (required prior to "
+                    "15.3.1 indicator calculation)"
                 ),
                 "scripts": [
                     {
@@ -187,10 +187,11 @@ _ALGORITHM_CONFIG = [
             },
             {
                 "id": "fe1cffa7-33f7-4148-ac7b-fc726402d59d",
-                "name": "Main SDG 15.3.1 indicator",
+                "name": "Indicator for SDG 15.3.1",
                 "name_details": "Spatial layer and summary table for total boundary",
                 "description": (
-                    "Proportion of land that is degraded over total land area"
+                    "Calculate SDG 15.3.1 indicator from productivity, land "
+                    "cover, and soil organic carbon sub-indicators"
                 ),
                 "scripts": [
                     {
@@ -201,11 +202,10 @@ _ALGORITHM_CONFIG = [
             },
             {
                 "id": "e25d2a72-2274-45fa-9b69-74e87873054e",
-                "name": "Land Productivity",
+                "name": "Land productivity",
                 "description": (
-                    "Land productivity is the biological productive capacity of the "
-                    "land, the source of all the food, fiber and fuel that sustains "
-                    "humans"
+                    "Land productivity is the biological productive "
+                    "capacity of land"
                 ),
                 "scripts": [
                     {
@@ -216,11 +216,10 @@ _ALGORITHM_CONFIG = [
             },
             {
                 "id": "277f87e6-5362-4533-ab1d-c28251576884",
-                "name": "Land Cover",
+                "name": "Land cover change",
                 "description": (
-                    "Land cover is the physical material at the surface of the earth. "
-                    "Land covers include grass, asphalt, trees, bare ground, water, "
-                    "etc"
+                    "Land cover is the physical material at the surface of "
+                    "the earth. "
                 ),
                 "scripts": [
                     {
@@ -237,7 +236,7 @@ _ALGORITHM_CONFIG = [
                 "id": "f32fd29b-2af8-4564-9189-3dd440758be6",
                 "name": "Soil Organic Carbon",
                 "description": (
-                    "Soil organic carbon is a measureable component of soil organic "
+                    "Soil organic carbon is a measure of soil organic "
                     "matter"
                 ),
                 "scripts": [
@@ -255,12 +254,15 @@ _ALGORITHM_CONFIG = [
     },
     {
         "name": "Drought",
-        "name_details": "Calculate indicators of drought vulnerability and exposure",
+        "name_details": "Vulnerability and exposure",
         "algorithms": [
             {
                 "id": "afb8d95a-20a5-11ec-9621-0242ac130002",
-                "name": "Drought vulnerability indicators",
-                "description": "Calculate indicators of drought vulnerability consistent with United Nations Convention to Combat Desertification (UNCCD) Good Practice Guidance for Strategic Objective 3 (SO3)",
+                "name": "Drought vulnerability",
+                "description": (
+                    "Calculate indicators of drought vulnerability "
+                    "consistent with UNCCD SO3 Good Practice Guidance"
+                ),
                 "scripts": [
                     {
                         "script": KNOWN_SCRIPTS["drought-vulnerability"],
@@ -271,7 +273,10 @@ _ALGORITHM_CONFIG = [
             {
                 "id": "bb5df452-20a5-11ec-9621-0242ac130002",
                 "name": "Drought vulnerability summary table",
-                "description": "Summarize drought indicators (in alignment with UNCCD SO3 reporting requirements)",
+                "description": (
+                    "Summarize drought indicators in alignment with UNCCD "
+                    "SO3 reporting requirements"
+                ),
                 "scripts": [
                     {
                         "script": KNOWN_SCRIPTS["drought-vulnerability-summary"],
@@ -287,8 +292,11 @@ _ALGORITHM_CONFIG = [
         "algorithms": [
             {
                 "id": "052b3fbc-20a7-11ec-9621-0242ac130002",
-                "name": "Calculate default data for UNCCD reporting",
-                "description": "Generate the default datasets for submission to United Nations Convention to Combat Desertification (UNCCD), consistent with relevant Good Practice Guidances",
+                "name": "Default data for UNCCD reporting",
+                "description": (
+                    "Generate default datasets used in the UNCCD "
+                    "2021 reporting cycle"
+                ),
                 "scripts": [
                     {
                         "script": KNOWN_SCRIPTS["unccd-default-data"],
@@ -299,7 +307,11 @@ _ALGORITHM_CONFIG = [
             {
                 "id": "5293b2b2-d90f-4f1f-9556-4b0fe1c6ba91",
                 "name": "Generate data package for UNCCD reporting",
-                "description": "Summarize land degradation, population affected by degradation, and drought datasets for submission to UNCCD",
+                "description": (
+                    "Summarize Strategic Objective (SO) 1, SO2, and SO3 "
+                    "datasets in proper format for submission to UNCCD for "
+                    "2021 reporting cycle"
+                ),
                 "scripts": [
                     {
                         "script": KNOWN_SCRIPTS["unccd-report"],
@@ -311,12 +323,15 @@ _ALGORITHM_CONFIG = [
     },
     {
         "name": "SDG 11.3.1",
-        "name_details": "Urban Change and Land Consumption",
+        "name_details": "Urban change and land consumption",
         "algorithms": [
             {
                 "id": "bdce0a12-c5ab-485b-ac47-278cedbce789",
                 "name": "Urban change spatial layer",
-                "description": "TODO: Urban change spatial layer long description",
+                "description": (
+                    "Calculate indicators of change in urban extent "
+                    "(SDG 11.3.1 indicator)"
+                ),
                 "scripts": [
                     {
                         "script": KNOWN_SCRIPTS["urban-area"],
@@ -327,7 +342,9 @@ _ALGORITHM_CONFIG = [
             {
                 "id": "748780b4-39bb-4460-b203-0f2367d7c699",
                 "name": "Urban change summary table for city",
-                "description": "TODO: Urban change summary table for city long description",
+                "description": (
+                    "Calculate table summarizing SDG indicator 11.3.1"
+                ),
                 "scripts": [
                     {
                         "script": KNOWN_SCRIPTS["urban-change-summary-table"],
@@ -341,13 +358,16 @@ _ALGORITHM_CONFIG = [
         "name": "Experimental",
         "groups": [
             {
-                "name": "Total carbon",
+                "name": "Calculate change in total carbon",
                 "name_details": "Above and below ground, emissions and deforestation",
                 "algorithms": [
                     {
                         "id": "96f243a2-c8bd-436a-9775-424f20a1b188",
-                        "name": "Carbon change spatial layers",
-                        "description": "TODO: Carbon change spatial layers long description",
+                        "name": "Calculate change in carbon",
+                        "description": (
+                            "Calculate total carbon (above and below-ground) "
+                            "and emissions from deforestation"
+                        ),
                         "scripts": [
                             # TODO: enable and tweak this when support for local calculations of total carbon is implemented
                             # {
@@ -362,8 +382,11 @@ _ALGORITHM_CONFIG = [
                     },
                     {
                         "id": "a753f2c9-be4c-4d97-9e21-09b8882e8899",
-                        "name": "Carbon change summary table for boundary",
-                        "description": "TODO: Carbon change summary table for boundary long description",
+                        "name": "Change in carbon summary table",
+                        "description": (
+                            "Calculate table summarizing change in "
+                            "total carbon"
+                        ),
                         "scripts": [
                             {
                                 "script": KNOWN_SCRIPTS["total-carbon-summary"],
@@ -379,8 +402,11 @@ _ALGORITHM_CONFIG = [
                 "algorithms": [
                     {
                         "id": "61839d52-0d81-428d-90e6-83ea5ed3c032",
-                        "name": "Estimate biomass change",
-                        "description": "TODO: Estimate biomass change long description",
+                        "name": "Estimate potential impacts of restoration",
+                        "description": (
+                            "Estimate potential change in biomass due to "
+                            "restoration"
+                        ),
                         "scripts": [
                             {
                                 "script": KNOWN_SCRIPTS["restoration-biomass"],
@@ -391,7 +417,10 @@ _ALGORITHM_CONFIG = [
                     {
                         "id": "cb425356-09cf-4390-89dc-8542cdf0805c",
                         "name": "Table summarizing likely changes in biomass",
-                        "description": "TODO: Table summarizing likely changes in biomass long description",
+                        "description": (
+                            "Generate table summarizing potential change "
+                            "in biomass due to restoration"
+                        ),
                         "scripts": [
                             {
                                 "script": KNOWN_SCRIPTS["change-biomass-summary-table"],

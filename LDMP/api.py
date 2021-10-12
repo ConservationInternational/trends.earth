@@ -206,7 +206,7 @@ def login(authConfigId=None):
         ret = None
 
     if error_message:
-        QtWidgets.QMessageBox.critical(None, tr("Error"), tr(error_message))
+        iface.messageBar().pushCritical('Trends.Earth', tr(error_message))
 
     return ret
 
@@ -293,8 +293,10 @@ def call_api(endpoint, method='get', payload=None, use_token=False):
             ret = resp.json()
         else:
             desc, status = get_error_status(resp)
-            QtWidgets.QMessageBox.critical(
-                None, "Error", u"Error: {} (status {}).".format(desc, status))
+            iface.messageBar().pushCritical(
+                'Trends.Earth',
+                u"Error: {} (status {}).".format(desc, status)
+            )
             ret = None
     else:
         ret = None
@@ -318,8 +320,10 @@ def get_header(url):
             ret = resp.headers
         else:
             desc, status = get_error_status(resp)
-            QtWidgets.QMessageBox.critical(
-                None, "Error", u"Error: {} (status {}).".format(desc, status))
+            iface.messageBar().pushCritical(
+                "Trends.Earth",
+                u"Error: {} (status {}).".format(desc, status)
+            )
             ret = None
     else:
         log('Header request failed')

@@ -497,41 +497,6 @@ def plugin_install(c, clean=False, version=3, profile='default', fast=False):
 
 # Compile all ui and resource files
 def compile_files(c, version, clean, fast=False):
-    # check to see if we have pyuic
-    if version == 2:
-        pyuic = 'pyuic4'
-    elif version ==3:
-        pyuic = 'pyuic5'
-    else:
-        print("ERROR: unknown qgis version {}".format(version))
-        return
-    pyuic_path = check_path(pyuic)
-
-    if not pyuic_path:
-        print("ERROR: {} is not in your path---unable to compile ui files".format(pyuic))
-        return
-    else:
-        ui_files = glob.glob('{}/*.ui'.format(c.plugin.gui_dir))
-        ui_count = 0
-        skip_count = 0
-        for ui in ui_files:
-            if os.path.exists(ui):
-                (base, ext) = os.path.splitext(ui)
-                output = "{0}.py".format(base)
-                if clean or file_changed(ui, output):
-                    # Fix the links to c header files that Qt Designer adds to 
-                    # UI files when QGIS custom widgets are used
-                    ui_regex = re.compile("(<header>)qgs[a-z]*.h(</header>)", re.IGNORECASE)
-                    _replace(ui, ui_regex, '\g<1>qgis.gui\g<2>')
-                    print("Compiling {0} to {1}".format(ui, output))
-                    subprocess.check_call([pyuic_path, '-x', ui, '-o', output])
-                    ui_count += 1
-                else:
-                    skip_count += 1
-            else:
-                print("{} does not exist---skipped".format(ui))
-        print("Compiled {} UI files. Skipped {}.".format(ui_count, skip_count))
-
     # check to see if we have pyrcc
     if version == 2:
         pyrcc = 'pyrcc4'

@@ -88,7 +88,7 @@ class SummaryTableDrought(SchemaBase):
     annual_population_by_drought_class_total: List[Dict[int, float]]
     annual_population_by_drought_class_male: List[Dict[int, float]]
     annual_population_by_drought_class_female: List[Dict[int, float]]
-    jrc_value_sum_and_count: Tuple[float, int]
+    dvi_value_sum_and_count: Tuple[float, int]
 
 def _accumulate_summary_tables(
     tables: List[SummaryTableDrought]
@@ -126,13 +126,11 @@ def _accumulate_summary_tables(
                     table.annual_population_by_drought_class_female
                 )
             ]
-            out.jrc_value_sum_and_count[0] = (
-                out.jrc_value_sum_and_count[0] +
-                table.jrc_value_sum_and_count[0]
-            )
-            out.jrc_value_sum_and_count[1] = (
-                out.jrc_value_sum_and_count[1] +
-                table.jrc_value_sum_and_count[1]
+            out.dvi_value_sum_and_count = (
+                out.dvi_value_sum_and_count[0] +
+                table.dvi_value_sum_and_count[0],
+                out.dvi_value_sum_and_count[1] +
+                table.dvi_value_sum_and_count[1]
             )
         return out
 
@@ -247,8 +245,8 @@ def get_main_drought_summary_job_params(
         "layer_spi_band_indices": spi_input.indices,
         "layer_spi_years": spi_input.years,
         "layer_spi_lag": spi_lag,
-        "layer_jrc_path": jrc_input.path,
-        "layer_jrc_band": jrc_input.band,
+        "layer_jrc_path": str(jrc_input.path),
+        "layer_jrc_band": models.JobBand.Schema().dump(jrc_input.band),
         "layer_jrc_band_index": jrc_input.band_index,
         "crs": aoi.get_crs_dst_wkt(),
         "geojsons": json.dumps(geojsons),
@@ -402,7 +400,7 @@ def compute_drought_vulnerability(
     )
 
     drought_job.results.data_path = out_path
-    drought_job.results.other_paths.append(
+    drought_job.results.other_paths.extend(
         [
             summary_json_output_path,
             summary_table_output_path,
@@ -594,7 +592,6 @@ def save_reporting_json(
 
     drought_tier_one = {}
     drought_tier_two = {}
-    drought_tier_three = {}
 
     for n, year in enumerate(range(
         int(params['layer_spi_years'][0]),
@@ -646,6 +643,13 @@ def save_reporting_json(
                     "Female population"
                 )
             )
+
+    drought_tier_three = {
+        2018: reporting.Value(
+            'Mean value',
+            st.dvi_value_sum_and_count[0] / st.dvi_value_sum_and_count[1]
+        )
+    }
 
     ##########################################################################
     # Format final JSON output
@@ -798,8 +802,8 @@ def _process_block(
             'yoff': yoff
         }
 
-    jrc_row = params.in_df.array_row_for_name(jrc_BAND_NAME)
-    jrc_value_sum_and_count = jrc_sum_and_count(in_array[jrc_row, :, :], mask)
+    jrc_row = params.in_df.array_row_for_name(JRC_BAND_NAME)
+    dvi_value_sum_and_count = jrc_sum_and_count(in_array[jrc_row, :, :], mask)
 
     return (
         SummaryTableDrought(
@@ -807,7 +811,7 @@ def _process_block(
             annual_population_by_drought_class_total,
             annual_population_by_drought_class_male,
             annual_population_by_drought_class_female,
-            jrc_value_sum_and_count
+            dvi_value_sum_and_count
         ),
         write_arrays
     )
@@ -949,7 +953,7 @@ class DroughtSummaryWorker(worker.AbstractWorker):
 
         if self.killed:
             del dst_ds
-            os.remove(self.params.prod_out_file)
+            os.remove(self.params.out_file)
             return None
         else:
             self.progress.emit(100)
@@ -969,6 +973,12 @@ def _render_drought_workbook(
 
     _write_drought_pop_total_sheet(
         template_workbook["Pop under drought (total)"],
+        summary_table,
+        years
+    )
+
+    _write_dvi_sheet(
+        template_workbook["Drought Vulnerability Index"],
         summary_table,
         years
     )
@@ -1116,6 +1126,22 @@ def _get_col_for_drought_class(
     for values_by_drought in annual_values_by_drought:
         out.append(values_by_drought.get(drought_code, 0.))
     return np.array(out)
+
+
+def _write_dvi_sheet(
+    sheet,
+    st: SummaryTableDrought,
+    years
+):
+
+    # Make this more informative when fuller DVI calculations are available...
+    cell = sheet.cell(6, 2)
+    cell.value = 2018
+    cell = sheet.cell(6, 3)
+    cell.value = st.dvi_value_sum_and_count[0] / st.dvi_value_sum_and_count[1]
+
+    utils.maybe_add_image_to_sheet(
+        "trends_earth_logo_bl_300width.png", sheet, "H1")
 
 
 def _write_drought_area_sheet(

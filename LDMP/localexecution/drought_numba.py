@@ -55,22 +55,24 @@ def drought_class(spi):
 @numba.jit(nopython=True)
 @cc.export(
     'jrc_sum_and_count',
-    'UniTuple(i2, i2)(f8[:,:], i2[:,:])'
+    'Tuple((f8, i8))(f8[:,:], i2[:,:])'
 )
 def jrc_sum_and_count(jrc, mask):
-    jrc = jrc.ravel()
-    out = jrc.copy()
+    temp = jrc.copy().ravel()
+    mask = mask.ravel()
 
-    out[mask == MASK_VALUE] = NODATA_VALUE
-    out = jrc.masked_equal(NODATA_VALUE)
+    temp[mask] = NODATA_VALUE
 
-    return (out.sum(), out.count())
+    return (
+        temp[temp != NODATA_VALUE].sum() / 1000,  # Account for scaling
+        np.count_nonzero(temp != NODATA_VALUE)
+    )
 
 
 # Below not currently used, but saving for future use
 @numba.jit(nopython=True)
-@cc.export('drought_class', 'i2[:,:](i2[:,:])')
-def jrc_class(jrc):
+@cc.export('jrc_dvi_class', 'i2[:,:](i2[:,:])')
+def jrc_dvi_class(jrc):
     # 0 - -1: mild drought (code as 1)
     # -1 - -1.5: moderate drought (code as 2)
     # -1.5 - -2: severe drought (code as 3)

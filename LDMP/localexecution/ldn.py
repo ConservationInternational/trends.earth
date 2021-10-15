@@ -1702,10 +1702,10 @@ def _calculate_summary_table(
     )
     log(u'Reprojecting indicator VRT and saving to: {}'.format(output_layers_path))
     reproject_worker = worker.StartWorker(
-        calculate.TranslateWorker,
+        calculate.WarpWorker,
         reproject_worker_process_name,
-        str(output_layers_path),
-        indic_vrt
+        indic_vrt,
+        str(output_layers_path)
     )
     error_message = ""
 

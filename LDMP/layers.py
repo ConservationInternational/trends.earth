@@ -193,7 +193,7 @@ style_text_dict = {
 
     # SPI
     'spi_title': tr_layers.tr(u'Standardized Precipitation Index (SPI, {year}, {lag} month lag, * 1000)'),
-    'spi_at_maximum_drought_title': tr_layers.tr(u'Standardized Precipitation Index (SPI) at maximum drought during {year_start}-{year_final} (* 1000)'),
+    'spi_at_maximum_drought_title': tr_layers.tr(u'SPI at maximum drought during {year_start}-{year_final} ({lag} month lag, * 1000)'),
     'jrc_drought_vulnerability_title': tr_layers.tr(u'Drought Vulnerability (JRC, {year}, * 1000)'),
     'spi_extreme_drought': tr_layers.tr(u'Extreme drought'),
     'spi_severe_drought': tr_layers.tr(u'Severe drought'),

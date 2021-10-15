@@ -543,11 +543,11 @@
             "shader": "interpolated",
             "items": [
                 {"value": -32768, "color": "#000000", "label": "nodata"},
-                {"value": 0, "color": "#3B0F6F", "label": "0th percentile"},
-                {"value": 250, "color": "#8C2981", "label": "25th percentile"},
-                {"value": 500, "color": "#DD4A69", "label": "50th percentile"},
-                {"value": 750, "color": "#FE9F6D", "label": "75th percentile"},
-                {"value": 1000, "color": "#FCFDBF", "label": "100th percentile"}
+                {"value": 2560, "color": "#3B0F6F", "label": "0th percentile"},
+                {"value": 3930, "color": "#8C2981", "label": "25th percentile"},
+                {"value": 4718, "color": "#DD4A69", "label": "50th percentile"},
+                {"value": 9270, "color": "#FE9F6D", "label": "75th percentile"},
+                {"value": 10000, "color": "#FCFDBF", "label": "100th percentile"}
             ]
         }
     },

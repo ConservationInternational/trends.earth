@@ -87,7 +87,7 @@ class PeriodicUpdateWorker(UpdateWorker):
                     _should_run(
                         remote_frequency,
                         self.widget.last_refreshed_remote_state
-                    ) and not self.remote_refresh_running
+                    ) and not self.widget.remote_refresh_running
                 ):
                     self.widget.update_from_remote_state()
                 else:

@@ -125,8 +125,9 @@ class JobManager(QtCore.QObject):
         task_name = slugify(job.params.task_name)
         if task_name != "":
             name_fragments.append(task_name)
+        if job.script:
+            name_fragments.append(job.script.name)
         name_fragments.extend([
-            job.script.name,
             job.params.task_notes.local_context.area_of_interest_name
         ])
         return separator.join(name_fragments)

@@ -808,7 +808,7 @@ class DlgCalculateLDNSummaryTableAdmin(DlgCalculateBase, Ui_DlgCalculateLDNSumma
             # Manually remove any existing outfiles, including checking to see 
             # that they are not loaded in the QGIS project, to ensure that GDAL 
             # doesn't throw an error when it tries to overwrite it
-            if os.path.exists(f):
+            if os.path.exists(output_sdg_tif):
                 log('File {} exists. Will attempt to remove from QGIS and delete file.'.format(output_sdg_tif))
                 ret = delete_layer_by_filename(output_sdg_tif)
                 if not ret:

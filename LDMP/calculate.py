@@ -77,6 +77,7 @@ def get_local_script_metadata(script_name) -> Optional[dict]:
     """
     # main key acess is the name of the local processing GUI class.
     metadata = local_scripts.get(script_name, None)
+
     if not metadata:
         # source value can be looked for into source value
         metadata = next((metadata for metadata in local_scripts.values() if metadata['source'] == script_name), None)
@@ -87,10 +88,13 @@ def get_local_script_metadata(script_name) -> Optional[dict]:
 def is_local_script(script_name: str = None) -> bool:
     """check if the script name (aka source) is a local processed alg source.
     """
+
     if script_name in local_scripts:
         return True
+
     if next((metadata['source'] for metadata in local_scripts.values() if metadata['source'] == script_name), None):
         return True
+
     return False
 
 
@@ -99,6 +103,7 @@ def json_geom_to_geojson(txt):
          'features': [{'type': 'Feature',
                        'geometry': json.loads(txt)}]
          }
+
     return d
 
 
@@ -217,6 +222,7 @@ class CalculationOptionsWidget(QtWidgets.QWidget, WidgetCalculationOptionsUi):
         super().showEvent(event)
 
         local_data_folder = QtCore.QSettings().value("LDMP/localdata_dir", None)
+
         if local_data_folder and os.access(local_data_folder, os.R_OK):
             self.lineEdit_local_data_folder.setText(local_data_folder)
         else:
@@ -240,14 +246,17 @@ class CalculationOptionsWidget(QtWidgets.QWidget, WidgetCalculationOptionsUi):
             self.tr('Select folder containing data'),
             QtCore.QSettings().value("LDMP/localdata_dir", None)
         )
+
         if folder:
             if os.access(folder, os.R_OK):
                 QtCore.QSettings().setValue("LDMP/localdata_dir", os.path.dirname(folder))
                 self.lineEdit_local_data_folder.setText(folder)
+
                 return True
             else:
                 QtWidgets.QMessageBox.critical(None, self.tr("Error"),
                                            self.tr(u"Cannot read {}. Choose a different folder.".format(folder)))
+
                 return False
         else:
             return False
@@ -274,6 +283,7 @@ class CalculationOutputWidget(QtWidgets.QWidget, WidgetCalculationOutputUi):
 
     def select_output_basename(self):
         local_name = QtCore.QSettings().value("LDMP/output_basename_{}".format(self.subclass_name), None)
+
         if local_name:
             initial_path = local_name
         else:
@@ -301,7 +311,8 @@ class CalculationOutputWidget(QtWidgets.QWidget, WidgetCalculationOutputUi):
 
     def check_overwrites(self):
         overwrites = []
-        for suffix in self.output_suffixes: 
+
+        for suffix in self.output_suffixes:
             if os.path.exists(self.output_basename.text() + suffix):
                 overwrites.append(os.path.basename(self.output_basename.text() + suffix))
 
@@ -312,9 +323,11 @@ class CalculationOutputWidget(QtWidgets.QWidget, WidgetCalculationOutputUi):
                         self.output_basename.text(),
                         ", ".join(["{}"]*len(overwrites)).format(*overwrites))),
                     QtWidgets.QMessageBox.Yes, QtWidgets.QMessageBox.No)
+
             if resp == QtWidgets.QMessageBox.No:
                 QtWidgets.QMessageBox.information(None, self.tr("Information"),
                                            self.tr(u"Choose a different output prefix and try again."))
+
                 return False
 
         return True
@@ -341,9 +354,10 @@ class CalculationHidedOutputWidget(QtWidgets.QWidget, WidgetCalculationOutputUi)
         self.output_summary.setText("\n".join(["{}"]*len(out_files)).format(*out_files))
 
     def check_overwrites(self):
-        """Method maintained only for retro compatibility with old code. Overwrite can't happen because 
+        """Method maintained only for retro compatibility with old code. Overwrite can't happen because
         filename is choosed randomly.
         """
+
         return True
 
 
@@ -384,10 +398,12 @@ class DlgCalculateBase(QtWidgets.QDialog):
         self.settings = qgis.core.QgsSettings()
 
         self.admin_bounds_key = download.get_admin_bounds()
+
         if not self.admin_bounds_key:
             raise ValueError('Admin boundaries not available')
 
         self.cities = download.get_cities()
+
         if not self.cities:
             raise ValueError('Cities list not available')
 
@@ -420,6 +436,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
             QtWidgets.QDialogButtonBox.Ok
         )
         ok_button.clicked.connect(self.btn_calculate)
+
         if self.script.run_mode == models.AlgorithmRunMode.REMOTE:
             ok_button.setText(self.tr("Schedule remote execution"))
         else:
@@ -464,6 +481,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
 
     def run_settings(self):
         dlg_settings = DlgSettings(parent=self)
+
         if dlg_settings.exec_():
             self.update_current_region()
 
@@ -483,12 +501,14 @@ class DlgCalculateBase(QtWidgets.QDialog):
     def btn_calculate(self):
         self.aoi = areaofinterest.prepare_area_of_interest()
         ret = self.aoi.bounding_box_gee_geojson()
+
         if not ret:
             QtWidgets.QMessageBox.critical(
                 None,
                 self.tr("Error"),
                 self.tr("Unable to calculate bounding box.")
             )
+
             return False
         else:
             self.gee_bounding_box = ret
@@ -497,10 +517,12 @@ class DlgCalculateBase(QtWidgets.QDialog):
             if not self.output_tab.output_basename.text():
                 QtWidgets.QMessageBox.information(None, self.tr("Error"),
                                               self.tr("Choose an output base name."))
+
                 return False
 
             # Check if the chosen basename would lead to an  overwrite(s):
             ret = self.output_tab.check_overwrites()
+
             if not ret:
                 return False
 
@@ -526,17 +548,82 @@ class ClipWorker(worker.AbstractWorker):
             json.dump(self.geojson, f, separators=(',', ': '))
 
         gdal.UseExceptions()
-        res = gdal.Warp(self.out_file, self.in_file, format='GTiff',
-                        cutlineDSName=json_file, srcNodata=-32768, 
-                        outputBounds=self.output_bounds,
-                        dstNodata=-32767,
-                        dstSRS="epsg:4326",
-                        outputType=gdal.GDT_Int16,
-                        resampleAlg=gdal.GRA_NearestNeighbour,
-                        creationOptions=['COMPRESS=LZW'],
-                        callback=self.progress_callback)
+        res = gdal.Warp(
+            self.out_file,
+            self.in_file,
+            format='GTiff',
+            cutlineDSName=json_file,
+            srcNodata=-32768,
+            outputBounds=self.output_bounds,
+            dstNodata=-32767,
+            dstSRS="epsg:4326",
+            outputType=gdal.GDT_Int16,
+            resampleAlg=gdal.GRA_NearestNeighbour,
+            warpOptions=[
+                'NUM_THREADS=ALL_CPUs',
+                'GDAL_CACHEMAX=500',
+            ],
+            creationOptions=[
+                'COMPRESS=LZW',
+                'NUM_THREADS=ALL_CPUs',
+                'GDAL_NUM_THREADS=ALL_CPUs',
+                'TILED=YES'
+            ],
+            multithread=True,
+            warpMemoryLimit=500,
+            callback=self.progress_callback
+        )
         os.remove(json_file)
 
+        if res:
+            return True
+        else:
+            return None
+
+    def progress_callback(self, fraction, message, data):
+        if self.killed:
+            return False
+        else:
+            self.progress.emit(100 * fraction)
+
+            return True
+
+
+class WarpWorker(worker.AbstractWorker):
+    '''Used as a substitute for gdal translate given warp is multithreaded'''
+    def __init__(self, in_file, out_file):
+        worker.AbstractWorker.__init__(self)
+
+        self.in_file = in_file
+        self.out_file = out_file
+
+    def work(self):
+        self.toggle_show_progress.emit(True)
+        self.toggle_show_cancel.emit(True)
+
+        gdal.UseExceptions()
+
+        res = gdal.Warp(
+            self.out_file,
+            self.in_file,
+            format='GTiff',
+            srcNodata=-32768,
+            outputType=gdal.GDT_Int16,
+            resampleAlg=gdal.GRA_NearestNeighbour,
+            warpOptions=[
+                'NUM_THREADS=ALL_CPUs',
+                'GDAL_CACHEMAX=500',
+            ],
+            creationOptions=[
+                'COMPRESS=LZW',
+                'NUM_THREADS=ALL_CPUs',
+                'GDAL_NUM_THREADS=ALL_CPUs',
+                'TILED=YES'
+            ],
+            multithread=True,
+            warpMemoryLimit=500,
+            callback=self.progress_callback
+        )
         if res:
             return True
         else:
@@ -610,6 +697,7 @@ class MaskWorker(worker.AbstractWorker):
             return False
         else:
             self.progress.emit(100 * fraction)
+
             return True
 
 
@@ -643,4 +731,5 @@ class TranslateWorker(worker.AbstractWorker):
             return False
         else:
             self.progress.emit(100 * fraction)
+
             return True

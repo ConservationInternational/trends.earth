@@ -79,7 +79,7 @@ MASK_VALUE = -32767
 
 POPULATION_BAND_NAME = "Population (density, persons per sq km / 10)"
 SPI_BAND_NAME = "Standardized Precipitation Index (SPI)"
-JRC_BAND_NAME = "Standardized Precipitation Index (SPI)"
+JRC_BAND_NAME = "Drought Vulnerability (JRC)"
 
 
 @marshmallow_dataclass.dataclass
@@ -88,7 +88,7 @@ class SummaryTableDrought(SchemaBase):
     annual_population_by_drought_class_total: List[Dict[int, float]]
     annual_population_by_drought_class_male: List[Dict[int, float]]
     annual_population_by_drought_class_female: List[Dict[int, float]]
-
+    jrc_value_sum_and_count: Tuple[float, int]
 
 def _accumulate_summary_tables(
     tables: List[SummaryTableDrought]
@@ -126,7 +126,14 @@ def _accumulate_summary_tables(
                     table.annual_population_by_drought_class_female
                 )
             ]
-
+            out.jrc_value_sum_and_count[0] = (
+                out.jrc_value_sum_and_count[0] +
+                table.jrc_value_sum_and_count[0]
+            )
+            out.jrc_value_sum_and_count[1] = (
+                out.jrc_value_sum_and_count[1] +
+                table.jrc_value_sum_and_count[1]
+            )
         return out
 
 
@@ -172,6 +179,32 @@ def _get_drought_inputs(
     )
 
 
+def _get_spi_lag(
+    data_selection_widget: data_io.WidgetDataIOSelectTEDatasetExisting
+):
+    band = data_selection_widget.get_bands(SPI_BAND_NAME)[0]
+    return band.band_info.metadata['lag']
+
+
+@dataclasses.dataclass()
+class JRCInputInfo:
+    path: Path
+    band: models.JobBand
+    band_index: int
+
+
+def _get_jrc_input(
+    data_selection_widget: data_io.WidgetDataIOSelectTEDatasetExisting
+) -> JRCInputInfo:
+    usable_band_info = data_selection_widget.get_current_band()
+
+    return JRCInputInfo(
+        path=usable_band_info.path,
+        band=usable_band_info.band_info,
+        band_index=usable_band_info.band_index
+    )
+
+
 def get_main_drought_summary_job_params(
         task_name: str,
         aoi,
@@ -187,6 +220,11 @@ def get_main_drought_summary_job_params(
     population_input = _get_drought_inputs(
         combo_dataset_drought,
         POPULATION_BAND_NAME
+    )
+    spi_lag = _get_spi_lag(combo_dataset_drought)
+
+    jrc_input = _get_jrc_input(
+        combo_layer_jrc_vulnerability,
     )
 
     crosses_180th, geojsons = aoi.bounding_box_gee_geojson()
@@ -208,6 +246,10 @@ def get_main_drought_summary_job_params(
         ],
         "layer_spi_band_indices": spi_input.indices,
         "layer_spi_years": spi_input.years,
+        "layer_spi_lag": spi_lag,
+        "layer_jrc_path": jrc_input.path,
+        "layer_jrc_band": jrc_input.band,
+        "layer_jrc_band_index": jrc_input.band_index,
         "crs": aoi.get_crs_dst_wkt(),
         "geojsons": json.dumps(geojsons),
         "crosses_180th": crosses_180th,
@@ -278,6 +320,12 @@ def compute_drought_vulnerability(
         params['layer_population_band_indices']
     )
 
+    jrc_df = _prepare_dfs(
+        params['layer_jrc_path'],
+        [params['layer_jrc_band']],
+        [params['layer_jrc_band_index']]
+    )
+
     _, wkt_bounding_boxes = area_of_interest.meridian_split(
             "layer", "wkt", warn=False)
 
@@ -289,7 +337,7 @@ def compute_drought_vulnerability(
 
     summary_table, out_path = _compute_drought_summary_table(
         **summary_table_stable_kwargs,
-        in_dfs=spi_dfs + population_dfs,
+        in_dfs=spi_dfs + population_dfs + jrc_df,
         drought_period=drought_period
     )
 
@@ -311,7 +359,8 @@ def compute_drought_vulnerability(
             no_data_value=NODATA_VALUE,
             metadata={
                 'year_start': year_start,
-                'year_final': year_final
+                'year_final': year_final,
+                'lag': int(params['layer_spi_lag'])
             },
             activated=True
         ))
@@ -749,12 +798,16 @@ def _process_block(
             'yoff': yoff
         }
 
+    jrc_row = params.in_df.array_row_for_name(jrc_BAND_NAME)
+    jrc_value_sum_and_count = jrc_sum_and_count(in_array[jrc_row, :, :], mask)
+
     return (
         SummaryTableDrought(
             annual_area_by_drought_class,
             annual_population_by_drought_class_total,
             annual_population_by_drought_class_male,
-            annual_population_by_drought_class_female
+            annual_population_by_drought_class_female,
+            jrc_value_sum_and_count
         ),
         write_arrays
     )

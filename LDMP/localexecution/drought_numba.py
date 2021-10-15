@@ -36,11 +36,9 @@ def drought_class(spi):
     # -1 - -1.5: moderate drought (code as 2)
     # -1.5 - -2: severe drought (code as 3)
     # -2 - inf: extreme drought (code as 4)
-    
+
     shp = spi.shape
-
     spi = spi.ravel()
-
     out = spi.copy()
 
     out[spi > 0] = 0
@@ -50,5 +48,44 @@ def drought_class(spi):
     out[(spi < -2000) & (spi >= -30000)] = 4
 
     out[spi == NODATA_VALUE] = NODATA_VALUE
+
+    return np.reshape(out, shp)
+
+
+@numba.jit(nopython=True)
+@cc.export(
+    'jrc_sum_and_count',
+    'UniTuple(i2, i2)(f8[:,:], i2[:,:])'
+)
+def jrc_sum_and_count(jrc, mask):
+    jrc = jrc.ravel()
+    out = jrc.copy()
+
+    out[mask == MASK_VALUE] = NODATA_VALUE
+    out = jrc.masked_equal(NODATA_VALUE)
+
+    return (out.sum(), out.count())
+
+
+# Below not currently used, but saving for future use
+@numba.jit(nopython=True)
+@cc.export('drought_class', 'i2[:,:](i2[:,:])')
+def jrc_class(jrc):
+    # 0 - -1: mild drought (code as 1)
+    # -1 - -1.5: moderate drought (code as 2)
+    # -1.5 - -2: severe drought (code as 3)
+    # -2 - inf: extreme drought (code as 4)
+    
+    shp = jrc.shape
+    jrc = jrc.ravel()
+    out = jrc.copy()
+
+    out[jrc > 0] = 0
+    out[(jrc >= 0) & (jrc < 3930)] = 1
+    out[(jrc >= 3930) & (jrc < 4718)] = 2
+    out[(jrc >= 4718) & (jrc < 9270)] = 3
+    out[(jrc >= 9270) & (jrc < 1)] = 4
+
+    out[jrc == NODATA_VALUE] = NODATA_VALUE
 
     return np.reshape(out, shp)

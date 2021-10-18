@@ -13,7 +13,7 @@ import json
 
 import ee
 
-from landdegradation.carbon import tc
+from te_algorithms.gee.carbon import tc
 
 
 def run(params, logger):

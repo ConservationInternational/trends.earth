@@ -13,7 +13,7 @@ import json
 
 import ee
 
-from landdegradation.soc import soc
+from te_algorithms.gee.soc import soc
 from te_schemas.land_cover import LCTransitionDefinitionDeg, LCLegendNesting
 
 

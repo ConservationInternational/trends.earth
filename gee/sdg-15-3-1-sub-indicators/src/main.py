@@ -18,15 +18,15 @@ from concurrent.futures import (
 
 import ee
 
-from landdegradation.productivity import (
+from te_algorithms.gee.productivity import (
     productivity_trajectory,
     productivity_performance,
     productivity_state
 )
-from landdegradation.land_cover import land_cover
-from landdegradation.soc import soc
-from landdegradation.download import download
-from landdegradation.util import TEImage
+from te_algorithms.gee.land_cover import land_cover
+from te_algorithms.gee.soc import soc
+from te_algorithms.gee.download import download
+from te_algorithms.gee.util import TEImage
 
 from te_schemas.schemas import CloudResultsSchema, BandInfo
 from te_schemas.land_cover import LCTransitionDefinitionDeg, LCLegendNesting

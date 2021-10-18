@@ -13,9 +13,9 @@ import json
 
 import ee
 
-from landdegradation.productivity import productivity_trajectory, \
+from te_algorithms.gee.productivity import productivity_trajectory, \
     productivity_performance, productivity_state
-from landdegradation.download import download
+from te_algorithms.gee.download import download
 from te_schemas.schemas import CloudResultsSchema
 
 

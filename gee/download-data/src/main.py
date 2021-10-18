@@ -13,8 +13,8 @@ import json
 
 import ee
 
-from landdegradation import GEEIOError
-from landdegradation.download import download
+from te_algorithms.gee import GEEIOError
+from te_algorithms.gee.download import download
 
 
 def run(params, logger):

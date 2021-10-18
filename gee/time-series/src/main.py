@@ -15,7 +15,7 @@ import json
 
 import ee
 
-from landdegradation.productivity import productivity_trajectory
+from te_algorithms.gee.productivity import productivity_trajectory
 from te_schemas.schemas import TimeSeries, TimeSeriesTable, TimeSeriesTableSchema
 
 

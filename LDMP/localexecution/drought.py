@@ -31,6 +31,15 @@ from te_schemas import (
     reporting,
     SchemaBase
 )
+from te_schemas.jobs import JobBand
+
+from te_algorithms.gdal.drought import (
+    SummaryTableDrought,
+    DroughtSummary,
+    DroughtSummaryWorkerParams,
+    accumulate_drought_summary_tables
+)
+from te_algorithms.gdal.util import DataFile
 
 from ..conf import (
     settings_manager,
@@ -49,30 +58,9 @@ from .. import (
     __revision__,
     __release_date__
 )
-from ..jobs import (
-    models,
-)
+from ..jobs.models import Job
+
 from ..logger import log
-
-if settings_manager.get_value(Setting.BINARIES_ENABLED):
-    try:
-        from trends_earth_binaries.util_numba import *
-        log("Using numba-compiled version of util_numba.")
-        from trends_earth_binaries.drought_numba import *
-        log("Using numba-compiled version of ldn_numba.")
-    except (ModuleNotFoundError, ImportError) as e:
-        from .util_numba import *
-        log(f"Failed import of numba-compiled code: {e}. "
-            "Falling back to python version of util_numba.")
-        from .drought_numba import *
-        log(f"Failed import of numba-compiled code: {e}. "
-            "Falling back to python version of drought_numba.")
-else:
-    from .ldn_numba import *
-    log("Using python version of ldn_numba.")
-
-import marshmallow_dataclass
-
 
 NODATA_VALUE = -32768
 MASK_VALUE = -32767
@@ -80,59 +68,6 @@ MASK_VALUE = -32767
 POPULATION_BAND_NAME = "Population (density, persons per sq km / 10)"
 SPI_BAND_NAME = "Standardized Precipitation Index (SPI)"
 JRC_BAND_NAME = "Drought Vulnerability (JRC)"
-
-
-@marshmallow_dataclass.dataclass
-class SummaryTableDrought(SchemaBase):
-    annual_area_by_drought_class: List[Dict[int, float]]
-    annual_population_by_drought_class_total: List[Dict[int, float]]
-    annual_population_by_drought_class_male: List[Dict[int, float]]
-    annual_population_by_drought_class_female: List[Dict[int, float]]
-    dvi_value_sum_and_count: Tuple[float, int]
-
-def _accumulate_summary_tables(
-    tables: List[SummaryTableDrought]
-) -> SummaryTableDrought:
-    if len(tables) == 1:
-        return tables[0]
-    else:
-        out = tables[0]
-        for table in tables[1:]:
-            out.annual_area_by_drought_class = [
-                accumulate_dicts([a,  b])
-                for a, b in zip(
-                    out.annual_area_by_drought_class,
-                    table.annual_area_by_drought_class
-                )
-            ]
-            out.annual_population_by_drought_class_total = [
-                accumulate_dicts([a,  b])
-                for a, b in zip(
-                    out.annual_population_by_drought_class_total,
-                    table.annual_population_by_drought_class_total
-                )
-            ]
-            out.annual_population_by_drought_class_male = [
-                accumulate_dicts([a,  b])
-                for a, b in zip(
-                    out.annual_population_by_drought_class_male,
-                    table.annual_population_by_drought_class_male
-                )
-            ]
-            out.annual_population_by_drought_class_female = [
-                accumulate_dicts([a,  b])
-                for a, b in zip(
-                    out.annual_population_by_drought_class_female,
-                    table.annual_population_by_drought_class_female
-                )
-            ]
-            out.dvi_value_sum_and_count = (
-                out.dvi_value_sum_and_count[0] +
-                table.dvi_value_sum_and_count[0],
-                out.dvi_value_sum_and_count[1] +
-                table.dvi_value_sum_and_count[1]
-            )
-        return out
 
 
 @dataclasses.dataclass()
@@ -149,7 +84,7 @@ class SummaryTableDroughtWidgets:
 @dataclasses.dataclass()
 class DroughtInputInfo:
     path: Path
-    bands: List[models.JobBand]
+    bands: List[JobBand]
     indices: List[int]
     years: List[int]
 
@@ -187,7 +122,7 @@ def _get_spi_lag(
 @dataclasses.dataclass()
 class JRCInputInfo:
     path: Path
-    band: models.JobBand
+    band: JobBand
     band_index: int
 
 
@@ -232,21 +167,21 @@ def get_main_drought_summary_job_params(
         "task_notes": task_notes,
         "layer_population_path": str(population_input.path),
         "layer_population_bands": [
-            models.JobBand.Schema().dump(b)
+            JobBand.Schema().dump(b)
             for b in population_input.bands
         ],
         "layer_population_years": population_input.years,
         "layer_population_band_indices": population_input.indices,
         "layer_spi_path": str(spi_input.path),
         "layer_spi_bands": [
-            models.JobBand.Schema().dump(b)
+            JobBand.Schema().dump(b)
             for b in spi_input.bands
         ],
         "layer_spi_band_indices": spi_input.indices,
         "layer_spi_years": spi_input.years,
         "layer_spi_lag": spi_lag,
         "layer_jrc_path": str(jrc_input.path),
-        "layer_jrc_band": models.JobBand.Schema().dump(jrc_input.band),
+        "layer_jrc_band": JobBand.Schema().dump(jrc_input.band),
         "layer_jrc_band_index": jrc_input.band_index,
         "crs": aoi.get_crs_dst_wkt(),
         "geojsons": json.dumps(geojsons),
@@ -254,48 +189,11 @@ def get_main_drought_summary_job_params(
     }
 
 
-@marshmallow_dataclass.dataclass
-class DataFile(SchemaBase):
-    path: str
-    bands: List[models.JobBand]
-
-    def array_rows_for_name(self, name_filter):
-        names = [b.name for b in self.bands]
-
-        return [
-            index for index, name in enumerate(names)
-            if name == name_filter
-        ]
-
-    def array_row_for_name(self, name_filter):
-        '''throw an error if more than one result'''
-        out = self.array_rows_for_name(name_filter)
-
-        if len(out) > 1:
-            raise RuntimeError(
-                f'more than one band found for name {name_filter}'
-            )
-        else:
-            return out[0]
-
-
-def _combine_data_files(
-    path,
-    datafiles: List[models.JobBand]
-) -> DataFile:
-    '''combine multiple datafiles with same path into one object'''
-
-    return DataFile(
-        path=path,
-        bands=[
-            b for d in datafiles for b in d.bands
-        ]
-    )
 
 
 def compute_drought_vulnerability(
-        drought_job: models.Job,
-        area_of_interest: areaofinterest.AOI) -> models.Job:
+        drought_job: Job,
+        area_of_interest: areaofinterest.AOI) -> Job:
     """Calculate drought vulnerability indicators and save to disk"""
 
     job_output_path, _ = utils.get_local_job_output_paths(drought_job)
@@ -352,7 +250,7 @@ def compute_drought_vulnerability(
         else:
             year_final = year_start + drought_period - 1
 
-        out_bands.append(models.JobBand(
+        out_bands.append(JobBand(
             name="Maximum SPI over period",
             no_data_value=NODATA_VALUE,
             metadata={
@@ -363,7 +261,7 @@ def compute_drought_vulnerability(
             activated=True
         ))
 
-        out_bands.append(models.JobBand(
+        out_bands.append(JobBand(
             name="Population density at maximum SPI over period",
             no_data_value=NODATA_VALUE,
             metadata={
@@ -505,7 +403,7 @@ def _prepare_dfs(
 ) -> List[DataFile]:
     dfs = []
     for band_str, band_index in zip(band_str_list, band_indices):
-        band = models.JobBand(**band_str)
+        band = JobBand(**band_str)
         dfs.append(
             DataFile(
                 path=utils.save_vrt(
@@ -704,262 +602,6 @@ def save_reporting_json(
         return False
 
 
-@dataclasses.dataclass()
-class DroughtSummaryWorkerParams(SchemaBase):
-    in_df: DataFile
-    out_file: str
-    drought_period: int
-    mask_file: str
-
-
-def _process_block(
-    params: DroughtSummaryWorkerParams,
-    in_array,
-    mask,
-    xoff: int,
-    yoff: int,
-    cell_areas_raw
-) -> Tuple[SummaryTableDrought, Dict]:
-
-    write_arrays = {}
-
-    # Make an array of the same size as the input arrays containing
-    # the area of each cell (which is identical for all cells in a
-    # given row - cell areas only vary among rows)
-    cell_areas = np.repeat(
-        cell_areas_raw, mask.shape[1], axis=1
-    ).astype(np.float64)
-
-    spi_rows = params.in_df.array_rows_for_name(SPI_BAND_NAME)
-    pop_rows = params.in_df.array_rows_for_name(POPULATION_BAND_NAME)
-
-    assert len(spi_rows) == len(pop_rows)
-
-    # Calculate well annual totals of area and population exposed to drought
-    annual_area_by_drought_class = []
-    annual_population_by_drought_class_total = []
-    annual_population_by_drought_class_male = []
-    annual_population_by_drought_class_female = []
-    for spi_row, pop_row in zip(spi_rows, pop_rows):
-        a_drought_class = drought_class(in_array[spi_row, :, :])
-
-        annual_area_by_drought_class.append(
-            zonal_total(
-                a_drought_class,
-                cell_areas,
-                mask
-            )
-        )
-
-        a_pop = in_array[pop_row, :, :]
-        a_pop_masked = a_pop.copy()
-        # Account for scaling and convert from density
-        a_pop_masked = a_pop * 10. * cell_areas
-        a_pop_masked[a_pop == NODATA_VALUE] = 0
-        annual_population_by_drought_class_total.append(
-            zonal_total(
-                a_drought_class,
-                a_pop_masked,
-                mask
-            )
-        )
-    
-    # Calculate minimum SPI in blocks of length (in years) defined by 
-    # params.drought_period, and save the spi at that point as well as 
-    # population that was exposed to it at that point
-    for period_number, first_row in enumerate(
-            range(0, len(spi_rows), params.drought_period)):
-        if (first_row + params.drought_period - 1) > len(spi_rows):
-            last_row = len(spi_rows)
-        else:
-            last_row = first_row + params.drought_period - 1
-
-        spis = in_array[spi_rows[first_row:last_row], :, :]
-        pops = in_array[pop_rows[first_row:last_row], :, :].copy()
-
-        # Max drought is at minimum SPI
-        min_indices = np.expand_dims(np.argmin(spis, axis=0), axis=0)
-        max_drought = np.take_along_axis(spis, min_indices, axis=0)
-        pop_at_max_drought = np.take_along_axis(pops, min_indices, axis=0)
-
-        pop_at_max_drought_masked = pop_at_max_drought.copy()
-        # Account for scaling and convert from density
-        pop_at_max_drought_masked = pop_at_max_drought * 10. * cell_areas
-        pop_at_max_drought_masked[pop_at_max_drought == NODATA_VALUE] = 0
-
-        # Add one as output band numbers start at 1, not zero
-        write_arrays[2*period_number + 1] = {
-            'array': max_drought.squeeze(),  # remove zero dim of len 1
-            'xoff': xoff,
-            'yoff': yoff
-        }
-
-        # Add two as output band numbers start at 1, not zero, and this is the 
-        # second band for this period
-        write_arrays[2*period_number + 2] = {
-            'array': pop_at_max_drought_masked.squeeze(),
-            'xoff': xoff,
-            'yoff': yoff
-        }
-
-    jrc_row = params.in_df.array_row_for_name(JRC_BAND_NAME)
-    dvi_value_sum_and_count = jrc_sum_and_count(in_array[jrc_row, :, :], mask)
-
-    return (
-        SummaryTableDrought(
-            annual_area_by_drought_class,
-            annual_population_by_drought_class_total,
-            annual_population_by_drought_class_male,
-            annual_population_by_drought_class_female,
-            dvi_value_sum_and_count
-        ),
-        write_arrays
-    )
-
-
-class DroughtSummaryWorker(worker.AbstractWorker):
-    def __init__(
-        self,
-        params: DroughtSummaryWorkerParams
-    ):
-
-        worker.AbstractWorker.__init__(self)
-
-        self.params = params
-
-    def work(self):
-        self.toggle_show_progress.emit(True)
-        self.toggle_show_cancel.emit(True)
-
-        mask_ds = gdal.Open(self.params.mask_file)
-        band_mask = mask_ds.GetRasterBand(1)
-
-        src_ds = gdal.Open(str(self.params.in_df.path))
-        spi_band_1 = src_ds.GetRasterBand(
-            self.params.in_df.array_rows_for_name(SPI_BAND_NAME)[0] + 1
-        )
-        block_sizes = spi_band_1.GetBlockSize()
-        xsize = spi_band_1.XSize
-        ysize = spi_band_1.YSize
-
-        x_block_size = block_sizes[0]
-        y_block_size = block_sizes[1]
-
-        # Need two output bands for each four year period, plus one for the JRC 
-        # layer
-        n_out_bands = int(
-            2*np.ceil(
-                len(
-                    self.params.in_df.array_rows_for_name(SPI_BAND_NAME)
-                ) / self.params.drought_period
-            ) + 1
-        )
-
-        # Setup output file for max drought and population counts
-        driver = gdal.GetDriverByName("GTiff")
-        dst_ds = driver.Create(
-            self.params.out_file,
-            xsize,
-            ysize,
-            n_out_bands,
-            gdal.GDT_Int16,
-            options=['COMPRESS=LZW']
-        )
-        src_gt = src_ds.GetGeoTransform()
-        dst_ds.SetGeoTransform(src_gt)
-        dst_srs = osr.SpatialReference()
-        dst_srs.ImportFromWkt(src_ds.GetProjectionRef())
-        dst_ds.SetProjection(dst_srs.ExportToWkt())
-
-        # Width of cells in longitude
-        long_width = src_gt[1]
-        # Set initial lat ot the top left corner latitude
-        lat = src_gt[3]
-        # Width of cells in latitude
-        pixel_height = src_gt[5]
-
-        n_blocks = len(np.arange(0, xsize, x_block_size)) * len(np.arange(0, ysize, y_block_size))
-
-        # pr = cProfile.Profile()
-        # pr.enable()
-        n = 0
-        out = []
-        for y in range(0, ysize, y_block_size):
-            if y + y_block_size < ysize:
-                win_ysize = y_block_size
-            else:
-                win_ysize = ysize - y
-
-            cell_areas = np.array(
-                [
-                    calc_cell_area(
-                        lat + pixel_height * n,
-                        lat + pixel_height * (n + 1),
-                        long_width
-                    ) for n in range(win_ysize)
-                ]
-            ) * 1e-6  # 1e-6 is to convert from meters to kilometers
-            cell_areas.shape = (cell_areas.size, 1)
-
-            for x in range(0, xsize, x_block_size):
-                if self.killed:
-                    log("Processing killed by user after processing "
-                        f"{n} out of {n_blocks} blocks.")
-                    break
-                self.progress.emit((n / n_blocks) * 100)
-                
-                if x + x_block_size < xsize:
-                    win_xsize = x_block_size
-                else:
-                    win_xsize = xsize - x
-
-                src_array = src_ds.ReadAsArray(
-                    xoff=x,
-                    yoff=y,
-                    xsize=win_xsize,
-                    ysize=win_ysize
-                )
-
-                mask_array = band_mask.ReadAsArray(
-                    xoff=x,
-                    yoff=y,
-                    win_xsize=win_xsize,
-                    win_ysize=win_ysize
-                )
-                mask_array = mask_array == MASK_VALUE
-
-                result = _process_block(
-                    self.params,
-                    src_array,
-                    mask_array,
-                    x,
-                    y,
-                    cell_areas
-                )
-
-                out.append(result[0])
-
-                for key, value in result[1].items():
-                    dst_ds.GetRasterBand(key).WriteArray(**value)
-
-                n += 1
-            if self.killed:
-                break
-
-            lat += pixel_height * win_ysize
-
-        # pr.disable()
-        # pr.dump_stats('calculate_drought_stats')
-
-        if self.killed:
-            del dst_ds
-            os.remove(self.params.out_file)
-            return None
-        else:
-            self.progress.emit(100)
-            return _accumulate_summary_tables(out)
-
-
 def _render_drought_workbook(
     template_workbook,
     summary_table: SummaryTableDrought,
@@ -985,6 +627,37 @@ def _render_drought_workbook(
 
     return template_workbook
 
+
+class DroughtSummaryWorker(worker.AbstractWorker, DroughtSummary):
+    def __init__(
+        self,
+        params: DroughtSummaryWorkerParams
+    ):
+        self.params = params
+
+        worker.AbstractWorker.__init__(self)
+        DroughtSummary.__init__(self)
+
+    def emit_progress(self, frac):
+        self.progress.emit(frac * 100)
+
+    def is_killed(self):
+        return self.killed
+
+    def work(self):
+        self.toggle_show_progress.emit(True)
+        self.toggle_show_cancel.emit(True)
+
+        out = self.process_lines(
+            self.get_line_params()
+        )
+
+        if self.killed:
+            os.remove(self.params.out_file)
+            return None
+        else:
+            self.emit_progress(100)
+            return out
 
 def _calculate_summary_table(
         bbox,
@@ -1029,7 +702,8 @@ def _calculate_summary_table(
 
     error_message = ""
     if mask_worker.success:
-        in_df = _combine_data_files(indic_vrt, in_dfs)
+        # Combine all in_dfs together and update path to refer to indicator VRT
+        in_df = DataFile(indic_vrt, [b for d in in_dfs for b in d.bands])
 
         log(u'Calculating summary table and saving to: {}'.format(output_tif_path))
         drought_worker = worker.StartWorker(
@@ -1107,7 +781,7 @@ def _compute_drought_summary_table(
         else:
             summary_tables.append(result)
 
-    summary_table = _accumulate_summary_tables(summary_tables)
+    summary_table = accumulate_drought_summary_tables(summary_tables)
 
     if len(out_paths) > 1:
         out_path = output_job_path.parent / f"{output_job_path.stem}.vrt"

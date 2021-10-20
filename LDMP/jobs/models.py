@@ -18,7 +18,7 @@ from .. import (
 from ..algorithms.models import ExecutionScript
 from ..logger import log
 
-from te_schemas import SchemaBase
+from te_schemas import jobs
 
 import marshmallow_dataclass
 
@@ -44,11 +44,6 @@ class JobStatus(enum.Enum):
     DOWNLOADED = "DOWNLOADED"
     GENERATED_LOCALLY = "GENERATED_LOCALLY"
 
-
-class JobResult(enum.Enum):
-    CLOUD_RESULTS = "CloudResults"
-    LOCAL_RESULTS = "LocalResults"
-    TIME_SERIES_TABLE = "TimeSeriesTable"
 
 
 @dataclasses.dataclass()
@@ -177,150 +172,17 @@ class JobParameters:
         return result
 
 
-@marshmallow_dataclass.dataclass
-class JobBand(SchemaBase):
-    metadata: dict
-    name: str
-    no_data_value: typing.Optional[float] = dataclasses.field(default= -32768.0)
-    activated: typing.Optional[bool] = dataclasses.field(default=True)
-    add_to_map: typing.Optional[bool] = dataclasses.field(default=True)
-
-    @classmethod
-    def deserialize(cls, raw_band: typing.Dict):
-        return cls(
-            activated=raw_band["activated"],
-            add_to_map=raw_band["add_to_map"],
-            metadata=raw_band["metadata"],
-            name=raw_band["name"],
-            no_data_value=raw_band["no_data_value"]
-        )
-
-    def serialize(self) -> typing.Dict:
-        return {
-            "activated": self.activated,
-            "add_to_map": self.add_to_map,
-            "metadata": self.metadata,
-            "name": self.name,
-            "no_data_value": self.no_data_value,
-        }
-
-
-@dataclasses.dataclass()
-class JobUrl:
-    url: str
-    md5_hash: str
-
-    @property
-    def decoded_md5_hash(self):
-        return binascii.hexlify(base64.b64decode(self.md5_hash)).decode()
-
-    @classmethod
-    def deserialize(cls, raw_url: typing.Dict):
-        return cls(
-            url=raw_url["url"],
-            md5_hash=raw_url["md5Hash"]
-        )
-
-    def serialize(self) -> typing.Dict:
-        return {
-            "url": self.url,
-            "md5Hash": self.md5_hash
-        }
-
-
-@dataclasses.dataclass()
-class JobCloudResults:
-    name: str
-    bands: typing.List[JobBand]
-    urls: typing.List[JobUrl]
-    data_path: Path
-    other_paths: typing.List[Path]
-    type: JobResult = JobResult.CLOUD_RESULTS
-
-    @classmethod
-    def deserialize(cls, raw_results: typing.Dict):
-        data_path = raw_results.get("data_path", None)
-        if data_path:
-            data_path = Path(data_path)
-        return cls(
-            name=raw_results["name"],
-            type=JobResult(raw_results["type"]),
-            bands=[JobBand.deserialize(raw_band) for raw_band in raw_results["bands"]],
-            urls=[JobUrl.deserialize(raw_url) for raw_url in raw_results["urls"]],
-            data_path=data_path,
-            other_paths=[Path(p) for p in raw_results.get("other_paths", [])]
-        )
-
-    def serialize(self) -> typing.Dict:
-        return {
-            "name": self.name,
-            "type": self.type.value,
-            "bands": [band.serialize() for band in self.bands],
-            "urls": [url.serialize() for url in self.urls],
-            "data_path": str(self.data_path),
-            "other_paths": [str(p) for p in self.other_paths]
-        }
-
-
-@dataclasses.dataclass()
-class TimeSeriesTableResult:
-    name: str
-    table: typing.List[typing.Dict]
-    type: JobResult = JobResult.TIME_SERIES_TABLE
-
-    @classmethod
-    def deserialize(cls, raw_results: typing.Dict):
-        return cls(
-            name=raw_results["name"],
-            type=JobResult(raw_results["type"]),
-            table=raw_results["table"]
-        )
-
-    def serialize(self) -> typing.Dict:
-        return {
-            "name": self.name,
-            "type": self.type.value,
-            "table": self.table.copy()
-        }
-
-
-@dataclasses.dataclass()
-class JobLocalResults:
-    name: str
-    bands: typing.List[JobBand]
-    data_path: Path
-    other_paths: typing.List[Path]
-    type: JobResult = JobResult.LOCAL_RESULTS
-
-    @classmethod
-    def deserialize(cls, raw_results: typing.Dict):
-        data_path = raw_results.get("data_path", None)
-        if data_path:
-            data_path = Path(data_path)
-        return cls(
-            name=raw_results["name"],
-            bands=[JobBand.deserialize(raw_band) for raw_band in raw_results["bands"]],
-            data_path=data_path,
-            other_paths=[Path(p) for p in raw_results.get("other_paths", [])]
-        )
-
-    def serialize(self) -> typing.Dict:
-        return {
-            "name": self.name,
-            "type": self.type.value,
-            "bands": [band.serialize() for band in self.bands],
-            "data_path": str(self.data_path),
-            "other_paths": [str(p) for p in self.other_paths]
-        }
-
-
 @dataclasses.dataclass()
 class Job:
     id: uuid.UUID
     params: JobParameters
     progress: int
     results: typing.Optional[
-        typing.Union[JobCloudResults, JobLocalResults, TimeSeriesTableResult]
+        typing.Union[
+            jobs.JobCloudResults,
+            jobs.JobLocalResults,
+            jobs.TimeSeriesTableResult
+        ]
     ]
     script: ExecutionScript
     status: JobStatus
@@ -341,18 +203,18 @@ class Job:
 
         raw_results = raw_job.get("results") or {}
         try:
-            type_ = JobResult(raw_results["type"])
+            type_ = jobs.JobResultType(raw_results["type"])
         except KeyError:
             if conf.settings_manager.get_value(conf.Setting.DEBUG):
                 log(f"Could not extract type of results from job {raw_job['id']} with raw_results {raw_results!r}")
             results = None
         else:
-            if type_ == JobResult.CLOUD_RESULTS:
-                results = JobCloudResults.deserialize(raw_results)
-            elif type_ == JobResult.LOCAL_RESULTS:
-                results = JobLocalResults.deserialize(raw_results)
-            elif type_ == JobResult.TIME_SERIES_TABLE:
-                results = TimeSeriesTableResult.deserialize(raw_results)
+            if type_ == jobs.JobResultType.CLOUD_RESULTS:
+                results = jobs.JobCloudResults.Schema().load(raw_results)
+            elif type_ == jobs.JobResultType.LOCAL_RESULTS:
+                results = jobs.JobLocalResults.Schema().load(raw_results)
+            elif type_ == jobs.JobResultType.TIME_SERIES_TABLE:
+                results = jobs.TimeSeriesTableResult.Schema().load(raw_results)
             else:
                 raise RuntimeError(f"Invalid results type: {type_!r}")
         try:
@@ -393,11 +255,21 @@ class Job:
         # local scripts are identified by their name, they do not have an id
         script_identifier = (
             str(self.script.id) if self.script.id is not None else self.script.name)
+
+        if self.results is None:
+            results_serial = None
+        elif self.results.type == jobs.JobResultType.CLOUD_RESULTS:
+            results_serial = jobs.JobCloudResults.Schema().dump(self.results)
+        elif self.results.type == jobs.JobResultType.LOCAL_RESULTS:
+            results_serial = jobs.JobLocalResults.Schema().dump(self.results)
+        elif self.results.type == jobs.JobResultType.TIME_SERIES_TABLE:
+            results_serial = jobs.TimeSeriesTableResult.Schema().dump(self.results)
+
         raw_job = {
             "id": str(self.id),
             "params": self.params.serialize(),
             "progress": self.progress,
-            "results": None if self.results is None else self.results.serialize(),
+            "results": results_serial,
             "script_id": script_identifier,
             "status": self.status.value,
             "user_id": str(self.user_id) if self.user_id is not None else None,

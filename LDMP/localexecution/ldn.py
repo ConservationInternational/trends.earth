@@ -32,6 +32,8 @@ from te_schemas import (
     SchemaBase
 )
 
+from te_schemas.jobs import JobBand
+
 from ..conf import (
     settings_manager,
     Setting
@@ -50,9 +52,7 @@ from .. import (
     __revision__,
     __release_date__
 )
-from ..jobs import (
-    models,
-)
+from ..jobs.models import Job
 from ..logger import log
 
 if settings_manager.get_value(Setting.BINARIES_ENABLED):
@@ -87,105 +87,6 @@ LC_BAND_NAME = "Land cover (7 class)"
 SOC_DEG_BAND_NAME = "Soil organic carbon (degradation)"
 SOC_BAND_NAME = "Soil organic carbon"
 POPULATION_BAND_NAME = "Population (density, persons per sq km / 10)"
-
-
-class LdnProductivityMode(enum.Enum):
-    TRENDS_EARTH = "Trends.Earth productivity"
-    JRC_LPD = "JRC LPD"
-
-
-@marshmallow_dataclass.dataclass
-class SummaryTableLDN(SchemaBase):
-    soc_by_lc_annual_totals: List[Dict[int, float]]
-    lc_annual_totals: List[Dict[int, float]]
-    lc_trans_zonal_areas: List[Dict[int, float]]
-    lc_trans_prod_bizonal: Dict[Tuple[int, int], float]
-    lc_trans_zonal_soc_initial: Dict[int, float]
-    lc_trans_zonal_soc_final: Dict[int, float]
-    sdg_zonal_population_total: Dict[int, float]
-    sdg_summary: Dict[int, float]
-    prod_summary: Dict[int, float]
-    soc_summary: Dict[int, float]
-    lc_summary: Dict[int, float]
-
-
-def _accumulate_summary_tables(tables: List[SummaryTableLDN]) -> SummaryTableLDN:
-    if len(tables) == 1:
-        return tables[0]
-    else:
-        out = tables[0]
-        for table in tables[1:]:
-            out.soc_by_lc_annual_totals = [
-                accumulate_dicts([a,  b])
-                for a, b in zip(
-                    out.soc_by_lc_annual_totals,
-                    table.soc_by_lc_annual_totals
-                )
-            ]
-            out.lc_annual_totals = [
-                accumulate_dicts([a,  b])
-                for a, b in zip(
-                    out.lc_annual_totals,
-                    table.lc_annual_totals
-                )
-            ]
-            out.lc_trans_zonal_areas = [
-                accumulate_dicts([a,  b])
-                for a, b in zip(
-                    out.lc_trans_zonal_areas,
-                    table.lc_trans_zonal_areas
-                )
-            ]
-            out.lc_trans_prod_bizonal = accumulate_dicts(
-                [
-                    out.lc_trans_prod_bizonal,
-                    table.lc_trans_prod_bizonal
-                ]
-            )
-            out.lc_trans_zonal_soc_initial = accumulate_dicts(
-                [
-                    out.lc_trans_zonal_soc_initial,
-                    table.lc_trans_zonal_soc_initial
-                ]
-            )
-            out.lc_trans_zonal_soc_final = accumulate_dicts(
-                [
-                    out.lc_trans_zonal_soc_final,
-                    table.lc_trans_zonal_soc_final
-                ]
-            )
-            out.sdg_zonal_population_total = accumulate_dicts(
-                [
-                    out.sdg_zonal_population_total,
-                    table.sdg_zonal_population_total
-                ]
-            )
-            out.sdg_summary = accumulate_dicts(
-                [
-                    out.sdg_summary,
-                    table.sdg_summary
-                ]
-            )
-            out.prod_summary = accumulate_dicts(
-                [
-                    out.prod_summary,
-                    table.prod_summary
-                ]
-            )
-            out.soc_summary = accumulate_dicts(
-                [
-                  out.soc_summary,
-                    table.soc_summary
-                ]
-            )
-            out.lc_summary = accumulate_dicts(
-                [
-                    out.lc_summary,
-                    table.lc_summary
-                ]
-            )
-
-        return out
 
 
 @dataclasses.dataclass()
@@ -245,9 +146,9 @@ class SummaryTableLDNWidgets:
 @dataclasses.dataclass()
 class LdnInputInfo:
     path: Path
-    main_band: models.JobBand
+    main_band: JobBand
     main_band_index: int
-    aux_bands: List[models.JobBand]
+    aux_bands: List[JobBand]
     aux_band_indexes: List[int]
     years: List[int]
 
@@ -347,43 +248,43 @@ def get_main_sdg_15_3_1_job_params(
         "task_notes": task_notes,
         "prod_mode": prod_mode,
         "layer_lc_path": str(land_cover_inputs.path),
-        "layer_lc_main_band": models.JobBand.Schema().dump(
+        "layer_lc_main_band": JobBand.Schema().dump(
             land_cover_inputs.main_band
         ),
         "layer_lc_main_band_index": land_cover_inputs.main_band_index,
         "layer_lc_aux_bands": [
-            models.JobBand.Schema().dump(b)
+            JobBand.Schema().dump(b)
             for b in land_cover_inputs.aux_bands
         ],
         "layer_lc_aux_band_indexes": land_cover_inputs.aux_band_indexes,
         "layer_lc_years": land_cover_inputs.years,
         "layer_soc_path": str(soil_organic_carbon_inputs.path),
-        "layer_soc_main_band": models.JobBand.Schema().dump(
+        "layer_soc_main_band": JobBand.Schema().dump(
             soil_organic_carbon_inputs.main_band
         ),
         "layer_soc_main_band_index": soil_organic_carbon_inputs.main_band_index,
         "layer_soc_aux_bands": [
-            models.JobBand.Schema().dump(b)
+            JobBand.Schema().dump(b)
             for b in soil_organic_carbon_inputs.aux_bands
         ],
         "layer_soc_aux_band_indexes": soil_organic_carbon_inputs.aux_band_indexes,
         "layer_soc_years": soil_organic_carbon_inputs.years,
         "layer_traj_path": traj_path,
-        "layer_traj_band": models.JobBand.Schema().dump(traj_band),
+        "layer_traj_band": JobBand.Schema().dump(traj_band),
         "layer_traj_band_index": traj_index,
         "layer_traj_year_initial": traj_year_initial,
         "layer_traj_year_final": traj_year_final,
-        "layer_perf_band": models.JobBand.Schema().dump(perf_band),
+        "layer_perf_band": JobBand.Schema().dump(perf_band),
         "layer_perf_path": perf_path,
         "layer_perf_band_index": perf_index,
         "layer_state_path": state_path,
-        "layer_state_band": models.JobBand.Schema().dump(state_band),
+        "layer_state_band": JobBand.Schema().dump(state_band),
         "layer_state_band_index": state_index,
         "layer_lpd_path": lpd_path,
-        "layer_lpd_band": models.JobBand.Schema().dump(lpd_band),
+        "layer_lpd_band": JobBand.Schema().dump(lpd_band),
         "layer_lpd_band_index": lpd_index,
         "layer_population_path": str(population_input.path),
-        "layer_population_band": models.JobBand.Schema().dump(
+        "layer_population_band": JobBand.Schema().dump(
             population_input.main_band
         ),
         "layer_population_band_index": population_input.main_band_index,
@@ -396,7 +297,7 @@ def get_main_sdg_15_3_1_job_params(
 @marshmallow_dataclass.dataclass
 class DataFile(SchemaBase):
     path: str
-    bands: List[models.JobBand]
+    bands: List[JobBand]
 
     def array_rows_for_name(self, name_filter):
         names = [b.name for b in self.bands]
@@ -420,7 +321,7 @@ class DataFile(SchemaBase):
 
 def _combine_data_files(
     path,
-    datafiles: List[models.JobBand]
+    datafiles: List[JobBand]
 ) -> DataFile:
     '''combine multiple datafiles with same path into one object'''
 
@@ -433,8 +334,8 @@ def _combine_data_files(
 
 
 def compute_ldn(
-        ldn_job: models.Job,
-        area_of_interest: areaofinterest.AOI) -> models.Job:
+        ldn_job: Job,
+        area_of_interest: areaofinterest.AOI) -> Job:
     """Calculate final SDG 15.3.1 indicator and save to disk"""
 
     job_output_path, _ = utils.get_local_job_output_paths(ldn_job)
@@ -517,7 +418,7 @@ def compute_ldn(
 
         summary_tables[period] = summary_table
 
-        sdg_band = models.JobBand(
+        sdg_band = JobBand(
             name="SDG 15.3.1 Indicator",
             no_data_value=NODATA_VALUE,
             metadata={
@@ -529,7 +430,7 @@ def compute_ldn(
         sdg_df = DataFile(sdg_path, [sdg_band])
 
         if prod_mode == LdnProductivityMode.TRENDS_EARTH.value:
-            sdg_prod_band = models.JobBand(
+            sdg_prod_band = JobBand(
                 name="SDG 15.3.1 Productivity Indicator",
                 no_data_value=NODATA_VALUE,
                 metadata={
@@ -702,7 +603,7 @@ def _prepare_land_cover_dfs(params: Dict) -> List[DataFile]:
                 lc_path,
                 params["layer_lc_main_band_index"]
             ),
-            bands=[models.JobBand(**params["layer_lc_main_band"])]
+            bands=[JobBand(**params["layer_lc_main_band"])]
         )
     ]
     for lc_aux_band, lc_aux_band_index, in zip(
@@ -715,7 +616,7 @@ def _prepare_land_cover_dfs(params: Dict) -> List[DataFile]:
                     lc_path,
                     lc_aux_band_index
                 ),
-                bands=[models.JobBand(**lc_aux_band)]
+                bands=[JobBand(**lc_aux_band)]
             )
         )
 
@@ -731,7 +632,7 @@ def _prepare_population_df(
             population_path,
             params["layer_population_band_index"]
         ),
-        bands=[models.JobBand(**params["layer_population_band"])]
+        bands=[JobBand(**params["layer_population_band"])]
     )
 
     return population_df
@@ -747,7 +648,7 @@ def _prepare_soil_organic_carbon_dfs(
                 soc_path,
                 params["layer_soc_main_band_index"]
             ),
-            bands=[models.JobBand(**params["layer_soc_main_band"])]
+            bands=[JobBand(**params["layer_soc_main_band"])]
         )
     ]
 
@@ -761,7 +662,7 @@ def _prepare_soil_organic_carbon_dfs(
                     soc_path,
                     soc_aux_band_index
                 ),
-                bands=[models.JobBand(**soc_aux_band)]
+                bands=[JobBand(**soc_aux_band)]
             )
         )
 
@@ -776,21 +677,21 @@ def _prepare_trends_earth_mode_dfs(
             params["layer_traj_path"],
             params["layer_traj_band_index"],
         ),
-        bands=[models.JobBand(**params["layer_traj_band"])]
+        bands=[JobBand(**params["layer_traj_band"])]
     )
     perf_vrt_df = DataFile(
         path=utils.save_vrt(
             params["layer_perf_path"],
             params["layer_perf_band_index"],
         ),
-        bands=[models.JobBand(**params["layer_perf_band"])]
+        bands=[JobBand(**params["layer_perf_band"])]
     )
     state_vrt_df = DataFile(
         path=utils.save_vrt(
             params["layer_state_path"],
             params["layer_state_band_index"],
         ),
-        bands=[models.JobBand(**params["layer_state_band"])]
+        bands=[JobBand(**params["layer_state_band"])]
     )
     return traj_vrt_df, perf_vrt_df, state_vrt_df
 
@@ -803,7 +704,7 @@ def _prepare_jrc_lpd_mode_df(
             params["layer_lpd_path"],
             params["layer_lpd_band_index"]
         ),
-        bands=[models.JobBand(**params["layer_lpd_band"])]
+        bands=[JobBand(**params["layer_lpd_band"])]
     )
 
 
@@ -1227,16 +1128,37 @@ def save_reporting_json(
 
 
 @dataclasses.dataclass()
+class DegradationProgressWorkerParams(SchemaBase):
+    in_df: DataFile
+    prod_mode: str
+    out_file: str
+    mask_file: str
+
+def _process_progress_block(
+    params: DegradationProgressWorkerParams,
+    in_array,
+    mask,
+    xoff: int,
+    yoff: int,
+    cell_areas_raw
+) -> Tuple[SummaryTableLDN, Dict]:
+
+    LC_DEG_BAND_NAME 
+
+    lc_bands = params.in_df.array_rows_for_name(LC_BAND_NAME)
+
+
+@dataclasses.dataclass()
 class DegradationSummaryWorkerParams(SchemaBase):
     in_df: DataFile
     prod_mode: str
-    prod_out_file: str
+    out_file: str
     mask_file: str
     nesting: land_cover.LCLegendNesting
     trans_matrix: land_cover.LCTransitionDefinitionDeg
     period: str
 
-def _process_block(
+def _process_period_block(
     params: DegradationSummaryWorkerParams,
     in_array,
     mask,
@@ -1533,7 +1455,7 @@ class DegradationSummaryWorker(worker.AbstractWorker):
         # productivity bands
         driver = gdal.GetDriverByName("GTiff")
         dst_ds_deg = driver.Create(
-            self.params.prod_out_file,
+            self.params.out_file,
             xsize,
             ysize,
             n_out_bands,
@@ -1602,7 +1524,7 @@ class DegradationSummaryWorker(worker.AbstractWorker):
                 )
                 mask_array = mask_array == MASK_VALUE
 
-                result = _process_block(
+                result = _process_period_block(
                     self.params,
                     src_array,
                     mask_array,
@@ -1627,11 +1549,11 @@ class DegradationSummaryWorker(worker.AbstractWorker):
 
         if self.killed:
             del dst_ds_deg
-            os.remove(self.params.prod_out_file)
+            os.remove(self.params.out_file)
             return None
         else:
             self.progress.emit(100)
-            return _accumulate_summary_tables(out)
+            return accumulate_ldn_summary_tables(out)
 
 
 def _render_ldn_workbook(
@@ -1736,7 +1658,7 @@ def _calculate_summary_table(
                 DegradationSummaryWorkerParams(
                     in_df=in_df,
                     prod_mode=prod_mode,
-                    prod_out_file=str(output_sdg_path),
+                    out_file=str(output_sdg_path),
                     mask_file=mask_vrt,
                     nesting=lc_legend_nesting,
                     trans_matrix=lc_trans_matrix,
@@ -1835,7 +1757,7 @@ def _compute_ldn_summary_table(
         else:
             summary_tables.append(result)
 
-    summary_table = _accumulate_summary_tables(summary_tables)
+    summary_table = accumulate_ldn_summary_tables(summary_tables)
 
     if len(reproj_paths) > 1:
         reproj_path = output_job_path.parent / f"{output_job_path.stem}_inputs.vrt"

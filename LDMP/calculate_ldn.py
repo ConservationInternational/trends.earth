@@ -61,8 +61,27 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
     ):
         super().__init__(iface, script, parent)
         self.setupUi(self)
-        self.update_time_bounds()
-        self.radio_te_prod.toggled.connect(self.update_time_bounds)
+
+        jrc_lpd_datasets = []
+        for ds_name, ds_details in conf.REMOTE_DATASETS["Land Productivity Dynamics (JRC)"].items():
+            jrc_lpd_datasets.append(ds_name)
+        self.cb_jrc_baseline.addItems(jrc_lpd_datasets)
+        self.cb_jrc_baseline.setCurrentIndex(1)
+        self.cb_jrc_progress.addItems(jrc_lpd_datasets)
+        self.cb_jrc_progress.setCurrentIndex(2)
+
+
+        self.update_time_bounds_baseline()
+        self.update_time_bounds_progress()
+        self.toggle_lpd_options()
+
+        self.radio_te_prod.toggled.connect(self.update_time_bounds_baseline)
+        self.radio_te_prod.toggled.connect(self.update_time_bounds_progress)
+        self.cb_jrc_baseline.currentIndexChanged.connect(self.update_time_bounds_baseline)
+        self.cb_jrc_progress.currentIndexChanged.connect(self.update_time_bounds_progress)
+
+        self.radio_te_prod.toggled.connect(self.toggle_lpd_options)
+
         self.lc_setup_widget = lc_setup.LandCoverSetupRemoteExecutionWidget(
             self,
             hide_min_year=True,
@@ -76,14 +95,25 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
         self._finish_initialization()
 
-    def update_time_bounds(self):
+    def toggle_lpd_options(self):
+        if self.radio_lpd_jrc.isChecked():
+            self.label_lpd_warning.show()
+            self.jrc_frame_baseline.show()
+            self.jrc_frame_progress.show()
+        else:
+            self.jrc_frame_baseline.hide()
+            self.jrc_frame_progress.hide()
+            self.label_lpd_warning.hide()
+
+    def update_time_bounds_baseline(self):
         if self.radio_te_prod.isChecked():
             prod_dataset = conf.REMOTE_DATASETS["NDVI"]["MODIS (MOD13Q1, annual)"]
             start_year_prod = prod_dataset['Start year']
             end_year_prod = prod_dataset['End year']
         else:
-            start_year_prod = 2000
-            end_year_prod = 2015
+            prod_dataset = conf.REMOTE_DATASETS["Land Productivity Dynamics (JRC)"][self.cb_jrc_baseline.currentText()]
+            start_year_prod = prod_dataset['Start year']
+            end_year_prod = prod_dataset['End year']
 
         lc_dataset = conf.REMOTE_DATASETS["Land cover"]["ESA CCI"]
         start_year_lc = lc_dataset['Start year']
@@ -96,6 +126,23 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.year_initial_baseline.setMaximumDate(end_year)
         self.year_final_baseline.setMinimumDate(start_year)
         self.year_final_baseline.setMaximumDate(end_year)
+
+    def update_time_bounds_progress(self):
+        if self.radio_te_prod.isChecked():
+            prod_dataset = conf.REMOTE_DATASETS["NDVI"]["MODIS (MOD13Q1, annual)"]
+            start_year_prod = prod_dataset['Start year']
+            end_year_prod = prod_dataset['End year']
+        else:
+            prod_dataset = conf.REMOTE_DATASETS["Land Productivity Dynamics (JRC)"][self.cb_jrc_progress.currentText()]
+            start_year_prod = prod_dataset['Start year']
+            end_year_prod = prod_dataset['End year']
+
+        lc_dataset = conf.REMOTE_DATASETS["Land cover"]["ESA CCI"]
+        start_year_lc = lc_dataset['Start year']
+        end_year_lc = lc_dataset['End year']
+
+        start_year = QtCore.QDate(max(start_year_prod, start_year_lc), 1, 1)
+        end_year = QtCore.QDate(min(end_year_prod, end_year_lc), 1, 1)
 
         self.year_initial_progress.setMinimumDate(start_year)
         self.year_initial_progress.setMaximumDate(end_year)
@@ -183,28 +230,37 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             prod_state_year_tg_end = prod_state_year_bl_end + 3
             assert prod_state_year_tg_end == year_final
 
+            payload['productivity'] = {
+                'mode': prod_mode
+            }
+
             if prod_mode == 'Trends.Earth productivity':
-                prod_asset = conf.REMOTE_DATASETS["NDVI"]["MODIS (MOD13Q1, annual)"]["GEE Dataset"]
+                payload['productivity'].update({
+                    'prod_asset': conf.REMOTE_DATASETS["NDVI"]["MODIS (MOD13Q1, annual)"]["GEE Dataset"],
+                    'traj_method': 'ndvi_trend',
+                    'traj_year_initial': year_start,
+                    'traj_year_final': year_final,
+                    'perf_year_initial': year_start,
+                    'perf_year_final': year_final,
+                    'state_year_bl_start': prod_state_year_bl_start,
+                    'state_year_bl_end': prod_state_year_bl_end,
+                    'state_year_tg_start': prod_state_year_tg_start,
+                    'state_year_tg_end': prod_state_year_tg_end,
+                    'climate_asset': None,
+                })
             elif prod_mode == 'JRC LPD':
                 if period == 'baseline':
-                    prod_asset = conf.REMOTE_DATASETS["Land productivity"]["Land Productivity Dynamics (LPD)"]["GEE Dataset"]
+                    prod_dataset = conf.REMOTE_DATASETS["Land Productivity Dynamics (JRC)"][self.cb_jrc_baseline.currentText()]
                 else:
-                    prod_asset = conf.REMOTE_DATASETS["Land productivity"]["Land Productivity Dynamics (LPD), 2021 update"]["GEE Dataset"]
-
-            payload['productivity'] = {
-                'mode': prod_mode,
-                'prod_asset': prod_asset,
-                'traj_method': 'ndvi_trend',
-                'traj_year_initial': year_start,
-                'traj_year_final': year_final,
-                'perf_year_initial': year_start,
-                'perf_year_final': year_final,
-                'state_year_bl_start': prod_state_year_bl_start,
-                'state_year_bl_end': prod_state_year_bl_end,
-                'state_year_tg_start': prod_state_year_tg_start,
-                'state_year_tg_end': prod_state_year_tg_end,
-                'climate_asset': None,
-            }
+                    prod_dataset = conf.REMOTE_DATASETS["Land Productivity Dynamics (JRC)"][self.cb_jrc_progress.currentText()]
+                prod_asset = prod_dataset['GEE Dataset']
+                prod_start_year = prod_dataset['Start year']
+                prod_end_year = prod_dataset['End year']
+                payload['productivity'].update({
+                    'prod_asset': prod_asset,
+                    'year_initial': prod_start_year,
+                    'year_final': prod_end_year
+                })
             payload['land_cover'] = {
                 'year_initial': year_start,
                 'year_final': year_final,
@@ -303,8 +359,8 @@ class DlgCalculateLDNSummaryTableAdmin(
             combo_layer_lc=self.combo_layer_lc_baseline,
             combo_layer_soc=self.combo_layer_soc_baseline,
             combo_layer_pop=self.combo_layer_population_baseline,
-            radio_te_prod=self.radio_te_prod_baseline,
-            radio_lpd_jrc=self.radio_lpd_jrc_baseline
+            radio_te_prod=self.radio_te_prod,
+            radio_lpd_jrc=self.radio_lpd_jrc
         )
         self.combo_boxes['progress'] = ldn.SummaryTableLDNWidgets(
             combo_datasets=self.combo_datasets_progress,
@@ -315,8 +371,8 @@ class DlgCalculateLDNSummaryTableAdmin(
             combo_layer_lc=self.combo_layer_lc_progress,
             combo_layer_soc=self.combo_layer_soc_progress,
             combo_layer_pop=self.combo_layer_population_progress,
-            radio_te_prod=self.radio_te_prod_progress,
-            radio_lpd_jrc=self.radio_lpd_jrc_progress
+            radio_te_prod=self.radio_te_prod,
+            radio_lpd_jrc=self.radio_lpd_jrc
         )
 
     def showEvent(self, event):

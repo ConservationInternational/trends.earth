@@ -7,6 +7,7 @@ import tempfile
 import re
 import shutil
 import zipfile
+import tarfile
 
 from typing import (
     List,
@@ -119,6 +120,11 @@ def _make_zip(out_zip, in_files):
             zf.write(in_file, in_file.name)
 
 
+def _make_tar_gz(out_tar_gz, in_files):
+    with tarfile.open(out_tar_gz, "w:gz") as tar:
+        for in_file in in_files:
+            tar.add(in_file, arcname=in_file.name)
+
 def compute_unccd_report(
     report_job: models.Job,
     area_of_interest: areaofinterest.AOI
@@ -129,11 +135,11 @@ def compute_unccd_report(
 
     job_output_path, _ = utils.get_local_job_output_paths(report_job)
 
-    zipfile_path = job_output_path.parent / f"{job_output_path.stem}.zip"
+    tar_gz_path = job_output_path.parent / f"{job_output_path.stem}.tar.gz"
 
-    log('Building zipfile...')
-    _make_zip(
-        zipfile_path,
+    log('Building tar.gz file...')
+    _make_tar_gz(
+        tar_gz_path,
         [Path(p) for p in params['so1_so2_all_paths']] + [Path(p) for p in params['so3_all_paths']]
     )
     
@@ -147,7 +153,7 @@ def compute_unccd_report(
     #     summary_table_stable_kwargs
     # )
 
-    report_job.results.data_path = zipfile_path
+    report_job.results.data_path = tar_gz_path
     report_job.end_date = dt.datetime.now(dt.timezone.utc)
     report_job.progress = 100
 

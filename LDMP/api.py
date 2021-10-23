@@ -28,7 +28,6 @@ from PyQt5 import (
 
 from qgis.utils import iface
 from qgis.core import (
-    QgsAuthMethodConfig,
     QgsApplication,
     QgsTask,
 )

@@ -139,7 +139,7 @@ style_text_dict = {
     'sdg_prod_combined_imp': tr_layers.tr(u'Increasing'),
 
     # LPD
-    'lpd_title': tr_layers.tr(u'Land productivity dynamics (LPD, {year_start}-{year_final})'),
+    'lpd_title': tr_layers.tr(u'Land productivity dynamics (LPD, {year_initial}-{year_final})'),
     'lpd_declining': tr_layers.tr(u'Declining'),
     'lpd_earlysigns': tr_layers.tr(u'Moderate decline'),
     'lpd_stabbutstress': tr_layers.tr(u'Stressed'),

@@ -22,8 +22,7 @@ import requests
 import hashlib
 from pathlib import Path
 
-from qgis.PyQt import QtWidgets, uic, QtCore
-from qgis.PyQt.QtCore import QAbstractTableModel, Qt, QCoreApplication
+from qgis.PyQt import QtWidgets, QtCore
 
 from qgis.utils import iface
 
@@ -88,7 +87,7 @@ class Country:
 
 class tr_download(object):
     def tr(message):
-        return QCoreApplication.translate("tr_download", message)
+        return QtCore.QCoreApplication.translate("tr_download", message)
 
 
 def local_check_hash_against_etag(path: Path, expected: str) -> bool:

@@ -179,10 +179,8 @@ def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
     logger.debug("Deserializing")
     final_output = schema.load(outs[0])
 
-    logger.debug(f"Initial url list: {final_output.urls}")
     for o in outs[1:]:
         this_out = schema.load(o)
-        logger.debug(f"Urls: {this_out.urls}")
         final_output.urls.extend(this_out.urls)
     logger.debug("Serializing")
     # Now serialize the output again so the remaining layers can be
@@ -221,7 +219,7 @@ def _get_population(params, proj, logger):
 
 def run_jrc_for_period(params, EXECUTION_ID, logger):
     '''Run indicators using JRC LPD for productivity'''
-    prod_asset = params.get('prod_asset')
+    prod_asset = params.get('productivity').get('prod_asset')
     proj = ee.Image(prod_asset).projection()
     out = download(
         prod_asset,
@@ -232,7 +230,11 @@ def run_jrc_for_period(params, EXECUTION_ID, logger):
         logger
     )
     # Save as int16 to be compatible with other data
-    out.image = out.image.int16()
+    out.image = out.image.int16().rename(f'JRC_LPD_{params["productivity"]["year_initial"]}-{params["productivity"]["year_final"]}')
+    out.band_info[0].metadata.update({
+        'year_initial': params["productivity"]["year_initial"],
+        'year_final': params["productivity"]["year_final"]
+    })
 
     out.merge(_run_lc(params.get('land_cover'), logger))
 
@@ -256,8 +258,10 @@ def run_period(params, max_workers, EXECUTION_ID, logger):
     '''Run indicators for a given period, using JRC or Trends.Earth'''
 
     if params['productivity']['mode'] == 'Trends.Earth productivity':
+        params.update(_gen_metadata_str_te(params))
         out = run_te_for_period(params, max_workers, EXECUTION_ID, logger)
     elif params['productivity']['mode'] == 'JRC LPD':
+        params.update(_gen_metadata_str_jrc_lpd(params))
         out = run_jrc_for_period(params, EXECUTION_ID, logger)
     else:
         raise Exception(
@@ -269,7 +273,7 @@ def run_period(params, max_workers, EXECUTION_ID, logger):
     return out
 
 
-def _gen_metadata_str(params):
+def _gen_metadata_str_te(params):
     metadata = {
         'visible_metadata': {
             'one liner': f'{params["script"]["name"]} ({params["period"]["name"]}, {params["period"]["year_start"]}-{params["period"]["year_final"]})',
@@ -277,6 +281,18 @@ def _gen_metadata_str(params):
                     f'Period: {params["period"]["name"]} ({params["period"]["year_start"]}-{params["period"]["year_final"]})'
                     f'Productivity {params["productivity"]["mode"]}:\n'
                     f'\tTrajectory ({params["productivity"]["traj_year_initial"]} {params["productivity"]["traj_year_final"]}'
+        }
+    }
+    return metadata
+
+
+def _gen_metadata_str_jrc_lpd(params):
+    metadata = {
+        'visible_metadata': {
+            'one liner': f'{params["script"]["name"]} ({params["period"]["name"]}, {params["period"]["year_start"]}-{params["period"]["year_final"]})',
+            'full': f'{params["script"]["name"]}\n'
+                    f'Period: {params["period"]["name"]} ({params["period"]["year_start"]}-{params["period"]["year_final"]})'
+                    f'Productivity {params["productivity"]["mode"]}: {params["productivity"]["year_initial"]}-{params["productivity"]["year_final"]}'
         }
     }
     return metadata
@@ -294,9 +310,6 @@ def run(params, logger):
         EXECUTION_ID = params.get('EXECUTION_ID', None)
 
     max_workers = 4
-
-    # Add metadata strings into parameters
-    params.update(_gen_metadata_str(params))
 
     out = run_period(params, max_workers, EXECUTION_ID, logger)
 

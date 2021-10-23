@@ -616,6 +616,7 @@ class WarpWorker(worker.AbstractWorker):
             ],
             creationOptions=[
                 'COMPRESS=LZW',
+                'BIGTIFF=YES',
                 'NUM_THREADS=ALL_CPUs',
                 'GDAL_NUM_THREADS=ALL_CPUs',
                 'TILED=YES'

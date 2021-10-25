@@ -208,31 +208,32 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             year_initial = values['period_year_initial']
             year_final = values['period_year_final']
 
-            if (year_final - year_initial) < 10:
-                QtWidgets.QMessageBox.warning(
-                    None,
-                    self.tr("Warning"),
-                    self.tr(
-                        "Initial and final year are less 10 years "
-                        "apart in {} period - results will be more "
-                        "reliable if more data (years) are included "
-                        "in the analysis.".format(period)
-                    )
-                )
-
-            # Have productivity state consider the last 3 years for the current
-            # period, and the years preceding those last 3 for the baseline
-            prod_state_year_bl_start = year_initial
-            prod_state_year_bl_end = year_final - 3
-            prod_state_year_tg_start = prod_state_year_bl_end + 1
-            prod_state_year_tg_end = prod_state_year_bl_end + 3
-            assert prod_state_year_tg_end == year_final
-
             payload['productivity'] = {
                 'mode': prod_mode
             }
 
             if prod_mode == 'Trends.Earth productivity':
+                if (year_final - year_initial) < 10:
+                    QtWidgets.QMessageBox.warning(
+                        None,
+                        self.tr("Warning"),
+                        self.tr(
+                            "Initial and final year are less 10 years "
+                            "apart in {} period - results will be more "
+                            "reliable if more data (years) are included "
+                            "in the analysis.".format(period)
+                        )
+                    )
+
+                # Have productivity state consider the last 3 years for the 
+                # current
+                # period, and the years preceding those last 3 for the baseline
+                prod_state_year_bl_start = year_initial
+                prod_state_year_bl_end = year_final - 3
+                prod_state_year_tg_start = prod_state_year_bl_end + 1
+                prod_state_year_tg_end = prod_state_year_bl_end + 3
+                assert prod_state_year_tg_end == year_final
+
                 payload['productivity'].update({
                     'prod_asset': conf.REMOTE_DATASETS["NDVI"]["MODIS (MOD13Q1, annual)"]["GEE Dataset"],
                     'traj_method': 'ndvi_trend',
@@ -646,7 +647,7 @@ class DlgCalculateLDNSummaryTableAdmin(
             if (
                 not self.validate_layer_selections(
                     self.combo_boxes['progress'],
-                    rod_mode) or
+                    prod_mode) or
                 not self.validate_layer_crs(
                     self.combo_boxes['progress']) or
                 not self.validate_layer_extents(

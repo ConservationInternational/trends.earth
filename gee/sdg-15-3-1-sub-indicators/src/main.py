@@ -257,7 +257,7 @@ def run_jrc_for_period(params, EXECUTION_ID, logger):
 
     out.merge(_run_soc(params.get('soil_organic_carbon'), logger))
 
-    out.merge(_get_population, params.get('population'), proj, logger)
+    out.merge(_get_population(params.get('population'), proj, logger))
 
     out.setAddToMap(['Soil organic carbon (degradation)',
                      'Land cover (degradation)',

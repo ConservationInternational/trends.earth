@@ -99,6 +99,7 @@ class SummaryTableLDN(SchemaBase):
     soc_by_lc_annual_totals: List[Dict[int, float]]
     lc_annual_totals: List[Dict[int, float]]
     lc_trans_zonal_areas: List[Dict[int, float]]
+    lc_trans_zonal_areas_periods: List[Dict[str, int]]
     lc_trans_prod_bizonal: Dict[Tuple[int, int], float]
     lc_trans_zonal_soc_initial: Dict[int, float]
     lc_trans_zonal_soc_final: Dict[int, float]
@@ -136,6 +137,16 @@ def _accumulate_summary_tables(tables: List[SummaryTableLDN]) -> SummaryTableLDN
                     table.lc_trans_zonal_areas
                 )
             ]
+            # A period should be listed for each object in lc_trans_zonal_areas
+            assert (
+                len(out.lc_trans_zonal_areas) ==
+                len(table.lc_trans_zonal_areas_periods)
+            )
+            # Periods for lc_trans_zonal_areas must be the same in both objects
+            assert (
+                out.lc_trans_zonal_areas_periods ==
+                table.lc_trans_zonal_areas_periods
+            )
             out.lc_trans_prod_bizonal = accumulate_dicts(
                 [
                     out.lc_trans_prod_bizonal,
@@ -263,6 +274,20 @@ class LdnInputInfo:
     years: List[int]
 
 
+def _get_ldn_input_period(
+    data_selection_widget: data_io.WidgetDataIOSelectTELayerExisting,
+    year_initial_field: str = "year_initial",
+    year_final_field: str = "year_final"
+) -> LdnInputInfo:
+
+    band_info = data_selection_widget.get_current_band().band_info
+
+    return {
+        'year_initial': band_info.metadata[year_initial_field],
+        'year_final': band_info.metadata[year_final_field]
+    }
+
+
 def _get_ldn_inputs(
     data_selection_widget: data_io.WidgetDataIOSelectTELayerExisting,
     aux_band_name: str,
@@ -315,6 +340,9 @@ def get_main_sdg_15_3_1_job_params(
     population_input = _get_ldn_inputs(
         combo_layer_pop, POPULATION_BAND_NAME)
 
+    lc_deg_years = _get_ldn_input_period(combo_layer_lc)
+    soc_deg_years = _get_ldn_input_period(combo_layer_soc)
+
     crosses_180th, geojsons = aoi.bounding_box_gee_geojson()
 
     params = {
@@ -322,10 +350,11 @@ def get_main_sdg_15_3_1_job_params(
         "task_notes": task_notes,
         "prod_mode": prod_mode,
         "layer_lc_path": str(land_cover_inputs.path),
-        "layer_lc_main_band": models.JobBand.Schema().dump(
+        "layer_lc_deg_band": models.JobBand.Schema().dump(
             land_cover_inputs.main_band
         ),
-        "layer_lc_main_band_index": land_cover_inputs.main_band_index,
+        "layer_lc_deg_band_index": land_cover_inputs.main_band_index,
+        "layer_lc_deg_years": lc_deg_years,
         "layer_lc_aux_bands": [
             models.JobBand.Schema().dump(b)
             for b in land_cover_inputs.aux_bands
@@ -333,10 +362,11 @@ def get_main_sdg_15_3_1_job_params(
         "layer_lc_aux_band_indexes": land_cover_inputs.aux_band_indexes,
         "layer_lc_years": land_cover_inputs.years,
         "layer_soc_path": str(soil_organic_carbon_inputs.path),
-        "layer_soc_main_band": models.JobBand.Schema().dump(
+        "layer_soc_deg_band": models.JobBand.Schema().dump(
             soil_organic_carbon_inputs.main_band
         ),
-        "layer_soc_main_band_index": soil_organic_carbon_inputs.main_band_index,
+        "layer_soc_deg_years": soc_deg_years,
+        "layer_soc_deg_band_index": soil_organic_carbon_inputs.main_band_index,
         "layer_soc_aux_bands": [
             models.JobBand.Schema().dump(b)
             for b in soil_organic_carbon_inputs.aux_bands
@@ -356,8 +386,7 @@ def get_main_sdg_15_3_1_job_params(
     if prod_mode == LdnProductivityMode.TRENDS_EARTH.value:
         traj_band_info = combo_layer_traj.get_current_band()
         traj_band = models.JobBand.Schema().dump(traj_band_info.band_info)
-        traj_year_initial = traj_band_info.band_info.metadata['year_initial']
-        traj_year_final = traj_band_info.band_info.metadata['year_final']
+        traj_years = _get_ldn_input_period(combo_layer_traj)
         perf_band_info = combo_layer_perf.get_current_band()
         perf_band = models.JobBand.Schema().dump(
             perf_band_info.band_info)
@@ -368,9 +397,8 @@ def get_main_sdg_15_3_1_job_params(
         params.update({
             "layer_traj_path": str(traj_band_info.path),
             "layer_traj_band": traj_band,
+            "layer_traj_years": traj_years,
             "layer_traj_band_index": traj_band_info.band_index,
-            "layer_traj_year_initial": traj_year_initial,
-            "layer_traj_year_final": traj_year_final,
             "layer_perf_band": perf_band,
             "layer_perf_path": str(perf_band_info.path),
             "layer_perf_band_index": perf_band_info.band_index,
@@ -383,8 +411,11 @@ def get_main_sdg_15_3_1_job_params(
         lpd_band_info = combo_layer_lpd.get_current_band()
         lpd_band = lpd_band_info.band_info
 
+        lpd_years = _get_ldn_input_period(combo_layer_lpd)
+
         params.update({
             "layer_lpd_path": str(lpd_band_info.path),
+            "layer_lpd_years": lpd_years,
             "layer_lpd_band": models.JobBand.Schema().dump(lpd_band),
             "layer_lpd_band_index": lpd_band_info.band_index
         })
@@ -397,17 +428,36 @@ class DataFile(SchemaBase):
     path: str
     bands: List[models.JobBand]
 
-    def array_rows_for_name(self, name_filter):
-        names = [b.name for b in self.bands]
+    def array_rows_for_name(
+        self,
+        name_filter: str,
+        field: str = None,
+        field_filter: str = None
+    ):
+        if field:
+            assert field_filter is not None
 
-        return [
-            index for index, name in enumerate(names)
-            if name == name_filter
-        ]
+            return [
+                index for index, band in enumerate(self.bands)
+                if (
+                    band.name == name_filter and
+                    band.metadata[field] == field_filter
+                )
+            ]
+        else:
+            return [
+                index for index, band in enumerate(self.bands)
+                if band.name == name_filter
+            ]
 
-    def array_row_for_name(self, name_filter):
+    def array_row_for_name(
+        self,
+        name_filter: str,
+        field: str = None,
+        field_filter: str = None
+    ):
         '''throw an error if more than one result'''
-        out = self.array_rows_for_name(name_filter)
+        out = self.array_rows_for_name(name_filter, field, field_filter)
 
         if len(out) > 1:
             raise RuntimeError(
@@ -415,6 +465,15 @@ class DataFile(SchemaBase):
             )
         else:
             return out[0]
+
+    def metadata_for_name(self, name_filter: str, field: str):
+        '''get value of metadata field for all bands of specific type'''
+        m = [b.metadata[field] for b in self.bands if b.name == name_filter]
+
+        if len(m) == 1:
+            return m[0]
+        else:
+            return m
 
 
 def _combine_data_files(
@@ -444,64 +503,60 @@ def compute_ldn(
     period_dfs = []
     period_vrts = []
 
-    for period, period_params in ldn_job.params.params.items():
+    for period_name, period_params in ldn_job.params.params.items():
         lc_dfs = _prepare_land_cover_dfs(period_params)
         soc_dfs = _prepare_soil_organic_carbon_dfs(period_params)
         population_df = _prepare_population_df(period_params)
-        sub_job_output_path = job_output_path.parent / f"{job_output_path.stem}_{period}.json"
+        sub_job_output_path = job_output_path.parent / f"{job_output_path.stem}_{period_name}.json"
         _, wkt_aois = area_of_interest.meridian_split("layer", "wkt", warn=False)
         prod_mode = period_params["prod_mode"]
 
-        period_params["layer_lc_main_band"]["metadata"]['nesting']
-
-        if 'period' not in period_params:
-            # Add in period start/end if it isn't already in the parameters
-            # (wouldn't be if these layers were all run individually and not
-            # with the all-in-one tool)
-
-            if prod_mode == LdnProductivityMode.TRENDS_EARTH.value:
-                period_params["prod_year_initial"] = period_params['layer_traj_year_initial']
-                period_params["prod_year_final"] = period_params['layer_traj_year_final']
-                period_params["period"] = {
-                    "name": period,
-                    "year_initial": period_params['layer_traj_year_initial'],
-                    "year_final": period_params['layer_traj_year_final'],
-                }
-                log('added period_params year data for TE')
-            else:
-                period_params["prod_year_initial"] = 1999
-                period_params["prod_year_final"] = 2013
-                period_params["period"] = {
-                    "name": period,
-                    "year_initial": 1999,  # TODO: fix this when new JRC added, and don't hardcode
-                    "year_final": 2013  # TODO: fix this when new JRC added, and don't hardcode
-                }
-        summary_table_stable_kwargs[period] = {
-            "wkt_aois": wkt_aois,
-            "lc_legend_nesting": land_cover.LCLegendNesting.Schema().loads(
-                period_params["layer_lc_main_band"]["metadata"]['nesting'],
-            ),
-            "lc_trans_matrix": land_cover.LCTransitionDefinitionDeg.Schema().loads(
-                period_params["layer_lc_main_band"]["metadata"]['trans_matrix'],
-            ),
-            "soc_legend_nesting": land_cover.LCLegendNesting.Schema().loads(
-                period_params["layer_soc_main_band"]["metadata"]['nesting'],
-            ),
-            "soc_trans_matrix": land_cover.LCTransitionDefinitionDeg.Schema().loads(
-                period_params["layer_soc_main_band"]["metadata"]['trans_matrix'],
-            ),
-            "output_job_path": sub_job_output_path,
-            "period": period,
+        period_params["layer_lc_deg_band"]["metadata"]['nesting']
+        period_params['periods'] = {
+            'land_cover': period_params["layer_lc_deg_years"],
+            'soc': period_params["layer_soc_deg_years"]
         }
 
-        log(f'population df is: {population_df}')
+        if prod_mode == LdnProductivityMode.TRENDS_EARTH.value:
+            period_params['periods']['productivity'] = period_params["layer_traj_years"]
+        else:
+            period_params['periods']['productivity'] = period_params["layer_lpd_years"]
+
+        # Add in period start/end if it isn't already in the parameters
+        # (wouldn't be if these layers were all run individually and not
+        # with the all-in-one tool)
+        if 'period' not in period_params:
+            period_params["period"] = {
+                "name": period_name,
+                "year_initial": period_params['periods']['productivity']['year_initial'],
+                "year_final": period_params['periods']['productivity']['year_final']
+            }
+        summary_table_stable_kwargs[period_name] = {
+            "wkt_aois": wkt_aois,
+            "lc_legend_nesting": land_cover.LCLegendNesting.Schema().loads(
+                period_params["layer_lc_deg_band"]["metadata"]['nesting'],
+            ),
+            "lc_trans_matrix": land_cover.LCTransitionDefinitionDeg.Schema().loads(
+                period_params["layer_lc_deg_band"]["metadata"]['trans_matrix'],
+            ),
+            "soc_legend_nesting": land_cover.LCLegendNesting.Schema().loads(
+                period_params["layer_soc_deg_band"]["metadata"]['nesting'],
+            ),
+            "soc_trans_matrix": land_cover.LCTransitionDefinitionDeg.Schema().loads(
+                period_params["layer_soc_deg_band"]["metadata"]['trans_matrix'],
+            ),
+            "output_job_path": sub_job_output_path,
+            "period_name": period_name,
+            "periods": period_params['periods'],
+        }
+
         if prod_mode == LdnProductivityMode.TRENDS_EARTH.value:
             traj, perf, state = _prepare_trends_earth_mode_dfs(period_params)
             in_dfs = lc_dfs + soc_dfs + [traj, perf, state, population_df]
             summary_table, sdg_path, reproj_path = _compute_summary_table_from_te_prod(
                 in_dfs=in_dfs,
                 compute_bbs_from=traj.path,
-                **summary_table_stable_kwargs[period]
+                **summary_table_stable_kwargs[period_name]
             )
         elif prod_mode == LdnProductivityMode.JRC_LPD.value:
             lpd = _prepare_jrc_lpd_mode_df(period_params)
@@ -509,12 +564,12 @@ def compute_ldn(
             summary_table, sdg_path, reproj_path = _compute_summary_table_from_lpd_prod(
                 in_dfs=in_dfs,
                 compute_bbs_from=lpd.path,
-                **summary_table_stable_kwargs[period],
+                **summary_table_stable_kwargs[period_name],
             )
         else:
             raise RuntimeError(f"Invalid prod_mode: {prod_mode!r}")
 
-        summary_tables[period] = summary_table
+        summary_tables[period_name] = summary_table
 
         sdg_band = models.JobBand(
             name="SDG 15.3.1 Indicator",
@@ -527,21 +582,33 @@ def compute_ldn(
         )
         sdg_df = DataFile(sdg_path, [sdg_band])
 
+        so3_band = models.JobBand(
+            name="Population affected by degradation (density, persons per sq km / 10)",
+            no_data_value=NODATA_VALUE,
+            metadata={
+                'population_year': period_params['periods']['productivity']['year_final'],
+                'deg_year_initial': period_params['periods']['productivity']['year_initial'],
+                'deg_year_final': period_params['periods']['productivity']['year_final']
+            },
+            activated=True
+        )
+        sdg_df.bands.append(so3_band)
+
         if prod_mode == LdnProductivityMode.TRENDS_EARTH.value:
-            sdg_prod_band = models.JobBand(
+            prod_band = models.JobBand(
                 name="SDG 15.3.1 Productivity Indicator",
                 no_data_value=NODATA_VALUE,
                 metadata={
-                    'year_initial': period_params['prod_year_initial'],
-                    'year_final': period_params['prod_year_final'],
+                    'year_initial': period_params['periods']['productivity']['year_initial'],
+                    'year_final':  period_params['periods']['productivity']['year_final']
                 },
                 activated=True
             )
-            sdg_df.bands.append(sdg_prod_band)
+            sdg_df.bands.append(prod_band)
 
         reproj_df = _combine_data_files(reproj_path, in_dfs)
-        # Don't add any of the input layers to the map by default - only SDG 
-        # and prod, which are already marked add_to_map=True
+        # Don't add any of the input layers to the map by default - only SDG, 
+        # prod, and SO3, which are already marked add_to_map=True
         for band in reproj_df.bands:
             band.add_to_map = False
 
@@ -553,7 +620,7 @@ def compute_ldn(
         # job bands list
         period_df = _combine_data_files(period_vrt, [sdg_df, reproj_df])
         for band in period_df.bands:
-            band.metadata['period'] = period
+            band.metadata['period'] = period_name
         period_dfs.append(period_df)
         
         period_vrts.append(period_vrt)
@@ -564,9 +631,9 @@ def compute_ldn(
             summary_table,
             period_params["layer_lc_years"],
             period_params["layer_soc_years"],
-            summary_table_stable_kwargs[period]['lc_legend_nesting'],
-            summary_table_stable_kwargs[period]['lc_trans_matrix'],
-            period
+            summary_table_stable_kwargs[period_name]['lc_legend_nesting'],
+            summary_table_stable_kwargs[period_name]['lc_trans_matrix'],
+            period_name
         )
 
         ldn_job.results.other_paths.append(
@@ -699,9 +766,9 @@ def _prepare_land_cover_dfs(params: Dict) -> List[DataFile]:
         DataFile(
             path=utils.save_vrt(
                 lc_path,
-                params["layer_lc_main_band_index"]
+                params["layer_lc_deg_band_index"]
             ),
-            bands=[models.JobBand(**params["layer_lc_main_band"])]
+            bands=[models.JobBand(**params["layer_lc_deg_band"])]
         )
     ]
     for lc_aux_band, lc_aux_band_index, in zip(
@@ -744,9 +811,9 @@ def _prepare_soil_organic_carbon_dfs(
         DataFile(
             path=utils.save_vrt(
                 soc_path,
-                params["layer_soc_main_band_index"]
+                params["layer_soc_deg_band_index"]
             ),
-            bands=[models.JobBand(**params["layer_soc_main_band"])]
+            bands=[models.JobBand(**params["layer_soc_deg_band"])]
         )
     ]
 
@@ -814,7 +881,8 @@ def _compute_summary_table_from_te_prod(
         soc_legend_nesting: land_cover.LCLegendNesting,
         soc_trans_matrix: land_cover.LCTransitionDefinitionDeg,
         output_job_path: Path,
-        period,
+        period_name,
+        periods,
         compute_bbs_from
 ) -> Tuple[SummaryTableLDN, Path]:
     '''Compute summary table if a trends.earth productivity dataset is used'''
@@ -827,7 +895,8 @@ def _compute_summary_table_from_te_prod(
         output_job_path=output_job_path,
         lc_legend_nesting=lc_legend_nesting,
         lc_trans_matrix=lc_trans_matrix,
-        period=period
+        period_name=period_name,
+        periods=periods
     )
 
 
@@ -839,7 +908,8 @@ def _compute_summary_table_from_lpd_prod(
         soc_legend_nesting: land_cover.LCLegendNesting,
         soc_trans_matrix: land_cover.LCTransitionDefinitionDeg,
         output_job_path: Path,
-        period,
+        period_name,
+        periods,
         compute_bbs_from
 ) -> Tuple[SummaryTableLDN, Path]:
     '''Compute summary table if a JRC LPD productivity dataset is used'''
@@ -852,7 +922,8 @@ def _compute_summary_table_from_lpd_prod(
         output_job_path=output_job_path,
         lc_legend_nesting=lc_legend_nesting,
         lc_trans_matrix=lc_trans_matrix,
-        period=period
+        period_name=period_name,
+        periods=periods
     )
 
 
@@ -863,7 +934,7 @@ def save_summary_table_excel(
         soil_organic_carbon_years: List[int],
         lc_legend_nesting: land_cover.LCLegendNesting,
         lc_trans_matrix: land_cover.LCTransitionDefinitionDeg,
-        period
+        period_name
 ):
     """Save summary table into an xlsx file on disk"""
     template_summary_table_path = Path(
@@ -876,7 +947,7 @@ def save_summary_table_excel(
         soil_organic_carbon_years,
         lc_legend_nesting,
         lc_trans_matrix,
-        period
+        period_name
     )
     try:
         workbook.save(output_path)
@@ -901,13 +972,13 @@ def save_reporting_json(
     land_condition_reports = {}
     affected_pop_reports = {}
 
-    for period, period_params in params.items():
-        st = summary_tables[period]
+    for period_name, period_params in params.items():
+        st = summary_tables[period_name]
 
         ##########################################################################
         # Area summary tables
-        lc_legend_nesting = summary_table_kwargs[period]['lc_legend_nesting']
-        lc_trans_matrix = summary_table_kwargs[period]['lc_trans_matrix']
+        lc_legend_nesting = summary_table_kwargs[period_name]['lc_legend_nesting']
+        lc_trans_matrix = summary_table_kwargs[period_name]['lc_trans_matrix']
 
         sdg_summary = reporting.AreaList(
             'SDG Indicator 15.3.1',
@@ -987,8 +1058,8 @@ def save_reporting_json(
                 reporting.CrossTab(
                     prod_name,
                     unit='sq km',
-                    initial_year=period_params["prod_year_initial"],
-                    final_year=period_params["prod_year_final"],
+                    initial_year=period_params['periods']['productivity']['year_initial'],
+                    final_year=period_params['periods']['productivity']['year_final'],
                     values=crosstab_entries
                 )
             )
@@ -1000,7 +1071,7 @@ def save_reporting_json(
         n = 0
         crosstab_lcs = []
         for lc_trans_zonal_areas in st.lc_trans_zonal_areas:
-            log(f'processing lc_trans_zonal_areas {i} for {period}')
+            log(f'processing lc_trans_zonal_areas {i} for {period_name}')
             ###
             # LC transition cross tab
             lc_by_transition_type = []
@@ -1023,8 +1094,9 @@ def save_reporting_json(
             # TODO: VERY hackish, fix this after default data generation (years 
             # should be carried with the data)
             if n == 0:
-                initial_lc_year = int(land_cover_years[0])
+                initial_lc_year = period_params['layer_lc_deg_years']['year_initial']
             else:
+                # TODO: Fix to use actual years
                 initial_lc_year = int(land_cover_years[-4])
             crosstab_lc = reporting.CrossTab(
                 name='Land area by land cover transition type',
@@ -1083,9 +1155,10 @@ def save_reporting_json(
                 )
         # TODO: VERY hackish, fix this after default data generation (years 
         # should be carried with the data)
-        if period == 'baseline':
+        if period_name == 'baseline':
             initial_soc_year = int(soil_organic_carbon_years[0])
         else:
+            # TODO: Fix to use actual years
             initial_soc_year = int(soil_organic_carbon_years[-4])
         crosstab_soc_by_transition_per_ha = reporting.CrossTab(
             name='Initial and final carbon stock by transition type',
@@ -1101,7 +1174,8 @@ def save_reporting_json(
 
         # TODO: VERY hackish, fix this after default data generation (years 
         # should be carried with the data)
-        if period == 'progress':
+        if period_name == 'progress':
+            # TODO: Fix to use actual years
             soil_organic_carbon_years = soil_organic_carbon_years[-4:]
         for year_num, year in enumerate(soil_organic_carbon_years):
             soc_by_year[int(year)] = {
@@ -1118,7 +1192,7 @@ def save_reporting_json(
 
         ###
         # Setup this period's land condition report
-        land_condition_reports[period] = reporting.LandConditionReport(
+        land_condition_reports[period_name] = reporting.LandConditionReport(
             sdg=reporting.SDG15Report(summary=sdg_summary),
 
             productivity=reporting.ProductivityReport(
@@ -1170,7 +1244,7 @@ def save_reporting_json(
             ]
         )
 
-        affected_pop_reports[period] = reporting.AffectedPopulationReport(
+        affected_pop_reports[period_name] = reporting.AffectedPopulationReport(
             affected_by_deg_summary
         ) 
 
@@ -1233,7 +1307,8 @@ class DegradationSummaryWorkerParams(SchemaBase):
     mask_file: str
     nesting: land_cover.LCLegendNesting
     trans_matrix: land_cover.LCTransitionDefinitionDeg
-    period: str
+    period_name: str
+    periods: dict
 
 def _process_block(
     params: DegradationSummaryWorkerParams,
@@ -1244,17 +1319,23 @@ def _process_block(
     cell_areas_raw
 ) -> Tuple[SummaryTableLDN, Dict]:
 
-    lc_bands = params.in_df.array_rows_for_name(LC_BAND_NAME)
-    soc_bands = params.in_df.array_rows_for_name(SOC_BAND_NAME)
-    soc_final_index = len(soc_bands) - 1
-    if params.period == 'baseline':
-        soc_band_counter_start = 0
-    if params.period == 'progress':
-        soc_band_counter_start = len(soc_bands) - 4
-        soc_bands = soc_bands[-4:]
+    lc_band_years = params.in_df.metadata_for_name(LC_BAND_NAME, 'year')
+    lc_bands = [
+        (band, year) for band, year in
+        zip(
+            params.in_df.array_rows_for_name(LC_BAND_NAME),
+            lc_band_years
+        )
+    ]
+    soc_bands = [
+        (band, year) for band, year in
+        zip(
+            params.in_df.array_rows_for_name(SOC_BAND_NAME),
+            params.in_df.metadata_for_name(SOC_BAND_NAME, 'year')
+        )
+    ]
 
-    # Create output array wit 2 bands
-    #write_array = np.zeros((2, mask.shape[0], mask.shape[1]), dtype=np.int8)
+    # Create container for output arrays (will write later in main thread)
     write_arrays = {}
 
     # Calculate cell area for each horizontal line
@@ -1283,13 +1364,12 @@ def _process_block(
         )
 
         # Save combined productivity indicator for later visualization
-        write_arrays[2] = {
+        write_arrays[3] = {
             'array': deg_prod5,
             'xoff': xoff,
             'yoff': yoff
         }
     else:
-        # TODO: Fix for accessing LPD
         lpd_array = in_array[params.in_df.array_row_for_name(LPD_BAND_NAME), :, :]
         deg_prod5 = lpd_array
         # TODO: Below is temporary until missing data values are
@@ -1301,40 +1381,97 @@ def _process_block(
     deg_prod3 = prod5_to_prod3(deg_prod5)
 
     ###########################################################
-    # Calculate SOC totals by transition, on annual basis
-    a_trans_bl_tg_prod = calc_lc_trans(
-        in_array[lc_bands[0], :, :],
-        in_array[lc_bands[-1], :, :],
+    # Calculate LC transition arrays
+    lc_deg_band_period = params.periods['land_cover']
+    lc_deg_initial_cover_row = [
+        row for row, year in lc_bands
+        if year == lc_deg_band_period['year_initial']
+    ][0]
+    lc_deg_final_cover_row = [
+        row for row, year in lc_bands
+        if year == lc_deg_band_period['year_final']
+    ][0]
+    # a_lc_trans_lc_deg is an array land cover transitions over the time period 
+    # used in the land cover degradation layer
+    a_lc_trans_lc_deg = calc_lc_trans(
+        in_array[lc_deg_initial_cover_row, :, :],
+        in_array[lc_deg_final_cover_row, :, :],
         params.trans_matrix.get_multiplier()
     )
+    lc_trans_arrays = [a_lc_trans_lc_deg]
+    lc_trans_zonal_areas_periods = [lc_deg_band_period]
 
-    if params.period == 'baseline':
-        # For baseline period crosstabs are over same period for all indicators
-        a_trans_bl_tg_soc_lc = a_trans_bl_tg_prod
-        lc_trans_arrays = [a_trans_bl_tg_soc_lc]
-        lc_deg_bl = in_array[lc_bands[0], :, :]
-        lc_deg_final = in_array[lc_bands[-1], :, :]
-
-    if params.period == 'progress':
-        # For progress period, need a transition matrix over just four years 
-        # for SOC and LC
-        a_trans_bl_tg_soc_lc = calc_lc_trans(
-            in_array[lc_bands[-4], :, :],
-            in_array[lc_bands[-1], :, :],
+    # Productivity data might be calculated over a different period than the 
+    # land cover degradation data. If this is the case, and land cover layers 
+    # are available for the years actually used for productivity, then create 
+    # an array of land cover transition that can be used for productivity, and 
+    # call that a_lc_trans_prod_deg
+    soc_deg_band_period = params.periods['soc']
+    prod_deg_band_period = params.periods['productivity']
+    if prod_deg_band_period == lc_deg_band_period:
+        a_lc_trans_prod_deg = a_lc_trans_lc_deg
+    elif (
+        prod_deg_band_period['year_initial'] in lc_band_years and
+        prod_deg_band_period['year_final'] in lc_band_years
+    ):
+        prod_deg_initial_cover_row = [
+            row for row, year in lc_bands
+            if year == prod_deg_band_period['year_initial']
+        ][0]
+        prod_deg_final_cover_row = [
+            row for row, year in lc_bands
+            if year == prod_deg_band_period['year_final']
+        ][0]
+        a_lc_trans_prod_deg = calc_lc_trans(
+            in_array[prod_deg_initial_cover_row, :, :],
+            in_array[prod_deg_final_cover_row, :, :],
             params.trans_matrix.get_multiplier()
         )
-        # For progress need a land cover crosstab of last four years in 
-        # addition to full period crosstab
-        lc_trans_arrays = [a_trans_bl_tg_prod, a_trans_bl_tg_soc_lc]
-        lc_deg_bl = in_array[lc_bands[0], :, :]
-        lc_deg_final = in_array[lc_bands[-4], :, :]
+        lc_trans_arrays.append(a_lc_trans_prod_deg)
+        lc_trans_zonal_areas_periods.append(prod_deg_band_period)
+    else:
+        a_lc_trans_prod_deg = None
+    # Soil organic carbon data also might be calculated over a different period 
+    # than the land cover degradation data. Similar to what was done for 
+    # productivity, if this is the case create an array of land cover 
+    # transition that can be used for SOC, and call a_lc_trans_soc_deg
+    if soc_deg_band_period == lc_deg_band_period:
+        a_lc_trans_soc_deg = a_lc_trans_lc_deg
+    elif soc_deg_band_period == prod_deg_band_period:
+        a_lc_trans_soc_deg = a_lc_trans_prod_deg
+    elif (
+        soc_deg_band_period['year_initial'] in lc_band_years and
+        soc_deg_band_period['year_final'] in lc_band_years
+    ):
+        soc_deg_initial_cover_row = [
+            row for row, year in lc_bands
+            if year == soc_deg_band_period['year_initial']
+        ][0]
+        soc_deg_final_cover_row = [
+            row for row, year in lc_bands
+            if year == soc_deg_band_period['year_final']
+        ][0]
+        a_lc_trans_soc_deg = calc_lc_trans(
+            in_array[soc_deg_initial_cover_row, :, :],
+            in_array[soc_deg_final_cover_row, :, :],
+            params.trans_matrix.get_multiplier()
+        )
+        lc_trans_arrays.append(a_lc_trans_soc_deg)
+        lc_trans_zonal_areas_periods.append(soc_deg_band_period)
+    else:
+        a_lc_trans_soc_deg = None
 
+    ###########################################################
     # Calculate SOC totals by year. Note final units of soc_totals
     # tables are tons C (summed over the total area of each class).
+    lc_rows_for_soc = [
+        params.in_df.array_row_for_name(LC_BAND_NAME, 'year', year)
+        for band, year in soc_bands
+    ]
     soc_by_lc_annual_totals = []
-    for index, band_soc in enumerate(soc_bands, start=soc_band_counter_start):
-        a_lc = in_array[lc_bands[index], :, :]
-        a_soc = in_array[band_soc, :, :]
+    for index, (soc_row, soc_year) in enumerate(soc_bands):
+        a_lc = in_array[lc_rows_for_soc[index], :, :]
+        a_soc = in_array[soc_row, :, :]
         soc_by_lc_annual_totals.append(
             zonal_total_weighted(
                 a_lc,
@@ -1344,21 +1481,21 @@ def _process_block(
             )
         )
 
-        if index == soc_band_counter_start:
+        if soc_year == soc_deg_band_period['year_initial']:
             # This is the baseline SOC - save it for later
             a_soc_bl = a_soc.copy()
-        elif index == soc_final_index:
+        elif soc_year == soc_deg_band_period['year_final']:
             # This is the target (tg) SOC - save it for later
             a_soc_final = a_soc.copy()
 
     lc_trans_zonal_soc_initial = zonal_total_weighted(
-        a_trans_bl_tg_soc_lc,
+        a_lc_trans_soc_deg,
         a_soc_bl,
         cell_areas * 100,  # from sq km to hectares
         mask
     )
     lc_trans_zonal_soc_final = zonal_total_weighted(
-        a_trans_bl_tg_soc_lc,
+        a_lc_trans_soc_deg,
         a_soc_final,
         cell_areas * 100,  # from sq km to hectares
         mask
@@ -1367,14 +1504,14 @@ def _process_block(
     ###########################################################
     # Calculate crosstabs for productivity
     lc_trans_prod_bizonal = bizonal_total(
-        a_trans_bl_tg_prod,
+        a_lc_trans_prod_deg,
         deg_prod5,
         cell_areas,
         mask
     )
     lc_annual_totals = []
-    for band_lc in lc_bands:
-        a_lc = in_array[band_lc, :, :]
+    for lc_row, lc_year in enumerate(lc_bands):
+        a_lc = in_array[lc_row, :, :]
         lc_annual_totals.append(
             zonal_total(
                 a_lc,
@@ -1386,10 +1523,10 @@ def _process_block(
     ###########################################################
     # Calculate crosstabs for land cover
     lc_trans_zonal_areas = []
-    for a_trans in lc_trans_arrays:
+    for lc_trans_array in lc_trans_arrays:
         lc_trans_zonal_areas.append(
             zonal_total(
-                a_trans,
+                lc_trans_array,
                 cell_areas,
                 mask
             )
@@ -1398,29 +1535,12 @@ def _process_block(
     ################
     # Calculate SDG
     # Derive a water mask from last lc year
-    water = in_array[lc_bands[-1], :, :] == 7
+    water = in_array[lc_deg_initial_cover_row, :, :] == 7
     water = water.astype(bool, copy=False)
 
-    if params.period == 'baseline':
-        deg_soc = in_array[params.in_df.array_row_for_name(SOC_DEG_BAND_NAME), :, :]
-        deg_soc = recode_deg_soc(deg_soc, water)
-        deg_lc = in_array[params.in_df.array_row_for_name(LC_DEG_BAND_NAME), :, :]
-    if params.period == 'progress':
-        deg_soc = calc_deg_soc(a_soc_bl, a_soc_final, water)
-        lc_trans_matrix_list = params.trans_matrix.get_list()
-        deg_lc = calc_deg_lc(
-            lc_deg_bl,
-            lc_deg_final,
-            trans_code=lc_trans_matrix_list[0],
-            trans_meaning=lc_trans_matrix_list[1],
-            multiplier=params.trans_matrix.get_multiplier()
-        )
-    # write_arrays[3] = {
-    #     'array': deg_lc,
-    #     'xoff': xoff,
-    #     'yoff': yoff
-    # }
-
+    deg_soc = in_array[params.in_df.array_row_for_name(SOC_DEG_BAND_NAME), :, :]
+    deg_soc = recode_deg_soc(deg_soc, water)
+    deg_lc = in_array[params.in_df.array_row_for_name(LC_DEG_BAND_NAME), :, :]
 
     deg_sdg = calc_deg_sdg(deg_prod3, deg_lc, deg_soc)
     write_arrays[1] = {
@@ -1465,12 +1585,19 @@ def _process_block(
         pop_array_masked,
         mask
     )
+    # Save SO3 array
+    write_arrays[2] = {
+        'array': np.negative(pop_array, where=(deg_sdg == -1)),
+        'xoff': xoff,
+        'yoff': yoff
+    }
 
     return (
         SummaryTableLDN(
             soc_by_lc_annual_totals,
             lc_annual_totals,
             lc_trans_zonal_areas,
+            lc_trans_zonal_areas_periods,
             lc_trans_prod_bizonal,
             lc_trans_zonal_soc_initial,
             lc_trans_zonal_soc_final,
@@ -1503,6 +1630,8 @@ class DegradationSummaryWorker(worker.AbstractWorker):
 
         src_ds = gdal.Open(str(self.params.in_df.path))
 
+        # Have at least 2 output bands (one for SDG, and one for SO3)
+        n_out_bands = 2
         if self.params.prod_mode == 'Trends.Earth productivity':
             traj_band = src_ds.GetRasterBand(
                 self.params.in_df.array_row_for_name(TRAJ_BAND_NAME) + 1
@@ -1512,7 +1641,7 @@ class DegradationSummaryWorker(worker.AbstractWorker):
             ysize = traj_band.YSize
             # Save the combined productivity indicator as well, in the second
             # layer in the deg file
-            n_out_bands = 2
+            n_out_bands += 1
         else:
             lpd_band = src_ds.GetRasterBand(
                 self.params.in_df.array_row_for_name(LPD_BAND_NAME) + 1
@@ -1523,7 +1652,6 @@ class DegradationSummaryWorker(worker.AbstractWorker):
             block_sizes = band_lc_deg.GetBlockSize()
             xsize = band_lc_deg.XSize
             ysize = band_lc_deg.YSize
-            n_out_bands = 1
 
         x_block_size = block_sizes[0]
         y_block_size = block_sizes[1]
@@ -1640,7 +1768,7 @@ def _render_ldn_workbook(
     soc_years: List[int],
     lc_legend_nesting: land_cover.LCLegendNesting,
     lc_trans_matrix: land_cover.LCTransitionDefinitionDeg,
-    period
+    period_name
 ):
     _write_overview_sheet(template_workbook["SDG 15.3.1"], summary_table)
     _write_productivity_sheet(
@@ -1652,18 +1780,18 @@ def _render_ldn_workbook(
         template_workbook["Soil organic carbon"],
         summary_table,
         lc_trans_matrix,
-        period
+        period_name
     )
     _write_land_cover_sheet(
         template_workbook["Land cover"],
         summary_table,
         lc_trans_matrix,
-        period
+        period_name
     )
     _write_population_sheet(
         template_workbook["Population"],
         summary_table,
-        period
+        period_name
     )
 
     return template_workbook
@@ -1681,7 +1809,8 @@ def _calculate_summary_table(
         reproject_worker_process_name,
         mask_worker_process_name,
         deg_worker_process_name,
-        period
+        period_name: str,
+        periods: dict
 ) -> Tuple[
     Optional[SummaryTableLDN],
     str
@@ -1739,7 +1868,8 @@ def _calculate_summary_table(
                     mask_file=mask_vrt,
                     nesting=lc_legend_nesting,
                     trans_matrix=lc_trans_matrix,
-                    period=period
+                    period_name=period_name,
+                    periods=periods
                 )
             )
             if not deg_worker.success:
@@ -1770,7 +1900,8 @@ def _compute_ldn_summary_table(
     output_job_path: Path,
     lc_legend_nesting: land_cover.LCLegendNesting,
     lc_trans_matrix: land_cover.LCTransitionDefinitionDeg,
-    period
+    period_name: str,
+    periods: dict
 ) -> Tuple[SummaryTableLDN, Path, Path]:
     """Computes summary table and the output tif file(s)"""
     bbs = areaofinterest.get_aligned_output_bounds(
@@ -1799,7 +1930,8 @@ def _compute_ldn_summary_table(
         "prod_mode": prod_mode,
         "lc_legend_nesting": lc_legend_nesting,
         "lc_trans_matrix": lc_trans_matrix,
-        "period": period,
+        "period_name": period_name,
+        "periods": periods,
     }
 
     summary_tables = []
@@ -1916,7 +2048,7 @@ def _write_soc_sheet(
     sheet,
     st: SummaryTableLDN,
     lc_trans_matrix: land_cover.LCTransitionDefinitionDeg,
-    period
+    period_name
 ):
     summary.write_col_to_sheet(
         sheet, _get_summary_array(st.soc_summary),
@@ -1943,7 +2075,8 @@ def _write_soc_sheet(
         ),
         8, 16
     )
-    if period == 'progress':
+    # TODO: Fix to use actual years
+    if period_name == 'progress':
         # Progress period has shorter period for soc and lc
         baseline_index = -4
     else:
@@ -1988,9 +2121,9 @@ def _write_land_cover_sheet(
     sheet,
     st: SummaryTableLDN,
     lc_trans_matrix: land_cover.LCTransitionDefinitionDeg,
-    period
+    period_name
 ):
-    if period == 'progress':
+    if period_name == 'progress':
         # Progress period has shorter period for soc and lc
         lc_trans_totals = st.lc_trans_zonal_areas[1]
     else:
@@ -2013,7 +2146,7 @@ def _write_land_cover_sheet(
 def _write_population_sheet(
     sheet,
     st: SummaryTableLDN,
-    period
+    period_name
 ):
 
     summary.write_col_to_sheet(

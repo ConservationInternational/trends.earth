@@ -340,23 +340,23 @@ def compute_drought_vulnerability(
     )
 
     out_bands = []
-    for period_number, year_start in enumerate(
+    for period_number, year_initial in enumerate(
         range(
             int(params['layer_spi_years'][0]),
             int(params['layer_spi_years'][-1]),
             drought_period
         )
     ):
-        if (year_start + drought_period - 1) > params['layer_spi_years'][-1]:
+        if (year_initial + drought_period - 1) > params['layer_spi_years'][-1]:
             year_final = params['layer_spi_years'][-1]
         else:
-            year_final = year_start + drought_period - 1
+            year_final = year_initial + drought_period - 1
 
         out_bands.append(models.JobBand(
             name="Maximum SPI over period",
             no_data_value=NODATA_VALUE,
             metadata={
-                'year_start': year_start,
+                'year_initial': year_initial,
                 'year_final': year_final,
                 'lag': int(params['layer_spi_lag'])
             },
@@ -367,7 +367,7 @@ def compute_drought_vulnerability(
             name="Population density at maximum SPI over period",
             no_data_value=NODATA_VALUE,
             metadata={
-                'year_start': year_start,
+                'year_initial': year_initial,
                 'year_final': year_final
             },
             activated=True

@@ -81,7 +81,7 @@ MASK_VALUE = -32767
 TRAJ_BAND_NAME = "Productivity trajectory (significance)"
 PERF_BAND_NAME = "Productivity performance (degradation)"
 STATE_BAND_NAME = "Productivity state (degradation)"
-LPD_BAND_NAME = "SDG 15.3.1 Indicator (LPD)"
+LPD_BAND_NAME = "Land Productivity Dynamics (from JRC)"
 LC_DEG_BAND_NAME = "Land cover (degradation)"
 LC_BAND_NAME = "Land cover (7 class)"
 SOC_DEG_BAND_NAME = "Soil organic carbon (degradation)"
@@ -193,13 +193,16 @@ class SummaryTableLDNWidgets:
     '''Combo boxes and methods used in the SDG 15.3.1 summary table widget'''
     combo_datasets: data_io.WidgetDataIOSelectTEDatasetExisting
     combo_layer_traj: data_io.WidgetDataIOSelectTELayerExisting
+    combo_layer_traj_label: QtWidgets.QLabel
     combo_layer_perf: data_io.WidgetDataIOSelectTELayerExisting
+    combo_layer_perf_label: QtWidgets.QLabel
     combo_layer_state: data_io.WidgetDataIOSelectTELayerExisting
+    combo_layer_state_label: QtWidgets.QLabel
     combo_layer_lpd: data_io.WidgetDataIOSelectTELayerImport
+    combo_layer_lpd_label: QtWidgets.QLabel
     combo_layer_lc: data_io.WidgetDataIOSelectTELayerExisting
     combo_layer_soc: data_io.WidgetDataIOSelectTELayerExisting
     combo_layer_pop: data_io.WidgetDataIOSelectTELayerExisting
-    radio_te_prod: QtWidgets.QRadioButton
     radio_lpd_jrc: QtWidgets.QRadioButton
 
     def __post_init__(self):
@@ -213,15 +216,23 @@ class SummaryTableLDNWidgets:
 
     def radio_lpd_jrc_toggled(self):
         if self.radio_lpd_jrc.isChecked():
-            self.combo_layer_lpd.setEnabled(True)
-            self.combo_layer_traj.setEnabled(False)
-            self.combo_layer_perf.setEnabled(False)
-            self.combo_layer_state.setEnabled(False)
+            self.combo_layer_traj.hide()
+            self.combo_layer_traj_label.hide()
+            self.combo_layer_perf.hide()
+            self.combo_layer_perf_label.hide()
+            self.combo_layer_state.hide()
+            self.combo_layer_state_label.hide()
+            self.combo_layer_lpd.show()
+            self.combo_layer_lpd_label.show()
         else:
-            self.combo_layer_lpd.setEnabled(False)
-            self.combo_layer_traj.setEnabled(True)
-            self.combo_layer_perf.setEnabled(True)
-            self.combo_layer_state.setEnabled(True)
+            self.combo_layer_traj.show()
+            self.combo_layer_traj_label.show()
+            self.combo_layer_perf.show()
+            self.combo_layer_perf_label.show()
+            self.combo_layer_state.show()
+            self.combo_layer_state_label.show()
+            self.combo_layer_lpd.hide()
+            self.combo_layer_lpd_label.hide()
 
     def populate_layer_combo_boxes(self):
         self.combo_layer_lpd.populate()
@@ -306,43 +317,7 @@ def get_main_sdg_15_3_1_job_params(
 
     crosses_180th, geojsons = aoi.bounding_box_gee_geojson()
 
-    traj_path = None
-    traj_band = None
-    traj_index = None
-    traj_year_initial = None
-    traj_year_final = None
-    perf_path = None
-    perf_band = None
-    perf_index = None
-    state_path = None
-    state_band = None
-    state_index = None
-    lpd_path = None
-    lpd_band = None
-    lpd_index = None
-
-    if prod_mode == LdnProductivityMode.TRENDS_EARTH.value:
-        traj_band_info = combo_layer_traj.get_current_band()
-        traj_band = traj_band_info.band_info
-        traj_path = str(traj_band_info.path)
-        traj_index = traj_band_info.band_index
-        traj_year_initial = traj_band_info.band_info.metadata['year_start']
-        traj_year_final = traj_band_info.band_info.metadata['year_end']
-        perf_band_info = combo_layer_perf.get_current_band()
-        perf_band = perf_band_info.band_info
-        perf_path = str(perf_band_info.path)
-        perf_index = perf_band_info.band_index
-        state_band_info = combo_layer_state.get_current_band()
-        state_band = state_band_info.band_info
-        state_path = str(state_band_info.path)
-        state_index = state_band_info.band_index
-    elif prod_mode == LdnProductivityMode.JRC_LPD.value:
-        lpd_band_info = combo_layer_lpd.get_current_band()
-        lpd_band = lpd_band_info.band_info
-        lpd_path = str(lpd_band_info.path)
-        lpd_index = lpd_band_info.band_index
-
-    return {
+    params = {
         "task_name": task_name,
         "task_notes": task_notes,
         "prod_mode": prod_mode,
@@ -368,20 +343,6 @@ def get_main_sdg_15_3_1_job_params(
         ],
         "layer_soc_aux_band_indexes": soil_organic_carbon_inputs.aux_band_indexes,
         "layer_soc_years": soil_organic_carbon_inputs.years,
-        "layer_traj_path": traj_path,
-        "layer_traj_band": models.JobBand.Schema().dump(traj_band),
-        "layer_traj_band_index": traj_index,
-        "layer_traj_year_initial": traj_year_initial,
-        "layer_traj_year_final": traj_year_final,
-        "layer_perf_band": models.JobBand.Schema().dump(perf_band),
-        "layer_perf_path": perf_path,
-        "layer_perf_band_index": perf_index,
-        "layer_state_path": state_path,
-        "layer_state_band": models.JobBand.Schema().dump(state_band),
-        "layer_state_band_index": state_index,
-        "layer_lpd_path": lpd_path,
-        "layer_lpd_band": models.JobBand.Schema().dump(lpd_band),
-        "layer_lpd_band_index": lpd_index,
         "layer_population_path": str(population_input.path),
         "layer_population_band": models.JobBand.Schema().dump(
             population_input.main_band
@@ -391,6 +352,44 @@ def get_main_sdg_15_3_1_job_params(
         "geojsons": json.dumps(geojsons),
         "crosses_180th": crosses_180th,
     }
+
+    if prod_mode == LdnProductivityMode.TRENDS_EARTH.value:
+        traj_band_info = combo_layer_traj.get_current_band()
+        traj_band = models.JobBand.Schema().dump(traj_band_info.band_info)
+        traj_year_initial = traj_band_info.band_info.metadata['year_initial']
+        traj_year_final = traj_band_info.band_info.metadata['year_final']
+        perf_band_info = combo_layer_perf.get_current_band()
+        perf_band = models.JobBand.Schema().dump(
+            perf_band_info.band_info)
+        state_band_info = combo_layer_state.get_current_band()
+        state_band = models.JobBand.Schema().dump(
+            state_band_info.band_info)
+
+        params.update({
+            "layer_traj_path": str(traj_band_info.path),
+            "layer_traj_band": traj_band,
+            "layer_traj_band_index": traj_band_info.band_index,
+            "layer_traj_year_initial": traj_year_initial,
+            "layer_traj_year_final": traj_year_final,
+            "layer_perf_band": perf_band,
+            "layer_perf_path": str(perf_band_info.path),
+            "layer_perf_band_index": perf_band_info.band_index,
+            "layer_state_path": str(state_band_info.path),
+            "layer_state_band": state_band,
+            "layer_state_band_index": state_band_info.band_index
+        })
+
+    elif prod_mode == LdnProductivityMode.JRC_LPD.value:
+        lpd_band_info = combo_layer_lpd.get_current_band()
+        lpd_band = lpd_band_info.band_info
+
+        params.update({
+            "layer_lpd_path": str(lpd_band_info.path),
+            "layer_lpd_band": models.JobBand.Schema().dump(lpd_band),
+            "layer_lpd_band_index": lpd_band_info.band_index
+        })
+
+    return params
 
 
 @marshmallow_dataclass.dataclass
@@ -461,20 +460,20 @@ def compute_ldn(
             # with the all-in-one tool)
 
             if prod_mode == LdnProductivityMode.TRENDS_EARTH.value:
-                period_params["prod_year_start"] = period_params['layer_traj_year_initial']
+                period_params["prod_year_initial"] = period_params['layer_traj_year_initial']
                 period_params["prod_year_final"] = period_params['layer_traj_year_final']
                 period_params["period"] = {
                     "name": period,
-                    "year_start": period_params['layer_traj_year_initial'],
+                    "year_initial": period_params['layer_traj_year_initial'],
                     "year_final": period_params['layer_traj_year_final'],
                 }
                 log('added period_params year data for TE')
             else:
-                period_params["prod_year_start"] = 1999
+                period_params["prod_year_initial"] = 1999
                 period_params["prod_year_final"] = 2013
                 period_params["period"] = {
                     "name": period,
-                    "year_start": 1999,  # TODO: fix this when new JRC added, and don't hardcode
+                    "year_initial": 1999,  # TODO: fix this when new JRC added, and don't hardcode
                     "year_final": 2013  # TODO: fix this when new JRC added, and don't hardcode
                 }
         summary_table_stable_kwargs[period] = {
@@ -521,7 +520,7 @@ def compute_ldn(
             name="SDG 15.3.1 Indicator",
             no_data_value=NODATA_VALUE,
             metadata={
-                'year_start': period_params['period']['year_start'],
+                'year_initial': period_params['period']['year_initial'],
                 'year_final': period_params['period']['year_final'],
             },
             activated=True
@@ -533,7 +532,7 @@ def compute_ldn(
                 name="SDG 15.3.1 Productivity Indicator",
                 no_data_value=NODATA_VALUE,
                 metadata={
-                    'year_start': period_params['prod_year_start'],
+                    'year_initial': period_params['prod_year_initial'],
                     'year_final': period_params['prod_year_final'],
                 },
                 activated=True
@@ -988,7 +987,7 @@ def save_reporting_json(
                 reporting.CrossTab(
                     prod_name,
                     unit='sq km',
-                    initial_year=period_params["prod_year_start"],
+                    initial_year=period_params["prod_year_initial"],
                     final_year=period_params["prod_year_final"],
                     values=crosstab_entries
                 )

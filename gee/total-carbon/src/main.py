@@ -20,8 +20,8 @@ def run(params, logger):
     """."""
     logger.debug("Loading parameters.")
     fc_threshold = params.get('fc_threshold')
-    year_start = params.get('year_start')
-    year_end = params.get('year_end')
+    year_initial = params.get('year_initial')
+    year_final = params.get('year_final')
     method = params.get('method')
     biomass_data = params.get('biomass_data')
     geojsons = json.loads(params.get('geojsons'))
@@ -34,7 +34,7 @@ def run(params, logger):
         EXECUTION_ID = params.get('EXECUTION_ID', None)
 
     logger.debug("Running main script.")
-    out = tc(fc_threshold, year_start, year_end, method, biomass_data, 
+    out = tc(fc_threshold, year_initial, year_final, method, biomass_data, 
              EXECUTION_ID, logger)
 
     return out.export(geojsons, 'total_carbon', crs, logger, EXECUTION_ID)

@@ -235,8 +235,8 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
             payload = {
                 'geojsons': json.dumps(geojsons),
                 'crs': self.aoi.get_crs_dst_wkt(),
-                'year_start': self.first_year.date().year(),
-                'year_end': self.last_year.date().year(),
+                'year_initial': self.first_year.date().year(),
+                'year_final': self.last_year.date().year(),
                 'crosses_180th': crosses_180th,
                 'asset': dataset['GEE Dataset'],
                 'name': dataset['title'],

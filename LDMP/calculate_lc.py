@@ -84,8 +84,8 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
         crosses_180th, geojsons = self.gee_bounding_box
 
         payload = {
-            "year_baseline": self.lc_setup_widget.initial_year_de.date().year(),
-            "year_target": self.lc_setup_widget.target_year_de.date().year(),
+            "year_initial": self.lc_setup_widget.initial_year_de.date().year(),
+            "year_final": self.lc_setup_widget.target_year_de.date().year(),
             "geojsons": json.dumps(geojsons),
             "crs": self.aoi.get_crs_dst_wkt(),
             "crosses_180th": crosses_180th,
@@ -137,17 +137,17 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
             )
             return
 
-        year_baseline = self.lc_setup_widget.get_initial_year()
-        year_target = self.lc_setup_widget.get_final_year()
+        year_initial = self.lc_setup_widget.get_initial_year()
+        year_final = self.lc_setup_widget.get_final_year()
 
-        if int(year_baseline) >= int(year_target):
+        if int(year_initial) >= int(year_final):
             QtWidgets.QMessageBox.information(
                 None,
                 self.tr("Warning"),
                 self.tr(
                     'The initial year ({}) is greater than or equal to the target '
                     'year ({}) - this analysis might generate strange '
-                    'results.'.format(year_baseline, year_target)
+                    'results.'.format(year_initial, year_final)
                 )
             )
 
@@ -186,8 +186,8 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
         job_params = {
             "task_name": self.execution_name_le.text(),
             "task_notes": self.task_notes.toPlainText(),
-            "year_baseline": year_baseline,
-            "year_target": year_target,
+            "year_initial": year_initial,
+            "year_final": year_final,
             "lc_initial_path": str(initial_usable.path),
             "lc_initial_band_index": initial_usable.band_index,
             "lc_final_path": str(final_usable.path),

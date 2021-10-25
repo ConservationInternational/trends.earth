@@ -67,27 +67,27 @@ def compute_land_cover(lc_job: models.Job, area_of_interest: AOI) -> models.Job:
             models.JobBand(
                 name="Land cover (degradation)",
                 metadata={
-                    "year_baseline": lc_job.params.params["year_baseline"],
-                    "year_target": lc_job.params.params["year_target"]
+                    "year_initial": lc_job.params.params["year_initial"],
+                    "year_final": lc_job.params.params["year_final"]
                 },
             ),
             models.JobBand(
                 name="Land cover (7 class)",
                 metadata={
-                    "year": lc_job.params.params["year_baseline"],
+                    "year": lc_job.params.params["year_initial"],
                 }
             ),
             models.JobBand(
                 name="Land cover (7 class)",
                 metadata={
-                    "year": lc_job.params.params["year_target"],
+                    "year": lc_job.params.params["year_final"],
                 }
             ),
             models.JobBand(
                 name="Land cover transitions",
                 metadata={
-                    "year_baseline": lc_job.params.params["year_baseline"],
-                    "year_target": lc_job.params.params["year_target"]
+                    "year_initial": lc_job.params.params["year_initial"],
+                    "year_final": lc_job.params.params["year_final"]
                 }
             ),
         ]

@@ -151,8 +151,8 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         ndvi_dataset = self.datasets['NDVI'][self.dataset_ndvi.currentText()]['GEE Dataset']
 
         crosses_180th, geojsons = self.gee_bounding_box
-        payload = {'year_start': self.traj_year_start.date().year(),
-                   'year_end': self.traj_year_end.date().year(),
+        payload = {'year_initial': self.traj_year_start.date().year(),
+                   'year_final': self.traj_year_end.date().year(),
                    'crosses_180th': crosses_180th,
                    'geojsons': json.dumps(geojsons),
                    'crs': self.aoi.get_crs_dst_wkt(),

@@ -261,7 +261,7 @@ def run_jrc_for_period(params, EXECUTION_ID, logger):
 
     out.setAddToMap(['Soil organic carbon (degradation)',
                      'Land cover (degradation)',
-                     'Land Productivity Dynamics (LPD)'])
+                     'Land Productivity Dynamics (from JRC)'])
 
     return out.export(
         geojsons=params.get('geojsons'),

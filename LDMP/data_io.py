@@ -81,12 +81,68 @@ class Band:
     band_index: int
     band_info: job_models.JobBand
 
+    def get_name_info(self):
+        task_name = self.job.params.task_name
+        if task_name != "":
+            name_info_parts = [task_name]
+        else:
+            name_info_parts = []
+        name_info_parts.extend(
+            [
+                self.job.params.task_notes.local_context.area_of_interest_name,
+                layers.get_band_title(self.band_info.serialize()),
+                utils.utc_to_local(self.job.start_date).strftime("%Y-%m-%d %H:%M")
+            ]
+        )
+        return " - ".join(name_info_parts)
+
+    def get_hover_info(self):
+        task_name = self.job.params.task_name
+        if task_name != "":
+            hover_info_parts = [task_name]
+        else:
+            hover_info_parts = []
+        hover_info_parts.extend(
+            [
+                self.job.params.task_notes.local_context.area_of_interest_name + '\n',
+                layers.get_band_title(self.band_info.serialize()) + '\n',
+                utils.utc_to_local(self.job.start_date).strftime("%Y-%m-%d %H:%M") + '\n',
+                # TODO: figure out a way to cleanup the metadata so it is 
+                # presentable and useful - likely need to have each script 
+                # contain a dictionary of metadata fields that should be 
+                # shown to the user by default
+            ]
+        )
+
 
 @dataclasses.dataclass()
 class Dataset:
     job: job_models.Job
     path: Path
 
+    def get_name_info(self):
+        name_info_parts = []
+        name_info_parts.extend(
+            [
+                self.job.params.task_notes.local_context.area_of_interest_name,
+                self.job.visible_name,
+                utils.utc_to_local(self.job.start_date).strftime("%Y-%m-%d %H:%M")
+            ]
+        )
+
+        return " - ".join(name_info_parts)
+
+    def get_hover_info(self):
+        hover_info_parts = []
+        hover_info_parts.extend(
+            [
+                self.job.visible_name + ' - ',
+                self.job.params.task_notes.local_context.area_of_interest_name + '\n',
+                utils.utc_to_local(self.job.start_date).strftime("%Y-%m-%d %H:%M")
+            ]
+        )
+        return "".join(hover_info_parts)
+        
 
 class RemapVectorWorker(worker.AbstractWorker):
     def __init__(self, l, out_file, attribute, remap_dict, in_data_type, 
@@ -1079,34 +1135,10 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
         self.comboBox_layers.addItem('')
         i = 0
         for usable_band in usable_bands:
-            task_name = usable_band.job.params.task_name
-            if task_name != "":
-                name_info_parts = [task_name]
-            else:
-                name_info_parts = []
-            hover_info_parts = name_info_parts[:]
-            name_info_parts.extend(
-                [
-                    usable_band.job.params.task_notes.local_context.area_of_interest_name,
-                    layers.get_band_title(usable_band.band_info.serialize())
-                ]
-            )
-            hover_info_parts.extend(
-                [
-                    usable_band.job.params.task_notes.local_context.area_of_interest_name + '\n',
-                    layers.get_band_title(usable_band.band_info.serialize()) + '\n',
-                    utils.utc_to_local(usable_band.job.start_date).strftime("%Y-%m-%d %H:%M") + '\n',
-                    # TODO: figure out a way to cleanup the metadata so it is 
-                    # presentable and useful - likely need to have each script 
-                    # contain a dictionary of metadata fields that should be 
-                    # shown to the user by default
-                    #str(usable_band.band_info.metadata),
-                ]
-            )
-            self.comboBox_layers.addItem(" - ".join(name_info_parts))
+            self.comboBox_layers.addItem(usable_band.get_name_info())
             # the "+ 1" below is to account for blank entry at the beginning of 
             # the combobox
-            self.comboBox_layers.setItemData(i + 1, "".join(hover_info_parts), QtCore.Qt.ToolTipRole)
+            self.comboBox_layers.setItemData(i + 1, usable_band.get_hover_info(), QtCore.Qt.ToolTipRole)
             i += 1
         if not self.set_index_from_text(old_text):
             # Set current index to 1 so that the blank line isn't chosen by 
@@ -1298,26 +1330,10 @@ class WidgetDataIOSelectTEDatasetExisting(
         self.comboBox_datasets.addItem('')
         i = 0
         for usable_dataset in usable_datasets:
-            name_info_parts = []
-            hover_info_parts = []
-            name_info_parts.extend(
-                [
-                    usable_dataset.job.visible_name,
-                    usable_dataset.job.params.task_notes.local_context.area_of_interest_name,
-                    utils.utc_to_local(usable_dataset.job.start_date).strftime("%Y-%m-%d %H:%M")
-                ]
-            )
-            hover_info_parts.extend(
-                [
-                    usable_dataset.job.visible_name + ' - ',
-                    usable_dataset.job.params.task_notes.local_context.area_of_interest_name + '\n',
-                    utils.utc_to_local(usable_dataset.job.start_date).strftime("%Y-%m-%d %H:%M")
-                ]
-            )
-            self.comboBox_datasets.addItem(" - ".join(name_info_parts))
+            self.comboBox_datasets.addItem(usable_dataset.get_name_info())
             # the "+ 1" below is to account for blank entry at the beginning of 
             # the combobox
-            self.comboBox_datasets.setItemData(i + 1, "".join(hover_info_parts), QtCore.Qt.ToolTipRole)
+            self.comboBox_datasets.setItemData(i + 1, usable_dataset.get_hover_info(), QtCore.Qt.ToolTipRole)
             i += 1
         if not self.set_index_from_text(old_text):
             # Set current index to 1 so that the blank line isn't chosen by 

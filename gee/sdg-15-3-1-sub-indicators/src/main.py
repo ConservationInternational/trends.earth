@@ -32,7 +32,7 @@ from te_schemas.schemas import CloudResultsSchema, BandInfo
 from te_schemas.land_cover import LCTransitionDefinitionDeg, LCLegendNesting
 
 
-def _run_lc(params, logger):
+def _run_lc(params, additional_years, logger):
     logger.debug("Running land cover indicator.")
     lc = land_cover(
         params.get('year_initial'),
@@ -43,11 +43,11 @@ def _run_lc(params, logger):
         LCLegendNesting.Schema().load(
             params.get('legend_nesting')
         ),
+        additional_years,
         logger
     )
     lc.selectBands(['Land cover (degradation)',
                     'Land cover (7 class)'])
-
     return lc
 
 
@@ -129,6 +129,7 @@ def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
                 executor.submit(
                     _run_lc,
                     params.get('land_cover'),
+                    [],
                     logger
                 )
             )
@@ -223,20 +224,36 @@ def run_jrc_for_period(params, EXECUTION_ID, logger):
     proj = ee.Image(prod_asset).projection()
     out = download(
         prod_asset,
-        'Land Productivity Dynamics (LPD)',
+        'Land Productivity Dynamics (from JRC)',
         'one time',
         None,
         None,
         logger
     )
+    lpd_year_initial = params.get('productivity')['year_initial']
+    lpd_year_final = params.get('productivity')['year_final']
     # Save as int16 to be compatible with other data
-    out.image = out.image.int16().rename(f'JRC_LPD_{params["productivity"]["year_initial"]}-{params["productivity"]["year_final"]}')
+    out.image = out.image.int16().rename(
+        f'JRC_LPD_{lpd_year_initial}-{lpd_year_final}')
     out.band_info[0].metadata.update({
-        'year_initial': params["productivity"]["year_initial"],
-        'year_final': params["productivity"]["year_final"]
+        'year_initial': lpd_year_initial,
+        'year_final': lpd_year_final
     })
 
-    out.merge(_run_lc(params.get('land_cover'), logger))
+    # If the LPD start or end years aren't in the LC period, then need to 
+    # include additional years in the land cover dataset so that crosstabs can 
+    # be calculated for LPD by land cover class
+    lc_years = [*range(
+        params.get('land_cover')['year_initial'],
+        params.get('land_cover')['year_final'] + 1
+    )]
+    additional_years = []
+    if lpd_year_initial not in lc_years:
+        additional_years.append(lpd_year_initial)
+    if lpd_year_final not in lc_years:
+        additional_years.append(lpd_year_final)
+
+    out.merge(_run_lc(params.get('land_cover'), additional_years, logger))
 
     out.merge(_run_soc(params.get('soil_organic_carbon'), logger))
 
@@ -276,9 +293,9 @@ def run_period(params, max_workers, EXECUTION_ID, logger):
 def _gen_metadata_str_te(params):
     metadata = {
         'visible_metadata': {
-            'one liner': f'{params["script"]["name"]} ({params["period"]["name"]}, {params["period"]["year_start"]}-{params["period"]["year_final"]})',
+            'one liner': f'{params["script"]["name"]} ({params["period"]["name"]}, {params["period"]["year_initial"]}-{params["period"]["year_final"]})',
             'full': f'{params["script"]["name"]}\n'
-                    f'Period: {params["period"]["name"]} ({params["period"]["year_start"]}-{params["period"]["year_final"]})'
+                    f'Period: {params["period"]["name"]} ({params["period"]["year_initial"]}-{params["period"]["year_final"]})'
                     f'Productivity {params["productivity"]["mode"]}:\n'
                     f'\tTrajectory ({params["productivity"]["traj_year_initial"]} {params["productivity"]["traj_year_final"]}'
         }
@@ -289,9 +306,9 @@ def _gen_metadata_str_te(params):
 def _gen_metadata_str_jrc_lpd(params):
     metadata = {
         'visible_metadata': {
-            'one liner': f'{params["script"]["name"]} ({params["period"]["name"]}, {params["period"]["year_start"]}-{params["period"]["year_final"]})',
+            'one liner': f'{params["script"]["name"]} ({params["period"]["name"]}, {params["period"]["year_initial"]}-{params["period"]["year_final"]})',
             'full': f'{params["script"]["name"]}\n'
-                    f'Period: {params["period"]["name"]} ({params["period"]["year_start"]}-{params["period"]["year_final"]})'
+                    f'Period: {params["period"]["name"]} ({params["period"]["year_initial"]}-{params["period"]["year_final"]})'
                     f'Productivity {params["productivity"]["mode"]}: {params["productivity"]["year_initial"]}-{params["productivity"]["year_final"]}'
         }
     }

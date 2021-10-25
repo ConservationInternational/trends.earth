@@ -87,8 +87,8 @@ def compute_soil_organic_carbon(
             models.JobBand(
                 name="Soil organic carbon (degradation)",
                 metadata={
-                    "year_start": soc_job.params.params["lc_years"][0],
-                    "year_end": soc_job.params.params["lc_years"][-1],
+                    "year_initial": soc_job.params.params["lc_years"][0],
+                    "year_final": soc_job.params.params["lc_years"][-1],
                 }
             )
         ]

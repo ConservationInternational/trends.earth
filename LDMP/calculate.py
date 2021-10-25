@@ -498,6 +498,9 @@ class DlgCalculateBase(QtWidgets.QDialog):
         # By default show the local or cloud option
         self.options_tab.toggle_show_where_to_run(False)
 
+    def accept(self):
+        pass
+
     def btn_calculate(self):
         self.aoi = areaofinterest.prepare_area_of_interest()
         ret = self.aoi.bounding_box_gee_geojson()

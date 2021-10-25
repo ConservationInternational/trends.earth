@@ -253,12 +253,18 @@ class DlgCalculateTCData(calculate.DlgCalculateBase, DlgCalculateTcDataUi):
                                        self.tr("Due to the options you have chosen, this calculation must occur offline. You MUST select a custom land cover dataset."))
             return
 
-
-        year_baseline = self.lc_setup_tab.get_initial_year()
-        year_target = self.lc_setup_tab.get_final_year()
-        if int(year_baseline) >= int(year_target):
-            QtWidgets.QMessageBox.information(None, self.tr("Warning"),
-                self.tr('The baseline year ({}) is greater than or equal to the target year ({}) - this analysis might generate strange results.'.format(year_baseline, year_target)))
+        year_initial = self.lc_setup_tab.get_initial_year()
+        year_final = self.lc_setup_tab.get_final_year()
+        if int(year_initial) >= int(year_final):
+            QtWidgets.QMessageBox.information(
+                None,
+                self.tr("Warning"),
+                self.tr(
+                    f'The initial year ({year_initial}) is greater than or '
+                    'equal to the final year ({year_final}) - this analysis '
+                    'might generate strange results.'
+                )
+            )
 
         if self.aoi.calc_frac_overlap(qgis.core.QgsGeometry.fromRect(self.lc_setup_tab.use_custom_initial.get_layer().extent())) < .99:
             QtWidgets.QMessageBox.critical(None, self.tr("Error"),
@@ -329,7 +335,7 @@ class DlgCalculateTCData(calculate.DlgCalculateBase, DlgCalculateTcDataUi):
                                        self.tr("Error calculating change in toal carbon."))
             return
 
-        band_infos = [BandInfo("Total carbon (change)", add_to_map=True, metadata={'year_start': lc_years[0], 'year_end': lc_years[-1]})]
+        band_infos = [BandInfo("Total carbon (change)", add_to_map=True, metadata={'year_initial': lc_years[0], 'year_final': lc_years[-1]})]
         for year in lc_years:
             if (year == lc_years[0]) or (year == lc_years[-1]):
                 # Add first and last years to map
@@ -350,8 +356,8 @@ class DlgCalculateTCData(calculate.DlgCalculateBase, DlgCalculateTcDataUi):
         self.close()
         crosses_180th, geojsons = self.gee_bounding_box
         payload = {
-            'year_start': self.hansen_bl_year.date().year(),
-            'year_end': self.hansen_tg_year.date().year(),
+            'year_initial': self.hansen_bl_year.date().year(),
+            'year_final': self.hansen_tg_year.date().year(),
             'fc_threshold': int(self.hansen_fc_threshold.text().replace('%', '')),
             'method': method,
             'biomass_data': biomass_data,
@@ -377,12 +383,12 @@ class DlgCalculateTCData(calculate.DlgCalculateBase, DlgCalculateTcDataUi):
 
 
 class TCSummaryWorker(worker.AbstractWorker):
-    def __init__(self, src_file, year_start, year_end):
+    def __init__(self, src_file, year_initial, year_final):
         worker.AbstractWorker.__init__(self)
 
         self.src_file = src_file
-        self.year_start = year_start
-        self.year_end = year_end
+        self.year_initial = year_initial
+        self.year_final = year_final
 
     def work(self):
         self.toggle_show_progress.emit(True)
@@ -416,8 +422,8 @@ class TCSummaryWorker(worker.AbstractWorker):
         area_site = 0
         initial_forest_area = 0
         initial_carbon_total = 0
-        forest_loss = np.zeros(self.year_end - self.year_start)
-        carbon_loss = np.zeros(self.year_end - self.year_start)
+        forest_loss = np.zeros(self.year_final - self.year_initial)
+        carbon_loss = np.zeros(self.year_final - self.year_initial)
 
         blocks = 0
         for y in range(0, ysize, y_block_size):
@@ -446,7 +452,7 @@ class TCSummaryWorker(worker.AbstractWorker):
                 # given row - cell areas only vary among rows)
                 cell_areas_array = np.repeat(cell_areas, cols, axis=1)
 
-                initial_forest_pixels = (f_loss_array == 0) | (f_loss_array > (self.year_start - 2000))
+                initial_forest_pixels = (f_loss_array == 0) | (f_loss_array > (self.year_initial - 2000))
                 # The site area includes everything that isn't masked
                 area_missing = area_missing + np.sum(((f_loss_array == -32768) | (tc_array == -32768)) * cell_areas_array)
                 area_water = area_water + np.sum((f_loss_array == -2) * cell_areas_array)
@@ -455,11 +461,11 @@ class TCSummaryWorker(worker.AbstractWorker):
                 initial_forest_area = initial_forest_area + np.sum(initial_forest_pixels * cell_areas_array)
                 initial_carbon_total = initial_carbon_total +  np.sum(initial_forest_pixels * tc_array * (tc_array >= 0) * cell_areas_array)
 
-                for n in range(self.year_end - self.year_start):
+                for n in range(self.year_final - self.year_initial):
                     # Note the codes are year - 2000
-                    forest_loss[n] = forest_loss[n] + np.sum((f_loss_array == self.year_start - 2000 + n + 1) * cell_areas_array)
+                    forest_loss[n] = forest_loss[n] + np.sum((f_loss_array == self.year_initial - 2000 + n + 1) * cell_areas_array)
                     # Check units here - is tc_array in per m or per ha?
-                    carbon_loss[n] = carbon_loss[n] + np.sum((f_loss_array == self.year_start - 2000 + n + 1) * tc_array * (tc_array >= 0) * cell_areas_array)
+                    carbon_loss[n] = carbon_loss[n] + np.sum((f_loss_array == self.year_initial - 2000 + n + 1) * tc_array * (tc_array >= 0) * cell_areas_array)
 
                 blocks += 1
             lat += pixel_height * rows
@@ -591,7 +597,7 @@ class DlgCalculateTCSummaryTable(
             "f_loss_band_index": f_loss_usable.band_index,
             "tc_path": str(tc_usable.path),
             "tc_band_index": tc_usable.band_index,
-            "year_start": f_loss_usable.band_info.metadata["year_start"],
-            "year_end": f_loss_usable.band_info.metadata["year_end"],
+            "year_initial": f_loss_usable.band_info.metadata["year_initial"],
+            "year_final": f_loss_usable.band_info.metadata["year_final"],
         }
         job_manager.submit_local_job(job_params, self.LOCAL_SCRIPT_NAME, self.aoi)

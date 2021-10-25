@@ -20,8 +20,8 @@ from te_schemas.land_cover import LCTransitionDefinitionDeg, LCLegendNesting
 def run(params, logger):
     """."""
     logger.debug("Loading parameters.")
-    year_start = params.get('year_start')
-    year_end = params.get('year_end')
+    year_initial = params.get('year_initial')
+    year_final = params.get('year_final')
     fl = params.get('fl')
     dl_annual_lc = params.get('download_annual_lc')
     geojsons = json.loads(params.get('geojsons'))
@@ -41,8 +41,8 @@ def run(params, logger):
 
     logger.debug("Running main script.")
     out = soc(
-        year_start,
-        year_end,
+        year_initial,
+        year_final,
         fl,
         trans_matrix,
         legend_nesting,

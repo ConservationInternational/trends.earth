@@ -180,14 +180,14 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
         if not ret:
             return
-
+        
         if self.radio_te_prod.isChecked():
             prod_mode = 'Trends.Earth productivity'
         else:
             prod_mode = 'JRC LPD'
 
         periods = {'baseline': {
-            'period_year_start': self.year_initial_baseline.date().year(),
+            'period_year_initial': self.year_initial_baseline.date().year(),
             'period_year_final': self.year_final_baseline.date().year(),
             }
         }
@@ -195,7 +195,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         if self.checkBox_progress_period.isChecked():
             periods.update({
                 'progress': {
-                    'period_year_start': self.year_initial_progress.date().year(),
+                    'period_year_initial': self.year_initial_progress.date().year(),
                     'period_year_final': self.year_final_progress.date().year(),
                 }
             })
@@ -205,13 +205,13 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         payloads = []
         for period, values in periods.items():
             payload = {}
-            year_start = values['period_year_start']
+            year_initial = values['period_year_initial']
             year_final = values['period_year_final']
 
-            if (year_final - year_start) < 10:
+            if (year_final - year_initial) < 10:
                 QtWidgets.QMessageBox.warning(
                     None,
-                    self.tr("Error"),
+                    self.tr("Warning"),
                     self.tr(
                         "Initial and final year are less 10 years "
                         "apart in {} period - results will be more "
@@ -220,11 +220,9 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                     )
                 )
 
-                return
-
             # Have productivity state consider the last 3 years for the current
             # period, and the years preceding those last 3 for the baseline
-            prod_state_year_bl_start = year_start
+            prod_state_year_bl_start = year_initial
             prod_state_year_bl_end = year_final - 3
             prod_state_year_tg_start = prod_state_year_bl_end + 1
             prod_state_year_tg_end = prod_state_year_bl_end + 3
@@ -238,9 +236,9 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                 payload['productivity'].update({
                     'prod_asset': conf.REMOTE_DATASETS["NDVI"]["MODIS (MOD13Q1, annual)"]["GEE Dataset"],
                     'traj_method': 'ndvi_trend',
-                    'traj_year_initial': year_start,
+                    'traj_year_initial': year_initial,
                     'traj_year_final': year_final,
-                    'perf_year_initial': year_start,
+                    'perf_year_initial': year_initial,
                     'perf_year_final': year_final,
                     'state_year_bl_start': prod_state_year_bl_start,
                     'state_year_bl_end': prod_state_year_bl_end,
@@ -262,7 +260,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                     'year_final': prod_end_year
                 })
             payload['land_cover'] = {
-                'year_initial': year_start,
+                'year_initial': year_initial,
                 'year_final': year_final,
                 'legend_nesting': LCLegendNesting.Schema().dump(
                     self.lc_setup_widget.aggregation_dialog.nesting
@@ -272,7 +270,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                 ),
             }
             payload['soil_organic_carbon'] = {
-                'year_initial': year_start,
+                'year_initial': year_initial,
                 'year_final': year_final,
                 'fl': .80,
                 'legend_nesting': LCLegendNesting.Schema().dump(
@@ -302,7 +300,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                 'script': models.ExecutionScript.Schema().dump(self.script),
                 'period': {
                     'name': period,
-                    'year_start': year_start,
+                    'year_initial': year_initial,
                     'year_final': year_final
                 }
             })
@@ -353,25 +351,31 @@ class DlgCalculateLDNSummaryTableAdmin(
         self.combo_boxes['baseline'] = ldn.SummaryTableLDNWidgets(
             combo_datasets=self.combo_datasets_baseline,
             combo_layer_traj=self.combo_layer_traj_baseline,
+            combo_layer_traj_label=self.combo_layer_traj_label_baseline,
             combo_layer_perf=self.combo_layer_perf_baseline,
+            combo_layer_perf_label=self.combo_layer_perf_label_baseline,
             combo_layer_state=self.combo_layer_state_baseline,
+            combo_layer_state_label=self.combo_layer_state_label_baseline,
             combo_layer_lpd=self.combo_layer_lpd_baseline,
+            combo_layer_lpd_label=self.combo_layer_lpd_label_baseline,
             combo_layer_lc=self.combo_layer_lc_baseline,
             combo_layer_soc=self.combo_layer_soc_baseline,
             combo_layer_pop=self.combo_layer_population_baseline,
-            radio_te_prod=self.radio_te_prod,
             radio_lpd_jrc=self.radio_lpd_jrc
         )
         self.combo_boxes['progress'] = ldn.SummaryTableLDNWidgets(
             combo_datasets=self.combo_datasets_progress,
             combo_layer_traj=self.combo_layer_traj_progress,
+            combo_layer_traj_label=self.combo_layer_traj_label_progress,
             combo_layer_perf=self.combo_layer_perf_progress,
+            combo_layer_perf_label=self.combo_layer_perf_label_progress,
             combo_layer_state=self.combo_layer_state_progress,
+            combo_layer_state_label=self.combo_layer_state_label_progress,
             combo_layer_lpd=self.combo_layer_lpd_progress,
+            combo_layer_lpd_label=self.combo_layer_lpd_label_progress,
             combo_layer_lc=self.combo_layer_lc_progress,
             combo_layer_soc=self.combo_layer_soc_progress,
             combo_layer_pop=self.combo_layer_population_progress,
-            radio_te_prod=self.radio_te_prod,
             radio_lpd_jrc=self.radio_lpd_jrc
         )
 
@@ -597,22 +601,24 @@ class DlgCalculateLDNSummaryTableAdmin(
 
         if not ret:
             return
+
+        if self.radio_te_prod.isChecked():
+            prod_mode = 'Trends.Earth productivity'
+        else:
+            prod_mode = 'JRC LPD'
+
         ##########
         # Baseline
-        if self.radio_te_prod_baseline.isChecked():
-            prod_mode_baseline = 'Trends.Earth productivity'
-        else:
-            prod_mode_baseline = 'JRC LPD'
 
         if (
             not self.validate_layer_selections(
                 self.combo_boxes['baseline'],
-                prod_mode_baseline) or
+                prod_mode) or
             not self.validate_layer_crs(
                 self.combo_boxes['baseline']) or
             not self.validate_layer_extents(
                 self.combo_boxes['baseline'],
-                prod_mode_baseline)
+                prod_mode)
         ):
             log('failed baseline layer validation')
             return
@@ -622,7 +628,7 @@ class DlgCalculateLDNSummaryTableAdmin(
             'baseline': ldn.get_main_sdg_15_3_1_job_params(
                 task_name=self.options_tab.task_name.text(),
                 aoi=self.aoi,
-                prod_mode=prod_mode_baseline,
+                prod_mode=prod_mode,
                 combo_layer_lc=self.combo_boxes['baseline'].combo_layer_lc,
                 combo_layer_soc=self.combo_boxes['baseline'].combo_layer_soc,
                 combo_layer_traj=self.combo_boxes['baseline'].combo_layer_traj,
@@ -637,19 +643,15 @@ class DlgCalculateLDNSummaryTableAdmin(
         ##########
         # Progress
         if self.checkBox_progress_period.isChecked():
-            if self.radio_te_prod_progress.isChecked():
-                prod_mode_progress = 'Trends.Earth productivity'
-            else:
-                prod_mode_progress = 'JRC LPD'
             if (
                 not self.validate_layer_selections(
                     self.combo_boxes['progress'],
-                    prod_mode_progress) or
+                    rod_mode) or
                 not self.validate_layer_crs(
                     self.combo_boxes['progress']) or
                 not self.validate_layer_extents(
                     self.combo_boxes['progress'],
-                    prod_mode_progress)
+                    prod_mode)
             ):
                 log('failed progress layer validation')
                 return
@@ -658,7 +660,7 @@ class DlgCalculateLDNSummaryTableAdmin(
                 'progress': ldn.get_main_sdg_15_3_1_job_params(
                     task_name=self.options_tab.task_name.text(),
                     aoi=self.aoi,
-                    prod_mode=prod_mode_progress,
+                    prod_mode=prod_mode,
                     combo_layer_lc=self.combo_boxes['progress'].combo_layer_lc,
                     combo_layer_soc=self.combo_boxes['progress'].combo_layer_soc,
                     combo_layer_traj=self.combo_boxes['progress'].combo_layer_traj,
@@ -672,10 +674,11 @@ class DlgCalculateLDNSummaryTableAdmin(
 
         params['task_name'] = self.options_tab.task_name.text()
         params['task_notes'] = self.options_tab.task_notes.toPlainText()
+
+        self.close()
+
         job_manager.submit_local_job(
             params,
             script_name=self.LOCAL_SCRIPT_NAME,
             area_of_interest=self.aoi
         )
-
-        self.close()

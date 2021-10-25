@@ -57,21 +57,21 @@ style_text_dict = {
     'nodata': tr_layers.tr(u'No data'),
 
     # Productivity trajectory
-    'prod_traj_trend_title': tr_layers.tr(u'Productivity trajectory ({year_start} to {year_end}, NDVI x 10000 / yr)'),
+    'prod_traj_trend_title': tr_layers.tr(u'Productivity trajectory ({year_initial} to {year_final}, NDVI x 10000 / yr)'),
 
-    'prod_traj_signif_title': tr_layers.tr(u'Productivity trajectory degradation ({year_start} to {year_end})'),
+    'prod_traj_signif_title': tr_layers.tr(u'Productivity trajectory degradation ({year_initial} to {year_final})'),
     'prod_traj_signif_dec_95': tr_layers.tr(u'Degradation (significant decrease, p < .05)'),
     'prod_traj_signif_zero': tr_layers.tr(u'Stable (no significant change)'),
     'prod_traj_signif_inc_95': tr_layers.tr(u'Improvement (significant increase, p < .05)'),
 
     # Productivity performance
-    'prod_perf_deg_title': tr_layers.tr(u'Productivity performance degradation ({year_start} to {year_end})'),
+    'prod_perf_deg_title': tr_layers.tr(u'Productivity performance degradation ({year_initial} to {year_final})'),
     'prod_perf_deg_potential_deg': tr_layers.tr(u'Degradation'),
     'prod_perf_deg_not_potential_deg': tr_layers.tr(u'Not degradation'),
 
-    'prod_perf_ratio_title': tr_layers.tr(u'Productivity performance ({year_start} to {year_end}, ratio)'),
+    'prod_perf_ratio_title': tr_layers.tr(u'Productivity performance ({year_initial} to {year_final}, ratio)'),
 
-    'prod_perf_units_title': tr_layers.tr(u'Productivity performance ({year_start}, units)'),
+    'prod_perf_units_title': tr_layers.tr(u'Productivity performance ({year_initial}, units)'),
 
     # Productivity state
     'prod_state_change_title': tr_layers.tr(u'Productivity state degradation ({year_bl_start}-{year_bl_end} vs {year_tg_start}-{year_tg_end})'),
@@ -79,18 +79,18 @@ style_text_dict = {
     'prod_state_change_stable': tr_layers.tr(u'Stable'),
     'prod_state_change_potential_improvement': tr_layers.tr(u'Improvement'),
 
-    'prod_state_classes_title': tr_layers.tr(u'Productivity state classes ({year_start}-{year_end})'),
+    'prod_state_classes_title': tr_layers.tr(u'Productivity state classes ({year_initial}-{year_final})'),
 
     # Land cover
-    'lc_deg_title': tr_layers.tr(u'Land cover degradation ({year_baseline} to {year_target})'),
+    'lc_deg_title': tr_layers.tr(u'Land cover degradation ({year_initial} to {year_final})'),
     'lc_deg_deg': tr_layers.tr(u'Degradation'),
     'lc_deg_stable': tr_layers.tr(u'Stable'),
     'lc_deg_imp': tr_layers.tr(u'Improvement'),
 
     'lc_7class_title': tr_layers.tr(u'Land cover ({year}, 7 class)'),
     'lc_esa_title': tr_layers.tr(u'Land cover ({year}, ESA CCI classes)'),
-    'lc_7class_mode_title': tr_layers.tr(u'Land cover mode ({year_start}-{year_end}, 7 class)'),
-    'lc_esa_mode_title': tr_layers.tr(u'Land cover mode ({year_start}-{year_end}, ESA CCI classes)'),
+    'lc_7class_mode_title': tr_layers.tr(u'Land cover mode ({year_initial}-{year_final}, 7 class)'),
+    'lc_esa_mode_title': tr_layers.tr(u'Land cover mode ({year_initial}-{year_final}, ESA CCI classes)'),
 
     'lc_class_nodata': tr_layers.tr(u'-32768 - No data'),
     'lc_class_forest': tr_layers.tr(u'1 - Tree-covered'),
@@ -112,7 +112,7 @@ style_text_dict = {
     'Other land': tr_layers.tr(u'Other land'),
     'Water body': tr_layers.tr(u'Water body'),
 
-    'lc_tr_title': tr_layers.tr(u'Land cover (transitions, {year_baseline} to {year_target})'),
+    'lc_tr_title': tr_layers.tr(u'Land cover (transitions, {year_initial} to {year_final})'),
     'lc_tr_nochange': tr_layers.tr(u'No change'),
     'lc_tr_forest_loss': tr_layers.tr(u'Tree-covered loss'),
     'lc_tr_grassland_loss': tr_layers.tr(u'Grassland loss'),
@@ -125,13 +125,13 @@ style_text_dict = {
     # Soil organic carbon
     'soc_title': tr_layers.tr(u'Soil organic carbon ({year}, tons / ha)'),
 
-    'soc_deg_title': tr_layers.tr(u'Soil organic carbon degradation ({year_start} to {year_end})'),
+    'soc_deg_title': tr_layers.tr(u'Soil organic carbon degradation ({year_initial} to {year_final})'),
     'soc_deg_deg': tr_layers.tr(u'Degradation'),
     'soc_deg_stable': tr_layers.tr(u'Stable'),
     'soc_deg_imp': tr_layers.tr(u'Improvement'),
 
     # Trends.Earth land productivity
-    'sdg_prod_combined_title': tr_layers.tr(u'Land productivity (Trends.Earth, {year_start}-{year_final})'),
+    'sdg_prod_combined_title': tr_layers.tr(u'Land productivity (Trends.Earth, {year_initial}-{year_final})'),
     'sdg_prod_combined_declining': tr_layers.tr(u'Declining'),
     'sdg_prod_combined_earlysigns': tr_layers.tr(u'Early signs of decline'),
     'sdg_prod_combined_stabbutstress': tr_layers.tr(u'Stable but stressed'),
@@ -147,21 +147,21 @@ style_text_dict = {
     'lpd_imp': tr_layers.tr(u'Increasing'),
 
     # SDG 15.3.1 indicator layer
-    'combined_sdg_title': tr_layers.tr(u'SDG 15.3.1 Indicator (Trends.Earth, {year_start}-{year_final})'),
+    'combined_sdg_title': tr_layers.tr(u'SDG 15.3.1 Indicator (Trends.Earth, {year_initial}-{year_final})'),
     'combined_sdg_deg_deg': tr_layers.tr(u'Degradation'),
     'combined_sdg_deg_stable': tr_layers.tr(u'Stable'),
     'combined_sdg_deg_imp': tr_layers.tr(u'Improvement'),
 
     # Forest loss
-    'f_loss_hansen_title': tr_layers.tr(u'Forest loss ({year_start} to {year_end})'),
+    'f_loss_hansen_title': tr_layers.tr(u'Forest loss ({year_initial} to {year_final})'),
     'f_loss_hansen_water': tr_layers.tr(u'Water'),
     'f_loss_hansen_nonforest': tr_layers.tr(u'Non-forest'),
     'f_loss_hansen_noloss': tr_layers.tr(u'Forest (no loss)'),
-    'f_loss_hansen_year_start': tr_layers.tr(u'Forest loss ({year_start})'),
-    'f_loss_hansen_year_end': tr_layers.tr(u'Forest loss ({year_end})'),
+    'f_loss_hansen_year_start': tr_layers.tr(u'Forest loss ({year_initial})'),
+    'f_loss_hansen_year_end': tr_layers.tr(u'Forest loss ({year_final})'),
 
     # Total carbon
-    'tc_title': tr_layers.tr(u'Total carbon ({year_start}, tonnes per ha x 10)'),
+    'tc_title': tr_layers.tr(u'Total carbon ({year_initial}, tonnes per ha x 10)'),
 
     # Root shoot ratio (below to above ground carbon in woody biomass)
     'root_shoot_title': tr_layers.tr(u'Root/shoot ratio (x 100)'),
@@ -189,11 +189,11 @@ style_text_dict = {
     # Population titles
     'population_title': tr_layers.tr(u'Population ({year})'),
     'population_density_title': tr_layers.tr(u'Population density ({year}, per sq km / 10)'),
-    'population_density_at_maximum_drought_title': tr_layers.tr(u'Population density at maximum drought during {year_start}-{year_final} (per sq km / 10)'),
+    'population_density_at_maximum_drought_title': tr_layers.tr(u'Population density at maximum drought during {year_initial}-{year_final} (per sq km / 10)'),
 
     # SPI
     'spi_title': tr_layers.tr(u'Standardized Precipitation Index (SPI, {year}, {lag} month lag, * 1000)'),
-    'spi_at_maximum_drought_title': tr_layers.tr(u'SPI at maximum drought during {year_start}-{year_final} ({lag} month lag, * 1000)'),
+    'spi_at_maximum_drought_title': tr_layers.tr(u'SPI at maximum drought during {year_initial}-{year_final} ({lag} month lag, * 1000)'),
     'jrc_drought_vulnerability_title': tr_layers.tr(u'Drought Vulnerability (JRC, {year}, * 1000)'),
     'spi_extreme_drought': tr_layers.tr(u'Extreme drought'),
     'spi_severe_drought': tr_layers.tr(u'Severe drought'),

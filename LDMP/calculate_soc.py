@@ -184,16 +184,16 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
             )
             return
 
-        year_baseline = self.lc_setup_widget.get_initial_year()
-        year_target = self.lc_setup_widget.get_final_year()
-        if int(year_baseline) >= int(year_target):
+        year_initial = self.lc_setup_widget.get_initial_year()
+        year_final = self.lc_setup_widget.get_final_year()
+        if int(year_initial) >= int(year_final):
             QtWidgets.QMessageBox.information(
                 None,
                 self.tr("Warning"),
                 self.tr(
-                    f'The baseline year ({year_baseline}) is greater than or equal to the target '
-                    f'year ({year_target}) - this analysis might generate strange '
-                    f'results.'
+                    f'The initial year ({year_initial}) is greater than or '
+                    'equal to the final year ({year_final}) - this analysis '
+                    'might generate strange results.'
                 )
             )
 
@@ -257,8 +257,8 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
 
         crosses_180th, geojsons = self.gee_bounding_box
         payload = {
-            "year_start": self.lc_setup_widget.initial_year_de.date().year(),
-            "year_end": self.lc_setup_widget.target_year_de.date().year(),
+            "year_initial": self.lc_setup_widget.initial_year_de.date().year(),
+            "year_final": self.lc_setup_widget.target_year_de.date().year(),
             'fl': self.get_fl(),
             'download_annual_lc': self.download_annual_lc.isChecked(),
             'geojsons': json.dumps(geojsons),

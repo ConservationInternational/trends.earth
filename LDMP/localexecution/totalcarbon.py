@@ -41,8 +41,8 @@ def compute_total_carbon_summary_table(
     summary_table_output_path = job_output_path.parent / f"{job_output_path.stem}.xlsx"
     summary_task = SummaryTask(
         area_of_interest,
-        tc_job.params.params["year_start"],
-        tc_job.params.params["year_end"],
+        tc_job.params.params["year_initial"],
+        tc_job.params.params["year_final"],
         f_loss_vrt,
         tc_vrt,
         str(summary_table_output_path)
@@ -66,13 +66,13 @@ def compute_total_carbon_summary_table(
 
 class SummaryTask(qgis.core.QgsTask):
 
-    def __init__(self, aoi, year_start, year_end, f_loss_vrt, tc_vrt,
+    def __init__(self, aoi, year_initial, year_final, f_loss_vrt, tc_vrt,
                  output_file):
         super().__init__('Total carbon summary table calculation', qgis.core.QgsTask.CanCancel)
 
         self.aoi = aoi
-        self.year_start = year_start
-        self.year_end = year_end
+        self.year_initial = year_initial
+        self.year_final = year_final
         self.f_loss_vrt = f_loss_vrt
         self.tc_vrt = tc_vrt
         self.output_file = output_file
@@ -128,8 +128,8 @@ class SummaryTask(qgis.core.QgsTask):
                 'trendsearth:carbon_summary',
                 {
                     'INPUT': clipped_vrt,
-                    'YEAR_START': self.year_start,
-                    'YEAR_END': self.year_end
+                    'year_initial': self.year_initial,
+                    'year_final': self.year_final
                 })
             # 'calculating summary table (part {} of {})'.format(n + 1,
             # len(wkts))
@@ -182,8 +182,8 @@ class SummaryTask(qgis.core.QgsTask):
             area_site,
             area_forest,
             initial_carbon_total,
-            self.year_start,
-            self.year_end,
+            self.year_initial,
+            self.year_final,
             self.output_file
         )
         return True
@@ -214,8 +214,8 @@ def write_excel_summary(
         area_site,
         area_forest,
         initial_carbon_total,
-        year_start,
-        year_end,
+        year_initial,
+        year_final,
         out_file
 ):
     wb = openpyxl.load_workbook(
@@ -228,12 +228,12 @@ def write_excel_summary(
     ws_summary.cell(9, 3).value = area_non_forest
     ws_summary.cell(10, 3).value = area_water
     ws_summary.cell(11, 3).value = area_missing
-    ws_summary.cell(15, 4).value = year_start
-    ws_summary.cell(16, 4).value = year_end
+    ws_summary.cell(15, 4).value = year_initial
+    ws_summary.cell(16, 4).value = year_final
     # ws_summary.cell(10, 3).value = area_site
 
     ws_summary.cell(8, 5).value = initial_carbon_total
-    summary.write_col_to_sheet(ws_summary, np.arange(year_start + 1, year_end + 1), 1, 24)  # Years
+    summary.write_col_to_sheet(ws_summary, np.arange(year_initial + 1, year_final + 1), 1, 24)  # Years
     summary.write_col_to_sheet(ws_summary, forest_loss, 2, 24)  # Years
     summary.write_col_to_sheet(ws_summary, carbon_loss, 4, 24)  # Years
 

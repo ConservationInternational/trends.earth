@@ -242,15 +242,15 @@ class AlgorithmEditorWidget(QtWidgets.QWidget, WidgetAlgorithmLeafUi):
         self.name_la.setText(algorithm.name)
         self.description_la.setText(algorithm.description)
         action_labels = {
-            models.AlgorithmRunMode.LOCAL: "Execute locally",
             models.AlgorithmRunMode.REMOTE: "Execute remotely",
+            models.AlgorithmRunMode.LOCAL: "Execute locally",
         }
         special_alg_ids = [
                     "bdad3786-bc36-46aa-8e3d-d6cede915cef",
                     "fe1cffa7-33f7-4148-ac7b-fc726402d59d"
                 ]
         if str(algorithm.id) in special_alg_ids:
-            self.setStyleSheet("font-size: 17px;")
+            self.setStyleSheet("font-size: 15px;")
         self.open_execution_dialogue_tb.setToolButtonStyle(
             QtCore.Qt.ToolButtonTextBesideIcon)
         action_icon = QtGui.QIcon(":/images/themes/default/processingAlgorithm.svg")
@@ -264,7 +264,7 @@ class AlgorithmEditorWidget(QtWidgets.QWidget, WidgetAlgorithmLeafUi):
                 action.triggered.connect(
                     functools.partial(execution_handler, algorithm, action_type))
                 self.open_execution_dialogue_tb.menu().addAction(action)
-                if action_type == models.AlgorithmRunMode.LOCAL:
+                if action_type == models.AlgorithmRunMode.REMOTE:
                     default_action = action
             self.open_execution_dialogue_tb.setDefaultAction(default_action)
         elif len(algorithm.scripts) == 1:

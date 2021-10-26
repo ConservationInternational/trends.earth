@@ -334,7 +334,7 @@ class DlgCalculateLDNSummaryTableAdmin(
     LOCAL_SCRIPT_NAME: str = "sdg-15-3-1-summary"
 
     button_calculate: QtWidgets.QPushButton
-    combo_boxes: typing.Dict[str, ldn.SummaryTableLDNWidgets] = {}
+    combo_boxes: typing.Dict[str, ldn.SummaryTableLDWidgets] = {}
 
     def __init__(
             self,
@@ -349,7 +349,7 @@ class DlgCalculateLDNSummaryTableAdmin(
 
         self._finish_initialization()
 
-        self.combo_boxes['baseline'] = ldn.SummaryTableLDNWidgets(
+        self.combo_boxes['baseline'] = ldn.SummaryTableLDWidgets(
             combo_datasets=self.combo_datasets_baseline,
             combo_layer_traj=self.combo_layer_traj_baseline,
             combo_layer_traj_label=self.combo_layer_traj_label_baseline,
@@ -364,7 +364,7 @@ class DlgCalculateLDNSummaryTableAdmin(
             combo_layer_pop=self.combo_layer_population_baseline,
             radio_lpd_jrc=self.radio_lpd_jrc
         )
-        self.combo_boxes['progress'] = ldn.SummaryTableLDNWidgets(
+        self.combo_boxes['progress'] = ldn.SummaryTableLDWidgets(
             combo_datasets=self.combo_datasets_progress,
             combo_layer_traj=self.combo_layer_traj_progress,
             combo_layer_traj_label=self.combo_layer_traj_label_progress,

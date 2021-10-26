@@ -95,7 +95,52 @@ class LdnProductivityMode(enum.Enum):
 
 
 @marshmallow_dataclass.dataclass
-class SummaryTableLDN(SchemaBase):
+class SummaryTableLDProgress(SchemaBase):
+    sdg_summary: Dict[int, float]
+    prod_summary: Dict[int, float]
+    soc_summary: Dict[int, float]
+    lc_summary: Dict[int, float]
+
+
+def _accumulate_ld_progress_summary_tables(
+    tables: List[SummaryTableLDProgress]
+) -> SummaryTableLDProgress:
+
+    if len(tables) == 1:
+        return tables[0]
+    else:
+        out = tables[0]
+        for table in tables[1:]:
+            out.sdg_summary = accumulate_dicts(
+                [
+                    out.sdg_summary,
+                    table.sdg_summary
+                ]
+            )
+            out.prod_summary = accumulate_dicts(
+                [
+                    out.prod_summary,
+                    table.prod_summary
+                ]
+            )
+            out.soc_summary = accumulate_dicts(
+                [
+                    out.soc_summary,
+                    table.soc_summary
+                ]
+            )
+            out.lc_summary = accumulate_dicts(
+                [
+                    out.lc_summary,
+                    table.lc_summary
+                ]
+            )
+
+        return out
+
+
+@marshmallow_dataclass.dataclass
+class SummaryTableLD(SchemaBase):
     soc_by_lc_annual_totals: List[Dict[int, float]]
     lc_annual_totals: List[Dict[int, float]]
     lc_trans_zonal_areas: List[Dict[int, float]]
@@ -110,7 +155,7 @@ class SummaryTableLDN(SchemaBase):
     lc_summary: Dict[int, float]
 
 
-def _accumulate_summary_tables(tables: List[SummaryTableLDN]) -> SummaryTableLDN:
+def _accumulate_ld_summary_tables(tables: List[SummaryTableLD]) -> SummaryTableLD:
     if len(tables) == 1:
         return tables[0]
     else:
@@ -185,7 +230,7 @@ def _accumulate_summary_tables(tables: List[SummaryTableLDN]) -> SummaryTableLDN
             )
             out.soc_summary = accumulate_dicts(
                 [
-                  out.soc_summary,
+                    out.soc_summary,
                     table.soc_summary
                 ]
             )
@@ -200,7 +245,7 @@ def _accumulate_summary_tables(tables: List[SummaryTableLDN]) -> SummaryTableLDN
 
 
 @dataclasses.dataclass()
-class SummaryTableLDNWidgets:
+class SummaryTableLDWidgets:
     '''Combo boxes and methods used in the SDG 15.3.1 summary table widget'''
     combo_datasets: data_io.WidgetDataIOSelectTEDatasetExisting
     combo_layer_traj: data_io.WidgetDataIOSelectTELayerExisting
@@ -274,7 +319,7 @@ class LdnInputInfo:
     years: List[int]
 
 
-def _get_ldn_input_period(
+def _get_ld_input_period(
     data_selection_widget: data_io.WidgetDataIOSelectTELayerExisting,
     year_initial_field: str = "year_initial",
     year_final_field: str = "year_final"
@@ -288,7 +333,7 @@ def _get_ldn_input_period(
     }
 
 
-def _get_ldn_inputs(
+def _get_ld_inputs(
     data_selection_widget: data_io.WidgetDataIOSelectTELayerExisting,
     aux_band_name: str,
     sort_property: str = "year"
@@ -333,15 +378,15 @@ def get_main_sdg_15_3_1_job_params(
         task_notes: Optional[str] = "",
 ) -> Dict:
 
-    land_cover_inputs = _get_ldn_inputs(
+    land_cover_inputs = _get_ld_inputs(
         combo_layer_lc, LC_BAND_NAME)
-    soil_organic_carbon_inputs = _get_ldn_inputs(
+    soil_organic_carbon_inputs = _get_ld_inputs(
         combo_layer_soc, SOC_BAND_NAME)
-    population_input = _get_ldn_inputs(
+    population_input = _get_ld_inputs(
         combo_layer_pop, POPULATION_BAND_NAME)
 
-    lc_deg_years = _get_ldn_input_period(combo_layer_lc)
-    soc_deg_years = _get_ldn_input_period(combo_layer_soc)
+    lc_deg_years = _get_ld_input_period(combo_layer_lc)
+    soc_deg_years = _get_ld_input_period(combo_layer_soc)
 
     crosses_180th, geojsons = aoi.bounding_box_gee_geojson()
 
@@ -386,7 +431,7 @@ def get_main_sdg_15_3_1_job_params(
     if prod_mode == LdnProductivityMode.TRENDS_EARTH.value:
         traj_band_info = combo_layer_traj.get_current_band()
         traj_band = models.JobBand.Schema().dump(traj_band_info.band_info)
-        traj_years = _get_ldn_input_period(combo_layer_traj)
+        traj_years = _get_ld_input_period(combo_layer_traj)
         perf_band_info = combo_layer_perf.get_current_band()
         perf_band = models.JobBand.Schema().dump(
             perf_band_info.band_info)
@@ -411,7 +456,7 @@ def get_main_sdg_15_3_1_job_params(
         lpd_band_info = combo_layer_lpd.get_current_band()
         lpd_band = lpd_band_info.band_info
 
-        lpd_years = _get_ldn_input_period(combo_layer_lpd)
+        lpd_years = _get_ld_input_period(combo_layer_lpd)
 
         params.update({
             "layer_lpd_path": str(lpd_band_info.path),
@@ -559,11 +604,11 @@ def compute_ldn(
                 **summary_table_stable_kwargs[period_name]
             )
         elif prod_mode == LdnProductivityMode.JRC_LPD.value:
-            lpd = _prepare_jrc_lpd_mode_df(period_params)
-            in_dfs = lc_dfs + soc_dfs + [lpd, population_df]
+            lpd_df = _prepare_jrc_lpd_mode_df(period_params)
+            in_dfs = lc_dfs + soc_dfs + [lpd_df, population_df]
             summary_table, sdg_path, reproj_path = _compute_summary_table_from_lpd_prod(
                 in_dfs=in_dfs,
-                compute_bbs_from=lpd.path,
+                compute_bbs_from=lpd_df.path,
                 **summary_table_stable_kwargs[period_name],
             )
         else:
@@ -613,7 +658,7 @@ def compute_ldn(
             band.add_to_map = False
 
         period_vrt = job_output_path.parent / f"{sub_job_output_path.stem}_rasterdata.vrt"
-        _combine_all_bands_into_vrt([reproj_path, sdg_path], period_vrt)
+        _combine_all_bands_into_vrt([sdg_path, reproj_path], period_vrt)
 
         # Now that there is a single VRT with all files in it, combine the DFs 
         # into it so that it can be used to source band names/metadata for the 
@@ -724,7 +769,7 @@ def _combine_all_bands_into_vrt(in_files: List[Path], out_file: Path):
                     out_srs = osr.SpatialReference()
                     out_srs.ImportFromWkt(out_proj)
                     out_ds.SetProjection(out_srs.ExportToWkt())
-            else:
+            if file_num > 1:
                 assert this_dt == out_dt
                 assert this_Xsize == out_Xsize
                 assert this_Ysize == out_Ysize
@@ -884,10 +929,10 @@ def _compute_summary_table_from_te_prod(
         period_name,
         periods,
         compute_bbs_from
-) -> Tuple[SummaryTableLDN, Path]:
+) -> Tuple[SummaryTableLD, Path]:
     '''Compute summary table if a trends.earth productivity dataset is used'''
 
-    return _compute_ldn_summary_table(
+    return _compute_ld_summary_table(
         wkt_aois=wkt_aois,
         in_dfs=in_dfs,
         compute_bbs_from=compute_bbs_from,
@@ -911,10 +956,10 @@ def _compute_summary_table_from_lpd_prod(
         period_name,
         periods,
         compute_bbs_from
-) -> Tuple[SummaryTableLDN, Path]:
+) -> Tuple[SummaryTableLD, Path]:
     '''Compute summary table if a JRC LPD productivity dataset is used'''
 
-    return _compute_ldn_summary_table(
+    return _compute_ld_summary_table(
         wkt_aois=wkt_aois,
         in_dfs=in_dfs,
         compute_bbs_from=compute_bbs_from,
@@ -929,7 +974,7 @@ def _compute_summary_table_from_lpd_prod(
 
 def save_summary_table_excel(
         output_path: Path,
-        summary_table: SummaryTableLDN,
+        summary_table: SummaryTableLD,
         land_cover_years: List[int],
         soil_organic_carbon_years: List[int],
         lc_legend_nesting: land_cover.LCLegendNesting,
@@ -938,9 +983,9 @@ def save_summary_table_excel(
 ):
     """Save summary table into an xlsx file on disk"""
     template_summary_table_path = Path(
-        __file__).parents[1] / "data/summary_table_ldn_sdg.xlsx"
+        __file__).parents[1] / "data/summary_table_ld_sdg.xlsx"
     workbook = openpyxl.load_workbook(str(template_summary_table_path))
-    _render_ldn_workbook(
+    _render_ld_workbook(
         workbook,
         summary_table,
         land_cover_years,
@@ -963,7 +1008,7 @@ def save_summary_table_excel(
 
 def save_reporting_json(
         output_path: Path,
-        summary_tables: List[SummaryTableLDN],
+        summary_tables: List[SummaryTableLD],
         params: dict,
         task_name: str,
         aoi: areaofinterest.AOI,
@@ -1300,24 +1345,45 @@ def save_reporting_json(
 
 
 @dataclasses.dataclass()
+class DegradationProgressSummaryWorkerParams(SchemaBase):
+    in_df: DataFile
+    prod_mode: str
+    out_file: str
+    periods: dict
+
+
+def _process_block_progress(
+    params: DegradationProgressSummaryWorkerParams,
+    in_array,
+    mask,
+    xoff: int,
+    yoff: int,
+    cell_areas_raw
+) -> Tuple[SummaryTableLD, Dict]:
+
+    pass
+
+
+@dataclasses.dataclass()
 class DegradationSummaryWorkerParams(SchemaBase):
     in_df: DataFile
     prod_mode: str
-    prod_out_file: str
+    out_file: str
     mask_file: str
     nesting: land_cover.LCLegendNesting
     trans_matrix: land_cover.LCTransitionDefinitionDeg
     period_name: str
     periods: dict
 
-def _process_block(
+
+def _process_block_summary(
     params: DegradationSummaryWorkerParams,
     in_array,
     mask,
     xoff: int,
     yoff: int,
     cell_areas_raw
-) -> Tuple[SummaryTableLDN, Dict]:
+) -> Tuple[SummaryTableLD, Dict]:
 
     lc_band_years = params.in_df.metadata_for_name(LC_BAND_NAME, 'year')
     lc_bands = [
@@ -1336,7 +1402,7 @@ def _process_block(
     ]
 
     # Create container for output arrays (will write later in main thread)
-    write_arrays = {}
+    write_arrays = []
 
     # Calculate cell area for each horizontal line
     # log('y: {}'.format(y))
@@ -1363,15 +1429,8 @@ def _process_block(
             perf_array
         )
 
-        # Save combined productivity indicator for later visualization
-        write_arrays[3] = {
-            'array': deg_prod5,
-            'xoff': xoff,
-            'yoff': yoff
-        }
     else:
-        lpd_array = in_array[params.in_df.array_row_for_name(LPD_BAND_NAME), :, :]
-        deg_prod5 = lpd_array
+        deg_prod5 = in_array[params.in_df.array_row_for_name(LPD_BAND_NAME), :, :]
         # TODO: Below is temporary until missing data values are
         # fixed in LPD layer on GEE and missing data values are
         # fixed in LPD layer made by UNCCD for SIDS
@@ -1543,11 +1602,11 @@ def _process_block(
     deg_lc = in_array[params.in_df.array_row_for_name(LC_DEG_BAND_NAME), :, :]
 
     deg_sdg = calc_deg_sdg(deg_prod3, deg_lc, deg_soc)
-    write_arrays[1] = {
+    write_arrays.append({
         'array': deg_sdg,
         'xoff': xoff,
         'yoff': yoff
-    }
+    })
 
     ###########################################################
     # Tabulate SDG 15.3.1 indicator
@@ -1585,15 +1644,23 @@ def _process_block(
         pop_array_masked,
         mask
     )
+    pop_array[deg_sdg == -1] = -pop_array[deg_sdg == -1]
     # Save SO3 array
-    write_arrays[2] = {
-        'array': np.negative(pop_array, where=(deg_sdg == -1)),
+    write_arrays.append({
+        'array': pop_array,
         'xoff': xoff,
         'yoff': yoff
-    }
+    })
+
+    if params.prod_mode == 'Trends.Earth productivity':
+        write_arrays.append({
+            'array': deg_prod5,
+            'xoff': xoff,
+            'yoff': yoff
+        })
 
     return (
-        SummaryTableLDN(
+        SummaryTableLD(
             soc_by_lc_annual_totals,
             lc_annual_totals,
             lc_trans_zonal_areas,
@@ -1660,7 +1727,7 @@ class DegradationSummaryWorker(worker.AbstractWorker):
         # productivity bands
         driver = gdal.GetDriverByName("GTiff")
         dst_ds_deg = driver.Create(
-            self.params.prod_out_file,
+            self.params.out_file,
             xsize,
             ysize,
             n_out_bands,
@@ -1729,7 +1796,7 @@ class DegradationSummaryWorker(worker.AbstractWorker):
                 )
                 mask_array = mask_array == MASK_VALUE
 
-                result = _process_block(
+                result = _process_block_summary(
                     self.params,
                     src_array,
                     mask_array,
@@ -1740,8 +1807,8 @@ class DegradationSummaryWorker(worker.AbstractWorker):
 
                 out.append(result[0])
 
-                for key, value in result[1].items():
-                    dst_ds_deg.GetRasterBand(key).WriteArray(**value)
+                for band_num, data in enumerate(result[1], start=1):
+                    dst_ds_deg.GetRasterBand(band_num).WriteArray(**data)
 
                 n += 1
             if self.killed:
@@ -1750,20 +1817,20 @@ class DegradationSummaryWorker(worker.AbstractWorker):
             lat += pixel_height * win_ysize
 
         # pr.disable()
-        # pr.dump_stats('calculate_ldn_stats')
+        # pr.dump_stats('calculate_ld_stats')
 
         if self.killed:
             del dst_ds_deg
-            os.remove(self.params.prod_out_file)
+            os.remove(self.params.out_file)
             return None
         else:
             self.progress.emit(100)
-            return _accumulate_summary_tables(out)
+            return _accumulate_ld_summary_tables(out)
 
 
-def _render_ldn_workbook(
+def _render_ld_workbook(
     template_workbook,
-    summary_table: SummaryTableLDN,
+    summary_table: SummaryTableLD,
     lc_years: List[int],
     soc_years: List[int],
     lc_legend_nesting: land_cover.LCLegendNesting,
@@ -1812,14 +1879,13 @@ def _calculate_summary_table(
         period_name: str,
         periods: dict
 ) -> Tuple[
-    Optional[SummaryTableLDN],
+    Optional[SummaryTableLD],
     str
 ]:
     # build vrt
     # Combines SDG 15.3.1 input raster into a VRT and crop to the AOI
     indic_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
     log(u'Saving indicator VRT to: {}'.format(indic_vrt))
-    # The plus one is because band numbers start at 1, not zero
     gdal.BuildVRT(
         indic_vrt,
         [item.path for item in in_dfs],
@@ -1864,7 +1930,7 @@ def _calculate_summary_table(
                 DegradationSummaryWorkerParams(
                     in_df=in_df,
                     prod_mode=prod_mode,
-                    prod_out_file=str(output_sdg_path),
+                    out_file=str(output_sdg_path),
                     mask_file=mask_vrt,
                     nesting=lc_legend_nesting,
                     trans_matrix=lc_trans_matrix,
@@ -1892,7 +1958,7 @@ def _calculate_summary_table(
     return result, error_message
 
 
-def _compute_ldn_summary_table(
+def _compute_ld_summary_table(
     wkt_aois,
     in_dfs,
     compute_bbs_from,
@@ -1902,7 +1968,7 @@ def _compute_ldn_summary_table(
     lc_trans_matrix: land_cover.LCTransitionDefinitionDeg,
     period_name: str,
     periods: dict
-) -> Tuple[SummaryTableLDN, Path, Path]:
+) -> Tuple[SummaryTableLD, Path, Path]:
     """Computes summary table and the output tif file(s)"""
     bbs = areaofinterest.get_aligned_output_bounds(
         compute_bbs_from,
@@ -1966,7 +2032,7 @@ def _compute_ldn_summary_table(
         else:
             summary_tables.append(result)
 
-    summary_table = _accumulate_summary_tables(summary_tables)
+    summary_table = _accumulate_ld_summary_tables(summary_tables)
 
     if len(reproj_paths) > 1:
         reproj_path = output_job_path.parent / f"{output_job_path.stem}_inputs.vrt"
@@ -1993,7 +2059,7 @@ def _get_summary_array(d):
     ])
 
 
-def _write_overview_sheet(sheet, summary_table: SummaryTableLDN):
+def _write_overview_sheet(sheet, summary_table: SummaryTableLD):
     summary.write_col_to_sheet(
         sheet,
         _get_summary_array(summary_table.sdg_summary),
@@ -2004,7 +2070,7 @@ def _write_overview_sheet(sheet, summary_table: SummaryTableLDN):
 
 def _write_productivity_sheet(
     sheet,
-    st: SummaryTableLDN,
+    st: SummaryTableLD,
     lc_trans_matrix: land_cover.LCTransitionDefinitionDeg
 ):
     summary.write_col_to_sheet(
@@ -2046,7 +2112,7 @@ def _write_productivity_sheet(
 
 def _write_soc_sheet(
     sheet,
-    st: SummaryTableLDN,
+    st: SummaryTableLD,
     lc_trans_matrix: land_cover.LCTransitionDefinitionDeg,
     period_name
 ):
@@ -2119,7 +2185,7 @@ def _write_soc_sheet(
 
 def _write_land_cover_sheet(
     sheet,
-    st: SummaryTableLDN,
+    st: SummaryTableLD,
     lc_trans_matrix: land_cover.LCTransitionDefinitionDeg,
     period_name
 ):
@@ -2145,7 +2211,7 @@ def _write_land_cover_sheet(
 
 def _write_population_sheet(
     sheet,
-    st: SummaryTableLDN,
+    st: SummaryTableLD,
     period_name
 ):
 

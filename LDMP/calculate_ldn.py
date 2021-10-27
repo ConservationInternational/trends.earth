@@ -79,8 +79,6 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.update_time_bounds_progress()
         self.toggle_lpd_options()
 
-        self.radio_te_prod.toggled.connect(self.update_time_bounds_baseline)
-        self.radio_te_prod.toggled.connect(self.update_time_bounds_progress)
         self.cb_jrc_baseline.currentIndexChanged.connect(self.update_time_bounds_baseline)
         self.cb_jrc_progress.currentIndexChanged.connect(self.update_time_bounds_progress)
 
@@ -100,6 +98,8 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self._finish_initialization()
 
     def toggle_lpd_options(self):
+        self.update_time_bounds_baseline()
+        self.update_time_bounds_progress()
         if self.radio_lpd_jrc.isChecked():
             self.label_lpd_warning.show()
             self.jrc_frame_baseline.show()
@@ -296,8 +296,12 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             }
 
             task_name = self.execution_name_le.text()
-            if period == 'progress':
-                task_name = f'{task_name} - progress'
+
+            if len(periods.items()) == 2:
+                if task_name:
+                    task_name = f'{task_name} - {period}'
+                else:
+                    task_name = f'{period}'
 
             payload.update({
                 'geojsons': geojsons,

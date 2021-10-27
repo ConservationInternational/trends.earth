@@ -47,6 +47,7 @@ def _run_lc(params, additional_years, logger):
         logger
     )
     lc.selectBands(['Land cover (degradation)',
+                    'Land cover transitions',
                     'Land cover (7 class)'])
     return lc
 

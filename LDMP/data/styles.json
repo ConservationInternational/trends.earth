@@ -372,6 +372,19 @@
             ]
         }
     },
+    "Productivity Degradation (comparison)": {
+        "title": "prod_deg_comp_title",
+        "ramp": {
+            "type": "categorical",
+            "shader": "exact",
+            "items": [
+                {"value": -32768, "color": "#000000", "label": "nodata"},
+                {"value": -1, "color": "#9b2779", "label": "prod_prog_comp_deg"},
+                {"value": 0, "color": "#ffffe0", "label": "prod_prog_comp_stable"},
+                {"value": 1, "color": "#006500", "label": "prod_prog_comp_imp"}
+            ]
+        }
+    },
     "SDG 15.3.1 Productivity Indicator": {
         "title": "sdg_prod_combined_title",
         "ramp": {

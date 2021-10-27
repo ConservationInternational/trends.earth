@@ -81,6 +81,14 @@ style_text_dict = {
 
     'prod_state_classes_title': tr_layers.tr(u'Productivity state classes ({year_initial}-{year_final})'),
 
+    # Productivity progress comparison (not the real progress taking into 
+    # account magnitude)
+    'prod_deg_comp_title': tr_layers.tr(u'Productivity degradation comparison ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})'),
+    'prod_deg_comp_deg': tr_layers.tr(u'Degradation'),
+    'prod_deg_comp_stable': tr_layers.tr(u'Stable'),
+    'prod_deg_comp_imp': tr_layers.tr(u'Improvement'),
+
+
     # Land cover
     'lc_deg_title': tr_layers.tr(u'Land cover degradation ({year_initial} to {year_final})'),
     'lc_deg_deg': tr_layers.tr(u'Degradation'),
@@ -147,7 +155,7 @@ style_text_dict = {
     'lpd_imp': tr_layers.tr(u'Increasing'),
 
     # SDG 15.3.1 indicator layer
-    'combined_sdg_title': tr_layers.tr(u'SDG 15.3.1 Indicator (Trends.Earth, {year_initial}-{year_final})'),
+    'combined_sdg_title': tr_layers.tr(u'SDG 15.3.1 Indicator ({year_initial}-{year_final})'),
     'combined_sdg_deg_deg': tr_layers.tr(u'Degradation'),
     'combined_sdg_deg_stable': tr_layers.tr(u'Stable'),
     'combined_sdg_deg_imp': tr_layers.tr(u'Improvement'),

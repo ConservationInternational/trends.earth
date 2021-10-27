@@ -81,6 +81,7 @@ MASK_VALUE = -32767
 
 SDG_BAND_NAME = "SDG 15.3.1 Indicator"
 PROGRESS_BAND_NAME = "SDG 15.3.1 (progress)"
+PROD_COMPARISON_BAND_NAME = "Productivity Degradation (comparison)"
 JRC_LPD_BAND_NAME = "Land Productivity Dynamics (from JRC)"
 TE_LPD_BAND_NAME = "Land Productivity Dynamics (from Trends.Earth)"
 TRAJ_BAND_NAME = "Productivity trajectory (significance)"
@@ -571,6 +572,141 @@ def _combine_data_files(
     )
 
 
+def _compute_progress_summary(
+    df,
+    prod_mode,
+    job_output_path,
+    wkt_aois,
+    baseline_period,
+    progress_period
+):
+    # Calculate progress summary
+    progress_vrt, progress_band_dict = _get_progress_summary_input_vrt(
+        df,
+        prod_mode
+    )
+
+    progress_name_pattern = {
+        1: f"{job_output_path.stem}" + "_progress.tif",
+        2: f"{job_output_path.stem}" + "_progress_{index}.tif"
+    }[len(wkt_aois)]
+    mask_name_fragment = {
+        1: "Generating mask for progress analysis",
+        2: "Generating mask for progress analysis (part {index} of 2)",
+    }[len(wkt_aois)]
+    summary_name_fragment = {
+        1: "Calculating progress summary table",
+        2: "Calculating progress summary table (part {index} of 2)",
+    }[len(wkt_aois)]
+
+    progress_summary_tables = []
+    progress_paths = []
+    error_message = None
+    for index, wkt_aoi in enumerate(wkt_aois, start=1):
+        mask_tif = tempfile.NamedTemporaryFile(suffix='.tif').name
+        log(f'Saving mask to {mask_tif}')
+        geojson = calculate.json_geom_to_geojson(
+            qgis.core.QgsGeometry.fromWkt(wkt_aoi).asJson())
+        mask_worker = worker.StartWorker(
+            calculate.MaskWorker,
+            str(job_output_path.parent / mask_name_fragment.format(index=index)),
+            mask_tif,
+            geojson,
+            str(progress_vrt)
+        )
+        if mask_worker.success:
+            progress_out_path = job_output_path.parent / progress_name_pattern.format(
+                index=index
+            )
+            progress_paths.append(progress_out_path)
+            log(f'Calculating progress summary table and saving layer to: {progress_out_path}')
+            deg_worker = worker.StartWorker(
+                DegradationSummaryWorker,
+                summary_name_fragment.format(index=index),
+                DegradationProgressSummaryWorkerParams(
+                    prod_mode=prod_mode,
+                    in_file=str(progress_vrt),
+                    out_file=str(progress_out_path),
+                    band_dict=progress_band_dict,
+                    model_band_number=1,
+                    n_out_bands=4,
+                    mask_file=mask_tif
+                ),
+                _process_block_progress
+            )
+            if not deg_worker.success:
+                if deg_worker.was_killed():
+                    error_message = "Cancelled calculation of progress summary table."
+                else:
+                    error_message = "Error calculating progress summary table."
+            else:
+                progress_summary_tables.append(_accumulate_ld_progress_summary_tables(deg_worker.get_return()))
+
+        else:
+            error_message = "Error creating mask."
+
+    if error_message:
+        log(error_message)
+        raise RuntimeError(f"Error calculating progress: {error_message}")
+
+    progress_summary_table = _accumulate_ld_progress_summary_tables(progress_summary_tables)
+    log(f'progress_summary_table: {progress_summary_table}')
+
+    if len(progress_paths) > 1:
+        progress_path = job_output_path.parent / f"{job_output_path.stem}_progress.vrt"
+        gdal.BuildVRT(str(progress_path), [str(p) for p in progress_paths])
+    else:
+        progress_path = progress_paths[0]
+
+    out_bands = [
+        models.JobBand(
+            name=PROGRESS_BAND_NAME,
+            no_data_value=NODATA_VALUE,
+            metadata={
+                'baseline_year_initial': baseline_period['year_initial'],
+                'baseline_year_final': baseline_period['year_final'],
+                'progress_year_initial': progress_period['year_initial'],
+                'progress_year_final': progress_period['year_final']
+            },
+            add_to_map=True,
+            activated=True
+        ),
+        models.JobBand(
+            name=PROD_COMPARISON_BAND_NAME,
+            no_data_value=NODATA_VALUE,
+            metadata={
+                'baseline_year_initial': baseline_period['year_initial'],
+                'baseline_year_final': baseline_period['year_final'],
+                'progress_year_initial': progress_period['year_initial'],
+                'progress_year_final': progress_period['year_final']
+            },
+            add_to_map=True,
+            activated=True
+        ),
+        models.JobBand(
+            name=LC_DEG_BAND_NAME,
+            no_data_value=NODATA_VALUE,
+            metadata={
+                'year_initial': baseline_period['year_initial'],
+                'year_final': progress_period['year_final']
+            },
+            add_to_map=True,
+            activated=True
+        ),
+        models.JobBand(
+            name=SOC_DEG_BAND_NAME,
+            no_data_value=NODATA_VALUE,
+            metadata={
+                'year_initial': baseline_period['year_initial'],
+                'year_final': progress_period['year_final']
+            },
+            add_to_map=True,
+            activated=True
+        )
+    ]
+    return progress_summary_table, DataFile(progress_path, out_bands)
+
+
 def compute_ldn(
         ldn_job: models.Job,
         area_of_interest: areaofinterest.AOI) -> models.Job:
@@ -732,99 +868,18 @@ def compute_ldn(
         _combine_all_bands_into_vrt(period_vrts, temp_overall_vrt)
         temp_df = _combine_data_files(temp_overall_vrt, period_dfs)
 
-        # Calculate progress summary
-        progress_vrt, progress_band_dict = _get_progress_summary_input_vrt(
+        progress_summary_table, progress_df = _compute_progress_summary(
             temp_df,
-            prod_mode
+            prod_mode,
+            job_output_path,
+            wkt_aois,
+            ldn_job.params.params['baseline']['period'],
+            ldn_job.params.params['progress']['period']
         )
-
-        progress_name_pattern = {
-            1: f"{job_output_path.stem}" + "_progress.tif",
-            2: f"{job_output_path.stem}" + "_progress_{index}.tif"
-        }[len(wkt_aois)]
-        mask_name_fragment = {
-            1: "Generating mask",
-            2: "Generating mask (part {index} of 2)",
-        }[len(wkt_aois)]
-        summary_name_fragment = {
-            1: "Calculating summary table",
-            2: "Calculating summary table (part {index} of 2)",
-        }[len(wkt_aois)]
-
-        progress_summary_tables = []
-        progress_paths = []
-        for index, wkt_aoi in enumerate(wkt_aois):
-            mask_tif = tempfile.NamedTemporaryFile(suffix='.tif').name
-            log(f'Saving mask to {mask_tif}')
-            geojson = calculate.json_geom_to_geojson(
-                qgis.core.QgsGeometry.fromWkt(wkt_aoi).asJson())
-            mask_worker = worker.StartWorker(
-                calculate.MaskWorker,
-                str(job_output_path.parent / mask_name_fragment.format(index=index)),
-                mask_tif,
-                geojson,
-                str(temp_df.path)
-            )
-            if mask_worker.success:
-                progress_out_path = job_output_path.parent / progress_name_pattern.format(
-                    index=index
-                )
-                progress_paths.append(progress_out_path)
-                log(f'Calculating progress summary table and saving layer to: {progress_out_path}')
-                deg_worker = worker.StartWorker(
-                    DegradationSummaryWorker,
-                    summary_name_fragment.format(index=index),
-                    DegradationProgressSummaryWorkerParams(
-                        prod_mode=prod_mode,
-                        in_file=str(progress_vrt),
-                        out_file=str(progress_out_path),
-                        band_dict=progress_band_dict,
-                        model_band_number=1,
-                        n_out_bands=4,
-                        mask_file=mask_tif
-                    ),
-                    _process_block_progress
-                )
-                if not deg_worker.success:
-                    if deg_worker.was_killed():
-                        error_message = "Cancelled calculation of progress summary table."
-                    else:
-                        error_message = "Error calculating progress summary table."
-                else:
-                    progress_summary_tables.append(_accumulate_ld_progress_summary_tables(deg_worker.get_return()))
-
-            else:
-                error_message = "Error creating mask."
-
-        if len(progress_summary_tables) == 0:
-            log(error_message)
-
-        progress_summary_table = _accumulate_ld_summary_tables(progress_summary_tables)
-        log(f'progress_summary_table: {progress_summary_table}')
-
-        if len(progress_paths) > 1:
-            progress_path = job_output_path.parent / f"{job_output_path.stem}_progress.vrt"
-            gdal.BuildVRT(str(progress_path), [str(p) for p in progress_paths])
-        else:
-            progress_path = progress_paths[0]
-
-        progress_band = models.JobBand(
-            name=PROGRESS_BAND_NAME,
-            no_data_value=NODATA_VALUE,
-            metadata={
-                'baseline_year_initial': ldn_job.params.params['baseline']['period']['year_initial'],
-                'baseline_year_final': ldn_job.params.params['baseline']['period']['year_final'],
-                'progress_year_initial': ldn_job.params.params['progress']['period']['year_initial'],
-                'progress_year_final': ldn_job.params.params['progress']['period']['year_final']
-            },
-            add_to_map=True,
-            activated=True
-        )
-        period_dfs.append(DataFile(progress_path, [progress_band]))
-        period_vrts.append(progress_path)
+        period_vrts.append(progress_df.path)
+        period_dfs.append(progress_df)
     else:
         progress_summary_table = None
-
 
     overall_vrt_path = job_output_path.parent / f"{job_output_path.stem}.vrt"
     _combine_all_bands_into_vrt(period_vrts, overall_vrt_path)
@@ -1267,12 +1322,11 @@ def save_reporting_json(
         # Land cover tables
         land_cover_years = period_params["layer_lc_years"]
 
+        ###
+        # LC transition cross tabs
         crosstab_lcs = []
         for lc_trans_zonal_areas, lc_trans_zonal_areas_period in zip(
                 st.lc_trans_zonal_areas, st.lc_trans_zonal_areas_periods):
-            log(f'processing lc_trans_zonal_areas {i} for {period_name}')
-            ###
-            # LC transition cross tab
             lc_by_transition_type = []
 
             for i, initial_class in enumerate(classes, start=1):
@@ -1428,41 +1482,43 @@ def save_reporting_json(
             affected_by_deg_summary
         ) 
 
-    land_condition_reports["integrated"] = reporting.LandConditionProgressReport(
-        sdg=reporting.AreaList(
-            'SDG Indicator 15.3.1 (progress since baseline)',
-            'sq km',
-            [reporting.Area('Improved', summary_table_progress.sdg_summary.get(1, 0.)),
-             reporting.Area('Stable', summary_table_progress.sdg_summary.get(0, 0.)),
-             reporting.Area('Degraded', summary_table_progress.sdg_summary.get(-1, 0.)),
-             reporting.Area('No data', summary_table_progress.sdg_summary.get(NODATA_VALUE, 0))]
-        ),
-        productivity=reporting.AreaList(
-            'Productivity (progress since baseline)',
-            'sq km',
-            [reporting.Area('Improved', summary_table_progress.prod_summary.get(1, 0.)),
-             reporting.Area('Stable', summary_table_progress.prod_summary.get(0, 0.)),
-             reporting.Area('Degraded', summary_table_progress.prod_summary.get(-1, 0.)),
-             reporting.Area('No data', summary_table_progress.prod_summary.get(NODATA_VALUE, 0))]
-        ),
-        land_cover=reporting.AreaList(
-            'Land cover (progress since baseline)',
-            'sq km',
-            [reporting.Area('Improved', summary_table_progress.lc_summary.get(1, 0.)),
-             reporting.Area('Stable', summary_table_progress.lc_summary.get(0, 0.)),
-             reporting.Area('Degraded', summary_table_progress.lc_summary.get(-1, 0.)),
-             reporting.Area('No data', summary_table_progress.lc_summary.get(NODATA_VALUE, 0))]
-        ),
-        soil_organic_carbon=reporting.AreaList(
-            'Soil organic carbon (progress since baseline)',
-            'sq km',
-            [reporting.Area('Improved', summary_table_progress.soc_summary.get(1, 0.)),
-             reporting.Area('Stable', summary_table_progress.soc_summary.get(0, 0.)),
-             reporting.Area('Degraded', summary_table_progress.soc_summary.get(-1, 0.)),
-             reporting.Area('No data', summary_table_progress.soc_summary.get(NODATA_VALUE, 0))]
-        )
 
-    ) 
+    if summary_table_progress:
+        land_condition_reports["integrated"] = reporting.LandConditionProgressReport(
+            sdg=reporting.AreaList(
+                'SDG Indicator 15.3.1 (progress since baseline)',
+                'sq km',
+                [reporting.Area('Improved', summary_table_progress.sdg_summary.get(1, 0.)),
+                 reporting.Area('Stable', summary_table_progress.sdg_summary.get(0, 0.)),
+                 reporting.Area('Degraded', summary_table_progress.sdg_summary.get(-1, 0.)),
+                 reporting.Area('No data', summary_table_progress.sdg_summary.get(NODATA_VALUE, 0))]
+            ),
+            productivity=reporting.AreaList(
+                'Productivity (progress since baseline)',
+                'sq km',
+                [reporting.Area('Improved', summary_table_progress.prod_summary.get(1, 0.)),
+                 reporting.Area('Stable', summary_table_progress.prod_summary.get(0, 0.)),
+                 reporting.Area('Degraded', summary_table_progress.prod_summary.get(-1, 0.)),
+                 reporting.Area('No data', summary_table_progress.prod_summary.get(NODATA_VALUE, 0))]
+            ),
+            land_cover=reporting.AreaList(
+                'Land cover (progress since baseline)',
+                'sq km',
+                [reporting.Area('Improved', summary_table_progress.lc_summary.get(1, 0.)),
+                 reporting.Area('Stable', summary_table_progress.lc_summary.get(0, 0.)),
+                 reporting.Area('Degraded', summary_table_progress.lc_summary.get(-1, 0.)),
+                 reporting.Area('No data', summary_table_progress.lc_summary.get(NODATA_VALUE, 0))]
+            ),
+            soil_organic_carbon=reporting.AreaList(
+                'Soil organic carbon (progress since baseline)',
+                'sq km',
+                [reporting.Area('Improved', summary_table_progress.soc_summary.get(1, 0.)),
+                 reporting.Area('Stable', summary_table_progress.soc_summary.get(0, 0.)),
+                 reporting.Area('Degraded', summary_table_progress.soc_summary.get(-1, 0.)),
+                 reporting.Area('No data', summary_table_progress.soc_summary.get(NODATA_VALUE, 0))]
+            )
+
+        ) 
 
     ##########################################################################
     # Format final JSON output
@@ -1565,8 +1621,8 @@ def _get_progress_summary_input_vrt(df, prod_mode):
         )
     ]
     soc_rows = sorted(soc_rows, key=lambda row: row[1])
-    soc_baseline_bandnum = soc_rows[0][0]
-    soc_progress_bandnum = soc_rows[1][0]
+    soc_initial_bandnum = soc_rows[0][0]
+    soc_final_bandnum = soc_rows[-1][0]
 
     df_band_list = [
         ('prod5_baseline_bandnum', prod5_baseline_bandnum),
@@ -1574,8 +1630,8 @@ def _get_progress_summary_input_vrt(df, prod_mode):
         ('lc_deg_baseline_bandnum', lc_deg_baseline_bandnum),
         ('lc_deg_progress_bandnum', lc_deg_progress_bandnum),
         ('lc_baseline_bandnum', lc_baseline_bandnum),
-        ('soc_baseline_bandnum', soc_baseline_bandnum),
-        ('soc_progress_bandnum', soc_progress_bandnum)
+        ('soc_initial_bandnum', soc_initial_bandnum),
+        ('soc_final_bandnum', soc_final_bandnum)
     ]
 
     band_vrts = [
@@ -1630,7 +1686,7 @@ def _process_block_progress(
     # Productivity - can use the productivity degradation calculation function 
     # to do the recoding, as it calculates transitions and recodes them 
     # according to a matrix
-    prod_deg_progress = calc_deg_lc(
+    deg_prod_progress = calc_deg_lc(
         in_array[params.band_dict['prod5_baseline_bandnum'] - 1, :, :],
         in_array[params.band_dict['prod5_progress_bandnum'] - 1, :, :],
         trans_code,
@@ -1638,42 +1694,42 @@ def _process_block_progress(
         10
     )
     prod_summary = zonal_total(
-        prod_deg_progress,
+        deg_prod_progress,
         cell_areas,
         mask
     )
 
     # LC
-    lc_deg_progress = calc_progress_lc(
+    deg_lc = calc_progress_lc(
         in_array[params.band_dict['lc_deg_progress_bandnum'] - 1, :, :],
         in_array[params.band_dict['lc_deg_progress_bandnum'] - 1, :, :]
     )
     lc_summary = zonal_total(
-        lc_deg_progress,
+        deg_lc,
         cell_areas,
         mask
     )
 
     # SOC
-    soc_initial = in_array[params.band_dict['soc_baseline_bandnum'] - 1, :, :]
-    soc_final = in_array[params.band_dict['soc_progress_bandnum'] - 1, :, :]
-    soc_pch = ((soc_final - soc_initial) / soc_initial) * 100
-
     water = in_array[params.band_dict['lc_baseline_bandnum'] - 1, :, :] == 7
     water = water.astype(bool, copy=False)
-    soc_deg_progress = recode_deg_soc(soc_pch, water)
+    deg_soc = calc_deg_soc(
+        in_array[params.band_dict['soc_initial_bandnum'] - 1, :, :],
+        in_array[params.band_dict['soc_final_bandnum'] - 1, :, :],
+        water
+    )
     
     soc_summary = zonal_total(
-        soc_deg_progress,
+        deg_soc,
         cell_areas,
         mask
     )
 
     # Summarize results
     deg_sdg = calc_deg_sdg(
-        prod_deg_progress,
-        lc_deg_progress,
-        soc_deg_progress
+        deg_prod_progress,
+        deg_soc,
+        deg_lc
     )
 
     sdg_summary = zonal_total(
@@ -1682,11 +1738,28 @@ def _process_block_progress(
         mask
     )
 
-    write_arrays = [{
-        'array': deg_sdg,
-        'xoff': xoff,
-        'yoff': yoff
-    }]
+    write_arrays = [
+        {
+            'array': deg_sdg,
+            'xoff': xoff,
+            'yoff': yoff
+        },
+        {
+            'array': deg_prod_progress,
+            'xoff': xoff,
+            'yoff': yoff
+        },
+        {
+            'array': deg_soc,
+            'xoff': xoff,
+            'yoff': yoff
+        },
+        {
+            'array': deg_lc,
+            'xoff': xoff,
+            'yoff': yoff
+        }
+    ]
 
     return (
         SummaryTableLDProgress(

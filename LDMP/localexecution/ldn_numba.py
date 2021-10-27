@@ -173,7 +173,7 @@ def recode_deg_soc(soc, water):
 @numba.jit(nopython=True)
 @cc.export('calc_deg_soc', 'i2[:,:](i2[:,:], i2[:,:], i2[:,:])')
 def calc_deg_soc(soc_bl, soc_tg, water):
-    '''recode SOC change layer from percent change into a categorical map'''
+    '''calculate SOC degradation from initial and final SOC'''
     # Degradation in terms of SOC is defined as a decline of more
     # than 10% (and improving increase greater than 10%)
     shp = soc_bl.shape

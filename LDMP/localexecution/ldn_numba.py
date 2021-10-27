@@ -67,6 +67,30 @@ def recode_state(x):
 
 
 @numba.jit(nopython=True)
+@cc.export('calc_progress_lc', 'i2[:,:](i2[:,:], i2[:,:])')
+def calc_progress_lc(initial, final):
+    # Coding of land cover layers are class codes from 1:7
+    #
+    # First need to calculate transitions, then recode them as deg, stable, 
+    # improved
+    #
+    # -32768: no data
+    shp = initial.shape
+    initial = initial.ravel()
+    final = final.ravel()
+    out = initial.copy()
+
+    # improvements on areas that were degraded at baseline -> stable
+    out[np.logical_or(initial == -1, final == 1)] = 0
+    # improvements on areas that were stable at baseline -> improved
+    out[np.logical_or(initial == 0, final == 1)] = 1
+    # degradation during progress -> degraded
+    out[final == -1] = -1
+
+    return np.reshape(out, shp)
+
+
+@numba.jit(nopython=True)
 @cc.export('calc_prod5', 'i2[:,:](i2[:,:], i2[:,:], i2[:,:])')
 def calc_prod5(traj, state, perf):
     # Coding of LPD (prod5)

@@ -559,37 +559,38 @@ class DlgCalculateLDNSummaryTableAdmin(
 
         return True
 
-    def validate_layer_crs(self, combo_boxes):
-        '''check all productivity layers have the same resolution and CRS'''
+    def validate_layer_crs(self, combo_boxes, prod_mode):
+        '''check all layers have the same resolution and CRS'''
         def res(layer):
             return (
                 round(layer.rasterUnitsPerPixelX(), 10),
                 round(layer.rasterUnitsPerPixelY(), 10)
             )
 
-        if res(combo_boxes.combo_layer_traj.get_layer()) != res(combo_boxes.combo_layer_state.get_layer()):
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Resolutions of trajectory layer and state layer do not match."))
+        if prod_mode == 'Trends.Earth productivity':
+            if res(combo_boxes.combo_layer_traj.get_layer()) != res(combo_boxes.combo_layer_state.get_layer()):
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr("Resolutions of trajectory layer and state layer do not match."))
 
-            return False
+                return False
 
-        if res(combo_boxes.combo_layer_traj.get_layer()) != res(combo_boxes.combo_layer_perf.get_layer()):
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Resolutions of trajectory layer and performance layer do not match."))
+            if res(combo_boxes.combo_layer_traj.get_layer()) != res(combo_boxes.combo_layer_perf.get_layer()):
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr("Resolutions of trajectory layer and performance layer do not match."))
 
-            return False
+                return False
 
-        if combo_boxes.combo_layer_traj.get_layer().crs() != combo_boxes.combo_layer_state.get_layer().crs():
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Coordinate systems of trajectory layer and state layer do not match."))
+            if combo_boxes.combo_layer_traj.get_layer().crs() != combo_boxes.combo_layer_state.get_layer().crs():
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr("Coordinate systems of trajectory layer and state layer do not match."))
 
-            return False
+                return False
 
-        if combo_boxes.combo_layer_traj.get_layer().crs() != combo_boxes.combo_layer_perf.get_layer().crs():
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Coordinate systems of trajectory layer and performance layer do not match."))
+            if combo_boxes.combo_layer_traj.get_layer().crs() != combo_boxes.combo_layer_perf.get_layer().crs():
+                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
+                                           self.tr("Coordinate systems of trajectory layer and performance layer do not match."))
 
-            return False
+                return False
 
         return True
 
@@ -616,7 +617,8 @@ class DlgCalculateLDNSummaryTableAdmin(
                 self.combo_boxes['baseline'],
                 prod_mode) or
             not self.validate_layer_crs(
-                self.combo_boxes['baseline']) or
+                self.combo_boxes['baseline'],
+                prod_mode) or
             not self.validate_layer_extents(
                 self.combo_boxes['baseline'],
                 prod_mode)
@@ -649,7 +651,8 @@ class DlgCalculateLDNSummaryTableAdmin(
                     self.combo_boxes['progress'],
                     prod_mode) or
                 not self.validate_layer_crs(
-                    self.combo_boxes['progress']) or
+                    self.combo_boxes['progress'],
+                    prod_mode) or
                 not self.validate_layer_extents(
                     self.combo_boxes['progress'],
                     prod_mode)

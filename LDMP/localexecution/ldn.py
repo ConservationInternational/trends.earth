@@ -11,6 +11,7 @@ from typing import (
     List,
     Dict,
     Tuple,
+    Union,
     Optional
 )
 from pathlib import Path
@@ -78,15 +79,19 @@ import marshmallow_dataclass
 NODATA_VALUE = -32768
 MASK_VALUE = -32767
 
+SDG_BAND_NAME = "SDG 15.3.1 Indicator"
+PROGRESS_BAND_NAME = "SDG 15.3.1 (progress)"
+JRC_LPD_BAND_NAME = "Land Productivity Dynamics (from JRC)"
+TE_LPD_BAND_NAME = "Land Productivity Dynamics (from Trends.Earth)"
 TRAJ_BAND_NAME = "Productivity trajectory (significance)"
 PERF_BAND_NAME = "Productivity performance (degradation)"
 STATE_BAND_NAME = "Productivity state (degradation)"
-LPD_BAND_NAME = "Land Productivity Dynamics (from JRC)"
 LC_DEG_BAND_NAME = "Land cover (degradation)"
 LC_BAND_NAME = "Land cover (7 class)"
 SOC_DEG_BAND_NAME = "Soil organic carbon (degradation)"
 SOC_BAND_NAME = "Soil organic carbon"
 POPULATION_BAND_NAME = "Population (density, persons per sq km / 10)"
+POP_AFFECTED_BAND_NAME = "Population affected by degradation (density, persons per sq km / 10)"
 
 
 class LdnProductivityMode(enum.Enum):
@@ -548,12 +553,13 @@ def compute_ldn(
     period_dfs = []
     period_vrts = []
 
+    _, wkt_aois = area_of_interest.meridian_split("layer", "wkt", warn=False)
+
     for period_name, period_params in ldn_job.params.params.items():
         lc_dfs = _prepare_land_cover_dfs(period_params)
         soc_dfs = _prepare_soil_organic_carbon_dfs(period_params)
         population_df = _prepare_population_df(period_params)
         sub_job_output_path = job_output_path.parent / f"{job_output_path.stem}_{period_name}.json"
-        _, wkt_aois = area_of_interest.meridian_split("layer", "wkt", warn=False)
         prod_mode = period_params["prod_mode"]
 
         period_params["layer_lc_deg_band"]["metadata"]['nesting']
@@ -617,7 +623,7 @@ def compute_ldn(
         summary_tables[period_name] = summary_table
 
         sdg_band = models.JobBand(
-            name="SDG 15.3.1 Indicator",
+            name=SDG_BAND_NAME,
             no_data_value=NODATA_VALUE,
             metadata={
                 'year_initial': period_params['period']['year_initial'],
@@ -628,7 +634,7 @@ def compute_ldn(
         sdg_df = DataFile(sdg_path, [sdg_band])
 
         so3_band = models.JobBand(
-            name="Population affected by degradation (density, persons per sq km / 10)",
+            name=POP_AFFECTED_BAND_NAME,
             no_data_value=NODATA_VALUE,
             metadata={
                 'population_year': period_params['periods']['productivity']['year_final'],
@@ -641,7 +647,7 @@ def compute_ldn(
 
         if prod_mode == LdnProductivityMode.TRENDS_EARTH.value:
             prod_band = models.JobBand(
-                name="SDG 15.3.1 Productivity Indicator",
+                name=TE_LPD_BAND_NAME,
                 no_data_value=NODATA_VALUE,
                 metadata={
                     'year_initial': period_params['periods']['productivity']['year_initial'],
@@ -674,6 +680,7 @@ def compute_ldn(
         save_summary_table_excel(
             summary_table_output_path,
             summary_table,
+            period_params["periods"],
             period_params["layer_lc_years"],
             period_params["layer_soc_years"],
             summary_table_stable_kwargs[period_name]['lc_legend_nesting'],
@@ -685,9 +692,111 @@ def compute_ldn(
             summary_table_output_path
         )
 
+    if len(ldn_job.params.params.items()) == 2:
+        # Make temporary combined VRT and DataFile just for the progress 
+        # calculations. Don't save these in the output folder as at end of this 
+        # process all the DFs will be combined and referenced to a VRT in that 
+        # folder
+        temp_overall_vrt = Path(tempfile.NamedTemporaryFile(suffix='.vrt').name)
+        _combine_all_bands_into_vrt(period_vrts, temp_overall_vrt)
+        temp_df = _combine_data_files(temp_overall_vrt, period_dfs)
+
+        # Calculate progress summary
+        progress_vrt, progress_band_dict = _get_progress_summary_input_vrt(
+            temp_df,
+            prod_mode
+        )
+
+        progress_name_pattern = {
+            1: f"{job_output_path.stem}" + "_progress.tif",
+            2: f"{job_output_path.stem}" + "_progress_{index}.tif"
+        }[len(wkt_aois)]
+        mask_name_fragment = {
+            1: "Generating mask",
+            2: "Generating mask (part {index} of 2)",
+        }[len(wkt_aois)]
+        summary_name_fragment = {
+            1: "Calculating summary table",
+            2: "Calculating summary table (part {index} of 2)",
+        }[len(wkt_aois)]
+
+        progress_summary_tables = []
+        progress_paths = []
+        for index, wkt_aoi in enumerate(wkt_aois):
+            mask_tif = tempfile.NamedTemporaryFile(suffix='.tif').name
+            log(f'Saving mask to {mask_tif}')
+            geojson = calculate.json_geom_to_geojson(
+                qgis.core.QgsGeometry.fromWkt(wkt_aoi).asJson())
+            mask_worker = worker.StartWorker(
+                calculate.MaskWorker,
+                str(job_output_path.parent / mask_name_fragment.format(index=index)),
+                mask_tif,
+                geojson,
+                str(temp_df.path)
+            )
+            if mask_worker.success:
+                progress_out_path = job_output_path.parent / progress_name_pattern.format(
+                    index=index
+                )
+                progress_paths.append(progress_out_path)
+                log(f'Calculating progress summary table and saving layer to: {progress_out_path}')
+                deg_worker = worker.StartWorker(
+                    DegradationSummaryWorker,
+                    summary_name_fragment.format(index=index),
+                    DegradationProgressSummaryWorkerParams(
+                        prod_mode=prod_mode,
+                        in_file=str(progress_vrt),
+                        out_file=str(progress_out_path),
+                        band_dict=progress_band_dict,
+                        model_band_number=1,
+                        n_out_bands=4,
+                        mask_file=mask_tif
+                    ),
+                    _process_block_progress
+                )
+                if not deg_worker.success:
+                    if deg_worker.was_killed():
+                        error_message = "Cancelled calculation of progress summary table."
+                    else:
+                        error_message = "Error calculating progress summary table."
+                else:
+                    progress_summary_tables.append(_accumulate_ld_progress_summary_tables(deg_worker.get_return()))
+
+            else:
+                error_message = "Error creating mask."
+
+        if len(progress_summary_tables) == 0:
+            log(error_message)
+
+        progress_summary_table = _accumulate_ld_summary_tables(progress_summary_tables)
+        log(f'progress_summary_table: {progress_summary_table}')
+
+        if len(progress_paths) > 1:
+            progress_path = job_output_path.parent / f"{job_output_path.stem}_progress.vrt"
+            gdal.BuildVRT(str(progress_path), [str(p) for p in progress_paths])
+        else:
+            progress_path = progress_paths[0]
+
+        progress_band = models.JobBand(
+            name=PROGRESS_BAND_NAME,
+            no_data_value=NODATA_VALUE,
+            metadata={
+                'baseline_year_initial': ldn_job.params.params['baseline']['period']['year_initial'],
+                'baseline_year_final': ldn_job.params.params['baseline']['period']['year_final'],
+                'progress_year_initial': ldn_job.params.params['progress']['period']['year_initial'],
+                'progress_year_final': ldn_job.params.params['progress']['period']['year_final']
+            },
+            add_to_map=True,
+            activated=True
+        )
+        period_dfs.append(DataFile(progress_path, [progress_band]))
+        period_vrts.append(progress_path)
+
+
     overall_vrt_path = job_output_path.parent / f"{job_output_path.stem}.vrt"
     _combine_all_bands_into_vrt(period_vrts, overall_vrt_path)
-    out_df = _combine_data_files(overall_vrt_path.name, period_dfs)
+    out_df = _combine_data_files(overall_vrt_path, period_dfs)
+    out_df.path = overall_vrt_path.name
 
     ldn_job.results.data_path = overall_vrt_path
     ldn_job.results.bands.extend(out_df.bands)
@@ -696,7 +805,6 @@ def compute_ldn(
     key_json = job_output_path.parent / f"{job_output_path.stem}_band_key.json"
     with open(key_json, 'w') as f:
         json.dump(DataFile.Schema().dump(out_df), f, indent=4)
-
 
     summary_json_output_path = job_output_path.parent / f"{job_output_path.stem}_summary.json"
     save_reporting_json(
@@ -975,6 +1083,7 @@ def _compute_summary_table_from_lpd_prod(
 def save_summary_table_excel(
         output_path: Path,
         summary_table: SummaryTableLD,
+        periods,
         land_cover_years: List[int],
         soil_organic_carbon_years: List[int],
         lc_legend_nesting: land_cover.LCLegendNesting,
@@ -988,6 +1097,7 @@ def save_summary_table_excel(
     _render_ld_workbook(
         workbook,
         summary_table,
+        periods,
         land_cover_years,
         soil_organic_carbon_years,
         lc_legend_nesting,
@@ -1113,9 +1223,9 @@ def save_reporting_json(
         # Land cover tables
         land_cover_years = period_params["layer_lc_years"]
 
-        n = 0
         crosstab_lcs = []
-        for lc_trans_zonal_areas in st.lc_trans_zonal_areas:
+        for lc_trans_zonal_areas, lc_trans_zonal_areas_period in zip(
+                st.lc_trans_zonal_areas, st.lc_trans_zonal_areas_periods):
             log(f'processing lc_trans_zonal_areas {i} for {period_name}')
             ###
             # LC transition cross tab
@@ -1136,23 +1246,15 @@ def save_reporting_json(
                 key=lambda i: i.value,
                 reverse=True
             )
-            # TODO: VERY hackish, fix this after default data generation (years 
-            # should be carried with the data)
-            if n == 0:
-                initial_lc_year = period_params['layer_lc_deg_years']['year_initial']
-            else:
-                # TODO: Fix to use actual years
-                initial_lc_year = int(land_cover_years[-4])
             crosstab_lc = reporting.CrossTab(
                 name='Land area by land cover transition type',
                 unit='sq km',
-                initial_year=initial_lc_year,
-                final_year=int(land_cover_years[-1]),
+                initial_year=lc_trans_zonal_areas_period['year_initial'],
+                final_year=lc_trans_zonal_areas_period['year_initial'],
                 # TODO: Check indexing as may be missing a class
                 values=lc_by_transition_type
             )
             crosstab_lcs.append(crosstab_lc)
-            n += 1
 
         ###
         # LC by year
@@ -1198,30 +1300,19 @@ def save_reporting_json(
                         )
                     )
                 )
-        # TODO: VERY hackish, fix this after default data generation (years 
-        # should be carried with the data)
-        if period_name == 'baseline':
-            initial_soc_year = int(soil_organic_carbon_years[0])
-        else:
-            # TODO: Fix to use actual years
-            initial_soc_year = int(soil_organic_carbon_years[-4])
+        initial_soc_year = period_params['layer_soc_deg_years']['year_initial']
+        final_soc_year = period_params['layer_soc_deg_years']['year_final']
         crosstab_soc_by_transition_per_ha = reporting.CrossTab(
             name='Initial and final carbon stock by transition type',
             unit='tons',
             initial_year=initial_soc_year,
-            final_year=soil_organic_carbon_years[-1],
+            final_year=final_soc_year,
             values=soc_by_transition
         )
 
         ###
         # SOC by year by land cover class
         soc_by_year = {}
-
-        # TODO: VERY hackish, fix this after default data generation (years 
-        # should be carried with the data)
-        if period_name == 'progress':
-            # TODO: Fix to use actual years
-            soil_organic_carbon_years = soil_organic_carbon_years[-4:]
         for year_num, year in enumerate(soil_organic_carbon_years):
             soc_by_year[int(year)] = {
                 lc_class: st.soc_by_lc_annual_totals[year_num].get(i, 0.)
@@ -1344,12 +1435,94 @@ def save_reporting_json(
         return False
 
 
+def _get_progress_summary_input_vrt(df, prod_mode):
+    if prod_mode == 'Trends.Earth productivity':
+        prod5_rows = [
+            (row, band) for row, band in zip(
+                df.array_rows_for_name(TE_LPD_BAND_NAME),
+                df.metadata_for_name(TE_LPD_BAND_NAME, 'year_initial')
+            )
+        ]
+    else:
+        prod5_rows = [
+            (row, band) for row, band in zip(
+                df.array_rows_for_name(JRC_LPD_BAND_NAME),
+                df.metadata_for_name(JRC_LPD_BAND_NAME, 'year_initial')
+            )
+        ]
+    prod5_rows = sorted(prod5_rows, key=lambda row: row[1])
+    assert len(prod5_rows) == 2
+    prod5_baseline_bandnum = prod5_rows[0][0]
+    prod5_progress_bandnum = prod5_rows[1][0]
+
+    lc_deg_rows = [
+        (row, band) for row, band in zip(
+            df.array_rows_for_name(LC_DEG_BAND_NAME),
+            df.metadata_for_name(LC_DEG_BAND_NAME, 'year_initial')
+        )
+    ]
+    lc_deg_rows = sorted(lc_deg_rows, key=lambda row: row[1])
+    assert len(lc_deg_rows) == 2
+    lc_deg_baseline_bandnum = lc_deg_rows[0][0]
+    lc_deg_progress_bandnum = lc_deg_rows[1][0]
+
+    lc_bands = [
+        (band, year) for band, year in
+        zip(
+            df.array_rows_for_name(LC_BAND_NAME),
+            df.metadata_for_name(LC_BAND_NAME, 'year')
+        )
+    ]
+    lc_baseline_bandnum = [
+        row + 1 for row, year in lc_bands
+        if year == lc_deg_rows[0][1]
+    ][0]
+
+    soc_rows = [
+        (row, band) for row, band in zip(
+            df.array_rows_for_name(SOC_BAND_NAME),
+            df.metadata_for_name(SOC_BAND_NAME, 'year')
+        )
+    ]
+    soc_rows = sorted(soc_rows, key=lambda row: row[1])
+    soc_baseline_bandnum = soc_rows[0][0]
+    soc_progress_bandnum = soc_rows[1][0]
+
+    df_band_list = [
+        ('prod5_baseline_bandnum', prod5_baseline_bandnum),
+        ('prod5_progress_bandnum', prod5_progress_bandnum),
+        ('lc_deg_baseline_bandnum', lc_deg_baseline_bandnum),
+        ('lc_deg_progress_bandnum', lc_deg_progress_bandnum),
+        ('lc_baseline_bandnum', lc_baseline_bandnum),
+        ('soc_baseline_bandnum', soc_baseline_bandnum),
+        ('soc_progress_bandnum', soc_progress_bandnum)
+    ]
+
+    band_vrts = [
+        utils.save_vrt(df.path, band_num) for name, band_num in df_band_list
+    ]
+    out_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
+    gdal.BuildVRT(
+        out_vrt,
+        [vrt for vrt in band_vrts],
+        separate=True
+    )
+    vrt_band_dict = {
+        item[0]: index for index, item in enumerate(df_band_list, start=1)
+    }
+
+    return out_vrt, vrt_band_dict
+
+
 @dataclasses.dataclass()
 class DegradationProgressSummaryWorkerParams(SchemaBase):
-    in_df: DataFile
     prod_mode: str
+    in_file: str
     out_file: str
-    periods: dict
+    band_dict: dict
+    model_band_number: int
+    n_out_bands: int
+    mask_file: str
 
 
 def _process_block_progress(
@@ -1359,16 +1532,101 @@ def _process_block_progress(
     xoff: int,
     yoff: int,
     cell_areas_raw
-) -> Tuple[SummaryTableLD, Dict]:
+) -> Tuple[SummaryTableLDProgress, Dict]:
 
-    pass
+    cell_areas = np.repeat(cell_areas_raw, mask.shape[1], axis=1).astype(np.float64)
+
+    trans_code = [11, 12, 13, 14, 15,
+                  21, 22, 23, 24, 25,
+                  31, 32, 33, 34, 35,
+                  41, 42, 43, 44, 45,
+                  51, 52, 53, 54, 55]
+    trans_meaning = [-1, -1, 0, 1, 1,
+                     -1, -1, 0, 1, 1,
+                     -1, -1, 0, 0, 1,
+                     -1, -1, 0, 0, 1,
+                     -1, -1, 0, 0, 1]
+
+    # Productivity - can use the productivity degradation calculation function 
+    # to do the recoding, as it calculates transitions and recodes them 
+    # according to a matrix
+    prod_deg_progress = calc_deg_lc(
+        in_array[params.band_dict['prod5_baseline_bandnum'] - 1, :, :],
+        in_array[params.band_dict['prod5_progress_bandnum'] - 1, :, :],
+        trans_code,
+        trans_meaning,
+        10
+    )
+    prod_summary = zonal_total(
+        prod_deg_progress,
+        cell_areas,
+        mask
+    )
+
+    # LC
+    lc_deg_progress = calc_progress_lc(
+        in_array[params.band_dict['lc_deg_progress_bandnum'] - 1, :, :],
+        in_array[params.band_dict['lc_deg_progress_bandnum'] - 1, :, :]
+    )
+    lc_summary = zonal_total(
+        lc_deg_progress,
+        cell_areas,
+        mask
+    )
+
+    # SOC
+    soc_initial = in_array[params.band_dict['soc_baseline_bandnum'] - 1, :, :]
+    soc_final = in_array[params.band_dict['soc_progress_bandnum'] - 1, :, :]
+    soc_pch = ((soc_final - soc_initial) / soc_initial) * 100
+
+    water = in_array[params.band_dict['lc_baseline_bandnum'] - 1, :, :] == 7
+    water = water.astype(bool, copy=False)
+    soc_deg_progress = recode_deg_soc(soc_pch, water)
+    
+    soc_summary = zonal_total(
+        soc_deg_progress,
+        cell_areas,
+        mask
+    )
+
+    # Summarize results
+    deg_sdg = calc_deg_sdg(
+        prod_deg_progress,
+        lc_deg_progress,
+        soc_deg_progress
+    )
+
+    sdg_summary = zonal_total(
+        deg_sdg,
+        cell_areas,
+        mask
+    )
+
+    write_arrays = [{
+        'array': deg_sdg,
+        'xoff': xoff,
+        'yoff': yoff
+    }]
+
+    return (
+        SummaryTableLDProgress(
+            sdg_summary,
+            prod_summary,
+            soc_summary,
+            lc_summary
+        ),
+        write_arrays
+    )
 
 
 @dataclasses.dataclass()
 class DegradationSummaryWorkerParams(SchemaBase):
     in_df: DataFile
     prod_mode: str
+    in_file: str
     out_file: str
+    model_band_number: int
+    n_out_bands: int
     mask_file: str
     nesting: land_cover.LCLegendNesting
     trans_matrix: land_cover.LCTransitionDefinitionDeg
@@ -1430,7 +1688,7 @@ def _process_block_summary(
         )
 
     else:
-        deg_prod5 = in_array[params.in_df.array_row_for_name(LPD_BAND_NAME), :, :]
+        deg_prod5 = in_array[params.in_df.array_row_for_name(JRC_LPD_BAND_NAME), :, :]
         # TODO: Below is temporary until missing data values are
         # fixed in LPD layer on GEE and missing data values are
         # fixed in LPD layer made by UNCCD for SIDS
@@ -1681,12 +1939,17 @@ def _process_block_summary(
 class DegradationSummaryWorker(worker.AbstractWorker):
     def __init__(
         self,
-        params: DegradationSummaryWorkerParams
+        params: Union[
+            DegradationSummaryWorkerParams,
+            DegradationProgressSummaryWorkerParams
+        ],
+        processing_function
     ):
 
         worker.AbstractWorker.__init__(self)
 
         self.params = params
+        self.processing_function = processing_function
 
     def work(self):
         self.toggle_show_progress.emit(True)
@@ -1695,30 +1958,12 @@ class DegradationSummaryWorker(worker.AbstractWorker):
         mask_ds = gdal.Open(self.params.mask_file)
         band_mask = mask_ds.GetRasterBand(1)
 
-        src_ds = gdal.Open(str(self.params.in_df.path))
+        src_ds = gdal.Open(str(self.params.in_file))
 
-        # Have at least 2 output bands (one for SDG, and one for SO3)
-        n_out_bands = 2
-        if self.params.prod_mode == 'Trends.Earth productivity':
-            traj_band = src_ds.GetRasterBand(
-                self.params.in_df.array_row_for_name(TRAJ_BAND_NAME) + 1
-            )
-            block_sizes = traj_band.GetBlockSize()
-            xsize = traj_band.XSize
-            ysize = traj_band.YSize
-            # Save the combined productivity indicator as well, in the second
-            # layer in the deg file
-            n_out_bands += 1
-        else:
-            lpd_band = src_ds.GetRasterBand(
-                self.params.in_df.array_row_for_name(LPD_BAND_NAME) + 1
-            )
-            band_lc_deg = src_ds.GetRasterBand(
-                self.params.in_df.array_row_for_name(LC_DEG_BAND_NAME) + 1
-            )
-            block_sizes = band_lc_deg.GetBlockSize()
-            xsize = band_lc_deg.XSize
-            ysize = band_lc_deg.YSize
+        model_band = src_ds.GetRasterBand(self.params.model_band_number)
+        block_sizes = model_band.GetBlockSize()
+        xsize = model_band.XSize
+        ysize = model_band.YSize
 
         x_block_size = block_sizes[0]
         y_block_size = block_sizes[1]
@@ -1730,8 +1975,9 @@ class DegradationSummaryWorker(worker.AbstractWorker):
             self.params.out_file,
             xsize,
             ysize,
-            n_out_bands,
-            gdal.GDT_Int16, options=['COMPRESS=LZW']
+            self.params.n_out_bands,
+            gdal.GDT_Int16,
+            options=['COMPRESS=LZW']
         )
         src_gt = src_ds.GetGeoTransform()
         dst_ds_deg.SetGeoTransform(src_gt)
@@ -1796,7 +2042,7 @@ class DegradationSummaryWorker(worker.AbstractWorker):
                 )
                 mask_array = mask_array == MASK_VALUE
 
-                result = _process_block_summary(
+                result = self.processing_function(
                     self.params,
                     src_array,
                     mask_array,
@@ -1825,12 +2071,13 @@ class DegradationSummaryWorker(worker.AbstractWorker):
             return None
         else:
             self.progress.emit(100)
-            return _accumulate_ld_summary_tables(out)
+            return out
 
 
 def _render_ld_workbook(
     template_workbook,
     summary_table: SummaryTableLD,
+    periods,
     lc_years: List[int],
     soc_years: List[int],
     lc_legend_nesting: land_cover.LCLegendNesting,
@@ -1847,18 +2094,16 @@ def _render_ld_workbook(
         template_workbook["Soil organic carbon"],
         summary_table,
         lc_trans_matrix,
-        period_name
     )
     _write_land_cover_sheet(
         template_workbook["Land cover"],
         summary_table,
         lc_trans_matrix,
-        period_name
+        periods['land_cover']
     )
     _write_population_sheet(
         template_workbook["Population"],
-        summary_table,
-        period_name
+        summary_table
     )
 
     return template_workbook
@@ -1908,44 +2153,56 @@ def _calculate_summary_table(
         # mask out areas outside of the AOI. Do this instead of using
         # gdal.Clip to save having to clip and rewrite all of the layers in
         # the VRT
-        mask_vrt = tempfile.NamedTemporaryFile(suffix='.tif').name
-        log(u'Saving mask to {}'.format(mask_vrt))
+        mask_tif = tempfile.NamedTemporaryFile(suffix='.tif').name
+        log(u'Saving mask to {}'.format(mask_tif))
         geojson = calculate.json_geom_to_geojson(
             qgis.core.QgsGeometry.fromWkt(bbox).asJson())
         mask_worker = worker.StartWorker(
             calculate.MaskWorker,
             mask_worker_process_name,
-            mask_vrt,
+            mask_tif,
             geojson,
             str(output_layers_path)
         )
         if mask_worker.success:
             in_df = _combine_data_files(output_layers_path, in_dfs)
-            ######################################################################
-            #  Calculate SDG 15.3.1 layers
+
+            n_out_bands = 2
+            if prod_mode == 'Trends.Earth productivity':
+                model_band_number = in_df.array_row_for_name(TRAJ_BAND_NAME) + 1
+                # Save the combined productivity indicator as well, in the 
+                # second layer in the deg file
+                n_out_bands += 1
+            else:
+                model_band_number = in_df.array_row_for_name(LC_DEG_BAND_NAME) + 1
+
             log(u'Calculating summary table and saving SDG to: {}'.format(output_sdg_path))
             deg_worker = worker.StartWorker(
                 DegradationSummaryWorker,
                 deg_worker_process_name,
                 DegradationSummaryWorkerParams(
                     in_df=in_df,
+                    in_file=in_df.path,
                     prod_mode=prod_mode,
                     out_file=str(output_sdg_path),
-                    mask_file=mask_vrt,
+                    model_band_number=model_band_number,
+                    n_out_bands=n_out_bands,
+                    mask_file=mask_tif,
                     nesting=lc_legend_nesting,
                     trans_matrix=lc_trans_matrix,
                     period_name=period_name,
                     periods=periods
-                )
+                ),
+                _process_block_summary
             )
             if not deg_worker.success:
                 if deg_worker.was_killed():
                     error_message = "Cancelled calculation of summary table."
                 else:
-                    error_message = "Error calculating SDG 15.3.1 summary table."
+                    error_message = "Error calculating degradation summary table."
                 result = None
             else:
-                result = deg_worker.get_return()
+                result = _accumulate_ld_summary_tables(deg_worker.get_return())
 
         else:
             error_message = "Error creating mask."
@@ -1987,7 +2244,7 @@ def _compute_ld_summary_table(
         1: "Generating mask",
         2: "Generating mask (part {index} of 2)",
     }[len(wkt_aois)]
-    deg_name_fragment = {
+    summary_name_fragment = {
         1: "Calculating summary table",
         2: "Calculating summary table (part {index} of 2)",
     }[len(wkt_aois)]
@@ -2016,7 +2273,6 @@ def _compute_ld_summary_table(
         )
         reproj_paths.append(reproj_path)
 
-        log('pixel_aligned_bbox: {pixel_aligned_bbox}')
         result, error_message = _calculate_summary_table(
             bbox=wkt_bounding_box,
             pixel_aligned_bbox=pixel_aligned_bbox,
@@ -2024,7 +2280,7 @@ def _compute_ld_summary_table(
             output_layers_path=reproj_path,
             reproject_worker_process_name=reproject_name_fragment.format(index=index),
             mask_worker_process_name=mask_name_fragment.format(index=index),
-            deg_worker_process_name=deg_name_fragment.format(index=index),
+            deg_worker_process_name=summary_name_fragment.format(index=index),
             **stable_kwargs
         )
         if result is None:
@@ -2113,8 +2369,7 @@ def _write_productivity_sheet(
 def _write_soc_sheet(
     sheet,
     st: SummaryTableLD,
-    lc_trans_matrix: land_cover.LCTransitionDefinitionDeg,
-    period_name
+    lc_trans_matrix: land_cover.LCTransitionDefinitionDeg
 ):
     summary.write_col_to_sheet(
         sheet, _get_summary_array(st.soc_summary),
@@ -2141,15 +2396,9 @@ def _write_soc_sheet(
         ),
         8, 16
     )
-    # TODO: Fix to use actual years
-    if period_name == 'progress':
-        # Progress period has shorter period for soc and lc
-        baseline_index = -4
-    else:
-        baseline_index = 0
     # Write table of baseline areas
     lc_bl_no_water = _get_totals_by_lc_class_as_array(
-        st.lc_annual_totals[baseline_index],
+        st.lc_annual_totals[0],
         lc_trans_matrix,
         excluded_codes=[6]  # exclude water
     )
@@ -2187,13 +2436,13 @@ def _write_land_cover_sheet(
     sheet,
     st: SummaryTableLD,
     lc_trans_matrix: land_cover.LCTransitionDefinitionDeg,
-    period_name
+    period
 ):
-    if period_name == 'progress':
-        # Progress period has shorter period for soc and lc
-        lc_trans_totals = st.lc_trans_zonal_areas[1]
-    else:
-        lc_trans_totals = st.lc_trans_zonal_areas[0]
+    lc_trans_zonal_areas = [
+        x for x, p in zip(
+            st.lc_trans_zonal_areas, st.lc_trans_zonal_areas_periods
+        ) if p == period
+    ][0]
 
     summary.write_col_to_sheet(
         sheet, _get_summary_array(st.lc_summary),
@@ -2202,7 +2451,7 @@ def _write_land_cover_sheet(
     summary.write_table_to_sheet(
         sheet,
         _get_lc_trans_table(
-            lc_trans_totals,
+            lc_trans_zonal_areas,
             lc_trans_matrix
         ),
         26, 3
@@ -2211,8 +2460,7 @@ def _write_land_cover_sheet(
 
 def _write_population_sheet(
     sheet,
-    st: SummaryTableLD,
-    period_name
+    st: SummaryTableLD
 ):
 
     summary.write_col_to_sheet(

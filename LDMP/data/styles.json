@@ -331,6 +331,19 @@
             ]
         }
     },
+    "SDG 15.3.1 (progress)": {
+        "title": "sdg_progress_title",
+        "ramp": {
+            "type": "categorical",
+            "shader": "exact",
+            "items": [
+                {"value": -32768, "color": "#000000", "label": "nodata"},
+                {"value": -1, "color": "#9b2779", "label": "combined_sdg_deg_deg"},
+                {"value": 0, "color": "#ffffe0", "label": "combined_sdg_deg_stable"},
+                {"value": 1, "color": "#006500", "label": "combined_sdg_deg_imp"}
+            ]
+        }
+    },
     "SDG 15.3.1 Indicator (Trends.Earth)": {
         "title": "combined_sdg_title",
         "ramp": {
@@ -341,6 +354,21 @@
                 {"value": -1, "color": "#9b2779", "label": "combined_sdg_deg_deg"},
                 {"value": 0, "color": "#ffffe0", "label": "combined_sdg_deg_stable"},
                 {"value": 1, "color": "#006500", "label": "combined_sdg_deg_imp"}
+            ]
+        }
+    },
+    "Land Productivity Dynamics (from TE)": {
+        "title": "sdg_prod_combined_title",
+        "ramp": {
+            "type": "categorical",
+            "shader": "exact",
+            "items": [
+                {"value": -32768, "color": "#000000", "label": "nodata"},
+                {"value": 1, "color": "#9b2779", "label": "sdg_prod_combined_declining"},
+                {"value": 2, "color": "#c0749b", "label": "sdg_prod_combined_earlysigns"},
+                {"value": 3, "color": "#e1b9bd", "label": "sdg_prod_combined_stabbutstress"},
+                {"value": 4, "color": "#ffffe0", "label": "sdg_prod_combined_stab"},
+                {"value": 5, "color": "#006500", "label": "sdg_prod_combined_imp"}
             ]
         }
     },

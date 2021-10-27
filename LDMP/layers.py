@@ -152,6 +152,9 @@ style_text_dict = {
     'combined_sdg_deg_stable': tr_layers.tr(u'Stable'),
     'combined_sdg_deg_imp': tr_layers.tr(u'Improvement'),
 
+    'sdg_progress_title': tr_layers.tr(u'SDG 15.3.1 Progress ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})'),
+
+
     # Forest loss
     'f_loss_hansen_title': tr_layers.tr(u'Forest loss ({year_initial} to {year_final})'),
     'f_loss_hansen_water': tr_layers.tr(u'Water'),

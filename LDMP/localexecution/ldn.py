@@ -323,7 +323,7 @@ class LdnInputInfo:
     aux_band_indexes: List[int]
     years: List[int]
 
-
+    
 def _get_ld_input_period(
     data_selection_widget: data_io.WidgetDataIOSelectTELayerExisting,
     year_initial_field: str = "year_initial",
@@ -791,6 +791,8 @@ def compute_ldn(
         )
         period_dfs.append(DataFile(progress_path, [progress_band]))
         period_vrts.append(progress_path)
+    else:
+        progress_summary_table = None
 
 
     overall_vrt_path = job_output_path.parent / f"{job_output_path.stem}.vrt"
@@ -810,6 +812,7 @@ def compute_ldn(
     save_reporting_json(
         summary_json_output_path,
         summary_tables,
+        progress_summary_table,
         ldn_job.params.params,
         ldn_job.params.task_name,
         area_of_interest,
@@ -1119,6 +1122,7 @@ def save_summary_table_excel(
 def save_reporting_json(
         output_path: Path,
         summary_tables: List[SummaryTableLD],
+        summary_table_progress: SummaryTableLDProgress,
         params: dict,
         task_name: str,
         aoi: areaofinterest.AOI,
@@ -1250,7 +1254,7 @@ def save_reporting_json(
                 name='Land area by land cover transition type',
                 unit='sq km',
                 initial_year=lc_trans_zonal_areas_period['year_initial'],
-                final_year=lc_trans_zonal_areas_period['year_initial'],
+                final_year=lc_trans_zonal_areas_period['year_final'],
                 # TODO: Check indexing as may be missing a class
                 values=lc_by_transition_type
             )
@@ -1383,6 +1387,42 @@ def save_reporting_json(
         affected_pop_reports[period_name] = reporting.AffectedPopulationReport(
             affected_by_deg_summary
         ) 
+
+    land_condition_reports["integrated"] = reporting.LandConditionProgressReport(
+        sdg=reporting.AreaList(
+            'SDG Indicator 15.3.1 (progress since baseline)',
+            'sq km',
+            [reporting.Area('Improved', summary_table_progress.sdg_summary.get(1, 0.)),
+             reporting.Area('Stable', summary_table_progress.sdg_summary.get(0, 0.)),
+             reporting.Area('Degraded', summary_table_progress.sdg_summary.get(-1, 0.)),
+             reporting.Area('No data', summary_table_progress.sdg_summary.get(NODATA_VALUE, 0))]
+        ),
+        productivity=reporting.AreaList(
+            'Productivity (progress since baseline)',
+            'sq km',
+            [reporting.Area('Improved', summary_table_progress.prod_summary.get(1, 0.)),
+             reporting.Area('Stable', summary_table_progress.prod_summary.get(0, 0.)),
+             reporting.Area('Degraded', summary_table_progress.prod_summary.get(-1, 0.)),
+             reporting.Area('No data', summary_table_progress.prod_summary.get(NODATA_VALUE, 0))]
+        ),
+        land_cover=reporting.AreaList(
+            'Land cover (progress since baseline)',
+            'sq km',
+            [reporting.Area('Improved', summary_table_progress.lc_summary.get(1, 0.)),
+             reporting.Area('Stable', summary_table_progress.lc_summary.get(0, 0.)),
+             reporting.Area('Degraded', summary_table_progress.lc_summary.get(-1, 0.)),
+             reporting.Area('No data', summary_table_progress.lc_summary.get(NODATA_VALUE, 0))]
+        ),
+        soil_organic_carbon=reporting.AreaList(
+            'Soil organic carbon (progress since baseline)',
+            'sq km',
+            [reporting.Area('Improved', summary_table_progress.soc_summary.get(1, 0.)),
+             reporting.Area('Stable', summary_table_progress.soc_summary.get(0, 0.)),
+             reporting.Area('Degraded', summary_table_progress.soc_summary.get(-1, 0.)),
+             reporting.Area('No data', summary_table_progress.soc_summary.get(NODATA_VALUE, 0))]
+        )
+
+    ) 
 
     ##########################################################################
     # Format final JSON output

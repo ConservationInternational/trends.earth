@@ -88,6 +88,7 @@ PERF_BAND_NAME = "Productivity performance (degradation)"
 STATE_BAND_NAME = "Productivity state (degradation)"
 LC_DEG_BAND_NAME = "Land cover (degradation)"
 LC_BAND_NAME = "Land cover (7 class)"
+LC_TRANS_BAND_NAME = "Land cover transitions"
 SOC_DEG_BAND_NAME = "Soil organic carbon (degradation)"
 SOC_BAND_NAME = "Soil organic carbon"
 POPULATION_BAND_NAME = "Population (density, persons per sq km / 10)"
@@ -272,8 +273,8 @@ class SummaryTableLDWidgets:
         self.combo_datasets.job_selected.connect(self.set_combo_selections_from_job_id)
 
     def populate(self):
-        self.combo_datasets.populate()
         self.populate_layer_combo_boxes()
+        self.combo_datasets.populate()
 
     def radio_lpd_jrc_toggled(self):
         if self.radio_lpd_jrc.isChecked():
@@ -343,6 +344,7 @@ def _get_ld_inputs(
     aux_band_name: str,
     sort_property: str = "year"
 ) -> LdnInputInfo:
+    '''Used to get main band and set of aux bands associated with a combo box'''
     usable_band_info = data_selection_widget.get_current_band()
     main_band = usable_band_info.band_info
     main_band_index = usable_band_info.band_index
@@ -369,6 +371,28 @@ def _get_ld_inputs(
     )
 
 
+def _get_ld_input_aux_band(
+    data_selection_widget: data_io.WidgetDataIOSelectTELayerExisting,
+    aux_band_name: str
+) -> LdnInputInfo:
+    '''Used to get a single aux band associated with a combo box'''
+    usable_band_info = data_selection_widget.get_current_band()
+
+    aux_bands = []
+    for band_index, job_band in enumerate(usable_band_info.job.results.bands):
+        if job_band.name == aux_band_name:
+            aux_bands.append((job_band, band_index+1))
+    assert len(aux_bands) == 1
+    aux_band = aux_bands[0]
+
+    return {
+        'path': usable_band_info.path,
+        'band': aux_band[0],
+        'band_index': aux_band[1]
+    }
+
+
+
 def get_main_sdg_15_3_1_job_params(
         task_name: str,
         aoi,
@@ -385,6 +409,8 @@ def get_main_sdg_15_3_1_job_params(
 
     land_cover_inputs = _get_ld_inputs(
         combo_layer_lc, LC_BAND_NAME)
+    land_cover_transition_inputs = _get_ld_input_aux_band(
+        combo_layer_lc, LC_TRANS_BAND_NAME)
     soil_organic_carbon_inputs = _get_ld_inputs(
         combo_layer_soc, SOC_BAND_NAME)
     population_input = _get_ld_inputs(
@@ -411,6 +437,11 @@ def get_main_sdg_15_3_1_job_params(
         ],
         "layer_lc_aux_band_indexes": land_cover_inputs.aux_band_indexes,
         "layer_lc_years": land_cover_inputs.years,
+        "layer_lc_trans_band": models.JobBand.Schema().dump(
+            land_cover_transition_inputs['band']
+        ),
+        "layer_lc_trans_path": str(land_cover_transition_inputs['path']),
+        "layer_lc_trans_band_index": land_cover_transition_inputs['band_index'],
         "layer_soc_path": str(soil_organic_carbon_inputs.path),
         "layer_soc_deg_band": models.JobBand.Schema().dump(
             soil_organic_carbon_inputs.main_band
@@ -940,6 +971,15 @@ def _prepare_land_cover_dfs(params: Dict) -> List[DataFile]:
                 bands=[models.JobBand(**lc_aux_band)]
             )
         )
+    lc_dfs.append(
+        DataFile(
+            path=utils.save_vrt(
+                params["layer_lc_trans_path"],
+                params["layer_lc_trans_band_index"],
+            ),
+            bands=[models.JobBand(**params["layer_lc_trans_band"])]
+        )
+    )
 
     return lc_dfs
 

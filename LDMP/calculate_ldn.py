@@ -71,6 +71,10 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.cb_jrc_progress.setCurrentIndex(2)
 
 
+        self.year_final_baseline.dateChanged.connect(self.update_progress_year)
+        self.update_progress_year()
+        self.year_initial_progress.setReadOnly(True)
+
         self.update_time_bounds_baseline()
         self.update_time_bounds_progress()
         self.toggle_lpd_options()
@@ -104,6 +108,9 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             self.jrc_frame_baseline.hide()
             self.jrc_frame_progress.hide()
             self.label_lpd_warning.hide()
+
+    def update_progress_year(self):
+        self.year_initial_progress.setDate(self.year_final_baseline.date())
 
     def update_time_bounds_baseline(self):
         if self.radio_te_prod.isChecked():

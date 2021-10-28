@@ -383,10 +383,12 @@ class Job:
     @property
     def visible_name(self) -> str:
         task_name = self.params.task_name
-        if task_name != "":
+        if task_name != "" and self.script is not None:
             name = f"{task_name} ({self.script.name_readable})"
-        else:
+        elif self.script is not None:
             name = self.script.name_readable
+        else:
+            name = "Unknown script"
         return name
 
     def serialize(self) -> typing.Dict:

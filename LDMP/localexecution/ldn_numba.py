@@ -67,10 +67,8 @@ def recode_state(x):
 
 
 @numba.jit(nopython=True)
-@cc.export('calc_progress_lc', 'i2[:,:](i2[:,:], i2[:,:])')
-def calc_progress_lc(initial, final):
-    # Coding of land cover layers are class codes from 1:7
-    #
+@cc.export('calc_progress_lc_deg', 'i2[:,:](i2[:,:], i2[:,:])')
+def calc_progress_lc_deg(initial, final):
     # First need to calculate transitions, then recode them as deg, stable, 
     # improved
     #
@@ -81,9 +79,9 @@ def calc_progress_lc(initial, final):
     out = initial.copy()
 
     # improvements on areas that were degraded at baseline -> stable
-    out[np.logical_or(initial == -1, final == 1)] = 0
+    out[(initial == -1) & (final == 1)] = 0
     # improvements on areas that were stable at baseline -> improved
-    out[np.logical_or(initial == 0, final == 1)] = 1
+    out[(initial == 0) & (final == 1)] = 1
     # degradation during progress -> degraded
     out[final == -1] = -1
 
@@ -115,12 +113,15 @@ def calc_prod5(traj, state, perf):
     # Improving = 5
     x[traj == 1] = 5
 
-    # Stable due to agreement in perf and state but positive trajectory
-    x[(traj == 1) & (state == -1) & (perf == -1)] = 4
-    # Stable but stressed
+    # Stressed
     x[(traj == 0) & (state == 0) & (perf == -1)] = 3
-    # Early signs of decline
+    # Agreement in perf and state but positive trajectory is considered 
+    # moderate decline
+    x[(traj == 1) & (state == -1) & (perf == -1)] = 2
+    # Moderate decline if state neg but traj and perf stable
     x[(traj == 0) & (state == -1) & (perf == 0)] = 2
+    # Agreement in perf and state and stable trajectory is considered degrading
+    x[(traj == 0) & (state == -1) & (perf == -1)] = 1
 
     # Ensure NAs carry over to productivity indicator layer
     x[(traj == NODATA_VALUE) |
@@ -136,8 +137,8 @@ def prod5_to_prod3(prod5):
     shp = prod5.shape
     prod5 = prod5.ravel()
     out = prod5.copy()
-    out[(prod5 >= 1) & (prod5 <= 3)] = -1
-    out[prod5 == 4] = 0
+    out[(prod5 == 1) & (prod5 == 2)] = -1
+    out[(prod5 == 3) & (prod5 == 4)] = 0
     out[prod5 == 5] = 1
     return np.reshape(out, shp)
 
@@ -167,6 +168,21 @@ def recode_deg_soc(soc, water):
     out[(soc > -10) & (soc < 10)] = 0
     out[soc >= 10] = 1
     out[water] = NODATA_VALUE  # don't count soc in water
+    return np.reshape(out, shp)
+
+
+@numba.jit(nopython=True)
+@cc.export('calc_soc_pch', 'i2[:,:](i2[:,:], i2[:,:])')
+def calc_soc_pch(soc_bl, soc_tg):
+    '''calculate percent change in SOC from initial and final SOC'''
+    # Degradation in terms of SOC is defined as a decline of more
+    # than 10% (and improving increase greater than 10%)
+    shp = soc_bl.shape
+    soc_bl = soc_bl.ravel()
+    soc_tg = soc_tg.ravel()
+    out = np.zeros(soc_bl.shape, dtype=np.int16)
+    soc_chg = (soc_tg.astype(np.float64) / soc_bl.astype(np.float64)) * 100.
+    soc_chg[(soc_bl == NODATA_VALUE) | (soc_tg == NODATA_VALUE)] = NODATA_VALUE
     return np.reshape(out, shp)
 
 

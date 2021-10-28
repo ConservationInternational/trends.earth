@@ -195,12 +195,22 @@
                    <property name="alignment">
                     <set>Qt::AlignCenter</set>
                    </property>
+                   <property name="dateTime">
+                    <datetime>
+                     <hour>0</hour>
+                     <minute>0</minute>
+                     <second>0</second>
+                     <year>2000</year>
+                     <month>1</month>
+                     <day>1</day>
+                    </datetime>
+                   </property>
                    <property name="displayFormat">
                     <string notr="true">yyyy</string>
                    </property>
                    <property name="date">
                     <date>
-                     <year>2001</year>
+                     <year>2000</year>
                      <month>1</month>
                      <day>1</day>
                     </date>

@@ -137,8 +137,8 @@ def prod5_to_prod3(prod5):
     shp = prod5.shape
     prod5 = prod5.ravel()
     out = prod5.copy()
-    out[(prod5 == 1) & (prod5 == 2)] = -1
-    out[(prod5 == 3) & (prod5 == 4)] = 0
+    out[(prod5 == 1) | (prod5 == 2)] = -1
+    out[(prod5 == 3) | (prod5 == 4)] = 0
     out[prod5 == 5] = 1
     return np.reshape(out, shp)
 
@@ -180,10 +180,11 @@ def calc_soc_pch(soc_bl, soc_tg):
     shp = soc_bl.shape
     soc_bl = soc_bl.ravel()
     soc_tg = soc_tg.ravel()
-    out = np.zeros(soc_bl.shape, dtype=np.int16)
-    soc_chg = (soc_tg.astype(np.float64) / soc_bl.astype(np.float64)) * 100.
+    soc_chg = (
+        (soc_tg - soc_bl).astype(np.float64) / soc_bl.astype(np.float64)
+    ) * 100.
     soc_chg[(soc_bl == NODATA_VALUE) | (soc_tg == NODATA_VALUE)] = NODATA_VALUE
-    return np.reshape(out, shp)
+    return np.reshape(soc_chg, shp)
 
 
 @numba.jit(nopython=True)
@@ -197,7 +198,9 @@ def calc_deg_soc(soc_bl, soc_tg, water):
     soc_tg = soc_tg.ravel()
     water = water.ravel()
     out = np.zeros(soc_bl.shape, dtype=np.int16)
-    soc_chg = (soc_tg.astype(np.float64) / soc_bl.astype(np.float64)) * 100.
+    soc_chg = (
+        (soc_tg - soc_bl).astype(np.float64) / soc_bl.astype(np.float64)
+    ) * 100.
     soc_chg[(soc_bl == NODATA_VALUE) | (soc_tg == NODATA_VALUE)] = NODATA_VALUE
     out[(soc_chg >= -101.) & (soc_chg <= -10.)] = -1
     out[(soc_chg > -10.) & (soc_chg < 10.)] = 0

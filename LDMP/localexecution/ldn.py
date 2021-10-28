@@ -938,7 +938,7 @@ def _combine_all_bands_into_vrt(in_files: List[Path], out_file: Path):
             out_gt = this_gt
             out_proj = this_proj
         else:
-            assert out_gt == this_gt
+            assert [round(x, 8) for x in out_gt] == [round(x, 8) for x in this_gt]
             assert out_proj == this_proj
 
         for band_num in range(1, in_ds.RasterCount + 1):

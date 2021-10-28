@@ -60,7 +60,7 @@ def compute_biomass_restoration(
             #  Calculate biomass change summary table
             LDMP.logger.log('Calculating summary table...')
             rest_summary_worker = worker.StartWorker(
-                calculate_rest_biomass.RestBiomassSummaryWorker,
+                RestBiomassSummaryWorker,
                 f'calculating summary table (part {n+1} of {len(wkts)})',
                 str(output_biomass_diff_tif)
             )
@@ -79,10 +79,6 @@ def compute_biomass_restoration(
 
         else:
             raise RuntimeError("Error masking input layers.")
-
-    LDMP.logger.log(f'area_site: {area_site}')
-    LDMP.logger.log(f'biomass_initial: {biomass_initial}')
-    LDMP.logger.log(f'biomass_change: {biomass_change}')
 
     summary_table_output_path = job_output_path.parent / f"{job_output_path.stem}.xlsx"
     _save_summary_table(

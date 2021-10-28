@@ -510,7 +510,7 @@ class DataFile(SchemaBase):
     path: str
     bands: List[models.JobBand]
 
-    def array_rows_for_name(
+    def indices_for_name(
         self,
         name_filter: str,
         field: str = None,
@@ -532,14 +532,14 @@ class DataFile(SchemaBase):
                 if band.name == name_filter
             ]
 
-    def array_row_for_name(
+    def index_for_name(
         self,
         name_filter: str,
         field: str = None,
         field_filter: str = None
     ):
         '''throw an error if more than one result'''
-        out = self.array_rows_for_name(name_filter, field, field_filter)
+        out = self.indices_for_name(name_filter, field, field_filter)
 
         if len(out) > 1:
             raise RuntimeError(
@@ -684,7 +684,7 @@ def _compute_progress_summary(
             activated=True
         ),
         models.JobBand(
-            name=LC_DEG_BAND_NAME,
+            name=SOC_DEG_BAND_NAME,
             no_data_value=NODATA_VALUE,
             metadata={
                 'year_initial': baseline_period['year_initial'],
@@ -694,7 +694,7 @@ def _compute_progress_summary(
             activated=True
         ),
         models.JobBand(
-            name=SOC_DEG_BAND_NAME,
+            name=LC_DEG_BAND_NAME,
             no_data_value=NODATA_VALUE,
             metadata={
                 'year_initial': baseline_period['year_initial'],
@@ -1575,67 +1575,67 @@ def _get_progress_summary_input_vrt(df, prod_mode):
     if prod_mode == 'Trends.Earth productivity':
         prod5_rows = [
             (row, band) for row, band in zip(
-                df.array_rows_for_name(TE_LPD_BAND_NAME),
+                df.indices_for_name(TE_LPD_BAND_NAME),
                 df.metadata_for_name(TE_LPD_BAND_NAME, 'year_initial')
             )
         ]
     else:
         prod5_rows = [
             (row, band) for row, band in zip(
-                df.array_rows_for_name(JRC_LPD_BAND_NAME),
+                df.indices_for_name(JRC_LPD_BAND_NAME),
                 df.metadata_for_name(JRC_LPD_BAND_NAME, 'year_initial')
             )
         ]
-    prod5_rows = sorted(prod5_rows, key=lambda row: row[1])
     assert len(prod5_rows) == 2
-    prod5_baseline_bandnum = prod5_rows[0][0]
-    prod5_progress_bandnum = prod5_rows[1][0]
+    prod5_rows = sorted(prod5_rows, key=lambda row: row[1])
+    prod5_baseline_index = prod5_rows[0][0]
+    prod5_progress_index = prod5_rows[1][0]
 
     lc_deg_rows = [
         (row, band) for row, band in zip(
-            df.array_rows_for_name(LC_DEG_BAND_NAME),
+            df.indices_for_name(LC_DEG_BAND_NAME),
             df.metadata_for_name(LC_DEG_BAND_NAME, 'year_initial')
         )
     ]
-    lc_deg_rows = sorted(lc_deg_rows, key=lambda row: row[1])
     assert len(lc_deg_rows) == 2
-    lc_deg_baseline_bandnum = lc_deg_rows[0][0]
-    lc_deg_progress_bandnum = lc_deg_rows[1][0]
+    lc_deg_rows = sorted(lc_deg_rows, key=lambda row: row[1])
+    lc_deg_baseline_index = lc_deg_rows[0][0]
+    lc_deg_progress_index = lc_deg_rows[1][0]
 
     lc_bands = [
         (band, year) for band, year in
         zip(
-            df.array_rows_for_name(LC_BAND_NAME),
+            df.indices_for_name(LC_BAND_NAME),
             df.metadata_for_name(LC_BAND_NAME, 'year')
         )
     ]
-    lc_baseline_bandnum = [
-        row + 1 for row, year in lc_bands
+    lc_baseline_index = [
+        row for row, year in lc_bands
         if year == lc_deg_rows[0][1]
     ][0]
 
     soc_rows = [
         (row, band) for row, band in zip(
-            df.array_rows_for_name(SOC_BAND_NAME),
+            df.indices_for_name(SOC_BAND_NAME),
             df.metadata_for_name(SOC_BAND_NAME, 'year')
         )
     ]
     soc_rows = sorted(soc_rows, key=lambda row: row[1])
-    soc_initial_bandnum = soc_rows[0][0]
-    soc_final_bandnum = soc_rows[-1][0]
+    soc_initial_index = soc_rows[0][0]
+    soc_final_index = soc_rows[-1][0]
 
     df_band_list = [
-        ('prod5_baseline_bandnum', prod5_baseline_bandnum),
-        ('prod5_progress_bandnum', prod5_progress_bandnum),
-        ('lc_deg_baseline_bandnum', lc_deg_baseline_bandnum),
-        ('lc_deg_progress_bandnum', lc_deg_progress_bandnum),
-        ('lc_baseline_bandnum', lc_baseline_bandnum),
-        ('soc_initial_bandnum', soc_initial_bandnum),
-        ('soc_final_bandnum', soc_final_bandnum)
+        ('prod5_baseline_bandnum', prod5_baseline_index),
+        ('prod5_progress_bandnum', prod5_progress_index),
+        ('lc_deg_baseline_bandnum', lc_deg_baseline_index),
+        ('lc_deg_progress_bandnum', lc_deg_progress_index),
+        ('lc_baseline_bandnum', lc_baseline_index),
+        ('soc_initial_bandnum', soc_initial_index),
+        ('soc_final_bandnum', soc_final_index)
     ]
 
     band_vrts = [
-        utils.save_vrt(df.path, band_num) for name, band_num in df_band_list
+        utils.save_vrt(df.path, band_num + 1) for name, band_num in df_band_list
     ]
     out_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
     gdal.BuildVRT(
@@ -1700,8 +1700,8 @@ def _process_block_progress(
     )
 
     # LC
-    deg_lc = calc_progress_lc(
-        in_array[params.band_dict['lc_deg_progress_bandnum'] - 1, :, :],
+    deg_lc = calc_progress_lc_deg(
+        in_array[params.band_dict['lc_deg_baseline_bandnum'] - 1, :, :],
         in_array[params.band_dict['lc_deg_progress_bandnum'] - 1, :, :]
     )
     lc_summary = zonal_total(
@@ -1713,12 +1713,14 @@ def _process_block_progress(
     # SOC
     water = in_array[params.band_dict['lc_baseline_bandnum'] - 1, :, :] == 7
     water = water.astype(bool, copy=False)
-    deg_soc = calc_deg_soc(
+    soc_pch = calc_soc_pch(
         in_array[params.band_dict['soc_initial_bandnum'] - 1, :, :],
         in_array[params.band_dict['soc_final_bandnum'] - 1, :, :],
+    )
+    deg_soc = recode_deg_soc(
+        soc_pch,
         water
     )
-    
     soc_summary = zonal_total(
         deg_soc,
         cell_areas,
@@ -1750,7 +1752,7 @@ def _process_block_progress(
             'yoff': yoff
         },
         {
-            'array': deg_soc,
+            'array': soc_pch,
             'xoff': xoff,
             'yoff': yoff
         },
@@ -1800,14 +1802,14 @@ def _process_block_summary(
     lc_bands = [
         (band, year) for band, year in
         zip(
-            params.in_df.array_rows_for_name(LC_BAND_NAME),
+            params.in_df.indices_for_name(LC_BAND_NAME),
             lc_band_years
         )
     ]
     soc_bands = [
         (band, year) for band, year in
         zip(
-            params.in_df.array_rows_for_name(SOC_BAND_NAME),
+            params.in_df.indices_for_name(SOC_BAND_NAME),
             params.in_df.metadata_for_name(SOC_BAND_NAME, 'year')
         )
     ]
@@ -1826,13 +1828,13 @@ def _process_block_summary(
     cell_areas = np.repeat(cell_areas_raw, mask.shape[1], axis=1).astype(np.float64)
 
     if params.prod_mode == 'Trends.Earth productivity':
-        traj_array = in_array[params.in_df.array_row_for_name(TRAJ_BAND_NAME), :, :]
+        traj_array = in_array[params.in_df.index_for_name(TRAJ_BAND_NAME), :, :]
         traj_recode = recode_traj(traj_array)
 
-        state_array = in_array[params.in_df.array_row_for_name(STATE_BAND_NAME), :, :]
+        state_array = in_array[params.in_df.index_for_name(STATE_BAND_NAME), :, :]
         state_recode = recode_state(state_array)
 
-        perf_array = in_array[params.in_df.array_row_for_name(PERF_BAND_NAME), :, :]
+        perf_array = in_array[params.in_df.index_for_name(PERF_BAND_NAME), :, :]
 
         deg_prod5 = calc_prod5(
             traj_recode,
@@ -1841,7 +1843,7 @@ def _process_block_summary(
         )
 
     else:
-        deg_prod5 = in_array[params.in_df.array_row_for_name(JRC_LPD_BAND_NAME), :, :]
+        deg_prod5 = in_array[params.in_df.index_for_name(JRC_LPD_BAND_NAME), :, :]
         # TODO: Below is temporary until missing data values are
         # fixed in LPD layer on GEE and missing data values are
         # fixed in LPD layer made by UNCCD for SIDS
@@ -1935,7 +1937,7 @@ def _process_block_summary(
     # Calculate SOC totals by year. Note final units of soc_totals
     # tables are tons C (summed over the total area of each class).
     lc_rows_for_soc = [
-        params.in_df.array_row_for_name(LC_BAND_NAME, 'year', year)
+        params.in_df.index_for_name(LC_BAND_NAME, 'year', year)
         for band, year in soc_bands
     ]
     soc_by_lc_annual_totals = []
@@ -2008,9 +2010,9 @@ def _process_block_summary(
     water = in_array[lc_deg_initial_cover_row, :, :] == 7
     water = water.astype(bool, copy=False)
 
-    deg_soc = in_array[params.in_df.array_row_for_name(SOC_DEG_BAND_NAME), :, :]
+    deg_soc = in_array[params.in_df.index_for_name(SOC_DEG_BAND_NAME), :, :]
     deg_soc = recode_deg_soc(deg_soc, water)
-    deg_lc = in_array[params.in_df.array_row_for_name(LC_DEG_BAND_NAME), :, :]
+    deg_lc = in_array[params.in_df.index_for_name(LC_DEG_BAND_NAME), :, :]
 
     deg_sdg = calc_deg_sdg(deg_prod3, deg_lc, deg_soc)
     write_arrays.append({
@@ -2046,7 +2048,7 @@ def _process_block_summary(
     ###########################################################
     # Population affected by degradation
     pop_array = in_array[
-        params.in_df.array_row_for_name(POPULATION_BAND_NAME), :, :]
+        params.in_df.index_for_name(POPULATION_BAND_NAME), :, :]
     pop_array_masked = pop_array.copy()
     pop_array_masked = pop_array * 10. * cell_areas  # Account for scaling and convert from density
     pop_array_masked[pop_array == NODATA_VALUE] = 0
@@ -2322,12 +2324,12 @@ def _calculate_summary_table(
 
             n_out_bands = 2
             if prod_mode == 'Trends.Earth productivity':
-                model_band_number = in_df.array_row_for_name(TRAJ_BAND_NAME) + 1
+                model_band_number = in_df.index_for_name(TRAJ_BAND_NAME) + 1
                 # Save the combined productivity indicator as well, in the 
                 # second layer in the deg file
                 n_out_bands += 1
             else:
-                model_band_number = in_df.array_row_for_name(LC_DEG_BAND_NAME) + 1
+                model_band_number = in_df.index_for_name(LC_DEG_BAND_NAME) + 1
 
             log(u'Calculating summary table and saving SDG to: {}'.format(output_sdg_path))
             deg_worker = worker.StartWorker(

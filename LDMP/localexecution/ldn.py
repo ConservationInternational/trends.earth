@@ -650,7 +650,6 @@ def _compute_progress_summary(
         raise RuntimeError(f"Error calculating progress: {error_message}")
 
     progress_summary_table = _accumulate_ld_progress_summary_tables(progress_summary_tables)
-    log(f'progress_summary_table: {progress_summary_table}')
 
     if len(progress_paths) > 1:
         progress_path = job_output_path.parent / f"{job_output_path.stem}_progress.vrt"
@@ -808,7 +807,7 @@ def compute_ldn(
                 'deg_year_initial': period_params['periods']['productivity']['year_initial'],
                 'deg_year_final': period_params['periods']['productivity']['year_final']
             },
-            activated=True
+            add_to_map=False
         )
         sdg_df.bands.append(so3_band)
 
@@ -1670,7 +1669,7 @@ def _process_block_progress(
     cell_areas_raw
 ) -> Tuple[SummaryTableLDProgress, Dict]:
 
-    cell_areas = np.repeat(cell_areas_raw, mask.shape[1], axis=1).astype(np.float64)
+    cell_areas = np.repeat(cell_areas_raw, mask.shape[1], axis=1)
 
     trans_code = [11, 12, 13, 14, 15,
                   21, 22, 23, 24, 25,
@@ -1711,12 +1710,12 @@ def _process_block_progress(
     )
 
     # SOC
-    water = in_array[params.band_dict['lc_baseline_bandnum'] - 1, :, :] == 7
-    water = water.astype(bool, copy=False)
     soc_pch = calc_soc_pch(
         in_array[params.band_dict['soc_initial_bandnum'] - 1, :, :],
-        in_array[params.band_dict['soc_final_bandnum'] - 1, :, :],
+        in_array[params.band_dict['soc_final_bandnum'] - 1, :, :]
     )
+    water = in_array[params.band_dict['lc_baseline_bandnum'] - 1, :, :] == 7
+    water = water.astype(bool, copy=False)
     deg_soc = recode_deg_soc(
         soc_pch,
         water
@@ -1730,8 +1729,8 @@ def _process_block_progress(
     # Summarize results
     deg_sdg = calc_deg_sdg(
         deg_prod_progress,
-        deg_soc,
-        deg_lc
+        deg_lc,
+        deg_soc
     )
 
     sdg_summary = zonal_total(

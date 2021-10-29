@@ -353,7 +353,7 @@ def compute_drought_vulnerability(
             year_final = year_initial + drought_period - 1
 
         out_bands.append(models.JobBand(
-            name="Maximum SPI over period",
+            name="Minimum SPI over period",
             no_data_value=NODATA_VALUE,
             metadata={
                 'year_initial': year_initial,
@@ -364,7 +364,7 @@ def compute_drought_vulnerability(
         ))
 
         out_bands.append(models.JobBand(
-            name="Population density at maximum SPI over period",
+            name="Population density at minimum SPI over period",
             no_data_value=NODATA_VALUE,
             metadata={
                 'year_initial': year_initial,

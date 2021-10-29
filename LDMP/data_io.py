@@ -92,7 +92,7 @@ class Band:
         name_info_parts.extend(
             [
                 self.job.params.task_notes.local_context.area_of_interest_name,
-                layers.get_band_title(self.band_info.serialize()),
+                layers.get_band_title(JobBand.Schema().dump(self.band_info)),
                 utils.utc_to_local(self.job.start_date).strftime("%Y-%m-%d %H:%M")
             ]
         )
@@ -107,7 +107,7 @@ class Band:
         hover_info_parts.extend(
             [
                 self.job.params.task_notes.local_context.area_of_interest_name + '\n',
-                layers.get_band_title(self.band_info.serialize()) + '\n',
+                layers.get_band_title(JobBand.Schema().dump(self.band_info)) + '\n',
                 utils.utc_to_local(self.job.start_date).strftime("%Y-%m-%d %H:%M") + '\n',
                 # TODO: figure out a way to cleanup the metadata so it is 
                 # presentable and useful - likely need to have each script 

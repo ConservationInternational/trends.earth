@@ -427,7 +427,7 @@ def get_main_sdg_15_3_1_job_params(
         "task_notes": task_notes,
         "prod_mode": prod_mode,
         "layer_lc_path": str(land_cover_inputs.path),
-        "layer_lc_deg_band": models.JobBand.Schema().dump(
+        "layer_lc_deg_band": JobBand.Schema().dump(
             land_cover_inputs.main_band
         ),
         "layer_lc_deg_band_index": land_cover_inputs.main_band_index,
@@ -438,7 +438,7 @@ def get_main_sdg_15_3_1_job_params(
         ],
         "layer_lc_aux_band_indexes": land_cover_inputs.aux_band_indexes,
         "layer_lc_years": land_cover_inputs.years,
-        "layer_lc_trans_band": models.JobBand.Schema().dump(
+        "layer_lc_trans_band": JobBand.Schema().dump(
             land_cover_transition_inputs['band']
         ),
         "layer_lc_trans_path": str(land_cover_transition_inputs['path']),
@@ -467,13 +467,13 @@ def get_main_sdg_15_3_1_job_params(
 
     if prod_mode == LdnProductivityMode.TRENDS_EARTH.value:
         traj_band_info = combo_layer_traj.get_current_band()
-        traj_band = models.JobBand.Schema().dump(traj_band_info.band_info)
+        traj_band = JobBand.Schema().dump(traj_band_info.band_info)
         traj_years = _get_ld_input_period(combo_layer_traj)
         perf_band_info = combo_layer_perf.get_current_band()
-        perf_band = models.JobBand.Schema().dump(
+        perf_band = JobBand.Schema().dump(
             perf_band_info.band_info)
         state_band_info = combo_layer_state.get_current_band()
-        state_band = models.JobBand.Schema().dump(
+        state_band = JobBand.Schema().dump(
             state_band_info.band_info)
 
         params.update({
@@ -498,7 +498,7 @@ def get_main_sdg_15_3_1_job_params(
         params.update({
             "layer_lpd_path": str(lpd_band_info.path),
             "layer_lpd_years": lpd_years,
-            "layer_lpd_band": models.JobBand.Schema().dump(lpd_band),
+            "layer_lpd_band": JobBand.Schema().dump(lpd_band),
             "layer_lpd_band_index": lpd_band_info.band_index
         })
 
@@ -658,7 +658,7 @@ def _compute_progress_summary(
         progress_path = progress_paths[0]
 
     out_bands = [
-        models.JobBand(
+        JobBand(
             name=PROGRESS_BAND_NAME,
             no_data_value=NODATA_VALUE,
             metadata={
@@ -670,7 +670,7 @@ def _compute_progress_summary(
             add_to_map=True,
             activated=True
         ),
-        models.JobBand(
+        JobBand(
             name=PROD_COMPARISON_BAND_NAME,
             no_data_value=NODATA_VALUE,
             metadata={
@@ -682,7 +682,7 @@ def _compute_progress_summary(
             add_to_map=True,
             activated=True
         ),
-        models.JobBand(
+        JobBand(
             name=SOC_DEG_BAND_NAME,
             no_data_value=NODATA_VALUE,
             metadata={
@@ -692,7 +692,7 @@ def _compute_progress_summary(
             add_to_map=True,
             activated=True
         ),
-        models.JobBand(
+        JobBand(
             name=LC_DEG_BAND_NAME,
             no_data_value=NODATA_VALUE,
             metadata={
@@ -799,7 +799,7 @@ def compute_ldn(
         )
         sdg_df = DataFile(sdg_path, [sdg_band])
 
-        so3_band = models.JobBand(
+        so3_band = JobBand(
             name=POP_AFFECTED_BAND_NAME,
             no_data_value=NODATA_VALUE,
             metadata={
@@ -812,7 +812,7 @@ def compute_ldn(
         sdg_df.bands.append(so3_band)
 
         if prod_mode == LdnProductivityMode.TRENDS_EARTH.value:
-            prod_band = models.JobBand(
+            prod_band = JobBand(
                 name=TE_LPD_BAND_NAME,
                 no_data_value=NODATA_VALUE,
                 metadata={
@@ -1031,7 +1031,7 @@ def _prepare_land_cover_dfs(params: Dict) -> List[DataFile]:
                 params["layer_lc_trans_path"],
                 params["layer_lc_trans_band_index"],
             ),
-            bands=[models.JobBand(**params["layer_lc_trans_band"])]
+            bands=[JobBand(**params["layer_lc_trans_band"])]
         )
     )
 

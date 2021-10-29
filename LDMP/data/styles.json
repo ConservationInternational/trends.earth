@@ -518,7 +518,7 @@
             ]
         }
     },
-    "Population density at maximum SPI over period": {
+    "Population density at minimum SPI over period": {
         "title": "population_density_at_maximum_drought_title",
         "ramp": {
             "type": "min zero stretch",
@@ -585,7 +585,7 @@
             ]
         }
     },
-    "Maximum SPI over period": {
+    "Minimum SPI over period": {
         "title": "spi_at_maximum_drought_title",
         "ramp": {
             "type": "categorical",

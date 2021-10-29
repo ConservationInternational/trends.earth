@@ -200,8 +200,8 @@ style_text_dict = {
     # Population titles
     'population_title': tr_layers.tr(u'Population ({year})'),
     'population_density_title': tr_layers.tr(u'Population density ({year}, per sq km / 10)'),
-    'population_density_affected_by_degradation_title': tr_layers.tr(u'Population density ({year}, per sq km / 10)'),
-    'population_density_at_maximum_drought_title': tr_layers.tr(u'Population affected by degradation (density per sq km / 10 in {population_year}, degradation over {deg_year_initial}-{deg_year_final})'),
+    'population_density_affected_by_degradation_title': tr_layers.tr(u'Population exposed to degradation\n(population in {population_year}, per sq km / 10, degradation period {deg_year_initial}-{deg_year_final})'),
+    'population_density_at_maximum_drought_title': tr_layers.tr(u'Population density at maximum drought\n(density per sq km / 10, {year_initial}-{year_final} period)'),
 
     # SPI
     'spi_title': tr_layers.tr(u'Standardized Precipitation Index (SPI, {year}, {lag} month lag, * 1000)'),

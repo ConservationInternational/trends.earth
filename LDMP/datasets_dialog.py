@@ -14,6 +14,13 @@ from PyQt5 import (
     uic,
 )
 
+from te_schemas.jobs import (
+    JobResultType,
+    JobCloudResults,
+    JobLocalResults,
+    TimeSeriesTableResult
+)
+
 from . import (
     openFolder,
     tr,
@@ -89,9 +96,18 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
                 sort_keys=True)
         )
         if self.job.results is not None:
+            if self.job.results.type == JobResultType.CLOUD_RESULTS:
+                results_serial = JobCloudResults.Schema().dump(
+                        self.job.results)
+            elif self.job.results.type == JobResultType.LOCAL_RESULTS:
+                results_serial = JobLocalResults.Schema().dump(
+                        self.job.results)
+            elif self.job.results.type == JobResultType.TIME_SERIES_TABLE:
+                results_serial = TimeSeriesTableResult.Schema().load(
+                        self.job.results)
             self.output.setText(
                 json.dumps(
-                    self.job.results.serialize(),
+                    results_serial,
                     indent=4,
                     sort_keys=True)
             )

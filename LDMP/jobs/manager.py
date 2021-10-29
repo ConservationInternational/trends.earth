@@ -21,7 +21,7 @@ from .. import (
 from . import models
 from .models import Job
 from ..logger import log
-
+from te_schemas import jobs as jobs_models
 
 def slugify(value, allow_unicode=False):
     """
@@ -293,7 +293,7 @@ class JobManager(QtCore.QObject):
             id=uuid.uuid4(),
             params=models.JobParameters.deserialize(final_params),
             progress=0,
-            results=models.JobLocalResults(
+            results=jobs_models.JobLocalResults(
                 name=script_name,
                 bands=[],
                 data_path=None,
@@ -318,8 +318,8 @@ class JobManager(QtCore.QObject):
 
     def download_job_results(self, job: Job) -> Job:
         handler = {
-            models.JobResult.CLOUD_RESULTS: self._download_cloud_results,
-            models.JobResult.TIME_SERIES_TABLE: self._download_timeseries_table,
+            jobs_models.JobResultType.CLOUD_RESULTS: self._download_cloud_results,
+            jobs_models.JobResultType.TIME_SERIES_TABLE: self._download_timeseries_table,
         }[job.results.type]
         handler: typing.Callable
         output_path = handler(job)
@@ -363,7 +363,7 @@ class JobManager(QtCore.QObject):
                     layers.add_layer(
                         str(job.results.data_path),
                         band_index,
-                        band.serialize()
+                        jobs_models.JobBand.Schema().dump(band)
                     )
 
     def display_selected_job_results(self, job:Job, band_numbers):
@@ -373,7 +373,7 @@ class JobManager(QtCore.QObject):
                     layers.add_layer(
                         str(job.results.data_path),
                         n,
-                        band.serialize()
+                        jobs_models.JobBand.Schema().dump(band)
                     )
 
     def import_job(self, job: Job):
@@ -415,7 +415,7 @@ class JobManager(QtCore.QObject):
                 params={}
             ),
             progress=100,
-            results=models.JobLocalResults(
+            results=jobs_models.JobLocalResults(
                 name=f"{band_name} results",
                 bands=[band_info],
                 data_path=dataset_path,
@@ -675,6 +675,9 @@ class JobManager(QtCore.QObject):
         output_dir = output_path.parent
         output_dir.mkdir(parents=True, exist_ok=True)
         with output_path.open("w", encoding=self._encoding) as fh:
+            # if JobResultType(job.results.type) == JobResultType.CLOUD_RESULTS:
+            #     raw_job = JobCloudResults.Schema().dump(self.results)
+            # else:
             raw_job = job.serialize()
             json.dump(raw_job, fh, indent=2)
 
@@ -717,7 +720,7 @@ def _get_user_id() -> uuid:
 
 
 def _get_single_cloud_result(
-        url: models.JobUrl, output_path: Path) -> typing.Optional[Path]:
+        url: jobs_models.JobUrl, output_path: Path) -> typing.Optional[Path]:
     path_exists = output_path.is_file()
     hash_matches = ldmp_download.local_check_hash_against_etag(
         output_path, url.decoded_md5_hash)
@@ -802,7 +805,7 @@ def get_remote_jobs(
                     job = Job.deserialize(raw_job)
                     has_results = job.results is not None
                     if (job.results is not None and
-                            job.results.type == models.JobResult.TIME_SERIES_TABLE):
+                            job.results.type == jobs_models.JobResultType.TIME_SERIES_TABLE):
                         log(
                             f"Ignoring job {job.id!r} because it contains "
                             "timeseries results. Support for timeseries results "

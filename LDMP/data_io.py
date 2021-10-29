@@ -71,6 +71,8 @@ from .jobs.manager import job_manager
 from .jobs import models as job_models
 from .logger import log
 
+from te_schemas.jobs import JobBand, JobResultType
+
 mb = qgis.utils.iface.messageBar()
 
 
@@ -79,7 +81,7 @@ class Band:
     job: job_models.Job
     path: Path
     band_index: int
-    band_info: job_models.JobBand
+    band_info: JobBand
 
     def get_name_info(self):
         task_name = self.job.params.task_name
@@ -1095,9 +1097,9 @@ def _get_usable_bands(
         is_valid_type = (
             job.results and 
             (
-                job.results.type in (
-                    job_models.JobResult.CLOUD_RESULTS,
-                    job_models.JobResult.LOCAL_RESULTS
+                JobResultType(job.results.type) in (
+                    JobResultType.CLOUD_RESULTS,
+                    JobResultType.LOCAL_RESULTS
                 )
             )
         )
@@ -1219,8 +1221,8 @@ def get_usable_datasets(
         is_available = job.status in (job_models.JobStatus.DOWNLOADED,
                                       job_models.JobStatus.GENERATED_LOCALLY)
         try:
-            is_valid_type = job.results.type in (job_models.JobResult.CLOUD_RESULTS,
-                                                 job_models.JobResult.LOCAL_RESULTS)
+            is_valid_type = JobResultType(job.results.type) in (
+                    JobResultType.CLOUD_RESULTS, JobResultType.LOCAL_RESULTS)
         except AttributeError:
             # Catch case of an invalid type
             continue
@@ -1288,7 +1290,7 @@ class DlgDataIOAddLayersToMap(
         self.layer_list = self.job.results.bands
 
         band_strings = [
-            f'Band {n}: {layers.get_band_title(band.serialize())}'
+            f'Band {n}: {layers.get_band_title(JobBand.Schema().dump(band))}'
             for n, band in enumerate(self.layer_list, start=1)
         ]
         self.layers_model.setStringList(band_strings)

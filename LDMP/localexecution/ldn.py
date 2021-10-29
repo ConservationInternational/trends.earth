@@ -33,6 +33,8 @@ from te_schemas import (
     SchemaBase
 )
 
+from te_schemas.jobs import JobBand
+
 from ..conf import (
     settings_manager,
     Setting
@@ -51,9 +53,7 @@ from .. import (
     __revision__,
     __release_date__
 )
-from ..jobs import (
-    models,
-)
+from ..jobs.models import Job
 from ..logger import log
 
 if settings_manager.get_value(Setting.BINARIES_ENABLED):
@@ -319,9 +319,9 @@ class SummaryTableLDWidgets:
 @dataclasses.dataclass()
 class LdnInputInfo:
     path: Path
-    main_band: models.JobBand
+    main_band: JobBand
     main_band_index: int
-    aux_bands: List[models.JobBand]
+    aux_bands: List[JobBand]
     aux_band_indexes: List[int]
     years: List[int]
 
@@ -433,7 +433,7 @@ def get_main_sdg_15_3_1_job_params(
         "layer_lc_deg_band_index": land_cover_inputs.main_band_index,
         "layer_lc_deg_years": lc_deg_years,
         "layer_lc_aux_bands": [
-            models.JobBand.Schema().dump(b)
+            JobBand.Schema().dump(b)
             for b in land_cover_inputs.aux_bands
         ],
         "layer_lc_aux_band_indexes": land_cover_inputs.aux_band_indexes,
@@ -444,19 +444,19 @@ def get_main_sdg_15_3_1_job_params(
         "layer_lc_trans_path": str(land_cover_transition_inputs['path']),
         "layer_lc_trans_band_index": land_cover_transition_inputs['band_index'],
         "layer_soc_path": str(soil_organic_carbon_inputs.path),
-        "layer_soc_deg_band": models.JobBand.Schema().dump(
+        "layer_soc_deg_band": JobBand.Schema().dump(
             soil_organic_carbon_inputs.main_band
         ),
         "layer_soc_deg_years": soc_deg_years,
         "layer_soc_deg_band_index": soil_organic_carbon_inputs.main_band_index,
         "layer_soc_aux_bands": [
-            models.JobBand.Schema().dump(b)
+            JobBand.Schema().dump(b)
             for b in soil_organic_carbon_inputs.aux_bands
         ],
         "layer_soc_aux_band_indexes": soil_organic_carbon_inputs.aux_band_indexes,
         "layer_soc_years": soil_organic_carbon_inputs.years,
         "layer_population_path": str(population_input.path),
-        "layer_population_band": models.JobBand.Schema().dump(
+        "layer_population_band": JobBand.Schema().dump(
             population_input.main_band
         ),
         "layer_population_band_index": population_input.main_band_index,
@@ -508,7 +508,7 @@ def get_main_sdg_15_3_1_job_params(
 @marshmallow_dataclass.dataclass
 class DataFile(SchemaBase):
     path: str
-    bands: List[models.JobBand]
+    bands: List[JobBand]
 
     def indices_for_name(
         self,
@@ -560,7 +560,7 @@ class DataFile(SchemaBase):
 
 def _combine_data_files(
     path,
-    datafiles: List[models.JobBand]
+    datafiles: List[JobBand]
 ) -> DataFile:
     '''combine multiple datafiles with same path into one object'''
 
@@ -707,8 +707,8 @@ def _compute_progress_summary(
 
 
 def compute_ldn(
-        ldn_job: models.Job,
-        area_of_interest: areaofinterest.AOI) -> models.Job:
+        ldn_job: Job,
+        area_of_interest: areaofinterest.AOI) -> Job:
     """Calculate final SDG 15.3.1 indicator and save to disk"""
 
     job_output_path, _ = utils.get_local_job_output_paths(ldn_job)
@@ -788,7 +788,7 @@ def compute_ldn(
 
         summary_tables[period_name] = summary_table
 
-        sdg_band = models.JobBand(
+        sdg_band = JobBand(
             name=SDG_BAND_NAME,
             no_data_value=NODATA_VALUE,
             metadata={
@@ -1009,7 +1009,7 @@ def _prepare_land_cover_dfs(params: Dict) -> List[DataFile]:
                 lc_path,
                 params["layer_lc_deg_band_index"]
             ),
-            bands=[models.JobBand(**params["layer_lc_deg_band"])]
+            bands=[JobBand(**params["layer_lc_deg_band"])]
         )
     ]
     for lc_aux_band, lc_aux_band_index, in zip(
@@ -1022,7 +1022,7 @@ def _prepare_land_cover_dfs(params: Dict) -> List[DataFile]:
                     lc_path,
                     lc_aux_band_index
                 ),
-                bands=[models.JobBand(**lc_aux_band)]
+                bands=[JobBand(**lc_aux_band)]
             )
         )
     lc_dfs.append(
@@ -1047,7 +1047,7 @@ def _prepare_population_df(
             population_path,
             params["layer_population_band_index"]
         ),
-        bands=[models.JobBand(**params["layer_population_band"])]
+        bands=[JobBand(**params["layer_population_band"])]
     )
 
     return population_df
@@ -1063,7 +1063,7 @@ def _prepare_soil_organic_carbon_dfs(
                 soc_path,
                 params["layer_soc_deg_band_index"]
             ),
-            bands=[models.JobBand(**params["layer_soc_deg_band"])]
+            bands=[JobBand(**params["layer_soc_deg_band"])]
         )
     ]
 
@@ -1077,7 +1077,7 @@ def _prepare_soil_organic_carbon_dfs(
                     soc_path,
                     soc_aux_band_index
                 ),
-                bands=[models.JobBand(**soc_aux_band)]
+                bands=[JobBand(**soc_aux_band)]
             )
         )
 
@@ -1092,21 +1092,21 @@ def _prepare_trends_earth_mode_dfs(
             params["layer_traj_path"],
             params["layer_traj_band_index"],
         ),
-        bands=[models.JobBand(**params["layer_traj_band"])]
+        bands=[JobBand(**params["layer_traj_band"])]
     )
     perf_vrt_df = DataFile(
         path=utils.save_vrt(
             params["layer_perf_path"],
             params["layer_perf_band_index"],
         ),
-        bands=[models.JobBand(**params["layer_perf_band"])]
+        bands=[JobBand(**params["layer_perf_band"])]
     )
     state_vrt_df = DataFile(
         path=utils.save_vrt(
             params["layer_state_path"],
             params["layer_state_band_index"],
         ),
-        bands=[models.JobBand(**params["layer_state_band"])]
+        bands=[JobBand(**params["layer_state_band"])]
     )
     return traj_vrt_df, perf_vrt_df, state_vrt_df
 
@@ -1119,7 +1119,7 @@ def _prepare_jrc_lpd_mode_df(
             params["layer_lpd_path"],
             params["layer_lpd_band_index"]
         ),
-        bands=[models.JobBand(**params["layer_lpd_band"])]
+        bands=[JobBand(**params["layer_lpd_band"])]
     )
 
 

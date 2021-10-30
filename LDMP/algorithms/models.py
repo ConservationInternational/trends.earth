@@ -27,43 +27,20 @@ class AlgorithmRunMode(enum.Enum):
 
 @marshmallow_dataclass.dataclass
 class ExecutionScript(SchemaBase):
+    class Meta:
+        unknown = 'EXCLUDE'
+
     name: str
-    run_mode: str = EnumField(AlgorithmRunMode)
+    execution_callable: typing.Optional[str]
+    run_mode: typing.Optional[AlgorithmRunMode] = field(
+        metadata={"by_value": True}
+    )
     id: typing.Optional[uuid.UUID] = field(default=None)
     version: typing.Optional[str] = field(default="")
     description: typing.Optional[str] = field(default="")
     name_readable: typing.Optional[str] = field(default="")
-    additional_configuration: typing.Optional[dict] = field(default_factory=dict)
-
-    @classmethod
-    def deserialize(cls, name: str, raw_script: typing.Dict):
-        raw = dict(raw_script)
-        raw_id = raw.pop("id", None)
-        version = raw.pop("version", "")
-        description = raw.pop("description", "")
-        name_readable = raw.pop("name_readable", "")
-        run_mode = AlgorithmRunMode(raw.pop("run_mode"))
-        return cls(
-            name=name,
-            id=uuid.UUID(raw_id) if raw_id is not None else None,
-            run_mode=run_mode,
-            version=version,
-            description=description,
-            name_readable=name_readable,
-            additional_configuration=raw
-        )
-
-    @classmethod
-    def deserialize_from_remote_response(cls, raw_remote_script: typing.Dict):
-        return cls(
-            name=raw_remote_script["name"],
-            id=uuid.UUID(raw_remote_script["id"]),
-            run_mode=AlgorithmRunMode.REMOTE,
-            description=raw_remote_script["description"],
-            version=raw_remote_script.get("version", None),
-            name_readable=raw_remote_script.get("name_readable", None),
-        )
-
+    additional_configuration: typing.Optional[dict] = field(
+            default_factory=dict)
 
 
 @dataclass()

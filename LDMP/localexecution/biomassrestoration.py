@@ -20,11 +20,13 @@ from .. import (
     utils,
     worker,
 )
-from ..jobs import models
+from ..jobs.models import Job
+
+from te_schemas import jobs
 
 
 def compute_biomass_restoration(
-        biomass_job: models.Job, area_of_interest: areaofinterest.AOI) -> models.Job:
+        biomass_job: Job, area_of_interest: areaofinterest.AOI) -> Job:
     #######################################################################
     # Prep files
     in_file = biomass_job.params.params["in_file_path"]
@@ -105,7 +107,7 @@ def compute_biomass_restoration(
     # no data value, so that stretches are more likely to compute correctly
     output_bands = []
     for raw_band_info in biomass_job.params.params["in_file_band_infos"]:
-        band = models.JobBand.deserialize(raw_band_info)
+        band = jobs.JobBand.Schema().load(raw_band_info)
         band.no_data_value = -32767
         output_bands.append(band)
     biomass_job.results.bands = output_bands

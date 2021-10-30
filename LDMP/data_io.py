@@ -68,20 +68,20 @@ Ui_WidgetDataIOSelectTEDatasetExisting, _ = uic.loadUiType(
     str(Path(__file__).parents[0] / "gui/WidgetDataIOSelectTEDatasetExisting.ui"))
 
 from .jobs.manager import job_manager
-from .jobs import models as job_models
+from .jobs.models import Job
 from .logger import log
 
-from te_schemas.jobs import JobBand, JobResultType
+from te_schemas import jobs
 
 mb = qgis.utils.iface.messageBar()
 
 
 @dataclasses.dataclass()
 class Band:
-    job: job_models.Job
+    job: Job
     path: Path
     band_index: int
-    band_info: JobBand
+    band_info: jobs.JobBand
 
     def get_name_info(self):
         task_name = self.job.params.task_name
@@ -91,8 +91,8 @@ class Band:
             name_info_parts = []
         name_info_parts.extend(
             [
-                self.job.params.task_notes.local_context.area_of_interest_name,
-                layers.get_band_title(JobBand.Schema().dump(self.band_info)),
+                self.job.params.local_context.area_of_interest_name,
+                layers.get_band_title(jobs.JobBand.Schema().dump(self.band_info)),
                 utils.utc_to_local(self.job.start_date).strftime("%Y-%m-%d %H:%M")
             ]
         )
@@ -106,8 +106,8 @@ class Band:
             hover_info_parts = []
         hover_info_parts.extend(
             [
-                self.job.params.task_notes.local_context.area_of_interest_name + '\n',
-                layers.get_band_title(JobBand.Schema().dump(self.band_info)) + '\n',
+                self.job.params.local_context.area_of_interest_name + '\n',
+                layers.get_band_title(jobs.JobBand.Schema().dump(self.band_info)) + '\n',
                 utils.utc_to_local(self.job.start_date).strftime("%Y-%m-%d %H:%M") + '\n',
                 # TODO: figure out a way to cleanup the metadata so it is 
                 # presentable and useful - likely need to have each script 
@@ -119,14 +119,14 @@ class Band:
 
 @dataclasses.dataclass()
 class Dataset:
-    job: job_models.Job
+    job: Job
     path: Path
 
     def get_name_info(self):
         name_info_parts = []
         name_info_parts.extend(
             [
-                self.job.params.task_notes.local_context.area_of_interest_name,
+                self.job.params.local_context.area_of_interest_name,
                 self.job.visible_name,
                 utils.utc_to_local(self.job.start_date).strftime("%Y-%m-%d %H:%M")
             ]
@@ -139,7 +139,7 @@ class Dataset:
         hover_info_parts.extend(
             [
                 self.job.visible_name + ' - ',
-                self.job.params.task_notes.local_context.area_of_interest_name + '\n',
+                self.job.params.local_context.area_of_interest_name + '\n',
                 utils.utc_to_local(self.job.start_date).strftime("%Y-%m-%d %H:%M")
             ]
         )
@@ -504,7 +504,7 @@ class DlgDataIOLoadTE(QtWidgets.QDialog, Ui_DlgDataIOLoadTE):
 
     buttonBox: QtWidgets.QDialogButtonBox
 
-    job: typing.Optional[job_models.Job]
+    job: typing.Optional[Job]
 
 
     def __init__(self, parent=None):
@@ -559,14 +559,14 @@ class DlgDataIOLoadTE(QtWidgets.QDialog, Ui_DlgDataIOLoadTE):
                     self, self.tr("Could not load file"), error_message)
 
     def parse_chosen_path(
-            self, raw_path: str) -> typing.Tuple[typing.Optional[job_models.Job], str]:
+            self, raw_path: str) -> typing.Tuple[typing.Optional[Job], str]:
         path = Path(raw_path)
         job = None
         error_message = ""
         if path.is_file():
             try:
                 raw_job = json.loads(path.read_text())
-                job = job_models.Job.deserialize(raw_job)
+                job = Job.deserialize(raw_job)
             except json.JSONDecodeError:
                 error_message = "Could not parse the selected file into a valid JSON"
         return job, error_message
@@ -1090,16 +1090,16 @@ def _get_usable_bands(
 ) -> typing.List[Band]:
     result = []
     for job in job_manager.relevant_jobs:
-        job: job_models.Job
-        is_available = job.status in (job_models.JobStatus.DOWNLOADED,
-                                      job_models.JobStatus.GENERATED_LOCALLY)
+        job: Job
+        is_available = job.status in (jobs.JobStatus.DOWNLOADED,
+                                      jobs.JobStatus.GENERATED_LOCALLY)
         is_of_interest = (selected_job_id is None) or (job.id == selected_job_id)
         is_valid_type = (
             job.results and 
             (
-                JobResultType(job.results.type) in (
-                    JobResultType.CLOUD_RESULTS,
-                    JobResultType.LOCAL_RESULTS
+                jobs.JobResultType(job.results.type) in (
+                    jobs.JobResultType.CLOUD_RESULTS,
+                    jobs.JobResultType.LOCAL_RESULTS
                 )
             )
         )
@@ -1217,12 +1217,12 @@ def get_usable_datasets(
 ) -> typing.List[Dataset]:
     result = []
     for job in job_manager.relevant_jobs:
-        job: job_models.Job
-        is_available = job.status in (job_models.JobStatus.DOWNLOADED,
-                                      job_models.JobStatus.GENERATED_LOCALLY)
+        job: Job
+        is_available = job.status in (jobs.JobStatus.DOWNLOADED,
+                                      jobs.JobStatus.GENERATED_LOCALLY)
         try:
-            is_valid_type = JobResultType(job.results.type) in (
-                    JobResultType.CLOUD_RESULTS, JobResultType.LOCAL_RESULTS)
+            is_valid_type = jobs.JobResultType(job.results.type) in (
+                    jobs.JobResultType.CLOUD_RESULTS, jobs.JobResultType.LOCAL_RESULTS)
         except AttributeError:
             # Catch case of an invalid type
             continue
@@ -1290,7 +1290,7 @@ class DlgDataIOAddLayersToMap(
         self.layer_list = self.job.results.bands
 
         band_strings = [
-            f'Band {n}: {layers.get_band_title(JobBand.Schema().dump(band))}'
+            f'Band {n}: {layers.get_band_title(jobs.JobBand.Schema().dump(band))}'
             for n, band in enumerate(self.layer_list, start=1)
         ]
         self.layers_model.setStringList(band_strings)

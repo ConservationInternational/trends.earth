@@ -20,9 +20,9 @@ class AreaSetting(enum.Enum):
 
 
 class Setting(enum.Enum):
-    LOCAL_CONTEXT_SEPARATOR = "private/local_context_separator"
     LOCAL_POLLING_FREQUENCY = "private/local_polling_frequency_seconds"
     UPDATE_FREQUENCY_MILLISECONDS = "private/update_frequency_milliseconds"
+    UNKNOWN_AREA_OF_INTEREST = "private/unknown_area_of_interest"
 
     DEBUG = "advanced/debug"
     BINARIES_ENABLED = "advanced/binaries_enabled"
@@ -57,7 +57,7 @@ class SettingsManager:
     DEFAULT_SETTINGS = {
         Setting.UPDATE_FREQUENCY_MILLISECONDS: 10000,
         Setting.LOCAL_POLLING_FREQUENCY: 30,
-        Setting.LOCAL_CONTEXT_SEPARATOR: "-*-*-*-local_context-*-*-*-",
+        Setting.UNKNOWN_AREA_OF_INTEREST: 'unknown-area',
         Setting.REMOTE_POLLING_FREQUENCY: 3 * 60,
         Setting.DEBUG: False,
         Setting.BINARIES_ENABLED: False,
@@ -97,8 +97,6 @@ class SettingsManager:
             result = self.DEFAULT_SETTINGS[key]
         elif key == Setting.UPDATE_FREQUENCY_MILLISECONDS:
             result = self.DEFAULT_SETTINGS[key]
-        elif key == Setting.LOCAL_CONTEXT_SEPARATOR:
-            result = self.DEFAULT_SETTINGS[key]
         else:
             type_ = type(self.DEFAULT_SETTINGS[key])
             result = self._settings.value(
@@ -123,7 +121,8 @@ def _load_script_config(
     result = {}
 
     for name, raw_config in script_config.items():
-        script = algorithm_models.ExecutionScript.deserialize(name, raw_config)
+        raw_config['name'] = name
+        script = algorithm_models.ExecutionScript.Schema().load(raw_config)
         result[script.name] = script
 
     return result

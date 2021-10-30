@@ -27,6 +27,10 @@ from . import (
 from ..data_io import DlgDataIOAddLayersToMap
 from ..datasets_dialog import DatasetDetailsDialogue
 
+from te_schemas.jobs import (
+    JobStatus
+)
+
 WidgetDatasetItemUi, _ = uic.loadUiType(
     str(Path(__file__).parents[1] / "gui/WidgetDatasetItem.ui"))
 
@@ -241,7 +245,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
 
         self.name_la.setText(self.job.visible_name)
 
-        area_name = self.job.params.task_notes.local_context.area_of_interest_name
+        area_name = self.job.params.local_context.area_of_interest_name
         job_start_date = utils.utc_to_local(self.job.start_date).strftime("%Y-%m-%d %H:%M")
         if area_name:
             notes_text = f'{area_name} ({job_start_date})'
@@ -254,14 +258,14 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         self.delete_tb.setEnabled(True)
 
         # set visibility of progress bar and download button
-        if self.job.status in (models.JobStatus.RUNNING, models.JobStatus.PENDING):
+        if self.job.status in (JobStatus.RUNNING, JobStatus.PENDING):
             self.progressBar.setMinimum(0)
             self.progressBar.setMaximum(0)
             self.progressBar.setFormat('Processing...')
             self.progressBar.show()
             self.download_tb.hide()
             self.add_to_canvas_pb.setEnabled(False)
-        elif self.job.status == models.JobStatus.FINISHED:
+        elif self.job.status == JobStatus.FINISHED:
             self.progressBar.hide()
             result_auto_download = settings_manager.get_value(Setting.DOWNLOAD_RESULTS)
             if result_auto_download:
@@ -274,7 +278,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                 )
             self.add_to_canvas_pb.setEnabled(False)
         elif self.job.status in (
-                models.JobStatus.DOWNLOADED, models.JobStatus.GENERATED_LOCALLY):
+                JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY):
             self.progressBar.hide()
             self.download_tb.hide()
             self.add_to_canvas_pb.setEnabled(self.has_loadable_result())

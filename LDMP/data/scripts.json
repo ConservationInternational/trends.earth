@@ -61,41 +61,43 @@
         "id": "33e52ba6-2666-4227-a537-75907fe0a8a3",
         "name_readable": "Land productivity",
         "run_mode": "remote",
-        "trajectory functions": {
-            "NDVI trends": {
-                "climate types": [],
-                "description": "Calculate trend of annually integrated NDVI.",
-                "params": {
-                    "trajectory_method": "ndvi_trend"
-                }
-            },
-            "Pixel RESTREND": {
-                "climate types": [
-                    "Precipitation",
-                    "Soil moisture",
-                    "Evapotranspiration"
-                ],
-                "description": "Calculate pixel residual trend (RESTREND of annually integrated NDVI, after removing trend associated with a climate indicator.",
-                "params": {
-                    "trajectory_method": "p_restrend"
-                }
-            },
-            "Rain Use Efficiency (RUE)": {
-                "climate types": [
-                    "Precipitation"
-                ],
-                "description": "Calculate rain use efficiency (precipitation divided by NDVI).",
-                "params": {
-                    "trajectory_method": "ue"
-                }
-            },
-            "Water Use Efficiency (WUE)": {
-                "climate types": [
-                    "Evapotranspiration"
-                ],
-                "description": "Calculate water use efficiency (evapotranspiration divided by NDVI).",
-                "params": {
-                    "trajectory_method": "ue"
+        "additional_configuration": {
+            "trajectory functions": {
+                "NDVI trends": {
+                    "climate types": [],
+                    "description": "Calculate trend of annually integrated NDVI.",
+                    "params": {
+                        "trajectory_method": "ndvi_trend"
+                    }
+                },
+                "Pixel RESTREND": {
+                    "climate types": [
+                        "Precipitation",
+                        "Soil moisture",
+                        "Evapotranspiration"
+                    ],
+                    "description": "Calculate pixel residual trend (RESTREND of annually integrated NDVI, after removing trend associated with a climate indicator.",
+                    "params": {
+                        "trajectory_method": "p_restrend"
+                    }
+                },
+                "Rain Use Efficiency (RUE)": {
+                    "climate types": [
+                        "Precipitation"
+                    ],
+                    "description": "Calculate rain use efficiency (precipitation divided by NDVI).",
+                    "params": {
+                        "trajectory_method": "ue"
+                    }
+                },
+                "Water Use Efficiency (WUE)": {
+                    "climate types": [
+                        "Evapotranspiration"
+                    ],
+                    "description": "Calculate water use efficiency (evapotranspiration divided by NDVI).",
+                    "params": {
+                        "trajectory_method": "ue"
+                    }
                 }
             }
         },

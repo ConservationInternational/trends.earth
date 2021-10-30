@@ -48,9 +48,7 @@ from .. import (
     __revision__,
     __release_date__
 )
-from ..jobs import (
-    models,
-)
+from ..jobs import Job
 from ..logger import log
 
 import marshmallow_dataclass
@@ -126,9 +124,9 @@ def _make_tar_gz(out_tar_gz, in_files):
             tar.add(in_file, arcname=in_file.name)
 
 def compute_unccd_report(
-    report_job: models.Job,
+    report_job: Job,
     area_of_interest: areaofinterest.AOI
-) -> models.Job:
+) -> Job:
     """Generate UNCCD report from SO1/SO2 and SO3 datasets"""
 
     params = report_job.params.params

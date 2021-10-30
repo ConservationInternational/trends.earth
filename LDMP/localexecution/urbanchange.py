@@ -16,13 +16,15 @@ from .. import (
     utils,
     worker,
 )
-from ..jobs import models
+from ..jobs.models import Job
+
+from te_schemas import jobs
 
 
 def compute_urban_change_summary_table(
-        urban_change_job: models.Job,
+        urban_change_job: Job,
         area_of_interest: areaofinterest.AOI
-) -> models.Job:
+) -> Job:
     urban_files = []
     for band_index in urban_change_job.params.params["urban_layer_band_indexes"]:
         urban_file_vrt_path = utils.save_vrt(
@@ -107,7 +109,7 @@ def compute_urban_change_summary_table(
         # TODO: NOTE to A. Zvoleff: seems weird to hardcode years in this, but I'm following the previous implementation, so not going to change it
         for year in range(2000, 2016, 5):
             bands.append(
-                models.JobBand(
+                jobs.JobBand(
                     name=name,
                     metadata={
                         "year": year

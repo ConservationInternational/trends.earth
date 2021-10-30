@@ -29,9 +29,9 @@ from te_schemas import (
     schemas,
     land_cover,
     reporting,
-    SchemaBase
+    SchemaBase,
+    jobs
 )
-from te_schemas.jobs import JobBand
 
 from te_algorithms.gdal.drought import (
     SummaryTableDrought,
@@ -84,7 +84,7 @@ class SummaryTableDroughtWidgets:
 @dataclasses.dataclass()
 class DroughtInputInfo:
     path: Path
-    bands: List[JobBand]
+    bands: List[jobs.JobBand]
     indices: List[int]
     years: List[int]
 
@@ -122,7 +122,7 @@ def _get_spi_lag(
 @dataclasses.dataclass()
 class JRCInputInfo:
     path: Path
-    band: JobBand
+    band: jobs.JobBand
     band_index: int
 
 
@@ -167,21 +167,21 @@ def get_main_drought_summary_job_params(
         "task_notes": task_notes,
         "layer_population_path": str(population_input.path),
         "layer_population_bands": [
-            JobBand.Schema().dump(b)
+            jobs.JobBand.Schema().dump(b)
             for b in population_input.bands
         ],
         "layer_population_years": population_input.years,
         "layer_population_band_indices": population_input.indices,
         "layer_spi_path": str(spi_input.path),
         "layer_spi_bands": [
-            JobBand.Schema().dump(b)
+            jobs.JobBand.Schema().dump(b)
             for b in spi_input.bands
         ],
         "layer_spi_band_indices": spi_input.indices,
         "layer_spi_years": spi_input.years,
         "layer_spi_lag": spi_lag,
         "layer_jrc_path": str(jrc_input.path),
-        "layer_jrc_band": JobBand.Schema().dump(jrc_input.band),
+        "layer_jrc_band": jobs.JobBand.Schema().dump(jrc_input.band),
         "layer_jrc_band_index": jrc_input.band_index,
         "crs": aoi.get_crs_dst_wkt(),
         "geojsons": json.dumps(geojsons),
@@ -250,7 +250,7 @@ def compute_drought_vulnerability(
         else:
             year_final = year_initial + drought_period - 1
 
-        out_bands.append(JobBand(
+        out_bands.append(jobs.JobBand(
             name="Minimum SPI over period",
             no_data_value=NODATA_VALUE,
             metadata={
@@ -261,7 +261,7 @@ def compute_drought_vulnerability(
             activated=True
         ))
 
-        out_bands.append(JobBand(
+        out_bands.append(jobs.JobBand(
             name="Population density at minimum SPI over period",
             no_data_value=NODATA_VALUE,
             metadata={
@@ -403,7 +403,7 @@ def _prepare_dfs(
 ) -> List[DataFile]:
     dfs = []
     for band_str, band_index in zip(band_str_list, band_indices):
-        band = JobBand(**band_str)
+        band = jobs.JobBand(**band_str)
         dfs.append(
             DataFile(
                 path=utils.save_vrt(

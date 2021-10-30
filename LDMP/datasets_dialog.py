@@ -18,6 +18,7 @@ from te_schemas.jobs import (
     JobResultType,
     JobCloudResults,
     JobLocalResults,
+    JobParameters,
     TimeSeriesTableResult
 )
 
@@ -88,10 +89,12 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
         self.delete_btn.setIcon(
             QtGui.QIcon(':/plugins/LDMP/icons/mActionDeleteSelected.svg'))
 
-        self.comments.setText(self.job.params.task_notes.user_notes)
+        self.comments.setText(self.job.params.task_notes)
         self.input.setText(
             json.dumps(
-                self.job.params.params,
+                JobParameters.Schema().dump(
+                    self.job.params
+                ),
                 indent=4,
                 sort_keys=True)
         )

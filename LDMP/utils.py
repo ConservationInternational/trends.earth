@@ -72,7 +72,7 @@ def delete_dataset(job: models.Job) -> int:
         name_fragments.append(job.params.task_name)
     name_fragments.extend([
         job.script.name,
-        job.params.task_notes.local_context.area_of_interest_name,
+        job.params.local_context.area_of_interest_name,
         job.start_date.strftime("%Y%m%d%H%M"),
         str(job.id)
     ])

@@ -37,7 +37,6 @@ from .jobs.manager import job_manager
 from .jobs import mvc as jobs_mvc
 from .jobs.models import (
     Job,
-    JobStatus,
     SortField,
 )
 from .utils import (
@@ -45,6 +44,10 @@ from .utils import (
 )
 from .logger import log
 from .visualization import DlgVisualizationBasemap
+
+from te_schemas.jobs import (
+    JobStatus
+)
 
 DockWidgetTrendsEarthUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/WidgetMain.ui"))

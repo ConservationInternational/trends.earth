@@ -29,153 +29,10 @@ class SortField(enum.Enum):
     STATUS = 'status'
 
 
-class ScriptStatus(enum.Enum):
-    SUCCESS = "SUCCESS"
-    FAIL = "FAIL"
-
-
-class JobStatus(enum.Enum):
-    READY = "READY"
-    PENDING = "PENDING"
-    FINISHED = "FINISHED"
-    RUNNING = "RUNNING"
-    FAILED = "FAILED"
-    DELETED = "DELETED"
-    DOWNLOADED = "DOWNLOADED"
-    GENERATED_LOCALLY = "GENERATED_LOCALLY"
-
-
-
-@dataclasses.dataclass()
-class RemoteScript:
-    id: uuid.UUID
-    name: str
-    slug: str
-    description: str
-    status: str
-    created_at: dt.datetime
-    updated_at: dt.datetime
-    user_id: uuid.UUID
-    public: bool
-
-    _date_format: str = "%Y-%m-%dT%H:%M:%S.%f"
-
-    @classmethod
-    def deserialize(cls, raw_script: typing.Dict):
-        return cls(
-            id=uuid.UUID(raw_script["id"]),
-            name=raw_script["name"],
-            slug=raw_script["slug"],
-            description=raw_script["description"],
-            status=ScriptStatus(raw_script["status"]),
-            created_at=dt.datetime.strptime(
-                raw_script["created_at"],
-                cls._date_format
-            ).replace(tzinfo=dt.timezone.utc),
-            updated_at=dt.datetime.strptime(
-                raw_script["updated_at"],
-                cls._date_format
-            ).replace(tzinfo=dt.timezone.utc),
-            user_id=uuid.UUID(raw_script["user_id"]),
-            public=raw_script["public"]
-        )
-
-
-@dataclasses.dataclass()
-class JobLocalContext:
-    base_dir: Path
-    area_of_interest_name: str
-
-    _unknown_area_of_interest: str = "unknown-area"
-
-    @classmethod
-    def deserialize(cls, raw_local_context: str):
-        parsed = json.loads(raw_local_context)
-        return cls(
-            base_dir=Path(parsed["base_dir"]),
-            area_of_interest_name=parsed.get(
-                "area_of_interest_name", cls._unknown_area_of_interest)
-        )
-
-    @classmethod
-    def create_default(cls):
-        """Create a default local context.
-
-        The created instance specifies the current base dir as its base dir
-
-        """
-
-        return cls(
-            base_dir=Path(conf.settings_manager.get_value(conf.Setting.BASE_DIR)),
-            area_of_interest_name=cls._unknown_area_of_interest
-        )
-
-    def serialize(self) -> str:
-        return json.dumps(
-            {
-                "base_dir": str(self.base_dir),
-                "area_of_interest_name": self.area_of_interest_name,
-            }
-        )
-
-
-@dataclasses.dataclass()
-class JobNotes:
-    user_notes: str
-    local_context: JobLocalContext
-
-    @classmethod
-    def deserialize(cls, raw_notes: str):
-        separator = conf.settings_manager.get_value(
-            conf.Setting.LOCAL_CONTEXT_SEPARATOR)
-        user_notes, raw_local_context = raw_notes.partition(separator)[::2]
-        if raw_local_context != "":
-            local_context = JobLocalContext.deserialize(raw_local_context)
-        else:
-            local_context = JobLocalContext.create_default()
-        return cls(user_notes=user_notes, local_context=local_context)
-
-    def serialize(self) -> str:
-        if self.local_context is not None:
-            serialized_local_context = self.local_context.serialize()
-        else:
-            serialized_local_context = ""
-        separator = conf.settings_manager.get_value(
-            conf.Setting.LOCAL_CONTEXT_SEPARATOR)
-        return separator.join(
-            (self.user_notes, serialized_local_context))
-
-
-@dataclasses.dataclass()
-class JobParameters:
-    task_name: str
-    task_notes: JobNotes
-    params: typing.Dict
-
-    @classmethod
-    def deserialize(cls, raw_params: typing.Dict):
-        params = raw_params.copy()
-        name = params.pop("task_name", "")
-        notes = JobNotes.deserialize(params.pop("task_notes", ""))
-        return cls(
-            task_name=name,
-            task_notes=notes,
-            params=params
-        )
-
-    def serialize(self) -> typing.Dict:
-        result = {
-            "task_name": self.task_name,
-            "task_notes": self.task_notes.serialize(),
-        }
-        result.update(self.params)
-        return result
-
-
 @dataclasses.dataclass()
 class Job:
     id: uuid.UUID
-    params: JobParameters
+    params: jobs.JobParameters
     progress: int
     results: typing.Optional[
         typing.Union[
@@ -185,7 +42,7 @@ class Job:
         ]
     ]
     script: ExecutionScript
-    status: JobStatus
+    status: jobs.JobStatus
     start_date: dt.datetime
     end_date: typing.Optional[dt.datetime] = None
     user_id: typing.Optional[uuid.UUID] = None
@@ -229,11 +86,11 @@ class Job:
         raw_user_id = raw_job.get("user_id")
         return cls(
             id=uuid.UUID(raw_job["id"]),
-            params=JobParameters.deserialize(raw_job["params"]),
+            params=jobs.JobParameters.Schema().load(raw_job["params"]),
             progress=raw_job["progress"],
             results=results,
             script=script,
-            status=JobStatus(raw_job["status"]),
+            status=jobs.JobStatus(raw_job["status"]),
             user_id=uuid.UUID(raw_user_id) if raw_user_id is not None else None,
             start_date=dt.datetime.strptime(
                 raw_job["start_date"],
@@ -269,7 +126,7 @@ class Job:
 
         raw_job = {
             "id": str(self.id),
-            "params": self.params.serialize(),
+            "params": jobs.JobParameters.Schema().dump(self.params),
             "progress": self.progress,
             "results": results_serial,
             "script_id": script_identifier,
@@ -287,8 +144,8 @@ class Job:
 def get_remote_scripts():
     """Query the remote server for existing scripts
 
-    The information returned from the remote shall be enough to at least display Jobs
-    which came from a version which is not known locally.
+    The information returned from the remote shall be enough to at least
+    display Jobs which came from a version which is not known locally.
 
     """
 
@@ -296,7 +153,10 @@ def get_remote_scripts():
     if raw_remote is None:
         return
     else:
-        return [ExecutionScript.deserialize_from_remote_response(r) for r in raw_remote]
+        return [
+            jobs.RemoteScript.Schema().load(r)
+            for r in raw_remote
+        ]
 
 
 def get_job_local_script(script_name: str) -> ExecutionScript:
@@ -305,7 +165,9 @@ def get_job_local_script(script_name: str) -> ExecutionScript:
 
 def _get_job_script(script_id: uuid.UUID) -> ExecutionScript:
     try:
-        script = [s for s in conf.KNOWN_SCRIPTS.values() if s.id == script_id][0]
+        script = [
+            s for s in conf.KNOWN_SCRIPTS.values() if s.id == script_id
+        ][0]
     except IndexError:
         if conf.settings_manager.get_value(conf.Setting.DEBUG):
             log(f"script {script_id!r} is not known locally")
@@ -317,4 +179,8 @@ def _get_job_script(script_id: uuid.UUID) -> ExecutionScript:
         except IndexError:
             raise RuntimeError(
                 f"script {script_id!r} is not known on the remote server")
+        else:
+            script = ExecutionScript.Schema().load(
+                jobs.RemoteScript.Schema().dump(script)
+            )
     return script

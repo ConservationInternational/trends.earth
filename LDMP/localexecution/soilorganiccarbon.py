@@ -15,11 +15,13 @@ from .. import (
     worker,
 )
 from ..areaofinterest import AOI
-from ..jobs import models
+from ..jobs.models import Job
+
+from te_schemas import jobs
 
 
 def compute_soil_organic_carbon(
-        soc_job: models.Job, area_of_interest: AOI) -> models.Job:
+        soc_job: Job, area_of_interest: AOI) -> Job:
     # Select the initial and final bands from initial and final datasets
     # (in case there is more than one lc band per dataset)
     lc_initial_vrt = utils.save_vrt(
@@ -84,7 +86,7 @@ def compute_soil_organic_carbon(
         soc_job.end_date = dt.datetime.now(dt.timezone.utc)
         soc_job.progress = 100
         bands = [
-            models.JobBand(
+            jobs.JobBand(
                 name="Soil organic carbon (degradation)",
                 metadata={
                     "year_initial": soc_job.params.params["lc_years"][0],
@@ -93,7 +95,7 @@ def compute_soil_organic_carbon(
             )
         ]
         for year in soc_job.params.params["lc_years"]:
-            soc_band = models.JobBand(
+            soc_band = jobs.JobBand(
                 name="Soil organic carbon",
                 metadata={
                     "year": year
@@ -101,7 +103,7 @@ def compute_soil_organic_carbon(
             )
             bands.append(soc_band)
         for year in soc_job.params.params["lc_years"]:
-            lc_band = models.JobBand(
+            lc_band = jobs.JobBand(
                 name="Land cover (7 class)",
                 metadata={
                     "year": year

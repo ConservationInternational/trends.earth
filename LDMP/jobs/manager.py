@@ -21,7 +21,7 @@ from .. import (
 from . import models
 from .models import Job
 from ..logger import log
-from te_schemas import jobs as jobs_models
+from te_schemas import jobs
 
 def slugify(value, allow_unicode=False):
     """
@@ -67,20 +67,20 @@ class JobManager(QtCore.QObject):
     @property
     def known_jobs(self):
         return {
-            models.JobStatus.RUNNING: self._known_running_jobs,
-            models.JobStatus.FINISHED: self._known_finished_jobs,
-            models.JobStatus.FAILED: self._known_failed_jobs,
-            models.JobStatus.DELETED: self._known_deleted_jobs,
-            models.JobStatus.DOWNLOADED: self._known_downloaded_jobs,
+            jobs.JobStatus.RUNNING: self._known_running_jobs,
+            jobs.JobStatus.FINISHED: self._known_finished_jobs,
+            jobs.JobStatus.FAILED: self._known_failed_jobs,
+            jobs.JobStatus.DELETED: self._known_deleted_jobs,
+            jobs.JobStatus.DOWNLOADED: self._known_downloaded_jobs,
         }
 
     @property
     def relevant_jobs(self) -> typing.List[Job]:
         relevant_statuses = (
-            models.JobStatus.RUNNING,
-            models.JobStatus.FINISHED,
-            models.JobStatus.FAILED,
-            models.JobStatus.DOWNLOADED,
+            jobs.JobStatus.RUNNING,
+            jobs.JobStatus.FINISHED,
+            jobs.JobStatus.FAILED,
+            jobs.JobStatus.DOWNLOADED,
         )
         result = []
         for status in relevant_statuses:
@@ -128,7 +128,7 @@ class JobManager(QtCore.QObject):
         if job.script:
             name_fragments.append(job.script.name)
         name_fragments.extend([
-            job.params.task_notes.local_context.area_of_interest_name
+            job.params.local_context.area_of_interest_name
         ])
         return separator.join(name_fragments)
 
@@ -149,7 +149,7 @@ class JobManager(QtCore.QObject):
         """
 
         self._known_running_jobs = {
-            j.id: j for j in self._get_local_jobs(models.JobStatus.RUNNING)}
+            j.id: j for j in self._get_local_jobs(jobs.JobStatus.RUNNING)}
         self._refresh_local_downloaded_jobs()
         # move any downloaded jobs with missing local paths back to FINISHED
         for j_id, j in self._known_downloaded_jobs.items():
@@ -158,15 +158,15 @@ class JobManager(QtCore.QObject):
                     'missing paths, so moving back to FINISHED status')
                 j.results.data_path = None
                 self._change_job_status(
-                    j, models.JobStatus.FINISHED, force_rewrite=True)
+                    j, jobs.JobStatus.FINISHED, force_rewrite=True)
         # filter list in case any jobs were moved from downloaded to finished
         self._known_downloaded_jobs = {
             j_id: j
             for j_id, j
             in self._known_downloaded_jobs.items()
             if j.status in [
-                models.JobStatus.DOWNLOADED,
-                models.JobStatus.GENERATED_LOCALLY
+                jobs.JobStatus.DOWNLOADED,
+                jobs.JobStatus.GENERATED_LOCALLY
             ]
         }
 
@@ -236,7 +236,7 @@ class JobManager(QtCore.QObject):
 
         """
 
-        if job.status != models.JobStatus.DELETED:
+        if job.status != jobs.JobStatus.DELETED:
             try:
                 _delete_job_datasets(job)
             except PermissionError:
@@ -244,7 +244,7 @@ class JobManager(QtCore.QObject):
                 # TODO: add back in old code used for removing visible layers 
                 # prior to deletion
                 return
-            self._change_job_status(job, models.JobStatus.DELETED, force_rewrite=False)
+            self._change_job_status(job, jobs.JobStatus.DELETED, force_rewrite=False)
         else:
             log(f"job {job!r} has already been deleted, skipping...")
         self.deleted_job.emit(job)
@@ -265,8 +265,8 @@ class JobManager(QtCore.QObject):
 
         # Note - this is a reimplementation of api.run_script
         final_params = params.copy()
-        final_params["task_notes"] = _add_local_context_to_task_notes(
-            params["task_notes"])
+        final_params["task_notes"] = params["task_notes"]
+        final_params["local_context"] = _get_local_context()
         url_fragment = f"/api/v1/script/{script_id}/run"
         response = api.call_api(url_fragment, "post", final_params, use_token=True)
         try:
@@ -287,20 +287,20 @@ class JobManager(QtCore.QObject):
             area_of_interest: areaofinterest.AOI
     ):
         final_params = params.copy()
-        final_params["task_notes"] = _add_local_context_to_task_notes(
-            params["task_notes"])
+        final_params["task_notes"] = params["task_notes"]
+        final_params["local_context"] = _get_local_context()
         job = Job(
             id=uuid.uuid4(),
-            params=models.JobParameters.deserialize(final_params),
+            params=jobs.JobParameters.Schema().load(final_params),
             progress=0,
-            results=jobs_models.JobLocalResults(
+            results=jobs.JobLocalResults(
                 name=script_name,
                 bands=[],
                 data_path=None,
                 other_paths=[]
             ),
             script=models.get_job_local_script(script_name),
-            status=models.JobStatus.PENDING,
+            status=jobs.JobStatus.PENDING,
             start_date=dt.datetime.now(dt.timezone.utc)
         )
         self.write_job_metadata_file(job)
@@ -309,24 +309,22 @@ class JobManager(QtCore.QObject):
         self.process_local_job(job, area_of_interest)
 
     def process_local_job(self, job: Job, area_of_interest: areaofinterest.AOI):
-        execution_callable_python_path = job.script.additional_configuration[
-            "execution_callable"]
-        execution_handler = utils.load_object(execution_callable_python_path)
+        execution_handler = utils.load_object(job.script.execution_callable)
         done_job = execution_handler(job, area_of_interest)
-        self._move_job_to_dir(done_job, new_status=models.JobStatus.GENERATED_LOCALLY)
+        self._move_job_to_dir(done_job, new_status=jobs.JobStatus.GENERATED_LOCALLY)
         self.processed_local_job.emit(done_job)
 
     def download_job_results(self, job: Job) -> Job:
         handler = {
-            jobs_models.JobResultType.CLOUD_RESULTS: self._download_cloud_results,
-            jobs_models.JobResultType.TIME_SERIES_TABLE: self._download_timeseries_table,
+            jobs.JobResultType.CLOUD_RESULTS: self._download_cloud_results,
+            jobs.JobResultType.TIME_SERIES_TABLE: self._download_timeseries_table,
         }[job.results.type]
         handler: typing.Callable
         output_path = handler(job)
         if output_path is not None:
             job.results.data_path = output_path
             self._change_job_status(
-                job, models.JobStatus.DOWNLOADED, force_rewrite=True)
+                job, jobs.JobStatus.DOWNLOADED, force_rewrite=True)
         self.downloaded_job_results.emit(job)
         # TODO: maybe we don't need to return anything here
         return job
@@ -350,7 +348,7 @@ class JobManager(QtCore.QObject):
         # change size during the bulk download process. The original
         # `self.known_jobs[JobStatus.FINISHED]` dict is being updated as each
         # job result is being downloaded
-        frozen_finished_jobs = self.known_jobs[models.JobStatus.FINISHED].copy()
+        frozen_finished_jobs = self.known_jobs[jobs.JobStatus.FINISHED].copy()
         if len(frozen_finished_jobs) > 0:
             for job in frozen_finished_jobs.values():
                 self.download_job_results(job)
@@ -363,7 +361,7 @@ class JobManager(QtCore.QObject):
                     layers.add_layer(
                         str(job.results.data_path),
                         band_index,
-                        jobs_models.JobBand.Schema().dump(band)
+                        jobs.JobBand.Schema().dump(band)
                     )
 
     def display_selected_job_results(self, job:Job, band_numbers):
@@ -373,15 +371,15 @@ class JobManager(QtCore.QObject):
                     layers.add_layer(
                         str(job.results.data_path),
                         n,
-                        jobs_models.JobBand.Schema().dump(band)
+                        jobs.JobBand.Schema().dump(band)
                     )
 
     def import_job(self, job: Job):
         self._move_job_to_dir(job, job.status, force_rewrite=True)
-        if job.status == models.JobStatus.PENDING:
-            status = models.JobStatus.RUNNING
-        elif job.status == models.JobStatus.GENERATED_LOCALLY:
-            status = models.JobStatus.DOWNLOADED
+        if job.status == jobs.JobStatus.PENDING:
+            status = jobs.JobStatus.RUNNING
+        elif job.status == jobs.JobStatus.GENERATED_LOCALLY:
+            status = jobs.JobStatus.DOWNLOADED
         else:
             status = job.status
         self.known_jobs[status][job.id] = job
@@ -393,7 +391,7 @@ class JobManager(QtCore.QObject):
             band_name: str,
             band_metadata: typing.Dict
     ) -> Job:
-        band_info = models.JobBand(
+        band_info = jobs.JobBand(
             name=band_name, no_data_value=-32768.0, metadata=band_metadata.copy())
         if band_name == "Land cover (7 class)":
             script = conf.KNOWN_SCRIPTS["local-land-cover"]
@@ -404,25 +402,29 @@ class JobManager(QtCore.QObject):
         else:
             raise RuntimeError(f"Invalid band name: {band_name!r}")
         now = dt.datetime.now(dt.timezone.utc)
+        local_context = jobs.JobLocalContext(
+            base_dir=Path(conf.settings_manager.get_value(conf.Setting.BASE_DIR)),
+            area_of_interest_name=conf.settings_manager.get_value(conf.Setting.UNKNOWN_AREA_OF_INTEREST)
+        )
         job = Job(
             id=uuid.uuid4(),
-            params=models.JobParameters(
+            params=jobs.JobParameters(
                 task_name="Imported dataset",
-                task_notes=models.JobNotes(
+                task_notes=jobs.JobNotes(
                     user_notes="",
-                    local_context=models.JobLocalContext.create_default()
+                    local_context=local_context
                 ),
                 params={}
             ),
             progress=100,
-            results=jobs_models.JobLocalResults(
+            results=jobs.JobLocalResults(
                 name=f"{band_name} results",
                 bands=[band_info],
                 data_path=dataset_path,
                 other_paths=[]
             ),
             script=script,
-            status=models.JobStatus.GENERATED_LOCALLY,
+            status=jobs.JobStatus.GENERATED_LOCALLY,
             start_date=now,
             end_date=now,
         )
@@ -430,18 +432,18 @@ class JobManager(QtCore.QObject):
 
     def _update_known_jobs_with_newly_submitted_job(self, job: Job):
         status = job.status
-        if status == models.JobStatus.PENDING:
-            status = models.JobStatus.RUNNING
+        if status == jobs.JobStatus.PENDING:
+            status = jobs.JobStatus.RUNNING
         self.known_jobs[status][job.id] = job
 
     def _change_job_status(
-            self, job: Job, target: models.JobStatus, force_rewrite: bool = True):
+            self, job: Job, target: jobs.JobStatus, force_rewrite: bool = True):
         """Modify a job's status both in the in-memory cache and on the filesystem"""
         previous_status = job.status
-        if previous_status == models.JobStatus.PENDING:
-            previous_status = models.JobStatus.RUNNING
-        elif previous_status == models.JobStatus.GENERATED_LOCALLY:
-            previous_status = models.JobStatus.DOWNLOADED
+        if previous_status == jobs.JobStatus.PENDING:
+            previous_status = jobs.JobStatus.RUNNING
+        elif previous_status == jobs.JobStatus.GENERATED_LOCALLY:
+            previous_status = jobs.JobStatus.DOWNLOADED
         # this already sets the new status on the job
         self._move_job_to_dir(job, target, force_rewrite=force_rewrite)
         del self.known_jobs[previous_status][job.id]
@@ -483,7 +485,7 @@ class JobManager(QtCore.QObject):
     def _refresh_local_running_jobs(
             self, remote_jobs: typing.List[Job]) -> typing.Dict[uuid.UUID, Job]:
         """Update local directory of running jobs by comparing with the remote jobs"""
-        local_running_jobs = self._get_local_jobs(models.JobStatus.RUNNING)
+        local_running_jobs = self._get_local_jobs(jobs.JobStatus.RUNNING)
         self._known_running_jobs = {}
         # first go over all previously known jobs and check if they are still running
         for old_running_job in local_running_jobs:
@@ -494,7 +496,7 @@ class JobManager(QtCore.QObject):
                     f"Could not find job {old_running_job.id!r} on the remote server "
                     f"anymore. Deleting job metadata file from the base directory... "
                 )
-            elif remote_job.status == models.JobStatus.RUNNING:
+            elif remote_job.status == jobs.JobStatus.RUNNING:
                 self._known_running_jobs[remote_job.id] = remote_job
                 self.write_job_metadata_file(remote_job)
             else:  # job is not running anymore - maybe it is finished
@@ -502,7 +504,7 @@ class JobManager(QtCore.QObject):
         # now check for any new jobs (these might have been submitted by another client)
         known_running = [j.id for j in self._known_running_jobs.values()]
         for remote in remote_jobs:
-            remote_running = remote.status == models.JobStatus.RUNNING
+            remote_running = remote.status == jobs.JobStatus.RUNNING
             if remote_running and remote.id not in known_running:
                 log(
                     f"Found new remote job: {remote.id!r}. Adding it to local base "
@@ -515,12 +517,12 @@ class JobManager(QtCore.QObject):
     def _refresh_local_finished_jobs(
             self, remote_jobs: typing.List[Job]) -> typing.Dict[uuid.UUID, Job]:
         self._known_finished_jobs = {
-            j.id: j for j in self._get_local_jobs(models.JobStatus.FINISHED)}
+            j.id: j for j in self._get_local_jobs(jobs.JobStatus.FINISHED)}
         local_ids = self._known_finished_jobs.keys()
         deleted_ids = self._known_deleted_jobs.keys()
         downloaded_ids = self._known_downloaded_jobs.keys()
         remote_finished = [
-            j for j in remote_jobs if j.status == models.JobStatus.FINISHED]
+            j for j in remote_jobs if j.status == jobs.JobStatus.FINISHED]
         for remote_job in remote_finished:
             if remote_job.id in deleted_ids:
                 continue  # this job has previously been deleted by the user
@@ -536,18 +538,18 @@ class JobManager(QtCore.QObject):
 
     def _refresh_local_downloaded_jobs(self):
         self._known_downloaded_jobs = {
-            j.id: j for j in self._get_local_jobs(models.JobStatus.DOWNLOADED)}
+            j.id: j for j in self._get_local_jobs(jobs.JobStatus.DOWNLOADED)}
 
     def _refresh_local_generated_jobs(self):
         self._known_downloaded_jobs = {
-            j.id: j for j in self._get_local_jobs(models.JobStatus.GENERATED_LOCALLY)}
+            j.id: j for j in self._get_local_jobs(jobs.JobStatus.GENERATED_LOCALLY)}
 
     def _refresh_local_deleted_jobs(self):
         self._known_deleted_jobs = {
-            j.id: j for j in self._get_local_jobs(models.JobStatus.DELETED)}
+            j.id: j for j in self._get_local_jobs(jobs.JobStatus.DELETED)}
 
     def _move_job_to_dir(
-            self, job: Job, new_status: models.JobStatus, force_rewrite: bool = False):
+            self, job: Job, new_status: jobs.JobStatus, force_rewrite: bool = False):
         """Move job metadata file to another directory based on the desired status.
 
         This also mutates the input job, updating its current status to the new one.
@@ -566,14 +568,14 @@ class JobManager(QtCore.QObject):
             else:
                 log("No need to move the job file, it is already in place")
 
-    def _get_local_jobs(self, status: models.JobStatus) -> typing.List[Job]:
+    def _get_local_jobs(self, status: jobs.JobStatus) -> typing.List[Job]:
         base_dir = {
-            models.JobStatus.FINISHED: self.finished_jobs_dir,
-            models.JobStatus.FAILED: self.failed_jobs_dir,
-            models.JobStatus.RUNNING: self.running_jobs_dir,
-            models.JobStatus.DELETED: self.deleted_jobs_dir,
-            models.JobStatus.DOWNLOADED: self.datasets_dir,
-            models.JobStatus.GENERATED_LOCALLY: self.datasets_dir,
+            jobs.JobStatus.FINISHED: self.finished_jobs_dir,
+            jobs.JobStatus.FAILED: self.failed_jobs_dir,
+            jobs.JobStatus.RUNNING: self.running_jobs_dir,
+            jobs.JobStatus.DELETED: self.deleted_jobs_dir,
+            jobs.JobStatus.DOWNLOADED: self.datasets_dir,
+            jobs.JobStatus.GENERATED_LOCALLY: self.datasets_dir,
         }[status]
         result = []
         for job_metadata_path in base_dir.glob("**/*.json"):
@@ -610,7 +612,7 @@ class JobManager(QtCore.QObject):
 
         now = dt.datetime.now(tz=dt.timezone.utc)
         self._known_finished_jobs = {}
-        for finished_job in self._get_local_jobs(models.JobStatus.FINISHED):
+        for finished_job in self._get_local_jobs(jobs.JobStatus.FINISHED):
             job_age = now - finished_job.end_date
             if job_age.days > self._relevant_job_age_threshold_days:
                 if conf.settings_manager.get_value(conf.Setting.DEBUG):
@@ -638,7 +640,7 @@ class JobManager(QtCore.QObject):
 
         now = dt.datetime.now(tz=dt.timezone.utc)
         self._known_failed_jobs = {}
-        for failed_job in self._get_local_jobs(models.JobStatus.FAILED):
+        for failed_job in self._get_local_jobs(jobs.JobStatus.FAILED):
             job_age = now - failed_job.end_date
             if job_age.days > self._relevant_job_age_threshold_days:
                 log(
@@ -650,16 +652,16 @@ class JobManager(QtCore.QObject):
         return self._known_failed_jobs
 
     def get_job_file_path(self, job: Job) -> Path:
-        if job.status in (models.JobStatus.RUNNING, models.JobStatus.PENDING):
+        if job.status in (jobs.JobStatus.RUNNING, jobs.JobStatus.PENDING):
             base = self.running_jobs_dir
-        elif job.status == models.JobStatus.FAILED:
+        elif job.status == jobs.JobStatus.FAILED:
             base = self.failed_jobs_dir
-        elif job.status == models.JobStatus.FINISHED:
+        elif job.status == jobs.JobStatus.FINISHED:
             base = self.finished_jobs_dir
-        elif job.status == models.JobStatus.DELETED:
+        elif job.status == jobs.JobStatus.DELETED:
             base = self.deleted_jobs_dir
         elif job.status in (
-                models.JobStatus.DOWNLOADED, models.JobStatus.GENERATED_LOCALLY):
+                jobs.JobStatus.DOWNLOADED, jobs.JobStatus.GENERATED_LOCALLY):
             base = self.datasets_dir / f"{job.id!s}"
         else:
             raise RuntimeError(
@@ -687,13 +689,14 @@ class JobManager(QtCore.QObject):
             old_path.unlink()  # not using the `missing_ok` param as it was introduced only in Python 3.8
 
 
-def _add_local_context_to_task_notes(task_notes: str) -> str:
-    separator = conf.settings_manager.get_value(conf.Setting.LOCAL_CONTEXT_SEPARATOR)
-    context = models.JobLocalContext(
-        base_dir=conf.settings_manager.get_value(conf.Setting.BASE_DIR),
-        area_of_interest_name=conf.settings_manager.get_value(conf.Setting.AREA_NAME)
+def _get_local_context() -> str:
+    return jobs.JobLocalContext().Schema().dump(
+        jobs.JobLocalContext(
+            base_dir=conf.settings_manager.get_value(conf.Setting.BASE_DIR),
+            area_of_interest_name=conf.settings_manager.get_value(
+                conf.Setting.AREA_NAME)
+        )
     )
-    return separator.join((task_notes, context.serialize()))
 
 
 def find_job(target: Job, source: typing.List[Job]) -> typing.Optional[Job]:
@@ -720,7 +723,7 @@ def _get_user_id() -> uuid:
 
 
 def _get_single_cloud_result(
-        url: jobs_models.JobUrl, output_path: Path) -> typing.Optional[Path]:
+        url: jobs.JobUrl, output_path: Path) -> typing.Optional[Path]:
     path_exists = output_path.is_file()
     hash_matches = ldmp_download.local_check_hash_against_etag(
         output_path, url.decoded_md5_hash)
@@ -805,7 +808,7 @@ def get_remote_jobs(
                     job = Job.deserialize(raw_job)
                     has_results = job.results is not None
                     if (job.results is not None and
-                            job.results.type == jobs_models.JobResultType.TIME_SERIES_TABLE):
+                            job.results.type == jobs.JobResultType.TIME_SERIES_TABLE):
                         log(
                             f"Ignoring job {job.id!r} because it contains "
                             "timeseries results. Support for timeseries results "
@@ -831,7 +834,7 @@ def get_relevant_remote_jobs(remote_jobs: typing.List[Job]) -> typing.List[Job]:
     current_base_dir = conf.settings_manager.get_value(conf.Setting.BASE_DIR)
     result = []
     for job in remote_jobs:
-        if str(job.params.task_notes.local_context.base_dir) == str(current_base_dir):
+        if str(job.params.local_context.base_dir) == str(current_base_dir):
             result.append(job)
     return result
 

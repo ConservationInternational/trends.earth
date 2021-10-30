@@ -21,7 +21,7 @@ from .. import (
     summary,
     utils,
 )
-from ..jobs import models
+from ..jobs.models import Job
 
 
 class tr_calculate_tc(object):
@@ -30,7 +30,7 @@ class tr_calculate_tc(object):
 
 
 def compute_total_carbon_summary_table(
-        tc_job: models.Job, area_of_interest: areaofinterest.AOI) -> models.Job:
+        tc_job: Job, area_of_interest: areaofinterest.AOI) -> Job:
     # Load all datasets to VRTs (to select only the needed bands)
     f_loss_vrt = utils.save_vrt(
         tc_job.params.params["f_loss_path"], tc_job.params.params["f_loss_band_index"])

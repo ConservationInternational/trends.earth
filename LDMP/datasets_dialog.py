@@ -76,7 +76,7 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
             else:
                 path_le_text = empty_paths_msg
         else:
-            path_le_text = f"{empty_paths_msg}_yet"
+            path_le_text = f"{empty_paths_msg} yet"
         self.load_btn.setEnabled(data_path_exist)
         self.export_btn.setEnabled(data_path_exist)
         self.path_le.setText(path_le_text)

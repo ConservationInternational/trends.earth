@@ -18,7 +18,6 @@ from te_schemas.jobs import (
     JobResultType,
     JobCloudResults,
     JobLocalResults,
-    JobParameters,
     TimeSeriesTableResult
 )
 
@@ -56,10 +55,12 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
 
         self.job = job
 
-        self.name_le.setText(self.job.params.task_name)
+        self.name_le.setText(self.job.task_name)
         self.id_le.setText(str(self.job.id))
         self.state_le.setText(self.job.status.value)
-        self.created_at_le.setText(str(self.job.start_date))
+        self.created_at_le.setText(str(
+            utils.utc_to_local(self.job.start_date).strftime("%Y-%m-%d %H:%M")
+        ))
         self.load_btn.clicked.connect(self.load_dataset)
         self.delete_btn.clicked.connect(self.delete_dataset)
         self.open_directory_btn.clicked.connect(self.open_job_directory)
@@ -89,28 +90,14 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
         self.delete_btn.setIcon(
             QtGui.QIcon(':/plugins/LDMP/icons/mActionDeleteSelected.svg'))
 
-        self.comments.setText(self.job.params.task_notes)
+        self.comments.setText(self.job.task_notes)
         self.input.setText(
-            json.dumps(
-                JobParameters.Schema().dump(
-                    self.job.params
-                ),
-                indent=4,
-                sort_keys=True)
+            json.dumps(self.job.params, indent=4, sort_keys=True)
         )
         if self.job.results is not None:
-            if self.job.results.type == JobResultType.CLOUD_RESULTS:
-                results_serial = JobCloudResults.Schema().dump(
-                        self.job.results)
-            elif self.job.results.type == JobResultType.LOCAL_RESULTS:
-                results_serial = JobLocalResults.Schema().dump(
-                        self.job.results)
-            elif self.job.results.type == JobResultType.TIME_SERIES_TABLE:
-                results_serial = TimeSeriesTableResult.Schema().load(
-                        self.job.results)
             self.output.setText(
                 json.dumps(
-                    results_serial,
+                    models.Job.Schema(only=['results']).dump(self.job)['results'],
                     indent=4,
                     sort_keys=True)
             )
@@ -127,7 +114,7 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
             self.accept()
 
     def open_job_directory(self):
-        log(f"Open directory button clicked for job {self.job.params.task_name!r}")
+        log(f"Open directory button clicked for job {self.job.task_name!r}")
         job_directory = manager.job_manager.get_job_file_path(self.job).parent
         # NOTE: not using QDesktopServices.openUrl here, since it seems to not be
         # working correctly (as of Jun 2021 on Ubuntu)
@@ -139,14 +126,16 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
             self.accept()
 
     def export_dataset(self):
-        log(f"Exporting dataset {self.job.params.task_name!r}...")
+        log(f"Exporting dataset {self.job.task_name!r}...")
         self.export_btn.setEnabled(False)
         self.bar.clearWidgets()
         manager.job_manager.exports_dir.mkdir(exist_ok=True)
         current_job_file_path = manager.job_manager.get_job_file_path(self.job)
         target_zip_name = f"{current_job_file_path.stem}.zip"
         target_path = manager.job_manager.exports_dir / target_zip_name
-        paths_to_zip = [self.job.results.data_path] + self.job.results.other_paths + [current_job_file_path]
+        paths_to_zip = [
+            self.job.results.data_path
+        ] + self.job.results.other_paths + [current_job_file_path]
         try:
             with ZipFile(target_path, 'w') as zip:
                 for path in paths_to_zip:

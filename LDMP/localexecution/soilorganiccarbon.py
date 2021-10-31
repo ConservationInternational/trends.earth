@@ -25,12 +25,12 @@ def compute_soil_organic_carbon(
     # Select the initial and final bands from initial and final datasets
     # (in case there is more than one lc band per dataset)
     lc_initial_vrt = utils.save_vrt(
-        soc_job.params.params["lc_initial_path"],
-        soc_job.params.params["lc_initial_band_index"]
+        soc_job.params["lc_initial_path"],
+        soc_job.params["lc_initial_band_index"]
     )
     lc_final_vrt = utils.save_vrt(
-        soc_job.params.params["lc_final_path"],
-        soc_job.params.params["lc_final_band_index"]
+        soc_job.params["lc_final_path"],
+        soc_job.params["lc_final_band_index"]
     )
     lc_files = [lc_initial_vrt, lc_final_vrt]
     lc_vrts = []
@@ -48,8 +48,8 @@ def compute_soil_organic_carbon(
         )
         lc_vrts.append(vrt_path)
     custom_soc_vrt = utils.save_vrt(
-        soc_job.params.params["custom_soc_path"],
-        soc_job.params.params["custom_soc_band_index"]
+        soc_job.params["custom_soc_path"],
+        soc_job.params["custom_soc_band_index"]
     )
     climate_zones_path = Path(__file__).parents[1] / "data" / "IPCC_Climate_Zones.tif"
     in_files = [
@@ -79,8 +79,8 @@ def compute_soil_organic_carbon(
         in_vrt_path,
         str(dataset_output_path),
         lc_band_nums,
-        soc_job.params.params["lc_years"],
-        soc_job.params.params["fl"],
+        soc_job.params["lc_years"],
+        soc_job.params["fl"],
     )
     if soc_worker.success:
         soc_job.end_date = dt.datetime.now(dt.timezone.utc)
@@ -89,12 +89,12 @@ def compute_soil_organic_carbon(
             jobs.JobBand(
                 name="Soil organic carbon (degradation)",
                 metadata={
-                    "year_initial": soc_job.params.params["lc_years"][0],
-                    "year_final": soc_job.params.params["lc_years"][-1],
+                    "year_initial": soc_job.params["lc_years"][0],
+                    "year_final": soc_job.params["lc_years"][-1],
                 }
             )
         ]
-        for year in soc_job.params.params["lc_years"]:
+        for year in soc_job.params["lc_years"]:
             soc_band = jobs.JobBand(
                 name="Soil organic carbon",
                 metadata={
@@ -102,7 +102,7 @@ def compute_soil_organic_carbon(
                 }
             )
             bands.append(soc_band)
-        for year in soc_job.params.params["lc_years"]:
+        for year in soc_job.params["lc_years"]:
             lc_band = jobs.JobBand(
                 name="Land cover (7 class)",
                 metadata={

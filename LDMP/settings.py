@@ -880,6 +880,7 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
     binaries_gb = QtWidgets.QGroupBox
     binaries_dir_le = QtWidgets.QLineEdit
     debug_checkbox: QtWidgets.QCheckBox
+    filter_jobs_by_basedir_checkbox: QtWidgets.QCheckBox
     polling_frequency_gb: QtWidgets.QGroupBox
     polling_frequency_sb: QtWidgets.QSpinBox
     download_remote_datasets_chb: QtWidgets.QCheckBox
@@ -930,6 +931,9 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
         settings_manager.write_value(
             Setting.DEBUG, self.debug_checkbox.isChecked())
         settings_manager.write_value(
+            Setting.FILTER_JOBS_BY_BASE_DIR,
+            self.filter_jobs_by_basedir_checkbox.isChecked())
+        settings_manager.write_value(
             Setting.BINARIES_ENABLED, self.binaries_gb.isChecked())
         settings_manager.write_value(
             Setting.BINARIES_DIR, self.binaries_dir_le.text())
@@ -946,6 +950,8 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
 
     def show_settings(self):
         self.debug_checkbox.setChecked(settings_manager.get_value(Setting.DEBUG))
+        self.filter_jobs_by_basedir_checkbox.setChecked(
+                settings_manager.get_value(Setting.FILTER_JOBS_BY_BASE_DIR))
         self.binaries_dir_le.setText(
             settings_manager.get_value(Setting.BINARIES_DIR) or "")
         self.qgsFileWidget_base_directory.setFilePath(

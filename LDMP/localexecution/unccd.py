@@ -129,7 +129,7 @@ def compute_unccd_report(
 ) -> Job:
     """Generate UNCCD report from SO1/SO2 and SO3 datasets"""
 
-    params = report_job.params.params
+    params = report_job.params
 
     job_output_path, _ = utils.get_local_job_output_paths(report_job)
 
@@ -145,8 +145,8 @@ def compute_unccd_report(
     # save_reporting_json(
     #     summary_json_output_path,
     #     summary_table,
-    #     report_job.params.params,
-    #     report_job.params.task_name,
+    #     report_job.params,
+    #     report_job.task_name,
     #     area_of_interest,
     #     summary_table_stable_kwargs
     # )

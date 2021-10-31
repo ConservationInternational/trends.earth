@@ -3,6 +3,7 @@ import json
 import typing
 import urllib.parse
 import uuid
+import functools
 from pathlib import Path
 import unicodedata
 import re
@@ -16,12 +17,14 @@ from .. import (
     conf,
     download as ldmp_download,
     layers,
-    utils,
+    utils
 )
 from . import models
 from .models import Job
 from ..logger import log
 from te_schemas import jobs
+
+from marshmallow.exceptions import ValidationError
 
 def slugify(value, allow_unicode=False):
     """
@@ -122,13 +125,13 @@ class JobManager(QtCore.QObject):
     def get_job_basename(cls, job: Job):
         separator = "_"
         name_fragments = []
-        task_name = slugify(job.params.task_name)
+        task_name = slugify(job.task_name)
         if task_name != "":
             name_fragments.append(task_name)
         if job.script:
             name_fragments.append(job.script.name)
         name_fragments.extend([
-            job.params.local_context.area_of_interest_name
+            job.local_context.area_of_interest_name
         ])
         return separator.join(name_fragments)
 
@@ -217,7 +220,10 @@ class JobManager(QtCore.QObject):
         now = dt.datetime.now(tz=dt.timezone.utc)
         relevant_date = now - dt.timedelta(days=self._relevant_job_age_threshold_days)
         remote_jobs = get_remote_jobs(end_date=relevant_date)
-        relevant_remote_jobs = get_relevant_remote_jobs(remote_jobs)
+        if conf.settings_manager.get_value(conf.Setting.FILTER_JOBS_BY_BASE_DIR):
+            relevant_remote_jobs = get_relevant_remote_jobs(remote_jobs)
+        else:
+            relevant_remote_jobs = remote_jobs
 
         self._refresh_local_running_jobs(relevant_remote_jobs)
         self._refresh_local_finished_jobs(relevant_remote_jobs)
@@ -266,7 +272,8 @@ class JobManager(QtCore.QObject):
         # Note - this is a reimplementation of api.run_script
         final_params = params.copy()
         final_params["task_notes"] = params["task_notes"]
-        final_params["local_context"] = _get_local_context()
+        final_params["local_context"] = jobs.JobLocalContext().Schema().dump(
+            _get_local_context())
         url_fragment = f"/api/v1/script/{script_id}/run"
         response = api.call_api(url_fragment, "post", final_params, use_token=True)
         try:
@@ -274,7 +281,7 @@ class JobManager(QtCore.QObject):
         except TypeError:
             job = None
         else:
-            job = Job.deserialize(raw_job)
+            job = Job.Schema().load(raw_job)
             self.write_job_metadata_file(job)
             self._update_known_jobs_with_newly_submitted_job(job)
             self.submitted_remote_job.emit(job)
@@ -287,21 +294,24 @@ class JobManager(QtCore.QObject):
             area_of_interest: areaofinterest.AOI
     ):
         final_params = params.copy()
-        final_params["task_notes"] = params["task_notes"]
-        final_params["local_context"] = _get_local_context()
+        task_name = final_params.pop("task_name")
+        task_notes = final_params.pop("task_notes")
         job = Job(
             id=uuid.uuid4(),
-            params=jobs.JobParameters.Schema().load(final_params),
+            params=final_params,
             progress=0,
+            start_date=dt.datetime.now(dt.timezone.utc),
+            status=jobs.JobStatus.PENDING,
+            local_context=_get_local_context(),
+            task_name=task_name,
+            task_notes=task_notes,
             results=jobs.JobLocalResults(
                 name=script_name,
                 bands=[],
                 data_path=None,
                 other_paths=[]
             ),
-            script=models.get_job_local_script(script_name),
-            status=jobs.JobStatus.PENDING,
-            start_date=dt.datetime.now(dt.timezone.utc)
+            script=models.get_job_local_script(script_name)
         )
         self.write_job_metadata_file(job)
         self._update_known_jobs_with_newly_submitted_job(job)
@@ -402,30 +412,22 @@ class JobManager(QtCore.QObject):
         else:
             raise RuntimeError(f"Invalid band name: {band_name!r}")
         now = dt.datetime.now(dt.timezone.utc)
-        local_context = jobs.JobLocalContext(
-            base_dir=Path(conf.settings_manager.get_value(conf.Setting.BASE_DIR)),
-            area_of_interest_name=conf.settings_manager.get_value(conf.Setting.UNKNOWN_AREA_OF_INTEREST)
-        )
         job = Job(
             id=uuid.uuid4(),
-            params=jobs.JobParameters(
-                task_name="Imported dataset",
-                task_notes=jobs.JobNotes(
-                    user_notes="",
-                    local_context=local_context
-                ),
-                params={}
-            ),
+            params={},
             progress=100,
+            start_date=now,
+            status=jobs.JobStatus.GENERATED_LOCALLY,
+            local_context=_get_local_context(),
             results=jobs.JobLocalResults(
                 name=f"{band_name} results",
                 bands=[band_info],
                 data_path=dataset_path,
                 other_paths=[]
             ),
+            task_name="Imported dataset",
+            task_notes="",
             script=script,
-            status=jobs.JobStatus.GENERATED_LOCALLY,
-            start_date=now,
             end_date=now,
         )
         return job
@@ -568,6 +570,7 @@ class JobManager(QtCore.QObject):
             else:
                 log("No need to move the job file, it is already in place")
 
+    @functools.lru_cache(maxsize=None)  # not using functools.cache, as it was only introduced in Python 3.9
     def _get_local_jobs(self, status: jobs.JobStatus) -> typing.List[Job]:
         base_dir = {
             jobs.JobStatus.FINISHED: self.finished_jobs_dir,
@@ -582,13 +585,16 @@ class JobManager(QtCore.QObject):
             with job_metadata_path.open(encoding=self._encoding) as fh:
                 try:
                     raw_job = json.load(fh)
-                    job = Job.deserialize(raw_job)
+                    job = Job.Schema().load(raw_job)
                 except json.decoder.JSONDecodeError as exc:
                     if conf.settings_manager.get_value(conf.Setting.DEBUG):
                         log(f"Unable to decode file {job_metadata_path!r} as valid json")
                 except KeyError:
                     if conf.settings_manager.get_value(conf.Setting.DEBUG):
                         log(f"Unable to decode file {job_metadata_path!r} as job json - no script_id in file")
+                except ValidationError as exc:
+                    if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                        log(f"Unable to decode file {job_metadata_path!r} - validation error decoding job")
                 except RuntimeError as exc:
                     log(str(exc))
                 else:
@@ -610,7 +616,10 @@ class JobManager(QtCore.QObject):
         expected to fail.
         """
 
+        def is_naive(d):
+            return d.tzinfo is None or d.tzinfo.utcoffset(d) is None
         now = dt.datetime.now(tz=dt.timezone.utc)
+
         self._known_finished_jobs = {}
         for finished_job in self._get_local_jobs(jobs.JobStatus.FINISHED):
             job_age = now - finished_job.end_date
@@ -677,10 +686,7 @@ class JobManager(QtCore.QObject):
         output_dir = output_path.parent
         output_dir.mkdir(parents=True, exist_ok=True)
         with output_path.open("w", encoding=self._encoding) as fh:
-            # if JobResultType(job.results.type) == JobResultType.CLOUD_RESULTS:
-            #     raw_job = JobCloudResults.Schema().dump(self.results)
-            # else:
-            raw_job = job.serialize()
+            raw_job = Job.Schema().dump(job)
             json.dump(raw_job, fh, indent=2)
 
     def _remove_job_metadata_file(self, job: Job):
@@ -690,13 +696,11 @@ class JobManager(QtCore.QObject):
 
 
 def _get_local_context() -> str:
-    return jobs.JobLocalContext().Schema().dump(
-        jobs.JobLocalContext(
+    return jobs.JobLocalContext(
             base_dir=conf.settings_manager.get_value(conf.Setting.BASE_DIR),
             area_of_interest_name=conf.settings_manager.get_value(
                 conf.Setting.AREA_NAME)
         )
-    )
 
 
 def find_job(target: Job, source: typing.List[Job]) -> typing.Optional[Job]:
@@ -805,7 +809,7 @@ def get_remote_jobs(
             remote_jobs = []
             for raw_job in raw_jobs:
                 try:
-                    job = Job.deserialize(raw_job)
+                    job = Job.Schema().load(raw_job)
                     has_results = job.results is not None
                     if (job.results is not None and
                             job.results.type == jobs.JobResultType.TIME_SERIES_TABLE):
@@ -834,7 +838,7 @@ def get_relevant_remote_jobs(remote_jobs: typing.List[Job]) -> typing.List[Job]:
     current_base_dir = conf.settings_manager.get_value(conf.Setting.BASE_DIR)
     result = []
     for job in remote_jobs:
-        if str(job.params.local_context.base_dir) == str(current_base_dir):
+        if str(job.local_context.base_dir) == str(current_base_dir):
             result.append(job)
     return result
 

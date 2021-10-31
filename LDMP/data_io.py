@@ -84,14 +84,13 @@ class Band:
     band_info: jobs.JobBand
 
     def get_name_info(self):
-        task_name = self.job.params.task_name
-        if task_name != "":
-            name_info_parts = [task_name]
+        if self.job.task_name:
+            name_info_parts = [self.job.task_name]
         else:
             name_info_parts = []
         name_info_parts.extend(
             [
-                self.job.params.local_context.area_of_interest_name,
+                self.job.local_context.area_of_interest_name,
                 layers.get_band_title(jobs.JobBand.Schema().dump(self.band_info)),
                 utils.utc_to_local(self.job.start_date).strftime("%Y-%m-%d %H:%M")
             ]
@@ -99,14 +98,13 @@ class Band:
         return " - ".join(name_info_parts)
 
     def get_hover_info(self):
-        task_name = self.job.params.task_name
-        if task_name != "":
-            hover_info_parts = [task_name]
+        if self.job.task_name:
+            hover_info_parts = [self.job.task_name]
         else:
             hover_info_parts = []
         hover_info_parts.extend(
             [
-                self.job.params.local_context.area_of_interest_name + '\n',
+                self.job.local_context.area_of_interest_name + '\n',
                 layers.get_band_title(jobs.JobBand.Schema().dump(self.band_info)) + '\n',
                 utils.utc_to_local(self.job.start_date).strftime("%Y-%m-%d %H:%M") + '\n',
                 # TODO: figure out a way to cleanup the metadata so it is 
@@ -126,7 +124,7 @@ class Dataset:
         name_info_parts = []
         name_info_parts.extend(
             [
-                self.job.params.local_context.area_of_interest_name,
+                self.job.local_context.area_of_interest_name,
                 self.job.visible_name,
                 utils.utc_to_local(self.job.start_date).strftime("%Y-%m-%d %H:%M")
             ]
@@ -139,7 +137,7 @@ class Dataset:
         hover_info_parts.extend(
             [
                 self.job.visible_name + ' - ',
-                self.job.params.local_context.area_of_interest_name + '\n',
+                self.job.local_context.area_of_interest_name + '\n',
                 utils.utc_to_local(self.job.start_date).strftime("%Y-%m-%d %H:%M")
             ]
         )
@@ -566,7 +564,7 @@ class DlgDataIOLoadTE(QtWidgets.QDialog, Ui_DlgDataIOLoadTE):
         if path.is_file():
             try:
                 raw_job = json.loads(path.read_text())
-                job = Job.deserialize(raw_job)
+                job = Job.Schema().load(raw_job)
             except json.JSONDecodeError:
                 error_message = "Could not parse the selected file into a valid JSON"
         return job, error_message

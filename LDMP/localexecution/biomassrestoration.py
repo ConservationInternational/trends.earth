@@ -29,7 +29,7 @@ def compute_biomass_restoration(
         biomass_job: Job, area_of_interest: areaofinterest.AOI) -> Job:
     #######################################################################
     # Prep files
-    in_file = biomass_job.params.params["in_file_path"]
+    in_file = biomass_job.params["in_file_path"]
 
     # Remember the first value is an indication of whether dataset is
     # wrapped across 180th meridian
@@ -88,8 +88,8 @@ def compute_biomass_restoration(
         biomass_initial,
         biomass_change,
         area_site,
-        biomass_job.params.params["restoration_years"],
-        biomass_job.params.params["restoration_types"]
+        biomass_job.params["restoration_years"],
+        biomass_job.params["restoration_types"]
     )
     biomass_job.end_date = dt.datetime.now(dt.timezone.utc)
     biomass_job.progress = 100
@@ -106,7 +106,7 @@ def compute_biomass_restoration(
     # Update the band infos to use the masking value (-32767) as the file
     # no data value, so that stretches are more likely to compute correctly
     output_bands = []
-    for raw_band_info in biomass_job.params.params["in_file_band_infos"]:
+    for raw_band_info in biomass_job.params["in_file_band_infos"]:
         band = jobs.JobBand.Schema().load(raw_band_info)
         band.no_data_value = -32767
         output_bands.append(band)

@@ -15,6 +15,8 @@ from .jobs import (
     models,
 )
 
+from te_schemas import jobs
+
 
 def utc_to_local(utc_dt):
     return utc_dt.replace(tzinfo=timezone.utc).astimezone(tz=None)
@@ -42,7 +44,7 @@ def get_local_job_output_paths(job: models.Job) -> typing.Tuple[Path, Path]:
     # NOTE: temporarily setting the status as the final value in order to determine
     # the target filepath for the processing's outputs
     previous_status = job.status
-    job.status = models.JobStatus.GENERATED_LOCALLY
+    job.status = jobs.JobStatus.GENERATED_LOCALLY
     job_output_path = manager.job_manager.get_job_file_path(job)
     job_output_path.parent.mkdir(parents=True, exist_ok=True)
     dataset_output_path = job_output_path.parent / f"{job_output_path.stem}.tif"
@@ -68,11 +70,11 @@ def delete_dataset(job: models.Job) -> int:
 
     separator = "_"
     name_fragments = []
-    if job.params.task_name != "":
-        name_fragments.append(job.params.task_name)
+    if job.task_name:
+        name_fragments.append(job.params.get('task_name'))
     name_fragments.extend([
         job.script.name,
-        job.params.local_context.area_of_interest_name,
+        job.local_context.area_of_interest_name,
         job.start_date.strftime("%Y%m%d%H%M"),
         str(job.id)
     ])

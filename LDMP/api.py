@@ -410,11 +410,9 @@ def get_execution(id=None, date=None):
         for job_dict in data:
             start_date = datetime.strptime(job_dict['start_date'], '%Y-%m-%dT%H:%M:%S.%f')
             start_date = start_date.replace(tzinfo=tz.tzutc())
-            start_date = start_date.astimezone(tz.tzlocal())
             job_dict['start_date'] = start_date
             end_date = datetime.strptime(job_dict['end_date'], '%Y-%m-%dT%H:%M:%S.%f')
             end_date = end_date.replace(tzinfo=tz.tzutc())
-            end_date = end_date.astimezone(tz.tzlocal())
             job_dict['end_date'] = end_date
 
         return data
@@ -422,7 +420,8 @@ def get_execution(id=None, date=None):
 
 def get_script(id=None):
     if id:
-        resp = call_api(u'/api/v1/script/{}'.format(quote_plus(id)), 'get', use_token=True)
+        resp = call_api(u'/api/v1/script/{}'.format(quote_plus(id)),
+                        'get', use_token=True)
     else:
         resp = call_api(u'/api/v1/script', 'get', use_token=True)
 

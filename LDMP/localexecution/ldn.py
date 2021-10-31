@@ -721,7 +721,8 @@ def compute_ldn(
 
     _, wkt_aois = area_of_interest.meridian_split("layer", "wkt", warn=False)
 
-    for period_name, period_params in ldn_job.params.params.items():
+    log(f'ldn_job.params.items(): {ldn_job.params.keys()}')
+    for period_name, period_params in ldn_job.params.items():
         lc_dfs = _prepare_land_cover_dfs(period_params)
         soc_dfs = _prepare_soil_organic_carbon_dfs(period_params)
         population_df = _prepare_population_df(period_params)
@@ -858,7 +859,7 @@ def compute_ldn(
             summary_table_output_path
         )
 
-    if len(ldn_job.params.params.items()) == 2:
+    if len(ldn_job.params.items()) == 2:
         # Make temporary combined VRT and DataFile just for the progress 
         # calculations. Don't save these in the output folder as at end of this 
         # process all the DFs will be combined and referenced to a VRT in that 
@@ -872,8 +873,8 @@ def compute_ldn(
             prod_mode,
             job_output_path,
             wkt_aois,
-            ldn_job.params.params['baseline']['period'],
-            ldn_job.params.params['progress']['period']
+            ldn_job.params['baseline']['period'],
+            ldn_job.params['progress']['period']
         )
         period_vrts.append(progress_df.path)
         period_dfs.append(progress_df)
@@ -898,8 +899,8 @@ def compute_ldn(
         summary_json_output_path,
         summary_tables,
         progress_summary_table,
-        ldn_job.params.params,
-        ldn_job.params.task_name,
+        ldn_job.params,
+        ldn_job.task_name,
         area_of_interest,
         summary_table_stable_kwargs
     )

@@ -39,7 +39,7 @@ from te_algorithms.gdal.drought import (
     DroughtSummaryWorkerParams,
     accumulate_drought_summary_tables
 )
-from te_algorithms.gdal.util import DataFile
+from te_schemas.datafile import DataFile
 
 from ..conf import (
     settings_manager,

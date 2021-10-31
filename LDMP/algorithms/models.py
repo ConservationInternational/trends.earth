@@ -10,37 +10,14 @@ import uuid
 import marshmallow_dataclass
 from marshmallow_enum import EnumField
 
-from te_schemas import SchemaBase
+from marshmallow import pre_load
+
+from te_schemas.algorithms import ExecutionScript, AlgorithmRunMode
 
 class AlgorithmNodeType(enum.Enum):
     Group = 1
     Algorithm = 2
     Details = 3
-
-
-class AlgorithmRunMode(enum.Enum):
-    NOT_APPLICABLE = 0
-    LOCAL = "local"
-    REMOTE = "remote"
-    BOTH = "both"
-
-
-@marshmallow_dataclass.dataclass
-class ExecutionScript(SchemaBase):
-    class Meta:
-        unknown = 'EXCLUDE'
-
-    name: str
-    execution_callable: typing.Optional[str]
-    run_mode: typing.Optional[AlgorithmRunMode] = field(
-        metadata={"by_value": True}
-    )
-    id: typing.Optional[uuid.UUID] = field(default=None)
-    version: typing.Optional[str] = field(default="")
-    description: typing.Optional[str] = field(default="")
-    name_readable: typing.Optional[str] = field(default="")
-    additional_configuration: typing.Optional[dict] = field(
-            default_factory=dict)
 
 
 @dataclass()

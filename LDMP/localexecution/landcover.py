@@ -24,11 +24,11 @@ from te_schemas import jobs
 def _prepare_land_cover_inputs(job: Job, area_of_interest: AOI) -> Path:
     # Select the initial and final bands from initial and final datasets
     # (in case there is more than one lc band per dataset)
-    lc_initial_path = job.params.params["lc_initial_path"]
-    lc_initial_band_index = job.params.params["lc_initial_band_index"]
+    lc_initial_path = job.params["lc_initial_path"]
+    lc_initial_band_index = job.params["lc_initial_band_index"]
     lc_initial_vrt = utils.save_vrt(lc_initial_path, lc_initial_band_index)
-    lc_final_path = job.params.params["lc_final_path"]
-    lc_final_band_index = job.params.params["lc_final_band_index"]
+    lc_final_path = job.params["lc_final_path"]
+    lc_final_band_index = job.params["lc_final_band_index"]
     lc_final_vrt = utils.save_vrt(lc_final_path, lc_final_band_index)
 
     # Add the lc layers to a VRT in case they don't match in resolution,
@@ -50,7 +50,7 @@ def compute_land_cover(lc_job: Job, area_of_interest: AOI) -> Job:
     in_vrt = _prepare_land_cover_inputs(lc_job, area_of_interest)
     job_output_path, dataset_output_path = utils.get_local_job_output_paths(lc_job)
     trans_matrix = land_cover.LCTransitionDefinitionDeg.Schema().loads(
-        lc_job.params.params["transformation_matrix"]
+        lc_job.params["transformation_matrix"]
     )
 
     lc_change_worker = worker.StartWorker(
@@ -68,27 +68,27 @@ def compute_land_cover(lc_job: Job, area_of_interest: AOI) -> Job:
             jobs.JobBand(
                 name="Land cover (degradation)",
                 metadata={
-                    "year_initial": lc_job.params.params["year_initial"],
-                    "year_final": lc_job.params.params["year_final"]
+                    "year_initial": lc_job.params["year_initial"],
+                    "year_final": lc_job.params["year_final"]
                 },
             ),
             jobs.JobBand(
                 name="Land cover (7 class)",
                 metadata={
-                    "year": lc_job.params.params["year_initial"],
+                    "year": lc_job.params["year_initial"],
                 }
             ),
             jobs.JobBand(
                 name="Land cover (7 class)",
                 metadata={
-                    "year": lc_job.params.params["year_final"],
+                    "year": lc_job.params["year_final"],
                 }
             ),
             jobs.JobBand(
                 name="Land cover transitions",
                 metadata={
-                    "year_initial": lc_job.params.params["year_initial"],
-                    "year_final": lc_job.params.params["year_final"]
+                    "year_initial": lc_job.params["year_initial"],
+                    "year_final": lc_job.params["year_final"]
                 }
             ),
         ]

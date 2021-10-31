@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>594</width>
-    <height>445</height>
+    <height>470</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -82,6 +82,16 @@
     </layout>
    </item>
    <item>
+    <widget class="QCheckBox" name="filter_jobs_by_basedir_checkbox">
+     <property name="text">
+      <string>Filter remote jobs according to local base data directory</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QCheckBox" name="debug_checkbox">
      <property name="text">
       <string>Enable debug mode (saves detailed logging information)</string>
@@ -123,7 +133,7 @@
        <rect>
         <x>20</x>
         <y>40</y>
-        <width>261</width>
+        <width>265</width>
         <height>28</height>
        </rect>
       </property>
@@ -343,7 +353,7 @@
   <customwidget>
    <class>QgsFileWidget</class>
    <extends>QWidget</extends>
-   <header>qgis.gui</header>
+   <header>qgsfilewidget.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

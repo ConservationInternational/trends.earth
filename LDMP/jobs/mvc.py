@@ -245,7 +245,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
 
         self.name_la.setText(self.job.visible_name)
 
-        area_name = self.job.params.local_context.area_of_interest_name
+        area_name = self.job.local_context.area_of_interest_name
         job_start_date = utils.utc_to_local(self.job.start_date).strftime("%Y-%m-%d %H:%M")
         if area_name:
             notes_text = f'{area_name} ({job_start_date})'

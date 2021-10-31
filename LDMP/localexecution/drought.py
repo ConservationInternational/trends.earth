@@ -200,7 +200,7 @@ def compute_drought_vulnerability(
 
     summary_table_stable_kwargs = {}
 
-    params = drought_job.params.params
+    params = drought_job.params
 
     drought_period = 4
 
@@ -284,8 +284,8 @@ def compute_drought_vulnerability(
     save_reporting_json(
         summary_json_output_path,
         summary_table,
-        drought_job.params.params,
-        drought_job.params.task_name,
+        drought_job.params,
+        drought_job.task_name,
         area_of_interest,
         summary_table_stable_kwargs
     )

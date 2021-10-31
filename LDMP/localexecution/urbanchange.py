@@ -26,14 +26,14 @@ def compute_urban_change_summary_table(
         area_of_interest: areaofinterest.AOI
 ) -> Job:
     urban_files = []
-    for band_index in urban_change_job.params.params["urban_layer_band_indexes"]:
+    for band_index in urban_change_job.params["urban_layer_band_indexes"]:
         urban_file_vrt_path = utils.save_vrt(
-            urban_change_job.params.params["urban_layer_path"], band_index)
+            urban_change_job.params["urban_layer_path"], band_index)
         urban_files.append(urban_file_vrt_path)
     pop_files = []
-    for band_index in urban_change_job.params.params["urban_layer_pop_band_indexes"]:
+    for band_index in urban_change_job.params["urban_layer_pop_band_indexes"]:
         pop_file_vrt_path = utils.save_vrt(
-            urban_change_job.params.params["urban_layer_path"], band_index)
+            urban_change_job.params["urban_layer_path"], band_index)
         pop_files.append(pop_file_vrt_path)
     in_files = urban_files + pop_files
     urban_band_nums = np.arange(len(urban_files)) + 1

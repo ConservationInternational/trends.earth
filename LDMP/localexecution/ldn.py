@@ -34,6 +34,7 @@ from te_schemas import (
 )
 
 from te_schemas.jobs import JobBand
+from te_schemas.datafile import DataFile, combine_data_files
 
 from ..conf import (
     settings_manager,
@@ -505,73 +506,6 @@ def get_main_sdg_15_3_1_job_params(
     return params
 
 
-@marshmallow_dataclass.dataclass
-class DataFile(SchemaBase):
-    path: str
-    bands: List[JobBand]
-
-    def indices_for_name(
-        self,
-        name_filter: str,
-        field: str = None,
-        field_filter: str = None
-    ):
-        if field:
-            assert field_filter is not None
-
-            return [
-                index for index, band in enumerate(self.bands)
-                if (
-                    band.name == name_filter and
-                    band.metadata[field] == field_filter
-                )
-            ]
-        else:
-            return [
-                index for index, band in enumerate(self.bands)
-                if band.name == name_filter
-            ]
-
-    def index_for_name(
-        self,
-        name_filter: str,
-        field: str = None,
-        field_filter: str = None
-    ):
-        '''throw an error if more than one result'''
-        out = self.indices_for_name(name_filter, field, field_filter)
-
-        if len(out) > 1:
-            raise RuntimeError(
-                f'more than one band found for name {name_filter}'
-            )
-        else:
-            return out[0]
-
-    def metadata_for_name(self, name_filter: str, field: str):
-        '''get value of metadata field for all bands of specific type'''
-        m = [b.metadata[field] for b in self.bands if b.name == name_filter]
-
-        if len(m) == 1:
-            return m[0]
-        else:
-            return m
-
-
-def _combine_data_files(
-    path,
-    datafiles: List[JobBand]
-) -> DataFile:
-    '''combine multiple datafiles with same path into one object'''
-
-    return DataFile(
-        path=path,
-        bands=[
-            b for d in datafiles for b in d.bands
-        ]
-    )
-
-
 def _compute_progress_summary(
     df,
     prod_mode,
@@ -824,7 +758,7 @@ def compute_ldn(
             )
             sdg_df.bands.append(prod_band)
 
-        reproj_df = _combine_data_files(reproj_path, in_dfs)
+        reproj_df = combine_data_files(reproj_path, in_dfs)
         # Don't add any of the input layers to the map by default - only SDG, 
         # prod, and SO3, which are already marked add_to_map=True
         for band in reproj_df.bands:
@@ -836,7 +770,7 @@ def compute_ldn(
         # Now that there is a single VRT with all files in it, combine the DFs 
         # into it so that it can be used to source band names/metadata for the 
         # job bands list
-        period_df = _combine_data_files(period_vrt, [sdg_df, reproj_df])
+        period_df = combine_data_files(period_vrt, [sdg_df, reproj_df])
         for band in period_df.bands:
             band.metadata['period'] = period_name
         period_dfs.append(period_df)
@@ -866,7 +800,7 @@ def compute_ldn(
         # folder
         temp_overall_vrt = Path(tempfile.NamedTemporaryFile(suffix='.vrt').name)
         _combine_all_bands_into_vrt(period_vrts, temp_overall_vrt)
-        temp_df = _combine_data_files(temp_overall_vrt, period_dfs)
+        temp_df = combine_data_files(temp_overall_vrt, period_dfs)
 
         progress_summary_table, progress_df = _compute_progress_summary(
             temp_df,
@@ -883,7 +817,7 @@ def compute_ldn(
 
     overall_vrt_path = job_output_path.parent / f"{job_output_path.stem}.vrt"
     _combine_all_bands_into_vrt(period_vrts, overall_vrt_path)
-    out_df = _combine_data_files(overall_vrt_path, period_dfs)
+    out_df = combine_data_files(overall_vrt_path, period_dfs)
     out_df.path = overall_vrt_path.name
 
     ldn_job.results.data_path = overall_vrt_path
@@ -2320,7 +2254,7 @@ def _calculate_summary_table(
             str(output_layers_path)
         )
         if mask_worker.success:
-            in_df = _combine_data_files(output_layers_path, in_dfs)
+            in_df = combine_data_files(output_layers_path, in_dfs)
 
             n_out_bands = 2
             if prod_mode == 'Trends.Earth productivity':

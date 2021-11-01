@@ -22,8 +22,8 @@ import openpyxl
 from osgeo import (
     gdal,
     osr,
+    ogr
 )
-import qgis.core
 
 from te_schemas import (
     schemas,
@@ -39,6 +39,7 @@ from te_algorithms.gdal.drought import (
     DroughtSummaryWorkerParams,
     accumulate_drought_summary_tables
 )
+from te_algorithms.gdal.util import wkt_geom_to_geojson_file_string
 from te_schemas.datafile import DataFile
 
 from ..conf import (
@@ -192,11 +193,12 @@ def get_main_drought_summary_job_params(
 
 
 def compute_drought_vulnerability(
-        drought_job: Job,
-        area_of_interest: areaofinterest.AOI) -> Job:
+    drought_job: Job,
+    area_of_interest: areaofinterest.AOI,
+    job_output_path: Path,
+    dataset_output_path: Path
+) -> Job:
     """Calculate drought vulnerability indicators and save to disk"""
-
-    job_output_path, _ = utils.get_local_job_output_paths(drought_job)
 
     summary_table_stable_kwargs = {}
 
@@ -309,91 +311,6 @@ def compute_drought_vulnerability(
     drought_job.progress = 100
 
     return drought_job
-
-
-def _combine_all_bands_into_vrt(in_files: List[Path], out_file: Path):
-    '''creates a vrt file combining all bands of in_files
-
-    All bands must have the same extent, resolution, and crs
-    '''
-
-    simple_source_raw = '''    <SimpleSource>
-        <SourceFilename relativeToVRT="1">{relative_path}</SourceFilename>
-        <SourceBand>{source_band_num}</SourceBand>
-        <SrcRect xOff="0" yOff="0" xSize="{out_Xsize}" ySize="{out_Ysize}"/>
-        <DstRect xOff="0" yOff="0" xSize="{o
-        ut_Xsize}" ySize="{out_Ysize}"/>
-    </SimpleSource>'''
-    
-    for file_num, in_file in enumerate(in_files):
-        in_ds = gdal.Open(str(in_file))
-        this_gt = in_ds.GetGeoTransform()
-        this_proj = in_ds.GetProjectionRef()
-        if file_num == 0:
-            out_gt = this_gt
-            out_proj = this_proj
-        else:
-            assert out_gt == this_gt
-            assert out_proj == this_proj
-
-        for band_num in range(1, in_ds.RasterCount + 1):
-            this_dt = in_ds.GetRasterBand(band_num).DataType
-            this_band = in_ds.GetRasterBand(band_num)
-            this_Xsize = this_band.XSize
-            this_Ysize = this_band.YSize
-            if band_num == 1:
-                out_dt = this_dt
-                out_Xsize = this_Xsize
-                out_Ysize = this_Ysize
-                if file_num == 0:
-                    # If this is the first band of the first file, need to 
-                    # create the output VRT file
-                    driver = gdal.GetDriverByName("VRT")
-                    out_ds = driver.Create(
-                        str(out_file),
-                        out_Xsize,
-                        out_Ysize,
-                        0,
-                        out_dt
-                    )
-                    out_ds.SetGeoTransform(out_gt)
-                    out_srs = osr.SpatialReference()
-                    out_srs.ImportFromWkt(out_proj)
-                    out_ds.SetProjection(out_srs.ExportToWkt())
-            else:
-                assert this_dt == out_dt
-                assert this_Xsize == out_Xsize
-                assert this_Ysize == out_Ysize
-
-            out_ds.AddBand(out_dt)
-            # The new band will always be last band in out_ds
-            band = out_ds.GetRasterBand(out_ds.RasterCount)
-
-            md = {}
-            md['source_0'] = simple_source_raw.format(
-                relative_path=in_file,
-                source_band_num=band_num,
-                out_Xsize=out_Xsize,
-                out_Ysize=out_Ysize
-            )
-            band.SetMetadata(md, 'vrt_sources')
-
-    out_ds = None
-
-    # Use a regex to remove the parent elements from the paths for each band 
-    # (have to include them when setting metadata or else GDAL throws an error)
-    fh, new_file = tempfile.mkstemp()
-    new_file = Path(new_file)
-    with new_file.open('w') as fh_new:
-        with out_file.open() as fh_old:
-            for line in fh_old:
-                fh_new.write(
-                    line.replace(str(out_file.parents[0]) + '/', '')
-                )
-    out_file.unlink()
-    shutil.copy(str(new_file), str(out_file))
-
-    return True
 
 
 def _prepare_dfs(
@@ -590,13 +507,9 @@ def save_reporting_json(
 
     except IOError:
         log(u'Error saving {}'.format(output_path))
-        QtWidgets.QMessageBox.critical(
-            None,
-            tr("Error"),
-            tr(
-                "Error saving indicator table JSON - check that "
-                f"{output_path} is accessible and not already open."
-            )
+        error_message = (
+            "Error saving indicator table JSON - check that "
+            f"{output_path} is accessible and not already open."
         )
 
         return False
@@ -689,9 +602,9 @@ def _calculate_summary_table(
     # gdal.Clip to save having to clip and rewrite all of the layers in
     # the VRT
     mask_vrt = tempfile.NamedTemporaryFile(suffix='.tif').name
-    log(u'Saving mask to {}'.format(mask_vrt))
-    geojson = calculate.json_geom_to_geojson(
-        qgis.core.QgsGeometry.fromWkt(bbox).asJson())
+    log('Saving mask to {mask_vrt}')
+    geojson = wkt_geom_to_geojson_file_string(bbox)
+    log(f'geojson is: {geojson}')
     mask_worker = worker.StartWorker(
         calculate.MaskWorker,
         mask_worker_process_name,

@@ -16,7 +16,7 @@ from pathlib import Path
 import datetime
 import typing
 
-from PyQt5 import (
+from qgis.PyQt import (
     QtCore,
     QtWidgets,
     uic,

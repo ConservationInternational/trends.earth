@@ -3,7 +3,7 @@
 """
 /***************************************************************************
  LDMP - A QGIS plugin
- This plugin supports monitoring and reporting of land degradation to the UNCCD 
+ This plugin supports monitoring and reporting of land degradation to the UNCCD
  and in support of the SDG Land Degradation Neutrality (LDN) target.
                               -------------------
         begin                : 2017-05-23
@@ -23,7 +23,7 @@ import subprocess
 from tempfile import NamedTemporaryFile
 from pathlib import Path
 
-from PyQt5 import (
+from qgis.PyQt import (
     QtCore,
 )
 from qgis.core import QgsApplication, QgsSettings, Qgis
@@ -82,8 +82,8 @@ def classFactory(iface):  # pylint: disable=invalid-name
     from LDMP.plugin import LDMPPlugin
     return LDMPPlugin(iface)
 
-# Function to get a temporary filename that handles closing the file created by 
-# NamedTemporaryFile - necessary when the file is for usage in another process 
+# Function to get a temporary filename that handles closing the file created by
+# NamedTemporaryFile - necessary when the file is for usage in another process
 # (i.e. GDAL)
 def GetTempFilename(suffix):
     f = NamedTemporaryFile(suffix=suffix, delete=False)
@@ -153,4 +153,4 @@ def openFolder(path):
         # apparently do other windows GUI programs...)
         if res.returncode not in [0, 1]:
             raise subprocess.CalledProcessError
-        
+

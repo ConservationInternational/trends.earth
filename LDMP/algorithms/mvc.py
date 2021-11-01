@@ -2,7 +2,7 @@ import functools
 import typing
 from pathlib import Path
 
-from PyQt5 import (
+from qgis.PyQt import (
     QtCore,
     QtGui,
     QtWidgets,

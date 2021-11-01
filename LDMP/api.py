@@ -21,7 +21,7 @@ import requests
 import json
 from urllib.parse import quote_plus
 
-from PyQt5 import (
+from qgis.PyQt import (
     QtCore,
     QtWidgets
 )

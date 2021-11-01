@@ -8,7 +8,7 @@ import processing
 import qgis.core
 from openpyxl.drawing.image import Image
 from osgeo import gdal
-from PyQt5 import (
+from qgis.PyQt import (
     QtCore,
     QtWidgets,
 )

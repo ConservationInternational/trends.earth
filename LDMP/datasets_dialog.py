@@ -26,10 +26,8 @@ from . import (
     tr,
     utils,
 )
-from .jobs import (
-    manager,
-    models,
-)
+from .jobs import manager
+from .jobs.models import Job
 from .logger import log
 
 WidgetDatasetItemDetailsUi, _ = uic.loadUiType(
@@ -37,7 +35,7 @@ WidgetDatasetItemDetailsUi, _ = uic.loadUiType(
 
 
 class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
-    job: models.Job
+    job: Job
 
     alg_le: QtWidgets.QLineEdit
     created_at_le: QtWidgets.QLineEdit
@@ -49,7 +47,7 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
     state_le: QtWidgets.QLineEdit
     path_le: QtWidgets.QLineEdit
 
-    def __init__(self, job: models.Job, parent=None):
+    def __init__(self, job: Job, parent=None):
         super(DatasetDetailsDialogue, self).__init__(parent)
         self.setupUi(self)
 
@@ -97,7 +95,7 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
         if self.job.results is not None:
             self.output.setText(
                 json.dumps(
-                    models.Job.Schema(only=['results']).dump(self.job)['results'],
+                    Job.Schema(only=['results']).dump(self.job)['results'],
                     indent=4,
                     sort_keys=True)
             )

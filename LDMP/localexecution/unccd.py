@@ -125,13 +125,13 @@ def _make_tar_gz(out_tar_gz, in_files):
 
 def compute_unccd_report(
     report_job: Job,
-    area_of_interest: areaofinterest.AOI
+    area_of_interest: areaofinterest.AOI,
+    job_output_path: Path,
+    dataset_output_path: Path
 ) -> Job:
     """Generate UNCCD report from SO1/SO2 and SO3 datasets"""
 
     params = report_job.params
-
-    job_output_path, _ = utils.get_local_job_output_paths(report_job)
 
     tar_gz_path = job_output_path.parent / f"{job_output_path.stem}.tar.gz"
 

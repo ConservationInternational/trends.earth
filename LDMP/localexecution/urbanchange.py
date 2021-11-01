@@ -22,8 +22,10 @@ from te_schemas import jobs
 
 
 def compute_urban_change_summary_table(
-        urban_change_job: Job,
-        area_of_interest: areaofinterest.AOI
+    urban_change_job: Job,
+    area_of_interest: areaofinterest.AOI,
+    job_output_path: Path,
+    dataset_output_path: Path
 ) -> Job:
     urban_files = []
     for band_index in urban_change_job.params["urban_layer_band_indexes"]:
@@ -40,7 +42,6 @@ def compute_urban_change_summary_table(
     pop_band_nums = np.arange(len(pop_files)) + 1 + urban_band_nums.max()
     _, wkts = area_of_interest.meridian_split('layer', 'wkt', warn=False)
     bbs = area_of_interest.get_aligned_output_bounds(urban_files[1])
-    job_output_path, _ = utils.get_local_job_output_paths(urban_change_job)
     for n in range(len(wkts)):
         # Compute the pixel-aligned bounding box (slightly larger than
         # aoi). Use this instead of croptocutline in gdal.Warp in order to

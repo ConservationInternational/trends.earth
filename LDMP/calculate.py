@@ -325,6 +325,7 @@ class CalculationOutputWidget(QtWidgets.QWidget, WidgetCalculationOutputUi):
 
     def check_overwrites(self):
         overwrites = []
+
         for suffix in self.output_suffixes:
             if os.path.exists(self.output_basename.text() + suffix):
                 overwrites.append(os.path.basename(
@@ -644,6 +645,7 @@ class WarpWorker(worker.AbstractWorker):
             warpMemoryLimit=500,
             callback=self.progress_callback
         )
+
         if res:
             return True
         else:
@@ -654,6 +656,7 @@ class WarpWorker(worker.AbstractWorker):
             return False
         else:
             self.progress.emit(100 * fraction)
+
             return True
 
 

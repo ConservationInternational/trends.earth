@@ -30,14 +30,17 @@ class tr_calculate_tc(object):
 
 
 def compute_total_carbon_summary_table(
-        tc_job: Job, area_of_interest: areaofinterest.AOI) -> Job:
+    tc_job: Job,
+    area_of_interest: areaofinterest.AOI
+    job_output_path: Path,
+    dataset_output_path: Path
+) -> Job:
     # Load all datasets to VRTs (to select only the needed bands)
     f_loss_vrt = utils.save_vrt(
         tc_job.params["f_loss_path"], tc_job.params["f_loss_band_index"])
     tc_vrt = utils.save_vrt(
         tc_job.params["tc_path"], tc_job.params["tc_band_index"])
 
-    job_output_path, _ = utils.get_local_job_output_paths(tc_job)
     summary_table_output_path = job_output_path.parent / f"{job_output_path.stem}.xlsx"
     summary_task = SummaryTask(
         area_of_interest,

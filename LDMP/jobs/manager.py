@@ -321,7 +321,13 @@ class JobManager(QtCore.QObject):
 
     def process_local_job(self, job: Job, area_of_interest: areaofinterest.AOI):
         execution_handler = utils.load_object(job.script.execution_callable)
-        done_job = execution_handler(job, area_of_interest)
+        job_output_path, dataset_output_path = _get_local_job_output_paths(job)
+        done_job = execution_handler(
+            job,
+            area_of_interest,
+            job_output_path,
+            dataset_output_path
+        )
         self._move_job_to_dir(done_job, new_status=jobs.JobStatus.GENERATED_LOCALLY)
         self.processed_local_job.emit(done_job)
 
@@ -583,7 +589,6 @@ class JobManager(QtCore.QObject):
         for job_metadata_path in base_dir.glob("**/*.json"):
             with job_metadata_path.open(encoding=self._encoding) as fh:
                 try:
-                    log(f'processing local job: {job_metadata_path}')
                     raw_job = json.load(fh)
                     job = Job.Schema().load(raw_job)
                 except (KeyError, json.decoder.JSONDecodeError) as exc:
@@ -690,6 +695,19 @@ class JobManager(QtCore.QObject):
         old_path = self.get_job_file_path(job)
         if old_path.exists():
             old_path.unlink()  # not using the `missing_ok` param as it was introduced only in Python 3.8
+
+
+def _get_local_job_output_paths(job: Job) -> typing.Tuple[Path, Path]:
+    """Retrieve output path for a job so that it can be sent to the local processor"""
+    # NOTE: temporarily setting the status as the final value in order to determine
+    # the target filepath for the processing's outputs
+    previous_status = job.status
+    job.status = jobs.JobStatus.GENERATED_LOCALLY
+    job_output_path = job_manager.get_job_file_path(job)
+    job_output_path.parent.mkdir(parents=True, exist_ok=True)
+    dataset_output_path = job_output_path.parent / f"{job_output_path.stem}.tif"
+    job.status = previous_status
+    return job_output_path, dataset_output_path
 
 
 def _get_local_context() -> str:

@@ -26,7 +26,11 @@ from te_schemas import jobs
 
 
 def compute_biomass_restoration(
-        biomass_job: Job, area_of_interest: areaofinterest.AOI) -> Job:
+    biomass_job: Job,
+    area_of_interest: areaofinterest.AOI,
+    job_output_path: Path,
+    dataset_output_path: Path
+) -> Job:
     #######################################################################
     # Prep files
     in_file = biomass_job.params["in_file_path"]
@@ -35,7 +39,6 @@ def compute_biomass_restoration(
     # wrapped across 180th meridian
     _, wkts = area_of_interest.meridian_split('layer', 'wkt', warn=False)
     bbs = area_of_interest.get_aligned_output_bounds(in_file)
-    job_output_path, _ = utils.get_local_job_output_paths(biomass_job)
     output_biomass_diff_tifs = []
     for n in range(len(wkts)):
         if len(wkts) > 1:

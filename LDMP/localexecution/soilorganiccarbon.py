@@ -21,7 +21,11 @@ from te_schemas import jobs
 
 
 def compute_soil_organic_carbon(
-        soc_job: Job, area_of_interest: AOI) -> Job:
+    soc_job: Job,
+    area_of_interest: AOI,
+    job_output_path: Path,
+    dataset_output_path: Path
+) -> Job:
     # Select the initial and final bands from initial and final datasets
     # (in case there is more than one lc band per dataset)
     lc_initial_vrt = utils.save_vrt(
@@ -68,7 +72,6 @@ def compute_soil_organic_carbon(
             lc_initial_vrt),
         separate=True
     )
-    job_output_path, dataset_output_path = utils.get_local_job_output_paths(soc_job)
     LDMP.logger.log(f'Saving soil organic carbon to {dataset_output_path!r}')
     # Lc bands start on band 3 as band 1 is initial soc, and band 2 is
     # climate zones

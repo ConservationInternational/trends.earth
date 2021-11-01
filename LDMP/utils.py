@@ -37,19 +37,6 @@ def save_vrt(source_path: Path, source_band_index: int) -> str:
     return temporary_file.name
 
 
-def get_local_job_output_paths(job: Job) -> typing.Tuple[Path, Path]:
-    """Retrieve output path for a job so that it can be sent to the local processor"""
-    # NOTE: temporarily setting the status as the final value in order to determine
-    # the target filepath for the processing's outputs
-    previous_status = job.status
-    job.status = jobs.JobStatus.GENERATED_LOCALLY
-    job_output_path = manager.job_manager.get_job_file_path(job)
-    job_output_path.parent.mkdir(parents=True, exist_ok=True)
-    dataset_output_path = job_output_path.parent / f"{job_output_path.stem}.tif"
-    job.status = previous_status
-    return job_output_path, dataset_output_path
-
-
 def maybe_add_image_to_sheet(image_filename: str, sheet, place="H1"):
     from openpyxl.drawing.image import Image
     try:

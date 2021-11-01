@@ -46,9 +46,13 @@ def _prepare_land_cover_inputs(job: Job, area_of_interest: AOI) -> Path:
     return Path(in_vrt)
 
 
-def compute_land_cover(lc_job: Job, area_of_interest: AOI) -> Job:
+def compute_land_cover(
+    lc_job: Job,
+    area_of_interest: AOI,
+    job_output_path: Path,
+    dataset_output_path: Path
+) -> Job:
     in_vrt = _prepare_land_cover_inputs(lc_job, area_of_interest)
-    job_output_path, dataset_output_path = utils.get_local_job_output_paths(lc_job)
     trans_matrix = land_cover.LCTransitionDefinitionDeg.Schema().loads(
         lc_job.params["transformation_matrix"]
     )

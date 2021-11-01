@@ -399,23 +399,7 @@ def get_execution(id=None, date=None):
     if not resp:
         return None
     else:
-        # do import here to avoid circular import
-        from LDMP.jobs import Job, JobSchema
-
-        data = resp['data']
-        # Sort responses in descending order using start time by default
-        data = sorted(data, key=lambda job_dict: round(datetime.strptime(job_dict['start_date'], '%Y-%m-%dT%H:%M:%S.%f').timestamp()), reverse=True)
-        # Convert start/end dates into datatime objects in local time zone
-
-        for job_dict in data:
-            start_date = datetime.strptime(job_dict['start_date'], '%Y-%m-%dT%H:%M:%S.%f')
-            start_date = start_date.replace(tzinfo=tz.tzutc())
-            job_dict['start_date'] = start_date
-            end_date = datetime.strptime(job_dict['end_date'], '%Y-%m-%dT%H:%M:%S.%f')
-            end_date = end_date.replace(tzinfo=tz.tzutc())
-            job_dict['end_date'] = end_date
-
-        return data
+        return resp['data']
 
 
 def get_script(id=None):

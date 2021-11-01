@@ -17,7 +17,7 @@ from te_schemas import jobs
 
 
 def utc_to_local(utc_dt):
-    return utc_dt.replace(tzinfo=timezone.utc).astimezone(tz=None)
+    return utc_dt.astimezone(tz=None)
 
 
 def load_object(python_path: str) -> typing.Any:

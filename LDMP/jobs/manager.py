@@ -412,12 +412,11 @@ class JobManager(QtCore.QObject):
             script = conf.KNOWN_SCRIPTS["productivity"]
         else:
             raise RuntimeError(f"Invalid band name: {band_name!r}")
-        now = dt.datetime.now(dt.timezone.utc)
         job = Job(
             id=uuid.uuid4(),
             params={},
             progress=100,
-            start_date=now,
+            start_date=dt.datetime.now(dt.timezone.utc),
             status=jobs.JobStatus.GENERATED_LOCALLY,
             local_context=_get_local_context(),
             results=jobs.JobLocalResults(
@@ -570,7 +569,7 @@ class JobManager(QtCore.QObject):
             else:
                 log("No need to move the job file, it is already in place")
 
-    @functools.lru_cache(maxsize=None)  # not using functools.cache, as it was only introduced in Python 3.9
+    #@functools.lru_cache(maxsize=None)  # not using functools.cache, as it was only introduced in Python 3.9
     def _get_local_jobs(self, status: jobs.JobStatus) -> typing.List[Job]:
         base_dir = {
             jobs.JobStatus.FINISHED: self.finished_jobs_dir,
@@ -584,9 +583,10 @@ class JobManager(QtCore.QObject):
         for job_metadata_path in base_dir.glob("**/*.json"):
             with job_metadata_path.open(encoding=self._encoding) as fh:
                 try:
+                    log(f'processing local job: {job_metadata_path}')
                     raw_job = json.load(fh)
                     job = Job.Schema().load(raw_job)
-                except json.decoder.JSONDecodeError as exc:
+                except (KeyError, json.decoder.JSONDecodeError) as exc:
                     if conf.settings_manager.get_value(conf.Setting.DEBUG):
                         log(f"Unable to decode file {job_metadata_path!r} as valid json")
                 except ValidationError as exc:

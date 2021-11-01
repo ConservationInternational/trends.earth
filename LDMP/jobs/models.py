@@ -60,6 +60,7 @@ class Job(JobBase):
         return data
 
 
+@functools.lru_cache(maxsize=None)  # not using functools.cache, as it was only introduced in Python 3.9
 def get_remote_scripts():
     """Query the remote server for existing scripts
 

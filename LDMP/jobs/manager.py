@@ -570,6 +570,7 @@ class JobManager(QtCore.QObject):
             else:
                 log("No need to move the job file, it is already in place")
 
+    @functools.lru_cache(maxsize=None)  # not using functools.cache, as it was only introduced in Python 3.9
     def _get_local_jobs(self, status: jobs.JobStatus) -> typing.List[Job]:
         base_dir = {
             jobs.JobStatus.FINISHED: self.finished_jobs_dir,

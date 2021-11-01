@@ -53,6 +53,9 @@ DockWidgetTrendsEarthUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/WidgetMain.ui"))
 
 
+ICON_PATH = os.path.join(os.path.dirname(__file__), 'icons')
+
+
 class UpdateWorker(QtCore.QObject):
     finished = QtCore.pyqtSignal()
 

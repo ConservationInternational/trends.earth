@@ -2,7 +2,7 @@
 """
 /***************************************************************************
  LDMP - A QGIS plugin
- This plugin supports monitoring and reporting of land degradation to the UNCCD 
+ This plugin supports monitoring and reporting of land degradation to the UNCCD
  and in support of the SDG Land Degradation Neutrality (LDN) target.
                               -------------------
         begin                : 2017-05-23
@@ -18,7 +18,7 @@ from pathlib import Path
 
 
 import qgis.gui
-from PyQt5 import (
+from qgis.PyQt import (
     QtCore,
     QtGui,
     QtWidgets,
@@ -117,7 +117,7 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
     ):
         super().__init__(iface, script, parent)
 
-        # Allow the download tool to support data downloads of any size (in 
+        # Allow the download tool to support data downloads of any size (in
         # terms of area)
         self._max_area = 1e10
         self.setupUi(self)
@@ -222,7 +222,7 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
         log(f"continuing...")
 
         rows = list(set(index.row() for index in self.data_view.selectedIndexes()))
-        # Construct unique dataset names as the concatenation of the category 
+        # Construct unique dataset names as the concatenation of the category
         # and the title
         selected_names = [self.proxy_model.index(row, 0).data() + self.proxy_model.index(row, 1).data()for row in rows]
         selected_datasets = [d for d in self.datasets if d['category'] + d['title'] in selected_names]

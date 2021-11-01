@@ -16,7 +16,7 @@ from typing import (
 )
 from pathlib import Path
 
-from PyQt5 import QtWidgets
+from qgis.PyQt import QtWidgets
 
 import numpy as np
 import openpyxl

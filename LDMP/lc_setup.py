@@ -2,7 +2,7 @@
 """
 /***************************************************************************
  LDMP - A QGIS plugin
- This plugin supports monitoring and reporting of land degradation to the UNCCD 
+ This plugin supports monitoring and reporting of land degradation to the UNCCD
  and in support of the SDG Land Degradation Neutrality (LDN) target.
                               -------------------
         begin                : 2017-05-23
@@ -17,7 +17,7 @@ import os
 import typing
 from pathlib import Path
 
-from PyQt5 import (
+from qgis.PyQt import (
     QtCore,
     QtGui,
     QtWidgets,
@@ -293,7 +293,7 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
         self.btn_reset.clicked.connect(self.reset_nesting_table)
         self.btn_close.clicked.connect(self.btn_close_pressed)
 
-        # Setup the class table so that the table is defined when a user first 
+        # Setup the class table so that the table is defined when a user first
         # loads the dialog
         self.setup_nesting_table(self.nesting)
 
@@ -442,16 +442,16 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
 
         # Add selector in cell
         for row in range(0, len(nesting.child.key)):
-            # Set the default final codes for each row. Note that the QComboBox 
-            # entries are potentially translated, so need to link the 
+            # Set the default final codes for each row. Note that the QComboBox
+            # entries are potentially translated, so need to link the
             # translated names back to a particular code.
-            
-            # Get the input code for this row and the final label it should map 
+
+            # Get the input code for this row and the final label it should map
             # to by default
             child_code = table_model.index(row, 0).data()
             parent_class = [nesting.parentClassForChild(c) for c in nesting.child.key if c.code == child_code][0]
 
-            # Figure out which label translation this Parent_Label (in English) 
+            # Figure out which label translation this Parent_Label (in English)
             # is equivalent to
             parent_label_tr = tr_style_text(parent_class.name_long)
 
@@ -466,7 +466,7 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
         self.remap_view.horizontalHeader().setSectionResizeMode(0, QtWidgets.QHeaderView.ResizeToContents)
         self.remap_view.horizontalHeader().setSectionResizeMode(1, QtWidgets.QHeaderView.Stretch)
         self.remap_view.horizontalHeader().setSectionResizeMode(2, QtWidgets.QHeaderView.ResizeToContents)
-        
+
         self.remap_view.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
 
         return True

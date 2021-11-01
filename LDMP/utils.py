@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 
 import qgis.core
 from osgeo import gdal
-from PyQt5 import (
+from qgis.PyQt import (
     QtWidgets,
 )
 

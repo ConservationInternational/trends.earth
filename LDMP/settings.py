@@ -62,6 +62,9 @@ Ui_WidgetSettingsAdvanced, _ = uic.loadUiType(
 from .logger import log
 
 
+ICON_PATH = os.path.join(os.path.dirname(__file__), 'icons')
+
+
 settings = QtCore.QSettings()
 
 

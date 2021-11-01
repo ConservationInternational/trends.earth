@@ -89,7 +89,6 @@ class JobManager(QtCore.QObject):
         result = []
         for status in relevant_statuses:
             result.extend(self.known_jobs[status].values())
-        log(f'len of relevant jobs: {len(result)}')
         return result
 
     @property
@@ -629,7 +628,6 @@ class JobManager(QtCore.QObject):
                 self._remove_job_metadata_file(finished_job)
             else:
                 self._known_finished_jobs[finished_job.id] = finished_job
-        log(f'len of known finished jobs: {len(self._known_finished_jobs)}')
         return self._known_finished_jobs
 
     def _get_local_failed_jobs(self) -> typing.Dict[uuid.UUID, Job]:

@@ -71,7 +71,11 @@ from .jobs.manager import job_manager
 from .jobs.models import Job
 from .logger import log
 
-from te_schemas import jobs
+from te_schemas.jobs import (
+    JobResultType,
+    JobBand,
+    JobStatus
+)
 
 mb = qgis.utils.iface.messageBar()
 
@@ -81,7 +85,7 @@ class Band:
     job: Job
     path: Path
     band_index: int
-    band_info: jobs.JobBand
+    band_info: JobBand
 
     def get_name_info(self):
         if self.job.task_name:
@@ -91,7 +95,7 @@ class Band:
         name_info_parts.extend(
             [
                 self.job.local_context.area_of_interest_name,
-                layers.get_band_title(jobs.JobBand.Schema().dump(self.band_info)),
+                layers.get_band_title(JobBand.Schema().dump(self.band_info)),
                 utils.utc_to_local(self.job.start_date).strftime("%Y-%m-%d %H:%M")
             ]
         )
@@ -105,7 +109,7 @@ class Band:
         hover_info_parts.extend(
             [
                 self.job.local_context.area_of_interest_name + '\n',
-                layers.get_band_title(jobs.JobBand.Schema().dump(self.band_info)) + '\n',
+                layers.get_band_title(JobBand.Schema().dump(self.band_info)) + '\n',
                 utils.utc_to_local(self.job.start_date).strftime("%Y-%m-%d %H:%M") + '\n',
                 # TODO: figure out a way to cleanup the metadata so it is 
                 # presentable and useful - likely need to have each script 
@@ -1089,15 +1093,15 @@ def _get_usable_bands(
     result = []
     for job in job_manager.relevant_jobs:
         job: Job
-        is_available = job.status in (jobs.JobStatus.DOWNLOADED,
-                                      jobs.JobStatus.GENERATED_LOCALLY)
+        is_available = job.status in (JobStatus.DOWNLOADED,
+                                      JobStatus.GENERATED_LOCALLY)
         is_of_interest = (selected_job_id is None) or (job.id == selected_job_id)
         is_valid_type = (
             job.results and 
             (
-                jobs.JobResultType(job.results.type) in (
-                    jobs.JobResultType.CLOUD_RESULTS,
-                    jobs.JobResultType.LOCAL_RESULTS
+                JobResultType(job.results.type) in (
+                    JobResultType.CLOUD_RESULTS,
+                    JobResultType.LOCAL_RESULTS
                 )
             )
         )
@@ -1216,11 +1220,11 @@ def get_usable_datasets(
     result = []
     for job in job_manager.relevant_jobs:
         job: Job
-        is_available = job.status in (jobs.JobStatus.DOWNLOADED,
-                                      jobs.JobStatus.GENERATED_LOCALLY)
+        is_available = job.status in (JobStatus.DOWNLOADED,
+                                      JobStatus.GENERATED_LOCALLY)
         try:
-            is_valid_type = jobs.JobResultType(job.results.type) in (
-                    jobs.JobResultType.CLOUD_RESULTS, jobs.JobResultType.LOCAL_RESULTS)
+            is_valid_type = JobResultType(job.results.type) in (
+                    JobResultType.CLOUD_RESULTS, JobResultType.LOCAL_RESULTS)
         except AttributeError:
             # Catch case of an invalid type
             continue
@@ -1288,7 +1292,7 @@ class DlgDataIOAddLayersToMap(
         self.layer_list = self.job.results.bands
 
         band_strings = [
-            f'Band {n}: {layers.get_band_title(jobs.JobBand.Schema().dump(band))}'
+            f'Band {n}: {layers.get_band_title(JobBand.Schema().dump(band))}'
             for n, band in enumerate(self.layer_list, start=1)
         ]
         self.layers_model.setStringList(band_strings)

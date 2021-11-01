@@ -23,6 +23,7 @@ from . import models
 from .models import Job
 from ..logger import log
 from te_schemas import jobs
+from te_schemas.algorithms import AlgorithmRunMode
 
 from marshmallow.exceptions import ValidationError
 
@@ -88,6 +89,7 @@ class JobManager(QtCore.QObject):
         result = []
         for status in relevant_statuses:
             result.extend(self.known_jobs[status].values())
+        log(f'len of relevant jobs: {len(result)}')
         return result
 
     @property
@@ -570,7 +572,6 @@ class JobManager(QtCore.QObject):
             else:
                 log("No need to move the job file, it is already in place")
 
-    @functools.lru_cache(maxsize=None)  # not using functools.cache, as it was only introduced in Python 3.9
     def _get_local_jobs(self, status: jobs.JobStatus) -> typing.List[Job]:
         base_dir = {
             jobs.JobStatus.FINISHED: self.finished_jobs_dir,
@@ -589,9 +590,6 @@ class JobManager(QtCore.QObject):
                 except json.decoder.JSONDecodeError as exc:
                     if conf.settings_manager.get_value(conf.Setting.DEBUG):
                         log(f"Unable to decode file {job_metadata_path!r} as valid json")
-                except KeyError:
-                    if conf.settings_manager.get_value(conf.Setting.DEBUG):
-                        log(f"Unable to decode file {job_metadata_path!r} as job json - no script_id in file")
                 except ValidationError as exc:
                     if conf.settings_manager.get_value(conf.Setting.DEBUG):
                         log(f"Unable to decode file {job_metadata_path!r} - validation error decoding job")
@@ -632,6 +630,7 @@ class JobManager(QtCore.QObject):
                 self._remove_job_metadata_file(finished_job)
             else:
                 self._known_finished_jobs[finished_job.id] = finished_job
+        log(f'len of known finished jobs: {len(self._known_finished_jobs)}')
         return self._known_finished_jobs
 
     def _get_local_failed_jobs(self) -> typing.Dict[uuid.UUID, Job]:
@@ -810,7 +809,7 @@ def get_remote_jobs(
             for raw_job in raw_jobs:
                 try:
                     job = Job.Schema().load(raw_job)
-                    has_results = job.results is not None
+                    job.script.run_mode = AlgorithmRunMode.REMOTE
                     if (job.results is not None and
                             job.results.type == jobs.JobResultType.TIME_SERIES_TABLE):
                         log(

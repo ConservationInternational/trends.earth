@@ -10,10 +10,8 @@ from PyQt5 import (
     QtWidgets,
 )
 
-from .jobs import (
-    manager,
-    models,
-)
+from .jobs import manager
+from .jobs.models import Job
 
 from te_schemas import jobs
 
@@ -39,7 +37,7 @@ def save_vrt(source_path: Path, source_band_index: int) -> str:
     return temporary_file.name
 
 
-def get_local_job_output_paths(job: models.Job) -> typing.Tuple[Path, Path]:
+def get_local_job_output_paths(job: Job) -> typing.Tuple[Path, Path]:
     """Retrieve output path for a job so that it can be sent to the local processor"""
     # NOTE: temporarily setting the status as the final value in order to determine
     # the target filepath for the processing's outputs
@@ -65,7 +63,7 @@ def maybe_add_image_to_sheet(image_filename: str, sheet, place="H1"):
         pass
 
 
-def delete_dataset(job: models.Job) -> int:
+def delete_dataset(job: Job) -> int:
     message_box = QtWidgets.QMessageBox()
 
     separator = "_"

@@ -48,7 +48,7 @@ from .. import (
     __revision__,
     __release_date__
 )
-from ..jobs import Job
+from ..jobs.models import Job
 from ..logger import log
 
 import marshmallow_dataclass

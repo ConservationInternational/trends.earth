@@ -3,6 +3,7 @@
 import enum
 import functools
 import uuid
+import re
 from pathlib import Path
 
 from .. import (
@@ -26,11 +27,12 @@ class SortField(enum.Enum):
     STATUS = 'status'
 
 
+@marshmallow_dataclass.dataclass
 class Job(JobBase):
     @pre_load
     def set_script_name_version(self, data, **kwargs):
-        script_id = data.pop('script_id')
-        params_script = data['params'].pop('script')
+        script_id = data.pop('script_id', None)
+        params_script = data['params'].pop('script', None)
         if not data.get('script'):
             if params_script:
                 data['script'] = params_script

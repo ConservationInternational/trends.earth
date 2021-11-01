@@ -21,22 +21,26 @@ from ..conf import (
 )
 from . import (
     manager,
-    models,
+)
+
+from .models import (
+    Job,
+    SortField
 )
 
 from ..data_io import DlgDataIOAddLayersToMap
 from ..datasets_dialog import DatasetDetailsDialogue
+from ..logger import log
 
-from te_schemas.jobs import (
-    JobStatus
-)
+from te_schemas.jobs import JobStatus
+from te_schemas.jobs import Job as JobBase
 
 WidgetDatasetItemUi, _ = uic.loadUiType(
     str(Path(__file__).parents[1] / "gui/WidgetDatasetItem.ui"))
 
 
 class JobsModel(QtCore.QAbstractItemModel):
-    _relevant_jobs: typing.List[models.Job]
+    _relevant_jobs: typing.List[Job]
 
     def __init__(self, job_manager: manager.JobManager, parent=None):
         super().__init__(parent)
@@ -72,7 +76,7 @@ class JobsModel(QtCore.QAbstractItemModel):
             self,
             index: QtCore.QModelIndex = QtCore.QModelIndex(),
             role: QtCore.Qt.ItemDataRole = QtCore.Qt.DisplayRole
-    ) -> typing.Optional[models.Job]:
+    ) -> typing.Optional[Job]:
         result = None
         if index.isValid():
             job = index.internalPointer()
@@ -93,26 +97,26 @@ class JobsModel(QtCore.QAbstractItemModel):
 
 
 class JobsSortFilterProxyModel(QtCore.QSortFilterProxyModel):
-    current_sort_field: typing.Optional[models.SortField]
+    current_sort_field: typing.Optional[SortField]
 
-    def __init__(self, current_sort_field: models.SortField, *args, **kwargs):
+    def __init__(self, current_sort_field: SortField, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.current_sort_field = current_sort_field
 
     def filterAcceptsRow(self, source_row: int, source_parent: QtCore.QModelIndex):
         jobs_model = self.sourceModel()
         index = jobs_model.index(source_row, 0, source_parent)
-        job: models.Job = jobs_model.data(index)
+        job: Job = jobs_model.data(index)
         reg_exp = self.filterRegExp()
         return reg_exp.exactMatch(job.visible_name)
 
     def lessThan(self, left: QtCore.QModelIndex, right: QtCore.QModelIndex) -> bool:
         model = self.sourceModel()
-        left_job: models.Job = model.data(left)
-        right_job: models.Job = model.data(right)
+        left_job: Job = model.data(left)
+        right_job: Job = model.data(right)
         to_sort = (left_job, right_job)
 
-        if self.current_sort_field == models.SortField.DATE:
+        if self.current_sort_field == SortField.DATE:
             result = sorted(to_sort, key=lambda j: j.start_date)[0] == left_job
         else:
             raise NotImplementedError
@@ -147,7 +151,7 @@ class JobItemDelegate(QtWidgets.QStyledItemDelegate):
         item = source_model.data(source_index, QtCore.Qt.DisplayRole)
 
         # if a Dataset => show custom widget
-        if isinstance(item, models.Job):
+        if isinstance(item, Job):
             # get default widget used to edit data
             editor_widget = self.createEditor(self.parent, option, index)
             editor_widget.setGeometry(option.rect)
@@ -167,7 +171,7 @@ class JobItemDelegate(QtWidgets.QStyledItemDelegate):
         source_model = source_index.model()
         item = source_model.data(source_index, QtCore.Qt.DisplayRole)
 
-        if isinstance(item, models.Job):
+        if isinstance(item, Job):
             widget = self.createEditor(None, option, index)  # parent set to none otherwise remain painted in the widget
             size = widget.size()
             del widget
@@ -188,7 +192,7 @@ class JobItemDelegate(QtWidgets.QStyledItemDelegate):
         item = source_model.data(source_index, QtCore.Qt.DisplayRole)
 
         # item = model.data(index, QtCore.Qt.DisplayRole)
-        if isinstance(item, models.Job):
+        if isinstance(item, Job):
             return DatasetEditorWidget(item, self.main_dock, parent=parent)
         else:
             return super().createEditor(parent, option, index)
@@ -203,7 +207,7 @@ class JobItemDelegate(QtWidgets.QStyledItemDelegate):
 
 
 class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
-    job: models.Job
+    job: Job
     main_dock: "MainWidget"
 
     add_to_canvas_pb: QtWidgets.QPushButton
@@ -215,7 +219,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
     open_directory_tb: QtWidgets.QToolButton
     progressBar: QtWidgets.QProgressBar
 
-    def __init__(self, job: models.Job, main_dock: "MainWidget", parent=None):
+    def __init__(self, job: Job, main_dock: "MainWidget", parent=None):
         super().__init__(parent)
         self.setupUi(self)
         self.job = job

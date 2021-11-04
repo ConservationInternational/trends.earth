@@ -35,21 +35,19 @@ class Job(JobBase):
         params_script = data['params'].pop('script', None)
         if not data.get('script'):
             if params_script:
-                data['script'] = params_script
+                script = params_script
             elif script_id:
                 script = _get_job_script(script_id)
                 if script is None:
                     log(f"Failed to get script by id for {script_id}")
                     script = get_job_local_script(data["script_name"])
-                if script:
-                    data['script'] = script
                 else:
                     log(f"Failed to get script by id for {script_id}")
-                    data['script'] = ExecutionScript.Schema().dump(
-                        ExecutionScript(script_id))
+                    script = ExecutionScript(script_id)
             else:
-                data['script'] = ExecutionScript.Schema().dump(
-                    ExecutionScript("Unknown script"))
+                script = ExecutionScript("Unknown script")
+
+            data['script'] = ExecutionScript.Schema().dump(script)
 
         script_name_regex = re.compile('([0-9a-zA-Z -]*)(?: *)([0-9]+(_[0-9]+)+)')
         matches = script_name_regex.search(data['script'].get('name'))

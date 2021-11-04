@@ -83,10 +83,11 @@ def _get_unccd_report_inputs(combo_box):
     all_paths = [
         p for p in path.parents[0].glob('*')
     ]
+    all_files = [x for x in all_paths if x.is_file()]
     return UNCCDReportInputInfo(
         path,
         summary_path,
-        all_paths
+        all_files
     )
 
 def get_main_unccd_report_job_params(

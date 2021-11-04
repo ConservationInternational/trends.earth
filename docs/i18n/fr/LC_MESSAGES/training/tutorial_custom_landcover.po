@@ -1,5 +1,5 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2018, Conservation International
+# Copyright (C) 2017-2021, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
@@ -11,9 +11,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 1.0.1\n"
+"Project-Id-Version: Trends.Earth 1.0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-27 17:17-0400\n"
+"POT-Creation-Date: 2021-07-15 21:04-0400\n"
 "PO-Revision-Date: 2018-04-06 10:56+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
@@ -23,11 +23,11 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:4
+#: ../../source/training/tutorial_custom_landcover.rst:4
 msgid "Use custom land cover data"
 msgstr "Utiliser des données de couverture terrestre personnalisées"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:6
+#: ../../source/training/tutorial_custom_landcover.rst:6
 msgid ""
 "**Objective**: Learn how to load custom land cover data and to compute the "
 "land cover change sub-indicator using Trends.Earth."
@@ -36,15 +36,15 @@ msgstr ""
 "personnalisées et à calculer le sous-indicateur de changement de couverture "
 "terrestre à l'aide de Trends.Earth."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:8
+#: ../../source/training/tutorial_custom_landcover.rst:8
 msgid "**Estimated time of completion**: 40 minutes"
 msgstr "**Heure estimée d'achèvement**: 40 minutes"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:10
+#: ../../source/training/tutorial_custom_landcover.rst:10
 msgid "**Internet access**: Not required"
 msgstr "**Accès Internet**: Non requis"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:12
+#: ../../source/training/tutorial_custom_landcover.rst:12
 msgid ""
 "`Download this page as a PDF for offline use "
 "<../pdfs/Trends.Earth_Tutorial05_Using_Custom_Land_Cover.pdf>`_"
@@ -52,7 +52,7 @@ msgstr ""
 "`Télécharger cette page en format PDF pour une utilisation hors connexion "
 "<../pdfs/Trends.Earth_Tutorial05_Using_Custom_Land_Cover.pdf>`_"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:15
+#: ../../source/training/tutorial_custom_landcover.rst:15
 msgid ""
 "The land cover dataset for this tutorial were provided by the `Regional "
 "Centre For Mapping Resource For Development "
@@ -67,7 +67,7 @@ msgstr ""
 "<https://s3.amazonaws.com/trends.earth/sharing/RCMRD_Uganda_Land_Cover.zip> "
 "`_."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:21
+#: ../../source/training/tutorial_custom_landcover.rst:21
 msgid ""
 "To load custom land cover data click on the (|iconfolder|) icon in the "
 "Trends.Earth toolbar."
@@ -75,7 +75,11 @@ msgstr ""
 "Pour charger les données de couverture terrestre personnalisées, cliquez sur"
 " l'icône (|iconfolder|) dans la barre d'outils de Trends.Earth."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:26
+#: ../../../<rst_epilog>:22 ../../../<rst_epilog>:22
+msgid "iconFolder"
+msgstr ""
+
+#: ../../source/training/tutorial_custom_landcover.rst:26
 msgid ""
 "The **Load data** menu will open. Select **Land cover** from the **Import a "
 "custom input dataset** section."
@@ -84,7 +88,7 @@ msgstr ""
 "terrestre** dans la section **Importer un ensemble de données d'entrée "
 "personnalisé**."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:31
+#: ../../source/training/tutorial_custom_landcover.rst:31
 msgid ""
 "In the **Load a Custom Land Cover dataset** use the radio button to select "
 "the format of the input file (raster or vector). For this tutorial select "
@@ -98,7 +102,7 @@ msgstr ""
 "vous préférez. Cliquez sur **Parcourir** pour accéder au fichier de "
 "couverture terrestre que vous souhaitez importer."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:36
+#: ../../source/training/tutorial_custom_landcover.rst:36
 msgid ""
 "Use the **Select input file** window to navigate to the file to be imported,"
 " select it, and click **Open**."
@@ -106,7 +110,7 @@ msgstr ""
 "Utilisez la fenêtre **Select input file** pour accéder au fichier à "
 "importer, sélectionnez-le et cliquez sur **Open**."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:41
+#: ../../source/training/tutorial_custom_landcover.rst:41
 msgid ""
 "Back at the **Load a Custom Land Cover dataset** window you have options for"
 " selecting the band number in which the productivity data is stored, in case"
@@ -122,7 +126,7 @@ msgstr ""
 "les laisser comme paramètres par défaut sauf si vous avez des raisons "
 "valables de les changer."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:43
+#: ../../source/training/tutorial_custom_landcover.rst:43
 msgid ""
 "Define the year of reference for the data. In this case, since the land "
 "cover dataset for Uganda was developed for the **year 2000**, define it as "
@@ -133,7 +137,7 @@ msgstr ""
 "développé pour **l'année 2000**, définissez-le comme tel. Assurez-vous "
 "d'attribuer l'année correcte."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:45
+#: ../../source/training/tutorial_custom_landcover.rst:45
 msgid ""
 "Click **Browse** at the bottom of the window to select the **Output raster "
 "file**."
@@ -141,7 +145,7 @@ msgstr ""
 "Cliquez sur **Parcourir** en bas de la fenêtre pour sélectionner le "
 "**fichier raster en sortie**."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:50
+#: ../../source/training/tutorial_custom_landcover.rst:50
 msgid ""
 "Click on the **Edit definition** button, this will open the **Setup "
 "aggregation of land cover data menu**. Here you need to assign each of the "
@@ -154,13 +158,13 @@ msgstr ""
 " de données à l'une des 7 classes de couverture terrestre recommandées par "
 "la CCD."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:55
+#: ../../source/training/tutorial_custom_landcover.rst:55
 msgid "For this example, the Uganda dataset has 18 land cover classes:"
 msgstr ""
 "Pour cet exemple, l'ensemble de données sur l'Ouganda comprend 18 classes de"
 " couverture terrestre:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:68
+#: ../../source/training/tutorial_custom_landcover.rst:68
 msgid ""
 "From the Metadata of the land cover dataset, we know that the best "
 "aggregation approach is the following:"
@@ -169,39 +173,39 @@ msgstr ""
 "terrestre, nous savons que la meilleure approche d'agrégation est la "
 "suivante:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:61
+#: ../../source/training/tutorial_custom_landcover.rst:61
 msgid "No data = 0"
 msgstr "Aucune donnée = 0"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:62
+#: ../../source/training/tutorial_custom_landcover.rst:62
 msgid "Tree covered = 1 through 7"
 msgstr "Arbre couvert = 1 à 7"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:63
+#: ../../source/training/tutorial_custom_landcover.rst:63
 msgid "Grassland = 8 through 11"
 msgstr "Prairie = 8 à 11"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:64
+#: ../../source/training/tutorial_custom_landcover.rst:64
 msgid "Cropland = 12 through 14"
 msgstr "Terres cultivées = 12 à 14"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:65
+#: ../../source/training/tutorial_custom_landcover.rst:65
 msgid "Wetland = 15"
 msgstr "Terre humide = 15"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:66
+#: ../../source/training/tutorial_custom_landcover.rst:66
 msgid "Water body = 16"
 msgstr "Corps d'eau = 16"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:67
+#: ../../source/training/tutorial_custom_landcover.rst:67
 msgid "Artificial = 17"
 msgstr "Artificiel = 17"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:68
+#: ../../source/training/tutorial_custom_landcover.rst:68
 msgid "Other land = 18"
 msgstr "Autre terre = 18"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:70
+#: ../../source/training/tutorial_custom_landcover.rst:70
 msgid ""
 "Use the **Setup aggregation of land cover data menu** to assign to each "
 "number in the **Input class** its corresponding **Output class**."
@@ -210,7 +214,7 @@ msgstr ""
 "couverture terrestre** pour attribuer à chaque numéro de la **Classe "
 "d'entrée** la classe de sortie correspondante."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:72
+#: ../../source/training/tutorial_custom_landcover.rst:72
 msgid ""
 "When you are done editing, click **Save definition file**. This option will "
 "save you time next time you run the tool, by simply loading the definition "
@@ -221,11 +225,11 @@ msgstr ""
 "vous lancerez l'outil, en chargeant simplement le fichier de définition "
 "précédemment enregistré."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:74
+#: ../../source/training/tutorial_custom_landcover.rst:74
 msgid "Click **Save** to continue"
 msgstr "Cliquez sur **Enregistrer** pour continuer"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:79
+#: ../../source/training/tutorial_custom_landcover.rst:79
 msgid ""
 "Back at the **Load a Custom Land Cover dataset** window, click **Browse** at"
 " the bottom of the window to select the **Output raster file**."
@@ -234,7 +238,7 @@ msgstr ""
 "terrain personnalisé**, cliquez sur **Parcourir** en bas de la fenêtre pour "
 "sélectionner le **Fichier raster en sortie**."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:84
+#: ../../source/training/tutorial_custom_landcover.rst:84
 msgid ""
 "Navigate to the folder where you want to save the file. Assign it a name and"
 " click **Save**."
@@ -242,7 +246,7 @@ msgstr ""
 "Accédez au dossier dans lequel vous souhaitez enregistrer le fichier. "
 "Attribuez-lui un nom et cliquez sur **Enregistrer**."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:89
+#: ../../source/training/tutorial_custom_landcover.rst:89
 msgid ""
 "Back at the **Load a Custom Land Cover dataset** click **OK** for the tool "
 "to run."
@@ -250,15 +254,15 @@ msgstr ""
 "De retour au **Charger un ensemble de données Custom Land Cover**, cliquez "
 "sur **OK** pour que l'outil s'exécute."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:94
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:177
+#: ../../source/training/tutorial_custom_landcover.rst:94
+#: ../../source/training/tutorial_custom_landcover.rst:177
 msgid ""
 "A progress bar will appear showing the percentage of the task completed."
 msgstr ""
 "Une barre de progression apparaîtra montrant le pourcentage de la tâche "
 "terminée."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:99
+#: ../../source/training/tutorial_custom_landcover.rst:99
 msgid ""
 "When the processing is completed, the imported land cover dataset will be "
 "loaded to QGIS."
@@ -266,7 +270,7 @@ msgstr ""
 "Lorsque le traitement est terminé, l'ensemble de données du couvert "
 "terrestre importé est chargé dans QGIS."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:104
+#: ../../source/training/tutorial_custom_landcover.rst:104
 msgid ""
 "You have one imported custom land cover data for one year (2000), but two "
 "are needed to perform the land cover change analysis. Repeat now steps 1 "
@@ -282,7 +286,7 @@ msgstr ""
 "terrestre de l'Ouganda à partir de l'année 2015. **Assurez-vous de changer "
 "la date de l'année dans le menu d'importation**."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:106
+#: ../../source/training/tutorial_custom_landcover.rst:106
 msgid ""
 "Once you have imported the land cover maps for years 2000 and 2015, you "
 "should have them both loaded to QGIS."
@@ -290,7 +294,7 @@ msgstr ""
 "Une fois que vous avez importé les cartes de la couverture terrestre pour "
 "les années 2000 et 2015, vous devez les charger toutes deux dans QGIS."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:111
+#: ../../source/training/tutorial_custom_landcover.rst:111
 msgid ""
 "Now that both land cover datasets have been imported into Trends.Earth, the "
 "land cover change analysis tool needs to be run. Search for the Trends.Earth"
@@ -301,7 +305,11 @@ msgstr ""
 " terrestre doit être exécuté. Recherchez la barre d'outils Trends.Earth dans"
 " QGIS, puis cliquez sur l'icône Calculer (|iconCalculator|)."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:116
+#: ../../../<rst_epilog>:2 ../../../<rst_epilog>:2
+msgid "iconCalculator"
+msgstr ""
+
+#: ../../source/training/tutorial_custom_landcover.rst:116
 msgid ""
 "The **Calculate Indicators** menu will open. In that window, click on **Land"
 " cover** button found under Step 1 - Option 2."
@@ -309,7 +317,7 @@ msgstr ""
 "Le menu **Calculate Indicators** s'ouvre. Dans cette fenêtre, cliquez sur le"
 " bouton **Land cover** situé sous Step 1 - Option 2."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:121
+#: ../../source/training/tutorial_custom_landcover.rst:121
 msgid ""
 "The **Calculate Land Cover Change** window will open. In the **Setup** tab, "
 "click on **Custom land cover dataset**. Use the drop down option next to "
@@ -323,7 +331,7 @@ msgstr ""
 " les dates en conséquence. Lorsque vous avez terminé, cliquez sur "
 "**Suivant**."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:126
+#: ../../source/training/tutorial_custom_landcover.rst:126
 msgid ""
 "The **Define Degradation** tab is where you define the meaning of each land "
 "cover transition in terms of degradation. Transitions indicated in red "
@@ -338,7 +346,7 @@ msgstr ""
 "identifiées comme stables et les transitions en vert (signe plus) seront "
 "identifiées comme des améliorations."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:128
+#: ../../source/training/tutorial_custom_landcover.rst:128
 msgid ""
 "For example, by default it is considered that a pixel that changed from "
 "**Grassland** to **Tree-covered** will be considered as improved. However, "
@@ -352,14 +360,14 @@ msgstr ""
 "processus de dégradation, cette transition devrait être changée pour cette "
 "zone d'étude particulière en dégradation (signe moins)."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:130
+#: ../../source/training/tutorial_custom_landcover.rst:130
 msgid ""
 "If you have made no changes to the default matrix, simply click **Next**."
 msgstr ""
 "Si vous n'avez apporté aucune modification à la matrice par défaut, cliquez "
 "simplement sur **Suivant**."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:132
+#: ../../source/training/tutorial_custom_landcover.rst:132
 msgid ""
 "If you did change the meaning of some of the transitions, click on **Save "
 "table to file...** to save the definition for later use. Then click "
@@ -369,13 +377,13 @@ msgstr ""
 "**Enregistrer la table dans le fichier...** pour enregistrer la définition "
 "pour une utilisation ultérieure. Puis cliquez sur **Suivant**."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:137
+#: ../../source/training/tutorial_custom_landcover.rst:137
 msgid ""
 "In the **Area** tab define the area of analysis. There are two options:"
 msgstr ""
 "Dans l'onglet **Zone**, définissez la zone d'analyse. Il y a deux options:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:139
+#: ../../source/training/tutorial_custom_landcover.rst:139
 msgid ""
 "Use provided country and state boundaries: If you want to use this option "
 "make sure the **Administrative area** option is highlighted, and then select"
@@ -387,7 +395,7 @@ msgstr ""
 "sélectionnée, puis sélectionnez Premier niveau (pays) ou Deuxième niveau "
 "(état ou province selon le pays)."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:142
+#: ../../source/training/tutorial_custom_landcover.rst:142
 msgid ""
 "The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth are "
 "in the `public domain`_. The boundaries and names used, and the designations"
@@ -401,7 +409,7 @@ msgstr ""
 " officielle ou l'acceptation par Conservation International Foundation, ou "
 "par ses organisations partenaires et contributeurs."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:148
+#: ../../source/training/tutorial_custom_landcover.rst:148
 msgid ""
 "If using Trends.Earth for official purposes, it is recommended that users "
 "choose an official boundary provided by the designated office of their "
@@ -411,7 +419,7 @@ msgstr ""
 "choisir une frontière officielle fournie par le bureau désigné de votre "
 "pays."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:156
+#: ../../source/training/tutorial_custom_landcover.rst:156
 msgid ""
 "Use your own area file: If you want to use your own area of analysis, make "
 "sure the **Area from file** option is highlighted. Then click **Browse** and"
@@ -422,7 +430,7 @@ msgstr ""
 "surbrillance. Cliquez ensuite sur **Parcourir** et naviguez jusqu'au dossier"
 " de votre ordinateur où vous avez stocké le fichier."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:158
+#: ../../source/training/tutorial_custom_landcover.rst:158
 msgid ""
 "When you have selected the area for which you want to compute the "
 "indicators, click **Next**."
@@ -430,7 +438,7 @@ msgstr ""
 "Lorsque vous avez sélectionné la zone pour laquelle vous souhaitez calculer "
 "les indicateurs, cliquez sur **Suivant**."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:163
+#: ../../source/training/tutorial_custom_landcover.rst:163
 msgid ""
 "In the **Options** tab you can define the **Task name** and make some "
 "**Notes** to identify the analysis you are running. What information to "
@@ -440,19 +448,19 @@ msgstr ""
 "créer **Notes** pour identifier l'analyse que vous exécutez. Quelle "
 "information à indiquer est facultative, mais nous suggérons de noter:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:165
+#: ../../source/training/tutorial_custom_landcover.rst:165
 msgid "Area of analysis"
 msgstr "Domaine d'analyse"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:166
+#: ../../source/training/tutorial_custom_landcover.rst:166
 msgid "Dates"
 msgstr "Rendez-vous"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:167
+#: ../../source/training/tutorial_custom_landcover.rst:167
 msgid "Indicators run"
 msgstr "Les indicateurs fonctionnent"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:172
+#: ../../source/training/tutorial_custom_landcover.rst:172
 msgid ""
 "When you click **Calculate**, the **Choose a name for the output file** will"
 " open. Select where to save the file and its name, and click **Save**."
@@ -462,7 +470,7 @@ msgstr ""
 "souhaitez enregistrer le fichier et son nom, puis cliquez sur ** Enregistrer"
 " **."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:182
+#: ../../source/training/tutorial_custom_landcover.rst:182
 msgid ""
 "When the processing is completed, the imported land cover degradation sub-"
 "indicator dataset will be loaded to QGIS."
@@ -470,7 +478,7 @@ msgstr ""
 "Lorsque le traitement est terminé, l'ensemble de données du sous-indicateur "
 "de dégradation du couvert végétal importé est chargé dans QGIS."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_custom_landcover.rst:188
+#: ../../source/training/tutorial_custom_landcover.rst:188
 msgid ""
 "Refer to the :ref:`tut_compute_sdg` tutorial for instructions on how to use "
 "the land cover sub-indicator to compute the final SDG 15.3.1 after "
@@ -480,3 +488,63 @@ msgstr ""
 "instructions sur la façon d'utiliser le sous-indicateur de la couverture "
 "terrestre pour calculer l'ODD final 15.3.1 après intégration avec les "
 "changements de la productivité des terres et du carbone organique du sol."
+
+#: ../../../<rst_epilog>:4
+msgid "iconChart"
+msgstr ""
+
+#: ../../../<rst_epilog>:6
+msgid "iconClipboard"
+msgstr ""
+
+#: ../../../<rst_epilog>:8
+msgid "iconCloudDownload"
+msgstr ""
+
+#: ../../../<rst_epilog>:10
+msgid "iconCog"
+msgstr ""
+
+#: ../../../<rst_epilog>:12
+msgid "iconGlobe"
+msgstr ""
+
+#: ../../../<rst_epilog>:14
+msgid "iconGraph"
+msgstr ""
+
+#: ../../../<rst_epilog>:16
+msgid "iconInfo"
+msgstr ""
+
+#: ../../../<rst_epilog>:18
+msgid "iconMarkMarker"
+msgstr ""
+
+#: ../../../<rst_epilog>:20
+msgid "iconWrench"
+msgstr ""
+
+#: ../../../<rst_epilog>:24
+msgid "iconVisualization"
+msgstr ""
+
+#: ../../../<rst_epilog>:26
+msgid "Trends.Earth"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoCI"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoLund"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoNASA"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoGEF"
+msgstr ""

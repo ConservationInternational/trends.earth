@@ -14,7 +14,7 @@ from qgis.core import (QgsGeometry,
                        QgsProcessingOutputNumber)
 from qgis.PyQt.QtCore import QCoreApplication
 
-from LDMP import log
+from ..logger import log
 from LDMP.summary import calc_cell_area
 
 class TCSummary(QgsProcessingAlgorithm):

@@ -1,5 +1,5 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2018, Conservation International
+# Copyright (C) 2017-2021, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
@@ -9,9 +9,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 1.0.1\n"
+"Project-Id-Version: Trends.Earth 1.0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-27 17:17-0400\n"
+"POT-Creation-Date: 2021-07-15 21:04-0400\n"
 "PO-Revision-Date: 2019-01-28 02:04+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
@@ -21,11 +21,11 @@ msgstr ""
 "Language: sw\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\report_overviews.rst:2
+#: ../../source/background/report_overviews.rst:2
 msgid "Other resources"
 msgstr "Rasilimali nyingine"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\report_overviews.rst:4
+#: ../../source/background/report_overviews.rst:4
 msgid ""
 "Print documentation from the Trends.Earth project (including fact sheets, "
 "reports, and other materials) is listed below."
@@ -33,11 +33,11 @@ msgstr ""
 "Nyaraka za magazeti kutoka Mradi wa Mradi wa Mradi (ikiwa ni pamoja na "
 "karatasi, ripoti, na vifaa vingine) zimeorodheshwa hapa chini."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\report_overviews.rst:8
+#: ../../source/background/report_overviews.rst:8
 msgid "Reports"
 msgstr "Ripoti"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\report_overviews.rst:10
+#: ../../source/background/report_overviews.rst:10
 msgid ""
 "`Using Spectral Vegetation Indices to Measure Gross Primary Productivity as "
 "an Indicator of Land Degradation "
@@ -48,7 +48,7 @@ msgstr ""
 "<http://vitalsigns.org/sites/default/files/VS_GEFLDMP_Report1_C1_R3_WEB_HR.pdf>"
 " `_"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\report_overviews.rst:13
+#: ../../source/background/report_overviews.rst:13
 msgid ""
 "`Evaluation of approaches for incorporating higher-resolution data for "
 "disaggregation or targeted analysis "
@@ -59,7 +59,7 @@ msgstr ""
 "<http://vitalsigns.org/sites/default/files/CI_GEF_Report%202_C1_R1_PRINT.pdf>"
 " `_"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\report_overviews.rst:16
+#: ../../source/background/report_overviews.rst:16
 msgid ""
 "`Disentangling the effects of climate and land use on land degradation "
 "<http://vitalsigns.org/sites/default/files/CI_GEF_Report%205_C1_R1_PRINT.pdf>`_"
@@ -69,7 +69,7 @@ msgstr ""
 "<http://vitalsigns.org/sites/default/files/CI_GEF_Report%205_C1_R1_PRINT.pdf>"
 " `_"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\report_overviews.rst:18
+#: ../../source/background/report_overviews.rst:18
 msgid ""
 "`Monitoring and assessing land degradation to support sustainable "
 "development "
@@ -80,7 +80,7 @@ msgstr ""
 "<http://vitalsigns.org/sites/default/files/CI_GEF_Guidance%20ENG_C1_R1_PRINT%20%281%29.pdf>"
 " `_"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\report_overviews.rst:20
+#: ../../source/background/report_overviews.rst:20
 msgid ""
 "`(French) Suivre et évaluer la dégradation des terres pour soutenir le "
 "développement durable "
@@ -91,11 +91,11 @@ msgstr ""
 "<http://vitalsigns.org/sites/default/files/CI_GEF_Guidance%20FRE_C1_R1_PRINT%20%281%29.pdf>"
 " `_"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\report_overviews.rst:25
+#: ../../source/background/report_overviews.rst:25
 msgid "Fact sheets"
 msgstr "Majarida ya ukweli"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\report_overviews.rst:27
+#: ../../source/background/report_overviews.rst:27
 msgid ""
 "`Conceptual Fact Sheet for Trends.Earth "
 "<http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet.pdf>`_"
@@ -103,7 +103,7 @@ msgstr ""
 "`Fomu ya Ukweli wa Mwelekeo wa Mwelekeo "
 "<http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet.pdf> `_"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\report_overviews.rst:29
+#: ../../source/background/report_overviews.rst:29
 msgid ""
 "`Technical Fact Sheet for Trends.Earth "
 "<http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet_Technical.pdf>`_"
@@ -111,3 +111,71 @@ msgstr ""
 "`Makala ya Kiufundi ya Mwelekeo.Kuanzia "
 "<http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet_Technical.pdf>"
 " `_"
+
+#: ../../../<rst_epilog>:2
+msgid "iconCalculator"
+msgstr ""
+
+#: ../../../<rst_epilog>:4
+msgid "iconChart"
+msgstr ""
+
+#: ../../../<rst_epilog>:6
+msgid "iconClipboard"
+msgstr ""
+
+#: ../../../<rst_epilog>:8
+msgid "iconCloudDownload"
+msgstr ""
+
+#: ../../../<rst_epilog>:10
+msgid "iconCog"
+msgstr ""
+
+#: ../../../<rst_epilog>:12
+msgid "iconGlobe"
+msgstr ""
+
+#: ../../../<rst_epilog>:14
+msgid "iconGraph"
+msgstr ""
+
+#: ../../../<rst_epilog>:16
+msgid "iconInfo"
+msgstr ""
+
+#: ../../../<rst_epilog>:18
+msgid "iconMarkMarker"
+msgstr ""
+
+#: ../../../<rst_epilog>:20
+msgid "iconWrench"
+msgstr ""
+
+#: ../../../<rst_epilog>:22
+msgid "iconFolder"
+msgstr ""
+
+#: ../../../<rst_epilog>:24
+msgid "iconVisualization"
+msgstr ""
+
+#: ../../../<rst_epilog>:26
+msgid "Trends.Earth"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoCI"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoLund"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoNASA"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoGEF"
+msgstr ""

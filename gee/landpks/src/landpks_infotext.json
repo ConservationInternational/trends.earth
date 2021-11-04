@@ -13,9 +13,9 @@
     },
     "base_image": {
         "about": {
-            "EN": "Satellite image for the year {YEAR_END} centered around the site location.",
-            "ES": "Imagen de satélite del año {YEAR_END} centrada alrededor de la ubicación del sitio",
-            "PT": "Imagem de satélite para o ano {YEAR_END} centrada no local"
+            "EN": "Satellite image for the year {YEAR} centered on the site location.",
+            "ES": "Imagen de satélite del año {YEAR} centrada alrededor de la ubicación del sitio",
+            "PT": "Imagem de satélite para o ano {YEAR} centrada no local"
         },
         
         "title": {

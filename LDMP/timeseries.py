@@ -12,20 +12,20 @@
  ***************************************************************************/
 """
 
-import os
 import json
 
 from qgis.PyQt import QtWidgets, uic
 
 from qgis.PyQt.QtCore import QDate, QTextCodec
-
-from LDMP import log
-from LDMP.calculate import DlgCalculateBase, get_script_slug
-from LDMP.gui.DlgTimeseries import Ui_DlgTimeseries
-from LDMP.api import run_script
-
-from qgis.gui import QgsMapToolEmitPoint, QgsMapToolPan
 from qgis.utils import iface
+
+from .conf import KNOWN_SCRIPTS
+from .calculate import (
+    DlgCalculateBase,
+)
+from .gui.DlgTimeseries import Ui_DlgTimeseries
+from .jobs.manager import job_manager
+from .logger import log
 
 mb = iface.messageBar()
 
@@ -66,7 +66,11 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         # Can't use any of the methods but NDVI Trends on the 16 day data, so
         # don't need climate datasets
         if self.datasets['NDVI'][self.dataset_ndvi.currentText()]['Temporal resolution'] == 'annual':
-            climate_types = self.scripts['productivity']['trajectory functions'][self.traj_indic.currentText()]['climate types']
+            trajectory_functions = KNOWN_SCRIPTS[
+                "productivity"].additional_configuration["trajectory functions"]
+            current_trajectory_function = trajectory_functions[
+                self.traj_indic.currentText()]
+            climate_types = current_trajectory_function["climate types"]
             for climate_type in climate_types:
                 self.climate_datasets.update(self.datasets[climate_type])
                 self.traj_climate.addItems(list(self.datasets[climate_type].keys()))
@@ -94,7 +98,12 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         if this_ndvi_dataset['Temporal resolution'] == '16 day':
             self.traj_indic.addItems(['NDVI trends'])
         else:
-            self.traj_indic.addItems(list(self.scripts['productivity']['trajectory functions'].keys()))
+            self.traj_indic.addItems(
+                list(
+                    KNOWN_SCRIPTS['productivity'].additional_configuration[
+                        'trajectory functions'].keys()
+                )
+            )
 
         self.update_time_bounds()
 
@@ -142,8 +151,8 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         ndvi_dataset = self.datasets['NDVI'][self.dataset_ndvi.currentText()]['GEE Dataset']
 
         crosses_180th, geojsons = self.gee_bounding_box
-        payload = {'year_start': self.traj_year_start.date().year(),
-                   'year_end': self.traj_year_end.date().year(),
+        payload = {'year_initial': self.traj_year_start.date().year(),
+                   'year_final': self.traj_year_end.date().year(),
                    'crosses_180th': crosses_180th,
                    'geojsons': json.dumps(geojsons),
                    'crs': self.aoi.get_crs_dst_wkt(),
@@ -152,10 +161,12 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
                    'task_notes': self.options_tab.task_notes.toPlainText(),
                    'climate_gee_dataset': climate_gee_dataset}
         # This will add in the method parameter
-        payload.update(self.scripts['productivity']['trajectory functions'][self.traj_indic.currentText()]['params'])
+        payload.update(
+            KNOWN_SCRIPTS['trajectory functions'].additional_configuration[
+                self.traj_indic.currentText()]['params']
+        )
 
-        resp = run_script(get_script_slug('time-series'), payload)
-
+        resp = job_manager.submit_remote_job(payload, self.script.id)
         if resp:
             mb.pushMessage(self.tr("Submitted"),
                            self.tr("Time series calculation task submitted to Google Earth Engine."),

@@ -1,5 +1,5 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2018, Conservation International
+# Copyright (C) 2017-2021, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
@@ -10,9 +10,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 1.0.1\n"
+"Project-Id-Version: Trends.Earth 1.0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-27 17:17-0400\n"
+"POT-Creation-Date: 2021-07-15 21:04-0400\n"
 "PO-Revision-Date: 2019-07-18 21:12+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
 "Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
@@ -22,17 +22,17 @@ msgstr ""
 "Language: sw\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:4
+#: ../../source/background/understanding_indicators11.rst:4
 msgid "SDG Indicator 11.3.1"
 msgstr "Kiashiria cha SDG 11.3.1"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:7
+#: ../../source/background/understanding_indicators11.rst:7
 msgid "Background"
 msgstr "Background"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:8
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:21
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:168
+#: ../../source/background/understanding_indicators11.rst:8
+#: ../../source/background/understanding_indicators11.rst:21
+#: ../../source/background/understanding_indicators11.rst:168
 msgid ""
 "Source: UN-Habitat (2019) SDG Indicator 11.3.1 Training Module: Land Use "
 "Efficiency. United Nations Human Settlement Programme (UN-Habitat), Nairobi."
@@ -41,7 +41,7 @@ msgstr ""
 " wa Matumizi ya Ardhi. Programu ya Makazi ya Umoja wa Mataifa (UN-Habitat), "
 "Nairobi."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:10
+#: ../../source/background/understanding_indicators11.rst:10
 msgid ""
 "Human settlements, in all their diverse forms, appropriate land in varied "
 "ways. Just like living organisms, urban settlements (cities) evolve, "
@@ -62,7 +62,7 @@ msgstr ""
 " idadi ya watu, uwezekano wa kiuchumi na tija, hali ya kimwili na ya kijamii"
 " iliyopo, uwepo wa kuwezesha sera, kati ya mambo mengine."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:12
+#: ../../source/background/understanding_indicators11.rst:12
 msgid ""
 "A country that maximizes the many benefits associated with urbanization is "
 "one that is able to understand, measure and predict the growth trends of its"
@@ -93,7 +93,7 @@ msgstr ""
 "hadi sasa na sahihi juu ya mwenendo wa ukuaji katika miji na makazi ya "
 "mijini."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:14
+#: ../../source/background/understanding_indicators11.rst:14
 msgid ""
 "**Target 11.3 aims to enhance inclusive and sustainable urbanization and "
 "capacity for participatory, integrated and sustainable human settlement "
@@ -129,7 +129,7 @@ msgstr ""
 "gharama kubwa ya miundombinu kwa kila mtu; kupunguza uchumi wa "
 "agglomeration; na kupungua kwa uzalishaji wa miji."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:16
+#: ../../source/background/understanding_indicators11.rst:16
 msgid ""
 "By measuring the rate at which cities consume land against their rate of "
 "population growth, city authorities and decision makers can project demand "
@@ -150,11 +150,11 @@ msgstr ""
 "kuelewa mienendo ya ukuaji wa miji na kuunda sera na miongozo ya habari, "
 "lakini pia ni msingi wa kukuza mijini milele."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:19
+#: ../../source/background/understanding_indicators11.rst:19
 msgid "Rationale for Monitoring"
 msgstr "Mtazamo wa Ufuatiliaji"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:23
+#: ../../source/background/understanding_indicators11.rst:23
 msgid ""
 "Understanding how a city/urban area expands spatially against its rate of "
 "population change is critical to determining, among other things, the nature"
@@ -170,7 +170,7 @@ msgstr ""
 "umuhimu mkubwa juu ya mahitaji na gharama za kutoa huduma, pamoja na "
 "kuhifadhi na kuhifadhi mazingira."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:25
+#: ../../source/background/understanding_indicators11.rst:25
 msgid ""
 "To attain sustainable development, countries need to understand how fast "
 "their urban areas are growing, and in which direction. This will not only "
@@ -192,7 +192,7 @@ msgstr ""
 "kuzingatia ukuaji wa idadi ya watu kutoka kwa uhamiaji na ongezeko la asili "
 "wakati wa kuhifadhi maeneo ya mazingira yaliyotokana na maendeleo."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:27
+#: ../../source/background/understanding_indicators11.rst:27
 msgid ""
 "The purpose of monitoring progress against the SDG indicator 11.3.1 is "
 "therefore to provide necessary and timely information to decision makers and"
@@ -208,11 +208,11 @@ msgstr ""
 "kupunguza mijini na ikiwa inawezekana, kuhakikisha kuwa ufanisi wa miji "
 "unasimamiwa au kuongezeka kwa muda."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:30
+#: ../../source/background/understanding_indicators11.rst:30
 msgid "Indicator and data needs"
 msgstr "Kiashiria na mahitaji ya data"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:32
+#: ../../source/background/understanding_indicators11.rst:32
 msgid ""
 "Indicator 11.3.1 is defined as the **ratio of land consumption rate to "
 "population growth rate** (Figure 1). In order to compute this indicator, "
@@ -226,7 +226,7 @@ msgstr ""
 "angalau mara mbili kwa wakati zinahitajika, na hata zaidi kama tunapenda "
 "kutathmini mabadiliko katika kiashiria kwa muda."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:37
+#: ../../source/background/understanding_indicators11.rst:37
 msgid ""
 "`Figure 1: Sustainable development goal (SDG) indicator 11.3.1 is computed "
 "as the ratio of the annual land consumption rate (ALCR) to the annual "
@@ -239,7 +239,7 @@ msgstr ""
 "ya mara 1 na 2. Ln: logarithm ya asili, Urb: eneo la mijini, pop: idadi ya "
 "watu, t: wakati katika miaka .`"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:39
+#: ../../source/background/understanding_indicators11.rst:39
 msgid ""
 "Assessing changes in SDG 11.3.1. over time requires a significant amount of "
 "information, since it requires knowing urban extent and population count for"
@@ -271,7 +271,14 @@ msgstr ""
 " ya mtumiaji na data ya idadi ya watu, chombo hiki kinazingatia SDG 11.3.1 "
 "zote kwa njia ya ramani na meza za urahisi wa kutafsiri na kutoa ripoti."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:44
+#: ../../../<rst_epilog>:26 ../../../<rst_epilog>:26 ../../../<rst_epilog>:26
+#: ../../../<rst_epilog>:26 ../../../<rst_epilog>:26 ../../../<rst_epilog>:26
+#: ../../../<rst_epilog>:26 ../../../<rst_epilog>:26 ../../../<rst_epilog>:26
+#: ../../../<rst_epilog>:26 ../../../<rst_epilog>:26 ../../../<rst_epilog>:26
+msgid "Trends.Earth"
+msgstr ""
+
+#: ../../source/background/understanding_indicators11.rst:44
 msgid ""
 "`Figure 2: Trends.Earth works-flow to computing SDG 11.3.1. Global 30m "
 "impervious surface indices have been pre-computed and are available for the "
@@ -287,11 +294,11 @@ msgstr ""
 "urban-mapper> `_` ambapo mtumiaji anafafanua kiwango cha kujengwa kwa kuwapa"
 " tu mfululizo wa vizingiti`"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:47
+#: ../../source/background/understanding_indicators11.rst:47
 msgid "Land consumption"
 msgstr "Matumizi ya ardhi"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:49
+#: ../../source/background/understanding_indicators11.rst:49
 msgid ""
 "To estimate land consumption in |trends.earth|, a pre-computed time series "
 "of impervious surface indicators are available globally at 30 m resolution. "
@@ -304,11 +311,11 @@ msgstr ""
 "vielelezo vilivyohesabiwa, na mapendekezo mengine jinsi ya kuitumia kuhesabu"
 " kiashiria cha SDG 11.3.1."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:52
+#: ../../source/background/understanding_indicators11.rst:52
 msgid "ISI in Trends.Earth"
 msgstr "ISI katika Mwelekeo"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:54
+#: ../../source/background/understanding_indicators11.rst:54
 msgid ""
 "Given the lack of availability of a time series of impervious surface "
 "dataset at fine spatial resolution to capture urban changes globally, we "
@@ -342,7 +349,7 @@ msgstr ""
 " 2015, na 2018. Mfululizo wa mifano 846 iliendeshwa, moja kwa mkoa wa eco "
 "kama ilivyoelezwa na Fungua dasaset (Dinerstein et al 2017)."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:59
+#: ../../source/background/understanding_indicators11.rst:59
 msgid ""
 "`Figure 3: A series of 846 random forest models were run. Each model was "
 "trained using the GMIS and ESA CCI datasets, and then applied to a stack of "
@@ -355,7 +362,7 @@ msgstr ""
 "kutabiri eneo la eneo lisilowezekana kwa miaka ya 1998, 2000, 2005, 2010, "
 "2015, na 2018.`"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:61
+#: ../../source/background/understanding_indicators11.rst:61
 msgid ""
 "Since image availability is limited, in some areas, we included for each "
 "year images from the previous and posterior years (e.g. stack for 2005 "
@@ -378,7 +385,7 @@ msgstr ""
 " 1998, 2000, 2005, 2010, 2015, na 2018, na zilikuwa pembejeo kwa mifano ya "
 "misitu ya random."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:66
+#: ../../source/background/understanding_indicators11.rst:66
 msgid ""
 "`Figure 4: Description of the bands in the 24-band stack used in the random "
 "forest models.`"
@@ -386,7 +393,7 @@ msgstr ""
 "&#39;Mchoro wa 4: Maelezo ya bendi katika stack ya bendi 24 inayotumiwa "
 "katika mifano ya misitu ya random``"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:68
+#: ../../source/background/understanding_indicators11.rst:68
 msgid ""
 "It is hard to assess the accuracy of such dataset, given the lack of "
 "reference or comparable datasets globally. We compared the results of the "
@@ -410,11 +417,11 @@ msgstr ""
 "<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
 "mapper> `_ kwa eneo lao la riba."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:71
+#: ../../source/background/understanding_indicators11.rst:71
 msgid "From ISI to built-up"
 msgstr "Kutoka kwa ISI kujengwa"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:73
+#: ../../source/background/understanding_indicators11.rst:73
 msgid ""
 "In order to estimate the area occupied by impervious surfaces in a city, we "
 "need to convert the continuous impervious surface index (ISI) into a binary "
@@ -431,7 +438,7 @@ msgstr ""
 "<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
 "mapper> `_, ambayo itatofautiana na kanda."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:78
+#: ../../source/background/understanding_indicators11.rst:78
 msgid ""
 "`Figure 5: In` `Trends.Earth Urban Mapper "
 "<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
@@ -445,7 +452,7 @@ msgstr ""
 "Surface Survey (ISI, kulia) kwenye ramani ya eneo la kujengwa kwa binary "
 "(iliyojengwa, kushoto) itafuta kwa mji wao wa maslahi."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:80
+#: ../../source/background/understanding_indicators11.rst:80
 msgid ""
 "In |trends.earth| the user needs to define 3 threshold values which will be "
 "used by the tool to estimate the built-up area for the area of interest. "
@@ -455,7 +462,7 @@ msgstr ""
 "ambayo itatumiwa na chombo cha kukadiria eneo la kujengwa kwa eneo la riba. "
 "Vile vizingiti ni:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:82
+#: ../../source/background/understanding_indicators11.rst:82
 msgid ""
 "**Impervious Surface Index (ISI, 0-100)**: This is an index which varies "
 "between 0 and 100, with higher values being indicative of a higher "
@@ -473,7 +480,7 @@ msgstr ""
 "kawaida katika miji ya miji. Kuweka thamani hii ya juu itafanya tathmini "
 "kuzingatia vituo vya jiji la juu."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:83
+#: ../../source/background/understanding_indicators11.rst:83
 msgid ""
 "**Night Time Lights Index (NTL, 0-100)**: The impervious surface index can, "
 "in some cases, present high values for areas covered with dry bare soil or "
@@ -504,7 +511,7 @@ msgstr ""
 "kawaida katika miji ya miji. Kuweka thamani hii ya juu itafanya tathmini "
 "kuzingatia vituo vya jiji la juu."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:84
+#: ../../source/background/understanding_indicators11.rst:84
 msgid ""
 "**Water Frequency Index (WFI, 0-100)**: Water presence is a very dynamic "
 "feature of coastal or riverine environment, in some cases water will "
@@ -532,7 +539,7 @@ msgstr ""
 "thamani hii juu itakuwa kuzuia miili ya maji kwa maeneo yenye mzunguko "
 "mkubwa wa maji (yaani mito na maziwa ya kudumu)."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:89
+#: ../../source/background/understanding_indicators11.rst:89
 msgid ""
 "`Figure 6: In` `Trends.Earth Urban Mapper "
 "<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
@@ -546,11 +553,11 @@ msgstr ""
 "Orodha ya Surface ya Impervious inayoendelea (ISI, kulia) kwenye ramani ya "
 "eneo linalojengwa (iliyojengwa, kushoto) .`"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:92
+#: ../../source/background/understanding_indicators11.rst:92
 msgid "Consistency test"
 msgstr "Ufuatiliaji wa mtihani"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:94
+#: ../../source/background/understanding_indicators11.rst:94
 msgid ""
 "When classifying remote sensing data into derived products, such as the "
 "impervious surface index computed by |trends.earth|, omission and commission"
@@ -569,7 +576,7 @@ msgstr ""
 "kuongeza pointi za kabla na baada ya data ili kuchuja makosa iwezekanavyo "
 "katika utaratibu wa 2000 hadi 2015 mfululizo."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:96
+#: ../../source/background/understanding_indicators11.rst:96
 msgid ""
 "The thresholds defined in the previous section (ISI, NTL, and WFR) are "
 "applied to each of the individual layers of 1998, 2000, 2005, 2010, 2015, "
@@ -586,7 +593,7 @@ msgstr ""
 "&quot;isiyojengwa&quot;. Kanuni kuu moja hutumiwa baadaye kwenye mfululizo "
 "huo:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:98
+#: ../../source/background/understanding_indicators11.rst:98
 msgid ""
 "A pixel is considered built only if 50% or more of data points after the "
 "first built detection identify the same area as built. For such pixels, the "
@@ -609,11 +616,11 @@ msgstr ""
 " wa mabadiliko hayo ya kutokea katika mazingira ya mijini, tunahisi vizuri "
 "kufanya dhana hiyo. Ukaguzi wa maonyesho ya matokeo unasaidia mbinu."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:101
+#: ../../source/background/understanding_indicators11.rst:101
 msgid "Global testing"
 msgstr "Kupima Global"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:103
+#: ../../source/background/understanding_indicators11.rst:103
 msgid ""
 "|trends.earth| provides through the `Urban Mapper "
 "<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
@@ -651,7 +658,7 @@ msgstr ""
 "ndogo za kisiwa (ambacho hakuna data ya mafunzo inapatikana), maeneo ya "
 "maeneo yenye ukali, na maeneo yenye upatikanaji wa picha ndogo."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:105
+#: ../../source/background/understanding_indicators11.rst:105
 msgid ""
 "**No data**: Cities for which no training data was available to build the "
 "impervious surface data set. These cities represent 6.2% of the sample "
@@ -661,7 +668,7 @@ msgstr ""
 "kujenga data isiyosababishwa ya kuweka data. Miji hii inawakilisha asilimia "
 "6.2 ya sampuli iliyo tathmini."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:106
+#: ../../source/background/understanding_indicators11.rst:106
 msgid ""
 "**Unusable**: Cities for which results are available, but due to low Landsat"
 " images availability prevented the production of a good quality product. "
@@ -673,7 +680,7 @@ msgstr ""
 "Matokeo haya haipaswi kutumiwa kwa kompyuta SDG 11.3.1. Miji hii "
 "inawakilisha 0.9% ya sampuli iliyo tathmini."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:107
+#: ../../source/background/understanding_indicators11.rst:107
 msgid ""
 "**Problematic**: Cities with results of potential use for visually "
 "understating spatial patterns of built-up area expansion, but with "
@@ -685,7 +692,7 @@ msgstr ""
 "makubwa. Matokeo haya haipaswi kutumiwa kwa kompyuta SDG 11.3.1. Miji hii "
 "inawakilisha 4.0% ya sampuli iliyo tathmini."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:108
+#: ../../source/background/understanding_indicators11.rst:108
 msgid ""
 "**Some issues**: Cities with results showing some issues confusing bare soil"
 " surfaces with built up area, could be used for computing SDG 11.3.1 after "
@@ -697,7 +704,7 @@ msgstr ""
 " kwa kompyuta SDG 11.3.1 baada ya ukaguzi wa kina wa data. Miji hii "
 "inawakilisha asilimia 6.2 ya sampuli iliyo tathmini."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:109
+#: ../../source/background/understanding_indicators11.rst:109
 msgid ""
 "**Minor issues**: Cities with high quality data but with the presence of "
 "some small areas of confusion. This data could be used for computing SDG "
@@ -707,7 +714,7 @@ msgstr ""
 "madogo ya machafuko. Data hii inaweza kutumika kwa kompyuta SDG 11.3.1. Miji"
 " hii inawakilisha asilimia 12.5 ya sampuli iliyo tathmini."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:110
+#: ../../source/background/understanding_indicators11.rst:110
 msgid ""
 "**High quality**: Cities with high quality data showing perfect agreement "
 "between built-up area using Trends.Earth data and high resolution images "
@@ -720,7 +727,7 @@ msgstr ""
 "kuzingatia SDG 11.3.1. Miji hii inawakilisha asilimia 70.1 ya sampuli iliyo "
 "tathmini."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:115
+#: ../../source/background/understanding_indicators11.rst:115
 msgid ""
 "`Figure 7: After testing in 224 large cities around the globe, the results "
 "show that for 83% of the cities assessed Trends.Earth data can be used for "
@@ -735,7 +742,7 @@ msgstr ""
 "ilipatikana), maeneo mahiri yaliyomo, na maeneo yenye upatikanaji wa picha "
 "chini."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:124
+#: ../../source/background/understanding_indicators11.rst:124
 msgid ""
 "`Figure 8: Spatial distribution of threshold parameters selected for the "
 "sample of 224 cities tested. Top: Impervious surface area indicator, Middle:"
@@ -746,7 +753,7 @@ msgstr ""
 "na uhakika, Kati: Kiashiria cha taa za usiku, na Chini: Kiashiria cha "
 "mzunguko wa maji .`"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:126
+#: ../../source/background/understanding_indicators11.rst:126
 msgid ""
 "From the analysis of 224 cities globally we were able to estimate the range "
 "of parameters most commonly used. The most frequent values used were: **ISI "
@@ -766,7 +773,7 @@ msgstr ""
 "ukaguzi wa makini wa dataset unapaswa kufanya, ili kupata seti ya vigezo "
 "ambazo zinafaa zaidi kwa kila tovuti."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:131
+#: ../../source/background/understanding_indicators11.rst:131
 msgid ""
 "`Figure 9: Frequency distribution of threshold parameters selected for the "
 "sample of 224 cities tested. Left: Impervious surface area indicator, "
@@ -777,11 +784,11 @@ msgstr ""
 "eneo la uso usio na uhakika, Kati: Kiashiria cha taa za usiku, na Haki: "
 "Kiashiria cha mzunguko wa Maji .`"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:134
+#: ../../source/background/understanding_indicators11.rst:134
 msgid "Urban zones"
 msgstr "Eneo la miji"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:136
+#: ../../source/background/understanding_indicators11.rst:136
 msgid ""
 "The urban extent is the proposed area of study that comprises of the built-"
 "up area and urbanized open space of the city, along with areas added by "
@@ -796,7 +803,7 @@ msgstr ""
 " katika madarasa 6 yafuatayo ili kutambua eneo ambalo litatumika katika "
 "makadirio ya kiwango cha matumizi ya ardhi kila mwaka (Kielelezo 1):"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:138
+#: ../../source/background/understanding_indicators11.rst:138
 msgid ""
 "Built-up areas will be classified based on the density within a 500 m of "
 "each pixel radius:"
@@ -804,19 +811,19 @@ msgstr ""
 "Maeneo yanayojengwa yatatengwa kulingana na wiani ndani ya mita 500 ya kila "
 "radius ya pixel:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:140
+#: ../../source/background/understanding_indicators11.rst:140
 msgid "Urban: > 50% built-up in the 500 m radius."
 msgstr "Mjini:&gt; 50% kujengwa katika radius 500 m."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:141
+#: ../../source/background/understanding_indicators11.rst:141
 msgid "Suburban: 25-50% built-up in the 500 m radius."
 msgstr "Suburban: 25-50% kujengwa katika radius 500 m."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:142
+#: ../../source/background/understanding_indicators11.rst:142
 msgid "Rural: < 25 % built-up in the 500 m radius."
 msgstr "Vijijini: &lt;25% kujengwa katika radius 500 m."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:144
+#: ../../source/background/understanding_indicators11.rst:144
 msgid ""
 "The non-built up areas will be considered open space (OS), and will be "
 "classified as follows:"
@@ -824,21 +831,21 @@ msgstr ""
 "Sehemu zisizojengwa zitazingatiwa nafasi wazi (OS), na zitawekwa kama "
 "ifuatavyo:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:146
+#: ../../source/background/understanding_indicators11.rst:146
 msgid "Fringe open space: open space < 100 m from urban and suburban."
 msgstr "Funga nafasi wazi: nafasi ya wazi &lt;100 m kutoka mjini na mijini."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:147
+#: ../../source/background/understanding_indicators11.rst:147
 msgid "Captured open space: open space fully surrounded by fringe open space."
 msgstr ""
 "Uchimba nafasi ya kufunguliwa: nafasi ya kufunguliwa kikamilifu "
 "iliyozungukwa na nafasi ya kufunguliwa."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:148
+#: ../../source/background/understanding_indicators11.rst:148
 msgid "Rural open space: All other open space."
 msgstr "Eneo la wazi la vijijini: Sehemu nyingine zote wazi."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:150
+#: ../../source/background/understanding_indicators11.rst:150
 msgid ""
 "In |trends.earth|, we have added to the scheme above by differentiating land"
 " from water open space, since the uses citizens can do of each space are "
@@ -848,21 +855,21 @@ msgstr ""
 "ardhi kutoka kwa maji ya wazi, kwa kuwa matumizi ya wananchi wanaweza "
 "kufanya kila nafasi ni tofauti sana."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:152
+#: ../../source/background/understanding_indicators11.rst:152
 msgid "Fringe open space - water: Fringe open space covered by water"
 msgstr ""
 "Funga nafasi ya wazi - maji: Funga nafasi ya wazi iliyofunikwa na maji"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:153
+#: ../../source/background/understanding_indicators11.rst:153
 msgid "Captured open space - water: Captured open space covered by water"
 msgstr ""
 "Kukamata nafasi ya kufunguliwa - maji: Kukamata nafasi iliyofunikwa na maji"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:154
+#: ../../source/background/understanding_indicators11.rst:154
 msgid "Rural open space - water: Rural open space covered by water"
 msgstr "Vijijini nafasi wazi - maji: Vijijini nafasi wazi kufunikwa na maji"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:156
+#: ../../source/background/understanding_indicators11.rst:156
 msgid ""
 "Urban extent is determined by the combined area of classes 1, 2, 4, 5, 7, "
 "and 8 (urban, suburban, and fringe and captured open space)."
@@ -870,7 +877,7 @@ msgstr ""
 "Kijijini kimetambuliwa na eneo la pamoja la madarasa ya 1, 2, 4, 5, 7, na 8 "
 "(mijini, mijini, na pindo na nafasi iliyofunguliwa wazi)."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:161
+#: ../../source/background/understanding_indicators11.rst:161
 msgid ""
 "`Figure 10: Result of the SDG 11.3.1 analysis displaying the different "
 "elements which comprise the urban space.`"
@@ -878,7 +885,7 @@ msgstr ""
 "&#39;Mchoro wa 10: Matokeo ya uchambuzi wa SDG 11.3.1 kuonyesha mambo "
 "tofauti ambayo yana nafasi ya mijini.`"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:163
+#: ../../source/background/understanding_indicators11.rst:163
 msgid ""
 "With this information we can now estimate the rates of urban expansion over "
 "time for the periods 2000-2005, 2010, and 2010-2015 needed to estimate the "
@@ -888,11 +895,11 @@ msgstr ""
 "muda kwa kipindi cha 2000-2005, 2010, na 2010-2015 inahitajika kukadiria "
 "wastani wa matumizi ya ardhi."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:166
+#: ../../source/background/understanding_indicators11.rst:166
 msgid "Population growth"
 msgstr "Ukuaji wa idadi ya watu"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:170
+#: ../../source/background/understanding_indicators11.rst:170
 msgid ""
 "Once the urbanized areas have been defined, the next step is to establish "
 "how many people live within those areas for each analysis year. This "
@@ -906,7 +913,7 @@ msgstr ""
 "watu. Ukadirio wa idadi ya watu wanaoishi ndani ya kila eneo la huduma "
 "inaweza kupatikana kwa njia mbili pana:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:172
+#: ../../source/background/understanding_indicators11.rst:172
 msgid ""
 "**Use of high-resolution data from national statistical offices (NSOs)**: In"
 " this option, census data is used to aggregate the number of people living "
@@ -928,7 +935,7 @@ msgstr ""
 "data sahihi zaidi na mamlaka ya idadi ya watu kwa hesabu ya kiashiria na "
 "inahimizwa sana."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:174
+#: ../../source/background/understanding_indicators11.rst:174
 msgid ""
 "**Use of gridded population**: In this option, a population grid is made by "
 "distributing population to the entire administrative or census area unit. "
@@ -977,11 +984,11 @@ msgstr ""
 "ambapo takwimu za azimio kutoka kwa ofisi za takwimu za kitaifa hazipatikani"
 " au zinapatikana kwa urahisi."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:177
+#: ../../source/background/understanding_indicators11.rst:177
 msgid "Population in Trends.Earth"
 msgstr "Idadi ya watu katika Mwelekeo"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:179
+#: ../../source/background/understanding_indicators11.rst:179
 msgid ""
 "In |trends.earth| we recommend users to use option 1, since ate city scales "
 "the accuracy of high-resolution data provided by national statistical "
@@ -1005,18 +1012,18 @@ msgstr ""
 "ya idadi ya watu inaweza kubadilishwa kwa urahisi na data husika ya juu ya "
 "eneo kwa kuondoa tu seli zinazofanana katika matokeo ya mwisho ya tabular."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:182
+#: ../../source/background/understanding_indicators11.rst:182
 msgid "Trends in SDG 11.3.1"
 msgstr "Mwelekeo katika SDG 11.3.1"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:184
+#: ../../source/background/understanding_indicators11.rst:184
 msgid ""
 "The final outputs of the SDG 11.3.1 computations in |trends.earth| will be:"
 msgstr ""
 "Matokeo ya mwisho ya uchambuzi wa SDG 11.3.1 katika | trends.earth | "
 "itakuwa:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:186
+#: ../../source/background/understanding_indicators11.rst:186
 msgid ""
 "The maps as presented Figures 10 and 11, which will allow for a visual "
 "interpretation of the changes occurred in the urban space between 2000 and "
@@ -1026,7 +1033,7 @@ msgstr ""
 "visual ya mabadiliko ilitokea katika nafasi ya miji kati ya 2000 na 2015 "
 "katika kipindi cha miaka mitano."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:188
+#: ../../source/background/understanding_indicators11.rst:188
 msgid ""
 "A table which summarizes the area calculations for the different spaces "
 "within the city space (urban, suburban, and the different classes of open "
@@ -1039,7 +1046,7 @@ msgstr ""
 "pia namba za idadi ya watu husika. Katika meza hii SDG 11.3.1 pia "
 "itahesabiwa kwa moja kwa moja, na mwenendo wa kiashiria kwa muda utatolewa."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:193
+#: ../../source/background/understanding_indicators11.rst:193
 msgid ""
 "`Figure 11: One of the final outputs of the SDG 11.3.1 analysis in "
 "|trends.earth| is a tabular outputs displaying the area, population and the "
@@ -1049,7 +1056,7 @@ msgstr ""
 "katika | trends.earth | ni matokeo ya tangazo kuonyesha eneo, idadi ya watu "
 "na kiashiria cha SDG 11.3.1 kwa ajili ya mji kuchambuliwa."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:196
+#: ../../source/background/understanding_indicators11.rst:196
 msgid ""
 "For a step-by-step guide on how to run the aalysis in |trends.earth|, please"
 " refer to the following tutorial: :ref:`indicator-11-3-1-tutorial`."
@@ -1058,11 +1065,11 @@ msgstr ""
 " trends.earth |, tafadhali rejea mafunzo yafuatayo:: ref: "
 "`kiashiria-11-3-1-tutorial`."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:198
+#: ../../source/background/understanding_indicators11.rst:198
 msgid "**Citations:**"
 msgstr "** Muhtasari: **"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:200
+#: ../../source/background/understanding_indicators11.rst:200
 msgid ""
 "Breiman, L., 2001. Random forests. Mach. Learn. 45, 5–32. "
 "https://doi.org/10.1023/a:1010933404324"
@@ -1070,7 +1077,7 @@ msgstr ""
 "Breiman, L., 2001. Misitu isiyo ya kawaida. Mach. Jifunze. 45, 5-32. "
 "https://doi.org/10.1023/a:1010933404324"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:202
+#: ../../source/background/understanding_indicators11.rst:202
 msgid ""
 "Brown de Colstoun, E. C., C. Huang, P. Wang, J. C. Tilton, B. Tan, J. "
 "Phillips, S. Niemczura, P.-Y. Ling, and R. E. Wolfe. 2017. Global Man-made "
@@ -1083,7 +1090,7 @@ msgstr ""
 "Impervious Surface (GMAT) Kutoka Landsat. Palisades, NY: Kituo cha Data na "
 "Maombi ya NASA ya NASA (SEDAC). https://doi.org/10.7927/H4P55KKF."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:204
+#: ../../source/background/understanding_indicators11.rst:204
 msgid ""
 "CIESIN. 2016. Gridded Population of the World, Version 4 (GPWv4): Population"
 " Density Adjusted to Match 2015 Revision of UN WPP Country Totals. "
@@ -1097,7 +1104,7 @@ msgstr ""
 "NASA (SEDAC). Kituo cha Kimataifa ya Sayansi ya Sayansi ya Dunia - Chuo "
 "Kikuu cha Columbia. https://doi.org/10.7927/H4HX19NJ."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:206
+#: ../../source/background/understanding_indicators11.rst:206
 msgid ""
 "Dinerstein, E., Olson, et al, 2017. An Ecoregion-Based Approach to "
 "Protecting Half the Terrestrial Realm. BioScience 67, 534–545. "
@@ -1107,7 +1114,7 @@ msgstr ""
 " ya Nchi ya Ulimwenguni. BioScience 67, 534-545. "
 "https://doi.org/10.1093/biosci/bix014"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:208
+#: ../../source/background/understanding_indicators11.rst:208
 msgid ""
 "Gorelick, N., Hancher, M., Dixon, M., Ilyushchenko, S., Thau, D., Moore, R.,"
 " 2017. Google Earth Engine: Planetary-scale geospatial analysis for "
@@ -1120,7 +1127,7 @@ msgstr ""
 "Maeneo ya mbali. Karibu., Takwimu Zilizotambuliwa mbali: zana, programu na "
 "uzoefu 202, 18-27. https://doi.org/10.1016/j.rse.2017.06.031"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:210
+#: ../../source/background/understanding_indicators11.rst:210
 msgid ""
 "Jean-Francois Pekel, Andrew Cottam, Noel Gorelick, Alan S. Belward, High-"
 "resolution mapping of global surface water and its long-term changes. Nature"
@@ -1130,7 +1137,7 @@ msgstr ""
 "ya juu ya azimio ya maji ya uso duniani na mabadiliko yake ya muda mrefu. "
 "Hali 540, 418-422 (2016). https://doi.org/10.1038/nature20584."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:212
+#: ../../source/background/understanding_indicators11.rst:212
 msgid ""
 "NOA. 2019. VIIRS Nighttime Day/Night Band Composites Version 1. Available "
 "through: https://developers.google.com/earth-"
@@ -1140,7 +1147,7 @@ msgstr ""
 "Inapatikana kupitia: https://developers.google.com/earth-"
 "engine/datasets/catalog/NOAA_VIIRS_DNB_MONTHLY_V1_VCMCFG"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\understanding_indicators11.rst:214
+#: ../../source/background/understanding_indicators11.rst:214
 msgid ""
 "UN-Habitat (2019) Module 3: Land consumption. Accessed on 05/10/2019 from:  "
 "https://unhabitat.org/wp-content/uploads/2019/02/Indicator-11.3.1-Training-"
@@ -1149,3 +1156,67 @@ msgstr ""
 "UN-Habitat (2019) Module 3: Matumizi ya ardhi. Ilifikia mnamo 05/10/2019 "
 "kutoka: https://unhabitat.org/wp-content/uploads/2019/02/Indicator-11.3.1"
 "-Kuweka-Module_Land-Consumption_Jan-2019.pdf"
+
+#: ../../../<rst_epilog>:2
+msgid "iconCalculator"
+msgstr ""
+
+#: ../../../<rst_epilog>:4
+msgid "iconChart"
+msgstr ""
+
+#: ../../../<rst_epilog>:6
+msgid "iconClipboard"
+msgstr ""
+
+#: ../../../<rst_epilog>:8
+msgid "iconCloudDownload"
+msgstr ""
+
+#: ../../../<rst_epilog>:10
+msgid "iconCog"
+msgstr ""
+
+#: ../../../<rst_epilog>:12
+msgid "iconGlobe"
+msgstr ""
+
+#: ../../../<rst_epilog>:14
+msgid "iconGraph"
+msgstr ""
+
+#: ../../../<rst_epilog>:16
+msgid "iconInfo"
+msgstr ""
+
+#: ../../../<rst_epilog>:18
+msgid "iconMarkMarker"
+msgstr ""
+
+#: ../../../<rst_epilog>:20
+msgid "iconWrench"
+msgstr ""
+
+#: ../../../<rst_epilog>:22
+msgid "iconFolder"
+msgstr ""
+
+#: ../../../<rst_epilog>:24
+msgid "iconVisualization"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoCI"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoLund"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoNASA"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoGEF"
+msgstr ""

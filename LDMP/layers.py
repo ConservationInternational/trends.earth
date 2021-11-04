@@ -14,15 +14,20 @@
 
 from builtins import str
 from builtins import range
+import typing
 import os
 import json
 from operator import attrgetter
+from pathlib import Path
 from math import floor, log10
 
-from marshmallow import ValidationError
-
-from qgis.core import (QgsColorRampShader, QgsRasterShader, 
-        QgsSingleBandPseudoColorRenderer, QgsRasterLayer, QgsProject)
+from qgis.core import (
+    QgsColorRampShader,
+    QgsRasterShader,
+    QgsRasterBandStats,
+    QgsSingleBandPseudoColorRenderer,
+    QgsProject
+)
 from qgis.utils import iface
 mb = iface.messageBar()
 
@@ -34,9 +39,9 @@ from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtGui import QColor
 from qgis.PyQt.QtCore import QCoreApplication
 
-from LDMP import log
+from .logger import log
 
-from LDMP.schemas.schemas import LocalRaster, LocalRasterSchema
+from te_schemas.schemas import LocalRaster, LocalRasterSchema
 
 
 class tr_layers(object):
@@ -52,21 +57,21 @@ style_text_dict = {
     'nodata': tr_layers.tr(u'No data'),
 
     # Productivity trajectory
-    'prod_traj_trend_title': tr_layers.tr(u'Productivity trajectory ({year_start} to {year_end}, NDVI x 10000 / yr)'),
+    'prod_traj_trend_title': tr_layers.tr(u'Productivity trajectory ({year_initial} to {year_final}, NDVI x 10000 / yr)'),
 
-    'prod_traj_signif_title': tr_layers.tr(u'Productivity trajectory degradation ({year_start} to {year_end})'),
+    'prod_traj_signif_title': tr_layers.tr(u'Productivity trajectory degradation ({year_initial} to {year_final})'),
     'prod_traj_signif_dec_95': tr_layers.tr(u'Degradation (significant decrease, p < .05)'),
     'prod_traj_signif_zero': tr_layers.tr(u'Stable (no significant change)'),
     'prod_traj_signif_inc_95': tr_layers.tr(u'Improvement (significant increase, p < .05)'),
 
     # Productivity performance
-    'prod_perf_deg_title': tr_layers.tr(u'Productivity performance degradation ({year_start} to {year_end})'),
+    'prod_perf_deg_title': tr_layers.tr(u'Productivity performance degradation ({year_initial} to {year_final})'),
     'prod_perf_deg_potential_deg': tr_layers.tr(u'Degradation'),
     'prod_perf_deg_not_potential_deg': tr_layers.tr(u'Not degradation'),
 
-    'prod_perf_ratio_title': tr_layers.tr(u'Productivity performance ({year_start} to {year_end}, ratio)'),
+    'prod_perf_ratio_title': tr_layers.tr(u'Productivity performance ({year_initial} to {year_final}, ratio)'),
 
-    'prod_perf_units_title': tr_layers.tr(u'Productivity performance ({year_start}, units)'),
+    'prod_perf_units_title': tr_layers.tr(u'Productivity performance ({year_initial}, units)'),
 
     # Productivity state
     'prod_state_change_title': tr_layers.tr(u'Productivity state degradation ({year_bl_start}-{year_bl_end} vs {year_tg_start}-{year_tg_end})'),
@@ -74,18 +79,26 @@ style_text_dict = {
     'prod_state_change_stable': tr_layers.tr(u'Stable'),
     'prod_state_change_potential_improvement': tr_layers.tr(u'Improvement'),
 
-    'prod_state_classes_title': tr_layers.tr(u'Productivity state classes ({year_start}-{year_end})'),
+    'prod_state_classes_title': tr_layers.tr(u'Productivity state classes ({year_initial}-{year_final})'),
+
+    # Productivity progress comparison (not the real progress taking into 
+    # account magnitude)
+    'prod_deg_comp_title': tr_layers.tr(u'Productivity degradation comparison ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})'),
+    'prod_deg_comp_deg': tr_layers.tr(u'Degradation'),
+    'prod_deg_comp_stable': tr_layers.tr(u'Stable'),
+    'prod_deg_comp_imp': tr_layers.tr(u'Improvement'),
+
 
     # Land cover
-    'lc_deg_title': tr_layers.tr(u'Land cover degradation ({year_baseline} to {year_target})'),
+    'lc_deg_title': tr_layers.tr(u'Land cover degradation ({year_initial} to {year_final})'),
     'lc_deg_deg': tr_layers.tr(u'Degradation'),
     'lc_deg_stable': tr_layers.tr(u'Stable'),
     'lc_deg_imp': tr_layers.tr(u'Improvement'),
 
     'lc_7class_title': tr_layers.tr(u'Land cover ({year}, 7 class)'),
     'lc_esa_title': tr_layers.tr(u'Land cover ({year}, ESA CCI classes)'),
-    'lc_7class_mode_title': tr_layers.tr(u'Land cover mode ({year_start}-{year_end}, 7 class)'),
-    'lc_esa_mode_title': tr_layers.tr(u'Land cover mode ({year_start}-{year_end}, ESA CCI classes)'),
+    'lc_7class_mode_title': tr_layers.tr(u'Land cover mode ({year_initial}-{year_final}, 7 class)'),
+    'lc_esa_mode_title': tr_layers.tr(u'Land cover mode ({year_initial}-{year_final}, ESA CCI classes)'),
 
     'lc_class_nodata': tr_layers.tr(u'-32768 - No data'),
     'lc_class_forest': tr_layers.tr(u'1 - Tree-covered'),
@@ -107,7 +120,7 @@ style_text_dict = {
     'Other land': tr_layers.tr(u'Other land'),
     'Water body': tr_layers.tr(u'Water body'),
 
-    'lc_tr_title': tr_layers.tr(u'Land cover (transitions, {year_baseline} to {year_target})'),
+    'lc_tr_title': tr_layers.tr(u'Land cover (transitions, {year_initial} to {year_final})'),
     'lc_tr_nochange': tr_layers.tr(u'No change'),
     'lc_tr_forest_loss': tr_layers.tr(u'Tree-covered loss'),
     'lc_tr_grassland_loss': tr_layers.tr(u'Grassland loss'),
@@ -120,13 +133,13 @@ style_text_dict = {
     # Soil organic carbon
     'soc_title': tr_layers.tr(u'Soil organic carbon ({year}, tons / ha)'),
 
-    'soc_deg_title': tr_layers.tr(u'Soil organic carbon degradation ({year_start} to {year_end})'),
+    'soc_deg_title': tr_layers.tr(u'Soil organic carbon degradation ({year_initial} to {year_final})'),
     'soc_deg_deg': tr_layers.tr(u'Degradation'),
     'soc_deg_stable': tr_layers.tr(u'Stable'),
     'soc_deg_imp': tr_layers.tr(u'Improvement'),
 
     # Trends.Earth land productivity
-    'sdg_prod_combined_title': tr_layers.tr(u'Land productivity (Trends.Earth)'),
+    'sdg_prod_combined_title': tr_layers.tr(u'Land productivity (Trends.Earth, {year_initial}-{year_final})'),
     'sdg_prod_combined_declining': tr_layers.tr(u'Declining'),
     'sdg_prod_combined_earlysigns': tr_layers.tr(u'Early signs of decline'),
     'sdg_prod_combined_stabbutstress': tr_layers.tr(u'Stable but stressed'),
@@ -134,7 +147,7 @@ style_text_dict = {
     'sdg_prod_combined_imp': tr_layers.tr(u'Increasing'),
 
     # LPD
-    'lpd_title': tr_layers.tr(u'Land productivity dynamics (LPD)'),
+    'lpd_title': tr_layers.tr(u'Land productivity dynamics (LPD, {year_initial}-{year_final})'),
     'lpd_declining': tr_layers.tr(u'Declining'),
     'lpd_earlysigns': tr_layers.tr(u'Moderate decline'),
     'lpd_stabbutstress': tr_layers.tr(u'Stressed'),
@@ -142,21 +155,24 @@ style_text_dict = {
     'lpd_imp': tr_layers.tr(u'Increasing'),
 
     # SDG 15.3.1 indicator layer
-    'combined_sdg_title': tr_layers.tr(u'SDG 15.3.1 Indicator (Trends.Earth)'),
+    'combined_sdg_title': tr_layers.tr(u'SDG 15.3.1 Indicator ({year_initial}-{year_final})'),
     'combined_sdg_deg_deg': tr_layers.tr(u'Degradation'),
     'combined_sdg_deg_stable': tr_layers.tr(u'Stable'),
     'combined_sdg_deg_imp': tr_layers.tr(u'Improvement'),
 
+    'sdg_progress_title': tr_layers.tr(u'SDG 15.3.1 Progress ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})'),
+
+
     # Forest loss
-    'f_loss_hansen_title': tr_layers.tr(u'Forest loss ({year_start} to {year_end})'),
+    'f_loss_hansen_title': tr_layers.tr(u'Forest loss ({year_initial} to {year_final})'),
     'f_loss_hansen_water': tr_layers.tr(u'Water'),
     'f_loss_hansen_nonforest': tr_layers.tr(u'Non-forest'),
     'f_loss_hansen_noloss': tr_layers.tr(u'Forest (no loss)'),
-    'f_loss_hansen_year_start': tr_layers.tr(u'Forest loss ({year_start})'),
-    'f_loss_hansen_year_end': tr_layers.tr(u'Forest loss ({year_end})'),
+    'f_loss_hansen_year_start': tr_layers.tr(u'Forest loss ({year_initial})'),
+    'f_loss_hansen_year_end': tr_layers.tr(u'Forest loss ({year_final})'),
 
     # Total carbon
-    'tc_title': tr_layers.tr(u'Total carbon ({year_start}, tonnes per ha x 10)'),
+    'tc_title': tr_layers.tr(u'Total carbon ({year_initial}, tonnes per ha x 10)'),
 
     # Root shoot ratio (below to above ground carbon in woody biomass)
     'root_shoot_title': tr_layers.tr(u'Root/shoot ratio (x 100)'),
@@ -181,8 +197,25 @@ style_text_dict = {
     'urban_captured_open_space_water': tr_layers.tr(u'Open space (captured, water)'),
     'urban_rural_open_space_water': tr_layers.tr(u'Open space (rural, water)'),
 
-    # Population
+    # Population titles
     'population_title': tr_layers.tr(u'Population ({year})'),
+    'population_density_title': tr_layers.tr(u'Population density ({year}, per sq km / 10)'),
+    'population_density_affected_by_degradation_title': tr_layers.tr(u'Population exposed to degradation\n(population in {population_year}, per sq km / 10, degradation period {deg_year_initial}-{deg_year_final})'),
+    'population_density_at_maximum_drought_title': tr_layers.tr(u'Population density at maximum drought\n(density per sq km / 10, {year_initial}-{year_final} period)'),
+
+    # SPI
+    'spi_title': tr_layers.tr(u'Standardized Precipitation Index (SPI, {year}, {lag} month lag, * 1000)'),
+    'spi_at_maximum_drought_title': tr_layers.tr(u'SPI at maximum drought during {year_initial}-{year_final} ({lag} month lag, * 1000)'),
+    'jrc_drought_vulnerability_title': tr_layers.tr(u'Drought Vulnerability (JRC, {year}, * 1000)'),
+    'spi_extreme_drought': tr_layers.tr(u'Extreme drought'),
+    'spi_severe_drought': tr_layers.tr(u'Severe drought'),
+    'spi_moderate_drought': tr_layers.tr(u'Moderate drought'),
+    'spi_mild_drought': tr_layers.tr(u'Mild drought'),
+    'spi_normal': tr_layers.tr(u'Normal'),
+    'spi_mild_wet': tr_layers.tr(u'Mildly wet'),
+    'spi_moderate_wet': tr_layers.tr(u'Moderately wet'),
+    'spi_severe_wet': tr_layers.tr(u'Severely wet'),
+    'spi_extreme_wet': tr_layers.tr(u'Extremely wet'),
 
     # Biomass
     'biomass_title': tr_layers.tr(u'Biomass (tonnes CO2e per ha, {year})'),
@@ -270,11 +303,25 @@ def get_sample(f, band_number, n=1e6):
         return out
 
 
-def get_cutoff(f, band_number, band_info, percentiles):
+# def _set_statistics(
+#     band_number: int,
+#     no_data_value: typing.Union[int, float],
+#     f: str,
+# ):
+#     ds = gdal.Open(f)
+#     b = ds.GetRasterBand(band_number)
+#     b.SetNoDataValue(no_data_value)
+#     return b.GetStatistics(True, True)
+
+
+def _get_cutoff(
+        data_sample: np.ndarray,
+        no_data_value: typing.Union[int, float],
+        percentiles
+):
     if len(percentiles) != 1 and len(percentiles) != 2:
         raise ValueError("Percentiles must have length 1 or 2. Percentiles that were passed: {}".format(percentiles))
-    d = get_sample(f, band_number)
-    md = np.ma.masked_where(d == band_info['no_data_value'], d)
+    md = np.ma.masked_where(data_sample == no_data_value, data_sample)
     if md.size == 0:
         # If all of the values are no data, return 0
         log('All values are no data')
@@ -290,176 +337,243 @@ def get_cutoff(f, band_number, band_info, percentiles):
 
         elif cutoffs.size == 1:
             if cutoffs < 0:
-                # Negative cutoffs are not allowed as stretch is either zero 
+                # Negative cutoffs are not allowed as stretch is either zero
                 # centered or starting at zero
                 return 0
             else:
                 return round_to_n(cutoffs, 2)
         else:
-            # We only get here if cutoffs is not size 1 or 2, which should 
+            # We only get here if cutoffs is not size 1 or 2, which should
             # never happen, so raise
             raise ValueError("Stretch calculation returned cutoffs array of size {} ({})".format(cutoffs.size, cutoffs))
 
 
-def get_file_metadata(json_file):
-    try:
-        with open(json_file) as f:
-            d = json.load(f)
-    except (OSError, IOError, ValueError) as e:
-        log(u'Error loading {}'.format(json_file))
-        return None
+def _create_categorical_color_ramp(style_config: typing.Dict):
+    ramp_items = style_config["ramp"]["items"]
+    result = []
+    for item in ramp_items:
+        result.append(
+            QgsColorRampShader.ColorRampItem(
+                item['value'],
+                QColor(item['color']),
+                tr_style_text(item['label'])
+            )
+        )
+    return result
 
-    local_raster_schema = LocalRasterSchema()
 
-    try:
-        d = local_raster_schema.load(d)
-    except ValidationError:
-        log(u'Unable to parse {}'.format(json_file))
-        return None
+def _create_categorical_with_dynamic_ramp_color_ramp(
+        style_config: typing.Dict, band_info):
+    ramp_items = style_config["ramp"]["items"]
+    result = []
+    for item in ramp_items:
+        result.append(
+            QgsColorRampShader.ColorRampItem(
+                item['value'],
+                QColor(item['color']),
+                tr_style_text(item['label'])
+            )
+        )
+    # Now add in the continuous ramp with min/max values and labels
+    # determined from the band info min/max
+    result.append(
+        QgsColorRampShader.ColorRampItem(
+            band_info['metadata']['ramp_min'],
+            QColor(style_config['ramp']['ramp min']['color']),
+            tr_style_text(style_config['ramp']['ramp min']['label'], band_info)
+        )
+    )
+    result.append(
+        QgsColorRampShader.ColorRampItem(
+            band_info['metadata']['ramp_max'],
+            QColor(style_config['ramp']['ramp max']['color']),
+            tr_style_text(style_config['ramp']['ramp max']['label'], band_info)
+        )
+    )
+    return result
 
-    # Below is a fix for older versions of LDMP<0.43 that stored the full path 
-    # in the metadata
-    f = os.path.join(os.path.dirname(json_file),
-                     os.path.basename(os.path.normpath(d['file'])))
-    if not os.access(f, os.R_OK):
-        log(u'Data file {} is missing'.format(f))
-        return None
+
+def _create_zero_centered_stretch_color_ramp(
+        style_config: typing.Dict, data_sample, no_data_value):
+    # Set a colormap centred on zero, going to the max of the min and max
+    # extreme value significant to three figures.
+    cutoff = _get_cutoff(
+        data_sample,
+        no_data_value,
+        [
+            style_config['ramp']['percent stretch'],
+            100 - style_config['ramp']['percent stretch']
+        ]
+    )
+    log('Cutoff for {} percent stretch: {}'.format(
+        style_config['ramp']['percent stretch'], cutoff))
+    result = [
+        QgsColorRampShader.ColorRampItem(
+            -cutoff,
+            QColor(style_config['ramp']['min']['color']),
+            '{}'.format(-cutoff)
+        ),
+        QgsColorRampShader.ColorRampItem(
+            0,
+            QColor(style_config['ramp']['zero']['color']),
+            '0'
+        ),
+        QgsColorRampShader.ColorRampItem(
+            cutoff,
+            QColor(style_config['ramp']['max']['color']),
+            '{}'.format(cutoff)
+        ),
+        QgsColorRampShader.ColorRampItem(
+            style_config['ramp']['no data']['value'],
+            QColor(style_config['ramp']['no data']['color']),
+            tr_style_text(style_config['ramp']['no data']['label'])
+        )
+    ]
+    return result
+
+
+def _create_min_zero_stretch_color_ramp(
+    style_config: typing.Dict,
+    data_sample,
+    no_data_value
+):
+    # Set a colormap from zero to percent stretch significant to
+    # three figures.
+    cutoff = _get_cutoff(
+        data_sample,
+        no_data_value,
+        [100 - style_config['ramp']['percent stretch']]
+    )
+    log('Cutoff for min zero max {} percent stretch: {}'.format(
+        100 - style_config['ramp']['percent stretch'], cutoff))
+    result = [
+        QgsColorRampShader.ColorRampItem(
+            0,
+            QColor(style_config['ramp']['zero']['color']),
+            '0'
+        )
+    ]
+    if 'mid' in style_config['ramp']:
+        result.append(
+            QgsColorRampShader.ColorRampItem(
+                cutoff / 2,
+                QColor(style_config['ramp']['mid']['color']),
+                str(cutoff / 2)
+            )
+        )
+    result.append(
+        QgsColorRampShader.ColorRampItem(
+            cutoff,
+            QColor(style_config['ramp']['max']['color']),
+            '{}'.format(cutoff)
+        )
+    )
+    result.append(
+        QgsColorRampShader.ColorRampItem(
+            style_config['ramp']['no data']['value'],
+            QColor(style_config['ramp']['no data']['color']),
+            tr_style_text(style_config['ramp']['no data']['label'])
+        )
+    )
+    return result
+
+
+def _create_color_ramp(
+        layer_path: str,
+        band_number: int,
+        style_config: typing.Dict,
+        band_info: typing.Dict,
+):
+    ramp_type = style_config["ramp"]["type"]
+    if ramp_type == 'categorical':
+        result = _create_categorical_color_ramp(style_config)
+    elif ramp_type == 'categorical with dynamic ramp':
+        result = _create_categorical_with_dynamic_ramp_color_ramp(style_config, band_info)
+    elif ramp_type == 'zero-centered stretch':
+        # Set a colormap centred on zero, going to the max of the min and max
+        # extreme value significant to three figures.
+        data_sample = get_sample(layer_path, band_number)
+        result = _create_zero_centered_stretch_color_ramp(
+            style_config, data_sample, band_info["no_data_value"])
+    elif ramp_type == 'min zero stretch':
+        # Set a colormap from zero to percent stretch significant to
+        # three figures.
+        data_sample = get_sample(layer_path, band_number)
+        result = _create_min_zero_stretch_color_ramp(
+            style_config, data_sample, band_info["no_data_value"])
     else:
-        return d
+        raise RuntimeError("Failed to load Trends.Earth style.")
+    return result
 
 
-def json_serial(obj):
-    """JSON serializer for objects not serializable by default json code"""
-    if isinstance(obj, (datetime.datetime, datetime.date)):
-        return obj.isoformat()
-    raise TypeError("Type {} not serializable".format(type(obj)))
-
-
-def create_local_json_metadata(json_file, data_file, bands, metadata={}):
-    out = LocalRaster(os.path.basename(os.path.normpath(data_file)), bands, metadata)
-    local_raster_schema = LocalRasterSchema()
-    with open(json_file, 'w') as f:
-        json.dump(local_raster_schema.dump(out), f, default=json_serial, 
-                  sort_keys=True, indent=4, separators=(',', ': '))
-
-
-def add_layer(f, band_number, band_info, activated='default'):
+def add_layer(
+        layer_path: str,
+        band_number: int,
+        band_info: typing.Dict,
+        activated: str ='default'
+):
     try:
         style = styles[band_info['name']]
     except KeyError:
-        QtWidgets.QMessageBox.information(None,
-                                      tr_layers.tr("Information"),
-                                      tr_layers.tr(u'Trends.Earth does not have a style assigned for "{}" (band {} in {}). To use this layer, manually add it to your map.'.format(band_info['name'], band_number, f)))
-        log(u'No style found for "{}" in {}'.format(band_info['name'], band_number, f))
+        QtWidgets.QMessageBox.information(
+            None,
+            tr_layers.tr("Information"),
+            tr_layers.tr(
+                u'Trends.Earth does not have a style assigned for "{}" (band {} '
+                u'in {}). To use this layer, manually add it to your map.'.format(
+                    band_info['name'], band_number, layer_path)
+            )
+        )
+        log(u'No style found for "{}" in {}'.format(band_info['name'], band_number, layer_path))
         return False
 
     title = get_band_title(band_info)
-    log('Band title: {}'.format(title))
-
-    l = iface.addRasterLayer(f, title)
-    if not l.isValid():
-        log('Failed to add layer')
+    layer = iface.addRasterLayer(layer_path, title)
+    # # Initialize statistics for this layer
+    # _set_statistics(band_number, band_info["no_data_value"], layer_path)
+           
+    if not layer or not layer.isValid():
+        log(f'Failed to add layer {layer_path}, band number {band_number}')
         return False
-
-    if style['ramp']['type'] == 'categorical':
-        r = []
-        for item in style['ramp']['items']:
-            r.append(QgsColorRampShader.ColorRampItem(item['value'],
-                                                      QColor(item['color']),
-                                                      tr_style_text(item['label'])))
-    elif style['ramp']['type'] == 'categorical with dynamic ramp':
-        r = []
-        for item in style['ramp']['items']:
-            r.append(QgsColorRampShader.ColorRampItem(item['value'],
-                                                      QColor(item['color']),
-                                                      tr_style_text(item['label'])))
-        # Now add in the continuous ramp with min/max values and labels 
-        # determined from the band info min/max
-        r.append(QgsColorRampShader.ColorRampItem(band_info['metadata']['ramp_min'],
-                                                  QColor(style['ramp']['ramp min']['color']),
-                                                  tr_style_text(style['ramp']['ramp min']['label'], band_info)))
-        r.append(QgsColorRampShader.ColorRampItem(band_info['metadata']['ramp_max'],
-                                                  QColor(style['ramp']['ramp max']['color']),
-                                                  tr_style_text(style['ramp']['ramp max']['label'], band_info)))
-
-    elif style['ramp']['type'] == 'zero-centered stretch':
-        # Set a colormap centred on zero, going to the max of the min and max 
-        # extreme value significant to three figures.
-        cutoff = get_cutoff(f, band_number, band_info, [style['ramp']['percent stretch'], 100 - style['ramp']['percent stretch']])
-        log('Cutoff for {} percent stretch: {}'.format(style['ramp']['percent stretch'], cutoff))
-        r = []
-        r.append(QgsColorRampShader.ColorRampItem(-cutoff,
-                                                  QColor(style['ramp']['min']['color']),
-                                                  '{}'.format(-cutoff)))
-        r.append(QgsColorRampShader.ColorRampItem(0,
-                                                  QColor(style['ramp']['zero']['color']),
-                                                  '0'))
-        r.append(QgsColorRampShader.ColorRampItem(cutoff,
-                                                  QColor(style['ramp']['max']['color']),
-                                                  '{}'.format(cutoff)))
-        r.append(QgsColorRampShader.ColorRampItem(style['ramp']['no data']['value'],
-                                                  QColor(style['ramp']['no data']['color']),
-                                                  tr_style_text(style['ramp']['no data']['label'])))
-
-    elif style['ramp']['type'] == 'min zero stretch':
-        # Set a colormap from zero to percent stretch significant to
-        # three figures.
-        cutoff = get_cutoff(f, band_number, band_info, [100 - style['ramp']['percent stretch']])
-        log('Cutoff for min zero max {} percent stretch: {}'.format(100 - style['ramp']['percent stretch'], cutoff))
-        r = []
-        r.append(QgsColorRampShader.ColorRampItem(0,
-                                                  QColor(style['ramp']['zero']['color']),
-                                                  '0'))
-        if 'mid' in style['ramp']:
-            r.append(QgsColorRampShader.ColorRampItem(cutoff/2,
-                                                      QColor(style['ramp']['mid']['color']),
-                                                      str(cutoff/2)))
-        r.append(QgsColorRampShader.ColorRampItem(cutoff,
-                                                  QColor(style['ramp']['max']['color']),
-                                                  '{}'.format(cutoff)))
-        r.append(QgsColorRampShader.ColorRampItem(style['ramp']['no data']['value'],
-                                                  QColor(style['ramp']['no data']['color']),
-                                                  tr_style_text(style['ramp']['no data']['label'])))
-
-    else:
-        log('Failed to load Trends.Earth style. Adding layer using QGIS defaults.')
-        QtWidgets.QMessageBox.critical(None,
-                                       tr_layers.tr("Error"),
-                                       tr_layers.tr("Failed to load Trends.Earth style. Adding layer using QGIS defaults."))
+    try:
+        color_ramp = _create_color_ramp(layer_path, band_number, style, band_info)
+        # log(f"color_ramp: {color_ramp}")
+        # log(f"color_ramp is None: {color_ramp is None}")
+    except RuntimeError as exc:
+        log(f"Could not create color ramp: {str(exc)}")
         return False
-
-    fcn = QgsColorRampShader()
-    if style['ramp']['shader'] == 'exact':
-        fcn.setColorRampType("EXACT")
-    elif style['ramp']['shader'] == 'discrete':
-        fcn.setColorRampType("DISCRETE")
-    elif style['ramp']['shader'] == 'interpolated':
-        fcn.setColorRampType("INTERPOLATED")
     else:
-        raise TypeError("Unrecognized color ramp type: {}".format(style['ramp']['shader']))
-    # Make sure the items in the color ramp are sorted by value (weird display 
-    # errors will otherwise result)
-    r = sorted(r, key=attrgetter('value'))
-    fcn.setColorRampItemList(r)
-    shader = QgsRasterShader()
-    shader.setRasterShaderFunction(fcn)
-    pseudoRenderer = QgsSingleBandPseudoColorRenderer(l.dataProvider(),
-                                                      band_number,
-                                                      shader)
-    l.setRenderer(pseudoRenderer)
-    l.triggerRepaint()
-    if activated == 'default':
-        if 'activated' in band_info and not band_info['activated']:
-            QgsProject.instance().layerTreeRoot().findLayer(l.id()).setItemVisibilityChecked(False)
-    elif activated:
-        # The layer is visible by default, so if activated is true, don't need 
-        # to change anything in order to make it visible
-        pass
-    elif not activated:
-        QgsProject.instance().layerTreeRoot().findLayer(l.id()).setItemVisibilityChecked(False)
-    iface.layerTreeView().refreshLayerSymbology(l.id())
-
-    return True
+        fcn = QgsColorRampShader()
+        ramp_shader = style["ramp"]["shader"]
+        if ramp_shader == 'exact':
+            fcn.setColorRampType("EXACT")
+        elif ramp_shader == 'discrete':
+            fcn.setColorRampType("DISCRETE")
+        elif ramp_shader == 'interpolated':
+            fcn.setColorRampType("INTERPOLATED")
+        else:
+            raise TypeError("Unrecognized color ramp type: {}".format(ramp_shader))
+        # Make sure the items in the color ramp are sorted by value (weird display
+        # errors will otherwise result)
+        color_ramp.sort(key=attrgetter('value'))
+        fcn.setColorRampItemList(color_ramp)
+        shader = QgsRasterShader()
+        shader.setRasterShaderFunction(fcn)
+        renderer = QgsSingleBandPseudoColorRenderer(
+            layer.dataProvider(), band_number, shader)
+        layer.setRenderer(renderer)
+        layer.triggerRepaint()
+        if activated == 'default':
+            if 'activated' in band_info and not band_info['activated']:
+                QgsProject.instance().layerTreeRoot().findLayer(layer.id()).setItemVisibilityChecked(False)
+        elif activated:
+            # The layer is visible by default, so if activated is true, don't need
+            # to change anything in order to make it visible
+            pass
+        elif not activated:
+            QgsProject.instance().layerTreeRoot().findLayer(layer.id()).setItemVisibilityChecked(False)
+        iface.layerTreeView().refreshLayerSymbology(layer.id())
+        return True
 
 
 def tr_style_text(label, band_info=None):
@@ -478,36 +592,59 @@ def tr_style_text(label, band_info=None):
             return str(label)
 
 
-def get_band_infos(data_file):
+def get_band_infos(data_file, name=None):
     json_file = os.path.splitext(data_file)[0] + '.json'
     m = get_file_metadata(json_file)
     if m:
-        return m['bands']
+        if name:
+            return [bi for bi in m['bands'] if bi['name'] == name]
+        else:
+            return m['bands']
     else:
         return None
 
 
 def get_band_title(band_info):
     style = styles.get(band_info['name'], None)
+    result = band_info["name"]
     if style:
-        return tr_style_text(style['title']).format(**band_info['metadata'])
-    else:
-        return band_info['name']
+        title_pattern = tr_style_text(style["title"])
+        try:
+            result = title_pattern.format(**band_info['metadata'])
+        except KeyError as exc:
+            log(
+                f"Unable to find a proper name for this layer because of the following "
+                f"exception: {str(exc)}"
+            )
+    return result
 
-def delete_layer_by_filename(f):
-    f = os.path.abspath(f)
+
+
+def find_loaded_layer_id(layer_path: Path) -> typing.Optional[str]:
     project = QgsProject.instance()
-    for lyr_id in project.mapLayers():
-        lyr = project.mapLayer(lyr_id)
-        source = os.path.abspath(lyr.source())
-        if source == f:
-            log('Removing map layer prior to deletion of {}'.format(f))
-            project.removeMapLayer(lyr_id)
-            try:
-                log('Removing file {}'.format(f))
-                os.remove(f)
-            except:
-                log('Error removing file at {}'.format(f))
-                return False
+    for layer_id in project.mapLayers():
+        layer = project.mapLayer(layer_id)
+        layer_source = os.path.abspath(layer.source())
+        if layer_source == str(layer_path):
+            result = layer_id
             break
-    return True
+    else:
+        result = None
+    return result
+
+
+def delete_layer_by_filename(f: str) -> bool:
+    path = Path(os.path.abspath(f))
+    project = QgsProject.instance()
+    layer_id = find_loaded_layer_id(path)
+    if layer_id is not None:
+        project.removeMapLayer(layer_id)
+    else:
+        log(f"Path {path} is not currently loaded on QGIS")
+    result = False
+    try:
+        path.unlink()
+        result = True
+    except FileNotFoundError:  # file already deleted
+        pass
+    return result

@@ -2,7 +2,7 @@
 """
 /***************************************************************************
  LDMP - A QGIS plugin
- This plugin supports monitoring and reporting of land degradation to the UNCCD 
+ This plugin supports monitoring and reporting of land degradation to the UNCCD
  and in support of the SDG Land Degradation Neutrality (LDN) target.
                               -------------------
         begin                : 2017-05-23
@@ -15,26 +15,19 @@
 from builtins import object
 import os
 
-from qgis.PyQt.QtCore import QCoreApplication
-from qgis.PyQt.QtWidgets import QAction, QMessageBox, QApplication, QMenu
+from qgis.core import QgsApplication, QgsMessageLog, Qgis
+from qgis.PyQt.QtCore import QCoreApplication, Qt
+from qgis.PyQt.QtWidgets import QAction, QMessageBox, QApplication, QMenu, QToolButton
 from qgis.PyQt.QtGui import QIcon
 
-from LDMP import __version__, __release_date__, __revision__, log
-from LDMP.settings import DlgSettings
-from LDMP.download_data import DlgDownload
-from LDMP.calculate import DlgCalculate
-from LDMP.jobs import DlgJobs
-from LDMP.timeseries import DlgTimeseries
-from LDMP.visualization import DlgVisualization
-from LDMP.data_io import DlgDataIO
-from LDMP.about import DlgAbout
-from LDMP.processing_provider.provider import Provider
-
-from qgis.core import QgsApplication, QgsMessageLog, Qgis
-from qgis.utils import showPluginHelp
-
-# Initialize Qt resources from file resources.py
-import LDMP.resources
+from . import (
+    about,
+    conf,
+    main_widget,
+)
+from .jobs.manager import job_manager
+from .processing_provider.provider import Provider
+from .settings import DlgSettings
 
 
 class LDMPPlugin(object):
@@ -48,29 +41,28 @@ class LDMPPlugin(object):
             application at run time.
         :type iface: QgsInterface
         """
-        # Save reference to the QGIS interface
         self.iface = iface
-        # initialize plugin directory
         self.plugin_dir = os.path.dirname(__file__)
 
         self.provider = None
 
         # Declare instance attributes
         self.actions = []
-        self.menu = QMenu(self.tr(u'&trends.earth'))
-        self.menu.setIcon(QIcon(':/plugins/LDMP/trends_earth_logo_square_32x32.png'))
+        self.menu = QMenu(self.tr(u'&Trends.Earth'))
+        self.menu.setIcon(
+            QIcon(os.path.join(os.path.dirname(__file__),
+                  'trends_earth_logo_square_32x32.png')))
         self.raster_menu = self.iface.rasterMenu()
         self.raster_menu.addMenu(self.menu)
-        self.toolbar = self.iface.addToolBar(u'trends.earth')
 
-        self.dlg_settings = DlgSettings()
-        self.dlg_calculate = DlgCalculate()
-        self.dlg_jobs = DlgJobs()
-        self.dlg_timeseries = DlgTimeseries()
-        self.dlg_visualization = DlgVisualization()
-        self.dlg_download = DlgDownload()
-        self.dlg_data_io = DlgDataIO()
-        self.dlg_about = DlgAbout()
+        self.toolbar = self.iface.addToolBar(u'trends.earth')
+        self.toolbar.setObjectName('trends_earth_toolbar')
+        self.toolButton = QToolButton()
+        self.toolButton.setMenu(QMenu())
+        self.toolButton.setPopupMode(QToolButton.MenuButtonPopup)
+        self.toolBtnAction = self.toolbar.addWidget(self.toolButton)
+        self.actions.append(self.toolBtnAction)
+        self.dlg_about = about.DlgAbout()
 
     def initProcessing(self):
         self.provider = Provider()
@@ -78,7 +70,7 @@ class LDMPPlugin(object):
 
     def tr(self, message):
         return QCoreApplication.translate("plugin", message)
-        
+
     def add_action(
             self,
             icon_path,
@@ -87,6 +79,7 @@ class LDMPPlugin(object):
             enabled_flag=True,
             add_to_menu=True,
             add_to_toolbar=True,
+            set_as_default_action=False,
             status_tip=None,
             whats_this=None,
             parent=None):
@@ -113,6 +106,10 @@ class LDMPPlugin(object):
         :param add_to_toolbar: Flag indicating whether the action should also
             be added to the toolbar. Defaults to True.
         :type add_to_toolbar: bool
+
+        :param set_as_default_action: Flag indicating whether the action have to be
+            set as default shown in the added toolButton menu. Defaults to False.
+        :type set_as_default_action: bool
 
         :param status_tip: Optional text to show in a popup when mouse pointer
             hovers over the action.
@@ -141,7 +138,10 @@ class LDMPPlugin(object):
             action.setWhatsThis(whats_this)
 
         if add_to_toolbar:
-            self.toolbar.addAction(action)
+            self.toolButton.menu().addAction(action)
+
+            if set_as_default_action:
+                self.toolButton.setDefaultAction(action)
 
         if add_to_menu:
             self.menu.addAction(action)
@@ -153,59 +153,26 @@ class LDMPPlugin(object):
     def initGui(self):
         self.initProcessing()
 
-        """Create the menu entries and toolbar icons inside the QGIS GUI."""
+        """Create Main manu icon and plugins menu entries."""
+        start_action = self.add_action(os.path.join(os.path.dirname(__file__), 'icons', 'trends_earth_logo_square_32x32.ico'),
+            text='Trends.Earth',
+            callback=self.run_docked_interface,
+            parent=self.iface.mainWindow(),
+            status_tip=self.tr('Trends.Earth dock interface'),
+            set_as_default_action=True)
+        start_action.setCheckable(True)
+
         self.add_action(
-            ':/plugins/LDMP/icons/wrench.svg',
+            os.path.join(os.path.dirname(__file__), 'icons', 'wrench.svg'),
             text=self.tr(u'Settings'),
             callback=self.run_settings,
             parent=self.iface.mainWindow(),
             status_tip=self.tr('Trends.Earth Settings'))
 
         self.add_action(
-            ':/plugins/LDMP/icons/calculator.svg',
-            text=self.tr(u'Calculate indicators'),
-            callback=self.run_calculate,
-            parent=self.iface.mainWindow(),
-            status_tip=self.tr('Calculate indicators'))
-
-        self.add_action(
-            ':/plugins/LDMP/icons/graph.svg',
-            text=self.tr(u'Plot data'),
-            callback=self.run_plot,
-            parent=self.iface.mainWindow(),
-            status_tip=self.tr('Plot time series datasets'))
-
-        self.add_action(
-            ':/plugins/LDMP/icons/cloud-download.svg',
-            text=self.tr(u'View Google Earth Engine tasks'),
-            callback=self.get_jobs,
-            parent=self.iface.mainWindow(),
-            status_tip=self.tr('View cloud processing tasks'))
-
-        self.add_action(
-            ':/plugins/LDMP/icons/document.svg',
-            text=self.tr(u'Visualization tool'),
-            callback=self.run_visualization,
-            parent=self.iface.mainWindow(),
-            status_tip=self.tr('Visualize and summarize data'))
-
-        self.add_action(
-            ':/plugins/LDMP/icons/folder.svg',
-            text=self.tr(u'Load data'),
-            callback=self.data_io,
-            parent=self.iface.mainWindow(),
-            status_tip=self.tr('Load local data'))
-
-        self.add_action(
-            ':/plugins/LDMP/icons/globe.svg',
-            text=self.tr(u'Download raw data'),
-            callback=self.run_download,
-            parent=self.iface.mainWindow(),
-            status_tip=self.tr('Download raw datasets'))
-
-        self.add_action(
-            ':/plugins/LDMP/icons/info.svg',
+            os.path.join(os.path.dirname(__file__), 'icons', 'info.svg'),
             text=self.tr(u'About'),
+            add_to_toolbar=False,
             callback=self.run_about,
             parent=self.iface.mainWindow(),
             status_tip=self.tr('About trends.earth'))
@@ -223,35 +190,25 @@ class LDMPPlugin(object):
 
         QgsApplication.processingRegistry().removeProvider(self.provider)
 
+    def run_docked_interface(self, checked):
+        if checked:
+            self.dock_widget = main_widget.MainWidget(
+                self.iface, parent=self.iface.mainWindow())
+            self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dock_widget)
+            self.dock_widget.show()
+        else:
+            if hasattr(self, 'dock_widget') and self.dock_widget.isVisible():
+                self.dock_widget.hide()
+
     def run_settings(self):
-        self.dlg_settings.show()
-        result = self.dlg_settings.exec_()
-
-    def run_download(self):
-        self.dlg_download.show()
-        result = self.dlg_download.exec_()
-
-    def run_calculate(self):
-        # show the dialog
-        self.dlg_calculate.show()
-        result = self.dlg_calculate.exec_()
-
-    def get_jobs(self):
-        # show the dialog
-        self.dlg_jobs.show()
-        result = self.dlg_jobs.exec_()
-
-    def run_plot(self):
-        self.dlg_timeseries.show()
-        result = self.dlg_timeseries.exec_()
-
-    def run_visualization(self):
-        self.dlg_visualization.show()
-        result = self.dlg_visualization.exec_()
-
-    def data_io(self):
-        self.dlg_data_io.show()
-        result = self.dlg_data_io.exec_()
+        old_base_dir = conf.settings_manager.get_value(conf.Setting.BASE_DIR)
+        dialog = DlgSettings(self.iface.mainWindow())
+        dialog.exec_()
+        new_base_dir = conf.settings_manager.get_value(conf.Setting.BASE_DIR)
+        if old_base_dir != new_base_dir:
+            job_manager.clear_known_jobs()
+            if hasattr(self, "dock_widget") and self.dock_widget.isVisible():
+                self.dock_widget.refresh_after_cache_update()
 
     def run_about(self):
         self.dlg_about.show()

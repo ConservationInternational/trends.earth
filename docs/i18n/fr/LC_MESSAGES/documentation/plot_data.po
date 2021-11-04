@@ -1,5 +1,5 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2018, Conservation International
+# Copyright (C) 2017-2021, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
@@ -10,9 +10,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 1.0.1\n"
+"Project-Id-Version: Trends.Earth 1.0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-27 17:17-0400\n"
+"POT-Creation-Date: 2021-07-15 21:04-0400\n"
 "PO-Revision-Date: 2017-11-20 21:06+0000\n"
 "Last-Translator: Fanja Andriamialisoa <Fandriamialisoa@aol.com>, 2018\n"
 "Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
@@ -22,11 +22,11 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\plot_data.rst:2
+#: ../../source/documentation/plot_data.rst:2
 msgid "Plot data"
 msgstr "Tracer les données"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\plot_data.rst:6
+#: ../../source/documentation/plot_data.rst:6
 msgid ""
 "To view plotted time series, select the graph icon (|iconGraph|). This will "
 "open up the `Plot data` dialog box:"
@@ -35,7 +35,11 @@ msgstr ""
 "graphique (|iconGraph|). Cela ouvrira la boîte de dialogue `Tracer les "
 "données`:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\plot_data.rst:9
+#: ../../../<rst_epilog>:14 ../../../<rst_epilog>:14
+msgid "iconGraph"
+msgstr ""
+
+#: ../../source/documentation/plot_data.rst:9
 msgid ""
 "The toolbox also supports plotting time series showing how a particular "
 "indicator has changed over time. To use this feature, click on the Plot data"
@@ -48,7 +52,7 @@ msgstr ""
 " de la boîte à outils. Ensuite, indiquez un ensemble de données, un "
 "indicateur et une zone à tracer:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\plot_data.rst:20
+#: ../../source/documentation/plot_data.rst:20
 msgid ""
 "When all the parameters have been defined, click `Calculate`, and the task "
 "will be submitted to Google Earth Engine for computing. When the task is "
@@ -62,10 +66,74 @@ msgstr ""
 "plupart des pays, il ne dure que quelques minutes), vous recevrez un e-mail "
 "vous informant de la réussite de la tâche."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\plot_data.rst:22
+#: ../../source/documentation/plot_data.rst:22
 msgid ""
 "Use the `View Google Earth Egngine tasks` tool described above to download "
 "and plot the results:"
 msgstr ""
 "Utilisez l'outil `Voir les tâches de Google Earth Engine` décrit ci-dessus "
 "pour télécharger et tracer les résultats:"
+
+#: ../../../<rst_epilog>:2
+msgid "iconCalculator"
+msgstr ""
+
+#: ../../../<rst_epilog>:4
+msgid "iconChart"
+msgstr ""
+
+#: ../../../<rst_epilog>:6
+msgid "iconClipboard"
+msgstr ""
+
+#: ../../../<rst_epilog>:8
+msgid "iconCloudDownload"
+msgstr ""
+
+#: ../../../<rst_epilog>:10
+msgid "iconCog"
+msgstr ""
+
+#: ../../../<rst_epilog>:12
+msgid "iconGlobe"
+msgstr ""
+
+#: ../../../<rst_epilog>:16
+msgid "iconInfo"
+msgstr ""
+
+#: ../../../<rst_epilog>:18
+msgid "iconMarkMarker"
+msgstr ""
+
+#: ../../../<rst_epilog>:20
+msgid "iconWrench"
+msgstr ""
+
+#: ../../../<rst_epilog>:22
+msgid "iconFolder"
+msgstr ""
+
+#: ../../../<rst_epilog>:24
+msgid "iconVisualization"
+msgstr ""
+
+#: ../../../<rst_epilog>:26
+msgid "Trends.Earth"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoCI"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoLund"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoNASA"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoGEF"
+msgstr ""

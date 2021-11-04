@@ -1,20 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2018, Conservation International
+# Copyright (C) 2017-2021, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018
 # Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020
+# Alex Zvoleff <azvoleff@conservation.org>, 2021
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 1.0.1\n"
+"Project-Id-Version: Trends.Earth 1.0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-27 17:17-0400\n"
+"POT-Creation-Date: 2021-07-15 21:04-0400\n"
 "PO-Revision-Date: 2018-04-04 19:03+0000\n"
-"Last-Translator: Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2021\n"
 "Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,11 +23,11 @@ msgstr ""
 "Language: pt\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_summary_table.rst:4
+#: ../../source/training/tutorial_summary_table.rst:4
 msgid "Interpreting summary table"
 msgstr "Interpretando a Tabela Resumo "
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_summary_table.rst:6
+#: ../../source/training/tutorial_summary_table.rst:6
 msgid ""
 "**Objective**: Learn how to open and interpret the summary tables produced "
 "by Trends.Earth when computing the final SDG 15.3.1 layer."
@@ -34,15 +35,15 @@ msgstr ""
 "**Objetivo**: Aprenda como abrir e interpretar as tabelas de resumo "
 "produzidas pelo Trends.Earth ao calcular a camada final do ODS 15.3.1."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_summary_table.rst:8
+#: ../../source/training/tutorial_summary_table.rst:8
 msgid "**Estimated time of completion**: 25 minutes"
 msgstr "**Tempo estimado de conclusão**: 25 minutos"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_summary_table.rst:10
+#: ../../source/training/tutorial_summary_table.rst:10
 msgid "**Internet access**: Not required"
 msgstr "**Acesso à Internet**: não obrigatório"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_summary_table.rst:12
+#: ../../source/training/tutorial_summary_table.rst:12
 msgid ""
 "`Download this page as a PDF for offline use "
 "<../pdfs/Trends.Earth_Tutorial08_The_Summary_Table.pdf>`_"
@@ -50,7 +51,7 @@ msgstr ""
 "`Faça o download desta página em PDF para uso off-line "
 "<../pdfs/Trends.Earth_Tutorial08_The_Summary_Table.pdf>`_"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_summary_table.rst:16
+#: ../../source/training/tutorial_summary_table.rst:16
 msgid ""
 "You will need to have previously computed SDG 15.3.1 using the **Calculate "
 "final SDG 15.3.1 spatial layer and summary table for total boundary** tool. "
@@ -62,7 +63,7 @@ msgstr ""
 "boundary**. Consulte a seção :ref:`tut_compute_sdg` para instruções sobre "
 "como executar a análise."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_summary_table.rst:18
+#: ../../source/training/tutorial_summary_table.rst:18
 msgid ""
 "When you computed SDG 15.3.1 an Excel file was created with the summary "
 "table. Browse to that folder and double click on the file to open it."
@@ -71,7 +72,7 @@ msgstr ""
 "tabela de resumo. Navegue até essa pasta e clique duas vezes no arquivo para"
 " abri-lo."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_summary_table.rst:23
+#: ../../source/training/tutorial_summary_table.rst:23
 msgid ""
 "If you are using Microsoft Excel, you may see the following error messages "
 "pop-up. Click **Yes** on the first one and *OK** on the second one. We are "
@@ -83,7 +84,7 @@ msgstr ""
 "trabalhando atualmente tentando identificar de onde o erro vem, mas o "
 "arquivo está totalmente funcional."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_summary_table.rst:25
+#: ../../source/training/tutorial_summary_table.rst:25
 msgid ""
 "If you are using LibreOffice or OpenOffice, the file will load with no "
 "errors."
@@ -91,7 +92,7 @@ msgstr ""
 "Se você estiver usando o LibreOffice ou o OpenOffice, o arquivo será "
 "carregado sem erros."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_summary_table.rst:33
+#: ../../source/training/tutorial_summary_table.rst:33
 msgid ""
 "The summary table file contains 5 tabs, which you can explore by clicking on"
 " each of the different names the bottom of the screen: SDG 15.3.1, "
@@ -102,7 +103,7 @@ msgstr ""
 "Produtividade, Carbono orgânico do solo, Cobertura da Terra e Relatório "
 "UNCCD."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_summary_table.rst:35
+#: ../../source/training/tutorial_summary_table.rst:35
 msgid ""
 "In the **SDG 15.3.1** tab you will find the area calculations derived from "
 "the indicator map you explored in QGIS."
@@ -110,7 +111,7 @@ msgstr ""
 "Na guia **SDG 15.3.1**, você encontrará os cálculos de área derivados do "
 "mapa de indicadores que você explorou no QGIS."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_summary_table.rst:37
+#: ../../source/training/tutorial_summary_table.rst:37
 msgid ""
 "For the area you run the analysis, you will see the total land area "
 "(excluding water bodies): land that experienced improvement, which remained "
@@ -125,7 +126,7 @@ msgstr ""
 "há nenhum dado para alguns dos conjuntos de dados de entrada usados ​​na "
 "análise."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_summary_table.rst:42
+#: ../../source/training/tutorial_summary_table.rst:42
 msgid ""
 "In the **Productivity** tab you will find at the top, a similar summary as "
 "previously explained, but in this case representing the results of the land "
@@ -135,7 +136,7 @@ msgstr ""
 "explicado anteriormente, mas neste caso representando os resultados do "
 "subindicador de produtividade da terra sozinho."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_summary_table.rst:44
+#: ../../source/training/tutorial_summary_table.rst:44
 msgid ""
 "In the sections below you will find two tables, each containing area "
 "information (in sq. km) for each of the land cover transitions found in the "
@@ -149,7 +150,7 @@ msgstr ""
 "5 classes finais de produtividade terrestre: Aumentando, Estável, Estável "
 "mas estressado, Primeiros sinais de declínio e Declínio."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_summary_table.rst:49
+#: ../../source/training/tutorial_summary_table.rst:49
 msgid ""
 "In the **Soil organic carbon** tab you will find at the top, a similar "
 "summary as previously explained, but in this case representing the results "
@@ -159,12 +160,12 @@ msgstr ""
 "semelhante ao explicado anteriormente, mas neste caso representando os "
 "resultados do sub-indicador de carbono orgânico do solo sozinho."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_summary_table.rst:51
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_summary_table.rst:61
+#: ../../source/training/tutorial_summary_table.rst:51
+#: ../../source/training/tutorial_summary_table.rst:61
 msgid "In the sections below you will find two tables:"
 msgstr "Nas seções abaixo, você encontrará duas tabelas:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_summary_table.rst:53
+#: ../../source/training/tutorial_summary_table.rst:53
 msgid ""
 "The first one contains information on changes in carbon stocks from the "
 "baseline (initial year of analysis) to the target (final year of analysis)."
@@ -172,7 +173,7 @@ msgstr ""
 "O primeiro contém informações sobre mudanças nos estoques de carbono desde a"
 " linha de base (ano inicial de análise) até a meta (último ano de análise)."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_summary_table.rst:54
+#: ../../source/training/tutorial_summary_table.rst:54
 msgid ""
 "The second presents information soil organic carbon change from baseline to "
 "target by type of land cover transition (as percentage of initial stock)."
@@ -181,7 +182,7 @@ msgstr ""
 "desde a linha de base até a meta por tipo de transição da cobertura da terra"
 " (como porcentagem do estoque inicial)."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_summary_table.rst:59
+#: ../../source/training/tutorial_summary_table.rst:59
 msgid ""
 "In the **Land cover** tab you will find at the top, a similar summary as "
 "previously explained, but in this case representing the results of the land "
@@ -191,7 +192,7 @@ msgstr ""
 "ao explicado anteriormente, mas neste caso representando os resultados do "
 "subindicador de mudança da cobertura da terra sozinho."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_summary_table.rst:63
+#: ../../source/training/tutorial_summary_table.rst:63
 msgid ""
 "The first contains information on land cover change by cover class (sq, km "
 "and %)."
@@ -199,7 +200,7 @@ msgstr ""
 "O primeiro contém informações sobre mudança de cobertura da terra por classe"
 " de cobertura (km2 e %)."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_summary_table.rst:64
+#: ../../source/training/tutorial_summary_table.rst:64
 msgid ""
 "The second contains information on land area by type of land cover "
 "transition (sq. km)."
@@ -207,7 +208,7 @@ msgstr ""
 "O segundo contém informações sobre área terrestre por tipo de transição da "
 "cobertura do solo (km2)."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_summary_table.rst:69
+#: ../../source/training/tutorial_summary_table.rst:69
 msgid ""
 "In the **UNCCD Reporting** tab you will find five tables containing similar "
 "information as the one presented in the previous tabs, but in this case "
@@ -220,3 +221,71 @@ msgstr ""
 "caso, formatadas especificamente para corresponder ao modelo de relatório "
 "exigido pelo UNCCD. Cada tabela indica no topo o número da página e a seção "
 "do modelo a que a informação está se referindo."
+
+#: ../../../<rst_epilog>:2
+msgid "iconCalculator"
+msgstr ""
+
+#: ../../../<rst_epilog>:4
+msgid "iconChart"
+msgstr ""
+
+#: ../../../<rst_epilog>:6
+msgid "iconClipboard"
+msgstr ""
+
+#: ../../../<rst_epilog>:8
+msgid "iconCloudDownload"
+msgstr ""
+
+#: ../../../<rst_epilog>:10
+msgid "iconCog"
+msgstr ""
+
+#: ../../../<rst_epilog>:12
+msgid "iconGlobe"
+msgstr ""
+
+#: ../../../<rst_epilog>:14
+msgid "iconGraph"
+msgstr ""
+
+#: ../../../<rst_epilog>:16
+msgid "iconInfo"
+msgstr ""
+
+#: ../../../<rst_epilog>:18
+msgid "iconMarkMarker"
+msgstr ""
+
+#: ../../../<rst_epilog>:20
+msgid "iconWrench"
+msgstr ""
+
+#: ../../../<rst_epilog>:22
+msgid "iconFolder"
+msgstr ""
+
+#: ../../../<rst_epilog>:24
+msgid "iconVisualization"
+msgstr ""
+
+#: ../../../<rst_epilog>:26
+msgid "Trends.Earth"
+msgstr "Trends.Earth"
+
+#: ../../../<rst_epilog>:0
+msgid "logoCI"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoLund"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoNASA"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoGEF"
+msgstr ""

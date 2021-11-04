@@ -1,12 +1,12 @@
 About
 ======
-.. image:: /static/common/ldmt_toolbar_highlight_info.png
+.. image:: ../../resources/en/documentation/info/trends_earth_about.png
    :align: center
 
 The about page lists background information on the development of 
 |trends.earth|, and indicates the version of the tool that is installed.
 
-.. image:: /static/documentation/info/info.png
+.. image:: ../../resources/en/documentation/info/info.png
    :align: center
 
 .. toctree::

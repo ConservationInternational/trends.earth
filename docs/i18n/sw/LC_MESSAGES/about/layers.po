@@ -1,5 +1,5 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2018, Conservation International
+# Copyright (C) 2017-2021, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
@@ -10,9 +10,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 1.0.1\n"
+"Project-Id-Version: Trends.Earth 1.0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-27 17:17-0400\n"
+"POT-Creation-Date: 2021-07-15 21:04-0400\n"
 "PO-Revision-Date: 2019-07-23 19:36+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2020\n"
 "Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
@@ -22,11 +22,11 @@ msgstr ""
 "Language: sw\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:2
+#: ../../source/about/layers.rst:2
 msgid "Dataset coding"
 msgstr "Kuweka coding"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:4
+#: ../../source/about/layers.rst:4
 msgid ""
 "The spatial data produced by |trends.earth| is in GeoTiff format. This is a "
 "widely supported format, so theese datasets can be used within QGIS as well "
@@ -37,7 +37,12 @@ msgstr ""
 "maandishi inaweza kutumika ndani ya QGIS na pia ndani ya programu nyingine "
 "yoyote ya GIS."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:8
+#: ../../../<rst_epilog>:26 ../../../<rst_epilog>:26 ../../../<rst_epilog>:26
+#: ../../../<rst_epilog>:26 ../../../<rst_epilog>:26
+msgid "Trends.Earth"
+msgstr ""
+
+#: ../../source/about/layers.rst:8
 msgid ""
 "If you wish to use |trends.earth| data outside of the tool itself, you will "
 "need to know how the data is coded. The tables below provide guidance on "
@@ -49,7 +54,7 @@ msgstr ""
 "juu ya nini tabaka halisi ni ambazo hutolewa na kila uchambuzi katika | "
 "mwenendo.earth |."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:12
+#: ../../source/about/layers.rst:12
 msgid ""
 "To see which of the below layers is contained within a |trends.earth| output"
 " file, use the `load data <../documentation/load_data.html>`_ tool. When you"
@@ -61,240 +66,179 @@ msgstr ""
 "_ zana. Unapochagua faili iliyo na eneo hilo, itakuonyesha orodha ya tabaka "
 "zilizo ndani ya faili hiyo, pamoja na nambari ya bendi kwa kila safu."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:18
+#: ../../source/about/layers.rst:18
 msgid "SDG 15.3.1 Indicator"
 msgstr "Kiashiria cha SDG 15.3.1"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:21
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:40
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:52
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:75
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:88
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:100
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:112
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:126
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:138
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:151
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:170
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:192
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:207
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:230
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:313
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:424
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:437
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:452
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:479
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:498
+#: ../../source/about/layers.rst:21 ../../source/about/layers.rst:40
+#: ../../source/about/layers.rst:52 ../../source/about/layers.rst:75
+#: ../../source/about/layers.rst:88 ../../source/about/layers.rst:100
+#: ../../source/about/layers.rst:112 ../../source/about/layers.rst:126
+#: ../../source/about/layers.rst:138 ../../source/about/layers.rst:151
+#: ../../source/about/layers.rst:170 ../../source/about/layers.rst:192
+#: ../../source/about/layers.rst:207 ../../source/about/layers.rst:230
+#: ../../source/about/layers.rst:313 ../../source/about/layers.rst:424
+#: ../../source/about/layers.rst:437 ../../source/about/layers.rst:452
+#: ../../source/about/layers.rst:479 ../../source/about/layers.rst:498
 msgid "Value"
 msgstr "Thamani"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:21
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:40
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:52
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:75
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:88
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:100
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:112
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:126
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:138
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:151
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:170
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:192
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:207
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:230
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:313
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:424
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:437
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:452
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:479
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:498
+#: ../../source/about/layers.rst:21 ../../source/about/layers.rst:40
+#: ../../source/about/layers.rst:52 ../../source/about/layers.rst:75
+#: ../../source/about/layers.rst:88 ../../source/about/layers.rst:100
+#: ../../source/about/layers.rst:112 ../../source/about/layers.rst:126
+#: ../../source/about/layers.rst:138 ../../source/about/layers.rst:151
+#: ../../source/about/layers.rst:170 ../../source/about/layers.rst:192
+#: ../../source/about/layers.rst:207 ../../source/about/layers.rst:230
+#: ../../source/about/layers.rst:313 ../../source/about/layers.rst:424
+#: ../../source/about/layers.rst:437 ../../source/about/layers.rst:452
+#: ../../source/about/layers.rst:479 ../../source/about/layers.rst:498
 msgid "Meaning"
 msgstr "Maana"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:23
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:42
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:54
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:77
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:90
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:102
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:114
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:128
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:140
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:153
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:172
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:194
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:209
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:232
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:315
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:426
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:439
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:454
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:481
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:500
+#: ../../source/about/layers.rst:23 ../../source/about/layers.rst:42
+#: ../../source/about/layers.rst:54 ../../source/about/layers.rst:77
+#: ../../source/about/layers.rst:90 ../../source/about/layers.rst:102
+#: ../../source/about/layers.rst:114 ../../source/about/layers.rst:128
+#: ../../source/about/layers.rst:140 ../../source/about/layers.rst:153
+#: ../../source/about/layers.rst:172 ../../source/about/layers.rst:194
+#: ../../source/about/layers.rst:209 ../../source/about/layers.rst:232
+#: ../../source/about/layers.rst:315 ../../source/about/layers.rst:426
+#: ../../source/about/layers.rst:439 ../../source/about/layers.rst:454
+#: ../../source/about/layers.rst:481 ../../source/about/layers.rst:500
 msgid "-32768"
 msgstr "-32768"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:23
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:42
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:54
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:77
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:90
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:102
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:114
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:128
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:140
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:153
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:172
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:194
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:209
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:232
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:315
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:426
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:439
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:454
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:481
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:500
+#: ../../source/about/layers.rst:23 ../../source/about/layers.rst:42
+#: ../../source/about/layers.rst:54 ../../source/about/layers.rst:77
+#: ../../source/about/layers.rst:90 ../../source/about/layers.rst:102
+#: ../../source/about/layers.rst:114 ../../source/about/layers.rst:128
+#: ../../source/about/layers.rst:140 ../../source/about/layers.rst:153
+#: ../../source/about/layers.rst:172 ../../source/about/layers.rst:194
+#: ../../source/about/layers.rst:209 ../../source/about/layers.rst:232
+#: ../../source/about/layers.rst:315 ../../source/about/layers.rst:426
+#: ../../source/about/layers.rst:439 ../../source/about/layers.rst:454
+#: ../../source/about/layers.rst:481 ../../source/about/layers.rst:500
 msgid "No data"
 msgstr "Hakuna data"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:25
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:60
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:79
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:196
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:483
+#: ../../source/about/layers.rst:25 ../../source/about/layers.rst:60
+#: ../../source/about/layers.rst:79 ../../source/about/layers.rst:196
+#: ../../source/about/layers.rst:483
 msgid "-1"
 msgstr "-1"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:25
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:79
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:196
+#: ../../source/about/layers.rst:25 ../../source/about/layers.rst:79
+#: ../../source/about/layers.rst:196
 msgid "Degradation"
 msgstr "Udhalilishaji"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:27
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:62
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:81
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:92
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:198
+#: ../../source/about/layers.rst:27 ../../source/about/layers.rst:62
+#: ../../source/about/layers.rst:81 ../../source/about/layers.rst:92
+#: ../../source/about/layers.rst:198
 msgid "0"
 msgstr "0"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:27
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:81
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:198
+#: ../../source/about/layers.rst:27 ../../source/about/layers.rst:81
+#: ../../source/about/layers.rst:198
 msgid "No change"
 msgstr "Hakuna mabadiliko"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:29
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:64
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:155
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:174
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:200
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:211
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:317
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:456
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:485
+#: ../../source/about/layers.rst:29 ../../source/about/layers.rst:64
+#: ../../source/about/layers.rst:155 ../../source/about/layers.rst:174
+#: ../../source/about/layers.rst:200 ../../source/about/layers.rst:211
+#: ../../source/about/layers.rst:317 ../../source/about/layers.rst:456
+#: ../../source/about/layers.rst:485
 msgid "1"
 msgstr "1"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:29
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:200
+#: ../../source/about/layers.rst:29 ../../source/about/layers.rst:200
 msgid "Improvement"
 msgstr "Uboreshaji"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:34
+#: ../../source/about/layers.rst:34
 msgid "Productivity"
 msgstr "Uzalishaji"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:37
+#: ../../source/about/layers.rst:37
 msgid "Productivity trajectory (trend)"
 msgstr "Utaratibu wa uzalishaji (mwenendo)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:44
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:104
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:116
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:130
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:142
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:428
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:441
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:502
+#: ../../source/about/layers.rst:44 ../../source/about/layers.rst:104
+#: ../../source/about/layers.rst:116 ../../source/about/layers.rst:130
+#: ../../source/about/layers.rst:142 ../../source/about/layers.rst:428
+#: ../../source/about/layers.rst:441 ../../source/about/layers.rst:502
 msgid "Any other value"
 msgstr "Thamani nyingine yoyote"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:44
+#: ../../source/about/layers.rst:44
 msgid "Linear trend of annually integrated NDVI, scaled by 10,000"
 msgstr ""
 "Mistari ya Linear ya NDVI iliyojumuishwa kila mwaka, iliyokadiriwa na 10,000"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:49
+#: ../../source/about/layers.rst:49
 msgid "Productivity trajectory (significance)"
 msgstr "Utaratibu wa uzalishaji (umuhimu)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:56
+#: ../../source/about/layers.rst:56
 msgid "-3"
 msgstr "-3"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:56
+#: ../../source/about/layers.rst:56
 msgid "Significant decline (p > .99)"
 msgstr "Kupungua kwa maana (p&gt; .99)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:58
+#: ../../source/about/layers.rst:58
 msgid "-2"
 msgstr "2"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:58
+#: ../../source/about/layers.rst:58
 msgid "Significant decline (p > .95)"
 msgstr "Kupungua kwa maana (p&gt; .95)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:60
+#: ../../source/about/layers.rst:60
 msgid "Significant decline (p > .90)"
 msgstr "Kupungua kwa maana (p&gt; .90)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:62
+#: ../../source/about/layers.rst:62
 msgid "No significant change"
 msgstr "Hakuna mabadiliko muhimu"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:64
+#: ../../source/about/layers.rst:64
 msgid "Significant increase (p > .90)"
 msgstr "Ongezeko kubwa (p&gt; .90)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:66
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:157
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:176
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:213
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:319
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:458
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:487
+#: ../../source/about/layers.rst:66 ../../source/about/layers.rst:157
+#: ../../source/about/layers.rst:176 ../../source/about/layers.rst:213
+#: ../../source/about/layers.rst:319 ../../source/about/layers.rst:458
+#: ../../source/about/layers.rst:487
 msgid "2"
 msgstr "2"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:66
+#: ../../source/about/layers.rst:66
 msgid "Significant increase (p > .95)"
 msgstr "Ongezeko kubwa (p&gt; .95)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:68
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:159
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:178
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:215
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:321
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:460
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:489
+#: ../../source/about/layers.rst:68 ../../source/about/layers.rst:159
+#: ../../source/about/layers.rst:178 ../../source/about/layers.rst:215
+#: ../../source/about/layers.rst:321 ../../source/about/layers.rst:460
+#: ../../source/about/layers.rst:489
 msgid "3"
 msgstr "3"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:68
+#: ../../source/about/layers.rst:68
 msgid "Significant increase (p > .99)"
 msgstr "Ongezeko kubwa (p&gt; .99)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:72
+#: ../../source/about/layers.rst:72
 msgid "Productivity performance (degradation)"
 msgstr "Utendaji wa tija (uharibifu)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:85
+#: ../../source/about/layers.rst:85
 msgid "Productivity performance (ratio)"
 msgstr "Utendaji wa tija (uwiano)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:92
+#: ../../source/about/layers.rst:92
 msgid ""
 "Ratio of mean NDVI and maximum productivity. See background on `performance "
 "<../background/understanding_indicators15.html#productivity-performance>`_."
@@ -302,11 +246,11 @@ msgstr ""
 "Uwiano wa NDVI maana na tija kubwa. Tazama taswira juu ya utendaji `wa kazi "
 ".. .."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:97
+#: ../../source/about/layers.rst:97
 msgid "Productivity performance (units)"
 msgstr "Utendaji wa tija (vitengo)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:104
+#: ../../source/about/layers.rst:104
 msgid ""
 "ID number of unit used to calculate performance. See background on "
 "`performance <../background/understanding_indicators15.html#productivity-"
@@ -315,11 +259,11 @@ msgstr ""
 "Nambari ya kitambulisho kinachotumika kuhesabu utendaji. Tazama taswira juu "
 "ya utendaji `wa kazi .. .."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:109
+#: ../../source/about/layers.rst:109
 msgid "Productivity state (degradation)"
 msgstr "Hali ya uzalishaji (uharibifu)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:116
+#: ../../source/about/layers.rst:116
 msgid ""
 "Change in productivity state classes between baseline and target period, "
 "calculated as the rank in the target period minus the rank in the baseline "
@@ -331,11 +275,11 @@ msgstr ""
 "kinachoondoa kiwango katika kipindi cha msingi. Maadili mazuri yanaonyesha "
 "uboreshaji, maadili hasi yanaonyesha kupungua."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:123
+#: ../../source/about/layers.rst:123
 msgid "Productivity state classes"
 msgstr "Madarasa ya hali ya uzalishaji"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:130
+#: ../../source/about/layers.rst:130
 msgid ""
 "Percentile class for productivity state. See background on `productivity "
 "state <../background/understanding_indicators15.html#productivity-state>`_."
@@ -343,11 +287,11 @@ msgstr ""
 "Asilimia ya asilimia ya hali ya uzalishaji. Tazama hali ya juu ya hali ya "
 "tija `."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:135
+#: ../../source/about/layers.rst:135
 msgid "Productivity state NDVI mean"
 msgstr "Hali ya tija NDVI inamaanisha"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:142
+#: ../../source/about/layers.rst:142
 msgid ""
 "Mean annually integrated NDVI for the baseline period chosen for "
 "productivity state, scaled by 10,000. See background on `productivity state "
@@ -357,156 +301,145 @@ msgstr ""
 "kilichochaguliwa kwa hali ya tija, iliyoongezeka na 10,000. Tazama hali ya "
 "juu ya hali ya tija `."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:148
+#: ../../source/about/layers.rst:148
 msgid "SDG 15.3.1 productivity indicator"
 msgstr "Kiashiria cha uzalishaji wa SDG 15.3.1"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:155
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:174
+#: ../../source/about/layers.rst:155 ../../source/about/layers.rst:174
 msgid "Declining"
 msgstr "Kupungua"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:157
+#: ../../source/about/layers.rst:157
 msgid "Early signs of decline"
 msgstr "Ishara za mapema za kupungua"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:159
+#: ../../source/about/layers.rst:159
 msgid "Stable but stressed"
 msgstr "Imara lakini imesisitizwa"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:161
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:180
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:217
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:323
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:462
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:491
+#: ../../source/about/layers.rst:161 ../../source/about/layers.rst:180
+#: ../../source/about/layers.rst:217 ../../source/about/layers.rst:323
+#: ../../source/about/layers.rst:462 ../../source/about/layers.rst:491
 msgid "4"
 msgstr "4"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:161
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:180
+#: ../../source/about/layers.rst:161 ../../source/about/layers.rst:180
 msgid "Stable"
 msgstr "Imara"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:163
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:182
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:219
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:325
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:464
+#: ../../source/about/layers.rst:163 ../../source/about/layers.rst:182
+#: ../../source/about/layers.rst:219 ../../source/about/layers.rst:325
+#: ../../source/about/layers.rst:464
 msgid "5"
 msgstr "5"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:163
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:182
+#: ../../source/about/layers.rst:163 ../../source/about/layers.rst:182
 msgid "Increasing"
 msgstr "Kuongezeka"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:167
+#: ../../source/about/layers.rst:167
 msgid "Land productivity dynamics"
 msgstr "Mienendo ya uzalishaji wa ardhi"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:176
+#: ../../source/about/layers.rst:176
 msgid "Moderate decline"
 msgstr "Kupungua kwa wastani"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:178
+#: ../../source/about/layers.rst:178
 msgid "Stressed"
 msgstr "Imesisitizwa"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:186
+#: ../../source/about/layers.rst:186
 msgid "Land cover"
 msgstr "Bima ya ardhi"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:189
+#: ../../source/about/layers.rst:189
 msgid "Land cover (degradation)"
 msgstr "Kifuniko cha ardhi (uharibifu)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:204
+#: ../../source/about/layers.rst:204
 msgid "Land cover (7 class)"
 msgstr "Kifuniko cha ardhi (darasa 7)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:211
+#: ../../source/about/layers.rst:211
 msgid "Tree-covered"
 msgstr "Iliyofunikwa na mti"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:213
+#: ../../source/about/layers.rst:213
 msgid "Grasslands"
 msgstr "Grasslands"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:215
+#: ../../source/about/layers.rst:215
 msgid "Cropland"
 msgstr "Cropland"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:217
+#: ../../source/about/layers.rst:217
 msgid "Wetland"
 msgstr "Mazingira"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:219
+#: ../../source/about/layers.rst:219
 msgid "Artificial"
 msgstr "Bandia"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:221
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:327
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:466
+#: ../../source/about/layers.rst:221 ../../source/about/layers.rst:327
+#: ../../source/about/layers.rst:466
 msgid "6"
 msgstr "6"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:221
+#: ../../source/about/layers.rst:221
 msgid "Other land"
 msgstr "Ardhi nyingine"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:223
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:329
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:468
+#: ../../source/about/layers.rst:223 ../../source/about/layers.rst:329
+#: ../../source/about/layers.rst:468
 msgid "7"
 msgstr "7"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:223
+#: ../../source/about/layers.rst:223
 msgid "Water body"
 msgstr "Mwili wa maji"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:227
+#: ../../source/about/layers.rst:227
 msgid "Land cover (ESA classes)"
 msgstr "Kifuniko cha ardhi (madarasa ya ESA)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:234
+#: ../../source/about/layers.rst:234
 msgid "10"
 msgstr "10"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:234
+#: ../../source/about/layers.rst:234
 msgid "Cropland, rainfed"
 msgstr "Cropland, ilinyesha"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:236
+#: ../../source/about/layers.rst:236
 msgid "11"
 msgstr "11"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:236
+#: ../../source/about/layers.rst:236
 msgid "Herbaceous cover"
 msgstr "Kifuniko cha Herbaceous"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:238
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:331
+#: ../../source/about/layers.rst:238 ../../source/about/layers.rst:331
 msgid "12"
 msgstr "12"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:238
+#: ../../source/about/layers.rst:238
 msgid "Tree or shrub cover"
 msgstr "Kifuniko cha mti au kichaka"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:240
+#: ../../source/about/layers.rst:240
 msgid "20"
 msgstr "20"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:240
+#: ../../source/about/layers.rst:240
 msgid "Cropland, irrigated or post‐flooding"
 msgstr "Cropland, umwagiliaji au kuchapisha mafuriko"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:242
+#: ../../source/about/layers.rst:242
 msgid "30"
 msgstr "30"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:242
+#: ../../source/about/layers.rst:242
 msgid ""
 "Mosaic cropland (>50%) / natural vegetation (tree, shrub, herbaceous cover) "
 "(<50%)"
@@ -514,11 +447,11 @@ msgstr ""
 "Shamba la mazao ya Musa (&gt; 50%) / uoto wa asili (mti, kichaka, kifuniko "
 "cha mimea ya mimea) (&lt;50%)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:244
+#: ../../source/about/layers.rst:244
 msgid "40"
 msgstr "40"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:244
+#: ../../source/about/layers.rst:244
 msgid ""
 "Mosaic natural vegetation (tree, shrub, herbaceous cover) (>50%) / cropland "
 "(<50%)"
@@ -526,633 +459,628 @@ msgstr ""
 "Mimea ya asili ya Musa (mti, kichaka, kufunika kwa mimea) (&gt; 50%) / "
 "shamba (&lt;50%)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:246
+#: ../../source/about/layers.rst:246
 msgid "50"
 msgstr "50"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:246
+#: ../../source/about/layers.rst:246
 msgid "Tree cover, broadleaved, evergreen, closed to open (>15%)"
 msgstr ""
 "Kifuniko cha mti, kilichopanuliwa, kibichi kila wakati, kilichofungwa "
 "kufungua (&gt; 15%)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:248
+#: ../../source/about/layers.rst:248
 msgid "60"
 msgstr "60"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:248
+#: ../../source/about/layers.rst:248
 msgid "Tree cover, broadleaved, deciduous, closed to open (>15%)"
 msgstr ""
 "Kifuniko cha mti, kilichopanuliwa, kupunguka, kilichofungwa kufungua (&gt; "
 "15%)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:250
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:391
+#: ../../source/about/layers.rst:250 ../../source/about/layers.rst:391
 msgid "61"
 msgstr "61"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:250
+#: ../../source/about/layers.rst:250
 msgid "Tree cover, broadleaved, deciduous, closed (>40%)"
 msgstr "Kifuniko cha mti, kilichopanuliwa, kupangwa, kufungwa (&gt; 40%)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:252
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:393
+#: ../../source/about/layers.rst:252 ../../source/about/layers.rst:393
 msgid "62"
 msgstr "62"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:252
+#: ../../source/about/layers.rst:252
 msgid "Tree cover, broadleaved, deciduous, open (15‐40%)"
 msgstr "Kifuniko cha mti, kilichopanuliwa, kupunguka, kufunguliwa (15‐40%)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:254
+#: ../../source/about/layers.rst:254
 msgid "70"
 msgstr "70"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:254
+#: ../../source/about/layers.rst:254
 msgid "Tree cover, needleleaved, evergreen, closed to open (>15%)"
 msgstr ""
 "Kifuniko cha mti, kilichowekwa ndani, kilichokaa kila wakati, kilichofungwa "
 "kufungua (&gt; 15%)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:256
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:403
+#: ../../source/about/layers.rst:256 ../../source/about/layers.rst:403
 msgid "71"
 msgstr "71"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:256
+#: ../../source/about/layers.rst:256
 msgid "Tree cover, needleleaved, evergreen, closed (>40%)"
 msgstr ""
 "Kifuniko cha mti, kilichokuwa kimefungwa, kibichi kila wakati, kilichofungwa"
 " (&gt; 40%)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:258
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:405
+#: ../../source/about/layers.rst:258 ../../source/about/layers.rst:405
 msgid "72"
 msgstr "72"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:258
+#: ../../source/about/layers.rst:258
 msgid "Tree cover, needleleaved, evergreen, open (15‐40%)"
 msgstr ""
 "Kifuniko cha mti, kilichohifadhiwa kwa muda mrefu, kibichi kila wakati, wazi"
 " (15 open40%)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:260
+#: ../../source/about/layers.rst:260
 msgid "80"
 msgstr "80"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:260
+#: ../../source/about/layers.rst:260
 msgid "Tree cover, needleleaved, deciduous, closed to open (>15%)"
 msgstr ""
 "Kifuniko cha mti, kilichochomwa, kilichowekwa wazi, kilichofungwa kufungua "
 "(&gt; 15%)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:262
+#: ../../source/about/layers.rst:262
 msgid "81"
 msgstr "81"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:262
+#: ../../source/about/layers.rst:262
 msgid "Tree cover, needleleaved, deciduous, closed (>40%)"
 msgstr ""
 "Kifuniko cha mti, kilichowekwa ndani, kilichoamua, kilichofungwa (&gt; 40%)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:264
+#: ../../source/about/layers.rst:264
 msgid "82"
 msgstr "82"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:264
+#: ../../source/about/layers.rst:264
 msgid "Tree cover, needleleaved, deciduous, open (15‐40%)"
 msgstr "Kifuniko cha mti, kilichochomwa, kilichoamua, kufunguliwa (15‐40%)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:266
+#: ../../source/about/layers.rst:266
 msgid "90"
 msgstr "90"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:266
+#: ../../source/about/layers.rst:266
 msgid "Tree cover, mixed leaf type (broadleaved and needleleaved)"
 msgstr ""
 "Kifuniko cha mti, aina ya majani iliyochanganywa (iliyoenezwa na kufungwa)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:268
+#: ../../source/about/layers.rst:268
 msgid "100"
 msgstr "100"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:268
+#: ../../source/about/layers.rst:268
 msgid "Mosaic tree and shrub (>50%) / herbaceous cover (<50%)"
 msgstr "Mti wa Musa na kichaka (&gt; 50%) / kifuniko cha herbaceous (&lt;50%)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:270
+#: ../../source/about/layers.rst:270
 msgid "110"
 msgstr "110"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:270
+#: ../../source/about/layers.rst:270
 msgid "Mosaic herbaceous cover (>50%) / tree and shrub (<50%)"
 msgstr ""
 "Kifuniko cha mimea ya mimea ya mimea (&gt; 50%) / mti na kichaka (&lt;50%)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:272
+#: ../../source/about/layers.rst:272
 msgid "120"
 msgstr "120"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:272
+#: ../../source/about/layers.rst:272
 msgid "Shrubland"
 msgstr "Shrubland"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:274
+#: ../../source/about/layers.rst:274
 msgid "121"
 msgstr "121"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:274
+#: ../../source/about/layers.rst:274
 msgid "Evergreen shrubland"
 msgstr "Shrubland ya kijani kibichi kila wakati"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:276
+#: ../../source/about/layers.rst:276
 msgid "122"
 msgstr "122"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:276
+#: ../../source/about/layers.rst:276
 msgid "Deciduous shrubland"
 msgstr "Shada ya kudanganya"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:278
+#: ../../source/about/layers.rst:278
 msgid "130"
 msgstr "130"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:278
+#: ../../source/about/layers.rst:278
 msgid "Grassland"
 msgstr "Grassland"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:280
+#: ../../source/about/layers.rst:280
 msgid "140"
 msgstr "140"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:280
+#: ../../source/about/layers.rst:280
 msgid "Lichens and mosses"
 msgstr "Lichens na mosses"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:282
+#: ../../source/about/layers.rst:282
 msgid "150"
 msgstr "150"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:282
+#: ../../source/about/layers.rst:282
 msgid "Sparse vegetation (tree, shrub, herbaceous cover) (<15%)"
 msgstr "Sparse mimea (mti, shrub, kufunika kwa herbaceous) (&lt;15%)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:284
+#: ../../source/about/layers.rst:284
 msgid "151"
 msgstr "151"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:284
+#: ../../source/about/layers.rst:284
 msgid "Sparse tree (<15%)"
 msgstr "Mti wa Sparse (&lt;15%)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:286
+#: ../../source/about/layers.rst:286
 msgid "152"
 msgstr "152"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:286
+#: ../../source/about/layers.rst:286
 msgid "Sparse shrub (<15%)"
 msgstr "Sparse shrub (&lt;15%)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:288
+#: ../../source/about/layers.rst:288
 msgid "153"
 msgstr "153"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:288
+#: ../../source/about/layers.rst:288
 msgid "Sparse herbaceous cover (<15%)"
 msgstr "Jalada la majani ya mimea (&lt;15%)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:290
+#: ../../source/about/layers.rst:290
 msgid "160"
 msgstr "160"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:290
+#: ../../source/about/layers.rst:290
 msgid "Tree cover, flooded, fresh or brakish water"
 msgstr "Kifuniko cha mti, maji yaliyofurika, safi au brakish"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:292
+#: ../../source/about/layers.rst:292
 msgid "170"
 msgstr "170"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:292
+#: ../../source/about/layers.rst:292
 msgid "Tree cover, flooded, saline water"
 msgstr "Kifuniko cha miti, mafuriko, maji ya chumvi"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:294
+#: ../../source/about/layers.rst:294
 msgid "180"
 msgstr "180"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:294
+#: ../../source/about/layers.rst:294
 msgid "Shrub or herbaceous cover, flooded, fresh/saline/brakish water"
 msgstr ""
 "Shrub au kifuniko cha herbaceous, kilichofurika, safi / chumvi / maji ya "
 "brakish"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:296
+#: ../../source/about/layers.rst:296
 msgid "190"
 msgstr "190"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:296
+#: ../../source/about/layers.rst:296
 msgid "Urban areas"
 msgstr "Sehemu za miji"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:298
+#: ../../source/about/layers.rst:298
 msgid "200"
 msgstr "200"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:298
+#: ../../source/about/layers.rst:298
 msgid "Bare areas"
 msgstr "Maeneo ya Bare"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:300
+#: ../../source/about/layers.rst:300
 msgid "201"
 msgstr "201"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:300
+#: ../../source/about/layers.rst:300
 msgid "Consolidated bare areas"
 msgstr "Sehemu zilizojumuishwa"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:302
+#: ../../source/about/layers.rst:302
 msgid "202"
 msgstr "202"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:302
+#: ../../source/about/layers.rst:302
 msgid "Unconsolidated bare areas"
 msgstr "Sehemu zisizo wazi"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:304
+#: ../../source/about/layers.rst:304
 msgid "210"
 msgstr "210"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:304
+#: ../../source/about/layers.rst:304
 msgid "Water bodies"
 msgstr "Miili ya maji"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:306
+#: ../../source/about/layers.rst:306
 msgid "220"
 msgstr "220"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:306
+#: ../../source/about/layers.rst:306
 msgid "Permanent snow and ice"
 msgstr "Theluji ya kudumu na barafu"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:310
+#: ../../source/about/layers.rst:310
 msgid "Land cover (transitions)"
 msgstr "Kifuniko cha ardhi (mabadiliko)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:317
+#: ../../source/about/layers.rst:317
 msgid "Tree-covered - Tree-covered (no change)"
 msgstr "Iliyofunikwa na mti - Iliyofunikwa na mti (hakuna mabadiliko)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:319
+#: ../../source/about/layers.rst:319
 msgid "Grassland - Grassland (no change)"
 msgstr "Grassland - Grassland (hakuna mabadiliko)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:321
+#: ../../source/about/layers.rst:321
 msgid "Cropland - Cropland (no change)"
 msgstr "Cropland - Cropland (hakuna mabadiliko)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:323
+#: ../../source/about/layers.rst:323
 msgid "Wetland - Wetland (no change)"
 msgstr "Wetland - Wetland (hakuna mabadiliko)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:325
+#: ../../source/about/layers.rst:325
 msgid "Artificial - Artificial (no change)"
 msgstr "Bandia - Artificial (hakuna mabadiliko)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:327
+#: ../../source/about/layers.rst:327
 msgid "Other land - Other land (no change)"
 msgstr "Ardhi nyingine - Ardhi nyingine (hakuna mabadiliko)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:329
+#: ../../source/about/layers.rst:329
 msgid "Water body - Water body (no change)"
 msgstr "Mwili wa maji - Mwili wa maji (hakuna mabadiliko)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:331
+#: ../../source/about/layers.rst:331
 msgid "Forest - Grassland"
 msgstr "Msitu - Grassland"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:333
+#: ../../source/about/layers.rst:333
 msgid "13"
 msgstr "13"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:333
+#: ../../source/about/layers.rst:333
 msgid "Forest - Cropland"
 msgstr "Msitu - Cropland"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:335
+#: ../../source/about/layers.rst:335
 msgid "14"
 msgstr "14"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:335
+#: ../../source/about/layers.rst:335
 msgid "Forest - Wetland"
 msgstr "Msitu - Wetland"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:337
+#: ../../source/about/layers.rst:337
 msgid "15"
 msgstr "15"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:337
+#: ../../source/about/layers.rst:337
 msgid "Forest - Artificial"
 msgstr "Msitu - bandia"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:339
+#: ../../source/about/layers.rst:339
 msgid "16"
 msgstr "16"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:339
+#: ../../source/about/layers.rst:339
 msgid "Forest - Other land"
 msgstr "Msitu - Ardhi nyingine"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:341
+#: ../../source/about/layers.rst:341
 msgid "17"
 msgstr "17"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:341
+#: ../../source/about/layers.rst:341
 msgid "Forest - Water body"
 msgstr "Msitu - Mwili wa maji"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:343
+#: ../../source/about/layers.rst:343
 msgid "21"
 msgstr "21"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:343
+#: ../../source/about/layers.rst:343
 msgid "Grassland - Forest"
 msgstr "Grassland - Msitu"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:345
+#: ../../source/about/layers.rst:345
 msgid "23"
 msgstr "23"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:345
+#: ../../source/about/layers.rst:345
 msgid "Grassland - Cropland"
 msgstr "Grassland - Cropland"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:347
+#: ../../source/about/layers.rst:347
 msgid "24"
 msgstr "24"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:347
+#: ../../source/about/layers.rst:347
 msgid "Grassland - Wetland"
 msgstr "Grassland - Wetland"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:349
+#: ../../source/about/layers.rst:349
 msgid "25"
 msgstr "25"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:349
+#: ../../source/about/layers.rst:349
 msgid "Grassland - Artificial"
 msgstr "Grassland - bandia"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:351
+#: ../../source/about/layers.rst:351
 msgid "26"
 msgstr "26"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:351
+#: ../../source/about/layers.rst:351
 msgid "Grassland - Other land"
 msgstr "Grassland - Ardhi nyingine"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:353
+#: ../../source/about/layers.rst:353
 msgid "27"
 msgstr "27"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:353
+#: ../../source/about/layers.rst:353
 msgid "Grassland - Water body"
 msgstr "Grassland - Mwili wa maji"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:355
+#: ../../source/about/layers.rst:355
 msgid "31"
 msgstr "31"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:355
+#: ../../source/about/layers.rst:355
 msgid "Cropland - Forest"
 msgstr "Cropland - Msitu"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:357
+#: ../../source/about/layers.rst:357
 msgid "32"
 msgstr "32"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:357
+#: ../../source/about/layers.rst:357
 msgid "Cropland - Grassland"
 msgstr "Cropland - Grassland"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:359
+#: ../../source/about/layers.rst:359
 msgid "34"
 msgstr "34"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:359
+#: ../../source/about/layers.rst:359
 msgid "Cropland - Wetland"
 msgstr "Cropland - Wetland"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:361
+#: ../../source/about/layers.rst:361
 msgid "35"
 msgstr "35"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:361
+#: ../../source/about/layers.rst:361
 msgid "Cropland - Artificial"
 msgstr "Cropland - bandia"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:363
+#: ../../source/about/layers.rst:363
 msgid "36"
 msgstr "36"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:363
+#: ../../source/about/layers.rst:363
 msgid "Cropland - Other land"
 msgstr "Cropland - Ardhi nyingine"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:365
+#: ../../source/about/layers.rst:365
 msgid "37"
 msgstr "37"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:365
+#: ../../source/about/layers.rst:365
 msgid "Cropland - Water body"
 msgstr "Cropland - Mwili wa maji"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:367
+#: ../../source/about/layers.rst:367
 msgid "41"
 msgstr "41"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:367
+#: ../../source/about/layers.rst:367
 msgid "Wetland - Forest"
 msgstr "Wetland - Msitu"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:369
+#: ../../source/about/layers.rst:369
 msgid "42"
 msgstr "42"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:369
+#: ../../source/about/layers.rst:369
 msgid "Wetland - Grassland"
 msgstr "Wetland - Grassland"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:371
+#: ../../source/about/layers.rst:371
 msgid "43"
 msgstr "43"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:371
+#: ../../source/about/layers.rst:371
 msgid "Wetland - Cropland"
 msgstr "Wetland - Cropland"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:373
+#: ../../source/about/layers.rst:373
 msgid "45"
 msgstr "45"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:373
+#: ../../source/about/layers.rst:373
 msgid "Wetland - Artificial"
 msgstr "Wetland - bandia"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:375
+#: ../../source/about/layers.rst:375
 msgid "46"
 msgstr "46"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:375
+#: ../../source/about/layers.rst:375
 msgid "Wetland - Other land"
 msgstr "Wetland - Ardhi nyingine"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:377
+#: ../../source/about/layers.rst:377
 msgid "47"
 msgstr "47"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:377
+#: ../../source/about/layers.rst:377
 msgid "Wetland - Water body"
 msgstr "Wetland - Mwili wa maji"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:379
+#: ../../source/about/layers.rst:379
 msgid "51"
 msgstr "51"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:379
+#: ../../source/about/layers.rst:379
 msgid "Artificial - Forest"
 msgstr "Bandia - Msitu"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:381
+#: ../../source/about/layers.rst:381
 msgid "52"
 msgstr "52"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:381
+#: ../../source/about/layers.rst:381
 msgid "Artificial - Grassland"
 msgstr "Bandia - Grassland"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:383
+#: ../../source/about/layers.rst:383
 msgid "53"
 msgstr "53"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:383
+#: ../../source/about/layers.rst:383
 msgid "Artificial - Cropland"
 msgstr "Bandia - Cropland"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:385
+#: ../../source/about/layers.rst:385
 msgid "54"
 msgstr "54"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:385
+#: ../../source/about/layers.rst:385
 msgid "Artificial - Wetland"
 msgstr "Bandia - Wetland"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:387
+#: ../../source/about/layers.rst:387
 msgid "56"
 msgstr "56"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:387
+#: ../../source/about/layers.rst:387
 msgid "Artificial - Other land"
 msgstr "Bandia - Ardhi nyingine"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:389
+#: ../../source/about/layers.rst:389
 msgid "57"
 msgstr "57"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:389
+#: ../../source/about/layers.rst:389
 msgid "Artificial - Water body"
 msgstr "Bandia - Mwili wa maji"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:391
+#: ../../source/about/layers.rst:391
 msgid "Other land - Forest"
 msgstr "Ardhi nyingine - Msitu"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:393
+#: ../../source/about/layers.rst:393
 msgid "Other land - Grassland"
 msgstr "Ardhi nyingine - Grassland"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:395
+#: ../../source/about/layers.rst:395
 msgid "63"
 msgstr "63"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:395
+#: ../../source/about/layers.rst:395
 msgid "Other land - Cropland"
 msgstr "Ardhi nyingine - Cropland"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:397
+#: ../../source/about/layers.rst:397
 msgid "64"
 msgstr "64"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:397
+#: ../../source/about/layers.rst:397
 msgid "Other land - Wetland"
 msgstr "Ardhi nyingine - Wetland"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:399
+#: ../../source/about/layers.rst:399
 msgid "65"
 msgstr "65"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:399
+#: ../../source/about/layers.rst:399
 msgid "Other land - Artificial"
 msgstr "Ardhi nyingine - bandia"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:401
+#: ../../source/about/layers.rst:401
 msgid "67"
 msgstr "67"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:401
+#: ../../source/about/layers.rst:401
 msgid "Other land - Water body"
 msgstr "Ardhi nyingine - Mwili wa maji"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:403
+#: ../../source/about/layers.rst:403
 msgid "Water body - Forest"
 msgstr "Mwili wa maji - Msitu"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:405
+#: ../../source/about/layers.rst:405
 msgid "Water body - Grassland"
 msgstr "Mwili wa maji - Grassland"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:407
+#: ../../source/about/layers.rst:407
 msgid "73"
 msgstr "73"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:407
+#: ../../source/about/layers.rst:407
 msgid "Water body - Cropland"
 msgstr "Mwili wa maji - Cropland"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:409
+#: ../../source/about/layers.rst:409
 msgid "74"
 msgstr "74"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:409
+#: ../../source/about/layers.rst:409
 msgid "Water body - Wetland"
 msgstr "Mwili wa maji - Wetland"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:411
+#: ../../source/about/layers.rst:411
 msgid "75"
 msgstr "75"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:411
+#: ../../source/about/layers.rst:411
 msgid "Water body - Artificial"
 msgstr "Mwili wa maji - bandia"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:413
+#: ../../source/about/layers.rst:413
 msgid "76"
 msgstr "76"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:413
+#: ../../source/about/layers.rst:413
 msgid "Water body - Other land"
 msgstr "Mwili wa maji - Ardhi nyingine"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:417
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:434
+#: ../../source/about/layers.rst:417 ../../source/about/layers.rst:434
 msgid "Soil organic carbon"
 msgstr "Mkaa kaboni ya udongo"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:421
+#: ../../source/about/layers.rst:421
 msgid "Soil organic carbon (degradation)"
 msgstr "Carbon ya kikaboni ya mchanga (uharibifu)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:428
+#: ../../source/about/layers.rst:428
 msgid ""
 "Percentage change in soil organic carbon content (0 - 30 cm depth) from "
 "baseline to target year. Positive values indicate increase, negative values "
@@ -1162,89 +1090,152 @@ msgstr ""
 "msingi hadi mwaka wa lengo. Maadili mazuri yanaonyesha kuongezeka, maadili "
 "hasi yanaonyesha kupungua."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:441
+#: ../../source/about/layers.rst:441
 msgid ""
 "Soil organic carbon content (0 - 30 cm depth) in metric tons per hectare"
 msgstr ""
 "Yaliyomo ya kaboni kikaboni (0- 30 cm) kwa tani za metriki kwa hekta moja"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:445
+#: ../../source/about/layers.rst:445
 msgid "SDG 11.3.1 (sustainable urbanization)"
 msgstr "SDG 11.3.1 (ukuaji endelevu wa miji)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:449
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:456
+#: ../../source/about/layers.rst:449 ../../source/about/layers.rst:456
 msgid "Urban"
 msgstr "Mjini"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:458
+#: ../../source/about/layers.rst:458
 msgid "Suburban"
 msgstr "Suburban"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:460
+#: ../../source/about/layers.rst:460
 msgid "Built-up rural"
 msgstr "Imejengwa vijijini"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:462
+#: ../../source/about/layers.rst:462
 msgid "Open space (fringe)"
 msgstr "Nafasi ya wazi (pindo)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:464
+#: ../../source/about/layers.rst:464
 msgid "Open space (captured)"
 msgstr "Nafasi ya wazi (imetekwa)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:466
+#: ../../source/about/layers.rst:466
 msgid "Open space (rural)"
 msgstr "Nafasi ya wazi (vijijini)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:468
+#: ../../source/about/layers.rst:468
 msgid "Open space (fringe water)"
 msgstr "Nafasi ya wazi (maji ya pindo)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:470
+#: ../../source/about/layers.rst:470
 msgid "8"
 msgstr "8"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:470
+#: ../../source/about/layers.rst:470
 msgid "Open space (captured water)"
 msgstr "Nafasi ya wazi (maji yaliyotekwa)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:472
+#: ../../source/about/layers.rst:472
 msgid "9"
 msgstr "9"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:472
+#: ../../source/about/layers.rst:472
 msgid "Open space (rural water)"
 msgstr "Nafasi ya wazi (maji vijijini)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:476
+#: ../../source/about/layers.rst:476
 msgid "Urban series"
 msgstr "Mfululizo wa Mjini"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:483
+#: ../../source/about/layers.rst:483
 msgid "Water"
 msgstr "Maji"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:485
+#: ../../source/about/layers.rst:485
 msgid "Built up by 2000"
 msgstr "Ilijengwa na 2000"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:487
+#: ../../source/about/layers.rst:487
 msgid "Built up by 2005"
 msgstr "Ilijengwa na 2005"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:489
+#: ../../source/about/layers.rst:489
 msgid "Built up by 2010"
 msgstr "Ilijengwa na 2010"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:491
+#: ../../source/about/layers.rst:491
 msgid "Built up by 2015"
 msgstr "Imejengwa na 2015"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:495
+#: ../../source/about/layers.rst:495
 msgid "Population"
 msgstr "Idadi ya watu"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\about\layers.rst:502
+#: ../../source/about/layers.rst:502
 msgid "Total population within grid cell"
 msgstr "Jumla ya idadi ya watu ndani ya seli ya gridi ya taifa"
+
+#: ../../../<rst_epilog>:2
+msgid "iconCalculator"
+msgstr ""
+
+#: ../../../<rst_epilog>:4
+msgid "iconChart"
+msgstr ""
+
+#: ../../../<rst_epilog>:6
+msgid "iconClipboard"
+msgstr ""
+
+#: ../../../<rst_epilog>:8
+msgid "iconCloudDownload"
+msgstr ""
+
+#: ../../../<rst_epilog>:10
+msgid "iconCog"
+msgstr ""
+
+#: ../../../<rst_epilog>:12
+msgid "iconGlobe"
+msgstr ""
+
+#: ../../../<rst_epilog>:14
+msgid "iconGraph"
+msgstr ""
+
+#: ../../../<rst_epilog>:16
+msgid "iconInfo"
+msgstr ""
+
+#: ../../../<rst_epilog>:18
+msgid "iconMarkMarker"
+msgstr ""
+
+#: ../../../<rst_epilog>:20
+msgid "iconWrench"
+msgstr ""
+
+#: ../../../<rst_epilog>:22
+msgid "iconFolder"
+msgstr ""
+
+#: ../../../<rst_epilog>:24
+msgid "iconVisualization"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoCI"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoLund"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoNASA"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoGEF"
+msgstr ""

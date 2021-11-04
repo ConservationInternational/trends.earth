@@ -2,7 +2,7 @@
 """
 /***************************************************************************
  LDMP - A QGIS plugin
- This plugin supports monitoring and reporting of land degradation to the UNCCD 
+ This plugin supports monitoring and reporting of land degradation to the UNCCD
  and in support of the SDG Land Degradation Neutrality (LDN) target.
                               -------------------
         begin                : 2017-05-23
@@ -12,55 +12,68 @@
  ***************************************************************************/
 """
 
-from future import standard_library
-standard_library.install_aliases()
-import os
 import json
+import typing
+from pathlib import Path
 
-from qgis.PyQt import QtWidgets
-from qgis.PyQt.QtCore import QDate
+from qgis.PyQt import (
+    QtCore,
+    QtWidgets,
+    uic,
+)
 
-from qgis.utils import iface
-mb = iface.messageBar()
+import qgis.gui
 
-from LDMP import log
-from LDMP.calculate import DlgCalculateBase, get_script_slug
-from LDMP.gui.DlgCalculateProd import Ui_DlgCalculateProd as UiDialog
-from LDMP.api import run_script
+from . import (
+    calculate,
+    conf,
+)
+from .algorithms import models
+from .jobs.manager import job_manager
+from .logger import log
+
+DlgCalculateProdUi, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/DlgCalculateProd.ui"))
 
 
-class DlgCalculateProd(DlgCalculateBase, UiDialog):
-    def __init__(self, parent=None):
-        """Constructor."""
-        super(DlgCalculateProd, self).__init__(parent)
+class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
+    mb: qgis.gui.QgsMessageBar
 
+    def __init__(
+            self,
+            iface: qgis.gui.QgisInterface,
+            script: models.ExecutionScript,
+            parent: QtWidgets.QWidget = None
+    ):
+        super().__init__(iface, script, parent)
         self.setupUi(self)
-
-        self.traj_indic.addItems(list(self.scripts['productivity']['trajectory functions'].keys()))
+        self.mb = iface.messageBar()
+        self.traj_indic.addItems(list(self.trajectory_functions.keys()))
         self.traj_indic.currentIndexChanged.connect(self.traj_indic_changed)
-
         self.dataset_climate_update()
-        ndvi_datasets = [x for x in list(self.datasets['NDVI'].keys()) if self.datasets['NDVI'][x]['Temporal resolution'] == 'annual']
+        ndvi_datasets = []
+        for ds_name, ds_details in conf.REMOTE_DATASETS["NDVI"].items():
+            if ds_details["Temporal resolution"] == "annual":
+                ndvi_datasets.append(ds_name)
         self.dataset_ndvi.addItems(ndvi_datasets)
         self.dataset_ndvi.setCurrentIndex(1)
-
         self.start_year_climate = 0
         self.end_year_climate = 9999
         self.start_year_ndvi = 0
         self.end_year_ndvi = 9999
-
         self.dataset_ndvi_changed()
         self.traj_climate_changed()
-
         self.dataset_ndvi.currentIndexChanged.connect(self.dataset_ndvi_changed)
         self.traj_climate.currentIndexChanged.connect(self.traj_climate_changed)
-
         self.mode_te_prod.toggled.connect(self.mode_te_prod_toggled)
-
         self.mode_te_prod_toggled()
-
         self.resize(self.width(), 711)
+        self._finish_initialization()
 
+    @property
+    def trajectory_functions(self) -> typing.Dict:
+        return self.script.additional_configuration[
+            "trajectory functions"]
 
     def showEvent(self, event):
         super(DlgCalculateProd, self).showEvent(event)
@@ -156,10 +169,11 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
     def dataset_climate_update(self):
         self.traj_climate.clear()
         self.climate_datasets = {}
-        climate_types = self.scripts['productivity']['trajectory functions'][self.traj_indic.currentText()]['climate types']
+        climate_types = self.trajectory_functions[
+            self.traj_indic.currentText()]["climate types"]
         for climate_type in climate_types:
-            self.climate_datasets.update(self.datasets[climate_type])
-            self.traj_climate.addItems(list(self.datasets[climate_type].keys()))
+            self.climate_datasets.update(conf.REMOTE_DATASETS[climate_type])
+            self.traj_climate.addItems(list(conf.REMOTE_DATASETS[climate_type].keys()))
 
     def traj_climate_changed(self):
         if self.traj_climate.currentText() == "":
@@ -171,7 +185,8 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         self.update_time_bounds()
 
     def dataset_ndvi_changed(self):
-        this_ndvi_dataset = self.datasets['NDVI'][self.dataset_ndvi.currentText()]
+        this_ndvi_dataset = conf.REMOTE_DATASETS[
+            'NDVI'][self.dataset_ndvi.currentText()]
         self.start_year_ndvi = this_ndvi_dataset['Start year']
         self.end_year_ndvi = this_ndvi_dataset['End year']
 
@@ -181,8 +196,8 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         # State and performance depend only on NDVI data
         # TODO: need to also account for GAEZ and/or CCI data dates for
         # stratification
-        start_year = QDate(self.start_year_ndvi, 1, 1)
-        end_year = QDate(self.end_year_ndvi, 12, 31)
+        start_year = QtCore.QDate(self.start_year_ndvi, 1, 1)
+        end_year = QtCore.QDate(self.end_year_ndvi, 12, 31)
 
         # State
         self.perf_year_start.setMinimumDate(start_year)
@@ -201,8 +216,8 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
         self.state_year_tg_end.setMaximumDate(end_year)
 
         # Trajectory - needs to also account for climate data
-        start_year_traj = QDate(max(self.start_year_ndvi, self.start_year_climate), 1, 1)
-        end_year_traj = QDate(min(self.end_year_ndvi, self.end_year_climate), 12, 31)
+        start_year_traj = QtCore.QDate(max(self.start_year_ndvi, self.start_year_climate), 1, 1)
+        end_year_traj = QtCore.QDate(min(self.end_year_ndvi, self.end_year_climate), 12, 31)
 
         self.traj_year_start.setMinimumDate(start_year_traj)
         self.traj_year_start.setMaximumDate(end_year_traj)
@@ -230,7 +245,8 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
 
         self.close()
 
-        ndvi_dataset = self.datasets['NDVI'][self.dataset_ndvi.currentText()]['GEE Dataset']
+        ndvi_dataset = conf.REMOTE_DATASETS[
+            'NDVI'][self.dataset_ndvi.currentText()]['GEE Dataset']
 
         if self.traj_climate.currentText() != "":
             climate_gee_dataset = self.climate_datasets[self.traj_climate.currentText()]['GEE Dataset']
@@ -244,37 +260,44 @@ class DlgCalculateProd(DlgCalculateBase, UiDialog):
             prod_mode = 'JRC LPD'
 
         crosses_180th, geojsons = self.gee_bounding_box
-        payload = {'prod_mode': prod_mode,
-                   'calc_traj': self.groupBox_traj.isChecked(),
-                   'calc_perf': self.groupBox_perf.isChecked(),
-                   'calc_state': self.groupBox_state.isChecked(),
-                   'prod_traj_year_initial': self.traj_year_start.date().year(),
-                   'prod_traj_year_final': self.traj_year_end.date().year(),
-                   'prod_perf_year_initial': self.perf_year_start.date().year(),
-                   'prod_perf_year_final': self.perf_year_end.date().year(),
-                   'prod_state_year_bl_start': self.state_year_bl_start.date().year(),
-                   'prod_state_year_bl_end': self.state_year_bl_end.date().year(),
-                   'prod_state_year_tg_start': self.state_year_tg_start.date().year(),
-                   'prod_state_year_tg_end': self.state_year_tg_end.date().year(),
-                   'geojsons': json.dumps(geojsons),
-                   'crs': self.aoi.get_crs_dst_wkt(),
-                   'crosses_180th': crosses_180th,
-                   'ndvi_gee_dataset': ndvi_dataset,
-                   'climate_gee_dataset': climate_gee_dataset,
-                   'task_name': self.options_tab.task_name.text(),
-                   'task_notes': self.options_tab.task_notes.toPlainText()}
-
-        # This will add in the trajectory-method parameter for productivity 
+        payload = {
+            'prod_mode': prod_mode,
+            'calc_traj': self.groupBox_traj.isChecked(),
+            'calc_perf': self.groupBox_perf.isChecked(),
+            'calc_state': self.groupBox_state.isChecked(),
+            'prod_traj_year_initial': self.traj_year_start.date().year(),
+            'prod_traj_year_final': self.traj_year_end.date().year(),
+            'prod_perf_year_initial': self.perf_year_start.date().year(),
+            'prod_perf_year_final': self.perf_year_end.date().year(),
+            'prod_state_year_bl_start': self.state_year_bl_start.date().year(),
+            'prod_state_year_bl_end': self.state_year_bl_end.date().year(),
+            'prod_state_year_tg_start': self.state_year_tg_start.date().year(),
+            'prod_state_year_tg_end': self.state_year_tg_end.date().year(),
+            'geojsons': json.dumps(geojsons),
+            'crs': self.aoi.get_crs_dst_wkt(),
+            'crosses_180th': crosses_180th,
+            'ndvi_gee_dataset': ndvi_dataset,
+            'climate_gee_dataset': climate_gee_dataset,
+            'task_name': self.execution_name_le.text(),
+            'task_notes': self.task_notes.toPlainText()
+        }
+        # This will add in the trajectory-method parameter for productivity
         # trajectory
-        payload.update(self.scripts['productivity']['trajectory functions'][self.traj_indic.currentText()]['params'])
+        current_trajectory_function = self.trajectory_functions[
+            self.traj_indic.currentText()]
+        payload.update(current_trajectory_function["params"])
 
-        resp = run_script(get_script_slug('productivity'), payload)
-
+        resp = job_manager.submit_remote_job(payload, self.script.id)
         if resp:
-            mb.pushMessage(self.tr("Submitted"),
-                           self.tr("Productivity task submitted to Google Earth Engine."),
-                           level=0, duration=5)
+            main_msg = "Submitted"
+            description = "Productivity task submitted to Google Earth Engine."
+
         else:
-            mb.pushMessage(self.tr("Error"),
-                           self.tr("Unable to submit productivity task to Google Earth Engine."),
-                           level=0, duration=5)
+            main_msg = "Error"
+            description = "Unable to submit productivity task to Google Earth Engine."
+        self.mb.pushMessage(
+            self.tr(main_msg),
+            self.tr(description),
+            level=0,
+            duration=5
+        )

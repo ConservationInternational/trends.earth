@@ -1,5 +1,5 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2018, Conservation International
+# Copyright (C) 2017-2021, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
@@ -12,9 +12,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 1.0.1\n"
+"Project-Id-Version: Trends.Earth 1.0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-27 17:17-0400\n"
+"POT-Creation-Date: 2021-07-15 21:04-0400\n"
 "PO-Revision-Date: 2017-11-20 21:06+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2020\n"
 "Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
@@ -24,15 +24,15 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:2
+#: ../../source/documentation/settings.rst:2
 msgid "Registration and settings"
 msgstr "Enregistrement et paramètres"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:10
+#: ../../source/documentation/settings.rst:10
 msgid "Registration"
 msgstr "Enregistrement"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:12
+#: ../../source/documentation/settings.rst:12
 msgid ""
 "The toolbox is free to use, but you must register an email address prior to "
 "using any of the cloud-based functions."
@@ -40,7 +40,7 @@ msgstr ""
 "La boîte à outils est libre d'utilisation, mais vous devez enregistrer une "
 "adresse e-mail avant d'utiliser l'une des fonctions basées sur le cloud."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:15
+#: ../../source/documentation/settings.rst:15
 msgid ""
 "To register your email address and obtain a free account, select the wrench "
 "icon (|iconWrench|). This will open up the \"Settings\" dialog box:"
@@ -49,7 +49,11 @@ msgstr ""
 "sélectionnez l'icône de la clé (|iconWrench |). Cela ouvrira la boîte de "
 "dialogue \"Paramètres\":"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:21
+#: ../../../<rst_epilog>:20 ../../../<rst_epilog>:20
+msgid "iconWrench"
+msgstr ""
+
+#: ../../source/documentation/settings.rst:21
 msgid ""
 "To Register, click the \"Step 1: Register\" button. Enter your email, name, "
 "organization and country of residence and select \"Ok\":"
@@ -58,12 +62,12 @@ msgstr ""
 "Entrez votre email, nom, organisation et pays de résidence et sélectionnez "
 "\"Ok\":"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:27
+#: ../../source/documentation/settings.rst:27
 msgid "You will see a meesage indicating your user has been registered:"
 msgstr ""
 "Vous verrez un message indiquant que votre utilisateur a été enregistré:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:32
+#: ../../source/documentation/settings.rst:32
 msgid ""
 "After registering, you will receive an email from api@trends.earth with your"
 " password. Once you receive this email, click on \"Step 2: Enter login\". "
@@ -76,16 +80,16 @@ msgstr ""
 "vous demandant votre email et votre mot de passe. Entrez le mot de passe que"
 " vous avez reçu de api@trends.earth et cliquez sur \"Ok\":"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:40
+#: ../../source/documentation/settings.rst:40
 msgid ""
 "You will see a message indicating you have successfully been logged in:"
 msgstr "Vous verrez un message indiquant que vous avez été connecté:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:46
+#: ../../source/documentation/settings.rst:46
 msgid "Updating your user"
 msgstr "Mise à jour de votre utilisateur"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:48
+#: ../../source/documentation/settings.rst:48
 msgid ""
 "If you already are registered for |Trends.Earth| but want to change your "
 "login information; update your name, organization, or country; or delete "
@@ -96,7 +100,11 @@ msgstr ""
 " supprimez votre utilisateur, cliquez sur \"Mettre à jour l'utilisateur\" "
 "dans la boîte de dialogue \"Paramètres\"."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:55
+#: ../../../<rst_epilog>:26 ../../../<rst_epilog>:26 ../../../<rst_epilog>:26
+msgid "Trends.Earth"
+msgstr ""
+
+#: ../../source/documentation/settings.rst:55
 msgid ""
 "If you want to change your username, click on \"Change user\". Note that "
 "this function is only useful if you already have another existing "
@@ -111,7 +119,7 @@ msgstr ""
 "d'utilisateur, entrez l'email et le mot de passe que vous souhaitez changer "
 "et cliquez sur \"OK\":"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:64
+#: ../../source/documentation/settings.rst:64
 msgid ""
 "If you want to update your profile, click on \"Update profile\". Update your"
 " information in the box that appears and click \"Save\":"
@@ -120,7 +128,7 @@ msgstr ""
 " profil\". Mettez à jour vos informations dans la boîte qui apparaît et "
 "cliquez sur \"Enregistrer\":"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:70
+#: ../../source/documentation/settings.rst:70
 msgid ""
 "To delete your user, click \"Delete user\". A warning message will appear. "
 "Click \"Ok\" if you are sure you want to delete your user:"
@@ -129,11 +137,11 @@ msgstr ""
 "Un message d'avertissement apparaîtra. Cliquez sur \"OK\" si vous êtes sûr "
 "de vouloir supprimer votre utilisateur:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:78
+#: ../../source/documentation/settings.rst:78
 msgid "Forgot password"
 msgstr "Mot de passe oublié"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:80
+#: ../../source/documentation/settings.rst:80
 msgid ""
 "If you forget your password, click on \"Reset password\" from the settings "
 "dialog box."
@@ -141,7 +149,7 @@ msgstr ""
 "Si vous oubliez votre mot de passe, cliquez sur \"Réinitialiser le mot de "
 "passe\" dans la boîte de dialogue des paramètres."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:83
+#: ../../source/documentation/settings.rst:83
 msgid ""
 "A password will be sent to your email. Please check your Junk folder if you "
 "cannot find it within your inbox. The email will come from api@trends.earth."
@@ -150,7 +158,7 @@ msgstr ""
 "de courrier indésirable si vous ne le trouvez pas dans votre boîte de "
 "réception. L'email viendra de api@trends.earth."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:86
+#: ../../source/documentation/settings.rst:86
 msgid ""
 "Once you receive your new password, return to the \"Settings\" screen and "
 "use \"Step 2: Enter login\" to enter your new pasword."
@@ -159,17 +167,17 @@ msgstr ""
 "«Paramètres» et utilisez «Étape 2: Entrer le nom d'utilisateur» pour entrer "
 "votre nouveau mot de passe."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:93
+#: ../../source/documentation/settings.rst:93
 msgid "Advanced settings"
 msgstr "Réglages avancés"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:95
+#: ../../source/documentation/settings.rst:95
 msgid "Click \"Edit advanced options\" to bring up the advanced settings page:"
 msgstr ""
 "Cliquez sur &quot;Modifier les options avancées&quot; pour afficher la page "
 "des paramètres avancés:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:102
+#: ../../source/documentation/settings.rst:102
 msgid ""
 "From the advanced settings page, you can change settings including "
 "enabling/disabling debug mode, and loading pre-compiled binaries to speed up"
@@ -180,11 +188,11 @@ msgstr ""
 "des fichiers binaires précompilés pour accélérer les calculs dans "
 "Trends.Earth."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:108
+#: ../../source/documentation/settings.rst:108
 msgid "Debug mode"
 msgstr "Mode débogage"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:110
+#: ../../source/documentation/settings.rst:110
 msgid ""
 "Debug mode saves additional information on the processes that you run in "
 "Trends.Earth to the QGIS messages log (accessible by enabling the \"Log "
@@ -196,7 +204,7 @@ msgstr ""
 "&quot;Affichage&quot; puis &quot;Panneaux&quot; dans la barre de menus "
 "QGIS)."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:114
+#: ../../source/documentation/settings.rst:114
 msgid ""
 "To enable logging of debug messages, check the box. These messages may be "
 "useful when trying to problem-solve any issues you might encounter while "
@@ -206,11 +214,11 @@ msgstr ""
 " messages peuvent être utiles lorsque vous essayez de résoudre des problèmes"
 " que vous pourriez rencontrer lors de l&#39;utilisation de Trends.Earth."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:119
+#: ../../source/documentation/settings.rst:119
 msgid "Use binaries for faster processing"
 msgstr "Utilisez des binaires pour un traitement plus rapide"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:121
+#: ../../source/documentation/settings.rst:121
 msgid ""
 "Some of the functions in Trends.Earth are available in versions that have "
 "been compiled using the `Numba`_ library. Numba can translate Python code "
@@ -225,7 +233,7 @@ msgstr ""
 "utilisateurs de Trends.Earth, cela signifie pouvoir traiter les données plus"
 " rapidement que dans la version standard de Trends.Earth."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:127
+#: ../../source/documentation/settings.rst:127
 msgid ""
 "Because Numba is not supported within QGIS, and compiling files with Numba "
 "requires having additional software installed on your machine, we have made "
@@ -241,7 +249,7 @@ msgstr ""
 "plus facilement aux avantages de Numba sans avoir à l&#39;installer eux-"
 "mêmes."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:133
+#: ../../source/documentation/settings.rst:133
 msgid ""
 "To access the binaries, first choose a folder on your machine where you "
 "would like to have them saved, by clicking the \"Browse\" button on the "
@@ -267,7 +275,7 @@ msgstr ""
 "<https://groups.google.com/forum/#!forum/trends_earth_users/join> `_ pour de"
 " l&#39;aide."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\settings.rst:143
+#: ../../source/documentation/settings.rst:143
 msgid ""
 "Not all of the functions in Trends.Earth can make use of the binaries, so "
 "don't expect everything to run faster after you have installed them. The "
@@ -283,3 +291,63 @@ msgstr ""
 " binaires, en particulier si vous travaillez avec des jeux de données "
 "personnalisés à très haute résolution. À l&#39;avenir, nous ajouterons "
 "également la prise en charge d&#39;autres fonctions."
+
+#: ../../../<rst_epilog>:2
+msgid "iconCalculator"
+msgstr ""
+
+#: ../../../<rst_epilog>:4
+msgid "iconChart"
+msgstr ""
+
+#: ../../../<rst_epilog>:6
+msgid "iconClipboard"
+msgstr ""
+
+#: ../../../<rst_epilog>:8
+msgid "iconCloudDownload"
+msgstr ""
+
+#: ../../../<rst_epilog>:10
+msgid "iconCog"
+msgstr ""
+
+#: ../../../<rst_epilog>:12
+msgid "iconGlobe"
+msgstr ""
+
+#: ../../../<rst_epilog>:14
+msgid "iconGraph"
+msgstr ""
+
+#: ../../../<rst_epilog>:16
+msgid "iconInfo"
+msgstr ""
+
+#: ../../../<rst_epilog>:18
+msgid "iconMarkMarker"
+msgstr ""
+
+#: ../../../<rst_epilog>:22
+msgid "iconFolder"
+msgstr ""
+
+#: ../../../<rst_epilog>:24
+msgid "iconVisualization"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoCI"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoLund"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoNASA"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoGEF"
+msgstr ""

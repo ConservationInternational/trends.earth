@@ -1,20 +1,20 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2018, Conservation International
+# Copyright (C) 2017-2021, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Alex Zvoleff <azvoleff@conservation.org>, 2018
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
+# Alex Zvoleff <azvoleff@conservation.org>, 2021
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 1.0.1\n"
+"Project-Id-Version: Trends.Earth 1.0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-27 17:17-0400\n"
+"POT-Creation-Date: 2021-07-15 21:04-0400\n"
 "PO-Revision-Date: 2018-04-04 19:03+0000\n"
-"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2021\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,11 +22,11 @@ msgstr ""
 "Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:4
+#: ../../source/training/tutorial_task_download.rst:4
 msgid "Task status & download"
 msgstr "Estado de la tarea y descarga"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:6
+#: ../../source/training/tutorial_task_download.rst:6
 msgid ""
 "**Objective**: Learn how to check the status of submitted tasks, download "
 "them and compute pyramids for faster visualization of results in QGIS."
@@ -35,15 +35,15 @@ msgstr ""
 "descárguelos y calcule las pirámides para una visualización más rápida de "
 "los resultados en QGIS."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:8
+#: ../../source/training/tutorial_task_download.rst:8
 msgid "**Estimated time of completion**: 20 minutes"
 msgstr "**Tiempo estimado de finalización**: 20 minutos"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:10
+#: ../../source/training/tutorial_task_download.rst:10
 msgid "**Internet access**: Required"
 msgstr "**Acceso a Internet**: obligatorio"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:12
+#: ../../source/training/tutorial_task_download.rst:12
 msgid ""
 "`Download this page as a PDF for offline use "
 "<../pdfs/Trends.Earth_Tutorial03_Downloading_Results.pdf>`_"
@@ -51,7 +51,7 @@ msgstr ""
 "`Descargue esta página en formato PDF para uso fuera de línea "
 "<../pdfs/Trends.Earth_Tutorial03_Downloading_Results.pdf>`_"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:15
+#: ../../source/training/tutorial_task_download.rst:15
 msgid ""
 "The results of Trends.Earth analysis are rasters in TIF format for "
 "indicators and XLSX spreadsheets for the tabular outputs. You will need to "
@@ -67,7 +67,7 @@ msgstr ""
 "facilitar el acceso posterior. El **Escritorio** es una ubicación "
 "generalmente seleccionada porque es fácil de encontrar."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:17
+#: ../../source/training/tutorial_task_download.rst:17
 msgid ""
 "To create a folder in your computer's desktop, navigate there by minimizing "
 "all the windows and programs you have open (Note: not closing, simply "
@@ -77,7 +77,7 @@ msgstr ""
 "allí minimizando todas las ventanas y programas que tenga abiertos (Nota: no"
 " se cierra, simplemente eliminándolos de la pantalla)."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:19
+#: ../../source/training/tutorial_task_download.rst:19
 msgid ""
 "Once in the Desktop, **right click** on an empty space and a menu will "
 "display."
@@ -85,7 +85,7 @@ msgstr ""
 "Una vez en el escritorio, **haga clic derecho** en un espacio vacío y se "
 "mostrará un menú."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:21
+#: ../../source/training/tutorial_task_download.rst:21
 msgid ""
 "Move your mouse cursor to the **New** option at the bottom of the menu, and "
 "another menu will show to the right."
@@ -93,13 +93,13 @@ msgstr ""
 "Mueva el cursor del mouse a la opción **Nuevo** en la parte inferior del "
 "menú y aparecerá otro menú a la derecha."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:23
+#: ../../source/training/tutorial_task_download.rst:23
 msgid "Navigate with your mouse cursor to **Folder** and right-click."
 msgstr ""
 "Navegue con el cursor del mouse hasta **Carpeta** y haga clic con el botón "
 "derecho."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:28
+#: ../../source/training/tutorial_task_download.rst:28
 msgid ""
 "A new folder named **New Folder** will appear on your desktop with the name "
 "highlighted in blue. Type the name you want to assign it. In this example, "
@@ -111,7 +111,7 @@ msgstr ""
 "ejemplo, lo llamamos **Trends.Earth**. Luego presione la tecla **Enter** en "
 "su teclado para guardar el nombre."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:33
+#: ../../source/training/tutorial_task_download.rst:33
 msgid ""
 "Navigate again to QGIS, and click on the cloud with the arrow facing down "
 "icon (|iconCloudDownload|) from the Trends.Earth toolbar."
@@ -119,7 +119,11 @@ msgstr ""
 "Navegue de nuevo a QGIS y haga clic en la nube con la flecha hacia abajo en "
 "el ícono (|iconCloudDownload|) de la barra de herramientas Trends.Earth."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:38
+#: ../../../<rst_epilog>:8 ../../../<rst_epilog>:8
+msgid "iconCloudDownload"
+msgstr ""
+
+#: ../../source/training/tutorial_task_download.rst:38
 msgid ""
 "The **Download results from Earth Engine** will open. Click **Refresh List**"
 " to check the updated status of the tasks submitted in the previous section "
@@ -131,7 +135,7 @@ msgstr ""
 " en la sección previa del tutorial (:ref:`1-step_subindicators`). Uno de los"
 " tres mensajes se mostrará allí:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:40
+#: ../../source/training/tutorial_task_download.rst:40
 msgid ""
 "**RUNNING**: The task has been successfully submitted to Earth Engine and it"
 " is being processed. Wait a few minutes and click **Refresh list** again."
@@ -140,13 +144,13 @@ msgstr ""
 "está procesando. Espere unos minutos y haga clic en **Actualizar lista** "
 "nuevamente."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:42
+#: ../../source/training/tutorial_task_download.rst:42
 msgid ""
 "**FINISHED**: The task has been completed and it is ready to be downloaded."
 msgstr ""
 "**FINALIZADO**: la tarea se ha completado y está lista para descargarse."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:44
+#: ../../source/training/tutorial_task_download.rst:44
 msgid ""
 "**FAILED**: There has been some error in the parameters selected and the "
 "task could not be completed. Please run the tool again to make sure all "
@@ -156,7 +160,7 @@ msgstr ""
 "tarea no se pudo completar. Vuelva a ejecutar la herramienta para asegurarse"
 " de que todos los parámetros sean correctos."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:49
+#: ../../source/training/tutorial_task_download.rst:49
 msgid ""
 "When the task shows status **FINISHED** you can select it by clicking on it "
 "(it will be highlighted in blue), and them click on the **Download results**"
@@ -166,7 +170,7 @@ msgstr ""
 "haciendo clic en él (se resaltará en azul), y haga clic en el botón "
 "**Descargar resultados**."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:54
+#: ../../source/training/tutorial_task_download.rst:54
 msgid ""
 "A window will open for you to define the location (the folder you just "
 "created on the Desktop) and the name of the output file. Make the name as "
@@ -178,7 +182,7 @@ msgstr ""
 "nombre sea lo más informativo posible para que pueda saber qué información "
 "contiene la próxima vez que quiera usar esos resultados."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:59
+#: ../../source/training/tutorial_task_download.rst:59
 msgid ""
 "The Download window will disappear and you will be brought back to the QGIS "
 "interface. You will see light blue progress bar indicating which percentage "
@@ -192,7 +196,7 @@ msgstr ""
 " minutos dependiendo del tamaño del área seleccionada y la velocidad de la "
 "conexión a Internet disponible."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:64
+#: ../../source/training/tutorial_task_download.rst:64
 msgid ""
 "Once the download is completed, the results will be loaded in QGIS. In this "
 "example you'll see a layer for each of the SDG 15.3.1 computed: land "
@@ -203,11 +207,11 @@ msgstr ""
 "productividad de la tierra, cobertura de la tierra y carbono orgánico del "
 "suelo."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:71
+#: ../../source/training/tutorial_task_download.rst:71
 msgid "**OPTIONAL: Computing Pyramids**"
 msgstr "**OPCIONAL: Cálculo de Pirmámides**"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:73
+#: ../../source/training/tutorial_task_download.rst:73
 msgid ""
 "When the raster file is too big, due to a large study area, high spatial "
 "resolution, or a large number of bands in the file, the data could take "
@@ -227,7 +231,7 @@ msgstr ""
 "dependiendo del tamaño del área, así que asegúrese de tener suficiente "
 "tiempo para procesarlo. Para calcular las pirámides tienes que:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:75
+#: ../../source/training/tutorial_task_download.rst:75
 msgid ""
 "Navigate with your cursor to the layer you want to compute pyramids for and "
 "right click over it. A menu will open. Navigate to **Properties** and click "
@@ -237,7 +241,7 @@ msgstr ""
 " y haga clic con el botón derecho sobre ella. Se abrirá un menú. Navega a "
 "**Propiedades** y haz clic en él."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:78
+#: ../../source/training/tutorial_task_download.rst:78
 msgid ""
 "When using the **Calculate all three sub-indicators in one step** option "
 "(described in the previous tutorial :ref:`1-step_subindicators`), all the "
@@ -252,7 +256,7 @@ msgstr ""
 "significa que las pirámides deben computarse solo una vez para los tres "
 "subindicadores."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:83
+#: ../../source/training/tutorial_task_download.rst:83
 msgid ""
 "The Layer Properties menu will open. From the options on the left, navigate "
 "to **Pyramids** and click on it."
@@ -260,13 +264,13 @@ msgstr ""
 "Se abrirá el menú Propiedades de capa. Desde las opciones de la izquierda, "
 "navegue hasta **Pirmámides** y haga clic en él."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:88
+#: ../../source/training/tutorial_task_download.rst:88
 msgid ""
 "Once on the **Pyramids** tab you will see a description about they are."
 msgstr ""
 "Una vez en la pestaña **Pirámides**, verá una descripción sobre ellos."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:93
+#: ../../source/training/tutorial_task_download.rst:93
 msgid ""
 "To the right of the window you will see the **Resolutions** options. "
 "Selecting all of them will make displaying in QGIS the fastest, but this "
@@ -289,21 +293,21 @@ msgstr ""
 " sucesivamente). Las resoluciones se seleccionan haciendo clic en ellas. "
 "Cuando se seleccionen, se pondrán azules."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:95
+#: ../../source/training/tutorial_task_download.rst:95
 msgid "Make sure that the settings at the bottom are set to:"
 msgstr ""
 "Asegúrese de que la configuración en la parte inferior esté configurada "
 "para:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:97
+#: ../../source/training/tutorial_task_download.rst:97
 msgid "**Overview format**: External"
 msgstr "**Formato de resumen**: Externo"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:98
+#: ../../source/training/tutorial_task_download.rst:98
 msgid "**Resampling method**: Nearest Neighbour"
 msgstr "**Método de remuestreo**: vecino más cercano"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:100
+#: ../../source/training/tutorial_task_download.rst:100
 msgid ""
 "Then click on the **Build pyramids** button. The progress bar next to it "
 "will show which percentage of the task has been completed."
@@ -311,7 +315,7 @@ msgstr ""
 "Luego haga clic en el botón **Crear pirámides**. La barra de progreso al "
 "lado mostrará el porcentaje de la tarea que se ha completado."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:105
+#: ../../source/training/tutorial_task_download.rst:105
 msgid ""
 "When pyramids have been built you will notice that the icons next to the "
 "resolutions will have changed from **red crosses** to **yellow pyramids**."
@@ -320,6 +324,70 @@ msgstr ""
 "de las resoluciones habrán cambiado de **cruces rojas** a **pirámides "
 "amarillas**."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\training\tutorial_task_download.rst:110
+#: ../../source/training/tutorial_task_download.rst:110
 msgid "Click **OK** to go back to the QGIS main interface."
 msgstr "Haga clic en **Aceptar** para volver a la interfaz principal de QGIS."
+
+#: ../../../<rst_epilog>:2
+msgid "iconCalculator"
+msgstr ""
+
+#: ../../../<rst_epilog>:4
+msgid "iconChart"
+msgstr ""
+
+#: ../../../<rst_epilog>:6
+msgid "iconClipboard"
+msgstr ""
+
+#: ../../../<rst_epilog>:10
+msgid "iconCog"
+msgstr ""
+
+#: ../../../<rst_epilog>:12
+msgid "iconGlobe"
+msgstr ""
+
+#: ../../../<rst_epilog>:14
+msgid "iconGraph"
+msgstr ""
+
+#: ../../../<rst_epilog>:16
+msgid "iconInfo"
+msgstr ""
+
+#: ../../../<rst_epilog>:18
+msgid "iconMarkMarker"
+msgstr ""
+
+#: ../../../<rst_epilog>:20
+msgid "iconWrench"
+msgstr ""
+
+#: ../../../<rst_epilog>:22
+msgid "iconFolder"
+msgstr ""
+
+#: ../../../<rst_epilog>:24
+msgid "iconVisualization"
+msgstr ""
+
+#: ../../../<rst_epilog>:26
+msgid "Trends.Earth"
+msgstr "Trends.Earth"
+
+#: ../../../<rst_epilog>:0
+msgid "logoCI"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoLund"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoNASA"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoGEF"
+msgstr ""

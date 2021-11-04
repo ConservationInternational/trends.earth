@@ -1,5 +1,5 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2018, Conservation International
+# Copyright (C) 2017-2021, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
@@ -10,9 +10,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 1.0.1\n"
+"Project-Id-Version: Trends.Earth 1.0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-27 17:17-0400\n"
+"POT-Creation-Date: 2021-07-15 21:04-0400\n"
 "PO-Revision-Date: 2017-11-20 21:06+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2018\n"
 "Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
@@ -22,11 +22,11 @@ msgstr ""
 "Language: sw\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\installing.rst:2
+#: ../../source/background/installing.rst:2
 msgid "Installing the toolbox"
 msgstr "Kuweka sanduku la zana"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\installing.rst:4
+#: ../../source/background/installing.rst:4
 msgid ""
 "There are different ways to install |trends.earth|, depending on whether you"
 " want to install the stable version (recommended) or the development "
@@ -35,11 +35,16 @@ msgstr ""
 "Kuna njia tofauti za kufunga |trends.earth|, kutegemea kama unataka kufunga "
 "toleo imara (ilipendekezwa) au toleo la maendeleo."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\installing.rst:8
+#: ../../../<rst_epilog>:26 ../../../<rst_epilog>:26 ../../../<rst_epilog>:26
+#: ../../../<rst_epilog>:26
+msgid "Trends.Earth"
+msgstr ""
+
+#: ../../source/background/installing.rst:8
 msgid "Installing the stable version (recommended)"
 msgstr "Kuweka toleo la imara (ilipendekezwa)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\installing.rst:9
+#: ../../source/background/installing.rst:9
 msgid ""
 "The preferred way to install the |trends.earth| is through QGIS. To install "
 "from within QGIS, first launch QGIS, and then go to `Plugins` in the menu "
@@ -50,7 +55,7 @@ msgstr ""
 "`Plugins` kwenye bar ya menyu hapo juu ya programu na uchague `Dhibiti na "
 "usakanishe Plugins`."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\installing.rst:16
+#: ../../source/background/installing.rst:16
 msgid ""
 "Then search for a plugin called `trends.earth` and select `Install plugin` "
 "at the bottom right of the screen."
@@ -58,7 +63,7 @@ msgstr ""
 "Kisha utafute Plugin inayoitwa 'trends.earth` na uchague `Weka Plugin` chini"
 " ya kulia ya skrini."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\installing.rst:22
+#: ../../source/background/installing.rst:22
 msgid ""
 "If your plugin has been installed properly, there will be a menu bar in the "
 "top left of your browser that looks like this:"
@@ -66,11 +71,11 @@ msgstr ""
 "Ikiwa Plugin yako imewekwa vizuri, kutakuwa na bar ya menyu kwenye kushoto "
 "ya kivinjari chako inayoonekana kama hii:"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\installing.rst:29
+#: ../../source/background/installing.rst:29
 msgid "Installing the development version (advanced users)"
 msgstr "Kuweka toleo la maendeleo (watumiaji wa juu)"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\background\installing.rst:31
+#: ../../source/background/installing.rst:31
 msgid ""
 "There are two ways to install the development version of the plugin. For "
 "more details, see the `README "
@@ -80,3 +85,67 @@ msgstr ""
 "Kuna njia mbili za kufunga toleo la maendeleo ya Plugin. Kwa maelezo zaidi, "
 "angalia `README <https://github.com/ConservationInternational/trends.earth"
 "#development-version>`_ for |trends.earth|."
+
+#: ../../../<rst_epilog>:2
+msgid "iconCalculator"
+msgstr ""
+
+#: ../../../<rst_epilog>:4
+msgid "iconChart"
+msgstr ""
+
+#: ../../../<rst_epilog>:6
+msgid "iconClipboard"
+msgstr ""
+
+#: ../../../<rst_epilog>:8
+msgid "iconCloudDownload"
+msgstr ""
+
+#: ../../../<rst_epilog>:10
+msgid "iconCog"
+msgstr ""
+
+#: ../../../<rst_epilog>:12
+msgid "iconGlobe"
+msgstr ""
+
+#: ../../../<rst_epilog>:14
+msgid "iconGraph"
+msgstr ""
+
+#: ../../../<rst_epilog>:16
+msgid "iconInfo"
+msgstr ""
+
+#: ../../../<rst_epilog>:18
+msgid "iconMarkMarker"
+msgstr ""
+
+#: ../../../<rst_epilog>:20
+msgid "iconWrench"
+msgstr ""
+
+#: ../../../<rst_epilog>:22
+msgid "iconFolder"
+msgstr ""
+
+#: ../../../<rst_epilog>:24
+msgid "iconVisualization"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoCI"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoLund"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoNASA"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoGEF"
+msgstr ""

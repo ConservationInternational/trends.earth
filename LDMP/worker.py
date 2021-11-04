@@ -18,6 +18,7 @@ from builtins import object
 import sys
 import time
 
+import qgis.gui
 from qgis.utils import iface
 from qgis.core import Qgis
 
@@ -25,7 +26,7 @@ from qgis.PyQt import QtCore
 from qgis.PyQt.QtCore import QThread, Qt, QEventLoop, QCoreApplication
 from qgis.PyQt.QtWidgets import QProgressBar, QPushButton
 
-from LDMP import log
+from .logger import log
 
 
 class tr_worker(object):
@@ -84,8 +85,7 @@ class UserAbortedNotification(Exception):
 
 
 def start_worker(worker, iface, message, with_progress=True):
-    # configure the QgsMessageBar
-    message_bar_item = iface.messageBar().createMessage(message)
+    message_bar_item = qgis.gui.QgsMessageBar.createMessage(message)
     progress_bar = QProgressBar()
     progress_bar.setAlignment(Qt.AlignLeft | Qt.AlignVCenter)
     if not with_progress:
@@ -96,7 +96,8 @@ def start_worker(worker, iface, message, with_progress=True):
     cancel_button.clicked.connect(worker.kill)
     message_bar_item.layout().addWidget(progress_bar)
     message_bar_item.layout().addWidget(cancel_button)
-    iface.messageBar().pushWidget(message_bar_item, Qgis.Info)
+    message_bar = iface.messageBar()
+    message_bar.pushWidget(message_bar_item, Qgis.Info)
 
     # start the worker in a new thread
     # let Qt take ownership of the QThread
@@ -122,13 +123,11 @@ def start_worker(worker, iface, message, with_progress=True):
     return thread, message_bar_item
 
 def worker_killed(result, thread, worker, iface, message_bar_item):
-    # remove widget from message bar
-    #iface.messageBar().popWidget(message_bar_item)
     pass
 
 def worker_finished(result, thread, worker, iface, message_bar_item):
-    # remove widget from message bar
-    iface.messageBar().popWidget(message_bar_item)
+    message_bar = iface.messageBar()
+    message_bar.popWidget(message_bar_item)
     if result is not None:
         worker.successfully_finished.emit(result)
 
@@ -184,6 +183,9 @@ class StartWorker(object):
 
     def get_return(self):
         return self.return_val
+
+    def was_killed(self):
+        return self.worker.killed
 
     def save_exception(self, exception):
         self.exception = exception

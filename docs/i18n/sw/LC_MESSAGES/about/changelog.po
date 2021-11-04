@@ -1,28 +1,25 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2018, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
-#
+# Copyright (C) 2017-2021, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
 # Translators:
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2020
+# 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 1.0.1\n"
+"Project-Id-Version: Trends.Earth 1.0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-06-30 22:54-0400\n"
+"POT-Creation-Date: 2021-07-15 21:04-0400\n"
 "PO-Revision-Date: 2019-07-23 19:36+0000\n"
-"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-"
-"roglich@conservation.org>, 2020\n"
-"Language: sw\n"
-"Language-Team: Swahili (https://www.transifex.com/conservation-"
-"international/teams/80165/sw/)\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2020\n"
+"Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Language: sw\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../../source/about/changelog.rst:2
 msgid "Changelog"
@@ -32,166 +29,183 @@ msgstr "Changelog"
 msgid "This page lists the version history of |trends.earth|."
 msgstr "Ukurasa huu unaorodhesha historia ya toleo la | trends.earth |."
 
+#: ../../../<rst_epilog>:26 ../../../<rst_epilog>:26
+msgid "Trends.Earth"
+msgstr ""
+
 #: ../../source/about/changelog.rst:7
-#, fuzzy
+msgid ""
+"`1.0.6 (July 15, 2021) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.6>`_"
+msgstr ""
+
+#: ../../source/about/changelog.rst:9
+msgid ""
+"Remove trends.earth-schemas as a submodule and install through setup.py "
+"(much cleaner for version tracking, development, etc.)"
+msgstr ""
+
+#: ../../source/about/changelog.rst:11
+msgid ""
+"Fix bug in loading 2020 NDVI data in GEE code (asset name wasn't set right "
+"so 2020 wasn't loading)"
+msgstr ""
+
+#: ../../source/about/changelog.rst:13
+msgid "Various invoke tasks added to help with plugin development/release."
+msgstr ""
+
+#: ../../source/about/changelog.rst:16
 msgid ""
 "`1.0.4 (June 30, 2021) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.4>`_"
 msgstr ""
-"`0.58 (Agosti 11, 2018) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.58>"
-" `_"
 
-#: ../../source/about/changelog.rst:9
+#: ../../source/about/changelog.rst:18
 msgid ""
-"Add WorldPop and Gridded Population of the World version 4 (GPWv4) to the"
-" datasets available through Trends.Earth"
+"Add WorldPop and Gridded Population of the World version 4 (GPWv4) to the "
+"datasets available through Trends.Earth"
 msgstr ""
 
-#: ../../source/about/changelog.rst:11
+#: ../../source/about/changelog.rst:20
 msgid "Update to allow access to ESA-CCI land cover through 2020"
 msgstr ""
 
-#: ../../source/about/changelog.rst:12
+#: ../../source/about/changelog.rst:21
 msgid "Update GPCC and GPCP datasets"
 msgstr ""
 
-#: ../../source/about/changelog.rst:13
+#: ../../source/about/changelog.rst:22
 msgid "Fix bug when non-integer buffers are used"
 msgstr ""
 
-#: ../../source/about/changelog.rst:14
-#, fuzzy
+#: ../../source/about/changelog.rst:23
 msgid "Minor documentation typo fixes"
-msgstr "Marekebisho ndogo ya unicode."
+msgstr ""
 
-#: ../../source/about/changelog.rst:17
-#, fuzzy
+#: ../../source/about/changelog.rst:26
 msgid ""
 "`1.0.2 (August 14, 2020) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.2>`_"
 msgstr ""
-"`0.58 (Agosti 11, 2018) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.58>"
-" `_"
 
-#: ../../source/about/changelog.rst:19
+#: ../../source/about/changelog.rst:28
 msgid ""
-"Fix urban area code to allow processing of AOIs with areas between 10,000"
-" sq km and 25,000 sq km."
+"Fix urban area code to allow processing of AOIs with areas between 10,000 sq"
+" km and 25,000 sq km."
 msgstr ""
 
-#: ../../source/about/changelog.rst:21
+#: ../../source/about/changelog.rst:30
 msgid "Add latest MERRA2 data (through 2019)."
 msgstr ""
 
-#: ../../source/about/changelog.rst:22
+#: ../../source/about/changelog.rst:31
 msgid "Remove maximum area limitation from download tool."
 msgstr ""
 
-#: ../../source/about/changelog.rst:23
+#: ../../source/about/changelog.rst:32
 msgid "Bump httplib2 to 0.18.0."
 msgstr ""
 
-#: ../../source/about/changelog.rst:24
+#: ../../source/about/changelog.rst:33
 msgid "Update from GPCC V6 to GPCC V7"
 msgstr ""
 
-#: ../../source/about/changelog.rst:25
+#: ../../source/about/changelog.rst:34
 msgid "Add 2019 Hansen et al. deforestation data"
 msgstr ""
 
-#: ../../source/about/changelog.rst:26
+#: ../../source/about/changelog.rst:35
 msgid ""
 "Update to latest colormap for degradation data (addressing issues with "
 "reg/green colorblindness)."
 msgstr ""
 
-#: ../../source/about/changelog.rst:28
+#: ../../source/about/changelog.rst:37
 msgid ""
-"Add support for more datatypes in input shapefiles (add PointZ, "
-"MultiPoint, MultiPointZ, PolygonZ, MultiPolygonZ)."
+"Add support for more datatypes in input shapefiles (add PointZ, MultiPoint, "
+"MultiPointZ, PolygonZ, MultiPolygonZ)."
 msgstr ""
 
-#: ../../source/about/changelog.rst:30
+#: ../../source/about/changelog.rst:39
 msgid ""
 "Misc bugfixes to address Python errors that were coming up with some "
 "QMessageBox messages."
 msgstr ""
 
-#: ../../source/about/changelog.rst:34
+#: ../../source/about/changelog.rst:43
 msgid ""
 "`1.0.0 (April 27, 2020) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.0>`_"
 msgstr ""
 
-#: ../../source/about/changelog.rst:36
-msgid ""
-"Add ability to download and use pre-compiled binaries (compiled with "
-"Numba) to speed up some local calculations. Right now this only is "
-"available for the SDG15.3.1 summary table calculation, but eventually "
-"this will be expanded to other tools as well."
-msgstr ""
-"Ongeza uwezo wa kupakua na kutumia vitabu vilivyoandaliwa awali "
-"(vilivyokusanywa na Numba) ili kuharakisha mahesabu kadhaa ya mahali. "
-"Hivi sasa hii inapatikana tu kwa hesabu ya muhtasari wa meza ya "
-"SDG15.3.1, lakini mwishowe hii itapanuliwa kwa zana zingine pia."
-
-#: ../../source/about/changelog.rst:40
-msgid ""
-"Related to the above, there is now an \"advanced\" settings button in the"
-" settings window, that will allow users to download pre-compiled "
-"binaries, and to turn on or off detailed logging of messages while the "
-"tool is running. These log messages can be useful when trying to trouble-"
-"shoot problems if you encounter any."
-msgstr ""
-"Kuhusiana na hayo hapo juu, sasa kuna kitufe cha &quot;hali ya juu&quot; "
-"ya mipangilio kwenye dirisha la mipangilio, ambayo itawaruhusu watumiaji "
-"kupakua vifungu vilivyojumuishwa hapo awali, na kuwasha au kuzima "
-"ukarasaji wa kina wa ujumbe wakati zana inafanya kazi. Ujumbe huu wa logi"
-" unaweza kuwa na maana wakati wa kujaribu kusumbua shida za risasi ikiwa "
-"unakutana na yoyote."
-
 #: ../../source/about/changelog.rst:45
 msgid ""
-"Improve checks for geometry validity for geometries in input files, and "
-"give an error message rather than throwing an exception when there are "
-"geometry errors."
+"Add ability to download and use pre-compiled binaries (compiled with Numba) "
+"to speed up some local calculations. Right now this only is available for "
+"the SDG15.3.1 summary table calculation, but eventually this will be "
+"expanded to other tools as well."
+msgstr ""
+"Ongeza uwezo wa kupakua na kutumia vitabu vilivyoandaliwa awali "
+"(vilivyokusanywa na Numba) ili kuharakisha mahesabu kadhaa ya mahali. Hivi "
+"sasa hii inapatikana tu kwa hesabu ya muhtasari wa meza ya SDG15.3.1, lakini"
+" mwishowe hii itapanuliwa kwa zana zingine pia."
+
+#: ../../source/about/changelog.rst:49
+msgid ""
+"Related to the above, there is now an \"advanced\" settings button in the "
+"settings window, that will allow users to download pre-compiled binaries, "
+"and to turn on or off detailed logging of messages while the tool is "
+"running. These log messages can be useful when trying to trouble-shoot "
+"problems if you encounter any."
+msgstr ""
+"Kuhusiana na hayo hapo juu, sasa kuna kitufe cha &quot;hali ya juu&quot; ya "
+"mipangilio kwenye dirisha la mipangilio, ambayo itawaruhusu watumiaji "
+"kupakua vifungu vilivyojumuishwa hapo awali, na kuwasha au kuzima ukarasaji "
+"wa kina wa ujumbe wakati zana inafanya kazi. Ujumbe huu wa logi unaweza kuwa"
+" na maana wakati wa kujaribu kusumbua shida za risasi ikiwa unakutana na "
+"yoyote."
+
+#: ../../source/about/changelog.rst:54
+msgid ""
+"Improve checks for geometry validity for geometries in input files, and give"
+" an error message rather than throwing an exception when there are geometry "
+"errors."
 msgstr ""
 
-#: ../../source/about/changelog.rst:48
+#: ../../source/about/changelog.rst:57
 msgid ""
-"Fix processing using new MODIS data (assets were not properly updated in "
-"the last release)"
+"Fix processing using new MODIS data (assets were not properly updated in the"
+" last release)"
 msgstr ""
 "Rekebisha usindikaji kwa kutumia data mpya ya MODIS (mali hazikusasishwa "
 "vizuri katika kutolewa mwisho)"
 
-#: ../../source/about/changelog.rst:50
+#: ../../source/about/changelog.rst:59
 msgid "Fix color-coding of land covers in land cover class aggregation window"
 msgstr ""
 "Rekebisha utengenezaji wa rangi ya vifuniko vya ardhi katika dirisha la "
 "mkusanyiko wa darasa la kifuniko"
 
-#: ../../source/about/changelog.rst:51
+#: ../../source/about/changelog.rst:60
 msgid "Add more detailed version information to about dialog."
 msgstr "Ongeza maelezo zaidi ya toleo kwa mazungumzo."
 
-#: ../../source/about/changelog.rst:52
+#: ../../source/about/changelog.rst:61
 msgid "Add additional detail to data download tool."
 msgstr "Ongeza maelezo zaidi kwa zana ya kupakua data."
 
-#: ../../source/about/changelog.rst:53
+#: ../../source/about/changelog.rst:62
 msgid "Add job ID to downloads window to facilitate bug reporting."
 msgstr ""
 "Ongeza kitambulisho cha kazi kupakua dirisha ili kuwezesha kuripoti kwa "
 "mdudu."
 
-#: ../../source/about/changelog.rst:54
+#: ../../source/about/changelog.rst:63
 msgid "Minor bug fixes (sorting of jobs and downloads tables)."
 msgstr "Marekebisho madogo ya mdudu (kuchagua kazi na meza za kupakua)."
 
-#: ../../source/about/changelog.rst:57
+#: ../../source/about/changelog.rst:66
 msgid ""
 "`0.98 (April 2, 2020) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.98>`_"
@@ -200,77 +214,80 @@ msgstr ""
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.98>"
 " `_"
 
-#: ../../source/about/changelog.rst:59
+#: ../../source/about/changelog.rst:68
 msgid "First QGIS3 release - many fixes to upgrade to Qt5 and QGIS3 API."
 msgstr ""
-"Kutolewa kwa QGIS3 ya kwanza - marekebisho mengi ya kusasisha kuwa Qt5 na"
-" API ya QGIS3."
+"Kutolewa kwa QGIS3 ya kwanza - marekebisho mengi ya kusasisha kuwa Qt5 na "
+"API ya QGIS3."
 
-#: ../../source/about/changelog.rst:60
-msgid "Upgrade all dependencies of plugin to latest versions as of January 2020."
+#: ../../source/about/changelog.rst:69
+msgid ""
+"Upgrade all dependencies of plugin to latest versions as of January 2020."
 msgstr ""
-"Sasisha utegemezi wote wa programu-jalizi kwa toleo jipya zaidi ya "
-"Januari 2020."
+"Sasisha utegemezi wote wa programu-jalizi kwa toleo jipya zaidi ya Januari "
+"2020."
 
-#: ../../source/about/changelog.rst:61
-msgid "Fix data download tool to have default 1styles for all available datasets."
+#: ../../source/about/changelog.rst:70
+msgid ""
+"Fix data download tool to have default 1styles for all available datasets."
 msgstr ""
 "Kurekebisha chombo cha upakuaji wa data kuwa na mitindo 1 ya default kwa "
 "hifadhidata zote zinazopatikana."
 
-#: ../../source/about/changelog.rst:63
+#: ../../source/about/changelog.rst:72
 msgid ""
-"Begin moving to QgsProcessing and QgsTask frameworks - currently only the"
-" carbon tool is migrated, but all tools will be migrated prior to version"
-" 1.0./"
+"Begin moving to QgsProcessing and QgsTask frameworks - currently only the "
+"carbon tool is migrated, but all tools will be migrated prior to version "
+"1.0./"
 msgstr ""
-"Anza kusonga kwa mfumo wa QgsProcessing na QgsTask - kwa sasa ni chombo "
-"tu cha kaboni kinachohamishwa, lakini vifaa vyote vitahamishwa kabla ya "
-"toleo 1.0./"
+"Anza kusonga kwa mfumo wa QgsProcessing na QgsTask - kwa sasa ni chombo tu "
+"cha kaboni kinachohamishwa, lakini vifaa vyote vitahamishwa kabla ya toleo "
+"1.0./"
 
-#: ../../source/about/changelog.rst:65
+#: ../../source/about/changelog.rst:74
 msgid ""
-"Cleanup formatting of carbon tool output spreadsheet to make meaning of "
-"each column clearer."
+"Cleanup formatting of carbon tool output spreadsheet to make meaning of each"
+" column clearer."
 msgstr ""
-"Utaftaji wa utaftaji wa lahajedwali ya pato la kaboni ili kufanya maana "
-"ya kila safu wazi."
+"Utaftaji wa utaftaji wa lahajedwali ya pato la kaboni ili kufanya maana ya "
+"kila safu wazi."
 
-#: ../../source/about/changelog.rst:67
+#: ../../source/about/changelog.rst:76
 msgid "Update all GEE scripts to use latest version of GEE API (0.1.213)."
 msgstr ""
-"Sasisha maandishi yote ya GEE ili kutumia toleo la hivi karibuni la GEE "
-"API (0.1.213)."
+"Sasisha maandishi yote ya GEE ili kutumia toleo la hivi karibuni la GEE API "
+"(0.1.213)."
 
-#: ../../source/about/changelog.rst:68
+#: ../../source/about/changelog.rst:77
 msgid "Save more settings chosen in tool dialog boxes across QGIS sessions."
 msgstr ""
-"Hifadhi mipangilio zaidi iliyochaguliwa kwenye sanduku la mazungumzo ya "
-"zana kwenye vikao vya QGIS."
+"Hifadhi mipangilio zaidi iliyochaguliwa kwenye sanduku la mazungumzo ya zana"
+" kwenye vikao vya QGIS."
 
-#: ../../source/about/changelog.rst:69
+#: ../../source/about/changelog.rst:78
 msgid ""
-"Clean up buffering code, to use Lambert Equal Area projections centered "
-"on polygon centroids for buffering."
+"Clean up buffering code, to use Lambert Equal Area projections centered on "
+"polygon centroids for buffering."
 msgstr ""
-"Kusafisha nambari ya buffering, kutumia makadirio ya eneo la Lambert Sawa"
-" iliyozingatia centrogens za polygon kwa buffering."
+"Kusafisha nambari ya buffering, kutumia makadirio ya eneo la Lambert Sawa "
+"iliyozingatia centrogens za polygon kwa buffering."
 
-#: ../../source/about/changelog.rst:71
-msgid "Move documentation into docs folder at root of trends.earth repository."
+#: ../../source/about/changelog.rst:80
+msgid ""
+"Move documentation into docs folder at root of trends.earth repository."
 msgstr ""
 "Hamisha nyaraka kwenye folda ya hati kwenye mizizi ya hazina ya "
 "trends.earth."
 
-#: ../../source/about/changelog.rst:72
+#: ../../source/about/changelog.rst:81
 msgid ""
-"Add more details on how to documentation on how to contribute to "
-"development of Trends.Earth,"
+"Add more details on how to documentation on how to contribute to development"
+" of Trends.Earth,"
 msgstr ""
 "Ongeza maelezo zaidi juu ya jinsi ya nyaraka juu ya jinsi ya kuchangia "
 "maendeleo ya mwenendo."
 
-#: ../../source/about/changelog.rst:74
+#: ../../source/about/changelog.rst:83
 msgid ""
 "Clean up repository by removing compiled translations files, and adding "
 "these file types to .gitignore."
@@ -278,15 +295,15 @@ msgstr ""
 "Kusafisha uwekaji kazi kwa kuondoa faili zilizotengenezwa za tafsiri, na "
 "kuongeza aina hizi za faili kwenye .gitignore."
 
-#: ../../source/about/changelog.rst:76
+#: ../../source/about/changelog.rst:85
 msgid "Change transifex project name to be \"trendsearth\"."
 msgstr "Badilisha jina la mradi wa transifex kuwa &quot;mwenendo&quot;."
 
-#: ../../source/about/changelog.rst:77
+#: ../../source/about/changelog.rst:86
 msgid "Various compatibility and minor bug fixes."
 msgstr "Utangamano anuwai na marekebisho madogo ya mdudu."
 
-#: ../../source/about/changelog.rst:80
+#: ../../source/about/changelog.rst:89
 msgid ""
 "`0.66 (July 20, 2019) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.66>`_"
@@ -295,50 +312,49 @@ msgstr ""
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.66>"
 " `_"
 
-#: ../../source/about/changelog.rst:82
+#: ../../source/about/changelog.rst:91
 msgid ""
 "Limit maximum area for tasks to 10,000,000 sq km, except for urban area "
 "tasks, which is limited to 10,000 sq km."
 msgstr ""
-"Punguza eneo la juu kwa kazi hadi km 10,000,000 sq, isipokuwa kwa kazi za"
-" eneo la miji, ambalo ni mdogo kwa 10,000 sq km."
+"Punguza eneo la juu kwa kazi hadi km 10,000,000 sq, isipokuwa kwa kazi za "
+"eneo la miji, ambalo ni mdogo kwa 10,000 sq km."
 
-#: ../../source/about/changelog.rst:84
+#: ../../source/about/changelog.rst:93
 msgid "Add background section on SDG 11.3.1, and update SDG 11.3.1 tutorial."
 msgstr ""
-"Ongeza sehemu ya nyuma kwenye SDG 11.3.1, na usasishe mafunzo ya SDG "
-"11.3.1."
+"Ongeza sehemu ya nyuma kwenye SDG 11.3.1, na usasishe mafunzo ya SDG 11.3.1."
 
-#: ../../source/about/changelog.rst:85
+#: ../../source/about/changelog.rst:94
 msgid ""
 "Update SDG 11.3.1 code to include 1998 in the series (internally during "
 "calculation) in order to filter noise from the beginning of the urban "
 "series."
 msgstr ""
-"Sasisha nambari ya SDG 11.3.1 ili nijumuishe 1998 kwenye safu (ndani "
-"wakati wa hesabu) ili kuchuja kelele tangu mwanzo wa safu ya mjini."
+"Sasisha nambari ya SDG 11.3.1 ili nijumuishe 1998 kwenye safu (ndani wakati "
+"wa hesabu) ili kuchuja kelele tangu mwanzo wa safu ya mjini."
 
-#: ../../source/about/changelog.rst:87
+#: ../../source/about/changelog.rst:96
 msgid ""
-"Fix date restrictions in SDG 15.3.1 all-in-one tool to account for both "
-"ESA and MODIS availability."
+"Fix date restrictions in SDG 15.3.1 all-in-one tool to account for both ESA "
+"and MODIS availability."
 msgstr ""
-"Kurekebisha kizuizi cha tarehe katika SDG 15.3.1 zana ya moja-kwa akaunti"
-" ya kupatikana kwa ESA na MODIS."
+"Kurekebisha kizuizi cha tarehe katika SDG 15.3.1 zana ya moja-kwa akaunti ya"
+" kupatikana kwa ESA na MODIS."
 
-#: ../../source/about/changelog.rst:89
+#: ../../source/about/changelog.rst:98
 msgid "Add section to readme on how to install Github releases."
 msgstr "Ongeza sehemu ya kusoma juu ya jinsi ya kusanidi kutolewa kwa Github."
 
-#: ../../source/about/changelog.rst:90
+#: ../../source/about/changelog.rst:99
 msgid ""
-"Update and review Spanish translations, update google translations for "
-"other languages."
+"Update and review Spanish translations, update google translations for other"
+" languages."
 msgstr ""
 "Sasisha na uhakike tafsiri za Kihispania, sasisha tafsiri za google kwa "
 "lugha zingine."
 
-#: ../../source/about/changelog.rst:94
+#: ../../source/about/changelog.rst:103
 msgid ""
 "`0.64 (July 9, 2019) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.64>`_"
@@ -347,37 +363,39 @@ msgstr ""
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.64>"
 " `_"
 
-#: ../../source/about/changelog.rst:96
+#: ../../source/about/changelog.rst:105
 msgid "Fix handling of nodata in total carbon tool."
 msgstr "Rekebisha utunzaji wa nodata katika chombo jumla cha kaboni."
 
-#: ../../source/about/changelog.rst:97
+#: ../../source/about/changelog.rst:106
 msgid "Add support for 2018 Hansen data in total carbon tool."
-msgstr "Ongeza usaidizi kwa data ya Hansen ya 2018 katika jumla ya zana ya kaboni."
-
-#: ../../source/about/changelog.rst:98
-msgid "Add support for global 30m biomass data from Wood's Hole in total carbon"
 msgstr ""
-"Ongeza usaidizi kwa data ya biomass ya kimataifa ya 30m kutoka Hole ya "
-"Wood katika kaboni jumla"
+"Ongeza usaidizi kwa data ya Hansen ya 2018 katika jumla ya zana ya kaboni."
 
-#: ../../source/about/changelog.rst:99
+#: ../../source/about/changelog.rst:107
 msgid ""
-"Set maximum final year for one step SDG 15.3.1 tool to be 2015 (matching "
-"the ESA data)."
+"Add support for global 30m biomass data from Wood's Hole in total carbon"
+msgstr ""
+"Ongeza usaidizi kwa data ya biomass ya kimataifa ya 30m kutoka Hole ya Wood "
+"katika kaboni jumla"
+
+#: ../../source/about/changelog.rst:108
+msgid ""
+"Set maximum final year for one step SDG 15.3.1 tool to be 2015 (matching the"
+" ESA data)."
 msgstr ""
 "Weka kiwango cha mwisho cha mwaka wa mwisho kwa zana moja ya SDG 15.3.1 "
 "chombo kuwa 2015 (inayolingana na data ya ESA)."
 
-#: ../../source/about/changelog.rst:101
+#: ../../source/about/changelog.rst:110
 msgid ""
-"Make Trends.Earth productivity the default dataset in SDG one step tool "
-"for 15.3.1."
+"Make Trends.Earth productivity the default dataset in SDG one step tool for "
+"15.3.1."
 msgstr ""
-"Fanya tija ya Trends.Earth kuwa hifadhidata ya kawaida katika zana ya "
-"hatua ya SDG kwa 15.3.1."
+"Fanya tija ya Trends.Earth kuwa hifadhidata ya kawaida katika zana ya hatua "
+"ya SDG kwa 15.3.1."
 
-#: ../../source/about/changelog.rst:105
+#: ../../source/about/changelog.rst:114
 msgid ""
 "`0.62 (January 27, 2019) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.62>`_"
@@ -386,35 +404,35 @@ msgstr ""
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.62>"
 " `_"
 
-#: ../../source/about/changelog.rst:107
+#: ../../source/about/changelog.rst:116
 msgid ""
-"Add experimental tool for mapping potential carbon returns from "
-"alternative restoration interventions."
+"Add experimental tool for mapping potential carbon returns from alternative "
+"restoration interventions."
 msgstr ""
-"Ongeza zana ya majaribio ya kuchora kurudi kwa kaboni kutoka kwa "
-"uingiliaji mbadala wa urejesho."
+"Ongeza zana ya majaribio ya kuchora kurudi kwa kaboni kutoka kwa uingiliaji "
+"mbadala wa urejesho."
 
-#: ../../source/about/changelog.rst:109
+#: ../../source/about/changelog.rst:118
 msgid "Add 2018 MODIS data."
 msgstr "Ongeza data ya MODIS ya 2018."
 
-#: ../../source/about/changelog.rst:110
+#: ../../source/about/changelog.rst:119
 msgid "Miscellaneous fixes to window sizing for GUI windows."
 msgstr "Marekebisho anuwai ya kuweka saizi kwa madirisha ya GUI."
 
-#: ../../source/about/changelog.rst:111
+#: ../../source/about/changelog.rst:120
 msgid ""
-"Upgrade to latest openpyxl - fixes loading of Trends.Earth logo in "
-"summary tables."
+"Upgrade to latest openpyxl - fixes loading of Trends.Earth logo in summary "
+"tables."
 msgstr ""
 "Boresha kwa openpyxl ya hivi karibuni - kurekebisha upakiaji wa nembo ya "
 "Trends.Earth katika meza muhtasari."
 
-#: ../../source/about/changelog.rst:113
+#: ../../source/about/changelog.rst:122
 msgid "Add publication list to help docs."
 msgstr "Ongeza orodha ya kuchapisha kusaidia hati."
 
-#: ../../source/about/changelog.rst:116
+#: ../../source/about/changelog.rst:125
 msgid ""
 "`0.60 (December 3, 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.60>`_"
@@ -423,7 +441,7 @@ msgstr ""
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.60>"
 " `_"
 
-#: ../../source/about/changelog.rst:118
+#: ../../source/about/changelog.rst:127
 msgid ""
 "Add calculation of change in urban area and population growth rate (SDG "
 "11.3.1)"
@@ -431,17 +449,17 @@ msgstr ""
 "Ongeza hesabu ya mabadiliko katika eneo la miji na kiwango cha ukuaji wa "
 "idadi ya watu (SDG 11.3.1)"
 
-#: ../../source/about/changelog.rst:120
+#: ../../source/about/changelog.rst:129
 msgid "Fix default button/entry field heights Add city selection for AOI"
 msgstr ""
-"Kurekebisha kifungo cha chaguo-msingi / urefu wa uwanja wa kuingia Ongeza"
-" uteuzi wa jiji kwa AOI"
+"Kurekebisha kifungo cha chaguo-msingi / urefu wa uwanja wa kuingia Ongeza "
+"uteuzi wa jiji kwa AOI"
 
-#: ../../source/about/changelog.rst:122
+#: ../../source/about/changelog.rst:131
 msgid "Add optional buffering of AOI"
 msgstr "Ongeza buffering ya hiari ya AOI"
 
-#: ../../source/about/changelog.rst:125
+#: ../../source/about/changelog.rst:134
 msgid ""
 "`0.58 (August 11, 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.58>`_"
@@ -450,25 +468,25 @@ msgstr ""
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.58>"
 " `_"
 
-#: ../../source/about/changelog.rst:127
+#: ../../source/about/changelog.rst:136
 msgid "Add a testing section to the calculations page"
 msgstr "Ongeza sehemu ya kupima kwenye ukurasa wa mahesabu"
 
-#: ../../source/about/changelog.rst:128
+#: ../../source/about/changelog.rst:137
 msgid ""
-"Add testing version of total carbon (above and below-ground) and "
-"emissions due to deforestation"
+"Add testing version of total carbon (above and below-ground) and emissions "
+"due to deforestation"
 msgstr ""
 "Ongeza toleo la upimaji wa kaboni jumla (juu na chini ya ardhi) na "
 "uzalishaji kutokana na ukataji miti"
 
-#: ../../source/about/changelog.rst:130
+#: ../../source/about/changelog.rst:139
 msgid "Minor bug fixes, including for invalid polygons in input AOIs"
 msgstr ""
 "Marekebisho madogo ya mdudu, pamoja na polygons batili katika AOIs za "
 "pembejeo"
 
-#: ../../source/about/changelog.rst:133
+#: ../../source/about/changelog.rst:142
 msgid ""
 "`0.56.5 (May 21, 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.5>`_"
@@ -477,11 +495,11 @@ msgstr ""
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.5>"
 " `_"
 
-#: ../../source/about/changelog.rst:135
+#: ../../source/about/changelog.rst:144
 msgid "Fix error with LPD import requesting a data year."
 msgstr "Kurekebisha kosa na uingizwaji wa LPD ukiuliza mwaka wa data."
 
-#: ../../source/about/changelog.rst:138
+#: ../../source/about/changelog.rst:147
 msgid ""
 "`0.56.4 (May 21, 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.4>`_"
@@ -490,35 +508,36 @@ msgstr ""
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.4>"
 " `_"
 
-#: ../../source/about/changelog.rst:140
+#: ../../source/about/changelog.rst:149
 msgid "Always resample imported data to the highest resolution."
 msgstr "Suluhisha data ya kuingizwa kila wakati kwa azimio la juu zaidi."
 
-#: ../../source/about/changelog.rst:141
+#: ../../source/about/changelog.rst:150
 msgid ""
-"Fix custom SOC import climate zones to use an expanded climate zones "
-"dataset to eliminate no data."
+"Fix custom SOC import climate zones to use an expanded climate zones dataset"
+" to eliminate no data."
 msgstr ""
 "Rekebisha mipangilio ya hali ya hewa ya kuagiza SOC ili kutumia duka la "
 "maeneo ya hali ya hewa kupanuliwa kuondoa data yoyote."
 
-#: ../../source/about/changelog.rst:143
+#: ../../source/about/changelog.rst:152
 msgid "Update MOD16A2 with latest data."
 msgstr "Sasisha MOD16A2 na data ya hivi karibuni."
 
-#: ../../source/about/changelog.rst:144
+#: ../../source/about/changelog.rst:153
 msgid "Force entry of date on SOC and LC data import"
 msgstr "Lazimisha kuingia kwa tarehe kwenye uingilizi wa data ya SOC na LC"
 
-#: ../../source/about/changelog.rst:145
+#: ../../source/about/changelog.rst:154
 msgid "Add global Trends.Earth outputs to download tool."
-msgstr "Ongeza matokeo ya kimataifa ya mwenendo. Njia ya kupakua ya kupakua zana."
+msgstr ""
+"Ongeza matokeo ya kimataifa ya mwenendo. Njia ya kupakua ya kupakua zana."
 
-#: ../../source/about/changelog.rst:146
+#: ../../source/about/changelog.rst:155
 msgid "Fix handling of NULL values in legends."
 msgstr "Kurekebisha utunzaji wa maadili ya NSI katika hadithi."
 
-#: ../../source/about/changelog.rst:149
+#: ../../source/about/changelog.rst:158
 msgid ""
 "`0.56.3 (April 21, 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.3>`_"
@@ -527,24 +546,24 @@ msgstr ""
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.3>"
 " `_"
 
-#: ../../source/about/changelog.rst:151
+#: ../../source/about/changelog.rst:160
 msgid ""
-"Fix calculation of summary tables for AOIs that are split across the "
-"180th meridian (Fiji, Russia, etc.)."
+"Fix calculation of summary tables for AOIs that are split across the 180th "
+"meridian (Fiji, Russia, etc.)."
 msgstr ""
-"Kurekebisha hesabu ya meza ya muhtasari kwa AOIs ambayo imegawanyika "
-"katika meridi ya 180 (Fiji, Urusi, nk)."
+"Kurekebisha hesabu ya meza ya muhtasari kwa AOIs ambayo imegawanyika katika "
+"meridi ya 180 (Fiji, Urusi, nk)."
 
-#: ../../source/about/changelog.rst:153
+#: ../../source/about/changelog.rst:162
 msgid ""
-"Modify state calculation so areas with very small magnitude changes in "
-"NDVI integral (< .01 NDVI units over full period) are considered stable."
+"Modify state calculation so areas with very small magnitude changes in NDVI "
+"integral (< .01 NDVI units over full period) are considered stable."
 msgstr ""
 "Rekebisha hesabu ya serikali ili maeneo yenye mabadiliko madogo sana ya "
-"ujumuishaji wa NDVI (&lt;.01 vifaa vya NDVI kwa kipindi kamili) "
-"huzingatiwa kuwa thabiti."
+"ujumuishaji wa NDVI (&lt;.01 vifaa vya NDVI kwa kipindi kamili) huzingatiwa "
+"kuwa thabiti."
 
-#: ../../source/about/changelog.rst:157
+#: ../../source/about/changelog.rst:166
 msgid ""
 "`0.56.2 (April 10, 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.2>`_"
@@ -553,11 +572,11 @@ msgstr ""
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.2>"
 " `_"
 
-#: ../../source/about/changelog.rst:159
+#: ../../source/about/changelog.rst:168
 msgid "Minor unicode fixes."
 msgstr "Marekebisho ndogo ya unicode."
 
-#: ../../source/about/changelog.rst:162
+#: ../../source/about/changelog.rst:171
 msgid ""
 "`0.56.1 (April 10, 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.1>`_"
@@ -566,11 +585,11 @@ msgstr ""
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.1>"
 " `_"
 
-#: ../../source/about/changelog.rst:164
+#: ../../source/about/changelog.rst:173
 msgid "Fix marshhmallow error on plugin load"
 msgstr "Kurekebisha kosa la marshhmallow kwenye mzigo wa programu-jalizi"
 
-#: ../../source/about/changelog.rst:167
+#: ../../source/about/changelog.rst:176
 msgid ""
 "`0.56 (April 9, 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56>`_"
@@ -579,19 +598,20 @@ msgstr ""
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56>"
 " `_"
 
-#: ../../source/about/changelog.rst:169
+#: ../../source/about/changelog.rst:178
 msgid "Fix issue with rasterizing data (empty rasters on output)"
 msgstr "Rekebisha suala na data iliyosasishwa (rasters tupu kwenye pato)"
 
-#: ../../source/about/changelog.rst:170
+#: ../../source/about/changelog.rst:179
 msgid "Force user to choose output resolution if rasterizing a vector"
 msgstr "Lazimisha mtumiaji kuchagua azimio la pato ikiwa atatengeneza vector"
 
-#: ../../source/about/changelog.rst:171
+#: ../../source/about/changelog.rst:180
 msgid "Support calculation of SOC degradation from custom SOC and LC data"
-msgstr "Hesabu ya kuhesabu uharibifu wa SOC kutoka data ya kitamaduni ya SOC na LC"
+msgstr ""
+"Hesabu ya kuhesabu uharibifu wa SOC kutoka data ya kitamaduni ya SOC na LC"
 
-#: ../../source/about/changelog.rst:174
+#: ../../source/about/changelog.rst:183
 msgid ""
 "`0.54 (April 8, 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.54>`_"
@@ -600,23 +620,23 @@ msgstr ""
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.54>"
 " `_"
 
-#: ../../source/about/changelog.rst:176
+#: ../../source/about/changelog.rst:185
 msgid "Support loading of custom LPD, SOC, and LC data."
 msgstr "Kusaidia upakiaji wa data maalum ya LPD, SOC, na LC."
 
-#: ../../source/about/changelog.rst:177
+#: ../../source/about/changelog.rst:186
 msgid "Cleanup styles so they match maps.trends.earth"
 msgstr "Mitindo ya Kusafisha ili ifanane na ramani.trends.earth"
 
-#: ../../source/about/changelog.rst:178
+#: ../../source/about/changelog.rst:187
 msgid "Upgrade pyopenxl"
 msgstr "Boresha pyopenxl"
 
-#: ../../source/about/changelog.rst:179
+#: ../../source/about/changelog.rst:188
 msgid "Add import/load icons to all layer selector boxes"
 msgstr "Ongeza icons za kuagiza / mzigo kwenye sanduku zote za kuchagua safu"
 
-#: ../../source/about/changelog.rst:182 ../../source/about/changelog.rst:187
+#: ../../source/about/changelog.rst:191 ../../source/about/changelog.rst:196
 msgid ""
 "`0.52.1 (March 21, 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.52.1>`_"
@@ -625,11 +645,11 @@ msgstr ""
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.52.1>"
 " `_"
 
-#: ../../source/about/changelog.rst:184 ../../source/about/changelog.rst:189
+#: ../../source/about/changelog.rst:193 ../../source/about/changelog.rst:198
 msgid "Minor bug fixes during Antalya workshop."
 msgstr "Marekebisho madogo ya mdudu wakati wa semina ya Antalya."
 
-#: ../../source/about/changelog.rst:192
+#: ../../source/about/changelog.rst:201
 msgid ""
 "`0.52 (March 19, 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.52>`_"
@@ -638,11 +658,11 @@ msgstr ""
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.52>"
 " `_"
 
-#: ../../source/about/changelog.rst:194
+#: ../../source/about/changelog.rst:203
 msgid "Clean AOI processing code."
 msgstr "Safi nambari ya usindikaji ya AOI."
 
-#: ../../source/about/changelog.rst:197
+#: ../../source/about/changelog.rst:206
 msgid ""
 "`0.50 (March 15, 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.50>`_"
@@ -651,19 +671,18 @@ msgstr ""
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.50>"
 " `_"
 
-#: ../../source/about/changelog.rst:199
+#: ../../source/about/changelog.rst:208
 msgid ""
-"Pass exception if only related to Trends.Earth logo addition in Excel "
-"file."
+"Pass exception if only related to Trends.Earth logo addition in Excel file."
 msgstr ""
 "Pita isipokuwa ikiwa tu inahusiana na nyongeza ya nembo ya Trends.Earth "
 "kwenye faili ya Excel."
 
-#: ../../source/about/changelog.rst:201
+#: ../../source/about/changelog.rst:210
 msgid "Various minor bug fixes."
 msgstr "Marekebisho anuwai madogo ya mdudu."
 
-#: ../../source/about/changelog.rst:204
+#: ../../source/about/changelog.rst:213
 msgid ""
 "`0.48 (March 13, 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.48>`_"
@@ -672,11 +691,11 @@ msgstr ""
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.48>"
 " `_"
 
-#: ../../source/about/changelog.rst:206
+#: ../../source/about/changelog.rst:215
 msgid "Fix table formatting"
 msgstr "Kurekebisha umbizo la meza"
 
-#: ../../source/about/changelog.rst:209
+#: ../../source/about/changelog.rst:218
 msgid ""
 "`0.46 (March 13, 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.46>`_"
@@ -685,29 +704,28 @@ msgstr ""
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.46>"
 " `_"
 
-#: ../../source/about/changelog.rst:211
+#: ../../source/about/changelog.rst:220
 msgid ""
-"Support reporting table calculation with multiple geometries (Fiji, "
-"Russia)"
+"Support reporting table calculation with multiple geometries (Fiji, Russia)"
 msgstr "Msaada kuhesabu hesabu za jedwali na jiometri nyingi (Fiji, Urusi)"
 
-#: ../../source/about/changelog.rst:212
+#: ../../source/about/changelog.rst:221
 msgid "Add LPD and LC tables to UNCCD worksheet tab"
 msgstr "Ongeza meza za LPD na LC kwenye tabo ya karatasi ya UNCCD"
 
-#: ../../source/about/changelog.rst:213
+#: ../../source/about/changelog.rst:222
 msgid "Clean up the warning message in the LPD import tool"
 msgstr "Safisha ujumbe wa onyo kwenye zana ya uingizaji ya LPD"
 
-#: ../../source/about/changelog.rst:214
+#: ../../source/about/changelog.rst:223
 msgid "Fix TE final combined productivity layer loading"
 msgstr "Rekebisha upakiaji wa safu ya uzalishaji pamoja"
 
-#: ../../source/about/changelog.rst:215
+#: ../../source/about/changelog.rst:224
 msgid "Fix download tasks (still no styles)"
 msgstr "Rekebisha kazi za upakuaji (bado hakuna mitindo)"
 
-#: ../../source/about/changelog.rst:218
+#: ../../source/about/changelog.rst:227
 msgid ""
 "`0.44 (March 12, 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.44>`_"
@@ -716,75 +734,74 @@ msgstr ""
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.44>"
 " `_"
 
-#: ../../source/about/changelog.rst:220
+#: ../../source/about/changelog.rst:229
 msgid "Add JRC LPD"
 msgstr "Ongeza JRC LPD"
 
-#: ../../source/about/changelog.rst:221
+#: ../../source/about/changelog.rst:230
 msgid "Add tool for uploading custom land cover data"
 msgstr "Ongeza zana kwa kupakia data ya kifuniko cha ardhi cha kawaida"
 
-#: ../../source/about/changelog.rst:222
+#: ../../source/about/changelog.rst:231
 msgid "Add tool for uploading custom productivity data"
 msgstr "Ongeza zana kwa kupakia data ya uzalishaji wa kawaida"
 
-#: ../../source/about/changelog.rst:223
+#: ../../source/about/changelog.rst:232
 msgid "Add note that custom SOC upload is coming soon"
 msgstr "Ongeza kumbuka kuwa upakiaji wa forodha wa SOC unakuja hivi karibuni"
 
-#: ../../source/about/changelog.rst:224
+#: ../../source/about/changelog.rst:233
 msgid "Add tool to add basemaps using Natural Earth data"
 msgstr "Ongeza zana kuongeza masaaps ukitumia data ya Asili ya Dunia"
 
-#: ../../source/about/changelog.rst:225
+#: ../../source/about/changelog.rst:234
 msgid "Add all-in-one tool for calculating all three sub-indicators at once"
 msgstr ""
-"Ongeza zana katika moja kwa kuhesabu viashiria vyote vitatu kwa wakati "
-"mmoja"
+"Ongeza zana katika moja kwa kuhesabu viashiria vyote vitatu kwa wakati mmoja"
 
-#: ../../source/about/changelog.rst:226
+#: ../../source/about/changelog.rst:235
 msgid "Rename \"Bare lands\" class to \"Other lands\" for consistency with UNCCD"
 msgstr ""
-"Badili jina la &quot;Bare land&quot; darasa kuwa &quot;Nchi zingine&quot;"
-" kwa umoja na UNCCD"
+"Badili jina la &quot;Bare land&quot; darasa kuwa &quot;Nchi zingine&quot; "
+"kwa umoja na UNCCD"
 
-#: ../../source/about/changelog.rst:227
+#: ../../source/about/changelog.rst:236
 msgid "Update docs"
 msgstr "Sasisha hati"
 
-#: ../../source/about/changelog.rst:228
+#: ../../source/about/changelog.rst:237
 msgid "Upgrade to marshmallow 3.0.0b7"
 msgstr "Boresha kwa marshmallow 3.0.0b7"
 
-#: ../../source/about/changelog.rst:229
+#: ../../source/about/changelog.rst:238
 msgid "Move GEE code into the main trends.earth repository"
 msgstr "Hoja ya msimbo wa GEE ndani ya hazina kuu ya trends.earth"
 
-#: ../../source/about/changelog.rst:230
-msgid "Improve handling of AOIs, particularly when shapefiles are used for input"
+#: ../../source/about/changelog.rst:239
+msgid ""
+"Improve handling of AOIs, particularly when shapefiles are used for input"
 msgstr ""
-"Boresha utunzaji wa AOIs, haswa wakati sura za fomu zinatumika kwa "
-"pembejeo"
+"Boresha utunzaji wa AOIs, haswa wakati sura za fomu zinatumika kwa pembejeo"
 
-#: ../../source/about/changelog.rst:231
+#: ../../source/about/changelog.rst:240
 msgid "Handle multi-file outputs from GEE by tiling them in VRTs"
-msgstr "Shughulikia matokeo ya faili nyingi kutoka GEE kwa kuzifunga katika VRTs"
+msgstr ""
+"Shughulikia matokeo ya faili nyingi kutoka GEE kwa kuzifunga katika VRTs"
 
-#: ../../source/about/changelog.rst:232
+#: ../../source/about/changelog.rst:241
 msgid "Support processing data for countries that cross the 180th meridian"
 msgstr "Msaada wa usindikaji wa data kwa nchi ambazo zinavuka meridian ya 180"
 
-#: ../../source/about/changelog.rst:233
+#: ../../source/about/changelog.rst:242
 msgid "Improve formatting of summary table"
 msgstr "Boresha muundo wa meza muhtasari"
 
-#: ../../source/about/changelog.rst:234
+#: ../../source/about/changelog.rst:243
 msgid "From now on, GEE script versions will be matched to the plugin version"
 msgstr ""
-"Kuanzia sasa, matoleo ya hati ya GEE yatafanana na toleo la programu-"
-"jalizi"
+"Kuanzia sasa, matoleo ya hati ya GEE yatafanana na toleo la programu-jalizi"
 
-#: ../../source/about/changelog.rst:237
+#: ../../source/about/changelog.rst:246
 msgid ""
 "`0.42 (February 4, 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.42>`_"
@@ -793,13 +810,14 @@ msgstr ""
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.42>"
 " `_"
 
-#: ../../source/about/changelog.rst:239
-msgid "Fix crash on change of LC aggregation (due setEnabled on removed label)"
+#: ../../source/about/changelog.rst:248
+msgid ""
+"Fix crash on change of LC aggregation (due setEnabled on removed label)"
 msgstr ""
-"Rekebisha ajali juu ya mabadiliko ya mkusanyiko wa LC (imewashwa kwenye "
-"lebo iliyoondolewa)"
+"Rekebisha ajali juu ya mabadiliko ya mkusanyiko wa LC (imewashwa kwenye lebo"
+" iliyoondolewa)"
 
-#: ../../source/about/changelog.rst:242
+#: ../../source/about/changelog.rst:251
 msgid ""
 "`0.40 (February 4, 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.40>`_"
@@ -808,41 +826,41 @@ msgstr ""
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.40>"
 " `_"
 
-#: ../../source/about/changelog.rst:244
+#: ../../source/about/changelog.rst:253
 msgid "Remove use of mode for land cover indicator."
 msgstr "Ondoa utumiaji wa modi ya kiashiria cha kifuniko cha ardhi."
 
-#: ../../source/about/changelog.rst:245
+#: ../../source/about/changelog.rst:254
 msgid "Combine the summary table and SDG indicator map creation tools."
 msgstr "Kuchanganya meza ya muhtasari na zana za uundaji wa ramani ya SDG."
 
-#: ../../source/about/changelog.rst:246
+#: ../../source/about/changelog.rst:255
 msgid "Add stub for where JRC LPD product will be available."
 msgstr "Ongeza kifungu mahali bidhaa ya JRC LPD itapatikana."
 
-#: ../../source/about/changelog.rst:247
+#: ../../source/about/changelog.rst:256
 msgid "Save productivity sub-indicator as band 2 in SDG indicator file."
 msgstr ""
 "Hifadhi kiashiria cha uzalishaji mdogo kama bendi ya 2 kwenye faili ya "
 "kiashiria cha SDG."
 
-#: ../../source/about/changelog.rst:248
+#: ../../source/about/changelog.rst:257
 msgid "Bump GEE script to v0.3."
 msgstr "Hifadhi hati ya GEE hadi v0.3."
 
-#: ../../source/about/changelog.rst:249
+#: ../../source/about/changelog.rst:258
 msgid ""
-"Fix error due to divide by zero on summary table generation when a class "
-"has zero area."
+"Fix error due to divide by zero on summary table generation when a class has"
+" zero area."
 msgstr ""
 "Rekebisha makosa kwa sababu ya kugawanya kwa sifuri kwenye kizazi cha "
 "muhtasari wa meza wakati darasa lina eneo la sifuri."
 
-#: ../../source/about/changelog.rst:251
+#: ../../source/about/changelog.rst:260
 msgid "Default to MODIS for productivity calculations."
 msgstr "Chaguo msingi kwa MODIS kwa mahesabu ya tija."
 
-#: ../../source/about/changelog.rst:254
+#: ../../source/about/changelog.rst:263
 msgid ""
 "`0.38 (January 16, 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.38>`_"
@@ -851,77 +869,77 @@ msgstr ""
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.38>"
 " `_"
 
-#: ../../source/about/changelog.rst:256
+#: ../../source/about/changelog.rst:265
 msgid "Add annual soil organic carbon calculation"
 msgstr "Ongeza hesabu ya kaboni ya kikaboni ya kila mwaka"
 
-#: ../../source/about/changelog.rst:257
+#: ../../source/about/changelog.rst:266
 msgid ""
-"Cleanup AOI processing code, allow multiple input polygons in shapefile "
-"AOIs"
+"Cleanup AOI processing code, allow multiple input polygons in shapefile AOIs"
 msgstr ""
 "Nambari ya usindikaji ya AUTI ya Kisafishaji, ruhusu pembe nyingi za "
 "pembejeo katika Afa za muundo"
 
-#: ../../source/about/changelog.rst:259
+#: ../../source/about/changelog.rst:268
 msgid "Add shading to side of land cover aggregation table items"
 msgstr "Ongeza kivuli kwa upande wa vitu vya jalada la kufunika ardhi"
 
-#: ../../source/about/changelog.rst:260
+#: ../../source/about/changelog.rst:269
 msgid "Fix firstShow issue on aggregation table"
 msgstr "Kurekebisha suala la kwanza kwenye meza ya mkusanyiko"
 
-#: ../../source/about/changelog.rst:261
+#: ../../source/about/changelog.rst:270
 msgid ""
-"Revise summary table output to provide further information on each of the"
-" three indicators"
+"Revise summary table output to provide further information on each of the "
+"three indicators"
 msgstr ""
 "Pitia muhtasari wa mazao ya meza muhtasari ili kutoa habari zaidi juu ya "
 "kila kiashiria tatu"
 
-#: ../../source/about/changelog.rst:263
+#: ../../source/about/changelog.rst:272
 msgid ""
-"Add supplemental datasets to performance, state, land cover and soil "
-"organic carbon output."
+"Add supplemental datasets to performance, state, land cover and soil organic"
+" carbon output."
 msgstr ""
-"Ongeza hifadhidata nyongeza kwa utendaji, hali, kifuniko cha ardhi na "
-"pato la kaboni hai."
+"Ongeza hifadhidata nyongeza kwa utendaji, hali, kifuniko cha ardhi na pato "
+"la kaboni hai."
 
-#: ../../source/about/changelog.rst:265
+#: ../../source/about/changelog.rst:274
 msgid ""
-"Update no data and masking values to consistently be -32768 (no data) and"
-" -32767 (masked data)"
+"Update no data and masking values to consistently be -32768 (no data) and "
+"-32767 (masked data)"
 msgstr ""
 "Sasisha hakuna data na maadili ya uashi ili kuwa -32768 (hakuna data) na "
 "-32767 (data iliyofungiwa)"
 
-#: ../../source/about/changelog.rst:267
+#: ../../source/about/changelog.rst:276
 msgid "Allow naming of file downloads"
 msgstr "Ruhusu kutaja upakuaji wa faili"
 
-#: ../../source/about/changelog.rst:268
+#: ../../source/about/changelog.rst:277
 msgid "Add icon to toolbar menu, fix plugin name."
 msgstr "Ongeza ikoni kwenye menyu ya zana, panga jina la programu-jalizi."
 
-#: ../../source/about/changelog.rst:269
+#: ../../source/about/changelog.rst:278
 msgid "Refactor layer styling code to pull band info from GEE output."
 msgstr ""
-"Nambari ya kupaka safu ya Refactor ili kuvuta maelezo ya bendi kutoka kwa"
-" pato la GEE."
+"Nambari ya kupaka safu ya Refactor ili kuvuta maelezo ya bendi kutoka kwa "
+"pato la GEE."
 
-#: ../../source/about/changelog.rst:270
+#: ../../source/about/changelog.rst:279
 msgid "Add a tool to load existing trends.earth datasets into QGIS."
-msgstr "Ongeza zana ili kupakia database zilizopo za mwenendo.earth kwenye QGIS."
-
-#: ../../source/about/changelog.rst:271
-msgid ""
-"Fix land cover date limits - don't allow invalid dates toi be selected "
-"from CCI data."
 msgstr ""
-"Kurekebisha mipaka ya tarehe ya bima ya ardhi - usiruhusu tarehe batili "
-"za kuchaguliwa kutoka data ya CCI."
+"Ongeza zana ili kupakia database zilizopo za mwenendo.earth kwenye QGIS."
 
-#: ../../source/about/changelog.rst:275
+#: ../../source/about/changelog.rst:280
+msgid ""
+"Fix land cover date limits - don't allow invalid dates toi be selected from "
+"CCI data."
+msgstr ""
+"Kurekebisha mipaka ya tarehe ya bima ya ardhi - usiruhusu tarehe batili za "
+"kuchaguliwa kutoka data ya CCI."
+
+#: ../../source/about/changelog.rst:284
 msgid ""
 "`0.36 (December 14, 2017) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.36>`_"
@@ -930,11 +948,11 @@ msgstr ""
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.36>"
 " `_"
 
-#: ../../source/about/changelog.rst:277
+#: ../../source/about/changelog.rst:286
 msgid "Fix issue with showEvent on create map reporting tool."
 msgstr "Rekebisha suala na ShowEvent kwenye kuunda zana ya kuripoti ramani."
 
-#: ../../source/about/changelog.rst:280
+#: ../../source/about/changelog.rst:289
 msgid ""
 "`0.34 (December 14, 2017) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.34>`_"
@@ -943,7 +961,7 @@ msgstr ""
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.34>"
 " `_"
 
-#: ../../source/about/changelog.rst:284
+#: ../../source/about/changelog.rst:293
 msgid ""
 "`0.32 (December 14, 2017) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.32>`_"
@@ -952,7 +970,7 @@ msgstr ""
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.32>"
 " `_"
 
-#: ../../source/about/changelog.rst:288
+#: ../../source/about/changelog.rst:297
 msgid ""
 "`0.30 (December 12, 2017) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.30>`_"
@@ -961,7 +979,7 @@ msgstr ""
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.30>"
 " `_"
 
-#: ../../source/about/changelog.rst:292
+#: ../../source/about/changelog.rst:301
 msgid ""
 "`0.24 (December 6, 2017) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.24>`_"
@@ -970,7 +988,7 @@ msgstr ""
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.24>"
 " `_"
 
-#: ../../source/about/changelog.rst:296
+#: ../../source/about/changelog.rst:305
 msgid ""
 "`0.22 (December 4, 2017) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.22>`_"
@@ -979,7 +997,7 @@ msgstr ""
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.22>"
 " `_"
 
-#: ../../source/about/changelog.rst:300
+#: ../../source/about/changelog.rst:309
 msgid ""
 "`0.18 (December 2, 2017) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.18>`_"
@@ -988,7 +1006,7 @@ msgstr ""
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.18>"
 " `_"
 
-#: ../../source/about/changelog.rst:304
+#: ../../source/about/changelog.rst:313
 msgid ""
 "`0.16 (November 6, 2017) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.16>`_"
@@ -997,7 +1015,7 @@ msgstr ""
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.16>"
 " `_"
 
-#: ../../source/about/changelog.rst:308
+#: ../../source/about/changelog.rst:317
 msgid ""
 "`0.14 (October 25, 2017) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.14>`_"
@@ -1006,7 +1024,7 @@ msgstr ""
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.14>"
 " `_"
 
-#: ../../source/about/changelog.rst:312
+#: ../../source/about/changelog.rst:321
 msgid ""
 "`0.12 (October 6, 2017) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.12>`_"
@@ -1015,8 +1033,66 @@ msgstr ""
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.12>"
 " `_"
 
-#~ msgid ""
-#~ "`1.0.2 (not yet released) "
-#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.2>`_"
-#~ msgstr ""
+#: ../../../<rst_epilog>:2
+msgid "iconCalculator"
+msgstr ""
 
+#: ../../../<rst_epilog>:4
+msgid "iconChart"
+msgstr ""
+
+#: ../../../<rst_epilog>:6
+msgid "iconClipboard"
+msgstr ""
+
+#: ../../../<rst_epilog>:8
+msgid "iconCloudDownload"
+msgstr ""
+
+#: ../../../<rst_epilog>:10
+msgid "iconCog"
+msgstr ""
+
+#: ../../../<rst_epilog>:12
+msgid "iconGlobe"
+msgstr ""
+
+#: ../../../<rst_epilog>:14
+msgid "iconGraph"
+msgstr ""
+
+#: ../../../<rst_epilog>:16
+msgid "iconInfo"
+msgstr ""
+
+#: ../../../<rst_epilog>:18
+msgid "iconMarkMarker"
+msgstr ""
+
+#: ../../../<rst_epilog>:20
+msgid "iconWrench"
+msgstr ""
+
+#: ../../../<rst_epilog>:22
+msgid "iconFolder"
+msgstr ""
+
+#: ../../../<rst_epilog>:24
+msgid "iconVisualization"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoCI"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoLund"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoNASA"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoGEF"
+msgstr ""

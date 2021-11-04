@@ -1,5 +1,5 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2018, Conservation International
+# Copyright (C) 2017-2021, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
@@ -9,9 +9,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 1.0.1\n"
+"Project-Id-Version: Trends.Earth 1.0.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-27 17:17-0400\n"
+"POT-Creation-Date: 2021-07-15 21:04-0400\n"
 "PO-Revision-Date: 2017-11-20 21:06+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2018\n"
 "Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
@@ -21,11 +21,11 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\reporting_tool.rst:2
+#: ../../source/documentation/reporting_tool.rst:2
 msgid "Visualization tools"
 msgstr "Outils de visualisation"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\reporting_tool.rst:8
+#: ../../source/documentation/reporting_tool.rst:8
 msgid ""
 "To view the \"Visualization Tools\", select the report icon "
 "(|iconVisualization|). This will open up the \"Visualization tools\" dialog "
@@ -35,7 +35,11 @@ msgstr ""
 "rapport (|iconVisualization|). Cela ouvrira la boîte de dialogue \"Outils de"
 " visualisation\":"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\reporting_tool.rst:14
+#: ../../../<rst_epilog>:24 ../../../<rst_epilog>:24 ../../../<rst_epilog>:24
+msgid "iconVisualization"
+msgstr ""
+
+#: ../../source/documentation/reporting_tool.rst:14
 msgid ""
 "Here there are two options: \"Add Basemap\" or \"Create Print Map\". The "
 "first allows users to add a Basemap for a first or second level "
@@ -48,7 +52,7 @@ msgstr ""
 "seconde option affiche la fenêtre Composer dans QGIS pour concevoir et "
 "exporter une carte statique."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\reporting_tool.rst:19
+#: ../../source/documentation/reporting_tool.rst:19
 msgid ""
 "By selecting \"Add Basemap\", the user can select the first or second level "
 "administrative boundary. The first level is the country boundary. The second"
@@ -74,7 +78,7 @@ msgstr ""
 "contributeurs. Après avoir sélectionné la liste déroulante, pour le premier "
 "niveau et le deuxième niveau le cas échéant, sélectionnez \"Ok\"."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\reporting_tool.rst:26
+#: ../../source/documentation/reporting_tool.rst:26
 msgid ""
 "After submitting the above message will appear within the QGIS Desktop "
 "window. This shows that the Basemap is loading. DO NOT select cancel or "
@@ -88,7 +92,7 @@ msgstr ""
 " tant que le fond de carte n'est pas chargé. Le temps de chargement dépend "
 "de votre connexion Internet et de votre processeur."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\reporting_tool.rst:31
+#: ../../source/documentation/reporting_tool.rst:31
 msgid ""
 "If you have a map layer within your QGIS Desktop window, you will now see "
 "the Basemap with the administrative level selected clipped out to view the "
@@ -103,7 +107,7 @@ msgstr ""
 "(|iconVisualization|). Cela ouvrira la boîte de dialogue \"Outils de "
 "visualisation\":"
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\reporting_tool.rst:37
+#: ../../source/documentation/reporting_tool.rst:37
 msgid ""
 "Enter the title for the map and author(s). Select Portrait or Landscape. "
 "Portrait is ideal for boundaries that are longer in height than width, "
@@ -114,14 +118,14 @@ msgstr ""
 " largeur, le paysage est idéal pour les limites qui sont plus longues que la"
 " hauteur."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\reporting_tool.rst:42
+#: ../../source/documentation/reporting_tool.rst:42
 msgid ""
 "A notification may appear. Select \"Ok\" after reading to close the window."
 msgstr ""
 "Une notification peut apparaître. Sélectionnez \"Ok\" après la lecture pour "
 "fermer la fenêtre."
 
-#: D:\Code\LandDegradation\trends.earth\docs\source\documentation\reporting_tool.rst:47
+#: ../../source/documentation/reporting_tool.rst:47
 msgid ""
 "The Map Composer in QGIS will appear. This allows the user to design a map "
 "for export as image (.png or .jpg) or PDF. The user has the ability to "
@@ -136,3 +140,67 @@ msgstr ""
 " les dispositions des fonctionnalités de la carte. Le calque de la carte "
 "dans la fenêtre QGIS Desktop apparaîtra dans Composer. Sous les options du "
 "menu Paramètres, il y a plusieurs icônes à exporter."
+
+#: ../../../<rst_epilog>:2
+msgid "iconCalculator"
+msgstr ""
+
+#: ../../../<rst_epilog>:4
+msgid "iconChart"
+msgstr ""
+
+#: ../../../<rst_epilog>:6
+msgid "iconClipboard"
+msgstr ""
+
+#: ../../../<rst_epilog>:8
+msgid "iconCloudDownload"
+msgstr ""
+
+#: ../../../<rst_epilog>:10
+msgid "iconCog"
+msgstr ""
+
+#: ../../../<rst_epilog>:12
+msgid "iconGlobe"
+msgstr ""
+
+#: ../../../<rst_epilog>:14
+msgid "iconGraph"
+msgstr ""
+
+#: ../../../<rst_epilog>:16
+msgid "iconInfo"
+msgstr ""
+
+#: ../../../<rst_epilog>:18
+msgid "iconMarkMarker"
+msgstr ""
+
+#: ../../../<rst_epilog>:20
+msgid "iconWrench"
+msgstr ""
+
+#: ../../../<rst_epilog>:22
+msgid "iconFolder"
+msgstr ""
+
+#: ../../../<rst_epilog>:26
+msgid "Trends.Earth"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoCI"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoLund"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoNASA"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoGEF"
+msgstr ""

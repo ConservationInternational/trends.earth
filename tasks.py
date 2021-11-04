@@ -5,6 +5,7 @@ import sys
 import platform
 import fnmatch
 import re
+import requests
 import glob
 import stat
 import shutil
@@ -57,7 +58,7 @@ def get_version(c):
     with open(c.plugin.version_file_raw, 'r') as f:
         return f.readline().strip()
 
-# Handle long filenames or readonly files on windows, see:
+# Handle long filenames or readonly files on windows, see: 
 # http://bit.ly/2g58Yxu
 def rmtree(top):
     for root, dirs, files in os.walk(top, topdown=False):
@@ -113,7 +114,7 @@ def set_version(c, v=None):
         return
     else:
         version_update = True
-
+    
     revision = subprocess.check_output(['git', 'rev-parse', 'HEAD']).decode('utf-8').strip('\n')[0:8]
     release_date = datetime.now(timezone.utc).strftime('%Y/%m/%d %H:%M:%SZ')
 
@@ -137,8 +138,8 @@ def set_version(c, v=None):
         print('Setting version to {} in metadata.txt'.format(v))
         sphinx_regex = re.compile("^(version=)[0-9]+([.][0-9]+)+")
         _replace(os.path.join(c.plugin.source_dir, 'metadata.txt'), sphinx_regex, '\g<1>' + v)
-
-        # For the GEE config files the version can't have a dot, so convert to
+    
+        # For the GEE config files the version can't have a dot, so convert to 
         # underscore
         v_gee = v.replace('.', '_')
         if not v or not re.match("[0-9]+(_[0-9]+)+", v_gee):
@@ -147,7 +148,7 @@ def set_version(c, v=None):
 
         gee_id_regex = re.compile('(, )?"id": "[0-9a-z-]*"(, )?')
         gee_script_name_regex = re.compile('("name": "[0-9a-zA-Z -]*)( [0-9]+(_[0-9]+)+)?"')
-        gee_script_requirements_regex = re.compile('(landdegradation.git)([v@.0-9]*)')
+        requirements_txt_regex = re.compile('((trends.earth-schemas.git@)|(trends.earth-algorithms.git@))([.0-9a-z]*)')
 
         # Set version for GEE scripts
         for subdir, dirs, files in os.walk(c.gee.script_dir):
@@ -162,23 +163,84 @@ def set_version(c, v=None):
                     _replace(filepath, gee_id_regex, '')
                 elif file == 'requirements.txt':
                     print('Setting version to {} in {}'.format(v, filepath))
-                    # Validate the version matches the regex
-                    _replace(filepath, gee_script_requirements_regex, '\g<1>@v' + v)
+                    if (int(v.split('.')[-1]) % 2) == 0:
+                        # Last number in version string is even, so use a tagged version of 
+                        # schemas matching this version
+                        _replace(filepath, requirements_txt_regex, '\g<1>v' + v)
+                    else:
+                        # Last number in version string is odd, so this is a development 
+                        # version, so use development version of schemas
+                        _replace(filepath, requirements_txt_regex, '\g<1>develop')
                 elif file == '__init__.py':
                     print('Setting version to {} in {}'.format(v, filepath))
                     init_version_regex = re.compile('^(__version__[ ]*=[ ]*["\'])[0-9]+([.][0-9]+)+')
                     _replace(filepath, init_version_regex, '\g<1>' + v)
-
+        
         # Set in scripts.json
         print('Setting version to {} in scripts.json'.format(v))
         scripts_regex = re.compile('("script version": ")[0-9]+([-._][0-9]+)+', re.IGNORECASE)
         _replace(os.path.join(c.plugin.source_dir, 'data', 'scripts.json'), scripts_regex, '\g<1>' + v)
 
-        # Set in setup.py
-        print('Setting version to {} in trends.earth-schemas setup.py'.format(v))
-        setup_regex = re.compile("^([ ]*version=[ ]*')[0-9]+([.][0-9]+)+")
-        _replace(os.path.join(c.schemas.setup_dir, 'setup.py'), setup_regex, '\g<1>' + v)
+        print('Setting version to {} in package requirements.txt'.format(v))
+        if (int(v.split('.')[-1]) % 2) == 0:
+            # Last number in version string is even, so use a tagged version of 
+            # schemas matching this version
+            _replace('requirements.txt', requirements_txt_regex, '\g<1>v' + v)
+        else:
+            # Last number in version string is odd, so this is a development 
+            # version, so use development version of schemas
+            _replace('requirements.txt', requirements_txt_regex, '\g<1>develop')
 
+@task()
+def release_github(c):
+    v = get_version(c)
+
+    # TODO: Add zipfile as an asset
+    # https://docs.github.com/en/rest/reference/repos#upload-a-release-asset
+
+    # Make release
+    payload = {
+        'tag_name': 'v{}'.format(v),
+        'name': 'Version {}'.format(v),
+        'body': """To install this release, download the LDMP.zip file below and then follow [the instructions for installing a release from Github](https://github.com/ConservationInternational/trends.earth#stable-version-from-zipfile)."""
+    }
+
+    s = requests.Session()
+    res = s.get('https://github.com')
+    cookies = dict(res.cookies)
+
+    r = requests.post('{}/repos/{}/{}/releases'.format(c.github.api_url, c.github.repo_owner, c.github.repo_name),
+                      json = payload,
+                      headers = {'Authorization': 'token {}'.format(c.github.token)},
+                      cookies=cookies)
+    r.raise_for_status()
+    # TODO: Link asset to release. See:
+    # https://docs.github.com/en/rest/reference/repos#update-a-release-asset
+
+@task()
+def set_tag(c):
+    v = get_version(c)
+    ret = subprocess.run(['git', 'diff-index', 'HEAD', '--'], 
+                          capture_output=True, text=True)
+    if ret.stdout != '':
+        ret = query_yes_no('Uncommitted changes exist in repository. Commit these?')
+        if ret:
+            ret = subprocess.run(['git', 'commit', '-m', 'Updating version tags for v{}'.format(v)])
+            ret.check_returncode()
+        else:
+            print('Changes not committed - VERSION TAG NOT SET'.format(v))
+
+    print('Tagging version {} and pushing tag to origin'.format(v))
+    ret = subprocess.run(['git', 'tag', '-l', 'v{}'.format(v)], 
+                         capture_output=True, text=True)
+    ret.check_returncode()
+    if 'v{}'.format(v) in ret.stdout:
+        # Try to delete this tag on remote in case it exists there
+        ret = subprocess.run(['git', 'push', 'origin', '--delete', 'v{}'.format(v)])
+        if ret.returncode == 0:
+            print('Deleted tag v{} on origin'.format(v))
+    subprocess.check_call(['git', 'tag', '-f', '-a', 'v{}'.format(v), '-m', 'Version {}'.format(v)])
+    subprocess.check_call(['git', 'push', 'origin', 'v{}'.format(v)])
 
 def check_tecli_python_version():
     if sys.version_info[0] < 3:
@@ -206,11 +268,12 @@ def tecli_config(c, key):
         return
     subprocess.check_call(['python', os.path.abspath(c.gee.tecli), 'config', 'set', 'EE_SERVICE_ACCOUNT_JSON', key])
 
-@task(help={'script': 'Script name'})
-def tecli_publish(c, script=None):
+@task(help={'script': 'Script name',
+            'overwrite': 'Overwrite scripts if existing?'})
+def tecli_publish(c, script=None, overwrite=False):
     if not check_tecli_python_version():
         return
-    if not script:
+    if not script and not overwrite:
         ret = query_yes_no('WARNING: this will overwrite all scripts on the server with version {}.\nDo you wish to continue?'.format(get_version(c)))
         if not ret:
             return
@@ -218,7 +281,7 @@ def tecli_publish(c, script=None):
     dirs = next(os.walk(c.gee.script_dir))[1]
     n = 0
     for dir in dirs:
-        script_dir = os.path.join(c.gee.script_dir, dir)
+        script_dir = os.path.join(c.gee.script_dir, dir) 
         if os.path.exists(os.path.join(script_dir, 'configuration.json')) and \
                 (script == None or script == dir):
             print('Publishing {}...'.format(dir))
@@ -230,27 +293,64 @@ def tecli_publish(c, script=None):
         print('Script "{}" not found.'.format(script))
 
 @task(help={'script': 'Script name',
-            'params': 'Parameters'})
-def tecli_run(c, script, params=None):
+            'queryParams': 'Parameters',
+            'payload': 'Parameters (as json'})
+def tecli_run(c, script, queryParams=None, payload=None):
     if not check_tecli_python_version():
         return
     dirs = next(os.walk(c.gee.script_dir))[1]
     n = 0
     script_dir = None
     for dir in dirs:
-        script_dir = os.path.join(c.gee.script_dir, dir)
+        script_dir = os.path.join(c.gee.script_dir, dir) 
         if os.path.exists(os.path.join(script_dir, 'configuration.json')) and \
                  script == dir:
             print('Running {}...'.format(dir))
-            if params:
-                subprocess.check_call(['python', os.path.abspath(c.gee.tecli), 'start', '--queryParams={}'.format(params)], cwd=script_dir)
+            if queryParams:
+                print('Using given query parameters as input to script.')
+                subprocess.check_call(['python', os.path.abspath(c.gee.tecli), 'start', '--queryParams={}'.format(queryParams)], cwd=script_dir)
+            elif payload:
+                print('Using given payload as input to script.')
+                subprocess.check_call(['python', os.path.abspath(c.gee.tecli), 'start', '--payload={}'.format(os.path.abspath(payload))], cwd=script_dir)
             else:
+                print('Running script without any input parameters.')
                 subprocess.check_call(['python', os.path.abspath(c.gee.tecli), 'start'], cwd=script_dir)
 
             n += 1
             break
     if script and n == 0:
         print('Script "{}" not found.'.format(script))
+
+
+@task
+def update_script_ids(c):
+    with open(c.gee.scripts_json_file, 'r') as fin:
+        scripts = json.load(fin)
+
+    dirs = next(os.walk(c.gee.script_dir))[1]
+    n = 0
+    script_dir = None
+    for dir in dirs:
+        script_dir = os.path.join(c.gee.script_dir, dir) 
+        if os.path.exists(os.path.join(script_dir, 'configuration.json')):
+            with open(os.path.join(script_dir, 'configuration.json'), 'r') as fin:
+                config = json.load(fin)
+            try:
+                script_name = re.compile('( [0-9]+(_[0-9]+)+$)').sub('', config['name'])
+                scripts[script_name]['id'] = config['id']
+                script_version = re.compile(
+                    '^[a-zA-Z0-9-]* ').sub(
+                    '', config['name']).replace('_', '.')
+                scripts[script_name]['version'] = script_version
+            except KeyError:
+                print(f'Skipping {script_name} as not found in scripts.json')
+    with open(c.gee.scripts_json_file, 'w') as f_out:
+        json.dump(
+            scripts,
+            f_out,
+            sort_keys=True,
+            indent=4
+        )
 
 
 @task(help={'script': 'Script name'})
@@ -261,7 +361,7 @@ def tecli_info(c, script=None):
     n = 0
     script_dir = None
     for dir in dirs:
-        script_dir = os.path.join(c.gee.script_dir, dir)
+        script_dir = os.path.join(c.gee.script_dir, dir) 
         if os.path.exists(os.path.join(script_dir, 'configuration.json')) and \
                 (script == None or script == dir):
             print('Checking info on {}...'.format(dir))
@@ -279,7 +379,7 @@ def tecli_logs(c, script):
     n = 0
     script_dir = None
     for dir in dirs:
-        script_dir = os.path.join(c.gee.script_dir, dir)
+        script_dir = os.path.join(c.gee.script_dir, dir) 
         if os.path.exists(os.path.join(script_dir, 'configuration.json')) and \
                  script == dir:
             print('Checking logs for {}...'.format(dir))
@@ -311,10 +411,11 @@ def read_requirements():
     return not_comments(0, idx), not_comments(idx+1, None)
 
 @task(help={'clean': 'Clean out dependencies first',
+            'link': 'Symlink dependendencies to their local repos',
             'pip': 'Path to pip (usually "pip" or "pip3"'})
-def plugin_setup(c, clean=False, pip='pip'):
+def plugin_setup(c, clean=False, link=False, pip='pip'):
     '''install dependencies'''
-    ext_libs = os.path.abspath(c.plugin.ext_libs)
+    ext_libs = os.path.abspath(c.plugin.ext_libs.path)
     if clean and os.path.exists(ext_libs):
         shutil.rmtree(ext_libs)
     if sys.version_info[0] < 3:
@@ -326,12 +427,22 @@ def plugin_setup(c, clean=False, pip='pip'):
 
     os.environ['PYTHONPATH'] = ext_libs
     for req in runtime + test:
-        # Don't install numpy with pyqtgraph as QGIS already has numpy.
-        # So use the --no-deps flag (-N for short) with that package only.
+        # Don't install numpy with pyqtgraph as QGIS already has numpy. So use 
+        # the --no-deps flag (-N for short) with that package only.
         if 'pyqtgraph' in req:
             subprocess.check_call([pip, 'install', '--upgrade', '--no-deps', '-t', ext_libs, req])
         else:
             subprocess.check_call([pip, 'install', '--upgrade', '-t', ext_libs, req])
+
+    if link:
+        for module in c.plugin.ext_libs.module_symlinks:
+            l = os.path.abspath(c.plugin.ext_libs.path) + os.path.sep + module['name']
+            if os.path.islink(l):
+                print("Local repo of {} already linked to plugin ext_libs".format(module['name']))
+            else:
+                print("Linking local repo of {} to plugin ext_libs".format(module['name']))
+                shutil.rmtree(l)
+                os.symlink(module['path'], l)
 
 @task(help={'clean': "run rmtree",
             'version': 'what version of QGIS to install to',
@@ -363,7 +474,7 @@ def plugin_install(c, clean=False, version=3, profile='default', fast=False):
     src = os.path.abspath(src)
     dst_this_plugin = os.path.abspath(dst_this_plugin)
 
-    if not hasattr(os, 'symlink') or (os.name == 'nt'):
+    if not hasattr(os, 'symlink'):
         print("Copying plugin to QGIS version {} plugin folder at {}".format(version, dst_this_plugin))
         if clean:
             if os.path.exists(dst_this_plugin):
@@ -386,41 +497,6 @@ def plugin_install(c, clean=False, version=3, profile='default', fast=False):
 
 # Compile all ui and resource files
 def compile_files(c, version, clean, fast=False):
-    # check to see if we have pyuic
-    if version == 2:
-        pyuic = 'pyuic4'
-    elif version ==3:
-        pyuic = 'pyuic5'
-    else:
-        print("ERROR: unknown qgis version {}".format(version))
-        return
-    pyuic_path = check_path(pyuic)
-
-    if not pyuic_path:
-        print("ERROR: {} is not in your path---unable to compile ui files".format(pyuic))
-        return
-    else:
-        ui_files = glob.glob('{}/*.ui'.format(c.plugin.gui_dir))
-        ui_count = 0
-        skip_count = 0
-        for ui in ui_files:
-            if os.path.exists(ui):
-                (base, ext) = os.path.splitext(ui)
-                output = "{0}.py".format(base)
-                if clean or file_changed(ui, output):
-                    # Fix the links to c header files that Qt Designer adds to
-                    # UI files when QGIS custom widgets are used
-                    ui_regex = re.compile("(<header>)qgs[a-z]*.h(</header>)", re.IGNORECASE)
-                    _replace(ui, ui_regex, '\g<1>qgis.gui\g<2>')
-                    print("Compiling {0} to {1}".format(ui, output))
-                    subprocess.check_call([pyuic_path, '-x', ui, '-o', output])
-                    ui_count += 1
-                else:
-                    skip_count += 1
-            else:
-                print("{} does not exist---skipped".format(ui))
-        print("Compiled {} UI files. Skipped {}.".format(ui_count, skip_count))
-
     # check to see if we have pyrcc
     if version == 2:
         pyrcc = 'pyrcc4'
@@ -451,7 +527,7 @@ def compile_files(c, version, clean, fast=False):
             else:
                 print("{} does not exist---skipped".format(res))
         print("Compiled {} resource files. Skipped {}.".format(res_count, skip_count))
-
+    
 
 def file_changed(infile, outfile):
     try:
@@ -538,7 +614,7 @@ def translate_push(c, force=False, version=3):
     print("Building changelog...")
     changelog_build(c)
 
-    # Below is necessary just to avoid warning messages regarding missing image
+    # Below is necessary just to avoid warning messages regarding missing image 
     # files when Sphinx is used later on
     print("Localizing resources...")
     _localize_resources(c, 'en')
@@ -631,7 +707,7 @@ def docs_build(c, clean=False, ignore_errors=False, language=None, fast=False):
             for n in range(3):
                 # Run multiple times to ensure crossreferences are right
                 subprocess.check_call(['xelatex', doc], cwd=tex_dir)
-            # Move the PDF to the html folder so it will be uploaded with the
+            # Move the PDF to the html folder so it will be uploaded with the 
             # site
             doc_pdf = os.path.splitext(doc)[0] + '.pdf'
             out_dir = '{builddir}/html/{lang}/pdfs'.format(builddir=c.sphinx.builddir, lang=language)
@@ -690,7 +766,7 @@ def changelog_build(c):
             line = [line, '-----------------------------------------------------------------------------------------------------------------------------\n\n']
         out_txt.extend(line)
 
-    out_file = '{docroot}/source/for_developers/changelog.rst'.format(docroot=c.sphinx.docroot)
+    out_file = '{docroot}/source/about/changelog.rst'.format(docroot=c.sphinx.docroot)
     with open(out_file, 'w') as fout:
         metadata = fout.writelines(out_txt)
 
@@ -707,9 +783,10 @@ def changelog_build(c):
 def zipfile_build(c, clean=False, version=3, tests=False, filename=None, pip='pip'):
     """Create plugin package"""
     set_version(c)
+    set_tag(c)
 
-    plugin_setup(c, clean,  pip)
-    compile_files(c, version, clean)
+    plugin_setup(c, clean=clean,  pip=pip)
+    compile_files(c, version=version, clean=clean)
 
     package_dir = c.plugin.package_dir
     if sys.version_info[0] < 3:
@@ -734,12 +811,15 @@ def _make_zip(zipFile, c):
             relpath = os.path.relpath(root)
             zipFile.write(os.path.join(root, f), os.path.join(relpath, f))
         _filter_excludes(root, dirs, c)
-
-@task(help={'clean': 'Clean out dependencies before packaging',
-            'pip': 'Path to pip (usually "pip" or "pip3"'})
-def zipfile_deploy(c, clean=False, pip='pip'):
+ 
+@task(help={
+    'qgis': 'QGIS version to target',
+    'clean': 'Clean out dependencies before packaging',
+    'pip': 'Path to pip (usually "pip" or "pip3"'
+})
+def zipfile_deploy(c, qgis, clean=False, pip='pip'):
     binaries_sync(c)
-    binaries_deploy(c)
+    binaries_deploy(c, qgis=qgis)
     print('Binaries uploaded')
 
     filename = zipfile_build(c, pip=pip)
@@ -755,13 +835,13 @@ def zipfile_deploy(c, clean=False, pip='pip'):
     print('Uploading package to S3')
     data = open(filename, 'rb')
     client.put_object(Key='sharing/{}'.format(os.path.basename(filename)),
-                      Body=data,
+                      Body=data, 
                       Bucket=c.sphinx.deploy_s3_bucket)
     data.close()
     print('Package uploaded')
 
 
-# Function
+# Function 
 def _recursive_dir_create(d):
     if sys.version_info[0] < 3:
         if not os.path.exists(d):
@@ -780,18 +860,18 @@ def _s3_sync(c, bucket, s3_prefix, local_folder, patterns=['*']):
     except IOError:
         print('Warning: AWS credentials file not found. Credentials must be in environment variable or in default AWS credentials location.')
         client = boto3.client('s3')
-
+    
     objects = client.list_objects(Bucket=bucket, Prefix='{}/'.format(s3_prefix))['Contents']
     for obj in objects:
         filename = os.path.basename(obj['Key'])
 
         if filename == '':
-            # Catch the case of the key pointing to the root of the bucket and
+            # Catch the case of the key pointing to the root of the bucket and 
             # skip it
             continue
         local_path = os.path.join(local_folder, filename)
 
-        # First ensure all the files that are on S3 are up to date relative to
+        # First ensure all the files that are on S3 are up to date relative to 
         # the local files, copying files in either direction as necessary
         if os.path.exists(local_path):
             if not _check_hash(obj['ETag'].strip('"'), local_path):
@@ -801,7 +881,7 @@ def _s3_sync(c, bucket, s3_prefix, local_folder, patterns=['*']):
                     print('Local version of {} is newer than on S3 - copying to S3.'.format(filename))
                     data = open(local_path, 'rb')
                     client.put_object(Key='{}/{}'.format(s3_prefix, os.path.basename(filename)),
-                                      Body=data,
+                                      Body=data, 
                                       Bucket=bucket)
                     data.close()
                 else:
@@ -829,7 +909,7 @@ def _s3_sync(c, bucket, s3_prefix, local_folder, patterns=['*']):
             print('S3 is missing {} - copying to S3.'.format(f))
             data = open(f, 'rb')
             client.put_object(Key='{}/{}'.format(s3_prefix, os.path.basename(f)),
-                              Body=data,
+                              Body=data, 
                               Bucket=bucket)
             data.close()
 
@@ -877,33 +957,40 @@ def find_binaries(c, folder, version=None):
     files = []
     for pattern in c.plugin.numba.binary_extensions:
         if version:
-            files.append([f for f in os.listdir(folder) if re.search(r'{}.*{}$'.format(version, pattern), f)])
+            files.append(
+                [
+                    f for f in os.listdir(folder)
+                    if re.search(f'{version}.*{pattern}$', f)
+                ]
+            )
         else:
             files.append([f for f in os.listdir(folder) if re.search(r'.*{}$'.format(pattern), f)])
     # Return a flattened list
     return [item for sublist in files for item in sublist]
 
-@task
-def binaries_deploy(c):
+
+@task(help={'qgis': 'QGIS version to target'})
+def binaries_deploy(c, qgis):
     # Copy down any missing binaries
     binaries_sync(c)
 
-    v = get_version(c).replace('.', '_')
-    zipfile_basename = 'trends_earth_binaries_{}'.format(v)
+    v = get_version(c).replace('.', '-')
+    qgis = qgis.replace('.', '-')
+    zipfile_basename = f'trends_earth_binaries_{v}_{qgis}'
     files = find_binaries(c, c.plugin.numba.binary_folder, v)
     with TemporaryDirectory() as tmpdir:
-        # Make module dir within the tmp dir, inside a folder containing the
-        # version string - this is needed to allow clean unzipping of the
-        # modules later on machines that might have multiple versions of the
+        # Make module dir within the tmp dir, inside a folder containing the 
+        # version string - this is needed to allow clean unzipping of the 
+        # modules later on machines that might have multiple versions of the 
         # binaries installed in the same folder
         moduledir = os.path.join(tmpdir, zipfile_basename, 'trends_earth_binaries')
         os.makedirs(moduledir)
-        with open(os.path.join(moduledir, '__init__.py'), 'w') as fp:
+        with open(os.path.join(moduledir, '__init__.py'), 'w') as fp: 
             pass
         # Copy binaries to temp folder for later zipping
         for f in files:
             # Strip version string from files before placing them in zipfile
-            out_path_no_v = os.path.join(moduledir, re.sub('_[0-9]+_[0-9]+(_[0-9]+)?', '', os.path.basename(f)))
+            out_path_no_v = os.path.join(moduledir, re.sub('_[0-9]+-[0-9]+(-[0-9]+)?', '', os.path.basename(f)))
             shutil.copy(os.path.join(c.plugin.numba.binary_folder, f), out_path_no_v)
 
         # Save to zipfile
@@ -931,17 +1018,17 @@ def binaries_compile(c, clean=False, python='python'):
         subprocess.check_call([python, numba_file])
         n += 1
 
-    v = get_version(c).replace('.', '_')
+    v = get_version(c).replace('.', '-')
     for folder in set([os.path.dirname(f) for f in c.plugin.numba.aot_files]):
         files = find_binaries(c, folder)
         for f in files:
-            # Add version strings to the compiled files so they won't overwrite
+            # Add version strings to the compiled files so they won't overwrite 
             # files from other Trends.Earth versions when synced to S3
             module_name_regex = re.compile("([a-zA-Z0-9_])\.(.*)")
-            out_file = module_name_regex.sub('\g<1>_{}.\g<2>'.format(v), os.path.basename(f))
+            out_file = module_name_regex.sub(f'\g<1>_{v}.\g<2>', os.path.basename(f))
             out_path_with_v = os.path.join(c.plugin.numba.binary_folder, out_file)
             shutil.move(os.path.join(folder, f), out_path_with_v)
-
+    
     print("Compiled {} numba files.".format(n))
 
 
@@ -949,33 +1036,48 @@ def binaries_compile(c, clean=False, python='python'):
 # Options
 ###############################################################################
 
-ns = Collection(set_version, plugin_setup, plugin_install,
+ns = Collection(set_version, set_tag,
+                plugin_setup, plugin_install,
                 docs_build, translate_pull, translate_push,
                 tecli_login, tecli_clear, tecli_config, tecli_publish,
                 tecli_run, tecli_info, tecli_logs, zipfile_build,
                 zipfile_deploy, binaries_compile, binaries_sync,
-                binaries_deploy, testdata_sync)
+                binaries_deploy, release_github, update_script_ids,
+                testdata_sync)
 
 ns.configure({
     'plugin': {
         'name': 'LDMP',
         'version_file_raw': 'version.txt',
         'version_file_details': 'LDMP/version.json',
-        'ext_libs': 'LDMP/ext-libs',
+        'ext_libs': {
+            'path': 'LDMP/ext-libs',
+            'module_symlinks': []
+        },
         'gui_dir': 'LDMP/gui',
         'source_dir': 'LDMP',
         'i18n_dir': 'LDMP/i18n',
         #'translations': ['fr', 'es', 'pt', 'sw', 'ar', 'ru', 'zh'],
-        'translations': ['fr', 'es', 'sw', 'pt'],
+        'translations': [
+            'fr',
+            'es',
+            'sw',
+            'pt'
+        ],
         'resource_files': ['LDMP/resources.qrc'],
         'numba': {
-            'aot_files': ['LDMP/calculate_numba.py',
-                          'LDMP/summary_numba.py'],
-            'binary_extensions': ['.so',
-                                  '.pyd'],
+            'aot_files': [
+                'LDMP/localexecution/ldn_numba.py',
+                'LDMP/localexecution/drought_numba.py',
+                'LDMP/localexecution/util_numba.py'
+            ],
+            'binary_extensions': [
+                '.so',
+                '.pyd'
+            ],
             'binary_folder':  'LDMP/binaries',
             'binary_list': 'LDMP/data/binaries.txt'
-            },
+        },
         'testdata_patterns': ['LDMP/test/integration/fixtures/*'],
         'package_dir': 'build',
         'tests': ['LDMP/test'],
@@ -988,15 +1090,16 @@ ns.configure({
             '*.pyc',
             'LDMP/schemas/.gitgnore',
             'LDMP/schemas/.git'
-            ],
+        ],
         # skip certain files inadvertently found by exclude pattern globbing
-        'skip_exclude': []
+        'skip_exclude': [],
     },
     'schemas': {
         'setup_dir': 'LDMP/schemas',
     },
     'gee': {
         'script_dir': 'gee',
+        'scripts_json_file': 'LDMP/data/scripts.json',
         'tecli': '../trends.earth-CLI/tecli'
     },
     'sphinx' : {
@@ -1020,5 +1123,11 @@ ns.configure({
                            'Trends.Earth_Tutorial09_Loading_a_Basemap.tex',
                            'Trends.Earth_Tutorial10_Forest_Carbon.tex',
 						   'Trends.Earth_Tutorial11_Urban_Change_SDG_Indicator.tex']
-    }
+    },
+    'github' : {
+        'api_url': 'https://api.github.com',
+        'repo_owner': 'ConservationInternational',
+        'repo_name': 'trends.earth',
+        'token': None,
+    },
 })

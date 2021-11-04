@@ -331,6 +331,19 @@
             ]
         }
     },
+    "SDG 15.3.1 (progress)": {
+        "title": "sdg_progress_title",
+        "ramp": {
+            "type": "categorical",
+            "shader": "exact",
+            "items": [
+                {"value": -32768, "color": "#000000", "label": "nodata"},
+                {"value": -1, "color": "#9b2779", "label": "combined_sdg_deg_deg"},
+                {"value": 0, "color": "#ffffe0", "label": "combined_sdg_deg_stable"},
+                {"value": 1, "color": "#006500", "label": "combined_sdg_deg_imp"}
+            ]
+        }
+    },
     "SDG 15.3.1 Indicator (Trends.Earth)": {
         "title": "combined_sdg_title",
         "ramp": {
@@ -341,6 +354,34 @@
                 {"value": -1, "color": "#9b2779", "label": "combined_sdg_deg_deg"},
                 {"value": 0, "color": "#ffffe0", "label": "combined_sdg_deg_stable"},
                 {"value": 1, "color": "#006500", "label": "combined_sdg_deg_imp"}
+            ]
+        }
+    },
+    "Land Productivity Dynamics (from TE)": {
+        "title": "sdg_prod_combined_title",
+        "ramp": {
+            "type": "categorical",
+            "shader": "exact",
+            "items": [
+                {"value": -32768, "color": "#000000", "label": "nodata"},
+                {"value": 1, "color": "#9b2779", "label": "sdg_prod_combined_declining"},
+                {"value": 2, "color": "#c0749b", "label": "sdg_prod_combined_earlysigns"},
+                {"value": 3, "color": "#e1b9bd", "label": "sdg_prod_combined_stabbutstress"},
+                {"value": 4, "color": "#ffffe0", "label": "sdg_prod_combined_stab"},
+                {"value": 5, "color": "#006500", "label": "sdg_prod_combined_imp"}
+            ]
+        }
+    },
+    "Productivity Degradation (comparison)": {
+        "title": "prod_deg_comp_title",
+        "ramp": {
+            "type": "categorical",
+            "shader": "exact",
+            "items": [
+                {"value": -32768, "color": "#000000", "label": "nodata"},
+                {"value": -1, "color": "#9b2779", "label": "prod_prog_comp_deg"},
+                {"value": 0, "color": "#ffffe0", "label": "prod_prog_comp_stable"},
+                {"value": 1, "color": "#006500", "label": "prod_prog_comp_imp"}
             ]
         }
     },
@@ -375,6 +416,21 @@
         }
     },
     "Land Productivity Dynamics (LPD)": {
+        "title": "lpd_title",
+        "ramp": {
+            "type": "categorical",
+            "shader": "exact",
+            "items": [
+                {"value": -32768, "color": "#000000", "label": "nodata"},
+                {"value": 1, "color": "#9b2779", "label": "lpd_declining"},
+                {"value": 2, "color": "#ED7428", "label": "lpd_earlysigns"},
+                {"value": 3, "color": "#FED652", "label": "lpd_stabbutstress"},
+                {"value": 4, "color": "#B8D779", "label": "lpd_stab"},
+                {"value": 5, "color": "#006500", "label": "lpd_imp"}
+            ]
+        }
+    },
+    "Land Productivity Dynamics (from JRC)": {
         "title": "lpd_title",
         "ramp": {
             "type": "categorical",
@@ -462,6 +518,42 @@
             ]
         }
     },
+    "Population density at minimum SPI over period": {
+        "title": "population_density_at_maximum_drought_title",
+        "ramp": {
+            "type": "min zero stretch",
+            "shader": "interpolated",
+            "percent stretch": 2,
+            "zero": {"color": "#461554"},
+            "mid": {"color": "#28898C"},
+            "max": {"color": "#FDE629"},
+            "no data": {"value": -32768, "color": "#000000", "label": "nodata"}
+        }
+    },
+    "Population (density, persons per sq km / 10)": {
+        "title": "population_density_title",
+        "ramp": {
+            "type": "min zero stretch",
+            "shader": "interpolated",
+            "percent stretch": 2,
+            "zero": {"color": "#461554"},
+            "mid": {"color": "#28898C"},
+            "max": {"color": "#FDE629"},
+            "no data": {"value": -32768, "color": "#000000", "label": "nodata"}
+        }
+    },
+    "Population affected by degradation (density, persons per sq km / 10)": {
+        "title": "population_density_affected_by_degradation_title",
+        "ramp": {
+            "type": "zero-centered stretch",
+            "shader": "interpolated",
+            "percent stretch": 2,
+            "min": {"color": "#9b2779"},
+            "zero": {"color": "#ffffe0"},
+            "max": {"color": "#006500"},
+            "no data": {"value": -32768, "color": "#000000", "label": "nodata"}
+        }
+    },
     "Population": {
         "title": "population_title",
         "ramp": {
@@ -472,6 +564,59 @@
             "mid": {"color": "#28898C"},
             "max": {"color": "#FDE629"},
             "no data": {"value": -32768, "color": "#000000", "label": "nodata"}
+        }
+    },
+    "Standardized Precipitation Index (SPI)": {
+        "title": "spi_title",
+        "ramp": {
+            "type": "categorical",
+            "shader": "interpolated",
+            "items": [
+               {"value": -32768, "color": "#000000", "label": "nodata"},
+               {"value": -2500, "color": "#8c510a", "label": "spi_extreme_drought"},
+               {"value": -2000, "color": "#bf812d", "label": "spi_severe_drought"},
+               {"value": -1500, "color": "#dfc27d", "label": "spi_moderate_drought"},
+               {"value": -1000, "color": "#f6e8c3", "label": "spi_mild_drought"},
+               {"value": 0, "color": "#f5f5f5", "label": "spi_normal"},
+               {"value": 1000, "color": "#c7eae5", "label": "spi_mild_wet"},
+               {"value": 1500, "color": "#80cdc1", "label": "spi_moderate_wet"},
+               {"value": 2000, "color": "#35978f", "label": "spi_severe_wet"},
+               {"value": 2500, "color": "#01665e", "label": "spi_extreme_wet"}
+            ]
+        }
+    },
+    "Minimum SPI over period": {
+        "title": "spi_at_maximum_drought_title",
+        "ramp": {
+            "type": "categorical",
+            "shader": "interpolated",
+            "items": [
+               {"value": -32768, "color": "#000000", "label": "nodata"},
+               {"value": -2500, "color": "#8c510a", "label": "spi_extreme_drought"},
+               {"value": -2000, "color": "#bf812d", "label": "spi_severe_drought"},
+               {"value": -1500, "color": "#dfc27d", "label": "spi_moderate_drought"},
+               {"value": -1000, "color": "#f6e8c3", "label": "spi_mild_drought"},
+               {"value": 0, "color": "#f5f5f5", "label": "spi_normal"},
+               {"value": 1000, "color": "#c7eae5", "label": "spi_mild_wet"},
+               {"value": 1500, "color": "#80cdc1", "label": "spi_moderate_wet"},
+               {"value": 2000, "color": "#35978f", "label": "spi_severe_wet"},
+               {"value": 2500, "color": "#01665e", "label": "spi_extreme_wet"}
+            ]
+        }
+    },
+    "Drought Vulnerability (JRC)": {
+        "title": "jrc_drought_vulnerability_title",
+        "ramp": {
+            "type": "categorical",
+            "shader": "interpolated",
+            "items": [
+                {"value": -32768, "color": "#000000", "label": "nodata"},
+                {"value": 2560, "color": "#3B0F6F", "label": "0th percentile"},
+                {"value": 3930, "color": "#8C2981", "label": "25th percentile"},
+                {"value": 4718, "color": "#DD4A69", "label": "50th percentile"},
+                {"value": 9270, "color": "#FE9F6D", "label": "75th percentile"},
+                {"value": 10000, "color": "#FCFDBF", "label": "100th percentile"}
+            ]
         }
     },
     "Biomass (tonnes CO2e per ha)": {

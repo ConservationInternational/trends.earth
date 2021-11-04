@@ -17,7 +17,8 @@ from qgis.core import (QgsGeometry,
                        QgsProcessingOutputNumber)
 from qgis.PyQt.QtCore import QCoreApplication
 
-from LDMP import GetTempFilename, log
+from LDMP import GetTempFilename
+from ..logger import log
 
 
 class ClipRaster(QgsProcessingAlgorithm):

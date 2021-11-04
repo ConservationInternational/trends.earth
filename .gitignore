@@ -30,9 +30,11 @@ LDMP/gui/*.py
 LDMP/resources.py
 LDMP/version.json
 LDMP/data_prep_scripts/*
+docs/.vscode/*
 docs/build/*
 docs/source/.doctrees/*
 docs/source/static/*
+docs/source/_build/*
 LDMP/binaries/*
 LDMP/test/fixtures/*
 LDMP/test/integration/fixtures/*
@@ -41,3 +43,7 @@ invoke.yaml
 trends.earth_admin_user_credentials.json
 trends.earth_test_user_credentials.json
 .ipynb_checkpoints
+.idea/
+venv
+LDMP/data/ne_10m_*
+LDMP/data/trends.earth_basemap_data.zip

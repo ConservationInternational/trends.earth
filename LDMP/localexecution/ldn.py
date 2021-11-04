@@ -24,7 +24,6 @@ from osgeo import (
     gdal,
     osr,
 )
-import qgis.core
 
 from te_schemas import (
     schemas,
@@ -245,7 +244,7 @@ def get_main_sdg_15_3_1_job_params(
 
     land_cover_inputs = _get_ld_inputs(
         combo_layer_lc, LC_BAND_NAME)
-    land_cover_transition_inputs = _get_ld_input_aux_band(
+    land_cover_transition_input = _get_ld_input_aux_band(
         combo_layer_lc, LC_TRANS_BAND_NAME)
     soil_organic_carbon_inputs = _get_ld_inputs(
         combo_layer_soc, SOC_BAND_NAME)
@@ -261,40 +260,47 @@ def get_main_sdg_15_3_1_job_params(
         "task_name": task_name,
         "task_notes": task_notes,
         "prod_mode": prod_mode,
+
         "layer_lc_path": str(land_cover_inputs.path),
         "layer_lc_deg_band": JobBand.Schema().dump(
             land_cover_inputs.main_band
         ),
         "layer_lc_deg_band_index": land_cover_inputs.main_band_index,
         "layer_lc_deg_years": lc_deg_years,
+
         "layer_lc_aux_bands": [
             JobBand.Schema().dump(b)
             for b in land_cover_inputs.aux_bands
         ],
         "layer_lc_aux_band_indexes": land_cover_inputs.aux_band_indexes,
         "layer_lc_years": land_cover_inputs.years,
+
         "layer_lc_trans_band": JobBand.Schema().dump(
-            land_cover_transition_inputs['band']
+            land_cover_transition_input['band']
         ),
-        "layer_lc_trans_path": str(land_cover_transition_inputs['path']),
-        "layer_lc_trans_band_index": land_cover_transition_inputs['band_index'],
+        "layer_lc_trans_path": str(land_cover_transition_input['path']),
+        "layer_lc_trans_band_index": land_cover_transition_input['band_index'],
+
         "layer_soc_path": str(soil_organic_carbon_inputs.path),
         "layer_soc_deg_band": JobBand.Schema().dump(
             soil_organic_carbon_inputs.main_band
         ),
         "layer_soc_deg_years": soc_deg_years,
         "layer_soc_deg_band_index": soil_organic_carbon_inputs.main_band_index,
+
         "layer_soc_aux_bands": [
             JobBand.Schema().dump(b)
             for b in soil_organic_carbon_inputs.aux_bands
         ],
         "layer_soc_aux_band_indexes": soil_organic_carbon_inputs.aux_band_indexes,
         "layer_soc_years": soil_organic_carbon_inputs.years,
+
         "layer_population_path": str(population_input.path),
         "layer_population_band": JobBand.Schema().dump(
             population_input.main_band
         ),
         "layer_population_band_index": population_input.main_band_index,
+
         "crs": aoi.get_crs_dst_wkt(),
         "geojsons": json.dumps(geojsons),
         "crosses_180th": crosses_180th,

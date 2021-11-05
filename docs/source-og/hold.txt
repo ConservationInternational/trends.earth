@@ -1,0 +1,115 @@
+.. raw:: latex
+
+  \part{Preamble}
+
+.. _preamble:
+
+.. toctree::
+  :maxdepth: 2
+  :numbered:
+  :caption: Preamble
+
+  preamble/whatsnew
+
+.. raw:: latex
+
+  \part{Features}
+
+.. _features:
+
+.. toctree::
+  :maxdepth: 2
+  :caption: Features
+
+  features/overview
+  features/landDegradation
+  features/landConsumption
+  features/carbonEmissions
+  features/carbonSequestration
+
+.. raw:: latex
+
+   \part{About}
+
+.. _about-docs:
+
+.. toctree::
+   :maxdepth: 2
+   :caption: About
+
+   about/general_info
+   about/data_sources
+   about/publications
+   about/faq
+   about/development
+   about/changelog
+   about/layers
+
+.. raw:: latex
+
+   \part{Background}
+
+.. _background-docs:
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Background information
+
+   background/understanding_indicators11
+   background/understanding_indicators15
+   background/before_installing
+   background/installing
+   background/report_overviews
+
+.. raw:: latex
+
+   \part{Documentation}
+
+.. _user-docs:
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Documentation
+
+   documentation/settings
+   documentation/calculate
+   documentation/plot_data
+   documentation/data_download
+   documentation/gee_tasks
+   documentation/reporting_tool
+   documentation/load_data
+   documentation/info
+
+.. raw:: latex
+
+   \part{Step-by-step guides}
+
+.. _training:
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Step-by-step Guides
+
+   training/tutorial_installation
+   training/tutorial_run_all_subindicators
+   training/tutorial_task_download
+   training/tutorial_custom_lpd
+   training/tutorial_custom_landcover
+   training/tutorial_custom_soc
+   training/tutorial_load_basemap
+   training/tutorial_compute_sdg_indicator
+   training/tutorial_summary_table
+   training/tutorial_forest_carbon
+   training/tutorial_compute_urban_indicator
+
+.. raw:: latex
+
+    \part{Videos}
+
+.. _videos:
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Videos
+
+   training/video_links

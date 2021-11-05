@@ -9,6 +9,7 @@ from pathlib import Path
 import qgis.core
 
 from . import download
+from te_schemas.algorithms import ExecutionScript
 from .algorithms import models as algorithm_models
 
 
@@ -119,11 +120,11 @@ class SettingsManager:
 
 def _load_script_config(
         script_config: typing.Dict
-) -> typing.Dict[str, algorithm_models.ExecutionScript]:
+) -> typing.Dict[str, ExecutionScript]:
     result = {}
 
     for raw_config in script_config:
-        script = algorithm_models.ExecutionScript.Schema().load(raw_config)
+        script = ExecutionScript.Schema().load(raw_config)
         result[script.name] = script
 
     return result

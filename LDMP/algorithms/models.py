@@ -8,11 +8,9 @@ import typing
 import uuid
 
 import marshmallow_dataclass
-from marshmallow_enum import EnumField
 
-from marshmallow import pre_load
+from te_schemas.algorithms import ExecutionScript
 
-from te_schemas.algorithms import ExecutionScript, AlgorithmRunMode
 
 class AlgorithmNodeType(enum.Enum):
     Group = 1
@@ -20,7 +18,7 @@ class AlgorithmNodeType(enum.Enum):
     Details = 3
 
 
-@dataclass()
+@marshmallow_dataclass.dataclass
 class AlgorithmScript:
     script: ExecutionScript
     parametrization_dialogue: str

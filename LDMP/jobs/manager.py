@@ -284,6 +284,8 @@ class JobManager(QtCore.QObject):
         response = api.call_api(url_fragment, "post", final_params, use_token=True)
         try:
             raw_job = response["data"]
+            log(f'raw job is: {raw_job}')
+            log(f'raw job script is: {raw_job}')
         except TypeError:
             job = None
         else:

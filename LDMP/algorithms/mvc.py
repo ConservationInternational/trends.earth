@@ -9,8 +9,10 @@ from qgis.PyQt import (
     uic,
 )
 
-from .. import tr
 from . import models
+from .. import tr
+
+from te_schemas.algorithms import AlgorithmRunMode
 
 WidgetAlgorithmLeafUi, _ = uic.loadUiType(
     str(Path(__file__).parents[1] / "gui/WidgetAlgorithmLeaf.ui"))
@@ -242,13 +244,16 @@ class AlgorithmEditorWidget(QtWidgets.QWidget, WidgetAlgorithmLeafUi):
         self.name_la.setText(algorithm.name)
         self.description_la.setText(algorithm.description)
         action_labels = {
-            models.AlgorithmRunMode.REMOTE: "Execute remotely",
-            models.AlgorithmRunMode.LOCAL: "Execute locally",
+            AlgorithmRunMode.REMOTE: tr("Execute remotely"),
+            AlgorithmRunMode.LOCAL: tr("Execute locally"),
         }
+        # TODO - fix below, hackish and likely to break on updates. Meant to 
+        # highlight the key scripts, need to do this via a metadata field or 
+        # similar for those scripts
         special_alg_ids = [
-                    "bdad3786-bc36-46aa-8e3d-d6cede915cef",
-                    "fe1cffa7-33f7-4148-ac7b-fc726402d59d"
-                ]
+                "bdad3786-bc36-46aa-8e3d-d6cede915cef",
+                "fe1cffa7-33f7-4148-ac7b-fc726402d59d"
+            ]
         if str(algorithm.id) in special_alg_ids:
             self.setStyleSheet("font-size: 15px;")
         self.open_execution_dialogue_tb.setToolButtonStyle(
@@ -264,14 +269,14 @@ class AlgorithmEditorWidget(QtWidgets.QWidget, WidgetAlgorithmLeafUi):
                 action.triggered.connect(
                     functools.partial(execution_handler, algorithm, action_type))
                 self.open_execution_dialogue_tb.menu().addAction(action)
-                if action_type == models.AlgorithmRunMode.REMOTE:
+                if action_type == AlgorithmRunMode.REMOTE:
                     default_action = action
             self.open_execution_dialogue_tb.setDefaultAction(default_action)
         elif len(algorithm.scripts) == 1:
             run_mode = algorithm.scripts[0].script.run_mode
             action = QtWidgets.QAction(
                 action_icon,
-                tr(action_labels[run_mode]),
+                action_labels[run_mode],
                 self
             )
             action.triggered.connect(

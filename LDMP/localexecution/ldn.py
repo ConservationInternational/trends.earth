@@ -1,29 +1,16 @@
-import os
 import dataclasses
-import datetime as dt
-import enum
 import json
-import tempfile
 import re
 import shutil
 
 from typing import (
     List,
     Dict,
-    Tuple,
-    Union,
     Optional
 )
 from pathlib import Path
 
 from qgis.PyQt import QtWidgets
-
-import numpy as np
-import openpyxl
-from osgeo import (
-    gdal,
-    osr,
-)
 
 from te_schemas import (
     schemas,
@@ -33,13 +20,10 @@ from te_schemas import (
 )
 
 from te_schemas.jobs import JobBand
-from te_schemas.datafile import DataFile, combine_data_files
+from te_schemas.aoi import AOI
 
-from te_algorithms.gdal.util import (
-    combine_all_bands_into_vrt,
-    wkt_geom_to_geojson_file_string
-)
 from te_algorithms.gdal.ldn import (
+    summarise_land_degradation,
     LdnProductivityMode
 )
 
@@ -49,19 +33,10 @@ from ..conf import (
 )
 
 from .. import (
-    calculate,
-    calculate_ldn,
     data_io,
-    summary,
     tr,
-    utils,
-    worker,
-    __version__,
-    __revision__,
-    __release_date__
 )
 from ..jobs.models import Job
-from ..logger import log
 
 import marshmallow_dataclass
 
@@ -344,3 +319,18 @@ def get_main_sdg_15_3_1_job_params(
         })
 
     return params
+
+
+def compute_ldn(
+    ldn_job: Job,
+    aoi: AOI,
+    job_output_path: Path,
+    dataset_output_path: Path
+) -> Job:
+    """Calculate final SDG 15.3.1 indicator and save to disk"""
+
+    summarise_land_degradation(
+        ldn_job,
+        AOI(aoi.get_geojson()),
+        job_output_path
+    )

@@ -155,14 +155,19 @@ class JobManager(QtCore.QObject):
         self._known_running_jobs = {
             j.id: j for j in self._get_local_jobs(jobs.JobStatus.RUNNING)}
         self._refresh_local_downloaded_jobs()
+        # We copy the dictionary before iterating in order to avoid having it
+        # change size during the process
+        frozen_known_downloaded_jobs =  self._known_downloaded_jobs.copy()
         # move any downloaded jobs with missing local paths back to FINISHED
-        for j_id, j in self._known_downloaded_jobs.items():
+        for j_id, j in frozen_known_downloaded_jobs.items():
             if j.results.data_path and not j.results.data_path.exists():
                 log(f'job {j_id} currently marked as DOWNLOADED but has '
                     'missing paths, so moving back to FINISHED status')
                 j.results.data_path = None
                 self._change_job_status(
                     j, jobs.JobStatus.FINISHED, force_rewrite=True)
+        # Refresh again to pickup the changes back in the original dictionary
+        self._refresh_local_downloaded_jobs()
         # filter list in case any jobs were moved from downloaded to finished
         self._known_downloaded_jobs = {
             j_id: j
@@ -335,14 +340,19 @@ class JobManager(QtCore.QObject):
         handler = {
             jobs.JobResultType.CLOUD_RESULTS: self._download_cloud_results,
             jobs.JobResultType.TIME_SERIES_TABLE: self._download_timeseries_table,
-        }[job.results.type]
-        handler: typing.Callable
-        output_path = handler(job)
-        if output_path is not None:
-            job.results.data_path = output_path
-            self._change_job_status(
-                job, jobs.JobStatus.DOWNLOADED, force_rewrite=True)
-        self.downloaded_job_results.emit(job)
+        }.get(job.results.type)
+        if handler:
+            handler: typing.Callable
+            output_path = handler(job)
+            if output_path is not None:
+                job.results.data_path = output_path
+                self._change_job_status(
+                    job, jobs.JobStatus.DOWNLOADED, force_rewrite=True)
+            self.downloaded_job_results.emit(job)
+        else:
+            # TODO: show a message noting that can't download this job type, 
+            # then disable the download button
+            pass
         # TODO: maybe we don't need to return anything here
         return job
 
@@ -391,7 +401,24 @@ class JobManager(QtCore.QObject):
                         jobs.JobBand.Schema().dump(band)
                     )
 
-    def import_job(self, job: Job):
+    def import_job(self, job: Job, job_path):
+        # First check if data path is relative to job file. If it is, update
+        # the data_path and other_path before moving the job file so the data
+        # can still be found after moving the job file
+        if (job.results.data_path and
+            not job.results.data_path.is_absolute()
+        ):
+            # If the path doesn't exist, but the filename does exist in the 
+            # same folder as the job, assume that is what is meant
+            possible_path = Path(job_path.parent / job.results.data_path.name).absolute()
+            if possible_path.exists():
+                job.results.data_path = possible_path
+            job.results.data_path = possible_path
+            # Assume the other_paths also need to be converted
+            job.results.other_paths = [
+                Path(job_path.parent / p).absolute()
+                for p in job.results.other_paths
+            ]
         self._move_job_to_dir(job, job.status, force_rewrite=True)
         if job.status == jobs.JobStatus.PENDING:
             status = jobs.JobStatus.RUNNING
@@ -399,6 +426,7 @@ class JobManager(QtCore.QObject):
             status = jobs.JobStatus.DOWNLOADED
         else:
             status = job.status
+        log(f'emitting job {job.id}')
         self.known_jobs[status][job.id] = job
         self.imported_job.emit(job)
 

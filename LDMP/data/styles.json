@@ -521,12 +521,12 @@
     "Population density at minimum SPI over period": {
         "title": "population_density_at_maximum_drought_title",
         "ramp": {
-            "type": "min zero stretch",
+            "type": "zero-centered stretch",
             "shader": "interpolated",
             "percent stretch": 2,
-            "zero": {"color": "#461554"},
-            "mid": {"color": "#28898C"},
-            "max": {"color": "#FDE629"},
+            "min": {"color": "#9b2779"},
+            "zero": {"color": "#ffffe0"},
+            "max": {"color": "#006500"},
             "no data": {"value": -32768, "color": "#000000", "label": "nodata"}
         }
     },

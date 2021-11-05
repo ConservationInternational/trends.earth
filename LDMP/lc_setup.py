@@ -678,7 +678,7 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
                 'source': 'custom data'
             }
         )
-        job_manager.import_job(job)
+        job_manager.import_job(job, Path(out_file))
 
 
 class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):

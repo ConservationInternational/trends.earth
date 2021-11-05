@@ -1,4 +1,4 @@
-#_se -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 """
 /***************************************************************************
  LDMP - A QGIS plugin
@@ -576,7 +576,7 @@ class DlgDataIOLoadTE(QtWidgets.QDialog, Ui_DlgDataIOLoadTE):
 
     def ok_clicked(self):
         log("Importing job...")
-        job_manager.import_job(self.job)
+        job_manager.import_job(self.job, Path(self.file_lineedit.text()))
         self.accept()
 
 
@@ -997,7 +997,7 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
                 'source': 'custom data'
             }
         )
-        job_manager.import_job(job)
+        job_manager.import_job(job, Path(out_file))
 
 
 class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
@@ -1071,7 +1071,7 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
                 "source": "custom data"
             }
         )
-        job_manager.import_job(job)
+        job_manager.import_job(job, Path(out_file))
 
 
 def _get_layers(node):

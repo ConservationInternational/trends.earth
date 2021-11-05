@@ -123,7 +123,7 @@ class JobManager(QtCore.QObject):
                "exported"
 
     @classmethod
-    def get_job_basename(cls, job: Job):
+    def get_job_basename(cls, job: Job, with_uuid=False):
         separator = "_"
         name_fragments = []
         task_name = slugify(job.task_name)
@@ -131,9 +131,13 @@ class JobManager(QtCore.QObject):
             name_fragments.append(task_name)
         if job.script:
             name_fragments.append(job.script.name)
-        name_fragments.extend([
-            job.local_context.area_of_interest_name
-        ])
+        name_fragments.append(
+            job.local_context.area_of_interest_name,
+        )
+        if len(name_fragments) == 0 or with_uuid:
+            name_fragments.append(
+                str(job.id)
+            )
         return separator.join(name_fragments)
 
     def clear_known_jobs(self):
@@ -694,20 +698,20 @@ class JobManager(QtCore.QObject):
 
     def get_job_file_path(self, job: Job) -> Path:
         if job.status in (jobs.JobStatus.RUNNING, jobs.JobStatus.PENDING):
-            base = self.running_jobs_dir
+            base = self.running_jobs_dir / f"{self.get_job_basename(job, with_uuid=True)}.json"
         elif job.status == jobs.JobStatus.FAILED:
-            base = self.failed_jobs_dir
+            base = self.failed_jobs_dir / f"{self.get_job_basename(job, with_uuid=True)}.json"
         elif job.status == jobs.JobStatus.FINISHED:
-            base = self.finished_jobs_dir
+            base = self.finished_jobs_dir / f"{self.get_job_basename(job, with_uuid=True)}.json"
         elif job.status == jobs.JobStatus.DELETED:
-            base = self.deleted_jobs_dir
+            base = self.deleted_jobs_dir / f"{self.get_job_basename(job, with_uuid=True)}.json"
         elif job.status in (
                 jobs.JobStatus.DOWNLOADED, jobs.JobStatus.GENERATED_LOCALLY):
-            base = self.datasets_dir / f"{job.id!s}"
+            base = self.datasets_dir / f"{job.id!s}" / f"{self.get_job_basename(job)}.json"
         else:
             raise RuntimeError(
                 f"Could not retrieve file path for job with state {job.status}")
-        return base / f"{self.get_job_basename(job)}.json"
+        return base
 
     def get_downloaded_dataset_base_file_path(self, job: Job):
         base = self.datasets_dir

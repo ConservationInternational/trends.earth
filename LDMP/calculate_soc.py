@@ -21,6 +21,10 @@ from qgis.PyQt import (
     uic,
 )
 
+from te_schemas.schemas import BandInfo, BandInfoSchema
+from te_schemas.land_cover import LCTransitionDefinitionDeg, LCLegendNesting
+from te_schemas.algorithms import AlgorithmRunMode
+
 from . import (
     calculate,
     data_io,
@@ -34,10 +38,6 @@ from .lc_setup import get_lc_nesting, get_trans_matrix
 
 DlgCalculateSocUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateSOC.ui"))
-
-
-from te_schemas.schemas import BandInfo, BandInfoSchema
-from te_schemas.land_cover import LCTransitionDefinitionDeg, LCLegendNesting
 
 
 class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
@@ -71,8 +71,8 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
         ]
 
         lc_setup_widget_class = {
-            models.AlgorithmRunMode.LOCAL: lc_setup.LandCoverSetupLocalExecutionWidget,
-            models.AlgorithmRunMode.REMOTE: (
+            AlgorithmRunMode.LOCAL: lc_setup.LandCoverSetupLocalExecutionWidget,
+            AlgorithmRunMode.REMOTE: (
                 lc_setup.LandCoverSetupRemoteExecutionWidget),
         }[self.script.run_mode]
         self.lc_setup_widget = lc_setup_widget_class(self)
@@ -112,10 +112,10 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
         # self.lc_setup_widget.use_custom_final.populate()
 
         # self.lc_setup_widget.default_frame.setVisible(
-        #     self.script.run_mode == models.AlgorithmRunMode.REMOTE
+        #     self.script.run_mode == AlgorithmRunMode.REMOTE
         # )
         # self.lc_setup_widget.custom_frame.setVisible(
-        #     self.script.run_mode == models.AlgorithmRunMode.LOCAL
+        #     self.script.run_mode == AlgorithmRunMode.LOCAL
         # )
 
     def fl_radios_toggled(self):
@@ -145,7 +145,7 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
         if not ret:
             return
 
-        if self.script.run_mode == models.AlgorithmRunMode.LOCAL or \
+        if self.script.run_mode == AlgorithmRunMode.LOCAL or \
                 self.groupBox_custom_SOC.isChecked():
             self.calculate_locally()
         else:
@@ -162,7 +162,7 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
                 )
             )
             return
-        if self.script.run_mode != models.AlgorithmRunMode.LOCAL:
+        if self.script.run_mode != AlgorithmRunMode.LOCAL:
             QtWidgets.QMessageBox.critical(
                 None,
                 self.tr("Error"),

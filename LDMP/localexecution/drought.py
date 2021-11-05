@@ -1,38 +1,23 @@
-import os
 import dataclasses
-import datetime as dt
-import enum
 import json
-import tempfile
 import re
 import shutil
 
 from typing import (
     List,
     Dict,
-    Tuple,
     Optional
 )
 from pathlib import Path
 
-import numpy as np
-import openpyxl
-from osgeo import (
-    gdal,
-    osr,
-    ogr
-)
-
-from te_schemas import aoi
+from te_schemas.aoi import AOI
 from te_schemas.jobs import JobBand
 
 from te_algorithms.gdal.drought import (
     summarise_drought_vulnerability,
-    DroughtSummaryParams,
-    DroughtSummaryWorker
+    DroughtSummary,
+    DroughtSummaryParams
 )
-from te_algorithms.gdal.util import wkt_geom_to_geojson_file_string
-from te_schemas.datafile import DataFile
 
 from ..conf import (
     settings_manager,
@@ -40,20 +25,11 @@ from ..conf import (
 )
 
 from .. import (
-    areaofinterest,
-    calculate,
     data_io,
-    summary,
     tr,
-    utils,
     worker,
-    __version__,
-    __revision__,
-    __release_date__
 )
 from ..jobs.models import Job
-
-from ..logger import log
 
 NODATA_VALUE = -32768
 MASK_VALUE = -32767
@@ -182,61 +158,60 @@ def get_main_drought_summary_job_params(
     }
 
 
-class DroughtSummaryWorker(worker.AbstractWorker, DroughtSummary):
-    def __init__(
-        self,
-        params: DroughtSummaryParams
-    ):
-        self.params = params
+# class DroughtSummaryWorker(worker.AbstractWorker, DroughtSummary):
+#     def __init__(
+#         self,
+#         params: DroughtSummaryParams
+#     ):
+#         self.params = params
+#
+#         worker.AbstractWorker.__init__(self)
+#         DroughtSummary.__init__(self)
+#
+#     def emit_progress(self, frac):
+#         self.progress.emit(frac * 100)
+#
+#     def is_killed(self):
+#         return self.killed
+#
+#     def work(self):
+#         self.toggle_show_progress.emit(True)
+#         self.toggle_show_cancel.emit(True)
+#
+#         out = self.process_lines(
+#             self.get_line_params()
+#         )
+#
+#         if self.killed:
+#             os.remove(self.params.out_file)
+#             return None
+#         else:
+#             self.emit_progress(100)
+#             return out
+#
+#     drought_worker = worker.StartWorker(
+#         DroughtSummary,
+#         drought_worker_process_name,
+#         DroughtSummaryParams(
+#             in_df=in_df,
+#             out_file=str(output_tif_path),
+#             mask_file=mask_vrt,
+#             drought_period=drought_period
+#         )
+#     )
 
-        worker.AbstractWorker.__init__(self)
-        DroughtSummary.__init__(self)
-
-    def emit_progress(self, frac):
-        self.progress.emit(frac * 100)
-
-    def is_killed(self):
-        return self.killed
-
-    def work(self):
-        self.toggle_show_progress.emit(True)
-        self.toggle_show_cancel.emit(True)
-
-        out = self.process_lines(
-            self.get_line_params()
-        )
-
-        if self.killed:
-            os.remove(self.params.out_file)
-            return None
-        else:
-            self.emit_progress(100)
-            return out
-
-
-    drought_worker = worker.StartWorker(
-        DroughtSummaryWorker,
-        drought_worker_process_name,
-        DroughtSummaryParams(
-            in_df=in_df,
-            out_file=str(output_tif_path),
-            mask_file=mask_vrt,
-            drought_period=drought_period
-        )
 
 def compute_drought_vulnerability(
     drought_job: Job,
-    area_of_interest: areaofinterest.AOI,
+    aoi: AOI,
     job_output_path: Path,
     dataset_output_path: Path
 ) -> Job:
     """Calculate drought vulnerability indicators and save to disk"""
 
     return summarise_drought_vulnerability(
-        drought_job=drought_job,
-        area_of_interest=aoi.AOI(area_of_interest.get_geojson()),
-        job_output_path=job_output_path,
-        mask_worker
-        drought_function = 
+        drought_job,
+        AOI(aoi.get_geojson()),
+        job_output_path
     )
 

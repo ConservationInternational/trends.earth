@@ -35,6 +35,8 @@ import qgis.gui
 import qgis.core
 from qgis.utils import iface
 
+from te_schemas.algorithms import AlgorithmRunMode
+
 from . import (
     GetTempFilename,
     areaofinterest,
@@ -453,7 +455,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
         )
         ok_button.clicked.connect(self.btn_calculate)
 
-        if self.script.run_mode == models.AlgorithmRunMode.REMOTE:
+        if self.script.run_mode == AlgorithmRunMode.REMOTE:
             ok_button.setText(self.tr("Schedule remote execution"))
         else:
             ok_button.setText(self.tr("Execute locally"))

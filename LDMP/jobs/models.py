@@ -35,7 +35,7 @@ class Job(JobBase):
         params_script = data['params'].pop('script', None)
         if not data.get('script'):
             if params_script:
-                script = params_script
+                script = ExecutionScript.Schema().load(params_script)
             elif script_id:
                 script = _get_job_script(script_id)
                 if script is None:

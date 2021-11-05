@@ -48,6 +48,7 @@ from .visualization import DlgVisualizationBasemap
 from te_schemas.jobs import (
     JobStatus
 )
+from te_schemas.algorithms import AlgorithmRunMode
 
 DockWidgetTrendsEarthUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/WidgetMain.ui"))
@@ -444,7 +445,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
     def launch_algorithm_execution_dialogue(
             self,
             algorithm: algorithm_models.Algorithm,
-            run_mode: algorithm_models.AlgorithmRunMode
+            run_mode: AlgorithmRunMode
     ):
         algorithm_script=_get_script(algorithm, run_mode)
         dialog_class_path=algorithm_script.parametrization_dialogue
@@ -602,7 +603,7 @@ def _should_run(periodic_frequency_seconds: int, last_run: dt.datetime):
 
 def _get_script(
         algorithm: algorithm_models.Algorithm,
-        run_mode: algorithm_models.AlgorithmRunMode
+        run_mode: AlgorithmRunMode
 ) -> algorithm_models.AlgorithmScript:
     for algorithm_script in algorithm.scripts:
         if algorithm_script.script.run_mode == run_mode:

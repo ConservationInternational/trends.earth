@@ -379,9 +379,9 @@
             "shader": "exact",
             "items": [
                 {"value": -32768, "color": "#000000", "label": "nodata"},
-                {"value": -1, "color": "#9b2779", "label": "prod_prog_comp_deg"},
-                {"value": 0, "color": "#ffffe0", "label": "prod_prog_comp_stable"},
-                {"value": 1, "color": "#006500", "label": "prod_prog_comp_imp"}
+                {"value": -1, "color": "#9b2779", "label": "prod_deg_comp_deg"},
+                {"value": 0, "color": "#ffffe0", "label": "prod_deg_comp_stable"},
+                {"value": 1, "color": "#006500", "label": "prod_deg_comp_imp"}
             ]
         }
     },

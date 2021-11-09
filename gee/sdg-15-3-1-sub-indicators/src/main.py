@@ -49,6 +49,7 @@ def _run_lc(params, additional_years, logger):
     lc.selectBands(['Land cover (degradation)',
                     'Land cover transitions',
                     'Land cover (7 class)'])
+
     return lc
 
 
@@ -126,11 +127,28 @@ def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
                 )
             )
 
+
+            # If the productivity start or end years aren't in the LC period,
+            # then need to include additional years in the land cover dataset
+            # so that crosstabs can be calculated for land cover class
+            lc_years = [*range(
+                params.get('land_cover')['year_initial'],
+                params.get('land_cover')['year_final'] + 1
+            )]
+            additional_years = []
+            prod_year_initial = params.get('productivity')['traj_year_initial']
+            prod_year_final = params.get('productivity')['traj_year_final']
+            if prod_year_initial not in lc_years:
+                additional_years.append(prod_year_initial)
+
+            if prod_year_final not in lc_years:
+                additional_years.append(prod_year_final)
+
             res.append(
                 executor.submit(
                     _run_lc,
                     params.get('land_cover'),
-                    [],
+                    additional_years,
                     logger
                 )
             )
@@ -153,6 +171,7 @@ def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
             )
 
             out = None
+
             for this_res in as_completed(res):
                 if out is None:
                     out = this_res.result()
@@ -198,8 +217,8 @@ def _get_population(params, proj, logger):
 
     wp = ee.Image(params['population_asset']).select(f'p{year}')
     wp = wp.select(f'p{year}')
-    # Convert to population density per sq km (ee.image.pixelArea gives area in 
-    # sq meters, so need to convert). Then scale by 10 so max densities will 
+    # Convert to population density per sq km (ee.image.pixelArea gives area in
+    # sq meters, so need to convert). Then scale by 10 so max densities will
     # fit in an int16
     wp = wp.divide(ee.Image.pixelArea()).multiply(1000*1000).divide(10).int16()
     wp = wp.reduceResolution(
@@ -241,16 +260,18 @@ def run_jrc_for_period(params, EXECUTION_ID, logger):
         'year_final': lpd_year_final
     })
 
-    # If the LPD start or end years aren't in the LC period, then need to 
-    # include additional years in the land cover dataset so that crosstabs can 
+    # If the LPD start or end years aren't in the LC period, then need to
+    # include additional years in the land cover dataset so that crosstabs can
     # be calculated for LPD by land cover class
     lc_years = [*range(
         params.get('land_cover')['year_initial'],
         params.get('land_cover')['year_final'] + 1
     )]
     additional_years = []
+
     if lpd_year_initial not in lc_years:
         additional_years.append(lpd_year_initial)
+
     if lpd_year_final not in lc_years:
         additional_years.append(lpd_year_final)
 
@@ -303,6 +324,7 @@ def _gen_metadata_str_te(params):
                     f'\tTrajectory ({params["productivity"]["traj_year_initial"]} {params["productivity"]["traj_year_final"]}'
         }
     }
+
     return metadata
 
 
@@ -315,6 +337,7 @@ def _gen_metadata_str_jrc_lpd(params):
                     f'Productivity {params["productivity"]["mode"]}: {params["productivity"]["year_initial"]}-{params["productivity"]["year_final"]}'
         }
     }
+
     return metadata
 
 

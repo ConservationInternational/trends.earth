@@ -29,6 +29,8 @@ from qgis.PyQt import (
     uic,
 )
 
+from te_schemas.algorithms import ExecutionScript
+
 from . import (
     GetTempFilename,
     conf,
@@ -37,7 +39,6 @@ from . import (
     calculate,
     worker,
 )
-from .algorithms.models import ExecutionScript
 from .jobs.manager import job_manager
 from .summary import *
 

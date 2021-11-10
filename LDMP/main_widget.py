@@ -348,19 +348,27 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
     def update_from_remote_state(self):
         if settings_manager.get_value(Setting.DEBUG):
             log("updating remote state...")
-        self.set_remote_refresh_running()
-        self.su_thread = QtCore.QThread(self.iface.mainWindow())
-        self.update_worker = RemoteStateRefreshWorker(self)
-        self.update_worker.moveToThread(self.su_thread)
-        self.su_thread.started.connect(self.update_worker.run)
-        self.su_thread.started.connect(self.update_refresh_button_status)
-        self.update_worker.finished.connect(
-            functools.partial(self.set_remote_refresh_running, False))
-        self.update_worker.finished.connect(self.update_refresh_button_status)
-        self.update_worker.finished.connect(self.su_thread.quit)
-        self.update_worker.finished.connect(self.update_worker.deleteLater)
-        self.su_thread.finished.connect(self.su_thread.deleteLater)
-        self.su_thread.start()
+        # self.set_remote_refresh_running()
+        # self.su_thread = QtCore.QThread(self.iface.mainWindow())
+        # self.update_worker = RemoteStateRefreshWorker(self)
+        # self.update_worker.moveToThread(self.su_thread)
+        # self.su_thread.started.connect(self.update_worker.run)
+        # self.su_thread.started.connect(self.update_refresh_button_status)
+        # self.update_worker.finished.connect(
+        #     functools.partial(self.set_remote_refresh_running, False))
+        # self.update_worker.finished.connect(self.update_refresh_button_status)
+        # self.update_worker.finished.connect(self.su_thread.quit)
+        # self.update_worker.finished.connect(self.update_worker.deleteLater)
+        # self.su_thread.finished.connect(self.su_thread.deleteLater)
+        # self.su_thread.start()
+        
+        self.set_remote_refresh_running(True)
+        self.update_refresh_button_status()
+        self.cache_refresh_about_to_begin.emit()
+        job_manager.refresh_from_remote_state()
+        self.last_refreshed_remote_state = dt.datetime.now(tz=dt.timezone.utc)
+        self.set_remote_refresh_running(False)
+        self.update_refresh_button_status()
 
     def update_local_state(self):
         """Update the state of local datasets"""

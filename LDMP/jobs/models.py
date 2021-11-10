@@ -17,7 +17,7 @@ from marshmallow import pre_load
 
 from te_schemas.jobs import Job as JobBase
 from te_schemas.jobs import RemoteScript
-from te_schemas.algorithms import ExecutionScript
+from te_schemas.algorithms import AlgorithmRunMode, ExecutionScript
 
 
 class SortField(enum.Enum):
@@ -43,9 +43,11 @@ class Job(JobBase):
                     script = get_job_local_script(data["script_name"])
                 else:
                     log(f"Failed to get script by id for {script_id}")
-                    script = ExecutionScript(script_id)
+                    script = ExecutionScript(
+                        script_id, run_mode=AlgorithmRunMode.NOT_APPLICABLE)
             else:
-                script = ExecutionScript("Unknown script")
+                script = ExecutionScript(
+                    "Unknown script", run_mode=AlgorithmRunMode.NOT_APPLICABLE)
 
             data['script'] = ExecutionScript.Schema().dump(script)
 
@@ -108,9 +110,8 @@ def _get_script_by_id_from_local(script_id: str) -> ExecutionScript:
             s for s in conf.KNOWN_SCRIPTS.values() if s.id == script_id
         ][0]
     except IndexError:
-        if conf.settings_manager.get_value(conf.Setting.DEBUG):
-            log(f"script {script_id!r} is not known locally")
-            raise IndexError
+        log(f"script {script_id!r} is not known locally")
+        raise IndexError
     return script
 
 
@@ -118,8 +119,7 @@ def _get_job_script(script_id: uuid.UUID) -> ExecutionScript:
     try:
         script = _get_script_by_id_from_local(script_id)
     except IndexError:
-        if conf.settings_manager.get_value(conf.Setting.DEBUG):
-            log(f"script {script_id!r} is not known locally - checking remote")
+        log(f"script {script_id!r} is not known locally - checking remote")
         try:
             script = _get_script_by_id_from_remote(script_id)
         except IndexError:

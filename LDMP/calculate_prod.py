@@ -23,6 +23,7 @@ from qgis.PyQt import (
 )
 
 import qgis.gui
+from te_schemas.algorithms import ExecutionScript
 
 from . import (
     calculate,
@@ -42,7 +43,7 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
     def __init__(
             self,
             iface: qgis.gui.QgisInterface,
-            script: models.ExecutionScript,
+            script: ExecutionScript,
             parent: QtWidgets.QWidget = None
     ):
         super().__init__(iface, script, parent)

@@ -127,13 +127,12 @@ class JobManager(QtCore.QObject):
         separator = "_"
         name_fragments = []
         task_name = slugify(job.task_name)
-        if task_name != "":
+        if task_name:
             name_fragments.append(task_name)
         if job.script:
             name_fragments.append(job.script.name)
-        name_fragments.append(
-            job.local_context.area_of_interest_name,
-        )
+        if job.local_context.area_of_interest_name:
+            name_fragments.append(job.local_context.area_of_interest_name)
         if len(name_fragments) == 0 or with_uuid:
             name_fragments.append(
                 str(job.id)

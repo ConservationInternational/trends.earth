@@ -22,11 +22,12 @@ from qgis.PyQt import (
     uic,
 )
 
+from te_schemas.algorithms import ExecutionScript
+
 from . import (
     calculate,
     data_io,
 )
-from .algorithms.models import ExecutionScript
 from .jobs.manager import job_manager
 
 

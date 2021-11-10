@@ -22,15 +22,14 @@ from qgis.PyQt import (
 import qgis.core
 import qgis.gui
 
+from te_schemas.algorithms import AlgorithmRunMode, ExecutionScript
+
 from . import (
     calculate,
     lc_setup,
 )
-from .algorithms.models import (
-    AlgorithmRunMode,
-    ExecutionScript,
-)
 from .jobs.manager import job_manager
+
 
 DlgCalculateLcUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateLC.ui"))

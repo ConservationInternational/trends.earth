@@ -337,12 +337,19 @@ def update_script_ids(c):
                 config = json.load(fin)
             try:
                 script_name = re.compile('( [0-9]+(_[0-9]+)+$)').sub('', config['name'])
-                scripts[script_name]['id'] = config['id']
+
+                # Find location of this script in the list of scripts in the
+                # script configuration JSON
+                script_index = [index for index, script in enumerate(scripts) if script['name'] == script_name]
+                assert len(script_index) <= 1
+                script_index = script_index[0]
+
+                scripts[script_index]['id'] = config['id']
                 script_version = re.compile(
                     '^[a-zA-Z0-9-]* ').sub(
                     '', config['name']).replace('_', '.')
-                scripts[script_name]['version'] = script_version
-            except KeyError:
+                scripts[script_index]['version'] = script_version
+            except IndexError:
                 print(f'Skipping {script_name} as not found in scripts.json')
     with open(c.gee.scripts_json_file, 'w') as f_out:
         json.dump(

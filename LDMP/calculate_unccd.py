@@ -25,6 +25,7 @@ from PyQt5 import (
 import qgis.gui
 from qgis.core import QgsGeometry
 
+from te_schemas.algorithms import ExecutionScript
 from te_schemas.land_cover import LCTransitionDefinitionDeg, LCLegendNesting
 
 from . import (
@@ -32,7 +33,6 @@ from . import (
     data_io,
     lc_setup,
 )
-from .algorithms import models
 from .calculate import (
     DlgCalculateBase,
 )
@@ -56,7 +56,7 @@ class DlgCalculateUNCCD(DlgCalculateBase, DlgCalculateUNCCDUi):
     def __init__(
             self,
             iface: qgis.gui.QgisInterface,
-            script: models.ExecutionScript,
+            script: ExecutionScript,
             parent: QtWidgets.QWidget = None
     ):
         super().__init__(iface, script, parent)
@@ -148,7 +148,7 @@ class DlgCalculateUNCCD(DlgCalculateBase, DlgCalculateUNCCDUi):
             'crosses_180th': crosses_180th,
             'task_name': self.execution_name_le.text(),
             'task_notes': self.task_notes.toPlainText(),
-            'script': models.ExecutionScript.Schema().dump(self.script),
+            'script': ExecutionScript.Schema().dump(self.script),
             'year_initial': year_initial,
             'year_final': year_final
         })
@@ -183,7 +183,7 @@ class DlgCalculateUNCCDReport(
     def __init__(
             self,
             iface: qgis.gui.QgisInterface,
-            script: models.ExecutionScript,
+            script: ExecutionScript,
             parent: QtWidgets.QWidget = None
     ):
         super().__init__(iface, script, parent)

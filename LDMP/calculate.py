@@ -35,7 +35,7 @@ import qgis.gui
 import qgis.core
 from qgis.utils import iface
 
-from te_schemas.algorithms import AlgorithmRunMode
+from te_schemas.algorithms import AlgorithmRunMode, ExecutionScript
 
 from . import (
     GetTempFilename,
@@ -391,7 +391,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
     datasets: typing.Dict[str, typing.Dict]
     iface: qgis.gui.QgisInterface
     main_dock: "MainWidget"
-    script: models.ExecutionScript
+    script: ExecutionScript
     _has_output: bool
     _firstShowEvent: bool
     reset_tab_on_showEvent: bool
@@ -401,7 +401,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
     def __init__(
             self,
             iface: qgis.gui.QgisInterface,
-            script: models.ExecutionScript,
+            script: ExecutionScript,
             parent: "MainWidget" = None
     ):
         super().__init__(parent)

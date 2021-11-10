@@ -23,7 +23,7 @@ from qgis.PyQt import (
 
 from te_schemas.schemas import BandInfo, BandInfoSchema
 from te_schemas.land_cover import LCTransitionDefinitionDeg, LCLegendNesting
-from te_schemas.algorithms import AlgorithmRunMode
+from te_schemas.algorithms import AlgorithmRunMode, ExecutionScript
 
 from . import (
     calculate,
@@ -31,7 +31,6 @@ from . import (
     lc_setup,
 )
 
-from .algorithms import models
 from .jobs.manager import job_manager
 from .logger import log
 from .lc_setup import get_lc_nesting, get_trans_matrix
@@ -56,7 +55,7 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
     def __init__(
             self,
             iface: qgis.gui.QgisInterface,
-            script: models.ExecutionScript,
+            script: ExecutionScript,
             parent: QtWidgets.QWidget = None,
     ):
         super().__init__(iface, script, parent)

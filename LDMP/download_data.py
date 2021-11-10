@@ -24,11 +24,13 @@ from qgis.PyQt import (
     QtWidgets,
     uic,
 )
+
+from te_schemas.algorithms import ExecutionScript
+
 from . import (
     calculate,
     conf,
 )
-from .algorithms import models
 from .jobs.manager import job_manager
 from .logger import log
 
@@ -112,7 +114,7 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
     def __init__(
             self,
             iface: qgis.gui.QgisInterface,
-            script: models.ExecutionScript,
+            script: ExecutionScript,
             parent: QtWidgets.QWidget = None
     ):
         super().__init__(iface, script, parent)

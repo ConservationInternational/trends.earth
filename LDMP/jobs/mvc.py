@@ -112,7 +112,11 @@ class JobsSortFilterProxyModel(QtCore.QSortFilterProxyModel):
         index = jobs_model.index(source_row, 0, source_parent)
         job: Job = jobs_model.data(index)
         reg_exp = self.filterRegExp()
-        return reg_exp.exactMatch(job.visible_name)
+        return (
+            reg_exp.exactMatch(job.visible_name) or
+            reg_exp.exactMatch(job.local_context.area_of_interest_name) or
+            reg_exp.exactMatch(str(job.id))
+        )
 
     def lessThan(self, left: QtCore.QModelIndex, right: QtCore.QModelIndex) -> bool:
         model = self.sourceModel()
@@ -335,8 +339,10 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         manager.job_manager.display_default_job_results(self.job)
 
     def load_dataset_choose_layers(self):
+        self.main_dock.pause_scheduler()
         dialogue = DlgDataIOAddLayersToMap(
             self,
             self.job
         )
         dialogue.exec_()
+        self.main_dock.resume_scheduler()

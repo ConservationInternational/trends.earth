@@ -361,7 +361,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         # self.update_worker.finished.connect(self.update_worker.deleteLater)
         # self.su_thread.finished.connect(self.su_thread.deleteLater)
         # self.su_thread.start()
-        
+
         self.set_remote_refresh_running(True)
         self.update_refresh_button_status()
         self.cache_refresh_about_to_begin.emit()
@@ -372,6 +372,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
     def update_local_state(self):
         """Update the state of local datasets"""
+
         if settings_manager.get_value(Setting.DEBUG):
             log("updating local state...")
         self.cache_refresh_about_to_begin.emit()
@@ -404,10 +405,10 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
         for char in filter_string:
             if char in special_chars:
-                has_special_char=True
+                has_special_char = True
 
                 break
-        filter_=filter_string if has_special_char else f"{filter_string}*"
+        filter_ = filter_string if has_special_char else f"{filter_string}*"
         self.proxy_model.setFilterRegExp(
             QtCore.QRegExp(
                 filter_,

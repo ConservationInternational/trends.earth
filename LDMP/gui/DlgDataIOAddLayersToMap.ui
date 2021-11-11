@@ -3,14 +3,14 @@
  <class>DlgDataIOAddLayersToMap</class>
  <widget class="QDialog" name="DlgDataIOAddLayersToMap">
   <property name="windowModality">
-   <enum>Qt::ApplicationModal</enum>
+   <enum>Qt::WindowModal</enum>
   </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>294</width>
-    <height>282</height>
+    <height>283</height>
    </rect>
   </property>
   <property name="sizePolicy">

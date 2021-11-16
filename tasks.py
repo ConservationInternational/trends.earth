@@ -773,7 +773,7 @@ def changelog_build(c):
             line = [line, '-----------------------------------------------------------------------------------------------------------------------------\n\n']
         out_txt.extend(line)
 
-    out_file = '{docroot}/source/about/changelog.rst'.format(docroot=c.sphinx.docroot)
+    out_file = '{docroot}/source/for_developers/changelog.rst'.format(docroot=c.sphinx.docroot)
     with open(out_file, 'w') as fout:
         metadata = fout.writelines(out_txt)
 

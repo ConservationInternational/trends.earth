@@ -3,6 +3,15 @@ Changelog
 
 This page lists the version history of |trends.earth|.
 
+`1.0.6 (July 15, 2021) <https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.6>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+    - Remove trends.earth-schemas as a submodule and install through setup.py 
+      (much cleaner for version tracking, development, etc.)
+    - Fix bug in loading 2020 NDVI data in GEE code (asset name wasn't set 
+      right so 2020 wasn't loading)
+    - Various invoke tasks added to help with plugin development/release.
+
 `1.0.4 (June 30, 2021) <https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.4>`_
 -----------------------------------------------------------------------------------------------------------------------------
 

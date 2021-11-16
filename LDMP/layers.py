@@ -16,6 +16,7 @@ from builtins import str
 from builtins import range
 import typing
 import os
+import re
 import json
 from operator import attrgetter
 from pathlib import Path
@@ -26,7 +27,8 @@ from qgis.core import (
     QgsRasterShader,
     QgsRasterBandStats,
     QgsSingleBandPseudoColorRenderer,
-    QgsProject
+    QgsProject,
+    Qgis
 )
 from qgis.utils import iface
 mb = iface.messageBar()
@@ -506,6 +508,14 @@ def _create_color_ramp(
     return result
 
 
+def _get_qgis_version():
+    qgis_version_match = re.match(
+        '(^[0-9]*)\.([0-9]*)',
+        Qgis.QGIS_VERSION
+    )
+    return int(qgis_version_match[1]), int(qgis_version_match[2])
+
+
 def add_layer(
         layer_path: str,
         band_number: int,
@@ -553,7 +563,15 @@ def add_layer(
             fcn.setColorRampType("INTERPOLATED")
         else:
             raise TypeError("Unrecognized color ramp type: {}".format(ramp_shader))
-        # Make sure the items in the color ramp are sorted by value (weird display
+
+        # In QGIS 3.18 need to set legend settings
+        v_major, v_minor = _get_qgis_version()
+        if v_major >= 3 and v_minor >= 18:
+            legend_settings = fcn.legendSettings()
+            legend_settings.setUseContinuousLegend(False)
+        
+        # Make sure the items in the color ramp are sorted by value (weird 
+        # display
         # errors will otherwise result)
         color_ramp.sort(key=attrgetter('value'))
         fcn.setColorRampItemList(color_ramp)

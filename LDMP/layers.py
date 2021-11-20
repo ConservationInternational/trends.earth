@@ -90,6 +90,12 @@ style_text_dict = {
     'prod_deg_comp_stable': tr_layers.tr(u'Stable'),
     'prod_deg_comp_imp': tr_layers.tr(u'Improvement'),
 
+    # Land cover degradation comparison (not the real progress taking into 
+    # account magnitude)
+    'lc_deg_comp_title': tr_layers.tr(u'Land cover degradation comparison ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})'),
+    'lc_deg_comp_deg': tr_layers.tr(u'Degradation'),
+    'lc_deg_comp_stable': tr_layers.tr(u'Stable'),
+    'lc_deg_comp_imp': tr_layers.tr(u'Improvement'),
 
     # Land cover
     'lc_deg_title': tr_layers.tr(u'Land cover degradation ({year_initial} to {year_final})'),
@@ -161,6 +167,12 @@ style_text_dict = {
     'combined_sdg_deg_deg': tr_layers.tr(u'Degradation'),
     'combined_sdg_deg_stable': tr_layers.tr(u'Stable'),
     'combined_sdg_deg_imp': tr_layers.tr(u'Improvement'),
+
+    'sdg_status_title': tr_layers.tr(u'SDG 15.3.1 Indicator ({baseline_year_initial}-{baseline_year_final} updated with {progress_year_initial}-{progress_year_final})'),
+    'sdg_status_deg': tr_layers.tr(u'Degradation'),
+    'sdg_status_stable': tr_layers.tr(u'Stable'),
+    'sdg_status_imp': tr_layers.tr(u'Improvement'),
+
 
     'sdg_progress_title': tr_layers.tr(u'SDG 15.3.1 Progress ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})'),
 

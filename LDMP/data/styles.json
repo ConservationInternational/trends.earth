@@ -318,6 +318,19 @@
             ]
         }
     },
+    "Land cover degradation (comparison)": {
+        "title": "lc_deg_comp_title",
+        "ramp": {
+            "type": "categorical",
+            "shader": "exact",
+            "items": [
+                {"value": -32768, "color": "#000000", "label": "nodata"},
+                {"value": -1, "color": "#9b2779", "label": "lc_deg_comp_deg"},
+                {"value": 0, "color": "#ffffe0", "label": "lc_deg_comp_stable"},
+                {"value": 1, "color": "#006500", "label": "lc_deg_comp_imp"}
+            ]
+        }
+    },
     "SDG 15.3.1 Indicator": {
         "title": "combined_sdg_title",
         "ramp": {
@@ -341,6 +354,19 @@
                 {"value": -1, "color": "#9b2779", "label": "combined_sdg_deg_deg"},
                 {"value": 0, "color": "#ffffe0", "label": "combined_sdg_deg_stable"},
                 {"value": 1, "color": "#006500", "label": "combined_sdg_deg_imp"}
+            ]
+        }
+    },
+    "SDG 15.3.1 Indicator (status)": {
+        "title": "sdg_status_title",
+        "ramp": {
+            "type": "categorical",
+            "shader": "exact",
+            "items": [
+                {"value": -32768, "color": "#000000", "label": "nodata"},
+                {"value": -1, "color": "#9b2779", "label": "sdg_status_deg"},
+                {"value": 0, "color": "#ffffe0", "label": "sdg_status_stable"},
+                {"value": 1, "color": "#006500", "label": "sdg_status_imp"}
             ]
         }
     },
@@ -387,7 +413,7 @@
             ]
         }
     },
-    "Productivity Degradation (comparison)": {
+    "Productivity degradation (comparison)": {
         "title": "prod_deg_comp_title",
         "ramp": {
             "type": "categorical",
@@ -449,9 +475,9 @@
         "title": "lpd_title",
         "ramp": {
             "type": "categorical",
-            "shader": "exact",
+            "shader": "discrete",
             "items": [
-                {"value": -32768, "color": "#000000", "label": "nodata"},
+                {"value": 0, "color": "#000000", "label": "nodata"},
                 {"value": 1, "color": "#9b2779", "label": "lpd_declining"},
                 {"value": 2, "color": "#ED7428", "label": "lpd_earlysigns"},
                 {"value": 3, "color": "#FED652", "label": "lpd_stabbutstress"},

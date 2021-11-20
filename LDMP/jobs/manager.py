@@ -44,6 +44,10 @@ def slugify(value, allow_unicode=False):
     return re.sub(r'[-\s]+', '-', value).strip('-_')
 
 
+def is_gdal_vsi_path(path: Path):
+    return re.match(r"(\\)|(/)vsi(s3)|(gs)", str(path)) is not None
+
+
 class JobManager(QtCore.QObject):
     _encoding = "utf-8"
     _relevant_job_age_threshold_days = 15
@@ -163,7 +167,11 @@ class JobManager(QtCore.QObject):
         frozen_known_downloaded_jobs =  self._known_downloaded_jobs.copy()
         # move any downloaded jobs with missing local paths back to FINISHED
         for j_id, j in frozen_known_downloaded_jobs.items():
-            if j.results.data_path and not j.results.data_path.exists():
+            if (
+                j.results.data_path and
+                not is_gdal_vsi_path(j.results.data_path) and
+                not j.results.data_path.exists()
+            ):
                 log(f'job {j_id} currently marked as DOWNLOADED but has '
                     'missing paths, so moving back to FINISHED status')
                 j.results.data_path = None
@@ -411,7 +419,8 @@ class JobManager(QtCore.QObject):
         # the data_path and other_path before moving the job file so the data
         # can still be found after moving the job file
         if (job.results.data_path and
-            not job.results.data_path.is_absolute()
+            not job.results.data_path.is_absolute() and
+            not is_gdal_vsi_path(job.results.data_path)  # don't change gdal virtual fs references
         ):
             # If the path doesn't exist, but the filename does exist in the 
             # same folder as the job, assume that is what is meant
@@ -431,6 +440,7 @@ class JobManager(QtCore.QObject):
             status = jobs.JobStatus.DOWNLOADED
         else:
             status = job.status
+        log(f'job status is: {job.status}')
         log(f'emitting job {job.id}')
         self.known_jobs[status][job.id] = job
         self.imported_job.emit(job)
@@ -807,7 +817,10 @@ def _delete_job_datasets(job: Job):
         try:
             # not using the `missing_ok` param since it was introduced only on 
             # Python 3.8
-            if job.results.data_path:
+            if (
+                job.results.data_path and
+                not is_gdal_vsi_path(job.results.data_path)
+            ):
                 job.results.data_path.unlink()
         except FileNotFoundError:
             log(f"Could not find path {job.results.data_path!r}, "

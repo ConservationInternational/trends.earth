@@ -21,7 +21,7 @@ from ..conf import (
     settings_manager,
 )
 from . import (
-    manager,
+    manager
 )
 
 from .models import (
@@ -300,11 +300,17 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             self.add_to_canvas_pb.setEnabled(self.has_loadable_result())
 
     def has_loadable_result(self):
-        result=False
+        result = False
         if self.job.results is not None:
-            if (self.job.results.data_path and
-                    self.job.results.data_path.suffix in [".vrt", ".tif"] and
-                    self.job.results.data_path.exists()):
+            if (
+                self.job.results.data_path and (
+                    manager.is_gdal_vsi_path(self.job.results.data_path) or
+                    (
+                        self.job.results.data_path.suffix in [".vrt", ".tif"] and
+                        self.job.results.data_path.exists()
+                    )
+                )
+            ):
                 result = True
         return result
 

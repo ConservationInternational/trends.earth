@@ -240,10 +240,11 @@ def _get_population(params, proj, logger):
 
 def run_jrc_for_period(params, EXECUTION_ID, logger):
     '''Run indicators using JRC LPD for productivity'''
-    prod_asset = params.get('productivity').get('prod_asset')
-    proj = ee.Image(prod_asset).projection()
+    # Use LC asset to set proj as JRC is at 1km
+    lc_asset = ee.Image("users/geflanddegradation/toolbox_datasets/lcov_esacc_1992_2020")
+    proj = ee.Image(lc_asset).projection()
     out = download(
-        prod_asset,
+        params.get('productivity').get('prod_asset'),
         'Land Productivity Dynamics (from JRC)',
         'one time',
         None,

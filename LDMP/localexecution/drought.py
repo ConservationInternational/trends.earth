@@ -36,7 +36,6 @@ MASK_VALUE = -32767
 
 POPULATION_BAND_NAME = "Population (density, persons per sq km / 10)"
 SPI_BAND_NAME = "Standardized Precipitation Index (SPI)"
-JRC_BAND_NAME = "Drought Vulnerability (JRC)"
 
 
 @dataclasses.dataclass()
@@ -129,6 +128,10 @@ def get_main_drought_summary_job_params(
         combo_layer_jrc_vulnerability,
     )
 
+    water_mask_input = _get_water_mask_input(
+        combo_dataset_drought,
+    )
+
     crosses_180th, geojsons = aoi.bounding_box_gee_geojson()
 
     return {
@@ -152,6 +155,9 @@ def get_main_drought_summary_job_params(
         "layer_jrc_path": str(jrc_input.path),
         "layer_jrc_band": JobBand.Schema().dump(jrc_input.band),
         "layer_jrc_band_index": jrc_input.band_index,
+        "layer_water_mask_path": str(water_mask_input.path),
+        "layer_water_mask_band": JobBand.Schema().dump(water_mask_input.band),
+        "layer_water_mask_band_index": water_mask_input.band_index,
         "crs": aoi.get_crs_dst_wkt(),
         "geojsons": json.dumps(geojsons),
         "crosses_180th": crosses_180th,

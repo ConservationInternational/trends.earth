@@ -1,45 +1,19 @@
 import dataclasses
 import json
-import re
-import shutil
-
-from typing import (
-    List,
-    Dict,
-    Optional
-)
 from pathlib import Path
+from typing import Dict
+from typing import List
+from typing import Optional
 
 from qgis.PyQt import QtWidgets
-
-from te_schemas import (
-    schemas,
-    land_cover,
-    reporting,
-    SchemaBase
-)
-
-from te_schemas.jobs import JobBand
+from te_algorithms.gdal.land_deg.config import LdnProductivityMode
+from te_algorithms.gdal.land_deg.land_deg import summarise_land_degradation
 from te_schemas.aoi import AOI
+from te_schemas.jobs import JobBand
 
-from te_algorithms.gdal.ldn import (
-    summarise_land_degradation,
-    LdnProductivityMode
-)
-
-from ..conf import (
-    settings_manager,
-    Setting
-)
-
-from .. import (
-    data_io,
-    tr,
-)
+from .. import data_io
+from .. import tr
 from ..jobs.models import Job
-
-import marshmallow_dataclass
-
 
 NODATA_VALUE = -32768
 MASK_VALUE = -32767
@@ -81,7 +55,9 @@ class SummaryTableLDWidgets:
     def __post_init__(self):
         self.radio_lpd_jrc.toggled.connect(self.radio_lpd_jrc_toggled)
         self.radio_lpd_jrc_toggled()
-        self.combo_datasets.job_selected.connect(self.set_combo_selections_from_job_id)
+        self.combo_datasets.job_selected.connect(
+            self.set_combo_selections_from_job_id
+        )
 
     def populate(self):
         self.populate_layer_combo_boxes()
@@ -135,7 +111,7 @@ class LdnInputInfo:
     aux_band_indexes: List[int]
     years: List[int]
 
-    
+
 def _get_ld_input_period(
     data_selection_widget: data_io.WidgetDataIOSelectTELayerExisting,
     year_initial_field: str = "year_initial",
@@ -163,10 +139,9 @@ def _get_ld_inputs(
 
     for band_index, job_band in enumerate(usable_band_info.job.results.bands):
         if job_band.name == aux_band_name:
-            aux_bands.append((job_band, band_index+1))
+            aux_bands.append((job_band, band_index + 1))
     sorted_aux_bands = sorted(
-        aux_bands,
-        key=lambda i: i[0].metadata[sort_property]
+        aux_bands, key=lambda i: i[0].metadata[sort_property]
     )
     aux_bands = [info[0] for info in sorted_aux_bands]
     aux_band_indexes = [info[1] for info in sorted_aux_bands]
@@ -190,9 +165,10 @@ def _get_ld_input_aux_band(
     usable_band_info = data_selection_widget.get_current_band()
 
     aux_bands = []
+
     for band_index, job_band in enumerate(usable_band_info.job.results.bands):
         if job_band.name == aux_band_name:
-            aux_bands.append((job_band, band_index+1))
+            aux_bands.append((job_band, band_index + 1))
     assert len(aux_bands) == 1
     aux_band = aux_bands[0]
 
@@ -204,27 +180,25 @@ def _get_ld_input_aux_band(
 
 
 def get_main_sdg_15_3_1_job_params(
-        task_name: str,
-        aoi,
-        prod_mode: str,
-        combo_layer_lc: data_io.WidgetDataIOSelectTELayerExisting,
-        combo_layer_soc: data_io.WidgetDataIOSelectTELayerExisting,
-        combo_layer_traj: data_io.WidgetDataIOSelectTELayerExisting,
-        combo_layer_perf: data_io.WidgetDataIOSelectTELayerExisting,
-        combo_layer_state: data_io.WidgetDataIOSelectTELayerExisting,
-        combo_layer_lpd: data_io.WidgetDataIOSelectTELayerExisting,
-        combo_layer_pop: data_io.WidgetDataIOSelectTELayerExisting,
-        task_notes: Optional[str] = "",
+    task_name: str,
+    aoi,
+    prod_mode: str,
+    combo_layer_lc: data_io.WidgetDataIOSelectTELayerExisting,
+    combo_layer_soc: data_io.WidgetDataIOSelectTELayerExisting,
+    combo_layer_traj: data_io.WidgetDataIOSelectTELayerExisting,
+    combo_layer_perf: data_io.WidgetDataIOSelectTELayerExisting,
+    combo_layer_state: data_io.WidgetDataIOSelectTELayerExisting,
+    combo_layer_lpd: data_io.WidgetDataIOSelectTELayerExisting,
+    combo_layer_pop: data_io.WidgetDataIOSelectTELayerExisting,
+    task_notes: Optional[str] = "",
 ) -> Dict:
 
-    land_cover_inputs = _get_ld_inputs(
-        combo_layer_lc, LC_BAND_NAME)
+    land_cover_inputs = _get_ld_inputs(combo_layer_lc, LC_BAND_NAME)
     land_cover_transition_input = _get_ld_input_aux_band(
-        combo_layer_lc, LC_TRANS_BAND_NAME)
-    soil_organic_carbon_inputs = _get_ld_inputs(
-        combo_layer_soc, SOC_BAND_NAME)
-    population_input = _get_ld_inputs(
-        combo_layer_pop, POPULATION_BAND_NAME)
+        combo_layer_lc, LC_TRANS_BAND_NAME
+    )
+    soil_organic_carbon_inputs = _get_ld_inputs(combo_layer_soc, SOC_BAND_NAME)
+    population_input = _get_ld_inputs(combo_layer_pop, POPULATION_BAND_NAME)
 
     lc_deg_years = _get_ld_input_period(combo_layer_lc)
     soc_deg_years = _get_ld_input_period(combo_layer_soc)
@@ -232,53 +206,60 @@ def get_main_sdg_15_3_1_job_params(
     crosses_180th, geojsons = aoi.bounding_box_gee_geojson()
 
     params = {
-        "task_name": task_name,
-        "task_notes": task_notes,
-        "prod_mode": prod_mode,
-
-        "layer_lc_path": str(land_cover_inputs.path),
-        "layer_lc_deg_band": JobBand.Schema().dump(
-            land_cover_inputs.main_band
-        ),
-        "layer_lc_deg_band_index": land_cover_inputs.main_band_index,
-        "layer_lc_deg_years": lc_deg_years,
-
-        "layer_lc_aux_bands": [
-            JobBand.Schema().dump(b)
-            for b in land_cover_inputs.aux_bands
-        ],
-        "layer_lc_aux_band_indexes": land_cover_inputs.aux_band_indexes,
-        "layer_lc_years": land_cover_inputs.years,
-
-        "layer_lc_trans_band": JobBand.Schema().dump(
-            land_cover_transition_input['band']
-        ),
-        "layer_lc_trans_path": str(land_cover_transition_input['path']),
-        "layer_lc_trans_band_index": land_cover_transition_input['band_index'],
-
-        "layer_soc_path": str(soil_organic_carbon_inputs.path),
-        "layer_soc_deg_band": JobBand.Schema().dump(
-            soil_organic_carbon_inputs.main_band
-        ),
-        "layer_soc_deg_years": soc_deg_years,
-        "layer_soc_deg_band_index": soil_organic_carbon_inputs.main_band_index,
-
+        "task_name":
+        task_name,
+        "task_notes":
+        task_notes,
+        "prod_mode":
+        prod_mode,
+        "layer_lc_path":
+        str(land_cover_inputs.path),
+        "layer_lc_deg_band":
+        JobBand.Schema().dump(land_cover_inputs.main_band),
+        "layer_lc_deg_band_index":
+        land_cover_inputs.main_band_index,
+        "layer_lc_deg_years":
+        lc_deg_years,
+        "layer_lc_aux_bands":
+        [JobBand.Schema().dump(b) for b in land_cover_inputs.aux_bands],
+        "layer_lc_aux_band_indexes":
+        land_cover_inputs.aux_band_indexes,
+        "layer_lc_years":
+        land_cover_inputs.years,
+        "layer_lc_trans_band":
+        JobBand.Schema().dump(land_cover_transition_input['band']),
+        "layer_lc_trans_path":
+        str(land_cover_transition_input['path']),
+        "layer_lc_trans_band_index":
+        land_cover_transition_input['band_index'],
+        "layer_soc_path":
+        str(soil_organic_carbon_inputs.path),
+        "layer_soc_deg_band":
+        JobBand.Schema().dump(soil_organic_carbon_inputs.main_band),
+        "layer_soc_deg_years":
+        soc_deg_years,
+        "layer_soc_deg_band_index":
+        soil_organic_carbon_inputs.main_band_index,
         "layer_soc_aux_bands": [
             JobBand.Schema().dump(b)
             for b in soil_organic_carbon_inputs.aux_bands
         ],
-        "layer_soc_aux_band_indexes": soil_organic_carbon_inputs.aux_band_indexes,
-        "layer_soc_years": soil_organic_carbon_inputs.years,
-
-        "layer_population_path": str(population_input.path),
-        "layer_population_band": JobBand.Schema().dump(
-            population_input.main_band
-        ),
-        "layer_population_band_index": population_input.main_band_index,
-
-        "crs": aoi.get_crs_dst_wkt(),
-        "geojsons": json.dumps(geojsons),
-        "crosses_180th": crosses_180th,
+        "layer_soc_aux_band_indexes":
+        soil_organic_carbon_inputs.aux_band_indexes,
+        "layer_soc_years":
+        soil_organic_carbon_inputs.years,
+        "layer_population_path":
+        str(population_input.path),
+        "layer_population_band":
+        JobBand.Schema().dump(population_input.main_band),
+        "layer_population_band_index":
+        population_input.main_band_index,
+        "crs":
+        aoi.get_crs_dst_wkt(),
+        "geojsons":
+        json.dumps(geojsons),
+        "crosses_180th":
+        crosses_180th,
     }
 
     if prod_mode == LdnProductivityMode.TRENDS_EARTH.value:
@@ -286,24 +267,24 @@ def get_main_sdg_15_3_1_job_params(
         traj_band = JobBand.Schema().dump(traj_band_info.band_info)
         traj_years = _get_ld_input_period(combo_layer_traj)
         perf_band_info = combo_layer_perf.get_current_band()
-        perf_band = JobBand.Schema().dump(
-            perf_band_info.band_info)
+        perf_band = JobBand.Schema().dump(perf_band_info.band_info)
         state_band_info = combo_layer_state.get_current_band()
-        state_band = JobBand.Schema().dump(
-            state_band_info.band_info)
+        state_band = JobBand.Schema().dump(state_band_info.band_info)
 
-        params.update({
-            "layer_traj_path": str(traj_band_info.path),
-            "layer_traj_band": traj_band,
-            "layer_traj_years": traj_years,
-            "layer_traj_band_index": traj_band_info.band_index,
-            "layer_perf_band": perf_band,
-            "layer_perf_path": str(perf_band_info.path),
-            "layer_perf_band_index": perf_band_info.band_index,
-            "layer_state_path": str(state_band_info.path),
-            "layer_state_band": state_band,
-            "layer_state_band_index": state_band_info.band_index
-        })
+        params.update(
+            {
+                "layer_traj_path": str(traj_band_info.path),
+                "layer_traj_band": traj_band,
+                "layer_traj_years": traj_years,
+                "layer_traj_band_index": traj_band_info.band_index,
+                "layer_perf_band": perf_band,
+                "layer_perf_path": str(perf_band_info.path),
+                "layer_perf_band_index": perf_band_info.band_index,
+                "layer_state_path": str(state_band_info.path),
+                "layer_state_band": state_band,
+                "layer_state_band_index": state_band_info.band_index
+            }
+        )
 
     elif prod_mode == LdnProductivityMode.JRC_LPD.value:
         lpd_band_info = combo_layer_lpd.get_current_band()
@@ -311,26 +292,23 @@ def get_main_sdg_15_3_1_job_params(
 
         lpd_years = _get_ld_input_period(combo_layer_lpd)
 
-        params.update({
-            "layer_lpd_path": str(lpd_band_info.path),
-            "layer_lpd_years": lpd_years,
-            "layer_lpd_band": JobBand.Schema().dump(lpd_band),
-            "layer_lpd_band_index": lpd_band_info.band_index
-        })
+        params.update(
+            {
+                "layer_lpd_path": str(lpd_band_info.path),
+                "layer_lpd_years": lpd_years,
+                "layer_lpd_band": JobBand.Schema().dump(lpd_band),
+                "layer_lpd_band_index": lpd_band_info.band_index
+            }
+        )
 
     return params
 
 
 def compute_ldn(
-    ldn_job: Job,
-    aoi: AOI,
-    job_output_path: Path,
-    dataset_output_path: Path
+    ldn_job: Job, aoi: AOI, job_output_path: Path, dataset_output_path: Path
 ) -> Job:
     """Calculate final SDG 15.3.1 indicator and save to disk"""
 
     return summarise_land_degradation(
-        ldn_job,
-        AOI(aoi.get_geojson()),
-        job_output_path
+        ldn_job, AOI(aoi.get_geojson()), job_output_path
     )

@@ -191,7 +191,10 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
             "lc_initial_band_index": initial_usable.band_index,
             "lc_final_path": str(final_usable.path),
             "lc_final_band_index": final_usable.band_index,
-            'transformation_matrix': LCTransitionDefinitionDeg.Schema().dumps(
+            'legend_nesting': LCLegendNesting.Schema().dump(
+                self.lc_setup_widget.aggregation_dialog.nesting
+            ),
+            'trans_matrix': LCTransitionDefinitionDeg.Schema().dump(
                 self.lc_define_deg_widget.trans_matrix
             )
         }

@@ -16,35 +16,31 @@ import json
 import typing
 from pathlib import Path
 
-from qgis.PyQt import (
-    QtCore,
-    QtWidgets,
-    uic,
-)
-
 import qgis.gui
+from qgis.PyQt import QtCore
+from qgis.PyQt import QtWidgets
+from qgis.PyQt import uic
 from te_schemas.algorithms import ExecutionScript
+from te_schemas.productivity import ProductivityMode
 
-from . import (
-    calculate,
-    conf,
-)
-from .algorithms import models
+from . import calculate
+from . import conf
 from .jobs.manager import job_manager
 from .logger import log
 
 DlgCalculateProdUi, _ = uic.loadUiType(
-    str(Path(__file__).parent / "gui/DlgCalculateProd.ui"))
+    str(Path(__file__).parent / "gui/DlgCalculateProd.ui")
+)
 
 
 class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
     mb: qgis.gui.QgsMessageBar
 
     def __init__(
-            self,
-            iface: qgis.gui.QgisInterface,
-            script: ExecutionScript,
-            parent: QtWidgets.QWidget = None
+        self,
+        iface: qgis.gui.QgisInterface,
+        script: ExecutionScript,
+        parent: QtWidgets.QWidget = None
     ):
         super().__init__(iface, script, parent)
         self.setupUi(self)
@@ -53,6 +49,7 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
         self.traj_indic.currentIndexChanged.connect(self.traj_indic_changed)
         self.dataset_climate_update()
         ndvi_datasets = []
+
         for ds_name, ds_details in conf.REMOTE_DATASETS["NDVI"].items():
             if ds_details["Temporal resolution"] == "annual":
                 ndvi_datasets.append(ds_name)
@@ -64,8 +61,12 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
         self.end_year_ndvi = 9999
         self.dataset_ndvi_changed()
         self.traj_climate_changed()
-        self.dataset_ndvi.currentIndexChanged.connect(self.dataset_ndvi_changed)
-        self.traj_climate.currentIndexChanged.connect(self.traj_climate_changed)
+        self.dataset_ndvi.currentIndexChanged.connect(
+            self.dataset_ndvi_changed
+        )
+        self.traj_climate.currentIndexChanged.connect(
+            self.traj_climate_changed
+        )
         self.mode_te_prod.toggled.connect(self.mode_te_prod_toggled)
         self.mode_te_prod_toggled()
         self.resize(self.width(), 711)
@@ -73,8 +74,7 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
 
     @property
     def trajectory_functions(self) -> typing.Dict:
-        return self.script.additional_configuration[
-            "trajectory functions"]
+        return self.script.additional_configuration["trajectory functions"]
 
     def showEvent(self, event):
         super(DlgCalculateProd, self).showEvent(event)
@@ -170,24 +170,29 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
     def dataset_climate_update(self):
         self.traj_climate.clear()
         self.climate_datasets = {}
-        climate_types = self.trajectory_functions[
-            self.traj_indic.currentText()]["climate types"]
+        climate_types = self.trajectory_functions[self.traj_indic.currentText()
+                                                  ]["climate types"]
+
         for climate_type in climate_types:
             self.climate_datasets.update(conf.REMOTE_DATASETS[climate_type])
-            self.traj_climate.addItems(list(conf.REMOTE_DATASETS[climate_type].keys()))
+            self.traj_climate.addItems(
+                list(conf.REMOTE_DATASETS[climate_type].keys())
+            )
 
     def traj_climate_changed(self):
         if self.traj_climate.currentText() == "":
             self.start_year_climate = 0
             self.end_year_climate = 9999
         else:
-            self.start_year_climate = self.climate_datasets[self.traj_climate.currentText()]['Start year']
-            self.end_year_climate = self.climate_datasets[self.traj_climate.currentText()]['End year']
+            self.start_year_climate = self.climate_datasets[
+                self.traj_climate.currentText()]['Start year']
+            self.end_year_climate = self.climate_datasets[
+                self.traj_climate.currentText()]['End year']
         self.update_time_bounds()
 
     def dataset_ndvi_changed(self):
-        this_ndvi_dataset = conf.REMOTE_DATASETS[
-            'NDVI'][self.dataset_ndvi.currentText()]
+        this_ndvi_dataset = conf.REMOTE_DATASETS['NDVI'][
+            self.dataset_ndvi.currentText()]
         self.start_year_ndvi = this_ndvi_dataset['Start year']
         self.end_year_ndvi = this_ndvi_dataset['End year']
 
@@ -217,8 +222,12 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
         self.state_year_tg_end.setMaximumDate(end_year)
 
         # Trajectory - needs to also account for climate data
-        start_year_traj = QtCore.QDate(max(self.start_year_ndvi, self.start_year_climate), 1, 1)
-        end_year_traj = QtCore.QDate(min(self.end_year_ndvi, self.end_year_climate), 12, 31)
+        start_year_traj = QtCore.QDate(
+            max(self.start_year_ndvi, self.start_year_climate), 1, 1
+        )
+        end_year_traj = QtCore.QDate(
+            min(self.end_year_ndvi, self.end_year_climate), 12, 31
+        )
 
         self.traj_year_start.setMinimumDate(start_year_traj)
         self.traj_year_start.setMaximumDate(end_year_traj)
@@ -229,36 +238,43 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
         self.close()
 
     def btn_calculate(self):
-        if self.mode_te_prod.isChecked() \
-                and not (self.groupBox_traj.isChecked() or
-                         self.groupBox_perf.isChecked() or
-                         self.groupBox_state.isChecked()):
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                       self.tr("Choose one or more productivity sub-indicator to calculate."))
+        if self.mode_te_prod.isChecked() and not (
+            self.groupBox_traj.isChecked() or self.groupBox_perf.isChecked()
+            or self.groupBox_state.isChecked()
+        ):
+            QtWidgets.QMessageBox.critical(
+                None, self.tr("Error"),
+                self.tr(
+                    "Choose one or more productivity sub-indicator to calculate."
+                )
+            )
+
             return
 
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
         # as well.
         ret = super(DlgCalculateProd, self).btn_calculate()
+
         if not ret:
             return
 
         self.close()
 
-        ndvi_dataset = conf.REMOTE_DATASETS[
-            'NDVI'][self.dataset_ndvi.currentText()]['GEE Dataset']
+        ndvi_dataset = conf.REMOTE_DATASETS['NDVI'][
+            self.dataset_ndvi.currentText()]['GEE Dataset']
 
         if self.traj_climate.currentText() != "":
-            climate_gee_dataset = self.climate_datasets[self.traj_climate.currentText()]['GEE Dataset']
+            climate_gee_dataset = self.climate_datasets[
+                self.traj_climate.currentText()]['GEE Dataset']
             log(u'climate_gee_dataset {}'.format(climate_gee_dataset))
         else:
             climate_gee_dataset = None
 
         if self.mode_te_prod.isChecked():
-            prod_mode = 'Trends.Earth productivity'
+            prod_mode = ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
         else:
-            prod_mode = 'JRC LPD'
+            prod_mode = ProductivityMode.JRC_5_CLASS_LPD.value
 
         crosses_180th, geojsons = self.gee_bounding_box
         payload = {
@@ -289,6 +305,7 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
         payload.update(current_trajectory_function["params"])
 
         resp = job_manager.submit_remote_job(payload, self.script.id)
+
         if resp:
             main_msg = "Submitted"
             description = "Productivity task submitted to Google Earth Engine."
@@ -297,8 +314,5 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
             main_msg = "Error"
             description = "Unable to submit productivity task to Google Earth Engine."
         self.mb.pushMessage(
-            self.tr(main_msg),
-            self.tr(description),
-            level=0,
-            duration=5
+            self.tr(main_msg), self.tr(description), level=0, duration=5
         )

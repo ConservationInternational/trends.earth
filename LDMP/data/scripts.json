@@ -129,7 +129,7 @@
     },
     {
         "description": "Calculate all three SDG 15.3.1 sub-indicators in one step",
-        "id": "7fe34589-c2f4-4329-bbf7-f955a0dc2756",
+        "id": "141febde-4720-4951-8ebc-069d596edbc5",
         "name": "sdg-15-3-1-sub-indicators",
         "name_readable": "SDG 15.3.1 sub-indicators",
         "run_mode": "remote",

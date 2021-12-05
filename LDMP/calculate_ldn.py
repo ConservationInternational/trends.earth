@@ -23,6 +23,7 @@ from qgis.PyQt import uic
 from te_schemas.algorithms import ExecutionScript
 from te_schemas.land_cover import LCLegendNesting
 from te_schemas.land_cover import LCTransitionDefinitionDeg
+from te_schemas.productivity import ProductivityMode
 
 from . import conf
 from . import data_io
@@ -195,9 +196,9 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             return
 
         if self.radio_te_prod.isChecked():
-            prod_mode = 'Trends.Earth productivity'
+            prod_mode = ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
         else:
-            prod_mode = 'JRC LPD'
+            prod_mode = ProductivityMode.JRC_5_CLASS_LPD.value
 
         periods = {
             'baseline': {
@@ -230,7 +231,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
             payload['productivity'] = {'mode': prod_mode}
 
-            if prod_mode == 'Trends.Earth productivity':
+            if prod_mode == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
                 if (year_final - year_initial) < 10:
                     QtWidgets.QMessageBox.warning(
                         None, self.tr("Warning"),
@@ -278,7 +279,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                         None,
                     }
                 )
-            elif prod_mode == 'JRC LPD':
+            elif prod_mode == ProductivityMode.JRC_5_CLASS_LPD.value:
                 if period == 'baseline':
                     prod_dataset = conf.REMOTE_DATASETS[
                         "Land Productivity Dynamics (JRC)"][
@@ -619,7 +620,7 @@ class DlgCalculateLDNSummaryTableAdmin(
                       10), round(layer.rasterUnitsPerPixelY(), 10)
             )
 
-        if prod_mode == 'Trends.Earth productivity':
+        if prod_mode == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
             if res(combo_boxes.combo_layer_traj.get_layer()
                    ) != res(combo_boxes.combo_layer_state.get_layer()):
                 QtWidgets.QMessageBox.critical(
@@ -676,9 +677,9 @@ class DlgCalculateLDNSummaryTableAdmin(
             return
 
         if self.radio_te_prod.isChecked():
-            prod_mode = 'Trends.Earth productivity'
+            prod_mode = ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
         else:
-            prod_mode = 'JRC LPD'
+            prod_mode = ProductivityMode.JRC_5_CLASS_LPD.value
 
         ##########
         # Baseline

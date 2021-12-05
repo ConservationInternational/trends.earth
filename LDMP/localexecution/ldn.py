@@ -6,10 +6,10 @@ from typing import List
 from typing import Optional
 
 from qgis.PyQt import QtWidgets
-from te_algorithms.gdal.land_deg.config import LdnProductivityMode
 from te_algorithms.gdal.land_deg.land_deg import summarise_land_degradation
 from te_schemas.aoi import AOI
 from te_schemas.jobs import JobBand
+from te_schemas.productivity import ProductivityMode
 
 from .. import data_io
 from .. import tr
@@ -262,7 +262,7 @@ def get_main_sdg_15_3_1_job_params(
         crosses_180th,
     }
 
-    if prod_mode == LdnProductivityMode.TRENDS_EARTH.value:
+    if prod_mode == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
         traj_band_info = combo_layer_traj.get_current_band()
         traj_band = JobBand.Schema().dump(traj_band_info.band_info)
         traj_years = _get_ld_input_period(combo_layer_traj)
@@ -286,7 +286,7 @@ def get_main_sdg_15_3_1_job_params(
             }
         )
 
-    elif prod_mode == LdnProductivityMode.JRC_LPD.value:
+    elif prod_mode == ProductivityMode.JRC_5_CLASS_LPD.value:
         lpd_band_info = combo_layer_lpd.get_current_band()
         lpd_band = lpd_band_info.band_info
 

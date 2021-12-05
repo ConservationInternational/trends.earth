@@ -17,6 +17,7 @@ from te_algorithms.gee.productivity import productivity_trajectory, \
     productivity_performance, productivity_state
 from te_algorithms.gee.download import download
 from te_schemas.schemas import CloudResultsSchema
+from te_schemas.productivity import ProductivityMode
 
 
 def run(params, logger):
@@ -51,7 +52,7 @@ def run(params, logger):
 
     proj = ee.Image(ndvi_gee_dataset).projection()
 
-    if prod_mode == 'Trends.Earth productivity':
+    if prod_mode == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
         outs = []
 
         for geojson in geojsons:
@@ -105,7 +106,7 @@ def run(params, logger):
 
         return schema.dump(final_output)
 
-    elif prod_mode == 'JRC LPD':
+    elif prod_mode =- ProductivityMode.JRC_5_CLASS_LPD.value:
         out = download('users/geflanddegradation/toolbox_datasets/lpd_300m_longlat',
                        'Land Productivity Dynamics (LPD)', 'one time',
                        None, None, logger)

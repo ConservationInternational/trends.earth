@@ -54,7 +54,7 @@ def compute_land_cover(
 ) -> Job:
     in_vrt = _prepare_land_cover_inputs(lc_job, area_of_interest)
     trans_matrix = land_cover.LCTransitionDefinitionDeg.Schema().loads(
-        lc_job.params["transformation_matrix"]
+        lc_job.params["trans_matrix"]
     )
 
     lc_change_worker = worker.StartWorker(

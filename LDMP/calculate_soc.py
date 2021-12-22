@@ -246,6 +246,12 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
                 initial_usable.band_info.metadata["year"],
                 final_usable.band_info.metadata["year"],
             ],
+            'legend_nesting': LCLegendNesting.Schema().dump(
+                get_lc_nesting()
+            ),
+            'trans_matrix': LCTransitionDefinitionDeg.Schema().dump(
+                get_trans_matrix()
+            ),
             "fl": self.get_fl(),
         }
         job_manager.submit_local_job(job_params, self.LOCAL_SCRIPT_NAME, self.aoi)

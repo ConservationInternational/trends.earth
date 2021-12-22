@@ -56,6 +56,7 @@ def compute_land_cover(
     trans_matrix = land_cover.LCTransitionDefinitionDeg.Schema().loads(
         lc_job.params["trans_matrix"]
     )
+    nesting = lc_job.params["legend_nesting"]
 
     lc_change_worker = worker.StartWorker(
         LandCoverChangeWorker,
@@ -73,26 +74,31 @@ def compute_land_cover(
                 name="Land cover (degradation)",
                 metadata={
                     "year_initial": lc_job.params["year_initial"],
-                    "year_final": lc_job.params["year_final"]
+                    "year_final": lc_job.params["year_final"],
+                    'trans_matrix': land_cover.LCTransitionDefinitionDeg.Schema().dumps(trans_matrix),
+                    'nesting': nesting
                 },
             ),
             jobs.JobBand(
                 name="Land cover (7 class)",
                 metadata={
                     "year": lc_job.params["year_initial"],
+                    'nesting': nesting
                 }
             ),
             jobs.JobBand(
                 name="Land cover (7 class)",
                 metadata={
                     "year": lc_job.params["year_final"],
+                    'nesting': nesting
                 }
             ),
             jobs.JobBand(
                 name="Land cover transitions",
                 metadata={
                     "year_initial": lc_job.params["year_initial"],
-                    "year_final": lc_job.params["year_final"]
+                    "year_final": lc_job.params["year_final"],
+                    'nesting': nesting
                 }
             ),
         ]

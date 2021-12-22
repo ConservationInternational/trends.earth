@@ -38,6 +38,17 @@ compute indicators in the cloud.
     :width: 250
     :target: https://earthengine.google.com
 
+The `Tools4LDN <https://www.tools4ldn.org/>`_ Project is a partnership of Conservation
+International, University of Bern, University of Colorado in partnership with 
+USDA and USAID, University of California - Santa Barbara in partnership with 
+University of North Carolina - Wilmington and Brown University and is funded 
+by the Global Environment Facility (GEF).
+
+Contributors to the documentation and to |trends.earth| include Gabriel Daldegan,
+Mariano Gonzalez-Roglich, Monica Noon, and Alex Zvoleff in partnership with Jeff Herrick,
+Tatenda Lemann, Hanspeter Liniger, David Lopez-Carr, Kevin Mwenda, Jason Neff, George Peacock, 
+Narcisa Pricope, Sanna Sokolow, and Ingrid Teich. 
+
 Acknowledgements
 ----------------
 
@@ -82,3 +93,9 @@ of the `Creative Commons Attribution 4.0 International License (CC BY 4.0)
 and the designations used, in |trends.earth| do not imply official endorsement or
 acceptance by Conservation International Foundation, or its partner
 organizations and contributors.
+
+Trademark
+--------
+
+|trends.earth| has a service mark trademark registered June 9, 2020 (reg. No. 6,074,442 
+and Int. Cl.: 9,35, 42) by the United States Patent and Tradmark Office.

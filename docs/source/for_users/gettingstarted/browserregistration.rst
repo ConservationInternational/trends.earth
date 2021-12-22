@@ -1,4 +1,4 @@
-Registration
+QGIS Registration
 ===================
 
 Troubleshooting and User Groups

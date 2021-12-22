@@ -4,8 +4,8 @@ QGIS
 Install QGIS
 --------------------------------
 
-Registration
+QGIS Registration
 --------------------------------
 
-Sample Session
+QGIS Sample Session
 --------------------------------

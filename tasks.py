@@ -773,7 +773,7 @@ def changelog_build(c):
             line = [line, '-----------------------------------------------------------------------------------------------------------------------------\n\n']
         out_txt.extend(line)
 
-    out_file = '{docroot}/source/about/changelog.rst'.format(docroot=c.sphinx.docroot)
+    out_file = '{docroot}/source/for_developers/changelog.rst'.format(docroot=c.sphinx.docroot)
     with open(out_file, 'w') as fout:
         metadata = fout.writelines(out_txt)
 
@@ -1044,7 +1044,7 @@ def binaries_compile(c, clean=False, python='python'):
 ###############################################################################
 
 ns = Collection(set_version, set_tag,
-                plugin_setup, plugin_install,
+                plugin_setup, plugin_install, changelog_build,
                 docs_build, translate_pull, translate_push,
                 tecli_login, tecli_clear, tecli_config, tecli_publish,
                 tecli_run, tecli_info, tecli_logs, zipfile_build,

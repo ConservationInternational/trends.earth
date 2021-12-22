@@ -4,8 +4,8 @@ Browser
 Trends.Earth Browser Application
 --------------------------------
 
-Registration
+Browser Registration
 --------------------------------
 
-Sample Session
+Browser Sample Session
 --------------------------------

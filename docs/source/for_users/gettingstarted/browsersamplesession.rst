@@ -1,4 +1,4 @@
-Sample Session
+QGIS Sample Session
 ===================
 
 About Trends.Earth

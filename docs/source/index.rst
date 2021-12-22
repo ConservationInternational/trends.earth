@@ -3,7 +3,7 @@
 Trends.Earth
 **********************************
 
-Welcome to the official documentation of Trends.Earth
+Welcome to the official documentation of |trends.earth|
 
 .. toctree::
    :maxdepth: 2

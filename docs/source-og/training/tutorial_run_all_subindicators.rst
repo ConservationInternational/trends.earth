@@ -3,7 +3,7 @@
 Run 1-step subindicators
 ========================
 
-- **Objective**: Learn how to run SDG 15.3.1 sub-indicators (changes in land productivity, land cover and soil organic carbon) using Trends.Earth and the default data: LPD from JRC for land productivity, ESA CCI for land cover, and SoilGrids for soil organic carbon. In this tutorial we will use Uganda as an example, but you can choose any study area.
+- **Objective**: Learn how to run SDG 15.3.1 sub-indicators (changes in land productivity, land cover and soil organic carbon) using Trends.Earth and the default data: Trends.Earth (trajectory, performance and state) for land productivity, ESA CCI for land cover, and SoilGrids for soil organic carbon. In this tutorial we will use Uganda as an example, but you can choose any study area.
 
 - **Estimated time of completion**: 35 minutes
 
@@ -12,29 +12,23 @@ Run 1-step subindicators
 .. note:: `Download this page as a PDF for off-line use 
    <../pdfs/Trends.Earth_Tutorial02_Computing_Indicators.pdf>`_
 
-1. Search for the Trends.Earth toolbar within QGIS, and click on the Calculate icon (|iconCalculator|).
+1. Click on the Trends.Earth toolbar within QGIS, and click on the Trends.Earth icon (|icon-trends_earth|).
    
-.. image:: /static/common/ldmt_toolbar_highlight_calculate.png
+.. image:: /static/common/icon-trends_earth_selection.png
    :align: center   
 
-2. The **Calculate Indicators** menu will open. In that window, click on Land degradation indicator (SDG indicator 15.3.1)
+2. The **Trends.Earth** menu will open. In the **Algorithm** window, click on SDG 15.3.1 - Land degradation
 
-.. image:: /static/documentation/calculate/LDindicator.png
+.. image:: /static/documentation/calculate/all_sub-indicators_at_once.png
    :align: center
 
-Select **Calculate all three sub-indicators in one step** button found under Step 1 - Option 1.
+Select **Execute remotely** button.
 
-.. image:: /static/training/t03/run.png
-   :align: center
-
-3. In the **Setup** tab, select the years of analysis (2000-2015) and make sure that the **UNCCD default data** is selected, and click next.
+3. In the **SDG 15.3.1 Indicator (one-step) Land Degradation** window. Select the **Land Productivity Dynamics (LPD) from Joint Research Commission (JRC)** is selected. Type in the Execution name. Select **Schedule remote execution**
 
 .. note::
     Refer to the :ref:`indicator-15-3-1` section of this manual to learn about the Trends.Earth productivity indicators developed following the `UNCCD Good Practice Guidance (GPG) <http://www2.unccd.int/sites/default/files/relevant-links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_.
  
-.. image:: /static/training/t03/run_setup.png
-   :align: center
-
 4. In the **Land Cover Setup** tab you have the option of using the default aggregation method proposed by the UNCCD default data or you can customize the aggregation of the legend from the original ESA CCI land cover classes to the 7 required for UNCCD reporting. To customize it, click on **Edit definition** and the **Setup aggregation of land cover data** window will open.
 
 .. image:: /static/training/t03/run_landcover.png

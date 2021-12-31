@@ -571,6 +571,18 @@
             "no data": {"value": -32768, "color": "#000000", "label": "nodata"}
         }
     },
+    "Population (number of people)": {
+        "title": "population_number_of_people",
+        "ramp": {
+            "type": "min zero stretch",
+            "shader": "interpolated",
+            "percent stretch": 2,
+            "zero": {"color": "#461554"},
+            "mid": {"color": "#28898C"},
+            "max": {"color": "#FDE629"},
+            "no data": {"value": -32768, "color": "#000000", "label": "nodata"}
+        }
+    },
     "Population (density, persons per sq km / 10)": {
         "title": "population_density_title",
         "ramp": {

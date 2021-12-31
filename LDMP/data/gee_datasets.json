@@ -652,6 +652,23 @@
             "License": "Creative Commons CC BY 4.0",
             "License URL": "https://creativecommons.org/licenses/by/4.0/",
             "Source": "https://www.worldpop.org/doi/10.5258/SOTON/WP00647"
+        },
+        "Gridded Population Count (gender breakdown)": {
+            "Data source":"https://www.worldpop.org",
+            "Start year": 2000,
+            "End year": 2020,
+            "Spatial resolution": "300 m",
+            "Temporal resolution": "annual",
+            "Min Latitude": -90,
+            "Max Latitude": 90,
+            "Min Longitude": -180,
+            "Max Longitude": 180,
+            "Description": "",
+            "Link to Dataset": "",
+            "GEE Dataset": "users/geflanddegradation/toolbox_datasets/WorldPop_mf_v1_100m",
+            "License": "Creative Commons CC BY 4.0",
+            "License URL": "https://creativecommons.org/licenses/by/4.0/",
+            "Source": ""
         }
     },
 	"GPWv411": {

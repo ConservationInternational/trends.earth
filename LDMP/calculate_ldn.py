@@ -29,7 +29,6 @@ from . import conf
 from . import data_io
 from . import lc_setup
 from .calculate import DlgCalculateBase
-
 from .jobs.manager import job_manager
 from .localexecution import ldn
 from .logger import log
@@ -332,7 +331,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             payload['population'] = {
                 'year': year_final,
                 'population_asset':
-                "users/geflanddegradation/toolbox_datasets/worldpop_ppp_2000_2020_1km_global",
+                "users/geflanddegradation/toolbox_datasets/WorldPop_mf_v1_100m",
                 'population_source_name': "WorldPop"
             }
 

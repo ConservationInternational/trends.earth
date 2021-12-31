@@ -22,8 +22,8 @@ from te_algorithms.gee.soc import soc
 from te_algorithms.gee.util import TEImage
 from te_schemas.land_cover import LCLegendNesting
 from te_schemas.land_cover import LCTransitionDefinitionDeg
-from te_schemas.schemas import BandInfo
 from te_schemas.productivity import ProductivityMode
+from te_schemas.schemas import BandInfo
 from te_schemas.schemas import CloudResultsSchema
 
 
@@ -174,6 +174,7 @@ def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
     final_output = schema.load(outs[0])
 
     for o in outs[1:]:
+        # Ensure urls are included for each geojson if there is more than 1
         this_out = schema.load(o)
         final_output.urls.extend(this_out.urls)
     logger.debug("Serializing")
@@ -184,28 +185,32 @@ def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
 
 
 def _get_population(params, proj, logger):
-    '''Return worldpop population data for a given year'''
+    '''Return WorldPop population data for a given year'''
     logger.debug("Returning population image")
     year = params['year']
 
-    wp = ee.Image(params['population_asset']).select(f'p{year}')
-    wp = wp.select(f'p{year}')
-    # Convert to population density per sq km (ee.image.pixelArea gives area in
-    # sq meters, so need to convert). Then scale by 10 so max densities will
-    # fit in an int16
-    wp = wp.divide(ee.Image.pixelArea()).multiply(1000 * 1000
-                                                  ).divide(10).int16()
-    wp = wp.reduceResolution(reducer=ee.Reducer.first(),
-                             maxPixels=1024).reproject(proj)
+    wp = ee.ImageCollection(params['population_asset']
+                            ).filterDate(f'{year}-01-01', f'{year + 1}-01-01')
+    wp = wp.select('male').toBands().rename('Population_{year}_male').addBands(
+        wp.select('female').toBands().rename('Population_{year}_female')
+    ).int16()
 
     return TEImage(
         wp, [
             BandInfo(
-                "Population (density, persons per sq km / 10)",
+                "Population (total)",
                 metadata={
                     'year': year,
-                    'data_source': params['population_source_name'],
-                    'scaling': .1
+                    'type': 'male',
+                    'data_source': params['population_source_name']
+                }
+            ),
+            BandInfo(
+                "Population (total)",
+                metadata={
+                    'year': year,
+                    'type': 'female',
+                    'data_source': params['population_source_name']
                 }
             )
         ]

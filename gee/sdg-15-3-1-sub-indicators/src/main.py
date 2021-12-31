@@ -139,7 +139,7 @@ def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
 
             res.append(
                 executor.submit(
-                    _get_population, params.get('population'), proj, logger
+                    _get_population, params.get('population'), logger
                 )
             )
 
@@ -184,33 +184,34 @@ def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
     return schema.dump(final_output)
 
 
-def _get_population(params, proj, logger):
+def _get_population(params, logger):
     '''Return WorldPop population data for a given year'''
     logger.debug("Returning population image")
     year = params['year']
 
     wp = ee.ImageCollection(params['population_asset']
                             ).filterDate(f'{year}-01-01', f'{year + 1}-01-01')
-    wp = wp.select('male').toBands().rename('Population_{year}_male').addBands(
-        wp.select('female').toBands().rename('Population_{year}_female')
+    wp = wp.select('male').toBands(
+    ).rename(f'Population_{year}_male').addBands(
+        wp.select('female').toBands().rename(f'Population_{year}_female')
     ).int16()
 
     return TEImage(
         wp, [
             BandInfo(
-                "Population (total)",
+                "Population (number of people)",
                 metadata={
                     'year': year,
                     'type': 'male',
-                    'data_source': params['population_source_name']
+                    'source': params['source']
                 }
             ),
             BandInfo(
-                "Population (total)",
+                "Population (number of people)",
                 metadata={
                     'year': year,
                     'type': 'female',
-                    'data_source': params['population_source_name']
+                    'source': params['source']
                 }
             )
         ]
@@ -261,7 +262,7 @@ def run_jrc_for_period(params, EXECUTION_ID, logger):
 
     out.merge(_run_soc(params.get('soil_organic_carbon'), logger))
 
-    out.merge(_get_population(params.get('population'), proj, logger))
+    out.merge(_get_population(params.get('population'), logger))
 
     out.setAddToMap(
         [

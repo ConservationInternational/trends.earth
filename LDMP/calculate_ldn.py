@@ -332,7 +332,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                 'year': year_final,
                 'population_asset':
                 "users/geflanddegradation/toolbox_datasets/WorldPop_mf_v1_100m",
-                'population_source_name': "WorldPop"
+                'source': "WorldPop (gender breakdown)"
             }
 
             task_name = self.execution_name_le.text()

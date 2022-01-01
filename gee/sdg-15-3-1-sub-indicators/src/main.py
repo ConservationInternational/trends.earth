@@ -62,14 +62,15 @@ def _run_soc(params, logger):
 
 def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
     '''Run indicators using Trends.Earth productivity'''
-    prod_params = params.get('productivity')
-
-    prod_asset = prod_params.get('prod_asset')
-    proj = ee.Image(prod_asset).projection()
+    proj = ee.ImageCollection(params['population']['asset']
+                              ).toBands().projection()
 
     # Need to loop over the geojsons, since performance takes in a
     # geojson.
     outs = []
+
+    prod_params = params.get('productivity')
+    prod_asset = prod_params.get('asset')
 
     for geojson_num, geojson in enumerate(params.get('geojsons')):
         with ThreadPoolExecutor(max_workers=max_workers) as executor:
@@ -189,7 +190,7 @@ def _get_population(params, logger):
     logger.debug("Returning population image")
     year = params['year']
 
-    wp = ee.ImageCollection(params['population_asset']
+    wp = ee.ImageCollection(params['asset']
                             ).filterDate(f'{year}-01-01', f'{year + 1}-01-01')
     wp = wp.select('male').toBands(
     ).rename(f'Population_{year}_male').addBands(
@@ -220,13 +221,11 @@ def _get_population(params, logger):
 
 def run_jrc_for_period(params, EXECUTION_ID, logger):
     '''Run indicators using JRC LPD for productivity'''
-    # Use LC asset to set proj as JRC is at 1km
-    lc_asset = ee.Image(
-        "users/geflanddegradation/toolbox_datasets/lcov_esacc_1992_2020"
-    )
-    proj = ee.Image(lc_asset).projection()
+    # Use population asset to set proj as JRC is at 1km
+    proj = ee.ImageCollection(params['population']['asset']
+                              ).toBands().projection()
     out = download(
-        params.get('productivity').get('prod_asset'),
+        params.get('productivity').get('asset'),
         'Land Productivity Dynamics (from JRC)', 'one time', None, None, logger
     )
     lpd_year_initial = params.get('productivity')['year_initial']

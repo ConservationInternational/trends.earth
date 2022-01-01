@@ -253,7 +253,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
                 payload['productivity'].update(
                     {
-                        'prod_asset':
+                        'asset':
                         conf.REMOTE_DATASETS["NDVI"]["MODIS (MOD13Q1, annual)"]
                         ["GEE Dataset"],
                         'traj_method':
@@ -292,7 +292,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                 prod_end_year = prod_dataset['End year']
                 payload['productivity'].update(
                     {
-                        'prod_asset': prod_asset,
+                        'asset': prod_asset,
                         'year_initial': prod_start_year,
                         'year_final': prod_end_year
                     }
@@ -330,7 +330,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
             payload['population'] = {
                 'year': year_final,
-                'population_asset':
+                'asset':
                 "users/geflanddegradation/toolbox_datasets/WorldPop_mf_v1_100m",
                 'source': "WorldPop (gender breakdown)"
             }

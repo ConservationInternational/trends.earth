@@ -19,12 +19,11 @@ from te_algorithms.gee.productivity import productivity_performance
 from te_algorithms.gee.productivity import productivity_state
 from te_algorithms.gee.productivity import productivity_trajectory
 from te_algorithms.gee.soc import soc
-from te_algorithms.gee.util import TEImage
+from te_algorithms.gee.util import teimage_v1_to_teimage_v2
+from te_schemas import results
 from te_schemas.land_cover import LCLegendNesting
 from te_schemas.land_cover import LCTransitionDefinitionDeg
 from te_schemas.productivity import ProductivityMode
-from te_schemas.schemas import BandInfo
-from te_schemas.schemas import CloudResultsSchema
 
 
 def _run_lc(params, additional_years, logger):
@@ -70,7 +69,7 @@ def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
     outs = []
 
     prod_params = params.get('productivity')
-    prod_asset = prod_params.get('asset')
+    prod_asset = prod_params.get('asset_productivity')
 
     for geojson_num, geojson in enumerate(params.get('geojsons')):
         with ThreadPoolExecutor(max_workers=max_workers) as executor:
@@ -82,7 +81,7 @@ def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
                     prod_params.get('traj_year_initial'),
                     prod_params.get('traj_year_final'),
                     prod_params.get('traj_method'), prod_asset,
-                    prod_params.get('climate_asset'), logger
+                    prod_params.get('asset_climate'), logger
                 )
             )
 
@@ -138,12 +137,6 @@ def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
                 )
             )
 
-            res.append(
-                executor.submit(
-                    _get_population, params.get('population'), logger
-                )
-            )
-
             out = None
 
             for this_res in as_completed(res):
@@ -163,21 +156,39 @@ def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
             ]
         )
 
+        logger.debug("Converting output to TEImageV2 format")
+        out = teimage_v1_to_teimage_v2(out)
+
+        logger.debug("Adding population data")
+        # Population needs to be saved as floats
+        out.add_image(**_get_population(params.get('population'), logger))
+
+        logger.debug("Exporting results")
         outs.append(
             out.export(
-                [geojson], 'sdg_sub_indicators', params.get('crs'), logger,
-                str(EXECUTION_ID) + str(geojson_num), proj
+                geojsons=[geojson],
+                task_name='sdg_sub_indicators',
+                crs=params.get('crs'),
+                logger=logger,
+                execution_id=str(EXECUTION_ID) + str(geojson_num),
+                proj=proj
             )
         )
 
-    schema = CloudResultsSchema()
-    logger.debug("Deserializing")
+    schema = results.CloudResultsV2.Schema()
+    logger.debug("Deserializing - setting up main output")
+    logger.debug(f"outs[0].keys() {outs[0].keys()}")
     final_output = schema.load(outs[0])
+
+    logger.debug("Deserializing - Adding additional outs")
 
     for o in outs[1:]:
         # Ensure urls are included for each geojson if there is more than 1
         this_out = schema.load(o)
-        final_output.urls.extend(this_out.urls)
+
+        for datatype, raster in this_out.data.items():
+            final_output.data[datatype].uri.extend(raster.uri)
+
     logger.debug("Serializing")
     # Now serialize the output again so the remaining layers can be
     # added to it
@@ -195,11 +206,13 @@ def _get_population(params, logger):
     wp = wp.select('male').toBands(
     ).rename(f'Population_{year}_male').addBands(
         wp.select('female').toBands().rename(f'Population_{year}_female')
-    ).int16()
+    )
 
-    return TEImage(
-        wp, [
-            BandInfo(
+    return {
+        'image':
+        wp,
+        'bands': [
+            results.Band(
                 "Population (number of people)",
                 metadata={
                     'year': year,
@@ -207,7 +220,7 @@ def _get_population(params, logger):
                     'source': params['source']
                 }
             ),
-            BandInfo(
+            results.Band(
                 "Population (number of people)",
                 metadata={
                     'year': year,
@@ -215,8 +228,10 @@ def _get_population(params, logger):
                     'source': params['source']
                 }
             )
-        ]
-    )
+        ],
+        'datatype':
+        results.DataType.FLOAT32
+    }
 
 
 def run_jrc_for_period(params, EXECUTION_ID, logger):
@@ -261,14 +276,16 @@ def run_jrc_for_period(params, EXECUTION_ID, logger):
 
     out.merge(_run_soc(params.get('soil_organic_carbon'), logger))
 
-    out.merge(_get_population(params.get('population'), logger))
-
     out.setAddToMap(
         [
             'Soil organic carbon (degradation)', 'Land cover (degradation)',
             'Land Productivity Dynamics (from JRC)'
         ]
     )
+    out = teimage_v1_to_teimage_v2(out)
+
+    # Population needs to be saved as floats
+    out.add_image(**_get_population(params.get('population'), logger))
 
     return out.export(
         geojsons=params.get('geojsons'),
@@ -283,8 +300,10 @@ def run_jrc_for_period(params, EXECUTION_ID, logger):
 def run_period(params, max_workers, EXECUTION_ID, logger):
     '''Run indicators for a given period, using JRC or Trends.Earth'''
 
-    if params['productivity'][
-        'mode'] == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
+    if (
+        params['productivity']['mode'] ==
+        ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
+    ):
         params.update(_gen_metadata_str_te(params))
         out = run_te_for_period(params, max_workers, EXECUTION_ID, logger)
     elif params['productivity']['mode'
@@ -345,6 +364,4 @@ def run(params, logger):
 
     max_workers = 4
 
-    out = run_period(params, max_workers, EXECUTION_ID, logger)
-
-    return out
+    return run_period(params, max_workers, EXECUTION_ID, logger)

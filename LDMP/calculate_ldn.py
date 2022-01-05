@@ -253,7 +253,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
                 payload['productivity'].update(
                     {
-                        'asset':
+                        'asset_productivity':
                         conf.REMOTE_DATASETS["NDVI"]["MODIS (MOD13Q1, annual)"]
                         ["GEE Dataset"],
                         'traj_method':
@@ -274,7 +274,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                         prod_state_year_tg_start,
                         'state_year_tg_end':
                         prod_state_year_tg_end,
-                        'climate_asset':
+                        'asset_climate':
                         None,
                     }
                 )

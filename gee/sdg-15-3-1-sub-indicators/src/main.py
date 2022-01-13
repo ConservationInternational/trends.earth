@@ -175,7 +175,7 @@ def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
             )
         )
 
-    schema = results.CloudResultsV2.Schema()
+    schema = results.RasterResults.Schema()
     logger.debug("Deserializing - setting up main output")
     logger.debug(f"outs[0].keys() {outs[0].keys()}")
     final_output = schema.load(outs[0])

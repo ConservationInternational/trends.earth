@@ -8,8 +8,8 @@ from typing import Optional
 from qgis.PyQt import QtWidgets
 from te_algorithms.gdal.land_deg.land_deg import summarise_land_degradation
 from te_schemas.aoi import AOI
-from te_schemas.jobs import JobBand
 from te_schemas.productivity import ProductivityMode
+from te_schemas.results import Band as JobBand
 
 from .. import data_io
 from .. import tr

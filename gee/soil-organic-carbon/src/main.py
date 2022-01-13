@@ -7,14 +7,13 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-from builtins import str
-import random
 import json
-
-import ee
+import random
+from builtins import str
 
 from te_algorithms.gee.soc import soc
-from te_schemas.land_cover import LCTransitionDefinitionDeg, LCLegendNesting
+from te_schemas.land_cover import LCLegendNesting
+from te_schemas.land_cover import LCTransitionDefinitionDeg
 
 
 def run(params, logger):
@@ -34,20 +33,19 @@ def run(params, logger):
     )
 
     # Check the ENV. Are we running this locally or in prod?
+
     if params.get('ENV') == 'dev':
         EXECUTION_ID = str(random.randint(1000000, 99999999))
     else:
         EXECUTION_ID = params.get('EXECUTION_ID', None)
+    logger.debug(f"Execution ID is {EXECUTION_ID}")
 
     logger.debug("Running main script.")
     out = soc(
-        year_initial,
-        year_final,
-        fl,
-        trans_matrix,
-        legend_nesting,
-        dl_annual_lc,
-        logger
+        year_initial, year_final, fl, trans_matrix, legend_nesting,
+        dl_annual_lc, logger
     )
 
-    return out.export(geojsons, 'soil_organic_carbon', crs, logger, EXECUTION_ID)
+    return out.export(
+        geojsons, 'soil_organic_carbon', crs, logger, EXECUTION_ID
+    )

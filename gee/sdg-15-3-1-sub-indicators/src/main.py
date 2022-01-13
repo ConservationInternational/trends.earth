@@ -361,6 +361,7 @@ def run(params, logger):
         EXECUTION_ID = str(random.randint(1000000, 99999999))
     else:
         EXECUTION_ID = params.get('EXECUTION_ID', None)
+    logger.debug(f"Execution ID is {EXECUTION_ID}")
 
     max_workers = 4
 

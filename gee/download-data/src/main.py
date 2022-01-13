@@ -7,13 +7,10 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-from builtins import str
-import random
 import json
+import random
+from builtins import str
 
-import ee
-
-from te_algorithms.gee import GEEIOError
 from te_algorithms.gee.download import download
 
 
@@ -29,19 +26,16 @@ def run(params, logger):
     crs = params.get('crs')
 
     # Check the ENV. Are we running this locally or in prod?
+
     if params.get('ENV') == 'dev':
         EXECUTION_ID = str(random.randint(1000000, 99999999))
     else:
         EXECUTION_ID = params.get('EXECUTION_ID', None)
+    logger.debug(f"Execution ID is {EXECUTION_ID}")
 
     logger.debug("Running main script.")
     out = download(
-        asset,
-        name,
-        temporal_resolution,
-        start_year,
-        end_year,
-        logger
+        asset, name, temporal_resolution, start_year, end_year, logger
     )
 
     return out.export(geojsons, 'download', crs, logger, EXECUTION_ID)

@@ -14,10 +14,11 @@ import json
 import ee
 
 from te_algorithms.gee.productivity import productivity_trajectory, \
-    productivity_performance, productivity_state
 from te_algorithms.gee.download import download
 from te_schemas.schemas import CloudResultsSchema
 from te_schemas.productivity import ProductivityMode
+
+productivity_performance, productivity_state
 
 
 def run(params, logger):
@@ -47,6 +48,7 @@ def run(params, logger):
         EXECUTION_ID = str(random.randint(1000000, 99999999))
     else:
         EXECUTION_ID = params.get('EXECUTION_ID', None)
+    logger.debug(f"Execution ID is {EXECUTION_ID}")
 
     logger.debug("Running productivity indicators.")
 

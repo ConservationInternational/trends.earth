@@ -6,12 +6,17 @@ import unicodedata
 import urllib.parse
 import uuid
 from pathlib import Path
+from typing import List
 
 from marshmallow.exceptions import ValidationError
 from osgeo import gdal
 from qgis.PyQt import QtCore
+from te_algorithms.gdal.util import combine_all_bands_into_vrt
 from te_schemas import jobs
+from te_schemas import results
 from te_schemas.algorithms import AlgorithmRunMode
+from te_schemas.results import Band as JobBand
+from te_schemas.results import ResultType
 
 from . import models
 from .. import api
@@ -374,9 +379,8 @@ class JobManager(QtCore.QObject):
 
     def download_job_results(self, job: Job) -> Job:
         handler = {
-            jobs.JobResultType.CLOUD_RESULTS: self._download_cloud_results,
-            jobs.JobResultType.TIME_SERIES_TABLE:
-            self._download_timeseries_table,
+            ResultType.RASTER_RESULTS: self._download_cloud_results,
+            ResultType.TIME_SERIES_TABLE: self._download_timeseries_table,
         }.get(job.results.type)
 
         if handler:
@@ -429,7 +433,7 @@ class JobManager(QtCore.QObject):
                 if band.add_to_map:
                     layers.add_layer(
                         str(job.results.data_path), band_index,
-                        jobs.JobBand.Schema().dump(band)
+                        JobBand.Schema().dump(band)
                     )
 
     def display_selected_job_results(self, job: Job, band_numbers):
@@ -438,7 +442,7 @@ class JobManager(QtCore.QObject):
                 if n in band_numbers:
                     layers.add_layer(
                         str(job.results.data_path), n,
-                        jobs.JobBand.Schema().dump(band)
+                        JobBand.Schema().dump(band)
                     )
 
     def import_job(self, job: Job, job_path):
@@ -481,7 +485,7 @@ class JobManager(QtCore.QObject):
     def create_job_from_dataset(
         self, dataset_path: Path, band_name: str, band_metadata: typing.Dict
     ) -> Job:
-        band_info = jobs.JobBand(
+        band_info = JobBand(
             name=band_name,
             no_data_value=-32768.0,
             metadata=band_metadata.copy()
@@ -538,47 +542,82 @@ class JobManager(QtCore.QObject):
         del self.known_jobs[previous_status][job.id]
         self.known_jobs[job.status][job.id] = job
 
-    def _download_cloud_results(self, job: Job) -> typing.Optional[Path]:
+    def _download_cloud_results(self, job: jobs.Job) -> typing.Optional[Path]:
         base_output_path = self.get_downloaded_dataset_base_file_path(job)
-        output_path = None
 
-        if len(job.results.urls) > 0:
-            if len(job.results.urls) == 1:
-                final_output_path = (
-                    base_output_path.parent / f"{base_output_path.name}.tif"
+        out_rasters = []
+
+        if len([*jobs.results.rasters.values()]) == 0:
+            log(f'No results to download for {job.id}')
+
+        for key, raster in job.results.rasters.items():
+            file_out_base = f"{base_output_path.name}_{key}"
+
+            if raster.type == results.RasterType.TILED_RASTER:
+                tile_uris = []
+
+                for uri_number, uri in enumerate(raster.tile_uris):
+                    out_file = (
+                        base_output_path.parent /
+                        f"{file_out_base}_{uri_number}.tif"
+                    )
+                    _download_result(
+                        uri,
+                        base_output_path.parent /
+                        f"{file_out_base}_{uri_number}.tif",
+                    )
+                    tile_uris.append(results.URI(uri=out_file, type='cloud'))
+
+                raster.tile_uris = tile_uris
+
+                vrt_file = base_output_path.parent / f"{file_out_base}.vrt"
+                _get_raster_vrt(
+                    tiles=[str(uri.uri) for uri in tile_uris],
+                    out_file=vrt_file,
                 )
-                output_path = _get_single_cloud_result(
-                    job.results.urls[0], final_output_path
+                out_rasters.append(
+                    results.TiledRaster(
+                        tile_uris=tile_uris,
+                        bands=raster.bands,
+                        datatype=raster.datatype,
+                        filetype=raster.filetype,
+                        uri=results.URI(uri=vrt_file, type='local'),
+                        type=results.RasterType.TILED_RASTER
+                    )
                 )
-            else:  # multiple files, download them then save VRT
-                output_path = self._get_multiple_cloud_results(
-                    job, base_output_path
+            else:
+                out_file = base_output_path.parent / f"{file_out_base}.tif"
+                _download_result(
+                    raster.uri,
+                    out_file,
                 )
-        else:
-            log(f"job {job} does not have downloadable results")
+                raster_uri = results.URI(uri=out_file, type='local')
+                raster.uri = raster_uri
+                out_rasters.append(
+                    results.Raster(
+                        uri=raster_uri,
+                        bands=raster.bands,
+                        datatype=raster.datatype,
+                        filetype=raster.filetype,
+                        type=results.RasterType.ONE_FILE_RASTER
+                    )
+                )
 
-        return output_path
+        # Setup the main data_path. This could be a vrt (if job.results.rasters
+        # has more than one Raster, or if it has one or more TiledRasters)
 
-    def _get_multiple_cloud_results(
-        self, job: Job, base_output_path: Path
-    ) -> Path:
-        vrt_tiles = []
-
-        for index, url in enumerate(job.results.urls):
-            output_path = (
-                base_output_path.parent /
-                f"{base_output_path.name}_{index}.tif"
+        if (
+            len(job.results.rasters) > 1 or (
+                len(job.results.rasters == 1) and job.results.rasters[0].type
+                == results.RasterType.TILED_RASTER
             )
-            tile_path = _get_single_cloud_result(url, output_path)
-
-            if tile_path is not None:
-                vrt_tiles.append(tile_path)
-        vrt_file_path = base_output_path.parent / f"{base_output_path.name}.vrt"
-        gdal.BuildVRT(
-            str(vrt_file_path), [str(vrt_tile) for vrt_tile in vrt_tiles]
-        )
-
-        return vrt_file_path
+        ):
+            vrt_file = base_output_path.parent / f"{base_output_path.name}.vrt"
+            main_raster_file_paths = [raster.uri.uri for raster in out_rasters]
+            combine_all_bands_into_vrt(main_raster_file_paths, vrt_file)
+            job.results.uri = results.URI(uri=vrt_file, type='local')
+        else:
+            job.results.uri = job.results.rasters[0].uri
 
     def _download_timeseries_table(self, job: Job) -> typing.Optional[Path]:
         raise NotImplementedError
@@ -882,28 +921,8 @@ def _get_user_id() -> uuid:
         return uuid.UUID(user_id)
 
 
-def _get_single_cloud_result(url: jobs.JobUrl,
-                             output_path: Path) -> typing.Optional[Path]:
-    path_exists = output_path.is_file()
-    hash_matches = ldmp_download.local_check_hash_against_etag(
-        output_path, url.decoded_md5_hash
-    )
-
-    if path_exists and hash_matches:
-        log(
-            f"No download necessary, result already present in {output_path!r}"
-        )
-        result = output_path
-    else:
-        _download_result(url.url, output_path)
-        downloaded_hash_matches = (
-            ldmp_download.local_check_hash_against_etag(
-                output_path, url.decoded_md5_hash
-            )
-        )
-        result = output_path if downloaded_hash_matches else None
-
-    return result
+def _get_raster_vrt(tiles: List[Path], out_file: Path):
+    gdal.BuildVRT(str(out_file), [str(tile) for tile in tiles])
 
 
 def _download_result(url: str, output_path: Path) -> bool:
@@ -986,8 +1005,8 @@ def get_remote_jobs(
                     job.script.run_mode = AlgorithmRunMode.REMOTE
 
                     if (
-                        job.results is not None and job.results.type
-                        == jobs.JobResultType.TIME_SERIES_TABLE
+                        job.results is not None
+                        and job.results.type == ResultType.TIME_SERIES_TABLE
                     ):
                         log(
                             f"Ignoring job {job.id!r} because it contains "

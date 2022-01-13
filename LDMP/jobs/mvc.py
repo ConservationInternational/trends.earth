@@ -310,10 +310,10 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
 
         if self.job.results is not None:
             if (
-                self.job.results.data_path and (
-                    manager.is_gdal_vsi_path(self.job.results.data_path) or (
-                        self.job.results.data_path.suffix in [".vrt", ".tif"]
-                        and self.job.results.data_path.exists()
+                self.job.results.uri and (
+                    manager.is_gdal_vsi_path(self.job.results.uri.uri) or (
+                        self.job.results.uri.uri.suffix in [".vrt", ".tif"]
+                        and self.job.results.uri.uri.exists()
                     )
                 )
             ):

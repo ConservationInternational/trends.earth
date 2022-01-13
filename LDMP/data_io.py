@@ -1383,7 +1383,7 @@ def _get_usable_bands(
         if is_available and is_of_interest and is_valid_type:
             path = job.results.data_path
 
-            for band_index, band_info in enumerate(job.results.bands):
+            for band_index, band_info in enumerate(job.results.get_bands()):
                 if band_info.name == band_name or band_name == 'any':
                     result.append(
                         Band(
@@ -1576,7 +1576,7 @@ class DlgDataIOAddLayersToMap(QtWidgets.QDialog, Ui_DlgDataIOAddLayersToMap):
             )
 
     def update_band_list(self):
-        self.layer_list = self.job.results.bands
+        self.layer_list = self.job.results.get_bands()
 
         band_strings = [
             f'Band {n}: {layers.get_band_title(JobBand.Schema().dump(band))}'

@@ -187,15 +187,14 @@ class JobManager(QtCore.QObject):
 
         for j_id, j in frozen_known_downloaded_jobs.items():
             if (
-                j.results.data_path
-                and not is_gdal_vsi_path(j.results.data_path)
-                and not j.results.data_path.exists()
+                j.results.uri and not is_gdal_vsi_path(j.results.uri.uri)
+                and not j.results.uri.uri.exists()
             ):
                 log(
                     f'job {j_id} currently marked as DOWNLOADED but has '
                     'missing paths, so moving back to FINISHED status'
                 )
-                j.results.data_path = None
+                j.results.uri = None
                 self._change_job_status(
                     j, jobs.JobStatus.FINISHED, force_rewrite=True
                 )
@@ -388,7 +387,7 @@ class JobManager(QtCore.QObject):
             output_path = handler(job)
 
             if output_path is not None:
-                job.results.data_path = output_path
+                job.results.uri = output_path
                 self._change_job_status(
                     job, jobs.JobStatus.DOWNLOADED, force_rewrite=True
                 )
@@ -428,20 +427,22 @@ class JobManager(QtCore.QObject):
             self.downloaded_available_jobs_results.emit()
 
     def display_default_job_results(self, job: Job):
-        if job.results.data_path.suffix in [".tif", ".vrt"]:
-            for band_index, band in enumerate(job.results.bands, start=1):
+        if job.results.uri.uri.suffix in [".tif", ".vrt"]:
+            for band_index, band in enumerate(
+                job.results.get_bands(), start=1
+            ):
                 if band.add_to_map:
                     layers.add_layer(
-                        str(job.results.data_path), band_index,
+                        str(job.results.uri.uri), band_index,
                         JobBand.Schema().dump(band)
                     )
 
     def display_selected_job_results(self, job: Job, band_numbers):
-        if job.results.data_path.suffix in [".tif", ".vrt"]:
-            for n, band in enumerate(job.results.bands, start=1):
+        if job.results.uri.uri.suffix in [".tif", ".vrt"]:
+            for n, band in enumerate(job.results.get_bands(), start=1):
                 if n in band_numbers:
                     layers.add_layer(
-                        str(job.results.data_path), n,
+                        str(job.results.uri.uri), n,
                         JobBand.Schema().dump(band)
                     )
 
@@ -449,21 +450,22 @@ class JobManager(QtCore.QObject):
         # First check if data path is relative to job file. If it is, update
         # the data_path and other_path before moving the job file so the data
         # can still be found after moving the job file
+        # TODO: Need to handle moving all raster paths, not just the main
+        # datapath
 
         if (
-            job.results.data_path and not job.results.data_path.is_absolute()
-            and
-            not is_gdal_vsi_path(job.results.data_path
+            job.results.uri and not job.results.uri.uri.is_absolute() and
+            not is_gdal_vsi_path(job.results.uri.uri
                                  )  # don't change gdal virtual fs references
         ):
             # If the path doesn't exist, but the filename does exist in the
             # same folder as the job, assume that is what is meant
-            possible_path = Path(job_path.parent / job.results.data_path.name
+            possible_path = Path(job_path.parent / job.results.uri.uri.name
                                  ).absolute()
 
             if possible_path.exists():
-                job.results.data_path = possible_path
-            job.results.data_path = possible_path
+                job.results.uri.uri = possible_path
+            job.results.uri.uri = possible_path
             # Assume the other_paths also need to be converted
             job.results.other_paths = [
                 Path(job_path.parent / p).absolute()
@@ -547,7 +549,7 @@ class JobManager(QtCore.QObject):
 
         out_rasters = []
 
-        if len([*jobs.results.rasters.values()]) == 0:
+        if len([*job.results.rasters.values()]) == 0:
             log(f'No results to download for {job.id}')
 
         for key, raster in job.results.rasters.items():
@@ -562,7 +564,7 @@ class JobManager(QtCore.QObject):
                         f"{file_out_base}_{uri_number}.tif"
                     )
                     _download_result(
-                        uri,
+                        uri.uri,
                         base_output_path.parent /
                         f"{file_out_base}_{uri_number}.tif",
                     )
@@ -588,7 +590,7 @@ class JobManager(QtCore.QObject):
             else:
                 out_file = base_output_path.parent / f"{file_out_base}.tif"
                 _download_result(
-                    raster.uri,
+                    raster.uri.uri,
                     out_file,
                 )
                 raster_uri = results.URI(uri=out_file, type='local')
@@ -618,6 +620,10 @@ class JobManager(QtCore.QObject):
             job.results.uri = results.URI(uri=vrt_file, type='local')
         else:
             job.results.uri = job.results.rasters[0].uri
+
+        job.status = jobs.JobStatus.DOWNLOADED
+
+        return job.results.uri
 
     def _download_timeseries_table(self, job: Job) -> typing.Optional[Path]:
         raise NotImplementedError
@@ -943,14 +949,11 @@ def _delete_job_datasets(job: Job):
             # not using the `missing_ok` param since it was introduced only on
             # Python 3.8
 
-            if (
-                job.results.data_path
-                and not is_gdal_vsi_path(job.results.data_path)
-            ):
-                job.results.data_path.unlink()
+            if (job.results.uri and not is_gdal_vsi_path(job.results.uri.uri)):
+                job.results.uri.uri.unlink()
         except FileNotFoundError:
             log(
-                f"Could not find path {job.results.data_path!r}, "
+                f"Could not find path {job.results.uri.uri!r}, "
                 "skipping deletion..."
             )
     else:

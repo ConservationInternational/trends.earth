@@ -621,8 +621,6 @@ class JobManager(QtCore.QObject):
         else:
             job.results.uri = job.results.rasters[0].uri
 
-        job.status = jobs.JobStatus.DOWNLOADED
-
         return job.results.uri
 
     def _download_timeseries_table(self, job: Job) -> typing.Optional[Path]:

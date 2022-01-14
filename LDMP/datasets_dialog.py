@@ -61,20 +61,18 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
         self.alg_le.setText(self.job.script.name)
         empty_paths_msg = "This dataset does not have local paths"
 
-        data_path_exist = False
+        main_uri_exist = False
 
         if self.job.results is not None:
-            data_path = self.job.results.data_path
-
-            if data_path:
-                path_le_text = str(data_path)
-                data_path_exist = True
+            if self.job.results.uri is not None:
+                path_le_text = str(self.job.results.uri.uri)
+                main_uri_exist = True
             else:
                 path_le_text = empty_paths_msg
         else:
             path_le_text = f"{empty_paths_msg} yet"
-        self.load_btn.setEnabled(data_path_exist)
-        self.export_btn.setEnabled(data_path_exist)
+        self.load_btn.setEnabled(main_uri_exist)
+        self.export_btn.setEnabled(main_uri_exist)
         self.path_le.setText(path_le_text)
         self.load_btn.setIcon(
             QtGui.QIcon(os.path.join(ICON_PATH, 'mActionAddRasterLayer.svg'))
@@ -135,9 +133,8 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
         current_job_file_path = manager.job_manager.get_job_file_path(self.job)
         target_zip_name = f"{current_job_file_path.stem}.zip"
         target_path = manager.job_manager.exports_dir / target_zip_name
-        paths_to_zip = [
-            self.job.results.data_path
-        ] + self.job.results.other_paths + [current_job_file_path]
+        paths_to_zip = [uri.uri for uri in self.job.results.get_all_uris()
+                        ] + [current_job_file_path]
         try:
             with ZipFile(target_path, 'w') as zip:
                 for path in paths_to_zip:

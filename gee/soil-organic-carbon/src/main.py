@@ -12,6 +12,7 @@ import random
 from builtins import str
 
 from te_algorithms.gee.soc import soc
+from te_algorithms.gee.util import teimage_v1_to_teimage_v2
 from te_schemas.land_cover import LCLegendNesting
 from te_schemas.land_cover import LCTransitionDefinitionDeg
 
@@ -45,6 +46,8 @@ def run(params, logger):
         year_initial, year_final, fl, trans_matrix, legend_nesting,
         dl_annual_lc, logger
     )
+
+    out = teimage_v1_to_teimage_v2(out)
 
     return out.export(
         geojsons, 'soil_organic_carbon', crs, logger, EXECUTION_ID

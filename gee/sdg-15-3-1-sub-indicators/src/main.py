@@ -182,7 +182,7 @@ def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
     logger.debug("Deserializing - Adding additional outs")
 
     for o in outs[1:]:
-        # Ensure urls are included for each geojson if there is more than 1
+        # Ensure uris are included for each geojson if there is more than 1
         this_out = schema.load(o)
 
         for datatype, raster in this_out.data.items():

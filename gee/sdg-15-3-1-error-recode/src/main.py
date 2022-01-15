@@ -14,11 +14,12 @@ from te_algorithms.gdal.land_deg.land_deg_recode import rasterize_error_recode
 from te_algorithms.gdal.land_deg.land_deg_recode import recode_errors
 from te_schemas import algorithms
 from te_schemas import jobs
+from te_schemas import results
 from te_schemas.aoi import AOI
 from te_schemas.error_recode import ErrorRecodePolygons
-from te_schemas.jobs import JobCloudResults
-from te_schemas.jobs import JobJsonResults
 from te_schemas.productivity import ProductivityMode
+from te_schemas.results import JsonResults
+from te_schemas.results import RasterResults
 
 S3_PREFIX_RAW_DATA = 'prais4-raw'
 S3_BUCKET_INPUT = 'trends.earth-private'
@@ -62,10 +63,11 @@ def calculate_error_recode(
     rasterize_error_recode(
         error_recode_tif, input_job.results.data_path, error_polygons
     )
-    error_recode_band = jobs.JobBand(
-        metadata={},
+    error_recode_band = results.Band(
         name=ERROR_RECODE_BAND_NAME,
-        no_data_value=ld_config.NODATA_VALUE
+        metadata={},
+        no_data_value=ld_config.NODATA_VALUE,
+        activated=True
     )
 
     try:
@@ -91,13 +93,13 @@ def calculate_error_recode(
         "layer_input_band_path":
         str(input_job.results.data_path),
         "layer_input_band":
-        jobs.JobBand.Schema().dump(input_band.band),
+        results.Band.Schema().dump(input_band.band),
         "layer_input_band_index":
         input_band.band_number,
         "layer_error_recode_path":
         str(error_recode_tif),
         "layer_error_recode_band":
-        jobs.JobBand.Schema().dump(error_recode_band),
+        results.Band.Schema().dump(error_recode_band),
         "layer_error_recode_band_index":
         1,
         'error_polygons':
@@ -137,11 +139,11 @@ def calculate_error_recode(
             # Update urls to point to a https url for vrt/tif on S3
             results.urls = urls
 
-    if isinstance(results, JobCloudResults):
-        results = JobCloudResults.Schema().dump(results)
+    if isinstance(results, RasterResults):
+        results = RasterResults.Schema().dump(results)
 
-    elif isinstance(results, JobJsonResults):
-        results = JobJsonResults.Schema().dump(results)
+    elif isinstance(results, JsonResults):
+        results = JsonResults.Schema().dump(results)
     else:
         raise Exception
 

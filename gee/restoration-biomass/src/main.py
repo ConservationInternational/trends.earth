@@ -13,6 +13,7 @@ import random
 import ee
 from te_algorithms.gee.util import TEImage
 from te_schemas.schemas import BandInfo
+from te_algorithms.gee.util import teimage_v1_to_teimage_v2
 
 
 def restoration_carbon(
@@ -263,6 +264,7 @@ def run(params, logger):
         rest_type, length_yr, crs, geojsons, EXECUTION_ID, logger
     )
 
+    out = teimage_v1_to_teimage_v2(out)
     return out.export(
         geojsons, 'restoration_carbon', crs, logger, EXECUTION_ID
     )

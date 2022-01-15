@@ -12,6 +12,7 @@ import random
 from builtins import str
 
 from te_algorithms.gee.land_cover import land_cover
+from te_algorithms.gee.util import teimage_v1_to_teimage_v2
 from te_schemas.land_cover import LCLegendNesting
 from te_schemas.land_cover import LCTransitionDefinitionDeg
 
@@ -42,5 +43,8 @@ def run(params, logger):
     out = land_cover(
         year_initial, year_final, trans_matrix, legend_nesting, [], logger
     )
+
+    logger.debug("Converting output to TEImageV2 format")
+    out = teimage_v1_to_teimage_v2(out)
 
     return out.export(geojsons, 'land_cover', crs, logger, EXECUTION_ID)

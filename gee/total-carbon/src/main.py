@@ -12,6 +12,7 @@ import random
 from builtins import str
 
 from te_algorithms.gee.carbon import tc
+from te_algorithms.gee.util import teimage_v1_to_teimage_v2
 
 
 def run(params, logger):
@@ -38,5 +39,7 @@ def run(params, logger):
         fc_threshold, year_initial, year_final, method, biomass_data,
         EXECUTION_ID, logger
     )
+
+    out = teimage_v1_to_teimage_v2(out)
 
     return out.export(geojsons, 'total_carbon', crs, logger, EXECUTION_ID)

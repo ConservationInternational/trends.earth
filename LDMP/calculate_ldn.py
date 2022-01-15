@@ -331,7 +331,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             payload['population'] = {
                 'year': year_final,
                 'asset':
-                "users/geflanddegradation/toolbox_datasets/WorldPop_mf_v1_100m",
+                "users/geflanddegradation/toolbox_datasets/worldpop_mf_v1_300m",
                 'source': "WorldPop (gender breakdown)"
             }
 

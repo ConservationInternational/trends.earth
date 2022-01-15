@@ -664,7 +664,7 @@
             "Max Longitude": 180,
             "Description": "",
             "Link to Dataset": "",
-            "GEE Dataset": "users/geflanddegradation/toolbox_datasets/WorldPop_mf_v1_100m",
+            "GEE Dataset": "users/geflanddegradation/toolbox_datasets/worldpop_mf_v1_300m",
             "License": "Creative Commons CC BY 4.0",
             "License URL": "https://creativecommons.org/licenses/by/4.0/",
             "Source": ""

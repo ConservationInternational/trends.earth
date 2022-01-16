@@ -1376,23 +1376,24 @@ def _get_usable_bands(
         is_valid_type = (
             job.results and (
                 ResultType(job.results.type)
-                in (ResultType.CLOUD_RESULTS, ResultType.LOCAL_RESULTS)
+                in (ResultType.RASTER_RESULTS, ResultType.LOCAL_RESULTS)
             )
         )
 
         if is_available and is_of_interest and is_valid_type:
-            path = job.results.data_path
+            for raster in job.results.rasters.values():
 
-            for band_index, band_info in enumerate(job.results.get_bands()):
-                if band_info.name == band_name or band_name == 'any':
-                    result.append(
-                        Band(
-                            job=job,
-                            path=path,
-                            band_index=band_index + 1,
-                            band_info=band_info
+                for band_index, band_info in enumerate(raster.bands):
+
+                    if band_info.name == band_name or band_name == 'any':
+                        result.append(
+                            Band(
+                                job=job,
+                                path=raster.uri.uri,
+                                band_index=band_index + 1,
+                                band_info=band_info
+                            )
                         )
-                    )
     result.sort(key=lambda ub: ub.job.start_date, reverse=True)
 
     return result

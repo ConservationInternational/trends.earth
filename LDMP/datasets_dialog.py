@@ -64,11 +64,15 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
         main_uri_exist = False
 
         if self.job.results is not None:
-            if self.job.results.uri is not None:
-                path_le_text = str(self.job.results.uri.uri)
-                main_uri_exist = True
-            else:
-                path_le_text = empty_paths_msg
+            try:
+                if self.job.results.uri is not None:
+                    path_le_text = str(self.job.results.uri.uri)
+                    main_uri_exist = True
+                else:
+                    path_le_text = empty_paths_msg
+            except AttributeError:
+                # Catch case of a result without uri defined yet
+                path_le_text = f"{empty_paths_msg} yet"
         else:
             path_le_text = f"{empty_paths_msg} yet"
         self.load_btn.setEnabled(main_uri_exist)

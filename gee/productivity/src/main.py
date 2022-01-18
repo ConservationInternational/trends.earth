@@ -25,22 +25,8 @@ def run(params, logger):
     """."""
     logger.debug("Loading parameters.")
     prod_mode = params.get('prod_mode')
-    calc_traj = params.get('calc_traj')
-    calc_state = params.get('calc_state')
-    calc_perf = params.get('calc_perf')
-    prod_traj_year_initial = int(params.get('prod_traj_year_initial'))
-    prod_traj_year_final = int(params.get('prod_traj_year_final'))
-    prod_perf_year_initial = int(params.get('prod_perf_year_initial'))
-    prod_perf_year_final = int(params.get('prod_perf_year_final'))
-    prod_state_year_bl_start = int(params.get('prod_state_year_bl_start'))
-    prod_state_year_bl_end = int(params.get('prod_state_year_bl_end'))
-    prod_state_year_tg_start = int(params.get('prod_state_year_tg_start'))
-    prod_state_year_tg_end = int(params.get('prod_state_year_tg_end'))
     geojsons = json.loads(params.get('geojsons'))
     crs = params.get('crs')
-    prod_traj_method = params.get('trajectory_method')
-    ndvi_gee_dataset = params.get('ndvi_gee_dataset')
-    climate_gee_dataset = params.get('climate_gee_dataset')
 
     # Check the ENV. Are we running this locally or in prod?
 
@@ -52,9 +38,22 @@ def run(params, logger):
 
     logger.debug("Running productivity indicators.")
 
-    proj = ee.Image(ndvi_gee_dataset).projection()
-
     if prod_mode == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
+        calc_traj = params.get('calc_traj')
+        calc_state = params.get('calc_state')
+        calc_perf = params.get('calc_perf')
+        prod_traj_year_initial = int(params.get('prod_traj_year_initial'))
+        prod_traj_year_final = int(params.get('prod_traj_year_final'))
+        prod_perf_year_initial = int(params.get('prod_perf_year_initial'))
+        prod_perf_year_final = int(params.get('prod_perf_year_final'))
+        prod_state_year_bl_start = int(params.get('prod_state_year_bl_start'))
+        prod_state_year_bl_end = int(params.get('prod_state_year_bl_end'))
+        prod_state_year_tg_start = int(params.get('prod_state_year_tg_start'))
+        prod_state_year_tg_end = int(params.get('prod_state_year_tg_end'))
+        prod_traj_method = params.get('trajectory_method')
+        ndvi_gee_dataset = params.get('ndvi_gee_dataset')
+        climate_gee_dataset = params.get('climate_gee_dataset')
+
         outs = []
 
         for geojson in geojsons:
@@ -95,6 +94,7 @@ def run(params, logger):
 
             logger.debug("Converting output to TEImageV2 format")
             this_out = teimage_v1_to_teimage_v2(this_out)
+            proj = ee.Image(ndvi_gee_dataset).projection()
             outs.append(
                 this_out.export(
                     [geojson], 'productivity', crs, logger, EXECUTION_ID, proj
@@ -119,9 +119,21 @@ def run(params, logger):
         return schema.dump(final_output)
 
     elif prod_mode == ProductivityMode.JRC_5_CLASS_LPD.value:
+        prod_asset = params.get('prod_asset')
+        year_initial = params.get('year_initial')
+        year_final = params.get('year_final')
         out = download(
-            'users/geflanddegradation/toolbox_datasets/lpd_300m_longlat',
-            'Land Productivity Dynamics (LPD)', 'one time', None, None, logger
+            prod_asset, 'Land Productivity Dynamics (LPD)', 'one time', None,
+            None, logger
+        )
+        proj = ee.Image(prod_asset).projection()
+        out.image = out.image.int16(
+        ).rename(f'JRC_LPD_{year_initial}-{year_final}')
+        out.band_info[0].metadata.update(
+            {
+                'year_initial': year_initial,
+                'year_final': year_final
+            }
         )
 
         logger.debug("Converting output to TEImageV2 format")

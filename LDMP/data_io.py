@@ -638,7 +638,7 @@ class DlgDataIOLoadTE(QtWidgets.QDialog, Ui_DlgDataIOLoadTE):
         self.parsed_name_le.setEnabled(True)
         self.parsed_result_la.setEnabled(True)
         try:
-            local_path = str(self.job.results.data_path)
+            local_path = str(self.job.results.uri.uri)
         except IndexError:
             local_path = ""
         self.parsed_result_path_le.setText(local_path)
@@ -1363,6 +1363,8 @@ def _get_layers(node):
 def _get_usable_bands(
     band_name: typing.Optional[str] = "any",
     selected_job_id: uuid.UUID = None,
+    filter_field: str = None,
+    filter_value: str = None
 ) -> typing.List[Band]:
     result = []
 
@@ -1386,16 +1388,20 @@ def _get_usable_bands(
                 for band_index, band_info in enumerate(raster.bands):
 
                     if raster.uri is not None and (
-                        band_info.name == band_name or band_name == 'any'
+                        (band_info.name == band_name or band_name == 'any')
                     ):
-                        result.append(
-                            Band(
-                                job=job,
-                                path=raster.uri.uri,
-                                band_index=band_index + 1,
-                                band_info=band_info
+                        if (
+                            filter_field is None or filter_value is None
+                            or band_info.metadata[filter_field] == filter_value
+                        ):
+                            result.append(
+                                Band(
+                                    job=job,
+                                    path=raster.uri.uri,
+                                    band_index=band_index + 1,
+                                    band_info=band_info
+                                )
                             )
-                        )
     result.sort(key=lambda ub: ub.job.start_date, reverse=True)
 
     return result
@@ -1413,7 +1419,10 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
 
     def populate(self, selected_job_id=None):
         usable_bands = _get_usable_bands(
-            self.property("layer_type"), selected_job_id
+            band_name=self.property("layer_type"),
+            selected_job_id=selected_job_id,
+            filter_field=self.property("layer_filter_field"),
+            filter_value=self.property("layer_filter_value")
         )
         self.layer_list = usable_bands
         old_text = self.currentText()
@@ -1517,14 +1526,14 @@ def get_usable_datasets(
         try:
             is_valid_type = ResultType(
                 job.results.type
-            ) in (ResultType.CLOUD_RESULTS, ResultType.LOCAL_RESULTS)
+            ) in (ResultType.RASTER_RESULTS, ResultType.LOCAL_RESULTS)
         except AttributeError:
             # Catch case of an invalid type
 
             continue
 
-        if is_available and is_valid_type:
-            path = job.results.data_path
+        if is_available and is_valid_type and job.results.uri is not None:
+            path = job.results.uri.uri
 
             if job.script.name == dataset_name:
                 result.append(Dataset(

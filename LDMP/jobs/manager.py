@@ -469,11 +469,11 @@ class JobManager(QtCore.QObject):
             if possible_path.exists():
                 job.results.uri.uri = possible_path
             job.results.uri.uri = possible_path
-            # Assume the other_paths also need to be converted
-            job.results.other_paths = [
-                Path(job_path.parent / p).absolute()
-                for p in job.results.other_paths
-            ]
+            # # Assume the other_paths also need to be converted
+            # job.results.other_paths = [
+            #     Path(job_path.parent / p).absolute()
+            #     for p in job.results.other_paths
+            # ]
         self._move_job_to_dir(job, job.status, force_rewrite=True)
 
         if job.status == jobs.JobStatus.PENDING:
@@ -620,8 +620,9 @@ class JobManager(QtCore.QObject):
 
         if (
             len(job.results.rasters) > 1 or (
-                len(job.results.rasters == 1) and job.results.rasters[0].type
-                == results.RasterType.TILED_RASTER
+                len(job.results.rasters) == 1
+                and [*job.results.rasters.values()
+                     ][0].type == results.RasterType.TILED_RASTER
             )
         ):
             vrt_file = base_output_path.parent / f"{base_output_path.name}.vrt"
@@ -629,7 +630,7 @@ class JobManager(QtCore.QObject):
             combine_all_bands_into_vrt(main_raster_file_paths, vrt_file)
             job.results.uri = results.URI(uri=vrt_file, type='local')
         else:
-            job.results.uri = job.results.rasters[0].uri
+            job.results.uri = [*job.results.rasters.values()][0].uri
 
         return job.results.uri
 

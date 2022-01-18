@@ -23,17 +23,18 @@ from math import log10
 from operator import attrgetter
 from pathlib import Path
 
+import numpy as np
+from osgeo import gdal
 from qgis.core import Qgis
 from qgis.core import QgsColorRampShader
 from qgis.core import QgsProject
 from qgis.core import QgsRasterShader
 from qgis.core import QgsSingleBandPseudoColorRenderer
-from qgis.utils import iface
-from osgeo import gdal
-import numpy as np
 from qgis.PyQt import QtWidgets
-from qgis.PyQt.QtGui import QColor
 from qgis.PyQt.QtCore import QCoreApplication
+from qgis.PyQt.QtGui import QColor
+from qgis.utils import iface
+
 from .logger import log
 
 mb = iface.messageBar()
@@ -331,9 +332,17 @@ style_text_dict = {
     tr_layers.tr(
         u'Population exposed to degradation\n(population in {population_year}, per sq km / 10, degradation period {deg_year_initial}-{deg_year_final})'
     ),
+    'population_affected_by_degradation_title':
+    tr_layers.tr(
+        u'Population exposed to degradation\n({type} population in {population_year}, degradation period {deg_year_initial}-{deg_year_final})'
+    ),
     'population_density_at_maximum_drought_title':
     tr_layers.tr(
         u'Population density at maximum drought\n(density per sq km / 10, {year_initial}-{year_final} period)'
+    ),
+    'population_at_maximum_drought_title':
+    tr_layers.tr(
+        u'Population at maximum drought\n({type}, {year_initial}-{year_final} period)'
     ),
 
     # SPI

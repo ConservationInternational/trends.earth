@@ -412,7 +412,9 @@ class DlgCalculateLDNSummaryTableAdmin(
             combo_layer_lpd_label=self.combo_layer_lpd_label_baseline,
             combo_layer_lc=self.combo_layer_lc_baseline,
             combo_layer_soc=self.combo_layer_soc_baseline,
-            combo_layer_pop=self.combo_layer_population_baseline,
+            combo_layer_pop_total=self.combo_layer_population_baseline_total,
+            combo_layer_pop_male=self.combo_layer_population_baseline_male,
+            combo_layer_pop_female=self.combo_layer_population_baseline_female,
             radio_lpd_jrc=self.radio_lpd_jrc
         )
         self.combo_boxes['progress'] = ldn.SummaryTableLDWidgets(
@@ -427,7 +429,9 @@ class DlgCalculateLDNSummaryTableAdmin(
             combo_layer_lpd_label=self.combo_layer_lpd_label_progress,
             combo_layer_lc=self.combo_layer_lc_progress,
             combo_layer_soc=self.combo_layer_soc_progress,
-            combo_layer_pop=self.combo_layer_population_progress,
+            combo_layer_pop_total=self.combo_layer_population_progress_total,
+            combo_layer_pop_male=self.combo_layer_population_progress_male,
+            combo_layer_pop_female=self.combo_layer_population_progress_female,
             radio_lpd_jrc=self.radio_lpd_jrc
         )
 
@@ -708,7 +712,12 @@ class DlgCalculateLDNSummaryTableAdmin(
                 combo_layer_state=self.combo_boxes['baseline'].
                 combo_layer_state,
                 combo_layer_lpd=self.combo_boxes['baseline'].combo_layer_lpd,
-                combo_layer_pop=self.combo_boxes['baseline'].combo_layer_pop,
+                combo_layer_pop_total=self.combo_boxes['baseline'].
+                combo_layer_pop_total,
+                combo_layer_pop_male=self.combo_boxes['baseline'].
+                combo_layer_pop_male,
+                combo_layer_pop_female=self.combo_boxes['baseline'].
+                combo_layer_pop_female,
                 task_notes=self.options_tab.task_notes.toPlainText()
             )
         }
@@ -749,8 +758,12 @@ class DlgCalculateLDNSummaryTableAdmin(
                         combo_layer_state,
                         combo_layer_lpd=self.combo_boxes['progress'].
                         combo_layer_lpd,
-                        combo_layer_pop=self.combo_boxes['progress'].
-                        combo_layer_pop,
+                        combo_layer_pop_total=self.combo_boxes['progress'].
+                        combo_layer_pop_total,
+                        combo_layer_pop_male=self.combo_boxes['progress'].
+                        combo_layer_pop_male,
+                        combo_layer_pop_female=self.combo_boxes['progress'].
+                        combo_layer_pop_female,
                         task_notes=self.options_tab.task_notes.toPlainText()
                     )
                 }

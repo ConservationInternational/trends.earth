@@ -34,7 +34,9 @@ class SummaryTableLDWidgets:
     combo_layer_lpd_label: QtWidgets.QLabel
     combo_layer_lc: data_io.WidgetDataIOSelectTELayerExisting
     combo_layer_soc: data_io.WidgetDataIOSelectTELayerExisting
-    combo_layer_pop: data_io.WidgetDataIOSelectTELayerExisting
+    combo_layer_pop_total: data_io.WidgetDataIOSelectTELayerExisting
+    combo_layer_pop_male: data_io.WidgetDataIOSelectTELayerExisting
+    combo_layer_pop_female: data_io.WidgetDataIOSelectTELayerExisting
     radio_lpd_jrc: QtWidgets.QRadioButton
 
     def __post_init__(self):
@@ -75,7 +77,9 @@ class SummaryTableLDWidgets:
         self.combo_layer_state.populate()
         self.combo_layer_lc.populate()
         self.combo_layer_soc.populate()
-        self.combo_layer_pop.populate()
+        self.combo_layer_pop_total.populate()
+        self.combo_layer_pop_male.populate()
+        self.combo_layer_pop_female.populate()
 
     def set_combo_selections_from_job_id(self, job_id):
         self.combo_layer_lpd.set_index_from_job_id(job_id)
@@ -84,7 +88,9 @@ class SummaryTableLDWidgets:
         self.combo_layer_state.set_index_from_job_id(job_id)
         self.combo_layer_lc.set_index_from_job_id(job_id)
         self.combo_layer_soc.set_index_from_job_id(job_id)
-        self.combo_layer_pop.set_index_from_job_id(job_id)
+        self.combo_layer_pop_total.set_index_from_job_id(job_id)
+        self.combo_layer_pop_female.set_index_from_job_id(job_id)
+        self.combo_layer_pop_male.set_index_from_job_id(job_id)
 
 
 @dataclasses.dataclass()
@@ -174,7 +180,9 @@ def get_main_sdg_15_3_1_job_params(
     combo_layer_perf: data_io.WidgetDataIOSelectTELayerExisting,
     combo_layer_state: data_io.WidgetDataIOSelectTELayerExisting,
     combo_layer_lpd: data_io.WidgetDataIOSelectTELayerExisting,
-    combo_layer_pop: data_io.WidgetDataIOSelectTELayerExisting,
+    combo_layer_pop_total: data_io.WidgetDataIOSelectTELayerExisting,
+    combo_layer_pop_male: data_io.WidgetDataIOSelectTELayerExisting,
+    combo_layer_pop_female: data_io.WidgetDataIOSelectTELayerExisting,
     task_notes: Optional[str] = "",
 ) -> Dict:
 

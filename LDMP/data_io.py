@@ -1385,7 +1385,9 @@ def _get_usable_bands(
 
                 for band_index, band_info in enumerate(raster.bands):
 
-                    if band_info.name == band_name or band_name == 'any':
+                    if raster.uri is not None and (
+                        band_info.name == band_name or band_name == 'any'
+                    ):
                         result.append(
                             Band(
                                 job=job,

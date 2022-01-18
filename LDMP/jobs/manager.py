@@ -16,7 +16,12 @@ from te_schemas import jobs
 from te_schemas import results
 from te_schemas.algorithms import AlgorithmRunMode
 from te_schemas.results import Band as JobBand
+from te_schemas.results import DataType
+from te_schemas.results import Raster
+from te_schemas.results import RasterFileType
+from te_schemas.results import RasterResults
 from te_schemas.results import ResultType
+from te_schemas.results import URI
 
 from . import models
 from .. import api
@@ -353,9 +358,7 @@ class JobManager(QtCore.QObject):
             local_context=_get_local_context(),
             task_name=task_name,
             task_notes=task_notes,
-            results=jobs.JobLocalResults(
-                name=script_name, bands=[], data_path=None, other_paths=[]
-            ),
+            results=RasterResults(name=script_name, rasters=[], uri=None),
             script=models.get_job_local_script(script_name)
         )
         self.write_job_metadata_file(job)
@@ -501,6 +504,7 @@ class JobManager(QtCore.QObject):
             script = conf.KNOWN_SCRIPTS["productivity"]
         else:
             raise RuntimeError(f"Invalid band name: {band_name!r}")
+        now = dt.datetime.now(tz=dt.timezone.utc)
         job = Job(
             id=uuid.uuid4(),
             params={},
@@ -508,16 +512,22 @@ class JobManager(QtCore.QObject):
             start_date=dt.datetime.now(dt.timezone.utc),
             status=jobs.JobStatus.GENERATED_LOCALLY,
             local_context=_get_local_context(),
-            results=jobs.JobLocalResults(
+            results=RasterResults(
                 name=f"{band_name} results",
-                bands=[band_info],
-                data_path=dataset_path,
-                other_paths=[]
+                rasters={
+                    DataType.INT16.value:
+                    Raster(
+                        uri=URI(uri=dataset_path, type='local'),
+                        bands=[band_info],
+                        datatype=DataType.INT16,
+                        filetype=RasterFileType.GEOTIFF
+                    )
+                }
             ),
             task_name="Imported dataset",
             task_notes="",
             script=script,
-            end_date=now,
+            end_date=now
         )
 
         return job

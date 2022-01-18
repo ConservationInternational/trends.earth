@@ -5,6 +5,7 @@ from typing import Dict
 from typing import List
 from typing import Optional
 
+import te_algorithms.gdal.land_deg.config as ld_config
 from qgis.PyQt import QtWidgets
 from te_algorithms.gdal.land_deg.land_deg import summarise_land_degradation
 from te_schemas.aoi import AOI
@@ -17,22 +18,6 @@ from ..jobs.models import Job
 
 NODATA_VALUE = -32768
 MASK_VALUE = -32767
-
-SDG_BAND_NAME = "SDG 15.3.1 Indicator"
-PROGRESS_BAND_NAME = "SDG 15.3.1 (progress)"
-PROD_COMPARISON_BAND_NAME = "Productivity Degradation (comparison)"
-JRC_LPD_BAND_NAME = "Land Productivity Dynamics (from JRC)"
-TE_LPD_BAND_NAME = "Land Productivity Dynamics (from Trends.Earth)"
-TRAJ_BAND_NAME = "Productivity trajectory (significance)"
-PERF_BAND_NAME = "Productivity performance (degradation)"
-STATE_BAND_NAME = "Productivity state (degradation)"
-LC_DEG_BAND_NAME = "Land cover (degradation)"
-LC_BAND_NAME = "Land cover (7 class)"
-LC_TRANS_BAND_NAME = "Land cover transitions"
-SOC_DEG_BAND_NAME = "Soil organic carbon (degradation)"
-SOC_BAND_NAME = "Soil organic carbon"
-POPULATION_BAND_NAME = "Population (density, persons per sq km / 10)"
-POP_AFFECTED_BAND_NAME = "Population affected by degradation (density, persons per sq km / 10)"
 
 
 @dataclasses.dataclass()
@@ -193,12 +178,16 @@ def get_main_sdg_15_3_1_job_params(
     task_notes: Optional[str] = "",
 ) -> Dict:
 
-    land_cover_inputs = _get_ld_inputs(combo_layer_lc, LC_BAND_NAME)
+    land_cover_inputs = _get_ld_inputs(combo_layer_lc, ld_config.LC_BAND_NAME)
     land_cover_transition_input = _get_ld_input_aux_band(
-        combo_layer_lc, LC_TRANS_BAND_NAME
+        combo_layer_lc, ld_config.LC_TRANS_BAND_NAME
     )
-    soil_organic_carbon_inputs = _get_ld_inputs(combo_layer_soc, SOC_BAND_NAME)
-    population_input = _get_ld_inputs(combo_layer_pop, POPULATION_BAND_NAME)
+    soil_organic_carbon_inputs = _get_ld_inputs(
+        combo_layer_soc, ld_config.SOC_BAND_NAME
+    )
+    population_input = _get_ld_inputs(
+        combo_layer_pop, ld_config.POPULATION_BAND_NAME
+    )
 
     lc_deg_years = _get_ld_input_period(combo_layer_lc)
     soc_deg_years = _get_ld_input_period(combo_layer_soc)

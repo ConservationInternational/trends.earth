@@ -571,6 +571,18 @@
             "no data": {"value": -32768, "color": "#000000", "label": "nodata"}
         }
     },
+    "Population at minimum SPI over period": {
+        "title": "population_at_maximum_drought_title",
+        "ramp": {
+            "type": "zero-centered stretch",
+            "shader": "interpolated",
+            "percent stretch": 2,
+            "min": {"color": "#9b2779"},
+            "zero": {"color": "#ffffe0"},
+            "max": {"color": "#006500"},
+            "no data": {"value": -32768, "color": "#000000", "label": "nodata"}
+        }
+    },
     "Population (number of people)": {
         "title": "population_number_of_people",
         "ramp": {
@@ -597,6 +609,18 @@
     },
     "Population affected by degradation (density, persons per sq km / 10)": {
         "title": "population_density_affected_by_degradation_title",
+        "ramp": {
+            "type": "zero-centered stretch",
+            "shader": "interpolated",
+            "percent stretch": 2,
+            "min": {"color": "#9b2779"},
+            "zero": {"color": "#ffffe0"},
+            "max": {"color": "#006500"},
+            "no data": {"value": -32768, "color": "#000000", "label": "nodata"}
+        }
+    },
+    "Population affected by degradation (number of people)": {
+        "title": "population_affected_by_degradation_title",
         "ramp": {
             "type": "zero-centered stretch",
             "shader": "interpolated",

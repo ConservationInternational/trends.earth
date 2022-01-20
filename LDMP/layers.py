@@ -330,19 +330,19 @@ style_text_dict = {
     tr_layers.tr(u'Population density ({year}, per sq km / 10)'),
     'population_density_affected_by_degradation_title':
     tr_layers.tr(
-        u'Population exposed to degradation\n(population in {population_year}, per sq km / 10, degradation period {deg_year_initial}-{deg_year_final})'
+        u'Population exposed to degradation (population in {population_year}, per sq km / 10, degradation period {deg_year_initial}-{deg_year_final})'
     ),
     'population_affected_by_degradation_title':
     tr_layers.tr(
-        u'Population exposed to degradation\n({type} population in {population_year}, degradation period {deg_year_initial}-{deg_year_final})'
+        u'Population exposed to degradation ({type} population in {population_year}, degradation period {deg_year_initial}-{deg_year_final})'
     ),
     'population_density_at_maximum_drought_title':
     tr_layers.tr(
-        u'Population density at maximum drought\n(density per sq km / 10, {year_initial}-{year_final} period)'
+        u'Population density at maximum drought (density per sq km / 10, {year_initial}-{year_final} period)'
     ),
     'population_at_maximum_drought_title':
     tr_layers.tr(
-        u'Population at maximum drought\n({type}, {year_initial}-{year_final} period)'
+        u'Population at maximum drought ({type}, {year_initial}-{year_final} period)'
     ),
 
     # SPI
@@ -380,7 +380,7 @@ style_text_dict = {
     tr_layers.tr(u'Biomass (tonnes CO2e per ha, {year})'),
     'biomass_difference_title':
     tr_layers.
-    tr(u'Change in biomass\n(tonnes CO2e per ha, {type} after {years} years)'),
+    tr(u'Change in biomass (tonnes CO2e per ha, {type} after {years} years)'),
 
     # Global Zoning
     'agro_eco_zones':

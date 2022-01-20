@@ -17,7 +17,7 @@ from ..jobs.models import Job
 NODATA_VALUE = -32768
 MASK_VALUE = -32767
 
-POPULATION_BAND_NAME = "Population (density, persons per sq km / 10)"
+POPULATION_BAND_NAME = "Population (number of people)"
 SPI_BAND_NAME = "Standardized Precipitation Index (SPI)"
 
 

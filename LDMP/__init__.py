@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 """
 /***************************************************************************
  LDMP - A QGIS plugin
@@ -14,23 +13,23 @@
 """
 # pylint: disable=import-error
 
-import sys
+import json
 import os
 import re
 import site
-import json
 import subprocess
-from tempfile import NamedTemporaryFile
+import sys
 from pathlib import Path
+from tempfile import NamedTemporaryFile
 
+from qgis.core import Qgis
+from qgis.core import QgsApplication
 from qgis.PyQt import (
     QtCore,
 )
-from qgis.core import QgsApplication, QgsSettings, Qgis
 from qgis.utils import iface
 
 from . import logger
-
 
 plugin_dir = os.path.dirname(os.path.realpath(__file__))
 with open(os.path.join(plugin_dir, 'version.json')) as f:
@@ -48,18 +47,16 @@ def _add_at_front_of_path(d):
     sys.path.extend(remainder)
 
 
-# Put binaries folder (if available) near the front of the path (important on 
+# Put binaries folder (if available) near the front of the path (important on
 # Linux)
 binaries_folder = QtCore.QSettings().value(
-    "trends_earth/advanced/binaries_folder",
-    None
+    "trends_earth/advanced/binaries_folder", None
 )
 te_version = __version__.replace('.', '-')
-qgis_version = re.match(
-    '^[0-9]*\.[0-9]*',
-    Qgis.QGIS_VERSION
-)[0].replace('.', '-')
+qgis_version = re.match('^[0-9]*\.[0-9]*',
+                        Qgis.QGIS_VERSION)[0].replace('.', '-')
 binaries_name = f"trends_earth_binaries_{te_version}_{qgis_version}"
+
 if binaries_folder:
     binaries_path = Path(binaries_folder) / f"{binaries_name}"
     logger.log(f'Adding {binaries_path} to path')
@@ -79,8 +76,10 @@ def classFactory(iface):  # pylint: disable=invalid-name
     :type iface: QgsInterface
     """
 
-    from LDMP.plugin import LDMPPlugin
+    from LDMP.plugin import LDMPPlugin  # noqa: autoimport
+
     return LDMPPlugin(iface)
+
 
 # Function to get a temporary filename that handles closing the file created by
 # NamedTemporaryFile - necessary when the file is for usage in another process
@@ -88,7 +87,9 @@ def classFactory(iface):  # pylint: disable=invalid-name
 def GetTempFilename(suffix):
     f = NamedTemporaryFile(suffix=suffix, delete=False)
     f.close()
+
     return f.name
+
 
 # initialize translation
 i18n_dir = os.path.join(plugin_dir, 'i18n')
@@ -102,29 +103,46 @@ locale = QtCore.QLocale(QgsApplication.locale())
 logger.log('Trying to load locale {} from {}.'.format(locale.name(), i18n_dir))
 translator.load(locale, 'LDMP', prefix='.', directory=i18n_dir, suffix='.qm')
 ret = QtCore.QCoreApplication.installTranslator(translator)
+
 if ret:
     logger.log("Translator installed for {}.".format(locale.name()))
 else:
-    logger.log("FAILED while trying to install translator for {}.".format(locale.name()))
+    logger.log(
+        "FAILED while trying to install translator for {}.".format(
+            locale.name()
+        )
+    )
 
+from . import conf, utils  # noqa: autoimport
 
-from . import (
-    conf,
-    utils,
-)
+if conf.settings_manager.get_value(conf.Setting.DEBUG):
+    import logging  # noqa: autoimport
+    formatter = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    logfilename = (
+        Path(conf.settings_manager.get_value(conf.Setting.BASE_DIR)) /
+        'trends_earth_log.txt'
+    )
+    logging.basicConfig(
+        filename=logfilename, level=logging.DEBUG, format=formatter
+    )
 
 
 def binaries_available():
     ret = True
     debug_enabled = conf.settings_manager.get_value(conf.Setting.DEBUG)
     try:
-        from trends_earth_binaries import ldn_numba
+        from trends_earth_binaries import ldn_numba  # noqa: autoimport
+
         if debug_enabled:
             logger.log("Numba-compiled version of ldn_numba available.")
     except (ModuleNotFoundError, ImportError, RuntimeError) as e:
         if debug_enabled:
-            logger.log("Numba-compiled version of ldn_numba not available: {}".format(e))
+            logger.log(
+                "Numba-compiled version of ldn_numba not available: {}".
+                format(e)
+            )
         ret = False
+
     return ret
 
 
@@ -133,14 +151,17 @@ def openFolder(path):
         return
 
     # check path exist and readable
+
     if not os.path.exists(path):
         message = tr('Path do not exist: ') + path
         iface.messageBar().pushCritical('Trends.Earth', message)
+
         return
 
-    if not os.access(path, mode=os.R_OK|os.W_OK):
+    if not os.access(path, mode=os.R_OK | os.W_OK):
         message = tr('No read or write permission on path: ') + path
         iface.messageBar().pushCritical('Trends.Earth', message)
+
         return
 
     if sys.platform == 'darwin':
@@ -151,6 +172,6 @@ def openFolder(path):
         res = subprocess.run(['explorer', path])
         # For some reason windows "explorer" often returns 1 on success (as
         # apparently do other windows GUI programs...)
+
         if res.returncode not in [0, 1]:
             raise subprocess.CalledProcessError
-

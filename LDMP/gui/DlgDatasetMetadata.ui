@@ -15,16 +15,16 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="leftMargin">
-    <number>0</number>
+    <number>6</number>
    </property>
    <property name="topMargin">
-    <number>0</number>
+    <number>6</number>
    </property>
    <property name="rightMargin">
-    <number>0</number>
+    <number>6</number>
    </property>
    <property name="bottomMargin">
-    <number>0</number>
+    <number>6</number>
    </property>
    <item>
     <widget class="QScrollArea" name="scrollArea">
@@ -39,8 +39,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>692</width>
-        <height>704</height>
+        <width>680</width>
+        <height>654</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -50,8 +50,11 @@
           <string>General</string>
          </property>
          <layout class="QGridLayout" name="gridLayout">
-          <item row="7" column="0" colspan="3">
-           <widget class="QComboBox" name="cmb_encoding"/>
+          <item row="5" column="1" colspan="2">
+           <widget class="QDateTimeEdit" name="dt_date"/>
+          </item>
+          <item row="4" column="0" colspan="3">
+           <widget class="QTextEdit" name="te_abstract"/>
           </item>
           <item row="3" column="0" colspan="2">
            <widget class="QLabel" name="label_2">
@@ -60,28 +63,15 @@
             </property>
            </widget>
           </item>
+          <item row="2" column="0" colspan="3">
+           <widget class="QLineEdit" name="le_title"/>
+          </item>
           <item row="5" column="0">
            <widget class="QLabel" name="label_3">
             <property name="text">
              <string>Date</string>
             </property>
            </widget>
-          </item>
-          <item row="4" column="0" colspan="3">
-           <widget class="QTextEdit" name="te_abstract"/>
-          </item>
-          <item row="6" column="0" colspan="2">
-           <widget class="QLabel" name="label_4">
-            <property name="text">
-             <string>Encoding</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0" colspan="3">
-           <widget class="QLineEdit" name="le_title"/>
-          </item>
-          <item row="5" column="1" colspan="2">
-           <widget class="QDateTimeEdit" name="dt_date"/>
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label">
@@ -217,7 +207,7 @@
            <widget class="QLineEdit" name="le_contact_phone"/>
           </item>
           <item row="10" column="0" colspan="4">
-           <widget class="QTableWidget" name="table_addresses">
+           <widget class="QTableWidget" name="tbl_addresses">
             <property name="selectionMode">
              <enum>QAbstractItemView::SingleSelection</enum>
             </property>
@@ -356,6 +346,25 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
+ <tabstops>
+  <tabstop>scrollArea</tabstop>
+  <tabstop>le_title</tabstop>
+  <tabstop>te_abstract</tabstop>
+  <tabstop>dt_date</tabstop>
+  <tabstop>lst_default_categories</tabstop>
+  <tabstop>btn_add_default_category</tabstop>
+  <tabstop>btn_new_category</tabstop>
+  <tabstop>btn_remove_category</tabstop>
+  <tabstop>lst_categories</tabstop>
+  <tabstop>le_contact_name</tabstop>
+  <tabstop>cmb_contact_role</tabstop>
+  <tabstop>le_contact_organisation</tabstop>
+  <tabstop>le_contact_email</tabstop>
+  <tabstop>le_contact_phone</tabstop>
+  <tabstop>btn_add_address</tabstop>
+  <tabstop>btn_remove_address</tabstop>
+  <tabstop>tbl_addresses</tabstop>
+ </tabstops>
  <resources/>
  <connections>
   <connection>

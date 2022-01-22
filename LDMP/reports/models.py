@@ -1,16 +1,21 @@
 """Data models for the reporting framework."""
-from dataclasses import (
-    dataclass,
-    field
-)
+from dataclasses import field
 from enum import Enum
+from marshmallow_dataclass import dataclass
 import typing
+from uuid import uuid4
+
+from ..utils import slugify
 
 
 class OutputFormat(Enum):
     """Formats for output reports."""
-    PDF = 1
-    IMAGE = 2
+    PDF = 'pdf'
+    IMAGE = 'image'
+
+    def __str__(self):
+        # For marshmallow to serialize the value
+        return self.value
 
 
 class ReportOutputOptions:
@@ -23,9 +28,12 @@ class ReportOutputOptions:
 
 class LayoutItemType(Enum):
     """Types of layout items."""
-    MAP = 1
-    LABEL = 2
-    PICTURE = 3
+    MAP = 'map'
+    LABEL = 'label'
+    PICTURE = 'picture'
+
+    def __str__(self):
+        return self.value
 
 
 class ItemScopeMapping:
@@ -37,10 +45,11 @@ class ItemScopeMapping:
     """
     # Corresponds to algorithm name
     name: str
+    type_id_mapping: typing.Dict[str, str] = field(default_factory=dict)
 
-    def __init__(self, name: str) -> None:
+    def __init__(self, name: str, **kwargs) -> None:
         self.name = name
-        self._type_mapping = dict()
+        self.type_id_mapping = kwargs.pop('type_mapping', dict())
 
     def add_item_mapping(
             self,
@@ -48,15 +57,28 @@ class ItemScopeMapping:
             item_id: str
     ) -> None:
         """Group item ids in a list based on their type."""
-        if not item_type in self._type_mapping:
-            self._type_mapping[item_type] = []
-        items = self._type_mapping[item_type]
+        if not item_type in self.type_id_mapping:
+            self.type_id_mapping[item_type] = []
+
+        items = self.type_id_mapping[item_type]
         items.append(item_id)
+
+    def add_map(self, id: str) -> None:
+        # Add map_id to the collection
+        self.add_item_mapping(LayoutItemType.MAP, id)
+
+    def add_label(self, id: str) -> None:
+        # Add label to the collection
+        self.add_item_mapping(LayoutItemType.LABEL, id)
+
+    def add_picture(self, id: str) -> None:
+        # Add picture item id to the collection
+        self.add_item_mapping(LayoutItemType.PICTURE, id)
 
     def item_ids_by_type(self, item_type: LayoutItemType) -> list:
         """Get collection of item_ids based on the layout type."""
-        if item_type in self._type_mapping:
-            return self._type_mapping[item_type]
+        if item_type in self.type_id_mapping:
+            return self.type_id_mapping[item_type]
 
         return []
 
@@ -77,10 +99,52 @@ class ReportTemplateInfo:
     """Contains information about the QGIS layout associated with one or more
     algorithm scopes.
     """
-    id: str
-    name: str
-    description: str
-    path: str
-    item_scopes: typing.List[ItemScopeMapping]
+    id: typing.Optional[str]
+    name: typing.Optional[str]
+    description: typing.Optional[str]
+    path: typing.Optional[str]
+    item_scopes: typing.Dict[str, ItemScopeMapping] = field(default_factory=dict)
+
+    def __init__(self, **kwargs) -> None:
+        self.id = kwargs.pop('id', str(uuid4()))
+        self.name = kwargs.pop('name', '')
+        self.description = kwargs.pop('description', '')
+        self.path = kwargs.pop('path', '')
+        self.item_scopes = kwargs.pop('scopes', dict())
+
+    def add_scope_mapping(self, item_scope: ItemScopeMapping) -> None:
+        self.item_scopes[item_scope.name] = item_scope
+
+    def scope_mapping_by_name(self, name: str) -> ItemScopeMapping:
+        return self.item_scopes.get(name, None)
+
+
+@dataclass
+class ReportConfiguration:
+    """Contains template and output settings for a report.
+    """
+    name: typing.Optional[str]
+    template_info: typing.Optional[ReportTemplateInfo]
+    output_options: typing.Optional[ReportOutputOptions]
+
+    class Meta:
+        ordered = True
+
+    def __init__(
+            self,
+            temp_info: ReportTemplateInfo,
+            output_options: ReportOutputOptions
+    ) -> None:
+        self.template_info = temp_info
+        self.output_options = output_options
+        self.name = self._set_name()
+
+    def _set_name(self) -> str:
+        if self.template_info:
+            return slugify(self.template_info.name)
+
+        return ''
+
+
 
 

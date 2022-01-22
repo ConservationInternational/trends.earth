@@ -21,6 +21,8 @@ from ..datasets_dialog import DatasetDetailsDialogue
 from .models import Job
 from .models import SortField
 
+from ..reports.template_manager import template_manager
+
 WidgetDatasetItemUi, _ = uic.loadUiType(
     str(Path(__file__).parents[1] / "gui/WidgetDatasetItem.ui")
 )

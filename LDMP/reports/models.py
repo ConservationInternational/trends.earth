@@ -1,9 +1,12 @@
 """Data models for the reporting framework."""
 from dataclasses import field
 from enum import Enum
-from marshmallow_dataclass import dataclass
+import os
 import typing
 from uuid import uuid4
+
+from marshmallow import post_load
+from marshmallow_dataclass import dataclass
 
 from ..utils import slugify
 
@@ -102,21 +105,53 @@ class ReportTemplateInfo:
     id: typing.Optional[str]
     name: typing.Optional[str]
     description: typing.Optional[str]
-    path: typing.Optional[str]
+    portrait_path: typing.Optional[str]
+    landscape_path: typing.Optional[str]
     item_scopes: typing.Dict[str, ItemScopeMapping] = field(default_factory=dict)
 
     def __init__(self, **kwargs) -> None:
         self.id = kwargs.pop('id', str(uuid4()))
         self.name = kwargs.pop('name', '')
         self.description = kwargs.pop('description', '')
-        self.path = kwargs.pop('path', '')
+        self.portrait_path = kwargs.pop('portrait_path', '')
+        self.landscape_path = kwargs.pop('landscape_path', '')
         self.item_scopes = kwargs.pop('scopes', dict())
+        self._abs_portrait_path = ''
+        self._abs_landscape_path = ''
 
     def add_scope_mapping(self, item_scope: ItemScopeMapping) -> None:
         self.item_scopes[item_scope.name] = item_scope
 
     def scope_mapping_by_name(self, name: str) -> ItemScopeMapping:
         return self.item_scopes.get(name, None)
+
+    def update_paths(self, templates_dir) -> None:
+        # set absolute paths for portrait and landscape templates
+        concat_path = lambda file_name: os.path.normpath(
+            '{0}{1}{2}'.format(
+                templates_dir,
+                os.sep,
+                file_name
+            )
+        )
+        self._abs_portrait_path = concat_path(self.portrait_path)
+        self._abs_landscape_path = concat_path(self.landscape_path)
+
+    @property
+    def absolute_template_paths(self) -> typing.Tuple[str]:
+        """Absolute paths for portrait and landscape templates."""
+        return self._abs_portrait_path, self._abs_landscape_path
+
+    @property
+    def is_multi_scope(self) -> bool:
+        """True if the template is for compound reports."""
+        return True if len(self.item_scopes) > 1 else False
+
+    def contains_scope(self, name: str) -> bool:
+        """
+        True if the template contains a scope mapping with the given name.
+        """
+        return True if name in self.item_scopes else False
 
 
 @dataclass
@@ -132,18 +167,23 @@ class ReportConfiguration:
 
     def __init__(
             self,
-            temp_info: ReportTemplateInfo,
-            output_options: ReportOutputOptions
+            template_info: ReportTemplateInfo,
+            output_options: ReportOutputOptions,
+            **kwargs
     ) -> None:
-        self.template_info = temp_info
+        self.template_info = template_info
         self.output_options = output_options
-        self.name = self._set_name()
+        self.name = self._set_name() or kwargs.pop('name')
 
     def _set_name(self) -> str:
         if self.template_info:
             return slugify(self.template_info.name)
 
         return ''
+
+    def update_paths(self, template_dir):
+        # Convenience function for updating absolute paths for template files.
+        self.template_info.update_paths(template_dir)
 
 
 

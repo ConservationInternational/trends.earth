@@ -1,29 +1,27 @@
 [
-	{
-		"name": "test-sub-indicators",
-		"template_info": 
-			{
-				"id": "4f92a37e-41a6-4b0e-8c38-66f6bfa54757",
-				"name": "Test sub-indicators", 
-				"description": "Sample report template configuration", 
-				"path": "Indicators.qpt", 
-				"item_scopes": 
-					{
-						"sub-indicators": 
-							{
-								"type_id_mapping": 
-									{
-										"LayoutItemType.MAP": "['cf45t']"
-									}, 
-								"name": "sub-indicators"
-							}
-					}
-			},
-		"output_options": 
-			{
-				"format_params": {}, 
-				"output_format": "PDF", 
-				"include_qpt": true
-			}, 
-	}
+   {
+      "name":"test-sub-indicators",
+      "template_info":{
+         "id":"4f92a37e-41a6-4b0e-8c38-66f6bfa54757",
+         "name":"Test sub-indicators",
+         "description":"Sample report template configuration",
+         "portrait_path":"portrait_indicators.qpt",
+         "landscape_path":"landscape_indicators.qpt",
+         "item_scopes":{
+            "sub-indicators":{
+               "type_id_mapping":{
+                  "map":"['cf45t']"
+               },
+               "name":"sub-indicators"
+            }
+         }
+      },
+      "output_options":{
+         "format_params":{
+
+         },
+         "output_format":"PDF",
+         "include_qpt":true
+      }
+   }
 ]

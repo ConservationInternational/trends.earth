@@ -1,5 +1,6 @@
 from datetime import datetime, timezone
 import importlib
+import os
 from pathlib import Path
 import re
 import tempfile
@@ -9,7 +10,8 @@ import unicodedata
 import qgis.core
 from osgeo import gdal
 from qgis.PyQt import (
-    QtWidgets,
+    QtGui,
+    QtWidgets
 )
 
 from .jobs import manager
@@ -111,3 +113,31 @@ def remove_layer_from_qgis(path: Path):
         if layer_source == path:
             project.removeMapLayer(layer_id)
             break
+
+
+class FileUtils:
+    """
+    Provides functionality for commonly used file-related operations.
+    """
+    @staticmethod
+    def plugin_dir() -> str:
+        return os.path.join(os.path.dirname(os.path.realpath(__file__)))
+
+    @staticmethod
+    def report_templates_dir() -> str:
+        return os.path.normpath(
+            f'{FileUtils.plugin_dir()}/data/reports'
+        )
+
+    @staticmethod
+    def get_icon(icon_name: str) -> QtGui.QIcon:
+        # Assumes icon_name includes the file extension
+        icon_path = os.path.normpath(
+            f'{FileUtils.plugin_dir()}/icons/{icon_name}'
+        )
+
+        if not os.path.exists(icon_path):
+            return None
+
+        return QtGui.QIcon(icon_path)
+

@@ -8,9 +8,9 @@ from marshmallow.exceptions import ValidationError
 from qgis.PyQt.QtCore import QFile
 from qgis.core import Qgis
 
-from ..conf import report_templates_dir
 from ..logger import log
 from .models import ReportConfiguration
+from ..utils import FileUtils
 
 
 class TemplateManager:
@@ -19,15 +19,13 @@ class TemplateManager:
     """
     def __init__(self, load_on_init=True):
         self._configs = []
-        self._template_dir = report_templates_dir
+        self._template_dir = FileUtils.report_templates_dir()
         self._template_file_exists = False
-        if QFile.exists(self.path):
+        if os.path.exists(self.path):
             self._template_file_exists = True
         else:
             log(
-                'Report templates file \'{0}\' not found.'.format(
-                    self.path
-                ),
+                f'Report templates file {self.path} not found.',
                 Qgis.Warning
             )
 
@@ -46,7 +44,7 @@ class TemplateManager:
         """
         Returns the path to the template file.
         """
-        return '{0}{1}templates.json'.format(self._template_dir, os.sep)
+        return f'{self._template_dir}{os.sep}templates.json'
 
     @property
     def configurations(self) -> typing.List[ReportConfiguration]:

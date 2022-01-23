@@ -20,8 +20,9 @@ from ..data_io import DlgDataIOAddLayersToMap
 from ..datasets_dialog import DatasetDetailsDialogue
 from .models import Job
 from .models import SortField
+from ..reports.mvc import DatasetReportHandler
+from ..utils import FileUtils
 
-from ..reports.template_manager import template_manager
 
 WidgetDatasetItemUi, _ = uic.loadUiType(
     str(Path(__file__).parents[1] / "gui/WidgetDatasetItem.ui")
@@ -255,6 +256,8 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         self.download_tb.setIcon(
             QtGui.QIcon(os.path.join(ICON_PATH, 'cloud-download.svg'))
         )
+        self.report_pb.setIcon(FileUtils.get_icon('report.svg'))
+        self._report_handler = DatasetReportHandler(self.report_pb, self.job)
         # self.add_to_canvas_pb.setFixedSize(self.open_directory_tb.size())
         # self.add_to_canvas_pb.setMinimumSize(self.open_directory_tb.size())
 
@@ -306,6 +309,8 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             self.progressBar.hide()
             self.download_tb.hide()
             self.add_to_canvas_pb.setEnabled(self.has_loadable_result())
+
+        self._report_handler.init()
 
     def has_loadable_result(self):
         result = False

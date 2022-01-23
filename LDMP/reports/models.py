@@ -16,10 +16,6 @@ class OutputFormat(Enum):
     PDF = 'pdf'
     IMAGE = 'image'
 
-    def __str__(self):
-        # For marshmallow to serialize the value
-        return self.value
-
 
 class ReportOutputOptions:
     """Settings for generating output reports.
@@ -34,9 +30,6 @@ class LayoutItemType(Enum):
     MAP = 'map'
     LABEL = 'label'
     PICTURE = 'picture'
-
-    def __str__(self):
-        return self.value
 
 
 class ItemScopeMapping:
@@ -115,7 +108,7 @@ class ReportTemplateInfo:
         self.description = kwargs.pop('description', '')
         self.portrait_path = kwargs.pop('portrait_path', '')
         self.landscape_path = kwargs.pop('landscape_path', '')
-        self.item_scopes = kwargs.pop('scopes', dict())
+        self.item_scopes = kwargs.pop('item_scopes', dict())
         self._abs_portrait_path = ''
         self._abs_landscape_path = ''
 
@@ -128,17 +121,13 @@ class ReportTemplateInfo:
     def update_paths(self, templates_dir) -> None:
         # set absolute paths for portrait and landscape templates
         concat_path = lambda file_name: os.path.normpath(
-            '{0}{1}{2}'.format(
-                templates_dir,
-                os.sep,
-                file_name
-            )
+            f'{templates_dir}{os.sep}{file_name}'
         )
         self._abs_portrait_path = concat_path(self.portrait_path)
         self._abs_landscape_path = concat_path(self.landscape_path)
 
     @property
-    def absolute_template_paths(self) -> typing.Tuple[str]:
+    def absolute_template_paths(self) -> typing.Tuple[str, str]:
         """Absolute paths for portrait and landscape templates."""
         return self._abs_portrait_path, self._abs_landscape_path
 

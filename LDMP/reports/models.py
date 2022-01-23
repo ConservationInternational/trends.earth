@@ -16,6 +16,10 @@ class OutputFormat(Enum):
     PDF = 'pdf'
     IMAGE = 'image'
 
+    def __str__(self):
+        # For marshmallow to serialize the value
+        return self.value
+
 
 class ReportOutputOptions:
     """Settings for generating output reports.
@@ -31,6 +35,10 @@ class LayoutItemType(Enum):
     LABEL = 'label'
     PICTURE = 'picture'
 
+    def __str__(self):
+        # For marshmallow to serialize the value
+        return self.value
+
 
 class ItemScopeMapping:
     """Provides a simple mechanism for grouping layout items based on a
@@ -45,7 +53,7 @@ class ItemScopeMapping:
 
     def __init__(self, name: str, **kwargs) -> None:
         self.name = name
-        self.type_id_mapping = kwargs.pop('type_mapping', dict())
+        self.type_id_mapping = kwargs.pop('type_id_mapping', dict())
 
     def add_item_mapping(
             self,
@@ -100,7 +108,7 @@ class ReportTemplateInfo:
     description: typing.Optional[str]
     portrait_path: typing.Optional[str]
     landscape_path: typing.Optional[str]
-    item_scopes: typing.Dict[str, ItemScopeMapping] = field(default_factory=dict)
+    item_scopes: typing.List[ItemScopeMapping] = field(default_factory=list)
 
     def __init__(self, **kwargs) -> None:
         self.id = kwargs.pop('id', str(uuid4()))
@@ -108,15 +116,15 @@ class ReportTemplateInfo:
         self.description = kwargs.pop('description', '')
         self.portrait_path = kwargs.pop('portrait_path', '')
         self.landscape_path = kwargs.pop('landscape_path', '')
-        self.item_scopes = kwargs.pop('item_scopes', dict())
+        self.item_scopes = kwargs.pop('item_scopes', list())
         self._abs_portrait_path = ''
         self._abs_landscape_path = ''
 
     def add_scope_mapping(self, item_scope: ItemScopeMapping) -> None:
-        self.item_scopes[item_scope.name] = item_scope
+        self.item_scopes.append(item_scope)
 
-    def scope_mapping_by_name(self, name: str) -> ItemScopeMapping:
-        return self.item_scopes.get(name, None)
+    def scope_mappings_by_name(self, name: str) ->typing.List[ItemScopeMapping]:
+        return [sm for sm in self.item_scopes if sm.name == name]
 
     def update_paths(self, templates_dir) -> None:
         # set absolute paths for portrait and landscape templates
@@ -140,7 +148,7 @@ class ReportTemplateInfo:
         """
         True if the template contains a scope mapping with the given name.
         """
-        return True if name in self.item_scopes else False
+        return True if len(self.scope_mappings_by_name(name)) > 0 else False
 
 
 @dataclass

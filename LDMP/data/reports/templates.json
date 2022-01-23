@@ -7,21 +7,21 @@
          "description":"Sample report template configuration",
          "portrait_path":"portrait_indicators.qpt",
          "landscape_path":"landscape_indicators.qpt",
-         "item_scopes":{
-            "sdg-15-3-1-sub-indicators":{
+         "item_scopes":[
+            {
                "name":"sdg-15-3-1-sub-indicators",
                "type_id_mapping":{
                   "map":"['cf45t']"
                }
             }
-         }
+         ]
       },
       "output_options":{
+         "output_format":"PDF",
+         "include_qpt":true,
          "format_params":{
 
-         },
-         "output_format":"PDF",
-         "include_qpt":true
+         }
       }
    }
 ]

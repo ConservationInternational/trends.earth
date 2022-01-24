@@ -4,6 +4,8 @@ from qgis.PyQt.QtWidgets import (
     QPushButton
 )
 
+from te_schemas.jobs import JobStatus
+
 from ..jobs.models import Job
 from .template_manager import template_manager
 from .models import ReportConfiguration
@@ -58,11 +60,24 @@ class DatasetReportHandler:
             scope,
             single_scope_configs
         )
-        # Pick the first one if there are multiple
-        if len(configs) > 0:
-            self._rpt_config = configs[0]
-        else:
+
+        if len(configs) == 0:
             self._rpt_btn.setVisible(False)
+            return
+        else:
+            self._rpt_config = configs[0]
+
+        # Check if qpt should be included in the output
+        if self._rpt_config.output_options.include_qpt:
+            self._open_template_action.setEnabled(True)
+        else:
+            self._open_template_action.setEnabled(False)
+
+        # Only enable if job has finished or generated locally
+        if self._job.status in (JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY):
+            self._rpt_btn.setEnabled(True)
+        else:
+            self._rpt_btn.setEnabled(False)
 
     @property
     def report_config(self) -> ReportConfiguration:

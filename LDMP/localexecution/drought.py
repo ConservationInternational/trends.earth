@@ -17,7 +17,7 @@ from ..jobs.models import Job
 NODATA_VALUE = -32768
 MASK_VALUE = -32767
 
-POPULATION_BAND_NAME = "Population (density, persons per sq km / 10)"
+POPULATION_BAND_NAME = "Population (number of people)"
 SPI_BAND_NAME = "Standardized Precipitation Index (SPI)"
 
 
@@ -103,9 +103,7 @@ def get_main_drought_summary_job_params(
     )
     spi_lag = _get_spi_lag(combo_dataset_drought)
 
-    jrc_input = _get_jrc_input(combo_layer_jrc_vulnerability, )
-
-    water_mask_input = _get_water_mask_input(combo_dataset_drought, )
+    jrc_input = _get_jrc_input(combo_layer_jrc_vulnerability)
 
     crosses_180th, geojsons = aoi.bounding_box_gee_geojson()
 
@@ -137,12 +135,6 @@ def get_main_drought_summary_job_params(
         JobBand.Schema().dump(jrc_input.band),
         "layer_jrc_band_index":
         jrc_input.band_index,
-        "layer_water_mask_path":
-        str(water_mask_input.path),
-        "layer_water_mask_band":
-        JobBand.Schema().dump(water_mask_input.band),
-        "layer_water_mask_band_index":
-        water_mask_input.band_index,
         "crs":
         aoi.get_crs_dst_wkt(),
         "geojsons":

@@ -56,14 +56,13 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         super().__init__(iface, script, parent)
         self.setupUi(self)
 
-        jrc_lpd_datasets = []
-
-        for ds_name, ds_details in conf.REMOTE_DATASETS[
-            "Land Productivity Dynamics (JRC)"].items():
-            jrc_lpd_datasets.append(ds_name)
-        self.cb_jrc_baseline.addItems(jrc_lpd_datasets)
+        self.cb_jrc_baseline.addItems(
+            [*conf.REMOTE_DATASETS["Land Productivity Dynamics (JRC)"].keys()]
+        )
         self.cb_jrc_baseline.setCurrentIndex(1)
-        self.cb_jrc_progress.addItems(jrc_lpd_datasets)
+        self.cb_jrc_progress.addItems(
+            [*conf.REMOTE_DATASETS["Land Productivity Dynamics (JRC)"].keys()]
+        )
         self.cb_jrc_progress.setCurrentIndex(2)
 
         self.year_final_baseline.dateChanged.connect(self.update_progress_year)
@@ -435,11 +434,53 @@ class DlgCalculateLDNSummaryTableAdmin(
             radio_lpd_jrc=self.radio_lpd_jrc
         )
 
+        self.radio_population_baseline_bysex.toggled.connect(
+            self.toggle_pop_options_baseline
+        )
+        self.toggle_pop_options_baseline()
+
+        self.radio_population_progress_bysex.toggled.connect(
+            self.toggle_pop_options_progress
+        )
+        self.toggle_pop_options_progress()
+
     def showEvent(self, event):
         super().showEvent(event)
         self.combo_boxes['baseline'].populate()
         self.combo_boxes['progress'].populate()
         self.toggle_progress_period()
+
+    def toggle_pop_options_baseline(self):
+        if self.radio_population_baseline_bysex.isChecked():
+            self.combo_layer_population_baseline_male.setEnabled(True)
+            self.combo_layer_population_baseline_female.setEnabled(True)
+            self.label_male_population_baseline.setEnabled(True)
+            self.label_female_population_baseline.setEnabled(True)
+            self.combo_layer_population_baseline_total.setEnabled(False)
+            self.label_total_population_baseline.setEnabled(False)
+        else:
+            self.combo_layer_population_baseline_male.setEnabled(False)
+            self.combo_layer_population_baseline_female.setEnabled(False)
+            self.label_male_population_baseline.setEnabled(False)
+            self.label_female_population_baseline.setEnabled(False)
+            self.combo_layer_population_baseline_total.setEnabled(True)
+            self.label_total_population_baseline.setEnabled(True)
+
+    def toggle_pop_options_progress(self):
+        if self.radio_population_progress_bysex.isChecked():
+            self.combo_layer_population_progress_male.setEnabled(True)
+            self.combo_layer_population_progress_female.setEnabled(True)
+            self.label_male_population_progress.setEnabled(True)
+            self.label_female_population_progress.setEnabled(True)
+            self.combo_layer_population_progress_total.setEnabled(False)
+            self.label_total_population_progress.setEnabled(False)
+        else:
+            self.combo_layer_population_progress_male.setEnabled(False)
+            self.combo_layer_population_progress_female.setEnabled(False)
+            self.label_male_population_progress.setEnabled(False)
+            self.label_female_population_progress.setEnabled(False)
+            self.combo_layer_population_progress_total.setEnabled(True)
+            self.label_total_population_progress.setEnabled(True)
 
     def toggle_progress_period(self):
         if self.checkBox_progress_period.isChecked():
@@ -449,10 +490,10 @@ class DlgCalculateLDNSummaryTableAdmin(
             self.groupBox_progress_period.setVisible(False)
             self.advanced_configuration_progress.setVisible(False)
 
-    def validate_layer_selections(self, combo_boxes, prod_mode):
+    def validate_layer_selections(self, combo_boxes, prod_mode, pop_mode):
         '''validate all needed layers are selected'''
 
-        if prod_mode == 'Trends.Earth productivity':
+        if prod_mode == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
             if len(combo_boxes.combo_layer_traj.layer_list) == 0:
                 QtWidgets.QMessageBox.critical(
                     None, self.tr("Error"),
@@ -522,10 +563,10 @@ class DlgCalculateLDNSummaryTableAdmin(
 
         return True
 
-    def validate_layer_extents(self, combo_boxes, prod_mode):
+    def validate_layer_extents(self, combo_boxes, prod_mode, pop_mode):
         '''Check that the layers cover the full extent of the AOI'''
 
-        if prod_mode == 'Trends.Earth productivity':
+        if prod_mode == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
             if self.aoi.calc_frac_overlap(
                 QgsGeometry.fromRect(
                     combo_boxes.combo_layer_traj.get_layer().extent()
@@ -615,7 +656,7 @@ class DlgCalculateLDNSummaryTableAdmin(
 
         return True
 
-    def validate_layer_crs(self, combo_boxes, prod_mode):
+    def validate_layer_crs(self, combo_boxes, prod_mode, pop_mode):
         '''check all layers have the same resolution and CRS'''
         def res(layer):
             return (
@@ -668,6 +709,18 @@ class DlgCalculateLDNSummaryTableAdmin(
 
                 return False
 
+        if pop_mode == ldn.PopulationMode.BySex.value:
+            if res(combo_boxes.combo_layer_traj.get_layer()
+                   ) != res(combo_boxes.combo_layer_state.get_layer()):
+                QtWidgets.QMessageBox.critical(
+                    None, self.tr("Error"),
+                    self.tr(
+                        "Resolutions of trajectory layer and state layer do not match."
+                    )
+                )
+
+                return False
+
         return True
 
     def btn_calculate(self):
@@ -686,14 +739,21 @@ class DlgCalculateLDNSummaryTableAdmin(
 
         ##########
         # Baseline
+        #
+
+        if self.radio_population_baseline_bysex.isChecked():
+            pop_mode_baseline = ldn.PopulationMode.BySex.value
+        else:
+            pop_mode_baseline = ldn.PopulationMode.Total.value
 
         if (
-            not self.
-            validate_layer_selections(self.combo_boxes['baseline'], prod_mode)
-            or not self.
-            validate_layer_crs(self.combo_boxes['baseline'], prod_mode)
-            or not self.
-            validate_layer_extents(self.combo_boxes['baseline'], prod_mode)
+            not self.validate_layer_selections(
+                self.combo_boxes['baseline'], prod_mode, pop_mode_baseline
+            ) or not self.validate_layer_crs(
+                self.combo_boxes['baseline'], prod_mode, pop_mode_baseline
+            ) or not self.validate_layer_extents(
+                self.combo_boxes['baseline'], prod_mode, pop_mode_baseline
+            )
         ):
             log('failed baseline layer validation')
 
@@ -705,6 +765,7 @@ class DlgCalculateLDNSummaryTableAdmin(
                 task_name=self.options_tab.task_name.text(),
                 aoi=self.aoi,
                 prod_mode=prod_mode,
+                pop_mode=pop_mode_baseline,
                 combo_layer_lc=self.combo_boxes['baseline'].combo_layer_lc,
                 combo_layer_soc=self.combo_boxes['baseline'].combo_layer_soc,
                 combo_layer_traj=self.combo_boxes['baseline'].combo_layer_traj,
@@ -726,13 +787,18 @@ class DlgCalculateLDNSummaryTableAdmin(
         # Progress
 
         if self.checkBox_progress_period.isChecked():
+            if self.radio_population_progress_bysex.isChecked():
+                pop_mode_progress = ldn.PopulationMode.BySex.value
+            else:
+                pop_mode_progress = ldn.PopulationMode.Total.value
+
             if (
                 not self.validate_layer_selections(
-                    self.combo_boxes['progress'], prod_mode
-                ) or not self.
-                validate_layer_crs(self.combo_boxes['progress'], prod_mode)
-                or not self.validate_layer_extents(
-                    self.combo_boxes['progress'], prod_mode
+                    self.combo_boxes['progress'], prod_mode, pop_mode_progress
+                ) or not self.validate_layer_crs(
+                    self.combo_boxes['progress'], prod_mode, pop_mode_progress
+                ) or not self.validate_layer_extents(
+                    self.combo_boxes['progress'], prod_mode, pop_mode_progress
                 )
             ):
                 log('failed progress layer validation')
@@ -746,6 +812,7 @@ class DlgCalculateLDNSummaryTableAdmin(
                         task_name=self.options_tab.task_name.text(),
                         aoi=self.aoi,
                         prod_mode=prod_mode,
+                        pop_mode=pop_mode_progress,
                         combo_layer_lc=self.combo_boxes['progress'].
                         combo_layer_lc,
                         combo_layer_soc=self.combo_boxes['progress'].

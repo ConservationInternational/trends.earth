@@ -9,11 +9,11 @@
     },
     {
         "description": "Download data from Google Earth Engine assets.",
-        "id": "fdff10c4-86af-4a2e-a8c0-cdeceb6a0e00",
+        "id": "d1ad0a91-5465-4631-ac1e-e02a50892ffd",
         "name": "download-data",
         "name_readable": "Download raw data",
         "run_mode": "remote",
-        "version": "1.99.1"
+        "version": "1.99.5"
     },
     {
         "description": "Download LandPKS data",
@@ -25,11 +25,11 @@
     },
     {
         "description": "Calculate indicators of drought vulnerability",
-        "id": "02e88666-1940-496d-9289-65eb5bde043c",
+        "id": "fae16578-7fb4-42f4-ba91-55a1d3f8597d",
         "name": "drought-vulnerability",
         "name_readable": "Drought vulnerability",
         "run_mode": "remote",
-        "version": "1.99.1"
+        "version": "1.99.5"
     },
     {
         "description": "Calculate change in drought vulnerability indicators",
@@ -41,11 +41,11 @@
     },
     {
         "description": "Calculate land cover change",
-        "id": "20aeb73f-c053-45e5-9a51-023f59a7045b",
+        "id": "bb1f8653-6329-4aac-9812-f94d2dac04a8",
         "name": "land-cover",
         "name_readable": "Land cover change",
         "run_mode": "remote",
-        "version": "1.99.1"
+        "version": "1.99.5"
     },
     {
         "description": "Calculate land cover change",
@@ -113,27 +113,27 @@
             }
         },
         "description": "Calculate productivity state, performance, and/or trajectory indicators",
-        "id": "760ec905-3777-4633-aabd-f588715fdaa5",
+        "id": "25dc59c7-f1bb-4acc-83eb-3759c31cfcdb",
         "name": "productivity",
         "name_readable": "Land productivity",
         "run_mode": "remote",
-        "version": "1.99.1"
+        "version": "1.99.5"
     },
     {
         "description": "Calculate potential change in biomass with restoration",
-        "id": "291eb740-2ac0-4d90-9887-451ec500bdb2",
+        "id": "ba2a4ff1-033d-4278-8be9-4ce9fd81f0cd",
         "name": "restoration-biomass",
         "name_readable": "Biomass change",
         "run_mode": "remote",
-        "version": "1.99.1"
+        "version": "1.99.5"
     },
     {
         "description": "Calculate all three SDG 15.3.1 sub-indicators in one step",
-        "id": "141febde-4720-4951-8ebc-069d596edbc5",
+        "id": "e53e1be5-6653-41f3-9459-256d0ed6dd7d",
         "name": "sdg-15-3-1-sub-indicators",
         "name_readable": "SDG 15.3.1 sub-indicators",
         "run_mode": "remote",
-        "version": "1.99.1"
+        "version": "1.99.5"
     },
     {
         "description": "Calculate change in SDG 15.3.1",
@@ -145,27 +145,27 @@
     },
     {
         "description": "Calculate change in soil organic carbon",
-        "id": "ff910f3a-b247-484e-8c75-73e650c2fce1",
+        "id": "3586b973-55f0-46b4-9fec-c5d5e553cabe",
         "name": "soil-organic-carbon",
         "name_readable": "Soil organic carbon change",
         "run_mode": "remote",
-        "version": "1.99.1"
+        "version": "1.99.5"
     },
     {
         "description": "Calculates time series of Trends.Earth data",
-        "id": "8a15fe21-7ae7-43bc-aa6c-e8b5f4f7708e",
+        "id": "3b8aeead-66d3-495b-849a-31f464f0efe0",
         "name": "time-series",
         "name_readable": "Time series",
         "run_mode": "remote",
-        "version": "1.99.1"
+        "version": "1.99.5"
     },
     {
         "description": "Calculates total carbon in biomass (above and below ground).",
-        "id": "1cbcdc46-4206-43f4-9891-9350b8401e07",
+        "id": "6f0e88fc-3916-4d0c-be1b-af95c3395c5a",
         "name": "total-carbon",
         "name_readable": "Total carbon change",
         "run_mode": "remote",
-        "version": "1.99.1"
+        "version": "1.99.5"
     },
     {
         "execution_callable": "LDMP.localexecution.totalcarbon.compute_total_carbon_summary_table",
@@ -192,11 +192,11 @@
     },
     {
         "description": "Calculate change in urban area, in support of SDG 11.3.1",
-        "id": "75d914ca-89d0-4d37-b14a-07ea5cef7e35",
+        "id": "62e68fd4-85f3-4b68-abd5-f58652560c7d",
         "name": "urban-area",
         "name_readable": "Urban area change (summary)",
         "run_mode": "remote",
-        "version": "1.99.1"
+        "version": "1.99.5"
     },
     {
         "description": "Summarizes urban area change (land consumption rate)",

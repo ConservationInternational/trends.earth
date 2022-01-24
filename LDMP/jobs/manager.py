@@ -358,7 +358,7 @@ class JobManager(QtCore.QObject):
             local_context=_get_local_context(),
             task_name=task_name,
             task_notes=task_notes,
-            results=RasterResults(name=script_name, rasters=[], uri=None),
+            results=RasterResults(name=script_name, rasters={}, uri=None),
             script=models.get_job_local_script(script_name)
         )
         self.write_job_metadata_file(job)
@@ -522,7 +522,8 @@ class JobManager(QtCore.QObject):
                         datatype=DataType.INT16,
                         filetype=RasterFileType.GEOTIFF
                     )
-                }
+                },
+                uri=URI(uri=dataset_path, type='local')
             ),
             task_name="Imported dataset",
             task_notes="",

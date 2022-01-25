@@ -37,6 +37,8 @@ from . import GetTempFilename
 from . import layers
 from . import utils
 from . import worker
+from . import metadata_dialog
+from . import metadata
 from .jobs.manager import job_manager
 from .jobs.models import Job
 from .logger import log
@@ -895,6 +897,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
     """Base class for individual data loading dialogs"""
 
     input_widget: ImportSelectFileInputWidget
+    metadata: qgis.core.QgsLayerMetadata
 
     layer_loaded = QtCore.pyqtSignal(list)
 
@@ -908,6 +911,12 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         # The datatype determines whether the dataset resampling is done with
         # nearest neighbor and mode or nearest neighbor and mean
         self.datatype = 'categorical'
+        self.metadata = None
+
+        self.btnMetadata = QtWidgets.QPushButton(self.tr("Metadata"))
+        layout = self.btnBox.layout()
+        layout.insertWidget(0, self.btnMetadata)
+        self.btnMetadata.clicked.connect(self.open_metadata_editor)
 
     def validate_input(self, value):
         if self.input_widget.radio_raster_input.isChecked():
@@ -1114,6 +1123,14 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         else:
             return True
 
+    def open_metadata_editor(self):
+        dlg = metadata_dialog.DlgDatasetMetadata(self)
+        dlg.exec_()
+        self.metadata = dlg.get_metadata()
+
+    def save_metadata(self, job):
+        metadata.init_datatset_metadata(job, self.metadata)
+
 
 class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
     def __init__(self, parent=None):
@@ -1239,6 +1256,8 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
         )
         job_manager.import_job(job, Path(out_file))
 
+        super().save_metadata(job)
+
 
 class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
     output_widget: ImportSelectRasterOutput
@@ -1343,6 +1362,8 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
             {"source": "custom data"}
         )
         job_manager.import_job(job, Path(out_file))
+
+        super().save_metadata(job)
 
 
 def _get_layers(node):

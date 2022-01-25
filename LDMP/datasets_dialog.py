@@ -15,6 +15,8 @@ from qgis.PyQt import uic
 from . import openFolder
 from . import tr
 from . import utils
+from . import metadata_dialog
+from . import metadata
 from .jobs import manager
 from .jobs.models import Job
 from .logger import log
@@ -33,6 +35,7 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
     created_at_le: QtWidgets.QLineEdit
     delete_btn: QtWidgets.QPushButton
     export_btn: QtWidgets.QPushButton
+    metadata_btn: QtWidgets.QPushButton
     load_btn: QtWidgets.QPushButton
     name_le: QtWidgets.QLineEdit
     id_le: QtWidgets.QLineEdit
@@ -58,6 +61,7 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
         self.delete_btn.clicked.connect(self.delete_dataset)
         self.open_directory_btn.clicked.connect(self.open_job_directory)
         self.export_btn.clicked.connect(self.export_dataset)
+        self.metadata_btn.clicked.connect(self.show_metadata)
         self.alg_le.setText(self.job.script.name)
         empty_paths_msg = "This dataset does not have local paths"
 
@@ -86,6 +90,9 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
         )
         self.export_btn.setIcon(
             QtGui.QIcon(os.path.join(ICON_PATH, 'export_zip.svg'))
+        )
+        self.metadata_btn.setIcon(
+            QtGui.QIcon(os.path.join(ICON_PATH, 'editmetadata.svg'))
         )
         self.delete_btn.setIcon(
             QtGui.QIcon(os.path.join(ICON_PATH, 'mActionDeleteSelected.svg'))
@@ -157,3 +164,11 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
             self.bar.pushWidget(message_bar_item, level=qgis.core.Qgis.Info)
         finally:
             self.export_btn.setEnabled(True)
+
+    def show_metadata(self):
+        ds_metadata = metadata.read_dataset_metadata(self.job)
+        dlg = metadata_dialog.DlgDatasetMetadata(self)
+        dlg.set_metadata(ds_metadata)
+        dlg.exec_()
+        ds_metadata = dlg.get_metadata()
+        metadata.update_dataset_metadata(self.job, ds_metadata)

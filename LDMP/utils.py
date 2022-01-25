@@ -2,10 +2,8 @@ from datetime import datetime, timezone
 import importlib
 import os
 from pathlib import Path
-import re
 import tempfile
 import typing
-import unicodedata
 
 import qgis.core
 from osgeo import gdal
@@ -18,32 +16,9 @@ from .jobs import manager
 from .jobs.models import Job
 from .logger import log
 
-from te_schemas import jobs
-
 
 def utc_to_local(utc_dt):
     return utc_dt.astimezone(tz=None)
-
-
-def slugify(value, allow_unicode=False):
-    """
-    Taken from https://github.com/django/django/blob/master/django/utils/text.py
-    Convert to ASCII if 'allow_unicode' is False. Convert spaces or repeated
-    dashes to single dashes. Remove characters that aren't alphanumerics,
-    underscores, or hyphens. Convert to lowercase. Also strip leading and
-    trailing whitespace, dashes, and underscores.
-    """
-    value = str(value)
-
-    if allow_unicode:
-        value = unicodedata.normalize('NFKC', value)
-    else:
-        value = unicodedata.normalize('NFKD',
-                                      value).encode('ascii',
-                                                    'ignore').decode('ascii')
-    value = re.sub(r'[^\w\s-]', '', value.lower())
-
-    return re.sub(r'[-\s]+', '-', value).strip('-_')
 
 
 def load_object(python_path: str) -> typing.Any:
@@ -131,7 +106,7 @@ class FileUtils:
 
     @staticmethod
     def get_icon(icon_name: str) -> QtGui.QIcon:
-        # Assumes icon_name includes the file extension
+        # Assumes icon_name includes the file extension.
         icon_path = os.path.normpath(
             f'{FileUtils.plugin_dir()}/icons/{icon_name}'
         )
@@ -140,4 +115,7 @@ class FileUtils:
             return None
 
         return QtGui.QIcon(icon_path)
+
+
+
 

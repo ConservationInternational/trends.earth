@@ -361,3 +361,11 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         dialogue = DlgDataIOAddLayersToMap(self, self.job)
         dialogue.exec_()
         self.main_dock.resume_scheduler()
+
+    @property
+    def report_handler(self):
+        """
+        Returns handler with helper methods for generating and viewing
+        reports.
+        """
+        return self._report_handler()

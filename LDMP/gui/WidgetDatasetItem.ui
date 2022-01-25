@@ -113,6 +113,9 @@
         </item>
         <item>
          <widget class="QPushButton" name="report_pb">
+          <property name="toolTip">
+           <string>View output report</string>
+          </property>
           <property name="text">
            <string/>
           </property>

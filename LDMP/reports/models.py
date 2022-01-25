@@ -2,13 +2,36 @@
 from dataclasses import field
 from enum import Enum
 import os
+import re
 import typing
+import unicodedata
 from uuid import uuid4
 
 from marshmallow import post_load
 from marshmallow_dataclass import dataclass
 
-from ..utils import slugify
+from ..jobs.models import Job
+
+
+def slugify(value, allow_unicode=False):
+    """
+    Taken from https://github.com/django/django/blob/master/django/utils/text.py
+    Convert to ASCII if 'allow_unicode' is False. Convert spaces or repeated
+    dashes to single dashes. Remove characters that aren't alphanumerics,
+    underscores, or hyphens. Convert to lowercase. Also strip leading and
+    trailing whitespace, dashes, and underscores.
+    """
+    value = str(value)
+
+    if allow_unicode:
+        value = unicodedata.normalize('NFKC', value)
+    else:
+        value = unicodedata.normalize('NFKD',
+                                      value).encode('ascii',
+                                                    'ignore').decode('ascii')
+    value = re.sub(r'[^\w\s-]', '', value.lower())
+
+    return re.sub(r'[-\s]+', '-', value).strip('-_')
 
 
 class OutputFormat(Enum):
@@ -27,6 +50,17 @@ class ReportOutputOptions:
     output_format: OutputFormat = field(default=OutputFormat.PDF)
     include_qpt: bool = field(default=True)
     format_params: dict = field(default_factory=dict)
+
+    def file_extension(self) -> str:
+        """
+        If output format is IMAGE and its type is not defined, it will
+        default to PNG.
+        """
+        if self.output_format == OutputFormat.PDF:
+            return 'pdf'
+        else:
+            img_type = self.format_params.get('image_type', 'PNG')
+            return img_type.lower()
 
 
 class LayoutItemType(Enum):
@@ -181,6 +215,18 @@ class ReportConfiguration:
     def update_paths(self, template_dir):
         # Convenience function for updating absolute paths for template files.
         self.template_info.update_paths(template_dir)
+
+
+class ReportTaskContext:
+    """
+    Provides context information for generating reports.
+    """
+    report_configuration: ReportConfiguration
+    jobs: typing.List[Job] = field(default_factory=list)
+
+    def __init__(self, config: ReportConfiguration, jobs: typing.List[Job]):
+        self.report_configuration = config
+        self.jobs = jobs
 
 
 

@@ -55,13 +55,20 @@ class TemplateManager:
 
     def configs_by_template_name(
             self,
-            name
+            name: str,
     ) -> typing.List[ReportConfiguration]:
         """
         Returns report config objects with template info objects matching the
         given name.
         """
         return [rc for rc in self._configs if rc.template_info.name == name]
+
+    def configs_by_template_id(
+            self,
+            id: str
+    ) -> typing.List[ReportConfiguration]:
+        # Returns report configs by template id.
+        return [rc for rc in self._configs if rc.template_info.id == id]
 
     def multi_scope_configs(self) -> typing.List[ReportConfiguration]:
         """

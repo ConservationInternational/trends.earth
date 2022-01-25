@@ -23,5 +23,30 @@
 
          }
       }
+   },
+   {
+      "name":"Land Productivity",
+      "template_info":{
+         "id":"70ca4be7-839e-4248-be14-34ba8665ed98",
+         "name":"Land Productivity",
+         "description":"Test template for land productivity report",
+         "portrait_path":"productivity_portrait.qpt",
+         "landscape_path":"productivity_landscape.qpt",
+         "item_scopes":[
+            {
+               "name":"productivity",
+               "type_id_mapping":{
+                  "map":"['map.productivity']"
+               }
+            }
+         ]
+      },
+      "output_options":{
+         "output_format":"PDF",
+         "include_qpt":true,
+         "format_params":{
+
+         }
+      }
    }
 ]

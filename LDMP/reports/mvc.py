@@ -1,4 +1,6 @@
 """Classes for interfacing UI with report models."""
+
+from qgis.PyQt.QtCore import QCoreApplication
 from qgis.PyQt.QtWidgets import (
     QMenu,
     QPushButton
@@ -7,8 +9,18 @@ from qgis.PyQt.QtWidgets import (
 from te_schemas.jobs import JobStatus
 
 from ..jobs.models import Job
+from ..logger import log
+from .models import (
+    ReportConfiguration,
+    ReportTaskContext
+)
+
+from .generator import report_generator
 from .template_manager import template_manager
-from .models import ReportConfiguration
+from .utils import (
+    job_has_report,
+    job_has_results
+)
 from ..utils import FileUtils
 
 
@@ -24,6 +36,8 @@ class DatasetReportHandler:
         self._view_rpt_action = None
         self._open_template_action = None
         self._rpt_config = None
+        self._rpt_task_ctx = None
+        self._regenerate_report = False
 
     @property
     def report_button(self) -> QPushButton:
@@ -73,11 +87,37 @@ class DatasetReportHandler:
         else:
             self._open_template_action.setEnabled(False)
 
-        # Only enable if job has finished or generated locally
-        if self._job.status in (JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY):
-            self._rpt_btn.setEnabled(True)
+        # Enable/disable report button based on job and results status
+        rpt_status = self._check_job_report_status()
+        self._rpt_btn.setEnabled(rpt_status)
+
+        # For previously finished jobs but there is no report, submit the
+        # job for report generation.
+        if self._regenerate_report and \
+                not report_generator.is_task_running(self.report_task_id):
+            self.generate_report()
+
+    def _check_job_report_status(self) -> bool:
+        # Check job status, assert datasets are available and no report has
+        # been generated yet.
+        if not self._job.status in (
+                JobStatus.DOWNLOADED,
+                JobStatus.GENERATED_LOCALLY
+        ):
+            return False
+
+        if not job_has_results(self._job):
+            return False
+
         else:
-            self._rpt_btn.setEnabled(False)
+            if not job_has_report(
+                    self._job,
+                    self._rpt_config.output_options
+            ):
+                self._regenerate_report = True
+                return False
+
+        return True
 
     @property
     def report_config(self) -> ReportConfiguration:
@@ -87,6 +127,24 @@ class DatasetReportHandler:
         """
         return self._rpt_config
 
+    @property
+    def task_context(self) -> ReportTaskContext:
+        """
+        Returns an instance of the report task context that has been used
+        to generate the corresponding report. This is for jobs that have
+        successfully finished with the results in the datasets folder,
+        otherwise it will return None.
+        """
+        return self._rpt_task_ctx
+
+    @property
+    def report_task_id(self) -> str:
+        """
+        Returns the task_id for generating the report which, in this case,
+        corresponds to the job id..
+        """
+        return str(self._job.id)
+
     def view_report(self):
         # View report in the default pdf or image viewer.
         pass
@@ -94,3 +152,21 @@ class DatasetReportHandler:
     def open_designer(self):
         # Open template in the QGIS layout designer.
         pass
+
+    @classmethod
+    def tr(cls, source):
+        return QCoreApplication.translate(
+            'DatasetReportHandler',
+            source
+        )
+
+    def generate_report(self):
+        # Create report task context for report generation.
+        self._rpt_task_ctx = ReportTaskContext(
+            self._rpt_config,
+            [self._job]
+        )
+
+        report_generator.process_report_task(
+            self._rpt_task_ctx
+        )

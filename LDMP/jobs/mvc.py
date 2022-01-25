@@ -336,12 +336,14 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         self.main_dock.resume_scheduler()
 
     def show_metadata(self):
+        self.main_dock.pause_scheduler()
         ds_metadata = metadata.read_dataset_metadata(self.job)
         dlg = metadata_dialog.DlgDatasetMetadata(self)
         dlg.set_metadata(ds_metadata)
         dlg.exec_()
         ds_metadata = dlg.get_metadata()
         metadata.update_dataset_metadata(self.job, ds_metadata)
+        self.main_dock.resume_scheduler()
 
     def open_job_directory(self):
         job_directory = manager.job_manager.get_job_file_path(self.job).parent

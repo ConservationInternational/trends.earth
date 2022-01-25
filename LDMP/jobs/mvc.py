@@ -14,6 +14,8 @@ from . import (manager)
 from .. import layers
 from .. import openFolder
 from .. import utils
+from .. import metadata_dialog
+from .. import metadata
 from ..conf import Setting
 from ..conf import settings_manager
 from ..data_io import DlgDataIOAddLayersToMap
@@ -216,6 +218,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
     download_tb: QtWidgets.QToolButton
     name_la: QtWidgets.QLabel
     open_details_tb: QtWidgets.QToolButton
+    metadata_tb: QtWidgets.QToolButton
     open_directory_tb: QtWidgets.QToolButton
     progressBar: QtWidgets.QProgressBar
 
@@ -232,6 +235,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
 
         self.open_details_tb.clicked.connect(self.show_details)
         self.open_directory_tb.clicked.connect(self.open_job_directory)
+        self.metadata_tb.clicked.connect(self.show_metadata)
         self.delete_tb.clicked.connect(
             functools.partial(utils.delete_dataset, self.job)
         )
@@ -246,6 +250,11 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         )
         self.open_directory_tb.setIcon(
             QtGui.QIcon(os.path.join(ICON_PATH, 'mActionFileOpen.svg'))
+        )
+        self.metadata_tb.setIcon(
+            QtGui.QIcon(
+                os.path.join(ICON_PATH, 'editmetadata.svg')
+            )
         )
         self.add_to_canvas_pb.setIcon(
             QtGui.QIcon(os.path.join(ICON_PATH, 'mActionAddRasterLayer.svg'))
@@ -325,6 +334,14 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         self.main_dock.pause_scheduler()
         DatasetDetailsDialogue(self.job, parent=iface.mainWindow()).exec_()
         self.main_dock.resume_scheduler()
+
+    def show_metadata(self):
+        ds_metadata = metadata.read_dataset_metadata(self.job)
+        dlg = metadata_dialog.DlgDatasetMetadata(self)
+        dlg.set_metadata(ds_metadata)
+        dlg.exec_()
+        ds_metadata = dlg.get_metadata()
+        metadata.update_dataset_metadata(self.job, ds_metadata)
 
     def open_job_directory(self):
         job_directory = manager.job_manager.get_job_file_path(self.job).parent

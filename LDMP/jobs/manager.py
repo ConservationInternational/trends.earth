@@ -1,10 +1,12 @@
 import datetime as dt
 import json
 import re
+import os
 import typing
 import unicodedata
 import urllib.parse
 import uuid
+import shutil
 from pathlib import Path
 from typing import List
 
@@ -30,6 +32,7 @@ from .. import conf
 from .. import download as ldmp_download
 from .. import layers
 from .. import utils
+from .. import metadata
 from ..logger import log
 from .models import Job
 
@@ -399,8 +402,10 @@ class JobManager(QtCore.QObject):
             # TODO: show a message noting that can't download this job type,
             # then disable the download button
             pass
-        # TODO: maybe we don't need to return anything here
 
+        metadata.init_datatset_metadata(job)
+
+        # TODO: maybe we don't need to return anything here
         return job
 
     def download_available_results(self):
@@ -731,8 +736,10 @@ class JobManager(QtCore.QObject):
         """Move job metadata file to another directory based on the desired status.
 
         This also mutates the input job, updating its current status to the new one.
+        This also moves job metadata file
 
         """
+        old_path = os.path.splitext(self.get_job_file_path(job))[0] + '.qmd'
 
         if job.status != new_status:  # always write
             self._remove_job_metadata_file(job)
@@ -745,6 +752,10 @@ class JobManager(QtCore.QObject):
                 self.write_job_metadata_file(job)
             else:
                 log("No need to move the job file, it is already in place")
+
+        if os.path.exists(old_path):
+            new_path = os.path.splitext(self.get_job_file_path(job))[0] + '.qmd'
+            shutil.move(old_path, new_path)
 
     #@functools.lru_cache(maxsize=None)  # not using functools.cache, as it was only introduced in Python 3.9
     def _get_local_jobs(self, status: jobs.JobStatus) -> typing.List[Job]:

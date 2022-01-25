@@ -144,8 +144,9 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
         current_job_file_path = manager.job_manager.get_job_file_path(self.job)
         target_zip_name = f"{current_job_file_path.stem}.zip"
         target_path = manager.job_manager.exports_dir / target_zip_name
+        metadata_paths = metadata.export_dataset_metadata(self.job)
         paths_to_zip = [uri.uri for uri in self.job.results.get_all_uris()
-                        ] + [current_job_file_path]
+                        ] + [current_job_file_path] + metadata_paths
         try:
             with ZipFile(target_path, 'w') as zip:
                 for path in paths_to_zip:

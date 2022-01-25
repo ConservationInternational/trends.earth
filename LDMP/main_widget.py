@@ -40,6 +40,7 @@ from .jobs.models import (
     SortField,
 )
 from .utils import (
+    FileUtils,
     load_object,
 )
 from .logger import log
@@ -127,6 +128,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
     datasets_tv: QtWidgets.QTreeView
     lineEdit_search: QtWidgets.QLineEdit
     import_dataset_pb: QtWidgets.QPushButton
+    generate_report_pb: QtWidgets.QPushButton
     pushButton_load: QtWidgets.QPushButton
     pushButton_download: QtWidgets.QPushButton
     pushButton_refresh: QtWidgets.QPushButton
@@ -239,6 +241,9 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             os.path.join(ICON_PATH, 'document.svg')))
         self.pushButton_load.clicked.connect(self.load_base_map)
         self.pushButton_refresh.clicked.connect(self.perform_single_update)
+
+        self.generate_report_pb.setIcon(FileUtils.get_icon('report.svg'))
+        self.generate_report_pb.clicked.connect(self.on_generate_report)
 
         # to allow emit entered events and manage editing over mouse
         self.datasets_tv.setMouseTracking(True)
@@ -570,6 +575,10 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             self
         )
         dialogue.exec_()
+
+    def on_generate_report(self):
+        # Load dialog for configuring multiscope reports
+        pass
 
     def import_known_dataset(self, action: QtWidgets.QAction):
         dialogue=DlgDataIOLoadTE(self)

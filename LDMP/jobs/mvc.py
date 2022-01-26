@@ -310,6 +310,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             self.download_tb.hide()
             self.add_to_canvas_pb.setEnabled(self.has_loadable_result())
 
+        # Initialize dataset report handler
         self._report_handler.init()
 
     def has_loadable_result(self):

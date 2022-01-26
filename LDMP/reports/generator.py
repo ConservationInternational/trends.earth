@@ -8,8 +8,8 @@ from uuid import uuid4
 from qgis.core import (
     Qgis,
     QgsApplication,
-    QgsLayout,
     QgsLayoutExporter,
+    QgsPrintLayout,
     QgsProject,
     QgsReadWriteContext,
     QgsTask
@@ -24,6 +24,7 @@ from qgis.PyQt.QtXml import (
     QDomDocument
 )
 
+from ..jobs.models import Job
 from ..logger import log
 
 from .models import (
@@ -52,6 +53,7 @@ class ReportTask(QgsTask):
         self._options = self._ctx.report_configuration.output_options
         self._task_id = task_id
         self._layout = None
+        self._is_layout_orientation_set = False
         self.messages = dict()
 
     def run(self) -> bool:
@@ -65,7 +67,7 @@ class ReportTask(QgsTask):
 
         # Determine orientation
 
-        self._layout = QgsLayout(QgsProject.instance())
+        self._layout = QgsPrintLayout(QgsProject.instance())
         # Load template
         status, document = self._get_template_document(pt_path)
         if not status:
@@ -82,6 +84,34 @@ class ReportTask(QgsTask):
             return False
 
         return True
+
+    def _process_scope_items(self, job: Job) -> bool:
+        # Update layout items in the given scope
+        alg_name = job.script.name
+        scope_mappings = self._ti.scope_mappings_by_name(alg_name)
+        if len(scope_mappings) == 0:
+            self._add_warning_msg(
+                f'Could not find \'{alg_name}\' scope definition.'
+            )
+            return False
+
+        item_scope = scope_mappings[0]
+        map_ids = item_scope.map_ids()
+        if len(map_ids) == 0:
+            self._add_info_msg(f'No map ids found in \'{alg_name}\' scope.')
+
+        self._update_map_items(map_ids, job)
+
+        return True
+
+    def _update_map_items(self, map_ids: typing.List[str], job: Job):
+        # Update map items
+        # Create layer set
+        layers = []
+        bands = job.results.get_bands()
+        for band_idx, band in enumerate(bands, start=1):
+            if band.add_to_map:
+                layers.append(band)
 
     def _get_template_document(self, path) -> typing.Tuple[bool, QDomDocument]:
         # Load template to the given layout

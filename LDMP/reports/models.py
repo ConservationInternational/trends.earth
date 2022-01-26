@@ -157,7 +157,10 @@ class ReportTemplateInfo:
     def add_scope_mapping(self, item_scope: ItemScopeMapping) -> None:
         self.item_scopes.append(item_scope)
 
-    def scope_mappings_by_name(self, name: str) ->typing.List[ItemScopeMapping]:
+    def scope_mappings_by_name(
+            self,
+            name: str
+    ) -> typing.List[ItemScopeMapping]:
         return [sm for sm in self.item_scopes if sm.name == name]
 
     def update_paths(self, templates_dir) -> None:

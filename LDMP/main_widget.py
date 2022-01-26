@@ -32,6 +32,7 @@ from .data_io import (
 )
 from .lc_setup import DlgDataIOImportLC
 from .download_data import DlgDownload
+from .generate_report_dialog import DlgGenerateReport
 from .landpks import DlgLandPKSDownload
 from .jobs.manager import job_manager
 from .jobs import mvc as jobs_mvc
@@ -578,7 +579,8 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
     def on_generate_report(self):
         # Load dialog for configuring multiscope reports
-        pass
+        generate_rpt_dlg = DlgGenerateReport(self)
+        generate_rpt_dlg.exec_()
 
     def import_known_dataset(self, action: QtWidgets.QAction):
         dialogue=DlgDataIOLoadTE(self)

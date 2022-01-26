@@ -48,5 +48,36 @@
 
          }
       }
+   },
+   {
+      "name":"Aggregated LDN",
+      "template_info":{
+         "id":"79d0b90a-afb8-406a-b9fa-0c58e2237b4d",
+         "name":"LDN including sub-indicator map items",
+         "description":"Test template for multiscope reports with detailed algorithm information used to produce the datasets",
+         "portrait_path":"test_ldn_compound_portrait.qpt",
+         "landscape_path":"test_ldn_compound_landscape.qpt",
+         "item_scopes":[
+            {
+               "name":"productivity",
+               "type_id_mapping":{
+                  "map":"['map.productivity']"
+               }
+            },
+            {
+               "name":"land cover",
+               "type_id_mapping":{
+                  "map":"['map.land_cover']"
+               }
+            }
+         ]
+      },
+      "output_options":{
+         "output_format":"PDF",
+         "include_qpt":true,
+         "format_params":{
+
+         }
+      }
    }
 ]

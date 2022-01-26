@@ -257,7 +257,11 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             QtGui.QIcon(os.path.join(ICON_PATH, 'cloud-download.svg'))
         )
         self.report_pb.setIcon(FileUtils.get_icon('report.svg'))
-        self._report_handler = DatasetReportHandler(self.report_pb, self.job)
+        self._report_handler = DatasetReportHandler(
+            self.report_pb,
+            self.job,
+            self.main_dock.iface
+        )
         # self.add_to_canvas_pb.setFixedSize(self.open_directory_tb.size())
         # self.add_to_canvas_pb.setMinimumSize(self.open_directory_tb.size())
 

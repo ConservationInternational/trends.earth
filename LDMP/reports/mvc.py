@@ -27,6 +27,7 @@ from qgis.PyQt.QtWidgets import (
 
 from te_schemas.jobs import JobStatus
 
+from ..jobs.manager import job_manager
 from ..jobs.models import Job
 from ..logger import log
 from .models import (
@@ -235,7 +236,7 @@ class MultiscopeJobReportModel(QStandardItemModel):
         self.setColumnCount(2)
         self.setHorizontalHeaderLabels([
             self.tr('Scope Name'),
-            self.tr('Source Job')
+            self.tr('Source Dataset')
         ])
         self._scope_job_mapping = dict()
 
@@ -243,7 +244,9 @@ class MultiscopeJobReportModel(QStandardItemModel):
         # Load scope definitions to the collection
         self.clear_data()
         for sc in scopes:
-            self.appendRow([QStandardItem(sc.name), QStandardItem()])
+            scope_item = QStandardItem(sc.name)
+            scope_item.setToolTip(sc.name)
+            self.appendRow([scope_item, QStandardItem()])
 
         # Sort by scope name
         self.sort(0)
@@ -262,21 +265,34 @@ class MultiscopeJobReportModel(QStandardItemModel):
         return self._scope_job_mapping
 
     def flags(self, index: QModelIndex):
-        return Qt.ItemIsEnabled | Qt.ItemIsEditable
+        col = index.column()
+        if col == 1:
+            return Qt.ItemIsEnabled | Qt.ItemIsEditable | Qt.ItemIsSelectable
+
+        return Qt.ItemIsEnabled | Qt.ItemIsSelectable
 
 
 class JobSelectionItemDelegate(QStyledItemDelegate):
     """
     Delegate for selecting finished jobs matching a specific algorithm.
     """
-    def __init__(self, scope_source_index: int, **kwargs):
+    def __init__(self, scope_column_index: int, **kwargs):
         super().__init__(**kwargs)
         # Model index to fetch algorithm/scope name
-        self._scope_source_idx = scope_source_index
+        self._scope_col_idx = scope_column_index
 
     @property
-    def scope_source_index(self) -> int:
-        return self._scope_source_idx
+    def scope_column_index(self) -> int:
+        return self._scope_col_idx
+
+    @classmethod
+    def jobs_by_scope_name(cls, name: str) -> typing.List[Job]:
+        # Returns a list of downloaded jobs matching the given scope name.
+        jobs = job_manager.relevant_jobs
+        return [j for j in jobs if j.status in
+                (JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY)
+                and j.script.name ==name
+                ]
 
     def createEditor(
             self,
@@ -287,6 +303,18 @@ class JobSelectionItemDelegate(QStyledItemDelegate):
         job_combo = QComboBox(parent)
 
         # Add a list of completed jobs
+        if idx.isValid():
+            model = idx.model()
+            scope_item = model.item(idx.row(), self._scope_col_idx)
+            if scope_item is not None:
+                scope_name = scope_item.text()
+                jobs = self.jobs_by_scope_name(scope_name)
+                job_combo.addItem('')
+                for j in jobs:
+                    job_combo.addItem(j.visible_name, j)
+
+                job_combo.currentIndexChanged.connect(self._on_job_changed)
+                self._on_combo_updated(job_combo)
 
         return job_combo
 
@@ -312,7 +340,13 @@ class JobSelectionItemDelegate(QStyledItemDelegate):
     def _on_job_changed(self, idx: int):
         # Commit job to the model
         job_combo = self.sender()
-        self.commitData.emit(job_combo)
+        if job_combo is not None:
+            self._on_combo_updated(job_combo)
+
+    def _on_combo_updated(self, cbo: QComboBox):
+        # Update cell tooltip and commit data
+        cbo.setToolTip(cbo.currentText())
+        self.commitData.emit(cbo)
 
     def updateEditorGeometry(
             self,

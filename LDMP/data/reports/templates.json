@@ -65,7 +65,7 @@
                }
             },
             {
-               "name":"land cover",
+               "name":"sdg-15-3-1-sub-indicators",
                "type_id_mapping":{
                   "map":"['map.land_cover']"
                }

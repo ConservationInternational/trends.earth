@@ -46,6 +46,10 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
         super(DatasetDetailsDialogue, self).__init__(parent)
         self.setupUi(self)
 
+        self.metadata_menu = QtWidgets.QMenu()
+        self.metadata_menu.aboutToShow.connect(self.prepare_metadata_menu)
+        self.metadata_btn.setMenu(self.metadata_menu)
+
         self.job = job
 
         self.name_le.setText(self.job.task_name)
@@ -61,7 +65,6 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
         self.delete_btn.clicked.connect(self.delete_dataset)
         self.open_directory_btn.clicked.connect(self.open_job_directory)
         self.export_btn.clicked.connect(self.export_dataset)
-        self.metadata_btn.clicked.connect(self.show_metadata)
         self.alg_le.setText(self.job.script.name)
         empty_paths_msg = "This dataset does not have local paths"
 
@@ -166,10 +169,24 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
         finally:
             self.export_btn.setEnabled(True)
 
-    def show_metadata(self):
-        ds_metadata = metadata.read_dataset_metadata(self.job)
+    def show_metadata(self, file_path):
+        ds_metadata = metadata.read_qmd(file_path)
         dlg = metadata_dialog.DlgDatasetMetadata(self)
         dlg.set_metadata(ds_metadata)
         dlg.exec_()
         ds_metadata = dlg.get_metadata()
-        metadata.update_dataset_metadata(self.job, ds_metadata)
+        metadata.save_qmd(file_path, ds_metadata)
+
+    def prepare_metadata_menu(self):
+        self.metadata_menu.clear()
+
+        file_path = os.path.splitext(manager.job_manager.get_job_file_path(self.job))[0] + '.qmd'
+        action = self.metadata_menu.addAction(self.tr("Dataset metadata"))
+        action.triggered.connect(lambda _, x=file_path: self.show_metadata(x))
+        self.metadata_menu.addSeparator()
+
+        if self.job.results is not None:
+            for raster in self.job.results.rasters.values():
+                file_path = os.path.splitext(raster.uri.uri)[0] + '.qmd'
+                action = self.metadata_menu.addAction(self.tr("{} metadata").format(os.path.split(raster.uri.uri)[1]))
+                action.triggered.connect(lambda _, x=file_path: self.show_metadata(x))

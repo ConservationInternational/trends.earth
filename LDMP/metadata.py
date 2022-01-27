@@ -49,7 +49,7 @@ def qmd_to_iso(qmd_path):
     return Path(temp_file)
 
 
-def init_datatset_metadata(job: Job, metadata: qgis.core.QgsLayerMetadata = None):
+def init_dataset_metadata(job: Job, metadata: qgis.core.QgsLayerMetadata = None):
     md = read_dataset_metadata(job)
     if metadata is None:
         md.setTitle(job.task_name)

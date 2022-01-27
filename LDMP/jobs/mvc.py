@@ -218,7 +218,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
     download_tb: QtWidgets.QToolButton
     name_la: QtWidgets.QLabel
     open_details_tb: QtWidgets.QToolButton
-    metadata_tb: QtWidgets.QToolButton
+    metadata_pb: QtWidgets.QPushButton
     open_directory_tb: QtWidgets.QToolButton
     progressBar: QtWidgets.QProgressBar
 
@@ -233,9 +233,12 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         self.load_data_menu_setup()
         self.add_to_canvas_pb.setMenu(self.load_data_menu)
 
+        self.metadata_menu = QtWidgets.QMenu()
+        self.metadata_menu.aboutToShow.connect(self.prepare_metadata_menu)
+        self.metadata_pb.setMenu(self.metadata_menu)
+
         self.open_details_tb.clicked.connect(self.show_details)
         self.open_directory_tb.clicked.connect(self.open_job_directory)
-        self.metadata_tb.clicked.connect(self.show_metadata)
         self.delete_tb.clicked.connect(
             functools.partial(utils.delete_dataset, self.job)
         )
@@ -251,7 +254,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         self.open_directory_tb.setIcon(
             QtGui.QIcon(os.path.join(ICON_PATH, 'mActionFileOpen.svg'))
         )
-        self.metadata_tb.setIcon(
+        self.metadata_pb.setIcon(
             QtGui.QIcon(
                 os.path.join(ICON_PATH, 'editmetadata.svg')
             )
@@ -290,6 +293,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             self.progressBar.show()
             self.download_tb.hide()
             self.add_to_canvas_pb.setEnabled(False)
+            self.metadata_pb.setEnabled(False)
         elif self.job.status == JobStatus.FINISHED:
             self.progressBar.hide()
             result_auto_download = settings_manager.get_value(
@@ -307,12 +311,14 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                     )
                 )
             self.add_to_canvas_pb.setEnabled(False)
+            self.metadata_pb.setEnabled(False)
         elif self.job.status in (
             JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY
         ):
             self.progressBar.hide()
             self.download_tb.hide()
             self.add_to_canvas_pb.setEnabled(self.has_loadable_result())
+            self.metadata_pb.setEnabled(self.has_loadable_result())
 
     def has_loadable_result(self):
         result = False
@@ -335,14 +341,14 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         DatasetDetailsDialogue(self.job, parent=iface.mainWindow()).exec_()
         self.main_dock.resume_scheduler()
 
-    def show_metadata(self):
+    def show_metadata(self, file_path):
         self.main_dock.pause_scheduler()
-        ds_metadata = metadata.read_dataset_metadata(self.job)
+        ds_metadata = metadata.read_qmd(file_path)
         dlg = metadata_dialog.DlgDatasetMetadata(self)
         dlg.set_metadata(ds_metadata)
         dlg.exec_()
         ds_metadata = dlg.get_metadata()
-        metadata.update_dataset_metadata(self.job, ds_metadata)
+        metadata.save_qmd(file_path, ds_metadata)
         self.main_dock.resume_scheduler()
 
     def open_job_directory(self):
@@ -373,3 +379,17 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         dialogue = DlgDataIOAddLayersToMap(self, self.job)
         dialogue.exec_()
         self.main_dock.resume_scheduler()
+
+    def prepare_metadata_menu(self):
+        self.metadata_menu.clear()
+
+        file_path = os.path.splitext(manager.job_manager.get_job_file_path(self.job))[0] + '.qmd'
+        action = self.metadata_menu.addAction(self.tr("Dataset metadata"))
+        action.triggered.connect(lambda _, x=file_path: self.show_metadata(x))
+        self.metadata_menu.addSeparator()
+
+        if self.job.results is not None:
+            for raster in self.job.results.rasters.values():
+                file_path = os.path.splitext(raster.uri.uri)[0] + '.qmd'
+                action = self.metadata_menu.addAction(self.tr("{} metadata").format(os.path.split(raster.uri.uri)[1]))
+                action.triggered.connect(lambda _, x=file_path: self.show_metadata(x))

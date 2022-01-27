@@ -32,6 +32,26 @@ def save_qmd(file_path, metadata):
         f.write(document.toString(2))
 
 
+def read_qmd(file_path):
+    md = qgis.core.QgsLayerMetadata()
+    if not os.path.exists(file_path):
+        return md
+
+    document = QtXml.QDomDocument('qgis')
+    with open(file_path, 'r', encoding='utf-8') as f:
+       if not document.setContent(f.read()):
+           log(u'Could not read metadata from file {}'.format(md_path))
+           return md
+
+    root = document.firstChildElement('qgis')
+    if root.isNull():
+        log(u'Root <qgis> element could not be found')
+        return md
+
+    md.readMetadataXml(root)
+    return md
+
+
 def qmd_to_iso(qmd_path):
     file_name = os.path.splitext(os.path.split(qmd_path)[1])[0] + '.xml'
     temp_file = os.path.join(tempfile.gettempdir(), file_name)
@@ -192,21 +212,4 @@ def export_dataset_metadata(job: Job):
 def read_dataset_metadata(job: Job):
     file_path = manager.job_manager.get_job_file_path(job)
     md_path = os.path.splitext(file_path)[0] + '.qmd'
-
-    md = qgis.core.QgsLayerMetadata()
-    if not os.path.exists(md_path):
-        return md
-
-    document = QtXml.QDomDocument('qgis')
-    with open(md_path, 'r', encoding='utf-8') as f:
-       if not document.setContent(f.read()):
-           log(u'Could not read metadata from file {}'.format(md_path))
-           return md
-
-    root = document.firstChildElement('qgis')
-    if root.isNull():
-        log(u'Root <qgis> element could not be found')
-        return md
-
-    md.readMetadataXml(root)
-    return md
+    return read_qmd(md_path)

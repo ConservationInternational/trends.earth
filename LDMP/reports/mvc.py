@@ -41,7 +41,8 @@ from .template_manager import template_manager
 from .utils import (
     job_has_report,
     job_has_results,
-    build_report_name
+    build_report_name,
+    build_template_name
 )
 from ..utils import FileUtils
 
@@ -178,10 +179,7 @@ class DatasetReportHandler:
 
     def view_report(self):
         # View report in the default pdf or image viewer.
-        _, rpt_path = build_report_name(
-            self._job,
-            self._rpt_config.output_options
-        )
+        _, rpt_path = self._report_name_path()
 
         if not os.path.exists(rpt_path):
             self._push_refactor_message(
@@ -204,6 +202,14 @@ class DatasetReportHandler:
         rpt_path_url = QUrl(QUrl.fromLocalFile(rpt_path))
         QDesktopServices.openUrl(rpt_path_url)
 
+    def _report_name_path(self) -> typing.Tuple[str, str]:
+        rpt_name, rpt_path = build_report_name(
+            self._job,
+            self._rpt_config.output_options
+        )
+
+        return rpt_name, rpt_path
+
     def open_designer(self):
         # Open template in the QGIS layout designer.
         pass
@@ -216,10 +222,15 @@ class DatasetReportHandler:
         )
 
     def generate_report(self):
+        # Generate output report and source template
+        _, temp_path = build_template_name(self._job)
+        _, rpt_path = self._report_name_path()
+
         # Create report task context for report generation.
         self._rpt_task_ctx = ReportTaskContext(
             self._rpt_config,
-            [self._job]
+            [self._job],
+            (rpt_path, temp_path)
         )
         report_generator.process_report_task(
             self._rpt_task_ctx
@@ -236,9 +247,8 @@ class MultiscopeJobReportModel(QStandardItemModel):
         self.setColumnCount(2)
         self.setHorizontalHeaderLabels([
             self.tr('Scope Name'),
-            self.tr('Source Dataset')
+            self.tr('Source Dataset Job')
         ])
-        self._scope_job_mapping = dict()
 
     def load_scopes(self, scopes: typing.List[ItemScopeMapping]):
         # Load scope definitions to the collection
@@ -254,15 +264,23 @@ class MultiscopeJobReportModel(QStandardItemModel):
     def clear_data(self):
         # Removes rows and resets scope collection
         self.removeRows(0, self.rowCount())
-        self._scope_job_mapping = dict()
 
     @property
     def scope_job_mapping(self) -> typing.Dict[str, Job]:
         """
-        Returns a mapping of scope name and corresponding job as specified
+        Returns a mapping of scope name and corresponding job as paired
         by the user.
         """
-        return self._scope_job_mapping
+        sj_mapping = dict()
+
+        for r in range(self.rowCount()):
+            scope_name = self.item(r, 0).text()
+            idx = self.index(r, 1)
+            job = self.data(idx, Qt.EditRole)
+            if job is not None:
+                sj_mapping[scope_name] = job
+
+        return sj_mapping
 
     def flags(self, index: QModelIndex):
         col = index.column()

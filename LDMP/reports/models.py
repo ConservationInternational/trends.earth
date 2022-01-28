@@ -226,10 +226,18 @@ class ReportTaskContext:
     """
     report_configuration: ReportConfiguration
     jobs: typing.List[Job] = field(default_factory=list)
+    output_paths: typing.Tuple[str, str]
 
-    def __init__(self, config: ReportConfiguration, jobs: typing.List[Job]):
+    def __init__(
+            self,
+            config: ReportConfiguration,
+            jobs: typing.List[Job],
+            output_paths: typing.Tuple[str, str]
+    ):
         self.report_configuration = config
         self.jobs = jobs
+        # (report_path, template_path)
+        self.output_paths = output_paths
 
 
 

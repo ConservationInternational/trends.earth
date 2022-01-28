@@ -28,6 +28,7 @@ from .conf import (
     settings_manager
 )
 from .jobs.models import Job
+from .reports.models import ReportTaskContext
 from .reports.template_manager import template_manager
 from .reports.mvc import (
     JobSelectionItemDelegate,
@@ -179,15 +180,15 @@ class DlgGenerateReport(QDialog, DlgGenerateReportUi):
 
         return status
 
-    def _validate_model(self) -> typing.Tuple[bool, str]:
+    def _validate_model(self) -> typing.Tuple[bool, list]:
         # Check if user has specified datasets for all scopes
         status = True
         msgs = []
         for r in range(self._scope_job_model.rowCount()):
             scope_name = self._scope_job_model.item(r, 0).text()
             idx = self._scope_job_model.index(r, 1)
-            job_item = self._scope_job_model.data(idx, Qt.EditRole)
-            if job_item is None:
+            job = self._scope_job_model.data(idx, Qt.EditRole)
+            if job is None:
                 if status:
                     status = False
                 tr_msg = self.tr('dataset not specified.')
@@ -202,5 +203,18 @@ class DlgGenerateReport(QDialog, DlgGenerateReportUi):
         """
         if not self.validate():
             return
+
+        sel_config = self.template_cbo.itemData(self.template_cbo.currentIndex())
+        jobs = self._scope_job_model.scope_job_mapping.values()
+        base_filename = self.output_dir_le.text()
+        rpt_file_ext = sel_config.options.file_extension()
+        rpt_path = f'{base_filename}_report.{rpt_file_ext}'
+        template_path = f'{base_filename}_template.qpt'
+
+        rpt_task_ctx = ReportTaskContext(
+            sel_config,
+            jobs,
+            (rpt_path, template_path)
+        )
 
         self.accept()

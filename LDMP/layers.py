@@ -728,7 +728,6 @@ def add_layer(
     activated: str = 'default'
 ):
     try:
-        bi = band_info['name']
         style = styles[band_info['name']]
     except KeyError:
         QtWidgets.QMessageBox.information(

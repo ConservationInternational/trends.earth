@@ -126,7 +126,7 @@ class TemplateManager:
                     cf.update_paths(self._template_dir)
                     self._configs.append(cf)
             except ValidationError as ve:
-                err_msg = ', '.join(ve.messages['_schema'])
+                err_msg = str(ve.messages)
                 log(err_msg)
             except Exception as exc:
                 log(str(exc))

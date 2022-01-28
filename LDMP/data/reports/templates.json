@@ -11,7 +11,7 @@
             {
                "name":"sdg-15-3-1-sub-indicators",
                "type_id_mapping":{
-                  "map":"['cf45t']"
+                  "map":["cf45t"]
                }
             }
          ]
@@ -36,7 +36,7 @@
             {
                "name":"productivity",
                "type_id_mapping":{
-                  "map":"['map.productivity']"
+                  "map":["map.productivity"]
                }
             }
          ]
@@ -61,13 +61,13 @@
             {
                "name":"productivity",
                "type_id_mapping":{
-                  "map":"['map.productivity']"
+                  "map":["map.productivity"]
                }
             },
             {
                "name":"sdg-15-3-1-sub-indicators",
                "type_id_mapping":{
-                  "map":"['map.land_cover']"
+                  "map":["map.land_cover"]
                }
             }
          ]

@@ -11,6 +11,7 @@ from qgis.core import (
     QgsLayoutExporter,
     QgsPrintLayout,
     QgsProject,
+    QgsRasterLayer,
     QgsReadWriteContext,
     QgsTask
 )
@@ -24,7 +25,10 @@ from qgis.PyQt.QtXml import (
     QDomDocument
 )
 
+from te_schemas.results import Band as JobBand
+
 from ..jobs.models import Job
+from ..layers import get_band_title, styles
 from ..logger import log
 
 from .models import (
@@ -62,23 +66,29 @@ class ReportTask(QgsTask):
         if not os.path.exists(pt_path) and not os.path.exists(ls_path):
             msg = 'Templates not found.'
             self._add_warning_msg(f'{msg}: {pt_path, ls_path}')
-
             return False
 
         # Determine orientation
 
-        self._layout = QgsPrintLayout(QgsProject.instance())
+        proj = QgsProject()
+        proj.setFileName('D:/Dev/QGIS/QgsProject/TestLoad.qgs')
+        # QgsProject.setInstance(proj)
+        self._layout = QgsPrintLayout(proj)
         # Load template
         status, document = self._get_template_document(pt_path)
         if not status:
             return False
 
-        load_status = self._layout.loadFromTemplate(
+        _, load_status = self._layout.loadFromTemplate(
             document,
             QgsReadWriteContext()
         )
         if not load_status:
             self._add_warning_msg('Could not load template.')
+
+        # Process jobs
+        for j in self._ctx.jobs:
+            self._process_scope_items(j)
 
         if not self._export_layout():
             return False
@@ -97,6 +107,7 @@ class ReportTask(QgsTask):
 
         item_scope = scope_mappings[0]
         map_ids = item_scope.map_ids()
+        self._add_info_msg(str(map_ids))
         if len(map_ids) == 0:
             self._add_info_msg(f'No map ids found in \'{alg_name}\' scope.')
 
@@ -111,7 +122,16 @@ class ReportTask(QgsTask):
         bands = job.results.get_bands()
         for band_idx, band in enumerate(bands, start=1):
             if band.add_to_map:
-                layers.append(band)
+                layer_path = str(job.results.uri.uri)
+                band_info = JobBand.Schema().dump(band)
+                title = get_band_title(band_info)
+                layer = QgsRasterLayer(layer_path, title)
+                layers.append(layer)
+
+        for mid in map_ids:
+            map_item = self._layout.itemById(mid)
+            if map_item is not None:
+                self._add_info_msg('Map item found')
 
     def _get_template_document(self, path) -> typing.Tuple[bool, QDomDocument]:
         # Load template to the given layout
@@ -171,8 +191,7 @@ class ReportTask(QgsTask):
         if self._layout is None:
             return False
 
-        # Report path. Need to refactor for multiscope reports
-        rpt_name, rpt_path = build_report_name(self._ctx.jobs[0], self._options)
+        rpt_path, temp_path = self._ctx.output_paths
 
         exporter = QgsLayoutExporter(self._layout)
         if self._options.output_format == OutputFormat.PDF:
@@ -188,15 +207,12 @@ class ReportTask(QgsTask):
 
         # Export template if defined
         if self._options.include_qpt:
-            # Need to refactor
-            temp_name, temp_dir = build_template_name(self._ctx.jobs[0])
-            self._add_info_msg(temp_dir)
             status = self._layout.saveAsTemplate(
-                temp_dir,
+                temp_path,
                 QgsReadWriteContext()
             )
             if not status:
-                self._add_warning_msg('Could not export template file.')
+                self._add_warning_msg('Failed to export template file.')
                 return False
 
         return True

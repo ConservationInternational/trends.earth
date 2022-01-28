@@ -83,7 +83,7 @@ class ItemScopeMapping:
     """
     # Corresponds to algorithm name
     name: str
-    type_id_mapping: typing.Dict[str, str] = field(default_factory=dict)
+    type_id_mapping: typing.Dict[str, list] = field(default_factory=dict)
 
     def __init__(self, name: str, **kwargs) -> None:
         self.name = name
@@ -91,32 +91,34 @@ class ItemScopeMapping:
 
     def add_item_mapping(
             self,
-            item_type: LayoutItemType,
+            item_type: str,
             item_id: str
     ) -> None:
         """Group item ids in a list based on their type."""
-        if not item_type in self.type_id_mapping:
-            self.type_id_mapping[item_type] = []
+        str_item_type = str(item_type)
+        if not str_item_type in self.type_id_mapping:
+            self.type_id_mapping[str_item_type] = []
 
-        items = self.type_id_mapping[item_type]
+        items = self.type_id_mapping[str_item_type]
         items.append(item_id)
 
-    def add_map(self, id: str) -> None:
+    def add_map(self, item_id: str) -> None:
         # Add map_id to the collection
-        self.add_item_mapping(LayoutItemType.MAP, id)
+        self.add_item_mapping(LayoutItemType.MAP, item_id)
 
-    def add_label(self, id: str) -> None:
+    def add_label(self, item_id: str) -> None:
         # Add label to the collection
-        self.add_item_mapping(LayoutItemType.LABEL, id)
+        self.add_item_mapping(LayoutItemType.LABEL, item_id)
 
-    def add_picture(self, id: str) -> None:
+    def add_picture(self, item_id: str) -> None:
         # Add picture item id to the collection
-        self.add_item_mapping(LayoutItemType.PICTURE, id)
+        self.add_item_mapping(LayoutItemType.PICTURE, item_id)
 
-    def item_ids_by_type(self, item_type: LayoutItemType) -> list:
+    def item_ids_by_type(self, item_type: str) -> list:
         """Get collection of item_ids based on the layout type."""
-        if item_type in self.type_id_mapping:
-            return self.type_id_mapping[item_type]
+        str_item_type = str(item_type)
+        if str_item_type in self.type_id_mapping:
+            return self.type_id_mapping[str_item_type]
 
         return []
 

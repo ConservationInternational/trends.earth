@@ -53,8 +53,6 @@ WidgetLandCoverSetupRemoteExecutionUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/land_cover_setup_widget.ui")
 )
 
-mb = iface.messageBar()
-
 
 class tr_lc_setup(object):
     def tr(message):

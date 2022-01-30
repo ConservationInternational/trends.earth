@@ -39,8 +39,6 @@ DlgVisualizationBasemapUi, _ = uic.loadUiType(
 DlgVisualizationCreateMapUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgVisualizationCreateMap.ui"))
 
-mb = iface.messageBar()
-
 
 def set_fill_style(maplayers, id, style='no'):
     # Function to set brush style for a map layer in an XML layer definition

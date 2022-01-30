@@ -82,8 +82,6 @@ Ui_WidgetDataIOSelectTEDatasetExisting, _ = uic.loadUiType(
     )
 )
 
-mb = qgis.utils.iface.messageBar()
-
 
 @dataclasses.dataclass()
 class Band:

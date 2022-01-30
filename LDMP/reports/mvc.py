@@ -247,7 +247,7 @@ class MultiscopeJobReportModel(QStandardItemModel):
         self.setColumnCount(2)
         self.setHorizontalHeaderLabels([
             self.tr('Scope Name'),
-            self.tr('Source Dataset Job')
+            self.tr('Source Dataset')
         ])
 
     def load_scopes(self, scopes: typing.List[ItemScopeMapping]):

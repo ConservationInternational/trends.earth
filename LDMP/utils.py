@@ -90,6 +90,35 @@ def remove_layer_from_qgis(path: Path):
             break
 
 
+def qgis_process_path() -> str:
+    """
+    Use heuristic approach in determining the location of the
+    'qgis_process' program (or script in Windows). Returns an
+    empty string if platform is not supported or if the program
+    (or script) could not be found.
+    """
+    app = qgis.core.QgsApplication.instance()
+    os_name = app.osName()
+    if os_name == 'windows':
+        lib_path = app.libexecPath()
+        rt_path, sep, sub_path = lib_path.partition('apps')
+        if not sep:
+            return ''
+        proc_scripts = ['qgis_process-qgis.bat', 'qgis_process-qgis-dev.bat']
+        proc_script_path = ''
+        for pc in proc_scripts:
+            proc_script_path = f'{rt_path}bin/{pc}'
+            if os.path.exists(proc_script_path):
+                break
+
+        if not proc_script_path:
+            return ''
+
+        return proc_script_path
+
+    return ''
+
+
 class FileUtils:
     """
     Provides functionality for commonly used file-related operations.

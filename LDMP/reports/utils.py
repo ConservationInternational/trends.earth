@@ -63,3 +63,5 @@ def job_has_report(job: Job, options: ReportOutputOptions) -> bool:
         return False
 
     return True
+
+

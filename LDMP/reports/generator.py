@@ -107,7 +107,6 @@ class ReportTask(QgsTask):
 
         item_scope = scope_mappings[0]
         map_ids = item_scope.map_ids()
-        self._add_info_msg(str(map_ids))
         if len(map_ids) == 0:
             self._add_info_msg(f'No map ids found in \'{alg_name}\' scope.')
 
@@ -131,7 +130,8 @@ class ReportTask(QgsTask):
         for mid in map_ids:
             map_item = self._layout.itemById(mid)
             if map_item is not None:
-                self._add_info_msg('Map item found')
+                map_item.setLayers(layers)
+                map_item.refresh()
 
     def _get_template_document(self, path) -> typing.Tuple[bool, QDomDocument]:
         # Load template to the given layout

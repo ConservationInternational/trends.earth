@@ -37,8 +37,6 @@ from qgis.utils import iface
 
 from .logger import log
 
-mb = iface.messageBar()
-
 
 class tr_layers(object):
     def tr(message):

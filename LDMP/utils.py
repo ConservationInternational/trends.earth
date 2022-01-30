@@ -99,24 +99,33 @@ def qgis_process_path() -> str:
     """
     app = qgis.core.QgsApplication.instance()
     os_name = app.osName()
+    proc_script_path = ''
+    warning, info = qgis.core.Qgis.Warning, qgis.core.Qgis.Info
+
     if os_name == 'windows':
         lib_path = app.libexecPath()
         rt_path, sep, sub_path = lib_path.partition('apps')
         if not sep:
+            log('QGIS installation path not found.', warning)
             return ''
+
         proc_scripts = ['qgis_process-qgis.bat', 'qgis_process-qgis-dev.bat']
-        proc_script_path = ''
         for pc in proc_scripts:
             proc_script_path = f'{rt_path}bin/{pc}'
             if os.path.exists(proc_script_path):
                 break
 
-        if not proc_script_path:
-            return ''
+    if not proc_script_path:
+        log('QGIS processing program/script not found.', warning)
+        return ''
 
-        return proc_script_path
+    # Check execution permissions
+    if not os.access(proc_script_path, os.X_OK):
+        log(f'Uer does not have execution permission '
+            f'for \'{proc_script_path}\'.')
+        return ''
 
-    return ''
+    return proc_script_path
 
 
 class FileUtils:

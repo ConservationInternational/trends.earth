@@ -52,17 +52,12 @@ class LDMPPlugin(object):
         self.menu.setIcon(
             QIcon(os.path.join(os.path.dirname(__file__),
                   'trends_earth_logo_square_32x32.png')))
-        self.raster_menu = self.iface.rasterMenu()
-        self.raster_menu.addMenu(self.menu)
 
-        self.toolbar = self.iface.addToolBar(u'trends.earth')
-        self.toolbar.setObjectName('trends_earth_toolbar')
-        self.toolButton = QToolButton()
-        self.toolButton.setMenu(QMenu())
-        self.toolButton.setPopupMode(QToolButton.MenuButtonPopup)
-        self.toolBtnAction = self.toolbar.addWidget(self.toolButton)
-        self.actions.append(self.toolBtnAction)
-        self.dlg_about = about.DlgAbout()
+        self.raster_menu = None
+        self.toolbar = None
+        self.toolButton = None
+        self.toolBtnAction = None
+        self.dlg_about = None
 
     def initProcessing(self):
         self.provider = Provider()
@@ -152,6 +147,24 @@ class LDMPPlugin(object):
 
     def initGui(self):
         self.initProcessing()
+
+        """
+        Moved the initialization here so that the processing can be 
+        initialized first thereby enabling the plugin to be used in 
+        qgis_process executable for batch processes particularly in 
+        report generation.
+        """
+        self.raster_menu = self.iface.rasterMenu()
+        self.raster_menu.addMenu(self.menu)
+
+        self.toolbar = self.iface.addToolBar(u'trends.earth')
+        self.toolbar.setObjectName('trends_earth_toolbar')
+        self.toolButton = QToolButton()
+        self.toolButton.setMenu(QMenu())
+        self.toolButton.setPopupMode(QToolButton.MenuButtonPopup)
+        self.toolBtnAction = self.toolbar.addWidget(self.toolButton)
+        self.actions.append(self.toolBtnAction)
+        self.dlg_about = about.DlgAbout()
 
         """Create Main manu icon and plugins menu entries."""
         start_action = self.add_action(os.path.join(os.path.dirname(__file__), 'icons', 'trends_earth_logo_square_32x32.ico'),

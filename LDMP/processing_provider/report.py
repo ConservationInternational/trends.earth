@@ -55,3 +55,4 @@ class ReportTaskContextAlgorithm(QgsProcessingAlgorithm):
     def flags(self):
         return super().flags() | QgsProcessingAlgorithm.FlagHideFromToolbox\
                | QgsProcessingAlgorithm.FlagNoThreading
+

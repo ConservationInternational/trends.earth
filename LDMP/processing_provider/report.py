@@ -1,11 +1,26 @@
 # Processing algorithm for generating a report
 
-from qgis.PyQt.QtCore import QCoreApplication
+import json
+import os
+
+from qgis.PyQt.QtCore import (
+    QCoreApplication,
+    QFileInfo
+)
 from qgis.core import (
     QgsProcessingAlgorithm,
     QgsProcessingOutputBoolean,
-    QgsProcessingParameterFile
+    QgsProcessingContext,
+    QgsProcessingFeedback,
+    QgsProcessingParameterFile,
+    QgsProject
 )
+
+
+from ..reports.generator import ReportTaskProcessor
+from ..reports.models import ReportTaskContext
+
+from ..utils import FileUtils
 
 
 class ReportTaskContextAlgorithm(QgsProcessingAlgorithm):
@@ -55,16 +70,55 @@ class ReportTaskContextAlgorithm(QgsProcessingAlgorithm):
             )
         )
 
-    def processAlgorithm(self, parameters, context, feedback) -> dict:
+    def processAlgorithm(
+            self,
+            parameters: dict,
+            context: QgsProcessingContext,
+            feedback: QgsProcessingFeedback
+    ) -> dict:
         # Extract task information and generate the report
+        status = False
         task_file_name = self.parameterAsFile(parameters, 'INPUT', context)
-        status = True
 
         if feedback.isCanceled():
-            return {}
+            return {'STATUS': status}
+
+        if not os.path.exists(task_file_name):
+            feedback.pushConsoleInfo(self.tr('Task file not found.'))
+            return {'STATUS': status}
+
+        rpt_task_ctx = None
+        with open(task_file_name) as rtf:
+            ctx_data = json.load(rtf)
+            rpt_task_ctx = ReportTaskContext.Schema().load(ctx_data)
+
+        if rpt_task_ctx is None:
+            feedback.pushConsoleInfo(
+                self.tr('Could not read report task context file')
+            )
+            return {'STATUS': status}
+
+        # Update template paths
+        rpt_task_ctx.report_configuration.template_info.update_paths(
+            FileUtils.report_templates_dir()
+        )
+
+        proj = context.project()
+        if proj is None:
+            proj = QgsProject().instance()
+
+        # Create report processor
+        rpt_processor = ReportTaskProcessor(
+            rpt_task_ctx,
+            proj,
+            feedback
+        )
+        status = rpt_processor.run()
 
         return {'STATUS': status}
 
     def flags(self):
-        return super().flags() | QgsProcessingAlgorithm.FlagNoThreading
+        return super().flags() | QgsProcessingAlgorithm.FlagNoThreading | \
+               QgsProcessingAlgorithm.FlagHideFromModeler | \
+               QgsProcessingAlgorithm.FlagHideFromToolbox
 

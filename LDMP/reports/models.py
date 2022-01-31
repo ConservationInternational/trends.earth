@@ -46,7 +46,15 @@ class OutputFormat(Enum):
 
 @dataclass
 class ReportOutputOptions:
-    """Settings for generating output reports.
+    """
+    Settings for generating output reports.
+    In the templates.json file, for:
+        - PDF output: specify "output_format":"PDF"
+        - Image output: specify "output_format":"IMAGE" and
+            "format_params":{
+                "image_type":"jpg" or "jpeg" or "png" or "bmp"
+         }
+    Please note that the output_format should be in uppercase.
     """
     output_format: OutputFormat = field(default=OutputFormat.PDF)
     include_qpt: bool = field(default=True)
@@ -236,11 +244,11 @@ class ReportTaskContext:
 
     def __init__(
             self,
-            config: ReportConfiguration,
+            report_configuration: ReportConfiguration,
             output_paths: typing.Tuple[str, str],
             jobs: typing.List[Job]
     ):
-        self.report_configuration = config
+        self.report_configuration = report_configuration
         # (report_path, template_path)
         self.output_paths = output_paths
         self.jobs = jobs

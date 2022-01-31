@@ -185,7 +185,7 @@ class ReportTaskProcessor:
             if len(layers) > 0:
                 self._jobs_layers[j.id] = layers
                 if add_to_project:
-                    self._proj.addMapLayers(layers)
+                    pass #self._proj.addMapLayers(layers)
 
     def _export_layout(self) -> bool:
         """
@@ -263,9 +263,46 @@ class ReportTaskProcessor:
         if not load_status:
             self._add_warning_msg('Could not load template.')
 
+        # Process scope items
+        for j in self._ctx.jobs:
+            self._process_scope_items(j)
+
         # Export layout
         if not self._export_layout():
             return False
+
+        return True
+
+    def _process_scope_items(self, job: Job) -> bool:
+        # Update layout items in the given scope
+        alg_name = job.script.name
+        scope_mappings = self._ti.scope_mappings_by_name(alg_name)
+        if len(scope_mappings) == 0:
+            self._add_warning_msg(
+                f'Could not find \'{alg_name}\' scope definition.'
+            )
+            return False
+
+        item_scope = scope_mappings[0]
+        map_ids = item_scope.map_ids()
+        if len(map_ids) == 0:
+            self._add_info_msg(f'No map ids found in \'{alg_name}\' scope.')
+
+        if not self._update_map_items(map_ids, job):
+            return False
+
+        return True
+
+    def _update_map_items(self, map_ids, job) -> bool:
+        # Update map items for the current job/scope
+        job_layers = self._jobs_layers.get(job.id, None)
+        if job_layers is None:
+            return False
+
+        for mid in map_ids:
+            map_item = self._layout.itemById(mid)
+            if mid is not None:
+                map_item.setLayers(job_layers)
 
         return True
 

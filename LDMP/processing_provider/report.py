@@ -15,7 +15,7 @@ class ReportTaskContextAlgorithm(QgsProcessingAlgorithm):
     qgis_process for best UI responsiveness (of the main thread) since it
     uses a QgsProject and QgsPrintLayout which are not thread safe.
     """
-    NAME = 'trends.earth:reporttask'
+    NAME = 'reporttask'
 
     def tr(self, text) -> str:
         """
@@ -28,6 +28,12 @@ class ReportTaskContextAlgorithm(QgsProcessingAlgorithm):
 
     def name(self) -> str:
         return self.NAME
+
+    def shortHelpString(self) -> str:
+        return self.tr(
+            'Runs a report generation task based on information provided '
+            'in a JSON file.'
+        )
 
     def displayName(self) -> str:
         return self.tr('Generate Report from Task')
@@ -53,6 +59,7 @@ class ReportTaskContextAlgorithm(QgsProcessingAlgorithm):
         return {}
 
     def flags(self):
-        return super().flags() | QgsProcessingAlgorithm.FlagHideFromToolbox\
-               | QgsProcessingAlgorithm.FlagNoThreading
+        return super().flags() | QgsProcessingAlgorithm.FlagNoThreading \
+               | QgsProcessingAlgorithm.FlagHideFromToolbox \
+               | QgsProcessingAlgorithm.FlagHideFromModeler
 

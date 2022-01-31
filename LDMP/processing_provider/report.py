@@ -3,7 +3,7 @@
 from qgis.PyQt.QtCore import QCoreApplication
 from qgis.core import (
     QgsProcessingAlgorithm,
-    QgsProcessingParameterBoolean,
+    QgsProcessingOutputBoolean,
     QgsProcessingParameterFile
 )
 
@@ -48,6 +48,13 @@ class ReportTaskContextAlgorithm(QgsProcessingAlgorithm):
             )
         )
 
+        self.addOutput(
+            QgsProcessingOutputBoolean(
+                'STATUS',
+                self.tr('Summary result status of the algorithm.')
+            )
+        )
+
     def processAlgorithm(self, parameters, context, feedback) -> dict:
         # Extract task information and generate the report
         task_file_name = self.parameterAsFile(parameters, 'INPUT', context)
@@ -56,7 +63,7 @@ class ReportTaskContextAlgorithm(QgsProcessingAlgorithm):
         if feedback.isCanceled():
             return {}
 
-        return {}
+        return {'STATUS': status}
 
     def flags(self):
         return super().flags() | QgsProcessingAlgorithm.FlagNoThreading \

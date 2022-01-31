@@ -15,6 +15,7 @@ from qgis.core import (
     QgsProject,
     QgsRasterLayer,
     QgsReadWriteContext,
+    QgsRectangle,
     QgsTask
 )
 from qgis.gui import (
@@ -299,10 +300,16 @@ class ReportTaskProcessor:
         if job_layers is None:
             return False
 
+        # Update extents so that its all inclusive
+        rect = QgsRectangle()
+        for l in job_layers:
+            rect.combineExtentWith(l.extent())
+
         for mid in map_ids:
             map_item = self._layout.itemById(mid)
             if mid is not None:
                 map_item.setLayers(job_layers)
+                map_item.zoomToExtent(rect)
 
         return True
 

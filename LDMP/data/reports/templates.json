@@ -42,10 +42,10 @@
          ]
       },
       "output_options":{
-         "output_format":"IMAGE",
+         "output_format":"PDF",
          "include_qpt":true,
          "format_params":{
-            "image_type":"png"
+
          }
       }
    },

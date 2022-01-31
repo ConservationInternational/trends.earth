@@ -9,6 +9,7 @@ from uuid import uuid4
 from qgis.core import (
     Qgis,
     QgsApplication,
+    QgsCoordinateReferenceSystem,
     QgsFeedback,
     QgsLayoutExporter,
     QgsPrintLayout,
@@ -16,6 +17,7 @@ from qgis.core import (
     QgsRasterLayer,
     QgsReadWriteContext,
     QgsRectangle,
+    QgsReferencedRectangle,
     QgsTask
 )
 from qgis.gui import (
@@ -23,6 +25,8 @@ from qgis.gui import (
 )
 from qgis.PyQt.QtCore import (
     pyqtSignal,
+    QCoreApplication,
+    QDateTime,
     QFile,
     QFileInfo,
     QIODevice,
@@ -148,6 +152,9 @@ class ReportTaskProcessor:
         """
         return self._messages
 
+    def tr(self, message) -> str:
+        return QCoreApplication.translate('ReportTaskProcessor', message)
+
     def _add_message(self, level, message):
         if level not in self.messages:
             self._messages[level] = []
@@ -186,17 +193,20 @@ class ReportTaskProcessor:
             if len(layers) > 0:
                 self._jobs_layers[j.id] = layers
                 if add_to_project:
-                    pass #self._proj.addMapLayers(layers)
+                    self._proj.addMapLayers(layers)
 
     def _export_layout(self) -> bool:
         """
-        Export layout and template based on the settings defined in the
-        options object.
+        Export project, layout and template based on the settings defined
+        in the options object.
         """
         if self._layout is None:
             return False
 
         rpt_path, temp_path = self._ctx.output_paths
+
+        # Update project info so that they can be written to output file
+        self._update_project_metadata_extents()
 
         exporter = QgsLayoutExporter(self._layout)
         if self._options.output_format == OutputFormat.PDF:
@@ -220,7 +230,32 @@ class ReportTaskProcessor:
                 self._add_warning_msg('Failed to export template file.')
                 return False
 
+        # Export project
+        fi = QFileInfo(temp_path)
+        proj_file = f'{fi.dir().path()}/{fi.completeBaseName()}.qgs'
+        self._proj.write(proj_file)
+
         return True
+
+    def _update_project_metadata_extents(self):
+        # Update the extents and metadata of the project before exporting
+        template_info = self._ctx.report_configuration.template_info
+        md = self._proj.metadata()
+        md.setTitle(template_info.name)
+        md.setAuthor('trends.earth QGIS Plugin')
+        md.setAbstract(template_info.description)
+        md.setCreationDateTime(QDateTime.currentDateTime())
+        self._proj.setMetadata(md)
+
+        # View settings
+        all_layers_rect = QgsRectangle()
+        for j in self._ctx.jobs:
+            job_rect = self._get_job_layers_extent(j)
+            all_layers_rect.combineExtentWith(job_rect)
+
+        crs = QgsCoordinateReferenceSystem.fromEpsgId(4326)
+        default_extent = QgsReferencedRectangle(all_layers_rect, crs)
+        self._proj.viewSettings().setDefaultViewExtent(default_extent)
 
     def run(self) -> bool:
         """
@@ -300,18 +335,26 @@ class ReportTaskProcessor:
         if job_layers is None:
             return False
 
-        # Update extents so that its all inclusive
-        rect = QgsRectangle()
-        for l in job_layers:
-            rect.combineExtentWith(l.extent())
-
+        extent = self._get_job_layers_extent(job)
         for mid in map_ids:
             map_item = self._layout.itemById(mid)
             if mid is not None:
                 map_item.setLayers(job_layers)
-                map_item.zoomToExtent(rect)
+                map_item.zoomToExtent(extent)
 
         return True
+
+    def _get_job_layers_extent(self, job) -> QgsRectangle:
+        # Get the combined extent of all the layers for the given job.
+        rect = QgsRectangle()
+        job_layers = self._jobs_layers.get(job.id, None)
+        if job_layers is None:
+            return rect
+
+        for l in job_layers:
+            rect.combineExtentWith(l.extent())
+
+        return rect
 
     def _get_template_document(self, path) -> typing.Tuple[bool, QDomDocument]:
         # Get template contents

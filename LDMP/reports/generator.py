@@ -230,6 +230,10 @@ class ReportTaskProcessor:
                 self._add_warning_msg('Failed to export template file.')
                 return False
 
+        # Add layout to project
+        layout_mgr = self._proj.layoutManager()
+        layout_mgr.addLayout(self._layout)
+
         # Export project
         fi = QFileInfo(temp_path)
         proj_file = f'{fi.dir().path()}/{fi.completeBaseName()}.qgs'

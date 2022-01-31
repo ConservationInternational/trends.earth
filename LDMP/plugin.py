@@ -27,6 +27,7 @@ from . import (
 )
 from .jobs.manager import job_manager
 from .processing_provider.provider import Provider
+from .reports.generator import report_generator
 from .settings import DlgSettings
 
 
@@ -189,6 +190,9 @@ class LDMPPlugin(object):
             callback=self.run_about,
             parent=self.iface.mainWindow(),
             status_tip=self.tr('About trends.earth'))
+
+        # Set iface
+        report_generator.iface = self.iface
 
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""

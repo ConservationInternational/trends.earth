@@ -1,6 +1,7 @@
 """Report generator"""
 
 from enum import Enum
+import json
 import os
 import typing
 from uuid import uuid4
@@ -8,6 +9,7 @@ from uuid import uuid4
 from qgis.core import (
     Qgis,
     QgsApplication,
+    QgsFeedback,
     QgsLayoutExporter,
     QgsPrintLayout,
     QgsProject,
@@ -15,11 +17,16 @@ from qgis.core import (
     QgsReadWriteContext,
     QgsTask
 )
+from qgis.gui import (
+    QgsMessageBar
+)
 from qgis.PyQt.QtCore import (
     pyqtSignal,
     QFile,
+    QFileInfo,
     QIODevice,
-    QObject
+    QObject,
+    QProcess
 )
 from qgis.PyQt.QtXml import (
     QDomDocument
@@ -36,6 +43,8 @@ from .models import (
     ReportTaskContext
 )
 
+from ..utils import qgis_process_path
+
 
 class TaskStatus(Enum):
     COMPLETED = 'completed'
@@ -44,140 +53,139 @@ class TaskStatus(Enum):
     STARTED = 'started'
 
 
-class ReportTask(QgsTask):
-    def __init__(self, task_id: str, ctx: ReportTaskContext):
-        super().__init__(f'Report task {task_id}')
-        self._status = TaskStatus.PENDING
+class ReportProcessHandlerTask(QgsTask):
+    """
+    Bridge for communicating with the report task algorithm to run in
+    'qgis_process'.
+    """
+    def __init__(
+            self,
+            ctx_file_path: str,
+            task_id: str,
+            qgis_proc_path: str
+    ):
+        super().__init__(task_id)
+        self._ctx_file = ctx_file_path
+        self._task_id = task_id
+        self._qgs_proc_path = qgis_proc_path
+        self._proc = QProcess(self)
+        self._proc.errorOccurred.connect(self._on_process_error)
+        self._proc.finished.connect(self._on_process_finished)
+
+    @property
+    def context_file(self) -> str:
+        """
+        Returns the path to the report context JSON file.
+        """
+        return self._ctx_file
+
+    def run(self) -> bool:
+        # Launch qgis_process and execute algorithm.
+        if self.isCanceled():
+            self._proc.kill()
+            return False
+
+        input_file = f'INPUT={self._ctx_file}'
+        args = ['run', 'trendsearth:reporttask', '--', input_file]
+        status = self._proc.startDetached(self._qgs_proc_path, args)
+        log(str(status))
+
+        return True
+
+    def _on_process_error(self, error):
+        # Log error information
+        log('A reporting error occurred')
+        self.cancel()
+
+    def _on_process_finished(self, code, status):
+        # When process has finished
+        log(f'On process finished: {str(code)}')
+
+    def finished(self, result):
+        pass
+
+
+class ReportTaskProcessor:
+    """
+    Produces a QGIS project, template and resulting report
+    (in image or PDF format) based on information in a
+    ReportTaskContext object.
+    """
+    def __init__(
+            self,
+            ctx: ReportTaskContext,
+            proj: QgsProject,
+            feedback: QgsFeedback=None
+    ):
         self._ctx = ctx
         self._ti = self._ctx.report_configuration.template_info
         self._options = self._ctx.report_configuration.output_options
-        self._task_id = task_id
+        self._proj = proj
+        self._feedback = feedback
         self._layout = None
-        self._is_layout_orientation_set = False
-        self.messages = dict()
+        self._messages = dict()
+        self._jobs_layers = dict()
 
-    def run(self) -> bool:
-        # Confirm template paths exist
-        pt_path, ls_path = self._ti.absolute_template_paths
-        if not os.path.exists(pt_path) and not os.path.exists(ls_path):
-            msg = 'Templates not found.'
-            self._add_warning_msg(f'{msg}: {pt_path, ls_path}')
-            return False
+    @property
+    def context(self) -> ReportTaskContext:
+        """
+        Returns the report task context used in the class.
+        """
+        return self._ctx
 
-        # Determine orientation
+    @property
+    def project(self) -> QgsProject:
+        """
+        Returns the QGIS project used for rendering the layers.
+        """
+        return self._proj
 
-        proj = QgsProject()
-        proj.setFileName('D:/Dev/QGIS/QgsProject/TestLoad.qgs')
-        # QgsProject.setInstance(proj)
-        self._layout = QgsPrintLayout(proj)
-        # Load template
-        status, document = self._get_template_document(pt_path)
-        if not status:
-            return False
-
-        _, load_status = self._layout.loadFromTemplate(
-            document,
-            QgsReadWriteContext()
-        )
-        if not load_status:
-            self._add_warning_msg('Could not load template.')
-
-        # Process jobs
-        for j in self._ctx.jobs:
-            self._process_scope_items(j)
-
-        if not self._export_layout():
-            return False
-
-        return True
-
-    def _process_scope_items(self, job: Job) -> bool:
-        # Update layout items in the given scope
-        alg_name = job.script.name
-        scope_mappings = self._ti.scope_mappings_by_name(alg_name)
-        if len(scope_mappings) == 0:
-            self._add_warning_msg(
-                f'Could not find \'{alg_name}\' scope definition.'
-            )
-            return False
-
-        item_scope = scope_mappings[0]
-        map_ids = item_scope.map_ids()
-        if len(map_ids) == 0:
-            self._add_info_msg(f'No map ids found in \'{alg_name}\' scope.')
-
-        self._update_map_items(map_ids, job)
-
-        return True
-
-    def _update_map_items(self, map_ids: typing.List[str], job: Job):
-        # Update map items
-        # Create layer set
-        layers = []
-        bands = job.results.get_bands()
-        for band_idx, band in enumerate(bands, start=1):
-            if band.add_to_map:
-                layer_path = str(job.results.uri.uri)
-                band_info = JobBand.Schema().dump(band)
-                title = get_band_title(band_info)
-                layer = QgsRasterLayer(layer_path, title)
-                layers.append(layer)
-
-        for mid in map_ids:
-            map_item = self._layout.itemById(mid)
-            if map_item is not None:
-                map_item.setLayers(layers)
-                map_item.refresh()
-
-    def _get_template_document(self, path) -> typing.Tuple[bool, QDomDocument]:
-        # Load template to the given layout
-        template_file = QFile(path)
-        try:
-            if not template_file.open(QIODevice.ReadOnly):
-                self._add_warning_msg(f'Cannot read \'{path}\'.')
-                return False, None
-
-            doc = QDomDocument()
-            if not doc.setContent(template_file):
-                self._add_warning_msg(
-                    'Failed to parse template file contents.'
-                )
-                return False, None
-
-        finally:
-            template_file.close()
-
-        return True, doc
-
-    def finished(self, result):
-        # Even though QgsMessageLogger is thread safe, it is preferable to
-        # log messages once the task has finished.
-        for level, msgs in self.messages.items():
-            for msg in msgs:
-                log(msg, level)
-
-        # Summarize
-        desc = self.description()
-        if result:
-            log(f'{desc} ran successfully!')
-        else:
-            log(
-                f'{desc} failed. See preceding logs for '
-                f'details.', Qgis.Warning
-            )
+    @property
+    def messages(self) -> dict:
+        """
+        Returns warning and information messages generated during the process.
+        """
+        return self._messages
 
     def _add_message(self, level, message):
         if level not in self.messages:
-            self.messages[level] = []
+            self._messages[level] = []
 
-        level_msgs = self.messages[level]
-        level_msgs.append(f'{self.description()}: {message}')
+        level_msgs = self._messages[level]
+        level_msgs.append(message)
 
     def _add_warning_msg(self, msg):
         self._add_message(Qgis.Warning, msg)
 
     def _add_info_msg(self, msg):
         self._add_message(Qgis.Info, msg)
+
+    def _process_cancelled(self) -> bool:
+        # Check if there is a request to cancel the process, True to cancel.
+        if self._feedback and self._feedback.isCanceled():
+            return True
+
+        return False
+
+    def _create_layers(self, add_to_project=True):
+        # Iterator the layers in each job.
+        for j in self._ctx.jobs:
+            layers = []
+            bands = j.results.get_bands()
+            for band_idx, band in enumerate(bands, start=1):
+                if band.add_to_map:
+                    layer_path = str(j.results.uri.uri)
+                    band_info = JobBand.Schema().dump(band)
+                    title = get_band_title(band_info)
+                    layer = QgsRasterLayer(layer_path, title)
+                    if layer.isValid():
+                        layers.append(layer)
+
+            # Just to ensure we don't have empty lists
+            if len(layers) > 0:
+                self._jobs_layers[j.id] = layers
+                if add_to_project:
+                    self._proj.addMapLayers(layers)
 
     def _export_layout(self) -> bool:
         """
@@ -213,18 +221,73 @@ class ReportTask(QgsTask):
 
         return True
 
-    @property
-    def layout(self):
+    def run(self) -> bool:
         """
-        Returns the layout produced by the task. It should be accessed
-        after the task has finished otherwise it will return None.
+        Start the report generation process.
         """
-        return self._layout
+        if self._process_cancelled():
+            return False
 
-    @property
-    def id(self) -> str:
-        """Returns the task id."""
-        return self._task_id
+        # Confirm template paths exist
+        pt_path, ls_path = self._ti.absolute_template_paths
+        if not os.path.exists(pt_path) and not os.path.exists(ls_path):
+            msg = 'Templates not found.'
+            self._add_warning_msg(f'{msg}: {pt_path, ls_path}')
+            return False
+
+        # Create map layers
+        self._create_layers()
+        if len(self._jobs_layers) == 0:
+            self._add_warning_msg('No map layers could be created.')
+            return False
+
+        # Determine orientation using first layer in our collection
+        job_id = next(iter(self._jobs_layers))
+        orientation_layer = self._jobs_layers[job_id][0]
+        extent = orientation_layer.extent()
+        w, h = extent.width(), extent.height()
+        ref_temp_path = ls_path if w > h else pt_path
+
+        if self._process_cancelled():
+            return False
+
+        self._layout = QgsPrintLayout(self._proj)
+        status, document = self._get_template_document(ref_temp_path)
+        if not status:
+            return False
+
+        _, load_status = self._layout.loadFromTemplate(
+            document,
+            QgsReadWriteContext()
+        )
+        if not load_status:
+            self._add_warning_msg('Could not load template.')
+
+        # Export layout
+        if not self._export_layout():
+            return False
+
+        return True
+
+    def _get_template_document(self, path) -> typing.Tuple[bool, QDomDocument]:
+        # Get template contents
+        template_file = QFile(path)
+        try:
+            if not template_file.open(QIODevice.ReadOnly):
+                self._add_warning_msg(f'Cannot read \'{path}\'.')
+                return False, None
+
+            doc = QDomDocument()
+            if not doc.setContent(template_file):
+                self._add_warning_msg(
+                    'Failed to parse template file contents.'
+                )
+                return False, None
+
+        finally:
+            template_file.close()
+
+        return True, doc
 
 
 class ReportGenerator(QObject):
@@ -235,21 +298,93 @@ class ReportGenerator(QObject):
 
     def __init__(self, parent=None):
         super().__init__(parent)
+        self.iface = None
         self._tasks = dict()
+
+    @property
+    def message_bar(self) -> QgsMessageBar:
+        """Returns the main application's message bar."""
+        if self.iface:
+            return self.iface.messageBar()
+
+        return None
+
+    def _push_message(self, msg, level):
+        if not self.message_bar:
+            return
+
+        self.message_bar.pushMessage(
+            self.tr('Report Status'),
+            msg,
+            level
+        )
+
+    def _push_info_message(self, msg):
+        self._push_message(msg, Qgis.Info)
+
+    def _push_warning_message(self, msg):
+        self._push_message(msg, Qgis.Warning)
+
+    def _push_success_message(self, msg):
+        self._push_message(msg, Qgis.Success)
+
+    def write_context_to_file(self, ctx, task_id: str) -> str:
+        # Write report task context to file.
+        rpt_fi = QFileInfo(ctx.output_paths[0])
+        output_dir = rpt_fi.dir().path()
+        ctx_file_path = f'{output_dir}/report_{task_id}.json'
+
+        # Check if there is an existing file
+        if os.path.exists(ctx_file_path):
+            return ctx_file_path
+
+        # Check write permissions
+        if not os.access(output_dir, os.W_OK):
+            tr_msg = self.tr(
+                'Cannot process report due to write permission to'
+            )
+            self._push_warning_message(f'{tr_msg} {output_dir}')
+            return ''
+
+        with open(ctx_file_path, 'w') as cf:
+            ctx_data = ReportTaskContext.Schema().dump(ctx)
+            json.dump(ctx_data, cf, indent=2)
+
+        return ctx_file_path
 
     def process_report_task(self, ctx: ReportTaskContext) -> str:
         """
         Initiates report generation, emits 'task_started' signal and return
         the task id.
         """
+        # Assert if qgis_process path could be found
+        qgis_proc_path = qgis_process_path()
+        if not qgis_proc_path:
+            tr_msg = self.tr(
+                'could not be found in your system. Unable to generate reports.'
+            )
+            self._push_warning_message(f'\'qgis_process\' {tr_msg}')
+            return ''
+
         if len(ctx.jobs) == 1:
             task_id = str(ctx.jobs[0].id)
         else:
             task_id = uuid4()
 
-        rpt_task = ReportTask(task_id, ctx)
-        self._tasks[task_id] = rpt_task
-        QgsApplication.instance().taskManager().addTask(rpt_task)
+        # Write task to file for subsequent use by the task
+        file_path = self.write_context_to_file(ctx, task_id)
+        tr_msg = self.tr(f'Submitted report task')
+        self._push_info_message(f'{tr_msg} {task_id}')
+
+        # Create report handler task
+        rpt_handler_task = ReportProcessHandlerTask(
+            file_path,
+            task_id,
+            qgis_proc_path
+        )
+        QgsApplication.instance().taskManager().addTask(rpt_handler_task)
+        self._tasks[task_id] = rpt_handler_task
+
         self.task_started.emit()
 
         return task_id

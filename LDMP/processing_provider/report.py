@@ -66,7 +66,5 @@ class ReportTaskContextAlgorithm(QgsProcessingAlgorithm):
         return {'STATUS': status}
 
     def flags(self):
-        return super().flags() | QgsProcessingAlgorithm.FlagNoThreading \
-               | QgsProcessingAlgorithm.FlagHideFromToolbox \
-               | QgsProcessingAlgorithm.FlagHideFromModeler
+        return super().flags() | QgsProcessingAlgorithm.FlagNoThreading
 

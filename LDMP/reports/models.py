@@ -44,6 +44,7 @@ class OutputFormat(Enum):
         return self.value
 
 
+@dataclass
 class ReportOutputOptions:
     """Settings for generating output reports.
     """
@@ -74,6 +75,7 @@ class LayoutItemType(Enum):
         return self.value
 
 
+@dataclass
 class ItemScopeMapping:
     """Provides a simple mechanism for grouping layout items based on a
     scope, which in most cases refers to an algorithm. This is especially
@@ -135,6 +137,7 @@ class ItemScopeMapping:
         return self.item_ids_by_type(LayoutItemType.PICTURE)
 
 
+@dataclass
 class ReportTemplateInfo:
     """Contains information about the QGIS layout associated with one or more
     algorithm scopes.
@@ -222,24 +225,25 @@ class ReportConfiguration:
         self.template_info.update_paths(template_dir)
 
 
+@dataclass
 class ReportTaskContext:
     """
     Provides context information for generating reports.
     """
     report_configuration: ReportConfiguration
-    jobs: typing.List[Job] = field(default_factory=list)
     output_paths: typing.Tuple[str, str]
+    jobs: typing.List[Job] = field(default_factory=list)
 
     def __init__(
             self,
             config: ReportConfiguration,
-            jobs: typing.List[Job],
-            output_paths: typing.Tuple[str, str]
+            output_paths: typing.Tuple[str, str],
+            jobs: typing.List[Job]
     ):
         self.report_configuration = config
-        self.jobs = jobs
         # (report_path, template_path)
         self.output_paths = output_paths
+        self.jobs = jobs
 
 
 

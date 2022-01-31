@@ -229,8 +229,8 @@ class DatasetReportHandler:
         # Create report task context for report generation.
         self._rpt_task_ctx = ReportTaskContext(
             self._rpt_config,
-            [self._job],
-            (rpt_path, temp_path)
+            (rpt_path, temp_path),
+            [self._job]
         )
         report_generator.process_report_task(
             self._rpt_task_ctx

@@ -213,8 +213,8 @@ class DlgGenerateReport(QDialog, DlgGenerateReportUi):
 
         rpt_task_ctx = ReportTaskContext(
             sel_config,
-            jobs,
-            (rpt_path, template_path)
+            (rpt_path, template_path),
+            jobs
         )
 
         self.accept()

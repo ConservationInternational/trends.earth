@@ -35,10 +35,6 @@ from .models import (
     OutputFormat,
     ReportTaskContext
 )
-from .utils import (
-    build_report_name,
-    build_template_name
-)
 
 
 class TaskStatus(Enum):

@@ -87,7 +87,7 @@ class DatasetReportHandler:
 
         self._open_template_action = self._rpt_menu.addAction(
             FileUtils.get_icon('layout.svg'),
-            self.tr('Open template')
+            self.tr('Open layout')
         )
         self._open_template_action.triggered.connect(self.open_designer)
 

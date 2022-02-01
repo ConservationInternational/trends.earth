@@ -28,6 +28,7 @@ from osgeo import gdal
 from qgis.core import Qgis
 from qgis.core import QgsColorRampShader
 from qgis.core import QgsProject
+from qgis.core import QgsRasterLayer
 from qgis.core import QgsRasterShader
 from qgis.core import QgsSingleBandPseudoColorRenderer
 from qgis.PyQt import QtWidgets
@@ -723,8 +724,10 @@ def add_layer(
     layer_path: str,
     band_number: int,
     band_info: typing.Dict,
-    activated: str = 'default'
+    activated: str = 'default',
+    layer: QgsRasterLayer = None
 ):
+    # You can use an existing raster layer and call this function for styling
     try:
         style = styles[band_info['name']]
     except KeyError:
@@ -744,8 +747,9 @@ def add_layer(
 
         return False
 
-    title = get_band_title(band_info)
-    layer = iface.addRasterLayer(layer_path, title)
+    if layer is None:
+        title = get_band_title(band_info)
+        layer = iface.addRasterLayer(layer_path, title)
     # # Initialize statistics for this layer
     # _set_statistics(band_number, band_info["no_data_value"], layer_path)
 

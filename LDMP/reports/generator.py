@@ -23,6 +23,8 @@ from qgis.core import (
 from qgis.gui import (
     QgsMessageBar
 )
+from qgis.utils import iface
+
 from qgis.PyQt.QtCore import (
     pyqtSignal,
     QCoreApplication,
@@ -40,7 +42,10 @@ from qgis.PyQt.QtXml import (
 from te_schemas.results import Band as JobBand
 
 from ..jobs.models import Job
-from ..layers import get_band_title, styles
+from ..layers import (
+    add_layer,
+    get_band_title
+)
 from ..logger import log
 
 from .models import (
@@ -175,7 +180,7 @@ class ReportTaskProcessor:
 
         return False
 
-    def _create_layers(self, add_to_project=True):
+    def _create_layers(self):
         # Iterator the layers in each job.
         for j in self._ctx.jobs:
             layers = []
@@ -185,15 +190,16 @@ class ReportTaskProcessor:
                     layer_path = str(j.results.uri.uri)
                     band_info = JobBand.Schema().dump(band)
                     title = get_band_title(band_info)
-                    layer = QgsRasterLayer(layer_path, title)
-                    if layer.isValid():
-                        layers.append(layer)
+                    band_layer = QgsRasterLayer(layer_path, title)
+                    if band_layer.isValid():
+                        layers.append(band_layer)
+                        # Add layer to project and style it
+                        #add_layer(layer_path,band_idx,band_info,layer=band_layer)
 
             # Just to ensure we don't have empty lists
             if len(layers) > 0:
                 self._jobs_layers[j.id] = layers
-                if add_to_project:
-                    self._proj.addMapLayers(layers)
+                self._proj.addMapLayers(layers)
 
     def _export_layout(self) -> bool:
         """
@@ -234,6 +240,9 @@ class ReportTaskProcessor:
         layout_mgr = self._proj.layoutManager()
         layout_mgr.addLayout(self._layout)
 
+        #Add open project macro
+        self._add_open_layout_macro()
+
         # Export project
         fi = QFileInfo(temp_path)
         proj_file = f'{fi.dir().path()}/{fi.completeBaseName()}.qgs'
@@ -260,6 +269,15 @@ class ReportTaskProcessor:
         crs = QgsCoordinateReferenceSystem.fromEpsgId(4326)
         default_extent = QgsReferencedRectangle(all_layers_rect, crs)
         self._proj.viewSettings().setDefaultViewExtent(default_extent)
+
+    def _add_open_layout_macro(self):
+        # Add macro that open the layout when the project is opened.
+        template_name = self._ctx.report_configuration.template_info.name
+        err_title = self.tr('Template Error')
+        err_msg_tr = self.tr('template cannot be found')
+        err_msg = f'{template_name} {err_msg_tr}'
+        macro = f'from qgis.core import Qgis, QgsProject\r\nfrom qgis.utils import iface\r\ndef openProject():\r\n\tlayout_mgr = QgsProject.instance().layoutManager()\r\n\tlayout = layout_mgr.layoutByName({template_name})\r\n\tif layout is None:\r\n\t\tiface.messageBar().pushMessage({err_title}, {err_msg}, Qgis.Warning, 10)\r\n\telse:\r\n\t\t_ =iface.openLayoutDesigner(layout)\r\n\r\ndef saveProject():\r\n\tpass\r\n\r\ndef closeProject():\r\n\tpass\r\n'
+        self._proj.writeEntry("Macros", "/pythonCode", macro)
 
     def run(self) -> bool:
         """
@@ -395,10 +413,10 @@ class ReportGenerator(QObject):
     @property
     def message_bar(self) -> QgsMessageBar:
         """Returns the main application's message bar."""
-        if self.iface:
-            return self.iface.messageBar()
+        if self.iface is None:
+            self.iface = iface
 
-        return None
+        return self.iface.messageBar()
 
     def _push_message(self, msg, level):
         if not self.message_bar:

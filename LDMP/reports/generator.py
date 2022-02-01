@@ -276,7 +276,15 @@ class ReportTaskProcessor:
         err_title = self.tr('Template Error')
         err_msg_tr = self.tr('template cannot be found')
         err_msg = f'{template_name} {err_msg_tr}'
-        macro = f'from qgis.core import Qgis, QgsProject\r\nfrom qgis.utils import iface\r\ndef openProject():\r\n\tlayout_mgr = QgsProject.instance().layoutManager()\r\n\tlayout = layout_mgr.layoutByName(\'{template_name}\')\r\n\tif layout is None:\r\n\t\tiface.messageBar().pushMessage(\'{err_title}\', \'{err_msg}\', Qgis.Warning, 10)\r\n\telse:\r\n\t\t_ = iface.openLayoutDesigner(layout)\r\n\r\ndef saveProject():\r\n\tpass\r\n\r\ndef closeProject():\r\n\tpass\r\n'
+        macro = f'from qgis.core import Qgis, QgsProject\r\nfrom qgis.utils ' \
+                f'import iface\r\ndef openProject():\r\n\tlayout_mgr = ' \
+                f'QgsProject.instance().layoutManager()\r\n\tlayout = ' \
+                f'layout_mgr.layoutByName(\'{template_name}\')\r\n\t' \
+                f'if layout is None:\r\n\t\tiface.messageBar().pushMessage' \
+                f'(\'{err_title}\', \'{err_msg}\', Qgis.Warning, 10)\r\n\telse:' \
+                f'\r\n\t\t_ = iface.openLayoutDesigner(layout)\r\n\r\n' \
+                f'def saveProject():\r\n\tpass\r\n\r\ndef closeProject():' \
+                f'\r\n\tpass\r\n'
         self._proj.writeEntry("Macros", "/pythonCode", macro)
 
     def run(self) -> bool:

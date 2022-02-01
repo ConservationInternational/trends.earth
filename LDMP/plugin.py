@@ -16,6 +16,7 @@ from builtins import object
 import os
 
 from qgis.core import QgsApplication, QgsMessageLog, Qgis
+from qgis.gui import QgsLayoutDesignerInterface
 from qgis.PyQt.QtCore import QCoreApplication, Qt
 from qgis.PyQt.QtWidgets import QAction, QMessageBox, QApplication, QMenu, QToolButton
 from qgis.PyQt.QtGui import QIcon
@@ -27,6 +28,7 @@ from . import (
 )
 from .jobs.manager import job_manager
 from .processing_provider.provider import Provider
+from .reports.expressions import ReportExpressionManager
 from .settings import DlgSettings
 
 
@@ -166,6 +168,11 @@ class LDMPPlugin(object):
         self.actions.append(self.toolBtnAction)
         self.dlg_about = about.DlgAbout()
 
+        # Register custom report variables on opening the layout designer
+        self.iface.layoutDesignerOpened.connect(
+            self.on_layout_designer_opened
+        )
+
         """Create Main manu icon and plugins menu entries."""
         start_action = self.add_action(os.path.join(os.path.dirname(__file__), 'icons', 'trends_earth_logo_square_32x32.ico'),
             text='Trends.Earth',
@@ -226,3 +233,8 @@ class LDMPPlugin(object):
     def run_about(self):
         self.dlg_about.show()
         result = self.dlg_about.exec_()
+
+    def on_layout_designer_opened(self, designer: QgsLayoutDesignerInterface):
+        # Register custom report variables in the layout
+        layout = designer.layout()
+        ReportExpressionManager.register_variables(layout)

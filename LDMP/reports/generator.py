@@ -275,8 +275,8 @@ class ReportTaskProcessor:
     def _add_open_layout_macro(self):
         # Add macro that open the layout when the project is opened.
         template_name = self._ctx.report_configuration.template_info.name
-        err_title = self.tr('Template Error')
-        err_msg_tr = self.tr('template cannot be found')
+        err_title = self.tr('Layout Error')
+        err_msg_tr = self.tr('layout cannot be found')
         err_msg = f'{template_name} {err_msg_tr}'
         macro = f'from qgis.core import Qgis, QgsProject\r\nfrom qgis.utils ' \
                 f'import iface\r\ndef openProject():\r\n\tlayout_mgr = ' \

@@ -8,6 +8,7 @@ import typing
 import qgis.core
 from osgeo import gdal
 from qgis.PyQt import (
+    QtCore,
     QtGui,
     QtWidgets
 )
@@ -141,6 +142,16 @@ class FileUtils:
         return os.path.normpath(
             f'{FileUtils.plugin_dir()}/data/reports'
         )
+
+    @staticmethod
+    def project_path_from_report_path(report_path) -> str:
+        # Get QGIS project path from the corresponding report path
+        fi = QtCore.QFileInfo(report_path)
+        proj_file_name = fi.completeBaseName().replace(
+            'report',
+            'project'
+        )
+        return f'{fi.dir().path()}/{proj_file_name}.qgs'
 
     @staticmethod
     def get_icon(icon_name: str) -> QtGui.QIcon:

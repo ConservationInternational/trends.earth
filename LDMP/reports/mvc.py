@@ -7,6 +7,7 @@ from qgis.core import Qgis
 from qgis.PyQt.QtCore import (
     QAbstractItemModel,
     QCoreApplication,
+    QFileInfo,
     QModelIndex,
     Qt,
     QUrl
@@ -211,8 +212,32 @@ class DatasetReportHandler:
         return rpt_name, rpt_path
 
     def open_designer(self):
-        # Open template in the QGIS layout designer.
-        pass
+        # Open project which contains a macro to open the layout designer.
+        _, rpt_path = self._report_name_path()
+        proj_path = FileUtils.project_path_from_report_path(rpt_path)
+
+        # Check if the QGIS project file exists
+        if not os.path.exists(proj_path):
+            self._push_refactor_message(
+                self.tr('Invalid File'),
+                self.tr('Project file does not exist.')
+            )
+            log(f'Project file \'{proj_path}\' not found.', Qgis.Warning)
+            return
+
+        if not os.access(proj_path, os.R_OK):
+            self._push_refactor_message(
+                self.tr('File Read Permission'),
+                self.tr('Unable to open report file.')
+            )
+            log(
+                f'Project file \'{proj_path}\' cannot be opened.',
+                Qgis.Warning
+            )
+            return
+
+        proj_path_url = QUrl(QUrl.fromLocalFile(proj_path))
+        QDesktopServices.openUrl(proj_path_url)
 
     @classmethod
     def tr(cls, source):

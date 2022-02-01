@@ -53,7 +53,10 @@ from .models import (
     ReportTaskContext
 )
 
-from ..utils import qgis_process_path
+from ..utils import (
+    qgis_process_path,
+    FileUtils
+)
 
 
 class TaskStatus(Enum):
@@ -236,17 +239,16 @@ class ReportTaskProcessor:
                 self._add_warning_msg('Failed to export template file.')
                 return False
 
-        # Add layout to project
-        layout_mgr = self._proj.layoutManager()
-        layout_mgr.addLayout(self._layout)
+            # Add layout to project
+            layout_mgr = self._proj.layoutManager()
+            layout_mgr.addLayout(self._layout)
 
-        #Add open project macro
-        self._add_open_layout_macro()
+            #Add open project macro
+            self._add_open_layout_macro()
 
-        # Export project
-        fi = QFileInfo(temp_path)
-        proj_file = f'{fi.dir().path()}/{fi.completeBaseName()}.qgs'
-        self._proj.write(proj_file)
+            # Export project
+            proj_file = FileUtils.project_path_from_report_path(rpt_path)
+            self._proj.write(proj_file)
 
         return True
 

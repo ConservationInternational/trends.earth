@@ -10,8 +10,11 @@ from qgis.core import (
     Qgis,
     QgsApplication,
     QgsCoordinateReferenceSystem,
+    QgsExpression,
+    QgsExpressionContext,
     QgsFeedback,
     QgsLayoutExporter,
+    QgsLayoutItem,
     QgsPrintLayout,
     QgsProject,
     QgsRasterLayer,
@@ -48,11 +51,11 @@ from ..layers import (
 )
 from ..logger import log
 
+from .expressions import ReportExpressionUtils
 from .models import (
     OutputFormat,
     ReportTaskContext
 )
-
 from ..utils import (
     qgis_process_path,
     FileUtils
@@ -352,11 +355,19 @@ class ReportTaskProcessor:
             return False
 
         item_scope = scope_mappings[0]
+
+        # Map items
         map_ids = item_scope.map_ids()
         if len(map_ids) == 0:
             self._add_info_msg(f'No map ids found in \'{alg_name}\' scope.')
-
         if not self._update_map_items(map_ids, job):
+            return False
+
+        # Label items
+        label_ids = item_scope.label_ids()
+        if len(label_ids) == 0:
+            self._add_info_msg(f'No label ids found in \'{alg_name}\' scope.')
+        if not self._update_label_items(label_ids, job):
             return False
 
         return True
@@ -370,11 +381,40 @@ class ReportTaskProcessor:
         extent = self._get_job_layers_extent(job)
         for mid in map_ids:
             map_item = self._layout.itemById(mid)
-            if mid is not None:
+            if map_item is not None:
                 map_item.setLayers(job_layers)
                 map_item.zoomToExtent(extent)
 
         return True
+    
+    @classmethod
+    def update_item_expression_ctx(
+            cls, 
+            item: QgsLayoutItem, 
+            job
+    ) -> QgsExpressionContext:
+        # Update the expression context based on the given job.
+        item_exp_ctx = item.createExpressionContext()
+
+        return ReportExpressionUtils.update_expression_context(
+            item_exp_ctx,
+            job
+        )
+
+    def _update_label_items(self, labels_ids, job) -> bool:
+        # Evaluate expressions for label items matching the given ids.
+        for lid in labels_ids:
+            label_item = self._layout.itemById(lid)
+            if label_item is not None:
+                lbl_exp_ctx = self.update_item_expression_ctx(
+                    label_item,
+                    job
+                )
+                evaluated_txt = QgsExpression.replaceExpressionText(
+                    label_item.text(),
+                    lbl_exp_ctx
+                )
+                label_item.setText(evaluated_txt)
 
     def _get_job_layers_extent(self, job) -> QgsRectangle:
         # Get the combined extent of all the layers for the given job.
@@ -493,7 +533,7 @@ class ReportGenerator(QObject):
         # Write task to file for subsequent use by the task
         file_path = self.write_context_to_file(ctx, task_id)
         tr_msg = self.tr(f'Submitted report task')
-        self._push_info_message(f'{tr_msg} {task_id}')
+        #self._push_info_message(f'{tr_msg} {task_id}')
 
         # Create report handler task
         rpt_handler_task = ReportProcessHandlerTask(

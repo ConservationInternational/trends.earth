@@ -28,7 +28,7 @@ from . import (
 )
 from .jobs.manager import job_manager
 from .processing_provider.provider import Provider
-from .reports.expressions import ReportExpressionManager
+from .reports.expressions import ReportExpressionUtils
 from .settings import DlgSettings
 
 
@@ -237,4 +237,4 @@ class LDMPPlugin(object):
     def on_layout_designer_opened(self, designer: QgsLayoutDesignerInterface):
         # Register custom report variables in the layout
         layout = designer.layout()
-        ReportExpressionManager.register_variables(layout)
+        ReportExpressionUtils.register_variables(layout)

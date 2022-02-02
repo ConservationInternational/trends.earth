@@ -36,7 +36,8 @@
             {
                "name":"productivity",
                "type_id_mapping":{
-                  "map":["map.productivity"]
+                  "map":["map.productivity"],
+                  "label":["label.productivity"]
                }
             }
          ]

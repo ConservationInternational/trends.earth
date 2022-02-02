@@ -390,7 +390,7 @@ class ReportTaskProcessor:
     @classmethod
     def update_item_expression_ctx(
             cls, 
-            item: QgsLayoutItem, 
+            item: QgsLayoutItem,
             job
     ) -> QgsExpressionContext:
         # Update the expression context based on the given job.
@@ -414,6 +414,7 @@ class ReportTaskProcessor:
                     label_item.text(),
                     lbl_exp_ctx
                 )
+                self._feedback.pushConsoleInfo(evaluated_txt)
                 label_item.setText(evaluated_txt)
 
     def _get_job_layers_extent(self, job) -> QgsRectangle:

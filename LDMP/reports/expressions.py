@@ -69,7 +69,7 @@ class ReportExpressionUtils:
     Helper functions for expressions and variables used in a report.
     """
     @staticmethod
-    def register_variables(layout: QgsLayout):
+    def register_variables(layout: QgsLayout) -> None:
         # Registers job-related variables in the layout scope.
         for jv_info in _job_attr_var_mapping():
             QgsExpressionContextUtils.setLayoutVariable(

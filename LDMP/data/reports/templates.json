@@ -1,35 +1,10 @@
 [
    {
-      "name":"test-sub-indicators",
-      "template_info":{
-         "id":"4f92a37e-41a6-4b0e-8c38-66f6bfa54757",
-         "name":"Test sub-indicators",
-         "description":"Sample report template configuration",
-         "portrait_path":"portrait_indicators.qpt",
-         "landscape_path":"landscape_indicators.qpt",
-         "item_scopes":[
-            {
-               "name":"sdg-15-3-1-sub-indicators",
-               "type_id_mapping":{
-                  "map":["cf45t"]
-               }
-            }
-         ]
-      },
-      "output_options":{
-         "output_format":"PDF",
-         "include_qpt":false,
-         "format_params":{
-
-         }
-      }
-   },
-   {
       "name":"Land Productivity",
       "template_info":{
          "id":"70ca4be7-839e-4248-be14-34ba8665ed98",
          "name":"Land Productivity",
-         "description":"Test template for land productivity report",
+         "description":"Shows a simple map of land productivity with the details of the job that produced it.",
          "portrait_path":"productivity_portrait.qpt",
          "landscape_path":"productivity_landscape.qpt",
          "item_scopes":[
@@ -51,33 +26,33 @@
       }
    },
    {
-      "name":"Aggregated LDN",
+      "name":"SDG 15.3.1 Indicator with Sub-Indicators",
       "template_info":{
-         "id":"79d0b90a-afb8-406a-b9fa-0c58e2237b4d",
+         "id":"SDG 15.3.1 Indicator with Sub-Indicators",
          "name":"LDN including sub-indicator map items",
-         "description":"Test template for multiscope reports with detailed algorithm information used to produce the datasets",
-         "portrait_path":"test_ldn_compound_portrait.qpt",
-         "landscape_path":"test_ldn_compound_landscape.qpt",
+         "description":"Detailed report with map of SDG 15.3.1 indicator with also a map of the 3 sub-indicators.",
+         "portrait_path":"sdg1531_with_sub_indicators_portrait.qpt",
+         "landscape_path":"sdg1531_with_sub_indicators_landscape.qpt",
          "item_scopes":[
             {
-               "name":"productivity",
+               "name":"sdg-15-3-1-summary",
                "type_id_mapping":{
-                  "map":["map.productivity"]
+                  "map":["map.summary_indicator"]
                }
             },
             {
                "name":"sdg-15-3-1-sub-indicators",
                "type_id_mapping":{
-                  "map":["map.land_cover"]
+                  "map":["map.sub_indicators"]
                }
             }
          ]
       },
       "output_options":{
-         "output_format":"PDF",
+         "output_format":"IMAGE",
          "include_qpt":true,
          "format_params":{
-
+            "image_type": "png"
          }
       }
    }

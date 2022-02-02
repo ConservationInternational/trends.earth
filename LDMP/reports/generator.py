@@ -414,7 +414,6 @@ class ReportTaskProcessor:
                     label_item.text(),
                     lbl_exp_ctx
                 )
-                self._feedback.pushConsoleInfo(evaluated_txt)
                 label_item.setText(evaluated_txt)
 
     def _get_job_layers_extent(self, job) -> QgsRectangle:

@@ -99,7 +99,7 @@
               </font>
              </property>
              <property name="title">
-              <string>Drought dataset (tiers 1 and 2)</string>
+              <string>Drought dataset (Hazard and Exposure)</string>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_8">
               <item>
@@ -151,7 +151,7 @@
               </font>
              </property>
              <property name="title">
-              <string>Drought dataset for tier 3</string>
+              <string>Drought dataset for Vulnerability</string>
              </property>
              <property name="checkable">
               <bool>true</bool>

@@ -38,7 +38,9 @@ from .jobs import mvc as jobs_mvc
 from .jobs.models import (
     Job,
     SortField,
+    TypeFilter
 )
+
 from .utils import (
     load_object,
 )
@@ -127,9 +129,11 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
     datasets_tv: QtWidgets.QTreeView
     lineEdit_search: QtWidgets.QLineEdit
     import_dataset_pb: QtWidgets.QPushButton
+    create_layer_pb: QtWidgets.QPushButton
     pushButton_load: QtWidgets.QPushButton
     pushButton_download: QtWidgets.QPushButton
     pushButton_refresh: QtWidgets.QPushButton
+    pushButton_filter: QtWidgets.QPushButton
     tabWidget: QtWidgets.QTabWidget
 
     cache_refresh_about_to_begin = QtCore.pyqtSignal()
@@ -195,6 +199,25 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
     def setup_datasets_page_gui(self):
         self.pushButton_refresh.setIcon(
             QtGui.QIcon(os.path.join(ICON_PATH, 'mActionRefresh.svg')))
+        self.pushButton_filter.setIcon(
+            QtGui.QIcon(os.path.join(ICON_PATH, 'mActionFilter2.svg')))
+        self.filter_menu = QtWidgets.QMenu()
+        action_show_all = self.filter_menu.addAction(tr("All"))
+        action_show_all.setCheckable(True)
+        action_show_all.triggered.connect(lambda: self.type_filter_changed(TypeFilter.ALL))
+        action_show_raster = self.filter_menu.addAction(tr("Raster"))
+        action_show_raster.setCheckable(True)
+        action_show_raster.triggered.connect(lambda: self.type_filter_changed(TypeFilter.RASTER))
+        action_show_vector = self.filter_menu.addAction(tr("Vector"))
+        action_show_vector.setCheckable(True)
+        action_show_vector.triggered.connect(lambda: self.type_filter_changed(TypeFilter.VECTOR))
+        filter_action_group = QtWidgets.QActionGroup(self)
+        filter_action_group.addAction(action_show_all)
+        filter_action_group.addAction(action_show_raster)
+        filter_action_group.addAction(action_show_vector)
+        action_show_all.setChecked(True)
+        self.pushButton_filter.setMenu(self.filter_menu)
+
         self.import_menu=QtWidgets.QMenu()
         action_import_known_dataset=self.import_menu.addAction(
             tr("Load existing Trends.Earth output file...")
@@ -240,6 +263,15 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.pushButton_load.clicked.connect(self.load_base_map)
         self.pushButton_refresh.clicked.connect(self.perform_single_update)
 
+        self.special_area_menu = QtWidgets.QMenu()
+        action_create_false_positive = self.special_area_menu.addAction(
+            tr("Create false positive layer")
+        )
+        action_create_false_positive.triggered.connect(self.create_false_positive)
+        self.create_layer_pb.setMenu(self.special_area_menu)
+        #self.create_layer_pb.setIcon(
+        #    QtGui.QIcon(os.path.join(ICON_PATH, "cloud-download.svg")))
+
         # to allow emit entered events and manage editing over mouse
         self.datasets_tv.setMouseTracking(True)
         # add ... to wrap DisplayRole text... to have a real wrap need a custom widget
@@ -268,6 +300,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         # self.datasets_tv.setModel(model)
         self.proxy_model=jobs_mvc.JobsSortFilterProxyModel(SortField.DATE)
         self.filter_changed("")
+        self.type_filter_changed(TypeFilter.ALL)
         self.proxy_model.setSourceModel(model)
         self.lineEdit_search.valueChanged.connect(self.filter_changed)
         self.datasets_tv.setModel(self.proxy_model)
@@ -417,6 +450,10 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             )
         )
 
+    def type_filter_changed(self, type_filter: TypeFilter):
+        self.proxy_model.set_type_filter(type_filter)
+        self.proxy_model.invalidateFilter()
+
     def setup_algorithms_tree(self):
         self.algorithms_tv.setStyleSheet(
             'QTreeView { selection-background-color: white; selection-color: black }'
@@ -438,6 +475,9 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             QtWidgets.QAbstractItemView.AllEditTriggers)
         self.algorithms_tv.entered.connect(self._manage_algorithm_tree_view)
         self.tabWidget.setCurrentIndex(self._SUB_INDICATORS_TAB_PAGE)
+
+    def create_false_positive(self):
+        pass
 
     def update_refresh_button_status(self):
         if self.remote_refresh_running:

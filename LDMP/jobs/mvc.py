@@ -19,7 +19,7 @@ from ..conf import settings_manager
 from ..data_io import DlgDataIOAddLayersToMap
 from ..datasets_dialog import DatasetDetailsDialogue
 from .models import Job
-from .models import SortField
+from .models import SortField, TypeFilter
 
 WidgetDatasetItemUi, _ = uic.loadUiType(
     str(Path(__file__).parents[1] / "gui/WidgetDatasetItem.ui")
@@ -93,6 +93,7 @@ class JobsModel(QtCore.QAbstractItemModel):
 
 class JobsSortFilterProxyModel(QtCore.QSortFilterProxyModel):
     current_sort_field: typing.Optional[SortField]
+    type_filter: TypeFilter
 
     def __init__(self, current_sort_field: SortField, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -106,11 +107,19 @@ class JobsSortFilterProxyModel(QtCore.QSortFilterProxyModel):
         job: Job = jobs_model.data(index)
         reg_exp = self.filterRegExp()
 
-        return (
+        matches_filter = (
             reg_exp.exactMatch(job.visible_name)
             or reg_exp.exactMatch(job.local_context.area_of_interest_name)
             or reg_exp.exactMatch(str(job.id))
         )
+
+        matches_type = True
+        if self.type_filter == TypeFilter.RASTER:
+            matches_type = not job.is_vector()
+        elif self.type_filter == TypeFilter.VECTOR:
+            matches_type = job.is_vector()
+
+        return matches_filter and matches_type
 
     def lessThan(
         self, left: QtCore.QModelIndex, right: QtCore.QModelIndex
@@ -127,6 +136,8 @@ class JobsSortFilterProxyModel(QtCore.QSortFilterProxyModel):
 
         return result
 
+    def set_type_filter(self, filter_type):
+        self.type_filter = filter_type
 
 class JobItemDelegate(QtWidgets.QStyledItemDelegate):
     current_index: typing.Optional[QtCore.QModelIndex]
@@ -218,6 +229,8 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
     open_details_tb: QtWidgets.QToolButton
     open_directory_tb: QtWidgets.QToolButton
     progressBar: QtWidgets.QProgressBar
+    load_tb: QtWidgets.QToolButton
+    edit_tb: QtWidgets.QToolButton
 
     def __init__(self, job: Job, main_dock: "MainWidget", parent=None):
         super().__init__(parent)
@@ -235,6 +248,8 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         self.delete_tb.clicked.connect(
             functools.partial(utils.delete_dataset, self.job)
         )
+        self.load_tb.clicked.connect(self.load_layer)
+        self.edit_tb.clicked.connect(self.edit_layer)
 
         self.delete_tb.setIcon(
             QtGui.QIcon(os.path.join(ICON_PATH, 'mActionDeleteSelected.svg'))
@@ -253,6 +268,15 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         self.download_tb.setIcon(
             QtGui.QIcon(os.path.join(ICON_PATH, 'cloud-download.svg'))
         )
+        self.edit_tb.setIcon(
+            QtGui.QIcon(
+                os.path.join(ICON_PATH, 'mActionToggleEditing.svg')
+            )
+        )
+        self.load_tb.setIcon(
+            QtGui.QIcon(os.path.join(ICON_PATH, 'mActionAddOgrLayer.svg'))
+        )
+
         # self.add_to_canvas_pb.setFixedSize(self.open_directory_tb.size())
         # self.add_to_canvas_pb.setMinimumSize(self.open_directory_tb.size())
 
@@ -273,37 +297,47 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         self.delete_tb.setEnabled(True)
 
         # set visibility of progress bar and download button
-
-        if self.job.status in (JobStatus.RUNNING, JobStatus.PENDING):
-            self.progressBar.setMinimum(0)
-            self.progressBar.setMaximum(0)
-            self.progressBar.setFormat('Processing...')
-            self.progressBar.show()
+        if self.job.is_vector():
             self.download_tb.hide()
-            self.add_to_canvas_pb.setEnabled(False)
-        elif self.job.status == JobStatus.FINISHED:
+            self.add_to_canvas_pb.hide()
+            self.open_details_tb.hide()
+            self.open_directory_tb.hide()
+            self.open_directory_tb.hide()
             self.progressBar.hide()
-            result_auto_download = settings_manager.get_value(
-                Setting.DOWNLOAD_RESULTS
-            )
+        else:
+            self.load_tb.hide()
+            self.edit_tb.hide()
 
-            if result_auto_download:
+            if self.job.status in (JobStatus.RUNNING, JobStatus.PENDING):
+                self.progressBar.setMinimum(0)
+                self.progressBar.setMaximum(0)
+                self.progressBar.setFormat('Processing...')
+                self.progressBar.show()
                 self.download_tb.hide()
-            else:
-                self.download_tb.show()
-                self.download_tb.setEnabled(True)
-                self.download_tb.clicked.connect(
-                    functools.partial(
-                        manager.job_manager.download_job_results, job
-                    )
+                self.add_to_canvas_pb.setEnabled(False)
+            elif self.job.status == JobStatus.FINISHED:
+                self.progressBar.hide()
+                result_auto_download = settings_manager.get_value(
+                    Setting.DOWNLOAD_RESULTS
                 )
-            self.add_to_canvas_pb.setEnabled(False)
-        elif self.job.status in (
-            JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY
-        ):
-            self.progressBar.hide()
-            self.download_tb.hide()
-            self.add_to_canvas_pb.setEnabled(self.has_loadable_result())
+
+                if result_auto_download:
+                    self.download_tb.hide()
+                else:
+                    self.download_tb.show()
+                    self.download_tb.setEnabled(True)
+                    self.download_tb.clicked.connect(
+                        functools.partial(
+                            manager.job_manager.download_job_results, job
+                        )
+                    )
+                self.add_to_canvas_pb.setEnabled(False)
+            elif self.job.status in (
+                JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY
+            ):
+                self.progressBar.hide()
+                self.download_tb.hide()
+                self.add_to_canvas_pb.setEnabled(self.has_loadable_result())
 
     def has_loadable_result(self):
         result = False
@@ -354,3 +388,9 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         dialogue = DlgDataIOAddLayersToMap(self, self.job)
         dialogue.exec_()
         self.main_dock.resume_scheduler()
+
+    def load_layer(self):
+        pass
+
+    def edit_layer(self):
+        pass

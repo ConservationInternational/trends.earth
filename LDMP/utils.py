@@ -111,7 +111,11 @@ def qgis_process_path() -> str:
             log('QGIS installation path not found.', warning)
             return ''
 
-        proc_scripts = ['qgis_process-qgis.bat', 'qgis_process-qgis-dev.bat']
+        proc_scripts = [
+            'qgis_process-qgis.bat',
+            'qgis_process-qgis-dev.bat',
+            'qgis_process-qgis-ltr.bat'
+        ]
         for pc in proc_scripts:
             proc_script_path = f'{rt_path}bin/{pc}'
             if os.path.exists(proc_script_path):
@@ -123,7 +127,7 @@ def qgis_process_path() -> str:
 
     # Check execution permissions
     if not os.access(proc_script_path, os.X_OK):
-        log(f'Uer does not have execution permission '
+        log(f'User does not have execution permission '
             f'for \'{proc_script_path}\'.')
         return ''
 

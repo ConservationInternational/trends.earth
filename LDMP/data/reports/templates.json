@@ -4,7 +4,7 @@
       "template_info":{
          "id":"70ca4be7-839e-4248-be14-34ba8665ed98",
          "name":"Land Productivity",
-         "description":"Shows a simple map of land productivity with the details of the job that produced it.",
+         "description":"Overview of land productivity indicator.",
          "portrait_path":"productivity_portrait.qpt",
          "landscape_path":"productivity_landscape.qpt",
          "item_scopes":[
@@ -28,8 +28,8 @@
    {
       "name":"SDG 15.3.1 Indicator with Sub-Indicators",
       "template_info":{
-         "id":"SDG 15.3.1 Indicator with Sub-Indicators",
-         "name":"LDN including sub-indicator map items",
+         "id":"1d350694-941e-42c2-ba47-720a3b6d6876",
+         "name":"SDG 15.3.1 Indicator with Sub-Indicators",
          "description":"Detailed report with map of SDG 15.3.1 indicator with also a map of the 3 sub-indicators.",
          "portrait_path":"sdg1531_with_sub_indicators_portrait.qpt",
          "landscape_path":"sdg1531_with_sub_indicators_landscape.qpt",

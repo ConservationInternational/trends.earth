@@ -118,7 +118,7 @@ class ReportProcessHandlerTask(QgsTask):
         log(f'On process finished: {str(code)}')
 
     def finished(self, result):
-        pass
+        log(f'On process finished')
 
 
 class ReportTaskProcessor:

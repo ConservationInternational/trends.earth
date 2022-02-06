@@ -3,12 +3,14 @@
 from enum import Enum
 import json
 import os
+from operator import attrgetter
 import typing
 from uuid import uuid4
 
 from qgis.core import (
     Qgis,
     QgsApplication,
+    QgsColorRampShader,
     QgsCoordinateReferenceSystem,
     QgsExpression,
     QgsExpressionContext,
@@ -18,15 +20,16 @@ from qgis.core import (
     QgsPrintLayout,
     QgsProject,
     QgsRasterLayer,
+    QgsRasterShader,
     QgsReadWriteContext,
     QgsRectangle,
     QgsReferencedRectangle,
+    QgsSingleBandPseudoColorRenderer,
     QgsTask
 )
 from qgis.gui import (
     QgsMessageBar
 )
-from qgis.utils import iface
 
 from qgis.PyQt.QtCore import (
     pyqtSignal,
@@ -46,8 +49,9 @@ from te_schemas.results import Band as JobBand
 
 from ..jobs.models import Job
 from ..layers import (
-    add_layer,
-    get_band_title
+    get_band_title,
+    styles,
+    style_layer
 )
 from ..logger import log
 
@@ -187,7 +191,7 @@ class ReportTaskProcessor:
         return False
 
     def _create_layers(self):
-        # Iterator the layers in each job.
+        # Creates layers in each job.
         for j in self._ctx.jobs:
             layers = []
             bands = j.results.get_bands()
@@ -195,12 +199,32 @@ class ReportTaskProcessor:
                 if band.add_to_map:
                     layer_path = str(j.results.uri.uri)
                     band_info = JobBand.Schema().dump(band)
+
+                    # Get corresponding style
+                    band_info_name = band_info['name']
+                    band_style = styles.get(band_info_name, None)
+                    if band_style is None:
+                        self._add_warning_msg(
+                            f'Styles for {band_info_name} not found for '
+                            f'band {band_idx!s} in {layer_path}.'
+                        )
+                        continue
+
+                    # Create raster layer and style it
                     title = get_band_title(band_info)
                     band_layer = QgsRasterLayer(layer_path, title)
                     if band_layer.isValid():
-                        layers.append(band_layer)
-                        # Add layer to project and style it
-                        #add_layer(layer_path,band_idx,band_info,layer=band_layer)
+                        # Style layer
+                        if style_layer(
+                                layer_path,
+                                band_layer,
+                                band_idx,
+                                band_style,
+                                band_info,
+                                in_process_alg=True,
+                                processing_feedback=self._feedback
+                        ):
+                            layers.append(band_layer)
 
             # Just to ensure we don't have empty lists
             if len(layers) > 0:

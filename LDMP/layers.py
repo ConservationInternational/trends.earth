@@ -25,12 +25,15 @@ from pathlib import Path
 
 import numpy as np
 from osgeo import gdal
-from qgis.core import Qgis
-from qgis.core import QgsColorRampShader
-from qgis.core import QgsProject
-from qgis.core import QgsRasterLayer
-from qgis.core import QgsRasterShader
-from qgis.core import QgsSingleBandPseudoColorRenderer
+from qgis.core import (
+    Qgis,
+    QgsColorRampShader,
+    QgsProcessingFeedback,
+    QgsProject,
+    QgsRasterLayer,
+    QgsRasterShader,
+    QgsSingleBandPseudoColorRenderer
+)
 from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtCore import QCoreApplication
 from qgis.PyQt.QtGui import QColor
@@ -724,8 +727,7 @@ def add_layer(
     layer_path: str,
     band_number: int,
     band_info: typing.Dict,
-    activated: str = 'default',
-    layer: QgsRasterLayer = None
+    activated: str = 'default'
 ):
     # You can use an existing raster layer and call this function for styling
     try:
@@ -747,9 +749,8 @@ def add_layer(
 
         return False
 
-    if layer is None:
-        title = get_band_title(band_info)
-        layer = iface.addRasterLayer(layer_path, title)
+    title = get_band_title(band_info)
+    layer = iface.addRasterLayer(layer_path, title)
     # # Initialize statistics for this layer
     # _set_statistics(band_number, band_info["no_data_value"], layer_path)
 
@@ -757,16 +758,46 @@ def add_layer(
         log(f'Failed to add layer {layer_path}, band number {band_number}')
 
         return False
+
+    return style_layer(
+        layer_path,
+        layer,
+        band_number,
+        style,
+        band_info,
+        activated
+    )
+
+
+def style_layer(
+        layer_path: str,
+        layer: QgsRasterLayer,
+        band_number: int,
+        style: typing.Dict,
+        band_info: typing.Dict,
+        activated: str = 'default',
+        in_process_alg: bool = False,
+        processing_feedback: QgsProcessingFeedback = None
+
+) -> bool:
+    """
+    Styles a raster layer. Has been extracted from 'add_layer' so that
+    styling can be performed in non-GUI operations i.e. in a
+    processing algorithm.
+    """
     try:
         color_ramp = _create_color_ramp(
             layer_path, band_number, style, band_info
         )
-        # log(f"color_ramp: {color_ramp}")
-        # log(f"color_ramp is None: {color_ramp is None}")
     except RuntimeError as exc:
-        log(f"Could not create color ramp: {str(exc)}")
+        msg = f'Could not create color ramp: {str(exc)}'
+        if in_process_alg and processing_feedback is not None:
+            processing_feedback.pushConsoleInfo(msg)
+        else:
+            log(msg)
 
         return False
+
     else:
         fcn = QgsColorRampShader()
         ramp_shader = style["ramp"]["shader"]
@@ -778,9 +809,11 @@ def add_layer(
         elif ramp_shader == 'interpolated':
             fcn.setColorRampType("INTERPOLATED")
         else:
-            raise TypeError(
-                "Unrecognized color ramp type: {}".format(ramp_shader)
-            )
+            msg = f'Unrecognized color ramp type: {ramp_shader}'
+            if in_process_alg and processing_feedback is not None:
+                processing_feedback.pushConsoleInfo(msg)
+            else:
+                raise TypeError(msg)
 
         # In QGIS 3.18 need to set legend settings
         v_major, v_minor = _get_qgis_version()
@@ -790,8 +823,7 @@ def add_layer(
             legend_settings.setUseContinuousLegend(False)
 
         # Make sure the items in the color ramp are sorted by value (weird
-        # display
-        # errors will otherwise result)
+        # display errors will otherwise result)
         color_ramp.sort(key=attrgetter('value'))
         fcn.setColorRampItemList(color_ramp)
         shader = QgsRasterShader()
@@ -815,7 +847,9 @@ def add_layer(
             QgsProject.instance().layerTreeRoot().findLayer(
                 layer.id()
             ).setItemVisibilityChecked(False)
-        iface.layerTreeView().refreshLayerSymbology(layer.id())
+
+        if not in_process_alg:
+            iface.layerTreeView().refreshLayerSymbology(layer.id())
 
         return True
 

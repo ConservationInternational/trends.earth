@@ -1,7 +1,7 @@
 # Modules for managing variables and expressions that can be used in a report.
 from collections import namedtuple
-from datetime import datetime
 import json
+from operator import attrgetter
 import typing
 
 from qgis.core import (
@@ -17,8 +17,6 @@ from qgis.PyQt.QtCore import (
 
 from ..jobs.models import Job
 from ..utils import (
-    deep_get_attr,
-    deep_has_attr,
     utc_to_local
 )
 
@@ -90,8 +88,11 @@ class ReportExpressionUtils:
             active_scope = ctx.activeScopeForVariable(
                 jv_info.var_name
             )
-            if deep_has_attr(job, jv_info.job_attr):
-                job_attr_value = deep_get_attr(job, jv_info.job_attr)
+
+            # Ensure the given job attribute exists
+            try:
+                getattr_func = attrgetter(jv_info.job_attr)
+                job_attr_value = getattr_func(job)
 
                 # Format value if required especially those ones that the
                 # QgsExpression cannot convert or does not provide a function
@@ -101,5 +102,7 @@ class ReportExpressionUtils:
                     job_attr_value = fmt_func(job_attr_value)
 
                 active_scope.setVariable(jv_info.var_name, job_attr_value)
+            except AttributeError:
+                continue
 
         return ctx

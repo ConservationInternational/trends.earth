@@ -134,20 +134,6 @@ def qgis_process_path() -> str:
     return proc_script_path
 
 
-def deep_get_attr(obj, attr):
-    # Gets attribute value of inner objects e.g. job.script.name
-	return reduce(getattr, attr.split('.'), obj)
-
-
-def deep_has_attr(obj, attr):
-    # Check whether the object and nested objects have the given attribute.
-    try:
-        _ = deep_get_attr(obj, attr)
-        return True
-    except AttributeError:
-        return False
-
-
 class FileUtils:
     """
     Provides functionality for commonly used file-related operations.

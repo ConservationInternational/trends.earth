@@ -205,7 +205,6 @@ class ReportTemplateInfo:
 class ReportConfiguration:
     """Contains template and output settings for a report.
     """
-    name: typing.Optional[str]
     template_info: typing.Optional[ReportTemplateInfo]
     output_options: typing.Optional[ReportOutputOptions]
 
@@ -215,18 +214,10 @@ class ReportConfiguration:
     def __init__(
             self,
             template_info: ReportTemplateInfo,
-            output_options: ReportOutputOptions,
-            **kwargs
+            output_options: ReportOutputOptions
     ) -> None:
         self.template_info = template_info
         self.output_options = output_options
-        self.name = self._set_name() or kwargs.pop('name')
-
-    def _set_name(self) -> str:
-        if self.template_info:
-            return slugify(self.template_info.name)
-
-        return ''
 
     def update_paths(self, template_dir):
         # Convenience function for updating absolute paths for template files.

@@ -301,7 +301,7 @@ class ReportTaskProcessor:
 
     def _add_open_layout_macro(self):
         # Add macro that open the layout when the project is opened.
-        template_name = self._ctx.report_configuration.template_info.name
+        template_name = self._ti.name
         err_title = self.tr('Layout Error')
         err_msg_tr = self.tr('layout cannot be found')
         err_msg = f'{template_name} {err_msg_tr}'
@@ -347,6 +347,7 @@ class ReportTaskProcessor:
             return False
 
         self._layout = QgsPrintLayout(self._proj)
+        self._layout.setName(self._ti.name)
         status, document = self._get_template_document(ref_temp_path)
         if not status:
             return False

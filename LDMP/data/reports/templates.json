@@ -1,6 +1,5 @@
 [
    {
-      "name":"Land Productivity",
       "template_info":{
          "id":"70ca4be7-839e-4248-be14-34ba8665ed98",
          "name":"Land Productivity",
@@ -26,7 +25,6 @@
       }
    },
    {
-      "name":"SDG 15.3.1 Indicator with Sub-Indicators",
       "template_info":{
          "id":"1d350694-941e-42c2-ba47-720a3b6d6876",
          "name":"SDG 15.3.1 Indicator with Sub-Indicators",

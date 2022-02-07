@@ -49,6 +49,11 @@ class Setting(enum.Enum):
     AREA_NAME = "region_of_interest/area_settings_name"
     JOB_FILE_AGE_LIMIT_DAYS = "advanced/deleted_datasets_age_limit"
     DEFINITIONS_DIRECTORY = "advanced/definitions_directory"
+    REPORT_TEMPLATE_SEARCH_PATH = "report/template_search_path"
+    REPORT_ORG_LOGO_PATH = "report/org_logo_path"
+    REPORT_ORG_NAME = "report/org_name"
+    REPORT_FOOTER = "report/footer"
+    REPORT_DISCLAIMER = "report/disclaimer"
 
 
 class SettingsManager:
@@ -85,6 +90,11 @@ class SettingsManager:
         Setting.BUFFER_SIZE: 0.0,
         Setting.AREA_NAME: "",
         Setting.JOB_FILE_AGE_LIMIT_DAYS: 15,
+        Setting.REPORT_TEMPLATE_SEARCH_PATH: "",
+        Setting.REPORT_ORG_LOGO_PATH: "",
+        Setting.REPORT_ORG_NAME: "",
+        Setting.REPORT_FOOTER: "",
+        Setting.REPORT_DISCLAIMER: ""
     }
 
     def __init__(self):

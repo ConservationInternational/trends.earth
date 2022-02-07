@@ -134,9 +134,7 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
             0, self.widgetSettingsAdvanced)
 
         # Report settings
-        self.widget_settings_report = WidgetSettingsReport(
-            message_bar=self.message_bar
-        )
+        self.widget_settings_report = WidgetSettingsReport(self)
         self.reports_layout.layout().insertWidget(
             0, self.widget_settings_report
         )
@@ -257,6 +255,7 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
     def accept(self):
         self.area_widget.save_settings()
         self.widgetSettingsAdvanced.update_settings()
+        self.widget_settings_report.save_settings()
         super().accept()
 
 
@@ -1178,9 +1177,9 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
 
 
 class WidgetSettingsReport(QtWidgets.QWidget, Ui_WidgetSettingsReport):
-    _settings_base_path: str="trends_earth/advanced"
-    _qgis_settings=qgis.core.QgsSettings()
-
+    """
+    Report settings widget.
+    """
     disclaimer_te: QtWidgets.QPlainTextEdit
     disclaimer_ut: UserTip
     footer_te: QtWidgets.QPlainTextEdit
@@ -1194,11 +1193,9 @@ class WidgetSettingsReport(QtWidgets.QWidget, Ui_WidgetSettingsReport):
     template_search_path_le: QtWidgets.QLineEdit
     template_search_path_tb: QtWidgets.QToolButton
 
-    def __init__(self, message_bar: qgis.gui.QgsMessageBar, parent=None):
+    def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
-
-        self.message_bar = message_bar
 
         # Set icons
         self.org_logo_tb.setIcon(FileUtils.get_icon('mActionFileOpen.svg'))
@@ -1224,8 +1221,116 @@ class WidgetSettingsReport(QtWidgets.QWidget, Ui_WidgetSettingsReport):
             'is \'label.base_disclaimer\''
         )
 
-    def save_report_settings(self):
-        pass
+        # Connect signals
+        self.template_search_path_tb.clicked.connect(
+            self.on_select_template_path
+        )
+        self.org_logo_tb.clicked.connect(
+            self.on_select_org_logo
+        )
+
+    def _load_settings(self):
+        """
+        Load settings in the configuration.
+        """
+        search_path = settings_manager.get_value(
+            Setting.REPORT_TEMPLATE_SEARCH_PATH
+        )
+        self.template_search_path_le.setText(search_path)
+        self.template_search_path_le.setToolTip(search_path)
+
+        logo_path = settings_manager.get_value(
+            Setting.REPORT_ORG_LOGO_PATH
+        )
+        self.org_logo_le.setText(logo_path)
+        self.org_logo_le.setToolTip(logo_path)
+
+        self.org_name_le.setText(
+            settings_manager.get_value(Setting.REPORT_ORG_NAME)
+        )
+        self.footer_te.setPlainText(
+            settings_manager.get_value(Setting.REPORT_FOOTER)
+        )
+        self.disclaimer_te.setPlainText(
+            settings_manager.get_value(Setting.REPORT_DISCLAIMER)
+        )
+
+    def showEvent(self, event):
+        super().showEvent(event)
+        self._load_settings()
+
+    def on_select_template_path(self):
+        # Slot for choosing template search path
+        template_dir = self.template_search_path_le.text()
+        if not template_dir:
+            template_dir = settings_manager.get_value(Setting.BASE_DIR)
+
+        template_dir = QtWidgets.QFileDialog.getExistingDirectory(
+            self,
+            self.tr('Select Report Template Search Path'),
+            template_dir,
+            options=QtWidgets.QFileDialog.DontResolveSymlinks |
+                    QtWidgets.QFileDialog.ShowDirsOnly
+        )
+        if template_dir:
+            self.template_search_path_le.setText(template_dir)
+            self.template_search_path_le.setToolTip(template_dir)
+
+    def _image_files_filter(self):
+        # QFileDialog filter for image files.
+        formats = [
+            f'*.{bytes(fmt).decode()}'
+            for fmt in QtGui.QImageReader.supportedImageFormats()
+        ]
+        tr_prefix = self.tr('All Images')
+        formats_txt = ' '.join(formats)
+
+        return f'{tr_prefix} ({formats_txt})'
+
+    def on_select_org_logo(self):
+        # Slot for selecting organization logo
+        org_logo_path = self.org_logo_le.text()
+        if not org_logo_path:
+            logo_dir = settings_manager.get_value(Setting.BASE_DIR)
+        else:
+            fi = QtCore.QFileInfo(org_logo_path)
+            file_dir = fi.dir()
+            logo_dir = file_dir.path()
+
+        org_logo_path, _ = QtWidgets.QFileDialog.getOpenFileName(
+            self,
+            self.tr('Select Organization Logo'),
+            logo_dir,
+            self._image_files_filter(),
+            options=QtWidgets.QFileDialog.DontResolveSymlinks
+        )
+        if org_logo_path:
+            self.org_logo_le.setText(org_logo_path)
+            self.org_logo_le.setToolTip(org_logo_path)
+
+    def save_settings(self):
+        # Persist settings.
+        settings_manager.write_value(
+            Setting.REPORT_TEMPLATE_SEARCH_PATH,
+            self.template_search_path_le.text()
+        )
+        settings_manager.write_value(
+            Setting.REPORT_ORG_LOGO_PATH,
+            self.org_logo_le.text()
+        )
+        settings_manager.write_value(
+            Setting.REPORT_ORG_NAME,
+            self.org_name_le.text()
+        )
+        settings_manager.write_value(
+            Setting.REPORT_FOOTER,
+            self.footer_te.toPlainText()
+        )
+        settings_manager.write_value(
+            Setting.REPORT_DISCLAIMER,
+            self.disclaimer_te.toPlainText()
+        )
+
 
 
 

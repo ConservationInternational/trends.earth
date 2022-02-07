@@ -133,7 +133,6 @@ def qgis_process_path() -> str:
 
     return proc_script_path
 
-
 class FileUtils:
     """
     Provides functionality for commonly used file-related operations.
@@ -166,9 +165,24 @@ class FileUtils:
         )
 
         if not os.path.exists(icon_path):
-            return None
+            return QtGui.QIcon()
 
         return QtGui.QIcon(icon_path)
+
+    @staticmethod
+    def get_icon_pixmap(icon_name: str) -> QtGui.QPixmap:
+        """
+        Returns icon as a QPixmap object.
+        """
+        icon_path = os.path.normpath(
+            f'{FileUtils.plugin_dir()}/icons/{icon_name}'
+        )
+
+        if not os.path.exists(icon_path):
+            return QtGui.QPixmap()
+
+        im = QtGui.QImage(icon_path)
+        return QtGui.QPixmap.fromImage(im)
 
 
 

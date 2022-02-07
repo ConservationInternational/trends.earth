@@ -57,9 +57,13 @@ Ui_WidgetSelectArea, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/WidgetSelectArea.ui"))
 Ui_WidgetSettingsAdvanced, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/WidgetSettingsAdvanced.ui"))
+Ui_WidgetSettingsReport, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/WidgetSettingsReport.ui"))
 
 
 from .logger import log
+from .user_tip import UserTip
+from .utils import FileUtils
 
 
 ICON_PATH = os.path.join(os.path.dirname(__file__), 'icons')
@@ -128,6 +132,14 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
             message_bar=self.message_bar)
         self.verticalLayout_advanced.layout().insertWidget(
             0, self.widgetSettingsAdvanced)
+
+        # Report settings
+        self.widget_settings_report = WidgetSettingsReport(
+            message_bar=self.message_bar
+        )
+        self.reports_layout.layout().insertWidget(
+            0, self.widget_settings_report
+        )
 
         # set Dialog UIs
         self.dlg_settings_register = DlgSettingsRegister()
@@ -1163,3 +1175,57 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
                 return False
         else:
             return False
+
+
+class WidgetSettingsReport(QtWidgets.QWidget, Ui_WidgetSettingsReport):
+    _settings_base_path: str="trends_earth/advanced"
+    _qgis_settings=qgis.core.QgsSettings()
+
+    disclaimer_te: QtWidgets.QPlainTextEdit
+    disclaimer_ut: UserTip
+    footer_te: QtWidgets.QPlainTextEdit
+    footer_ut: UserTip
+    message_bar: qgis.gui.QgsMessageBar
+    org_logo_le: QtWidgets.QLineEdit
+    org_logo_tb: QtWidgets.QToolButton
+    org_logo_ut: UserTip
+    org_name_le: QtWidgets.QLineEdit
+    org_name_ut: UserTip
+    template_search_path_le: QtWidgets.QLineEdit
+    template_search_path_tb: QtWidgets.QToolButton
+
+    def __init__(self, message_bar: qgis.gui.QgsMessageBar, parent=None):
+        super().__init__(parent)
+        self.setupUi(self)
+
+        self.message_bar = message_bar
+
+        # Set icons
+        self.org_logo_tb.setIcon(FileUtils.get_icon('mActionFileOpen.svg'))
+        self.template_search_path_tb.setIcon(
+            FileUtils.get_icon('mActionFileOpen.svg')
+        )
+
+        # Set user tips
+        self.org_logo_ut.user_tip = self.tr(
+            'Template should have a layout picture item whose item ID '
+            'is \'picture.org_logo\''
+        )
+        self.org_name_ut.user_tip = self.tr(
+            'Template should have a layout label item whose item ID '
+            'is \'label.org_name\''
+        )
+        self.footer_ut.user_tip = self.tr(
+            'Template should have a layout label item whose item ID '
+            'is \'label.base_footer\''
+        )
+        self.disclaimer_ut.user_tip = self.tr(
+            'Template should have a layout label item whose item ID '
+            'is \'label.base_disclaimer\''
+        )
+
+    def save_report_settings(self):
+        pass
+
+
+

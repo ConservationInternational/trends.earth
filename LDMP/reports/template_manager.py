@@ -5,7 +5,6 @@ import os
 import typing
 
 from marshmallow.exceptions import ValidationError
-from qgis.PyQt.QtCore import QFile
 from qgis.core import Qgis
 
 from ..logger import log
@@ -127,9 +126,9 @@ class TemplateManager:
                     self._configs.append(cf)
             except ValidationError as ve:
                 err_msg = str(ve.messages)
-                log(err_msg)
+                log(err_msg, Qgis.Warning)
             except Exception as exc:
-                log(str(exc))
+                log(str(exc), Qgis.Warning)
             finally:
                 tf.close()
 

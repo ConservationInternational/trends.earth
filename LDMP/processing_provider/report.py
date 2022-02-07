@@ -4,8 +4,7 @@ import json
 import os
 
 from qgis.PyQt.QtCore import (
-    QCoreApplication,
-    QFileInfo
+    QCoreApplication
 )
 from qgis.core import (
     QgsProcessingAlgorithm,

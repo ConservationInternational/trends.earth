@@ -34,7 +34,7 @@ def slugify(value, allow_unicode=False):
     return re.sub(r'[-\s]+', '-', value).strip('-_')
 
 
-class OutputFormat(Enum):
+class OutputFormatType(Enum):
     """Formats for output reports."""
     PDF = 'pdf'
     IMAGE = 'image'
@@ -45,31 +45,61 @@ class OutputFormat(Enum):
 
 
 @dataclass
-class ReportOutputOptions:
+class ReportOutputFormat:
     """
-    Settings for generating output reports.
-    In the templates.json file, for:
-        - PDF output: specify "output_format":"PDF"
-        - Image output: specify "output_format":"IMAGE" and
+    Format information for the report output.
+    For:
+        - PDF output: specify "format_type":"PDF"
+        - Image output: specify "format_type":"IMAGE" and
             "format_params":{
                 "image_type":"jpg" or "jpeg" or "png" or "bmp"
          }
-    Please note that the output_format should be in uppercase.
+    Please note that the 'format_type' should be in uppercase.
     """
-    output_format: OutputFormat = field(default=OutputFormat.PDF)
-    include_qpt: bool = field(default=True)
-    format_params: dict = field(default_factory=dict)
+    format_type: OutputFormatType = field(default=OutputFormatType.PDF)
+    params: dict = field(default_factory=dict)
 
     def file_extension(self) -> str:
         """
         If output format is IMAGE and its type is not defined, it will
         default to PNG.
         """
-        if self.output_format == OutputFormat.PDF:
+        if self.format_type == OutputFormatType.PDF:
             return 'pdf'
         else:
-            img_type = self.format_params.get('image_type', 'PNG')
+            img_type = self.params.get('image_type', 'PNG')
             return img_type.lower()
+
+
+@dataclass
+class ReportOutputOptions:
+    """
+    Output options for the report export with support for more than one
+    format. If 'view_format' is not specified, then the first output format
+    (in the configuration) is used.
+    """
+    formats: typing.List[ReportOutputFormat]
+    include_qpt: bool = field(default=True)
+    # This will search for the matching type in 'formats'
+    view_format_type: OutputFormatType = field(default=OutputFormatType.PDF)
+
+    def view_format(self) -> ReportOutputFormat:
+        """
+        Uses the 'view_format_type' to search for a matching output format.
+        This is used by the UI to determine the file format that should be
+        used for viewing the output report. If there is no matching format,
+        then the first item in 'formats' is used.
+        """
+        if len(self.formats) == 0:
+            return None
+
+        matching_formats = [
+            f for f in self.formats if f.format_type == self.view_format_type
+        ]
+        if len(matching_formats) == 0:
+            return self.formats[0]
+
+        return matching_formats[0]
 
 
 class LayoutItemType(Enum):
@@ -230,19 +260,21 @@ class ReportTaskContext:
     Provides context information for generating reports.
     """
     report_configuration: ReportConfiguration
-    output_paths: typing.Tuple[str, str]
+    report_paths: typing.List[str]
+    template_path: str = None,
     jobs: typing.List[Job] = field(default_factory=list)
 
     def __init__(
             self,
             report_configuration: ReportConfiguration,
-            output_paths: typing.Tuple[str, str],
-            jobs: typing.List[Job]
+            report_paths: typing.List[str],
+            template_path: str = None,
+            jobs: typing.List[Job] = None
     ):
         self.report_configuration = report_configuration
-        # (report_path, template_path)
-        self.output_paths = output_paths
-        self.jobs = jobs
+        self.report_paths = report_paths
+        self.template_path = template_path or ''
+        self.jobs = jobs or []
 
 
 

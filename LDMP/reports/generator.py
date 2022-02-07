@@ -10,7 +10,6 @@ from uuid import uuid4
 from qgis.core import (
     Qgis,
     QgsApplication,
-    QgsColorRampShader,
     QgsCoordinateReferenceSystem,
     QgsExpression,
     QgsExpressionContext,
@@ -20,16 +19,15 @@ from qgis.core import (
     QgsPrintLayout,
     QgsProject,
     QgsRasterLayer,
-    QgsRasterShader,
     QgsReadWriteContext,
     QgsRectangle,
     QgsReferencedRectangle,
-    QgsSingleBandPseudoColorRenderer,
     QgsTask
 )
 from qgis.gui import (
     QgsMessageBar
 )
+from qgis.utils import iface
 
 from qgis.PyQt.QtCore import (
     pyqtSignal,
@@ -57,7 +55,6 @@ from ..logger import log
 
 from .expressions import ReportExpressionUtils
 from .models import (
-    OutputFormat,
     ReportTaskContext
 )
 from ..utils import (
@@ -239,22 +236,26 @@ class ReportTaskProcessor:
         if self._layout is None:
             return False
 
-        rpt_path, temp_path = self._ctx.output_paths
+        rpt_paths = self._ctx.report_paths
+        temp_path = self._ctx.template_path
 
-        # Update project info so that they can be written to output file
+        # Update project info so that they can be written to the output file
         self._update_project_metadata_extents()
 
         exporter = QgsLayoutExporter(self._layout)
-        if self._options.output_format == OutputFormat.PDF:
-            settings = QgsLayoutExporter.PdfExportSettings()
-            res = exporter.exportToPdf(rpt_path, settings)
-        else:
-            settings = QgsLayoutExporter.ImageExportSettings()
-            res = exporter.exportToImage(rpt_path, settings)
 
-        if res != QgsLayoutExporter.Success:
-            self._add_warning_msg('Failed to export the report.')
-            return False
+        for rp in rpt_paths:
+            if 'pdf' in rp:
+                settings = QgsLayoutExporter.PdfExportSettings()
+                res = exporter.exportToPdf(rp, settings)
+
+            # Assume everything else is an image
+            else:
+                settings = QgsLayoutExporter.ImageExportSettings()
+                res = exporter.exportToImage(rp, settings)
+
+            if res != QgsLayoutExporter.Success:
+                self._add_warning_msg(f'Failed to export report to {rp}.')
 
         # Export template if defined
         if self._options.include_qpt:
@@ -274,7 +275,13 @@ class ReportTaskProcessor:
             self._add_open_layout_macro()
 
             # Export project
-            proj_file = FileUtils.project_path_from_report_path(rpt_path)
+            if len(rpt_paths) == 0:
+                self._add_warning_msg(
+                    'No report paths found, cannot save report project.'
+                )
+                return False
+
+            proj_file = FileUtils.project_path_from_report_path(rpt_paths[0])
             self._proj.write(proj_file)
 
         return True
@@ -514,7 +521,7 @@ class ReportGenerator(QObject):
 
     def write_context_to_file(self, ctx, task_id: str) -> str:
         # Write report task context to file.
-        rpt_fi = QFileInfo(ctx.output_paths[0])
+        rpt_fi = QFileInfo(ctx.report_paths[0])
         output_dir = rpt_fi.dir().path()
         ctx_file_path = f'{output_dir}/report_{task_id}.json'
 

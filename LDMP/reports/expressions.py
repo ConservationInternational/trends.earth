@@ -6,7 +6,6 @@ import typing
 
 from qgis.core import (
     QgsExpressionContext,
-    QgsExpressionContextScope,
     QgsExpressionContextUtils,
     QgsLayout
 )

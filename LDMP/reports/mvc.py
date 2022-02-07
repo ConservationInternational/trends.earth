@@ -180,7 +180,14 @@ class DatasetReportHandler:
 
     def view_report(self):
         # View report in the default pdf or image viewer.
-        _, rpt_path = self._report_name_path()
+        rpt_path = self._view_report_path()
+        if not rpt_path:
+            self._push_refactor_message(
+                self.tr('Invalid File'),
+                self.tr('Report path could not be determined.')
+            )
+            log('Empty report path.', Qgis.Warning)
+            return
 
         if not os.path.exists(rpt_path):
             self._push_refactor_message(
@@ -203,17 +210,43 @@ class DatasetReportHandler:
         rpt_path_url = QUrl(QUrl.fromLocalFile(rpt_path))
         QDesktopServices.openUrl(rpt_path_url)
 
-    def _report_name_path(self) -> typing.Tuple[str, str]:
-        rpt_name, rpt_path = build_report_name(
+    def _report_name_path(self) -> typing.List[tuple]:
+        return build_report_name(
             self._job,
             self._rpt_config.output_options
         )
 
-        return rpt_name, rpt_path
+    def _view_report_path(self) -> str:
+        """
+        Returns the path for the viewing the report based on the view_format
+        specified in the configuration. This is particularly relevant for
+        those reports with multiple output formats.
+        """
+        view_fmt = self._rpt_config.output_options.view_format()
+        if view_fmt is None:
+            return ''
+
+        view_rpt_path = ''
+        rpt_ext = view_fmt.file_extension()
+        for np in self._report_name_path():
+            _, rpt_path = np
+            if rpt_ext in rpt_path:
+                view_rpt_path = rpt_path
+                break
+
+        return view_rpt_path
 
     def open_designer(self):
         # Open project which contains a macro to open the layout designer.
-        _, rpt_path = self._report_name_path()
+        rpt_path = self._view_report_path()
+        if not rpt_path:
+            self._push_refactor_message(
+                self.tr('Invalid File'),
+                self.tr('Report path could not be determined.')
+            )
+            log('Empty report path.', Qgis.Warning)
+            return
+
         proj_path = FileUtils.project_path_from_report_path(rpt_path)
 
         # Check if the QGIS project file exists
@@ -249,12 +282,13 @@ class DatasetReportHandler:
     def generate_report(self):
         # Generate output report and source template
         _, temp_path = build_template_name(self._job)
-        _, rpt_path = self._report_name_path()
+        rpt_paths = [rp[1] for rp in self._report_name_path()]
 
         # Create report task context for report generation.
         self._rpt_task_ctx = ReportTaskContext(
             self._rpt_config,
-            (rpt_path, temp_path),
+            rpt_paths,
+            temp_path,
             [self._job]
         )
         report_generator.process_report_task(

@@ -208,13 +208,16 @@ class DlgGenerateReport(QDialog, DlgGenerateReportUi):
         sel_config = self.template_cbo.itemData(self.template_cbo.currentIndex())
         jobs = self._scope_job_model.scope_job_mapping.values()
         base_filename = self.output_dir_le.text()
-        rpt_file_ext = sel_config.options.file_extension()
-        rpt_path = f'{base_filename}_report.{rpt_file_ext}'
+        rpt_paths = [
+            f'{base_filename}_report.{f.file_extension()}'
+            for f in sel_config.output_options.formats
+        ]
         template_path = f'{base_filename}_template.qpt'
 
         rpt_task_ctx = ReportTaskContext(
             sel_config,
-            (rpt_path, template_path),
+            rpt_paths,
+            template_path,
             jobs
         )
 

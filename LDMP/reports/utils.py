@@ -12,14 +12,28 @@ from .models import ReportOutputOptions
 def build_report_name(
         job: Job,
         options: ReportOutputOptions
-) -> typing.Tuple[str, str]:
-    # Tuple containing report name and path (inclusive of report name)
+) -> typing.List[tuple]:
+    """
+    List of tuples containing report name and path (inclusive of report
+    name). Based on the formats specified by the user.
+    """
+    rpt_name_path = []
     job_dir = f'{manager.job_manager.datasets_dir}/{job.id!s}'
-    rpt_name = f'{manager.job_manager.get_job_basename(job)}' \
-               f'_report.{options.file_extension()}'
-    abs_rpt_path = os.path.normpath(f'{job_dir}/{rpt_name}')
+    formats = options.formats
+    exts = []
+    for f in formats:
+        rpt_ext = f.file_extension()
+        # Ensure no duplicate extensions
+        if rpt_ext in exts:
+            continue
+        exts.append(rpt_ext)
 
-    return rpt_name, abs_rpt_path
+        rpt_name = f'{manager.job_manager.get_job_basename(job)}' \
+               f'_report.{rpt_ext}'
+        abs_rpt_path = os.path.normpath(f'{job_dir}/{rpt_name}')
+        rpt_name_path.append((rpt_name, abs_rpt_path))
+
+    return rpt_name_path
 
 
 def build_template_name(
@@ -54,14 +68,17 @@ def job_has_results(job: Job) -> bool:
 
 def job_has_report(job: Job, options: ReportOutputOptions) -> bool:
     # Checks if there is a corresponding report for the given job.
-    report_name, report_path = build_report_name(
+    has_report = True
+    name_paths = build_report_name(
         job,
         options
     )
+    for np in name_paths:
+        _, rpt_path = np
+        if not os.path.exists(rpt_path):
+            has_report = False
+            break
 
-    if not os.path.exists(report_path):
-        return False
-
-    return True
+    return has_report
 
 

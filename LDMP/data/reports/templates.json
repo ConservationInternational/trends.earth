@@ -17,11 +17,21 @@
          ]
       },
       "output_options":{
-         "output_format":"PDF",
          "include_qpt":true,
-         "format_params":{
-
-         }
+         "view_format_type": "IMAGE",
+         "formats": [
+            {
+               "format_type": "PDF",
+               "params": {
+               }
+            },
+            {
+               "format_type": "IMAGE",
+               "params": {
+                  "image_type": "png"
+               }
+            }
+         ]
       }
    },
    {
@@ -47,11 +57,15 @@
          ]
       },
       "output_options":{
-         "output_format":"IMAGE",
          "include_qpt":true,
-         "format_params":{
-            "image_type": "png"
-         }
+         "formats": [
+            {
+               "format_type": "IMAGE",
+               "params": {
+                  "image_type": "png"
+               }
+            }
+         ]
       }
    }
 ]

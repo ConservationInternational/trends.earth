@@ -226,7 +226,7 @@
         "MODIS (MOD13Q1, annual)": {
             "Data source": "GEE",
             "Start year": 2001,
-            "End year": 2020,
+            "End year": 2021,
             "Spatial Resolution": "250 m",
             "Temporal resolution": "annual",
             "Min Latitude": "-90",
@@ -357,7 +357,7 @@
         "CHIRPS": {
             "Data source": "GEE",
             "Start year": 1981,
-            "End year": 2020,
+            "End year": 2021,
             "Spatial resolution": "5 km",
             "Temporal resolution": "annual",
             "Min Latitude": "-50",
@@ -367,7 +367,7 @@
             "Units": "mm/year",
             "Description": "Climate Hazards Group InfraRed Precipitation with Station data (CHIRPS) is a 30+ year quasi-global rainfall dataset. Spanning 50°S-50°N (and all longitudes), starting in 1981 to near-present, CHIRPS incorporates 0.05° resolution satellite imagery with in-situ station data to create gridded rainfall time series for trend analysis and seasonal drought monitoring.",
             "Link to Dataset": "http://chg.geog.ucsb.edu/data/chirps/",
-            "GEE Dataset": "users/geflanddegradation/toolbox_datasets/prec_chirps_1981_2020",
+            "GEE Dataset": "users/geflanddegradation/toolbox_datasets/prec_chirps_1981_2021",
             "Source code": "c05_precip_chirps_int_global_assets",
             "Status": "Stored as assets",
             "License": "Public Domain",

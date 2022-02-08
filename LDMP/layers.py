@@ -13,10 +13,10 @@
 """
 
 import json
+import math
 import os
 import re
 import typing
-from builtins import range
 from builtins import str
 from math import floor
 from math import log10
@@ -462,34 +462,38 @@ def get_sample(f, band_number, n=1e6):
     xsize = b.XSize
     ysize = b.YSize
 
-    # Select grid size from shortest side to ensure we have enough samples
+    samp_frac = (n / (xsize * ysize)) * 2
 
-    if xsize > ysize:
-        edge = ysize
-    else:
-        edge = xsize
-    grid_size = np.ceil(edge / np.sqrt(n))
+    ratio = xsize / ysize
+    ysize_new = math.ceil(math.sqrt(n / ratio))
+    xsize_new = math.ceil(ysize_new * ratio)
 
-    if (n > xsize * ysize) or ((grid_size * grid_size) > (xsize * ysize)):
-        # Don't sample if the sample would be larger than the array itself
+    if (n > xsize * ysize) or (samp_frac > .75) or (xsize_new > xsize
+                                                    ) or (ysize_new > ysize):
+        log(
+            f"Skipping resampling from a ({xsize}, {ysize}) array "
+            f"to a ({xsize_new}, {ysize_new}) array"
+        )
 
         return b.ReadAsArray().astype(np.float)
     else:
-        rows = np.arange(0, ysize, grid_size)
-        cols = np.arange(0, xsize, grid_size).astype('int64')
-
-        out = np.zeros((rows.shape[0], cols.shape[0]), np.float32)
         log(
-            "Sampling from a ({}, {}) array to a {} array (grid size: {}, samples: {})"
-            .format(
-                ysize, xsize, out.shape, grid_size, out.shape[0] * out.shape[1]
-            )
+            f"Resampling from a ({xsize}, {ysize}) array "
+            f"to a ({xsize_new}, {ysize_new}) array"
+        )
+        log(
+            'Resampling to '
+            f'/vsimem/resample_{Path(f).with_suffix(".tif").name}, from {f}'
+        )
+        ds_resamp = gdal.Translate(
+            f'/vsimem/{Path(f).with_suffix(".tif").name}',
+            f,
+            bandList=[band_number],
+            width=xsize_new,
+            height=ysize_new
         )
 
-        for n in range(rows.shape[0]):
-            out[n, :] = b.ReadAsArray(0, int(rows[n]), xsize, 1)[:, cols]
-
-        return out
+        return ds_resamp.ReadAsArray().astype(np.float)
 
 
 # def _set_statistics(
@@ -504,8 +508,10 @@ def get_sample(f, band_number, n=1e6):
 
 
 def _get_cutoff(
-    data_sample: np.ndarray, no_data_value: typing.Union[int, float],
-    percentiles
+    data_sample: np.ndarray,
+    no_data_value: typing.Union[int, float],
+    percentiles,
+    mask_zeros=False
 ):
     if len(percentiles) != 1 and len(percentiles) != 2:
         raise ValueError(
@@ -513,6 +519,7 @@ def _get_cutoff(
             .format(percentiles)
         )
     md = np.ma.masked_where(data_sample == no_data_value, data_sample)
+    md = np.ma.masked_where(md == 0, md)
 
     if md.size == 0:
         # If all of the values are no data, return 0
@@ -605,10 +612,12 @@ def _create_zero_centered_stretch_color_ramp(
     # Set a colormap centred on zero, going to the max of the min and max
     # extreme value significant to three figures.
     cutoff = _get_cutoff(
-        data_sample, no_data_value, [
+        data_sample,
+        no_data_value, [
             style_config['ramp']['percent stretch'],
             100 - style_config['ramp']['percent stretch']
-        ]
+        ],
+        mask_zeros=True
     )
     log(
         'Cutoff for {} percent stretch: {}'.format(
@@ -643,8 +652,9 @@ def _create_min_zero_stretch_color_ramp(
     # Set a colormap from zero to percent stretch significant to
     # three figures.
     cutoff = _get_cutoff(
-        data_sample, no_data_value,
-        [100 - style_config['ramp']['percent stretch']]
+        data_sample,
+        no_data_value, [100 - style_config['ramp']['percent stretch']],
+        mask_zeros=True
     )
     log(
         'Cutoff for min zero max {} percent stretch: {}'.format(

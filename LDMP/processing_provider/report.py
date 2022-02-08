@@ -15,7 +15,10 @@ from qgis.core import (
     QgsProject
 )
 
-
+from ..conf import (
+    Setting,
+    settings_manager
+)
 from ..reports.generator import ReportTaskProcessor
 from ..reports.models import ReportTaskContext
 
@@ -98,8 +101,12 @@ class ReportTaskContextAlgorithm(QgsProcessingAlgorithm):
             return {'STATUS': status}
 
         # Update template paths
+        user_temp_dir = settings_manager.get_value(
+            Setting.REPORT_TEMPLATE_SEARCH_PATH
+        )
         rpt_task_ctx.report_configuration.template_info.update_paths(
-            FileUtils.report_templates_dir()
+            FileUtils.report_templates_dir(),
+            user_temp_dir
         )
 
         proj = context.project()

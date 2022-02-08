@@ -206,13 +206,41 @@ class ReportTemplateInfo:
     ) -> typing.List[ItemScopeMapping]:
         return [sm for sm in self.item_scopes if sm.name == name]
 
-    def update_paths(self, templates_dir) -> None:
+    def update_paths(self, root_templates_dir, user_templates_dir=None) -> None:
         # set absolute paths for portrait and landscape templates
-        concat_path = lambda file_name: os.path.normpath(
-            f'{templates_dir}{os.sep}{file_name}'
+        # Prioritize matching paths in the user folder, if not found then
+        # revert to the plugin one.
+        concat_path = lambda template_dir, file_name: os.path.normpath(
+            f'{template_dir}{os.sep}{file_name}'
         )
-        self._abs_portrait_path = concat_path(self.portrait_path)
-        self._abs_landscape_path = concat_path(self.landscape_path)
+
+        # First check user-defined directory
+        if user_templates_dir is not None:
+            portrait_path = concat_path(
+                user_templates_dir, self.portrait_path
+            )
+            if os.path.exists(portrait_path):
+                self._abs_portrait_path = portrait_path
+
+            landscape_path = concat_path(
+                user_templates_dir, self.landscape_path
+            )
+            if os.path.exists(landscape_path):
+                self._abs_landscape_path = landscape_path
+
+        # Fallback to root template directory in the plugin. Will still need
+        # to be validated during report generation process.
+        if not self._abs_portrait_path:
+            self._abs_portrait_path = concat_path(
+                root_templates_dir,
+                self.portrait_path
+            )
+
+        if not self._abs_landscape_path:
+            self._abs_landscape_path = concat_path(
+                root_templates_dir,
+                self.landscape_path
+            )
 
     @property
     def absolute_template_paths(self) -> typing.Tuple[str, str]:
@@ -249,9 +277,9 @@ class ReportConfiguration:
         self.template_info = template_info
         self.output_options = output_options
 
-    def update_paths(self, template_dir):
+    def update_paths(self, root_template_dir, user_template_dir=None):
         # Convenience function for updating absolute paths for template files.
-        self.template_info.update_paths(template_dir)
+        self.template_info.update_paths(root_template_dir, user_template_dir)
 
 
 @dataclass

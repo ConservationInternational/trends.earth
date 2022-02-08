@@ -7,6 +7,10 @@ import typing
 from marshmallow.exceptions import ValidationError
 from qgis.core import Qgis
 
+from ..conf import (
+    Setting,
+    settings_manager
+)
 from ..logger import log
 from .models import ReportConfiguration
 from ..utils import FileUtils
@@ -19,6 +23,9 @@ class TemplateManager:
     def __init__(self, load_on_init=True):
         self._configs = []
         self._template_dir = FileUtils.report_templates_dir()
+        self._user_temp_search_path = settings_manager.get_value(
+            Setting.REPORT_TEMPLATE_SEARCH_PATH
+        )
         self._template_file_exists = False
         if os.path.exists(self.path):
             self._template_file_exists = True
@@ -122,7 +129,13 @@ class TemplateManager:
                 configs = json.load(tf)
                 for conf in configs:
                     cf = ReportConfiguration.Schema().load(conf)
-                    cf.update_paths(self._template_dir)
+                    if self._user_temp_search_path:
+                        cf.update_paths(
+                            self._template_dir,
+                            self._user_temp_search_path
+                        )
+                    else:
+                        cf.update_paths(self._template_dir)
                     self._configs.append(cf)
             except ValidationError as ve:
                 err_msg = str(ve.messages)

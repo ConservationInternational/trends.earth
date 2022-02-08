@@ -133,7 +133,10 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
             0, self.widgetSettingsAdvanced)
 
         # Report settings
-        self.widget_settings_report = WidgetSettingsReport(self)
+        self.widget_settings_report = WidgetSettingsReport(
+            self,
+            message_bar=self.message_bar
+        )
         self.reports_layout.layout().insertWidget(
             0, self.widget_settings_report
         )
@@ -1188,9 +1191,11 @@ class WidgetSettingsReport(QtWidgets.QWidget, Ui_WidgetSettingsReport):
     template_search_path_le: QtWidgets.QLineEdit
     template_search_path_tb: QtWidgets.QToolButton
 
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, message_bar=None):
         super().__init__(parent)
         self.setupUi(self)
+
+        self.message_bar = message_bar
 
         # Set icons
         self.org_logo_tb.setIcon(FileUtils.get_icon('mActionFileOpen.svg'))
@@ -1252,6 +1257,16 @@ class WidgetSettingsReport(QtWidgets.QWidget, Ui_WidgetSettingsReport):
         if template_dir:
             self.template_search_path_le.setText(template_dir)
             self.template_search_path_le.setToolTip(template_dir)
+            msg = self.tr(
+                'QGIS needs to be restarted for the changes to take effect.'
+            )
+            if self.message_bar is not None:
+                self.message_bar.pushMessage(
+                    self.tr('Template Search Path'),
+                    msg,
+                    qgis.core.Qgis.Warning,
+                    5
+                )
 
     def _image_files_filter(self):
         # QFileDialog filter for image files.

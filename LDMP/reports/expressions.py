@@ -6,7 +6,6 @@ import typing
 
 from qgis.core import (
     QgsExpressionContext,
-    QgsExpressionContextUtils,
     QgsLayout
 )
 
@@ -14,6 +13,10 @@ from qgis.PyQt.QtCore import (
     QCoreApplication
 )
 
+from ..conf import (
+    Setting,
+    settings_manager
+)
 from ..jobs.models import Job
 from ..utils import (
     utc_to_local
@@ -23,6 +26,13 @@ from ..utils import (
 JobAttrVarInfo = namedtuple(
     'JobAttrVarInfo',
     'job_attr var_name default_value fmt_func'
+)
+
+
+# Values extracted from the report settings
+ReportSettingVarInfo = namedtuple(
+    'ReportSettingVarInfo',
+    'setting var_name default_value'
 )
 
 
@@ -61,19 +71,131 @@ def _job_attr_var_mapping() -> typing.List[JobAttrVarInfo]:
     ]
 
 
+def _report_settings_var_mapping() -> typing.List[ReportSettingVarInfo]:
+    # Report setting variables with the corresponding values.
+    org_logo_path = settings_manager.get_value(Setting.REPORT_ORG_LOGO_PATH)
+    org_name = settings_manager.get_value(Setting.REPORT_ORG_NAME)
+    footer = settings_manager.get_value(Setting.REPORT_FOOTER)
+    disclaimer = settings_manager.get_value(Setting.REPORT_DISCLAIMER)
+
+    return [
+        ReportSettingVarInfo(
+            Setting.REPORT_ORG_LOGO_PATH,
+            'te_report_organization_logo',
+            org_logo_path
+        ),
+        ReportSettingVarInfo(
+            Setting.REPORT_ORG_NAME, 'te_report_organization_name', org_name
+        ),
+        ReportSettingVarInfo(
+            Setting.REPORT_FOOTER, 'te_report_footer', footer
+        ),
+        ReportSettingVarInfo(
+            Setting.REPORT_DISCLAIMER, 'te_report_disclaimer', disclaimer
+        )
+    ]
+
+
+def _get_var_names(var_info_collection: typing.List) -> typing.List[str]:
+    # Returns the variable names from the info objects
+    return [vi.var_name for vi in var_info_collection]
+
+
 class ReportExpressionUtils:
     """
     Helper functions for expressions and variables used in a report.
     """
+    VAR_NAMES_PROP = 'variableNames'
+    VAR_VALUES_PROP = 'variableValues'
+
     @staticmethod
     def register_variables(layout: QgsLayout) -> None:
-        # Registers job-related variables in the layout scope.
-        for jv_info in _job_attr_var_mapping():
-            QgsExpressionContextUtils.setLayoutVariable(
-                layout,
-                jv_info.var_name,
-                jv_info.default_value
+        """
+        Registers both job-related and report setting variables in the layout scope.
+        """
+        ReportExpressionUtils.register_job_variables(layout)
+        ReportExpressionUtils.register_report_settings_variables(layout)
+
+    @staticmethod
+    def register_job_variables(layout: QgsLayout):
+        # Registers job-related variable names since the values will be set
+        # at runtime.
+        ReportExpressionUtils._register_variable_collection(
+            layout,
+            _job_attr_var_mapping()
+        )
+
+    @staticmethod
+    def register_report_settings_variables(layout: QgsLayout):
+        # Register/update report variables based on the values in the settings.
+        ReportExpressionUtils._register_variable_collection(
+            layout,
+            _report_settings_var_mapping()
+        )
+
+        # Need to re-evaluate expressions for layout picture items.
+        layout.refresh()
+
+    @staticmethod
+    def _register_variable_collection(
+            layout: QgsLayout,
+            var_info_collection: typing.List
+    ):
+        var_names = _get_var_names(var_info_collection)
+
+        # Remove duplicate names and corresponding values
+        var_names, var_values = ReportExpressionUtils.remove_variables(
+            layout,
+            var_names
+        )
+
+        # Now append our variable names with corresponding values
+        for var_info in var_info_collection:
+            var_names.append(var_info.var_name)
+            var_values.append(var_info.default_value)
+
+        layout.setCustomProperty(
+            ReportExpressionUtils.VAR_NAMES_PROP, var_names
+        )
+        layout.setCustomProperty(
+            ReportExpressionUtils.VAR_VALUES_PROP, var_values
+        )
+
+    @staticmethod
+    def remove_variables(
+            layout: QgsLayout,
+            rem_var_names: typing.List[str]
+    ) -> typing.Tuple[typing.List, typing.List]:
+        """
+        Removes variables from the layout before adding new ones to ensure
+        there are no duplicates.
+        """
+        var_names = layout.customProperty(
+            ReportExpressionUtils.VAR_NAMES_PROP,
+            []
+        )
+        var_values = layout.customProperty(
+            ReportExpressionUtils.VAR_VALUES_PROP,
+            []
+        )
+        for rvn in rem_var_names:
+            ReportExpressionUtils.remove_variable_name_value(
+                rvn, var_names, var_values
             )
+
+        return var_names, var_values
+
+    @staticmethod
+    def remove_variable_name_value(
+            rem_var_name: str,
+            var_names: typing.List[str],
+            var_values: typing.List[str]
+    ):
+        # Remove the variable name and corresponding value from the collection.
+        while rem_var_name in var_names:
+            idx = var_names.index(rem_var_name)
+            _ = var_names.pop(idx)
+            _ = var_values.pop(idx)
 
     @staticmethod
     def update_expression_context(

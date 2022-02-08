@@ -62,7 +62,6 @@ Ui_WidgetSettingsReport, _ = uic.loadUiType(
 
 
 from .logger import log
-from .user_tip import UserTip
 from .utils import FileUtils
 
 
@@ -1181,15 +1180,11 @@ class WidgetSettingsReport(QtWidgets.QWidget, Ui_WidgetSettingsReport):
     Report settings widget.
     """
     disclaimer_te: QtWidgets.QPlainTextEdit
-    disclaimer_ut: UserTip
     footer_te: QtWidgets.QPlainTextEdit
-    footer_ut: UserTip
     message_bar: qgis.gui.QgsMessageBar
     org_logo_le: QtWidgets.QLineEdit
     org_logo_tb: QtWidgets.QToolButton
-    org_logo_ut: UserTip
     org_name_le: QtWidgets.QLineEdit
-    org_name_ut: UserTip
     template_search_path_le: QtWidgets.QLineEdit
     template_search_path_tb: QtWidgets.QToolButton
 
@@ -1201,24 +1196,6 @@ class WidgetSettingsReport(QtWidgets.QWidget, Ui_WidgetSettingsReport):
         self.org_logo_tb.setIcon(FileUtils.get_icon('mActionFileOpen.svg'))
         self.template_search_path_tb.setIcon(
             FileUtils.get_icon('mActionFileOpen.svg')
-        )
-
-        # Set user tips
-        self.org_logo_ut.user_tip = self.tr(
-            'Template should have a layout picture item whose item ID '
-            'is \'picture.org_logo\''
-        )
-        self.org_name_ut.user_tip = self.tr(
-            'Template should have a layout label item whose item ID '
-            'is \'label.org_name\''
-        )
-        self.footer_ut.user_tip = self.tr(
-            'Template should have a layout label item whose item ID '
-            'is \'label.base_footer\''
-        )
-        self.disclaimer_ut.user_tip = self.tr(
-            'Template should have a layout label item whose item ID '
-            'is \'label.base_disclaimer\''
         )
 
         # Connect signals
@@ -1331,6 +1308,8 @@ class WidgetSettingsReport(QtWidgets.QWidget, Ui_WidgetSettingsReport):
             self.disclaimer_te.toPlainText()
         )
 
+    def sizeHint(self) -> QtCore.QSize:
+        return QtCore.QSize(450, 300)
 
 
 

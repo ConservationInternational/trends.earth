@@ -355,6 +355,7 @@ class ReportTaskProcessor:
 
         self._layout = QgsPrintLayout(self._proj)
         self._layout.setName(self._ti.name)
+
         status, document = self._get_template_document(ref_temp_path)
         if not status:
             return False
@@ -369,6 +370,9 @@ class ReportTaskProcessor:
         # Process scope items
         for j in self._ctx.jobs:
             self._process_scope_items(j)
+
+        # Update custom report variables from the settings
+        ReportExpressionUtils.register_report_settings_variables(self._layout)
 
         # Export layout
         if not self._export_layout():

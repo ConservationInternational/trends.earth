@@ -432,7 +432,7 @@ class ReportTaskProcessor:
         # Update the expression context based on the given job.
         item_exp_ctx = item.createExpressionContext()
 
-        return ReportExpressionUtils.update_expression_context(
+        return ReportExpressionUtils.update_job_expression_context(
             item_exp_ctx,
             job
         )

@@ -1,4 +1,5 @@
 # Modules for managing variables and expressions that can be used in a report.
+
 from collections import namedtuple
 import json
 from operator import attrgetter
@@ -198,7 +199,7 @@ class ReportExpressionUtils:
             _ = var_values.pop(idx)
 
     @staticmethod
-    def update_expression_context(
+    def update_job_expression_context(
             ctx: QgsExpressionContext,
             job: Job
     ) -> QgsExpressionContext:

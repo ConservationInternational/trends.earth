@@ -16,6 +16,7 @@ from te_schemas.results import Band as JobBand
 from .. import data_io
 from .. import tr
 from ..jobs.models import Job
+from ..logger import log
 
 NODATA_VALUE = -32768
 MASK_VALUE = -32767
@@ -143,10 +144,10 @@ def _get_ld_inputs(
     aux_bands = []
 
     for band_index, job_band in enumerate(
-        usable_band_info.job.results.get_bands()
+        usable_band_info.job.results.get_bands(), start=1
     ):
         if job_band.name == aux_band_name:
-            aux_bands.append((job_band, band_index + 1))
+            aux_bands.append((job_band, band_index))
     sorted_aux_bands = sorted(
         aux_bands, key=lambda i: i[0].metadata[sort_property]
     )
@@ -155,7 +156,7 @@ def _get_ld_inputs(
     years = [i[0].metadata[sort_property] for i in sorted_aux_bands]
 
     return LdnInputInfo(
-        path=usable_band_info.path,
+        path=usable_band_info.job.results.uri.uri,
         main_band=main_band,
         main_band_index=main_band_index,
         aux_bands=aux_bands,
@@ -175,7 +176,7 @@ def _get_pop_inputs(
     if pop_mode == PopulationMode.Total.value:
         total_pop_band_info = total_pop_selection_widget.get_current_band()
         bands = [total_pop_band_info.band_info]
-        paths = [total_pop_band_info.path]
+        paths = [total_pop_band_info.job.results.uri.uri]
         band_indices = [total_pop_band_info.band_index]
         years = [total_pop_band_info.band_info.metadata['year']]
 
@@ -183,7 +184,10 @@ def _get_pop_inputs(
         male_pop_band_info = male_pop_selection_widget.get_current_band()
         female_pop_band_info = female_pop_selection_widget.get_current_band()
         bands = [male_pop_band_info.band_info, female_pop_band_info.band_info]
-        paths = [male_pop_band_info.path, female_pop_band_info.path]
+        paths = [
+            male_pop_band_info.job.results.uri.uri,
+            female_pop_band_info.job.results.uri.uri
+        ]
         band_indices = [
             male_pop_band_info.band_index, female_pop_band_info.band_index
         ]
@@ -209,15 +213,15 @@ def _get_ld_input_aux_band(
     aux_bands = []
 
     for band_index, job_band in enumerate(
-        usable_band_info.job.results.get_bands()
+        usable_band_info.job.results.get_bands(), start=1
     ):
         if job_band.name == aux_band_name:
-            aux_bands.append((job_band, band_index + 1))
+            aux_bands.append((job_band, band_index))
     assert len(aux_bands) == 1
     aux_band = aux_bands[0]
 
     return {
-        'path': usable_band_info.path,
+        'path': usable_band_info.job.results.uri.uri,
         'band': aux_band[0],
         'band_index': aux_band[1]
     }
@@ -250,12 +254,6 @@ def get_main_sdg_15_3_1_job_params(
     population_input = _get_pop_inputs(
         pop_mode, combo_layer_pop_total, combo_layer_pop_male,
         combo_layer_pop_female
-    )
-
-    # For now assume all population layers are in the same file - need to relax
-    # this at some point
-    assert all(
-        path == population_input.paths[0] for path in population_input.paths
     )
 
     lc_deg_years = _get_ld_input_period(combo_layer_lc)
@@ -306,8 +304,7 @@ def get_main_sdg_15_3_1_job_params(
         soil_organic_carbon_inputs.aux_band_indexes,
         "layer_soc_years":
         soil_organic_carbon_inputs.years,
-        "layer_population_path":
-        str(population_input.paths[0]),
+        "layer_population_paths": [str(p) for p in population_input.paths],
         "layer_population_bands":
         [JobBand.Schema().dump(b) for b in population_input.bands],
         "layer_population_band_indexes":

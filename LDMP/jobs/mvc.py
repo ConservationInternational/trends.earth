@@ -390,7 +390,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         self.main_dock.resume_scheduler()
 
     def load_layer(self):
-        pass
+        manager.job_manager.display_special_area_layer(self.job)
 
     def edit_layer(self):
-        pass
+        manager.job_manager.edit_special_area_layer(self.job)

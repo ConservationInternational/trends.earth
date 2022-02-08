@@ -30,6 +30,7 @@ from .data_io import (
     DlgDataIOImportSOC,
     DlgDataIOImportProd,
 )
+
 from .lc_setup import DlgDataIOImportLC
 from .download_data import DlgDownload
 from .landpks import DlgLandPKSDownload
@@ -299,8 +300,8 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         model=jobs_mvc.JobsModel(job_manager)
         # self.datasets_tv.setModel(model)
         self.proxy_model=jobs_mvc.JobsSortFilterProxyModel(SortField.DATE)
-        self.filter_changed("")
         self.type_filter_changed(TypeFilter.ALL)
+        self.filter_changed("")
         self.proxy_model.setSourceModel(model)
         self.lineEdit_search.valueChanged.connect(self.filter_changed)
         self.datasets_tv.setModel(self.proxy_model)
@@ -452,7 +453,8 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
     def type_filter_changed(self, type_filter: TypeFilter):
         self.proxy_model.set_type_filter(type_filter)
-        self.proxy_model.invalidateFilter()
+        self.lineEdit_search.setText("")
+        self.filter_changed("")
 
     def setup_algorithms_tree(self):
         self.algorithms_tv.setStyleSheet(
@@ -477,7 +479,8 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.tabWidget.setCurrentIndex(self._SUB_INDICATORS_TAB_PAGE)
 
     def create_false_positive(self):
-        pass
+        log("create_false_positive called")
+        job_manager.create_false_positive()
 
     def update_refresh_button_status(self):
         if self.remote_refresh_running:

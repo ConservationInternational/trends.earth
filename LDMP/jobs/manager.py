@@ -7,6 +7,8 @@ import urllib.parse
 import uuid
 from pathlib import Path
 from typing import List
+import os
+import shutil
 
 from marshmallow.exceptions import ValidationError
 from osgeo import gdal
@@ -21,7 +23,9 @@ from te_schemas.results import Raster
 from te_schemas.results import RasterFileType
 from te_schemas.results import RasterResults
 from te_schemas.results import VectorResults
+from te_schemas.results import VectorFalsePositive
 from te_schemas.results import ResultType
+from te_schemas.results import VectorType
 from te_schemas.results import URI
 
 from . import models
@@ -450,6 +454,14 @@ class JobManager(QtCore.QObject):
                         JobBand.Schema().dump(band)
                     )
 
+    def display_special_area_layer(self, job: Job):
+        layer_path = job.results.vector.uri.uri
+        layers.add_vector_layer(str(layer_path), job.results.name, False)
+
+    def edit_special_area_layer(self, job: Job):
+        layer_path = job.results.vector.uri.uri
+        layers.add_vector_layer(str(layer_path), job.results.name, True)
+
     def import_job(self, job: Job, job_path):
         # First check if data path is relative to job file. If it is, update
         # the data_path and other_path before moving the job file so the data
@@ -533,6 +545,42 @@ class JobManager(QtCore.QObject):
         )
 
         return job
+
+    def create_false_positive(self):
+        now = dt.datetime.now(dt.timezone.utc)
+        job_id = uuid.uuid4()
+        job = Job(
+            id=job_id,
+            params={},
+            progress=100,
+            start_date=now,
+            status=jobs.JobStatus.DOWNLOADED,
+            local_context=_get_local_context(),
+            results=VectorResults(
+                name=f"False positive/False negative",
+                type=ResultType.VECTOR_RESULTS,
+                vector=VectorFalsePositive(
+                        uri=None,
+                        type=VectorType.FALSE_POSITIVE,
+                    ),
+                uri=None
+            ),
+            task_name="False positive/False negative",
+            task_notes="",
+            end_date=now
+        )
+
+        self._init_false_positive_layer(job)
+        self.write_job_metadata_file(job)
+        self.known_jobs[job.status][job.id] = job
+        self.imported_job.emit(job)
+
+    def _init_false_positive_layer(self, job: Job):
+        output_path = self.get_job_file_path(job).with_suffix('.gpkg')
+        output_dir = output_path.parent
+        output_dir.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(os.path.join(os.path.dirname(__file__), os.path.pardir, 'data', 'special_areas', 'false_positive.gpkg'), output_path)
+        job.results.vector.uri=URI(uri=output_path, type='local')
 
     def _update_known_jobs_with_newly_submitted_job(self, job: Job):
         status = job.status

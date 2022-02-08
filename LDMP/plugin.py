@@ -25,6 +25,7 @@ from . import (
     conf,
     main_widget,
 )
+from .maptools import PolygonMapTool, BufferMapTool
 from .jobs.manager import job_manager
 from .processing_provider.provider import Provider
 from .settings import DlgSettings
@@ -177,6 +178,28 @@ class LDMPPlugin(object):
             parent=self.iface.mainWindow(),
             status_tip=self.tr('About trends.earth'))
 
+        self.action_polygon = QAction(QIcon(os.path.join(os.path.dirname(__file__), 'icons', 'mActionCapturePolygon.svg')),
+                                self.tr(u'Digitize polygon'), self.iface.mainWindow())
+        self.action_polygon.triggered.connect(self.activate_polygon_tool)
+        self.action_polygon.setCheckable(True)
+        #self.action_polygon.setEnabled(False)
+
+        self.action_buffer = QAction(QIcon(os.path.join(os.path.dirname(__file__), 'icons', 'mActionCaptureBuffer.svg')),
+                                self.tr(u'Buffer tool'), self.iface.mainWindow())
+        self.action_buffer.triggered.connect(self.activate_buffer_tool)
+        self.action_buffer.setCheckable(True)
+        #self.action_buffer.setEnabled(False)
+
+        self.polygon_tool = PolygonMapTool(self.iface.mapCanvas())
+        self.polygon_tool.setAction(self.action_polygon)
+        #self.polygon_tool.digitized.connect()
+
+        self.buffer_tool = BufferMapTool(self.iface.mapCanvas())
+        self.buffer_tool.setAction(self.action_buffer)
+        #self.buffer_tool.digitized.connect()
+
+        self.toolbar.addActions([self.action_polygon, self.action_buffer])
+
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
         for action in self.actions:
@@ -213,3 +236,9 @@ class LDMPPlugin(object):
     def run_about(self):
         self.dlg_about.show()
         result = self.dlg_about.exec_()
+
+    def activate_polygon_tool(self):
+        self.iface.mapCanvas().setMapTool(self.polygon_tool)
+
+    def activate_buffer_tool(self):
+        self.iface.mapCanvas().setMapTool(self.buffer_tool)

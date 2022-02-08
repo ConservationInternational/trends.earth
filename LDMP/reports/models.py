@@ -1,11 +1,14 @@
 """Data models for the reporting framework."""
 from dataclasses import field
 from enum import Enum
+import hashlib
 import os
 import re
 import typing
 import unicodedata
 from uuid import uuid4
+
+from qgis.PyQt.QtCore import QFileInfo
 
 from marshmallow import post_load
 from marshmallow_dataclass import dataclass
@@ -304,6 +307,36 @@ class ReportTaskContext:
         self.template_path = template_path or ''
         self.jobs = jobs or []
 
+    def display_name(self) -> str:
+        # Friendly name for the task that can be used in UI controls.
+        jobs_num = len(self.jobs)
+        if jobs_num == 0:
+            return self.report_configuration.template_info.name
+        elif jobs_num == 1:
+            return self.jobs[0].task_name
+        else:
+            # It should not be empty but just account for it.
+            if len(self.report_paths) == 0:
+                return ''
+
+            rpt_fi = QFileInfo(self.report_paths[0])
+            return rpt_fi.completeBaseName()
+
+    def id(self) -> str:
+        # Use report paths and job ids
+        attrs = []
+        attrs.extend(self.report_paths)
+        for j in self.jobs:
+            attrs.append(str(j.id))
+
+        attrs_bytes = bytes('*'.join(attrs), 'utf-8')
+        attrs_hash = hashlib.md5()
+        attrs_hash.update(attrs_bytes)
+
+        return attrs_hash.hexdigest()
+
+    def __hash__(self) -> int:
+        return hash(self.id())
 
 
 

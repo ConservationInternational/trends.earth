@@ -124,6 +124,10 @@ class ReportTaskContextAlgorithm(QgsProcessingAlgorithm):
         return {'STATUS': status}
 
     def flags(self):
+        """
+        Will be flagged as a deprecated algorithm due to hiding from
+        modeler and toolbox.
+        """
         return super().flags() | QgsProcessingAlgorithm.FlagNoThreading | \
                QgsProcessingAlgorithm.FlagHideFromModeler | \
                QgsProcessingAlgorithm.FlagHideFromToolbox

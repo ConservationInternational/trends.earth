@@ -3,7 +3,7 @@
 from enum import Enum
 import json
 import os
-from operator import attrgetter
+import subprocess
 import typing
 from uuid import uuid4
 
@@ -36,8 +36,7 @@ from qgis.PyQt.QtCore import (
     QFile,
     QFileInfo,
     QIODevice,
-    QObject,
-    QProcess
+    QObject
 )
 from qgis.PyQt.QtXml import (
     QDomDocument
@@ -78,16 +77,13 @@ class ReportProcessHandlerTask(QgsTask):
     def __init__(
             self,
             ctx_file_path: str,
-            task_id: str,
-            qgis_proc_path: str
+            qgis_proc_path: str,
+            description
     ):
-        super().__init__(task_id)
+        super().__init__(description)
         self._ctx_file = ctx_file_path
-        self._task_id = task_id
         self._qgs_proc_path = qgis_proc_path
-        self._proc = QProcess(self)
-        self._proc.errorOccurred.connect(self._on_process_error)
-        self._proc.finished.connect(self._on_process_finished)
+        self._completed_process = None
 
     @property
     def context_file(self) -> str:
@@ -98,28 +94,19 @@ class ReportProcessHandlerTask(QgsTask):
 
     def run(self) -> bool:
         # Launch qgis_process and execute algorithm.
-        if self.isCanceled():
-            self._proc.kill()
-            return False
-
         input_file = f'INPUT={self._ctx_file}'
-        args = ['run', 'trendsearth:reporttask', '--', input_file]
-        status = self._proc.startDetached(self._qgs_proc_path, args)
-        log(str(status))
+        args = [self._qgs_proc_path, 'run', 'trendsearth:reporttask', '--', input_file]
+        self._completed_process = subprocess.run(
+            args,
+            shell=True
+        )
+        if self._completed_process.returncode == 0:
+            return True
 
-        return True
-
-    def _on_process_error(self, error):
-        # Log error information
-        log('A reporting error occurred')
-        self.cancel()
-
-    def _on_process_finished(self, code, status):
-        # When process has finished
-        log(f'On process finished: {str(code)}')
+        return False
 
     def finished(self, result):
-        log(f'On process finished')
+        pass
 
 
 class ReportTaskProcessor:
@@ -487,14 +474,19 @@ class ReportTaskProcessor:
 
 class ReportGenerator(QObject):
     """
-    Generates reports from job outputs using preset QGIS templates.
+    Generates reports for single or multi-datasets based on custom layouts.
     """
     task_started = pyqtSignal()
 
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.iface = None
-        self._tasks = dict()
+        self.iface = iface
+
+        # key: ReportTaskContext, value: QgsTask id
+        self._submitted_tasks = dict()
+        QgsApplication.instance().taskManager().statusChanged.connect(
+            self.on_task_status_changed
+        )
 
     @property
     def message_bar(self) -> QgsMessageBar:
@@ -523,7 +515,7 @@ class ReportGenerator(QObject):
     def _push_success_message(self, msg):
         self._push_message(msg, Qgis.Success)
 
-    def write_context_to_file(self, ctx, task_id: str) -> str:
+    def _write_context_to_file(self, ctx, task_id: str) -> str:
         # Write report task context to file.
         rpt_fi = QFileInfo(ctx.report_paths[0])
         output_dir = rpt_fi.dir().path()
@@ -550,8 +542,12 @@ class ReportGenerator(QObject):
     def process_report_task(self, ctx: ReportTaskContext) -> str:
         """
         Initiates report generation, emits 'task_started' signal and return
-        the task id.
+        the submission result.
         """
+        # If task is already in list of submissions then return
+        if self.is_task_running(ctx):
+            return False
+
         # Assert if qgis_process path could be found
         qgis_proc_path = qgis_process_path()
         if not qgis_proc_path:
@@ -559,41 +555,121 @@ class ReportGenerator(QObject):
                 'could not be found in your system. Unable to generate reports.'
             )
             self._push_warning_message(f'\'qgis_process\' {tr_msg}')
-            return ''
+            return False
 
         if len(ctx.jobs) == 1:
-            task_id = str(ctx.jobs[0].id)
+            file_suffix = str(ctx.jobs[0].id)
         else:
-            task_id = uuid4()
+            file_suffix = uuid4()
 
-        # Write task to file for subsequent use by the task
-        file_path = self.write_context_to_file(ctx, task_id)
-        tr_msg = self.tr(f'Submitted report task')
-        #self._push_info_message(f'{tr_msg} {task_id}')
+        # Write task to file for subsequent use by the report handler task
+        file_path = self._write_context_to_file(ctx, file_suffix)
+
+        ctx_display_name = ctx.display_name()
 
         # Create report handler task
         rpt_handler_task = ReportProcessHandlerTask(
             file_path,
-            task_id,
-            qgis_proc_path
+            qgis_proc_path,
+            ctx_display_name
         )
-        QgsApplication.instance().taskManager().addTask(rpt_handler_task)
-        self._tasks[task_id] = rpt_handler_task
+        task_id = QgsApplication.instance().taskManager().addTask(
+            rpt_handler_task
+        )
 
-        self.task_started.emit()
+        self._submitted_tasks[ctx] = task_id
 
-        return task_id
+        # Notify user
+        tr_msg = self.tr(f'report is being processed...')
+        self._push_info_message(f'{ctx_display_name} {tr_msg}')
 
-    def task_status(self, task_id: str) -> TaskStatus:
-        # Assumes task is in the tasks collection.
-        pass
+        return True
 
-    def is_task_running(self, task_id: str) -> bool:
+    @classmethod
+    def task_status(cls, task_id: str) -> QgsTask.TaskStatus:
+        # Returns -1 if the task with the given id could not be found.
+        task = QgsApplication.instance().taskManager().task(task_id)
+        if not task:
+            return -1
+
+        return task.status()
+
+    def is_task_running(self, ctx: ReportTaskContext) -> bool:
         # Check whether the task with the given id is running.
-        if not task_id in self._tasks:
+        if ctx not in self._submitted_tasks:
             return False
 
         return True
+
+    def handler_task_from_context(
+            self,
+            ctx: ReportTaskContext
+    ) -> ReportProcessHandlerTask:
+        # Retrieves the handler task corresponding to the given context.
+        task_id = self._submitted_tasks.get(ctx, -1)
+        if task_id == -1:
+            return None
+
+        return QgsApplication.instance().taskManager().task(task_id)
+
+    def remove_task_context(self, ctx: ReportTaskContext) -> bool:
+        """
+        Remove the task context from the list of submitted tasks. If not
+        complete, the task will be cancelled.
+        """
+        if not self.is_task_running(ctx):
+            return False
+
+        handler = self.handler_task_from_context(ctx)
+        if handler is None:
+            return False
+
+        if handler.status() != QgsTask.Complete or \
+                handler.status() != QgsTask.Terminated:
+            handler.cancel()
+
+        _ = self._submitted_tasks.pop(ctx)
+
+    def task_context_by_id(self, task_id: int) -> ReportTaskContext:
+        """
+        Returns the ReportTaskContext in submitted jobs based on the
+        QgsTask id.
+        """
+        ctxs = [
+            ctx for ctx, tid in self._submitted_tasks.items()
+            if tid == task_id
+        ]
+        if len(ctxs) == 0:
+            return None
+
+        return ctxs[0]
+
+    def on_task_status_changed(
+            self,
+            task_id:int,
+            status: QgsTask.TaskStatus
+    ):
+        # Slot raised when the status of a task has changed.
+        ctx = self.task_context_by_id(task_id)
+        if ctx is None:
+            return
+
+        if status != QgsTask.Complete or status != QgsTask.Terminated:
+            return
+
+        ctx_name = ctx.display_name()
+        if status == QgsTask.Complete:
+            tr_msg = self.tr('report is ready!')
+            msg = f'{ctx_name} {tr_msg}'
+            self._push_success_message(msg)
+        elif status == QgsTask.Terminated:
+            tr_msg = f'report could not be generated. See log file ' \
+                     f'for details.'
+            msg = f'{ctx_name} {tr_msg}'
+            self._push_warning_message(msg)
+
+        # Remove from list of submitted tasks
+        self.remove_task_context(ctx)
 
 
 report_generator = ReportGenerator()

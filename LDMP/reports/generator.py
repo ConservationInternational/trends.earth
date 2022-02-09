@@ -62,13 +62,6 @@ from ..utils import (
 )
 
 
-class TaskStatus(Enum):
-    COMPLETED = 'completed'
-    CANCELLED = 'cancelled'
-    PENDING = 'pending'
-    STARTED = 'started'
-
-
 class ReportProcessHandlerTask(QgsTask):
     """
     Bridge for communicating with the report task algorithm to run in
@@ -81,21 +74,27 @@ class ReportProcessHandlerTask(QgsTask):
             description
     ):
         super().__init__(description)
-        self._ctx_file = ctx_file_path
+        self._ctx_file_path = ctx_file_path
         self._qgs_proc_path = qgis_proc_path
         self._completed_process = None
 
     @property
-    def context_file(self) -> str:
+    def context_file_path(self) -> str:
         """
         Returns the path to the report context JSON file.
         """
-        return self._ctx_file
+        return self._ctx_file_path
 
     def run(self) -> bool:
         # Launch qgis_process and execute algorithm.
-        input_file = f'INPUT={self._ctx_file}'
-        args = [self._qgs_proc_path, 'run', 'trendsearth:reporttask', '--', input_file]
+        if self.isCanceled():
+            return False
+
+        input_file = f'INPUT={self._ctx_file_path}'
+        args = [
+            self._qgs_proc_path, 'run', 'trendsearth:reporttask',
+            '--', input_file
+        ]
         self._completed_process = subprocess.run(
             args,
             shell=True
@@ -106,13 +105,18 @@ class ReportProcessHandlerTask(QgsTask):
         return False
 
     def finished(self, result):
-        pass
+        # Remove context file if process run was successful.
+        log(f'Report handler report: {result!s}')
+        if result:
+            ctx_file = QFile(self._ctx_file_path)
+            status = ctx_file.remove()
+            log(f'Remove status of report task file: {status!s}')
 
 
 class ReportTaskProcessor:
     """
     Produces a QGIS project, template and resulting report
-    (in image or PDF format) based on information in a
+    (in image and/or PDF format) based on information in a
     ReportTaskContext object.
     """
     def __init__(
@@ -294,7 +298,7 @@ class ReportTaskProcessor:
         self._proj.viewSettings().setDefaultViewExtent(default_extent)
 
     def _add_open_layout_macro(self):
-        # Add macro that open the layout when the project is opened.
+        # Add macro that opens the layout when the project is opened.
         template_name = self._ti.name
         err_title = self.tr('Layout Error')
         err_msg_tr = self.tr('layout cannot be found')
@@ -472,7 +476,7 @@ class ReportTaskProcessor:
         return True, doc
 
 
-class ReportGenerator(QObject):
+class ReportGeneratorManager(QObject):
     """
     Generates reports for single or multi-datasets based on custom layouts.
     """
@@ -481,12 +485,15 @@ class ReportGenerator(QObject):
     def __init__(self, parent=None):
         super().__init__(parent)
         self.iface = iface
+        self._qgis_proc_path = qgis_process_path()
 
         # key: ReportTaskContext, value: QgsTask id
         self._submitted_tasks = dict()
+        '''
         QgsApplication.instance().taskManager().statusChanged.connect(
             self.on_task_status_changed
         )
+        '''
 
     @property
     def message_bar(self) -> QgsMessageBar:
@@ -539,7 +546,7 @@ class ReportGenerator(QObject):
 
         return ctx_file_path
 
-    def process_report_task(self, ctx: ReportTaskContext) -> str:
+    def process_report_task(self, ctx: ReportTaskContext) -> bool:
         """
         Initiates report generation, emits 'task_started' signal and return
         the submission result.
@@ -549,10 +556,10 @@ class ReportGenerator(QObject):
             return False
 
         # Assert if qgis_process path could be found
-        qgis_proc_path = qgis_process_path()
-        if not qgis_proc_path:
+        if not self._qgis_proc_path:
             tr_msg = self.tr(
-                'could not be found in your system. Unable to generate reports.'
+                'could not be found in your system. Unable to run the '
+                'report generator.'
             )
             self._push_warning_message(f'\'qgis_process\' {tr_msg}')
             return False
@@ -570,7 +577,7 @@ class ReportGenerator(QObject):
         # Create report handler task
         rpt_handler_task = ReportProcessHandlerTask(
             file_path,
-            qgis_proc_path,
+            self._qgis_proc_path,
             ctx_display_name
         )
         task_id = QgsApplication.instance().taskManager().addTask(
@@ -651,10 +658,12 @@ class ReportGenerator(QObject):
     ):
         # Slot raised when the status of a task has changed.
         ctx = self.task_context_by_id(task_id)
+
         if ctx is None:
             return
 
-        if status != QgsTask.Complete or status != QgsTask.Terminated:
+        # Only interested in terminated or completed tasks
+        if status != QgsTask.Complete and status != QgsTask.Terminated:
             return
 
         ctx_name = ctx.display_name()
@@ -672,7 +681,7 @@ class ReportGenerator(QObject):
         self.remove_task_context(ctx)
 
 
-report_generator = ReportGenerator()
+report_generator_manager = ReportGeneratorManager()
 
 
 

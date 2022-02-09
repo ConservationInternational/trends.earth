@@ -37,7 +37,7 @@ from .models import (
     ReportTaskContext
 )
 
-from .generator import report_generator
+from .generator import report_generator_manager
 from .template_manager import template_manager
 from .utils import (
     job_has_report,
@@ -125,7 +125,7 @@ class DatasetReportHandler:
         # For previously finished jobs but there is no report, submit the
         # job for report generation.
         if self._regenerate_report and \
-                not report_generator.is_task_running(
+                not report_generator_manager.is_task_running(
                     self._get_report_task_context()
                 ):
             self.generate_report()
@@ -160,16 +160,6 @@ class DatasetReportHandler:
         """
         return self._rpt_config
 
-    @property
-    def task_context(self) -> ReportTaskContext:
-        """
-        Returns an instance of the report task context that has been used
-        to generate the corresponding report. This is for jobs that have
-        successfully finished with the results in the datasets folder,
-        otherwise it will return None.
-        """
-        return self._rpt_task_ctx
-
     def _get_report_task_context(self):
         _, temp_path = build_template_name(self._job)
         rpt_paths = [rp[1] for rp in self._report_name_path()]
@@ -183,14 +173,6 @@ class DatasetReportHandler:
         )
 
         return ctx
-
-    @property
-    def report_task_id(self) -> str:
-        """
-        Returns the task_id for generating the report which, in this case,
-        corresponds to the job id..
-        """
-        return str(self._job.id)
 
     def _push_refactor_message(self, title, msg):
         if self._iface is None:
@@ -303,7 +285,7 @@ class DatasetReportHandler:
     def generate_report(self):
         # Generate output report and source template
         report_task_ctx = self._get_report_task_context()
-        report_generator.process_report_task(
+        report_generator_manager.process_report_task(
             report_task_ctx
         )
 

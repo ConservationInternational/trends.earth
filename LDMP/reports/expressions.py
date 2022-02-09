@@ -23,7 +23,7 @@ from ..utils import (
     utc_to_local
 )
 
-# Most (if not) all of the variables' values will be set at runtime
+# Most (if not) all of the job variables' values will be set at runtime
 JobAttrVarInfo = namedtuple(
     'JobAttrVarInfo',
     'job_attr var_name default_value fmt_func'
@@ -51,7 +51,7 @@ def format_json(obj) -> str:
 
 def format_creation_date(creation_date) -> str:
     """
-    Format job start date.
+    Format job start date for presentation in a date report variable.
     """
     return str(utc_to_local(creation_date).strftime("%Y-%m-%d %H:%M"))
 
@@ -112,7 +112,8 @@ class ReportExpressionUtils:
     @staticmethod
     def register_variables(layout: QgsLayout) -> None:
         """
-        Registers both job-related and report setting variables in the layout scope.
+        Registers both job-related and report setting variables in the layout
+        scope.
         """
         ReportExpressionUtils.register_job_variables(layout)
         ReportExpressionUtils.register_report_settings_variables(layout)

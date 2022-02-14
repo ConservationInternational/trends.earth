@@ -20,7 +20,8 @@
             "License URL": "",
             "Source": "",
             "Comments": "",
-            "Admin only": true
+            "Admin only": true,
+			"downloadable": true
         },
         "Soil organic carbon (degradation)": {
             "Data source": "",
@@ -42,7 +43,8 @@
             "License URL": "",
             "Source": "",
             "Comments": "",
-            "Admin only": true
+            "Admin only": true,
+			"downloadable": true
         },
         "SDG 15.3.1 Indicator (LPD)": {
             "Data source": "",
@@ -64,7 +66,8 @@
             "License URL": "",
             "Source": "",
             "Comments": "",
-            "Admin only": true
+            "Admin only": true,
+			"downloadable": true
         },
         "SDG 15.3.1 Indicator (Trends.Earth)": {
             "Data source": "",
@@ -86,7 +89,8 @@
             "License URL": "",
             "Source": "",
             "Comments": "",
-            "Admin only": true
+            "Admin only": true,
+			"downloadable": true
         },
         "SDG 15.3.1 Productivity Indicator (Trends.Earth)": {
             "Data source": "",
@@ -108,7 +112,8 @@
             "License URL": "",
             "Source": "",
             "Comments": "",
-            "Admin only": true
+            "Admin only": true,
+			"downloadable": true
         }
     },
     "Global Zoning": {
@@ -131,7 +136,8 @@
             "License": "Reuse is authorised, provided the source is acknowledged.",
             "License URL": "http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=OJ:L:2011:330:0039:0042:EN:PDF",
             "Source": "European Commission Soil Projects - Support to Renewable Energy Directive",
-            "Comments": ""
+            "Comments": "",
+			"downloadable": true
         },
         "Agro Ecological Zones V3.0": {
             "Data source": "FAO - IIASA",
@@ -152,14 +158,15 @@
             "License": "Public Domain",
             "License URL": "https://creativecommons.org/publicdomain/zero/1.0/",
             "Source": "Made with Natural Earth. Free vector and raster map data @ naturalearthdata.com.",
-            "Comments": ""
+            "Comments": "",
+			"downloadable": true
         }
     },
     "Evapotranspiration": {
         "MOD16A2": {
             "Data source": "GEE",
             "Start year": 2000,
-            "End year": 2019,
+            "End year": 2021,
             "Spatial Resolution": "1 km",
             "Temporal resolution": "annual",
             "Min Latitude": "-90",
@@ -169,13 +176,14 @@
             "Description": "The MOD16A2 Version 6 Evapotranspiration/Latent Heat Flux product is an 8-day composite product produced at 500 meter pixel resolution. The algorithm used for the MOD16 data product collection is based on the logic of the Penman-Monteith equation, which includes inputs of daily meteorological reanalysis data along with MODIS remotely sensed data products such as vegetation property dynamics, albedo, and land cover.",
             "Units": "Annual ET km/m2 (=mm) * 10",
             "Link to Dataset": "http://files.ntsg.umt.edu/data/NTSG_Products/MOD16/",
-            "GEE Dataset": "users/geflanddegradation/toolbox_datasets/et_modis_2000_2019",
+            "GEE Dataset": "users/geflanddegradation/toolbox_datasets/et_modis_2000_2021",
             "Source code": "c03_et_modis_int_global_assets",
             "Status": "Stored as assets",
             "License": "Public Domain",
             "License URL": "https://creativecommons.org/publicdomain/zero/1.0/",
             "Source": "Steve Running, Qiaozhen Mu - University of Montana and MODAPS SIPS - NASA. (2015). MOD16A2 MODIS/Terra Evapotranspiration 8-day L4 Global 500m SIN Grid. NASA LP DAAC. http://doi.org/10.5067/MODIS/MOD16A2.00",
-            "Comments": ""
+            "Comments": "",
+			"downloadable": true
         }
     },
     "Land cover": {
@@ -198,7 +206,8 @@
             "License": "CC by-SA 3.0",
             "License URL": "https://creativecommons.org/licenses/by-sa/3.0/igo/",
             "Source": "ESA Land Cover CCI project team; Defourny, P. (2016): ESA Land Cover Climate Change Initiative (Land_Cover_cci): MERIS Surface Reflectance. Centre for Environmental Data Analysis, 12/15/2017. http://catalogue.ceda.ac.uk/uuid/e80f28ccb0504c32b403eee654a8a5b3",
-            "Comments": ""
+            "Comments": "",
+			"downloadable": true
         }
     },
     "NDVI": {
@@ -221,7 +230,8 @@
             "License": "Public Domain",
             "License URL": "https://creativecommons.org/publicdomain/zero/1.0/",
             "Source": "Pinzon, J., M. E. Brown and C. J. Tucker. 2004. Satellite time series correction of orbital drift artifacts using empirical mode decomposition. In Hilbert-Huang Transform: Introduction and Applications, eds. N. Huang, pp. Chapter 10, Part II. Applications (to appear).",
-            "Comments": ""
+            "Comments": "",
+			"downloadable": true
         },
         "MODIS (MOD13Q1, annual)": {
             "Data source": "GEE",
@@ -242,7 +252,8 @@
             "License": "Public Domain",
             "License URL": "https://creativecommons.org/publicdomain/zero/1.0/",
             "Source": "NASA LP DAAC, 2016, MOD13Q1, Version 6. NASA EOSDIS Land Processes DAAC, USGS Earth Resources Observation and Science (EROS) Center, Sioux Falls, South Dakota (https://lpdaac.usgs.gov), accessed [12 15, 2017], at http://dx.doi.org/10.5067/MODIS/MOD13Q1.006",
-            "Comments": ""
+            "Comments": "",
+			"downloadable": true
         },
         "MODIS (MOD13Q1, 16 day)": {
             "Data source": "GEE",
@@ -262,7 +273,8 @@
             "License": "Public Domain",
             "License URL": "https://creativecommons.org/publicdomain/zero/1.0/",
             "Source": "NASA LP DAAC, 2016, MOD13Q1, Version 6. NASA EOSDIS Land Processes DAAC, USGS Earth Resources Observation and Science (EROS) Center, Sioux Falls, South Dakota (https://lpdaac.usgs.gov), accessed [12 15, 2017], at http://dx.doi.org/10.5067/MODIS/MOD13Q1.006",
-            "Comments": ""
+            "Comments": "",
+			"downloadable": false
         }
     },
     "Land Productivity Dynamics (JRC)": {
@@ -285,7 +297,8 @@
             "License": "",
             "License URL": "",
             "Source": "United Nations Convention to Combat Desertification, 2017. The Global Land Outlook, first edition. Bonn, Germany. Available from: http://www2.unccd.int/actions/global-land-outlook-glo",
-            "Comments": ""
+            "Comments": "",
+			"downloadable": true
         },
         "JRC Land Productivity Dynamics (2000-2015)": {
             "Data source": "Joint Research Commission (JRC)",
@@ -306,7 +319,8 @@
             "License": "",
             "License URL": "",
             "Source": "United Nations Convention to Combat Desertification, 2017. The Global Land Outlook, first edition. Bonn, Germany. Available from: http://www2.unccd.int/actions/global-land-outlook-glo",
-            "Comments": ""
+            "Comments": "",
+			"downloadable": true
         },
         "JRC Land Productivity Dynamics (2005-2019)": {
             "Data source": "Joint Research Commission (JRC)",
@@ -327,7 +341,8 @@
             "License": "",
             "License URL": "",
             "Source": "United Nations Convention to Combat Desertification, 2017. The Global Land Outlook, first edition. Bonn, Germany. Available from: http://www2.unccd.int/actions/global-land-outlook-glo",
-            "Comments": ""
+            "Comments": "",
+			"downloadable": true
         }
     },
     "SPI": {
@@ -350,7 +365,8 @@
             "License": "Public Domain",
             "License URL": "https://creativecommons.org/publicdomain/zero/1.0/",
             "Source": "Ziese, Markus; Becker, Andreas; Finger, Peter; Meyer-Christoffer, Anja; Rudolf, Bruno; Schneider, Udo (2011): GPCC First Guess Product at 1.0°: Near Real-Time First Guess monthly Land Surface Precipitation from Rain-Gauges based on SYNOP Data. DOI: 10.5676/DWD_GPCC/FG_M_100 ",
-            "Comments": "Full V7 until Jan 2013; V4 monitoring after."
+            "Comments": "Full V7 until Jan 2013; V4 monitoring after.",
+			"downloadable": true
         }
     },
     "Precipitation": {
@@ -373,7 +389,8 @@
             "License": "Public Domain",
             "License URL": "https://creativecommons.org/publicdomain/zero/1.0/",
             "Source": "Funk, Chris, Pete Peterson, Martin Landsfeld, Diego Pedreros, James Verdin, Shraddhanand Shukla, Gregory Husak, James Rowland, Laura Harrison, Andrew Hoell & Joel Michaelsen.The climate hazards infrared precipitation with stations—a new environmental record for monitoring extremes. Scientific Data 2, 150066. doi:10.1038/sdata.2015.66 2015.",
-            "Comments": ""
+            "Comments": "",
+			"downloadable": true
         },
         "GPCC V6 (Global Precipitation Climatology Centre)": {
             "Data source": "https://www.esrl.noaa.gov/psd/data/gridded/data.gpcc.html",
@@ -394,7 +411,8 @@
             "License": "Public Domain",
             "License URL": "https://creativecommons.org/publicdomain/zero/1.0/",
             "Source": "Ziese, Markus; Becker, Andreas; Finger, Peter; Meyer-Christoffer, Anja; Rudolf, Bruno; Schneider, Udo (2011): GPCC First Guess Product at 1.0°: Near Real-Time First Guess monthly Land Surface Precipitation from Rain-Gauges based on SYNOP Data. DOI: 10.5676/DWD_GPCC/FG_M_100 ",
-            "Comments": "Full V7 until Jan 2013; V4 monitoring after."
+            "Comments": "Full V7 until Jan 2013; V4 monitoring after.",
+			"downloadable": true
         },
         "GPCP v2.3 1 month (Global Precipitation Climatology Project)": {
             "Data source": "https://www.esrl.noaa.gov/psd/data/gridded/data.gpcp.html",
@@ -415,7 +433,8 @@
             "License": "Public Domain",
             "License URL": "https://creativecommons.org/publicdomain/zero/1.0/",
             "Source": "Adler, R.F., G.J. Huffman, A. Chang, R. Ferraro, P. Xie, J. Janowiak, B. Rudolf, U. Schneider, S. Curtis, D. Bolvin, A. Gruber, J. Susskind, and P. Arkin, 2003: The Version 2 Global Precipitation Climatology Project (GPCP) Monthly Precipitation Analysis (1979-Present). J. Hydrometeor., 4,1147-1167.",
-            "Comments": ""
+            "Comments": "",
+			"downloadable": true
         },
         "PERSIANN-CDR": {
             "Data source": "GEE",
@@ -436,7 +455,8 @@
             "License": "Public Domain",
             "License URL": "https://creativecommons.org/publicdomain/zero/1.0/",
             "Source": "Sorooshian, Soroosh; Hsu, Kuolin; Braithwaite, Dan; Ashouri, Hamed; and NOAA CDR Program (2014): NOAA Climate Data Record (CDR) of Precipitation Estimation from Remotely Sensed Information using Artificial Neural Networks (PERSIANN-CDR), Version 1 Revision 1. [indicate subset used]. NOAA National Centers for Environmental Information. doi:10.7289/V51V5BWQ [access date].Publications using this dataset should also cite the following journal article: Ashouri H., K. Hsu, S. Sorooshian, D. K. Braithwaite, K. R. Knapp, L. D. Cecil, B. R. Nelson, and O. P. Prat, 2015: PERSIANN-CDR: Daily Precipitation Climate Data Record from Multi-Satellite Observations for Hydrological and Climate Studies. Bull. Amer. Meteor. Soc., doi: https://doi.org/10.1175/BAMS-D-13-00068.1.",
-            "Comments": "Pre 1999 there are some gaps in the satellite coverage (South America and Russia)."
+            "Comments": "Pre 1999 there are some gaps in the satellite coverage (South America and Russia).",
+			"downloadable": true
         }
     },
     "Soil moisture": {
@@ -459,7 +479,8 @@
             "License": "CC by NC ND 4.0",
             "License URL": "https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode",
             "Source": "Dee, D. P., Uppala, S. M., Simmons, A. J., Berrisford, P., Poli, P., Kobayashi, S., Andrae, U., Balmaseda, M. A., Balsamo, G., Bauer, P., Bechtold, P., Beljaars, A. C. M., van de Berg, L., Bidlot, J., Bormann, N., Delsol, C., Dragani, R., Fuentes, M., Geer, A. J., Haimberger, L., Healy, S. B., Hersbach, H., Hólm, E. V., Isaksen, L., Kållberg, P., Köhler, M., Matricardi, M., McNally, A. P., Monge-Sanz, B. M., Morcrette, J.-J., Park, B.-K., Peubey, C., de Rosnay, P., Tavolato, C., Thépaut, J.-N. and Vitart, F. (2011), The ERA-Interim reanalysis: configuration and performance of the data assimilation system. Q.J.R. Meteorol. Soc., 137: 553–597. doi:10.1002/qj.828",
-            "Comments": "Does not cover small islands"
+            "Comments": "Does not cover small islands",
+			"downloadable": true
         },
         "MERRA 2": {
             "Data source": "https://disc.sci.gsfc.nasa.gov/datasets?page=1&keywords=M2TMNXLND_5.12.4",
@@ -480,7 +501,8 @@
             "License": "Public Domain",
             "License URL": "https://creativecommons.org/publicdomain/zero/1.0/",
             "Source": "Gelaro, Ronald et. al. 2017. The Modern-Era Retrospective Analysis for Research and Applications, Version 2 (MERRA-2). J. Clim., DOI: 10.1175/JCLI-D-16-0758.1 http://journals.ametsoc.org/doi/abs/10.1175/JCLI-D-16-0758.1",
-            "Comments": ""
+            "Comments": "",
+			"downloadable": true
         }
     },
     "Soil organic C": {
@@ -503,7 +525,8 @@
             "License": "CC by-SA 4.0",
             "License URL": "https://creativecommons.org/licenses/by-sa/4.0/",
             "Source": "Hengl, T., Mendes de Jesus, J., Heuvelink, G. B.M., Ruiperez Gonzalez, M., Kilibarda, M. et al. (2017) SoilGrids250m: global gridded soil information based on Machine Learning. PLOS One: http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0169748",
-            "Comments": ""
+            "Comments": "",
+			"downloadable": true
         }
     },
     "Soil type - USDA": {
@@ -526,7 +549,8 @@
             "License": "Public Domain",
             "License URL": "https://creativecommons.org/publicdomain/zero/1.0/",
             "Source": "",
-            "Comments": ""
+            "Comments": "",
+			"downloadable": true
         }
     },
     "Soil type - WRB": {
@@ -549,7 +573,8 @@
             "License": "CC by-SA 4.0",
             "License URL": "https://creativecommons.org/licenses/by-sa/4.0/",
             "Source": "Hengl, T., Mendes de Jesus, J., Heuvelink, G. B.M., Ruiperez Gonzalez, M., Kilibarda, M. et al. (2017) SoilGrids250m: global gridded soil information based on Machine Learning. PLOS One: http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0169748",
-            "Comments": ""
+            "Comments": "",
+			"downloadable": true
         }
     },
     "Forest cover": {
@@ -570,7 +595,8 @@
             "License": "CC by-SA 4.0",
             "License URL": "https://creativecommons.org/licenses/by/4.0/",
             "Source": "Hansen, M. C., P. V. Potapov, R. Moore, M. Hancher, S. A. Turubanova, A. Tyukavina, D. Thau, S. V. Stehman, S. J. Goetz, T. R. Loveland, A. Kommareddy, A. Egorov, L. Chini, C. O. Justice, and J. R. G. Townshend. 2013. “High-Resolution Global Maps of 21st-Century Forest Cover Change.” Science 342 (15 November): 850–53",
-            "Comments": ""
+            "Comments": "",
+			"downloadable": true
         }
     },
     "Woods Hole Research Center": {
@@ -591,7 +617,8 @@
             "License": "Creative Commons CC BY 4.0",
             "License URL": "https://creativecommons.org/licenses/by/4.0/",
             "Source": "https://data.globalforestwatch.org/datasets/aboveground-live-woody-biomass-density",
-            "Comments": ""
+            "Comments": "",
+			"downloadable": true
         }
     },
     "GEOCARBON": {
@@ -612,7 +639,8 @@
             "License": "The LUCID data is free to download and available for your use as long as the proper references, as specified in the metadata, are applied",
             "License URL": "http://lucid.wur.nl/about",
             "Source": "Avitabile V, Herold M, Heuvelink G, Lewis SL, Phillips OL, Asner GP et al. (2016). An integrated pan-tropical biomass maps using multiple reference datasets. Global Change Biology, 22: 1406–1420. doi:10.1111/gcb.13139",
-            "Comments": ""
+            "Comments": "",
+			"downloadable": true
         }
     },
     "Drivers": {
@@ -631,7 +659,8 @@
             "GEE Dataset": "projects/ci_geospatial_assets/agric/deforestation_drivers",
             "License": "",
             "License URL": "",
-            "Source": ""
+            "Source": "",
+			"downloadable": true
         }
     },
 	"WorldPop": {
@@ -650,7 +679,8 @@
             "GEE Dataset": "users/geflanddegradation/toolbox_datasets/worldpop_ppp_2000_2020_1km_global",
             "License": "Creative Commons CC BY 4.0",
             "License URL": "https://creativecommons.org/licenses/by/4.0/",
-            "Source": "https://www.worldpop.org/doi/10.5258/SOTON/WP00647"
+            "Source": "https://www.worldpop.org/doi/10.5258/SOTON/WP00647",
+			"downloadable": true
         },
         "Gridded Population Count (gender breakdown)": {
             "Data source":"https://www.worldpop.org",
@@ -667,7 +697,8 @@
             "GEE Dataset": "users/geflanddegradation/toolbox_datasets/worldpop_mf_v1_300m",
             "License": "Creative Commons CC BY 4.0",
             "License URL": "https://creativecommons.org/licenses/by/4.0/",
-            "Source": ""
+            "Source": "",
+			"downloadable": true
         }
     },
 	"GPWv411": {
@@ -686,7 +717,8 @@
             "GEE Dataset": "CIESIN/GPWv411/GPW_Population_Count",
             "License": "Creative Commons CC BY 4.0",
             "License URL": "https://creativecommons.org/licenses/by/4.0/",
-            "Source": "https://sedac.ciesin.columbia.edu/data/set/gpw-v4-population-count-rev11/data-download"
+            "Source": "https://sedac.ciesin.columbia.edu/data/set/gpw-v4-population-count-rev11/data-download",
+			"downloadable": true
         }
     }
 }

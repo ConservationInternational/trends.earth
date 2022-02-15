@@ -29,6 +29,7 @@ from . import (
 from .jobs.manager import job_manager
 from .processing_provider.provider import Provider
 from .reports.expressions import ReportExpressionUtils
+from .reports.template_manager import template_manager
 from .settings import DlgSettings
 
 
@@ -168,10 +169,8 @@ class LDMPPlugin(object):
         self.actions.append(self.toolBtnAction)
         self.dlg_about = about.DlgAbout()
 
-        # Register custom report variables on opening the layout designer
-        self.iface.layoutDesignerOpened.connect(
-            self.on_layout_designer_opened
-        )
+        # Initialize reports module
+        self.init_reports()
 
         """Create Main manu icon and plugins menu entries."""
         start_action = self.add_action(os.path.join(os.path.dirname(__file__), 'icons', 'trends_earth_logo_square_32x32.ico'),
@@ -233,6 +232,15 @@ class LDMPPlugin(object):
     def run_about(self):
         self.dlg_about.show()
         result = self.dlg_about.exec_()
+
+    def init_reports(self):
+        # Initialize report module.
+        # Register custom report variables on opening the layout designer
+        self.iface.layoutDesignerOpened.connect(
+            self.on_layout_designer_opened
+        )
+        # Copy report config and templates to data directory
+        template_manager.use_data_dir_config_source()
 
     def on_layout_designer_opened(self, designer: QgsLayoutDesignerInterface):
         # Register custom report variables in the layout

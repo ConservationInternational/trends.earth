@@ -2,6 +2,8 @@
 import os
 import typing
 
+from qgis.gui import QgisInterface
+
 from te_schemas.jobs import Job
 
 from ..jobs import manager
@@ -80,5 +82,7 @@ def job_has_report(job: Job, options: ReportOutputOptions) -> bool:
             break
 
     return has_report
+
+
 
 

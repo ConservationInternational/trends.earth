@@ -302,6 +302,8 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.proxy_model=jobs_mvc.JobsSortFilterProxyModel(SortField.DATE)
         self.type_filter_changed(TypeFilter.ALL)
         self.filter_changed("")
+        action = self.filter_menu.actions()[0]
+        action.setChecked(True)
         self.proxy_model.setSourceModel(model)
         self.lineEdit_search.valueChanged.connect(self.filter_changed)
         self.datasets_tv.setModel(self.proxy_model)

@@ -284,7 +284,7 @@
               <item>
                <widget class="QGroupBox" name="groupBox_traj">
                 <property name="title">
-                 <string>trend (related to rate of change of  productivity over time)</string>
+                 <string>Trend (related to rate of change of  productivity over time)</string>
                 </property>
                 <property name="checkable">
                  <bool>true</bool>

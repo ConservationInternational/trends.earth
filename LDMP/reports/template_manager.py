@@ -194,7 +194,8 @@ class TemplateManager:
         if not self._data_report_dir:
             log(
                 'Unable to copy report configuration. Path to the report '
-                'directory in the base data folder could not be determined.'
+                'directory in the base data folder could not be determined.',
+                Qgis.Warning
             )
             return False
 
@@ -202,7 +203,7 @@ class TemplateManager:
             _ = copy_tree(self._template_dir, self._data_report_dir)
         except DistutilsFileError as dfe:
             msg = f'Unable to copy report configuration. {dfe!s}'
-            log(msg)
+            log(msg, Qgis.Warning)
             return False
 
         return True

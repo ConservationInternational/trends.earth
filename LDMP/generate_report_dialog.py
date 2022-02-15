@@ -137,7 +137,7 @@ class DlgGenerateReport(QDialog, DlgGenerateReportUi):
         # Point to an initially selected directory if specified
         base_file = self.output_dir_le.text()
         if not base_file:
-            init_dir = settings_manager.get_value(Setting.BASE_DIR)
+            init_dir = template_manager.default_output_path
         else:
             fi = QFileInfo(base_file)
             file_dir = fi.dir()

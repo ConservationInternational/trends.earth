@@ -1417,6 +1417,8 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
 
         self.layer_list = None
 
+        self.NO_RELEVANT_LAYERS_MESSAGE =  self.tr('No relevant layers available')
+
     def populate(self, selected_job_id=None):
         usable_bands = _get_usable_bands(
             band_name=self.property("layer_type"),
@@ -1427,32 +1429,25 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
         self.layer_list = usable_bands
         old_text = self.currentText()
         self.comboBox_layers.clear()
-        self.comboBox_layers.addItem('')
-        i = 0
 
-        for usable_band in usable_bands:
-            self.comboBox_layers.addItem(usable_band.get_name_info())
-            # the "+ 1" below is to account for blank entry at the beginning of
-            # the combobox
-            self.comboBox_layers.setItemData(
-                i + 1, usable_band.get_hover_info(), QtCore.Qt.ToolTipRole
-            )
-            i += 1
-
+        if len(usable_bands) == 0:
+            self.comboBox_layers.addItem(self.NO_RELEVANT_LAYERS_MESSAGE)
+        else:
+            for i, usable_band in enumerate(usable_bands):
+                self.comboBox_layers.addItem(usable_band.get_name_info())
+                self.comboBox_layers.setItemData(
+                    i, usable_band.get_hover_info(), QtCore.Qt.ToolTipRole
+                )
         if not self.set_index_from_text(old_text):
-            # Set current index to 1 so that the blank line isn't chosen by
-            # default
-            self.comboBox_layers.setCurrentIndex(1)
+            self.comboBox_layers.setCurrentIndex(0)
 
-    def get_current_extent(self, band_name):
+    def get_current_extent(self):
         band = self.get_current_band()
 
         return qgis.core.QgsRasterLayer(str(band.path), "raster file",
                                         "gdal").extent()
 
     def get_current_data_file(self) -> Path:
-        # Minus 1 below to account for blank line at beginning
-
         return self.get_current_band().path
 
     def get_layer(self) -> qgis.core.QgsRasterLayer:
@@ -1461,17 +1456,13 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
         )
 
     def get_current_band(self) -> Band:
-        # Minus 1 below to account for blank line at beginning
-
-        return self.layer_list[self.comboBox_layers.currentIndex() - 1]
+        return self.layer_list[self.comboBox_layers.currentIndex()]
 
     def set_index_from_job_id(self, job_id):
         if self.layer_list:
             for i in range(len(self.layer_list)):
                 if self.layer_list[i].job.id == job_id:
-                    # the "+ 1" below is to account for blank entry
-                    # at the beginning of the combobox
-                    self.comboBox_layers.setCurrentIndex(i + 1)
+                    self.comboBox_layers.setCurrentIndex(i)
 
                     return True
 
@@ -1479,12 +1470,9 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
 
     def set_index_from_text(self, text):
         if self.layer_list:
-            for i in range(len(self.layer_list)):
-                if self.layer_list[i] == text:
-                    # the "+ 1" below is to account for blank entry
-                    # at the beginning of the combobox
-                    self.comboBox_layers.setCurrentIndex(i + 1)
-
+            for i, layer in enumerate(self.layer_list):
+                if text == layer:
+                    self.comboBox_layers.setCurrentIndex(i)
                     return True
 
         return False
@@ -1606,7 +1594,6 @@ class DlgDataIOAddLayersToMap(QtWidgets.QDialog, Ui_DlgDataIOAddLayersToMap):
                     QtCore.QItemSelectionModel.Select
                 )
 
-
 class WidgetDataIOSelectTEDatasetExisting(
     QtWidgets.QWidget, Ui_WidgetDataIOSelectTEDatasetExisting
 ):
@@ -1624,6 +1611,8 @@ class WidgetDataIOSelectTEDatasetExisting(
             self.selected_job_changed
         )
 
+        self.NO_RELEVANT_DATASETS_MESSAGE =  self.tr('No relevant datasets available (see advanced)')
+
     def populate(self):
         usable_datasets = get_usable_datasets(self.property("dataset_type"))
         self.dataset_list = usable_datasets
@@ -1634,24 +1623,20 @@ class WidgetDataIOSelectTEDatasetExisting(
         )
         old_text = self.currentText()
         self.comboBox_datasets.clear()
-        # Add a blank item to be shown when no dataset is chosen
-        self.comboBox_datasets.addItem('')
-        i = 0
 
-        for usable_dataset in usable_datasets:
-            self.comboBox_datasets.addItem(usable_dataset.get_name_info())
-            # the "+ 1" below is to account for blank entry at the beginning of
-            # the combobox
-            self.comboBox_datasets.setItemData(
-                i + 1, usable_dataset.get_hover_info(), QtCore.Qt.ToolTipRole
-            )
-            i += 1
+        if len(usable_datasets) == 0:
+            self.comboBox_datasets.addItem(self.NO_RELEVANT_DATASETS_MESSAGE)
+        else:
+            for i, usable_dataset in enumerate(usable_datasets):
+                self.comboBox_datasets.addItem(usable_dataset.get_name_info())
+                self.comboBox_datasets.setItemData(
+                    i, usable_dataset.get_hover_info(), QtCore.Qt.ToolTipRole
+                )
 
         if not self.set_index_from_text(old_text):
-            # Set current index to 1 so that the blank line isn't chosen by
-            # default
-            self.comboBox_datasets.setCurrentIndex(1)
+            self.comboBox_datasets.setCurrentIndex(0)
         self.selected_job_changed()
+        # Reconnect function to fire on selected dataset change
         self.comboBox_datasets.currentIndexChanged.connect(
             self.selected_job_changed
         )
@@ -1663,7 +1648,7 @@ class WidgetDataIOSelectTEDatasetExisting(
         return self.comboBox_datasets.currentText()
 
     def get_current_dataset(self):
-        return self.dataset_list[self.comboBox_datasets.currentIndex() - 1]
+        return self.dataset_list[self.comboBox_datasets.currentIndex()]
 
     def get_current_extent(self):
         band = self.get_bands('any')[0]
@@ -1678,26 +1663,18 @@ class WidgetDataIOSelectTEDatasetExisting(
         if self.dataset_list:
             for i in range(len(self.dataset_list)):
                 if self.dataset_list[i] == text:
-                    # the "+ 1" below is to account for blank entry
-                    # at the beginning of the combobox
-                    self.comboBox_datasets.setCurrentIndex(i + 1)
+                    self.comboBox_datasets.setCurrentIndex(i)
 
                     return True
 
         return False
 
     def selected_job_changed(self):
-        if len(self.dataset_list) > 1:
-            # the "- 1" below is to account for blank entry
-            # at the beginning of the combobox
+        if len(self.dataset_list) >= 1:
             current_job = self.dataset_list[
-                self.comboBox_datasets.currentIndex() - 1]
-            # Allow for a current_job of '' (no job selected)
+                self.comboBox_datasets.currentIndex()]
 
-            if current_job != '':
-                # the "- 1" below i
-                # s to account for blank entry
-                # at the beginning of the combobox
+            if current_job != self.NO_RELEVANT_DATASETS_MESSAGE:
                 job_id = current_job.job.id
             else:
                 job_id = None

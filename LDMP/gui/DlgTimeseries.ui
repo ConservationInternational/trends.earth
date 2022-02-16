@@ -112,7 +112,7 @@
           </sizepolicy>
          </property>
          <property name="title">
-          <string>Trajectory indicator</string>
+          <string>Trend indicator</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_6">
           <item>

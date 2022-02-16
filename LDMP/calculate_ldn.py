@@ -26,7 +26,6 @@ from te_schemas.land_cover import LCTransitionDefinitionDeg
 from te_schemas.productivity import ProductivityMode
 
 from . import conf
-from . import data_io
 from . import lc_setup
 from .calculate import DlgCalculateBase
 from .jobs.manager import job_manager
@@ -490,235 +489,151 @@ class DlgCalculateLDNSummaryTableAdmin(
             self.groupBox_progress_period.setVisible(False)
             self.advanced_configuration_progress.setVisible(False)
 
+    def _validate_layer_selection(self, combo_box, layer_name):
+        if len(combo_box.layer_list) == 0:
+            QtWidgets.QMessageBox.critical(
+                None, self.tr("Error"),
+                self.tr(
+                    f"You must select a {layer_name} layer "
+                    "before you can use the SDG calculation tool."
+                )
+            )
+            return False
+        else:
+            return True
+
+
     def validate_layer_selections(self, combo_boxes, prod_mode, pop_mode):
         '''validate all needed layers are selected'''
 
         if prod_mode == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
-            if len(combo_boxes.combo_layer_traj.layer_list) == 0:
-                QtWidgets.QMessageBox.critical(
-                    None, self.tr("Error"),
-                    self.tr(
-                        "You must add a productivity trajectory indicator layer to "
-                        "your map before you can use the SDG calculation tool."
-                    )
-                )
-
+            if not self._validate_layer_selection(combo_boxes.combo_layer_traj, 'trajectory'):
                 return False
-
-            if len(combo_boxes.combo_layer_state.layer_list) == 0:
-                QtWidgets.QMessageBox.critical(
-                    None, self.tr("Error"),
-                    self.tr(
-                        "You must add a productivity state indicator layer to your "
-                        "map before you can use the SDG calculation tool."
-                    )
-                )
-
+            if not self._validate_layer_selection(combo_boxes.combo_layer_state, 'state'):
                 return False
-
-            if len(combo_boxes.combo_layer_perf.layer_list) == 0:
-                QtWidgets.QMessageBox.critical(
-                    None, self.tr("Error"),
-                    self.tr(
-                        "You must add a productivity performance indicator layer to "
-                        "your map before you can use the SDG calculation tool."
-                    )
-                )
-
+            if not self._validate_layer_selection(combo_boxes.combo_layer_perf, 'performance'):
                 return False
 
         else:
-            if len(combo_boxes.combo_layer_lpd.layer_list) == 0:
-                QtWidgets.QMessageBox.critical(
-                    None, self.tr("Error"),
-                    self.tr(
-                        "You must add a land productivity dynamics indicator layer to "
-                        "your map before you can use the SDG calculation tool."
-                    )
-                )
-
+            if not self._validate_layer_selection(combo_boxes.combo_layer_lpd, 'Land Productivity Dynamics'):
                 return False
 
-        if len(combo_boxes.combo_layer_lc.layer_list) == 0:
-            QtWidgets.QMessageBox.critical(
-                None, self.tr("Error"),
-                self.tr(
-                    "You must add a land cover indicator layer to your map before you "
-                    "can use the SDG calculation tool."
-                )
-            )
-
+        if not self._validate_layer_selection(combo_boxes.combo_layer_lc, 'land cover'):
             return False
 
-        if len(combo_boxes.combo_layer_soc.layer_list) == 0:
-            QtWidgets.QMessageBox.critical(
-                None, self.tr("Error"),
-                self.tr(
-                    "You must add a soil organic carbon indicator layer to your map "
-                    "before you can use the SDG calculation tool."
-                )
-            )
-
+        if not self._validate_layer_selection(combo_boxes.combo_layer_soc, 'soil organic carbon'):
             return False
+
+        if pop_mode == ldn.PopulationMode.BySex.value:
+            if not self._validate_layer_selection(combo_boxes.combo_layer_pop_male, 'population (male)'):
+                return False
+            if not self._validate_layer_selection(combo_boxes.combo_layer_pop_female, 'population (female)'):
+                return False
+        else:
+            if not self._validate_layer_selection(combo_boxes.combo_layer_pop_total, 'population (total)'):
+                return False
 
         return True
+
+    def _validate_layer_extent(self, check_layer, check_layer_name):
+        log(f'fraction of overlap is {self.aoi.calc_frac_overlap(QgsGeometry.fromRect(check_layer.extent()))}')
+        if self.aoi.calc_frac_overlap(
+            QgsGeometry.fromRect(check_layer.extent())
+        ) < 0.99:
+            QtWidgets.QMessageBox.critical(
+                None, self.tr("Error"),
+                self.tr(
+                    f"Area of interest is not entirely within the {check_layer_name} layer."
+                )
+            )
+            return False
+        else:
+            return True
 
     def validate_layer_extents(self, combo_boxes, prod_mode, pop_mode):
         '''Check that the layers cover the full extent of the AOI'''
 
         if prod_mode == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
-            if self.aoi.calc_frac_overlap(
-                QgsGeometry.fromRect(
-                    combo_boxes.combo_layer_traj.get_layer().extent()
-                )
-            ) < 0.99:
-                QtWidgets.QMessageBox.critical(
-                    None, self.tr("Error"),
-                    self.tr(
-                        "Area of interest is not entirely within the trajectory layer."
-                    )
-                )
-
+            if not self._validate_layer_extent(combo_boxes.combo_layer_traj.get_layer(), 'trajectory'):
                 return False
 
-            if self.aoi.calc_frac_overlap(
-                QgsGeometry.fromRect(
-                    combo_boxes.combo_layer_perf.get_layer().extent()
-                )
-            ) < .99:
-                QtWidgets.QMessageBox.critical(
-                    None, self.tr("error"),
-                    self.tr(
-                        "area of interest is not entirely within the "
-                        "performance layer."
-                    )
-                )
-
+            if not self._validate_layer_extent(combo_boxes.combo_layer_perf.get_layer(), 'performance'):
                 return False
 
-            if self.aoi.calc_frac_overlap(
-                QgsGeometry.fromRect(
-                    combo_boxes.combo_layer_state.get_layer().extent()
-                )
-            ) < .99:
-                QtWidgets.QMessageBox.critical(
-                    None, self.tr("Error"),
-                    self.tr(
-                        "Area of interest is not entirely within the state layer."
-                    )
-                )
+            if not self._validate_layer_extent(combo_boxes.combo_layer_state.get_layer(), 'state'):
+                return False
 
+        else:
+            if not self._validate_layer_extent(combo_boxes.combo_layer_lpd.get_layer(), 'Land Productivity Dynamics'):
+                return False
+
+        if not self._validate_layer_extent(combo_boxes.combo_layer_lc.get_layer(), 'land cover'):
+            return False
+
+        if not self._validate_layer_extent(combo_boxes.combo_layer_soc.get_layer(), 'soil organic carbon'):
+            return False
+
+        if pop_mode == ldn.PopulationMode.BySex.value:
+            if not self._validate_layer_extent(combo_boxes.combo_layer_pop_male.get_layer(), 'population (male)'):
+                return False
+            if not self._validate_layer_extent(combo_boxes.combo_layer_pop_female.get_layer(), 'population (male)'):
                 return False
         else:
-            if self.aoi.calc_frac_overlap(
-                QgsGeometry.fromRect(
-                    combo_boxes.combo_layer_lpd.get_layer().extent()
-                )
-            ) < .99:
-                QtWidgets.QMessageBox.critical(
-                    None, self.tr("Error"),
-                    self.tr(
-                        "Area of interest is not entirely within the land "
-                        "productivity dynamics layer."
-                    )
-                )
-
+            if not self._validate_layer_extent(combo_boxes.combo_layer_pop_total.get_layer(), 'population (total)'):
                 return False
-
-        if self.aoi.calc_frac_overlap(
-            QgsGeometry.fromRect(
-                combo_boxes.combo_layer_lc.get_layer().extent()
-            )
-        ) < .99:
-            QtWidgets.QMessageBox.critical(
-                None, self.tr("Error"),
-                self.tr(
-                    "Area of interest is not entirely within the land cover layer."
-                )
-            )
-
-            return False
-
-        if self.aoi.calc_frac_overlap(
-            QgsGeometry.fromRect(
-                combo_boxes.combo_layer_soc.get_layer().extent()
-            )
-        ) < .99:
-            QtWidgets.QMessageBox.critical(
-                None, self.tr("Error"),
-                self.tr(
-                    "Area of interest is not entirely within the soil organic "
-                    "carbon layer."
-                )
-            )
-
-            return False
 
         return True
 
-    def validate_layer_crs(self, combo_boxes, prod_mode, pop_mode):
-        '''check all layers have the same resolution and CRS'''
-        def res(layer):
+    def _validate_crs(self, model_layer, model_layer_name, check_layer, check_layer_name, check_res=True):
+        def _res(layer):
             return (
                 round(layer.rasterUnitsPerPixelX(),
                       10), round(layer.rasterUnitsPerPixelY(), 10)
             )
 
+        if check_res and _res(model_layer) != _res(check_layer):
+            QtWidgets.QMessageBox.critical(
+                None, self.tr("Error"),
+                self.tr(
+                    f"Resolutions of {model_layer_name} layer and {check_layer_name} layer do not match."
+                )
+            )
+            return False
+        elif model_layer.crs() != check_layer.crs():
+            QtWidgets.QMessageBox.critical(
+                None, self.tr("Error"),
+                self.tr(
+                    f"Coordinate systems of {model_layer_name} layer and {check_layer_name} layer do not match."
+                )
+            )
+            return False
+        else:
+            return True
+
+
+    def validate_layer_crs(self, combo_boxes, prod_mode, pop_mode):
+        '''check all layers have the same resolution and CRS'''
         if prod_mode == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
-            if res(combo_boxes.combo_layer_traj.get_layer()
-                   ) != res(combo_boxes.combo_layer_state.get_layer()):
-                QtWidgets.QMessageBox.critical(
-                    None, self.tr("Error"),
-                    self.tr(
-                        "Resolutions of trajectory layer and state layer do not match."
-                    )
-                )
+            model_layer = combo_boxes.combo_layer_traj.get_layer()
+            model_layer_name = 'trajectory'
 
+            if not self._validate_crs(
+                model_layer, model_layer_name,
+                combo_boxes.combo_layer_state.get_layer(), 'state'
+            ):
                 return False
 
-            if res(combo_boxes.combo_layer_traj.get_layer()
-                   ) != res(combo_boxes.combo_layer_perf.get_layer()):
-                QtWidgets.QMessageBox.critical(
-                    None, self.tr("Error"),
-                    self.tr(
-                        "Resolutions of trajectory layer and performance layer do not match."
-                    )
-                )
-
-                return False
-
-            if combo_boxes.combo_layer_traj.get_layer().crs(
-            ) != combo_boxes.combo_layer_state.get_layer().crs():
-                QtWidgets.QMessageBox.critical(
-                    None, self.tr("Error"),
-                    self.tr(
-                        "Coordinate systems of trajectory layer and state layer do not match."
-                    )
-                )
-
-                return False
-
-            if combo_boxes.combo_layer_traj.get_layer().crs(
-            ) != combo_boxes.combo_layer_perf.get_layer().crs():
-                QtWidgets.QMessageBox.critical(
-                    None, self.tr("Error"),
-                    self.tr(
-                        "Coordinate systems of trajectory layer and performance layer do not match."
-                    )
-                )
-
+            if not self._validate_crs(
+                model_layer, model_layer_name,
+                combo_boxes.combo_layer_perf.get_layer(), 'performance'
+            ):
                 return False
 
         if pop_mode == ldn.PopulationMode.BySex.value:
-            if res(combo_boxes.combo_layer_traj.get_layer()
-                   ) != res(combo_boxes.combo_layer_state.get_layer()):
-                QtWidgets.QMessageBox.critical(
-                    None, self.tr("Error"),
-                    self.tr(
-                        "Resolutions of trajectory layer and state layer do not match."
-                    )
-                )
-
+            if not self._validate_crs(
+                combo_boxes.combo_layer_pop_male.get_layer(), 'population (male)',
+                combo_boxes.combo_layer_pop_female.get_layer(), 'population (female)'
+            ):
                 return False
 
         return True

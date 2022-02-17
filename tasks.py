@@ -12,15 +12,13 @@ import stat
 import subprocess
 import sys
 import zipfile
-from datetime import datetime
-from datetime import timezone
-from tempfile import mkstemp
-from tempfile import TemporaryDirectory
+from datetime import datetime, timezone
+from pathlib import Path
+from tempfile import TemporaryDirectory, mkstemp
 
 import boto3
 import requests
-from invoke import Collection
-from invoke import task
+from invoke import Collection, task
 
 
 # Below is from:
@@ -595,6 +593,27 @@ def read_requirements():
     return not_comments(0, idx), not_comments(idx + 1, None)
 
 
+def _safe_remove_folder(rootdir):
+    '''
+    Supports removing a folder that may have symlinks in it
+
+    Needed on windows to avoid removing the original files linked to within
+    each folder
+    '''
+    rootdir = Path(rootdir)
+    if rootdir.is_symlink():
+        rootdir.rmdir()
+    else:
+        folders = [path for path in Path(rootdir).iterdir() if path.is_dir()]
+        for folder in folders:
+            if folder.is_symlink():
+                folder.rmdir()
+            else:
+                shutil.rmtree(folder)
+        files = [path for path in Path(rootdir).iterdir()]
+        for file in files:
+            file.unlink()
+
 @task(
     help={
         'clean': 'Clean out dependencies first',
@@ -607,7 +626,7 @@ def plugin_setup(c, clean=False, link=False, pip='pip'):
     ext_libs = os.path.abspath(c.plugin.ext_libs.path)
 
     if clean and os.path.exists(ext_libs):
-        shutil.rmtree(ext_libs)
+        _safe_remove_folder(ext_libs)
 
     if sys.version_info[0] < 3:
         if not os.path.exists(ext_libs):
@@ -650,13 +669,14 @@ def plugin_setup(c, clean=False, link=False, pip='pip'):
                         module['name']
                     )
                 )
-                shutil.rmtree(l)
+                if Path(l).exists():
+                    _safe_remove_folder(l)
                 os.symlink(module['path'], l)
 
 
 @task(
     help={
-        'clean': "run rmtree",
+        'clean': "remove existing install folder first",
         'version': 'what version of QGIS to install to',
         'profile': 'what profile to install to (only applies to QGIS3',
         'fast': 'Skip compiling numba files',
@@ -705,7 +725,7 @@ def plugin_install(
 
         if clean:
             if os.path.exists(dst_this_plugin):
-                rmtree(dst_this_plugin)
+                _safe_remove_folder(dst_this_plugin)
 
         for root, dirs, files in os.walk(src):
             relpath = os.path.relpath(root)
@@ -1190,7 +1210,7 @@ def changelog_build(c):
 )
 def zipfile_build(
     c,
-    clean=False,
+    clean=True,
     version=3,
     tests=False,
     filename=None,
@@ -1225,6 +1245,10 @@ def zipfile_build(
         filename = os.path.join(
             package_dir, '{}_QGIS{}.zip'.format(c.plugin.name, version)
         )
+
+    print(f'Removing untracked datafiles from {c.plugin.data_dir}...')
+    subprocess.check_call(['git', 'clean', '-f', '-x', c.plugin.data_dir])
+
     print('Building zipfile...')
     with zipfile.ZipFile(filename, 'w', zipfile.ZIP_DEFLATED) as zf:
         if not tests:
@@ -1247,16 +1271,16 @@ def _make_zip(zipFile, c):
 @task(
     help={
         'qgis': 'QGIS version to target',
-        'clean': 'Clean out dependencies before packaging',
+        'clean': 'Clean out dependencies and untracked data files before packaging',
         'pip': 'Path to pip (usually "pip" or "pip3"'
     }
 )
-def zipfile_deploy(c, qgis, clean=False, pip='pip'):
+def zipfile_deploy(c, qgis, clean=True, pip='pip'):
     binaries_sync(c)
     binaries_deploy(c, qgis=qgis)
     print('Binaries uploaded')
 
-    filename = zipfile_build(c, pip=pip)
+    filename = zipfile_build(c, pip=pip, clean=clean)
     try:
         with open(
             os.path.join(os.path.dirname(__file__), 'aws_credentials.json'),
@@ -1604,6 +1628,8 @@ ns.configure(
             'LDMP/gui',
             'source_dir':
             'LDMP',
+            'data_dir':
+            'LDMP/data',
             'i18n_dir':
             'LDMP/i18n',
             #'translations': ['fr', 'es', 'pt', 'sw', 'ar', 'ru', 'zh'],

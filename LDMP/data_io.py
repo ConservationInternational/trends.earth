@@ -13,6 +13,7 @@
 """
 
 import dataclasses
+import functools
 import json
 import os
 import typing
@@ -22,21 +23,15 @@ from pathlib import Path
 import numpy as np
 import qgis.core
 import qgis.utils
-from osgeo import gdal
-from osgeo import osr
-from qgis.PyQt import QtCore
-from qgis.PyQt import QtWidgets
-from qgis.PyQt import uic
+from osgeo import gdal, osr
+from qgis.PyQt import QtCore, QtWidgets, uic
 from qgis.PyQt.QtCore import QSettings
 from te_schemas.jobs import JobStatus
 from te_schemas.results import Band as JobBand
 from te_schemas.results import ResultType
 
-from . import conf
-from . import GetTempFilename
-from . import layers
-from . import utils
-from . import worker
+from . import GetTempFilename, conf, layers, utils, worker
+from . import areaofinterest
 from .jobs.manager import job_manager
 from .jobs.models import Job
 from .logger import log
@@ -1360,11 +1355,15 @@ def _get_layers(node):
     return l
 
 
+@functools.lru_cache(
+    maxsize=None
+)  # not using functools.cache, as it was only introduced in Python 3.9
 def _get_usable_bands(
     band_name: typing.Optional[str] = "any",
     selected_job_id: uuid.UUID = None,
     filter_field: str = None,
-    filter_value: str = None
+    filter_value: str = None,
+    aoi = areaofinterest.prepare_area_of_interest()
 ) -> typing.List[Band]:
     result = []
 
@@ -1390,6 +1389,9 @@ def _get_usable_bands(
                     if raster.uri is not None and (
                         (band_info.name == band_name or band_name == 'any')
                     ):
+                        if aoi is not None:
+                            if aoi.calc_frac_overlap(_get_extent(raster.uri.uri)) < 0.99:
+                                continue
                         if (
                             filter_field is None or filter_value is None
                             or band_info.metadata[filter_field] == filter_value
@@ -1420,11 +1422,13 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
         self.NO_RELEVANT_LAYERS_MESSAGE =  self.tr('No relevant layers available')
 
     def populate(self, selected_job_id=None):
+        aoi = areaofinterest.prepare_area_of_interest()
         usable_bands = _get_usable_bands(
             band_name=self.property("layer_type"),
             selected_job_id=selected_job_id,
             filter_field=self.property("layer_filter_field"),
-            filter_value=self.property("layer_filter_value")
+            filter_value=self.property("layer_filter_value"),
+            aoi = aoi
         )
         self.layer_list = usable_bands
         old_text = self.currentText()
@@ -1501,8 +1505,20 @@ class WidgetDataIOSelectTELayerImport(
     pass
 
 
+@functools.lru_cache(
+    maxsize=None
+)  # not using functools.cache, as it was only introduced in Python 3.9
+def _get_extent(path):
+    return qgis.core.QgsGeometry.fromRect(
+        qgis.core.QgsRasterLayer(str(path), "raster file", "gdal").extent()
+    )
+
+@functools.lru_cache(
+    maxsize=None
+)  # not using functools.cache, as it was only introduced in Python 3.9
 def get_usable_datasets(
-    dataset_name: typing.Optional[str] = "any"
+    dataset_name: typing.Optional[str] = "any",
+    aoi = None
 ) -> typing.List[Dataset]:
     result = []
 
@@ -1522,6 +1538,10 @@ def get_usable_datasets(
 
         if is_available and is_valid_type and job.results.uri is not None:
             path = job.results.uri.uri
+
+            if aoi is not None:
+                if aoi.calc_frac_overlap(_get_extent(path)) < 0.99:
+                    continue
 
             if job.script.name == dataset_name:
                 result.append(Dataset(
@@ -1611,10 +1631,11 @@ class WidgetDataIOSelectTEDatasetExisting(
             self.selected_job_changed
         )
 
-        self.NO_RELEVANT_DATASETS_MESSAGE =  self.tr('No relevant datasets available (see advanced)')
+        self.NO_RELEVANT_DATASETS_MESSAGE =  self.tr('No relevant datasets available (see advanced, or change region)')
 
     def populate(self):
-        usable_datasets = get_usable_datasets(self.property("dataset_type"))
+        aoi = areaofinterest.prepare_area_of_interest()
+        usable_datasets = get_usable_datasets(self.property("dataset_type"), aoi)
         self.dataset_list = usable_datasets
         # Ensure selected_job_changed is called only once when adding items to
         # combobox
@@ -1657,7 +1678,8 @@ class WidgetDataIOSelectTEDatasetExisting(
                                         "gdal").extent()
 
     def get_bands(self, band_name) -> Band:
-        return _get_usable_bands(band_name, self.get_current_dataset().job.id)
+        aoi = areaofinterest.prepare_area_of_interest()
+        return _get_usable_bands(band_name, self.get_current_dataset().job.id, aoi=aoi)
 
     def set_index_from_text(self, text):
         if self.dataset_list:

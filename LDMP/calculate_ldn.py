@@ -442,11 +442,15 @@ class DlgCalculateLDNSummaryTableAdmin(
             self.toggle_pop_options_progress
         )
         self.toggle_pop_options_progress()
+        self.changed_region.connect(self.populate_combos)
+
+    def populate_combos(self):
+        self.combo_boxes['baseline'].populate()
+        self.combo_boxes['progress'].populate()
 
     def showEvent(self, event):
         super().showEvent(event)
-        self.combo_boxes['baseline'].populate()
-        self.combo_boxes['progress'].populate()
+        self.populate_combos()
         self.toggle_progress_period()
 
     def toggle_pop_options_baseline(self):

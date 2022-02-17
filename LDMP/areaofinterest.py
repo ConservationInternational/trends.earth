@@ -1,5 +1,6 @@
 import json
 import typing
+import functools
 from pathlib import Path
 
 import qgis.core
@@ -356,6 +357,9 @@ class AOI(object):
     def isValid(self):
         return self.l.isValid()
 
+    @functools.lru_cache(
+        maxsize=None
+    )  # not using functools.cache, as it was only introduced in Python 3.9
     def calc_frac_overlap(self, geom):
         """
         Returns fraction of AOI that is overlapped by geom (where geom is a QgsGeometry)

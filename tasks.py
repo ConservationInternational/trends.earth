@@ -621,7 +621,7 @@ def _safe_remove_folder(rootdir):
         'pip': 'Path to pip (usually "pip" or "pip3"'
     }
 )
-def plugin_setup(c, clean=False, link=False, pip='pip'):
+def plugin_setup(c, clean=True, link=False, pip='pip'):
     '''install dependencies'''
     ext_libs = os.path.abspath(c.plugin.ext_libs.path)
 
@@ -660,8 +660,7 @@ def plugin_setup(c, clean=False, link=False, pip='pip'):
 
             if os.path.islink(l):
                 print(
-                    "Local repo of {} already linked to plugin ext_libs".
-                    format(module['name'])
+                    f"{l} is already a link (to {os.readlink(l)})"
                 )
             else:
                 print(
@@ -669,8 +668,7 @@ def plugin_setup(c, clean=False, link=False, pip='pip'):
                         module['name']
                     )
                 )
-                if Path(l).exists():
-                    _safe_remove_folder(l)
+                shutil.rmtree(l)
                 os.symlink(module['path'], l)
 
 

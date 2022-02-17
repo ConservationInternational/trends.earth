@@ -12,6 +12,7 @@ import shutil
 
 from marshmallow.exceptions import ValidationError
 from osgeo import gdal
+from qgis.core import QgsApplication
 from qgis.PyQt import QtCore
 from te_algorithms.gdal.util import combine_all_bands_into_vrt
 from te_schemas import jobs
@@ -557,7 +558,7 @@ class JobManager(QtCore.QObject):
             status=jobs.JobStatus.DOWNLOADED,
             local_context=_get_local_context(),
             results=VectorResults(
-                name=f"False positive/False negative",
+                name=f"False positive/negative",
                 type=ResultType.VECTOR_RESULTS,
                 vector=VectorFalsePositive(
                         uri=None,
@@ -565,7 +566,7 @@ class JobManager(QtCore.QObject):
                     ),
                 uri=None
             ),
-            task_name="False positive/False negative",
+            task_name="False positive/negative",
             task_notes="",
             end_date=now
         )
@@ -579,7 +580,12 @@ class JobManager(QtCore.QObject):
         output_path = self.get_job_file_path(job).with_suffix('.gpkg')
         output_dir = output_path.parent
         output_dir.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(os.path.join(os.path.dirname(__file__), os.path.pardir, 'data', 'special_areas', 'false_positive.gpkg'), output_path)
+        locale = QgsApplication.locale()
+        path = os.path.join(os.path.dirname(__file__), os.path.pardir, 'data', 'special_areas', 'false_positive_{}.gpkg'.format(locale))
+        if os.path.exists(path):
+            shutil.copy2(path, output_path)
+        else:
+            shutil.copy2(os.path.join(os.path.dirname(__file__), os.path.pardir, 'data', 'special_areas', 'false_positive_en.gpkg'.format(locale)), output_path)
         job.results.vector.uri=URI(uri=output_path, type='local')
 
     def _update_known_jobs_with_newly_submitted_job(self, job: Job):

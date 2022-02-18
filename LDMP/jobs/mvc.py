@@ -9,6 +9,7 @@ from qgis.PyQt import QtWidgets
 from qgis.PyQt import uic
 from qgis.utils import iface
 from te_schemas.jobs import JobStatus
+from te_schemas.results import Band as JobBand
 
 from . import (manager)
 from .. import layers
@@ -344,7 +345,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
     def show_metadata(self, file_path):
         self.main_dock.pause_scheduler()
         ds_metadata = metadata.read_qmd(file_path)
-        dlg = metadata_dialog.DlgDatasetMetadata(self)
+        dlg = metadata_dialog.DlgDatasetMetadata(iface.mainWindow())
         dlg.set_metadata(ds_metadata)
         dlg.exec_()
         ds_metadata = dlg.get_metadata()
@@ -388,8 +389,9 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         action.triggered.connect(lambda _, x=file_path: self.show_metadata(x))
         self.metadata_menu.addSeparator()
 
-        if self.job.results is not None:
-            for raster in self.job.results.rasters.values():
-                file_path = os.path.splitext(raster.uri.uri)[0] + '.qmd'
-                action = self.metadata_menu.addAction(self.tr("{} metadata").format(os.path.split(raster.uri.uri)[1]))
-                action.triggered.connect(lambda _, x=file_path: self.show_metadata(x))
+        if self.job.results.uri.uri.suffix in [".tif", ".vrt"]:
+            for n, band in enumerate(self.job.results.get_bands()):
+                t = f'Band {n}: {layers.get_band_title(JobBand.Schema().dump(band))}'
+                fp = os.path.splitext(file_path)[0] + '_{}.qmd'.format(n)
+                action = self.metadata_menu.addAction(self.tr("{} metadata").format(t))
+                action.triggered.connect(lambda _, x=fp: self.show_metadata(x))

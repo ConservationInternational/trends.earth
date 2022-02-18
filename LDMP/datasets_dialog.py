@@ -17,9 +17,11 @@ from . import tr
 from . import utils
 from . import metadata_dialog
 from . import metadata
+from . import layers
 from .jobs import manager
 from .jobs.models import Job
 from .logger import log
+from te_schemas.results import Band as JobBand
 
 WidgetDatasetItemDetailsUi, _ = uic.loadUiType(
     str(Path(__file__).parents[0] / "gui/WidgetDatasetItemDetails.ui")
@@ -185,8 +187,9 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
         action.triggered.connect(lambda _, x=file_path: self.show_metadata(x))
         self.metadata_menu.addSeparator()
 
-        if self.job.results is not None:
-            for raster in self.job.results.rasters.values():
-                file_path = os.path.splitext(raster.uri.uri)[0] + '.qmd'
-                action = self.metadata_menu.addAction(self.tr("{} metadata").format(os.path.split(raster.uri.uri)[1]))
-                action.triggered.connect(lambda _, x=file_path: self.show_metadata(x))
+        if self.job.results.uri.uri.suffix in [".tif", ".vrt"]:
+            for n, band in enumerate(self.job.results.get_bands()):
+                t = f'Band {n}: {layers.get_band_title(JobBand.Schema().dump(band))}'
+                fp = os.path.splitext(file_path)[0] + '_{}.qmd'.format(n)
+                action = self.metadata_menu.addAction(self.tr("{} metadata").format(t))
+                action.triggered.connect(lambda _, x=fp: self.show_metadata(x))

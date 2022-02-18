@@ -12,25 +12,18 @@ from marshmallow.exceptions import ValidationError
 from osgeo import gdal
 from qgis.PyQt import QtCore
 from te_algorithms.gdal.util import combine_all_bands_into_vrt
-from te_schemas import jobs
-from te_schemas import results
+from te_schemas import jobs, results
 from te_schemas.algorithms import AlgorithmRunMode
-from te_schemas.results import Band as JobBand
-from te_schemas.results import DataType
-from te_schemas.results import Raster
-from te_schemas.results import RasterFileType
-from te_schemas.results import RasterResults
-from te_schemas.results import ResultType
 from te_schemas.results import URI
+from te_schemas.results import Band as JobBand
+from te_schemas.results import (DataType, Raster, RasterFileType,
+                                RasterResults, ResultType)
 
-from . import models
-from .. import api
-from .. import areaofinterest
-from .. import conf
+from .. import api, areaofinterest, conf
 from .. import download as ldmp_download
-from .. import layers
-from .. import utils
+from .. import layers, utils
 from ..logger import log
+from . import models
 from .models import Job
 
 
@@ -59,9 +52,53 @@ def is_gdal_vsi_path(path: Path):
     return re.match(r"(\\)|(/)vsi(s3)|(gs)", str(path)) is not None
 
 
+def _get_extent_tuple(path):
+    log(f'Trying to calculate extent of {path}')
+    ds = gdal.Open(str(path))
+    if ds:
+        min_x, xres, _, max_y, _, yres = ds.GetGeoTransform()
+        cols = ds.RasterXSize
+        rows = ds.RasterYSize
+         
+        extent = (min_x, max_y + rows*yres, min_x + cols*xres, max_y)
+        log(f'Calculated extent {[*extent]}')
+        return extent
+    else:
+        log("Failed to calculate extent - couldn't open dataset")
+        return None
+
+
+def _set_results_extents(job):
+    if (
+        job.results.type == results.ResultType.RASTER_RESULTS and
+        job.status in [jobs.JobStatus.DOWNLOADED, jobs.JobStatus.GENERATED_LOCALLY]
+    ):
+        for raster in job.results.rasters.values():
+            if raster.type == results.RasterType.ONE_FILE_RASTER:
+                if not hasattr(raster, 'extent') or raster.extent is None:
+                    raster.extent = _get_extent_tuple(raster.uri.uri)
+                    log(f'set job {job.id} {raster.datatype} {raster.type} '
+                        f'extent to {raster.extent}')
+            elif raster.type == results.RasterType.TILED_RASTER:
+                if not hasattr(raster, 'extents') or raster.extents is None:
+                    raster.extents = []
+                    for raster_tile_uri in raster.tile_uris:
+                        raster.extents.append(_get_extent_tuple(raster_tile_uri.uri))
+                    log(f'set job {job.id} {raster.datatype} {raster.type} '
+                        f'extents to {raster.extents}')
+            else:
+                raise RuntimeError(f"Unknown raster type {raster.type!r}")
+
+
+def _load_raw_job(raw_job):
+    job = Job.Schema().load(raw_job)
+    _set_results_extents(job)
+    return job
+
+
 class JobManager(QtCore.QObject):
     _encoding = "utf-8"
-    _relevant_job_age_threshold_days = 15
+    _relevant_job_age_threshold_days = 14
 
     _known_running_jobs: typing.Dict[uuid.UUID, Job]
     _known_finished_jobs: typing.Dict[uuid.UUID, Job]
@@ -330,12 +367,10 @@ class JobManager(QtCore.QObject):
         )
         try:
             raw_job = response["data"]
-            log(f'raw job is: {raw_job}')
-            log(f'raw job script is: {raw_job}')
         except TypeError:
             job = None
         else:
-            job = Job.Schema().load(raw_job)
+            job = _load_raw_job(raw_job)
             self.write_job_metadata_file(job)
             self._update_known_jobs_with_newly_submitted_job(job)
             self.submitted_remote_job.emit(job)
@@ -505,6 +540,16 @@ class JobManager(QtCore.QObject):
         else:
             raise RuntimeError(f"Invalid band name: {band_name!r}")
         now = dt.datetime.now(tz=dt.timezone.utc)
+        rasters= {
+            DataType.INT16.value:
+            Raster(
+                uri=URI(uri=dataset_path, type='local'),
+                bands=[band_info],
+                datatype=DataType.INT16,
+                filetype=RasterFileType.GEOTIFF,
+                extent=_get_extent_tuple(dataset_path)
+            )
+        }
         job = Job(
             id=uuid.uuid4(),
             params={},
@@ -514,16 +559,8 @@ class JobManager(QtCore.QObject):
             local_context=_get_local_context(),
             results=RasterResults(
                 name=f"{band_name} results",
-                rasters={
-                    DataType.INT16.value:
-                    Raster(
-                        uri=URI(uri=dataset_path, type='local'),
-                        bands=[band_info],
-                        datatype=DataType.INT16,
-                        filetype=RasterFileType.GEOTIFF
-                    )
-                },
-                uri=URI(uri=dataset_path, type='local')
+                rasters=rasters,
+                uri=URI(uri=dataset_path, type='local'),
             ),
             task_name="Imported dataset",
             task_notes="",
@@ -633,6 +670,8 @@ class JobManager(QtCore.QObject):
         else:
             job.results.uri = [*job.results.rasters.values()][0].uri
 
+        _set_results_extents(job)
+
         return job.results.uri
 
     def _download_timeseries_table(self, job: Job) -> typing.Optional[Path]:
@@ -705,6 +744,7 @@ class JobManager(QtCore.QObject):
         return self._known_finished_jobs
 
     def _refresh_local_downloaded_jobs(self):
+        log(f'{[j for j in self._get_local_jobs(jobs.JobStatus.DOWNLOADED)]}')
         self._known_downloaded_jobs = {
             j.id: j
             for j in self._get_local_jobs(jobs.JobStatus.DOWNLOADED)
@@ -762,7 +802,7 @@ class JobManager(QtCore.QObject):
             with job_metadata_path.open(encoding=self._encoding) as fh:
                 try:
                     raw_job = json.load(fh)
-                    job = Job.Schema().load(raw_job)
+                    job = _load_raw_job(raw_job)
                 except (KeyError, json.decoder.JSONDecodeError) as exc:
                     if conf.settings_manager.get_value(conf.Setting.DEBUG):
                         log(

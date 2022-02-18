@@ -28,10 +28,9 @@ from qgis.PyQt import QtCore, QtWidgets, uic
 from qgis.PyQt.QtCore import QSettings
 from te_schemas.jobs import JobStatus
 from te_schemas.results import Band as JobBand
-from te_schemas.results import ResultType
+from te_schemas.results import Raster, ResultType, RasterType
 
-from . import GetTempFilename, conf, layers, utils, worker
-from . import areaofinterest
+from . import GetTempFilename, areaofinterest, conf, layers, utils, worker
 from .jobs.manager import job_manager
 from .jobs.models import Job
 from .logger import log
@@ -1390,7 +1389,7 @@ def _get_usable_bands(
                         (band_info.name == band_name or band_name == 'any')
                     ):
                         if aoi is not None:
-                            if aoi.calc_frac_overlap(_get_extent(raster.uri.uri)) < 0.99:
+                            if not _check_band_overlap(aoi, raster):
                                 continue
                         if (
                             filter_field is None or filter_value is None
@@ -1419,7 +1418,7 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
 
         self.layer_list = None
 
-        self.NO_RELEVANT_LAYERS_MESSAGE =  self.tr('No relevant layers available')
+        self.NO_LAYERS_MESSAGE =  self.tr('No layers available in this region')
 
     def populate(self, selected_job_id=None):
         aoi = areaofinterest.prepare_area_of_interest()
@@ -1435,7 +1434,7 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
         self.comboBox_layers.clear()
 
         if len(usable_bands) == 0:
-            self.comboBox_layers.addItem(self.NO_RELEVANT_LAYERS_MESSAGE)
+            self.comboBox_layers.addItem(self.NO_LAYERS_MESSAGE)
         else:
             for i, usable_band in enumerate(usable_bands):
                 self.comboBox_layers.addItem(usable_band.get_name_info())
@@ -1508,10 +1507,28 @@ class WidgetDataIOSelectTELayerImport(
 @functools.lru_cache(
     maxsize=None
 )  # not using functools.cache, as it was only introduced in Python 3.9
-def _get_extent(path):
-    return qgis.core.QgsGeometry.fromRect(
-        qgis.core.QgsRasterLayer(str(path), "raster file", "gdal").extent()
-    )
+def _extent_as_geom(extent: typing.Tuple[float, float, float, float]):
+    return qgis.core.QgsGeometry.fromRect(qgis.core.QgsRectangle(*extent))
+
+
+def _check_band_overlap(aoi, raster):
+    if raster.type == RasterType.ONE_FILE_RASTER:
+        if aoi.calc_frac_overlap(_extent_as_geom(raster.extent)) >= 0.99:
+            return True
+    elif raster.type == RasterType.TILED_RASTER:
+        for extent in raster.extents:
+            if aoi.calc_frac_overlap(_extent_as_geom(extent)) >= 0.99:
+                return True
+
+    return False
+
+def _check_dataset_overlap(aoi, raster_results):
+    for extent in raster_results.get_extents():
+        if aoi.calc_frac_overlap(_extent_as_geom(extent)) >= 0.99:
+            return True
+
+    return False
+
 
 @functools.lru_cache(
     maxsize=None
@@ -1540,7 +1557,7 @@ def get_usable_datasets(
             path = job.results.uri.uri
 
             if aoi is not None:
-                if aoi.calc_frac_overlap(_get_extent(path)) < 0.99:
+                if not _check_dataset_overlap(aoi, job.results):
                     continue
 
             if job.script.name == dataset_name:
@@ -1631,7 +1648,7 @@ class WidgetDataIOSelectTEDatasetExisting(
             self.selected_job_changed
         )
 
-        self.NO_RELEVANT_DATASETS_MESSAGE =  self.tr('No relevant datasets available (see advanced, or change region)')
+        self.NO_DATASETS_MESSAGE =  self.tr('No datasets available in this region (see advanced)')
 
     def populate(self):
         aoi = areaofinterest.prepare_area_of_interest()
@@ -1646,7 +1663,7 @@ class WidgetDataIOSelectTEDatasetExisting(
         self.comboBox_datasets.clear()
 
         if len(usable_datasets) == 0:
-            self.comboBox_datasets.addItem(self.NO_RELEVANT_DATASETS_MESSAGE)
+            self.comboBox_datasets.addItem(self.NO_DATASETS_MESSAGE)
         else:
             for i, usable_dataset in enumerate(usable_datasets):
                 self.comboBox_datasets.addItem(usable_dataset.get_name_info())
@@ -1696,7 +1713,7 @@ class WidgetDataIOSelectTEDatasetExisting(
             current_job = self.dataset_list[
                 self.comboBox_datasets.currentIndex()]
 
-            if current_job != self.NO_RELEVANT_DATASETS_MESSAGE:
+            if current_job != self.NO_DATASETS_MESSAGE:
                 job_id = current_job.job.id
             else:
                 job_id = None

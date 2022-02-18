@@ -11,39 +11,33 @@
  ***************************************************************************/
 """
 # pylint: disable=import-error
-
-from pathlib import Path
 import datetime
 import typing
-
-from PyQt5 import (
-    QtCore,
-    QtWidgets,
-    uic,
-)
+from pathlib import Path
 
 import qgis.gui
+from PyQt5 import QtCore
+from PyQt5 import QtWidgets
+from PyQt5 import uic
 from qgis.core import QgsGeometry
-
 from te_schemas.algorithms import ExecutionScript
-from te_schemas.land_cover import LCTransitionDefinitionDeg, LCLegendNesting
+from te_schemas.land_cover import LCLegendNesting
+from te_schemas.land_cover import LCTransitionDefinitionDeg
 
-from . import (
-    conf,
-    data_io,
-    lc_setup,
-)
-from .calculate import (
-    DlgCalculateBase,
-)
+from . import conf
+from . import data_io
+from . import lc_setup
+from .calculate import DlgCalculateBase
 from .jobs.manager import job_manager
 from .localexecution import unccd
 from .logger import log
 
 DlgCalculateUNCCDUi, _ = uic.loadUiType(
-    str(Path(__file__).parent / "gui/DlgCalculateUNCCD.ui"))
+    str(Path(__file__).parent / "gui/DlgCalculateUNCCD.ui")
+)
 DlgCalculateUNCCDReportUi, _ = uic.loadUiType(
-    str(Path(__file__).parent / "gui/DlgCalculateUNCCDReport.ui"))
+    str(Path(__file__).parent / "gui/DlgCalculateUNCCDReport.ui")
+)
 
 
 class tr_calculate_unccd(object):
@@ -52,18 +46,18 @@ class tr_calculate_unccd(object):
 
 
 class DlgCalculateUNCCD(DlgCalculateBase, DlgCalculateUNCCDUi):
-
     def __init__(
-            self,
-            iface: qgis.gui.QgisInterface,
-            script: ExecutionScript,
-            parent: QtWidgets.QWidget = None
+        self,
+        iface: qgis.gui.QgisInterface,
+        script: ExecutionScript,
+        parent: QtWidgets.QWidget = None
     ):
         super().__init__(iface, script, parent)
         self.setupUi(self)
 
         self.population_dataset_name = "Gridded Population Count"
-        self.population_dataset = conf.REMOTE_DATASETS["WorldPop"][self.population_dataset_name]
+        self.population_dataset = conf.REMOTE_DATASETS["WorldPop"][
+            self.population_dataset_name]
 
         self.spi_dataset_name = "GPCC V6 (Global Precipitation Climatology Centre)"
         self.spi_dataset = conf.REMOTE_DATASETS["SPI"][self.spi_dataset_name]
@@ -97,15 +91,11 @@ class DlgCalculateUNCCD(DlgCalculateBase, DlgCalculateUNCCDUi):
         # as well.
 
         QtWidgets.QMessageBox.information(
-            None,
-            self.tr("Coming soon!"),
-            self.tr(
-                "This function coming soon!"
-            )
+            None, self.tr("Coming soon!"),
+            self.tr("This function coming soon!")
         )
         self.close()
         return
-
 
         ret = super(DlgCalculateUNCCD, self).btn_calculate()
 
@@ -119,8 +109,7 @@ class DlgCalculateUNCCD(DlgCalculateBase, DlgCalculateUNCCDUi):
 
         if (year_final - year_initial) < 5:
             QtWidgets.QMessageBox.warning(
-                None,
-                self.tr("Error"),
+                None, self.tr("Error"),
                 self.tr(
                     "Initial and final year are less 5 years "
                     "apart in - results will be more reliable "
@@ -142,16 +131,18 @@ class DlgCalculateUNCCD(DlgCalculateBase, DlgCalculateUNCCDUi):
             'lag': int(self.lag_cb.currentText())
         }
 
-        payload.update({
-            'geojsons': geojsons,
-            'crs': self.aoi.get_crs_dst_wkt(),
-            'crosses_180th': crosses_180th,
-            'task_name': self.execution_name_le.text(),
-            'task_notes': self.task_notes.toPlainText(),
-            'script': ExecutionScript.Schema().dump(self.script),
-            'year_initial': year_initial,
-            'year_final': year_final
-        })
+        payload.update(
+            {
+                'geojsons': geojsons,
+                'crs': self.aoi.get_crs_dst_wkt(),
+                'crosses_180th': crosses_180th,
+                'task_name': self.execution_name_le.text(),
+                'task_notes': self.task_notes.toPlainText(),
+                'script': ExecutionScript.Schema().dump(self.script),
+                'year_initial': year_initial,
+                'year_final': year_final
+            }
+        )
 
         self.close()
 
@@ -164,34 +155,26 @@ class DlgCalculateUNCCD(DlgCalculateBase, DlgCalculateUNCCDUi):
             main_msg = "Error"
             description = "Unable to UNCCD default data task to Google Earth Engine."
         self.mb.pushMessage(
-            self.tr(main_msg),
-            self.tr(description),
-            level=0,
-            duration=5
+            self.tr(main_msg), self.tr(description), level=0, duration=5
         )
 
 
-class DlgCalculateUNCCDReport(
-    DlgCalculateBase,
-    DlgCalculateUNCCDReportUi
-):
+class DlgCalculateUNCCDReport(DlgCalculateBase, DlgCalculateUNCCDReportUi):
     LOCAL_SCRIPT_NAME: str = "unccd-report"
 
     button_calculate: QtWidgets.QPushButton
     combo_boxes: typing.Dict[str, unccd.UNCCDReportWidgets] = {}
 
     def __init__(
-            self,
-            iface: qgis.gui.QgisInterface,
-            script: ExecutionScript,
-            parent: QtWidgets.QWidget = None
+        self,
+        iface: qgis.gui.QgisInterface,
+        script: ExecutionScript,
+        parent: QtWidgets.QWidget = None
     ):
         super().__init__(iface, script, parent)
         self.setupUi(self)
 
         self._finish_initialization()
-
-        self.region_widget.setVisible(False)
 
         self.combo_boxes = unccd.UNCCDReportWidgets(
             combo_dataset_so1_so2=self.combo_dataset_so1_so2,
@@ -199,38 +182,54 @@ class DlgCalculateUNCCDReport(
             combo_layer_jrc_vulnerability=self.combo_layer_jrc_vulnerability
         )
 
+        self.changed_region.connect(self.combo_boxes.populate)
+
     def showEvent(self, event):
         super().showEvent(event)
         self.combo_boxes.populate()
 
-    def validate_dataset_selections(self, combo_boxes):
+    def _validate_dataset_selection(self, combo_box, dataset_name):
+        if len(combo_box.dataset_list) == 0:
+            QtWidgets.QMessageBox.critical(
+                None, self.tr("Error"),
+                self.tr(
+                    f"You must select a {dataset_name} layer "
+                    "before you can use the UNCCD reporting tool."
+                )
+            )
+            return False
+        else:
+            return True
+
+    def _validate_layer_selection(self, combo_box, layer_name):
+        if len(combo_box.layer_list) == 0:
+            QtWidgets.QMessageBox.critical(
+                None, self.tr("Error"),
+                self.tr(
+                    f"You must select a {layer_name} layer "
+                    "before you can use the UNCCD reporting tool."
+                )
+            )
+            return False
+        else:
+            return True
+
+    def validate_data_selections(self, combo_boxes):
         '''validate all needed datasets are selected'''
-
-        if combo_boxes.combo_dataset_so1_so2.currentText == '':
-            QtWidgets.QMessageBox.critical(
-                None,
-                self.tr("Error"),
-                self.tr(
-                    "You must choose a dataset for SO1 and SO2 before using "
-                    "the UNCCD report generation tool."
-                )
-            )
-
+        if not self._validate_dataset_selection(
+            combo_boxes.combo_dataset_so1_so2, 'SO1 and SO2'
+        ):
             return False
-
-        if combo_boxes.combo_dataset_so3.currentText == '':
-            QtWidgets.QMessageBox.critical(
-                None,
-                self.tr("Error"),
-                self.tr(
-                    "You must choose a dataset for SO3 before using "
-                    "the UNCCD report generation tool."
-                )
-            )
-
+        elif not self._validate_dataset_selection(
+            combo_boxes.combo_dataset_so3, 'SO3 (tiers 1 and 2)'
+        ):
             return False
-
-        return True
+        elif not self._validate_layer_selection(
+            combo_boxes.combo_layer_jrc_vulnerability, 'SO3 (tier 3)'
+        ):
+            return False
+        else:
+            return False
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
@@ -241,9 +240,7 @@ class DlgCalculateUNCCDReport(
         if not ret:
             return
 
-        if (
-            not self.validate_dataset_selections(self.combo_boxes)
-        ):
+        if (not self.validate_data_selections(self.combo_boxes)):
             log('failed dataset validation')
 
             return
@@ -257,15 +254,14 @@ class DlgCalculateUNCCDReport(
                 task_name=self.options_tab.task_name.text(),
                 combo_dataset_so1_so2=self.combo_boxes.combo_dataset_so1_so2,
                 combo_dataset_so3=self.combo_boxes.combo_dataset_so3,
-                combo_layer_jrc_vulnerability=self.combo_boxes.combo_layer_jrc_vulnerability,
+                combo_layer_jrc_vulnerability=self.combo_boxes.
+                combo_layer_jrc_vulnerability,
                 task_notes=self.options_tab.task_notes.toPlainText()
             )
         )
 
         job_manager.submit_local_job(
-            params,
-            script_name=self.LOCAL_SCRIPT_NAME,
-            area_of_interest=None
+            params, script_name=self.LOCAL_SCRIPT_NAME, area_of_interest=None
         )
 
         self.close()

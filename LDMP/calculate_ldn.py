@@ -511,7 +511,7 @@ class DlgCalculateLDNSummaryTableAdmin(
         '''validate all needed layers are selected'''
 
         if prod_mode == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
-            if not self._validate_layer_selection(combo_boxes.combo_layer_traj, 'trajectory'):
+            if not self._validate_layer_selection(combo_boxes.combo_layer_traj, 'trend'):
                 return False
             if not self._validate_layer_selection(combo_boxes.combo_layer_state, 'state'):
                 return False
@@ -558,7 +558,7 @@ class DlgCalculateLDNSummaryTableAdmin(
         '''Check that the layers cover the full extent of the AOI'''
 
         if prod_mode == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
-            if not self._validate_layer_extent(combo_boxes.combo_layer_traj.get_layer(), 'trajectory'):
+            if not self._validate_layer_extent(combo_boxes.combo_layer_traj.get_layer(), 'trend'):
                 return False
 
             if not self._validate_layer_extent(combo_boxes.combo_layer_perf.get_layer(), 'performance'):
@@ -619,7 +619,7 @@ class DlgCalculateLDNSummaryTableAdmin(
         '''check all layers have the same resolution and CRS'''
         if prod_mode == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
             model_layer = combo_boxes.combo_layer_traj.get_layer()
-            model_layer_name = 'trajectory'
+            model_layer_name = 'trend'
 
             if not self._validate_crs(
                 model_layer, model_layer_name,

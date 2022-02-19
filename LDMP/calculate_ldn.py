@@ -760,7 +760,7 @@ class DlgCalculateLDNSummaryTableAdmin(
 
         self.close()
 
-        job_manager.submit_local_job(
+        job_manager.submit_local_job_as_qgstask(
             params,
             script_name=self.LOCAL_SCRIPT_NAME,
             area_of_interest=self.aoi

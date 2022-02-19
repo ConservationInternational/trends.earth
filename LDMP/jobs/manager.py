@@ -1,3 +1,4 @@
+import copy
 import datetime as dt
 import json
 import re
@@ -10,6 +11,7 @@ from typing import List
 
 from marshmallow.exceptions import ValidationError
 from osgeo import gdal
+from qgis.core import QgsApplication, QgsTask
 from qgis.PyQt import QtCore
 from te_algorithms.gdal.util import combine_all_bands_into_vrt
 from te_schemas import jobs, results
@@ -73,6 +75,7 @@ def _set_results_extents(job):
         job.results.type == results.ResultType.RASTER_RESULTS and
         job.status in [jobs.JobStatus.DOWNLOADED, jobs.JobStatus.GENERATED_LOCALLY]
     ):
+        log(f'Setting extents for job {job.id}')
         for raster in job.results.rasters.values():
             if raster.type == results.RasterType.ONE_FILE_RASTER:
                 if not hasattr(raster, 'extent') or raster.extent is None:
@@ -94,6 +97,30 @@ def _load_raw_job(raw_job):
     job = Job.Schema().load(raw_job)
     _set_results_extents(job)
     return job
+
+class LocalJobTask(QgsTask):
+    job: Job
+    area_of_interest: areaofinterest.AOI
+
+    processed_job: QtCore.pyqtSignal = QtCore.pyqtSignal(Job)
+
+    def __init__(self, description, job, area_of_interest):
+        super().__init__(description, QgsTask.CanCancel)
+        self.job = job
+        self.area_of_interest = area_of_interest
+
+    def run(self):
+        execution_handler = utils.load_object(self.job.script.execution_callable)
+        job_output_path, dataset_output_path = _get_local_job_output_paths(self.job)
+        self.done_job = execution_handler(
+            self.job, self.area_of_interest, job_output_path, dataset_output_path
+        )
+
+        if self.done_job is not None:
+            self.processed_job.emit(self.done_job)
+            return True
+        else:
+            return False
 
 
 class JobManager(QtCore.QObject):
@@ -377,6 +404,41 @@ class JobManager(QtCore.QObject):
 
         return job
 
+    def submit_local_job_as_qgstask(
+        self, params: typing.Dict, script_name: str,
+        area_of_interest: areaofinterest.AOI
+    ):
+        final_params = params.copy()
+        task_name = final_params.pop("task_name")
+        task_notes = final_params.pop("task_notes")
+        job = Job(
+            id=uuid.uuid4(),
+            params=final_params,
+            progress=0,
+            start_date=dt.datetime.now(dt.timezone.utc),
+            status=jobs.JobStatus.PENDING,
+            local_context=_get_local_context(),
+            task_name=task_name,
+            task_notes=task_notes,
+            results=RasterResults(name=script_name, rasters={}, uri=None),
+            script=models.get_job_local_script(script_name)
+        )
+        self.write_job_metadata_file(job)
+        self._update_known_jobs_with_newly_submitted_job(job)
+        self.submitted_local_job.emit(job)
+
+        job_name_parts = []
+        if task_name:
+            job_name_parts.append(task_name)
+        elif job.local_context.area_of_interest_name:
+            job_name_parts.append(job.local_context.area_of_interest_name)
+        job_name_parts.append(script_name)
+        job_name = ' - '.join(job_name_parts)
+
+        job_task = LocalJobTask(job_name, job, area_of_interest)
+        job_task.processed_job.connect(self.finish_local_job)
+        QgsApplication.taskManager().addTask(job_task)
+
     def submit_local_job(
         self, params: typing.Dict, script_name: str,
         area_of_interest: areaofinterest.AOI
@@ -409,10 +471,13 @@ class JobManager(QtCore.QObject):
         done_job = execution_handler(
             job, area_of_interest, job_output_path, dataset_output_path
         )
+        self.finish_local_job(job)
+
+    def finish_local_job(self, job):
         self._move_job_to_dir(
-            done_job, new_status=jobs.JobStatus.GENERATED_LOCALLY
+            job, new_status=jobs.JobStatus.GENERATED_LOCALLY
         )
-        self.processed_local_job.emit(done_job)
+        self.processed_local_job.emit(job)
 
     def download_job_results(self, job: Job) -> Job:
         handler = {
@@ -773,6 +838,8 @@ class JobManager(QtCore.QObject):
         This also mutates the input job, updating its current status to the new one.
 
         """
+
+        log(f'moving job {job.id} to dir')
 
         if job.status != new_status:  # always write
             self._remove_job_metadata_file(job)

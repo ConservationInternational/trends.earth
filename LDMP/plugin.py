@@ -11,20 +11,24 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
-
-from builtins import object
 import os
+from builtins import object
 
-from qgis.core import QgsApplication, QgsMessageLog, Qgis
-from qgis.PyQt.QtCore import QCoreApplication, Qt
-from qgis.PyQt.QtWidgets import QAction, QMessageBox, QApplication, QMenu, QToolButton
+from qgis.core import Qgis
+from qgis.core import QgsApplication
+from qgis.core import QgsMessageLog
+from qgis.PyQt.QtCore import QCoreApplication
+from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtGui import QIcon
+from qgis.PyQt.QtWidgets import QAction
+from qgis.PyQt.QtWidgets import QApplication
+from qgis.PyQt.QtWidgets import QMenu
+from qgis.PyQt.QtWidgets import QMessageBox
+from qgis.PyQt.QtWidgets import QToolButton
 
-from . import (
-    about,
-    conf,
-    main_widget,
-)
+from . import about
+from . import conf
+from . import main_widget
 from .jobs.manager import job_manager
 from .processing_provider.provider import Provider
 from .settings import DlgSettings
@@ -32,7 +36,6 @@ from .settings import DlgSettings
 
 class LDMPPlugin(object):
     """QGIS Plugin Implementation."""
-
     def __init__(self, iface):
         """Constructor.
 
@@ -50,8 +53,13 @@ class LDMPPlugin(object):
         self.actions = []
         self.menu = QMenu(self.tr(u'&Trends.Earth'))
         self.menu.setIcon(
-            QIcon(os.path.join(os.path.dirname(__file__),
-                  'trends_earth_logo_square_32x32.png')))
+            QIcon(
+                os.path.join(
+                    os.path.dirname(__file__),
+                    'trends_earth_logo_square_32x32.png'
+                )
+            )
+        )
         self.raster_menu = self.iface.rasterMenu()
         self.raster_menu.addMenu(self.menu)
 
@@ -72,17 +80,18 @@ class LDMPPlugin(object):
         return QCoreApplication.translate("plugin", message)
 
     def add_action(
-            self,
-            icon_path,
-            text,
-            callback,
-            enabled_flag=True,
-            add_to_menu=True,
-            add_to_toolbar=True,
-            set_as_default_action=False,
-            status_tip=None,
-            whats_this=None,
-            parent=None):
+        self,
+        icon_path,
+        text,
+        callback,
+        enabled_flag=True,
+        add_to_menu=True,
+        add_to_toolbar=True,
+        set_as_default_action=False,
+        status_tip=None,
+        whats_this=None,
+        parent=None
+    ):
         """Add a toolbar icon to the toolbar.
 
         :param icon_path: Path to the icon for this action. Can be a resource
@@ -152,14 +161,18 @@ class LDMPPlugin(object):
 
     def initGui(self):
         self.initProcessing()
-
         """Create Main manu icon and plugins menu entries."""
-        start_action = self.add_action(os.path.join(os.path.dirname(__file__), 'icons', 'trends_earth_logo_square_32x32.ico'),
+        start_action = self.add_action(
+            os.path.join(
+                os.path.dirname(__file__), 'icons',
+                'trends_earth_logo_square_32x32.ico'
+            ),
             text='Trends.Earth',
             callback=self.run_docked_interface,
             parent=self.iface.mainWindow(),
             status_tip=self.tr('Trends.Earth dock interface'),
-            set_as_default_action=True)
+            set_as_default_action=True
+        )
         start_action.setCheckable(True)
 
         self.add_action(
@@ -167,7 +180,8 @@ class LDMPPlugin(object):
             text=self.tr(u'Settings'),
             callback=self.run_settings,
             parent=self.iface.mainWindow(),
-            status_tip=self.tr('Trends.Earth Settings'))
+            status_tip=self.tr('Trends.Earth Settings')
+        )
 
         self.add_action(
             os.path.join(os.path.dirname(__file__), 'icons', 'info.svg'),
@@ -175,13 +189,15 @@ class LDMPPlugin(object):
             add_to_toolbar=False,
             callback=self.run_about,
             parent=self.iface.mainWindow(),
-            status_tip=self.tr('About trends.earth'))
+            status_tip=self.tr('About trends.earth')
+        )
 
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
         for action in self.actions:
             self.iface.removePluginRasterMenu(
-                self.tr(u'&trends.earth'), action)
+                self.tr(u'&trends.earth'), action
+            )
             self.iface.removeToolBarIcon(action)
         # remove the menu
         self.raster_menu.removeAction(self.menu.menuAction())
@@ -193,7 +209,8 @@ class LDMPPlugin(object):
     def run_docked_interface(self, checked):
         if checked:
             self.dock_widget = main_widget.MainWidget(
-                self.iface, parent=self.iface.mainWindow())
+                self.iface, parent=self.iface.mainWindow()
+            )
             self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dock_widget)
             self.dock_widget.show()
         else:

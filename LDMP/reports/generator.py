@@ -127,6 +127,7 @@ class ReportTaskProcessor:
     ReportTaskContext object.
     """
     BAND_INDEX = 'sourceBandIndex'
+    BASE_MAP_GROUP = 'Basemap'
 
     def __init__(
             self,
@@ -246,7 +247,10 @@ class ReportTaskProcessor:
         # Add basemap
         status, document = download_base_map(use_mask=False)
         if status:
-            root = self._proj.layerTreeRoot().insertGroup(0, 'Basemap')
+            root = self._proj.layerTreeRoot().insertGroup(
+                0,
+                self.BASE_MAP_GROUP
+            )
             QgsLayerDefinition.loadLayerDefinition(
                 document,
                 self._proj,
@@ -267,6 +271,9 @@ class ReportTaskProcessor:
                 'could not be saved.'
             )
             return False
+
+        # Restore basemap layers
+        self._restore_base_layers()
 
         # Add open project macro to show layout manager.
         self._add_open_layout_macro()
@@ -308,6 +315,17 @@ class ReportTaskProcessor:
         layout_mgr.addLayout(self._layout)
 
         return True
+
+    def _restore_base_layers(self):
+        # Adds basemap layers back to the project tree prior to exporting
+        # the project.
+        root_tree = self._proj.layerTreeRoot()
+        basemap_group = root_tree.findGroup(self.BASE_MAP_GROUP)
+        if basemap_group is None:
+            return
+
+        for bml in self._basemap_layers:
+            basemap_group.addLayer(bml)
 
     def _update_project_metadata_extents(self, layer=None, title=None):
         # Update the extents and metadata of the project
@@ -563,7 +581,7 @@ class ReportTaskProcessor:
             if map_item is not None:
                 map_item.setLayers(map_item_layers)
                 map_item.zoomToExtent(layer.extent())
-                # self._refresh_map_legends(map_item)
+                self._refresh_map_legends(map_item)
 
         return True
 

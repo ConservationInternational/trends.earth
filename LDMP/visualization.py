@@ -14,6 +14,7 @@
 
 import os
 from pathlib import Path
+import typing
 
 from qgis.PyQt import (
     QtWidgets,
@@ -138,75 +139,107 @@ class DlgVisualizationBasemap(QtWidgets.QDialog, DlgVisualizationBasemapUi):
     def ok_clicked(self):
         self.close()
 
-        ret = download.extract_zipfile('trends.earth_basemap_data.zip', verify=False)
+        zoomer = None
+        use_mask = self.checkBox_mask.isChecked()
+        country_name = self.area_admin_0.currentText()
+        admin_level_one = None
+        if self.area_admin_1.currentText():
+            admin_level_one = self.area_admin_1.currentText()
 
-        if ret:
-            f = open(os.path.join(os.path.dirname(__file__), 'data', 'basemap.qlr'), 'rt')
-            lyr_def_content = f.read()
-            f.close()
-
-            # The basemap data, when downloaded, is stored in the data
-            # subfolder of the plugin directory
-            lyr_def_content = lyr_def_content.replace('DATA_FOLDER', os.path.join(os.path.dirname(__file__), 'data'))
-
-            if self.checkBox_mask.isChecked():
-                current_country_name = self.area_admin_0.currentText()
-                current_country = conf.ADMIN_BOUNDS_KEY[current_country_name]
-                if not self.area_admin_1.currentText() or self.area_admin_1.currentText() == 'All regions':
-                    # Mask out a level 0 admin area - this is default, so don't
-                    # need to edit the brrush styles
+        # Download basemap and get layer definition object
+        status, document = download_base_map(country_name, use_mask, admin_level_one)
+        if status:
+            if use_mask:
+                current_country = conf.ADMIN_BOUNDS_KEY[country_name]
+                if admin_level_one is None or admin_level_one == 'All regions':
                     admin_code = current_country.code
-                    lyr_def_content = lyr_def_content.replace('MASK_SQL_ADMIN0', "|subset=&quot;ISO_A3&quot; != '{}'".format(admin_code))
-                    lyr_def_content = lyr_def_content.replace('MASK_SQL_ADMIN1', '')
-                    document = QtXml.QDomDocument()
-                    document.setContent(lyr_def_content)
-
                     zoomer = zoom_to_admin_poly(admin_code)
                 else:
-                    # Mask out a level 1 admin area
-                    current_region_name = self.area_admin_1.currentText()
-                    admin_code = current_country.level1_regions[current_region_name]
-                    lyr_def_content = lyr_def_content.replace('MASK_SQL_ADMIN0', '')
-                    lyr_def_content = lyr_def_content.replace('MASK_SQL_ADMIN1', "|subset=&quot;adm1_code&quot; != '{}'".format(admin_code))
-
-                    # Set national borders to no brush, and regional borders to
-                    # solid brush
-                    document = QtXml.QDomDocument()
-                    document.setContent(lyr_def_content)
-                    maplayers = document.elementsByTagName('maplayer')
-                    set_fill_style(maplayers, 'ne_10m_admin_0_countries', 'no')
-                    set_fill_style(maplayers, 'ne_10m_admin_1_states_provinces', 'solid')
-
-                    # Set the flag used in the zoom function to know this is an
-                    # admin 1 code
+                    admin_code = current_country.level1_regions[admin_level_one]
                     zoomer = zoom_to_admin_poly(admin_code, True)
-            else:
-                # Don't mask any areas
-                lyr_def_content = lyr_def_content.replace('MASK_SQL_ADMIN0', '')
-                lyr_def_content = lyr_def_content.replace('MASK_SQL_ADMIN1', '')
 
-                # To not use a mask, need to set the fill style to no brush
+            # Always add the basemap at the top of the TOC
+            root = QgsProject.instance().layerTreeRoot().insertGroup(0, 'Basemap')
+            QgsLayerDefinition.loadLayerDefinition(
+                document,
+                QgsProject.instance(),
+                root,
+                QgsReadWriteContext()
+            )
+
+            if zoomer:
+                zoomer.zoom()
+        else:
+            QtWidgets.QMessageBox.critical(
+                self,
+                self.tr("Error"),
+                self.tr("Error downloading basemap data.")
+            )
+
+    def cancel_clicked(self):
+        self.close()
+
+
+def download_base_map(
+        use_mask=True,
+        country_name=None,
+        admin_level_one=None
+) -> typing.Tuple[bool, QtXml.QDomDocument]:
+    # Download basemap and return layer definition
+    if admin_level_one is None:
+        admin_level_one = 'All regions'
+
+    document = None
+
+    ret = download.extract_zipfile('trends.earth_basemap_data.zip', verify=False)
+
+    if ret:
+        f = open(os.path.join(os.path.dirname(__file__), 'data', 'basemap.qlr'), 'rt')
+        lyr_def_content = f.read()
+        f.close()
+
+        # The basemap data, when downloaded, is stored in the data
+        # subfolder of the plugin directory
+        lyr_def_content = lyr_def_content.replace('DATA_FOLDER', os.path.join(os.path.dirname(__file__), 'data'))
+
+        if use_mask:
+            current_country = conf.ADMIN_BOUNDS_KEY[country_name]
+            if admin_level_one == 'All regions':
+                # Mask out a level 0 admin area - this is default, so don't
+                # need to edit the brrush styles
+                admin_code = current_country.code
+                lyr_def_content = lyr_def_content.replace('MASK_SQL_ADMIN0',
+                                                          "|subset=&quot;ISO_A3&quot; != '{}'".format(admin_code))
+                lyr_def_content = lyr_def_content.replace('MASK_SQL_ADMIN1', '')
+                document = QtXml.QDomDocument()
+                document.setContent(lyr_def_content)
+            else:
+                # Mask out a level 1 admin area
+                current_region_name = admin_level_one
+                admin_code = current_country.level1_regions[current_region_name]
+                lyr_def_content = lyr_def_content.replace('MASK_SQL_ADMIN0', '')
+                lyr_def_content = lyr_def_content.replace('MASK_SQL_ADMIN1',
+                                                          "|subset=&quot;adm1_code&quot; != '{}'".format(admin_code))
+
+                # Set national borders to no brush, and regional borders to
+                # solid brush
                 document = QtXml.QDomDocument()
                 document.setContent(lyr_def_content)
                 maplayers = document.elementsByTagName('maplayer')
                 set_fill_style(maplayers, 'ne_10m_admin_0_countries', 'no')
-
-                zoomer = None
-
-            # Always add the basemap at the top of the TOC
-            root = QgsProject.instance().layerTreeRoot().insertGroup(0, 'Basemap')
-            QgsLayerDefinition.loadLayerDefinition(document, QgsProject.instance(), root, QgsReadWriteContext())
-
-            if zoomer:
-                zoomer.zoom()
-
+                set_fill_style(maplayers, 'ne_10m_admin_1_states_provinces', 'solid')
         else:
-            QtWidgets.QMessageBox.critical(None,
-                                       self.tr("Error"),
-                                       self.tr("Error downloading basemap data."))
+            # Don't mask any areas
+            lyr_def_content = lyr_def_content.replace('MASK_SQL_ADMIN0', '')
+            lyr_def_content = lyr_def_content.replace('MASK_SQL_ADMIN1', '')
 
-    def cancel_clicked(self):
-        self.close()
+            # To not use a mask, need to set the fill style to no brush
+            document = QtXml.QDomDocument()
+            document.setContent(lyr_def_content)
+            maplayers = document.elementsByTagName('maplayer')
+            set_fill_style(maplayers, 'ne_10m_admin_0_countries', 'no')
+
+    return ret, document
 
 
 class DlgVisualizationCreateMap(QtWidgets.QDialog, DlgVisualizationCreateMapUi):

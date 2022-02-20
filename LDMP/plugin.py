@@ -15,10 +15,20 @@
 from builtins import object
 import os
 
-from qgis.core import QgsApplication, QgsMessageLog, Qgis
+from qgis.core import (
+    QgsApplication,
+    QgsMasterLayoutInterface
+)
 from qgis.gui import QgsLayoutDesignerInterface
-from qgis.PyQt.QtCore import QCoreApplication, Qt
-from qgis.PyQt.QtWidgets import QAction, QMessageBox, QApplication, QMenu, QToolButton
+from qgis.PyQt.QtCore import (
+    QCoreApplication,
+    Qt
+)
+from qgis.PyQt.QtWidgets import (
+    QAction,
+    QMenu,
+    QToolButton
+)
 from qgis.PyQt.QtGui import QIcon
 
 from . import (
@@ -31,6 +41,7 @@ from .processing_provider.provider import Provider
 from .reports.expressions import ReportExpressionUtils
 from .reports.template_manager import template_manager
 from .settings import DlgSettings
+from .visualization import download_base_map
 
 
 class LDMPPlugin(object):
@@ -242,7 +253,12 @@ class LDMPPlugin(object):
         # Copy report config and templates to data directory
         template_manager.use_data_dir_config_source()
 
+        # Download basemap as its required in the reports
+        download_base_map(use_mask=False)
+
     def on_layout_designer_opened(self, designer: QgsLayoutDesignerInterface):
-        # Register custom report variables in the layout
-        layout = designer.layout()
-        ReportExpressionUtils.register_variables(layout)
+        # Register custom report variables in a print layout only.
+        layout_type = designer.masterLayout().layoutType()
+        if layout_type == QgsMasterLayoutInterface.PrintLayout:
+            layout = designer.layout()
+            ReportExpressionUtils.register_variables(layout)

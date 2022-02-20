@@ -17,6 +17,7 @@ from qgis.PyQt import (
 from .jobs import manager
 from .jobs.models import Job
 from .logger import log
+from .reports.models import slugify
 
 
 def utc_to_local(utc_dt):
@@ -148,14 +149,13 @@ class FileUtils:
         )
 
     @staticmethod
-    def project_path_from_report_path(report_path) -> str:
+    def project_path_from_report_task(
+            report_task,
+            root_output_dir: str
+    ) -> str:
+        task_name = slugify(report_task.display_name())
         # Get QGIS project path from the corresponding report path
-        fi = QtCore.QFileInfo(report_path)
-        proj_file_name = fi.completeBaseName().replace(
-            'report',
-            'project'
-        )
-        return f'{fi.dir().path()}/{proj_file_name}.qgs'
+        return f'{root_output_dir}/{task_name}.qgz'
 
     @staticmethod
     def get_icon(icon_name: str) -> QtGui.QIcon:

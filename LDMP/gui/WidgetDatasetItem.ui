@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>427</width>
+    <width>465</width>
     <height>134</height>
    </rect>
   </property>
@@ -114,7 +114,7 @@
         <item>
          <widget class="QPushButton" name="report_pb">
           <property name="toolTip">
-           <string>View output report</string>
+           <string>Reports</string>
           </property>
           <property name="text">
            <string/>

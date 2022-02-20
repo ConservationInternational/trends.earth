@@ -14,8 +14,12 @@ from qgis.core import (
     QgsExpression,
     QgsExpressionContext,
     QgsFeedback,
+    QgsLayerDefinition,
     QgsLayoutExporter,
     QgsLayoutItem,
+    QgsLayoutItemLegend,
+    QgsLayoutItemMap,
+    QgsLayoutItemRegistry,
     QgsPrintLayout,
     QgsProject,
     QgsRasterLayer,
@@ -54,12 +58,15 @@ from ..logger import log
 
 from .expressions import ReportExpressionUtils
 from .models import (
-    ReportTaskContext
+    ReportTaskContext,
+    TemplateType
 )
+from .utils import build_report_paths
 from ..utils import (
     qgis_process_path,
     FileUtils
 )
+from ..visualization import download_base_map
 
 
 class ReportProcessHandlerTask(QgsTask):
@@ -119,6 +126,8 @@ class ReportTaskProcessor:
     (in image and/or PDF format) based on information in a
     ReportTaskContext object.
     """
+    BAND_INDEX = 'sourceBandIndex'
+
     def __init__(
             self,
             ctx: ReportTaskContext,
@@ -133,6 +142,9 @@ class ReportTaskProcessor:
         self._layout = None
         self._messages = dict()
         self._jobs_layers = dict()
+        self._should_add_basemap = True
+        self._basemap_layers = []
+        self._output_root_dir = ''
 
     @property
     def context(self) -> ReportTaskContext:
@@ -179,7 +191,7 @@ class ReportTaskProcessor:
         return False
 
     def _create_layers(self):
-        # Creates layers in each job.
+        # Creates map layers for each job.
         for j in self._ctx.jobs:
             layers = []
             bands = j.results.get_bands()
@@ -212,121 +224,162 @@ class ReportTaskProcessor:
                                 in_process_alg=True,
                                 processing_feedback=self._feedback
                         ):
+                            # Append source band index as a custom property.
+                            # We use this to retrieve the corresponding report
+                            # path.
+                            band_layer.setCustomProperty(
+                                self.BAND_INDEX,
+                                band_idx
+                            )
                             layers.append(band_layer)
 
-            # Just to ensure we don't have empty lists
+            # Just to ensure that we don't have empty lists
             if len(layers) > 0:
                 self._jobs_layers[j.id] = layers
                 self._proj.addMapLayers(layers)
 
-    def _export_layout(self) -> bool:
+        # Add basemap
+        if self._should_add_basemap:
+            self._add_base_map()
+
+    def _add_base_map(self):
+        # Add basemap
+        status, document = download_base_map(use_mask=False)
+        if status:
+            root = self._proj.layerTreeRoot().insertGroup(0, 'Basemap')
+            QgsLayerDefinition.loadLayerDefinition(
+                document,
+                self._proj,
+                root,
+                QgsReadWriteContext()
+            )
+
+            # Get associated child layers
+            child_layers = root.findLayers()
+            for cl in child_layers:
+                self._basemap_layers.append(cl.layer())
+
+    def _save_project(self) -> bool:
+        # Save project file to disk.
+        if not self._output_root_dir:
+            self._add_warning_msg(
+                'Root output directory could not be determined. The project '
+                'could not be saved.'
+            )
+            return False
+
+        # Add open project macro to show layout manager.
+        self._add_open_layout_macro()
+
+        proj_file = FileUtils.project_path_from_report_task(
+            self._ctx,
+            self._output_root_dir
+        )
+        self._proj.write(proj_file)
+
+    def _export_layout(self, report_path, name) -> bool:
         """
-        Export project, layout and template based on the settings defined
-        in the options object.
+        Export layout to the given file path.
         """
         if self._layout is None:
             return False
 
-        rpt_paths = self._ctx.report_paths
-        temp_path = self._ctx.template_path
+        self._layout.setName(name)
 
-        # Update project info so that they can be written to the output file
-        self._update_project_metadata_extents()
+        #self._update_project_metadata_extents()
 
         exporter = QgsLayoutExporter(self._layout)
+        if 'pdf' in report_path:
+            settings = QgsLayoutExporter.PdfExportSettings()
+            res = exporter.exportToPdf(report_path, settings)
 
-        for rp in rpt_paths:
-            if 'pdf' in rp:
-                settings = QgsLayoutExporter.PdfExportSettings()
-                res = exporter.exportToPdf(rp, settings)
+        # Assume everything else is an image
+        else:
+            settings = QgsLayoutExporter.ImageExportSettings()
+            res = exporter.exportToImage(report_path, settings)
 
-            # Assume everything else is an image
-            else:
-                settings = QgsLayoutExporter.ImageExportSettings()
-                res = exporter.exportToImage(rp, settings)
-
-            if res != QgsLayoutExporter.Success:
-                self._add_warning_msg(f'Failed to export report to {rp}.')
-
-        # Export template if defined
-        if self._options.include_qpt:
-            status = self._layout.saveAsTemplate(
-                temp_path,
-                QgsReadWriteContext()
+        if res != QgsLayoutExporter.Success:
+            self._add_warning_msg(
+                f'Failed to export report to {report_path}.'
             )
-            if not status:
-                self._add_warning_msg('Failed to export template file.')
-                return False
 
-            # Add layout to project
-            layout_mgr = self._proj.layoutManager()
-            layout_mgr.addLayout(self._layout)
-
-            #Add open project macro
-            self._add_open_layout_macro()
-
-            # Export project
-            if len(rpt_paths) == 0:
-                self._add_warning_msg(
-                    'No report paths found, cannot save report project.'
-                )
-                return False
-
-            proj_file = FileUtils.project_path_from_report_path(rpt_paths[0])
-            self._proj.write(proj_file)
+        # Add layout to project
+        layout_mgr = self._proj.layoutManager()
+        layout_mgr.addLayout(self._layout)
 
         return True
 
-    def _update_project_metadata_extents(self):
-        # Update the extents and metadata of the project before exporting
-        template_info = self._ctx.report_configuration.template_info
+    def _update_project_metadata_extents(self, layer=None, title=None):
+        # Update the extents and metadata of the project
+        description = ''
+        if layer is None:
+            template_info = self._ctx.report_configuration.template_info
+            title = template_info.name
+            description = template_info.description
+            proj_extent = QgsRectangle()
+            for j in self._ctx.jobs:
+                job_rect = self._get_job_layers_extent(j)
+                proj_extent.combineExtentWith(job_rect)
+        else:
+            title = title or ''
+            proj_extent = layer.extent()
+
         md = self._proj.metadata()
-        md.setTitle(template_info.name)
+        md.setTitle(title)
         md.setAuthor('trends.earth QGIS Plugin')
-        md.setAbstract(template_info.description)
+        md.setAbstract(description)
         md.setCreationDateTime(QDateTime.currentDateTime())
         self._proj.setMetadata(md)
 
         # View settings
-        all_layers_rect = QgsRectangle()
-        for j in self._ctx.jobs:
-            job_rect = self._get_job_layers_extent(j)
-            all_layers_rect.combineExtentWith(job_rect)
-
         crs = QgsCoordinateReferenceSystem.fromEpsgId(4326)
-        default_extent = QgsReferencedRectangle(all_layers_rect, crs)
+        default_extent = QgsReferencedRectangle(proj_extent, crs)
         self._proj.viewSettings().setDefaultViewExtent(default_extent)
 
     def _add_open_layout_macro(self):
-        # Add macro that opens the layout when the project is opened.
-        template_name = self._ti.name
-        err_title = self.tr('Layout Error')
-        err_msg_tr = self.tr('layout cannot be found')
-        err_msg = f'{template_name} {err_msg_tr}'
-        macro = f'from qgis.core import Qgis, QgsProject\r\nfrom qgis.utils ' \
-                f'import iface\r\ndef openProject():\r\n\tlayout_mgr = ' \
-                f'QgsProject.instance().layoutManager()\r\n\tlayout = ' \
-                f'layout_mgr.layoutByName(\'{template_name}\')\r\n\t' \
-                f'if layout is None:\r\n\t\tiface.messageBar().pushMessage' \
-                f'(\'{err_title}\', \'{err_msg}\', Qgis.Warning, 10)\r\n\telse:' \
-                f'\r\n\t\t_ = iface.openLayoutDesigner(layout)\r\n\r\n' \
-                f'def saveProject():\r\n\tpass\r\n\r\ndef closeProject():' \
-                f'\r\n\tpass\r\n'
+        # Add macro that shows the layout manager when the project is opened.
+        macro = 'from qgis.utils import iface\r\ndef openProject():' \
+                '\r\n\tiface.showLayoutManager()\r\n\r\n' \
+                'def saveProject():\r\n\tpass\r\n\r\n' \
+                'def closeProject():\r\n\tpass\r\n'
         self._proj.writeEntry("Macros", "/pythonCode", macro)
 
     def run(self) -> bool:
         """
-        Start the report generation process.
+        Initiate the report generation process.
         """
         if self._process_cancelled():
             return False
 
-        # Confirm template paths exist
-        pt_path, ls_path = self._ti.absolute_template_paths
-        if not os.path.exists(pt_path) and not os.path.exists(ls_path):
-            msg = 'Templates not found.'
-            self._add_warning_msg(f'{msg}: {pt_path, ls_path}')
-            return False
+        # Get template paths
+        abs_paths = self._ti.absolute_template_paths
+        simple_pt_path = abs_paths.simple_portrait
+        simple_ls_path = abs_paths.simple_landscape
+        full_pt_path = abs_paths.full_portrait
+        full_ls_path = abs_paths.full_landscape
+
+        # Check if the templates exist depending on user configuration
+        # Simple layout
+        if self._options.template_type == TemplateType.SIMPLE \
+                or self._options.template_type == TemplateType.ALL:
+            if not abs_paths.simple_landscape_exists() \
+                    and not abs_paths.simple_portrait_exists():
+                msg = 'Simple report templates not found.'
+                self._add_warning_msg(
+                    f'{msg}: {simple_pt_path, simple_ls_path}'
+                )
+                return False
+
+        # Full layout
+        if self._options.template_type == TemplateType.FULL \
+                or self._options.template_type == TemplateType.ALL:
+            if not abs_paths.full_portrait_exists() \
+                    and not abs_paths.full_landscape_exists():
+                msg = 'Full report templates not found.'
+                self._add_warning_msg(
+                    f'{msg}: {full_pt_path, full_ls_path}'
+                )
+                return False
 
         # Create map layers
         self._create_layers()
@@ -339,15 +392,41 @@ class ReportTaskProcessor:
         orientation_layer = self._jobs_layers[job_id][0]
         extent = orientation_layer.extent()
         w, h = extent.width(), extent.height()
-        ref_temp_path = ls_path if w > h else pt_path
+        use_landscape = True if w > h else False
+        ref_simple_temp = simple_ls_path if use_landscape else simple_pt_path
+        ref_full_temp = full_ls_path if use_landscape else full_pt_path
 
         if self._process_cancelled():
             return False
 
-        self._layout = QgsPrintLayout(self._proj)
-        self._layout.setName(self._ti.name)
+        # Simple
+        if self._options.template_type == TemplateType.SIMPLE \
+                or self._options.template_type == TemplateType.ALL:
+            self._generate_reports(ref_simple_temp, True)
 
-        status, document = self._get_template_document(ref_temp_path)
+        if self._process_cancelled():
+            return False
+
+        # Full
+        if self._options.template_type == TemplateType.FULL \
+                or self._options.template_type == TemplateType.ALL:
+            self._generate_reports(ref_full_temp, False)
+
+        # Update general metadata and save project
+        self._update_project_metadata_extents()
+        self._save_project()
+
+        return True
+
+    def _generate_reports(
+            self,
+            template_path: str,
+            is_simple: bool
+    ) -> bool:
+        # Creates layout and generates reports based on the given template
+        self._layout = QgsPrintLayout(self._proj)
+
+        status, document = self._get_template_document(template_path)
         if not status:
             return False
 
@@ -356,23 +435,98 @@ class ReportTaskProcessor:
             QgsReadWriteContext()
         )
         if not load_status:
-            self._add_warning_msg('Could not load template.')
+            self._add_warning_msg(
+                f'Could not load template: {template_path}.'
+            )
+            return False
 
-        # Process scope items
-        for j in self._ctx.jobs:
-            self._process_scope_items(j)
+        # Key for fetching report output path
+        report_path_key = 'simple' if is_simple else 'full'
 
-        # Update custom report variables from the settings
-        ReportExpressionUtils.register_report_settings_variables(self._layout)
+        # Process scope items for each job
+        for job in self._ctx.jobs:
+            # Layers are the basis of the layout with a 1:1 mapping
+            job_layers = self._jobs_layers.get(job.id, None)
+            if job_layers is None:
+                continue
 
-        # Export layout
-        if not self._export_layout():
+            rpt_root_dir, job_report_paths = build_report_paths(
+                job,
+                self._options,
+                self._ctx.root_report_dir
+            )
+            # Set root output directory
+            if not self._output_root_dir:
+                self._output_root_dir = rpt_root_dir
+
+            for jl in job_layers:
+                '''
+                (re)load layout and load the template. It would have been 
+                better to clone the layout object but we will lose the 
+                expressions in the label items.
+                '''
+                if not self._create_layout(template_path):
+                    return False
+
+                # Update layout items
+                if not self._process_scope_items(job, jl):
+                    continue
+
+                # Update custom report variables from the settings
+                ReportExpressionUtils.register_report_settings_variables(
+                    self._layout
+                )
+
+                # Fetch report output path
+                band_idx = jl.customProperty(self.BAND_INDEX, -1)
+                if band_idx == -1:
+                    continue
+                if band_idx not in job_report_paths:
+                    continue
+                band_paths = job_report_paths[band_idx]
+                rpt_paths = band_paths.get(report_path_key, '')
+                if len(rpt_paths) == 0:
+                    continue
+
+                layout_name = f'{report_path_key.capitalize()} - {jl.name()}'
+
+                # Update project metadata (relevant for PDF or SVG document
+                # properties)
+                self._update_project_metadata_extents(jl, layout_name)
+
+                # Export layout based on file types in report paths list
+                for rp in rpt_paths:
+                    self._export_layout(rp, layout_name)
+
+        return True
+
+    def _create_layout(self, template_path: str) -> bool:
+        # Creates a new instance of the print layout and loads items in the
+        # given template.
+        self._layout = QgsPrintLayout(self._proj)
+
+        status, document = self._get_template_document(template_path)
+        if not status:
+            return False
+
+        _, load_status = self._layout.loadFromTemplate(
+            document,
+            QgsReadWriteContext()
+        )
+        if not load_status:
+            self._add_warning_msg(
+                f'Could not load template from {template_path!r}.'
+            )
             return False
 
         return True
 
-    def _process_scope_items(self, job: Job) -> bool:
-        # Update layout items in the given scope
+    def _process_scope_items(
+            self,
+            job: Job,
+            job_layer: QgsRasterLayer
+    ) -> bool:
+        # Update layout items in the given scope/job
         alg_name = job.script.name
         scope_mappings = self._ti.scope_mappings_by_name(alg_name)
         if len(scope_mappings) == 0:
@@ -387,7 +541,7 @@ class ReportTaskProcessor:
         map_ids = item_scope.map_ids()
         if len(map_ids) == 0:
             self._add_info_msg(f'No map ids found in \'{alg_name}\' scope.')
-        if not self._update_map_items(map_ids, job):
+        if not self._update_map_items(map_ids, job_layer):
             return False
 
         # Label items
@@ -399,21 +553,50 @@ class ReportTaskProcessor:
 
         return True
 
-    def _update_map_items(self, map_ids, job) -> bool:
-        # Update map items for the current job/scope
-        job_layers = self._jobs_layers.get(job.id, None)
-        if job_layers is None:
-            return False
-
-        extent = self._get_job_layers_extent(job)
+    def _update_map_items(self, map_ids, layer: QgsRasterLayer) -> bool:
+        # Update map items with the given layer
+        map_item_layers = []
+        map_item_layers.extend(self._basemap_layers)
+        map_item_layers.append(layer)
         for mid in map_ids:
             map_item = self._layout.itemById(mid)
             if map_item is not None:
-                map_item.setLayers(job_layers)
-                map_item.zoomToExtent(extent)
+                map_item.setLayers(map_item_layers)
+                map_item.zoomToExtent(layer.extent())
+                # self._refresh_map_legends(map_item)
 
         return True
-    
+
+    def _refresh_map_legends(self, map_item: QgsLayoutItemMap):
+        # Refresh legend items linked to the given map item to only show the
+        # visible layers in the map item.
+        if self._layout is None:
+            return
+
+        layout_model = self._layout.itemsModel()
+        for i in range(1, layout_model.rowCount()):
+            item_idx = layout_model.index(i, 0)
+            item = layout_model.itemFromIndex(item_idx)
+            if item.type() == QgsLayoutItemRegistry.LayoutLegend:
+                if item.linkedMap().uuid() == map_item.uuid():
+                    item.setLegendFilterByMapEnabled(True)
+                    self._remove_base_map_legend_items(item)
+
+    def _remove_base_map_legend_items(self, legend: QgsLayoutItemLegend):
+        # Remove basemap nodes so that we only have band entries.
+        model = legend.model()
+        layer_root = self._proj.layerTreeRoot()
+        for base_layer in self._basemap_layers:
+            layer_node = layer_root.findLayer(base_layer)
+            if layer_node is not None:
+                base_layer_index = model.node2index(layer_node)
+                if not base_layer_index.isValid():
+                    continue
+                model.removeRow(
+                    base_layer_index.row(),
+                    base_layer_index.parent()
+                )
+
     @classmethod
     def update_item_expression_ctx(
             cls, 
@@ -442,6 +625,8 @@ class ReportTaskProcessor:
                     lbl_exp_ctx
                 )
                 label_item.setText(evaluated_txt)
+
+        return True
 
     def _get_job_layers_extent(self, job) -> QgsRectangle:
         # Get the combined extent of all the layers for the given job.
@@ -524,20 +709,28 @@ class ReportGeneratorManager(QObject):
 
     def _write_context_to_file(self, ctx, task_id: str) -> str:
         # Write report task context to file.
-        rpt_fi = QFileInfo(ctx.report_paths[0])
-        output_dir = rpt_fi.dir().path()
-        ctx_file_path = f'{output_dir}/report_{task_id}.json'
+        if ctx.root_report_dir is not None:
+            root_dir = ctx.root_report_dir
+        else:
+            jobs = ctx.jobs
+            if len(jobs) == 0:
+                return ''
+            root_dir, _ = build_report_paths(
+                jobs[0],
+                ctx.report_configuration.output_options
+            )
+        ctx_file_path = f'{root_dir}/report_{task_id}.json'
 
         # Check if there is an existing file
         if os.path.exists(ctx_file_path):
             return ctx_file_path
 
         # Check write permissions
-        if not os.access(output_dir, os.W_OK):
+        if not os.access(root_dir, os.W_OK):
             tr_msg = self.tr(
                 'Cannot process report due to write permission to'
             )
-            self._push_warning_message(f'{tr_msg} {output_dir}')
+            self._push_warning_message(f'{tr_msg} {root_dir}')
             return ''
 
         with open(ctx_file_path, 'w') as cf:
@@ -569,7 +762,7 @@ class ReportGeneratorManager(QObject):
         else:
             file_suffix = uuid4()
 
-        # Write task to file for subsequent use by the report handler task
+        # Write task file for subsequent use by the report handler task
         file_path = self._write_context_to_file(ctx, file_suffix)
 
         ctx_display_name = ctx.display_name()

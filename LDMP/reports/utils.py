@@ -5,49 +5,97 @@ import typing
 from qgis.gui import QgisInterface
 
 from te_schemas.jobs import Job
+from te_schemas.results import Band as JobBand
 
 from ..jobs import manager
+from ..layers import (
+    get_band_title,
+    styles
+)
+from .models import (
+    ReportOutputOptions,
+    slugify,
+    TemplateType
+)
 
-from .models import ReportOutputOptions
+
+def job_report_directory(job: Job) -> str:
+    """
+    Returns the root directory for a job's reports under the datasets
+    folder. The caller should assert whether this folder actually exists.
+    """
+    return f'{manager.job_manager.datasets_dir}/{job.id!s}/reports'
 
 
-def build_report_name(
+def build_report_paths(
         job: Job,
-        options: ReportOutputOptions
-) -> typing.List[tuple]:
+        options: ReportOutputOptions,
+        root_dir=None
+) -> typing.Tuple[str,dict]:
     """
-    List of tuples containing report name and path (inclusive of report
-    name). Based on the formats specified by the user.
+    Returns a tuple containing the root directory for report files and nested
+    dictionary containing inner dictionaries of absolute file path for simple
+    and/or full reports.
+    -band_index (dict 1):
+                |-template_type (dict2 whose keys include 'simple' and/or 'full'):
+                (value is a list of paths for each type)
     """
-    rpt_name_path = []
-    job_dir = f'{manager.job_manager.datasets_dir}/{job.id!s}'
+    if root_dir is None:
+        root_dir = job_report_directory(job)
+
+    # Check if directory exists and create if it does not.
+    if not os.path.exists(root_dir):
+        os.mkdir(root_dir)
+
     formats = options.formats
-    exts = []
+    temp_types = []
+
+    # Determine if to create paths for one or both template types
+    if options.template_type == TemplateType.SIMPLE:
+        temp_types.append(options.template_type.SIMPLE.value)
+    elif options.template_type == TemplateType.FULL:
+        temp_types.append(options.template_type.FULL.value)
+    else:
+        temp_types.append(options.template_type.SIMPLE.value)
+        temp_types.append(options.template_type.FULL.value)
+
+    file_exts = []
+    # Remove any duplicate extensions
     for f in formats:
         rpt_ext = f.file_extension()
-        # Ensure no duplicate extensions
-        if rpt_ext in exts:
+        if rpt_ext in file_exts:
             continue
-        exts.append(rpt_ext)
+        file_exts.append(rpt_ext)
 
-        rpt_name = f'{manager.job_manager.get_job_basename(job)}' \
-               f'_report.{rpt_ext}'
-        abs_rpt_path = os.path.normpath(f'{job_dir}/{rpt_name}')
-        rpt_name_path.append((rpt_name, abs_rpt_path))
+    rpt_band_paths = {}
 
-    return rpt_name_path
+    bands = job.results.get_bands()
+    for band_idx, band in enumerate(bands, start=1):
+        band_paths = {}
+        # Focus on default bands only
+        if band.add_to_map:
+            band_info = JobBand.Schema().dump(band)
 
+            # Only include those band that have a band style
+            band_info_name = band_info['name']
+            band_style = styles.get(band_info_name, None)
+            if band_style is None:
+                continue
 
-def build_template_name(
-        job: Job
-) -> typing.Tuple[str, str]:
-    # Tuple containing template name and path (inclusive of template name)
-    job_dir = f'{manager.job_manager.datasets_dir}/{job.id!s}'
-    template_name = f'{manager.job_manager.get_job_basename(job)}' \
-                    f'_template.qpt'
-    abs_temp_path = os.path.normpath(f'{job_dir}/{template_name}')
+            band_title = slugify(get_band_title(band_info))
+            for tt in temp_types:
+                tt_paths = []
+                for ext in file_exts:
+                    rpt_name = f'{tt}_map_figure_{band_title}.{ext}'
+                    abs_rpt_path = os.path.normpath(
+                        f'{root_dir}/{rpt_name}'
+                    )
+                    tt_paths.append(abs_rpt_path)
+                band_paths[tt] = tt_paths
 
-    return template_name, abs_temp_path
+            rpt_band_paths[band_idx] = band_paths
+
+    return root_dir, rpt_band_paths
 
 
 def job_has_results(job: Job) -> bool:
@@ -68,20 +116,25 @@ def job_has_results(job: Job) -> bool:
         return False
 
 
-def job_has_report(job: Job, options: ReportOutputOptions) -> bool:
-    # Checks if there is a corresponding report for the given job.
-    has_report = True
-    name_paths = build_report_name(
+def job_has_report(
+        job: Job,
+        options: ReportOutputOptions
+) -> bool:
+    """
+    Checks if there are reports associated with the given job. If there is
+    even a single missing file, it will return False.
+    """
+    _, band_paths = build_report_paths(
         job,
         options
     )
-    for np in name_paths:
-        _, rpt_path = np
-        if not os.path.exists(rpt_path):
-            has_report = False
-            break
+    for band_idx, tt_paths in band_paths.items():
+        for template_type, paths in tt_paths.items():
+            for rpt_path in paths:
+                if not os.path.exists(rpt_path):
+                        return False
 
-    return has_report
+    return True
 
 
 

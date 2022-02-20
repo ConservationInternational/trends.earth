@@ -47,6 +47,16 @@ class OutputFormatType(Enum):
         return self.value
 
 
+class TemplateType(Enum):
+    """Whether to print simple, full or both."""
+    SIMPLE = 'simple'
+    FULL = 'full'
+    ALL = 'all'
+
+    def __str__(self):
+        return self.value
+
+
 @dataclass
 class ReportOutputFormat:
     """
@@ -82,7 +92,7 @@ class ReportOutputOptions:
     (in the configuration) is used.
     """
     formats: typing.List[ReportOutputFormat]
-    include_qpt: bool = field(default=True)
+    template_type: TemplateType = field(default=TemplateType.ALL)
     # This will search for the matching type in 'formats'
     view_format_type: OutputFormatType = field(default=OutputFormatType.PDF)
 
@@ -112,7 +122,6 @@ class LayoutItemType(Enum):
     PICTURE = 'picture'
 
     def __str__(self):
-        # For marshmallow to serialize the value
         return self.value
 
 
@@ -179,6 +188,46 @@ class ItemScopeMapping:
 
 
 @dataclass
+class AbsolutePaths:
+    # Paths for report templates or outputs.
+    simple_portrait: typing.Optional[str]
+    simple_landscape: typing.Optional[str]
+    full_portrait: typing.Optional[str]
+    full_landscape: typing.Optional[str]
+
+    def _paths_to_list(self):
+        paths = []
+        if self.simple_landscape:
+            paths.append(self.simple_landscape)
+        if self.simple_portrait:
+            paths.append(self.simple_portrait)
+        if self.full_portrait:
+            paths.append(self.full_portrait)
+        if self.full_landscape:
+            paths.append(self.full_landscape)
+
+        return paths
+
+    def __len__(self):
+        return len(self._paths_to_list())
+
+    def __iter__(self):
+        return iter(self._paths_to_list())
+
+    def simple_portrait_exists(self) -> bool:
+        return os.path.exists(self.simple_portrait)
+
+    def simple_landscape_exists(self) -> bool:
+        return os.path.exists(self.simple_landscape)
+
+    def full_portrait_exists(self) -> bool:
+        return os.path.exists(self.full_portrait)
+
+    def full_landscape_exists(self) -> bool:
+        return os.path.exists(self.full_landscape)
+
+
+@dataclass
 class ReportTemplateInfo:
     """Contains information about the QGIS layout associated with one or more
     algorithm scopes.
@@ -186,19 +235,26 @@ class ReportTemplateInfo:
     id: typing.Optional[str]
     name: typing.Optional[str]
     description: typing.Optional[str]
-    portrait_path: typing.Optional[str]
-    landscape_path: typing.Optional[str]
+    simple_portrait_path: typing.Optional[str]
+    simple_landscape_path: typing.Optional[str]
+    full_portrait_path: typing.Optional[str]
+    full_landscape_path: typing.Optional[str]
     item_scopes: typing.List[ItemScopeMapping] = field(default_factory=list)
 
     def __init__(self, **kwargs) -> None:
         self.id = kwargs.pop('id', str(uuid4()))
         self.name = kwargs.pop('name', '')
         self.description = kwargs.pop('description', '')
-        self.portrait_path = kwargs.pop('portrait_path', '')
-        self.landscape_path = kwargs.pop('landscape_path', '')
+        self.simple_portrait_path = kwargs.pop('simple_portrait_path', '')
+        self.simple_landscape_path = kwargs.pop('simple_landscape_path', '')
+        self.full_portrait_path = kwargs.pop('full_portrait_path', '')
+        self.full_landscape_path = kwargs.pop('full_landscape_path', '')
         self.item_scopes = kwargs.pop('item_scopes', list())
-        self._abs_portrait_path = ''
-        self._abs_landscape_path = ''
+        self._abs_simple_portrait_path = ''
+        self._abs_simple_landscape_path = ''
+        self._abs_full_portrait_path = ''
+        self._abs_full_landscape_path = ''
+        self._absolute_paths = None
 
     def add_scope_mapping(self, item_scope: ItemScopeMapping) -> None:
         self.item_scopes.append(item_scope)
@@ -219,36 +275,69 @@ class ReportTemplateInfo:
 
         # First check user-defined directory
         if user_templates_dir is not None:
-            portrait_path = concat_path(
-                user_templates_dir, self.portrait_path
+            # Simple templates
+            simple_portrait_path = concat_path(
+                user_templates_dir, self.simple_portrait_path
             )
-            if os.path.exists(portrait_path):
-                self._abs_portrait_path = portrait_path
+            if os.path.exists(simple_portrait_path):
+                self._abs_simple_portrait_path = simple_portrait_path
 
-            landscape_path = concat_path(
-                user_templates_dir, self.landscape_path
+            simple_landscape_path = concat_path(
+                user_templates_dir, self.simple_landscape_path
             )
-            if os.path.exists(landscape_path):
-                self._abs_landscape_path = landscape_path
+            if os.path.exists(simple_landscape_path):
+                self._abs_simple_landscape_path = simple_landscape_path
+
+            # Full templates
+            full_portrait_path = concat_path(
+                user_templates_dir, self.full_portrait_path
+            )
+            if os.path.exists(full_portrait_path):
+                self._abs_full_portrait_path = full_portrait_path
+
+            full_landscape_path = concat_path(
+                user_templates_dir, self.full_landscape_path
+            )
+            if os.path.exists(full_landscape_path):
+                self._abs_full_landscape_path = full_landscape_path
 
         # Fallback to root template directory in the plugin. Will still need
         # to be validated during report generation process.
-        if not self._abs_portrait_path:
-            self._abs_portrait_path = concat_path(
+        # Simple templates
+        if not self._abs_simple_portrait_path:
+            self._abs_simple_portrait_path = concat_path(
                 root_templates_dir,
-                self.portrait_path
+                self.simple_portrait_path
             )
 
-        if not self._abs_landscape_path:
-            self._abs_landscape_path = concat_path(
+        if not self._abs_simple_landscape_path:
+            self._abs_simple_landscape_path = concat_path(
                 root_templates_dir,
-                self.landscape_path
+                self.simple_landscape_path
+            )
+
+        # Full templates
+        if not self._abs_full_portrait_path:
+            self._abs_full_portrait_path = concat_path(
+                root_templates_dir,
+                self.full_portrait_path
+            )
+
+        if not self._abs_full_landscape_path:
+            self._abs_full_landscape_path = concat_path(
+                root_templates_dir,
+                self.full_landscape_path
             )
 
     @property
-    def absolute_template_paths(self) -> typing.Tuple[str, str]:
+    def absolute_template_paths(self) -> AbsolutePaths:
         """Absolute paths for portrait and landscape templates."""
-        return self._abs_portrait_path, self._abs_landscape_path
+        return AbsolutePaths(
+            self._abs_simple_portrait_path,
+            self._abs_simple_landscape_path,
+            self._abs_full_portrait_path,
+            self._abs_full_landscape_path
+        )
 
     @property
     def is_multi_scope(self) -> bool:
@@ -291,44 +380,31 @@ class ReportTaskContext:
     Provides context information for generating reports.
     """
     report_configuration: ReportConfiguration
-    report_paths: typing.List[str]
-    template_path: str = None,
     jobs: typing.List[Job] = field(default_factory=list)
+    root_report_dir: typing.Optional[str]=None
 
     def __init__(
             self,
             report_configuration: ReportConfiguration,
-            report_paths: typing.List[str],
-            template_path: str = None,
-            jobs: typing.List[Job] = None
+            jobs: typing.List[Job] = None,
+            root_report_dir: str = None
     ):
         self.report_configuration = report_configuration
-        self.report_paths = report_paths
-        self.template_path = template_path or ''
         self.jobs = jobs or []
+        self.root_report_dir = root_report_dir or None
 
     def display_name(self) -> str:
-        # Friendly name for the task that can be used in UI controls.
+        # Friendly name for the task that can be used in the UI.
         jobs_num = len(self.jobs)
         if jobs_num == 0:
             return self.report_configuration.template_info.name
-        elif jobs_num == 1:
-            return self.jobs[0].task_name
         else:
-            # It should not be empty but just account for it.
-            if len(self.report_paths) == 0:
-                return ''
-
-            rpt_fi = QFileInfo(self.report_paths[0])
-            return rpt_fi.completeBaseName()
+            task_names = [j.task_name for j in self.jobs]
+            return '_'.join(task_names)
 
     def id(self) -> str:
-        # Use report paths and job ids
-        attrs = []
-        attrs.extend(self.report_paths)
-        for j in self.jobs:
-            attrs.append(str(j.id))
-
+        # Use job ids for creating a unique identifier.
+        attrs = [str(j.id) for j in self.jobs]
         attrs_bytes = bytes('*'.join(attrs), 'utf-8')
         attrs_hash = hashlib.md5()
         attrs_hash.update(attrs_bytes)

@@ -42,8 +42,7 @@ from .template_manager import template_manager
 from .utils import (
     job_has_report,
     job_has_results,
-    build_report_name,
-    build_template_name
+    job_report_directory
 )
 from ..utils import FileUtils
 
@@ -85,14 +84,20 @@ class DatasetReportHandler:
     def init(self) -> None:
         """Creates sub-menus and set state based on job status."""
         self._view_rpt_action = self._rpt_menu.addAction(
-            FileUtils.get_icon('view.svg'),
-            self.tr('View report')
+            FileUtils.get_icon('mActionFileOpen.svg'),
+            self.tr('Open report directory')
         )
-        self._view_rpt_action.triggered.connect(self.view_report)
+        self._view_rpt_action.setToolTip(
+            self.tr('Open directory containing reports')
+        )
+        self._view_rpt_action.triggered.connect(self.open_report_directory)
 
         self._open_template_action = self._rpt_menu.addAction(
             FileUtils.get_icon('layout.svg'),
-            self.tr('Open layout')
+            self.tr('Open layouts')
+        )
+        self._open_template_action.setToolTip(
+            self.tr('Open report layouts in QGIS')
         )
         self._open_template_action.triggered.connect(self.open_designer)
 
@@ -111,12 +116,6 @@ class DatasetReportHandler:
             return
         else:
             self._rpt_config = configs[0]
-
-        # Check if qpt should be included in the output
-        if self._rpt_config.output_options.include_qpt:
-            self._open_template_action.setEnabled(True)
-        else:
-            self._open_template_action.setEnabled(False)
 
         # Enable/disable report button based on job and results status
         rpt_status = self._check_job_report_status()
@@ -161,14 +160,9 @@ class DatasetReportHandler:
         return self._rpt_config
 
     def _get_report_task_context(self):
-        _, temp_path = build_template_name(self._job)
-        rpt_paths = [rp[1] for rp in self._report_name_path()]
-
         # Create report task context for report generation.
         ctx = ReportTaskContext(
             self._rpt_config,
-            rpt_paths,
-            temp_path,
             [self._job]
         )
 
@@ -181,67 +175,24 @@ class DatasetReportHandler:
         msg_bar = self._iface.messageBar()
         msg_bar.pushWarning(title, msg)
 
-    def view_report(self):
-        # View report in the default pdf or image viewer.
-        rpt_path = self._view_report_path()
-        if not rpt_path:
+    def open_report_directory(self):
+        # Open directory containing the job reports.
+        rpt_dir = job_report_directory(self._job)
+
+        if not os.path.exists(rpt_dir):
             self._push_refactor_message(
                 self.tr('Invalid File'),
-                self.tr('Report path could not be determined.')
+                self.tr('Report output directory does not exist.')
             )
-            log('Empty report path.', Qgis.Warning)
+            log(f'Report file \'{rpt_dir}\' not found.', Qgis.Warning)
             return
 
-        if not os.path.exists(rpt_path):
-            self._push_refactor_message(
-                self.tr('Invalid File'),
-                self.tr('Report file does not exist.')
-            )
-            log(f'Report file \'{rpt_path}\' not found.', Qgis.Warning)
-            return
-
-        if not os.access(rpt_path, os.R_OK):
-            self._push_refactor_message(
-                self.tr('File Permission'),
-                self.tr('Unable to open report file.')
-            )
-            log(
-                f'Report file \'{rpt_path}\' cannot be opened.', Qgis.Warning
-            )
-            return
-
-        rpt_path_url = QUrl(QUrl.fromLocalFile(rpt_path))
+        rpt_path_url = QUrl(QUrl.fromLocalFile(rpt_dir))
         QDesktopServices.openUrl(rpt_path_url)
-
-    def _report_name_path(self) -> typing.List[tuple]:
-        return build_report_name(
-            self._job,
-            self._rpt_config.output_options
-        )
-
-    def _view_report_path(self) -> str:
-        """
-        Returns the path for the viewing the report based on the view_format
-        specified in the configuration. This is particularly relevant for
-        those reports with multiple output formats.
-        """
-        view_fmt = self._rpt_config.output_options.view_format()
-        if view_fmt is None:
-            return ''
-
-        view_rpt_path = ''
-        rpt_ext = view_fmt.file_extension()
-        for np in self._report_name_path():
-            _, rpt_path = np
-            if rpt_ext in rpt_path:
-                view_rpt_path = rpt_path
-                break
-
-        return view_rpt_path
 
     def open_designer(self):
         # Open project which contains a macro to open the layout designer.
-        rpt_path = self._view_report_path()
+        rpt_path = self._open_report_directory()
         if not rpt_path:
             self._push_refactor_message(
                 self.tr('Invalid File'),
@@ -250,7 +201,7 @@ class DatasetReportHandler:
             log('Empty report path.', Qgis.Warning)
             return
 
-        proj_path = FileUtils.project_path_from_report_path(rpt_path)
+        proj_path = FileUtils.project_path_from_report_task(rpt_path)
 
         # Check if the QGIS project file exists
         if not os.path.exists(proj_path):

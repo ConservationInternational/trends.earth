@@ -21,6 +21,7 @@ from qgis.core import (
     QgsLayoutItemMap,
     QgsLayoutItemRegistry,
     QgsPrintLayout,
+    QgsProcessingFeedback,
     QgsProject,
     QgsRasterLayer,
     QgsReadWriteContext,
@@ -38,7 +39,6 @@ from qgis.PyQt.QtCore import (
     QCoreApplication,
     QDateTime,
     QFile,
-    QFileInfo,
     QIODevice,
     QObject
 )
@@ -133,7 +133,7 @@ class ReportTaskProcessor:
             self,
             ctx: ReportTaskContext,
             proj: QgsProject,
-            feedback: QgsFeedback=None
+            feedback: QgsProcessingFeedback=None
     ):
         self._ctx = ctx
         self._ti = self._ctx.report_configuration.template_info
@@ -171,18 +171,25 @@ class ReportTaskProcessor:
     def tr(self, message) -> str:
         return QCoreApplication.translate('ReportTaskProcessor', message)
 
-    def _add_message(self, level, message):
+    def _append_message(self, level, message):
         if level not in self.messages:
             self._messages[level] = []
 
         level_msgs = self._messages[level]
         level_msgs.append(message)
 
-    def _add_warning_msg(self, msg):
-        self._add_message(Qgis.Warning, msg)
+        # Log to feedback object if specified
+        if self._feedback:
+            if level == Qgis.Info:
+                self._feedback.pushInfo(message)
+            elif level == Qgis.Warning:
+                self._feedback.reportError(message)
 
-    def _add_info_msg(self, msg):
-        self._add_message(Qgis.Info, msg)
+    def _append_warning_msg(self, msg):
+        self._append_message(Qgis.Warning, msg)
+
+    def _append_info_msg(self, msg):
+        self._append_message(Qgis.Info, msg)
 
     def _process_cancelled(self) -> bool:
         # Check if there is a request to cancel the process, True to cancel.
@@ -205,7 +212,7 @@ class ReportTaskProcessor:
                     band_info_name = band_info['name']
                     band_style = styles.get(band_info_name, None)
                     if band_style is None:
-                        self._add_warning_msg(
+                        self._append_warning_msg(
                             f'Styles for {band_info_name} not found for '
                             f'band {band_idx!s} in {layer_path}.'
                         )
@@ -266,7 +273,7 @@ class ReportTaskProcessor:
     def _save_project(self) -> bool:
         # Save project file to disk.
         if not self._output_root_dir:
-            self._add_warning_msg(
+            self._append_warning_msg(
                 'Root output directory could not be determined. The project '
                 'could not be saved.'
             )
@@ -306,7 +313,7 @@ class ReportTaskProcessor:
             res = exporter.exportToImage(report_path, settings)
 
         if res != QgsLayoutExporter.Success:
-            self._add_warning_msg(
+            self._append_warning_msg(
                 f'Failed to export report to {report_path}.'
             )
 
@@ -383,7 +390,7 @@ class ReportTaskProcessor:
             if not abs_paths.simple_landscape_exists() \
                     and not abs_paths.simple_portrait_exists():
                 msg = 'Simple report templates not found.'
-                self._add_warning_msg(
+                self._append_warning_msg(
                     f'{msg}: {simple_pt_path, simple_ls_path}'
                 )
                 return False
@@ -394,7 +401,7 @@ class ReportTaskProcessor:
             if not abs_paths.full_portrait_exists() \
                     and not abs_paths.full_landscape_exists():
                 msg = 'Full report templates not found.'
-                self._add_warning_msg(
+                self._append_warning_msg(
                     f'{msg}: {full_pt_path, full_ls_path}'
                 )
                 return False
@@ -405,7 +412,7 @@ class ReportTaskProcessor:
         # Create map layers
         self._create_layers()
         if len(self._jobs_layers) == 0:
-            self._add_warning_msg('No map layers could be created.')
+            self._append_warning_msg('No map layers could be created.')
             return False
 
         if self._process_cancelled():
@@ -456,7 +463,7 @@ class ReportTaskProcessor:
             QgsReadWriteContext()
         )
         if not load_status:
-            self._add_warning_msg(
+            self._append_warning_msg(
                 f'Could not load template: {template_path}.'
             )
             return False
@@ -519,6 +526,7 @@ class ReportTaskProcessor:
                 # Export layout based on file types in report paths list
                 for rp in rpt_paths:
                     self._export_layout(rp, layout_name)
+                    
 
         return True
 
@@ -536,7 +544,7 @@ class ReportTaskProcessor:
             QgsReadWriteContext()
         )
         if not load_status:
-            self._add_warning_msg(
+            self._append_warning_msg(
                 f'Could not load template from {template_path!r}.'
             )
             return False
@@ -563,7 +571,7 @@ class ReportTaskProcessor:
         alg_name = job.script.name
         scope_mappings = self._ti.scope_mappings_by_name(alg_name)
         if len(scope_mappings) == 0:
-            self._add_warning_msg(
+            self._append_warning_msg(
                 f'Could not find \'{alg_name}\' scope definition.'
             )
             return False
@@ -573,14 +581,14 @@ class ReportTaskProcessor:
         # Map items
         map_ids = item_scope.map_ids()
         if len(map_ids) == 0:
-            self._add_info_msg(f'No map ids found in \'{alg_name}\' scope.')
+            self._append_info_msg(f'No map ids found in \'{alg_name}\' scope.')
         if not self._update_map_items(map_ids, job_layer):
             return False
 
         # Label items
         label_ids = item_scope.label_ids()
         if len(label_ids) == 0:
-            self._add_info_msg(f'No label ids found in \'{alg_name}\' scope.')
+            self._append_info_msg(f'No label ids found in \'{alg_name}\' scope.')
         if not self._update_label_items(label_ids, job):
             return False
 
@@ -678,12 +686,12 @@ class ReportTaskProcessor:
         template_file = QFile(path)
         try:
             if not template_file.open(QIODevice.ReadOnly):
-                self._add_warning_msg(f'Cannot read \'{path}\'.')
+                self._append_warning_msg(f'Cannot read \'{path}\'.')
                 return False, None
 
             doc = QDomDocument()
             if not doc.setContent(template_file):
-                self._add_warning_msg(
+                self._append_warning_msg(
                     'Failed to parse template file contents.'
                 )
                 return False, None

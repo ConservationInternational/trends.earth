@@ -1184,6 +1184,7 @@ class WidgetSettingsReport(QtWidgets.QWidget, Ui_WidgetSettingsReport):
     """
     disclaimer_te: QtWidgets.QPlainTextEdit
     footer_te: QtWidgets.QPlainTextEdit
+    log_warnings_cb: QtWidgets.QCheckBox
     message_bar: qgis.gui.QgsMessageBar
     org_logo_le: QtWidgets.QLineEdit
     org_logo_tb: QtWidgets.QToolButton
@@ -1236,6 +1237,8 @@ class WidgetSettingsReport(QtWidgets.QWidget, Ui_WidgetSettingsReport):
         self.disclaimer_te.setPlainText(
             settings_manager.get_value(Setting.REPORT_DISCLAIMER)
         )
+        log_warnings = settings_manager.get_value(Setting.REPORT_LOG_WARNING)
+        self.log_warnings_cb.setChecked(log_warnings)
 
     def showEvent(self, event):
         super().showEvent(event)
@@ -1321,6 +1324,10 @@ class WidgetSettingsReport(QtWidgets.QWidget, Ui_WidgetSettingsReport):
         settings_manager.write_value(
             Setting.REPORT_DISCLAIMER,
             self.disclaimer_te.toPlainText()
+        )
+        settings_manager.write_value(
+            Setting.REPORT_LOG_WARNING,
+            self.log_warnings_cb.isChecked()
         )
 
     def sizeHint(self) -> QtCore.QSize:

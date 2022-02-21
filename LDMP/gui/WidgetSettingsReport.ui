@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>443</width>
-    <height>306</height>
+    <width>454</width>
+    <height>342</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -100,6 +100,13 @@
        </widget>
       </item>
      </layout>
+    </widget>
+   </item>
+   <item row="2" column="0" colspan="3">
+    <widget class="QCheckBox" name="log_warnings_cb">
+     <property name="text">
+      <string>Log warnings in output directory</string>
+     </property>
     </widget>
    </item>
   </layout>

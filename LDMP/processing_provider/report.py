@@ -4,7 +4,8 @@ import json
 import os
 
 from qgis.PyQt.QtCore import (
-    QCoreApplication
+    QCoreApplication,
+    QFileInfo
 )
 from qgis.core import (
     QgsProcessingAlgorithm,
@@ -121,7 +122,40 @@ class ReportTaskContextAlgorithm(QgsProcessingAlgorithm):
         )
         status = rpt_processor.run()
 
+        html_log = feedback.htmlLog()
+        self.save_log_file(task_file_name, html_log, feedback)
+
         return {'STATUS': status}
+
+    @classmethod
+    def save_log_file(
+            cls,
+            task_path: str,
+            html_log: str,
+            feedback: QgsProcessingFeedback
+    ):
+        # Save warning messages in a log file.
+        # Check if user has enabled log messages
+        log_warnings = settings_manager.get_value(
+            Setting.REPORT_LOG_WARNING
+        )
+        if not log_warnings:
+            return
+
+        task_file_info = QFileInfo(task_path)
+        task_dir_path = task_file_info.dir().path()
+
+        log_file_path = f'{task_dir_path}/warning_logs.html'
+
+        # Check write permissions
+        if not os.access(task_dir_path, os.W_OK):
+            feedback.pushConsoleInfo(
+                f'User does not have write permissions for {log_file_path}'
+            )
+            return
+
+        with open(log_file_path, 'w') as lf:
+            lf.write(html_log)
 
     def flags(self):
         """

@@ -54,6 +54,7 @@ class Setting(enum.Enum):
     REPORT_ORG_NAME = "report/org_name"
     REPORT_FOOTER = "report/footer"
     REPORT_DISCLAIMER = "report/disclaimer"
+    REPORT_LOG_WARNING = 'report/log_warning'
 
 
 class SettingsManager:
@@ -94,7 +95,8 @@ class SettingsManager:
         Setting.REPORT_ORG_LOGO_PATH: "",
         Setting.REPORT_ORG_NAME: "",
         Setting.REPORT_FOOTER: "",
-        Setting.REPORT_DISCLAIMER: ""
+        Setting.REPORT_DISCLAIMER: "",
+        Setting.REPORT_LOG_WARNING: False
     }
 
     def __init__(self):

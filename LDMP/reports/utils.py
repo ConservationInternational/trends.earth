@@ -69,6 +69,8 @@ def build_report_paths(
 
     rpt_band_paths = {}
 
+    area_name = job.local_context.area_of_interest_name
+
     bands = job.results.get_bands()
     for band_idx, band in enumerate(bands, start=1):
         band_paths = {}
@@ -82,13 +84,15 @@ def build_report_paths(
             if band_style is None:
                 continue
 
-            band_title = slugify(get_band_title(band_info))
+            band_title = get_band_title(band_info)
             for tt in temp_types:
                 tt_paths = []
                 for ext in file_exts:
-                    rpt_name = f'{tt}_map_figure_{band_title}.{ext}'
+                    rpt_name = slugify(
+                        f'{tt}_map_figure_{band_title}_{area_name}'
+                    )
                     abs_rpt_path = os.path.normpath(
-                        f'{root_dir}/{rpt_name}'
+                        f'{root_dir}/{rpt_name}.{ext}'
                     )
                     tt_paths.append(abs_rpt_path)
                 band_paths[tt] = tt_paths

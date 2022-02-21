@@ -276,7 +276,7 @@ class ReportTaskProcessor:
         self._restore_base_layers()
 
         # Add open project macro to show layout manager.
-        self._add_open_layout_macro()
+        self._add_open_project_macro()
 
         proj_file = FileUtils.project_path_from_report_task(
             self._ctx,
@@ -354,7 +354,7 @@ class ReportTaskProcessor:
         default_extent = QgsReferencedRectangle(proj_extent, crs)
         self._proj.viewSettings().setDefaultViewExtent(default_extent)
 
-    def _add_open_layout_macro(self):
+    def _add_open_project_macro(self):
         # Add macro that shows the layout manager when the project is opened.
         macro = 'from qgis.utils import iface\r\ndef openProject():' \
                 '\r\n\tiface.showLayoutManager()\r\n\r\n' \
@@ -399,10 +399,16 @@ class ReportTaskProcessor:
                 )
                 return False
 
+        if self._process_cancelled():
+            return False
+
         # Create map layers
         self._create_layers()
         if len(self._jobs_layers) == 0:
             self._add_warning_msg('No map layers could be created.')
+            return False
+
+        if self._process_cancelled():
             return False
 
         # Determine orientation using first layer in our collection
@@ -413,9 +419,6 @@ class ReportTaskProcessor:
         use_landscape = True if w > h else False
         ref_simple_temp = simple_ls_path if use_landscape else simple_pt_path
         ref_full_temp = full_ls_path if use_landscape else full_pt_path
-
-        if self._process_cancelled():
-            return False
 
         # Simple
         if self._options.template_type == TemplateType.SIMPLE \
@@ -441,7 +444,7 @@ class ReportTaskProcessor:
             template_path: str,
             is_simple: bool
     ) -> bool:
-        # Creates layout and generates reports based on the given template
+        # Create layout and generate reports based on the given template.
         self._layout = QgsPrintLayout(self._proj)
 
         status, document = self._get_template_document(template_path)
@@ -460,6 +463,7 @@ class ReportTaskProcessor:
 
         # Key for fetching report output path
         report_path_key = 'simple' if is_simple else 'full'
+        template_prefix_tr = self._template_type_tr(report_path_key)
 
         # Process scope items for each job
         for job in self._ctx.jobs:
@@ -506,7 +510,7 @@ class ReportTaskProcessor:
                 if len(rpt_paths) == 0:
                     continue
 
-                layout_name = f'{report_path_key.capitalize()} - {jl.name()}'
+                layout_name = f'{template_prefix_tr} - {jl.name()}'
 
                 # Update project metadata (relevant for PDF or SVG document
                 # properties)
@@ -538,6 +542,17 @@ class ReportTaskProcessor:
             return False
 
         return True
+
+    def _template_type_tr(self, template_type):
+        # Returns translated string of the template type.
+        if template_type == 'simple':
+            return self.tr('Simple')
+        elif template_type == 'full':
+            return self.tr('Full')
+        elif template_type == 'all':
+            return self.tr('All')
+        else:
+            return template_type
 
     def _process_scope_items(
             self,

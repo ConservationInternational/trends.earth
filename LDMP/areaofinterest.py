@@ -1,33 +1,35 @@
+import functools
 import json
 import typing
-import functools
 from pathlib import Path
 
 import qgis.core
 import qgis.gui
-from osgeo import (
-    gdal,
-    ogr,
-)
+from osgeo import gdal
+from osgeo import ogr
 
-from . import (
-    conf,
-    download,
-)
+from . import conf
+from . import download
 from .logger import log
 
 
 def get_city_geojson() -> typing.Dict:
-    current_country = conf.settings_manager.get_value(conf.Setting.COUNTRY_NAME)
+    current_country = conf.settings_manager.get_value(
+        conf.Setting.COUNTRY_NAME
+    )
     country_code = conf.ADMIN_BOUNDS_KEY[current_country].code
     current_city = conf.settings_manager.get_value(conf.Setting.CITY_NAME)
-    current_country_cities = conf.settings_manager.get_value(conf.Setting.CITY_KEY)
+    current_country_cities = conf.settings_manager.get_value(
+        conf.Setting.CITY_KEY
+    )
     wof_id = current_country_cities[current_city]
     return conf.CITIES[country_code][str(wof_id)].geojson
 
 
 def get_admin_poly_geojson():
-    current_country = conf.settings_manager.get_value(conf.Setting.COUNTRY_NAME)
+    current_country = conf.settings_manager.get_value(
+        conf.Setting.COUNTRY_NAME
+    )
     country_code = conf.ADMIN_BOUNDS_KEY[current_country].code
     admin_polys_filename = f"admin_bounds_polys_{country_code}.json.gz"
     admin_polys = download.read_json(admin_polys_filename, verify=False)
@@ -37,13 +39,14 @@ def get_admin_poly_geojson():
     if not current_region or current_region.lower() == "all regions":
         result = admin_polys['geojson']
     else:
-        region_code = conf.ADMIN_BOUNDS_KEY[
-            current_country].level1_regions[current_region]
+        region_code = conf.ADMIN_BOUNDS_KEY[current_country].level1_regions[
+            current_region]
         result = admin_polys["admin1"][region_code]["geojson"]
     return result
 
 
-def validate_country_region() -> typing.Tuple[typing.Optional[typing.Dict], str]:
+def validate_country_region(
+) -> typing.Tuple[typing.Optional[typing.Dict], str]:
     error_msg = ""
     country_name = conf.settings_manager.get_value(conf.Setting.COUNTRY_NAME)
     if not country_name:
@@ -60,8 +63,9 @@ def validate_country_region() -> typing.Tuple[typing.Optional[typing.Dict], str]
 def validate_vector_path() -> typing.Tuple[Path, str]:
     error_msg = ""
     try:
-        vector_path = Path(conf.settings_manager.get_value(
-            conf.Setting.VECTOR_FILE_PATH))
+        vector_path = Path(
+            conf.settings_manager.get_value(conf.Setting.VECTOR_FILE_PATH)
+        )
     except TypeError:
         vector_path = None
         error_msg = "Choose a file to define the area of interest."
@@ -72,7 +76,6 @@ def validate_vector_path() -> typing.Tuple[Path, str]:
 
 
 class AOI(object):
-
     def __init__(self, crs_dst):
         self.crs_dst = crs_dst
 
@@ -105,17 +108,19 @@ class AOI(object):
                 f"Failed to process area of interest - unknown geometry "
                 f"type: {l.wkbType()}"
             )
-        self.l = _transform_layer(l, self.crs_dst, datatype=self.datatype, wrap=wrap)
+        self.l = _transform_layer(
+            l, self.crs_dst, datatype=self.datatype, wrap=wrap
+        )
 
     def update_from_geojson(
-            self, geojson, crs_src='epsg:4326', datatype='polygon', wrap=False):
+        self, geojson, crs_src='epsg:4326', datatype='polygon', wrap=False
+    ):
         log('Setting up AOI with geojson. Wrap is {}.'.format(wrap))
         self.datatype = datatype
         # Note geojson is assumed to be in 4326
         l = qgis.core.QgsVectorLayer(
             "{datatype}?crs={crs}".format(datatype=self.datatype, crs=crs_src),
-            "calculation boundary",
-            "memory"
+            "calculation boundary", "memory"
         )
         ds = ogr.Open(json.dumps(geojson))
         layer_in = ds.GetLayer()
@@ -131,9 +136,13 @@ class AOI(object):
         l.commitChanges()
         if not l.isValid():
             raise RuntimeError("Failed to add geojson to temporary layer.")
-        self.l = _transform_layer(l, self.crs_dst, datatype=self.datatype, wrap=wrap)
+        self.l = _transform_layer(
+            l, self.crs_dst, datatype=self.datatype, wrap=wrap
+        )
 
-    def meridian_split(self, out_type='extent', out_format='geojson', warn=True):
+    def meridian_split(
+        self, out_type='extent', out_format='geojson', warn=True
+    ):
         """
         Return list of bounding boxes in WGS84 as geojson for GEE
 
@@ -144,7 +153,9 @@ class AOI(object):
         if out_type not in ['extent', 'layer']:
             raise ValueError('Unrecognized out_type "{}"'.format(out_type))
         if out_format not in ['geojson', 'wkt']:
-            raise ValueError(u'Unrecognized out_format "{}"'.format(out_format))
+            raise ValueError(
+                u'Unrecognized out_format "{}"'.format(out_format)
+            )
 
         # Calculate a single feature that is the union of all the features in
         # this layer - that way there is a single feature to intersect with
@@ -166,17 +177,28 @@ class AOI(object):
             n += 1
         union = qgis.core.QgsGeometry.unaryUnion(geometries)
 
-        log(u'Calculating east and west intersections to test if AOI crosses 180th meridian.')
-        hemi_e = qgis.core.QgsGeometry.fromWkt('POLYGON ((0 -90, 0 90, 180 90, 180 -90, 0 -90))')
-        hemi_w = qgis.core.QgsGeometry.fromWkt('POLYGON ((-180 -90, -180 90, 0 90, 0 -90, -180 -90))')
+        log(
+            u'Calculating east and west intersections to test if AOI crosses 180th meridian.'
+        )
+        hemi_e = qgis.core.QgsGeometry.fromWkt(
+            'POLYGON ((0 -90, 0 90, 180 90, 180 -90, 0 -90))'
+        )
+        hemi_w = qgis.core.QgsGeometry.fromWkt(
+            'POLYGON ((-180 -90, -180 90, 0 90, 0 -90, -180 -90))'
+        )
         intersections = [hemi.intersection(union) for hemi in [hemi_e, hemi_w]]
 
         if out_type == 'extent':
-            pieces = [qgis.core.QgsGeometry.fromRect(i.boundingBox()) for i in intersections if not i.isEmpty()]
+            pieces = [
+                qgis.core.QgsGeometry.fromRect(i.boundingBox())
+                for i in intersections if not i.isEmpty()
+            ]
         elif out_type == 'layer':
             pieces = [i for i in intersections if not i.isEmpty()]
         pieces_union = qgis.core.QgsGeometry.unaryUnion(pieces)
-        pieces_bounding = qgis.core.QgsGeometry.fromRect(pieces_union.boundingBox())
+        pieces_bounding = qgis.core.QgsGeometry.fromRect(
+            pieces_union.boundingBox()
+        )
 
         if out_format == 'geojson':
             pieces_txt = [json.loads(piece.asJson()) for piece in pieces]
@@ -188,8 +210,7 @@ class AOI(object):
         total_pieces_area = sum([piece.area() for piece in pieces])
         if (
             (not pieces_bounding.area() > total_pieces_area) and (
-            (
-                len(pieces) == 1) or
+                (len(pieces) == 1) or
                 (total_pieces_area > (pieces_union.area() / 2))
             )
         ):
@@ -198,12 +219,16 @@ class AOI(object):
             # original layer (or extent) if the area of the combined pieces
             # from both hemispheres is not significantly smaller than that of
             # the original polygon.
-            log("AOI being processed in one piece "
-                "(does not cross 180th meridian)")
+            log(
+                "AOI being processed in one piece "
+                "(does not cross 180th meridian)"
+            )
             return (False, [pieces_union_txt])
         else:
-            log("AOI crosses 180th meridian - "
-                "splitting AOI into two geojsons.")
+            log(
+                "AOI crosses 180th meridian - "
+                "splitting AOI into two geojsons."
+            )
             return (True, pieces_txt)
 
     def get_aligned_output_bounds(self, f):
@@ -255,8 +280,13 @@ class AOI(object):
             # Lambert azimuthal equal area centered on polygon centroid
             centroid = geom.centroid().asPoint()
             laea_crs = qgis.core.QgsCoordinateReferenceSystem.fromProj(
-                '+proj=laea +lat_0={} +lon_0={}'.format(centroid.y(), centroid.x()))
-            to_laea = qgis.core.QgsCoordinateTransform(wgs84_crs, laea_crs, qgis.core.QgsProject.instance())
+                '+proj=laea +lat_0={} +lon_0={}'.format(
+                    centroid.y(), centroid.x()
+                )
+            )
+            to_laea = qgis.core.QgsCoordinateTransform(
+                wgs84_crs, laea_crs, qgis.core.QgsProject.instance()
+            )
             geom.transform(to_laea)
             this_area = geom.area()
             area += this_area
@@ -278,7 +308,9 @@ class AOI(object):
         # Setup settings for AOI provided to GEE:
         wgs84_crs = qgis.core.QgsCoordinateReferenceSystem()
         wgs84_crs.createFromProj('+proj=longlat +datum=WGS84 +no_defs')
-        return _transform_layer(self.l, wgs84_crs, datatype=self.datatype, wrap=False)
+        return _transform_layer(
+            self.l, wgs84_crs, datatype=self.datatype, wrap=False
+        )
 
     def bounding_box_geom(self):
         'Returns bounding box in chosen destination coordinate system'
@@ -326,22 +358,35 @@ class AOI(object):
             geom.centroid()
             wgs84_crs = qgis.core.QgsCoordinateReferenceSystem('EPSG:4326')
             aeqd_crs = qgis.core.QgsCoordinateReferenceSystem.fromProj(
-                '+proj=aeqd +lat_0={} +lon_0={}'.format(centroid.y(), centroid.x()))
-            to_aeqd = qgis.core.QgsCoordinateTransform(wgs84_crs, aeqd_crs, qgis.core.QgsProject.instance())
+                '+proj=aeqd +lat_0={} +lon_0={}'.format(
+                    centroid.y(), centroid.x()
+                )
+            )
+            to_aeqd = qgis.core.QgsCoordinateTransform(
+                wgs84_crs, aeqd_crs, qgis.core.QgsProject.instance()
+            )
             geom.transform(to_aeqd)
             # Need to convert from km to meters
             geom_buffered = geom.buffer(d * 1000, 100)
-            log('Feature area in sq km after buffering (and in aeqd) is: {}'.format(
-                geom_buffered.area() / (1000 * 1000)))
-            geom_buffered.transform(to_aeqd, qgis.core.QgsCoordinateTransform.TransformDirection.ReverseTransform)
+            log(
+                'Feature area in sq km after buffering (and in aeqd) is: {}'.
+                format(geom_buffered.area() / (1000 * 1000))
+            )
+            geom_buffered.transform(
+                to_aeqd, qgis.core.QgsCoordinateTransform.TransformDirection.
+                ReverseTransform
+            )
             f.setGeometry(geom_buffered)
             feats.append(f)
-            log('Feature area after buffering (and in WGS84) is: {}'.format(geom_buffered.area()))
+            log(
+                'Feature area after buffering (and in WGS84) is: {}'.format(
+                    geom_buffered.area()
+                )
+            )
 
         l_buffered = qgis.core.QgsVectorLayer(
             "polygon?crs=proj4:{crs}".format(crs=self.l.crs().toProj()),
-            "calculation boundary (transformed)",
-            "memory"
+            "calculation boundary (transformed)", "memory"
         )
         l_buffered.dataProvider().addFeatures(feats)
         l_buffered.commitChanges()
@@ -366,41 +411,61 @@ class AOI(object):
 
         Used to calculate "within" with a tolerance
         """
-        aoi_geom = ogr.CreateGeometryFromWkt(self.bounding_box_geom().asWkt())
-        in_geom = ogr.CreateGeometryFromWkt(geom.asWkt())
+        _, aoi_wkts = self.meridian_split(out_type='extent', out_format='wkt')
 
-        geom_area = aoi_geom.GetArea()
-        if geom_area == 0:
-            # Handle case of a point with zero area
-            frac = aoi_geom.Within(in_geom)
-        else:
-            frac = aoi_geom.Intersection(in_geom).GetArea() / geom_area
-        return frac
+        # Handle case of a point with zero area
+        in_geom = ogr.CreateGeometryFromWkt(geom.asWkt())
+        in_geom_area = in_geom.GetArea()
+        if in_geom_area == 0:
+            if aoi_geom.Within(in_geom):
+                return 1
+
+        total_aoi_area = 0
+        area_covered = 0
+        for aoi_wkt in aoi_wkts:
+            # Need to allow for AOIs that may be split up into multiple parts due to 180thself.
+            # So add up the fractions of the geom that each piece of the AOI covers
+            aoi_geom = ogr.CreateGeometryFromWkt(aoi_wkt)
+            total_aoi_area += aoi_geom.GetArea()
+
+            # Calculate the area of this piece of the AOI that the input geom covers
+            area_covered += aoi_geom.Intersection(in_geom).GetArea()
+        return area_covered / total_aoi_area
 
     def get_geojson(self, split=False):
         geojson = {"type": "FeatureCollection", "features": []}
 
         if split:
-            geojson['features'].append(self.meridian_split(out_type='layer', out_format='geojson'))
+            geojson['features'].append(
+                self.meridian_split(out_type='layer', out_format='geojson')
+            )
         else:
             n = 1
             for f in self.get_layer_wgs84().getFeatures():
                 geom = f.geometry()
                 if not geom.isGeosValid():
                     log(u'Invalid feature in row {}.'.format(n))
-                    QtWidgets.QMessageBox.critical(None,
-                                                   tr_calculate.tr("Error"),
-                                                   tr_calculate.tr('Invalid geometry in row {}. '
-                                                                   'Check that all input geom_jsons '
-                                                                   'are valid before processing. '
-                                                                   'Try using the check validity '
-                                                                   'tool on the "Vector" menu on '
-                                                                   'the toolbar for more information '
-                                                                   'on which features are invalid '
-                                                                   '(Under "Vector" - "Geometry '
-                                                                   'Tools" - "Check Validity").'.format(n)))
+                    QtWidgets.QMessageBox.critical(
+                        None, tr_calculate.tr("Error"),
+                        tr_calculate.tr(
+                            'Invalid geometry in row {}. '
+                            'Check that all input geom_jsons '
+                            'are valid before processing. '
+                            'Try using the check validity '
+                            'tool on the "Vector" menu on '
+                            'the toolbar for more information '
+                            'on which features are invalid '
+                            '(Under "Vector" - "Geometry '
+                            'Tools" - "Check Validity").'.format(n)
+                        )
+                    )
                     return None
-                geojson['features'].append({"type": "Feature", "geometry": json.loads(geom.asJson())})
+                geojson['features'].append(
+                    {
+                        "type": "Feature",
+                        "geometry": json.loads(geom.asJson())
+                    }
+                )
                 n += 1
         return geojson
 
@@ -408,12 +473,15 @@ class AOI(object):
 def prepare_area_of_interest() -> AOI:
     if conf.settings_manager.get_value(conf.Setting.CUSTOM_CRS_ENABLED):
         crs_dst = qgis.core.QgsCoordinateReferenceSystem(
-            conf.settings_manager.get_value(conf.Setting.CUSTOM_CRS))
+            conf.settings_manager.get_value(conf.Setting.CUSTOM_CRS)
+        )
     else:
         crs_dst = qgis.core.QgsCoordinateReferenceSystem('epsg:4326')
 
     area_of_interest = AOI(crs_dst)
-    area_method = conf.settings_manager.get_value(conf.Setting.AREA_FROM_OPTION)
+    area_method = conf.settings_manager.get_value(
+        conf.Setting.AREA_FROM_OPTION
+    )
     has_buffer = conf.settings_manager.get_value(conf.Setting.BUFFER_CHECKED)
     is_city = area_method == conf.AreaSetting.COUNTRY_CITY.value
     is_region = area_method == conf.AreaSetting.COUNTRY_REGION.value
@@ -422,9 +490,7 @@ def prepare_area_of_interest() -> AOI:
     elif is_city:
         geojson = get_city_geojson()
         area_of_interest.update_from_geojson(
-            geojson=geojson,
-            wrap=False,
-            datatype='point'
+            geojson=geojson, wrap=False, datatype='point'
         )
     elif is_region:
         geojson, error_msg = validate_country_region()
@@ -447,16 +513,13 @@ def prepare_area_of_interest() -> AOI:
         point_x = conf.settings_manager.get_value(conf.Setting.POINT_X)
         point_y = conf.settings_manager.get_value(conf.Setting.POINT_Y)
         if point_x is None or point_y is None:
-            raise RuntimeError(f"Invalid point coordinates: {point_x!r}, {point_y!r}")
-        point = qgis.core.QgsPointXY(
-            float(point_x),
-            float(point_y)
-        )
+            raise RuntimeError(
+                f"Invalid point coordinates: {point_x!r}, {point_y!r}"
+            )
+        point = qgis.core.QgsPointXY(float(point_x), float(point_y))
         crs_src = qgis.core.QgsCoordinateReferenceSystem("epsg:4326")
         point = qgis.core.QgsCoordinateTransform(
-            crs_src,
-            crs_dst,
-            qgis.core.QgsProject.instance()
+            crs_src, crs_dst, qgis.core.QgsProject.instance()
         ).transform(point)
         geojson = json.loads(qgis.core.QgsGeometry.fromPointXY(point).asJson())
         area_of_interest.update_from_geojson(
@@ -468,7 +531,9 @@ def prepare_area_of_interest() -> AOI:
         raise RuntimeError("Choose an area of interest")
 
     is_valid = area_of_interest.isValid()
-    if area_of_interest and (area_of_interest.datatype == "unknown" or not is_valid):
+    if area_of_interest and (
+        area_of_interest.datatype == "unknown" or not is_valid
+    ):
         raise RuntimeError("Unable to read area of interest.")
 
     if has_buffer:
@@ -485,7 +550,8 @@ def prepare_area_of_interest() -> AOI:
         if aoi_area > max_area:
             raise RuntimeError(
                 "The bounding box for the requested area (approximately {:.6n}) sq km "
-                "is too large. Choose a smaller area to process.".format(aoi_area)
+                "is too large. Choose a smaller area to process.".
+                format(aoi_area)
             )
     return area_of_interest
 
@@ -511,24 +577,36 @@ def get_aligned_output_bounds(f, wkt_bounding_boxes):
 def _transform_layer(l, crs_dst, datatype='polygon', wrap=False):
     # Transform CRS of a layer while optionally wrapping geometries
     # across the 180th meridian
-    log('Transforming layer from "{}" to "{}". Wrap is {}. Datatype is {}.'.format(l.crs().toProj(), crs_dst.toProj(), wrap, datatype))
+    log(
+        'Transforming layer from "{}" to "{}". Wrap is {}. Datatype is {}.'.
+        format(l.crs().toProj(), crs_dst.toProj(), wrap, datatype)
+    )
 
     crs_src_string = l.crs().toProj()
     if wrap:
         if not l.crs().isGeographic():
-            QtWidgets.QMessageBox.critical(None,tr_calculate.tr("Error"),
-                                           tr_calculate.tr("Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian."))
-            log('Can\'t wrap layer in non-geographic coordinate system: "{}"'.format(crs_src_string))
+            QtWidgets.QMessageBox.critical(
+                None, tr_calculate.tr("Error"),
+                tr_calculate.tr(
+                    "Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian."
+                )
+            )
+            log(
+                'Can\'t wrap layer in non-geographic coordinate system: "{}"'.
+                format(crs_src_string)
+            )
             return None
         crs_src_string = crs_src_string + ' +lon_wrap=180'
     crs_src = qgis.core.QgsCoordinateReferenceSystem()
     crs_src.createFromProj(crs_src_string)
-    t = qgis.core.QgsCoordinateTransform(crs_src, crs_dst, qgis.core.QgsProject.instance())
+    t = qgis.core.QgsCoordinateTransform(
+        crs_src, crs_dst, qgis.core.QgsProject.instance()
+    )
 
     l_w = qgis.core.QgsVectorLayer(
-        "{datatype}?crs=proj4:{crs}".format(datatype=datatype, crs=crs_dst.toProj()),
-        "calculation boundary (transformed)",
-        "memory"
+        "{datatype}?crs=proj4:{crs}".format(
+            datatype=datatype, crs=crs_dst.toProj()
+        ), "calculation boundary (transformed)", "memory"
     )
     feats = []
     for f in l.getFeatures():
@@ -548,7 +626,11 @@ def _transform_layer(l, crs_dst, datatype='polygon', wrap=False):
     l_w.dataProvider().addFeatures(feats)
     l_w.commitChanges()
     if not l_w.isValid():
-        log('Error transforming layer from "{}" to "{}" (wrap is {})'.format(crs_src_string, crs_dst.toProj(), wrap))
+        log(
+            'Error transforming layer from "{}" to "{}" (wrap is {})'.format(
+                crs_src_string, crs_dst.toProj(), wrap
+            )
+        )
         return None
     else:
         return l_w

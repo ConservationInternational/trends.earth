@@ -1362,7 +1362,7 @@ def _get_usable_bands(
     selected_job_id: uuid.UUID = None,
     filter_field: str = None,
     filter_value: str = None,
-    aoi = areaofinterest.prepare_area_of_interest()
+    aoi = None
 ) -> typing.List[Band]:
     result = []
 
@@ -1382,6 +1382,7 @@ def _get_usable_bands(
 
         if is_available and is_of_interest and is_valid_type:
             for raster in job.results.rasters.values():
+                log(f'checking for usable bands in raster {raster.uri}')
 
                 for band_index, band_info in enumerate(raster.bands):
 
@@ -1512,22 +1513,30 @@ def _extent_as_geom(extent: typing.Tuple[float, float, float, float]):
 
 
 def _check_band_overlap(aoi, raster):
+    log('checking overlap for {raster.type}')
     if raster.type == RasterType.ONE_FILE_RASTER:
+        log('checking overlap for one file raster')
         if aoi.calc_frac_overlap(_extent_as_geom(raster.extent)) >= 0.99:
             return True
     elif raster.type == RasterType.TILED_RASTER:
+        log('checking overlaps for tiled raster')
+        frac = 0
         for extent in raster.extents:
-            if aoi.calc_frac_overlap(_extent_as_geom(extent)) >= 0.99:
-                return True
-
-    return False
+            frac += aoi.calc_frac_overlap(_extent_as_geom(extent))
+        if frac >= .99:
+            return True
+        else:
+            return False
 
 def _check_dataset_overlap(aoi, raster_results):
+    frac = 0
     for extent in raster_results.get_extents():
-        if aoi.calc_frac_overlap(_extent_as_geom(extent)) >= 0.99:
-            return True
-
-    return False
+        this_frac = aoi.calc_frac_overlap(_extent_as_geom(extent))
+        frac += this_frac
+    if frac >= .99:
+        return True
+    else:
+        return False
 
 
 @functools.lru_cache(
@@ -1652,7 +1661,7 @@ class WidgetDataIOSelectTEDatasetExisting(
 
     def populate(self):
         aoi = areaofinterest.prepare_area_of_interest()
-        usable_datasets = get_usable_datasets(self.property("dataset_type"), aoi)
+        usable_datasets = get_usable_datasets(self.property("dataset_type"), aoi=aoi)
         self.dataset_list = usable_datasets
         # Ensure selected_job_changed is called only once when adding items to
         # combobox

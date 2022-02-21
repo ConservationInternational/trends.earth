@@ -1,5 +1,6 @@
 # Processing algorithm for generating a report
 
+from datetime import datetime
 import json
 import os
 
@@ -145,7 +146,10 @@ class ReportTaskContextAlgorithm(QgsProcessingAlgorithm):
         task_file_info = QFileInfo(task_path)
         task_dir_path = task_file_info.dir().path()
 
-        log_file_path = f'{task_dir_path}/warning_logs.html'
+        # Append current date/time
+        dt_str = datetime.now().strftime('%Y%m%d%H%M%S')
+
+        log_file_path = f'{task_dir_path}/warning_logs_{dt_str}.html'
 
         # Check write permissions
         if not os.access(task_dir_path, os.W_OK):

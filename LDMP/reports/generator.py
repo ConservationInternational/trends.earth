@@ -526,7 +526,8 @@ class ReportTaskProcessor:
                 # Export layout based on file types in report paths list
                 for rp in rpt_paths:
                     self._export_layout(rp, layout_name)
-                    
+                    # Remove below
+                    self._append_warning_msg(f'Exporting {rp}...')
 
         return True
 

@@ -64,7 +64,7 @@ class DatasetReportHandler:
         self._iface = iface
         self._rpt_menu = QMenu()
         self._view_rpt_action = None
-        self._open_template_action = None
+        self._open_layouts_action = None
         self._rpt_config = None
         self._rpt_task_ctx = None
         self._regenerate_report = False
@@ -92,14 +92,14 @@ class DatasetReportHandler:
         )
         self._view_rpt_action.triggered.connect(self.open_report_directory)
 
-        self._open_template_action = self._rpt_menu.addAction(
+        self._open_layouts_action = self._rpt_menu.addAction(
             FileUtils.get_icon('layout.svg'),
-            self.tr('Open layouts')
+            self.tr('Open layouts...')
         )
-        self._open_template_action.setToolTip(
+        self._open_layouts_action.setToolTip(
             self.tr('Open report layouts in QGIS')
         )
-        self._open_template_action.triggered.connect(self.open_designer)
+        self._open_layouts_action.triggered.connect(self.open_designer)
 
         self._rpt_btn.setMenu(self._rpt_menu)
 
@@ -191,17 +191,21 @@ class DatasetReportHandler:
         QDesktopServices.openUrl(rpt_path_url)
 
     def open_designer(self):
-        # Open project which contains a macro to open the layout designer.
-        rpt_path = self._open_report_directory()
-        if not rpt_path:
+        # Open project which contains a macro to show layout manager window.
+        rpt_dir = job_report_directory(self._job)
+
+        if not os.path.exists(rpt_dir):
             self._push_refactor_message(
                 self.tr('Invalid File'),
-                self.tr('Report path could not be determined.')
+                self.tr('Report output directory does not exist.')
             )
-            log('Empty report path.', Qgis.Warning)
+            log(f'Report file \'{rpt_dir}\' not found.', Qgis.Warning)
             return
 
-        proj_path = FileUtils.project_path_from_report_task(rpt_path)
+        proj_path = FileUtils.project_path_from_report_task(
+            self._get_report_task_context(),
+            rpt_dir,
+        )
 
         # Check if the QGIS project file exists
         if not os.path.exists(proj_path):

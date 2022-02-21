@@ -5,6 +5,7 @@ import re
 import typing
 import unicodedata
 import urllib.parse
+import logging
 import uuid
 from pathlib import Path
 from typing import List
@@ -28,6 +29,7 @@ from ..logger import log
 from . import models
 from .models import Job
 
+logger = logging.getLogger(__name__)
 
 def slugify(value, allow_unicode=False):
     """
@@ -71,32 +73,33 @@ def _get_extent_tuple(path):
 
 
 def _set_results_extents(job):
-    if (
-        job.results.type == results.ResultType.RASTER_RESULTS and
-        job.status in [jobs.JobStatus.DOWNLOADED, jobs.JobStatus.GENERATED_LOCALLY]
-    ):
-        log(f'Setting extents for job {job.id}')
-        for raster in job.results.rasters.values():
-            if raster.type == results.RasterType.ONE_FILE_RASTER:
-                if not hasattr(raster, 'extent') or raster.extent is None:
-                    raster.extent = _get_extent_tuple(raster.uri.uri)
-                    log(f'set job {job.id} {raster.datatype} {raster.type} '
-                        f'extent to {raster.extent}')
-            elif raster.type == results.RasterType.TILED_RASTER:
-                if not hasattr(raster, 'extents') or raster.extents is None:
-                    raster.extents = []
-                    for raster_tile_uri in raster.tile_uris:
-                        raster.extents.append(_get_extent_tuple(raster_tile_uri.uri))
-                    log(f'set job {job.id} {raster.datatype} {raster.type} '
-                        f'extents to {raster.extents}')
-            else:
-                raise RuntimeError(f"Unknown raster type {raster.type!r}")
+    log(f'Setting extents for job {job.id}')
+    for raster in job.results.rasters.values():
+        if raster.type == results.RasterType.ONE_FILE_RASTER:
+            if not hasattr(raster, 'extent') or raster.extent is None:
+                raster.extent = _get_extent_tuple(raster.uri.uri)
+                log(f'set job {job.id} {raster.datatype} {raster.type} '
+                    f'extent to {raster.extent}')
+        elif raster.type == results.RasterType.TILED_RASTER:
+            if not hasattr(raster, 'extents') or raster.extents is None:
+                raster.extents = []
+                for raster_tile_uri in raster.tile_uris:
+                    raster.extents.append(_get_extent_tuple(raster_tile_uri.uri))
+                log(f'set job {job.id} {raster.datatype} {raster.type} '
+                    f'extents to {raster.extents}')
+        else:
+            raise RuntimeError(f"Unknown raster type {raster.type!r}")
 
 
 def _load_raw_job(raw_job):
     job = Job.Schema().load(raw_job)
-    _set_results_extents(job)
+    if (
+        job.results.type == results.ResultType.RASTER_RESULTS and
+        job.status in [jobs.JobStatus.DOWNLOADED, jobs.JobStatus.GENERATED_LOCALLY]
+    ):
+        _set_results_extents(job)
     return job
+
 
 class LocalJobTask(QgsTask):
     job: Job
@@ -110,17 +113,27 @@ class LocalJobTask(QgsTask):
         self.area_of_interest = area_of_interest
 
     def run(self):
+        logger.debug('Running task')
         execution_handler = utils.load_object(self.job.script.execution_callable)
         job_output_path, dataset_output_path = _get_local_job_output_paths(self.job)
-        self.done_job = execution_handler(
+        self.completed_job = execution_handler(
             self.job, self.area_of_interest, job_output_path, dataset_output_path
         )
 
-        if self.done_job is not None:
-            self.processed_job.emit(self.done_job)
-            return True
-        else:
+        if self.completed_job is None:
+            logger.debug('Completed run function - failure')
             return False
+        else:
+            logger.debug('Completed run function - success')
+            return True
+
+    def finished(self, result):
+        logger.debug('Finished task')
+        if result:
+            self.processed_job.emit(self.completed_job)
+            logger.debug('Task succeeded')
+        else:
+            logger.debug('Task failed')
 
 
 class JobManager(QtCore.QObject):
@@ -146,6 +159,7 @@ class JobManager(QtCore.QObject):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.clear_known_jobs()
+        self.tm = QgsApplication.taskManager()
 
     @property
     def known_jobs(self):
@@ -365,7 +379,7 @@ class JobManager(QtCore.QObject):
                 job, jobs.JobStatus.DELETED, force_rewrite=False
             )
         else:
-            log(f"job {job!r} has already been deleted, skipping...")
+            log(f"job {job.id} has already been deleted, skipping...")
         self.deleted_job.emit(job)
 
     def submit_remote_job(
@@ -437,7 +451,7 @@ class JobManager(QtCore.QObject):
 
         job_task = LocalJobTask(job_name, job, area_of_interest)
         job_task.processed_job.connect(self.finish_local_job)
-        QgsApplication.taskManager().addTask(job_task)
+        self.tm.addTask(job_task)
 
     def submit_local_job(
         self, params: typing.Dict, script_name: str,
@@ -471,7 +485,7 @@ class JobManager(QtCore.QObject):
         done_job = execution_handler(
             job, area_of_interest, job_output_path, dataset_output_path
         )
-        self.finish_local_job(job)
+        self.finish_local_job(done_job)
 
     def finish_local_job(self, job):
         self._move_job_to_dir(
@@ -660,7 +674,7 @@ class JobManager(QtCore.QObject):
     def _download_cloud_results(self, job: jobs.Job) -> typing.Optional[Path]:
         base_output_path = self.get_downloaded_dataset_base_file_path(job)
 
-        out_rasters = []
+        out_rasters = {}
 
         if len([*job.results.rasters.values()]) == 0:
             log(f'No results to download for {job.id}')
@@ -681,7 +695,7 @@ class JobManager(QtCore.QObject):
                         base_output_path.parent /
                         f"{file_out_base}_{uri_number}.tif",
                     )
-                    tile_uris.append(results.URI(uri=out_file, type='cloud'))
+                    tile_uris.append(results.URI(uri=out_file, type='local'))
 
                 raster.tile_uris = tile_uris
 
@@ -690,8 +704,7 @@ class JobManager(QtCore.QObject):
                     tiles=[str(uri.uri) for uri in tile_uris],
                     out_file=vrt_file,
                 )
-                out_rasters.append(
-                    results.TiledRaster(
+                out_rasters[key] =  results.TiledRaster(
                         tile_uris=tile_uris,
                         bands=raster.bands,
                         datatype=raster.datatype,
@@ -699,7 +712,6 @@ class JobManager(QtCore.QObject):
                         uri=results.URI(uri=vrt_file, type='local'),
                         type=results.RasterType.TILED_RASTER
                     )
-                )
             else:
                 out_file = base_output_path.parent / f"{file_out_base}.tif"
                 _download_result(
@@ -708,15 +720,15 @@ class JobManager(QtCore.QObject):
                 )
                 raster_uri = results.URI(uri=out_file, type='local')
                 raster.uri = raster_uri
-                out_rasters.append(
-                    results.Raster(
-                        uri=raster_uri,
-                        bands=raster.bands,
-                        datatype=raster.datatype,
-                        filetype=raster.filetype,
-                        type=results.RasterType.ONE_FILE_RASTER
-                    )
+                out_rasters[key] =  results.Raster(
+                    uri=raster_uri,
+                    bands=raster.bands,
+                    datatype=raster.datatype,
+                    filetype=raster.filetype,
+                    type=results.RasterType.ONE_FILE_RASTER
                 )
+
+        job.results.rasters = out_rasters
 
         # Setup the main data_path. This could be a vrt (if job.results.rasters
         # has more than one Raster, or if it has one or more TiledRasters)
@@ -729,7 +741,7 @@ class JobManager(QtCore.QObject):
             )
         ):
             vrt_file = base_output_path.parent / f"{base_output_path.name}.vrt"
-            main_raster_file_paths = [raster.uri.uri for raster in out_rasters]
+            main_raster_file_paths = [raster.uri.uri for raster in out_rasters.values()]
             combine_all_bands_into_vrt(main_raster_file_paths, vrt_file)
             job.results.uri = results.URI(uri=vrt_file, type='local')
         else:
@@ -809,7 +821,6 @@ class JobManager(QtCore.QObject):
         return self._known_finished_jobs
 
     def _refresh_local_downloaded_jobs(self):
-        log(f'{[j for j in self._get_local_jobs(jobs.JobStatus.DOWNLOADED)]}')
         self._known_downloaded_jobs = {
             j.id: j
             for j in self._get_local_jobs(jobs.JobStatus.DOWNLOADED)
@@ -945,7 +956,7 @@ class JobManager(QtCore.QObject):
 
             if job_age.days > self._relevant_job_age_threshold_days:
                 log(
-                    f"Removing job {failed_job!r} as it is no longer on server"
+                    f"Removing job {failed_job.id} as it is no longer on server"
                 )
                 self._remove_job_metadata_file(failed_job)
             else:

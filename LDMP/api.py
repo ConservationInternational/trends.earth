@@ -136,11 +136,11 @@ class RequestTask(QgsTask):
         else:
             log(f'API response from "{self.method}" request was None')
 
-        if conf.settings_manager.get_value(conf.Setting.DEBUG):
-            log(
-                f'API response from "{self.method}" request (data): '
-                f'{clean_api_response(self.resp)}'
-            )
+        # if conf.settings_manager.get_value(conf.Setting.DEBUG):
+        #     log(
+        #         f'API response from "{self.method}" request (data): '
+        #         f'{clean_api_response(self.resp)}'
+        #     )
 
 
 ###############################################################################

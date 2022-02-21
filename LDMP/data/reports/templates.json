@@ -4,23 +4,23 @@
          "id":"70ca4be7-839e-4248-be14-34ba8665ed98",
          "name":"Land Productivity",
          "description":"Overview of land productivity indicator.",
-         "simple_portrait_path":"productivity_portrait.qpt",
-         "simple_landscape_path":"productivity_landscape.qpt",
+         "simple_portrait_path":"simple_layout_template_portrait.qpt",
+         "simple_landscape_path":"simple_layout_template_landscape.qpt",
          "full_portrait_path":"productivity_portrait.qpt",
          "full_landscape_path":"productivity_landscape.qpt",
          "item_scopes":[
             {
                "name":"productivity",
                "type_id_mapping":{
-                  "map":["map.productivity"],
-                  "label":["label.productivity"]
+                  "map":["map.main"],
+                  "label":["label.disclaimer"]
                }
             }
          ]
       },
       "output_options":{
          "view_format_type": "PDF",
-         "template_type": "ALL",
+         "template_type": "SIMPLE",
          "formats": [
             {
                "format_type": "PDF"

@@ -1,6 +1,6 @@
 """Report generator"""
 
-from enum import Enum
+from dataclasses import dataclass
 import json
 import os
 import subprocess
@@ -13,13 +13,15 @@ from qgis.core import (
     QgsCoordinateReferenceSystem,
     QgsExpression,
     QgsExpressionContext,
-    QgsFeedback,
     QgsLayerDefinition,
     QgsLayoutExporter,
     QgsLayoutItem,
     QgsLayoutItemLegend,
     QgsLayoutItemMap,
     QgsLayoutItemRegistry,
+    QgsLegendRenderer,
+    QgsLegendStyle,
+    QgsMapLayerLegendUtils,
     QgsPrintLayout,
     QgsProcessingFeedback,
     QgsProject,
@@ -27,7 +29,8 @@ from qgis.core import (
     QgsReadWriteContext,
     QgsRectangle,
     QgsReferencedRectangle,
-    QgsTask
+    QgsSimpleLegendNode,
+    QgsTask,
 )
 from qgis.gui import (
     QgsMessageBar
@@ -119,6 +122,14 @@ class ReportProcessHandlerTask(QgsTask):
             status = ctx_file.remove()
             log(f'Remove status of report task file: {status!s}')
 
+@dataclass
+class LegendRendererContext:
+    """
+    Flags for specifying how legend items will be rendered in the layout.
+    """
+    remove_basemap_layers: bool = True
+    remove_sub_group_heading: bool = True
+
 
 class ReportTaskProcessor:
     """
@@ -133,9 +144,11 @@ class ReportTaskProcessor:
             self,
             ctx: ReportTaskContext,
             proj: QgsProject,
-            feedback: QgsProcessingFeedback=None
+            feedback: QgsProcessingFeedback=None,
+            legend_renderer_ctx: LegendRendererContext=None
     ):
         self._ctx = ctx
+        self._legend_renderer_ctx = legend_renderer_ctx or LegendRendererContext()
         self._ti = self._ctx.report_configuration.template_info
         self._options = self._ctx.report_configuration.output_options
         self._proj = proj
@@ -153,6 +166,13 @@ class ReportTaskProcessor:
         Returns the report task context used in the class.
         """
         return self._ctx
+
+    @property
+    def legend_renderer_context(self) -> LegendRendererContext:
+        """
+        Render context used to render legend items in the layout.
+        """
+        return self._legend_renderer_ctx
 
     @property
     def project(self) -> QgsProject:
@@ -526,8 +546,6 @@ class ReportTaskProcessor:
                 # Export layout based on file types in report paths list
                 for rp in rpt_paths:
                     self._export_layout(rp, layout_name)
-                    # Remove below
-                    self._append_warning_msg(f'Exporting {rp}...')
 
         return True
 
@@ -622,22 +640,45 @@ class ReportTaskProcessor:
             if item.type() == QgsLayoutItemRegistry.LayoutLegend:
                 if item.linkedMap().uuid() == map_item.uuid():
                     item.setLegendFilterByMapEnabled(True)
-                    self._remove_base_map_legend_items(item)
+                    self._update_map_legend_items(item)
 
-    def _remove_base_map_legend_items(self, legend: QgsLayoutItemLegend):
-        # Remove basemap nodes so that we only have band entries.
+    def _update_map_legend_items(self, legend: QgsLayoutItemLegend):
+        # Update legend items based on flags in the renderer context.
         model = legend.model()
         layer_root = self._proj.layerTreeRoot()
-        for base_layer in self._basemap_layers:
-            layer_node = layer_root.findLayer(base_layer)
-            if layer_node is not None:
-                base_layer_index = model.node2index(layer_node)
-                if not base_layer_index.isValid():
-                    continue
-                model.removeRow(
-                    base_layer_index.row(),
-                    base_layer_index.parent()
+
+        # Check whether to remove basemap layers
+        if self._legend_renderer_ctx.remove_basemap_layers:
+            for base_layer in self._basemap_layers:
+                layer_node = layer_root.findLayer(base_layer)
+                if layer_node is not None:
+                    base_layer_index = model.node2index(layer_node)
+                    if not base_layer_index.isValid():
+                        continue
+                    model.removeRow(
+                        base_layer_index.row(),
+                        base_layer_index.parent()
+                    )
+
+        # Check whether to remove sub-group (or layer) headings and
+        # symbology title.
+        if self._legend_renderer_ctx.remove_sub_group_heading:
+            child_layers = layer_root.findLayers()
+            for cl in child_layers:
+                QgsLegendRenderer.setNodeLegendStyle(
+                    cl, QgsLegendStyle.Hidden
                 )
+
+                # Also remove title e.g. Band xx: xxx...
+                legend_nodes = model.layerLegendNodes(cl)
+                for i, ln in enumerate(legend_nodes):
+                    if isinstance(ln, QgsSimpleLegendNode):
+                        node_idx = model.legendNode2index(ln)
+                        if not node_idx.isValid():
+                            continue
+                        indexes = list(range(i + 1, len(legend_nodes)))
+                        QgsMapLayerLegendUtils.setLegendNodeOrder(cl, indexes)
+                        model.refreshLayerLegend(cl)
 
     @classmethod
     def update_item_expression_ctx(

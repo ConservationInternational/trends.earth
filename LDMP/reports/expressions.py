@@ -244,13 +244,9 @@ class ReportExpressionUtils:
             )
 
             try:
-                # Format value if required especially those ones that the
-                # QgsExpression cannot convert or does not provide a function
-                # for representing the value.
                 fmt_func = layer_info.fmt_func
                 if fmt_func is None:
                     continue
-
                 layer_var_value = fmt_func(layer)
                 active_scope.setVariable(layer_info.var_name, layer_var_value)
             except AttributeError:
@@ -286,5 +282,20 @@ class ReportExpressionUtils:
                 active_scope.setVariable(jv_info.var_name, job_attr_value)
             except AttributeError:
                 continue
+
+        return ctx
+
+    @staticmethod
+    def update_expression_context(
+            ctx: QgsExpressionContext,
+            job: Job,
+            layer: QgsRasterLayer
+    ):
+        # Update expression contexts for current job and job layer in the
+        # report generation cycle.
+        ctx = ReportExpressionUtils.update_job_expression_context(ctx, job)
+        ctx = ReportExpressionUtils.update_job_layer_expression_context(
+            ctx, layer
+        )
 
         return ctx

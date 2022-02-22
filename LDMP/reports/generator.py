@@ -420,28 +420,8 @@ class ReportTaskProcessor:
         full_pt_path = abs_paths.full_portrait
         full_ls_path = abs_paths.full_landscape
 
-        # Check if the templates exist depending on user configuration
-        # Simple layout
-        if self._options.template_type == TemplateType.SIMPLE \
-                or self._options.template_type == TemplateType.ALL:
-            if not abs_paths.simple_landscape_exists() \
-                    and not abs_paths.simple_portrait_exists():
-                msg = 'Simple report templates not found.'
-                self._append_warning_msg(
-                    f'{msg}: {simple_pt_path, simple_ls_path}'
-                )
-                return False
-
-        # Full layout
-        if self._options.template_type == TemplateType.FULL \
-                or self._options.template_type == TemplateType.ALL:
-            if not abs_paths.full_portrait_exists() \
-                    and not abs_paths.full_landscape_exists():
-                msg = 'Full report templates not found.'
-                self._append_warning_msg(
-                    f'{msg}: {full_pt_path, full_ls_path}'
-                )
-                return False
+        # Check if the template types exist
+        self._check_template_type_exists(abs_paths)
 
         if self._process_cancelled():
             return False
@@ -480,6 +460,40 @@ class ReportTaskProcessor:
         # Update general metadata and save project
         self._update_project_metadata_extents()
         self._save_project()
+
+        return True
+
+    def _check_template_type_exists(self, abs_paths):
+        # Checks if the templates for both simple and full layouts exist.
+        # Get template paths
+        abs_paths = self._ti.absolute_template_paths
+        simple_pt_path = abs_paths.simple_portrait
+        simple_ls_path = abs_paths.simple_landscape
+        full_pt_path = abs_paths.full_portrait
+        full_ls_path = abs_paths.full_landscape
+
+        # Check if the templates exist depending on user configuration
+        # Simple layout
+        if self._options.template_type == TemplateType.SIMPLE \
+                or self._options.template_type == TemplateType.ALL:
+            if not abs_paths.simple_landscape_exists() \
+                    and not abs_paths.simple_portrait_exists():
+                msg = 'Simple report templates not found.'
+                self._append_warning_msg(
+                    f'{msg}: {simple_pt_path, simple_ls_path}'
+                )
+                return False
+
+        # Full layout
+        if self._options.template_type == TemplateType.FULL \
+                or self._options.template_type == TemplateType.ALL:
+            if not abs_paths.full_portrait_exists() \
+                    and not abs_paths.full_landscape_exists():
+                msg = 'Full report templates not found.'
+                self._append_warning_msg(
+                    f'{msg}: {full_pt_path, full_ls_path}'
+                )
+                return False
 
         return True
 
@@ -713,7 +727,7 @@ class ReportTaskProcessor:
         # Update the expression context based on the given job and map layer.
         item_exp_ctx = item.createExpressionContext()
 
-        return ReportExpressionUtils.update_job_layer_expression_context(
+        return ReportExpressionUtils.update_expression_context(
             item_exp_ctx,
             job,
             job_layer

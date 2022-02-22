@@ -189,7 +189,8 @@ class TemplateManager:
     def copy_configuration(self) -> bool:
         """
         Copies folder containing report configuration and corresponding
-        templates to the data base directory. Replaces any existing one.
+        templates to the data base directory. If there is an existing
+        directory then the operation will terminate and return False.
         """
         if not self._data_report_dir:
             log(
@@ -197,6 +198,10 @@ class TemplateManager:
                 'directory in the base data folder could not be determined.',
                 Qgis.Warning
             )
+            return False
+
+        # Check if the directory exists
+        if os.path.exists(self._data_report_dir):
             return False
 
         try:

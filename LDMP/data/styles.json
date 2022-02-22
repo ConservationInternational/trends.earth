@@ -124,7 +124,7 @@
                 {"value": 3, "color": "#FFFB6E", "label": "lc_class_cropland"},
                 {"value": 4, "color": "#00DB84", "label": "lc_class_wetland"},
                 {"value": 5, "color": "#E60017", "label": "lc_class_artificial"},
-                {"value": 6, "color": "#FFF3D7", "label": "lc_class_bare"},
+                {"value": 6, "color": "#B48515", "label": "lc_class_bare"},
                 {"value": 7, "color": "#0053C4", "label": "lc_class_water"}
             ]
         }
@@ -141,7 +141,7 @@
                 {"value": 3, "color": "#FFFB6E", "label": "lc_class_cropland"},
                 {"value": 4, "color": "#00DB84", "label": "lc_class_wetland"},
                 {"value": 5, "color": "#E60017", "label": "lc_class_artificial"},
-                {"value": 6, "color": "#FFF3D7", "label": "lc_class_bare"},
+                {"value": 6, "color": "#B48515", "label": "lc_class_bare"},
                 {"value": 7, "color": "#0053C4", "label": "lc_class_water"}
             ]
         }
@@ -300,7 +300,7 @@
                 {"value": 39, "color": "#FFFB6E", "label": "lc_tr_cropland_loss"},
                 {"value": 49, "color": "#00DB84", "label": "lc_tr_wetland_loss"},
                 {"value": 59, "color": "#E60017", "label": "lc_tr_artificial_loss"},
-                {"value": 69, "color": "#FFF3D7", "label": "lc_tr_bare_loss"},
+                {"value": 69, "color": "#B48515", "label": "lc_tr_bare_loss"},
                 {"value": 79, "color": "#0053C4", "label": "lc_tr_water_loss"}
             ]
         }

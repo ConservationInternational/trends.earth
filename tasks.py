@@ -659,10 +659,13 @@ def plugin_setup(c, clean=False, link=False, pip='pip'):
         'clean': "run rmtree",
         'version': 'what version of QGIS to install to',
         'profile': 'what profile to install to (only applies to QGIS3',
-        'fast': 'Skip compiling numba files'
+        'fast': 'Skip compiling numba files',
+        'link': 'Symlink folder to QGIS profile directory'
     }
 )
-def plugin_install(c, clean=False, version=3, profile='default', fast=False):
+def plugin_install(
+    c, clean=False, version=3, profile='default', fast=False, link=False
+):
     '''install plugin to qgis'''
     set_version(c)
     compile_files(c, version, clean, fast)
@@ -693,7 +696,7 @@ def plugin_install(c, clean=False, version=3, profile='default', fast=False):
     src = os.path.abspath(src)
     dst_this_plugin = os.path.abspath(dst_this_plugin)
 
-    if not hasattr(os, 'symlink'):
+    if not hasattr(os, 'symlink') or not link:
         print(
             "Copying plugin to QGIS version {} plugin folder at {}".format(
                 version, dst_this_plugin
@@ -1181,15 +1184,30 @@ def changelog_build(c):
         'tests': 'Package tests with plugin',
         'filename': 'Name for output file',
         #'python': 'Python to use for setup and compiling',
-        'pip': 'Path to pip (usually "pip" or "pip3"'
+        'pip': 'Path to pip (usually "pip" or "pip3"',
+        'tag': 'Whether to tag on Github'
     }
 )
 def zipfile_build(
-    c, clean=False, version=3, tests=False, filename=None, pip='pip'
+    c,
+    clean=False,
+    version=3,
+    tests=False,
+    filename=None,
+    pip='pip',
+    tag=False
 ):
     """Create plugin package"""
     set_version(c)
-    set_tag(c)
+
+    if tag:
+        set_tag(c)
+    else:
+        print(
+            '***Not setting tag on github***\nIf this is a '
+            'production deployment you MUST tag this version on github, '
+            'so cancel this process and re-run with tag=True'
+        )
 
     plugin_setup(c, clean=clean, pip=pip)
     compile_files(c, version=version, clean=clean)

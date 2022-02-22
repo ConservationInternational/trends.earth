@@ -7,7 +7,8 @@ import typing
 
 from qgis.core import (
     QgsExpressionContext,
-    QgsLayout
+    QgsLayout,
+    QgsRasterLayer
 )
 
 from qgis.PyQt.QtCore import (
@@ -34,6 +35,13 @@ JobAttrVarInfo = namedtuple(
 ReportSettingVarInfo = namedtuple(
     'ReportSettingVarInfo',
     'setting var_name default_value'
+)
+
+
+# Information about the current job layer being processed
+LayerVarInfo = namedtuple(
+    'LayerVarInfo',
+    'var_name default_value fmt_func'
 )
 
 
@@ -97,6 +105,17 @@ def _report_settings_var_mapping() -> typing.List[ReportSettingVarInfo]:
     ]
 
 
+def _current_job_layer_var_mapping() -> typing.List[LayerVarInfo]:
+    # Current job map layer variables whose values will be set at runtime.
+    return [
+        LayerVarInfo(
+            'te_current_layer_name',
+            '',
+            lambda layer: layer.name()
+        )
+    ]
+
+
 def _get_var_names(var_info_collection: typing.List) -> typing.List[str]:
     # Returns the variable names from the info objects
     return [vi.var_name for vi in var_info_collection]
@@ -117,6 +136,12 @@ class ReportExpressionUtils:
         """
         ReportExpressionUtils.register_job_variables(layout)
         ReportExpressionUtils.register_report_settings_variables(layout)
+        ReportExpressionUtils.register_current_job_layer_settings_variables(
+            layout
+        )
+
+        # Need to re-evaluate expressions for layout picture items.
+        layout.refresh()
 
     @staticmethod
     def register_job_variables(layout: QgsLayout):
@@ -135,8 +160,14 @@ class ReportExpressionUtils:
             _report_settings_var_mapping()
         )
 
-        # Need to re-evaluate expressions for layout picture items.
-        layout.refresh()
+    @staticmethod
+    def register_current_job_layer_settings_variables(layout: QgsLayout):
+        # Register variables for the current job layer when the report is
+        # running.
+        ReportExpressionUtils._register_variable_collection(
+            layout,
+            _current_job_layer_var_mapping()
+        )
 
     @staticmethod
     def _register_variable_collection(
@@ -198,6 +229,34 @@ class ReportExpressionUtils:
             idx = var_names.index(rem_var_name)
             _ = var_names.pop(idx)
             _ = var_values.pop(idx)
+
+    @staticmethod
+    def update_job_layer_expression_context(
+            ctx: QgsExpressionContext,
+            layer: QgsRasterLayer
+    ) -> QgsExpressionContext:
+        # Update expression context with values from current job layer.
+        for layer_info in _current_job_layer_var_mapping():
+            if not ctx.hasVariable(layer_info.var_name):
+                continue
+            active_scope = ctx.activeScopeForVariable(
+                layer_info.var_name
+            )
+
+            try:
+                # Format value if required especially those ones that the
+                # QgsExpression cannot convert or does not provide a function
+                # for representing the value.
+                fmt_func = layer_info.fmt_func
+                if fmt_func is None:
+                    continue
+
+                layer_var_value = fmt_func(layer)
+                active_scope.setVariable(layer_info.var_name, layer_var_value)
+            except AttributeError:
+                continue
+
+        return ctx
 
     @staticmethod
     def update_job_expression_context(

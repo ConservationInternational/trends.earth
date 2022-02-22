@@ -4,6 +4,7 @@ from dataclasses import dataclass
 import json
 import os
 import subprocess
+import traceback
 import typing
 from uuid import uuid4
 
@@ -260,6 +261,8 @@ class ReportTaskProcessor:
                                 band_idx
                             )
                             layers.append(band_layer)
+                    else:
+                        self._append_warning_msg(f'{title}layer is invalid.')
 
             # Just to ensure that we don't have empty lists
             if len(layers) > 0:
@@ -393,6 +396,20 @@ class ReportTaskProcessor:
         """
         Initiate the report generation process.
         """
+        status = False
+        try:
+            status = self._run()
+        except Exception as ex:
+            # Use general exception as last resort to capture raster read
+            # failures by GDAL.
+            exc_info = ''.join(
+                traceback.TracebackException.from_exception(ex).format()
+            )
+            self._append_warning_msg(exc_info)
+
+        return status
+
+    def _run(self) -> bool:
         if self._process_cancelled():
             return False
 
@@ -488,6 +505,11 @@ class ReportTaskProcessor:
             )
             return False
 
+        # Update custom report variables from the settings
+        ReportExpressionUtils.register_report_settings_variables(
+            self._layout
+        )
+
         # Key for fetching report output path
         report_path_key = 'simple' if is_simple else 'full'
         template_prefix_tr = self._template_type_tr(report_path_key)
@@ -517,14 +539,15 @@ class ReportTaskProcessor:
                 if not self._create_layout(template_path):
                     return False
 
+                # Update current job layer expression context
+                ReportExpressionUtils.update_job_layer_expression_context(
+                    self._layout.createExpressionContext(),
+                    jl
+                )
+
                 # Update layout items
                 if not self._process_scope_items(job, jl):
                     continue
-
-                # Update custom report variables from the settings
-                ReportExpressionUtils.register_report_settings_variables(
-                    self._layout
-                )
 
                 # Fetch report output path
                 band_idx = jl.customProperty(self.BAND_INDEX, -1)
@@ -533,7 +556,7 @@ class ReportTaskProcessor:
                 if band_idx not in job_report_paths:
                     continue
                 band_paths = job_report_paths[band_idx]
-                rpt_paths = band_paths.get(report_path_key, '')
+                rpt_paths = band_paths.get(report_path_key, [])
                 if len(rpt_paths) == 0:
                     continue
 
@@ -608,7 +631,7 @@ class ReportTaskProcessor:
         label_ids = item_scope.label_ids()
         if len(label_ids) == 0:
             self._append_info_msg(f'No label ids found in \'{alg_name}\' scope.')
-        if not self._update_label_items(label_ids, job):
+        if not self._update_label_items(label_ids, job, job_layer):
             return False
 
         return True
@@ -684,24 +707,27 @@ class ReportTaskProcessor:
     def update_item_expression_ctx(
             cls, 
             item: QgsLayoutItem,
-            job
+            job,
+            job_layer
     ) -> QgsExpressionContext:
-        # Update the expression context based on the given job.
+        # Update the expression context based on the given job and map layer.
         item_exp_ctx = item.createExpressionContext()
 
-        return ReportExpressionUtils.update_job_expression_context(
+        return ReportExpressionUtils.update_job_layer_expression_context(
             item_exp_ctx,
-            job
+            job,
+            job_layer
         )
 
-    def _update_label_items(self, labels_ids, job) -> bool:
+    def _update_label_items(self, labels_ids, job, job_layer) -> bool:
         # Evaluate expressions for label items matching the given ids.
         for lid in labels_ids:
             label_item = self._layout.itemById(lid)
             if label_item is not None:
                 lbl_exp_ctx = self.update_item_expression_ctx(
                     label_item,
-                    job
+                    job,
+                    job_layer
                 )
                 evaluated_txt = QgsExpression.replaceExpressionText(
                     label_item.text(),

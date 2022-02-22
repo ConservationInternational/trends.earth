@@ -13,18 +13,48 @@
                "name":"productivity",
                "type_id_mapping":{
                   "map":["map.main"],
-                  "label":["label.disclaimer"]
+                  "label":[]
                }
             }
          ]
       },
       "output_options":{
-         "view_format_type": "PDF",
-         "template_type": "SIMPLE",
+         "template_type": "ALL",
          "formats": [
             {
                "format_type": "PDF"
             },
+            {
+               "format_type": "IMAGE",
+               "params": {
+                  "image_type": "png"
+               }
+            }
+         ]
+      }
+   },
+   {
+      "template_info":{
+         "id":"913bc20d-791c-436e-9eaf-48856eb0097a",
+         "name":"SDG 15.3.1 Sub-indicators",
+         "description":"Reports of productivity, land cover, and soil organic carbon sub-indicators.",
+         "simple_portrait_path":"simple_layout_template_portrait.qpt",
+         "simple_landscape_path":"simple_layout_template_landscape.qpt",
+         "full_portrait_path":"full_layout_template_portrait.qpt",
+         "full_landscape_path":"full_layout_template_landscape.qpt",
+         "item_scopes":[
+            {
+               "name":"sdg-15-3-1-sub-indicators",
+               "type_id_mapping":{
+                  "map":["map.main"],
+                  "label":[]
+               }
+            }
+         ]
+      },
+      "output_options":{
+         "template_type": "ALL",
+         "formats": [
             {
                "format_type": "IMAGE",
                "params": {

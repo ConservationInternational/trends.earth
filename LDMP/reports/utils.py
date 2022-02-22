@@ -141,5 +141,17 @@ def job_has_report(
     return True
 
 
+def default_report_disclaimer() -> str:
+    """
+    For use in the plugin settings. Might need to be translatable in the
+    future.
+    """
+    return 'The provided boundaries are from Natural Earth, and are in the ' \
+           'public domain. The boundaries, names and designations used in ' \
+           'Trends.Earth  do not imply official endorsement or acceptance by ' \
+           'Conservation International Foundation, or by its partner ' \
+           'organizations and contributors. Map produced from:'
+
+
 
 

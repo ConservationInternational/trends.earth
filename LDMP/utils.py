@@ -184,6 +184,10 @@ class FileUtils:
         im = QtGui.QImage(icon_path)
         return QtGui.QPixmap.fromImage(im)
 
-
-
-
+    @staticmethod
+    def te_logo_path() -> str:
+        """
+        Returns the paths to the trends earth logo in the plugin directory.
+        """
+        logo_file_name = 'trends_earth_logo_bl_small.png'
+        return f'{FileUtils.plugin_dir()}/icons/{logo_file_name}'

@@ -11,6 +11,8 @@ import qgis.core
 from . import download
 from te_schemas.algorithms import ExecutionScript
 from .algorithms import models as algorithm_models
+from .reports.utils import default_report_disclaimer
+from .utils import FileUtils
 
 
 class AreaSetting(enum.Enum):
@@ -92,10 +94,10 @@ class SettingsManager:
         Setting.AREA_NAME: "",
         Setting.JOB_FILE_AGE_LIMIT_DAYS: 15,
         Setting.REPORT_TEMPLATE_SEARCH_PATH: "",
-        Setting.REPORT_ORG_LOGO_PATH: "",
-        Setting.REPORT_ORG_NAME: "",
-        Setting.REPORT_FOOTER: "",
-        Setting.REPORT_DISCLAIMER: "",
+        Setting.REPORT_ORG_LOGO_PATH: FileUtils.te_logo_path(),
+        Setting.REPORT_ORG_NAME: '',
+        Setting.REPORT_FOOTER: '',
+        Setting.REPORT_DISCLAIMER: default_report_disclaimer(),
         Setting.REPORT_LOG_WARNING: False
     }
 

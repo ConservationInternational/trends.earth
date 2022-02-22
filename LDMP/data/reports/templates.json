@@ -6,8 +6,8 @@
          "description":"Overview of land productivity indicator.",
          "simple_portrait_path":"simple_layout_template_portrait.qpt",
          "simple_landscape_path":"simple_layout_template_landscape.qpt",
-         "full_portrait_path":"productivity_portrait.qpt",
-         "full_landscape_path":"productivity_landscape.qpt",
+         "full_portrait_path":"full_layout_template_portrait.qpt",
+         "full_landscape_path":"full_layout_template_landscape.qpt",
          "item_scopes":[
             {
                "name":"productivity",

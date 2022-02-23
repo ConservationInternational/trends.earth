@@ -130,6 +130,7 @@ class LegendRendererContext:
     """
     remove_basemap_layers: bool = True
     remove_sub_group_heading: bool = True
+    remove_category_title: bool = True
 
 
 class ReportTaskProcessor:
@@ -145,11 +146,10 @@ class ReportTaskProcessor:
             self,
             ctx: ReportTaskContext,
             proj: QgsProject,
-            feedback: QgsProcessingFeedback=None,
-            legend_renderer_ctx: LegendRendererContext=None
+            feedback: QgsProcessingFeedback=None
     ):
         self._ctx = ctx
-        self._legend_renderer_ctx = legend_renderer_ctx or LegendRendererContext()
+        self._legend_renderer_ctx = LegendRendererContext()
         self._ti = self._ctx.report_configuration.template_info
         self._options = self._ctx.report_configuration.output_options
         self._proj = proj
@@ -448,6 +448,8 @@ class ReportTaskProcessor:
         # Simple
         if self._options.template_type == TemplateType.SIMPLE \
                 or self._options.template_type == TemplateType.ALL:
+            # Remove sub-group heading/layer name
+            self._legend_renderer_ctx.remove_sub_group_heading = True
             self._generate_reports(ref_simple_temp, True)
 
         if self._process_cancelled():
@@ -456,6 +458,8 @@ class ReportTaskProcessor:
         # Full
         if self._options.template_type == TemplateType.FULL \
                 or self._options.template_type == TemplateType.ALL:
+            # Retain sub-group heading
+            self._legend_renderer_ctx.remove_sub_group_heading = False
             self._generate_reports(ref_full_temp, False)
 
         # Update general metadata and save project
@@ -552,14 +556,6 @@ class ReportTaskProcessor:
                 '''
                 if not self._create_layout(template_path):
                     return False
-
-                # Update current job layer expression context
-                '''
-                ReportExpressionUtils.update_job_layer_expression_context(
-                    self._layout.createExpressionContext(),
-                    jl
-                )
-                '''
 
                 # Update layout items
                 if not self._process_scope_items(job, jl):
@@ -682,7 +678,7 @@ class ReportTaskProcessor:
                     self._update_map_legend_items(item)
 
     def _update_map_legend_items(self, legend: QgsLayoutItemLegend):
-        # Update legend items based on flags in the renderer context.
+        # Update legend items based on flags in the legend renderer context.
         model = legend.model()
         layer_root = self._proj.layerTreeRoot()
 
@@ -701,14 +697,20 @@ class ReportTaskProcessor:
 
         # Check whether to remove sub-group (or layer) headings and
         # symbology title.
-        if self._legend_renderer_ctx.remove_sub_group_heading:
-            child_layers = layer_root.findLayers()
-            for cl in child_layers:
+        child_layers = layer_root.findLayers()
+        for cl in child_layers:
+            if self._legend_renderer_ctx.remove_sub_group_heading:
                 QgsLegendRenderer.setNodeLegendStyle(
                     cl, QgsLegendStyle.Hidden
                 )
+            else:
+                QgsLegendRenderer.setNodeLegendStyle(
+                    cl, QgsLegendStyle.Subgroup
+                )
 
-                # Also remove title e.g. Band xx: xxx...
+            # Also check if we need to remove category title e.g.
+            # Band xx: xxx...
+            if self._legend_renderer_ctx.remove_category_title:
                 legend_nodes = model.layerLegendNodes(cl)
                 for i, ln in enumerate(legend_nodes):
                     if isinstance(ln, QgsSimpleLegendNode):

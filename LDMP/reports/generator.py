@@ -466,7 +466,6 @@ class ReportTaskProcessor:
     def _check_template_type_exists(self, abs_paths):
         # Checks if the templates for both simple and full layouts exist.
         # Get template paths
-        abs_paths = self._ti.absolute_template_paths
         simple_pt_path = abs_paths.simple_portrait
         simple_ls_path = abs_paths.simple_landscape
         full_pt_path = abs_paths.full_portrait
@@ -554,10 +553,12 @@ class ReportTaskProcessor:
                     return False
 
                 # Update current job layer expression context
+                '''
                 ReportExpressionUtils.update_job_layer_expression_context(
                     self._layout.createExpressionContext(),
                     jl
                 )
+                '''
 
                 # Update layout items
                 if not self._process_scope_items(job, jl):

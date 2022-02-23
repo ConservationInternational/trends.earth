@@ -43,6 +43,7 @@ from qgis.PyQt.QtCore import (
     QCoreApplication,
     QDateTime,
     QFile,
+    QFileInfo,
     QIODevice,
     QObject
 )
@@ -72,56 +73,6 @@ from ..utils import (
 )
 from ..visualization import download_base_map
 
-
-class ReportProcessHandlerTask(QgsTask):
-    """
-    Bridge for communicating with the report task algorithm to run in
-    'qgis_process'.
-    """
-    def __init__(
-            self,
-            ctx_file_path: str,
-            qgis_proc_path: str,
-            description
-    ):
-        super().__init__(description)
-        self._ctx_file_path = ctx_file_path
-        self._qgs_proc_path = qgis_proc_path
-        self._completed_process = None
-
-    @property
-    def context_file_path(self) -> str:
-        """
-        Returns the path to the report context JSON file.
-        """
-        return self._ctx_file_path
-
-    def run(self) -> bool:
-        # Launch qgis_process and execute algorithm.
-        if self.isCanceled():
-            return False
-
-        input_file = f'INPUT={self._ctx_file_path}'
-        args = [
-            self._qgs_proc_path, 'run', 'trendsearth:reporttask',
-            '--', input_file
-        ]
-        self._completed_process = subprocess.run(
-            args,
-            shell=True
-        )
-        if self._completed_process.returncode == 0:
-            return True
-
-        return False
-
-    def finished(self, result):
-        # Remove context file if process run was successful.
-        log(f'Report handler report: {result!s}')
-        if result:
-            ctx_file = QFile(self._ctx_file_path)
-            status = ctx_file.remove()
-            log(f'Remove status of report task file: {status!s}')
 
 @dataclass
 class LegendRendererContext:
@@ -788,6 +739,53 @@ class ReportTaskProcessor:
         return True, doc
 
 
+class ReportProcessHandlerTask(QgsTask):
+    """
+    Bridge for communicating with the report task algorithm to run in
+    'qgis_process'.
+    """
+    def __init__(
+            self,
+            ctx_file_path: str,
+            qgis_proc_path: str,
+            description
+    ):
+        super().__init__(description)
+        self._ctx_file_path = ctx_file_path
+        self._qgs_proc_path = qgis_proc_path
+        self._completed_process = None
+
+    @property
+    def context_file_path(self) -> str:
+        """
+        Returns the path to the report context JSON file.
+        """
+        return self._ctx_file_path
+
+    def run(self) -> bool:
+        # Launch qgis_process and execute algorithm.
+        if self.isCanceled():
+            return False
+
+        input_file = f'INPUT={self._ctx_file_path}'
+        args = [
+            self._qgs_proc_path, 'run', 'trendsearth:reporttask',
+            '--', input_file
+        ]
+        self._completed_process = subprocess.run(
+            args,
+            shell=True
+        )
+
+        result_code = self._completed_process.returncode
+
+        # Ignore access violation error code raised by PNG driver.
+        if result_code == 0 or result_code == 3221225477:
+            return True
+
+        return False
+
+
 class ReportGeneratorManager(QObject):
     """
     Generates reports for single or multi-datasets based on custom layouts.
@@ -800,12 +798,11 @@ class ReportGeneratorManager(QObject):
         self._qgis_proc_path = qgis_process_path()
 
         # key: ReportTaskContext, value: QgsTask id
-        self._submitted_tasks = dict()
-        '''
+        self._submitted_tasks = {}
+        self._ctx_file_paths = {}
         QgsApplication.instance().taskManager().statusChanged.connect(
             self.on_task_status_changed
         )
-        '''
 
     @property
     def message_bar(self) -> QgsMessageBar:
@@ -892,7 +889,9 @@ class ReportGeneratorManager(QObject):
         # Write task file for subsequent use by the report handler task
         file_path = self._write_context_to_file(ctx, file_suffix)
 
-        ctx_display_name = ctx.display_name()
+        report_tr = self.tr('reports')
+
+        ctx_display_name = f'{ctx.display_name()} {report_tr}'
 
         # Create report handler task
         rpt_handler_task = ReportProcessHandlerTask(
@@ -905,9 +904,10 @@ class ReportGeneratorManager(QObject):
         )
 
         self._submitted_tasks[ctx] = task_id
+        self._ctx_file_paths[ctx] = file_path
 
         # Notify user
-        tr_msg = self.tr(f'report is being processed...')
+        tr_msg = self.tr(f'are being processed...')
         self._push_info_message(f'{ctx_display_name} {tr_msg}')
 
         return True
@@ -931,7 +931,7 @@ class ReportGeneratorManager(QObject):
     def handler_task_from_context(
             self,
             ctx: ReportTaskContext
-    ) -> ReportProcessHandlerTask:
+    ) -> QgsTask:
         # Retrieves the handler task corresponding to the given context.
         task_id = self._submitted_tasks.get(ctx, -1)
         if task_id == -1:
@@ -956,6 +956,12 @@ class ReportGeneratorManager(QObject):
             handler.cancel()
 
         _ = self._submitted_tasks.pop(ctx)
+
+        # Also remove ctx file path
+        if ctx in self._ctx_file_paths:
+            del self._ctx_file_paths[ctx]
+
+        return True
 
     def task_context_by_id(self, task_id: int) -> ReportTaskContext:
         """
@@ -982,23 +988,20 @@ class ReportGeneratorManager(QObject):
         if ctx is None:
             return
 
-        # Only interested in terminated or completed tasks
-        if status != QgsTask.Complete and status != QgsTask.Terminated:
-            return
-
-        ctx_name = ctx.display_name()
+        # Remove context file if task has been successfully completed.
         if status == QgsTask.Complete:
-            tr_msg = self.tr('report is ready!')
-            msg = f'{ctx_name} {tr_msg}'
-            self._push_success_message(msg)
-        elif status == QgsTask.Terminated:
-            tr_msg = f'report could not be generated. See log file ' \
-                     f'for details.'
-            msg = f'{ctx_name} {tr_msg}'
-            self._push_warning_message(msg)
+            if ctx in self._ctx_file_paths:
+                ctx_file_path = self._ctx_file_paths[ctx]
+                ctx_file = QFile(ctx_file_path)
+                status = ctx_file.remove()
+                if not status:
+                    log(
+                        f'Unable to remove report context '
+                        f'file: {ctx_file_path}'
+                    )
 
-        # Remove from list of submitted tasks
-        self.remove_task_context(ctx)
+            # Remove from list of submitted tasks
+            self.remove_task_context(ctx)
 
 
 report_generator_manager = ReportGeneratorManager()

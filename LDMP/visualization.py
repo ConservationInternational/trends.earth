@@ -147,7 +147,7 @@ class DlgVisualizationBasemap(QtWidgets.QDialog, DlgVisualizationBasemapUi):
             admin_level_one = self.area_admin_1.currentText()
 
         # Download basemap and get layer definition object
-        status, document = download_base_map(country_name, use_mask, admin_level_one)
+        status, document = download_base_map(use_mask, country_name, admin_level_one)
         if status:
             if use_mask:
                 current_country = conf.ADMIN_BOUNDS_KEY[country_name]

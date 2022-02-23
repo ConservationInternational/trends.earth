@@ -3,13 +3,13 @@ from functools import reduce
 import importlib
 import os
 from pathlib import Path
+import sys
 import tempfile
 import typing
 
 import qgis.core
 from osgeo import gdal
 from qgis.PyQt import (
-    QtCore,
     QtGui,
     QtWidgets
 )
@@ -101,15 +101,16 @@ def qgis_process_path() -> str:
     (or script) could not be found.
     """
     app = qgis.core.QgsApplication.instance()
-    os_name = app.osName()
+    platform_name = sys.platform
+    lib_path = app.libexecPath()
     proc_script_path = ''
     warning, info = qgis.core.Qgis.Warning, qgis.core.Qgis.Info
+    msg = 'QGIS installation not found.'
 
-    if os_name == 'windows':
-        lib_path = app.libexecPath()
+    if platform_name == 'win32':
         rt_path, sep, sub_path = lib_path.partition('apps')
         if not sep:
-            log('QGIS installation path not found.', warning)
+            log(msg, warning)
             return ''
 
         proc_scripts = [
@@ -122,13 +123,28 @@ def qgis_process_path() -> str:
             if os.path.exists(proc_script_path):
                 break
 
+    elif platform_name == 'darwin':
+        rt_path, sep, sub_path = lib_path.partition('lib')
+        if not sep:
+            log(msg, warning)
+            return ''
+
+        proc_script_path = f'{rt_path}bin/qgis_process'
+
+    elif platform_name in ('linux', 'freebsd'):
+        proc_script_path = '/usr/bin/qgis_process'
+
     if not proc_script_path:
+        log('Unable to determine the system platform.', warning)
+        return ''
+
+    if not os.path.exists(proc_script_path):
         log('QGIS processing program/script not found.', warning)
         return ''
 
     # Check execution permissions
     if not os.access(proc_script_path, os.X_OK):
-        log(f'User does not have execution permission '
+        log(f'User does not have execute permission '
             f'for \'{proc_script_path}\'.')
         return ''
 

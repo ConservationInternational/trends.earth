@@ -379,10 +379,11 @@ class ReportTaskProcessor:
         md.setCreationDateTime(QDateTime.currentDateTime())
         self._proj.setMetadata(md)
 
-        # View settings
+        # Project CRS and view settings
         crs = QgsCoordinateReferenceSystem.fromEpsgId(4326)
         default_extent = QgsReferencedRectangle(proj_extent, crs)
         self._proj.viewSettings().setDefaultViewExtent(default_extent)
+        self._proj.setCrs(crs, True)
 
     def _add_open_project_macro(self):
         # Add macro that shows the layout manager when the project is opened.

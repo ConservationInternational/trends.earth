@@ -221,6 +221,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
     open_details_tb: QtWidgets.QToolButton
     open_directory_tb: QtWidgets.QToolButton
     progressBar: QtWidgets.QProgressBar
+    report_pb: QtWidgets.QPushButton
 
     def __init__(self, job: Job, main_dock: "MainWidget", parent=None):
         super().__init__(parent)
@@ -373,4 +374,4 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         Returns handler with helper methods for generating and viewing
         reports.
         """
-        return self._report_handler()
+        return self._report_handler

@@ -69,6 +69,11 @@ class DatasetReportHandler:
         self._rpt_task_ctx = None
         self._regenerate_report = False
 
+        # Connect signal for report task completion
+        report_generator_manager.task_completed.connect(
+            self.on_task_completed
+        )
+
     @property
     def report_button(self) -> QPushButton:
         return self._rpt_btn
@@ -116,20 +121,25 @@ class DatasetReportHandler:
             return
         else:
             self._rpt_config = configs[0]
+            self._rpt_task_ctx = ReportTaskContext(
+                self._rpt_config,
+                [self._job]
+            )
 
-        # Enable/disable report button based on job and results status
-        rpt_status = self._check_job_report_status()
-        self._rpt_btn.setEnabled(rpt_status)
+        self.update_report_status()
 
         # For previously finished jobs but there is no report, submit the
         # job for report generation.
-        if self._regenerate_report and \
-                not report_generator_manager.is_task_running(
-                    self._get_report_task_context()
-                ):
-            self.generate_report()
+        self.generate_report()
 
-    def _check_job_report_status(self) -> bool:
+    def update_report_status(self) -> bool:
+        # Enable/disable report button based on job and results status.
+        rpt_status = self.check_job_report_status()
+        self._rpt_btn.setEnabled(rpt_status)
+
+        return rpt_status
+
+    def check_job_report_status(self) -> bool:
         # Check job status, assert datasets are available and no report has
         # been generated yet.
         if not self._job.status in (
@@ -159,14 +169,12 @@ class DatasetReportHandler:
         """
         return self._rpt_config
 
-    def _get_report_task_context(self):
-        # Create report task context for report generation.
-        ctx = ReportTaskContext(
-            self._rpt_config,
-            [self._job]
-        )
-
-        return ctx
+    @property
+    def report_task_context(self) -> ReportTaskContext:
+        """
+        Contains context information required for producing a job's report.
+        """
+        return self._rpt_task_ctx
 
     def _push_refactor_message(self, title, msg):
         if self._iface is None:
@@ -203,7 +211,7 @@ class DatasetReportHandler:
             return
 
         proj_path = FileUtils.project_path_from_report_task(
-            self._get_report_task_context(),
+            self._rpt_task_ctx,
             rpt_dir,
         )
 
@@ -237,12 +245,36 @@ class DatasetReportHandler:
             source
         )
 
-    def generate_report(self):
-        # Generate output report and source template
-        report_task_ctx = self._get_report_task_context()
-        report_generator_manager.process_report_task(
-            report_task_ctx
+    def generate_report(self) -> bool:
+        """
+        Generates output reports and corresponding QGIS project. Checks
+        prerequisites (job finished, no prior reports and no previous
+        submission still running).
+        Returns True if a report task is submitted, else False if at least
+        one of the prerequisites has not been met.
+        """
+        self.check_job_report_status()
+        rpt_task_running = report_generator_manager.is_task_running(
+            self._rpt_task_ctx
         )
+        if self._regenerate_report and not rpt_task_running:
+            report_generator_manager.process_report_task(
+                self._rpt_task_ctx
+            )
+            return True
+
+        return False
+
+    def on_task_completed(self, context_id: str):
+        """
+        Slot raised when a report task has been completed. This is used to
+        enable the status button if the task was successful.
+        """
+        if self._rpt_task_ctx is None:
+            return
+
+        if self._rpt_task_ctx.id() == context_id:
+            self.update_report_status()
 
 
 class MultiscopeJobReportModel(QStandardItemModel):

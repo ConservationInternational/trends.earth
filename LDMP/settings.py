@@ -1331,7 +1331,7 @@ class WidgetSettingsReport(QtWidgets.QWidget, Ui_WidgetSettingsReport):
         )
 
     def sizeHint(self) -> QtCore.QSize:
-        return QtCore.QSize(450, 300)
+        return QtCore.QSize(450, 350)
 
 
 

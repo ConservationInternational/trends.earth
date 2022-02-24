@@ -790,7 +790,8 @@ class ReportGeneratorManager(QObject):
     """
     Generates reports for single or multi-datasets based on custom layouts.
     """
-    task_started = pyqtSignal()
+    task_running = pyqtSignal(str)
+    task_completed = pyqtSignal(str)
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -988,8 +989,11 @@ class ReportGeneratorManager(QObject):
         if ctx is None:
             return
 
+        if status == QgsTask.Running:
+            self.task_running.emit(ctx.id())
+
         # Remove context file if task has been successfully completed.
-        if status == QgsTask.Complete:
+        elif status == QgsTask.Complete:
             if ctx in self._ctx_file_paths:
                 ctx_file_path = self._ctx_file_paths[ctx]
                 ctx_file = QFile(ctx_file_path)
@@ -1002,6 +1006,9 @@ class ReportGeneratorManager(QObject):
 
             # Remove from list of submitted tasks
             self.remove_task_context(ctx)
+
+            # Emit task_completed signal
+            self.task_completed.emit(ctx.id())
 
 
 report_generator_manager = ReportGeneratorManager()

@@ -29,6 +29,7 @@ from .conf import (
     settings_manager
 )
 from .jobs.models import Job
+from .reports.generator import report_generator_manager
 from .reports.models import ReportTaskContext
 from .reports.template_manager import template_manager
 from .reports.mvc import (
@@ -135,23 +136,21 @@ class DlgGenerateReport(QDialog, DlgGenerateReportUi):
         Slot raised to select output directory.
         """
         # Point to an initially selected directory if specified
-        base_file = self.output_dir_le.text()
-        if not base_file:
+        init_dir = self.output_dir_le.text()
+        if not init_dir:
             init_dir = template_manager.default_output_path
-        else:
-            fi = QFileInfo(base_file)
-            file_dir = fi.dir()
-            init_dir = file_dir.path()
 
-        rpt_base_filename, _ = QFileDialog.getSaveFileName(
+        output_dir = QFileDialog.getExistingDirectory(
             self,
-            self.tr('Specify Base Report File Name'),
+            self.tr('Select Report Output Directory'),
             init_dir,
-            options=QFileDialog.DontResolveSymlinks
+            options=QFileDialog.DontResolveSymlinks |
+                    QFileDialog.ShowDirsOnly
         )
-        if rpt_base_filename:
-            self.output_dir_le.setText(rpt_base_filename)
-            self.output_dir_le.setToolTip(rpt_base_filename)
+
+        if output_dir:
+            self.output_dir_le.setText(output_dir)
+            self.output_dir_le.setToolTip(output_dir)
 
     def validate(self) -> bool:
         # Validate user options.
@@ -173,9 +172,9 @@ class DlgGenerateReport(QDialog, DlgGenerateReportUi):
                 self.msg_bar.pushMessage(title, msg, level, duration)
             status = False
 
-        # Check base file name
+        # Check output directory
         if not self.output_dir_le.text():
-            msg = self.tr('No base file name specified.')
+            msg = self.tr('No output directory specified.')
             self.msg_bar.pushMessage(title, msg, level, duration)
             status = False
 
@@ -207,18 +206,14 @@ class DlgGenerateReport(QDialog, DlgGenerateReportUi):
 
         sel_config = self.template_cbo.itemData(self.template_cbo.currentIndex())
         jobs = self._scope_job_model.scope_job_mapping.values()
-        base_filename = self.output_dir_le.text()
-        rpt_paths = [
-            f'{base_filename}_report.{f.file_extension()}'
-            for f in sel_config.output_options.formats
-        ]
-        template_path = f'{base_filename}_template.qpt'
+        report_output_dir = self.output_dir_le.text()
 
         rpt_task_ctx = ReportTaskContext(
             sel_config,
-            rpt_paths,
-            template_path,
-            jobs
+            jobs,
+            report_output_dir
         )
+
+        report_generator_manager.process_report_task(rpt_task_ctx)
 
         self.accept()

@@ -125,7 +125,7 @@ def calculate_error_recode(
 
         if write_tifs:
             logger.info('Writing tifs')
-            results = write_results_to_s3_cog(
+            results = util.write_results_to_s3_cog(
                 results,
                 aoi,
                 filename_base=EXECUTION_ID,

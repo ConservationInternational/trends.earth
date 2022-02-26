@@ -265,6 +265,8 @@ class ReportTaskProcessor:
         )
         self._proj.write(proj_file)
 
+        return True
+
     def _export_layout(self, report_path, name) -> bool:
         """
         Export layout to the given file path.
@@ -273,8 +275,6 @@ class ReportTaskProcessor:
             return False
 
         self._layout.setName(name)
-
-        #self._update_project_metadata_extents()
 
         exporter = QgsLayoutExporter(self._layout)
         if 'pdf' in report_path:

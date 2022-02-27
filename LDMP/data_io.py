@@ -1463,7 +1463,7 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
     def get_current_band(self) -> Band:
         # Minus 1 below to account for blank line at beginning
 
-        return self.layer_list[self.comboBox_layers.currentIndex() - 1]
+        return self.layer_list[self.comboBox_layers.currentIndex() - 1] if self.comboBox_layers.currentIndex() - 1 >= 0 else None
 
     def set_index_from_job_id(self, job_id):
         if self.layer_list:

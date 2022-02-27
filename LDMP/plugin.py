@@ -15,7 +15,7 @@
 from builtins import object
 import os
 
-from qgis.core import QgsApplication, QgsMessageLog, Qgis
+from qgis.core import QgsApplication, QgsMessageLog, Qgis, QgsExpression
 from qgis.PyQt.QtCore import QCoreApplication, Qt
 from qgis.PyQt.QtWidgets import QAction, QMessageBox, QApplication, QMenu, QToolButton
 from qgis.PyQt.QtGui import QIcon
@@ -26,6 +26,7 @@ from . import (
     main_widget,
 )
 from .maptools import PolygonMapTool, BufferMapTool
+from .charts import calculate_charts
 from .jobs.manager import job_manager
 from .processing_provider.provider import Provider
 from .settings import DlgSettings
@@ -153,6 +154,7 @@ class LDMPPlugin(object):
 
     def initGui(self):
         self.initProcessing()
+        QgsExpression.registerFunction(calculate_charts)
 
         """Create Main manu icon and plugins menu entries."""
         start_action = self.add_action(os.path.join(os.path.dirname(__file__), 'icons', 'trends_earth_logo_square_32x32.ico'),
@@ -212,6 +214,7 @@ class LDMPPlugin(object):
         del self.toolbar
 
         QgsApplication.processingRegistry().removeProvider(self.provider)
+        QgsExpression.unregisterFunction(calculate_charts.name())
 
     def run_docked_interface(self, checked):
         if checked:

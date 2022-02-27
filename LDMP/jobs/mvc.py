@@ -9,6 +9,7 @@ from qgis.PyQt import QtWidgets
 from qgis.PyQt import uic
 from qgis.utils import iface
 from te_schemas.jobs import JobStatus
+from te_schemas.results import Band as JobBand
 
 from . import (manager)
 from .. import layers
@@ -18,6 +19,7 @@ from ..conf import Setting
 from ..conf import settings_manager
 from ..data_io import DlgDataIOAddLayersToMap
 from ..datasets_dialog import DatasetDetailsDialogue
+from ..select_dataset import DlgSelectDataset
 from .models import Job
 from .models import SortField, TypeFilter
 
@@ -393,4 +395,53 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         manager.job_manager.display_special_area_layer(self.job)
 
     def edit_layer(self):
-        manager.job_manager.edit_special_area_layer(self.job)
+        if not self.has_connected_data():
+            self.main_dock.pause_scheduler()
+            dlg = DlgSelectDataset(self)
+            if dlg.exec_():
+                sdg = dlg.sdg_band()
+                prod = dlg.prod_band()
+                land = dlg.land_band()
+                soil = dlg.soil_band()
+
+                if sdg:
+                    self.job.params['sdg'] = {'path':str(sdg.path),
+                                              'band':sdg.band_index,
+                                              'uuid':str(sdg.job.id)
+                                             }
+
+                if prod:
+                    self.job.params['prod'] = {'path':str(prod.path),
+                                              'band':prod.band_index,
+                                              'uuid':str(prod.job.id)
+                                             }
+
+                if land:
+                    self.job.params['land'] = {'path':str(land.path),
+                                              'band':land.band_index,
+                                              'uuid':str(land.job.id)
+                                             }
+
+                if soil:
+                    self.job.params['soil'] = {'soil':str(soil.path),
+                                              'soil':soil.band_index,
+                                              'soil':str(soil.job.id)
+                                             }
+                manager.job_manager.write_job_metadata_file(self.job)
+
+                layers.add_layer(str(sdg.path), sdg.band_index, JobBand.Schema().dump(sdg.band_info))
+                layers.add_layer(str(prod.path), prod.band_index, JobBand.Schema().dump(prod.band_info))
+                layers.add_layer(str(land.path), land.band_index, JobBand.Schema().dump(land.band_info))
+                layers.add_layer(str(soil.path), soil.band_index, JobBand.Schema().dump(soil.band_info))
+
+            manager.job_manager.edit_special_area_layer(self.job)
+            self.main_dock.resume_scheduler()
+
+    def has_connected_data(self):
+        has_sdg = True if 'sdg' in self.job.params else False
+        has_prod = True if 'prod' in self.job.params else False
+        has_land = True if 'land' in self.job.params else False
+        has_soil = True if 'soil' in self.job.params else False
+
+        return has_sdg or has_prod or has_land or has_soil
+

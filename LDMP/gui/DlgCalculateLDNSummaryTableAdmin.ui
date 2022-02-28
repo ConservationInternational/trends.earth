@@ -770,7 +770,7 @@
                     </size>
                    </property>
                    <property name="layer_type" stdset="0">
-                    <string notr="true">Productivity trend (significance)</string>
+                    <string notr="true">Productivity trajectory (significance)</string>
                    </property>
                   </widget>
                  </item>

@@ -32,7 +32,7 @@ from qgis.core import QgsRasterShader
 from qgis.core import QgsSingleBandPseudoColorRenderer
 from qgis.core import QgsProviderRegistry
 from qgis.core import QgsProviderSublayerDetails
-from qgis.core import QgsProject
+from qgis.core import QgsProject, QgsDefaultValue
 from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtCore import QCoreApplication
 from qgis.PyQt.QtGui import QColor
@@ -927,3 +927,18 @@ def add_vector_layer(layer_path: str, name: str, start_editing: bool):
         layer.startEditing()
 
     return True
+
+def set_default_value(v_path: str, field: str, r_path: str, band: int, v: int):
+    sublayers = QgsProviderRegistry.instance().providerMetadata('ogr').querySublayers(v_path)
+
+    layer = None
+    if len(sublayers) > 0:
+        options = QgsProviderSublayerDetails.LayerOptions(QgsProject.instance().transformContext())
+        options.loadDefaultStyle = True
+        layer = sublayers[0].toLayer(options)
+    else:
+        layer = QgsVectorLayer(v_path, '', 'ogr')
+
+    idx = layer.fields().lookupField(field)
+    layer.setDefaultValueDefinition(idx, QgsDefaultValue("calculate_charts('{}', {}, {})".format(r_path, band, v), True))
+    layer.saveStyleToDatabase('false_positive', '', True, '')

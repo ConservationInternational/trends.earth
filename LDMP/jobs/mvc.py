@@ -409,30 +409,39 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                                               'band':sdg.band_index,
                                               'uuid':str(sdg.job.id)
                                              }
+                    #layers.add_layer(str(sdg.path), sdg.band_index, JobBand.Schema().dump(sdg.band_info))
 
                 if prod:
                     self.job.params['prod'] = {'path':str(prod.path),
                                               'band':prod.band_index,
                                               'uuid':str(prod.job.id)
                                              }
+                    #layers.add_layer(str(prod.path), prod.band_index, JobBand.Schema().dump(prod.band_info))
 
                 if land:
                     self.job.params['land'] = {'path':str(land.path),
                                               'band':land.band_index,
                                               'uuid':str(land.job.id)
                                              }
+                    #layers.add_layer(str(land.path), land.band_index, JobBand.Schema().dump(land.band_info))
 
                 if soil:
                     self.job.params['soil'] = {'soil':str(soil.path),
                                               'soil':soil.band_index,
                                               'soil':str(soil.job.id)
                                              }
+                    #layers.add_layer(str(soil.path), soil.band_index, JobBand.Schema().dump(soil.band_info))
+
                 manager.job_manager.write_job_metadata_file(self.job)
 
-                layers.add_layer(str(sdg.path), sdg.band_index, JobBand.Schema().dump(sdg.band_info))
-                layers.add_layer(str(prod.path), prod.band_index, JobBand.Schema().dump(prod.band_info))
-                layers.add_layer(str(land.path), land.band_index, JobBand.Schema().dump(land.band_info))
-                layers.add_layer(str(soil.path), soil.band_index, JobBand.Schema().dump(soil.band_info))
+                # ~ layers.set_default_value(str(self.job.results.vector.uri.uri), 'sdg_imp', str(sdg.path), sdg.band_index, 1)
+                # ~ layers.set_default_value(str(self.job.results.vector.uri.uri), 'sdg_deg', str(sdg.path), sdg.band_index, -1)
+                # ~ layers.set_default_value(str(self.job.results.vector.uri.uri), 'prod_imp', str(prod.path), prod.band_index, 1)
+                # ~ layers.set_default_value(str(self.job.results.vector.uri.uri), 'prod_deg', str(prod.path), prod.band_index, -1)
+                layers.set_default_value(str(self.job.results.vector.uri.uri), 'land_imp', str(land.path), land.band_index, 1)
+                layers.set_default_value(str(self.job.results.vector.uri.uri), 'land_deg', str(land.path), land.band_index, -1)
+                layers.set_default_value(str(self.job.results.vector.uri.uri), 'soil_imp', str(soil.path), soil.band_index, 1)
+                layers.set_default_value(str(self.job.results.vector.uri.uri), 'soil_deg', str(soil.path), soil.band_index, -1)
 
             manager.job_manager.edit_special_area_layer(self.job)
             self.main_dock.resume_scheduler()
@@ -443,5 +452,4 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         has_land = True if 'land' in self.job.params else False
         has_soil = True if 'soil' in self.job.params else False
 
-        return has_sdg or has_prod or has_land or has_soil
-
+        return has_sdg and has_prod and has_land and has_soil

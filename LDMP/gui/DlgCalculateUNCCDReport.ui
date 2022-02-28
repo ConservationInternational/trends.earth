@@ -154,7 +154,7 @@
               </font>
              </property>
              <property name="title">
-              <string>Dataset for Strategic Objective 3 (tiers 1 and 2)</string>
+              <string>Dataset for Strategic Objective 3 (hazard and exposure)</string>
              </property>
              <property name="checkable">
               <bool>true</bool>
@@ -233,7 +233,7 @@
               </font>
              </property>
              <property name="title">
-              <string>Dataset for Strategic Objective 3 (tier 3)</string>
+              <string>Dataset for Strategic Objective 3 (vulnerability)</string>
              </property>
              <property name="checkable">
               <bool>true</bool>

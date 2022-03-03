@@ -409,39 +409,39 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                                               'band':sdg.band_index,
                                               'uuid':str(sdg.job.id)
                                              }
-                    #layers.add_layer(str(sdg.path), sdg.band_index, JobBand.Schema().dump(sdg.band_info))
 
                 if prod:
                     self.job.params['prod'] = {'path':str(prod.path),
                                               'band':prod.band_index,
                                               'uuid':str(prod.job.id)
                                              }
-                    #layers.add_layer(str(prod.path), prod.band_index, JobBand.Schema().dump(prod.band_info))
 
                 if land:
                     self.job.params['land'] = {'path':str(land.path),
                                               'band':land.band_index,
                                               'uuid':str(land.job.id)
                                              }
-                    #layers.add_layer(str(land.path), land.band_index, JobBand.Schema().dump(land.band_info))
 
                 if soil:
                     self.job.params['soil'] = {'soil':str(soil.path),
                                               'soil':soil.band_index,
                                               'soil':str(soil.job.id)
                                              }
-                    #layers.add_layer(str(soil.path), soil.band_index, JobBand.Schema().dump(soil.band_info))
 
                 manager.job_manager.write_job_metadata_file(self.job)
 
-                # ~ layers.set_default_value(str(self.job.results.vector.uri.uri), 'sdg_imp', str(sdg.path), sdg.band_index, 1)
-                # ~ layers.set_default_value(str(self.job.results.vector.uri.uri), 'sdg_deg', str(sdg.path), sdg.band_index, -1)
-                # ~ layers.set_default_value(str(self.job.results.vector.uri.uri), 'prod_imp', str(prod.path), prod.band_index, 1)
-                # ~ layers.set_default_value(str(self.job.results.vector.uri.uri), 'prod_deg', str(prod.path), prod.band_index, -1)
+                layers.set_default_value(str(self.job.results.vector.uri.uri), 'sdg_imp', str(sdg.path), sdg.band_index, 1)
+                layers.set_default_value(str(self.job.results.vector.uri.uri), 'sdg_deg', str(sdg.path), sdg.band_index, -1)
+                layers.set_default_value(str(self.job.results.vector.uri.uri), 'sdg_stab', str(sdg.path), sdg.band_index, 0)
+                layers.set_default_value(str(self.job.results.vector.uri.uri), 'prod_imp', str(prod.path), prod.band_index, 1)
+                layers.set_default_value(str(self.job.results.vector.uri.uri), 'prod_deg', str(prod.path), prod.band_index, -1)
+                layers.set_default_value(str(self.job.results.vector.uri.uri), 'prod_stab', str(prod.path), prod.band_index, 0)
                 layers.set_default_value(str(self.job.results.vector.uri.uri), 'land_imp', str(land.path), land.band_index, 1)
                 layers.set_default_value(str(self.job.results.vector.uri.uri), 'land_deg', str(land.path), land.band_index, -1)
+                layers.set_default_value(str(self.job.results.vector.uri.uri), 'land_stab', str(land.path), land.band_index, 0)
                 layers.set_default_value(str(self.job.results.vector.uri.uri), 'soil_imp', str(soil.path), soil.band_index, 1)
                 layers.set_default_value(str(self.job.results.vector.uri.uri), 'soil_deg', str(soil.path), soil.band_index, -1)
+                layers.set_default_value(str(self.job.results.vector.uri.uri), 'soil_stab', str(soil.path), soil.band_index, 0)
 
             manager.job_manager.edit_special_area_layer(self.job)
             self.main_dock.resume_scheduler()

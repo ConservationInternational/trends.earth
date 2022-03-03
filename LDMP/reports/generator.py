@@ -1,8 +1,10 @@
 """Report generator"""
 
 from dataclasses import dataclass
+import errno
 import json
 import os
+import signal
 import subprocess
 import traceback
 import typing
@@ -43,6 +45,7 @@ from qgis.PyQt.QtCore import (
     QCoreApplication,
     QDateTime,
     QFile,
+    QFileInfo,
     QIODevice,
     QObject
 )
@@ -756,7 +759,7 @@ class ReportProcessHandlerTask(QgsTask):
         super().__init__(description)
         self._ctx_file_path = ctx_file_path
         self._qgs_proc_path = qgis_proc_path
-        self._completed_process = None
+        self._process = None
 
     @property
     def context_file_path(self) -> str:
@@ -764,6 +767,20 @@ class ReportProcessHandlerTask(QgsTask):
         Returns the path to the report context JSON file.
         """
         return self._ctx_file_path
+
+    def cancel(self):
+        """
+        Cancel the qgis process.
+        """
+        if self._process is not None:
+            # Kill qgis_process associated with the given process id
+            pid = self._process.pid
+            if os.name == 'nt':
+                subprocess.Popen(f"TASKKILL /F /PID {pid} /T", shell=True)
+            else:
+                os.kill(pid, signal.SIGTERM)
+
+        super().cancel()
 
     def run(self) -> bool:
         # Launch qgis_process and execute algorithm.
@@ -775,12 +792,21 @@ class ReportProcessHandlerTask(QgsTask):
             self._qgs_proc_path, 'run', 'trendsearth:reporttask',
             '--', input_file
         ]
-        self._completed_process = subprocess.run(
+
+        startupinfo = None
+        if os.name == 'nt':
+            startupinfo = subprocess.STARTUPINFO()
+            startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
+
+        # Start process
+        self._process = subprocess.Popen(
             args,
-            shell=True
+            startupinfo=startupinfo
         )
 
-        result_code = self._completed_process.returncode
+        self._process.wait()
+
+        result_code = self._process.returncode
 
         # Ignore access violation error code raised by PNG driver.
         if result_code == 0 or result_code == 3221225477:

@@ -123,8 +123,7 @@ class ReportTaskContextAlgorithm(QgsProcessingAlgorithm):
         )
         status = rpt_processor.run()
 
-        html_log = feedback.htmlLog()
-        self.save_log_file(task_file_name, html_log, feedback)
+        self.save_log_file(task_file_name, feedback)
 
         return {'STATUS': status}
 
@@ -132,7 +131,6 @@ class ReportTaskContextAlgorithm(QgsProcessingAlgorithm):
     def save_log_file(
             cls,
             task_path: str,
-            html_log: str,
             feedback: QgsProcessingFeedback
     ):
         # Save warning messages in a log file.
@@ -157,6 +155,11 @@ class ReportTaskContextAlgorithm(QgsProcessingAlgorithm):
                 f'User does not have write permissions for {log_file_path}'
             )
             return
+
+        html_log = feedback.htmlLog()
+        # If there are no errors/warnings then indicate this in the log file
+        if len(html_log) == 0:
+            html_log = 'No warnings or errors to report. Process was successful.'
 
         with open(log_file_path, 'w') as lf:
             lf.write(html_log)

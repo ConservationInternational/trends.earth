@@ -217,3 +217,4 @@ class DlgGenerateReport(QDialog, DlgGenerateReportUi):
         report_generator_manager.process_report_task(rpt_task_ctx)
 
         self.accept()
+

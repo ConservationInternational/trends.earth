@@ -43,7 +43,6 @@ from qgis.PyQt.QtCore import (
     QCoreApplication,
     QDateTime,
     QFile,
-    QFileInfo,
     QIODevice,
     QObject
 )
@@ -303,13 +302,17 @@ class ReportTaskProcessor:
         root_tree = self._proj.layerTreeRoot()
         basemap_group = root_tree.findGroup(self.BASE_MAP_GROUP)
         if basemap_group is None:
+            self._append_warning_msg(
+                'Basemap root group not found, unable to restore basemap '
+                'layer.'
+            )
             return
 
         for bml in self._basemap_layers:
             basemap_group.addLayer(bml)
 
     def _update_project_metadata_extents(self, layer=None, title=None):
-        # Update the extents and metadata of the project
+        # Update the extents and metadata of the project or reference layer.
         description = ''
         if layer is None:
             template_info = self._ctx.report_configuration.template_info

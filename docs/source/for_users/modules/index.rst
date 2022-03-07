@@ -7,7 +7,9 @@ Training Manual
    :maxdepth: 2
    :caption: Training Manual
 
-   Land Degradation <landdegradation>
-   Land Consumption <landconsumption>
-   Carbon <carbon>
-   Restoration <restoration>
+   Settings <training_settings>
+   Land Degradation <training_landdegradation>
+   UNCCD Reporting <training_unccdreporting>
+   Land Consumption <training_landconsumption>
+   Carbon <training_carbon>
+   Restoration <training_restoration>

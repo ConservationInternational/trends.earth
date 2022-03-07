@@ -76,7 +76,6 @@ as the default data for computing the final SDG 15.3.1 Indicator.
 
 .. _indicator-productivity-trajectory:
       
-
 Land cover
 ~~~~~~~~~~
 

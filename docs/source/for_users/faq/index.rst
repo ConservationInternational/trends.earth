@@ -374,7 +374,7 @@ The below publications either use or relate to |trends.earth|.
 
 .. _other_resources:
   
- Other resources
+Other resources
 ===============
 
 Print documentation from the Trends.Earth project (including fact sheets, 

@@ -17,6 +17,10 @@ Trends.Earth
 | `English <../en/index.html>`_ | `Español <../es/index.html>`_ | `Francais <../fr/index.html>`_ |  `Swahili <../sw/index.html>`_ | `Português <../pt/index.html>`_ |
 +-------------------------------+-------------------------------+--------------------------------+--------------------------------+---------------------------------+
 
+.. raw:: html
+
+   </center>
+
 Trends.Earth was produced by a partnership of Conservation International, Lund
 University, and the National Aeronautics and Space Administration (NASA), with
 the support of the Global Environment Facility (GEF). It was further developed 

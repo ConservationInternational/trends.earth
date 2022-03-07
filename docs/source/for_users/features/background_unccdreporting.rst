@@ -49,7 +49,7 @@ potentially improved and degraded for the area of analysis.
 Sub-indicators
 --------------
 
-.. _indicator-productivity:
+.. _indicator-productivity-reporting:
 
 Productivity
 ~~~~~~~~~~~~~~
@@ -74,8 +74,6 @@ productivity indicators explained below.
 Land Productivity Dynamics (LPD) data are provided by the Joint Research Council (JRC)
 as the default data for computing the final SDG 15.3.1 Indicator.
 
-.. _indicator-productivity-trajectory:
-      
 Land cover
 ~~~~~~~~~~
 
@@ -106,8 +104,6 @@ maps can also be used. The indicator is computed as follows:
 
 .. image:: ../../../resources/en/documentation/understanding_indicators15/lc_flow.png
    :align: center
-
-.. _indicator-soc:
 
 Soil organic carbon
 ~~~~~~~~~~~~~~~~~~~

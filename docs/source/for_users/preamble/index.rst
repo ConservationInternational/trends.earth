@@ -16,15 +16,16 @@ consumption rate to population growth) by providing a platform for analyzing dat
 commitments to the United Nations Convention to Combat Desertification (UNCCD) and UN-Habitat. 
 
 The development of Trends.Earth was funded by the Global Environment Facility and NASA, 
-led by Conservation International and its partners. `Conservation International <https://www.conservation.org/>`_  
+led by Conservation International and its partners. `Conservation International`_  
 works to spotlight and secure the critical benefits that nature provides to humanity. 
 
 **Monitor land change**
 
 Trends.Earth (formerly the Land Degradation Monitoring Toolbox) is a platform
-from `Conservation International <http://www.conservation.org/trendsearth>`_
-for monitoring land change using earth observations in an innovative desktop
-and cloud-based system.
+from `Conservation International`_ for monitoring land change using earth observations
+in an innovative desktop and cloud-based system.
+
+.. _Conservation International: http://www.conservation.org/trendsearth
 
 **Track achievement of the sustainable development goals**
 

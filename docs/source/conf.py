@@ -174,13 +174,12 @@ html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
-# html_logo = '../resources/en/common/trends_earth_logo_bl_1200.png'
-html_logo = "../resources/en/common/trends_earth_logo_square_32x32.ico"
+html_logo = "trends_earth_logo_square_32x32.ico"
 
 # The name of an image file (within the static path) to use as favicon of the
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
 # pixels large.
-html_favicon = "../resources/en/common/trends_earth_logo_square_32x32.ico"
+html_favicon = "trends_earth_logo_square_32x32.ico"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -248,83 +247,6 @@ latex_documents = [
         u"Trends.Earth Documentation",
         u"Conservation International",
         "manual",
-    ),
-    (
-        "training/tutorial_installation",
-        u"Trends.Earth_Tutorial01_Installation.tex",
-        u"Installation",
-        u"Conservation International",
-        "howto",
-    ),
-    (
-        "training/tutorial_run_all_subindicators",
-        u"Trends.Earth_Tutorial02_Computing_Indicators.tex",
-        u"Compute Sub-indicators",
-        u"Conservation International",
-        "howto",
-    ),
-    (
-        "training/tutorial_task_download",
-        u"Trends.Earth_Tutorial03_Downloading_Results.tex",
-        u"Downloading Results",
-        u"Conservation International",
-        "howto",
-    ),
-    (
-        "training/tutorial_custom_lpd",
-        u"Trends.Earth_Tutorial04_Using_Custom_Productivity.tex",
-        u"Using Custom Land Productivity Data",
-        u"Conservation International",
-        "howto",
-    ),
-    (
-        "training/tutorial_custom_landcover",
-        u"Trends.Earth_Tutorial05_Using_Custom_Land_Cover.tex",
-        u"Using Custom Land Cover Data",
-        u"Conservation International",
-        "howto",
-    ),
-    (
-        "training/tutorial_custom_soc",
-        u"Trends.Earth_Tutorial06_Using_Custom_Soil_Carbon.tex",
-        u"Using Custom Soil Organic Carbon Data",
-        u"Conservation International",
-        "howto",
-    ),
-    (
-        "training/tutorial_compute_sdg_indicator",
-        u"Trends.Earth_Tutorial07_Computing_SDG_Indicator.tex",
-        u"How to Compute the SDG Indicator",
-        u"Conservation International",
-        "howto",
-    ),
-    (
-        "training/tutorial_summary_table",
-        u"Trends.Earth_Tutorial08_The_Summary_Table.tex",
-        u"The Summary Table",
-        u"Conservation International",
-        "howto",
-    ),
-    (
-        "training/tutorial_load_basemap",
-        u"Trends.Earth_Tutorial09_Loading_a_Basemap.tex",
-        u"Loading a Basemap",
-        u"Conservation International",
-        "howto",
-    ),
-    (
-        "training/tutorial_forest_carbon",
-        u"Trends.Earth_Tutorial10_Forest_Carbon.tex",
-        u"Forest and Carbon Change Tool",
-        u"Conservation International",
-        "howto",
-    ),
-    (
-        "training/tutorial_compute_urban_indicator",
-        u"Trends.Earth_Tutorial11_Urban_Change_SDG_Indicator.tex",
-        u"Urban Change SDG 11.3.1",
-        u"Conservation International",
-        "howto",
     ),
 ]
 

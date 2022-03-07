@@ -100,4 +100,4 @@ Trademark
 ----------
 
 |trends.earth| has a service mark trademark registered June 9, 2020 (reg. No. 6,074,442 
-and Int. Cl.: 9,35, 42) by the United States Patent and Tradmark Office.
+and Int. Cl.: 9,35,42) by the United States Patent and Trademark Office.

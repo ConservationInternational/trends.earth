@@ -1,4 +1,4 @@
-Pillow==8.3.2
+Pillow==9.0.0
 pandas==1.1.2
 numpy==1.19.0
 matplotlib==3.3.1

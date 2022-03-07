@@ -1,2 +1,0 @@
-Carbon sequestration from restoration
-=====================================

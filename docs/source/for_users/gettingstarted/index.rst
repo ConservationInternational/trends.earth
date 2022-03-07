@@ -8,6 +8,7 @@ Getting Started
    :maxdepth: 2
    :caption: Getting Started
 
-   Install QGIS <installqgis>
-   Registration <registration>
-   Sample Session <samplesession>
+   QGIS <qgis_version>
+   Browser <browser_version>
+   
+

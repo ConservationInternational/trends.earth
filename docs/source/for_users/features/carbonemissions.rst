@@ -1,2 +1,0 @@
-Carbon emissions from deforestation
-===================================

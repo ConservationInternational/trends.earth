@@ -6,9 +6,9 @@ Trends.Earth User Guide
     :maxdepth: 3
     :numbered:
 
-    preamble/whatsnew
+    preamble/index
     features/index
     gettingstarted/index
     modules/index
-    faq/faq
-    datasources/datasources
+    faq/index
+    datasources/index

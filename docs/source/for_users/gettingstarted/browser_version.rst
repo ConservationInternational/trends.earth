@@ -1,5 +1,16 @@
-Sample Session
+.. _browser_instructions:
+
+Browser
 ===================
+   
+Trends.Earth Browser Application
+--------------------------------
+
+Browser Registration
+--------------------------------
+
+Browser Sample Session
+=======================
 
 About Trends.Earth
 --------------------------------

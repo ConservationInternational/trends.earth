@@ -7,38 +7,26 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-from builtins import str
-import random
 import json
+import random
+from builtins import str
 
 import ee
-
-from te_algorithms.gee.productivity import productivity_trajectory, \
-    productivity_performance, productivity_state
 from te_algorithms.gee.download import download
-from te_schemas.schemas import CloudResultsSchema
+from te_algorithms.gee.productivity import productivity_performance
+from te_algorithms.gee.productivity import productivity_state
+from te_algorithms.gee.productivity import productivity_trajectory
+from te_algorithms.gee.util import teimage_v1_to_teimage_v2
+from te_schemas import results
+from te_schemas.productivity import ProductivityMode
 
 
 def run(params, logger):
     """."""
     logger.debug("Loading parameters.")
     prod_mode = params.get('prod_mode')
-    calc_traj = params.get('calc_traj')
-    calc_state = params.get('calc_state')
-    calc_perf = params.get('calc_perf')
-    prod_traj_year_initial = int(params.get('prod_traj_year_initial'))
-    prod_traj_year_final = int(params.get('prod_traj_year_final'))
-    prod_perf_year_initial = int(params.get('prod_perf_year_initial'))
-    prod_perf_year_final = int(params.get('prod_perf_year_final'))
-    prod_state_year_bl_start = int(params.get('prod_state_year_bl_start'))
-    prod_state_year_bl_end = int(params.get('prod_state_year_bl_end'))
-    prod_state_year_tg_start = int(params.get('prod_state_year_tg_start'))
-    prod_state_year_tg_end = int(params.get('prod_state_year_tg_end'))
     geojsons = json.loads(params.get('geojsons'))
     crs = params.get('crs')
-    prod_traj_method = params.get('trajectory_method')
-    ndvi_gee_dataset = params.get('ndvi_gee_dataset')
-    climate_gee_dataset = params.get('climate_gee_dataset')
 
     # Check the ENV. Are we running this locally or in prod?
 
@@ -46,30 +34,46 @@ def run(params, logger):
         EXECUTION_ID = str(random.randint(1000000, 99999999))
     else:
         EXECUTION_ID = params.get('EXECUTION_ID', None)
+    logger.debug(f"Execution ID is {EXECUTION_ID}")
 
     logger.debug("Running productivity indicators.")
 
-    proj = ee.Image(ndvi_gee_dataset).projection()
+    if prod_mode == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
+        calc_traj = params.get('calc_traj')
+        calc_state = params.get('calc_state')
+        calc_perf = params.get('calc_perf')
+        prod_traj_year_initial = int(params.get('prod_traj_year_initial'))
+        prod_traj_year_final = int(params.get('prod_traj_year_final'))
+        prod_perf_year_initial = int(params.get('prod_perf_year_initial'))
+        prod_perf_year_final = int(params.get('prod_perf_year_final'))
+        prod_state_year_bl_start = int(params.get('prod_state_year_bl_start'))
+        prod_state_year_bl_end = int(params.get('prod_state_year_bl_end'))
+        prod_state_year_tg_start = int(params.get('prod_state_year_tg_start'))
+        prod_state_year_tg_end = int(params.get('prod_state_year_tg_end'))
+        prod_traj_method = params.get('trajectory_method')
+        ndvi_gee_dataset = params.get('ndvi_gee_dataset')
+        climate_gee_dataset = params.get('climate_gee_dataset')
 
-    if prod_mode == 'Trends.Earth productivity':
         outs = []
 
         for geojson in geojsons:
             this_out = None
 
             if calc_traj:
-                traj = productivity_trajectory(int(prod_traj_year_initial),
-                                               int(prod_traj_year_final), prod_traj_method,
-                                               ndvi_gee_dataset, climate_gee_dataset,
-                                               logger)
+                traj = productivity_trajectory(
+                    int(prod_traj_year_initial), int(prod_traj_year_final),
+                    prod_traj_method, ndvi_gee_dataset, climate_gee_dataset,
+                    logger
+                )
 
                 if not this_out:
                     this_out = traj
 
             if calc_perf:
-                perf = productivity_performance(prod_perf_year_initial,
-                                                prod_perf_year_final, ndvi_gee_dataset,
-                                                geojson, logger)
+                perf = productivity_performance(
+                    prod_perf_year_initial, prod_perf_year_final,
+                    ndvi_gee_dataset, geojson, logger
+                )
 
                 if not this_out:
                     this_out = perf
@@ -77,39 +81,68 @@ def run(params, logger):
                     this_out.merge(perf)
 
             if calc_state:
-                state = productivity_state(prod_state_year_bl_start,
-                                           prod_state_year_bl_end,
-                                           prod_state_year_tg_start,
-                                           prod_state_year_tg_end,
-                                           ndvi_gee_dataset, logger)
+                state = productivity_state(
+                    prod_state_year_bl_start, prod_state_year_bl_end,
+                    prod_state_year_tg_start, prod_state_year_tg_end,
+                    ndvi_gee_dataset, logger
+                )
 
                 if not this_out:
                     this_out = state
                 else:
                     this_out.merge(state)
 
-            outs.append(this_out.export([geojson], 'productivity', crs, logger,
-                                        EXECUTION_ID, proj))
+            logger.debug("Converting output to TEImageV2 format")
+            this_out = teimage_v1_to_teimage_v2(this_out)
+            proj = ee.Image(ndvi_gee_dataset).projection()
+            outs.append(
+                this_out.export(
+                    [geojson], 'productivity', crs, logger, EXECUTION_ID, proj
+                )
+            )
 
         # First need to deserialize the data that was prepared for output from
         # the productivity functions, so that new urls can be appended
-        schema = CloudResultsSchema()
+        schema = results.RasterResults.Schema()
         logger.debug("Deserializing")
         final_output = schema.load(outs[0])
 
         for o in outs[1:]:
             this_out = schema.load(o)
-            final_output.urls.extend(this_out.urls)
-        logger.debug("Serializing")
+
+            for datatype, raster in this_out.data.items():
+                final_output.data[datatype].uri.extend(raster.uri)
+
         # Now serialize the output again and return it
+        logger.debug("Serializing")
 
         return schema.dump(final_output)
 
-    elif prod_mode == 'JRC LPD':
-        out = download('users/geflanddegradation/toolbox_datasets/lpd_300m_longlat',
-                       'Land Productivity Dynamics (LPD)', 'one time',
-                       None, None, logger)
+    elif prod_mode == ProductivityMode.JRC_5_CLASS_LPD.value:
+        prod_asset = params.get('prod_asset')
+        year_initial = params.get('year_initial')
+        year_final = params.get('year_final')
+        out = download(
+            prod_asset, 'Land Productivity Dynamics (from JRC)', 'one time',
+            None, None, logger
+        )
+        proj = ee.Image(prod_asset).projection()
+        out.image = out.image.int16(
+        ).rename(f'JRC_LPD_{year_initial}-{year_final}')
+        out.band_info[0].metadata.update(
+            {
+                'year_initial': year_initial,
+                'year_final': year_final
+            }
+        )
 
-        return out.export(geojsons, 'productivity', crs, logger, EXECUTION_ID, proj)
+        logger.debug("Converting output to TEImageV2 format")
+        out = teimage_v1_to_teimage_v2(out)
+
+        return out.export(
+            geojsons, 'productivity', crs, logger, EXECUTION_ID, proj
+        )
     else:
-        raise Exception('Unknown productivity mode "{}" chosen'.format(prod_mode))
+        raise Exception(
+            'Unknown productivity mode "{}" chosen'.format(prod_mode)
+        )

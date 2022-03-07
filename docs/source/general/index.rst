@@ -80,7 +80,7 @@ Citation
 If you wish to cite |trends.earth|, please use the following citation:
 
 Trends.Earth. Conservation International. Available online at:
-`http://trends.earth <http://trends.earth>`_. 2018.
+`http://trends.earth <http://trends.earth>`_. 2022.
 
 License
 ---------

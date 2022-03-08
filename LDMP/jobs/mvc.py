@@ -399,16 +399,9 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             self.main_dock.pause_scheduler()
             dlg = DlgSelectDataset(self)
             if dlg.exec_():
-                sdg = dlg.sdg_band()
                 prod = dlg.prod_band()
                 land = dlg.land_band()
                 soil = dlg.soil_band()
-
-                if sdg:
-                    self.job.params['sdg'] = {'path':str(sdg.path),
-                                              'band':sdg.band_index,
-                                              'uuid':str(sdg.job.id)
-                                             }
 
                 if prod:
                     self.job.params['prod'] = {'path':str(prod.path),
@@ -430,9 +423,6 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
 
                 manager.job_manager.write_job_metadata_file(self.job)
 
-                layers.set_default_value(str(self.job.results.vector.uri.uri), 'sdg_imp', str(sdg.path), sdg.band_index, 1)
-                layers.set_default_value(str(self.job.results.vector.uri.uri), 'sdg_deg', str(sdg.path), sdg.band_index, -1)
-                layers.set_default_value(str(self.job.results.vector.uri.uri), 'sdg_stab', str(sdg.path), sdg.band_index, 0)
                 layers.set_default_value(str(self.job.results.vector.uri.uri), 'prod_imp', str(prod.path), prod.band_index, 1)
                 layers.set_default_value(str(self.job.results.vector.uri.uri), 'prod_deg', str(prod.path), prod.band_index, -1)
                 layers.set_default_value(str(self.job.results.vector.uri.uri), 'prod_stab', str(prod.path), prod.band_index, 0)
@@ -447,9 +437,8 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             self.main_dock.resume_scheduler()
 
     def has_connected_data(self):
-        has_sdg = True if 'sdg' in self.job.params else False
         has_prod = True if 'prod' in self.job.params else False
         has_land = True if 'land' in self.job.params else False
         has_soil = True if 'soil' in self.job.params else False
 
-        return has_sdg and has_prod and has_land and has_soil
+        return has_prod and has_land and has_soil

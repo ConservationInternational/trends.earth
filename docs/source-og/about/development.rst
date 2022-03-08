@@ -418,6 +418,82 @@ Again - never run the above on a publicly released version of the plugin unless
 you are intending to overwrite all the publicly available scripts used by the 
 plugin.
 
+Special areas notes
+___________________
+
+Trends.Earth allow users to digitize new vector features to delineate areas of special
+interest.
+
+For now only "false positive/negative" layers are supported, but more can be added if necessary.
+Any special area layer is created from the template GeoPackage files, which can be found inside
+the ``data/special_areas`` folder of the plugin installation directory. For each special area type
+there are 6 template files, one for each UN official language. ISO language code added as suffix
+to the file name. This is necessary to provide localized labels in the attribute forms. When
+creation of the special area layer is requested QGIS will look for the template file taking QGIS
+locale into accont, as a fall-back option English version of the template file is used.
+
+To change schema of the layer it is necessary to change corresponding template files in the
+``data/special_areas`` folder of the plugin installation directory. Also template file contains
+a buil-in default styling and attribute form configuration which will be automatically applied
+to the layer when loading into QGIS.
+
+To display charts in the attribute form a built-in QML widget is used. Data for charts are store
+in the special area layer attribute table. Values from the corresponding fields extracted with the
+help of expressions.
+
+Here is how code to generate chars looks like:
+
+   import QtQuick 2.0
+   import QtCharts 2.0
+
+   ChartView {
+       width: 380
+       height:200
+       margins {top: 0; bottom: 0; left: 0; right: 0}
+       backgroundColor: "#eeeeec"
+       legend.alignment: Qt.AlignBottom
+       antialiasing: true
+       ValueAxis{
+           id: valueAxisY
+           min: 0
+           max: 100
+       }
+
+       BarSeries {
+           id: mySeries
+           axisY: valueAxisY
+           axisX: BarCategoryAxis { categories: ["Productivity", "Land cover", "Soil organic carbon"] }
+           BarSet { label: "Degraded"; color: "#9b2779"; values: [expression.evaluate("\"prod_deg\""), expression.evaluate("\"land_deg\""), expression.evaluate("\"soil_deg\"")] }
+           BarSet { label: "Improved"; color: "#006500"; values: [expression.evaluate("\"prod_imp\""), expression.evaluate("\"land_imp\""), expression.evaluate("\"soil_imp\"")] }
+           BarSet { label: "Stable"; color: "#ffffe0"; values: [expression.evaluate("\"prod_stab\""), expression.evaluate("\"land_stab\""), expression.evaluate("\"soil_stab\"")] }
+       }
+   }
+
+To extract field value function ``expression.evaluate("\"prod_deg\"")`` is used,
+the only argument it accepts is the name of the field. For false positive/negative layers
+chart contains three indicators: productivity, land cover and soil organic carbon. For each
+indicator plugin keeps three values stable, degraded and improved percentage of area. For
+example, in case of productivity indicator fields will be:
+
+   - prod_deg - degraded productivity
+   - prod_stab - stable productivity
+   - prod_imp - improved productivity
+
+The same naming approach is applied to land cover (``land_*`` fields) and soil organic carbon
+(``soil_*`` fields).
+
+Calculation of area percentage is done with custom expression function, its code can be found
+in the file ``charts.py`` in the plugin root directory. Function optimized to work with large
+polygons and uses following workflow. For a given geometry find a bbox and extract raster susbset
+using this bbox. Perform in-memory geometry rasterization and apply it as a mask to raster. Then
+count number of pixels which have specific value and calculate percentage. As pixel counting is built
+on numpy array functions it is very fast even for big polygons.
+
+On the first attempt to edit special area layer user will be presented with a dialog where they should
+select which datasets to use for indicators. Then plugin will setup default expression values for all
+indicator fields, so the value will be updated on every geometry change.
+
+
 Contributing to the documentation
 _________________________________
 

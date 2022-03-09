@@ -549,7 +549,7 @@ def _get_cutoff(
             )
 
 
-def _create_categorical_color_ramp(style_config: typing.Dict):
+def create_categorical_color_ramp(style_config: typing.Dict):
     ramp_items = style_config["ramp"]["items"]
     result = []
 
@@ -692,7 +692,7 @@ def _create_color_ramp(
     ramp_type = style_config["ramp"]["type"]
 
     if ramp_type == 'categorical':
-        result = _create_categorical_color_ramp(style_config)
+        result = create_categorical_color_ramp(style_config)
     elif ramp_type == 'categorical with dynamic ramp':
         result = _create_categorical_with_dynamic_ramp_color_ramp(
             style_config, band_info

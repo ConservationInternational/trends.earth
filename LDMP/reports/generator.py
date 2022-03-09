@@ -63,6 +63,10 @@ from ..layers import (
 )
 from ..logger import log
 
+from .charts import (
+    AlgorithmChartsManager,
+    LayerBandInfo
+)
 from .expressions import ReportExpressionUtils
 from .models import (
     ReportTaskContext,
@@ -113,6 +117,7 @@ class ReportTaskProcessor:
         self._should_add_basemap = True
         self._basemap_layers = []
         self._output_root_dir = ''
+        self._charts_mgr = AlgorithmChartsManager()
 
     @property
     def context(self) -> ReportTaskContext:
@@ -176,6 +181,7 @@ class ReportTaskProcessor:
         # Creates map layers for each job.
         for j in self._ctx.jobs:
             layers = []
+            layer_band_infos = []
             bands = j.results.get_bands()
             for band_idx, band in enumerate(bands, start=1):
                 if band.add_to_map:
@@ -214,8 +220,16 @@ class ReportTaskProcessor:
                                 band_idx
                             )
                             layers.append(band_layer)
+
+                            # Layer band info for the charts
+                            lbi = LayerBandInfo(band_layer, band_info)
+                            layer_band_infos.append(lbi)
                     else:
                         self._append_warning_msg(f'{title}layer is invalid.')
+
+            # Add job layer-band info mapping for use in generating charts
+            if len(layer_band_infos) > 0:
+                self._charts_mgr.add_job_layers(j, layer_band_infos)
 
             # Just to ensure that we don't have empty lists
             if len(layers) > 0:
@@ -423,6 +437,9 @@ class ReportTaskProcessor:
         self._update_project_metadata_extents()
         self._save_project()
 
+        # Generate charts
+        self._charts_mgr.generate_charts()
+
         return True
 
     def _check_template_type_exists(self, abs_paths):
@@ -504,6 +521,7 @@ class ReportTaskProcessor:
             # Set root output directory
             if not self._output_root_dir:
                 self._output_root_dir = rpt_root_dir
+                self._charts_mgr.output_dir = rpt_root_dir
 
             for jl in job_layers:
                 '''
@@ -747,7 +765,7 @@ class ReportTaskProcessor:
 
 class ReportProcessHandlerTask(QgsTask):
     """
-    Bridge for communicating with the report task algorithm to run in
+    Bridge for communicating with the report task algorithm running in
     'qgis_process'.
     """
     def __init__(
@@ -770,7 +788,7 @@ class ReportProcessHandlerTask(QgsTask):
 
     def cancel(self):
         """
-        Cancel the qgis process.
+        Cancel the qgis_process.
         """
         if self._process is not None:
             # Kill qgis_process associated with the given process id

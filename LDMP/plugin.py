@@ -72,6 +72,8 @@ class LDMPPlugin(object):
         self.toolButton = None
         self.toolBtnAction = None
         self.dlg_about = None
+        self.start_action = None
+        self.dock_widget = None
 
     def initProcessing(self):
         self.provider = Provider()
@@ -184,13 +186,18 @@ class LDMPPlugin(object):
         self.init_reports()
 
         """Create Main manu icon and plugins menu entries."""
-        start_action = self.add_action(os.path.join(os.path.dirname(__file__), 'icons', 'trends_earth_logo_square_32x32.ico'),
+        self.start_action = self.add_action(
+            os.path.join(
+                os.path.dirname(__file__),
+                'icons',
+                'trends_earth_logo_square_32x32.ico'
+            ),
             text='Trends.Earth',
             callback=self.run_docked_interface,
             parent=self.iface.mainWindow(),
             status_tip=self.tr('Trends.Earth dock interface'),
             set_as_default_action=True)
-        start_action.setCheckable(True)
+        self.start_action.setCheckable(True)
 
         self.add_action(
             os.path.join(os.path.dirname(__file__), 'icons', 'wrench.svg'),
@@ -222,13 +229,29 @@ class LDMPPlugin(object):
 
     def run_docked_interface(self, checked):
         if checked:
-            self.dock_widget = main_widget.MainWidget(
-                self.iface, parent=self.iface.mainWindow())
-            self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dock_widget)
+            if self.dock_widget is None:
+                self.dock_widget = main_widget.MainWidget(
+                    self.iface, parent=self.iface.mainWindow())
+                self.iface.addDockWidget(
+                    Qt.RightDockWidgetArea,
+                    self.dock_widget
+                )
+                self.dock_widget.visibilityChanged.connect(
+                    self.on_dock_visibility_changed
+                )
             self.dock_widget.show()
         else:
-            if hasattr(self, 'dock_widget') and self.dock_widget.isVisible():
+            if self.dock_widget is not None and self.dock_widget.isVisible():
                 self.dock_widget.hide()
+
+    def on_dock_visibility_changed(self, status):
+        """
+        Check/uncheck start action.
+        """
+        if status:
+            self.start_action.setChecked(True)
+        else:
+            self.start_action.setChecked(False)
 
     def run_settings(self):
         old_base_dir = conf.settings_manager.get_value(conf.Setting.BASE_DIR)

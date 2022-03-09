@@ -180,7 +180,6 @@ class DlgCalculateUNCCDReport(DlgCalculateBase, DlgCalculateUNCCDReportUi):
         self.combo_boxes = unccd.UNCCDReportWidgets(
             combo_dataset_so1_so2=self.combo_dataset_so1_so2,
             combo_dataset_so3=self.combo_dataset_so3,
-            combo_layer_jrc_vulnerability=self.combo_layer_jrc_vulnerability,
         )
 
         self.changed_region.connect(self.combo_boxes.populate)
@@ -219,16 +218,12 @@ class DlgCalculateUNCCDReport(DlgCalculateBase, DlgCalculateUNCCDReportUi):
 
     def validate_data_selections(self, combo_boxes):
         """validate all needed datasets are selected"""
-        if not self._validate_dataset_selection(
-            combo_boxes.combo_dataset_so1_so2, "SO1 and SO2"
+        if self.groupbox_so1_so2.isChecked() and not self._validate_dataset_selection(
+            combo_boxes.combo_dataset_so1_so2, self.tr("SO1 and SO2")
         ):
             return False
-        elif not self._validate_dataset_selection(
-            combo_boxes.combo_dataset_so3, "SO3 (tiers 1 and 2)"
-        ):
-            return False
-        elif not self._validate_layer_selection(
-            combo_boxes.combo_layer_jrc_vulnerability, "SO3 (tier 3)"
+        elif self.groupbox_so3.isChecked() and not self._validate_dataset_selection(
+            combo_boxes.combo_dataset_so3, self.tr("SO3 (hazard and exposure)")
         ):
             return False
         else:
@@ -251,19 +246,21 @@ class DlgCalculateUNCCDReport(DlgCalculateBase, DlgCalculateUNCCDReportUi):
         params = {
             "task_name": self.options_tab.task_name.text(),
             "task_notes": self.options_tab.task_notes.toPlainText(),
+            "include_so1_so2": self.groupbox_so1_so2.isChecked(),
+            "include_so3": self.groupbox_so3.isChecked(),
+            "affected_only": self.checkBox_affected_areas_only.isChecked(),
         }
         params.update(
             unccd.get_main_unccd_report_job_params(
                 task_name=self.options_tab.task_name.text(),
                 combo_dataset_so1_so2=self.combo_boxes.combo_dataset_so1_so2,
                 combo_dataset_so3=self.combo_boxes.combo_dataset_so3,
-                combo_layer_jrc_vulnerability=self.combo_boxes.combo_layer_jrc_vulnerability,
                 task_notes=self.options_tab.task_notes.toPlainText(),
             )
         )
 
-        job_manager.submit_local_job(
+        self.close()
+
+        job_manager.submit_local_job_as_qgstask(
             params, script_name=self.LOCAL_SCRIPT_NAME, area_of_interest=None
         )
-
-        self.close()

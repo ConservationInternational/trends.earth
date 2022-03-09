@@ -73,7 +73,7 @@
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
            <item>
-            <widget class="QGroupBox" name="groupBox_4">
+            <widget class="QGroupBox" name="groupbox_so1_so2">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
                <horstretch>0</horstretch>
@@ -99,7 +99,7 @@
               </font>
              </property>
              <property name="title">
-              <string>Dataset for Strategic Objectives 1 and 2</string>
+              <string>Dataset for Strategic Objectives 1 and 2 (land degradation, and population exposed)</string>
              </property>
              <property name="checkable">
               <bool>true</bool>
@@ -128,7 +128,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QGroupBox" name="groupBox_progress_period">
+            <widget class="QGroupBox" name="groupbox_so3">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
                <horstretch>0</horstretch>
@@ -154,7 +154,7 @@
               </font>
              </property>
              <property name="title">
-              <string>Dataset for Strategic Objective 3 (hazard and exposure)</string>
+              <string>Dataset for Strategic Objective 3 (drought hazard, exposure and vulnerability)</string>
              </property>
              <property name="checkable">
               <bool>true</bool>
@@ -207,61 +207,10 @@
             </widget>
            </item>
            <item>
-            <widget class="QGroupBox" name="groupBox_progress_period_2">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
+            <widget class="QCheckBox" name="checkBox_affected_areas_only">
+             <property name="text">
+              <string>Calculation is for affected areas only</string>
              </property>
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="font">
-              <font>
-               <weight>50</weight>
-               <bold>false</bold>
-              </font>
-             </property>
-             <property name="title">
-              <string>Dataset for Strategic Objective 3 (vulnerability)</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <layout class="QVBoxLayout" name="verticalLayout_5">
-              <item>
-               <widget class="WidgetDataIOSelectTELayerExisting" name="combo_layer_jrc_vulnerability">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>30</height>
-                 </size>
-                </property>
-                <property name="layer_type" stdset="0">
-                 <string notr="true">Drought Vulnerability (JRC)</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
             </widget>
            </item>
            <item>
@@ -300,13 +249,6 @@
                </widget>
               </item>
              </layout>
-            </widget>
-           </item>
-           <item>
-            <widget class="QCheckBox" name="checkBox">
-             <property name="text">
-              <string>Calculation is for affected areas only</string>
-             </property>
             </widget>
            </item>
            <item>
@@ -416,11 +358,6 @@ p, li { white-space: pre-wrap; }
  <customwidgets>
   <customwidget>
    <class>WidgetDataIOSelectTEDatasetExisting</class>
-   <extends>QComboBox</extends>
-   <header>LDMP/data_io</header>
-  </customwidget>
-  <customwidget>
-   <class>WidgetDataIOSelectTELayerExisting</class>
    <extends>QComboBox</extends>
    <header>LDMP/data_io</header>
   </customwidget>

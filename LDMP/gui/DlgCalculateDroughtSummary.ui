@@ -158,7 +158,7 @@
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_5">
               <item>
-               <widget class="WidgetDataIOSelectTELayerExisting" name="combo_layer_jrc_vulnerability">
+               <widget class="WidgetDataIOSelectTELayerExisting" name="combo_layer_so3_vulnerability">
                 <property name="enabled">
                  <bool>true</bool>
                 </property>

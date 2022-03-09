@@ -614,7 +614,6 @@ def _safe_remove_folder(rootdir):
         for file in files:
             file.unlink()
 
-    rootdir.rmdir()
 
 @task(
     help={

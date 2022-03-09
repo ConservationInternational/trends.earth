@@ -2,7 +2,6 @@
 Code for calculating all three SDG 15.3.1 sub-indicators.
 """
 # Copyright 2017 Conservation International
-
 import random
 import tempfile
 from builtins import str
@@ -14,10 +13,10 @@ from te_algorithms.gdal.land_deg.land_deg_recode import rasterize_error_recode
 from te_algorithms.gdal.land_deg.land_deg_recode import recode_errors
 from te_schemas import algorithms
 from te_schemas import jobs
-from te_schemas import results
 from te_schemas.aoi import AOI
 from te_schemas.error_recode import ErrorRecodePolygons
 from te_schemas.productivity import ProductivityMode
+from te_schemas.results import Band
 from te_schemas.results import JsonResults
 from te_schemas.results import RasterResults
 
@@ -61,12 +60,12 @@ def calculate_error_recode(
         suffix='_error_recode.tif', delete=False
     ).name
     rasterize_error_recode(
-        error_recode_tif, input_job.results.data_path, error_polygons
+        error_recode_tif, input_job.results.uri.uri, error_polygons
     )
-    error_recode_band = results.Band(
+    error_recode_band = Band(
         name=ERROR_RECODE_BAND_NAME,
         metadata={},
-        no_data_value=ld_config.NODATA_VALUE,
+        no_data_value=int(ld_config.NODATA_VALUE),
         activated=True
     )
 
@@ -91,15 +90,15 @@ def calculate_error_recode(
         "task_notes":
         input_job.task_notes,
         "layer_input_band_path":
-        str(input_job.results.data_path),
+        str(input_job.results.uri.uri),
         "layer_input_band":
-        results.Band.Schema().dump(input_band.band),
+        Band.Schema().dump(input_band.band),
         "layer_input_band_index":
         input_band.band_number,
         "layer_error_recode_path":
         str(error_recode_tif),
         "layer_error_recode_band":
-        results.Band.Schema().dump(error_recode_band),
+        Band.Schema().dump(error_recode_band),
         "layer_error_recode_band_index":
         1,
         'error_polygons':
@@ -113,7 +112,7 @@ def calculate_error_recode(
     logger.info('Starting error recoding calculation')
     with tempfile.TemporaryDirectory() as temp_dir:
         recode_params['output_path'] = (
-            Path(temp_dir) / input_job.results.data_path.stem
+            Path(temp_dir) / input_job.results.uri.uri.stem
         )
         results = recode_errors(recode_params)
 
@@ -126,18 +125,13 @@ def calculate_error_recode(
 
         if write_tifs:
             logger.info('Writing tifs')
-            data_path, urls = util.write_output_to_s3_cog(
-                data_path=results.data_path,
-                aoi=aoi,
+            results = util.write_results_to_s3_cog(
+                results,
+                aoi,
                 filename_base=EXECUTION_ID,
                 s3_prefix='prais-4',
-                s3_bucket=S3_BUCKET_USER_DATA,
-                s3_region=S3_REGION
+                s3_bucket=S3_BUCKET_USER_DATA
             )
-            # Update results data_path to point to a GDAL vsi path on S3
-            results.data_path = data_path
-            # Update urls to point to a https url for vrt/tif on S3
-            results.urls = urls
 
     if isinstance(results, RasterResults):
         results = RasterResults.Schema().dump(results)

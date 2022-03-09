@@ -1,4 +1,4 @@
 earthengine-api==0.1.232
 rollbar==0.14.7
-git+https://github.com/conservationinternational/trends.earth-algorithms.git@develop
+git+https://github.com/conservationinternational/trends.earth-algorithms.git@v1.99.8
 

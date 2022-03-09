@@ -122,6 +122,8 @@ if conf.settings_manager.get_value(conf.Setting.DEBUG):
         Path(conf.settings_manager.get_value(conf.Setting.BASE_DIR)) /
         'trends_earth_log.txt'
     )
+    Path(logfilename).parent.mkdir(parents=True, exist_ok=True)
+
     logging.basicConfig(
         filename=logfilename, level=logging.DEBUG, format=formatter
     )

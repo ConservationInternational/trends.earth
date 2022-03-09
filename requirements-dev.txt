@@ -6,6 +6,4 @@ sphinx-rtd-theme
 transifex-client>=0.13.6
 pylint
 pip>=10.0.0
-PyQt5
-numba==0.54.0
 requests==2.26.0

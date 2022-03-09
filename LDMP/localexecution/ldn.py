@@ -365,5 +365,5 @@ def compute_ldn(
     """Calculate final SDG 15.3.1 indicator and save to disk"""
 
     return summarise_land_degradation(
-        ldn_job, AOI(aoi.get_geojson()), job_output_path
+        ldn_job, AOI(aoi.get_geojson()), job_output_path, n_cpus=1
     )

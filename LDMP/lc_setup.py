@@ -798,26 +798,10 @@ class LCDefineDegradationWidget(
 
         self.setupUi(self)
 
-        self.nesting = get_lc_nesting()
         self.trans_matrix = get_trans_matrix()
 
-        self.deg_def_matrix.setRowCount(len(self.trans_matrix.legend.key))
-        self.deg_def_matrix.setColumnCount(len(self.trans_matrix.legend.key))
-        self.deg_def_matrix.setHorizontalHeaderLabels(
-            [c.name_short for c in self.trans_matrix.legend.key]
-        )
-        self.deg_def_matrix.setVerticalHeaderLabels(
-            [c.name_short for c in self.trans_matrix.legend.key]
-        )
+        self.setup_deg_def_matrix(self.trans_matrix.legend)
 
-        for row in range(0, self.deg_def_matrix.rowCount()):
-            for col in range(0, self.deg_def_matrix.columnCount()):
-                line_edit = TransMatrixEdit()
-                line_edit.setValidator(
-                    QtGui.QRegExpValidator(QtCore.QRegExp("[-0+]"))
-                )
-                line_edit.setAlignment(QtCore.Qt.AlignHCenter)
-                self.deg_def_matrix.setCellWidget(row, col, line_edit)
         self.set_trans_matrix()
 
         # Setup the vertical label for the rows of the table
@@ -840,24 +824,6 @@ class LCDefineDegradationWidget(
             label_lc_baseline_year, 1, 0, 1, 1, QtCore.Qt.AlignCenter
         )
 
-        self.deg_def_matrix.setStyleSheet('QTableWidget {border: 0px;}')
-        self.deg_def_matrix.horizontalHeader().setStyleSheet(
-            'QHeaderView::section {background-color: white;border: 0px;}'
-        )
-        self.deg_def_matrix.verticalHeader().setStyleSheet(
-            'QHeaderView::section {background-color: white;border: 0px;}'
-        )
-
-        for row in range(0, self.deg_def_matrix.rowCount()):
-            self.deg_def_matrix.horizontalHeader().setSectionResizeMode(
-                row, QtWidgets.QHeaderView.Stretch
-            )
-
-        for col in range(0, self.deg_def_matrix.columnCount()):
-            self.deg_def_matrix.verticalHeader().setSectionResizeMode(
-                col, QtWidgets.QHeaderView.Stretch
-            )
-
         self.btn_transmatrix_reset.clicked.connect(
             lambda: self.set_trans_matrix(get_default=True)
         )
@@ -877,6 +843,43 @@ class LCDefineDegradationWidget(
         self.legend_stable.setStyleSheet(
             'QLineEdit {background: #FFFFE0;} QLineEdit:hover {border: 1px solid gray; background: #FFFFE0;}'
         )
+
+    def setup_deg_def_matrix(self, legend):
+        self.deg_def_matrix.setRowCount(len(legend.key))
+        self.deg_def_matrix.setColumnCount(len(legend.key))
+        self.deg_def_matrix.setHorizontalHeaderLabels(
+            [c.name_short for c in legend.key]
+        )
+        self.deg_def_matrix.setVerticalHeaderLabels(
+            [c.name_short for c in legend.key]
+        )
+
+        for row in range(0, self.deg_def_matrix.rowCount()):
+            for col in range(0, self.deg_def_matrix.columnCount()):
+                line_edit = TransMatrixEdit()
+                line_edit.setValidator(
+                    QtGui.QRegExpValidator(QtCore.QRegExp("[-0+]"))
+                )
+                line_edit.setAlignment(QtCore.Qt.AlignHCenter)
+                self.deg_def_matrix.setCellWidget(row, col, line_edit)
+
+        self.deg_def_matrix.setStyleSheet('QTableWidget {border: 0px;}')
+        self.deg_def_matrix.horizontalHeader().setStyleSheet(
+            'QHeaderView::section {background-color: white;border: 0px;}'
+        )
+        self.deg_def_matrix.verticalHeader().setStyleSheet(
+            'QHeaderView::section {background-color: white;border: 0px;}'
+        )
+
+        for row in range(0, self.deg_def_matrix.rowCount()):
+            self.deg_def_matrix.horizontalHeader().setSectionResizeMode(
+                row, QtWidgets.QHeaderView.Stretch
+            )
+
+        for col in range(0, self.deg_def_matrix.columnCount()):
+            self.deg_def_matrix.verticalHeader().setSectionResizeMode(
+                col, QtWidgets.QHeaderView.Stretch
+            )
 
     def trans_matrix_loadfile(self):
         f, _ = QtWidgets.QFileDialog.getOpenFileName(
@@ -955,6 +958,8 @@ class LCDefineDegradationWidget(
             LCTransitionDefinitionDeg.Schema().dumps(matrix)
         )
 
+        self.setup_deg_def_matrix(matrix.legend)
+
         for row in range(0, self.deg_def_matrix.rowCount()):
             initial_class = matrix.legend.key[row]
 
@@ -1006,13 +1011,13 @@ class LCDefineDegradationWidget(
                     )
                 transitions.append(
                     LCTransitionMeaningDeg(
-                        self.nesting.parent.key[row],
-                        self.nesting.parent.key[col], meaning
+                        self.trans_matrix.legend.key[row],
+                        self.trans_matrix.legend.key[col], meaning
                     )
                 )
 
         return LCTransitionDefinitionDeg(
-            legend=self.nesting.parent,
+            legend=self.trans_matrix.legend,
             name="Land cover transition definition matrix",
             definitions=LCTransitionMatrixDeg(
                 name="Degradation matrix", transitions=transitions

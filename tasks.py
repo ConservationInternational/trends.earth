@@ -614,6 +614,8 @@ def _safe_remove_folder(rootdir):
         for file in files:
             file.unlink()
 
+    rootdir.rmdir()
+
 @task(
     help={
         'clean': 'Clean out dependencies first',
@@ -721,9 +723,8 @@ def plugin_install(
             )
         )
 
-        if clean:
-            if os.path.exists(dst_this_plugin):
-                _safe_remove_folder(dst_this_plugin)
+        if clean and os.path.exists(dst_this_plugin):
+            _safe_remove_folder(dst_this_plugin)
 
         for root, dirs, files in os.walk(src):
             relpath = os.path.relpath(root)
@@ -743,17 +744,23 @@ def plugin_install(
                         .format(f, os.path.join(dst_plugins, relpath, f))
                     )
             _filter_excludes(root, dirs, c)
-    elif not os.path.exists(dst_this_plugin):
-        print(
-            "Linking plugin development folder to QGIS version {} plugin folder at {}"
-            .format(version, dst_this_plugin)
-        )
-        os.symlink(src, dst_this_plugin)
     else:
-        print(
-            "Not linking - plugin folder for QGIS version {} already exists at {}"
-            .format(version, dst_this_plugin)
-        )
+            if clean and os.path.exists(dst_this_plugin):
+                print(f"Removing folder {dst_this_plugin}")
+                _safe_remove_folder(dst_this_plugin)
+
+            if os.path.exists(dst_this_plugin):
+                print(
+                    f"Not linking - plugin folder for QGIS version {version} already "
+                    f"exists at {dst_this_plugin}. Use '-c' to clean that folder if "
+                    "desired."
+                )
+            else:
+                print(
+                    "Linking plugin development folder to QGIS version {} plugin folder at {}"
+                    .format(version, dst_this_plugin)
+                )
+                os.symlink(src, dst_this_plugin)
 
 
 # Compile all ui and resource files

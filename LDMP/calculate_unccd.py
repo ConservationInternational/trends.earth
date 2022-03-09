@@ -50,14 +50,15 @@ class DlgCalculateUNCCD(DlgCalculateBase, DlgCalculateUNCCDUi):
         self,
         iface: qgis.gui.QgisInterface,
         script: ExecutionScript,
-        parent: QtWidgets.QWidget = None
+        parent: QtWidgets.QWidget = None,
     ):
         super().__init__(iface, script, parent)
         self.setupUi(self)
 
         self.population_dataset_name = "Gridded Population Count"
         self.population_dataset = conf.REMOTE_DATASETS["WorldPop"][
-            self.population_dataset_name]
+            self.population_dataset_name
+        ]
 
         self.spi_dataset_name = "GPCC V6 (Global Precipitation Climatology Centre)"
         self.spi_dataset = conf.REMOTE_DATASETS["SPI"][self.spi_dataset_name]
@@ -67,10 +68,10 @@ class DlgCalculateUNCCD(DlgCalculateBase, DlgCalculateUNCCDUi):
         self._finish_initialization()
 
     def update_time_bounds(self):
-        start_year_pop = self.population_dataset['Start year']
-        end_year_pop = self.population_dataset['End year']
-        start_year_spi = self.spi_dataset['Start year']
-        end_year_spi = self.spi_dataset['End year']
+        start_year_pop = self.population_dataset["Start year"]
+        end_year_pop = self.population_dataset["End year"]
+        start_year_spi = self.spi_dataset["Start year"]
+        end_year_spi = self.spi_dataset["End year"]
 
         start_year = QtCore.QDate(max(start_year_pop, start_year_spi), 1, 1)
         end_year = QtCore.QDate(min(end_year_pop, end_year_spi), 1, 1)
@@ -91,8 +92,7 @@ class DlgCalculateUNCCD(DlgCalculateBase, DlgCalculateUNCCDUi):
         # as well.
 
         QtWidgets.QMessageBox.information(
-            None, self.tr("Coming soon!"),
-            self.tr("This function coming soon!")
+            None, self.tr("Coming soon!"), self.tr("This function coming soon!")
         )
         self.close()
         return
@@ -109,38 +109,39 @@ class DlgCalculateUNCCD(DlgCalculateBase, DlgCalculateUNCCDUi):
 
         if (year_final - year_initial) < 5:
             QtWidgets.QMessageBox.warning(
-                None, self.tr("Error"),
+                None,
+                self.tr("Error"),
                 self.tr(
                     "Initial and final year are less 5 years "
                     "apart in - results will be more reliable "
                     "if more data (years) are included in the analysis."
-                )
+                ),
             )
 
             return
 
         payload = {}
-        payload['population'] = {
-            'asset': self.population_dataset['GEE Dataset'],
-            'source': self.population_dataset_name
+        payload["population"] = {
+            "asset": self.population_dataset["GEE Dataset"],
+            "source": self.population_dataset_name,
         }
 
-        payload['spi'] = {
-            'asset': self.spi_dataset['GEE Dataset'],
-            'source': self.spi_dataset_name,
-            'lag': int(self.lag_cb.currentText())
+        payload["spi"] = {
+            "asset": self.spi_dataset["GEE Dataset"],
+            "source": self.spi_dataset_name,
+            "lag": int(self.lag_cb.currentText()),
         }
 
         payload.update(
             {
-                'geojsons': geojsons,
-                'crs': self.aoi.get_crs_dst_wkt(),
-                'crosses_180th': crosses_180th,
-                'task_name': self.execution_name_le.text(),
-                'task_notes': self.task_notes.toPlainText(),
-                'script': ExecutionScript.Schema().dump(self.script),
-                'year_initial': year_initial,
-                'year_final': year_final
+                "geojsons": geojsons,
+                "crs": self.aoi.get_crs_dst_wkt(),
+                "crosses_180th": crosses_180th,
+                "task_name": self.execution_name_le.text(),
+                "task_notes": self.task_notes.toPlainText(),
+                "script": ExecutionScript.Schema().dump(self.script),
+                "year_initial": year_initial,
+                "year_final": year_final,
             }
         )
 
@@ -169,7 +170,7 @@ class DlgCalculateUNCCDReport(DlgCalculateBase, DlgCalculateUNCCDReportUi):
         self,
         iface: qgis.gui.QgisInterface,
         script: ExecutionScript,
-        parent: QtWidgets.QWidget = None
+        parent: QtWidgets.QWidget = None,
     ):
         super().__init__(iface, script, parent)
         self.setupUi(self)
@@ -179,7 +180,7 @@ class DlgCalculateUNCCDReport(DlgCalculateBase, DlgCalculateUNCCDReportUi):
         self.combo_boxes = unccd.UNCCDReportWidgets(
             combo_dataset_so1_so2=self.combo_dataset_so1_so2,
             combo_dataset_so3=self.combo_dataset_so3,
-            combo_layer_jrc_vulnerability=self.combo_layer_jrc_vulnerability
+            combo_layer_jrc_vulnerability=self.combo_layer_jrc_vulnerability,
         )
 
         self.changed_region.connect(self.combo_boxes.populate)
@@ -191,11 +192,12 @@ class DlgCalculateUNCCDReport(DlgCalculateBase, DlgCalculateUNCCDReportUi):
     def _validate_dataset_selection(self, combo_box, dataset_name):
         if len(combo_box.dataset_list) == 0:
             QtWidgets.QMessageBox.critical(
-                None, self.tr("Error"),
+                None,
+                self.tr("Error"),
                 self.tr(
                     f"You must select a {dataset_name} layer "
                     "before you can use the UNCCD reporting tool."
-                )
+                ),
             )
             return False
         else:
@@ -204,32 +206,33 @@ class DlgCalculateUNCCDReport(DlgCalculateBase, DlgCalculateUNCCDReportUi):
     def _validate_layer_selection(self, combo_box, layer_name):
         if len(combo_box.layer_list) == 0:
             QtWidgets.QMessageBox.critical(
-                None, self.tr("Error"),
+                None,
+                self.tr("Error"),
                 self.tr(
                     f"You must select a {layer_name} layer "
                     "before you can use the UNCCD reporting tool."
-                )
+                ),
             )
             return False
         else:
             return True
 
     def validate_data_selections(self, combo_boxes):
-        '''validate all needed datasets are selected'''
+        """validate all needed datasets are selected"""
         if not self._validate_dataset_selection(
-            combo_boxes.combo_dataset_so1_so2, 'SO1 and SO2'
+            combo_boxes.combo_dataset_so1_so2, "SO1 and SO2"
         ):
             return False
         elif not self._validate_dataset_selection(
-            combo_boxes.combo_dataset_so3, 'SO3 (tiers 1 and 2)'
+            combo_boxes.combo_dataset_so3, "SO3 (tiers 1 and 2)"
         ):
             return False
         elif not self._validate_layer_selection(
-            combo_boxes.combo_layer_jrc_vulnerability, 'SO3 (tier 3)'
+            combo_boxes.combo_layer_jrc_vulnerability, "SO3 (tier 3)"
         ):
             return False
         else:
-            return False
+            return True
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
@@ -240,23 +243,22 @@ class DlgCalculateUNCCDReport(DlgCalculateBase, DlgCalculateUNCCDReportUi):
         if not ret:
             return
 
-        if (not self.validate_data_selections(self.combo_boxes)):
-            log('failed dataset validation')
+        if not self.validate_data_selections(self.combo_boxes):
+            log("failed dataset validation")
 
             return
 
         params = {
-            'task_name': self.options_tab.task_name.text(),
-            'task_notes': self.options_tab.task_notes.toPlainText()
+            "task_name": self.options_tab.task_name.text(),
+            "task_notes": self.options_tab.task_notes.toPlainText(),
         }
         params.update(
             unccd.get_main_unccd_report_job_params(
                 task_name=self.options_tab.task_name.text(),
                 combo_dataset_so1_so2=self.combo_boxes.combo_dataset_so1_so2,
                 combo_dataset_so3=self.combo_boxes.combo_dataset_so3,
-                combo_layer_jrc_vulnerability=self.combo_boxes.
-                combo_layer_jrc_vulnerability,
-                task_notes=self.options_tab.task_notes.toPlainText()
+                combo_layer_jrc_vulnerability=self.combo_boxes.combo_layer_jrc_vulnerability,
+                task_notes=self.options_tab.task_notes.toPlainText(),
             )
         )
 

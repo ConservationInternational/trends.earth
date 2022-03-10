@@ -11,4 +11,4 @@ Trends.Earth User Guide
     gettingstarted/index
     modules/index
     faq/index
-    datasources/index
+    datasets/index

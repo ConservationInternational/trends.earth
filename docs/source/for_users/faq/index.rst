@@ -129,7 +129,7 @@ Datasets
 ________
 
 .. note::
-    Refer to the :ref:`data_sources` section for more information on data sources used in Trends.Earth.
+    Refer to the :ref:`input_data` section for more information on data sources used in Trends.Earth.
 	
 When will you update datasets for the current year?
 ------------------------------------------------------------------

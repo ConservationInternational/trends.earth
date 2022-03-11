@@ -30,7 +30,28 @@ import sphinx_rtd_theme
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 # extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode', 'rinoh.frontend.sphinx']
 # extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode', 'rst2pdf.pdfbuilder']
-extensions = ["sphinx_rtd_theme", "sphinx.ext.todo", "sphinx.ext.viewcode"]
+extensions = [
+    "sphinx_rtd_theme",
+    "sphinx.ext.todo",
+    "sphinx.ext.viewcode",
+    "myst_parser",
+]
+
+myst_enable_extensions = [
+    "amsmath",
+    "colon_fence",
+    "deflist",
+    "dollarmath",
+    "fieldlist",
+    "html_admonition",
+    "html_image",
+    "linkify",
+    "replacements",
+    "smartquotes",
+    "strikethrough",
+    "substitution",
+    "tasklist",
+]
 
 todo_include_todos = True
 
@@ -38,7 +59,7 @@ todo_include_todos = True
 templates_path = ["_templates"]
 
 # The suffix of source filenames.
-source_suffix = ".rst"
+source_suffix = [".rst", ".md"]
 
 # The encoding of source files.
 # source_encoding = 'utf-8-sig'

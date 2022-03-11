@@ -16,8 +16,11 @@ file, use the `load data <../documentation/load_data.html>`_ tool. When you
 choose a file with that toool, it will show you a list of the layers within 
 that file, as well as the band number for each layer.
 
+Land degradation (SDG 15.3.1)
+_____________________________
+
 SDG 15.3.1 Indicator
---------------------------------
+--------------------
 
 +--------+-------------+
 | Value  | Meaning     |
@@ -442,12 +445,12 @@ Soil organic carbon
 | Any other value | Soil organic carbon content (0 - 30 cm depth) in metric tons per hectare |
 +-----------------+--------------------------------------------------------------------------+
 
-SDG 11.3.1 (sustainable urbanization)
------------------------------------------
+Sustainable urbanization (SDG 11.3.1)
+_____________________________________
 
 
 Urban
-~~~~~~~~~~~~~~~~
+-----------------------------------------
 
 +--------+-----------------------------+
 | Value  | Meaning                     |
@@ -474,7 +477,7 @@ Urban
 +--------+-----------------------------+
 
 Urban series
-~~~~~~~~~~~~~~~~
+-----------------------------------------
 
 +--------+------------------+
 | Value  | Meaning          |

@@ -131,10 +131,10 @@
          "id":"b395aaf2-a585-4660-953c-8f6edfcab25c",
          "name":"Land cover change",
          "description":"Reports showing land cover change.",
-         "simple_portrait_path":"simple_layout_template_portrait.qpt",
-         "simple_landscape_path":"simple_layout_template_landscape.qpt",
-         "full_portrait_path":"full_layout_template_portrait.qpt",
-         "full_landscape_path":"full_layout_template_landscape.qpt",
+         "simple_portrait_path":"simple_layout_template_portrait _two_col_lgnd.qpt",
+         "simple_landscape_path":"simple_layout_template_landscape_two_col_lgnd.qpt",
+         "full_portrait_path":"full_layout_template_portrait_two_col_lgnd.qpt",
+         "full_landscape_path":"full_layout_template_landscape_two_col_lgnd.qpt",
          "item_scopes":[
             {
                "name":"land-cover",

@@ -103,11 +103,13 @@ class ReportTaskContextAlgorithm(QgsProcessingAlgorithm):
             return {'STATUS': status}
 
         # Update template paths
+        base_dir = settings_manager.get_value(Setting.BASE_DIR)
+        data_temp_dir = f'{base_dir}/reports/templates'
         user_temp_dir = settings_manager.get_value(
             Setting.REPORT_TEMPLATE_SEARCH_PATH
         )
         rpt_task_ctx.report_configuration.template_info.update_paths(
-            FileUtils.report_templates_dir(),
+            data_temp_dir,
             user_temp_dir
         )
 

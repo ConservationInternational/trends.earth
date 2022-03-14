@@ -147,12 +147,12 @@ def extract_zipfile(f, verify=True):
             QtWidgets.QMessageBox.critical(None,
                                        tr_download.tr("Error"),
                                        tr_download.tr("Unable to write to {}.".format(filename)))
-            return None
+            return False
         resp = worker.get_resp()
         if not resp:
-            return None
+            return False
         if not check_hash_against_etag(url, filename):
-            return None
+            return False
 
     try:
         with zipfile.ZipFile(filename, 'r') as fin:

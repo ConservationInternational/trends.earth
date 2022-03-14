@@ -1,7 +1,6 @@
 """Report generator"""
 
 from dataclasses import dataclass
-import errno
 import json
 import os
 import signal
@@ -45,7 +44,6 @@ from qgis.PyQt.QtCore import (
     QCoreApplication,
     QDateTime,
     QFile,
-    QFileInfo,
     QIODevice,
     QObject
 )
@@ -77,7 +75,10 @@ from ..utils import (
     qgis_process_path,
     FileUtils
 )
-from ..visualization import download_base_map
+from ..visualization import (
+    download_base_map,
+    ExtractAdministrativeArea
+)
 
 
 @dataclass
@@ -242,7 +243,29 @@ class ReportTaskProcessor:
 
     def _add_base_map(self):
         # Add basemap
-        status, document = download_base_map(use_mask=False)
+
+        country_name, admin_one_name = '', ''
+        # Determine extent using first layer in our collection
+        if len(self._jobs_layers) > 0:
+            job_id = next(iter(self._jobs_layers))
+            ext_layer = self._jobs_layers[job_id][0]
+            ref_extent = ext_layer.extent()
+
+            # Attempt to get the country name and admin area from the extents
+            # for use to mask.
+            ext_admin_area = ExtractAdministrativeArea(ref_extent)
+            country_name, admin_one_name = ext_admin_area.get_admin_area()
+
+        # Download and apply mask
+        if country_name:
+            status, document = download_base_map(
+                use_mask=True,
+                country_name=country_name,
+                admin_level_one=admin_one_name
+            )
+        else:
+            status, document = download_base_map(use_mask=False)
+
         if status:
             root = self._proj.layerTreeRoot().insertGroup(
                 0,

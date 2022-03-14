@@ -22,10 +22,13 @@ from qgis.PyQt import (
     uic
 )
 
+from qgis import processing
 from qgis.core import (
     QgsLayerDefinition,
     QgsProject,
     QgsReadWriteContext,
+    QgsRectangle,
+    QgsVectorLayer
 )
 from qgis.utils import iface
 
@@ -34,6 +37,7 @@ from . import (
     download,
 )
 from .logger import log
+from .utils import FileUtils
 
 DlgVisualizationBasemapUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgVisualizationBasemap.ui"))
@@ -93,6 +97,188 @@ class zoom_to_admin_poly(object):
         log('Bounding box for zoom is: {}'.format(self.bbox.toString()))
         self.canvas.setExtent(self.bbox)
         self.canvas.refresh()
+
+
+def country_name_from_code(code: str) -> str:
+    """
+    Returns the country name from the corresponding ISO code.
+    """
+    countries = list(conf.ADMIN_BOUNDS_KEY.values())
+    cnts = [cnt for cnt in countries if cnt.code == code]
+    if len(cnts) == 0:
+        return ''
+
+    return cnts[0].name
+
+
+def admin_one_name_from_code(country_name: str, sub_code: str) -> str:
+    """
+    Returns the sub-national name given the country name and
+    sub-national code.
+    """
+    country = conf.ADMIN_BOUNDS_KEY.get(country_name, None)
+    if country is None:
+        return ''
+
+    admin_one_name = ''
+    for name, code in country.level1_regions.items():
+        if code == sub_code:
+            admin_one_name = name
+            break
+
+    return admin_one_name
+
+
+class ExtractAdministrativeArea:
+    """
+    Uses a heuristic approach to try get the country name (and possibly
+    region) that intersect with the input extents.
+    """
+    EXTRACT_BY_LOC_ALG = 'native:extractbylocation'
+    EXTENT_TO_LAYER_ALG = 'native:extenttolayer'
+
+    def __init__(self, extent: QgsRectangle):
+        self._extent = extent
+        self._national_data_path = f'{FileUtils.plugin_dir()}/data/' \
+                             f'ne_10m_admin_0_countries.shp'
+        self._sub_national_data_path = f'{FileUtils.plugin_dir()}/data/' \
+                             f'ne_10m_admin_1_states_provinces.shp'
+        self._extent_layer = None
+        self._national_layer = None
+        self._sub_nat_layer = None
+
+        self._create_layers()
+
+    @classmethod
+    def extents_to_str(cls, ext: QgsRectangle) -> str:
+        """
+        Formats the extents to a string representation that can be used in
+        a processing algorithm.
+        """
+        return f'{ext.xMinimum()!s},{ext.xMaximum()!s},{ext.yMinimum()!s},' \
+               f'{ext.yMaximum()!s} [EPSG:4326]'
+
+    def _create_layers(self):
+        # Create reference layers for analysis.
+        # Extent to layer
+        ext_str = self.extents_to_str(self._extent)
+        ext_params = {'INPUT': ext_str, 'OUTPUT' : 'TEMPORARY_OUTPUT'}
+        ext_output = processing.run(self.EXTENT_TO_LAYER_ALG, ext_params)
+        self._extent_layer = ext_output['OUTPUT']
+        self._national_layer = QgsVectorLayer(self._national_data_path)
+        self._sub_nat_layer = QgsVectorLayer(self._sub_national_data_path)
+
+    @property
+    def extent(self) -> QgsRectangle:
+        """
+        Returns the extents used to determine the administrative area.
+        """
+        return self._extent
+
+    def get_admin_area(self) -> typing.Tuple[str, str]:
+        """
+        Returns the matching country name and sub-region name, or 'All
+        regions' if extent covers the whole country.
+        """
+        cnt_name, region = '', ''
+
+        # Field names
+        cnt_code_attr = 'ISO_A3'
+
+        # Check layers
+        if not self._extent_layer.isValid() or \
+                not self._national_layer.isValid() or \
+                not self._sub_nat_layer.isValid():
+            return '', ''
+
+        # Start with national
+        nat_ext_layer = self._extract_by_loc(self._national_layer)
+        if nat_ext_layer.isValid():
+            feat_cnt = nat_ext_layer.featureCount()
+            if feat_cnt == 1:
+                feat = next(nat_ext_layer.getFeatures())
+
+            elif feat_cnt > 1:
+                # Get country with the largest area as it will be the one
+                # covering our area of interest.
+                feats_iter = nat_ext_layer.getFeatures()
+                feat = max(
+                    feats_iter,
+                    key=lambda f:f.geometry().area()
+                )
+
+            if feat_cnt > 0:
+                cnt_name = country_name_from_code(feat[cnt_code_attr])
+
+        if cnt_name:
+            region = 'All regions'
+        else:
+            # Try sub-national starting with the WITHIN predicate
+            cnt_name, region = self._admin_from_sub_national_extraction_op(
+                [6]
+            )
+            if not cnt_name or not region:
+                # Use INTERSECT predicate
+                cnt_name, region = self._admin_from_sub_national_extraction_op(
+                    [0]
+                )
+
+        return cnt_name, region
+
+    def _admin_from_sub_national_extraction_op(
+            self,
+            predicates
+    ) -> typing.Tuple[str, str]:
+        """
+        Returns the country name and level admin name by intersecting with
+        the sub-national layer using the given predicates.
+        """
+        cnt_name, region = '', ''
+
+        # Field names
+        sub_cnt_attr = 'admin0_a3'
+        sub_admin_one_attr = 'adm1_code'
+
+        sub_nat_ext_layer = self._extract_by_loc(self._sub_nat_layer, predicates)
+        if sub_nat_ext_layer.isValid():
+            feat_count = sub_nat_ext_layer.featureCount()
+            if feat_count == 1:
+                feat = next(sub_nat_ext_layer.getFeatures())
+                cnt_name = country_name_from_code(
+                    feat[sub_cnt_attr]
+                )
+                sub_code = feat[sub_admin_one_attr]
+                region = admin_one_name_from_code(
+                    cnt_name,
+                    sub_code
+                )
+                if not region:
+                    region = 'All regions'
+
+            elif feat_count > 1:
+                # Just return the national name and 'All regions'
+                feat = next(sub_nat_ext_layer.getFeatures())
+                cnt_name = country_name_from_code(
+                    feat[sub_cnt_attr]
+                )
+                region = 'All regions'
+
+        return cnt_name, region
+
+    def _extract_by_loc(self, input_layer, predicates=None) -> QgsVectorLayer:
+        # Extract by location processing algorithm
+        if predicates is None:
+            predicates = [6]
+
+        extract_params = {
+            'INPUT': input_layer,
+            'PREDICATE': predicates,
+            'INTERSECT': self._extent_layer,
+            'OUTPUT': 'TEMPORARY_OUTPUT'
+        }
+        proc_output = processing.run(self.EXTRACT_BY_LOC_ALG, extract_params)
+
+        return proc_output['OUTPUT']
 
 
 class DlgVisualizationBasemap(QtWidgets.QDialog, DlgVisualizationBasemapUi):

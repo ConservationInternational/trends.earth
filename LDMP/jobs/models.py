@@ -23,6 +23,12 @@ class SortField(enum.Enum):
     STATUS = 'status'
 
 
+class TypeFilter(enum.Enum):
+    ALL = 'all'
+    RASTER = 'raster'
+    VECTOR = 'vector'
+
+
 @marshmallow_dataclass.dataclass
 class Job(JobBase):
     @pre_load

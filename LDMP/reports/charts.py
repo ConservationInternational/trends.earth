@@ -11,7 +11,8 @@ import plotly.graph_objects as go
 
 from qgis.PyQt.QtCore import (
     Qt,
-    QTemporaryFile
+    QTemporaryFile,
+    QUrl
 )
 from qgis.PyQt.QtGui import (
     QColor
@@ -21,6 +22,15 @@ from qgis import processing
 from qgis.core import (
     QgsDistanceArea,
     QgsGeometry,
+    QgsLayoutExporter,
+    QgsLayoutFrame,
+    QgsLayoutItemHtml,
+    QgsLayoutMeasurement,
+    QgsLayoutMeasurementConverter,
+    QgsLayoutPoint,
+    QgsLayoutSize,
+    QgsPrintLayout,
+    QgsProject,
     QgsUnitTypes,
     QgsVectorLayer
 )
@@ -55,6 +65,13 @@ class BaseChart:
         self.layer_band_info = kwargs.pop('layer_band_info', None)
         self.root_output_dir = kwargs.pop('root_output_dir', '')
         self._paths = []
+        self._dpi = 300
+        self._measurement_converter = QgsLayoutMeasurementConverter()
+        self._measurement_converter.setDpi(self._dpi)
+
+        # Try to maintain 4:3 aspect ratio
+        self._width_mm = 280
+        self._height_mm = 210
 
     @classmethod
     def warning_msg(cls, msg: str) -> str:
@@ -93,7 +110,7 @@ class BaseChart:
         Returns the preferred width and height for the chart figure.
         Values are in pixels.
         """
-        return 800, 600
+        return 1058, 794
 
     def export(self) -> typing.Tuple[bool, list]:
         """
@@ -103,6 +120,80 @@ class BaseChart:
         Needs to be implemented by sub-classes.
         """
         raise NotImplementedError
+
+    def mm_to_pixels(self, length: float) -> float:
+        """
+        Converts length measure to equivalent pixels taking into account
+        the resolution.
+        """
+        measurement = QgsLayoutMeasurement(
+            length,
+            QgsUnitTypes.LayoutMillimeters
+        )
+        pix_measurement = self._measurement_converter.convert(
+            measurement,
+            QgsUnitTypes.LayoutPixels
+        )
+
+        return pix_measurement.length()
+
+    def _chart_layout(self, chart_path: str) -> QgsPrintLayout:
+        # Layout container for exporting chart to image.
+        layout = QgsPrintLayout(QgsProject.instance())
+        layout.initializeDefaults()
+        layout.renderContext().setDpi(self._dpi)
+
+        # Add html item
+        html_item = QgsLayoutItemHtml(layout)
+        frame = QgsLayoutFrame(layout, html_item)
+        html_item.addFrame(frame)
+        frame.attemptMove(
+            QgsLayoutPoint(8, 0, QgsUnitTypes.LayoutMillimeters)
+        )
+        frame.attemptResize(QgsLayoutSize(280, 210))
+        layout.addMultiFrame(html_item)
+
+        url = QUrl.fromLocalFile(chart_path)
+        html_item.setUrl(url)
+
+        return layout
+
+    def save_image(self, figure: go.Figure, path: str) -> bool:
+        """
+        Save the figure as an image file. While plotly supports writing a
+        Figure object to an image, it requires additional libraries which
+        are not shipped with the QGIS Python package, and since we are
+        avoiding additional dependencies, we will use the layout framework
+        for image export.
+        """
+        pw, ph = self.preferred_size
+        figure.update_layout(width=pw, height=ph)
+
+        temp_html_file = QTemporaryFile()
+        if not temp_html_file.open():
+            return False
+
+        file_name = temp_html_file.fileName()
+        html_path = f'{file_name}.html'
+
+        # Write figure to html
+        figure.write_html(
+            html_path,
+            auto_open=False,
+            auto_play=False,
+            config={'displayModeBar': False}
+        )
+
+        # Create and export layout
+        layout = self._chart_layout(html_path)
+        exporter = QgsLayoutExporter(layout)
+        settings = QgsLayoutExporter.ImageExportSettings()
+        res = exporter.exportToImage(path, settings)
+
+        if res != QgsLayoutExporter.Success:
+            return False
+
+        return True
 
 
 class BaseUniqueValuesChart(BaseChart):
@@ -260,12 +351,12 @@ class UniqueValuesPieChart(BaseUniqueValuesChart):
             width=pw,
             height=ph
         )
-        fig.write_image(output_file_path)
 
+        # Save image
+        self.save_image(fig, output_file_path)
         self._paths.append(output_file_path)
 
         return True, []
-
 
 
 class ChangeBarChartType(Enum):
@@ -402,14 +493,16 @@ class UniqueValuesChangeBarChart(BaseUniqueValuesChart):
                 width=pw,
                 height=ph
             )
-            fig.write_image(output_file_path)
+
+            # Save image
+            self.save_image(fig, output_file_path)
             self._paths.append(output_file_path)
 
         # Positive/negative bar graph
         if self.chart_type == ChangeBarChartType.POS_NEG or \
                 self.chart_type == ChangeBarChartType.ALL:
             # Colors for positive or negative change
-            pos_clr, neg_clr = QColor(Qt.green), QColor(Qt.red)
+            pos_clr, neg_clr = QColor('#70D80F'), QColor('#FF5733')
 
             # Function for computing LULC change as percentage.
             # ia - init area, ta - target area
@@ -474,7 +567,9 @@ class UniqueValuesChangeBarChart(BaseUniqueValuesChart):
                 f'{target_year!s}'
             )
             output_file_path = f'{self.root_output_dir}/{file_name}.png'
-            fig.write_image(output_file_path)
+
+            # Save image
+            self.save_image(fig, output_file_path)
             self._paths.append(output_file_path)
 
         return True, []

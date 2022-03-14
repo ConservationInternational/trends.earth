@@ -1,4 +1,4 @@
-# Modules for managing variables and expressions that can be used in a report.
+# Module for managing variables and expressions that can be used in a report.
 
 from collections import namedtuple
 import json

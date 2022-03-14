@@ -123,7 +123,7 @@ class BaseChart:
 
     def mm_to_pixels(self, length: float) -> float:
         """
-        Converts length measure to equivalent pixels taking into account
+        Converts length measurement to equivalent pixels taking into account
         the resolution.
         """
         measurement = QgsLayoutMeasurement(

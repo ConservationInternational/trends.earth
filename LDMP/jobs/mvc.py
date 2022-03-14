@@ -11,25 +11,26 @@ from qgis.utils import iface
 from te_schemas.jobs import JobStatus
 from te_schemas.results import Band as JobBand
 
-from . import (manager)
+from . import manager
 from .. import layers
+from .. import metadata
+from .. import metadata_dialog
 from .. import openFolder
 from .. import utils
-from .. import metadata_dialog
-from .. import metadata
 from ..conf import Setting
 from ..conf import settings_manager
 from ..data_io import DlgDataIOAddLayersToMap
 from ..datasets_dialog import DatasetDetailsDialogue
 from ..select_dataset import DlgSelectDataset
 from .models import Job
-from .models import SortField, TypeFilter
+from .models import SortField
+from .models import TypeFilter
 
 WidgetDatasetItemUi, _ = uic.loadUiType(
     str(Path(__file__).parents[1] / "gui/WidgetDatasetItem.ui")
 )
 
-ICON_PATH = os.path.join(os.path.dirname(__file__), os.path.pardir, 'icons')
+ICON_PATH = os.path.join(os.path.dirname(__file__), os.path.pardir, "icons")
 
 
 class JobsModel(QtCore.QAbstractItemModel):
@@ -58,20 +59,16 @@ class JobsModel(QtCore.QAbstractItemModel):
     def parent(self, index: QtCore.QModelIndex) -> QtCore.QModelIndex:
         return QtCore.QModelIndex()
 
-    def rowCount(
-        self, index: QtCore.QModelIndex = QtCore.QModelIndex()
-    ) -> int:
+    def rowCount(self, index: QtCore.QModelIndex = QtCore.QModelIndex()) -> int:
         return len(self._relevant_jobs)
 
-    def columnCount(
-        self, index: QtCore.QModelIndex = QtCore.QModelIndex()
-    ) -> int:
+    def columnCount(self, index: QtCore.QModelIndex = QtCore.QModelIndex()) -> int:
         return 1
 
     def data(
         self,
         index: QtCore.QModelIndex = QtCore.QModelIndex(),
-        role: QtCore.Qt.ItemDataRole = QtCore.Qt.DisplayRole
+        role: QtCore.Qt.ItemDataRole = QtCore.Qt.DisplayRole,
     ) -> typing.Optional[Job]:
         result = None
 
@@ -103,9 +100,7 @@ class JobsSortFilterProxyModel(QtCore.QSortFilterProxyModel):
         super().__init__(*args, **kwargs)
         self.current_sort_field = current_sort_field
 
-    def filterAcceptsRow(
-        self, source_row: int, source_parent: QtCore.QModelIndex
-    ):
+    def filterAcceptsRow(self, source_row: int, source_parent: QtCore.QModelIndex):
         jobs_model = self.sourceModel()
         index = jobs_model.index(source_row, 0, source_parent)
         job: Job = jobs_model.data(index)
@@ -125,9 +120,7 @@ class JobsSortFilterProxyModel(QtCore.QSortFilterProxyModel):
 
         return matches_filter and matches_type
 
-    def lessThan(
-        self, left: QtCore.QModelIndex, right: QtCore.QModelIndex
-    ) -> bool:
+    def lessThan(self, left: QtCore.QModelIndex, right: QtCore.QModelIndex) -> bool:
         model = self.sourceModel()
         left_job: Job = model.data(left)
         right_job: Job = model.data(right)
@@ -142,6 +135,7 @@ class JobsSortFilterProxyModel(QtCore.QSortFilterProxyModel):
 
     def set_type_filter(self, filter_type):
         self.type_filter = filter_type
+
 
 class JobItemDelegate(QtWidgets.QStyledItemDelegate):
     current_index: typing.Optional[QtCore.QModelIndex]
@@ -158,8 +152,10 @@ class JobItemDelegate(QtWidgets.QStyledItemDelegate):
         self.current_index = None
 
     def paint(
-        self, painter: QtGui.QPainter, option: QtWidgets.QStyleOptionViewItem,
-        index: QtCore.QModelIndex
+        self,
+        painter: QtGui.QPainter,
+        option: QtWidgets.QStyleOptionViewItem,
+        index: QtCore.QModelIndex,
     ):
         # get item and manipulate painter basing on idetm data
         proxy_model: QtCore.QSortFilterProxyModel = index.model()
@@ -198,8 +194,10 @@ class JobItemDelegate(QtWidgets.QStyledItemDelegate):
         return super().sizeHint(option, index)
 
     def createEditor(
-        self, parent: QtWidgets.QWidget,
-        option: QtWidgets.QStyleOptionViewItem, index: QtCore.QModelIndex
+        self,
+        parent: QtWidgets.QWidget,
+        option: QtWidgets.QStyleOptionViewItem,
+        index: QtCore.QModelIndex,
     ):
         # get item and manipulate painter basing on item data
         proxy_model: QtCore.QSortFilterProxyModel = index.model()
@@ -215,8 +213,10 @@ class JobItemDelegate(QtWidgets.QStyledItemDelegate):
             return super().createEditor(parent, option, index)
 
     def updateEditorGeometry(
-        self, editor: QtWidgets.QWidget,
-        option: QtWidgets.QStyleOptionViewItem, index: QtCore.QModelIndex
+        self,
+        editor: QtWidgets.QWidget,
+        option: QtWidgets.QStyleOptionViewItem,
+        index: QtCore.QModelIndex,
     ):
         editor.setGeometry(option.rect)
 
@@ -261,34 +261,28 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         self.edit_tb.clicked.connect(self.edit_layer)
 
         self.delete_tb.setIcon(
-            QtGui.QIcon(os.path.join(ICON_PATH, 'mActionDeleteSelected.svg'))
+            QtGui.QIcon(os.path.join(ICON_PATH, "mActionDeleteSelected.svg"))
         )
         self.open_details_tb.setIcon(
-            QtGui.QIcon(
-                os.path.join(ICON_PATH, 'mActionPropertiesWidget.svg')
-            )
+            QtGui.QIcon(os.path.join(ICON_PATH, "mActionPropertiesWidget.svg"))
         )
         self.open_directory_tb.setIcon(
-            QtGui.QIcon(os.path.join(ICON_PATH, 'mActionFileOpen.svg'))
+            QtGui.QIcon(os.path.join(ICON_PATH, "mActionFileOpen.svg"))
         )
         self.metadata_pb.setIcon(
-            QtGui.QIcon(
-                os.path.join(ICON_PATH, 'editmetadata.svg')
-            )
+            QtGui.QIcon(os.path.join(ICON_PATH, "editmetadata.svg"))
         )
         self.add_to_canvas_pb.setIcon(
-            QtGui.QIcon(os.path.join(ICON_PATH, 'mActionAddRasterLayer.svg'))
+            QtGui.QIcon(os.path.join(ICON_PATH, "mActionAddRasterLayer.svg"))
         )
         self.download_tb.setIcon(
-            QtGui.QIcon(os.path.join(ICON_PATH, 'cloud-download.svg'))
+            QtGui.QIcon(os.path.join(ICON_PATH, "cloud-download.svg"))
         )
         self.edit_tb.setIcon(
-            QtGui.QIcon(
-                os.path.join(ICON_PATH, 'mActionToggleEditing.svg')
-            )
+            QtGui.QIcon(os.path.join(ICON_PATH, "mActionToggleEditing.svg"))
         )
         self.load_tb.setIcon(
-            QtGui.QIcon(os.path.join(ICON_PATH, 'mActionAddOgrLayer.svg'))
+            QtGui.QIcon(os.path.join(ICON_PATH, "mActionAddOgrLayer.svg"))
         )
 
         # self.add_to_canvas_pb.setFixedSize(self.open_directory_tb.size())
@@ -297,13 +291,14 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         self.name_la.setText(self.job.visible_name)
 
         area_name = self.job.local_context.area_of_interest_name
-        job_start_date = utils.utc_to_local(self.job.start_date
-                                            ).strftime("%Y-%m-%d %H:%M")
+        job_start_date = utils.utc_to_local(self.job.start_date).strftime(
+            "%Y-%m-%d %H:%M"
+        )
 
         if area_name:
-            notes_text = f'{area_name} ({job_start_date})'
+            notes_text = f"{area_name} ({job_start_date})"
         else:
-            notes_text = f'{job_start_date}'
+            notes_text = f"{job_start_date}"
         self.notes_la.setText(notes_text)
 
         self.download_tb.setEnabled(False)
@@ -325,7 +320,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             if self.job.status in (JobStatus.RUNNING, JobStatus.PENDING):
                 self.progressBar.setMinimum(0)
                 self.progressBar.setMaximum(0)
-                self.progressBar.setFormat('Processing...')
+                self.progressBar.setFormat("Processing...")
                 self.progressBar.show()
                 self.download_tb.hide()
                 self.add_to_canvas_pb.setEnabled(False)
@@ -334,7 +329,6 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                 result_auto_download = settings_manager.get_value(
                     Setting.DOWNLOAD_RESULTS
                 )
-            self.metadata_pb.setEnabled(self.has_loadable_result())
 
                 if result_auto_download:
                     self.download_tb.hide()
@@ -342,28 +336,26 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                     self.download_tb.show()
                     self.download_tb.setEnabled(True)
                     self.download_tb.clicked.connect(
-                        functools.partial(
-                            manager.job_manager.download_job_results, job
-                        )
+                        functools.partial(manager.job_manager.download_job_results, job)
                     )
+
                 self.add_to_canvas_pb.setEnabled(False)
-            elif self.job.status in (
-                JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY
-            ):
+                self.metadata_pb.setEnabled(False)
+            elif self.job.status in (JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY):
                 self.progressBar.hide()
                 self.download_tb.hide()
                 self.add_to_canvas_pb.setEnabled(self.has_loadable_result())
+                self.metadata_pb.setEnabled(self.has_loadable_result())
 
     def has_loadable_result(self):
         result = False
 
         if self.job.results is not None:
-            if (
-                self.job.results.uri and (
-                    manager.is_gdal_vsi_path(self.job.results.uri.uri) or (
-                        self.job.results.uri.uri.suffix in [".vrt", ".tif"]
-                        and self.job.results.uri.uri.exists()
-                    )
+            if self.job.results.uri and (
+                manager.is_gdal_vsi_path(self.job.results.uri.uri)
+                or (
+                    self.job.results.uri.uri.suffix in [".vrt", ".tif"]
+                    and self.job.results.uri.uri.exists()
                 )
             ):
                 result = True
@@ -398,8 +390,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         )
         action_add_default_data_to_map.triggered.connect(self.load_dataset)
         action_choose_layers_to_add_to_map = self.load_data_menu.addAction(
-            self.
-            tr("Select specific layers from this dataset to add to map...")
+            self.tr("Select specific layers from this dataset to add to map...")
         )
         action_choose_layers_to_add_to_map.triggered.connect(
             self.load_dataset_choose_layers
@@ -427,55 +418,117 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                 soil = dlg.soil_band()
 
                 if prod:
-                    self.job.params['prod'] = {'path':str(prod.path),
-                                              'band':prod.band_index,
-                                              'uuid':str(prod.job.id)
-                                             }
+                    self.job.params["prod"] = {
+                        "path": str(prod.path),
+                        "band": prod.band_index,
+                        "uuid": str(prod.job.id),
+                    }
 
                 if land:
-                    self.job.params['land'] = {'path':str(land.path),
-                                              'band':land.band_index,
-                                              'uuid':str(land.job.id)
-                                             }
+                    self.job.params["land"] = {
+                        "path": str(land.path),
+                        "band": land.band_index,
+                        "uuid": str(land.job.id),
+                    }
 
                 if soil:
-                    self.job.params['soil'] = {'soil':str(soil.path),
-                                              'soil':soil.band_index,
-                                              'soil':str(soil.job.id)
-                                             }
+                    self.job.params["soil"] = {
+                        "soil": str(soil.path),
+                        "soil": soil.band_index,
+                        "soil": str(soil.job.id),
+                    }
 
                 manager.job_manager.write_job_metadata_file(self.job)
 
-                layers.set_default_value(str(self.job.results.vector.uri.uri), 'prod_imp', str(prod.path), prod.band_index, 1)
-                layers.set_default_value(str(self.job.results.vector.uri.uri), 'prod_deg', str(prod.path), prod.band_index, -1)
-                layers.set_default_value(str(self.job.results.vector.uri.uri), 'prod_stab', str(prod.path), prod.band_index, 0)
-                layers.set_default_value(str(self.job.results.vector.uri.uri), 'land_imp', str(land.path), land.band_index, 1)
-                layers.set_default_value(str(self.job.results.vector.uri.uri), 'land_deg', str(land.path), land.band_index, -1)
-                layers.set_default_value(str(self.job.results.vector.uri.uri), 'land_stab', str(land.path), land.band_index, 0)
-                layers.set_default_value(str(self.job.results.vector.uri.uri), 'soil_imp', str(soil.path), soil.band_index, 1)
-                layers.set_default_value(str(self.job.results.vector.uri.uri), 'soil_deg', str(soil.path), soil.band_index, -1)
-                layers.set_default_value(str(self.job.results.vector.uri.uri), 'soil_stab', str(soil.path), soil.band_index, 0)
+                layers.set_default_value(
+                    str(self.job.results.vector.uri.uri),
+                    "prod_imp",
+                    str(prod.path),
+                    prod.band_index,
+                    1,
+                )
+                layers.set_default_value(
+                    str(self.job.results.vector.uri.uri),
+                    "prod_deg",
+                    str(prod.path),
+                    prod.band_index,
+                    -1,
+                )
+                layers.set_default_value(
+                    str(self.job.results.vector.uri.uri),
+                    "prod_stab",
+                    str(prod.path),
+                    prod.band_index,
+                    0,
+                )
+                layers.set_default_value(
+                    str(self.job.results.vector.uri.uri),
+                    "land_imp",
+                    str(land.path),
+                    land.band_index,
+                    1,
+                )
+                layers.set_default_value(
+                    str(self.job.results.vector.uri.uri),
+                    "land_deg",
+                    str(land.path),
+                    land.band_index,
+                    -1,
+                )
+                layers.set_default_value(
+                    str(self.job.results.vector.uri.uri),
+                    "land_stab",
+                    str(land.path),
+                    land.band_index,
+                    0,
+                )
+                layers.set_default_value(
+                    str(self.job.results.vector.uri.uri),
+                    "soil_imp",
+                    str(soil.path),
+                    soil.band_index,
+                    1,
+                )
+                layers.set_default_value(
+                    str(self.job.results.vector.uri.uri),
+                    "soil_deg",
+                    str(soil.path),
+                    soil.band_index,
+                    -1,
+                )
+                layers.set_default_value(
+                    str(self.job.results.vector.uri.uri),
+                    "soil_stab",
+                    str(soil.path),
+                    soil.band_index,
+                    0,
+                )
 
             manager.job_manager.edit_special_area_layer(self.job)
             self.main_dock.resume_scheduler()
 
     def has_connected_data(self):
-        has_prod = True if 'prod' in self.job.params else False
-        has_land = True if 'land' in self.job.params else False
-        has_soil = True if 'soil' in self.job.params else False
+        has_prod = True if "prod" in self.job.params else False
+        has_land = True if "land" in self.job.params else False
+        has_soil = True if "soil" in self.job.params else False
 
         return has_prod and has_land and has_soil
 
     def prepare_metadata_menu(self):
         self.metadata_menu.clear()
 
-        file_path = os.path.splitext(manager.job_manager.get_job_file_path(self.job))[0] + '.qmd'
+        file_path = (
+            os.path.splitext(manager.job_manager.get_job_file_path(self.job))[0]
+            + ".qmd"
+        )
         action = self.metadata_menu.addAction(self.tr("Dataset metadata"))
         action.triggered.connect(lambda _, x=file_path: self.show_metadata(x))
         self.metadata_menu.addSeparator()
 
         if self.job.results is not None:
             for raster in self.job.results.rasters.values():
-                file_path = os.path.splitext(raster.uri.uri)[0] + '.qmd'
-                action = self.metadata_menu.addAction(self.tr("{} metadata").format(os.path.split(raster.uri.uri)[1]))
+                file_path = os.path.splitext(raster.uri.uri)[0] + ".qmd"
+                action = self.metadata_menu.addAction(
+                    self.tr("{} metadata").format(os.path.split(raster.uri.uri)[1])
+                )
                 action.triggered.connect(lambda _, x=file_path: self.show_metadata(x))

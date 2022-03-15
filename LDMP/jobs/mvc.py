@@ -505,8 +505,8 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                     0,
                 )
 
-            manager.job_manager.edit_special_area_layer(self.job)
-            self.main_dock.resume_scheduler()
+                manager.job_manager.edit_special_area_layer(self.job)
+                self.main_dock.resume_scheduler()
 
     def has_connected_data(self):
         has_prod = True if "prod" in self.job.params else False

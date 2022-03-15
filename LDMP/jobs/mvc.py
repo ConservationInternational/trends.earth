@@ -10,6 +10,7 @@ from qgis.PyQt import uic
 from qgis.utils import iface
 from te_schemas.jobs import JobStatus
 from te_schemas.results import Band as JobBand
+from te_schemas.results import RasterResults
 
 from . import manager
 from .. import layers
@@ -525,7 +526,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         action.triggered.connect(lambda _, x=file_path: self.show_metadata(x))
         self.metadata_menu.addSeparator()
 
-        if self.job.results is not None:
+        if self.job.results is not None and isinstance(self.job.results, RasterResults):
             for raster in self.job.results.rasters.values():
                 file_path = os.path.splitext(raster.uri.uri)[0] + ".qmd"
                 action = self.metadata_menu.addAction(

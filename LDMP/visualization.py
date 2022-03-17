@@ -236,7 +236,7 @@ class ExtractAdministrativeArea:
         cnt_name, region = '', ''
 
         # Field names
-        sub_cnt_attr = 'admin0_a3'
+        sub_cnt_attr = 'adm0_a3'
         sub_admin_one_attr = 'adm1_code'
 
         sub_nat_ext_layer = self._extract_by_loc(self._sub_nat_layer, predicates)

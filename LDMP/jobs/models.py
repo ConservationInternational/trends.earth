@@ -1,5 +1,4 @@
 """Job and dataset utilities"""
-
 import enum
 import functools
 import re
@@ -22,6 +21,12 @@ class SortField(enum.Enum):
     DATE = 'date'
     ALGORITHM = 'algorithm'
     STATUS = 'status'
+
+
+class TypeFilter(enum.Enum):
+    ALL = 'all'
+    RASTER = 'raster'
+    VECTOR = 'vector'
 
 
 @marshmallow_dataclass.dataclass

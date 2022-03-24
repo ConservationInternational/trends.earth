@@ -2,7 +2,7 @@
 """
 /***************************************************************************
  LDMP - A QGIS plugin
- This plugin supports monitoring and reporting of land degradation to the UNCCD 
+ This plugin supports monitoring and reporting of land degradation to the UNCCD
  and in support of the SDG Land Degradation Neutrality (LDN) target.
                               -------------------
         begin                : 2017-05-23
@@ -13,10 +13,10 @@
 """
 
 import json
+import math
 import os
 import re
 import typing
-from builtins import range
 from builtins import str
 from math import floor
 from math import log10
@@ -30,6 +30,9 @@ from qgis.core import QgsColorRampShader
 from qgis.core import QgsProject
 from qgis.core import QgsRasterShader
 from qgis.core import QgsSingleBandPseudoColorRenderer
+from qgis.core import QgsProviderRegistry
+from qgis.core import QgsProviderSublayerDetails
+from qgis.core import QgsProject, QgsDefaultValue
 from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtCore import QCoreApplication
 from qgis.PyQt.QtGui import QColor
@@ -330,19 +333,19 @@ style_text_dict = {
     tr_layers.tr(u'Population density ({year}, per sq km / 10)'),
     'population_density_affected_by_degradation_title':
     tr_layers.tr(
-        u'Population exposed to degradation\n(population in {population_year}, per sq km / 10, degradation period {deg_year_initial}-{deg_year_final})'
+        u'Population exposed to degradation (population in {population_year}, per sq km / 10, degradation period {deg_year_initial}-{deg_year_final})'
     ),
     'population_affected_by_degradation_title':
     tr_layers.tr(
-        u'Population exposed to degradation\n({type} population in {population_year}, degradation period {deg_year_initial}-{deg_year_final})'
+        u'Population exposed to degradation ({type} population in {population_year}, degradation period {deg_year_initial}-{deg_year_final})'
     ),
     'population_density_at_maximum_drought_title':
     tr_layers.tr(
-        u'Population density at maximum drought\n(density per sq km / 10, {year_initial}-{year_final} period)'
+        u'Population density at maximum drought (density per sq km / 10, {year_initial}-{year_final} period)'
     ),
     'population_at_maximum_drought_title':
     tr_layers.tr(
-        u'Population at maximum drought\n({type}, {year_initial}-{year_final} period)'
+        u'Population at maximum drought ({type}, {year_initial}-{year_final} period)'
     ),
 
     # SPI
@@ -380,7 +383,7 @@ style_text_dict = {
     tr_layers.tr(u'Biomass (tonnes CO2e per ha, {year})'),
     'biomass_difference_title':
     tr_layers.
-    tr(u'Change in biomass\n(tonnes CO2e per ha, {type} after {years} years)'),
+    tr(u'Change in biomass (tonnes CO2e per ha, {type} after {years} years)'),
 
     # Global Zoning
     'agro_eco_zones':
@@ -462,34 +465,38 @@ def get_sample(f, band_number, n=1e6):
     xsize = b.XSize
     ysize = b.YSize
 
-    # Select grid size from shortest side to ensure we have enough samples
+    samp_frac = (n / (xsize * ysize)) * 2
 
-    if xsize > ysize:
-        edge = ysize
-    else:
-        edge = xsize
-    grid_size = np.ceil(edge / np.sqrt(n))
+    ratio = xsize / ysize
+    ysize_new = math.ceil(math.sqrt(n / ratio))
+    xsize_new = math.ceil(ysize_new * ratio)
 
-    if (n > xsize * ysize) or ((grid_size * grid_size) > (xsize * ysize)):
-        # Don't sample if the sample would be larger than the array itself
+    if (n > xsize * ysize) or (samp_frac > .75) or (xsize_new > xsize
+                                                    ) or (ysize_new > ysize):
+        log(
+            f"Skipping resampling from a ({xsize}, {ysize}) array "
+            f"to a ({xsize_new}, {ysize_new}) array"
+        )
 
         return b.ReadAsArray().astype(np.float)
     else:
-        rows = np.arange(0, ysize, grid_size)
-        cols = np.arange(0, xsize, grid_size).astype('int64')
-
-        out = np.zeros((rows.shape[0], cols.shape[0]), np.float32)
         log(
-            "Sampling from a ({}, {}) array to a {} array (grid size: {}, samples: {})"
-            .format(
-                ysize, xsize, out.shape, grid_size, out.shape[0] * out.shape[1]
-            )
+            f"Resampling from a ({xsize}, {ysize}) array "
+            f"to a ({xsize_new}, {ysize_new}) array"
+        )
+        log(
+            'Resampling to '
+            f'/vsimem/resample_{Path(f).with_suffix(".tif").name}, from {f}'
+        )
+        ds_resamp = gdal.Translate(
+            f'/vsimem/{Path(f).with_suffix(".tif").name}',
+            f,
+            bandList=[band_number],
+            width=xsize_new,
+            height=ysize_new
         )
 
-        for n in range(rows.shape[0]):
-            out[n, :] = b.ReadAsArray(0, int(rows[n]), xsize, 1)[:, cols]
-
-        return out
+        return ds_resamp.ReadAsArray().astype(np.float)
 
 
 # def _set_statistics(
@@ -504,8 +511,10 @@ def get_sample(f, band_number, n=1e6):
 
 
 def _get_cutoff(
-    data_sample: np.ndarray, no_data_value: typing.Union[int, float],
-    percentiles
+    data_sample: np.ndarray,
+    no_data_value: typing.Union[int, float],
+    percentiles,
+    mask_zeros=False
 ):
     if len(percentiles) != 1 and len(percentiles) != 2:
         raise ValueError(
@@ -513,6 +522,7 @@ def _get_cutoff(
             .format(percentiles)
         )
     md = np.ma.masked_where(data_sample == no_data_value, data_sample)
+    md = np.ma.masked_where(md == 0, md)
 
     if md.size == 0:
         # If all of the values are no data, return 0
@@ -605,10 +615,12 @@ def _create_zero_centered_stretch_color_ramp(
     # Set a colormap centred on zero, going to the max of the min and max
     # extreme value significant to three figures.
     cutoff = _get_cutoff(
-        data_sample, no_data_value, [
+        data_sample,
+        no_data_value, [
             style_config['ramp']['percent stretch'],
             100 - style_config['ramp']['percent stretch']
-        ]
+        ],
+        mask_zeros=True
     )
     log(
         'Cutoff for {} percent stretch: {}'.format(
@@ -643,8 +655,9 @@ def _create_min_zero_stretch_color_ramp(
     # Set a colormap from zero to percent stretch significant to
     # three figures.
     cutoff = _get_cutoff(
-        data_sample, no_data_value,
-        [100 - style_config['ramp']['percent stretch']]
+        data_sample,
+        no_data_value, [100 - style_config['ramp']['percent stretch']],
+        mask_zeros=True
     )
     log(
         'Cutoff for min zero max {} percent stretch: {}'.format(
@@ -900,3 +913,42 @@ def delete_layer_by_filename(f: str) -> bool:
         pass
 
     return result
+
+
+def add_vector_layer(layer_path: str, name: str, start_editing: bool):
+    sublayers = QgsProviderRegistry.instance().providerMetadata('ogr').querySublayers(layer_path)
+
+    layer = None
+    if len(sublayers) > 0:
+        options = QgsProviderSublayerDetails.LayerOptions(QgsProject.instance().transformContext())
+        options.loadDefaultStyle = True
+        layer = sublayers[0].toLayer(options)
+        if layer.isValid():
+            layer.setName(name)
+            QgsProject.instance().addMapLayer(layer)
+    else:
+        layer = iface.addVectorLayer(layer_path, name, 'ogr')
+
+    if layer is None or not layer.isValid():
+        log(f'Failed to add layer {layer_path}')
+        return False
+
+    if start_editing:
+        layer.startEditing()
+
+    return True
+
+def set_default_value(v_path: str, field: str, r_path: str, band: int, v: int):
+    sublayers = QgsProviderRegistry.instance().providerMetadata('ogr').querySublayers(v_path)
+
+    layer = None
+    if len(sublayers) > 0:
+        options = QgsProviderSublayerDetails.LayerOptions(QgsProject.instance().transformContext())
+        options.loadDefaultStyle = True
+        layer = sublayers[0].toLayer(options)
+    else:
+        layer = QgsVectorLayer(v_path, '', 'ogr')
+
+    idx = layer.fields().lookupField(field)
+    layer.setDefaultValueDefinition(idx, QgsDefaultValue("calculate_charts('{}', {}, {})".format(r_path, band, v), True))
+    layer.saveStyleToDatabase('false_positive', '', True, '')

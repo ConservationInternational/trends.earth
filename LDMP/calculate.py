@@ -396,7 +396,8 @@ class DlgCalculateBase(QtWidgets.QDialog):
     _firstShowEvent: bool
     reset_tab_on_showEvent: bool
 
-    firstShowEvent = QtCore.pyqtSignal()
+    firstShowEvent: QtCore.pyqtSignal = QtCore.pyqtSignal()
+    changed_region: QtCore.pyqtSignal = QtCore.pyqtSignal()
 
     def __init__(
             self,
@@ -497,6 +498,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
     def update_current_region(self):
         region=settings_manager.get_value(Setting.AREA_NAME)
         self.region_la.setText(self.tr(f"Current region: {region}"))
+        self.changed_region.emit()
 
     def run_settings(self):
         dlg_settings=DlgSettings(parent=self)

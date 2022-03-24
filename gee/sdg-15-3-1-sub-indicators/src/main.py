@@ -171,6 +171,9 @@ def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
                 crs=params.get('crs'),
                 logger=logger,
                 execution_id=str(EXECUTION_ID) + str(geojson_num),
+                filetype=results.RasterFileType(
+                    params.get('filetype', results.RasterFileType.COG.value)
+                ),
                 proj=proj
             )
         )
@@ -292,6 +295,9 @@ def run_jrc_for_period(params, EXECUTION_ID, logger):
         crs=params.get('crs'),
         logger=logger,
         execution_id=EXECUTION_ID,
+        filetype=results.RasterFileType(
+            params.get('filetype', results.RasterFileType.COG.value)
+        ),
         proj=proj
     )
 

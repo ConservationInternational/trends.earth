@@ -1,4 +1,5 @@
 import dataclasses
+import enum
 import json
 from pathlib import Path
 from typing import Dict
@@ -15,9 +16,15 @@ from te_schemas.results import Band as JobBand
 from .. import data_io
 from .. import tr
 from ..jobs.models import Job
+from ..logger import log
 
 NODATA_VALUE = -32768
 MASK_VALUE = -32767
+
+
+class PopulationMode(enum.Enum):
+    BySex = "Population disaggregated by sex"
+    Total = "Total population"
 
 
 @dataclasses.dataclass()
@@ -103,6 +110,14 @@ class LdnInputInfo:
     years: List[int]
 
 
+@dataclasses.dataclass()
+class PopInputInfo:
+    paths: List[Path]
+    bands: List[JobBand]
+    band_indices: List[int]
+    years: List[int]
+
+
 def _get_ld_input_period(
     data_selection_widget: data_io.WidgetDataIOSelectTELayerExisting,
     year_initial_field: str = "year_initial",
@@ -128,9 +143,11 @@ def _get_ld_inputs(
     main_band_index = usable_band_info.band_index
     aux_bands = []
 
-    for band_index, job_band in enumerate(usable_band_info.job.results.bands):
+    for band_index, job_band in enumerate(
+        usable_band_info.job.results.get_bands(), start=1
+    ):
         if job_band.name == aux_band_name:
-            aux_bands.append((job_band, band_index + 1))
+            aux_bands.append((job_band, band_index))
     sorted_aux_bands = sorted(
         aux_bands, key=lambda i: i[0].metadata[sort_property]
     )
@@ -139,12 +156,50 @@ def _get_ld_inputs(
     years = [i[0].metadata[sort_property] for i in sorted_aux_bands]
 
     return LdnInputInfo(
-        path=usable_band_info.path,
+        path=usable_band_info.job.results.uri.uri,
         main_band=main_band,
         main_band_index=main_band_index,
         aux_bands=aux_bands,
         aux_band_indexes=aux_band_indexes,
         years=years
+    )
+
+
+def _get_pop_inputs(
+    pop_mode,
+    total_pop_selection_widget: data_io.WidgetDataIOSelectTELayerExisting,
+    male_pop_selection_widget: data_io.WidgetDataIOSelectTELayerExisting,
+    female_pop_selection_widget: data_io.WidgetDataIOSelectTELayerExisting
+) -> PopInputInfo:
+    '''Used to get pop band(s) from combo boxes'''
+
+    if pop_mode == PopulationMode.Total.value:
+        total_pop_band_info = total_pop_selection_widget.get_current_band()
+        bands = [total_pop_band_info.band_info]
+        paths = [total_pop_band_info.job.results.uri.uri]
+        band_indices = [total_pop_band_info.band_index]
+        years = [total_pop_band_info.band_info.metadata['year']]
+
+    elif pop_mode == PopulationMode.BySex.value:
+        male_pop_band_info = male_pop_selection_widget.get_current_band()
+        female_pop_band_info = female_pop_selection_widget.get_current_band()
+        bands = [male_pop_band_info.band_info, female_pop_band_info.band_info]
+        paths = [
+            male_pop_band_info.job.results.uri.uri,
+            female_pop_band_info.job.results.uri.uri
+        ]
+        band_indices = [
+            male_pop_band_info.band_index, female_pop_band_info.band_index
+        ]
+        years = [
+            male_pop_band_info.band_info.metadata['year'],
+            female_pop_band_info.band_info.metadata['year']
+        ]
+    else:
+        raise Exception('Unknown population mode {pop_mode}')
+
+    return PopInputInfo(
+        paths=paths, bands=bands, band_indices=band_indices, years=years
     )
 
 
@@ -157,14 +212,16 @@ def _get_ld_input_aux_band(
 
     aux_bands = []
 
-    for band_index, job_band in enumerate(usable_band_info.job.results.bands):
+    for band_index, job_band in enumerate(
+        usable_band_info.job.results.get_bands(), start=1
+    ):
         if job_band.name == aux_band_name:
-            aux_bands.append((job_band, band_index + 1))
+            aux_bands.append((job_band, band_index))
     assert len(aux_bands) == 1
     aux_band = aux_bands[0]
 
     return {
-        'path': usable_band_info.path,
+        'path': usable_band_info.job.results.uri.uri,
         'band': aux_band[0],
         'band_index': aux_band[1]
     }
@@ -174,6 +231,7 @@ def get_main_sdg_15_3_1_job_params(
     task_name: str,
     aoi,
     prod_mode: str,
+    pop_mode: str,
     combo_layer_lc: data_io.WidgetDataIOSelectTELayerExisting,
     combo_layer_soc: data_io.WidgetDataIOSelectTELayerExisting,
     combo_layer_traj: data_io.WidgetDataIOSelectTELayerExisting,
@@ -193,8 +251,9 @@ def get_main_sdg_15_3_1_job_params(
     soil_organic_carbon_inputs = _get_ld_inputs(
         combo_layer_soc, ld_config.SOC_BAND_NAME
     )
-    population_input = _get_ld_inputs(
-        combo_layer_pop, ld_config.POPULATION_BAND_NAME
+    population_input = _get_pop_inputs(
+        pop_mode, combo_layer_pop_total, combo_layer_pop_male,
+        combo_layer_pop_female
     )
 
     lc_deg_years = _get_ld_input_period(combo_layer_lc)
@@ -245,12 +304,11 @@ def get_main_sdg_15_3_1_job_params(
         soil_organic_carbon_inputs.aux_band_indexes,
         "layer_soc_years":
         soil_organic_carbon_inputs.years,
-        "layer_population_path":
-        str(population_input.path),
-        "layer_population_band":
-        JobBand.Schema().dump(population_input.main_band),
-        "layer_population_band_index":
-        population_input.main_band_index,
+        "layer_population_paths": [str(p) for p in population_input.paths],
+        "layer_population_bands":
+        [JobBand.Schema().dump(b) for b in population_input.bands],
+        "layer_population_band_indexes":
+        population_input.band_indices,
         "crs":
         aoi.get_crs_dst_wkt(),
         "geojsons":
@@ -307,5 +365,5 @@ def compute_ldn(
     """Calculate final SDG 15.3.1 indicator and save to disk"""
 
     return summarise_land_degradation(
-        ldn_job, AOI(aoi.get_geojson()), job_output_path
+        ldn_job, AOI(aoi.get_geojson()), job_output_path, n_cpus=1
     )

@@ -12,15 +12,13 @@ import stat
 import subprocess
 import sys
 import zipfile
-from datetime import datetime
-from datetime import timezone
-from tempfile import mkstemp
-from tempfile import TemporaryDirectory
+from datetime import datetime, timezone
+from pathlib import Path
+from tempfile import TemporaryDirectory, mkstemp
 
 import boto3
 import requests
-from invoke import Collection
-from invoke import task
+from invoke import Collection, task
 
 
 # Below is from:
@@ -595,6 +593,28 @@ def read_requirements():
     return not_comments(0, idx), not_comments(idx + 1, None)
 
 
+def _safe_remove_folder(rootdir):
+    '''
+    Supports removing a folder that may have symlinks in it
+
+    Needed on windows to avoid removing the original files linked to within
+    each folder
+    '''
+    rootdir = Path(rootdir)
+    if rootdir.is_symlink():
+        rootdir.rmdir()
+    else:
+        folders = [path for path in Path(rootdir).iterdir() if path.is_dir()]
+        for folder in folders:
+            if folder.is_symlink():
+                folder.rmdir()
+            else:
+                shutil.rmtree(folder)
+        files = [path for path in Path(rootdir).iterdir()]
+        for file in files:
+            file.unlink()
+
+
 @task(
     help={
         'clean': 'Clean out dependencies first',
@@ -602,12 +622,12 @@ def read_requirements():
         'pip': 'Path to pip (usually "pip" or "pip3"'
     }
 )
-def plugin_setup(c, clean=False, link=False, pip='pip'):
+def plugin_setup(c, clean=True, link=False, pip='pip'):
     '''install dependencies'''
     ext_libs = os.path.abspath(c.plugin.ext_libs.path)
 
     if clean and os.path.exists(ext_libs):
-        shutil.rmtree(ext_libs)
+        _safe_remove_folder(ext_libs)
 
     if sys.version_info[0] < 3:
         if not os.path.exists(ext_libs):
@@ -641,8 +661,7 @@ def plugin_setup(c, clean=False, link=False, pip='pip'):
 
             if os.path.islink(l):
                 print(
-                    "Local repo of {} already linked to plugin ext_libs".
-                    format(module['name'])
+                    f"{l} is already a link (to {os.readlink(l)})"
                 )
             else:
                 print(
@@ -656,13 +675,16 @@ def plugin_setup(c, clean=False, link=False, pip='pip'):
 
 @task(
     help={
-        'clean': "run rmtree",
+        'clean': "remove existing install folder first",
         'version': 'what version of QGIS to install to',
         'profile': 'what profile to install to (only applies to QGIS3',
-        'fast': 'Skip compiling numba files'
+        'fast': 'Skip compiling numba files',
+        'link': 'Symlink folder to QGIS profile directory'
     }
 )
-def plugin_install(c, clean=False, version=3, profile='default', fast=False):
+def plugin_install(
+    c, clean=False, version=3, profile='default', fast=False, link=False
+):
     '''install plugin to qgis'''
     set_version(c)
     compile_files(c, version, clean, fast)
@@ -693,16 +715,15 @@ def plugin_install(c, clean=False, version=3, profile='default', fast=False):
     src = os.path.abspath(src)
     dst_this_plugin = os.path.abspath(dst_this_plugin)
 
-    if not hasattr(os, 'symlink'):
+    if not hasattr(os, 'symlink') or not link:
         print(
             "Copying plugin to QGIS version {} plugin folder at {}".format(
                 version, dst_this_plugin
             )
         )
 
-        if clean:
-            if os.path.exists(dst_this_plugin):
-                rmtree(dst_this_plugin)
+        if clean and os.path.exists(dst_this_plugin):
+            _safe_remove_folder(dst_this_plugin)
 
         for root, dirs, files in os.walk(src):
             relpath = os.path.relpath(root)
@@ -722,17 +743,23 @@ def plugin_install(c, clean=False, version=3, profile='default', fast=False):
                         .format(f, os.path.join(dst_plugins, relpath, f))
                     )
             _filter_excludes(root, dirs, c)
-    elif not os.path.exists(dst_this_plugin):
-        print(
-            "Linking plugin development folder to QGIS version {} plugin folder at {}"
-            .format(version, dst_this_plugin)
-        )
-        os.symlink(src, dst_this_plugin)
     else:
-        print(
-            "Not linking - plugin folder for QGIS version {} already exists at {}"
-            .format(version, dst_this_plugin)
-        )
+            if clean and os.path.exists(dst_this_plugin):
+                print(f"Removing folder {dst_this_plugin}")
+                _safe_remove_folder(dst_this_plugin)
+
+            if os.path.exists(dst_this_plugin):
+                print(
+                    f"Not linking - plugin folder for QGIS version {version} already "
+                    f"exists at {dst_this_plugin}. Use '-c' to clean that folder if "
+                    "desired."
+                )
+            else:
+                print(
+                    "Linking plugin development folder to QGIS version {} plugin folder at {}"
+                    .format(version, dst_this_plugin)
+                )
+                os.symlink(src, dst_this_plugin)
 
 
 # Compile all ui and resource files
@@ -1181,15 +1208,30 @@ def changelog_build(c):
         'tests': 'Package tests with plugin',
         'filename': 'Name for output file',
         #'python': 'Python to use for setup and compiling',
-        'pip': 'Path to pip (usually "pip" or "pip3"'
+        'pip': 'Path to pip (usually "pip" or "pip3"',
+        'tag': 'Whether to tag on Github'
     }
 )
 def zipfile_build(
-    c, clean=False, version=3, tests=False, filename=None, pip='pip'
+    c,
+    clean=True,
+    version=3,
+    tests=False,
+    filename=None,
+    pip='pip',
+    tag=False
 ):
     """Create plugin package"""
     set_version(c)
-    set_tag(c)
+
+    if tag:
+        set_tag(c)
+    else:
+        print(
+            '***Not setting tag on github***\nIf this is a '
+            'production deployment you MUST tag this version on github, '
+            'so cancel this process and re-run with tag=True'
+        )
 
     plugin_setup(c, clean=clean, pip=pip)
     compile_files(c, version=version, clean=clean)
@@ -1207,6 +1249,10 @@ def zipfile_build(
         filename = os.path.join(
             package_dir, '{}_QGIS{}.zip'.format(c.plugin.name, version)
         )
+
+    print(f'Removing untracked datafiles from {c.plugin.data_dir}...')
+    subprocess.check_call(['git', 'clean', '-f', '-x', c.plugin.data_dir])
+
     print('Building zipfile...')
     with zipfile.ZipFile(filename, 'w', zipfile.ZIP_DEFLATED) as zf:
         if not tests:
@@ -1229,16 +1275,17 @@ def _make_zip(zipFile, c):
 @task(
     help={
         'qgis': 'QGIS version to target',
-        'clean': 'Clean out dependencies before packaging',
-        'pip': 'Path to pip (usually "pip" or "pip3"'
+        'clean': 'Clean out dependencies and untracked data files before packaging',
+        'pip': 'Path to pip (usually "pip" or "pip3"',
+        'tag': 'Whether to tag on Github'
     }
 )
-def zipfile_deploy(c, qgis, clean=False, pip='pip'):
+def zipfile_deploy(c, qgis, clean=True, pip='pip', tag=False):
     binaries_sync(c)
     binaries_deploy(c, qgis=qgis)
     print('Binaries uploaded')
 
-    filename = zipfile_build(c, pip=pip)
+    filename = zipfile_build(c, pip=pip, clean=clean, tag=tag)
     try:
         with open(
             os.path.join(os.path.dirname(__file__), 'aws_credentials.json'),
@@ -1586,6 +1633,8 @@ ns.configure(
             'LDMP/gui',
             'source_dir':
             'LDMP',
+            'data_dir':
+            'LDMP/data',
             'i18n_dir':
             'LDMP/i18n',
             #'translations': ['fr', 'es', 'pt', 'sw', 'ar', 'ru', 'zh'],

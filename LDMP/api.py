@@ -11,40 +11,27 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
-
 from future import standard_library
+
 standard_library.install_aliases()
 
-from datetime import datetime
-from dateutil import tz
-import requests
 import json
+from datetime import datetime
 from urllib.parse import quote_plus
 
-from qgis.PyQt import (
-    QtCore,
-    QtWidgets
-)
-
+import requests
+from dateutil import tz
+from qgis.core import QgsApplication, QgsTask
+from qgis.PyQt import QtCore, QtWidgets
 from qgis.utils import iface
-from qgis.core import (
-    QgsApplication,
-    QgsTask,
-)
 
-
-from . import (
-    conf,
-    auth
-)
+from . import auth, conf
 from .logger import log
-from .worker import (
-    AbstractWorker,
-    start_worker,
-)
+from .worker import AbstractWorker, start_worker
 
 API_URL = 'https://api.trends.earth'
 TIMEOUT = 20
+
 
 def tr(message):
     return QtCore.QCoreApplication.translate("tr_api", message)
@@ -52,6 +39,7 @@ def tr(message):
 
 ###############################################################################
 # Threading functions for calls to requests
+
 
 class RequestTask(QgsTask):
     def __init__(self, description, url, method, payload, headers):
@@ -66,19 +54,51 @@ class RequestTask(QgsTask):
 
     def run(self):
         if self.method == 'get':
-            self.resp = requests.get(self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT)
+            self.resp = requests.get(
+                self.url,
+                json=self.payload,
+                headers=self.headers,
+                timeout=TIMEOUT
+            )
         elif self.method == 'post':
-            self.resp = requests.post(self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT)
+            self.resp = requests.post(
+                self.url,
+                json=self.payload,
+                headers=self.headers,
+                timeout=TIMEOUT
+            )
         elif self.method == 'update':
-            self.resp = requests.update(self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT)
+            self.resp = requests.update(
+                self.url,
+                json=self.payload,
+                headers=self.headers,
+                timeout=TIMEOUT
+            )
         elif self.method == 'delete':
-            self.resp = requests.delete(self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT)
+            self.resp = requests.delete(
+                self.url,
+                json=self.payload,
+                headers=self.headers,
+                timeout=TIMEOUT
+            )
         elif self.method == 'patch':
-            self.resp = requests.patch(self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT)
+            self.resp = requests.patch(
+                self.url,
+                json=self.payload,
+                headers=self.headers,
+                timeout=TIMEOUT
+            )
         elif self.method == 'head':
-            self.resp = requests.head(self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT)
+            self.resp = requests.head(
+                self.url,
+                json=self.payload,
+                headers=self.headers,
+                timeout=TIMEOUT
+            )
         else:
-            self.exception = ValueError("Unrecognized method: {}".format(self.method))
+            self.exception = ValueError(
+                "Unrecognized method: {}".format(self.method)
+            )
             return False
 
         return True
@@ -99,20 +119,29 @@ class RequestTask(QgsTask):
 
             elif self.exception is requests.exceptions.Timeout:
                 log('API unable to login - general error')
-                self.error_message = tr(f"Unable to connect to Trends.Earth  server.")
+                self.error_message = tr(
+                    f"Unable to connect to Trends.Earth  server."
+                )
 
             else:
-                log(f'API {self.method} not successful - exception: {self.exception}')
+                log(
+                    f'API {self.method} not successful - exception: {self.exception}'
+                )
                 raise self.exception
 
         if self.resp is not None:
-            log(f'API response from "{self.method}" request: {self.resp.status_code}')
+            log(
+                f'API response from "{self.method}" request: {self.resp.status_code}'
+            )
         else:
             log(f'API response from "{self.method}" request was None')
 
-        if conf.settings_manager.get_value(conf.Setting.DEBUG):
-            log(f'API response from "{self.method}" request (data): '
-                '{clean_api_response(self.resp))}')
+        # if conf.settings_manager.get_value(conf.Setting.DEBUG):
+        #     log(
+        #         f'API response from "{self.method}" request (data): '
+        #         f'{clean_api_response(self.resp)}'
+        #     )
+
 
 ###############################################################################
 # Other helper functions for api calls
@@ -161,13 +190,13 @@ def get_error_status(resp):
 
 def login(authConfigId=None):
     authConfig = auth.get_auth_config(
-        auth.TE_API_AUTH_SETUP,
-        authConfigId=authConfigId
+        auth.TE_API_AUTH_SETUP, authConfigId=authConfigId
     )
 
-    if (not authConfig or
-            not authConfig.config('username') or
-            not authConfig.config('password')):
+    if (
+        not authConfig or not authConfig.config('username')
+        or not authConfig.config('password')
+    ):
         log('API unable to login - setup auth configuration before using')
 
         return None
@@ -188,20 +217,26 @@ def login(authConfigId=None):
 
             if token is None:
                 log('Unable to read Trends.Earth token in API response')
-                error_message = tr("Unable to read token for Trends.Earth "
-                                   "server. Check username and password.")
+                error_message = tr(
+                    "Unable to read token for Trends.Earth "
+                    "server. Check username and password."
+                )
                 ret = None
         except KeyError:
             log('API unable to login - check username and password')
-            error_message = tr("Unable to login to Trends.Earth. "
-                               "Check username and password.")
+            error_message = tr(
+                "Unable to login to Trends.Earth. "
+                "Check username and password."
+            )
             ret = None
         else:
             ret = token
     else:
         log('Unable to access Trends.Earth server')
-        error_message = tr("Unable to access Trends.Earth server. Check your "
-                           "internet connection")
+        error_message = tr(
+            "Unable to access Trends.Earth server. Check your "
+            "internet connection"
+        )
         ret = None
 
     if error_message:
@@ -212,9 +247,7 @@ def login(authConfigId=None):
 
 def login_test(email, password):
     resp = call_api(
-        '/auth',
-        method='post',
-        payload={
+        '/auth', method='post', payload={
             "email": email,
             "password": password
         }
@@ -224,11 +257,12 @@ def login_test(email, password):
         return True
     else:
         if not email or not password:
-            log("API unable to login during login test - check "
-                "username/password")
+            log(
+                "API unable to login during login test - check "
+                "username/password"
+            )
             QtWidgets.QMessageBox.critical(
-                None,
-                tr("Error"),
+                None, tr("Error"),
                 tr(
                     "Unable to login to Trends.Earth. Check that "
                     "username and password are correct."
@@ -293,8 +327,7 @@ def call_api(endpoint, method='get', payload=None, use_token=False):
         else:
             desc, status = get_error_status(resp)
             iface.messageBar().pushCritical(
-                'Trends.Earth',
-                u"Error: {} (status {}).".format(desc, status)
+                'Trends.Earth', u"Error: {} (status {}).".format(desc, status)
             )
             ret = None
     else:
@@ -305,23 +338,18 @@ def call_api(endpoint, method='get', payload=None, use_token=False):
 
 def get_header(url):
     resp = _make_request(
-        'Get head',
-        url=url,
-        method='head',
-        payload=None,
-        headers=None
+        'Get head', url=url, method='head', payload=None, headers=None
     )
 
     if resp != None:
-        log(u'Response from "{}" header request: {}'.format(url, resp.status_code))
+        log(f'Response from "{url}" header request: {resp.status_code}')
 
         if resp.status_code == 200:
             ret = resp.headers
         else:
             desc, status = get_error_status(resp)
             iface.messageBar().pushCritical(
-                "Trends.Earth",
-                u"Error: {} (status {}).".format(desc, status)
+                "Trends.Earth", u"Error: {} (status {}).".format(desc, status)
             )
             ret = None
     else:
@@ -330,16 +358,21 @@ def get_header(url):
 
     return ret
 
+
 ################################################################################
 # Functions supporting access to individual api endpoints
 
 
 def recover_pwd(email):
-    return call_api(u'/api/v1/user/{}/recover-password'.format(quote_plus(email)), 'post')
+    return call_api(
+        u'/api/v1/user/{}/recover-password'.format(quote_plus(email)), 'post'
+    )
 
 
 def get_user(email='me'):
-    resp = call_api(u'/api/v1/user/{}'.format(quote_plus(email)), use_token=True)
+    resp = call_api(
+        u'/api/v1/user/{}'.format(quote_plus(email)), use_token=True
+    )
 
     if resp:
         return resp['data']
@@ -357,30 +390,41 @@ def delete_user(email='me'):
 
 
 def register(email, name, organization, country):
-    payload = {"email": email,
-               "name": name,
-               "institution": organization,
-               "country": country}
+    payload = {
+        "email": email,
+        "name": name,
+        "institution": organization,
+        "country": country
+    }
 
     return call_api('/api/v1/user', method='post', payload=payload)
 
 
 def update_user(email, name, organization, country):
-    payload = {"email": email,
-               "name": name,
-               "institution": organization,
-               "country": country}
+    payload = {
+        "email": email,
+        "name": name,
+        "institution": organization,
+        "country": country
+    }
 
     return call_api('/api/v1/user/me', 'patch', payload, use_token=True)
 
 
 def update_password(password, repeatPassword):
-    payload = {"email": email,
-               "name": name,
-               "institution": organization,
-               "country": country}
+    payload = {
+        "email": email,
+        "name": name,
+        "institution": organization,
+        "country": country
+    }
 
-    return call_api(u'/api/v1/user/{}'.format(quote_plus(email)), 'patch', payload, use_token=True)
+    return call_api(
+        u'/api/v1/user/{}'.format(quote_plus(email)),
+        'patch',
+        payload,
+        use_token=True
+    )
 
 
 def get_execution(id=None, date=None):
@@ -394,7 +438,9 @@ def get_execution(id=None, date=None):
         query.append(u'updated_at={}'.format(date))
     query = "?" + "&".join(query)
 
-    resp = call_api(u'/api/v1/execution{}'.format(query), method='get', use_token=True)
+    resp = call_api(
+        u'/api/v1/execution{}'.format(query), method='get', use_token=True
+    )
 
     if not resp:
         return None
@@ -404,8 +450,9 @@ def get_execution(id=None, date=None):
 
 def get_script(id=None):
     if id:
-        resp = call_api(u'/api/v1/script/{}'.format(quote_plus(id)),
-                        'get', use_token=True)
+        resp = call_api(
+            u'/api/v1/script/{}'.format(quote_plus(id)), 'get', use_token=True
+        )
     else:
         resp = call_api(u'/api/v1/script', 'get', use_token=True)
 

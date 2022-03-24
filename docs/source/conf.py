@@ -113,6 +113,8 @@ rst_epilog = """
    :width: 2em
 .. |iconFolder| image:: /static/common/icon-folder.png
    :width: 2em
+.. |iconReports| image:: /static/common/reports_button.png
+   :width: 82
 .. |iconTrendsEarth| image:: /static/common/icon-trends_earth.png
    :width: 2em
 .. |iconVisualization| image:: /static/common/icon-reporting.png
@@ -133,7 +135,7 @@ rst_epilog = """
     :width: 125
     :target: https://www.thegef.org
 .. |CURRENT| replace:: {current_version}
-.. |qgisMinVersion| replace:: 3.14
+.. |qgisMinVersion| replace:: 3.16
 """.format(
     current_version=version
 )
@@ -212,7 +214,7 @@ html_show_sourcelink = False
 # Note the underscore SHOULD be used below as this is how the static folder is
 # named by sphinx on generation.
 html_context = {
-    "css_files": ["_static/custom.css"],
+    "css_files": ["_static/custom.css", "_static/pygments.css", "_static/css/theme.css"],
 }
 
 # If not '', a 'Last updated on:' timestamp is inserted at every page bottom,

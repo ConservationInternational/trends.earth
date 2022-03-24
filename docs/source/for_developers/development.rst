@@ -446,6 +446,8 @@ help of expressions.
 
 Here is how the code to generate charts looks like:
 
+.. code-block::
+
    import QtQuick 2.0
    import QtCharts 2.0
 
@@ -456,7 +458,7 @@ Here is how the code to generate charts looks like:
        backgroundColor: "#eeeeec"
        legend.alignment: Qt.AlignBottom
        antialiasing: true
-       ValueAxis{
+       ValueAxis {
            id: valueAxisY
            min: 0
            max: 100
@@ -495,6 +497,208 @@ on numpy array functions it is very fast even for big polygons.
 On the first attempt to edit special area layer user will be presented with a dialog where they should
 select which datasets to use for indicators. Then plugin will setup default expression values for all
 indicator fields, so the value will be updated on every geometry change.
+
+
+Updating the Reporting Framework
+________________________________
+
+.. _report_architecture_intro:
+
+Overview of the Reporting Framework
+-----------------------------------
+The Reports Framework is designed to be extensible while also providing interactivity to the user through
+non-blocking operations. The Framework heavily leverages on :code:`QgsProject` and :code:`QgsPrintLayout` classes
+which are not thread safe hence, the use of :code:`qgis_process` to do the heavy lifting of generating the reports
+(and charts). You can find more information about :code:`qgis_process` `here <https://docs.qgis.org/3.22/en/docs/user_manual/processing/standalone.html>`_.
+
+There are two main steps the toolbox performs when generating reports (and charts) for the default layers in a job:
+
+1. It creates a :code:`ReportTaskContext` object that constitutes a :code:`ReportConfiguration` object (see
+   :ref:`config_report_params`) and a :code:`Job` object that is represented in the **Datasets** panel. This
+   :code:`ReportTaskContext` object is serialized to a JSON file and then passed as one of the arguments in
+   a :code:`ReportProcessHandlerTask` object (that inherits from `QgsTask <https://qgis.org/pyqgis/master/core/QgsTask.html>`_).
+
+2. The :code:`ReportProcessHandlerTask` object initiates a separate instance of :code:`qgis_process` and passes the
+   path to the JSON file as an input to :code:`trendsearth:reporttask` processing algorithm. This is a thin wrapper that
+   deserializes the file to the :code:`ReportTaskContext` object and passes it to a :code:`ReportTaskProcessor`
+   object that is responsible for generating the reports and the job's QGIS project. For algorithms that require charts,
+   the :code:`ReportTaskProcessor` object passes the job object to a :code:`AlgorithmChartsManager` object
+   which checks whether there is a chart configuration defined for the job's algorithm. If defined, it generates the
+   corresponding charts as PNG files. (See :ref:`modifying_charts_config` for more information about chart configurations)
+
+The diagram below provides a high-level illustration of this process:
+
+   .. image:: ../../resources/en/documentation/reporting_tool/report_dev_process.png
+      :align: center
+      :target: /_images/report_dev_process.png
+
+`* Click on the image for an enlarged view.`
+
+.. note::
+    Some of the function names in the diagram above have been simplified for illustration purposes. The aforementioned classes
+    can be found in the `LDMP.reports <https://github.com/ConservationInternational/trends.earth/tree/master/LDMP/reports>`_ and
+    `LDMP.processing_provider.report <https://github.com/ConservationInternational/trends.earth/tree/master/LDMP/processing_provider/report.py>`_ modules.
+
+
+.. _adding_rpt_layout_vars:
+
+Adding Report Layout Variables
+--------------------------------
+Report variables provide context information related to a job, layer (or band) or setting during the report execution process.
+Currently, the toolbox supports variables listed in the :ref:`layout_expr_vars` section.
+
+Each variable is defined as a :code:`namedtuple` in the `LDMP.reports.expressions <https://github.com/ConservationInternational/trends.earth/tree/master/LDMP/reports/expressions.py>`_
+module and, is subsequently updated and evaluated by the :code:`ReportTaskProcessor` object.
+
+Follow the guidelines below on how to add new job or current layer variables.
+
+Job Variable
+~~~~~~~~~~~~
+It enables information about the current job - being executed - to be added to a report layout. Information about each
+job variable is encapsulated in a :code:`JobAttrVarInfo` object that is made up of four attributes:
+
++-----------------+--------------------------------------------------------------+-----------------+---------------+
+| Attribute Name  | Description                                                  | Data Type       | Default Value |
++=================+==============================================================+=================+===============+
+| `job_attr`      | Attribute name of a :code:`Job` object as used in a dot      | String          | N/A           |
+|                 | notation. For instance, `id` corresponds to :code:`job.id`.  |                 |               |
+|                 | You can even use the dot notation to refer to attributes in  |                 |               |
+|                 | inner nested classes e.g. `results.uri.uri`.                 |                 |               |
++-----------------+--------------------------------------------------------------+-----------------+---------------+
+| `var_name`      | Name of the report layout variable. It should be prefixed    | String          | N/A           |
+|                 | with `te_job_`.                                              |                 |               |
++-----------------+--------------------------------------------------------------+-----------------+---------------+
+| `default_value` | A default value to use for `var_name`, mostly applied when   | object          | object        |
+|                 | designing layouts.                                           |                 |               |
++-----------------+--------------------------------------------------------------+-----------------+---------------+
+| `fmt_func`      | A function object that will be used to convert the job's     | function object | None          |
+|                 | attribute value to a format that is compatible with QGIS     |                 |               |
+|                 | expressions.                                                 |                 |               |
+|                 | For instance, :code:`str` can be used to convert the value   |                 |               |
+|                 | of a job's `id` from UUID to string. You can also use        |                 |               |
+|                 | lambda functions here.                                       |                 |               |
++-----------------+--------------------------------------------------------------+-----------------+---------------+
+
+The code snippet below shows how to add a variable `te_job_result_name` that corresponds to
+:code:`job.results.name`.
+
+.. code-block:: python
+   :emphasize-lines: 5
+
+   # LDMP/reports/expressions.py
+   def _job_attr_var_mapping() -> typing.List[JobAttrVarInfo]:
+       return [
+           ...
+           JobAttrVarInfo('results.name', 'te_job_result_name', '', str),
+           ...
+       ]
+
+
+Layer Variable
+~~~~~~~~~~~~~~
+It provides information about the current raster layer being executed. This variable information is encapsulated in
+a :code:`LayerVarInfo` object that is made up of three attributes:
+
++-----------------+-------------------------------------------------------------------------------------------------------+-----------------+---------------+
+| Attribute Name  | Description                                                                                           | Data Type       | Default Value |
++=================+=======================================================================================================+=================+===============+
+| `var_name`      | Name of the report layout variable. It should be prefixed                                             | String          | N/A           |
+|                 | with `te_current_layer_`.                                                                             |                 |               |
++-----------------+-------------------------------------------------------------------------------------------------------+-----------------+---------------+
+| `default_value` | A default value to use for `var_name`, mostly applied                                                 | object          | object        |
+|                 | when designing layouts.                                                                               |                 |               |
++-----------------+-------------------------------------------------------------------------------------------------------+-----------------+---------------+
+| `fmt_func`      | A function object that will be used to extract and/or                                                 | function object | None          |
+|                 | convert a value from a `QgsRasterLayer <https://qgis.org/pyqgis/master/core/QgsRasterLayer.html>`_    |                 |               |
+|                 | object to a format that is compatible with QGIS expressions. You can also use lambda functions here.  |                 |               |
+|                 |                                                                                                       |                 |               |
+|                 | For instance, :code:`lambda layer: layer.name()` returns the layer name.                              |                 |               |
++-----------------+-------------------------------------------------------------------------------------------------------+-----------------+---------------+
+
+
+The code snippet below shows how to add a variable `te_current_layer_height` that corresponds to the raster layer's height.
+
+.. code-block:: python
+   :emphasize-lines: 5-9
+
+   # LDMP/reports/expressions.py
+   def _current_job_layer_var_mapping() -> typing.List[LayerVarInfo]:
+       return [
+           ...
+           LayerVarInfo(
+               'te_current_layer_height',
+               '',
+               lambda layer: layer.height()
+           )
+           ...
+       ]
+
+
+.. note::
+    These variables are only available in the layout scope.
+
+
+.. _modifying_charts_config:
+
+Adding Chart Configurations
+------------------------------
+Charts can be grouped using a chart configuration object that corresponds to a specific
+algorithm. Defining a new chart configuration is a three-step process:
+
+1. Create a new chart class that inherits from :code:`BaseChart` in the `LDMP.reports.charts <https://github.com/ConservationInternational/trends.earth/tree/master/LDMP/reports/charts.py>`_
+   module. Implement the :code:`export` function to specify the chart type, properties etc. using the :code:`Plotly`
+   Python library that ships with QGIS. Finally, within the :code:`export` function, call the :code:`save_image` function to write the
+   Plotly's :code:`Figure` object as an image file using any of the formats supported by Qt's :code:`QImageWriter` class. You can
+   also specify the path as relative to the root output directory which is also available as an attribute in the
+   base class. See the code snippet below:
+
+   .. code-block:: python
+
+      # LDMP/reports/charts.py
+      Class MyCustomChart(BaseChart):
+          def export(self) -> typing.Tuple[bool, list]:
+              status = True
+              messages = []
+
+              # Create chart Figure using Plotly and set properties
+              fig = go.Figure(...)
+
+              # Add warning or error messages
+              messages.append('Colour list not supported.')
+
+              # Set image path in dataset's reports folder
+              img_path = f'{self.root_output_dir}/chart-NDVI.png'
+
+              # Save image and append its path
+              self.save_image(fig, img_path)
+              self._paths.append(img_path)
+
+              return status, messages
+
+   You can refer to the :code:`UniqueValuesPieChart` class for a more complete example.
+
+2. Create a chart configuration class that inherits from :code:`BaseAlgorithmChartsConfiguration` and implement the
+   :code:`_add_charts` function. The chart configuration class basically defines which charts will be used for a
+   given algorithm. The :code:`layer_band_infos` attribute is a list of :code:`LayerBandInfo` objects that contains the
+   layer and band_info data required to produce the charts. You can refer to :code:`LandCoverChartsConfiguration` class for a
+   more complete example.
+
+3. Finally, map an algorithm (name) to the correspond chart configuration in the :code:`AlgorithmChartsManager`
+   class:
+
+   .. code-block:: python
+      :emphasize-lines: 6
+
+      # LDMP/reports/charts.py
+      Class AlgorithmChartsManager:
+          def _set_default_chart_config_types(self):
+              ...
+              self.add_alg_chart_config('land-cover', LandCoverChartsConfiguration)
+              self.add_alg_chart_config('productivity', MyCustomLandProductivityChartsConfiguration)
+              ...
+
+   The :code:`AlgorithmChartsManager` class, which is instantiated in the :code:`ReportTaskProcessor` object, will
+   create a new chart configuration object for a corresponding job's algorithm when reports are being generated.
 
 
 Contributing to the documentation

@@ -15,6 +15,8 @@ from qgis.PyQt import uic
 from . import openFolder
 from . import tr
 from . import utils
+from . import metadata_dialog
+from . import metadata
 from .jobs import manager
 from .jobs.models import Job
 from .logger import log
@@ -33,6 +35,7 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
     created_at_le: QtWidgets.QLineEdit
     delete_btn: QtWidgets.QPushButton
     export_btn: QtWidgets.QPushButton
+    metadata_btn: QtWidgets.QPushButton
     load_btn: QtWidgets.QPushButton
     name_le: QtWidgets.QLineEdit
     id_le: QtWidgets.QLineEdit
@@ -42,6 +45,10 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
     def __init__(self, job: Job, parent=None):
         super(DatasetDetailsDialogue, self).__init__(parent)
         self.setupUi(self)
+
+        self.metadata_menu = QtWidgets.QMenu()
+        self.metadata_menu.aboutToShow.connect(self.prepare_metadata_menu)
+        self.metadata_btn.setMenu(self.metadata_menu)
 
         self.job = job
 
@@ -86,6 +93,9 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
         )
         self.export_btn.setIcon(
             QtGui.QIcon(os.path.join(ICON_PATH, 'export_zip.svg'))
+        )
+        self.metadata_btn.setIcon(
+            QtGui.QIcon(os.path.join(ICON_PATH, 'editmetadata.svg'))
         )
         self.delete_btn.setIcon(
             QtGui.QIcon(os.path.join(ICON_PATH, 'mActionDeleteSelected.svg'))
@@ -137,8 +147,9 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
         current_job_file_path = manager.job_manager.get_job_file_path(self.job)
         target_zip_name = f"{current_job_file_path.stem}.zip"
         target_path = manager.job_manager.exports_dir / target_zip_name
+        metadata_paths = metadata.export_dataset_metadata(self.job)
         paths_to_zip = [uri.uri for uri in self.job.results.get_all_uris()
-                        ] + [current_job_file_path]
+                        ] + [current_job_file_path] + metadata_paths
         try:
             with ZipFile(target_path, 'w') as zip:
                 for path in paths_to_zip:
@@ -157,3 +168,25 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
             self.bar.pushWidget(message_bar_item, level=qgis.core.Qgis.Info)
         finally:
             self.export_btn.setEnabled(True)
+
+    def show_metadata(self, file_path):
+        ds_metadata = metadata.read_qmd(file_path)
+        dlg = metadata_dialog.DlgDatasetMetadata(self)
+        dlg.set_metadata(ds_metadata)
+        dlg.exec_()
+        ds_metadata = dlg.get_metadata()
+        metadata.save_qmd(file_path, ds_metadata)
+
+    def prepare_metadata_menu(self):
+        self.metadata_menu.clear()
+
+        file_path = os.path.splitext(manager.job_manager.get_job_file_path(self.job))[0] + '.qmd'
+        action = self.metadata_menu.addAction(self.tr("Dataset metadata"))
+        action.triggered.connect(lambda _, x=file_path: self.show_metadata(x))
+        self.metadata_menu.addSeparator()
+
+        if self.job.results is not None:
+            for raster in self.job.results.rasters.values():
+                file_path = os.path.splitext(raster.uri.uri)[0] + '.qmd'
+                action = self.metadata_menu.addAction(self.tr("{} metadata").format(os.path.split(raster.uri.uri)[1]))
+                action.triggered.connect(lambda _, x=file_path: self.show_metadata(x))

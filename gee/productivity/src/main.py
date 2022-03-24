@@ -123,8 +123,8 @@ def run(params, logger):
         year_initial = params.get('year_initial')
         year_final = params.get('year_final')
         out = download(
-            prod_asset, 'Land Productivity Dynamics (LPD)', 'one time', None,
-            None, logger
+            prod_asset, 'Land Productivity Dynamics (from JRC)', 'one time',
+            None, None, logger
         )
         proj = ee.Image(prod_asset).projection()
         out.image = out.image.int16(

@@ -291,20 +291,20 @@ _ALGORITHM_CONFIG = [
         "name": "UNCCD Reporting",
         "name_details": "Summarize data for reporting",
         "algorithms": [
-            {
-                "id": "052b3fbc-20a7-11ec-9621-0242ac130002",
-                "name": "Default data for UNCCD reporting",
-                "description": (
-                    "Generate default datasets used in the UNCCD "
-                    "2021 reporting cycle"
-                ),
-                "scripts": [
-                    {
-                        "script": KNOWN_SCRIPTS["unccd-default-data"],
-                        "parametrization_dialogue": "LDMP.calculate_unccd.DlgCalculateUNCCD",
-                    },
-                ],
-            },
+            # {
+            #     "id": "052b3fbc-20a7-11ec-9621-0242ac130002",
+            #     "name": "Default data for UNCCD reporting",
+            #     "description": (
+            #         "Generate default datasets used in the UNCCD "
+            #         "2021 reporting cycle"
+            #     ),
+            #     "scripts": [
+            #         {
+            #             "script": KNOWN_SCRIPTS["unccd-default-data"],
+            #             "parametrization_dialogue": "LDMP.calculate_unccd.DlgCalculateUNCCD",
+            #         },
+            #     ],
+            # },
             {
                 "id": "5293b2b2-d90f-4f1f-9556-4b0fe1c6ba91",
                 "name": "Generate data package for UNCCD reporting",

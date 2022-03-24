@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>345</width>
+    <width>499</width>
     <height>134</height>
    </rect>
   </property>
@@ -131,10 +131,31 @@
          </widget>
         </item>
         <item>
+         <widget class="QPushButton" name="metadata_pb">
+          <property name="text">
+           <string>...</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QToolButton" name="open_directory_tb">
           <property name="toolTip">
            <string>Open dataset directory</string>
           </property>
+          <property name="text">
+           <string>...</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="load_tb">
+          <property name="text">
+           <string>...</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="edit_tb">
           <property name="text">
            <string>...</string>
           </property>
@@ -190,6 +211,13 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>download_tb</tabstop>
+  <tabstop>add_to_canvas_pb</tabstop>
+  <tabstop>open_details_tb</tabstop>
+  <tabstop>open_directory_tb</tabstop>
+  <tabstop>delete_tb</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

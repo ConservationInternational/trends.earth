@@ -17,7 +17,7 @@ from ..jobs.models import Job
 NODATA_VALUE = -32768
 MASK_VALUE = -32767
 
-POPULATION_BAND_NAME = "Population (density, persons per sq km / 10)"
+POPULATION_BAND_NAME = "Population (number of people)"
 SPI_BAND_NAME = "Standardized Precipitation Index (SPI)"
 
 
@@ -25,11 +25,11 @@ SPI_BAND_NAME = "Standardized Precipitation Index (SPI)"
 class SummaryTableDroughtWidgets:
     '''Combo boxes and methods used in the drought summary table widget'''
     combo_dataset_drought: data_io.WidgetDataIOSelectTEDatasetExisting
-    combo_layer_jrc_vulnerability: data_io.WidgetDataIOSelectTELayerExisting
+    combo_layer_so3_vulnerability: data_io.WidgetDataIOSelectTELayerExisting
 
     def populate(self):
         self.combo_dataset_drought.populate()
-        self.combo_layer_jrc_vulnerability.populate()
+        self.combo_layer_so3_vulnerability.populate()
 
 
 @dataclasses.dataclass()
@@ -93,7 +93,7 @@ def get_main_drought_summary_job_params(
     task_name: str,
     aoi,
     combo_dataset_drought: data_io.WidgetDataIOSelectTEDatasetExisting,
-    combo_layer_jrc_vulnerability: data_io.WidgetDataIOSelectTELayerExisting,
+    combo_layer_so3_vulnerability: data_io.WidgetDataIOSelectTELayerExisting,
     task_notes: Optional[str] = ""
 ) -> Dict:
 
@@ -103,9 +103,7 @@ def get_main_drought_summary_job_params(
     )
     spi_lag = _get_spi_lag(combo_dataset_drought)
 
-    jrc_input = _get_jrc_input(combo_layer_jrc_vulnerability, )
-
-    water_mask_input = _get_water_mask_input(combo_dataset_drought, )
+    jrc_input = _get_jrc_input(combo_layer_so3_vulnerability)
 
     crosses_180th, geojsons = aoi.bounding_box_gee_geojson()
 
@@ -137,12 +135,6 @@ def get_main_drought_summary_job_params(
         JobBand.Schema().dump(jrc_input.band),
         "layer_jrc_band_index":
         jrc_input.band_index,
-        "layer_water_mask_path":
-        str(water_mask_input.path),
-        "layer_water_mask_band":
-        JobBand.Schema().dump(water_mask_input.band),
-        "layer_water_mask_band_index":
-        water_mask_input.band_index,
         "crs":
         aoi.get_crs_dst_wkt(),
         "geojsons":
@@ -202,5 +194,5 @@ def compute_drought_vulnerability(
     """Calculate drought vulnerability indicators and save to disk"""
 
     return summarise_drought_vulnerability(
-        drought_job, AOI(aoi.get_geojson()), job_output_path
+        drought_job, AOI(aoi.get_geojson()), job_output_path, n_cpus=1
     )

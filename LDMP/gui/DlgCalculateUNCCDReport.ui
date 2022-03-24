@@ -68,12 +68,12 @@
             <x>0</x>
             <y>0</y>
             <width>677</width>
-            <height>582</height>
+            <height>586</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
            <item>
-            <widget class="QGroupBox" name="groupBox_4">
+            <widget class="QGroupBox" name="groupbox_so1_so2">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
                <horstretch>0</horstretch>
@@ -99,7 +99,10 @@
               </font>
              </property>
              <property name="title">
-              <string>Dataset for Strategic Objectives 1 and 2</string>
+              <string>Dataset for Strategic Objectives 1 and 2 (land degradation, and population exposed)</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_8">
               <item>
@@ -125,7 +128,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QGroupBox" name="groupBox_progress_period">
+            <widget class="QGroupBox" name="groupbox_so3">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
                <horstretch>0</horstretch>
@@ -151,7 +154,10 @@
               </font>
              </property>
              <property name="title">
-              <string>Dataset for Strategic Objective 3 (tiers 1 and 2)</string>
+              <string>Dataset for Strategic Objective 3 (drought hazard, exposure and vulnerability)</string>
+             </property>
+             <property name="checkable">
+              <bool>true</bool>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_9">
               <item>
@@ -201,61 +207,10 @@
             </widget>
            </item>
            <item>
-            <widget class="QGroupBox" name="groupBox_progress_period_2">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
+            <widget class="QCheckBox" name="checkBox_affected_areas_only">
+             <property name="text">
+              <string>Calculation is for affected areas only</string>
              </property>
-             <property name="minimumSize">
-              <size>
-               <width>0</width>
-               <height>0</height>
-              </size>
-             </property>
-             <property name="maximumSize">
-              <size>
-               <width>16777215</width>
-               <height>16777215</height>
-              </size>
-             </property>
-             <property name="font">
-              <font>
-               <weight>50</weight>
-               <bold>false</bold>
-              </font>
-             </property>
-             <property name="title">
-              <string>Dataset for Strategic Objective 3 (tier 3)</string>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <layout class="QVBoxLayout" name="verticalLayout_5">
-              <item>
-               <widget class="WidgetDataIOSelectTELayerExisting" name="combo_layer_jrc_vulnerability">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="sizePolicy">
-                 <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
-                  <horstretch>0</horstretch>
-                  <verstretch>0</verstretch>
-                 </sizepolicy>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>30</height>
-                 </size>
-                </property>
-                <property name="layer_type" stdset="0">
-                 <string notr="true">Drought Vulnerability (JRC)</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
             </widget>
            </item>
            <item>
@@ -375,7 +330,7 @@
        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;Generate UNCCD Report&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;Calculate report on UNCCD Strategic Objectives 1, 2, and 3&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
@@ -403,11 +358,6 @@ p, li { white-space: pre-wrap; }
  <customwidgets>
   <customwidget>
    <class>WidgetDataIOSelectTEDatasetExisting</class>
-   <extends>QComboBox</extends>
-   <header>LDMP/data_io</header>
-  </customwidget>
-  <customwidget>
-   <class>WidgetDataIOSelectTELayerExisting</class>
    <extends>QComboBox</extends>
    <header>LDMP/data_io</header>
   </customwidget>

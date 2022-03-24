@@ -2,7 +2,6 @@ import datetime as dt
 from copy import copy
 from pathlib import Path
 
-import LDMP.logger
 import numpy as np
 import openpyxl
 import qgis.core
@@ -11,18 +10,46 @@ from openpyxl.styles import Font
 from osgeo import gdal
 from te_schemas.results import Band as JobBand
 
+import LDMP.logger
 from .. import areaofinterest
 from .. import calculate
 from .. import calculate_rest_biomass
+from .. import data_io
 from .. import summary
 from .. import utils
 from .. import worker
 from ..jobs.models import Job
 
 
+def get_main_restoration_job_params(
+    aoi,
+    combo_layer_biomass_diff: data_io.WidgetDataIOSelectTELayerExisting,
+):
+
+    band = combo_layer_biomass_diff.get_current_band()
+
+    restoration_years = band.job.params["length_yr"]
+
+    restoration_types = []
+    for job_band in band.job.results.get_bands():
+        if job_band.name == "Restoration biomass difference (tonnes CO2e per ha)":
+            restoration_types.append(job_band.metadata["type"])
+
+    return {
+        "in_file_path": str(band.job.results.uri.uri),
+        "restoration_years": restoration_years,
+        "restoration_types": restoration_types,
+        "in_file_band_infos": [
+            JobBand.Schema().dump(b) for b in band.job.results.get_bands()
+        ],
+    }
+
+
 def compute_biomass_restoration(
-    biomass_job: Job, area_of_interest: areaofinterest.AOI,
-    job_output_path: Path, dataset_output_path: Path
+    biomass_job: Job,
+    area_of_interest: areaofinterest.AOI,
+    job_output_path: Path,
+    dataset_output_path: Path,
 ) -> Job:
     #######################################################################
     # Prep files
@@ -30,7 +57,7 @@ def compute_biomass_restoration(
 
     # Remember the first value is an indication of whether dataset is
     # wrapped across 180th meridian
-    _, wkts = area_of_interest.meridian_split('layer', 'wkt', warn=False)
+    _, wkts = area_of_interest.meridian_split("layer", "wkt", warn=False)
     bbs = area_of_interest.get_aligned_output_bounds(in_file)
     output_biomass_diff_tifs = []
 
@@ -46,26 +73,28 @@ def compute_biomass_restoration(
         output_biomass_diff_tifs.append(output_biomass_diff_tif)
 
         LDMP.logger.log(
-            u'Saving clipped biomass file to {}'.
-            format(output_biomass_diff_tif)
+            "Saving clipped biomass file to {}".format(output_biomass_diff_tif)
         )
         geojson = calculate.json_geom_to_geojson(
             qgis.core.QgsGeometry.fromWkt(wkts[n]).asJson()
         )
         clip_worker = worker.StartWorker(
             calculate.ClipWorker,
-            f'masking layers (part {n+1} of {len(wkts)})', in_file,
-            str(output_biomass_diff_tif), geojson, bbs[n]
+            f"masking layers (part {n+1} of {len(wkts)})",
+            in_file,
+            str(output_biomass_diff_tif),
+            geojson,
+            bbs[n],
         )
 
         if clip_worker.success:
             ######################################################################
             #  Calculate biomass change summary table
-            LDMP.logger.log('Calculating summary table...')
+            LDMP.logger.log("Calculating summary table...")
             rest_summary_worker = worker.StartWorker(
                 RestBiomassSummaryWorker,
-                f'calculating summary table (part {n+1} of {len(wkts)})',
-                str(output_biomass_diff_tif)
+                f"calculating summary table (part {n+1} of {len(wkts)})",
+                str(output_biomass_diff_tif),
             )
 
             if rest_summary_worker.success:
@@ -79,18 +108,19 @@ def compute_biomass_restoration(
                     biomass_change = biomass_change + this_change
                     area_site = area_site + this_area_site
             else:
-                raise RuntimeError(
-                    "Error calculating biomass change summary table."
-                )
+                raise RuntimeError("Error calculating biomass change summary table.")
 
         else:
             raise RuntimeError("Error masking input layers.")
 
     summary_table_output_path = job_output_path.parent / f"{job_output_path.stem}.xlsx"
     _save_summary_table(
-        str(summary_table_output_path), biomass_initial, biomass_change,
-        area_site, biomass_job.params["restoration_years"],
-        biomass_job.params["restoration_types"]
+        str(summary_table_output_path),
+        biomass_initial,
+        biomass_change,
+        area_site,
+        biomass_job.params["restoration_years"],
+        biomass_job.params["restoration_types"],
     )
     biomass_job.end_date = dt.datetime.now(dt.timezone.utc)
     biomass_job.progress = 100
@@ -121,11 +151,12 @@ def compute_biomass_restoration(
 def _save_summary_table(
     out_file, biomass_initial, biomass_change, area_site, length_yr, rest_types
 ):
-    template_summary_table_path = Path(__file__).parents[
-        1] / "data/summary_table_restoration.xlsx"
+    template_summary_table_path = (
+        Path(__file__).parents[1] / "data/summary_table_restoration.xlsx"
+    )
     workbook = openpyxl.load_workbook(str(template_summary_table_path))
 
-    ws_summary_sheet = workbook['Restoration Biomass Change']
+    ws_summary_sheet = workbook["Restoration Biomass Change"]
     ws_summary_sheet.cell(6, 2).value = area_site
     ws_summary_sheet.cell(7, 2).value = length_yr
     ws_summary_sheet.cell(8, 2).value = biomass_initial
@@ -139,47 +170,32 @@ def _save_summary_table(
 
         for n in range(len(rest_types) - 1):
             _copy_style(
-                ws_summary_sheet.cell(13 + offset, 1),
-                ws_summary_sheet.cell(13 + n, 1)
+                ws_summary_sheet.cell(13 + offset, 1), ws_summary_sheet.cell(13 + n, 1)
             )
             _copy_style(
-                ws_summary_sheet.cell(13 + offset, 2),
-                ws_summary_sheet.cell(13 + n, 2)
+                ws_summary_sheet.cell(13 + offset, 2), ws_summary_sheet.cell(13 + n, 2)
             )
             _copy_style(
-                ws_summary_sheet.cell(13 + offset, 3),
-                ws_summary_sheet.cell(13 + n, 3)
+                ws_summary_sheet.cell(13 + offset, 3), ws_summary_sheet.cell(13 + n, 3)
             )
 
         # Need to remerge cells due to row insertion
         ws_summary_sheet.merge_cells(
-            start_row=16 + offset,
-            start_column=1,
-            end_row=16 + offset,
-            end_column=3
+            start_row=16 + offset, start_column=1, end_row=16 + offset, end_column=3
         )
-        ws_summary_sheet.cell(16 + offset,
-                              1).alignment = Alignment(wrap_text=True)
+        ws_summary_sheet.cell(16 + offset, 1).alignment = Alignment(wrap_text=True)
         ws_summary_sheet.row_dimensions[16 + offset].height = 50
         ws_summary_sheet.merge_cells(
-            start_row=18 + offset,
-            start_column=1,
-            end_row=18 + offset,
-            end_column=3
+            start_row=18 + offset, start_column=1, end_row=18 + offset, end_column=3
         )
         ws_summary_sheet.cell(18 + offset, 1).font = Font(bold=True)
-        ws_summary_sheet.cell(18 + offset,
-                              1).alignment = Alignment(wrap_text=True)
+        ws_summary_sheet.cell(18 + offset, 1).alignment = Alignment(wrap_text=True)
         ws_summary_sheet.row_dimensions[18 + offset].height = 60
         ws_summary_sheet.merge_cells(
-            start_row=20 + offset,
-            start_column=1,
-            end_row=20 + offset,
-            end_column=3
+            start_row=20 + offset, start_column=1, end_row=20 + offset, end_column=3
         )
         ws_summary_sheet.cell(20 + offset, 1).font = Font(bold=True)
-        ws_summary_sheet.cell(20 + offset,
-                              1).alignment = Alignment(wrap_text=True)
+        ws_summary_sheet.cell(20 + offset, 1).alignment = Alignment(wrap_text=True)
         ws_summary_sheet.row_dimensions[20 + offset].height = 30
 
     # And write the biomass differences for each restoration type
@@ -187,8 +203,7 @@ def _save_summary_table(
     for n in range(len(rest_types)):
         ws_summary_sheet.cell(13 + n, 1).value = rest_types[n].capitalize()
         ws_summary_sheet.cell(13 + n, 2).value = biomass_change[n]
-        ws_summary_sheet.cell(13 + n,
-                              3).value = biomass_initial + biomass_change[n]
+        ws_summary_sheet.cell(13 + n, 3).value = biomass_initial + biomass_change[n]
 
     utils.maybe_add_image_to_sheet(
         "trends_earth_logo_bl_300width.png", ws_summary_sheet
@@ -196,7 +211,7 @@ def _save_summary_table(
 
     try:
         workbook.save(out_file)
-        LDMP.logger.log(u'Summary table saved to {}'.format(out_file))
+        LDMP.logger.log("Summary table saved to {}".format(out_file))
     except IOError as exc:
         raise RuntimeError(
             f"Error saving output table - check that {out_file} is accessible and "
@@ -261,14 +276,14 @@ class RestBiomassSummaryWorker(worker.AbstractWorker):
             for x in range(0, xsize, x_block_size):
                 if self.killed:
                     LDMP.logger.log(
-                        "Processing of {} killed by user after processing {} out of {} blocks."
-                        .format(self.prod_out_file, y, ysize)
+                        "Processing of {} killed by user after processing {} out of {} blocks.".format(
+                            self.prod_out_file, y, ysize
+                        )
                     )
 
                     break
                 self.progress.emit(
-                    100 * (float(y) + (float(x) / xsize) * y_block_size) /
-                    ysize
+                    100 * (float(y) + (float(x) / xsize) * y_block_size) / ysize
                 )
 
                 if x + x_block_size < xsize:
@@ -285,8 +300,10 @@ class RestBiomassSummaryWorker(worker.AbstractWorker):
                     [
                         summary.calc_cell_area(
                             lat + pixel_height * n,
-                            lat + pixel_height * (n + 1), long_width
-                        ) for n in range(rows)
+                            lat + pixel_height * (n + 1),
+                            long_width,
+                        )
+                        for n in range(rows)
                     ]
                 )
                 cell_areas.shape = (cell_areas.size, 1)
@@ -306,11 +323,9 @@ class RestBiomassSummaryWorker(worker.AbstractWorker):
                 )
 
                 for n in range(n_types):
-                    biomass_rest_array = src_ds.GetRasterBand(n +
-                                                              2).ReadAsArray(
-                                                                  x, y, cols,
-                                                                  rows
-                                                              )
+                    biomass_rest_array = src_ds.GetRasterBand(n + 2).ReadAsArray(
+                        x, y, cols, rows
+                    )
                     biomass_change[n] = biomass_change[n] + np.sum(
                         (biomass_rest_array) * cell_areas_array * site_pixels
                     )

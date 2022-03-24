@@ -13,3 +13,4 @@ Training Manual
    Land Consumption <training_landconsumption>
    Carbon <training_carbon>
    Restoration <training_restoration>
+   Dataset Reports <training_reports>

@@ -56,7 +56,7 @@ def _get_extent_tuple(path):
         min_x, xres, _, max_y, _, yres = ds.GetGeoTransform()
         cols = ds.RasterXSize
         rows = ds.RasterYSize
-         
+
         extent = (min_x, max_y + rows*yres, min_x + cols*xres, max_y)
         log(f'Calculated extent {[*extent]}')
         return extent
@@ -1104,14 +1104,11 @@ def _download_result(url: str, output_path: Path) -> bool:
 def _delete_job_datasets(job: Job):
     if job.results is not None:
         try:
-            # not using the `missing_ok` param since it was introduced only on
-            # Python 3.8
-
-            if (job.results.uri and not is_gdal_vsi_path(job.results.uri.uri)):
-                job.results.uri.uri.unlink()
-        except FileNotFoundError:
+           path = os.path.split(job_manager.get_job_file_path(job))[0]
+           shutil.rmtree(path)
+        except OSError:
             log(
-                f"Could not find path {job.results.uri.uri!r}, "
+                f"Could not remove directory {path!r}, "
                 "skipping deletion..."
             )
     else:

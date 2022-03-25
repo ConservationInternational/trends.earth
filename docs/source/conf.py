@@ -133,7 +133,7 @@ rst_epilog = """
     :width: 125
     :target: https://www.thegef.org
 .. |CURRENT| replace:: {current_version}
-.. |qgisMinVersion| replace:: 3.14
+.. |qgisMinVersion| replace:: 3.22
 """.format(
     current_version=version
 )

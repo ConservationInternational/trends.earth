@@ -12,6 +12,7 @@
  ***************************************************************************/
 """
 
+import json
 from pathlib import Path
 
 from osgeo import (

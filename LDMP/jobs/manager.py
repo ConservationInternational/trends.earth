@@ -527,7 +527,7 @@ class JobManager(QtCore.QObject):
             # then disable the download button
             pass
 
-        metadata.init_datatset_metadata(job)
+        metadata.init_dataset_metadata(job)
 
         # TODO: maybe we don't need to return anything here
         return job

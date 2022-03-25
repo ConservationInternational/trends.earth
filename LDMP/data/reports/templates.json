@@ -1,0 +1,253 @@
+[
+   {
+      "template_info":{
+         "id":"70ca4be7-839e-4248-be14-34ba8665ed98",
+         "name":"Land Productivity",
+         "description":"Overview of land productivity indicator.",
+         "simple_portrait_path":"simple_layout_template_portrait.qpt",
+         "simple_landscape_path":"simple_layout_template_landscape.qpt",
+         "full_portrait_path":"full_layout_template_portrait.qpt",
+         "full_landscape_path":"full_layout_template_landscape.qpt",
+         "item_scopes":[
+            {
+               "name":"productivity",
+               "type_id_mapping":{
+                  "map":["map.main"],
+                  "label":["label.layer_title"]
+               }
+            }
+         ]
+      },
+      "output_options":{
+         "template_type": "ALL",
+         "formats": [
+            {
+               "format_type": "PDF"
+            },
+            {
+               "format_type": "IMAGE",
+               "params": {
+                  "image_type": "png"
+               }
+            }
+         ]
+      }
+   },
+   {
+      "template_info":{
+         "id":"913bc20d-791c-436e-9eaf-48856eb0097a",
+         "name":"SDG 15.3.1 Sub-indicators",
+         "description":"Reports of productivity, land cover, and soil organic carbon sub-indicators.",
+         "simple_portrait_path":"simple_layout_template_portrait.qpt",
+         "simple_landscape_path":"simple_layout_template_landscape.qpt",
+         "full_portrait_path":"full_layout_template_portrait.qpt",
+         "full_landscape_path":"full_layout_template_landscape.qpt",
+         "item_scopes":[
+            {
+               "name":"sdg-15-3-1-sub-indicators",
+               "type_id_mapping":{
+                  "map":["map.main"],
+                  "label":["label.layer_title"]
+               }
+            }
+         ]
+      },
+      "output_options":{
+         "template_type": "ALL",
+         "formats": [
+            {
+               "format_type": "IMAGE",
+               "params": {
+                  "image_type": "png"
+               }
+            }
+         ]
+      }
+   },
+   {
+      "template_info":{
+         "id":"d66ca95e-1ccd-400b-a555-f33a9083b18e",
+         "name":"Soil Organic Carbon Change",
+         "description":"Reports of change in soil organic carbon.",
+         "simple_portrait_path":"simple_layout_template_portrait.qpt",
+         "simple_landscape_path":"simple_layout_template_landscape.qpt",
+         "full_portrait_path":"full_layout_template_portrait.qpt",
+         "full_landscape_path":"full_layout_template_landscape.qpt",
+         "item_scopes":[
+            {
+               "name":"soil-organic-carbon",
+               "type_id_mapping":{
+                  "map":["map.main"],
+                  "label":["label.layer_title"]
+               }
+            }
+         ]
+      },
+      "output_options":{
+         "template_type": "ALL",
+         "formats": [
+            {
+               "format_type": "IMAGE",
+               "params": {
+                  "image_type": "png"
+               }
+            }
+         ]
+      }
+   },
+   {
+      "template_info":{
+         "id":"620481ff-cb95-40a7-977c-cd16833c6720",
+         "name":"SDG 15.3.1",
+         "description":"Reports of change in SDG 15.3.1.",
+         "simple_portrait_path":"simple_layout_template_portrait.qpt",
+         "simple_landscape_path":"simple_layout_template_landscape.qpt",
+         "full_portrait_path":"full_layout_template_portrait.qpt",
+         "full_landscape_path":"full_layout_template_landscape.qpt",
+         "item_scopes":[
+            {
+               "name":"sdg-15-3-1-summary",
+               "type_id_mapping":{
+                  "map":["map.main"],
+                  "label":["label.layer_title"]
+               }
+            }
+         ]
+      },
+      "output_options":{
+         "template_type": "ALL",
+         "formats": [
+            {
+               "format_type": "IMAGE",
+               "params": {
+                  "image_type": "png"
+               }
+            }
+         ]
+      }
+   },
+   {
+      "template_info":{
+         "id":"b395aaf2-a585-4660-953c-8f6edfcab25c",
+         "name":"Land cover change",
+         "description":"Reports showing land cover change.",
+         "simple_portrait_path":"simple_layout_template_portrait _two_col_lgnd.qpt",
+         "simple_landscape_path":"simple_layout_template_landscape_two_col_lgnd.qpt",
+         "full_portrait_path":"full_layout_template_portrait_two_col_lgnd.qpt",
+         "full_landscape_path":"full_layout_template_landscape_two_col_lgnd.qpt",
+         "item_scopes":[
+            {
+               "name":"land-cover",
+               "type_id_mapping":{
+                  "map":["map.main"],
+                  "label":["label.layer_title"]
+               }
+            }
+         ]
+      },
+      "output_options":{
+         "template_type": "ALL",
+         "formats": [
+            {
+               "format_type": "IMAGE",
+               "params": {
+                  "image_type": "png"
+               }
+            }
+         ]
+      }
+   },
+   {
+      "template_info":{
+         "id":"7626486e-1081-4820-bdf2-424841ee25e5",
+         "name":"Drought Vulnerability",
+         "description":"Reports of indicators of drought vulnerability.",
+         "simple_portrait_path":"simple_layout_template_portrait.qpt",
+         "simple_landscape_path":"simple_layout_template_landscape.qpt",
+         "full_portrait_path":"full_layout_template_portrait.qpt",
+         "full_landscape_path":"full_layout_template_landscape.qpt",
+         "item_scopes":[
+            {
+               "name":"drought-vulnerability",
+               "type_id_mapping":{
+                  "map":["map.main"],
+                  "label":["label.layer_title"]
+               }
+            }
+         ]
+      },
+      "output_options":{
+         "template_type": "ALL",
+         "formats": [
+            {
+               "format_type": "IMAGE",
+               "params": {
+                  "image_type": "png"
+               }
+            }
+         ]
+      }
+   },
+   {
+      "template_info":{
+         "id":"e29b42dc-b250-4c2d-b9d9-baa72f5911e4",
+         "name":"UNCCD Default Data",
+         "description":"Reports of default data for UNCCD reporting.",
+         "simple_portrait_path":"simple_layout_template_portrait.qpt",
+         "simple_landscape_path":"simple_layout_template_landscape.qpt",
+         "full_portrait_path":"full_layout_template_portrait.qpt",
+         "full_landscape_path":"full_layout_template_landscape.qpt",
+         "item_scopes":[
+            {
+               "name":"unccd-default-data",
+               "type_id_mapping":{
+                  "map":["map.main"],
+                  "label":["label.layer_title"]
+               }
+            }
+         ]
+      },
+      "output_options":{
+         "template_type": "ALL",
+         "formats": [
+            {
+               "format_type": "IMAGE",
+               "params": {
+                  "image_type": "png"
+               }
+            }
+         ]
+      }
+   },
+   {
+      "template_info":{
+         "id":"0a4710b2-1f95-414e-8bb4-af80f2fd3bb2",
+         "name":"Urban Area Change (summary)",
+         "description":"Reports showing change in urban area, in support of SDG 11.3.1.",
+         "simple_portrait_path":"simple_layout_template_portrait.qpt",
+         "simple_landscape_path":"simple_layout_template_landscape.qpt",
+         "full_portrait_path":"full_layout_template_portrait.qpt",
+         "full_landscape_path":"full_layout_template_landscape.qpt",
+         "item_scopes":[
+            {
+               "name":"urban-area",
+               "type_id_mapping":{
+                  "map":["map.main"],
+                  "label":["label.layer_title"]
+               }
+            }
+         ]
+      },
+      "output_options":{
+         "template_type": "ALL",
+         "formats": [
+            {
+               "format_type": "IMAGE",
+               "params": {
+                  "image_type": "png"
+               }
+            }
+         ]
+      }
+   }
+]

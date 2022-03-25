@@ -4,7 +4,6 @@ import json
 import re
 import os
 import typing
-import unicodedata
 import urllib.parse
 import logging
 import uuid
@@ -44,25 +43,6 @@ from .models import Job
 
 logger = logging.getLogger(__name__)
 
-def slugify(value, allow_unicode=False):
-    """
-    Taken from https://github.com/django/django/blob/master/django/utils/text.py
-    Convert to ASCII if 'allow_unicode' is False. Convert spaces or repeated
-    dashes to single dashes. Remove characters that aren't alphanumerics,
-    underscores, or hyphens. Convert to lowercase. Also strip leading and
-    trailing whitespace, dashes, and underscores.
-    """
-    value = str(value)
-
-    if allow_unicode:
-        value = unicodedata.normalize('NFKC', value)
-    else:
-        value = unicodedata.normalize('NFKD',
-                                      value).encode('ascii',
-                                                    'ignore').decode('ascii')
-    value = re.sub(r'[^\w\s-]', '', value.lower())
-
-    return re.sub(r'[-\s]+', '-', value).strip('-_')
 
 
 def is_gdal_vsi_path(path: Path):
@@ -234,26 +214,6 @@ class JobManager(QtCore.QObject):
         return Path(
             conf.settings_manager.get_value(conf.Setting.BASE_DIR)
         ) / "exported"
-
-    @classmethod
-    def get_job_basename(cls, job: Job, with_uuid=False):
-        separator = "_"
-        name_fragments = []
-        task_name = slugify(job.task_name)
-
-        if task_name:
-            name_fragments.append(task_name)
-
-        if job.script:
-            name_fragments.append(job.script.name)
-
-        if job.local_context.area_of_interest_name:
-            name_fragments.append(job.local_context.area_of_interest_name)
-
-        if len(name_fragments) == 0 or with_uuid:
-            name_fragments.append(str(job.id))
-
-        return separator.join(name_fragments)
 
     def clear_known_jobs(self):
         self._known_running_jobs = {}
@@ -1036,17 +996,17 @@ class JobManager(QtCore.QObject):
 
     def get_job_file_path(self, job: Job) -> Path:
         if job.status in (jobs.JobStatus.RUNNING, jobs.JobStatus.PENDING):
-            base = self.running_jobs_dir / f"{self.get_job_basename(job, with_uuid=True)}.json"
+            base = self.running_jobs_dir / f"{job.get_basename(with_uuid=True)}.json"
         elif job.status == jobs.JobStatus.FAILED:
-            base = self.failed_jobs_dir / f"{self.get_job_basename(job, with_uuid=True)}.json"
+            base = self.failed_jobs_dir / f"{job.get_basename(with_uuid=True)}.json"
         elif job.status == jobs.JobStatus.FINISHED:
-            base = self.finished_jobs_dir / f"{self.get_job_basename(job, with_uuid=True)}.json"
+            base = self.finished_jobs_dir / f"{job.get_basename(with_uuid=True)}.json"
         elif job.status == jobs.JobStatus.DELETED:
-            base = self.deleted_jobs_dir / f"{self.get_job_basename(job, with_uuid=True)}.json"
+            base = self.deleted_jobs_dir / f"{job.get_basename(with_uuid=True)}.json"
         elif job.status in (
             jobs.JobStatus.DOWNLOADED, jobs.JobStatus.GENERATED_LOCALLY
         ):
-            base = self.datasets_dir / f"{job.id!s}" / f"{self.get_job_basename(job)}.json"
+            base = self.datasets_dir / f"{job.id!s}" / f"{job.get_basename()}.json"
         else:
             raise RuntimeError(
                 f"Could not retrieve file path for job with state {job.status}"
@@ -1057,7 +1017,7 @@ class JobManager(QtCore.QObject):
     def get_downloaded_dataset_base_file_path(self, job: Job):
         base = self.datasets_dir
 
-        return base / f"{job.id!s}" / f"{self.get_job_basename(job)}"
+        return base / f"{job.id!s}" / f"{job.get_basename()}"
 
     def write_job_metadata_file(self, job: Job):
         output_path = self.get_job_file_path(job)

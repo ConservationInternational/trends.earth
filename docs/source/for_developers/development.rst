@@ -436,8 +436,8 @@ creation of the special area layer is requested QGIS will look for the template 
 locale into accont, as a fall-back option English version of the template file is used.
 
 To change schema of the layer it is necessary to change corresponding template files in the
-``data/special_areas`` folder of the plugin installation directory. Also template file contains
-a buil-in default styling and attribute form configuration which will be automatically applied
+``data/special_areas`` folder of the plugin installation directory. Also, each template file contains
+a built-in default styling and attribute form configuration which will be automatically applied
 to the layer when loading into QGIS.
 
 To display charts in the attribute form a built-in QML widget is used. Data for charts are store
@@ -544,7 +544,7 @@ The diagram below provides a high-level illustration of this process:
 
 Adding Report Layout Variables
 --------------------------------
-Report variables provide context information related to a job, layer (or band) or setting during the report execution process.
+Report variables provide context information related to a job, layer (or band) or :ref:`report_settings` during the report execution process.
 Currently, the toolbox supports variables listed in the :ref:`layout_expr_vars` section.
 
 Each variable is defined as a :code:`namedtuple` in the `LDMP.reports.expressions <https://github.com/ConservationInternational/trends.earth/tree/master/LDMP/reports/expressions.py>`_
@@ -680,11 +680,11 @@ algorithm. Defining a new chart configuration is a three-step process:
 2. Create a chart configuration class that inherits from :code:`BaseAlgorithmChartsConfiguration` and implement the
    :code:`_add_charts` function. The chart configuration class basically defines which charts will be used for a
    given algorithm. The :code:`layer_band_infos` attribute is a list of :code:`LayerBandInfo` objects that contains the
-   layer and band_info data required to produce the charts. You can refer to :code:`LandCoverChartsConfiguration` class for a
+   layer and band_info data required to produce the charts. You can refer to the :code:`LandCoverChartsConfiguration` class for a
    more complete example.
 
-3. Finally, map an algorithm (name) to the correspond chart configuration in the :code:`AlgorithmChartsManager`
-   class:
+3. Finally, map an algorithm (name) to the correspond chart configuration class in the :code:`AlgorithmChartsManager`
+   class as shown below:
 
    .. code-block:: python
       :emphasize-lines: 6

@@ -15,12 +15,12 @@ from te_schemas.results import RasterFileType
 from te_schemas.results import RasterResults
 from te_schemas.results import URI
 
-import LDMP.logger
 from .. import areaofinterest
 from .. import calculate
 from .. import data_io
 from .. import summary
 from .. import utils
+from .. import logger
 from .. import worker
 from ..jobs.models import Job
 
@@ -75,7 +75,7 @@ def compute_biomass_restoration(
             )
         output_biomass_diff_tifs.append(output_biomass_diff_tif)
 
-        LDMP.logger.log(
+        logger.log(
             "Saving clipped biomass file to {}".format(output_biomass_diff_tif)
         )
         geojson = calculate.json_geom_to_geojson(
@@ -93,7 +93,7 @@ def compute_biomass_restoration(
         if clip_worker.success:
             ######################################################################
             #  Calculate biomass change summary table
-            LDMP.logger.log("Calculating summary table...")
+            logger.log("Calculating summary table...")
             rest_summary_worker = worker.StartWorker(
                 RestBiomassSummaryWorker,
                 f"calculating summary table (part {n+1} of {len(wkts)})",
@@ -224,7 +224,7 @@ def _save_summary_table(
 
     try:
         workbook.save(out_file)
-        LDMP.logger.log("Summary table saved to {}".format(out_file))
+        logger.log("Summary table saved to {}".format(out_file))
     except IOError as exc:
         raise RuntimeError(
             f"Error saving output table - check that {out_file} is accessible and "
@@ -288,7 +288,7 @@ class RestBiomassSummaryWorker(worker.AbstractWorker):
 
             for x in range(0, xsize, x_block_size):
                 if self.killed:
-                    LDMP.logger.log(
+                    logger.log(
                         "Processing of {} killed by user after processing {} out of {} blocks.".format(
                             self.prod_out_file, y, ysize
                         )

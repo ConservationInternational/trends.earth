@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>499</width>
+    <width>570</width>
     <height>134</height>
    </rect>
   </property>
@@ -121,6 +121,13 @@
          </widget>
         </item>
         <item>
+         <widget class="QToolButton" name="load_tb">
+          <property name="text">
+           <string>...</string>
+          </property>
+         </widget>
+        </item>
+        <item>
          <widget class="QToolButton" name="open_details_tb">
           <property name="toolTip">
            <string>View dataset details</string>
@@ -142,13 +149,6 @@
           <property name="toolTip">
            <string>Open dataset directory</string>
           </property>
-          <property name="text">
-           <string>...</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QToolButton" name="load_tb">
           <property name="text">
            <string>...</string>
           </property>

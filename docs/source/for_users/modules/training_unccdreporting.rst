@@ -37,7 +37,7 @@ The region of interest is already set up in Settings. If you need to change, sel
 
 3. Select the **Include progress period (for comparison to baseline)** check box to set the progress period for baseline reporting. 
 The default uses 2000-2015 for the baseline period and 2005-2019 for the comparison period when using the Land Productivity Dynamics (LPD) datasets
-from Joint Research Council.
+from Joint Research Centre.
 
 .. image:: ../../../resources/en/documentation/calculate/sdg15_lpd_baseline_comparison.png
    :align: center
@@ -63,6 +63,54 @@ in the menu if the **Download remotely-generated datasets automatically** is che
    :align: center
 
 7. The default data: Soil organic carbon degradation, land cover degradation, land productivity dynamics, and population dissaggregated by gender, will be added to the map for the region of interest.
+
+
+Compute SDG 15.3.1 Indicator and UNCCD's SO 2-3
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+- **Objective**: Learn to integrate the land cover, primary productivity and soil organic carbon sub-indicators to compute SDG 15.3.1 Indicators in raster format and tabular outputs with areas estimated.
+                 You will also learn to estimate the proportion of population exposed to land degradation, disaggregated by gender. 
+
+- **Estimated time of completion**: 15 minutes
+
+- **Internet access**: Not required
+
+.. note::
+    You will need to have previously computed the land cover, soil organic carbon and land productivity sub-indicators prior to running this tool. If you have not, please refer to the previous step on this tutorial.
+
+2. The **Trends.Earth** panel will open. In the **Algorithm** window, click on click on **SDG 15.3.1- Land Degradation** and select **Execute locally** under **Indicator for SDG 15.3.1**.
+
+.. image:: ../../../resources/en/documentation/calculate/so1_sdg1531_indicator.PNG
+   :align: center
+
+The region of interest is already set up in Settings. If you need to change, select the **Change region** button.
+
+.. note::
+    Refer to the :ref:`tut_settings` section of this manual for more information on setting up your area of interest.
+
+3. Select the **Population (required to calculate populations exposed by degradation** check box to calculate SO 2-3. 
+|trends.earth| provides access the WorldPop dataset, which is used by default by the UNCCD for calculating indicator SO2-3. 
+
+.. image:: ../../../resources/en/documentation/calculate/so2_ld_pop_exposure.PNG
+   :align: center
+
+4. Select **Execute locally** button.
+
+5. In the **Trends.Earth** panel, select the **Datasets** tab. The task submitted will appear 
+in the menu if the **Download remotely-generated datasets automatically** is checked in settings.
+
+.. note::
+    Refer to the :ref:`tut_settings` section of this manual to learn more about **Advanced settings**
+
+- Select the Refresh button if the analysis does not appear in the menu. 
+
+6. Select the add layer dropdown to **Add default layers from this layer to the map**
+
+.. image:: ../../../resources/en/documentation/data_download/download_datasets.png
+   :align: center
+
+7. The data for SDG15.3.1 Indicator will be added to the map for the region of interest.
+
    
 Generate data package for UNCCD reporting
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -95,12 +143,6 @@ in the menu if the **Download remotely-generated datasets automatically** is che
 .. note::
     Refer to the :ref:`background_unccdreporting` background for interpreting the results of this analysis.
 
-.. _tut_unccd_reporting_SO2:
-
-Strategic Objective 2
---------------------------------
-
-**Coming soon**
 
 .. _tut_unccd_reporting_SO3:
 
@@ -108,9 +150,13 @@ Strategic Objective 3
 --------------------------------
 
 Default data for UNCCD reporting
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- **Objective**: : Learn how to calculate indicators of drought Hazard, Exposure and Vulnerability using Trends.Earth and the default data: monthly precipitation dataset from the Global Precipitation Climatology Center -GPC, gridded population count from WorldPop and Vulnerability to drought from the European Commission’s Joint Research Centre - JRC. In this tutorial we will use Colombia as an example, but you can choose any study area.
+- **Objective**: : Learn how to calculate SO3 indicators of drought Hazard, Exposure and Vulnerability 
+                   using Trends.Earth and the default data: monthly precipitation dataset from the Global Precipitation 
+                   Climatology Center -GPC, gridded population count from WorldPop and Vulnerability to drought from the 
+                   European Commission’s Joint Research Centre - JRC. In this tutorial we will use Colombia as an example, 
+                   but you can choose any study area.
 
 - **Estimated time of completion**: 15 minutes
 
@@ -124,7 +170,8 @@ Default data for UNCCD reporting
 
 Click on the Trends.Earth toolbar within QGIS, and click on the Trends.Earth icon.
    
-2. The **Trends.Earth** panel will open. In the **Algorithm** window, click on **Drought - Vulnerability and exposure** and select **Execute remotely** under **Drought vulnerability**..
+2. The **Trends.Earth** panel will open. In the **Algorithm** window, click on **Drought - Vulnerability and exposure** 
+and select **Execute remotely** under **Drought vulnerability**..
 
 .. image:: ../../../resources/en/documentation/calculate/so3_drought_vulnerability_exposure.PNG
    :align: center
@@ -134,16 +181,18 @@ The region of interest is already set up in Settings. If you need to change, sel
 .. note::
     Refer to the :ref:`tut_settings` section of this manual for more information on setting up your area of interest.
 
-3. Set the **Initial** and **Final** year and the **Lag(months)** that will be applied to the Precipitation Dataset for calculating drought Hazard and Exposure. Select the **Include JRC Vulnerability Index** check box to calculate drougth Vulnerability for the region of interest. 
+3. Set the **Initial** and **Final** year and the **Lag(months)** that will be applied to the Precipitation Dataset for calculating drought Hazard 
+and Exposure. Select the **Include JRC Vulnerability Index** check box to calculate drougth Vulnerability for the region of interest. 
 The default Precipitation dataset is the GPCC but soon users will have the option to select the CHIRPS dataset from the Climate Hazard Group.
-Enter the **Execution name** and make sure to leave some notes about this step for furture reference.
+Enter a **Execution name** and make sure to leave some notes about this step for furture reference.
+
 .. image:: ../../../resources/en/documentation/calculate/so3_indicators.png
    :align: center
 
 4. Select **Execute remotely** button.
 
 .. note::
-    Refer to the :ref:`.. _background_strategic_objective_3` section of this manual to learn about drought Hazard, Exposure and Vulnerability.
+    Refer to the :ref:`background_unccdreporting` section of this manual to learn about drought Hazard, Exposure and Vulnerability.
 
 5. In the **Trends.Earth** panel, select the **Datasets** tab. The task submitted will appear 
 in the menu if the **Download remotely-generated datasets automatically** is checked in settings.
@@ -158,7 +207,8 @@ in the menu if the **Download remotely-generated datasets automatically** is che
 .. image:: ../../../resources/en/documentation/data_download/download_datasets.png
    :align: center
 
-7. The default data: Standardized Precipitation Index for all epochs, JRC's Drought Vulnerability Index for 2018, and population dissaggregated by gender, will be added to the map for the region of interest.
+7. The default data: Standardized Precipitation Index for all epochs, JRC's Drought Vulnerability Index for 2018, 
+and population dissaggregated by gender, will be added to the map for the region of interest.
    
 
 

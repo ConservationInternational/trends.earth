@@ -1396,8 +1396,7 @@ def _get_usable_bands(
                           None) or (job.id == selected_job_id)
         is_valid_type = (
             job.results and (
-                ResultType(job.results.type)
-                in (ResultType.RASTER_RESULTS, ResultType.LOCAL_RESULTS)
+                ResultType(job.results.type) == ResultType.RASTER_RESULTS
             )
         )
 
@@ -1575,9 +1574,7 @@ def get_usable_datasets(
             JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY
         )
         try:
-            is_valid_type = ResultType(
-                job.results.type
-            ) in (ResultType.RASTER_RESULTS, ResultType.LOCAL_RESULTS)
+            is_valid_type = ResultType(job.results.type) == ResultType.RASTER_RESULTS
         except AttributeError:
             # Catch case of an invalid type
 

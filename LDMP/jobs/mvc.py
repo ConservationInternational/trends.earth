@@ -314,6 +314,11 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             self.open_directory_tb.hide()
             self.open_directory_tb.hide()
             self.progressBar.hide()
+        elif self.job.is_file():
+            self.add_to_canvas_pb.hide()
+            self.load_tb.hide()
+            self.edit_tb.hide()
+            self.progressBar.hide()
         else:
             self.load_tb.hide()
             self.edit_tb.hide()

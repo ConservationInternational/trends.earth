@@ -8,12 +8,16 @@ import qgis.core
 from openpyxl.styles import Alignment
 from openpyxl.styles import Font
 from osgeo import gdal
-from te_schemas.results import Band as JobBand
+from te_schemas.results import Band
+from te_schemas.results import DataType
+from te_schemas.results import Raster
+from te_schemas.results import RasterFileType
+from te_schemas.results import RasterResults
+from te_schemas.results import URI
 
 import LDMP.logger
 from .. import areaofinterest
 from .. import calculate
-from .. import calculate_rest_biomass
 from .. import data_io
 from .. import summary
 from .. import utils
@@ -22,7 +26,6 @@ from ..jobs.models import Job
 
 
 def get_main_restoration_job_params(
-    aoi,
     combo_layer_biomass_diff: data_io.WidgetDataIOSelectTELayerExisting,
 ):
 
@@ -40,7 +43,7 @@ def get_main_restoration_job_params(
         "restoration_years": restoration_years,
         "restoration_types": restoration_types,
         "in_file_band_infos": [
-            JobBand.Schema().dump(b) for b in band.job.results.get_bands()
+            Band.Schema().dump(b) for b in band.job.results.get_bands()
         ],
     }
 
@@ -122,8 +125,6 @@ def compute_biomass_restoration(
         biomass_job.params["restoration_years"],
         biomass_job.params["restoration_types"],
     )
-    biomass_job.end_date = dt.datetime.now(dt.timezone.utc)
-    biomass_job.progress = 100
 
     # Add the biomass_dif layers to the map
 
@@ -132,18 +133,30 @@ def compute_biomass_restoration(
     else:
         output_path = job_output_path.parent / f"{job_output_path.stem}.vrt"
         gdal.BuildVRT(str(output_path), output_biomass_diff_tifs)
-    biomass_job.results.data_path = output_path
-    biomass_job.results.other_paths = [summary_table_output_path]
 
     # Update the band infos to use the masking value (-32767) as the file
     # no data value, so that stretches are more likely to compute correctly
     output_bands = []
 
     for raw_band_info in biomass_job.params["in_file_band_infos"]:
-        band = JobBand.Schema().load(raw_band_info)
+        band = Band.Schema().load(raw_band_info)
         band.no_data_value = -32767
         output_bands.append(band)
-    biomass_job.results.bands = output_bands
+
+    biomass_job.results = RasterResults(
+        name="biomass_restoration_summary",
+        uri=URI(uri=output_path, type="local"),
+        rasters={
+            DataType.INT16.value: Raster(
+                uri=URI(uri=output_path, type="local"),
+                bands=output_bands,
+                datatype=DataType.INT16,
+                filetype=RasterFileType.GEOTIFF,
+            ),
+        },
+    )
+    biomass_job.end_date = dt.datetime.now(dt.timezone.utc)
+    biomass_job.progress = 100
 
     return biomass_job
 

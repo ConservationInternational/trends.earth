@@ -169,7 +169,7 @@ def set_version(c, v=None, ta=False, ts=False):
         # Set in Sphinx docs in make.conf
         print('Setting version to {} in sphinx conf.py'.format(v))
         sphinx_regex = re.compile(
-            "(((version)|(release)) = ')[0-9]+([.][0-9]+)+", re.IGNORECASE
+            '(((version)|(release)) = ")[0-9]+([.][0-9]+)+', re.IGNORECASE
         )
         _replace(
             os.path.join(c.sphinx.sourcedir, 'conf.py'), sphinx_regex,

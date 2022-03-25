@@ -266,7 +266,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
         self.special_area_menu = QtWidgets.QMenu()
         action_create_false_positive = self.special_area_menu.addAction(
-            tr("Create false positive layer")
+            tr("Create false positive/negative layer")
         )
         action_create_false_positive.triggered.connect(self.create_false_positive)
         self.create_layer_pb.setMenu(self.special_area_menu)

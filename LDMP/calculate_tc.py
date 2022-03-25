@@ -50,8 +50,6 @@ DlgCalculateTcDataUi, _ = uic.loadUiType(
 DlgCalculateTcSummaryTableUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateTCSummaryTable.ui"))
 
-mb = iface.messageBar()
-
 
 # TODO: Still need to code below for local calculation of Total Carbon change
 class TCWorker(worker.AbstractWorker):

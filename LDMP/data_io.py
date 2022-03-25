@@ -78,8 +78,6 @@ Ui_WidgetDataIOSelectTEDatasetExisting, _ = uic.loadUiType(
     )
 )
 
-mb = qgis.utils.iface.messageBar()
-
 
 @dataclasses.dataclass()
 class Band:
@@ -630,7 +628,7 @@ class DlgDataIOLoadTE(QtWidgets.QDialog, Ui_DlgDataIOLoadTE):
 
     def show_job_info(self):
         self.parsed_name_la.setEnabled(True)
-        self.parsed_name_le.setText(job_manager.get_job_basename(self.job))
+        self.parsed_name_le.setText(self.job.get_basename())
         self.parsed_name_le.setEnabled(True)
         self.parsed_result_la.setEnabled(True)
         try:

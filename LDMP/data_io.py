@@ -1123,7 +1123,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         self.metadata = dlg.get_metadata()
 
     def save_metadata(self, job):
-        metadata.init_datatset_metadata(job, self.metadata)
+        metadata.init_dataset_metadata(job, self.metadata)
 
 
 class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):

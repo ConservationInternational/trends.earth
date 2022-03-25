@@ -3,6 +3,7 @@ import enum
 import functools
 import re
 import uuid
+import unicodedata
 
 import marshmallow_dataclass
 from marshmallow import pre_load
@@ -27,6 +28,27 @@ class TypeFilter(enum.Enum):
     ALL = 'all'
     RASTER = 'raster'
     VECTOR = 'vector'
+
+
+def _slugify(value, allow_unicode=False):
+    """
+    Taken from https://github.com/django/django/blob/master/django/utils/text.py
+    Convert to ASCII if 'allow_unicode' is False. Convert spaces or repeated
+    dashes to single dashes. Remove characters that aren't alphanumerics,
+    underscores, or hyphens. Convert to lowercase. Also strip leading and
+    trailing whitespace, dashes, and underscores.
+    """
+    value = str(value)
+
+    if allow_unicode:
+        value = unicodedata.normalize('NFKC', value)
+    else:
+        value = unicodedata.normalize('NFKD',
+                                      value).encode('ascii',
+                                                    'ignore').decode('ascii')
+    value = re.sub(r'[^\w\s-]', '', value.lower())
+
+    return re.sub(r'[-\s]+', '-', value).strip('-_')
 
 
 @marshmallow_dataclass.dataclass
@@ -67,6 +89,35 @@ class Job(JobBase):
             data['script']['version'] = matches.group(2).replace('_', '.')
 
         return data
+
+    def get_basename(self, with_uuid=False):
+        separator = "_"
+        name_fragments = []
+        task_name = _slugify(self.task_name)
+
+        if task_name:
+            name_fragments.append(task_name)
+
+        if self.script:
+            name_fragments.append(self.script.name)
+
+        if self.local_context.area_of_interest_name:
+            name_fragments.append(self.local_context.area_of_interest_name)
+
+        if len(name_fragments) == 0 or with_uuid:
+            name_fragments.append(str(self.id))
+
+        return separator.join(name_fragments)
+
+    def get_display_name(self):
+        job_name_parts = []
+        if self.task_name:
+            job_name_parts.append(self.task_name)
+        elif self.local_context.area_of_interest_name:
+            job_name_parts.append(self.local_context.area_of_interest_name)
+        elif self.script.name:
+            job_name_parts.append(self.script.name)
+        return ' - '.join(job_name_parts)
 
 
 @functools.lru_cache(

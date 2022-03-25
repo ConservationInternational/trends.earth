@@ -27,8 +27,6 @@ from .gui.DlgTimeseries import Ui_DlgTimeseries
 from .jobs.manager import job_manager
 from .logger import log
 
-mb = iface.messageBar()
-
 
 class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
     def __init__(self, parent=None):

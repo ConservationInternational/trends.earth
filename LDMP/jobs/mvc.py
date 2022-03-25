@@ -26,6 +26,9 @@ from ..select_dataset import DlgSelectDataset
 from .models import Job
 from .models import SortField
 from .models import TypeFilter
+from ..reports.mvc import DatasetReportHandler
+from ..utils import FileUtils
+
 
 WidgetDatasetItemUi, _ = uic.loadUiType(
     str(Path(__file__).parents[1] / "gui/WidgetDatasetItem.ui")
@@ -237,6 +240,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
     progressBar: QtWidgets.QProgressBar
     load_tb: QtWidgets.QToolButton
     edit_tb: QtWidgets.QToolButton
+    report_pb: QtWidgets.QPushButton
 
     def __init__(self, job: Job, main_dock: "MainWidget", parent=None):
         super().__init__(parent)
@@ -286,6 +290,12 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             QtGui.QIcon(os.path.join(ICON_PATH, "mActionAddOgrLayer.svg"))
         )
 
+        self.report_pb.setIcon(FileUtils.get_icon('report.svg'))
+        self._report_handler = DatasetReportHandler(
+            self.report_pb,
+            self.job,
+            self.main_dock.iface
+        )
         # self.add_to_canvas_pb.setFixedSize(self.open_directory_tb.size())
         # self.add_to_canvas_pb.setMinimumSize(self.open_directory_tb.size())
 
@@ -352,6 +362,9 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                 self.download_tb.hide()
                 self.add_to_canvas_pb.setEnabled(self.has_loadable_result())
                 self.metadata_pb.setEnabled(self.has_loadable_result())
+
+        # Initialize dataset report handler
+        self._report_handler.init()
 
     def has_loadable_result(self):
         result = False
@@ -538,3 +551,11 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                     self.tr("{} metadata").format(os.path.split(raster.uri.uri)[1])
                 )
                 action.triggered.connect(lambda _, x=file_path: self.show_metadata(x))
+
+    @property
+    def report_handler(self):
+        """
+        Returns handler with helper methods for generating and viewing
+        reports.
+        """
+        return self._report_handler

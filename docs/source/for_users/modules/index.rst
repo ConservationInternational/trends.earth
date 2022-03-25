@@ -13,3 +13,5 @@ Training Manual
    Land Consumption <training_landconsumption>
    Carbon <training_carbon>
    Restoration <training_restoration>
+   Dataset Metadata <training_metadata>
+   Special Areas <training_specialareas>

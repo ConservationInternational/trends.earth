@@ -67,6 +67,57 @@ different computer).
 .. note::
     Refer to the :ref:`registration` for details on registering and logging into your Trends.Earth account.
 
+
+.. _report_settings:
+
+Reports
+---------
+This contains configuration options for the Reports module.
+
+.. image:: ../../../resources/en/documentation/settings/settings_report.png
+   :align: center
+
+
+Template Search Path
+~~~~~~~~~~~~~~~~~~~~
+An additional directory containing report templates (qpt files). If there are templates with the same name to those in
+`[base_data_directory]/reports/templates`, then the system will prioritize and use the ones in the search path.
+
+Common Report Information
+~~~~~~~~~~~~~~~~~~~~~~~~~
+Common contextual information that can be modified to suit the reporting context. Any changes
+to the settings under this category, will be applied in subsequent report generation tasks.
+
+.. note::
+    These are only applicable in those report templates where the corresponding variables are used. For the
+    default templates (that ship with the toolbox), only the organization logo and disclaimer text variables are used.
+
+
+**a. Organization Logo** - This is a path to an image file that can be used as a logo in the reports. By default,
+     it points to `trends_earth_logo_bl_small.png` that ships with the toolbox. It is available as a QGIS layout
+     variable named :code:`te_report_organization_logo`.
+
+**b. Organization Name** - Free text corresponding to the name of the organization. It is empty by default. It is
+     available as a QGIS layout variable named :code:`te_report_organization_name`.
+
+**c. Footer Text** - Free text that can be used in the footer section of reports. It is empty by default. It is
+     available as a QGIS layout variable named :code:`te_report_footer`.
+
+**d. Disclaimer Text** - Disclaimer statement that applies to one or more elements in the reports such as data.
+     The default statement reads:
+
+`The provided boundaries are from Natural Earth, and are in the public domain. The boundaries, names and
+designations used in Trends.Earth do not imply official endorsement or acceptance by Conservation
+International Foundation, or by its partner organizations and contributors.`
+
+It is available as a QGIS layout variable named :code:`te_report_disclaimer`.
+
+Log warnings in output directory
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+When checked, the output report folder will contain a html file with details of any warning or errors that arose
+during the report generation process. It is useful for debugging purposes. By default, it is unchecked.
+
+
 .. _advanced:
 
 Advanced

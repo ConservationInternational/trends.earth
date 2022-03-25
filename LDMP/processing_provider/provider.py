@@ -3,6 +3,7 @@ import os
 from qgis.PyQt.QtGui import QIcon
 from qgis.core import QgsProcessingProvider
 from pathlib import Path
+from .report import ReportTaskContextAlgorithm
 from .carbon import TCSummary
 from .utilities import GenerateMask, ClipRaster
 
@@ -15,6 +16,7 @@ class Provider(QgsProcessingProvider):
         self.addAlgorithm(TCSummary())
         self.addAlgorithm(GenerateMask())
         self.addAlgorithm(ClipRaster())
+        self.addAlgorithm(ReportTaskContextAlgorithm())
 
     def id(self, *args, **kwargs):
         return 'trendsearth'

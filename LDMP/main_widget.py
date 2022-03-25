@@ -33,6 +33,7 @@ from .data_io import (
 
 from .lc_setup import DlgDataIOImportLC
 from .download_data import DlgDownload
+from .generate_report_dialog import DlgGenerateReport
 from .landpks import DlgLandPKSDownload
 from .jobs.manager import job_manager
 from .jobs import mvc as jobs_mvc
@@ -43,6 +44,7 @@ from .jobs.models import (
 )
 
 from .utils import (
+    FileUtils,
     load_object,
 )
 from .logger import log
@@ -131,6 +133,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
     lineEdit_search: QtWidgets.QLineEdit
     import_dataset_pb: QtWidgets.QPushButton
     create_layer_pb: QtWidgets.QPushButton
+    generate_report_pb: QtWidgets.QPushButton
     pushButton_load: QtWidgets.QPushButton
     pushButton_download: QtWidgets.QPushButton
     pushButton_refresh: QtWidgets.QPushButton
@@ -272,6 +275,9 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.create_layer_pb.setMenu(self.special_area_menu)
         #self.create_layer_pb.setIcon(
         #    QtGui.QIcon(os.path.join(ICON_PATH, "cloud-download.svg")))
+
+        self.generate_report_pb.setIcon(FileUtils.get_icon('report.svg'))
+        self.generate_report_pb.clicked.connect(self.on_generate_report)
 
         # to allow emit entered events and manage editing over mouse
         self.datasets_tv.setMouseTracking(True)
@@ -615,6 +621,11 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             self
         )
         dialogue.exec_()
+
+    def on_generate_report(self):
+        # Load dialog for configuring multiscope reports
+        generate_rpt_dlg = DlgGenerateReport(self)
+        generate_rpt_dlg.exec_()
 
     def import_known_dataset(self, action: QtWidgets.QAction):
         dialogue=DlgDataIOLoadTE(self)

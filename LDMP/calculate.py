@@ -66,7 +66,6 @@ WidgetCalculationOptionsUi, _ = uic.loadUiType(
 WidgetCalculationOutputUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/WidgetCalculationOutput.ui"))
 
-mb = iface.messageBar()
 
 ICON_PATH = os.path.join(os.path.dirname(__file__), 'icons')
 

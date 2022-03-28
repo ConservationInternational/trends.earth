@@ -120,8 +120,11 @@ def _replace(file_path, regex, subst):
 ###############################################################################
 
 
-@task(help={'v': 'Version to set'})
-def set_version(c, v=None):
+@task(help={'v': 'Version to set',
+            'ta': 'Also set version for trends.earth-algorithms',
+            'ts': 'Also set version for trends.earth-schemas'
+})
+def set_version(c, v=None, ta=False, ts=False):
     # Validate the version matches the regex
 
     if not v:
@@ -166,7 +169,7 @@ def set_version(c, v=None):
         # Set in Sphinx docs in make.conf
         print('Setting version to {} in sphinx conf.py'.format(v))
         sphinx_regex = re.compile(
-            "(((version)|(release)) = ')[0-9]+([.][0-9]+)+", re.IGNORECASE
+            '(((version)|(release)) = ")[0-9]+([.][0-9]+)+', re.IGNORECASE
         )
         _replace(
             os.path.join(c.sphinx.sourcedir, 'conf.py'), sphinx_regex,
@@ -259,6 +262,11 @@ def set_version(c, v=None):
             )
 
 
+    for module in c.plugin.ext_libs.local_modules:
+        module_path = Path(module['path']).parent
+        print(f"Also setting tag for {module['name']}")
+        subprocess.check_call(['invoke', 'set-version', '-v', v], cwd=module_path)
+
 @task()
 def release_github(c):
     v = get_version(c)
@@ -293,8 +301,10 @@ def release_github(c):
     # https://docs.github.com/en/rest/reference/repos#update-a-release-asset
 
 
-@task()
-def set_tag(c):
+@task(help={
+    'ext_libs': 'Also set tag for local copies of modules under ext_libs'
+})
+def set_tag(c, ext_libs=False):
     v = get_version(c)
     ret = subprocess.run(
         ['git', 'diff-index', 'HEAD', '--'], capture_output=True, text=True
@@ -337,6 +347,11 @@ def set_tag(c):
         ]
     )
     subprocess.check_call(['git', 'push', 'origin', 'v{}'.format(v)])
+
+    for module in c.plugin.ext_libs.local_modules:
+        module_path = Path(module['path']).parent
+        print(f"Also setting tag for {module['name']}")
+        subprocess.check_call(['invoke', 'set-tag'], cwd=module_path)
 
 
 def check_tecli_python_version():
@@ -655,7 +670,7 @@ def plugin_setup(c, clean=True, link=False, pip='pip'):
             )
 
     if link:
-        for module in c.plugin.ext_libs.module_symlinks:
+        for module in c.plugin.ext_libs.local_modules:
             l = os.path.abspath(c.plugin.ext_libs.path
                                 ) + os.path.sep + module['name']
 
@@ -1627,7 +1642,7 @@ ns.configure(
             'LDMP/version.json',
             'ext_libs': {
                 'path': 'LDMP/ext-libs',
-                'module_symlinks': []
+                'local_modules': []
             },
             'gui_dir':
             'LDMP/gui',

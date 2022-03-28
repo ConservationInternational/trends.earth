@@ -155,7 +155,7 @@ class DlgCalculateRestBiomassSummaryTable(
             return
 
         params = biomassrestoration.get_main_restoration_job_params(
-            self.aoi, self.combo_layer_biomass_diff
+            self.combo_layer_biomass_diff
         )
 
         params["task_name"] = self.options_tab.task_name.text()

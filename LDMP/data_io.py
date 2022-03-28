@@ -78,8 +78,6 @@ Ui_WidgetDataIOSelectTEDatasetExisting, _ = uic.loadUiType(
     )
 )
 
-mb = qgis.utils.iface.messageBar()
-
 
 @dataclasses.dataclass()
 class Band:
@@ -630,7 +628,7 @@ class DlgDataIOLoadTE(QtWidgets.QDialog, Ui_DlgDataIOLoadTE):
 
     def show_job_info(self):
         self.parsed_name_la.setEnabled(True)
-        self.parsed_name_le.setText(job_manager.get_job_basename(self.job))
+        self.parsed_name_le.setText(self.job.get_basename())
         self.parsed_name_le.setEnabled(True)
         self.parsed_result_la.setEnabled(True)
         try:
@@ -1396,8 +1394,7 @@ def _get_usable_bands(
                           None) or (job.id == selected_job_id)
         is_valid_type = (
             job.results and (
-                ResultType(job.results.type)
-                in (ResultType.RASTER_RESULTS, ResultType.LOCAL_RESULTS)
+                ResultType(job.results.type) == ResultType.RASTER_RESULTS
             )
         )
 
@@ -1575,9 +1572,7 @@ def get_usable_datasets(
             JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY
         )
         try:
-            is_valid_type = ResultType(
-                job.results.type
-            ) in (ResultType.RASTER_RESULTS, ResultType.LOCAL_RESULTS)
+            is_valid_type = ResultType(job.results.type) == ResultType.RASTER_RESULTS
         except AttributeError:
             # Catch case of an invalid type
 

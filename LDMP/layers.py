@@ -987,4 +987,8 @@ def set_default_value(v_path: str, field: str, r_path: str, band: int, v: int):
 
     idx = layer.fields().lookupField(field)
     layer.setDefaultValueDefinition(idx, QgsDefaultValue("calculate_charts('{}', {}, {})".format(r_path, band, v), True))
+    exists, msg = QgsProviderRegistry.instance().styleExists('ogr', layer.source(), 'false_positive')
+    if exists:
+        QgsProviderRegistry.instance().deleteStyleById('ogr', l.source(), '1', msg)
+
     layer.saveStyleToDatabase('false_positive', '', True, '')

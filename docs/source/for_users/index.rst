@@ -13,3 +13,4 @@ Trends.Earth User Guide
     faq/index
     resources/index
     datasets/index
+    designingreports/index

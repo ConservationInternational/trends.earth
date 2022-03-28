@@ -54,13 +54,13 @@ class TCSummary(QgsProcessingAlgorithm):
         )
         self.addParameter(
             QgsProcessingParameterNumber(
-                'YEAR_START',
+                'year_initial',
                 self.tr('Starting year')
             )
         )
         self.addParameter(
             QgsProcessingParameterNumber(
-                'YEAR_END',
+                'year_final',
                 self.tr('Ending year')
             )
         )

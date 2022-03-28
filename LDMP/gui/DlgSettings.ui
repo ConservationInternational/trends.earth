@@ -45,8 +45,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>603</width>
-        <height>596</height>
+        <width>605</width>
+        <height>598</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -231,11 +231,29 @@
         </widget>
        </item>
        <item>
+        <widget class="QgsCollapsibleGroupBox" name="groupbox_reports">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="title">
+          <string>Reports</string>
+         </property>
+         <layout class="QVBoxLayout" name="reports_layout">
+          <property name="margin">
+           <number>5</number>
+          </property>
+         </layout>
+        </widget>
+       </item>
+       <item>
         <widget class="QgsCollapsibleGroupBox" name="groupBox_advanced">
          <property name="title">
           <string>Advanced</string>
          </property>
-         <property name="collapsed">
+         <property name="collapsed" stdset="0">
           <bool>true</bool>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_advanced"/>

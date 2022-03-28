@@ -122,6 +122,16 @@ for running algorithms and their results.</string>
            </widget>
           </item>
           <item>
+           <widget class="QPushButton" name="generate_report_pb">
+            <property name="toolTip">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Generate report for multiple datasets based on a matching template&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <property name="text">
+             <string>Generate report...</string>
+            </property>
+           </widget>
+          </item>
+          <item>
            <widget class="QPushButton" name="pushButton_load">
             <property name="toolTip">
              <string>Load a set of base layers that were prepared by Trends.Earth into QGIS in order to serve as a reference map</string>

@@ -20,6 +20,34 @@ from qgis.core import QgsExpression
 from qgis.core import QgsMessageLog
 from qgis.PyQt.QtCore import QCoreApplication
 from qgis.PyQt.QtCore import Qt
+from qgis.core import (
+    QgsApplication,
+    QgsMasterLayoutInterface
+)
+from qgis.gui import QgsLayoutDesignerInterface
+from qgis.PyQt.QtCore import (
+    QCoreApplication,
+    Qt
+)
+from qgis.PyQt.QtWidgets import (
+    QAction,
+    QMenu,
+    QToolButton
+)
+from qgis.core import (
+    QgsApplication,
+    QgsMasterLayoutInterface
+)
+from qgis.gui import QgsLayoutDesignerInterface
+from qgis.PyQt.QtCore import (
+    QCoreApplication,
+    Qt
+)
+from qgis.PyQt.QtWidgets import (
+    QAction,
+    QMenu,
+    QToolButton
+)
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction
 from qgis.PyQt.QtWidgets import QApplication
@@ -35,7 +63,10 @@ from .jobs.manager import job_manager
 from .maptools import BufferMapTool
 from .maptools import PolygonMapTool
 from .processing_provider.provider import Provider
+from .reports.expressions import ReportExpressionUtils
+from .reports.template_manager import template_manager
 from .settings import DlgSettings
+from .visualization import download_base_map
 
 
 class LDMPPlugin(object):
@@ -64,17 +95,14 @@ class LDMPPlugin(object):
                 )
             )
         )
-        self.raster_menu = self.iface.rasterMenu()
-        self.raster_menu.addMenu(self.menu)
 
-        self.toolbar = self.iface.addToolBar(u"trends.earth")
-        self.toolbar.setObjectName("trends_earth_toolbar")
-        self.toolButton = QToolButton()
-        self.toolButton.setMenu(QMenu())
-        self.toolButton.setPopupMode(QToolButton.MenuButtonPopup)
-        self.toolBtnAction = self.toolbar.addWidget(self.toolButton)
-        self.actions.append(self.toolBtnAction)
-        self.dlg_about = about.DlgAbout()
+        self.raster_menu = None
+        self.toolbar = None
+        self.toolButton = None
+        self.toolBtnAction = None
+        self.dlg_about = None
+        self.start_action = None
+        self.dock_widget = None
 
     def initProcessing(self):
         self.provider = Provider()
@@ -167,18 +195,41 @@ class LDMPPlugin(object):
         self.initProcessing()
         QgsExpression.registerFunction(calculate_charts)
 
+        """
+        Moved the initialization here so that the processing can be 
+        initialized first thereby enabling the plugin to be used in 
+        qgis_process executable for batch processes particularly in 
+        report generation.
+        """
+        self.raster_menu = self.iface.rasterMenu()
+        self.raster_menu.addMenu(self.menu)
+
+        self.toolbar = self.iface.addToolBar(u'trends.earth')
+        self.toolbar.setObjectName('trends_earth_toolbar')
+        self.toolButton = QToolButton()
+        self.toolButton.setMenu(QMenu())
+        self.toolButton.setPopupMode(QToolButton.MenuButtonPopup)
+        self.toolBtnAction = self.toolbar.addWidget(self.toolButton)
+        self.actions.append(self.toolBtnAction)
+        self.dlg_about = about.DlgAbout()
+
+        # Initialize reports module
+        self.init_reports()
+
         """Create Main manu icon and plugins menu entries."""
-        start_action = self.add_action(
+        self.start_action = self.add_action(
             os.path.join(
-                os.path.dirname(__file__), "icons", "trends_earth_logo_square_32x32.ico"
+                os.path.dirname(__file__),
+                'icons',
+                'trends_earth_logo_square_32x32.ico'
             ),
-            text="Trends.Earth",
+            text='Trends.Earth',
             callback=self.run_docked_interface,
             parent=self.iface.mainWindow(),
             status_tip=self.tr("Trends.Earth dock interface"),
             set_as_default_action=True,
         )
-        start_action.setCheckable(True)
+        self.start_action.setCheckable(True)
 
         self.add_action(
             os.path.join(os.path.dirname(__file__), "icons", "wrench.svg"),
@@ -248,14 +299,29 @@ class LDMPPlugin(object):
 
     def run_docked_interface(self, checked):
         if checked:
-            self.dock_widget = main_widget.MainWidget(
-                self.iface, parent=self.iface.mainWindow()
-            )
-            self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dock_widget)
+            if self.dock_widget is None:
+                self.dock_widget = main_widget.MainWidget(
+                    self.iface, parent=self.iface.mainWindow())
+                self.iface.addDockWidget(
+                    Qt.RightDockWidgetArea,
+                    self.dock_widget
+                )
+                self.dock_widget.visibilityChanged.connect(
+                    self.on_dock_visibility_changed
+                )
             self.dock_widget.show()
         else:
-            if hasattr(self, "dock_widget") and self.dock_widget.isVisible():
+            if self.dock_widget is not None and self.dock_widget.isVisible():
                 self.dock_widget.hide()
+
+    def on_dock_visibility_changed(self, status):
+        """
+        Check/uncheck start action.
+        """
+        if status:
+            self.start_action.setChecked(True)
+        else:
+            self.start_action.setChecked(False)
 
     def run_settings(self):
         old_base_dir = conf.settings_manager.get_value(conf.Setting.BASE_DIR)
@@ -276,3 +342,41 @@ class LDMPPlugin(object):
 
     def activate_buffer_tool(self):
         self.iface.mapCanvas().setMapTool(self.buffer_tool)
+
+    def init_reports(self):
+        # Initialize report module.
+        # Register custom report variables on opening the layout designer
+        self.iface.layoutDesignerOpened.connect(
+            self.on_layout_designer_opened
+        )
+        # Copy report config and templates to data directory
+        template_manager.use_data_dir_config_source()
+
+        # Download basemap as its required in the reports
+        download_base_map(use_mask=False)
+
+    def on_layout_designer_opened(self, designer: QgsLayoutDesignerInterface):
+        # Register custom report variables in a print layout only.
+        layout_type = designer.masterLayout().layoutType()
+        if layout_type == QgsMasterLayoutInterface.PrintLayout:
+            layout = designer.layout()
+            ReportExpressionUtils.register_variables(layout)
+
+    def init_reports(self):
+        # Initialize report module.
+        # Register custom report variables on opening the layout designer
+        self.iface.layoutDesignerOpened.connect(
+            self.on_layout_designer_opened
+        )
+        # Copy report config and templates to data directory
+        template_manager.use_data_dir_config_source()
+
+        # Download basemap as its required in the reports
+        download_base_map(use_mask=False)
+
+    def on_layout_designer_opened(self, designer: QgsLayoutDesignerInterface):
+        # Register custom report variables in a print layout only.
+        layout_type = designer.masterLayout().layoutType()
+        if layout_type == QgsMasterLayoutInterface.PrintLayout:
+            layout = designer.layout()
+            ReportExpressionUtils.register_variables(layout)

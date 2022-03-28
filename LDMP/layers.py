@@ -120,7 +120,7 @@ style_text_dict = {
     # account magnitude)
     'lc_deg_comp_title':
     tr_layers.tr(
-        u'Land cover degradation comparison ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})'
+        u'Land cover degradation comparison ({year_initial}-{year_final} vs {progress_year_initial}-{progress_year_final})'
     ),
     'lc_deg_comp_deg':
     tr_layers.tr(u'Degradation'),
@@ -974,7 +974,8 @@ def add_vector_layer(layer_path: str, name: str, start_editing: bool):
 
     return True
 
-def set_default_value(v_path: str, field: str, r_path: str, band: int, v: int):
+def set_default_value(v_path: str, field: str, r_path: str, band: int, v:
+                      typing.List[int], transform: callable = None):
     sublayers = QgsProviderRegistry.instance().providerMetadata('ogr').querySublayers(v_path)
 
     layer = None
@@ -986,5 +987,7 @@ def set_default_value(v_path: str, field: str, r_path: str, band: int, v: int):
         layer = QgsVectorLayer(v_path, '', 'ogr')
 
     idx = layer.fields().lookupField(field)
-    layer.setDefaultValueDefinition(idx, QgsDefaultValue("calculate_charts('{}', {}, {})".format(r_path, band, v), True))
+    layer.setDefaultValueDefinition(idx, QgsDefaultValue(
+        "calculate_charts('{}', {}, {}, {})".format(r_path, band, v, transform),
+        True))
     layer.saveStyleToDatabase('false_positive', '', True, '')

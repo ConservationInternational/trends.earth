@@ -69,7 +69,7 @@ Compute SDG 15.3.1 Indicator and UNCCD's SO 2-3
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - **Objective**: Learn to integrate the land cover, primary productivity and soil organic carbon sub-indicators to compute SDG 15.3.1 Indicators in raster format and tabular outputs with areas estimated.
-                 You will also learn to estimate the proportion of population exposed to land degradation, disaggregated by gender. 
+You will also learn to estimate the proportion of population exposed to land degradation, disaggregated by gender. 
 
 - **Estimated time of completion**: 15 minutes
 
@@ -80,7 +80,7 @@ Compute SDG 15.3.1 Indicator and UNCCD's SO 2-3
 
 2. The **Trends.Earth** panel will open. In the **Algorithm** window, click on click on **SDG 15.3.1- Land Degradation** and select **Execute locally** under **Indicator for SDG 15.3.1**.
 
-.. image:: ../../../resources/en/documentation/calculate/so1_sdg1531_indicator.PNG
+.. image:: ../../../resources/en/documentation/calculate/so1_sdg1531_indicator.PNG.png
    :align: center
 
 The region of interest is already set up in Settings. If you need to change, select the **Change region** button.
@@ -89,7 +89,7 @@ The region of interest is already set up in Settings. If you need to change, sel
     Refer to the :ref:`tut_settings` section of this manual for more information on setting up your area of interest.
 
 3. Select the **Population (required to calculate populations exposed by degradation** check box to calculate SO 2-3. 
-|trends.earth| provides access the WorldPop dataset, which is used by default by the UNCCD for calculating indicator SO2-3. 
+|trends.earth|provides access the WorldPop dataset, which is used by default by the UNCCD for calculating indicator SO2-3. 
 
 .. image:: ../../../resources/en/documentation/calculate/so2_ld_pop_exposure.PNG
    :align: center
@@ -153,10 +153,10 @@ Default data for UNCCD reporting
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 - **Objective**: : Learn how to calculate SO3 indicators of drought Hazard, Exposure and Vulnerability 
-                   using Trends.Earth and the default data: monthly precipitation dataset from the Global Precipitation 
-                   Climatology Center -GPC, gridded population count from WorldPop and Vulnerability to drought from the 
-                   European Commission’s Joint Research Centre - JRC. In this tutorial we will use Colombia as an example, 
-                   but you can choose any study area.
+using Trends.Earth and the default data: monthly precipitation dataset from the Global Precipitation 
+Climatology Center -GPC, gridded population count from WorldPop and Vulnerability to drought from the 
+European Commission’s Joint Research Centre - JRC. In this tutorial we will use Colombia as an example, 
+but you can choose any study area.
 
 - **Estimated time of completion**: 15 minutes
 
@@ -192,7 +192,7 @@ Enter a **Execution name** and make sure to leave some notes about this step for
 4. Select **Execute remotely** button.
 
 .. note::
-    Refer to the :ref:`background_unccdreporting` section of this manual to learn about drought Hazard, Exposure and Vulnerability.
+    Refer to the :ref:`.. _background_unccdreporting` section of this manual to learn about drought Hazard, Exposure and Vulnerability.
 
 5. In the **Trends.Earth** panel, select the **Datasets** tab. The task submitted will appear 
 in the menu if the **Download remotely-generated datasets automatically** is checked in settings.

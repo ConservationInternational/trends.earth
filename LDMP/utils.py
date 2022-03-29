@@ -78,7 +78,8 @@ def delete_dataset(job: Job) -> int:
     result = QtWidgets.QMessageBox.Res = message_box.exec_()
     if result == QtWidgets.QMessageBox.Yes:
         if job.results is not None:
-            remove_layer_from_qgis(job.results.data_path)
+            remove_layer_from_qgis(job.results.uri)
+
         manager.job_manager.delete_job(job)
     return result
 

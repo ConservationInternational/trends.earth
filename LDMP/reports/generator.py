@@ -243,7 +243,6 @@ class ReportTaskProcessor:
 
     def _add_base_map(self):
         # Add basemap
-
         country_name, admin_one_name = '', ''
         # Determine extent using first layer in our collection
         if len(self._jobs_layers) > 0:
@@ -461,7 +460,13 @@ class ReportTaskProcessor:
         self._save_project()
 
         # Generate charts
-        self._charts_mgr.generate_charts()
+        status = self._charts_mgr.generate_charts()
+        if not status:
+            msgs = self._charts_mgr.messages
+            for m in msgs:
+                self._append_warning_msg(m)
+
+            return False
 
         return True
 
@@ -817,7 +822,7 @@ class ReportProcessHandlerTask(QgsTask):
             # Kill qgis_process associated with the given process id
             pid = self._process.pid
             if os.name == 'nt':
-                subprocess.Popen(f"TASKKILL /F /PID {pid} /T", shell=True)
+                subprocess.Popen(f'TASKKILL /F /PID {pid} /T', shell=True)
             else:
                 os.kill(pid, signal.SIGTERM)
 

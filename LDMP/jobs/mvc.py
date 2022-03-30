@@ -2,6 +2,7 @@ import functools
 import os
 import typing
 from pathlib import Path
+import uuid
 
 from qgis.PyQt import QtCore
 from qgis.PyQt import QtGui
@@ -239,7 +240,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
     open_directory_tb: QtWidgets.QToolButton
     progressBar: QtWidgets.QProgressBar
     load_tb: QtWidgets.QToolButton
-    edit_tb: QtWidgets.QToolButton
+    edit_tb: QtWidgets.QPushButton
     report_pb: QtWidgets.QPushButton
 
     def __init__(self, job: Job, main_dock: "MainWidget", parent=None):
@@ -263,7 +264,9 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             functools.partial(utils.delete_dataset, self.job)
         )
         self.load_tb.clicked.connect(self.load_layer)
-        self.edit_tb.clicked.connect(self.edit_layer)
+
+        self.load_vector_menu_setup()
+        self.edit_tb.setMenu(self.load_vector_menu)
 
         self.delete_tb.setIcon(
             QtGui.QIcon(os.path.join(ICON_PATH, "mActionDeleteSelected.svg"))
@@ -438,6 +441,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                     self.job.params["prod"] = {
                         "path": str(prod.path),
                         "band": prod.band_index,
+                        "band_name": prod.band_info.name,
                         "uuid": str(prod.job.id),
                     }
 
@@ -445,14 +449,16 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                     self.job.params["land"] = {
                         "path": str(land.path),
                         "band": land.band_index,
+                        "band_name": land.band_info.name,
                         "uuid": str(land.job.id),
                     }
 
                 if soil:
                     self.job.params["soil"] = {
-                        "soil": str(soil.path),
-                        "soil": soil.band_index,
-                        "soil": str(soil.job.id),
+                        "path": str(soil.path),
+                        "band": soil.band_index,
+                        "band_name": soil.band_info.name,
+                        "uuid": str(soil.job.id),
                     }
 
                 manager.job_manager.write_job_metadata_file(self.job)
@@ -523,6 +529,8 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
 
                 manager.job_manager.edit_special_area_layer(self.job)
                 self.main_dock.resume_scheduler()
+        else:
+            manager.job_manager.edit_special_area_layer(self.job)
 
     def has_connected_data(self):
         has_prod = True if "prod" in self.job.params else False
@@ -557,3 +565,34 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         reports.
         """
         return self._report_handler
+
+    def load_vector_menu_setup(self):
+        self.load_vector_menu = QtWidgets.QMenu()
+        action_add_vector_to_map = self.load_vector_menu.addAction(
+            self.tr("Add special area layer to map")
+        )
+        action_add_vector_to_map.triggered.connect(self.edit_layer)
+        action_add_rasters_to_map = self.load_vector_menu.addAction(
+            self.tr("Add raster layers to map")
+        )
+        action_add_rasters_to_map.triggered.connect(
+            self.load_rasters_layers
+        )
+
+    def load_rasters_layers(self):
+        jobs = manager.job_manager._known_downloaded_jobs.copy()
+        self._load_raster(jobs, "prod")
+        self._load_raster(jobs, "land")
+        self._load_raster(jobs, "soil")
+
+    def _load_raster(self, jobs, name):
+        if name in self.job.params:
+            data = self.job.params[name]
+            job = jobs[uuid.UUID(data["uuid"])] if uuid.UUID(data["uuid"]) in jobs else None
+            if job:
+                band = None
+                for raster in job.results.rasters.values():
+                    band = next((b for b in raster.bands if b.name == data["band_name"]), None)
+                    if band:
+                        break
+                layers.add_layer(str(data["path"]), int(data["band"]), JobBand.Schema().dump(band))

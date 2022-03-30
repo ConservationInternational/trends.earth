@@ -1,8 +1,8 @@
 import functools
 import os
 import typing
-from pathlib import Path
 import uuid
+from pathlib import Path
 
 from qgis.PyQt import QtCore
 from qgis.PyQt import QtGui
@@ -23,12 +23,12 @@ from ..conf import Setting
 from ..conf import settings_manager
 from ..data_io import DlgDataIOAddLayersToMap
 from ..datasets_dialog import DatasetDetailsDialogue
+from ..reports.mvc import DatasetReportHandler
 from ..select_dataset import DlgSelectDataset
+from ..utils import FileUtils
 from .models import Job
 from .models import SortField
 from .models import TypeFilter
-from ..reports.mvc import DatasetReportHandler
-from ..utils import FileUtils
 
 
 WidgetDatasetItemUi, _ = uic.loadUiType(
@@ -230,7 +230,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
     job: Job
     main_dock: "MainWidget"
 
-    add_to_canvas_pb: QtWidgets.QPushButton
+    add_to_canvas_pb: QtWidgets.QToolButton
     notes_la: QtWidgets.QLabel
     delete_tb: QtWidgets.QToolButton
     download_tb: QtWidgets.QToolButton
@@ -240,7 +240,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
     open_directory_tb: QtWidgets.QToolButton
     progressBar: QtWidgets.QProgressBar
     load_tb: QtWidgets.QToolButton
-    edit_tb: QtWidgets.QPushButton
+    edit_tb: QtWidgets.QToolButton
     report_pb: QtWidgets.QPushButton
 
     def __init__(self, job: Job, main_dock: "MainWidget", parent=None):
@@ -266,7 +266,8 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         self.load_tb.clicked.connect(self.load_layer)
 
         self.load_vector_menu_setup()
-        self.edit_tb.setMenu(self.load_vector_menu)
+        self.load_tb.setMenu(self.load_vector_menu)
+        self.edit_tb.clicked.connect(self.edit_layer)
 
         self.delete_tb.setIcon(
             QtGui.QIcon(os.path.join(ICON_PATH, "mActionDeleteSelected.svg"))
@@ -293,11 +294,9 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             QtGui.QIcon(os.path.join(ICON_PATH, "mActionAddOgrLayer.svg"))
         )
 
-        self.report_pb.setIcon(FileUtils.get_icon('report.svg'))
+        self.report_pb.setIcon(FileUtils.get_icon("report.svg"))
         self._report_handler = DatasetReportHandler(
-            self.report_pb,
-            self.job,
-            self.main_dock.iface
+            self.report_pb, self.job, self.main_dock.iface
         )
         # self.add_to_canvas_pb.setFixedSize(self.open_directory_tb.size())
         # self.add_to_canvas_pb.setMinimumSize(self.open_directory_tb.size())
@@ -575,9 +574,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         action_add_rasters_to_map = self.load_vector_menu.addAction(
             self.tr("Add raster layers to map")
         )
-        action_add_rasters_to_map.triggered.connect(
-            self.load_rasters_layers
-        )
+        action_add_rasters_to_map.triggered.connect(self.load_rasters_layers)
 
     def load_rasters_layers(self):
         jobs = manager.job_manager._known_downloaded_jobs.copy()
@@ -588,11 +585,19 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
     def _load_raster(self, jobs, name):
         if name in self.job.params:
             data = self.job.params[name]
-            job = jobs[uuid.UUID(data["uuid"])] if uuid.UUID(data["uuid"]) in jobs else None
+            job = (
+                jobs[uuid.UUID(data["uuid"])]
+                if uuid.UUID(data["uuid"]) in jobs
+                else None
+            )
             if job:
                 band = None
                 for raster in job.results.rasters.values():
-                    band = next((b for b in raster.bands if b.name == data["band_name"]), None)
+                    band = next(
+                        (b for b in raster.bands if b.name == data["band_name"]), None
+                    )
                     if band:
                         break
-                layers.add_layer(str(data["path"]), int(data["band"]), JobBand.Schema().dump(band))
+                layers.add_layer(
+                    str(data["path"]), int(data["band"]), JobBand.Schema().dump(band)
+                )

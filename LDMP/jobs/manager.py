@@ -320,11 +320,11 @@ class JobManager(QtCore.QObject):
         else:
             relevant_remote_jobs = remote_jobs
 
+        self._refresh_local_deleted_jobs()
         self._refresh_local_running_jobs(relevant_remote_jobs)
         self._refresh_local_finished_jobs(relevant_remote_jobs)
         self._refresh_local_downloaded_jobs()
         self._refresh_local_generated_jobs()
-        self._refresh_local_deleted_jobs()
 
         if emit_signal:
             self.refreshed_from_remote.emit()

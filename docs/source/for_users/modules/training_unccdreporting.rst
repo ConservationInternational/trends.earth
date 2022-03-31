@@ -17,7 +17,7 @@ Default data for UNCCD reporting
 
 - **Internet access**: Required
 
-1. Follow the instructions to register, sign in and identifying area of interest in Trends.Earth.
+1. Follow the instructions to register, sign in and identify area of interest in Trends.Earth.
 
 .. note::
     Refer to the :ref:`qgis_instructions`, :ref:`registration`, :ref:`tut_settings` sections of this manual for more information on installing QGIS, 
@@ -89,7 +89,7 @@ The region of interest is already set up in Settings. If you need to change, sel
     Refer to the :ref:`tut_settings` section of this manual for more information on setting up your area of interest.
 
 3. Select the **Population (required to calculate populations exposed by degradation** check box to calculate SO 2-3. 
-|trends.earth|provides access the WorldPop dataset, which is used by default by the UNCCD for calculating indicator SO2-3. 
+|trends.earth| provides access the WorldPop dataset, which is used by default by the UNCCD for calculating indicator SO2-3. 
 
 .. image:: ../../../resources/en/documentation/calculate/so2_ld_pop_exposure.PNG
    :align: center
@@ -182,7 +182,7 @@ The region of interest is already set up in Settings. If you need to change, sel
     Refer to the :ref:`tut_settings` section of this manual for more information on setting up your area of interest.
 
 3. Set the **Initial** and **Final** year and the **Lag(months)** that will be applied to the Precipitation Dataset for calculating drought Hazard 
-and Exposure. Select the **Include JRC Vulnerability Index** check box to calculate drougth Vulnerability for the region of interest. 
+and Exposure. Select the **Include JRC Vulnerability Index** check box to calculate drought Vulnerability for the region of interest. 
 The default Precipitation dataset is the GPCC but soon users will have the option to select the CHIRPS dataset from the Climate Hazard Group.
 Enter a **Execution name** and make sure to leave some notes about this step for furture reference.
 

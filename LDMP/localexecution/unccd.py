@@ -17,6 +17,8 @@ from te_schemas import land_cover
 from te_schemas import reporting
 from te_schemas import SchemaBase
 from te_schemas import schemas
+from te_schemas.results import FileResults
+from te_schemas.results import URI
 
 from .. import __release_date__
 from .. import __revision__
@@ -62,22 +64,33 @@ def get_main_unccd_report_job_params(
     task_name: str,
     combo_dataset_so1_so2: data_io.WidgetDataIOSelectTEDatasetExisting,
     combo_dataset_so3: data_io.WidgetDataIOSelectTEDatasetExisting,
+    include_so1_so2: bool,
+    include_so3: bool,
     task_notes: Optional[str] = "",
 ) -> Dict:
 
-    so1_so2_inputs = _get_unccd_report_inputs(combo_dataset_so1_so2)
-    so3_inputs = _get_unccd_report_inputs(combo_dataset_so3)
-
-    return {
+    params = {
         "task_name": task_name,
-        "task_notes": task_notes,
-        "so1_so2_path": str(so1_so2_inputs.path),
-        "so1_so2_summary_path": str(so1_so2_inputs.summary_path),
-        "so1_so2_all_paths": [str(p) for p in so1_so2_inputs.all_paths],
-        "so3_path": str(so3_inputs.path),
-        "so3_summary_path": str(so3_inputs.summary_path),
-        "so3_all_paths": [str(p) for p in so3_inputs.all_paths],
+        "task_notes": task_notes
     }
+
+    if include_so1_so2:
+        so1_so2_inputs = _get_unccd_report_inputs(combo_dataset_so1_so2)
+        params.update({
+            "so1_so2_path": str(so1_so2_inputs.path),
+            "so1_so2_summary_path": str(so1_so2_inputs.summary_path),
+            "so1_so2_all_paths": [str(p) for p in so1_so2_inputs.all_paths],
+        })
+
+    if include_so3:
+        so3_inputs = _get_unccd_report_inputs(combo_dataset_so3)
+        params.update({
+            "so3_path": str(so3_inputs.path),
+            "so3_summary_path": str(so3_inputs.summary_path),
+            "so3_all_paths": [str(p) for p in so3_inputs.all_paths],
+        })
+
+    return params
 
 
 def _make_tar_gz(out_tar_gz, in_files):
@@ -113,6 +126,12 @@ def compute_unccd_report(
     log(f"Building tar.gz file with {paths}...")
     _make_tar_gz(tar_gz_path, paths)
 
+    report_job.results
+
+    report_job.results = FileResults(
+        name="unccd_report",
+        uri=URI(uri=tar_gz_path, type="local"),
+    )
     report_job.results.data_path = tar_gz_path
     report_job.end_date = dt.datetime.now(dt.timezone.utc)
     report_job.progress = 100

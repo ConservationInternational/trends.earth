@@ -255,6 +255,8 @@ class DlgCalculateUNCCDReport(DlgCalculateBase, DlgCalculateUNCCDReportUi):
                 task_name=self.options_tab.task_name.text(),
                 combo_dataset_so1_so2=self.combo_boxes.combo_dataset_so1_so2,
                 combo_dataset_so3=self.combo_boxes.combo_dataset_so3,
+                include_so1_so2=self.groupbox_so1_so2.isChecked(),
+                include_so3=self.groupbox_so3.isChecked(),
                 task_notes=self.options_tab.task_notes.toPlainText(),
             )
         )

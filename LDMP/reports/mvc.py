@@ -109,7 +109,14 @@ class DatasetReportHandler:
         self._rpt_btn.setMenu(self._rpt_menu)
 
         # Check report configuration
-        scope = self._job.script.name
+        if hasattr(self._job.script, 'name'):
+            scope = self._job.script.name
+        else:
+            # Vector layers won't have a script type
+            # 
+            # TODO: Need to add an alternate field to determine scope so reports
+            # can be processed on vector layers
+            return
         single_scope_configs = template_manager.single_scope_configs()
         configs = template_manager.configs_by_scope_name(
             scope,

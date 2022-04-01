@@ -1,6 +1,7 @@
 import functools
 import os
 import typing
+import uuid
 from pathlib import Path
 
 from qgis.PyQt import QtCore
@@ -22,12 +23,12 @@ from ..conf import Setting
 from ..conf import settings_manager
 from ..data_io import DlgDataIOAddLayersToMap
 from ..datasets_dialog import DatasetDetailsDialogue
+from ..reports.mvc import DatasetReportHandler
 from ..select_dataset import DlgSelectDataset
+from ..utils import FileUtils
 from .models import Job
 from .models import SortField
 from .models import TypeFilter
-from ..reports.mvc import DatasetReportHandler
-from ..utils import FileUtils
 
 
 WidgetDatasetItemUi, _ = uic.loadUiType(
@@ -229,7 +230,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
     job: Job
     main_dock: "MainWidget"
 
-    add_to_canvas_pb: QtWidgets.QPushButton
+    add_to_canvas_pb: QtWidgets.QToolButton
     notes_la: QtWidgets.QLabel
     delete_tb: QtWidgets.QToolButton
     download_tb: QtWidgets.QToolButton
@@ -263,6 +264,9 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             functools.partial(utils.delete_dataset, self.job)
         )
         self.load_tb.clicked.connect(self.load_layer)
+
+        self.load_vector_menu_setup()
+        self.load_tb.setMenu(self.load_vector_menu)
         self.edit_tb.clicked.connect(self.edit_layer)
 
         self.delete_tb.setIcon(
@@ -290,11 +294,9 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             QtGui.QIcon(os.path.join(ICON_PATH, "mActionAddOgrLayer.svg"))
         )
 
-        self.report_pb.setIcon(FileUtils.get_icon('report.svg'))
+        self.report_pb.setIcon(FileUtils.get_icon("report.svg"))
         self._report_handler = DatasetReportHandler(
-            self.report_pb,
-            self.job,
-            self.main_dock.iface
+            self.report_pb, self.job, self.main_dock.iface
         )
         # self.add_to_canvas_pb.setFixedSize(self.open_directory_tb.size())
         # self.add_to_canvas_pb.setMinimumSize(self.open_directory_tb.size())
@@ -321,11 +323,11 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             self.download_tb.hide()
             self.add_to_canvas_pb.hide()
             self.open_details_tb.hide()
-            self.open_directory_tb.hide()
-            self.open_directory_tb.hide()
             self.progressBar.hide()
         elif self.job.is_file():
+            self.download_tb.hide()
             self.add_to_canvas_pb.hide()
+            self.metadata_pb.hide()
             self.load_tb.hide()
             self.edit_tb.hide()
             self.progressBar.hide()
@@ -440,6 +442,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                     self.job.params["prod"] = {
                         "path": str(prod.path),
                         "band": prod.band_index,
+                        "band_name": prod.band_info.name,
                         "uuid": str(prod.job.id),
                     }
 
@@ -447,14 +450,16 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                     self.job.params["land"] = {
                         "path": str(land.path),
                         "band": land.band_index,
+                        "band_name": land.band_info.name,
                         "uuid": str(land.job.id),
                     }
 
                 if soil:
                     self.job.params["soil"] = {
-                        "soil": str(soil.path),
-                        "soil": soil.band_index,
-                        "soil": str(soil.job.id),
+                        "path": str(soil.path),
+                        "band": soil.band_index,
+                        "band_name": soil.band_info.name,
+                        "uuid": str(soil.job.id),
                     }
 
                 manager.job_manager.write_job_metadata_file(self.job)
@@ -525,6 +530,8 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
 
                 manager.job_manager.edit_special_area_layer(self.job)
                 self.main_dock.resume_scheduler()
+        else:
+            manager.job_manager.edit_special_area_layer(self.job)
 
     def has_connected_data(self):
         has_prod = True if "prod" in self.job.params else False
@@ -559,3 +566,40 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         reports.
         """
         return self._report_handler
+
+    def load_vector_menu_setup(self):
+        self.load_vector_menu = QtWidgets.QMenu()
+        action_add_vector_to_map = self.load_vector_menu.addAction(
+            self.tr("Add special area layer to map")
+        )
+        action_add_vector_to_map.triggered.connect(self.edit_layer)
+        action_add_rasters_to_map = self.load_vector_menu.addAction(
+            self.tr("Add raster layers to map")
+        )
+        action_add_rasters_to_map.triggered.connect(self.load_rasters_layers)
+
+    def load_rasters_layers(self):
+        jobs = manager.job_manager._known_downloaded_jobs.copy()
+        self._load_raster(jobs, "prod")
+        self._load_raster(jobs, "land")
+        self._load_raster(jobs, "soil")
+
+    def _load_raster(self, jobs, name):
+        if name in self.job.params:
+            data = self.job.params[name]
+            job = (
+                jobs[uuid.UUID(data["uuid"])]
+                if uuid.UUID(data["uuid"]) in jobs
+                else None
+            )
+            if job:
+                band = None
+                for raster in job.results.rasters.values():
+                    band = next(
+                        (b for b in raster.bands if b.name == data["band_name"]), None
+                    )
+                    if band:
+                        break
+                layers.add_layer(
+                    str(data["path"]), int(data["band"]), JobBand.Schema().dump(band)
+                )

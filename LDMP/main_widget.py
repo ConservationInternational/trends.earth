@@ -268,10 +268,10 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.pushButton_refresh.clicked.connect(self.perform_single_update)
 
         self.special_area_menu = QtWidgets.QMenu()
-        action_create_false_positive = self.special_area_menu.addAction(
+        action_create_error_recode = self.special_area_menu.addAction(
             tr("Create false positive/negative layer")
         )
-        action_create_false_positive.triggered.connect(self.create_false_positive)
+        action_create_error_recode.triggered.connect(self.create_error_recode)
         self.create_layer_pb.setMenu(self.special_area_menu)
         #self.create_layer_pb.setIcon(
         #    QtGui.QIcon(os.path.join(ICON_PATH, "cloud-download.svg")))
@@ -486,9 +486,9 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.algorithms_tv.entered.connect(self._manage_algorithm_tree_view)
         self.tabWidget.setCurrentIndex(self._SUB_INDICATORS_TAB_PAGE)
 
-    def create_false_positive(self):
-        log("create_false_positive called")
-        job_manager.create_false_positive()
+    def create_error_recode(self):
+        log("create_error_recode called")
+        job_manager.create_error_recode()
 
     def update_refresh_button_status(self):
         if self.remote_refresh_running:

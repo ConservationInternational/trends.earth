@@ -976,7 +976,6 @@ def add_vector_layer(layer_path: str, name: str, start_editing: bool):
 
 def set_default_value(v_path: str, field: str, r_path: str, band: int, v: int):
     sublayers = QgsProviderRegistry.instance().providerMetadata('ogr').querySublayers(v_path)
-
     layer = None
     if len(sublayers) > 0:
         options = QgsProviderSublayerDetails.LayerOptions(QgsProject.instance().transformContext())
@@ -984,7 +983,10 @@ def set_default_value(v_path: str, field: str, r_path: str, band: int, v: int):
         layer = sublayers[0].toLayer(options)
     else:
         layer = QgsVectorLayer(v_path, '', 'ogr')
-
     idx = layer.fields().lookupField(field)
     layer.setDefaultValueDefinition(idx, QgsDefaultValue("calculate_charts('{}', {}, {})".format(r_path, band, v), True))
+    res = layer.listStylesInDatabase()
+    if res[0] > 0:
+        for i in res[1]:
+            layer.deleteStyleFromDatabase(i)
     layer.saveStyleToDatabase('false_positive', '', True, '')

@@ -989,4 +989,4 @@ def set_default_value(v_path: str, field: str, r_path: str, band: int, v: int):
     if res[0] > 0:
         for i in res[1]:
             layer.deleteStyleFromDatabase(i)
-    layer.saveStyleToDatabase('false_positive', '', True, '')
+    layer.saveStyleToDatabase('error_recode', '', True, '')

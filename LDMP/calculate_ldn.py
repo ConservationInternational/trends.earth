@@ -38,7 +38,9 @@ DlgCalculateOneStepUi, _ = uic.loadUiType(
 DlgCalculateLdnSummaryTableAdminUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateLDNSummaryTableAdmin.ui")
 )
-
+DlgCalculateLdnErrorRecodeUi, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/DlgCalculateLDNErrorRecode.ui")
+)
 
 class tr_calculate_ldn(object):
     def tr(self, message):
@@ -765,3 +767,97 @@ class DlgCalculateLDNSummaryTableAdmin(
             script_name=self.LOCAL_SCRIPT_NAME,
             area_of_interest=self.aoi
         )
+
+
+class DlgCalculateLDNErrorRecode(DlgCalculateBase, DlgCalculateLdnErrorRecodeUi):
+    def __init__(
+        self,
+        iface: qgis.gui.QgisInterface,
+        script: ExecutionScript,
+        parent: QtWidgets.QWidget = None,
+    ):
+        super().__init__(iface, script, parent)
+        self.setupUi(self)
+
+        self.changed_region.connect(self.combo_dataset_error_recode.populate)
+
+        self._finish_initialization()
+
+    def showEvent(self, event):
+        super().showEvent(event)
+        self.combo_dataset_error_recode.populate()
+
+
+    def btn_calculate(self):
+        # Note that the super class has several tests in it - if they fail it
+        # returns False, which would mean this function should stop execution
+        # as well.
+
+        QtWidgets.QMessageBox.information(
+            None, self.tr("Coming soon!"), self.tr("This function coming soon!")
+        )
+        self.close()
+        return
+
+        ret = super(DlgCalculateUNCCD, self).btn_calculate()
+
+        if not ret:
+            return
+
+        crosses_180th, geojsons = self.gee_bounding_box
+
+        year_initial = self.year_initial_de.date().year()
+        year_final = self.year_final_de.date().year()
+
+        if (year_final - year_initial) < 5:
+            QtWidgets.QMessageBox.warning(
+                None,
+                self.tr("Error"),
+                self.tr(
+                    "Initial and final year are less 5 years "
+                    "apart in - results will be more reliable "
+                    "if more data (years) are included in the analysis."
+                ),
+            )
+
+            return
+
+        payload = {}
+        payload["population"] = {
+            "asset": self.population_dataset["GEE Dataset"],
+            "source": self.population_dataset_name,
+        }
+
+        payload["spi"] = {
+            "asset": self.spi_dataset["GEE Dataset"],
+            "source": self.spi_dataset_name,
+            "lag": int(self.lag_cb.currentText()),
+        }
+
+        payload.update(
+            {
+                "geojsons": geojsons,
+                "crs": self.aoi.get_crs_dst_wkt(),
+                "crosses_180th": crosses_180th,
+                "task_name": self.execution_name_le.text(),
+                "task_notes": self.task_notes.toPlainText(),
+                "script": ExecutionScript.Schema().dump(self.script),
+                "year_initial": year_initial,
+                "year_final": year_final,
+            }
+        )
+
+        self.close()
+
+        resp = job_manager.submit_remote_job(payload, self.script.id)
+
+        if resp:
+            main_msg = "Submitted"
+            description = "UNCCD default data task submitted to Google Earth Engine."
+        else:
+            main_msg = "Error"
+            description = "Unable to UNCCD default data task to Google Earth Engine."
+        self.mb.pushMessage(
+            self.tr(main_msg), self.tr(description), level=0, duration=5
+        )
+

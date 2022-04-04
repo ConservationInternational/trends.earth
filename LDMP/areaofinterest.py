@@ -409,6 +409,26 @@ class AOI(object):
             area_covered += aoi_geom.Intersection(in_geom).GetArea()
         return area_covered / total_aoi_area
 
+    def calc_disjoint(self, geom):
+        """
+        Returns whether a geom is disjoint with the AOI
+        """
+        _, aoi_wkts = self.meridian_split(out_type="extent", out_format="wkt")
+
+        # Handle case of a point with zero area
+        in_geom = ogr.CreateGeometryFromWkt(geom.asWkt())
+        in_geom_area = in_geom.GetArea()
+        if in_geom_area == 0:
+            if aoi_geom.Within(in_geom):
+                return False
+
+        for aoi_wkt in aoi_wkts:
+            # Need to allow for AOIs that may be split up into multiple parts due to 180th.
+            aoi_geom = ogr.CreateGeometryFromWkt(aoi_wkt)
+            if aoi_geom.Disjoint(in_geom):
+                return True
+        return False
+
     def get_geojson(self, split=False):
         geojson = {"type": "FeatureCollection", "features": []}
 

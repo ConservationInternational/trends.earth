@@ -17,6 +17,7 @@ from marshmallow.exceptions import ValidationError
 from osgeo import gdal
 from qgis.core import QgsApplication
 from qgis.core import QgsTask
+from qgis.core import QgsVectorLayer
 from qgis.PyQt import QtCore
 from te_algorithms.gdal.util import combine_all_bands_into_vrt
 from te_schemas import jobs, results
@@ -49,8 +50,8 @@ def is_gdal_vsi_path(path: Path):
     return re.match(r"(\\)|(/)vsi(s3)|(gs)", str(path)) is not None
 
 
-def _get_extent_tuple(path):
-    log(f'Trying to calculate extent of {path}')
+def _get_extent_tuple_raster(path):
+    log(f'Trying to calculate extent of raster {path}')
     ds = gdal.Open(str(path))
     if ds:
         min_x, xres, _, max_y, _, yres = ds.GetGeoTransform()
@@ -65,23 +66,55 @@ def _get_extent_tuple(path):
         return None
 
 
-def _set_results_extents(job):
+def _get_extent_tuple_vector(path):
+    log(f'Trying to calculate extent of vector {path}')
+    rect = QgsVectorLayer(str(path), "vector file", "ogr").extent()
+    if rect:
+        xmin = rect.xMinimum()
+        xmax = rect.xMaximum()
+        ymin = rect.yMinimum()
+        ymax = rect.yMaximum()
+        if (
+            any([(val > 180 or val < -180) for val in [xmin, xmax]]) or
+            any([(val > 90 or val < -90) for val in [ymin, ymax]])
+        ):
+            # If there are not yet any features, then the extent will be set as ranging
+            # from -infinite to infinite - so catch this with above check
+            log(f"Failed to calculate extent for {path} - appears undefined")
+            return None
+        else:
+            log(f"Calculated extent for {path} - {(xmin, ymin, xmax, ymax)}")
+            return (xmin, ymin, xmax, ymax)
+    else:
+        log("Failed to calculate extent - couldn't open dataset")
+        return None
+
+
+def _set_results_extents_raster(job):
     log(f'Setting extents for job {job.id}')
     for raster in job.results.rasters.values():
         if raster.type == results.RasterType.ONE_FILE_RASTER:
             if not hasattr(raster, 'extent') or raster.extent is None:
-                raster.extent = _get_extent_tuple(raster.uri.uri)
+                raster.extent = _get_extent_tuple_raster(raster.uri.uri)
                 log(f'set job {job.id} {raster.datatype} {raster.type} '
                     f'extent to {raster.extent}')
         elif raster.type == results.RasterType.TILED_RASTER:
             if not hasattr(raster, 'extents') or raster.extents is None:
                 raster.extents = []
                 for raster_tile_uri in raster.tile_uris:
-                    raster.extents.append(_get_extent_tuple(raster_tile_uri.uri))
+                    raster.extents.append(_get_extent_tuple_raster(raster_tile_uri.uri))
                 log(f'set job {job.id} {raster.datatype} {raster.type} '
                     f'extents to {raster.extents}')
         else:
             raise RuntimeError(f"Unknown raster type {raster.type!r}")
+
+
+def _set_results_extents_vector(job):
+    log(f'Setting extents for job {job.id}')
+    if not hasattr(job.results, 'extent') or job.results.extent is None:
+        job.results.extent = _get_extent_tuple_vector(job.results.vector.uri.uri)
+        log(f'set job {job.id} {job.results.type} {job.results.vector.type} '
+            f'extent to {job.results.extent}')
 
 
 def _load_raw_job(raw_job):
@@ -90,7 +123,12 @@ def _load_raw_job(raw_job):
         job.results.type == results.ResultType.RASTER_RESULTS and
         job.status in [jobs.JobStatus.DOWNLOADED, jobs.JobStatus.GENERATED_LOCALLY]
     ):
-        _set_results_extents(job)
+        _set_results_extents_raster(job)
+    elif (
+        job.results.type == results.ResultType.VECTOR_RESULTS and
+        job.status in [jobs.JobStatus.DOWNLOADED, jobs.JobStatus.GENERATED_LOCALLY]
+    ):
+        _set_results_extents_vector(job)
     return job
 
 
@@ -609,7 +647,7 @@ class JobManager(QtCore.QObject):
                 bands=[band_info],
                 datatype=DataType.INT16,
                 filetype=RasterFileType.GEOTIFF,
-                extent=_get_extent_tuple(dataset_path)
+                extent=_get_extent_tuple_raster(dataset_path)
             )
         }
         job = Job(

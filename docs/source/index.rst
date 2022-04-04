@@ -17,17 +17,13 @@ Trends.Earth
 | `English <../en/index.html>`_ | `Español <../es/index.html>`_ | `Francais <../fr/index.html>`_ |  `Swahili <../sw/index.html>`_ | `Português <../pt/index.html>`_ |
 +-------------------------------+-------------------------------+--------------------------------+--------------------------------+---------------------------------+
 
-.. raw:: html
-
-   </center>
-
 Trends.Earth was produced by a partnership of Conservation International, Lund
 University, and the National Aeronautics and Space Administration (NASA), with
 the support of the Global Environment Facility (GEF). It was further developed 
 through a partnership with Conservation International, University of Bern, 
 University of Colorado in partnership with USDA and USAID, University of California - 
 Santa Barbara in partnership with University of North Carolina - Wilmington and Brown 
-University and is funded by the Global Environment Facility (GEF).
+University with additional funding from the Global Environment Facility (GEF).
 
 .. image:: /static/common/Logos_All_Partners.png
     :align: center

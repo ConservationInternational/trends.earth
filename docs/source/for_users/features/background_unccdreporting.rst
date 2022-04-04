@@ -217,20 +217,20 @@ loss.Land degradation reduces agricultural productivity and increases the vulner
 at risk of impacts from climate variability and change, especially in regions of the world.
 
 **Drought** is a complex, slow-onset phenomenon that happens over different time scales. It is characterized by a
-reduction in water availability, leading to cascading effects on people’s livelihoods and economic sectors. Drought is
+reduction in water availability, leading to cascading effects on people's livelihoods and economic sectors. Drought is
 sometimes simplistically defined as a period of dry weather long enough to cause a hydrological imbalance, although
 a globally agreed upon definition for drought does not exist. Moreover, drought hardly occurs as a single risk
 event but rather interlinked with other hazards such as heatwaves, wildfires, sand/dust storms, or floods. 
 
-The International Panel on Climate Change (IPCC) defines drought as “a period of abnormally dry weather long enough to cause a serious
-hydrological imbalance. Drought is a relative term, therefore any discussion in terms of precipitation deficit must refer to the particular 
+The International Panel on Climate Change (IPCC) defines drought as "a period of abnormally dry weather long enough to cause a serious
+hydrological imbalance". Drought is a relative term, therefore any discussion in terms of precipitation deficit must refer to the particular 
 precipitation-related activity that is under discussion. For example, shortage of precipitation during the growing season impinges on crop 
 production or ecosystem function in general (due to soil moisture drought, also termed agricultural drought), and during the runoff and 
 percolation season primarily affects water supplies (hydrological drought). Storage changes in soil moisture and groundwater are also affected 
 by increases in actual evapotranspiration in addition to reductions in precipitation. A period with an abnormal precipitation deficit is defined 
-as a meteorological drought. See also Soil moisture” (IPCC Assessment Report 5, 2014). The United Nations Disasters Risk Reduction (UNDRR) defines
-drought as “a slow-onset hazard, often referred to as a creeping phenomenon. The absence of a precise, universally accepted definition of drought 
-adds to the confusion. Definitions must be region specific because each climate regime has distinctive climatic characteristics” (UNDRR GAR Chapter 6). 
+as a meteorological drought. See also Soil moisture (IPCC Assessment Report 5, 2014). The United Nations Disasters Risk Reduction (UNDRR) defines
+drought as a slow-onset hazard, often referred to as a creeping phenomenon. The absence of a precise, universally accepted definition of drought 
+adds to the confusion. Definitions must be region specific because each climate regime has distinctive climatic characteristics (UNDRR GAR Chapter 6). 
 The lack of agreed upon definition complicates monitoring efforts, as the definition and monitoring approach are typically context specific.
 where poverty rates remain high despite efforts to reduce poverty, inequality, and enhance the socio-economic well-being of all people worldwide.
 
@@ -264,7 +264,7 @@ In order to assess the SO 3 indicators, |trends.earth| uses information from 3 s
 
 |trends.earth| allows the user to compute each of these indicators in a spatially explicit way generating 
 raster maps and producing a summary table reporting areas potentially improved and degraded for the area of analysis.
-SO 3-1 – Trends in the proportion of land under drought over the total land area
+SO 3-1 "Trends in the proportion of land under drought over the total land area".
 
 The United Nations Convention to Combat Desertification (UNCCD) has developed a 
 `Good practice guidance for national reporting on UNCCD Strategic Objective 3 
@@ -303,7 +303,7 @@ By default, |trends.earth| offers access to SPI calculated from the Global Preci
 a raster representing precipitation and derived from rain gauge data featuring spatial resolution of ~27 sq km and covering the entire globe. 
 Users have also the option to use an alternative SPI calculated from the Climate Hazards Group InfraRed Precipitation with Stations (CHIRPS),
 with precipitation estimates based on satellite observations combined to gauged station data at ~5 sq km. While CHIRPS features higher spatial resolution, 
-it has a ‘quasi-global’ coverage that spans 50°S to 50°N. Therefore, users interested in calculating SO3-1 Hazard for areas outside this range will 
+it has a "quasi-global" coverage that spans 50°S to 50°N. Therefore, users interested in calculating SO3-1 Hazard for areas outside this range will 
 not be able to use the CHRIPS dataset.
 
 
@@ -385,7 +385,7 @@ negative, and its value reaches an intensity of -1 or less and ends when the SPI
    :align: center
 
 Drought intensity classes are identified by assessing the December SPI-12 values for ear year of time-series. The December SPI-12 
-values represent the precipitation deficits (or excesses) over the Gregorian (January–December) calendar year. Positive SPI values 
+values represent the precipitation deficits (or excesses) over the Gregorian (January-December) calendar year. Positive SPI values 
 are discarded, since they indicate that there was no drought in the given period.
 
 For further details on SPI, see the `Good practice guidance for national reporting on UNCCD Strategic Objective 3 
@@ -404,11 +404,11 @@ in the previous step over the the total land area, as follows:
  
 Where:
 
-“Pij” is the proportion of land under the drought intensity class i in the year j
+`Pij` is the proportion of land under the drought intensity class i in the year j
 
-“areaij” is the land area under the drought intensity class i in the reporting year j
+`areaij` is the land area under the drought intensity class i in the reporting year j
 
-“Total area” is all the total land area.
+`Total area` is all the total land area.
 
 
 SO3 Level II indicator (SO 3-2 Exposure)
@@ -424,10 +424,10 @@ aggregated to administrative boundaries if desired, where global and local spati
 severity can be better quantified and visualized.
 
 The WorldPop collection is a global gridded highresolution geospatial dataset on population distributions,demographics, and dynamics. 
-WorldPop’s spatially disaggregated layers are gridded with an output resolution of 3 arc-seconds and 30 arc-seconds (approximately
+WorldPop's spatially disaggregated layers are gridded with an output resolution of 3 arc-seconds and 30 arc-seconds (approximately
 100 m & 1 km, respectively at the equator) and incorporates inputs such as population census tables & national geographic boundaries,
 roads, land cover, built structures, urban areas, night-time lights, infrastructure, environmental data, protected areas, and water bodies.
-The strengths of WorldPop are that the population estimation method of dasymetric mapping is multivariate, i.e., ‘highly modelled’, 
+The strengths of WorldPop are that the population estimation method of dasymetric mapping is multivariate, i.e., highly modelled, and
 therefore tailored to match data conditions and geographical nature of each individual country and region. Gender information is also available.
 The weakness of WorldPop is that the utilization of such complex interpolation models with sparse census data may lead to highly uncertain and 
 imprecise population estimates in some sub-national and rural regions. In spite of the aforementioned limitation, WorldPop remains the most ideal 
@@ -450,14 +450,14 @@ generic and valid for any region.
 
 The JRC framework for monitoring drought risk as described in `Carrão et al., 2016 <https://www.sciencedirect.com/science/article/pii/S0959378016300565>`_ 
 adopts an approach for SO3 assessing drought vulnerability that was initially proposed by the United Nations Office for Disaster Risk Reduction
-(UNDRR – formerly the United Nations International Strategy for Disaster Reduction or UNISDR) that reflects the state of the individual and collective 
+(UNDRR - formerly the United Nations International Strategy for Disaster Reduction or UNISDR) that reflects the state of the individual and collective 
 social, economic, and infrastructural factors of a region [61]. This methodology has also been operationally implemented within the JRC Global Drought 
 Observatory (GDO) to document and map global risk of drought impact for agriculture. The authors state that the factors that have been included do not 
 represent a complete description of vulnerability in relation to a specific exposed element but can be viewed as the foundation for building a regional
 plan for reducing vulnerability and facilitating adaptation.
 
 The methodology used in `Carrão et al., 2016 <https://www.sciencedirect.com/science/article/pii/S0959378016300565>`_ 
-follows the concept that individuals and populations require a range of “(semi-) independent” factors characterized by a set of proxy indicators to 
+follows the concept that individuals and populations require a range of semi-) independent factors characterized by a set of proxy indicators to 
 achieve positive resilience to impacts. The methodology uses a two-step composite model that derives from the aggregation of 15 proxy indicators 
 (show in the Table below) that represent social, economic, and infrastructural vulnerability at each geographic location (a similar methodology as the DVI, 
 discussed subsequently) and are derived from both at the national level and very high spatial resolution gridded data. 

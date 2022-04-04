@@ -77,6 +77,8 @@ derived from NDVI time series data: trajectory, performance and state
 .. image:: ../../../resources/en/documentation/understanding_indicators15/indicator_15_3_1_prod_subindicators.png
    :align: center
 
+.. _indicator-productivity-trajectory:
+      
 Productivity Trajectory
 ^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -290,9 +292,7 @@ maps can also be used. The indicator is computed as follows:
 .. image:: ../../../resources/en/documentation/understanding_indicators15/lc_flow.png
    :align: center
 
-
 .. _indicator-soc:
-
 
 Soil organic carbon
 ~~~~~~~~~~~~~~~~~~~

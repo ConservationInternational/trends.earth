@@ -151,7 +151,7 @@ Strategic Objective 3
 Default data for UNCCD reporting
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- **Objective**: : Learn how to calculate SO3 indicators of drought Hazard, Exposure and Vulnerability using Trends.Earth and the default data: monthly precipitation dataset from the Global Precipitation Climatology Center -GPC, gridded population count from WorldPop and Vulnerability to drought from the European Commission’s Joint Research Centre - JRC. In this tutorial we will use Colombia as an example, but you can choose any study area.
+- **Objective**: : Learn how to calculate SO3 indicators of drought Hazard, Exposure and Vulnerability using Trends.Earth and the default data: monthly precipitation dataset from the Global Precipitation Climatology Center -GPC, gridded population count from WorldPop and Vulnerability to drought from the European Commission's Joint Research Centre - JRC. In this tutorial we will use Colombia as an example, but you can choose any study area.
 
 - **Estimated time of completion**: 15 minutes
 
@@ -198,6 +198,3 @@ The region of interest is already set up in Settings. If you need to change, sel
    :align: center
 
 7. The default data: Standardized Precipitation Index for all epochs, JRC's Drought Vulnerability Index for 2018, and population dissaggregated by gender, will be added to the map for the region of interest.
-   
-
-

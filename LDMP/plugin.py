@@ -242,7 +242,6 @@ class LDMPPlugin(object):
         self.add_action(
             os.path.join(os.path.dirname(__file__), "icons", "info.svg"),
             text=self.tr(u"About"),
-            add_to_toolbar=False,
             callback=self.run_about,
             parent=self.iface.mainWindow(),
             status_tip=self.tr("About trends.earth"),

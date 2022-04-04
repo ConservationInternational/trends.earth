@@ -44,7 +44,10 @@ from .utils import (
     job_has_results,
     job_report_directory
 )
-from ..utils import FileUtils
+from ..utils import (
+    FileUtils,
+    open_qgis_project
+)
 
 
 class DatasetReportHandler:
@@ -242,8 +245,12 @@ class DatasetReportHandler:
             )
             return
 
-        proj_path_url = QUrl(QUrl.fromLocalFile(proj_path))
-        QDesktopServices.openUrl(proj_path_url)
+        status = open_qgis_project(proj_path)
+        if not status:
+            self._push_refactor_message(
+                self.tr('Open Layouts'),
+                self.tr('Unable to open the QGIS project file.')
+            )
 
     @classmethod
     def tr(cls, source):

@@ -3,6 +3,7 @@ from functools import reduce
 import importlib
 import os
 from pathlib import Path
+import subprocess
 import sys
 import tempfile
 import typing
@@ -94,19 +95,18 @@ def remove_layer_from_qgis(path: Path):
             break
 
 
-def qgis_process_path() -> str:
+def qgis_bin_dir() -> str:
     """
-    Use heuristic approach in determining the location of the
-    'qgis_process' program (or script in Windows). Returns an
-    empty string if platform is not supported or if the program
-    (or script) could not be found.
+    Returns the directory containing qgis' scripts and executables depending
+    on the platform. Returns an empty string if the path cannot be
+    determined.
     """
     app = qgis.core.QgsApplication.instance()
     platform_name = sys.platform
     lib_path = app.libexecPath()
-    proc_script_path = ''
+    rt_path = ''
     warning, info = qgis.core.Qgis.Warning, qgis.core.Qgis.Info
-    msg = 'QGIS installation not found.'
+    msg = 'QGIS \'bin\' directory could not be determined.'
 
     if platform_name == 'win32':
         rt_path, sep, sub_path = lib_path.partition('apps')
@@ -114,26 +114,93 @@ def qgis_process_path() -> str:
             log(msg, warning)
             return ''
 
-        proc_scripts = [
-            'qgis_process-qgis.bat',
-            'qgis_process-qgis-dev.bat',
-            'qgis_process-qgis-ltr.bat'
-        ]
-        for pc in proc_scripts:
-            proc_script_path = f'{rt_path}bin/{pc}'
-            if os.path.exists(proc_script_path):
-                break
-
     elif platform_name == 'darwin':
         rt_path, sep, sub_path = lib_path.partition('lib')
         if not sep:
             log(msg, warning)
             return ''
 
-        proc_script_path = f'{rt_path}bin/qgis_process'
-
     elif platform_name in ('linux', 'freebsd'):
-        proc_script_path = '/usr/bin/qgis_process'
+        rt_path = '/usr/'
+
+    if rt_path:
+        return f'{rt_path}bin'
+
+    return rt_path
+
+
+def qgis_exec_path() -> str:
+    """
+    Returns the absolute path to the main QGIS executable otherwise an
+    empty string if the installation path could not be determined.
+    """
+    rt_bin_dir = qgis_bin_dir()
+    if not rt_bin_dir:
+        log('QGIS installation not found.', qgis.core.Qgis.Warning)
+        return ''
+
+    platform_name = sys.platform
+    if platform_name == 'win32':
+        exec_name = 'qgis-bin.exe'
+    else:
+        exec_name = 'qgis'
+
+    return f'{rt_bin_dir}/{exec_name}'
+
+
+def open_qgis_project(project_path: str) -> bool:
+    """
+    Opens a qgs or qgz project given its path. Returns True if succeeded,
+    else False if the QGIS executable could not be found or if the project
+    path does not exist.
+    """
+    warning = qgis.core.Qgis.Warning
+
+    exec_path = qgis_exec_path()
+    if not exec_path:
+        log('Cannot open project. QGIS executable not found.', warning)
+        return False
+
+    if not os.path.exists(project_path):
+        log(f'QGIS project \'{project_path}\' does not exist.', warning)
+        return False
+
+    params = [exec_path, '--project', project_path]
+    subprocess.Popen(params, shell=True)
+
+    return True
+
+
+def qgis_process_path() -> str:
+    """
+    Use heuristic approach in determining the location of the
+    'qgis_process' program (or script in Windows). Returns an
+    empty string if platform is not supported or if the program
+    (or script) could not be found.
+    """
+    platform_name = sys.platform
+    warning, info = qgis.core.Qgis.Warning, qgis.core.Qgis.Info
+    proc_script_path = ''
+
+    rt_bin_dir = qgis_bin_dir()
+    if not rt_bin_dir:
+        log('QGIS installation not found.', warning)
+        return ''
+
+    if platform_name == 'win32':
+        proc_scripts = [
+            'qgis_process-qgis.bat',
+            'qgis_process-qgis-dev.bat',
+            'qgis_process-qgis-ltr.bat'
+        ]
+        for pc in proc_scripts:
+            proc_script_path = f'{rt_bin_dir}/{pc}'
+            if os.path.exists(proc_script_path):
+                break
+
+    elif platform_name == 'darwin' or \
+            platform_name in ('linux', 'freebsd'):
+        proc_script_path = f'{rt_bin_dir}/qgis_process'
 
     if not proc_script_path:
         log('Unable to determine the system platform.', warning)
@@ -173,6 +240,21 @@ class FileUtils:
         task_name = slugify(report_task.display_name())
         # Get QGIS project path from the corresponding report path
         return f'{root_output_dir}/{task_name}.qgz'
+
+    @staticmethod
+    def open_project(
+            report_task,
+            root_output_dir: str
+    ) -> bool:
+        """
+        Opens a project from a report task process. True if the operation
+        succeeded, else False.
+        """
+        proj_path = FileUtils.project_path_from_report_task(
+            report_task,
+            root_output_dir
+        )
+        return open_qgis_project(proj_path)
 
     @staticmethod
     def get_icon(icon_name: str) -> QtGui.QIcon:

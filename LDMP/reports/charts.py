@@ -841,7 +841,7 @@ class SdgSummaryChartsConfiguration(BaseAlgorithmChartsConfiguration):
     """
     def _add_charts(self):
         # Charts for SDG 15.3.1 (sub)indicators
-        job_attr = _SdgSummaryJobAttributes(self.job)
+        job_attr = SdgSummaryJobAttributes(self.job)
 
         summary_area_collection = job_attr.summary_area()
 
@@ -1076,7 +1076,7 @@ class AlgorithmChartsManager:
         return status
 
 
-class _SdgSummaryJobAttributes:
+class SdgSummaryJobAttributes:
     """
     Reads required job attributes for rendering summary SDG 15.3.1 charts.
     """

@@ -175,7 +175,7 @@ When you report an issue, be sure to provide enough information to allow us to
 be able to reproduce it. In particular, be sure to specify:
 
 - What you were doing with the plugin when the problem or error ocurred (for
-  example "I clicked on 'Download Results' and got an error messaging "saying
+  example "I clicked on 'Download Results' and got an error messaging saying
   `describe what the message said`".
 - The operating system you are using, version of the plugin are you using, and
   version of QGIS that you are using

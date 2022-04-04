@@ -618,6 +618,7 @@ class StackedBarChart(BaseChart):
         self.data_items = {}
 
         self.use_value_type = InfoValueType.AREA
+        self.font_size_labels = 12
 
     def export(self) -> typing.Tuple[bool, list]:
         # Create chart
@@ -660,11 +661,11 @@ class StackedBarChart(BaseChart):
                     x=labels,
                     y=values,
                     name=series_name,
-                    textposition='auto',
+                    textposition='inside',
                     texttemplate='%{y:,.4r}',
                     marker_color=color,
                     textfont={
-                        'size': self.font_size_body
+                        'size': self.font_size_labels
                     }
                 )
             )
@@ -682,12 +683,15 @@ class StackedBarChart(BaseChart):
             },
             yaxis={
                 'title': self.value_axis_label,
-                'titlefont_size': self.font_size_legend,
                 'tickfont_size': self.font_size_body,
                 'tickformat': ',.4r'
             },
             legend={
                 'font': {'size': self.font_size_legend}
+            },
+            uniformtext={
+                'minsize': 7,
+                'mode': 'hide'
             },
             barmode='relative',
             showlegend=True,
@@ -941,7 +945,9 @@ class SdgSummaryChartsConfiguration(BaseAlgorithmChartsConfiguration):
         productivity_barchart.plot_title = tr_lc_productivity_title
         productivity_barchart.data_items = lc_prod_info_items
         productivity_barchart.use_value_type = InfoValueType.PERCENT
-        productivity_barchart.base_chart_name = 'land-cover-change-by-productivity'
+        productivity_barchart.base_chart_name = f'land-cover-change-by-' \
+                                                f'productivity-{init_year!s}' \
+                                                f'-{final_year!s}'
         productivity_barchart.value_axis_label = tr('%')
         self._charts.append(productivity_barchart)
 
@@ -1102,18 +1108,59 @@ class SdgSummaryJobAttributes:
             'No data': -32768
         }
 
-    @classmethod
-    def land_cover_7_class_str_value_mapping(cls) -> typing.Dict[str, int]:
-        return {
-            'Tree-covered': 1,
-            'Grassland': 2,
-            'Cropland': 3,
-            'Wetland': 4,
-            'Artificial': 5,
-            'Other land': 6,
-            'Water body': 7,
-            'No data': -32768
-        }
+    def land_cover_7_class_str_info_mapping(self) -> typing.Dict[str, int]:
+        # Returns a collection of land cover class info (name, color, code)
+        # indexed by the category name.
+        lc_mapping = {}
+
+        legend_parent = self._baseline_results['land_cover'][
+            'legend_nesting'
+        ]['parent']
+
+        clr_ramp = _create_indexed_color_ramp('Land cover (7 class)')
+
+        classes = legend_parent['key']
+        for c in classes:
+            cls_name = c['name_long']
+            pix_val = c['code']
+            clr = QColor(c['color'])
+
+            # Check if there is a matching ramp item so that we can use
+            # the translated name for the category label.
+            lbl_name = cls_name
+            if pix_val in clr_ramp:
+                item = clr_ramp[pix_val]
+                lbl_name = item.label
+
+            ramp_item = QgsColorRampShader.ColorRampItem(
+                pix_val,
+                clr,
+                lbl_name
+            )
+
+            lc_mapping[cls_name] = ramp_item
+
+        # Add no data
+        nd = legend_parent['nodata']
+        nd_name = nd['name_long']
+        nd_color = QColor(nd['color'])
+        nd_value = nd['code']
+
+        # Get translation
+        nd_label = nd_name
+        if nd_value in clr_ramp:
+            item = clr_ramp[nd_value]
+            nd_label = item.label
+
+        nd_item = QgsColorRampShader.ColorRampItem(
+            nd['code'],
+            nd_color,
+            nd_label
+        )
+
+        lc_mapping[nd_name] = nd_item
+
+        return lc_mapping
 
     def summary_area(self) -> typing.List[UniqueValuesInfo]:
         """
@@ -1172,8 +1219,7 @@ class SdgSummaryJobAttributes:
             cls,
             values_root: typing.Dict,
             year:str,
-            style_name: str,
-            category_pixel_mapping: typing.Dict
+            category_ramp_item_mapping: typing.Dict
     ) -> typing.List[UniqueValuesInfo]:
         """
         Get value info collection for SDG 15.3.1 sub-indicators.
@@ -1183,8 +1229,6 @@ class SdgSummaryJobAttributes:
         if sdg_theme is None:
             return []
 
-        clr_ramp = _create_indexed_color_ramp(style_name)
-
         theme_infos = []
 
         for lc_type, area in sdg_theme.items():
@@ -1192,18 +1236,13 @@ class SdgSummaryJobAttributes:
             if area == 0:
                 continue
 
-            pix_val = category_pixel_mapping[lc_type]
-            ramp_item = clr_ramp[pix_val]
-            color = ramp_item.color
-
-            # Use translated label
-            tr_label = ramp_item.label
+            ramp_item = category_ramp_item_mapping[lc_type]
 
             vi = UniqueValuesInfo(
                 area,
-                tr_label,
-                pix_val,
-                color,
+                ramp_item.label,
+                ramp_item.value,
+                ramp_item.color,
                 -1,
                 -1
             )
@@ -1222,8 +1261,7 @@ class SdgSummaryJobAttributes:
         return self.thematic_category_values_by_year(
             lc_areas,
             year,
-            'Land cover (7 class)',
-            self.land_cover_7_class_str_value_mapping()
+            self.land_cover_7_class_str_info_mapping()
         )
 
     def soc(self, year: str) -> typing.List[UniqueValuesInfo]:
@@ -1239,8 +1277,7 @@ class SdgSummaryJobAttributes:
         return self.thematic_category_values_by_year(
             soc_areas,
             year,
-            'Land cover (7 class)',
-            self.land_cover_7_class_str_value_mapping()
+            self.land_cover_7_class_str_info_mapping()
         )
 
     @classmethod
@@ -1280,9 +1317,8 @@ class SdgSummaryJobAttributes:
             'crosstabs_by_productivity_class'
         ]
 
-        clr_ramp = _create_indexed_color_ramp('Land cover (7 class)')
-        category_pix_mapping = self.land_cover_7_class_str_value_mapping()
-        categories = list(category_pix_mapping.keys())[:-1] # Remove 'No data'
+        category_item_mapping = self.land_cover_7_class_str_info_mapping()
+        categories = list(category_item_mapping.keys())[:-1] # Remove 'No data'
 
         lc_infos_by_prod_class = {}
 
@@ -1296,8 +1332,7 @@ class SdgSummaryJobAttributes:
             prod_class_infos = []
             for i, c in enumerate(categories):
                 area_diff, percent_diff = prod_change[i]
-                pix_val = category_pix_mapping[c]
-                ramp_item = clr_ramp[pix_val]
+                ramp_item = category_item_mapping[c]
 
                 # Remove dashes in category name
                 lbls = ramp_item.label.split('-', maxsplit=1)
@@ -1306,7 +1341,7 @@ class SdgSummaryJobAttributes:
                 lc_info = UniqueValuesInfo(
                     area_diff,
                     label,
-                    pix_val,
+                    ramp_item.value,
                     ramp_item.color,
                     -1,
                     percent_diff
@@ -1353,14 +1388,14 @@ def lc_productivity_change(
 
     initial_year_area_sum = np.sum(grouped_array, axis=0)
     final_year__area_sum = np.sum(grouped_array, axis=1)
+    initial_year_total_area = np.sum(initial_year_area_sum)
 
     def compute_change(init_area, final_area):
         # Area change and its percentage.
         diff = final_area - init_area
-        return diff, diff / init_area * 100
+        return diff, diff / initial_year_total_area * 100
 
     return list(map(compute_change, initial_year_area_sum, final_year__area_sum))
-
 
 
 

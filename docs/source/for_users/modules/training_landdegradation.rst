@@ -45,7 +45,7 @@ Select **Execute remotely** button for the Sub-indicators for SDG 15.3.1 analysi
 
 .. _training_final_ldindicator:
 
-Final SDG Indicator
+Calculate SDG 15.3.1 Indicator and UNCCD's SO 2-3
 --------------------------------
 
 - **Objective**: Learn to integrate the land cover, primary productivity and soil organic carbon sub-indicators to compute SDG 15.3.1 in raster format and tabular outputs with areas estimated.
@@ -62,27 +62,38 @@ Final SDG Indicator
 .. image:: ../../../resources/en/common/icon-trends_earth_selection.png
    :align: center   
 
-2. Select the **Execute locally** button next to **Indicator for SDG 15.3.1**.
+2. The **Trends.Earth** panel will open. In the **Algorithm** window, click on click on **SDG 15.3.1- Land Degradation** and select **Execute locally** under **Indicator for SDG 15.3.1**.
+
+.. image:: ../../../resources/en/documentation/calculate/so1_sdg1531_indicator.PNG.png
+   :align: center
 
 .. image:: ../../../resources/en/common/execute-locally.png
    :align: center
+   
+The region of interest is already set up in Settings. If you need to change, select the **Change region** button.
 
-Select the datasets from **Baeline dataset** and **Progress dataset** dropdowns according to your selections in the sub-indicator analysis.
+.. note::
+    Refer to the :ref:`tut_settings` section of this manual for more information on setting up your area of interest.
+	
+Select the datasets from **Baseline dataset** and **Progress dataset** dropdowns according to your selections in the sub-indicator analysis.
 
 .. image:: ../../../resources/en/training/t03/final_subindicator.png
    :align: center
-
-3. Select the **Execute locally** button at the bottom right of window.
-
-.. note::
-    Refer to the :ref:`background_landdegradation` section of this manual to learn about the Trends.Earth productivity indicators developed following the `UNCCD Good Practice Guidance (GPG) <https://www.unccd.int/sites/default/files/relevant-links/2021-03/Indicator_15.3.1_GPG_v2_29Mar_Advanced-version.pdf>`_.
    
-4. If you have the sub-indicators loaded into the QGIS map, the tool will recognize them and they will show up pre-filled in each corresponding section.
+If you have the sub-indicators loaded into the QGIS map, the tool will recognize them and they will show up pre-filled in each corresponding section.
 
 .. note::
 	If you have more than one layer loaded into the map per sub-indicator (for example, land cover change computed with default and also with custom data) make sure to check that the one being used to compute the final SDG is the one you want.
 
-5. When done, click **Calculate**. A light blue bar will temporarily show, indicating that the task was successfully submitted. 
+3. Select the **Population (required to calculate populations exposed by degradation** check box to calculate UNCCD's SO 2-3. 
+|trends.earth| provides access the WorldPop dataset, which is used by default by the UNCCD for calculating indicator SO2-3. 
+
+.. image:: ../../../resources/en/documentation/calculate/so2_ld_pop_exposure.PNG
+   :align: center
+   
+4. When done, click the **Execute locally** button at the bottom right of window.
+ 
+5. A light blue bar will temporarily show, indicating that the task was successfully submitted. 
 
 .. note:: This analysis will be run in your local computer, so the processing time will depend on the size of the area, resolution of the data, and the processing capabilities of your computer. Do not close your computer or put it to sleep while running, because the analysis will fail.
    
@@ -103,7 +114,7 @@ Select the datasets from **Baeline dataset** and **Progress dataset** dropdowns 
 Land Degradation Summary
 --------------------------------
 
-- **Objective**: Learn how to open and interpret the summary tables produced by Trends.Earth when computing the final SDG 15.3.1 layer.
+- **Objective**: Learn how to open and interpret the summary tables produced by Trends.Earth when calculating the final SDG 15.3.1 layer.
 
 - **Estimated time of completion**: 25 minutes
 
@@ -113,9 +124,9 @@ Land Degradation Summary
    <../pdfs/Trends.Earth_Tutorial08_The_Summary_Table.pdf>`_
 
 .. note::
-    You will need to have previously computed SDG 15.3.1 using the **Calculate final SDG 15.3.1 spatial layer and summary table for total boundary** tool. Refer to the section :ref:`indicator-combination` for instructions on how to run the analysis.
+    You will need to have previously computed SDG 15.3.1 using the **Indicator for SDG 15.3.1** tool. Refer to the section :ref:`_training_final_ldindicator`for instructions on how to run this analysis.
 
-1. When you computed SDG 15.3.1 an Excel file was created with the summary table. Browse to that folder and double click on the file to open it.
+1. When you calculated SDG 15.3.1 an Excel file was created with the summary table. Browse to that folder and double click on the file to open it.
 
 .. image:: ../../../resources/en/training/t06/sdg_find_table.png
    :align: center
@@ -184,19 +195,19 @@ Custom Data - Productivity
 
 - **Internet access**: Not required
 
-Land productivity data should be formatted following UNCCD guidelines for reporting indicating areas of declining, early signs of decline, stable but stressed, stable, or increasing primary productivity.
+Land productivity data should be formatted following UNCCD guidelines for reporting indicating areas of Declining, Moderate decline, Stressed, Stable, or Increasing land productivity.
    
 For the productivity data to be used in Trends.Earth the file need to be coded in the following way:
  - Declining = 1
- - Early signs of decline = 2
- - Stable but stressed = 3
+ - Moderate decline = 2
+ - Stressed = 3
  - Stable = 4
  - Increasing = 5
  - No data = 0 or -32768
 
- If your layer is not coded in such a way, please do the necessary adjustments prior to using Trends.Earth.
+ If your layer is not coded in such a way, please do the necessary adjustments/reclassification prior to using Trends.Earth.
  
-1. To load productivity data click on the (|iconfolder|) icon in the Trends.Earth toolbar.
+1. To load productivity data click on the **Datasets** window, and then click on **Import datset**.
 
 .. image:: ../../../resources/en/common/ldmt_toolbar_highlight_loaddata.png
    :align: center

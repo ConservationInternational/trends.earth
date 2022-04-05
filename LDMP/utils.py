@@ -12,6 +12,7 @@ from qgis.PyQt import (
 
 from .jobs import manager
 from .jobs.models import Job
+from .logger import log
 
 from te_schemas import jobs
 
@@ -56,14 +57,14 @@ def delete_dataset(job: Job) -> int:
     separator = "_"
     name_fragments = []
     if job.task_name:
-        name_fragments.append(job.params.get('task_name'))
-    name_fragments.extend([
-        job.script.name,
-        job.local_context.area_of_interest_name,
-        job.start_date.strftime("%Y%m%d%H%M"),
-        str(job.id)
-    ])
-
+        name_fragments.append(job.task_name)
+    if job.script.name:
+        name_fragments.append(job.script.name)
+    if job.local_context.area_of_interest_name:
+        name_fragments.append(job.local_context.area_of_interest_name)
+    if job.start_date:
+        name_fragments.append(job.start_date.strftime("%Y%m%d%H%M"))
+    name_fragments.append(str(job.id))
     message_box.setText(
         f"You are about to delete job {separator.join(name_fragments)!r}")
     message_box.setInformativeText("Confirm?")

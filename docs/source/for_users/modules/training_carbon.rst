@@ -9,39 +9,42 @@ Forest and Carbon Change Tool
 
 - **Internet access**: Required
 
+.. note::
+    Refer to the :ref:`background_carbon` for background information on the datasets and 
+	methodology used for this tutorial.
+
 .. _compute_forest_data:
 
-Compute and download forest and biomass data
+Calculate change in carbon
 --------------------------------------------   
    
-1.	Select the Calculate icon (|iconCalculator|) from the Trends.Earth plugin in QGIS.
+1. In the **Algorithms** tab in Trends.Earth plugin in QGIS, under the **Experimental** menu, select 
+   **Calculate change in total carbon - Above and below ground emissions, and deforestation** menu.
 
-.. image:: ../../../resources/en/common/ldmt_toolbar_highlight_calculate.png
+.. image:: /static/common/te_experimental_carbon_change_menu.png
    :align: center   
 
-2. The **Calculate Indicators** menu will open. In that window, click on **Calculate Calculate carbon change spatial layers** button.
+2. Select the **Calculate change in carbon** menu by selecting **Execute locally**.
 
-.. image:: ../../../resources/en/training/t11/calc_ind.png
+.. image:: /static/common/execute-remotely.png
    :align: center
    
-3. A window will appear with two steps: Step 1 is to **Calculate carbon change spatial layers**, and Step 2 is to **Calculate carbon change summary table for boundary**. Step 1 will be addressed first. If the user has already completed this process, skip to step 14 in the guide.
-
-.. image:: ../../../resources/en/training/t11/calc_carbon.png
-   :align: center
-
-4. After selecting Step 1, the user will fill out the desired parameters in the **Forest Definition** tab.
-
-.. image:: ../../../resources/en/training/t11/forest_def.png
-   :align: center
+3. A window will appear where you can select the paramaters for the carbon analysis.
+   Select the initial and target years for monitoring tree cover loss, carbon emissions from deforestation.
+   Define the percent tree cover considered forest for your area of interest.
    
-5. Next, select the desired aboveground biomass dataset and the method for calculating the root to shoot ratio.
+.. note::
+    The definition of canopy cover should be changed to accomodate the specifc area of interest. 
+	The dataset maps global tree cover based on percent canopy cover in the year 2000.
+	Many studies cite 25% - 30% threshold to define forest, hoever this definition can change
+	for arid regions. For more information, please see the publication"
 
-.. image:: ../../../resources/en/training/t11/carbon_method.png
+.. _Quantification of global gross forest cover: https://www.pnas.org/doi/10.1073/pnas.0912668107
+ 
+4. Select **Change region** to define the area of interest.
+
+.. image:: /static/common/change-region.png
    :align: center
-   
-6. In the **Area** tab define the area of analysis. There are two options:
-
- - Use provided country and state boundaries: If you want to use this option make sure the **Administrative area** option is highlighted, and then select the First Level (country) or Second Level (state or province depending on the country).
 
 .. note::
     The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth 
@@ -59,127 +62,48 @@ Compute and download forest and biomass data
 .. _Public Domain: https://creativecommons.org/publicdomain/zero/1.0
 
  - Use your own area file: If you want to use your own area of analysis, make sure the **Area from file** option is highlighted. Then click **Browse** and navigate to the folder in your computer where you have the file stored. 
- 
- When you have selected the area for which you want to compute the indicators, click **Next**.   
+
+5. Add a descriptive name and notes for the analysis
    
-.. image:: ../../../resources/en/training/t11/area_uganda.png
+   Select the **Advanced configuration** menu to select the biomass dataset, and method for calculating the root to shoot ratio (below ground biomass)
+   Select **Schedule remote exectution**
+
+.. image:: /static/training/t13/carbon_change.png
    :align: center
 
-7. In the **Options** tab you can define the **Task name** and make some **Notes** to identify the analysis you are running. What information to indicate is optional, but we suggest noting:
+6. A light blue bar will temporarily show, indicating that the task was successfully submitted. The analysis will be run in Google servers and could take between 5 and 15 minutes depending on the size of the study area (larger areas tend to take longer).
 
- - Area of analysis
- - Dates
- - Indicators run
+Change in carbon summary table
+-------------------------------------  
+
+1. Go the the **Datasets** tab to **Add default layers from this dataset to map**.
+
+.. image:: /static/training/t11/dataset_tab.png
+   :align: center
    
-.. image:: ../../../resources/en/training/t11/options.png
+2. In order to view the defined area of interest with reference data, select the **Load Base Map** in the **Datasets** tab.
+
+.. image:: /static/training/t13/add_basemap.png
+   :align: center
+   
+.. image:: /static/training/t13/carbon_change_biomass.png
+   :align: center
+   
+.. image:: /static/training/t13/carbon_change_forest_loss.png
+   :align: center
+
+3. In the **Calculate change in total carbon - Above and below ground emissions, and deforestation** menu under **Change in carbon summary table**, select the **Execute locally** button.
+   
+.. image:: /static/training/t13/carbon_change_step2.png
    :align: center 
 
-8. When done, click **Calculate** and the task will be submitted to Google Earth Engine for calculations. You will notice that the **Calculate Change in Total Carbon** window will disappear and you will be brought back to QGIS.
+4. The layers will pre-populate in the data layer dropdowns. Confirm the region is the same area of interest, provide descriptive names and notes and select **Execute locally**.
+    A spreadsheet comparing the final outputs is saved in your **trends_earth_data*** folder under your user account on your computer (e.g., C:\Users\mnoon\trends_earth_data).
 
-9. A light blue bar will temporarily show, indicating that the task was successfully submitted. The analysis will be run in Google servers and could take between 5 and 15 minutes depending on the size of the study area (larger areas tend to take longer).
-
-.. image:: ../../../resources/en/training/t11/submit_carbon.png
-   :align: center   
-
-.. image:: ../../../resources/en/common/ldmt_toolbar_highlight_tasks.png
+.. image:: /static/training/t13/carbon_change_results_1.png
    :align: center
 
-10. To view the Google Earth Engine (GEE) tasks you have running, and to download your results, select 
-the cloud with the arrow facing down icon (|iconCloudDownload|). This will open up the `Download results 
-from Earth Engine` dialog box. Select **Refresh list** to show the task.
- 
-.. image:: ../../../resources/en/training/t11/running.png
-   :align: center 
-
-11. The task will state: RUNNING under the Status column if it is still processing. When the task is complete, it will say FINISHED after selecting **Refresh List** again. 
-
-.. image:: ../../../resources/en/training/t11/finished.png
-   :align: center 
-
-Once the task is FINSHED running, highlight the completed task and select **Download Results**. Save the task.
-
-.. image:: ../../../resources/en/training/t11/save.png
-   :align: center 
-   
-13. You will see a message indicating the task is downloading. Once it is complete there will be a `Total carbon (2000, tonnes per ha)` and `Forest loss (2000 to 2017)` outputs in the QGIS window.
-
-.. image:: ../../../resources/en/training/t11/download.png
-   :align: center 
-
-.. image:: ../../../resources/en/training/t11/total_carbon.png
-   :align: center
-
-.. image:: ../../../resources/en/training/t11/forest_loss.png
-   :align: center
-
-If you want, you can add some context information (e.g. country boundaries, roads, and main cities). Refer to the :ref:`importing_data` tutorial for detailed information on loading a basemap.
-
-.. _compute_forest_summary:
-
-Compute summary table
----------------------  
-   
-1.	Select the Calculate icon (|iconCalculator|) from the Trends.Earth plugin in QGIS.
-
-.. image:: ../../../resources/en/common/ldmt_toolbar_highlight_calculate.png
-   :align: center   
-
-2. The **Calculate Indicators** menu will open. In that window, click on **Calculate Calculate carbon change spatial layers** button.
-
-.. image:: ../../../resources/en/training/t11/calc_ind.png
+.. image:: /static/training/t13/carbon_change_results_2.png
    :align: center
    
-3. Select Step 2: **Calculate carbon change summary table for boundary**. 
-
-.. image:: ../../../resources/en/training/t11/carbon_change.png
-   :align: center
-
-4. Within the **Input** tab, select an output folder and file name.
-
-.. image:: ../../../resources/en/training/t11/input.png
-   :align: center
-
-5. Within the **Output** tab, select **Browse** to list an output folder and file name.
-
-.. image:: ../../../resources/en/training/t11/output.png
-   :align: center
    
-6. In the **Area** tab define the area of analysis. There are two options:
-
- - Use provided country and state boundaries: If you want to use this option make sure the **Administrative area** option is highlighted, and then select the First Level (country) or Second Level (state or province depending on the country).
-
- - Use your own area file: If you want to use your own area of analysis, make sure the **Area from file** option is highlighted. Then click **Browse** and navigate to the folder in your computer where you have the file stored. 
- 
- When you have selected the area for which you want to compute the indicators, click **Next**.   
-   
-.. image:: ../../../resources/en/training/t11/area_uganda.png
-   :align: center
-
-7. In the **Options** tab you can define the **Task name** and make some **Notes** to identify the analysis you are running. What information to indicate is optional, but we suggest noting:
-
- - Area of analysis
- - Dates
- - Indicators run
-   
-.. image:: ../../../resources/en/training/t11/uganda_carbon_change.png
-   :align: center 
-
-8. When done, click **Calculate** and the task will be submitted to your computer locally. You will notice that the **Calculate carbon change summary table for boundary** window will disappear and you will be brought back to QGIS. A light blue bar will appear in the QGIS window. This is running locally on your computer. DO NOT select **x** or **Cancel** until the task is finished!
-
-.. image:: ../../../resources/en/training/t11/summary_submit.png
-   :align: center
-   
-9. A window will appear when the summary is complete. Select **OK**.
-
-.. image:: ../../../resources/en/training/t11/success.png
-   :align: center   
-
-10. If an error window appears, select the **Yes** and the summary will proceed to open.
-
-.. image:: ../../../resources/en/training/t11/error.png
-   :align: center   
-   
-11. The summary table will appear.
-
-.. image:: ../../../resources/en/training/t11/summary_table.png
-   :align: center   

@@ -29,6 +29,7 @@ from ..utils import FileUtils
 from .models import Job
 from .models import SortField
 from .models import TypeFilter
+from qgis.core import QgsProject
 
 
 WidgetDatasetItemUi, _ = uic.loadUiType(
@@ -301,6 +302,16 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         # self.add_to_canvas_pb.setFixedSize(self.open_directory_tb.size())
         # self.add_to_canvas_pb.setMinimumSize(self.open_directory_tb.size())
 
+        if self.job.is_vector():
+            layers = QgsProject.instance().mapLayers()
+            for l in layers.values():
+                if l.source().split("|")[0] == job.results.vector.uri.uri:
+                    self.load_tb.setEnabled(True)
+                    break
+                else:
+                    self.load_tb.setEnabled(False)
+                    break
+
         self.name_la.setText(self.job.visible_name)
 
         area_name = self.job.local_context.area_of_interest_name
@@ -528,9 +539,11 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                     0,
                 )
 
+                manager.job_manager.display_special_area_layer(self.job)
                 manager.job_manager.edit_special_area_layer(self.job)
                 self.main_dock.resume_scheduler()
         else:
+            manager.job_manager.display_special_area_layer(self.job)
             manager.job_manager.edit_special_area_layer(self.job)
 
     def has_connected_data(self):
@@ -572,7 +585,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         action_add_vector_to_map = self.load_vector_menu.addAction(
             self.tr("Add special area layer to map")
         )
-        action_add_vector_to_map.triggered.connect(self.edit_layer)
+        action_add_vector_to_map.triggered.connect(self.load_layer)
         action_add_rasters_to_map = self.load_vector_menu.addAction(
             self.tr("Add raster layers to map")
         )

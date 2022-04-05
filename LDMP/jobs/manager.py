@@ -1211,6 +1211,10 @@ def get_remote_jobs(
                         )
                     else:
                         remote_jobs.append(job)
+                except ValidationError as exc:
+                    log(
+                        f"Could not retrieve remote job {raw_job['id']}: {str(exc)}"
+                    )
                 except RuntimeError as exc:
                     log(str(exc))
                 except TypeError as exc:

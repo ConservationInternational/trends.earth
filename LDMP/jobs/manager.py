@@ -580,11 +580,11 @@ class JobManager(QtCore.QObject):
 
     def display_special_area_layer(self, job: Job):
         layer_path = job.results.vector.uri.uri
-        layers.add_vector_layer(str(layer_path), job.results.name, False)
+        layers.add_vector_layer(str(layer_path), job.results.name)
 
     def edit_special_area_layer(self, job: Job):
         layer_path = job.results.vector.uri.uri
-        layers.add_vector_layer(str(layer_path), job.results.name, True)
+        layers.edit(str(layer_path))
 
     def import_job(self, job: Job, job_path):
         # First check if data path is relative to job file. If it is, update

@@ -10,6 +10,7 @@ from osgeo import ogr
 
 from . import conf
 from . import download
+from .layers import _get_qgis_version
 from .logger import log
 
 
@@ -326,6 +327,13 @@ class AOI(object):
     def buffer(self, d):
         log("Buffering layer by {} km.".format(d))
 
+        # Use correct transform direction enum based on version
+        major_version, minor_version = _get_qgis_version()
+        if major_version >= 3 and minor_version >= 22:
+            trans_dir = qgis.core.Qgis.TransformDirection.Reverse
+        else:
+            trans_dir = qgis.core.QgsCoordinateTransform.TransformDirection.ReverseTransform
+
         feats = []
         for f in self.l.getFeatures():
             geom = f.geometry()
@@ -350,7 +358,7 @@ class AOI(object):
             )
             geom_buffered.transform(
                 to_aeqd,
-                qgis.core.QgsCoordinateTransform.TransformDirection.ReverseTransform,
+                trans_dir
             )
             f.setGeometry(geom_buffered)
             feats.append(f)

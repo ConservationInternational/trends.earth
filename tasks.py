@@ -1703,19 +1703,7 @@ ns.configure(
             'trendsearth',
             'base_language':
             'en',
-            'latex_documents': [
-                'Trends.Earth.tex', 'Trends.Earth_Tutorial01_Installation.tex',
-                'Trends.Earth_Tutorial02_Computing_Indicators.tex',
-                'Trends.Earth_Tutorial03_Downloading_Results.tex',
-                'Trends.Earth_Tutorial04_Using_Custom_Productivity.tex',
-                'Trends.Earth_Tutorial05_Using_Custom_Land_Cover.tex',
-                'Trends.Earth_Tutorial06_Using_Custom_Soil_Carbon.tex',
-                'Trends.Earth_Tutorial07_Computing_SDG_Indicator.tex',
-                'Trends.Earth_Tutorial08_The_Summary_Table.tex',
-                'Trends.Earth_Tutorial09_Loading_a_Basemap.tex',
-                'Trends.Earth_Tutorial10_Forest_Carbon.tex',
-                'Trends.Earth_Tutorial11_Urban_Change_SDG_Indicator.tex'
-            ]
+            'latex_documents': ['Trends.Earth.tex']
         },
         'github': {
             'api_url': 'https://api.github.com',

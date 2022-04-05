@@ -12,9 +12,6 @@ Region of Interest
 
 - **Internet access**: Required
 
-.. note:: `Download this page as a PDF for off-line use 
-   <../pdfs/Trends.Earth_Tutorial_Settings.pdf>`_
-
 1. Click on the Trends.Earth toolbar within QGIS, and click on settings.
    
 .. image:: ../../../resources/en/common/highlight_settings.png

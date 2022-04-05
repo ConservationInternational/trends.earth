@@ -176,12 +176,26 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
             )
             return
 
-        self.close()
-
-        #TODO: Fix trans matrix and persistence remap to use new locations for these variables
         initial_usable = (
             self.lc_setup_widget.initial_year_layer_cb.get_current_band())
         final_usable = self.lc_setup_widget.target_year_layer_cb.get_current_band()
+        # TODO: Fix for case where nesting varies between initial and final 
+        # bands
+        initial_nesting = initial_usable.band_info.metadata.get('nesting')
+        final_nesting = final_usable.band_info.metadata.get('nesting')
+        if (initial_nesting and final_nesting) and (initial_nesting != final_nesting):
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr(
+                    "Nesting of land cover legends for "
+                    "initial and final land cover layer must be identical."
+                )
+            )
+            return
+
+        self.close()
+
         job_params = {
             "task_name": self.execution_name_le.text(),
             "task_notes": self.task_notes.toPlainText(),
@@ -191,7 +205,8 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
             "lc_initial_band_index": initial_usable.band_index,
             "lc_final_path": str(final_usable.path),
             "lc_final_band_index": final_usable.band_index,
-            'transformation_matrix': LCTransitionDefinitionDeg.Schema().dumps(
+            'legend_nesting': initial_nesting,
+            'trans_matrix': LCTransitionDefinitionDeg.Schema().dumps(
                 self.lc_define_deg_widget.trans_matrix
             )
         }

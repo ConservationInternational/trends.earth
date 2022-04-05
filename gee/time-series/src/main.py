@@ -7,16 +7,16 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-from builtins import str
-from builtins import zip
+import json
 import random
 import re
-import json
+from builtins import str
+from builtins import zip
 
 import ee
-
-from te_algorithms.gee.productivity import productivity_trajectory
-from te_schemas.schemas import TimeSeries, TimeSeriesTable, TimeSeriesTableSchema
+from te_schemas.schemas import TimeSeries
+from te_schemas.schemas import TimeSeriesTable
+from te_schemas.schemas import TimeSeriesTableSchema
 
 
 def zonal_stats(gee_dataset, geojsons, EXECUTION_ID, logger):
@@ -29,21 +29,25 @@ def zonal_stats(gee_dataset, geojsons, EXECUTION_ID, logger):
 
     ## This produces an average of the region over the image by year
     ## Source: https://developers.google.com/earth-engine/reducers_reduce_region
-    reducers = ee.Reducer.mean() \
-        .combine(reducer2=ee.Reducer.min(), sharedInputs=True) \
-        .combine(reducer2=ee.Reducer.max(), sharedInputs=True) \
-        .combine(reducer2=ee.Reducer.mode(), sharedInputs=True) \
-        .combine(reducer2=ee.Reducer.stdDev(), sharedInputs=True)
-    statsDictionary = image.reduceRegion(reducer=reducers, geometry=region, scale=scale, maxPixels=1e13)
+    reducers = ee.Reducer.mean().combine(
+        reducer2=ee.Reducer.min(), sharedInputs=True
+    ).combine(reducer2=ee.Reducer.max(), sharedInputs=True).combine(
+        reducer2=ee.Reducer.mode(), sharedInputs=True
+    ).combine(reducer2=ee.Reducer.stdDev(), sharedInputs=True)
+    statsDictionary = image.reduceRegion(
+        reducer=reducers, geometry=region, scale=scale, maxPixels=1e13
+    )
 
     logger.debug("Calculating zonal_stats.")
     res = statsDictionary.getInfo()
 
     logger.debug("Formatting results.")
     res_clean = {}
+
     for key, value in list(res.items()):
         field = re.search('(?<=y[0-9]{4}_)\w*', key).group(0)
         year = re.search('(?<=y)[0-9]{4}', key).group(0)
+
         if field not in res_clean:
             res_clean[field] = {}
             res_clean[field]['value'] = []
@@ -53,9 +57,12 @@ def zonal_stats(gee_dataset, geojsons, EXECUTION_ID, logger):
 
     logger.debug("Setting up results JSON.")
     timeseries = []
+
     for key in list(res_clean.keys()):
         # Ensure the lists are in chronological order
-        year, value = list(zip(*sorted(zip(res_clean[key]['year'], res_clean[key]['value']))))
+        year, value = list(
+            zip(*sorted(zip(res_clean[key]['year'], res_clean[key]['value'])))
+        )
         ts = TimeSeries(list(year), list(value), key)
         timeseries.append(ts)
 
@@ -73,20 +80,19 @@ def run(params, logger):
     ndvi_gee_dataset = params.get('ndvi_gee_dataset')
 
     # Check the ENV. Are we running this locally or in prod?
+
     if params.get('ENV') == 'dev':
         EXECUTION_ID = str(random.randint(1000000, 99999999))
     else:
         EXECUTION_ID = params.get('EXECUTION_ID', None)
+    logger.debug(f"Execution ID is {EXECUTION_ID}")
 
     logger.debug("Running main script.")
-    # TODO: Right now timeseries will only work on the first geojson - this is 
-    # somewhat ok since for the most part this uses points, but should fix in 
+    # TODO: Right now timeseries will only work on the first geojson - this is
+    # somewhat ok since for the most part this uses points, but should fix in
     # the future
     json_result = zonal_stats(
-        ndvi_gee_dataset,
-        geojsons[0],
-        EXECUTION_ID,
-        logger
+        ndvi_gee_dataset, geojsons[0], EXECUTION_ID, logger
     )
 
     return json_result

@@ -124,7 +124,7 @@
                 {"value": 3, "color": "#FFFB6E", "label": "lc_class_cropland"},
                 {"value": 4, "color": "#00DB84", "label": "lc_class_wetland"},
                 {"value": 5, "color": "#E60017", "label": "lc_class_artificial"},
-                {"value": 6, "color": "#FFF3D7", "label": "lc_class_bare"},
+                {"value": 6, "color": "#B48515", "label": "lc_class_bare"},
                 {"value": 7, "color": "#0053C4", "label": "lc_class_water"}
             ]
         }
@@ -141,7 +141,7 @@
                 {"value": 3, "color": "#FFFB6E", "label": "lc_class_cropland"},
                 {"value": 4, "color": "#00DB84", "label": "lc_class_wetland"},
                 {"value": 5, "color": "#E60017", "label": "lc_class_artificial"},
-                {"value": 6, "color": "#FFF3D7", "label": "lc_class_bare"},
+                {"value": 6, "color": "#B48515", "label": "lc_class_bare"},
                 {"value": 7, "color": "#0053C4", "label": "lc_class_water"}
             ]
         }
@@ -300,7 +300,7 @@
                 {"value": 39, "color": "#FFFB6E", "label": "lc_tr_cropland_loss"},
                 {"value": 49, "color": "#00DB84", "label": "lc_tr_wetland_loss"},
                 {"value": 59, "color": "#E60017", "label": "lc_tr_artificial_loss"},
-                {"value": 69, "color": "#FFF3D7", "label": "lc_tr_bare_loss"},
+                {"value": 69, "color": "#B48515", "label": "lc_tr_bare_loss"},
                 {"value": 79, "color": "#0053C4", "label": "lc_tr_water_loss"}
             ]
         }
@@ -315,6 +315,19 @@
                 {"value": -1, "color": "#9b2779", "label": "lc_deg_deg"},
                 {"value": 0, "color": "#ffffe0", "label": "lc_deg_stable"},
                 {"value": 1, "color": "#006500", "label": "lc_deg_imp"}
+            ]
+        }
+    },
+    "Land cover degradation (comparison)": {
+        "title": "lc_deg_comp_title",
+        "ramp": {
+            "type": "categorical",
+            "shader": "exact",
+            "items": [
+                {"value": -32768, "color": "#000000", "label": "nodata"},
+                {"value": -1, "color": "#9b2779", "label": "lc_deg_comp_deg"},
+                {"value": 0, "color": "#ffffe0", "label": "lc_deg_comp_stable"},
+                {"value": 1, "color": "#006500", "label": "lc_deg_comp_imp"}
             ]
         }
     },
@@ -341,6 +354,19 @@
                 {"value": -1, "color": "#9b2779", "label": "combined_sdg_deg_deg"},
                 {"value": 0, "color": "#ffffe0", "label": "combined_sdg_deg_stable"},
                 {"value": 1, "color": "#006500", "label": "combined_sdg_deg_imp"}
+            ]
+        }
+    },
+    "SDG 15.3.1 Indicator (status)": {
+        "title": "sdg_status_title",
+        "ramp": {
+            "type": "categorical",
+            "shader": "exact",
+            "items": [
+                {"value": -32768, "color": "#000000", "label": "nodata"},
+                {"value": -1, "color": "#9b2779", "label": "sdg_status_deg"},
+                {"value": 0, "color": "#ffffe0", "label": "sdg_status_stable"},
+                {"value": 1, "color": "#006500", "label": "sdg_status_imp"}
             ]
         }
     },
@@ -387,7 +413,7 @@
             ]
         }
     },
-    "Productivity Degradation (comparison)": {
+    "Productivity degradation (comparison)": {
         "title": "prod_deg_comp_title",
         "ramp": {
             "type": "categorical",
@@ -449,9 +475,9 @@
         "title": "lpd_title",
         "ramp": {
             "type": "categorical",
-            "shader": "exact",
+            "shader": "discrete",
             "items": [
-                {"value": -32768, "color": "#000000", "label": "nodata"},
+                {"value": 0, "color": "#000000", "label": "nodata"},
                 {"value": 1, "color": "#9b2779", "label": "lpd_declining"},
                 {"value": 2, "color": "#ED7428", "label": "lpd_earlysigns"},
                 {"value": 3, "color": "#FED652", "label": "lpd_stabbutstress"},
@@ -545,6 +571,30 @@
             "no data": {"value": -32768, "color": "#000000", "label": "nodata"}
         }
     },
+    "Population at minimum SPI over period": {
+        "title": "population_at_maximum_drought_title",
+        "ramp": {
+            "type": "zero-centered stretch",
+            "shader": "interpolated",
+            "percent stretch": 2,
+            "min": {"color": "#9b2779"},
+            "zero": {"color": "#ffffe0"},
+            "max": {"color": "#006500"},
+            "no data": {"value": -32768, "color": "#000000", "label": "nodata"}
+        }
+    },
+    "Population (number of people)": {
+        "title": "population_number_of_people",
+        "ramp": {
+            "type": "min zero stretch",
+            "shader": "interpolated",
+            "percent stretch": 2,
+            "zero": {"color": "#461554"},
+            "mid": {"color": "#28898C"},
+            "max": {"color": "#FDE629"},
+            "no data": {"value": -32768, "color": "#000000", "label": "nodata"}
+        }
+    },
     "Population (density, persons per sq km / 10)": {
         "title": "population_density_title",
         "ramp": {
@@ -559,6 +609,18 @@
     },
     "Population affected by degradation (density, persons per sq km / 10)": {
         "title": "population_density_affected_by_degradation_title",
+        "ramp": {
+            "type": "zero-centered stretch",
+            "shader": "interpolated",
+            "percent stretch": 2,
+            "min": {"color": "#9b2779"},
+            "zero": {"color": "#ffffe0"},
+            "max": {"color": "#006500"},
+            "no data": {"value": -32768, "color": "#000000", "label": "nodata"}
+        }
+    },
+    "Population affected by degradation (number of people)": {
+        "title": "population_affected_by_degradation_title",
         "ramp": {
             "type": "zero-centered stretch",
             "shader": "interpolated",

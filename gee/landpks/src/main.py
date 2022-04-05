@@ -4,44 +4,42 @@ from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 
-import os
-import re
-import json
 import datetime as dt
-import random
-import json
-import tempfile
-import hashlib
-import pathlib
-import threading
 import gettext
-
-from concurrent.futures import ThreadPoolExecutor, as_completed
+import hashlib
+import json
+import logging
+import os
+import pathlib
+import random
+import re
+import tempfile
+import threading
+from concurrent.futures import as_completed
+from concurrent.futures import ThreadPoolExecutor
 from urllib import request
-
 
 import ee
 from google.cloud import storage
+from PIL import Image
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.gridspec as gridspec
+import matplotlib.colors as colors
+from matplotlib_scalebar.scalebar import ScaleBar
+import pandas as pd
+from te_schemas.schemas import Url, ImageryPNG, \
 
 # Turn off overly informative debug messages
-import logging
 mpl_logger = logging.getLogger('matplotlib')
 mpl_logger.setLevel(logging.WARNING)
 pil_logger = logging.getLogger('PIL.PngImagePlugin')
 pil_logger.setLevel(logging.WARNING)
 
-from PIL import Image
 
-import numpy as np
 
-import matplotlib.pyplot as plt
-import matplotlib.gridspec as gridspec
-import matplotlib.colors as colors
-from matplotlib_scalebar.scalebar import ScaleBar
 
-import pandas as pd
 
-from te_schemas.schemas import Url, ImageryPNG, \
         ImageryPNGSchema
 
 gettext.bindtextdomain('myapplication', '/path/to/my/language/directory')
@@ -560,6 +558,7 @@ def run(params, logger):
         EXECUTION_ID = str(random.randint(1000000, 99999999))
     else:
         EXECUTION_ID = params.get('EXECUTION_ID', None)
+    logger.debug(f"Execution ID is {EXECUTION_ID}")
 
     logger.debug('Authenticating with AWS...')
     gc_client = storage.Client()

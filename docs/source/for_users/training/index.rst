@@ -15,4 +15,4 @@ Training Manual
    Restoration <restoration>
    Dataset Metadata <metadata>
    Special Areas <specialareas>
-   Dataset Reports <training_reports>
+   Dataset Reports <reports>

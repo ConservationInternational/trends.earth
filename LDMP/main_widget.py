@@ -5,6 +5,7 @@ import typing
 from pathlib import Path
 
 import qgis.gui
+import qgis.core
 from qgis.PyQt import (
     QtWidgets,
     QtGui,
@@ -190,6 +191,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             functools.partial(self.toggle_refreshing_state, True))
         self.cache_refresh_finished.connect(
             functools.partial(self.toggle_refreshing_state, False))
+        qgis.core.QgsProject.instance().layersRemoved.connect(self.refresh_after_cache_update)
 
         self.clean_empty_directories()
         self.setup_algorithms_tree()

@@ -56,7 +56,7 @@ in the menu if the **Download remotely-generated datasets automatically** is che
 
 - Select the Refresh button if the analysis does not appear in the menu. 
 
-6. Select the add layer dropdown to **Add default layers from this layer to the map**
+6. Select the add layer drop-down button to **Add default layers from this layer to the map**
 
 .. image:: ../../../resources/en/documentation/data_download/download_datasets.png
    :align: center
@@ -102,7 +102,7 @@ in the menu if the **Download remotely-generated datasets automatically** is che
 
 - Select the Refresh button if the analysis does not appear in the menu. 
 
-6. Select the add layer dropdown to **Add default layers from this layer to the map**
+6. Select the add layer drop-down button to **Add default layers from this layer to the map**
 
 .. image:: ../../../resources/en/documentation/data_download/download_datasets.png
    :align: center
@@ -118,7 +118,7 @@ Generate data package for UNCCD reporting
 .. image:: ../../../resources/en/documentation/reporting_tool/unccd_reporting_step2.png
    :align: center
    
-2. The window will appear with the default data populated in the dropdowns for the region of interest. Enter **Execution name** and **Notes**. Select **Execute locally**.
+2. The window will appear with the default data populated in the drop-down lists for the region of interest. Enter **Execution name** and **Notes**. Select **Execute locally**.
 
 .. image:: ../../../resources/en/documentation/reporting_tool/sdg15_lpd_unccd_reporting.png
    :align: center
@@ -131,7 +131,7 @@ in the menu if the **Download remotely-generated datasets automatically** is che
 
 - Select the Refresh button if the analysis does not appear in the menu. 
 
-4. Select the add layer dropdown to **Add default layers from this layer to the map**
+4. Select the add layer drop-down button to **Add default layers from this layer to the map**
 
 .. image:: ../../../resources/en/documentation/data_download/download_datasets.png
    :align: center
@@ -191,7 +191,7 @@ The region of interest is already set up in Settings. If you need to change, sel
 
 - Select the Refresh button if the analysis does not appear in the menu. 
 
-6. Select the add layer dropdown to **Add default layers from this layer to the map**
+6. Select the add layer drop-down button to **Add default layers from this layer to the map**
 
 .. image:: ../../../resources/en/documentation/data_download/download_datasets.png
    :align: center

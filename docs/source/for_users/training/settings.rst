@@ -24,7 +24,7 @@ Region of Interest
 
 Country or Region
 ~~~~~~~~~~~~~~~~~~
-Select a country from the **First level** dropdown. Sub-national analysis is possible using the 
+Select a country from the **First level** drop-down list. Sub-national analysis is possible using the 
 **Second level** selections to identify a province or city for your region of interest.
 
 .. note::
@@ -120,7 +120,7 @@ during the report generation process. It is useful for debugging purposes. By de
 Advanced
 ---------
 
-Select the Advanced dropdown to view more options within the Trends.Earth toolbox.
+Select the `Advanced` drop-down list to view more options within the Trends.Earth toolbox.
 
 .. image:: ../../../resources/en/documentation/settings/trends_earth_settings_window_advanced.png
    :align: center

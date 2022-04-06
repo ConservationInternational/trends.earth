@@ -34,6 +34,7 @@ extensions = [
     "sphinx_rtd_theme",
     "sphinx.ext.todo",
     "sphinx.ext.viewcode",
+    'sphinxcontrib.spelling',
     "myst_parser",
 ]
 
@@ -52,6 +53,11 @@ myst_enable_extensions = [
     "substitution",
     "tasklist",
 ]
+
+# Spellcheck options
+spelling_word_list_filename = ['known_good_spellings.txt']
+spelling_ignore_pypi_package_names = True
+
 
 todo_include_todos = True
 

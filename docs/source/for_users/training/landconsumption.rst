@@ -170,7 +170,7 @@ Step 2: Urban change
 .. image:: ../../../resources/en//training/t12/calc_urban2.png
    :align: center
 
-4. Input: Load an existing .json file if it has not been populated within the dropdown automatically from your QGIS project.
+4. Input: Load an existing .json file if it has not been populated within the drop-down list automatically from your QGIS project.
 
 .. image:: ../../../resources/en//training/t12/summary_input.png
    :align: center

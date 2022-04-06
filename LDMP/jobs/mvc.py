@@ -303,9 +303,10 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         # self.add_to_canvas_pb.setMinimumSize(self.open_directory_tb.size())
 
         if self.job.is_vector():
+            self.edit_tb.setEnabled(False)
             layers = QgsProject.instance().mapLayers()
             for l in layers.values():
-                if l.source().split("|")[0] == job.results.vector.uri.uri:
+                if l.source().split("|")[0] == str(job.results.vector.uri.uri):
                     self.edit_tb.setEnabled(True)
                     break
                 else:
@@ -439,6 +440,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
 
     def load_layer(self):
         manager.job_manager.display_special_area_layer(self.job)
+        self.edit_tb.setEnabled(True)
 
     def edit_layer(self):
         if not self.has_connected_data():

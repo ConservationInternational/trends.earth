@@ -809,7 +809,7 @@ class JobManager(QtCore.QObject):
         else:
             job.results.uri = [*job.results.rasters.values()][0].uri
 
-        _set_results_extents(job)
+        _set_results_extents_raster(job)
 
         return job.results.uri
 

@@ -2,6 +2,7 @@ import copy
 import datetime as dt
 import json
 import re
+import backoff
 import os
 import typing
 import urllib.parse
@@ -91,7 +92,6 @@ def _get_extent_tuple_vector(path):
 
 
 def _set_results_extents_raster(job):
-    log(f'Setting extents for job {job.id}')
     for raster in job.results.rasters.values():
         if raster.type == results.RasterType.ONE_FILE_RASTER:
             if not hasattr(raster, 'extent') or raster.extent is None:
@@ -519,7 +519,9 @@ class JobManager(QtCore.QObject):
                 self._change_job_status(
                     job, jobs.JobStatus.DOWNLOADED, force_rewrite=True
                 )
-            self.downloaded_job_results.emit(job)
+                self.downloaded_job_results.emit(job)
+            else:
+                return None
         else:
             # TODO: show a message noting that can't download this job type,
             # then disable the download button
@@ -757,6 +759,8 @@ class JobManager(QtCore.QObject):
                         base_output_path.parent /
                         f"{file_out_base}_{uri_number}.tif",
                     )
+                    if not result:
+                        return None
                     tile_uris.append(results.URI(uri=out_file, type='local'))
 
                 raster.tile_uris = tile_uris
@@ -776,10 +780,12 @@ class JobManager(QtCore.QObject):
                     )
             else:
                 out_file = base_output_path.parent / f"{file_out_base}.tif"
-                _download_result(
+                result = _download_result(
                     raster.uri.uri,
                     out_file,
                 )
+                if not result:
+                    return None
                 raster_uri = results.URI(uri=out_file, type='local')
                 raster.uri = raster_uri
                 out_rasters[key] =  results.Raster(
@@ -1127,6 +1133,13 @@ def _get_raster_vrt(tiles: List[Path], out_file: Path):
     gdal.BuildVRT(str(out_file), [str(tile) for tile in tiles])
 
 
+def backoff_hdlr(details):
+    log("Backing off {wait:0.1f} seconds after {tries} tries "
+        "calling function {target} with args {args} and kwargs "
+        "{kwargs}".format(**details))
+
+@backoff.on_predicate(backoff.expo, lambda x: x is None, max_tries=5,
+                      on_backoff=backoff_hdlr)
 def _download_result(url: str, output_path: Path) -> bool:
     output_path.parent.mkdir(parents=True, exist_ok=True)
     download_worker = ldmp_download.Download(url, str(output_path))

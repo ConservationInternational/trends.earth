@@ -306,10 +306,10 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             layers = QgsProject.instance().mapLayers()
             for l in layers.values():
                 if l.source().split("|")[0] == job.results.vector.uri.uri:
-                    self.load_tb.setEnabled(True)
+                    self.edit_tb.setEnabled(True)
                     break
                 else:
-                    self.load_tb.setEnabled(False)
+                    self.edit_tb.setEnabled(False)
                     break
 
         self.name_la.setText(self.job.visible_name)

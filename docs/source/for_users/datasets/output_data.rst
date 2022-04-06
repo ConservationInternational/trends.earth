@@ -168,7 +168,7 @@ SDG 15.3.1 productivity indicator
 | 5      | Increasing             |
 +--------+------------------------+
 
-Land productivity dynamics
+Land Productivity Dynamics - JRC
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 +--------+------------------+

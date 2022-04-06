@@ -45,7 +45,7 @@ Select **Execute remotely** button for the Sub-indicators for SDG 15.3.1 analysi
 
 .. _training_final_ldindicator:
 
-Final SDG Indicator
+Calculate SDG 15.3.1 Indicator and UNCCD's SO 2-3
 --------------------------------
 
 - **Objective**: Learn to integrate the land cover, primary productivity and soil organic carbon sub-indicators to compute SDG 15.3.1 in raster format and tabular outputs with areas estimated.
@@ -62,36 +62,41 @@ Final SDG Indicator
 .. image:: ../../../resources/en/common/icon-trends_earth_selection.png
    :align: center   
 
-2. Select the **Execute locally** button next to **Indicator for SDG 15.3.1**.
+2. The **Trends.Earth** panel will open. In the **Algorithm** window, click on **SDG 15.3.1- Land Degradation** and select **Execute locally** under **Indicator for SDG 15.3.1**.
+
+.. image:: ../../../resources/en/documentation/calculate/so1_sdg1531_indicator.PNG
+   :align: center
 
 .. image:: ../../../resources/en/common/execute-locally.png
    :align: center
+   
+The region of interest is already set up in Settings. If you need to change, select the **Change region** button.
 
-Select the datasets from **Baeline dataset** and **Progress dataset** dropdowns according to your selections in the sub-indicator analysis.
+.. note::
+    Refer to the :ref:`tut_settings` section of this manual for more information on setting up your area of interest.
+	
+Select the datasets from **Baseline dataset** and **Progress dataset** dropdowns according to your selections in the sub-indicator analysis.
 
 .. image:: ../../../resources/en/training/t03/final_subindicator.png
    :align: center
-
-3. Select the **Execute locally** button at the bottom right of window.
-
-.. note::
-    Refer to the :ref:`background_landdegradation` section of this manual to learn about the Trends.Earth productivity indicators developed following the `UNCCD Good Practice Guidance (GPG) <https://www.unccd.int/sites/default/files/relevant-links/2021-03/Indicator_15.3.1_GPG_v2_29Mar_Advanced-version.pdf>`_.
    
-4. If you have the sub-indicators loaded into the QGIS map, the tool will recognize them and they will show up pre-filled in each corresponding section.
+If you have the sub-indicators loaded into the QGIS map, the tool will recognize them and they will show up pre-filled in each corresponding section.
 
 .. note::
 	If you have more than one layer loaded into the map per sub-indicator (for example, land cover change computed with default and also with custom data) make sure to check that the one being used to compute the final SDG is the one you want.
 
-5. When done, click **Calculate**. A light blue bar will temporarily show, indicating that the task was successfully submitted. 
+3. Click on **Advanced** to expand it and show advanced options then select the **Population (required to calculate populations exposed by degradation** check box to calculate UNCCD's SO 2-3. 
+|trends.earth| provides access the WorldPop dataset, which is used by default by the UNCCD for calculating indicator SO2-3. 
 
-.. note:: This analysis will be run in your local computer, so the processing time will depend on the size of the area, resolution of the data, and the processing capabilities of your computer. Do not close your computer or put it to sleep while running, because the analysis will fail.
-   
-.. image:: ../../../resources/en/training/t05/sdg_computing.png
+.. image:: ../../../resources/en/documentation/calculate/so2_ld_pop_exposure.PNG
    :align: center
-
-6. When the analysis is completed a **Success** message will notify you and the indicator will be loaded to the map.   
    
-.. image:: ../../../resources/en/training/t05/sdg_success.png
+
+4. When the analysis is completed a **Success** message will notify you and the indicator will be loaded to the map.   
+ 
+5. In the **Datasets** window, click on click on **Load dataset onto QGIS map area**
+
+.. image:: ../../../resources/en/training/t05/sdg_add_indicator_dataset.png
    :align: center
 
 .. image:: ../../../resources/en/training/t05/sdg_indicator.png
@@ -103,7 +108,7 @@ Select the datasets from **Baeline dataset** and **Progress dataset** dropdowns 
 Land Degradation Summary
 --------------------------------
 
-- **Objective**: Learn how to open and interpret the summary tables produced by Trends.Earth when computing the final SDG 15.3.1 layer.
+- **Objective**: Learn how to open and interpret the summary tables produced by Trends.Earth when calculating the final SDG 15.3.1 layer.
 
 - **Estimated time of completion**: 25 minutes
 
@@ -113,24 +118,19 @@ Land Degradation Summary
    <../pdfs/Trends.Earth_Tutorial08_The_Summary_Table.pdf>`_
 
 .. note::
-    You will need to have previously computed SDG 15.3.1 using the **Calculate final SDG 15.3.1 spatial layer and summary table for total boundary** tool. Refer to the section :ref:`indicator-combination` for instructions on how to run the analysis.
+    You will need to have previously computed SDG 15.3.1 using the **Indicator for SDG 15.3.1** tool. Refer to the section :ref:`_training_final_ldindicator`for instructions on how to run this analysis.
 
-1. When you computed SDG 15.3.1 an Excel file was created with the summary table. Browse to that folder and double click on the file to open it.
+1. When you calculate Indicator for SDG 15.3.1 an Excel file is created with the summary table. In the **Datasets** window, click on click on **Open Dataset Directory**
+
+.. image:: ../../../resources/en/training/t05/sdg_open_dataset_directory.png
+   :align: center
+
+The directoty where the summary table was saved along with the geospatial data will open. You see two summary tables in case both Baseline and Progress SDG 15.3.1 were calculated
 
 .. image:: ../../../resources/en/training/t06/sdg_find_table.png
    :align: center
 
-If you are using Microsoft Excel, you may see the following error messages pop-up. Click **Yes** on the first one and *OK** on the second one. We are currently working trying to identify where the error comes from, but the file is fully functional.
-
-If you are using LibreOffice or OpenOffice, the file will load with no errors.   
-   
-.. image:: ../../../resources/en/training/t06/sdg_table_error1.png
-   :align: center
-
-.. image:: ../../../resources/en/training/t06/sdg_table_error2.png
-   :align: center
-
-2. The summary table file contains 5 tabs, which you can explore by clicking on each of the different names the bottom of the screen: SDG 15.3.1, Productivity, Soil organic carbon, Land Cover and UNCCD Reporting.   
+2. The summary table file contains 6 tabs, which you can explore by clicking on each of the different names the bottom of the screen: SDG 15.3.1, Productivity, Soil organic carbon, Land Cover, Population and UNCCD SO1-1.   
 
 3. In the **SDG 15.3.1** tab you will find the area calculations derived from the indicator map you explored in QGIS.
 
@@ -165,8 +165,13 @@ If you are using LibreOffice or OpenOffice, the file will load with no errors.
    
 .. image:: ../../../resources/en/training/t06/table_landcover.png
    :align: center
+   
+6. In the **Population** tab you will find a summary of population affected by land degradation classes, with absolute and percent values reported.      
+     
+.. image:: ../../../resources/en/training/t06/table_population.png
+   :align: center
 
-6. In the **UNCCD Reporting** tab you will find five tables containing similar information as the one presented in the previous tabs, but in this case specifically formatted to match the reporting template required by the UNCCD. Each table indicates at the top the page number and section of the template the information is referring to.
+7. In the **UNCCD SO1-1** tab you will find five tables containing similar information as the one presented in the previous tabs, but in this case specifically formatted to match the reporting template required by the UNCCD. Each table indicates at the top the page number and section of the template the information is referring to.
    
 .. image:: ../../../resources/en/training/t06/table_unccd.png
    :align: center
@@ -184,59 +189,55 @@ Custom Data - Productivity
 
 - **Internet access**: Not required
 
-Land productivity data should be formatted following UNCCD guidelines for reporting indicating areas of declining, early signs of decline, stable but stressed, stable, or increasing primary productivity.
+Land productivity data should be formatted following UNCCD guidelines for reporting indicating areas of Declining, Moderate decline, Stressed, Stable, or Increasing land productivity.
    
 For the productivity data to be used in Trends.Earth the file need to be coded in the following way:
  - Declining = 1
- - Early signs of decline = 2
- - Stable but stressed = 3
+ - Moderate decline = 2
+ - Stressed = 3
  - Stable = 4
  - Increasing = 5
  - No data = 0 or -32768
 
- If your layer is not coded in such a way, please do the necessary adjustments prior to using Trends.Earth.
+ If your layer is not coded in such a way, please do the necessary adjustments/reclassification prior to using Trends.Earth.
  
-1. To load productivity data click on the (|iconfolder|) icon in the Trends.Earth toolbar.
+1. To load a custom productivity data click on the **Datasets** window, and then click on **Import datset**.
 
-.. image:: ../../../resources/en/common/ldmt_toolbar_highlight_loaddata.png
+.. image:: ../../../resources/en/common/trends_earth_import_dataset.png
    :align: center
 
-2. The **Load data** menu will open. Select **Productivity** from the **Import a custom input dataset** section.
+2. Several options will appear. Select **Import custom Productivity dataset** from the list.
 
-.. image:: ../../../resources/en/training/t10/call_custom_lpd_menu.png
+.. image:: ../../../resources/en/training/t10/import_custom_lp.png
    :align: center
 
 3. In the **Load a Custom Land Productivity Dataset** use the radio button to select the format of the input file (raster or vector). For this tutorial select raster, since the data distributed by the UNCCD is in raster format. Click on **Browse** to navigate to the productivity file you wish to import.
 
-.. image:: ../../../resources/en/training/t10/custom_lpd_menu1.png
+.. image:: ../../../resources/en/training/t10/import_custom_lp_2.png.png
    :align: center
 
-4. Use the **Select input file** window to navigate to the file to be imported, select it, and click **Open**.   
-   
-.. image:: ../../../resources/en/training/t10/custom_lpd_load_input.png
-   :align: center
 
-5. Back at the **Load a Custom Land Productivity Dataset** window you have options for selecting the band number in which the productivity data is stored, in case your input file is a multi band raster. You also have the option of modifying the resolution of the file. We recommend leaving those as defaults unless you have valid reasons for changing them.
-6. Click **Browse** at the bottom of the window to select the **Output raster file** and navigate to the folder where you want to save the file. Assign it a name and click **OK**.
-   
-.. image:: ../../../resources/en/training/t10/custom_lpd_menu2.png
-   :align: center
+4. In the **Load a Custom Land Productivity Dataset** window you also have options for selecting the band number in which the productivity data is stored, in case your input file is a multi band raster. You also have the option of modifying the resolution of the file. We recommend leaving those as defaults unless you have valid reasons for changing them.
 
-5. Back at the **Load a Custom Land Productivity Dataset** window click **OK** on the lower right corner to process the data.
+
+5. Click **Browse** at the bottom of the window to select the **Output raster file** and navigate to the folder where you want to save the file. Assign it a name and click **OK**.
    
-6. If the values of the input file do not exactly match the requirements describe above, you will see a warning message. In many cases the warning is triggered by the definition of NoData, but the tool will still try to import it. For that reason, it is **extremely important** for you to explore the output layer to make sure the results are mapped as expected.
+
+6. Back at the **Load a Custom Land Productivity Dataset** window click **OK** on the lower right corner to process the data.
+   
+7. If the values of the input file do not exactly match the requirements describe above, you will see a warning message. In many cases the warning is triggered by the definition of NoData, but the tool will still try to import it. For that reason, it is **extremely important** for you to explore the output layer to make sure the results are mapped as expected.
 
 .. image:: ../../../resources/en/training/t10/warning.png
    :align: center
 
-7. Once you click **OK** in the warning window, a progress bar will appear showing the percentage of the task completed.
+8. Once you click **Execute remotelly** a progress bar will appear showing the percentage of the task completed.
    
-.. image:: ../../../resources/en/training/t10/processing.png
-   :align: center
+.. image:: ../../../resources/en/training/t10/import_custom_lp_ribon.png
+   :align: center 
 
-8. When the processing is completed, the imported land productivity dataset will be loaded to QGIS.   
+9. In the **Datasets** window, find the **Imported dataset (land productivity) and click on click on **Load dataset onto QGIS map area**.   
    
-.. image:: ../../../resources/en/training/t10/lpd_output_loaded.png
+.. image:: ../../../resources/en/training/t10/import_custom_lp_add_dataset.png
    :align: center
    
 .. note::
@@ -258,36 +259,26 @@ Custom Data - Land Cover
    and can be downloaded from this `link <https://s3.amazonaws.com/trends.earth/sharing/RCMRD_Uganda_Land_Cover.zip>`_.
    
 
-1. To load custom land cover data, select the **SDG 15.3.1 - Land Degradation** category in the **Algorithms** tab of the Trends.Earth toolbar window.
+1. To load a custom productivity data click on the **Datasets** window, and then click on **Import datset**.
 
-.. image:: ../../../resources/en/documentation/calculate/trends_earth_panel_LD_highlight_custom_LC.png
+.. image:: ../../../resources/en/common/trends_earth_import_dataset.png
    :align: center
 
-2. Click on the **Execute remotely** dropdown and select **Execute locally** from the **Land cover change** section.
-	
-.. image:: ../../../resources/en/common/execute-both-locally.png
+2. Several options will appear. Select **Import custom Land Cover dataset** from the list.
+
+.. image:: ../../../resources/en/training/t10/import_custom_lc.png
    :align: center
 
-3. In the **Land Cover Land Degradation** window, the year, aggregation and definition can be revised. 
+3. In the **Load a Custom Land Cover Dataset** window, use the radio button to select the format of the input file (raster or vector). For this tutorial select raster, since the data distributed by the UNCCD is in raster format. Click on **Browse** to navigate to the land cover file you wish to import.
    
-.. image:: ../../../resources/en/training/t08/custom_landcover_landdegradation.png
+.. image:: ../../../resources/en/training/t10/import_custom_lc_2.png
    :align: center
 
-4. Use the **Select input file** window to navigate to the file to be imported, select it, and click **Open**.   
-   
-.. image:: ../../../resources/en/training/t08/input.png
-   :align: center
+4. In the **Load a Custom Land Cover Dataset** window you also have options for selecting the band number in which the land cover data is stored, in case your input file is a multi band raster. You also have the option of modifying the resolution of the file. We recommend leaving those as defaults unless you have valid reasons for changing them.
 
-5. Back at the **Load a Custom Land Cover dataset** window you have options for selecting the band number in which the productivity data is stored, in case your input file is a multi band raster. You also have the option of modifying the resolution of the file. We recommend leaving those as defaults unless you have valid reasons for changing them.   
-
-6. Define the year of reference for the data. In this case, since the land cover dataset for Uganda was developed for the **year 2000**, define it as such. Make sure you are assigning the correct year.
-
-7. Click **Browse** at the bottom of the window to select the **Output raster file**.
-   
-.. image:: ../../../resources/en/training/t08/custom_landcover_menu2.png
-   :align: center
-
-8. Click on the **Edit definition** button, this will open the **Setup aggregation of land cover data menu**. Here you need to assign each of the original input values of your dataset to one of the 7 UNCCD recommended land cover classes. 
+   Define the year of reference for the data. In this case, since the land cover dataset for Uganda was developed for the **year 2000**, define it as such. Make sure you are assigning the correct year.
+  
+5. Click on the **Edit definition** button, this will open the **Setup aggregation of land cover data menu**. Here you need to assign each of the original input values of your dataset to one of the 7 UNCCD recommended land cover classes. 
 
 .. image:: ../../../resources/en/training/t08/definition1.png
    :align: center
@@ -307,7 +298,7 @@ From the Metadata of the land cover dataset, we know that the best aggregation a
  - Artificial = 17
  - Other land = 18
 
-9. Use the **Setup aggregation of land cover data menu** to assign to each number in the **Input class** its corresponding **Output class**.
+6. Use the **Setup aggregation of land cover data menu** to assign to each number in the **Input class** its corresponding **Output class**.
 
  When you are done editing, click **Save definition file**. This option will save you time next time you run the tool, by simply loading the definition file you previously saved.
 
@@ -316,117 +307,67 @@ From the Metadata of the land cover dataset, we know that the best aggregation a
 .. image:: ../../../resources/en/training/t08/lc_definition.png
    :align: center
 
-7. Back at the **Load a Custom Land Cover dataset** window, click **Browse** at the bottom of the window to select the **Output raster file**.   
+7. Back at the **Load a Custom Land Cover dataset** window, click **Browse** at the bottom of the window to select the **Output raster file** and navigate to the folder where you want to save the file. Assign it a name and click **OK**. 
    
-.. image:: ../../../resources/en/training/t08/custom_landcover_menu2.png
-   :align: center   
-
-8. Navigate to the folder where you want to save the file. Assign it a name and click **Save**.   
-   
-.. image:: ../../../resources/en/training/t08/output.png
+.. image:: ../../../resources/en/training/t10/import_custom_lc_3.png
    :align: center
 
-9. Back at the **Load a Custom Land Cover dataset** click **OK** for the tool to run. 
-   
-.. image:: ../../../resources/en/training/t08/custom_landcover_menu3.png
-   :align: center
-
-10. A progress bar will appear showing the percentage of the task completed.      
+8. A progress bar will appear showing the percentage of the task completed.      
    
 .. image:: ../../../resources/en/training/t08/running.png
    :align: center
 
-11. When the processing is completed, the imported land cover dataset will be loaded to QGIS.   
+9. When the processing is completed, the imported land cover dataset will be loaded to QGIS.   
    
 .. image:: ../../../resources/en/training/t08/lc_loaded.png
    :align: center
 
-.. note:: You have one imported custom land cover data for one year (2000), but two are needed to perform the land cover change analysis. Repeat now steps 1 through 11, but this time with the most recent land cover map. For this tutorial, we will use another land cover map from Uganda from the year 2015. **Make sure to change the year date in the import menu**.
+.. note:: You have one imported custom land cover data for one year (2000), but two are needed to perform the land cover change analysis. Repeat now steps 1 through 8, but this time with the most recent land cover map. For this tutorial, we will use another land cover map from Uganda from the year 2015. **Make sure to change the year date in the import menu**.
 
-12. Once you have imported the land cover maps for years 2000 and 2015, you should have them both loaded to QGIS.
+10. Once you have imported the land cover maps for years 2000 and 2015, you should have them both loaded to QGIS.
 
 .. image:: ../../../resources/en/training/t08/both_lc_loaded.png
    :align: center
 
-13. Now that both land cover datasets have been imported into Trends.Earth, the land cover change analysis tool needs to be run. Search for the Trends.Earth toolbar within QGIS, and click on the Calculate icon (|iconCalculator|).
+11. Now that both land cover datasets have been imported into Trends.Earth, the land cover change analysis tool needs to be run. Search for the Trends.Earth toolbar within QGIS, and click on the Calculate icon (|iconCalculator|).
    
-.. image:: ../../../resources/en/common/ldmt_toolbar_highlight_calculate.png
+.. image:: ../../../resources/en/training/t08/trends_earth_calculate_custom_land_cover.PNG
    :align: center   
+   
+.. image:: ../../../resources/en/training/t08/call_lc_change_locally.png
+   :align: center     
 
-14. The **Calculate Indicators** menu will open. In that window, click on **Land cover** button found under Step 1 - Option 2.   
+12. The **Land Cover | Land Degradation** window will open. Use the drop down option next to **Initial year layer** and **Target year layer** to change the dates accordingly.
    
 .. image:: ../../../resources/en/training/t08/call_lc_change_tool.png
    :align: center 
-
-15. The **Calculate Land Cover Change** window will open. In the **Setup** tab, click on **Custom land cover dataset**. Use the drop down option next to **Initial layer (initial year)** and **Final layer (target year)** to change the dates accordingly. When done, click **Next**.
    
-.. image:: ../../../resources/en/training/t08/lc_change_tool.png
-   :align: center 
+  The region of interest is already set up in Settings. If you need to change, select the **Change region** button.
 
-16. The **Define Degradation** tab is where you define the meaning of each land cover transition in terms of degradation. Transitions indicated in red (minus sign) will be identified as degradation in the final output, transitions in beige (zero) will be identified as stable, and transitions in green (plus sign) will be identified as improvements. 
+.. note::
+    Refer to the :ref:`tut_settings` section of this manual for more information on setting up your area of interest.
+
+13. Click on **Advanced** to expand it. Here you will define the meaning of each land cover transition in terms of degradation. Transitions indicated in purple (minus sign) will be identified as degradation in the final output, transitions in beige (zero) will be identified as stable, and transitions in green (plus sign) will be identified as improvements. 
 
  For example, by default it is considered that a pixel that changed from **Grassland** to **Tree-covered** will be considered as improved. However, if in your study area woody plant encroachment is a degradation process, that transition should be changed for that particular study area to degradation (minus sign).
 
- If you have made no changes to the default matrix, simply click **Next**.
+ If you have made no changes to the default matrix, simply click **Execute locally**.
 
- If you did change the meaning of some of the transitions, click on **Save table to file...** to save the definition for later use. Then click **Next**.   
+ If you did change the meaning of some of the transitions, click on **Save table to file...** to save the definition for later use.   
    
 .. image:: ../../../resources/en/training/t08/lc_degradation_matrix.png
    :align: center 
    
-17. In the **Area** tab define the area of analysis. There are two options:
-
- - Use provided country and state boundaries: If you want to use this option make sure the **Administrative area** option is highlighted, and then select the First Level (country) or Second Level (state or province depending on the country).
-
-.. note::
-    The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth 
-    are in the `public domain`_. The boundaries and names used, and the 
-    designations used, in Trends.Earth do not imply official endorsement or 
-    acceptance by Conservation International Foundation, or by its partner 
-    organizations and contributors.
-
-    If using Trends.Earth for official purposes, it is recommended that users 
-    choose an official boundary provided by the designated office of their 
-    country.
-
-.. _Natural Earth Administrative Boundaries: http://www.naturalearthdata.com
-
-.. _Public Domain: https://creativecommons.org/publicdomain/zero/1.0
-
- - Use your own area file: If you want to use your own area of analysis, make sure the **Area from file** option is highlighted. Then click **Browse** and navigate to the folder in your computer where you have the file stored. 
- 
- When you have selected the area for which you want to compute the indicators, click **Next**.
+19. When you click **Execute locally**,a progress bar will appear showing the percentage of the task completed.     
    
-.. image:: ../../../resources/en/training/t08/area_uganda.png
-   :align: center 
-
-18. In the **Options** tab you can define the **Task name** and make some **Notes** to identify the analysis you are running. What information to indicate is optional, but we suggest noting:
-
- - Area of analysis
- - Dates
- - Indicators run   
-   
-.. image:: ../../../resources/en/training/t08/option_uganda_lc_degradation.png
+.. image:: ../../../resources/en/training/t08/call_lc_change_ribon.png
    :align: center    
 
-19. When you click **Calculate**, the **Choose a name for the output file** will open. Select where to save the file and its name, and click **Save**.  
+9. In the **Datasets** window, find the **Imported dataset (land productivity) and click on click on **Load dataset onto QGIS map area**.   
    
-.. image:: ../../../resources/en/training/t08/output_lc_degradation.png
-   :align: center    
-
-20. A progress bar will appear showing the percentage of the task completed.     
+.. image:: ../../../resources/en/training/t08/import_custom_lc_add_dataset.png
+   :align: center
    
-.. image:: ../../../resources/en/training/t08/running_lc_degradation.png
-   :align: center    
-
-21. When the processing is completed, the imported land cover degradation sub-indicator dataset will be loaded to QGIS.   
-   
-.. image:: ../../../resources/en/training/t08/loaded_lc_degradation.png
-   :align: center  
-   
-.. note::
-    Refer to the :ref:`indicator-combination` tutorial for instructions on how to use the land cover sub-indicator to compute the final SDG 15.3.1 after integration with changes land productivity and soil organic carbon. 
-
 .. _tut_custom_soc:
 
 Custom Data - SOC

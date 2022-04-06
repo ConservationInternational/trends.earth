@@ -95,7 +95,8 @@ maps can also be used. The indicator is computed as follows:
    which transitions correspond to degradation (- sign), improvement (+ sign), 
    or no change in terms of land condition (zero).
 
-.. image:: ../../../resources/en/documentation/understanding_indicators15/lc_matrix_new_palette.png
+.. image::
+   ../../../resources/en/documentation/understanding_indicators15/lc_degradation_matrix.png
    :align: center
 
 #. |trends.earth| will combine the information from the land cover maps and the 

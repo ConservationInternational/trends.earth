@@ -1022,6 +1022,44 @@ def gettext(c, language=None):
 # Build documentation
 ###############################################################################
 
+@task(
+    help={
+        'ignore_errors': 'ignore documentation errors',
+        'language': "which language to build (all are built by default)",
+    }
+)
+def docs_spellcheck(c, ignore_errors=False, language=None):
+    if language:
+        languages = [language]
+    else:
+        languages = [c.sphinx.base_language]
+        languages.extend(c.plugin.translations)
+
+    for language in languages:
+        print("\nBuilding {lang} documentation...".format(lang=language))
+        SPHINX_OPTS = '-D language={lang} -A language={lang} {sourcedir}'.format(
+            lang=language, sourcedir=c.sphinx.sourcedir
+        )
+
+        if language != 'en' or ignore_errors:
+            subprocess.check_call(
+                "sphinx-build -b spelling -a {sphinx_opts} {builddir}/html/{lang}".
+                format(
+                    sphinx_opts=SPHINX_OPTS,
+                    builddir=c.sphinx.builddir,
+                    lang=language
+                )
+            )
+        else:
+            subprocess.check_call(
+                "sphinx-build -n -W -b spelling -a {sphinx_opts} {builddir}/html/{lang}"
+                .format(
+                    sphinx_opts=SPHINX_OPTS,
+                    builddir=c.sphinx.builddir,
+                    lang=language
+                )
+            )
+
 
 @task(
     help={
@@ -1624,7 +1662,7 @@ def binaries_compile(c, clean=False, python='python'):
 ###############################################################################
 
 ns = Collection(
-    set_version, set_tag, plugin_setup, plugin_install, docs_build,
+    set_version, set_tag, plugin_setup, plugin_install, docs_build, docs_spellcheck,
     translate_pull, translate_push, changelog_build, tecli_login, tecli_clear,
     tecli_config, tecli_publish, tecli_run, tecli_info, tecli_logs,
     zipfile_build, zipfile_deploy, binaries_compile, binaries_sync,

@@ -21,12 +21,12 @@ Dataset Metadata
 
 - Select the Refresh button if no datasets appear in the menu.
 
-3. Press the Edit metadata button to open a dropdown menu with available options
+3. Press the Edit metadata button to open a drop-down menu with available options
 
 .. image:: ../../../resources/en/documentation/metadata/metadata_button.png
    :align: center
 
-4. The dropdown menu allows to select any raster from the list of all available rasters of the dataset to edit or view its metadata. Once raster is selected a metadata editor dialog will show up.
+4. The drop-down menu allows to select any raster from the list of all available rasters of the dataset to edit or view its metadata. Once raster is selected a metadata editor dialog will show up.
 
 .. image:: ../../../resources/en/documentation/metadata/metadata_editor.png
    :align: center

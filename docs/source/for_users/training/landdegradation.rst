@@ -75,7 +75,7 @@ The region of interest is already set up in Settings. If you need to change, sel
 .. note::
     Refer to the :ref:`tut_settings` section of this manual for more information on setting up your area of interest.
 	
-Select the datasets from **Baseline dataset** and **Progress dataset** dropdowns according to your selections in the sub-indicator analysis.
+Select the datasets from **Baseline dataset** and **Progress dataset** drop-down lists according to your selections in the sub-indicator analysis.
 
 .. image:: ../../../resources/en/training/t03/final_subindicator.png
    :align: center

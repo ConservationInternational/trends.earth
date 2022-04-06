@@ -90,7 +90,7 @@ Table summarizing likely changes in biomass
 .. image:: /static/training/t13/sequestration_from_restoration.png
    :align: center 
 
-4. The layers will pre-populate in the data layer dropdowns. Confirm the region is the same area of interest, provide descriptive names and notes and select **Execute locally**.
+4. The layers will pre-populate in the data layer drop-down lists. Confirm the region is the same area of interest, provide descriptive names and notes and select **Execute locally**.
     A spreadsheet comparing the final outputs is saved in your **trends_earth_data*** folder under your user account on your computer (e.g., C:\Users\mnoon\trends_earth_data).
 
 .. image:: /static/training/t13/restoration_results_1.png

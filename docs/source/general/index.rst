@@ -8,7 +8,7 @@ data sources to assess and monitor land degradation at multiple scales", funded
 by the Global Environment Facility.
 
 Contacting the team
---------------------
+______________________
 
 Contact the `Trends.Earth <mailto:trends.earth@conservation.org>`_ team with
 any comments or suggestions. If you have specific bugs to report or
@@ -18,7 +18,7 @@ them in the `issue tracker on Github
 |trends.earth|.
 
 Authors
---------
+__________________
 
 The Land Degradation Monitoring Project is a partnership of Conservation
 International, Lund University, and the National Aeronautics and Space
@@ -52,7 +52,7 @@ Tatenda Lemann, Hanspeter Liniger, David Lopez-Carr, Kevin Mwenda, Jason Neff, G
 Narcisa Pricope, Sanna Sokolow, and Ingrid Teich. 
 
 Acknowledgements
------------------
+__________________
 
 The feedback provided by early users of |trends.earth| and by the participants
 in the webinars and workshops held by the GEF Land Degradation Monitoring
@@ -75,7 +75,7 @@ Ndeye Kany Sarr, Mamadou Adama Sarr, Edward Senyonjo, Olipa Simon, Samba Sow,
 Felly Mugizi Tusiime and John Wasige.
 
 Citation
-----------
+__________
 
 If you wish to cite |trends.earth|, please use the following citation:
 
@@ -83,7 +83,7 @@ Trends.Earth. Conservation International. Available online at:
 `http://trends.earth <http://trends.earth>`_. 2022.
 
 License
----------
+__________
 
 |trends.earth| is free and open-source. It is licensed under the `GNU General
 Public License, version 2.0 or later
@@ -97,7 +97,7 @@ acceptance by Conservation International Foundation, or its partner
 organizations and contributors.
 
 Trademark
-----------
+__________
 
 |trends.earth| has a service mark trademark registered June 9, 2020 (reg. No. 6,074,442 
 and Int. Cl.: 9,35,42) by the United States Patent and Trademark Office.
@@ -105,9 +105,12 @@ and Int. Cl.: 9,35,42) by the United States Patent and Trademark Office.
 .. _pubs:
 
 Publications
-===================
+___________________________
 
-The below publications either use or relate to |trends.earth|.
+Peer-reviewed Publications
+-----------------------
+
+The below peer-reviewed publications either use or relate to |trends.earth|.
 
 * Alamanos, A. and Linnane, S., 2021. Estimating SDG Indicators in Data-Scarce Areas: 
   The Transition to the Use of New Technologies and Multidisciplinary Studies. Earth, 2(3), pp.635-652.
@@ -209,10 +212,20 @@ The below publications either use or relate to |trends.earth|.
   Environ. Sci. Policy 101, 54–62. 
   https://doi.org/10.1016/j.envsci.2019.07.003
 
+.. _academic_dissertations:
+
+Academic dissertations
+-----------------------
+
+- Mahlaba, B., 2022. The assessment of degradation state in Ecological Infrastructure and prioritisation for rehabilitation 
+  and drought mitigation in the Tsitsa River Catchment (Masters dissertation, Rhodes University).
+- Owuor, G.O., 2021. Monitoring Land Degradation Neutrality using Geospatial Techniques in Support of Sustainable Land Management: 
+  A Case Study of Narok County (Doctoral dissertation, University of Nairobi).
+
 .. _other_resources:
   
 Other resources
-===============
+-----------------------
 
 Print documentation from the Trends.Earth project (including fact sheets, 
 reports, and other materials) is listed below.
@@ -220,7 +233,7 @@ reports, and other materials) is listed below.
 .. _reports:
 
 Reports
-________
++++++++++
 
 - `A Review of Publicly Available Geospatial Datasets and Indicators In Support of Land Degradation Monitoring
   <https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/61e6ee8f42b6c16e2cb538cf/1642524304092/ci-6-Tools4LDN-report-FNL+web.pdf>`_
@@ -254,20 +267,9 @@ ________
 .. _fact_sheets:
 
 Fact sheets
-___________
++++++++++++++
 
 - `Conceptual Fact Sheet for Trends.Earth 
   <http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet.pdf>`_
 - `Technical Fact Sheet for Trends.Earth 
   <http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet_Technical.pdf>`_
-  
-
-.. _academic_dissertations:
-
-Academic dissertations
-________________________
-
-- Mahlaba, B., 2022. The assessment of degradation state in Ecological Infrastructure and prioritisation for rehabilitation 
-  and drought mitigation in the Tsitsa River Catchment (Masters dissertation, Rhodes University).
-- Owuor, G.O., 2021. Monitoring Land Degradation Neutrality using Geospatial Techniques in Support of Sustainable Land Management: 
-  A Case Study of Narok County (Doctoral dissertation, University of Nairobi).

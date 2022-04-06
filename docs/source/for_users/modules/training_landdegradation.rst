@@ -46,7 +46,7 @@ Select **Execute remotely** button for the Sub-indicators for SDG 15.3.1 analysi
 .. _training_final_ldindicator:
 
 Calculate SDG 15.3.1 Indicator and UNCCD's SO 2-3
---------------------------------
+-------------------------------------------------
 
 - **Objective**: Learn to integrate the land cover, primary productivity and soil organic carbon sub-indicators to compute SDG 15.3.1 in raster format and tabular outputs with areas estimated.
 
@@ -118,7 +118,7 @@ Land Degradation Summary
    <../pdfs/Trends.Earth_Tutorial08_The_Summary_Table.pdf>`_
 
 .. note::
-    You will need to have previously computed SDG 15.3.1 using the **Indicator for SDG 15.3.1** tool. Refer to the section :ref:`_training_final_ldindicator`for instructions on how to run this analysis.
+    You will need to have previously computed SDG 15.3.1 using the **Indicator for SDG 15.3.1** tool. Refer to the section :ref:`training_final_ldindicator` for instructions on how to run this analysis.
 
 1. When you calculate Indicator for SDG 15.3.1 an Excel file is created with the summary table. In the **Datasets** window, click on click on **Open Dataset Directory**
 
@@ -213,7 +213,7 @@ For the productivity data to be used in Trends.Earth the file need to be coded i
 
 3. In the **Load a Custom Land Productivity Dataset** use the radio button to select the format of the input file (raster or vector). For this tutorial select raster, since the data distributed by the UNCCD is in raster format. Click on **Browse** to navigate to the productivity file you wish to import.
 
-.. image:: ../../../resources/en/training/t10/import_custom_lp_2.png.png
+.. image:: ../../../resources/en/training/t10/import_custom_lp_2.png
    :align: center
 
 
@@ -342,7 +342,7 @@ From the Metadata of the land cover dataset, we know that the best aggregation a
 .. image:: ../../../resources/en/training/t08/call_lc_change_tool.png
    :align: center 
    
-  The region of interest is already set up in Settings. If you need to change, select the **Change region** button.
+The region of interest is already set up in Settings. If you need to change, select the **Change region** button.
 
 .. note::
     Refer to the :ref:`tut_settings` section of this manual for more information on setting up your area of interest.

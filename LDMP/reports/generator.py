@@ -111,6 +111,7 @@ class ReportTaskProcessor:
         self._ti = self._ctx.report_configuration.template_info
         self._options = self._ctx.report_configuration.output_options
         self._proj = proj
+        self._proj.setFilePathStorage(Qgis.FilePathType.Absolute)
         self._feedback = feedback
         self._layout = None
         self._messages = dict()

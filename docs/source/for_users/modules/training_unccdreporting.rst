@@ -20,8 +20,7 @@ Default data for UNCCD reporting
 1. Follow the instructions to register, sign in and identify area of interest in Trends.Earth.
 
 .. note::
-    Refer to the :ref:`qgis_instructions`, :ref:`registration`, :ref:`tut_settings` sections of this manual for more information on installing QGIS, 
-	registrering for Trends.Earth and logging in and setting up an area of interest for analysis.
+  Refer to the :ref:`qgis_instructions`, :ref:`registration`, :ref:`tut_settings` sections of this manual for more information on installing QGIS, registering for Trends.Earth and logging in and setting up an area of interest for analysis.
 
 Click on the Trends.Earth toolbar within QGIS, and click on the Trends.Earth icon.
    
@@ -160,7 +159,7 @@ Default data for UNCCD reporting
 1. Follow the instructions to register, sign in and identifying area of interest in Trends.Earth.
 
 .. note::
-    Refer to the :ref:`qgis_instructions`, :ref:`registration`, :ref:`tut_settings` sections of this manual for more information on installing QGIS, 
+    Refer to the :ref:`qgis_instructions`, :ref:`registration`, and :ref:`tut_settings` sections of this manual for more information on installing QGIS, 
 	registrering for Trends.Earth and logging in and setting up an area of interest for analysis.
 
 Click on the Trends.Earth toolbar within QGIS, and click on the Trends.Earth icon.

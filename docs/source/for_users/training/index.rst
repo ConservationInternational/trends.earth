@@ -7,12 +7,12 @@ Training Manual
    :maxdepth: 2
    :caption: Training Manual
 
-   Settings <training_settings>
-   Land Degradation <training_landdegradation>
-   UNCCD Reporting <training_unccdreporting>
-   Land Consumption <training_landconsumption>
-   Carbon <training_carbon>
-   Restoration <training_restoration>
-   Dataset Metadata <training_metadata>
-   Special Areas <training_specialareas>
+   Settings <settings>
+   Land Degradation <landdegradation>
+   UNCCD Reporting <unccdreporting>
+   Land Consumption <landconsumption>
+   Carbon <carbon>
+   Restoration <restoration>
+   Dataset Metadata <metadata>
+   Special Areas <specialareas>
    Dataset Reports <training_reports>

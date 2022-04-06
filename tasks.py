@@ -1026,9 +1026,10 @@ def gettext(c, language=None):
     help={
         'ignore_errors': 'ignore documentation errors',
         'language': "which language to build (all are built by default)",
+        'fast': "only check english docs"
     }
 )
-def docs_spellcheck(c, ignore_errors=False, language=None):
+def docs_spellcheck(c, ignore_errors=False, language=None, fast=False):
     if language:
         languages = [language]
     else:
@@ -1060,6 +1061,8 @@ def docs_spellcheck(c, ignore_errors=False, language=None):
                 )
             )
 
+        if fast:
+            break
 
 @task(
     help={

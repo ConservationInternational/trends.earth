@@ -18,6 +18,10 @@ By measuring the rate at which cities consume land against their rate of populat
 Rationale for Monitoring
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
+.. spelling::
+
+   Colstoun
+
 .. Note:: Source: UN-Habitat (2019) SDG Indicator 11.3.1 Training Module: Land Use Efficiency. United Nations Human Settlement Programme (UN-Habitat), Nairobi.
 
 Understanding how a city/urban area expands spatially against its rate of population change is critical to determining, among other things, the nature of human settlements growth (formal versus informal) and the speed of conversion of outlying land to urbanized functions. These two elements have significant implications on the demand for and cost of providing services, as well as on environmental preservation and conservation. 

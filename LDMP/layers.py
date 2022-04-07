@@ -950,8 +950,7 @@ def delete_layer_by_filename(f: str) -> bool:
 
     return result
 
-
-def add_vector_layer(layer_path: str, name: str, start_editing: bool):
+def add_vector_layer(layer_path: str, name: str):
     sublayers = QgsProviderRegistry.instance().providerMetadata('ogr').querySublayers(layer_path)
 
     layer = None
@@ -960,19 +959,22 @@ def add_vector_layer(layer_path: str, name: str, start_editing: bool):
         options.loadDefaultStyle = True
         layer = sublayers[0].toLayer(options)
         if layer.isValid():
-            layer.setName(name)
-            QgsProject.instance().addMapLayer(layer)
+            found = False
+            layers = QgsProject.instance().mapLayers()
+            for l in layers.values():
+                if l.source().split("|")[0] == layer.source().split("|")[0]:
+                    found = True
+            if not found:
+                layer.setName(name)
+                QgsProject.instance().addMapLayer(layer)
     else:
-        layer = iface.addVectorLayer(layer_path, name, 'ogr')
-
-    if layer is None or not layer.isValid():
-        log(f'Failed to add layer {layer_path}')
-        return False
-
-    if start_editing:
-        layer.startEditing()
-
-    return True
+        found = False
+        layers = QgsProject.instance().mapLayers()
+        for l in layers.values():
+            if l.source().split("|")[0] == layer_path:
+                found = True
+        if not found:
+            layer = iface.addVectorLayer(layer_path, name, 'ogr')
 
 def set_default_value(v_path: str, field: str, r_path: str, band: int, v: int):
     sublayers = QgsProviderRegistry.instance().providerMetadata('ogr').querySublayers(v_path)
@@ -989,4 +991,13 @@ def set_default_value(v_path: str, field: str, r_path: str, band: int, v: int):
     if res[0] > 0:
         for i in res[1]:
             layer.deleteStyleFromDatabase(i)
-    layer.saveStyleToDatabase('error_recode', '', True, '')
+    layer.saveStyleToDatabase('false_positive', '', True, '')
+
+def edit(layer):
+    layers = QgsProject.instance().mapLayers()
+    for l in layers.values():
+        if l.source().split("|")[0] == layer:
+            if l.isEditable():
+                l.commitChanges()
+            else:
+                l.startEditing()

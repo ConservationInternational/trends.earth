@@ -15,10 +15,12 @@ from te_schemas.results import RasterResults
 
 from . import manager
 from .. import layers
+from .. import charts
 from .. import metadata
 from .. import metadata_dialog
 from .. import openFolder
 from .. import utils
+from ..logger import log
 from ..conf import Setting
 from ..conf import settings_manager
 from ..data_io import DlgDataIOAddLayersToMap
@@ -477,68 +479,72 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
 
                 manager.job_manager.write_job_metadata_file(self.job)
 
+                log('setting default values for charts')
                 layers.set_default_value(
                     str(self.job.results.vector.uri.uri),
                     "prod_imp",
                     str(prod.path),
                     prod.band_index,
-                    1,
+                    [4, 5],
                 )
                 layers.set_default_value(
                     str(self.job.results.vector.uri.uri),
                     "prod_deg",
                     str(prod.path),
                     prod.band_index,
-                    -1,
+                    [1, 2],
                 )
                 layers.set_default_value(
                     str(self.job.results.vector.uri.uri),
                     "prod_stab",
                     str(prod.path),
                     prod.band_index,
-                    0,
+                    [3],
                 )
                 layers.set_default_value(
                     str(self.job.results.vector.uri.uri),
                     "land_imp",
                     str(land.path),
                     land.band_index,
-                    1,
+                    [1],
                 )
                 layers.set_default_value(
                     str(self.job.results.vector.uri.uri),
                     "land_deg",
                     str(land.path),
                     land.band_index,
-                    -1,
+                    [-1],
                 )
                 layers.set_default_value(
                     str(self.job.results.vector.uri.uri),
                     "land_stab",
                     str(land.path),
                     land.band_index,
-                    0,
+                    [0],
                 )
                 layers.set_default_value(
                     str(self.job.results.vector.uri.uri),
                     "soil_imp",
                     str(soil.path),
                     soil.band_index,
-                    1,
+                    [1],
+                    transform=charts.recode_deg_soc,
                 )
                 layers.set_default_value(
                     str(self.job.results.vector.uri.uri),
                     "soil_deg",
                     str(soil.path),
                     soil.band_index,
-                    -1,
+                    [-1],
+                    transform=charts.recode_deg_soc,
                 )
                 layers.set_default_value(
                     str(self.job.results.vector.uri.uri),
                     "soil_stab",
                     str(soil.path),
                     soil.band_index,
-                    0,
+                    [0],
+                    transform=charts.recode_deg_soc,
                 )
 
                 manager.job_manager.display_special_area_layer(self.job)

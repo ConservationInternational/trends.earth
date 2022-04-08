@@ -33,7 +33,7 @@ from te_schemas.results import Raster, ResultType, RasterType
 from . import GetTempFilename, areaofinterest, conf, layers, utils, worker
 from . import metadata_dialog
 from . import metadata
-from .jobs.manager import job_manager
+from .jobs.manager import job_manager, load_raw_job
 from .jobs.models import Job
 from .logger import log
 
@@ -674,7 +674,7 @@ class DlgDataIOLoadTE(QtWidgets.QDialog, Ui_DlgDataIOLoadTE):
         if path.is_file():
             try:
                 raw_job = json.loads(path.read_text())
-                job = Job.Schema().load(raw_job)
+                job = load_raw_job(raw_job)
             except json.JSONDecodeError:
                 error_message = "Could not parse the selected file into a valid JSON"
 

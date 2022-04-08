@@ -32,6 +32,7 @@ from qgis.core import (
     QgsRectangle,
     QgsReferencedRectangle,
     QgsSimpleLegendNode,
+    QgsVectorLayer,
     QgsTask,
 )
 from qgis.gui import (
@@ -120,6 +121,11 @@ class ReportTaskProcessor:
         self._basemap_layers = []
         self._output_root_dir = ''
         self._charts_mgr = AlgorithmChartsManager()
+
+        # Stores the reference style for the base layers
+        self._base_layers_fonts = {}
+        self._base_layers_symbol_sizes = {}
+
 
     @property
     def context(self) -> ReportTaskContext:
@@ -281,7 +287,49 @@ class ReportTaskProcessor:
             # Get associated child layers
             child_layers = root.findLayers()
             for cl in child_layers:
-                self._basemap_layers.append(cl.layer())
+                vl = cl.layer()
+                self._basemap_layers.append(vl)
+
+                # Set the reference font sizes
+                if not isinstance(vl, QgsVectorLayer):
+                    continue
+
+                labeling = vl.labeling()
+                if labeling is None:
+                    continue
+
+                lbl_type = labeling.type()
+                if lbl_type == 'simple':
+                    settings = labeling.settings()
+                    lbl_format = settings.format()
+                    self._base_layers_fonts[vl.name()] = lbl_format.size()
+                elif lbl_type == 'rule-based':
+                    rule_font_size = {}
+                    root_rule = labeling.rootRule()
+                    child_rules = root_rule.children()
+                    for cr in child_rules:
+                        child_settings = cr.settings()
+                        child_format = child_settings.format()
+                        rule_font_size[cr.description()] = child_format.size()
+                    self._base_layers_fonts[vl.name()] = rule_font_size
+
+
+                # Set reference marker symbol sizes
+                renderer = vl.renderer()
+
+                # For now we are only interested in layers with rule-based
+                # renderers
+                if renderer.type() == 'RuleRenderer':
+                    root_rule = renderer.rootRule()
+                    children = root_rule.children()
+                    marker_size = {}
+                    for cr in children:
+                        symbol = cr.symbol()
+                        if symbol.type() != Qgis.SymbolType.Marker:
+                            continue
+                        marker_size[cr.label()] = symbol.size()
+
+                    self._base_layers_symbol_sizes[vl.name()] = marker_size
 
     def _save_project(self) -> bool:
         # Save project file to disk.
@@ -350,6 +398,91 @@ class ReportTaskProcessor:
 
         for bml in self._basemap_layers:
             basemap_group.addLayer(bml)
+
+    def update_base_layers_font(self, template_type: TemplateType):
+        """
+        Scale the font of the base layers based on the template type.
+        """
+        # Set font factor based on template type
+        if template_type == TemplateType.FULL:
+            font_size_factor = 1
+        elif template_type == TemplateType.SIMPLE:
+            font_size_factor = 0.35
+
+        for bl in self._basemap_layers:
+            if not isinstance(bl, QgsVectorLayer):
+                continue
+
+            font_size_info = self._base_layers_fonts.get(bl.name(), None)
+            if font_size_info is None:
+                continue
+
+            labeling_rt = bl.labeling()
+            if labeling_rt is None:
+                continue
+
+            labeling = labeling_rt.clone()
+            lbl_type = labeling.type()
+            if lbl_type == 'simple':
+                settings = labeling.settings()
+                lbl_format = settings.format()
+                new_size = font_size_info * font_size_factor
+                lbl_format.setSize(new_size)
+                settings.setFormat(lbl_format)
+                labeling.setSettings(settings)
+
+            elif lbl_type == 'rule-based':
+                root_rule = labeling.rootRule()
+                child_rules = root_rule.children()
+                for cr in child_rules:
+                    description = cr.description()
+                    ref_size = font_size_info.get(description, None)
+                    if ref_size is None:
+                        continue
+
+                    child_settings = cr.settings()
+                    child_format = child_settings.format()
+                    new_size = ref_size * font_size_factor
+                    child_format.setSize(new_size)
+                    child_settings.setFormat(child_format)
+                    cr.setSettings(child_settings)
+
+            # We also need to update the size of applicable marker symbols
+            # so that they do not appear disproportional.
+            renderer = bl.renderer().clone()
+            refresh_renderer = False
+
+            # For now we are only interested in layers with rule-based
+            # renderers
+            ref_size_info = self._base_layers_symbol_sizes.get(
+                bl.name(),
+                None
+            )
+            if ref_size_info is not None:
+                if renderer.type() == 'RuleRenderer':
+                    root_rule = renderer.rootRule()
+                    children = root_rule.children()
+                    for cr in children:
+                        lbl = cr.label()
+                        ref_size = ref_size_info.get(lbl, None)
+                        if ref_size is None:
+                            continue
+                        symbol = cr.symbol().clone()
+                        if symbol.type() != Qgis.SymbolType.Marker:
+                            continue
+                        new_marker_size = ref_size * font_size_factor
+                        symbol.setSize(new_marker_size)
+                        cr.setSymbol(symbol)
+
+                        if not refresh_renderer:
+                            refresh_renderer = True
+
+            # Set new renderer if it has been updated
+            if refresh_renderer:
+                bl.setRenderer(renderer)
+
+            bl.setLabeling(labeling)
+            bl.triggerRepaint()
 
     def _update_project_metadata_extents(self, layer=None, title=None):
         # Update the extents and metadata of the project or reference layer.
@@ -444,6 +577,7 @@ class ReportTaskProcessor:
                 or self._options.template_type == TemplateType.ALL:
             # Remove sub-group heading/layer name
             self._legend_renderer_ctx.remove_sub_group_heading = True
+            self.update_base_layers_font(TemplateType.SIMPLE)
             self._generate_reports(ref_simple_temp, True)
 
         if self._process_cancelled():
@@ -454,6 +588,7 @@ class ReportTaskProcessor:
                 or self._options.template_type == TemplateType.ALL:
             # Retain sub-group heading
             self._legend_renderer_ctx.remove_sub_group_heading = False
+            self.update_base_layers_font(TemplateType.FULL)
             self._generate_reports(ref_full_temp, False)
 
         # Update general metadata and save project

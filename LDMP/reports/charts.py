@@ -662,7 +662,7 @@ class StackedBarChart(BaseChart):
                     y=values,
                     name=series_name,
                     textposition='inside',
-                    texttemplate='%{y:,.4r}',
+                    texttemplate='%{y:,.2f}',
                     marker_color=color,
                     textfont={
                         'size': self.font_size_labels

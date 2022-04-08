@@ -1,4 +1,3 @@
-import copy
 import datetime as dt
 import json
 import re
@@ -44,7 +43,6 @@ from . import models
 from .models import Job
 
 logger = logging.getLogger(__name__)
-
 
 
 def is_gdal_vsi_path(path: Path):
@@ -117,8 +115,7 @@ def _set_results_extents_vector(job):
             f'extent to {job.results.extent}')
 
 
-def _load_raw_job(raw_job):
-    job = Job.Schema().load(raw_job)
+def _set_results_extents(job):
     if (
         job.results.type == results.ResultType.RASTER_RESULTS and
         job.status in [jobs.JobStatus.DOWNLOADED, jobs.JobStatus.GENERATED_LOCALLY]
@@ -129,6 +126,12 @@ def _load_raw_job(raw_job):
         job.status in [jobs.JobStatus.DOWNLOADED, jobs.JobStatus.GENERATED_LOCALLY]
     ):
         _set_results_extents_vector(job)
+
+
+def load_raw_job(raw_job):
+    job = Job.Schema().load(raw_job)
+    _set_results_extents(job)
+
     return job
 
 
@@ -422,7 +425,7 @@ class JobManager(QtCore.QObject):
         except TypeError:
             job = None
         else:
-            job = _load_raw_job(raw_job)
+            job = load_raw_job(raw_job)
             self.write_job_metadata_file(job)
             self._update_known_jobs_with_newly_submitted_job(job)
             self.submitted_remote_job.emit(job)
@@ -600,17 +603,10 @@ class JobManager(QtCore.QObject):
         ):
             # If the path doesn't exist, but the filename does exist in the
             # same folder as the job, assume that is what is meant
-            possible_path = Path(job_path.parent / job.results.uri.uri.name
-                                 ).absolute()
+            job.results.update_uris(job_path)
 
-            if possible_path.exists():
-                job.results.uri.uri = possible_path
-            job.results.uri.uri = possible_path
-            # # Assume the other_paths also need to be converted
-            # job.results.other_paths = [
-            #     Path(job_path.parent / p).absolute()
-            #     for p in job.results.other_paths
-            # ]
+        _set_results_extents(job)
+
         self._move_job_to_dir(job, job.status, force_rewrite=True)
 
         if job.status == jobs.JobStatus.PENDING:
@@ -954,7 +950,7 @@ class JobManager(QtCore.QObject):
             with job_metadata_path.open(encoding=self._encoding) as fh:
                 try:
                     raw_job = json.load(fh)
-                    job = _load_raw_job(raw_job)
+                    job = load_raw_job(raw_job)
                 except (KeyError, json.decoder.JSONDecodeError) as exc:
                     if conf.settings_manager.get_value(conf.Setting.DEBUG):
                         log(

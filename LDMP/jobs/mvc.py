@@ -15,23 +15,21 @@ from te_schemas.results import RasterResults
 
 from . import manager
 from .. import layers
-from .. import charts
 from .. import metadata
 from .. import metadata_dialog
 from .. import openFolder
 from .. import utils
-from ..logger import log
 from ..conf import Setting
 from ..conf import settings_manager
 from ..data_io import DlgDataIOAddLayersToMap
 from ..datasets_dialog import DatasetDetailsDialogue
-from ..reports.mvc import DatasetReportHandler
 from ..select_dataset import DlgSelectDataset
-from ..utils import FileUtils
 from .models import Job
 from .models import SortField
 from .models import TypeFilter
 from qgis.core import QgsProject
+from ..utils import FileUtils
+from ..reports.mvc import DatasetReportHandler
 
 
 WidgetDatasetItemUi, _ = uic.loadUiType(
@@ -297,9 +295,11 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             QtGui.QIcon(os.path.join(ICON_PATH, "mActionAddOgrLayer.svg"))
         )
 
-        self.report_pb.setIcon(FileUtils.get_icon("report.svg"))
+        self.report_pb.setIcon(FileUtils.get_icon('report.svg'))
         self._report_handler = DatasetReportHandler(
-            self.report_pb, self.job, self.main_dock.iface
+            self.report_pb,
+            self.job,
+            self.main_dock.iface
         )
         # self.add_to_canvas_pb.setFixedSize(self.open_directory_tb.size())
         # self.add_to_canvas_pb.setMinimumSize(self.open_directory_tb.size())
@@ -478,76 +478,81 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                     }
 
                 manager.job_manager.write_job_metadata_file(self.job)
+                manager.job_manager.display_special_area_layer(self.job)
 
-                log('setting default values for charts')
                 layers.set_default_value(
                     str(self.job.results.vector.uri.uri),
                     "prod_imp",
-                    str(prod.path),
+                    str(prod.path.as_posix()),
                     prod.band_index,
-                    [4, 5],
+                    "4,5",
+                    False
                 )
                 layers.set_default_value(
                     str(self.job.results.vector.uri.uri),
                     "prod_deg",
-                    str(prod.path),
+                    str(prod.path.as_posix()),
                     prod.band_index,
-                    [1, 2],
+                    "1,2",
+                    False
                 )
                 layers.set_default_value(
                     str(self.job.results.vector.uri.uri),
                     "prod_stab",
-                    str(prod.path),
+                    str(prod.path.as_posix()),
                     prod.band_index,
-                    [3],
+                    "3",
+                    False
                 )
                 layers.set_default_value(
                     str(self.job.results.vector.uri.uri),
                     "land_imp",
-                    str(land.path),
+                    str(land.path.as_posix()),
                     land.band_index,
-                    [1],
+                    "1",
+                    False
                 )
                 layers.set_default_value(
                     str(self.job.results.vector.uri.uri),
                     "land_deg",
-                    str(land.path),
+                    str(land.path.as_posix()),
                     land.band_index,
-                    [-1],
+                    "-1",
+                    False
                 )
                 layers.set_default_value(
                     str(self.job.results.vector.uri.uri),
                     "land_stab",
-                    str(land.path),
+                    str(land.path.as_posix()),
                     land.band_index,
-                    [0],
+                    "0",
+                    False
                 )
                 layers.set_default_value(
                     str(self.job.results.vector.uri.uri),
                     "soil_imp",
-                    str(soil.path),
+                    str(soil.path.as_posix()),
                     soil.band_index,
-                    [1],
-                    transform=charts.recode_deg_soc,
+                    "1",
+                    True
                 )
                 layers.set_default_value(
                     str(self.job.results.vector.uri.uri),
                     "soil_deg",
-                    str(soil.path),
+                    str(soil.path.as_posix()),
                     soil.band_index,
-                    [-1],
-                    transform=charts.recode_deg_soc,
+                    "-1",
+                    True
                 )
                 layers.set_default_value(
                     str(self.job.results.vector.uri.uri),
                     "soil_stab",
-                    str(soil.path),
+                    str(soil.path.as_posix()),
                     soil.band_index,
-                    [0],
-                    transform=charts.recode_deg_soc,
+                    "0",
+                    True
                 )
 
-                manager.job_manager.display_special_area_layer(self.job)
                 manager.job_manager.edit_special_area_layer(self.job)
                 self.main_dock.resume_scheduler()
         else:

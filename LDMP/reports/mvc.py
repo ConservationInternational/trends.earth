@@ -44,7 +44,10 @@ from .utils import (
     job_has_results,
     job_report_directory
 )
-from ..utils import FileUtils
+from ..utils import (
+    FileUtils,
+    open_qgis_project
+)
 
 
 class DatasetReportHandler:
@@ -108,15 +111,14 @@ class DatasetReportHandler:
 
         self._rpt_btn.setMenu(self._rpt_menu)
 
-        # Check report configuration
-        if hasattr(self._job.script, 'name'):
-            scope = self._job.script.name
-        else:
-            # Vector layers won't have a script type
-            # 
-            # TODO: Need to add an alternate field to determine scope so reports
-            # can be processed on vector layers
+        # Check report configuration based on the nature of the job
+        if self._job.is_vector():
+            # To be used to generate reports for vector results in the
+            # future. For now, the process exits.
             return
+        else:
+            scope = self._job.script.name
+
         single_scope_configs = template_manager.single_scope_configs()
         configs = template_manager.configs_by_scope_name(
             scope,
@@ -242,8 +244,12 @@ class DatasetReportHandler:
             )
             return
 
-        proj_path_url = QUrl(QUrl.fromLocalFile(proj_path))
-        QDesktopServices.openUrl(proj_path_url)
+        status = open_qgis_project(proj_path)
+        if not status:
+            self._push_refactor_message(
+                self.tr('Open Layouts'),
+                self.tr('Unable to open the QGIS project file.')
+            )
 
     @classmethod
     def tr(cls, source):

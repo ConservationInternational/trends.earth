@@ -597,6 +597,7 @@ class JobManager(QtCore.QObject):
         # datapath
 
         if (
+            hasattr(job.results, 'uri')  and
             job.results.uri and not job.results.uri.uri.is_absolute() and
             not is_gdal_vsi_path(job.results.uri.uri
                                  )  # don't change gdal virtual fs references

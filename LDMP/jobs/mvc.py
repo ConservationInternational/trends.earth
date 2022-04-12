@@ -591,7 +591,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
     def load_vector_menu_setup(self):
         self.load_vector_menu = QtWidgets.QMenu()
         action_add_vector_to_map = self.load_vector_menu.addAction(
-            self.tr("Add special area layer to map")
+            self.tr("Add vector layer to map")
         )
         action_add_vector_to_map.triggered.connect(self.load_layer)
         action_add_rasters_to_map = self.load_vector_menu.addAction(

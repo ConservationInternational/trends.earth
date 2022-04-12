@@ -1,9 +1,9 @@
 .. _tut_special_areas:
 
-Special areas
+False positive/negative layers
 ==============================
 
-- **Objective**: Learn how to create special areas datasets.
+- **Objective**: Learn how to create false positive/negative vector datasets.
 
 - **Estimated time of completion**: 40 minutes
 
@@ -31,7 +31,7 @@ Special areas
 .. image:: ../../../resources/en/documentation/special_areas/false_positive_data.png
    :align: center
 
-5. To add special area dataset to QGIS map canvas for viewing use **Add to canvas** button
+5. To add the vector dataset to QGIS map canvas for viewing use **Add to canvas** button
 
 .. image:: ../../../resources/en/documentation/special_areas/add_button.png
    :align: center
@@ -41,7 +41,7 @@ Special areas
 .. image:: ../../../resources/en/documentation/special_areas/layer_styling.png
    :align: center
 
-6. To define special areas in the dataset it is necessary to add it to QGIS map canvas using **Edit layer** button
+6. To define areas in the dataset it is necessary to add it to QGIS map canvas using **Edit layer** button
 
 .. image:: ../../../resources/en/documentation/special_areas/add_button.png
    :align: center
@@ -51,9 +51,9 @@ Special areas
 .. image:: ../../../resources/en/documentation/special_areas/layers_selector.png
    :align: center
 
-In this dialog it is necessary to select indicator layers which will be used to calculate charts. This is one-time action, choice made in this dialog will be preserved and used in all subsequent edits of this specific special areas dataset.
+In this dialog it is necessary to select indicator layers which will be used to calculate charts. This is one-time action, choice made in this dialog will be preserved and used in all subsequent edits of this specific vector dataset.
 
-8. Once dataset added to the canvas in editing mode, special area polygon can be created using either **Polygon** tool
+8. Once the dataset added to the canvas in editing mode, polygons can be created using either **Polygon** tool
 
 .. image:: ../../../resources/en/documentation/special_areas/layers_selector.png
    :align: center
@@ -65,17 +65,17 @@ or **Buffer** tool
 
 which can be found on the **Trends.Earth** toolbar.
 
-9. The **Polygon** tool used to digitize special area polygon manually, using the same point-and-click approach as native QGIS digiting tools do. When **Polygon** tool is selected and digitizing started in the top-right corner of the QGIS mapcanvas a widget showing area of the polygon will be displayed.
+9. The **Polygon** tool used to digitize polygons manually, using the same point-and-click approach as native QGIS digiting tools do. When **Polygon** tool is selected and digitizing started in the top-right corner of the QGIS mapcanvas a widget showing area of the polygon will be displayed.
 
 .. image:: ../../../resources/en/documentation/special_areas/area_selector.png
    :align: center
 
-10. The **Buffer** tool used to digitize special area polygon by selecting a center point and defining a radius or area of the circle around that center point. Once **Buffer** tools is selected and center point defined with the mouse click in the top-right corner of the QGIS map canvas a widget showing circle radius will be shown. Enter desired radius and press **Enter** key to create circle. Alternatively it is possible to draw circle manually by moving mouse cursor, in this case current radius will be displayed in the same widget.
+10. The **Buffer** tool used to digitize polygons by selecting a center point and defining a radius or area of the circle around that center point. Once **Buffer** tools is selected and center point defined with the mouse click in the top-right corner of the QGIS map canvas a widget showing circle radius will be shown. Enter desired radius and press **Enter** key to create circle. Alternatively it is possible to draw circle manually by moving mouse cursor, in this case current radius will be displayed in the same widget.
 
 .. image:: ../../../resources/en/documentation/special_areas/radius_selector.png
    :align: center
 
-11. When digitizing of the special area polygon is finished a custom attribute form will be shown.
+11. When digitizing of the polygon is finished a custom attribute form will be shown.
 
 .. image:: ../../../resources/en/documentation/special_areas/attribute_form.png
    :align: center

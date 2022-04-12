@@ -446,11 +446,9 @@ To display charts in the attribute form a built-in QML widget is used.
 Data for charts are stored in the vector layer attribute table.
 Values from the corresponding fields extracted with the help of expressions.
 
-Here is how code to generate chars looks like:
+The code to generate charts looks like this:
 
 .. code-block:: python
-
-.. code-block::
 
    import QtQuick 2.0
    import QtCharts 2.0

@@ -13,7 +13,7 @@ Potential Carbon Sequestration under Restoration
     Refer to the :ref:`background_restoration` for background information on the datasets and 
 	methodology used for this tutorial.
 
-.. _compute_forest_data:
+.. _compute_restoration_data:
 
 Estimate potential impacts of restoration
 --------------------------------------------   

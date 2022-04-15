@@ -1701,7 +1701,7 @@ class WidgetDataIOSelectTEDatasetExisting(
             self.selected_job_changed
         )
 
-        self.NO_DATASETS_MESSAGE =  self.tr('No datasets available in this region (see advanced)')
+        self.NO_DATASETS_MESSAGE =  self.tr('No datasets available in this region')
 
     def populate(self):
         aoi = areaofinterest.prepare_area_of_interest()

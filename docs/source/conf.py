@@ -88,9 +88,9 @@ gettext_compact = False
 # built documents.
 #
 # The short X.Y version.
-version = "1.99.9"
+version = "1.99.10"
 # The full version, including alpha/beta/rc tags.
-release = "1.99.9"
+release = "1.99.10"
 
 rst_epilog = """
 .. |iconCalculator| image:: /static/common/icon-calculator.png

@@ -400,6 +400,12 @@ class DlgCalculateLDNSummaryTableAdmin(
 
         self._finish_initialization()
 
+        self.combo_datasets_baseline.NO_DATASETS_MESSAGE =  self.tr(
+            'No datasets available in this region (see advanced)'
+        )
+        self.combo_datasets_progress.NO_DATASETS_MESSAGE =  self.tr(
+            'No datasets available in this region (see advanced)'
+        )
         self.combo_boxes['baseline'] = ldn.SummaryTableLDWidgets(
             combo_datasets=self.combo_datasets_baseline,
             combo_layer_traj=self.combo_layer_traj_baseline,

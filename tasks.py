@@ -241,7 +241,7 @@ def set_version(c, v=None, ta=False, ts=False):
         # Set in scripts.json
         print('Setting version to {} in scripts.json'.format(v))
         scripts_regex = re.compile(
-            '("script version": ")[0-9]+([-._][0-9]+)+', re.IGNORECASE
+            '("version": ")[0-9]+([-._][0-9]+)+', re.IGNORECASE
         )
         _replace(
             os.path.join(c.plugin.source_dir, 'data', 'scripts.json'),

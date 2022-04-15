@@ -108,7 +108,7 @@ Publications
 ___________________________
 
 Peer-reviewed Publications
------------------------
+---------------------------
 
 The below peer-reviewed publications either use or relate to |trends.earth|.
 

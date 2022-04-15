@@ -386,58 +386,46 @@ Loading custom soil organic carbon data
 
 .. note:: This tool assumes that the units of the raster layer to be imported are **Metrics Tons of organic carbon per hectare**. If your layer is in different units, please make the necessary conversions before using it in Trends.Earth.
 
-1. To load soil organic carbon data click on the (|iconfolder|) icon in the Trends.Earth toolbar.
+1. To load a custom Soil Organic Carbon data click on the **Datasets** window, and then click on **Import datset**.
 
-.. image:: ../../../resources/en/common/ldmt_toolbar_highlight_loaddata.png
+.. image:: ../../../resources/en/common/trends_earth_import_dataset.png
    :align: center
 
-2. The **Load data** menu will open. Select **Soil organic carbon** from the **Import a custom input dataset** section.
+2. Several options will appear. Select **Import custom Soil Organic Carbon** from the list.
+
+.. image:: ../../../resources/en/training/t09/import_custom_soc.png
+   :align: center
+
+3. In the **Load a Custom Soil Organic Carbon (SOC) dataset** window, use the radio button to select the format of the input file (raster or vector). For this tutorial select raster, since the data distributed by the UNCCD is in raster format. Click on **Browse** to navigate to the SOC file you wish to import.
    
-.. image:: ../../../resources/en/training/t09/custom_soc.png
+.. image:: ../../../resources/en/training/t09/import_custom_soc_2.png
    :align: center
-
-3. In the **Load a Custom Soil Organic Carbon (SOC) dataset** use the radio 
-   button to select the format of the input file (raster or vector). For this 
-   tutorial select raster, since the data distributed by the UNCCD is in raster 
-   format. Click on **Browse** to navigate to the soil organic carbon file you 
-   wish to import.
    
-.. image:: ../../../resources/en/training/t09/custom_soc_menu1.png
-   :align: center
+   Click on **Browse** to navigate to the file to be imported, select it, and click **Open**. 
 
-4. Use the **Select input file** window to navigate to the file to be imported, select it, and click **Open**.   
+4. In the **Load a Custom Soil Organic Carbon (SOC) dataset** window you also have options for selecting the band number in which the SOC data is stored, in case your input file is a multi band raster. You also have the option of modifying the resolution of the file. We recommend leaving those as defaults unless you have valid reasons for changing them.
+
+   Define the year of reference for the data. In this case, since the SOC dataset for Uganda was developed for the **year 2000**, define it as such. Make sure you are assigning the correct year.
+  
+6. Click **Browse** at the bottom of the window to select the **Output raster file**.
    
-.. image:: ../../../resources/en/training/t09/soc_input.png
-   :align: center
-
-5. Back at the **Load a Custom Soil Organic Carbon (SOC) dataset** window you have options for selecting the band number in which the productivity data is stored, in case your input file is a multi band raster. You also have the option of modifying the resolution of the file. We recommend leaving those as defaults unless you have valid reasons for changing them.
-
-6. Define the year of reference for the data. In this case, we will assume the soil organic carbon data is from 2000, but if using local data, make sure you are assigning the correct year.
-
-7. Click **Browse** at the bottom of the window to select the **Output raster file**.
-   
-.. image:: ../../../resources/en/training/t09/custom_soc_menu2.png
-   :align: center
-
-8. Navigate to the folder where you want to save the file. Assign it a name and click **Save**.
+7. Navigate to the folder where you want to save the file. Assign it a name and click **Save**.
    
 .. image:: ../../../resources/en/training/t09/soc_output.png
    :align: center
 
-9. Back at the **Load a Custom Soil Organic Carbon (SOC) dataset** click **OK** for the tool to run.
+8. Back at the **Load a Custom Soil Organic Carbon (SOC) dataset** click **OK** for the tool to run.
 
-.. image:: ../../../resources/en/training/t09/custom_soc_menu2.png
+.. image:: ../../../resources/en/training/t09/import_custom_soc_3sni.png
    :align: center
 
-10. A progress bar will appear showing the percentage of the task completed.      
+9. When you click **Execute locally**,a progress bar will appear showing the percentage of the task completed.     
    
-.. image:: ../../../resources/en/training/t08/running.png
-   :align: center
-
-11. When the processing is completed, the imported soil organic carbon dataset will be loaded to QGIS.
+10. In the **Datasets** window, find the **Imported dataset (Soil Organic Carbon) and click on click on **Load dataset onto QGIS map area**.   
    
-.. image:: ../../../resources/en/training/t09/soc_output_map.png
+.. image:: ../../../resources/en/training/t09/import_custom_soc_add_dataset.png
    :align: center
+   
 
 Calculating soil organic carbon with custom data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -447,59 +435,47 @@ calculate soil organic carbon degradation from that data. To do so, first
 ensure the custom soil organic carbon data is loaded within QGIS (see 
 :ref:`load_custom_soc`).
 
-1. To calculate soil organic carbon degradation from custom data, first click 
-   on the (|iconCalculator|) icon on the Trends.Earth toolbar:
+1. Search for the Trends.Earth toolbar within QGIS, and click on the Trends.Earth icon.
+   
+.. image:: ../../../resources/en/common/icon-trends_earth_selection.png
+   :align: center   
 
-.. image:: ../../../resources/en/common/ldmt_toolbar_highlight_calculate.png
+2. The **Trends.Earth** panel will open. In the **Algorithm** window, click on **SDG 15.3.1- Land Degradation** and select **Execute locally** under **Soil Organic Carbon**.
+
+.. image:: ../../../resources/en/documentation/calculate/so1_sdg1531_indicator.PNG
    :align: center
 
-2. The "Calculate indicators" menu will open. Select "Soil organic carbon" 
-   from the "Option 2: Use customized data" section.
+.. image:: ../../../resources/en/training/t09/soc_execute_locally.png
+   :align: center
    
+
+3. The "Soil Organic Carbon | Land Degradation" window will open. Click on the dropdown lists and select the **Initial year layer** and the **Target year layer** 
+   to load land cover dataset you have already processed in Trends.Earth representing the initial and target years of the time-series for which the SOC sub-indicator is being calculated.
+   See the :ref:`tut_custom_lc` tutorial for more information on loading land cover datasets. Enter a **Execution name** and make sure to enter some notes for future reference.
+
 .. image:: ../../../resources/en/training/t09/custom_soc_calculate.png
    :align: center
 
-3. The "Calculate Soil Organic Carbon" window will open. Click the radio button 
-   next to "Custom land cover dataset" and select either "Import" to import a 
-   custom land cover dataset, or "Load existing" to load a land cover dataset 
-   you have already processed in Trends.Earth. Be sure to select both an 
-   "Initial layer" and a "Final layer". See the :ref:`tut_custom_lc` tutorial 
-   for more information on loading land cover datasets. Once you have selected 
-   both datasets, click next:
+4. Under **Advanced configuration**, you have the options to set a **Climate regime** that is most appropriate for you region of interest.
+   You can leave this option as defaults, **Specify regime** by selecting one of the Global Climatic Regions listed under the dropdown menu, or either enter a **Custom value** in case you have valid reasons for changing them.
 
-.. image:: ../../../resources/en/training/t09/calc_soc_select_lc.png
+.. image:: ../../../resources/en/training/t09/custom_soc_climate_regime.png
    :align: center
+   
+5. Still under **Advanced configuration**, check the ** Custom initial soil organic carbon dataset** box and select a initial dataset representing SOC for the **Initial year layer**
 
-4. On the next screen, click the check box next to "Custom initial soil organic 
-   carbon dataset", and then use the "Import" or "Load existing" buttons to 
-   either import custom soil carbon layer (:ref:`load_custom_soc`) or to load 
-   an existing one that has already been calculated:
-
-.. image:: ../../../resources/en/training/t09/calc_soc_choose_soc_data.png
+.. image:: ../../../resources/en/training/t09/custom_soc_initial_soc_dataset.png
    :align: center
-
-5. Click "Next". Now, choose the area you wish to run calculations for:
-
-.. image:: ../../../resources/en/training/t09/calc_soc_choose_area.png
-   :align: center
-
-6. Click "Next". on the last screen, enter a task name or any notes you might 
-   wish to save (this is optional) and then click "Calculate":
-
-.. image:: ../../../resources/en/training/t09/calc_soc_final_page.png
-   :align: center
-
-7. A progress bar will appear on your screen. Do not quit QGIS or turn off your 
+   
+6. Click "Execute locally". A progress bar will appear on your screen. Do not quit QGIS or turn off your 
    computer until the calculation is complete.
 
-.. image:: ../../../resources/en/training/t09/calc_soc_calculating.png
+.. image:: ../../../resources/en/training/t09/custom_soc_ribon.png
    :align: center
 
-8. Once the calculation is complete, three layers will load onto your map: 1) 
-   the final soil organic carbon layer, 2) the initial soil organic carbon 
-   layer, and 3) the soil organic carbon degradation layer:
-
-.. image:: ../../../resources/en/training/t09/calc_soc_done.png
+7. In the **Datasets** window, find the **Soil organic carbon change** task and click on click on **Load dataset onto QGIS map area**.   
+   
+.. image:: ../../../resources/en/training/t09/custom_soc_add_dataset.png
    :align: center
 
 9. For example, we can see areas of degradation in soil carbon around Kampala:

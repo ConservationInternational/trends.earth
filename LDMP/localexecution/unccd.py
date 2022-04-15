@@ -164,7 +164,6 @@ def compute_unccd_report(
         name="unccd_report",
         uri=URI(uri=tar_gz_path, type="local"),
     )
-    report_job.results.data_path = tar_gz_path
     report_job.end_date = dt.datetime.now(dt.timezone.utc)
     report_job.progress = 100
 

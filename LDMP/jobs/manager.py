@@ -748,7 +748,7 @@ class JobManager(QtCore.QObject):
                         base_output_path.parent /
                         f"{file_out_base}_{uri_number}.tif"
                     )
-                    _download_result(
+                    result = _download_result(
                         uri.uri,
                         base_output_path.parent /
                         f"{file_out_base}_{uri_number}.tif",

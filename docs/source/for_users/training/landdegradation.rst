@@ -22,7 +22,7 @@ Land Degradation Subindicators
 .. image:: ../../../resources/en/documentation/calculate/all_sub-indicators_at_once.png
    :align: center
 
-Select **Execute remotely** button for the Sub-indicators for SDG 15.3.1 analysis.
+   Select **Execute remotely** button for the Sub-indicators for SDG 15.3.1 analysis.
 
 3. In the **SDG 15.3.1 Indicator (one-step) Land Degradation** window. Select the **Trends.Earth land productivity** data.  
 
@@ -70,23 +70,23 @@ Calculate SDG 15.3.1 Indicator and UNCCD's SO 2-3
 .. image:: ../../../resources/en/common/execute-locally.png
    :align: center
    
-The region of interest is already set up in Settings. If you need to change, select the **Change region** button.
+   The region of interest is already set up in Settings. If you need to change, select the **Change region** button.
 
 .. note::
     Refer to the :ref:`tut_settings` section of this manual for more information on setting up your area of interest.
 	
-Select the datasets from **Baseline dataset** and **Progress dataset** drop-down lists according to your selections in the sub-indicator analysis.
+   Select the datasets from **Baseline dataset** and **Progress dataset** drop-down lists according to your selections in the sub-indicator analysis.
 
 .. image:: ../../../resources/en/training/t03/final_subindicator.png
    :align: center
    
-If you have the sub-indicators loaded into the QGIS map, the tool will recognize them and they will show up pre-filled in each corresponding section.
+   If you have the sub-indicators loaded into the QGIS map, the tool will recognize them and they will show up pre-filled in each corresponding section.
 
 .. note::
 	If you have more than one layer loaded into the map per sub-indicator (for example, land cover change computed with default and also with custom data) make sure to check that the one being used to compute the final SDG is the one you want.
 
 3. Click on **Advanced** to expand it and show advanced options then select the **Population (required to calculate populations exposed by degradation** check box to calculate UNCCD's SO 2-3. 
-|trends.earth| provides access the WorldPop dataset, which is used by default by the UNCCD for calculating indicator SO2-3. 
+   |trends.earth| provides access the WorldPop dataset, which is used by default by the UNCCD for calculating indicator SO2-3. 
 
 .. image:: ../../../resources/en/documentation/calculate/so2_ld_pop_exposure.PNG
    :align: center
@@ -125,7 +125,7 @@ Land Degradation Summary
 .. image:: ../../../resources/en/training/t05/sdg_open_dataset_directory.png
    :align: center
 
-The directoty where the summary table was saved along with the geospatial data will open. You see two summary tables in case both Baseline and Progress SDG 15.3.1 were calculated
+   The directoty where the summary table was saved along with the geospatial data will open. You see two summary tables in case both Baseline and Progress SDG 15.3.1 were calculated
 
 .. image:: ../../../resources/en/training/t06/sdg_find_table.png
    :align: center
@@ -134,34 +134,34 @@ The directoty where the summary table was saved along with the geospatial data w
 
 3. In the **SDG 15.3.1** tab you will find the area calculations derived from the indicator map you explored in QGIS.
 
- For the area you run the analysis, you will see the total land area (excluding water bodies): land that experienced improvement, which remained stable, areas degraded, and also information on the areas with no data for the period selected. No data in the SDG 15.3.1 is an indication of no data in some of the input datasets used in the analysis.
+   For the area you run the analysis, you will see the total land area (excluding water bodies): land that experienced improvement, which remained stable, areas degraded, and also information on the areas with no data for the period selected. No data in the SDG 15.3.1 is an indication of no data in some of the input datasets used in the analysis.
 
 .. image:: ../../../resources/en/training/t06/table_sdg.png
    :align: center
 
 3. In the **Productivity** tab you will find at the top, a similar summary as previously explained, but in this case representing the results of the land productivity sub-indicator alone.
 
- In the sections below you will find two tables, each containing area information (in sq. km) for each of the land cover transitions found in the study are during the period analyzed broken by each of the 5 final land productivity classes: Increasing, Stable, Stable but stressed, Early signs of decline, and Declining.
+   In the sections below you will find two tables, each containing area information (in sq. km) for each of the land cover transitions found in the study are during the period analyzed broken by each of the 5 final land productivity classes: Increasing, Stable, Stable but stressed, Early signs of decline, and Declining.
    
 .. image:: ../../../resources/en/training/t06/table_productivity.png
    :align: center
 
 4. In the **Soil organic carbon** tab you will find at the top, a similar summary as previously explained, but in this case representing the results of the soil organic carbon sub-indicator alone.   
 
- In the sections below you will find two tables:
+   In the sections below you will find two tables:
  
- - The first one contains information on changes in carbon stocks from the baseline (initial year of analysis) to the target (final year of analysis).
- - The second presents information soil organic carbon change from baseline to target by type of land cover transition (as percentage of initial stock).
+   - The first one contains information on changes in carbon stocks from the baseline (initial year of analysis) to the target (final year of analysis).
+   - The second presents information soil organic carbon change from baseline to target by type of land cover transition (as percentage of initial stock).
 
 .. image:: ../../../resources/en/training/t06/table_soc.png
    :align: center
    
 5. In the **Land cover** tab you will find at the top, a similar summary as previously explained, but in this case representing the results of the land cover change sub-indicator alone.      
    
- In the sections below you will find two tables:
+   In the sections below you will find two tables:
  
- - The first contains information on land cover change by cover class (sq, km and %).
- - The second contains information on land area by type of land cover transition (sq. km).
+   - The first contains information on land cover change by cover class (sq, km and %).
+   - The second contains information on land area by type of land cover transition (sq. km).
    
 .. image:: ../../../resources/en/training/t06/table_landcover.png
    :align: center
@@ -189,19 +189,19 @@ Custom Data - Productivity
 
 - **Internet access**: Not required
 
-Land productivity data should be formatted following UNCCD guidelines for reporting indicating areas of Declining, Moderate decline, Stressed, Stable, or Increasing land productivity.
+   Land productivity data should be formatted following UNCCD guidelines for reporting indicating areas of Declining, Moderate decline, Stressed, Stable, or Increasing land productivity.
    
-For the productivity data to be used in Trends.Earth the file need to be coded in the following way:
- - Declining = 1
- - Moderate decline = 2
- - Stressed = 3
- - Stable = 4
- - Increasing = 5
- - No data = 0 or -32768
+   For the productivity data to be used in Trends.Earth the file need to be coded in the following way:
+   - Declining = 1
+   - Moderate decline = 2
+   - Stressed = 3
+   - Stable = 4
+   - Increasing = 5
+   - No data = 0 or -32768
 
- If your layer is not coded in such a way, please do the necessary adjustments/reclassification prior to using Trends.Earth.
+   If your layer is not coded in such a way, please do the necessary adjustments/reclassification prior to using Trends.Earth.
  
-1. To load a custom productivity data click on the **Datasets** window, and then click on **Import datset**.
+1. To load a custom productivity data click on the **Datasets** window, and then click on **Import dataset**.
 
 .. image:: ../../../resources/en/common/trends_earth_import_dataset.png
    :align: center
@@ -225,12 +225,12 @@ For the productivity data to be used in Trends.Earth the file need to be coded i
 
 6. Back at the **Load a Custom Land Productivity Dataset** window click **OK** on the lower right corner to process the data.
    
-7. If the values of the input file do not exactly match the requirements describe above, you will see a warning message. In many cases the warning is triggered by the definition of NoData, but the tool will still try to import it. For that reason, it is **extremely important** for you to explore the output layer to make sure the results are mapped as expected.
+7. If the values of the input file do not exactly match the requirements described above, you will see a warning message. In many cases the warning is triggered by the definition of NoData, but the tool will still try to import it. For that reason, it is **extremely important** for you to explore the output layer to make sure the results are mapped as expected.
 
 .. image:: ../../../resources/en/training/t10/warning.png
    :align: center
 
-8. Once you click **Execute remotelly** a progress bar will appear showing the percentage of the task completed.
+8. Once you click **OK** a progress bar will appear showing the percentage of the task completed.
    
 .. image:: ../../../resources/en/training/t10/import_custom_lp_ribon.png
    :align: center 
@@ -259,7 +259,7 @@ Custom Data - Land Cover
    and can be downloaded from this `link <https://s3.amazonaws.com/trends.earth/sharing/RCMRD_Uganda_Land_Cover.zip>`_.
    
 
-1. To load a custom productivity data click on the **Datasets** window, and then click on **Import datset**.
+1. To load a custom productivity data click on the **Datasets** window, and then click on **Import dataset**.
 
 .. image:: ../../../resources/en/common/trends_earth_import_dataset.png
    :align: center
@@ -283,26 +283,26 @@ Custom Data - Land Cover
 .. image:: ../../../resources/en/training/t08/definition1.png
    :align: center
 
-For this example, the Uganda dataset has 18 land cover classes:
+   For this example, the Uganda dataset has 18 land cover classes:
    
 .. image:: ../../../resources/en/training/t08/uganda_legend.png
    :align: center
 
-From the Metadata of the land cover dataset, we know that the best aggregation approach is the following:   
- - No data = 0
- - Tree covered = 1 through 7
- - Grassland = 8 through 11
- - Cropland = 12 through 14
- - Wetland = 15
- - Water body = 16
- - Artificial = 17
- - Other land = 18
+   From the Metadata of the land cover dataset, we know that the best aggregation approach is the following:   
+   - No data = 0
+   - Tree covered = 1 through 7
+   - Grassland = 8 through 11
+   - Cropland = 12 through 14
+   - Wetland = 15
+   - Water body = 16
+   - Artificial = 17
+   - Other land = 18
 
 6. Use the **Setup aggregation of land cover data menu** to assign to each number in the **Input class** its corresponding **Output class**.
 
- When you are done editing, click **Save definition file**. This option will save you time next time you run the tool, by simply loading the definition file you previously saved.
+   When you are done editing, click **Save definition file**. This option will save you time next time you run the tool, by simply loading the definition file you previously saved.
 
- Click **Save** to continue 
+   Click **Save** to continue 
  
 .. image:: ../../../resources/en/training/t08/lc_definition.png
    :align: center
@@ -329,7 +329,7 @@ From the Metadata of the land cover dataset, we know that the best aggregation a
 .. image:: ../../../resources/en/training/t08/both_lc_loaded.png
    :align: center
 
-11. Now that both land cover datasets have been imported into Trends.Earth, the land cover change analysis tool needs to be run. Search for the Trends.Earth toolbar within QGIS, and click on the Calculate icon (|iconCalculator|).
+11. Now that both land cover datasets have been imported into Trends.Earth, the land cover change analysis tool needs to be run. In the **Algorithm window**, click on **Execute locally** under **Land cover change**.
    
 .. image:: ../../../resources/en/training/t08/trends_earth_calculate_custom_land_cover.PNG
    :align: center   
@@ -342,18 +342,18 @@ From the Metadata of the land cover dataset, we know that the best aggregation a
 .. image:: ../../../resources/en/training/t08/call_lc_change_tool.png
    :align: center 
    
-The region of interest is already set up in Settings. If you need to change, select the **Change region** button.
+  The region of interest is already set up in Settings. If you need to change, select the **Change region** button.
 
 .. note::
     Refer to the :ref:`tut_settings` section of this manual for more information on setting up your area of interest.
 
 13. Click on **Advanced** to expand it. Here you will define the meaning of each land cover transition in terms of degradation. Transitions indicated in purple (minus sign) will be identified as degradation in the final output, transitions in beige (zero) will be identified as stable, and transitions in green (plus sign) will be identified as improvements. 
 
- For example, by default it is considered that a pixel that changed from **Grassland** to **Tree-covered** will be considered as improved. However, if in your study area woody plant encroachment is a degradation process, that transition should be changed for that particular study area to degradation (minus sign).
+   For example, by default it is considered that a pixel that changed from **Grassland** to **Tree-covered** will be considered as improved. However, if in your study area woody plant encroachment is a degradation process, that transition should be changed for that particular study area to degradation (minus sign).
 
- If you have made no changes to the default matrix, simply click **Execute locally**.
+   If you have made no changes to the default matrix, simply click **Execute locally**.
 
- If you did change the meaning of some of the transitions, click on **Save table to file...** to save the definition for later use.   
+   If you did change the meaning of some of the transitions, click on **Save table to file...** to save the definition for later use.   
    
 .. image:: ../../../resources/en/training/t08/lc_degradation_matrix.png
    :align: center 
@@ -386,7 +386,7 @@ Loading custom soil organic carbon data
 
 .. note:: This tool assumes that the units of the raster layer to be imported are **Metrics Tons of organic carbon per hectare**. If your layer is in different units, please make the necessary conversions before using it in Trends.Earth.
 
-1. To load a custom Soil Organic Carbon data click on the **Datasets** window, and then click on **Import datset**.
+1. To load a custom Soil Organic Carbon data click on the **Datasets** window, and then click on **Import dataset**.
 
 .. image:: ../../../resources/en/common/trends_earth_import_dataset.png
    :align: center
@@ -430,10 +430,8 @@ Loading custom soil organic carbon data
 Calculating soil organic carbon with custom data
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Once you have imported a custom soil organic carbon dataset, it is possible to 
-calculate soil organic carbon degradation from that data. To do so, first 
-ensure the custom soil organic carbon data is loaded within QGIS (see 
-:ref:`load_custom_soc`).
+   Once you have imported a custom soil organic carbon dataset, it is possible to calculate soil organic carbon degradation from that data. To do so, first 
+   ensure the custom soil organic carbon data is loaded within QGIS (see:ref:`load_custom_soc`).
 
 1. Search for the Trends.Earth toolbar within QGIS, and click on the Trends.Earth icon.
    

@@ -220,7 +220,7 @@ _ALGORITHM_CONFIG = [
                 "name": "SDG 15.3.1 error recode (false positive/negative)",
                 "description": (
                     "Correct any known errors (false positives or negatives) "
-                    "in an SDG 15.3.1 Indictator layer. This can be used to correct "
+                    "in an SDG 15.3.1 Indicator layer. This can be used to correct "
                     "misclassifications using expert knowledge or field data."
                 ),
                 "scripts": [

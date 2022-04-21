@@ -44,7 +44,7 @@ from Joint Research Centre.
 4. Select **Execute remotely** button.
 
 .. note::
-    Refer to the :ref:`tut_land_degradation` section of this manual to learn about custom sub-indictors
+    Refer to the :ref:`tut_land_degradation` section of this manual to learn about custom sub-indicators
 	or :ref:`background_landdegradation` section of this manual to learn about the Trends.Earth productivity 
 	indicators developed following the `UNCCD Good Practice Guidance (GPG) <https://www.unccd.int/sites/default/files/relevant-links/2021-03/Indicator_15.3.1_GPG_v2_29Mar_Advanced-version.pdf>`_.
 

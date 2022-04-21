@@ -1742,7 +1742,7 @@ class WidgetDataIOSelectTEDatasetExisting(
         return self.dataset_list[self.comboBox_datasets.currentIndex()]
 
     def get_current_extent(self):
-        job = self.get_curent_job()
+        job = self.get_current_job()
         if job:
             if ResultType(job.results.type) == ResultType.RASTER_RESULTS:
                 band = self.get_bands('any')[0]

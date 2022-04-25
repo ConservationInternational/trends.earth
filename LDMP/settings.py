@@ -10,7 +10,7 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
-
+import json
 import os
 import zipfile
 import typing
@@ -42,6 +42,13 @@ from .conf import (
     settings_manager,
 )
 from .jobs.manager import job_manager
+from .lc_setup import (
+    get_lc_nesting,
+    LCClassInfo,
+    LccInfoUtils
+)
+from te_schemas.land_cover import LCClass
+
 
 Ui_DlgSettings, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgSettings.ui"))
@@ -59,6 +66,12 @@ Ui_WidgetSettingsAdvanced, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/WidgetSettingsAdvanced.ui"))
 Ui_WidgetSettingsReport, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/WidgetSettingsReport.ui"))
+Ui_WidgetLandCoverCustomClassesManager, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/WidgetLCClassManage.ui")
+)
+Ui_WidgetLandCoverCustomClassEditor, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/WidgetLCClassEditor.ui")
+)
 
 
 from .logger import log
@@ -131,6 +144,17 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
             message_bar=self.message_bar)
         self.verticalLayout_advanced.layout().insertWidget(
             0, self.widgetSettingsAdvanced)
+
+        # LC configuration
+        lcc_panel_stack = qgis.gui.QgsPanelWidgetStack()
+        self.lcc_manager = LandCoverCustomClassesManager(
+            lcc_panel_stack,
+            msg_bar=self.message_bar
+        )
+        lcc_panel_stack.setMainPanel(self.lcc_manager)
+        self.lcc_layout.layout().insertWidget(
+            0, lcc_panel_stack
+        )
 
         # Report settings
         self.widget_settings_report = WidgetSettingsReport(
@@ -258,6 +282,7 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
         self.area_widget.save_settings()
         self.widgetSettingsAdvanced.update_settings()
         self.widget_settings_report.save_settings()
+        self.lcc_manager.save_settings()
         super().accept()
 
 
@@ -1332,6 +1357,709 @@ class WidgetSettingsReport(QtWidgets.QWidget, Ui_WidgetSettingsReport):
 
     def sizeHint(self) -> QtCore.QSize:
         return QtCore.QSize(450, 350)
+
+
+class LandCoverCustomClassesManager(
+    qgis.gui.QgsPanelWidget,
+    Ui_WidgetLandCoverCustomClassesManager
+):
+    def __init__(self, parent=None, msg_bar=None):
+        super().__init__(parent)
+        self.setupUi(self)
+        self.setDockMode(True)
+
+        self.msg_bar = msg_bar
+        self.editor = None
+        self._last_clr = None
+        self._init_load = False
+        self.max_classes = settings_manager.get_value(Setting.LC_MAX_CLASSES)
+
+        # UI initialization
+        self.model = QtGui.QStandardItemModel(self)
+        self.model.setHorizontalHeaderLabels(
+            [self.tr('Name'), self.tr('Code'), self.tr('Parent')]
+        )
+        self.tb_classes.setModel(self.model)
+        self.selection_model = self.tb_classes.selectionModel()
+        self.selection_model.selectionChanged.connect(
+            self.on_selection_changed
+        )
+        self.tb_classes.clicked.connect(
+            self.on_class_info_clicked
+        )
+
+        add_icon = qgis.core.QgsApplication.instance().getThemeIcon(
+            'symbologyAdd.svg'
+        )
+        self.btn_add_class.setIcon(add_icon)
+        self.btn_add_class.clicked.connect(
+            self.on_add_class
+        )
+
+        load_table_icon = qgis.core.QgsApplication.instance().getThemeIcon(
+            'mActionFileOpen.svg'
+        )
+        self.btn_load.setIcon(load_table_icon)
+        self.btn_load.clicked.connect(self.on_load_file)
+
+        save_table_icon = qgis.core.QgsApplication.instance().getThemeIcon(
+            'mActionFileSave.svg'
+        )
+        self.btn_save.setIcon(save_table_icon)
+        self.btn_save.clicked.connect(self.on_save_file)
+
+        delete_icon = qgis.core.QgsApplication.instance().getThemeIcon(
+            'symbologyRemove.svg'
+        )
+        self.btn_remove_all.setIcon(delete_icon)
+        self.btn_remove_all.clicked.connect(self.on_clear_class_infos)
+
+    def append_msg(self, msg: str, warning=True):
+        # Add warning or info message if a message bar has been defined.
+        if self.msg_bar is None:
+            return
+
+        if warning:
+            level = qgis.core.Qgis.MessageLevel.Warning
+        else:
+            level = qgis.core.Qgis.MessageLevel.Info
+
+        self.msg_bar.pushMessage(
+            self.tr('Land Cover'),
+            msg,
+            level,
+            5
+        )
+
+    def sizeHint(self) -> QtCore.QSize:
+        return QtCore.QSize(350, 230)
+
+    def resizeEvent(self, event: QtGui.QResizeEvent):
+        # Adjust column width
+        width = event.size().width()
+        self.tb_classes.setColumnWidth(
+            0, int(width * 0.4)
+        )
+        self.tb_classes.setColumnWidth(
+            1, int(width * 0.16)
+        )
+        self.tb_classes.setColumnWidth(
+            2, int(width * 0.4)
+        )
+
+    def on_add_class(self):
+        # Slot raised to add a land cover class.
+        # Check if max number of classes have been reached
+        rows = self.model.rowCount()
+        if rows >= self.max_classes:
+            msg = self.tr('Maximum number of classes reached.')
+            self.append_msg(msg)
+
+            return
+
+        self._open_editor()
+
+    def clear_class_infos(self):
+        # Clears the table of land cover classes.
+        if self.has_class_infos():
+            row_count = self.model.rowCount()
+            self.model.removeRows(0, row_count)
+
+    def has_class_infos(self) -> bool:
+        # Returns True if there are classes in the table, else False.
+        row_count = self.model.rowCount()
+        if row_count == 0:
+            return False
+
+        return True
+
+    def on_clear_class_infos(self):
+        # Slot raised to remove all land cover classes.
+        if not self.has_class_infos():
+            return
+
+        ret = QtWidgets.QMessageBox.warning(
+            self,
+            self.tr('Remove Classes'),
+            self.tr('This action will permanently remove the land cover '
+                    'classes with the default UNCCD land cover classes '
+                    'restored after saving.\nDo you want to proceed?'),
+            QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
+            QtWidgets.QMessageBox.No
+        )
+        if ret == QtWidgets.QMessageBox.Yes:
+            self.clear_class_infos()
+
+    def save_settings(self):
+        """
+        Save classes to settings.
+        """
+        lcc_infos = self.class_infos()
+        status = LccInfoUtils.save_settings(lcc_infos)
+        if not status:
+            log('Custom land cover classes could not be saved to settings.')
+
+    def showEvent(self, event):
+        super().showEvent(event)
+        if not self._init_load:
+            self.load_settings()
+            self._init_load = True
+
+    def load_settings(self):
+        # Load classes from settings.
+        status, lc_classes = LccInfoUtils.load_settings()
+        if not status:
+            log('Failed to read land cover classes from settings.')
+            return
+
+        if len(lc_classes) == 0:
+            log('No land cover classes in settings.')
+            return
+
+        self._load_classes(lc_classes)
+
+    def on_save_file(self):
+        # Slot raised to save current classes to file.
+        if not self.has_class_infos():
+            self.append_msg(
+                self.tr('Nothing to save')
+            )
+            return
+
+        last_dir = settings_manager.get_value(Setting.LC_LAST_DIR)
+        if not last_dir:
+            last_dir = settings_manager.get_value(Setting.BASE_DIR)
+
+        lcc_save_path, _ = QtWidgets.QFileDialog.getSaveFileName(
+            self,
+            self.tr('Save Land Cover Classes'),
+            last_dir,
+            'JSON (*.json)',
+            options=QtWidgets.QFileDialog.DontResolveSymlinks
+        )
+        if lcc_save_path:
+            lcc_infos = self.class_infos()
+            status = LccInfoUtils.save_file(lcc_save_path, lcc_infos)
+            if not status:
+                log(
+                    f'Unable to save land cover '
+                    f'classes to \'{lcc_save_path}\''
+                )
+                return
+
+            fi = QtCore.QFileInfo(lcc_save_path)
+            cls_dir = fi.dir().path()
+            settings_manager.write_value(Setting.LC_LAST_DIR, cls_dir)
+
+    def on_load_file(self):
+        # Slot raised to load JSOn file with custom LC classes.
+        last_dir = settings_manager.get_value(Setting.LC_LAST_DIR)
+        if not last_dir:
+            last_dir = settings_manager.get_value(Setting.BASE_DIR)
+
+        lcc_path, _ = QtWidgets.QFileDialog.getOpenFileName(
+            self,
+            self.tr('Select Land Cover Classes File'),
+            last_dir,
+            'JSON (*.json)',
+            options=QtWidgets.QFileDialog.DontResolveSymlinks
+        )
+        if lcc_path:
+            status, lcc_infos = LccInfoUtils.load_file(lcc_path)
+            if not status:
+                log('Failed to load the custom land cover file.')
+                return
+
+            fi = QtCore.QFileInfo(lcc_path)
+            cls_dir = fi.dir().path()
+            settings_manager.write_value(Setting.LC_LAST_DIR, cls_dir)
+
+            if len(lcc_infos) == 0:
+                self.append_msg(
+                    self.tr('No land cover classes found.')
+                )
+                return
+
+            self._load_classes(lcc_infos)
+
+    def _load_classes(self, classes: typing.List[LCClassInfo]):
+        # Load classes to the table.
+        if not isinstance(classes, list):
+            return
+
+        self.clear_class_infos()
+
+        for lc_cls in classes:
+            if not isinstance(lc_cls, LCClassInfo):
+                log('Not class info')
+                continue
+            self.add_class_info_to_table(lc_cls)
+
+    def _parent_scroll_area(self) -> qgis.gui.QgsScrollArea:
+        # Returns the innermost parent scroll area that this widget might
+        # belong to, else None.
+        parent = self.parentWidget()
+        if parent is None:
+            return None
+
+        parent_scroll = None
+        while parent is not None:
+            if isinstance(parent, qgis.gui.QgsScrollArea):
+                parent_scroll = parent
+                break
+
+            parent = parent.parentWidget()
+
+        return parent_scroll
+
+    def _open_editor(self, lc_cls_info=None):
+        # Opens class editor
+        p = qgis.gui.QgsPanelWidget.findParentPanel(self)
+        if p and p.dockMode():
+            self.editor = LandCoverCustomClassEditor(
+                self,
+                lc_class_info=lc_cls_info,
+                default_color=self._last_clr,
+                msg_bar=self.msg_bar,
+                codes=self.class_codes()
+            )
+            self.editor.setPanelTitle(self.tr('Land Cover Class Editor'))
+            self.editor.panelAccepted.connect(self.on_editor_accepted)
+            self.editor.notify_delete.connect(self.delete_class_info)
+
+            # Manually set the value of the scroll when loading the sub-panel
+            # due to unusual behavior of the vertical scroll bar scrolling
+            # to the top.
+            scroll_area = self._parent_scroll_area()
+            init_pos = -1
+            vs_bar = None
+            if scroll_area is not None:
+                vs_bar = scroll_area.verticalScrollBar()
+                init_pos = vs_bar.value()
+
+            self.openPanel(self.editor)
+
+            # Restore the viewport area
+            if vs_bar is not None and vs_bar.value() == 0 and init_pos != -1:
+                vs_bar.setValue(init_pos)
+
+    def on_editor_accepted(self, panel):
+        # Slot raised when editor panel has been accepted.
+        lc_cls_info = panel.lc_class_info
+        if lc_cls_info is None and not panel.updated:
+            return
+
+        if panel.edit_mode:
+            self.update_class_info(lc_cls_info)
+        else:
+            self.add_class_info_to_table(lc_cls_info)
+
+        self._last_clr = QtGui.QColor(lc_cls_info.lcc.color)
+
+    def update_class_info(self, lc_info: LCClassInfo):
+        # Update existing LCClassInfo row.
+        row = lc_info.idx
+        if row == -1:
+            self.append_msg(
+                self.tr('Invalid row for land cover class')
+            )
+            return
+
+        items = self._update_lcc_row_items(lc_info, True, row)
+        if len(items) == 0:
+            self.append_msg(self.tr('Unable to update class.'))
+            return
+
+        self._update_row_data(row, lc_info)
+
+    def add_class_info_to_table(self, lc_info: LCClassInfo):
+        # Add land cover class info to the table view.
+        if lc_info is None:
+            return
+
+        rows = self.model.rowCount()
+        if rows >= self.max_classes:
+            msg = self.tr('Maximum number of classes reached.')
+            self.append_msg(msg)
+
+            return
+
+        items = self._update_lcc_row_items(lc_info)
+        if len(items) == 0:
+            self.append_msg(self.tr('Unable to add new class.'))
+            return
+
+        self.model.insertRow(rows, items)
+        self._update_row_data(rows, lc_info)
+
+    def _update_lcc_row_items(
+            self,
+            lc_info: LCClassInfo,
+            update=False,
+            row=None
+    ) -> typing.List[QtGui.QStandardItem]:
+        # Create new or update existing row items
+        if update and row is None:
+            return []
+
+        lcc = lc_info.lcc
+        parent = lc_info.parent
+
+        if not update:
+            name_item = QtGui.QStandardItem(lcc.name_long)
+            code_item = QtGui.QStandardItem(str(lcc.code))
+            parent_item = QtGui.QStandardItem(str(parent.name_long))
+        else:
+            name_idx = self.model.index(row, 0)
+            name_item = self.model.itemFromIndex(name_idx)
+            name_item.setText(lcc.name_long)
+
+            code_idx = self.model.index(row, 1)
+            code_item = self.model.itemFromIndex(code_idx)
+            code_item.setText(str(lcc.code))
+
+            parent_idx = self.model.index(row, 2)
+            parent_item = self.model.itemFromIndex(parent_idx)
+            parent_item.setText(str(parent.name_long))
+
+        clr = QtGui.QColor(lcc.color)
+        if clr.isValid():
+            name_item.setData(clr, QtCore.Qt.DecorationRole)
+
+        code_item.setData(lcc.code)
+
+        parent_item.setData(parent)
+        parent_clr = QtGui.QColor(parent.color)
+        if parent_clr.isValid():
+            parent_item.setData(parent_clr, QtCore.Qt.DecorationRole)
+
+        return [name_item, code_item, parent_item]
+
+    def _update_row_data(self, row, lc_info):
+        # Set the lc_info object at the given row
+        idx = self.model.index(row, 0)
+        if idx.isValid():
+            self.model.setData(idx, lc_info, QtCore.Qt.UserRole)
+
+    def row_data(self, row: int) -> LCClassInfo:
+        # Returns the lc class info object at the given row.
+        if row < 0 or row > self.model.rowCount() - 1:
+            return None
+
+        idx = self.model.index(row, 0)
+        if not idx.isValid():
+            return None
+
+        return self.model.data(idx, QtCore.Qt.UserRole)
+
+    def class_infos(self) -> typing.List[LCClassInfo]:
+        """
+        Returns a list of LCClassInfo objects currently in the table.
+        """
+        row_count = self.model.rowCount()
+
+        return [self.row_data(i) for i in range(row_count)]
+    
+    def class_codes(self) -> typing.List[int]:
+        """
+        Return a list of codes for the classes in the table.
+        """
+        return [lcc_info.lcc.code for lcc_info in self.class_infos()]
+
+    def on_selection_changed(self, deselected, selected):
+        # Slot raised when row selection has changed. This loads the class
+        # editor.
+        sel_rows = self.selection_model.selectedRows()
+        if len(sel_rows) == 0:
+            return
+
+        sel_idx = sel_rows[0]
+        self.open_editor_at_idx(sel_idx)
+
+    def on_class_info_clicked(self, idx: QtCore.QModelIndex):
+        # Slot raised when an LCClassInfo item has been clicked for a row
+        # that had already been selected.
+        sel_rows = self.selection_model.selectedRows()
+        if len(sel_rows) == 0:
+            return
+
+        sel_idx = sel_rows[0]
+        if sel_idx.row() == idx.row():
+            self.open_editor_at_idx(idx)
+
+    def open_editor_at_idx(self, idx: QtCore.QModelIndex):
+        # Open the class editor at the given index.
+        if not idx.isValid():
+            return
+
+        row = idx.row()
+        lcc_info = self.row_data(row)
+        if lcc_info is None:
+            return
+
+        lcc_info.idx = row
+        self._open_editor(lcc_info)
+
+    def delete_class_info(self, row: int):
+        # Notification to remove the given row.
+        if row < 0:
+            log('Invalid reference of land cover class to remove.')
+            return
+
+        self.selection_model.blockSignals(True)
+        self.selection_model.clearSelection()
+        status = self.model.removeRows(row, 1)
+        self.selection_model.blockSignals(False)
+        if not status:
+            log(f'Unable to remove land cover class in row {row!s}')
+
+
+class LandCoverCustomClassEditor(
+    qgis.gui.QgsPanelWidget,
+    Ui_WidgetLandCoverCustomClassEditor
+):
+    """
+    Widget for defining new or edit existing custom land cover class.
+    """
+    notify_delete = QtCore.pyqtSignal(int)
+
+    def __init__(
+            self,
+            parent=None,
+            lc_class_info=None,
+            default_color=None,
+            msg_bar=None,
+            codes=None
+    ):
+        super().__init__(parent)
+        self.setupUi(self)
+
+        self.default_color = default_color
+        if self.default_color is None:
+            self.default_color = QtGui.QColor('#8FE142')
+
+        self.codes = codes
+        self._code_max = 255
+        if self.codes is None:
+            self.codes = []
+
+        self.lc_class_info = lc_class_info
+        self.msg_bar = msg_bar
+
+        self.updated = False
+        self.edit_mode = False
+
+        # UI initialization
+        delete_icon = qgis.core.QgsApplication.instance().getThemeIcon(
+            'mActionDeleteSelected.svg'
+        )
+        self.btn_remove.setIcon(delete_icon)
+        self.btn_remove.setEnabled(False)
+        self.btn_remove.clicked.connect(self.on_delete_class)
+
+        self.clr_btn.setColor(self.default_color)
+        self.clr_btn.setContext('class_clr')
+        self.clr_btn.setColorDialogTitle(self.tr('Class Color'))
+
+        success_icon = qgis.core.QgsApplication.instance().getThemeIcon(
+            'mIconSuccess.svg'
+        )
+        self.btn_done.setIcon(success_icon)
+        self.btn_done.clicked.connect(self.on_accept_info)
+
+        self.cbo_cls_parent.currentIndexChanged.connect(
+            self._on_parent_changed
+        )
+
+        self._load_default_lc_classes()
+
+        self._suggest_code()
+
+        if lc_class_info is not None:
+            self.set_class_info(self.lc_class_info)
+            self.edit_mode = True
+            if lc_class_info.idx != -1:
+                self.btn_remove.setEnabled(True)
+                self.sb_cls_code.setEnabled(False)
+
+    def _load_default_lc_classes(self):
+        # Load default LC classes.
+        self.cbo_cls_parent.addItem('')
+        lc_legend = get_lc_nesting(True, False)
+        parent_legend = lc_legend.parent
+        for idx, lcc in enumerate(parent_legend.key, start=1):
+            self.cbo_cls_parent.insertItem(idx, lcc.name_long, lcc)
+            clr = QtGui.QColor(lcc.color)
+            self.cbo_cls_parent.setItemData(
+                idx,
+                clr,
+                QtCore.Qt.DecorationRole
+            )
+
+    def _suggest_code(self):
+        # Suggest a code value for a new land cover class.
+        if self.edit_mode:
+            return
+
+        code_range = set(range(1, self._code_max + 1))
+        used_codes = set(self.codes)
+        code = min(code_range - used_codes)
+
+        self.sb_cls_code.setValue(code)
+
+    def append_warning_msg(self, msg: str):
+        # Add warning message if a message bar has been defined.
+        if self.msg_bar is None:
+            return
+
+        self.msg_bar.pushMessage(
+            self.tr('Land Cover'),
+            msg,
+            qgis.core.Qgis.MessageLevel.Warning,
+            5
+        )
+
+    def clear_messages(self):
+        # Removes all messages in the message bar.
+        if self.msg_bar is None:
+            return
+
+        self.msg_bar.clearWidgets()
+
+    def set_class_info(self, lc_class_info: LCClassInfo):
+        # Set widget values to corresponding class info values.
+        lcc = lc_class_info.lcc
+        lcc_parent = lc_class_info.parent
+
+        self.txt_cls_name.setText(lcc.name_long)
+        self.clr_btn.setColor(QtGui.QColor(lcc.color))
+        self.sb_cls_code.setValue(lcc.code)
+
+        idx = self.cbo_cls_parent.findText(lcc_parent.name_long)
+        if idx != -1:
+            self.cbo_cls_parent.setCurrentIndex(idx)
+
+    def validate(self) -> bool:
+        """
+        Validates class information specified by user.
+        """
+        status = True
+        self.clear_messages()
+
+        if not self.txt_cls_name.text():
+            self.append_warning_msg(self.tr('Class name cannot be empty.'))
+            status = False
+
+        if not self.clr_btn.color().isValid():
+            self.append_warning_msg(self.tr('Invalid color selected.'))
+            status = False
+
+        if not self.cbo_cls_parent.currentText():
+            self.append_warning_msg(self.tr('Parent class cannot be empty.'))
+            status = False
+
+        code = self.sb_cls_code.value()
+        if not code:
+            self.append_warning_msg(self.tr('Invalid class code value.'))
+            status = False
+
+        if code in self.codes and not self.edit_mode:
+            self.append_warning_msg(
+                self.tr(f'Code value \'{code!s}\' is already in use.')
+            )
+            status = False
+
+        return status
+
+    def on_delete_class(self):
+        # Slot raised to delete land cover class.
+        if self.lc_class_info is None:
+            log('No land cover class reference.')
+            return
+
+        idx = self.lc_class_info.idx
+        if idx < 0:
+            log('Invalid land cover class reference.')
+            return
+
+        row_num = self.lc_class_info.idx
+        self.lc_class_info = None
+        self.notify_delete.emit(row_num)
+        self.acceptPanel()
+
+    def update_class_info(self) -> bool:
+        """
+        Updates class info object with widget values.
+        """
+        status = self.validate()
+        if not status:
+            return False
+
+        name = self.txt_cls_name.text()
+        code = self.sb_cls_code.value()
+        color = self.clr_btn.color().name()
+        curr_idx = self.cbo_cls_parent.currentIndex()
+        parent = self.cbo_cls_parent.itemData(curr_idx)
+
+        lcc = LCClass(code, name, name, color=color)
+
+        if self.lc_class_info is None:
+            self.lc_class_info = LCClassInfo()
+
+        self.lc_class_info.lcc = lcc
+        self.lc_class_info.parent = parent
+
+        return True
+
+    def set_parent_icon(self, clr: str, idx: int):
+        """
+        Sets the parent class combobox to show the given color as an icon
+        for the item in the given index.
+        """
+        if isinstance(clr, str):
+            clr = QtGui.QColor(clr)
+
+        if not clr.isValid():
+            return
+
+        size = self.cbo_cls_parent.iconSize()
+        px = QtGui.QPixmap(size)
+        p = QtGui.QPainter()
+        px.fill(QtCore.Qt.transparent)
+        p.begin(px)
+        brush = QtGui.QBrush(clr, QtCore.Qt.SolidPattern)
+        p.setBrush(brush)
+        pen = QtGui.QPen(QtCore.Qt.NoPen)
+        p.setPen(pen)
+        rect = QtCore.QRect(QtCore.QPoint(0, 0), size)
+        p.drawRect(rect)
+        p.end()
+
+        icon = QtGui.QIcon(px)
+        self.cbo_cls_parent.setItemIcon(idx, icon)
+
+    def _on_parent_changed(self, idx: int):
+        # Slot raised when parent index has changed.
+        if idx == -1:
+            return
+
+        if not self.cbo_cls_parent.currentText():
+            return
+
+        parent_lcc = self.cbo_cls_parent.itemData(
+            self.cbo_cls_parent.currentIndex()
+        )
+        if parent_lcc is None:
+            return
+
+        self.set_parent_icon(parent_lcc.color, idx)
+
+    def on_accept_info(self):
+        # Slot raised to validate and submit class details to the caller.
+        status = self.update_class_info()
+        if status:
+            self.updated = True
+            self.acceptPanel()
 
 
 

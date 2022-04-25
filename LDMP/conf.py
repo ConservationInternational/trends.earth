@@ -57,6 +57,9 @@ class Setting(enum.Enum):
     REPORT_FOOTER = "report/footer"
     REPORT_DISCLAIMER = "report/disclaimer"
     REPORT_LOG_WARNING = 'report/log_warning'
+    LC_CLASSES = 'land_cover/user_classes'
+    LC_MAX_CLASSES = 'land_cover/max_classes'
+    LC_LAST_DIR = 'land_cover/last_dir'
 
 
 class SettingsManager:
@@ -98,7 +101,10 @@ class SettingsManager:
         Setting.REPORT_ORG_NAME: '',
         Setting.REPORT_FOOTER: '',
         Setting.REPORT_DISCLAIMER: default_report_disclaimer(),
-        Setting.REPORT_LOG_WARNING: False
+        Setting.REPORT_LOG_WARNING: False,
+        Setting.LC_CLASSES: [],
+        Setting.LC_MAX_CLASSES: 32,
+        Setting.LC_LAST_DIR: ''
     }
 
     def __init__(self):

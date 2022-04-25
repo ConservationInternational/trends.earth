@@ -18,12 +18,17 @@ import typing
 from copy import deepcopy
 from pathlib import Path
 
+from marshmallow_dataclass import dataclass
 from marshmallow.exceptions import ValidationError
 from qgis.PyQt import QtCore
 from qgis.PyQt import QtGui
 from qgis.PyQt import QtWidgets
 from qgis.PyQt import uic
-from qgis.utils import iface
+from qgis.core import (
+    Qgis,
+    QgsApplication
+)
+
 from te_schemas.land_cover import LCClass
 from te_schemas.land_cover import LCLegend
 from te_schemas.land_cover import LCLegendNesting
@@ -36,6 +41,7 @@ from . import data_io
 from .jobs.manager import job_manager
 from .layers import tr_style_text
 from .logger import log
+
 
 DlgCalculateLCSetAggregationUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateLCSetAggregation.ui")
@@ -116,17 +122,38 @@ class TransMatrixEdit(QtWidgets.QLineEdit):
 
 
 class LCClassComboBox(QtWidgets.QComboBox):
-    def __init__(self, nesting, parent=None, *args):
+    def __init__(self, nesting=None, parent=None):
         super(LCClassComboBox, self).__init__(parent)
-        self.nesting = nesting
+        self._nesting = nesting
+
+        self.currentIndexChanged.connect(self.index_changed)
 
         # Add the translations of the item labels in order of their codes
-        self.addItems(
-            [c.name_long for c in self.nesting.parent.orderByCode().key]
-        )
+        if self._nesting is not None:
+            self.update_nesting()
 
-        for n in range(0, len(nesting.parent.key)):
-            color = self.nesting.parent.classByNameLong(
+    @property
+    def nesting(self):
+        return self._nesting
+
+    @nesting.setter
+    def nesting(self, lc_nesting):
+        self._nesting = lc_nesting
+        self.update_nesting()
+
+    def update_nesting(self):
+        # Adds LC cover classes defined in nesting.
+        if self._nesting is None:
+            return
+
+        self.blockSignals(True)
+        self.addItems(
+            [c.name_long for c in self._nesting.parent.orderByCode().key]
+        )
+        self.blockSignals(False)
+
+        for n in range(0, len(self._nesting.parent.key)):
+            color = self._nesting.parent.classByNameLong(
                 self.itemData(n, QtCore.Qt.DisplayRole)
             ).color
             self.setItemData(n, QtGui.QColor(color), QtCore.Qt.BackgroundRole)
@@ -141,10 +168,9 @@ class LCClassComboBox(QtWidgets.QComboBox):
                 )
 
         self.index_changed()
-        self.currentIndexChanged.connect(self.index_changed)
 
-    def index_changed(self):
-        color = self.nesting.parent.classByNameLong(self.currentText()).color
+    def index_changed(self, value=-1):
+        color = self._nesting.parent.classByNameLong(self.currentText()).color
 
         if color == '#000000':
             self.setStyleSheet(
@@ -157,7 +183,7 @@ class LCClassComboBox(QtWidgets.QComboBox):
             )
 
     def get_current_class(self):
-        return self.nesting.parent.classByNameLong(self.currentText())
+        return self._nesting.parent.classByNameLong(self.currentText())
 
 
 class LCAggTableModel(QtCore.QAbstractTableModel):
@@ -273,11 +299,9 @@ def read_lc_matrix_file(f):
         return matrix
 
 
-def get_lc_nesting(get_default=False):
+def get_lc_nesting(get_default=False, save_settings=True):
     if not get_default:
-        nesting = QtCore.QSettings().value(
-            "LDMP/land_cover_legend_nesting", None
-        )
+        nesting = lc_nesting_from_settings()
     else:
         nesting = None
 
@@ -289,22 +313,31 @@ def get_lc_nesting(get_default=False):
             )
         )
 
-        if nesting:
-            QtCore.QSettings().setValue(
-                "LDMP/land_cover_legend_nesting",
-                LCLegendNesting.Schema().dumps(nesting)
-            )
+        if nesting and save_settings:
+            lc_nesting_to_settings(nesting)
     else:
         nesting = LCLegendNesting.Schema().loads(nesting)
 
     return nesting
 
 
-def get_trans_matrix(get_default=False):
+def lc_nesting_to_settings(nesting):
+    QtCore.QSettings().setValue(
+        "LDMP/land_cover_legend_nesting",
+        LCLegendNesting.Schema().dumps(nesting)
+    )
+
+
+def lc_nesting_from_settings():
+    nesting = QtCore.QSettings().value(
+        "LDMP/land_cover_legend_nesting", None
+    )
+    return nesting
+
+
+def get_trans_matrix(get_default=False, save_settings=True):
     if not get_default:
-        matrix = QtCore.QSettings().value(
-            "LDMP/land_cover_deg_trans_matrix", None
-        )
+        matrix = trans_matrix_from_settings()
     else:
         matrix = None
 
@@ -316,15 +349,26 @@ def get_trans_matrix(get_default=False):
             )
         )
 
-        if matrix:
-            QtCore.QSettings().setValue(
-                "LDMP/land_cover_deg_trans_matrix",
-                LCTransitionDefinitionDeg.Schema().dumps(matrix)
-            )
+        if matrix and save_settings:
+            trans_matrix_to_settings(matrix)
     else:
         matrix = LCTransitionDefinitionDeg.Schema().loads(matrix)
 
     return matrix
+
+
+def trans_matrix_from_settings() -> str:
+    matrix = QtCore.QSettings().value(
+        "LDMP/land_cover_deg_trans_matrix", None
+    )
+    return matrix
+
+
+def trans_matrix_to_settings(matrix: LCTransitionDefinitionDeg):
+    QtCore.QSettings().setValue(
+        "LDMP/land_cover_deg_trans_matrix",
+        LCTransitionDefinitionDeg.Schema().dumps(matrix)
+    )
 
 
 class DlgCalculateLCSetAggregation(
@@ -796,6 +840,22 @@ class LCDefineDegradationWidget(
 
         self.setupUi(self)
 
+        # UI initialization
+        reload_icon = QgsApplication.instance().getThemeIcon(
+            'mActionReload.svg'
+        )
+        self.btn_transmatrix_reset.setIcon(reload_icon)
+
+        load_table_icon = QgsApplication.instance().getThemeIcon(
+            'mActionFileOpen.svg'
+        )
+        self.btn_transmatrix_loadfile.setIcon(load_table_icon)
+
+        save_table_icon = QgsApplication.instance().getThemeIcon(
+            'mActionFileSave.svg'
+        )
+        self.btn_transmatrix_savefile.setIcon(save_table_icon)
+
         self.trans_matrix = get_trans_matrix()
 
         self.setup_deg_def_matrix(self.trans_matrix.legend)
@@ -1092,3 +1152,289 @@ class LandCoverSetupRemoteExecutionWidget(
 
     def open_aggregation_method_dialog(self):
         self.aggregation_dialog.exec_()
+
+
+@dataclass
+class LCClassInfo:
+    """
+    Land cover class information from editor
+    """
+    idx: int = -1
+    lcc: LCClass = None
+    parent: LCClass = None
+
+    class Meta:
+        ordered = True
+        load_only = ['idx']
+
+    def __eq__(self, other: 'LCClassInfo') -> bool:
+        # Checks equality.
+        lcc_eq = LCClassInfo.lcc_equality(self.lcc, other.lcc)
+        if not lcc_eq:
+            return False
+
+        parent_eq = LCClassInfo.lcc_equality(self.parent, other.parent)
+        if not parent_eq:
+            return False
+
+        return True
+
+    def update(self, other: 'LCClassInfo'):
+        # Update this object with values from another object.
+        # Update main class
+        LCClassInfo.update_lcc(other.lcc, self.lcc)
+
+        # Update parent class
+        LCClassInfo.update_lcc(other.parent, self.parent)
+
+class LccInfoUtils:
+    """
+    Helper for LCCInfo management operations.
+    """
+    CUSTOM_LEGEND_NAME = 'Custom Land Cover'
+
+    @staticmethod
+    def save_settings(
+            lcc_infos: typing.List['LCClassInfo'],
+            restore_default=True
+    ) -> bool:
+        """
+        Saves list of LCClassInfo objects to settings but if settings is
+        empty and 'restore_default' is True then it will restore the default
+        UNCCD land cover classes.
+        """
+        if len(lcc_infos) == 0:
+            conf.settings_manager.write_value(
+                conf.Setting.LC_CLASSES,
+                []
+            )
+            if restore_default:
+                _ = get_trans_matrix(True)
+                _ = get_lc_nesting(True)
+
+            return True
+
+        status = True
+        try:
+            infos = []
+            for lcc in lcc_infos:
+                lcc_str = LCClassInfo.Schema().dumps(lcc)
+                infos.append(lcc_str)
+            conf.settings_manager.write_value(
+                conf.Setting.LC_CLASSES,
+                infos
+            )
+        except ValidationError as ve:
+            status = False
+        except Exception as exc:
+            status = False
+
+        # Update transition matrix and land cover nesting with our new custom
+        # classes.
+        if status:
+            LccInfoUtils.sync_trans_matrix(lcc_infos)
+            LccInfoUtils.sync_lc_nesting_matrix(lcc_infos)
+
+        return status
+
+    @staticmethod
+    def load_settings() -> typing.Tuple[
+        bool,
+        typing.List['LCClassInfo']
+    ]:
+        """
+        Loads LCCInfo objects from the settings.
+        """
+        lcc_infos_str = conf.settings_manager.get_value(
+            conf.Setting.LC_CLASSES
+        )
+        lcc_infos = []
+        status = True
+        try:
+            for lcc_str in lcc_infos_str:
+                lcc = LCClassInfo.Schema().loads(lcc_str)
+                lcc_infos.append(lcc)
+        except ValidationError as ve:
+            status = False
+        except Exception as exc:
+            status = False
+
+        return status, lcc_infos
+
+    @staticmethod
+    def save_file(
+            file_path: str,
+            lcc_infos: typing.List['LCClassInfo']
+    ) -> bool:
+        # Saves the LC classes to JSON file.
+        lc_cls_infos = []
+        status = True
+        try:
+            for lcc in lcc_infos:
+                lcc_dict = LCClassInfo.Schema().dump(lcc)
+                lc_cls_infos.append(lcc_dict)
+        except ValidationError as ve:
+            status = False
+        except Exception as exc:
+            status = False
+
+        if not status:
+            return False
+
+        fi = QtCore.QFileInfo(file_path)
+        cls_dir = fi.dir().path()
+
+        # Check write permissions
+        if not os.access(cls_dir, os.W_OK):
+            return False
+
+        suffix = fi.suffix()
+        if 'json' not in suffix:
+            file_path = f'{file_path}.json'
+
+        with open(file_path, 'w') as f:
+            json.dump(
+                lc_cls_infos,
+                f,
+                sort_keys=True,
+                indent=4
+            )
+
+        return True
+
+    @staticmethod
+    def load_file(file_path: str) -> typing.Tuple[
+        bool,
+        typing.List['LCClassInfo']
+    ]:
+        # Load classes from file.
+        fi = QtCore.QFileInfo(file_path)
+        cls_dir = fi.dir().path()
+
+        # Check read permissions
+        if not os.access(cls_dir, os.R_OK):
+            return False, []
+
+        lc_classes = []
+        status = True
+        with open(file_path) as f:
+            try:
+                classes = json.load(f)
+                for lcc in classes:
+                    lcc_info= LCClassInfo.Schema().load(lcc)
+                    lc_classes.append(lcc_info)
+            except ValidationError as ve:
+                status = False
+            except Exception as exc:
+                status = False
+
+        if not status:
+            return False, []
+
+        return True, lc_classes
+
+    @staticmethod
+    def lcc_in_infos(
+            lcc: LCClass,
+            lcc_infos: typing.List['LCClassInfo']
+    ) -> typing.Tuple[bool, 'LCClassInfo']:
+        """
+        Checks if the given lc class is in the collection using
+        name_long to compare.
+        """
+        match = [
+            lcc_info for lcc_info in lcc_infos
+            if lcc_info.lcc.code == lcc.code
+        ]
+
+        return (True, match[0]) if len(match) > 0 else (False, None)
+
+    @staticmethod
+    def sync_trans_matrix(ref_lcc_infos: typing.List['LCClassInfo']):
+        """
+        Update transition matrix in settings with custom classes in the
+        reference list.
+        """
+        if len(ref_lcc_infos) == 0:
+            return
+
+        matrix = get_trans_matrix()
+
+        # Check if there are custom classes to be removed.
+        i = 0
+        while i < len(matrix.legend.key):
+            lcc = matrix.legend.key[i]
+            lcc_in_ref, lcc_info = LccInfoUtils.lcc_in_infos(
+                lcc,
+                ref_lcc_infos
+            )
+
+            if not lcc_in_ref:
+                matrix.remove_class(lcc)
+            else:
+                i += 1
+
+        # Check if we need to add or update
+        for lcc_info in ref_lcc_infos:
+            ref_lcc = lcc_info.lcc
+            matrix.add_update_class(ref_lcc)
+
+        matrix.legend.name = LccInfoUtils.CUSTOM_LEGEND_NAME
+        matrix.name = 'Custom land cover degradation transition matrix'
+
+        # Update matrix in settings
+        trans_matrix_to_settings(matrix)
+
+    @staticmethod
+    def sync_lc_nesting_matrix(ref_lcc_infos: typing.List['LCClassInfo']):
+        """
+        Update land cover nesting in settings with custom classes
+        in the reference list.
+        """
+        if len(ref_lcc_infos) == 0:
+            return
+
+        nesting = get_lc_nesting(save_settings=False)
+        ref_nesting = get_lc_nesting(True, save_settings=False)
+
+        # Check if there are custom classes to be removed.
+        i = 0
+        while i < len(nesting.parent.key):
+            lcc = nesting.parent.key[i]
+            lcc_in_ref, lcc_info = LccInfoUtils.lcc_in_infos(
+                lcc,
+                ref_lcc_infos
+            )
+
+            if not lcc_in_ref:
+                nesting.remove_parent_class(lcc)
+            else:
+                i += 1
+
+        # Add update parent classes
+        for lcc_info in ref_lcc_infos:
+            ref_lcc = lcc_info.lcc
+            parent_lcc = lcc_info.parent
+            children = ref_nesting.children_for_parent(parent_lcc)
+            nesting.add_update_parent(ref_lcc, children)
+
+        # Remove orphaned children otherwise the model will raise a
+        # ValidationError.
+        orphans = nesting.orphan_children()
+        codes = [c.code for c in orphans]
+        for cd in codes:
+            nesting.child.remove_class(cd)
+
+        nesting.parent.name = LccInfoUtils.CUSTOM_LEGEND_NAME
+
+        lc_nesting_to_settings(nesting)
+
+
+
+
+
+
+
+
+
+

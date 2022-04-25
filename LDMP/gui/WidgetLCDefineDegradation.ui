@@ -86,22 +86,6 @@
        </attribute>
       </widget>
      </item>
-     <item row="0" column="0">
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeType">
-        <enum>QSizePolicy::Fixed</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
      <item row="0" column="1" alignment="Qt::AlignHCenter">
       <widget class="QLabel" name="label_lc_target_year">
        <property name="sizePolicy">
@@ -133,7 +117,23 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="0" colspan="2">
+     <item row="0" column="0">
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeType">
+        <enum>QSizePolicy::Fixed</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="2" column="0" colspan="3">
       <widget class="QGroupBox" name="groupBox_2">
        <property name="title">
         <string>Legend</string>
@@ -258,6 +258,25 @@
    </item>
    <item>
     <layout class="QGridLayout" name="gridLayout_7">
+     <item row="0" column="1">
+      <widget class="QPushButton" name="btn_transmatrix_loadfile">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>30</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Load saved table...</string>
+       </property>
+      </widget>
+     </item>
      <item row="0" column="2">
       <widget class="QPushButton" name="btn_transmatrix_savefile">
        <property name="sizePolicy">
@@ -293,25 +312,6 @@
        </property>
        <property name="text">
         <string>Reset table</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QPushButton" name="btn_transmatrix_loadfile">
-       <property name="sizePolicy">
-        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-         <horstretch>0</horstretch>
-         <verstretch>0</verstretch>
-        </sizepolicy>
-       </property>
-       <property name="minimumSize">
-        <size>
-         <width>0</width>
-         <height>30</height>
-        </size>
-       </property>
-       <property name="text">
-        <string>Load saved table...</string>
        </property>
       </widget>
      </item>

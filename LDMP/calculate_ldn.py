@@ -302,7 +302,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                 year_final,
                 'legend_nesting':
                 LCLegendNesting.Schema().dump(
-                    self.lc_setup_widget.aggregation_dialog.nesting
+                    self.lc_setup_widget.aggregation_dialog._nesting
                 ),
                 'trans_matrix':
                 LCTransitionDefinitionDeg.Schema().dump(
@@ -318,7 +318,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                 .80,
                 'legend_nesting':
                 LCLegendNesting.Schema().dump(
-                    self.lc_setup_widget.aggregation_dialog.nesting
+                    self.lc_setup_widget.aggregation_dialog._nesting
                 ),  # TODO: Use SOC matrix for the above once defined
                 'trans_matrix':
                 LCTransitionDefinitionDeg.Schema().dump(

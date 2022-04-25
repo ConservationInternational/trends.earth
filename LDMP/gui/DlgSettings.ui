@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>616</width>
+    <width>592</width>
     <height>649</height>
    </rect>
   </property>
@@ -45,7 +45,7 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>605</width>
+        <width>581</width>
         <height>598</height>
        </rect>
       </property>
@@ -67,6 +67,24 @@
          <property name="frameShadow">
           <enum>QFrame::Raised</enum>
          </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QgsCollapsibleGroupBox" name="groupbox_lc_config">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="title">
+          <string>Custom Land Cover Classes</string>
+         </property>
+         <layout class="QVBoxLayout" name="lcc_layout">
+          <property name="margin">
+           <number>0</number>
+          </property>
+         </layout>
         </widget>
        </item>
        <item>

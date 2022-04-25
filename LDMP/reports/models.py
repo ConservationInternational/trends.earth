@@ -10,7 +10,6 @@ from uuid import uuid4
 
 from marshmallow import post_load
 from marshmallow_dataclass import dataclass
-from qgis.PyQt.QtCore import QFileInfo
 
 from ..jobs.models import Job
 

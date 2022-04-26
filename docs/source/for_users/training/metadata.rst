@@ -14,7 +14,7 @@ Dataset Metadata
 .. image:: ../../../resources/en/common/icon-trends_earth_selection.png
    :align: center
 
-2. The **Trends.Earth** menu will open. In the **Dataset** window, where exsting tasks are listed in the menu if the **Download remotely-generated datasets automatically** is checked in settings.
+2. The **Trends.Earth** menu will open. In the **Dataset** window, where existing tasks are listed in the menu if the **Download remotely-generated datasets automatically** is checked in settings.
 
 .. note::
     Refer to the :ref:`tut_settings` section of this manual to learn more about **Advanced settings**
@@ -31,7 +31,7 @@ Dataset Metadata
 .. image:: ../../../resources/en/documentation/metadata/metadata_editor.png
    :align: center
 
-5. Fill in the necessary infromation or edit existing data in the dialog fields and press OK button to save your changes. Metadata will be saved in the QGIS QMD format, in a separate file for each raster in the datataset folder.
+5. Fill in the necessary information or edit existing data in the dialog fields and press OK button to save your changes. Metadata will be saved in the QGIS QMD format, in a separate file for each raster in the dataset folder.
 
 6. Metadata also can be viewed/edited from the Dataset details dialog via the same Metadata button, as described in the step 3 above.
 

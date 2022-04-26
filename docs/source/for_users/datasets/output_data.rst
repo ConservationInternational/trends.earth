@@ -4,7 +4,7 @@ Output datasets from Trends.Earth
 ==================================
 
 The spatial data produced by |trends.earth| is in GeoTiff format. This is a 
-widely supported format, so theese datasets can be used within QGIS as well as 
+widely supported format, so these datasets can be used within QGIS as well as 
 within any other GIS software.
 
 If you wish to use |trends.earth| data outside of the tool itself, you will need to 
@@ -13,7 +13,7 @@ layers are that are produced by each analysis in |trends.earth|.
 
 To see which of the below layers is contained within a |trends.earth| output 
 file, use the `load data <../documentation/load_data.html>`_ tool. When you 
-choose a file with that toool, it will show you a list of the layers within 
+choose a file with that tool, it will show you a list of the layers within 
 that file, as well as the band number for each layer.
 
 Land degradation (SDG 15.3.1)

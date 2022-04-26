@@ -44,7 +44,7 @@ Land Degradation Sub-indicators
 
 
 .. note::
-    Refer to the :ref:`tut_land_degradation` section of this manual to learn about custom sub-indictors
+    Refer to the :ref:`tut_land_degradation` section of this manual to learn about custom sub-indicators
 	or :ref:`background_landdegradation` section of this manual to learn about the Trends.Earth productivity 
 	indicators developed following the `UNCCD Good Practice Guidance (GPG) <https://www.unccd.int/sites/default/files/relevant-links/2021-03/Indicator_15.3.1_GPG_v2_29Mar_Advanced-version.pdf>`_.
 
@@ -62,7 +62,7 @@ Land Degradation Sub-indicators
 .. image:: ../../../resources/en/documentation/data_download/download_datasets.png
    :align: center
 
-9. The default data: Soil organic carbon degradation, land cover degradation, land productivity dynamics, and population dissaggregated by gender, will be added to the map for the region of interest.
+9. The default data: Soil organic carbon degradation, land cover degradation, land productivity dynamics, and population disaggregated by gender, will be added to the map for the region of interest.
    
 .. image:: ../../../resources/en/training/t03/add_layers.png
    :align: center  
@@ -151,7 +151,7 @@ SDG 15.3.1 Land Degradation Summary
 .. image:: ../../../resources/en/training/t05/sdg_open_dataset_directory.png
    :align: center
 
-- The directoty where the summary table was saved along with the geospatial data will open. You will see two summary tables in case both Baseline and Progress period SDG 15.3.1 were calculated
+- The directory where the summary table was saved along with the geospatial data will open. You will see two summary tables in case both Baseline and Progress period SDG 15.3.1 were calculated
 
 .. image:: ../../../resources/en/training/t06/sdg_find_table.png
    :align: center
@@ -489,7 +489,7 @@ Calculating soil organic carbon sub-indicator with custom data
    :align: center
    
 
-3. The **Soil Organic Carbon | Land Degradation** window will open. Click on the dropdown lists and select the **Initial year layer** and the **Target year layer** 
+3. The **Soil Organic Carbon | Land Degradation** window will open. Click on the drop-down lists and select the **Initial year layer** and the **Target year layer** 
    to load land cover dataset you have already processed in Trends.Earth representing the initial and target years of the time-series for which the SOC sub-indicator will be calculated.
    See the :ref:`tut_custom_lc` tutorial for more information on loading land cover datasets. Enter a **Execution name** and make sure to type in some notes for future reference.
 
@@ -497,7 +497,7 @@ Calculating soil organic carbon sub-indicator with custom data
    :align: center
 
 4. Under **Advanced configuration**, you have the options to set a **Climate regime** that is most appropriate for you region of interest.
-   You can leave this option as defaults, **Specify regime** by selecting one of the Global Climatic Regions listed under the dropdown menu, or either enter a **Custom value** in case you have valid reasons for changing them.
+   You can leave this option as defaults, **Specify regime** by selecting one of the Global Climatic Regions listed under the drop-down menu, or either enter a **Custom value** in case you have valid reasons for changing them.
 
 .. image:: ../../../resources/en/training/t09/custom_soc_climate_regime.png
    :align: center
@@ -583,7 +583,7 @@ Default data for UNCCD SO 3
 Summarizing SO 3 indicators for reporting to UNCCD
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- **Objective**: Learn to integrate the drought indicators in aligmnet with UNCCD SO3 reporting requirements. 
+- **Objective**: Learn to integrate the drought indicators in alingment with UNCCD SO3 reporting requirements. 
 
 - **Estimated time of completion**: 15 minutes
 

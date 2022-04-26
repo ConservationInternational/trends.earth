@@ -30,7 +30,7 @@ for 8 different restoration activities.
 .. image:: /static/documentation/restoration/restoration_method_summary.png
    :align: center
 
-The years of intervention and region is then selected using the pre-existing national/subnational boundaries, a coordinate or a custom uploaded dataset.
+The years of intervention and region is then selected using the pre-existing national/sub-national boundaries, a coordinate or a custom uploaded dataset.
 
 .. note::
     The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth 
@@ -62,7 +62,7 @@ Avitabile, V., Herold, M., Heuvelink, G. B. M., Lewis, S. L., Phillips, O. L., A
 
 Avitabile, V., Herold, M., Lewis, S.L., Phillips, O.L., Aguilar-Amuchastegui, N., Asner, G. P., Brienen, R.J.W., DeVries, B., Cazzolla Gatti, R. et al., 2014. Comparative analysis and fusion for improved global biomass mapping.  Global Vegetation Monitoring and Modeling, 3 – 7 February 2014, Avignon (France).
 
-Bernal, B., Murray, L. T. & Pearson, T. R. H. Global carbon dioxide removal rates from forest landscape restoration activities. Carbon Balance andManagement 13, 22 (2018).
+Bernal, B., Murray, L. T. & Pearson, T. R. H. Global carbon dioxide removal rates from forest landscape restoration activities. Carbon Balance and Management 13, 22 (2018).
 
 Bunting P, Rosenqvist A, Lucas RM, Rebelo L-M, Hilarides L, Thomas N, Hardy A, Itoh T, Shimada M, Finlayson CM. The Global Mangrove Watch—A New 2010 Global Baseline of Mangrove Extent. Remote Sensing. 2018; 10(10):1669. https://doi.org/10.3390/rs10101669
 

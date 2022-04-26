@@ -65,7 +65,7 @@ or **Buffer** tool
 
 which can be found on the **Trends.Earth** toolbar.
 
-9. The **Polygon** tool used to digitize polygons manually, using the same point-and-click approach as native QGIS digiting tools do. When **Polygon** tool is selected and digitizing started in the top-right corner of the QGIS map canvas a widget showing area of the polygon will be displayed.
+9. The **Polygon** tool used to digitize polygons manually, using the same point-and-click approach as native QGIS digitizing tools do. When **Polygon** tool is selected and digitizing started in the top-right corner of the QGIS map canvas a widget showing area of the polygon will be displayed.
 
 .. image:: ../../../resources/en/documentation/special_areas/area_selector.png
    :align: center

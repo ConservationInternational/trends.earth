@@ -28,14 +28,14 @@ The user is first prompted to select the years for monitoring their specified ar
 they will assign a threshold to define forests.
 
 .. note::
-  The definition of canopy cover should be changed to accomodate the specifc area of interest. 
+  The definition of canopy cover should be changed to accommodate the specific area of interest. 
 	The dataset maps global tree cover based on percent canopy cover in the year 2000.
-	Many studies cite 25% - 30% threshold to define forest, hoever this definition can change
+	Many studies cite 25% - 30% threshold to define forest, however this definition can change
 	for arid regions. For more information, please see the publication: `Quantification of global gross forest cover`_ "
 
 .. _Quantification of global gross forest cover: https://www.pnas.org/doi/10.1073/pnas.0912668107 
 
-The region is then selected using the pre-existing national/subnational boundaries, a coordinate or a custom uploaded dataset.
+The region is then selected using the pre-existing national/sub-national boundaries, a coordinate or a custom uploaded dataset.
 
 .. note::
     The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth 

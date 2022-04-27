@@ -53,52 +53,56 @@ class RequestTask(QgsTask):
         self.resp = None
 
     def run(self):
-        if self.method == 'get':
-            self.resp = requests.get(
-                self.url,
-                json=self.payload,
-                headers=self.headers,
-                timeout=TIMEOUT
-            )
-        elif self.method == 'post':
-            self.resp = requests.post(
-                self.url,
-                json=self.payload,
-                headers=self.headers,
-                timeout=TIMEOUT
-            )
-        elif self.method == 'update':
-            self.resp = requests.update(
-                self.url,
-                json=self.payload,
-                headers=self.headers,
-                timeout=TIMEOUT
-            )
-        elif self.method == 'delete':
-            self.resp = requests.delete(
-                self.url,
-                json=self.payload,
-                headers=self.headers,
-                timeout=TIMEOUT
-            )
-        elif self.method == 'patch':
-            self.resp = requests.patch(
-                self.url,
-                json=self.payload,
-                headers=self.headers,
-                timeout=TIMEOUT
-            )
-        elif self.method == 'head':
-            self.resp = requests.head(
-                self.url,
-                json=self.payload,
-                headers=self.headers,
-                timeout=TIMEOUT
-            )
-        else:
-            self.exception = ValueError(
-                "Unrecognized method: {}".format(self.method)
-            )
+        try:
+            if self.method == 'get':
+                self.resp = requests.get(
+                    self.url,
+                    json=self.payload,
+                    headers=self.headers,
+                    timeout=TIMEOUT
+                )
+            elif self.method == 'post':
+                self.resp = requests.post(
+                    self.url,
+                    json=self.payload,
+                    headers=self.headers,
+                    timeout=TIMEOUT
+                )
+            elif self.method == 'update':
+                self.resp = requests.update(
+                    self.url,
+                    json=self.payload,
+                    headers=self.headers,
+                    timeout=TIMEOUT
+                )
+            elif self.method == 'delete':
+                self.resp = requests.delete(
+                    self.url,
+                    json=self.payload,
+                    headers=self.headers,
+                    timeout=TIMEOUT
+                )
+            elif self.method == 'patch':
+                self.resp = requests.patch(
+                    self.url,
+                    json=self.payload,
+                    headers=self.headers,
+                    timeout=TIMEOUT
+                )
+            elif self.method == 'head':
+                self.resp = requests.head(
+                    self.url,
+                    json=self.payload,
+                    headers=self.headers,
+                    timeout=TIMEOUT
+                )
+            else:
+                self.exception = ValueError(
+                    "Unrecognized method: {}".format(self.method)
+                )
+                return False
+        except Exception as exc:
+            self.exception = exc
             return False
 
         return True
@@ -110,15 +114,20 @@ class RequestTask(QgsTask):
             if self.exception is None:
                 log(f'API {self.method} not successful - probably cancelled')
 
-            elif self.exception is requests.exceptions.ConnectionError:
-                log('API unable to access server - check internet connection')
+            elif (
+                self.exception is requests.exceptions.ConnectionError or
+                self.exception is requests.exceptions.ConnectionResetError
+            ):
+                log(
+                    f'API {self.method} not successful - exception: {self.exception}'
+                )
                 self.error_message = tr(
                     "Unable to login to Trends.Earth server. Check your "
                     "internet connection."
                 )
 
             elif self.exception is requests.exceptions.Timeout:
-                log('API unable to login - general error')
+                log('API unable to login - timeout')
                 self.error_message = tr(
                     f"Unable to connect to Trends.Earth  server."
                 )

@@ -41,7 +41,7 @@ from 3 sub-indicators:
 .. image:: ../../../resources/en/documentation/understanding_indicators15/indicator_15_3_1.png
    :align: center
 
-|trends.earth| allows the user to compute each of these subindicators in a 
+|trends.earth| allows the user to compute each of these sub-indicators in a 
 spatially explicit way generating raster maps which are then integrated into a 
 final SDG 15.3.1 indicator map and produces a table result reporting areas 
 potentially improved and degraded for the area of analysis.
@@ -225,7 +225,7 @@ as follows:
 
 3. For each unit, extract all the mean NDVI values computed in step 1, and 
    create a frequency distribution. From this distribution determine the value 
-   which represents the 90th   percentile (we don't recommend using the 
+   which represents the 90th percentile (we don't recommend using the 
    absolute maximum NDVI value to avoid possible errors due to the presence of 
    outliers). The value representing the 90th percentile will be considered the 
    maximum productivity for that unit.

@@ -14,7 +14,7 @@ False positive/negative layers
 .. image:: ../../../resources/en/common/icon-trends_earth_selection.png
    :align: center
 
-2. The **Trends.Earth** menu will open. In the **Dataset** window, where exsting tasks are listed in the menu if the **Download remotely-generated datasets automatically** is checked in settings.
+2. The **Trends.Earth** menu will open. In the **Dataset** window, where existing tasks are listed in the menu if the **Download remotely-generated datasets automatically** is checked in settings.
 
 .. note::
     Refer to the :ref:`tut_settings` section of this manual to learn more about **Advanced settings**
@@ -65,7 +65,7 @@ or **Buffer** tool
 
 which can be found on the **Trends.Earth** toolbar.
 
-9. The **Polygon** tool used to digitize polygons manually, using the same point-and-click approach as native QGIS digiting tools do. When **Polygon** tool is selected and digitizing started in the top-right corner of the QGIS mapcanvas a widget showing area of the polygon will be displayed.
+9. The **Polygon** tool used to digitize polygons manually, using the same point-and-click approach as native QGIS digitizing tools do. When **Polygon** tool is selected and digitizing started in the top-right corner of the QGIS map canvas a widget showing area of the polygon will be displayed.
 
 .. image:: ../../../resources/en/documentation/special_areas/area_selector.png
    :align: center

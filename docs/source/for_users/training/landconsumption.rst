@@ -155,7 +155,7 @@ Then click "Save". The layer will be saved on your computer and automatically lo
 
 Step 2: Urban change
 --------------------------------------------------
-1.	You have now downloaded the detaset to your local computer, but we still need to estimate the change over time in order to compute the SDG indicator 11.3.1. For that, select the Calculate icon (|iconCalculator|) from the Trends.Earth plugin in QGIS.
+1.	You have now downloaded the dataset to your local computer, but we still need to estimate the change over time in order to compute the SDG indicator 11.3.1. For that, select the Calculate icon (|iconCalculator|) from the Trends.Earth plugin in QGIS.
 
 .. image:: ../../../resources/en//common/ldmt_toolbar_highlight_calculate.png
    :align: center   

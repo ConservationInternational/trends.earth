@@ -1739,7 +1739,11 @@ class WidgetDataIOSelectTEDatasetExisting(
         return self.comboBox_datasets.currentText()
 
     def get_current_dataset(self):
-        return self.dataset_list[self.comboBox_datasets.currentIndex()]
+        current_dataset = self.dataset_list[self.comboBox_datasets.currentIndex()]
+        if current_dataset != self.NO_DATASETS_MESSAGE:
+            return current_dataset
+        else:
+            return None
 
     def get_current_extent(self):
         job = self.get_current_job()
@@ -1770,9 +1774,9 @@ class WidgetDataIOSelectTEDatasetExisting(
         return False
 
     def get_current_job(self):
-        current_job = self.dataset_list[self.comboBox_datasets.currentIndex()]
-        if current_job != self.NO_DATASETS_MESSAGE:
-            return current_job
+        current_dataset = self.get_current_dataset()
+        if current_dataset:
+            return current_dataset.job
         else:
             return None
 
@@ -1780,7 +1784,7 @@ class WidgetDataIOSelectTEDatasetExisting(
         if len(self.dataset_list) >= 1:
             current_job = self.get_current_job()
             if current_job:
-                job_id = current_job.job.id
+                job_id = current_job.id
             else:
                 job_id = None
             self.job_selected.emit(job_id)

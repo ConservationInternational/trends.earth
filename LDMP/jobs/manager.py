@@ -1141,7 +1141,7 @@ def _download_result(url: str, output_path: Path) -> bool:
     result = bool(download_worker.get_resp())
 
     if not result:
-        output_path.unlink()
+        output_path.unlink(missing_ok=True)
 
     return result
 

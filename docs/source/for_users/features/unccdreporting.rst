@@ -41,7 +41,7 @@ from 3 sub-indicators:
 .. image:: ../../../resources/en/documentation/understanding_indicators15/indicator_15_3_1.png
    :align: center
 
-|trends.earth| allows the user to compute each of these subindicators in a 
+|trends.earth| allows the user to compute each of these sub-indicators in a 
 spatially explicit way generating raster maps which are then integrated into a 
 final SDG 15.3.1 indicator map and produces a table result reporting areas 
 potentially improved and degraded for the area of analysis.
@@ -291,7 +291,7 @@ Standardized Precipitation Index (SPI)
 The Standardized Precipitation Index (SPI) has been widely used to characterize meteorological drought or 
 precipitation deficit, and was recognized through the Lincoln Declaration on Drought as the internationally
 preferred index for calculating and monitoring meteorological drought. SPI is calculated as standard 
-deviations that the observed precipitation over a specified period would deviate from the longterm mean 
+deviations that the observed precipitation over a specified period would deviate from the long-term mean 
 over periods of that duration considered over typically 30 years of data, for a normal distribution and
 fitted probability distribution for the actual precipitation record. The primary advantages for using the SPI
 for global drought monitoring, prediction, and risk assessment is that it is currently in use in many countries
@@ -397,7 +397,7 @@ the Tools4LDN Technical Report on Monitoring Progress Towards UNCCD Strategic Ob
 
 Step 3. Calculating the proportion of land within each drought intensity class.
 
-The equation to estimate the percentage of land within drought intensite classes takes the land area under the each drought intensity class identified
+The equation to estimate the percentage of land within drought intensity classes takes the land area under the each drought intensity class identified
 in the previous step over the the total land area, as follows:
 
 .. image:: ../../../resources/en/documentation/understanding_indicators15/so3_level2_equation.PNG
@@ -415,7 +415,7 @@ Where:
 SO3 Level II indicator (SO 3-2 Exposure)
 ----------------------------------------
 
-The UNCCD SO3 Levl lII drought Exposure indicator is built upon the SO 3 Level I Hazard indicator by overlaying a gridded population data.
+The UNCCD SO3 Level III drought Exposure indicator is built upon the SO 3 Level I Hazard indicator by overlaying a gridded population data.
 Using the overlaying population as a proxy for calculating drought exposure is a straight-forward method. Knowing how many people are 
 directly affected by drought can help aid get allocated to the most needed areas, based on percent of population exposed and strength of that
 exposure (drought severity). This method can also serve as a proxy for socioeconomic drought.The gender disaggregation calculation for the SO3 
@@ -424,11 +424,11 @@ by gender (percent male and percent female) exposed to each Level I drought inte
 aggregated to administrative boundaries if desired, where global and local spatial relationships between gender and drought occurrence and/or 
 severity can be better quantified and visualized.
 
-The WorldPop collection is a global gridded highresolution geospatial dataset on population distributions,demographics, and dynamics. 
+The WorldPop collection is a global gridded high resolution geospatial dataset on population distributions,demographics, and dynamics. 
 WorldPop's spatially disaggregated layers are gridded with an output resolution of 3 arc-seconds and 30 arc-seconds (approximately
 100 m & 1 km, respectively at the equator) and incorporates inputs such as population census tables & national geographic boundaries,
 roads, land cover, built structures, urban areas, night-time lights, infrastructure, environmental data, protected areas, and water bodies.
-The strengths of WorldPop are that the population estimation method of dasymetric mapping is multivariate, i.e., highly modelled, and
+The strengths of WorldPop are that the population estimation method of dasymetric mapping is multivariate, i.e., highly modeled, and
 therefore tailored to match data conditions and geographical nature of each individual country and region. Gender information is also available.
 The weakness of WorldPop is that the utilization of such complex interpolation models with sparse census data may lead to highly uncertain and 
 imprecise population estimates in some sub-national and rural regions. In spite of the aforementioned limitation, WorldPop remains the most ideal 

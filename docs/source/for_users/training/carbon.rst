@@ -34,9 +34,9 @@ Calculate change in carbon
    Define the percent tree cover considered forest for your area of interest.
    
 .. note::
-    The definition of canopy cover should be changed to accomodate the specifc area of interest. 
+    The definition of canopy cover should be changed to accommodate the specific area of interest. 
 	The dataset maps global tree cover based on percent canopy cover in the year 2000.
-	Many studies cite 25% - 30% threshold to define forest, hoever this definition can change
+	Many studies cite 25% - 30% threshold to define forest, however this definition can change
 	for arid regions. For more information, please see the publication"
 
 .. _Quantification of global gross forest cover: https://www.pnas.org/doi/10.1073/pnas.0912668107

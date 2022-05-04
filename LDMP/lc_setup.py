@@ -1231,6 +1231,10 @@ class LccInfoUtils:
 
         # Update transition matrix and land cover nesting with our new custom
         # classes.
+        log(
+            f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - Saving LCCInfo to settings: '
+            f'{status!s}'
+        )
         if status:
             LccInfoUtils.sync_trans_matrix(lcc_infos)
             LccInfoUtils.sync_lc_nesting_matrix(lcc_infos)
@@ -1340,7 +1344,7 @@ class LccInfoUtils:
     ) -> typing.Tuple[bool, 'LCClassInfo']:
         """
         Checks if the given lc class is in the collection using
-        name_long to compare.
+        code to compare.
         """
         match = [
             lcc_info for lcc_info in lcc_infos
@@ -1356,9 +1360,20 @@ class LccInfoUtils:
         reference list.
         """
         if len(ref_lcc_infos) == 0:
+            log(
+                f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - No land cover '
+                f'classes to update transition matrix.'
+            )
             return
 
-        matrix = get_trans_matrix()
+        matrix = get_trans_matrix(save_settings=False)
+
+        if matrix is None:
+            log(
+                f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - No transition '
+                f'matrix in settings'
+            )
+            return
 
         # Check if there are custom classes to be removed.
         i = 0
@@ -1370,7 +1385,15 @@ class LccInfoUtils:
             )
 
             if not lcc_in_ref:
+                log(
+                    f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - {lcc.name_long} '
+                    f'class not in matrix settings, attempting to remove...'
+                )
                 matrix.remove_class(lcc)
+                log(
+                    f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - '
+                    f'{lcc.name_long} class successfully removed in matrix.'
+                )
             else:
                 i += 1
 
@@ -1378,12 +1401,20 @@ class LccInfoUtils:
         for lcc_info in ref_lcc_infos:
             ref_lcc = lcc_info.lcc
             matrix.add_update_class(ref_lcc)
+            log(
+                f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - Adding '
+                f'{ref_lcc.name_long} class to matrix.'
+            )
 
         matrix.legend.name = LccInfoUtils.CUSTOM_LEGEND_NAME
         matrix.name = 'Custom land cover degradation transition matrix'
 
         # Update matrix in settings
         trans_matrix_to_settings(matrix)
+        log(
+            f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - Saved updated matrix to '
+            f'settings.'
+        )
 
     @staticmethod
     def sync_lc_nesting_matrix(ref_lcc_infos: typing.List['LCClassInfo']):
@@ -1392,10 +1423,21 @@ class LccInfoUtils:
         in the reference list.
         """
         if len(ref_lcc_infos) == 0:
+            log(
+                f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - No land cover '
+                f'classes to update land cover nesting.'
+            )
             return
 
         nesting = get_lc_nesting(save_settings=False)
         ref_nesting = get_lc_nesting(True, save_settings=False)
+
+        if nesting is None:
+            log(
+                f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - No land cover '
+                f'nesting in settings.'
+            )
+            return
 
         # Check if there are custom classes to be removed.
         i = 0
@@ -1407,7 +1449,15 @@ class LccInfoUtils:
             )
 
             if not lcc_in_ref:
+                log(
+                    f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - {lcc.name_long} '
+                    f'class not in nesting settings, attempting to remove...'
+                )
                 nesting.remove_parent_class(lcc)
+                log(
+                    f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - '
+                    f'{lcc.name_long} class successfully removed in nesting.'
+                )
             else:
                 i += 1
 
@@ -1417,24 +1467,26 @@ class LccInfoUtils:
             parent_lcc = lcc_info.parent
             children = ref_nesting.children_for_parent(parent_lcc)
             nesting.add_update_parent(ref_lcc, children)
+            log(
+                f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - Adding '
+                f'{ref_lcc.name_long} parent class to nesting.'
+            )
 
         # Remove orphaned children otherwise the model will raise a
         # ValidationError.
         orphans = nesting.orphan_children()
         codes = [c.code for c in orphans]
         for cd in codes:
+            log(
+                f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - Removing orphaned '
+                f'class with code {cd!s} from nesting.'
+            )
             nesting.child.remove_class(cd)
 
         nesting.parent.name = LccInfoUtils.CUSTOM_LEGEND_NAME
 
         lc_nesting_to_settings(nesting)
-
-
-
-
-
-
-
-
-
-
+        log(
+            f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - Saved updated lc nesting '
+            f'to settings.'
+        )

@@ -60,6 +60,7 @@ from . import conf
 from . import main_widget
 from .charts import calculate_charts
 from .jobs.manager import job_manager
+from .lc_setup import LccInfoUtils
 from .maptools import BufferMapTool
 from .maptools import PolygonMapTool
 from .processing_provider.provider import Provider
@@ -215,6 +216,9 @@ class LDMPPlugin(object):
 
         # Initialize reports module
         self.init_reports()
+
+        # Check if custom land cover classes exist, if not use default UNCCD
+        LccInfoUtils.set_default_unccd_classes(False)
 
         """Create Main manu icon and plugins menu entries."""
         self.start_action = self.add_action(

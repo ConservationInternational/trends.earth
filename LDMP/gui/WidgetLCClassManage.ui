@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>291</width>
+    <width>327</width>
     <height>200</height>
    </rect>
   </property>
@@ -93,7 +93,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="btn_remove_all">
+      <widget class="QPushButton" name="btn_restore">
        <property name="minimumSize">
         <size>
          <width>0</width>
@@ -101,10 +101,10 @@
         </size>
        </property>
        <property name="toolTip">
-        <string>Remove all custom land cover classes</string>
+        <string>Restore the default UNCCD land cover classes</string>
        </property>
        <property name="text">
-        <string>Clear</string>
+        <string>Restore</string>
        </property>
       </widget>
      </item>

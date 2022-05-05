@@ -1167,18 +1167,6 @@ class LCClassInfo:
         ordered = True
         load_only = ['idx']
 
-    def __eq__(self, other: 'LCClassInfo') -> bool:
-        # Checks equality.
-        lcc_eq = LCClassInfo.lcc_equality(self.lcc, other.lcc)
-        if not lcc_eq:
-            return False
-
-        parent_eq = LCClassInfo.lcc_equality(self.parent, other.parent)
-        if not parent_eq:
-            return False
-
-        return True
-
     def update(self, other: 'LCClassInfo'):
         # Update this object with values from another object.
         # Update main class
@@ -1366,7 +1354,11 @@ class LccInfoUtils:
             )
             return
 
-        matrix = get_trans_matrix(save_settings=False)
+        try:
+            matrix = get_trans_matrix(save_settings=False)
+        except ValidationError:
+            matrix = get_trans_matrix(True, False)
+            matrix = get_trans_matrix(True, False)
 
         if matrix is None:
             log(
@@ -1490,3 +1482,36 @@ class LccInfoUtils:
             f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - Saved updated lc nesting '
             f'to settings.'
         )
+
+    @staticmethod
+    def set_default_unccd_classes(force_update=False):
+        """
+        Overrides the custom land cover classes in the setting and replaces
+        with the UNCCD classes. If 'force_update' is False then it will
+        only replace if the corresponding setting is empty otherwise it will
+        always update the land cover classes.
+        """
+        status, lcc_infos = LccInfoUtils.load_settings()
+        if len(lcc_infos) > 0 and not force_update:
+            return
+
+        ref_nesting = get_lc_nesting(True, False)
+
+        def_lcc_infos = []
+        for lcc in ref_nesting.parent.key:
+            lcc_info = LCClassInfo()
+            lcc_info.lcc = lcc
+            lcc_info.parent = lcc
+
+            def_lcc_infos.append(lcc_info)
+
+        # Save to settings
+        if len(def_lcc_infos) > 0:
+            LccInfoUtils.save_settings(def_lcc_infos)
+
+        # Re-write the matrix but with the original meanings restored
+        _ = get_trans_matrix(True, True)
+
+
+
+

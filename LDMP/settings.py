@@ -1408,11 +1408,11 @@ class LandCoverCustomClassesManager(
         self.btn_save.setIcon(save_table_icon)
         self.btn_save.clicked.connect(self.on_save_file)
 
-        delete_icon = qgis.core.QgsApplication.instance().getThemeIcon(
-            'symbologyRemove.svg'
+        restore_icon = qgis.core.QgsApplication.instance().getThemeIcon(
+            'mActionReload.svg'
         )
-        self.btn_remove_all.setIcon(delete_icon)
-        self.btn_remove_all.clicked.connect(self.on_clear_class_infos)
+        self.btn_restore.setIcon(restore_icon)
+        self.btn_restore.clicked.connect(self.on_restore_class_infos)
 
     def append_msg(self, msg: str, warning=True):
         # Add warning or info message if a message bar has been defined.
@@ -1432,7 +1432,7 @@ class LandCoverCustomClassesManager(
         )
 
     def sizeHint(self) -> QtCore.QSize:
-        return QtCore.QSize(350, 230)
+        return QtCore.QSize(350, 270)
 
     def resizeEvent(self, event: QtGui.QResizeEvent):
         # Adjust column width
@@ -1473,22 +1473,21 @@ class LandCoverCustomClassesManager(
 
         return True
 
-    def on_clear_class_infos(self):
-        # Slot raised to remove all land cover classes.
-        if not self.has_class_infos():
-            return
-
+    def on_restore_class_infos(self):
+        # Slot raised to restore UNCCD land cover classes.
         ret = QtWidgets.QMessageBox.warning(
             self,
             self.tr('Remove Classes'),
             self.tr('This action will permanently remove the land cover '
-                    'classes with the default UNCCD land cover classes '
-                    'restored after saving.\nDo you want to proceed?'),
+                    'classes in the table and restore the default UNCCD land '
+                    'cover classes.\nDo you want to proceed?'),
             QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
             QtWidgets.QMessageBox.No
         )
         if ret == QtWidgets.QMessageBox.Yes:
             self.clear_class_infos()
+            LccInfoUtils.set_default_unccd_classes(True)
+            self.load_settings()
 
     def save_settings(self):
         """
@@ -1804,6 +1803,21 @@ class LandCoverCustomClassesManager(
         # Notification to remove the given row.
         if row < 0:
             log('Invalid reference of land cover class to remove.')
+            return
+
+        # Reject if there is only one record remaining
+        rec_count = self.model.rowCount()
+        if rec_count == 1:
+            msg = self.tr(
+                'There must be at least one class defined. You can create a '
+                'new one then delete this one or you can restore the '
+                'default UNCCD classes by clicking on the Restore button.'
+            )
+            QtWidgets.QMessageBox.warning(
+                self,
+                self.tr('Delete Failed'),
+                msg
+            )
             return
 
         self.selection_model.blockSignals(True)

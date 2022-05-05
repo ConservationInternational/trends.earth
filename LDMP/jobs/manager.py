@@ -148,6 +148,7 @@ class LocalJobTask(QgsTask):
         self.area_of_interest = area_of_interest
 
     def run(self):
+        logger.debug('Running task')
         execution_handler = utils.load_object(self.job.script.execution_callable)
         job_output_path, dataset_output_path = _get_local_job_output_paths(self.job)
         self.completed_job = execution_handler(
@@ -155,8 +156,10 @@ class LocalJobTask(QgsTask):
         )
 
         if self.completed_job is None:
+            logger.debug('Completed run function - failure')
             return False
         else:
+            logger.debug('Completed run function - success')
             return True
 
     def finished(self, result):

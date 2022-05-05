@@ -999,7 +999,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         in_srs.ImportFromWkt(ds_in.GetProjectionRef())
 
         tx = osr.CoordinateTransformation(
-            in_srs, wgs84_srs, qgis.core.QgsProject.instance()
+            in_srs, wgs84_srs
         )
 
         geo_t = ds_in.GetGeoTransform()

@@ -52,6 +52,7 @@ class tr_calculate_ldn(object):
 class TimePeriodWidgets:
     radio_time_period: QtWidgets.QRadioButton
     radio_lpd_jrc: QtWidgets.QRadioButton
+    cb_jrc: QtWidgets.QRadioButton
     year_initial: QtWidgets.QDateEdit
     year_final: QtWidgets.QDateEdit
     label_prod: QtWidgets.QLabel
@@ -78,6 +79,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.widgets_baseline = TimePeriodWidgets(
             self.radio_time_period_baseline,
             self.radio_lpd_jrc,
+            self.cb_jrc_baseline,
             self.year_initial_baseline,
             self.year_final_baseline,
             self.label_baseline_prod,
@@ -93,6 +95,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.widgets_progress = TimePeriodWidgets(
             self.radio_time_period_progress,
             self.radio_lpd_jrc,
+            self.cb_jrc_progress,
             self.year_initial_progress,
             self.year_final_progress,
             self.label_progress_prod,
@@ -248,7 +251,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         else:
             prod_dataset = conf.REMOTE_DATASETS[
                 "Land Productivity Dynamics (JRC)"][
-                    self.cb_jrc_baseline.currentText()]
+                    widgets.cb_jrc.currentText()]
             start_year_prod = prod_dataset['Start year']
             end_year_prod = prod_dataset['End year']
 
@@ -401,14 +404,8 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                     }
                 )
             elif prod_mode == ProductivityMode.JRC_5_CLASS_LPD.value:
-                if period == 'baseline':
-                    prod_dataset = conf.REMOTE_DATASETS[
-                        "Land Productivity Dynamics (JRC)"][
-                            self.cb_jrc_baseline.currentText()]
-                else:
-                    prod_dataset = conf.REMOTE_DATASETS[
-                        "Land Productivity Dynamics (JRC)"][
-                            self.cb_jrc_progress.currentText()]
+                prod_dataset = conf.REMOTE_DATASETS[
+                    "Land Productivity Dynamics (JRC)"][widgets.cb_jrc.currentText()]
                 prod_asset = prod_dataset['GEE Dataset']
                 prod_start_year = prod_dataset['Start year']
                 prod_end_year = prod_dataset['End year']

@@ -118,8 +118,8 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         )
         self.cb_jrc_progress.setCurrentIndex(2)
 
-        self.year_final_baseline.dateChanged.connect(self.update_progress_year)
-        self.update_progress_year()
+        # self.year_final_baseline.dateChanged.connect(self.update_progress_year)
+        # self.update_progress_year()
 
         self.toggle_lpd_options()
 
@@ -165,12 +165,12 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self._finish_initialization()
 
     def update_start_dates(self, widgets):
-        widgets.year_initial_prod.setDate(widgets.year_initial.date())
+        #widgets.year_initial_prod.setDate(widgets.year_initial.date())
         widgets.year_initial_lc.setDate(widgets.year_initial.date())
         widgets.year_initial_soc.setDate(widgets.year_initial.date())
 
     def update_end_dates(self, widgets):
-        widgets.year_final_prod.setDate(widgets.year_final.date())
+        #widgets.year_final_prod.setDate(widgets.year_final.date())
         widgets.year_final_lc.setDate(widgets.year_final.date())
         widgets.year_final_soc.setDate(widgets.year_final.date())
 
@@ -227,8 +227,13 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.toggle_time_period(self.widgets_baseline)
         self.toggle_time_period(self.widgets_progress)
 
-    def update_progress_year(self):
-        self.year_initial_progress.setDate(self.year_final_baseline.date())
+    # def update_progress_year(self):
+    #     if self.radio_te_prod.isChecked():
+    #         self.year_initial_progress.setDate(self.year_final_baseline.date())
+    #     else:
+    #         self.year_initial_progress.setDate(self.year_final_baseline.date())
+    #         self.year_initial_progress_soc.setDate(self.year_final_baseline.date())
+    #         self.year_initial_progress_lc.setDate(self.year_final_baseline.date())
 
     def update_time_bounds(self, widgets):
         lc_dataset = conf.REMOTE_DATASETS["Land cover"]["ESA CCI"]
@@ -267,10 +272,20 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         widgets.year_final.setMinimumDate(start_year)
         widgets.year_final.setMaximumDate(end_year)
 
-        widgets.year_initial_prod.setMinimumDate(start_year_prod)
-        widgets.year_initial_prod.setMaximumDate(end_year_prod)
-        widgets.year_final_prod.setMinimumDate(start_year_prod)
-        widgets.year_final_prod.setMaximumDate(end_year_prod)
+        if widgets.radio_lpd_jrc.isChecked():
+            widgets.year_initial_prod.setDate(start_year_prod)
+            widgets.year_final_prod.setDate(end_year_prod)
+            widgets.year_initial_prod.setMinimumDate(start_year_prod)
+            widgets.year_initial_prod.setMaximumDate(end_year_prod)
+            widgets.year_final_prod.setMinimumDate(start_year_prod)
+            widgets.year_final_prod.setMaximumDate(end_year_prod)
+        else:
+            widgets.year_initial_prod.setDate(start_year_prod)
+            widgets.year_final_prod.setDate(end_year_prod)
+            widgets.year_initial_prod.setMinimumDate(start_year_prod)
+            widgets.year_initial_prod.setMaximumDate(start_year_prod)
+            widgets.year_final_prod.setMinimumDate(end_year_prod)
+            widgets.year_final_prod.setMaximumDate(end_year_prod)
 
         widgets.year_initial_lc.setMinimumDate(start_year_lc)
         widgets.year_initial_lc.setMaximumDate(end_year_lc)
@@ -284,6 +299,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
         widgets.year_initial.setDate(start_year_prod)
         widgets.year_final.setDate(end_year_prod)
+
 
         self.update_start_dates(widgets)
         self.update_end_dates(widgets)

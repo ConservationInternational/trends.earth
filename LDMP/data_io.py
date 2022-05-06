@@ -33,7 +33,7 @@ from te_schemas.results import Raster, ResultType, RasterType
 from . import GetTempFilename, areaofinterest, conf, layers, utils, worker
 from . import metadata_dialog
 from . import metadata
-from .jobs.manager import job_manager, load_raw_job
+from .jobs.manager import job_manager, update_uris_if_needed, set_results_extents
 from .jobs.models import Job
 from .logger import log
 
@@ -674,7 +674,9 @@ class DlgDataIOLoadTE(QtWidgets.QDialog, Ui_DlgDataIOLoadTE):
         if path.is_file():
             try:
                 raw_job = json.loads(path.read_text())
-                job = load_raw_job(raw_job)
+                job = Job.Schema().load(raw_job)
+                update_uris_if_needed(job, path)
+                set_results_extents(job)
             except json.JSONDecodeError:
                 error_message = "Could not parse the selected file into a valid JSON"
 
@@ -996,9 +998,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         in_srs = osr.SpatialReference()
         in_srs.ImportFromWkt(ds_in.GetProjectionRef())
 
-        tx = osr.CoordinateTransformation(
-            in_srs, wgs84_srs, qgis.core.QgsProject.instance()
-        )
+        tx = osr.CoordinateTransformation(in_srs, wgs84_srs)
 
         geo_t = ds_in.GetGeoTransform()
         x_size = ds_in.RasterXSize

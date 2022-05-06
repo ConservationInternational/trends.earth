@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>980</width>
-    <height>627</height>
+    <width>1110</width>
+    <height>728</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -67,8 +67,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>671</width>
-            <height>889</height>
+            <width>809</width>
+            <height>939</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_7">
@@ -107,24 +107,6 @@
                    </property>
                   </widget>
                  </item>
-                 <item>
-                  <widget class="QLabel" name="label_lpd_warning">
-                   <property name="font">
-                    <font>
-                     <pointsize>10</pointsize>
-                    </font>
-                   </property>
-                   <property name="text">
-                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;When the JRC LPD is chosen as the productivity dataset, &lt;span style=&quot; font-weight:600;&quot;&gt;the initial and final years selected below apply to the land cover and soil organic carbon indicators only&lt;/span&gt;. The time period used for the JRC LPD depends on which JRC LPD dataset is chosen. Use caution interpreting the results when these time periods differ.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                   <property name="wordWrap">
-                    <bool>true</bool>
-                   </property>
-                  </widget>
-                 </item>
                 </layout>
                </widget>
               </item>
@@ -145,142 +127,430 @@
                 <property name="title">
                  <string>Baseline period</string>
                 </property>
-                <layout class="QGridLayout" name="gridLayout_8">
-                 <item row="4" column="0">
-                  <widget class="QFrame" name="jrc_frame_baseline">
-                   <property name="frameShape">
-                    <enum>QFrame::NoFrame</enum>
+                <layout class="QGridLayout" name="gridLayout_2">
+                 <item row="12" column="1">
+                  <widget class="QLabel" name="label_baseline_soc">
+                   <property name="text">
+                    <string>Soil organic carbon</string>
                    </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Raised</enum>
-                   </property>
-                   <layout class="QVBoxLayout" name="verticalLayout_8">
-                    <item>
-                     <widget class="QLabel" name="label">
-                      <property name="text">
-                       <string>JRC LPD dataset for baseline period</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QComboBox" name="cb_jrc_baseline"/>
-                    </item>
-                   </layout>
                   </widget>
                  </item>
-                 <item row="1" column="0">
-                  <widget class="QFrame" name="frame">
-                   <property name="frameShape">
-                    <enum>QFrame::NoFrame</enum>
+                 <item row="3" column="2">
+                  <widget class="QLabel" name="label_10">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>30</height>
+                    </size>
                    </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Raised</enum>
+                   <property name="font">
+                    <font>
+                     <weight>50</weight>
+                     <bold>false</bold>
+                    </font>
                    </property>
-                   <layout class="QGridLayout" name="gridLayout_2">
-                    <item row="1" column="1">
-                     <widget class="QDateEdit" name="year_final_baseline">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>30</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>120</width>
-                        <height>35</height>
-                       </size>
-                      </property>
-                      <property name="toolTip">
-                       <string>Select the final year, should be great than the initial year</string>
-                      </property>
-                      <property name="displayFormat">
-                       <string notr="true">yyyy</string>
-                      </property>
-                      <property name="date">
-                       <date>
-                        <year>2015</year>
-                        <month>1</month>
-                        <day>1</day>
-                       </date>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="0" column="1">
-                     <widget class="QLabel" name="label_3">
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>30</height>
-                       </size>
-                      </property>
-                      <property name="text">
-                       <string>Final year:</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="0" column="0">
-                     <widget class="QLabel" name="label_10">
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>30</height>
-                       </size>
-                      </property>
-                      <property name="font">
-                       <font>
-                        <weight>50</weight>
-                        <bold>false</bold>
-                       </font>
-                      </property>
-                      <property name="text">
-                       <string>Initial year:</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="1" column="0">
-                     <widget class="QDateEdit" name="year_initial_baseline">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>30</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>120</width>
-                        <height>35</height>
-                       </size>
-                      </property>
-                      <property name="toolTip">
-                       <string>Select the initial year, should be less than the final year.</string>
-                      </property>
-                      <property name="displayFormat">
-                       <string notr="true">yyyy</string>
-                      </property>
-                      <property name="date">
-                       <date>
-                        <year>2001</year>
-                        <month>1</month>
-                        <day>1</day>
-                       </date>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
+                   <property name="text">
+                    <string>Initial year</string>
+                   </property>
                   </widget>
+                 </item>
+                 <item row="12" column="3">
+                  <widget class="QDateEdit" name="year_final_baseline_soc">
+                   <property name="minimumSize">
+                    <size>
+                     <width>100</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                   <property name="dateTime">
+                    <datetime>
+                     <hour>0</hour>
+                     <minute>0</minute>
+                     <second>0</second>
+                     <year>2015</year>
+                     <month>1</month>
+                     <day>1</day>
+                    </datetime>
+                   </property>
+                   <property name="maximumDate">
+                    <date>
+                     <year>2035</year>
+                     <month>12</month>
+                     <day>31</day>
+                    </date>
+                   </property>
+                   <property name="minimumDate">
+                    <date>
+                     <year>1980</year>
+                     <month>1</month>
+                     <day>1</day>
+                    </date>
+                   </property>
+                   <property name="displayFormat">
+                    <string>yyyy</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="9" column="1">
+                  <widget class="QLabel" name="label_baseline_prod">
+                   <property name="text">
+                    <string>Productivity</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="11" column="2">
+                  <widget class="QDateEdit" name="year_initial_baseline_lc">
+                   <property name="minimumSize">
+                    <size>
+                     <width>100</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                   <property name="dateTime">
+                    <datetime>
+                     <hour>0</hour>
+                     <minute>0</minute>
+                     <second>0</second>
+                     <year>2001</year>
+                     <month>1</month>
+                     <day>1</day>
+                    </datetime>
+                   </property>
+                   <property name="maximumDate">
+                    <date>
+                     <year>2035</year>
+                     <month>12</month>
+                     <day>31</day>
+                    </date>
+                   </property>
+                   <property name="minimumDate">
+                    <date>
+                     <year>1980</year>
+                     <month>1</month>
+                     <day>1</day>
+                    </date>
+                   </property>
+                   <property name="displayFormat">
+                    <string>yyyy</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="12" column="2">
+                  <widget class="QDateEdit" name="year_initial_baseline_soc">
+                   <property name="minimumSize">
+                    <size>
+                     <width>100</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                   <property name="dateTime">
+                    <datetime>
+                     <hour>0</hour>
+                     <minute>0</minute>
+                     <second>0</second>
+                     <year>2001</year>
+                     <month>1</month>
+                     <day>1</day>
+                    </datetime>
+                   </property>
+                   <property name="maximumDate">
+                    <date>
+                     <year>2035</year>
+                     <month>12</month>
+                     <day>31</day>
+                    </date>
+                   </property>
+                   <property name="minimumDate">
+                    <date>
+                     <year>1980</year>
+                     <month>1</month>
+                     <day>1</day>
+                    </date>
+                   </property>
+                   <property name="displayFormat">
+                    <string>yyyy</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="4" column="2">
+                  <widget class="QDateEdit" name="year_initial_baseline">
+                   <property name="minimumSize">
+                    <size>
+                     <width>100</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                   <property name="dateTime">
+                    <datetime>
+                     <hour>0</hour>
+                     <minute>0</minute>
+                     <second>0</second>
+                     <year>2001</year>
+                     <month>1</month>
+                     <day>1</day>
+                    </datetime>
+                   </property>
+                   <property name="maximumDate">
+                    <date>
+                     <year>2035</year>
+                     <month>12</month>
+                     <day>31</day>
+                    </date>
+                   </property>
+                   <property name="minimumDate">
+                    <date>
+                     <year>1980</year>
+                     <month>1</month>
+                     <day>1</day>
+                    </date>
+                   </property>
+                   <property name="displayFormat">
+                    <string>yyyy</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="7" column="3">
+                  <widget class="QLabel" name="label_7">
+                   <property name="text">
+                    <string>Final year</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="5" column="0">
+                  <widget class="QRadioButton" name="radioButton_2">
+                   <property name="text">
+                    <string>Allow time period to vary by indicator:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="9" column="2">
+                  <widget class="QDateEdit" name="year_initial_baseline_prod">
+                   <property name="minimumSize">
+                    <size>
+                     <width>100</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                   <property name="dateTime">
+                    <datetime>
+                     <hour>0</hour>
+                     <minute>0</minute>
+                     <second>0</second>
+                     <year>2001</year>
+                     <month>1</month>
+                     <day>1</day>
+                    </datetime>
+                   </property>
+                   <property name="maximumDate">
+                    <date>
+                     <year>2035</year>
+                     <month>12</month>
+                     <day>31</day>
+                    </date>
+                   </property>
+                   <property name="minimumDate">
+                    <date>
+                     <year>1980</year>
+                     <month>1</month>
+                     <day>1</day>
+                    </date>
+                   </property>
+                   <property name="displayFormat">
+                    <string>yyyy</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="3">
+                  <widget class="QLabel" name="label_3">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="text">
+                    <string>Final year</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="4" column="3">
+                  <widget class="QDateEdit" name="year_final_baseline">
+                   <property name="minimumSize">
+                    <size>
+                     <width>100</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                   <property name="maximumDate">
+                    <date>
+                     <year>2035</year>
+                     <month>12</month>
+                     <day>31</day>
+                    </date>
+                   </property>
+                   <property name="minimumDate">
+                    <date>
+                     <year>1980</year>
+                     <month>1</month>
+                     <day>1</day>
+                    </date>
+                   </property>
+                   <property name="displayFormat">
+                    <string>yyyy</string>
+                   </property>
+                   <property name="date">
+                    <date>
+                     <year>2015</year>
+                     <month>1</month>
+                     <day>1</day>
+                    </date>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="11" column="3">
+                  <widget class="QDateEdit" name="year_final_baseline_lc">
+                   <property name="minimumSize">
+                    <size>
+                     <width>100</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                   <property name="dateTime">
+                    <datetime>
+                     <hour>0</hour>
+                     <minute>0</minute>
+                     <second>0</second>
+                     <year>2015</year>
+                     <month>1</month>
+                     <day>1</day>
+                    </datetime>
+                   </property>
+                   <property name="maximumDate">
+                    <date>
+                     <year>2035</year>
+                     <month>12</month>
+                     <day>31</day>
+                    </date>
+                   </property>
+                   <property name="minimumDate">
+                    <date>
+                     <year>1980</year>
+                     <month>1</month>
+                     <day>1</day>
+                    </date>
+                   </property>
+                   <property name="displayFormat">
+                    <string>yyyy</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="7" column="2">
+                  <widget class="QLabel" name="label_6">
+                   <property name="text">
+                    <string>Initial year</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="9" column="3">
+                  <widget class="QDateEdit" name="year_final_baseline_prod">
+                   <property name="minimumSize">
+                    <size>
+                     <width>100</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                   <property name="dateTime">
+                    <datetime>
+                     <hour>0</hour>
+                     <minute>0</minute>
+                     <second>0</second>
+                     <year>2015</year>
+                     <month>1</month>
+                     <day>1</day>
+                    </datetime>
+                   </property>
+                   <property name="maximumDate">
+                    <date>
+                     <year>2035</year>
+                     <month>12</month>
+                     <day>31</day>
+                    </date>
+                   </property>
+                   <property name="minimumDate">
+                    <date>
+                     <year>1980</year>
+                     <month>1</month>
+                     <day>1</day>
+                    </date>
+                   </property>
+                   <property name="displayFormat">
+                    <string>yyyy</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="2" column="0">
+                  <widget class="QRadioButton" name="radio_time_period_baseline">
+                   <property name="text">
+                    <string>Use the same time period across all indicators:</string>
+                   </property>
+                   <property name="checked">
+                    <bool>true</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="11" column="1">
+                  <widget class="QLabel" name="label_baseline_lc">
+                   <property name="text">
+                    <string>Land cover</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="7" column="4">
+                  <spacer name="horizontalSpacer">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item row="0" column="0">
+                  <widget class="QLabel" name="label_jrc_baseline">
+                   <property name="text">
+                    <string>JRC LPD dataset</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="0" colspan="5">
+                  <widget class="QComboBox" name="cb_jrc_baseline"/>
                  </item>
                 </layout>
                </widget>
@@ -309,145 +579,363 @@
                 <property name="title">
                  <string>Progress period</string>
                 </property>
-                <layout class="QVBoxLayout" name="verticalLayout_10">
-                 <item>
-                  <widget class="QFrame" name="frame_3">
-                   <property name="frameShape">
-                    <enum>QFrame::NoFrame</enum>
+                <layout class="QGridLayout" name="gridLayout_3">
+                 <item row="12" column="3">
+                  <widget class="QDateEdit" name="year_final_progress_soc">
+                   <property name="minimumSize">
+                    <size>
+                     <width>100</width>
+                     <height>0</height>
+                    </size>
                    </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Raised</enum>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
                    </property>
-                   <layout class="QGridLayout" name="gridLayout">
-                    <item row="1" column="0">
-                     <widget class="QDateEdit" name="year_initial_progress">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>30</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>120</width>
-                        <height>35</height>
-                       </size>
-                      </property>
-                      <property name="toolTip">
-                       <string>Select the initial year, should be less than the final year.</string>
-                      </property>
-                      <property name="displayFormat">
-                       <string notr="true">yyyy</string>
-                      </property>
-                      <property name="date">
-                       <date>
-                        <year>2005</year>
-                        <month>1</month>
-                        <day>1</day>
-                       </date>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="0" column="0">
-                     <widget class="QLabel" name="label_11">
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>30</height>
-                       </size>
-                      </property>
-                      <property name="font">
-                       <font>
-                        <weight>50</weight>
-                        <bold>false</bold>
-                       </font>
-                      </property>
-                      <property name="text">
-                       <string>Initial year:</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="0" column="1">
-                     <widget class="QLabel" name="label_4">
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>30</height>
-                       </size>
-                      </property>
-                      <property name="text">
-                       <string>Final year:</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item row="1" column="1">
-                     <widget class="QDateEdit" name="year_final_progress">
-                      <property name="sizePolicy">
-                       <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-                        <horstretch>0</horstretch>
-                        <verstretch>0</verstretch>
-                       </sizepolicy>
-                      </property>
-                      <property name="minimumSize">
-                       <size>
-                        <width>0</width>
-                        <height>30</height>
-                       </size>
-                      </property>
-                      <property name="maximumSize">
-                       <size>
-                        <width>120</width>
-                        <height>35</height>
-                       </size>
-                      </property>
-                      <property name="toolTip">
-                       <string>Select the final year, should be great than the initial year</string>
-                      </property>
-                      <property name="displayFormat">
-                       <string notr="true">yyyy</string>
-                      </property>
-                      <property name="date">
-                       <date>
-                        <year>2019</year>
-                        <month>1</month>
-                        <day>1</day>
-                       </date>
-                      </property>
-                     </widget>
-                    </item>
-                   </layout>
+                   <property name="maximumDate">
+                    <date>
+                     <year>2035</year>
+                     <month>12</month>
+                     <day>31</day>
+                    </date>
+                   </property>
+                   <property name="minimumDate">
+                    <date>
+                     <year>1980</year>
+                     <month>1</month>
+                     <day>1</day>
+                    </date>
+                   </property>
+                   <property name="displayFormat">
+                    <string>yyyy</string>
+                   </property>
                   </widget>
                  </item>
-                 <item>
-                  <widget class="QFrame" name="jrc_frame_progress">
-                   <property name="enabled">
+                 <item row="9" column="3">
+                  <widget class="QDateEdit" name="year_final_progress_prod">
+                   <property name="minimumSize">
+                    <size>
+                     <width>100</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                   <property name="maximumDate">
+                    <date>
+                     <year>2035</year>
+                     <month>12</month>
+                     <day>31</day>
+                    </date>
+                   </property>
+                   <property name="minimumDate">
+                    <date>
+                     <year>1980</year>
+                     <month>1</month>
+                     <day>1</day>
+                    </date>
+                   </property>
+                   <property name="displayFormat">
+                    <string>yyyy</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="0" column="0">
+                  <widget class="QLabel" name="label_jrc_progress">
+                   <property name="text">
+                    <string>JRC LPD dataset</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="12" column="2">
+                  <widget class="QDateEdit" name="year_initial_progress_soc">
+                   <property name="minimumSize">
+                    <size>
+                     <width>100</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                   <property name="maximumDate">
+                    <date>
+                     <year>2035</year>
+                     <month>12</month>
+                     <day>31</day>
+                    </date>
+                   </property>
+                   <property name="minimumDate">
+                    <date>
+                     <year>1980</year>
+                     <month>1</month>
+                     <day>1</day>
+                    </date>
+                   </property>
+                   <property name="displayFormat">
+                    <string>yyyy</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="2">
+                  <widget class="QLabel" name="label_12">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="font">
+                    <font>
+                     <weight>50</weight>
+                     <bold>false</bold>
+                    </font>
+                   </property>
+                   <property name="text">
+                    <string>Initial year</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="5" column="0">
+                  <widget class="QRadioButton" name="radioButton_3">
+                   <property name="text">
+                    <string>Allow time period to vary by indicator:</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="11" column="3">
+                  <widget class="QDateEdit" name="year_final_progress_lc">
+                   <property name="minimumSize">
+                    <size>
+                     <width>100</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                   <property name="maximumDate">
+                    <date>
+                     <year>2035</year>
+                     <month>12</month>
+                     <day>31</day>
+                    </date>
+                   </property>
+                   <property name="minimumDate">
+                    <date>
+                     <year>1980</year>
+                     <month>1</month>
+                     <day>1</day>
+                    </date>
+                   </property>
+                   <property name="displayFormat">
+                    <string>yyyy</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="9" column="4">
+                  <spacer name="horizontalSpacer_2">
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="sizeHint" stdset="0">
+                    <size>
+                     <width>40</width>
+                     <height>20</height>
+                    </size>
+                   </property>
+                  </spacer>
+                 </item>
+                 <item row="2" column="0">
+                  <widget class="QRadioButton" name="radio_time_period_progress">
+                   <property name="text">
+                    <string>Use the same time period across all indicators:</string>
+                   </property>
+                   <property name="checked">
                     <bool>true</bool>
                    </property>
-                   <property name="frameShape">
-                    <enum>QFrame::NoFrame</enum>
-                   </property>
-                   <property name="frameShadow">
-                    <enum>QFrame::Raised</enum>
-                   </property>
-                   <layout class="QVBoxLayout" name="verticalLayout_9">
-                    <item>
-                     <widget class="QLabel" name="label_2">
-                      <property name="text">
-                       <string>JRC JPD dataset for progress period</string>
-                      </property>
-                     </widget>
-                    </item>
-                    <item>
-                     <widget class="QComboBox" name="cb_jrc_progress"/>
-                    </item>
-                   </layout>
                   </widget>
+                 </item>
+                 <item row="9" column="1">
+                  <widget class="QLabel" name="label_progress_prod">
+                   <property name="text">
+                    <string>Productivity</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="11" column="1">
+                  <widget class="QLabel" name="label_progress_lc">
+                   <property name="text">
+                    <string>Land cover</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="7" column="2">
+                  <widget class="QLabel" name="label_15">
+                   <property name="text">
+                    <string>Initial year</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="12" column="1">
+                  <widget class="QLabel" name="label_progress_soc">
+                   <property name="text">
+                    <string>Soil organic carbon</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="4" column="3">
+                  <widget class="QDateEdit" name="year_final_progress">
+                   <property name="minimumSize">
+                    <size>
+                     <width>100</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                   <property name="dateTime">
+                    <datetime>
+                     <hour>0</hour>
+                     <minute>0</minute>
+                     <second>0</second>
+                     <year>2019</year>
+                     <month>1</month>
+                     <day>1</day>
+                    </datetime>
+                   </property>
+                   <property name="maximumDate">
+                    <date>
+                     <year>2035</year>
+                     <month>12</month>
+                     <day>31</day>
+                    </date>
+                   </property>
+                   <property name="minimumDate">
+                    <date>
+                     <year>1980</year>
+                     <month>1</month>
+                     <day>1</day>
+                    </date>
+                   </property>
+                   <property name="displayFormat">
+                    <string>yyyy</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="9" column="2">
+                  <widget class="QDateEdit" name="year_initial_progress_prod">
+                   <property name="minimumSize">
+                    <size>
+                     <width>100</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                   <property name="maximumDate">
+                    <date>
+                     <year>2035</year>
+                     <month>12</month>
+                     <day>31</day>
+                    </date>
+                   </property>
+                   <property name="minimumDate">
+                    <date>
+                     <year>1980</year>
+                     <month>1</month>
+                     <day>1</day>
+                    </date>
+                   </property>
+                   <property name="displayFormat">
+                    <string>yyyy</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="3" column="3">
+                  <widget class="QLabel" name="label_4">
+                   <property name="minimumSize">
+                    <size>
+                     <width>0</width>
+                     <height>30</height>
+                    </size>
+                   </property>
+                   <property name="text">
+                    <string>Final year</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="7" column="3">
+                  <widget class="QLabel" name="label_14">
+                   <property name="text">
+                    <string>Final year</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="11" column="2">
+                  <widget class="QDateEdit" name="year_initial_progress_lc">
+                   <property name="minimumSize">
+                    <size>
+                     <width>100</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                   <property name="maximumDate">
+                    <date>
+                     <year>2035</year>
+                     <month>12</month>
+                     <day>31</day>
+                    </date>
+                   </property>
+                   <property name="minimumDate">
+                    <date>
+                     <year>1980</year>
+                     <month>1</month>
+                     <day>1</day>
+                    </date>
+                   </property>
+                   <property name="displayFormat">
+                    <string>yyyy</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="4" column="2">
+                  <widget class="QDateEdit" name="year_initial_progress">
+                   <property name="minimumSize">
+                    <size>
+                     <width>100</width>
+                     <height>0</height>
+                    </size>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                   <property name="maximumDate">
+                    <date>
+                     <year>2035</year>
+                     <month>12</month>
+                     <day>31</day>
+                    </date>
+                   </property>
+                   <property name="minimumDate">
+                    <date>
+                     <year>1980</year>
+                     <month>1</month>
+                     <day>1</day>
+                    </date>
+                   </property>
+                   <property name="displayFormat">
+                    <string>yyyy</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="0" colspan="5">
+                  <widget class="QComboBox" name="cb_jrc_progress"/>
                  </item>
                 </layout>
                </widget>

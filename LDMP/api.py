@@ -116,7 +116,7 @@ class RequestTask(QgsTask):
 
             elif (
                 self.exception is requests.exceptions.ConnectionError or
-                self.exception is requests.exceptions.ConnectionResetError
+                self.exception is ConnectionResetError
             ):
                 log(
                     f'API {self.method} not successful - exception: {self.exception}'

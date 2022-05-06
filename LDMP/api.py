@@ -16,7 +16,6 @@ from future import standard_library
 standard_library.install_aliases()
 
 import json
-from datetime import datetime
 from urllib.parse import quote_plus
 
 import requests
@@ -27,9 +26,8 @@ from qgis.utils import iface
 
 from . import auth, conf
 from .logger import log
-from .worker import AbstractWorker, start_worker
 
-API_URL = 'https://api.trends.earth'
+API_URL = "https://api.trends.earth"
 TIMEOUT = 20
 
 
@@ -54,47 +52,29 @@ class RequestTask(QgsTask):
 
     def run(self):
         try:
-            if self.method == 'get':
+            if self.method == "get":
                 self.resp = requests.get(
-                    self.url,
-                    json=self.payload,
-                    headers=self.headers,
-                    timeout=TIMEOUT
+                    self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT
                 )
-            elif self.method == 'post':
+            elif self.method == "post":
                 self.resp = requests.post(
-                    self.url,
-                    json=self.payload,
-                    headers=self.headers,
-                    timeout=TIMEOUT
+                    self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT
                 )
-            elif self.method == 'update':
+            elif self.method == "update":
                 self.resp = requests.update(
-                    self.url,
-                    json=self.payload,
-                    headers=self.headers,
-                    timeout=TIMEOUT
+                    self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT
                 )
-            elif self.method == 'delete':
+            elif self.method == "delete":
                 self.resp = requests.delete(
-                    self.url,
-                    json=self.payload,
-                    headers=self.headers,
-                    timeout=TIMEOUT
+                    self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT
                 )
-            elif self.method == 'patch':
+            elif self.method == "patch":
                 self.resp = requests.patch(
-                    self.url,
-                    json=self.payload,
-                    headers=self.headers,
-                    timeout=TIMEOUT
+                    self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT
                 )
-            elif self.method == 'head':
+            elif self.method == "head":
                 self.resp = requests.head(
-                    self.url,
-                    json=self.payload,
-                    headers=self.headers,
-                    timeout=TIMEOUT
+                    self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT
                 )
             else:
                 self.exception = ValueError(
@@ -109,39 +89,31 @@ class RequestTask(QgsTask):
 
     def finished(self, result):
         if result:
-            log('Task completed')
+            log("Task completed")
         else:
             if self.exception is None:
-                log(f'API {self.method} not successful - probably cancelled')
+                log(f"API {self.method} not successful - probably cancelled")
 
             elif (
-                self.exception is requests.exceptions.ConnectionError or
-                self.exception is ConnectionResetError
+                self.exception is requests.exceptions.ConnectionError
+                or self.exception is ConnectionResetError
             ):
-                log(
-                    f'API {self.method} not successful - exception: {self.exception}'
-                )
+                log(f"API {self.method} not successful - exception: {self.exception}")
                 self.error_message = tr(
                     "Unable to login to Trends.Earth server. Check your "
                     "internet connection."
                 )
 
             elif self.exception is requests.exceptions.Timeout:
-                log('API unable to login - timeout')
-                self.error_message = tr(
-                    f"Unable to connect to Trends.Earth  server."
-                )
+                log("API unable to login - timeout")
+                self.error_message = tr(f"Unable to connect to Trends.Earth  server.")
 
             else:
-                log(
-                    f'API {self.method} not successful - exception: {self.exception}'
-                )
+                log(f"API {self.method} not successful - exception: {self.exception}")
                 raise self.exception
 
         if self.resp is not None:
-            log(
-                f'API response from "{self.method}" request: {self.resp.status_code}'
-            )
+            log(f'API response from "{self.method}" request: {self.resp.status_code}')
         else:
             log(f'API response from "{self.method}" request was None')
 
@@ -166,11 +138,11 @@ def clean_api_response(resp):
             # response
             response = resp.json().copy()
 
-            if 'password' in response:
-                response['password'] = '**REMOVED**'
+            if "password" in response:
+                response["password"] = "**REMOVED**"
 
-            if 'access_token' in response:
-                response['access_token'] = '**REMOVED**'
+            if "access_token" in response:
+                response["access_token"] = "**REMOVED**"
             response = json.dumps(response, indent=4, sort_keys=True)
         except ValueError:
             response = resp.text
@@ -184,98 +156,90 @@ def get_error_status(resp):
         # response
         resp = resp.json()
     except ValueError:
-        return ('Unknown error', None)
-    status = resp.get('status', None)
+        return ("Unknown error", None)
+    status = resp.get("status", None)
 
     if not status:
-        status = resp.get('status_code', 'None')
-    desc = resp.get('detail', None)
+        status = resp.get("status_code", "None")
+    desc = resp.get("detail", None)
 
     if not desc:
-        desc = resp.get('description', 'Generic error')
+        desc = resp.get("description", "Generic error")
 
     return (desc, status)
 
 
 def login(authConfigId=None):
-    authConfig = auth.get_auth_config(
-        auth.TE_API_AUTH_SETUP, authConfigId=authConfigId
-    )
+    authConfig = auth.get_auth_config(auth.TE_API_AUTH_SETUP, authConfigId=authConfigId)
 
     if (
-        not authConfig or not authConfig.config('username')
-        or not authConfig.config('password')
+        not authConfig
+        or not authConfig.config("username")
+        or not authConfig.config("password")
     ):
-        log('API unable to login - setup auth configuration before using')
+        log("API unable to login - setup auth configuration before using")
 
         return None
 
     resp = call_api(
-        '/auth',
-        method='post',
+        "/auth",
+        method="post",
         payload={
-            "email": authConfig.config('username'),
-            "password": authConfig.config('password')
-        }
+            "email": authConfig.config("username"),
+            "password": authConfig.config("password"),
+        },
     )
 
-    error_message = ''
+    error_message = ""
     if resp:
         try:
-            token = resp.get('access_token', None)
+            token = resp.get("access_token", None)
 
             if token is None:
-                log('Unable to read Trends.Earth token in API response')
+                log("Unable to read Trends.Earth token in API response")
                 error_message = tr(
                     "Unable to read token for Trends.Earth "
                     "server. Check username and password."
                 )
                 ret = None
         except KeyError:
-            log('API unable to login - check username and password')
+            log("API unable to login - check username and password")
             error_message = tr(
-                "Unable to login to Trends.Earth. "
-                "Check username and password."
+                "Unable to login to Trends.Earth. " "Check username and password."
             )
             ret = None
         else:
             ret = token
     else:
-        log('Unable to access Trends.Earth server')
+        log("Unable to access Trends.Earth server")
         error_message = tr(
-            "Unable to access Trends.Earth server. Check your "
-            "internet connection"
+            "Unable to access Trends.Earth server. Check your " "internet connection"
         )
         ret = None
 
     if error_message:
-        iface.messageBar().pushCritical('Trends.Earth', tr(error_message))
+        iface.messageBar().pushCritical("Trends.Earth", tr(error_message))
 
     return ret
 
 
 def login_test(email, password):
     resp = call_api(
-        '/auth', method='post', payload={
-            "email": email,
-            "password": password
-        }
+        "/auth", method="post", payload={"email": email, "password": password}
     )
 
     if resp:
         return True
     else:
         if not email or not password:
-            log(
-                "API unable to login during login test - check "
-                "username/password"
-            )
+            log("API unable to login during login test - check " "username/password")
             QtWidgets.QMessageBox.critical(
-                None, tr("Error"),
+                None,
+                tr("Error"),
                 tr(
                     "Unable to login to Trends.Earth. Check that "
                     "username and password are correct."
-                )
+                ),
             )
 
         return False
@@ -288,14 +252,14 @@ def _make_request(description, **kwargs):
     return api_task.resp
 
 
-def call_api(endpoint, method='get', payload=None, use_token=False):
+def call_api(endpoint, method="get", payload=None, use_token=False):
     if use_token:
         token = login()
 
         if token:
             if conf.settings_manager.get_value(conf.Setting.DEBUG):
                 log("API loaded token.")
-            headers = {'Authorization': f'Bearer {token}'}
+            headers = {"Authorization": f"Bearer {token}"}
         else:
             return
     else:
@@ -311,20 +275,20 @@ def call_api(endpoint, method='get', payload=None, use_token=False):
         if payload:
             clean_payload = payload.copy()
 
-            if 'password' in clean_payload:
-                clean_payload['password'] = '**REMOVED**'
+            if "password" in clean_payload:
+                clean_payload["password"] = "**REMOVED**"
         else:
             clean_payload = payload
-        log(u'API calling {} with method "{}"'.format(endpoint, method))
+        log('API calling {} with method "{}"'.format(endpoint, method))
 
         if conf.settings_manager.get_value(conf.Setting.DEBUG):
-            log(u'API call payload: {}'.format(clean_payload))
+            log("API call payload: {}".format(clean_payload))
         resp = _make_request(
-            'Trends.Earth API call',
+            "Trends.Earth API call",
             url=API_URL + endpoint,
             method=method,
             payload=payload,
-            headers=headers
+            headers=headers,
         )
 
     else:
@@ -336,7 +300,7 @@ def call_api(endpoint, method='get', payload=None, use_token=False):
         else:
             desc, status = get_error_status(resp)
             iface.messageBar().pushCritical(
-                'Trends.Earth', u"Error: {} (status {}).".format(desc, status)
+                "Trends.Earth", "Error: {} (status {}).".format(desc, status)
             )
             ret = None
     else:
@@ -346,9 +310,7 @@ def call_api(endpoint, method='get', payload=None, use_token=False):
 
 
 def get_header(url):
-    resp = _make_request(
-        'Get head', url=url, method='head', payload=None, headers=None
-    )
+    resp = _make_request("Get head", url=url, method="head", payload=None, headers=None)
 
     if resp != None:
         log(f'Response from "{url}" header request: {resp.status_code}')
@@ -358,11 +320,11 @@ def get_header(url):
         else:
             desc, status = get_error_status(resp)
             iface.messageBar().pushCritical(
-                "Trends.Earth", u"Error: {} (status {}).".format(desc, status)
+                "Trends.Earth", "Error: {} (status {}).".format(desc, status)
             )
             ret = None
     else:
-        log('Header request failed')
+        log("Header request failed")
         ret = None
 
     return ret
@@ -374,23 +336,21 @@ def get_header(url):
 
 def recover_pwd(email):
     return call_api(
-        u'/api/v1/user/{}/recover-password'.format(quote_plus(email)), 'post'
+        "/api/v1/user/{}/recover-password".format(quote_plus(email)), "post"
     )
 
 
-def get_user(email='me'):
-    resp = call_api(
-        u'/api/v1/user/{}'.format(quote_plus(email)), use_token=True
-    )
+def get_user(email="me"):
+    resp = call_api("/api/v1/user/{}".format(quote_plus(email)), use_token=True)
 
     if resp:
-        return resp['data']
+        return resp["data"]
     else:
         return None
 
 
-def delete_user(email='me'):
-    resp = call_api('/api/v1/user/me', 'delete', use_token=True)
+def delete_user(email="me"):
+    resp = call_api("/api/v1/user/me", "delete", use_token=True)
 
     if resp:
         return True
@@ -403,10 +363,10 @@ def register(email, name, organization, country):
         "email": email,
         "name": name,
         "institution": organization,
-        "country": country
+        "country": country,
     }
 
-    return call_api('/api/v1/user', method='post', payload=payload)
+    return call_api("/api/v1/user", method="post", payload=payload)
 
 
 def update_user(email, name, organization, country):
@@ -414,10 +374,10 @@ def update_user(email, name, organization, country):
         "email": email,
         "name": name,
         "institution": organization,
-        "country": country
+        "country": country,
     }
 
-    return call_api('/api/v1/user/me', 'patch', payload, use_token=True)
+    return call_api("/api/v1/user/me", "patch", payload, use_token=True)
 
 
 def update_password(password, repeatPassword):
@@ -425,47 +385,42 @@ def update_password(password, repeatPassword):
         "email": email,
         "name": name,
         "institution": organization,
-        "country": country
+        "country": country,
     }
 
     return call_api(
-        u'/api/v1/user/{}'.format(quote_plus(email)),
-        'patch',
-        payload,
-        use_token=True
+        "/api/v1/user/{}".format(quote_plus(email)), "patch", payload, use_token=True
     )
 
 
 def get_execution(id=None, date=None):
-    log('Fetching executions')
-    query = ['include=script']
+    log("Fetching executions")
+    query = ["include=script"]
 
     if id:
-        query.append(u'user_id={}'.format(quote_plus(id)))
+        query.append("user_id={}".format(quote_plus(id)))
 
     if date:
-        query.append(u'updated_at={}'.format(date))
+        query.append("updated_at={}".format(date))
     query = "?" + "&".join(query)
 
-    resp = call_api(
-        u'/api/v1/execution{}'.format(query), method='get', use_token=True
-    )
+    resp = call_api("/api/v1/execution{}".format(query), method="get", use_token=True)
 
     if not resp:
         return None
     else:
-        return resp['data']
+        return resp["data"]
 
 
 def get_script(id=None):
     if id:
         resp = call_api(
-            u'/api/v1/script/{}'.format(quote_plus(id)), 'get', use_token=True
+            "/api/v1/script/{}".format(quote_plus(id)), "get", use_token=True
         )
     else:
-        resp = call_api(u'/api/v1/script', 'get', use_token=True)
+        resp = call_api("/api/v1/script", "get", use_token=True)
 
     if resp:
-        return resp['data']
+        return resp["data"]
     else:
         return None

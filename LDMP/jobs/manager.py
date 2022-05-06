@@ -50,6 +50,21 @@ def is_gdal_vsi_path(path: Path):
     return re.match(r"(\\)|(/)vsi(s3)|(gs)", str(path)) is not None
 
 
+def update_uris_if_needed(job: Job, job_path):
+    'Update uris stored in a job when downloading/importing if it has absolute paths'
+    # First check if the data is in the same folder as the job file and relative to
+    # it. If it is, update the various uris so they are  can still be found after
+    # moving the job file
+    if (
+        hasattr(job.results, 'uri')  and
+        job.results.uri and not job.results.uri.uri.is_absolute() and
+        not is_gdal_vsi_path(job.results.uri.uri)  # ignore gdal virtual fs
+    ):
+        # If the path doesn't exist, but the filename does exist in the
+        # same folder as the job, assume that is what is meant
+        job.results.update_uris(job_path)
+
+
 def _get_extent_tuple_raster(path):
     log(f'Trying to calculate extent of raster {path}')
     ds = gdal.Open(str(path))
@@ -116,7 +131,7 @@ def _set_results_extents_vector(job):
             f'extent to {job.results.extent}')
 
 
-def _set_results_extents(job):
+def set_results_extents(job):
     if (
         job.results.type == results.ResultType.RASTER_RESULTS and
         job.status in [jobs.JobStatus.DOWNLOADED, jobs.JobStatus.GENERATED_LOCALLY]
@@ -127,13 +142,6 @@ def _set_results_extents(job):
         job.status in [jobs.JobStatus.DOWNLOADED, jobs.JobStatus.GENERATED_LOCALLY]
     ):
         _set_results_extents_vector(job)
-
-
-def load_raw_job(raw_job):
-    job = Job.Schema().load(raw_job)
-    _set_results_extents(job)
-
-    return job
 
 
 class LocalJobTask(QgsTask):
@@ -426,7 +434,8 @@ class JobManager(QtCore.QObject):
         except TypeError:
             job = None
         else:
-            job = load_raw_job(raw_job)
+            job = Job.Schema().load(raw_job)
+            set_results_extents(job)
             self.write_job_metadata_file(job)
             self._update_known_jobs_with_newly_submitted_job(job)
             self.submitted_remote_job.emit(job)
@@ -591,19 +600,10 @@ class JobManager(QtCore.QObject):
         layers.edit(str(layer_path))
 
     def import_job(self, job: Job, job_path):
-        # First check if the data is in the same folder as the job file and relative to
-        # it. If it is, update the various uris so they are  can still be found after
-        # moving the job file
-        if (
-            hasattr(job.results, 'uri')  and
-            job.results.uri and not job.results.uri.uri.is_absolute() and
-            not is_gdal_vsi_path(job.results.uri.uri)  # ignore gdal virtual fs
-        ):
-            # If the path doesn't exist, but the filename does exist in the
-            # same folder as the job, assume that is what is meant
-            job.results.update_uris(job_path)
 
-        _set_results_extents(job)
+        update_uris_if_needed(job, job_path)
+
+        set_results_extents(job)
 
         self._move_job_to_dir(job, job.status, force_rewrite=True)
 
@@ -948,7 +948,8 @@ class JobManager(QtCore.QObject):
             with job_metadata_path.open(encoding=self._encoding) as fh:
                 try:
                     raw_job = json.load(fh)
-                    job = load_raw_job(raw_job)
+                    job = Job.Schema().load(raw_job)
+                    set_results_extents(job)
                 except (KeyError, json.decoder.JSONDecodeError) as exc:
                     if conf.settings_manager.get_value(conf.Setting.DEBUG):
                         log(

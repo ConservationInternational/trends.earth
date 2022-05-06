@@ -371,6 +371,12 @@ class JobManager(QtCore.QObject):
             relevant_remote_jobs = remote_jobs
 
         self._refresh_local_deleted_jobs()
+
+        deleted_ids = self._known_deleted_jobs.keys()
+        relevant_remote_jobs = [
+            job for job in relevant_remote_jobs if job.id not in deleted_ids
+        ]
+
         self._refresh_local_running_jobs(relevant_remote_jobs)
         self._refresh_local_finished_jobs(relevant_remote_jobs)
         self._refresh_local_downloaded_jobs()

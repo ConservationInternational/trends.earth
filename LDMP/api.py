@@ -19,6 +19,8 @@ import json
 from urllib.parse import quote_plus
 
 import requests
+import backoff
+
 from dateutil import tz
 from qgis.core import QgsApplication, QgsTask
 from qgis.PyQt import QtCore, QtWidgets
@@ -93,24 +95,21 @@ class RequestTask(QgsTask):
         else:
             if self.exception is None:
                 log(f"API {self.method} not successful - probably cancelled")
-
-            elif (
-                self.exception is requests.exceptions.ConnectionError
-                or self.exception is ConnectionResetError
-            ):
-                log(f"API {self.method} not successful - exception: {self.exception}")
-                self.error_message = tr(
-                    "Unable to login to Trends.Earth server. Check your "
-                    "internet connection."
-                )
-
-            elif self.exception is requests.exceptions.Timeout:
-                log("API unable to login - timeout")
-                self.error_message = tr(f"Unable to connect to Trends.Earth  server.")
-
             else:
-                log(f"API {self.method} not successful - exception: {self.exception}")
-                raise self.exception
+                try:
+                    log(
+                        f"API {self.method} not successful - exception: {self.exception}"
+                    )
+                    raise self.exception
+                except requests.exceptions.ConnectionError:
+                    self.error_message = tr(
+                        "Unable to login to Trends.Earth server. Check your "
+                        "internet connection."
+                    )
+                except requests.exceptions.Timeout:
+                    self.error_message = tr(
+                        f"Unable to connect to Trends.Earth  server."
+                    )
 
         if self.resp is not None:
             log(f'API response from "{self.method}" request: {self.resp.status_code}')
@@ -245,11 +244,31 @@ def login_test(email, password):
         return False
 
 
+def backoff_hdlr(details):
+    details["kwargs"]["payload"] = _clean_payload(details["kwargs"]["payload"])
+    log(
+        "Backing off {wait:0.1f} seconds after {tries} tries "
+        "calling function {target} with args {args} and kwargs "
+        "{kwargs}".format(**details)
+    )
+
+
+@backoff.on_predicate(
+    backoff.expo, lambda x: x is None, max_tries=3, on_backoff=backoff_hdlr
+)
 def _make_request(description, **kwargs):
     api_task = RequestTask(description, **kwargs)
     QgsApplication.taskManager().addTask(api_task)
     api_task.waitForFinished((TIMEOUT + 1) * 1000)
     return api_task.resp
+
+
+def _clean_payload(payload):
+    clean_payload = payload.copy()
+
+    if "password" in clean_payload:
+        clean_payload["password"] = "**REMOVED**"
+    return clean_payload
 
 
 def call_api(endpoint, method="get", payload=None, use_token=False):
@@ -273,10 +292,7 @@ def call_api(endpoint, method="get", payload=None, use_token=False):
         # Strip password out of payload for printing to QGIS logs
 
         if payload:
-            clean_payload = payload.copy()
-
-            if "password" in clean_payload:
-                clean_payload["password"] = "**REMOVED**"
+            clean_payload = _clean_payload(payload)
         else:
             clean_payload = payload
         log('API calling {} with method "{}"'.format(endpoint, method))

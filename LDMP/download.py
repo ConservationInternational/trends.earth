@@ -281,7 +281,7 @@ class DownloadWorker(AbstractWorker):
 
         resp = requests.get(self.url, stream=True)
         if resp.status_code != 200:
-            log(u'Unexpected HTTP status code ({}) while trying to download {}.'.format(resp.status_code, self.url))
+            # log(u'Unexpected HTTP status code ({}) while trying to download {}.'.format(resp.status_code, self.url))
             raise DownloadError(u'Unable to start download of {}'.format(self.url))
 
         total_size = int(resp.headers['Content-length'])
@@ -290,14 +290,14 @@ class DownloadWorker(AbstractWorker):
         else:
             total_size_pretty = '{:.2f} MB'.format(round(total_size * 1e-6, 2))
 
-        log(u'Downloading {} ({}) to {}'.format(self.url, total_size_pretty, self.outfile))
+        # log(u'Downloading {} ({}) to {}'.format(self.url, total_size_pretty, self.outfile))
 
         bytes_dl = 0
         r = requests.get(self.url, stream=True)
         with open(self.outfile, 'wb') as f:
             for chunk in r.iter_content(chunk_size=8192):
                 if self.killed == True:
-                    log(u"Download {} killed by user".format(self.url))
+                    # log(u"Download {} killed by user".format(self.url))
                     break
                 elif chunk: # filter out keep-alive new chunks
                     f.write(chunk)
@@ -306,13 +306,13 @@ class DownloadWorker(AbstractWorker):
         f.close()
 
         if bytes_dl != total_size:
-            log(u"Download error. File size of {} didn't match expected ({} versus {})".format(self.url, bytes_dl, total_size))
+            # log(u"Download error. File size of {} didn't match expected ({} versus {})".format(self.url, bytes_dl, total_size))
             os.remove(self.outfile)
             if not self.killed:
                 raise DownloadError(u'Final file size of {} does not match expected'.format(self.url))
             return None
         else:
-            log(u"Download of {} complete".format(self.url))
+            # log(u"Download of {} complete".format(self.url))
             return True
 
 

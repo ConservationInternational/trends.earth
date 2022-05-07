@@ -392,7 +392,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         payloads = []
 
         for (period, values), widgets in zip(
-            periods.items(), (self.widgets_progress, self.widgets_baseline)
+            periods.items(), (self.widgets_baseline, self.widgets_progress)
         ):
             payload = {}
             year_initial = values['period_year_initial']

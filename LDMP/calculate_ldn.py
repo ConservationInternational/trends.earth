@@ -50,7 +50,7 @@ class tr_calculate_ldn(object):
 
 @dataclass
 class TimePeriodWidgets:
-    radio_time_period: QtWidgets.QRadioButton
+    radio_time_period_same: QtWidgets.QRadioButton
     radio_lpd_jrc: QtWidgets.QRadioButton
     cb_jrc: QtWidgets.QRadioButton
     year_initial: QtWidgets.QDateEdit
@@ -77,7 +77,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.setupUi(self)
 
         self.widgets_baseline = TimePeriodWidgets(
-            self.radio_time_period_baseline,
+            self.radio_time_period_same_baseline,
             self.radio_lpd_jrc,
             self.cb_jrc_baseline,
             self.year_initial_baseline,
@@ -93,7 +93,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             self.year_final_baseline_soc,
         )
         self.widgets_progress = TimePeriodWidgets(
-            self.radio_time_period_progress,
+            self.radio_time_period_same_progress,
             self.radio_lpd_jrc,
             self.cb_jrc_progress,
             self.year_initial_progress,
@@ -118,9 +118,6 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         )
         self.cb_jrc_progress.setCurrentIndex(2)
 
-        # self.year_final_baseline.dateChanged.connect(self.update_progress_year)
-        # self.update_progress_year()
-
         self.toggle_lpd_options()
 
         self.cb_jrc_baseline.currentIndexChanged.connect(
@@ -129,10 +126,10 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.cb_jrc_progress.currentIndexChanged.connect(
             lambda: self.update_time_bounds(self.widgets_progress)
         )
-        self.radio_time_period_baseline.toggled.connect(
+        self.radio_time_period_same_baseline.toggled.connect(
             lambda: self.toggle_time_period(self.widgets_baseline)
         )
-        self.radio_time_period_progress.toggled.connect(
+        self.radio_time_period_same_progress.toggled.connect(
             lambda: self.toggle_time_period(self.widgets_progress)
         )
 
@@ -153,7 +150,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             lambda: self.update_end_dates(self.widgets_progress)
         )
 
-        self.radio_te_prod.toggled.connect(self.toggle_lpd_options)
+        self.radio_lpd_te.toggled.connect(self.toggle_lpd_options)
 
         self.lc_define_deg_widget = lc_setup.LCDefineDegradationWidget()
 
@@ -162,20 +159,61 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         )
         self.toggle_progress_period()
 
+        self.button_preset_unccd_default_jrc.clicked.connect(self.set_preset_unccd_default_jrc)
+        self.button_preset_unccd_default_te.clicked.connect(self.set_preset_unccd_default_te)
+
         self._finish_initialization()
 
+    def set_preset_unccd_default_jrc(self):
+        self.checkBox_progress_period.setChecked(True)
+        self.radio_lpd_jrc.setChecked(True)
+        self.cb_jrc_baseline.setCurrentIndex(self.cb_jrc_baseline.findText(
+            'JRC Land Productivity Dynamics (2000-2015)'))
+        self.cb_jrc_progress.setCurrentIndex(self.cb_jrc_baseline.findText(
+            'JRC Land Productivity Dynamics (2005-2019)'))
+        self.radio_time_period_same_baseline.setChecked(True)
+        self.radio_time_period_vary_progress.setChecked(True)
+        self.year_initial_baseline.setDate(QtCore.QDate(2000, 1, 1))
+        self.year_final_baseline.setDate(QtCore.QDate(2015, 1, 1))
+        self.year_initial_progress.setDate(QtCore.QDate(2005, 1, 1))
+        self.year_final_progress.setDate(QtCore.QDate(2019, 1, 1))
+        self.year_initial_progress_lc.setDate(QtCore.QDate(2015, 1, 1))
+        self.year_final_progress_lc.setDate(QtCore.QDate(2019, 1, 1))
+        self.year_initial_progress_soc.setDate(QtCore.QDate(2015, 1, 1))
+        self.year_final_progress_soc.setDate(QtCore.QDate(2019, 1, 1))
+
+        self.lc_setup_widget.aggregation_dialog.reset_nesting_table()
+        self.lc_define_deg_widget.set_trans_matrix(get_default=True)
+
+    def set_preset_unccd_default_te(self):
+        self.checkBox_progress_period.setChecked(True)
+        self.radio_lpd_te.setChecked(True)
+        self.radio_time_period_same_baseline.setChecked(True)
+        self.radio_time_period_vary_progress.setChecked(True)
+        self.year_initial_baseline.setDate(QtCore.QDate(2001, 1, 1))
+        self.year_final_baseline.setDate(QtCore.QDate(2015, 1, 1))
+        self.year_initial_progress.setDate(QtCore.QDate(2005, 1, 1))
+        self.year_final_progress.setDate(QtCore.QDate(2019, 1, 1))
+        self.year_initial_progress_lc.setDate(QtCore.QDate(2015, 1, 1))
+        self.year_final_progress_lc.setDate(QtCore.QDate(2019, 1, 1))
+        self.year_initial_progress_soc.setDate(QtCore.QDate(2015, 1, 1))
+        self.year_final_progress_soc.setDate(QtCore.QDate(2019, 1, 1))
+
+        self.lc_setup_widget.aggregation_dialog.reset_nesting_table()
+        self.lc_define_deg_widget.set_trans_matrix(get_default=True)
+
     def update_start_dates(self, widgets):
-        #widgets.year_initial_prod.setDate(widgets.year_initial.date())
+        widgets.year_initial_prod.setDate(widgets.year_initial.date())
         widgets.year_initial_lc.setDate(widgets.year_initial.date())
         widgets.year_initial_soc.setDate(widgets.year_initial.date())
 
     def update_end_dates(self, widgets):
-        #widgets.year_final_prod.setDate(widgets.year_final.date())
+        widgets.year_final_prod.setDate(widgets.year_final.date())
         widgets.year_final_lc.setDate(widgets.year_final.date())
         widgets.year_final_soc.setDate(widgets.year_final.date())
 
     def toggle_time_period(self, widgets):
-        if widgets.radio_time_period.isChecked():
+        if widgets.radio_time_period_same.isChecked():
             widgets.label_lc.setEnabled(False)
             widgets.year_initial_lc.setEnabled(False)
             widgets.year_final_lc.setEnabled(False)
@@ -227,13 +265,6 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.toggle_time_period(self.widgets_baseline)
         self.toggle_time_period(self.widgets_progress)
 
-    # def update_progress_year(self):
-    #     if self.radio_te_prod.isChecked():
-    #         self.year_initial_progress.setDate(self.year_final_baseline.date())
-    #     else:
-    #         self.year_initial_progress.setDate(self.year_final_baseline.date())
-    #         self.year_initial_progress_soc.setDate(self.year_final_baseline.date())
-    #         self.year_initial_progress_lc.setDate(self.year_final_baseline.date())
 
     def update_time_bounds(self, widgets):
         lc_dataset = conf.REMOTE_DATASETS["Land cover"]["ESA CCI"]
@@ -242,7 +273,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         start_year_lc = QtCore.QDate(start_year_lc, 1, 1)
         end_year_lc = QtCore.QDate(end_year_lc, 1, 1)
 
-        if self.radio_te_prod.isChecked():
+        if self.radio_lpd_te.isChecked():
             prod_dataset = conf.REMOTE_DATASETS["NDVI"][
                 "MODIS (MOD13Q1, annual)"]
             start_year_prod = prod_dataset['Start year']
@@ -276,15 +307,15 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             widgets.year_initial_prod.setDate(start_year_prod)
             widgets.year_final_prod.setDate(end_year_prod)
             widgets.year_initial_prod.setMinimumDate(start_year_prod)
-            widgets.year_initial_prod.setMaximumDate(end_year_prod)
-            widgets.year_final_prod.setMinimumDate(start_year_prod)
+            widgets.year_initial_prod.setMaximumDate(start_year_prod)
+            widgets.year_final_prod.setMinimumDate(end_year_prod)
             widgets.year_final_prod.setMaximumDate(end_year_prod)
         else:
             widgets.year_initial_prod.setDate(start_year_prod)
             widgets.year_final_prod.setDate(end_year_prod)
             widgets.year_initial_prod.setMinimumDate(start_year_prod)
-            widgets.year_initial_prod.setMaximumDate(start_year_prod)
-            widgets.year_final_prod.setMinimumDate(end_year_prod)
+            widgets.year_initial_prod.setMaximumDate(end_year_prod)
+            widgets.year_final_prod.setMinimumDate(start_year_prod)
             widgets.year_final_prod.setMaximumDate(end_year_prod)
 
         widgets.year_initial_lc.setMinimumDate(start_year_lc)
@@ -342,7 +373,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         if not ret:
             return
 
-        if self.radio_te_prod.isChecked():
+        if self.radio_lpd_te.isChecked():
             prod_mode = ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
         else:
             prod_mode = ProductivityMode.JRC_5_CLASS_LPD.value
@@ -794,7 +825,7 @@ class DlgCalculateLDNSummaryTableAdmin(
         if not ret:
             return
 
-        if self.radio_te_prod.isChecked():
+        if self.radio_lpd_te.isChecked():
             prod_mode = ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
         else:
             prod_mode = ProductivityMode.JRC_5_CLASS_LPD.value

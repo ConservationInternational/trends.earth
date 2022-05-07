@@ -79,7 +79,7 @@
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_15">
               <item>
-               <widget class="QRadioButton" name="radio_te_prod">
+               <widget class="QRadioButton" name="radio_lpd_te">
                 <property name="text">
                  <string>Trends.Earth land productivity</string>
                 </property>

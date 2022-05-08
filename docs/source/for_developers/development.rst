@@ -419,20 +419,20 @@ Again - never run the above on a publicly released version of the plugin unless
 you are intending to overwrite all the publicly available scripts used by the
 plugin.
 
-Editing special areas templates
+Editing vector layer templates
 _________________________________
 
 Trends.Earth allow users to digitize new vector features to delineate areas
 of special interest.
 
 For now only "false positive/negative" layers are supported, but more
-can be added if necessary. Any special area layer is created from the
+can be added if necessary. Any vector layer is created from the
 template GeoPackage files, which can be found inside the ``data/special_areas``
-folder of the plugin installation directory. For each special area type
+folder of the plugin installation directory. For each vector type
 there are 6 template files, one for each UN official language. The ISO
 language code is added as a suffix to the file name. This is necessary to
 provide localized labels in the attribute forms. When creation of the
-special area layer is requested QGIS will look for the template file
+vector layer is requested QGIS will look for the template file
 taking QGIS locale into accont, as a fall-back option English version
 of the template file is used.
 
@@ -443,14 +443,12 @@ styling and attribute form configuration which will be automatically
 applied to the layer when loading into QGIS.
 
 To display charts in the attribute form a built-in QML widget is used.
-Data for charts are store in the special area layer attribute table.
+Data for charts are stored in the vector layer attribute table.
 Values from the corresponding fields extracted with the help of expressions.
 
-Here is how code to generate chars looks like:
+The code to generate charts looks like this:
 
 .. code-block:: python
-
-.. code-block::
 
    import QtQuick 2.0
    import QtCharts 2.0
@@ -502,7 +500,7 @@ apply it as a mask to raster. Then count number of pixels which have
 specific value and calculate percentage. As pixel counting is built
 on numpy array functions it is very fast even for big polygons.
 
-On the first attempt to edit special area layer user will be presented
+On the first attempt to edit a vector layer the user will be presented
 with a dialog where they should select which datasets to use for
 indicators. Then plugin will setup default expression values for all
 indicator fields, so the value will be updated on every geometry change.

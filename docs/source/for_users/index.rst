@@ -9,8 +9,7 @@ Trends.Earth User Guide
     preamble/index
     features/index
     gettingstarted/index
-    modules/index
+    training/index
     faq/index
-    resources/index
     datasets/index
     designingreports/index

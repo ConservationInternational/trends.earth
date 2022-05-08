@@ -2,7 +2,7 @@
 
 Preamble
 ===================
-Trends.Earth is a platform to monitor land changeusing earth observations. It is now available 
+Trends.Earth is a platform to monitor land change using earth observations. It is now available 
 as a browser-based tool in addition to the plugin to desktop QGIS spatial-analytical 
 software.
 
@@ -33,7 +33,7 @@ The three sub-indicators for monitoring achievement of Land Degradation
 Neutrality (LDN, Sustainable Development Goal (SDG) Target 15.3), are supported
 by |trends.earth|: productivity, land cover, and soil organic carbon.  The tool
 also supports countries in analyzing data to prepare for their reporting
-committments to the United Nations Convention to Combat Desertification
+commitments to the United Nations Convention to Combat Desertification
 (UNCCD).
 
 Trends.Earth allows users to plot time series of key indicators of land change

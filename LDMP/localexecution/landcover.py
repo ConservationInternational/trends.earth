@@ -7,6 +7,11 @@ from osgeo import gdal
 from osgeo import osr
 from te_schemas import land_cover
 from te_schemas.results import Band as JobBand
+from te_schemas.results import DataType
+from te_schemas.results import Raster
+from te_schemas.results import RasterFileType
+from te_schemas.results import RasterResults
+from te_schemas.results import URI
 
 from .. import calculate_lc
 from .. import utils
@@ -28,22 +33,23 @@ def _prepare_land_cover_inputs(job: Job, area_of_interest: AOI) -> Path:
 
     # Add the lc layers to a VRT in case they don't match in resolution,
     # and set proper output bounds
-    in_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
+    in_vrt = tempfile.NamedTemporaryFile(suffix=".vrt").name
     gdal.BuildVRT(
-        in_vrt, [lc_initial_vrt, lc_final_vrt],
-        resolution='highest',
+        in_vrt,
+        [lc_initial_vrt, lc_final_vrt],
+        resolution="highest",
         resampleAlg=gdal.GRA_NearestNeighbour,
-        outputBounds=area_of_interest.
-        get_aligned_output_bounds_deprecated(lc_initial_vrt),
-        separate=True
+        outputBounds=area_of_interest.get_aligned_output_bounds_deprecated(
+            lc_initial_vrt
+        ),
+        separate=True,
     )
 
     return Path(in_vrt)
 
 
 def compute_land_cover(
-    lc_job: Job, area_of_interest: AOI, job_output_path: Path,
-    dataset_output_path: Path
+    lc_job: Job, area_of_interest: AOI, job_output_path: Path, dataset_output_path: Path
 ) -> Job:
     in_vrt = _prepare_land_cover_inputs(lc_job, area_of_interest)
     trans_matrix = land_cover.LCTransitionDefinitionDeg.Schema().loads(
@@ -53,7 +59,7 @@ def compute_land_cover(
 
     lc_change_worker = worker.StartWorker(
         LandCoverChangeWorker,
-        'calculating land cover change',
+        "calculating land cover change",
         str(in_vrt),
         str(dataset_output_path),
         trans_matrix.get_list(),
@@ -63,45 +69,47 @@ def compute_land_cover(
     if lc_change_worker.success:
         lc_job.end_date = dt.datetime.now(dt.timezone.utc)
         lc_job.progress = 100
-        lc_job.results.bands = [
+        bands = [
             JobBand(
                 name="Land cover (degradation)",
                 metadata={
-                    "year_initial":
-                    lc_job.params["year_initial"],
-                    "year_final":
-                    lc_job.params["year_final"],
-                    'trans_matrix':
-                    land_cover.LCTransitionDefinitionDeg.Schema().
-                    dumps(trans_matrix),
-                    'nesting':
-                    nesting
+                    "year_initial": lc_job.params["year_initial"],
+                    "year_final": lc_job.params["year_final"],
+                    "trans_matrix": land_cover.LCTransitionDefinitionDeg.Schema().dumps(
+                        trans_matrix
+                    ),
+                    "nesting": nesting,
                 },
             ),
             JobBand(
                 name="Land cover (7 class)",
-                metadata={
-                    "year": lc_job.params["year_initial"],
-                    'nesting': nesting
-                }
+                metadata={"year": lc_job.params["year_initial"], "nesting": nesting},
             ),
             JobBand(
                 name="Land cover (7 class)",
-                metadata={
-                    "year": lc_job.params["year_final"],
-                    'nesting': nesting
-                }
+                metadata={"year": lc_job.params["year_final"], "nesting": nesting},
             ),
             JobBand(
                 name="Land cover transitions",
                 metadata={
                     "year_initial": lc_job.params["year_initial"],
                     "year_final": lc_job.params["year_final"],
-                    'nesting': nesting
-                }
+                    "nesting": nesting,
+                },
             ),
         ]
-        lc_job.results.data_path = dataset_output_path
+        lc_job.results = RasterResults(
+            name="land_cover",
+            uri=URI(uri=dataset_output_path, type="local"),
+            rasters={
+                DataType.INT16.value: Raster(
+                    uri=URI(uri=dataset_output_path, type="local"),
+                    bands=bands,
+                    datatype=DataType.INT16,
+                    filetype=RasterFileType.GEOTIFF,
+                ),
+            },
+        )
     else:
         raise RuntimeError("Error calculating land cover change.")
 
@@ -130,7 +138,7 @@ class LandCoverChangeWorker(worker.AbstractWorker):
 
         driver = gdal.GetDriverByName("GTiff")
         ds_out = driver.Create(
-            self.out_f, xsize, ysize, 4, gdal.GDT_Int16, ['COMPRESS=LZW']
+            self.out_f, xsize, ysize, 4, gdal.GDT_Int16, ["COMPRESS=LZW"]
         )
         src_gt = ds_in.GetGeoTransform()
         ds_out.SetGeoTransform(src_gt)
@@ -149,14 +157,14 @@ class LandCoverChangeWorker(worker.AbstractWorker):
             for x in range(0, xsize, x_block_size):
                 if self.killed:
                     log(
-                        "Processing killed by user after processing {} out of {} blocks."
-                        .format(y, ysize)
+                        "Processing killed by user after processing {} out of {} blocks.".format(
+                            y, ysize
+                        )
                     )
 
                     break
                 self.progress.emit(
-                    100 * (float(y) + (float(x) / xsize) * y_block_size) /
-                    ysize
+                    100 * (float(y) + (float(x) / xsize) * y_block_size) / ysize
                 )
 
                 if x + x_block_size < xsize:

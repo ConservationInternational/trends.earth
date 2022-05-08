@@ -1,56 +1,72 @@
-import copy
 import datetime as dt
 import json
-import re
+import logging
 import os
+import re
+import shutil
 import typing
 import urllib.parse
-import logging
 import uuid
-import shutil
 from pathlib import Path
 from typing import List
-import os
-import shutil
 
+import backoff
 from marshmallow.exceptions import ValidationError
 from osgeo import gdal
 from qgis.core import QgsApplication
 from qgis.core import QgsTask
+from qgis.core import QgsVectorLayer
 from qgis.PyQt import QtCore
 from te_algorithms.gdal.util import combine_all_bands_into_vrt
-from te_schemas import jobs, results
+from te_schemas import jobs
+from te_schemas import results
 from te_schemas.algorithms import AlgorithmRunMode
-from te_schemas.results import URI
 from te_schemas.results import Band as JobBand
 from te_schemas.results import DataType
 from te_schemas.results import Raster
 from te_schemas.results import RasterFileType
 from te_schemas.results import RasterResults
-from te_schemas.results import VectorResults
-from te_schemas.results import VectorFalsePositive
 from te_schemas.results import ResultType
-from te_schemas.results import VectorType
 from te_schemas.results import URI
+from te_schemas.results import VectorFalsePositive
+from te_schemas.results import VectorResults
+from te_schemas.results import VectorType
 
-from .. import api, areaofinterest, conf
-from .. import download as ldmp_download
-from .. import layers, utils
-from .. import metadata
-from ..logger import log
 from . import models
+from .. import api
+from .. import areaofinterest
+from .. import conf
+from .. import download as ldmp_download
+from .. import layers
+from .. import metadata
+from .. import utils
+from ..logger import log
 from .models import Job
 
 logger = logging.getLogger(__name__)
-
 
 
 def is_gdal_vsi_path(path: Path):
     return re.match(r"(\\)|(/)vsi(s3)|(gs)", str(path)) is not None
 
 
-def _get_extent_tuple(path):
-    log(f'Trying to calculate extent of {path}')
+def update_uris_if_needed(job: Job, job_path):
+    'Update uris stored in a job when downloading/importing if it has absolute paths'
+    # First check if the data is in the same folder as the job file and relative to
+    # it. If it is, update the various uris so they are  can still be found after
+    # moving the job file
+    if (
+        hasattr(job.results, 'uri')  and
+        job.results.uri and not job.results.uri.uri.is_absolute() and
+        not is_gdal_vsi_path(job.results.uri.uri)  # ignore gdal virtual fs
+    ):
+        # If the path doesn't exist, but the filename does exist in the
+        # same folder as the job, assume that is what is meant
+        job.results.update_uris(job_path)
+
+
+def _get_extent_tuple_raster(path):
+    log(f'Trying to calculate extent of raster {path}')
     ds = gdal.Open(str(path))
     if ds:
         min_x, xres, _, max_y, _, yres = ds.GetGeoTransform()
@@ -65,33 +81,67 @@ def _get_extent_tuple(path):
         return None
 
 
-def _set_results_extents(job):
-    log(f'Setting extents for job {job.id}')
+def _get_extent_tuple_vector(path):
+    log(f'Trying to calculate extent of vector {path}')
+    rect = QgsVectorLayer(str(path), "vector file", "ogr").extent()
+    if rect:
+        xmin = rect.xMinimum()
+        xmax = rect.xMaximum()
+        ymin = rect.yMinimum()
+        ymax = rect.yMaximum()
+        if (
+            any([(val > 180 or val < -180) for val in [xmin, xmax]]) or
+            any([(val > 90 or val < -90) for val in [ymin, ymax]])
+        ):
+            # If there are not yet any features, then the extent will be set as ranging
+            # from -infinite to infinite - so catch this with above check
+            log(f"Failed to calculate extent for {path} - appears undefined")
+            return None
+        else:
+            log(f"Calculated extent for {path} - {(xmin, ymin, xmax, ymax)}")
+            return (xmin, ymin, xmax, ymax)
+    else:
+        log("Failed to calculate extent - couldn't open dataset")
+        return None
+
+
+def _set_results_extents_raster(job):
     for raster in job.results.rasters.values():
         if raster.type == results.RasterType.ONE_FILE_RASTER:
             if not hasattr(raster, 'extent') or raster.extent is None:
-                raster.extent = _get_extent_tuple(raster.uri.uri)
+                raster.extent = _get_extent_tuple_raster(raster.uri.uri)
                 log(f'set job {job.id} {raster.datatype} {raster.type} '
                     f'extent to {raster.extent}')
         elif raster.type == results.RasterType.TILED_RASTER:
             if not hasattr(raster, 'extents') or raster.extents is None:
                 raster.extents = []
                 for raster_tile_uri in raster.tile_uris:
-                    raster.extents.append(_get_extent_tuple(raster_tile_uri.uri))
+                    raster.extents.append(_get_extent_tuple_raster(raster_tile_uri.uri))
                 log(f'set job {job.id} {raster.datatype} {raster.type} '
                     f'extents to {raster.extents}')
         else:
             raise RuntimeError(f"Unknown raster type {raster.type!r}")
 
 
-def _load_raw_job(raw_job):
-    job = Job.Schema().load(raw_job)
+def _set_results_extents_vector(job):
+    log(f'Setting extents for job {job.id}')
+    if not hasattr(job.results, 'extent') or job.results.extent is None:
+        job.results.extent = _get_extent_tuple_vector(job.results.vector.uri.uri)
+        log(f'set job {job.id} {job.results.type} {job.results.vector.type} '
+            f'extent to {job.results.extent}')
+
+
+def set_results_extents(job):
     if (
         job.results.type == results.ResultType.RASTER_RESULTS and
         job.status in [jobs.JobStatus.DOWNLOADED, jobs.JobStatus.GENERATED_LOCALLY]
     ):
-        _set_results_extents(job)
-    return job
+        _set_results_extents_raster(job)
+    elif (
+        job.results.type == results.ResultType.VECTOR_RESULTS and
+        job.status in [jobs.JobStatus.DOWNLOADED, jobs.JobStatus.GENERATED_LOCALLY]
+    ):
+        _set_results_extents_vector(job)
 
 
 class LocalJobTask(QgsTask):
@@ -321,6 +371,12 @@ class JobManager(QtCore.QObject):
             relevant_remote_jobs = remote_jobs
 
         self._refresh_local_deleted_jobs()
+
+        deleted_ids = self._known_deleted_jobs.keys()
+        relevant_remote_jobs = [
+            job for job in relevant_remote_jobs if job.id not in deleted_ids
+        ]
+
         self._refresh_local_running_jobs(relevant_remote_jobs)
         self._refresh_local_finished_jobs(relevant_remote_jobs)
         self._refresh_local_downloaded_jobs()
@@ -384,7 +440,8 @@ class JobManager(QtCore.QObject):
         except TypeError:
             job = None
         else:
-            job = _load_raw_job(raw_job)
+            job = Job.Schema().load(raw_job)
+            set_results_extents(job)
             self.write_job_metadata_file(job)
             self._update_known_jobs_with_newly_submitted_job(job)
             self.submitted_remote_job.emit(job)
@@ -481,7 +538,9 @@ class JobManager(QtCore.QObject):
                 self._change_job_status(
                     job, jobs.JobStatus.DOWNLOADED, force_rewrite=True
                 )
-            self.downloaded_job_results.emit(job)
+                self.downloaded_job_results.emit(job)
+            else:
+                return None
         else:
             # TODO: show a message noting that can't download this job type,
             # then disable the download button
@@ -540,37 +599,18 @@ class JobManager(QtCore.QObject):
 
     def display_special_area_layer(self, job: Job):
         layer_path = job.results.vector.uri.uri
-        layers.add_vector_layer(str(layer_path), job.results.name, False)
+        layers.add_vector_layer(str(layer_path), job.results.name)
 
     def edit_special_area_layer(self, job: Job):
         layer_path = job.results.vector.uri.uri
-        layers.add_vector_layer(str(layer_path), job.results.name, True)
+        layers.edit(str(layer_path))
 
     def import_job(self, job: Job, job_path):
-        # First check if data path is relative to job file. If it is, update
-        # the data_path and other_path before moving the job file so the data
-        # can still be found after moving the job file
-        # TODO: Need to handle moving all raster paths, not just the main
-        # datapath
 
-        if (
-            job.results.uri and not job.results.uri.uri.is_absolute() and
-            not is_gdal_vsi_path(job.results.uri.uri
-                                 )  # don't change gdal virtual fs references
-        ):
-            # If the path doesn't exist, but the filename does exist in the
-            # same folder as the job, assume that is what is meant
-            possible_path = Path(job_path.parent / job.results.uri.uri.name
-                                 ).absolute()
+        update_uris_if_needed(job, job_path)
 
-            if possible_path.exists():
-                job.results.uri.uri = possible_path
-            job.results.uri.uri = possible_path
-            # # Assume the other_paths also need to be converted
-            # job.results.other_paths = [
-            #     Path(job_path.parent / p).absolute()
-            #     for p in job.results.other_paths
-            # ]
+        set_results_extents(job)
+
         self._move_job_to_dir(job, job.status, force_rewrite=True)
 
         if job.status == jobs.JobStatus.PENDING:
@@ -609,7 +649,7 @@ class JobManager(QtCore.QObject):
                 bands=[band_info],
                 datatype=DataType.INT16,
                 filetype=RasterFileType.GEOTIFF,
-                extent=_get_extent_tuple(dataset_path)
+                extent=_get_extent_tuple_raster(dataset_path)
             )
         }
         job = Job(
@@ -632,7 +672,7 @@ class JobManager(QtCore.QObject):
 
         return job
 
-    def create_false_positive(self):
+    def create_error_recode(self):
         now = dt.datetime.now(dt.timezone.utc)
         job_id = uuid.uuid4()
         job = Job(
@@ -647,7 +687,7 @@ class JobManager(QtCore.QObject):
                 type=ResultType.VECTOR_RESULTS,
                 vector=VectorFalsePositive(
                         uri=None,
-                        type=VectorType.FALSE_POSITIVE,
+                        type=VectorType.ERROR_RECODE,
                     ),
                 uri=None
             ),
@@ -656,21 +696,21 @@ class JobManager(QtCore.QObject):
             end_date=now
         )
 
-        self._init_false_positive_layer(job)
+        self._init_error_recode_layer(job)
         self.write_job_metadata_file(job)
         self.known_jobs[job.status][job.id] = job
         self.imported_job.emit(job)
 
-    def _init_false_positive_layer(self, job: Job):
+    def _init_error_recode_layer(self, job: Job):
         output_path = self.get_job_file_path(job).with_suffix('.gpkg')
         output_dir = output_path.parent
         output_dir.mkdir(parents=True, exist_ok=True)
         locale = QgsApplication.locale()
-        path = os.path.join(os.path.dirname(__file__), os.path.pardir, 'data', 'special_areas', 'false_positive_{}.gpkg'.format(locale))
+        path = os.path.join(os.path.dirname(__file__), os.path.pardir, 'data', 'special_areas', 'error_recode_{}.gpkg'.format(locale))
         if os.path.exists(path):
             shutil.copy2(path, output_path)
         else:
-            shutil.copy2(os.path.join(os.path.dirname(__file__), os.path.pardir, 'data', 'special_areas', 'false_positive_en.gpkg'.format(locale)), output_path)
+            shutil.copy2(os.path.join(os.path.dirname(__file__), os.path.pardir, 'data', 'special_areas', 'error_recode_en.gpkg'.format(locale)), output_path)
         job.results.vector.uri=URI(uri=output_path, type='local')
 
     def _update_known_jobs_with_newly_submitted_job(self, job: Job):
@@ -714,11 +754,13 @@ class JobManager(QtCore.QObject):
                         base_output_path.parent /
                         f"{file_out_base}_{uri_number}.tif"
                     )
-                    _download_result(
+                    result = _download_result(
                         uri.uri,
                         base_output_path.parent /
                         f"{file_out_base}_{uri_number}.tif",
                     )
+                    if not result:
+                        return None
                     tile_uris.append(results.URI(uri=out_file, type='local'))
 
                 raster.tile_uris = tile_uris
@@ -738,10 +780,12 @@ class JobManager(QtCore.QObject):
                     )
             else:
                 out_file = base_output_path.parent / f"{file_out_base}.tif"
-                _download_result(
+                result = _download_result(
                     raster.uri.uri,
                     out_file,
                 )
+                if not result:
+                    return None
                 raster_uri = results.URI(uri=out_file, type='local')
                 raster.uri = raster_uri
                 out_rasters[key] =  results.Raster(
@@ -754,7 +798,7 @@ class JobManager(QtCore.QObject):
 
         job.results.rasters = out_rasters
 
-        # Setup the main data_path. This could be a vrt (if job.results.rasters
+        # Setup the main uri. This could be a vrt (if job.results.rasters
         # has more than one Raster, or if it has one or more TiledRasters)
 
         if (
@@ -771,7 +815,7 @@ class JobManager(QtCore.QObject):
         else:
             job.results.uri = [*job.results.rasters.values()][0].uri
 
-        _set_results_extents(job)
+        _set_results_extents_raster(job)
 
         return job.results.uri
 
@@ -910,7 +954,8 @@ class JobManager(QtCore.QObject):
             with job_metadata_path.open(encoding=self._encoding) as fh:
                 try:
                     raw_job = json.load(fh)
-                    job = _load_raw_job(raw_job)
+                    job = Job.Schema().load(raw_job)
+                    set_results_extents(job)
                 except (KeyError, json.decoder.JSONDecodeError) as exc:
                     if conf.settings_manager.get_value(conf.Setting.DEBUG):
                         log(
@@ -1089,6 +1134,13 @@ def _get_raster_vrt(tiles: List[Path], out_file: Path):
     gdal.BuildVRT(str(out_file), [str(tile) for tile in tiles])
 
 
+def backoff_hdlr(details):
+    log("Backing off {wait:0.1f} seconds after {tries} tries "
+        "calling function {target} with args {args} and kwargs "
+        "{kwargs}".format(**details))
+
+@backoff.on_predicate(backoff.expo, lambda x: x is None, max_tries=5,
+                      on_backoff=backoff_hdlr)
 def _download_result(url: str, output_path: Path) -> bool:
     output_path.parent.mkdir(parents=True, exist_ok=True)
     download_worker = ldmp_download.Download(url, str(output_path))
@@ -1096,7 +1148,7 @@ def _download_result(url: str, output_path: Path) -> bool:
     result = bool(download_worker.get_resp())
 
     if not result:
-        output_path.unlink()
+        output_path.unlink(missing_ok=True)
 
     return result
 
@@ -1173,6 +1225,10 @@ def get_remote_jobs(
                         )
                     else:
                         remote_jobs.append(job)
+                except ValidationError as exc:
+                    log(
+                        f"Could not retrieve remote job {raw_job['id']}: {str(exc)}"
+                    )
                 except RuntimeError as exc:
                     log(str(exc))
                 except TypeError as exc:

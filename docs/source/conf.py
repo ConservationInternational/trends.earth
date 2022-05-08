@@ -34,6 +34,7 @@ extensions = [
     "sphinx_rtd_theme",
     "sphinx.ext.todo",
     "sphinx.ext.viewcode",
+    "sphinxcontrib.spelling",
     "myst_parser",
 ]
 
@@ -52,6 +53,14 @@ myst_enable_extensions = [
     "substitution",
     "tasklist",
 ]
+
+# Spellcheck options
+spelling_word_list_filename = ["known_good_spellings.txt"]
+# Don't check the general/index.rst file due to all the names in the publications lists
+# that show up as misspellings
+spelling_exclude_patterns = ["general/index.rst"]
+spelling_ignore_pypi_package_names = True
+
 
 todo_include_todos = True
 
@@ -79,9 +88,9 @@ gettext_compact = False
 # built documents.
 #
 # The short X.Y version.
-version = "1.99.9"
+version = "1.99.10"
 # The full version, including alpha/beta/rc tags.
-release = "1.99.9"
+release = "1.99.10"
 
 rst_epilog = """
 .. |iconCalculator| image:: /static/common/icon-calculator.png
@@ -213,9 +222,7 @@ html_show_sourcelink = False
 
 # Note the underscore SHOULD be used below as this is how the static folder is
 # named by sphinx on generation.
-html_context = {
-    "css_files": ["_static/custom.css", "_static/css/theme.css"],
-}
+html_css_files = ["custom.css"]
 
 # If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
 # using the given strftime format.

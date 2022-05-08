@@ -33,7 +33,7 @@ from te_schemas.results import Raster, ResultType, RasterType
 from . import GetTempFilename, areaofinterest, conf, layers, utils, worker
 from . import metadata_dialog
 from . import metadata
-from .jobs.manager import job_manager
+from .jobs.manager import job_manager, update_uris_if_needed, set_results_extents
 from .jobs.models import Job
 from .logger import log
 
@@ -675,6 +675,8 @@ class DlgDataIOLoadTE(QtWidgets.QDialog, Ui_DlgDataIOLoadTE):
             try:
                 raw_job = json.loads(path.read_text())
                 job = Job.Schema().load(raw_job)
+                update_uris_if_needed(job, path)
+                set_results_extents(job)
             except json.JSONDecodeError:
                 error_message = "Could not parse the selected file into a valid JSON"
 
@@ -996,9 +998,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         in_srs = osr.SpatialReference()
         in_srs.ImportFromWkt(ds_in.GetProjectionRef())
 
-        tx = osr.CoordinateTransformation(
-            in_srs, wgs84_srs, qgis.core.QgsProject.instance()
-        )
+        tx = osr.CoordinateTransformation(in_srs, wgs84_srs)
 
         geo_t = ds_in.GetGeoTransform()
         x_size = ds_in.RasterXSize
@@ -1546,13 +1546,24 @@ def _check_band_overlap(aoi, raster):
         else:
             return False
 
-def _check_dataset_overlap(aoi, raster_results):
+def _check_dataset_overlap_raster(aoi, raster_results):
     frac = 0
     for extent in raster_results.get_extents():
         this_frac = aoi.calc_frac_overlap(_extent_as_geom(extent))
         frac += this_frac
     if frac >= .99:
         return True
+    else:
+        return False
+
+
+def _check_dataset_overlap_vector(aoi, vector_results):
+    "Checks to see if the vector results are NOT disjoint with the aoi"
+    extent = vector_results.extent
+    log(f"vector extent is {extent}")
+    if extent is not None:
+        log(f"vector calc_disjoint is {aoi.calc_disjoint(_extent_as_geom(extent))}")
+        return not aoi.calc_disjoint(_extent_as_geom(extent))
     else:
         return False
 
@@ -1572,23 +1583,40 @@ def get_usable_datasets(
             JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY
         )
         try:
-            is_valid_type = ResultType(job.results.type) == ResultType.RASTER_RESULTS
+            is_valid_type = ResultType(job.results.type) in [
+                ResultType.RASTER_RESULTS, ResultType.VECTOR_RESULTS
+            ]
         except AttributeError:
             # Catch case of an invalid type
 
             continue
 
-        if is_available and is_valid_type and job.results.uri is not None:
-            path = job.results.uri.uri
-
-            if aoi is not None:
-                if not _check_dataset_overlap(aoi, job.results):
-                    continue
-
-            if job.script.name == dataset_name:
+        if is_available and is_valid_type:
+            if (
+                    ResultType(job.results.type) == ResultType.RASTER_RESULTS and
+                    (
+                        aoi is None or
+                        _check_dataset_overlap_raster(aoi, job.results)
+                    ) and
+                    job.script.name == dataset_name and 
+                    job.results.uri is not None
+            ):
                 result.append(Dataset(
                     job=job,
-                    path=path,
+                    path=job.results.uri.uri,
+                ))
+            elif  (
+                    ResultType(job.results.type) == ResultType.VECTOR_RESULTS and
+                    (
+                        aoi is None or
+                        _check_dataset_overlap_vector(aoi, job.results)
+                    ) and
+                    job.results.vector.type.value == dataset_name and
+                    job.results.vector.uri is not None
+            ):
+                result.append(Dataset(
+                    job=job,
+                    path=job.results.vector.uri.uri
                 ))
     result.sort(key=lambda ub: ub.job.start_date, reverse=True)
 
@@ -1673,7 +1701,7 @@ class WidgetDataIOSelectTEDatasetExisting(
             self.selected_job_changed
         )
 
-        self.NO_DATASETS_MESSAGE =  self.tr('No datasets available in this region (see advanced)')
+        self.NO_DATASETS_MESSAGE =  self.tr('No datasets available in this region')
 
     def populate(self):
         aoi = areaofinterest.prepare_area_of_interest()
@@ -1711,13 +1739,25 @@ class WidgetDataIOSelectTEDatasetExisting(
         return self.comboBox_datasets.currentText()
 
     def get_current_dataset(self):
-        return self.dataset_list[self.comboBox_datasets.currentIndex()]
+        current_dataset = self.dataset_list[self.comboBox_datasets.currentIndex()]
+        if current_dataset != self.NO_DATASETS_MESSAGE:
+            return current_dataset
+        else:
+            return None
 
     def get_current_extent(self):
-        band = self.get_bands('any')[0]
-
-        return qgis.core.QgsRasterLayer(str(band.path), "raster file",
-                                        "gdal").extent()
+        job = self.get_current_job()
+        if job:
+            if ResultType(job.results.type) == ResultType.RASTER_RESULTS:
+                band = self.get_bands('any')[0]
+                return qgis.core.QgsRasterLayer(
+                    str(band.path), "raster file", "gdal").extent()
+            elif ResultType(job.results.type) == ResultType.VECTOR_RESULTS:
+                rect = qgis.core.QgsVectorLayer(
+                    str(self.get_current_data_file()),
+                    "vector file", "ogr"
+                ).extent()
+                return (rect.xMinimum(), rect.yMinimum(), rect.yMaximum(), rect.yMaximum())
 
     def get_bands(self, band_name) -> Band:
         aoi = areaofinterest.prepare_area_of_interest()
@@ -1733,13 +1773,18 @@ class WidgetDataIOSelectTEDatasetExisting(
 
         return False
 
+    def get_current_job(self):
+        current_dataset = self.get_current_dataset()
+        if current_dataset:
+            return current_dataset.job
+        else:
+            return None
+
     def selected_job_changed(self):
         if len(self.dataset_list) >= 1:
-            current_job = self.dataset_list[
-                self.comboBox_datasets.currentIndex()]
-
-            if current_job != self.NO_DATASETS_MESSAGE:
-                job_id = current_job.job.id
+            current_job = self.get_current_job()
+            if current_job:
+                job_id = current_job.id
             else:
                 job_id = None
             self.job_selected.emit(job_id)

@@ -30,7 +30,7 @@ More information on the toolbox can be found at `trends.earth
 website <http://vitalsigns.org/gef-ldmp/project-description-and-timeline>`_ You 
 can also add your contact info at `Vital Signs LD Email Distribution List 
 <http://vitalsigns.org/gef-ldmp/email-distribution-list>`_ to stay in touch 
-with any advancements with the projects’ distrubtion list.
+with any advancements with the projects’ distribution list.
 
 How can I provide feedback on the tool?
 ------------------------------------------------------------------
@@ -262,7 +262,7 @@ All of the sub-indicators are measuring vegetation: how does this contribute to 
 --------------------------------------------------------------------------------------------------------------------------------
 
 Vegetation is a key component of most ecosystems, and serve as a good proxy for 
-their overall functioning and health. The three subindicators used for SDG 
+their overall functioning and health. The three sub-indicators used for SDG 
 15.3.1 measure different aspects of land cover, which do relate to vegetation. 
 Primary productivity directly measures the change in amount of biomass present 
 in one area, but it does not inform us if that change is positive or not (not 

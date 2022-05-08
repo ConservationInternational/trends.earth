@@ -241,7 +241,7 @@ def set_version(c, v=None, ta=False, ts=False):
         # Set in scripts.json
         print('Setting version to {} in scripts.json'.format(v))
         scripts_regex = re.compile(
-            '("script version": ")[0-9]+([-._][0-9]+)+', re.IGNORECASE
+            '("version": ")[0-9]+([-._][0-9]+)+', re.IGNORECASE
         )
         _replace(
             os.path.join(c.plugin.source_dir, 'data', 'scripts.json'),
@@ -1022,6 +1022,47 @@ def gettext(c, language=None):
 # Build documentation
 ###############################################################################
 
+@task(
+    help={
+        'ignore_errors': 'ignore documentation errors',
+        'language': "which language to build (all are built by default)",
+        'fast': "only check english docs"
+    }
+)
+def docs_spellcheck(c, ignore_errors=False, language=None, fast=False):
+    if language:
+        languages = [language]
+    else:
+        languages = [c.sphinx.base_language]
+        languages.extend(c.plugin.translations)
+
+    for language in languages:
+        print("\nBuilding {lang} documentation...".format(lang=language))
+        SPHINX_OPTS = '-D language={lang} -A language={lang} {sourcedir}'.format(
+            lang=language, sourcedir=c.sphinx.sourcedir
+        )
+
+        if language != 'en' or ignore_errors:
+            subprocess.check_call(
+                "sphinx-build -b spelling -a {sphinx_opts} {builddir}/html/{lang}".
+                format(
+                    sphinx_opts=SPHINX_OPTS,
+                    builddir=c.sphinx.builddir,
+                    lang=language
+                )
+            )
+        else:
+            subprocess.check_call(
+                "sphinx-build -n -W -b spelling -a {sphinx_opts} {builddir}/html/{lang}"
+                .format(
+                    sphinx_opts=SPHINX_OPTS,
+                    builddir=c.sphinx.builddir,
+                    lang=language
+                )
+            )
+
+        if fast:
+            break
 
 @task(
     help={
@@ -1624,7 +1665,7 @@ def binaries_compile(c, clean=False, python='python'):
 ###############################################################################
 
 ns = Collection(
-    set_version, set_tag, plugin_setup, plugin_install, docs_build,
+    set_version, set_tag, plugin_setup, plugin_install, docs_build, docs_spellcheck,
     translate_pull, translate_push, changelog_build, tecli_login, tecli_clear,
     tecli_config, tecli_publish, tecli_run, tecli_info, tecli_logs,
     zipfile_build, zipfile_deploy, binaries_compile, binaries_sync,
@@ -1703,19 +1744,7 @@ ns.configure(
             'trendsearth',
             'base_language':
             'en',
-            'latex_documents': [
-                'Trends.Earth.tex', 'Trends.Earth_Tutorial01_Installation.tex',
-                'Trends.Earth_Tutorial02_Computing_Indicators.tex',
-                'Trends.Earth_Tutorial03_Downloading_Results.tex',
-                'Trends.Earth_Tutorial04_Using_Custom_Productivity.tex',
-                'Trends.Earth_Tutorial05_Using_Custom_Land_Cover.tex',
-                'Trends.Earth_Tutorial06_Using_Custom_Soil_Carbon.tex',
-                'Trends.Earth_Tutorial07_Computing_SDG_Indicator.tex',
-                'Trends.Earth_Tutorial08_The_Summary_Table.tex',
-                'Trends.Earth_Tutorial09_Loading_a_Basemap.tex',
-                'Trends.Earth_Tutorial10_Forest_Carbon.tex',
-                'Trends.Earth_Tutorial11_Urban_Change_SDG_Indicator.tex'
-            ]
+            'latex_documents': ['Trends.Earth.tex']
         },
         'github': {
             'api_url': 'https://api.github.com',

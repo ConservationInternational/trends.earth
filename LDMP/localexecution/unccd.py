@@ -1,7 +1,9 @@
 import dataclasses
 import datetime as dt
+import json
 import re
 import tarfile
+import tempfile
 import zipfile
 from pathlib import Path
 from typing import Dict
@@ -54,7 +56,7 @@ def _get_unccd_report_inputs(combo_box):
         p
         for p in path.parents[0].glob("*.json")
         if bool(re.search("_summary.json", str(p)))
-    ]
+    ][0]
     all_paths = [p for p in path.parents[0].glob("*")]
     all_files = [x for x in all_paths if x.is_file()]
     return UNCCDReportInputInfo(path, summary_path, all_files)
@@ -69,26 +71,27 @@ def get_main_unccd_report_job_params(
     task_notes: Optional[str] = "",
 ) -> Dict:
 
-    params = {
-        "task_name": task_name,
-        "task_notes": task_notes
-    }
+    params = {"task_name": task_name, "task_notes": task_notes}
 
     if include_so1_so2:
         so1_so2_inputs = _get_unccd_report_inputs(combo_dataset_so1_so2)
-        params.update({
-            "so1_so2_path": str(so1_so2_inputs.path),
-            "so1_so2_summary_path": str(so1_so2_inputs.summary_path),
-            "so1_so2_all_paths": [str(p) for p in so1_so2_inputs.all_paths],
-        })
+        params.update(
+            {
+                "so1_so2_path": str(so1_so2_inputs.path),
+                "so1_so2_summary_path": str(so1_so2_inputs.summary_path),
+                "so1_so2_all_paths": [str(p) for p in so1_so2_inputs.all_paths],
+            }
+        )
 
     if include_so3:
         so3_inputs = _get_unccd_report_inputs(combo_dataset_so3)
-        params.update({
-            "so3_path": str(so3_inputs.path),
-            "so3_summary_path": str(so3_inputs.summary_path),
-            "so3_all_paths": [str(p) for p in so3_inputs.all_paths],
-        })
+        params.update(
+            {
+                "so3_path": str(so3_inputs.path),
+                "so3_summary_path": str(so3_inputs.summary_path),
+                "so3_all_paths": [str(p) for p in so3_inputs.all_paths],
+            }
+        )
 
     return params
 
@@ -97,6 +100,16 @@ def _make_tar_gz(out_tar_gz, in_files):
     with tarfile.open(out_tar_gz, "w:gz") as tar:
         for in_file in in_files:
             tar.add(in_file, arcname=in_file.name)
+
+
+def _set_affected_areas_only(in_file, out_file, schema):
+    with open(in_file, "r") as f:
+        summary = schema.load(json.load(f))
+    summary.metadata.affected_areas_only = True
+    out_json = json.loads(schema.dumps(summary))
+    with open(out_file, "w") as f:
+        json.dump(out_json, f, indent=4)
+    return out_file
 
 
 def compute_unccd_report(
@@ -111,20 +124,39 @@ def compute_unccd_report(
 
     tar_gz_path = job_output_path.parent / f"{job_output_path.stem}.tar.gz"
 
-    paths = []
-    if params["include_so1_so2"]:
-        paths += [Path(p) for p in params["so1_so2_all_paths"]]
-    if params["include_so3"]:
-        paths += [Path(p) for p in params["so3_all_paths"]]
+    with tempfile.TemporaryDirectory() as temp_dir:
+        paths = []
+        if params["affected_only"]:
+            if params["include_so1_so2"]:
+                summary_path_so1_so2 = Path(params["so1_so2_summary_path"])
+                paths += [
+                    _set_affected_areas_only(
+                        summary_path_so1_so2,
+                        Path(temp_dir) / summary_path_so1_so2.name,
+                        reporting.TrendsEarthLandConditionSummary.Schema(),
+                    )
+                ]
+            if params["include_so3"]:
+                summary_path_so3 = Path(params["so3_summary_path"])
+                paths += [
+                    _set_affected_areas_only(
+                        summary_path_so3,
+                        Path(temp_dir) / summary_path_so3.name,
+                        reporting.TrendsEarthDroughtSummary.Schema(),
+                    )
+                ]
+            for path in paths:
+                log(f"{path} exists {path.exists()} (in context manager)")
+        else:
+            if params["include_so1_so2"]:
+                paths += [Path(p) for p in params["so1_so2_all_paths"]]
+            if params["include_so3"]:
+                paths += [Path(p) for p in params["so3_all_paths"]]
 
-    if params["affected_only"]:
-        # TODO: Finish this should to add this flag to the JSONs within the report only
-        # if selected on the window. But to do this will need to re-read the JSONs and
-        # then modify them before writing copies to a temp file
-        pass
-
-    log(f"Building tar.gz file with {paths}...")
-    _make_tar_gz(tar_gz_path, paths)
+        for path in paths:
+            log(f"{path} exists: {path.exists()}")
+        log(f"Building tar.gz file with {paths}...")
+        _make_tar_gz(tar_gz_path, paths)
 
     report_job.results
 
@@ -132,7 +164,6 @@ def compute_unccd_report(
         name="unccd_report",
         uri=URI(uri=tar_gz_path, type="local"),
     )
-    report_job.results.data_path = tar_gz_path
     report_job.end_date = dt.datetime.now(dt.timezone.utc)
     report_job.progress = 100
 

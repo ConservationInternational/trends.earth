@@ -10,6 +10,7 @@ from osgeo import ogr
 
 from . import conf
 from . import download
+from .layers import _get_qgis_version
 from .logger import log
 
 
@@ -326,6 +327,13 @@ class AOI(object):
     def buffer(self, d):
         log("Buffering layer by {} km.".format(d))
 
+        # Use correct transform direction enum based on version
+        major_version, minor_version = _get_qgis_version()
+        if major_version >= 3 and minor_version >= 22:
+            trans_dir = qgis.core.Qgis.TransformDirection.Reverse
+        else:
+            trans_dir = qgis.core.QgsCoordinateTransform.TransformDirection.ReverseTransform
+
         feats = []
         for f in self.l.getFeatures():
             geom = f.geometry()
@@ -350,7 +358,7 @@ class AOI(object):
             )
             geom_buffered.transform(
                 to_aeqd,
-                qgis.core.QgsCoordinateTransform.TransformDirection.ReverseTransform,
+                trans_dir
             )
             f.setGeometry(geom_buffered)
             feats.append(f)
@@ -408,6 +416,26 @@ class AOI(object):
             # Calculate the area of this piece of the AOI that the input geom covers
             area_covered += aoi_geom.Intersection(in_geom).GetArea()
         return area_covered / total_aoi_area
+
+    def calc_disjoint(self, geom):
+        """
+        Returns whether a geom is disjoint with the AOI
+        """
+        _, aoi_wkts = self.meridian_split(out_type="extent", out_format="wkt")
+
+        # Handle case of a point with zero area
+        in_geom = ogr.CreateGeometryFromWkt(geom.asWkt())
+        in_geom_area = in_geom.GetArea()
+        if in_geom_area == 0:
+            if aoi_geom.Within(in_geom):
+                return False
+
+        for aoi_wkt in aoi_wkts:
+            # Need to allow for AOIs that may be split up into multiple parts due to 180th.
+            aoi_geom = ogr.CreateGeometryFromWkt(aoi_wkt)
+            if aoi_geom.Disjoint(in_geom):
+                return True
+        return False
 
     def get_geojson(self, split=False):
         geojson = {"type": "FeatureCollection", "features": []}

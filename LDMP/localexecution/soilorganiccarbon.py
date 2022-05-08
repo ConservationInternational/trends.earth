@@ -3,12 +3,17 @@ import os
 import tempfile
 from pathlib import Path
 
-import LDMP.logger
 import numpy as np
 from osgeo import gdal
 from osgeo import osr
 from te_schemas.results import Band as JobBand
+from te_schemas.results import DataType
+from te_schemas.results import Raster
+from te_schemas.results import RasterFileType
+from te_schemas.results import RasterResults
+from te_schemas.results import URI
 
+import LDMP.logger
 from .. import utils
 from .. import worker
 from ..areaofinterest import AOI
@@ -16,14 +21,15 @@ from ..jobs.models import Job
 
 
 def compute_soil_organic_carbon(
-    soc_job: Job, area_of_interest: AOI, job_output_path: Path,
-    dataset_output_path: Path
+    soc_job: Job,
+    area_of_interest: AOI,
+    job_output_path: Path,
+    dataset_output_path: Path,
 ) -> Job:
     # Select the initial and final bands from initial and final datasets
     # (in case there is more than one lc band per dataset)
     lc_initial_vrt = utils.save_vrt(
-        soc_job.params["lc_initial_path"],
-        soc_job.params["lc_initial_band_index"]
+        soc_job.params["lc_initial_path"], soc_job.params["lc_initial_band_index"]
     )
     lc_final_vrt = utils.save_vrt(
         soc_job.params["lc_final_path"], soc_job.params["lc_final_band_index"]
@@ -32,48 +38,48 @@ def compute_soil_organic_carbon(
     lc_vrts = []
 
     for index, path in enumerate(lc_files):
-        vrt_path = tempfile.NamedTemporaryFile(suffix='.vrt').name
+        vrt_path = tempfile.NamedTemporaryFile(suffix=".vrt").name
         # Add once since band numbers don't start at zero
         gdal.BuildVRT(
             vrt_path,
             lc_files[index],
             bandList=[index + 1],
-            outputBounds=area_of_interest.
-            get_aligned_output_bounds_deprecated(lc_initial_vrt),
-            resolution='highest',
+            outputBounds=area_of_interest.get_aligned_output_bounds_deprecated(
+                lc_initial_vrt
+            ),
+            resolution="highest",
             resampleAlg=gdal.GRA_NearestNeighbour,
-            separate=True
+            separate=True,
         )
         lc_vrts.append(vrt_path)
     custom_soc_vrt = utils.save_vrt(
-        soc_job.params["custom_soc_path"],
-        soc_job.params["custom_soc_band_index"]
+        soc_job.params["custom_soc_path"], soc_job.params["custom_soc_band_index"]
     )
-    climate_zones_path = Path(__file__
-                              ).parents[1] / "data" / "IPCC_Climate_Zones.tif"
+    climate_zones_path = Path(__file__).parents[1] / "data" / "IPCC_Climate_Zones.tif"
     in_files = [
         custom_soc_vrt,
         str(climate_zones_path),
     ] + lc_vrts
 
-    in_vrt_path = tempfile.NamedTemporaryFile(suffix='.vrt').name
-    LDMP.logger.log(u'Saving SOC input files to {}'.format(in_vrt_path))
+    in_vrt_path = tempfile.NamedTemporaryFile(suffix=".vrt").name
+    LDMP.logger.log("Saving SOC input files to {}".format(in_vrt_path))
     gdal.BuildVRT(
         in_vrt_path,
         in_files,
-        resolution='highest',
+        resolution="highest",
         resampleAlg=gdal.GRA_NearestNeighbour,
-        outputBounds=area_of_interest.
-        get_aligned_output_bounds_deprecated(lc_initial_vrt),
-        separate=True
+        outputBounds=area_of_interest.get_aligned_output_bounds_deprecated(
+            lc_initial_vrt
+        ),
+        separate=True,
     )
-    LDMP.logger.log(f'Saving soil organic carbon to {dataset_output_path!r}')
+    LDMP.logger.log(f"Saving soil organic carbon to {dataset_output_path!r}")
     # Lc bands start on band 3 as band 1 is initial soc, and band 2 is
     # climate zones
     lc_band_nums = list(range(3, len(lc_files) + 3))
     soc_worker = worker.StartWorker(
         SOCWorker,
-        'calculating change in soil organic carbon',
+        "calculating change in soil organic carbon",
         in_vrt_path,
         str(dataset_output_path),
         lc_band_nums,
@@ -90,23 +96,30 @@ def compute_soil_organic_carbon(
                 metadata={
                     "year_initial": soc_job.params["lc_years"][0],
                     "year_final": soc_job.params["lc_years"][-1],
-                }
+                },
             )
         ]
 
         for year in soc_job.params["lc_years"]:
-            soc_band = JobBand(
-                name="Soil organic carbon", metadata={"year": year}
-            )
+            soc_band = JobBand(name="Soil organic carbon", metadata={"year": year})
             bands.append(soc_band)
 
         for year in soc_job.params["lc_years"]:
-            lc_band = JobBand(
-                name="Land cover (7 class)", metadata={"year": year}
-            )
+            lc_band = JobBand(name="Land cover (7 class)", metadata={"year": year})
             bands.append(lc_band)
-        soc_job.results.bands = bands
-        soc_job.results.data_path = dataset_output_path
+
+        soc_job.results = RasterResults(
+            name="soil_organic_carbon",
+            uri=URI(uri=dataset_output_path, type="local"),
+            rasters={
+                DataType.INT16.value: Raster(
+                    uri=URI(uri=dataset_output_path, type="local"),
+                    bands=bands,
+                    datatype=DataType.INT16,
+                    filetype=RasterFileType.GEOTIFF,
+                ),
+            },
+        )
     else:
         raise RuntimeError("Error calculating soil organic carbon")
 
@@ -138,8 +151,12 @@ class SOCWorker(worker.AbstractWorker):
         # Need a band for SOC degradation, plus bands for annual SOC, and for
         # annual LC
         ds_out = driver.Create(
-            self.out_f, xsize, ysize, 1 + len(self.lc_years) * 2,
-            gdal.GDT_Int16, ['COMPRESS=LZW']
+            self.out_f,
+            xsize,
+            ysize,
+            1 + len(self.lc_years) * 2,
+            gdal.GDT_Int16,
+            ["COMPRESS=LZW"],
         )
         src_gt = ds_in.GetGeoTransform()
         ds_out.SetGeoTransform(src_gt)
@@ -151,7 +168,7 @@ class SOCWorker(worker.AbstractWorker):
         clim_fl_map = np.array(
             [
                 [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-                [0, .69, .8, .69, .8, .69, .8, .69, .8, .64, .48, .48, .58]
+                [0, 0.69, 0.8, 0.69, 0.8, 0.69, 0.8, 0.69, 0.8, 0.64, 0.48, 0.48, 0.58],
             ]
         )
 
@@ -160,48 +177,320 @@ class SOCWorker(worker.AbstractWorker):
         lc_tr_fl_0_map = np.array(
             [
                 [
-                    11, 12, 13, 14, 15, 16, 17, 21, 22, 23, 24, 25, 26, 27, 31,
-                    32, 33, 34, 35, 36, 37, 41, 42, 43, 44, 45, 46, 47, 51, 52,
-                    53, 54, 55, 56, 57, 61, 62, 63, 64, 65, 66, 67, 71, 72, 73,
-                    74, 75, 76, 77
+                    11,
+                    12,
+                    13,
+                    14,
+                    15,
+                    16,
+                    17,
+                    21,
+                    22,
+                    23,
+                    24,
+                    25,
+                    26,
+                    27,
+                    31,
+                    32,
+                    33,
+                    34,
+                    35,
+                    36,
+                    37,
+                    41,
+                    42,
+                    43,
+                    44,
+                    45,
+                    46,
+                    47,
+                    51,
+                    52,
+                    53,
+                    54,
+                    55,
+                    56,
+                    57,
+                    61,
+                    62,
+                    63,
+                    64,
+                    65,
+                    66,
+                    67,
+                    71,
+                    72,
+                    73,
+                    74,
+                    75,
+                    76,
+                    77,
                 ],
                 [
-                    1, 1, 99, 1, 0.1, 0.1, 1, 1, 1, 99, 1, 0.1, 0.1, 1, -99,
-                    -99, 1, 1 / 0.71, 0.1, 0.1, 1, 1, 1, 0.71, 1, 0.1, 0.1, 1,
-                    2, 2, 2, 2, 1, 1, 1, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-                    1
-                ]
+                    1,
+                    1,
+                    99,
+                    1,
+                    0.1,
+                    0.1,
+                    1,
+                    1,
+                    1,
+                    99,
+                    1,
+                    0.1,
+                    0.1,
+                    1,
+                    -99,
+                    -99,
+                    1,
+                    1 / 0.71,
+                    0.1,
+                    0.1,
+                    1,
+                    1,
+                    1,
+                    0.71,
+                    1,
+                    0.1,
+                    0.1,
+                    1,
+                    2,
+                    2,
+                    2,
+                    2,
+                    1,
+                    1,
+                    1,
+                    2,
+                    2,
+                    2,
+                    2,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                ],
             ]
         )
 
         # stock change factor for management regime
         lc_tr_fm_map = [
             [
-                11, 12, 13, 14, 15, 16, 17, 21, 22, 23, 24, 25, 26, 27, 31, 32,
-                33, 34, 35, 36, 37, 41, 42, 43, 44, 45, 46, 47, 51, 52, 53, 54,
-                55, 56, 57, 61, 62, 63, 64, 65, 66, 67, 71, 72, 73, 74, 75, 76,
-                77
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                21,
+                22,
+                23,
+                24,
+                25,
+                26,
+                27,
+                31,
+                32,
+                33,
+                34,
+                35,
+                36,
+                37,
+                41,
+                42,
+                43,
+                44,
+                45,
+                46,
+                47,
+                51,
+                52,
+                53,
+                54,
+                55,
+                56,
+                57,
+                61,
+                62,
+                63,
+                64,
+                65,
+                66,
+                67,
+                71,
+                72,
+                73,
+                74,
+                75,
+                76,
+                77,
             ],
             [
-                1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-                1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-                1, 1, 1, 1, 1, 1, 1
-            ]
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+            ],
         ]
 
         # stock change factor for input of organic matter
         lc_tr_fo_map = [
             [
-                11, 12, 13, 14, 15, 16, 17, 21, 22, 23, 24, 25, 26, 27, 31, 32,
-                33, 34, 35, 36, 37, 41, 42, 43, 44, 45, 46, 47, 51, 52, 53, 54,
-                55, 56, 57, 61, 62, 63, 64, 65, 66, 67, 71, 72, 73, 74, 75, 76,
-                77
+                11,
+                12,
+                13,
+                14,
+                15,
+                16,
+                17,
+                21,
+                22,
+                23,
+                24,
+                25,
+                26,
+                27,
+                31,
+                32,
+                33,
+                34,
+                35,
+                36,
+                37,
+                41,
+                42,
+                43,
+                44,
+                45,
+                46,
+                47,
+                51,
+                52,
+                53,
+                54,
+                55,
+                56,
+                57,
+                61,
+                62,
+                63,
+                64,
+                65,
+                66,
+                67,
+                71,
+                72,
+                73,
+                74,
+                75,
+                76,
+                77,
             ],
             [
-                1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-                1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-                1, 1, 1, 1, 1, 1, 1
-            ]
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+                1,
+            ],
         ]
 
         blocks = 0
@@ -209,8 +498,9 @@ class SOCWorker(worker.AbstractWorker):
         for y in range(0, ysize, y_block_size):
             if self.killed:
                 LDMP.logger.log(
-                    "Processing killed by user after processing {} out of {} blocks."
-                    .format(y, ysize)
+                    "Processing killed by user after processing {} out of {} blocks.".format(
+                        y, ysize
+                    )
                 )
 
                 break
@@ -230,13 +520,15 @@ class SOCWorker(worker.AbstractWorker):
                 # Write initial soc to band 2 of the output file. Read SOC in
                 # as float so the soc change calculations won't accumulate
                 # error due to repeated truncation of ints
-                soc = np.array(soc_band.ReadAsArray(x, y, cols,
-                                                    rows)).astype(np.float32)
+                soc = np.array(soc_band.ReadAsArray(x, y, cols, rows)).astype(
+                    np.float32
+                )
                 ds_out.GetRasterBand(2).WriteArray(soc, x, y)
 
-                if self.fl == 'per pixel':
-                    clim = np.array(clim_band.ReadAsArray(x, y, cols, rows)
-                                    ).astype(np.float32)
+                if self.fl == "per pixel":
+                    clim = np.array(clim_band.ReadAsArray(x, y, cols, rows)).astype(
+                        np.float32
+                    )
                     # Setup a raster of climate regimes to use for coding Fl
                     # automatically
                     clim_fl = remap(clim, clim_fl_map)
@@ -248,17 +540,16 @@ class SOCWorker(worker.AbstractWorker):
                     t0 = float(self.lc_years[n])
                     t1 = float(self.lc_years[n + 1])
 
-                    lc_t0 = ds_in.GetRasterBand(
-                        self.lc_band_nums[n]
-                    ).ReadAsArray(x, y, cols, rows)
-                    lc_t1 = ds_in.GetRasterBand(
-                        self.lc_band_nums[n + 1]
-                    ).ReadAsArray(x, y, cols, rows)
+                    lc_t0 = ds_in.GetRasterBand(self.lc_band_nums[n]).ReadAsArray(
+                        x, y, cols, rows
+                    )
+                    lc_t1 = ds_in.GetRasterBand(self.lc_band_nums[n + 1]).ReadAsArray(
+                        x, y, cols, rows
+                    )
 
-                    nodata = (lc_t0 == -32768) | (lc_t1
-                                                  == -32768) | (soc == -32768)
+                    nodata = (lc_t0 == -32768) | (lc_t1 == -32768) | (soc == -32768)
 
-                    if self.fl == 'per pixel':
+                    if self.fl == "per pixel":
                         nodata[clim == -128] = True
 
                     # compute transition map (first digit for baseline land
@@ -302,17 +593,14 @@ class SOCWorker(worker.AbstractWorker):
                     # half of the period
 
                     # stock change factor for land use
-                    lc_tr_fl = remap(
-                        np.array(lc_tr).astype(np.float32), lc_tr_fl_0_map
-                    )
+                    lc_tr_fl = remap(np.array(lc_tr).astype(np.float32), lc_tr_fl_0_map)
 
-                    if self.fl == 'per pixel':
+                    if self.fl == "per pixel":
                         lc_tr_fl[lc_tr_fl == 99] = clim_fl[lc_tr_fl == 99]
-                        lc_tr_fl[lc_tr_fl == -99
-                                 ] = 1. / clim_fl[lc_tr_fl == -99]
+                        lc_tr_fl[lc_tr_fl == -99] = 1.0 / clim_fl[lc_tr_fl == -99]
                     else:
                         lc_tr_fl[lc_tr_fl == 99] = self.fl
-                        lc_tr_fl[lc_tr_fl == -99] = 1. / self.fl
+                        lc_tr_fl[lc_tr_fl == -99] = 1.0 / self.fl
 
                     # stock change factor for management regime
                     lc_tr_fm = remap(lc_tr, lc_tr_fm_map)
@@ -326,9 +614,11 @@ class SOCWorker(worker.AbstractWorker):
 
                     # Calculate a new soc change for pixels that changed
                     soc_chg[lc_t0 != lc_t1] = (
-                        soc[lc_t0 != lc_t1] -
-                        soc[lc_t0 != lc_t1] * lc_tr_fl[lc_t0 != lc_t1] *
-                        lc_tr_fm[lc_t0 != lc_t1] * lc_tr_fo[lc_t0 != lc_t1]
+                        soc[lc_t0 != lc_t1]
+                        - soc[lc_t0 != lc_t1]
+                        * lc_tr_fl[lc_t0 != lc_t1]
+                        * lc_tr_fm[lc_t0 != lc_t1]
+                        * lc_tr_fo[lc_t0 != lc_t1]
                     ) / 20
 
                     yrs_lc_1 = t1 - tr_year
@@ -336,8 +626,7 @@ class SOCWorker(worker.AbstractWorker):
                     # yrs_lc_1 for pixels that weren't changed - these pixels
                     # have already had soc_chg applied for the first portion of
                     # the period
-                    yrs_lc_1[lc_t0 == lc_t1
-                             ] = yrs_lc_1[lc_t0 == lc_t1] - (t_mid - t0)
+                    yrs_lc_1[lc_t0 == lc_t1] = yrs_lc_1[lc_t0 == lc_t1] - (t_mid - t0)
                     yrs_lc_1[yrs_lc_1 > 20] = 20
                     soc = soc - soc_chg * yrs_lc_1
                     soc_chg[yrs_lc_1 == 20] = 0
@@ -351,9 +640,7 @@ class SOCWorker(worker.AbstractWorker):
                     ds_out.GetRasterBand(n + 3).WriteArray(soc, x, y)
 
                 # Write out the percent change in SOC layer
-                soc_initial = ds_out.GetRasterBand(2).ReadAsArray(
-                    x, y, cols, rows
-                )
+                soc_initial = ds_out.GetRasterBand(2).ReadAsArray(x, y, cols, rows)
                 soc_final = ds_out.GetRasterBand(
                     2 + len(self.lc_band_nums) - 1
                 ).ReadAsArray(x, y, cols, rows)
@@ -364,14 +651,18 @@ class SOCWorker(worker.AbstractWorker):
                 ds_out.GetRasterBand(1).WriteArray(soc_pch, x, y)
 
                 # Write out the initial and final lc layers
-                lc_bl = ds_in.GetRasterBand(self.lc_band_nums[0]
-                                            ).ReadAsArray(x, y, cols, rows)
-                ds_out.GetRasterBand(1 + len(self.lc_band_nums) +
-                                     1).WriteArray(lc_bl, x, y)
-                lc_tg = ds_in.GetRasterBand(self.lc_band_nums[-1]
-                                            ).ReadAsArray(x, y, cols, rows)
-                ds_out.GetRasterBand(1 + len(self.lc_band_nums) +
-                                     2).WriteArray(lc_tg, x, y)
+                lc_bl = ds_in.GetRasterBand(self.lc_band_nums[0]).ReadAsArray(
+                    x, y, cols, rows
+                )
+                ds_out.GetRasterBand(1 + len(self.lc_band_nums) + 1).WriteArray(
+                    lc_bl, x, y
+                )
+                lc_tg = ds_in.GetRasterBand(self.lc_band_nums[-1]).ReadAsArray(
+                    x, y, cols, rows
+                )
+                ds_out.GetRasterBand(1 + len(self.lc_band_nums) + 2).WriteArray(
+                    lc_tg, x, y
+                )
 
                 blocks += 1
 

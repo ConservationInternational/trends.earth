@@ -148,11 +148,11 @@ class LCClassComboBox(QtWidgets.QComboBox):
 
         self.blockSignals(True)
         self.addItems(
-            [c.name_long for c in self._nesting.parent.orderByCode().key]
+            [c.name_long for c in self._nesting.parent.orderByCode().key_with_nodata()]
         )
         self.blockSignals(False)
 
-        for n in range(0, len(self._nesting.parent.key)):
+        for n in range(0, len(self._nesting.parent.key_with_nodata())):
             color = self._nesting.parent.classByNameLong(
                 self.itemData(n, QtCore.Qt.DisplayRole)
             ).color
@@ -203,7 +203,7 @@ class LCAggTableModel(QtCore.QAbstractTableModel):
         self.colnames_pretty = [x[1] for x in colname_tuples]
 
     def rowCount(self, parent=None):
-        return len(self.nesting.child.key)
+        return len(self.nesting.child.key_with_nodata())
 
     def columnCount(self, parent=None):
         return len(self.colnames_json)
@@ -218,7 +218,7 @@ class LCAggTableModel(QtCore.QAbstractTableModel):
         elif role != QtCore.Qt.DisplayRole:
             return None
         col_name = self.colnames_json[index.column()]
-        initial_class = self.nesting.child.key[index.row()]
+        initial_class = self.nesting.child.key_with_nodata()[index.row()]
 
         if col_name == 'Child_Code':
             return initial_class.code
@@ -528,6 +528,7 @@ class DlgCalculateLCSetAggregation(
                 new_nesting_dict.update(
                     {key: [v for v in values if v in new_child_codes]}
                 )
+
             # And add into the nesting dict any classes that are in the data
             # but were missing from the input, including the child legend no
             # data code (it should be nested under parent nodata as well)
@@ -557,7 +558,7 @@ class DlgCalculateLCSetAggregation(
 
         # Add selector in cell
 
-        for row in range(0, len(nesting.child.key)):
+        for row in range(0, len(nesting.child.key_with_nodata())):
             # Set the default final codes for each row. Note that the QComboBox
             # entries are potentially translated, so need to link the
             # translated names back to a particular code.
@@ -566,7 +567,7 @@ class DlgCalculateLCSetAggregation(
             # to by default
             child_code = self.table_model.index(row, 0).data()
             parent_class = [
-                nesting.parentClassForChild(c) for c in nesting.child.key
+                nesting.parentClassForChild(c) for c in nesting.child.key_with_nodata()
                 if c.code == child_code
             ][0]
 
@@ -711,7 +712,7 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
 
     def load_agg(self, values, child_nodata_code=-32768):
         # Set all of the classes to no data by default, and default to nesting
-        # be under the CCD legend
+        # under the CCD legend
         default_nesting = get_lc_nesting(get_default=True)
 
         # From the default nesting class instance, setup the actual nesting

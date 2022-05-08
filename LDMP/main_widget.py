@@ -5,6 +5,7 @@ import typing
 from pathlib import Path
 
 import qgis.gui
+import qgis.core
 from qgis.PyQt import (
     QtWidgets,
     QtGui,
@@ -33,7 +34,6 @@ from .data_io import (
 
 from .lc_setup import DlgDataIOImportLC
 from .download_data import DlgDownload
-from .generate_report_dialog import DlgGenerateReport
 from .landpks import DlgLandPKSDownload
 from .jobs.manager import job_manager
 from .jobs import mvc as jobs_mvc
@@ -65,15 +65,6 @@ ICON_PATH = os.path.join(os.path.dirname(__file__), 'icons')
 class UpdateWorker(QtCore.QObject):
     finished = QtCore.pyqtSignal()
 
-    def __init__(
-        self,
-        widget,
-        parent: typing.Optional[QtWidgets.QWidget] = None
-    ):
-        super().__init__(parent)
-
-        self.widget = widget
-
     def run(self):
         self.work()
         self.finished.emit()
@@ -82,39 +73,14 @@ class UpdateWorker(QtCore.QObject):
         raise NotImplementedError
 
 
-class PeriodicUpdateWorker(UpdateWorker):
+class LocalPeriodicUpdateWorker(UpdateWorker):
     def work(self):
-        local_frequency = settings_manager.get_value(
-                Setting.LOCAL_POLLING_FREQUENCY)
-
-        if _should_run(local_frequency, self.widget.last_refreshed_local_state):
-            # lets check if we also need to update from remote, as that takes
-            # precedence
-
-            if settings_manager.get_value(Setting.POLL_REMOTE):
-                remote_frequency = settings_manager.get_value(
-                    Setting.REMOTE_POLLING_FREQUENCY)
-
-                if (
-                    _should_run(
-                        remote_frequency,
-                        self.widget.last_refreshed_remote_state
-                    ) and not self.widget.remote_refresh_running
-                ):
-                    self.widget.update_from_remote_state()
-                else:
-                    self.widget.update_local_state()
-            else:
-                self.widget.update_local_state()
-        else:
-            return  # nothing to do, move along
+        job_manager.refresh_local_state()
 
 
 class RemoteStateRefreshWorker(UpdateWorker):
     def work(self):
-        self.widget.cache_refresh_about_to_begin.emit()
         job_manager.refresh_from_remote_state()
-        self.widget.last_refreshed_remote_state = dt.datetime.now(tz=dt.timezone.utc)
 
 
 class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
@@ -133,7 +99,6 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
     lineEdit_search: QtWidgets.QLineEdit
     import_dataset_pb: QtWidgets.QPushButton
     create_layer_pb: QtWidgets.QPushButton
-    generate_report_pb: QtWidgets.QPushButton
     pushButton_load: QtWidgets.QPushButton
     pushButton_download: QtWidgets.QPushButton
     pushButton_refresh: QtWidgets.QPushButton
@@ -163,6 +128,12 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.last_refreshed_remote_state = None
         self.last_refreshed_local_state = None
 
+        self.pu_thread = None
+        self.pu_worker = None
+
+        self.rs_thread = None
+        self.rs_worker = None
+
         # remove space before dataset item
         self.datasets_tv.setIndentation(0)
         self.datasets_tv.verticalScrollBar().setSingleStep(10)
@@ -190,6 +161,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             functools.partial(self.toggle_refreshing_state, True))
         self.cache_refresh_finished.connect(
             functools.partial(self.toggle_refreshing_state, False))
+        qgis.core.QgsProject.instance().layersRemoved.connect(self.refresh_after_cache_update)
 
         self.clean_empty_directories()
         self.setup_algorithms_tree()
@@ -268,16 +240,13 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.pushButton_refresh.clicked.connect(self.perform_single_update)
 
         self.special_area_menu = QtWidgets.QMenu()
-        action_create_false_positive = self.special_area_menu.addAction(
+        action_create_error_recode = self.special_area_menu.addAction(
             tr("Create false positive/negative layer")
         )
-        action_create_false_positive.triggered.connect(self.create_false_positive)
+        action_create_error_recode.triggered.connect(self.create_error_recode)
         self.create_layer_pb.setMenu(self.special_area_menu)
         #self.create_layer_pb.setIcon(
         #    QtGui.QIcon(os.path.join(ICON_PATH, "cloud-download.svg")))
-
-        self.generate_report_pb.setIcon(FileUtils.get_icon('report.svg'))
-        self.generate_report_pb.clicked.connect(self.on_generate_report)
 
         # to allow emit entered events and manage editing over mouse
         self.datasets_tv.setMouseTracking(True)
@@ -335,7 +304,6 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
           remote server uses a frequency of `Setting.REMOTE_POLLING_FREQUENCY`.
 
         """
-
         if self.refreshing_filesystem_cache:
             # log("Filesystem cache is already being refreshed, skipping...")
             pass
@@ -343,20 +311,93 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             # log("Scheduling is paused, skipping...")
             pass
         else:
-            self.pu_thread = QtCore.QThread(self.iface.mainWindow())
-            self.pu_worker = PeriodicUpdateWorker(self)
-            self.pu_worker.moveToThread(self.pu_thread)
-            self.pu_thread.started.connect(self.pu_worker.run)
-            self.pu_worker.finished.connect(self.pu_thread.quit)
-            self.pu_worker.finished.connect(self.pu_worker.deleteLater)
-            self.pu_thread.finished.connect(self.pu_thread.deleteLater)
-            self.pu_thread.start()
+            run_local_worker = False
+            run_remote_worker = False
+
+            local_frequency = settings_manager.get_value(
+                Setting.LOCAL_POLLING_FREQUENCY
+            )
+
+            if _should_run(
+                    local_frequency,
+                    self.last_refreshed_local_state
+            ):
+                # lets check if we also need to update from remote, as that takes
+                # precedence
+                if settings_manager.get_value(Setting.POLL_REMOTE):
+                    remote_frequency = settings_manager.get_value(
+                        Setting.REMOTE_POLLING_FREQUENCY
+                    )
+                    if _should_run(
+                            remote_frequency,
+                            self.last_refreshed_remote_state
+                    ) and not self.remote_refresh_running:
+                        run_remote_worker = True
+                    else:
+                        run_local_worker = True
+                else:
+                    run_local_worker = True
+
+            if run_local_worker:
+                self._run_local_update_worker()
+
+            if run_remote_worker:
+                self._run_remote_update_worker()
+
+    def _run_local_update_worker(self):
+        # Create thread worker for refreshing local state via the job_manager.
+        self.pu_thread = QtCore.QThread()
+        self.pu_worker = LocalPeriodicUpdateWorker()
+        self.pu_worker.moveToThread(self.pu_thread)
+        self.pu_thread.started.connect(self.pu_worker.run)
+        self.pu_worker.finished.connect(self.pu_thread.quit)
+        self.pu_worker.finished.connect(
+            self._on_finish_updating_local_state
+        )
+        self.pu_worker.finished.connect(self.pu_worker.deleteLater)
+        self.pu_thread.finished.connect(self.pu_thread.deleteLater)
+
+        if settings_manager.get_value(Setting.DEBUG):
+            log("updating local state...")
+
+        self.cache_refresh_about_to_begin.emit()
+        self.pu_thread.start()
+
+    def _on_finish_updating_local_state(self):
+        # Slot raised when job_manager has finished refreshing the local state.
+        self.last_refreshed_local_state = dt.datetime.now(tz=dt.timezone.utc)
+
+    def _run_remote_update_worker(self):
+        # Create thread worker for refreshing remote state.
+        self.rs_thread = QtCore.QThread()
+        self.rs_worker = RemoteStateRefreshWorker()
+        self.rs_worker.moveToThread(self.rs_thread)
+        self.rs_thread.started.connect(self.rs_worker.run)
+        self.rs_worker.finished.connect(self.rs_thread.quit)
+        self.rs_worker.finished.connect(
+            self._on_finish_updating_remote_state
+        )
+        self.rs_worker.finished.connect(self.rs_worker.deleteLater)
+        self.rs_thread.finished.connect(self.rs_thread.deleteLater)
+
+        if settings_manager.get_value(Setting.DEBUG):
+            log("updating remote state...")
+
+        self.set_remote_refresh_running(True)
+        self.update_refresh_button_status()
+        self.cache_refresh_about_to_begin.emit()
+        self.rs_thread.start()
+
+    def _on_finish_updating_remote_state(self):
+        # Slot raised when job_manager has finished refreshing the remote state.
+        self.last_refreshed_remote_state = dt.datetime.now(tz=dt.timezone.utc)
+        self.set_remote_refresh_running(False)
+        self.update_refresh_button_status()
 
     def clean_empty_directories(self):
         """Remove any Job or Dataset empty folder. Job or Dataset folder can be empty
         due to delete action by the user.
         """
-
         base_data_directory=settings_manager.get_value(Setting.BASE_DIR)
 
         if not base_data_directory:
@@ -486,9 +527,9 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.algorithms_tv.entered.connect(self._manage_algorithm_tree_view)
         self.tabWidget.setCurrentIndex(self._SUB_INDICATORS_TAB_PAGE)
 
-    def create_false_positive(self):
-        log("create_false_positive called")
-        job_manager.create_false_positive()
+    def create_error_recode(self):
+        log("create_error_recode called")
+        job_manager.create_error_recode()
 
     def update_refresh_button_status(self):
         if self.remote_refresh_running:
@@ -621,11 +662,6 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             self
         )
         dialogue.exec_()
-
-    def on_generate_report(self):
-        # Load dialog for configuring multiscope reports
-        generate_rpt_dlg = DlgGenerateReport(self)
-        generate_rpt_dlg.exec_()
 
     def import_known_dataset(self, action: QtWidgets.QAction):
         dialogue=DlgDataIOLoadTE(self)

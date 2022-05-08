@@ -222,6 +222,22 @@ _ALGORITHM_CONFIG = [
                 ],
             },
             {
+                "id": "7f7df50d-6069-4028-9252-878fcc5d86d7",
+                "name": "SDG 15.3.1 error recode (false positive/negative)",
+                "description": (
+                    "Correct any known errors (false positives or negatives) "
+                    "in an SDG 15.3.1 Indicator layer. This can be used to correct "
+                    "misclassifications using expert knowledge or field data."
+                ),
+                "scripts": [
+                    {
+                        "script": KNOWN_SCRIPTS["unccd-report"],
+                        "parametrization_dialogue":
+                        "LDMP.calculate_ldn.DlgCalculateLDNErrorRecode",
+                    },
+                ],
+            },
+            {
                 "id": "e25d2a72-2274-45fa-9b69-74e87873054e",
                 "name": "Land productivity",
                 "description": (

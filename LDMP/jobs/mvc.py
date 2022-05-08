@@ -15,10 +15,12 @@ from te_schemas.results import RasterResults
 
 from . import manager
 from .. import layers
+from .. import charts
 from .. import metadata
 from .. import metadata_dialog
 from .. import openFolder
 from .. import utils
+from ..logger import log
 from ..conf import Setting
 from ..conf import settings_manager
 from ..data_io import DlgDataIOAddLayersToMap
@@ -29,6 +31,7 @@ from ..utils import FileUtils
 from .models import Job
 from .models import SortField
 from .models import TypeFilter
+from qgis.core import QgsProject
 
 
 WidgetDatasetItemUi, _ = uic.loadUiType(
@@ -301,6 +304,17 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         # self.add_to_canvas_pb.setFixedSize(self.open_directory_tb.size())
         # self.add_to_canvas_pb.setMinimumSize(self.open_directory_tb.size())
 
+        if self.job.is_vector():
+            self.edit_tb.setEnabled(False)
+            layers = QgsProject.instance().mapLayers()
+            for l in layers.values():
+                if l.source().split("|")[0] == str(job.results.vector.uri.uri):
+                    self.edit_tb.setEnabled(True)
+                    break
+                else:
+                    self.edit_tb.setEnabled(False)
+                    break
+
         self.name_la.setText(self.job.visible_name)
 
         area_name = self.job.local_context.area_of_interest_name
@@ -428,6 +442,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
 
     def load_layer(self):
         manager.job_manager.display_special_area_layer(self.job)
+        self.edit_tb.setEnabled(True)
 
     def edit_layer(self):
         if not self.has_connected_data():
@@ -464,73 +479,79 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
 
                 manager.job_manager.write_job_metadata_file(self.job)
 
+                log('setting default values for charts')
                 layers.set_default_value(
                     str(self.job.results.vector.uri.uri),
                     "prod_imp",
                     str(prod.path),
                     prod.band_index,
-                    1,
+                    [4, 5],
                 )
                 layers.set_default_value(
                     str(self.job.results.vector.uri.uri),
                     "prod_deg",
                     str(prod.path),
                     prod.band_index,
-                    -1,
+                    [1, 2],
                 )
                 layers.set_default_value(
                     str(self.job.results.vector.uri.uri),
                     "prod_stab",
                     str(prod.path),
                     prod.band_index,
-                    0,
+                    [3],
                 )
                 layers.set_default_value(
                     str(self.job.results.vector.uri.uri),
                     "land_imp",
                     str(land.path),
                     land.band_index,
-                    1,
+                    [1],
                 )
                 layers.set_default_value(
                     str(self.job.results.vector.uri.uri),
                     "land_deg",
                     str(land.path),
                     land.band_index,
-                    -1,
+                    [-1],
                 )
                 layers.set_default_value(
                     str(self.job.results.vector.uri.uri),
                     "land_stab",
                     str(land.path),
                     land.band_index,
-                    0,
+                    [0],
                 )
                 layers.set_default_value(
                     str(self.job.results.vector.uri.uri),
                     "soil_imp",
                     str(soil.path),
                     soil.band_index,
-                    1,
+                    [1],
+                    transform=charts.recode_deg_soc,
                 )
                 layers.set_default_value(
                     str(self.job.results.vector.uri.uri),
                     "soil_deg",
                     str(soil.path),
                     soil.band_index,
-                    -1,
+                    [-1],
+                    transform=charts.recode_deg_soc,
                 )
                 layers.set_default_value(
                     str(self.job.results.vector.uri.uri),
                     "soil_stab",
                     str(soil.path),
                     soil.band_index,
-                    0,
+                    [0],
+                    transform=charts.recode_deg_soc,
                 )
 
+                manager.job_manager.display_special_area_layer(self.job)
                 manager.job_manager.edit_special_area_layer(self.job)
                 self.main_dock.resume_scheduler()
         else:
+            manager.job_manager.display_special_area_layer(self.job)
             manager.job_manager.edit_special_area_layer(self.job)
 
     def has_connected_data(self):
@@ -570,9 +591,9 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
     def load_vector_menu_setup(self):
         self.load_vector_menu = QtWidgets.QMenu()
         action_add_vector_to_map = self.load_vector_menu.addAction(
-            self.tr("Add special area layer to map")
+            self.tr("Add vector layer to map")
         )
-        action_add_vector_to_map.triggered.connect(self.edit_layer)
+        action_add_vector_to_map.triggered.connect(self.load_layer)
         action_add_rasters_to_map = self.load_vector_menu.addAction(
             self.tr("Add raster layers to map")
         )

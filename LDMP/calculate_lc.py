@@ -89,7 +89,7 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
             "crs": self.aoi.get_crs_dst_wkt(),
             "crosses_180th": crosses_180th,
             'legend_nesting': LCLegendNesting.Schema().dump(
-                self.lc_setup_widget.aggregation_dialog._nesting
+                self.lc_setup_widget.aggregation_dialog.nesting
             ),
             'trans_matrix': LCTransitionDefinitionDeg.Schema().dump(
                 self.lc_define_deg_widget.trans_matrix

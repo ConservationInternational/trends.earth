@@ -893,7 +893,7 @@ class LCDefineDegradationWidget(
         )
 
         self.btn_transmatrix_reset.clicked.connect(
-            lambda: self.set_trans_matrix(get_default=True)
+            lambda: self.set_trans_matrix(get_default=False)
         )
         self.btn_transmatrix_loadfile.clicked.connect(
             self.trans_matrix_loadfile
@@ -1358,23 +1358,24 @@ class LccInfoUtils:
         reference list.
         """
         if len(ref_lcc_infos) == 0:
-            log(
-                f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - No land cover '
-                f'classes to update transition matrix.'
-            )
+            if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                log(
+                    f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - No land cover '
+                    f'classes to update transition matrix.'
+                )
             return
 
         try:
             matrix = get_trans_matrix(save_settings=False)
         except ValidationError:
             matrix = get_trans_matrix(True, False)
-            matrix = get_trans_matrix(True, False)
 
         if matrix is None:
-            log(
-                f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - No transition '
-                f'matrix in settings'
-            )
+            if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                log(
+                    f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - No transition '
+                    f'matrix in settings'
+                )
             return
 
         # Check if there are custom classes to be removed.
@@ -1387,15 +1388,17 @@ class LccInfoUtils:
             )
 
             if not lcc_in_ref:
-                log(
-                    f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - {lcc.name_long} '
-                    f'class not in matrix settings, attempting to remove...'
-                )
+                if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                    log(
+                        f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - {lcc.name_long} '
+                        f'class not in matrix settings, attempting to remove...'
+                    )
                 matrix.remove_class(lcc)
-                log(
-                    f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - '
-                    f'{lcc.name_long} class successfully removed in matrix.'
-                )
+                if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                    log(
+                        f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - '
+                        f'{lcc.name_long} class successfully removed in matrix.'
+                    )
             else:
                 i += 1
 
@@ -1403,20 +1406,34 @@ class LccInfoUtils:
         for lcc_info in ref_lcc_infos:
             ref_lcc = lcc_info.lcc
             matrix.add_update_class(ref_lcc)
-            log(
-                f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - Adding '
-                f'{ref_lcc.name_long} class to matrix.'
-            )
+            if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                log(
+                    f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - Adding '
+                    f'{ref_lcc.name_long} class to matrix.'
+                )
+
+        # Use meanings for default classes if names match.
+        ref_matrix = get_trans_matrix(True, False)
+        for m in matrix.definitions.transitions:
+            try:
+                ref_meaning = ref_matrix.definitions.meaningByTransition(
+                    m.initial, m.final
+                )
+                if ref_meaning:
+                    m.meaning = ref_meaning
+            except (IndexError, KeyError):
+                continue
 
         matrix.legend.name = LccInfoUtils.CUSTOM_LEGEND_NAME
         matrix.name = 'Custom land cover degradation transition matrix'
 
         # Update matrix in settings
         trans_matrix_to_settings(matrix)
-        log(
-            f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - Saved updated matrix to '
-            f'settings.'
-        )
+        if conf.settings_manager.get_value(conf.Setting.DEBUG):
+            log(
+                f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - Saved updated matrix to '
+                f'settings.'
+            )
 
     @staticmethod
     def sync_lc_nesting_matrix(ref_lcc_infos: typing.List['LCClassInfo']):
@@ -1425,20 +1442,22 @@ class LccInfoUtils:
         in the reference list.
         """
         if len(ref_lcc_infos) == 0:
-            log(
-                f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - No land cover '
-                f'classes to update land cover nesting.'
-            )
+            if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                log(
+                    f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - No land cover '
+                    f'classes to update land cover nesting.'
+                )
             return
 
         nesting = get_lc_nesting(save_settings=False)
         ref_nesting = get_lc_nesting(True, save_settings=False)
 
         if nesting is None:
-            log(
-                f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - No land cover '
-                f'nesting in settings.'
-            )
+            if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                log(
+                    f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - No land cover '
+                    f'nesting in settings.'
+                )
             return
 
         # Check if there are custom classes to be removed.
@@ -1451,15 +1470,17 @@ class LccInfoUtils:
             )
 
             if not lcc_in_ref:
-                log(
-                    f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - {lcc.name_long} '
-                    f'class not in nesting settings, attempting to remove...'
-                )
+                if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                    log(
+                        f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - {lcc.name_long} '
+                        f'class not in nesting settings, attempting to remove...'
+                    )
                 nesting.remove_parent_class(lcc)
-                log(
-                    f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - '
-                    f'{lcc.name_long} class successfully removed in nesting.'
-                )
+                if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                    log(
+                        f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - '
+                        f'{lcc.name_long} class successfully removed in nesting.'
+                    )
             else:
                 i += 1
 
@@ -1469,29 +1490,32 @@ class LccInfoUtils:
             parent_lcc = lcc_info.parent
             children = ref_nesting.children_for_parent(parent_lcc)
             nesting.add_update_parent(ref_lcc, children)
-            log(
-                f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - Adding '
-                f'{ref_lcc.name_long} parent class to nesting.'
-            )
+            if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                log(
+                    f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - Adding '
+                    f'{ref_lcc.name_long} parent class to nesting.'
+                )
 
         # Remove orphaned children otherwise the model will raise a
         # ValidationError.
         orphans = nesting.orphan_children()
         codes = [c.code for c in orphans]
         for cd in codes:
-            log(
-                f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - Removing orphaned '
-                f'class with code {cd!s} from nesting.'
-            )
+            if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                log(
+                    f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - Removing orphaned '
+                    f'class with code {cd!s} from nesting.'
+                )
             nesting.child.remove_class(cd)
 
         nesting.parent.name = LccInfoUtils.CUSTOM_LEGEND_NAME
 
         lc_nesting_to_settings(nesting)
-        log(
-            f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - Saved updated lc nesting '
-            f'to settings.'
-        )
+        if conf.settings_manager.get_value(conf.Setting.DEBUG):
+            log(
+                f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - Saved updated lc nesting '
+                f'to settings.'
+            )
 
     @staticmethod
     def set_default_unccd_classes(force_update=False):

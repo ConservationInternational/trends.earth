@@ -61,7 +61,7 @@
     }
   },
   "child": {
-    "name": "ESA CCI Land Cover",
+"name": "ESA CCI Land Cover",
     "key": [
       {
         "code": 10,

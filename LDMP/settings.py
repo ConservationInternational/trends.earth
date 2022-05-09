@@ -1905,7 +1905,7 @@ class LandCoverCustomClassEditor(
         no_data = parent_legend.nodata
         if no_data is not None:
             ref_classes += [no_data]
-            
+
         for idx, lcc in enumerate(ref_classes, start=1):
             self.cbo_cls_parent.insertItem(idx, lcc.name_long, lcc)
             clr = QtGui.QColor(lcc.color)

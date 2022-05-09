@@ -337,8 +337,7 @@ class LDMPPlugin(object):
                 self.dock_widget.refresh_after_cache_update()
 
     def run_about(self):
-        self.dlg_about.show()
-        result = self.dlg_about.exec_()
+        self.dlg_about.exec_()
 
     def activate_polygon_tool(self):
         self.iface.mapCanvas().setMapTool(self.polygon_tool)

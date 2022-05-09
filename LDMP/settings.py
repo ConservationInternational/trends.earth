@@ -1901,7 +1901,12 @@ class LandCoverCustomClassEditor(
         self.cbo_cls_parent.addItem('')
         lc_legend = get_lc_nesting(True, False)
         parent_legend = lc_legend.parent
-        for idx, lcc in enumerate(parent_legend.key, start=1):
+        ref_classes = parent_legend.key
+        no_data = parent_legend.nodata
+        if no_data is not None:
+            ref_classes += [no_data]
+            
+        for idx, lcc in enumerate(ref_classes, start=1):
             self.cbo_cls_parent.insertItem(idx, lcc.name_long, lcc)
             clr = QtGui.QColor(lcc.color)
             self.cbo_cls_parent.setItemData(

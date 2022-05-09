@@ -153,9 +153,13 @@ class LCClassComboBox(QtWidgets.QComboBox):
         self.blockSignals(False)
 
         for n in range(0, len(self._nesting.parent.key_with_nodata())):
-            color = self._nesting.parent.classByNameLong(
+            lcc = self._nesting.parent.class_by_name_long(
                 self.itemData(n, QtCore.Qt.DisplayRole)
-            ).color
+            )
+            if lcc is None:
+                continue
+
+            color = lcc.color
             self.setItemData(n, QtGui.QColor(color), QtCore.Qt.BackgroundRole)
 
             if color == '#000000':
@@ -170,8 +174,13 @@ class LCClassComboBox(QtWidgets.QComboBox):
         self.index_changed()
 
     def index_changed(self, value=-1):
-        color = self._nesting.parent.classByNameLong(self.currentText()).color
+        lcc = self._nesting.parent.class_by_name_long(self.currentText())
+        if lcc is None:
+            # Clear stylesheet
+            self.setStyleSheet('')
+            return
 
+        color = lcc.color
         if color == '#000000':
             self.setStyleSheet(
                 'QComboBox:editable {{background-color: {}; color: #FFFFFF;}}'.

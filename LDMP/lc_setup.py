@@ -1352,6 +1352,19 @@ class LccInfoUtils:
         return (True, match[0]) if len(match) > 0 else (False, None)
 
     @staticmethod
+    def lc_nesting() -> LCLegendNesting:
+        """
+        Returns the land cover nesting in settings and if this fails
+        (due to validation errors) then uses the default one.
+        """
+        try:
+            nesting = get_lc_nesting(save_settings=False)
+        except ValidationError:
+            nesting = get_lc_nesting(True, save_settings=False)
+
+        return nesting
+
+    @staticmethod
     def sync_trans_matrix(ref_lcc_infos: typing.List['LCClassInfo']):
         """
         Update transition matrix in settings with custom classes in the
@@ -1449,7 +1462,7 @@ class LccInfoUtils:
                 )
             return
 
-        nesting = get_lc_nesting(save_settings=False)
+        nesting = LccInfoUtils.lc_nesting()
         ref_nesting = get_lc_nesting(True, save_settings=False)
 
         if nesting is None:
@@ -1489,6 +1502,9 @@ class LccInfoUtils:
             ref_lcc = lcc_info.lcc
             parent_lcc = lcc_info.parent
             children = ref_nesting.children_for_parent(parent_lcc)
+            if ref_nesting.parent.nodata and \
+                    parent_lcc.code == ref_nesting.parent.nodata.code:
+                children = [ref_nesting.child.nodata]
             nesting.add_update_parent(ref_lcc, children)
             if conf.settings_manager.get_value(conf.Setting.DEBUG):
                 log(

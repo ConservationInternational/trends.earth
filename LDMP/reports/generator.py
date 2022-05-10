@@ -662,7 +662,7 @@ class ReportTaskProcessor:
             return False
 
         # Update custom report variables from the settings
-        ReportExpressionUtils.register_report_settings_variables(
+        ReportExpressionUtils.register_variables(
             self._layout
         )
 
@@ -741,6 +741,10 @@ class ReportTaskProcessor:
                 f'Could not load template from {template_path!r}.'
             )
             return False
+
+        ReportExpressionUtils.register_variables(
+            self._layout
+        )
 
         return True
 

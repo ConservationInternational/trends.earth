@@ -960,7 +960,11 @@ class ReportProcessHandlerTask(QgsTask):
             if os.name == 'nt':
                 subprocess.Popen(f'TASKKILL /F /PID {pid} /T', shell=True)
             else:
-                os.kill(pid, signal.SIGTERM)
+                try:
+                    os.kill(pid, signal.SIGKILL)
+                except ProcessLookupError:
+                    # Process is already dead
+                    pass
 
         super().cancel()
 

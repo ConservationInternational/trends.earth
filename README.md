@@ -4,6 +4,7 @@
 
 [![Build
 Status](https://travis-ci.org/ConservationInternational/trends.earth.svg?branch=master)](https://travis-ci.org/ConservationInternational/trends.earth)
+[![Documentation Status](https://readthedocs.org/projects/trendsearth/badge/?version=latest)](https://trendsearth.readthedocs.io/en/latest/?badge=latest)
 
 `Trends.Earth` (formerly the Land Degradation Monitoring Toolbox) is a tool for
 monitoring land change. `Trends.Earth` is a [QGIS](http://www.qgis.org) plugin

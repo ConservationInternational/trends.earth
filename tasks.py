@@ -1159,11 +1159,7 @@ def docs_build(c, clean=False, ignore_errors=False, language=None, fast=False):
                 '{out_dir}/{doc}'.format(out_dir=out_dir, doc=doc_pdf)
             )
 
-@task(
-    help={
-        'language': "Which language to copy resources from, defaults to 'en'"
-    }
-)
+
 def localize_resources(c, language=None):
     if language is None:
         language = c.sphinx.base_language
@@ -1216,7 +1212,6 @@ def localize_resources(c, language=None):
                 shutil.copy2(s, d)
 
 
-@task
 def check_docs_image_ext(c):
     """
     Check the capitalization of *.png images for docs. They should be in
@@ -1232,6 +1227,18 @@ def check_docs_image_ext(c):
         if p.suffix.isupper():
             np = Path(f"{p.with_suffix('').as_posix()}.png")
             os.rename(p.as_posix(), np.as_posix())
+
+
+@task
+def rtd_pre_build(c):
+    """
+    Checks capitalization and copies docs resources based on language
+    prior to build in RTD.
+    """
+    print('Checking case of image extensions...')
+    check_docs_image_ext(c)
+    print('Copying docs resources based on language...')
+    localize_resources(c)
 
 
 @task
@@ -1695,7 +1702,7 @@ ns = Collection(
     tecli_config, tecli_publish, tecli_run, tecli_info, tecli_logs,
     zipfile_build, zipfile_deploy, binaries_compile, binaries_sync,
     binaries_deploy, release_github, update_script_ids, testdata_sync,
-    localize_resources, check_docs_image_ext
+    rtd_pre_build
 )
 
 ns.configure(

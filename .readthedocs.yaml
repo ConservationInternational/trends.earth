@@ -6,8 +6,7 @@ build:
     python: "3.9"
   jobs:
     pre_build:
-      - python -m invoke check-docs-image-ext
-      - python -m invoke localize-resources
+      - python -m invoke rtd-pre-build
 
 sphinx:
    configuration: docs/source/conf.py

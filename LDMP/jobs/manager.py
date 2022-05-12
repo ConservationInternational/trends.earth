@@ -5,6 +5,7 @@ import os
 import re
 import shutil
 import typing
+from copy import deepcopy
 import urllib.parse
 import uuid
 from pathlib import Path
@@ -153,17 +154,19 @@ class LocalJobTask(QgsTask):
     def __init__(self, description, job, area_of_interest):
         super().__init__(description, QgsTask.CanCancel)
         self.job = job
+        self.job_copy = deepcopy(job) # ensure job in main thread is not accessed
         self.area_of_interest = area_of_interest
+        self.results = None
 
     def run(self):
         logger.debug('Running task')
-        execution_handler = utils.load_object(self.job.script.execution_callable)
-        job_output_path, dataset_output_path = _get_local_job_output_paths(self.job)
-        self.completed_job = execution_handler(
-            self.job, self.area_of_interest, job_output_path, dataset_output_path
+        execution_handler = utils.load_object(self.job_copy.script.execution_callable)
+        job_output_path, dataset_output_path = _get_local_job_output_paths(self.job_copy)
+        self.results = execution_handler(
+            self.job_copy, self.area_of_interest, job_output_path, dataset_output_path
         )
 
-        if self.completed_job is None:
+        if self.results is None:
             logger.debug('Completed run function - failure')
             return False
         else:
@@ -172,8 +175,11 @@ class LocalJobTask(QgsTask):
 
     def finished(self, result):
         logger.debug('Finished task')
+        self.job.end_date = dt.datetime.now(dt.timezone.utc)
+        self.job.progress = 100
         if result:
-            self.processed_job.emit(self.completed_job)
+            self.job.results = self.results
+            self.processed_job.emit(self.job)
             logger.debug('Task succeeded')
         else:
             logger.debug('Task failed')

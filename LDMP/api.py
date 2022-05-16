@@ -245,7 +245,8 @@ def login_test(email, password):
 
 
 def backoff_hdlr(details):
-    details["kwargs"]["payload"] = _clean_payload(details["kwargs"]["payload"])
+    if details["kwargs"]["payload"]:
+        details["kwargs"]["payload"] = _clean_payload(details["kwargs"]["payload"])
     log(
         "Backing off {wait:0.1f} seconds after {tries} tries "
         "calling function {target} with args {args} and kwargs "

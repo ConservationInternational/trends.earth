@@ -953,7 +953,7 @@ def translate_push(c, force=False, version=3):
     # Below is necessary just to avoid warning messages regarding missing image
     # files when Sphinx is used later on
     print("Localizing resources...")
-    _localize_resources(c, 'en')
+    localize_resources(c, 'en')
 
     print("Gathering strings...")
     gettext(c)
@@ -1096,7 +1096,7 @@ def docs_build(c, clean=False, ignore_errors=False, language=None, fast=False):
                 lang=language
             )
         )
-        _localize_resources(c, language)
+        localize_resources(c, language)
 
         subprocess.check_call(
             "sphinx-intl --config {sourcedir}/conf.py build --language={lang}".
@@ -1160,7 +1160,10 @@ def docs_build(c, clean=False, ignore_errors=False, language=None, fast=False):
             )
 
 
-def _localize_resources(c, language):
+def localize_resources(c, language=None):
+    if language is None:
+        language = c.sphinx.base_language
+
     print(
         "Removing all static content from {sourcedir}/static.".format(
             sourcedir=c.sphinx.sourcedir
@@ -1207,6 +1210,35 @@ def _localize_resources(c, language):
                 shutil.copytree(s, d)
             else:
                 shutil.copy2(s, d)
+
+
+def check_docs_image_ext(c):
+    """
+    Check the capitalization of *.png images for docs. They should be in
+    lowercase otherwise they will be skipped from the build process as Linux
+    is case-sensitive w.r.t. file extensions.
+    """
+    res_dir = c.sphinx.resourcedir
+    if not os.path.exists(res_dir):
+        print('doc\'s resource directory does not exist. Unable to browse image files.')
+        return
+
+    for p in Path(res_dir).rglob('*.PNG'):
+        if p.suffix.isupper():
+            np = Path(f"{p.with_suffix('').as_posix()}.png")
+            os.rename(p.as_posix(), np.as_posix())
+
+
+@task
+def rtd_pre_build(c):
+    """
+    Checks capitalization and copies docs resources based on language
+    prior to build in RTD.
+    """
+    print('Checking case of image extensions...')
+    check_docs_image_ext(c)
+    print('Copying docs resources based on language...')
+    localize_resources(c)
 
 
 @task
@@ -1669,7 +1701,8 @@ ns = Collection(
     translate_pull, translate_push, changelog_build, tecli_login, tecli_clear,
     tecli_config, tecli_publish, tecli_run, tecli_info, tecli_logs,
     zipfile_build, zipfile_deploy, binaries_compile, binaries_sync,
-    binaries_deploy, release_github, update_script_ids, testdata_sync
+    binaries_deploy, release_github, update_script_ids, testdata_sync,
+    rtd_pre_build
 )
 
 ns.configure(

@@ -340,7 +340,6 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
             if run_local_worker:
                 self._run_local_update_worker()
-
             if run_remote_worker:
                 self._run_remote_update_worker()
 

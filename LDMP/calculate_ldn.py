@@ -14,6 +14,7 @@
 
 import typing
 from pathlib import Path
+from dataclasses import dataclass
 
 import qgis.gui
 from qgis.core import QgsGeometry
@@ -47,6 +48,24 @@ class tr_calculate_ldn(object):
         return QtCore.QCoreApplication.translate("tr_calculate_ldn", message)
 
 
+@dataclass
+class TimePeriodWidgets:
+    radio_time_period_same: QtWidgets.QRadioButton
+    radio_lpd_jrc: QtWidgets.QRadioButton
+    cb_jrc: QtWidgets.QRadioButton
+    year_initial: QtWidgets.QDateEdit
+    year_final: QtWidgets.QDateEdit
+    label_prod: QtWidgets.QLabel
+    year_initial_prod: QtWidgets.QDateEdit
+    year_final_prod: QtWidgets.QDateEdit
+    label_lc: QtWidgets.QLabel
+    year_initial_lc: QtWidgets.QDateEdit
+    year_final_lc: QtWidgets.QDateEdit
+    label_soc: QtWidgets.QLabel
+    year_initial_soc: QtWidgets.QDateEdit
+    year_final_soc: QtWidgets.QDateEdit
+
+
 class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
     def __init__(
         self,
@@ -57,6 +76,39 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         super().__init__(iface, script, parent)
         self.setupUi(self)
 
+        self.widgets_baseline = TimePeriodWidgets(
+            self.radio_time_period_same_baseline,
+            self.radio_lpd_jrc,
+            self.cb_jrc_baseline,
+            self.year_initial_baseline,
+            self.year_final_baseline,
+            self.label_baseline_prod,
+            self.year_initial_baseline_prod,
+            self.year_final_baseline_prod,
+            self.label_baseline_lc,
+            self.year_initial_baseline_lc,
+            self.year_final_baseline_lc,
+            self.label_baseline_soc,
+            self.year_initial_baseline_soc,
+            self.year_final_baseline_soc,
+        )
+        self.widgets_progress = TimePeriodWidgets(
+            self.radio_time_period_same_progress,
+            self.radio_lpd_jrc,
+            self.cb_jrc_progress,
+            self.year_initial_progress,
+            self.year_final_progress,
+            self.label_progress_prod,
+            self.year_initial_progress_prod,
+            self.year_final_progress_prod,
+            self.label_progress_lc,
+            self.year_initial_progress_lc,
+            self.year_final_progress_lc,
+            self.label_progress_soc,
+            self.year_initial_progress_soc,
+            self.year_final_progress_soc,
+        )
+
         self.cb_jrc_baseline.addItems(
             [*conf.REMOTE_DATASETS["Land Productivity Dynamics (JRC)"].keys()]
         )
@@ -66,26 +118,39 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         )
         self.cb_jrc_progress.setCurrentIndex(2)
 
-        self.year_final_baseline.dateChanged.connect(self.update_progress_year)
-        self.update_progress_year()
-        self.year_initial_progress.setReadOnly(True)
-
-        self.update_time_bounds_baseline()
-        self.update_time_bounds_progress()
         self.toggle_lpd_options()
 
         self.cb_jrc_baseline.currentIndexChanged.connect(
-            self.update_time_bounds_baseline
+            lambda: self.update_time_bounds(self.widgets_baseline)
         )
         self.cb_jrc_progress.currentIndexChanged.connect(
-            self.update_time_bounds_progress
+            lambda: self.update_time_bounds(self.widgets_progress)
         )
-
-        self.radio_te_prod.toggled.connect(self.toggle_lpd_options)
+        self.radio_time_period_same_baseline.toggled.connect(
+            lambda: self.toggle_time_period(self.widgets_baseline)
+        )
+        self.radio_time_period_same_progress.toggled.connect(
+            lambda: self.toggle_time_period(self.widgets_progress)
+        )
 
         self.lc_setup_widget = lc_setup.LandCoverSetupRemoteExecutionWidget(
             self, hide_min_year=True, hide_max_year=True
         )
+
+        self.year_initial_baseline.dateChanged.connect(
+            lambda: self.update_start_dates(self.widgets_baseline)
+        )
+        self.year_final_baseline.dateChanged.connect(
+            lambda: self.update_end_dates(self.widgets_baseline)
+        )
+        self.year_initial_progress.dateChanged.connect(
+            lambda: self.update_start_dates(self.widgets_progress)
+        )
+        self.year_final_progress.dateChanged.connect(
+            lambda: self.update_end_dates(self.widgets_progress)
+        )
+
+        self.radio_lpd_te.toggled.connect(self.toggle_lpd_options)
 
         self.lc_define_deg_widget = lc_setup.LCDefineDegradationWidget()
 
@@ -94,73 +159,181 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         )
         self.toggle_progress_period()
 
+        self.button_preset_unccd_default_jrc.clicked.connect(self.set_preset_unccd_default_jrc)
+        self.button_preset_unccd_default_te.clicked.connect(self.set_preset_unccd_default_te)
+
         self._finish_initialization()
 
+    def set_preset_unccd_default_jrc(self):
+        self.checkBox_progress_period.setChecked(True)
+        self.radio_lpd_jrc.setChecked(True)
+        self.cb_jrc_baseline.setCurrentIndex(self.cb_jrc_baseline.findText(
+            'JRC Land Productivity Dynamics (2000-2015)'))
+        self.cb_jrc_progress.setCurrentIndex(self.cb_jrc_baseline.findText(
+            'JRC Land Productivity Dynamics (2005-2019)'))
+        self.radio_time_period_same_baseline.setChecked(True)
+        self.radio_time_period_vary_progress.setChecked(True)
+        self.year_initial_baseline.setDate(QtCore.QDate(2000, 1, 1))
+        self.year_final_baseline.setDate(QtCore.QDate(2015, 1, 1))
+        self.year_initial_progress.setDate(QtCore.QDate(2005, 1, 1))
+        self.year_final_progress.setDate(QtCore.QDate(2019, 1, 1))
+        self.year_initial_progress_lc.setDate(QtCore.QDate(2015, 1, 1))
+        self.year_final_progress_lc.setDate(QtCore.QDate(2019, 1, 1))
+        self.year_initial_progress_soc.setDate(QtCore.QDate(2015, 1, 1))
+        self.year_final_progress_soc.setDate(QtCore.QDate(2019, 1, 1))
+
+        self.lc_setup_widget.aggregation_dialog.reset_nesting_table()
+        self.lc_define_deg_widget.set_trans_matrix(get_default=True)
+
+    def set_preset_unccd_default_te(self):
+        self.checkBox_progress_period.setChecked(True)
+        self.radio_lpd_te.setChecked(True)
+        self.radio_time_period_same_baseline.setChecked(True)
+        self.radio_time_period_vary_progress.setChecked(True)
+        self.year_initial_baseline.setDate(QtCore.QDate(2001, 1, 1))
+        self.year_final_baseline.setDate(QtCore.QDate(2015, 1, 1))
+        self.year_initial_progress.setDate(QtCore.QDate(2005, 1, 1))
+        self.year_final_progress.setDate(QtCore.QDate(2019, 1, 1))
+        self.year_initial_progress_lc.setDate(QtCore.QDate(2015, 1, 1))
+        self.year_final_progress_lc.setDate(QtCore.QDate(2019, 1, 1))
+        self.year_initial_progress_soc.setDate(QtCore.QDate(2015, 1, 1))
+        self.year_final_progress_soc.setDate(QtCore.QDate(2019, 1, 1))
+
+        self.lc_setup_widget.aggregation_dialog.reset_nesting_table()
+        self.lc_define_deg_widget.set_trans_matrix(get_default=True)
+
+    def update_start_dates(self, widgets):
+        widgets.year_initial_prod.setDate(widgets.year_initial.date())
+        widgets.year_initial_lc.setDate(widgets.year_initial.date())
+        widgets.year_initial_soc.setDate(widgets.year_initial.date())
+
+    def update_end_dates(self, widgets):
+        widgets.year_final_prod.setDate(widgets.year_final.date())
+        widgets.year_final_lc.setDate(widgets.year_final.date())
+        widgets.year_final_soc.setDate(widgets.year_final.date())
+
+    def toggle_time_period(self, widgets):
+        if widgets.radio_time_period_same.isChecked():
+            widgets.label_lc.setEnabled(False)
+            widgets.year_initial_lc.setEnabled(False)
+            widgets.year_final_lc.setEnabled(False)
+
+            widgets.label_soc.setEnabled(False)
+            widgets.year_initial_soc.setEnabled(False)
+            widgets.year_final_soc.setEnabled(False)
+
+            widgets.year_initial.setEnabled(True)
+            widgets.year_final.setEnabled(True)
+
+            widgets.label_prod.setEnabled(False)
+            widgets.year_initial_prod.setEnabled(False)
+            widgets.year_final_prod.setEnabled(False)
+
+            widgets.year_initial.setEnabled(True)
+        else:
+            widgets.label_lc.setEnabled(True)
+            widgets.year_initial_lc.setEnabled(True)
+            widgets.year_final_lc.setEnabled(True)
+
+            widgets.label_soc.setEnabled(True)
+            widgets.year_initial_soc.setEnabled(True)
+            widgets.year_final_soc.setEnabled(True)
+
+            widgets.year_initial.setEnabled(False)
+            widgets.year_final.setEnabled(False)
+
+            if not widgets.radio_lpd_jrc.isChecked():
+                widgets.label_prod.setEnabled(True)
+                widgets.year_initial_prod.setEnabled(True)
+                widgets.year_final_prod.setEnabled(True)
+
     def toggle_lpd_options(self):
-        self.update_time_bounds_baseline()
-        self.update_time_bounds_progress()
-
         if self.radio_lpd_jrc.isChecked():
-            self.label_lpd_warning.show()
-            self.jrc_frame_baseline.show()
-            self.jrc_frame_progress.show()
+            self.cb_jrc_baseline.show()
+            self.label_jrc_baseline.show()
+            self.cb_jrc_progress.show()
+            self.label_jrc_progress.show()
         else:
-            self.jrc_frame_baseline.hide()
-            self.jrc_frame_progress.hide()
-            self.label_lpd_warning.hide()
+            self.cb_jrc_baseline.hide()
+            self.label_jrc_baseline.hide()
+            self.cb_jrc_progress.hide()
+            self.label_jrc_progress.hide()
 
-    def update_progress_year(self):
-        self.year_initial_progress.setDate(self.year_final_baseline.date())
+        self.update_time_bounds(self.widgets_baseline)
+        self.update_time_bounds(self.widgets_progress)
 
-    def update_time_bounds_baseline(self):
-        if self.radio_te_prod.isChecked():
+        self.toggle_time_period(self.widgets_baseline)
+        self.toggle_time_period(self.widgets_progress)
+
+
+    def update_time_bounds(self, widgets):
+        lc_dataset = conf.REMOTE_DATASETS["Land cover"]["ESA CCI"]
+        start_year_lc = lc_dataset['Start year']
+        end_year_lc = lc_dataset['End year']
+        start_year_lc = QtCore.QDate(start_year_lc, 1, 1)
+        end_year_lc = QtCore.QDate(end_year_lc, 1, 1)
+
+        if self.radio_lpd_te.isChecked():
             prod_dataset = conf.REMOTE_DATASETS["NDVI"][
                 "MODIS (MOD13Q1, annual)"]
             start_year_prod = prod_dataset['Start year']
             end_year_prod = prod_dataset['End year']
+
+            start_year_prod = QtCore.QDate(start_year_prod, 1, 1)
+            end_year_prod = QtCore.QDate(end_year_prod, 1, 1)
+            start_year = max(start_year_prod, start_year_lc)
+            end_year = min(end_year_prod, end_year_lc)
+
         else:
             prod_dataset = conf.REMOTE_DATASETS[
                 "Land Productivity Dynamics (JRC)"][
-                    self.cb_jrc_baseline.currentText()]
+                    widgets.cb_jrc.currentText()]
             start_year_prod = prod_dataset['Start year']
             end_year_prod = prod_dataset['End year']
 
-        lc_dataset = conf.REMOTE_DATASETS["Land cover"]["ESA CCI"]
-        start_year_lc = lc_dataset['Start year']
-        end_year_lc = lc_dataset['End year']
+            # Don't need to consider prod dates in below lims when using JRC, but do use
+            # them to set default time period
+            start_year = start_year_lc
+            end_year = end_year_lc
+            start_year_prod = QtCore.QDate(start_year_prod, 1, 1)
+            end_year_prod = QtCore.QDate(end_year_prod, 1, 1)
 
-        start_year = QtCore.QDate(max(start_year_prod, start_year_lc), 1, 1)
-        end_year = QtCore.QDate(min(end_year_prod, end_year_lc), 1, 1)
+        widgets.year_initial.setMinimumDate(start_year)
+        widgets.year_initial.setMaximumDate(end_year)
+        widgets.year_final.setMinimumDate(start_year)
+        widgets.year_final.setMaximumDate(end_year)
 
-        self.year_initial_baseline.setMinimumDate(start_year)
-        self.year_initial_baseline.setMaximumDate(end_year)
-        self.year_final_baseline.setMinimumDate(start_year)
-        self.year_final_baseline.setMaximumDate(end_year)
-
-    def update_time_bounds_progress(self):
-        if self.radio_te_prod.isChecked():
-            prod_dataset = conf.REMOTE_DATASETS["NDVI"][
-                "MODIS (MOD13Q1, annual)"]
-            start_year_prod = prod_dataset['Start year']
-            end_year_prod = prod_dataset['End year']
+        if widgets.radio_lpd_jrc.isChecked():
+            widgets.year_initial_prod.setDate(start_year_prod)
+            widgets.year_final_prod.setDate(end_year_prod)
+            widgets.year_initial_prod.setMinimumDate(start_year_prod)
+            widgets.year_initial_prod.setMaximumDate(start_year_prod)
+            widgets.year_final_prod.setMinimumDate(end_year_prod)
+            widgets.year_final_prod.setMaximumDate(end_year_prod)
         else:
-            prod_dataset = conf.REMOTE_DATASETS[
-                "Land Productivity Dynamics (JRC)"][
-                    self.cb_jrc_progress.currentText()]
-            start_year_prod = prod_dataset['Start year']
-            end_year_prod = prod_dataset['End year']
+            widgets.year_initial_prod.setDate(start_year_prod)
+            widgets.year_final_prod.setDate(end_year_prod)
+            widgets.year_initial_prod.setMinimumDate(start_year_prod)
+            widgets.year_initial_prod.setMaximumDate(end_year_prod)
+            widgets.year_final_prod.setMinimumDate(start_year_prod)
+            widgets.year_final_prod.setMaximumDate(end_year_prod)
 
-        lc_dataset = conf.REMOTE_DATASETS["Land cover"]["ESA CCI"]
-        start_year_lc = lc_dataset['Start year']
-        end_year_lc = lc_dataset['End year']
+        widgets.year_initial_lc.setMinimumDate(start_year_lc)
+        widgets.year_initial_lc.setMaximumDate(end_year_lc)
+        widgets.year_final_lc.setMinimumDate(start_year_lc)
+        widgets.year_final_lc.setMaximumDate(end_year_lc)
 
-        start_year = QtCore.QDate(max(start_year_prod, start_year_lc), 1, 1)
-        end_year = QtCore.QDate(min(end_year_prod, end_year_lc), 1, 1)
+        widgets.year_initial_soc.setMinimumDate(start_year_lc)
+        widgets.year_initial_soc.setMaximumDate(end_year_lc)
+        widgets.year_final_soc.setMinimumDate(start_year_lc)
+        widgets.year_final_soc.setMaximumDate(end_year_lc)
 
-        self.year_initial_progress.setMinimumDate(start_year)
-        self.year_initial_progress.setMaximumDate(end_year)
-        self.year_final_progress.setMinimumDate(start_year)
-        self.year_final_progress.setMaximumDate(end_year)
+        widgets.year_initial.setDate(start_year_prod)
+        widgets.year_final.setDate(end_year_prod)
+
+
+        self.update_start_dates(widgets)
+        self.update_end_dates(widgets)
 
     def showEvent(self, event):
         super(DlgCalculateOneStep, self).showEvent(event)
@@ -185,6 +358,12 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         else:
             self.groupBox_progress_period.setVisible(False)
 
+    def _get_period_years(self, widgets):
+        return {
+            'period_year_initial': widgets.year_initial_prod.date().year(),
+            'period_year_final': widgets.year_final_prod.date().year()
+        }
+
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
@@ -194,39 +373,32 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         if not ret:
             return
 
-        if self.radio_te_prod.isChecked():
+        if self.radio_lpd_te.isChecked():
             prod_mode = ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
         else:
             prod_mode = ProductivityMode.JRC_5_CLASS_LPD.value
 
         periods = {
-            'baseline': {
-                'period_year_initial':
-                self.year_initial_baseline.date().year(),
-                'period_year_final': self.year_final_baseline.date().year(),
-            }
+            'baseline': self._get_period_years(self.widgets_baseline)
         }
 
         if self.checkBox_progress_period.isChecked():
-            periods.update(
-                {
-                    'progress': {
-                        'period_year_initial':
-                        self.year_initial_progress.date().year(),
-                        'period_year_final':
-                        self.year_final_progress.date().year(),
-                    }
-                }
-            )
+            periods.update({
+                'progress': self._get_period_years(self.widgets_progress)
+            })
 
         crosses_180th, geojsons = self.gee_bounding_box
 
         payloads = []
 
-        for period, values in periods.items():
+        for (period, values), widgets in zip(
+            periods.items(), (self.widgets_baseline, self.widgets_progress)
+        ):
             payload = {}
             year_initial = values['period_year_initial']
             year_final = values['period_year_final']
+
+            log(f'Setting parameters for {period} period ({year_initial} - {year_final})')
 
             payload['productivity'] = {'mode': prod_mode}
 
@@ -279,14 +451,8 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                     }
                 )
             elif prod_mode == ProductivityMode.JRC_5_CLASS_LPD.value:
-                if period == 'baseline':
-                    prod_dataset = conf.REMOTE_DATASETS[
-                        "Land Productivity Dynamics (JRC)"][
-                            self.cb_jrc_baseline.currentText()]
-                else:
-                    prod_dataset = conf.REMOTE_DATASETS[
-                        "Land Productivity Dynamics (JRC)"][
-                            self.cb_jrc_progress.currentText()]
+                prod_dataset = conf.REMOTE_DATASETS[
+                    "Land Productivity Dynamics (JRC)"][widgets.cb_jrc.currentText()]
                 prod_asset = prod_dataset['GEE Dataset']
                 prod_start_year = prod_dataset['Start year']
                 prod_end_year = prod_dataset['End year']
@@ -299,9 +465,9 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                 )
             payload['land_cover'] = {
                 'year_initial':
-                year_initial,
+                widgets.year_initial_lc.date().year(),
                 'year_final':
-                year_final,
+                widgets.year_final_lc.date().year(),
                 'legend_nesting':
                 LCLegendNesting.Schema().dump(
                     self.lc_setup_widget.aggregation_dialog.nesting
@@ -313,9 +479,9 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             }
             payload['soil_organic_carbon'] = {
                 'year_initial':
-                year_initial,
+                widgets.year_initial_soc.date().year(),
                 'year_final':
-                year_final,
+                widgets.year_final_soc.date().year(),
                 'fl':
                 .80,
                 'legend_nesting':
@@ -659,7 +825,7 @@ class DlgCalculateLDNSummaryTableAdmin(
         if not ret:
             return
 
-        if self.radio_te_prod.isChecked():
+        if self.radio_lpd_te.isChecked():
             prod_mode = ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
         else:
             prod_mode = ProductivityMode.JRC_5_CLASS_LPD.value
@@ -866,4 +1032,3 @@ class DlgCalculateLDNErrorRecode(DlgCalculateBase, DlgCalculateLdnErrorRecodeUi)
         self.mb.pushMessage(
             self.tr(main_msg), self.tr(description), level=0, duration=5
         )
-

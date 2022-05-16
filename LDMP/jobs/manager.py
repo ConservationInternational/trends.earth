@@ -5,6 +5,7 @@ import os
 import re
 import shutil
 import typing
+from copy import deepcopy
 import urllib.parse
 import uuid
 from pathlib import Path
@@ -153,17 +154,19 @@ class LocalJobTask(QgsTask):
     def __init__(self, description, job, area_of_interest):
         super().__init__(description, QgsTask.CanCancel)
         self.job = job
+        self.job_copy = deepcopy(job) # ensure job in main thread is not accessed
         self.area_of_interest = area_of_interest
+        self.results = None
 
     def run(self):
         logger.debug('Running task')
-        execution_handler = utils.load_object(self.job.script.execution_callable)
-        job_output_path, dataset_output_path = _get_local_job_output_paths(self.job)
-        self.completed_job = execution_handler(
-            self.job, self.area_of_interest, job_output_path, dataset_output_path
+        execution_handler = utils.load_object(self.job_copy.script.execution_callable)
+        job_output_path, dataset_output_path = _get_local_job_output_paths(self.job_copy)
+        self.results = execution_handler(
+            self.job_copy, self.area_of_interest, job_output_path, dataset_output_path
         )
 
-        if self.completed_job is None:
+        if self.results is None:
             logger.debug('Completed run function - failure')
             return False
         else:
@@ -172,8 +175,11 @@ class LocalJobTask(QgsTask):
 
     def finished(self, result):
         logger.debug('Finished task')
+        self.job.end_date = dt.datetime.now(dt.timezone.utc)
+        self.job.progress = 100
         if result:
-            self.processed_job.emit(self.completed_job)
+            self.job.results = self.results
+            self.processed_job.emit(self.job)
             logger.debug('Task succeeded')
         else:
             logger.debug('Task failed')
@@ -371,6 +377,12 @@ class JobManager(QtCore.QObject):
             relevant_remote_jobs = remote_jobs
 
         self._refresh_local_deleted_jobs()
+
+        deleted_ids = self._known_deleted_jobs.keys()
+        relevant_remote_jobs = [
+            job for job in relevant_remote_jobs if job.id not in deleted_ids
+        ]
+
         self._refresh_local_running_jobs(relevant_remote_jobs)
         self._refresh_local_finished_jobs(relevant_remote_jobs)
         self._refresh_local_downloaded_jobs()
@@ -446,6 +458,8 @@ class JobManager(QtCore.QObject):
         self, params: typing.Dict, script_name: str,
         area_of_interest: areaofinterest.AOI
     ):
+        self.submit_local_job(params, script_name, area_of_interest)
+        '''
         final_params = params.copy()
         task_name = final_params.pop("task_name")
         task_notes = final_params.pop("task_notes")
@@ -476,6 +490,7 @@ class JobManager(QtCore.QObject):
         job_task = LocalJobTask(job_name, job, area_of_interest)
         job_task.processed_job.connect(self.finish_local_job)
         self.tm.addTask(job_task)
+        '''
 
     def submit_local_job(
         self, params: typing.Dict, script_name: str,

@@ -458,7 +458,11 @@ class JobManager(QtCore.QObject):
         self, params: typing.Dict, script_name: str,
         area_of_interest: areaofinterest.AOI
     ):
-        self.submit_local_job(params, script_name, area_of_interest)
+        self.submit_local_job(
+            params,
+            script_name,
+            area_of_interest
+        )
         '''
         final_params = params.copy()
         task_name = final_params.pop("task_name")

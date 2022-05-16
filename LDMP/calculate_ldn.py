@@ -517,11 +517,6 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                     'task_name': task_name,
                     'task_notes': self.task_notes.toPlainText(),
                     'script': ExecutionScript.Schema().dump(self.script),
-                    'period': {
-                        'name': period,
-                        'year_initial': year_initial,
-                        'year_final': year_final
-                    }
                 }
             )
 
@@ -859,6 +854,7 @@ class DlgCalculateLDNSummaryTableAdmin(
                 aoi=self.aoi,
                 prod_mode=prod_mode,
                 pop_mode=pop_mode_baseline,
+                period_name='baseline',
                 combo_layer_lc=self.combo_boxes['baseline'].combo_layer_lc,
                 combo_layer_soc=self.combo_boxes['baseline'].combo_layer_soc,
                 combo_layer_traj=self.combo_boxes['baseline'].combo_layer_traj,
@@ -872,7 +868,7 @@ class DlgCalculateLDNSummaryTableAdmin(
                 combo_layer_pop_male,
                 combo_layer_pop_female=self.combo_boxes['baseline'].
                 combo_layer_pop_female,
-                task_notes=self.options_tab.task_notes.toPlainText()
+                task_notes=self.options_tab.task_notes.toPlainText(),
             )
         }
 
@@ -906,6 +902,7 @@ class DlgCalculateLDNSummaryTableAdmin(
                         aoi=self.aoi,
                         prod_mode=prod_mode,
                         pop_mode=pop_mode_progress,
+                        period_name='progress',
                         combo_layer_lc=self.combo_boxes['progress'].
                         combo_layer_lc,
                         combo_layer_soc=self.combo_boxes['progress'].

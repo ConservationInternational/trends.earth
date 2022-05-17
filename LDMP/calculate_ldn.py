@@ -749,7 +749,8 @@ class DlgCalculateLDNSummaryTableAdmin(
         if pop_mode == ldn.PopulationMode.BySex.value:
             if not self._validate_layer_extent(combo_boxes.combo_layer_pop_male.get_layer(), 'population (male)'):
                 return False
-            if not self._validate_layer_extent(combo_boxes.combo_layer_pop_female.get_layer(), 'population (male)'):
+            if not
+                self._validate_layer_extent(combo_boxes.combo_layer_pop_female.get_layer(), 'population (female)'):
                 return False
         else:
             if not self._validate_layer_extent(combo_boxes.combo_layer_pop_total.get_layer(), 'population (total)'):

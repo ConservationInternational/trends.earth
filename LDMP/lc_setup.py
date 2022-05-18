@@ -18,6 +18,7 @@ import typing
 from copy import deepcopy
 from pathlib import Path
 
+from dataclasses import field
 from marshmallow_dataclass import dataclass
 from marshmallow.exceptions import ValidationError
 from qgis.PyQt import QtCore
@@ -1172,18 +1173,12 @@ class LCClassInfo:
     idx: int = -1
     lcc: LCClass = None
     parent: LCClass = None
+    child_codes: typing.List[int] = field(default_factory=list)
 
     class Meta:
         ordered = True
         load_only = ['idx']
 
-    def update(self, other: 'LCClassInfo'):
-        # Update this object with values from another object.
-        # Update main class
-        LCClassInfo.update_lcc(other.lcc, self.lcc)
-
-        # Update parent class
-        LCClassInfo.update_lcc(other.parent, self.parent)
 
 class LccInfoUtils:
     """
@@ -1252,12 +1247,24 @@ class LccInfoUtils:
         )
         lcc_infos = []
         status = True
+        nesting = get_lc_nesting(save_settings=False)
+
         try:
-            for lcc_str in lcc_infos_str:
-                lcc = LCClassInfo.Schema().loads(lcc_str)
-                lcc_infos.append(lcc)
+            for lcc_info_str in lcc_infos_str:
+                lcc_info = LCClassInfo.Schema().loads(lcc_info_str)
+
+                # If child codes are empty, attempt to fetch from nesting
+                if len(lcc_info.child_codes) == 0:
+                    children = nesting.children_for_parent(lcc_info.lcc)
+                    child_codes = [c.code for c in children]
+                    if len(child_codes) > 0:
+                        lcc_info.child_codes = child_codes
+
+                lcc_infos.append(lcc_info)
+
         except ValidationError as ve:
             status = False
+
         except Exception as exc:
             status = False
 
@@ -1350,6 +1357,14 @@ class LccInfoUtils:
         ]
 
         return (True, match[0]) if len(match) > 0 else (False, None)
+
+    @staticmethod
+    def clear_child_codes(lcc_infos: typing.List['LCClassInfo']):
+        """
+        Clears child class mapping.
+        """
+        for lcci in lcc_infos:
+            lcci.child_codes = []
 
     @staticmethod
     def lc_nesting() -> LCLegendNesting:
@@ -1460,77 +1475,35 @@ class LccInfoUtils:
                     f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - No land cover '
                     f'classes to update land cover nesting.'
                 )
+
             return
 
-        nesting = LccInfoUtils.lc_nesting()
-        ref_nesting = get_lc_nesting(True, save_settings=False)
+        nesting = get_lc_nesting(True, save_settings=False)
 
-        if nesting is None:
-            if conf.settings_manager.get_value(conf.Setting.DEBUG):
-                log(
-                    f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - No land cover '
-                    f'nesting in settings.'
-                )
-            return
+        # Create key for parent legend
+        parent_key = []
+        nesting_map = dict()
+        for lcci in ref_lcc_infos:
+            lcc = lcci.lcc
+            parent_key.append(lcc)
+            nesting_map[str(lcc.code)] = lcci.child_codes
 
-        # Check if there are custom classes to be removed.
-        i = 0
-        while i < len(nesting.parent.key):
-            lcc = nesting.parent.key[i]
-            lcc_in_ref, lcc_info = LccInfoUtils.lcc_in_infos(
-                lcc,
-                ref_lcc_infos
-            )
+        # Check if nodata is in nesting
+        nodata = nesting.parent.nodata
+        child_nodata = nesting.child.nodata
+        if nodata is not None and nodata.code not in nesting_map \
+                and child_nodata is not None:
+            nesting_map[nodata.code] = [child_nodata.code]
 
-            if not lcc_in_ref:
-                if conf.settings_manager.get_value(conf.Setting.DEBUG):
-                    log(
-                        f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - {lcc.name_long} '
-                        f'class not in nesting settings, attempting to remove...'
-                    )
-                nesting.remove_parent_class(lcc)
-                if conf.settings_manager.get_value(conf.Setting.DEBUG):
-                    log(
-                        f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - '
-                        f'{lcc.name_long} class successfully removed in nesting.'
-                    )
-            else:
-                i += 1
-
-        # Add update parent classes
-        for lcc_info in ref_lcc_infos:
-            ref_lcc = lcc_info.lcc
-            parent_lcc = lcc_info.parent
-            children = ref_nesting.children_for_parent(parent_lcc)
-            if ref_nesting.parent.nodata and \
-                    parent_lcc.code == ref_nesting.parent.nodata.code:
-                children = [ref_nesting.child.nodata]
-            nesting.add_update_parent(ref_lcc, children)
-            if conf.settings_manager.get_value(conf.Setting.DEBUG):
-                log(
-                    f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - Adding '
-                    f'{ref_lcc.name_long} parent class to nesting.'
-                )
-
-        # Remove orphaned children otherwise the model will raise a
-        # ValidationError.
-        orphans = nesting.orphan_children()
-        codes = [c.code for c in orphans]
-        for cd in codes:
-            if conf.settings_manager.get_value(conf.Setting.DEBUG):
-                log(
-                    f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - Removing orphaned '
-                    f'class with code {cd!s} from nesting.'
-                )
-            nesting.child.remove_class(cd)
-
+        nesting.parent.key = parent_key
+        nesting.nesting = nesting_map
         nesting.parent.name = LccInfoUtils.CUSTOM_LEGEND_NAME
-
         lc_nesting_to_settings(nesting)
+
         if conf.settings_manager.get_value(conf.Setting.DEBUG):
             log(
-                f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - Saved updated lc nesting '
-                f'to settings.'
+                f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - Saved updated lc '
+                f'nesting to settings.'
             )
 
     @staticmethod
@@ -1552,6 +1525,9 @@ class LccInfoUtils:
             lcc_info = LCClassInfo()
             lcc_info.lcc = lcc
             lcc_info.parent = lcc
+            if lcc.code in ref_nesting.nesting:
+                child_codes = ref_nesting.nesting[lcc.code]
+                lcc_info.child_codes = child_codes
 
             def_lcc_infos.append(lcc_info)
 

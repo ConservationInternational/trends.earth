@@ -179,7 +179,7 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
         self.pushButton_delete_user.clicked.connect(self.delete)
         self.pushButton_forgot_pwd.clicked.connect(self.forgot_pwd)
 
-        self.buttonBox.accepted.connect(self.close)
+        self.buttonBox.accepted.connect(self.on_accept)
         self.settings = qgis.core.QgsSettings()
 
         self.area_widget = AreaWidget()
@@ -278,12 +278,15 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
                 self.reloadAuthConfigurations()
                 # self.authConfigUpdated.emit()
 
-    def accept(self):
+    def on_accept(self):
         self.area_widget.save_settings()
         self.widgetSettingsAdvanced.update_settings()
         self.widget_settings_report.save_settings()
-        self.lcc_manager.save_settings()
-        super().accept()
+        if not self.lcc_manager.save_settings():
+            print('Validation failed')
+            return
+
+        self.accept()
 
 
 class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
@@ -1408,6 +1411,12 @@ class LandCoverCustomClassesManager(
         self.btn_save.setIcon(save_table_icon)
         self.btn_save.clicked.connect(self.on_save_file)
 
+        unlink_icon = qgis.core.QgsApplication.instance().getThemeIcon(
+            'mActionUnlink.svg'
+        )
+        self.btn_unassign.setIcon(unlink_icon)
+        self.btn_unassign.clicked.connect(self.on_unlink_children)
+
         restore_icon = qgis.core.QgsApplication.instance().getThemeIcon(
             'mActionReload.svg'
         )
@@ -1432,7 +1441,7 @@ class LandCoverCustomClassesManager(
         )
 
     def sizeHint(self) -> QtCore.QSize:
-        return QtCore.QSize(350, 270)
+        return QtCore.QSize(350, 380)
 
     def resizeEvent(self, event: QtGui.QResizeEvent):
         # Adjust column width
@@ -1489,14 +1498,27 @@ class LandCoverCustomClassesManager(
             LccInfoUtils.set_default_unccd_classes(True)
             self.load_settings()
 
-    def save_settings(self):
+    def save_settings(self) -> bool:
         """
         Save classes to settings.
         """
         lcc_infos = self.class_infos()
+        val_status, msgs = self.validate_child_codes(lcc_infos)
+        if not val_status:
+            warnings = '\n- '.join(msgs)
+            QtWidgets.QMessageBox.warning(
+                self,
+                self.tr('Validation Failed'),
+                f'Validation for land cover classes failed with the '
+                f'following errors:\n- {warnings}'
+            )
+            return False
+
         status = LccInfoUtils.save_settings(lcc_infos)
         if not status:
             log('Custom land cover classes could not be saved to settings.')
+
+        return True
 
     def showEvent(self, event):
         super().showEvent(event)
@@ -1623,6 +1645,7 @@ class LandCoverCustomClassesManager(
                 codes=self.class_codes()
             )
             self.editor.setPanelTitle(self.tr('Land Cover Class Editor'))
+            self.editor.refresh_used_codes(self.parent_child_codes())
             self.editor.panelAccepted.connect(self.on_editor_accepted)
             self.editor.notify_delete.connect(self.delete_class_info)
 
@@ -1690,6 +1713,75 @@ class LandCoverCustomClassesManager(
 
         self.model.insertRow(rows, items)
         self._update_row_data(rows, lc_info)
+
+    def parent_child_codes(self) -> typing.Dict[str, list]:
+        """
+        Returns a dictionary containing parent class name and corresponding
+        codes for child classes assigned to it.
+        """
+        lcc_infos = self.class_infos()
+
+        return {lcci.lcc.name_long: lcci.child_codes for lcci in lcc_infos}
+    
+    def on_unlink_children(self):
+        """
+        Slot raised to remove all child class mappings for the current 
+        parent classes.
+        """
+        ret = QtWidgets.QMessageBox.warning(
+            self,
+            self.tr('Unassign Child Classes'),
+            self.tr('This action will delink child class mapping for all the '
+                    'classes.\nDo you want to proceed?'),
+            QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
+            QtWidgets.QMessageBox.No
+        )
+        if ret == QtWidgets.QMessageBox.Yes:
+            lcc_infos = self.class_infos()
+            LccInfoUtils.clear_child_codes(lcc_infos)
+
+    def validate_child_codes(
+            self,
+            lcc_infos: typing.List['LCClassInfo']
+    ) -> typing.Tuple[bool, list]:
+        """
+        Validate children have been specified.
+        """
+        status = True
+        messages = []
+        child_codes = []
+        for lcci in lcc_infos:
+            if len(lcci.child_codes) == 0:
+                msg_tr = self.tr(
+                    'class does not have children assigned to it'
+                )
+                warning = f'{lcci.lcc.name_long} {msg_tr}'
+                messages.append(warning)
+                if status:
+                    status = False
+            child_codes.extend(lcci.child_codes)
+
+        # Ensure all child classes have been assigned parents
+        nesting = LccInfoUtils.lc_nesting()
+        child_legend = nesting.child
+        ref_child_codes = [lcc.code for lcc in child_legend.key]
+
+        if len(child_codes) != len(ref_child_codes):
+            ref_child_codes_set = set(ref_child_codes)
+            user_child_codes_set = set(child_codes)
+            unassigned_codes = ref_child_codes_set - user_child_codes_set
+
+            for c in unassigned_codes:
+                lcc = child_legend.class_by_code(c)
+                if lcc is not None:
+                    msg_tr = self.tr('class has not been assigned a parent')
+                    msg = f'{lcc.name_long} {msg_tr}'
+                    messages.append(msg)
+
+            if status:
+                status = False
+
+        return status, messages
 
     def _update_lcc_row_items(
             self,
@@ -1828,6 +1920,166 @@ class LandCoverCustomClassesManager(
             log(f'Unable to remove land cover class in row {row!s}')
 
 
+class LCCProxyModelContainer:
+    """
+    Provides a model with a checkable list of land cover classes for use
+    in an item view widget. It provides the options of filtering items using
+    the class name.
+    """
+    def __init__(self, lc_legend=None):
+        self._lc_legend = lc_legend
+        self.include_no_data = True
+        self._sm = QtGui.QStandardItemModel()
+        self._sm.setColumnCount(1)
+        self._pm = QtCore.QSortFilterProxyModel()
+        self._pm.setSourceModel(self._sm)
+        self._pm.sort(0, QtCore.Qt.AscendingOrder)
+        self._pm.setFilterKeyColumn(0)
+        self._update_classes()
+
+    @property
+    def lc_legend(self) -> 'LCLegend':
+        """
+        Returns the LCLegend object used to render LC classes.
+        """
+        return self._lc_legend
+
+    @lc_legend.setter
+    def lc_legend(self, lc_legend):
+        """
+        Set the LCLegend and update the land cover classes.
+        """
+        self._lc_legend = lc_legend
+        self._update_classes()
+
+    def _update_classes(self):
+        """
+        Update land cover classes in the legend.
+        """
+        if self._lc_legend is None:
+            return
+
+        self._sm.removeRows(0, self._sm.rowCount())
+
+        ref_classes = self._lc_legend.key
+        no_data = self._lc_legend.nodata
+        if no_data is not None and self.include_no_data:
+            ref_classes += [no_data]
+
+        for lcc in ref_classes:
+            name = lcc.name_long
+            name_item = QtGui.QStandardItem(name)
+            name_item.setData(lcc, QtCore.Qt.UserRole)
+            name_item.setToolTip(name)
+            name_item.setCheckable(True)
+            name_item.setSizeHint(QtCore.QSize(250, 30))
+            clr = QtGui.QColor(lcc.color)
+            if clr.isValid():
+                name_item.setData(clr, QtCore.Qt.DecorationRole)
+
+            self._sm.appendRow([name_item])
+
+    @property
+    def model(self):
+        """
+        Returns the proxy model to be be used by the view.
+        """
+        return self._pm
+
+    def filter(self, text: str, pattern: int = QtCore.QRegExp.FixedString):
+        """
+        Filter the classes matching the given text using the specified
+        regex pattern.
+        """
+        regex = QtCore.QRegExp(text, QtCore.Qt.CaseInsensitive, pattern)
+        self._pm.setFilterRegExp(regex)
+
+    def checked_classes(self) -> typing.List[LCClass]:
+        """
+        Returns a list of checked land cover classes.
+        """
+        lc_classes = []
+        for r in range(self._pm.rowCount()):
+            proxy_idx = self._pm.index(r, 0)
+            src_idx = self._pm.mapToSource(proxy_idx)
+            item = self._sm.itemFromIndex(src_idx)
+            if item.isEnabled() and item.checkState() == QtCore.Qt.Checked:
+                lcc = item.data(QtCore.Qt.UserRole)
+                if lcc is not None:
+                    lc_classes.append(lcc)
+
+        return lc_classes
+
+    def checked_lcc_codes(self) -> typing.List[int]:
+        """
+        Returns a list of codes for checked land cover classes.
+        """
+        return [lcc.code for lcc in self.checked_classes()]
+
+    def check_classes(self, codes: typing.List[int]):
+        """
+        Select land cover classes matching the given codes.
+        """
+        self._update_item_state_with_func(codes)
+
+    def update_used_codes(
+            self,
+            child_codes_mapping: dict,
+            exclude_parents=None,
+            enable=False
+    ):
+        """
+        Enable/disable items with the given codes. Default option is to
+        disable.
+        """
+        if exclude_parents is None:
+            exclude_parents = []
+
+        for parent, child_codes in child_codes_mapping.items():
+            if parent in exclude_parents:
+                continue
+
+            def item_op(item):
+                item.setEnabled(enable)
+                lcc = item.data(QtCore.Qt.UserRole)
+                if lcc is not None:
+                    name = lcc.name_long
+                    assign = f'Assigned to {parent}'
+                    tooltip = f'<html><head/><body><p>{name}; <br>' \
+                              f'{assign}</p></body></html>'
+                    item.setToolTip(tooltip)
+
+            self._update_item_state_with_func(child_codes, func=item_op)
+
+    def _update_item_state_with_func(
+            self,
+            codes,
+            state=QtCore.Qt.Checked,
+            func=None
+    ):
+        """
+        Check/uncheck items matching the given codes with the option of
+        specifying a custom function for additional item operations.
+        """
+        for r in range(self._pm.rowCount()):
+            proxy_idx = self._pm.index(r, 0)
+            src_idx = self._pm.mapToSource(proxy_idx)
+            item = self._sm.itemFromIndex(src_idx)
+            if item.checkState == state:
+                continue
+
+            lcc = item.data(QtCore.Qt.UserRole)
+            if lcc is not None and lcc.code in codes:
+                item.setCheckState(state)
+                if func is not None:
+                    try:
+                        func(item)
+                    except:
+                        log(
+                            'Failed to execute custom function for child item'
+                        )
+
+
 class LandCoverCustomClassEditor(
     qgis.gui.QgsPanelWidget,
     Ui_WidgetLandCoverCustomClassEditor
@@ -1843,7 +2095,8 @@ class LandCoverCustomClassEditor(
             lc_class_info=None,
             default_color=None,
             msg_bar=None,
-            codes=None
+            codes=None,
+            used_child_codes=None
     ):
         super().__init__(parent)
         self.setupUi(self)
@@ -1851,6 +2104,8 @@ class LandCoverCustomClassEditor(
         self.default_color = default_color
         if self.default_color is None:
             self.default_color = QtGui.QColor('#8FE142')
+
+        self._default_lc_nesting = get_lc_nesting(True, False)
 
         self.codes = codes
         self._code_max = 255
@@ -1862,6 +2117,10 @@ class LandCoverCustomClassEditor(
 
         self.updated = False
         self.edit_mode = False
+
+        self._proxy_mc = LCCProxyModelContainer()
+        self._proxy_mc.include_no_data = False
+        self.lv_esa_classes.setModel(self._proxy_mc.model)
 
         # UI initialization
         delete_icon = qgis.core.QgsApplication.instance().getThemeIcon(
@@ -1887,7 +2146,21 @@ class LandCoverCustomClassEditor(
 
         self._load_default_lc_classes()
 
+        # Set land cover legend containing ESA classes
+        self._proxy_mc.lc_legend = self._default_lc_nesting.child
+
+        if used_child_codes is not None:
+            self.refresh_used_codes(used_child_codes)
+
         self._suggest_code()
+
+        self.txt_filter_child.valueChanged.connect(
+            self.on_filter_children
+        )
+
+        self.cb_filter_parent.stateChanged.connect(
+            self._on_show_parent_child_classes_changed
+        )
 
         if lc_class_info is not None:
             self.set_class_info(self.lc_class_info)
@@ -1899,8 +2172,7 @@ class LandCoverCustomClassEditor(
     def _load_default_lc_classes(self):
         # Load default LC classes.
         self.cbo_cls_parent.addItem('')
-        lc_legend = get_lc_nesting(True, False)
-        parent_legend = lc_legend.parent
+        parent_legend = self._default_lc_nesting.parent
         ref_classes = parent_legend.key
         no_data = parent_legend.nodata
         if no_data is not None:
@@ -1925,6 +2197,17 @@ class LandCoverCustomClassEditor(
         code = min(code_range - used_codes)
 
         self.sb_cls_code.setValue(code)
+
+    def refresh_used_codes(self, child_codes_mapping: dict):
+        """
+        Refresh child class list by disabling those items whose codes have
+        already been assigned to other parent classes.
+        """
+        exclude_parents = None
+        if self.edit_mode:
+            exclude_parents = [self.lc_class_info.lcc.name_long]
+
+        self._proxy_mc.update_used_codes(child_codes_mapping, exclude_parents)
 
     def append_warning_msg(self, msg: str):
         # Add warning message if a message bar has been defined.
@@ -1958,6 +2241,8 @@ class LandCoverCustomClassEditor(
         if idx != -1:
             self.cbo_cls_parent.setCurrentIndex(idx)
 
+        self._proxy_mc.check_classes(lc_class_info.child_codes)
+
     def validate(self) -> bool:
         """
         Validates class information specified by user.
@@ -1988,7 +2273,17 @@ class LandCoverCustomClassEditor(
             )
             status = False
 
+        if len(self._proxy_mc.checked_lcc_codes()) == 0:
+            self.append_warning_msg(
+                self.tr('No child classes selected.')
+            )
+            status = False
+
         return status
+
+    def on_filter_children(self, name):
+        # Slot raised to filter children in the view by matching class name.
+        self._proxy_mc.filter(name)
 
     def on_delete_class(self):
         # Slot raised to delete land cover class.
@@ -2019,6 +2314,7 @@ class LandCoverCustomClassEditor(
         color = self.clr_btn.color().name()
         curr_idx = self.cbo_cls_parent.currentIndex()
         parent = self.cbo_cls_parent.itemData(curr_idx)
+        child_codes = self._proxy_mc.checked_lcc_codes()
 
         lcc = LCClass(code, name, name, color=color)
 
@@ -2027,6 +2323,7 @@ class LandCoverCustomClassEditor(
 
         self.lc_class_info.lcc = lcc
         self.lc_class_info.parent = parent
+        self.lc_class_info.child_codes = child_codes
 
         return True
 
@@ -2072,6 +2369,55 @@ class LandCoverCustomClassEditor(
             return
 
         self.set_parent_icon(parent_lcc.color, idx)
+
+        # Filter child classes immediately
+        if self.cb_filter_parent.checkState() == QtCore.Qt.Checked:
+            self.filter_children_by_parent()
+
+    def _on_show_parent_child_classes_changed(self, state):
+        """
+        Slot raised to (remove) filter child classes belonging to
+        selected parent.
+        """
+        if state == QtCore.Qt.Checked:
+            self.filter_children_by_parent()
+        else:
+            self._proxy_mc.filter('')
+
+    def filter_children_by_parent(self):
+        """
+        Show only those children that belong to selected parent as specified
+        in the default nesting.
+        """
+        if not self.cbo_cls_parent.currentText():
+            self.append_warning_msg(
+                self.tr('No parent class selected.')
+            )
+            self.cb_filter_parent.blockSignals(True)
+            self.cb_filter_parent.setCheckState(QtCore.Qt.Unchecked)
+            self.cb_filter_parent.blockSignals(False)
+            return
+
+        # Get children for selected parent and filter class view
+        curr_idx = self.cbo_cls_parent.currentIndex()
+        parent = self.cbo_cls_parent.itemData(curr_idx)
+        if parent is None:
+            log('Parent land cover class not found.')
+            return
+
+        children = self._default_lc_nesting.children_for_parent(parent)
+        if len(children) == 0:
+            log(
+                f'No children found for {parent.name_long} land cover '
+                f'class.'
+            )
+            return
+
+        child_lcc_list = [
+            QtCore.QRegExp.escape(c.name_long) for c in children
+        ]
+        child_lcc_names = '|'.join(child_lcc_list)
+        self._proxy_mc.filter(child_lcc_names, QtCore.QRegExp.RegExp2)
 
     def on_accept_info(self):
         # Slot raised to validate and submit class details to the caller.

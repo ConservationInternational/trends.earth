@@ -45,28 +45,19 @@ class SummaryTableLDWidgets:
     combo_layer_pop_total: data_io.WidgetDataIOSelectTELayerExisting
     combo_layer_pop_male: data_io.WidgetDataIOSelectTELayerExisting
     combo_layer_pop_female: data_io.WidgetDataIOSelectTELayerExisting
-    radio_lpd_jrc: QtWidgets.QRadioButton
+    radio_lpd_te: QtWidgets.QRadioButton
 
     def __post_init__(self):
-        self.radio_lpd_jrc.toggled.connect(self.radio_lpd_jrc_toggled)
-        self.radio_lpd_jrc_toggled()
+        self.radio_lpd_te.toggled.connect(self.radio_lpd_te_toggled)
+        self.radio_lpd_te_toggled()
         self.combo_datasets.job_selected.connect(self.set_combo_selections_from_job_id)
 
     def populate(self):
         self.populate_layer_combo_boxes()
         self.combo_datasets.populate()
 
-    def radio_lpd_jrc_toggled(self):
-        if self.radio_lpd_jrc.isChecked():
-            self.combo_layer_traj.hide()
-            self.combo_layer_traj_label.hide()
-            self.combo_layer_perf.hide()
-            self.combo_layer_perf_label.hide()
-            self.combo_layer_state.hide()
-            self.combo_layer_state_label.hide()
-            self.combo_layer_lpd.show()
-            self.combo_layer_lpd_label.show()
-        else:
+    def radio_lpd_te_toggled(self):
+        if self.radio_lpd_te.isChecked():
             self.combo_layer_traj.show()
             self.combo_layer_traj_label.show()
             self.combo_layer_perf.show()
@@ -75,6 +66,15 @@ class SummaryTableLDWidgets:
             self.combo_layer_state_label.show()
             self.combo_layer_lpd.hide()
             self.combo_layer_lpd_label.hide()
+        else:
+            self.combo_layer_traj.hide()
+            self.combo_layer_traj_label.hide()
+            self.combo_layer_perf.hide()
+            self.combo_layer_perf_label.hide()
+            self.combo_layer_state.hide()
+            self.combo_layer_state_label.hide()
+            self.combo_layer_lpd.show()
+            self.combo_layer_lpd_label.show()
 
     def populate_layer_combo_boxes(self):
         self.combo_layer_lpd.populate()

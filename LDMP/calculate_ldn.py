@@ -51,8 +51,8 @@ class tr_calculate_ldn(object):
 @dataclass
 class TimePeriodWidgets:
     radio_time_period_same: QtWidgets.QRadioButton
-    radio_lpd_jrc: QtWidgets.QRadioButton
-    cb_jrc: QtWidgets.QRadioButton
+    radio_lpd_te: QtWidgets.QRadioButton
+    cb_lpd: QtWidgets.QRadioButton
     year_initial: QtWidgets.QDateEdit
     year_final: QtWidgets.QDateEdit
     label_prod: QtWidgets.QLabel
@@ -76,9 +76,10 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         super().__init__(iface, script, parent)
         self.setupUi(self)
 
+
         self.widgets_baseline = TimePeriodWidgets(
             self.radio_time_period_same_baseline,
-            self.radio_lpd_jrc,
+            self.radio_lpd_te,
             self.cb_jrc_baseline,
             self.year_initial_baseline,
             self.year_final_baseline,
@@ -94,7 +95,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         )
         self.widgets_progress = TimePeriodWidgets(
             self.radio_time_period_same_progress,
-            self.radio_lpd_jrc,
+            self.radio_lpd_te,
             self.cb_jrc_progress,
             self.year_initial_progress,
             self.year_final_progress,
@@ -151,6 +152,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         )
 
         self.radio_lpd_te.toggled.connect(self.toggle_lpd_options)
+        self.radio_lpd_precalculated.toggled.connect(self.toggle_lpd_options)
 
         self.lc_define_deg_widget = lc_setup.LCDefineDegradationWidget()
 
@@ -161,12 +163,13 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
         self.button_preset_unccd_default_jrc.clicked.connect(self.set_preset_unccd_default_jrc)
         self.button_preset_unccd_default_te.clicked.connect(self.set_preset_unccd_default_te)
+        self.button_preset_unccd_default_fao_wocat.clicked.connect(self.set_preset_unccd_default_fao_wocat)
 
         self._finish_initialization()
 
     def set_preset_unccd_default_jrc(self):
         self.checkBox_progress_period.setChecked(True)
-        self.radio_lpd_jrc.setChecked(True)
+        self.radio_lpd_precalculated.setChecked(True)
         self.cb_jrc_baseline.setCurrentIndex(self.cb_jrc_baseline.findText(
             'JRC Land Productivity Dynamics (2000-2015)'))
         self.cb_jrc_progress.setCurrentIndex(self.cb_jrc_baseline.findText(
@@ -174,6 +177,27 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.radio_time_period_same_baseline.setChecked(True)
         self.radio_time_period_vary_progress.setChecked(True)
         self.year_initial_baseline.setDate(QtCore.QDate(2000, 1, 1))
+        self.year_final_baseline.setDate(QtCore.QDate(2015, 1, 1))
+        self.year_initial_progress.setDate(QtCore.QDate(2005, 1, 1))
+        self.year_final_progress.setDate(QtCore.QDate(2019, 1, 1))
+        self.year_initial_progress_lc.setDate(QtCore.QDate(2015, 1, 1))
+        self.year_final_progress_lc.setDate(QtCore.QDate(2019, 1, 1))
+        self.year_initial_progress_soc.setDate(QtCore.QDate(2015, 1, 1))
+        self.year_final_progress_soc.setDate(QtCore.QDate(2019, 1, 1))
+
+        self.lc_setup_widget.aggregation_dialog.reset_nesting_table()
+        self.lc_define_deg_widget.set_trans_matrix(get_default=True)
+
+    def set_preset_unccd_default_fao_wocat(self):
+        self.checkBox_progress_period.setChecked(True)
+        self.radio_lpd_precalculated.setChecked(True)
+        self.cb_jrc_baseline.setCurrentIndex(self.cb_jrc_baseline.findText(
+            'FAO-WOCAT Land Productivity Dynamics (2001-2015)'))
+        self.cb_jrc_progress.setCurrentIndex(self.cb_jrc_baseline.findText(
+            'FAO-WOCAT Land Productivity Dynamics (2005-2019)'))
+        self.radio_time_period_same_baseline.setChecked(True)
+        self.radio_time_period_vary_progress.setChecked(True)
+        self.year_initial_baseline.setDate(QtCore.QDate(2001, 1, 1))
         self.year_final_baseline.setDate(QtCore.QDate(2015, 1, 1))
         self.year_initial_progress.setDate(QtCore.QDate(2005, 1, 1))
         self.year_final_progress.setDate(QtCore.QDate(2019, 1, 1))
@@ -230,6 +254,9 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             widgets.year_final_prod.setEnabled(False)
 
             widgets.year_initial.setEnabled(True)
+
+            self.update_start_dates(widgets)
+            self.update_end_dates(widgets)
         else:
             widgets.label_lc.setEnabled(True)
             widgets.year_initial_lc.setEnabled(True)
@@ -242,13 +269,13 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             widgets.year_initial.setEnabled(False)
             widgets.year_final.setEnabled(False)
 
-            if not widgets.radio_lpd_jrc.isChecked():
+            if widgets.radio_lpd_te.isChecked():
                 widgets.label_prod.setEnabled(True)
                 widgets.year_initial_prod.setEnabled(True)
                 widgets.year_final_prod.setEnabled(True)
 
     def toggle_lpd_options(self):
-        if self.radio_lpd_jrc.isChecked():
+        if not self.radio_lpd_te.isChecked():
             self.cb_jrc_baseline.show()
             self.label_jrc_baseline.show()
             self.cb_jrc_progress.show()
@@ -286,8 +313,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
         else:
             prod_dataset = conf.REMOTE_DATASETS[
-                "Land Productivity Dynamics (JRC)"][
-                    widgets.cb_jrc.currentText()]
+                "Land Productivity Dynamics (JRC)"][widgets.cb_lpd.currentText()]
             start_year_prod = prod_dataset['Start year']
             end_year_prod = prod_dataset['End year']
 
@@ -303,9 +329,10 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         widgets.year_final.setMinimumDate(start_year)
         widgets.year_final.setMaximumDate(end_year)
 
-        if widgets.radio_lpd_jrc.isChecked():
+        if not widgets.radio_lpd_te.isChecked():
             widgets.year_initial_prod.setDate(start_year_prod)
             widgets.year_final_prod.setDate(end_year_prod)
+            # Fix the dates for the prod layer to those of the selected LPD layer
             widgets.year_initial_prod.setMinimumDate(start_year_prod)
             widgets.year_initial_prod.setMaximumDate(start_year_prod)
             widgets.year_final_prod.setMinimumDate(end_year_prod)
@@ -364,6 +391,16 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             'period_year_final': widgets.year_final_prod.date().year()
         }
 
+    def _get_prod_mode(self, widgets):
+        if widgets.radio_lpd_te.isChecked():
+            return ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
+        else:
+            if 'FAO-WOCAT' in widgets.cb_lpd.currentText():
+                return ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value
+            elif 'FAO-WOCAT' in cb_lpd.currentText():
+                return ProductivityMode.JRC_5_CLASS_LPD.value
+        return None
+
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
@@ -372,11 +409,6 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
         if not ret:
             return
-
-        if self.radio_lpd_te.isChecked():
-            prod_mode = ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
-        else:
-            prod_mode = ProductivityMode.JRC_5_CLASS_LPD.value
 
         periods = {
             'baseline': self._get_period_years(self.widgets_baseline)
@@ -400,6 +432,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
             log(f'Setting parameters for {period} period ({year_initial} - {year_final})')
 
+            prod_mode = self._get_prod_mode(widgets)
             payload['productivity'] = {'mode': prod_mode}
 
             if prod_mode == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
@@ -452,7 +485,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                 )
             elif prod_mode == ProductivityMode.JRC_5_CLASS_LPD.value:
                 prod_dataset = conf.REMOTE_DATASETS[
-                    "Land Productivity Dynamics (JRC)"][widgets.cb_jrc.currentText()]
+                    "Land Productivity Dynamics (JRC)"][widgets.cb_lpd.currentText()]
                 prod_asset = prod_dataset['GEE Dataset']
                 prod_start_year = prod_dataset['Start year']
                 prod_end_year = prod_dataset['End year']
@@ -582,7 +615,7 @@ class DlgCalculateLDNSummaryTableAdmin(
             combo_layer_pop_total=self.combo_layer_population_baseline_total,
             combo_layer_pop_male=self.combo_layer_population_baseline_male,
             combo_layer_pop_female=self.combo_layer_population_baseline_female,
-            radio_lpd_jrc=self.radio_lpd_jrc
+            radio_lpd_te = self.radio_lpd_te
         )
         self.combo_boxes['progress'] = ldn.SummaryTableLDWidgets(
             combo_datasets=self.combo_datasets_progress,
@@ -599,7 +632,7 @@ class DlgCalculateLDNSummaryTableAdmin(
             combo_layer_pop_total=self.combo_layer_population_progress_total,
             combo_layer_pop_male=self.combo_layer_population_progress_male,
             combo_layer_pop_female=self.combo_layer_population_progress_female,
-            radio_lpd_jrc=self.radio_lpd_jrc
+            radio_lpd_te = self.radio_lpd_te
         )
 
         self.radio_population_baseline_bysex.toggled.connect(
@@ -676,10 +709,10 @@ class DlgCalculateLDNSummaryTableAdmin(
             return True
 
 
-    def validate_layer_selections(self, combo_boxes, prod_mode, pop_mode):
+    def validate_layer_selections(self, combo_boxes, pop_mode):
         '''validate all needed layers are selected'''
 
-        if prod_mode == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
+        if self.radio_lpd_te.isChecked():
             if not self._validate_layer_selection(combo_boxes.combo_layer_traj, 'trend'):
                 return False
             if not self._validate_layer_selection(combo_boxes.combo_layer_state, 'state'):
@@ -723,10 +756,10 @@ class DlgCalculateLDNSummaryTableAdmin(
         else:
             return True
 
-    def validate_layer_extents(self, combo_boxes, prod_mode, pop_mode):
+    def validate_layer_extents(self, combo_boxes, pop_mode):
         '''Check that the layers cover the full extent of the AOI'''
 
-        if prod_mode == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
+        if self.radio_lpd_te.isChecked():
             if not self._validate_layer_extent(combo_boxes.combo_layer_traj.get_layer(), 'trend'):
                 return False
 
@@ -749,8 +782,7 @@ class DlgCalculateLDNSummaryTableAdmin(
         if pop_mode == ldn.PopulationMode.BySex.value:
             if not self._validate_layer_extent(combo_boxes.combo_layer_pop_male.get_layer(), 'population (male)'):
                 return False
-            if not
-                self._validate_layer_extent(combo_boxes.combo_layer_pop_female.get_layer(), 'population (female)'):
+            if not self._validate_layer_extent(combo_boxes.combo_layer_pop_female.get_layer(), 'population (female)'):
                 return False
         else:
             if not self._validate_layer_extent(combo_boxes.combo_layer_pop_total.get_layer(), 'population (total)'):
@@ -785,9 +817,9 @@ class DlgCalculateLDNSummaryTableAdmin(
             return True
 
 
-    def validate_layer_crs(self, combo_boxes, prod_mode, pop_mode):
+    def validate_layer_crs(self, combo_boxes, pop_mode):
         '''check all layers have the same resolution and CRS'''
-        if prod_mode == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
+        if self.radio_lpd_te.isChecked():
             model_layer = combo_boxes.combo_layer_traj.get_layer()
             model_layer_name = 'trend'
 
@@ -812,6 +844,16 @@ class DlgCalculateLDNSummaryTableAdmin(
 
         return True
 
+    def get_prod_mode(radio_lpd_te, cb_lpd):
+        if radio_lpd_te.isChecked():
+            return ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
+        else:
+            if 'FAO-WOCAT' in cb_lpd.currentText():
+                return ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value
+            elif 'FAO-WOCAT' in cb_lpd.currentText():
+                return ProductivityMode.JRC_5_CLASS_LPD.value
+        return None
+
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
@@ -821,12 +863,6 @@ class DlgCalculateLDNSummaryTableAdmin(
         if not ret:
             return
 
-        if self.radio_lpd_te.isChecked():
-            prod_mode = ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
-        else:
-            prod_mode = ProductivityMode.JRC_5_CLASS_LPD.value
-
-        ##########
         # Baseline
         #
 
@@ -837,23 +873,26 @@ class DlgCalculateLDNSummaryTableAdmin(
 
         if (
             not self.validate_layer_selections(
-                self.combo_boxes['baseline'], prod_mode, pop_mode_baseline
+                self.combo_boxes['baseline'], pop_mode_baseline
             ) or not self.validate_layer_crs(
-                self.combo_boxes['baseline'], prod_mode, pop_mode_baseline
+                self.combo_boxes['baseline'], pop_mode_baseline
             ) or not self.validate_layer_extents(
-                self.combo_boxes['baseline'], prod_mode, pop_mode_baseline
+                self.combo_boxes['baseline'], pop_mode_baseline
             )
         ):
             log('failed baseline layer validation')
 
             return
 
+        prod_mode_baseline = self.get_prod_mode(
+            self.radio_lpd_te, self.combo_boxes['progress'].combo_layer_lpd),
+
         params = {
             'baseline':
             ldn.get_main_sdg_15_3_1_job_params(
                 task_name=self.options_tab.task_name.text(),
                 aoi=self.aoi,
-                prod_mode=prod_mode,
+                prod_mode=prod_mode_baseline,
                 pop_mode=pop_mode_baseline,
                 period_name='baseline',
                 combo_layer_lc=self.combo_boxes['baseline'].combo_layer_lc,
@@ -877,6 +916,9 @@ class DlgCalculateLDNSummaryTableAdmin(
         # Progress
 
         if self.checkBox_progress_period.isChecked():
+            prod_mode_progress = self.get_prod_mode(
+                self.radio_lpd_te, self.combo_boxes['progress'].combo_layer_lpd),
+
             if self.radio_population_progress_bysex.isChecked():
                 pop_mode_progress = ldn.PopulationMode.BySex.value
             else:
@@ -884,11 +926,11 @@ class DlgCalculateLDNSummaryTableAdmin(
 
             if (
                 not self.validate_layer_selections(
-                    self.combo_boxes['progress'], prod_mode, pop_mode_progress
+                    self.combo_boxes['progress'], pop_mode_progress
                 ) or not self.validate_layer_crs(
-                    self.combo_boxes['progress'], prod_mode, pop_mode_progress
+                    self.combo_boxes['progress'], pop_mode_progress
                 ) or not self.validate_layer_extents(
-                    self.combo_boxes['progress'], prod_mode, pop_mode_progress
+                    self.combo_boxes['progress'], pop_mode_progress
                 )
             ):
                 log('failed progress layer validation')
@@ -901,7 +943,7 @@ class DlgCalculateLDNSummaryTableAdmin(
                     ldn.get_main_sdg_15_3_1_job_params(
                         task_name=self.options_tab.task_name.text(),
                         aoi=self.aoi,
-                        prod_mode=prod_mode,
+                        prod_mode=prod_mode_progress,
                         pop_mode=pop_mode_progress,
                         period_name='progress',
                         combo_layer_lc=self.combo_boxes['progress'].

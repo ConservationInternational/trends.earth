@@ -12,6 +12,7 @@ from concurrent.futures import as_completed
 from concurrent.futures import ThreadPoolExecutor
 
 import ee
+from te_algorithms.gdal.land_deg import config
 from te_algorithms.gee.download import download
 from te_algorithms.gee.land_cover import land_cover
 from te_algorithms.gee.productivity import productivity_performance
@@ -235,15 +236,19 @@ def _get_population(params, logger):
 def run_precalculated_lpd_for_period(params, EXECUTION_ID, logger):
     """Run indicators using precalculated LPD for productivity"""
 
-    # Use population asset to set proj if using JRC, as JRC is at 1km
-    if params["productivity"]["mode"] == ProductivityMode.JRC_5_CLASS_LPD.value:
-        proj = ee.ImageCollection(params["population"]["asset"]).toBands().projection()
+    proj = ee.ImageCollection(params["population"]["asset"]).toBands().projection()
+    prod_mode = params["productivity"]["mode"]
+
+    if prod_mode == ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value:
+        lpd_layer_name = config.JRC_LPD_BAND_NAME
+    elif prod_mode == ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value:
+        lpd_layer_name = config.FAO_WOCAT_LPD_BAND_NAME
     else:
-        proj = ee.Image(params["productivity"]["asset"]).toBands().projection()
+        raise KeyError
 
     out = download(
         params.get("productivity").get("asset"),
-        "Land Productivity Dynamics (from JRC)",
+        lpd_layer_name,
         "one time",
         None,
         None,
@@ -252,7 +257,9 @@ def run_precalculated_lpd_for_period(params, EXECUTION_ID, logger):
     lpd_year_initial = params.get("productivity")["year_initial"]
     lpd_year_final = params.get("productivity")["year_final"]
     # Save as int16 to be compatible with other data
-    out.image = out.image.int16().rename(f"JRC_LPD_{lpd_year_initial}-{lpd_year_final}")
+    out.image = out.image.int16().rename(
+        f"{prod_mode}_{lpd_year_initial}-{lpd_year_final}"
+    )
     out.band_info[0].metadata.update(
         {"year_initial": lpd_year_initial, "year_final": lpd_year_final}
     )
@@ -282,7 +289,7 @@ def run_precalculated_lpd_for_period(params, EXECUTION_ID, logger):
         [
             "Soil organic carbon (degradation)",
             "Land cover (degradation)",
-            "Land Productivity Dynamics (from JRC)",
+            lpd_layer_name,
         ]
     )
     out = teimage_v1_to_teimage_v2(out)
@@ -304,7 +311,7 @@ def run_precalculated_lpd_for_period(params, EXECUTION_ID, logger):
 
 
 def run_period(params, max_workers, EXECUTION_ID, logger):
-    """Run indicators for a given period, using JRC or Trends.Earth"""
+    """Run indicators for a given period, using FAO-WOCAT, JRC, or Trends.Earth"""
 
     if (
         params["productivity"]["mode"]
@@ -314,9 +321,9 @@ def run_period(params, max_workers, EXECUTION_ID, logger):
         out = run_te_for_period(params, max_workers, EXECUTION_ID, logger)
     elif params["productivity"]["mode"] in (
         ProductivityMode.JRC_5_CLASS_LPD.value,
-        ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value
+        ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value,
     ):
-        params.update(_gen_metadata_str_jrc_lpd(params))
+        params.update(_gen_metadata_str_precalculated_lpd(params))
         out = run_precalculated_lpd_for_period(params, EXECUTION_ID, logger)
     else:
         raise Exception(
@@ -342,7 +349,7 @@ def _gen_metadata_str_te(params):
     return metadata
 
 
-def _gen_metadata_str_jrc_lpd(params):
+def _gen_metadata_str_precalculated_lpd(params):
     metadata = {
         "visible_metadata": {
             "one liner": f'{params["script"]["name"]} ({params["period"]["name"]}, {params["period"]["year_initial"]}-{params["period"]["year_final"]})',
@@ -366,6 +373,8 @@ def run(params, logger):
     else:
         EXECUTION_ID = params.get("EXECUTION_ID", None)
     logger.debug(f"Execution ID is {EXECUTION_ID}")
+
+    logger.debug(f"period is {params['period']}")
 
     max_workers = 4
 

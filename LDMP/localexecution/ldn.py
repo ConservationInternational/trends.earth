@@ -324,7 +324,10 @@ def get_main_sdg_15_3_1_job_params(
         )
         params["periods"]["productivity"] = params["layer_traj_years"]
 
-    elif prod_mode == ProductivityMode.JRC_5_CLASS_LPD.value:
+    elif prod_mode in (
+        ProductivityMode.JRC_5_CLASS_LPD.value,
+        ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value,
+    ):
         lpd_band_info = combo_layer_lpd.get_current_band()
         lpd_band = lpd_band_info.band_info
 

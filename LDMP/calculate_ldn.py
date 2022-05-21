@@ -111,11 +111,11 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         )
 
         self.cb_jrc_baseline.addItems(
-            [*conf.REMOTE_DATASETS["Land Productivity Dynamics (JRC)"].keys()]
+            [*conf.REMOTE_DATASETS["Land Productivity Dynamics"].keys()]
         )
         self.cb_jrc_baseline.setCurrentIndex(1)
         self.cb_jrc_progress.addItems(
-            [*conf.REMOTE_DATASETS["Land Productivity Dynamics (JRC)"].keys()]
+            [*conf.REMOTE_DATASETS["Land Productivity Dynamics"].keys()]
         )
         self.cb_jrc_progress.setCurrentIndex(2)
 
@@ -313,7 +313,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
         else:
             prod_dataset = conf.REMOTE_DATASETS[
-                "Land Productivity Dynamics (JRC)"][widgets.cb_lpd.currentText()]
+                "Land Productivity Dynamics"][widgets.cb_lpd.currentText()]
             start_year_prod = prod_dataset['Start year']
             end_year_prod = prod_dataset['End year']
 
@@ -483,9 +483,11 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                         None,
                     }
                 )
-            elif prod_mode == ProductivityMode.JRC_5_CLASS_LPD.value:
-                prod_dataset = conf.REMOTE_DATASETS[
-                    "Land Productivity Dynamics (JRC)"][widgets.cb_lpd.currentText()]
+            elif prod_mode in (
+                ProductivityMode.JRC_5_CLASS_LPD.value,
+                ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value
+            ):
+                prod_dataset = conf.REMOTE_DATASETS["Land Productivity Dynamics"][widgets.cb_lpd.currentText()]
                 prod_asset = prod_dataset['GEE Dataset']
                 prod_start_year = prod_dataset['Start year']
                 prod_end_year = prod_dataset['End year']
@@ -496,6 +498,9 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                         'year_final': prod_end_year
                     }
                 )
+            else:
+                raise ValueError("Unknown prod_mode {prod_mode}")
+
             payload['land_cover'] = {
                 'year_initial':
                 widgets.year_initial_lc.date().year(),
@@ -557,6 +562,8 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                     }
                 }
             )
+
+            log(f'period is: {payload["period"]}')
 
             payloads.append(payload)
 
@@ -849,13 +856,14 @@ class DlgCalculateLDNSummaryTableAdmin(
 
         return True
 
-    def get_prod_mode(radio_lpd_te, cb_lpd):
+    def _get_prod_mode(self, radio_lpd_te, cb_lpd):
         if radio_lpd_te.isChecked():
             return ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
         else:
-            if 'FAO-WOCAT' in cb_lpd.currentText():
+            lpd_band_name = cb_lpd.get_current_band().band_info.name
+            if 'FAO-WOCAT' in lpd_band_name:
                 return ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value
-            elif 'FAO-WOCAT' in cb_lpd.currentText():
+            elif 'JRC' in lpd_band_name:
                 return ProductivityMode.JRC_5_CLASS_LPD.value
         return None
 
@@ -889,8 +897,8 @@ class DlgCalculateLDNSummaryTableAdmin(
 
             return
 
-        prod_mode_baseline = self.get_prod_mode(
-            self.radio_lpd_te, self.combo_boxes['progress'].combo_layer_lpd),
+        prod_mode_baseline = self._get_prod_mode(
+            self.radio_lpd_te, self.combo_boxes['progress'].combo_layer_lpd)
 
         params = {
             'baseline':
@@ -921,8 +929,8 @@ class DlgCalculateLDNSummaryTableAdmin(
         # Progress
 
         if self.checkBox_progress_period.isChecked():
-            prod_mode_progress = self.get_prod_mode(
-                self.radio_lpd_te, self.combo_boxes['progress'].combo_layer_lpd),
+            prod_mode_progress = self._get_prod_mode(
+                self.radio_lpd_te, self.combo_boxes['progress'].combo_layer_lpd)
 
             if self.radio_population_progress_bysex.isChecked():
                 pop_mode_progress = ldn.PopulationMode.BySex.value

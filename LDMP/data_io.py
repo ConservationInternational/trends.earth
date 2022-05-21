@@ -1400,7 +1400,6 @@ def _get_usable_bands(
 
         if is_available and is_of_interest and is_valid_type:
             for raster in job.results.rasters.values():
-                log(f'checking for usable bands in raster {raster.uri}')
 
                 for band_index, band_info in enumerate(raster.bands):
 
@@ -1441,13 +1440,18 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
 
     def populate(self, selected_job_id=None):
         aoi = areaofinterest.prepare_area_of_interest()
-        usable_bands = _get_usable_bands(
-            band_name=self.property("layer_type"),
-            selected_job_id=selected_job_id,
-            filter_field=self.property("layer_filter_field"),
-            filter_value=self.property("layer_filter_value"),
-            aoi = aoi
-        )
+        layer_types = self.property("layer_type").split(';')
+        usable_bands = []
+        for layer_type in layer_types:
+            usable_bands.extend(
+                _get_usable_bands(
+                    band_name=layer_type,
+                    selected_job_id=selected_job_id,
+                    filter_field=self.property("layer_filter_field"),
+                    filter_value=self.property("layer_filter_value"),
+                    aoi = aoi
+                )
+            )
         self.layer_list = usable_bands
         old_text = self.currentText()
         self.comboBox_layers.clear()
@@ -1531,13 +1535,10 @@ def _extent_as_geom(extent: typing.Tuple[float, float, float, float]):
 
 
 def _check_band_overlap(aoi, raster):
-    log('checking overlap for {raster.type}')
     if raster.type == RasterType.ONE_FILE_RASTER:
-        log('checking overlap for one file raster')
         if aoi.calc_frac_overlap(_extent_as_geom(raster.extent)) >= 0.99:
             return True
     elif raster.type == RasterType.TILED_RASTER:
-        log('checking overlaps for tiled raster')
         frac = 0
         for extent in raster.extents:
             frac += aoi.calc_frac_overlap(_extent_as_geom(extent))

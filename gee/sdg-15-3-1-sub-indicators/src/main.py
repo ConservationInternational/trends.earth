@@ -239,7 +239,7 @@ def run_precalculated_lpd_for_period(params, EXECUTION_ID, logger):
     proj = ee.ImageCollection(params["population"]["asset"]).toBands().projection()
     prod_mode = params["productivity"]["mode"]
 
-    if prod_mode == ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value:
+    if prod_mode == ProductivityMode.JRC_5_CLASS_LPD.value:
         lpd_layer_name = config.JRC_LPD_BAND_NAME
     elif prod_mode == ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value:
         lpd_layer_name = config.FAO_WOCAT_LPD_BAND_NAME

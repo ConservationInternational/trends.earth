@@ -397,7 +397,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         else:
             if 'FAO-WOCAT' in widgets.cb_lpd.currentText():
                 return ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value
-            elif 'FAO-WOCAT' in cb_lpd.currentText():
+            elif 'JRC' in widgets.cb_lpd.currentText():
                 return ProductivityMode.JRC_5_CLASS_LPD.value
         return None
 
@@ -441,9 +441,9 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                         None, self.tr("Warning"),
                         self.tr(
                             "Initial and final year are less 10 years "
-                            "apart in {} period - results will be more "
+                            "apart in {period} - results will be more "
                             "reliable if more data (years) are included "
-                            "in the analysis.".format(period)
+                            "in the analysis."
                         )
                     )
 
@@ -550,6 +550,11 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                     'task_name': task_name,
                     'task_notes': self.task_notes.toPlainText(),
                     'script': ExecutionScript.Schema().dump(self.script),
+                    'period': {
+                        "name": period,
+                        "year_initial": year_initial,
+                        "year_final": year_final
+                    }
                 }
             )
 

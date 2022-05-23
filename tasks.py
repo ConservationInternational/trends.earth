@@ -13,7 +13,7 @@ import subprocess
 import sys
 import zipfile
 from datetime import datetime, timezone
-from pathlib import Path
+from pathlib import Path, PurePath
 from tempfile import TemporaryDirectory, mkstemp
 
 import boto3
@@ -1284,6 +1284,81 @@ def changelog_build(c):
         metadata = fout.writelines(out_txt)
 
 
+def _make_download_link(c, filename):
+    if filename:
+        return (
+            f'[{filename}]'
+            f'(http://{c.data_downloads.s3_bucket}' +
+            f'.s3.us-east-1.amazonaws.com/{c.data_downloads.s3_prefix}{filename})'
+        )
+    else:
+        return ''
+
+
+def _make_download_row(c, iso, data):
+    return (
+        f'| {iso} | ' +
+        f'{_make_download_link(c, data.get("JRC-LPD-5", ""))} | ' +
+        f'{_make_download_link(c, data.get("TrendsEarth-LPD-5", ""))} | ' +
+        f'{_make_download_link(c, data.get("FAO-WOCAT-LPD-5", ""))} |\n'
+    )
+
+
+@task
+def build_download_page(c):
+    out_txt = '''# Downloads
+
+This page lists data packages containing default datasets that can be used in
+Trends.Earth.
+
+| Country | JRC LPD | Trends.Earth LPD   | FAO-WOCAT LPD |
+|---------|---------|--------------------|---------------|
+'''
+
+    with open(
+        os.path.join(os.path.dirname(__file__), 'aws_credentials.json'), 'r'
+    ) as fin:
+        keys = json.load(fin)
+    client = boto3.client(
+        's3',
+        aws_access_key_id=keys['access_key_id'],
+        aws_secret_access_key=keys['secret_access_key']
+    )
+
+    objects = client.list_objects(
+        Bucket=c.data_downloads.s3_bucket, Prefix=c.data_downloads.s3_prefix
+    )['Contents']
+
+    links = {}
+    for item in objects:
+        if item['Key'] == c.data_downloads.s3_prefix:
+            # Skip the key that is just the parent folder itself
+            continue
+        filename = PurePath(item['Key']).name
+        iso = re.match('[A-Z]{3}', filename)[0]
+        
+        print(f'iso is {iso} ***********************************')
+
+        if iso not in links:
+            links[iso] = {}
+
+        if re.search('JRC-LPD-5', filename):
+            links[iso]['JRC-LPD-5'] = filename
+        elif re.search('TrendsEarth-LPD-5', filename):
+            links[iso]['TrendsEarth-LPD-5'] = filename
+        elif re.search('FAO-WOCAT-LPD-5', filename):
+            links[iso]['FAO-WOCAT-LPD-5'] = filename
+        else:
+            raise ValueError('Unknown LPD value')
+
+    for iso, values in links.items():
+        out_txt += _make_download_row(c, iso, values)
+
+    with open(
+        os.path.join(os.path.dirname(__file__), c.data_downloads.downloads_page), 'w'
+    ) as fout:
+        fout.writelines(out_txt)
+
 ###############################################################################
 # Package plugin zipfile
 ###############################################################################
@@ -1702,7 +1777,7 @@ ns = Collection(
     tecli_config, tecli_publish, tecli_run, tecli_info, tecli_logs,
     zipfile_build, zipfile_deploy, binaries_compile, binaries_sync,
     binaries_deploy, release_github, update_script_ids, testdata_sync,
-    rtd_pre_build
+    rtd_pre_build, build_download_page
 )
 
 ns.configure(
@@ -1761,23 +1836,20 @@ ns.configure(
             'tecli': '../trends.earth-CLI/tecli'
         },
         'sphinx': {
-            'docroot':
-            'docs',
-            'sourcedir':
-            'docs/source',
-            'builddir':
-            'docs/build',
-            'resourcedir':
-            'docs/resources',
-            'deploy_s3_bucket':
-            'trends.earth',
-            'docs_s3_prefix':
-            'docs/',
-            'transifex_name':
-            'trendsearth',
-            'base_language':
-            'en',
+            'docroot': 'docs',
+            'sourcedir': 'docs/source',
+            'builddir': 'docs/build',
+            'resourcedir': 'docs/resources',
+            'deploy_s3_bucket': 'trends.earth',
+            'docs_s3_prefix': 'docs/',
+            'transifex_name': 'trendsearth',
+            'base_language': 'en',
             'latex_documents': ['Trends.Earth.tex']
+        },
+        'data_downloads': {
+            'downloads_page': 'docs/source/for_users/downloads/index.md',
+            's3_bucket': 'trends.earth',
+            's3_prefix': 'data/packages/'
         },
         'github': {
             'api_url': 'https://api.github.com',

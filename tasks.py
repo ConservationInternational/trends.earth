@@ -1306,13 +1306,18 @@ def _make_download_link(c, title, key, data):
         return ''
 
 
-def _make_download_row(c, iso, data):
+def _make_sdg_download_row(c, iso, data):
     return (
         f'| {iso} | ' +
-        f'{_make_download_link(c, "SDG 15.3.1 - JRC", "JRC-LPD-5", data)} | ' +
-        f'{_make_download_link(c, "SDG 15.3.1 - Trends.Earth", "TrendsEarth-LPD-5", data)} | ' +
-        f'{_make_download_link(c, "SDG 15.3.1 - FAO-WOCAT", "FAO-WOCAT-LPD-5", data)} | ' +
-        f'{_make_download_link(c, "Drought", "Drought", data)} |\n'
+        f'{_make_download_link(c, f"{iso} (JRC LPD)", "JRC-LPD-5", data)} | ' +
+        f'{_make_download_link(c, f"{iso} (Trends.Earth LPD)", "TrendsEarth-LPD-5", data)} | ' +
+        f'{_make_download_link(c, f"{iso} (FAO-WOCAT LPD)", "FAO-WOCAT-LPD-5", data)} |\n'
+    )
+
+def _make_drought_download_row(c, iso, data):
+    return (
+        f'| {iso} | ' +
+        f'{_make_download_link(c, f"{iso} (Drought)", "Drought", data)} |\n'
     )
 
 
@@ -1323,8 +1328,16 @@ def build_download_page(c):
 This page lists data packages containing default datasets that can be used in
 Trends.Earth.
 
-| Country | JRC LPD | Trends.Earth LPD   | FAO-WOCAT LPD | Drought |
-|---------|---------|--------------------|---------------|---------|
+## SDG Indicator 15.3.1 (UNCCD Strategic Objectives 1 and 2)
+
+The below datasets can be used to support assessing SDG Indicator 15.3.1, and include
+indicators of change in land productivity dynamics (LPD), land cover, and soil organic
+carbon. These datasets can be used to support reporting on UNCCD Strategic Objectives 1
+and 2. Note that there are three different LPD datasets available (from JRC, from
+the default Trends.Earth method, and from FAO-WOCAT).
+
+| Country | SDG 15.3.1 using JRC LPD | SDG 15.3.1 using Trends.Earth LPD  | SDG 15.3.1 using FAO-WOCAT LPD |
+|---------|---------|--------------------|---------------|
 '''
 
     try:
@@ -1346,7 +1359,7 @@ Trends.Earth.
         Bucket=c.data_downloads.s3_bucket, Prefix=c.data_downloads.s3_prefix
     )['Contents']
 
-    links = {}
+    sdg_links = {}
     for item in objects:
         if item['Key'] == c.data_downloads.s3_prefix:
             # Skip the key that is just the parent folder itself
@@ -1354,22 +1367,51 @@ Trends.Earth.
         filename = PurePath(item['Key']).name
         iso = re.match('[A-Z]{3}', filename)[0]
         
-        if iso not in links:
-            links[iso] = {}
+        if iso not in sdg_links:
+            sdg_links[iso] = {}
 
         if re.search('SDG15_JRC-LPD-5', filename):
-            links[iso]['JRC-LPD-5'] = filename
+            sdg_links[iso]['JRC-LPD-5'] = filename
         elif re.search('SDG15_TrendsEarth-LPD-5', filename):
-            links[iso]['TrendsEarth-LPD-5'] = filename
+            sdg_links[iso]['TrendsEarth-LPD-5'] = filename
         elif re.search('SDG15_FAO-WOCAT-LPD-5', filename):
-            links[iso]['FAO-WOCAT-LPD-5'] = filename
-        elif re.search('Drought', filename):
-            links[iso]['Drought'] = filename
+            sdg_links[iso]['FAO-WOCAT-LPD-5'] = filename
         else:
-            print(f'Unknown file type for {filename}')
+            continue
 
-    for iso, values in links.items():
-        out_txt += _make_download_row(c, iso, values)
+    for iso, values in sdg_links.items():
+        out_txt += _make_sdg_download_row(c, iso, values)
+
+
+    out_txt +='''
+
+## Drought hazard, vulnerability and exposure (UNCCD Strategic Objective 3)
+
+The below datasets can be used to support assessing drought hazard, vulnerability, and
+exposure, and for reporting on UNCCD Strategic Objective 3.
+
+| Country | Drought indicators (2000-2019) |
+|---------|--------------------------------|
+'''
+
+    drought_links = {}
+    for item in objects:
+        if item['Key'] == c.data_downloads.s3_prefix:
+            # Skip the key that is just the parent folder itself
+            continue
+        filename = PurePath(item['Key']).name
+        iso = re.match('[A-Z]{3}', filename)[0]
+        
+        if iso not in drought_links:
+            drought_links[iso] = {}
+
+        if re.search('Drought', filename):
+            drought_links[iso]['Drought'] = filename
+        else:
+            continue
+
+    for iso, values in drought_links.items():
+        out_txt += _make_drought_download_row(c, iso, values)
 
     with open(
         os.path.join(os.path.dirname(__file__), c.data_downloads.downloads_page), 'w'

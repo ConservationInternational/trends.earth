@@ -1294,10 +1294,11 @@ def changelog_build(c):
         metadata = fout.writelines(out_txt)
 
 
-def _make_download_link(c, filename):
+def _make_download_link(c, title, key, data):
+    filename = data.get(key, "")
     if filename:
         return (
-            f'[{filename}]'
+            f'[{title}]'
             f'(http://{c.data_downloads.s3_bucket}' +
             f'.s3.us-east-1.amazonaws.com/{c.data_downloads.s3_prefix}{filename})'
         )
@@ -1308,10 +1309,10 @@ def _make_download_link(c, filename):
 def _make_download_row(c, iso, data):
     return (
         f'| {iso} | ' +
-        f'{_make_download_link(c, data.get("JRC-LPD-5", ""))} | ' +
-        f'{_make_download_link(c, data.get("TrendsEarth-LPD-5", ""))} | ' +
-        f'{_make_download_link(c, data.get("FAO-WOCAT-LPD-5", ""))} | ' +
-        f'{_make_download_link(c, data.get("Drought", ""))} |\n'
+        f'{_make_download_link(c, "SDG 15.3.1 - JRC", "JRC-LPD-5", data)} | ' +
+        f'{_make_download_link(c, "SDG 15.3.1 - Trends.Earth", "TrendsEarth-LPD-5", data)} | ' +
+        f'{_make_download_link(c, "SDG 15.3.1 - FAO-WOCAT", "FAO-WOCAT-LPD-5", data)} | ' +
+        f'{_make_download_link(c, "Drought", "Drought", data)} |\n'
     )
 
 

@@ -950,6 +950,9 @@ def translate_push(c, force=False, version=3):
     print("Building changelog...")
     changelog_build(c)
 
+    print("Building download page...")
+    build_download_page(c)
+
     # Below is necessary just to avoid warning messages regarding missing image
     # files when Sphinx is used later on
     print("Localizing resources...")
@@ -1084,6 +1087,9 @@ def docs_build(c, clean=False, ignore_errors=False, language=None, fast=False):
 
     print("\nBuilding changelog...")
     changelog_build(c)
+
+    print("\nBuilding download page...")
+    build_download_page(c)
 
     for language in languages:
         print("\nBuilding {lang} documentation...".format(lang=language))
@@ -1337,8 +1343,6 @@ Trends.Earth.
         filename = PurePath(item['Key']).name
         iso = re.match('[A-Z]{3}', filename)[0]
         
-        print(f'iso is {iso} ***********************************')
-
         if iso not in links:
             links[iso] = {}
 

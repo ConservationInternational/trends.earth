@@ -1245,6 +1245,10 @@ def rtd_pre_build(c):
     check_docs_image_ext(c)
     print('Copying docs resources based on language...')
     localize_resources(c)
+    print("Building download page...")
+    build_download_page(c)
+    print("Building changelog...")
+    changelog_build(c)
 
 
 @task
@@ -1306,7 +1310,8 @@ def _make_download_row(c, iso, data):
         f'| {iso} | ' +
         f'{_make_download_link(c, data.get("JRC-LPD-5", ""))} | ' +
         f'{_make_download_link(c, data.get("TrendsEarth-LPD-5", ""))} | ' +
-        f'{_make_download_link(c, data.get("FAO-WOCAT-LPD-5", ""))} |\n'
+        f'{_make_download_link(c, data.get("FAO-WOCAT-LPD-5", ""))} | ' +
+        f'{_make_download_link(c, data.get("Drought", ""))} |\n'
     )
 
 
@@ -1317,19 +1322,24 @@ def build_download_page(c):
 This page lists data packages containing default datasets that can be used in
 Trends.Earth.
 
-| Country | JRC LPD | Trends.Earth LPD   | FAO-WOCAT LPD |
-|---------|---------|--------------------|---------------|
+| Country | JRC LPD | Trends.Earth LPD   | FAO-WOCAT LPD | Drought |
+|---------|---------|--------------------|---------------|---------|
 '''
 
-    with open(
-        os.path.join(os.path.dirname(__file__), 'aws_credentials.json'), 'r'
-    ) as fin:
-        keys = json.load(fin)
-    client = boto3.client(
-        's3',
-        aws_access_key_id=keys['access_key_id'],
-        aws_secret_access_key=keys['secret_access_key']
-    )
+    try:
+        with open(
+            os.path.join(os.path.dirname(__file__), 'aws_credentials.json'), 'r'
+        ) as fin:
+            keys = json.load(fin)
+        client = boto3.client(
+            's3',
+            aws_access_key_id=keys['access_key_id'],
+            aws_secret_access_key=keys['secret_access_key']
+        )
+    except FileNotFoundError:
+        print('Failed to read AWS keys from aws_credentials.json - keys must be in '
+              'environment variable')
+        client = boto3.client('s3')
 
     objects = client.list_objects(
         Bucket=c.data_downloads.s3_bucket, Prefix=c.data_downloads.s3_prefix
@@ -1346,14 +1356,18 @@ Trends.Earth.
         if iso not in links:
             links[iso] = {}
 
-        if re.search('JRC-LPD-5', filename):
+        print(filename)
+
+        if re.search('SDG15_JRC-LPD-5', filename):
             links[iso]['JRC-LPD-5'] = filename
-        elif re.search('TrendsEarth-LPD-5', filename):
+        elif re.search('SDG15_TrendsEarth-LPD-5', filename):
             links[iso]['TrendsEarth-LPD-5'] = filename
-        elif re.search('FAO-WOCAT-LPD-5', filename):
+        elif re.search('SDG15_FAO-WOCAT-LPD-5', filename):
             links[iso]['FAO-WOCAT-LPD-5'] = filename
+        elif re.search('Drought', filename):
+            links[iso]['Drought'] = filename
         else:
-            raise ValueError('Unknown LPD value')
+            print(f'Unknown file type for {filename}')
 
     for iso, values in links.items():
         out_txt += _make_download_row(c, iso, values)

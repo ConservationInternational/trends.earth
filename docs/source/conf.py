@@ -30,7 +30,29 @@ from datetime import date
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 #extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode', 'rinoh.frontend.sphinx']
 #extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode', 'rst2pdf.pdfbuilder']
-extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode']
+extensions = [
+    "sphinx_rtd_theme",
+    "sphinx.ext.todo",
+    "sphinx.ext.viewcode",
+    "sphinxcontrib.spelling",
+    "myst_parser",
+]
+
+myst_enable_extensions = [
+    "amsmath",
+    "colon_fence",
+    "deflist",
+    "dollarmath",
+    "fieldlist",
+    "html_admonition",
+    "html_image",
+    "linkify",
+    "replacements",
+    "smartquotes",
+    "strikethrough",
+    "substitution",
+    "tasklist",
+]
 
 todo_include_todos=True
 
@@ -164,12 +186,12 @@ html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
 #html_logo = '../resources/en/common/trends_earth_logo_bl_1200.png'
-html_logo = '../resources/en/common/trends_earth_logo_square_32x32.ico'
+html_logo = 'trends_earth_logo_square_32x32.ico'
 
 # The name of an image file (within the static path) to use as favicon of the
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
 # pixels large.
-html_favicon = '../resources/en/common/trends_earth_logo_square_32x32.ico'
+html_favicon = 'trends_earth_logo_square_32x32.ico'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -180,9 +202,7 @@ html_show_sourcelink = False
 
 # Note the underscore SHOULD be used below as this is how the static folder is
 # named by sphinx on generation.
-html_context = {
-    'css_files': ['_static/custom.css'],
-}
+html_css_files = ["custom.css"]
 
 # If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
 # using the given strftime format.

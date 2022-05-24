@@ -1357,8 +1357,6 @@ Trends.Earth.
         if iso not in links:
             links[iso] = {}
 
-        print(filename)
-
         if re.search('SDG15_JRC-LPD-5', filename):
             links[iso]['JRC-LPD-5'] = filename
         elif re.search('SDG15_TrendsEarth-LPD-5', filename):

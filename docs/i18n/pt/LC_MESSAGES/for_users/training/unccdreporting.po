@@ -1,26 +1,30 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
-#
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Alex Zvoleff <azvoleff@conservation.org>, 2022
+# Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2022
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-24 18:41-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2022-05-26 11:58+0000\n"
+"Last-Translator: Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2022\n"
+"Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Language: pt\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 #: ../../source/for_users/training/unccdreporting.rst:4
 msgid "UNCCD Reporting"
-msgstr ""
+msgstr "Relatório do UNCCD"
 
 #: ../../source/for_users/training/unccdreporting.rst:8
 msgid "Generate data package for UNCCD reporting"
@@ -29,15 +33,15 @@ msgstr ""
 #: ../../source/for_users/training/unccdreporting.rst:10
 msgid ""
 "In the **Trends.Earth** panel, select the **Algorithm** window, click on "
-"**UNCCD Reporting - Generate data package for UNCCD reporting** and "
-"select **Execute locally**."
+"**UNCCD Reporting - Generate data package for UNCCD reporting** and select "
+"**Execute locally**."
 msgstr ""
 
 #: ../../source/for_users/training/unccdreporting.rst:15
 msgid ""
 "The window will appear with the default data populated in the drop-down "
-"lists for the region of interest. Enter **Execution name** and **Notes**."
-" Select **Execute locally**."
+"lists for the region of interest. Enter **Execution name** and **Notes**. "
+"Select **Execute locally**."
 msgstr ""
 
 #: ../../source/for_users/training/unccdreporting.rst:20
@@ -49,8 +53,8 @@ msgstr ""
 
 #: ../../source/for_users/training/unccdreporting.rst:24
 msgid ""
-"Refer to the :ref:`tut_settings` section of this manual to learn more "
-"about **Advanced settings**"
+"Refer to the :ref:`tut_settings` section of this manual to learn more about "
+"**Advanced settings**"
 msgstr ""
 
 #: ../../source/for_users/training/unccdreporting.rst:26
@@ -65,14 +69,14 @@ msgstr ""
 
 #: ../../source/for_users/training/unccdreporting.rst:33
 msgid ""
-"The final SDG 15.3.1 Indicator using default data will be added to the "
-"map for the region of interest."
+"The final SDG 15.3.1 Indicator using default data will be added to the map "
+"for the region of interest."
 msgstr ""
 
 #: ../../source/for_users/training/unccdreporting.rst:36
 msgid ""
-"Refer to the :ref:`background_unccdreporting` background for interpreting"
-" the results of this analysis."
+"Refer to the :ref:`background_unccdreporting` background for interpreting "
+"the results of this analysis."
 msgstr ""
 
 #: ../../../<rst_epilog>:2
@@ -149,21 +153,20 @@ msgstr ""
 
 #: ../../../<rst_epilog>:37
 msgid "Trends.Earth"
-msgstr ""
+msgstr "Trends.Earth"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoCI"
 msgstr ""
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoLund"
 msgstr ""
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoNASA"
 msgstr ""
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoGEF"
 msgstr ""
-

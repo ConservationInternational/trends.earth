@@ -1,162 +1,193 @@
 [main]
 host = https://www.transifex.com
 
-[o:conservation-international:p:trendsearth-v2:r:for_developers--changelog]
+[o:conservation-international:p:trendsearth:r:for_developers--changelog]
 file_filter = docs/i18n/<lang>/LC_MESSAGES/for_developers/changelog.po
 source_file = docs/i18n/pot/for_developers/changelog.pot
 source_lang = en
+type = PO
 
-[o:conservation-international:p:trendsearth-v2:r:for_developers--development]
+[o:conservation-international:p:trendsearth:r:for_developers--development]
 file_filter = docs/i18n/<lang>/LC_MESSAGES/for_developers/development.po
 source_file = docs/i18n/pot/for_developers/development.pot
 source_lang = en
+type = PO
 
-[o:conservation-international:p:trendsearth-v2:r:for_developers--index]
+[o:conservation-international:p:trendsearth:r:for_developers--index]
 file_filter = docs/i18n/<lang>/LC_MESSAGES/for_developers/index.po
 source_file = docs/i18n/pot/for_developers/index.pot
 source_lang = en
+type = PO
 
-[o:conservation-international:p:trendsearth-v2:r:for_users--index]
+[o:conservation-international:p:trendsearth:r:for_users--index]
 file_filter = docs/i18n/<lang>/LC_MESSAGES/for_users/index.po
 source_file = docs/i18n/pot/for_users/index.pot
 source_lang = en
+type = PO
 
-[o:conservation-international:p:trendsearth-v2:r:for_users--datasets--index]
+[o:conservation-international:p:trendsearth:r:for_users--datasets--index]
 file_filter = docs/i18n/<lang>/LC_MESSAGES/for_users/datasets/index.po
 source_file = docs/i18n/pot/for_users/datasets/index.pot
 source_lang = en
+type = PO
 
-[o:conservation-international:p:trendsearth-v2:r:for_users--datasets--input_data]
+[o:conservation-international:p:trendsearth:r:for_users--datasets--input_data]
 file_filter = docs/i18n/<lang>/LC_MESSAGES/for_users/datasets/input_data.po
 source_file = docs/i18n/pot/for_users/datasets/input_data.pot
 source_lang = en
+type = PO
 
-[o:conservation-international:p:trendsearth-v2:r:for_users--datasets--output_data]
+[o:conservation-international:p:trendsearth:r:for_users--datasets--output_data]
 file_filter = docs/i18n/<lang>/LC_MESSAGES/for_users/datasets/output_data.po
 source_file = docs/i18n/pot/for_users/datasets/output_data.pot
 source_lang = en
+type = PO
 
-[o:conservation-international:p:trendsearth-v2:r:for_users--datasets--sen2svis]
+[o:conservation-international:p:trendsearth:r:for_users--datasets--sen2svis]
 file_filter = docs/i18n/<lang>/LC_MESSAGES/for_users/datasets/sen2svis.po
 source_file = docs/i18n/pot/for_users/datasets/sen2svis.pot
 source_lang = en
+type = PO
 
-[o:conservation-international:p:trendsearth-v2:r:for_users--designingreports--index]
+[o:conservation-international:p:trendsearth:r:for_users--designingreports--index]
 file_filter = docs/i18n/<lang>/LC_MESSAGES/for_users/designingreports/index.po
 source_file = docs/i18n/pot/for_users/designingreports/index.pot
 source_lang = en
+type = PO
 
-[o:conservation-international:p:trendsearth-v2:r:for_users--faq--index]
+[o:conservation-international:p:trendsearth:r:for_users--faq--index]
 file_filter = docs/i18n/<lang>/LC_MESSAGES/for_users/faq/index.po
 source_file = docs/i18n/pot/for_users/faq/index.pot
 source_lang = en
+type = PO
 
-[o:conservation-international:p:trendsearth-v2:r:for_users--features--index]
+[o:conservation-international:p:trendsearth:r:for_users--features--index]
 file_filter = docs/i18n/<lang>/LC_MESSAGES/for_users/features/index.po
 source_file = docs/i18n/pot/for_users/features/index.pot
 source_lang = en
+type = PO
 
-[o:conservation-international:p:trendsearth-v2:r:for_users--features--carbonemissions]
+[o:conservation-international:p:trendsearth:r:for_users--features--carbonemissions]
 file_filter = docs/i18n/<lang>/LC_MESSAGES/for_users/features/carbonemissions.po
 source_file = docs/i18n/pot/for_users/features/carbonemissions.pot
 source_lang = en
+type = PO
 
-[o:conservation-international:p:trendsearth-v2:r:for_users--features--carbonsequestration]
+[o:conservation-international:p:trendsearth:r:for_users--features--carbonsequestration]
 file_filter = docs/i18n/<lang>/LC_MESSAGES/for_users/features/carbonsequestration.po
 source_file = docs/i18n/pot/for_users/features/carbonsequestration.pot
 source_lang = en
+type = PO
 
-[o:conservation-international:p:trendsearth-v2:r:for_users--features--landconsumption]
+[o:conservation-international:p:trendsearth:r:for_users--features--landconsumption]
 file_filter = docs/i18n/<lang>/LC_MESSAGES/for_users/features/landconsumption.po
 source_file = docs/i18n/pot/for_users/features/landconsumption.pot
 source_lang = en
+type = PO
 
-[o:conservation-international:p:trendsearth-v2:r:for_users--features--landdegradation]
+[o:conservation-international:p:trendsearth:r:for_users--features--landdegradation]
 file_filter = docs/i18n/<lang>/LC_MESSAGES/for_users/features/landdegradation.po
 source_file = docs/i18n/pot/for_users/features/landdegradation.pot
 source_lang = en
+type = PO
 
-[o:conservation-international:p:trendsearth-v2:r:for_users--features--unccdreporting]
+[o:conservation-international:p:trendsearth:r:for_users--features--unccdreporting]
 file_filter = docs/i18n/<lang>/LC_MESSAGES/for_users/features/unccdreporting.po
 source_file = docs/i18n/pot/for_users/features/unccdreporting.pot
 source_lang = en
+type = PO
 
-[o:conservation-international:p:trendsearth-v2:r:for_users--gettingstarted--index]
+[o:conservation-international:p:trendsearth:r:for_users--gettingstarted--index]
 file_filter = docs/i18n/<lang>/LC_MESSAGES/for_users/gettingstarted/index.po
 source_file = docs/i18n/pot/for_users/gettingstarted/index.pot
 source_lang = en
+type = PO
 
-[o:conservation-international:p:trendsearth-v2:r:for_users--gettingstarted--browser_version]
+[o:conservation-international:p:trendsearth:r:for_users--gettingstarted--browser_version]
 file_filter = docs/i18n/<lang>/LC_MESSAGES/for_users/gettingstarted/browser_version.po
 source_file = docs/i18n/pot/for_users/gettingstarted/browser_version.pot
 source_lang = en
+type = PO
 
-[o:conservation-international:p:trendsearth-v2:r:for_users--gettingstarted--qgis_version]
+[o:conservation-international:p:trendsearth:r:for_users--gettingstarted--qgis_version]
 file_filter = docs/i18n/<lang>/LC_MESSAGES/for_users/gettingstarted/qgis_version.po
 source_file = docs/i18n/pot/for_users/gettingstarted/qgis_version.pot
 source_lang = en
+type = PO
 
-[o:conservation-international:p:trendsearth-v2:r:for_users--preamble--index]
+[o:conservation-international:p:trendsearth:r:for_users--preamble--index]
 file_filter = docs/i18n/<lang>/LC_MESSAGES/for_users/preamble/index.po
 source_file = docs/i18n/pot/for_users/preamble/index.pot
 source_lang = en
+type = PO
 
-[o:conservation-international:p:trendsearth-v2:r:for_users--training--index]
+[o:conservation-international:p:trendsearth:r:for_users--training--index]
 file_filter = docs/i18n/<lang>/LC_MESSAGES/for_users/training/index.po
 source_file = docs/i18n/pot/for_users/training/index.pot
 source_lang = en
+type = PO
 
-[o:conservation-international:p:trendsearth-v2:r:for_users--training--carbon]
+[o:conservation-international:p:trendsearth:r:for_users--training--carbon]
 file_filter = docs/i18n/<lang>/LC_MESSAGES/for_users/training/carbon.po
 source_file = docs/i18n/pot/for_users/training/carbon.pot
 source_lang = en
+type = PO
 
-[o:conservation-international:p:trendsearth-v2:r:for_users--training--landconsumption]
+[o:conservation-international:p:trendsearth:r:for_users--training--landconsumption]
 file_filter = docs/i18n/<lang>/LC_MESSAGES/for_users/training/landconsumption.po
 source_file = docs/i18n/pot/for_users/training/landconsumption.pot
 source_lang = en
+type = PO
 
-[o:conservation-international:p:trendsearth-v2:r:for_users--training--landdegradation]
+[o:conservation-international:p:trendsearth:r:for_users--training--landdegradation]
 file_filter = docs/i18n/<lang>/LC_MESSAGES/for_users/training/landdegradation.po
 source_file = docs/i18n/pot/for_users/training/landdegradation.pot
 source_lang = en
+type = PO
 
-[o:conservation-international:p:trendsearth-v2:r:for_users--training--metadata]
+[o:conservation-international:p:trendsearth:r:for_users--training--metadata]
 file_filter = docs/i18n/<lang>/LC_MESSAGES/for_users/training/metadata.po
 source_file = docs/i18n/pot/for_users/training/metadata.pot
 source_lang = en
+type = PO
 
-[o:conservation-international:p:trendsearth-v2:r:for_users--training--reports]
+[o:conservation-international:p:trendsearth:r:for_users--training--reports]
 file_filter = docs/i18n/<lang>/LC_MESSAGES/for_users/training/reports.po
 source_file = docs/i18n/pot/for_users/training/reports.pot
 source_lang = en
+type = PO
 
-[o:conservation-international:p:trendsearth-v2:r:for_users--training--restoration]
+[o:conservation-international:p:trendsearth:r:for_users--training--restoration]
 file_filter = docs/i18n/<lang>/LC_MESSAGES/for_users/training/restoration.po
 source_file = docs/i18n/pot/for_users/training/restoration.pot
 source_lang = en
+type = PO
 
-[o:conservation-international:p:trendsearth-v2:r:for_users--training--settings]
+[o:conservation-international:p:trendsearth:r:for_users--training--settings]
 file_filter = docs/i18n/<lang>/LC_MESSAGES/for_users/training/settings.po
 source_file = docs/i18n/pot/for_users/training/settings.pot
 source_lang = en
+type = PO
 
-[o:conservation-international:p:trendsearth-v2:r:for_users--training--specialareas]
+[o:conservation-international:p:trendsearth:r:for_users--training--specialareas]
 file_filter = docs/i18n/<lang>/LC_MESSAGES/for_users/training/specialareas.po
 source_file = docs/i18n/pot/for_users/training/specialareas.pot
 source_lang = en
+type = PO
 
-[o:conservation-international:p:trendsearth-v2:r:for_users--training--unccdreporting]
+[o:conservation-international:p:trendsearth:r:for_users--training--unccdreporting]
 file_filter = docs/i18n/<lang>/LC_MESSAGES/for_users/training/unccdreporting.po
 source_file = docs/i18n/pot/for_users/training/unccdreporting.pot
 source_lang = en
+type = PO
 
-[o:conservation-international:p:trendsearth-v2:r:for_users--general--index]
+[o:conservation-international:p:trendsearth:r:for_users--general--index]
 file_filter = docs/i18n/<lang>/LC_MESSAGES/general/index.po
 source_file = docs/i18n/pot/general/index.pot
 source_lang = en
+type = PO
 
-[o:conservation-international:p:trendsearth-v2:r:gui]
+[o:conservation-international:p:trendsearth:r:gui]
 file_filter = LDMP/i18n/LDMP.<lang>.ts
 source_file = LDMP/i18n/LDMP.ts
 source_lang = en

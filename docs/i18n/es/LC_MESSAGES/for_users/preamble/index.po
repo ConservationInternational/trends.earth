@@ -135,7 +135,7 @@ msgstr ""
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
-msgstr ""
+msgstr "iconGlobe"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"

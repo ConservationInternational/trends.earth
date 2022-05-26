@@ -1,22 +1,26 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
-#
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
+# Alex Zvoleff <azvoleff@conservation.org>, 2022
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-24 18:41-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2022-05-26 11:58+0000\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
+"Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Language: sw\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../../source/for_users/training/restoration.rst:4
 msgid "Potential Carbon Sequestration under Restoration"
@@ -30,16 +34,16 @@ msgstr ""
 
 #: ../../source/for_users/training/restoration.rst:8
 msgid "**Estimated time of completion**: 20 minutes"
-msgstr ""
+msgstr "** Muda uliotarajiwa wa kukamilika **: dakika 20"
 
 #: ../../source/for_users/training/restoration.rst:10
 msgid "**Internet access**: Required"
-msgstr ""
+msgstr "** Upatikanaji wa Intaneti **: Inahitajika"
 
 #: ../../source/for_users/training/restoration.rst:13
 msgid ""
-"Refer to the :ref:`background_restoration` for background information on "
-"the datasets and"
+"Refer to the :ref:`background_restoration` for background information on the"
+" datasets and"
 msgstr ""
 
 #: ../../source/for_users/training/restoration.rst:14
@@ -59,15 +63,15 @@ msgstr ""
 
 #: ../../source/for_users/training/restoration.rst:27
 msgid ""
-"Select the **Estimate potential impacts of restoration** menu by "
-"selecting **Execute locally**."
+"Select the **Estimate potential impacts of restoration** menu by selecting "
+"**Execute locally**."
 msgstr ""
 
 #: ../../source/for_users/training/restoration.rst:32
 msgid ""
-"A window will appear where you can select the paramaters for the "
-"restoration analysis. Select the type of restoration: terrestrial or "
-"coastal (mangrove). Define the length of the intervention in year."
+"A window will appear where you can select the paramaters for the restoration"
+" analysis. Select the type of restoration: terrestrial or coastal "
+"(mangrove). Define the length of the intervention in year."
 msgstr ""
 
 #: ../../source/for_users/training/restoration.rst:39
@@ -76,27 +80,38 @@ msgstr ""
 
 #: ../../source/for_users/training/restoration.rst:45
 msgid ""
-"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth "
-"are in the `public domain`_. The boundaries and names used, and the "
-"designations used, in Trends.Earth do not imply official endorsement or "
-"acceptance by Conservation International Foundation, or by its partner "
-"organizations and contributors."
+"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth are "
+"in the `public domain`_. The boundaries and names used, and the designations"
+" used, in Trends.Earth do not imply official endorsement or acceptance by "
+"Conservation International Foundation, or by its partner organizations and "
+"contributors."
 msgstr ""
+"Mipaka ya `Natural Earth Administrative Boundaries`_ iliyotolewa katika "
+"Mwelekeo.Earth iko katika `public domain`_. Mipaka na majina yaliyotumiwa, "
+"na majarida yaliyotumiwa, katika Mwelekeo.Kuanzia haimaanishi kupitishwa "
+"rasmi au kukubalika na Conservation International Foundation, au kwa "
+"mashirika yake ya washirika na wafadhili."
 
 #: ../../source/for_users/training/restoration.rst:51
 msgid ""
-"If using Trends.Earth for official purposes, it is recommended that users"
-" choose an official boundary provided by the designated office of their "
+"If using Trends.Earth for official purposes, it is recommended that users "
+"choose an official boundary provided by the designated office of their "
 "country."
 msgstr ""
+"Ikiwa unatumia Mwelekeo.Kuanzia kwa madhumuni rasmi, inashauriwa kuwa "
+"watumiaji kuchagua mipaka rasmi iliyotolewa na ofisi iliyochaguliwa ya nchi "
+"yao."
 
 #: ../../source/for_users/training/restoration.rst:59
 msgid ""
-"Use your own area file: If you want to use your own area of analysis, "
-"make sure the **Area from file** option is highlighted. Then click "
-"**Browse** and navigate to the folder in your computer where you have the"
-" file stored."
+"Use your own area file: If you want to use your own area of analysis, make "
+"sure the **Area from file** option is highlighted. Then click **Browse** and"
+" navigate to the folder in your computer where you have the file stored."
 msgstr ""
+"Tumia faili yako ya eneo: Ikiwa unataka kutumia eneo lako la uchambuzi, "
+"hakikisha ** Eneo kutoka kwa faili ** chaguo linaonyeshwa. Kisha bonyeza ** "
+"Vinjari ** na uende kwenye folda kwenye kompyuta yako ambapo una faili "
+"iliyohifadhiwa."
 
 #: ../../source/for_users/training/restoration.rst:61
 msgid "Add a descriptive name and notes for the analysis"
@@ -109,9 +124,9 @@ msgstr ""
 #: ../../source/for_users/training/restoration.rst:68
 msgid ""
 "A light blue bar will temporarily show, indicating that the task was "
-"successfully submitted. The analysis will be run in Google servers and "
-"could take between 5 and 15 minutes depending on the size of the study "
-"area (larger areas tend to take longer)."
+"successfully submitted. The analysis will be run in Google servers and could"
+" take between 5 and 15 minutes depending on the size of the study area "
+"(larger areas tend to take longer)."
 msgstr ""
 
 #: ../../source/for_users/training/restoration.rst:71
@@ -126,24 +141,23 @@ msgstr ""
 
 #: ../../source/for_users/training/restoration.rst:78
 msgid ""
-"In order to view the defined area of interest with reference data, select"
-" the **Load Base Map** in the **Datasets** tab."
+"In order to view the defined area of interest with reference data, select "
+"the **Load Base Map** in the **Datasets** tab."
 msgstr ""
 
 #: ../../source/for_users/training/restoration.rst:86
 msgid ""
-"Go back to the **Algorithms** tab in Trends.Earth plugin in QGIS, under "
-"the **Experimental** menu, select **Potential change in biomass due to "
-"restoration - Above and below ground woody** menu and select the "
-"**Execute locally** button under **Table summarizing likely changes in "
-"biomass**."
+"Go back to the **Algorithms** tab in Trends.Earth plugin in QGIS, under the "
+"**Experimental** menu, select **Potential change in biomass due to "
+"restoration - Above and below ground woody** menu and select the **Execute "
+"locally** button under **Table summarizing likely changes in biomass**."
 msgstr ""
 
 #: ../../source/for_users/training/restoration.rst:94
 msgid ""
-"The layers will pre-populate in the data layer drop-down lists. Confirm "
-"the region is the same area of interest, provide descriptive names and "
-"notes and select **Execute locally**."
+"The layers will pre-populate in the data layer drop-down lists. Confirm the "
+"region is the same area of interest, provide descriptive names and notes and"
+" select **Execute locally**."
 msgstr ""
 
 #: ../../source/for_users/training/restoration.rst:94
@@ -229,19 +243,18 @@ msgstr ""
 msgid "Trends.Earth"
 msgstr ""
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoCI"
 msgstr ""
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoLund"
 msgstr ""
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoNASA"
 msgstr ""
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoGEF"
 msgstr ""
-

@@ -1,22 +1,27 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
-#
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
+# Khalid Mwakoba <khalid.mwakoba@gmail.com>, 2022
+# Alex Zvoleff <azvoleff@conservation.org>, 2022
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-05-24 18:41-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2022-05-26 11:57+0000\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
+"Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Language: sw\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../../source/for_users/datasets/input_data.rst:4
 msgid "Input Data Used in Trends.Earth"
@@ -24,13 +29,16 @@ msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:6
 msgid ""
-"|trends.earth| draws on a number of data sources. The data sets listed "
-"below are owned/made available by the following organizations and "
-"individuals under separate terms as indicated in their respective "
-"metadata."
+"|trends.earth| draws on a number of data sources. The data sets listed below"
+" are owned/made available by the following organizations and individuals "
+"under separate terms as indicated in their respective metadata."
 msgstr ""
+"|trends.earth| inatumia vyanzo kadhaa vya taarifa. Vyanzo vilivyoorodheshwa "
+"hapa chini vinamilikiwa au vinawekwa na taasisi na watu binafsi wafuato "
+"chini ya masharti yao kama ilivyooneshwa katika sehemu zinazoelezea wasifu "
+"wa takwimu hizo."
 
-#: ../../../<rst_epilog>:37
+#: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
 msgid "Trends.Earth"
 msgstr ""
 
@@ -80,7 +88,7 @@ msgstr ""
 #: ../../source/for_users/datasets/input_data.rst:101
 #: ../../source/for_users/datasets/input_data.rst:112
 msgid "Extent"
-msgstr ""
+msgstr "Kiwango"
 
 #: ../../source/for_users/datasets/input_data.rst:14
 #: ../../source/for_users/datasets/input_data.rst:30
@@ -132,11 +140,11 @@ msgstr ""
 #: ../../source/for_users/datasets/input_data.rst:103
 #: ../../source/for_users/datasets/input_data.rst:114
 msgid "`Public Domain`_"
-msgstr ""
+msgstr "`Public Domain`_"
 
 #: ../../source/for_users/datasets/input_data.rst:18
 msgid "`MOD13Q1-coll6`_"
-msgstr ""
+msgstr "`MOD13Q1-coll6`_"
 
 #: ../../source/for_users/datasets/input_data.rst:18
 msgid "2001-2016"
@@ -153,7 +161,7 @@ msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:32
 msgid "`MERRA 2`_"
-msgstr ""
+msgstr "`MERRA 2`_"
 
 #: ../../source/for_users/datasets/input_data.rst:32
 msgid "1980-2016"
@@ -161,11 +169,11 @@ msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:32
 msgid "0.5° x 0.625°"
-msgstr ""
+msgstr "0.5° x 0.625°"
 
 #: ../../source/for_users/datasets/input_data.rst:34
 msgid "`ERA I`_"
-msgstr ""
+msgstr "`ERA I`_"
 
 #: ../../source/for_users/datasets/input_data.rst:34
 msgid "1979-2016"
@@ -173,7 +181,7 @@ msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:34
 msgid "0.75° x 0.75°"
-msgstr ""
+msgstr "0.75° x 0.75°"
 
 #: ../../source/for_users/datasets/input_data.rst:42
 msgid "Precipitation and Drought"
@@ -181,7 +189,7 @@ msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:47
 msgid "`GPCP v2.3 1 month`_"
-msgstr ""
+msgstr "`GPCP v2.3 1 month`_"
 
 #: ../../source/for_users/datasets/input_data.rst:47
 msgid "1979-2019"
@@ -189,7 +197,7 @@ msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:47
 msgid "2.5° x 2.5°"
-msgstr ""
+msgstr "2.5° x 2.5 °"
 
 #: ../../source/for_users/datasets/input_data.rst:49
 msgid "`GPCC V6`_"
@@ -201,7 +209,7 @@ msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:49
 msgid "1° x 1°"
-msgstr ""
+msgstr "1° x 1°"
 
 #: ../../source/for_users/datasets/input_data.rst:51
 msgid "`CHIRPS`_"
@@ -213,7 +221,7 @@ msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:51
 msgid "5 km"
-msgstr ""
+msgstr "5 km"
 
 #: ../../source/for_users/datasets/input_data.rst:51
 msgid "50N-50S"
@@ -245,19 +253,19 @@ msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:67
 msgid "2000-2014"
-msgstr ""
+msgstr "2000-2014"
 
 #: ../../source/for_users/datasets/input_data.rst:67
 msgid "1 km"
-msgstr ""
+msgstr "1 Km"
 
 #: ../../source/for_users/datasets/input_data.rst:74
 msgid "Land cover"
-msgstr ""
+msgstr "Bima ya ardhi"
 
 #: ../../source/for_users/datasets/input_data.rst:79
 msgid "`ESA CCI Land Cover`_"
-msgstr ""
+msgstr "`ESA CCI Land Cover`_"
 
 #: ../../source/for_users/datasets/input_data.rst:79
 msgid "1992-2018"
@@ -269,7 +277,7 @@ msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:79
 msgid "`CC by-SA 3.0`_"
-msgstr ""
+msgstr "`CC by-SA 3.0`_"
 
 #: ../../source/for_users/datasets/input_data.rst:86
 msgid "Soil carbon"
@@ -277,7 +285,7 @@ msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:91
 msgid "`Soil Grids (ISRIC)`_"
-msgstr ""
+msgstr "`Soil Grids (ISRIC)`_"
 
 #: ../../source/for_users/datasets/input_data.rst:91
 #: ../../source/for_users/datasets/input_data.rst:114
@@ -286,7 +294,7 @@ msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:91
 msgid "`CC by-SA 4.0`_"
-msgstr ""
+msgstr "`CC by-SA 4.0`_"
 
 #: ../../source/for_users/datasets/input_data.rst:98
 msgid "Agroecological Zones"
@@ -294,7 +302,7 @@ msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:103
 msgid "`FAO - IIASA Global Agroecological Zones (GAEZ)`_"
-msgstr ""
+msgstr "`FAO - IIASA Global Agroecological Zones (GAEZ)`_"
 
 #: ../../source/for_users/datasets/input_data.rst:103
 msgid "2000"
@@ -306,7 +314,7 @@ msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:114
 msgid "`Natural Earth Administrative Boundaries`_"
-msgstr ""
+msgstr "`Natural Earth Administrative Boundaries`_"
 
 #: ../../source/for_users/datasets/input_data.rst:114
 msgid "10/50m"
@@ -314,19 +322,27 @@ msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:118
 msgid ""
-"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth "
-"are in the `public domain`_. The boundaries and names used, and the "
-"designations used, in Trends.Earth do not imply official endorsement or "
-"acceptance by Conservation International Foundation, or by its partner "
-"organizations and contributors."
+"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth are "
+"in the `public domain`_. The boundaries and names used, and the designations"
+" used, in Trends.Earth do not imply official endorsement or acceptance by "
+"Conservation International Foundation, or by its partner organizations and "
+"contributors."
 msgstr ""
+"Mipaka ya `Natural Earth Administrative Boundaries`_ iliyotolewa katika "
+"Mwelekeo.Earth iko katika `public domain`_. Mipaka na majina yaliyotumiwa, "
+"na majarida yaliyotumiwa, katika Mwelekeo.Kuanzia haimaanishi kupitishwa "
+"rasmi au kukubalika na Conservation International Foundation, au kwa "
+"mashirika yake ya washirika na wafadhili."
 
 #: ../../source/for_users/datasets/input_data.rst:124
 msgid ""
-"If using Trends.Earth for official purposes, it is recommended that users"
-" choose an official boundary provided by the designated office of their "
+"If using Trends.Earth for official purposes, it is recommended that users "
+"choose an official boundary provided by the designated office of their "
 "country."
 msgstr ""
+"Ikiwa unatumia Mwelekeo.Kuanzia kwa madhumuni rasmi, inashauriwa kuwa "
+"watumiaji kuchagua mipaka rasmi iliyotolewa na ofisi iliyochaguliwa ya nchi "
+"yao."
 
 #: ../../source/for_users/datasets/input_data.rst:133
 msgid "Population"
@@ -408,19 +424,18 @@ msgstr ""
 msgid "iconVisualization"
 msgstr ""
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoCI"
 msgstr ""
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoLund"
 msgstr ""
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoNASA"
 msgstr ""
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoGEF"
 msgstr ""
-

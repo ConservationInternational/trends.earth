@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 import fnmatch
 import glob
 import hashlib
@@ -12,13 +11,17 @@ import stat
 import subprocess
 import sys
 import zipfile
-from datetime import datetime, timezone
-from pathlib import Path, PurePath
-from tempfile import TemporaryDirectory, mkstemp
+from datetime import datetime
+from datetime import timezone
+from pathlib import Path
+from pathlib import PurePath
+from tempfile import mkstemp
+from tempfile import TemporaryDirectory
 
 import boto3
 import requests
-from invoke import Collection, task
+from invoke import Collection
+from invoke import task
 
 
 # Below is from:
@@ -1299,8 +1302,8 @@ def _make_download_link(c, title, key, data):
     if filename:
         return (
             f'[{title}]'
-            f'(http://{c.data_downloads.s3_bucket}' +
-            f'.s3.us-east-1.amazonaws.com/{c.data_downloads.s3_prefix}{filename})'
+            f'(https://{c.data_downloads.s3_bucket}/'
+            f'{c.data_downloads.s3_prefix}{filename})'
         )
     else:
         return ''
@@ -1913,8 +1916,8 @@ ns.configure(
         },
         'data_downloads': {
             'downloads_page': 'docs/source/for_users/downloads/index.md',
-            's3_bucket': 'trends.earth',
-            's3_prefix': 'data/packages/'
+            's3_bucket': 'data.trends.earth',
+            's3_prefix': 'unccd_reporting/2016-2019/packages/'
         },
         'github': {
             'api_url': 'https://api.github.com',

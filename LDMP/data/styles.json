@@ -1,933 +1,1393 @@
 {
-    "Productivity trajectory (trend)": {
-        "title": "prod_traj_trend_title",
-        "ramp": {
-            "type": "zero-centered stretch",
-            "shader": "interpolated",
-            "percent stretch": 2,
-            "min": {"color": "#9b2779"},
-            "zero": {"color": "#ffffe0"},
-            "max": {"color": "#006500"},
-            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
-            }
-        }
-    },
-    "Productivity trajectory (significance)": {
-        "title": "prod_traj_signif_title",
-        "ramp": {
-            "type": "categorical",
-            "shader": "discrete",
-            "items": [
-                {"value": -32768, "color": "#000000", "label": "nodata"},
-                {"value": -2, "color": "#9b2779", "label": "prod_traj_signif_dec_95"},
-                {"value": 1, "color": "#ffffe0", "label": "prod_traj_signif_zero"},
-                {"value": 3, "color": "#006500", "label": "prod_traj_signif_inc_95"}
-            ]
-        }
-    },
-    "Productivity state (degradation)": {
-        "title": "prod_state_change_title",
-        "ramp": {
-            "type": "categorical",
-            "shader": "discrete",
-            "items": [
-                {"value": -32768, "color": "#000000", "label": "nodata"},
-                {"value": -2, "color": "#9b2779", "label": "prod_state_change_potential_deg"},
-                {"value": 1, "color": "#ffffe0", "label": "prod_state_change_stable"},
-                {"value": 10, "color": "#006500", "label": "prod_state_change_potential_improvement"}
-            ]
-        }
-    },
-    "Productivity state classes": {
-        "title": "prod_state_classes_title",
-        "ramp": {
-            "type": "categorical",
-            "shader": "interpolated",
-            "items": [
-                {"value": -32768, "color": "#000000", "label": "nodata"},
-                {"value": 1, "color": "#461554", "label": "1"},
-                {"value": 5, "color": "#28898C", "label": "5"},
-                {"value": 10, "color": "#FDE629", "label": "10"}
-            ]
-        }
-    },
-    "Productivity performance (degradation)": {
-        "title": "prod_perf_deg_title",
-        "ramp": {
-            "type": "categorical",
-            "shader": "exact",
-            "items": [
-                {"value": -32768, "color": "#000000", "label": "nodata"},
-                {"value": -1, "color": "#9b2779", "label": "prod_perf_deg_potential_deg"},
-                {"value": 0, "color": "#ffffe0", "label": "prod_perf_deg_not_potential_deg"}
-            ]
-        }
-    },
-    "Productivity performance (ratio)": {
-        "title": "prod_perf_ratio_title",
-        "ramp": {
-            "type": "min zero stretch",
-            "shader": "interpolated",
-            "percent stretch": 2,
-            "zero": {"color": "#461554"},
-            "mid": {"color": "#28898C"},
-            "max": {"color": "#FDE629"},
-            "no data": {"value": -32768, "color": "#000000", "label": "nodata"}
-        }
-    },
-    "Productivity performance (units)": {
-        "title": "prod_perf_units_title",
-        "ramp": {
-            "type": "min zero stretch",
-            "shader": "interpolated",
-            "percent stretch": 0,
-            "zero": {"color": "#461554"},
-            "mid": {"color": "#28898C"},
-            "max": {"color": "#FDE629"},
-            "no data": {"value": -32768, "color": "#000000", "label": "nodata"}
-        }
-    },
-    "Soil organic carbon": {
-        "title": "soc_title",
-        "ramp": {
-            "type": "min zero stretch",
-            "shader": "interpolated",
-            "percent stretch": 2,
-            "zero": {"color": "#461554"},
-            "mid": {"color": "#28898C"},
-            "max": {"color": "#FDE629"},
-            "no data": {"value": -32768, "color": "#000000", "label": "nodata"}
-        }
-    },
-    "Soil organic carbon (degradation)": {
-        "title": "soc_deg_title",
-        "ramp": {
-                   "type": "categorical",
-                   "shader": "discrete",
-                   "items": [
-                       {"value": -32768, "color": "#000000", "label": "nodata"},
-                       {"value": -10, "color": "#9b2779", "label": "prod_state_change_potential_deg"},
-                       {"value": 9, "color": "#ffffe0", "label": "prod_state_change_stable"},
-                       {"value": 100, "color": "#006500", "label": "prod_state_change_potential_improvement"}
-            ]
-        }
-    },
-    "Land cover mode (7 class)": {
-        "title": "lc_7class_mode_title",
-        "ramp": {
-            "type": "categorical",
-            "shader": "exact",
-            "items": [
-                {"value": -32768, "color": "#000000", "label": "lc_class_nodata"},
-                {"value": 1, "color": "#787F1B", "label": "lc_class_forest"},
-                {"value": 2, "color": "#FFAC42", "label": "lc_class_grassland"},
-                {"value": 3, "color": "#FFFB6E", "label": "lc_class_cropland"},
-                {"value": 4, "color": "#00DB84", "label": "lc_class_wetland"},
-                {"value": 5, "color": "#E60017", "label": "lc_class_artificial"},
-                {"value": 6, "color": "#B48515", "label": "lc_class_bare"},
-                {"value": 7, "color": "#0053C4", "label": "lc_class_water"}
-            ]
-        }
-    },
-    "Land cover (7 class)": {
-        "title": "lc_7class_title",
-        "ramp": {
-            "type": "categorical",
-            "shader": "exact",
-            "items": [
-                {"value": -32768, "color": "#000000", "label": "lc_class_nodata"},
-                {"value": 1, "color": "#787F1B", "label": "lc_class_forest"},
-                {"value": 2, "color": "#FFAC42", "label": "lc_class_grassland"},
-                {"value": 3, "color": "#FFFB6E", "label": "lc_class_cropland"},
-                {"value": 4, "color": "#00DB84", "label": "lc_class_wetland"},
-                {"value": 5, "color": "#E60017", "label": "lc_class_artificial"},
-                {"value": 6, "color": "#B48515", "label": "lc_class_bare"},
-                {"value": 7, "color": "#0053C4", "label": "lc_class_water"}
-            ]
-        }
-    },
-    "ESA CCI": {
-        "title": "lc_esa_mode_title",
-            "ramp": {
-                "type": "categorical",
-                "shader": "exact",
-                "items": [
-                    {"value": -32768, "color": "#000000", "label": "-32768 - No data"},
-                    {"value": 10, "color": "#FFFB6E", "label": "10 - Cropland, rainfed"},
-                    {"value": 11, "color": "#FFFB6E", "label": "11 - Herbaceous cover"},
-                    {"value": 12, "color": "#FFFB6E", "label": "12 - Tree or shrub cover"},
-                    {"value": 20, "color": "#76F1EF", "label": "20 - Cropland, irrigated or post‐flooding"},
-                    {"value": 30, "color": "#DAEC6C", "label": "30 - Mosaic cropland (>50%) / natural vegetation (tree, shrub, herbaceous cover) (<50%)"},
-                    {"value": 40, "color": "#CDC369", "label": "40 - Mosaic natural vegetation (tree, shrub, herbaceous cover) (>50%) / cropland (<50%)"},
-                    {"value": 50, "color": "#006313", "label": "50 - Tree cover, broadleaved, evergreen, closed to open (>15%)"},
-                    {"value": 60, "color": "#009E1D", "label": "60 - Tree cover, broadleaved, deciduous, closed to open (>15%)"},
-                    {"value": 61, "color": "#009E1D", "label": "61 - Tree cover, broadleaved, deciduous, closed (>40%)"},
-                    {"value": 62, "color": "#A3C329", "label": "62 - Tree cover, broadleaved, deciduous, open (15‐40%)"},
-                    {"value": 70, "color": "#003E0C", "label": "70 - Tree cover, needleleaved, evergreen, closed to open (>15%)"},
-                    {"value": 71, "color": "#003E0C", "label": "71 - Tree cover, needleleaved, evergreen, closed (>40%)"},
-                    {"value": 72, "color": "#00500F", "label": "72 - Tree cover, needleleaved, evergreen, open (15‐40%)"},
-                    {"value": 80, "color": "#00500F", "label": "80 - Tree cover, needleleaved, deciduous, closed to open (>15%)"},
-                    {"value": 81, "color": "#00500F", "label": "81 - Tree cover, needleleaved, deciduous, closed (>40%)"},
-                    {"value": 82, "color": "#006313", "label": "82 - Tree cover, needleleaved, deciduous, open (15‐40%)"},
-                    {"value": 90, "color": "#787F1B", "label": "90 - Tree cover, mixed leaf type (broadleaved and needleleaved)"},
-                    {"value": 100, "color": "#8A9C21", "label": "100 - Mosaic tree and shrub (>50%) / herbaceous cover (<50%)"},
-                    {"value": 110, "color": "#D09022", "label": "110 - Mosaic herbaceous cover (>50%) / tree and shrub (<50%)"},
-                    {"value": 120, "color": "#A86019", "label": "120 - Shrubland"},
-                    {"value": 121, "color": "#874913", "label": "121 - Evergreen shrubland"},
-                    {"value": 122, "color": "#A86019", "label": "122 - Deciduous shrubland"},
-                    {"value": 130, "color": "#FFAC42", "label": "130 - Grassland"},
-                    {"value": 140, "color": "#FFD9D1", "label": "140 - Lichens and mosses"},
-                    {"value": 150, "color": "#FFE7B0", "label": "150 - Sparse vegetation (tree, shrub, herbaceous cover) (<15%)"},
-                    {"value": 151, "color": "#FFC16A", "label": "151 - Sparse tree (<15%)"},
-                    {"value": 152, "color": "#FFCC7C", "label": "152 - Sparse shrub (<15%)"},
-                    {"value": 153, "color": "#FFE7B0", "label": "153 - Sparse herbaceous cover (<15%)"},
-                    {"value": 160, "color": "#00785B", "label": "160 - Tree cover, flooded, fresh or brakish water"},
-                    {"value": 170, "color": "#009577", "label": "170 - Tree cover, flooded, saline water"},
-                    {"value": 180, "color": "#00DB84", "label": "180 - Shrub or herbaceous cover, flooded, fresh/saline/brakish water"},
-                    {"value": 190, "color": "#E60017", "label": "190 - Urban areas"},
-                    {"value": 200, "color": "#FFF3D7", "label": "200 - Bare areas"},
-                    {"value": 201, "color": "#DCDCDC", "label": "201 - Consolidated bare areas"},
-                    {"value": 202, "color": "#FFF3D7", "label": "202 - Unconsolidated bare areas"},
-                    {"value": 210, "color": "#0053C4", "label": "210 - Water bodies"},
-                    {"value": 220, "color": "#FFFFFF", "label": "220 - Permanent snow and ice"}
-            ]
-        }
-    },
-    "Land cover mode (ESA classes)": {
-        "title": "lc_esa_mode_title",
-        "ramp": {
-            "type": "categorical",
-            "shader": "exact",
-            "items": [
-                {"value": -32768, "color": "#000000", "label": "-32768 - No data"},
-                {"value": 10, "color": "#FFFB6E", "label": "10 - Cropland, rainfed"},
-                {"value": 11, "color": "#FFFB6E", "label": "11 - Herbaceous cover"},
-                {"value": 12, "color": "#FFFB6E", "label": "12 - Tree or shrub cover"},
-                {"value": 20, "color": "#76F1EF", "label": "20 - Cropland, irrigated or post‐flooding"},
-                {"value": 30, "color": "#DAEC6C", "label": "30 - Mosaic cropland (>50%) / natural vegetation (tree, shrub, herbaceous cover) (<50%)"},
-                {"value": 40, "color": "#CDC369", "label": "40 - Mosaic natural vegetation (tree, shrub, herbaceous cover) (>50%) / cropland (<50%)"},
-                {"value": 50, "color": "#006313", "label": "50 - Tree cover, broadleaved, evergreen, closed to open (>15%)"},
-                {"value": 60, "color": "#009E1D", "label": "60 - Tree cover, broadleaved, deciduous, closed to open (>15%)"},
-                {"value": 61, "color": "#009E1D", "label": "61 - Tree cover, broadleaved, deciduous, closed (>40%)"},
-                {"value": 62, "color": "#A3C329", "label": "62 - Tree cover, broadleaved, deciduous, open (15‐40%)"},
-                {"value": 70, "color": "#003E0C", "label": "70 - Tree cover, needleleaved, evergreen, closed to open (>15%)"},
-                {"value": 71, "color": "#003E0C", "label": "71 - Tree cover, needleleaved, evergreen, closed (>40%)"},
-                {"value": 72, "color": "#00500F", "label": "72 - Tree cover, needleleaved, evergreen, open (15‐40%)"},
-                {"value": 80, "color": "#00500F", "label": "80 - Tree cover, needleleaved, deciduous, closed to open (>15%)"},
-                {"value": 81, "color": "#00500F", "label": "81 - Tree cover, needleleaved, deciduous, closed (>40%)"},
-                {"value": 82, "color": "#006313", "label": "82 - Tree cover, needleleaved, deciduous, open (15‐40%)"},
-                {"value": 90, "color": "#787F1B", "label": "90 - Tree cover, mixed leaf type (broadleaved and needleleaved)"},
-                {"value": 100, "color": "#8A9C21", "label": "100 - Mosaic tree and shrub (>50%) / herbaceous cover (<50%)"},
-                {"value": 110, "color": "#D09022", "label": "110 - Mosaic herbaceous cover (>50%) / tree and shrub (<50%)"},
-                {"value": 120, "color": "#A86019", "label": "120 - Shrubland"},
-                {"value": 121, "color": "#874913", "label": "121 - Evergreen shrubland"},
-                {"value": 122, "color": "#A86019", "label": "122 - Deciduous shrubland"},
-                {"value": 130, "color": "#FFAC42", "label": "130 - Grassland"},
-                {"value": 140, "color": "#FFD9D1", "label": "140 - Lichens and mosses"},
-                {"value": 150, "color": "#FFE7B0", "label": "150 - Sparse vegetation (tree, shrub, herbaceous cover) (<15%)"},
-                {"value": 151, "color": "#FFC16A", "label": "151 - Sparse tree (<15%)"},
-                {"value": 152, "color": "#FFCC7C", "label": "152 - Sparse shrub (<15%)"},
-                {"value": 153, "color": "#FFE7B0", "label": "153 - Sparse herbaceous cover (<15%)"},
-                {"value": 160, "color": "#00785B", "label": "160 - Tree cover, flooded, fresh or brakish water"},
-                {"value": 170, "color": "#009577", "label": "170 - Tree cover, flooded, saline water"},
-                {"value": 180, "color": "#00DB84", "label": "180 - Shrub or herbaceous cover, flooded, fresh/saline/brakish water"},
-                {"value": 190, "color": "#E60017", "label": "190 - Urban areas"},
-                {"value": 200, "color": "#FFF3D7", "label": "200 - Bare areas"},
-                {"value": 201, "color": "#DCDCDC", "label": "201 - Consolidated bare areas"},
-                {"value": 202, "color": "#FFF3D7", "label": "202 - Unconsolidated bare areas"},
-                {"value": 210, "color": "#0053C4", "label": "210 - Water bodies"},
-                {"value": 220, "color": "#FFFFFF", "label": "220 - Permanent snow and ice"}
-            ]
-        }
-    },
-    "Land cover (ESA classes)": {
-        "title": "lc_esa_title",
-        "ramp": {
-            "type": "categorical",
-            "shader": "exact",
-            "items": [
-                {"value": -32768, "color": "#000000", "label": "-32768 - No data"},
-                {"value": 10, "color": "#FFFB6E", "label": "10 - Cropland, rainfed"},
-                {"value": 11, "color": "#FFFB6E", "label": "11 - Herbaceous cover"},
-                {"value": 12, "color": "#FFFB6E", "label": "12 - Tree or shrub cover"},
-                {"value": 20, "color": "#76F1EF", "label": "20 - Cropland, irrigated or post‐flooding"},
-                {"value": 30, "color": "#DAEC6C", "label": "30 - Mosaic cropland (>50%) / natural vegetation (tree, shrub, herbaceous cover) (<50%)"},
-                {"value": 40, "color": "#CDC369", "label": "40 - Mosaic natural vegetation (tree, shrub, herbaceous cover) (>50%) / cropland (<50%)"},
-                {"value": 50, "color": "#006313", "label": "50 - Tree cover, broadleaved, evergreen, closed to open (>15%)"},
-                {"value": 60, "color": "#009E1D", "label": "60 - Tree cover, broadleaved, deciduous, closed to open (>15%)"},
-                {"value": 61, "color": "#009E1D", "label": "61 - Tree cover, broadleaved, deciduous, closed (>40%)"},
-                {"value": 62, "color": "#A3C329", "label": "62 - Tree cover, broadleaved, deciduous, open (15‐40%)"},
-                {"value": 70, "color": "#003E0C", "label": "70 - Tree cover, needleleaved, evergreen, closed to open (>15%)"},
-                {"value": 71, "color": "#003E0C", "label": "71 - Tree cover, needleleaved, evergreen, closed (>40%)"},
-                {"value": 72, "color": "#00500F", "label": "72 - Tree cover, needleleaved, evergreen, open (15‐40%)"},
-                {"value": 80, "color": "#00500F", "label": "80 - Tree cover, needleleaved, deciduous, closed to open (>15%)"},
-                {"value": 81, "color": "#00500F", "label": "81 - Tree cover, needleleaved, deciduous, closed (>40%)"},
-                {"value": 82, "color": "#006313", "label": "82 - Tree cover, needleleaved, deciduous, open (15‐40%)"},
-                {"value": 90, "color": "#787F1B", "label": "90 - Tree cover, mixed leaf type (broadleaved and needleleaved)"},
-                {"value": 100, "color": "#8A9C21", "label": "100 - Mosaic tree and shrub (>50%) / herbaceous cover (<50%)"},
-                {"value": 110, "color": "#D09022", "label": "110 - Mosaic herbaceous cover (>50%) / tree and shrub (<50%)"},
-                {"value": 120, "color": "#A86019", "label": "120 - Shrubland"},
-                {"value": 121, "color": "#874913", "label": "121 - Evergreen shrubland"},
-                {"value": 122, "color": "#A86019", "label": "122 - Deciduous shrubland"},
-                {"value": 130, "color": "#FFAC42", "label": "130 - Grassland"},
-                {"value": 140, "color": "#FFD9D1", "label": "140 - Lichens and mosses"},
-                {"value": 150, "color": "#FFE7B0", "label": "150 - Sparse vegetation (tree, shrub, herbaceous cover) (<15%)"},
-                {"value": 151, "color": "#FFC16A", "label": "151 - Sparse tree (<15%)"},
-                {"value": 152, "color": "#FFCC7C", "label": "152 - Sparse shrub (<15%)"},
-                {"value": 153, "color": "#FFE7B0", "label": "153 - Sparse herbaceous cover (<15%)"},
-                {"value": 160, "color": "#00785B", "label": "160 - Tree cover, flooded, fresh or brakish water"},
-                {"value": 170, "color": "#009577", "label": "170 - Tree cover, flooded, saline water"},
-                {"value": 180, "color": "#00DB84", "label": "180 - Shrub or herbaceous cover, flooded, fresh/saline/brakish water"},
-                {"value": 190, "color": "#E60017", "label": "190 - Urban areas"},
-                {"value": 200, "color": "#FFF3D7", "label": "200 - Bare areas"},
-                {"value": 201, "color": "#DCDCDC", "label": "201 - Consolidated bare areas"},
-                {"value": 202, "color": "#FFF3D7", "label": "202 - Unconsolidated bare areas"},
-                {"value": 210, "color": "#0053C4", "label": "210 - Water bodies"},
-                {"value": 220, "color": "#FFFFFF", "label": "220 - Permanent snow and ice"}
-            ]
-        }
-    },
-    "Land cover transitions": {
-        "title": "lc_tr_title",
-        "ramp": {
-            "type": "categorical",
-            "shader": "discrete",
-            "items": [
-                {"value": -32768, "color": "#000000", "label": "nodata"},
-                {"value": 9, "color": "#ffffe0", "label": "lc_tr_nochange"},
-                {"value": 19, "color": "#787F1B", "label": "lc_tr_forest_loss"},
-                {"value": 29, "color": "#FFAC42", "label": "lc_tr_grassland_loss"},
-                {"value": 39, "color": "#FFFB6E", "label": "lc_tr_cropland_loss"},
-                {"value": 49, "color": "#00DB84", "label": "lc_tr_wetland_loss"},
-                {"value": 59, "color": "#E60017", "label": "lc_tr_artificial_loss"},
-                {"value": 69, "color": "#B48515", "label": "lc_tr_bare_loss"},
-                {"value": 79, "color": "#0053C4", "label": "lc_tr_water_loss"}
-            ]
-        }
-    },
-    "Land cover (degradation)": {
-        "title": "lc_deg_title",
-        "ramp": {
-            "type": "categorical",
-            "shader": "exact",
-            "items": [
-                {"value": -32768, "color": "#000000", "label": "nodata"},
-                {"value": -1, "color": "#9b2779", "label": "lc_deg_deg"},
-                {"value": 0, "color": "#ffffe0", "label": "lc_deg_stable"},
-                {"value": 1, "color": "#006500", "label": "lc_deg_imp"}
-            ]
-        }
-    },
-    "Land cover degradation (comparison)": {
-        "title": "lc_deg_comp_title",
-        "ramp": {
-            "type": "categorical",
-            "shader": "exact",
-            "items": [
-                {"value": -32768, "color": "#000000", "label": "nodata"},
-                {"value": -1, "color": "#9b2779", "label": "lc_deg_comp_deg"},
-                {"value": 0, "color": "#ffffe0", "label": "lc_deg_comp_stable"},
-                {"value": 1, "color": "#006500", "label": "lc_deg_comp_imp"}
-            ]
-        }
-    },
-    "SDG 15.3.1 Indicator": {
-        "title": "combined_sdg_title",
-        "ramp": {
-            "type": "categorical",
-            "shader": "exact",
-            "items": [
-                {"value": -32768, "color": "#000000", "label": "nodata"},
-                {"value": -1, "color": "#9b2779", "label": "combined_sdg_deg_deg"},
-                {"value": 0, "color": "#ffffe0", "label": "combined_sdg_deg_stable"},
-                {"value": 1, "color": "#006500", "label": "combined_sdg_deg_imp"}
-            ]
-        }
-    },
-    "SDG 15.3.1 (progress)": {
-        "title": "sdg_progress_title",
-        "ramp": {
-            "type": "categorical",
-            "shader": "exact",
-            "items": [
-                {"value": -32768, "color": "#000000", "label": "nodata"},
-                {"value": -1, "color": "#9b2779", "label": "combined_sdg_deg_deg"},
-                {"value": 0, "color": "#ffffe0", "label": "combined_sdg_deg_stable"},
-                {"value": 1, "color": "#006500", "label": "combined_sdg_deg_imp"}
-            ]
-        }
-    },
-    "SDG 15.3.1 Indicator (status)": {
-        "title": "sdg_status_title",
-        "ramp": {
-            "type": "categorical",
-            "shader": "exact",
-            "items": [
-                {"value": -32768, "color": "#000000", "label": "nodata"},
-                {"value": -1, "color": "#9b2779", "label": "sdg_status_deg"},
-                {"value": 0, "color": "#ffffe0", "label": "sdg_status_stable"},
-                {"value": 1, "color": "#006500", "label": "sdg_status_imp"}
-            ]
-        }
-    },
-    "SDG 15.3.1 Indicator (Trends.Earth)": {
-        "title": "combined_sdg_title",
-        "ramp": {
-            "type": "categorical",
-            "shader": "exact",
-            "items": [
-                {"value": -32768, "color": "#000000", "label": "nodata"},
-                {"value": -1, "color": "#9b2779", "label": "combined_sdg_deg_deg"},
-                {"value": 0, "color": "#ffffe0", "label": "combined_sdg_deg_stable"},
-                {"value": 1, "color": "#006500", "label": "combined_sdg_deg_imp"}
-            ]
-        }
-    },
-    "Land Productivity Dynamics (from Trends.Earth)": {
-        "title": "sdg_prod_combined_title",
-        "ramp": {
-            "type": "categorical",
-            "shader": "exact",
-            "items": [
-                {"value": -32768, "color": "#000000", "label": "nodata"},
-                {"value": 1, "color": "#9b2779", "label": "sdg_prod_combined_declining"},
-                {"value": 2, "color": "#c0749b", "label": "sdg_prod_combined_earlysigns"},
-                {"value": 3, "color": "#e1b9bd", "label": "sdg_prod_combined_stabbutstress"},
-                {"value": 4, "color": "#ffffe0", "label": "sdg_prod_combined_stab"},
-                {"value": 5, "color": "#006500", "label": "sdg_prod_combined_imp"}
-            ]
-        }
-    },
-    "Land Productivity Dynamics (from TE)": {
-        "title": "sdg_prod_combined_title",
-        "ramp": {
-            "type": "categorical",
-            "shader": "exact",
-            "items": [
-                {"value": -32768, "color": "#000000", "label": "nodata"},
-                {"value": 1, "color": "#9b2779", "label": "sdg_prod_combined_declining"},
-                {"value": 2, "color": "#c0749b", "label": "sdg_prod_combined_earlysigns"},
-                {"value": 3, "color": "#e1b9bd", "label": "sdg_prod_combined_stabbutstress"},
-                {"value": 4, "color": "#ffffe0", "label": "sdg_prod_combined_stab"},
-                {"value": 5, "color": "#006500", "label": "sdg_prod_combined_imp"}
-            ]
-        }
-    },
-    "Productivity degradation (comparison)": {
-        "title": "prod_deg_comp_title",
-        "ramp": {
-            "type": "categorical",
-            "shader": "exact",
-            "items": [
-                {"value": -32768, "color": "#000000", "label": "nodata"},
-                {"value": -1, "color": "#9b2779", "label": "prod_deg_comp_deg"},
-                {"value": 0, "color": "#ffffe0", "label": "prod_deg_comp_stable"},
-                {"value": 1, "color": "#006500", "label": "prod_deg_comp_imp"}
-            ]
-        }
-    },
-    "SDG 15.3.1 Productivity Indicator": {
-        "title": "sdg_prod_combined_title",
-        "ramp": {
-            "type": "categorical",
-            "shader": "exact",
-            "items": [
-                {"value": -32768, "color": "#000000", "label": "nodata"},
-                {"value": 1, "color": "#9b2779", "label": "sdg_prod_combined_declining"},
-                {"value": 2, "color": "#c0749b", "label": "sdg_prod_combined_earlysigns"},
-                {"value": 3, "color": "#e1b9bd", "label": "sdg_prod_combined_stabbutstress"},
-                {"value": 4, "color": "#ffffe0", "label": "sdg_prod_combined_stab"},
-                {"value": 5, "color": "#006500", "label": "sdg_prod_combined_imp"}
-            ]
-        }
-    },
-    "SDG 15.3.1 Indicator (LPD)": {
-           "title": "sdg_prod_combined_title",
-           "ramp": {
-               "type": "categorical",
-               "shader": "exact",
-               "items": [
-                   {"value": -32768, "color": "#000000", "label": "nodata"},
-                   {"value": 1, "color": "#9b2779", "label": "sdg_prod_combined_declining"},
-                   {"value": 2, "color": "#ED7428", "label": "sdg_prod_combined_earlysigns"},
-                   {"value": 3, "color": "#FED652", "label": "sdg_prod_combined_stabbutstress"},
-                   {"value": 4, "color": "#B8D779", "label": "sdg_prod_combined_stab"},
-                   {"value": 5, "color": "#006500", "label": "sdg_prod_combined_imp"}
-            ]
-        }
-    },
-    "Land Productivity Dynamics (LPD)": {
-        "title": "lpd_title",
-        "ramp": {
-            "type": "categorical",
-            "shader": "exact",
-            "items": [
-                {"value": -32768, "color": "#000000", "label": "nodata"},
-                {"value": 1, "color": "#9b2779", "label": "lpd_declining"},
-                {"value": 2, "color": "#ED7428", "label": "lpd_earlysigns"},
-                {"value": 3, "color": "#FED652", "label": "lpd_stabbutstress"},
-                {"value": 4, "color": "#B8D779", "label": "lpd_stab"},
-                {"value": 5, "color": "#006500", "label": "lpd_imp"}
-            ]
-        }
-    },
-    "Land Productivity Dynamics (from JRC)": {
-        "title": "lpd_title",
-        "ramp": {
-            "type": "categorical",
-            "shader": "discrete",
-            "items": [
-                {"value": 0, "color": "#000000", "label": "nodata"},
-                {"value": 1, "color": "#9b2779", "label": "lpd_declining"},
-                {"value": 2, "color": "#ED7428", "label": "lpd_earlysigns"},
-                {"value": 3, "color": "#FED652", "label": "lpd_stabbutstress"},
-                {"value": 4, "color": "#B8D779", "label": "lpd_stab"},
-                {"value": 5, "color": "#006500", "label": "lpd_imp"}
-            ]
-        }
-    },
-    "Forest loss": {
-        "title": "f_loss_hansen_title",
-        "ramp": {
-            "type": "categorical with dynamic ramp",
-            "shader": "interpolated",
-            "items": [
-                {"value": -32768, "color": "#000000", "label": "nodata"},
-                {"value": -2, "color": "#0053C4", "label": "f_loss_hansen_water"},
-                {"value": -1, "color": "#CCCCCC", "label": "f_loss_hansen_nonforest"},
-                {"value": 0, "color": "#43AA5D", "label": "f_loss_hansen_noloss"}
-            ],
-            "ramp min": {"color": "#FFFF04", "label": "f_loss_hansen_year_start"},
-            "ramp max": {"color": "#FF1A02", "label": "f_loss_hansen_year_end"}
-        }
-    },
-    "Root/shoot ratio": {
-        "title": "root_shoot_title",
-        "ramp": {
-            "type": "min zero stretch",
-            "shader": "interpolated",
-            "percent stretch": 2,
-            "zero": {"color": "#461554"},
-            "mid": {"color": "#28898C"},
-            "max": {"color": "#FDE629"},
-            "no data": {"value": -32768, "color": "#000000", "label": "nodata"}
-        }
-    },
-    "Total carbon": {
-        "title": "tc_title",
-        "ramp": {
-            "type": "min zero stretch",
-            "shader": "interpolated",
-            "percent stretch": 2,
-            "zero": {"color": "#461554"},
-            "mid": {"color": "#28898C"},
-            "max": {"color": "#FDE629"},
-            "no data": {"value": -32768, "color": "#000000", "label": "nodata"}
-        }
-    },
-    "Urban series": {
-        "title": "urban_series_title",
-        "ramp": {
-            "type": "categorical",
-            "shader": "exact",
-            "items": [
-                {"value": -32768, "color": "#777777", "label": "nodata"},
-                {"value": -1, "color": "#0000FF", "label": "urban_series_water"},
-                {"value": 1, "color": "#000000", "label": "urban_series_built_up_by_2000"},
-                {"value": 2, "color": "#FF0000", "label": "urban_series_built_up_by_2005"},
-                {"value": 3, "color": "#FF9400", "label": "urban_series_built_up_by_2010"},
-                {"value": 4, "color": "#FFFF00", "label": "urban_series_built_up_by_2015"}
-            ]
-        }
-    },
-    "Urban": {
-        "title": "urban_title",
-        "ramp": {
-            "type": "categorical",
-            "shader": "exact",
-            "items": [
-                {"value": -32768, "color": "#000000", "label": "nodata"},
-                {"value": 1, "color": "#D40300", "label": "urban_urban"},
-                {"value": 2, "color": "#FF4901", "label": "urban_suburban"},
-                {"value": 3, "color": "#4B4B4B", "label": "urban_built_up_rural"},
-                {"value": 4, "color": "#0AC506", "label": "urban_fringe_open_space"},
-                {"value": 5, "color": "#054C00", "label": "urban_captured_open_space"},
-                {"value": 6, "color": "#C5C5C5", "label": "urban_rural_open_space"},
-                {"value": 7, "color": "#007ED8", "label": "urban_fringe_open_space_water"},
-                {"value": 8, "color": "#1201FF", "label": "urban_captured_open_space_water"},
-                {"value": 9, "color": "#808080", "label": "urban_rural_open_space_water"}
-            ]
-        }
-    },
-    "Population density at minimum SPI over period": {
-        "title": "population_density_at_maximum_drought_title",
-        "ramp": {
-            "type": "zero-centered stretch",
-            "shader": "interpolated",
-            "percent stretch": 2,
-            "min": {"color": "#9b2779"},
-            "zero": {"color": "#ffffe0"},
-            "max": {"color": "#006500"},
-            "no data": {"value": -32768, "color": "#000000", "label": "nodata"}
-        }
-    },
-    "Population at minimum SPI over period": {
-        "title": "population_at_maximum_drought_title",
-        "ramp": {
-            "type": "zero-centered stretch",
-            "shader": "interpolated",
-            "percent stretch": 2,
-            "min": {"color": "#9b2779"},
-            "zero": {"color": "#ffffe0"},
-            "max": {"color": "#006500"},
-            "no data": {"value": -32768, "color": "#000000", "label": "nodata"}
-        }
-    },
-    "Population (number of people)": {
-        "title": "population_number_of_people",
-        "ramp": {
-            "type": "min zero stretch",
-            "shader": "interpolated",
-            "percent stretch": 2,
-            "zero": {"color": "#461554"},
-            "mid": {"color": "#28898C"},
-            "max": {"color": "#FDE629"},
-            "no data": {"value": -32768, "color": "#000000", "label": "nodata"}
-        }
-    },
-    "Population (density, persons per sq km / 10)": {
-        "title": "population_density_title",
-        "ramp": {
-            "type": "min zero stretch",
-            "shader": "interpolated",
-            "percent stretch": 2,
-            "zero": {"color": "#461554"},
-            "mid": {"color": "#28898C"},
-            "max": {"color": "#FDE629"},
-            "no data": {"value": -32768, "color": "#000000", "label": "nodata"}
-        }
-    },
-    "Population affected by degradation (density, persons per sq km / 10)": {
-        "title": "population_density_affected_by_degradation_title",
-        "ramp": {
-            "type": "zero-centered stretch",
-            "shader": "interpolated",
-            "percent stretch": 2,
-            "min": {"color": "#9b2779"},
-            "zero": {"color": "#ffffe0"},
-            "max": {"color": "#006500"},
-            "no data": {"value": -32768, "color": "#000000", "label": "nodata"}
-        }
-    },
-    "Population affected by degradation (number of people)": {
-        "title": "population_affected_by_degradation_title",
-        "ramp": {
-            "type": "zero-centered stretch",
-            "shader": "interpolated",
-            "percent stretch": 2,
-            "min": {"color": "#9b2779"},
-            "zero": {"color": "#ffffe0"},
-            "max": {"color": "#006500"},
-            "no data": {"value": -32768, "color": "#000000", "label": "nodata"}
-        }
-    },
-    "Population": {
-        "title": "population_title",
-        "ramp": {
-            "type": "min zero stretch",
-            "shader": "interpolated",
-            "percent stretch": 2,
-            "zero": {"color": "#461554"},
-            "mid": {"color": "#28898C"},
-            "max": {"color": "#FDE629"},
-            "no data": {"value": -32768, "color": "#000000", "label": "nodata"}
-        }
-    },
-    "Standardized Precipitation Index (SPI)": {
-        "title": "spi_title",
-        "ramp": {
-            "type": "categorical",
-            "shader": "interpolated",
-            "items": [
-               {"value": -32768, "color": "#000000", "label": "nodata"},
-               {"value": -2500, "color": "#8c510a", "label": "spi_extreme_drought"},
-               {"value": -2000, "color": "#bf812d", "label": "spi_severe_drought"},
-               {"value": -1500, "color": "#dfc27d", "label": "spi_moderate_drought"},
-               {"value": -1000, "color": "#f6e8c3", "label": "spi_mild_drought"},
-               {"value": 0, "color": "#f5f5f5", "label": "spi_normal"},
-               {"value": 1000, "color": "#c7eae5", "label": "spi_mild_wet"},
-               {"value": 1500, "color": "#80cdc1", "label": "spi_moderate_wet"},
-               {"value": 2000, "color": "#35978f", "label": "spi_severe_wet"},
-               {"value": 2500, "color": "#01665e", "label": "spi_extreme_wet"}
-            ]
-        }
-    },
-    "Minimum SPI over period": {
-        "title": "spi_at_maximum_drought_title",
-        "ramp": {
-            "type": "categorical",
-            "shader": "interpolated",
-            "items": [
-               {"value": -32768, "color": "#000000", "label": "nodata"},
-               {"value": -2500, "color": "#8c510a", "label": "spi_extreme_drought"},
-               {"value": -2000, "color": "#bf812d", "label": "spi_severe_drought"},
-               {"value": -1500, "color": "#dfc27d", "label": "spi_moderate_drought"},
-               {"value": -1000, "color": "#f6e8c3", "label": "spi_mild_drought"},
-               {"value": 0, "color": "#f5f5f5", "label": "spi_normal"},
-               {"value": 1000, "color": "#c7eae5", "label": "spi_mild_wet"},
-               {"value": 1500, "color": "#80cdc1", "label": "spi_moderate_wet"},
-               {"value": 2000, "color": "#35978f", "label": "spi_severe_wet"},
-               {"value": 2500, "color": "#01665e", "label": "spi_extreme_wet"}
-            ]
-        }
-    },
-    "Drought Vulnerability (JRC)": {
-        "title": "jrc_drought_vulnerability_title",
-        "ramp": {
-            "type": "categorical",
-            "shader": "interpolated",
-            "items": [
-                {"value": -32768, "color": "#000000", "label": "nodata"},
-                {"value": 2560, "color": "#3B0F6F", "label": "0th percentile"},
-                {"value": 3930, "color": "#8C2981", "label": "25th percentile"},
-                {"value": 4718, "color": "#DD4A69", "label": "50th percentile"},
-                {"value": 9270, "color": "#FE9F6D", "label": "75th percentile"},
-                {"value": 10000, "color": "#FCFDBF", "label": "100th percentile"}
-            ]
-        }
-    },
-    "Biomass (tonnes CO2e per ha)": {
-        "title": "biomass_title",
-        "ramp": {
-            "type": "min zero stretch",
-            "shader": "interpolated",
-            "percent stretch": 2,
-            "zero": {"color": "#461554"},
-            "mid": {"color": "#28898C"},
-            "max": {"color": "#FDE629"},
-            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
-            }
-        }
-    },
-    "Restoration biomass difference (tonnes CO2e per ha)": {
-        "title": "biomass_difference_title",
-        "ramp": {
-            "type": "zero-centered stretch",
-            "shader": "interpolated",
-            "percent stretch": 2,
-            "min": {"color": "#9b2779"},
-            "zero": {"color": "#ffffe0"},
-            "max": {"color": "#006500"},
-            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
-            }
-        }
-    },
-    "Agro Ecological Zones V3.0": {
-        "title": "agro_eco_zones",
-        "ramp": {
-            "type": "zero-centered stretch",
-            "shader": "interpolated",
-            "percent stretch": 2,
-            "min": {"color": "#9b2779"},
-            "zero": {"color": "#ffffe0"},
-            "max": {"color": "#006500"},
-            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
-            }
-        }
-    },
-    "Climatic Zones": {
-        "title": "climatic_zones",
-        "ramp": {
-            "type": "zero-centered stretch",
-            "shader": "interpolated",
-            "percent stretch": 2,
-            "min": {"color": "#9b2779"},
-            "zero": {"color": "#ffffe0"},
-            "max": {"color": "#006500"},
-            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
-            }
-        }
-    },
-    "Hansen": {
-        "title": "forest_cover_hansen",
-        "ramp": {
-            "type": "zero-centered stretch",
-            "shader": "interpolated",
-            "percent stretch": 2,
-            "min": {"color": "#9b2779"},
-            "zero": {"color": "#ffffe0"},
-            "max": {"color": "#006500"},
-            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
-            }
-        }
-    },
-    "MOD16A2": {
-        "title": "mod16a2",
-        "ramp": {
-            "type": "zero-centered stretch",
-            "shader": "interpolated",
-            "percent stretch": 2,
-            "min": {"color": "#9b2779"},
-            "zero": {"color": "#ffffe0"},
-            "max": {"color": "#006500"},
-            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
-            }
-        }
-    },
-    "CHIRPS": {
-        "title": "chirps",
-        "ramp": {
-            "type": "zero-centered stretch",
-            "shader": "interpolated",
-            "percent stretch": 2,
-            "min": {"color": "#9b2779"},
-            "zero": {"color": "#ffffe0"},
-            "max": {"color": "#006500"},
-            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
-            }
-        }
-    },
-    "GPCC V7 (Global Precipitation Climatology Centre)": {
-        "title": "gpcc_v7",
-        "ramp": {
-            "type": "zero-centered stretch",
-            "shader": "interpolated",
-            "percent stretch": 2,
-            "min": {"color": "#9b2779"},
-            "zero": {"color": "#ffffe0"},
-            "max": {"color": "#006500"},
-            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
-            }
-        }
-    },
-    "GPCP v2.3 1 month (Global Precipitation Climatology Project)": {
-        "title": "gpcp_v231",
-        "ramp": {
-            "type": "zero-centered stretch",
-            "shader": "interpolated",
-            "percent stretch": 2,
-            "min": {"color": "#9b2779"},
-            "zero": {"color": "#ffffe0"},
-            "max": {"color": "#006500"},
-            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
-            }
-        }
-    },
-    "PERSIANN-CDR": {
-        "title": "persiann_cdr",
-        "ramp": {
-            "type": "zero-centered stretch",
-            "shader": "interpolated",
-            "percent stretch": 2,
-            "min": {"color": "#9b2779"},
-            "zero": {"color": "#ffffe0"},
-            "max": {"color": "#006500"},
-            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
-            }
-        }
-    },
-    "ERA I": {
-        "title": "era_1",
-        "ramp": {
-            "type": "zero-centered stretch",
-            "shader": "interpolated",
-            "percent stretch": 2,
-            "min": {"color": "#9b2779"},
-            "zero": {"color": "#ffffe0"},
-            "max": {"color": "#006500"},
-            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
-            }
-        }
-    },
-    "MERRA 2": {
-        "title": "merra_2",
-        "ramp": {
-            "type": "zero-centered stretch",
-            "shader": "interpolated",
-            "percent stretch": 2,
-            "min": {"color": "#9b2779"},
-            "zero": {"color": "#ffffe0"},
-            "max": {"color": "#006500"},
-            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
-            }
-        }
-    },
-    "AVHRR (GIMMS3g.v1, annual)": {
-        "title": "avhrr_gimms3_annual",
-        "ramp": {
-            "type": "zero-centered stretch",
-            "shader": "interpolated",
-            "percent stretch": 2,
-            "min": {"color": "#9b2779"},
-            "zero": {"color": "#ffffe0"},
-            "max": {"color": "#006500"},
-            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
-            }
-        }
-    },
-    "MODIS (MOD13Q1, annual)": {
-        "title": "mod13q1_annual",
-        "ramp": {
-            "type": "zero-centered stretch",
-            "shader": "interpolated",
-            "percent stretch": 2,
-            "min": {"color": "#9b2779"},
-            "zero": {"color": "#ffffe0"},
-            "max": {"color": "#006500"},
-            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
-            }
-        }
-    },
-    "MODIS (MOD13Q1, 16 day)": {
-        "title": "mod13q1_16day",
-        "ramp": {
-            "type": "zero-centered stretch",
-            "shader": "interpolated",
-            "percent stretch": 2,
-            "min": {"color": "#9b2779"},
-            "zero": {"color": "#ffffe0"},
-            "max": {"color": "#006500"},
-            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
-            }
-        }
-    },
-    "Soil Grids 250": {
-        "title": "soil_grids_250_wrb",
-        "ramp": {
-            "type": "zero-centered stretch",
-            "shader": "interpolated",
-            "percent stretch": 2,
-            "min": {"color": "#9b2779"},
-            "zero": {"color": "#ffffe0"},
-            "max": {"color": "#006500"},
-            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
-            }
-        }
-    },
-    "USDA Soil Type": {
-        "title": "usda_soil_type",
-        "ramp": {
-            "type": "zero-centered stretch",
-            "shader": "interpolated",
-            "percent stretch": 2,
-            "min": {"color": "#9b2779"},
-            "zero": {"color": "#ffffe0"},
-            "max": {"color": "#006500"},
-            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
-            }
-        }
-    },
-    "Soil Grids 250": {
-        "title": "soil_grids_250_soc",
-        "ramp": {
-            "type": "zero-centered stretch",
-            "shader": "interpolated",
-            "percent stretch": 2,
-            "min": {"color": "#9b2779"},
-            "zero": {"color": "#ffffe0"},
-            "max": {"color": "#006500"},
-            "no data": {"value": -32768, "color": "#000000", "label": "nodata"
-            }
-        }
+  "Productivity trajectory (trend)": {
+    "title": "prod_traj_trend_title",
+    "ramp": {
+      "type": "zero-centered stretch",
+      "shader": "interpolated",
+      "percent stretch": 2,
+      "min": { "color": "#9b2779" },
+      "zero": { "color": "#ffffe0" },
+      "max": { "color": "#006500" },
+      "no data": { "value": -32768, "color": "#000000", "label": "nodata" }
     }
+  },
+  "Productivity trajectory (significance)": {
+    "title": "prod_traj_signif_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "discrete",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "nodata" },
+        { "value": -2, "color": "#9b2779", "label": "prod_traj_signif_dec_95" },
+        { "value": 1, "color": "#ffffe0", "label": "prod_traj_signif_zero" },
+        { "value": 3, "color": "#006500", "label": "prod_traj_signif_inc_95" }
+      ]
+    }
+  },
+  "Productivity state (degradation)": {
+    "title": "prod_state_change_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "discrete",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "nodata" },
+        {
+          "value": -2,
+          "color": "#9b2779",
+          "label": "prod_state_change_potential_deg"
+        },
+        { "value": 1, "color": "#ffffe0", "label": "prod_state_change_stable" },
+        {
+          "value": 10,
+          "color": "#006500",
+          "label": "prod_state_change_potential_improvement"
+        }
+      ]
+    }
+  },
+  "Productivity state classes": {
+    "title": "prod_state_classes_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "interpolated",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "nodata" },
+        { "value": 1, "color": "#461554", "label": "1" },
+        { "value": 5, "color": "#28898C", "label": "5" },
+        { "value": 10, "color": "#FDE629", "label": "10" }
+      ]
+    }
+  },
+  "Productivity performance (degradation)": {
+    "title": "prod_perf_deg_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "exact",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "nodata" },
+        {
+          "value": -1,
+          "color": "#9b2779",
+          "label": "prod_perf_deg_potential_deg"
+        },
+        {
+          "value": 0,
+          "color": "#ffffe0",
+          "label": "prod_perf_deg_not_potential_deg"
+        }
+      ]
+    }
+  },
+  "Productivity performance (ratio)": {
+    "title": "prod_perf_ratio_title",
+    "ramp": {
+      "type": "min zero stretch",
+      "shader": "interpolated",
+      "percent stretch": 2,
+      "zero": { "color": "#461554" },
+      "mid": { "color": "#28898C" },
+      "max": { "color": "#FDE629" },
+      "no data": { "value": -32768, "color": "#000000", "label": "nodata" }
+    }
+  },
+  "Productivity performance (units)": {
+    "title": "prod_perf_units_title",
+    "ramp": {
+      "type": "min zero stretch",
+      "shader": "interpolated",
+      "percent stretch": 0,
+      "zero": { "color": "#461554" },
+      "mid": { "color": "#28898C" },
+      "max": { "color": "#FDE629" },
+      "no data": { "value": -32768, "color": "#000000", "label": "nodata" }
+    }
+  },
+  "Soil organic carbon": {
+    "title": "soc_title",
+    "ramp": {
+      "type": "min zero stretch",
+      "shader": "interpolated",
+      "percent stretch": 2,
+      "zero": { "color": "#461554" },
+      "mid": { "color": "#28898C" },
+      "max": { "color": "#FDE629" },
+      "no data": { "value": -32768, "color": "#000000", "label": "nodata" }
+    }
+  },
+  "Soil organic carbon (degradation)": {
+    "title": "soc_deg_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "discrete",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "nodata" },
+        {
+          "value": -10,
+          "color": "#9b2779",
+          "label": "prod_state_change_potential_deg"
+        },
+        { "value": 9, "color": "#ffffe0", "label": "prod_state_change_stable" },
+        {
+          "value": 100,
+          "color": "#006500",
+          "label": "prod_state_change_potential_improvement"
+        }
+      ]
+    }
+  },
+  "Land cover mode (7 class)": {
+    "title": "lc_7class_mode_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "exact",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "lc_class_nodata" },
+        { "value": 1, "color": "#787F1B", "label": "lc_class_forest" },
+        { "value": 2, "color": "#FFAC42", "label": "lc_class_grassland" },
+        { "value": 3, "color": "#FFFB6E", "label": "lc_class_cropland" },
+        { "value": 4, "color": "#00DB84", "label": "lc_class_wetland" },
+        { "value": 5, "color": "#E60017", "label": "lc_class_artificial" },
+        { "value": 6, "color": "#B48515", "label": "lc_class_bare" },
+        { "value": 7, "color": "#0053C4", "label": "lc_class_water" }
+      ]
+    }
+  },
+  "Land cover (7 class)": {
+    "title": "lc_7class_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "exact",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "lc_class_nodata" },
+        { "value": 1, "color": "#787F1B", "label": "lc_class_forest" },
+        { "value": 2, "color": "#FFAC42", "label": "lc_class_grassland" },
+        { "value": 3, "color": "#FFFB6E", "label": "lc_class_cropland" },
+        { "value": 4, "color": "#00DB84", "label": "lc_class_wetland" },
+        { "value": 5, "color": "#E60017", "label": "lc_class_artificial" },
+        { "value": 6, "color": "#B48515", "label": "lc_class_bare" },
+        { "value": 7, "color": "#0053C4", "label": "lc_class_water" }
+      ]
+    }
+  },
+  "ESA CCI": {
+    "title": "lc_esa_mode_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "exact",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "-32768 - No data" },
+        { "value": 10, "color": "#FFFB6E", "label": "10 - Cropland, rainfed" },
+        { "value": 11, "color": "#FFFB6E", "label": "11 - Herbaceous cover" },
+        {
+          "value": 12,
+          "color": "#FFFB6E",
+          "label": "12 - Tree or shrub cover"
+        },
+        {
+          "value": 20,
+          "color": "#76F1EF",
+          "label": "20 - Cropland, irrigated or post‐flooding"
+        },
+        {
+          "value": 30,
+          "color": "#DAEC6C",
+          "label": "30 - Mosaic cropland (>50%) / natural vegetation (tree, shrub, herbaceous cover) (<50%)"
+        },
+        {
+          "value": 40,
+          "color": "#CDC369",
+          "label": "40 - Mosaic natural vegetation (tree, shrub, herbaceous cover) (>50%) / cropland (<50%)"
+        },
+        {
+          "value": 50,
+          "color": "#006313",
+          "label": "50 - Tree cover, broadleaved, evergreen, closed to open (>15%)"
+        },
+        {
+          "value": 60,
+          "color": "#009E1D",
+          "label": "60 - Tree cover, broadleaved, deciduous, closed to open (>15%)"
+        },
+        {
+          "value": 61,
+          "color": "#009E1D",
+          "label": "61 - Tree cover, broadleaved, deciduous, closed (>40%)"
+        },
+        {
+          "value": 62,
+          "color": "#A3C329",
+          "label": "62 - Tree cover, broadleaved, deciduous, open (15‐40%)"
+        },
+        {
+          "value": 70,
+          "color": "#003E0C",
+          "label": "70 - Tree cover, needleleaved, evergreen, closed to open (>15%)"
+        },
+        {
+          "value": 71,
+          "color": "#003E0C",
+          "label": "71 - Tree cover, needleleaved, evergreen, closed (>40%)"
+        },
+        {
+          "value": 72,
+          "color": "#00500F",
+          "label": "72 - Tree cover, needleleaved, evergreen, open (15‐40%)"
+        },
+        {
+          "value": 80,
+          "color": "#00500F",
+          "label": "80 - Tree cover, needleleaved, deciduous, closed to open (>15%)"
+        },
+        {
+          "value": 81,
+          "color": "#00500F",
+          "label": "81 - Tree cover, needleleaved, deciduous, closed (>40%)"
+        },
+        {
+          "value": 82,
+          "color": "#006313",
+          "label": "82 - Tree cover, needleleaved, deciduous, open (15‐40%)"
+        },
+        {
+          "value": 90,
+          "color": "#787F1B",
+          "label": "90 - Tree cover, mixed leaf type (broadleaved and needleleaved)"
+        },
+        {
+          "value": 100,
+          "color": "#8A9C21",
+          "label": "100 - Mosaic tree and shrub (>50%) / herbaceous cover (<50%)"
+        },
+        {
+          "value": 110,
+          "color": "#D09022",
+          "label": "110 - Mosaic herbaceous cover (>50%) / tree and shrub (<50%)"
+        },
+        { "value": 120, "color": "#A86019", "label": "120 - Shrubland" },
+        {
+          "value": 121,
+          "color": "#874913",
+          "label": "121 - Evergreen shrubland"
+        },
+        {
+          "value": 122,
+          "color": "#A86019",
+          "label": "122 - Deciduous shrubland"
+        },
+        { "value": 130, "color": "#FFAC42", "label": "130 - Grassland" },
+        {
+          "value": 140,
+          "color": "#FFD9D1",
+          "label": "140 - Lichens and mosses"
+        },
+        {
+          "value": 150,
+          "color": "#FFE7B0",
+          "label": "150 - Sparse vegetation (tree, shrub, herbaceous cover) (<15%)"
+        },
+        {
+          "value": 151,
+          "color": "#FFC16A",
+          "label": "151 - Sparse tree (<15%)"
+        },
+        {
+          "value": 152,
+          "color": "#FFCC7C",
+          "label": "152 - Sparse shrub (<15%)"
+        },
+        {
+          "value": 153,
+          "color": "#FFE7B0",
+          "label": "153 - Sparse herbaceous cover (<15%)"
+        },
+        {
+          "value": 160,
+          "color": "#00785B",
+          "label": "160 - Tree cover, flooded, fresh or brakish water"
+        },
+        {
+          "value": 170,
+          "color": "#009577",
+          "label": "170 - Tree cover, flooded, saline water"
+        },
+        {
+          "value": 180,
+          "color": "#00DB84",
+          "label": "180 - Shrub or herbaceous cover, flooded, fresh/saline/brakish water"
+        },
+        { "value": 190, "color": "#E60017", "label": "190 - Urban areas" },
+        { "value": 200, "color": "#FFF3D7", "label": "200 - Bare areas" },
+        {
+          "value": 201,
+          "color": "#DCDCDC",
+          "label": "201 - Consolidated bare areas"
+        },
+        {
+          "value": 202,
+          "color": "#FFF3D7",
+          "label": "202 - Unconsolidated bare areas"
+        },
+        { "value": 210, "color": "#0053C4", "label": "210 - Water bodies" },
+        {
+          "value": 220,
+          "color": "#FFFFFF",
+          "label": "220 - Permanent snow and ice"
+        }
+      ]
+    }
+  },
+  "Land cover mode (ESA classes)": {
+    "title": "lc_esa_mode_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "exact",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "-32768 - No data" },
+        { "value": 10, "color": "#FFFB6E", "label": "10 - Cropland, rainfed" },
+        { "value": 11, "color": "#FFFB6E", "label": "11 - Herbaceous cover" },
+        {
+          "value": 12,
+          "color": "#FFFB6E",
+          "label": "12 - Tree or shrub cover"
+        },
+        {
+          "value": 20,
+          "color": "#76F1EF",
+          "label": "20 - Cropland, irrigated or post‐flooding"
+        },
+        {
+          "value": 30,
+          "color": "#DAEC6C",
+          "label": "30 - Mosaic cropland (>50%) / natural vegetation (tree, shrub, herbaceous cover) (<50%)"
+        },
+        {
+          "value": 40,
+          "color": "#CDC369",
+          "label": "40 - Mosaic natural vegetation (tree, shrub, herbaceous cover) (>50%) / cropland (<50%)"
+        },
+        {
+          "value": 50,
+          "color": "#006313",
+          "label": "50 - Tree cover, broadleaved, evergreen, closed to open (>15%)"
+        },
+        {
+          "value": 60,
+          "color": "#009E1D",
+          "label": "60 - Tree cover, broadleaved, deciduous, closed to open (>15%)"
+        },
+        {
+          "value": 61,
+          "color": "#009E1D",
+          "label": "61 - Tree cover, broadleaved, deciduous, closed (>40%)"
+        },
+        {
+          "value": 62,
+          "color": "#A3C329",
+          "label": "62 - Tree cover, broadleaved, deciduous, open (15‐40%)"
+        },
+        {
+          "value": 70,
+          "color": "#003E0C",
+          "label": "70 - Tree cover, needleleaved, evergreen, closed to open (>15%)"
+        },
+        {
+          "value": 71,
+          "color": "#003E0C",
+          "label": "71 - Tree cover, needleleaved, evergreen, closed (>40%)"
+        },
+        {
+          "value": 72,
+          "color": "#00500F",
+          "label": "72 - Tree cover, needleleaved, evergreen, open (15‐40%)"
+        },
+        {
+          "value": 80,
+          "color": "#00500F",
+          "label": "80 - Tree cover, needleleaved, deciduous, closed to open (>15%)"
+        },
+        {
+          "value": 81,
+          "color": "#00500F",
+          "label": "81 - Tree cover, needleleaved, deciduous, closed (>40%)"
+        },
+        {
+          "value": 82,
+          "color": "#006313",
+          "label": "82 - Tree cover, needleleaved, deciduous, open (15‐40%)"
+        },
+        {
+          "value": 90,
+          "color": "#787F1B",
+          "label": "90 - Tree cover, mixed leaf type (broadleaved and needleleaved)"
+        },
+        {
+          "value": 100,
+          "color": "#8A9C21",
+          "label": "100 - Mosaic tree and shrub (>50%) / herbaceous cover (<50%)"
+        },
+        {
+          "value": 110,
+          "color": "#D09022",
+          "label": "110 - Mosaic herbaceous cover (>50%) / tree and shrub (<50%)"
+        },
+        { "value": 120, "color": "#A86019", "label": "120 - Shrubland" },
+        {
+          "value": 121,
+          "color": "#874913",
+          "label": "121 - Evergreen shrubland"
+        },
+        {
+          "value": 122,
+          "color": "#A86019",
+          "label": "122 - Deciduous shrubland"
+        },
+        { "value": 130, "color": "#FFAC42", "label": "130 - Grassland" },
+        {
+          "value": 140,
+          "color": "#FFD9D1",
+          "label": "140 - Lichens and mosses"
+        },
+        {
+          "value": 150,
+          "color": "#FFE7B0",
+          "label": "150 - Sparse vegetation (tree, shrub, herbaceous cover) (<15%)"
+        },
+        {
+          "value": 151,
+          "color": "#FFC16A",
+          "label": "151 - Sparse tree (<15%)"
+        },
+        {
+          "value": 152,
+          "color": "#FFCC7C",
+          "label": "152 - Sparse shrub (<15%)"
+        },
+        {
+          "value": 153,
+          "color": "#FFE7B0",
+          "label": "153 - Sparse herbaceous cover (<15%)"
+        },
+        {
+          "value": 160,
+          "color": "#00785B",
+          "label": "160 - Tree cover, flooded, fresh or brakish water"
+        },
+        {
+          "value": 170,
+          "color": "#009577",
+          "label": "170 - Tree cover, flooded, saline water"
+        },
+        {
+          "value": 180,
+          "color": "#00DB84",
+          "label": "180 - Shrub or herbaceous cover, flooded, fresh/saline/brakish water"
+        },
+        { "value": 190, "color": "#E60017", "label": "190 - Urban areas" },
+        { "value": 200, "color": "#FFF3D7", "label": "200 - Bare areas" },
+        {
+          "value": 201,
+          "color": "#DCDCDC",
+          "label": "201 - Consolidated bare areas"
+        },
+        {
+          "value": 202,
+          "color": "#FFF3D7",
+          "label": "202 - Unconsolidated bare areas"
+        },
+        { "value": 210, "color": "#0053C4", "label": "210 - Water bodies" },
+        {
+          "value": 220,
+          "color": "#FFFFFF",
+          "label": "220 - Permanent snow and ice"
+        }
+      ]
+    }
+  },
+  "Land cover (ESA classes)": {
+    "title": "lc_esa_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "exact",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "-32768 - No data" },
+        { "value": 10, "color": "#FFFB6E", "label": "10 - Cropland, rainfed" },
+        { "value": 11, "color": "#FFFB6E", "label": "11 - Herbaceous cover" },
+        {
+          "value": 12,
+          "color": "#FFFB6E",
+          "label": "12 - Tree or shrub cover"
+        },
+        {
+          "value": 20,
+          "color": "#76F1EF",
+          "label": "20 - Cropland, irrigated or post‐flooding"
+        },
+        {
+          "value": 30,
+          "color": "#DAEC6C",
+          "label": "30 - Mosaic cropland (>50%) / natural vegetation (tree, shrub, herbaceous cover) (<50%)"
+        },
+        {
+          "value": 40,
+          "color": "#CDC369",
+          "label": "40 - Mosaic natural vegetation (tree, shrub, herbaceous cover) (>50%) / cropland (<50%)"
+        },
+        {
+          "value": 50,
+          "color": "#006313",
+          "label": "50 - Tree cover, broadleaved, evergreen, closed to open (>15%)"
+        },
+        {
+          "value": 60,
+          "color": "#009E1D",
+          "label": "60 - Tree cover, broadleaved, deciduous, closed to open (>15%)"
+        },
+        {
+          "value": 61,
+          "color": "#009E1D",
+          "label": "61 - Tree cover, broadleaved, deciduous, closed (>40%)"
+        },
+        {
+          "value": 62,
+          "color": "#A3C329",
+          "label": "62 - Tree cover, broadleaved, deciduous, open (15‐40%)"
+        },
+        {
+          "value": 70,
+          "color": "#003E0C",
+          "label": "70 - Tree cover, needleleaved, evergreen, closed to open (>15%)"
+        },
+        {
+          "value": 71,
+          "color": "#003E0C",
+          "label": "71 - Tree cover, needleleaved, evergreen, closed (>40%)"
+        },
+        {
+          "value": 72,
+          "color": "#00500F",
+          "label": "72 - Tree cover, needleleaved, evergreen, open (15‐40%)"
+        },
+        {
+          "value": 80,
+          "color": "#00500F",
+          "label": "80 - Tree cover, needleleaved, deciduous, closed to open (>15%)"
+        },
+        {
+          "value": 81,
+          "color": "#00500F",
+          "label": "81 - Tree cover, needleleaved, deciduous, closed (>40%)"
+        },
+        {
+          "value": 82,
+          "color": "#006313",
+          "label": "82 - Tree cover, needleleaved, deciduous, open (15‐40%)"
+        },
+        {
+          "value": 90,
+          "color": "#787F1B",
+          "label": "90 - Tree cover, mixed leaf type (broadleaved and needleleaved)"
+        },
+        {
+          "value": 100,
+          "color": "#8A9C21",
+          "label": "100 - Mosaic tree and shrub (>50%) / herbaceous cover (<50%)"
+        },
+        {
+          "value": 110,
+          "color": "#D09022",
+          "label": "110 - Mosaic herbaceous cover (>50%) / tree and shrub (<50%)"
+        },
+        { "value": 120, "color": "#A86019", "label": "120 - Shrubland" },
+        {
+          "value": 121,
+          "color": "#874913",
+          "label": "121 - Evergreen shrubland"
+        },
+        {
+          "value": 122,
+          "color": "#A86019",
+          "label": "122 - Deciduous shrubland"
+        },
+        { "value": 130, "color": "#FFAC42", "label": "130 - Grassland" },
+        {
+          "value": 140,
+          "color": "#FFD9D1",
+          "label": "140 - Lichens and mosses"
+        },
+        {
+          "value": 150,
+          "color": "#FFE7B0",
+          "label": "150 - Sparse vegetation (tree, shrub, herbaceous cover) (<15%)"
+        },
+        {
+          "value": 151,
+          "color": "#FFC16A",
+          "label": "151 - Sparse tree (<15%)"
+        },
+        {
+          "value": 152,
+          "color": "#FFCC7C",
+          "label": "152 - Sparse shrub (<15%)"
+        },
+        {
+          "value": 153,
+          "color": "#FFE7B0",
+          "label": "153 - Sparse herbaceous cover (<15%)"
+        },
+        {
+          "value": 160,
+          "color": "#00785B",
+          "label": "160 - Tree cover, flooded, fresh or brakish water"
+        },
+        {
+          "value": 170,
+          "color": "#009577",
+          "label": "170 - Tree cover, flooded, saline water"
+        },
+        {
+          "value": 180,
+          "color": "#00DB84",
+          "label": "180 - Shrub or herbaceous cover, flooded, fresh/saline/brakish water"
+        },
+        { "value": 190, "color": "#E60017", "label": "190 - Urban areas" },
+        { "value": 200, "color": "#FFF3D7", "label": "200 - Bare areas" },
+        {
+          "value": 201,
+          "color": "#DCDCDC",
+          "label": "201 - Consolidated bare areas"
+        },
+        {
+          "value": 202,
+          "color": "#FFF3D7",
+          "label": "202 - Unconsolidated bare areas"
+        },
+        { "value": 210, "color": "#0053C4", "label": "210 - Water bodies" },
+        {
+          "value": 220,
+          "color": "#FFFFFF",
+          "label": "220 - Permanent snow and ice"
+        }
+      ]
+    }
+  },
+  "Land cover transitions": {
+    "title": "lc_tr_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "discrete",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "nodata" },
+        { "value": 9, "color": "#ffffe0", "label": "lc_tr_nochange" },
+        { "value": 19, "color": "#787F1B", "label": "lc_tr_forest_loss" },
+        { "value": 29, "color": "#FFAC42", "label": "lc_tr_grassland_loss" },
+        { "value": 39, "color": "#FFFB6E", "label": "lc_tr_cropland_loss" },
+        { "value": 49, "color": "#00DB84", "label": "lc_tr_wetland_loss" },
+        { "value": 59, "color": "#E60017", "label": "lc_tr_artificial_loss" },
+        { "value": 69, "color": "#B48515", "label": "lc_tr_bare_loss" },
+        { "value": 79, "color": "#0053C4", "label": "lc_tr_water_loss" }
+      ]
+    }
+  },
+  "Land cover (degradation)": {
+    "title": "lc_deg_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "exact",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "nodata" },
+        { "value": -1, "color": "#9b2779", "label": "lc_deg_deg" },
+        { "value": 0, "color": "#ffffe0", "label": "lc_deg_stable" },
+        { "value": 1, "color": "#006500", "label": "lc_deg_imp" }
+      ]
+    }
+  },
+  "Land cover degradation (comparison)": {
+    "title": "lc_deg_comp_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "exact",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "nodata" },
+        { "value": -1, "color": "#9b2779", "label": "lc_deg_comp_deg" },
+        { "value": 0, "color": "#ffffe0", "label": "lc_deg_comp_stable" },
+        { "value": 1, "color": "#006500", "label": "lc_deg_comp_imp" }
+      ]
+    }
+  },
+  "SDG 15.3.1 Indicator": {
+    "title": "combined_sdg_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "exact",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "nodata" },
+        { "value": -1, "color": "#9b2779", "label": "combined_sdg_deg_deg" },
+        { "value": 0, "color": "#ffffe0", "label": "combined_sdg_deg_stable" },
+        { "value": 1, "color": "#006500", "label": "combined_sdg_deg_imp" }
+      ]
+    }
+  },
+  "SDG 15.3.1 (progress)": {
+    "title": "sdg_progress_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "exact",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "nodata" },
+        { "value": -1, "color": "#9b2779", "label": "combined_sdg_deg_deg" },
+        { "value": 0, "color": "#ffffe0", "label": "combined_sdg_deg_stable" },
+        { "value": 1, "color": "#006500", "label": "combined_sdg_deg_imp" }
+      ]
+    }
+  },
+  "SDG 15.3.1 Indicator (status)": {
+    "title": "sdg_status_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "exact",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "nodata" },
+        { "value": -1, "color": "#9b2779", "label": "sdg_status_deg" },
+        { "value": 0, "color": "#ffffe0", "label": "sdg_status_stable" },
+        { "value": 1, "color": "#006500", "label": "sdg_status_imp" }
+      ]
+    }
+  },
+  "SDG 15.3.1 Indicator (Trends.Earth)": {
+    "title": "combined_sdg_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "exact",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "nodata" },
+        { "value": -1, "color": "#9b2779", "label": "combined_sdg_deg_deg" },
+        { "value": 0, "color": "#ffffe0", "label": "combined_sdg_deg_stable" },
+        { "value": 1, "color": "#006500", "label": "combined_sdg_deg_imp" }
+      ]
+    }
+  },
+  "Land Productivity Dynamics (from Trends.Earth)": {
+    "title": "sdg_prod_combined_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "exact",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "nodata" },
+        {
+          "value": 1,
+          "color": "#9b2779",
+          "label": "sdg_prod_combined_declining"
+        },
+        {
+          "value": 2,
+          "color": "#c0749b",
+          "label": "sdg_prod_combined_earlysigns"
+        },
+        {
+          "value": 3,
+          "color": "#e1b9bd",
+          "label": "sdg_prod_combined_stabbutstress"
+        },
+        { "value": 4, "color": "#ffffe0", "label": "sdg_prod_combined_stab" },
+        { "value": 5, "color": "#006500", "label": "sdg_prod_combined_imp" }
+      ]
+    }
+  },
+  "Land Productivity Dynamics (from TE)": {
+    "title": "sdg_prod_combined_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "exact",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "nodata" },
+        {
+          "value": 1,
+          "color": "#9b2779",
+          "label": "sdg_prod_combined_declining"
+        },
+        {
+          "value": 2,
+          "color": "#c0749b",
+          "label": "sdg_prod_combined_earlysigns"
+        },
+        {
+          "value": 3,
+          "color": "#e1b9bd",
+          "label": "sdg_prod_combined_stabbutstress"
+        },
+        { "value": 4, "color": "#ffffe0", "label": "sdg_prod_combined_stab" },
+        { "value": 5, "color": "#006500", "label": "sdg_prod_combined_imp" }
+      ]
+    }
+  },
+  "Productivity degradation (comparison)": {
+    "title": "prod_deg_comp_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "exact",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "nodata" },
+        { "value": -1, "color": "#9b2779", "label": "prod_deg_comp_deg" },
+        { "value": 0, "color": "#ffffe0", "label": "prod_deg_comp_stable" },
+        { "value": 1, "color": "#006500", "label": "prod_deg_comp_imp" }
+      ]
+    }
+  },
+  "SDG 15.3.1 Productivity Indicator": {
+    "title": "sdg_prod_combined_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "exact",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "nodata" },
+        {
+          "value": 1,
+          "color": "#9b2779",
+          "label": "sdg_prod_combined_declining"
+        },
+        {
+          "value": 2,
+          "color": "#c0749b",
+          "label": "sdg_prod_combined_earlysigns"
+        },
+        {
+          "value": 3,
+          "color": "#e1b9bd",
+          "label": "sdg_prod_combined_stabbutstress"
+        },
+        { "value": 4, "color": "#ffffe0", "label": "sdg_prod_combined_stab" },
+        { "value": 5, "color": "#006500", "label": "sdg_prod_combined_imp" }
+      ]
+    }
+  },
+  "SDG 15.3.1 Indicator (LPD)": {
+    "title": "sdg_prod_combined_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "exact",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "nodata" },
+        {
+          "value": 1,
+          "color": "#9b2779",
+          "label": "sdg_prod_combined_declining"
+        },
+        {
+          "value": 2,
+          "color": "#ED7428",
+          "label": "sdg_prod_combined_earlysigns"
+        },
+        {
+          "value": 3,
+          "color": "#FED652",
+          "label": "sdg_prod_combined_stabbutstress"
+        },
+        { "value": 4, "color": "#B8D779", "label": "sdg_prod_combined_stab" },
+        { "value": 5, "color": "#006500", "label": "sdg_prod_combined_imp" }
+      ]
+    }
+  },
+  "Land Productivity Dynamics (LPD)": {
+    "title": "lpd_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "exact",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "nodata" },
+        { "value": 1, "color": "#9b2779", "label": "lpd_declining" },
+        { "value": 2, "color": "#ED7428", "label": "lpd_earlysigns" },
+        { "value": 3, "color": "#FED652", "label": "lpd_stabbutstress" },
+        { "value": 4, "color": "#B8D779", "label": "lpd_stab" },
+        { "value": 5, "color": "#006500", "label": "lpd_imp" }
+      ]
+    }
+  },
+  "Land Productivity Dynamics (from JRC)": {
+    "title": "lpd_jrc_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "discrete",
+      "items": [
+        { "value": 0, "color": "#000000", "label": "nodata" },
+        { "value": 1, "color": "#9b2779", "label": "lpd_declining" },
+        { "value": 2, "color": "#ED7428", "label": "lpd_earlysigns" },
+        { "value": 3, "color": "#FED652", "label": "lpd_stabbutstress" },
+        { "value": 4, "color": "#B8D779", "label": "lpd_stab" },
+        { "value": 5, "color": "#006500", "label": "lpd_imp" }
+      ]
+    }
+  },
+  "Land Productivity Dynamics (from FAO-WOCAT)": {
+    "title": "lpd_fao_wocat_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "discrete",
+      "items": [
+        { "value": 0, "color": "#000000", "label": "nodata" },
+        { "value": 1, "color": "#9b2779", "label": "lpd_declining" },
+        { "value": 2, "color": "#ED7428", "label": "lpd_earlysigns" },
+        { "value": 3, "color": "#FED652", "label": "lpd_stabbutstress" },
+        { "value": 4, "color": "#B8D779", "label": "lpd_stab" },
+        { "value": 5, "color": "#006500", "label": "lpd_imp" }
+      ]
+    }
+  },
+  "Forest loss": {
+    "title": "f_loss_hansen_title",
+    "ramp": {
+      "type": "categorical with dynamic ramp",
+      "shader": "interpolated",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "nodata" },
+        { "value": -2, "color": "#0053C4", "label": "f_loss_hansen_water" },
+        { "value": -1, "color": "#CCCCCC", "label": "f_loss_hansen_nonforest" },
+        { "value": 0, "color": "#43AA5D", "label": "f_loss_hansen_noloss" }
+      ],
+      "ramp min": { "color": "#FFFF04", "label": "f_loss_hansen_year_start" },
+      "ramp max": { "color": "#FF1A02", "label": "f_loss_hansen_year_end" }
+    }
+  },
+  "Root/shoot ratio": {
+    "title": "root_shoot_title",
+    "ramp": {
+      "type": "min zero stretch",
+      "shader": "interpolated",
+      "percent stretch": 2,
+      "zero": { "color": "#461554" },
+      "mid": { "color": "#28898C" },
+      "max": { "color": "#FDE629" },
+      "no data": { "value": -32768, "color": "#000000", "label": "nodata" }
+    }
+  },
+  "Total carbon": {
+    "title": "tc_title",
+    "ramp": {
+      "type": "min zero stretch",
+      "shader": "interpolated",
+      "percent stretch": 2,
+      "zero": { "color": "#461554" },
+      "mid": { "color": "#28898C" },
+      "max": { "color": "#FDE629" },
+      "no data": { "value": -32768, "color": "#000000", "label": "nodata" }
+    }
+  },
+  "Urban series": {
+    "title": "urban_series_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "exact",
+      "items": [
+        { "value": -32768, "color": "#777777", "label": "nodata" },
+        { "value": -1, "color": "#0000FF", "label": "urban_series_water" },
+        {
+          "value": 1,
+          "color": "#000000",
+          "label": "urban_series_built_up_by_2000"
+        },
+        {
+          "value": 2,
+          "color": "#FF0000",
+          "label": "urban_series_built_up_by_2005"
+        },
+        {
+          "value": 3,
+          "color": "#FF9400",
+          "label": "urban_series_built_up_by_2010"
+        },
+        {
+          "value": 4,
+          "color": "#FFFF00",
+          "label": "urban_series_built_up_by_2015"
+        }
+      ]
+    }
+  },
+  "Urban": {
+    "title": "urban_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "exact",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "nodata" },
+        { "value": 1, "color": "#D40300", "label": "urban_urban" },
+        { "value": 2, "color": "#FF4901", "label": "urban_suburban" },
+        { "value": 3, "color": "#4B4B4B", "label": "urban_built_up_rural" },
+        { "value": 4, "color": "#0AC506", "label": "urban_fringe_open_space" },
+        {
+          "value": 5,
+          "color": "#054C00",
+          "label": "urban_captured_open_space"
+        },
+        { "value": 6, "color": "#C5C5C5", "label": "urban_rural_open_space" },
+        {
+          "value": 7,
+          "color": "#007ED8",
+          "label": "urban_fringe_open_space_water"
+        },
+        {
+          "value": 8,
+          "color": "#1201FF",
+          "label": "urban_captured_open_space_water"
+        },
+        {
+          "value": 9,
+          "color": "#808080",
+          "label": "urban_rural_open_space_water"
+        }
+      ]
+    }
+  },
+  "Population density at minimum SPI over period": {
+    "title": "population_density_at_maximum_drought_title",
+    "ramp": {
+      "type": "zero-centered stretch",
+      "shader": "interpolated",
+      "percent stretch": 2,
+      "min": { "color": "#9b2779" },
+      "zero": { "color": "#ffffe0" },
+      "max": { "color": "#006500" },
+      "no data": { "value": -32768, "color": "#000000", "label": "nodata" }
+    }
+  },
+  "Population at minimum SPI over period": {
+    "title": "population_at_maximum_drought_title",
+    "ramp": {
+      "type": "zero-centered stretch",
+      "shader": "interpolated",
+      "percent stretch": 2,
+      "min": { "color": "#9b2779" },
+      "zero": { "color": "#ffffe0" },
+      "max": { "color": "#006500" },
+      "no data": { "value": -32768, "color": "#000000", "label": "nodata" }
+    }
+  },
+  "Population (number of people)": {
+    "title": "population_number_of_people",
+    "ramp": {
+      "type": "min zero stretch",
+      "shader": "interpolated",
+      "percent stretch": 2,
+      "zero": { "color": "#461554" },
+      "mid": { "color": "#28898C" },
+      "max": { "color": "#FDE629" },
+      "no data": { "value": -32768, "color": "#000000", "label": "nodata" }
+    }
+  },
+  "Population (density, persons per sq km / 10)": {
+    "title": "population_density_title",
+    "ramp": {
+      "type": "min zero stretch",
+      "shader": "interpolated",
+      "percent stretch": 2,
+      "zero": { "color": "#461554" },
+      "mid": { "color": "#28898C" },
+      "max": { "color": "#FDE629" },
+      "no data": { "value": -32768, "color": "#000000", "label": "nodata" }
+    }
+  },
+  "Population affected by degradation (density, persons per sq km / 10)": {
+    "title": "population_density_affected_by_degradation_title",
+    "ramp": {
+      "type": "zero-centered stretch",
+      "shader": "interpolated",
+      "percent stretch": 2,
+      "min": { "color": "#9b2779" },
+      "zero": { "color": "#ffffe0" },
+      "max": { "color": "#006500" },
+      "no data": { "value": -32768, "color": "#000000", "label": "nodata" }
+    }
+  },
+  "Population affected by degradation (number of people)": {
+    "title": "population_affected_by_degradation_title",
+    "ramp": {
+      "type": "zero-centered stretch",
+      "shader": "interpolated",
+      "percent stretch": 2,
+      "min": { "color": "#9b2779" },
+      "zero": { "color": "#ffffe0" },
+      "max": { "color": "#006500" },
+      "no data": { "value": -32768, "color": "#000000", "label": "nodata" }
+    }
+  },
+  "Population": {
+    "title": "population_title",
+    "ramp": {
+      "type": "min zero stretch",
+      "shader": "interpolated",
+      "percent stretch": 2,
+      "zero": { "color": "#461554" },
+      "mid": { "color": "#28898C" },
+      "max": { "color": "#FDE629" },
+      "no data": { "value": -32768, "color": "#000000", "label": "nodata" }
+    }
+  },
+  "Standardized Precipitation Index (SPI)": {
+    "title": "spi_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "interpolated",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "nodata" },
+        { "value": -2500, "color": "#8c510a", "label": "spi_extreme_drought" },
+        { "value": -2000, "color": "#bf812d", "label": "spi_severe_drought" },
+        { "value": -1500, "color": "#dfc27d", "label": "spi_moderate_drought" },
+        { "value": -1000, "color": "#f6e8c3", "label": "spi_mild_drought" },
+        { "value": 0, "color": "#f5f5f5", "label": "spi_normal" },
+        { "value": 1000, "color": "#c7eae5", "label": "spi_mild_wet" },
+        { "value": 1500, "color": "#80cdc1", "label": "spi_moderate_wet" },
+        { "value": 2000, "color": "#35978f", "label": "spi_severe_wet" },
+        { "value": 2500, "color": "#01665e", "label": "spi_extreme_wet" }
+      ]
+    }
+  },
+  "Minimum SPI over period": {
+    "title": "spi_at_maximum_drought_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "interpolated",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "nodata" },
+        { "value": -2500, "color": "#8c510a", "label": "spi_extreme_drought" },
+        { "value": -2000, "color": "#bf812d", "label": "spi_severe_drought" },
+        { "value": -1500, "color": "#dfc27d", "label": "spi_moderate_drought" },
+        { "value": -1000, "color": "#f6e8c3", "label": "spi_mild_drought" },
+        { "value": 0, "color": "#f5f5f5", "label": "spi_normal" },
+        { "value": 1000, "color": "#c7eae5", "label": "spi_mild_wet" },
+        { "value": 1500, "color": "#80cdc1", "label": "spi_moderate_wet" },
+        { "value": 2000, "color": "#35978f", "label": "spi_severe_wet" },
+        { "value": 2500, "color": "#01665e", "label": "spi_extreme_wet" }
+      ]
+    }
+  },
+  "Drought Vulnerability (JRC)": {
+    "title": "jrc_drought_vulnerability_title",
+    "ramp": {
+      "type": "categorical",
+      "shader": "interpolated",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "nodata" },
+        { "value": 2560, "color": "#3B0F6F", "label": "0th percentile" },
+        { "value": 3930, "color": "#8C2981", "label": "25th percentile" },
+        { "value": 4718, "color": "#DD4A69", "label": "50th percentile" },
+        { "value": 9270, "color": "#FE9F6D", "label": "75th percentile" },
+        { "value": 10000, "color": "#FCFDBF", "label": "100th percentile" }
+      ]
+    }
+  },
+  "Biomass (tonnes CO2e per ha)": {
+    "title": "biomass_title",
+    "ramp": {
+      "type": "min zero stretch",
+      "shader": "interpolated",
+      "percent stretch": 2,
+      "zero": { "color": "#461554" },
+      "mid": { "color": "#28898C" },
+      "max": { "color": "#FDE629" },
+      "no data": { "value": -32768, "color": "#000000", "label": "nodata" }
+    }
+  },
+  "Restoration biomass difference (tonnes CO2e per ha)": {
+    "title": "biomass_difference_title",
+    "ramp": {
+      "type": "zero-centered stretch",
+      "shader": "interpolated",
+      "percent stretch": 2,
+      "min": { "color": "#9b2779" },
+      "zero": { "color": "#ffffe0" },
+      "max": { "color": "#006500" },
+      "no data": { "value": -32768, "color": "#000000", "label": "nodata" }
+    }
+  },
+  "Agro Ecological Zones V3.0": {
+    "title": "agro_eco_zones",
+    "ramp": {
+      "type": "zero-centered stretch",
+      "shader": "interpolated",
+      "percent stretch": 2,
+      "min": { "color": "#9b2779" },
+      "zero": { "color": "#ffffe0" },
+      "max": { "color": "#006500" },
+      "no data": { "value": -32768, "color": "#000000", "label": "nodata" }
+    }
+  },
+  "Climatic Zones": {
+    "title": "climatic_zones",
+    "ramp": {
+      "type": "zero-centered stretch",
+      "shader": "interpolated",
+      "percent stretch": 2,
+      "min": { "color": "#9b2779" },
+      "zero": { "color": "#ffffe0" },
+      "max": { "color": "#006500" },
+      "no data": { "value": -32768, "color": "#000000", "label": "nodata" }
+    }
+  },
+  "Hansen": {
+    "title": "forest_cover_hansen",
+    "ramp": {
+      "type": "zero-centered stretch",
+      "shader": "interpolated",
+      "percent stretch": 2,
+      "min": { "color": "#9b2779" },
+      "zero": { "color": "#ffffe0" },
+      "max": { "color": "#006500" },
+      "no data": { "value": -32768, "color": "#000000", "label": "nodata" }
+    }
+  },
+  "MOD16A2": {
+    "title": "mod16a2",
+    "ramp": {
+      "type": "zero-centered stretch",
+      "shader": "interpolated",
+      "percent stretch": 2,
+      "min": { "color": "#9b2779" },
+      "zero": { "color": "#ffffe0" },
+      "max": { "color": "#006500" },
+      "no data": { "value": -32768, "color": "#000000", "label": "nodata" }
+    }
+  },
+  "CHIRPS": {
+    "title": "chirps",
+    "ramp": {
+      "type": "zero-centered stretch",
+      "shader": "interpolated",
+      "percent stretch": 2,
+      "min": { "color": "#9b2779" },
+      "zero": { "color": "#ffffe0" },
+      "max": { "color": "#006500" },
+      "no data": { "value": -32768, "color": "#000000", "label": "nodata" }
+    }
+  },
+  "GPCC V7 (Global Precipitation Climatology Centre)": {
+    "title": "gpcc_v7",
+    "ramp": {
+      "type": "zero-centered stretch",
+      "shader": "interpolated",
+      "percent stretch": 2,
+      "min": { "color": "#9b2779" },
+      "zero": { "color": "#ffffe0" },
+      "max": { "color": "#006500" },
+      "no data": { "value": -32768, "color": "#000000", "label": "nodata" }
+    }
+  },
+  "GPCP v2.3 1 month (Global Precipitation Climatology Project)": {
+    "title": "gpcp_v231",
+    "ramp": {
+      "type": "zero-centered stretch",
+      "shader": "interpolated",
+      "percent stretch": 2,
+      "min": { "color": "#9b2779" },
+      "zero": { "color": "#ffffe0" },
+      "max": { "color": "#006500" },
+      "no data": { "value": -32768, "color": "#000000", "label": "nodata" }
+    }
+  },
+  "PERSIANN-CDR": {
+    "title": "persiann_cdr",
+    "ramp": {
+      "type": "zero-centered stretch",
+      "shader": "interpolated",
+      "percent stretch": 2,
+      "min": { "color": "#9b2779" },
+      "zero": { "color": "#ffffe0" },
+      "max": { "color": "#006500" },
+      "no data": { "value": -32768, "color": "#000000", "label": "nodata" }
+    }
+  },
+  "ERA I": {
+    "title": "era_1",
+    "ramp": {
+      "type": "zero-centered stretch",
+      "shader": "interpolated",
+      "percent stretch": 2,
+      "min": { "color": "#9b2779" },
+      "zero": { "color": "#ffffe0" },
+      "max": { "color": "#006500" },
+      "no data": { "value": -32768, "color": "#000000", "label": "nodata" }
+    }
+  },
+  "MERRA 2": {
+    "title": "merra_2",
+    "ramp": {
+      "type": "zero-centered stretch",
+      "shader": "interpolated",
+      "percent stretch": 2,
+      "min": { "color": "#9b2779" },
+      "zero": { "color": "#ffffe0" },
+      "max": { "color": "#006500" },
+      "no data": { "value": -32768, "color": "#000000", "label": "nodata" }
+    }
+  },
+  "AVHRR (GIMMS3g.v1, annual)": {
+    "title": "avhrr_gimms3_annual",
+    "ramp": {
+      "type": "zero-centered stretch",
+      "shader": "interpolated",
+      "percent stretch": 2,
+      "min": { "color": "#9b2779" },
+      "zero": { "color": "#ffffe0" },
+      "max": { "color": "#006500" },
+      "no data": { "value": -32768, "color": "#000000", "label": "nodata" }
+    }
+  },
+  "MODIS (MOD13Q1, annual)": {
+    "title": "mod13q1_annual",
+    "ramp": {
+      "type": "zero-centered stretch",
+      "shader": "interpolated",
+      "percent stretch": 2,
+      "min": { "color": "#9b2779" },
+      "zero": { "color": "#ffffe0" },
+      "max": { "color": "#006500" },
+      "no data": { "value": -32768, "color": "#000000", "label": "nodata" }
+    }
+  },
+  "MODIS (MOD13Q1, 16 day)": {
+    "title": "mod13q1_16day",
+    "ramp": {
+      "type": "zero-centered stretch",
+      "shader": "interpolated",
+      "percent stretch": 2,
+      "min": { "color": "#9b2779" },
+      "zero": { "color": "#ffffe0" },
+      "max": { "color": "#006500" },
+      "no data": { "value": -32768, "color": "#000000", "label": "nodata" }
+    }
+  },
+  "Soil Grids 250": {
+    "title": "soil_grids_250_wrb",
+    "ramp": {
+      "type": "zero-centered stretch",
+      "shader": "interpolated",
+      "percent stretch": 2,
+      "min": { "color": "#9b2779" },
+      "zero": { "color": "#ffffe0" },
+      "max": { "color": "#006500" },
+      "no data": { "value": -32768, "color": "#000000", "label": "nodata" }
+    }
+  },
+  "USDA Soil Type": {
+    "title": "usda_soil_type",
+    "ramp": {
+      "type": "zero-centered stretch",
+      "shader": "interpolated",
+      "percent stretch": 2,
+      "min": { "color": "#9b2779" },
+      "zero": { "color": "#ffffe0" },
+      "max": { "color": "#006500" },
+      "no data": { "value": -32768, "color": "#000000", "label": "nodata" }
+    }
+  },
+  "Soil Grids 250": {
+    "title": "soil_grids_250_soc",
+    "ramp": {
+      "type": "zero-centered stretch",
+      "shader": "interpolated",
+      "percent stretch": 2,
+      "min": { "color": "#9b2779" },
+      "zero": { "color": "#ffffe0" },
+      "max": { "color": "#006500" },
+      "no data": { "value": -32768, "color": "#000000", "label": "nodata" }
+    }
+  }
 }

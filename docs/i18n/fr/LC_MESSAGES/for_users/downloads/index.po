@@ -1,0 +1,278 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017-2022, Conservation International
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 1.99.11\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-05-24 18:41-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: ../../source/for_users/downloads/index.md:1
+msgid "Downloads"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md:3
+msgid ""
+"This page lists data packages containing default datasets that can be "
+"used in Trends.Earth."
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md:6
+msgid ""
+"**This site and the products of Trends.Earth are made available under the"
+" terms of the Creative Commons Attribution 4.0 International License (CC "
+"BY 4.0). The boundaries and names used, and the designations used, in do "
+"not imply official endorsement or acceptance by Conservation "
+"International Foundation, or its partner organizations and "
+"contributors.**"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md:12
+msgid "SDG Indicator 15.3.1 (UNCCD Strategic Objectives 1 and 2)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md:14
+msgid ""
+"The below datasets can be used to support assessing SDG Indicator 15.3.1,"
+" and include indicators of change in land productivity dynamics (LPD), "
+"land cover, and soil organic carbon. These datasets can be used to "
+"support reporting on UNCCD Strategic Objectives 1 and 2. Note that there "
+"are three different LPD datasets available (from JRC, from the default "
+"Trends.Earth method, and from FAO-WOCAT)."
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "Country"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "SDG 15.3.1 using JRC LPD"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "SDG 15.3.1 using Trends.Earth LPD"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "SDG 15.3.1 using FAO-WOCAT LPD"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "ABW"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[ABW (JRC LPD)](http://trends.earth.s3.us-"
+"east-1.amazonaws.com/data/packages/ABW_NaturalEarth_SDG15_JRC-"
+"LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[ABW (FAO-WOCAT LPD)](http://trends.earth.s3.us-"
+"east-1.amazonaws.com/data/packages/ABW_NaturalEarth_SDG15_FAO-WOCAT-"
+"LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "COL"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[COL (JRC LPD)](http://trends.earth.s3.us-"
+"east-1.amazonaws.com/data/packages/COL_NaturalEarth_SDG15_JRC-"
+"LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[COL (FAO-WOCAT LPD)](http://trends.earth.s3.us-"
+"east-1.amazonaws.com/data/packages/COL_NaturalEarth_SDG15_FAO-WOCAT-"
+"LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "GEO"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[GEO (JRC LPD)](http://trends.earth.s3.us-"
+"east-1.amazonaws.com/data/packages/GEO_NaturalEarth_SDG15_JRC-"
+"LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[GEO (Trends.Earth LPD)](http://trends.earth.s3.us-"
+"east-1.amazonaws.com/data/packages/GEO_NaturalEarth_SDG15_TrendsEarth-"
+"LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[GEO (FAO-WOCAT LPD)](http://trends.earth.s3.us-"
+"east-1.amazonaws.com/data/packages/GEO_NaturalEarth_SDG15_FAO-WOCAT-"
+"LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "GUY"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[GUY (JRC LPD)](http://trends.earth.s3.us-"
+"east-1.amazonaws.com/data/packages/GUY_NaturalEarth_SDG15_JRC-"
+"LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[GUY (FAO-WOCAT LPD)](http://trends.earth.s3.us-"
+"east-1.amazonaws.com/data/packages/GUY_NaturalEarth_SDG15_FAO-WOCAT-"
+"LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "THA"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[THA (JRC LPD)](http://trends.earth.s3.us-"
+"east-1.amazonaws.com/data/packages/THA_NaturalEarth_SDG15_JRC-"
+"LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[THA (FAO-WOCAT LPD)](http://trends.earth.s3.us-"
+"east-1.amazonaws.com/data/packages/THA_NaturalEarth_SDG15_FAO-WOCAT-"
+"LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "TKM"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[TKM (JRC LPD)](http://trends.earth.s3.us-"
+"east-1.amazonaws.com/data/packages/TKM_NaturalEarth_SDG15_JRC-"
+"LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[TKM (Trends.Earth LPD)](http://trends.earth.s3.us-"
+"east-1.amazonaws.com/data/packages/TKM_NaturalEarth_SDG15_TrendsEarth-"
+"LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[TKM (FAO-WOCAT LPD)](http://trends.earth.s3.us-"
+"east-1.amazonaws.com/data/packages/TKM_NaturalEarth_SDG15_FAO-WOCAT-"
+"LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "TUR"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[TUR (JRC LPD)](http://trends.earth.s3.us-"
+"east-1.amazonaws.com/data/packages/TUR_NaturalEarth_SDG15_JRC-"
+"LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[TUR (FAO-WOCAT LPD)](http://trends.earth.s3.us-"
+"east-1.amazonaws.com/data/packages/TUR_NaturalEarth_SDG15_FAO-WOCAT-"
+"LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "ZAF"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[ZAF (FAO-WOCAT LPD)](http://trends.earth.s3.us-"
+"east-1.amazonaws.com/data/packages/ZAF_NaturalEarth_SDG15_FAO-WOCAT-"
+"LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md:32
+msgid "Drought hazard, vulnerability and exposure (UNCCD Strategic Objective 3)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md:34
+msgid ""
+"The below datasets can be used to support assessing drought hazard, "
+"vulnerability, and exposure, and for reporting on UNCCD Strategic "
+"Objective 3."
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "Drought indicators (2000-2019)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[ABW (Drought)](http://trends.earth.s3.us-"
+"east-1.amazonaws.com/data/packages/ABW_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[COL (Drought)](http://trends.earth.s3.us-"
+"east-1.amazonaws.com/data/packages/COL_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[GEO (Drought)](http://trends.earth.s3.us-"
+"east-1.amazonaws.com/data/packages/GEO_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[GUY (Drought)](http://trends.earth.s3.us-"
+"east-1.amazonaws.com/data/packages/GUY_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[THA (Drought)](http://trends.earth.s3.us-"
+"east-1.amazonaws.com/data/packages/THA_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[TKM (Drought)](http://trends.earth.s3.us-"
+"east-1.amazonaws.com/data/packages/TKM_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[TUR (Drought)](http://trends.earth.s3.us-"
+"east-1.amazonaws.com/data/packages/TUR_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+

@@ -41,7 +41,7 @@ the default Trends.Earth method, and from FAO-WOCAT).
 | NAM | [NAM (JRC LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/NAM_NaturalEarth_SDG15_JRC-LPD-5.tar.gz) |  | [NAM (FAO-WOCAT LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/NAM_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz) |
 | NIC | [NIC (JRC LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/NIC_NaturalEarth_SDG15_JRC-LPD-5.tar.gz) |  | [NIC (FAO-WOCAT LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/NIC_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz) |
 | PAK | [PAK (JRC LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/PAK_NaturalEarth_SDG15_JRC-LPD-5.tar.gz) |  | [PAK (FAO-WOCAT LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/PAK_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz) |
-| PER |  |  | [PER (FAO-WOCAT LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/PER_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz) |
+| PER | [PER (JRC LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/PER_NaturalEarth_SDG15_JRC-LPD-5.tar.gz) |  | [PER (FAO-WOCAT LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/PER_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz) |
 | PRK | [PRK (JRC LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/PRK_NaturalEarth_SDG15_JRC-LPD-5.tar.gz) |  | [PRK (FAO-WOCAT LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/PRK_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz) |
 | PSX | [PSX (JRC LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/PSX_NaturalEarth_SDG15_JRC-LPD-5.tar.gz) | [PSX (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/PSX_NaturalEarth_SDG15_TrendsEarth-LPD-5.tar.gz) | [PSX (FAO-WOCAT LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/PSX_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz) |
 | SAH | [SAH (JRC LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/SAH_NaturalEarth_SDG15_JRC-LPD-5.tar.gz) |  | [SAH (FAO-WOCAT LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/SAH_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz) |
@@ -84,7 +84,7 @@ exposure, and for reporting on UNCCD Strategic Objective 3.
 | MAR |  |
 | MWI | [MWI (Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/MWI_NaturalEarth_Drought.tar.gz) |
 | MYS | [MYS (Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/MYS_NaturalEarth_Drought.tar.gz) |
-| NAM |  |
+| NAM | [NAM (Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/NAM_NaturalEarth_Drought.tar.gz) |
 | NIC | [NIC (Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/NIC_NaturalEarth_Drought.tar.gz) |
 | PAK |  |
 | PER |  |
@@ -93,12 +93,12 @@ exposure, and for reporting on UNCCD Strategic Objective 3.
 | SAH | [SAH (Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/SAH_NaturalEarth_Drought.tar.gz) |
 | SDS | [SDS (Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/SDS_NaturalEarth_Drought.tar.gz) |
 | SOL | [SOL (Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/SOL_NaturalEarth_Drought.tar.gz) |
-| SOM |  |
+| SOM | [SOM (Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/SOM_NaturalEarth_Drought.tar.gz) |
 | SUR | [SUR (Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/SUR_NaturalEarth_Drought.tar.gz) |
 | SYR | [SYR (Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/SYR_NaturalEarth_Drought.tar.gz) |
 | THA | [THA (Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/THA_NaturalEarth_Drought.tar.gz) |
 | TKM | [TKM (Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/TKM_NaturalEarth_Drought.tar.gz) |
 | TUR | [TUR (Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/TUR_NaturalEarth_Drought.tar.gz) |
-| TZA |  |
+| TZA | [TZA (Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/TZA_NaturalEarth_Drought.tar.gz) |
 | UKR | [UKR (Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/UKR_NaturalEarth_Drought.tar.gz) |
 | ZAF | [ZAF (Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/ZAF_NaturalEarth_Drought.tar.gz) |

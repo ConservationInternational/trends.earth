@@ -1333,8 +1333,8 @@ Trends.Earth.
 
 **This site and the products of Trends.Earth are made available under the terms of the
 Creative Commons Attribution 4.0 International License (CC BY 4.0). The boundaries and
-names used, and the designations used, in do not imply official endorsement or
-acceptance by Conservation International Foundation, or its partner organizations and
+names used, and the designations used, do not imply official endorsement or acceptance
+by Conservation International Foundation, or its partner organizations and
 contributors.**
 
 ## SDG Indicator 15.3.1 (UNCCD Strategic Objectives 1 and 2)

@@ -360,22 +360,3 @@ class LDMPPlugin(object):
         if layout_type == QgsMasterLayoutInterface.PrintLayout:
             layout = designer.layout()
             ReportExpressionUtils.register_variables(layout)
-
-    def init_reports(self):
-        # Initialize report module.
-        # Register custom report variables on opening the layout designer
-        self.iface.layoutDesignerOpened.connect(
-            self.on_layout_designer_opened
-        )
-        # Copy report config and templates to data directory
-        template_manager.use_data_dir_config_source()
-
-        # Download basemap as its required in the reports
-        download_base_map(use_mask=False)
-
-    def on_layout_designer_opened(self, designer: QgsLayoutDesignerInterface):
-        # Register custom report variables in a print layout only.
-        layout_type = designer.masterLayout().layoutType()
-        if layout_type == QgsMasterLayoutInterface.PrintLayout:
-            layout = designer.layout()
-            ReportExpressionUtils.register_variables(layout)

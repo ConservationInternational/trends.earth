@@ -163,7 +163,7 @@ def run(params, logger):
     script_name = params['script_name']
     iso = params['iso']
     band_name = params['band_name']
-    band_sort_field = params['band_sort_field']
+    band_sort_field = 'year_initial'
     boundary_dataset = params.get('boundary_dataset', 'UN')
     productivity_dataset = params.get(
         'productivity_dataset', ProductivityMode.JRC_5_CLASS_LPD.value

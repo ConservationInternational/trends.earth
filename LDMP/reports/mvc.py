@@ -115,6 +115,7 @@ class DatasetReportHandler:
         if self._job.is_vector():
             # To be used to generate reports for vector results in the
             # future. For now, the process exits.
+            self._rpt_btn.setVisible(False)
             return
         else:
             scope = self._job.script.name

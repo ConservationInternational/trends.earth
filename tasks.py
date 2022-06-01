@@ -1333,15 +1333,16 @@ def _make_zip(zipFile, c):
         'qgis': 'QGIS version to target',
         'clean': 'Clean out dependencies and untracked data files before packaging',
         'pip': 'Path to pip (usually "pip" or "pip3"',
-        'tag': 'Whether to tag on Github'
+        'tag': 'Whether to tag on Github',
+        'filename': 'Name for output file'
     }
 )
-def zipfile_deploy(c, qgis, clean=True, pip='pip', tag=False):
+def zipfile_deploy(c, qgis, clean=True, pip='pip', tag=False, filename=None):
     binaries_sync(c)
     binaries_deploy(c, qgis=qgis)
     print('Binaries uploaded')
 
-    filename = zipfile_build(c, pip=pip, clean=clean, tag=tag)
+    filename = zipfile_build(c, pip=pip, clean=clean, tag=tag, filename=filename)
     try:
         with open(
             os.path.join(os.path.dirname(__file__), 'aws_credentials.json'),

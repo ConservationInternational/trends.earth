@@ -402,6 +402,7 @@ class AOI(object):
         in_geom = ogr.CreateGeometryFromWkt(geom.asWkt())
         in_geom_area = in_geom.GetArea()
         if in_geom_area == 0:
+            aoi_geom = ogr.CreateGeometryFromWkt(aoi_wkts)
             if aoi_geom.Within(in_geom):
                 return 1
 

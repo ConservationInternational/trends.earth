@@ -11,7 +11,6 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
-
 import json
 import typing
 from pathlib import Path
@@ -40,7 +39,7 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
         self,
         iface: qgis.gui.QgisInterface,
         script: ExecutionScript,
-        parent: QtWidgets.QWidget = None
+        parent: QtWidgets.QWidget = None,
     ):
         super().__init__(iface, script, parent)
         self.setupUi(self)
@@ -61,19 +60,15 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
         self.end_year_ndvi = 9999
         self.dataset_ndvi_changed()
         self.traj_climate_changed()
-        self.dataset_ndvi.currentIndexChanged.connect(
-            self.dataset_ndvi_changed
-        )
-        self.traj_climate.currentIndexChanged.connect(
-            self.traj_climate_changed
-        )
+        self.dataset_ndvi.currentIndexChanged.connect(self.dataset_ndvi_changed)
+        self.traj_climate.currentIndexChanged.connect(self.traj_climate_changed)
         self.mode_te_prod.toggled.connect(self.mode_te_prod_toggled)
         self.mode_te_prod_toggled()
         self.resize(self.width(), 711)
         self._finish_initialization()
 
         self.combo_lpd.addItems(
-            [*conf.REMOTE_DATASETS["Land Productivity Dynamics (JRC)"].keys()]
+            [*conf.REMOTE_DATASETS["Land Productivity Dynamics"].keys()]
         )
 
         self.advance_configurations.setCollapsed(True)
@@ -106,14 +101,13 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
     def dataset_climate_update(self):
         self.traj_climate.clear()
         self.climate_datasets = {}
-        climate_types = self.trajectory_functions[self.traj_indic.currentText()
-                                                  ]["climate types"]
+        climate_types = self.trajectory_functions[self.traj_indic.currentText()][
+            "climate types"
+        ]
 
         for climate_type in climate_types:
             self.climate_datasets.update(conf.REMOTE_DATASETS[climate_type])
-            self.traj_climate.addItems(
-                list(conf.REMOTE_DATASETS[climate_type].keys())
-            )
+            self.traj_climate.addItems(list(conf.REMOTE_DATASETS[climate_type].keys()))
 
     def traj_climate_changed(self):
         if self.traj_climate.currentText() == "":
@@ -121,16 +115,19 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
             self.end_year_climate = 9999
         else:
             self.start_year_climate = self.climate_datasets[
-                self.traj_climate.currentText()]['Start year']
+                self.traj_climate.currentText()
+            ]["Start year"]
             self.end_year_climate = self.climate_datasets[
-                self.traj_climate.currentText()]['End year']
+                self.traj_climate.currentText()
+            ]["End year"]
         self.update_time_bounds()
 
     def dataset_ndvi_changed(self):
-        this_ndvi_dataset = conf.REMOTE_DATASETS['NDVI'][
-            self.dataset_ndvi.currentText()]
-        self.start_year_ndvi = this_ndvi_dataset['Start year']
-        self.end_year_ndvi = this_ndvi_dataset['End year']
+        this_ndvi_dataset = conf.REMOTE_DATASETS["NDVI"][
+            self.dataset_ndvi.currentText()
+        ]
+        self.start_year_ndvi = this_ndvi_dataset["Start year"]
+        self.end_year_ndvi = this_ndvi_dataset["End year"]
 
         self.update_time_bounds()
 
@@ -173,16 +170,26 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
     def btn_cancel(self):
         self.close()
 
+    def _get_prod_mode(self, radio_lpd_te, cb_lpd):
+        if radio_lpd_te.isChecked():
+            return ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
+        else:
+            if "FAO-WOCAT" in cb_lpd.currentText():
+                return ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value
+            elif "JRC" in cb_lpd.currentText():
+                return ProductivityMode.JRC_5_CLASS_LPD.value
+        return None
+
     def btn_calculate(self):
         if self.mode_te_prod.isChecked() and not (
-            self.groupBox_traj.isChecked() or self.groupBox_perf.isChecked()
+            self.groupBox_traj.isChecked()
+            or self.groupBox_perf.isChecked()
             or self.groupBox_state.isChecked()
         ):
             QtWidgets.QMessageBox.critical(
-                None, self.tr("Error"),
-                self.tr(
-                    "Choose one or more productivity sub-indicator to calculate."
-                )
+                None,
+                self.tr("Error"),
+                self.tr("Choose one or more productivity sub-indicator to calculate."),
             )
 
             return
@@ -197,81 +204,74 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
 
         self.close()
 
-        ndvi_dataset = conf.REMOTE_DATASETS['NDVI'][
-            self.dataset_ndvi.currentText()]['GEE Dataset']
+        ndvi_dataset = conf.REMOTE_DATASETS["NDVI"][self.dataset_ndvi.currentText()][
+            "GEE Dataset"
+        ]
 
         if self.traj_climate.currentText() != "":
             climate_gee_dataset = self.climate_datasets[
-                self.traj_climate.currentText()]['GEE Dataset']
-            log(u'climate_gee_dataset {}'.format(climate_gee_dataset))
+                self.traj_climate.currentText()
+            ]["GEE Dataset"]
+            log(u"climate_gee_dataset {}".format(climate_gee_dataset))
         else:
             climate_gee_dataset = None
 
         crosses_180th, geojsons = self.gee_bounding_box
         payload = {
-            'geojsons': json.dumps(geojsons),
-            'task_name': self.execution_name_le.text(),
-            'task_notes': self.task_notes.toPlainText()
+            "geojsons": json.dumps(geojsons),
+            "task_name": self.execution_name_le.text(),
+            "task_notes": self.task_notes.toPlainText(),
         }
 
-        if self.mode_te_prod.isChecked():
-            prod_mode = ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
+        prod_mode = self._get_prod_mode(self.mode_te_prod, self.combo_lpd)
+
+        if prod_mode == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
             payload.update(
                 {
-                    'prod_mode':
-                    prod_mode,
-                    'calc_traj':
-                    self.groupBox_traj.isChecked(),
-                    'calc_perf':
-                    self.groupBox_perf.isChecked(),
-                    'calc_state':
-                    self.groupBox_state.isChecked(),
-                    'prod_traj_year_initial':
-                    self.traj_year_start.date().year(),
-                    'prod_traj_year_final':
-                    self.traj_year_end.date().year(),
-                    'prod_perf_year_initial':
-                    self.perf_year_start.date().year(),
-                    'prod_perf_year_final':
-                    self.perf_year_end.date().year(),
-                    'prod_state_year_bl_start':
-                    self.state_year_bl_start.date().year(),
-                    'prod_state_year_bl_end':
-                    self.state_year_bl_end.date().year(),
-                    'prod_state_year_tg_start':
-                    self.state_year_tg_start.date().year(),
-                    'prod_state_year_tg_end':
-                    self.state_year_tg_end.date().year(),
-                    'crs':
-                    self.aoi.get_crs_dst_wkt(),
-                    'ndvi_gee_dataset':
-                    ndvi_dataset,
-                    'climate_gee_dataset':
-                    climate_gee_dataset
+                    "prod_mode": prod_mode,
+                    "calc_traj": self.groupBox_traj.isChecked(),
+                    "calc_perf": self.groupBox_perf.isChecked(),
+                    "calc_state": self.groupBox_state.isChecked(),
+                    "prod_traj_year_initial": self.traj_year_start.date().year(),
+                    "prod_traj_year_final": self.traj_year_end.date().year(),
+                    "prod_perf_year_initial": self.perf_year_start.date().year(),
+                    "prod_perf_year_final": self.perf_year_end.date().year(),
+                    "prod_state_year_bl_start": self.state_year_bl_start.date().year(),
+                    "prod_state_year_bl_end": self.state_year_bl_end.date().year(),
+                    "prod_state_year_tg_start": self.state_year_tg_start.date().year(),
+                    "prod_state_year_tg_end": self.state_year_tg_end.date().year(),
+                    "crs": self.aoi.get_crs_dst_wkt(),
+                    "ndvi_gee_dataset": ndvi_dataset,
+                    "climate_gee_dataset": climate_gee_dataset,
                 }
             )
             # This will add in the trajectory-method parameter for productivity
             # trajectory
             current_trajectory_function = self.trajectory_functions[
-                self.traj_indic.currentText()]
+                self.traj_indic.currentText()
+            ]
             payload.update(current_trajectory_function["params"])
 
-        else:
-            prod_mode = ProductivityMode.JRC_5_CLASS_LPD.value
-            prod_dataset = conf.REMOTE_DATASETS[
-                "Land Productivity Dynamics (JRC)"][
-                    self.combo_lpd.currentText()]
-            prod_asset = prod_dataset['GEE Dataset']
-            prod_start_year = prod_dataset['Start year']
-            prod_end_year = prod_dataset['End year']
+        elif prod_mode in (
+            ProductivityMode.JRC_5_CLASS_LPD.value,
+            ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value,
+        ):
+            prod_dataset = conf.REMOTE_DATASETS["Land Productivity Dynamics"][
+                self.combo_lpd.currentText()
+            ]
+            prod_asset = prod_dataset["GEE Dataset"]
+            prod_start_year = prod_dataset["Start year"]
+            prod_end_year = prod_dataset["End year"]
             payload.update(
                 {
-                    'prod_mode': prod_mode,
-                    'prod_asset': prod_asset,
-                    'year_initial': prod_start_year,
-                    'year_final': prod_end_year
+                    "prod_mode": prod_mode,
+                    "prod_asset": prod_asset,
+                    "year_initial": prod_start_year,
+                    "year_final": prod_end_year,
                 }
             )
+        else:
+            raise ValueError("Unknown prod_mode {prod_mode}")
 
         resp = job_manager.submit_remote_job(payload, self.script.id)
 

@@ -1,0 +1,171 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017-2022, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Fanja Andriamialisoa <Fandriamialisoa@aol.com>, 2022
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 1.99.11\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-05-24 18:41-0400\n"
+"PO-Revision-Date: 2022-05-26 11:58+0000\n"
+"Last-Translator: Fanja Andriamialisoa <Fandriamialisoa@aol.com>, 2022\n"
+"Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+
+#: ../../source/for_users/training/unccdreporting.rst:4
+msgid "UNCCD Reporting"
+msgstr "Rapports de la CNULCD"
+
+#: ../../source/for_users/training/unccdreporting.rst:8
+msgid "Generate data package for UNCCD reporting"
+msgstr ""
+
+#: ../../source/for_users/training/unccdreporting.rst:10
+msgid ""
+"In the **Trends.Earth** panel, select the **Algorithm** window, click on "
+"**UNCCD Reporting - Generate data package for UNCCD reporting** and select "
+"**Execute locally**."
+msgstr ""
+
+#: ../../source/for_users/training/unccdreporting.rst:15
+msgid ""
+"The window will appear with the default data populated in the drop-down "
+"lists for the region of interest. Enter **Execution name** and **Notes**. "
+"Select **Execute locally**."
+msgstr ""
+
+#: ../../source/for_users/training/unccdreporting.rst:20
+msgid ""
+"In the **Trends.Earth** panel, select the **Datasets** tab. The task "
+"submitted will appear in the menu if the **Download remotely-generated "
+"datasets automatically** is checked in settings."
+msgstr ""
+
+#: ../../source/for_users/training/unccdreporting.rst:24
+msgid ""
+"Refer to the :ref:`tut_settings` section of this manual to learn more about "
+"**Advanced settings**"
+msgstr ""
+
+#: ../../source/for_users/training/unccdreporting.rst:26
+msgid "Select the Refresh button if the analysis does not appear in the menu."
+msgstr ""
+
+#: ../../source/for_users/training/unccdreporting.rst:28
+msgid ""
+"Select the add layer drop-down button to **Add default layers from this "
+"layer to the map**"
+msgstr ""
+
+#: ../../source/for_users/training/unccdreporting.rst:33
+msgid ""
+"The final SDG 15.3.1 Indicator using default data will be added to the map "
+"for the region of interest."
+msgstr ""
+
+#: ../../source/for_users/training/unccdreporting.rst:36
+msgid ""
+"Refer to the :ref:`background_unccdreporting` background for interpreting "
+"the results of this analysis."
+msgstr ""
+
+#: ../../../<rst_epilog>:2
+msgid "iconCalculator"
+msgstr ""
+
+#: ../../../<rst_epilog>:4
+msgid "iconChart"
+msgstr ""
+
+#: ../../../<rst_epilog>:6
+msgid "iconClipboard"
+msgstr ""
+
+#: ../../../<rst_epilog>:8
+msgid "iconCloudDownload"
+msgstr ""
+
+#: ../../../<rst_epilog>:10
+msgid "iconCog"
+msgstr ""
+
+#: ../../../<rst_epilog>:12
+msgid "iconDeletedataset"
+msgstr ""
+
+#: ../../../<rst_epilog>:14
+msgid "iconGlobe"
+msgstr ""
+
+#: ../../../<rst_epilog>:16
+msgid "iconGraph"
+msgstr ""
+
+#: ../../../<rst_epilog>:18
+msgid "iconInfo"
+msgstr ""
+
+#: ../../../<rst_epilog>:20
+msgid "iconLoaddataset"
+msgstr ""
+
+#: ../../../<rst_epilog>:21
+msgid "iconMarkMarker"
+msgstr ""
+
+#: ../../../<rst_epilog>:23
+msgid "iconOpendatasetdirectory"
+msgstr ""
+
+#: ../../../<rst_epilog>:25
+msgid "iconViewdatasetdetails"
+msgstr ""
+
+#: ../../../<rst_epilog>:27
+msgid "iconWrench"
+msgstr ""
+
+#: ../../../<rst_epilog>:29
+msgid "iconFolder"
+msgstr ""
+
+#: ../../../<rst_epilog>:31
+msgid "iconReports"
+msgstr ""
+
+#: ../../../<rst_epilog>:33
+msgid "iconTrendsEarth"
+msgstr ""
+
+#: ../../../<rst_epilog>:35
+msgid "iconVisualization"
+msgstr ""
+
+#: ../../../<rst_epilog>:37
+msgid "Trends.Earth"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoCI"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoLund"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoNASA"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoGEF"
+msgstr ""

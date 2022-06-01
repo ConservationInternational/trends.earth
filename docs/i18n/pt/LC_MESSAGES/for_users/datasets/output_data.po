@@ -1,0 +1,1408 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017-2022, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Alex Zvoleff <azvoleff@conservation.org>, 2022
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
+# Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2022
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 1.99.11\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-05-24 18:41-0400\n"
+"PO-Revision-Date: 2022-05-26 11:57+0000\n"
+"Last-Translator: Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2022\n"
+"Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+
+#: ../../source/for_users/datasets/output_data.rst:4
+msgid "Output datasets from Trends.Earth"
+msgstr ""
+
+#: ../../source/for_users/datasets/output_data.rst:6
+msgid ""
+"The spatial data produced by |trends.earth| is in GeoTiff format. This is a "
+"widely supported format, so these datasets can be used within QGIS as well "
+"as within any other GIS software."
+msgstr ""
+
+#: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
+#: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
+msgid "Trends.Earth"
+msgstr "Trends.Earth"
+
+#: ../../source/for_users/datasets/output_data.rst:10
+msgid ""
+"If you wish to use |trends.earth| data outside of the tool itself, you will "
+"need to know how the data is coded. The tables below provide guidance on "
+"what the exact layers are that are produced by each analysis in "
+"|trends.earth|."
+msgstr ""
+"Se você deseja usar os dados produzido com |trends.earth| fora da própria "
+"ferramenta, você precisará saber como os dados são codificados. As tabelas "
+"abaixo fornecem orientações sobre as camadas produzidas por cada análise em "
+"|trends.earth|."
+
+#: ../../source/for_users/datasets/output_data.rst:14
+msgid ""
+"To see which of the below layers is contained within a |trends.earth| output"
+" file, use the `load data <../documentation/load_data.html>`_ tool. When you"
+" choose a file with that tool, it will show you a list of the layers within "
+"that file, as well as the band number for each layer."
+msgstr ""
+
+#: ../../source/for_users/datasets/output_data.rst:20
+msgid "Land degradation (SDG 15.3.1)"
+msgstr ""
+
+#: ../../source/for_users/datasets/output_data.rst:23
+msgid "SDG 15.3.1 Indicator"
+msgstr "Indicador ODS 15.3.1"
+
+#: ../../source/for_users/datasets/output_data.rst:26
+#: ../../source/for_users/datasets/output_data.rst:45
+#: ../../source/for_users/datasets/output_data.rst:57
+#: ../../source/for_users/datasets/output_data.rst:80
+#: ../../source/for_users/datasets/output_data.rst:93
+#: ../../source/for_users/datasets/output_data.rst:105
+#: ../../source/for_users/datasets/output_data.rst:117
+#: ../../source/for_users/datasets/output_data.rst:131
+#: ../../source/for_users/datasets/output_data.rst:143
+#: ../../source/for_users/datasets/output_data.rst:156
+#: ../../source/for_users/datasets/output_data.rst:175
+#: ../../source/for_users/datasets/output_data.rst:197
+#: ../../source/for_users/datasets/output_data.rst:212
+#: ../../source/for_users/datasets/output_data.rst:235
+#: ../../source/for_users/datasets/output_data.rst:320
+#: ../../source/for_users/datasets/output_data.rst:430
+#: ../../source/for_users/datasets/output_data.rst:443
+#: ../../source/for_users/datasets/output_data.rst:459
+#: ../../source/for_users/datasets/output_data.rst:477
+#: ../../source/for_users/datasets/output_data.rst:501
+#: ../../source/for_users/datasets/output_data.rst:528
+#: ../../source/for_users/datasets/output_data.rst:550
+#: ../../source/for_users/datasets/output_data.rst:566
+msgid "Value"
+msgstr "Valor"
+
+#: ../../source/for_users/datasets/output_data.rst:26
+#: ../../source/for_users/datasets/output_data.rst:45
+#: ../../source/for_users/datasets/output_data.rst:57
+#: ../../source/for_users/datasets/output_data.rst:80
+#: ../../source/for_users/datasets/output_data.rst:93
+#: ../../source/for_users/datasets/output_data.rst:105
+#: ../../source/for_users/datasets/output_data.rst:117
+#: ../../source/for_users/datasets/output_data.rst:131
+#: ../../source/for_users/datasets/output_data.rst:143
+#: ../../source/for_users/datasets/output_data.rst:156
+#: ../../source/for_users/datasets/output_data.rst:175
+#: ../../source/for_users/datasets/output_data.rst:197
+#: ../../source/for_users/datasets/output_data.rst:212
+#: ../../source/for_users/datasets/output_data.rst:235
+#: ../../source/for_users/datasets/output_data.rst:320
+#: ../../source/for_users/datasets/output_data.rst:430
+#: ../../source/for_users/datasets/output_data.rst:443
+#: ../../source/for_users/datasets/output_data.rst:459
+#: ../../source/for_users/datasets/output_data.rst:461
+#: ../../source/for_users/datasets/output_data.rst:477
+#: ../../source/for_users/datasets/output_data.rst:479
+#: ../../source/for_users/datasets/output_data.rst:501
+#: ../../source/for_users/datasets/output_data.rst:528
+#: ../../source/for_users/datasets/output_data.rst:550
+#: ../../source/for_users/datasets/output_data.rst:566
+msgid "Meaning"
+msgstr "Significado"
+
+#: ../../source/for_users/datasets/output_data.rst:28
+#: ../../source/for_users/datasets/output_data.rst:47
+#: ../../source/for_users/datasets/output_data.rst:59
+#: ../../source/for_users/datasets/output_data.rst:82
+#: ../../source/for_users/datasets/output_data.rst:95
+#: ../../source/for_users/datasets/output_data.rst:107
+#: ../../source/for_users/datasets/output_data.rst:119
+#: ../../source/for_users/datasets/output_data.rst:133
+#: ../../source/for_users/datasets/output_data.rst:145
+#: ../../source/for_users/datasets/output_data.rst:158
+#: ../../source/for_users/datasets/output_data.rst:177
+#: ../../source/for_users/datasets/output_data.rst:199
+#: ../../source/for_users/datasets/output_data.rst:214
+#: ../../source/for_users/datasets/output_data.rst:237
+#: ../../source/for_users/datasets/output_data.rst:322
+#: ../../source/for_users/datasets/output_data.rst:432
+#: ../../source/for_users/datasets/output_data.rst:445
+#: ../../source/for_users/datasets/output_data.rst:461
+#: ../../source/for_users/datasets/output_data.rst:479
+#: ../../source/for_users/datasets/output_data.rst:503
+#: ../../source/for_users/datasets/output_data.rst:530
+#: ../../source/for_users/datasets/output_data.rst:552
+#: ../../source/for_users/datasets/output_data.rst:568
+msgid "-32768"
+msgstr "-32768"
+
+#: ../../source/for_users/datasets/output_data.rst:28
+#: ../../source/for_users/datasets/output_data.rst:47
+#: ../../source/for_users/datasets/output_data.rst:59
+#: ../../source/for_users/datasets/output_data.rst:82
+#: ../../source/for_users/datasets/output_data.rst:95
+#: ../../source/for_users/datasets/output_data.rst:107
+#: ../../source/for_users/datasets/output_data.rst:119
+#: ../../source/for_users/datasets/output_data.rst:133
+#: ../../source/for_users/datasets/output_data.rst:145
+#: ../../source/for_users/datasets/output_data.rst:158
+#: ../../source/for_users/datasets/output_data.rst:177
+#: ../../source/for_users/datasets/output_data.rst:199
+#: ../../source/for_users/datasets/output_data.rst:214
+#: ../../source/for_users/datasets/output_data.rst:237
+#: ../../source/for_users/datasets/output_data.rst:322
+#: ../../source/for_users/datasets/output_data.rst:432
+#: ../../source/for_users/datasets/output_data.rst:445
+#: ../../source/for_users/datasets/output_data.rst:503
+#: ../../source/for_users/datasets/output_data.rst:530
+#: ../../source/for_users/datasets/output_data.rst:552
+#: ../../source/for_users/datasets/output_data.rst:568
+msgid "No data"
+msgstr "Sem Dados (NoData)"
+
+#: ../../source/for_users/datasets/output_data.rst:30
+#: ../../source/for_users/datasets/output_data.rst:65
+#: ../../source/for_users/datasets/output_data.rst:84
+#: ../../source/for_users/datasets/output_data.rst:201
+#: ../../source/for_users/datasets/output_data.rst:532
+msgid "-1"
+msgstr "-1"
+
+#: ../../source/for_users/datasets/output_data.rst:30
+#: ../../source/for_users/datasets/output_data.rst:84
+#: ../../source/for_users/datasets/output_data.rst:201
+msgid "Degradation"
+msgstr "Degradação"
+
+#: ../../source/for_users/datasets/output_data.rst:32
+#: ../../source/for_users/datasets/output_data.rst:67
+#: ../../source/for_users/datasets/output_data.rst:86
+#: ../../source/for_users/datasets/output_data.rst:97
+#: ../../source/for_users/datasets/output_data.rst:203
+msgid "0"
+msgstr "0"
+
+#: ../../source/for_users/datasets/output_data.rst:32
+#: ../../source/for_users/datasets/output_data.rst:86
+#: ../../source/for_users/datasets/output_data.rst:203
+msgid "No change"
+msgstr "Sem alteração"
+
+#: ../../source/for_users/datasets/output_data.rst:34
+#: ../../source/for_users/datasets/output_data.rst:69
+#: ../../source/for_users/datasets/output_data.rst:160
+#: ../../source/for_users/datasets/output_data.rst:179
+#: ../../source/for_users/datasets/output_data.rst:205
+#: ../../source/for_users/datasets/output_data.rst:216
+#: ../../source/for_users/datasets/output_data.rst:324
+#: ../../source/for_users/datasets/output_data.rst:505
+#: ../../source/for_users/datasets/output_data.rst:534
+msgid "1"
+msgstr "1"
+
+#: ../../source/for_users/datasets/output_data.rst:34
+#: ../../source/for_users/datasets/output_data.rst:205
+msgid "Improvement"
+msgstr "Melhoria"
+
+#: ../../source/for_users/datasets/output_data.rst:39
+msgid "Productivity"
+msgstr "Produtividade"
+
+#: ../../source/for_users/datasets/output_data.rst:42
+msgid "Productivity trajectory (trend)"
+msgstr "Trajetória da Produtividade (tendência)"
+
+#: ../../source/for_users/datasets/output_data.rst:49
+#: ../../source/for_users/datasets/output_data.rst:109
+#: ../../source/for_users/datasets/output_data.rst:121
+#: ../../source/for_users/datasets/output_data.rst:135
+#: ../../source/for_users/datasets/output_data.rst:147
+#: ../../source/for_users/datasets/output_data.rst:434
+#: ../../source/for_users/datasets/output_data.rst:447
+#: ../../source/for_users/datasets/output_data.rst:463
+#: ../../source/for_users/datasets/output_data.rst:554
+#: ../../source/for_users/datasets/output_data.rst:570
+msgid "Any other value"
+msgstr "Qualquer outro valor"
+
+#: ../../source/for_users/datasets/output_data.rst:49
+msgid "Linear trend of annually integrated NDVI, scaled by 10,000"
+msgstr "Tendência linear do NDVI anualmente integrado, escalado em 10.000"
+
+#: ../../source/for_users/datasets/output_data.rst:54
+msgid "Productivity trajectory (significance)"
+msgstr "Trajetória da Produtividade (significância)"
+
+#: ../../source/for_users/datasets/output_data.rst:61
+msgid "-3"
+msgstr "-3"
+
+#: ../../source/for_users/datasets/output_data.rst:61
+msgid "Significant decline (p > .99)"
+msgstr "Declínio significativo (p > .99)"
+
+#: ../../source/for_users/datasets/output_data.rst:63
+msgid "-2"
+msgstr "-2"
+
+#: ../../source/for_users/datasets/output_data.rst:63
+msgid "Significant decline (p > .95)"
+msgstr "Declínio significativo (p > .95)"
+
+#: ../../source/for_users/datasets/output_data.rst:65
+msgid "Significant decline (p > .90)"
+msgstr "Declínio significativo (p > .90)"
+
+#: ../../source/for_users/datasets/output_data.rst:67
+msgid "No significant change"
+msgstr "Nenhuma mudança significativa"
+
+#: ../../source/for_users/datasets/output_data.rst:69
+msgid "Significant increase (p > .90)"
+msgstr "Aumento significativo (p > .90)"
+
+#: ../../source/for_users/datasets/output_data.rst:71
+#: ../../source/for_users/datasets/output_data.rst:162
+#: ../../source/for_users/datasets/output_data.rst:181
+#: ../../source/for_users/datasets/output_data.rst:218
+#: ../../source/for_users/datasets/output_data.rst:326
+#: ../../source/for_users/datasets/output_data.rst:507
+#: ../../source/for_users/datasets/output_data.rst:536
+msgid "2"
+msgstr "2"
+
+#: ../../source/for_users/datasets/output_data.rst:71
+msgid "Significant increase (p > .95)"
+msgstr "Aumento significativo (p > .95)"
+
+#: ../../source/for_users/datasets/output_data.rst:73
+#: ../../source/for_users/datasets/output_data.rst:164
+#: ../../source/for_users/datasets/output_data.rst:183
+#: ../../source/for_users/datasets/output_data.rst:220
+#: ../../source/for_users/datasets/output_data.rst:328
+#: ../../source/for_users/datasets/output_data.rst:509
+#: ../../source/for_users/datasets/output_data.rst:538
+msgid "3"
+msgstr "3"
+
+#: ../../source/for_users/datasets/output_data.rst:73
+msgid "Significant increase (p > .99)"
+msgstr "Aumento significativo (p > .99)"
+
+#: ../../source/for_users/datasets/output_data.rst:77
+msgid "Productivity performance (degradation)"
+msgstr "Desempenho da Produtividade (degradação)"
+
+#: ../../source/for_users/datasets/output_data.rst:90
+msgid "Productivity performance (ratio)"
+msgstr "Desempenho da Produtividade (proporção)"
+
+#: ../../source/for_users/datasets/output_data.rst:97
+msgid ""
+"Ratio of mean NDVI and maximum productivity. See background on `performance "
+"<../background/understanding_indicators15.html#productivity-performance>`_."
+msgstr ""
+"Proporção de NDVI médio e produtividade máxima. Veja o histórico de "
+"`performance <../background/understanding_indicators15.html#productivity-"
+"performance>`_."
+
+#: ../../source/for_users/datasets/output_data.rst:102
+msgid "Productivity performance (units)"
+msgstr "Desempenho da Produtividade (unidades)"
+
+#: ../../source/for_users/datasets/output_data.rst:109
+msgid ""
+"ID number of unit used to calculate performance. See background on "
+"`performance <../background/understanding_indicators15.html#productivity-"
+"performance>`_."
+msgstr ""
+"Número de identificação da unidade usada para calcular o Desempenho. Veja o "
+"histórico de `performance "
+"<../background/understanding_indicators15.html#productivity-performance>`_."
+
+#: ../../source/for_users/datasets/output_data.rst:114
+msgid "Productivity state (degradation)"
+msgstr "Estado da Produtividade (degradação)"
+
+#: ../../source/for_users/datasets/output_data.rst:121
+msgid ""
+"Change in productivity state classes between baseline and target period, "
+"calculated as the rank in the target period minus the rank in the baseline "
+"period. Positive values indicate improvement, negative values indicate "
+"decline."
+msgstr ""
+"Alteração nas classes de Estado da Produtividade entre a linha de base e o "
+"período-alvo, calculada como a classificação para o período-alvo menos a "
+"classificação para o período de linha de base. Valores positivos indicam "
+"melhora, valores negativos indicam declínio."
+
+#: ../../source/for_users/datasets/output_data.rst:128
+msgid "Productivity state classes"
+msgstr "Classes de Estado da Produtividade"
+
+#: ../../source/for_users/datasets/output_data.rst:135
+msgid ""
+"Percentile class for productivity state. See background on `productivity "
+"state <../background/understanding_indicators15.html#productivity-state>`_."
+msgstr ""
+"Classe de percentil para Estado de Produtividade. Veja informações sobre "
+"`estado da produtividade "
+"<../background/understanding_indicators15.html#productivity-state>`_."
+
+#: ../../source/for_users/datasets/output_data.rst:140
+msgid "Productivity state NDVI mean"
+msgstr "Média do NDVI do Estado da Produtividade"
+
+#: ../../source/for_users/datasets/output_data.rst:147
+msgid ""
+"Mean annually integrated NDVI for the baseline period chosen for "
+"productivity state, scaled by 10,000. See background on `productivity state "
+"<../background/understanding_indicators15.html#productivity-state>`_."
+msgstr ""
+"Média anual do NDVI integrado para o período de linha de base escolhido para"
+" o estado da produtividade, escalado em 10.000. Veja informações sobre "
+"`estado da produtividade "
+"<../background/understanding_indicators15.html#productivity-state>`_."
+
+#: ../../source/for_users/datasets/output_data.rst:153
+msgid "SDG 15.3.1 productivity indicator"
+msgstr "Indicador de Produtividade para ODS 15.3.1"
+
+#: ../../source/for_users/datasets/output_data.rst:160
+#: ../../source/for_users/datasets/output_data.rst:179
+msgid "Declining"
+msgstr "Declinando"
+
+#: ../../source/for_users/datasets/output_data.rst:162
+msgid "Early signs of decline"
+msgstr "Primeiros sinais de declínio"
+
+#: ../../source/for_users/datasets/output_data.rst:164
+msgid "Stable but stressed"
+msgstr "Estável, mas estressado"
+
+#: ../../source/for_users/datasets/output_data.rst:166
+#: ../../source/for_users/datasets/output_data.rst:185
+#: ../../source/for_users/datasets/output_data.rst:222
+#: ../../source/for_users/datasets/output_data.rst:330
+#: ../../source/for_users/datasets/output_data.rst:511
+#: ../../source/for_users/datasets/output_data.rst:540
+msgid "4"
+msgstr "4"
+
+#: ../../source/for_users/datasets/output_data.rst:166
+#: ../../source/for_users/datasets/output_data.rst:185
+msgid "Stable"
+msgstr "Estável"
+
+#: ../../source/for_users/datasets/output_data.rst:168
+#: ../../source/for_users/datasets/output_data.rst:187
+#: ../../source/for_users/datasets/output_data.rst:224
+#: ../../source/for_users/datasets/output_data.rst:332
+#: ../../source/for_users/datasets/output_data.rst:513
+msgid "5"
+msgstr "5"
+
+#: ../../source/for_users/datasets/output_data.rst:168
+#: ../../source/for_users/datasets/output_data.rst:187
+msgid "Increasing"
+msgstr "Aumentando"
+
+#: ../../source/for_users/datasets/output_data.rst:172
+msgid "Land Productivity Dynamics - JRC"
+msgstr ""
+
+#: ../../source/for_users/datasets/output_data.rst:181
+msgid "Moderate decline"
+msgstr "Declínio moderado"
+
+#: ../../source/for_users/datasets/output_data.rst:183
+msgid "Stressed"
+msgstr "Estressado"
+
+#: ../../source/for_users/datasets/output_data.rst:191
+msgid "Land cover"
+msgstr "Cobertura da terra"
+
+#: ../../source/for_users/datasets/output_data.rst:194
+msgid "Land cover (degradation)"
+msgstr "Cobertura da terra (degradação)"
+
+#: ../../source/for_users/datasets/output_data.rst:209
+msgid "Land cover (7 class)"
+msgstr "Cobertura da terra (7 classes)"
+
+#: ../../source/for_users/datasets/output_data.rst:216
+msgid "Tree-covered"
+msgstr "Arborizado"
+
+#: ../../source/for_users/datasets/output_data.rst:218
+msgid "Grasslands"
+msgstr "Campos/Gramíneas"
+
+#: ../../source/for_users/datasets/output_data.rst:220
+msgid "Cropland"
+msgstr "Lavoura"
+
+#: ../../source/for_users/datasets/output_data.rst:222
+msgid "Wetland"
+msgstr "Áreas úmidas"
+
+#: ../../source/for_users/datasets/output_data.rst:224
+msgid "Artificial"
+msgstr "Artificial"
+
+#: ../../source/for_users/datasets/output_data.rst:226
+#: ../../source/for_users/datasets/output_data.rst:334
+#: ../../source/for_users/datasets/output_data.rst:515
+msgid "6"
+msgstr "6"
+
+#: ../../source/for_users/datasets/output_data.rst:226
+msgid "Other land"
+msgstr "Outra cobertura da terra"
+
+#: ../../source/for_users/datasets/output_data.rst:228
+#: ../../source/for_users/datasets/output_data.rst:336
+#: ../../source/for_users/datasets/output_data.rst:517
+msgid "7"
+msgstr "7"
+
+#: ../../source/for_users/datasets/output_data.rst:228
+msgid "Water body"
+msgstr "Corpos d'água"
+
+#: ../../source/for_users/datasets/output_data.rst:232
+msgid "Land cover (ESA classes)"
+msgstr "Cobertura da terra (classes ESA)"
+
+#: ../../source/for_users/datasets/output_data.rst:239
+msgid "10"
+msgstr "10"
+
+#: ../../source/for_users/datasets/output_data.rst:239
+msgid "Cropland, rainfed"
+msgstr "Áreas de cultivo que dependem de água da chuva"
+
+#: ../../source/for_users/datasets/output_data.rst:241
+msgid "11"
+msgstr "11"
+
+#: ../../source/for_users/datasets/output_data.rst:241
+msgid "Herbaceous cover"
+msgstr "Cobertura herbácea"
+
+#: ../../source/for_users/datasets/output_data.rst:243
+#: ../../source/for_users/datasets/output_data.rst:338
+msgid "12"
+msgstr "12"
+
+#: ../../source/for_users/datasets/output_data.rst:243
+msgid "Tree or shrub cover"
+msgstr "Cobertura arbórea ou arbustos"
+
+#: ../../source/for_users/datasets/output_data.rst:245
+msgid "20"
+msgstr "20"
+
+#: ../../source/for_users/datasets/output_data.rst:245
+msgid "Cropland, irrigated or post‐flooding"
+msgstr "Terras agrícolas irrigadas ou inundadas"
+
+#: ../../source/for_users/datasets/output_data.rst:247
+msgid "30"
+msgstr "30"
+
+#: ../../source/for_users/datasets/output_data.rst:247
+msgid ""
+"Mosaic cropland (>50%) / natural vegetation (tree, shrub, "
+"herbaceous cover) (<50%)"
+msgstr ""
+
+#: ../../source/for_users/datasets/output_data.rst:250
+msgid "40"
+msgstr "40."
+
+#: ../../source/for_users/datasets/output_data.rst:250
+msgid ""
+"Mosaic natural vegetation (tree, shrub, herbaceous cover) "
+"(>50%) / cropland (<50%)"
+msgstr ""
+
+#: ../../source/for_users/datasets/output_data.rst:253
+msgid "50"
+msgstr "50."
+
+#: ../../source/for_users/datasets/output_data.rst:253
+msgid "Tree cover, broadleaved, evergreen, closed to open (>15%)"
+msgstr ""
+"Cobertura arbórea de folhas largas, sempre-verde, dossel fechado a aberto "
+"(>15%)"
+
+#: ../../source/for_users/datasets/output_data.rst:255
+msgid "60"
+msgstr "60"
+
+#: ../../source/for_users/datasets/output_data.rst:255
+msgid "Tree cover, broadleaved, deciduous, closed to open (>15%)"
+msgstr ""
+"Cobertura arbórea de folhas largas, decídua, dossel fechado a aberto (>15%)"
+
+#: ../../source/for_users/datasets/output_data.rst:257
+#: ../../source/for_users/datasets/output_data.rst:398
+msgid "61"
+msgstr "61"
+
+#: ../../source/for_users/datasets/output_data.rst:257
+msgid "Tree cover, broadleaved, deciduous, closed (>40%)"
+msgstr ""
+"Cobertura arbórea de folhas largas, ombrófila, decídua, dossel fechado "
+"(>40%)"
+
+#: ../../source/for_users/datasets/output_data.rst:259
+#: ../../source/for_users/datasets/output_data.rst:400
+msgid "62"
+msgstr "62"
+
+#: ../../source/for_users/datasets/output_data.rst:259
+msgid "Tree cover, broadleaved, deciduous, open (15‐40%)"
+msgstr "Cobertura arbórea de folhas largas, decídua, dossel aberto (15‐40%)"
+
+#: ../../source/for_users/datasets/output_data.rst:261
+msgid "70"
+msgstr "70"
+
+#: ../../source/for_users/datasets/output_data.rst:261
+msgid "Tree cover, needleleaved, evergreen, closed to open (>15%)"
+msgstr ""
+"Cobertura de árvore, sem folhas, sempre viva, dossel fechado a aberto (>15%)"
+
+#: ../../source/for_users/datasets/output_data.rst:263
+#: ../../source/for_users/datasets/output_data.rst:410
+msgid "71"
+msgstr "71"
+
+#: ../../source/for_users/datasets/output_data.rst:263
+msgid "Tree cover, needleleaved, evergreen, closed (>40%)"
+msgstr "Cobertura arbórea, coníferas, sempre-verde, dossel fechado (>40%)"
+
+#: ../../source/for_users/datasets/output_data.rst:265
+#: ../../source/for_users/datasets/output_data.rst:412
+msgid "72"
+msgstr "72"
+
+#: ../../source/for_users/datasets/output_data.rst:265
+msgid "Tree cover, needleleaved, evergreen, open (15‐40%)"
+msgstr "Cobertura arbórea, coníferas, sempre-verde, dossel aberto (15‐40%)"
+
+#: ../../source/for_users/datasets/output_data.rst:267
+msgid "80"
+msgstr "80"
+
+#: ../../source/for_users/datasets/output_data.rst:267
+msgid "Tree cover, needleleaved, deciduous, closed to open (>15%)"
+msgstr "Cobertura arbórea, coníferas, decídua, dossel fechado a aberto (>15%)"
+
+#: ../../source/for_users/datasets/output_data.rst:269
+msgid "81"
+msgstr "81"
+
+#: ../../source/for_users/datasets/output_data.rst:269
+msgid "Tree cover, needleleaved, deciduous, closed (>40%)"
+msgstr "Cobertura arbórea, coníferas, decídua, dossel fechado (>40%)"
+
+#: ../../source/for_users/datasets/output_data.rst:271
+msgid "82"
+msgstr "82"
+
+#: ../../source/for_users/datasets/output_data.rst:271
+msgid "Tree cover, needleleaved, deciduous, open (15‐40%)"
+msgstr "Cobertura arbórea, coníferas, decídua, dossel aberto (15‐40%)"
+
+#: ../../source/for_users/datasets/output_data.rst:273
+msgid "90"
+msgstr "90"
+
+#: ../../source/for_users/datasets/output_data.rst:273
+msgid "Tree cover, mixed leaf type (broadleaved and needleleaved)"
+msgstr "Cobertura arbórea, tipo folhas mistas (de folhas largas e coníferas)"
+
+#: ../../source/for_users/datasets/output_data.rst:275
+msgid "100"
+msgstr "100"
+
+#: ../../source/for_users/datasets/output_data.rst:275
+msgid "Mosaic tree and shrub (>50%) / herbaceous cover (<50%)"
+msgstr "Árvores e arbustos em mosaico (>50%) / cobertura herbácea (<50%)"
+
+#: ../../source/for_users/datasets/output_data.rst:277
+msgid "110"
+msgstr "110"
+
+#: ../../source/for_users/datasets/output_data.rst:277
+msgid "Mosaic herbaceous cover (>50%) / tree and shrub (<50%)"
+msgstr "Cobertura herbácea em mosaico (>50%) / árvores e arbustos (<50%)"
+
+#: ../../source/for_users/datasets/output_data.rst:279
+msgid "120"
+msgstr "120"
+
+#: ../../source/for_users/datasets/output_data.rst:279
+msgid "Shrubland"
+msgstr "Arbustivo"
+
+#: ../../source/for_users/datasets/output_data.rst:281
+msgid "121"
+msgstr "121"
+
+#: ../../source/for_users/datasets/output_data.rst:281
+msgid "Evergreen shrubland"
+msgstr "Arbustivo sempre-verde"
+
+#: ../../source/for_users/datasets/output_data.rst:283
+msgid "122"
+msgstr "122"
+
+#: ../../source/for_users/datasets/output_data.rst:283
+msgid "Deciduous shrubland"
+msgstr "Arbustivo decíduo"
+
+#: ../../source/for_users/datasets/output_data.rst:285
+msgid "130"
+msgstr "130"
+
+#: ../../source/for_users/datasets/output_data.rst:285
+msgid "Grassland"
+msgstr "Campos/Gramíneas"
+
+#: ../../source/for_users/datasets/output_data.rst:287
+msgid "140"
+msgstr "140"
+
+#: ../../source/for_users/datasets/output_data.rst:287
+msgid "Lichens and mosses"
+msgstr "Líquens e musgos"
+
+#: ../../source/for_users/datasets/output_data.rst:289
+msgid "150"
+msgstr "150"
+
+#: ../../source/for_users/datasets/output_data.rst:289
+msgid "Sparse vegetation (tree, shrub, herbaceous cover) (<15%)"
+msgstr "Vegetação esparsa (árvore, arbusto, cobertura herbácea) (<15%)"
+
+#: ../../source/for_users/datasets/output_data.rst:291
+msgid "151"
+msgstr "151"
+
+#: ../../source/for_users/datasets/output_data.rst:291
+msgid "Sparse tree (<15%)"
+msgstr "Árvores esparsas (<15%)"
+
+#: ../../source/for_users/datasets/output_data.rst:293
+msgid "152"
+msgstr "152"
+
+#: ../../source/for_users/datasets/output_data.rst:293
+msgid "Sparse shrub (<15%)"
+msgstr "Arbustivo esparso (<15%)"
+
+#: ../../source/for_users/datasets/output_data.rst:295
+msgid "153"
+msgstr "153"
+
+#: ../../source/for_users/datasets/output_data.rst:295
+msgid "Sparse herbaceous cover (<15%)"
+msgstr "Cobertura herbácea esparsa (<15%)"
+
+#: ../../source/for_users/datasets/output_data.rst:297
+msgid "160"
+msgstr "160"
+
+#: ../../source/for_users/datasets/output_data.rst:297
+msgid "Tree cover, flooded, fresh or brakish water"
+msgstr "Cobertura arbórea, área inundada de água doce ou salobra"
+
+#: ../../source/for_users/datasets/output_data.rst:299
+msgid "170"
+msgstr "170"
+
+#: ../../source/for_users/datasets/output_data.rst:299
+msgid "Tree cover, flooded, saline water"
+msgstr "Cobertura arbórea, área inundada de água salgada"
+
+#: ../../source/for_users/datasets/output_data.rst:301
+msgid "180"
+msgstr "180"
+
+#: ../../source/for_users/datasets/output_data.rst:301
+msgid "Shrub or herbaceous cover, flooded, fresh/saline/brakish water"
+msgstr "Cobertura arbustiva ou herbácea, inundada, água doce/salgada/salobra"
+
+#: ../../source/for_users/datasets/output_data.rst:303
+msgid "190"
+msgstr "190"
+
+#: ../../source/for_users/datasets/output_data.rst:303
+msgid "Urban areas"
+msgstr "Áreas urbanas"
+
+#: ../../source/for_users/datasets/output_data.rst:305
+msgid "200"
+msgstr "200"
+
+#: ../../source/for_users/datasets/output_data.rst:305
+msgid "Bare areas"
+msgstr "Áreas de solo exposto"
+
+#: ../../source/for_users/datasets/output_data.rst:307
+msgid "201"
+msgstr "201"
+
+#: ../../source/for_users/datasets/output_data.rst:307
+msgid "Consolidated bare areas"
+msgstr "Áreas de solo exposto consolidadas "
+
+#: ../../source/for_users/datasets/output_data.rst:309
+msgid "202"
+msgstr "202"
+
+#: ../../source/for_users/datasets/output_data.rst:309
+msgid "Unconsolidated bare areas"
+msgstr "Áreas de solo exposto não consolidadas"
+
+#: ../../source/for_users/datasets/output_data.rst:311
+msgid "210"
+msgstr "210."
+
+#: ../../source/for_users/datasets/output_data.rst:311
+msgid "Water bodies"
+msgstr "Corpos d'água"
+
+#: ../../source/for_users/datasets/output_data.rst:313
+msgid "220"
+msgstr "220"
+
+#: ../../source/for_users/datasets/output_data.rst:313
+msgid "Permanent snow and ice"
+msgstr "Neve e gelo permanentes"
+
+#: ../../source/for_users/datasets/output_data.rst:317
+msgid "Land cover (transitions)"
+msgstr "Cobertura da terra (transições)"
+
+#: ../../source/for_users/datasets/output_data.rst:324
+msgid "Tree-covered - Tree-covered (no change)"
+msgstr "Arborizado - Arborizado (sem alteração)"
+
+#: ../../source/for_users/datasets/output_data.rst:326
+msgid "Grassland - Grassland (no change)"
+msgstr "Campos/Gramíneas - Campos/Gramíneas (sem alterações)"
+
+#: ../../source/for_users/datasets/output_data.rst:328
+msgid "Cropland - Cropland (no change)"
+msgstr "Áreas de cultivo  - Áreas de cultivo (sem alterações)"
+
+#: ../../source/for_users/datasets/output_data.rst:330
+msgid "Wetland - Wetland (no change)"
+msgstr "Área úmida - Área úmida (sem alterações)"
+
+#: ../../source/for_users/datasets/output_data.rst:332
+msgid "Artificial - Artificial (no change)"
+msgstr "Artificial - Artificial (sem alteração)"
+
+#: ../../source/for_users/datasets/output_data.rst:334
+msgid "Other land - Other land (no change)"
+msgstr "Outra cobertura da terra - Outra cobertura da terra (sem alteração)"
+
+#: ../../source/for_users/datasets/output_data.rst:336
+msgid "Water body - Water body (no change)"
+msgstr "Corpo d'água - Corpo d'água (sem alteração)"
+
+#: ../../source/for_users/datasets/output_data.rst:338
+msgid "Forest - Grassland"
+msgstr "Floresta - Gramíneas/Pastagem"
+
+#: ../../source/for_users/datasets/output_data.rst:340
+msgid "13"
+msgstr "13"
+
+#: ../../source/for_users/datasets/output_data.rst:340
+msgid "Forest - Cropland"
+msgstr "Floresta - Área de cultivo"
+
+#: ../../source/for_users/datasets/output_data.rst:342
+msgid "14"
+msgstr "14"
+
+#: ../../source/for_users/datasets/output_data.rst:342
+msgid "Forest - Wetland"
+msgstr "Floresta - Área úmida"
+
+#: ../../source/for_users/datasets/output_data.rst:344
+msgid "15"
+msgstr "15"
+
+#: ../../source/for_users/datasets/output_data.rst:344
+msgid "Forest - Artificial"
+msgstr "Floresta - Artificial"
+
+#: ../../source/for_users/datasets/output_data.rst:346
+msgid "16"
+msgstr "16"
+
+#: ../../source/for_users/datasets/output_data.rst:346
+msgid "Forest - Other land"
+msgstr "Floresta - Outra cobertura da terra"
+
+#: ../../source/for_users/datasets/output_data.rst:348
+msgid "17"
+msgstr "17"
+
+#: ../../source/for_users/datasets/output_data.rst:348
+msgid "Forest - Water body"
+msgstr "Floresta - Corpo d'água"
+
+#: ../../source/for_users/datasets/output_data.rst:350
+msgid "21"
+msgstr "21"
+
+#: ../../source/for_users/datasets/output_data.rst:350
+msgid "Grassland - Forest"
+msgstr "Gramíneas/Pastagem - floresta"
+
+#: ../../source/for_users/datasets/output_data.rst:352
+msgid "23"
+msgstr "23"
+
+#: ../../source/for_users/datasets/output_data.rst:352
+msgid "Grassland - Cropland"
+msgstr "Gramíneas/Pastagens - Área de cultivo"
+
+#: ../../source/for_users/datasets/output_data.rst:354
+msgid "24"
+msgstr "24"
+
+#: ../../source/for_users/datasets/output_data.rst:354
+msgid "Grassland - Wetland"
+msgstr "Gramíneas/Pastagem - Área úmida"
+
+#: ../../source/for_users/datasets/output_data.rst:356
+msgid "25"
+msgstr "25"
+
+#: ../../source/for_users/datasets/output_data.rst:356
+msgid "Grassland - Artificial"
+msgstr "Gramíneas/Pastagem - Artificial"
+
+#: ../../source/for_users/datasets/output_data.rst:358
+msgid "26"
+msgstr "26"
+
+#: ../../source/for_users/datasets/output_data.rst:358
+msgid "Grassland - Other land"
+msgstr "Gramíneas/Pastagem - Outra cobertura da terra"
+
+#: ../../source/for_users/datasets/output_data.rst:360
+msgid "27"
+msgstr "27"
+
+#: ../../source/for_users/datasets/output_data.rst:360
+msgid "Grassland - Water body"
+msgstr "Gramíneas/Pastagem - Corpo d'água"
+
+#: ../../source/for_users/datasets/output_data.rst:362
+msgid "31"
+msgstr "31"
+
+#: ../../source/for_users/datasets/output_data.rst:362
+msgid "Cropland - Forest"
+msgstr "Área de cultivo - Floresta"
+
+#: ../../source/for_users/datasets/output_data.rst:364
+msgid "32"
+msgstr "32."
+
+#: ../../source/for_users/datasets/output_data.rst:364
+msgid "Cropland - Grassland"
+msgstr "Área de cultivo - Gramíneas/Pastagem"
+
+#: ../../source/for_users/datasets/output_data.rst:366
+msgid "34"
+msgstr "34"
+
+#: ../../source/for_users/datasets/output_data.rst:366
+msgid "Cropland - Wetland"
+msgstr "Área de cultivo - Área úmida"
+
+#: ../../source/for_users/datasets/output_data.rst:368
+msgid "35"
+msgstr "35"
+
+#: ../../source/for_users/datasets/output_data.rst:368
+msgid "Cropland - Artificial"
+msgstr "Área de cultivo - Artificial"
+
+#: ../../source/for_users/datasets/output_data.rst:370
+msgid "36"
+msgstr "36."
+
+#: ../../source/for_users/datasets/output_data.rst:370
+msgid "Cropland - Other land"
+msgstr "Área de cultivo - Outra cobertura da terra"
+
+#: ../../source/for_users/datasets/output_data.rst:372
+msgid "37"
+msgstr "37."
+
+#: ../../source/for_users/datasets/output_data.rst:372
+msgid "Cropland - Water body"
+msgstr "Área de cultivo - Corpo d'água"
+
+#: ../../source/for_users/datasets/output_data.rst:374
+msgid "41"
+msgstr "41."
+
+#: ../../source/for_users/datasets/output_data.rst:374
+msgid "Wetland - Forest"
+msgstr "Área úmida - Floresta"
+
+#: ../../source/for_users/datasets/output_data.rst:376
+msgid "42"
+msgstr "42."
+
+#: ../../source/for_users/datasets/output_data.rst:376
+msgid "Wetland - Grassland"
+msgstr "Área úmida - Gramíneas/Pastagem"
+
+#: ../../source/for_users/datasets/output_data.rst:378
+msgid "43"
+msgstr "43"
+
+#: ../../source/for_users/datasets/output_data.rst:378
+msgid "Wetland - Cropland"
+msgstr "Áre úmida - Área cultivada"
+
+#: ../../source/for_users/datasets/output_data.rst:380
+msgid "45"
+msgstr "45"
+
+#: ../../source/for_users/datasets/output_data.rst:380
+msgid "Wetland - Artificial"
+msgstr "Área úmida - Artificial"
+
+#: ../../source/for_users/datasets/output_data.rst:382
+msgid "46"
+msgstr "46."
+
+#: ../../source/for_users/datasets/output_data.rst:382
+msgid "Wetland - Other land"
+msgstr "Áre úmida - Outra cobertura da terra"
+
+#: ../../source/for_users/datasets/output_data.rst:384
+msgid "47"
+msgstr "47"
+
+#: ../../source/for_users/datasets/output_data.rst:384
+msgid "Wetland - Water body"
+msgstr "Área úmida - Corpo d'água"
+
+#: ../../source/for_users/datasets/output_data.rst:386
+msgid "51"
+msgstr "51"
+
+#: ../../source/for_users/datasets/output_data.rst:386
+msgid "Artificial - Forest"
+msgstr "Artificial - Floresta"
+
+#: ../../source/for_users/datasets/output_data.rst:388
+msgid "52"
+msgstr "52"
+
+#: ../../source/for_users/datasets/output_data.rst:388
+msgid "Artificial - Grassland"
+msgstr "Artificial - Gramíneas/Pastagem"
+
+#: ../../source/for_users/datasets/output_data.rst:390
+msgid "53"
+msgstr "53"
+
+#: ../../source/for_users/datasets/output_data.rst:390
+msgid "Artificial - Cropland"
+msgstr "Artificial - Área de cultivo"
+
+#: ../../source/for_users/datasets/output_data.rst:392
+msgid "54"
+msgstr "54"
+
+#: ../../source/for_users/datasets/output_data.rst:392
+msgid "Artificial - Wetland"
+msgstr "Artificial - Área úmida"
+
+#: ../../source/for_users/datasets/output_data.rst:394
+msgid "56"
+msgstr "56."
+
+#: ../../source/for_users/datasets/output_data.rst:394
+msgid "Artificial - Other land"
+msgstr "Artificial - Outra cobertura da terra"
+
+#: ../../source/for_users/datasets/output_data.rst:396
+msgid "57"
+msgstr "57"
+
+#: ../../source/for_users/datasets/output_data.rst:396
+msgid "Artificial - Water body"
+msgstr "Artificial - Corpo d'água"
+
+#: ../../source/for_users/datasets/output_data.rst:398
+msgid "Other land - Forest"
+msgstr "Outra cobertura da terra - Floresta"
+
+#: ../../source/for_users/datasets/output_data.rst:400
+msgid "Other land - Grassland"
+msgstr "Outra cobertura da terra - Gramíneas/Pastagem"
+
+#: ../../source/for_users/datasets/output_data.rst:402
+msgid "63"
+msgstr "63."
+
+#: ../../source/for_users/datasets/output_data.rst:402
+msgid "Other land - Cropland"
+msgstr "Outra cobertura da terra - Área de cultivo"
+
+#: ../../source/for_users/datasets/output_data.rst:404
+msgid "64"
+msgstr "64"
+
+#: ../../source/for_users/datasets/output_data.rst:404
+msgid "Other land - Wetland"
+msgstr "Outra cobertura da terra - Área úmida"
+
+#: ../../source/for_users/datasets/output_data.rst:406
+msgid "65"
+msgstr "65"
+
+#: ../../source/for_users/datasets/output_data.rst:406
+msgid "Other land - Artificial"
+msgstr "Outra cobertura da terra - Artificial"
+
+#: ../../source/for_users/datasets/output_data.rst:408
+msgid "67"
+msgstr "67"
+
+#: ../../source/for_users/datasets/output_data.rst:408
+msgid "Other land - Water body"
+msgstr "Outra cobertura da terra - Corpo d'água"
+
+#: ../../source/for_users/datasets/output_data.rst:410
+msgid "Water body - Forest"
+msgstr "Corpo d'água - Floresta"
+
+#: ../../source/for_users/datasets/output_data.rst:412
+msgid "Water body - Grassland"
+msgstr "Corpo d'água - Gramíneas/Pastagem"
+
+#: ../../source/for_users/datasets/output_data.rst:414
+msgid "73"
+msgstr "73"
+
+#: ../../source/for_users/datasets/output_data.rst:414
+msgid "Water body - Cropland"
+msgstr "Corpo d'água - Área de cultivo"
+
+#: ../../source/for_users/datasets/output_data.rst:416
+msgid "74"
+msgstr "74"
+
+#: ../../source/for_users/datasets/output_data.rst:416
+msgid "Water body - Wetland"
+msgstr "Corpo d'água - Área úmida"
+
+#: ../../source/for_users/datasets/output_data.rst:418
+msgid "75"
+msgstr "75"
+
+#: ../../source/for_users/datasets/output_data.rst:418
+msgid "Water body - Artificial"
+msgstr "Corpo d'água - Artificial"
+
+#: ../../source/for_users/datasets/output_data.rst:420
+msgid "76"
+msgstr "76"
+
+#: ../../source/for_users/datasets/output_data.rst:420
+msgid "Water body - Other land"
+msgstr "Corpo d'água - Outra cobertura da terra"
+
+#: ../../source/for_users/datasets/output_data.rst:424
+#: ../../source/for_users/datasets/output_data.rst:440
+msgid "Soil organic carbon"
+msgstr "Carbono orgânico do solo"
+
+#: ../../source/for_users/datasets/output_data.rst:427
+msgid "Soil organic carbon (degradation)"
+msgstr "Carbono orgânico do solo (degradação)"
+
+#: ../../source/for_users/datasets/output_data.rst:434
+msgid ""
+"Percentage change in soil organic carbon content (0 - 30 cm depth) from "
+"baseline to target year. Positive values indicate increase, negative values "
+"indicate decrease."
+msgstr ""
+"Alteração percentual no teor de carbono orgânico do solo (0 a 30 cm de "
+"profundidade) da linha de base ao ano-alvo. Valores positivos indicam "
+"aumento, valores negativos indicam diminuição."
+
+#: ../../source/for_users/datasets/output_data.rst:447
+msgid ""
+"Soil organic carbon content (0 - 30 cm depth) in metric tons per hectare"
+msgstr ""
+"Conteúdo de carbono orgânico do solo (0 a 30 cm de profundidade) em "
+"toneladas métricas por hectare"
+
+#: ../../source/for_users/datasets/output_data.rst:452
+msgid "Drought hazard, vulnerability, and exposure"
+msgstr ""
+
+#: ../../source/for_users/datasets/output_data.rst:456
+msgid "Standardized Precipitation Index (SPI)"
+msgstr ""
+
+#: ../../source/for_users/datasets/output_data.rst:463
+msgid "Standardized precipitation index, scaled * 1000"
+msgstr ""
+
+#: ../../source/for_users/datasets/output_data.rst:468
+msgid "Population at maximum drought"
+msgstr ""
+
+#: ../../source/for_users/datasets/output_data.rst:470
+msgid ""
+"As an indicator of population exposure to drought, Trends.Earth's drought "
+"tools produce a layer assessing total population (or male or female "
+"population, depending on the selections made by the user) at time of maximum"
+" drought. For the purpose of these analyses, drought is defined as an SPI "
+"less than -1.0 (a lag 12 SPI is the default used in the tool)."
+msgstr ""
+
+#: ../../source/for_users/datasets/output_data.rst:481
+msgid "Any negative value"
+msgstr ""
+
+#: ../../source/for_users/datasets/output_data.rst:481
+msgid ""
+"A positive value indicates a pixel **was** exposed to drought (defined as "
+"SPI < -1) during a particular (typically four- year) period. The pixel value"
+" indicates the population of the pixel at the time of maximum drought."
+msgstr ""
+
+#: ../../source/for_users/datasets/output_data.rst:486
+msgid "Any positive value"
+msgstr ""
+
+#: ../../source/for_users/datasets/output_data.rst:486
+msgid ""
+"A positive value indicates a pixel **was not** exposed to drought during a "
+"particular (typically four-year) period. The pixel value indicates the "
+"maximum population of the pixel during the period."
+msgstr ""
+
+#: ../../source/for_users/datasets/output_data.rst:494
+msgid "Sustainable urbanization (SDG 11.3.1)"
+msgstr ""
+
+#: ../../source/for_users/datasets/output_data.rst:498
+#: ../../source/for_users/datasets/output_data.rst:505
+msgid "Urban"
+msgstr "Urbano"
+
+#: ../../source/for_users/datasets/output_data.rst:507
+msgid "Suburban"
+msgstr "Suburbano"
+
+#: ../../source/for_users/datasets/output_data.rst:509
+msgid "Built-up rural"
+msgstr "Área rural construída"
+
+#: ../../source/for_users/datasets/output_data.rst:511
+msgid "Open space (fringe)"
+msgstr "Espaço aberto (margem)"
+
+#: ../../source/for_users/datasets/output_data.rst:513
+msgid "Open space (captured)"
+msgstr "Espaço aberto (capturado)"
+
+#: ../../source/for_users/datasets/output_data.rst:515
+msgid "Open space (rural)"
+msgstr "Espaço aberto (rural)"
+
+#: ../../source/for_users/datasets/output_data.rst:517
+msgid "Open space (fringe water)"
+msgstr "Espaço aberto (margem de água)"
+
+#: ../../source/for_users/datasets/output_data.rst:519
+msgid "8"
+msgstr "8"
+
+#: ../../source/for_users/datasets/output_data.rst:519
+msgid "Open space (captured water)"
+msgstr "Espaço aberto (água capturada)"
+
+#: ../../source/for_users/datasets/output_data.rst:521
+msgid "9"
+msgstr "9"
+
+#: ../../source/for_users/datasets/output_data.rst:521
+msgid "Open space (rural water)"
+msgstr "Espaço aberto (água em área rural)"
+
+#: ../../source/for_users/datasets/output_data.rst:525
+msgid "Urban series"
+msgstr "Série urbana"
+
+#: ../../source/for_users/datasets/output_data.rst:532
+msgid "Water"
+msgstr "Água"
+
+#: ../../source/for_users/datasets/output_data.rst:534
+msgid "Built up by 2000"
+msgstr "Construído até 2000"
+
+#: ../../source/for_users/datasets/output_data.rst:536
+msgid "Built up by 2005"
+msgstr "Construído até 2005"
+
+#: ../../source/for_users/datasets/output_data.rst:538
+msgid "Built up by 2010"
+msgstr "Construído até 2010"
+
+#: ../../source/for_users/datasets/output_data.rst:540
+msgid "Built up by 2015"
+msgstr "Construído até 2015"
+
+#: ../../source/for_users/datasets/output_data.rst:544
+msgid "Population"
+msgstr "População"
+
+#: ../../source/for_users/datasets/output_data.rst:547
+msgid "Population density"
+msgstr ""
+
+#: ../../source/for_users/datasets/output_data.rst:554
+#: ../../source/for_users/datasets/output_data.rst:570
+msgid "Population density in persons per sq km"
+msgstr ""
+
+#: ../../source/for_users/datasets/output_data.rst:558
+msgid "Population (total, male, or female)"
+msgstr ""
+
+#: ../../source/for_users/datasets/output_data.rst:560
+msgid ""
+"This output draws on data from the `WorldPop <https://www.worldpop.org>`_ "
+"project. Depending on the tool used in Trends.Earth, population outputs can "
+"be: total population (male and female), total male population, or total "
+"female population. The pixels values in each all are coded the same way, and"
+" refer to actual population counts per grid cell."
+msgstr ""
+
+#: ../../../<rst_epilog>:2
+msgid "iconCalculator"
+msgstr ""
+
+#: ../../../<rst_epilog>:4
+msgid "iconChart"
+msgstr ""
+
+#: ../../../<rst_epilog>:6
+msgid "iconClipboard"
+msgstr ""
+
+#: ../../../<rst_epilog>:8
+msgid "iconCloudDownload"
+msgstr ""
+
+#: ../../../<rst_epilog>:10
+msgid "iconCog"
+msgstr ""
+
+#: ../../../<rst_epilog>:12
+msgid "iconDeletedataset"
+msgstr ""
+
+#: ../../../<rst_epilog>:14
+msgid "iconGlobe"
+msgstr ""
+
+#: ../../../<rst_epilog>:16
+msgid "iconGraph"
+msgstr ""
+
+#: ../../../<rst_epilog>:18
+msgid "iconInfo"
+msgstr ""
+
+#: ../../../<rst_epilog>:20
+msgid "iconLoaddataset"
+msgstr ""
+
+#: ../../../<rst_epilog>:21
+msgid "iconMarkMarker"
+msgstr ""
+
+#: ../../../<rst_epilog>:23
+msgid "iconOpendatasetdirectory"
+msgstr ""
+
+#: ../../../<rst_epilog>:25
+msgid "iconViewdatasetdetails"
+msgstr ""
+
+#: ../../../<rst_epilog>:27
+msgid "iconWrench"
+msgstr ""
+
+#: ../../../<rst_epilog>:29
+msgid "iconFolder"
+msgstr ""
+
+#: ../../../<rst_epilog>:31
+msgid "iconReports"
+msgstr ""
+
+#: ../../../<rst_epilog>:33
+msgid "iconTrendsEarth"
+msgstr ""
+
+#: ../../../<rst_epilog>:35
+msgid "iconVisualization"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoCI"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoLund"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoNASA"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoGEF"
+msgstr ""

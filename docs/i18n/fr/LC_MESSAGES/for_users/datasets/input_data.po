@@ -1,0 +1,440 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017-2022, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Fanja Andriamialisoa <Fandriamialisoa@aol.com>, 2022
+# Alex Zvoleff <azvoleff@conservation.org>, 2022
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 1.99.11\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-05-24 18:41-0400\n"
+"PO-Revision-Date: 2022-05-26 11:57+0000\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
+"Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+
+#: ../../source/for_users/datasets/input_data.rst:4
+msgid "Input Data Used in Trends.Earth"
+msgstr ""
+
+#: ../../source/for_users/datasets/input_data.rst:6
+msgid ""
+"|trends.earth| draws on a number of data sources. The data sets listed below"
+" are owned/made available by the following organizations and individuals "
+"under separate terms as indicated in their respective metadata."
+msgstr ""
+"|trends.earth| s'appuie sur un certain nombre de sources de données. Les "
+"séries de données énumérées ci-dessous sont détenues / mises à disposition "
+"par les organisations et individus suivants en vertu de modalités "
+"distinctes, indiquées dans leurs métadonnées respectives."
+
+#: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
+msgid "Trends.Earth"
+msgstr ""
+
+#: ../../source/for_users/datasets/input_data.rst:11
+msgid "NDVI"
+msgstr "NDVI"
+
+#: ../../source/for_users/datasets/input_data.rst:14
+#: ../../source/for_users/datasets/input_data.rst:30
+#: ../../source/for_users/datasets/input_data.rst:45
+#: ../../source/for_users/datasets/input_data.rst:65
+#: ../../source/for_users/datasets/input_data.rst:77
+#: ../../source/for_users/datasets/input_data.rst:89
+#: ../../source/for_users/datasets/input_data.rst:101
+#: ../../source/for_users/datasets/input_data.rst:112
+msgid "Sensor/Dataset"
+msgstr "Capteur / Série de données"
+
+#: ../../source/for_users/datasets/input_data.rst:14
+#: ../../source/for_users/datasets/input_data.rst:30
+#: ../../source/for_users/datasets/input_data.rst:45
+#: ../../source/for_users/datasets/input_data.rst:65
+#: ../../source/for_users/datasets/input_data.rst:77
+#: ../../source/for_users/datasets/input_data.rst:89
+#: ../../source/for_users/datasets/input_data.rst:101
+#: ../../source/for_users/datasets/input_data.rst:112
+msgid "Temporal"
+msgstr "Temporel"
+
+#: ../../source/for_users/datasets/input_data.rst:14
+#: ../../source/for_users/datasets/input_data.rst:30
+#: ../../source/for_users/datasets/input_data.rst:45
+#: ../../source/for_users/datasets/input_data.rst:65
+#: ../../source/for_users/datasets/input_data.rst:77
+#: ../../source/for_users/datasets/input_data.rst:89
+#: ../../source/for_users/datasets/input_data.rst:101
+#: ../../source/for_users/datasets/input_data.rst:112
+msgid "Spatial"
+msgstr "Spatial"
+
+#: ../../source/for_users/datasets/input_data.rst:14
+#: ../../source/for_users/datasets/input_data.rst:30
+#: ../../source/for_users/datasets/input_data.rst:45
+#: ../../source/for_users/datasets/input_data.rst:65
+#: ../../source/for_users/datasets/input_data.rst:77
+#: ../../source/for_users/datasets/input_data.rst:89
+#: ../../source/for_users/datasets/input_data.rst:101
+#: ../../source/for_users/datasets/input_data.rst:112
+msgid "Extent"
+msgstr "Couverture"
+
+#: ../../source/for_users/datasets/input_data.rst:14
+#: ../../source/for_users/datasets/input_data.rst:30
+#: ../../source/for_users/datasets/input_data.rst:45
+#: ../../source/for_users/datasets/input_data.rst:65
+#: ../../source/for_users/datasets/input_data.rst:77
+#: ../../source/for_users/datasets/input_data.rst:89
+#: ../../source/for_users/datasets/input_data.rst:101
+#: ../../source/for_users/datasets/input_data.rst:112
+msgid "License"
+msgstr "Licence"
+
+#: ../../source/for_users/datasets/input_data.rst:16
+msgid "`AVHRR/GIMMS`_"
+msgstr "`AVHRR/GIMMS`_"
+
+#: ../../source/for_users/datasets/input_data.rst:16
+msgid "1982-2015"
+msgstr "1982-2015"
+
+#: ../../source/for_users/datasets/input_data.rst:16
+#: ../../source/for_users/datasets/input_data.rst:103
+msgid "8 km"
+msgstr "8 km"
+
+#: ../../source/for_users/datasets/input_data.rst:16
+#: ../../source/for_users/datasets/input_data.rst:18
+#: ../../source/for_users/datasets/input_data.rst:32
+#: ../../source/for_users/datasets/input_data.rst:34
+#: ../../source/for_users/datasets/input_data.rst:47
+#: ../../source/for_users/datasets/input_data.rst:49
+#: ../../source/for_users/datasets/input_data.rst:67
+#: ../../source/for_users/datasets/input_data.rst:79
+#: ../../source/for_users/datasets/input_data.rst:91
+#: ../../source/for_users/datasets/input_data.rst:103
+#: ../../source/for_users/datasets/input_data.rst:114
+msgid "Global"
+msgstr "Mondiale"
+
+#: ../../source/for_users/datasets/input_data.rst:16
+#: ../../source/for_users/datasets/input_data.rst:18
+#: ../../source/for_users/datasets/input_data.rst:32
+#: ../../source/for_users/datasets/input_data.rst:34
+#: ../../source/for_users/datasets/input_data.rst:47
+#: ../../source/for_users/datasets/input_data.rst:49
+#: ../../source/for_users/datasets/input_data.rst:51
+#: ../../source/for_users/datasets/input_data.rst:53
+#: ../../source/for_users/datasets/input_data.rst:67
+#: ../../source/for_users/datasets/input_data.rst:103
+#: ../../source/for_users/datasets/input_data.rst:114
+msgid "`Public Domain`_"
+msgstr "`Domaine public`_"
+
+#: ../../source/for_users/datasets/input_data.rst:18
+msgid "`MOD13Q1-coll6`_"
+msgstr "`MOD13Q1-coll6`_"
+
+#: ../../source/for_users/datasets/input_data.rst:18
+msgid "2001-2016"
+msgstr "2001-2016"
+
+#: ../../source/for_users/datasets/input_data.rst:18
+#: ../../source/for_users/datasets/input_data.rst:91
+msgid "250 m"
+msgstr "250 m"
+
+#: ../../source/for_users/datasets/input_data.rst:27
+msgid "Soil Moisture"
+msgstr ""
+
+#: ../../source/for_users/datasets/input_data.rst:32
+msgid "`MERRA 2`_"
+msgstr "`MERRA 2`_"
+
+#: ../../source/for_users/datasets/input_data.rst:32
+msgid "1980-2016"
+msgstr "1980-2016"
+
+#: ../../source/for_users/datasets/input_data.rst:32
+msgid "0.5° x 0.625°"
+msgstr "0.5° x 0.625°"
+
+#: ../../source/for_users/datasets/input_data.rst:34
+msgid "`ERA I`_"
+msgstr "`ERA I`_"
+
+#: ../../source/for_users/datasets/input_data.rst:34
+msgid "1979-2016"
+msgstr "1979-2016"
+
+#: ../../source/for_users/datasets/input_data.rst:34
+msgid "0.75° x 0.75°"
+msgstr "0,75° x 0,75°"
+
+#: ../../source/for_users/datasets/input_data.rst:42
+msgid "Precipitation and Drought"
+msgstr ""
+
+#: ../../source/for_users/datasets/input_data.rst:47
+msgid "`GPCP v2.3 1 month`_"
+msgstr "`GPCP v2.3 1 mois`_"
+
+#: ../../source/for_users/datasets/input_data.rst:47
+msgid "1979-2019"
+msgstr ""
+
+#: ../../source/for_users/datasets/input_data.rst:47
+msgid "2.5° x 2.5°"
+msgstr "2,5° x 2,5°"
+
+#: ../../source/for_users/datasets/input_data.rst:49
+msgid "`GPCC V6`_"
+msgstr ""
+
+#: ../../source/for_users/datasets/input_data.rst:49
+msgid "1891-2019"
+msgstr ""
+
+#: ../../source/for_users/datasets/input_data.rst:49
+msgid "1° x 1°"
+msgstr "1° x 1°"
+
+#: ../../source/for_users/datasets/input_data.rst:51
+msgid "`CHIRPS`_"
+msgstr "`CHIRPS`_"
+
+#: ../../source/for_users/datasets/input_data.rst:51
+msgid "1981-2016"
+msgstr "1981-2016"
+
+#: ../../source/for_users/datasets/input_data.rst:51
+msgid "5 km"
+msgstr "5 km"
+
+#: ../../source/for_users/datasets/input_data.rst:51
+msgid "50N-50S"
+msgstr "50N-50S"
+
+#: ../../source/for_users/datasets/input_data.rst:53
+msgid "`PERSIANN-CDR`_"
+msgstr "`PERSIANN-CDR`_"
+
+#: ../../source/for_users/datasets/input_data.rst:53
+msgid "1983-2015"
+msgstr "1983-2015"
+
+#: ../../source/for_users/datasets/input_data.rst:53
+msgid "25 km"
+msgstr "25 km"
+
+#: ../../source/for_users/datasets/input_data.rst:53
+msgid "60N-60S"
+msgstr "60N-60S"
+
+#: ../../source/for_users/datasets/input_data.rst:62
+msgid "Evapotranspiration"
+msgstr "Évapotranspiration"
+
+#: ../../source/for_users/datasets/input_data.rst:67
+msgid "MOD16A2_"
+msgstr "MOD16A2_"
+
+#: ../../source/for_users/datasets/input_data.rst:67
+msgid "2000-2014"
+msgstr "2000-2014"
+
+#: ../../source/for_users/datasets/input_data.rst:67
+msgid "1 km"
+msgstr "1 km"
+
+#: ../../source/for_users/datasets/input_data.rst:74
+msgid "Land cover"
+msgstr "Couverture terrestre"
+
+#: ../../source/for_users/datasets/input_data.rst:79
+msgid "`ESA CCI Land Cover`_"
+msgstr "`Couverture terrestre ESA CCI`_"
+
+#: ../../source/for_users/datasets/input_data.rst:79
+msgid "1992-2018"
+msgstr ""
+
+#: ../../source/for_users/datasets/input_data.rst:79
+msgid "300 m"
+msgstr "300 m"
+
+#: ../../source/for_users/datasets/input_data.rst:79
+msgid "`CC by-SA 3.0`_"
+msgstr "`CC by-SA 3.0`_"
+
+#: ../../source/for_users/datasets/input_data.rst:86
+msgid "Soil carbon"
+msgstr "Carbone du sol"
+
+#: ../../source/for_users/datasets/input_data.rst:91
+msgid "`Soil Grids (ISRIC)`_"
+msgstr "`Blocs sol (ISRIC)`_"
+
+#: ../../source/for_users/datasets/input_data.rst:91
+#: ../../source/for_users/datasets/input_data.rst:114
+msgid "Present"
+msgstr "Présent"
+
+#: ../../source/for_users/datasets/input_data.rst:91
+msgid "`CC by-SA 4.0`_"
+msgstr "`CC by-SA 4.0`_"
+
+#: ../../source/for_users/datasets/input_data.rst:98
+msgid "Agroecological Zones"
+msgstr "Zones agroécologiques"
+
+#: ../../source/for_users/datasets/input_data.rst:103
+msgid "`FAO - IIASA Global Agroecological Zones (GAEZ)`_"
+msgstr "`Zones agroécologiques mondiales FAO - IIASA (GAEZ)`_"
+
+#: ../../source/for_users/datasets/input_data.rst:103
+msgid "2000"
+msgstr "2000"
+
+#: ../../source/for_users/datasets/input_data.rst:109
+msgid "Administrative Boundaries"
+msgstr "Frontières administratives"
+
+#: ../../source/for_users/datasets/input_data.rst:114
+msgid "`Natural Earth Administrative Boundaries`_"
+msgstr "`Frontières administratives des formations naturelles`_"
+
+#: ../../source/for_users/datasets/input_data.rst:114
+msgid "10/50m"
+msgstr "10 / 50m"
+
+#: ../../source/for_users/datasets/input_data.rst:118
+msgid ""
+"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth are "
+"in the `public domain`_. The boundaries and names used, and the designations"
+" used, in Trends.Earth do not imply official endorsement or acceptance by "
+"Conservation International Foundation, or by its partner organizations and "
+"contributors."
+msgstr ""
+"Les `Natural Earth Administrative Boundaries`_ fournies dans Trends.Earth "
+"sont dans le `public domain`_. Les limites et les noms utilisés, ainsi que "
+"les désignations utilisées, dans Trends.Earth n'impliquent pas l'approbation"
+" officielle ou l'acceptation par Conservation International Foundation, ou "
+"par ses organisations partenaires et contributeurs."
+
+#: ../../source/for_users/datasets/input_data.rst:124
+msgid ""
+"If using Trends.Earth for official purposes, it is recommended that users "
+"choose an official boundary provided by the designated office of their "
+"country."
+msgstr ""
+"Si vous utilisez Trends.Earth à des fins officielles, il est recommandé de "
+"choisir une frontière officielle fournie par le bureau désigné de votre "
+"pays."
+
+#: ../../source/for_users/datasets/input_data.rst:133
+msgid "Population"
+msgstr ""
+
+#: ../../source/for_users/datasets/input_data.rst:134
+msgid "**Coming soon**"
+msgstr ""
+
+#: ../../../<rst_epilog>:2
+msgid "iconCalculator"
+msgstr ""
+
+#: ../../../<rst_epilog>:4
+msgid "iconChart"
+msgstr ""
+
+#: ../../../<rst_epilog>:6
+msgid "iconClipboard"
+msgstr ""
+
+#: ../../../<rst_epilog>:8
+msgid "iconCloudDownload"
+msgstr ""
+
+#: ../../../<rst_epilog>:10
+msgid "iconCog"
+msgstr ""
+
+#: ../../../<rst_epilog>:12
+msgid "iconDeletedataset"
+msgstr ""
+
+#: ../../../<rst_epilog>:14
+msgid "iconGlobe"
+msgstr ""
+
+#: ../../../<rst_epilog>:16
+msgid "iconGraph"
+msgstr ""
+
+#: ../../../<rst_epilog>:18
+msgid "iconInfo"
+msgstr ""
+
+#: ../../../<rst_epilog>:20
+msgid "iconLoaddataset"
+msgstr ""
+
+#: ../../../<rst_epilog>:21
+msgid "iconMarkMarker"
+msgstr ""
+
+#: ../../../<rst_epilog>:23
+msgid "iconOpendatasetdirectory"
+msgstr ""
+
+#: ../../../<rst_epilog>:25
+msgid "iconViewdatasetdetails"
+msgstr ""
+
+#: ../../../<rst_epilog>:27
+msgid "iconWrench"
+msgstr ""
+
+#: ../../../<rst_epilog>:29
+msgid "iconFolder"
+msgstr ""
+
+#: ../../../<rst_epilog>:31
+msgid "iconReports"
+msgstr ""
+
+#: ../../../<rst_epilog>:33
+msgid "iconTrendsEarth"
+msgstr ""
+
+#: ../../../<rst_epilog>:35
+msgid "iconVisualization"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoCI"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoLund"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoNASA"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoGEF"
+msgstr ""

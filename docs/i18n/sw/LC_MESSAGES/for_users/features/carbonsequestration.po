@@ -1,0 +1,258 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017-2022, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Alex Zvoleff <azvoleff@conservation.org>, 2022
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 1.99.11\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-05-24 18:41-0400\n"
+"PO-Revision-Date: 2022-05-26 11:57+0000\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022\n"
+"Language-Team: Swahili (https://www.transifex.com/conservation-international/teams/80165/sw/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: sw\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: ../../source/for_users/features/carbonsequestration.rst:4
+msgid "Potential carbon sequestration from restoration"
+msgstr ""
+
+#: ../../source/for_users/features/carbonsequestration.rst:7
+msgid "Background"
+msgstr "Background"
+
+#: ../../source/for_users/features/carbonsequestration.rst:9
+msgid ""
+"Restoration could remove 400 Gt of CO2 by 2100 (Griscom et. al., 2017), "
+"putting us on the pathway to reduce carbon emissions to keep us within the "
+"Paris Climate Agreement goal to limit “the increase in the global average "
+"temperature to well below 2 °C above preindustrial levels” (UNFCCC 2015). "
+"Forest landscape restoration is a natural climate solution for removing "
+"carbon dioxide from the atmosphere through different reforestation efforts."
+msgstr ""
+
+#: ../../source/for_users/features/carbonsequestration.rst:15
+msgid "Rationale for Monitoring"
+msgstr ""
+
+#: ../../source/for_users/features/carbonsequestration.rst:17
+msgid ""
+"There is a need for tools to support restoration prioritization, and "
+"planning restoration activities on the ground. This module in Trends.Earth "
+"allows users to estimate the potential climate benefits of different forest "
+"landscape restoration approaches."
+msgstr ""
+
+#: ../../source/for_users/features/carbonsequestration.rst:22
+msgid ""
+"Refer to the :ref:`tut_carbon_sequestration_restoration` for the tutorial to"
+" use this methodology and data."
+msgstr ""
+
+#: ../../source/for_users/features/carbonsequestration.rst:25
+msgid "Indicator and data needs"
+msgstr ""
+
+#: ../../source/for_users/features/carbonsequestration.rst:27
+msgid ""
+"This module allows users to select a restoration type (terrestrial or "
+"mangrove) within a region and length of restoration activity to estimate "
+"change in biomass (CO2 equivalence) for 8 different restoration activities."
+msgstr ""
+
+#: ../../source/for_users/features/carbonsequestration.rst:33
+msgid ""
+"The years of intervention and region is then selected using the pre-existing"
+" national/sub-national boundaries, a coordinate or a custom uploaded "
+"dataset."
+msgstr ""
+
+#: ../../source/for_users/features/carbonsequestration.rst:36
+msgid ""
+"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth are "
+"in the `public domain`_. The boundaries and names used, and the designations"
+" used, in Trends.Earth do not imply official endorsement or acceptance by "
+"Conservation International Foundation, or by its partner organizations and "
+"contributors."
+msgstr ""
+"Mipaka ya `Natural Earth Administrative Boundaries`_ iliyotolewa katika "
+"Mwelekeo.Earth iko katika `public domain`_. Mipaka na majina yaliyotumiwa, "
+"na majarida yaliyotumiwa, katika Mwelekeo.Kuanzia haimaanishi kupitishwa "
+"rasmi au kukubalika na Conservation International Foundation, au kwa "
+"mashirika yake ya washirika na wafadhili."
+
+#: ../../source/for_users/features/carbonsequestration.rst:42
+msgid ""
+"If using Trends.Earth for official purposes, it is recommended that users "
+"choose an official boundary provided by the designated office of their "
+"country."
+msgstr ""
+"Ikiwa unatumia Mwelekeo.Kuanzia kwa madhumuni rasmi, inashauriwa kuwa "
+"watumiaji kuchagua mipaka rasmi iliyotolewa na ofisi iliyochaguliwa ya nchi "
+"yao."
+
+#: ../../source/for_users/features/carbonsequestration.rst:50
+msgid ""
+"Trends.Earth gives the change in biomass under the 8 scenarios and a tabular"
+" output with the change in biomass compared to pre-restoration levels and "
+"final total biomass in tons CO2 equivalence."
+msgstr ""
+
+#: ../../source/for_users/features/carbonsequestration.rst:59
+msgid "**Citations:**"
+msgstr ""
+
+#: ../../source/for_users/features/carbonsequestration.rst:61
+msgid ""
+"Avitabile, V., Herold, M., Heuvelink, G. B. M., Lewis, S. L., Phillips, O. "
+"L., Asner, G. P., Armston, J., Ashton, P. S., Banin, L. et al., 2016. An "
+"integrated pan-tropical biomass map using multiple reference datasets. "
+"Global Change Biology, 22, pp. 1406–1420."
+msgstr ""
+
+#: ../../source/for_users/features/carbonsequestration.rst:63
+msgid ""
+"Avitabile, V., Herold, M., Lewis, S.L., Phillips, O.L., Aguilar-"
+"Amuchastegui, N., Asner, G. P., Brienen, R.J.W., DeVries, B., Cazzolla "
+"Gatti, R. et al., 2014. Comparative analysis and fusion for improved global "
+"biomass mapping.  Global Vegetation Monitoring and Modeling, 3 – 7 February "
+"2014, Avignon (France)."
+msgstr ""
+
+#: ../../source/for_users/features/carbonsequestration.rst:65
+msgid ""
+"Bernal, B., Murray, L. T. & Pearson, T. R. H. Global carbon dioxide removal "
+"rates from forest landscape restoration activities. Carbon Balance and "
+"Management 13, 22 (2018)."
+msgstr ""
+
+#: ../../source/for_users/features/carbonsequestration.rst:67
+msgid ""
+"Bunting P, Rosenqvist A, Lucas RM, Rebelo L-M, Hilarides L, Thomas N, Hardy "
+"A, Itoh T, Shimada M, Finlayson CM. The Global Mangrove Watch—A New 2010 "
+"Global Baseline of Mangrove Extent. Remote Sensing. 2018; 10(10):1669. "
+"https://doi.org/10.3390/rs10101669"
+msgstr ""
+
+#: ../../source/for_users/features/carbonsequestration.rst:69
+msgid ""
+"Griscom, B. W., et. al., 2017. Natural climate solutions. PNAS. 114(44) "
+"11645-11650. https://doi.org/10.1073/pnas.1710465114"
+msgstr ""
+
+#: ../../source/for_users/features/carbonsequestration.rst:71
+msgid ""
+"Santoro, M., Beaudoin, A., Beer, C., Cartus, O., Fransson, J.E.S., Hall, "
+"R.J., Pathe, C., Schmullius, C., Schepaschenko, D., Shvidenko, A., Thurner, "
+"M. and Wegmüller, U., 2015. Forest growing stock volume of the northern "
+"hemisphere: Spatially explicit estimates for 2010 derived from Envisat ASAR."
+" Remote Sensing of Environment, 168, pp. 316-334."
+msgstr ""
+
+#: ../../source/for_users/features/carbonsequestration.rst:73
+msgid ""
+"United Nations Framework Convention on Climate Change, COP 21 Climate "
+"Agreement (UNFCCC, Paris). 2015. Available at "
+"unfccc.int/resource/docs/2015/cop21/eng/l09r01.pdf."
+msgstr ""
+
+#: ../../../<rst_epilog>:2
+msgid "iconCalculator"
+msgstr ""
+
+#: ../../../<rst_epilog>:4
+msgid "iconChart"
+msgstr ""
+
+#: ../../../<rst_epilog>:6
+msgid "iconClipboard"
+msgstr ""
+
+#: ../../../<rst_epilog>:8
+msgid "iconCloudDownload"
+msgstr ""
+
+#: ../../../<rst_epilog>:10
+msgid "iconCog"
+msgstr ""
+
+#: ../../../<rst_epilog>:12
+msgid "iconDeletedataset"
+msgstr ""
+
+#: ../../../<rst_epilog>:14
+msgid "iconGlobe"
+msgstr ""
+
+#: ../../../<rst_epilog>:16
+msgid "iconGraph"
+msgstr ""
+
+#: ../../../<rst_epilog>:18
+msgid "iconInfo"
+msgstr ""
+
+#: ../../../<rst_epilog>:20
+msgid "iconLoaddataset"
+msgstr ""
+
+#: ../../../<rst_epilog>:21
+msgid "iconMarkMarker"
+msgstr ""
+
+#: ../../../<rst_epilog>:23
+msgid "iconOpendatasetdirectory"
+msgstr ""
+
+#: ../../../<rst_epilog>:25
+msgid "iconViewdatasetdetails"
+msgstr ""
+
+#: ../../../<rst_epilog>:27
+msgid "iconWrench"
+msgstr ""
+
+#: ../../../<rst_epilog>:29
+msgid "iconFolder"
+msgstr ""
+
+#: ../../../<rst_epilog>:31
+msgid "iconReports"
+msgstr ""
+
+#: ../../../<rst_epilog>:33
+msgid "iconTrendsEarth"
+msgstr ""
+
+#: ../../../<rst_epilog>:35
+msgid "iconVisualization"
+msgstr ""
+
+#: ../../../<rst_epilog>:37
+msgid "Trends.Earth"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoCI"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoLund"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoNASA"
+msgstr ""
+
+#: ../../../<rst_epilog>:0
+msgid "logoGEF"
+msgstr ""

@@ -58,7 +58,7 @@ def delete_dataset(job: Job) -> int:
     name_fragments = []
     if job.task_name:
         name_fragments.append(job.task_name)
-    if job.script.name:
+    if job.script and job.script.name:
         name_fragments.append(job.script.name)
     if job.local_context.area_of_interest_name:
         name_fragments.append(job.local_context.area_of_interest_name)

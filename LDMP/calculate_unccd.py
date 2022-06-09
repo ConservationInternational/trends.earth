@@ -151,10 +151,10 @@ class DlgCalculateUNCCD(DlgCalculateBase, DlgCalculateUNCCDUi):
 
         if resp:
             main_msg = "Submitted"
-            description = "UNCCD default data task submitted to Google Earth Engine."
+            description = "UNCCD default data task submitted to Trends.Earth server."
         else:
             main_msg = "Error"
-            description = "Unable to UNCCD default data task to Google Earth Engine."
+            description = "Unable to UNCCD default data task to Trends.Earth server."
         self.mb.pushMessage(
             self.tr(main_msg), self.tr(description), level=0, duration=5
         )

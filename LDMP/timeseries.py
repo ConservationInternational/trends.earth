@@ -167,9 +167,9 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         resp = job_manager.submit_remote_job(payload, self.script.id)
         if resp:
             mb.pushMessage(self.tr("Submitted"),
-                           self.tr("Time series calculation task submitted to Google Earth Engine."),
+                           self.tr("Time series calculation task submitted to Trends.Earth server."),
                            level=0, duration=5)
         else:
             mb.pushMessage(self.tr("Error"),
-                           self.tr("Unable to submit time series calculation task to Google Earth Engine."),
+                           self.tr("Unable to submit time series calculation task to Trends.Earth server."),
                            level=1, duration=5)

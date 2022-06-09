@@ -277,11 +277,11 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
 
         if resp:
             main_msg = "Submitted"
-            description = "Productivity task submitted to Google Earth Engine."
+            description = "Productivity task submitted to Trends.Earth server."
 
         else:
             main_msg = "Error"
-            description = "Unable to submit productivity task to Google Earth Engine."
+            description = "Unable to submit productivity task to Trends.Earth server."
         self.mb.pushMessage(
             self.tr(main_msg), self.tr(description), level=0, duration=5
         )

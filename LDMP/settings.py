@@ -11,6 +11,10 @@
  ***************************************************************************/
 """
 
+from enum import (
+    auto,
+    Flag
+)
 import os
 import zipfile
 import typing
@@ -261,6 +265,19 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
         super().accept()
 
 
+class AreaWidgetSection(Flag):
+    """
+    Defines main sections in the AreaWidget, primarily used to set which
+    sections to hide/show.
+    """
+    COUNTRY = auto()
+    REGION = auto()
+    POINT = auto()
+    FILE = auto()
+    BUFFER = auto()
+    NAME = auto()
+
+
 class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
     admin_bounds_key: typing.Dict[str, download.Country]
     cities: typing.Dict[str, typing.Dict[str, download.City]]
@@ -273,6 +290,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.canvas = iface.mapCanvas()
         self.vector_file = None
         self.current_cities_key = None
+        self.hide_on_choose_point = True
 
         self.admin_bounds_key = download.get_admin_bounds()
 
@@ -428,10 +446,84 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 
     def point_chooser(self):
         log("Choosing point from canvas...")
+
         self.canvas.setMapTool(self.choose_point_tool)
-        self.window().hide()
-        QtWidgets.QMessageBox.critical(None, self.tr(
-            "Point chooser"), self.tr("Click the map to choose a point."))
+
+        msg_bar = iface.messageBar()
+        msg_duration = 5
+
+        # Check layers
+        if qgis.core.QgsProject.instance().count() == 0:
+            msg_bar.pushMessage(
+                self.tr(
+                    'The map must have at least one layer.'
+                ),
+                qgis.core.Qgis.Warning,
+                msg_duration
+            )
+            return
+
+        if self.hide_on_choose_point:
+            self.window().hide()
+
+        msg_bar.pushMessage(
+            self.tr('Click the map to choose a point.'),
+            qgis.core.Qgis.Info,
+            msg_duration
+        )
+
+    def set_section_visibility(self, sections: AreaWidgetSection, show=False):
+        """
+        Specify one or more sections to hide with support for bitwise
+        operators.
+        """
+        # Country (and region)
+        if bool(sections & AreaWidgetSection.COUNTRY):
+            self.area_fromadmin.setVisible(show)
+            self.first_level_label.setVisible(show)
+            self.area_admin_0.setVisible(show)
+            self.second_level_label.setVisible(show)
+            self.radioButton_secondLevel_region.setVisible(show)
+            self.secondLevel_area_admin_1.setVisible(show)
+            self.radioButton_secondLevel_city.setVisible(show)
+            self.secondLevel_city.setVisible(show)
+            self.label_disclaimer.setVisible(show)
+
+        # Region
+        if bool(sections & AreaWidgetSection.REGION):
+            self.second_level_label.setVisible(show)
+            self.radioButton_secondLevel_region.setVisible(show)
+            self.secondLevel_area_admin_1.setVisible(show)
+            self.radioButton_secondLevel_city.setVisible(show)
+            self.secondLevel_city.setVisible(show)
+
+        # Point
+        if bool(sections & AreaWidgetSection.POINT):
+            self.area_frompoint.setVisible(show)
+            self.area_frompoint_label_x.setVisible(show)
+            self.area_frompoint_point_x.setVisible(show)
+            self.area_frompoint_label_y.setVisible(show)
+            self.area_frompoint_point_y.setVisible(show)
+            self.area_frompoint_choose_point.setVisible(show)
+
+        # File
+        if bool(sections & AreaWidgetSection.FILE):
+            self.area_fromfile.setVisible(show)
+            self.area_fromfile_file.setVisible(show)
+            self.area_fromfile_browse.setVisible(show)
+
+        # Buffer
+        if bool(sections & AreaWidgetSection.BUFFER):
+            self.checkbox_buffer.setVisible(show)
+            self.label.setVisible(show)
+            self.buffer_size_km.setVisible(show)
+
+        # Name
+        if bool(sections & AreaWidgetSection.NAME):
+            self.label_2.setVisible(show)
+            self.area_settings_name.setVisible(show)
+
+        self.updateGeometry()
 
     def generate_name_setting(self):
         if self.area_fromadmin.isChecked():

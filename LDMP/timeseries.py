@@ -13,29 +13,74 @@
 """
 
 import json
+from pathlib import Path
 
-from qgis.PyQt import QtWidgets, uic
+import qgis.gui
+from qgis.PyQt import (
+    QtWidgets,
+    uic
+)
+from qgis.PyQt.QtCore import (
+    QDate,
+    QTextCodec,
+    Qt
+)
 
-from qgis.PyQt.QtCore import QDate, QTextCodec
-from qgis.utils import iface
+from te_schemas.algorithms import ExecutionScript
 
 from .conf import KNOWN_SCRIPTS
 from .calculate import (
     DlgCalculateBase,
 )
-from .gui.DlgTimeseries import Ui_DlgTimeseries
 from .jobs.manager import job_manager
 from .logger import log
+from .settings import (
+    AreaWidget,
+    AreaWidgetSection
+)
+
+
+Ui_DlgTimeseries, _ = uic.loadUiType(
+    str(Path(__file__).parent / 'gui/DlgTimeSeries.ui'))
+
+
+def show_time_series(iface, parent=None, use_tool_flag=True):
+    """
+    Show time-series dialog.
+    """
+    time_series_dlg = DlgTimeseries(
+        iface,
+        KNOWN_SCRIPTS['time-series'],
+        parent
+    )
+    if use_tool_flag:
+        time_series_dlg.setWindowFlags(
+            time_series_dlg.windowFlags() | Qt.Tool
+        )
+        time_series_dlg.show()
+    else:
+        time_series_dlg.exec_()
+
+    return time_series_dlg
 
 
 class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
-    def __init__(self, parent=None):
+    def __init__(
+            self,
+            iface: qgis.gui.QgisInterface,
+            script: ExecutionScript,
+            parent: QtWidgets.QWidget = None
+    ):
         """Constructor."""
-        super(DlgTimeseries, self).__init__(parent)
-
+        super().__init__(iface, script, parent)
         self.setupUi(self)
 
-        ndvi_datasets = [x for x in list(self.datasets['NDVI'].keys()) if self.datasets['NDVI'][x]['Temporal resolution'] == 'annual']
+        qgis.gui.QgsGui.enableAutoGeometryRestore(self)
+
+        ndvi_datasets = [
+            x for x in list(self.datasets['NDVI'].keys())
+            if self.datasets['NDVI'][x]['Temporal resolution'] == 'annual'
+        ]
         self.dataset_ndvi.addItems(ndvi_datasets)
 
         self.start_year_climate = 0
@@ -52,8 +97,19 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         self.dataset_ndvi.currentIndexChanged.connect(self.dataset_ndvi_changed)
         self.traj_climate.currentIndexChanged.connect(self.traj_climate_changed)
 
-        # TODO:Temporary until fixed:
-        self.TabBox.removeTab(1)
+        submit_btn = self.buttonBox.button(QtWidgets.QDialogButtonBox.Ok)
+        submit_btn.setText(self.tr('Submit request'))
+        self.buttonBox.rejected.connect(self.hide)
+
+        self._sync_action = None
+
+        self.area_widget = AreaWidget()
+        self.area_widget.hide_on_choose_point = False
+        self.area_widget.set_section_visibility(
+            AreaWidgetSection.FILE | AreaWidgetSection.BUFFER |
+            AreaWidgetSection.NAME
+        )
+        self.vl_aoi.addWidget(self.area_widget)
 
     def traj_indic_changed(self):
         self.dataset_climate_update()
@@ -122,6 +178,55 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
 
     def btn_cancel(self):
         self.close()
+
+    def hideEvent(self, event):
+        # Uncheck sync action if defined.
+        if self._sync_action and self._sync_action.isChecked():
+            self._sync_action.setChecked(False)
+
+        super().hideEvent(event)
+
+    def closeEvent(self, event):
+        # Uncheck sync action if defined.
+        if self._sync_action and self._sync_action.isChecked():
+            self._sync_action.setChecked(False)
+
+        super().closeEvent(event)
+
+    def showEvent(self, event):
+        # Check sync action if defined.
+        if self._sync_action and not self._sync_action.isChecked():
+            self._sync_action.setChecked(True)
+
+        super().showEvent(event)
+
+    @property
+    def sync_action(self) -> QtWidgets.QAction:
+        """
+        Returns the action that is used to sync the show/hide events.
+        """
+        return self._sync_action
+
+    @sync_action.setter
+    def sync_action(self, action: QtWidgets.QAction):
+        """
+        Set the action to sync the dialog's show/hide events.
+        """
+        if self._sync_action:
+            return
+
+        self._sync_action = action
+        self._sync_action.toggled.connect(self._on_sync_action_toggled)
+
+    def _on_sync_action_toggled(self, status):
+        # Slot that shows/hides dialog.
+        if status:
+            if not self.isVisible():
+                self.show()
+            self.raise_()
+            self.activateWindow()
+        else:
+            self.hide()
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it

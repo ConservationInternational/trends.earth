@@ -66,6 +66,7 @@ from .processing_provider.provider import Provider
 from .reports.expressions import ReportExpressionUtils
 from .reports.template_manager import template_manager
 from .settings import DlgSettings
+from .timeseries import show_time_series
 from .utils import FileUtils
 from .visualization import download_base_map
 
@@ -104,6 +105,7 @@ class LDMPPlugin(object):
         self.dlg_about = None
         self.start_action = None
         self.dock_widget = None
+        self.time_series_dlg = None
 
     def initProcessing(self):
         self.provider = Provider()
@@ -287,6 +289,7 @@ class LDMPPlugin(object):
             self.tr('Plot NDVI'),
             self.iface.mainWindow(),
         )
+        self.ndvi_action.setCheckable(True)
         self.ndvi_action.setToolTip(self.tr('Plot NDVI data'))
         self.ndvi_action.triggered.connect(self.run_ndvi)
 
@@ -374,4 +377,14 @@ class LDMPPlugin(object):
 
     def run_ndvi(self):
         # Show NDVI query dialog.
-        pass
+        if self.time_series_dlg is None:
+            self.time_series_dlg = show_time_series(
+                self.iface,
+                self.iface.mapCanvas()
+            )
+            self.time_series_dlg.sync_action = self.ndvi_action
+        else:
+            self.time_series_dlg.show()
+
+        self.time_series_dlg.raise_()
+        self.time_series_dlg.activateWindow()

@@ -829,7 +829,7 @@ def add_vector_layer(layer_path: str, name: str):
         if not found:
             layer = iface.addVectorLayer(layer_path, name, "ogr")
 
-def set_default_value(v_path, field, r_path, band, v, r):
+def set_default_value(v_path, field, r_path, band_name, band, change_type):
     layer = None
     for l in QgsProject.instance().mapLayers().values():
         if l.source().split("|")[0] == v_path:
@@ -838,7 +838,12 @@ def set_default_value(v_path, field, r_path, band, v, r):
     if layer is None:
         return
     idx = layer.fields().lookupField(field)
-    layer.setDefaultValueDefinition(idx, QgsDefaultValue("calculate_charts('{}', {}, '{}', {})".format(r_path, band, v, r), True))
+    layer.setDefaultValueDefinition(
+        idx,
+        QgsDefaultValue(
+            f"calculate_charts('{r_path}', '{band_name}', {band}, '{change_type}')"
+        )
+    )
     res = layer.listStylesInDatabase()
     if res[0] > 0:
         for i in res[1]:

@@ -4,6 +4,7 @@ import typing
 import uuid
 from pathlib import Path
 
+from qgis.core import QgsProject
 from qgis.PyQt import QtCore
 from qgis.PyQt import QtGui
 from qgis.PyQt import QtWidgets
@@ -23,14 +24,13 @@ from ..conf import Setting
 from ..conf import settings_manager
 from ..data_io import DlgDataIOAddLayersToMap
 from ..datasets_dialog import DatasetDetailsDialogue
+from ..logger import log
+from ..reports.mvc import DatasetReportHandler
 from ..select_dataset import DlgSelectDataset
+from ..utils import FileUtils
 from .models import Job
 from .models import SortField
 from .models import TypeFilter
-from qgis.core import QgsProject
-from ..utils import FileUtils
-from ..reports.mvc import DatasetReportHandler
-
 
 WidgetDatasetItemUi, _ = uic.loadUiType(
     str(Path(__file__).parents[1] / "gui/WidgetDatasetItem.ui")
@@ -484,73 +484,73 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                     str(self.job.results.vector.uri.uri),
                     "prod_imp",
                     str(prod.path.as_posix()),
+                    prod.band_info.name,
                     prod.band_index,
-                    "4,5",
-                    False
+                    'improved_ha'
                 )
                 layers.set_default_value(
                     str(self.job.results.vector.uri.uri),
                     "prod_deg",
                     str(prod.path.as_posix()),
+                    prod.band_info.name,
                     prod.band_index,
-                    "1,2",
-                    False
+                    'degraded_ha'
                 )
                 layers.set_default_value(
                     str(self.job.results.vector.uri.uri),
                     "prod_stab",
                     str(prod.path.as_posix()),
+                    prod.band_info.name,
                     prod.band_index,
-                    "3",
-                    False
+                    'stable_ha'
                 )
                 layers.set_default_value(
                     str(self.job.results.vector.uri.uri),
                     "land_imp",
                     str(land.path.as_posix()),
+                    land.band_info.name,
                     land.band_index,
-                    "1",
-                    False
+                    'improved_ha'
                 )
                 layers.set_default_value(
                     str(self.job.results.vector.uri.uri),
                     "land_deg",
                     str(land.path.as_posix()),
+                    land.band_info.name,
                     land.band_index,
-                    "-1",
-                    False
+                    'degraded_ha'
                 )
                 layers.set_default_value(
                     str(self.job.results.vector.uri.uri),
                     "land_stab",
                     str(land.path.as_posix()),
+                    land.band_info.name,
                     land.band_index,
-                    "0",
-                    False
+                    'stable_ha'
                 )
                 layers.set_default_value(
                     str(self.job.results.vector.uri.uri),
                     "soil_imp",
                     str(soil.path.as_posix()),
+                    soil.band_info.name,
                     soil.band_index,
-                    "1",
-                    True
+                    'improved_ha'
                 )
                 layers.set_default_value(
                     str(self.job.results.vector.uri.uri),
                     "soil_deg",
                     str(soil.path.as_posix()),
+                    soil.band_info.name,
                     soil.band_index,
-                    "-1",
-                    True
+                    'degraded_ha'
                 )
                 layers.set_default_value(
                     str(self.job.results.vector.uri.uri),
                     "soil_stab",
                     str(soil.path.as_posix()),
+                    soil.band_info.name,
                     soil.band_index,
-                    "0",
-                    True
+                    'stable_ha'
                 )
 
                 manager.job_manager.edit_error_recode_layer(self.job)

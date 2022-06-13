@@ -427,7 +427,7 @@ of special interest.
 
 For now only "false positive/negative" layers are supported, but more
 can be added if necessary. Any vector layer is created from the
-template GeoPackage files, which can be found inside the ``data/special_areas``
+template GeoPackage files, which can be found inside the ``data/error_recode``
 folder of the plugin installation directory. For each vector type
 there are 6 template files, one for each UN official language. The ISO
 language code is added as a suffix to the file name. This is necessary to
@@ -437,7 +437,7 @@ taking QGIS locale into accont, as a fall-back option English version
 of the template file is used.
 
 To change schema of the layer it is necessary to change corresponding
-template files in the ``data/special_areas`` folder of the plugin
+template files in the ``data/error_recode`` folder of the plugin
 installation directory. Also template file contains a buil-in default
 styling and attribute form configuration which will be automatically
 applied to the layer when loading into QGIS.

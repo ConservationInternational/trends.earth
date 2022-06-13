@@ -612,11 +612,11 @@ class JobManager(QtCore.QObject):
                         JobBand.Schema().dump(band)
                     )
 
-    def display_special_area_layer(self, job: Job):
+    def display_error_recode_layer(self, job: Job):
         layer_path = job.results.vector.uri.uri
         layers.add_vector_layer(str(layer_path), job.results.name)
 
-    def edit_special_area_layer(self, job: Job):
+    def edit_error_recode_layer(self, job: Job):
         layer_path = job.results.vector.uri.uri
         layers.edit(str(layer_path))
 
@@ -721,11 +721,11 @@ class JobManager(QtCore.QObject):
         output_dir = output_path.parent
         output_dir.mkdir(parents=True, exist_ok=True)
         locale = QgsApplication.locale()
-        path = os.path.join(os.path.dirname(__file__), os.path.pardir, 'data', 'special_areas', 'error_recode_{}.gpkg'.format(locale))
+        path = os.path.join(os.path.dirname(__file__), os.path.pardir, 'data', 'error_recode', 'error_recode_{}.gpkg'.format(locale))
         if os.path.exists(path):
             shutil.copy2(path, output_path)
         else:
-            shutil.copy2(os.path.join(os.path.dirname(__file__), os.path.pardir, 'data', 'special_areas', 'error_recode_en.gpkg'.format(locale)), output_path)
+            shutil.copy2(os.path.join(os.path.dirname(__file__), os.path.pardir, 'data', 'error_recode', 'error_recode_en.gpkg'.format(locale)), output_path)
         job.results.vector.uri=URI(uri=output_path, type='local')
 
     def _update_known_jobs_with_newly_submitted_job(self, job: Job):

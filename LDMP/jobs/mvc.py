@@ -441,7 +441,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         self.main_dock.resume_scheduler()
 
     def load_layer(self):
-        manager.job_manager.display_special_area_layer(self.job)
+        manager.job_manager.display_error_recode_layer(self.job)
         self.edit_tb.setEnabled(True)
 
     def edit_layer(self):
@@ -478,7 +478,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                     }
 
                 manager.job_manager.write_job_metadata_file(self.job)
-                manager.job_manager.display_special_area_layer(self.job)
+                manager.job_manager.display_error_recode_layer(self.job)
 
                 layers.set_default_value(
                     str(self.job.results.vector.uri.uri),
@@ -553,11 +553,11 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                     True
                 )
 
-                manager.job_manager.edit_special_area_layer(self.job)
+                manager.job_manager.edit_error_recode_layer(self.job)
                 self.main_dock.resume_scheduler()
         else:
-            manager.job_manager.display_special_area_layer(self.job)
-            manager.job_manager.edit_special_area_layer(self.job)
+            manager.job_manager.display_error_recode_layer(self.job)
+            manager.job_manager.edit_error_recode_layer(self.job)
 
     def has_connected_data(self):
         has_prod = True if "prod" in self.job.params else False

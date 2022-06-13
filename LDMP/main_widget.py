@@ -240,12 +240,12 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.pushButton_load.clicked.connect(self.load_base_map)
         self.pushButton_refresh.clicked.connect(self.perform_single_update)
 
-        self.special_area_menu = QtWidgets.QMenu()
-        action_create_error_recode = self.special_area_menu.addAction(
+        self.error_recode_menu = QtWidgets.QMenu()
+        action_create_error_recode = self.error_recode_menu.addAction(
             tr("Create false positive/negative layer")
         )
         action_create_error_recode.triggered.connect(self.create_error_recode)
-        self.create_layer_pb.setMenu(self.special_area_menu)
+        self.create_layer_pb.setMenu(self.error_recode_menu)
         #self.create_layer_pb.setIcon(
         #    QtGui.QIcon(os.path.join(ICON_PATH, "cloud-download.svg")))
 

@@ -1128,12 +1128,15 @@ def _get_access_token():
 def _get_user_id() -> uuid:
     if conf.settings_manager.get_value(conf.Setting.DEBUG):
         log('Retrieving user id...')
+
     get_user_reply = api.get_user()
 
     if get_user_reply:
         user_id = get_user_reply.get("id", None)
 
         return uuid.UUID(user_id)
+
+    return None
 
 
 def _get_raster_vrt(tiles: List[Path], out_file: Path):
@@ -1180,6 +1183,8 @@ def get_remote_jobs(
     # Note - this is a reimplementation of api.get_execution
     try:
         user_id = _get_user_id()
+        if user_id is None:
+            return []
     except TypeError:
         log("Unable to load user id")
         remote_jobs = []
@@ -1202,6 +1207,7 @@ def get_remote_jobs(
 
         if conf.settings_manager.get_value(conf.Setting.DEBUG):
             log('Retrieving executions...')
+
         response = api.call_api(
             f"/api/v1/execution?{urllib.parse.urlencode(query)}",
             method="get",

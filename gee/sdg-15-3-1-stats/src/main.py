@@ -55,6 +55,8 @@ def run_stats(
     except IndexError:
         logger.info(f"Failed to load band {band['name']}")
 
+    logger.info(f"Using band_datas {band_datas}")
+
     params = {
         "path": str(input_job.results.uri.uri),
         "band_datas": band_datas,

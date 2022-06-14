@@ -276,6 +276,7 @@ class AreaWidgetSection(Flag):
     FILE = auto()
     BUFFER = auto()
     NAME = auto()
+    DISCLAIMER = auto()
 
 
 class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
@@ -480,43 +481,31 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         # Country (and region)
         if bool(sections & AreaWidgetSection.COUNTRY):
             self.area_fromadmin.setVisible(show)
-            self.first_level_label.setVisible(show)
-            self.area_admin_0.setVisible(show)
-            self.second_level_label.setVisible(show)
-            self.radioButton_secondLevel_region.setVisible(show)
-            self.secondLevel_area_admin_1.setVisible(show)
-            self.radioButton_secondLevel_city.setVisible(show)
-            self.secondLevel_city.setVisible(show)
-            self.label_disclaimer.setVisible(show)
+            self.frame_country_region.setVisible(show)
 
         # Region
         if bool(sections & AreaWidgetSection.REGION):
             self.second_level_label.setVisible(show)
-            self.radioButton_secondLevel_region.setVisible(show)
-            self.secondLevel_area_admin_1.setVisible(show)
-            self.radioButton_secondLevel_city.setVisible(show)
-            self.secondLevel_city.setVisible(show)
+            self.second_level.setVisible(show)
+
+        # Disclaimer
+        if bool(sections & AreaWidgetSection.DISCLAIMER):
+            self.label_disclaimer.setVisible(show)
 
         # Point
         if bool(sections & AreaWidgetSection.POINT):
             self.area_frompoint.setVisible(show)
-            self.area_frompoint_label_x.setVisible(show)
-            self.area_frompoint_point_x.setVisible(show)
-            self.area_frompoint_label_y.setVisible(show)
-            self.area_frompoint_point_y.setVisible(show)
-            self.area_frompoint_choose_point.setVisible(show)
+            self.frame_area_frompoint.setVisible(show)
 
         # File
         if bool(sections & AreaWidgetSection.FILE):
             self.area_fromfile.setVisible(show)
-            self.area_fromfile_file.setVisible(show)
-            self.area_fromfile_browse.setVisible(show)
+            self.frame_area_fromfile.setVisible(show)
 
         # Buffer
         if bool(sections & AreaWidgetSection.BUFFER):
             self.checkbox_buffer.setVisible(show)
-            self.label.setVisible(show)
-            self.buffer_size_km.setVisible(show)
+            self.frame.setVisible(show)
 
         # Name
         if bool(sections & AreaWidgetSection.NAME):

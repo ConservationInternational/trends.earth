@@ -99,6 +99,7 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
 
         submit_btn = self.buttonBox.button(QtWidgets.QDialogButtonBox.Ok)
         submit_btn.setText(self.tr('Submit request'))
+        self.buttonBox.accepted.connect(self.btn_calculate)
         self.buttonBox.rejected.connect(self.hide)
 
         self._sync_action = None
@@ -107,7 +108,7 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         self.area_widget.hide_on_choose_point = False
         self.area_widget.set_section_visibility(
             AreaWidgetSection.FILE | AreaWidgetSection.BUFFER |
-            AreaWidgetSection.NAME
+            AreaWidgetSection.NAME | AreaWidgetSection.DISCLAIMER
         )
         self.vl_aoi.addWidget(self.area_widget)
 
@@ -232,7 +233,8 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
         # as well.
-        ret = super(DlgTimeseries, self).btn_calculate()
+        self.area_widget.save_settings()
+        ret = super().btn_calculate()
         if not ret:
             return
 
@@ -242,39 +244,65 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         aoi_area = self.aoi.get_area() / (1000 * 1000)
         log(u'AOI area is: {:n}'.format(aoi_area))
         if aoi_area > 1e7:
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                    self.tr("The bounding box of the requested area (approximately {:.6n} sq km) is too large. The timeseries tool can process a maximum area of 10 million sq km at a time. Choose a smaller area to process.".format(aoi_area)))
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr('Error'),
+                self.tr(
+                    'The bounding box of the requested area (approximately '
+                    '{:.6n} sq km) is too large. The timeseries tool can '
+                    'process a maximum area of 10 million sq km at a time. '
+                    'Choose a smaller area to process.'.format(aoi_area)
+                )
+            )
             return False
 
-        if self.traj_climate.currentText() != "":
+        if self.traj_climate.currentText() != '':
             climate_gee_dataset = self.climate_datasets[self.traj_climate.currentText()]['GEE Dataset']
             log('climate_gee_dataset {}'.format(climate_gee_dataset))
         else:
             climate_gee_dataset = None
+
         ndvi_dataset = self.datasets['NDVI'][self.dataset_ndvi.currentText()]['GEE Dataset']
 
         crosses_180th, geojsons = self.gee_bounding_box
-        payload = {'year_initial': self.traj_year_start.date().year(),
-                   'year_final': self.traj_year_end.date().year(),
-                   'crosses_180th': crosses_180th,
-                   'geojsons': json.dumps(geojsons),
-                   'crs': self.aoi.get_crs_dst_wkt(),
-                   'ndvi_gee_dataset': ndvi_dataset,
-                   'task_name': self.options_tab.task_name.text(),
-                   'task_notes': self.options_tab.task_notes.toPlainText(),
-                   'climate_gee_dataset': climate_gee_dataset}
+        payload = {
+            'year_initial': self.traj_year_start.date().year(),
+            'year_final': self.traj_year_end.date().year(),
+            'crosses_180th': crosses_180th,
+            'geojsons': json.dumps(geojsons),
+            'crs': self.aoi.get_crs_dst_wkt(),
+            'ndvi_gee_dataset': ndvi_dataset,
+            'task_name': self.task_name.text(),
+            'task_notes': self.options_tab.task_notes.toPlainText(),
+            'climate_gee_dataset': climate_gee_dataset
+        }
+
         # This will add in the method parameter
         payload.update(
-            KNOWN_SCRIPTS['trajectory functions'].additional_configuration[
-                self.traj_indic.currentText()]['params']
+            KNOWN_SCRIPTS['productivity'].additional_configuration[
+                'trajectory functions'][self.traj_indic.currentText()]['params']
         )
 
+        print(str(payload))
+
         resp = job_manager.submit_remote_job(payload, self.script.id)
+
         if resp:
-            mb.pushMessage(self.tr("Submitted"),
-                           self.tr("Time series calculation task submitted to Google Earth Engine."),
-                           level=0, duration=5)
+            self.mb.pushMessage(
+                self.tr('Submitted'),
+                self.tr(
+                    'Time series calculation task submitted to Google Earth '
+                    'Engine.'
+                ),
+                level=0,
+                duration=5
+            )
         else:
-            mb.pushMessage(self.tr("Error"),
-                           self.tr("Unable to submit time series calculation task to Google Earth Engine."),
-                           level=1, duration=5)
+            self.mb.pushMessage(
+                self.tr('Error'),
+                self.tr(
+                    'Unable to submit time series calculation task to Google '
+                    'Earth Engine.'
+                ),
+                level=1, duration=5
+            )

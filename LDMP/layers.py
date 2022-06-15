@@ -100,7 +100,7 @@ style_text_dict = {
     # Land cover degradation comparison (not the real progress taking into
     # account magnitude)
     "lc_deg_comp_title": tr_layers.tr(
-        "Land cover degradation comparison ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})"
+        "Land cover degradation comparison ({year_initial} to {year_final})"
     ),
     "lc_deg_comp_deg": tr_layers.tr("Degradation"),
     "lc_deg_comp_stable": tr_layers.tr("Stable"),
@@ -754,8 +754,8 @@ def get_band_title(band_info):
             result = title_pattern.format(**band_info["metadata"])
         except KeyError as exc:
             log(
-                f"Unable to find a proper name for this layer because of the following "
-                f"exception: {str(exc)}"
+                f"Unable to find a proper name for {band_info['name']} because "
+                f"of the following exception: {str(exc)}"
             )
 
     return result

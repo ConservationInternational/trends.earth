@@ -367,7 +367,11 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                 self.download_tb.hide()
                 self.add_to_canvas_pb.setEnabled(False)
                 if isinstance(self.job.results, TimeSeriesTableResult):
+                    self.download_tb.hide()
                     self.plot_tb.show()
+                    self.add_to_canvas_pb.hide()
+                    self.metadata_pb.hide()
+                    self.open_directory_tb.hide()
             elif self.job.status == JobStatus.FINISHED:
                 self.progressBar.hide()
                 result_auto_download = settings_manager.get_value(
@@ -388,8 +392,10 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                 if isinstance(self.job.results, TimeSeriesTableResult):
                     self.plot_tb.setEnabled(True)
                     self.plot_tb.show()
+                    self.download_tb.hide()
                     self.add_to_canvas_pb.hide()
                     self.metadata_pb.hide()
+                    self.open_directory_tb.hide()
             elif self.job.status in (JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY):
                 self.progressBar.hide()
                 self.download_tb.hide()

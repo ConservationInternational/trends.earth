@@ -179,6 +179,7 @@ class DlgCalculateUNCCDReport(DlgCalculateBase, DlgCalculateUNCCDReportUi):
 
         self.combo_boxes = unccd.UNCCDReportWidgets(
             combo_dataset_so1_so2=self.combo_dataset_so1_so2,
+            combo_dataset_error_recode=self.combo_dataset_error_recode,
             combo_dataset_so3=self.combo_dataset_so3,
         )
 

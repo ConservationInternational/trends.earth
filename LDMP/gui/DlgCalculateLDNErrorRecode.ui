@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>687</width>
-    <height>400</height>
+    <width>861</width>
+    <height>507</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -67,8 +67,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>395</width>
-            <height>351</height>
+            <width>569</width>
+            <height>454</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -93,6 +93,80 @@
               <property name="bottomMargin">
                <number>0</number>
               </property>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox">
+             <property name="title">
+              <string>Input layer</string>
+             </property>
+             <layout class="QGridLayout" name="gridLayout">
+              <item row="0" column="1">
+               <widget class="QRadioButton" name="rb_prod">
+                <property name="text">
+                 <string>Productivity</string>
+                </property>
+                <attribute name="buttonGroup">
+                 <string notr="true">rb_grp_input_layer</string>
+                </attribute>
+               </widget>
+              </item>
+              <item row="0" column="2">
+               <widget class="QRadioButton" name="rb_lc">
+                <property name="text">
+                 <string>Land cover</string>
+                </property>
+                <attribute name="buttonGroup">
+                 <string notr="true">rb_grp_input_layer</string>
+                </attribute>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QRadioButton" name="rb_sdg">
+                <property name="text">
+                 <string>SDG</string>
+                </property>
+                <property name="checked">
+                 <bool>true</bool>
+                </property>
+                <attribute name="buttonGroup">
+                 <string notr="true">rb_grp_input_layer</string>
+                </attribute>
+               </widget>
+              </item>
+              <item row="0" column="3">
+               <widget class="QRadioButton" name="rb_soc">
+                <property name="text">
+                 <string>Soil organic carbon</string>
+                </property>
+                <attribute name="buttonGroup">
+                 <string notr="true">rb_grp_input_layer</string>
+                </attribute>
+               </widget>
+              </item>
+              <item row="2" column="0" colspan="4">
+               <widget class="WidgetDataIOSelectTELayerExisting" name="combo_layer_input">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="sizePolicy">
+                 <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+                  <horstretch>0</horstretch>
+                  <verstretch>0</verstretch>
+                 </sizepolicy>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>30</height>
+                 </size>
+                </property>
+                <property name="layer_type" stdset="0">
+                 <string notr="true">SDG 15.3.1 Indicator</string>
+                </property>
+               </widget>
+              </item>
              </layout>
             </widget>
            </item>
@@ -269,9 +343,9 @@
        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;Recode incorrect indicator (false positive/negative)&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;TODO...&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;Recode indicator (false positive/negative)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;This tool supports recalculating an indicator layer in order to correct known errors (false positives or false negatives).&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
       <property name="openExternalLinks">
        <bool>true</bool>
@@ -297,6 +371,11 @@ p, li { white-space: pre-wrap; }
  <customwidgets>
   <customwidget>
    <class>WidgetDataIOSelectTEDatasetExisting</class>
+   <extends>QComboBox</extends>
+   <header>LDMP/data_io</header>
+  </customwidget>
+  <customwidget>
+   <class>WidgetDataIOSelectTELayerExisting</class>
    <extends>QComboBox</extends>
    <header>LDMP/data_io</header>
   </customwidget>
@@ -336,4 +415,7 @@ p, li { white-space: pre-wrap; }
    </hints>
   </connection>
  </connections>
+ <buttongroups>
+  <buttongroup name="rb_grp_input_layer"/>
+ </buttongroups>
 </ui>

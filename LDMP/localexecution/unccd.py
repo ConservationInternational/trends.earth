@@ -36,11 +36,13 @@ class UNCCDReportWidgets:
     """Combo boxes and methods used in UNCCD report generation"""
 
     combo_dataset_so1_so2: data_io.WidgetDataIOSelectTEDatasetExisting
+    combo_dataset_error_recode: data_io.WidgetDataIOSelectTEDatasetExisting
     combo_dataset_so3: data_io.WidgetDataIOSelectTEDatasetExisting
 
     def populate(self):
         self.combo_dataset_so1_so2.populate()
         self.combo_dataset_so3.populate()
+        self.combo_dataset_error_recode.populate()
 
 
 @dataclasses.dataclass()

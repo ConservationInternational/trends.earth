@@ -829,7 +829,9 @@ def add_vector_layer(layer_path: str, name: str):
         if not found:
             layer = iface.addVectorLayer(layer_path, name, "ogr")
 
-def set_default_value(v_path, field, r_path, band_name, band, change_type):
+
+def set_default_stats_value(v_path, band_datas):
+    log(f'setting default stats value function')
     layer = None
     for l in QgsProject.instance().mapLayers().values():
         if l.source().split("|")[0] == v_path:
@@ -837,18 +839,18 @@ def set_default_value(v_path, field, r_path, band_name, band, change_type):
             break
     if layer is None:
         return
-    idx = layer.fields().lookupField(field)
+    idx = layer.fields().lookupField('stats')
     layer.setDefaultValueDefinition(
         idx,
         QgsDefaultValue(
-            f"calculate_charts('{r_path}', '{band_name}', {band}, '{change_type}')"
+            f"calculate_error_recode_stats('{json.dumps(band_datas)}')"
         )
     )
     res = layer.listStylesInDatabase()
     if res[0] > 0:
         for i in res[1]:
             layer.deleteStyleFromDatabase(i)
-    layer.saveStyleToDatabase("false_positive", "", True, "")
+    layer.saveStyleToDatabase("error_recode", "", True, "")
 
 
 def edit(layer):

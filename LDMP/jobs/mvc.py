@@ -295,11 +295,9 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             QtGui.QIcon(os.path.join(ICON_PATH, "mActionAddOgrLayer.svg"))
         )
 
-        self.report_pb.setIcon(FileUtils.get_icon('report.svg'))
+        self.report_pb.setIcon(FileUtils.get_icon("report.svg"))
         self._report_handler = DatasetReportHandler(
-            self.report_pb,
-            self.job,
-            self.main_dock.iface
+            self.report_pb, self.job, self.main_dock.iface
         )
         # self.add_to_canvas_pb.setFixedSize(self.open_directory_tb.size())
         # self.add_to_canvas_pb.setMinimumSize(self.open_directory_tb.size())
@@ -450,7 +448,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             dlg = DlgSelectDataset(self)
             if dlg.exec_():
                 prod = dlg.prod_band()
-                land = dlg.land_band()
+                lc = dlg.lc_band()
                 soil = dlg.soil_band()
 
                 if prod:
@@ -461,12 +459,12 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                         "uuid": str(prod.job.id),
                     }
 
-                if land:
-                    self.job.params["land"] = {
-                        "path": str(land.path),
-                        "band": land.band_index,
-                        "band_name": land.band_info.name,
-                        "uuid": str(land.job.id),
+                if lc:
+                    self.job.params["lc"] = {
+                        "path": str(lc.path),
+                        "band": lc.band_index,
+                        "band_name": lc.band_info.name,
+                        "uuid": str(lc.job.id),
                     }
 
                 if soil:
@@ -480,77 +478,29 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                 manager.job_manager.write_job_metadata_file(self.job)
                 manager.job_manager.display_error_recode_layer(self.job)
 
-                layers.set_default_value(
-                    str(self.job.results.vector.uri.uri),
-                    "prod_imp",
-                    str(prod.path.as_posix()),
-                    prod.band_info.name,
-                    prod.band_index,
-                    'improved_ha'
-                )
-                layers.set_default_value(
-                    str(self.job.results.vector.uri.uri),
-                    "prod_deg",
-                    str(prod.path.as_posix()),
-                    prod.band_info.name,
-                    prod.band_index,
-                    'degraded_ha'
-                )
-                layers.set_default_value(
-                    str(self.job.results.vector.uri.uri),
-                    "prod_stab",
-                    str(prod.path.as_posix()),
-                    prod.band_info.name,
-                    prod.band_index,
-                    'stable_ha'
-                )
-                layers.set_default_value(
-                    str(self.job.results.vector.uri.uri),
-                    "land_imp",
-                    str(land.path.as_posix()),
-                    land.band_info.name,
-                    land.band_index,
-                    'improved_ha'
-                )
-                layers.set_default_value(
-                    str(self.job.results.vector.uri.uri),
-                    "land_deg",
-                    str(land.path.as_posix()),
-                    land.band_info.name,
-                    land.band_index,
-                    'degraded_ha'
-                )
-                layers.set_default_value(
-                    str(self.job.results.vector.uri.uri),
-                    "land_stab",
-                    str(land.path.as_posix()),
-                    land.band_info.name,
-                    land.band_index,
-                    'stable_ha'
-                )
-                layers.set_default_value(
-                    str(self.job.results.vector.uri.uri),
-                    "soil_imp",
-                    str(soil.path.as_posix()),
-                    soil.band_info.name,
-                    soil.band_index,
-                    'improved_ha'
-                )
-                layers.set_default_value(
-                    str(self.job.results.vector.uri.uri),
-                    "soil_deg",
-                    str(soil.path.as_posix()),
-                    soil.band_info.name,
-                    soil.band_index,
-                    'degraded_ha'
-                )
-                layers.set_default_value(
-                    str(self.job.results.vector.uri.uri),
-                    "soil_stab",
-                    str(soil.path.as_posix()),
-                    soil.band_info.name,
-                    soil.band_index,
-                    'stable_ha'
+                band_datas = [
+                    {
+                        "path": str(prod.path.as_posix()),
+                        "name": prod.band_info.name,
+                        "out_name": "land_productivity",
+                        "index": prod.band_index,
+                    },
+                    {
+                        "path": str(lc.path.as_posix()),
+                        "name": lc.band_info.name,
+                        "out_name": "land_cover",
+                        "index": lc.band_index,
+                    },
+                    {
+                        "path": str(soil.path.as_posix()),
+                        "name": soil.band_info.name,
+                        "out_name": "soil_organic_carbon",
+                        "index": soil.band_index,
+                    },
+                ]
+                log("setting default stats value")
+                layers.set_default_stats_value(
+                    str(self.job.results.vector.uri.uri), band_datas
                 )
 
                 manager.job_manager.edit_error_recode_layer(self.job)
@@ -561,10 +511,10 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
 
     def has_connected_data(self):
         has_prod = True if "prod" in self.job.params else False
-        has_land = True if "land" in self.job.params else False
+        has_lc = True if "lc" in self.job.params else False
         has_soil = True if "soil" in self.job.params else False
 
-        return has_prod and has_land and has_soil
+        return has_prod and has_lc and has_soil
 
     def prepare_metadata_menu(self):
         self.metadata_menu.clear()
@@ -607,7 +557,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
     def load_rasters_layers(self):
         jobs = manager.job_manager._known_downloaded_jobs.copy()
         self._load_raster(jobs, "prod")
-        self._load_raster(jobs, "land")
+        self._load_raster(jobs, "lc")
         self._load_raster(jobs, "soil")
 
     def _load_raster(self, jobs, name):

@@ -68,7 +68,8 @@ def update_uris_if_needed(job: Job, job_path):
 
 
 def _get_extent_tuple_raster(path):
-    log(f'Trying to calculate extent of raster {path}')
+    if conf.settings_manager.get_value(conf.Setting.DEBUG):
+        log(f'Trying to calculate extent of raster {path}')
     ds = gdal.Open(str(path))
     if ds:
         min_x, xres, _, max_y, _, yres = ds.GetGeoTransform()
@@ -76,7 +77,8 @@ def _get_extent_tuple_raster(path):
         rows = ds.RasterYSize
 
         extent = (min_x, max_y + rows*yres, min_x + cols*xres, max_y)
-        log(f'Calculated extent {[*extent]}')
+        if conf.settings_manager.get_value(conf.Setting.DEBUG):
+            log(f'Calculated extent {[*extent]}')
         return extent
     else:
         log("Failed to calculate extent - couldn't open dataset")
@@ -84,7 +86,8 @@ def _get_extent_tuple_raster(path):
 
 
 def _get_extent_tuple_vector(path):
-    log(f'Trying to calculate extent of vector {path}')
+    if conf.settings_manager.get_value(conf.Setting.DEBUG):
+        log(f'Trying to calculate extent of vector {path}')
     rect = QgsVectorLayer(str(path), "vector file", "ogr").extent()
     if rect:
         xmin = rect.xMinimum()
@@ -100,7 +103,8 @@ def _get_extent_tuple_vector(path):
             log(f"Failed to calculate extent for {path} - appears undefined")
             return None
         else:
-            log(f"Calculated extent for {path} - {(xmin, ymin, xmax, ymax)}")
+            if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                log(f"Calculated extent for {path} - {(xmin, ymin, xmax, ymax)}")
             return (xmin, ymin, xmax, ymax)
     else:
         log("Failed to calculate extent - couldn't open dataset")
@@ -112,25 +116,29 @@ def _set_results_extents_raster(job):
         if raster.type == results.RasterType.ONE_FILE_RASTER:
             if not hasattr(raster, 'extent') or raster.extent is None:
                 raster.extent = _get_extent_tuple_raster(raster.uri.uri)
-                log(f'set job {job.id} {raster.datatype} {raster.type} '
-                    f'extent to {raster.extent}')
+                if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                    log(f'set job {job.id} {raster.datatype} {raster.type} '
+                        f'extent to {raster.extent}')
         elif raster.type == results.RasterType.TILED_RASTER:
             if not hasattr(raster, 'extents') or raster.extents is None:
                 raster.extents = []
                 for raster_tile_uri in raster.tile_uris:
                     raster.extents.append(_get_extent_tuple_raster(raster_tile_uri.uri))
-                log(f'set job {job.id} {raster.datatype} {raster.type} '
-                    f'extents to {raster.extents}')
+                if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                    log(f'set job {job.id} {raster.datatype} {raster.type} '
+                        f'extents to {raster.extents}')
         else:
             raise RuntimeError(f"Unknown raster type {raster.type!r}")
 
 
 def _set_results_extents_vector(job):
-    log(f'Setting extents for job {job.id}')
+    if conf.settings_manager.get_value(conf.Setting.DEBUG):
+        log(f'Setting extents for job {job.id}')
     if not hasattr(job.results, 'extent') or job.results.extent is None:
         job.results.extent = _get_extent_tuple_vector(job.results.vector.uri.uri)
-        log(f'set job {job.id} {job.results.type} {job.results.vector.type} '
-            f'extent to {job.results.extent}')
+        if conf.settings_manager.get_value(conf.Setting.DEBUG):
+            log(f'set job {job.id} {job.results.type} {job.results.vector.type} '
+                f'extent to {job.results.extent}')
 
 
 def set_results_extents(job):

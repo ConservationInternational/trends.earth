@@ -843,7 +843,11 @@ class JobManager(QtCore.QObject):
         return job.results.uri
 
     def _download_timeseries_table(self, job: Job) -> typing.Optional[Path]:
-        raise NotImplementedError
+        """
+        Plot data already contained in the Job file as such no additional
+        output file.
+        """
+        return None
 
     def _refresh_local_running_jobs(
         self, remote_jobs: typing.List[Job]
@@ -1243,16 +1247,7 @@ def get_remote_jobs(
                     job = Job.Schema().load(raw_job)
                     job.script.run_mode = AlgorithmRunMode.REMOTE
 
-                    if (
-                        job.results is not None
-                        and job.results.type == ResultType.TIME_SERIES_TABLE
-                    ):
-                        log(
-                            f"Ignoring job {job.id!r} because it contains "
-                            "timeseries results. Support for timeseries results "
-                            "is not currently implemented"
-                        )
-                    else:
+                    if job is not None:
                         remote_jobs.append(job)
                 except ValidationError as exc:
                     log(

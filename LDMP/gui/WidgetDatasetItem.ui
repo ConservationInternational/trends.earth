@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>645</width>
+    <width>658</width>
     <height>134</height>
    </rect>
   </property>
@@ -125,6 +125,16 @@
          <widget class="QPushButton" name="report_pb">
           <property name="toolTip">
            <string>Reports</string>
+          </property>
+          <property name="text">
+           <string>...</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QToolButton" name="plot_tb">
+          <property name="toolTip">
+           <string>Show timeseries plot</string>
           </property>
           <property name="text">
            <string>...</string>

@@ -12,7 +12,10 @@ from qgis.PyQt import uic
 from qgis.utils import iface
 from te_schemas.jobs import JobStatus
 from te_schemas.results import Band as JobBand
-from te_schemas.results import RasterResults
+from te_schemas.results import (
+    TimeSeriesTableResult,
+    RasterResults
+)
 
 from . import manager
 from .. import layers
@@ -25,6 +28,7 @@ from ..conf import settings_manager
 from ..data_io import DlgDataIOAddLayersToMap
 from ..datasets_dialog import DatasetDetailsDialogue
 from ..logger import log
+from ..plot import DlgPlotTimeries
 from ..reports.mvc import DatasetReportHandler
 from ..select_dataset import DlgSelectDataset
 from ..utils import FileUtils
@@ -239,6 +243,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
     open_details_tb: QtWidgets.QToolButton
     metadata_pb: QtWidgets.QPushButton
     open_directory_tb: QtWidgets.QToolButton
+    plot_tb: QtWidgets.QToolButton
     progressBar: QtWidgets.QProgressBar
     load_tb: QtWidgets.QToolButton
     edit_tb: QtWidgets.QToolButton
@@ -295,7 +300,12 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             QtGui.QIcon(os.path.join(ICON_PATH, "mActionAddOgrLayer.svg"))
         )
 
-        self.report_pb.setIcon(FileUtils.get_icon("report.svg"))
+        self.plot_tb.setIcon(FileUtils.get_icon('chart.svg'))
+        self.plot_tb.clicked.connect(self.show_time_series_plot)
+        self.plot_tb.setEnabled(False)
+        self.plot_tb.hide()
+
+        self.report_pb.setIcon(FileUtils.get_icon('report.svg'))
         self._report_handler = DatasetReportHandler(
             self.report_pb, self.job, self.main_dock.iface
         )
@@ -354,6 +364,12 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                 self.progressBar.show()
                 self.download_tb.hide()
                 self.add_to_canvas_pb.setEnabled(False)
+                if isinstance(self.job.results, TimeSeriesTableResult):
+                    self.download_tb.hide()
+                    self.plot_tb.show()
+                    self.add_to_canvas_pb.hide()
+                    self.metadata_pb.hide()
+                    self.open_directory_tb.hide()
             elif self.job.status == JobStatus.FINISHED:
                 self.progressBar.hide()
                 result_auto_download = settings_manager.get_value(
@@ -371,6 +387,13 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
 
                 self.add_to_canvas_pb.setEnabled(False)
                 self.metadata_pb.setEnabled(False)
+                if isinstance(self.job.results, TimeSeriesTableResult):
+                    self.plot_tb.setEnabled(True)
+                    self.plot_tb.show()
+                    self.download_tb.hide()
+                    self.add_to_canvas_pb.hide()
+                    self.metadata_pb.hide()
+                    self.open_directory_tb.hide()
             elif self.job.status in (JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY):
                 self.progressBar.hide()
                 self.download_tb.hide()
@@ -441,6 +464,29 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
     def load_layer(self):
         manager.job_manager.display_error_recode_layer(self.job)
         self.edit_tb.setEnabled(True)
+
+    def show_time_series_plot(self):
+        table = self.job.results.table
+        if len(table) == 0:
+            self.main_dock.iface.messageBar().pushMessage(
+                self.tr('Time series table is empty'),
+                level=1,
+                duration=5
+            )
+            return
+
+        data = [x for x in table if x['name'] == 'mean'][0]
+        task_name = self.job.task_name
+        base_title = self.tr('Time Series')
+        dlg_plot = DlgPlotTimeries(self.main_dock.iface.mainWindow())
+        dlg_plot.setWindowTitle(f'{base_title} - {task_name}')
+        labels = {'title': task_name,
+                  'bottom': self.tr('Time'),
+                  'left': [
+                      self.tr('Integrated NDVI'), self.tr('NDVI x 10000')
+                  ]}
+        dlg_plot.plot_data(data['time'], data['y'], labels)
+        dlg_plot.exec_()
 
     def edit_layer(self):
         if not self.has_connected_data():

@@ -217,7 +217,8 @@ def login(authConfigId=None):
         ret = None
 
     if error_message:
-        iface.messageBar().pushCritical("Trends.Earth", tr(error_message))
+        log(tr(error_message))
+        # iface.messageBar().pushCritical("Trends.Earth", tr(error_message))
 
     return ret
 
@@ -316,9 +317,13 @@ def call_api(endpoint, method="get", payload=None, use_token=False):
             ret = resp.json()
         else:
             desc, status = get_error_status(resp)
+            err_msg = "Error: {} (status {}).".format(desc, status)
+            log(err_msg)
+            '''
             iface.messageBar().pushCritical(
                 "Trends.Earth", "Error: {} (status {}).".format(desc, status)
             )
+            '''
             ret = None
     else:
         ret = None

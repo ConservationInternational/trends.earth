@@ -12,21 +12,29 @@
  ***************************************************************************/
 """
 
-import os
 import numpy as np
+from pathlib import Path
 
 import pyqtgraph as pg
 
-from qgis.PyQt import QtWidgets
+import qgis.gui
+from qgis.PyQt import (
+    QtWidgets,
+    uic
+)
 
-from LDMP import log
-from LDMP.gui.DlgPlot import Ui_DlgPlot as UiDialog
+
+UiDlgPlot, _ = uic.loadUiType(
+    str(Path(__file__).parent / 'gui/DlgPlot.ui')
+)
 
 
-class DlgPlot(QtWidgets.QDialog, UiDialog):
+class DlgPlot(QtWidgets.QDialog, UiDlgPlot):
     def __init__(self, parent=None):
         super(DlgPlot, self).__init__(parent)
         self.setupUi(self)
+
+        qgis.gui.QgsGui.enableAutoGeometryRestore(self)
 
         self.save_data.clicked.connect(self.save_data_clicked)
         self.save_image.clicked.connect(self.save_image_clicked)

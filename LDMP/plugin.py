@@ -286,11 +286,11 @@ class LDMPPlugin(object):
 
         self.ndvi_action = QAction(
             FileUtils.get_icon('chart.svg'),
-            self.tr('Plot NDVI'),
+            self.tr('Plot time series'),
             self.iface.mainWindow(),
         )
         self.ndvi_action.setCheckable(True)
-        self.ndvi_action.setToolTip(self.tr('Plot NDVI data'))
+        self.ndvi_action.setToolTip(self.tr('Plot time series'))
         self.ndvi_action.triggered.connect(self.run_ndvi)
 
         self.toolbar.addActions(

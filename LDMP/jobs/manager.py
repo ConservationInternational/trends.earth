@@ -1229,16 +1229,7 @@ def get_remote_jobs(
                     job = Job.Schema().load(raw_job)
                     job.script.run_mode = AlgorithmRunMode.REMOTE
 
-                    if (
-                        job.results is not None
-                        and job.results.type == ResultType.TIME_SERIES_TABLE
-                    ):
-                        log(
-                            f"Ignoring job {job.id!r} because it contains "
-                            "timeseries results. Support for timeseries results "
-                            "is not currently implemented"
-                        )
-                    else:
+                    if job is not None:
                         remote_jobs.append(job)
                 except ValidationError as exc:
                     log(

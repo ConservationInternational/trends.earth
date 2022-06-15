@@ -14,5 +14,5 @@ Training Manual
    Carbon <carbon>
    Restoration <restoration>
    Dataset Metadata <metadata>
-   Special Areas <specialareas>
+   False Positives/Negatives <errorrecode>
    Dataset Reports <reports>

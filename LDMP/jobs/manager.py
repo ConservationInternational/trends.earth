@@ -835,7 +835,11 @@ class JobManager(QtCore.QObject):
         return job.results.uri
 
     def _download_timeseries_table(self, job: Job) -> typing.Optional[Path]:
-        raise NotImplementedError
+        """
+        Plot data already contained in the Job file as such no additional
+        output file.
+        """
+        return None
 
     def _refresh_local_running_jobs(
         self, remote_jobs: typing.List[Job]

@@ -265,6 +265,10 @@ class LDMPPlugin(object):
         self.ndvi_action.setToolTip(self.tr('Plot time series'))
         self.ndvi_action.triggered.connect(self.run_ndvi)
 
+        self.toolbar.addActions(
+            [self.action_polygon, self.action_buffer, self.ndvi_action]
+        )
+
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
         for action in self.actions:

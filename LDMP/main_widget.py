@@ -127,6 +127,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         ]
         self.last_refreshed_remote_state = None
         self.last_refreshed_local_state = None
+        self.refreshing_local_state = False
 
         self.pu_thread = None
         self.pu_worker = None
@@ -166,7 +167,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.clean_empty_directories()
         self.setup_algorithms_tree()
         self.setup_datasets_page_gui()
-        self.update_local_state()  # perform an initial update, before the scheduler kicks in
+        self._run_local_update_worker()  # perform an initial update, before the scheduler kicks in
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self.perform_periodic_tasks)
         self.timer.start(
@@ -239,12 +240,12 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.pushButton_load.clicked.connect(self.load_base_map)
         self.pushButton_refresh.clicked.connect(self.perform_single_update)
 
-        self.special_area_menu = QtWidgets.QMenu()
-        action_create_error_recode = self.special_area_menu.addAction(
+        self.error_recode_menu = QtWidgets.QMenu()
+        action_create_error_recode = self.error_recode_menu.addAction(
             tr("Create false positive/negative layer")
         )
         action_create_error_recode.triggered.connect(self.create_error_recode)
-        self.create_layer_pb.setMenu(self.special_area_menu)
+        self.create_layer_pb.setMenu(self.error_recode_menu)
         #self.create_layer_pb.setIcon(
         #    QtGui.QIcon(os.path.join(ICON_PATH, "cloud-download.svg")))
 
@@ -341,16 +342,24 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             if run_local_worker:
                 self._run_local_update_worker()
             else:
-                self._run_remote_update_worker()
+                if run_remote_worker:
+                    self._run_remote_update_worker()
 
     def _run_local_update_worker(self):
         # Create thread worker for refreshing local state via the job_manager.
+        if self.refreshing_local_state:
+            return
+
+        def _update_local_refreshing_state():
+            self.refreshing_local_state = True
+
         self.pu_thread = QtCore.QThread()
         self.pu_worker = LocalPeriodicUpdateWorker()
         self.pu_worker.moveToThread(self.pu_thread)
         self.pu_thread.started.connect(self.pu_worker.run)
+        self.pu_thread.started.connect(_update_local_refreshing_state)
         self.pu_worker.finished.connect(self.pu_thread.quit)
-        self.pu_worker.finished.connect(
+        self.pu_thread.finished.connect(
             self._on_finish_updating_local_state
         )
         self.pu_worker.finished.connect(self.pu_worker.deleteLater)
@@ -360,11 +369,13 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             log("updating local state...")
 
         self.cache_refresh_about_to_begin.emit()
+        self.refreshing_local_state = True
         self.pu_thread.start()
 
     def _on_finish_updating_local_state(self):
         # Slot raised when job_manager has finished refreshing the local state.
         self.last_refreshed_local_state = dt.datetime.now(tz=dt.timezone.utc)
+        self.refreshing_local_state = False
 
     def _run_remote_update_worker(self):
         # Create thread worker for refreshing remote state.
@@ -373,7 +384,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.rs_worker.moveToThread(self.rs_thread)
         self.rs_thread.started.connect(self.rs_worker.run)
         self.rs_worker.finished.connect(self.rs_thread.quit)
-        self.rs_worker.finished.connect(
+        self.rs_thread.finished.connect(
             self._on_finish_updating_remote_state
         )
         self.rs_worker.finished.connect(self.rs_worker.deleteLater)
@@ -422,7 +433,8 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         clean(folders)
 
     def perform_single_update(self):
-        self.update_from_remote_state()
+        #self.update_from_remote_state()
+        self._run_remote_update_worker()
 
     def set_remote_refresh_running(self, val: bool = True):
         self.remote_refresh_running = val

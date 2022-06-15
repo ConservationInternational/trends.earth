@@ -1,3 +1,4 @@
+import datetime
 import datetime as dt
 import json
 import logging
@@ -209,6 +210,7 @@ class JobManager(QtCore.QObject):
         super().__init__(*args, **kwargs)
         self.clear_known_jobs()
         self.tm = QgsApplication.taskManager()
+        self._state_update_mutex = QtCore.QMutex()
 
     @property
     def known_jobs(self):
@@ -286,6 +288,7 @@ class JobManager(QtCore.QObject):
         The filesystem is the source of truth for existing job metadata files and
         available results.
         """
+        self._state_update_mutex.lock()
 
         self._known_running_jobs = {
             j.id: j
@@ -324,6 +327,9 @@ class JobManager(QtCore.QObject):
         # downloaded (or are old and failed)
         self._get_local_finished_jobs()
         self._get_local_failed_jobs()
+
+        self._state_update_mutex.unlock()
+
         self.refreshed_local_state.emit()
 
     def refresh_from_remote_state(self, emit_signal: bool = True):
@@ -362,6 +368,7 @@ class JobManager(QtCore.QObject):
          job metadata file to the `finished-jobs` directory on disk
 
         """
+        self._state_update_mutex.lock()
 
         now = dt.datetime.now(tz=dt.timezone.utc)
         relevant_date = now - dt.timedelta(
@@ -387,6 +394,8 @@ class JobManager(QtCore.QObject):
         self._refresh_local_finished_jobs(relevant_remote_jobs)
         self._refresh_local_downloaded_jobs()
         self._refresh_local_generated_jobs()
+
+        self._state_update_mutex.unlock()
 
         if emit_signal:
             self.refreshed_from_remote.emit()
@@ -603,11 +612,11 @@ class JobManager(QtCore.QObject):
                         JobBand.Schema().dump(band)
                     )
 
-    def display_special_area_layer(self, job: Job):
+    def display_error_recode_layer(self, job: Job):
         layer_path = job.results.vector.uri.uri
         layers.add_vector_layer(str(layer_path), job.results.name)
 
-    def edit_special_area_layer(self, job: Job):
+    def edit_error_recode_layer(self, job: Job):
         layer_path = job.results.vector.uri.uri
         layers.edit(str(layer_path))
 
@@ -712,11 +721,11 @@ class JobManager(QtCore.QObject):
         output_dir = output_path.parent
         output_dir.mkdir(parents=True, exist_ok=True)
         locale = QgsApplication.locale()
-        path = os.path.join(os.path.dirname(__file__), os.path.pardir, 'data', 'special_areas', 'error_recode_{}.gpkg'.format(locale))
+        path = os.path.join(os.path.dirname(__file__), os.path.pardir, 'data', 'error_recode', 'error_recode_{}.gpkg'.format(locale))
         if os.path.exists(path):
             shutil.copy2(path, output_path)
         else:
-            shutil.copy2(os.path.join(os.path.dirname(__file__), os.path.pardir, 'data', 'special_areas', 'error_recode_en.gpkg'.format(locale)), output_path)
+            shutil.copy2(os.path.join(os.path.dirname(__file__), os.path.pardir, 'data', 'error_recode', 'error_recode_en.gpkg'.format(locale)), output_path)
         job.results.vector.uri=URI(uri=output_path, type='local')
 
     def _update_known_jobs_with_newly_submitted_job(self, job: Job):
@@ -1220,16 +1229,7 @@ def get_remote_jobs(
                     job = Job.Schema().load(raw_job)
                     job.script.run_mode = AlgorithmRunMode.REMOTE
 
-                    if (
-                        job.results is not None
-                        and job.results.type == ResultType.TIME_SERIES_TABLE
-                    ):
-                        log(
-                            f"Ignoring job {job.id!r} because it contains "
-                            "timeseries results. Support for timeseries results "
-                            "is not currently implemented"
-                        )
-                    else:
+                    if job is not None:
                         remote_jobs.append(job)
                 except ValidationError as exc:
                     log(

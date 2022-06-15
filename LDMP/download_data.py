@@ -250,12 +250,12 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
             resp = job_manager.submit_remote_job(payload, self.script.id)
             if resp:
                 main_msg = "Success"
-                description = "Download request submitted to Google Earth Engine."
+                description = "Download request submitted to Trends.Earth server."
 
             else:
                 main_msg = "Error"
                 description = (
-                    "Unable to submit download request to Google Earth Engine.")
+                    "Unable to submit download request to Trends.Earth server.")
             self.mb.pushMessage(
                 self.tr(main_msg),
                 self.tr(description),

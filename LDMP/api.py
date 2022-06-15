@@ -29,7 +29,7 @@ from qgis.utils import iface
 from . import auth, conf
 from .logger import log
 
-API_URL = "https://api.trends.earth"
+API_URL = "https://api2.trends.earth"
 TIMEOUT = 20
 
 

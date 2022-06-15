@@ -180,6 +180,18 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
     def btn_cancel(self):
         self.close()
 
+    def reset_widgets(self):
+        # Set default options
+        if self.dataset_ndvi.count() > 0:
+            self.dataset_ndvi.setCurrentIndex(0)
+
+        self.area_widget.load_settings()
+
+        if self.traj_indic.count() > 0:
+            self.traj_indic.setCurrentIndex(0)
+
+        self.task_name.clear()
+
     def hideEvent(self, event):
         # Uncheck sync action if defined.
         if self._sync_action and self._sync_action.isChecked():
@@ -238,7 +250,9 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         if not ret:
             return
 
+        self.reset_widgets()
         self.close()
+
 
         # Limit area that can be processed
         aoi_area = self.aoi.get_area() / (1000 * 1000)
@@ -282,8 +296,6 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
             KNOWN_SCRIPTS['productivity'].additional_configuration[
                 'trajectory functions'][self.traj_indic.currentText()]['params']
         )
-
-        print(str(payload))
 
         resp = job_manager.submit_remote_job(payload, self.script.id)
 

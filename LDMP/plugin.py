@@ -66,7 +66,6 @@ from .processing_provider.provider import Provider
 from .reports.expressions import ReportExpressionUtils
 from .reports.template_manager import template_manager
 from .settings import DlgSettings
-from .utils import FileUtils
 from .visualization import download_base_map
 
 
@@ -282,17 +281,7 @@ class LDMPPlugin(object):
         self.buffer_tool.setAction(self.action_buffer)
         # self.buffer_tool.digitized.connect()
 
-        self.ndvi_action = QAction(
-            FileUtils.get_icon('chart.svg'),
-            self.tr('Plot NDVI'),
-            self.iface.mainWindow(),
-        )
-        self.ndvi_action.setToolTip(self.tr('Plot NDVI data'))
-        self.ndvi_action.triggered.connect(self.run_ndvi)
-
-        self.toolbar.addActions(
-            [self.action_polygon, self.action_buffer, self.ndvi_action]
-        )
+        self.toolbar.addActions([self.action_polygon, self.action_buffer])
 
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
@@ -371,7 +360,3 @@ class LDMPPlugin(object):
         if layout_type == QgsMasterLayoutInterface.PrintLayout:
             layout = designer.layout()
             ReportExpressionUtils.register_variables(layout)
-
-    def run_ndvi(self):
-        # Show NDVI query dialog.
-        pass

@@ -188,7 +188,7 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
     def reset_widgets(self):
         # Set default options
         if self.dataset_ndvi.count() > 0:
-            self.dataset_ndvi.setCurrentIndex(0)
+            self.dataset_ndvi.setCurrentIndex(1)
 
         self.area_widget.load_settings()
 

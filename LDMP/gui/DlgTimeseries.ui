@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>392</width>
-    <height>281</height>
+    <height>282</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -182,13 +182,6 @@
           <height>16777215</height>
          </size>
         </property>
-        <property name="date">
-         <date>
-          <year>2015</year>
-          <month>12</month>
-          <day>31</day>
-         </date>
-        </property>
         <property name="maximumDateTime">
          <datetime>
           <hour>23</hour>
@@ -208,6 +201,13 @@
         </property>
         <property name="displayFormat">
          <string>yyyy</string>
+        </property>
+        <property name="date">
+         <date>
+          <year>2030</year>
+          <month>12</month>
+          <day>31</day>
+         </date>
         </property>
        </widget>
       </item>
@@ -254,13 +254,6 @@
           <height>35</height>
          </size>
         </property>
-        <property name="date">
-         <date>
-          <year>2000</year>
-          <month>1</month>
-          <day>1</day>
-         </date>
-        </property>
         <property name="maximumDate">
          <date>
           <year>2030</year>
@@ -277,6 +270,13 @@
         </property>
         <property name="displayFormat">
          <string>yyyy</string>
+        </property>
+        <property name="date">
+         <date>
+          <year>2000</year>
+          <month>1</month>
+          <day>1</day>
+         </date>
         </property>
        </widget>
       </item>

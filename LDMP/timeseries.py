@@ -255,7 +255,6 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         if not ret:
             return
 
-        self.reset_widgets()
         self.close()
 
         # Limit area that can be processed
@@ -307,6 +306,8 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         )
 
         resp = job_manager.submit_remote_job(payload, self.script.id)
+
+        self.reset_widgets()
 
         if resp:
             self.mb.pushMessage(

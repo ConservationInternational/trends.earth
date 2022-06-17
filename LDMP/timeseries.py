@@ -255,6 +255,8 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         if not ret:
             return
 
+        self.close()
+
         # Limit area that can be processed
         aoi_area = self.aoi.get_area() / (1000 * 1000)
         log(u"AOI area is: {:n}".format(aoi_area))
@@ -306,7 +308,6 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         resp = job_manager.submit_remote_job(payload, self.script.id)
 
         self.reset_widgets()
-        self.close()
 
         if resp:
             self.mb.pushMessage(

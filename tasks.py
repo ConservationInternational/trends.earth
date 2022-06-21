@@ -904,7 +904,8 @@ def check_path(app):
 @task(
     help={
         'force':
-        'Force the download of the translations files regardless of whether timestamps on the local computer are newer than those on the server'
+        'Force the download of the translations files regardless of whether '
+        'timestamps on the local computer are newer than those on the server'
     }
 )
 def translate_pull(c, force=False):
@@ -919,9 +920,9 @@ def translate_pull(c, force=False):
     print("Pulling transifex translations...")
 
     if force:
-        subprocess.check_call(['tx', 'pull', '-s', '-f', '--parallel'])
+        subprocess.check_call(['tx', 'pull', '-f'])
     else:
-        subprocess.check_call(['tx', 'pull', '-s', '--parallel'])
+        subprocess.check_call(['tx', 'pull'])
     print("Releasing translations using lrelease...")
 
     for translation in c.plugin.translations:
@@ -1002,9 +1003,9 @@ def translate_push(c, force=False, version=3):
         )
 
     if force:
-        subprocess.check_call('tx push --parallel -f -s')
+        subprocess.check_call('tx push -f -s')
     else:
-        subprocess.check_call('tx push --parallel -s')
+        subprocess.check_call('tx push -s')
 
 
 @task(help={'language': 'language'})

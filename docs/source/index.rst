@@ -13,9 +13,9 @@ Trends.Earth
 
    <center>
 
-+-------------------------------+-------------------------------+--------------------------------+--------------------------------+---------------------------------+
-| `English <../en/index.html>`_ | `Español <../es/index.html>`_ | `Francais <../fr/index.html>`_ |  `Swahili <../sw/index.html>`_ | `Português <../pt/index.html>`_ |
-+-------------------------------+-------------------------------+--------------------------------+--------------------------------+---------------------------------+
++---------------------------+----------------------------+-----------------------------+-----------------------------+------------------------------+
+| :index_path:`English<en>` | :index_path:`Spanish <es>` |  :index_path:`French <fr>`  |  :index_path:`Swahili <sw>` | :index_path:`Português <pt>` |
++---------------------------+----------------------------+-----------------------------+-----------------------------+------------------------------+
 
 Trends.Earth was produced by a partnership of Conservation International, Lund
 University, and the National Aeronautics and Space Administration (NASA), with

@@ -34,6 +34,7 @@ extensions = [
     "sphinx_rtd_theme",
     "sphinx.ext.todo",
     "sphinx.ext.viewcode",
+    "sphinx.ext.extlinks",
     "sphinxcontrib.spelling",
     "myst_parser",
 ]
@@ -91,6 +92,14 @@ gettext_compact = False
 version = "1.99.11"
 # The full version, including alpha/beta/rc tags.
 release = "1.99.11"
+
+READTHEDOCS_VERSION_NAME_STRING=os.environ.get('READTHEDOCS_VERSION_NAME', '')
+relative_path = '../'
+# On RTD there the root is two folders back - one for the language, and one for the
+# version name, so need to add another "../"
+if READTHEDOCS_VERSION_NAME_STRING:
+    relative_path += '../'
+extlinks = {'index_path': (f'{relative_path}%s{READTHEDOCS_VERSION_NAME_STRING}', '%s')}
 
 rst_epilog = """
 .. |iconCalculator| image:: /static/common/icon-calculator.png

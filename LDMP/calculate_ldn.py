@@ -134,7 +134,8 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         )
 
         self.lc_setup_widget = lc_setup.LandCoverSetupRemoteExecutionWidget(
-            self, hide_min_year=True, hide_max_year=True
+            self, hide_min_year=True, hide_max_year=True,
+            lc_nesting_type=lc_setup.LCNestingType.ESA
         )
 
         self.year_initial_baseline.dateChanged.connect(

@@ -52,11 +52,16 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
         super().__init__(iface, script, parent)
         self.setupUi(self)
 
-        lc_widget_class = {
-            AlgorithmRunMode.LOCAL: lc_setup.LandCoverSetupLocalExecutionWidget,
-            AlgorithmRunMode.REMOTE: lc_setup.LandCoverSetupRemoteExecutionWidget,
-        }[self.script.run_mode]
-        self.lc_setup_widget = lc_widget_class(parent=self)
+        if self.script.run_mode == AlgorithmRunMode.LOCAL:
+            self.lc_setup_widget = lc_setup.LandCoverSetupLocalExecutionWidget(
+                self
+            )
+        elif self.script.run_mode == AlgorithmRunMode.REMOTE:
+            self.lc_setup_widget = lc_setup.LandCoverSetupRemoteExecutionWidget(
+                self,
+                lc_nesting_type=lc_setup.LCNestingType.ESA
+            )
+
         self.lc_define_deg_widget = lc_setup.LCDefineDegradationWidget()
         self.advanced_configurations.setCollapsed(True)
         self.scrollAreaWidgetContents.layout().insertWidget(0, self.lc_setup_widget)

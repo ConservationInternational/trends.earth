@@ -476,6 +476,56 @@
         <source>All regions</source>
         <translation type="unfinished"/>
     </message>
+    <message>
+        <location filename="../algorithms/mvc.py" line="247"/>
+        <source>Execute remotely</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../algorithms/mvc.py" line="248"/>
+        <source>Execute locally</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../reports/charts.py" line="778"/>
+        <source>Land Cover Area</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../reports/charts.py" line="779"/>
+        <source>in</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../reports/charts.py" line="852"/>
+        <source>Summary of SDG 15.3.1 Indicator</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../reports/charts.py" line="893"/>
+        <source>Change in Land Cover</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../reports/charts.py" line="917"/>
+        <source>Change in Soil Organic Carbon (Tonnes)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../reports/charts.py" line="932"/>
+        <source>Tonnes</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../reports/charts.py" line="939"/>
+        <source>Land Cover Change by Productivity Class</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../reports/charts.py" line="951"/>
+        <source>%</source>
+        <translation>٪</translation>
+    </message>
 </context>
 <context>
     <name>AreaWidget</name>
@@ -618,6 +668,49 @@
     </message>
 </context>
 <context>
+    <name>ClipRaster</name>
+    <message>
+        <location filename="../processing_provider/utilities.py" line="39"/>
+        <source>Clip a raster</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../processing_provider/utilities.py" line="42"/>
+        <source>Utilities</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../processing_provider/utilities.py" line="48"/>
+        <source>Clip a raster using a vector specified by a geojson</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../processing_provider/utilities.py" line="51"/>
+        <source>Input file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../processing_provider/utilities.py" line="57"/>
+        <source>GeoJSON specifying area to clip to</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../processing_provider/utilities.py" line="63"/>
+        <source>Output bounds (as a string readable by numpy.fromstring)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../processing_provider/utilities.py" line="69"/>
+        <source>Output file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../processing_provider/utilities.py" line="75"/>
+        <source>Did operation complete successfully?</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>DataTableModel</name>
     <message>
         <location filename="../landpks.py" line="76"/>
@@ -675,6 +768,122 @@
     <message>
         <location filename="../datasets_dialog.py" line="191"/>
         <source>{} metadata</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>DatasetEditorWidget</name>
+    <message>
+        <location filename="../jobs/mvc.py" line="444"/>
+        <source>Add default layers from this dataset to map</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../jobs/mvc.py" line="448"/>
+        <source>Select specific layers from this dataset to add to map...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../jobs/mvc.py" line="471"/>
+        <source>Time series table is empty</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../jobs/mvc.py" line="480"/>
+        <source>Time Series</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../jobs/mvc.py" line="484"/>
+        <source>Time</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../jobs/mvc.py" line="486"/>
+        <source>Integrated NDVI</source>
+        <translation>NDVI المتكاملة</translation>
+    </message>
+    <message>
+        <location filename="../jobs/mvc.py" line="486"/>
+        <source>NDVI x 10000</source>
+        <translation>NDVI × 10000</translation>
+    </message>
+    <message>
+        <location filename="../jobs/mvc.py" line="572"/>
+        <source>Dataset metadata</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../jobs/mvc.py" line="579"/>
+        <source>{} metadata</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../jobs/mvc.py" line="594"/>
+        <source>Add vector layer to map</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../jobs/mvc.py" line="598"/>
+        <source>Add raster layers to map</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>DatasetReportHandler</name>
+    <message>
+        <location filename="../reports/mvc.py" line="94"/>
+        <source>Open report directory</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../reports/mvc.py" line="98"/>
+        <source>Open directory containing reports</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../reports/mvc.py" line="103"/>
+        <source>Open layouts...</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../reports/mvc.py" line="107"/>
+        <source>Open report layouts in QGIS</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../reports/mvc.py" line="230"/>
+        <source>Invalid File</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../reports/mvc.py" line="216"/>
+        <source>Report output directory does not exist.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../reports/mvc.py" line="230"/>
+        <source>Project file does not exist.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../reports/mvc.py" line="238"/>
+        <source>File Read Permission</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../reports/mvc.py" line="238"/>
+        <source>Unable to open report file.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../reports/mvc.py" line="250"/>
+        <source>Open Layouts</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../reports/mvc.py" line="250"/>
+        <source>Unable to open the QGIS project file.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -4378,6 +4587,44 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
+    <name>GenerateMask</name>
+    <message>
+        <location filename="../processing_provider/utilities.py" line="134"/>
+        <source>Generate mask</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../processing_provider/utilities.py" line="137"/>
+        <source>Utilities</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../processing_provider/utilities.py" line="143"/>
+        <source>Generate a raster from a geojson for use as a mask</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../processing_provider/utilities.py" line="146"/>
+        <source>GeoJSON specifying mask</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../processing_provider/utilities.py" line="152"/>
+        <source>Geotiff used as model for output bounds and resolution</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../processing_provider/utilities.py" line="158"/>
+        <source>Output geotiff file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../processing_provider/utilities.py" line="164"/>
+        <source>Did operation complete successfully?</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>ImportSelectFileInputWidget</name>
     <message>
         <location filename="../data_io.py" line="763"/>
@@ -4525,10 +4772,183 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
+    <name>MultiscopeJobReportModel</name>
+    <message>
+        <location filename="../reports/mvc.py" line="302"/>
+        <source>Scope Name</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../reports/mvc.py" line="302"/>
+        <source>Source Dataset</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
     <name>PolygonMapTool</name>
     <message>
         <location filename="../maptools.py" line="205"/>
         <source>add feature</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>Provider</name>
+    <message>
+        <location filename="../processing_provider/provider.py" line="24"/>
+        <source>Trends.Earth</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>ReportGeneratorManager</name>
+    <message>
+        <location filename="../reports/generator.py" line="1039"/>
+        <source>Report Status</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../reports/generator.py" line="1074"/>
+        <source>Cannot process report due to write permission to</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../reports/generator.py" line="1097"/>
+        <source>could not be found in your system. Unable to run the report generator.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../reports/generator.py" line="1112"/>
+        <source>reports</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../reports/generator.py" line="1130"/>
+        <source>are being processed...</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>ReportTaskContextAlgorithm</name>
+    <message>
+        <location filename="../processing_provider/report.py" line="52"/>
+        <source>Runs a report generation task based on information provided in a JSON file.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../processing_provider/report.py" line="58"/>
+        <source>Generate Report from Task</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../processing_provider/report.py" line="61"/>
+        <source>File containing report context task information</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../processing_provider/report.py" line="70"/>
+        <source>Summary result status of the algorithm.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../processing_provider/report.py" line="91"/>
+        <source>Task file not found.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../processing_provider/report.py" line="100"/>
+        <source>Could not read report task context file</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>ReportTaskProcessor</name>
+    <message>
+        <location filename="../reports/generator.py" line="754"/>
+        <source>Simple</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../reports/generator.py" line="756"/>
+        <source>Full</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../reports/generator.py" line="758"/>
+        <source>All</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>TCSummary</name>
+    <message>
+        <location filename="../processing_provider/carbon.py" line="36"/>
+        <source>Carbon change summary</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../processing_provider/carbon.py" line="39"/>
+        <source>Carbon change</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../processing_provider/carbon.py" line="45"/>
+        <source>Summarize output of a carbon change analysis</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../processing_provider/carbon.py" line="49"/>
+        <source>Input carbon analysis file</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../processing_provider/carbon.py" line="55"/>
+        <source>Starting year</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../processing_provider/carbon.py" line="61"/>
+        <source>Ending year</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../processing_provider/carbon.py" line="69"/>
+        <source>Forest loss per year in sq km.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../processing_provider/carbon.py" line="75"/>
+        <source>Carbon loss per year in tonnes of C</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../processing_provider/carbon.py" line="81"/>
+        <source>Initial tonnes of C</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../processing_provider/carbon.py" line="87"/>
+        <source>Area of forest in sq km</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../processing_provider/carbon.py" line="93"/>
+        <source>Area of non-forest in sq km</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../processing_provider/carbon.py" line="99"/>
+        <source>Area of missing data in sq km</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../processing_provider/carbon.py" line="105"/>
+        <source>Area of water in sq km</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../processing_provider/carbon.py" line="111"/>
+        <source>Area of site in sq km</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -5421,6 +5841,29 @@ for running algorithms and their results.</source>
         <location filename="../areaofinterest.py" line="591"/>
         <source>Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian.</source>
         <translation>خطأ - الطبقة ليست في نظام الإحداثيات الجغرافية. لا يمكن التفاف الطبقة عبر خط الطول 180.</translation>
+    </message>
+</context>
+<context>
+    <name>tr_calculate_tc</name>
+    <message>
+        <location filename="../localexecution/totalcarbon.py" line="210"/>
+        <source>Success</source>
+        <translation>نجاح</translation>
+    </message>
+    <message>
+        <location filename="../localexecution/totalcarbon.py" line="210"/>
+        <source>Summary table saved to {self.output_file}</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../localexecution/totalcarbon.py" line="216"/>
+        <source>Error</source>
+        <translation>خطأ</translation>
+    </message>
+    <message>
+        <location filename="../localexecution/totalcarbon.py" line="216"/>
+        <source>Error saving output table - check that {self.output_file} is accessible and not already open.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-24 18:41-0400\n"
+"POT-Creation-Date: 2022-06-21 17:06-0400\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
@@ -25,7 +25,7 @@ msgstr ""
 
 #: ../../source/for_users/datasets/output_data.rst:4
 msgid "Output datasets from Trends.Earth"
-msgstr ""
+msgstr "Conjuntos de datos de salida de Trends.Earth"
 
 #: ../../source/for_users/datasets/output_data.rst:6
 msgid ""
@@ -33,6 +33,9 @@ msgid ""
 "widely supported format, so these datasets can be used within QGIS as well "
 "as within any other GIS software."
 msgstr ""
+"Los datos espaciales producidos por |trends.earth| están en formato GeoTiff."
+" Se trata de un formato ampliamente extendido, por lo que estos conjuntos de"
+" datos pueden utilizarse tanto en QGIS como en cualquier otro software SIG."
 
 #: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
 #: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
@@ -58,10 +61,15 @@ msgid ""
 " choose a file with that tool, it will show you a list of the layers within "
 "that file, as well as the band number for each layer."
 msgstr ""
+"Para ver cuál de las capas siguientes está contenida en un archivo de salida"
+" |trends.earth|, utilice la herramienta \"cargar datos "
+"<../documentation/load_data.html>\". Cuando elija un archivo con esa "
+"herramienta, le mostrará una lista de las capas dentro de ese archivo, así "
+"como el número de banda de cada capa."
 
 #: ../../source/for_users/datasets/output_data.rst:20
 msgid "Land degradation (SDG 15.3.1)"
-msgstr ""
+msgstr "Degradación de la tierra (ODS 15.3.1)"
 
 #: ../../source/for_users/datasets/output_data.rst:23
 msgid "SDG 15.3.1 Indicator"
@@ -422,7 +430,7 @@ msgstr "Creciente"
 
 #: ../../source/for_users/datasets/output_data.rst:172
 msgid "Land Productivity Dynamics - JRC"
-msgstr ""
+msgstr "Dinámica de la productividad de la tierra - CCI"
 
 #: ../../source/for_users/datasets/output_data.rst:181
 msgid "Moderate decline"
@@ -530,6 +538,8 @@ msgid ""
 "Mosaic cropland (>50%) / natural vegetation (tree, shrub, "
 "herbaceous cover) (<50%)"
 msgstr ""
+"Mosaico de tierras de cultivo (> 50 %) / vegetación natural (cubierta "
+"arbórea, arbustiva, herbácea) (< 50 %)"
 
 #: ../../source/for_users/datasets/output_data.rst:250
 msgid "40"
@@ -540,6 +550,8 @@ msgid ""
 "Mosaic natural vegetation (tree, shrub, herbaceous cover) "
 "(>50%) / cropland (<50%)"
 msgstr ""
+"Vegetación natural en mosaico (cobertura arbórea, arbustiva, herbácea) (> 50"
+" %) / tierras de cultivo (< 50 %)"
 
 #: ../../source/for_users/datasets/output_data.rst:253
 msgid "50"
@@ -1175,19 +1187,19 @@ msgstr ""
 
 #: ../../source/for_users/datasets/output_data.rst:452
 msgid "Drought hazard, vulnerability, and exposure"
-msgstr ""
+msgstr "Peligro de sequía, vulnerabilidad y exposición"
 
 #: ../../source/for_users/datasets/output_data.rst:456
 msgid "Standardized Precipitation Index (SPI)"
-msgstr ""
+msgstr "Índice de precipitación estandarizado (SPI)"
 
 #: ../../source/for_users/datasets/output_data.rst:463
 msgid "Standardized precipitation index, scaled * 1000"
-msgstr ""
+msgstr "Índice de precipitación estandarizado, a escala * 1000"
 
 #: ../../source/for_users/datasets/output_data.rst:468
 msgid "Population at maximum drought"
-msgstr ""
+msgstr "Población en situación de sequía máxima"
 
 #: ../../source/for_users/datasets/output_data.rst:470
 msgid ""
@@ -1197,10 +1209,16 @@ msgid ""
 " drought. For the purpose of these analyses, drought is defined as an SPI "
 "less than -1.0 (a lag 12 SPI is the default used in the tool)."
 msgstr ""
+"Como indicador de la exposición de la población a la sequía, las "
+"herramientas de sequía de Trends.Earth producen una capa que evalúa la "
+"población total (o la población masculina o femenina, según las selecciones "
+"realizadas por el usuario) en el momento de máxima sequía. A efectos de "
+"estos análisis, la sequía se define como un SPI inferior a -1,0 (un SPI de "
+"12 de retraso es el utilizado por defecto en la herramienta)."
 
 #: ../../source/for_users/datasets/output_data.rst:481
 msgid "Any negative value"
-msgstr ""
+msgstr "Cualquier valor negativo"
 
 #: ../../source/for_users/datasets/output_data.rst:481
 msgid ""
@@ -1208,10 +1226,14 @@ msgid ""
 "SPI < -1) during a particular (typically four- year) period. The pixel value"
 " indicates the population of the pixel at the time of maximum drought."
 msgstr ""
+"Un valor positivo indica que un píxel **estuvo** expuesto a la sequía "
+"(definida como SPI < -1) durante un periodo concreto (normalmente de cuatro "
+"años). El valor del píxel indica la población del píxel en el momento de "
+"máxima sequía."
 
 #: ../../source/for_users/datasets/output_data.rst:486
 msgid "Any positive value"
-msgstr ""
+msgstr "Cualquier valor positivo\n"
 
 #: ../../source/for_users/datasets/output_data.rst:486
 msgid ""
@@ -1219,10 +1241,13 @@ msgid ""
 "particular (typically four-year) period. The pixel value indicates the "
 "maximum population of the pixel during the period."
 msgstr ""
+"Un valor positivo indica que un píxel **no** estuvo expuesto a la sequía "
+"durante un periodo concreto (normalmente de cuatro años). El valor del píxel"
+" indica la población máxima del píxel durante el período."
 
 #: ../../source/for_users/datasets/output_data.rst:494
 msgid "Sustainable urbanization (SDG 11.3.1)"
-msgstr ""
+msgstr "Urbanización sostenible (ODS 11.3.1)"
 
 #: ../../source/for_users/datasets/output_data.rst:498
 #: ../../source/for_users/datasets/output_data.rst:505
@@ -1299,16 +1324,16 @@ msgstr "Población"
 
 #: ../../source/for_users/datasets/output_data.rst:547
 msgid "Population density"
-msgstr ""
+msgstr "Densidad de población"
 
 #: ../../source/for_users/datasets/output_data.rst:554
 #: ../../source/for_users/datasets/output_data.rst:570
 msgid "Population density in persons per sq km"
-msgstr ""
+msgstr "Densidad de población en personas por km2"
 
 #: ../../source/for_users/datasets/output_data.rst:558
 msgid "Population (total, male, or female)"
-msgstr ""
+msgstr "Población (total, masculina o femenina)"
 
 #: ../../source/for_users/datasets/output_data.rst:560
 msgid ""
@@ -1318,30 +1343,37 @@ msgid ""
 "female population. The pixels values in each all are coded the same way, and"
 " refer to actual population counts per grid cell."
 msgstr ""
+"Este resultado se basa en los datos del proyecto \"WorldPop "
+"<https://www.worldpop.org>\"_. Dependiendo de la herramienta utilizada en "
+"Trends.Earth, las salidas de población pueden ser: población total "
+"(masculina y femenina), población masculina total o población femenina "
+"total. Los valores de los píxeles en cada uno de ellos están codificados de "
+"la misma manera, y se refieren a los recuentos reales de población por celda"
+" de la cuadrícula."
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr ""
+msgstr "iconCalculator"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr ""
+msgstr "iconChart"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr ""
+msgstr "iconClipboard"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr ""
+msgstr "iconCloudDownload"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr ""
+msgstr "iconCog"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr ""
+msgstr "iconDeletedataset"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
@@ -1349,60 +1381,60 @@ msgstr "iconGlobe"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr ""
+msgstr "iconGraph"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr ""
+msgstr "iconInfo"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr ""
+msgstr "iconLoaddataset"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr ""
+msgstr "iconMarkMarker"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr ""
+msgstr "iconOpendatasetdirectory"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr ""
+msgstr "iconViewdatasetdetails"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr ""
+msgstr "iconWrench"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr ""
+msgstr "iconFolder"
 
 #: ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr ""
+msgstr "iconReports"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr ""
+msgstr "iconTrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr ""
+msgstr "iconVisualization"
 
 #: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr ""
+msgstr "logoCI"
 
 #: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr ""
+msgstr "logoLund"
 
 #: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr ""
+msgstr "logoNASA"
 
 #: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr ""
+msgstr "logoGEF"

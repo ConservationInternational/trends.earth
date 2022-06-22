@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-24 18:41-0400\n"
+"POT-Creation-Date: 2022-06-21 17:06-0400\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
@@ -24,13 +24,15 @@ msgstr ""
 
 #: ../../source/for_users/training/reports.rst:4
 msgid "Dataset Reports"
-msgstr ""
+msgstr "Informes de conjuntos de datos"
 
 #: ../../source/for_users/training/reports.rst:6
 msgid ""
 "**Objective**: Learn how to generate and view reports from one or more "
 "datasets."
 msgstr ""
+"**Objetivo**: Aprender a generar y visualizar informes a partir de uno o "
+"varios conjuntos de datos."
 
 #: ../../source/for_users/training/reports.rst:8
 msgid "**Estimated time of completion**: 10 minutes"
@@ -38,17 +40,19 @@ msgstr "**Tiempo estimado de finalización**: 10 minutos"
 
 #: ../../source/for_users/training/reports.rst:10
 msgid "**Internet access**: Not Required"
-msgstr ""
+msgstr "**Acceso a internet**: No se requiere"
 
 #: ../../source/for_users/training/reports.rst:15
 msgid "View Dataset Output Reports"
-msgstr ""
+msgstr "Visualizar informes de salida del conjunto de datos"
 
 #: ../../source/for_users/training/reports.rst:17
 msgid ""
 "Select the **Open report directory** sub-menu in a dataset item's report "
 "button."
 msgstr ""
+"Seleccione el submenú **Abrir directorio de informes** en el botón de "
+"informe de un conjunto de datos."
 
 #: ../../source/for_users/training/reports.rst:23
 msgid ""
@@ -57,27 +61,38 @@ msgid ""
 "algorithm, the directory will contain PDF and/or image files showing the "
 "default thematic layers for the selected dataset."
 msgstr ""
+"Esta acción abrirá el directorio que contiene los informes de salida para el"
+" conjunto de datos seleccionado. Dependiendo de la configuración del informe"
+" para el algoritmo dado, el directorio contendrá archivos PDF y/o de imagen "
+"que muestran las capas temáticas por defecto para el conjunto de datos "
+"seleccionado."
 
 #: ../../source/for_users/training/reports.rst:28
 msgid ""
 "The example below is from the sub-indicators for SDG 15.3.1 algorithm with "
 "the AOI set to Uganda."
 msgstr ""
+"El siguiente ejemplo es de los subindicadores para el algoritmo ODS 15.3.1 "
+"con el AOI establecido en Uganda."
 
 #: ../../source/for_users/training/reports.rst:37
 msgid "Open Report Layouts"
-msgstr ""
+msgstr "Abrir diseños de informe"
 
 #: ../../source/for_users/training/reports.rst:39
 msgid ""
 "Select the **Open layouts...** sub-menu in a dataset item's report button."
 msgstr ""
+"Seleccione el submenú **Abrir diseños...** en el botón de informe de un "
+"elemento del conjunto de datos."
 
 #: ../../source/for_users/training/reports.rst:45
 msgid ""
 "This action will open the QGIS project containing the job's layers and "
 "layouts in a separate application instance."
 msgstr ""
+"Esta acción abrirá el proyecto QGIS que contiene las capas y los diseños del"
+" trabajo en una instancia de aplicación independiente."
 
 #: ../../source/for_users/training/reports.rst:48
 msgid ""
@@ -88,12 +103,21 @@ msgid ""
 " safe to run macros by clicking on the **Enable Macros** button in the "
 "message bar (top-right corner)."
 msgstr ""
+"Por defecto, al abrir el proyecto, aparecerá un mensaje de advertencia "
+"indicando que las macros de Python no pueden ser ejecutadas. Esta es una "
+"característica de seguridad que evita que los usuarios ejecuten macros para "
+"proyectos QGIS desde fuentes desconocidas o no fiables. Sin embargo, en este"
+" caso, el proyecto se genera de manera local, por lo que es seguro ejecutar "
+"macros haciendo clic en el botón **Habilitar macros** de la barra de "
+"mensajes (esquina superior derecha)."
 
 #: ../../source/for_users/training/reports.rst:57
 msgid ""
 "On the Layout Manager dialog, select a layout name in the list then click on"
 " **Show** to edit the layout."
 msgstr ""
+"En el cuadro de diálogo Administrador de diseño, seleccione un nombre de "
+"diseño en la lista y luego haga clic en **Mostrar** para editar el diseño."
 
 #: ../../source/for_users/training/reports.rst:65
 msgid ""
@@ -101,16 +125,22 @@ msgid ""
 "generation task is still running and will automatically be enabled once the "
 "process is complete."
 msgstr ""
+"Si el botón **Informes** (|iconReports|) está deshabilitado, significa que "
+"la tarea de generación de informes aún se está ejecutando y se habilitará "
+"automáticamente una vez que se complete el proceso."
 
 #: ../../../<rst_epilog>:31 ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr ""
+msgstr "iconInformes"
 
 #: ../../source/for_users/training/reports.rst:66
 msgid ""
 "If the **Reports** button is not visible, then it means there is no report "
 "configuration defined for datasets resulting from the given algorithm."
 msgstr ""
+"Si el botón **Informes** no está visible, significa que no hay una "
+"configuración de informe definida para los conjuntos de datos resultantes "
+"del algoritmo dado."
 
 #: ../../source/for_users/training/reports.rst:70
 msgid ""
@@ -119,30 +149,35 @@ msgid ""
 "Macros** setting. Select **Always**, though this option is not recommended "
 "especially if you interact with qgs or qgz projects from external sources."
 msgstr ""
+"Para permitir que las macros se ejecuten automáticamente, vaya a "
+"**Configuración > Opciones** y luego, en la categoría **General**, "
+"desplácese hasta el final hasta el ajuste **Habilitar macros**. Seleccione "
+"**Siempre**, aunque esta opción no se recomienda especialmente si interactúa"
+" con proyectos qgs o qgz de fuentes externas."
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr ""
+msgstr "iconCalculadora"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr ""
+msgstr "iconTabla"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr ""
+msgstr "iconPortapapeles"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr ""
+msgstr "iconDescargadelanube"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr ""
+msgstr "iconCog"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr ""
+msgstr "iconBorrarconjuntodedatos"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
@@ -150,43 +185,43 @@ msgstr "iconGlobe"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr ""
+msgstr "iconGráfico"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr ""
+msgstr "iconInformación"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr ""
+msgstr "iconCargarconjuntodedatos"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr ""
+msgstr "iconMarkMarker"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr ""
+msgstr "iconoAbrirdirectoriodeconjuntodedatos"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr ""
+msgstr "iconoVerdetallesdelconjuntodedatos"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr ""
+msgstr "iconoLlaveinglesa"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr ""
+msgstr "iconCarpeta"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr ""
+msgstr "iconTrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr ""
+msgstr "iconVisualización"
 
 #: ../../../<rst_epilog>:37
 msgid "Trends.Earth"
@@ -194,16 +229,16 @@ msgstr "Trends.Earth"
 
 #: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr ""
+msgstr "logoCI"
 
 #: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr ""
+msgstr "logoLund"
 
 #: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr ""
+msgstr "logoNASA"
 
 #: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr ""
+msgstr "logoGEF"

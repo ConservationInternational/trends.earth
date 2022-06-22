@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-24 18:41-0400\n"
+"POT-Creation-Date: 2022-06-21 17:06-0400\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
@@ -23,11 +23,13 @@ msgstr ""
 
 #: ../../source/for_users/training/metadata.rst:4
 msgid "Dataset Metadata"
-msgstr ""
+msgstr "Métadonnées de l'ensemble de données"
 
 #: ../../source/for_users/training/metadata.rst:6
 msgid "**Objective**: Learn how to edit and view dataset metadata."
 msgstr ""
+"**Objective** : Apprendre à modifier et à visualiser les métadonnées des "
+"jeux de données."
 
 #: ../../source/for_users/training/metadata.rst:8
 msgid "**Estimated time of completion**: 40 minutes"
@@ -35,13 +37,15 @@ msgstr "**Heure estimée d'achèvement**: 40 minutes"
 
 #: ../../source/for_users/training/metadata.rst:10
 msgid "**Internet access**: Not needed"
-msgstr ""
+msgstr "**Internet access** : Pas nécessaire"
 
 #: ../../source/for_users/training/metadata.rst:12
 msgid ""
 "Click on the Trends.Earth toolbar within QGIS, and click on the Trends.Earth"
 " icon."
 msgstr ""
+"Cliquez sur la barre d'outils Trends.Earth dans QGIS, puis sur l'icône "
+"Trends.Earth."
 
 #: ../../source/for_users/training/metadata.rst:17
 msgid ""
@@ -49,22 +53,31 @@ msgid ""
 "existing tasks are listed in the menu if the **Download remotely-generated "
 "datasets automatically** is checked in settings."
 msgstr ""
+"Le menu **Trends.Earth** s'ouvrira. Dans la fenêtre **Dataset**, où les "
+"tâches existantes sont listées dans le menu si la case **Download remotely-"
+"generated datasets automatically** est cochée dans les paramètres."
 
 #: ../../source/for_users/training/metadata.rst:20
 msgid ""
 "Refer to the :ref:`tut_settings` section of this manual to learn more about "
 "**Advanced settings**"
 msgstr ""
+"Consultez la section :ref:`tut_settings` de ce manuel pour en savoir plus "
+"sur les **Advanced settings**."
 
 #: ../../source/for_users/training/metadata.rst:22
 msgid "Select the Refresh button if no datasets appear in the menu."
 msgstr ""
+"Sélectionnez le bouton Rafraîchir si aucun jeu de données n'apparaît dans le"
+" menu."
 
 #: ../../source/for_users/training/metadata.rst:24
 msgid ""
 "Press the Edit metadata button to open a drop-down menu with available "
 "options"
 msgstr ""
+"Appuyez sur le bouton Modifier les métadonnées pour ouvrir un menu déroulant"
+" avec les options disponibles"
 
 #: ../../source/for_users/training/metadata.rst:29
 msgid ""
@@ -72,6 +85,10 @@ msgid ""
 "available rasters of the dataset to edit or view its metadata. Once raster "
 "is selected a metadata editor dialog will show up."
 msgstr ""
+"Le menu déroulant permet de sélectionner n'importe quel raster dans la liste"
+" de tous les rasters disponibles de l'ensemble de données pour éditer ou "
+"visualiser ses métadonnées. Une fois le raster sélectionné, un dialogue "
+"d'édition de métadonnées s'affiche."
 
 #: ../../source/for_users/training/metadata.rst:34
 msgid ""
@@ -79,12 +96,20 @@ msgid ""
 " and press OK button to save your changes. Metadata will be saved in the "
 "QGIS QMD format, in a separate file for each raster in the dataset folder."
 msgstr ""
+"Complétez les informations nécessaires ou modifiez les données existantes "
+"dans les champs de dialogue et appuyez sur le bouton OK pour enregistrer vos"
+" modifications. Les métadonnées seront enregistrées au format QMD de QGIS, "
+"dans un fichier distinct pour chaque trame du dossier de l'ensemble de "
+"données."
 
 #: ../../source/for_users/training/metadata.rst:36
 msgid ""
 "Metadata also can be viewed/edited from the Dataset details dialog via the "
 "same Metadata button, as described in the step 3 above."
 msgstr ""
+"Les métadonnées peuvent également être visualisées/modifiées à partir de la "
+"boîte de dialogue Détails du jeu de données via le même bouton Métadonnées, "
+"comme décrit à l'étape 3 ci-dessus."
 
 #: ../../source/for_users/training/metadata.rst:41
 msgid ""
@@ -92,95 +117,99 @@ msgid ""
 "all existing metadata in the QMD format will be automatically converted to "
 "ISO XML format and packaged together with the layers."
 msgstr ""
+"Lors de l'exportation d'un jeu de données vers l'archive ZIP à partir de la "
+"boîte de dialogue Détails du jeu de données, toutes les métadonnées "
+"existantes au format QMD seront automatiquement converties au format ISO XML"
+" et emballées avec les couches."
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr ""
+msgstr "iconCalculator"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr ""
+msgstr "iconChart"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr ""
+msgstr "iconClipboard"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr ""
+msgstr "iconCloudDownload"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr ""
+msgstr "iconCog"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr ""
+msgstr "iconDeletedataset"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
-msgstr ""
+msgstr "iconGlobe"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr ""
+msgstr "iconGraph"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr ""
+msgstr "iconInfo"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr ""
+msgstr "iconLoaddataset"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr ""
+msgstr "iconMarkMarker"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr ""
+msgstr "iconOpendatasetdirectory"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr ""
+msgstr "iconViewdatasetdetails"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr ""
+msgstr "iconWrench"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr ""
+msgstr "iconFolder"
 
 #: ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr ""
+msgstr "iconReports"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr ""
+msgstr "iconTrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr ""
+msgstr "iconVisualization"
 
 #: ../../../<rst_epilog>:37
 msgid "Trends.Earth"
-msgstr ""
+msgstr "Trends.Earth"
 
 #: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr ""
+msgstr "logoCI"
 
 #: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr ""
+msgstr "logoLund"
 
 #: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr ""
+msgstr "logoNASA"
 
 #: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr ""
+msgstr "logoGEF"

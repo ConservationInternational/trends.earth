@@ -4,17 +4,17 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Alex Zvoleff <azvoleff@conservation.org>, 2022
 # Fanja Andriamialisoa <Fandriamialisoa@aol.com>, 2022
+# Alex Zvoleff <azvoleff@conservation.org>, 2022
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-24 18:41-0400\n"
+"POT-Creation-Date: 2022-06-21 17:06-0400\n"
 "PO-Revision-Date: 2022-05-26 11:56+0000\n"
-"Last-Translator: Fanja Andriamialisoa <Fandriamialisoa@aol.com>, 2022\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,7 +39,7 @@ msgstr ""
 #: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
 #: ../../../<rst_epilog>:37
 msgid "Trends.Earth"
-msgstr ""
+msgstr "Trends.Earth"
 
 #: ../../source/for_developers/development.rst:10
 msgid ""
@@ -455,7 +455,7 @@ msgstr ""
 
 #: ../../source/for_developers/development.rst:330
 msgid "docker"
-msgstr ""
+msgstr "docker"
 
 #: ../../source/for_developers/development.rst:332
 msgid ""
@@ -467,10 +467,17 @@ msgid ""
 "this page <https://docs.docker.com/install>`_ that are appropriate for the "
 "Linux distribution you are using."
 msgstr ""
+"Le paquet trends.earth-CLI nécessite `docker <http://www.docker.com>`_ pour "
+"fonctionner. Suivez ces instructions pour installer docker sur Windows "
+"<https://docs.docker.com/docker-for-windows/install/>`_, et `ces "
+"instructions pour installer docker sur macOS "
+"<https://docs.docker.com/docker-for-mac/install/>`_. Si vous utilisez Linux,"
+" `suivez les instructions de cette page <https://docs.docker.com/install>`_ "
+"qui sont appropriées pour la distribution Linux que vous utilisez."
 
 #: ../../source/for_developers/development.rst:342
 msgid "Testing an Earth Engine script locally"
-msgstr ""
+msgstr "Tester localement un script Earth Engine"
 
 #: ../../source/for_developers/development.rst:344
 msgid ""
@@ -481,10 +488,18 @@ msgid ""
 "cloud console), then and encode it in base64. Provide that base64 encoded "
 "key to tecli with the following command::"
 msgstr ""
+"Après avoir installé le paquet trends.earth-CLI, vous devrez configurer un "
+"fichier .tecli.yml avec un jeton d'accès à un compte de service GEE afin de "
+"tester les scripts sur GEE. Pour configurer le compte de service GEE pour "
+"tecli, obtenez d'abord la clé de votre compte de service au format JSON "
+"(depuis la console Google cloud), puis encodez-la en base64. Fournissez "
+"cette clé encodée en base64 à tecli avec la commande suivante :"
 
 #: ../../source/for_developers/development.rst:353
 msgid "where \"key\" is the base64 encoded JSON format service account key."
 msgstr ""
+"où \" clé \" est la clé du compte de service au format JSON, codée en "
+"base64."
 
 #: ../../source/for_developers/development.rst:355
 msgid ""
@@ -495,6 +510,12 @@ msgid ""
 "\"land_cover\" script, go to the root directory of the Trends.Earth code, "
 "and, in a command prompt, run::"
 msgstr ""
+"Lors de la conversion d'un script spécifiant le code à exécuter sur GEE de "
+"JavaScript à Python, ou lors de modifications de ce code, il peut être utile"
+" de tester le script localement, sans le déployer sur le serveur "
+"api.trends.earth. Pour ce faire, utilisez la tâche d'invocation « run ». Par"
+" exemple, pour tester le script « land_cover », allez dans le répertoire "
+"racine du code de Trends.Earth, et, dans une invite de commande, exécutez :"
 
 #: ../../source/for_developers/development.rst:364
 msgid ""
@@ -504,20 +525,31 @@ msgid ""
 "run. Before submitting a new script to api.trends.earth, always make sure "
 "that ``invoke tecli-run`` is able to run the script without any errors."
 msgstr ""
+"Ceci utilisera le paquet trends.earth-CLI pour construire et exécuter un "
+"conteneur docker qui tentera d'exécuter le script « land_cover ». S'il y a "
+"des erreurs de syntaxe dans le script, elles apparaîtront lors de "
+"l'exécution du conteneur. Avant de soumettre un nouveau script à "
+"api.trends.earth, assurez-vous toujours que « invoke tecli-run » est capable"
+" d'exécuter le script sans aucune erreur."
 
 #: ../../source/for_developers/development.rst:370
 msgid "When using ``invoke tecli-run`` you may get an error saying:"
 msgstr ""
+"Lorsque vous utilisez « invoke tecli-run », vous pouvez obtenir une erreur "
+"disant :"
 
 #: ../../source/for_developers/development.rst:378
 msgid ""
 "This error can be caused if the clock on the docker container gets out of "
 "sync with the system clock. Restarting docker should fix this error."
 msgstr ""
+"Cette erreur peut être causée si l'horloge du conteneur docker n'est pas "
+"synchronisée avec l'horloge du système. Le redémarrage de Docker devrait "
+"corriger cette erreur."
 
 #: ../../source/for_developers/development.rst:382
 msgid "Deploying a GEE script to api.trends.earth"
-msgstr ""
+msgstr "Déploiement d'un script GEE sur api.trends.earth"
 
 #: ../../source/for_developers/development.rst:384
 msgid ""
@@ -526,6 +558,11 @@ msgid ""
 "can deploy it to the api.trends.earth server. The first step in the process "
 "is logging in to the api.trends.earth server. To login, run::"
 msgstr ""
+"Lorsque vous avez fini de tester un script GEE et que vous souhaitez qu'il "
+"soit accessible à l'aide du plugiciel QGIS (et par d'autres utilisateurs de "
+"Trends.Earth), vous pouvez le déployer sur le serveur api.trends.earth. La "
+"première étape du processus consiste à se connecter au serveur "
+"api.trends.earth. Pour vous connecter, exécutez :"
 
 #: ../../source/for_developers/development.rst:391
 msgid ""
@@ -535,6 +572,12 @@ msgid ""
 "login, but the below command will fail**. To upload a script (for example, "
 "the \"land_cover\" script) to the server, run::"
 msgstr ""
+"Il vous sera demandé un nom d'utilisateur et un mot de passe. Il s'agit du "
+"même nom d'utilisateur et du même mot de passe que ceux que vous utilisez "
+"pour vous connecter au serveur Trends.Earth à partir du plugiciel QGIS. **Si"
+" vous n'êtes pas un administrateur, vous pourrez vous connecter, mais la "
+"commande ci-dessous échouera**. Pour télécharger un script (par exemple, le "
+"script « land_cover ») sur le serveur, exécutez :"
 
 #: ../../source/for_developers/development.rst:399
 msgid ""
@@ -544,6 +587,13 @@ msgid ""
 "errors that you make will affect anyone using the plugin. Whenever you are "
 "testing be sure to use development version numbers (odd version numbers)."
 msgstr ""
+"Si ce script existe déjà sur le serveur, il vous sera demandé si vous "
+"souhaitez écraser le script existant. Soyez très prudent lorsque vous "
+"téléchargez des scripts avec des numéros de version pairs, car il s'agit de "
+"scripts accessibles au public, et toute erreur que vous commettez affectera "
+"toute personne utilisant le plugiciel. Lorsque vous effectuez des tests, "
+"veillez à utiliser des numéros de version de développement (numéros de "
+"version impairs)."
 
 #: ../../source/for_developers/development.rst:405
 msgid ""
@@ -552,6 +602,10 @@ msgid ""
 "- though note building the script may take a few minutes). To check the "
 "status, of a deployed script, run::"
 msgstr ""
+"Après avoir publié un script sur le serveur, vous pouvez utiliser la tâche "
+"« tecli-info » pour vérifier le statut du script (pour savoir s'il a été "
+"déployé avec succès — mais notez que la construction du script peut prendre "
+"quelques minutes). Pour vérifier le statut d'un script déployé, exécutez :"
 
 #: ../../source/for_developers/development.rst:412
 msgid ""
@@ -559,6 +613,9 @@ msgid ""
 " GEE scripts at once (this is necessary whenever the plugin version number "
 "changes), run::"
 msgstr ""
+"Si vous faites une nouvelle version du plugiciel, et que vous voulez "
+"télécharger TOUS les scripts GEE en une seule fois (ceci est nécessaire "
+"lorsque le numéro de version du plugiciel change), exécutez :"
 
 #: ../../source/for_developers/development.rst:418
 msgid ""
@@ -566,38 +623,59 @@ msgid ""
 "unless you are intending to overwrite all the publicly available scripts "
 "used by the plugin."
 msgstr ""
+"Encore une fois, n'exécutez jamais la procédure ci-dessus sur une version "
+"publique du plugin, sauf si vous avez l'intention d'écraser tous les scripts"
+" publics utilisés par le plugin."
 
 #: ../../source/for_developers/development.rst:423
 msgid "Editing vector layer templates"
-msgstr ""
+msgstr "Modification des modèles de couches vectorielles"
 
 #: ../../source/for_developers/development.rst:425
 msgid ""
 "Trends.Earth allow users to digitize new vector features to delineate areas "
 "of special interest."
 msgstr ""
+"Trends.Earth permet aux utilisateurs de numériser de nouveaux éléments "
+"vectoriels pour délimiter des zones d'intérêt particulier."
 
 #: ../../source/for_developers/development.rst:428
 msgid ""
 "For now only \"false positive/negative\" layers are supported, but more can "
 "be added if necessary. Any vector layer is created from the template "
-"GeoPackage files, which can be found inside the ``data/special_areas`` "
-"folder of the plugin installation directory. For each vector type there are "
-"6 template files, one for each UN official language. The ISO language code "
-"is added as a suffix to the file name. This is necessary to provide "
-"localized labels in the attribute forms. When creation of the vector layer "
-"is requested QGIS will look for the template file taking QGIS locale into "
+"GeoPackage files, which can be found inside the ``data/error_recode`` folder"
+" of the plugin installation directory. For each vector type there are 6 "
+"template files, one for each UN official language. The ISO language code is "
+"added as a suffix to the file name. This is necessary to provide localized "
+"labels in the attribute forms. When creation of the vector layer is "
+"requested QGIS will look for the template file taking QGIS locale into "
 "accont, as a fall-back option English version of the template file is used."
 msgstr ""
+"Pour l'instant, seules les couches « faux positifs/négatifs » sont "
+"supportées, mais d'autres peuvent être ajoutées si nécessaire. Toute couche "
+"vectorielle est créée à partir des fichiers GeoPackage modèles, qui se "
+"trouvent dans le dossier « data/error_recode » du répertoire d'installation "
+"du plugiciel. Pour chaque type de vecteur, il y a 6 fichiers modèles, un "
+"pour chaque langue officielle de l'ONU. Le code de langue ISO est ajouté "
+"comme suffixe au nom du fichier. Ceci est nécessaire pour fournir des "
+"étiquettes localisées dans les formulaires d'attributs. Lorsque la création "
+"d'une couche vectorielle est demandée, QGIS recherche le fichier modèle en "
+"tenant compte des paramètres régionaux de QGIS ; comme option de repli, la "
+"version anglaise du fichier modèle est utilisée."
 
 #: ../../source/for_developers/development.rst:439
 msgid ""
 "To change schema of the layer it is necessary to change corresponding "
-"template files in the ``data/special_areas`` folder of the plugin "
+"template files in the ``data/error_recode`` folder of the plugin "
 "installation directory. Also template file contains a buil-in default "
 "styling and attribute form configuration which will be automatically applied"
 " to the layer when loading into QGIS."
 msgstr ""
+"Pour changer le schéma de la couche, il est nécessaire de modifier les "
+"fichiers modèles correspondants dans le dossier « data/error_recode » du "
+"répertoire d'installation du plugiciel. Le fichier modèle contient également"
+" un style par défaut intégré et une configuration du formulaire d'attribut "
+"qui sera automatiquement appliqué à la couche lors du chargement dans QGIS."
 
 #: ../../source/for_developers/development.rst:445
 msgid ""
@@ -605,10 +683,14 @@ msgid ""
 "for charts are stored in the vector layer attribute table. Values from the "
 "corresponding fields extracted with the help of expressions."
 msgstr ""
+"Pour afficher les graphiques sous forme d'attributs, un gadget logiciel QML "
+"intégré est utilisé. Les données des graphiques sont stockées dans la table "
+"d'attributs de la couche vectorielle. Les valeurs des champs correspondants "
+"sont extraites à l'aide d'expressions."
 
 #: ../../source/for_developers/development.rst:449
 msgid "The code to generate charts looks like this:"
-msgstr ""
+msgstr "Le code pour générer les graphiques ressemble à ceci :"
 
 #: ../../source/for_developers/development.rst:479
 msgid ""
@@ -620,24 +702,34 @@ msgid ""
 "percentage of the polygon area. For example, in case of productivity "
 "indicator fields will be:"
 msgstr ""
+"Pour extraire la valeur du champ, la fonction « "
+"expression.evaluate(\"\\\"prod_deg\\\"\") » est utilisée, le seul argument "
+"qu'elle accepte est le nom du champ. Pour les couches faussement "
+"positives/négatives, le graphique contient trois indicateurs : productivité,"
+" couverture du sol et carbone organique du sol. Pour chaque indicateur, le "
+"plugiciel conserve trois valeurs : le pourcentage stable, dégradé et "
+"amélioré de la surface du polygone. Par exemple, dans le cas de l'indicateur"
+" de productivité, les champs seront :"
 
 #: ../../source/for_developers/development.rst:487
 msgid "prod_deg - degraded productivity"
-msgstr ""
+msgstr "prod_deg - productivité dégradée"
 
 #: ../../source/for_developers/development.rst:488
 msgid "prod_stab - stable productivity"
-msgstr ""
+msgstr "prod_stab - productivité stable"
 
 #: ../../source/for_developers/development.rst:489
 msgid "prod_imp - improved productivity"
-msgstr ""
+msgstr "prod_imp - amélioration de la productivité"
 
 #: ../../source/for_developers/development.rst:491
 msgid ""
 "The same naming approach is applied to land cover (``land_*`` fields) and "
 "soil organic carbon (``soil_*`` fields)."
 msgstr ""
+"La même méthode de dénomination est appliquée à la couverture terrestre "
+"(champs « land_* ») et au carbone organique du sol (champs « soil_* »)."
 
 #: ../../source/for_developers/development.rst:494
 msgid ""
@@ -650,6 +742,16 @@ msgid ""
 "percentage. As pixel counting is built on numpy array functions it is very "
 "fast even for big polygons."
 msgstr ""
+"Le calcul du pourcentage de surface est fait avec une fonction d'expression "
+"personnalisée, son code se trouve dans le fichier « charts.py » dans le "
+"répertoire racine du plugiciel. La fonction est optimisée pour travailler "
+"avec de grands polygones et utilise le flux de travail suivant. Pour une "
+"géométrie donnée, trouver une bbox et extraire le susbset raster en "
+"utilisant cette bbox. Effectuer le rastering de la géométrie en mémoire et "
+"l'appliquer comme un masque au raster. Ensuite, compter le nombre de pixels "
+"qui ont une valeur spécifique et calculer le pourcentage. Comme le comptage "
+"des pixels est construit sur des fonctions de tableau numpy, il est très "
+"rapide même pour les grands polygones."
 
 #: ../../source/for_developers/development.rst:503
 msgid ""
@@ -658,10 +760,16 @@ msgid ""
 " plugin will setup default expression values for all indicator fields, so "
 "the value will be updated on every geometry change."
 msgstr ""
+"Lors de la première tentative d'édition d'une couche vectorielle, "
+"l'utilisateur se verra présenter une boîte de dialogue dans laquelle il "
+"devra sélectionner les jeux de données à utiliser pour les indicateurs. "
+"Ensuite, le plugiciel configurera des valeurs d'expression par défaut pour "
+"tous les champs d'indicateurs, de sorte que la valeur sera mise à jour à "
+"chaque changement de géométrie."
 
 #: ../../source/for_developers/development.rst:509
 msgid "Dataset metadata handling"
-msgstr ""
+msgstr "Traitement des métadonnées des ensembles de données"
 
 #: ../../source/for_developers/development.rst:511
 msgid ""
@@ -670,6 +778,11 @@ msgid ""
 "Metadata editor dialog is opened from the **Edit metadata** menu in the "
 "Trends.Earth dock."
 msgstr ""
+"Les métadonnées du jeu de données sont stockées dans le format QMD de QGIS. "
+"Ces fichiers QMD peuvent être créés pour chaque raster individuellement et "
+"aussi pour l'ensemble du jeu de données. Le dialogue de l'éditeur de "
+"métadonnées s'ouvre à partir du menu **Editer les métadonnées** dans le dock"
+" de Trends.Earth."
 
 #: ../../source/for_developers/development.rst:516
 msgid ""
@@ -677,14 +790,18 @@ msgid ""
 "XSLT transformation. Corresponding transformation are located in the "
 "``data\\xsl`` subdirectory of the plugin installation folder."
 msgstr ""
+"Lorsque le jeu de données est exporté au format ZIP, la conversion en ISO "
+"XML est effectuée à l'aide d'une transformation XSLT. Les transformations "
+"correspondantes sont situées dans le sous-répertoire « data\\xsl » du "
+"dossier d'installation du plugin."
 
 #: ../../source/for_developers/development.rst:522
 msgid "Updating the Reporting Framework"
-msgstr ""
+msgstr "Mise à jour du cadre de présentation des rapports"
 
 #: ../../source/for_developers/development.rst:527
 msgid "Overview of the Reporting Framework"
-msgstr ""
+msgstr "Aperçu du cadre de présentation des rapports"
 
 #: ../../source/for_developers/development.rst:528
 msgid ""
@@ -696,12 +813,22 @@ msgid ""
 "information about :code:`qgis_process` `here "
 "<https://docs.qgis.org/3.22/en/docs/user_manual/processing/standalone.html>`_."
 msgstr ""
+"Le cadre de rapports est conçu pour être extensible tout en offrant une "
+"interactivité à l'utilisateur grâce à des opérations non bloquantes. Le "
+"Framework s'appuie fortement sur les classes :code:`QgsProject` et "
+":code:`QgsPrintLayout` qui ne sont pas thread safe d'où l'utilisation de "
+":code:`qgis_process` pour faire le gros du travail de génération des "
+"rapports (et des graphiques). Vous pouvez trouver plus d'informations sur "
+":code:`qgis_process` `ici "
+"<https://docs.qgis.org/3.22/en/docs/user_manual/processing/standalone.html>`_."
 
 #: ../../source/for_developers/development.rst:533
 msgid ""
 "There are two main steps the toolbox performs when generating reports (and "
 "charts) for the default layers in a job:"
 msgstr ""
+"La boîte à outils effectue deux étapes principales lors de la génération de "
+"rapports (et de graphiques) pour les couches par défaut d'un travail :"
 
 #: ../../source/for_developers/development.rst:535
 msgid ""
@@ -713,6 +840,12 @@ msgid ""
 "(that inherits from `QgsTask "
 "<https://qgis.org/pyqgis/master/core/QgsTask.html>`_)."
 msgstr ""
+"Il crée un objet :code:`ReportTaskContext` qui constitue un objet "
+":code:`ReportConfiguration` (voir :ref:`config_report_params`) et un objet "
+":code:`Job` qui est représenté dans le panneau **Datasets**. Cet objet "
+":code:`ReportTaskContext` est sérialisé dans un fichier JSON puis transmis "
+"comme l'un des arguments d'un objet :code:`ReportProcessHandlerTask` (qui "
+"hérite de `QgsTask <https://qgis.org/pyqgis/master/core/QgsTask.html>`_)."
 
 #: ../../source/for_developers/development.rst:540
 msgid ""
@@ -729,14 +862,29 @@ msgid ""
 ":ref:`modifying_charts_config` for more information about chart "
 "configurations)"
 msgstr ""
+"L'objet :code:`ReportProcessHandlerTask` initie une instance distincte de "
+":code:`qgis_process` et transmet le chemin d'accès au fichier JSON comme "
+"entrée à l'algorithme de traitement :code:`trendsearth:reporttask`. Il "
+"s'agit d'une enveloppe fine qui désérialise le fichier vers l'objet "
+":code:`ReportTaskContext` et le transmet à un objet "
+":code:`ReportTaskProcessor` chargé de générer les rapports et le projet QGIS"
+" de la tâche. Pour les algorithmes qui nécessitent des graphiques, l'objet "
+":code:`ReportTaskProcessor` transmet l'objet du travail à un objet "
+":code:`AlgorithmChartsManager` qui vérifie si une configuration de graphique"
+" est définie pour l'algorithme du travail. Si elle est définie, il génère "
+"les graphiques correspondants sous forme de fichiers PNG. (Voir "
+":ref:`modifying_charts_config` pour plus d'informations sur les "
+"configurations de graphiques)"
 
 #: ../../source/for_developers/development.rst:548
 msgid "The diagram below provides a high-level illustration of this process:"
 msgstr ""
+"Le diagramme ci-dessous fournit une illustration de haut niveau de ce "
+"processus :"
 
 #: ../../source/for_developers/development.rst:554
 msgid "`* Click on the image for an enlarged view.`"
-msgstr ""
+msgstr "Cliquez sur l'image pour l'agrandir."
 
 #: ../../source/for_developers/development.rst:557
 msgid ""
@@ -748,10 +896,16 @@ msgid ""
 "<https://github.com/ConservationInternational/trends.earth/tree/master/LDMP/processing_provider/report.py>`_"
 " modules."
 msgstr ""
+"Certains des noms de fonctions dans le diagramme ci-dessus ont été "
+"simplifiés à des fins d'illustration. Les classes mentionnées ci-dessus se "
+"trouvent dans les modules `LDMP.reports "
+"<https://github.com/ConservationInternational/trends.earth/tree/master/LDMP/reports>`_"
+" et `LDMP.processing_provider.report "
+"<https://github.com/ConservationInternational/trends.earth/tree/master/LDMP/processing_provider/report.py>`_."
 
 #: ../../source/for_developers/development.rst:565
 msgid "Adding Report Layout Variables"
-msgstr ""
+msgstr "Ajout de variables de mise en page du rapport"
 
 #: ../../source/for_developers/development.rst:566
 msgid ""
@@ -760,6 +914,11 @@ msgid ""
 "Currently, the toolbox supports variables listed in the "
 ":ref:`layout_expr_vars` section."
 msgstr ""
+"Les variables de rapport fournissent des informations contextuelles liées à "
+"un travail, une couche (ou une bande) ou un :ref:`report_settings` pendant "
+"le processus d'exécution du rapport. Actuellement, la boîte à outils prend "
+"en charge les variables répertoriées dans la section "
+":ref:`layout_expr_vars`."
 
 #: ../../source/for_developers/development.rst:569
 msgid ""
@@ -769,16 +928,23 @@ msgid ""
 " module and, is subsequently updated and evaluated by the "
 ":code:`ReportTaskProcessor` object."
 msgstr ""
+"Chaque variable est définie comme un :code:`namedtuple` dans le module "
+"`LDMP.reports.expressions "
+"<https://github.com/ConservationInternational/trends.earth/tree/master/LDMP/reports/expressions.py>`_"
+" et est ensuite mise à jour et évaluée par l'objet "
+":code:`ReportTaskProcessor`."
 
 #: ../../source/for_developers/development.rst:572
 msgid ""
 "Follow the guidelines below on how to add new job or current layer "
 "variables."
 msgstr ""
+"Suivez les directives ci-dessous sur la façon d'ajouter de nouvelles "
+"variables de travail ou de couche actuelle."
 
 #: ../../source/for_developers/development.rst:575
 msgid "Job Variable"
-msgstr ""
+msgstr "Poste variable"
 
 #: ../../source/for_developers/development.rst:576
 msgid ""
@@ -786,30 +952,34 @@ msgid ""
 "to a report layout. Information about each job variable is encapsulated in a"
 " :code:`JobAttrVarInfo` object that is made up of four attributes:"
 msgstr ""
+"Il permet d'ajouter des informations sur le travail en cours d'exécution à "
+"la mise en page d'un rapport. Les informations relatives à chaque variable "
+"de travail sont encapsulées dans un objet :code:`JobAttrVarInfo` composé de "
+"quatre attributs :"
 
 #: ../../source/for_developers/development.rst:580
 #: ../../source/for_developers/development.rst:622
 msgid "Attribute Name"
-msgstr ""
+msgstr "Nom de l'attribut"
 
 #: ../../source/for_developers/development.rst:580
 #: ../../source/for_developers/development.rst:622
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
 #: ../../source/for_developers/development.rst:580
 #: ../../source/for_developers/development.rst:622
 msgid "Data Type"
-msgstr ""
+msgstr "Type de données"
 
 #: ../../source/for_developers/development.rst:580
 #: ../../source/for_developers/development.rst:622
 msgid "Default Value"
-msgstr ""
+msgstr "Valeur par défaut"
 
 #: ../../source/for_developers/development.rst:582
 msgid "`job_attr`"
-msgstr ""
+msgstr "`job_attr`"
 
 #: ../../source/for_developers/development.rst:582
 msgid ""
@@ -818,33 +988,39 @@ msgid ""
 "notation to refer to attributes in inner nested classes e.g. "
 "`results.uri.uri`."
 msgstr ""
+"Nom de l'attribut d'un objet :code:`Job` tel qu'utilisé dans une notation "
+"par points. Par exemple, `id` correspond à :code:`job.id`. Vous pouvez même "
+"utiliser la notation par points pour faire référence aux attributs des "
+"classes internes imbriquées, par exemple `results.uri.uri`."
 
 #: ../../source/for_developers/development.rst:582
 #: ../../source/for_developers/development.rst:587
 #: ../../source/for_developers/development.rst:624
 msgid "String"
-msgstr ""
+msgstr "Chaîne de caractères"
 
 #: ../../source/for_developers/development.rst:582
 #: ../../source/for_developers/development.rst:587
 #: ../../source/for_developers/development.rst:624
 msgid "N/A"
-msgstr ""
+msgstr "N/A"
 
 #: ../../source/for_developers/development.rst:587
 #: ../../source/for_developers/development.rst:624
 msgid "`var_name`"
-msgstr ""
+msgstr "`var_name`"
 
 #: ../../source/for_developers/development.rst:587
 msgid ""
 "Name of the report layout variable. It should be prefixed with `te_job_`."
 msgstr ""
+"Nom de la variable de mise en page du rapport. Il doit être précédé du "
+"préfixe `te_job_`."
 
 #: ../../source/for_developers/development.rst:590
 #: ../../source/for_developers/development.rst:627
 msgid "`default_value`"
-msgstr ""
+msgstr "`default_value`"
 
 #: ../../source/for_developers/development.rst:590
 #: ../../source/for_developers/development.rst:627
@@ -852,18 +1028,20 @@ msgid ""
 "A default value to use for `var_name`, mostly applied when designing "
 "layouts."
 msgstr ""
+"Une valeur par défaut à utiliser pour `var_name`, principalement appliquée "
+"lors de la conception des layouts."
 
 #: ../../source/for_developers/development.rst:590
 #: ../../source/for_developers/development.rst:590
 #: ../../source/for_developers/development.rst:627
 #: ../../source/for_developers/development.rst:627
 msgid "object"
-msgstr ""
+msgstr "sujet"
 
 #: ../../source/for_developers/development.rst:593
 #: ../../source/for_developers/development.rst:630
 msgid "`fmt_func`"
-msgstr ""
+msgstr "`fmt_func`"
 
 #: ../../source/for_developers/development.rst:593
 msgid ""
@@ -872,26 +1050,33 @@ msgid ""
 " can be used to convert the value of a job's `id` from UUID to string. You "
 "can also use lambda functions here."
 msgstr ""
+"Un objet fonction qui sera utilisé pour convertir la valeur de l'attribut du"
+" travail dans un format compatible avec les expressions QGIS. Par exemple, "
+":code:`str` peut être utilisé pour convertir la valeur de l'attribut `id` "
+"d'un travail de UUID en chaîne de caractères. Vous pouvez également utiliser"
+" des fonctions lambda ici."
 
 #: ../../source/for_developers/development.rst:593
 #: ../../source/for_developers/development.rst:630
 msgid "function object"
-msgstr ""
+msgstr "objet de la fonction\n"
 
 #: ../../source/for_developers/development.rst:593
 #: ../../source/for_developers/development.rst:630
 msgid "None"
-msgstr ""
+msgstr "Néant"
 
 #: ../../source/for_developers/development.rst:601
 msgid ""
 "The code snippet below shows how to add a variable `te_job_result_name` that"
 " corresponds to :code:`job.results.name`."
 msgstr ""
+"L'extrait de code ci-dessous montre comment ajouter une variable "
+"`te_job_result_name` qui correspond à :code:`job.results.name`."
 
 #: ../../source/for_developers/development.rst:617
 msgid "Layer Variable"
-msgstr ""
+msgstr "Variable de la couche"
 
 #: ../../source/for_developers/development.rst:618
 msgid ""
@@ -899,12 +1084,17 @@ msgid ""
 "variable information is encapsulated in a :code:`LayerVarInfo` object that "
 "is made up of three attributes:"
 msgstr ""
+"Il fournit des informations sur la couche matricielle en cours d'exécution. "
+"Ces informations variables sont encapsulées dans un objet "
+":code:`LayerVarInfo` composé de trois attributs :"
 
 #: ../../source/for_developers/development.rst:624
 msgid ""
 "Name of the report layout variable. It should be prefixed with "
 "`te_current_layer_`."
 msgstr ""
+"Nom de la variable de mise en page du rapport. Il doit être précédé du "
+"préfixe `te_current_layer_`."
 
 #: ../../source/for_developers/development.rst:630
 msgid ""
@@ -913,25 +1103,36 @@ msgid ""
 " object to a format that is compatible with QGIS expressions. You can also "
 "use lambda functions here."
 msgstr ""
+"Un objet fonction qui sera utilisé pour extraire et/ou convertir une valeur "
+"d'un objet `QgsRasterLayer "
+"<https://qgis.org/pyqgis/master/core/QgsRasterLayer.html>`_ dans un format "
+"compatible avec les expressions QGIS. Vous pouvez également utiliser des "
+"fonctions lambda ici."
 
 #: ../../source/for_developers/development.rst:634
 msgid ""
 "For instance, :code:`lambda layer: layer.name()` returns the layer name."
 msgstr ""
+"Par exemple, :code:`lambda layer : layer.name()` renvoie le nom de la "
+"couche."
 
 #: ../../source/for_developers/development.rst:638
 msgid ""
 "The code snippet below shows how to add a variable `te_current_layer_height`"
 " that corresponds to the raster layer's height."
 msgstr ""
+"L'extrait de code ci-dessous montre comment ajouter une variable "
+"`te_current_layer_height` qui correspond à la hauteur de la couche "
+"matricielle."
 
 #: ../../source/for_developers/development.rst:657
 msgid "These variables are only available in the layout scope."
 msgstr ""
+"Ces variables ne sont disponibles que dans la portée de la mise en page."
 
 #: ../../source/for_developers/development.rst:663
 msgid "Adding Chart Configurations"
-msgstr ""
+msgstr "Ajout de configurations de graphiques"
 
 #: ../../source/for_developers/development.rst:664
 msgid ""
@@ -939,6 +1140,9 @@ msgid ""
 " a specific algorithm. Defining a new chart configuration is a three-step "
 "process:"
 msgstr ""
+"Les graphiques peuvent être regroupés à l'aide d'un objet de configuration "
+"de graphique qui correspond à un algorithme spécifique. La définition d'une "
+"nouvelle configuration de graphique est un processus en trois étapes :"
 
 #: ../../source/for_developers/development.rst:667
 msgid ""
@@ -954,12 +1158,25 @@ msgid ""
 " root output directory which is also available as an attribute in the base "
 "class. See the code snippet below:"
 msgstr ""
+"Créez une nouvelle classe de graphique qui hérite de :code:`BaseChart` dans "
+"le module `LDMP.reports.charts "
+"<https://github.com/ConservationInternational/trends.earth/tree/master/LDMP/reports/charts.py>`_."
+" Implémentez la fonction :code:`export` pour spécifier le type de graphique,"
+" les propriétés, etc. en utilisant la bibliothèque Python :code:`Plotly` "
+"fournie avec QGIS. Enfin, dans la fonction :code:`export`, appelez la "
+"fonction :code:`save_image` pour écrire l'objet :code:`Figure` de Plotly "
+"sous forme de fichier image en utilisant l'un des formats pris en charge par"
+" la classe :code:`QImageWriter` de Qt. Vous pouvez également spécifier le "
+"chemin relatif au répertoire de sortie racine, qui est également disponible "
+"comme attribut dans la classe de base. Voir l'extrait de code ci-dessous :"
 
 #: ../../source/for_developers/development.rst:697
 msgid ""
 "You can refer to the :code:`UniqueValuesPieChart` class for a more complete "
 "example."
 msgstr ""
+"Vous pouvez vous inspirer de la classe :code:`UniqueValuesPieChart` pour un "
+"exemple plus complet."
 
 #: ../../source/for_developers/development.rst:699
 msgid ""
@@ -972,12 +1189,24 @@ msgid ""
 "charts. You can refer to the :code:`LandCoverChartsConfiguration` class for "
 "a more complete example."
 msgstr ""
+"Créez une classe de configuration de graphiques qui hérite de "
+":code:`BaseAlgorithmChartsConfiguration` et implémentez la fonction "
+":code:`_add_charts`. La classe de configuration des graphiques définit "
+"essentiellement les graphiques qui seront utilisés pour un algorithme donné."
+" L'attribut :code:`layer_band_infos` est une liste d'objets "
+":code:`LayerBandInfo` qui contient les données relatives à la couche et à la"
+" bande nécessaires à la production des graphiques. Vous pouvez vous inspirer"
+" de la classe :code:`LandCoverChartsConfiguration` pour un exemple plus "
+"complet."
 
 #: ../../source/for_developers/development.rst:705
 msgid ""
 "Finally, map an algorithm (name) to the correspond chart configuration class"
 " in the :code:`AlgorithmChartsManager` class as shown below:"
 msgstr ""
+"Enfin, faites correspondre un algorithme (nom) à la classe de configuration "
+"de graphique correspondante dans la classe :code:`AlgorithmChartsManager` "
+"comme indiqué ci-dessous :"
 
 #: ../../source/for_developers/development.rst:719
 msgid ""
@@ -985,14 +1214,18 @@ msgid ""
 ":code:`ReportTaskProcessor` object, will create a new chart configuration "
 "object for a corresponding job's algorithm when reports are being generated."
 msgstr ""
+"La classe :code:`AlgorithmChartsManager`, instanciée dans l'objet "
+":code:`ReportTaskProcessor`, crée un nouvel objet de configuration de "
+"graphique pour l'algorithme d'une tâche correspondante lorsque des rapports "
+"sont générés."
 
 #: ../../source/for_developers/development.rst:724
 msgid "Contributing to the documentation"
-msgstr ""
+msgstr "Contribuer à la documentation"
 
 #: ../../source/for_developers/development.rst:727
 msgid "Overview"
-msgstr ""
+msgstr "Aperçu général"
 
 #: ../../source/for_developers/development.rst:729
 msgid ""
@@ -1002,6 +1235,11 @@ msgid ""
 "you are unfamiliar with either of these tools, see their documentation for "
 "more information on how they are used."
 msgstr ""
+"La documentation de Trends.Earth est produite à l'aide de `Sphinx "
+"<http://www.sphinx-doc.org/en/master/>`_, et est écrite au format "
+"`reStructuredText <http://docutils.sourceforge.net/rst.html>`_. Si vous "
+"n'êtes pas familier avec l'un ou l'autre de ces outils, consultez leur "
+"documentation pour plus d'informations sur leur utilisation."
 
 #: ../../source/for_developers/development.rst:735
 msgid ""
@@ -1009,6 +1247,9 @@ msgid ""
 "the main trends.earth directory. Within that folder there are a number of "
 "key files and folders to be aware of:"
 msgstr ""
+"La documentation de Trends.Earth est stockée dans le dossier « docs » sous "
+"le répertoire principal de trends.earth. Dans ce dossier, il y a un certain "
+"nombre de fichiers et dossiers clés à connaître :"
 
 #: ../../source/for_developers/development.rst:739
 msgid ""
@@ -1016,6 +1257,9 @@ msgid ""
 "format). Note it will only appear on your machine after running the ``docs-"
 "build`` invoke task."
 msgstr ""
+"build : contient la documentation de compilation pour trends.earth (au "
+"format PDF et HTML). Notez qu'elle n'apparaîtra sur votre machine qu'après "
+"avoir exécuté la tâche invoke ``docs-build``."
 
 #: ../../source/for_developers/development.rst:742
 msgid ""
@@ -1023,6 +1267,10 @@ msgid ""
 "files in here are normally processed automatically using invoke tasks, so "
 "you shouldn't ever have reason to modify anything in this folder."
 msgstr ""
+"i18n : contient les traductions de la documentation dans d'autres langues. "
+"Les fichiers contenus dans ce dossier sont normalement traités "
+"automatiquement à l'aide de tâches d'invocation, de sorte que vous ne "
+"devriez jamais avoir de raison de modifier quoi que ce soit dans ce dossier."
 
 #: ../../source/for_developers/development.rst:745
 msgid ""
@@ -1033,6 +1281,13 @@ msgid ""
 "added under \"resources\" with two-letter language codes to include images "
 "specific to a particular language."
 msgstr ""
+"ressources : contient toutes les ressources (principalement des images ou "
+"des PDF) auxquelles il est fait référence dans la documentation. "
+"Actuellement, il n'y a qu'un seul dossier (« EN », pour anglais) car toutes "
+"les images de la documentation proviennent de la version anglaise du "
+"plugiciel — si nécessaire, des dossiers supplémentaires peuvent être ajoutés"
+" sous « ressources » avec des codes de langue à deux lettres pour inclure "
+"les images spécifiques à une langue particulière."
 
 #: ../../source/for_developers/development.rst:751
 msgid ""
@@ -1040,6 +1295,9 @@ msgid ""
 "documentation (these are the actual English text of the documentation, and "
 "are the files you are most likely to need to modify)."
 msgstr ""
+"source : contient les fichiers source de reStructuredText qui définissent la"
+" documentation (il s'agit du texte anglais réel de la documentation, et ce "
+"sont les fichiers que vous devrez probablement modifier)."
 
 #: ../../source/for_developers/development.rst:761
 msgid ""
@@ -1049,15 +1307,23 @@ msgid ""
 "requirements file for Trends.Earth, so they can be installed by navigating "
 "in a command prompt to the root of the trends.earth code folder and typing::"
 msgstr ""
+"Afin de travailler avec la documentation, vous devez avoir invoke, Sphinx, "
+"sphinx-intl, et sphinx-rtd-theme (le thème du site web Trends.Earth) "
+"installés sur votre machine. Ces paquets sont tous listés dans le fichier "
+"d'exigences « dev » pour Trends.Earth, ils peuvent donc être installés en "
+"naviguant dans une invite de commande à la racine du dossier de code de "
+"trends.earth et en tapant :"
 
 #: ../../source/for_developers/development.rst:770
 msgid "LaTeX"
-msgstr ""
+msgstr "LaTeX"
 
 #: ../../source/for_developers/development.rst:772
 msgid ""
 "LaTeX is used to produce PDF outputs of the documentation for Trends.Earth."
 msgstr ""
+"LaTeX est utilisé pour produire des sorties PDF de la documentation de "
+"Trends.Earth."
 
 #: ../../source/for_developers/development.rst:774
 msgid ""
@@ -1068,12 +1334,20 @@ msgid ""
 "The LaTeX installer is quite large (several GB) so it might take some time "
 "to download and install."
 msgstr ""
+"Pour installer sur Windows, `suivez le processus décrit ici "
+"<https://www.tug.org/protext>`_ pour installer la distribution proTeXt de "
+"LaTeX à partir du `fichier zip disponible ici "
+"<http://ftp.math.purdue.edu/mirrors/ctan.org/systems/windows/protext/>`_. Le"
+" programme d'installation de LaTeX est assez volumineux (plusieurs Go) et le"
+" téléchargement et l'installation peuvent prendre un certain temps."
 
 #: ../../source/for_developers/development.rst:781
 msgid ""
 "On MacOS, MacTeX is a good option, and can be installed `following the "
 "instructions here <http://www.tug.org/mactex/>`_."
 msgstr ""
+"Sous MacOS, MacTeX est une bonne option, et peut être installé en suivant "
+"les instructions ici <http://www.tug.org/mactex/>`_."
 
 #: ../../source/for_developers/development.rst:784
 msgid ""
@@ -1081,10 +1355,13 @@ msgid ""
 "package manager to find and install whatever LaTeX distribution is included "
 "by default."
 msgstr ""
+"Sous Linux, l'installation de LaTeX devrait être beaucoup plus facile - "
+"utilisez le gestionnaire de paquets de votre distribution pour trouver et "
+"installer la distribution LaTeX incluse par défaut."
 
 #: ../../source/for_developers/development.rst:789
 msgid "Qt Linguist"
-msgstr ""
+msgstr "Qt Linguist"
 
 #: ../../source/for_developers/development.rst:791
 msgid ""
@@ -1092,6 +1369,9 @@ msgid ""
 "for translation. The \"lrelease\" command must be available and on your "
 "path. Try trying::"
 msgstr ""
+"Qt Linguist est également nécessaire afin d'extraire les chaînes du code et "
+"de l'interface graphique pour les traduire. La commande « lrelease » doit "
+"être disponible et sur votre chemin. Essayez d'essayer :"
 
 #: ../../source/for_developers/development.rst:797
 msgid ""
@@ -1101,10 +1381,16 @@ msgid ""
 " install Qt Linguist ensure you add the folder containing lrelease to your "
 "path so that the Trends.Earth invoke script can find it."
 msgstr ""
+"dans une fenêtre de terminal. Si le fichier n'est pas trouvé, vous devrez "
+"installer Qt Linguist. Cette page <https://github.com/lelegard/qtlinguist-"
+"installers/releases>`_ est une source d'installateurs pour Qt Linguist. Une "
+"fois que vous avez installé Qt Linguist, assurez-vous d'ajouter le dossier "
+"contenant lrelease à votre chemin afin que le script invoke de Trends.Earth "
+"puisse le trouver."
 
 #: ../../source/for_developers/development.rst:805
 msgid "Updating and building the documentation"
-msgstr ""
+msgstr "Mise à jour et élaboration de la documentation"
 
 #: ../../source/for_developers/development.rst:807
 msgid ""
@@ -1122,6 +1408,22 @@ msgid ""
 "(for \"fast\"). This option will build only the English HTML documentation, "
 "which should take only a few seconds. To build using the fast option, run::"
 msgstr ""
+"Une fois que vous avez installé la configuration requise pour sphinx, vous "
+"êtes prêt à commencer à modifier la documentation. Les fichiers à modifier "
+"sont situés dans le dossier « docs\\\\source ». Après avoir apporté des "
+"modifications à ces fichiers, vous devrez construire la documentation afin "
+"de visualiser les résultats. Il existe deux versions de la documentation de "
+"Trends.Earth : une version HTML (utilisée pour le site web) et une version "
+"PDF (pour le téléchargement hors ligne). Pour construire la documentation de"
+" Trends.Earth, utilisez la tâche invoke « docs-build ». Par défaut, cette "
+"tâche va construire la documentation complète de Trends.Earth, en HTML et "
+"PDF, pour toutes les langues prises en charge. L'exécution de cette tâche "
+"peut prendre un certain temps (jusqu'à quelques heures). Si vous voulez "
+"juste tester les résultats de quelques changements mineurs à la "
+"documentation, il est généralement préférable d'utiliser l'option « f » "
+"(pour « fast »). Cette option ne construira que la documentation HTML en "
+"anglais, ce qui ne devrait prendre que quelques secondes. Pour construire en"
+" utilisant l'option rapide, exécutez :"
 
 #: ../../source/for_developers/development.rst:823
 msgid ""
@@ -1130,12 +1432,18 @@ msgid ""
 "documentation. Load the \"index.html\" file in a web browser to see how it "
 "looks."
 msgstr ""
+"La commande ci-dessus prendra quelques secondes à s'exécuter, puis si vous "
+"regardez sous « docs\\\\build\\html\\\\en », vous verrez la version HTML de "
+"la documentation. Chargez le fichier « index.html » dans un navigateur Web "
+"pour voir à quoi il ressemble."
 
 #: ../../source/for_developers/development.rst:827
 msgid ""
 "To build the full documentation, for all languages, in PDF and in HTML "
 "(remember this could take a few hours to complete), run::"
 msgstr ""
+"Pour construire la documentation complète, pour toutes les langues, en PDF "
+"et en HTML (rappelez-vous que cela peut prendre quelques heures), exécutez :"
 
 #: ../../source/for_developers/development.rst:832
 msgid ""
@@ -1143,6 +1451,9 @@ msgid ""
 "documentation under \"docs\\\\build\\\\html\\\\en\", and the PDFs of the "
 "documentation under \"docs\\\\build\\\\html\\\\en\\\\pdfs\"."
 msgstr ""
+"Après avoir exécuté la commande ci-dessus, vous verrez (pour l'anglais) la "
+"documentation HTML sous « docs\\\\build\\\\html\\\\\\\\en », et les PDFs de "
+"la documentation sous « docs\\build\\html\\\\en\\\\pdfs »."
 
 #: ../../source/for_developers/development.rst:836
 msgid ""
@@ -1151,12 +1462,19 @@ msgid ""
 "for that language. For example, to build the Spanish documentation only, "
 "run::"
 msgstr ""
+"Si vous voulez tester une langue spécifique (lorsque vous testez des "
+"traductions, par exemple), vous pouvez spécifier un code de langue à deux "
+"lettres pour ne construire que les documents de cette langue. Par exemple, "
+"pour construire uniquement la documentation en espagnol, exécutez :"
 
 #: ../../source/for_developers/development.rst:843
 msgid ""
 "Note that options can be combined, so you can use the fast option to build "
 "only the HTML version of the Spanish documentation by running::"
 msgstr ""
+"Notez que les options peuvent être combinées, ainsi vous pouvez utiliser "
+"l'option rapide pour construire uniquement la version HTML de la "
+"documentation en espagnol en exécutant : :"
 
 #: ../../source/for_developers/development.rst:848
 msgid ""
@@ -1165,6 +1483,11 @@ msgid ""
 "files that are no longer used in the updated documentation. To do this, use "
 "the ``-c`` (clean) option::"
 msgstr ""
+"Lors de la construction de la documentation complète du site web, il est bon"
+" de supprimer d'abord toutes les anciennes constructions de la "
+"documentation, car elles peuvent contenir des fichiers qui ne sont plus "
+"utilisés dans la documentation mise à jour. Pour ce faire, utilisez l'option"
+" « -c » (clean) :"
 
 #: ../../source/for_developers/development.rst:855
 msgid ""
@@ -1176,6 +1499,13 @@ msgid ""
 " regardless of whether there are any errors. To do this, use the ``-i`` "
 "(ignore errors) option::"
 msgstr ""
+"En général, docs-build DOIT se terminer sans aucune erreur si vous envisagez"
+" de partager la documentation ou de la publier sur le site Web. Cependant, "
+"lorsque vous testez les choses localement, vous pouvez vouloir ignorer les "
+"erreurs de documentation qui apparaissent seulement pour certaines langues "
+"(dues à des erreurs de syntaxe résultant d'erreurs de traduction, etc.), et "
+"continuer à construire le reste de la documentation sans tenir compte des "
+"erreurs. Pour ce faire, utilisez l'option « -i » (ignorer les erreurs) :"
 
 #: ../../source/for_developers/development.rst:864
 msgid ""
@@ -1183,22 +1513,32 @@ msgid ""
 " idea to push the latest strings to Transifex so they can be translated. To "
 "update the strings on Transifex with any new changes, run::"
 msgstr ""
+"Chaque fois que vous apportez des modifications au texte de la "
+"documentation, il est bon de pousser les dernières chaînes de caractères "
+"vers Transifex afin qu'elles puissent être traduites. Pour mettre à jour les"
+" chaînes de caractères sur Transifex avec les nouveaux changements, exécutez"
+" :"
 
 #: ../../source/for_developers/development.rst:870
 msgid ""
 "To successfully run the above command you will need to have the key for the "
 "Trends.Earth transifex account."
 msgstr ""
+"Pour exécuter la commande ci-dessus, vous devez disposer de la clé du compte"
+" transifex de Trends.Earth."
 
 #: ../../source/for_developers/development.rst:874
 msgid "Building documentation for release"
-msgstr ""
+msgstr "Construction de la documentation pour la version"
 
 #: ../../source/for_developers/development.rst:876
 msgid ""
 "Before releasing new documentation, always pull the latest translations from"
 " Transifex so that all translations are up to date. To do this, run::"
 msgstr ""
+"Avant de publier une nouvelle documentation, tirez toujours les dernières "
+"traductions de Transifex afin que toutes les traductions soient à jour. Pour"
+" ce faire, exécutez :"
 
 #: ../../source/for_developers/development.rst:881
 msgid ""
@@ -1206,6 +1546,9 @@ msgid ""
 "website, or in PDF) you must build the entire documentation using ``docs-"
 "build`` with no additional parameters::"
 msgstr ""
+"Pour construire une version de la documentation pour une diffusion publique "
+"(soit sur le site web, soit en PDF), vous devez construire la documentation "
+"entière en utilisant ``docs-build`` sans paramètres supplémentaires: :"
 
 #: ../../source/for_developers/development.rst:887
 msgid ""
@@ -1214,6 +1557,11 @@ msgid ""
 "needed to allow the build to complete successfully. Once the build completes"
 " with no errors, the files are ready to be deployed on the website."
 msgstr ""
+"Ce processus doit se terminer avec succès et sans erreur. Si des erreurs "
+"surviennent au cours du processus, examinez le message d'erreur et apportez "
+"les modifications nécessaires pour permettre à la compilation de se terminer"
+" avec succès. Une fois la compilation terminée sans erreur, les fichiers "
+"sont prêts à être déployés sur le site Web."
 
 #: ../../source/for_developers/development.rst:892
 msgid ""
@@ -1224,10 +1572,17 @@ msgid ""
 "leading to lost work done by the translators if the latest translations have"
 " not yet been committed to github."
 msgstr ""
+"Les deux commandes ci-dessus ont également des options « -f » (force) qui "
+"forcent à tirer ou pousser les dernières traductions depuis ou vers "
+"Transifex (respectivement). N'utilisez ces options que si vous êtes TRÈS sûr"
+" de ce que vous faites, car elles peuvent écraser complètement les "
+"traductions sur Transifex, entraînant une perte du travail effectué par les "
+"traducteurs si les dernières traductions n'ont pas encore été livrées sur "
+"github."
 
 #: ../../source/for_developers/development.rst:900
 msgid "Adding new documentation text"
-msgstr ""
+msgstr "Ajout d'un nouveau texte de documentation"
 
 #: ../../source/for_developers/development.rst:902
 msgid ""
@@ -1236,12 +1591,19 @@ msgid ""
 "that they are properly translated, and (for tutorials) to ensure that they "
 "are generated in PDF so they can be downloaded for offline use."
 msgstr ""
+"Tous les nouveaux fichiers .rst ajoutés à la documentation doivent être "
+"ajoutés à plusieurs fichiers de configuration pour s'assurer qu'ils "
+"apparaissent dans le menu de navigation, qu'ils sont correctement traduits "
+"et (pour les didacticiels) pour s'assurer qu'ils sont générés en PDF afin "
+"qu'ils puissent être téléchargés pour une utilisation hors ligne."
 
 #: ../../source/for_developers/development.rst:907
 msgid ""
 "docs\\\\source\\\\index.rst: add new .rst files in the appropriate place "
 "here to ensure that they are linked to from the navigation menu."
 msgstr ""
+"docs\\\\source\\index.rst : ajoutez de nouveaux fichiers .rst à l'endroit "
+"approprié ici pour vous assurer qu'ils sont liés au menu de navigation."
 
 #: ../../source/for_developers/development.rst:909
 msgid ""
@@ -1249,6 +1611,9 @@ msgid ""
 "files already included) in order to make the translation software aware of "
 "them so that they can be translated"
 msgstr ""
+".tx\\\\config : listez ici les nouveaux fichiers .rst (dans le même format "
+"que les autres fichiers déjà inclus) afin de les faire connaître au logiciel"
+" de traduction pour qu'ils puissent être traduits."
 
 #: ../../source/for_developers/development.rst:912
 msgid ""
@@ -1259,10 +1624,17 @@ msgid ""
 "included in the PDF version of the website as a whole, regardless of whether"
 " it is in the ``latex_documents`` list."
 msgstr ""
+"docs\\\\source\\conf.py : si vous voulez générer un fichier PDF d'une page "
+"du site web, alors vous devez lister cette page ici dans la liste « "
+"latex_documents ». Habituellement, nous ne faisons cela que pour les pages "
+"de tutoriel que nous voulons mettre à la disposition des participants à "
+"l'atelier dans des PDF individuels. Chaque page du site sera incluse dans la"
+" version PDF du site dans son ensemble, qu'elle figure ou non dans la liste "
+"« latex_documents »."
 
 #: ../../source/for_developers/development.rst:920
 msgid "Adding new images or other resources"
-msgstr ""
+msgstr "Ajout de nouvelles images ou d'autres ressources"
 
 #: ../../source/for_developers/development.rst:922
 msgid ""
@@ -1279,6 +1651,21 @@ msgid ""
 "as the default for all languages for which a native version of the image is "
 "not provided, while a localized version will be used when available."
 msgstr ""
+"Toute nouvelle image ou autre ressource (PDF, etc.) nécessaire à la "
+"documentation doit être ajoutée dans la rubrique "
+"« docs\\\\\\\\_resources\\\\_en ». Si vous le souhaitez, il est possible de "
+"télécharger différentes versions d'une image afin que celle-ci apparaisse "
+"avec les traductions appropriées. Cela peut être utile si vous souhaitez "
+"afficher l'interface graphique dans la langue appropriée, par exemple. Pour "
+"ce faire, téléchargez d'abord une copie de l'image dans "
+"« docs\\\\\\\\\\\\resources\\en » (avec du texte en anglais). Ensuite, créez"
+" une copie de l'image avec le texte traduit et placez cette image dans le "
+"dossier approprié pour cette langue (par exemple, une image présentant des "
+"traductions en espagnol serait placée dans "
+"« docs\\\\\\resources\\\\\\\\es »). La version anglaise de l'image sera "
+"utilisée par défaut pour toutes les langues pour lesquelles une version "
+"native de l'image n'est pas fournie, tandis qu'une version localisée sera "
+"utilisée lorsqu'elle sera disponible."
 
 #: ../../source/for_developers/development.rst:935
 msgid ""
@@ -1290,10 +1677,19 @@ msgid ""
 "``docs\\\\resources\\\\en`` or, for translated images, the appropriate "
 "language-specific folder under ``docs\\\\resources``."
 msgstr ""
+"Il existe un autre dossier, « docs\\\\source\\\\static », qui est utilisé "
+"pour conserver temporairement les ressources pendant l'exécution des scripts"
+" qui construisent la documentation Trends.Earth. Vous pouvez avoir des "
+"images listées dans ce dossier si vous avez déjà construit la documentation "
+"sur cette machine. **Ce dossier ne doit jamais être utilisé pour ajouter de "
+"nouvelles ressources** — les nouvelles ressources doivent toujours être "
+"placées dans le dossier « docs\\\\resources\\\\\\\\en » ou, pour les images "
+"traduites, dans le dossier spécifique à la langue appropriée dans le dossier"
+" « docs\\resources »."
 
 #: ../../source/for_developers/development.rst:944
 msgid "Contributing as a translator"
-msgstr ""
+msgstr "Contribuer en tant que traducteur"
 
 #: ../../source/for_developers/development.rst:946
 msgid ""
@@ -1305,91 +1701,98 @@ msgid ""
 "emailing us at `trends.earth@conservation.org "
 "<mailto:trends.earth@conservation.org>`_."
 msgstr ""
+"Les traductions du plugiciel QGIS et de ce site sont gérées par `transifex "
+"<http://www.transifex.com>`_. Si vous souhaitez contribuer à la traduction "
+"du plugiciel et de la documentation (et nous serions ravis d'avoir votre "
+"aide !), vous pouvez demander à rejoindre `notre équipe par le biais de "
+"transifex <https://www.transifex.com/conservation-"
+"international/trendsearth>`_, ou en nous envoyant un courriel à "
+"`trends.earth@conservation.org <mailto:trends.earth@conservation.org>`_."
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr ""
+msgstr "iconCalculator"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr ""
+msgstr "iconChart"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr ""
+msgstr "iconClipboard"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr ""
+msgstr "iconCloudDownload"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr ""
+msgstr "iconCog"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr ""
+msgstr "iconDeletedataset"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
-msgstr ""
+msgstr "iconGlobe"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr ""
+msgstr "iconGraph"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr ""
+msgstr "iconInfo"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr ""
+msgstr "iconLoaddataset"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr ""
+msgstr "iconMarkMarker"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr ""
+msgstr "iconOpendatasetdirectory"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr ""
+msgstr "iconViewdatasetdetails"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr ""
+msgstr "iconWrench"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr ""
+msgstr "iconFolder"
 
 #: ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr ""
+msgstr "iconReports"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr ""
+msgstr "iconTrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr ""
+msgstr "iconVisualization"
 
 #: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr ""
+msgstr "logoCI"
 
 #: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr ""
+msgstr "logoLund"
 
 #: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr ""
+msgstr "logoNASA"
 
 #: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr ""
+msgstr "logoGEF"

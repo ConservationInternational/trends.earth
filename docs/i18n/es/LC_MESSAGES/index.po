@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-24 18:41-0400\n"
+"POT-Creation-Date: 2022-06-22 14:58-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,23 +46,23 @@ msgid "trends.earth"
 msgstr ""
 
 #: ../../source/index.rst:17
-msgid "`English <../en/index.html>`_"
+msgid ":index_path:`English<en>`"
 msgstr ""
 
 #: ../../source/index.rst:17
-msgid "`Español <../es/index.html>`_"
+msgid ":index_path:`Spanish <es>`"
 msgstr ""
 
 #: ../../source/index.rst:17
-msgid "`Francais <../fr/index.html>`_"
+msgid ":index_path:`French <fr>`"
 msgstr ""
 
 #: ../../source/index.rst:17
-msgid "`Swahili <../sw/index.html>`_"
+msgid ":index_path:`Swahili <sw>`"
 msgstr ""
 
 #: ../../source/index.rst:17
-msgid "`Português <../pt/index.html>`_"
+msgid ":index_path:`Português <pt>`"
 msgstr ""
 
 #: ../../source/index.rst:20
@@ -170,4 +170,19 @@ msgstr ""
 #: ../../../<rst_epilog>
 msgid "logoGEF"
 msgstr ""
+
+#~ msgid "`English <../en/index.html>`_"
+#~ msgstr ""
+
+#~ msgid "`Español <../es/index.html>`_"
+#~ msgstr ""
+
+#~ msgid "`Francais <../fr/index.html>`_"
+#~ msgstr ""
+
+#~ msgid "`Swahili <../sw/index.html>`_"
+#~ msgstr ""
+
+#~ msgid "`Português <../pt/index.html>`_"
+#~ msgstr ""
 

@@ -25,6 +25,7 @@ from te_schemas.algorithms import ExecutionScript
 from te_schemas.land_cover import LCLegendNesting
 from te_schemas.land_cover import LCTransitionDefinitionDeg
 from te_schemas.productivity import ProductivityMode
+import te_algorithms.gdal.land_deg.config as ld_config
 
 from . import conf
 from . import lc_setup
@@ -575,10 +576,10 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
             if resp:
                 main_msg = "Submitted"
-                description = "SDG sub-indicator task submitted to Google Earth Engine."
+                description = "SDG sub-indicator task submitted to Trends.Earth server."
             else:
                 main_msg = "Error"
-                description = "Unable to submit SDG sub-indicator task to Google Earth Engine."
+                description = "Unable to submit SDG sub-indicator task to Trends.Earth server."
             self.mb.pushMessage(
                 self.tr(main_msg), self.tr(description), level=0, duration=5
             )
@@ -1012,7 +1013,40 @@ class DlgCalculateLDNErrorRecode(DlgCalculateBase, DlgCalculateLdnErrorRecodeUi)
     def showEvent(self, event):
         super().showEvent(event)
         self.combo_dataset_error_recode.populate()
+        self.rb_grp_input_layer.buttonClicked.connect(self.set_layer_filter)
+        self.set_layer_filter()
 
+    def set_layer_filter(self):
+        if self.rb_sdg.isChecked():
+            self.combo_layer_input.setProperty(
+                'layer_type',
+                ';'.join([
+                    ld_config.SDG_BAND_NAME,
+                    ld_config.SDG_STATUS_BAND_NAME
+                ])
+            )
+        elif self.rb_prod.isChecked():
+            self.combo_layer_input.setProperty(
+                'layer_type',
+                ';'.join([
+                    ld_config.JRC_LPD_BAND_NAME,
+                    ld_config.FAO_WOCAT_LPD_BAND_NAME,
+                    ld_config.TE_LPD_BAND_NAME
+                ])
+            )
+        elif self.rb_lc.isChecked():
+            self.combo_layer_input.setProperty(
+                'layer_type',
+                ';'.join([
+                    ld_config.LC_DEG_BAND_NAME,
+                    ld_config.LC_DEG_COMPARISON_BAND_NAME
+                ])
+            )
+        elif self.rb_soc.isChecked():
+            self.combo_layer_input.setProperty(
+                'layer_type', ld_config.SOC_DEG_BAND_NAME)
+        self.combo_layer_input.populate()
+        log(f'filter set to {self.combo_layer_input.property("layer_type")}')
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
@@ -1079,10 +1113,10 @@ class DlgCalculateLDNErrorRecode(DlgCalculateBase, DlgCalculateLdnErrorRecodeUi)
 
         if resp:
             main_msg = "Submitted"
-            description = "UNCCD default data task submitted to Google Earth Engine."
+            description = "UNCCD default data task submitted to Trends.Earth server."
         else:
             main_msg = "Error"
-            description = "Unable to UNCCD default data task to Google Earth Engine."
+            description = "Unable to UNCCD default data task to Trends.Earth server."
         self.mb.pushMessage(
             self.tr(main_msg), self.tr(description), level=0, duration=5
         )

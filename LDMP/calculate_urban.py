@@ -206,11 +206,11 @@ class DlgCalculateUrbanData(calculate.DlgCalculateBase, DlgCalculateUrbanDataUi)
         if resp:
             main_msg = "Submitted"
             description = (
-                "Urban area change calculation submitted to Google Earth Engine.")
+                "Urban area change calculation submitted to Trends.Earth server.")
 
         else:
             main_msg = "Error"
-            description = "Unable to submit urban area task Google Earth Engine."
+            description = "Unable to submit urban area task Trends.Earth server."
         self.mb.pushMessage(
             self.tr(main_msg),
             self.tr(description),

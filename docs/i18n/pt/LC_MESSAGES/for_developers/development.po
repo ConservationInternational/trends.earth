@@ -4,18 +4,18 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Alex Zvoleff <azvoleff@conservation.org>, 2022
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
 # Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2022
+# Alex Zvoleff <azvoleff@conservation.org>, 2022
 # 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-24 18:41-0400\n"
+"POT-Creation-Date: 2022-06-21 17:06-0400\n"
 "PO-Revision-Date: 2022-05-26 11:56+0000\n"
-"Last-Translator: Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2022\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -122,6 +122,11 @@ msgid ""
 "\"qgis2\" branch is the older version of the plugin, and supports QGIS2 "
 "version 2.18+."
 msgstr ""
+"Existem vários ramos diferentes do repositório trends.earth em "
+"desenvolvimento ativo. O plug-in suporta oficialmente o QGIS 3 e a maior "
+"parte do desenvolvimento está a ocorrer no ramo \"develop\". O ramo \"qgis "
+"2\" é a versão mais antiga do plug-in e suporta versões do QGIS 2 a partir "
+"da 2.18."
 
 #: ../../source/for_developers/development.rst:50
 msgid ""
@@ -382,6 +387,10 @@ msgid ""
 "Trends.Earth plugin in order to see the effects of the changes you have "
 "made."
 msgstr ""
+"Depois de correr o comando em cima, precisará de ou 1) reiniciar o QGIS, ou "
+"2) usar o `Plugin Reloader "
+"<https://plugins.qgis.org/plugins/plugin_reloader/>`_ para recarregar o "
+"plug-in Trends.Earth, de forma a ver os efeitos das alterações que fez."
 
 #: ../../source/for_developers/development.rst:184
 msgid ""
@@ -824,31 +833,33 @@ msgstr ""
 
 #: ../../source/for_developers/development.rst:423
 msgid "Editing vector layer templates"
-msgstr ""
+msgstr "A editar modelos de camada vetorial"
 
 #: ../../source/for_developers/development.rst:425
 msgid ""
 "Trends.Earth allow users to digitize new vector features to delineate areas "
 "of special interest."
 msgstr ""
+"O Trends.Earth permite aos utilizadores digitalizarem novas características "
+"vetoriais, para delinear áreas de especial interesse."
 
 #: ../../source/for_developers/development.rst:428
 msgid ""
 "For now only \"false positive/negative\" layers are supported, but more can "
 "be added if necessary. Any vector layer is created from the template "
-"GeoPackage files, which can be found inside the ``data/special_areas`` "
-"folder of the plugin installation directory. For each vector type there are "
-"6 template files, one for each UN official language. The ISO language code "
-"is added as a suffix to the file name. This is necessary to provide "
-"localized labels in the attribute forms. When creation of the vector layer "
-"is requested QGIS will look for the template file taking QGIS locale into "
+"GeoPackage files, which can be found inside the ``data/error_recode`` folder"
+" of the plugin installation directory. For each vector type there are 6 "
+"template files, one for each UN official language. The ISO language code is "
+"added as a suffix to the file name. This is necessary to provide localized "
+"labels in the attribute forms. When creation of the vector layer is "
+"requested QGIS will look for the template file taking QGIS locale into "
 "accont, as a fall-back option English version of the template file is used."
 msgstr ""
 
 #: ../../source/for_developers/development.rst:439
 msgid ""
 "To change schema of the layer it is necessary to change corresponding "
-"template files in the ``data/special_areas`` folder of the plugin "
+"template files in the ``data/error_recode`` folder of the plugin "
 "installation directory. Also template file contains a buil-in default "
 "styling and attribute form configuration which will be automatically applied"
 " to the layer when loading into QGIS."
@@ -860,10 +871,14 @@ msgid ""
 "for charts are stored in the vector layer attribute table. Values from the "
 "corresponding fields extracted with the help of expressions."
 msgstr ""
+"Para apresentar gráficos no formulário atributo, é usado um widget QML "
+"integrado. Os dados para os gráficos estão guardados na tabela de atributos "
+"da camada vetorial. Os valores dos campos correspondentes são extraídos com "
+"a ajuda de expressões."
 
 #: ../../source/for_developers/development.rst:449
 msgid "The code to generate charts looks like this:"
-msgstr ""
+msgstr "O código para gerar gráficos tem este aspeto:"
 
 #: ../../source/for_developers/development.rst:479
 msgid ""
@@ -875,24 +890,33 @@ msgid ""
 "percentage of the polygon area. For example, in case of productivity "
 "indicator fields will be:"
 msgstr ""
+"Para extrair o valor do campo, é usada a função "
+"``expression.evaluate(\"\\\"prod_deg\\\"\")``, o único argumento que aceita "
+"é o nome do campo. Para camadas de falsos positivos/negativos, o gráfico "
+"contém três indicadores, produtividade, cobertura de solo e carbono orgânico"
+" do solo. Para cada indicador, o plug-in mantém três valores da área do "
+"polígono: estável, degradado e melhorado. Por exemplo, no caso do indicador "
+"produtividade, os campos serão:"
 
 #: ../../source/for_developers/development.rst:487
 msgid "prod_deg - degraded productivity"
-msgstr ""
+msgstr "prod_deg - produtividade degradada"
 
 #: ../../source/for_developers/development.rst:488
 msgid "prod_stab - stable productivity"
-msgstr ""
+msgstr "prod_stab - produtividade estável"
 
 #: ../../source/for_developers/development.rst:489
 msgid "prod_imp - improved productivity"
-msgstr ""
+msgstr "prod_imp - produtividade melhorada"
 
 #: ../../source/for_developers/development.rst:491
 msgid ""
 "The same naming approach is applied to land cover (``land_*`` fields) and "
 "soil organic carbon (``soil_*`` fields)."
 msgstr ""
+"A mesma abordagem de nomenclatura é aplicada à cobertura do solo (campos "
+"``land_*``) e ao carbono orgânico do solo (campos ``soil_*``)."
 
 #: ../../source/for_developers/development.rst:494
 msgid ""
@@ -905,6 +929,16 @@ msgid ""
 "percentage. As pixel counting is built on numpy array functions it is very "
 "fast even for big polygons."
 msgstr ""
+"O cálculo da percentagem de área é feito com a função de expressão "
+"personalizada, o seu código pode ser encontrado no ficheiro ``charts.py``, "
+"no diretório de raíz do plug-in. A função está otimizada para funcionar com "
+"polígonos grandes e  utiliza o seguinte fluxo de trabalho. Para uma dada "
+"geometria, encontra uma bbox e extrai o subconjunto de matriz, usando esta "
+"bbox. Executa a rasterização geométrica na memória e aplica-a como máscara "
+"para o cálculo matricial. Depois conta o número de pixeis que têm um valor "
+"específico e calcula percentagem. Uma vez que a contagem de pixéis está "
+"construída sobre funções vetoriais numpy, é muito rápida, mesmo para "
+"polígonos de grande dimensão."
 
 #: ../../source/for_developers/development.rst:503
 msgid ""
@@ -913,10 +947,15 @@ msgid ""
 " plugin will setup default expression values for all indicator fields, so "
 "the value will be updated on every geometry change."
 msgstr ""
+"Na primeira tentativa de editar uma camada vetorial, será apresentado um "
+"diálogo ao utilizador, onde este deverá escolher os conjuntos de dados a "
+"usar para os indicadores. Depois o plug-in irá configurar os valores de "
+"expressão por defeito para todos os campos indicadores, para que o valor "
+"seja atualizado em cada alteração de geometria."
 
 #: ../../source/for_developers/development.rst:509
 msgid "Dataset metadata handling"
-msgstr ""
+msgstr "Gestão dos metadados do conjunto de dados"
 
 #: ../../source/for_developers/development.rst:511
 msgid ""
@@ -925,6 +964,10 @@ msgid ""
 "Metadata editor dialog is opened from the **Edit metadata** menu in the "
 "Trends.Earth dock."
 msgstr ""
+"Os metadados dos conjuntos de dados são armazenados no formato QGIS QMD. "
+"Estes ficheiros QMD podem ser criados para cada matriz individualmente e "
+"também para todo o conjunto de dados. O diálogo do editor de metadados é "
+"aberto a partir do menu **Editar metadados** na plataforma Trends.Earth."
 
 #: ../../source/for_developers/development.rst:516
 msgid ""
@@ -932,14 +975,17 @@ msgid ""
 "XSLT transformation. Corresponding transformation are located in the "
 "``data\\xsl`` subdirectory of the plugin installation folder."
 msgstr ""
+"Quando o conjunto de dados é exportado para ZIP, a conversão para ISO XML é "
+"realizada usando transformação XSLT. As transformações correspondentes estão"
+" localizadas na sub-pasta  ``data\\xsl`` da pasta de instalação do plug-in."
 
 #: ../../source/for_developers/development.rst:522
 msgid "Updating the Reporting Framework"
-msgstr ""
+msgstr "A atualizar estrutura de relatório"
 
 #: ../../source/for_developers/development.rst:527
 msgid "Overview of the Reporting Framework"
-msgstr ""
+msgstr "Resumo da estrutura de relatório"
 
 #: ../../source/for_developers/development.rst:528
 msgid ""
@@ -951,12 +997,21 @@ msgid ""
 "information about :code:`qgis_process` `here "
 "<https://docs.qgis.org/3.22/en/docs/user_manual/processing/standalone.html>`_."
 msgstr ""
+"A Estrutura de Relatórios foi concebida para ser extensível, proporcionando "
+"ao mesmo tempo interatividade ao utilizador, através de operações sem "
+"bloqueio. A Estrutura baseia-se fortemente nas classes :code:`QgsProject` e "
+":code:`QgsPrintLayout`, que não são seguras, daí a utilização de "
+":code:`qgis_process` para fazer o trabalho pesado de gerar os relatórios (e "
+"gráficos). Pode encontrar mais informação sobre :code:`qgis_process` `aqui "
+"<https://docs.qgis.org/3.22/en/docs/user_manual/processing/standalone.html>`_."
 
 #: ../../source/for_developers/development.rst:533
 msgid ""
 "There are two main steps the toolbox performs when generating reports (and "
 "charts) for the default layers in a job:"
 msgstr ""
+"A caixa de ferramentas executa dois passos principais quando gera relatórios"
+" (e gráficos) para as camadas por defeito num trabalho:"
 
 #: ../../source/for_developers/development.rst:535
 msgid ""
@@ -968,6 +1023,13 @@ msgid ""
 "(that inherits from `QgsTask "
 "<https://qgis.org/pyqgis/master/core/QgsTask.html>`_)."
 msgstr ""
+"Cria um objeto :code:`ReportTaskContext` que constitui um objeto "
+":code:`ReportConfiguration` (ver: ref:`config_report_params`) e um objeto "
+":code:`Job` que é representado no painel de **Conjuntos de dados**. Este "
+"objeto :code:`ReportTaskContext` é serializado para um ficheiro JSON e "
+"depois passado como um dos argumentos num objeto "
+":code:`ReportProcessHandlerTask` (que herda de `QgsTask "
+"<https://qgis.org/pyqgis/master/core/QgsTask.html>`_)."
 
 #: ../../source/for_developers/development.rst:540
 msgid ""
@@ -984,14 +1046,27 @@ msgid ""
 ":ref:`modifying_charts_config` for more information about chart "
 "configurations)"
 msgstr ""
+"O objeto :code:`ReportProcessHandlerTask` inicia uma instância separada de "
+":code:`qgis_process` e passa o caminho para o ficheiro JSON como uma entrada"
+" para o algoritmo de processamento :code:`trendsearth:reporttask`. Este é um"
+" wrapper fino que desserializa o ficheiro para o objeto "
+":code:`ReportTaskContext` e o passa para um objeto "
+":code:`ReportTaskProcessor`, que é responsável por gerar os relatórios e o "
+"projeto QGIS do trabalho. Para algoritmos que requerem gráficos, o objeto "
+":code:`ReportTaskProcessor` passa o objeto do trabalho para um objeto "
+":code:`AlgorithmChartsManager` que verifica se existe uma configuração de "
+"gráficos definida para o algoritmo do trabalho. Se existir, gera os gráficos"
+" correspondentes como ficheiros PNG. (Ver :ref:`modifying_charts_config` "
+"para mais informações sobre configurações de gráficos)"
 
 #: ../../source/for_developers/development.rst:548
 msgid "The diagram below provides a high-level illustration of this process:"
 msgstr ""
+"O diagrama em baixo apresenta uma ilustração de alto nível deste processo:"
 
 #: ../../source/for_developers/development.rst:554
 msgid "`* Click on the image for an enlarged view.`"
-msgstr ""
+msgstr "`* Clique na imagem para uma vista ampliada.`"
 
 #: ../../source/for_developers/development.rst:557
 msgid ""
@@ -1003,10 +1078,16 @@ msgid ""
 "<https://github.com/ConservationInternational/trends.earth/tree/master/LDMP/processing_provider/report.py>`_"
 " modules."
 msgstr ""
+"Alguns dos nomes de funções no diagrama em cima foram simplificados para "
+"fins ilustrativos. As classes cima mencionadas podem ser encontradas nos "
+"módulos `LDMP.reports "
+"<https://github.com/ConservationInternational/trends.earth/tree/master/LDMP/reports>`_"
+" e `LDMP.processing_provider.report "
+"<https://github.com/ConservationInternational/trends.earth/tree/master/LDMP/processing_provider/report.py>`_."
 
 #: ../../source/for_developers/development.rst:565
 msgid "Adding Report Layout Variables"
-msgstr ""
+msgstr "A adicionar variáveis de layout do relatório"
 
 #: ../../source/for_developers/development.rst:566
 msgid ""
@@ -1015,6 +1096,10 @@ msgid ""
 "Currently, the toolbox supports variables listed in the "
 ":ref:`layout_expr_vars` section."
 msgstr ""
+"As variáveis do relatório fornecem informações de contexto relacionadas com "
+"um trabalho, camada (ou banda) ou :ref:`report_settings` durante o processo "
+"de execução do relatório. Atualmente, a caixa de ferramentas suporta as "
+"variáveis listadas na secção :ref:`layout_expr_vars`."
 
 #: ../../source/for_developers/development.rst:569
 msgid ""
@@ -1024,16 +1109,23 @@ msgid ""
 " module and, is subsequently updated and evaluated by the "
 ":code:`ReportTaskProcessor` object."
 msgstr ""
+"Cada variável é definida como uma :code:`namedtuple` no módulo "
+"`LDMP.reports.expressions "
+"<https://github.com/ConservationInternational/trends.earth/tree/master/LDMP/reports/expressions.py>`_"
+" e é subsequentemente atualizada e avaliada pelo objeto "
+":code:`ReportTaskProcessor`."
 
 #: ../../source/for_developers/development.rst:572
 msgid ""
 "Follow the guidelines below on how to add new job or current layer "
 "variables."
 msgstr ""
+"Siga as orientações em baixo sobre como adicionar novas variáveis de "
+"trabalho ou de camada atual."
 
 #: ../../source/for_developers/development.rst:575
 msgid "Job Variable"
-msgstr ""
+msgstr "Variável de trabalho"
 
 #: ../../source/for_developers/development.rst:576
 msgid ""
@@ -1041,30 +1133,34 @@ msgid ""
 "to a report layout. Information about each job variable is encapsulated in a"
 " :code:`JobAttrVarInfo` object that is made up of four attributes:"
 msgstr ""
+"Permite que a informação sobre o trabalho atual - a ser executado - seja "
+"adicionada ao layout de um relatório. A informação sobre cada variável de "
+"trabalho é encapsulada num objeto :code:`JobAttrVarInfo` que tem quatro "
+"atributos:"
 
 #: ../../source/for_developers/development.rst:580
 #: ../../source/for_developers/development.rst:622
 msgid "Attribute Name"
-msgstr ""
+msgstr "Nome de atributo"
 
 #: ../../source/for_developers/development.rst:580
 #: ../../source/for_developers/development.rst:622
 msgid "Description"
-msgstr ""
+msgstr "Descrição"
 
 #: ../../source/for_developers/development.rst:580
 #: ../../source/for_developers/development.rst:622
 msgid "Data Type"
-msgstr ""
+msgstr "Tipo de dados"
 
 #: ../../source/for_developers/development.rst:580
 #: ../../source/for_developers/development.rst:622
 msgid "Default Value"
-msgstr ""
+msgstr "Valor por defeito"
 
 #: ../../source/for_developers/development.rst:582
 msgid "`job_attr`"
-msgstr ""
+msgstr "`job_attr`"
 
 #: ../../source/for_developers/development.rst:582
 msgid ""
@@ -1073,33 +1169,38 @@ msgid ""
 "notation to refer to attributes in inner nested classes e.g. "
 "`results.uri.uri`."
 msgstr ""
+"Nome de atributo de um objeto :code:`Job`, como usado numa notação dot. Por "
+"exemplo, `id` corresponde a :code:`job.id`. Pode até usar a notação dot para"
+" referir-se a atributos em classes internas de cadeias, por exemplo, "
+"`results.uri.uri`."
 
 #: ../../source/for_developers/development.rst:582
 #: ../../source/for_developers/development.rst:587
 #: ../../source/for_developers/development.rst:624
 msgid "String"
-msgstr ""
+msgstr "String"
 
 #: ../../source/for_developers/development.rst:582
 #: ../../source/for_developers/development.rst:587
 #: ../../source/for_developers/development.rst:624
 msgid "N/A"
-msgstr ""
+msgstr "N/D"
 
 #: ../../source/for_developers/development.rst:587
 #: ../../source/for_developers/development.rst:624
 msgid "`var_name`"
-msgstr ""
+msgstr "`var_name`"
 
 #: ../../source/for_developers/development.rst:587
 msgid ""
 "Name of the report layout variable. It should be prefixed with `te_job_`."
 msgstr ""
+"Nome da variável de layout do relatório. Deve ter o prefixo `te_job_`."
 
 #: ../../source/for_developers/development.rst:590
 #: ../../source/for_developers/development.rst:627
 msgid "`default_value`"
-msgstr ""
+msgstr "`default_value`"
 
 #: ../../source/for_developers/development.rst:590
 #: ../../source/for_developers/development.rst:627
@@ -1107,18 +1208,20 @@ msgid ""
 "A default value to use for `var_name`, mostly applied when designing "
 "layouts."
 msgstr ""
+"Valor por defeito a usar para `var_name`, aplicado principalmente ao "
+"desenhar layouts."
 
 #: ../../source/for_developers/development.rst:590
 #: ../../source/for_developers/development.rst:590
 #: ../../source/for_developers/development.rst:627
 #: ../../source/for_developers/development.rst:627
 msgid "object"
-msgstr ""
+msgstr "objeto"
 
 #: ../../source/for_developers/development.rst:593
 #: ../../source/for_developers/development.rst:630
 msgid "`fmt_func`"
-msgstr ""
+msgstr "`fmt_func`"
 
 #: ../../source/for_developers/development.rst:593
 msgid ""
@@ -1127,22 +1230,28 @@ msgid ""
 " can be used to convert the value of a job's `id` from UUID to string. You "
 "can also use lambda functions here."
 msgstr ""
+"Um objeto de função que será usado para converter o valor do atributo do "
+"trabalho para um formato compatível com expressões QGIS. Por exemplo, "
+":code:`str` pode ser usado para converter o valor do `id` de um trabalho, de"
+" UUID para string. Também pode usar funções lambda aqui."
 
 #: ../../source/for_developers/development.rst:593
 #: ../../source/for_developers/development.rst:630
 msgid "function object"
-msgstr ""
+msgstr "objeto de função"
 
 #: ../../source/for_developers/development.rst:593
 #: ../../source/for_developers/development.rst:630
 msgid "None"
-msgstr ""
+msgstr "Nenhum"
 
 #: ../../source/for_developers/development.rst:601
 msgid ""
 "The code snippet below shows how to add a variable `te_job_result_name` that"
 " corresponds to :code:`job.results.name`."
 msgstr ""
+"O fragmento de código em baixo mostra como adicionar uma variável "
+"`te_job_result_name` que corresponde a :code:`job.results.name`."
 
 #: ../../source/for_developers/development.rst:617
 msgid "Layer Variable"
@@ -1723,88 +1832,88 @@ msgstr ""
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr ""
+msgstr "iconCalculator"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr ""
+msgstr "iconChart"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr ""
+msgstr "iconClipboard"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr ""
+msgstr "iconCloudDownload"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr ""
+msgstr "iconCog"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr ""
+msgstr "iconDeletedataset"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
-msgstr ""
+msgstr "iconGlobe"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr ""
+msgstr "iconGraph"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr ""
+msgstr "iconInfo"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr ""
+msgstr "iconLoaddataset"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr ""
+msgstr "iconMarkMarker"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr ""
+msgstr "iconOpendatasetdirectory"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr ""
+msgstr "iconViewdatasetdetails"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr ""
+msgstr "iconWrench"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr ""
+msgstr "iconFolder"
 
 #: ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr ""
+msgstr "iconReports"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr ""
+msgstr "iconTrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr ""
+msgstr "iconVisualization"
 
 #: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr ""
+msgstr "logoCI"
 
 #: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr ""
+msgstr "logoLund"
 
 #: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr ""
+msgstr "logoNASA"
 
 #: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr ""
+msgstr "logoGEF"

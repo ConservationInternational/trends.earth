@@ -102,7 +102,30 @@ SOURCES = ../about.py \
 ../timeseries.py \
 ../utils.py \
 ../visualization.py \
-../worker.py
+../worker.py \
+../algorithms/models.py \
+../algorithms/mvc.py \
+../jobs/manager.py \
+../jobs/models.py \
+../jobs/mvc.py \
+../localexecution/biomassrestoration.py \
+../localexecution/drought.py \
+../localexecution/landcover.py \
+../localexecution/ldn.py \
+../localexecution/soilorganiccarbon.py \
+../localexecution/totalcarbon.py \
+../localexecution/unccd.py \
+../processing_provider/carbon.py \
+../processing_provider/provider.py \
+../processing_provider/report.py \
+../processing_provider/utilities.py \
+../reports/charts.py \
+../reports/expressions.py \
+../reports/generator.py \
+../reports/models.py \
+../reports/mvc.py \
+../reports/template_manager.py \
+../reports/utils.py
 
-TRANSLATIONS = LDMP.ts LDMP.fr.ts LDMP.es.ts LDMP.sw.ts LDMP.ar.ts LDMP.zh.ts \
-LDMP.pt.ts LDMP.ru.ts
+TRANSLATIONS = LDMP.ts LDMP_fr.ts LDMP_es.ts LDMP_sw.ts LDMP_ar.ts LDMP_zh.ts \
+LDMP_pt.ts LDMP_ru.ts LDMP_fa.ts

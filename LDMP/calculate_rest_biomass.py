@@ -87,7 +87,7 @@ class DlgCalculateRestBiomassData(
         resp = job_manager.submit_remote_job(payload, self.script.id)
         if resp:
             main_msg = "Submitted"
-            description = "Restoration biomass change submitted to Google Earth Engine."
+            description = "Restoration biomass change submitted to Trends.Earth server."
         else:
             main_msg = "Error"
             description = (

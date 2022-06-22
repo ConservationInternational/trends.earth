@@ -11,6 +11,10 @@
  ***************************************************************************/
 """
 import json
+from enum import (
+    auto,
+    Flag
+)
 import os
 import zipfile
 import typing
@@ -40,6 +44,7 @@ from . import (
 from .conf import (
     Setting,
     settings_manager,
+    TR_ALL_REGIONS
 )
 from .jobs.manager import job_manager
 from .lc_setup import (
@@ -77,17 +82,17 @@ Ui_WidgetLandCoverCustomClassEditor, _ = uic.loadUiType(
 from .logger import log
 from .utils import FileUtils
 
-
 ICON_PATH = os.path.join(os.path.dirname(__file__), 'icons')
 
 
 settings = QtCore.QSettings()
 
 
-def tr(message):
-    return QtCore.QCoreApplication.translate("tr_settings", message)
+class tr_settings(QtCore.QObject):
+    def tr(txt):
+        return QtCore.QCoreApplication.translate(self.__class__.__name__, txt)
 
-        
+
 # Function to indicate if child is a folder within parent
 def is_subdir(child, parent):
     parent = os.path.normpath(os.path.realpath(parent))
@@ -120,8 +125,8 @@ def _get_user_email(auth_setup, warn=True):
     if warn and email is None:
         QtWidgets.QMessageBox.critical(
             None,
-            tr("Error"),
-            tr("Please setup access to {auth_setup.name} before "
+            tr_settings.tr("Error"),
+            tr_settings.tr("Please setup access to {auth_setup.name} before "
                "using this function.")
         )
         return None
@@ -270,7 +275,7 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
                 QtWidgets.QMessageBox.information(
                     None,
                     self.tr("Success"),
-                    tr(f'Trends.Earth user {email} deleted.')
+                    self.tr(f'Trends.Earth user {email} deleted.')
                 )
                 # remove currently used config (as set in QSettings) and
                 # trigger GUI
@@ -289,6 +294,20 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
         self.accept()
 
 
+class AreaWidgetSection(Flag):
+    """
+    Defines main sections in the AreaWidget, primarily used to set which
+    sections to hide/show.
+    """
+    COUNTRY = auto()
+    REGION = auto()
+    POINT = auto()
+    FILE = auto()
+    BUFFER = auto()
+    NAME = auto()
+    DISCLAIMER = auto()
+
+
 class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
     admin_bounds_key: typing.Dict[str, download.Country]
     cities: typing.Dict[str, typing.Dict[str, download.City]]
@@ -301,6 +320,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.canvas = iface.mapCanvas()
         self.vector_file = None
         self.current_cities_key = None
+        self.hide_on_choose_point = True
 
         self.admin_bounds_key = download.get_admin_bounds()
 
@@ -420,7 +440,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 
     def populate_admin_1(self):
         self.secondLevel_area_admin_1.clear()
-        self.secondLevel_area_admin_1.addItems(['All regions'])
+        self.secondLevel_area_admin_1.addItems([TR_ALL_REGIONS])
         self.secondLevel_area_admin_1.addItems(
             sorted(
                 self.admin_bounds_key[
@@ -456,10 +476,72 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 
     def point_chooser(self):
         log("Choosing point from canvas...")
+
         self.canvas.setMapTool(self.choose_point_tool)
-        self.window().hide()
-        QtWidgets.QMessageBox.critical(None, self.tr(
-            "Point chooser"), self.tr("Click the map to choose a point."))
+
+        msg_bar = iface.messageBar()
+        msg_duration = 5
+
+        # Check layers
+        if qgis.core.QgsProject.instance().count() == 0:
+            msg_bar.pushMessage(
+                self.tr(
+                    'The map must have at least one layer.'
+                ),
+                qgis.core.Qgis.Warning,
+                msg_duration
+            )
+            return
+
+        if self.hide_on_choose_point:
+            self.window().hide()
+
+        msg_bar.pushMessage(
+            self.tr('Click the map to choose a point.'),
+            qgis.core.Qgis.Info,
+            msg_duration
+        )
+
+    def set_section_visibility(self, sections: AreaWidgetSection, show=False):
+        """
+        Specify one or more sections to hide with support for bitwise
+        operators.
+        """
+        # Country (and region)
+        if bool(sections & AreaWidgetSection.COUNTRY):
+            self.area_fromadmin.setVisible(show)
+            self.frame_country_region.setVisible(show)
+
+        # Region
+        if bool(sections & AreaWidgetSection.REGION):
+            self.second_level_label.setVisible(show)
+            self.second_level.setVisible(show)
+
+        # Disclaimer
+        if bool(sections & AreaWidgetSection.DISCLAIMER):
+            self.label_disclaimer.setVisible(show)
+
+        # Point
+        if bool(sections & AreaWidgetSection.POINT):
+            self.area_frompoint.setVisible(show)
+            self.frame_area_frompoint.setVisible(show)
+
+        # File
+        if bool(sections & AreaWidgetSection.FILE):
+            self.area_fromfile.setVisible(show)
+            self.frame_area_fromfile.setVisible(show)
+
+        # Buffer
+        if bool(sections & AreaWidgetSection.BUFFER):
+            self.checkbox_buffer.setVisible(show)
+            self.frame.setVisible(show)
+
+        # Name
+        if bool(sections & AreaWidgetSection.NAME):
+            self.label_2.setVisible(show)
+            self.area_settings_name.setVisible(show)
+
+        self.updateGeometry()
 
     def generate_name_setting(self):
         if self.area_fromadmin.isChecked():
@@ -1106,7 +1188,8 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
         except PermissionError:
             QtWidgets.QMessageBox.critical(None,
                                            self.tr("Error"),
-                                           self.tr("Unable to write to {}. Try a different folder.".format(filename)))
+                                           self.tr("Unable to write to {}. Try a "
+                                                   "different folder.".format(out_folder)))
 
             return None
 

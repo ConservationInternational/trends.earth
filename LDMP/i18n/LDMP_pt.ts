@@ -1,299 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS><TS version="2.0" language="pt" sourcelanguage="">
 <context>
-    <name>@default</name>
+    <name>AlgorithmEditorWidget</name>
     <message>
-        <location filename="../api.py" line="105"/>
-        <source>Unable to login to Trends.Earth server. Check your internet connection.</source>
+        <location filename="../algorithms/mvc.py" line="237"/>
+        <source>Execute remotely</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../api.py" line="110"/>
-        <source>Unable to connect to Trends.Earth  server.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../api.py" line="199"/>
-        <source>Unable to read token for Trends.Earth server. Check username and password.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../api.py" line="206"/>
-        <source>Unable to login to Trends.Earth. Check username and password.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../api.py" line="214"/>
-        <source>Unable to access Trends.Earth server. Check your internet connection</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="108"/>
-        <source>Error</source>
-        <translation type="unfinished">Erro</translation>
-    </message>
-    <message>
-        <location filename="../api.py" line="235"/>
-        <source>Unable to login to Trends.Earth. Check that username and password are correct.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../auth.py" line="81"/>
-        <source>Cannot init auth configuration</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../auth.py" line="89"/>
-        <source>Cannot update auth configuration</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../auth.py" line="102"/>
-        <source>No authentication set for {auth_setup.name}. Setup in Trends.Earth settings</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../auth.py" line="111"/>
-        <source>Cannot remove auth configuration for {auth_setup.name} with id: {authConfigId}</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../auth.py" line="133"/>
-        <source>No authentication set. Setup username and password before using {auth_setup.name} functions.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../auth.py" line="147"/>
-        <source>Cannot retrieve credentials with id {authConfigId}. Setup username and password before using {auth_setup.name} functions.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../auth.py" line="162"/>
-        <source>Cannot retrieve {auth_setup.name} credentials with id {authConfigId}. Setup username and password before using {auth_setup.name} functions.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../auth.py" line="174"/>
-        <source>{auth_setup.name} credentials with id {authConfigId} are not valid. Setup username and password before using {auth_setup.name}.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../auth.py" line="187"/>
-        <source>Auth method with id {authConfigId} is {authConfig.method()}. This method is not supported by by {auth_setup.name}</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../datasets_dialog.py" line="158"/>
-        <source>Error exporting dataset {self.job}</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../datasets_dialog.py" line="165"/>
-        <source>Dataset exported to {target_path!r}</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../main_widget.py" line="181"/>
-        <source>All</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../main_widget.py" line="184"/>
-        <source>Raster</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../main_widget.py" line="187"/>
-        <source>Vector</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../main_widget.py" line="198"/>
-        <source>Load existing Trends.Earth output file...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../main_widget.py" line="203"/>
-        <source>Import custom Productivity dataset...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../main_widget.py" line="208"/>
-        <source>Import custom Land Cover dataset...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../main_widget.py" line="213"/>
-        <source>Import custom Soil Organic Carbon dataset...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../main_widget.py" line="223"/>
-        <source>Download raw dataset used in Trends.Earth...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../main_widget.py" line="227"/>
-        <source>Download Land Potential Knowledge System (LandPKS) data...</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../main_widget.py" line="243"/>
-        <source>Create false positive/negative layer</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="108"/>
-        <source>Please setup access to {auth_setup.name} before using this function.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="246"/>
-        <source>Trends.Earth user {email} deleted.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../metadata_dialog.py" line="48"/>
-        <source>Farming</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../metadata_dialog.py" line="48"/>
-        <source>Biota</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../metadata_dialog.py" line="49"/>
-        <source>Boundaries</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../metadata_dialog.py" line="49"/>
-        <source>Climatology Meteorology Atmosphere</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../metadata_dialog.py" line="50"/>
-        <source>Economy</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../metadata_dialog.py" line="50"/>
-        <source>Elevation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../metadata_dialog.py" line="50"/>
-        <source>Environment</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../metadata_dialog.py" line="51"/>
-        <source>Geoscientific Information</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../metadata_dialog.py" line="51"/>
-        <source>Health</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../metadata_dialog.py" line="52"/>
-        <source>Imagery Base Maps Earth Cover</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../metadata_dialog.py" line="52"/>
-        <source>Intelligence Military</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../metadata_dialog.py" line="53"/>
-        <source>Inland Waters</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../metadata_dialog.py" line="53"/>
-        <source>Location</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../metadata_dialog.py" line="53"/>
-        <source>Oceans</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../metadata_dialog.py" line="54"/>
-        <source>Planning Cadastre</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../metadata_dialog.py" line="54"/>
-        <source>Society</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../metadata_dialog.py" line="54"/>
-        <source>Structure</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../metadata_dialog.py" line="55"/>
-        <source>Transportation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../metadata_dialog.py" line="55"/>
-        <source>Utilities Communication</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../metadata_dialog.py" line="73"/>
-        <source>postal</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../metadata_dialog.py" line="88"/>
-        <source>New Category</source>
+        <location filename="../algorithms/mvc.py" line="238"/>
+        <source>Execute locally</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>AreaWidget</name>
     <message>
-        <location filename="../settings.py" line="433"/>
-        <source>Point chooser</source>
-        <translation>Seletor de ponto</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="433"/>
-        <source>Click the map to choose a point.</source>
-        <translation>Clique no mapa para escolher um ponto.</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="525"/>
-        <source>Select a file defining the area of interest</source>
-        <translation>Selecione um arquivo que defina a área de interesse</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="525"/>
-        <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
-        <translation>Arquivo vetorial (* .shp * .kml * .kmz * .geojson)</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="539"/>
-        <source>Error</source>
-        <translation>Erro</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="539"/>
-        <source>Cannot read {}. Choose a different file.</source>
-        <translation>Não foi possível ler {}. Escolha um arquivo diferente.</translation>
-    </message>
-    <message>
         <location filename="../maptools.py" line="47"/>
         <source>Area</source>
-        <translation type="unfinished">Área</translation>
+        <translation>Área</translation>
     </message>
     <message>
         <location filename="../maptools.py" line="52"/>
@@ -305,13 +30,56 @@
         <source>{:.6g} km&#xc2;&#xb2;</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../settings.py" line="459"/>
+        <source>The map must have at least one layer.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="471"/>
+        <source>Click the map to choose a point.</source>
+        <translation>Clique no mapa para escolher um ponto.</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="607"/>
+        <source>Select a file defining the area of interest</source>
+        <translation>Selecione um arquivo que defina a área de interesse</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="607"/>
+        <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
+        <translation>Arquivo vetorial (* .shp * .kml * .kmz * .geojson)</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="621"/>
+        <source>Error</source>
+        <translation>Erro</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="621"/>
+        <source>Cannot read {}. Choose a different file.</source>
+        <translation>Não foi possível ler {}. Escolha um arquivo diferente.</translation>
+    </message>
+</context>
+<context>
+    <name>BaseAlgorithmChartsConfiguration</name>
+    <message>
+        <location filename="../reports/charts.py" line="775"/>
+        <source>Land Cover Area</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reports/charts.py" line="776"/>
+        <source>in</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>BufferMapTool</name>
     <message>
         <location filename="../maptools.py" line="390"/>
         <source>add feature</source>
-        <translation type="unfinished"></translation>
+        <translation>adicionar funcionalidade</translation>
     </message>
 </context>
 <context>
@@ -329,7 +97,7 @@
     <message>
         <location filename="../maptools.py" line="84"/>
         <source>Area</source>
-        <translation type="unfinished">Área</translation>
+        <translation>Área</translation>
     </message>
     <message>
         <location filename="../maptools.py" line="98"/>
@@ -399,6 +167,49 @@
     </message>
 </context>
 <context>
+    <name>ClipRaster</name>
+    <message>
+        <location filename="../processing_provider/utilities.py" line="39"/>
+        <source>Clip a raster</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../processing_provider/utilities.py" line="42"/>
+        <source>Utilities</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../processing_provider/utilities.py" line="48"/>
+        <source>Clip a raster using a vector specified by a geojson</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../processing_provider/utilities.py" line="51"/>
+        <source>Input file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../processing_provider/utilities.py" line="57"/>
+        <source>GeoJSON specifying area to clip to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../processing_provider/utilities.py" line="63"/>
+        <source>Output bounds (as a string readable by numpy.fromstring)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../processing_provider/utilities.py" line="69"/>
+        <source>Output file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../processing_provider/utilities.py" line="75"/>
+        <source>Did operation complete successfully?</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>DataTableModel</name>
     <message>
         <location filename="../landpks.py" line="76"/>
@@ -449,13 +260,139 @@
 <context>
     <name>DatasetDetailsDialogue</name>
     <message>
-        <location filename="../datasets_dialog.py" line="184"/>
+        <location filename="../datasets_dialog.py" line="179"/>
         <source>Dataset metadata</source>
+        <translation>Metadados da base de dados</translation>
+    </message>
+    <message>
+        <location filename="../datasets_dialog.py" line="186"/>
+        <source>{} metadata</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../datasets_dialog.py" line="191"/>
+        <location filename="../datasets_dialog.py" line="152"/>
+        <source>Error exporting dataset {self.job}</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../datasets_dialog.py" line="157"/>
+        <source>Dataset exported to {target_path!r}</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DatasetEditorWidget</name>
+    <message>
+        <location filename="../jobs/mvc.py" line="444"/>
+        <source>Add default layers from this dataset to map</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../jobs/mvc.py" line="448"/>
+        <source>Select specific layers from this dataset to add to map...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../jobs/mvc.py" line="471"/>
+        <source>Time series table is empty</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../jobs/mvc.py" line="480"/>
+        <source>Time Series</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../jobs/mvc.py" line="484"/>
+        <source>Time</source>
+        <translation>Tempo</translation>
+    </message>
+    <message>
+        <location filename="../jobs/mvc.py" line="486"/>
+        <source>Integrated NDVI</source>
+        <translation>NDVI integrado</translation>
+    </message>
+    <message>
+        <location filename="../jobs/mvc.py" line="486"/>
+        <source>NDVI x 10000</source>
+        <translation>NDVI x 10000</translation>
+    </message>
+    <message>
+        <location filename="../jobs/mvc.py" line="572"/>
+        <source>Dataset metadata</source>
+        <translation>Metadados da base de dados</translation>
+    </message>
+    <message>
+        <location filename="../jobs/mvc.py" line="579"/>
         <source>{} metadata</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../jobs/mvc.py" line="594"/>
+        <source>Add vector layer to map</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../jobs/mvc.py" line="598"/>
+        <source>Add raster layers to map</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>DatasetReportHandler</name>
+    <message>
+        <location filename="../reports/mvc.py" line="94"/>
+        <source>Open report directory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reports/mvc.py" line="98"/>
+        <source>Open directory containing reports</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reports/mvc.py" line="103"/>
+        <source>Open layouts...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reports/mvc.py" line="107"/>
+        <source>Open report layouts in QGIS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reports/mvc.py" line="230"/>
+        <source>Invalid File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reports/mvc.py" line="216"/>
+        <source>Report output directory does not exist.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reports/mvc.py" line="230"/>
+        <source>Project file does not exist.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reports/mvc.py" line="238"/>
+        <source>File Read Permission</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reports/mvc.py" line="238"/>
+        <source>Unable to open report file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reports/mvc.py" line="250"/>
+        <source>Open Layouts</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reports/mvc.py" line="250"/>
+        <source>Unable to open the QGIS project file.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -479,7 +416,7 @@
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="66"/>
         <source>Title</source>
-        <translation type="unfinished">Título</translation>
+        <translation>Título</translation>
     </message>
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="79"/>
@@ -514,7 +451,7 @@
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="168"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome</translation>
     </message>
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="175"/>
@@ -554,7 +491,7 @@
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="236"/>
         <source>City</source>
-        <translation type="unfinished"></translation>
+        <translation>Cidade</translation>
     </message>
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="239"/>
@@ -598,52 +535,72 @@
     </message>
     <message>
         <location filename="../gui/DlgSelectDS.ui" line="20"/>
-        <source>Dataset</source>
-        <translation type="unfinished">Conjunto de dados</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgSelectDS.ui" line="27"/>
         <source>sdg-15-3-1-summary</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSelectDS.ui" line="34"/>
-        <source>Land Productivity Dynamics (from JRC)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgSelectDS.ui" line="41"/>
-        <source>Productivity degradation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgSelectDS.ui" line="48"/>
-        <source>Land cover degradation</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgSelectDS.ui" line="55"/>
+        <location filename="../gui/DlgSelectDS.ui" line="27"/>
         <source>SDG 15.3.1 Indicator</source>
-        <translation type="unfinished"></translation>
+        <translation>Indicador ODS 15.3.1</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSelectDS.ui" line="62"/>
-        <source>Soil organic carbon (degradation)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgSelectDS.ui" line="69"/>
+        <location filename="../gui/DlgSelectDS.ui" line="34"/>
         <source>Soil organic carbon degradation</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgSelectDS.ui" line="76"/>
-        <source>Land cover (degradation)</source>
-        <translation type="unfinished">Cobertura da terra (degradação)</translation>
+        <location filename="../gui/DlgSelectDS.ui" line="41"/>
+        <source>Dataset</source>
+        <translation>Conjunto de dados</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSelectDS.ui" line="83"/>
+        <location filename="../gui/DlgSelectDS.ui" line="48"/>
         <source>SDG 15.3.1 indicator</source>
+        <translation>Indicador ODS 15.3.1</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSelectDS.ui" line="63"/>
+        <source>The current selected region of interest</source>
+        <translation>A região de interesse selecionada atualmente</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSelectDS.ui" line="66"/>
+        <source>region name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSelectDS.ui" line="76"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Abre diálogo de definições para alterar a região de interesse.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSelectDS.ui" line="79"/>
+        <source>Change region</source>
+        <translation>Alterar região</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSelectDS.ui" line="88"/>
+        <source>Soil organic carbon (degradation)</source>
+        <translation>Carbono orgânico do solo (degradação)</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSelectDS.ui" line="95"/>
+        <source>Land Productivity Dynamics (from JRC)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSelectDS.ui" line="102"/>
+        <source>Land cover (degradation)</source>
+        <translation>Cobertura da terra (degradação)</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSelectDS.ui" line="109"/>
+        <source>Land cover degradation</source>
+        <translation>Degradação da cobertura da terra</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSelectDS.ui" line="116"/>
+        <source>Productivity degradation</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -653,49 +610,6 @@
         <location filename="../gui/DlgAbout.ui" line="26"/>
         <source>About trends.earth</source>
         <translation>Sobre trends.earth</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgAbout.ui" line="23"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/trends_earth_logo_bl_small.png&quot; /&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Version VERSION_NUMBER&lt;/span&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Access the user guide here:&lt;/span&gt;&lt;/p&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en&quot;&gt;&lt;span style=&quot; font-size:12pt; text-decoration: underline; color:#0000ff;&quot;&gt;http://trends.earth/docs/en&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;trends.earth (formerly the Land Degradation Monitoring Toolbox) is a tool for monitoring land change. trends.earth is a &lt;/span&gt;&lt;a href=&quot;http://www.qgis.org&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;QGIS&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt; plugin that supports monitoring of land change, including changes in productivity, land cover, and soil organic carbon. The tool can support monitoring land degradation for reporting to the Global Environment Facility (GEF) and United Nations Convention to Combat Desertification (UNCCD), as well as tracking progress towards achivement of Sustainable Development Goal (SDG) target 15.3, Land Degradation Neutrality (LDN).&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;trends.earth was produced as an output of the GEF-funded project &amp;quot;&lt;/span&gt;&lt;a href=&quot;http://vitalsigns.org/gef-ldmp&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;Enabling the use of global data sources to assess and monitor land degradation at multiple scales&amp;quot;&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;. The project aims to provide guidance on robust methods and a tool for assessing, monitoring status, and estimating trends in land degradation using remote sensing technology.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;trends.earth is free and open-source. The &lt;/span&gt;&lt;a href=&quot;https://github.com/ConservationInternational/trends.earth&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;code is freely available online&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;. The code is licensed under the GNU General Public License, version 2.0 or later.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;This products of trends.earth are made available under the terms of the Creative Commons Attribution 4.0 International License (&lt;/span&gt;&lt;a href=&quot;https://creativecommons.org/licenses/by/4.0/&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;CC BY 4.0&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;). The boundaries and names used, and the designations used, in trends.earth do not imply official endorsement or acceptance by Conservation International Foundation, or its partner organizations and contributors.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;If you encounter any bugs or have any issues with using the plugin, please contact us at &lt;/span&gt;&lt;a href=&quot;mailto:trends.earth@conservation.org&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;trends.earth@conservation.org&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;, or &lt;/span&gt;&lt;a href=&quot;https://github.com/ConservationInternational/trends.earth/issues&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;report an issue on github&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Citation:&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Trends.Earth. Conservation International. Available online at: http://trends.earth. 2018.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; width=&quot;100%&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot;&gt;
-&lt;tr&gt;
-&lt;td style=&quot; vertical-align:middle;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/GEF_logo_small.png&quot; style=&quot;vertical-align: middle;&quot; /&gt;&lt;/p&gt;&lt;/td&gt;
-&lt;td style=&quot; vertical-align:middle;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/CI_logo_small.png&quot; style=&quot;vertical-align: middle;&quot; /&gt;&lt;/p&gt;&lt;/td&gt;
-&lt;td style=&quot; vertical-align:middle;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/LU_logo_small.png&quot; style=&quot;vertical-align: middle;&quot; /&gt;&lt;/p&gt;&lt;/td&gt;
-&lt;td style=&quot; vertical-align:middle;&quot;&gt;
-&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/NASA_logo_small.png&quot; style=&quot;vertical-align: middle;&quot; /&gt;&lt;/p&gt;&lt;/td&gt;
-&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="obsolete">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/trends_earth_logo_bl_small.png&quot; /&gt;&lt;/p&gt;&lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:12pt;&quot;&gt;Versão VERSION_NUMBER&lt;/span&gt; &lt;/p&gt;&lt;p align=&quot;center&quot; style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:12pt;&quot;&gt;Acesse o guia do usuário aqui:&lt;/span&gt; &lt;/p&gt;&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;a href=&quot;http://trends.earth/docs/en&quot;&gt;&lt;span style=&quot; font-size:12pt; text-decoration: underline; color:#0000ff;&quot;&gt;http://trends.earth/docs/en&lt;/span&gt;&lt;/a&gt; &lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;trends.earth (anteriormente a Caixa de Ferramentas de Monitoramento de Degradação de Terras) é uma ferramenta para monitorar mudanças de terras. trends.earth é um&lt;/span&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;plug-in do&lt;/span&gt; &lt;a href=&quot;http://www.qgis.org&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;QGIS&lt;/span&gt;&lt;/a&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;que oferece suporte ao monitoramento de mudanças na terra, incluindo mudanças na produtividade, cobertura da terra e carbono orgânico do solo. A ferramenta pode apoiar o monitoramento da degradação da terra para relatar ao Global Environment Facility (GEF) e à Convenção das Nações Unidas para Combater a Desertificação (UNCCD), bem como acompanhar o progresso em direção à consecução do objetivo 15.3 do Objetivo de Desenvolvimento Sustentável (ODS), Neutralidade da Degradação da Terra (NDT). )&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;trends.earth foi produzido como uma saída do projeto financiado pelo GEF &quot;&lt;/span&gt; &lt;a href=&quot;http://vitalsigns.org/gef-ldmp&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;Permitindo o uso de fontes de dados globais para avaliar e monitorar a degradação da terra em várias escalas&quot;&lt;/span&gt;&lt;/a&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;. O projeto tem como objetivo fornecer orientação sobre métodos robustos e uma ferramenta para avaliar, monitorar o status e estimar tendências na degradação do solo usando a tecnologia de sensoriamento remoto.&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;trends.earth é gratuito e de código aberto. O&lt;/span&gt; &lt;a href=&quot;https://github.com/ConservationInternational/trends.earth&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;código está disponível gratuitamente online&lt;/span&gt;&lt;/a&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;. O código está licenciado sob a GNU General Public License, versão 2.0 ou posterior.&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;Estes produtos da trends.earth são disponibilizados sob os termos da Licença Internacional Creative Commons Attribution 4.0 (&lt;/span&gt; &lt;a href=&quot;https://creativecommons.org/licenses/by/4.0/&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;CC BY 4.0&lt;/span&gt;&lt;/a&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;). Os limites e nomes usados e as designações usadas em trends.earth não implicam endosso ou aceitação oficial pela Conservação Internacional, ou por suas organizações e contribuidores parceiros.&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;Se você encontrar algum erro ou tiver algum problema com o uso do plug-in, entre em contato em&lt;/span&gt; &lt;a href=&quot;mailto:trends.earth@conservation.org&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;trends.earth@conservation.org&lt;/span&gt;&lt;/a&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;ou&lt;/span&gt; &lt;a href=&quot;https://github.com/ConservationInternational/trends.earth/issues&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;relate um problema no github&lt;/span&gt;&lt;/a&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;.&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;Citação:&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;Trends.Earth, Conservação Internacional. Disponível online em: http://trends.earth. 2018.&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;table border=&quot;0&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;&quot; width=&quot;100%&quot; cellspacing=&quot;0&quot; cellpadding=&quot;0&quot;&gt;&lt;tr&gt;&lt;td style=&quot; vertical-align:middle;&quot;&gt;&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/GEF_logo_small.png&quot; style=&quot;vertical-align: middle;&quot; /&gt;&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:middle;&quot;&gt;&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/CI_logo_small.png&quot; style=&quot;vertical-align: middle;&quot; /&gt;&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:middle;&quot;&gt;&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/LU_logo_small.png&quot; style=&quot;vertical-align: middle;&quot; /&gt;&lt;/p&gt;&lt;/td&gt;&lt;td style=&quot; vertical-align:middle;&quot;&gt;&lt;p align=&quot;center&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;img src=&quot;:/plugins/LDMP/icons/NASA_logo_small.png&quot; style=&quot;vertical-align: middle;&quot; /&gt;&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgAbout.ui" line="102"/>
@@ -746,81 +660,6 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateBase</name>
     <message>
-        <location filename="../calculate.py" line="996"/>
-        <source>Area</source>
-        <translation type="obsolete">Área</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="1001"/>
-        <source>Output</source>
-        <translation type="obsolete">Saída</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="1005"/>
-        <source>Options</source>
-        <translation type="obsolete">Opções</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="541"/>
-        <source>Error</source>
-        <translation>Erro</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="1086"/>
-        <source>Choose a first level administrative boundary.</source>
-        <translation type="obsolete">Escolha um limite administrativo de primeiro nível.</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="1093"/>
-        <source>Unable to load administrative boundaries.</source>
-        <translation type="obsolete">Não foi possível carregar limites administrativos.</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="1100"/>
-        <source>Choose a file to define the area of interest.</source>
-        <translation type="obsolete">Escolha um arquivo para definir a área de interesse.</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="1113"/>
-        <source>Choose a point to define the area of interest.</source>
-        <translation type="obsolete">Escolha um ponto para definir a área de interesse.</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="1124"/>
-        <source>Choose an area of interest.</source>
-        <translation type="obsolete">Escolha uma área de interesse.</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="1129"/>
-        <source>Unable to read area of interest.</source>
-        <translation type="obsolete">Não foi possível ler a área de interesse.</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="1136"/>
-        <source>Error buffering polygon</source>
-        <translation type="obsolete">Erro ao gerar buffer do polígono</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="1155"/>
-        <source>The bounding box for the requested area (approximately {:.6n}) sq km is too large. Choose a smaller area to process.</source>
-        <translation type="obsolete">A caixa delimitadora da área solicitada (aproximadamente {:.6n}) km2 é muito grande. Escolha uma área menor para processar.</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="541"/>
-        <source>Choose an output base name.</source>
-        <translation>Escolha um nome base para o arquivo de saída.</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="529"/>
-        <source>Unable to calculate bounding box.</source>
-        <translation>Não foi possível calcular a extensão delimitadora.</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="1104"/>
-        <source>Unable to read {}.</source>
-        <translation type="obsolete">Não foi possível ler {}.</translation>
-    </message>
-    <message>
         <location filename="../calculate.py" line="459"/>
         <source>Schedule remote execution</source>
         <translation type="unfinished"></translation>
@@ -835,18 +674,33 @@ p, li { white-space: pre-wrap; }
         <source>Current region: {region}</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../calculate.py" line="541"/>
+        <source>Error</source>
+        <translation>Erro</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="529"/>
+        <source>Unable to calculate bounding box.</source>
+        <translation>Não foi possível calcular a extensão delimitadora.</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="541"/>
+        <source>Choose an output base name.</source>
+        <translation>Escolha um nome base para o arquivo de saída.</translation>
+    </message>
 </context>
 <context>
     <name>DlgCalculateDrought</name>
     <message>
         <location filename="../calculate_drought_vulnerability.py" line="107"/>
         <source>Error</source>
-        <translation type="unfinished">Erro</translation>
+        <translation>Erro</translation>
     </message>
     <message>
         <location filename="../calculate_drought_vulnerability.py" line="107"/>
         <source>Initial and final year are less 5 years apart in - results will be more reliable if more data (years) are included in the analysis.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ano inicial e final tem menos de 5 anos de diferenças - os resultados serão mais fidedignos se forem incluídos mais dados (anos) na análise.</translation>
     </message>
 </context>
 <context>
@@ -869,37 +723,37 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateDroughtSummary.ui" line="223"/>
         <source>The current selected region of interest</source>
-        <translation type="unfinished"></translation>
+        <translation>A região de interesse selecionada atualmente</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateDroughtSummary.ui" line="236"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Abre diálogo de definições para alterar a região de interesse.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateDroughtSummary.ui" line="239"/>
         <source>Change region</source>
-        <translation type="unfinished"></translation>
+        <translation>Alterar região</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateDroughtSummary.ui" line="248"/>
         <source>Execution name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome da execução:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateDroughtSummary.ui" line="255"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A entrada para o nome que será atribuído à tarefa de execução, se não for preenchida o nome do algoritmo será utilizado como nome da tarefa.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateDroughtSummary.ui" line="262"/>
         <source>Notes:</source>
-        <translation type="unfinished">Notas:</translation>
+        <translation>Notas:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateDroughtSummary.ui" line="287"/>
         <source>User notes associated with the executed task.</source>
-        <translation type="unfinished"></translation>
+        <translation>Notas do utilizador associadas à tarefa executada.</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateDroughtSummary.ui" line="321"/>
@@ -916,7 +770,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../calculate_drought_vulnerability.py" line="242"/>
         <source>Error</source>
-        <translation type="unfinished">Erro</translation>
+        <translation>Erro</translation>
     </message>
     <message>
         <location filename="../calculate_drought_vulnerability.py" line="197"/>
@@ -939,67 +793,89 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="20"/>
         <source> Land Cover | Land Degradation</source>
-        <translation type="unfinished">Calcular a mudança da cobertura da terra</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="56"/>
-        <source>Next</source>
-        <translation type="obsolete">Próximo</translation>
+        <location filename="../gui/DlgCalculateLC.ui" line="62"/>
+        <source>The current selected region of interest</source>
+        <translation>A região de interesse selecionada atualmente</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLC.ui" line="65"/>
+        <source>region name</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="75"/>
-        <source>Calculate</source>
-        <translation type="obsolete">Calcular</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Abre diálogo de definições para alterar a região de interesse.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="94"/>
-        <source>Previous</source>
-        <translation type="obsolete">Anterior</translation>
+        <location filename="../gui/DlgCalculateLC.ui" line="78"/>
+        <source>Change region</source>
+        <translation>Alterar região</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="123"/>
-        <source>Land Cover Setup</source>
-        <translation type="obsolete">Configuração da cobertura da terra</translation>
+        <location filename="../gui/DlgCalculateLC.ui" line="93"/>
+        <source>Input the name that will be assigned to the execution task.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="126"/>
-        <source>Define Degradation</source>
-        <translation type="obsolete">Definir Degradação</translation>
+        <location filename="../gui/DlgCalculateLC.ui" line="96"/>
+        <source>Execution name:</source>
+        <translation>Nome da execução:</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="174"/>
-        <source>Submitted</source>
-        <translation type="obsolete">Submetido</translation>
+        <location filename="../gui/DlgCalculateLC.ui" line="103"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A entrada para o nome que será atribuído à tarefa de execução, se não for preenchida o nome do algoritmo será utilizado como nome da tarefa.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="174"/>
-        <source>Land cover task submitted to Google Earth Engine.</source>
-        <translation type="obsolete">Tarefa de calcular mudança na cobertura da terra enviada ao Google Earth Engine.</translation>
+        <location filename="../gui/DlgCalculateLC.ui" line="116"/>
+        <source>Notes:</source>
+        <translation>Notas:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLC.ui" line="141"/>
+        <source>User notes associated with the executed task.</source>
+        <translation>Notas de utilizador associadas à tarefa executada.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLC.ui" line="154"/>
+        <source>Advanced configuration</source>
+        <translation>Configuração avançada</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLC.ui" line="189"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;h3 style=&quot; margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:large; font-weight:600;&quot;&gt;Land cover&lt;/span&gt;&lt;/h3&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;To assess changes in land cover users need land cover maps covering the study area for the baseline and target years. These maps need to be of acceptable accuracy and created in such a way which allows for valid comparisons. Trends.Earth uses ESA CCI land cover maps as the default dataset, but local maps can also be used. The indicator is computed as follows:&lt;/p&gt;
+&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Reclassify both land cover maps to the 7 land cover classes needed for reporting to the UNCCD (forest, grassland, cropland, wetland, artificial area, bare land and water).&lt;/li&gt;
+&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Perform a land cover transition analysis to identify which pixels remained in the same land cover class, and which ones changed.&lt;/li&gt;
+&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Based on your local knowledge of the conditions in the study area and the land degradation processed occurring there, use the table below, in the advanced section, to identify which transitions correspond to degradation (- sign), improvement (+ sign), or no change in terms of land condition (zero).&lt;/li&gt;
+&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; Trends.Earth will combine the information from the land cover maps and the table of degradation typologies by land cover transition to compute the land cover sub-indicator.&lt;/li&gt;&lt;/ol&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#land-cover&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;More information on the Land Cover SDG 15.3.1 Sub-indicator&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { espaço-branco: pré-embrulho; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;h3 style=&quot; margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:large; font-weight:600;&quot;&gt;Cobertura de terreno&lt;/span&gt;&lt;/h3&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Para avaliar alterações na cobertura de solo, os utilizadores necessitam de mapas de cobertura de solo que cubram a área de estudo para os anos base e alvo. Estes mapas têm de ter precisão aceitável e serem criados de forma tal que permita comparações válidas. Trends.Earth utiliza mapas de cobertura de solo ESA CCI como o conjunto de dados padrão, mas também podem ser utilizados mapas locais. O indicador é calculado da seguinte forma:&lt;/p&gt;
+&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Reclassifique ambos os mapas de cobertura de solo para as 7 classes de cobertura de terreno necessárias para reportagem à UNCCD (floresta, pradaria, solo cultivado, pântano, área artificial, solo descoberto e água).&lt;/li&gt;
+&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Faça uma análise de transição de cobertura de solo, para identificar quais os píxeis que se mantiveram na mesma classe de cobertura de solo e quais mudaram.&lt;/li&gt;
+&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Com base no seu conhecimento local das condições na área de estudo e do processo de degradação do solo que ocorreu nesta, utilize a tabela em baixo, na secção avançada, para identificar quais as transações que correspondem a degradação  (sinal - ), melhoria (sinal + ) ou nenhuma alteração na condição do solo (zero).&lt;/li&gt;
+&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; Trends.Earth irá combinar a informação dos mapas de cobertura de solo e as tipologias da tabela de degradação por transição de cobertura de solo para calcular o sub-indicador de cobertura de solo.&lt;/li&gt;&lt;/ol&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#land-cover&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Mais informação sobre o Sub-indicador de Cobertura de Solo ODS 15.3.1&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../calculate_lc.py" line="187"/>
         <source>Error</source>
         <translation>Erro</translation>
-    </message>
-    <message>
-        <location filename="../calculate_lc.py" line="178"/>
-        <source>Unable to submit land cover task to Google Earth Engine.</source>
-        <translation type="obsolete">Não foi possível enviar tarefas de mudança da cobertura da terra para o Google Earth Engine.</translation>
-    </message>
-    <message>
-        <location filename="../calculate_lc.py" line="183"/>
-        <source>Choose a name for the output file</source>
-        <translation type="obsolete">Escolha um nome para o arquivo de saída</translation>
-    </message>
-    <message>
-        <location filename="../calculate_lc.py" line="183"/>
-        <source>Raster file (*.tif)</source>
-        <translation type="obsolete">Arquivo raster (* .tif)</translation>
-    </message>
-    <message>
-        <location filename="../calculate_lc.py" line="192"/>
-        <source>Cannot write to {}. Choose a different file.</source>
-        <translation type="obsolete">Não foi possível escrever para {}. Escolha um arquivo diferente.</translation>
     </message>
     <message>
         <location filename="../calculate_lc.py" line="118"/>
@@ -1032,80 +908,9 @@ p, li { white-space: pre-wrap; }
         <translation>A área de interesse não está inteiramente dentro da camada final de cobertura da terra.</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="273"/>
-        <source>Error calculating land cover change.</source>
-        <translation type="obsolete">Erro ao calcular a mudança da cobertura da terra.</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="62"/>
-        <source>The current selected region of interest</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="65"/>
-        <source>region name</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="75"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="78"/>
-        <source>Change region</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="93"/>
-        <source>Input the name that will be assigned to the execution task.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="96"/>
-        <source>Execution name:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="103"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="116"/>
-        <source>Notes:</source>
-        <translation type="unfinished">Notas:</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="141"/>
-        <source>User notes associated with the executed task.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="154"/>
-        <source>Advanced configuration</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="189"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;h3 style=&quot; margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:large; font-weight:600;&quot;&gt;Land cover&lt;/span&gt;&lt;/h3&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;To assess changes in land cover users need land cover maps covering the study area for the baseline and target years. These maps need to be of acceptable accuracy and created in such a way which allows for valid comparisons. Trends.Earth uses ESA CCI land cover maps as the default dataset, but local maps can also be used. The indicator is computed as follows:&lt;/p&gt;
-&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Reclassify both land cover maps to the 7 land cover classes needed for reporting to the UNCCD (forest, grassland, cropland, wetland, artificial area, bare land and water).&lt;/li&gt;
-&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Perform a land cover transition analysis to identify which pixels remained in the same land cover class, and which ones changed.&lt;/li&gt;
-&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Based on your local knowledge of the conditions in the study area and the land degradation processed occurring there, use the table below, in the advanced section, to identify which transitions correspond to degradation (- sign), improvement (+ sign), or no change in terms of land condition (zero).&lt;/li&gt;
-&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; Trends.Earth will combine the information from the land cover maps and the table of degradation typologies by land cover transition to compute the land cover sub-indicator.&lt;/li&gt;&lt;/ol&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#land-cover&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;More information on the Land Cover SDG 15.3.1 Sub-indicator&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../calculate_lc.py" line="187"/>
         <source>Nesting of land cover legends for initial and final land cover layer must be identical.</source>
-        <translation type="unfinished"></translation>
+        <translation>O encaixamento de lendas de cobertura de solo para as camadas de cobertura de terra inicial e final tem de ser idêntico.</translation>
     </message>
 </context>
 <context>
@@ -1171,102 +976,14 @@ p, li { white-space: pre-wrap; }
         <translation>Aviso</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="270"/>
-        <source>Some of the class codes ({}) in the definition file do not appear in the chosen data file.</source>
-        <translation type="obsolete">Alguns dos códigos de classe ({}) no arquivo de definição não aparecem no arquivo de dados escolhido.</translation>
-    </message>
-    <message>
-        <location filename="../lc_setup.py" line="274"/>
-        <source>Some of the class codes ({}) in the data file do not appear in the chosen definition file.</source>
-        <translation type="obsolete">Alguns dos códigos de classe ({}) no arquivo de dados não aparecem no arquivo de definição escolhido.</translation>
-    </message>
-    <message>
         <location filename="../lc_setup.py" line="446"/>
         <source>Some of the class codes ({unnecessary_child_codes!r}) in the definition file do not appear in the chosen data file.</source>
-        <translation type="unfinished"></translation>
+        <translation>Alguns dos códigos de classe ({unnecessary_child_codes!r}) no ficheiro de definição não aparecem no ficheiro de dados escolhido.</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="456"/>
         <source>Some of the class codes ({child_codes_missing_from_input!r}) in the data file do not appear in the chosen definition file.</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>DlgCalculateLD</name>
-    <message>
-        <location filename="../gui/DlgCalculateLD.ui" line="23"/>
-        <source>Calculate Indicators</source>
-        <translation type="obsolete">Calcular indicadores</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLD.ui" line="35"/>
-        <source>Step 1: Prepare sub-indicators</source>
-        <translation type="obsolete">Etapa 1: preparar subindicadores</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLD.ui" line="59"/>
-        <source>Productivity</source>
-        <translation type="obsolete">Produtividade</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLD.ui" line="84"/>
-        <source>Land cover</source>
-        <translation type="obsolete">Cobertura da terra</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLD.ui" line="109"/>
-        <source>Calculate all three sub-indicators in one step</source>
-        <translation type="obsolete">Calcular todos os três subindicadores em uma única etapa</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLD.ui" line="122"/>
-        <source>Option 1: Use default UNCCD data</source>
-        <translation type="obsolete">Opção 1: usar dados padrão UNCCD</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLD.ui" line="147"/>
-        <source>Soil organic carbon</source>
-        <translation type="obsolete">Carbono orgânico do solo</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLD.ui" line="160"/>
-        <source>Option 2: Use customized data</source>
-        <translation type="obsolete">Opção 2: usar dados personalizados</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLD.ui" line="176"/>
-        <source>Step 2: Calculate final SDG 15.3.1 indicator</source>
-        <translation type="obsolete">Etapa 2: Calcular o indicador final do ODS 15.3.1</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLD.ui" line="188"/>
-        <source>Option 1: Use single unit for analysis (e.g. country boundary)</source>
-        <translation type="obsolete">Opção 1: use unidade única para análise (por exemplo, limite de país)</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLD.ui" line="213"/>
-        <source>Calculate final SDG 15.3.1 spatial layer and summary table for total boundary</source>
-        <translation type="obsolete">Calcular a camada espacial final do ODS 15.3.1 e a tabela resumo para o limite total</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLD.ui" line="226"/>
-        <source>Option 2: Use sub-units for analysis (e.g. province, state or district boundaries)</source>
-        <translation type="obsolete">Opção 2: Use sub-unidades para análise (por exemplo, limites de província, estado ou distrito)</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLD.ui" line="251"/>
-        <source>Calculate area summaries of a raster on sub-units</source>
-        <translation type="obsolete">Calcular resumos de área de um raster com subunidades </translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="531"/>
-        <source>Coming soon!</source>
-        <translation type="obsolete">Em breve!</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="531"/>
-        <source>Multiple polygon summary table calculation coming soon!</source>
-        <translation type="obsolete">Tabela resumo com os cálculos de múltiplos polígonos em breve!</translation>
+        <translation>Alguns dos códigos de classe ({child_codes_missing_from_input!r}) no ficheiro de dados não aparecem no ficheiro de definição escolhido.</translation>
     </message>
 </context>
 <context>
@@ -1274,77 +991,102 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateLDNErrorRecode.ui" line="20"/>
         <source>Correct errors found in SDG 15.3.1 indicator layer</source>
+        <translation>Erros corretos encontrados na camada de indicador ODS 15.3.1</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLDNErrorRecode.ui" line="102"/>
+        <source>Input layer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNErrorRecode.ui" line="126"/>
-        <source>Error polygon dataset</source>
+        <location filename="../gui/DlgCalculateLDNErrorRecode.ui" line="108"/>
+        <source>Productivity</source>
+        <translation>Produtividade</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLDNErrorRecode.ui" line="118"/>
+        <source>Land cover</source>
+        <translation>Cobertura da terra</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLDNErrorRecode.ui" line="128"/>
+        <source>SDG</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNErrorRecode.ui" line="168"/>
-        <source>The current selected region of interest</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLDNErrorRecode.ui" line="181"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLDNErrorRecode.ui" line="184"/>
-        <source>Change region</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLDNErrorRecode.ui" line="193"/>
-        <source>Execution name:</source>
-        <translation type="unfinished"></translation>
+        <location filename="../gui/DlgCalculateLDNErrorRecode.ui" line="141"/>
+        <source>Soil organic carbon</source>
+        <translation>Carbono orgânico do solo</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNErrorRecode.ui" line="200"/>
+        <source>Error polygon dataset</source>
+        <translation>Conjunto de dados de erro de polígono</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLDNErrorRecode.ui" line="242"/>
+        <source>The current selected region of interest</source>
+        <translation>A região de interesse selecionada atualmente</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLDNErrorRecode.ui" line="255"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Abre diálogo de definições para alterar a região de interesse.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLDNErrorRecode.ui" line="258"/>
+        <source>Change region</source>
+        <translation>Alterar região</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLDNErrorRecode.ui" line="267"/>
+        <source>Execution name:</source>
+        <translation>Nome da execução</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLDNErrorRecode.ui" line="274"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A entrada para o nome que será atribuído à tarefa de execução, se não for preenchida o nome do algoritmo será utilizado como nome da tarefa.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNErrorRecode.ui" line="207"/>
+        <location filename="../gui/DlgCalculateLDNErrorRecode.ui" line="281"/>
         <source>Notes:</source>
-        <translation type="unfinished">Notas:</translation>
+        <translation>Notas:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNErrorRecode.ui" line="232"/>
+        <location filename="../gui/DlgCalculateLDNErrorRecode.ui" line="306"/>
         <source>User notes associated with the executed task.</source>
-        <translation type="unfinished"></translation>
+        <translation>Notas do utilizador associadas com a tarefa executada.</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNErrorRecode.ui" line="269"/>
+        <location filename="../gui/DlgCalculateLDNErrorRecode.ui" line="343"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Recode incorrect indicator (false positive/negative)&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;TODO...&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Recode indicator (false positive/negative)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;This tool supports recalculating an indicator layer in order to correct known errors (false positives or false negatives).&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1021"/>
+        <location filename="../calculate_ldn.py" line="1055"/>
         <source>Coming soon!</source>
-        <translation type="unfinished">Em breve!</translation>
+        <translation>Em breve!</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1021"/>
+        <location filename="../calculate_ldn.py" line="1055"/>
         <source>This function coming soon!</source>
-        <translation type="unfinished"></translation>
+        <translation>Este função chegará em breve!</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1038"/>
+        <location filename="../calculate_ldn.py" line="1072"/>
         <source>Error</source>
-        <translation type="unfinished">Erro</translation>
+        <translation>Erro</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="1038"/>
+        <location filename="../calculate_ldn.py" line="1072"/>
         <source>Initial and final year are less 5 years apart in - results will be more reliable if more data (years) are included in the analysis.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ano inicial e final tem menos de 5 anos de diferenças - os resultados serão mais fidedignos se forem incluídos mais dados (anos) na análise.</translation>
     </message>
 </context>
 <context encoding="UTF-8">
@@ -1352,7 +1094,32 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="20"/>
         <source>SDG 15.3.1 Indicator (Summary) | Land Degradation</source>
-        <translation type="unfinished">Calcular o indicador ODS 15.3.1</translation>
+        <translation>Indicador ODS 15.3.1 (Resumo) | Degradação do Solo</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="78"/>
+        <source>Land productivity data</source>
+        <translation>Dados de produtividade do solo</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="84"/>
+        <source>Trends.Earth land productivity dynamics</source>
+        <translation>Dinâmica de produtividade do solo Trends.Earth</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="94"/>
+        <source>Pre-calculated land productivity dynamics (from JRC or FAO-WOCAT)</source>
+        <translation>Dinâmica de produtividade do solo pré-calculada (de JRC ou FAO-WOCAT)</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="131"/>
+        <source>Baseline dataset</source>
+        <translation>Conjunto de dados de linha de base</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="162"/>
+        <source>Advanced (baseline)</source>
+        <translation>Avançado (linha de base)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="733"/>
@@ -1360,29 +1127,24 @@ p, li { white-space: pre-wrap; }
         <translation>Produtividade</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="448"/>
-        <source>Trends.Earth land productivity</source>
-        <translation type="obsolete">Produtividade da terra Trends.Earth</translation>
+        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="835"/>
+        <source>State (degradation)</source>
+        <translation>Estado (degradação)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="467"/>
-        <source>Performance (degradation):</source>
-        <translation type="obsolete">Desempenho (degradação):</translation>
+        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="790"/>
+        <source>Performance (degradation)</source>
+        <translation>Performance (degradação)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="489"/>
-        <source>State (degradation):</source>
-        <translation type="obsolete">Estado (degradação):</translation>
+        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="869"/>
+        <source>Land Productivity Dynamics (LPD) dataset</source>
+        <translation>Conjunto de dados de Dinâmica de Produtividade do Solo (DPS)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="505"/>
-        <source>Trajectory (degradation):</source>
-        <translation type="obsolete">Trajetória (degradação):</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="537"/>
-        <source>UNCCD default data (Land Productivity Dynamics (LPD) 1999-2013 Product from Joint Research Commission)</source>
-        <translation type="obsolete">Dados padrão UNCCD (Produto da Dinâmica da Produtividade Terrestre (DPT) 1999-2013 gerado pelo Joint Research Commission)</translation>
+        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="348"/>
+        <source>Trend (degradation)</source>
+        <translation>Tendência (degradação)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="928"/>
@@ -1395,274 +1157,109 @@ p, li { white-space: pre-wrap; }
         <translation>Carbono da terra (degradação)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="682"/>
-        <source>Previous</source>
-        <translation type="obsolete">Anterior</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="701"/>
-        <source>Next</source>
-        <translation type="obsolete">Próximo</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="720"/>
-        <source>Calculate</source>
-        <translation type="obsolete">Calcular</translation>
-    </message>
-    <message>
-        <location filename="../calculate_ldn.py" line="821"/>
-        <source>Error</source>
-        <translation>Erro</translation>
-    </message>
-    <message>
-        <location filename="../calculate_ldn.py" line="621"/>
-        <source>You must add a productivity trajectory indicator layer to your map before you can use the SDG calculation tool.</source>
-        <translation type="obsolete">Você deve adicionar uma camada com o indicador de trajetória de produtividade ao seu mapa antes de poder usar a ferramenta de cálculo ODS.</translation>
-    </message>
-    <message>
-        <location filename="../calculate_ldn.py" line="625"/>
-        <source>You must add a productivity state indicator layer to your map before you can use the SDG calculation tool.</source>
-        <translation type="obsolete">Você deve adicionar uma camada com o indicador de estado de produtividade ao seu mapa antes de poder usar a ferramenta de cálculo ODS.</translation>
-    </message>
-    <message>
-        <location filename="../calculate_ldn.py" line="629"/>
-        <source>You must add a productivity performance indicator layer to your map before you can use the SDG calculation tool.</source>
-        <translation type="obsolete">Você deve adicionar uma camada com o indicador de desempenho de produtividade ao seu mapa antes de poder usar a ferramenta de cálculo ODS.</translation>
-    </message>
-    <message>
-        <location filename="../calculate_ldn.py" line="635"/>
-        <source>You must add a land productivity dynamics indicator layer to your map before you can use the SDG calculation tool.</source>
-        <translation type="obsolete">Você deve adicionar uma camada com o indicador de dinâmica da produtividade do terreno ao seu mapa antes de poder usar a ferramenta de cálculo ODS.</translation>
-    </message>
-    <message>
-        <location filename="../calculate_ldn.py" line="640"/>
-        <source>You must add a land cover indicator layer to your map before you can use the SDG calculation tool.</source>
-        <translation type="obsolete">Você deve adicionar uma camada de indicador de cobertura do terreno ao seu mapa antes de poder usar a ferramenta de cálculo do ODS.</translation>
-    </message>
-    <message>
-        <location filename="../calculate_ldn.py" line="645"/>
-        <source>You must add a soil organic carbon indicator layer to your map before you can use the SDG calculation tool.</source>
-        <translation type="obsolete">Você deve adicionar uma camada com o indicador de carbono orgânico ao seu mapa antes de poder usar a ferramenta de cálculo ODS.</translation>
-    </message>
-    <message>
-        <location filename="../calculate_ldn.py" line="653"/>
-        <source>Area of interest is not entirely within the trajectory layer.</source>
-        <translation type="obsolete">A área de interesse não está totalmente dentro da camada de trajetória.</translation>
-    </message>
-    <message>
-        <location filename="../calculate_ldn.py" line="657"/>
-        <source>Area of interest is not entirely within the performance layer.</source>
-        <translation type="obsolete">Área de interesse não está totalmente dentro da camada de desempenho.</translation>
-    </message>
-    <message>
-        <location filename="../calculate_ldn.py" line="661"/>
-        <source>Area of interest is not entirely within the state layer.</source>
-        <translation type="obsolete">A área de interesse não está totalmente dentro da camada de estado.</translation>
-    </message>
-    <message>
-        <location filename="../calculate_ldn.py" line="666"/>
-        <source>Area of interest is not entirely within the land productivity dynamics layer.</source>
-        <translation type="obsolete">A área de interesse não está totalmente dentro da camada de dinâmica da produtividade da terra.</translation>
-    </message>
-    <message>
-        <location filename="../calculate_ldn.py" line="671"/>
-        <source>Area of interest is not entirely within the land cover layer.</source>
-        <translation type="obsolete">A área de interesse não está totalmente dentro da camada de cobertura da terra.</translation>
-    </message>
-    <message>
-        <location filename="../calculate_ldn.py" line="675"/>
-        <source>Area of interest is not entirely within the soil organic carbon layer.</source>
-        <translation type="obsolete">A área de interesse não está inteiramente dentro da camada de carbono orgânico do solo.</translation>
-    </message>
-    <message>
-        <location filename="../calculate_ldn.py" line="687"/>
-        <source>Resolutions of trajectory layer and state layer do not match.</source>
-        <translation type="obsolete">As resoluções da camada de trajetória e da camada de estado não coincidem.</translation>
-    </message>
-    <message>
-        <location filename="../calculate_ldn.py" line="691"/>
-        <source>Resolutions of trajectory layer and performance layer do not match.</source>
-        <translation type="obsolete">As resoluções da camada de trajetória e da camada de desempenho não coincidem.</translation>
-    </message>
-    <message>
-        <location filename="../calculate_ldn.py" line="696"/>
-        <source>Coordinate systems of trajectory layer and state layer do not match.</source>
-        <translation type="obsolete">Os sistemas de coordenadas da camada de trajetória e da camada de estado não coincidem.</translation>
-    </message>
-    <message>
-        <location filename="../calculate_ldn.py" line="700"/>
-        <source>Coordinate systems of trajectory layer and performance layer do not match.</source>
-        <translation type="obsolete">Os sistemas de coordenadas da camada de trajetória e da camada de desempenho não coincidem.</translation>
-    </message>
-    <message>
-        <location filename="../calculate_ldn.py" line="807"/>
-        <source>Error creating mask.</source>
-        <translation type="obsolete">Erro ao criar máscara.</translation>
-    </message>
-    <message>
-        <location filename="../calculate_ldn.py" line="828"/>
-        <source>Error writing results to {}. Make sure this file is closed, and is not open in QGIS or any other software.</source>
-        <translation type="obsolete">Erro ao gravar resultados para {}. Verifique se este arquivo está fechado e não está aberto no QGIS ou em qualquer outro software.</translation>
-    </message>
-    <message>
-        <location filename="../calculate_ldn.py" line="841"/>
-        <source>Error calculating SDG 15.3.1 summary table.</source>
-        <translation type="obsolete">Erro ao calcular a tabela de resumo do ODS 15.3.1.</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="39"/>
-        <source>Baseline period</source>
-        <translation type="obsolete">Período de referência</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="78"/>
-        <source>Land productivity data</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="84"/>
-        <source>Trends.Earth land productivity dynamics</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="94"/>
-        <source>Pre-calculated land productivity dynamics (from JRC or FAO-WOCAT)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="131"/>
-        <source>Baseline dataset</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="162"/>
-        <source>Advanced (baseline)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="835"/>
-        <source>State (degradation)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="790"/>
-        <source>Performance (degradation)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="869"/>
-        <source>Land Productivity Dynamics (LPD) dataset</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="348"/>
-        <source>Trend (degradation)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1032"/>
         <source>Population (required to calculate population exposed by degradation)</source>
-        <translation type="unfinished"></translation>
+        <translation>População (necessário para calcular população exposta à degradação)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1118"/>
         <source>Total population</source>
-        <translation type="unfinished"></translation>
+        <translation>População total</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1054"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Male population&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;População masculina&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1061"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Female population&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;População feminina&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1150"/>
         <source>type</source>
-        <translation type="unfinished"></translation>
+        <translation>tipo</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1086"/>
         <source>male</source>
-        <translation type="unfinished"></translation>
+        <translation>masculina</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1111"/>
         <source>female</source>
-        <translation type="unfinished"></translation>
+        <translation>feminina</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1044"/>
         <source>Population broken down by sex</source>
-        <translation type="unfinished"></translation>
+        <translation>População separada por género</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1128"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Total population&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;População total&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1153"/>
         <source>total</source>
-        <translation type="unfinished"></translation>
+        <translation>total</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="617"/>
         <source>Include progress period (for comparison to baseline)</source>
-        <translation type="unfinished"></translation>
+        <translation>Incluir período de progresso (para comparação com a linha de base)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="648"/>
         <source>Progress dataset</source>
-        <translation type="unfinished"></translation>
+        <translation>Conjunto de dados de progresso</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="703"/>
         <source>Advanced (progress period)</source>
-        <translation type="unfinished"></translation>
+        <translation>Avançado (período de progresso)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="751"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Trend (degradation)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Tendência (degradação)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1177"/>
         <source>The current selected region of interest</source>
-        <translation type="unfinished"></translation>
+        <translation>A região de interesse selecionada atualmente</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1190"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Abre diálogo de definições para alterar a região de interesse.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1193"/>
         <source>Change region</source>
-        <translation type="unfinished"></translation>
+        <translation>Alterar região</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1202"/>
         <source>Execution name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome da execução:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1209"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A entrada para o nome que será atribuído à tarefa de execução, se não for preenchida o nome do algoritmo será utilizado como nome da tarefa.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1216"/>
         <source>Notes:</source>
-        <translation type="unfinished">Notas:</translation>
+        <translation>Notas:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1241"/>
         <source>User notes associated with the executed task.</source>
-        <translation type="unfinished"></translation>
+        <translation>Notas do utilizador associadas à tarefa executada.</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1275"/>
@@ -1686,32 +1283,56 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Trends.Earth allows the user to compute each of these subindicators in a spatially explicit way generating raster maps which are then integrated into a final SDG 15.3.1 indicator map and produces a table result reporting areas potentially improved and degraded for the area of analysis.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#sdg-indicator-15-3-1&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information on indicator SDG 15.3.1&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Indicador ODS 15.3.1&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Como parte da “Agenda para o Desenvolvimento Sustentável 2030”, o Objetivo de Desenvolvimento Sustentável (ODS) 15 é:&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;“Proteger, restaurar e promover o uso sustentável dos ecossistemas terrestres, gerir as florestas de forma sustentável, combater a desertificação e travar e reverter a degradação dos solos e travar a perda de biodiversidade”&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Cada ODS tem alvos específicos para resolver diferentes componentes, nesta caso, da vida terrestre. O alvo 15.3 visa:&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;“Até 2030, combater a desertificação, restaurar os solos degradados, incluindos solos expostas à desertificação, secas e inundações, e esforçarmos-nos para alcançar um mundo com degradação de solos neutra”&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Os indicadores serão utilizados depois para avaliar o progresso de cada alvo ODS. No caso do ODS 15.3, o progresso no sentido de um mundo com degração de solos neutra será avaliado utilizando o indicador 15.3.1:&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;“proporção de solo que está degradado sobre a área de solo total”&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Como a agência responsável pelo ODS 15.3, a Convenção das Nações Unidas para o Combate à Desertificação (UNCCD) desenvolveu um &lt;/span&gt;&lt;a href=&quot;http://www2.unccd.int/sites/default/files/relevant-links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Guia de Boas Práticas (GBP)&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt; que oferece recomendações sobre como calcular o Indicador 15.3.1.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;De forma a avaliar a área degradada, o Indicador ODS 15.3.1 utiliza informação de 3 sub-indicadores:&lt;/span&gt;&lt;/p&gt;
+&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Produtividade de vegetação&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Cobertura de solo&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Carbono orgânico do solo&lt;/li&gt;&lt;/ol&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Trends.Earth permite ao utilizador calcular cada um destes subindicadores de uma forma espacialmente explícita, gerando mapas raster que são depois integrados num map de indicador ODS 15.3.1 final e produzindo um resultado em tabela que relate quais as áreas com recuperação e degradação potenciais na área de análise.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#sdg-indicator-15-3-1&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Mais informação sobre o indicador ODS 15.3.1&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="612"/>
+        <location filename="../calculate_ldn.py" line="613"/>
         <source>No datasets available in this region (see advanced)</source>
-        <translation type="unfinished"></translation>
+        <translation>Nenhum conjunto de daos disponível nesta região (ver avançado)</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="712"/>
+        <location filename="../calculate_ldn.py" line="822"/>
+        <source>Error</source>
+        <translation>Erro</translation>
+    </message>
+    <message>
+        <location filename="../calculate_ldn.py" line="713"/>
         <source>You must select a {layer_name} layer before you can use the SDG calculation tool.</source>
-        <translation type="unfinished"></translation>
+        <translation>Tem de selecionar uma camada {layer_name} antes de poder utilizar a ferramento de cálculo ODS.</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="761"/>
+        <location filename="../calculate_ldn.py" line="762"/>
         <source>Area of interest is not entirely within the {check_layer_name} layer.</source>
-        <translation type="unfinished"></translation>
+        <translation>A área de interesse não está inteiramente dentro da camada {check_layer_name}.</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="813"/>
+        <location filename="../calculate_ldn.py" line="814"/>
         <source>Resolutions of {model_layer_name} layer and {check_layer_name} layer do not match.</source>
-        <translation type="unfinished"></translation>
+        <translation>As resoluções da camada {model_layer_name} e da camada {check_layer_name} não correspondem.</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="821"/>
+        <location filename="../calculate_ldn.py" line="822"/>
         <source>Coordinate systems of {model_layer_name} layer and {check_layer_name} layer do not match.</source>
-        <translation type="unfinished"></translation>
+        <translation>Os sistemas de coordenadas da camada {model_layer_name} e da camada {check_layer_name} não correspondem.</translation>
     </message>
 </context>
 <context>
@@ -1770,14 +1391,19 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgCalculateOneStep</name>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="20"/>
-        <source>SDG 15.3.1 Indicator (one-step) | Land Degradation</source>
-        <translation type="unfinished">Calcular o indicador ODS 15.3.1 (uma etapa)</translation>
+        <location filename="../gui/DlgCalculateDrought.ui" line="20"/>
+        <source>Calulate Standardized Precipitation Index (SPI)</source>
+        <translation>Calcular Indíce de Precipitação Padronizado (IPP)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="39"/>
-        <source>Setup</source>
-        <translation type="obsolete">Configuração</translation>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="1078"/>
+        <source>User notes associated with the executed task.</source>
+        <translation>Notas do utilizador associadas à tarefa executada.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateDrought.ui" line="99"/>
+        <source>Hazard and Exposure indicators</source>
+        <translation>Indicadores de Risco e Exposição</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateDrought.ui" line="117"/>
@@ -1790,149 +1416,74 @@ p, li { white-space: pre-wrap; }
         <translation>Ano Final:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="279"/>
-        <source>Land productivity dataset</source>
-        <translation type="obsolete">Dados de produtividade da terra</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="285"/>
-        <source>UNCCD default data (Land Productivity Dynamics (LPD) Product 1999-2013 from Joint Research Commission)</source>
-        <translation type="obsolete">Dados padrão UNCCD (Produto da Dinâmica da Produtividade Terrestre (DPT) 1999-2013 gerado pelo Joint Research Commission)</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="295"/>
-        <source>Trends.Earth land productivity</source>
-        <translation type="obsolete">Produtividade da terra Trends.Earth</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="342"/>
-        <source>Next</source>
-        <translation type="obsolete">Próximo</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="361"/>
-        <source>Calculate</source>
-        <translation type="obsolete">Calcular</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="380"/>
-        <source>Previous</source>
-        <translation type="obsolete">Anterior</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="1094"/>
-        <source>Land Cover Setup</source>
-        <translation>Configuração da cobertura da terra</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="1125"/>
-        <source>Define Effects of Land Cover Change</source>
-        <translation>Definir efeitos da mudança da cobertura da terra</translation>
-    </message>
-    <message>
-        <location filename="../calculate_ldn.py" line="261"/>
-        <source>Error</source>
-        <translation type="obsolete">Erro</translation>
-    </message>
-    <message>
-        <location filename="../calculate_ldn.py" line="257"/>
-        <source>Submitted</source>
-        <translation type="obsolete">Submetido</translation>
-    </message>
-    <message>
-        <location filename="../calculate_ldn.py" line="257"/>
-        <source>SDG sub-indicator task submitted to Google Earth Engine.</source>
-        <translation type="obsolete">Tarefa de calcular subindicador do ODS enviada ao Google Earth Engine.</translation>
-    </message>
-    <message>
-        <location filename="../calculate_ldn.py" line="261"/>
-        <source>Unable to submit SDG sub-indicator task to Google Earth Engine.</source>
-        <translation type="obsolete">Não foi possível enviar a tarefa do subindicador ODS ao Google Earth Engine.</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateDrought.ui" line="20"/>
-        <source>Calulate Standardized Precipitation Index (SPI)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateOneStep.ui" line="1078"/>
-        <source>User notes associated with the executed task.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateDrought.ui" line="99"/>
-        <source>Hazard and Exposure indicators</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../gui/DlgCalculateDrought.ui" line="155"/>
         <source>Select the final year, should be great than the initial year</source>
-        <translation type="unfinished"></translation>
+        <translation>Escolha o ano final, deve ser maior que o ano inicial</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateDrought.ui" line="193"/>
         <source>Select the initial year, should be less than the final year.</source>
-        <translation type="unfinished"></translation>
+        <translation>Escolha o ano inicial, deve ser menor que o ano final.</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateDrought.ui" line="223"/>
         <source>Lag (months):</source>
-        <translation type="unfinished"></translation>
+        <translation>Atraso (meses):</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateDrought.ui" line="248"/>
         <source>Precipitation dataset</source>
-        <translation type="unfinished"></translation>
+        <translation>Conjunto de dados de precipitação</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateDrought.ui" line="255"/>
         <source>GPCC</source>
-        <translation type="unfinished"></translation>
+        <translation>GPCC</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateDrought.ui" line="268"/>
         <source>CHIRPS</source>
-        <translation type="unfinished">CHIRPS</translation>
+        <translation>CHIRPS</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateDrought.ui" line="286"/>
         <source>Vulnerability indicator</source>
-        <translation type="unfinished"></translation>
+        <translation>Indicado de Vulnerabilidade</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateDrought.ui" line="292"/>
         <source>Include JRC Vulnerability Index</source>
-        <translation type="unfinished"></translation>
+        <translation>Incluir Índice de Vulnerabilidade JRC</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="1014"/>
         <source>The current selected region of interest</source>
-        <translation type="unfinished"></translation>
+        <translation>A região de interesse selecionada atualmente</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="1027"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Abre diálogo de definições para alterar a região de interesse.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="1030"/>
         <source>Change region</source>
-        <translation type="unfinished"></translation>
+        <translation>Alterar região</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="1039"/>
         <source>Execution name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome da execução</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="1046"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A entrada para o nome que será atribuído à tarefa de execução, se não for preenchida o nome do algoritmo será utilizado como nome da tarefa.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="1053"/>
         <source>Notes:</source>
-        <translation type="unfinished">Notas:</translation>
+        <translation>Notas:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateDrought.ui" line="417"/>
@@ -1946,107 +1497,131 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;For further recommendations on assessing drought vulnerability, we recommend users review the recommendations of the Tools4LDN project, available in &lt;/span&gt;&lt;a href=&quot;https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/6033f28abca1996aedc492d5/1614017200233/ci-4-Tools4LDN2-FNL+web.pdf&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;English&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt; and &lt;/span&gt;&lt;a href=&quot;https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/60f08dd4d2de6f76157bb62b/1626377693923/ci-3-Tools4LDN2-SPN_WebUpdate.pdf&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Spanish&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt; from the project website.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Calcular Indicadores de Vulnerabilidade para a Seca&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Calcule indicadores que podem ser utilizados para avaliar a vulnerabilidade para a seca, consistente com o Guia de Boas Práticas da UNCCD para o Objetivo Estratégico 3.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Juntamente com os indicadores de seca derivados a partir dos dados de precipitação (utilizando o Índice de Precipitação Padronizado), esta ferramenta também pode fornecer acesso ao conjunto de dados de vulnerabilidade para a seca de 2018, produzido pela Joint Research Commission (JRC) da Comissão Europeia. Este conjunto de dados útil principalmente para avaliações à escala global.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Para mais recomendações sobre como avaliar a vulnerabilidade para a seca, aconselhamos que o utilizadores leiam as recomendações do projeto Tools4LDN, disponíveis em &lt;/span&gt;&lt;a href=&quot;https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/6033f28abca1996aedc492d5/1614017200233/ci-4-Tools4LDN2-FNL+web.pdf&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Inglês&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt; e &lt;/span&gt;&lt;a href=&quot;https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/60f08dd4d2de6f76157bb62b/1626377693923/ci-3-Tools4LDN2-SPN_WebUpdate.pdf&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Espanhol&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt; no website do projeto.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Mais informação&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="20"/>
+        <source>SDG 15.3.1 Indicator (one-step) | Land Degradation</source>
+        <translation>Indicador ODS 15.3.1 (um passo) | Degradação de Solos</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="87"/>
         <source>Presets for UNCCD 2016-2019 reporting period</source>
-        <translation type="unfinished"></translation>
+        <translation>Predefinições para o período de reportagem UNCCD 2016-20219</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="105"/>
         <source>UNCCD Default Data</source>
-        <translation type="unfinished"></translation>
+        <translation>Dados Predifinidos UNCCD</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="118"/>
         <source>Trends.Earth Default Data</source>
-        <translation type="unfinished"></translation>
+        <translation>Dados Predefinidos Trends.Earth</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="131"/>
         <source>FAO-WOCAT Default Data</source>
-        <translation type="unfinished"></translation>
+        <translation>Dados Predefinidos FAO-WOCAT</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="141"/>
         <source>Land productivity data</source>
-        <translation type="unfinished"></translation>
+        <translation>Dados de produtividade do solo</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="147"/>
         <source>Trends.Earth land productivity dynamics</source>
-        <translation type="unfinished"></translation>
+        <translation>Dinâmica de produtividade do solo Trends.Earth</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="157"/>
         <source>Pre-calculated land productivity dynamics (from JRC or FAO-WOCAT)</source>
-        <translation type="unfinished"></translation>
+        <translation>Dinâmica de produtividade do solo pré-calculada (a partir de JRC ou FAO-WOCAT)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="182"/>
         <source>Baseline period</source>
-        <translation type="unfinished">Período de referência</translation>
+        <translation>Período de referência</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="730"/>
         <source>Soil organic carbon</source>
-        <translation type="unfinished">Carbono orgânico do solo</translation>
+        <translation>Carbono orgânico do solo</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="756"/>
         <source>Initial year</source>
-        <translation type="unfinished"></translation>
+        <translation>Ano inicial</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="990"/>
         <source>yyyy</source>
-        <translation type="unfinished">Ano (aaaa)</translation>
+        <translation>Ano (aaaa)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="737"/>
         <source>Productivity</source>
-        <translation type="unfinished">Produtividade</translation>
+        <translation>Produtividade</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="723"/>
         <source>Final year</source>
-        <translation type="unfinished"></translation>
+        <translation>Ano final</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="770"/>
         <source>Allow time period to vary by indicator:</source>
-        <translation type="unfinished"></translation>
+        <translation>Permitir que o período de tempo varie por indicador:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="957"/>
         <source>Use the same time period across all indicators:</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilizar o mesmo período de tempo para todos os indicadores:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="777"/>
         <source>Land cover</source>
-        <translation type="unfinished">Cobertura da terra</translation>
+        <translation>Cobertura da terra</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="763"/>
         <source>Land Productivity Dynamics (LPD) dataset</source>
-        <translation type="unfinished"></translation>
+        <translation>Conjunto de dados de Dinâmica de Produtividade do Solo (DPS)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="615"/>
         <source>Include progress period (for comparison to baseline)</source>
-        <translation type="unfinished"></translation>
+        <translation>Incluir período de progresso (para comparação com a linha de base)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="634"/>
         <source>Progress period</source>
-        <translation type="unfinished"></translation>
+        <translation>Período de progresso</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="1085"/>
         <source>Advanced configuration</source>
-        <translation type="unfinished"></translation>
+        <translation>Configuração avançada</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="1094"/>
+        <source>Land Cover Setup</source>
+        <translation>Configuração da cobertura da terra</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateOneStep.ui" line="1125"/>
+        <source>Define Effects of Land Cover Change</source>
+        <translation>Definir efeitos da mudança da cobertura da terra</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="1186"/>
@@ -2058,17 +1633,24 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;This algorithm enables the simultaneous calculation of the three SDG 15.3.1 sub-indicators (Productivity, Land Cover and Soil Organic Carbon) in a single step. This is done using the remote Trends.Earth datasets described in each of the individual sub-indicator&apos;s sections.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Calcule todos o sub-indicadores ODS 15.3.1 num só passo&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Este algoritmo permite o cálculo simultâneo de três sub-indicadores SDG 15.3.1 (Produtividade, Cobertura do Solo e Carbono Orgânico do Solo) num só passo. Isto é feito utilizando conjuntos de dados remotos Trends.Earth descritos em cada uma das secções individuais dos sub-indicadores.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Mais informação&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="440"/>
+        <location filename="../calculate_ldn.py" line="441"/>
         <source>Warning</source>
-        <translation type="unfinished">Aviso</translation>
+        <translation>Aviso</translation>
     </message>
     <message>
-        <location filename="../calculate_ldn.py" line="440"/>
+        <location filename="../calculate_ldn.py" line="441"/>
         <source>Initial and final year are less 10 years apart in {period} - results will be more reliable if more data (years) are included in the analysis.</source>
-        <translation type="unfinished"></translation>
+        <translation>Os anos inicial e final têm menos de 10 anos de diferença em {period} - os resultados serão mais fidedignos se forem incluídos mais dados (anos) na análise.</translation>
     </message>
 </context>
 <context encoding="UTF-8">
@@ -2076,12 +1658,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="26"/>
         <source>Land Productivity | Land Degradation</source>
-        <translation type="unfinished">Calcular Produtividade</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="48"/>
-        <source>Indicators</source>
-        <translation type="obsolete">Indicadores</translation>
+        <translation>Produtividade do Solo | Degradação do Solo</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="99"/>
@@ -2089,14 +1666,54 @@ p, li { white-space: pre-wrap; }
         <translation>Indicadores para calcular</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="88"/>
-        <source>UNCCD default data (Land Productivity Dynamics (LPD) from Joint Research Commission)</source>
-        <translation type="obsolete">Dados predefinidos da UNCCD (Dinâmica da Produtividade Terrestre (DPT) gerados pelo Joint Research Commission)</translation>
-    </message>
-    <message>
         <location filename="../gui/DlgCalculateProd.ui" line="111"/>
         <source>Trends.Earth land productivity</source>
         <translation>Produtividade da terra Trends.Earth </translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateProd.ui" line="127"/>
+        <source>Pre-calculated land productivity dynamics (from JRC or FAO-WOCAT)</source>
+        <translation>Dinâmica de produtividade do solo pré-calculada (a partir de JRC ou FAO-WOCAT)</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateProd.ui" line="164"/>
+        <source>The current selected region of interest</source>
+        <translation>A região de interesse selecionada atualmente</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateProd.ui" line="177"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Abre diálogo de definições para alterar a região de interesse.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateProd.ui" line="180"/>
+        <source>Change region</source>
+        <translation>Alterar região</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateProd.ui" line="189"/>
+        <source>Execution name:</source>
+        <translation>Nome da execução:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateProd.ui" line="196"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A entrada para o nome que será atribuído à tarefa de execução, se não for preenchida o nome do algoritmo será utilizado como nome da tarefa.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateProd.ui" line="203"/>
+        <source>Notes:</source>
+        <translation>Notas:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateProd.ui" line="228"/>
+        <source>User notes associated with the executed task.</source>
+        <translation>Notas do utilizador associadas à tarefa executada.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateProd.ui" line="235"/>
+        <source>Advanced configuration</source>
+        <translation>Configuração avançada</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="256"/>
@@ -2104,19 +1721,19 @@ p, li { white-space: pre-wrap; }
         <translation>Conjunto de dados NDVI</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="171"/>
-        <source>Advanced</source>
-        <translation type="obsolete">Avançado</translation>
+        <location filename="../gui/DlgCalculateProd.ui" line="277"/>
+        <source>Select the type of the NDVI dataset.</source>
+        <translation>Escolha o tipo de conjunto de dados IVDN.</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="207"/>
-        <source>Trajectory (related to rate of change of  productivity over time)</source>
-        <translation type="obsolete">Trajetória (relacionada à taxa de mudança de produtividade ao longo do tempo)</translation>
+        <location filename="../gui/DlgCalculateProd.ui" line="287"/>
+        <source>Trend (related to rate of change of  productivity over time)</source>
+        <translation>Tendência (relacionada com a taxa de mudança da produtividade ao longo do tempo)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="225"/>
-        <source>Trajectory indicator</source>
-        <translation type="obsolete">Indicador de trajetória</translation>
+        <location filename="../gui/DlgCalculateProd.ui" line="305"/>
+        <source>Trend indicator</source>
+        <translation>Indicador de tendência</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="333"/>
@@ -2157,106 +1774,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../gui/DlgCalculateProd.ui" line="775"/>
         <source>Comparison period</source>
         <translation>Período de comparação</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="886"/>
-        <source>Calculate</source>
-        <translation type="obsolete">Calcular</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="905"/>
-        <source>Previous</source>
-        <translation type="obsolete">Anterior</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="924"/>
-        <source>Next</source>
-        <translation type="obsolete">Próximo</translation>
-    </message>
-    <message>
-        <location filename="../calculate_prod.py" line="189"/>
-        <source>Error</source>
-        <translation>Erro</translation>
-    </message>
-    <message>
-        <location filename="../calculate_prod.py" line="189"/>
-        <source>Choose one or more productivity sub-indicator to calculate.</source>
-        <translation>Escolha um ou mais subindicadores de produtividade para calcular.</translation>
-    </message>
-    <message>
-        <location filename="../calculate_prod.py" line="274"/>
-        <source>Submitted</source>
-        <translation type="obsolete">Submetido</translation>
-    </message>
-    <message>
-        <location filename="../calculate_prod.py" line="274"/>
-        <source>Productivity task submitted to Google Earth Engine.</source>
-        <translation type="obsolete">Tarefa de calcular produtividade enviada ao Google Earth Engine.</translation>
-    </message>
-    <message>
-        <location filename="../calculate_prod.py" line="278"/>
-        <source>Unable to submit productivity task to Google Earth Engine.</source>
-        <translation type="obsolete">Não é possível enviar tarefas de produtividade para o Google Earth Engine.</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="127"/>
-        <source>Pre-calculated land productivity dynamics (from JRC or FAO-WOCAT)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="164"/>
-        <source>The current selected region of interest</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="177"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="180"/>
-        <source>Change region</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="189"/>
-        <source>Execution name:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="196"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="203"/>
-        <source>Notes:</source>
-        <translation type="unfinished">Notas:</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="228"/>
-        <source>User notes associated with the executed task.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="235"/>
-        <source>Advanced configuration</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="277"/>
-        <source>Select the type of the NDVI dataset.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="287"/>
-        <source>Trend (related to rate of change of  productivity over time)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateProd.ui" line="305"/>
-        <source>Trend indicator</source>
-        <translation type="unfinished"></translation>
     </message>
     <message encoding="UTF-8">
         <location filename="../gui/DlgCalculateProd.ui" line="974"/>
@@ -2302,7 +1819,58 @@ p, li { white-space: pre-wrap; }
 &lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;If observed mean NDVI is lower than 50% than the maximum productivity, that pixel is considered potentially degraded for this indicator.&lt;/li&gt;&lt;/ol&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#productivity-performance&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information on Productivity Performance&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Produtividade&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;A produtividade do solo é capacidade produtiva biológica do solo, a fonte do todo o alimento, fibra e combustível que sustém os seres humanos (United Nations Statistical Commission 2016). A produtividade primária líquida (PPL) é a quantidade líquida de carbono assimilado após fotossíntese e respiração autotrófica num dado período de tempo (Clark et al. 2001) e é tipicamente representada em unidades tais como kg/ha/yr. A PPL é uma variável cuja estimativa é demorada e cara de obter e, por essa razão, dependemos de informações detetadas de forma remota para derivar os indicadores de PPL.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Um dos substitutos mais utilizados para a PPL é o Índice de Vegetação de Diferença Normalizada (IVDN), calculado utilizando informação porções vermelhas e próximas de infravermelho do espectro eletromagnético. Na Trends.Earth utilizamos produtos bi-semanais de MODIS e AVHRR para calcular integrias anuais de IVDN (calculados com a média anual de IVDN para simplificar a interpretação dos resultados). Este integrais anuais de IVDN são então utilizados para calcular cada um dos indicadores de produtividade explicados em baixo.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#productivity&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Mais informação sobre o sub-indicador de Produtividade ODS 15.3.1&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;A produtividade do solo é avaliada na Trends.Earth utilizando três medidas de mudança, derivadas dos dados de série de tempo IVDN: &lt;/span&gt;&lt;/p&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;tendência&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Performance&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Estado&lt;/li&gt;&lt;/ul&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Tendência de produtividade&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;A tendência mede a taxa de mudança na produtividade primária aolongo do tempo. A Trends.Earth calçula a regressão linear ao nível dos píxeis, para identificar áreas a experienciar mudanças na produtividade primária no período em análise. É depois aplicado um teste de significância não-paramétrico Mann-Kendall, considerando apenas como mudanças significativas aquelas que apresentam um p-value ≤ 0.05. Tendências positivas significativas em IVDN indicariam uma potencial melhoria na condição do solo e tendências negativas significativas uma potencial degradação.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#productivity-trajectory&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Mais informação sobre a Trajetoria de Produtividade&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Estado de Produtividade&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;O indicador de Estado de Produtividade permite a deteção de mudanças recentes na produtividade primária, em comparação com o período da linha de base. O indicador é calculado da seguinte forma:&lt;/span&gt;&lt;/p&gt;
+&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Defina o período de linha de base (período histórico ao qual será comparada a produtividade primária recente).&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Defina o período de comparação (anos recentes utilizados para calcular a comparação). Recomenda-se a utilização de um período de 3 anos para evitar flutuações anuais relacionadas com o clima.&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Para cada pixel, utilize os integrais anuais de IVDN para o período de linha de base, para calcular a distribuição de frequência. Caso o período de linha de base não inclua alguns valores extremos de IVDN, adicione 5% em ambos os extremos da distribuição. Essa curva de distribuição de frequência expandida é então utilizada para definir os valores de corte das 10 classes de percentil.&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Calcule a IVDN média para o período da linha de base e determine a classe de percentil a que pertence. Atribua à média de IVDN para o período de linha de base um número correspondente a essa classe de percentil. Os valores possíveis estão entre 1 (classe mais baixa) e 10 (classe mais alta).&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Calcule a IVDN média para o período de comparação e determine a classe de percentil a que pertence. Atribua à média de IVDN para o período de comparação um número correspondente a essa classe de percentil. Os valores possíveis estão entre 1 (classe mais baixa) e 10 (classe mais alta).&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Determine a diferença no número de classe entre os períodos de comparação e da linha de base (comparação menos linha de base).&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Se a diferença de classe entre os períodos da linha de base e da comparação for ≤ 2, então esse píxel pode estar potencialmente degradado. Se a diferença for  ≥ 2, esse píxel iria indicar uma melhoria recente em termos de produtividade primária. OS píxeis com pequenas alterações são considerados estáveis.&lt;/li&gt;&lt;/ol&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#productivity-state&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Mais informação sobre o Estado de Produtividade&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Performance de Produtividade&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;O indicador de Performance de Produtividade mede a produtividade local em relação a outros tipos de vegetação semelhantes em tipos de cobertura de solo ou regiões bioclimáticas semelhantes em todo a área de estudo. A Trends.Earth utiliza uma combinação única de unidades de solo (unidades de taxonomia de solo utilizando o sistemag USDA fornecido por SoilGrids a uma resolução de 250m) e cobertura de solo (37 classes completas de cobertura de sola fornecidas pela ESA CCI a uma resolução de 300m) para definir as áreas de análise. O indicador é calculado da seguinte forma:&lt;/span&gt;&lt;/p&gt;
+&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Defina o período de análise e utilize a série de tempo de IVDN para calcular a média de IVDN para cada píxel.&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Defina unidades ecologicamente semelhantes como a interseção exclusiva de cobertura de solo e tipo de solo.&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Para cada unidade, extraia todos os valores médios de IVDN calculados no passo 1 e crie uma distribuição de frequência. A partir desta distribuição determine o valor que representa o percentil 90 (não recomendamos a utilização do valor máximo absoluto de IVDN, para evitar possíveis erros devido à presença de outliers). O valor que representa o percentil 90 será considerado como a produtividade máxima dessa unidade.&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Calcule a proporção de IVDN média e produtividade máxima (em cada caso, compare o valor médio observado com o máximo da sua unidade correspondente).&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Se o IVDN médio observado for inferior a 50% da produtividade máxima, esse pixelé considerado como potencialmente degradado para este indicador.&lt;/li&gt;&lt;/ol&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#productivity-performance&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Mais informação sobre a Performance de Produtividade&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../calculate_prod.py" line="189"/>
+        <source>Error</source>
+        <translation>Erro</translation>
+    </message>
+    <message>
+        <location filename="../calculate_prod.py" line="189"/>
+        <source>Choose one or more productivity sub-indicator to calculate.</source>
+        <translation>Escolha um ou mais subindicadores de produtividade para calcular.</translation>
     </message>
 </context>
 <context>
@@ -2338,12 +1906,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateRestBiomassData.ui" line="20"/>
         <source>Biomas Change Estimate | Biomass</source>
-        <translation type="unfinished">Estimar a provável mudança na biomassa devido à restauração</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateRestBiomassData.ui" line="39"/>
-        <source>Approach</source>
-        <translation type="obsolete">Abordagem</translation>
+        <translation>Estimativa de Mudança de Biomassa | Biomassa</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateRestBiomassData.ui" line="90"/>
@@ -2366,74 +1929,39 @@ p, li { white-space: pre-wrap; }
         <translation>Longevidade planejada da intervenção (anos)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateRestBiomassData.ui" line="151"/>
-        <source>Calculate</source>
-        <translation type="obsolete">Calcular</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateRestBiomassData.ui" line="170"/>
-        <source>Previous</source>
-        <translation type="obsolete">Anterior</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateRestBiomassData.ui" line="189"/>
-        <source>Next</source>
-        <translation type="obsolete">Próximo</translation>
-    </message>
-    <message>
-        <location filename="../calculate_rest_biomass.py" line="101"/>
-        <source>Submitted</source>
-        <translation type="obsolete">Submetido</translation>
-    </message>
-    <message>
-        <location filename="../calculate_rest_biomass.py" line="101"/>
-        <source>Restoration biomass change submitted to Google Earth Engine.</source>
-        <translation type="obsolete">Alteração de biomassa por restauração enviada ao Google Earth Engine.</translation>
-    </message>
-    <message>
-        <location filename="../calculate_rest_biomass.py" line="105"/>
-        <source>Error</source>
-        <translation type="obsolete">Erro</translation>
-    </message>
-    <message>
-        <location filename="../calculate_rest_biomass.py" line="105"/>
-        <source>Unable to submit restoration biomass change task to Google Earth Engine.</source>
-        <translation type="obsolete">Não foi possível enviar a tarefa de alteração de biomassa por restauração para o Google Earth Engine.</translation>
-    </message>
-    <message>
         <location filename="../gui/DlgCalculateRestBiomassData.ui" line="173"/>
         <source>The current selected region of interest</source>
-        <translation type="unfinished"></translation>
+        <translation>A região de interesse selecionada atualmente</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateRestBiomassData.ui" line="186"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Abre diálogo de definições para alterar a região de interesse.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateRestBiomassData.ui" line="189"/>
         <source>Change region</source>
-        <translation type="unfinished"></translation>
+        <translation>Alterar região</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateRestBiomassData.ui" line="198"/>
         <source>Execution name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome da execução:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateRestBiomassData.ui" line="205"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A entrada para o nome que será atribuído à tarefa de execução, se não for preenchida o nome do algoritmo será utilizado como nome da tarefa.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateRestBiomassData.ui" line="212"/>
         <source>Notes:</source>
-        <translation type="unfinished">Notas:</translation>
+        <translation>Notas:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateRestBiomassData.ui" line="237"/>
         <source>User notes associated with the executed task.</source>
-        <translation type="unfinished"></translation>
+        <translation>Notas do utilizador associadas à tarefa executada.</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateRestBiomassData.ui" line="271"/>
@@ -2444,7 +1972,13 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Biomass Change Estimate&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Estimate likely change in biomass due to restoration&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Estimativa de Mudança de Biomassa&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Faça uma estimativa da possível mudança de biomassa devido à recuperação&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -2452,12 +1986,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="20"/>
         <source>Biomass Change Summary | Biomass</source>
-        <translation type="unfinished">Resuma provável mudança na biomassa devido à restauração</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="39"/>
-        <source>Input</source>
-        <translation type="obsolete">Entrada</translation>
+        <translation>Resumo de Mudança de Biomassa | Biomassa</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="108"/>
@@ -2465,19 +1994,61 @@ p, li { white-space: pre-wrap; }
         <translation>Mudança de biomassa</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="128"/>
-        <source>Previous</source>
-        <translation type="obsolete">Anterior</translation>
+        <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="126"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the biomass dataset to be used for the biomass change calculations.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Selecione o conjunto de dados de biomassa a ser utilizado para o cálculo da mudança de biomassa.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="147"/>
-        <source>Next</source>
-        <translation type="obsolete">Próximo</translation>
+        <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="153"/>
+        <source>The current selected region of interest</source>
+        <translation>A região de interesse selecionada atualmente</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="166"/>
-        <source>Calculate</source>
-        <translation type="obsolete">Calcular</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Abre diálogo de definições para alterar a região de interesse.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="169"/>
+        <source>Change region</source>
+        <translation>Alterar região</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="178"/>
+        <source>Execution name:</source>
+        <translation>Nome da execução:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="185"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A entrada para o nome que será atribuído à tarefa de execução, se não for preenchida o nome do algoritmo será utilizado como nome da tarefa.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="192"/>
+        <source>Notes:</source>
+        <translation>Notas:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="217"/>
+        <source>User notes associated with the executed task.</source>
+        <translation>Notas do utilizador associadas à tarefa executada.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="251"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Biomass Change Summary&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Summarize likely change in Biomass due to restoration&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Resumo de Mudança de Biomassa&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Faça um resumo da possível mudança de Biomassa devido à recuperação&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../calculate_rest_biomass.py" line="150"/>
@@ -2494,79 +2065,58 @@ p, li { white-space: pre-wrap; }
         <source>Area of interest is not entirely within the biomass layer.</source>
         <translation>Área de interesse não está inteiramente dentro da camada de biomassa.</translation>
     </message>
-    <message>
-        <location filename="../calculate_rest_biomass.py" line="253"/>
-        <source>Error masking input layers.</source>
-        <translation type="obsolete">Erro ao mascarar as camadas de entrada.</translation>
-    </message>
-    <message>
-        <location filename="../calculate_rest_biomass.py" line="264"/>
-        <source>Error calculating biomass change summary table.</source>
-        <translation type="obsolete">Erro ao calcular a tabela de resumo de alterações de biomassa.</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="126"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Select the biomass dataset to be used for the biomass change calculations.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="153"/>
-        <source>The current selected region of interest</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="166"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="169"/>
-        <source>Change region</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="178"/>
-        <source>Execution name:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="185"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="192"/>
-        <source>Notes:</source>
-        <translation type="unfinished">Notas:</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="217"/>
-        <source>User notes associated with the executed task.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="251"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Biomass Change Summary&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Summarize likely change in Biomass due to restoration&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>DlgCalculateSOC</name>
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="20"/>
         <source>Soil Organic Carbon | Land Degradation</source>
-        <translation type="unfinished">Calcular carbono orgânico do solo</translation>
+        <translation>Carbono Orgânico do Solo | Degradação do Solo</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="39"/>
-        <source>Advanced</source>
-        <translation type="obsolete">Avançado</translation>
+        <location filename="../gui/DlgCalculateSOC.ui" line="60"/>
+        <source>Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.</source>
+        <translation>A entrada para o nome que será atribuído à tarefa de execução, se não for preenchida o nome do algoritmo será utilizado como nome da tarefa.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateSOC.ui" line="102"/>
+        <source>The current selected region of interest</source>
+        <translation>A região de interesse selecionada atualmente</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateSOC.ui" line="115"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Abre diálogo de definições para alterar a região de interesse.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateSOC.ui" line="118"/>
+        <source>Change region</source>
+        <translation>Alterar região</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateSOC.ui" line="127"/>
+        <source>Execution name:</source>
+        <translation>Nome da execução:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateSOC.ui" line="134"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task,if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A entrada para o nome que será atribuído à tarefa de execução, se não for preenchida o nome do algoritmo será utilizado como nome da tarefa.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateSOC.ui" line="141"/>
+        <source>Notes:</source>
+        <translation>Notas:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateSOC.ui" line="166"/>
+        <source>User notes associated with the executed task.</source>
+        <translation>Notas do utilizador associadas com a tarefa executada.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateSOC.ui" line="173"/>
+        <source>Advanced configuration</source>
+        <translation>Configuração avançada</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="188"/>
@@ -2604,44 +2154,38 @@ p, li { white-space: pre-wrap; }
         <translation>Conjunto de dados personalizado de carbono orgânico do solo inicial</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="245"/>
-        <source>Calculate</source>
-        <translation type="obsolete">Calcular</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="264"/>
-        <source>Previous</source>
-        <translation type="obsolete">Anterior</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="283"/>
-        <source>Next</source>
-        <translation type="obsolete">Próximo</translation>
-    </message>
-    <message>
-        <location filename="../calculate_soc.py" line="312"/>
-        <source>Land Cover Setup</source>
-        <translation type="obsolete">Configuração da cobertura da terra</translation>
-    </message>
-    <message>
-        <location filename="../calculate_soc.py" line="362"/>
-        <source>Choose a name for the output file</source>
-        <translation type="obsolete">Escolha um nome para o arquivo de saída</translation>
-    </message>
-    <message>
-        <location filename="../calculate_soc.py" line="362"/>
-        <source>Raster file (*.tif)</source>
-        <translation type="obsolete">Arquivo raster (* .tif)</translation>
+        <location filename="../gui/DlgCalculateSOC.ui" line="394"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;h3 style=&quot; margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:large; font-weight:600;&quot;&gt;Soil organic carbon&lt;/span&gt;&lt;/h3&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The third sub-indicator for monitoring land degradation as part of the SDG process quantifies changes in soil organic carbon (SOC) over the reporting period. Changes in SOC are particularly difficult to assess for several reasons, some of them being the high spatial variability of soil properties, the time and cost intensiveness of conducting representative soil surveys and the lack of time series data on SOC for most regions of the world. To address some of the limitations, a combined land cover/SOC method is used in Trends.Earth to estimate changes in SOC and identify potentially degraded areas. The indicator is computed as follows:&lt;/p&gt;
+&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Determine the SOC reference values. Trends.Earth uses SoilGrids 250m carbon stocks for the first 30 cm of the soil profile as the reference values for calculation (NOTE: SoilGrids uses information from a variety of data sources and ranging from many years to produce this product, therefore assigning a date for calculations purposes could cause inaccuracies in the stock change calculations).&lt;/li&gt;
+&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Reclassify the land cover maps to the 7 land cover classes needed for reporting to the UNCCD (forest, grassland, cropland, wetland, artificial area, bare land and water). Ideally annual land cover maps are preferred, but at least land cover maps for the starting and end years are needed.&lt;/li&gt;
+&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;To estimate the changes in C stocks for the reporting period C conversion coefficients for changes in land use, management and inputs are recommended by the IPCC and the UNCCD. However, spatially explicit information on management and C inputs is not available for most regions. As such, only land use conversion coefficient can be applied for estimating changes in C stocks (using land cover as a proxy for land use). The coefficients used were the result of a literature review performed by the UNCCD and are presented at the &lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#soil-organic-carbon&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Trends.Earth website&lt;/span&gt;&lt;/a&gt;. Those coefficients represent the proportional in C stocks after 20 years of land cover change.&lt;/li&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;&quot;&gt;Changes in SOC are better studied for land cover transitions involving agriculture, and for that reason there is a different set of coefficients for each of the main global climatic regions: Temperate Dry (f = 0.80), Temperate Moist (f = 0.69), Tropical Dry (f = 0.58), Tropical Moist (f = 0.48), and Tropical Montane (f = 0.64).&lt;/p&gt;
+&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Compute relative different in SOC between the baseline and the target period, areas which experienced a loss in SOC of 10% of more during the reporting period will be considered potentially degraded, and areas experiencing a gain of 10% or more as potentially improved.&lt;/li&gt;&lt;/ol&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#soil-organic-carbon&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;More information on the Soil Organic Carbon SDG 15.3.1 sub-indicator&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;h3 style=&quot; margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:large; font-weight:600;&quot;&gt;Carbono orgânico do solo&lt;/span&gt;&lt;/h3&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;O terceiro sub-indicador para monitorizar a degradaçao do solo, uma vez que parte do processo ODS quantifica o carbono orgânico do solo (COS) durante o período reportado. As alterações do COS são particularmente difíceis de avaliar por várias razões, sendo algumas delas a elevada variabilidade espacial das propriedades do solo, o tempo gasto e custos elevados associados com fazer levantamentos de solo representativos e a falta de dados de séries de tempo sobre COS para a maior parte das regiões do mundo. Para lidar com algumas das limitações é utilizado um método combinado cobertura de solo/COS na Trends.Earth para obter uma estimativa das alterações em COS e identificar áreas potencialmente degradadas. O indicador é calculado da seguinte forma:&lt;/p&gt;
+&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Determine os valores COS de referência. A Trends.Earth utiliza o perfil de stocks de carbono para os primeiros 30 cm da SoilGrids 250m como valores de referência para o cálculo (NOTA: a SoilGrids utiliza informação de uma variedade de fontes de dados, e que incluem vários anos, para produzir este produto, por isso a atribuição de uma data para o propósito do cálculo pode causar imprecisões no cálculo da mudança de stocks).&lt;/li&gt;
+&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Reclassifique os mapas de cobertura de solo para as 7 classes de cobertura de solo necessárias para a reportagem à UNCCD (floresta, pradaria, solo cultivado, pântano, área artificial, solo descoberto e água). São preferidos idealmente mapas de cobertura de solo anuais, mas são necessários pelo menos os mapas de cobertura de solo para o ano inicial e para o ano final.&lt;/li&gt;
+&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;É recomendado pelo IPCC e pela UNCCD que seja feita uma estimativa das alterações em stocks C para reportar coeficientes de conversão de C do período para alteração na utilização, gestão e valores dos solos. No entanto, a informção espacialmente explícita sobre a gestão e valores ´de C não está disponível na maior parte das regiões. Por isso, apenas se pode aplicar o coeficiente de conversão de utilização de solos para estimar as alterações em stockes C (utilizando a cobertura de solo como representação da utilização do solo). Os coeficientes utilizados resultaram da revisão da literatura efetuada pela UNCCD e estão presentes no &lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#soil-organic-carbon&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;website Trends.Earth&lt;/span&gt;&lt;/a&gt;. Esses coeficientes representam a proporção de stocks C após 20 anos de mudanças na cobertura de solo&lt;/li&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;&quot;&gt;As mudanças de COS são melhor estudades para transições de cobertura de solo que involvem agricultura e, por essa razão, existe um conjunto diferente de coeficientes para cada uma das principais regiões climáticas globais: Temperado Seco (f = 0.80), H Temperado Húmido (f = 0.69), Tropical Seco (f = 0.58), Tropical Húmido (f = 0.48) e Tropical Montane (f = 0.64).&lt;/p&gt;
+&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Calcule diferenças relativas em COS entre a linha de base e o período alvo; as áreas com uma perda de 10% ou mais em COS durante o período reportado serão consideradas como potencialmente degradadas e as áreas com um ganho de 10% mais em COS serão consideradas como potencialmente melhoradas.&lt;/li&gt;&lt;/ol&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#soil-organic-carbon&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Mais informações sobre o sub-indicador de Carbono Orgânico de Solo ODS 15.3.1&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../calculate_soc.py" line="217"/>
         <source>Error</source>
         <translation>Erro</translation>
-    </message>
-    <message>
-        <location filename="../calculate_soc.py" line="371"/>
-        <source>Cannot write to {}. Choose a different file.</source>
-        <translation type="obsolete">Não foi possível escrever para {}. Escolha um arquivo diferente.</translation>
     </message>
     <message>
         <location filename="../calculate_soc.py" line="155"/>
@@ -2664,9 +2208,9 @@ p, li { white-space: pre-wrap; }
         <translation>Aviso</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="394"/>
-        <source>The baseline year ({}) is greater than or equal to the target year ({}) - this analysis might generate strange results.</source>
-        <translation type="obsolete">O ano da linha de base ({}) é maior ou igual ao ano de destino ({}) - essa análise pode gerar resultados estranhos.</translation>
+        <location filename="../calculate_soc.py" line="189"/>
+        <source>The initial year ({year_initial}) is greater than or equal to the final year ({year_final}) - this analysis might generate strange results.</source>
+        <translation>O ano inicial ({year_initial}) é superior ou igual ao ano final ({year_final}) - esta análise pode gerar resultados estranhos.</translation>
     </message>
     <message>
         <location filename="../calculate_soc.py" line="203"/>
@@ -2677,93 +2221,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../calculate_soc.py" line="217"/>
         <source>Area of interest is not entirely within the final land cover layer.</source>
         <translation>A área de interesse não está inteiramente dentro da camada final de cobertura da terra.</translation>
-    </message>
-    <message>
-        <location filename="../calculate_soc.py" line="459"/>
-        <source>Error calculating change in soil organic carbon.</source>
-        <translation type="obsolete">Erro ao calcular a mudança no carbono orgânico do solo.</translation>
-    </message>
-    <message>
-        <location filename="../calculate_soc.py" line="501"/>
-        <source>Submitted</source>
-        <translation type="obsolete">Submetido</translation>
-    </message>
-    <message>
-        <location filename="../calculate_soc.py" line="501"/>
-        <source>Soil organic carbon submitted to Google Earth Engine.</source>
-        <translation type="obsolete">Carbono orgânico do solo enviado ao Google Earth Engine.</translation>
-    </message>
-    <message>
-        <location filename="../calculate_soc.py" line="505"/>
-        <source>Unable to submit soil organic carbon task to Google Earth Engine.</source>
-        <translation type="obsolete">Não foi possível enviar a tarefa de carbono orgânico do solo para o Google Earth Engine.</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="60"/>
-        <source>Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="102"/>
-        <source>The current selected region of interest</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="115"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="118"/>
-        <source>Change region</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="127"/>
-        <source>Execution name:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="134"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task,if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="141"/>
-        <source>Notes:</source>
-        <translation type="unfinished">Notas:</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="166"/>
-        <source>User notes associated with the executed task.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="173"/>
-        <source>Advanced configuration</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="394"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;h3 style=&quot; margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:large; font-weight:600;&quot;&gt;Soil organic carbon&lt;/span&gt;&lt;/h3&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The third sub-indicator for monitoring land degradation as part of the SDG process quantifies changes in soil organic carbon (SOC) over the reporting period. Changes in SOC are particularly difficult to assess for several reasons, some of them being the high spatial variability of soil properties, the time and cost intensiveness of conducting representative soil surveys and the lack of time series data on SOC for most regions of the world. To address some of the limitations, a combined land cover/SOC method is used in Trends.Earth to estimate changes in SOC and identify potentially degraded areas. The indicator is computed as follows:&lt;/p&gt;
-&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Determine the SOC reference values. Trends.Earth uses SoilGrids 250m carbon stocks for the first 30 cm of the soil profile as the reference values for calculation (NOTE: SoilGrids uses information from a variety of data sources and ranging from many years to produce this product, therefore assigning a date for calculations purposes could cause inaccuracies in the stock change calculations).&lt;/li&gt;
-&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Reclassify the land cover maps to the 7 land cover classes needed for reporting to the UNCCD (forest, grassland, cropland, wetland, artificial area, bare land and water). Ideally annual land cover maps are preferred, but at least land cover maps for the starting and end years are needed.&lt;/li&gt;
-&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;To estimate the changes in C stocks for the reporting period C conversion coefficients for changes in land use, management and inputs are recommended by the IPCC and the UNCCD. However, spatially explicit information on management and C inputs is not available for most regions. As such, only land use conversion coefficient can be applied for estimating changes in C stocks (using land cover as a proxy for land use). The coefficients used were the result of a literature review performed by the UNCCD and are presented at the &lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#soil-organic-carbon&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Trends.Earth website&lt;/span&gt;&lt;/a&gt;. Those coefficients represent the proportional in C stocks after 20 years of land cover change.&lt;/li&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;&quot;&gt;Changes in SOC are better studied for land cover transitions involving agriculture, and for that reason there is a different set of coefficients for each of the main global climatic regions: Temperate Dry (f = 0.80), Temperate Moist (f = 0.69), Tropical Dry (f = 0.58), Tropical Moist (f = 0.48), and Tropical Montane (f = 0.64).&lt;/p&gt;
-&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Compute relative different in SOC between the baseline and the target period, areas which experienced a loss in SOC of 10% of more during the reporting period will be considered potentially degraded, and areas experiencing a gain of 10% or more as potentially improved.&lt;/li&gt;&lt;/ol&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#soil-organic-carbon&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;More information on the Soil Organic Carbon SDG 15.3.1 sub-indicator&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../calculate_soc.py" line="189"/>
-        <source>The initial year ({year_initial}) is greater than or equal to the final year ({year_final}) - this analysis might generate strange results.</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2799,17 +2256,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="20"/>
         <source>Carbon Change | Total Carbon</source>
-        <translation type="unfinished">Calcular a mudança no carbono total</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateTCData.ui" line="39"/>
-        <source>Forest Definition</source>
-        <translation type="obsolete">Definição de floresta</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateTCData.ui" line="181"/>
-        <source>Hansen et. al. Global Forest Change product (30 m resolution)</source>
-        <translation>Hansen et. al. Produto Global Forest Change (resolução de 30 m) </translation>
+        <translation>Mudança de Carbono | Carbono Total</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="84"/>
@@ -2817,14 +2264,29 @@ p, li { white-space: pre-wrap; }
         <translation>Período</translation>
     </message>
     <message>
+        <location filename="../gui/DlgCalculateTCData.ui" line="96"/>
+        <source>Target year:</source>
+        <translation>Ano alvo:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTCData.ui" line="121"/>
+        <source>Select the target year, should be great than the initial year</source>
+        <translation>Escolha o ano alvo, deverá ser superior ao ano inicial</translation>
+    </message>
+    <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="174"/>
         <source>Initial year:</source>
         <translation>Ano inicial:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateTCData.ui" line="96"/>
-        <source>Target year:</source>
-        <translation>Ano alvo:</translation>
+        <location filename="../gui/DlgCalculateTCData.ui" line="181"/>
+        <source>Hansen et. al. Global Forest Change product (30 m resolution)</source>
+        <translation>Hansen et. al. Produto Global Forest Change (resolução de 30 m) </translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTCData.ui" line="209"/>
+        <source>Select the initial year, should be less than the final year.</source>
+        <translation>Escolha o ano inicial, deverá ser inferior ao ano final.</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="243"/>
@@ -2852,9 +2314,44 @@ p, li { white-space: pre-wrap; }
         <translation>Camada final (ano alvo)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateTCData.ui" line="333"/>
-        <source>Method</source>
-        <translation type="obsolete">Método</translation>
+        <location filename="../gui/DlgCalculateTCData.ui" line="378"/>
+        <source>The current selected region of interest</source>
+        <translation>A região de interesse selecionada atualmente</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTCData.ui" line="391"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Abre diálogo de definições para alterar a região de interesse.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTCData.ui" line="394"/>
+        <source>Change region</source>
+        <translation>Alterar região</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTCData.ui" line="403"/>
+        <source>Execution name:</source>
+        <translation>Nome da execução:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTCData.ui" line="410"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A entrada para o nome que será atribuído à tarefa de execução, se não for preenchida o nome do algoritmo será utilizado como nome da tarefa.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTCData.ui" line="417"/>
+        <source>Notes:</source>
+        <translation>Notas:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTCData.ui" line="442"/>
+        <source>User notes associated with the executed task.</source>
+        <translation>Notas do utilizador associadas com a tarefa executada.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTCData.ui" line="449"/>
+        <source>Advanced configuration</source>
+        <translation>Configuração avançada</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="458"/>
@@ -2892,19 +2389,21 @@ p, li { white-space: pre-wrap; }
         <translation>IPCC</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateTCData.ui" line="472"/>
-        <source>Calculate</source>
-        <translation type="obsolete">Calcular</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateTCData.ui" line="491"/>
-        <source>Previous</source>
-        <translation type="obsolete">Anterior</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateTCData.ui" line="510"/>
-        <source>Next</source>
-        <translation type="obsolete">Próximo</translation>
+        <location filename="../gui/DlgCalculateTCData.ui" line="590"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Change in Total Carbon&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Algorithm for calculation above and below ground emissions from deforestation&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Mudanças em Carbono Total&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Algoritmo para o cálculo de emissões acima e abaixo do solo causadas por desflorestação&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../calculate_tc.py" line="192"/>
@@ -2924,7 +2423,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../calculate_tc.py" line="231"/>
         <source>Enter a value for percent cover that is considered forest.</source>
-        <translation type="unfinished">Não é possível escrever para {}. Escolha um arquivo diferente.</translation>
+        <translation>Digite um valor para a cobertura percentual que é considerada floresta.</translation>
     </message>
     <message>
         <location filename="../calculate_tc.py" line="236"/>
@@ -2937,16 +2436,6 @@ p, li { white-space: pre-wrap; }
         <translation>Escolha um conjunto de dados de biomassa.</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="222"/>
-        <source>Choose a name for the output file</source>
-        <translation type="obsolete">Escolha um nome para o arquivo de saída</translation>
-    </message>
-    <message>
-        <location filename="../calculate_tc.py" line="222"/>
-        <source>Raster file (*.tif)</source>
-        <translation type="obsolete">Arquivo raster (* .tif)</translation>
-    </message>
-    <message>
         <location filename="../calculate_tc.py" line="252"/>
         <source>Due to the options you have chosen, this calculation must occur offline. You MUST select a custom land cover dataset.</source>
         <translation>Devido às opções escolhidas, esse cálculo deve ocorrer off-line. Você DEVE selecionar um conjunto de dados de cobertura territorial personalizado.</translation>
@@ -2957,9 +2446,9 @@ p, li { white-space: pre-wrap; }
         <translation>Aviso</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="245"/>
-        <source>The baseline year ({}) is greater than or equal to the target year ({}) - this analysis might generate strange results.</source>
-        <translation type="obsolete">O ano da linha de base ({}) é maior ou igual ao ano de destino ({}) - essa análise pode gerar resultados estranhos.</translation>
+        <location filename="../calculate_tc.py" line="259"/>
+        <source>The initial year ({year_initial}) is greater than or equal to the final year ({year_final}) - this analysis might generate strange results.</source>
+        <translation>O ano inicial ({year_initial}) é superior ou igual ao ano final ({year_final}) - esta análise pode gerar resultados estranhos.</translation>
     </message>
     <message>
         <location filename="../calculate_tc.py" line="270"/>
@@ -2976,99 +2465,13 @@ p, li { white-space: pre-wrap; }
         <source>Error calculating change in toal carbon.</source>
         <translation>Erro ao calcular a mudança no carbono total.</translation>
     </message>
-    <message>
-        <location filename="../calculate_tc.py" line="354"/>
-        <source>Submitted</source>
-        <translation type="obsolete">Submetido</translation>
-    </message>
-    <message>
-        <location filename="../calculate_tc.py" line="354"/>
-        <source>Total carbon submitted to Google Earth Engine.</source>
-        <translation type="obsolete">Total de carbono enviado ao Google Earth Engine.</translation>
-    </message>
-    <message>
-        <location filename="../calculate_tc.py" line="358"/>
-        <source>Unable to submit total carbon task to Google Earth Engine.</source>
-        <translation type="obsolete">Não é possível enviar a tarefa total de carbono para o Google Earth Engine.</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateTCData.ui" line="121"/>
-        <source>Select the target year, should be great than the initial year</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateTCData.ui" line="209"/>
-        <source>Select the initial year, should be less than the final year.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateTCData.ui" line="378"/>
-        <source>The current selected region of interest</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateTCData.ui" line="391"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateTCData.ui" line="394"/>
-        <source>Change region</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateTCData.ui" line="403"/>
-        <source>Execution name:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateTCData.ui" line="410"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateTCData.ui" line="417"/>
-        <source>Notes:</source>
-        <translation type="unfinished">Notas:</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateTCData.ui" line="442"/>
-        <source>User notes associated with the executed task.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateTCData.ui" line="449"/>
-        <source>Advanced configuration</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateTCData.ui" line="590"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Change in Total Carbon&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Algorithm for calculation above and below ground emissions from deforestation&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../calculate_tc.py" line="259"/>
-        <source>The initial year ({year_initial}) is greater than or equal to the final year ({year_final}) - this analysis might generate strange results.</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>DlgCalculateTCSummaryTable</name>
     <message>
         <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="20"/>
         <source>Carbon Change Summary Table | Total Carbon</source>
-        <translation type="unfinished">Calcular tabela resumo de mudança de carbono</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="39"/>
-        <source>Input</source>
-        <translation type="obsolete">Entrada</translation>
+        <translation>Tabela de Resumo de Mudança de Carbono | Carbono Total</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="108"/>
@@ -3081,19 +2484,58 @@ p, li { white-space: pre-wrap; }
         <translation>Carbono total</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="177"/>
-        <source>Previous</source>
-        <translation type="obsolete">Anterior</translation>
+        <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="199"/>
+        <source>The current selected region of interest</source>
+        <translation>A região de interesse selecionada atualmente</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="196"/>
-        <source>Next</source>
-        <translation type="obsolete">Próximo</translation>
+        <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="212"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Abre diálogo de definições para alterar a região de interesse.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="215"/>
-        <source>Calculate</source>
-        <translation type="obsolete">Calcular</translation>
+        <source>Change region</source>
+        <translation>Alterar região</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="224"/>
+        <source>Execution name:</source>
+        <translation>Nome da execução:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="231"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;A entrada para o nome que será atribuído à tarefa de execução, se não for preenchida o nome do algoritmo será utilizado como nome da tarefa.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="238"/>
+        <source>Notes:</source>
+        <translation>Notas:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="263"/>
+        <source>User notes associated with the executed task.</source>
+        <translation>Notas do utilizador associadas à tarefa executada.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="297"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Carbon Change Summary Table&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Algorithm for summary of the calculation above and below ground emissions from deforestation.&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Tabela de Resumo de Mudança de Carbono&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Algoritmo para resumo do cálculo de emissões acima e abaixo do solo causadas por desflorestação.&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../calculate_tc.py" line="581"/>
@@ -3125,125 +2567,78 @@ p, li { white-space: pre-wrap; }
         <source>Resolutions of forest loss and total carbon layers do not match.</source>
         <translation>Resoluções de perda de floresta e camadas totais de carbono não correspondem.</translation>
     </message>
-    <message>
-        <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="199"/>
-        <source>The current selected region of interest</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="212"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="215"/>
-        <source>Change region</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="224"/>
-        <source>Execution name:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="231"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="238"/>
-        <source>Notes:</source>
-        <translation type="unfinished">Notas:</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="263"/>
-        <source>User notes associated with the executed task.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="297"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Carbon Change Summary Table&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Algorithm for summary of the calculation above and below ground emissions from deforestation.&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
 </context>
 <context>
     <name>DlgCalculateUNCCD</name>
     <message>
         <location filename="../gui/DlgCalculateUNCCD.ui" line="20"/>
         <source>Calculate default datasets for UNCCD reporting</source>
-        <translation type="unfinished"></translation>
+        <translation>Calcule os conjuntos de dados predefinidos para a reportagem à UNCCD</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUNCCD.ui" line="114"/>
         <source>Baseline period</source>
-        <translation type="unfinished">Período de referência</translation>
+        <translation>Período de referência</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUNCCD.ui" line="267"/>
         <source>Initial year:</source>
-        <translation type="unfinished">Ano inicial:</translation>
+        <translation>Ano inicial:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUNCCD.ui" line="280"/>
         <source>Final year:</source>
-        <translation type="unfinished">Ano Final:</translation>
+        <translation>Ano Final:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUNCCD.ui" line="346"/>
         <source>Select the initial year, should be less than the final year.</source>
-        <translation type="unfinished"></translation>
+        <translation>Escolha o ano inicial, deve ser menor que o ano final.</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUNCCD.ui" line="308"/>
         <source>Select the final year, should be great than the initial year</source>
-        <translation type="unfinished"></translation>
+        <translation>Escolha o ano final, que deve ser maior do que o ano inicial</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUNCCD.ui" line="246"/>
         <source>Progress (reporting) period</source>
-        <translation type="unfinished"></translation>
+        <translation>Período (comunicado) de progresso</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUNCCD.ui" line="377"/>
         <source>The current selected region of interest</source>
-        <translation type="unfinished"></translation>
+        <translation>A região de interesse selecionada atualmente</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUNCCD.ui" line="390"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Abre a janela de configurações de forma a alterar a região de interesse.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUNCCD.ui" line="393"/>
         <source>Change region</source>
-        <translation type="unfinished"></translation>
+        <translation>Alterar região</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUNCCD.ui" line="402"/>
         <source>Execution name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome da execução:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUNCCD.ui" line="409"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Entrada para o nome que será atribuído à tarefa de execução, se não estiver preenchida o nome do algoritmo será utilizado como o nome da tarefa.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUNCCD.ui" line="416"/>
         <source>Notes:</source>
-        <translation type="unfinished">Notas:</translation>
+        <translation>Notas:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUNCCD.ui" line="441"/>
         <source>User notes associated with the executed task.</source>
-        <translation type="unfinished"></translation>
+        <translation>Notas do utilizador associadas à tarefa executada.</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUNCCD.ui" line="478"/>
@@ -3256,27 +2651,33 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Countries wishing to replace the default national estimates provided in PRAIS 4 (or to use nationally or locally available data or official national boundaries) can do so within Trends.Earth using the various tools available under the &amp;quot;Algorithms&amp;quot; tab:&lt;/span&gt;&lt;/p&gt;
 &lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Use the tools under &amp;quot;SDG 15.3.1 - Land degradation&amp;quot; to produce customized estimates of Strategic Objective 1 (land condition) and Strategic Objective 2 (population exposed)&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;
 &lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Use the tools under &amp;quot;Drought - Vulnerability and exposure&amp;quot; to produce estimates of Strategic Objective 3 (drought vulnerability)&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Dados Padrão para a Comunicação da UNCCD&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Calcula as bases de dados padrão utilizadas no Processo de Comunicação da UNCCD em 2022. Esta ferramenta utiliza as mesmas bases de dados e abordagens globais utilizadas para produzir as &lt;/span&gt;&lt;a href=&quot;https://prais4-reporting-manual.readthedocs.io/en/latest/introduction.html#default-data&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt; estimativas nacionais padrão&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt; pré-preenchidas pela UNCCD na &lt;/span&gt;&lt;a href=&quot;https://reporting.unccd.int&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;PRAIS 4&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;. &lt;/span&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Os países que pretendam alterar as estimativas nacionais disponibilizadas na PRAIS 4 (ou utilizar dados disponíveis nacional ou localmente ou limites nacionais oficiais) podem fazê-lo em Trends.Earth, utilizando as várias ferramentas disponíveis no âmbito do separador &amp;quot;Algoritmos&amp;quot; &lt;/span&gt;&lt;/p&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Utilize as ferramentas no âmbito de &amp;quot;ODS 15.3.1 - Degradação do Solo&amp;quot; para produzir estimativas personalizadas do Objetivo Estratégico 1 (condição do solo) e do Objetivo Estratégico 2 (população exposta)&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Utilize as ferramentas no âmbito de &amp;quot;Seca - Vulnerabilidade e exposição&amp;quot; para produzir estimativas do Objetivo Estratégico 3 (vulnerabilidade à seca)&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="94"/>
+        <location filename="../calculate_unccd.py" line="89"/>
         <source>Coming soon!</source>
-        <translation type="unfinished">Em breve!</translation>
+        <translation>Em breve!</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="94"/>
+        <location filename="../calculate_unccd.py" line="89"/>
         <source>This function coming soon!</source>
-        <translation type="unfinished"></translation>
+        <translation>Esta funcionalidade chega em breve!</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="111"/>
+        <location filename="../calculate_unccd.py" line="106"/>
         <source>Error</source>
-        <translation type="unfinished">Erro</translation>
+        <translation>Erro</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="111"/>
+        <location filename="../calculate_unccd.py" line="106"/>
         <source>Initial and final year are less 5 years apart in - results will be more reliable if more data (years) are included in the analysis.</source>
-        <translation type="unfinished"></translation>
+        <translation>O ano inicial e o final têm menos de 5 anos a separá-los - os resultados serão mais fiáveis se forem incluídos mais dados (anos) na análise.</translation>
     </message>
 </context>
 <context encoding="UTF-8">
@@ -3284,93 +2685,101 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateUNCCDReport.ui" line="20"/>
         <source>Generate UNCCD Report</source>
-        <translation type="unfinished"></translation>
+        <translation>Criar Relatório UNCCD</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUNCCDReport.ui" line="102"/>
         <source>Dataset for Strategic Objectives 1 and 2 (land degradation, and population exposed)</source>
+        <translation>Base de Dados para os Objetivos Estratégicos 1 e 2 (degradação do solo e população exposta)</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateUNCCDReport.ui" line="133"/>
+        <source>False positive / false negative layer</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateUNCCDReport.ui" line="157"/>
+        <location filename="../gui/DlgCalculateUNCCDReport.ui" line="200"/>
         <source>Dataset for Strategic Objective 3 (drought hazard, exposure and vulnerability)</source>
-        <translation type="unfinished"></translation>
+        <translation>Base de Dados para o Objetivo Estratégico 3 (perigo de seca, exposição e vulnerabilidade)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateUNCCDReport.ui" line="212"/>
+        <location filename="../gui/DlgCalculateUNCCDReport.ui" line="255"/>
         <source>Calculation is for affected areas only</source>
-        <translation type="unfinished"></translation>
+        <translation>O cálculo é apenas para as áreas afetadas</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateUNCCDReport.ui" line="231"/>
+        <location filename="../gui/DlgCalculateUNCCDReport.ui" line="274"/>
         <source>The current selected region of interest</source>
-        <translation type="unfinished"></translation>
+        <translation>A região de interesse selecionada atualmente</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateUNCCDReport.ui" line="244"/>
+        <location filename="../gui/DlgCalculateUNCCDReport.ui" line="287"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Abre a janela de configurações de forma a alterar a região de interesse.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateUNCCDReport.ui" line="247"/>
+        <location filename="../gui/DlgCalculateUNCCDReport.ui" line="290"/>
         <source>Change region</source>
-        <translation type="unfinished"></translation>
+        <translation>Alterar região</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateUNCCDReport.ui" line="257"/>
+        <location filename="../gui/DlgCalculateUNCCDReport.ui" line="300"/>
         <source>Execution name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome da execução:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateUNCCDReport.ui" line="264"/>
+        <location filename="../gui/DlgCalculateUNCCDReport.ui" line="307"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Entrada para o nome que será atribuído à tarefa de execução, se não estiver preenchida o nome do algoritmo será utilizado como o nome da tarefa.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateUNCCDReport.ui" line="271"/>
+        <location filename="../gui/DlgCalculateUNCCDReport.ui" line="314"/>
         <source>Notes:</source>
-        <translation type="unfinished">Notas:</translation>
+        <translation>Notas:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateUNCCDReport.ui" line="296"/>
+        <location filename="../gui/DlgCalculateUNCCDReport.ui" line="339"/>
         <source>User notes associated with the executed task.</source>
-        <translation type="unfinished"></translation>
+        <translation>Notas do utilizador associadas à tarefa executada.</translation>
     </message>
     <message encoding="UTF-8">
-        <location filename="../gui/DlgCalculateUNCCDReport.ui" line="330"/>
+        <location filename="../gui/DlgCalculateUNCCDReport.ui" line="373"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:5.5pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Generate UNCCD Report&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Calculate report on UNCCD Strategic Objectives 1, 2, and 3&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji&apos;; font-size:11pt; color:#24292f; background-color:#ffffff;&quot;&gt;Checking the &amp;quot;Calculation is for affected areas only&amp;quot; box, will include an indicator in the report that this calculation is for affected areas. Note that reporting on affected areas is an optional element in the UNCCD 2022 reporting process and is additional to national reporting. “Affected Areas” are defined in Article 1 of the Convention as “arid, semi-arid and/or dry sub-humid areas affected or threatened by desertification.” Parties may opt to use this definition or to provide the operational definition of affected area in use in their country.”&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;False positive / false negative layer&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Submitting a false positive / false negative layer is optional. This layer can be used to correct for cases when there are known errors in the indicator data used for Strategic Objective 1.&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Affected areas&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Checking the &amp;quot;Calculation is for affected areas only&amp;quot; box will include an indicator in the report that this calculation is for affected areas. Note that reporting on affected areas is an optional element in the UNCCD 2022 reporting process and is additional to national reporting. “Affected Areas” are defined in Article 1 of the Convention as “arid, semi-arid and/or dry sub-humid areas affected or threatened by desertification.” Parties may opt to use this definition or to provide the operational definition of affected area in use in their country.”&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="207"/>
+        <location filename="../calculate_unccd.py" line="203"/>
         <source>Error</source>
-        <translation type="unfinished">Erro</translation>
+        <translation>Erro</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="193"/>
+        <location filename="../calculate_unccd.py" line="189"/>
         <source>You must select a {dataset_name} layer before you can use the UNCCD reporting tool.</source>
-        <translation type="unfinished"></translation>
+        <translation>Deve selecionar um estrato {dataset_name} antes de poder utilizar a ferramenta de comunicação da UNCCD.</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="207"/>
+        <location filename="../calculate_unccd.py" line="203"/>
         <source>You must select a {layer_name} layer before you can use the UNCCD reporting tool.</source>
-        <translation type="unfinished"></translation>
+        <translation>Deve selecionar um estrato {layer_name} antes de poder utilizar a ferramenta de comunicação da UNCCD.</translation>
+    </message>
+    <message>
+        <location filename="../calculate_unccd.py" line="217"/>
+        <source>SO1 and SO2</source>
+        <translation>OE1 e OE2</translation>
     </message>
     <message>
         <location filename="../calculate_unccd.py" line="221"/>
-        <source>SO1 and SO2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../calculate_unccd.py" line="225"/>
         <source>SO3 (hazard and exposure)</source>
-        <translation type="unfinished"></translation>
+        <translation>OE3 (perigo e exposição)</translation>
     </message>
 </context>
 <context>
@@ -3406,12 +2815,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="20"/>
         <source>Urban Area Change Metrics | Urban Change and Land Consumption</source>
-        <translation type="unfinished">Calcular as métricas de mudança de área urbana</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateUrbanData.ui" line="39"/>
-        <source>Settings</source>
-        <translation type="obsolete">Definições</translation>
+        <translation>Métricas de Mudança da Área Urbana | Mudança Urbana e Consumo do Solo</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="90"/>
@@ -3442,9 +2846,44 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt; &lt;span style=&quot; font-size:9pt;&quot;&gt;Veja a&lt;/span&gt; &lt;a href=&quot;https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-mapper&quot;&gt;&lt;span style=&quot; font-size:9pt; text-decoration: underline; color:#0000ff;&quot;&gt;página Urban Mapper&lt;/span&gt;&lt;/a&gt; &lt;span style=&quot; font-size:9pt;&quot;&gt;para obter ajuda na escolha destes valores.&lt;/span&gt; &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateUrbanData.ui" line="198"/>
-        <source>Advanced</source>
-        <translation type="obsolete">Avançado</translation>
+        <location filename="../gui/DlgCalculateUrbanData.ui" line="237"/>
+        <source>The current selected region of interest</source>
+        <translation>A região de interesse selecionada atualmente</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateUrbanData.ui" line="250"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Abre a janela de configurações de forma a alterar a região de interesse.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateUrbanData.ui" line="253"/>
+        <source>Change region</source>
+        <translation>Alterar região</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateUrbanData.ui" line="262"/>
+        <source>Execution name:</source>
+        <translation>Nome da execução:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateUrbanData.ui" line="269"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Entrada para o nome que será atribuído à tarefa de execução, se não estiver preenchida o nome do algoritmo será utilizado como o nome da tarefa.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateUrbanData.ui" line="276"/>
+        <source>Notes:</source>
+        <translation>Notas:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateUrbanData.ui" line="301"/>
+        <source>User notes associated with the executed task.</source>
+        <translation>Notas do utilizador associadas à tarefa executada.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateUrbanData.ui" line="308"/>
+        <source>Advanced configuration</source>
+        <translation>Configuração avançada</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="323"/>
@@ -3493,81 +2932,6 @@ p, li { white-space: pre-wrap; }
         <translation>Densidade populacional ajustada para corresponder às estimativas oficiais da população da ONU</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateUrbanData.ui" line="412"/>
-        <source>Previous</source>
-        <translation type="obsolete">Anterior</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateUrbanData.ui" line="431"/>
-        <source>Next</source>
-        <translation type="obsolete">Próximo</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateUrbanData.ui" line="450"/>
-        <source>Calculate</source>
-        <translation type="obsolete">Calcular</translation>
-    </message>
-    <message>
-        <location filename="../calculate_urban.py" line="165"/>
-        <source>Error</source>
-        <translation>Erro</translation>
-    </message>
-    <message>
-        <location filename="../calculate_urban.py" line="165"/>
-        <source>The bounding box of the requested area (approximately {:.6n} sq km) is too large. The urban area change tool can process a maximum area of 25,000 sq. km at a time. Choose a smaller area to process.</source>
-        <translation>A extensão delimitadora da área solicitada (aproximadamente {: 0,6n} km2) é muito grande. A ferramenta de mudança de área urbana pode processar uma área máxima de 10.000 km2 por vez. Escolha uma área menor para processar.</translation>
-    </message>
-    <message>
-        <location filename="../calculate_urban.py" line="199"/>
-        <source>Submitted</source>
-        <translation type="obsolete">Submetido</translation>
-    </message>
-    <message>
-        <location filename="../calculate_urban.py" line="199"/>
-        <source>Urban area change calculation submitted to Google Earth Engine.</source>
-        <translation type="obsolete">Cálculo de mudança da área urbana enviado ao Google Earth Engine.</translation>
-    </message>
-    <message>
-        <location filename="../calculate_urban.py" line="203"/>
-        <source>Unable to submit urban area task to Google Earth Engine.</source>
-        <translation type="obsolete">Não foi possível enviar a tarefa de área urbana para o Google Earth Engine.</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateUrbanData.ui" line="237"/>
-        <source>The current selected region of interest</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateUrbanData.ui" line="250"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateUrbanData.ui" line="253"/>
-        <source>Change region</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateUrbanData.ui" line="262"/>
-        <source>Execution name:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateUrbanData.ui" line="269"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateUrbanData.ui" line="276"/>
-        <source>Notes:</source>
-        <translation type="unfinished">Notas:</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateUrbanData.ui" line="301"/>
-        <source>User notes associated with the executed task.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="524"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
@@ -3578,11 +2942,26 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;SDG 11.3.1 Indicator algorithm for ratio of land consumption rate to population growth rate.&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators11.html&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;More information&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Métricas de Mudança da Área Urbana&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;ODS 11.3.1 Algoritmo indicador do rácio entre a taxa de consumo do solo e a taxa de crescimento da população.
+&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators11.html&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Mais informação&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateUrbanData.ui" line="308"/>
-        <source>Advanced configuration</source>
+        <location filename="../calculate_urban.py" line="165"/>
+        <source>Error</source>
+        <translation>Erro</translation>
+    </message>
+    <message>
+        <location filename="../calculate_urban.py" line="165"/>
+        <source>The bounding box of the requested area (approximately {:.6n} sq km) is too large. The urban area change tool can process a maximum area of 25,000 sq. km at a time. Choose a smaller area to process.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -3591,12 +2970,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateUrbanSummaryTable.ui" line="20"/>
         <source>Urban Change Summary Table | Urban Change and Land Consumption</source>
-        <translation type="unfinished">Calcular a tabela Resumo de mudanças urbanas</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateUrbanSummaryTable.ui" line="39"/>
-        <source>Input</source>
-        <translation type="obsolete">Entrada</translation>
+        <translation>Tabela Resumo da Mudança Urbana | Mudança Urbana e Consumo do Solo</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanSummaryTable.ui" line="108"/>
@@ -3604,19 +2978,60 @@ p, li { white-space: pre-wrap; }
         <translation>Série urbana</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateUrbanSummaryTable.ui" line="128"/>
-        <source>Previous</source>
-        <translation type="obsolete">Anterior</translation>
+        <location filename="../gui/DlgCalculateUrbanSummaryTable.ui" line="150"/>
+        <source>The current selected region of interest</source>
+        <translation>A região de interesse selecionada atualmente</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateUrbanSummaryTable.ui" line="147"/>
-        <source>Next</source>
-        <translation type="obsolete">Próximo</translation>
+        <location filename="../gui/DlgCalculateUrbanSummaryTable.ui" line="163"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Abre a janela de configurações de forma a alterar a região de interesse.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanSummaryTable.ui" line="166"/>
-        <source>Calculate</source>
-        <translation type="obsolete">Calcular</translation>
+        <source>Change region</source>
+        <translation>Alterar região</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateUrbanSummaryTable.ui" line="175"/>
+        <source>Execution name:</source>
+        <translation>Nome da execução:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateUrbanSummaryTable.ui" line="182"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Entrada para o nome que será atribuído à tarefa de execução, se não estiver preenchida o nome do algoritmo será utilizado como o nome da tarefa.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateUrbanSummaryTable.ui" line="189"/>
+        <source>Notes:</source>
+        <translation>Notas:</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateUrbanSummaryTable.ui" line="214"/>
+        <source>User notes associated with the executed task.</source>
+        <translation>Notas do utilizador associadas à tarefa executada.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateUrbanSummaryTable.ui" line="248"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Urban Change Summary Table&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Summary for SDG 11.3.1 Indicator for ratio of land consumption rate to population growth rate.&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators11.html#&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;More information&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Tabela Resumo da Mudança Urbana&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Resumo para o ODS 11.3.1 Indicador do rácio entre a taxa de consumo do solo e a taxa de crescimento da população.&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators11.html#&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Mais informação&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../calculate_urban.py" line="269"/>
@@ -3633,128 +3048,37 @@ p, li { white-space: pre-wrap; }
         <source>Area of interest is not entirely within the urban series layer.</source>
         <translation>A área de interesse não está inteiramente dentro da camada de séries urbanas.</translation>
     </message>
-    <message>
-        <location filename="../calculate_urban.py" line="319"/>
-        <source>Error masking urban change input layers.</source>
-        <translation type="obsolete">Erro ao mascarar camadas de entrada de alterações urbanas.</translation>
-    </message>
-    <message>
-        <location filename="../calculate_urban.py" line="331"/>
-        <source>Error calculating urban change summary table.</source>
-        <translation type="obsolete">Erro ao calcular a tabela de resumo de alterações urbanas.</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateUrbanSummaryTable.ui" line="150"/>
-        <source>The current selected region of interest</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateUrbanSummaryTable.ui" line="163"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateUrbanSummaryTable.ui" line="166"/>
-        <source>Change region</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateUrbanSummaryTable.ui" line="175"/>
-        <source>Execution name:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateUrbanSummaryTable.ui" line="182"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateUrbanSummaryTable.ui" line="189"/>
-        <source>Notes:</source>
-        <translation type="unfinished">Notas:</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateUrbanSummaryTable.ui" line="214"/>
-        <source>User notes associated with the executed task.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateUrbanSummaryTable.ui" line="248"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Urban Change Summary Table&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Summary for SDG 11.3.1 Indicator for ratio of land consumption rate to population growth rate.&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators11.html#&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;More information&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
-    <name>DlgDataIO</name>
-    <message>
-        <location filename="../gui/DlgDataIO.ui" line="23"/>
-        <source>Load data</source>
-        <translation type="obsolete">Carregar dados</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDataIO.ui" line="35"/>
-        <source>Load a dataset produced by TRENDS.EARTH</source>
-        <translation type="obsolete">Carregar um conjunto de dados produzido por TRENDS.EARTH</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDataIO.ui" line="65"/>
-        <source>Load an existing TRENDS.EARTH output file</source>
-        <translation type="obsolete">Carregar um arquivo de saída TRENDS.EARTH existente</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDataIO.ui" line="81"/>
-        <source>Import a custom input dataset</source>
-        <translation type="obsolete">Importar um conjunto de dados de entrada personalizado</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDataIO.ui" line="99"/>
-        <source>Productivity</source>
-        <translation type="obsolete">Produtividade</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDataIO.ui" line="118"/>
-        <source>Land cover</source>
-        <translation type="obsolete">Cobertura da terra</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDataIO.ui" line="137"/>
-        <source>Soil organic carbon</source>
-        <translation type="obsolete">Carbono orgânico do solo</translation>
-    </message>
 </context>
 <context>
     <name>DlgDataIOAddLayersToMap</name>
     <message>
         <location filename="../gui/DlgDataIOAddLayersToMap.ui" line="23"/>
         <source>Select layers to add to the map</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecione camadas para adicionar ao mapa</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOAddLayersToMap.ui" line="36"/>
         <source>Select a layer</source>
-        <translation type="unfinished">Selecione uma camada</translation>
+        <translation>Selecione uma camada</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1665"/>
         <source>Error</source>
-        <translation type="unfinished">Erro</translation>
+        <translation>Erro</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1665"/>
         <source>Select a layer to load.</source>
-        <translation type="unfinished">Selecione uma camada para carregar.</translation>
+        <translation>Selecione uma camada para carregar.</translation>
     </message>
 </context>
 <context>
     <name>DlgDataIOImportBase</name>
+    <message>
+        <location filename="../data_io.py" line="910"/>
+        <source>Metadata</source>
+        <translation>Metadados</translation>
+    </message>
     <message>
         <location filename="../data_io.py" line="1110"/>
         <source>Error</source>
@@ -3769,6 +3093,11 @@ p, li { white-space: pre-wrap; }
         <location filename="../data_io.py" line="928"/>
         <source>Choose an input polygon dataset.</source>
         <translation>Escolha um conjunto de dados de polígono de entrada.</translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="942"/>
+        <source>Cannot process {}. Unknown geometry type:{}</source>
+        <translation>Não foi possível processar {}. Tipo de geometria desconhecida: {}</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1037"/>
@@ -3789,16 +3118,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../data_io.py" line="1110"/>
         <source>Raster import failed.</source>
         <translation>Importação do arquivo raster falhou.</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="942"/>
-        <source>Cannot process {}. Unknown geometry type:{}</source>
-        <translation>Não foi possível processar {}. Tipo de geometria desconhecida: {}</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="910"/>
-        <source>Metadata</source>
-        <translation type="unfinished">Metadados</translation>
     </message>
 </context>
 <context>
@@ -3885,9 +3204,18 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;4: Stable&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;5: Increasing&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;0 or -32768: No data&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;As classes de produtividade nos dados de entrada devem ser codificadas da seguinte maneira:&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;1: Declínio&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;2: Primeiros sinais de declínio&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;3: Estável, mas estressado&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;4: Estável&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;5: Aumentando&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;0 ou -32768: sem dados&lt;/span&gt; &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;As classes de produtividade nos dados de entrada devem estar codificadas da seguinte forma:&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1: Decrescente&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;2: Moderadamente decrescente&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;3: Tensa&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;4: Estável&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;5: Crescente&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;0 ou -32768: Sem dados&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1313"/>
@@ -3968,17 +3296,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgDataIOLoadTE.ui" line="23"/>
         <source>Import known Trends.Earth file</source>
-        <translation type="unfinished">Abra um arquivo Trends.Earth</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDataIOLoadTE.ui" line="42"/>
-        <source>Select a layer(s)</source>
-        <translation type="obsolete">Selecione uma camada (s)</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgDataIOLoadTE.ui" line="79"/>
-        <source>View file metadata</source>
-        <translation type="obsolete">Visualizar metadados do arquivo</translation>
+        <translation>Importar ficheiro conhecido de Trends.Earth</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOLoadTE.ui" line="35"/>
@@ -3996,75 +3314,127 @@ p, li { white-space: pre-wrap; }
         <translation>&quot;Navegar&quot;...</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="491"/>
-        <source>Select a Trends.Earth output file</source>
-        <translation type="obsolete">Selecione um arquivo de saída Trends.Earth</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="491"/>
-        <source>Trends.Earth metadata file (*.json)</source>
-        <translation type="obsolete">Arquivo de metadados Trends.Earth (* .json)</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="550"/>
-        <source>Error</source>
-        <translation type="obsolete">Erro</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="550"/>
-        <source>Cannot read {}. Choose a different file.</source>
-        <translation type="obsolete">Não foi possível ler {}. Escolha um arquivo diferente.</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="525"/>
-        <source>{} does not appear to be a Trends.Earth output file</source>
-        <translation type="obsolete">{} não parece ser um arquivo de saída Trends.Earth</translation>
-    </message>
-    <message>
         <location filename="../gui/DlgDataIOLoadTE.ui" line="87"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome</translation>
     </message>
     <message>
         <location filename="../gui/DlgDataIOLoadTE.ui" line="101"/>
         <source>Referenced dataset</source>
-        <translation type="unfinished"></translation>
+        <translation>Base de dados de referência</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="663"/>
         <source>Could not load file</source>
+        <translation>Não foi possível carregar ficheiro</translation>
+    </message>
+</context>
+<context>
+    <name>DlgDatasetMetadata</name>
+    <message>
+        <location filename="../metadata_dialog.py" line="46"/>
+        <source>Farming</source>
         <translation type="unfinished"></translation>
     </message>
-</context>
-<context>
-    <name>DlgDataIOLoadTEBase</name>
     <message>
-        <location filename="../data_io.py" line="469"/>
-        <source>Error</source>
-        <translation type="obsolete">Erro</translation>
+        <location filename="../metadata_dialog.py" line="47"/>
+        <source>Biota</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="465"/>
-        <source>Unable to automatically add &quot;{}&quot;. No style is defined for this type of layer.</source>
-        <translation type="obsolete">Não foi possível adicionar automaticamente &quot;{}&quot;. Nenhum estilo é definido para esse tipo de camada.</translation>
+        <location filename="../metadata_dialog.py" line="48"/>
+        <source>Boundaries</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="469"/>
-        <source>Select a layer to load.</source>
-        <translation type="obsolete">Selecione uma camada para carregar.</translation>
-    </message>
-</context>
-<context>
-    <name>DlgDataIOLoadTESingleLayer</name>
-    <message>
-        <location filename="../gui/DlgDataIOLoadTESingleLayer.ui" line="23"/>
-        <source>Open a Trends.Earth file</source>
-        <translation type="obsolete">Abra um arquivo Trends.Earth</translation>
+        <location filename="../metadata_dialog.py" line="49"/>
+        <source>Climatology Meteorology Atmosphere</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgDataIOLoadTESingleLayer.ui" line="36"/>
-        <source>Select a layer</source>
-        <translation type="obsolete">Selecione uma camada</translation>
+        <location filename="../metadata_dialog.py" line="50"/>
+        <source>Economy</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../metadata_dialog.py" line="51"/>
+        <source>Elevation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../metadata_dialog.py" line="52"/>
+        <source>Environment</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../metadata_dialog.py" line="53"/>
+        <source>Geoscientific Information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../metadata_dialog.py" line="54"/>
+        <source>Health</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../metadata_dialog.py" line="55"/>
+        <source>Imagery Base Maps Earth Cover</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../metadata_dialog.py" line="56"/>
+        <source>Intelligence Military</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../metadata_dialog.py" line="57"/>
+        <source>Inland Waters</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../metadata_dialog.py" line="58"/>
+        <source>Location</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../metadata_dialog.py" line="59"/>
+        <source>Oceans</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../metadata_dialog.py" line="60"/>
+        <source>Planning Cadastre</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../metadata_dialog.py" line="61"/>
+        <source>Society</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../metadata_dialog.py" line="62"/>
+        <source>Structure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../metadata_dialog.py" line="63"/>
+        <source>Transportation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../metadata_dialog.py" line="64"/>
+        <source>Utilities Communication</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../metadata_dialog.py" line="83"/>
+        <source>postal</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../metadata_dialog.py" line="98"/>
+        <source>New Category</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4119,73 +3489,53 @@ p, li { white-space: pre-wrap; }
         <source>Details</source>
         <translation>Detalhes</translation>
     </message>
-    <message>
-        <location filename="../download_data.py" line="243"/>
-        <source>Success</source>
-        <translation type="obsolete">Sucesso</translation>
-    </message>
-    <message>
-        <location filename="../download_data.py" line="243"/>
-        <source>Download request submitted to Google Earth Engine.</source>
-        <translation type="obsolete">Solicitação de download enviada ao Google Earth Engine.</translation>
-    </message>
-    <message>
-        <location filename="../download_data.py" line="247"/>
-        <source>Error</source>
-        <translation type="obsolete">Erro</translation>
-    </message>
-    <message>
-        <location filename="../download_data.py" line="247"/>
-        <source>Unable to submit download request to Google Earth Engine.</source>
-        <translation type="obsolete">Não foi possível enviar a solicitação de download para o Google Earth Engine.</translation>
-    </message>
 </context>
 <context>
     <name>DlgDownloadLandPKS</name>
     <message>
         <location filename="../gui/DlgLandPKSDownload.ui" line="23"/>
         <source>Download LandPKS data</source>
-        <translation type="unfinished"></translation>
+        <translation>Transferir dados LandPKS</translation>
     </message>
     <message>
         <location filename="../gui/DlgLandPKSDownload.ui" line="42"/>
         <source>Select Data</source>
-        <translation type="unfinished">Selecione dados</translation>
+        <translation>Selecione dados</translation>
     </message>
     <message>
         <location filename="../gui/DlgLandPKSDownload.ui" line="83"/>
         <source>Select Time Period</source>
-        <translation type="unfinished">Selecione o período de tempo</translation>
+        <translation>Selecione o período de tempo</translation>
     </message>
     <message>
         <location filename="../gui/DlgLandPKSDownload.ui" line="95"/>
         <source>Period</source>
-        <translation type="unfinished">Período</translation>
+        <translation>Período</translation>
     </message>
     <message>
         <location filename="../gui/DlgLandPKSDownload.ui" line="209"/>
         <source>Last year:</source>
-        <translation type="unfinished">Ano passado:</translation>
+        <translation>Ano passado:</translation>
     </message>
     <message>
         <location filename="../gui/DlgLandPKSDownload.ui" line="228"/>
         <source>First year:</source>
-        <translation type="unfinished">Primeiro ano:</translation>
+        <translation>Primeiro ano:</translation>
     </message>
     <message>
         <location filename="../gui/DlgLandPKSDownload.ui" line="269"/>
         <source>Next</source>
-        <translation type="unfinished">Próximo</translation>
+        <translation>Próximo</translation>
     </message>
     <message>
         <location filename="../gui/DlgLandPKSDownload.ui" line="288"/>
         <source>Submit download request</source>
-        <translation type="unfinished">Enviar pedido de download</translation>
+        <translation>Enviar pedido de download</translation>
     </message>
     <message>
         <location filename="../gui/DlgLandPKSDownload.ui" line="307"/>
         <source>Previous</source>
-        <translation type="unfinished">Anterior</translation>
+        <translation>Anterior</translation>
     </message>
 </context>
 <context>
@@ -4193,67 +3543,67 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgGenerateReport.ui" line="14"/>
         <source>Generate MultiDataset Report</source>
-        <translation type="unfinished"></translation>
+        <translation>Gerar Relatórios com múltiplas bases de dados</translation>
     </message>
     <message>
         <location filename="../gui/DlgGenerateReport.ui" line="26"/>
         <source>Choose template</source>
-        <translation type="unfinished"></translation>
+        <translation>Escolher modelo</translation>
     </message>
     <message>
         <location filename="../gui/DlgGenerateReport.ui" line="43"/>
         <source>Specify base file name</source>
-        <translation type="unfinished"></translation>
+        <translation>Especificar nome do ficheiro base</translation>
     </message>
     <message>
         <location filename="../gui/DlgGenerateReport.ui" line="46"/>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="../gui/DlgGenerateReport.ui" line="95"/>
         <source>Description</source>
-        <translation type="unfinished"></translation>
+        <translation>Descrição</translation>
     </message>
     <message>
         <location filename="../gui/DlgGenerateReport.ui" line="102"/>
         <source>Base file name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome do ficheiro base</translation>
     </message>
     <message>
         <location filename="../generate_report_dialog.py" line="63"/>
         <source>Base file name for report output files</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome do ficheiro base para ficheiros de saída do relatório</translation>
     </message>
     <message>
         <location filename="../generate_report_dialog.py" line="83"/>
         <source>Generate</source>
-        <translation type="unfinished"></translation>
+        <translation>Gerar</translation>
     </message>
     <message>
         <location filename="../generate_report_dialog.py" line="143"/>
         <source>Select Report Output Directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecionar Diretório de Saída do Relatório</translation>
     </message>
     <message>
         <location filename="../generate_report_dialog.py" line="158"/>
         <source>Validation</source>
-        <translation type="unfinished"></translation>
+        <translation>Validação</translation>
     </message>
     <message>
         <location filename="../generate_report_dialog.py" line="164"/>
         <source>No template selected.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nenhum modelo selecionado.</translation>
     </message>
     <message>
         <location filename="../generate_report_dialog.py" line="177"/>
         <source>No output directory specified.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nenhum diretório de saída especificado.</translation>
     </message>
     <message>
         <location filename="../generate_report_dialog.py" line="194"/>
         <source>dataset not specified.</source>
-        <translation type="unfinished"></translation>
+        <translation>base de dados não especificada.</translation>
     </message>
 </context>
 <context>
@@ -4345,36 +3695,6 @@ p, li { white-space: pre-wrap; }
         <source>Refresh list</source>
         <translation>Atualizar lista</translation>
     </message>
-    <message>
-        <location filename="../jobs.py" line="222"/>
-        <source>Script not found</source>
-        <translation type="obsolete">Código não encontrado</translation>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="250"/>
-        <source>Details</source>
-        <translation type="obsolete">Detalhes</translation>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="302"/>
-        <source>Choose a filename. Downloading results of: {}</source>
-        <translation type="obsolete">Escolha um nome de arquivo. Download de resultados de: {}</translation>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="302"/>
-        <source>Base filename (*.json)</source>
-        <translation type="obsolete">Nome do arquivo base (* .json)</translation>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="315"/>
-        <source>Error</source>
-        <translation type="obsolete">Erro</translation>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="315"/>
-        <source>Cannot write to {}. Choose a different base filename.</source>
-        <translation type="obsolete">Não foi possível escrever para {}. Escolha um nome de arquivo base diferente.</translation>
-    </message>
 </context>
 <context>
     <name>DlgJobsDetails</name>
@@ -4427,7 +3747,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../landpks.py" line="191"/>
         <source>Details</source>
-        <translation type="unfinished">Detalhes</translation>
+        <translation>Detalhes</translation>
     </message>
 </context>
 <context>
@@ -4451,9 +3771,17 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgPlotTimeries</name>
     <message>
-        <location filename="../plot.py" line="85"/>
+        <location filename="../plot.py" line="93"/>
         <source>Linear trend (r&lt;sup&gt;2&lt;/sup&gt; = {0:.2f})</source>
         <translation>Tendência Linear (r &lt;sup&gt;2&lt;/sup&gt; = {0: .2f})</translation>
+    </message>
+</context>
+<context>
+    <name>DlgSelectDataset</name>
+    <message>
+        <location filename="../select_dataset.py" line="67"/>
+        <source>Current region: {region}</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4464,39 +3792,24 @@ p, li { white-space: pre-wrap; }
         <translation>Definições</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="53"/>
-        <source>New users</source>
-        <translation type="obsolete">Novos usuários</translation>
+        <location filename="../gui/DlgSettings.ui" line="93"/>
+        <source>Trends.Earth login information</source>
+        <translation>Informação de início de sessão de Trends.Earth</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="77"/>
-        <source>Click the below button to register with Trends.Earth.</source>
-        <translation type="obsolete">Clique no botão abaixo para se registrar no Trends.Earth.</translation>
+        <location filename="../gui/DlgSettings.ui" line="101"/>
+        <source>Register for Trends.Earth (step 1)</source>
+        <translation>Registar-se em Trends.Earth (passo 1)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="105"/>
-        <source>Step 1: Register</source>
-        <translation type="obsolete">Etapa 1: registrar</translation>
+        <location filename="../gui/DlgSettings.ui" line="108"/>
+        <source>Enter username and password (step 2)</source>
+        <translation>Inserir nome de utilizador e senha (passo 2)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="124"/>
-        <source>After registering, you will receive an email with your password from api@trends.earth. Once you receive that email, click below to enter that password to login to Trends.Earth.</source>
-        <translation type="obsolete">Após o cadastro, você receberá um email com sua senha em api@trends.earth. Depois de receber o email, clique abaixo para inserir a senha para acessar o Trends.Earth.</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgSettings.ui" line="152"/>
-        <source>Step 2: Enter login</source>
-        <translation type="obsolete">Etapa 2: insira o login</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgSettings.ui" line="174"/>
-        <source>Existing users</source>
-        <translation type="obsolete">Usuários existentes</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgSettings.ui" line="198"/>
-        <source>Update account</source>
-        <translation type="obsolete">Atualizar conta</translation>
+        <location filename="../gui/DlgSettings.ui" line="137"/>
+        <source>Update profile</source>
+        <translation>Atualizar perfil</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="156"/>
@@ -4504,197 +3817,44 @@ p, li { white-space: pre-wrap; }
         <translation>Redefinir senha</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettings.ui" line="245"/>
-        <source>Advanced users</source>
-        <translation type="obsolete">Usuários avançados</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgSettings.ui" line="269"/>
-        <source>Edit advanced options</source>
-        <translation type="obsolete">Editar opções avançadas</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgSettings.ui" line="93"/>
-        <source>Trends.Earth login information</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgSettings.ui" line="101"/>
-        <source>Register for Trends.Earth (step 1)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgSettings.ui" line="108"/>
-        <source>Enter username and password (step 2)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgSettings.ui" line="137"/>
-        <source>Update profile</source>
-        <translation type="unfinished">Atualizar perfil</translation>
-    </message>
-    <message>
         <location filename="../gui/DlgSettings.ui" line="188"/>
         <source>Delete user</source>
-        <translation type="unfinished">Deletar usuário</translation>
+        <translation>Deletar usuário</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="206"/>
         <source>Reports</source>
-        <translation type="unfinished"></translation>
+        <translation>Relatórios</translation>
     </message>
     <message>
         <location filename="../gui/DlgSettings.ui" line="218"/>
         <source>Advanced</source>
-        <translation type="unfinished">Avançado</translation>
+        <translation>Avançado</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="182"/>
+        <location filename="../settings.py" line="187"/>
         <source>Please register in order to use Trends.Earth</source>
-        <translation type="unfinished"></translation>
+        <translation>Registe-se para poder utilizar Trends.Earth</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="230"/>
+        <location filename="../settings.py" line="235"/>
         <source>Delete user?</source>
-        <translation type="unfinished">Deletar usuário?</translation>
+        <translation>Deletar usuário?</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="230"/>
+        <location filename="../settings.py" line="235"/>
         <source>Are you sure you want to delete the user {}? All of your tasks will be lost and you will no longer be able to process data online using Trends.Earth.</source>
-        <translation type="unfinished">Tem certeza de que deseja excluir o usuário {}? Todas as suas tarefas serão perdidas e você não poderá mais processar dados on-line usando o Trends.Earth.</translation>
+        <translation>Tem certeza de que deseja excluir o usuário {}? Todas as suas tarefas serão perdidas e você não poderá mais processar dados on-line usando o Trends.Earth.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="246"/>
+        <location filename="../settings.py" line="251"/>
         <source>Success</source>
-        <translation type="unfinished">Sucesso</translation>
-    </message>
-</context>
-<context>
-    <name>DlgSettingsAdvanced</name>
-    <message>
-        <location filename="../gui/DlgSettingsAdvanced.ui" line="20"/>
-        <source>Update user</source>
-        <translation type="obsolete">Atualizar usuário</translation>
+        <translation>Sucesso</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsAdvanced.ui" line="26"/>
-        <source>Advanced options</source>
-        <translation type="obsolete">Opções avançadas</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgSettingsAdvanced.ui" line="32"/>
-        <source>Debug mode (saves detailed logging information)</source>
-        <translation type="obsolete">Modo de depuração (salva informações detalhadas de log)</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgSettingsAdvanced.ui" line="48"/>
-        <source>Use binaries for faster processing</source>
-        <translation type="obsolete">Use binários para processamento mais rápido</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgSettingsAdvanced.ui" line="80"/>
-        <source>Click &quot;Browse&quot; to choose a folder...</source>
-        <translation type="obsolete">Clique em &quot;Navegar&quot; para escolher uma pasta ...</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgSettingsAdvanced.ui" line="108"/>
-        <source>Browse</source>
-        <translation type="obsolete">Navegar</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgSettingsAdvanced.ui" line="136"/>
-        <source>Download</source>
-        <translation type="obsolete">Baixar</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgSettingsAdvanced.ui" line="145"/>
-        <source>placeholder for label</source>
-        <translation type="obsolete">espaço reservado para etiqueta</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="340"/>
-        <source>Warning</source>
-        <translation type="obsolete">Aviso</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="340"/>
-        <source>You must restart QGIS for these changes to take effect.</source>
-        <translation type="obsolete">Você deve reiniciar o QGIS para que essas alterações tenham efeito.</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="373"/>
-        <source>Choose a folder</source>
-        <translation type="obsolete">Escolha uma pasta</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="373"/>
-        <source>Choose a folder before downloading binaries.</source>
-        <translation type="obsolete">Escolha uma pasta antes de baixar os binários.</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="464"/>
-        <source>Error</source>
-        <translation type="obsolete">Erro</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="379"/>
-        <source>Unable to write to {}. Choose a different folder.</source>
-        <translation type="obsolete">Não foi possível escrever para {}. Escolha uma pasta diferente.</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="388"/>
-        <source>Unable to write to {}. Try a different folder.</source>
-        <translation type="obsolete">Não foi possível escrever para {}. Tente uma pasta diferente.</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="417"/>
-        <source>Error downloading binaries.</source>
-        <translation type="obsolete">Erro ao baixar binários.</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="427"/>
-        <source>Success</source>
-        <translation type="obsolete">Sucesso</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="423"/>
-        <source>Downloaded binaries.</source>
-        <translation type="obsolete">Binários baixados.</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="427"/>
-        <source>All binaries up to date.</source>
-        <translation type="obsolete">Todos os binários atualizados.</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="448"/>
-        <source>Select folder containing Trends.Earth binaries</source>
-        <translation type="obsolete">Selecione a pasta que contém os binários Trends.Earth</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="464"/>
-        <source>Cannot read {}. Choose a different folder.</source>
-        <translation type="obsolete">Não foi possível ler {}. Escolha uma pasta diferente.</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="357"/>
-        <source>Binaries &lt;b&gt;are not&lt;/b&gt; loaded.</source>
-        <translation type="obsolete">Os binários &lt;b&gt;não estão&lt;/b&gt; carregados.</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="355"/>
-        <source>Binaries &lt;b&gt;are&lt;/b&gt; loaded.</source>
-        <translation type="obsolete">Os binários &lt;b&gt;estão&lt;/b&gt; carregados.</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="404"/>
-        <source>Unable to write to {}. Check that you have permissions to write to this folder, and that you are not trying to overwrite the binaries that you currently have loaded in QGIS.</source>
-        <translation type="obsolete">Não foi possível escrever para {}. Verifique se você tem permissão para gravar nesta pasta e se não está tentando substituir os binários que você carregou no QGIS.</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="454"/>
-        <source>Choose a different folder - cannot install binaries within the Trends.Earth QGIS plugin installation folder.</source>
-        <translation type="obsolete">Escolha uma pasta diferente - não é possível instalar binários na pasta de instalação do plugin Trends.Earth QGIS.</translation>
+        <location filename="../settings.py" line="251"/>
+        <source>Trends.Earth user {email} deleted.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4710,39 +3870,19 @@ p, li { white-space: pre-wrap; }
         <translation>Use as opções abaixo para fazer login com um usuário diferente, atualizar seu perfil ou excluir sua conta.</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSettingsEdit.ui" line="54"/>
-        <source>Change user</source>
-        <translation type="obsolete">Mudar usuário</translation>
-    </message>
-    <message>
         <location filename="../gui/DlgSettingsEdit.ui" line="60"/>
         <source>Update profile</source>
         <translation>Atualizar perfil</translation>
     </message>
     <message>
+        <location filename="../gui/DlgSettingsEdit.ui" line="85"/>
+        <source>Reset password</source>
+        <translation>Redefinir senha</translation>
+    </message>
+    <message>
         <location filename="../gui/DlgSettingsEdit.ui" line="110"/>
         <source>Delete user</source>
         <translation>Deletar usuário</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="218"/>
-        <source>Delete user?</source>
-        <translation type="obsolete">Deletar usuário?</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="218"/>
-        <source>Are you sure you want to delete the user {}? All of your tasks will be lost and you will no longer be able to process data online using Trends.Earth.</source>
-        <translation type="obsolete">Tem certeza de que deseja excluir o usuário {}? Todas as suas tarefas serão perdidas e você não poderá mais processar dados on-line usando o Trends.Earth.</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="224"/>
-        <source>Success</source>
-        <translation type="obsolete">Sucesso</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgSettingsEdit.ui" line="85"/>
-        <source>Reset password</source>
-        <translation type="unfinished">Redefinir senha</translation>
     </message>
 </context>
 <context>
@@ -4763,44 +3903,34 @@ p, li { white-space: pre-wrap; }
         <translation>Insira o seu endereço de email...</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="822"/>
+        <location filename="../settings.py" line="904"/>
         <source>Error</source>
         <translation>Erro</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="822"/>
+        <location filename="../settings.py" line="904"/>
         <source>Enter your email address to reset your password.</source>
         <translation>Digite seu endereço de e-mail para redefinir sua senha.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="830"/>
+        <location filename="../settings.py" line="912"/>
         <source>Reset password?</source>
         <translation>Redefinir senha?</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="257"/>
-        <source>Are you sure you want to reset the password for {}? Your new password will be emailed to you.</source>
-        <translation type="obsolete">Tem certeza de que deseja redefinir a senha para {}? Sua nova senha será enviada por e-mail para você.</translation>
+        <location filename="../settings.py" line="912"/>
+        <source>Are you sure you want to reset the password for {self.email.text()}? Your new password will be emailed to you.</source>
+        <translation>Tem a certeza que pretende redefinir a senha para {self.email.text()}? Iremos enviar-lhe a sua nova senha por e-mail.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="846"/>
+        <location filename="../settings.py" line="928"/>
         <source>Success</source>
         <translation>Sucesso</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="265"/>
-        <source>The password has been reset for {}. Check your email for the new password, and then return to Trends.Earth to enter it.</source>
-        <translation type="obsolete">A senha foi redefinida para {}. Verifique seu e-mail para obter a nova senha e, em seguida, retorne ao Trends.Earth para inseri-la.</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="830"/>
-        <source>Are you sure you want to reset the password for {self.email.text()}? Your new password will be emailed to you.</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="846"/>
+        <location filename="../settings.py" line="928"/>
         <source>The password has been reset for {self.email.text()}. Check your email for the new password, and then return to Trends.Earth to enter it.</source>
-        <translation type="unfinished"></translation>
+        <translation>A senha para {self.email.text()} foi redefinida. Verifique a nova senha no seu e-mail e depois regresse a Trends.Earth para a inserir.</translation>
     </message>
 </context>
 <context>
@@ -4831,37 +3961,37 @@ p, li { white-space: pre-wrap; }
         <translation>Organização:</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="901"/>
+        <location filename="../settings.py" line="983"/>
         <source>Error</source>
         <translation>Erro</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="886"/>
+        <location filename="../settings.py" line="968"/>
         <source>Enter your email address.</source>
         <translation>Insira o seu endereço de email.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="891"/>
+        <location filename="../settings.py" line="973"/>
         <source>Enter your name.</source>
         <translation>Digite seu nome.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="896"/>
+        <location filename="../settings.py" line="978"/>
         <source>Enter your organization.</source>
         <translation>Digite sua organização.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="901"/>
+        <location filename="../settings.py" line="983"/>
         <source>Enter your country.</source>
         <translation>Digite seu país.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="914"/>
+        <location filename="../settings.py" line="996"/>
         <source>Saved</source>
         <translation>Salvo</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="914"/>
+        <location filename="../settings.py" line="996"/>
         <source>Updated information for {}.</source>
         <translation>Informações atualizadas para {}.</translation>
     </message>
@@ -4884,57 +4014,57 @@ p, li { white-space: pre-wrap; }
         <translation>Senha:</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="700"/>
+        <location filename="../settings.py" line="782"/>
         <source>Error</source>
         <translation>Erro</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="692"/>
+        <location filename="../settings.py" line="774"/>
         <source>Enter your email address.</source>
         <translation>Insira o seu endereço de email.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="700"/>
+        <location filename="../settings.py" line="782"/>
         <source>Enter your password.</source>
         <translation>Coloque sua senha.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="709"/>
+        <location filename="../settings.py" line="791"/>
         <source>Success</source>
         <translation>Sucesso</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="709"/>
+        <location filename="../settings.py" line="791"/>
         <source>Logged in to the Trends.Earth server as {self.email.text()}.&lt;html&gt;&lt;p&gt;Welcome to Trends.Earth!&lt;p/&gt;&lt;p&gt;&lt;a href= &quot;https://groups.google.com/forum/#!forum/trends_earth_users/join&quot;&gt;Join the Trends.Earth Users email group&lt;a/&gt;&lt;/p&gt;&lt;p&gt; Make sure to join the Trends.Earth users email group to keep up with updates and Q&amp;A about the tool, methods, and datasets in support of Sustainable Development Goals monitoring.</source>
-        <translation type="unfinished"></translation>
+        <translation>Ligado ao servidor Trends.Earth como {self.email.text()}.&lt;html&gt;&lt;p&gt;Bem-vindo a Trends.Earth!&lt;p/&gt;&lt;p&gt;&lt;a href= &quot;https://groups.google.com/forum/#!forum/trends_earth_users/join&quot;&gt;Junte-se ao grupo de e-mail dos Utilizadores Trends.Earth&lt;a/&gt;&lt;/p&gt;&lt;p&gt; Garanta que se junta ao grupo de e-mail dos utilizadores Trends.Earth para se manter a par das atualizações e das perguntas e respostas acerca das ferramentas, métodos e bases de dados que favorecem a monitorização dos Objetivos de Desenvolvimento Sustentável.</translation>
     </message>
 </context>
 <context>
     <name>DlgSettingsLoginLandPKS</name>
     <message>
-        <location filename="../settings.py" line="762"/>
+        <location filename="../settings.py" line="844"/>
         <source>Error</source>
-        <translation type="unfinished">Erro</translation>
+        <translation>Erro</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="754"/>
+        <location filename="../settings.py" line="836"/>
         <source>Enter your email address.</source>
-        <translation type="unfinished">Insira o seu endereço de email.</translation>
+        <translation>Insira o seu endereço de email.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="762"/>
+        <location filename="../settings.py" line="844"/>
         <source>Enter your password.</source>
-        <translation type="unfinished">Coloque sua senha.</translation>
+        <translation>Coloque sua senha.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="785"/>
+        <location filename="../settings.py" line="867"/>
         <source>Success</source>
-        <translation type="unfinished">Sucesso</translation>
+        <translation>Sucesso</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="785"/>
+        <location filename="../settings.py" line="867"/>
         <source>Successfully setup login to the LandPKS server as {self.email.text()}.</source>
-        <translation type="unfinished"></translation>
+        <translation>Início de sessão para o servidor LandPKS como {self.email.text()}, definido com sucesso.</translation>
     </message>
 </context>
 <context>
@@ -4965,175 +4095,122 @@ p, li { white-space: pre-wrap; }
         <translation>Organização:</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="633"/>
+        <location filename="../settings.py" line="715"/>
         <source>Error</source>
         <translation>Erro</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="615"/>
+        <location filename="../settings.py" line="697"/>
         <source>Enter your email address.</source>
         <translation>Insira o seu endereço de email.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="621"/>
+        <location filename="../settings.py" line="703"/>
         <source>Enter your name.</source>
         <translation>Digite seu nome.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="627"/>
+        <location filename="../settings.py" line="709"/>
         <source>Enter your organization.</source>
         <translation>Digite sua organização.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="633"/>
+        <location filename="../settings.py" line="715"/>
         <source>Enter your country.</source>
         <translation>Digite seu país.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="648"/>
+        <location filename="../settings.py" line="730"/>
         <source>Success</source>
         <translation>Sucesso</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="134"/>
-        <source>User registered. Your password has been emailed to {}.</source>
-        <translation type="obsolete">Usuário registrado. Sua senha foi enviada para {}.</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="648"/>
+        <location filename="../settings.py" line="730"/>
         <source>User registered. Your password has been emailed to {self.email.text()}. Enter that password in Trends.Earth settings to finish setting up the plugin.</source>
-        <translation type="unfinished"></translation>
+        <translation>Utilizador registado. A sua senha foi enviada por e-mail para {self.email.text()}. Insira essa senha nas definições de Trends.Earth para acabar de instalar o plugin.</translation>
     </message>
 </context>
 <context>
     <name>DlgTimeseries</name>
     <message>
         <location filename="../gui/DlgTimeseries.ui" line="20"/>
-        <source>Plot time series</source>
-        <translation>Plotar série temporal</translation>
+        <source>Plot Time Series</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgTimeseries.ui" line="30"/>
-        <source>Dataset</source>
-        <translation>Conjunto de dados</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgTimeseries.ui" line="36"/>
+        <location filename="../gui/DlgTimeseries.ui" line="77"/>
         <source>Time series dataset</source>
         <translation>Dados da série temporal</translation>
     </message>
     <message>
-        <location filename="../gui/DlgTimeseries.ui" line="61"/>
+        <location filename="../gui/DlgTimeseries.ui" line="84"/>
         <source>Plot title</source>
         <translation>Título do gráfico</translation>
     </message>
     <message>
-        <location filename="../gui/DlgTimeseries.ui" line="103"/>
+        <location filename="../gui/DlgTimeseries.ui" line="94"/>
         <source>Indicator</source>
         <translation>Indicador</translation>
     </message>
     <message>
-        <location filename="../gui/DlgTimeseries.ui" line="115"/>
-        <source>Trend indicator</source>
-        <translation type="unfinished">Indicador de trajetória</translation>
+        <location filename="../gui/DlgTimeseries.ui" line="100"/>
+        <source>Trend</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgTimeseries.ui" line="140"/>
-        <source>Baseline period</source>
-        <translation>Período de referência</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgTimeseries.ui" line="253"/>
-        <source>yyyy</source>
-        <translation>Ano (aaaa)</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgTimeseries.ui" line="198"/>
+        <location filename="../gui/DlgTimeseries.ui" line="119"/>
         <source>Starting year:</source>
         <translation>Ano inicial:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgTimeseries.ui" line="211"/>
+        <location filename="../gui/DlgTimeseries.ui" line="154"/>
         <source>Ending year:</source>
         <translation>Ano final:</translation>
     </message>
     <message>
-        <location filename="../gui/DlgTimeseries.ui" line="270"/>
+        <location filename="../gui/DlgTimeseries.ui" line="161"/>
+        <source>Baseline period</source>
+        <translation>Período de referência</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="272"/>
+        <source>yyyy</source>
+        <translation>Ano (aaaa)</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgTimeseries.ui" line="233"/>
         <source>Climate dataset</source>
         <translation>Conjunto de dados climáticos</translation>
     </message>
     <message>
-        <location filename="../gui/DlgTimeseries.ui" line="326"/>
-        <source>Next</source>
-        <translation>Próximo</translation>
+        <location filename="../timeseries.py" line="90"/>
+        <source>Submit request</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../gui/DlgTimeseries.ui" line="345"/>
-        <source>Previous</source>
-        <translation>Anterior</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgTimeseries.ui" line="364"/>
-        <source>Calculate</source>
-        <translation>Calcular</translation>
-    </message>
-    <message>
-        <location filename="../timeseries.py" line="173"/>
+        <location filename="../timeseries.py" line="322"/>
         <source>Error</source>
         <translation>Erro</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="140"/>
+        <location filename="../timeseries.py" line="264"/>
         <source>The bounding box of the requested area (approximately {:.6n} sq km) is too large. The timeseries tool can process a maximum area of 10 million sq km at a time. Choose a smaller area to process.</source>
         <translation>A extensão delimitadora da área solicitada (aproximadamente {: .6n} km2) é muito grande. A ferramenta de séries temporais pode processar uma área máxima de 10 milhões de quilômetros quadrados por vez. Escolha uma área menor para processar.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="169"/>
+        <location filename="../timeseries.py" line="313"/>
         <source>Submitted</source>
         <translation>Submetido</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="169"/>
-        <source>Time series calculation task submitted to Google Earth Engine.</source>
-        <translation>Tarefa de cálculo da série temporal enviada ao Google Earth Engine.</translation>
+        <location filename="../timeseries.py" line="313"/>
+        <source>Time series calculation task submitted to Trends.Earth server.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="173"/>
-        <source>Unable to submit time series calculation task to Google Earth Engine.</source>
-        <translation>Não foi possível enviar uma tarefa de cálculo de série temporal para o Google Earth Engine.</translation>
-    </message>
-</context>
-<context>
-    <name>DlgVisualization</name>
-    <message>
-        <location filename="../gui/DlgVisualization.ui" line="29"/>
-        <source>Visualization tools</source>
-        <translation type="obsolete">Ferramentas de visualização</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgVisualization.ui" line="41"/>
-        <source>Visualization tools:</source>
-        <translation type="obsolete">Ferramentas de visualização:</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgVisualization.ui" line="60"/>
-        <source>Add Basemap</source>
-        <translation type="obsolete">Adicionar mapa base</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgVisualization.ui" line="79"/>
-        <source>Create Print Map</source>
-        <translation type="obsolete">Criar mapa de impressão</translation>
-    </message>
-    <message>
-        <location filename="../visualization.py" line="47"/>
-        <source>Coming soon</source>
-        <translation type="obsolete">Em breve</translation>
-    </message>
-    <message>
-        <location filename="../visualization.py" line="47"/>
-        <source>Create Print Map coming soon!</source>
-        <translation type="obsolete">Criar mapa de impressão será implementado breve!</translation>
+        <location filename="../timeseries.py" line="322"/>
+        <source>Unable to submit time series calculation task to Trends.Earth server</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5174,12 +4251,12 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt; Isenção de responsabilidade: Os limites fornecidos são da &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Natural Earth&lt;/span&gt;&lt;/a&gt; e estão no &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;domínio público&lt;/span&gt;&lt;/a&gt; . Os limites e nomes utilizados e as designações utilizadas em trends.earth não implicam o endosso oficial ou a aceitação pela Fundação Conservação Internacional, ou por suas organizações parceiras e colaboradores. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../visualization.py" line="359"/>
+        <location filename="../visualization.py" line="362"/>
         <source>Error</source>
         <translation>Erro</translation>
     </message>
     <message>
-        <location filename="../visualization.py" line="359"/>
+        <location filename="../visualization.py" line="362"/>
         <source>Error downloading basemap data.</source>
         <translation>Erro ao baixar dados do mapa base.</translation>
     </message>
@@ -5227,66 +4304,104 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/land_cover_setup_widget_local.ui" line="20"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Formulario</translation>
     </message>
     <message>
         <location filename="../gui/land_cover_setup_widget.ui" line="22"/>
         <source>Initial year</source>
-        <translation type="unfinished"></translation>
+        <translation>Ano inicial</translation>
     </message>
     <message>
         <location filename="../gui/land_cover_setup_widget.ui" line="29"/>
         <source>Select the initial year, should be less than target year</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecione o ano inicial, que deve ser menor do que o ano objetivo</translation>
     </message>
     <message>
         <location filename="../gui/land_cover_setup_widget.ui" line="56"/>
         <source>yyyy</source>
-        <translation type="unfinished">Ano (aaaa)</translation>
+        <translation>Ano (aaaa)</translation>
     </message>
     <message>
         <location filename="../gui/land_cover_setup_widget.ui" line="46"/>
         <source>Target year</source>
-        <translation type="unfinished"></translation>
+        <translation>Ano objetivo</translation>
     </message>
     <message>
         <location filename="../gui/land_cover_setup_widget.ui" line="53"/>
         <source>Select the target year, should be great than initial year</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecione o ano objetivo, que deve ser maior do que o ano inicial</translation>
     </message>
     <message>
         <location filename="../gui/land_cover_setup_widget.ui" line="70"/>
         <source>Aggregation method</source>
-        <translation type="unfinished"></translation>
+        <translation>Método de agregação</translation>
     </message>
     <message>
         <location filename="../gui/land_cover_setup_widget.ui" line="77"/>
         <source>Edit definition...</source>
-        <translation type="unfinished"></translation>
+        <translation>Editar definição...</translation>
     </message>
     <message>
         <location filename="../gui/land_cover_setup_widget_local.ui" line="37"/>
         <source>Initial year layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Estrato do ano inicial</translation>
     </message>
     <message>
         <location filename="../gui/land_cover_setup_widget_local.ui" line="44"/>
         <source>Select initial year from a dataset, make sure the year is not equal or great than the target year</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecione o ano inicial de uma base de dados. Garanta que o ano não é igual ou maior do que o ano objetivo</translation>
     </message>
     <message>
         <location filename="../gui/land_cover_setup_widget_local.ui" line="70"/>
         <source>Land cover (7 class)</source>
-        <translation type="unfinished"></translation>
+        <translation>Cobertura da terra (7 classes)</translation>
     </message>
     <message>
         <location filename="../gui/land_cover_setup_widget_local.ui" line="54"/>
         <source>Target year layer</source>
-        <translation type="unfinished"></translation>
+        <translation>Estrato do ano objetivo</translation>
     </message>
     <message>
         <location filename="../gui/land_cover_setup_widget_local.ui" line="67"/>
         <source>Select target year from a dataset, make sure the year is not equal or less than the initial year</source>
+        <translation>Selecione o ano objetivo de uma base de dados. Garanta que o ano não é igual ou menor do que o ano inicial</translation>
+    </message>
+</context>
+<context>
+    <name>GenerateMask</name>
+    <message>
+        <location filename="../processing_provider/utilities.py" line="134"/>
+        <source>Generate mask</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../processing_provider/utilities.py" line="137"/>
+        <source>Utilities</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../processing_provider/utilities.py" line="143"/>
+        <source>Generate a raster from a geojson for use as a mask</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../processing_provider/utilities.py" line="146"/>
+        <source>GeoJSON specifying mask</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../processing_provider/utilities.py" line="152"/>
+        <source>Geotiff used as model for output bounds and resolution</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../processing_provider/utilities.py" line="158"/>
+        <source>Output geotiff file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../processing_provider/utilities.py" line="164"/>
+        <source>Did operation complete successfully?</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5298,9 +4413,9 @@ p, li { white-space: pre-wrap; }
         <translation>Selecione um arquivo de entrada raster</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="627"/>
-        <source>Raster file (*.tif *.dat *.img)</source>
-        <translation type="obsolete">Arquivo raster (* .tif * .dat * .img)</translation>
+        <location filename="../data_io.py" line="763"/>
+        <source>Raster file (*.tif *.dat *.img *.vrt)</source>
+        <translation>Ficheiro Raster (*.tif *.dat *.img *.vrt)</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="819"/>
@@ -5321,11 +4436,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../data_io.py" line="806"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation>Arquivo vetorial (* .shp * .kml * .kmz * .geojson)</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="763"/>
-        <source>Raster file (*.tif *.dat *.img *.vrt)</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -5352,80 +4462,7 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
-    <name>JobsTableModel</name>
-    <message>
-        <location filename="../jobs.py" line="346"/>
-        <source>Task name</source>
-        <translation type="obsolete">Nome da tarefa</translation>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="347"/>
-        <source>Job</source>
-        <translation type="obsolete">Trabalho</translation>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="348"/>
-        <source>Start time</source>
-        <translation type="obsolete">Hora inícial</translation>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="349"/>
-        <source>End time</source>
-        <translation type="obsolete">Hora final</translation>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="350"/>
-        <source>ID</source>
-        <translation type="obsolete">ID</translation>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="351"/>
-        <source>Status</source>
-        <translation type="obsolete">Status</translation>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="352"/>
-        <source>Details</source>
-        <translation type="obsolete">Detalhes</translation>
-    </message>
-</context>
-<context>
     <name>LCDefineDegradationWidget</name>
-    <message>
-        <location filename="../lc_setup.py" line="333"/>
-        <source>Tree-covered</source>
-        <translation type="obsolete">Arborizado</translation>
-    </message>
-    <message>
-        <location filename="../lc_setup.py" line="334"/>
-        <source>Grassland</source>
-        <translation type="obsolete">Pastagem</translation>
-    </message>
-    <message>
-        <location filename="../lc_setup.py" line="335"/>
-        <source>Cropland</source>
-        <translation type="obsolete">Lavoura</translation>
-    </message>
-    <message>
-        <location filename="../lc_setup.py" line="336"/>
-        <source>Wetland</source>
-        <translation type="obsolete">Área úmida</translation>
-    </message>
-    <message>
-        <location filename="../lc_setup.py" line="337"/>
-        <source>Artificial</source>
-        <translation type="obsolete">Artificial</translation>
-    </message>
-    <message>
-        <location filename="../lc_setup.py" line="338"/>
-        <source>Bare land</source>
-        <translation type="obsolete">Solo exposto</translation>
-    </message>
-    <message>
-        <location filename="../lc_setup.py" line="339"/>
-        <source>Water body</source>
-        <translation type="obsolete">Corpo d&apos;água</translation>
-    </message>
     <message>
         <location filename="../lc_setup.py" line="808"/>
         <source>Land cover in initial year </source>
@@ -5452,11 +4489,6 @@ p, li { white-space: pre-wrap; }
         <translation>Não foi possível ler {}. Escolha um arquivo diferente.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="414"/>
-        <source>{} does not appear to contain a valid matrix definition.</source>
-        <translation type="obsolete">{} parece não conter uma definição de matriz válida.</translation>
-    </message>
-    <message>
         <location filename="../lc_setup.py" line="916"/>
         <source>Choose where to save this transition matrix definition</source>
         <translation>Escolha onde salvar esta definição da matriz de transição</translation>
@@ -5470,103 +4502,119 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LDMPPlugin</name>
     <message>
-        <location filename="../plugin.py" line="289"/>
-        <source>&amp;trends.earth</source>
-        <translation>&amp;trends.earth</translation>
+        <location filename="../plugin.py" line="66"/>
+        <source>&amp;Trends.Earth</source>
+        <translation>&amp;Trends.Earth</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="234"/>
+        <location filename="../plugin.py" line="197"/>
+        <source>Trends.Earth dock interface</source>
+        <translation>Interface da dock Trends.Earth</translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="209"/>
         <source>Settings</source>
         <translation>Configurações</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="234"/>
+        <location filename="../plugin.py" line="209"/>
         <source>Trends.Earth Settings</source>
         <translation>Configurações do Trends.Earth</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="164"/>
-        <source>Calculate indicators</source>
-        <translation type="obsolete">Calcular indicadores</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="171"/>
-        <source>Plot data</source>
-        <translation type="obsolete">Plotar dados</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="171"/>
-        <source>Plot time series datasets</source>
-        <translation type="obsolete">Agrupar conjuntos de dados de séries temporais</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="178"/>
-        <source>View Google Earth Engine tasks</source>
-        <translation type="obsolete">Visualizar tarefas do Google Earth Engine</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="178"/>
-        <source>View cloud processing tasks</source>
-        <translation type="obsolete">Visualizar tarefas de processamento em nuvem</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="185"/>
-        <source>Visualization tool</source>
-        <translation type="obsolete">Ferramenta de Visualização</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="185"/>
-        <source>Visualize and summarize data</source>
-        <translation type="obsolete">Visualize e resuma dados</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="192"/>
-        <source>Load data</source>
-        <translation type="obsolete">Carregar dados</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="192"/>
-        <source>Load local data</source>
-        <translation type="obsolete">Carregar dados locais</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="199"/>
-        <source>Download raw data</source>
-        <translation type="obsolete">Download de dados brutos</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="199"/>
-        <source>Download raw datasets</source>
-        <translation type="obsolete">Download de conjuntos de dados brutos</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="242"/>
+        <location filename="../plugin.py" line="217"/>
         <source>About</source>
         <translation>Sobre</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="242"/>
+        <location filename="../plugin.py" line="217"/>
         <source>About trends.earth</source>
         <translation>Sobre trends.earth</translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="90"/>
-        <source>&amp;Trends.Earth</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="220"/>
-        <source>Trends.Earth dock interface</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="250"/>
+        <location filename="../plugin.py" line="225"/>
         <source>Digitize polygon</source>
+        <translation>Digitalizar polígono</translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="238"/>
+        <source>Buffer tool</source>
+        <translation>Ferramenta de Buffer</translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="265"/>
+        <source>Plot time series</source>
+        <translation>Plotar série temporal</translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="275"/>
+        <source>&amp;trends.earth</source>
+        <translation>&amp;trends.earth</translation>
+    </message>
+</context>
+<context>
+    <name>MainWidget</name>
+    <message>
+        <location filename="../main_widget.py" line="167"/>
+        <source>All</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../plugin.py" line="263"/>
-        <source>Buffer tool</source>
+        <location filename="../main_widget.py" line="172"/>
+        <source>Raster</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../main_widget.py" line="177"/>
+        <source>Vector</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../main_widget.py" line="190"/>
+        <source>Load existing Trends.Earth output file...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../main_widget.py" line="194"/>
+        <source>Import custom Productivity dataset...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../main_widget.py" line="200"/>
+        <source>Import custom Land Cover dataset...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../main_widget.py" line="206"/>
+        <source>Import custom Soil Organic Carbon dataset...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../main_widget.py" line="218"/>
+        <source>Download raw dataset used in Trends.Earth...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../main_widget.py" line="222"/>
+        <source>Download Land Potential Knowledge System (LandPKS) data...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../main_widget.py" line="240"/>
+        <source>Create false positive/negative layer</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>MultiscopeJobReportModel</name>
+    <message>
+        <location filename="../reports/mvc.py" line="302"/>
+        <source>Scope Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reports/mvc.py" line="302"/>
+        <source>Source Dataset</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5575,6 +4623,199 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../maptools.py" line="205"/>
         <source>add feature</source>
+        <translation>adicionar funcionalidade</translation>
+    </message>
+</context>
+<context>
+    <name>Provider</name>
+    <message>
+        <location filename="../processing_provider/provider.py" line="24"/>
+        <source>Trends.Earth</source>
+        <translation>Trends.Earth</translation>
+    </message>
+</context>
+<context>
+    <name>ReportGeneratorManager</name>
+    <message>
+        <location filename="../reports/generator.py" line="1039"/>
+        <source>Report Status</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reports/generator.py" line="1074"/>
+        <source>Cannot process report due to write permission to</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reports/generator.py" line="1097"/>
+        <source>could not be found in your system. Unable to run the report generator.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reports/generator.py" line="1112"/>
+        <source>reports</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reports/generator.py" line="1130"/>
+        <source>are being processed...</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ReportTaskContextAlgorithm</name>
+    <message>
+        <location filename="../processing_provider/report.py" line="52"/>
+        <source>Runs a report generation task based on information provided in a JSON file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../processing_provider/report.py" line="58"/>
+        <source>Generate Report from Task</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../processing_provider/report.py" line="61"/>
+        <source>File containing report context task information</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../processing_provider/report.py" line="70"/>
+        <source>Summary result status of the algorithm.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../processing_provider/report.py" line="91"/>
+        <source>Task file not found.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../processing_provider/report.py" line="100"/>
+        <source>Could not read report task context file</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ReportTaskProcessor</name>
+    <message>
+        <location filename="../reports/generator.py" line="754"/>
+        <source>Simple</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reports/generator.py" line="756"/>
+        <source>Full</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reports/generator.py" line="758"/>
+        <source>All</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>SdgSummaryChartsConfiguration</name>
+    <message>
+        <location filename="../reports/charts.py" line="849"/>
+        <source>Summary of SDG 15.3.1 Indicator</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reports/charts.py" line="890"/>
+        <source>Change in Land Cover</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reports/charts.py" line="914"/>
+        <source>Change in Soil Organic Carbon (Tonnes)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reports/charts.py" line="929"/>
+        <source>Tonnes</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reports/charts.py" line="936"/>
+        <source>Land Cover Change by Productivity Class</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../reports/charts.py" line="948"/>
+        <source>%</source>
+        <translation>%</translation>
+    </message>
+</context>
+<context>
+    <name>TCSummary</name>
+    <message>
+        <location filename="../processing_provider/carbon.py" line="36"/>
+        <source>Carbon change summary</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../processing_provider/carbon.py" line="39"/>
+        <source>Carbon change</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../processing_provider/carbon.py" line="45"/>
+        <source>Summarize output of a carbon change analysis</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../processing_provider/carbon.py" line="49"/>
+        <source>Input carbon analysis file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../processing_provider/carbon.py" line="55"/>
+        <source>Starting year</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../processing_provider/carbon.py" line="61"/>
+        <source>Ending year</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../processing_provider/carbon.py" line="69"/>
+        <source>Forest loss per year in sq km.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../processing_provider/carbon.py" line="75"/>
+        <source>Carbon loss per year in tonnes of C</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../processing_provider/carbon.py" line="81"/>
+        <source>Initial tonnes of C</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../processing_provider/carbon.py" line="87"/>
+        <source>Area of forest in sq km</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../processing_provider/carbon.py" line="93"/>
+        <source>Area of non-forest in sq km</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../processing_provider/carbon.py" line="99"/>
+        <source>Area of missing data in sq km</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../processing_provider/carbon.py" line="105"/>
+        <source>Area of water in sq km</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../processing_provider/carbon.py" line="111"/>
+        <source>Area of site in sq km</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -5583,17 +4824,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/WidgetAlgorithmLeaf.ui" line="105"/>
         <source>Algoritm name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome do algoritmo</translation>
     </message>
     <message>
         <location filename="../gui/WidgetAlgorithmLeaf.ui" line="149"/>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="../gui/WidgetAlgorithmLeaf.ui" line="170"/>
         <source>Description</source>
-        <translation type="unfinished"></translation>
+        <translation>Descrição</translation>
     </message>
 </context>
 <context>
@@ -5710,7 +4951,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="64"/>
         <source>Raster dataset (.tif, .dat, .img, .vrt)</source>
-        <translation type="unfinished">Conjunto de dados raster (.tif, .dat, .img)</translation>
+        <translation>Base de dados Raster (.tif, .dat, .img, .vrt)</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="165"/>
@@ -5740,12 +4981,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="310"/>
         <source>No data value</source>
-        <translation type="unfinished"></translation>
+        <translation>Sem valor de dados</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDataIOImportSelectFileInput.ui" line="319"/>
         <source>-32768</source>
-        <translation type="unfinished"></translation>
+        <translation>-32768</translation>
     </message>
 </context>
 <context>
@@ -5796,45 +5037,20 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/WidgetDataIOSelectTEDatasetExisting.ui" line="20"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Formulario</translation>
     </message>
     <message>
         <location filename="../data_io.py" line="1705"/>
         <source>No datasets available in this region</source>
-        <translation type="unfinished"></translation>
+        <translation>Não existem bases de dados disponíveis nesta região</translation>
     </message>
 </context>
 <context>
     <name>WidgetDataIOSelectTELayerBase</name>
     <message>
-        <location filename="../data_io.py" line="1270"/>
-        <source>Select a Trends.Earth output file</source>
-        <translation type="obsolete">Selecione um arquivo de saída Trends.Earth</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1270"/>
-        <source>Trends.Earth metadata file (*.json)</source>
-        <translation type="obsolete">Arquivo de metadados Trends.Earth (* .json)</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1290"/>
-        <source>Error</source>
-        <translation type="obsolete">Erro</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1286"/>
-        <source>{} failed to load or does not contain any layers of this layer type. Choose a different file.</source>
-        <translation type="obsolete">{} falhou ao carregar ou não contém camadas desse tipo de camada. Escolha um arquivo diferente.</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1290"/>
-        <source>Cannot read {}. Choose a different file.</source>
-        <translation type="obsolete">Não foi possível ler {}. Escolha um arquivo diferente.</translation>
-    </message>
-    <message>
         <location filename="../data_io.py" line="1439"/>
         <source>No layers available in this region</source>
-        <translation type="unfinished"></translation>
+        <translation>Sem estratos disponíveis nesta região</translation>
     </message>
 </context>
 <context>
@@ -5844,11 +5060,6 @@ p, li { white-space: pre-wrap; }
         <source>Form</source>
         <translation>Formato</translation>
     </message>
-    <message>
-        <location filename="../gui/WidgetDataIOSelectTELayerExisting.ui" line="57"/>
-        <source>Load existing</source>
-        <translation type="obsolete">Carregar existente</translation>
-    </message>
 </context>
 <context>
     <name>WidgetDataIOSelectTELayerImport</name>
@@ -5857,73 +5068,68 @@ p, li { white-space: pre-wrap; }
         <source>Form</source>
         <translation>Formato</translation>
     </message>
-    <message>
-        <location filename="../gui/WidgetDataIOSelectTELayerImport.ui" line="57"/>
-        <source>Import</source>
-        <translation type="obsolete">Importar</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetDataIOSelectTELayerImport.ui" line="76"/>
-        <source>Load existing</source>
-        <translation type="obsolete">Carregar existente</translation>
-    </message>
 </context>
 <context>
     <name>WidgetDatasetItem</name>
     <message>
         <location filename="../gui/WidgetDatasetItem.ui" line="20"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Formulario</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDatasetItem.ui" line="56"/>
         <source>dataset name</source>
-        <translation type="unfinished"></translation>
+        <translation>nome da base de dados</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDatasetItem.ui" line="72"/>
         <source>Creation date</source>
-        <translation type="unfinished"></translation>
+        <translation>Data de criação</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDatasetItem.ui" line="97"/>
         <source>Download dataset</source>
-        <translation type="unfinished"></translation>
+        <translation>Transferir base de dados</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItem.ui" line="207"/>
+        <location filename="../gui/WidgetDatasetItem.ui" line="217"/>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDatasetItem.ui" line="107"/>
         <source>Load dataset onto QGIS map area</source>
-        <translation type="unfinished"></translation>
+        <translation>Carregar base de dados para a área do mapa no QGIS</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDatasetItem.ui" line="117"/>
         <source>Load vector</source>
-        <translation type="unfinished"></translation>
+        <translation>Carregar vetor</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDatasetItem.ui" line="127"/>
         <source>Reports</source>
-        <translation type="unfinished"></translation>
+        <translation>Relatórios</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDatasetItem.ui" line="137"/>
+        <source>Show timeseries plot</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetDatasetItem.ui" line="147"/>
         <source>View dataset details</source>
-        <translation type="unfinished"></translation>
+        <translation>Ver detalhes da base de dados</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItem.ui" line="154"/>
+        <location filename="../gui/WidgetDatasetItem.ui" line="164"/>
         <source>Open dataset directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir diretório da base de dados</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetDatasetItem.ui" line="204"/>
+        <location filename="../gui/WidgetDatasetItem.ui" line="214"/>
         <source>Delete dataset</source>
-        <translation type="unfinished"></translation>
+        <translation>Apagar base de dados</translation>
     </message>
 </context>
 <context>
@@ -5931,52 +5137,52 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/WidgetDatasetItemDetails.ui" line="20"/>
         <source>Dataset Details</source>
-        <translation type="unfinished"></translation>
+        <translation>Detalhes da Base de Dados</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDatasetItemDetails.ui" line="35"/>
         <source>State</source>
-        <translation type="unfinished"></translation>
+        <translation>Estado</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDatasetItemDetails.ui" line="42"/>
         <source>Created at</source>
-        <translation type="unfinished"></translation>
+        <translation>Criado a</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDatasetItemDetails.ui" line="56"/>
         <source>Available paths</source>
-        <translation type="unfinished"></translation>
+        <translation>Caminhos disponíveis</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDatasetItemDetails.ui" line="63"/>
         <source>Name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDatasetItemDetails.ui" line="77"/>
         <source>Generated by algorithm</source>
-        <translation type="unfinished"></translation>
+        <translation>Gerado por algoritmo</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDatasetItemDetails.ui" line="93"/>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDatasetItemDetails.ui" line="109"/>
         <source>ID</source>
-        <translation type="unfinished">ID</translation>
+        <translation>ID</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDatasetItemDetails.ui" line="134"/>
         <source>Algorithm Details</source>
-        <translation type="unfinished"></translation>
+        <translation>Detalhes do Algoritmo</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDatasetItemDetails.ui" line="143"/>
         <source>Comments:</source>
-        <translation type="unfinished">Comentários:</translation>
+        <translation>Comentários:</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDatasetItemDetails.ui" line="162"/>
@@ -5985,37 +5191,41 @@ p, li { white-space: pre-wrap; }
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDatasetItemDetails.ui" line="176"/>
         <source>Input:</source>
-        <translation type="unfinished">Entrada:</translation>
+        <translation>Entrada:</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDatasetItemDetails.ui" line="199"/>
         <source>Output:</source>
-        <translation type="unfinished">Saída:</translation>
+        <translation>Saída:</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDatasetItemDetails.ui" line="240"/>
         <source>Delete dataset</source>
-        <translation type="unfinished"></translation>
+        <translation>Apagar base de dados</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDatasetItemDetails.ui" line="251"/>
         <source>Export as a ZIP</source>
-        <translation type="unfinished"></translation>
+        <translation>Exportar como ZIP</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDatasetItemDetails.ui" line="258"/>
         <source>Dataset metadata</source>
-        <translation type="unfinished"></translation>
+        <translation>Metadados da base de dados</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDatasetItemDetails.ui" line="265"/>
         <source>Load Dataset</source>
-        <translation type="unfinished"></translation>
+        <translation>Carregar Base de Dados</translation>
     </message>
 </context>
 <context>
@@ -6072,59 +5282,6 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
-    <name>WidgetLCSetup</name>
-    <message>
-        <location filename="../gui/WidgetLCSetup.ui" line="14"/>
-        <source>Form</source>
-        <translation type="obsolete">Formulario</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLCSetup.ui" line="20"/>
-        <source>European Space Agency CCI-LC (default land cover dataset for UNCCD reporting)</source>
-        <translation type="obsolete">Agência Espacial Europeia (ESA) CCI-LC (conjunto de dados de cobertura da terra predefinido para relatórios do UNCCD)</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLCSetup.ui" line="30"/>
-        <source>Period</source>
-        <translation type="obsolete">Período</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLCSetup.ui" line="104"/>
-        <source>Initial year:</source>
-        <translation type="obsolete">Ano inicial:</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLCSetup.ui" line="117"/>
-        <source>Target year:</source>
-        <translation type="obsolete">Ano alvo:</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLCSetup.ui" line="173"/>
-        <source>Customize land cover aggregation method</source>
-        <translation type="obsolete">Personalize o método de agregação de cobertura da terra</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLCSetup.ui" line="206"/>
-        <source>Edit definition</source>
-        <translation type="obsolete">Editar definição</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLCSetup.ui" line="219"/>
-        <source>Custom land cover dataset</source>
-        <translation type="obsolete">Conjunto de dados de cobertura da terra personalizado</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLCSetup.ui" line="229"/>
-        <source>Initial layer (initial year)</source>
-        <translation type="obsolete">Camada inicial (ano inicial)</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetLCSetup.ui" line="263"/>
-        <source>Final layer (target year)</source>
-        <translation type="obsolete">Camada final (ano alvo)</translation>
-    </message>
-</context>
-<context>
     <name>WidgetSelectArea</name>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="20"/>
@@ -6132,114 +5289,89 @@ p, li { white-space: pre-wrap; }
         <translation>Formulario</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="32"/>
-        <source>Area to run calculations for</source>
-        <translation type="obsolete">Área para executar cálculos para</translation>
+        <location filename="../gui/WidgetSelectArea.ui" line="35"/>
+        <source>Region of interest</source>
+        <translation>Região de interesse</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="225"/>
-        <source>Point</source>
-        <translation>Ponto</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="339"/>
-        <source>Area from file</source>
-        <translation>Arquivo com Área</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="79"/>
-        <source>x:</source>
-        <translation type="obsolete">x:</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="310"/>
-        <source>Choose a point...</source>
-        <translation>Escolha um ponto ...</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="114"/>
-        <source>y:</source>
-        <translation type="obsolete">y:</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="50"/>
+        <location filename="../gui/WidgetSelectArea.ui" line="41"/>
         <source>Country / Region</source>
         <translation>País/região</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="376"/>
-        <source>Click &quot;Browse&quot; to choose a file...</source>
-        <translation>Clique em &quot;Navegar&quot; para escolher um arquivo ...</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="404"/>
-        <source>Browse</source>
-        <translation>Navegar</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="72"/>
+        <location filename="../gui/WidgetSelectArea.ui" line="63"/>
         <source>First level</source>
         <translation>Primeiro nível</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="116"/>
+        <location filename="../gui/WidgetSelectArea.ui" line="98"/>
         <source>Second level</source>
         <translation>Segundo nível</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="153"/>
+        <location filename="../gui/WidgetSelectArea.ui" line="135"/>
         <source>City:</source>
         <translation>Cidade:</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="188"/>
+        <location filename="../gui/WidgetSelectArea.ui" line="170"/>
         <source>Region:</source>
         <translation>Região:</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="209"/>
+        <location filename="../gui/WidgetSelectArea.ui" line="191"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Disclaimer: The provided boundaries are from &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Natural Earth&lt;/span&gt;&lt;/a&gt;, and are in the &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;public domain&lt;/span&gt;&lt;/a&gt;. The boundaries and names used, and the designations used, in Trends.Earth do not imply official endorsement or acceptance by Conservation International Foundation, or by its partner organizations and contributors.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt; Isenção de responsabilidade: Os limites fornecidos são da &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Terra Natural&lt;/span&gt;&lt;/a&gt; e estão no &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;domínio público&lt;/span&gt;&lt;/a&gt; . Os limites e nomes usados e as designações usadas no Trends.Earth não implicam aprovação ou aceitação oficial da Fundação Conservação Internacional ou de suas organizações parceiras e colaboradores. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="414"/>
+        <location filename="../gui/WidgetSelectArea.ui" line="207"/>
+        <source>Point</source>
+        <translation>Ponto</translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetSelectArea.ui" line="238"/>
+        <source>longitude:</source>
+        <translation>longitude:</translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetSelectArea.ui" line="292"/>
+        <source>Choose a point...</source>
+        <translation>Escolha um ponto ...</translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetSelectArea.ui" line="273"/>
+        <source>latitude:</source>
+        <translation>latitude:</translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetSelectArea.ui" line="321"/>
+        <source>Area from file</source>
+        <translation>Arquivo com Área</translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetSelectArea.ui" line="358"/>
+        <source>Click &quot;Browse&quot; to choose a file...</source>
+        <translation>Clique em &quot;Navegar&quot; para escolher um arquivo ...</translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetSelectArea.ui" line="386"/>
+        <source>Browse</source>
+        <translation>Navegar</translation>
+    </message>
+    <message>
+        <location filename="../gui/WidgetSelectArea.ui" line="396"/>
         <source>Apply a buffer to the chosen area</source>
         <translation>Aplique um buffer para a área escolhida</translation>
     </message>
     <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="469"/>
+        <location filename="../gui/WidgetSelectArea.ui" line="451"/>
         <source>Buffer size (kilometers):</source>
         <translation>Tamanho do buffer (quilômetros):</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSelectArea.ui" line="497"/>
-        <source>Use custom coordinate reference system (CRS) for output</source>
-        <translation type="obsolete">Use o sistema de referência de coordenadas (SRC) personalizado para saída</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="522"/>
-        <source>Wrap longitudes across central meridian before projecting into output CRS (recommended for countries like Russia and Fiji if you are using an output coordinate reference system that is continuous across the 180th meridian)</source>
-        <translation type="obsolete">Envolva as longitudes ao longo do meridiano central antes de projetar para a saída do SRC (recomendado para países como a Rússia e Fiji, se você estiver usando um sistema de referência de coordenadas de saída que seja contínuo no meridiano de 180 graus)</translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="44"/>
-        <source>Region of interest</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="256"/>
-        <source>longitude:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="291"/>
-        <source>latitude:</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../gui/WidgetSelectArea.ui" line="515"/>
         <source>Area name:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome da área:</translation>
     </message>
 </context>
 <context>
@@ -6247,177 +5379,177 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/WidgetSettingsAdvanced.ui" line="20"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Formulario</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSettingsAdvanced.ui" line="40"/>
         <source>Base data directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Diretório dos dados base</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSettingsAdvanced.ui" line="78"/>
         <source>Open</source>
-        <translation type="unfinished"></translation>
+        <translation>Abrir</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSettingsAdvanced.ui" line="87"/>
         <source>Filter remote jobs according to local base data directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtrar trabalhos remotos de acordo com o diretório de dados da base local</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSettingsAdvanced.ui" line="97"/>
         <source>Enable debug mode (saves detailed logging information)</source>
-        <translation type="unfinished"></translation>
+        <translation>Ativar o modo de eliminação de erros (guarda a informação de registo detalhada)</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSettingsAdvanced.ui" line="104"/>
         <source>Download remotely-generated datasets automatically</source>
-        <translation type="unfinished"></translation>
+        <translation>Transferir automaticamente bases de dados geradas remotamente</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSettingsAdvanced.ui" line="126"/>
         <source>Poll remote processing server periodically</source>
-        <translation type="unfinished"></translation>
+        <translation>Sondar periodicamente o servidor de processamento remoto</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSettingsAdvanced.ui" line="144"/>
         <source>Polling frequency (seconds)</source>
-        <translation type="unfinished"></translation>
+        <translation>Frequência de sondagem (segundos)</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSettingsAdvanced.ui" line="171"/>
         <source>Use binaries for faster processing</source>
-        <translation type="unfinished">Use binários para processamento mais rápido</translation>
+        <translation>Use binários para processamento mais rápido</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSettingsAdvanced.ui" line="203"/>
         <source>Click &quot;Browse&quot; to choose a folder...</source>
-        <translation type="unfinished">Clique em &quot;Navegar&quot; para escolher uma pasta ...</translation>
+        <translation>Clique em &quot;Navegar&quot; para escolher uma pasta ...</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSettingsAdvanced.ui" line="231"/>
         <source>Browse</source>
-        <translation type="unfinished">Navegar</translation>
+        <translation>Navegar</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSettingsAdvanced.ui" line="259"/>
         <source>Download</source>
-        <translation type="unfinished">Baixar</translation>
+        <translation>Baixar</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSettingsAdvanced.ui" line="268"/>
         <source>placeholder for label</source>
-        <translation type="unfinished">espaço reservado para etiqueta</translation>
+        <translation>espaço reservado para etiqueta</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSettingsAdvanced.ui" line="299"/>
         <source>LandPKS login information</source>
-        <translation type="unfinished"></translation>
+        <translation>Informação de início de sessão LandPKS</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSettingsAdvanced.ui" line="305"/>
         <source>Click below to allow Trends.Earth to access data from your LandPKS account.</source>
-        <translation type="unfinished"></translation>
+        <translation>Clique abaixo para permitir que Trends.Earth aceda a dados da sua conta LandPKS.</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSettingsAdvanced.ui" line="330"/>
         <source>Enable LandPKS data access</source>
-        <translation type="unfinished"></translation>
+        <translation>Ativar acesso a dados LandPKS</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="960"/>
+        <location filename="../settings.py" line="1042"/>
         <source>Warning</source>
-        <translation type="unfinished">Aviso</translation>
+        <translation>Aviso</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="960"/>
+        <location filename="../settings.py" line="1042"/>
         <source>You must restart QGIS for these changes to take effect.</source>
-        <translation type="unfinished">Você deve reiniciar o QGIS para que essas alterações tenham efeito.</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1022"/>
-        <source>Binaries &lt;b&gt;are&lt;/b&gt; loaded.</source>
-        <translation type="unfinished">Os binários &lt;b&gt;estão&lt;/b&gt; carregados.</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1024"/>
-        <source>Binaries &lt;b&gt;are not&lt;/b&gt; loaded.</source>
-        <translation type="unfinished">Os binários &lt;b&gt;não estão&lt;/b&gt; carregados.</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1035"/>
-        <source>No base data directory set</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1079"/>
-        <source>Unable to write to {}. Try a different folder.</source>
-        <translation type="unfinished">Não foi possível escrever para {}. Tente uma pasta diferente.</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1061"/>
-        <source>Choose a folder</source>
-        <translation type="unfinished">Escolha uma pasta</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1061"/>
-        <source>Choose a folder before downloading binaries.</source>
-        <translation type="unfinished">Escolha uma pasta antes de baixar os binários.</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1169"/>
-        <source>Error</source>
-        <translation type="unfinished">Erro</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1068"/>
-        <source>Unable to write to {}. Choose a different folder.</source>
-        <translation type="unfinished">Não foi possível escrever para {}. Escolha uma pasta diferente.</translation>
-    </message>
-    <message>
-        <location filename="../settings.py" line="1096"/>
-        <source>Unable to write to {}. Check that you have permissions to write to this folder, and that you are not trying to overwrite the binaries that you currently have loaded in QGIS.</source>
-        <translation type="unfinished">Não foi possível escrever para {}. Verifique se você tem permissão para gravar nesta pasta e se não está tentando substituir os binários que você carregou no QGIS.</translation>
+        <translation>Você deve reiniciar o QGIS para que essas alterações tenham efeito.</translation>
     </message>
     <message>
         <location filename="../settings.py" line="1104"/>
+        <source>Binaries &lt;b&gt;are&lt;/b&gt; loaded.</source>
+        <translation>Os binários &lt;b&gt;estão&lt;/b&gt; carregados.</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1106"/>
+        <source>Binaries &lt;b&gt;are not&lt;/b&gt; loaded.</source>
+        <translation>Os binários &lt;b&gt;não estão&lt;/b&gt; carregados.</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1117"/>
+        <source>No base data directory set</source>
+        <translation>Sem diretório de dados base definido</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1161"/>
+        <source>Unable to write to {}. Try a different folder.</source>
+        <translation>Não foi possível escrever para {}. Tente uma pasta diferente.</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1143"/>
+        <source>Choose a folder</source>
+        <translation>Escolha uma pasta</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1143"/>
+        <source>Choose a folder before downloading binaries.</source>
+        <translation>Escolha uma pasta antes de baixar os binários.</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1252"/>
+        <source>Error</source>
+        <translation>Erro</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1150"/>
+        <source>Unable to write to {}. Choose a different folder.</source>
+        <translation>Não foi possível escrever para {}. Escolha uma pasta diferente.</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1179"/>
+        <source>Unable to write to {}. Check that you have permissions to write to this folder, and that you are not trying to overwrite the binaries that you currently have loaded in QGIS.</source>
+        <translation>Não foi possível escrever para {}. Verifique se você tem permissão para gravar nesta pasta e se não está tentando substituir os binários que você carregou no QGIS.</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="1187"/>
         <source>Unable to read binaries from {}. Check that binaries were downloaded successfully.</source>
-        <translation type="unfinished"></translation>
+        <translation>Não foi possível ler binários de {}. Verifique que os binários foram transferidos com sucesso.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1113"/>
+        <location filename="../settings.py" line="1196"/>
         <source>Error downloading binaries.</source>
-        <translation type="unfinished">Erro ao baixar binários.</translation>
+        <translation>Erro ao baixar binários.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1123"/>
+        <location filename="../settings.py" line="1206"/>
         <source>Success</source>
-        <translation type="unfinished">Sucesso</translation>
+        <translation>Sucesso</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1119"/>
+        <location filename="../settings.py" line="1202"/>
         <source>Downloaded binaries.</source>
-        <translation type="unfinished">Binários baixados.</translation>
+        <translation>Binários baixados.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1123"/>
+        <location filename="../settings.py" line="1206"/>
         <source>All binaries up to date.</source>
-        <translation type="unfinished">Todos os binários atualizados.</translation>
+        <translation>Todos os binários atualizados.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1141"/>
+        <location filename="../settings.py" line="1224"/>
         <source>Select folder containing Trends.Earth binaries</source>
-        <translation type="unfinished">Selecione a pasta que contém os binários Trends.Earth</translation>
+        <translation>Selecione a pasta que contém os binários Trends.Earth</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1152"/>
+        <location filename="../settings.py" line="1235"/>
         <source>Choose a different folder - cannot install binaries within the Trends.Earth QGIS plugin installation folder.</source>
-        <translation type="unfinished">Escolha uma pasta diferente - não é possível instalar binários na pasta de instalação do plugin Trends.Earth QGIS.</translation>
+        <translation>Escolha uma pasta diferente - não é possível instalar binários na pasta de instalação do plugin Trends.Earth QGIS.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1169"/>
+        <location filename="../settings.py" line="1252"/>
         <source>Cannot read {folder_path!r}. Choose a different folder.</source>
-        <translation type="unfinished"></translation>
+        <translation>Não é possível ler {folder_path!r}. Escolha uma pasta diferente.</translation>
     </message>
 </context>
 <context>
@@ -6425,77 +5557,77 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/WidgetSettingsReport.ui" line="14"/>
         <source>Form</source>
-        <translation type="unfinished"></translation>
+        <translation>Formulario</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSettingsReport.ui" line="20"/>
         <source>Template search path</source>
-        <translation type="unfinished"></translation>
+        <translation>Caminho de pesquisa do modelo</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSettingsReport.ui" line="34"/>
         <source>Browse to select additional template directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Navegar para selecionar diretório de modelos adicional</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSettingsReport.ui" line="44"/>
         <source>Common Report Information</source>
-        <translation type="unfinished"></translation>
+        <translation>Informação do Relatório Comum</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSettingsReport.ui" line="53"/>
         <source>Organization name</source>
-        <translation type="unfinished"></translation>
+        <translation>Nome da organização</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSettingsReport.ui" line="60"/>
         <source>Disclaimer text</source>
-        <translation type="unfinished"></translation>
+        <translation>Texto do aviso legal</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSettingsReport.ui" line="87"/>
         <source>Browse to select an image file to use as the organization logo</source>
-        <translation type="unfinished"></translation>
+        <translation>Navegue para escolher um ficheiro de imagem para utilizar como logótipo da organização</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSettingsReport.ui" line="97"/>
         <source>Footer text</source>
-        <translation type="unfinished"></translation>
+        <translation>Texto do rodapé</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSettingsReport.ui" line="104"/>
         <source>Organization logo</source>
-        <translation type="unfinished"></translation>
+        <translation>Logótipo da organização</translation>
     </message>
     <message>
         <location filename="../gui/WidgetSettingsReport.ui" line="114"/>
         <source>Log warnings in output directory</source>
-        <translation type="unfinished"></translation>
+        <translation>Avisos de registo no diretório de saída</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1253"/>
+        <location filename="../settings.py" line="1336"/>
         <source>Select Report Template Search Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecione o Caminho de Pesquisa do Modelo do Relatório</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1263"/>
+        <location filename="../settings.py" line="1346"/>
         <source>QGIS needs to be restarted for the changes to take effect.</source>
-        <translation type="unfinished"></translation>
+        <translation>O QGIS necessita de ser reiniciado para que as alterações entrem em vigor.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1267"/>
+        <location filename="../settings.py" line="1350"/>
         <source>Template Search Path</source>
-        <translation type="unfinished"></translation>
+        <translation>Caminho de Pesquisa do Modelo</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1280"/>
+        <location filename="../settings.py" line="1363"/>
         <source>All Images</source>
-        <translation type="unfinished"></translation>
+        <translation>Todas as Imagens</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1295"/>
+        <location filename="../settings.py" line="1378"/>
         <source>Select Organization Logo</source>
-        <translation type="unfinished"></translation>
+        <translation>Selecionar o Logótipo da Organização</translation>
     </message>
 </context>
 <context>
@@ -6503,17 +5635,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/WidgetMain.ui" line="14"/>
         <source>Trends.Earth</source>
-        <translation type="unfinished"></translation>
+        <translation>Trends.Earth</translation>
     </message>
     <message>
         <location filename="../gui/WidgetMain.ui" line="25"/>
         <source>Algorithms</source>
-        <translation type="unfinished"></translation>
+        <translation>Algoritmos</translation>
     </message>
     <message>
         <location filename="../gui/WidgetMain.ui" line="42"/>
         <source>Datasets</source>
-        <translation type="unfinished"></translation>
+        <translation>Conjuntos de dados</translation>
     </message>
     <message>
         <location filename="../gui/WidgetMain.ui" line="50"/>
@@ -6521,12 +5653,12 @@ p, li { white-space: pre-wrap; }
 This scans the Trends.Earth base directory for new datasets.
 It also scans the remote Trends.Earth server 
 for running algorithms and their results.</source>
-        <translation type="unfinished"></translation>
+        <translation>Atualizar manualmente a lista de bases de dados. Isto analisa o diretório base de Trends.Earth e procura novas bases de dados. Também analisa o servidor remoto de Trends.Earth e pesquisa por algoritmos em execução e os seus resultados.</translation>
     </message>
     <message>
         <location filename="../gui/WidgetMain.ui" line="63"/>
         <source>Filter the list of datasets according with their name</source>
-        <translation type="unfinished"></translation>
+        <translation>Filtrar a lista de bases de dados de acordo com o seu nome</translation>
     </message>
     <message>
         <location filename="../gui/WidgetMain.ui" line="66"/>
@@ -6567,202 +5699,359 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_api</name>
     <message>
-        <location filename="../api.py" line="180"/>
-        <source>Error</source>
-        <translation type="obsolete">Erro</translation>
-    </message>
-    <message>
-        <location filename="../api.py" line="47"/>
-        <source>Please register with Trends.Earth before using this function.</source>
-        <translation type="obsolete">Registre-se no Trends.Earth antes de usar esta função.</translation>
-    </message>
-    <message>
-        <location filename="../api.py" line="105"/>
-        <source>Contacting {} server...</source>
-        <translation type="obsolete">Entrando em contato com o servidor {} ...</translation>
+        <location filename="../api.py" line="106"/>
+        <source>Unable to login to Trends.Earth server. Check your internet connection.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../api.py" line="111"/>
-        <source>Unable to login to {} server. Check your internet connection.</source>
-        <translation type="obsolete">Não foi possível fazer login no servidor {}. Verifique a sua conexão com a internet.</translation>
+        <source>Unable to connect to Trends.Earth  server.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../api.py" line="117"/>
-        <source>Unable to connect to {} server.</source>
-        <translation type="obsolete">Não foi possível conectar ao servidor {}.</translation>
+        <location filename="../api.py" line="200"/>
+        <source>Unable to read token for Trends.Earth server. Check username and password.</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../api.py" line="180"/>
-        <source>Unable to login to Trends.Earth. Check your username and password.</source>
-        <translation type="obsolete">Não foi possível fazer o login no Trends.Earth. Verifique seu nome de usuário e senha.</translation>
+        <location filename="../api.py" line="207"/>
+        <source>Unable to login to Trends.Earth. Check username and password.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../api.py" line="215"/>
+        <source>Unable to access Trends.Earth server. Check your internet connection</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../api.py" line="237"/>
+        <source>Error</source>
+        <translation>Erro</translation>
+    </message>
+    <message>
+        <location filename="../api.py" line="237"/>
+        <source>Unable to login to Trends.Earth. Check that username and password are correct.</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>tr_auth</name>
+    <message>
+        <location filename="../auth.py" line="74"/>
+        <source>Cannot init auth configuration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../auth.py" line="83"/>
+        <source>Cannot update auth configuration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../auth.py" line="97"/>
+        <source>No authentication set for {auth_setup.name}. Setup in Trends.Earth settings</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../auth.py" line="108"/>
+        <source>Cannot remove auth configuration for {auth_setup.name} with id: {authConfigId}</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../auth.py" line="127"/>
+        <source>No authentication set. Setup username and password before using {auth_setup.name} functions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../auth.py" line="141"/>
+        <source>Cannot retrieve credentials with id {authConfigId}. Setup username and password before using {auth_setup.name} functions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../auth.py" line="158"/>
+        <source>Cannot retrieve {auth_setup.name} credentials with id {authConfigId}. Setup username and password before using {auth_setup.name} functions.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../auth.py" line="170"/>
+        <source>{auth_setup.name} credentials with id {authConfigId} are not valid. Setup username and password before using {auth_setup.name}.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../auth.py" line="183"/>
+        <source>Auth method with id {authConfigId} is {authConfig.method()}. This method is not supported by by {auth_setup.name}</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>tr_calculate</name>
     <message>
-        <location filename="../areaofinterest.py" line="585"/>
+        <location filename="../areaofinterest.py" line="591"/>
         <source>Error</source>
         <translation>Erro</translation>
     </message>
     <message>
-        <location filename="../areaofinterest.py" line="585"/>
-        <source>Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian.</source>
-        <translation>Erro - a camada não está em um sistema de coordenadas geográficas. Não é possível encobrir a camada ao longo do 180º meridiano.</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="141"/>
-        <source>Unable to load area of interest from {}. There may be a problem with the file or coordinate system. Try manually loading this file into QGIS to verify that it displays properly. If you continue to have problems with this file, send us a message at trends.earth@conservation.org.</source>
-        <translation type="obsolete">Não foi possível carregar a área de interesse de {}. Pode haver um problema com o arquivo ou sistema de coordenadas. Tente carregar manualmente esse arquivo no QGIS para verificar se ele é exibido corretamente. Se você continuar a ter problemas com este arquivo, envie-nos uma mensagem em trends.earth@conservation.org.</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="362"/>
-        <source>Failed to process area of interest - unknown geometry type: {}</source>
-        <translation type="obsolete">Falha ao processar área de interesse - tipo de geometria desconhecida: {}</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="184"/>
-        <source>Failed to add geojson to temporary layer.</source>
-        <translation type="obsolete">Falha ao adicionar arquivo geojson à camada temporária.</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="249"/>
-        <source>Warning</source>
-        <translation type="obsolete">Aviso</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="249"/>
-        <source>The chosen area crosses the 180th meridian. It is recommended that you set the project coordinate system to a local coordinate system (see the &quot;CRS&quot; tab of the &quot;Project Properties&quot; window from the &quot;Project&quot; menu.)</source>
-        <translation type="obsolete">A área escolhida atravessa o meridiano de 180 graus. É recomendável que você defina o sistema de coordenadas do projeto para um sistema de coordenadas local (consulte a guia &quot;SRC&quot; da janela &quot;Propriedades do projeto&quot; no menu &quot;Projeto&quot;).</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="385"/>
-        <source>Error transforming coordinates. Check that the input geometry is valid.</source>
-        <translation type="obsolete">Erro ao transformar coordenadas. Verifique se a geometria de entrada é válida.</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="1077"/>
-        <source>You have chosen to run calculations for a city. You must select a buffer distance to define the calculation area when you are processing a city.</source>
-        <translation type="obsolete">Você escolheu executar cálculos para uma cidade. Você deve selecionar uma distância de buffer para definir a área de cálculo quando estiver processando uma cidade.</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="212"/>
-        <source>Invalid geometry in row {}. Check that all input geometries are valid before processing. Try using the check validity tool on the &quot;Vector&quot; menu on the toolbar for more information on which features are invalid (Under &quot;Vector&quot; - &quot;Geometry Tools&quot; - &quot;Check Validity&quot;).</source>
-        <translation type="obsolete">Geometria inválida na linha {}. Verifique se todas as geometrias de entrada são válidas antes do processamento. Tente usar a ferramenta de validade de verificação no menu &quot;Vetor&quot; na barra de ferramentas para obter mais informações sobre quais recursos são inválidos (em &quot;Vetor&quot; - &quot;Ferramentas de geometria&quot; - &quot;Verificar validade&quot;).</translation>
-    </message>
-    <message>
-        <location filename="../areaofinterest.py" line="454"/>
+        <location filename="../areaofinterest.py" line="460"/>
         <source>Invalid geometry in row {}. Check that all input geom_jsons are valid before processing. Try using the check validity tool on the &quot;Vector&quot; menu on the toolbar for more information on which features are invalid (Under &quot;Vector&quot; - &quot;Geometry Tools&quot; - &quot;Check Validity&quot;).</source>
         <translation type="unfinished"></translation>
     </message>
-</context>
-<context>
-    <name>tr_calculate_ldn</name>
     <message>
-        <location filename="../calculate_ldn.py" line="888"/>
-        <source>Success</source>
-        <translation type="obsolete">Sucesso</translation>
-    </message>
-    <message>
-        <location filename="../calculate_ldn.py" line="1253"/>
-        <source>Error</source>
-        <translation type="obsolete">Erro</translation>
-    </message>
-</context>
-<context>
-    <name>tr_calculate_rest_biomass</name>
-    <message>
-        <location filename="../calculate_rest_biomass.py" line="380"/>
-        <source>Success</source>
-        <translation type="obsolete">Sucesso</translation>
-    </message>
-    <message>
-        <location filename="../calculate_rest_biomass.py" line="380"/>
-        <source>Summary table saved to {}</source>
-        <translation type="obsolete">Tabela de resumo salva em {}</translation>
-    </message>
-    <message>
-        <location filename="../calculate_rest_biomass.py" line="385"/>
-        <source>Error</source>
-        <translation type="obsolete">Erro</translation>
-    </message>
-    <message>
-        <location filename="../calculate_rest_biomass.py" line="385"/>
-        <source>Error saving output table - check that {} is accessible and not already open.</source>
-        <translation type="obsolete">Erro ao salvar a tabela de saída - verifique se {} está acessível e não está aberto.</translation>
+        <location filename="../areaofinterest.py" line="591"/>
+        <source>Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian.</source>
+        <translation>Erro - a camada não está em um sistema de coordenadas geográficas. Não é possível encobrir a camada ao longo do 180º meridiano.</translation>
     </message>
 </context>
 <context>
     <name>tr_calculate_tc</name>
     <message>
-        <location filename="../calculate_tc.py" line="630"/>
+        <location filename="../localexecution/totalcarbon.py" line="210"/>
         <source>Success</source>
-        <translation type="obsolete">Sucesso</translation>
+        <translation>Sucesso</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="630"/>
-        <source>Summary table saved to {}</source>
-        <translation type="obsolete">Tabela de resumo salva em {}</translation>
+        <location filename="../localexecution/totalcarbon.py" line="210"/>
+        <source>Summary table saved to {self.output_file}</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="633"/>
+        <location filename="../localexecution/totalcarbon.py" line="216"/>
         <source>Error</source>
-        <translation type="obsolete">Erro</translation>
+        <translation>Erro</translation>
     </message>
     <message>
-        <location filename="../calculate_tc.py" line="633"/>
-        <source>Error saving output table - check that {} is accessible and not already open.</source>
-        <translation type="obsolete">Erro ao salvar a tabela de saída - verifique se {} está acessível e não está aberto.</translation>
+        <location filename="../localexecution/totalcarbon.py" line="216"/>
+        <source>Error saving output table - check that {self.output_file} is accessible and not already open.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>tr_calculate_urban</name>
+    <name>tr_conf</name>
     <message>
-        <location filename="../calculate_urban.py" line="395"/>
-        <source>Success</source>
-        <translation type="obsolete">Sucesso</translation>
+        <location filename="../conf.py" line="27"/>
+        <source>All regions</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_urban.py" line="395"/>
-        <source>Summary table saved to {}</source>
-        <translation type="obsolete">Tabela de resumo salva em {}</translation>
+        <location filename="../conf.py" line="194"/>
+        <source>Land degradation</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_urban.py" line="400"/>
-        <source>Error</source>
-        <translation type="obsolete">Erro</translation>
+        <location filename="../conf.py" line="198"/>
+        <source>Sub-indicators for SDG 15.3.1</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_urban.py" line="400"/>
-        <source>Error saving output table - check that {} is accessible and not already open.</source>
-        <translation type="obsolete">Erro ao salvar a tabela de saída - verifique se {} está acessível e não está aberto.</translation>
+        <location filename="../conf.py" line="199"/>
+        <source>Calculate SDG 15.3.1 sub-indicators (required prior to 15.3.1 indicator calculation)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conf.py" line="212"/>
+        <source>Indicator for SDG 15.3.1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conf.py" line="213"/>
+        <source>Spatial layer and summary table for total boundary</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conf.py" line="216"/>
+        <source>Calculate SDG 15.3.1 indicator from productivity, land cover, and soil organic carbon sub-indicators</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conf.py" line="229"/>
+        <source>SDG 15.3.1 error recode (false positive/negative)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conf.py" line="230"/>
+        <source>Correct any known errors (false positives or negatives) in an SDG 15.3.1 Indicator layer. This can be used to correct misclassifications using expert knowledge or field data.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conf.py" line="246"/>
+        <source>Land productivity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conf.py" line="247"/>
+        <source>Land productivity is the biological productive capacity of land</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conf.py" line="262"/>
+        <source>Land cover change</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conf.py" line="263"/>
+        <source>Land cover is the physical material at the surface of the earth. </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conf.py" line="280"/>
+        <source>Soil Organic Carbon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conf.py" line="281"/>
+        <source>Soil organic carbon is a measure of soil organic matter</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conf.py" line="300"/>
+        <source>Drought</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conf.py" line="301"/>
+        <source>Vulnerability and exposure</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conf.py" line="305"/>
+        <source>Drought vulnerability</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conf.py" line="306"/>
+        <source>Calculate indicators of drought vulnerability consistent with UNCCD SO3 Good Practice Guidance</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conf.py" line="319"/>
+        <source>Drought vulnerability summary table</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conf.py" line="320"/>
+        <source>Summarize drought indicators in alignment with UNCCD SO3 reporting requirements</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conf.py" line="334"/>
+        <source>UNCCD Reporting</source>
+        <translation>Relatório do UNCCD</translation>
+    </message>
+    <message>
+        <location filename="../conf.py" line="335"/>
+        <source>Summarize data for reporting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conf.py" line="353"/>
+        <source>Generate data package for UNCCD reporting</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conf.py" line="354"/>
+        <source>Summarize Strategic Objective (SO) 1, SO2, and SO3 datasets in proper format for submission to UNCCD for 2021 reporting cycle</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conf.py" line="369"/>
+        <source>SDG 11.3.1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conf.py" line="370"/>
+        <source>Urban change and land consumption</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conf.py" line="374"/>
+        <source>Urban change spatial layer</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conf.py" line="375"/>
+        <source>Calculate indicators of change in urban extent (SDG 11.3.1 indicator)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conf.py" line="388"/>
+        <source>Urban change summary table for city</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conf.py" line="389"/>
+        <source>Calculate table summarizing SDG indicator 11.3.1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conf.py" line="402"/>
+        <source>Experimental</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conf.py" line="405"/>
+        <source>Calculate change in total carbon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conf.py" line="406"/>
+        <source>Above and below ground, emissions and deforestation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conf.py" line="412"/>
+        <source>Calculate change in carbon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conf.py" line="413"/>
+        <source>Calculate total carbon (above and below-ground) and emissions from deforestation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conf.py" line="431"/>
+        <source>Change in carbon summary table</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conf.py" line="432"/>
+        <source>Calculate table summarizing change in total carbon</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conf.py" line="445"/>
+        <source>Potential change in biomass due to restoration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conf.py" line="446"/>
+        <source>Above and below ground woody</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conf.py" line="450"/>
+        <source>Estimate potential impacts of restoration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conf.py" line="451"/>
+        <source>Estimate potential change in biomass due to restoration</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conf.py" line="463"/>
+        <source>Table summarizing likely changes in biomass</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../conf.py" line="466"/>
+        <source>Generate table summarizing potential change in biomass due to restoration</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>tr_download</name>
     <message>
-        <location filename="../download.py" line="333"/>
-        <source>Downloading {}</source>
-        <translation>Baixando {}</translation>
-    </message>
-    <message>
         <location filename="../download.py" line="358"/>
         <source>Error</source>
         <translation>Erro</translation>
-    </message>
-    <message>
-        <location filename="../download.py" line="358"/>
-        <source>Download failed. Check your internet connection.</source>
-        <translation>Falha no Download. Verifique sua conexão com a internet.</translation>
-    </message>
-    <message>
-        <location filename="../download.py" line="346"/>
-        <source>Unable to access internet. Check your internet connection.</source>
-        <translation>Não foi possível acessar a internet. Verifique sua conexão com a internet.</translation>
-    </message>
-    <message>
-        <location filename="../download.py" line="352"/>
-        <source>Download timed out. Check your internet connection.</source>
-        <translation>Tempo de download esgotado. Verifique sua conexão com a internet.</translation>
     </message>
     <message>
         <location filename="../download.py" line="222"/>
@@ -6794,33 +6083,25 @@ for running algorithms and their results.</source>
         <source>File verification failed for {}.</source>
         <translation>A verificação do arquivo falhou para {}.</translation>
     </message>
-</context>
-<context>
-    <name>tr_jobs</name>
     <message>
-        <location filename="../jobs.py" line="457"/>
-        <source>Downloaded</source>
-        <translation type="obsolete">Baixado</translation>
+        <location filename="../download.py" line="333"/>
+        <source>Downloading {}</source>
+        <translation>Baixando {}</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="457"/>
-        <source>Downloaded results to {}</source>
-        <translation type="obsolete">Resultados transferidos para {}</translation>
+        <location filename="../download.py" line="358"/>
+        <source>Download failed. Check your internet connection.</source>
+        <translation>Falha no Download. Verifique sua conexão com a internet.</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="470"/>
-        <source>Time</source>
-        <translation type="obsolete">Tempo</translation>
+        <location filename="../download.py" line="346"/>
+        <source>Unable to access internet. Check your internet connection.</source>
+        <translation>Não foi possível acessar a internet. Verifique sua conexão com a internet.</translation>
     </message>
     <message>
-        <location filename="../jobs.py" line="471"/>
-        <source>Integrated NDVI</source>
-        <translation type="obsolete">NDVI integrado</translation>
-    </message>
-    <message>
-        <location filename="../jobs.py" line="471"/>
-        <source>NDVI x 10000</source>
-        <translation type="obsolete">NDVI x 10000</translation>
+        <location filename="../download.py" line="352"/>
+        <source>Download timed out. Check your internet connection.</source>
+        <translation>Tempo de download esgotado. Verifique sua conexão com a internet.</translation>
     </message>
 </context>
 <context>
@@ -6831,19 +6112,19 @@ for running algorithms and their results.</source>
         <translation>Sem dados (NoData)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="55"/>
-        <source>Productivity trajectory ({year_start} to {year_end}, NDVI x 10000 / yr)</source>
-        <translation type="obsolete">Trajetória da produtividade ({year_start} para {year_end}, NDVI x 10000/ano)</translation>
-    </message>
-    <message>
         <location filename="../layers.py" line="57"/>
         <source>Productivity trajectory ({year_initial} to {year_final}, NDVI x 10000 / yr)</source>
-        <translation type="unfinished">Trajetória da degradação de produtividade ({year_start} para {year_end})</translation>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="60"/>
+        <source>Productivity trajectory degradation ({year_initial} to {year_final})</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="63"/>
         <source>Degradation (significant decrease, p &lt; .05)</source>
-        <translation type="unfinished">Desempenho da degradação de produtividade ({year_start} para {year_end})</translation>
+        <translation>Degradação (diminuição significativa, p &lt; 0,05)</translation>
     </message>
     <message>
         <location filename="../layers.py" line="66"/>
@@ -6853,7 +6134,12 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../layers.py" line="67"/>
         <source>Improvement (significant increase, p &lt; .05)</source>
-        <translation type="unfinished">Desempenho da produtividade ({year_start} a {year_end}, proporção)</translation>
+        <translation>Melhoria (aumento significativo, p &lt; 0,05)</translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="71"/>
+        <source>Productivity performance degradation ({year_initial} to {year_final})</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="191"/>
@@ -6866,9 +6152,14 @@ for running algorithms and their results.</source>
         <translation>Sem degradação</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="69"/>
-        <source>Productivity performance ({year_start}, units)</source>
-        <translation type="obsolete">Desempenho da produtividade ({year_start}, unidades)</translation>
+        <location filename="../layers.py" line="76"/>
+        <source>Productivity performance ({year_initial} to {year_final}, ratio)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="79"/>
+        <source>Productivity performance ({year_initial}, units)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="83"/>
@@ -6886,14 +6177,24 @@ for running algorithms and their results.</source>
         <translation>Melhoria</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="77"/>
-        <source>Productivity state classes ({year_start}-{year_end})</source>
-        <translation type="obsolete">Classes de estado de produtividade ({year_start} - {year_end})</translation>
+        <location filename="../layers.py" line="89"/>
+        <source>Productivity state classes ({year_initial}-{year_final})</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="80"/>
-        <source>Land cover degradation ({year_baseline} to {year_target})</source>
-        <translation type="obsolete">Degradação da cobertura da terra ({year_baseline} para {year_target})</translation>
+        <location filename="../layers.py" line="94"/>
+        <source>Productivity degradation comparison ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="102"/>
+        <source>Land cover degradation comparison ({year_initial} to {year_final})</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="109"/>
+        <source>Land cover degradation ({year_initial} to {year_final})</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="115"/>
@@ -6906,14 +6207,14 @@ for running algorithms and their results.</source>
         <translation>Cobertura da terra ({year}, classes da ESA CCI)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="87"/>
-        <source>Land cover mode ({year_start}-{year_end}, 7 class)</source>
-        <translation type="obsolete">Modo de cobertura da terra ({year_start} - {year_end}, 7 classes)</translation>
+        <location filename="../layers.py" line="117"/>
+        <source>Land cover mode ({year_initial}-{year_final}, 7 class)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="88"/>
-        <source>Land cover mode ({year_start}-{year_end}, ESA CCI classes)</source>
-        <translation type="obsolete">Modo de cobertura da terra ({year_start} - {year_end}, classes ESA CCI)</translation>
+        <location filename="../layers.py" line="120"/>
+        <source>Land cover mode ({year_initial}-{year_final}, ESA CCI classes)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="123"/>
@@ -6991,9 +6292,9 @@ for running algorithms and their results.</source>
         <translation>Corpo d&apos;água</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="110"/>
-        <source>Land cover (transitions, {year_baseline} to {year_target})</source>
-        <translation type="obsolete">Cobertura da terra (transições, {year_baseline} para {year_target})</translation>
+        <location filename="../layers.py" line="141"/>
+        <source>Land cover (transitions, {year_initial} to {year_final})</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="144"/>
@@ -7041,14 +6342,14 @@ for running algorithms and their results.</source>
         <translation>Carbono orgânico do solo ({year}, toneladas/ha)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="123"/>
-        <source>Soil organic carbon degradation ({year_start} to {year_end})</source>
-        <translation type="obsolete">Degradação do carbono orgânico do solo ({year_start} a {year_end})</translation>
+        <location filename="../layers.py" line="154"/>
+        <source>Soil organic carbon degradation ({year_initial} to {year_final})</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="129"/>
-        <source>Land productivity (Trends.Earth)</source>
-        <translation type="obsolete">Produtividade da terra (Trends.Earth)</translation>
+        <location filename="../layers.py" line="161"/>
+        <source>Land productivity (Trends.Earth, {year_initial}-{year_final})</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="176"/>
@@ -7071,9 +6372,14 @@ for running algorithms and their results.</source>
         <translation>Aumentando</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="137"/>
-        <source>Land productivity dynamics (LPD)</source>
-        <translation type="obsolete">Dinâmica da produtividade da terra (DPT)</translation>
+        <location filename="../layers.py" line="170"/>
+        <source>Land productivity dynamics (JRC, {year_initial}-{year_final})</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="173"/>
+        <source>Land productivity dynamics (FAO-WOCAT, {year_initial}-{year_final})</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="177"/>
@@ -7086,14 +6392,24 @@ for running algorithms and their results.</source>
         <translation>Estressado</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="145"/>
-        <source>SDG 15.3.1 Indicator (Trends.Earth)</source>
-        <translation type="obsolete">Indicador ODS 15.3.1 (Trends.Earth)</translation>
+        <location filename="../layers.py" line="182"/>
+        <source>SDG 15.3.1 Indicator ({year_initial}-{year_final})</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="151"/>
-        <source>Forest loss ({year_start} to {year_end})</source>
-        <translation type="obsolete">Perda de floresta ({year_start} para {year_end})</translation>
+        <location filename="../layers.py" line="188"/>
+        <source>SDG 15.3.1 Indicator ({baseline_year_initial}-{baseline_year_final} updated with {progress_year_initial}-{progress_year_final})</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="194"/>
+        <source>SDG 15.3.1 Progress ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="198"/>
+        <source>Forest loss ({year_initial} to {year_final})</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="210"/>
@@ -7111,19 +6427,19 @@ for running algorithms and their results.</source>
         <translation>Floresta (sem perda)</translation>
     </message>
     <message>
-        <location filename="../layers.py" line="155"/>
-        <source>Forest loss ({year_start})</source>
-        <translation type="obsolete">Perda de floresta ({year_start})</translation>
+        <location filename="../layers.py" line="202"/>
+        <source>Forest loss ({year_initial})</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="156"/>
-        <source>Forest loss ({year_end})</source>
-        <translation type="obsolete">Perda de floresta ({year_end})</translation>
+        <location filename="../layers.py" line="203"/>
+        <source>Forest loss ({year_final})</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="159"/>
-        <source>Total carbon ({year_start}, tonnes per ha x 10)</source>
-        <translation type="obsolete">Carbono total ({year_start}, toneladas por ha x 10)</translation>
+        <location filename="../layers.py" line="205"/>
+        <source>Total carbon ({year_initial}, tonnes per ha x 10)</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="207"/>
@@ -7209,217 +6525,6 @@ for running algorithms and their results.</source>
         <location filename="../layers.py" line="227"/>
         <source>Population ({year})</source>
         <translation>População ({year})</translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="264"/>
-        <source>Biomass (tonnes CO2e per ha, {year})</source>
-        <translation>Biomassa (toneladas de CO2e por ha, {year})</translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="189"/>
-        <source>Change in biomass
-(tonnes CO2e per ha, {type} after {years} years)</source>
-        <translation type="obsolete">Alteração na biomassa (toneladas de CO2e por ha, {type} após {years} anos)</translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="269"/>
-        <source>Agro Ecological Zones V3.0</source>
-        <translation>Zonas Agroecológicas V3.0</translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="270"/>
-        <source>Climatic Zones</source>
-        <translation>Zonas climáticas</translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="272"/>
-        <source>Hansen</source>
-        <translation>Hansen</translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="274"/>
-        <source>MOD16A2</source>
-        <translation>MOD16A2</translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="276"/>
-        <source>CHIRPS</source>
-        <translation>CHIRPS</translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="277"/>
-        <source>GPCC V7 (Global Precipitation Climatology Centre)</source>
-        <translation>GPCC V7 (Global Precipitation Climatology Centre)</translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="278"/>
-        <source>GPCP v2.3 1 month (Global Precipitation Climatology Project)</source>
-        <translation>GPCP v2.3 1 mês (Global Precipitation Climatology Project)</translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="281"/>
-        <source>PERSIANN-CDR</source>
-        <translation>PERSIANN-CDR</translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="283"/>
-        <source>ERA I</source>
-        <translation>ERA I</translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="284"/>
-        <source>MERRA 2</source>
-        <translation>MERRA 2</translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="286"/>
-        <source>MODIS (MOD13Q1, annual)</source>
-        <translation>MODIS (MOD13Q1, anual)</translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="287"/>
-        <source>AVHRR (GIMMS3g.v1, annual)</source>
-        <translation>AVHRR (GIMMS3g.v1, anual)</translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="288"/>
-        <source>MODIS (MOD13Q1, 16 day)</source>
-        <translation>MODIS (MOD13Q1, 16 dias)</translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="293"/>
-        <source>Soil Grids 250</source>
-        <translation>SoilGrids 250</translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="291"/>
-        <source>USDA Soil Type</source>
-        <translation>Tipo de solo USDA</translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="603"/>
-        <source>Information</source>
-        <translation>Informação</translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="603"/>
-        <source>Trends.Earth does not have a style assigned for &quot;{}&quot; (band {} in {}). To use this layer, manually add it to your map.</source>
-        <translation>Trends.Earth não tem um estilo atribuído a &quot;{}&quot; (banda {} em {}). Para usar essa camada, adicione-a manualmente ao seu mapa.</translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="426"/>
-        <source>Error</source>
-        <translation type="obsolete">Erro</translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="426"/>
-        <source>Failed to load Trends.Earth style. Adding layer using QGIS defaults.</source>
-        <translation type="obsolete">Falha ao carregar o estilo Trends.Earth. Adicionando camada usando os padrões do QGIS.</translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="71"/>
-        <source>Productivity performance degradation ({year_initial} to {year_final})</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="76"/>
-        <source>Productivity performance ({year_initial} to {year_final}, ratio)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="79"/>
-        <source>Productivity performance ({year_initial}, units)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="89"/>
-        <source>Productivity state classes ({year_initial}-{year_final})</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="94"/>
-        <source>Productivity degradation comparison ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="102"/>
-        <source>Land cover degradation comparison ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="109"/>
-        <source>Land cover degradation ({year_initial} to {year_final})</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="117"/>
-        <source>Land cover mode ({year_initial}-{year_final}, 7 class)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="120"/>
-        <source>Land cover mode ({year_initial}-{year_final}, ESA CCI classes)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="141"/>
-        <source>Land cover (transitions, {year_initial} to {year_final})</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="154"/>
-        <source>Soil organic carbon degradation ({year_initial} to {year_final})</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="161"/>
-        <source>Land productivity (Trends.Earth, {year_initial}-{year_final})</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="170"/>
-        <source>Land productivity dynamics (JRC, {year_initial}-{year_final})</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="173"/>
-        <source>Land productivity dynamics (FAO-WOCAT, {year_initial}-{year_final})</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="182"/>
-        <source>SDG 15.3.1 Indicator ({year_initial}-{year_final})</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="188"/>
-        <source>SDG 15.3.1 Indicator ({baseline_year_initial}-{baseline_year_final} updated with {progress_year_initial}-{progress_year_final})</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="194"/>
-        <source>SDG 15.3.1 Progress ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="198"/>
-        <source>Forest loss ({year_initial} to {year_final})</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="202"/>
-        <source>Forest loss ({year_initial})</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="203"/>
-        <source>Forest loss ({year_final})</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../layers.py" line="205"/>
-        <source>Total carbon ({year_initial}, tonnes per ha x 10)</source>
-        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../layers.py" line="228"/>
@@ -7512,14 +6617,99 @@ for running algorithms and their results.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
+        <location filename="../layers.py" line="264"/>
+        <source>Biomass (tonnes CO2e per ha, {year})</source>
+        <translation>Biomassa (toneladas de CO2e por ha, {year})</translation>
+    </message>
+    <message>
         <location filename="../layers.py" line="265"/>
         <source>Change in biomass (tonnes CO2e per ha, {type} after {years} years)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../layers.py" line="60"/>
-        <source>Productivity trajectory degradation ({year_initial} to {year_final})</source>
-        <translation type="unfinished"></translation>
+        <location filename="../layers.py" line="269"/>
+        <source>Agro Ecological Zones V3.0</source>
+        <translation>Zonas Agroecológicas V3.0</translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="270"/>
+        <source>Climatic Zones</source>
+        <translation>Zonas climáticas</translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="272"/>
+        <source>Hansen</source>
+        <translation>Hansen</translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="274"/>
+        <source>MOD16A2</source>
+        <translation>MOD16A2</translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="276"/>
+        <source>CHIRPS</source>
+        <translation>CHIRPS</translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="277"/>
+        <source>GPCC V7 (Global Precipitation Climatology Centre)</source>
+        <translation>GPCC V7 (Global Precipitation Climatology Centre)</translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="278"/>
+        <source>GPCP v2.3 1 month (Global Precipitation Climatology Project)</source>
+        <translation>GPCP v2.3 1 mês (Global Precipitation Climatology Project)</translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="281"/>
+        <source>PERSIANN-CDR</source>
+        <translation>PERSIANN-CDR</translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="283"/>
+        <source>ERA I</source>
+        <translation>ERA I</translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="284"/>
+        <source>MERRA 2</source>
+        <translation>MERRA 2</translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="286"/>
+        <source>MODIS (MOD13Q1, annual)</source>
+        <translation>MODIS (MOD13Q1, anual)</translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="287"/>
+        <source>AVHRR (GIMMS3g.v1, annual)</source>
+        <translation>AVHRR (GIMMS3g.v1, anual)</translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="288"/>
+        <source>MODIS (MOD13Q1, 16 day)</source>
+        <translation>MODIS (MOD13Q1, 16 dias)</translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="293"/>
+        <source>Soil Grids 250</source>
+        <translation>SoilGrids 250</translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="291"/>
+        <source>USDA Soil Type</source>
+        <translation>Tipo de solo USDA</translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="603"/>
+        <source>Information</source>
+        <translation>Informação</translation>
+    </message>
+    <message>
+        <location filename="../layers.py" line="603"/>
+        <source>Trends.Earth does not have a style assigned for &quot;{}&quot; (band {} in {}). To use this layer, manually add it to your map.</source>
+        <translation>Trends.Earth não tem um estilo atribuído a &quot;{}&quot; (banda {} em {}). Para usar essa camada, adicione-a manualmente ao seu mapa.</translation>
     </message>
 </context>
 <context>
@@ -7557,6 +6747,19 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../lc_setup.py" line="261"/>
         <source>{f} does not appear to contain a valid land cover transition matrix definition: {e}</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>tr_settings</name>
+    <message>
+        <location filename="../settings.py" line="113"/>
+        <source>Error</source>
+        <translation>Erro</translation>
+    </message>
+    <message>
+        <location filename="../settings.py" line="113"/>
+        <source>Please setup access to {auth_setup.name} before using this function.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-24 18:41-0400\n"
+"POT-Creation-Date: 2022-06-21 17:06-0400\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
@@ -25,13 +25,15 @@ msgstr ""
 
 #: ../../source/for_users/training/restoration.rst:4
 msgid "Potential Carbon Sequestration under Restoration"
-msgstr ""
+msgstr "Séquestration potentielle du carbone dans le cadre d'une restauration"
 
 #: ../../source/for_users/training/restoration.rst:6
 msgid ""
 "**Objective**: Learn how to compute carbon sequestration under different "
 "forest restoration activities."
 msgstr ""
+"**Objectif** : Apprendre à calculer la séquestration du carbone dans le "
+"cadre de différentes activités de restauration forestière."
 
 #: ../../source/for_users/training/restoration.rst:8
 msgid "**Estimated time of completion**: 20 minutes"
@@ -46,14 +48,16 @@ msgid ""
 "Refer to the :ref:`background_restoration` for background information on the"
 " datasets and"
 msgstr ""
+"Reportez-vous à la :ref:`background_restoration` pour des informations "
+"générales sur les ensembles de données et les"
 
 #: ../../source/for_users/training/restoration.rst:14
 msgid "methodology used for this tutorial."
-msgstr ""
+msgstr "méthodologie utilisée pour ce tutoriel."
 
 #: ../../source/for_users/training/restoration.rst:19
 msgid "Estimate potential impacts of restoration"
-msgstr ""
+msgstr "Estimer les impacts potentiels de la restauration"
 
 #: ../../source/for_users/training/restoration.rst:21
 msgid ""
@@ -61,12 +65,17 @@ msgid ""
 "**Experimental** menu, select **Potential change in biomass due to "
 "restoration - Above and below ground woody** menu."
 msgstr ""
+"Dans l'onglet **Algorithmes** du plugin Trends.Earth dans QGIS, sous le menu"
+" **Expérimental**, sélectionnez **Changement potentiel de la biomasse dû à "
+"la restauration – Ligneux aériens et souterrains**."
 
 #: ../../source/for_users/training/restoration.rst:27
 msgid ""
 "Select the **Estimate potential impacts of restoration** menu by selecting "
 "**Execute locally**."
 msgstr ""
+"Sélectionnez le menu **Estimer les impacts potentiels de la restauration** "
+"en sélectionnant **Exécuter localement**."
 
 #: ../../source/for_users/training/restoration.rst:32
 msgid ""
@@ -74,10 +83,14 @@ msgid ""
 " analysis. Select the type of restoration: terrestrial or coastal "
 "(mangrove). Define the length of the intervention in year."
 msgstr ""
+"Une fenêtre apparaît dans laquelle vous pouvez sélectionner les paramètres "
+"de l'analyse de la restauration. Sélectionnez le type de restauration : "
+"terrestre ou côtière (mangrove). Définir la durée de l'intervention en "
+"année."
 
 #: ../../source/for_users/training/restoration.rst:39
 msgid "Select **Change region** to define the area of interest."
-msgstr ""
+msgstr "Sélectionnez **Changer de région** pour définir la zone d'intérêt."
 
 #: ../../source/for_users/training/restoration.rst:45
 msgid ""
@@ -116,11 +129,11 @@ msgstr ""
 
 #: ../../source/for_users/training/restoration.rst:61
 msgid "Add a descriptive name and notes for the analysis"
-msgstr ""
+msgstr "Ajoutez un nom descriptif et des notes pour l'analyse."
 
 #: ../../source/for_users/training/restoration.rst:63
 msgid "Select **Schedule remote exectution**"
-msgstr ""
+msgstr "Sélectionnez **Programmer l'exécution à distance**."
 
 #: ../../source/for_users/training/restoration.rst:68
 msgid ""
@@ -129,22 +142,31 @@ msgid ""
 " take between 5 and 15 minutes depending on the size of the study area "
 "(larger areas tend to take longer)."
 msgstr ""
+"Une barre bleu clair s'affichera temporairement, indiquant que la tâche a "
+"été soumise avec succès. L'analyse sera exécutée sur les serveurs de Google "
+"et pourrait prendre entre 5 et 15 minutes en fonction de la taille de la "
+"zone d'étude (les grandes zones ont tendance à prendre plus de temps)."
 
 #: ../../source/for_users/training/restoration.rst:71
 msgid "Table summarizing likely changes in biomass"
-msgstr ""
+msgstr "Tableau résumant les changements probables de la biomasse"
 
 #: ../../source/for_users/training/restoration.rst:73
 msgid ""
 "Go the the **Datasets** tab to **Add default layers from this dataset to "
 "map**."
 msgstr ""
+"Allez dans l'onglet **Ensemble de données** pour **Ajouter des couches par "
+"défaut de ce jeu de données à la carte**."
 
 #: ../../source/for_users/training/restoration.rst:78
 msgid ""
 "In order to view the defined area of interest with reference data, select "
 "the **Load Base Map** in the **Datasets** tab."
 msgstr ""
+"Afin de visualiser la zone d'intérêt définie avec les données de référence, "
+"sélectionnez l'option **Chargez la carte de base** dans l'onglet **Ensembles"
+" de données**."
 
 #: ../../source/for_users/training/restoration.rst:86
 msgid ""
@@ -153,6 +175,11 @@ msgid ""
 "restoration - Above and below ground woody** menu and select the **Execute "
 "locally** button under **Table summarizing likely changes in biomass**."
 msgstr ""
+"Revenez à l'onglet **Algorithmes** du plugin Trends.Earth dans QGIS, sous le"
+" menu **Expérimental**, sélectionnez **Changement potentiel de la biomasse "
+"dû à la restauration – Ligneux aériens et souterrains** et sélectionnez le "
+"bouton **Exécuter localement** sous **Tableau résumant les changements "
+"probables de la biomasse**."
 
 #: ../../source/for_users/training/restoration.rst:94
 msgid ""
@@ -160,6 +187,10 @@ msgid ""
 "region is the same area of interest, provide descriptive names and notes and"
 " select **Execute locally**."
 msgstr ""
+"Les couches seront pré-remplies dans les listes déroulantes des couches de "
+"données. Confirmez que la région correspond à la même zone d'intérêt, "
+"fournissez des noms et des notes descriptives et sélectionnez **Exécuter "
+"localement**."
 
 #: ../../source/for_users/training/restoration.rst:94
 msgid ""
@@ -167,95 +198,99 @@ msgid ""
 "**trends_earth_data*** folder under your user account on your computer "
 "(e.g., C:\\Users\\mnoon\\trends_earth_data)."
 msgstr ""
+"Une feuille de calcul comparant les résultats finaux est enregistrée dans "
+"votre dossier **tendances_données_terrestres*** sous votre compte "
+"d'utilisateur sur votre ordinateur (par exemple, "
+"C:\\Users\\mnoon\\tendances_données_terrestres)."
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr ""
+msgstr "iconCalculator"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr ""
+msgstr "iconChart"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr ""
+msgstr "iconClipboard"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr ""
+msgstr "iconCloudDownload"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr ""
+msgstr "iconCog"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr ""
+msgstr "iconDeletedataset"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
-msgstr ""
+msgstr "iconGlobe"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr ""
+msgstr "iconGraph"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr ""
+msgstr "iconInfo"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr ""
+msgstr "iconLoaddataset"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr ""
+msgstr "iconMarkMarker"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr ""
+msgstr "iconOpendatasetdirectory"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr ""
+msgstr "iconViewdatasetdetails"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr ""
+msgstr "iconWrench"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr ""
+msgstr "iconFolder"
 
 #: ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr ""
+msgstr "iconReports"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr ""
+msgstr "iconTrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr ""
+msgstr "iconTrendsEarth"
 
 #: ../../../<rst_epilog>:37
 msgid "Trends.Earth"
-msgstr ""
+msgstr "Trends.Earth"
 
 #: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr ""
+msgstr "logoCI"
 
 #: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr ""
+msgstr "logoLund"
 
 #: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr ""
+msgstr "logoNASA"
 
 #: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr ""
+msgstr "logoGEF"

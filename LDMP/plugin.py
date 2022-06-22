@@ -17,37 +17,11 @@ from builtins import object
 from qgis.core import Qgis
 from qgis.core import QgsApplication
 from qgis.core import QgsExpression
+from qgis.core import QgsMasterLayoutInterface
 from qgis.core import QgsMessageLog
+from qgis.gui import QgsLayoutDesignerInterface
 from qgis.PyQt.QtCore import QCoreApplication
 from qgis.PyQt.QtCore import Qt
-from qgis.core import (
-    QgsApplication,
-    QgsMasterLayoutInterface
-)
-from qgis.gui import QgsLayoutDesignerInterface
-from qgis.PyQt.QtCore import (
-    QCoreApplication,
-    Qt
-)
-from qgis.PyQt.QtWidgets import (
-    QAction,
-    QMenu,
-    QToolButton
-)
-from qgis.core import (
-    QgsApplication,
-    QgsMasterLayoutInterface
-)
-from qgis.gui import QgsLayoutDesignerInterface
-from qgis.PyQt.QtCore import (
-    QCoreApplication,
-    Qt
-)
-from qgis.PyQt.QtWidgets import (
-    QAction,
-    QMenu,
-    QToolButton
-)
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction
 from qgis.PyQt.QtWidgets import QApplication
@@ -58,7 +32,7 @@ from qgis.PyQt.QtWidgets import QToolButton
 from . import about
 from . import conf
 from . import main_widget
-from .charts import calculate_charts
+from .charts import calculate_error_recode_stats
 from .jobs.manager import job_manager
 from .lc_setup import LccInfoUtils
 from .maptools import BufferMapTool
@@ -67,6 +41,8 @@ from .processing_provider.provider import Provider
 from .reports.expressions import ReportExpressionUtils
 from .reports.template_manager import template_manager
 from .settings import DlgSettings
+from .timeseries import show_time_series
+from .utils import FileUtils
 from .visualization import download_base_map
 
 
@@ -104,6 +80,7 @@ class LDMPPlugin(object):
         self.dlg_about = None
         self.start_action = None
         self.dock_widget = None
+        self.time_series_dlg = None
 
     def initProcessing(self):
         self.provider = Provider()
@@ -194,7 +171,7 @@ class LDMPPlugin(object):
 
     def initGui(self):
         self.initProcessing()
-        QgsExpression.registerFunction(calculate_charts)
+        QgsExpression.registerFunction(calculate_error_recode_stats)
 
         """
         Moved the initialization here so that the processing can be 
@@ -205,8 +182,8 @@ class LDMPPlugin(object):
         self.raster_menu = self.iface.rasterMenu()
         self.raster_menu.addMenu(self.menu)
 
-        self.toolbar = self.iface.addToolBar(u'trends.earth')
-        self.toolbar.setObjectName('trends_earth_toolbar')
+        self.toolbar = self.iface.addToolBar(u"trends.earth")
+        self.toolbar.setObjectName("trends_earth_toolbar")
         self.toolButton = QToolButton()
         self.toolButton.setMenu(QMenu())
         self.toolButton.setPopupMode(QToolButton.MenuButtonPopup)
@@ -223,11 +200,9 @@ class LDMPPlugin(object):
         """Create Main manu icon and plugins menu entries."""
         self.start_action = self.add_action(
             os.path.join(
-                os.path.dirname(__file__),
-                'icons',
-                'trends_earth_logo_square_32x32.ico'
+                os.path.dirname(__file__), "icons", "trends_earth_logo_square_32x32.ico"
             ),
-            text='Trends.Earth',
+            text="Trends.Earth",
             callback=self.run_docked_interface,
             parent=self.iface.mainWindow(),
             status_tip=self.tr("Trends.Earth dock interface"),
@@ -237,7 +212,7 @@ class LDMPPlugin(object):
 
         self.add_action(
             os.path.join(os.path.dirname(__file__), "icons", "wrench.svg"),
-            text=self.tr(u"Settings"),
+            text=self.tr("Settings"),
             callback=self.run_settings,
             parent=self.iface.mainWindow(),
             status_tip=self.tr("Trends.Earth Settings"),
@@ -245,7 +220,7 @@ class LDMPPlugin(object):
 
         self.add_action(
             os.path.join(os.path.dirname(__file__), "icons", "info.svg"),
-            text=self.tr(u"About"),
+            text=self.tr("About"),
             callback=self.run_about,
             parent=self.iface.mainWindow(),
             status_tip=self.tr("About trends.earth"),
@@ -257,7 +232,7 @@ class LDMPPlugin(object):
                     os.path.dirname(__file__), "icons", "mActionCapturePolygon.svg"
                 )
             ),
-            self.tr(u"Digitize polygon"),
+            self.tr("Digitize polygon"),
             self.iface.mainWindow(),
         )
         self.action_polygon.triggered.connect(self.activate_polygon_tool)
@@ -285,7 +260,18 @@ class LDMPPlugin(object):
         self.buffer_tool.setAction(self.action_buffer)
         # self.buffer_tool.digitized.connect()
 
-        self.toolbar.addActions([self.action_polygon, self.action_buffer])
+        self.ndvi_action = QAction(
+            FileUtils.get_icon("chart.svg"),
+            self.tr("Plot time series"),
+            self.iface.mainWindow(),
+        )
+        self.ndvi_action.setCheckable(True)
+        self.ndvi_action.setToolTip(self.tr("Plot time series"))
+        self.ndvi_action.triggered.connect(self.run_ndvi)
+
+        self.toolbar.addActions(
+            [self.action_polygon, self.action_buffer, self.ndvi_action]
+        )
 
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
@@ -298,17 +284,15 @@ class LDMPPlugin(object):
         del self.toolbar
 
         QgsApplication.processingRegistry().removeProvider(self.provider)
-        QgsExpression.unregisterFunction(calculate_charts.name())
+        QgsExpression.unregisterFunction(calculate_error_recode_stats.name())
 
     def run_docked_interface(self, checked):
         if checked:
             if self.dock_widget is None:
                 self.dock_widget = main_widget.MainWidget(
-                    self.iface, parent=self.iface.mainWindow())
-                self.iface.addDockWidget(
-                    Qt.RightDockWidgetArea,
-                    self.dock_widget
+                    self.iface, parent=self.iface.mainWindow()
                 )
+                self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dock_widget)
                 self.dock_widget.visibilityChanged.connect(
                     self.on_dock_visibility_changed
                 )
@@ -348,9 +332,7 @@ class LDMPPlugin(object):
     def init_reports(self):
         # Initialize report module.
         # Register custom report variables on opening the layout designer
-        self.iface.layoutDesignerOpened.connect(
-            self.on_layout_designer_opened
-        )
+        self.iface.layoutDesignerOpened.connect(self.on_layout_designer_opened)
         # Copy report config and templates to data directory
         template_manager.use_data_dir_config_source()
 
@@ -364,21 +346,13 @@ class LDMPPlugin(object):
             layout = designer.layout()
             ReportExpressionUtils.register_variables(layout)
 
-    def init_reports(self):
-        # Initialize report module.
-        # Register custom report variables on opening the layout designer
-        self.iface.layoutDesignerOpened.connect(
-            self.on_layout_designer_opened
-        )
-        # Copy report config and templates to data directory
-        template_manager.use_data_dir_config_source()
+    def run_ndvi(self):
+        # Show NDVI query dialog.
+        if self.time_series_dlg is None:
+            self.time_series_dlg = show_time_series(self.iface, self.iface.mapCanvas())
+            self.time_series_dlg.sync_action = self.ndvi_action
+        else:
+            self.time_series_dlg.show()
 
-        # Download basemap as its required in the reports
-        download_base_map(use_mask=False)
-
-    def on_layout_designer_opened(self, designer: QgsLayoutDesignerInterface):
-        # Register custom report variables in a print layout only.
-        layout_type = designer.masterLayout().layoutType()
-        if layout_type == QgsMasterLayoutInterface.PrintLayout:
-            layout = designer.layout()
-            ReportExpressionUtils.register_variables(layout)
+        self.time_series_dlg.raise_()
+        self.time_series_dlg.activateWindow()

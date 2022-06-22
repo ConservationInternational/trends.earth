@@ -4,6 +4,7 @@ import typing
 import uuid
 from pathlib import Path
 
+from qgis.core import QgsProject
 from qgis.PyQt import QtCore
 from qgis.PyQt import QtGui
 from qgis.PyQt import QtWidgets
@@ -11,7 +12,10 @@ from qgis.PyQt import uic
 from qgis.utils import iface
 from te_schemas.jobs import JobStatus
 from te_schemas.results import Band as JobBand
-from te_schemas.results import RasterResults
+from te_schemas.results import (
+    TimeSeriesTableResult,
+    RasterResults
+)
 
 from . import manager
 from .. import layers
@@ -23,14 +27,14 @@ from ..conf import Setting
 from ..conf import settings_manager
 from ..data_io import DlgDataIOAddLayersToMap
 from ..datasets_dialog import DatasetDetailsDialogue
+from ..logger import log
+from ..plot import DlgPlotTimeries
+from ..reports.mvc import DatasetReportHandler
 from ..select_dataset import DlgSelectDataset
+from ..utils import FileUtils
 from .models import Job
 from .models import SortField
 from .models import TypeFilter
-from qgis.core import QgsProject
-from ..utils import FileUtils
-from ..reports.mvc import DatasetReportHandler
-
 
 WidgetDatasetItemUi, _ = uic.loadUiType(
     str(Path(__file__).parents[1] / "gui/WidgetDatasetItem.ui")
@@ -239,6 +243,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
     open_details_tb: QtWidgets.QToolButton
     metadata_pb: QtWidgets.QPushButton
     open_directory_tb: QtWidgets.QToolButton
+    plot_tb: QtWidgets.QToolButton
     progressBar: QtWidgets.QProgressBar
     load_tb: QtWidgets.QToolButton
     edit_tb: QtWidgets.QToolButton
@@ -295,11 +300,14 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             QtGui.QIcon(os.path.join(ICON_PATH, "mActionAddOgrLayer.svg"))
         )
 
+        self.plot_tb.setIcon(FileUtils.get_icon('chart.svg'))
+        self.plot_tb.clicked.connect(self.show_time_series_plot)
+        self.plot_tb.setEnabled(False)
+        self.plot_tb.hide()
+
         self.report_pb.setIcon(FileUtils.get_icon('report.svg'))
         self._report_handler = DatasetReportHandler(
-            self.report_pb,
-            self.job,
-            self.main_dock.iface
+            self.report_pb, self.job, self.main_dock.iface
         )
         # self.add_to_canvas_pb.setFixedSize(self.open_directory_tb.size())
         # self.add_to_canvas_pb.setMinimumSize(self.open_directory_tb.size())
@@ -356,6 +364,12 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                 self.progressBar.show()
                 self.download_tb.hide()
                 self.add_to_canvas_pb.setEnabled(False)
+                if isinstance(self.job.results, TimeSeriesTableResult):
+                    self.download_tb.hide()
+                    self.plot_tb.show()
+                    self.add_to_canvas_pb.hide()
+                    self.metadata_pb.hide()
+                    self.open_directory_tb.hide()
             elif self.job.status == JobStatus.FINISHED:
                 self.progressBar.hide()
                 result_auto_download = settings_manager.get_value(
@@ -373,6 +387,13 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
 
                 self.add_to_canvas_pb.setEnabled(False)
                 self.metadata_pb.setEnabled(False)
+                if isinstance(self.job.results, TimeSeriesTableResult):
+                    self.plot_tb.setEnabled(True)
+                    self.plot_tb.show()
+                    self.download_tb.hide()
+                    self.add_to_canvas_pb.hide()
+                    self.metadata_pb.hide()
+                    self.open_directory_tb.hide()
             elif self.job.status in (JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY):
                 self.progressBar.hide()
                 self.download_tb.hide()
@@ -441,8 +462,31 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         self.main_dock.resume_scheduler()
 
     def load_layer(self):
-        manager.job_manager.display_special_area_layer(self.job)
+        manager.job_manager.display_error_recode_layer(self.job)
         self.edit_tb.setEnabled(True)
+
+    def show_time_series_plot(self):
+        table = self.job.results.table
+        if len(table) == 0:
+            self.main_dock.iface.messageBar().pushMessage(
+                self.tr('Time series table is empty'),
+                level=1,
+                duration=5
+            )
+            return
+
+        data = [x for x in table if x['name'] == 'mean'][0]
+        task_name = self.job.task_name
+        base_title = self.tr('Time Series')
+        dlg_plot = DlgPlotTimeries(self.main_dock.iface.mainWindow())
+        dlg_plot.setWindowTitle(f'{base_title} - {task_name}')
+        labels = {'title': task_name,
+                  'bottom': self.tr('Time'),
+                  'left': [
+                      self.tr('Integrated NDVI'), self.tr('NDVI x 10000')
+                  ]}
+        dlg_plot.plot_data(data['time'], data['y'], labels)
+        dlg_plot.exec_()
 
     def edit_layer(self):
         if not self.has_connected_data():
@@ -450,7 +494,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             dlg = DlgSelectDataset(self)
             if dlg.exec_():
                 prod = dlg.prod_band()
-                land = dlg.land_band()
+                lc = dlg.lc_band()
                 soil = dlg.soil_band()
 
                 if prod:
@@ -461,12 +505,12 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                         "uuid": str(prod.job.id),
                     }
 
-                if land:
-                    self.job.params["land"] = {
-                        "path": str(land.path),
-                        "band": land.band_index,
-                        "band_name": land.band_info.name,
-                        "uuid": str(land.job.id),
+                if lc:
+                    self.job.params["lc"] = {
+                        "path": str(lc.path),
+                        "band": lc.band_index,
+                        "band_name": lc.band_info.name,
+                        "uuid": str(lc.job.id),
                     }
 
                 if soil:
@@ -478,93 +522,45 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                     }
 
                 manager.job_manager.write_job_metadata_file(self.job)
-                manager.job_manager.display_special_area_layer(self.job)
+                manager.job_manager.display_error_recode_layer(self.job)
 
-                layers.set_default_value(
-                    str(self.job.results.vector.uri.uri),
-                    "prod_imp",
-                    str(prod.path.as_posix()),
-                    prod.band_index,
-                    "4,5",
-                    False
-                )
-                layers.set_default_value(
-                    str(self.job.results.vector.uri.uri),
-                    "prod_deg",
-                    str(prod.path.as_posix()),
-                    prod.band_index,
-                    "1,2",
-                    False
-                )
-                layers.set_default_value(
-                    str(self.job.results.vector.uri.uri),
-                    "prod_stab",
-                    str(prod.path.as_posix()),
-                    prod.band_index,
-                    "3",
-                    False
-                )
-                layers.set_default_value(
-                    str(self.job.results.vector.uri.uri),
-                    "land_imp",
-                    str(land.path.as_posix()),
-                    land.band_index,
-                    "1",
-                    False
-                )
-                layers.set_default_value(
-                    str(self.job.results.vector.uri.uri),
-                    "land_deg",
-                    str(land.path.as_posix()),
-                    land.band_index,
-                    "-1",
-                    False
-                )
-                layers.set_default_value(
-                    str(self.job.results.vector.uri.uri),
-                    "land_stab",
-                    str(land.path.as_posix()),
-                    land.band_index,
-                    "0",
-                    False
-                )
-                layers.set_default_value(
-                    str(self.job.results.vector.uri.uri),
-                    "soil_imp",
-                    str(soil.path.as_posix()),
-                    soil.band_index,
-                    "1",
-                    True
-                )
-                layers.set_default_value(
-                    str(self.job.results.vector.uri.uri),
-                    "soil_deg",
-                    str(soil.path.as_posix()),
-                    soil.band_index,
-                    "-1",
-                    True
-                )
-                layers.set_default_value(
-                    str(self.job.results.vector.uri.uri),
-                    "soil_stab",
-                    str(soil.path.as_posix()),
-                    soil.band_index,
-                    "0",
-                    True
+                band_datas = [
+                    {
+                        "path": str(prod.path.as_posix()),
+                        "name": prod.band_info.name,
+                        "out_name": "land_productivity",
+                        "index": prod.band_index,
+                    },
+                    {
+                        "path": str(lc.path.as_posix()),
+                        "name": lc.band_info.name,
+                        "out_name": "land_cover",
+                        "index": lc.band_index,
+                    },
+                    {
+                        "path": str(soil.path.as_posix()),
+                        "name": soil.band_info.name,
+                        "out_name": "soil_organic_carbon",
+                        "index": soil.band_index,
+                    },
+                ]
+                log("setting default stats value")
+                layers.set_default_stats_value(
+                    str(self.job.results.vector.uri.uri), band_datas
                 )
 
-                manager.job_manager.edit_special_area_layer(self.job)
+                manager.job_manager.edit_error_recode_layer(self.job)
                 self.main_dock.resume_scheduler()
         else:
-            manager.job_manager.display_special_area_layer(self.job)
-            manager.job_manager.edit_special_area_layer(self.job)
+            manager.job_manager.display_error_recode_layer(self.job)
+            manager.job_manager.edit_error_recode_layer(self.job)
 
     def has_connected_data(self):
         has_prod = True if "prod" in self.job.params else False
-        has_land = True if "land" in self.job.params else False
+        has_lc = True if "lc" in self.job.params else False
         has_soil = True if "soil" in self.job.params else False
 
-        return has_prod and has_land and has_soil
+        return has_prod and has_lc and has_soil
 
     def prepare_metadata_menu(self):
         self.metadata_menu.clear()
@@ -607,7 +603,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
     def load_rasters_layers(self):
         jobs = manager.job_manager._known_downloaded_jobs.copy()
         self._load_raster(jobs, "prod")
-        self._load_raster(jobs, "land")
+        self._load_raster(jobs, "lc")
         self._load_raster(jobs, "soil")
 
     def _load_raster(self, jobs, name):

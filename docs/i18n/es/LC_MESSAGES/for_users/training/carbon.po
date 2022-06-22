@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-24 18:41-0400\n"
+"POT-Creation-Date: 2022-06-21 17:06-0400\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
@@ -49,14 +49,16 @@ msgid ""
 "Refer to the :ref:`background_carbon` for background information on the "
 "datasets and"
 msgstr ""
+"Consulte la :ref:`background_carbon` para obtener información sobre los "
+"conjuntos de datos y"
 
 #: ../../source/for_users/training/carbon.rst:14
 msgid "methodology used for this tutorial."
-msgstr ""
+msgstr "metodología utilizada para este tutorial."
 
 #: ../../source/for_users/training/carbon.rst:19
 msgid "Calculate change in carbon"
-msgstr ""
+msgstr "Calcular el cambio de carbono"
 
 #: ../../source/for_users/training/carbon.rst:21
 msgid ""
@@ -64,12 +66,17 @@ msgid ""
 "**Experimental** menu, select **Calculate change in total carbon - Above and"
 " below ground emissions, and deforestation** menu."
 msgstr ""
+"En la pestaña **Algoritmos** del complemento Trends.Earth en QGIS, en el "
+"menú **Experimental**, seleccione el menú **Calcular el cambio del carbono "
+"total - Emisiones por encima y por debajo del suelo, y menú deforestación**."
 
 #: ../../source/for_users/training/carbon.rst:27
 msgid ""
 "Select the **Calculate change in carbon** menu by selecting **Execute "
 "locally**."
 msgstr ""
+"Seleccione el menú **Calcular el cambio en el carbono** seleccionando "
+"**Ejecutar localmente**."
 
 #: ../../source/for_users/training/carbon.rst:32
 msgid ""
@@ -78,12 +85,19 @@ msgid ""
 "loss, carbon emissions from deforestation. Define the percent tree cover "
 "considered forest for your area of interest."
 msgstr ""
+"Aparece la ventana en la que puede seleccionar los parámetros para el "
+"análisis del carbono. Elija el año inicial y el año objetivo para el control"
+" de la pérdida de cobertura arbórea y las emisiones de carbono procedentes "
+"del proceso de deforestación. Defina el porcentaje de cobertura arbórea que "
+"se considera bosque para su área de interés."
 
 #: ../../source/for_users/training/carbon.rst:39
 msgid ""
 "The definition of canopy cover should be changed to accommodate the specific"
 " area of interest."
 msgstr ""
+"La definición de la cobertura del follaje debería modificarse para adaptarla"
+" a la zona específica de interés."
 
 #: ../../source/for_users/training/carbon.rst:38
 msgid ""
@@ -92,10 +106,15 @@ msgid ""
 "definition can change for arid regions. For more information, please see the"
 " publication\""
 msgstr ""
+"El conjunto de datos mapea la cobertura arbórea mundial basándose en el "
+"porcentaje de cobertura de copas en el año 2000. Muchos estudios citan el "
+"umbral del 25 % - 30 % para definir el bosque, sin embargo esa definición "
+"puede cambiar para las regiones áridas. Para más información, consulte la "
+"publicación \""
 
 #: ../../source/for_users/training/carbon.rst:44
 msgid "Select **Change region** to define the area of interest."
-msgstr ""
+msgstr "Seleccione **Cambiar región** a fin de definir el área de interés."
 
 #: ../../source/for_users/training/carbon.rst:50
 msgid ""
@@ -134,7 +153,7 @@ msgstr ""
 
 #: ../../source/for_users/training/carbon.rst:66
 msgid "Add a descriptive name and notes for the analysis"
-msgstr ""
+msgstr "Añada un nombre descriptivo y notas para el análisis"
 
 #: ../../source/for_users/training/carbon.rst:68
 msgid ""
@@ -142,6 +161,9 @@ msgid ""
 "and method for calculating the root to shoot ratio (below ground biomass) "
 "Select **Schedule remote exectution**"
 msgstr ""
+"Seleccione el menú **Configuración avanzada** para elegir el conjunto de "
+"datos de la biomasa y el método de cálculo de la relación raíz/semilla "
+"(biomasa subterránea) Seleccione **Programar la ejecución remota*."
 
 #: ../../source/for_users/training/carbon.rst:74
 msgid ""
@@ -157,19 +179,23 @@ msgstr ""
 
 #: ../../source/for_users/training/carbon.rst:77
 msgid "Change in carbon summary table"
-msgstr ""
+msgstr "Cuadro de resumen de los cambios en el carbono"
 
 #: ../../source/for_users/training/carbon.rst:79
 msgid ""
 "Go the the **Datasets** tab to **Add default layers from this dataset to "
 "map**."
 msgstr ""
+"Vaya a la pestaña **Conjuntos de datos** para **Añadir capas por defecto de "
+"este conjunto de datos al mapa**."
 
 #: ../../source/for_users/training/carbon.rst:84
 msgid ""
 "In order to view the defined area of interest with reference data, select "
 "the **Load Base Map** in the **Datasets** tab."
 msgstr ""
+"Para ver el área de intereses definida con datos de referencia, seleccione "
+"el **Cargar mapa base** en la pestaña **Conjuntos de datos**."
 
 #: ../../source/for_users/training/carbon.rst:95
 msgid ""
@@ -177,6 +203,9 @@ msgid ""
 "emissions, and deforestation** menu under **Change in carbon summary "
 "table**, select the **Execute locally** button."
 msgstr ""
+"En el menú **Calcular el cambio en el carbono total - Emisiones por encima y"
+" por debajo del suelo, y deforestación**, bajo **Cambio en la tabla resumen "
+"de carbono**, seleccione el botón **Ejecutar localmente**."
 
 #: ../../source/for_users/training/carbon.rst:101
 msgid ""
@@ -184,6 +213,10 @@ msgid ""
 "region is the same area of interest, provide descriptive names and notes and"
 " select **Execute locally**."
 msgstr ""
+"Las capas se rellenarán de antemano en la lista desplegable correspondiente "
+"a las capas de datos. Confirme que la región es la misma área que le "
+"interesa, indique nombres y notas descriptivas y seleccione **Ejecutar "
+"localmente**."
 
 #: ../../source/for_users/training/carbon.rst:101
 msgid ""
@@ -191,30 +224,33 @@ msgid ""
 "**trends_earth_data*** folder under your user account on your computer "
 "(e.g., C:\\Users\\mnoon\\trends_earth_data)."
 msgstr ""
+"Una hoja de cálculo que compara los resultados definitivos se guarda en su "
+"carpeta **trends_earth_data*** en su cuenta de usuario en su ordenador (por "
+"ejemplo, C:\\sers\\mnoon\\trends_earth_data)."
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr ""
+msgstr "iconCalculator"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr ""
+msgstr "iconChart"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr ""
+msgstr "iconClipboard"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr ""
+msgstr "iconCloudDownload"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr ""
+msgstr "iconCog"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr ""
+msgstr "iconDeletedataset"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
@@ -222,47 +258,47 @@ msgstr "iconGlobe"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr ""
+msgstr "iconGraph"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr ""
+msgstr "iconInfo"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr ""
+msgstr "iconLoaddataset"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr ""
+msgstr "iconMarkMarker"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr ""
+msgstr "iconOpendatasetdirectory"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr ""
+msgstr "iconViewdatasetdetails"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr ""
+msgstr "iconWrench"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr ""
+msgstr "iconFolder"
 
 #: ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr ""
+msgstr "iconReports"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr ""
+msgstr "iconTrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr ""
+msgstr "iconVisualization"
 
 #: ../../../<rst_epilog>:37
 msgid "Trends.Earth"
@@ -270,16 +306,16 @@ msgstr "Trends.Earth"
 
 #: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr ""
+msgstr "logoCI"
 
 #: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr ""
+msgstr "logoLund"
 
 #: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr ""
+msgstr "logoNASA"
 
 #: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr ""
+msgstr "logoGEF"

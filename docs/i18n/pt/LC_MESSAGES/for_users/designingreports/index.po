@@ -116,12 +116,12 @@ msgstr ""
 #: ../../source/for_users/designingreports/index.rst:303
 #: ../../source/for_users/designingreports/index.rst:332
 msgid "Description"
-msgstr ""
+msgstr "Descrição"
 
 #: ../../source/for_users/designingreports/index.rst:43
 #: ../../source/for_users/designingreports/index.rst:67
 msgid "Data Type"
-msgstr ""
+msgstr "Tipo de dados"
 
 #: ../../source/for_users/designingreports/index.rst:45
 msgid "`te_job_id`"
@@ -140,7 +140,7 @@ msgstr ""
 #: ../../source/for_users/designingreports/index.rst:59
 #: ../../source/for_users/designingreports/index.rst:69
 msgid "String"
-msgstr ""
+msgstr "String"
 
 #: ../../source/for_users/designingreports/index.rst:47
 msgid "`te_job_input_params`"
@@ -659,75 +659,75 @@ msgstr ""
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr ""
+msgstr "iconCalculator"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr ""
+msgstr "iconChart"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr ""
+msgstr "iconClipboard"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr ""
+msgstr "iconCloudDownload"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr ""
+msgstr "iconCog"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr ""
+msgstr "iconDeletedataset"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
-msgstr ""
+msgstr "iconGlobe"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr ""
+msgstr "iconGraph"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr ""
+msgstr "iconInfo"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr ""
+msgstr "iconLoaddataset"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr ""
+msgstr "iconMarkMarker"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr ""
+msgstr "iconOpendatasetdirectory"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr ""
+msgstr "iconViewdatasetdetails"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr ""
+msgstr "iconWrench"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr ""
+msgstr "iconFolder"
 
 #: ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr ""
+msgstr "iconReports"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr ""
+msgstr "iconTrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr ""
+msgstr "iconVisualization"
 
 #: ../../../<rst_epilog>:37
 msgid "Trends.Earth"
@@ -735,16 +735,16 @@ msgstr "Trends.Earth"
 
 #: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr ""
+msgstr "logoCI"
 
 #: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr ""
+msgstr "logoLund"
 
 #: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr ""
+msgstr "logoNASA"
 
 #: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr ""
+msgstr "logoGEF"

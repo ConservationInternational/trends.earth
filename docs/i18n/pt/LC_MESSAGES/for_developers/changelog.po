@@ -4,8 +4,8 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Alex Zvoleff <azvoleff@conservation.org>, 2022
 # Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2022
+# Alex Zvoleff <azvoleff@conservation.org>, 2022
 # 
 #, fuzzy
 msgid ""
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-06-21 17:06-0400\n"
 "PO-Revision-Date: 2022-05-26 11:56+0000\n"
-"Last-Translator: Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2022\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -39,100 +39,123 @@ msgid ""
 "`1.0.6 (July 15, 2021) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.6>`_"
 msgstr ""
+"`1.0.6 (15 de julho de 2021) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.6>`_"
 
 #: ../../source/for_developers/changelog.rst:9
 msgid ""
 "Remove trends.earth-schemas as a submodule and install through setup.py "
 "(much cleaner for version tracking, development, etc.)"
 msgstr ""
+"Remova trends.earth-schemas como submódulo e instale através de setup.py "
+"(muito mais limpo para gestão de versões, desenvolvimento, etc.)"
 
 #: ../../source/for_developers/changelog.rst:11
 msgid ""
 "Fix bug in loading 2020 NDVI data in GEE code (asset name wasn't set right "
 "so 2020 wasn't loading)"
 msgstr ""
+"Corrigido bug ao carregar dados NDVI de 2020 em código GEE (nome do ativo "
+"não estava definido corretamente, por isso 2020 não era carregado)"
 
 #: ../../source/for_developers/changelog.rst:13
 msgid "Various invoke tasks added to help with plugin development/release."
 msgstr ""
+"Várias tarefas de invocação adicionadas para ajudar no "
+"desenvolvimento/lançamento de plug-ins."
 
 #: ../../source/for_developers/changelog.rst:16
 msgid ""
 "`1.0.4 (June 30, 2021) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.4>`_"
 msgstr ""
+"`1.0.4 (30 de junho de 2021) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.4>`_"
 
 #: ../../source/for_developers/changelog.rst:18
 msgid ""
 "Add WorldPop and Gridded Population of the World version 4 (GPWv4) to the "
 "datasets available through Trends.Earth"
 msgstr ""
+"Adicionar WorldPop e \"Gridded Population of the World\" versão 4 (GPWv4) "
+"aos conjuntos de dados disponíveis a partir do Trends.Earth"
 
 #: ../../source/for_developers/changelog.rst:20
 msgid "Update to allow access to ESA-CCI land cover through 2020"
 msgstr ""
+"Atualizar para permitir acesso à cobertura do solo da ESA-CCI até 2020"
 
 #: ../../source/for_developers/changelog.rst:21
 msgid "Update GPCC and GPCP datasets"
-msgstr ""
+msgstr "Atualizar conjuntos de dados GPCC e GPCP"
 
 #: ../../source/for_developers/changelog.rst:22
 msgid "Fix bug when non-integer buffers are used"
-msgstr ""
+msgstr "Corrigir bug quando são usados tampões não inteiros "
 
 #: ../../source/for_developers/changelog.rst:23
 msgid "Minor documentation typo fixes"
-msgstr ""
+msgstr "Correções de pequenos erros de documentação "
 
 #: ../../source/for_developers/changelog.rst:26
 msgid ""
 "`1.0.2 (August 14, 2020) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.2>`_"
 msgstr ""
+"`1.0.2 (14 de agosto de 2020) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.2>`_"
 
 #: ../../source/for_developers/changelog.rst:28
 msgid ""
 "Fix urban area code to allow processing of AOIs with areas between 10,000 sq"
 " km and 25,000 sq km."
 msgstr ""
+"Corrigir código de área urbana para permitir processamento de AOI com áreas "
+"entre 10 000 e 25 000 km2."
 
 #: ../../source/for_developers/changelog.rst:30
 msgid "Add latest MERRA2 data (through 2019)."
-msgstr ""
+msgstr "Adicionar os últimos dados do MERRA2 (até 2019)."
 
 #: ../../source/for_developers/changelog.rst:31
 msgid "Remove maximum area limitation from download tool."
-msgstr ""
+msgstr "Remover a limitação de área máxima da ferramenta de transferência."
 
 #: ../../source/for_developers/changelog.rst:32
 msgid "Bump httplib2 to 0.18.0."
-msgstr ""
+msgstr "Incrementar versão httplib2 to 0.18.0."
 
 #: ../../source/for_developers/changelog.rst:33
 msgid "Update from GPCC V6 to GPCC V7"
-msgstr ""
+msgstr "Atualizar de GPCC V6 para GPCC V7"
 
 #: ../../source/for_developers/changelog.rst:34
 msgid "Add 2019 Hansen et al. deforestation data"
-msgstr ""
+msgstr "Adicionar dados de desflorestação de 2019 de Hansen et al."
 
 #: ../../source/for_developers/changelog.rst:35
 msgid ""
 "Update to latest colormap for degradation data (addressing issues with "
 "reg/green colorblindness)."
 msgstr ""
+"Atualizar para o código de cores mais recente para dados de degradação "
+"(tendo em conta questões de daltonismo vermelho/verde)."
 
 #: ../../source/for_developers/changelog.rst:37
 msgid ""
 "Add support for more datatypes in input shapefiles (add PointZ, MultiPoint, "
 "MultiPointZ, PolygonZ, MultiPolygonZ)."
 msgstr ""
+"Adicionar suporte para mais tipos de dados em ficheiros de forma de entrada "
+"(adicionar PointZ, MultiPoint, MultiPointZ, PolygonZ, MultiPolygonZ)."
 
 #: ../../source/for_developers/changelog.rst:39
 msgid ""
 "Misc bugfixes to address Python errors that were coming up with some "
 "QMessageBox messages."
 msgstr ""
+"Correções de vários bugs para resolver erros de Python que estavam a surgir "
+"com algumas mensagens do QMessageBox."
 
 #: ../../source/for_developers/changelog.rst:43
 msgid ""
@@ -1036,88 +1059,88 @@ msgstr ""
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr ""
+msgstr "iconCalculator"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr ""
+msgstr "iconChart"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr ""
+msgstr "iconClipboard"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr ""
+msgstr "iconCloudDownload"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr ""
+msgstr "iconCog"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr ""
+msgstr "iconDeletedataset"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
-msgstr ""
+msgstr "iconGlobe"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr ""
+msgstr "iconGraph"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr ""
+msgstr "iconInfo"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr ""
+msgstr "iconLoaddataset"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr ""
+msgstr "iconMarkMarker"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr ""
+msgstr "iconOpendatasetdirectory"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr ""
+msgstr "iconViewdatasetdetails"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr ""
+msgstr "iconWrench"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr ""
+msgstr "iconFolder"
 
 #: ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr ""
+msgstr "iconReports"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr ""
+msgstr "iconTrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr ""
+msgstr "iconVisualization"
 
 #: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr ""
+msgstr "logoCI"
 
 #: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr ""
+msgstr "logoLund"
 
 #: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr ""
+msgstr "logoNASA"
 
 #: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr ""
+msgstr "logoGEF"

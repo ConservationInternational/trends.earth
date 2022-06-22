@@ -1249,7 +1249,10 @@ def rtd_pre_build(c):
     check_docs_image_ext(c)
     print('Copying docs resources based on language...')
     localize_resources(c)
-    if os.environ['READTHEDOCS_VERSION_TYPE'] in ['branch', 'tag']:
+    if (
+        os.environ['READTHEDOCS_PROJECT'] == 'trends.earth' and
+        os.environ['READTHEDOCS_VERSION_TYPE'] in ['branch', 'tag']
+    ):
         print("Building download page...")
         build_download_page(c)
     print("Building changelog...")

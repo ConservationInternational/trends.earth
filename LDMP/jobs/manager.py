@@ -68,7 +68,8 @@ def update_uris_if_needed(job: Job, job_path):
 
 
 def _get_extent_tuple_raster(path):
-    log(f'Trying to calculate extent of raster {path}')
+    if conf.settings_manager.get_value(conf.Setting.DEBUG):
+        log(f'Trying to calculate extent of raster {path}')
     ds = gdal.Open(str(path))
     if ds:
         min_x, xres, _, max_y, _, yres = ds.GetGeoTransform()
@@ -76,7 +77,8 @@ def _get_extent_tuple_raster(path):
         rows = ds.RasterYSize
 
         extent = (min_x, max_y + rows*yres, min_x + cols*xres, max_y)
-        log(f'Calculated extent {[*extent]}')
+        if conf.settings_manager.get_value(conf.Setting.DEBUG):
+            log(f'Calculated extent {[*extent]}')
         return extent
     else:
         log("Failed to calculate extent - couldn't open dataset")
@@ -84,7 +86,8 @@ def _get_extent_tuple_raster(path):
 
 
 def _get_extent_tuple_vector(path):
-    log(f'Trying to calculate extent of vector {path}')
+    if conf.settings_manager.get_value(conf.Setting.DEBUG):
+        log(f'Trying to calculate extent of vector {path}')
     rect = QgsVectorLayer(str(path), "vector file", "ogr").extent()
     if rect:
         xmin = rect.xMinimum()
@@ -100,7 +103,8 @@ def _get_extent_tuple_vector(path):
             log(f"Failed to calculate extent for {path} - appears undefined")
             return None
         else:
-            log(f"Calculated extent for {path} - {(xmin, ymin, xmax, ymax)}")
+            if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                log(f"Calculated extent for {path} - {(xmin, ymin, xmax, ymax)}")
             return (xmin, ymin, xmax, ymax)
     else:
         log("Failed to calculate extent - couldn't open dataset")
@@ -112,25 +116,29 @@ def _set_results_extents_raster(job):
         if raster.type == results.RasterType.ONE_FILE_RASTER:
             if not hasattr(raster, 'extent') or raster.extent is None:
                 raster.extent = _get_extent_tuple_raster(raster.uri.uri)
-                log(f'set job {job.id} {raster.datatype} {raster.type} '
-                    f'extent to {raster.extent}')
+                if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                    log(f'set job {job.id} {raster.datatype} {raster.type} '
+                        f'extent to {raster.extent}')
         elif raster.type == results.RasterType.TILED_RASTER:
             if not hasattr(raster, 'extents') or raster.extents is None:
                 raster.extents = []
                 for raster_tile_uri in raster.tile_uris:
                     raster.extents.append(_get_extent_tuple_raster(raster_tile_uri.uri))
-                log(f'set job {job.id} {raster.datatype} {raster.type} '
-                    f'extents to {raster.extents}')
+                if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                    log(f'set job {job.id} {raster.datatype} {raster.type} '
+                        f'extents to {raster.extents}')
         else:
             raise RuntimeError(f"Unknown raster type {raster.type!r}")
 
 
 def _set_results_extents_vector(job):
-    log(f'Setting extents for job {job.id}')
+    if conf.settings_manager.get_value(conf.Setting.DEBUG):
+        log(f'Setting extents for job {job.id}')
     if not hasattr(job.results, 'extent') or job.results.extent is None:
         job.results.extent = _get_extent_tuple_vector(job.results.vector.uri.uri)
-        log(f'set job {job.id} {job.results.type} {job.results.vector.type} '
-            f'extent to {job.results.extent}')
+        if conf.settings_manager.get_value(conf.Setting.DEBUG):
+            log(f'set job {job.id} {job.results.type} {job.results.vector.type} '
+                f'extent to {job.results.extent}')
 
 
 def set_results_extents(job):
@@ -612,11 +620,11 @@ class JobManager(QtCore.QObject):
                         JobBand.Schema().dump(band)
                     )
 
-    def display_special_area_layer(self, job: Job):
+    def display_error_recode_layer(self, job: Job):
         layer_path = job.results.vector.uri.uri
         layers.add_vector_layer(str(layer_path), job.results.name)
 
-    def edit_special_area_layer(self, job: Job):
+    def edit_error_recode_layer(self, job: Job):
         layer_path = job.results.vector.uri.uri
         layers.edit(str(layer_path))
 
@@ -721,11 +729,11 @@ class JobManager(QtCore.QObject):
         output_dir = output_path.parent
         output_dir.mkdir(parents=True, exist_ok=True)
         locale = QgsApplication.locale()
-        path = os.path.join(os.path.dirname(__file__), os.path.pardir, 'data', 'special_areas', 'error_recode_{}.gpkg'.format(locale))
+        path = os.path.join(os.path.dirname(__file__), os.path.pardir, 'data', 'error_recode', 'error_recode_{}.gpkg'.format(locale))
         if os.path.exists(path):
             shutil.copy2(path, output_path)
         else:
-            shutil.copy2(os.path.join(os.path.dirname(__file__), os.path.pardir, 'data', 'special_areas', 'error_recode_en.gpkg'.format(locale)), output_path)
+            shutil.copy2(os.path.join(os.path.dirname(__file__), os.path.pardir, 'data', 'error_recode', 'error_recode_en.gpkg'.format(locale)), output_path)
         job.results.vector.uri=URI(uri=output_path, type='local')
 
     def _update_known_jobs_with_newly_submitted_job(self, job: Job):
@@ -835,7 +843,11 @@ class JobManager(QtCore.QObject):
         return job.results.uri
 
     def _download_timeseries_table(self, job: Job) -> typing.Optional[Path]:
-        raise NotImplementedError
+        """
+        Plot data already contained in the Job file as such no additional
+        output file.
+        """
+        return None
 
     def _refresh_local_running_jobs(
         self, remote_jobs: typing.List[Job]
@@ -1137,12 +1149,15 @@ def _get_access_token():
 def _get_user_id() -> uuid:
     if conf.settings_manager.get_value(conf.Setting.DEBUG):
         log('Retrieving user id...')
+
     get_user_reply = api.get_user()
 
     if get_user_reply:
         user_id = get_user_reply.get("id", None)
 
         return uuid.UUID(user_id)
+
+    return None
 
 
 def _get_raster_vrt(tiles: List[Path], out_file: Path):
@@ -1189,6 +1204,8 @@ def get_remote_jobs(
     # Note - this is a reimplementation of api.get_execution
     try:
         user_id = _get_user_id()
+        if user_id is None:
+            return []
     except TypeError:
         log("Unable to load user id")
         remote_jobs = []
@@ -1211,6 +1228,7 @@ def get_remote_jobs(
 
         if conf.settings_manager.get_value(conf.Setting.DEBUG):
             log('Retrieving executions...')
+
         response = api.call_api(
             f"/api/v1/execution?{urllib.parse.urlencode(query)}",
             method="get",
@@ -1229,16 +1247,7 @@ def get_remote_jobs(
                     job = Job.Schema().load(raw_job)
                     job.script.run_mode = AlgorithmRunMode.REMOTE
 
-                    if (
-                        job.results is not None
-                        and job.results.type == ResultType.TIME_SERIES_TABLE
-                    ):
-                        log(
-                            f"Ignoring job {job.id!r} because it contains "
-                            "timeseries results. Support for timeseries results "
-                            "is not currently implemented"
-                        )
-                    else:
+                    if job is not None:
                         remote_jobs.append(job)
                 except ValidationError as exc:
                     log(

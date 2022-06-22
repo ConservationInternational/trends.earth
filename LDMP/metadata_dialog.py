@@ -1,5 +1,4 @@
 """Metadata editing dialog for Trends.Earth QGIS plugin."""
-
 import os
 from pathlib import Path
 
@@ -9,13 +8,11 @@ from qgis.PyQt import QtGui
 from qgis.PyQt import QtWidgets
 from qgis.PyQt import uic
 
-from . import tr
-
 Ui_DlgDatasetMetadata, _ = uic.loadUiType(
     str(Path(__file__).parents[0] / "gui/DlgDatasetMetadata.ui")
 )
 
-ICON_PATH = os.path.join(os.path.dirname(__file__), 'icons')
+ICON_PATH = os.path.join(os.path.dirname(__file__), "icons")
 
 
 class DlgDatasetMetadata(QtWidgets.QDialog, Ui_DlgDatasetMetadata):
@@ -28,31 +25,44 @@ class DlgDatasetMetadata(QtWidgets.QDialog, Ui_DlgDatasetMetadata):
         self.setupUi(self)
 
         self.btn_add_address.setIcon(
-            QtGui.QIcon(os.path.join(ICON_PATH, 'symbologyAdd.svg'))
+            QtGui.QIcon(os.path.join(ICON_PATH, "symbologyAdd.svg"))
         )
         self.btn_remove_address.setIcon(
-            QtGui.QIcon(os.path.join(ICON_PATH, 'symbologyRemove.svg'))
+            QtGui.QIcon(os.path.join(ICON_PATH, "symbologyRemove.svg"))
         )
         self.btn_new_category.setIcon(
-            QtGui.QIcon(os.path.join(ICON_PATH, 'symbologyAdd.svg'))
+            QtGui.QIcon(os.path.join(ICON_PATH, "symbologyAdd.svg"))
         )
         self.btn_add_default_category.setIcon(
-            QtGui.QIcon(os.path.join(ICON_PATH, 'mActionArrowRight.svg'))
+            QtGui.QIcon(os.path.join(ICON_PATH, "mActionArrowRight.svg"))
         )
         self.btn_remove_category.setIcon(
-            QtGui.QIcon(os.path.join(ICON_PATH, 'symbologyRemove.svg'))
+            QtGui.QIcon(os.path.join(ICON_PATH, "symbologyRemove.svg"))
         )
 
         self.layer = None
         self.metadata = None
-        self.default_categories = [tr("Farming"), tr("Biota"),
-                               tr("Boundaries"), tr("Climatology Meteorology Atmosphere" ),
-                               tr("Economy"), tr("Elevation"), tr("Environment"),
-                               tr("Geoscientific Information"), tr("Health"),
-                               tr("Imagery Base Maps Earth Cover"), tr("Intelligence Military"),
-                               tr("Inland Waters"), tr("Location"),tr("Oceans"),
-                               tr("Planning Cadastre"), tr("Society"), tr("Structure"),
-                               tr("Transportation"),tr("Utilities Communication")]
+        self.default_categories = [
+            self.tr("Farming"),
+            self.tr("Biota"),
+            self.tr("Boundaries"),
+            self.tr("Climatology Meteorology Atmosphere"),
+            self.tr("Economy"),
+            self.tr("Elevation"),
+            self.tr("Environment"),
+            self.tr("Geoscientific Information"),
+            self.tr("Health"),
+            self.tr("Imagery Base Maps Earth Cover"),
+            self.tr("Intelligence Military"),
+            self.tr("Inland Waters"),
+            self.tr("Location"),
+            self.tr("Oceans"),
+            self.tr("Planning Cadastre"),
+            self.tr("Society"),
+            self.tr("Structure"),
+            self.tr("Transportation"),
+            self.tr("Utilities Communication"),
+        ]
         self.default_categories_model = QtCore.QStringListModel(self.default_categories)
         self.default_categories_model.sort(0)
         self.lst_default_categories.setModel(self.default_categories_model)
@@ -70,7 +80,7 @@ class DlgDatasetMetadata(QtWidgets.QDialog, Ui_DlgDatasetMetadata):
         row = self.tbl_addresses.rowCount()
         self.tbl_addresses.setRowCount(row + 1)
 
-        cell = QtWidgets.QTableWidgetItem(tr("postal"))
+        cell = QtWidgets.QTableWidgetItem(self.tr("postal"))
         self.tbl_addresses.setItem(row, 0, cell)
         self.tbl_addresses.setItem(row, 1, QtWidgets.QTableWidgetItem())
         self.tbl_addresses.setItem(row, 2, QtWidgets.QTableWidgetItem())
@@ -85,9 +95,13 @@ class DlgDatasetMetadata(QtWidgets.QDialog, Ui_DlgDatasetMetadata):
             self.tbl_addresses.model().removeRow(i.row())
 
     def add_new_category(self):
-        text, ok = QtWidgets.QInputDialog.getText(self, tr("New Category"),
-                                                  tr("New Category"),
-                                                  QtWidgets.QLineEdit.Normal, "")
+        text, ok = QtWidgets.QInputDialog.getText(
+            self,
+            self.tr("New Category"),
+            self.tr("New Category"),
+            QtWidgets.QLineEdit.Normal,
+            "",
+        )
         if ok and text:
             categories_list = self.categories_model.stringList()
             if text not in categories_list:
@@ -96,7 +110,9 @@ class DlgDatasetMetadata(QtWidgets.QDialog, Ui_DlgDatasetMetadata):
                 self.categories_model.sort(0)
 
     def add_default_categories(self):
-        selected_indexes = self.lst_default_categories.selectionModel().selectedIndexes()
+        selected_indexes = (
+            self.lst_default_categories.selectionModel().selectedIndexes()
+        )
         default_categories_list = self.default_categories_model.stringList()
         selected_categories = self.categories_model.stringList()
 
@@ -118,7 +134,7 @@ class DlgDatasetMetadata(QtWidgets.QDialog, Ui_DlgDatasetMetadata):
             item = self.categories_model.data(i, QtCore.Qt.DisplayRole)
             categories.remove(item)
             if item in self.default_categories:
-                 default_list.append(item)
+                default_list.append(item)
 
         self.categories_model.setStringList(categories)
         self.default_categories_model.setStringList(default_list)
@@ -152,19 +168,33 @@ class DlgDatasetMetadata(QtWidgets.QDialog, Ui_DlgDatasetMetadata):
 
             if self.cmb_contact_role.findText(contact.role) == -1:
                 self.cmb_contact_role.addItem(contact.role)
-            self.cmb_contact_role.setCurrentIndex(self.cmb_contact_role.findText(contact.role))
+            self.cmb_contact_role.setCurrentIndex(
+                self.cmb_contact_role.findText(contact.role)
+            )
 
             self.tbl_addresses.setRowCount(0)
             addresses = contact.addresses
             for address in addresses:
-              row = self.tbl_addresses.rowCount()
-              self.tbl_addresses.setRowCount(row + 1)
-              self.tbl_addresses.setItem(row, 0, QtWidgets.QTableWidgetItem(address.type))
-              self.tbl_addresses.setItem(row, 1, QtWidgets.QTableWidgetItem(address.address))
-              self.tbl_addresses.setItem(row, 2, QtWidgets.QTableWidgetItem(address.postalCode))
-              self.tbl_addresses.setItem(row, 3, QtWidgets.QTableWidgetItem(address.city))
-              self.tbl_addresses.setItem(row, 4, QtWidgets.QTableWidgetItem(address.administrativeArea))
-              self.tbl_addresses.setItem(row, 5, QtWidgets.QTableWidgetItem(address.country))
+                row = self.tbl_addresses.rowCount()
+                self.tbl_addresses.setRowCount(row + 1)
+                self.tbl_addresses.setItem(
+                    row, 0, QtWidgets.QTableWidgetItem(address.type)
+                )
+                self.tbl_addresses.setItem(
+                    row, 1, QtWidgets.QTableWidgetItem(address.address)
+                )
+                self.tbl_addresses.setItem(
+                    row, 2, QtWidgets.QTableWidgetItem(address.postalCode)
+                )
+                self.tbl_addresses.setItem(
+                    row, 3, QtWidgets.QTableWidgetItem(address.city)
+                )
+                self.tbl_addresses.setItem(
+                    row, 4, QtWidgets.QTableWidgetItem(address.administrativeArea)
+                )
+                self.tbl_addresses.setItem(
+                    row, 5, QtWidgets.QTableWidgetItem(address.country)
+                )
 
     def save_metadata(self):
         if self.metadata is None:
@@ -175,7 +205,9 @@ class DlgDatasetMetadata(QtWidgets.QDialog, Ui_DlgDatasetMetadata):
         self.metadata.setEncoding("UTF-8")
 
         if self.categories_model.rowCount() > 0:
-            self.metadata.setKeywords({"gmd:topicCategory": self.categories_model.stringList()})
+            self.metadata.setKeywords(
+                {"gmd:topicCategory": self.categories_model.stringList()}
+            )
 
         contacts = self.metadata.contacts()
         if len(contacts) > 0:
@@ -184,7 +216,7 @@ class DlgDatasetMetadata(QtWidgets.QDialog, Ui_DlgDatasetMetadata):
         contact = qgis.core.QgsAbstractMetadataBase.Contact()
         contact.email = self.le_contact_email.text()
         contact.voice = self.le_contact_phone.text()
-        contact.name = self.le_contact_name.text();
+        contact.name = self.le_contact_name.text()
         contact.organization = self.le_contact_organisation.text()
         contact.role = self.cmb_contact_role.currentText()
         addresses = list()

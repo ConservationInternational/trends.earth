@@ -904,7 +904,8 @@ def check_path(app):
 @task(
     help={
         'force':
-        'Force the download of the translations files regardless of whether timestamps on the local computer are newer than those on the server'
+        'Force the download of the translations files regardless of whether '
+        'timestamps on the local computer are newer than those on the server'
     }
 )
 def translate_pull(c, force=False):
@@ -919,9 +920,9 @@ def translate_pull(c, force=False):
     print("Pulling transifex translations...")
 
     if force:
-        subprocess.check_call(['tx', 'pull', '-s', '-f', '--parallel'])
+        subprocess.check_call(['tx', 'pull', '-f'])
     else:
-        subprocess.check_call(['tx', 'pull', '-s', '--parallel'])
+        subprocess.check_call(['tx', 'pull'])
     print("Releasing translations using lrelease...")
 
     for translation in c.plugin.translations:
@@ -929,7 +930,7 @@ def translate_pull(c, force=False):
             [
                 lrelease,
                 os.path.join(
-                    c.plugin.i18n_dir, 'LDMP.{}.ts'.format(translation)
+                    c.plugin.i18n_dir, 'LDMP_{}.ts'.format(translation)
                 )
             ]
         )
@@ -1002,9 +1003,9 @@ def translate_push(c, force=False, version=3):
         )
 
     if force:
-        subprocess.check_call('tx push --parallel -f -s')
+        subprocess.check_call('tx push -f -s')
     else:
-        subprocess.check_call('tx push --parallel -s')
+        subprocess.check_call('tx push -s')
 
 
 @task(help={'language': 'language'})
@@ -1248,8 +1249,12 @@ def rtd_pre_build(c):
     check_docs_image_ext(c)
     print('Copying docs resources based on language...')
     localize_resources(c)
-    print("Building download page...")
-    build_download_page(c)
+    if (
+        os.environ['READTHEDOCS_PROJECT'] == 'trends.earth' and
+        os.environ['READTHEDOCS_VERSION_TYPE'] in ['branch', 'tag']
+    ):
+        print("Building download page...")
+        build_download_page(c)
     print("Building changelog...")
     changelog_build(c)
 

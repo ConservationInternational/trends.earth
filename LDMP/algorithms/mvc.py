@@ -2,20 +2,17 @@ import functools
 import typing
 from pathlib import Path
 
-from qgis.PyQt import (
-    QtCore,
-    QtGui,
-    QtWidgets,
-    uic,
-)
-
-from . import models
-from .. import tr
-
+from qgis.PyQt import QtCore
+from qgis.PyQt import QtGui
+from qgis.PyQt import QtWidgets
+from qgis.PyQt import uic
 from te_schemas.algorithms import AlgorithmRunMode
 
+from . import models
+
 WidgetAlgorithmLeafUi, _ = uic.loadUiType(
-    str(Path(__file__).parents[1] / "gui/WidgetAlgorithmLeaf.ui"))
+    str(Path(__file__).parents[1] / "gui/WidgetAlgorithmLeaf.ui")
+)
 
 
 class AlgorithmTreeModel(QtCore.QAbstractItemModel):
@@ -26,10 +23,7 @@ class AlgorithmTreeModel(QtCore.QAbstractItemModel):
         self.root_item = tree
 
     def index(
-            self,
-            row: int,
-            column: int,
-            parent: QtCore.QModelIndex
+        self, row: int, column: int, parent: QtCore.QModelIndex
     ) -> QtCore.QModelIndex:
         invalid_index = QtCore.QModelIndex()
         if self.hasIndex(row, column, parent):
@@ -46,10 +40,9 @@ class AlgorithmTreeModel(QtCore.QAbstractItemModel):
         return result
 
     def _find_current_row(
-            self,
-            current_item: typing.Union[
-                models.AlgorithmGroup, models.Algorithm],
-            parent_group: models.AlgorithmGroup
+        self,
+        current_item: typing.Union[models.AlgorithmGroup, models.Algorithm],
+        parent_group: models.AlgorithmGroup,
     ) -> typing.Optional[int]:
         relevant_items = parent_group.groups + parent_group.algorithms
         for index, item in enumerate(relevant_items):
@@ -64,8 +57,7 @@ class AlgorithmTreeModel(QtCore.QAbstractItemModel):
         invalid_index = QtCore.QModelIndex()
         if index.isValid():
             current_item = index.internalPointer()
-            current_item: typing.Optional[
-                models.AlgorithmGroup, models.Algorithm]
+            current_item: typing.Optional[models.AlgorithmGroup, models.Algorithm]
             parent_item = current_item.parent
             if parent_item is None:
                 row = 0
@@ -88,8 +80,7 @@ class AlgorithmTreeModel(QtCore.QAbstractItemModel):
             result = 0
         elif index.isValid():
             current_item = index.internalPointer()
-            current_item: typing.Optional[
-                models.AlgorithmGroup, models.Algorithm]
+            current_item: typing.Optional[models.AlgorithmGroup, models.Algorithm]
             if current_item is not None:
                 if current_item.item_type == models.AlgorithmNodeType.Group:
                     result = len(current_item.groups) + len(current_item.algorithms)
@@ -105,12 +96,10 @@ class AlgorithmTreeModel(QtCore.QAbstractItemModel):
         return 1
 
     def data(
-            self,
-            index: QtCore.QModelIndex = QtCore.QModelIndex(),
-            role: QtCore.Qt.ItemDataRole = QtCore.Qt.DisplayRole
-    ) -> typing.Optional[
-        typing.Union[models.AlgorithmGroup, models.Algorithm]
-    ]:
+        self,
+        index: QtCore.QModelIndex = QtCore.QModelIndex(),
+        role: QtCore.Qt.ItemDataRole = QtCore.Qt.DisplayRole,
+    ) -> typing.Optional[typing.Union[models.AlgorithmGroup, models.Algorithm]]:
         if index.isValid():
             current_item = index.internalPointer()
             if role == QtCore.Qt.DisplayRole:
@@ -135,8 +124,7 @@ class AlgorithmTreeModel(QtCore.QAbstractItemModel):
         return result
 
     def flags(
-            self,
-            index: QtCore.QModelIndex = QtCore.QModelIndex()
+        self, index: QtCore.QModelIndex = QtCore.QModelIndex()
     ) -> QtCore.Qt.ItemFlags:
         if index.isValid():
             default_flags = super().flags(index)
@@ -155,10 +143,10 @@ class AlgorithmItemDelegate(QtWidgets.QStyledItemDelegate):
     main_dock: "MainWidget"
 
     def __init__(
-            self,
-            algorithm_execution_handler: typing.Callable,
-            main_dock: "MainWidget",
-            parent: QtCore.QObject = None
+        self,
+        algorithm_execution_handler: typing.Callable,
+        main_dock: "MainWidget",
+        parent: QtCore.QObject = None,
     ):
         super().__init__(parent)
         self.parent = parent
@@ -167,10 +155,10 @@ class AlgorithmItemDelegate(QtWidgets.QStyledItemDelegate):
         self.algorithm_execution_handler = algorithm_execution_handler
 
     def paint(
-            self,
-            painter: QtGui.QPainter,
-            option: QtWidgets.QStyleOptionViewItem,
-            index: QtCore.QModelIndex
+        self,
+        painter: QtGui.QPainter,
+        option: QtWidgets.QStyleOptionViewItem,
+        index: QtCore.QModelIndex,
     ):
         item = index.internalPointer()
         if item.item_type == models.AlgorithmNodeType.Algorithm:
@@ -183,13 +171,13 @@ class AlgorithmItemDelegate(QtWidgets.QStyledItemDelegate):
             super().paint(painter, option, index)
 
     def sizeHint(
-            self,
-            option: QtWidgets.QStyleOptionViewItem,
-            index: QtCore.QModelIndex
+        self, option: QtWidgets.QStyleOptionViewItem, index: QtCore.QModelIndex
     ):
         item = index.internalPointer()
         if item.item_type == models.AlgorithmNodeType.Algorithm:
-            widget = self.createEditor(None, option, index)  # parent set to none otherwise remain painted in the widget
+            widget = self.createEditor(
+                None, option, index
+            )  # parent set to none otherwise remain painted in the widget
             size = widget.size()
             del widget
             result = size
@@ -198,10 +186,10 @@ class AlgorithmItemDelegate(QtWidgets.QStyledItemDelegate):
         return result
 
     def createEditor(
-            self,
-            parent: QtWidgets.QWidget,
-            option: QtWidgets.QStyleOptionViewItem,
-            index: QtCore.QModelIndex
+        self,
+        parent: QtWidgets.QWidget,
+        option: QtWidgets.QStyleOptionViewItem,
+        index: QtCore.QModelIndex,
     ):
         item = index.internalPointer()
         if item.item_type == models.AlgorithmNodeType.Algorithm:
@@ -209,17 +197,17 @@ class AlgorithmItemDelegate(QtWidgets.QStyledItemDelegate):
                 item,
                 execution_handler=self.algorithm_execution_handler,
                 main_dock=self.main_dock,
-                parent=parent
+                parent=parent,
             )
         else:
             result = super().createEditor(parent, option, index)
         return result
 
     def updateEditorGeometry(
-            self,
-            editor: QtWidgets.QWidget,
-            option: QtWidgets.QStyleOptionViewItem,
-            index: QtCore.QModelIndex
+        self,
+        editor: QtWidgets.QWidget,
+        option: QtWidgets.QStyleOptionViewItem,
+        index: QtCore.QModelIndex,
     ):
         editor.setGeometry(option.rect)
 
@@ -231,56 +219,58 @@ class AlgorithmEditorWidget(QtWidgets.QWidget, WidgetAlgorithmLeafUi):
     main_dock: "MainWidget"
 
     def __init__(
-            self,
-            algorithm: models.Algorithm,
-            execution_handler: typing.Callable,
-            main_dock: "MainWidget",
-            parent=None
+        self,
+        algorithm: models.Algorithm,
+        execution_handler: typing.Callable,
+        main_dock: "MainWidget",
+        parent=None,
     ):
         super().__init__(parent)
         self.setupUi(self)
-        self.setAutoFillBackground(True)  # this allow to hide background prerendered pixmap
+        self.setAutoFillBackground(
+            True
+        )  # this allow to hide background prerendered pixmap
         self.main_dock = main_dock
         self.name_la.setText(algorithm.name)
         self.description_la.setText(algorithm.description)
         action_labels = {
-            AlgorithmRunMode.REMOTE: tr("Execute remotely"),
-            AlgorithmRunMode.LOCAL: tr("Execute locally"),
+            AlgorithmRunMode.REMOTE: self.tr("Execute remotely"),
+            AlgorithmRunMode.LOCAL: self.tr("Execute locally"),
         }
-        # TODO - fix below, hackish and likely to break on updates. Meant to 
-        # highlight the key scripts, need to do this via a metadata field or 
+        # TODO - fix below, hackish and likely to break on updates. Meant to
+        # highlight the key scripts, need to do this via a metadata field or
         # similar for those scripts
         special_alg_ids = [
-                "bdad3786-bc36-46aa-8e3d-d6cede915cef",
-                "fe1cffa7-33f7-4148-ac7b-fc726402d59d"
-            ]
+            "bdad3786-bc36-46aa-8e3d-d6cede915cef",
+            "fe1cffa7-33f7-4148-ac7b-fc726402d59d",
+        ]
         if str(algorithm.id) in special_alg_ids:
             self.setStyleSheet("font-size: 15px;")
         self.open_execution_dialogue_tb.setToolButtonStyle(
-            QtCore.Qt.ToolButtonTextBesideIcon)
+            QtCore.Qt.ToolButtonTextBesideIcon
+        )
         action_icon = QtGui.QIcon(":/images/themes/default/processingAlgorithm.svg")
         if len(algorithm.scripts) >= 2:
             self.open_execution_dialogue_tb.setPopupMode(
-                QtWidgets.QToolButton.MenuButtonPopup)
+                QtWidgets.QToolButton.MenuButtonPopup
+            )
             self.open_execution_dialogue_tb.setMenu(QtWidgets.QMenu())
             default_action = None
             for action_type, action_label in action_labels.items():
-                action = QtWidgets.QAction(action_icon, tr(action_label), self)
+                action = QtWidgets.QAction(action_icon, self.tr(action_label), self)
                 action.triggered.connect(
-                    functools.partial(execution_handler, algorithm, action_type))
+                    functools.partial(execution_handler, algorithm, action_type)
+                )
                 self.open_execution_dialogue_tb.menu().addAction(action)
                 if action_type == AlgorithmRunMode.REMOTE:
                     default_action = action
             self.open_execution_dialogue_tb.setDefaultAction(default_action)
         elif len(algorithm.scripts) == 1:
             run_mode = algorithm.scripts[0].script.run_mode
-            action = QtWidgets.QAction(
-                action_icon,
-                action_labels[run_mode],
-                self
-            )
+            action = QtWidgets.QAction(action_icon, action_labels[run_mode], self)
             action.triggered.connect(
-                functools.partial(execution_handler, algorithm, run_mode))
+                functools.partial(execution_handler, algorithm, run_mode)
+            )
             self.open_execution_dialogue_tb.addAction(action)
             self.open_execution_dialogue_tb.setDefaultAction(action)
         else:

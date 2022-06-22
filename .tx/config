@@ -169,9 +169,9 @@ source_file = docs/i18n/pot/for_users/training/settings.pot
 source_lang = en
 type = PO
 
-[o:conservation-international:p:trendsearth:r:for_users--training--specialareas]
-file_filter = docs/i18n/<lang>/LC_MESSAGES/for_users/training/specialareas.po
-source_file = docs/i18n/pot/for_users/training/specialareas.pot
+[o:conservation-international:p:trendsearth:r:for_users--training--errorrecode]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/for_users/training/errorrecode.po
+source_file = docs/i18n/pot/for_users/training/errorrecode.pot
 source_lang = en
 type = PO
 
@@ -188,7 +188,7 @@ source_lang = en
 type = PO
 
 [o:conservation-international:p:trendsearth:r:gui]
-file_filter = LDMP/i18n/LDMP.<lang>.ts
+file_filter = LDMP/i18n/LDMP_<lang>.ts
 source_file = LDMP/i18n/LDMP.ts
 source_lang = en
 type        = QT

@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-24 18:41-0400\n"
+"POT-Creation-Date: 2022-06-21 17:06-0400\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
@@ -24,7 +24,7 @@ msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:4
 msgid "QGIS"
-msgstr ""
+msgstr "QGIS"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:9
 msgid "Install QGIS"
@@ -47,6 +47,8 @@ msgid ""
 "To install the plugin, first install QGIS version |qgisMinVersion| or higher"
 " following the below steps:"
 msgstr ""
+"Para instalar el plugin, primero instale la versión de QGIS |qgisMinVersion|"
+" o una superior siguiendo los siguientes pasos:"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:19
 msgid "Choose either 32 or 64 bit version"
@@ -138,7 +140,7 @@ msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:56
 msgid "Install QGIS Software"
-msgstr ""
+msgstr "Instalar el software QGIS"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:58
 msgid ""
@@ -184,7 +186,7 @@ msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:78
 msgid "Install toolbox (plugin)"
-msgstr ""
+msgstr "Instalar el cuadro de herramientas (plugin)"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:79
 msgid ""
@@ -249,13 +251,16 @@ msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:117
 msgid "Trends.Earth Registration"
-msgstr ""
+msgstr " Registro en Trends.Earth"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:118
 msgid ""
 "To Register, click the **Register for Trends.Earth (step 1)** button from "
 "the \"Settings\" dialog box under **Trends.Earth login information**."
 msgstr ""
+"Para registrarse, haga clic en el botón **Registrarse en Trends.Earth (paso "
+"1)** del cuadro de diálogo \"Configuración\" en **Información de acceso a "
+"Trends.Earth**."
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:123
 msgid "Enter your email, name, organization and country of residence."
@@ -278,16 +283,27 @@ msgid ""
 "receive this email , click on the \"Edit selected configuration\" icon in "
 "the \"Settings\" dialog:"
 msgstr ""
+"4. Después de registrarse, recibirá un correo electrónico de "
+"api@trends.earth con su contraseña. Si no ve el correo electrónico en su "
+"bandeja de entrada al cabo de 15 o 20 segundos, revise su carpeta de correo "
+"no deseado por si el correo se hubiera enviado allí. 5. Una vez que reciba "
+"el correo electrónico, haga clic en el icono \"Editar la configuración "
+"seleccionada\" en el cuadro de diálogo \"Configuración\":"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:139
 msgid ""
 "This will bring up the \"Authentication\" dialog asking for your password. "
 "Enter the password you received from api@trends.earth and click \"Save\":"
 msgstr ""
+"Aparecerá el cuadro de diálogo \"Autenticación\" en el que se le pedirá su "
+"contraseña. Introduzca la contraseña que recibió de api@trends.earth y haga "
+"clic en \"Guardar\":"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:144
 msgid "From the \"Settings\" dialog  click on \"Test connection\":"
 msgstr ""
+"En el cuadro de diálogo \"Configuración\", haga clic en \"Prueba de "
+"conexión\":"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:149
 msgid ""
@@ -300,17 +316,19 @@ msgstr "¡Ahora estás listo para comenzar a usar Trends.Earth!"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:159
 msgid "Trends.Earth Advanced Settings"
-msgstr ""
+msgstr "Configuración avanzada de Trends.Earth"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:161
 msgid ""
 "Refer to the :ref:`advanced` section for more information on the advanced "
 "settings for Trends.Earth."
 msgstr ""
+"Consulta la sección :ref:`advanced` para obtener más información sobre la "
+"configuración avanzada de Trends.Earth."
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:167
 msgid "Setting up your data folder"
-msgstr ""
+msgstr "Configuración de la carpeta de datos"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:169
 msgid ""
@@ -323,7 +341,7 @@ msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:171
 msgid "**Estimated time of completion**: 5 minutes"
-msgstr ""
+msgstr "**Tiempo estimado de realización**: 5 minutos"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:173
 msgid "**Internet access**: Required"
@@ -343,14 +361,19 @@ msgid ""
 "indicators and XLSX spreadsheets for the tabular outputs. You will need to "
 "define in each case where files will be stored in your computer in settings."
 msgstr ""
+"Los resultados del análisis de Trends.Earth son rásters en formato TIF en el"
+" caso de los indicadores y hojas de cálculo XLSX para los resultados "
+"tabulares. En cada caso, deberá definir en la configuración dónde se "
+"almacenarán los archivos en su ordenador."
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:181
 msgid "Open settings in |trends.earth|"
-msgstr ""
+msgstr "Abrir la configuración en |trends.earth|"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:186
 msgid "Scroll down to **Advanced** options and expand to see more features."
 msgstr ""
+"Desplázate hasta las opciones **Avanzadas** y amplía para ver más funciones."
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:191
 msgid ""
@@ -358,6 +381,10 @@ msgid ""
 "folder where data will be stored or *...* to change the location of data "
 "stored and downloaded from |trends.earth|."
 msgstr ""
+"3. El **Directorio de datos base** puede configurarse seleccionando "
+"**Abrir** para acceder a la carpeta donde se almacenarán los datos o *...* "
+"para modificar la ubicación de los datos almacenados y descargados de "
+"|trends.earth|."
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:197
 msgid "**OPTIONAL: Computing Pyramids**"
@@ -401,6 +428,12 @@ msgid ""
 "the QGIS window, they all refer to the same file. This means that the "
 "pyramids need to be computed only once for the three sub-indicators."
 msgstr ""
+"Al utilizar la opción **Calcular los tres subindicadores en un solo paso** "
+"(descrita en el tutorial :ref:`tut_land_degradation`), todas las bandas se "
+"almacenan en un único archivo TIF, de modo que aunque se vean tres capas "
+"cargándose en la ventana de QGIS, todas se refieren al mismo archivo. Eso "
+"significa que las pirámides tienen que ser calculadas una sola vez para los "
+"tres subindicadores."
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:209
 msgid ""
@@ -500,6 +533,8 @@ msgid ""
 "To load the tool click on the **Datasets** tab and select **Load Base Map** "
 "in the bottom right of the window."
 msgstr ""
+"Para cargar la herramienta, haga clic en la pestaña **Conjuntos de datos** y"
+" elija **Cargar mapa base** en la parte inferior derecha de la ventana."
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:250
 msgid "On the **Add basemap** window you can do one of two things:"
@@ -574,27 +609,27 @@ msgstr "Oceano"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr ""
+msgstr "iconCalculator"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr ""
+msgstr "iconChart"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr ""
+msgstr "iconClipboard"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr ""
+msgstr "iconCloudDownload"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr ""
+msgstr "iconCog"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr ""
+msgstr "iconDeletedataset"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
@@ -602,60 +637,60 @@ msgstr "iconGlobe"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr ""
+msgstr "iconGraph"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr ""
+msgstr "iconInfo"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr ""
+msgstr "iconLoaddataset"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr ""
+msgstr "iconMarkMarker"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr ""
+msgstr "iconOpendatasetdirectory"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr ""
+msgstr "iconViewdatasetdetails"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr ""
+msgstr "iconWrench"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr ""
+msgstr "iconFolder"
 
 #: ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr ""
+msgstr "iconReports"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr ""
+msgstr "iconTrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr ""
+msgstr "iconVisualization"
 
 #: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr ""
+msgstr "logoCI"
 
 #: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr ""
+msgstr "logoLund"
 
 #: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr ""
+msgstr "logoNASA"
 
 #: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr ""
+msgstr "logoGEF"

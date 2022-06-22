@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-24 18:41-0400\n"
+"POT-Creation-Date: 2022-06-21 17:06-0400\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
@@ -25,6 +25,8 @@ msgstr ""
 msgid ""
 "Trends.Earth Global Land Productivity datasets at 10-m spatial resolution"
 msgstr ""
+"Jeux de données sur la productivité globale des terres de Trends.Earth à une"
+" résolution spatiale de 10 m"
 
 #: ../../source/for_users/datasets/sen2svis.md:7
 msgid ""
@@ -41,6 +43,21 @@ msgid ""
 "NDVI, the 2-band Enhanced Vegetation Index- EVI2, and the Modified Soil "
 "Adjusted Vegetation Index – MSAVI."
 msgstr ""
+"Ensembles de données géospatiales mondiales représentant la productivité "
+"intégrale annuelle des terres à une résolution spatiale de 10 m pour 2018 à "
+"2021 avec des lacunes d'observation minimales. Un modèle harmonique est "
+"appliqué aux indices de végétation dérivés de l'imagerie Sentinel 2 "
+"MultiSpectral Instrument A et B afin de minimiser l'impact des pixels "
+"manquants de bonne qualité principalement dus à la couverture nuageuse. Les "
+"indices de végétation obtenus par télédétection ont été largement utilisés "
+"comme indicateurs de la productivité des terres et pour surveiller l'état de"
+" la végétation, car ils reposent sur les interactions biophysiques bien "
+"connues entre la photosynthèse et les bandes étroites du spectre "
+"électromagnétique. La productivité globale des terres de 10 mètres de "
+"Trends.Earth est produite sur la base de trois indices de végétation : "
+"l'indice de végétation par différence normalisée (NDVI), l'indice de "
+"végétation amélioré à deux bandes (EVI2) et l'indice de végétation ajusté au"
+" sol modifié (MSAVI)."
 
 #: ../../source/for_users/datasets/sen2svis.md:19
 msgid ""
@@ -49,39 +66,44 @@ msgid ""
 "South excluding Antarctica and are available at annual steps from 2018 to "
 "2021. Theoretically, pixel values are as follows:"
 msgstr ""
+"Les ensembles de données Trends.Earth sur la productivité des terres à une "
+"résolution spatiale de 10 m couvrent pratiquement tous les pixels terrestres"
+" de 180° Est à 180° Ouest et de 80° Nord à 80° Sud, à l'exclusion de "
+"l'Antarctique, et sont disponibles à des tranches annuelles de 2018 à 2021. "
+"Théoriquement, les valeurs des pixels sont les suivantes :"
 
 #: ../../source/for_users/datasets/sen2svis.md:0
 msgid "VI"
-msgstr ""
+msgstr "VI"
 
 #: ../../source/for_users/datasets/sen2svis.md:0
 msgid "Maximum value"
-msgstr ""
+msgstr "Valeur maximale"
 
 #: ../../source/for_users/datasets/sen2svis.md:0
 msgid "Minimum value"
-msgstr ""
+msgstr "Valeur minimale"
 
 #: ../../source/for_users/datasets/sen2svis.md:0
 #: ../../source/for_users/datasets/sen2svis.md:0
 msgid "EVI2"
-msgstr ""
+msgstr "EVI2"
 
 #: ../../source/for_users/datasets/sen2svis.md:0
 msgid "1.25"
-msgstr ""
+msgstr "1,25"
 
 #: ../../source/for_users/datasets/sen2svis.md:0
 msgid "-0.7"
-msgstr ""
+msgstr "-0,7"
 
 #: ../../source/for_users/datasets/sen2svis.md:0
 msgid "1.5"
-msgstr ""
+msgstr "1,5"
 
 #: ../../source/for_users/datasets/sen2svis.md:0
 msgid "-0.5"
-msgstr ""
+msgstr "-0,5"
 
 #: ../../source/for_users/datasets/sen2svis.md:0
 msgid "NDVI"
@@ -89,14 +111,17 @@ msgstr "NDVI"
 
 #: ../../source/for_users/datasets/sen2svis.md:0
 msgid "1"
-msgstr ""
+msgstr "1"
 
 #: ../../source/for_users/datasets/sen2svis.md:0
 msgid "-1"
-msgstr ""
+msgstr "-1"
 
 #: ../../source/for_users/datasets/sen2svis.md:30
 msgid ""
 "However, please note that in real life actual values are greater than 0, "
 "excepts for exceptionally dark pixels, such those covering water bodies."
 msgstr ""
+"Toutefois, veuillez noter que dans la réalité, les valeurs réelles sont "
+"supérieures à 0, sauf pour les pixels exceptionnellement sombres, comme ceux"
+" qui recouvrent les plans d'eau."

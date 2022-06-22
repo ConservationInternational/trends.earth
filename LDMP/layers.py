@@ -100,7 +100,7 @@ style_text_dict = {
     # Land cover degradation comparison (not the real progress taking into
     # account magnitude)
     "lc_deg_comp_title": tr_layers.tr(
-        "Land cover degradation comparison ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})"
+        "Land cover degradation comparison ({year_initial} to {year_final})"
     ),
     "lc_deg_comp_deg": tr_layers.tr("Degradation"),
     "lc_deg_comp_stable": tr_layers.tr("Stable"),
@@ -754,8 +754,8 @@ def get_band_title(band_info):
             result = title_pattern.format(**band_info["metadata"])
         except KeyError as exc:
             log(
-                f"Unable to find a proper name for this layer because of the following "
-                f"exception: {str(exc)}"
+                f"Unable to find a proper name for {band_info['name']} because "
+                f"of the following exception: {str(exc)}"
             )
 
     return result
@@ -829,7 +829,9 @@ def add_vector_layer(layer_path: str, name: str):
         if not found:
             layer = iface.addVectorLayer(layer_path, name, "ogr")
 
-def set_default_value(v_path, field, r_path, band, v, r):
+
+def set_default_stats_value(v_path, band_datas):
+    log(f'setting default stats value function')
     layer = None
     for l in QgsProject.instance().mapLayers().values():
         if l.source().split("|")[0] == v_path:
@@ -837,13 +839,18 @@ def set_default_value(v_path, field, r_path, band, v, r):
             break
     if layer is None:
         return
-    idx = layer.fields().lookupField(field)
-    layer.setDefaultValueDefinition(idx, QgsDefaultValue("calculate_charts('{}', {}, '{}', {})".format(r_path, band, v, r), True))
+    idx = layer.fields().lookupField('stats')
+    layer.setDefaultValueDefinition(
+        idx,
+        QgsDefaultValue(
+            f"calculate_error_recode_stats('{json.dumps(band_datas)}')"
+        )
+    )
     res = layer.listStylesInDatabase()
     if res[0] > 0:
         for i in res[1]:
             layer.deleteStyleFromDatabase(i)
-    layer.saveStyleToDatabase("false_positive", "", True, "")
+    layer.saveStyleToDatabase("error_recode", "", True, "")
 
 
 def edit(layer):

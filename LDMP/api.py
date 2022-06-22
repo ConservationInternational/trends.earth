@@ -29,12 +29,13 @@ from qgis.utils import iface
 from . import auth, conf
 from .logger import log
 
-API_URL = "https://api.trends.earth"
+API_URL = "https://api2.trends.earth"
 TIMEOUT = 20
 
 
-def tr(message):
-    return QtCore.QCoreApplication.translate("tr_api", message)
+class tr_api(QtCore.QObject):
+    def tr(self, txt):
+        return QtCore.QCoreApplication.translate(self.__class__.__name__, txt)
 
 
 ###############################################################################
@@ -102,12 +103,12 @@ class RequestTask(QgsTask):
                     )
                     raise self.exception
                 except requests.exceptions.ConnectionError:
-                    self.error_message = tr(
+                    self.error_message = tr_api.tr(
                         "Unable to login to Trends.Earth server. Check your "
                         "internet connection."
                     )
                 except requests.exceptions.Timeout:
-                    self.error_message = tr(
+                    self.error_message = tr_api.tr(
                         f"Unable to connect to Trends.Earth  server."
                     )
 
@@ -196,14 +197,14 @@ def login(authConfigId=None):
 
             if token is None:
                 log("Unable to read Trends.Earth token in API response")
-                error_message = tr(
+                error_message = tr_api.tr(
                     "Unable to read token for Trends.Earth "
                     "server. Check username and password."
                 )
                 ret = None
         except KeyError:
             log("API unable to login - check username and password")
-            error_message = tr(
+            error_message = tr_api.tr(
                 "Unable to login to Trends.Earth. " "Check username and password."
             )
             ret = None
@@ -211,13 +212,14 @@ def login(authConfigId=None):
             ret = token
     else:
         log("Unable to access Trends.Earth server")
-        error_message = tr(
+        error_message = tr_api.tr(
             "Unable to access Trends.Earth server. Check your " "internet connection"
         )
         ret = None
 
     if error_message:
-        iface.messageBar().pushCritical("Trends.Earth", tr(error_message))
+        log(tr_api.tr(error_message))
+        # iface.messageBar().pushCritical("Trends.Earth", tr_api.tr(error_message))
 
     return ret
 
@@ -234,8 +236,8 @@ def login_test(email, password):
             log("API unable to login during login test - check " "username/password")
             QtWidgets.QMessageBox.critical(
                 None,
-                tr("Error"),
-                tr(
+                tr_api.tr("Error"),
+                tr_api.tr(
                     "Unable to login to Trends.Earth. Check that "
                     "username and password are correct."
                 ),
@@ -316,9 +318,13 @@ def call_api(endpoint, method="get", payload=None, use_token=False):
             ret = resp.json()
         else:
             desc, status = get_error_status(resp)
+            err_msg = "Error: {} (status {}).".format(desc, status)
+            log(err_msg)
+            """
             iface.messageBar().pushCritical(
                 "Trends.Earth", "Error: {} (status {}).".format(desc, status)
             )
+            """
             ret = None
     else:
         ret = None

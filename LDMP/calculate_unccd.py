@@ -40,11 +40,6 @@ DlgCalculateUNCCDReportUi, _ = uic.loadUiType(
 )
 
 
-class tr_calculate_unccd(object):
-    def tr(self, message):
-        return QtCore.QCoreApplication.translate("tr_calculate_unccd", message)
-
-
 class DlgCalculateUNCCD(DlgCalculateBase, DlgCalculateUNCCDUi):
     def __init__(
         self,
@@ -151,10 +146,10 @@ class DlgCalculateUNCCD(DlgCalculateBase, DlgCalculateUNCCDUi):
 
         if resp:
             main_msg = "Submitted"
-            description = "UNCCD default data task submitted to Google Earth Engine."
+            description = "UNCCD default data task submitted to Trends.Earth server."
         else:
             main_msg = "Error"
-            description = "Unable to UNCCD default data task to Google Earth Engine."
+            description = "Unable to UNCCD default data task to Trends.Earth server."
         self.mb.pushMessage(
             self.tr(main_msg), self.tr(description), level=0, duration=5
         )
@@ -179,6 +174,7 @@ class DlgCalculateUNCCDReport(DlgCalculateBase, DlgCalculateUNCCDReportUi):
 
         self.combo_boxes = unccd.UNCCDReportWidgets(
             combo_dataset_so1_so2=self.combo_dataset_so1_so2,
+            combo_dataset_error_recode=self.combo_dataset_error_recode,
             combo_dataset_so3=self.combo_dataset_so3,
         )
 

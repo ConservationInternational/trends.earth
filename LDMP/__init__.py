@@ -12,7 +12,6 @@
  ***************************************************************************/
 """
 # pylint: disable=import-error
-
 import json
 import os
 import re
@@ -24,24 +23,29 @@ from tempfile import NamedTemporaryFile
 
 from qgis.core import Qgis
 from qgis.core import QgsApplication
-from qgis.PyQt import (
-    QtCore,
-)
+from qgis.PyQt import QtCore
 from qgis.utils import iface
+
+# initialize translation
+plugin_dir = os.path.dirname(os.path.realpath(__file__))
+i18n_dir = os.path.join(plugin_dir, "i18n")
+translator = QtCore.QTranslator()
+locale = QtCore.QLocale(QgsApplication.locale())
+translator.load(locale, "LDMP", "_", directory=i18n_dir, suffix=".qm")
+trans_result = QtCore.QCoreApplication.installTranslator(translator)
 
 from . import logger
 
-plugin_dir = os.path.dirname(os.path.realpath(__file__))
-with open(os.path.join(plugin_dir, 'version.json')) as f:
+with open(os.path.join(plugin_dir, "version.json")) as f:
     version_info = json.load(f)
-__version__ = version_info['version']
-__version_major__ = re.sub(r'([0-9]+)(\.[0-9]+)+$', r'\g<1>', __version__)
-__revision__ = version_info['revision']
-__release_date__ = version_info['release_date']
+__version__ = version_info["version"]
+__version_major__ = re.sub(r"([0-9]+)(\.[0-9]+)+$", r"\g<1>", __version__)
+__revision__ = version_info["revision"]
+__release_date__ = version_info["release_date"]
 
 
 def _add_at_front_of_path(d):
-    '''add a folder at front of path'''
+    """add a folder at front of path"""
     sys.path, remainder = sys.path[:1], sys.path[1:]
     site.addsitedir(d)
     sys.path.extend(remainder)
@@ -52,22 +56,21 @@ def _add_at_front_of_path(d):
 binaries_folder = QtCore.QSettings().value(
     "trends_earth/advanced/binaries_folder", None
 )
-te_version = __version__.replace('.', '-')
-qgis_version = re.match('^[0-9]*\.[0-9]*',
-                        Qgis.QGIS_VERSION)[0].replace('.', '-')
+te_version = __version__.replace(".", "-")
+qgis_version = re.match("^[0-9]*\.[0-9]*", Qgis.QGIS_VERSION)[0].replace(".", "-")
 binaries_name = f"trends_earth_binaries_{te_version}_{qgis_version}"
 
 if binaries_folder:
     binaries_path = Path(binaries_folder) / f"{binaries_name}"
-    logger.log(f'Adding {binaries_path} to path')
+    logger.log(f"Adding {binaries_path} to path")
     _add_at_front_of_path(str(binaries_path))
 
 # Put ext-libs folder near the front of the path (important on Linux)
-_add_at_front_of_path(str(Path(plugin_dir) / 'ext-libs'))
+_add_at_front_of_path(str(Path(plugin_dir) / "ext-libs"))
 
 
 def tr(message):
-    return QtCore.QCoreApplication.translate('trends.earth', message)
+    return QtCore.QCoreApplication.translate("trends.earth", message)
 
 
 def classFactory(iface):  # pylint: disable=invalid-name
@@ -91,42 +94,31 @@ def GetTempFilename(suffix):
     return f.name
 
 
-# initialize translation
-i18n_dir = os.path.join(plugin_dir, 'i18n')
 logger.log(
-    f'Starting trends.earth version {__version__} (rev: {__revision__}, '
-    f'released {__release_date__}).'
+    f"Starting trends.earth version {__version__} (rev: {__revision__}, "
+    f"released {__release_date__})."
 )
 
-translator = QtCore.QTranslator()
-locale = QtCore.QLocale(QgsApplication.locale())
-logger.log('Trying to load locale {} from {}.'.format(locale.name(), i18n_dir))
-translator.load(locale, 'LDMP', prefix='.', directory=i18n_dir, suffix='.qm')
-ret = QtCore.QCoreApplication.installTranslator(translator)
-
-if ret:
+if trans_result:
     logger.log("Translator installed for {}.".format(locale.name()))
 else:
     logger.log(
-        "FAILED while trying to install translator for {}.".format(
-            locale.name()
-        )
+        "FAILED while trying to install translator for {}.".format(locale.name())
     )
 
-from . import conf, utils  # noqa: autoimport
+from . import conf  # noqa: autoimport
 
 if conf.settings_manager.get_value(conf.Setting.DEBUG):
     import logging  # noqa: autoimport
-    formatter = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+
+    formatter = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
     logfilename = (
-        Path(conf.settings_manager.get_value(conf.Setting.BASE_DIR)) /
-        'trends_earth_log.txt'
+        Path(conf.settings_manager.get_value(conf.Setting.BASE_DIR))
+        / "trends_earth_log.txt"
     )
     Path(logfilename).parent.mkdir(parents=True, exist_ok=True)
 
-    logging.basicConfig(
-        filename=logfilename, level=logging.DEBUG, format=formatter
-    )
+    logging.basicConfig(filename=logfilename, level=logging.DEBUG, format=formatter)
 
 
 def binaries_available():
@@ -140,8 +132,7 @@ def binaries_available():
     except (ModuleNotFoundError, ImportError, RuntimeError) as e:
         if debug_enabled:
             logger.log(
-                "Numba-compiled version of ldn_numba not available: {}".
-                format(e)
+                "Numba-compiled version of ldn_numba not available: {}".format(e)
             )
         ret = False
 
@@ -155,23 +146,23 @@ def openFolder(path):
     # check path exist and readable
 
     if not os.path.exists(path):
-        message = tr('Path do not exist: ') + path
-        iface.messageBar().pushCritical('Trends.Earth', message)
+        message = tr("Path do not exist: ") + path
+        iface.messageBar().pushCritical("Trends.Earth", message)
 
         return
 
     if not os.access(path, mode=os.R_OK | os.W_OK):
-        message = tr('No read or write permission on path: ') + path
-        iface.messageBar().pushCritical('Trends.Earth', message)
+        message = tr("No read or write permission on path: ") + path
+        iface.messageBar().pushCritical("Trends.Earth", message)
 
         return
 
-    if sys.platform == 'darwin':
-        subprocess.check_call(['open', path])
-    elif sys.platform == 'linux':
-        subprocess.check_call(['xdg-open', path])
-    elif sys.platform == 'win32':
-        res = subprocess.run(['explorer', path])
+    if sys.platform == "darwin":
+        subprocess.check_call(["open", path])
+    elif sys.platform == "linux":
+        subprocess.check_call(["xdg-open", path])
+    elif sys.platform == "win32":
+        res = subprocess.run(["explorer", path])
         # For some reason windows "explorer" often returns 1 on success (as
         # apparently do other windows GUI programs...)
 

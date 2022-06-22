@@ -2,8 +2,8 @@
 import enum
 import functools
 import re
-import uuid
 import unicodedata
+import uuid
 
 import marshmallow_dataclass
 from marshmallow import pre_load
@@ -18,16 +18,16 @@ from ..logger import log
 
 
 class SortField(enum.Enum):
-    NAME = 'name'
-    DATE = 'date'
-    ALGORITHM = 'algorithm'
-    STATUS = 'status'
+    NAME = "name"
+    DATE = "date"
+    ALGORITHM = "algorithm"
+    STATUS = "status"
 
 
 class TypeFilter(enum.Enum):
-    ALL = 'all'
-    RASTER = 'raster'
-    VECTOR = 'vector'
+    ALL = "all"
+    RASTER = "raster"
+    VECTOR = "vector"
 
 
 def _slugify(value, allow_unicode=False):
@@ -41,24 +41,26 @@ def _slugify(value, allow_unicode=False):
     value = str(value)
 
     if allow_unicode:
-        value = unicodedata.normalize('NFKC', value)
+        value = unicodedata.normalize("NFKC", value)
     else:
-        value = unicodedata.normalize('NFKD',
-                                      value).encode('ascii',
-                                                    'ignore').decode('ascii')
-    value = re.sub(r'[^\w\s-]', '', value.lower())
+        value = (
+            unicodedata.normalize("NFKD", value)
+            .encode("ascii", "ignore")
+            .decode("ascii")
+        )
+    value = re.sub(r"[^\w\s-]", "", value.lower())
 
-    return re.sub(r'[-\s]+', '-', value).strip('-_')
+    return re.sub(r"[-\s]+", "-", value).strip("-_")
 
 
 @marshmallow_dataclass.dataclass
 class Job(JobBase):
     @pre_load
     def set_script_name_version(self, data, **kwargs):
-        script_id = data.pop('script_id', None)
-        params_script = data['params'].pop('script', None)
+        script_id = data.pop("script_id", None)
+        params_script = data["params"].pop("script", None)
 
-        if not data.get('script'):
+        if not data.get("script"):
             if params_script:
                 script = ExecutionScript.Schema().load(params_script)
             elif script_id:
@@ -77,16 +79,14 @@ class Job(JobBase):
                     "Unknown script", run_mode=AlgorithmRunMode.NOT_APPLICABLE
                 )
 
-            data['script'] = ExecutionScript.Schema().dump(script)
+            data["script"] = ExecutionScript.Schema().dump(script)
 
-        script_name_regex = re.compile(
-            '([0-9a-zA-Z -]*)(?: *)([0-9]+(_[0-9]+)+)'
-        )
-        matches = script_name_regex.search(data['script'].get('name'))
+        script_name_regex = re.compile("([0-9a-zA-Z -]*)(?: *)([0-9]+(_[0-9]+)+)")
+        matches = script_name_regex.search(data["script"].get("name"))
 
         if matches:
-            data['script']['name'] = matches.group(1).rstrip()
-            data['script']['version'] = matches.group(2).replace('_', '.')
+            data["script"]["name"] = matches.group(1).rstrip()
+            data["script"]["version"] = matches.group(2).replace("_", ".")
 
         return data
 
@@ -117,7 +117,7 @@ class Job(JobBase):
             job_name_parts.append(self.local_context.area_of_interest_name)
         elif self.script.name:
             job_name_parts.append(self.script.name)
-        return ' - '.join(job_name_parts)
+        return " - ".join(job_name_parts)
 
 
 @functools.lru_cache(
@@ -145,7 +145,7 @@ def get_job_local_script(script_name: str) -> ExecutionScript:
 
 def _get_script_by_id_from_remote(script_id: str) -> ExecutionScript:
     remote_scripts = get_remote_scripts()
-    log(f'remote_scripts: {remote_scripts}')
+    log(f"remote_scripts: {remote_scripts}")
 
     if remote_scripts is None:
         return
@@ -157,9 +157,7 @@ def _get_script_by_id_from_remote(script_id: str) -> ExecutionScript:
             "by id - checking for matches by slug"
         )
         try:
-            script = [
-                s for s in remote_scripts if str(s.slug) == str(script_id)
-            ][0]
+            script = [s for s in remote_scripts if str(s.slug) == str(script_id)][0]
         except IndexError:
             log(f"script {script_id!r} is not known on remote")
             raise IndexError
@@ -170,8 +168,7 @@ def _get_script_by_id_from_remote(script_id: str) -> ExecutionScript:
 
 def _get_script_by_id_from_local(script_id: str) -> ExecutionScript:
     try:
-        script = [s for s in conf.KNOWN_SCRIPTS.values()
-                  if s.id == script_id][0]
+        script = [s for s in conf.KNOWN_SCRIPTS.values() if s.id == script_id][0]
     except IndexError:
         log(f"script {script_id!r} is not known locally")
         raise IndexError

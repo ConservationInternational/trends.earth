@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-24 18:41-0400\n"
+"POT-Creation-Date: 2022-06-21 17:06-0400\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
@@ -27,7 +27,7 @@ msgstr "Configuraciones"
 
 #: ../../source/for_users/training/index.rst:6
 msgid "Land Degradation"
-msgstr ""
+msgstr "Degradación de la tierra"
 
 #: ../../source/for_users/training/index.rst:6
 msgid "UNCCD Reporting"
@@ -35,57 +35,57 @@ msgstr "Informes de la UNCCD"
 
 #: ../../source/for_users/training/index.rst:6
 msgid "Land Consumption"
-msgstr ""
+msgstr "Consumo de tierra"
 
 #: ../../source/for_users/training/index.rst:6
 msgid "Carbon"
-msgstr ""
+msgstr "Carbón"
 
 #: ../../source/for_users/training/index.rst:6
 msgid "Restoration"
-msgstr ""
+msgstr "Restauración"
 
 #: ../../source/for_users/training/index.rst:6
 msgid "Dataset Metadata"
-msgstr ""
+msgstr "Metadatos del conjunto de datos"
 
 #: ../../source/for_users/training/index.rst:6
-msgid "Special Areas"
-msgstr ""
+msgid "False Positives/Negatives"
+msgstr "Falsos positivos/negativos"
 
 #: ../../source/for_users/training/index.rst:6
 msgid "Dataset Reports"
-msgstr ""
+msgstr "Informes de conjuntos de datos"
 
 #: ../../source/for_users/training/index.rst:6
 #: ../../source/for_users/training/index.rst:3
 #: ../../source/for_users/training/index.rst:6
 msgid "Training Manual"
-msgstr ""
+msgstr "Manual de entrenamiento"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr ""
+msgstr "iconCalculator"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr ""
+msgstr "iconChart"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr ""
+msgstr "iconClipboard"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr ""
+msgstr "iconCloudDownload"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr ""
+msgstr "iconCog"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr ""
+msgstr "iconDeletedataset"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
@@ -93,47 +93,47 @@ msgstr "iconGlobe"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr ""
+msgstr "iconGraph"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr ""
+msgstr "iconInfo"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr ""
+msgstr "iconLoaddataset"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr ""
+msgstr "iconMarkMarker"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr ""
+msgstr "iconOpendatasetdirectory"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr ""
+msgstr "iconViewdatasetdetails"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr ""
+msgstr "iconWrench"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr ""
+msgstr "iconFolder"
 
 #: ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr ""
+msgstr "iconReports"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr ""
+msgstr "iconTrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr ""
+msgstr "iconVisualization"
 
 #: ../../../<rst_epilog>:37
 msgid "Trends.Earth"
@@ -141,16 +141,16 @@ msgstr "Trends.Earth"
 
 #: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr ""
+msgstr "logoCI"
 
 #: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr ""
+msgstr "logoLund"
 
 #: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr ""
+msgstr "logoNASA"
 
 #: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr ""
+msgstr "logoGEF"

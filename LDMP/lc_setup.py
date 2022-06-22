@@ -345,6 +345,40 @@ def lc_nesting_from_settings():
     return nesting
 
 
+def ipcc_lc_nesting_to_settings(nesting: LCLegendNesting):
+    conf.settings_manager.write_value(
+        conf.Setting.LC_IPCC_NESTING,
+        LCLegendNesting.Schema().dumps(nesting)
+    )
+
+
+def ipcc_lc_nesting_from_settings() -> LCLegendNesting:
+    nesting_str = conf.settings_manager.get_value(
+        conf.Setting.LC_IPCC_NESTING
+    )
+    if nesting_str == '':
+        return None
+    
+    return LCLegendNesting.Schema().loads(nesting_str)
+
+
+def esa_lc_nesting_to_settings(nesting: LCLegendNesting):
+    conf.settings_manager.write_value(
+        conf.Setting.LC_ESA_NESTING,
+        LCLegendNesting.Schema().dumps(nesting)
+    )
+
+
+def esa_lc_nesting_from_settings() -> LCLegendNesting:
+    nesting_str = conf.settings_manager.get_value(
+        conf.Setting.LC_ESA_NESTING
+    )
+    if nesting_str == '':
+        return None
+
+    return LCLegendNesting.Schema().loads(nesting_str)
+
+
 def get_trans_matrix(get_default=False, save_settings=True):
     if not get_default:
         matrix = trans_matrix_from_settings()
@@ -1230,7 +1264,7 @@ class LccInfoUtils:
         )
         if status:
             LccInfoUtils.sync_trans_matrix(lcc_infos)
-            LccInfoUtils.sync_lc_nesting_matrix(lcc_infos)
+            LccInfoUtils.sync_lc_nesting(lcc_infos)
 
         return status
 
@@ -1464,10 +1498,126 @@ class LccInfoUtils:
             )
 
     @staticmethod
-    def sync_lc_nesting_matrix(ref_lcc_infos: typing.List['LCClassInfo']):
+    def save_lc_nesting_ipcc(
+            ref_lcc_infos: typing.List['LCClassInfo']
+    ):
         """
-        Update land cover nesting in settings with custom classes
-        in the reference list.
+        Save IPCC land cover nesting to settings.
+        """
+        if len(ref_lcc_infos) == 0:
+            if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                log(
+                    f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - No land cover '
+                    f'classes to update IPCC land cover nesting.'
+                )
+
+            return
+
+        reference_nesting = get_lc_nesting(True, save_settings=False)
+
+        parents = []
+        children = []
+        nesting_map = dict()
+        nodata = reference_nesting.parent.nodata
+        no_data_children = []
+        for lcci in ref_lcc_infos:
+            parent = lcci.parent
+            child = lcci.lcc
+            children.append(child)
+            if parent.code == nodata.code:
+                no_data_children.append(child.code)
+                continue
+
+            parents.append(parent)
+            if parent.code not in nesting_map:
+                nesting_map[parent.code] = []
+            nesting_map.get(parent.code).append(child.code)
+
+        child_nodata = None
+        if len(no_data_children) == 0:
+            child_nodata = deepcopy(nodata)
+            nesting_map[nodata.code] = [child_nodata.code]
+        else:
+            nesting_map[nodata.code] = no_data_children
+
+        reference_nesting.parent.key = parents
+        reference_nesting.child.key = children
+        reference_nesting.child.name = LccInfoUtils.CUSTOM_LEGEND_NAME
+        reference_nesting.child.nodata = child_nodata
+        reference_nesting.nesting = nesting_map
+        ipcc_lc_nesting_to_settings(reference_nesting)
+
+        if conf.settings_manager.get_value(conf.Setting.DEBUG):
+            log(
+                f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - Saved IPCC lc '
+                f'nesting to settings.'
+            )
+
+    @staticmethod
+    def save_lc_nesting_esa(
+            ref_lcc_infos: typing.List['LCClassInfo']
+    ):
+        """
+        Save ESA land cover nesting to settings.
+        """
+        if len(ref_lcc_infos) == 0:
+            if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                log(
+                    f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - No land cover '
+                    f'classes to update ESA land cover nesting.'
+                )
+            return
+
+        reference_nesting = get_lc_nesting(True, save_settings=False)
+        default_nesting = deepcopy(reference_nesting)
+
+        # Create key for parent legend
+        ref_lccs = []
+        children = []
+        assigned_parents = []
+        nesting_map = dict()
+        default_nesting_map = default_nesting.nesting
+        nodata = reference_nesting.parent.nodata
+        no_data_children = []
+        for lcci in ref_lcc_infos:
+            parent = lcci.parent
+            lcc = lcci.lcc
+            ref_lccs.append(lcc)
+            if parent.code == nodata.code:
+                nesting_map[lcc.code] = []
+                continue
+
+            # Check if the children and their codes have already been assigned
+            child_codes = []
+            if parent.code not in assigned_parents:
+                parent_children = default_nesting.children_for_parent(parent)
+                children.extend(parent_children)
+                child_codes = default_nesting_map.get(parent.code, list())
+                assigned_parents.append(parent.code)
+            nesting_map[lcc.code] = child_codes
+
+        child_nodata = reference_nesting.child.nodata
+        if len(no_data_children) == 0:
+            nesting_map[nodata.code] = [child_nodata.code]
+        else:
+            nesting_map[nodata.code] = [child_nodata.code] + no_data_children
+
+        reference_nesting.parent.key = ref_lccs
+        reference_nesting.parent.name = LccInfoUtils.CUSTOM_LEGEND_NAME
+        reference_nesting.child.key = children
+        reference_nesting.nesting = nesting_map
+        esa_lc_nesting_to_settings(reference_nesting)
+
+        if conf.settings_manager.get_value(conf.Setting.DEBUG):
+            log(
+                f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - Saved ESA lc '
+                f'nesting to settings.'
+            )
+
+    @staticmethod
+    def sync_lc_nesting(ref_lcc_infos: typing.List['LCClassInfo']):
+        """
+        Updates both IPCC and ESA land cover nestings in settings.
         """
         if len(ref_lcc_infos) == 0:
             if conf.settings_manager.get_value(conf.Setting.DEBUG):
@@ -1475,36 +1625,10 @@ class LccInfoUtils:
                     f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - No land cover '
                     f'classes to update land cover nesting.'
                 )
-
             return
 
-        nesting = get_lc_nesting(True, save_settings=False)
-
-        # Create key for parent legend
-        parent_key = []
-        nesting_map = dict()
-        for lcci in ref_lcc_infos:
-            lcc = lcci.lcc
-            parent_key.append(lcc)
-            nesting_map[str(lcc.code)] = lcci.child_codes
-
-        # Check if nodata is in nesting
-        nodata = nesting.parent.nodata
-        child_nodata = nesting.child.nodata
-        if nodata is not None and nodata.code not in nesting_map \
-                and child_nodata is not None:
-            nesting_map[nodata.code] = [child_nodata.code]
-
-        nesting.parent.key = parent_key
-        nesting.nesting = nesting_map
-        nesting.parent.name = LccInfoUtils.CUSTOM_LEGEND_NAME
-        lc_nesting_to_settings(nesting)
-
-        if conf.settings_manager.get_value(conf.Setting.DEBUG):
-            log(
-                f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - Saved updated lc '
-                f'nesting to settings.'
-            )
+        LccInfoUtils.save_lc_nesting_ipcc(ref_lcc_infos)
+        LccInfoUtils.save_lc_nesting_esa(ref_lcc_infos)
 
     @staticmethod
     def set_default_unccd_classes(force_update=False):

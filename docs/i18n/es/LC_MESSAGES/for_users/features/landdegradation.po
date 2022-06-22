@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-24 18:41-0400\n"
+"POT-Creation-Date: 2022-06-21 17:06-0400\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
@@ -25,7 +25,7 @@ msgstr ""
 
 #: ../../source/for_users/features/landdegradation.rst:4
 msgid "Land degradation and SDG 15.3.1"
-msgstr ""
+msgstr "La degradación de la tierra y el ODS 15.3.1"
 
 #: ../../source/for_users/features/landdegradation.rst:6
 msgid ""
@@ -87,6 +87,11 @@ msgid ""
 "links/2021-03/Indicator_15.3.1_GPG_v2_29Mar_Advanced-version.pdf>`_. "
 "providing recommendations on how to calculate SDG Indicator 15.3.1."
 msgstr ""
+"Como organismo custodio del ODS 15.3, la Convención de las Naciones Unidas "
+"de Lucha contra la Desertificación (CNULD) ha elaborado una \"Guía de Buenas"
+" Prácticas (GPG) <https://www.unccd.int/sites/default/files/relevant-"
+"links/2021-03/Indicator_15.3.1_GPG_v2_29Mar_Advanced-version.pdf>`_ que "
+"ofrece recomendaciones sobre cómo calcular el indicador 15.3.1 de los ODS."
 
 #: ../../source/for_users/features/landdegradation.rst:31
 msgid ""
@@ -134,6 +139,11 @@ msgid ""
 " a final SDG 15.3.1 indicator map and produces a table result reporting "
 "areas potentially improved and degraded for the area of analysis."
 msgstr ""
+"|trends.earth| permite al usuario calcular cada uno de estos subindicadores "
+"de forma espacialmente explícita generando mapas de trama que luego se "
+"integran en un mapa final de indicadores del ODS 15.3.1 y produce un "
+"resultado en forma de tabla que informa de las zonas potencialmente "
+"mejoradas y degradadas para la zona de análisis."
 
 #: ../../source/for_users/features/landdegradation.rst:50
 msgid "Sub-indicators"
@@ -499,6 +509,13 @@ msgid ""
 "outliers). The value representing the 90th percentile will be considered the"
 " maximum productivity for that unit."
 msgstr ""
+"Para cada unidad, extraiga todos los valores medios de NDVI calculados en el"
+" paso 1 y cree una distribución de frecuencias. A partir de esta "
+"distribución, determine el valor que representa el percentil 90 (no "
+"recomendamos utilizar el valor máximo absoluto del NDVI para evitar posibles"
+" errores debidos a la presencia de valores atípicos). El valor que "
+"representa el percentil 90 se considerará la máxima productividad para esa "
+"unidad."
 
 #: ../../source/for_users/features/landdegradation.rst:233
 msgid ""
@@ -727,27 +744,27 @@ msgstr ""
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr ""
+msgstr "iconCalculator"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr ""
+msgstr "iconChart"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr ""
+msgstr "iconClipboard"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr ""
+msgstr "iconCloudDownload"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr ""
+msgstr "iconCog"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr ""
+msgstr "iconDeletedataset"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
@@ -755,60 +772,60 @@ msgstr "iconGlobe"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr ""
+msgstr "iconGraph"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr ""
+msgstr "iconInfo"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr ""
+msgstr "iconLoaddataset"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr ""
+msgstr "iconMarkMarker"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr ""
+msgstr "iconOpendatasetdirectory"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr ""
+msgstr "iconViewdatasetdetails"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr ""
+msgstr "iconWrench"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr ""
+msgstr "iconFolder"
 
 #: ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr ""
+msgstr "iconReports"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr ""
+msgstr "iconTrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr ""
+msgstr "iconVisualization"
 
 #: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr ""
+msgstr "logoCI"
 
 #: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr ""
+msgstr "logoLund"
 
 #: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr ""
+msgstr "logoNASA"
 
 #: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr ""
+msgstr "logoGEF"

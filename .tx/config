@@ -188,7 +188,7 @@ source_lang = en
 type = PO
 
 [o:conservation-international:p:trendsearth:r:gui]
-file_filter = LDMP/i18n/LDMP.<lang>.ts
+file_filter = LDMP/i18n/LDMP_<lang>.ts
 source_file = LDMP/i18n/LDMP.ts
 source_lang = en
 type        = QT

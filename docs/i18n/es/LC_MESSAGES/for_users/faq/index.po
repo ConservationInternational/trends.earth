@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-24 18:41-0400\n"
+"POT-Creation-Date: 2022-06-21 17:06-0400\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
@@ -90,6 +90,13 @@ msgid ""
 " to stay in touch with any advancements with the projects’ distribution "
 "list."
 msgstr ""
+"Puede encontrar más información sobre la caja de herramientas en "
+"`trends.earth <http://trends.earth>`_ y los informes están disponibles en la"
+" `página web de Vital Signs Project <http://vitalsigns.org/gef-ldmp/project-"
+"description-and-timeline>`_ También puede agregar su información de contacto"
+" en `la lista de distribución de correos elecrónicos de Vital Signs LD "
+"<http://vitalsigns.org/gef-ldmp/email-distribution-list>`_ para estar al "
+"tanto de cualquier avance con la lista de distribución de proyectos."
 
 #: ../../source/for_users/faq/index.rst:36
 msgid "How can I provide feedback on the tool?"
@@ -306,7 +313,7 @@ msgstr "Reinicie QGIS."
 
 #: ../../source/for_users/faq/index.rst:122
 msgid "OR"
-msgstr ""
+msgstr "O"
 
 #: ../../source/for_users/faq/index.rst:124
 msgid ""
@@ -314,6 +321,9 @@ msgid ""
 "under the directory. For example: "
 "C:\\Documents\\user\\AppData\\Roaming\\QGIS\\QGIS3\\profiles\\default\\python\\plugins"
 msgstr ""
+"Vaya a la carpeta AppData en la cuenta de usuario y busque la información de"
+" los complementos en el directorio. Por ejemplo: "
+"C:\\Documents\\user\\AppData\\Roaming\\QGIS\\QGIS3\\profiles\\default\\python\\plugins"
 
 #: ../../source/for_users/faq/index.rst:129
 msgid "Datasets"
@@ -324,6 +334,8 @@ msgid ""
 "Refer to the :ref:`input_data` section for more information on data sources "
 "used in Trends.Earth."
 msgstr ""
+"Consulte la sección :ref:`input_data` para obtener más información sobre las"
+" fuentes de datos utilizadas en Trends.Earth."
 
 #: ../../source/for_users/faq/index.rst:135
 msgid "When will you update datasets for the current year?"
@@ -397,6 +409,8 @@ msgid ""
 "Refer to the :ref:`background_landdegradation` section for more background "
 "on analyses available in Trends.Earth."
 msgstr ""
+"Consulte la sección :ref:`background_landdegradation` para obtener más "
+"información sobre los análisis disponibles en Trends.Earth."
 
 #: ../../source/for_users/faq/index.rst:169
 msgid "Who was the default time period for the analysis determined?"
@@ -640,6 +654,22 @@ msgid ""
 "consensus that it this point in time and globally, this is the best "
 "approach."
 msgstr ""
+"La vegetación es un componente clave de la mayoría de los ecosistemas y "
+"sirve como un buen indicador de su funcionamiento y su salud generales. Los "
+"tres subindicadores utilizados para el ODS 15.3.1 miden diferentes aspectos "
+"de la cubierta del suelo, los que se relacionan con la vegetación. La "
+"productividad primaria mide directamente el cambio en la cantidad de biomasa"
+" presente en un área, pero no nos informa si ese cambio es positivo o no (no"
+" todos los aumentos en la biomasa vegetal deben interpretarse como mejoras)."
+" La cobertura del suelo llena ese vacío al interpretar el paisaje desde una "
+"perspectiva temática que analiza lo que había antes y lo que hay ahora. Se "
+"incluye la vegetación, pero también el suelo desnudo, la urbanización y el "
+"agua. Finalmente, el indicador de carbono orgánico del suelo utiliza el mapa"
+" de cobertura del suelo para informar los cambios en el carbono orgánico del"
+" mismo a lo largo del tiempo. Este método no es el ideal, pero dado el "
+"estado actual de la ciencia del suelo y la topografía a nivel mundial, "
+"existe el consenso de que, en este momento y a nivel mundial, es la mejor "
+"forma de hacerlo."
 
 #: ../../source/for_users/faq/index.rst:279
 msgid "Future plans"
@@ -696,27 +726,27 @@ msgstr ""
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr ""
+msgstr "iconCalculator"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr ""
+msgstr "iconChart"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr ""
+msgstr "iconClipboard"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr ""
+msgstr "iconCloudDownload"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr ""
+msgstr "iconCog"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr ""
+msgstr "iconDeletedataset"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
@@ -724,60 +754,60 @@ msgstr "iconGlobe"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr ""
+msgstr "iconGraph"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr ""
+msgstr "iconInfo"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr ""
+msgstr "iconLoaddataset"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr ""
+msgstr "iconMarkMarker"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr ""
+msgstr "iconOpendatasetdirectory"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr ""
+msgstr "iconViewdatasetdetails"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr ""
+msgstr "iconWrench"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr ""
+msgstr "iconFolder"
 
 #: ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr ""
+msgstr "iconReports"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr ""
+msgstr "iconTrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr ""
+msgstr "iconVisualization"
 
 #: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr ""
+msgstr "logoCI"
 
 #: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr ""
+msgstr "logoLund"
 
 #: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr ""
+msgstr "logoNASA"
 
 #: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr ""
+msgstr "logoGEF"

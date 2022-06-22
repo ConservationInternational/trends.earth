@@ -101,7 +101,7 @@ logger.log(
 translator = QtCore.QTranslator()
 locale = QtCore.QLocale(QgsApplication.locale())
 logger.log('Trying to load locale {} from {}.'.format(locale.name(), i18n_dir))
-translator.load(locale, 'LDMP', prefix='.', directory=i18n_dir, suffix='.qm')
+translator.load(locale, 'LDMP', '_', directory=i18n_dir, suffix='.qm')
 ret = QtCore.QCoreApplication.installTranslator(translator)
 
 if ret:

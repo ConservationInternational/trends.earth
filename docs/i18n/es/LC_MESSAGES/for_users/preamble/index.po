@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-24 18:41-0400\n"
+"POT-Creation-Date: 2022-06-21 17:06-0400\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
@@ -24,7 +24,7 @@ msgstr ""
 
 #: ../../source/for_users/preamble/index.rst:4
 msgid "Preamble"
-msgstr ""
+msgstr "Preámbulo"
 
 #: ../../source/for_users/preamble/index.rst:5
 msgid ""
@@ -32,6 +32,10 @@ msgid ""
 "It is now available as a browser-based tool in addition to the plugin to "
 "desktop QGIS spatial-analytical software."
 msgstr ""
+"Trends.Earth es la plataforma para el seguimiento del cambio terrestre "
+"mediante las observaciones de la Tierra. Ahora está presente como "
+"herramienta basada en un navegador, además del complemento del software de "
+"análisis espacial QGIS de escritorio."
 
 #: ../../source/for_users/preamble/index.rst:9
 msgid ""
@@ -47,6 +51,21 @@ msgid ""
 " data for reporting commitments to the United Nations Convention to Combat "
 "Desertification (UNCCD) and UN-Habitat."
 msgstr ""
+"La herramienta le permite a los usuarios evaluar series temporales de "
+"indicadores clave del cambio de la tierra para generar mapas y otros "
+"gráficos que pueden apoyar el monitoreo y la presentación de informes, y "
+"para rastrear el impacto de la sustentabilidad de la gestión de la tierra. "
+"La herramienta apoya el seguimiento de los avances en la neutralidad de la "
+"degradación de la tierra (ODS 15.3.1), el consumo de la tierra (ODS 11.3.1),"
+" la modelización de las emisiones de carbono derivadas de la deforestación y"
+" la simulación del secuestro potencial de carbono de las actividades de "
+"restauración. Trends.Earth contribuye al seguimiento y a la presentación de "
+"informes sobre los objetivos de desarrollo sostenible (ODS) 15.3.1 "
+"(superficie de tierra degradada) y 11.3.1 (relación entre la tasa de consumo"
+" de tierra y el crecimiento de la población), ofreciendo una plataforma de "
+"análisis de datos para la notificación de los compromisos contraídos con la "
+"Convención de las Naciones Unidas de Lucha contra la Desertificación (CNULD)"
+" y ONU-Hábitat."
 
 #: ../../source/for_users/preamble/index.rst:18
 msgid ""
@@ -55,6 +74,10 @@ msgid ""
 "`Conservation International`_ works to spotlight and secure the critical "
 "benefits that nature provides to humanity."
 msgstr ""
+"El desarrollo de Trends.Earth fue financiado por el Fondo para el Medio "
+"Ambiente Mundial y la NASA, y dirigido por \"Conservation International\" y "
+"sus socios. \"Conservation International\" trabaja para destacar y asegurar "
+"los beneficios críticos que la naturaleza proporciona a la humanidad."
 
 #: ../../source/for_users/preamble/index.rst:22
 msgid "**Monitor land change**"
@@ -66,6 +89,10 @@ msgid ""
 "platform from `Conservation International`_ for monitoring land change using"
 " earth observations in an innovative desktop and cloud-based system."
 msgstr ""
+"Trends.Earth (anteriormente Land Degradation Monitoring Toolbox) es la "
+"plataforma de \"Conservation Internacional\" para el seguimiento del cambio "
+"de la tierra mediante observaciones terrestres en un innovador sistema de "
+"escritorio y en la nube."
 
 #: ../../source/for_users/preamble/index.rst:30
 msgid "**Track achievement of the sustainable development goals**"
@@ -80,6 +107,13 @@ msgid ""
 "their reporting commitments to the United Nations Convention to Combat "
 "Desertification (UNCCD)."
 msgstr ""
+"Los tres subindicadores para supervisar la consecución de la Neutralidad de "
+"la Degradación de la Tierra (LDN, Meta 15.3 de los Objetivos de Desarrollo "
+"Sostenible, ODS), se apoyan en |trends.earth|: productividad, cubierta "
+"vegetal y carbono orgánico del suelo.  La herramienta sirve también para "
+"ayudar a los países a analizar los datos para preparar sus compromisos de "
+"presentación de informes a la Convención de las Naciones Unidas de Lucha "
+"contra la Desertificación (CNULD).\n"
 
 #: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
 msgid "Trends.Earth"
@@ -108,30 +142,34 @@ msgid ""
 " <_general>` For toolbox users, see the `User Guide <_for_users>` For "
 "developers, see the `Developers Guide <_for_developers>`"
 msgstr ""
+"Para más información sobre la caja de herramientas, consulte la sección "
+"`Información general <_general>` Para los usuarios de la caja de "
+"herramientas, consulte la `Guía del usuario <_for_users>` Para los "
+"desarrolladores, consulte la `Guía del desarrollador <_for_developers>`."
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr ""
+msgstr "iconCalculator"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr ""
+msgstr "iconChart"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr ""
+msgstr "iconClipboard"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr ""
+msgstr "iconCloudDownload"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr ""
+msgstr "iconCog"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr ""
+msgstr "iconDeletedataset"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
@@ -139,60 +177,60 @@ msgstr "iconGlobe"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr ""
+msgstr "iconGraph"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr ""
+msgstr "iconInfo"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr ""
+msgstr "iconLoaddataset"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr ""
+msgstr "iconMarkMarker"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr ""
+msgstr "iconOpendatasetdirectory"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr ""
+msgstr "iconViewdatasetdetails"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr ""
+msgstr "iconWrench"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr ""
+msgstr "iconFolder"
 
 #: ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr ""
+msgstr "iconReports"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr ""
+msgstr "iconTrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr ""
+msgstr "iconVisualization"
 
 #: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr ""
+msgstr "logoCI"
 
 #: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr ""
+msgstr "logoLund"
 
 #: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr ""
+msgstr "logoNASA"
 
 #: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr ""
+msgstr "logoGEF"

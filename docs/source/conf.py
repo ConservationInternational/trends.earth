@@ -99,7 +99,7 @@ relative_path = '../'
 # version name, so need to add another "../"
 if READTHEDOCS_VERSION_NAME_STRING:
     relative_path += '../'
-extlinks = {'index_path': (f'{relative_path}%s{READTHEDOCS_VERSION_NAME_STRING}', '%s')}
+extlinks = {'index_path': (f'{relative_path}%s/{READTHEDOCS_VERSION_NAME_STRING}', '%s')}
 
 rst_epilog = """
 .. |iconCalculator| image:: /static/common/icon-calculator.png

@@ -416,7 +416,12 @@ class AOI(object):
 
             # Calculate the area of this piece of the AOI that the input geom covers
             area_covered += aoi_geom.Intersection(in_geom).GetArea()
-        return area_covered / total_aoi_area
+        try:
+            return area_covered / total_aoi_area
+        except ZeroDivisionError:
+            log(f"Got ZeroDivisionError processing aoi wkts {aoi_wkts}. "
+                "Returning 0 for area of overlap")
+            return 0
 
     def calc_disjoint(self, geom):
         """

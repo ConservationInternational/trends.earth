@@ -75,8 +75,9 @@ ICON_PATH = os.path.join(os.path.dirname(__file__), 'icons')
 settings = QtCore.QSettings()
 
 
-def tr(message):
-    return QtCore.QCoreApplication.translate("tr_settings", message)
+class tr_settings(QtCore.QObject):
+    def tr(txt):
+        return QtCore.QCoreApplication.translate(self.__class__.__name__, txt)
 
 
 # Function to indicate if child is a folder within parent
@@ -111,8 +112,8 @@ def _get_user_email(auth_setup, warn=True):
     if warn and email is None:
         QtWidgets.QMessageBox.critical(
             None,
-            tr("Error"),
-            tr("Please setup access to {auth_setup.name} before "
+            tr_settings.tr("Error"),
+            tr_settings.tr("Please setup access to {auth_setup.name} before "
                "using this function.")
         )
         return None
@@ -250,7 +251,7 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
                 QtWidgets.QMessageBox.information(
                     None,
                     self.tr("Success"),
-                    tr(f'Trends.Earth user {email} deleted.')
+                    self.tr(f'Trends.Earth user {email} deleted.')
                 )
                 # remove currently used config (as set in QSettings) and
                 # trigger GUI
@@ -1159,7 +1160,8 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
         except PermissionError:
             QtWidgets.QMessageBox.critical(None,
                                            self.tr("Error"),
-                                           self.tr("Unable to write to {}. Try a different folder.".format(filename)))
+                                           self.tr("Unable to write to {}. Try a "
+                                                   "different folder.".format(out_folder)))
 
             return None
 

@@ -4,62 +4,43 @@ import os
 import typing
 from pathlib import Path
 
-import qgis.gui
 import qgis.core
-from qgis.PyQt import (
-    QtWidgets,
-    QtGui,
-    QtCore,
-    uic,
-)
+import qgis.gui
+from qgis.PyQt import QtCore
+from qgis.PyQt import QtGui
+from qgis.PyQt import QtWidgets
+from qgis.PyQt import uic
+from te_schemas.algorithms import AlgorithmRunMode
+from te_schemas.jobs import JobStatus
 
-from . import (
-    tr,
-)
-from .algorithms import (
-    models as algorithm_models,
-    mvc as algorithms_mvc,
-)
-from .conf import (
-    ALGORITHM_TREE,
-    KNOWN_SCRIPTS,
-    Setting,
-    settings_manager,
-)
-from .data_io import (
-    DlgDataIOLoadTE,
-    DlgDataIOImportSOC,
-    DlgDataIOImportProd,
-)
-
-from .lc_setup import DlgDataIOImportLC
+from .algorithms import models as algorithm_models
+from .algorithms import mvc as algorithms_mvc
+from .conf import ALGORITHM_TREE
+from .conf import KNOWN_SCRIPTS
+from .conf import Setting
+from .conf import settings_manager
+from .data_io import DlgDataIOImportProd
+from .data_io import DlgDataIOImportSOC
+from .data_io import DlgDataIOLoadTE
 from .download_data import DlgDownload
-from .landpks import DlgLandPKSDownload
-from .jobs.manager import job_manager
 from .jobs import mvc as jobs_mvc
-from .jobs.models import (
-    Job,
-    SortField,
-    TypeFilter
-)
-
-from .utils import (
-    FileUtils,
-    load_object,
-)
+from .jobs.manager import job_manager
+from .jobs.models import Job
+from .jobs.models import SortField
+from .jobs.models import TypeFilter
+from .landpks import DlgLandPKSDownload
+from .lc_setup import DlgDataIOImportLC
 from .logger import log
+from .utils import FileUtils
+from .utils import load_object
 from .visualization import DlgVisualizationBasemap
 
-from te_schemas.jobs import (
-    JobStatus
-)
-from te_schemas.algorithms import AlgorithmRunMode
-
 DockWidgetTrendsEarthUi, _ = uic.loadUiType(
-    str(Path(__file__).parent / "gui/WidgetMain.ui"))
+    str(Path(__file__).parent / "gui/WidgetMain.ui")
+)
 
 
-ICON_PATH = os.path.join(os.path.dirname(__file__), 'icons')
+ICON_PATH = os.path.join(os.path.dirname(__file__), "icons")
 
 
 class UpdateWorker(QtCore.QObject):
@@ -113,9 +94,9 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
     _cache_refresh_togglable_widgets: typing.List[QtWidgets.QWidget]
 
     def __init__(
-            self,
-            iface: qgis.gui.QgisInterface,
-            parent: typing.Optional[QtWidgets.QWidget] = None
+        self,
+        iface: qgis.gui.QgisInterface,
+        parent: typing.Optional[QtWidgets.QWidget] = None,
     ):
         super().__init__(parent)
         self.iface = iface
@@ -141,28 +122,29 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
         self.message_bar_sort_filter = None
 
-        job_manager.refreshed_local_state.connect(
-            self.refresh_after_cache_update)
-        job_manager.refreshed_from_remote.connect(
-            self.refresh_after_cache_update)
-        job_manager.downloaded_job_results.connect(
-            self.refresh_after_cache_update)
+        job_manager.refreshed_local_state.connect(self.refresh_after_cache_update)
+        job_manager.refreshed_from_remote.connect(self.refresh_after_cache_update)
+        job_manager.downloaded_job_results.connect(self.refresh_after_cache_update)
         job_manager.deleted_job.connect(self.refresh_after_cache_update)
-        job_manager.submitted_remote_job.connect(
-            self.refresh_after_job_modified)
-        job_manager.processed_local_job.connect(
-            self.refresh_after_job_modified)
+        job_manager.submitted_remote_job.connect(self.refresh_after_job_modified)
+        job_manager.processed_local_job.connect(self.refresh_after_job_modified)
         job_manager.imported_job.connect(self.refresh_after_job_modified)
 
         self.cache_refresh_about_to_begin.connect(
-            functools.partial(self.toggle_ui_for_cache_refresh, True))
+            functools.partial(self.toggle_ui_for_cache_refresh, True)
+        )
         self.cache_refresh_finished.connect(
-            functools.partial(self.toggle_ui_for_cache_refresh, False))
+            functools.partial(self.toggle_ui_for_cache_refresh, False)
+        )
         self.cache_refresh_about_to_begin.connect(
-            functools.partial(self.toggle_refreshing_state, True))
+            functools.partial(self.toggle_refreshing_state, True)
+        )
         self.cache_refresh_finished.connect(
-            functools.partial(self.toggle_refreshing_state, False))
-        qgis.core.QgsProject.instance().layersRemoved.connect(self.refresh_after_cache_update)
+            functools.partial(self.toggle_refreshing_state, False)
+        )
+        qgis.core.QgsProject.instance().layersRemoved.connect(
+            self.refresh_after_cache_update
+        )
 
         self.clean_empty_directories()
         self.setup_algorithms_tree()
@@ -171,23 +153,32 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.timer = QtCore.QTimer()
         self.timer.timeout.connect(self.perform_periodic_tasks)
         self.timer.start(
-            settings_manager.get_value(Setting.UPDATE_FREQUENCY_MILLISECONDS))
+            settings_manager.get_value(Setting.UPDATE_FREQUENCY_MILLISECONDS)
+        )
 
     def setup_datasets_page_gui(self):
         self.pushButton_refresh.setIcon(
-            QtGui.QIcon(os.path.join(ICON_PATH, 'mActionRefresh.svg')))
+            QtGui.QIcon(os.path.join(ICON_PATH, "mActionRefresh.svg"))
+        )
         self.pushButton_filter.setIcon(
-            QtGui.QIcon(os.path.join(ICON_PATH, 'mActionFilter2.svg')))
+            QtGui.QIcon(os.path.join(ICON_PATH, "mActionFilter2.svg"))
+        )
         self.filter_menu = QtWidgets.QMenu()
-        action_show_all = self.filter_menu.addAction(tr("All"))
+        action_show_all = self.filter_menu.addAction(self.tr("All"))
         action_show_all.setCheckable(True)
-        action_show_all.triggered.connect(lambda: self.type_filter_changed(TypeFilter.ALL))
-        action_show_raster = self.filter_menu.addAction(tr("Raster"))
+        action_show_all.triggered.connect(
+            lambda: self.type_filter_changed(TypeFilter.ALL)
+        )
+        action_show_raster = self.filter_menu.addAction(self.tr("Raster"))
         action_show_raster.setCheckable(True)
-        action_show_raster.triggered.connect(lambda: self.type_filter_changed(TypeFilter.RASTER))
-        action_show_vector = self.filter_menu.addAction(tr("Vector"))
+        action_show_raster.triggered.connect(
+            lambda: self.type_filter_changed(TypeFilter.RASTER)
+        )
+        action_show_vector = self.filter_menu.addAction(self.tr("Vector"))
         action_show_vector.setCheckable(True)
-        action_show_vector.triggered.connect(lambda: self.type_filter_changed(TypeFilter.VECTOR))
+        action_show_vector.triggered.connect(
+            lambda: self.type_filter_changed(TypeFilter.VECTOR)
+        )
         filter_action_group = QtWidgets.QActionGroup(self)
         filter_action_group.addAction(action_show_all)
         filter_action_group.addAction(action_show_raster)
@@ -195,87 +186,93 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         action_show_all.setChecked(True)
         self.pushButton_filter.setMenu(self.filter_menu)
 
-        self.import_menu=QtWidgets.QMenu()
-        action_import_known_dataset=self.import_menu.addAction(
-            tr("Load existing Trends.Earth output file...")
+        self.import_menu = QtWidgets.QMenu()
+        action_import_known_dataset = self.import_menu.addAction(
+            self.tr("Load existing Trends.Earth output file...")
         )
-        action_import_known_dataset.triggered.connect(
-            self.import_known_dataset)
-        action_import_productivity_dataset=self.import_menu.addAction(
-            tr("Import custom Productivity dataset...")
+        action_import_known_dataset.triggered.connect(self.import_known_dataset)
+        action_import_productivity_dataset = self.import_menu.addAction(
+            self.tr("Import custom Productivity dataset...")
         )
         action_import_productivity_dataset.triggered.connect(
-            self.import_productivity_dataset)
-        action_import_land_cover_dataset=self.import_menu.addAction(
-            tr("Import custom Land Cover dataset...")
+            self.import_productivity_dataset
+        )
+        action_import_land_cover_dataset = self.import_menu.addAction(
+            self.tr("Import custom Land Cover dataset...")
         )
         action_import_land_cover_dataset.triggered.connect(
-            self.import_land_cover_dataset)
-        action_import_soil_organic_carbon_dataset=self.import_menu.addAction(
-            tr("Import custom Soil Organic Carbon dataset...")
+            self.import_land_cover_dataset
+        )
+        action_import_soil_organic_carbon_dataset = self.import_menu.addAction(
+            self.tr("Import custom Soil Organic Carbon dataset...")
         )
         action_import_soil_organic_carbon_dataset.triggered.connect(
-            self.import_soil_organic_carbon_dataset)
+            self.import_soil_organic_carbon_dataset
+        )
         self.import_dataset_pb.setMenu(self.import_menu)
         self.import_dataset_pb.setIcon(
-            QtGui.QIcon(os.path.join(ICON_PATH, "mActionSharingImport.svg")))
+            QtGui.QIcon(os.path.join(ICON_PATH, "mActionSharingImport.svg"))
+        )
 
-        self.download_menu=QtWidgets.QMenu()
-        action_download_raw=self.download_menu.addAction(
-            tr("Download raw dataset used in Trends.Earth...")
+        self.download_menu = QtWidgets.QMenu()
+        action_download_raw = self.download_menu.addAction(
+            self.tr("Download raw dataset used in Trends.Earth...")
         )
         action_download_raw.triggered.connect(self.download_data)
-        action_download_landpks=self.download_menu.addAction(
-            tr("Download Land Potential Knowledge System (LandPKS) data...")
+        action_download_landpks = self.download_menu.addAction(
+            self.tr("Download Land Potential Knowledge System (LandPKS) data...")
         )
         action_download_landpks.triggered.connect(self.download_landpks)
         self.pushButton_download.setMenu(self.download_menu)
         self.pushButton_download.setIcon(
-            QtGui.QIcon(os.path.join(ICON_PATH, "cloud-download.svg")))
+            QtGui.QIcon(os.path.join(ICON_PATH, "cloud-download.svg"))
+        )
 
         self.pushButton_download.clicked.connect(self.download_data)
 
-        self.pushButton_load.setIcon(QtGui.QIcon(
-            os.path.join(ICON_PATH, 'document.svg')))
+        self.pushButton_load.setIcon(
+            QtGui.QIcon(os.path.join(ICON_PATH, "document.svg"))
+        )
         self.pushButton_load.clicked.connect(self.load_base_map)
         self.pushButton_refresh.clicked.connect(self.perform_single_update)
 
         self.error_recode_menu = QtWidgets.QMenu()
         action_create_error_recode = self.error_recode_menu.addAction(
-            tr("Create false positive/negative layer")
+            self.tr("Create false positive/negative layer")
         )
         action_create_error_recode.triggered.connect(self.create_error_recode)
         self.create_layer_pb.setMenu(self.error_recode_menu)
-        #self.create_layer_pb.setIcon(
+        # self.create_layer_pb.setIcon(
         #    QtGui.QIcon(os.path.join(ICON_PATH, "cloud-download.svg")))
 
         # to allow emit entered events and manage editing over mouse
         self.datasets_tv.setMouseTracking(True)
         # add ... to wrap DisplayRole text... to have a real wrap need a custom widget
         self.datasets_tv.setWordWrap(True)
-        self.datasets_tv_delegate=jobs_mvc.JobItemDelegate(
-            self, parent=self.datasets_tv)
+        self.datasets_tv_delegate = jobs_mvc.JobItemDelegate(
+            self, parent=self.datasets_tv
+        )
         self.datasets_tv.setItemDelegate(self.datasets_tv_delegate)
-        self.datasets_tv.setEditTriggers(
-            QtWidgets.QAbstractItemView.AllEditTriggers)
+        self.datasets_tv.setEditTriggers(QtWidgets.QAbstractItemView.AllEditTriggers)
         # self.datasets_tv.clicked.connect(self._manage_datasets_tree_view)
         self.datasets_tv.entered.connect(self._manage_datasets_tree_view)
 
     def refresh_after_cache_update(self):
-        current_dataset_index=self.datasets_tv_delegate.current_index
+        current_dataset_index = self.datasets_tv_delegate.current_index
 
         if current_dataset_index is not None:
-            has_open_editor=self.datasets_tv.isPersistentEditorOpen(
-                current_dataset_index)
+            has_open_editor = self.datasets_tv.isPersistentEditorOpen(
+                current_dataset_index
+            )
 
             if has_open_editor:
                 self.datasets_tv.closePersistentEditor(current_dataset_index)
-            self.datasets_tv_delegate.current_index=None
+            self.datasets_tv_delegate.current_index = None
 
         maybe_download_finished_results()
-        model=jobs_mvc.JobsModel(job_manager)
+        model = jobs_mvc.JobsModel(job_manager)
         # self.datasets_tv.setModel(model)
-        self.proxy_model=jobs_mvc.JobsSortFilterProxyModel(SortField.DATE)
+        self.proxy_model = jobs_mvc.JobsSortFilterProxyModel(SortField.DATE)
         self.type_filter_changed(TypeFilter.ALL)
         self.filter_changed("")
         action = self.filter_menu.actions()[0]
@@ -319,20 +316,17 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
                 Setting.LOCAL_POLLING_FREQUENCY
             )
 
-            if _should_run(
-                    local_frequency,
-                    self.last_refreshed_local_state
-            ):
+            if _should_run(local_frequency, self.last_refreshed_local_state):
                 # lets check if we also need to update from remote, as that takes
                 # precedence
                 if settings_manager.get_value(Setting.POLL_REMOTE):
                     remote_frequency = settings_manager.get_value(
                         Setting.REMOTE_POLLING_FREQUENCY
                     )
-                    if _should_run(
-                            remote_frequency,
-                            self.last_refreshed_remote_state
-                    ) and not self.remote_refresh_running:
+                    if (
+                        _should_run(remote_frequency, self.last_refreshed_remote_state)
+                        and not self.remote_refresh_running
+                    ):
                         run_remote_worker = True
                     else:
                         run_local_worker = True
@@ -359,9 +353,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.pu_thread.started.connect(self.pu_worker.run)
         self.pu_thread.started.connect(_update_local_refreshing_state)
         self.pu_worker.finished.connect(self.pu_thread.quit)
-        self.pu_thread.finished.connect(
-            self._on_finish_updating_local_state
-        )
+        self.pu_thread.finished.connect(self._on_finish_updating_local_state)
         self.pu_worker.finished.connect(self.pu_worker.deleteLater)
         self.pu_thread.finished.connect(self.pu_thread.deleteLater)
 
@@ -384,9 +376,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.rs_worker.moveToThread(self.rs_thread)
         self.rs_thread.started.connect(self.rs_worker.run)
         self.rs_worker.finished.connect(self.rs_thread.quit)
-        self.rs_thread.finished.connect(
-            self._on_finish_updating_remote_state
-        )
+        self.rs_thread.finished.connect(self._on_finish_updating_remote_state)
         self.rs_worker.finished.connect(self.rs_worker.deleteLater)
         self.rs_thread.finished.connect(self.rs_thread.deleteLater)
 
@@ -408,7 +398,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         """Remove any Job or Dataset empty folder. Job or Dataset folder can be empty
         due to delete action by the user.
         """
-        base_data_directory=settings_manager.get_value(Setting.BASE_DIR)
+        base_data_directory = settings_manager.get_value(Setting.BASE_DIR)
 
         if not base_data_directory:
             return
@@ -417,23 +407,21 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             for folder in folders:
                 # floder leaf is empty if ('folder', [], [])
 
-                if (not folder[1] and
-                     not folder[2]):
+                if not folder[1] and not folder[2]:
                     os.rmdir(folder[0])
 
-
         # remove empty Jobs folders
-        jobs_path=os.path.join(base_data_directory, 'Jobs')
-        folders=list(os.walk(jobs_path))[1:]
+        jobs_path = os.path.join(base_data_directory, "Jobs")
+        folders = list(os.walk(jobs_path))[1:]
         clean(folders)
 
         # remove empty Datasets folders
-        datasets_path=os.path.join(base_data_directory, 'outputs')
-        folders=list(os.walk(datasets_path))[1:]
+        datasets_path = os.path.join(base_data_directory, "outputs")
+        folders = list(os.walk(datasets_path))[1:]
         clean(folders)
 
     def perform_single_update(self):
-        #self.update_from_remote_state()
+        # self.update_from_remote_state()
         self._run_remote_update_worker()
 
     def set_remote_refresh_running(self, val: bool = True):
@@ -471,11 +459,13 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             log("updating local state...")
         self.cache_refresh_about_to_begin.emit()
         job_manager.refresh_local_state()
-        self.last_refreshed_local_state=dt.datetime.now(tz=dt.timezone.utc)
+        self.last_refreshed_local_state = dt.datetime.now(tz=dt.timezone.utc)
 
     def toggle_ui_for_cache_refresh(self, refresh_started: bool):
         if settings_manager.get_value(Setting.DEBUG):
-            log(f"toggle_ui_for_cache_refresh called. refresh_started: {refresh_started}")
+            log(
+                f"toggle_ui_for_cache_refresh called. refresh_started: {refresh_started}"
+            )
 
         for widget in self._cache_refresh_togglable_widgets:
             widget.setEnabled(not refresh_started)
@@ -489,13 +479,13 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.refresh_after_cache_update()
 
     def filter_changed(self, filter_string: str):
-        special_chars=[
+        special_chars = [
             "*",
             ".",
             "[",
             "]",
         ]
-        has_special_char=False
+        has_special_char = False
 
         for char in filter_string:
             if char in special_chars:
@@ -504,11 +494,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
                 break
         filter_ = filter_string if has_special_char else f"{filter_string}*"
         self.proxy_model.setFilterRegExp(
-            QtCore.QRegExp(
-                filter_,
-                QtCore.Qt.CaseInsensitive,
-                QtCore.QRegExp.Wildcard
-            )
+            QtCore.QRegExp(filter_, QtCore.Qt.CaseInsensitive, QtCore.QRegExp.Wildcard)
         )
 
     def type_filter_changed(self, type_filter: TypeFilter):
@@ -518,23 +504,20 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
     def setup_algorithms_tree(self):
         self.algorithms_tv.setStyleSheet(
-            'QTreeView { selection-background-color: white; selection-color: black }'
+            "QTreeView { selection-background-color: white; selection-color: black }"
         )
         # NOTE: mouse tracking is needed in order to use the `entered` signal, which
         # we need (check below)
         self.algorithms_tv.setMouseTracking(True)
         # add ... to wrap DisplayRole text... to have a real wrap need a custom widget
         self.algorithms_tv.setWordWrap(True)
-        model=algorithms_mvc.AlgorithmTreeModel(ALGORITHM_TREE)
+        model = algorithms_mvc.AlgorithmTreeModel(ALGORITHM_TREE)
         self.algorithms_tv.setModel(model)
-        self.algorithms_tv_delegate=algorithms_mvc.AlgorithmItemDelegate(
-            self.launch_algorithm_execution_dialogue,
-            self,
-            self.algorithms_tv
+        self.algorithms_tv_delegate = algorithms_mvc.AlgorithmItemDelegate(
+            self.launch_algorithm_execution_dialogue, self, self.algorithms_tv
         )
         self.algorithms_tv.setItemDelegate(self.algorithms_tv_delegate)
-        self.algorithms_tv.setEditTriggers(
-            QtWidgets.QAbstractItemView.AllEditTriggers)
+        self.algorithms_tv.setEditTriggers(QtWidgets.QAbstractItemView.AllEditTriggers)
         self.algorithms_tv.entered.connect(self._manage_algorithm_tree_view)
         self.tabWidget.setCurrentIndex(self._SUB_INDICATORS_TAB_PAGE)
 
@@ -549,22 +532,20 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             self.pushButton_refresh.setEnabled(True)
 
     def pause_scheduler(self):
-        self.scheduler_paused=True
+        self.scheduler_paused = True
 
     def resume_scheduler(self):
-        self.scheduler_paused=False
+        self.scheduler_paused = False
 
     def launch_algorithm_execution_dialogue(
-            self,
-            algorithm: algorithm_models.Algorithm,
-            run_mode: AlgorithmRunMode
+        self, algorithm: algorithm_models.Algorithm, run_mode: AlgorithmRunMode
     ):
-        algorithm_script=_get_script(algorithm, run_mode)
-        dialog_class_path=algorithm_script.parametrization_dialogue
-        dialog_class=load_object(dialog_class_path)
-        dialog=dialog_class(self.iface, algorithm_script.script, parent=self)
+        algorithm_script = _get_script(algorithm, run_mode)
+        dialog_class_path = algorithm_script.parametrization_dialogue
+        dialog_class = load_object(dialog_class_path)
+        dialog = dialog_class(self.iface, algorithm_script.script, parent=self)
         self.pause_scheduler()
-        result=dialog.exec_()
+        result = dialog.exec_()
 
         if result == QtWidgets.QDialog.Rejected:
             self.resume_scheduler()
@@ -586,19 +567,20 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
 
         if index.isValid():
             # current_item = index.internalPointer()
-            source_index=self.proxy_model.mapToSource(index)
-            current_item=source_index.internalPointer()
+            source_index = self.proxy_model.mapToSource(index)
+            current_item = source_index.internalPointer()
             current_item: Job
 
             if current_item is not None:
-                previous_index=self.datasets_tv_delegate.current_index
-                index_changed=index != previous_index
+                previous_index = self.datasets_tv_delegate.current_index
+                index_changed = index != previous_index
 
                 if previous_index is not None:
-                    previously_open=self.datasets_tv.isPersistentEditorOpen(
-                        previous_index)
+                    previously_open = self.datasets_tv.isPersistentEditorOpen(
+                        previous_index
+                    )
                 else:
-                    previously_open=False
+                    previously_open = False
 
                 if index_changed and previously_open:
                     self.datasets_tv.closePersistentEditor(previous_index)
@@ -610,7 +592,7 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
                 elif not index_changed and not previously_open:
                     self.datasets_tv.openPersistentEditor(index)
 
-            self.datasets_tv_delegate.current_index=index
+            self.datasets_tv_delegate.current_index = index
 
     def _manage_algorithm_tree_view(self, index: QtCore.QModelIndex):
         """Manage algorithm treeview's editing
@@ -624,23 +606,24 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         """
 
         if index.isValid():
-            current_item=index.internalPointer()
+            current_item = index.internalPointer()
             current_item: typing.Union[
-                algorithm_models.AlgorithmGroup, algorithm_models.Algorithm]
-            is_algorithm=(
-                    current_item.item_type ==
-                    algorithm_models.AlgorithmNodeType.Algorithm
+                algorithm_models.AlgorithmGroup, algorithm_models.Algorithm
+            ]
+            is_algorithm = (
+                current_item.item_type == algorithm_models.AlgorithmNodeType.Algorithm
             )
 
             if current_item is not None and is_algorithm:
-                previous_index=self.algorithms_tv_delegate.current_index
-                index_changed=index != previous_index
+                previous_index = self.algorithms_tv_delegate.current_index
+                index_changed = index != previous_index
 
                 if previous_index is not None:
-                    previously_open=self.algorithms_tv.isPersistentEditorOpen(
-                        previous_index)
+                    previously_open = self.algorithms_tv.isPersistentEditorOpen(
+                        previous_index
+                    )
                 else:
-                    previously_open=False
+                    previously_open = False
 
                 if index_changed and previously_open:
                     self.algorithms_tv.closePersistentEditor(previous_index)
@@ -651,75 +634,68 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
                     pass
                 elif not index_changed and not previously_open:
                     self.algorithms_tv.openPersistentEditor(index)
-            self.algorithms_tv_delegate.current_index=index
+            self.algorithms_tv_delegate.current_index = index
 
     def load_base_map(self):
-        dialogue=DlgVisualizationBasemap(self)
+        dialogue = DlgVisualizationBasemap(self)
         dialogue.exec_()
 
-
     def download_data(self):
-        dialogue=DlgDownload(
-            self.iface,
-            KNOWN_SCRIPTS["download-data"],
-            self
-        )
+        dialogue = DlgDownload(self.iface, KNOWN_SCRIPTS["download-data"], self)
         dialogue.exec_()
 
     def download_landpks(self):
-        dialogue=DlgLandPKSDownload(
-            self.iface,
-            KNOWN_SCRIPTS["download-landpks"],
-            self
+        dialogue = DlgLandPKSDownload(
+            self.iface, KNOWN_SCRIPTS["download-landpks"], self
         )
         dialogue.exec_()
 
     def import_known_dataset(self, action: QtWidgets.QAction):
-        dialogue=DlgDataIOLoadTE(self)
+        dialogue = DlgDataIOLoadTE(self)
         dialogue.exec_()
 
     def import_productivity_dataset(self, action: QtWidgets.QAction):
         log("import_productivity_dataset called")
-        dialogue=DlgDataIOImportProd(self)
+        dialogue = DlgDataIOImportProd(self)
         dialogue.exec_()
 
     def import_land_cover_dataset(self, action: QtWidgets.QAction):
         log("import_land_cover_dataset called")
-        dialogue=DlgDataIOImportLC(self)
+        dialogue = DlgDataIOImportLC(self)
         dialogue.exec_()
 
     def import_soil_organic_carbon_dataset(self, action: QtWidgets.QAction):
         log("import_soil_organic_carbon_dataset called")
-        dialogue=DlgDataIOImportSOC(self)
+        dialogue = DlgDataIOImportSOC(self)
         dialogue.exec_()
 
 
 def maybe_download_finished_results():
-    dataset_auto_download=settings_manager.get_value(Setting.DOWNLOAD_RESULTS)
+    dataset_auto_download = settings_manager.get_value(Setting.DOWNLOAD_RESULTS)
 
     if dataset_auto_download:
         if len(job_manager.known_jobs[JobStatus.FINISHED]) > 0:
             log("downloading results...")
             job_manager.download_available_results()
 
+
 def _should_run(periodic_frequency_seconds: int, last_run: dt.datetime):
     """Check whether some periodic task should be run"""
-    now=dt.datetime.now(tz=dt.timezone.utc)
+    now = dt.datetime.now(tz=dt.timezone.utc)
     try:
-        delta=now - last_run
+        delta = now - last_run
     except TypeError:
-        delta=dt.timedelta(seconds=periodic_frequency_seconds)
+        delta = dt.timedelta(seconds=periodic_frequency_seconds)
 
     return True if delta.seconds >= periodic_frequency_seconds else False
 
 
 def _get_script(
-        algorithm: algorithm_models.Algorithm,
-        run_mode: AlgorithmRunMode
+    algorithm: algorithm_models.Algorithm, run_mode: AlgorithmRunMode
 ) -> algorithm_models.AlgorithmScript:
     for algorithm_script in algorithm.scripts:
         if algorithm_script.script.run_mode == run_mode:
-            result=algorithm_script
+            result = algorithm_script
 
             break
     else:

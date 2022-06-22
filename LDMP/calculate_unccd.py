@@ -40,11 +40,6 @@ DlgCalculateUNCCDReportUi, _ = uic.loadUiType(
 )
 
 
-class tr_calculate_unccd(object):
-    def tr(self, message):
-        return QtCore.QCoreApplication.translate("tr_calculate_unccd", message)
-
-
 class DlgCalculateUNCCD(DlgCalculateBase, DlgCalculateUNCCDUi):
     def __init__(
         self,

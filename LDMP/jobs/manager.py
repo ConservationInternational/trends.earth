@@ -1,3 +1,4 @@
+import datetime
 import datetime as dt
 import json
 import logging
@@ -5,6 +6,7 @@ import os
 import re
 import shutil
 import typing
+from copy import deepcopy
 import urllib.parse
 import uuid
 from pathlib import Path
@@ -153,17 +155,19 @@ class LocalJobTask(QgsTask):
     def __init__(self, description, job, area_of_interest):
         super().__init__(description, QgsTask.CanCancel)
         self.job = job
+        self.job_copy = deepcopy(job) # ensure job in main thread is not accessed
         self.area_of_interest = area_of_interest
+        self.results = None
 
     def run(self):
         logger.debug('Running task')
-        execution_handler = utils.load_object(self.job.script.execution_callable)
-        job_output_path, dataset_output_path = _get_local_job_output_paths(self.job)
-        self.completed_job = execution_handler(
-            self.job, self.area_of_interest, job_output_path, dataset_output_path
+        execution_handler = utils.load_object(self.job_copy.script.execution_callable)
+        job_output_path, dataset_output_path = _get_local_job_output_paths(self.job_copy)
+        self.results = execution_handler(
+            self.job_copy, self.area_of_interest, job_output_path, dataset_output_path
         )
 
-        if self.completed_job is None:
+        if self.results is None:
             logger.debug('Completed run function - failure')
             return False
         else:
@@ -172,8 +176,11 @@ class LocalJobTask(QgsTask):
 
     def finished(self, result):
         logger.debug('Finished task')
+        self.job.end_date = dt.datetime.now(dt.timezone.utc)
+        self.job.progress = 100
         if result:
-            self.processed_job.emit(self.completed_job)
+            self.job.results = self.results
+            self.processed_job.emit(self.job)
             logger.debug('Task succeeded')
         else:
             logger.debug('Task failed')
@@ -203,6 +210,7 @@ class JobManager(QtCore.QObject):
         super().__init__(*args, **kwargs)
         self.clear_known_jobs()
         self.tm = QgsApplication.taskManager()
+        self._state_update_mutex = QtCore.QMutex()
 
     @property
     def known_jobs(self):
@@ -280,6 +288,7 @@ class JobManager(QtCore.QObject):
         The filesystem is the source of truth for existing job metadata files and
         available results.
         """
+        self._state_update_mutex.lock()
 
         self._known_running_jobs = {
             j.id: j
@@ -318,6 +327,9 @@ class JobManager(QtCore.QObject):
         # downloaded (or are old and failed)
         self._get_local_finished_jobs()
         self._get_local_failed_jobs()
+
+        self._state_update_mutex.unlock()
+
         self.refreshed_local_state.emit()
 
     def refresh_from_remote_state(self, emit_signal: bool = True):
@@ -356,6 +368,7 @@ class JobManager(QtCore.QObject):
          job metadata file to the `finished-jobs` directory on disk
 
         """
+        self._state_update_mutex.lock()
 
         now = dt.datetime.now(tz=dt.timezone.utc)
         relevant_date = now - dt.timedelta(
@@ -381,6 +394,8 @@ class JobManager(QtCore.QObject):
         self._refresh_local_finished_jobs(relevant_remote_jobs)
         self._refresh_local_downloaded_jobs()
         self._refresh_local_generated_jobs()
+
+        self._state_update_mutex.unlock()
 
         if emit_signal:
             self.refreshed_from_remote.emit()

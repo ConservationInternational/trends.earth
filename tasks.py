@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 import fnmatch
 import glob
 import hashlib
@@ -12,13 +11,17 @@ import stat
 import subprocess
 import sys
 import zipfile
-from datetime import datetime, timezone
+from datetime import datetime
+from datetime import timezone
 from pathlib import Path
-from tempfile import TemporaryDirectory, mkstemp
+from pathlib import PurePath
+from tempfile import mkstemp
+from tempfile import TemporaryDirectory
 
 import boto3
 import requests
-from invoke import Collection, task
+from invoke import Collection
+from invoke import task
 
 
 # Below is from:
@@ -950,10 +953,13 @@ def translate_push(c, force=False, version=3):
     print("Building changelog...")
     changelog_build(c)
 
+    print("Building download page...")
+    build_download_page(c)
+
     # Below is necessary just to avoid warning messages regarding missing image
     # files when Sphinx is used later on
     print("Localizing resources...")
-    _localize_resources(c, 'en')
+    localize_resources(c, 'en')
 
     print("Gathering strings...")
     gettext(c)
@@ -1085,6 +1091,9 @@ def docs_build(c, clean=False, ignore_errors=False, language=None, fast=False):
     print("\nBuilding changelog...")
     changelog_build(c)
 
+    print("\nBuilding download page...")
+    build_download_page(c)
+
     for language in languages:
         print("\nBuilding {lang} documentation...".format(lang=language))
         SPHINX_OPTS = '-D language={lang} -A language={lang} {sourcedir}'.format(
@@ -1096,7 +1105,7 @@ def docs_build(c, clean=False, ignore_errors=False, language=None, fast=False):
                 lang=language
             )
         )
-        _localize_resources(c, language)
+        localize_resources(c, language)
 
         subprocess.check_call(
             "sphinx-intl --config {sourcedir}/conf.py build --language={lang}".
@@ -1160,7 +1169,10 @@ def docs_build(c, clean=False, ignore_errors=False, language=None, fast=False):
             )
 
 
-def _localize_resources(c, language):
+def localize_resources(c, language=None):
+    if language is None:
+        language = c.sphinx.base_language
+
     print(
         "Removing all static content from {sourcedir}/static.".format(
             sourcedir=c.sphinx.sourcedir
@@ -1209,6 +1221,39 @@ def _localize_resources(c, language):
                 shutil.copy2(s, d)
 
 
+def check_docs_image_ext(c):
+    """
+    Check the capitalization of *.png images for docs. They should be in
+    lowercase otherwise they will be skipped from the build process as Linux
+    is case-sensitive w.r.t. file extensions.
+    """
+    res_dir = c.sphinx.resourcedir
+    if not os.path.exists(res_dir):
+        print('doc\'s resource directory does not exist. Unable to browse image files.')
+        return
+
+    for p in Path(res_dir).rglob('*.PNG'):
+        if p.suffix.isupper():
+            np = Path(f"{p.with_suffix('').as_posix()}.png")
+            os.rename(p.as_posix(), np.as_posix())
+
+
+@task
+def rtd_pre_build(c):
+    """
+    Checks capitalization and copies docs resources based on language
+    prior to build in RTD.
+    """
+    print('Checking case of image extensions...')
+    check_docs_image_ext(c)
+    print('Copying docs resources based on language...')
+    localize_resources(c)
+    print("Building download page...")
+    build_download_page(c)
+    print("Building changelog...")
+    changelog_build(c)
+
+
 @task
 def changelog_build(c):
     out_txt = [
@@ -1251,6 +1296,136 @@ def changelog_build(c):
     with open(out_file, 'w') as fout:
         metadata = fout.writelines(out_txt)
 
+
+def _make_download_link(c, title, key, data):
+    filename = data.get(key, "")
+    if filename:
+        return (
+            f'[{title}]'
+            f'(https://{c.data_downloads.s3_bucket}/'
+            f'{c.data_downloads.s3_prefix}{filename})'
+        )
+    else:
+        return ''
+
+
+def _make_sdg_download_row(c, iso, data):
+    return (
+        f'| {iso} | ' +
+        f'{_make_download_link(c, f"{iso} (JRC LPD)", "JRC-LPD-5", data)} | ' +
+        f'{_make_download_link(c, f"{iso} (Trends.Earth LPD)", "TrendsEarth-LPD-5", data)} | ' +
+        f'{_make_download_link(c, f"{iso} (FAO-WOCAT LPD)", "FAO-WOCAT-LPD-5", data)} |\n'
+    )
+
+def _make_drought_download_row(c, iso, data):
+    return (
+        f'| {iso} | ' +
+        f'{_make_download_link(c, f"{iso} (Drought)", "Drought", data)} |\n'
+    )
+
+
+@task
+def build_download_page(c):
+    out_txt = '''# Downloads
+
+This page lists data packages containing default datasets that can be used in
+Trends.Earth.
+
+**This site and the products of Trends.Earth are made available under the terms of the
+Creative Commons Attribution 4.0 International License (CC BY 4.0). The boundaries and
+names used, and the designations used, do not imply official endorsement or acceptance
+by Conservation International Foundation, or its partner organizations and
+contributors.**
+
+## SDG Indicator 15.3.1 (UNCCD Strategic Objectives 1 and 2)
+
+The below datasets can be used to support assessing SDG Indicator 15.3.1, and include
+indicators of change in land productivity dynamics (LPD), land cover, and soil organic
+carbon. These datasets can be used to support reporting on UNCCD Strategic Objectives 1
+and 2. Note that there are three different LPD datasets available (from JRC, from
+the default Trends.Earth method, and from FAO-WOCAT).
+
+| Country | SDG 15.3.1 using JRC LPD | SDG 15.3.1 using Trends.Earth LPD  | SDG 15.3.1 using FAO-WOCAT LPD |
+|---------|---------|--------------------|---------------|
+'''
+
+    try:
+        with open(
+            os.path.join(os.path.dirname(__file__), 'aws_credentials.json'), 'r'
+        ) as fin:
+            keys = json.load(fin)
+        client = boto3.client(
+            's3',
+            aws_access_key_id=keys['access_key_id'],
+            aws_secret_access_key=keys['secret_access_key']
+        )
+    except FileNotFoundError:
+        print('Failed to read AWS keys from aws_credentials.json - keys must be in '
+              'environment variable')
+        client = boto3.client('s3')
+
+    objects = client.list_objects(
+        Bucket=c.data_downloads.s3_bucket, Prefix=c.data_downloads.s3_prefix
+    )['Contents']
+
+    sdg_links = {}
+    for item in objects:
+        if item['Key'] == c.data_downloads.s3_prefix:
+            # Skip the key that is just the parent folder itself
+            continue
+        filename = PurePath(item['Key']).name
+        iso = re.match('[A-Z]{3}', filename)[0]
+        
+        if iso not in sdg_links:
+            sdg_links[iso] = {}
+
+        if re.search('SDG15_JRC-LPD-5', filename):
+            sdg_links[iso]['JRC-LPD-5'] = filename
+        elif re.search('SDG15_TrendsEarth-LPD-5', filename):
+            sdg_links[iso]['TrendsEarth-LPD-5'] = filename
+        elif re.search('SDG15_FAO-WOCAT-LPD-5', filename):
+            sdg_links[iso]['FAO-WOCAT-LPD-5'] = filename
+        else:
+            continue
+
+    for iso, values in sdg_links.items():
+        out_txt += _make_sdg_download_row(c, iso, values)
+
+
+    out_txt +='''
+
+## Drought hazard, vulnerability and exposure (UNCCD Strategic Objective 3)
+
+The below datasets can be used to support assessing drought hazard, vulnerability, and
+exposure, and for reporting on UNCCD Strategic Objective 3.
+
+| Country | Drought indicators (2000-2019) |
+|---------|--------------------------------|
+'''
+
+    drought_links = {}
+    for item in objects:
+        if item['Key'] == c.data_downloads.s3_prefix:
+            # Skip the key that is just the parent folder itself
+            continue
+        filename = PurePath(item['Key']).name
+        iso = re.match('[A-Z]{3}', filename)[0]
+        
+        if iso not in drought_links:
+            drought_links[iso] = {}
+
+        if re.search('Drought', filename):
+            drought_links[iso]['Drought'] = filename
+        else:
+            continue
+
+    for iso, values in drought_links.items():
+        out_txt += _make_drought_download_row(c, iso, values)
+
+    with open(
+        os.path.join(os.path.dirname(__file__), c.data_downloads.downloads_page), 'w'
+    ) as fout:
+        fout.writelines(out_txt)
 
 ###############################################################################
 # Package plugin zipfile
@@ -1333,15 +1508,16 @@ def _make_zip(zipFile, c):
         'qgis': 'QGIS version to target',
         'clean': 'Clean out dependencies and untracked data files before packaging',
         'pip': 'Path to pip (usually "pip" or "pip3"',
-        'tag': 'Whether to tag on Github'
+        'tag': 'Whether to tag on Github',
+        'filename': 'Name for output file'
     }
 )
-def zipfile_deploy(c, qgis, clean=True, pip='pip', tag=False):
+def zipfile_deploy(c, qgis, clean=True, pip='pip', tag=False, filename=None):
     binaries_sync(c)
     binaries_deploy(c, qgis=qgis)
     print('Binaries uploaded')
 
-    filename = zipfile_build(c, pip=pip, clean=clean, tag=tag)
+    filename = zipfile_build(c, pip=pip, clean=clean, tag=tag, filename=filename)
     try:
         with open(
             os.path.join(os.path.dirname(__file__), 'aws_credentials.json'),
@@ -1669,7 +1845,8 @@ ns = Collection(
     translate_pull, translate_push, changelog_build, tecli_login, tecli_clear,
     tecli_config, tecli_publish, tecli_run, tecli_info, tecli_logs,
     zipfile_build, zipfile_deploy, binaries_compile, binaries_sync,
-    binaries_deploy, release_github, update_script_ids, testdata_sync
+    binaries_deploy, release_github, update_script_ids, testdata_sync,
+    rtd_pre_build, build_download_page
 )
 
 ns.configure(
@@ -1728,23 +1905,20 @@ ns.configure(
             'tecli': '../trends.earth-CLI/tecli'
         },
         'sphinx': {
-            'docroot':
-            'docs',
-            'sourcedir':
-            'docs/source',
-            'builddir':
-            'docs/build',
-            'resourcedir':
-            'docs/resources',
-            'deploy_s3_bucket':
-            'trends.earth',
-            'docs_s3_prefix':
-            'docs/',
-            'transifex_name':
-            'trendsearth',
-            'base_language':
-            'en',
+            'docroot': 'docs',
+            'sourcedir': 'docs/source',
+            'builddir': 'docs/build',
+            'resourcedir': 'docs/resources',
+            'deploy_s3_bucket': 'trends.earth',
+            'docs_s3_prefix': 'docs/',
+            'transifex_name': 'trendsearth-v2',
+            'base_language': 'en',
             'latex_documents': ['Trends.Earth.tex']
+        },
+        'data_downloads': {
+            'downloads_page': 'docs/source/for_users/downloads/index.md',
+            's3_bucket': 'data.trends.earth',
+            's3_prefix': 'unccd_reporting/2016-2019/packages/'
         },
         'github': {
             'api_url': 'https://api.github.com',

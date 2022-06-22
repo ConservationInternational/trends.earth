@@ -82,217 +82,217 @@
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="188"/>
+        <location filename="../conf.py" line="190"/>
         <source>Land degradation</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="192"/>
+        <location filename="../conf.py" line="194"/>
         <source>Sub-indicators for SDG 15.3.1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="193"/>
+        <location filename="../conf.py" line="195"/>
         <source>Calculate SDG 15.3.1 sub-indicators (required prior to 15.3.1 indicator calculation)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="206"/>
+        <location filename="../conf.py" line="208"/>
         <source>Indicator for SDG 15.3.1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="207"/>
+        <location filename="../conf.py" line="209"/>
         <source>Spatial layer and summary table for total boundary</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="210"/>
+        <location filename="../conf.py" line="212"/>
         <source>Calculate SDG 15.3.1 indicator from productivity, land cover, and soil organic carbon sub-indicators</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="223"/>
+        <location filename="../conf.py" line="225"/>
         <source>SDG 15.3.1 error recode (false positive/negative)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="224"/>
+        <location filename="../conf.py" line="226"/>
         <source>Correct any known errors (false positives or negatives) in an SDG 15.3.1 Indicator layer. This can be used to correct misclassifications using expert knowledge or field data.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="240"/>
+        <location filename="../conf.py" line="242"/>
         <source>Land productivity</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="241"/>
+        <location filename="../conf.py" line="243"/>
         <source>Land productivity is the biological productive capacity of land</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="256"/>
+        <location filename="../conf.py" line="258"/>
         <source>Land cover change</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="257"/>
+        <location filename="../conf.py" line="259"/>
         <source>Land cover is the physical material at the surface of the earth. </source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="274"/>
+        <location filename="../conf.py" line="276"/>
         <source>Soil Organic Carbon</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="275"/>
+        <location filename="../conf.py" line="277"/>
         <source>Soil organic carbon is a measure of soil organic matter</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="292"/>
+        <location filename="../conf.py" line="294"/>
         <source>Drought</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="293"/>
+        <location filename="../conf.py" line="295"/>
         <source>Vulnerability and exposure</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="297"/>
+        <location filename="../conf.py" line="299"/>
         <source>Drought vulnerability</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="298"/>
+        <location filename="../conf.py" line="300"/>
         <source>Calculate indicators of drought vulnerability consistent with UNCCD SO3 Good Practice Guidance</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="311"/>
+        <location filename="../conf.py" line="313"/>
         <source>Drought vulnerability summary table</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="312"/>
+        <location filename="../conf.py" line="314"/>
         <source>Summarize drought indicators in alignment with UNCCD SO3 reporting requirements</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="326"/>
+        <location filename="../conf.py" line="328"/>
         <source>UNCCD Reporting</source>
         <translation>Taarifa ya UNCCD</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="327"/>
+        <location filename="../conf.py" line="329"/>
         <source>Summarize data for reporting</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="345"/>
+        <location filename="../conf.py" line="347"/>
         <source>Generate data package for UNCCD reporting</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="346"/>
+        <location filename="../conf.py" line="348"/>
         <source>Summarize Strategic Objective (SO) 1, SO2, and SO3 datasets in proper format for submission to UNCCD for 2021 reporting cycle</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="361"/>
+        <location filename="../conf.py" line="363"/>
         <source>SDG 11.3.1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="362"/>
+        <location filename="../conf.py" line="364"/>
         <source>Urban change and land consumption</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="366"/>
+        <location filename="../conf.py" line="368"/>
         <source>Urban change spatial layer</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="367"/>
+        <location filename="../conf.py" line="369"/>
         <source>Calculate indicators of change in urban extent (SDG 11.3.1 indicator)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="380"/>
+        <location filename="../conf.py" line="382"/>
         <source>Urban change summary table for city</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="381"/>
+        <location filename="../conf.py" line="383"/>
         <source>Calculate table summarizing SDG indicator 11.3.1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="392"/>
+        <location filename="../conf.py" line="394"/>
         <source>Experimental</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="395"/>
+        <location filename="../conf.py" line="397"/>
         <source>Calculate change in total carbon</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="396"/>
+        <location filename="../conf.py" line="398"/>
         <source>Above and below ground, emissions and deforestation</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="402"/>
+        <location filename="../conf.py" line="404"/>
         <source>Calculate change in carbon</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="403"/>
+        <location filename="../conf.py" line="405"/>
         <source>Calculate total carbon (above and below-ground) and emissions from deforestation</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="421"/>
+        <location filename="../conf.py" line="423"/>
         <source>Change in carbon summary table</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="422"/>
+        <location filename="../conf.py" line="424"/>
         <source>Calculate table summarizing change in total carbon</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="435"/>
+        <location filename="../conf.py" line="437"/>
         <source>Potential change in biomass due to restoration</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="436"/>
+        <location filename="../conf.py" line="438"/>
         <source>Above and below ground woody</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="440"/>
+        <location filename="../conf.py" line="442"/>
         <source>Estimate potential impacts of restoration</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="441"/>
+        <location filename="../conf.py" line="443"/>
         <source>Estimate potential change in biomass due to restoration</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="453"/>
+        <location filename="../conf.py" line="455"/>
         <source>Table summarizing likely changes in biomass</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="454"/>
+        <location filename="../conf.py" line="456"/>
         <source>Generate table summarizing potential change in biomass due to restoration</source>
         <translation type="unfinished"/>
     </message>
@@ -472,7 +472,7 @@
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="22"/>
+        <location filename="../conf.py" line="23"/>
         <source>All regions</source>
         <translation type="unfinished"/>
     </message>

@@ -1,0 +1,291 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017-2022, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
+# Alex Zvoleff <azvoleff@conservation.org>, 2022
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 1.99.11\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-06-21 17:06-0400\n"
+"PO-Revision-Date: 2022-06-21 21:07+0000\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
+"Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+
+#: ../../source/for_users/training/errorrecode.rst:4
+msgid "False positive/negative layers"
+msgstr "Capas falsas positivas/negativas"
+
+#: ../../source/for_users/training/errorrecode.rst:6
+msgid ""
+"**Objective**: Learn how to create false positive/negative vector datasets."
+msgstr ""
+"**Objetivo**: Aprender a crear conjuntos de datos vectoriales falsos "
+"positivos/negativos."
+
+#: ../../source/for_users/training/errorrecode.rst:8
+msgid "**Estimated time of completion**: 40 minutes"
+msgstr "**Tiempo estimado de finalización**: 40 minutos"
+
+#: ../../source/for_users/training/errorrecode.rst:10
+msgid "**Internet access**: Not needed"
+msgstr "**Acceso a internet**: No se necesita"
+
+#: ../../source/for_users/training/errorrecode.rst:12
+msgid ""
+"Click on the Trends.Earth toolbar within QGIS, and click on the Trends.Earth"
+" icon."
+msgstr ""
+"Haga clic en la barra de herramientas de Trends.Earth dentro de QGIS, y haga"
+" clic en el icono de Trends.Earth."
+
+#: ../../source/for_users/training/errorrecode.rst:17
+msgid ""
+"The **Trends.Earth** menu will open. In the **Dataset** window, where "
+"existing tasks are listed in the menu if the **Download remotely-generated "
+"datasets automatically** is checked in settings."
+msgstr ""
+"Se abrirá el menú **Trends.Earth**. En la ventana de **Conjuntos de datos**,"
+" donde se enumeran las tareas existentes en el menú si la opción **Descargar"
+" automáticamente los conjuntos de datos generados remotamente** está marcada"
+" en la configuración."
+
+#: ../../source/for_users/training/errorrecode.rst:20
+msgid ""
+"Refer to the :ref:`tut_settings` section of this manual to learn more about "
+"**Advanced settings**"
+msgstr ""
+"Consulte la sección :ref:`tut_settings` de este manual para obtener más "
+"información sobre **Advanced settings*."
+
+#: ../../source/for_users/training/errorrecode.rst:22
+msgid "Select the Refresh button if no datasets appear in the menu."
+msgstr ""
+"Seleccione el botón Actualizar si no aparecen conjuntos de datos en el menú."
+
+#: ../../source/for_users/training/errorrecode.rst:24
+msgid ""
+"Press the **Create** button at the bottom of the **Trends.Earth** menu and "
+"then select **False positive layer**"
+msgstr ""
+"Pulse el botón **Crear** en la parte inferior del menú **Trends.Earth** y "
+"luego seleccione la **Capa positiva falsa**"
+
+#: ../../source/for_users/training/errorrecode.rst:29
+msgid ""
+"A new dataset called \"False positive/negative\" will be added to the "
+"**Dataset** window."
+msgstr ""
+"Se añadirá un nuevo conjunto de datos llamado \"Falso positivo/negativo\" a "
+"la ventana **Conjunto de datos**."
+
+#: ../../source/for_users/training/errorrecode.rst:34
+msgid ""
+"To add the vector dataset to QGIS map canvas for viewing use **Add to "
+"canvas** button"
+msgstr ""
+"Para añadir el conjunto de datos vectoriales al lienzo de mapas QGIS para su"
+" visualización, utilice el botón **Añadir al lienzo**"
+
+#: ../../source/for_users/training/errorrecode.rst:39
+msgid "Layer will be added with the predefined styling as shown below"
+msgstr ""
+"La capa se añadirá con el estilo predefinido como se muestra a continuación"
+
+#: ../../source/for_users/training/errorrecode.rst:44
+msgid ""
+"To define areas in the dataset it is necessary to add it to QGIS map canvas "
+"using **Edit layer** button"
+msgstr ""
+"Para definir áreas en el conjunto de datos es necesario añadirlo al lienzo "
+"de mapas QGIS usando el botón **Editar capa**"
+
+#: ../../source/for_users/training/errorrecode.rst:49
+msgid ""
+"If this is first time when layer added to QGIS canvas a dialog asking for "
+"indicator layers will be shown"
+msgstr ""
+"Si es la primera vez que se añade una capa al lienzo de QGIS, se mostrará un"
+" cuadro de diálogo en el que se solicitan las capas de indicadores"
+
+#: ../../source/for_users/training/errorrecode.rst:54
+msgid ""
+"In this dialog it is necessary to select indicator layers which will be used"
+" to calculate charts. This is one-time action, choice made in this dialog "
+"will be preserved and used in all subsequent edits of this specific vector "
+"dataset."
+msgstr ""
+"En este diálogo es necesario seleccionar las capas de indicadores que se "
+"utilizarán para calcular los gráficos. Esta es una acción única, la elección"
+" hecha en este diálogo se conservará y se utilizará en todas las ediciones "
+"posteriores de este conjunto de datos vectoriales específico."
+
+#: ../../source/for_users/training/errorrecode.rst:56
+msgid ""
+"Once the dataset added to the canvas in editing mode, polygons can be "
+"created using either **Polygon** tool"
+msgstr ""
+"Una vez que el conjunto de datos se añade al lienzo en modo de edición, se "
+"pueden crear polígonos utilizando la herramienta **Polígono** "
+
+#: ../../source/for_users/training/errorrecode.rst:61
+msgid "or **Buffer** tool"
+msgstr "o la herramienta **Buffer** "
+
+#: ../../source/for_users/training/errorrecode.rst:66
+msgid "which can be found on the **Trends.Earth** toolbar."
+msgstr "que se puede encontrar en la barra de herramientas **Trends.Earth**."
+
+#: ../../source/for_users/training/errorrecode.rst:68
+msgid ""
+"The **Polygon** tool used to digitize polygons manually, using the same "
+"point-and-click approach as native QGIS digitizing tools do. When "
+"**Polygon** tool is selected and digitizing started in the top-right corner "
+"of the QGIS map canvas a widget showing area of the polygon will be "
+"displayed."
+msgstr ""
+"La herramienta **Polígono** se utiliza para digitalizar polígonos de forma "
+"manual, utilizando el mismo enfoque de apuntar y hacer clic que las "
+"herramientas de digitalización nativas de QGIS. Cuando se selecciona la "
+"herramienta **Polígono** y se inicia la digitalización en la esquina "
+"superior derecha del lienzo del mapa de QGIS, se muestra un widget que "
+"muestra el área del polígono."
+
+#: ../../source/for_users/training/errorrecode.rst:73
+msgid ""
+"The **Buffer** tool used to digitize polygons by selecting a center point "
+"and defining a radius or area of the circle around that center point. Once "
+"**Buffer** tools is selected and center point defined with the mouse click "
+"in the top-right corner of the QGIS map canvas a widget showing circle "
+"radius will be shown. Enter desired radius and press **Enter** key to create"
+" circle. Alternatively it is possible to draw circle manually by moving "
+"mouse cursor, in this case current radius will be displayed in the same "
+"widget."
+msgstr ""
+"La herramienta **Buffer** se utiliza para digitalizar polígonos "
+"seleccionando un punto central y definiendo un radio o área del círculo "
+"alrededor de ese punto central. Una vez seleccionada la herramienta "
+"**Buffer** y definido el punto central con el clic del ratón en la esquina "
+"superior derecha del lienzo del mapa de QGIS, se mostrará un widget que "
+"muestra el radio del círculo. Introduzca el radio deseado y pulse la tecla "
+"**Intro** para crear el círculo. También es posible dibujar el círculo "
+"manualmente moviendo el cursor del ratón, en este caso el radio actual se "
+"mostrará en el mismo widget."
+
+#: ../../source/for_users/training/errorrecode.rst:78
+msgid ""
+"When digitizing of the polygon is finished a custom attribute form will be "
+"shown."
+msgstr ""
+"Cuando finalice la digitalización del polígono, se mostrará un formulario de"
+" atributo personalizado."
+
+#: ../../source/for_users/training/errorrecode.rst:83
+msgid ""
+"In addition to various attributes this form also contains indicators chart "
+"calculated based on the rasters selected in the step 7."
+msgstr ""
+"Además de varios atributos, este formulario también contiene un gráfico de "
+"indicadores calculado en base a los rásteres seleccionados en el paso 7."
+
+#: ../../../<rst_epilog>:2
+msgid "iconCalculator"
+msgstr "iconCalculator"
+
+#: ../../../<rst_epilog>:4
+msgid "iconChart"
+msgstr "iconChart"
+
+#: ../../../<rst_epilog>:6
+msgid "iconClipboard"
+msgstr "iconClipboard"
+
+#: ../../../<rst_epilog>:8
+msgid "iconCloudDownload"
+msgstr "iconCloudDownload"
+
+#: ../../../<rst_epilog>:10
+msgid "iconCog"
+msgstr "iconoCog"
+
+#: ../../../<rst_epilog>:12
+msgid "iconDeletedataset"
+msgstr "iconDeletedataset"
+
+#: ../../../<rst_epilog>:14
+msgid "iconGlobe"
+msgstr "iconGlobe"
+
+#: ../../../<rst_epilog>:16
+msgid "iconGraph"
+msgstr "iconGraph"
+
+#: ../../../<rst_epilog>:18
+msgid "iconInfo"
+msgstr "iconInfo"
+
+#: ../../../<rst_epilog>:20
+msgid "iconLoaddataset"
+msgstr "iconLoaddataset"
+
+#: ../../../<rst_epilog>:21
+msgid "iconMarkMarker"
+msgstr "iconMarkMarker"
+
+#: ../../../<rst_epilog>:23
+msgid "iconOpendatasetdirectory"
+msgstr "iconOpendatasetdirectory"
+
+#: ../../../<rst_epilog>:25
+msgid "iconViewdatasetdetails"
+msgstr "iconViewdatasetdetails"
+
+#: ../../../<rst_epilog>:27
+msgid "iconWrench"
+msgstr "iconWrench"
+
+#: ../../../<rst_epilog>:29
+msgid "iconFolder"
+msgstr "iconFolder"
+
+#: ../../../<rst_epilog>:31
+msgid "iconReports"
+msgstr "iconReports"
+
+#: ../../../<rst_epilog>:33
+msgid "iconTrendsEarth"
+msgstr "iconoTrendsEarth"
+
+#: ../../../<rst_epilog>:35
+msgid "iconVisualization"
+msgstr "iconVisualization"
+
+#: ../../../<rst_epilog>:37
+msgid "Trends.Earth"
+msgstr "Trends.Earth"
+
+#: ../../../<rst_epilog>:0
+msgid "logoCI"
+msgstr "logoCI"
+
+#: ../../../<rst_epilog>:0
+msgid "logoLund"
+msgstr "logoLund"
+
+#: ../../../<rst_epilog>:0
+msgid "logoNASA"
+msgstr "logoNASA"
+
+#: ../../../<rst_epilog>:0
+msgid "logoGEF"
+msgstr "logoGEF"

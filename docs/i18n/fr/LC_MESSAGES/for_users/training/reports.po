@@ -23,13 +23,15 @@ msgstr ""
 
 #: ../../source/for_users/training/reports.rst:4
 msgid "Dataset Reports"
-msgstr ""
+msgstr "Rapports sur les ensembles de données"
 
 #: ../../source/for_users/training/reports.rst:6
 msgid ""
 "**Objective**: Learn how to generate and view reports from one or more "
 "datasets."
 msgstr ""
+"**Objectif** : Apprendre à générer et à visualiser des rapports à partir "
+"d'un ou plusieurs ensembles de données."
 
 #: ../../source/for_users/training/reports.rst:8
 msgid "**Estimated time of completion**: 10 minutes"
@@ -37,17 +39,19 @@ msgstr "**Temps d'achèvement estimé**: 10 minutes"
 
 #: ../../source/for_users/training/reports.rst:10
 msgid "**Internet access**: Not Required"
-msgstr ""
+msgstr "**Accès à Internet** : Non requis"
 
 #: ../../source/for_users/training/reports.rst:15
 msgid "View Dataset Output Reports"
-msgstr ""
+msgstr "Afficher les rapports de sortie des ensembles de données"
 
 #: ../../source/for_users/training/reports.rst:17
 msgid ""
 "Select the **Open report directory** sub-menu in a dataset item's report "
 "button."
 msgstr ""
+"Sélectionnez le sous-menu **Ouvrir le répertoire de rapport** dans le bouton"
+" de rapport d'un élément d'ensemble de données."
 
 #: ../../source/for_users/training/reports.rst:23
 msgid ""
@@ -56,27 +60,38 @@ msgid ""
 "algorithm, the directory will contain PDF and/or image files showing the "
 "default thematic layers for the selected dataset."
 msgstr ""
+"Cette action ouvrira le répertoire contenant les rapports de sortie pour "
+"l'ensemble de données sélectionné. En fonction de la configuration du "
+"rapport pour l'algorithme donné, le répertoire contiendra des fichiers PDF "
+"et/ou des fichiers images montrant les couches thématiques par défaut pour "
+"l'ensemble de données sélectionné."
 
 #: ../../source/for_users/training/reports.rst:28
 msgid ""
 "The example below is from the sub-indicators for SDG 15.3.1 algorithm with "
 "the AOI set to Uganda."
 msgstr ""
+"L'exemple ci-dessous provient des sous-indicateurs de l'algorithme SDG "
+"15.3.1 avec l'AOI fixé à Uganda."
 
 #: ../../source/for_users/training/reports.rst:37
 msgid "Open Report Layouts"
-msgstr ""
+msgstr "Ouvrir les mises en page des rapports"
 
 #: ../../source/for_users/training/reports.rst:39
 msgid ""
 "Select the **Open layouts...** sub-menu in a dataset item's report button."
 msgstr ""
+"Sélectionnez le sous-menu **Ouvrir les mises en page...** dans le bouton de "
+"rapport d'un élément de l'ensemble de données."
 
 #: ../../source/for_users/training/reports.rst:45
 msgid ""
 "This action will open the QGIS project containing the job's layers and "
 "layouts in a separate application instance."
 msgstr ""
+"Cette action ouvrira le projet QGIS contenant les couches et mises en page "
+"de la tâche dans une instance d'application séparée."
 
 #: ../../source/for_users/training/reports.rst:48
 msgid ""
@@ -87,12 +102,22 @@ msgid ""
 " safe to run macros by clicking on the **Enable Macros** button in the "
 "message bar (top-right corner)."
 msgstr ""
+"Par défaut, à l'ouverture du projet, un message d'avertissement apparaît "
+"indiquant que les macros Python ne peuvent pas être exécutées. Il s'agit "
+"d'un dispositif de sécurité qui empêche les utilisateurs d'exécuter des "
+"macros pour des projets QGIS provenant de sources inconnues ou non fiables. "
+"Cependant, dans ce cas, le projet est généré localement et il est donc "
+"possible d'exécuter des macros en toute sécurité en cliquant sur le bouton "
+"**Autoriser les macros** dans la barre de message (coin supérieur droit)."
 
 #: ../../source/for_users/training/reports.rst:57
 msgid ""
 "On the Layout Manager dialog, select a layout name in the list then click on"
 " **Show** to edit the layout."
 msgstr ""
+"Dans la boîte de dialogue Gestionnaire de mise en page, sélectionnez un nom "
+"de mise en page dans la liste, puis cliquez sur **Afficher** pour modifier "
+"la mise en page."
 
 #: ../../source/for_users/training/reports.rst:65
 msgid ""
@@ -100,16 +125,22 @@ msgid ""
 "generation task is still running and will automatically be enabled once the "
 "process is complete."
 msgstr ""
+"Si le bouton **Rapports** (|iconReports|) est désactivé, cela signifie que "
+"la tâche de génération de rapports est toujours en cours et qu'elle sera "
+"automatiquement activée une fois le processus terminé."
 
 #: ../../../<rst_epilog>:31 ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr ""
+msgstr "iconReports"
 
 #: ../../source/for_users/training/reports.rst:66
 msgid ""
 "If the **Reports** button is not visible, then it means there is no report "
 "configuration defined for datasets resulting from the given algorithm."
 msgstr ""
+"Si le bouton **Rapports** n'est pas visible, cela signifie qu'il n'y a pas "
+"de configuration de rapport définie pour les ensembles de données résultant "
+"de l'algorithme donné."
 
 #: ../../source/for_users/training/reports.rst:70
 msgid ""
@@ -118,91 +149,96 @@ msgid ""
 "Macros** setting. Select **Always**, though this option is not recommended "
 "especially if you interact with qgs or qgz projects from external sources."
 msgstr ""
+"Pour permettre l'exécution automatique des macros, allez dans **Paramètres >"
+" Options** puis, sous la catégorie **Général**, faites défiler jusqu'en bas "
+"jusqu'au paramètre **Activer les macros**. Sélectionnez **Toujours**, bien "
+"que cette option ne soit pas recommandée, surtout si vous interagissez avec "
+"des projets qgs ou qgz provenant de sources externes."
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr ""
+msgstr "iconCalculator"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr ""
+msgstr "iconChart"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr ""
+msgstr "iconClipboard"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr ""
+msgstr "iconCloudDownload"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr ""
+msgstr "iconCog"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr ""
+msgstr "iconDeletedataset"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
-msgstr ""
+msgstr "iconGlobe"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr ""
+msgstr "iconGraph"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr ""
+msgstr "iconInfo"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr ""
+msgstr "iconLoaddataset"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr ""
+msgstr "iconMarkMarker"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr ""
+msgstr "iconOpendatasetdirectory"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr ""
+msgstr "iconViewdatasetdetails"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr ""
+msgstr "iconWrench"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr ""
+msgstr "iconFolder"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr ""
+msgstr "iconTrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr ""
+msgstr "iconVisualization"
 
 #: ../../../<rst_epilog>:37
 msgid "Trends.Earth"
-msgstr ""
+msgstr "Trends.Earth"
 
 #: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr ""
+msgstr "logoCI"
 
 #: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr ""
+msgstr "logoLund"
 
 #: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr ""
+msgstr "logoNASA"
 
 #: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr ""
+msgstr "logoGEF"

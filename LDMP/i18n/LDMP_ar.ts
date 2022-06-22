@@ -82,72 +82,72 @@
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="192"/>
+        <location filename="../conf.py" line="188"/>
         <source>Land degradation</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="196"/>
+        <location filename="../conf.py" line="192"/>
         <source>Sub-indicators for SDG 15.3.1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="197"/>
+        <location filename="../conf.py" line="193"/>
         <source>Calculate SDG 15.3.1 sub-indicators (required prior to 15.3.1 indicator calculation)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="210"/>
+        <location filename="../conf.py" line="206"/>
         <source>Indicator for SDG 15.3.1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="211"/>
+        <location filename="../conf.py" line="207"/>
         <source>Spatial layer and summary table for total boundary</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="212"/>
+        <location filename="../conf.py" line="210"/>
         <source>Calculate SDG 15.3.1 indicator from productivity, land cover, and soil organic carbon sub-indicators</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="225"/>
+        <location filename="../conf.py" line="223"/>
         <source>SDG 15.3.1 error recode (false positive/negative)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="226"/>
+        <location filename="../conf.py" line="224"/>
         <source>Correct any known errors (false positives or negatives) in an SDG 15.3.1 Indicator layer. This can be used to correct misclassifications using expert knowledge or field data.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="241"/>
+        <location filename="../conf.py" line="240"/>
         <source>Land productivity</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="242"/>
+        <location filename="../conf.py" line="241"/>
         <source>Land productivity is the biological productive capacity of land</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="255"/>
+        <location filename="../conf.py" line="256"/>
         <source>Land cover change</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="256"/>
+        <location filename="../conf.py" line="257"/>
         <source>Land cover is the physical material at the surface of the earth. </source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="273"/>
+        <location filename="../conf.py" line="274"/>
         <source>Soil Organic Carbon</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="274"/>
+        <location filename="../conf.py" line="275"/>
         <source>Soil organic carbon is a measure of soil organic matter</source>
         <translation type="unfinished"/>
     </message>
@@ -232,17 +232,17 @@
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="394"/>
+        <location filename="../conf.py" line="392"/>
         <source>Experimental</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="397"/>
+        <location filename="../conf.py" line="395"/>
         <source>Calculate change in total carbon</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="398"/>
+        <location filename="../conf.py" line="396"/>
         <source>Above and below ground, emissions and deforestation</source>
         <translation type="unfinished"/>
     </message>
@@ -267,32 +267,32 @@
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="436"/>
+        <location filename="../conf.py" line="435"/>
         <source>Potential change in biomass due to restoration</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="437"/>
+        <location filename="../conf.py" line="436"/>
         <source>Above and below ground woody</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="441"/>
+        <location filename="../conf.py" line="440"/>
         <source>Estimate potential impacts of restoration</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="442"/>
+        <location filename="../conf.py" line="441"/>
         <source>Estimate potential change in biomass due to restoration</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="455"/>
+        <location filename="../conf.py" line="453"/>
         <source>Table summarizing likely changes in biomass</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="456"/>
+        <location filename="../conf.py" line="454"/>
         <source>Generate table summarizing potential change in biomass due to restoration</source>
         <translation type="unfinished"/>
     </message>
@@ -469,6 +469,11 @@
     <message>
         <location filename="../settings.py" line="250"/>
         <source>Trends.Earth user {email} deleted.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../conf.py" line="22"/>
+        <source>All regions</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -4256,12 +4261,12 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body style=&quot;;text-align:right;direction:rtl&quot;&gt;&lt;p style=&quot;;text-align:right;direction:rtl&quot;&gt; تنويه: الحدود المقدمة هي من &lt;a href=&quot;http://www.naturalearthdata.com/&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;الأرض الطبيعية&lt;/span&gt;&lt;/a&gt; ، وهي في &lt;a href=&quot;http://creativecommons.org/publicdomain&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;المجال العام&lt;/span&gt;&lt;/a&gt; . الحدود والأسماء المستخدمة ، والتسميات المستخدمة ، في الاتجاهات. لا تعني ضمنا المصادقة الرسمية أو القبول من قبل مؤسسة الحفظ الدولية ، أو من قبل المنظمات الشريكة والمساهمين. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../visualization.py" line="359"/>
+        <location filename="../visualization.py" line="362"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../visualization.py" line="359"/>
+        <location filename="../visualization.py" line="362"/>
         <source>Error downloading basemap data.</source>
         <translation>خطأ في تنزيل بيانات خريطة الأساس.</translation>
     </message>
@@ -5403,17 +5408,17 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_calculate</name>
     <message>
-        <location filename="../areaofinterest.py" line="590"/>
+        <location filename="../areaofinterest.py" line="591"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../areaofinterest.py" line="459"/>
+        <location filename="../areaofinterest.py" line="460"/>
         <source>Invalid geometry in row {}. Check that all input geom_jsons are valid before processing. Try using the check validity tool on the &quot;Vector&quot; menu on the toolbar for more information on which features are invalid (Under &quot;Vector&quot; - &quot;Geometry Tools&quot; - &quot;Check Validity&quot;).</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../areaofinterest.py" line="590"/>
+        <location filename="../areaofinterest.py" line="591"/>
         <source>Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian.</source>
         <translation>خطأ - الطبقة ليست في نظام الإحداثيات الجغرافية. لا يمكن التفاف الطبقة عبر خط الطول 180.</translation>
     </message>

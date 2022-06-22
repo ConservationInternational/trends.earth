@@ -44,6 +44,7 @@ from . import (
 from .conf import (
     Setting,
     settings_manager,
+    TR_ALL_REGIONS
 )
 from .jobs.manager import job_manager
 
@@ -68,7 +69,6 @@ Ui_WidgetSettingsReport, _ = uic.loadUiType(
 from .logger import log
 from .utils import FileUtils
 
-
 ICON_PATH = os.path.join(os.path.dirname(__file__), 'icons')
 
 
@@ -78,7 +78,7 @@ settings = QtCore.QSettings()
 def tr(message):
     return QtCore.QCoreApplication.translate("tr_settings", message)
 
-        
+
 # Function to indicate if child is a folder within parent
 def is_subdir(child, parent):
     parent = os.path.normpath(os.path.realpath(parent))
@@ -411,7 +411,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 
     def populate_admin_1(self):
         self.secondLevel_area_admin_1.clear()
-        self.secondLevel_area_admin_1.addItems(['All regions'])
+        self.secondLevel_area_admin_1.addItems([TR_ALL_REGIONS])
         self.secondLevel_area_admin_1.addItems(
             sorted(
                 self.admin_bounds_key[

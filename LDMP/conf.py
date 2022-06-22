@@ -1,23 +1,27 @@
 """Configuration utilities for Trends.Earth QGIS plugin."""
-
-import os
-import json
 import enum
+import json
+import os
 import typing
 from pathlib import Path
 
 import qgis.core
 from qgis.PyQt import QtCore
+from te_schemas.algorithms import ExecutionScript
 
 from . import download
-from te_schemas.algorithms import ExecutionScript
 from .algorithms import models as algorithm_models
+from .logger import log
 from .reports.utils import default_report_disclaimer
 from .utils import FileUtils
 
 
 def tr(message):
     return QtCore.QCoreApplication.translate("tr_conf", message)
+
+
+TR_ALL_REGIONS = tr("All regions")
+log(f"TR_ALL_REGIONS translated as {TR_ALL_REGIONS}")
 
 
 class AreaSetting(enum.Enum):
@@ -61,7 +65,7 @@ class Setting(enum.Enum):
     REPORT_ORG_NAME = "report/org_name"
     REPORT_FOOTER = "report/footer"
     REPORT_DISCLAIMER = "report/disclaimer"
-    REPORT_LOG_WARNING = 'report/log_warning'
+    REPORT_LOG_WARNING = "report/log_warning"
 
 
 class SettingsManager:
@@ -72,7 +76,7 @@ class SettingsManager:
     DEFAULT_SETTINGS = {
         Setting.UPDATE_FREQUENCY_MILLISECONDS: 10000,
         Setting.LOCAL_POLLING_FREQUENCY: 30,
-        Setting.UNKNOWN_AREA_OF_INTEREST: 'unknown-area',
+        Setting.UNKNOWN_AREA_OF_INTEREST: "unknown-area",
         Setting.REMOTE_POLLING_FREQUENCY: 3 * 60,
         Setting.DEBUG: False,
         Setting.FILTER_JOBS_BY_BASE_DIR: True,
@@ -80,7 +84,8 @@ class SettingsManager:
         Setting.BINARIES_DIR: str(Path.home()),
         Setting.BASE_DIR: str(Path.home() / _base_data_path),
         Setting.DEFINITIONS_DIRECTORY: str(
-            Path.home() / _base_data_path / "definitions"),
+            Path.home() / _base_data_path / "definitions"
+        ),
         Setting.CUSTOM_CRS_ENABLED: False,
         Setting.CUSTOM_CRS: "epsg:4326",
         Setting.POLL_REMOTE: True,
@@ -100,10 +105,10 @@ class SettingsManager:
         Setting.JOB_FILE_AGE_LIMIT_DAYS: 15,
         Setting.REPORT_TEMPLATE_SEARCH_PATH: "",
         Setting.REPORT_ORG_LOGO_PATH: FileUtils.te_logo_path(),
-        Setting.REPORT_ORG_NAME: '',
-        Setting.REPORT_FOOTER: '',
+        Setting.REPORT_ORG_NAME: "",
+        Setting.REPORT_FOOTER: "",
         Setting.REPORT_DISCLAIMER: default_report_disclaimer(),
-        Setting.REPORT_LOG_WARNING: False
+        Setting.REPORT_LOG_WARNING: False,
     }
 
     def __init__(self):
@@ -122,7 +127,8 @@ class SettingsManager:
         else:
             type_ = type(self.DEFAULT_SETTINGS[key])
             result = self._settings.value(
-                f"{self.base_path}/{key.value}", self.DEFAULT_SETTINGS[key], type=type_)
+                f"{self.base_path}/{key.value}", self.DEFAULT_SETTINGS[key], type=type_
+            )
 
         return result
 
@@ -138,7 +144,7 @@ class SettingsManager:
 
 
 def _load_script_config(
-        script_config: typing.Dict
+    script_config: typing.Dict,
 ) -> typing.Dict[str, ExecutionScript]:
     result = {}
 
@@ -150,36 +156,28 @@ def _load_script_config(
 
 
 def _load_algorithm_config(
-        algorithm_config: typing.List[typing.Dict],
+    algorithm_config: typing.List[typing.Dict],
 ) -> algorithm_models.AlgorithmGroup:
     top_level_groups = []
 
     for raw_top_level_group in algorithm_config:
-        group = algorithm_models.AlgorithmGroup.deserialize(
-            raw_top_level_group)
+        group = algorithm_models.AlgorithmGroup.deserialize(raw_top_level_group)
         top_level_groups.append(group)
 
     return algorithm_models.AlgorithmGroup(
-        name="root",
-        name_details="root_details",
-        parent=None,
-        groups=top_level_groups
+        name="root", name_details="root_details", parent=None, groups=top_level_groups
     )
 
 
 datasets_file = os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),
-    'data',
-    'gee_datasets.json'
+    os.path.dirname(os.path.realpath(__file__)), "data", "gee_datasets.json"
 )
 with open(datasets_file) as f:
     REMOTE_DATASETS = json.load(f)
 
 
 script_file = os.path.join(
-    os.path.dirname(os.path.realpath(__file__)),
-    'data',
-    'scripts.json'
+    os.path.dirname(os.path.realpath(__file__)), "data", "scripts.json"
 )
 with open(script_file) as f:
     _SCRIPT_CONFIG = json.load(f)
@@ -208,7 +206,9 @@ _ALGORITHM_CONFIG = [
             {
                 "id": "fe1cffa7-33f7-4148-ac7b-fc726402d59d",
                 "name": tr("Indicator for SDG 15.3.1"),
-                "name_details": tr("Spatial layer and summary table for total boundary"),
+                "name_details": tr(
+                    "Spatial layer and summary table for total boundary"
+                ),
                 "description": tr(
                     "Calculate SDG 15.3.1 indicator from productivity, land "
                     "cover, and soil organic carbon sub-indicators"
@@ -224,15 +224,16 @@ _ALGORITHM_CONFIG = [
                 "id": "7f7df50d-6069-4028-9252-878fcc5d86d7",
                 "name": tr("SDG 15.3.1 error recode (false positive/negative)"),
                 "description": (
-                    tr("Correct any known errors (false positives or negatives) "
-                    "in an SDG 15.3.1 Indicator layer. This can be used to correct "
-                    "misclassifications using expert knowledge or field data.")
+                    tr(
+                        "Correct any known errors (false positives or negatives) "
+                        "in an SDG 15.3.1 Indicator layer. This can be used to correct "
+                        "misclassifications using expert knowledge or field data."
+                    )
                 ),
                 "scripts": [
                     {
                         "script": KNOWN_SCRIPTS["unccd-report"],
-                        "parametrization_dialogue":
-                        "LDMP.calculate_ldn.DlgCalculateLDNErrorRecode",
+                        "parametrization_dialogue": "LDMP.calculate_ldn.DlgCalculateLDNErrorRecode",
                     },
                 ],
             },
@@ -240,8 +241,10 @@ _ALGORITHM_CONFIG = [
                 "id": "e25d2a72-2274-45fa-9b69-74e87873054e",
                 "name": tr("Land productivity"),
                 "description": (
-                    tr("Land productivity is the biological productive "
-                    "capacity of land")
+                    tr(
+                        "Land productivity is the biological productive "
+                        "capacity of land"
+                    )
                 ),
                 "scripts": [
                     {
@@ -272,8 +275,7 @@ _ALGORITHM_CONFIG = [
                 "id": "f32fd29b-2af8-4564-9189-3dd440758be6",
                 "name": tr("Soil Organic Carbon"),
                 "description": (
-                    tr("Soil organic carbon is a measure of soil organic "
-                    "matter")
+                    tr("Soil organic carbon is a measure of soil organic " "matter")
                 ),
                 "scripts": [
                     {
@@ -286,7 +288,7 @@ _ALGORITHM_CONFIG = [
                     },
                 ],
             },
-        ]
+        ],
     },
     {
         "name": tr("Drought"),
@@ -320,7 +322,7 @@ _ALGORITHM_CONFIG = [
                     },
                 ],
             },
-        ]
+        ],
     },
     {
         "name": tr("UNCCD Reporting"),
@@ -355,7 +357,7 @@ _ALGORITHM_CONFIG = [
                     },
                 ],
             },
-        ]
+        ],
     },
     {
         "name": tr("SDG 11.3.1"),
@@ -378,9 +380,7 @@ _ALGORITHM_CONFIG = [
             {
                 "id": "748780b4-39bb-4460-b203-0f2367d7c699",
                 "name": tr("Urban change summary table for city"),
-                "description": tr(
-                    "Calculate table summarizing SDG indicator 11.3.1"
-                ),
+                "description": tr("Calculate table summarizing SDG indicator 11.3.1"),
                 "scripts": [
                     {
                         "script": KNOWN_SCRIPTS["urban-change-summary-table"],
@@ -388,14 +388,16 @@ _ALGORITHM_CONFIG = [
                     },
                 ],
             },
-        ]
+        ],
     },
     {
         "name": tr("Experimental"),
         "groups": [
             {
                 "name": tr("Calculate change in total carbon"),
-                "name_details": tr("Above and below ground, emissions and deforestation"),
+                "name_details": tr(
+                    "Above and below ground, emissions and deforestation"
+                ),
                 "algorithms": [
                     {
                         "id": "96f243a2-c8bd-436a-9775-424f20a1b188",
@@ -420,8 +422,7 @@ _ALGORITHM_CONFIG = [
                         "id": "a753f2c9-be4c-4d97-9e21-09b8882e8899",
                         "name": tr("Change in carbon summary table"),
                         "description": tr(
-                            "Calculate table summarizing change in "
-                            "total carbon"
+                            "Calculate table summarizing change in " "total carbon"
                         ),
                         "scripts": [
                             {
@@ -430,7 +431,7 @@ _ALGORITHM_CONFIG = [
                             }
                         ],
                     },
-                ]
+                ],
             },
             {
                 "name": tr("Potential change in biomass due to restoration"),
@@ -440,8 +441,7 @@ _ALGORITHM_CONFIG = [
                         "id": "61839d52-0d81-428d-90e6-83ea5ed3c032",
                         "name": tr("Estimate potential impacts of restoration"),
                         "description": tr(
-                            "Estimate potential change in biomass due to "
-                            "restoration"
+                            "Estimate potential change in biomass due to " "restoration"
                         ),
                         "scripts": [
                             {
@@ -464,9 +464,9 @@ _ALGORITHM_CONFIG = [
                             }
                         ],
                     },
-                ]
-            }
-        ]
+                ],
+            },
+        ],
     },
 ]
 

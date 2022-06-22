@@ -208,7 +208,7 @@ class LDMPPlugin(object):
 
         self.add_action(
             os.path.join(os.path.dirname(__file__), "icons", "wrench.svg"),
-            text=self.tr(u"Settings"),
+            text=self.tr("Settings"),
             callback=self.run_settings,
             parent=self.iface.mainWindow(),
             status_tip=self.tr("Trends.Earth Settings"),
@@ -216,7 +216,7 @@ class LDMPPlugin(object):
 
         self.add_action(
             os.path.join(os.path.dirname(__file__), "icons", "info.svg"),
-            text=self.tr(u"About"),
+            text=self.tr("About"),
             callback=self.run_about,
             parent=self.iface.mainWindow(),
             status_tip=self.tr("About trends.earth"),
@@ -228,7 +228,7 @@ class LDMPPlugin(object):
                     os.path.dirname(__file__), "icons", "mActionCapturePolygon.svg"
                 )
             ),
-            self.tr(u"Digitize polygon"),
+            self.tr("Digitize polygon"),
             self.iface.mainWindow(),
         )
         self.action_polygon.triggered.connect(self.activate_polygon_tool)
@@ -257,12 +257,12 @@ class LDMPPlugin(object):
         # self.buffer_tool.digitized.connect()
 
         self.ndvi_action = QAction(
-            FileUtils.get_icon('chart.svg'),
-            self.tr('Plot time series'),
+            FileUtils.get_icon("chart.svg"),
+            self.tr("Plot time series"),
             self.iface.mainWindow(),
         )
         self.ndvi_action.setCheckable(True)
-        self.ndvi_action.setToolTip(self.tr('Plot time series'))
+        self.ndvi_action.setToolTip(self.tr("Plot time series"))
         self.ndvi_action.triggered.connect(self.run_ndvi)
 
         self.toolbar.addActions(
@@ -346,10 +346,7 @@ class LDMPPlugin(object):
     def run_ndvi(self):
         # Show NDVI query dialog.
         if self.time_series_dlg is None:
-            self.time_series_dlg = show_time_series(
-                self.iface,
-                self.iface.mapCanvas()
-            )
+            self.time_series_dlg = show_time_series(self.iface, self.iface.mapCanvas())
             self.time_series_dlg.sync_action = self.ndvi_action
         else:
             self.time_series_dlg.show()

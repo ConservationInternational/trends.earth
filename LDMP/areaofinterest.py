@@ -31,7 +31,7 @@ def get_admin_poly_geojson():
     if not admin_polys:
         return None
     current_region = conf.settings_manager.get_value(conf.Setting.REGION_NAME)
-    if not current_region or current_region.lower() == "all regions":
+    if not current_region or current_region == conf.TR_ALL_REGIONS:
         result = admin_polys["geojson"]
     else:
         region_code = conf.ADMIN_BOUNDS_KEY[current_country].level1_regions[
@@ -332,7 +332,9 @@ class AOI(object):
         if major_version >= 3 and minor_version >= 22:
             trans_dir = qgis.core.Qgis.TransformDirection.Reverse
         else:
-            trans_dir = qgis.core.QgsCoordinateTransform.TransformDirection.ReverseTransform
+            trans_dir = (
+                qgis.core.QgsCoordinateTransform.TransformDirection.ReverseTransform
+            )
 
         feats = []
         for f in self.l.getFeatures():
@@ -356,10 +358,7 @@ class AOI(object):
                     geom_buffered.area() / (1000 * 1000)
                 )
             )
-            geom_buffered.transform(
-                to_aeqd,
-                trans_dir
-            )
+            geom_buffered.transform(to_aeqd, trans_dir)
             f.setGeometry(geom_buffered)
             feats.append(f)
             log(
@@ -419,8 +418,10 @@ class AOI(object):
         try:
             return area_covered / total_aoi_area
         except ZeroDivisionError:
-            log(f"Got ZeroDivisionError processing aoi wkts {aoi_wkts}. "
-                "Returning 0 for area of overlap")
+            log(
+                f"Got ZeroDivisionError processing aoi wkts {aoi_wkts}. "
+                "Returning 0 for area of overlap"
+            )
             return 0
 
     def calc_disjoint(self, geom):

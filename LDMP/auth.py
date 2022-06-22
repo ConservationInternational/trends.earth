@@ -11,20 +11,19 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
-
 import dataclasses
 
-from qgis.PyQt import (
-    QtCore
-)
-
+from qgis.core import QgsApplication
+from qgis.core import QgsAuthMethodConfig
+from qgis.PyQt import QtCore
 from qgis.utils import iface
-from qgis.core import (
-    QgsAuthMethodConfig,
-    QgsApplication
-)
 
 from .logger import log
+
+
+class tr_auth(QtCore.QObject):
+    def tr(self, txt):
+        return QtCore.QCoreApplication.translate(self.__class__.__name__, txt)
 
 
 @dataclasses.dataclass()
@@ -33,20 +32,12 @@ class AuthSetup:
 
     @property
     def key(self):
-        return f'{self.name}_authId'
+        return f"{self.name}_authId"
 
 
-TE_API_AUTH_SETUP = AuthSetup(
-    name='Trends.Earth'
-)
+TE_API_AUTH_SETUP = AuthSetup(name="Trends.Earth")
 
-LANDPKS_AUTH_SETUP = AuthSetup(
-    name='LandPKS'
-)
-
-
-def tr(message):
-    return QtCore.QCoreApplication.translate("tr_auth", message)
+LANDPKS_AUTH_SETUP = AuthSetup(name="LandPKS")
 
 
 def init_auth_config(
@@ -71,126 +62,131 @@ def init_auth_config(
         currentAuthConfig.setName(auth_setup.name)
 
     # reset it's config values to set later new password when received
-    currentAuthConfig.setMethod('Basic')
-    currentAuthConfig.setConfig('username', email)
-    currentAuthConfig.setConfig('password', password)
+    currentAuthConfig.setMethod("Basic")
+    currentAuthConfig.setConfig("username", email)
+    currentAuthConfig.setConfig("password", password)
 
     if not previousAuthExist:
         # store a new auth config
-        if not QgsApplication.authManager().storeAuthenticationConfig(currentAuthConfig):
+        if not QgsApplication.authManager().storeAuthenticationConfig(
+            currentAuthConfig
+        ):
             iface.messageBar().pushCritical(
-                'Trends.Earth',
-                tr('Cannot init auth configuration')
+                "Trends.Earth", tr_auth.tr("Cannot init auth configuration")
             )
             return None
     else:
         # update existing
-         if not QgsApplication.authManager().updateAuthenticationConfig(currentAuthConfig):
+        if not QgsApplication.authManager().updateAuthenticationConfig(
+            currentAuthConfig
+        ):
             iface.messageBar().pushCritical(
-                'Trends.Earth',
-                tr('Cannot update auth configuration')
+                "Trends.Earth", tr_auth.tr("Cannot update auth configuration")
             )
             return None
 
-    QtCore.QSettings().setValue(f"trends_earth/{auth_setup.key}",
-                                currentAuthConfig.id())
+    QtCore.QSettings().setValue(
+        f"trends_earth/{auth_setup.key}", currentAuthConfig.id()
+    )
     return currentAuthConfig.id()
+
 
 def remove_current_auth_config(auth_setup):
     authConfigId = QtCore.QSettings().value(f"trends_earth/{auth_setup.key}", None)
     if not authConfigId:
         iface.messageBar().pushCritical(
-            'Trends.Earth',
-            tr(f'No authentication set for {auth_setup.name}. '
-               'Setup in Trends.Earth settings')
+            "Trends.Earth",
+            tr_auth.tr(
+                f"No authentication set for {auth_setup.name}. "
+                "Setup in Trends.Earth settings"
+            ),
         )
         return None
-    log(f'remove_current_auth_config for {auth_setup.name} with ID {authConfigId}')
+    log(f"remove_current_auth_config for {auth_setup.name} with ID {authConfigId}")
 
     if not QgsApplication.authManager().removeAuthenticationConfig(authConfigId):
         iface.messageBar().pushCritical(
-            'Trends.Earth',
-            tr(
-                f'Cannot remove auth configuration for '
-                f'{auth_setup.name} with id: {authConfigId}'
-            )
+            "Trends.Earth",
+            tr_auth.tr(
+                f"Cannot remove auth configuration for "
+                f"{auth_setup.name} with id: {authConfigId}"
+            ),
         )
         return False
 
     QtCore.QSettings().setValue("trends_earth/{auth_setup.key}", None)
     return True
 
-def get_auth_config(
-    auth_setup,
-    authConfigId=None,
-    warn=True
-):
+
+def get_auth_config(auth_setup, authConfigId=None, warn=True):
     if not authConfigId:
         # not set then retrieve from config if set
         authConfigId = QtCore.QSettings().value(f"trends_earth/{auth_setup.key}", None)
         if not authConfigId:
             if warn:
                 iface.messageBar().pushCritical(
-                    'Trends.Earth',
-                    tr(
-                        'No authentication set. Setup username and password '
-                        f'before using {auth_setup.name} functions.'
-                    )
+                    "Trends.Earth",
+                    tr_auth.tr(
+                        "No authentication set. Setup username and password "
+                        f"before using {auth_setup.name} functions."
+                    ),
                 )
             return None
-    log(f'get_auth_config for {auth_setup.name} with auth id {authConfigId}')
+    log(f"get_auth_config for {auth_setup.name} with auth id {authConfigId}")
 
     configs = QgsApplication.authManager().availableAuthMethodConfigs()
     message_bar = iface.messageBar()
     if authConfigId not in configs.keys():
         if warn:
             message_bar.pushCritical(
-                'Trends.Earth',
-                tr(
-                    f'Cannot retrieve credentials with id {authConfigId}. '
-                    'Setup username and password before using '
-                    f'{auth_setup.name} functions.'
-                )
+                "Trends.Earth",
+                tr_auth.tr(
+                    f"Cannot retrieve credentials with id {authConfigId}. "
+                    "Setup username and password before using "
+                    f"{auth_setup.name} functions."
+                ),
             )
 
         return None
 
     authConfig = QgsAuthMethodConfig()
-    ok = QgsApplication.authManager().loadAuthenticationConfig(authConfigId, authConfig, True)
+    ok = QgsApplication.authManager().loadAuthenticationConfig(
+        authConfigId, authConfig, True
+    )
     if not ok:
         if warn:
             message_bar.pushCritical(
-                'Trends.Earth',
-                tr(
-                    f'Cannot retrieve {auth_setup.name} credentials with id '
-                    f'{authConfigId}. Setup username and password before '
-                    f'using {auth_setup.name} functions.'
-                )
+                "Trends.Earth",
+                tr_auth.tr(
+                    f"Cannot retrieve {auth_setup.name} credentials with id "
+                    f"{authConfigId}. Setup username and password before "
+                    f"using {auth_setup.name} functions."
+                ),
             )
         return None
 
     if not authConfig.isValid():
         if warn:
             message_bar.pushCritical(
-                'Trends.Earth',
-                tr(
-                    f'{auth_setup.name} credentials with id {authConfigId} '
-                    'are not valid. Setup username and password before using '
-                    f'{auth_setup.name}.'
-                )
+                "Trends.Earth",
+                tr_auth.tr(
+                    f"{auth_setup.name} credentials with id {authConfigId} "
+                    "are not valid. Setup username and password before using "
+                    f"{auth_setup.name}."
+                ),
             )
         return None
 
     # check if auth method is the only supported for no
-    if authConfig.method() != 'Basic':
+    if authConfig.method() != "Basic":
         if warn:
             message_bar.pushCritical(
-                'Trends.Earth',
-                tr(
-                    f'Auth method with id {authConfigId} is '
-                    f'{authConfig.method()}. This method is not supported by '
-                    f'by {auth_setup.name}'
-                )
+                "Trends.Earth",
+                tr_auth.tr(
+                    f"Auth method with id {authConfigId} is "
+                    f"{authConfig.method()}. This method is not supported by "
+                    f"by {auth_setup.name}"
+                ),
             )
         return None
 

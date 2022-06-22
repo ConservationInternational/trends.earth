@@ -93,13 +93,13 @@ version = "1.99.11"
 # The full version, including alpha/beta/rc tags.
 release = "1.99.11"
 
-READTHEDOCS_VERSION_NAME_STRING=os.environ.get('READTHEDOCS_VERSION_NAME', '')
+READTHEDOCS_VERSION_STRING = os.environ.get('READTHEDOCS_VERSION', '')
 relative_path = '../'
 # On RTD there the root is two folders back - one for the language, and one for the
 # version name, so need to add another "../"
-if READTHEDOCS_VERSION_NAME_STRING != '':
+if READTHEDOCS_VERSION_STRING != '':
     relative_path += '../'
-extlinks = {'index_path': (f'{relative_path}%s/{READTHEDOCS_VERSION_NAME_STRING}', '%s')}
+extlinks = {'index_path': (f'{relative_path}%s/{READTHEDOCS_VERSION_STRING}', '%s')}
 
 rst_epilog = """
 .. |iconCalculator| image:: /static/common/icon-calculator.png

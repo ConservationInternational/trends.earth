@@ -60,6 +60,8 @@ class Setting(enum.Enum):
     LC_CLASSES = 'land_cover/user_classes'
     LC_MAX_CLASSES = 'land_cover/max_classes'
     LC_LAST_DIR = 'land_cover/last_dir'
+    LC_IPCC_NESTING = 'land_cover/ipcc_nesting'
+    LC_ESA_NESTING = 'land_cover/esa_nesting'
 
 
 class SettingsManager:
@@ -104,7 +106,9 @@ class SettingsManager:
         Setting.REPORT_LOG_WARNING: False,
         Setting.LC_CLASSES: '',
         Setting.LC_MAX_CLASSES: 32,
-        Setting.LC_LAST_DIR: ''
+        Setting.LC_LAST_DIR: '',
+        Setting.LC_IPCC_NESTING: '',
+        Setting.LC_ESA_NESTING: ''
     }
 
     def __init__(self):

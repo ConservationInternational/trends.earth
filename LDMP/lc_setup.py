@@ -12,6 +12,7 @@
  ***************************************************************************/
 """
 
+from enum import Enum
 import json
 import os
 import typing
@@ -60,6 +61,12 @@ WidgetLandCoverSetupLocalExecutionUi, _ = uic.loadUiType(
 WidgetLandCoverSetupRemoteExecutionUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/land_cover_setup_widget.ui")
 )
+
+
+class LCNestingType(Enum):
+    # Type of land cover nesting an algorithm should use.
+    IPCC = 1
+    ESA = 2
 
 
 class tr_lc_setup(object):
@@ -576,8 +583,9 @@ class DlgCalculateLCSetAggregation(
             # And add into the nesting dict any classes that are in the data
             # but were missing from the input, including the child legend no
             # data code (it should be nested under parent nodata as well)
-
-            if nesting_input.child.nodata.code not in child_codes_missing_from_input:
+            if nesting_input.child.nodata and \
+                    nesting_input.child.nodata.code not in \
+                    child_codes_missing_from_input:
                 child_codes_missing_from_input.append(
                     nesting_input.child.nodata.code
                 )
@@ -1168,6 +1176,7 @@ class LandCoverSetupRemoteExecutionWidget(
         hide_max_year: typing.Optional[bool] = False,
         selected_min_year: typing.Optional[int] = 2001,
         selected_max_year: typing.Optional[int] = 2015,
+        lc_nesting_type = LCNestingType.IPCC
     ):
         super().__init__(parent)
         self.setupUi(self)
@@ -1191,8 +1200,14 @@ class LandCoverSetupRemoteExecutionWidget(
         self.aggregation_method_pb.clicked.connect(
             self.open_aggregation_method_dialog
         )
+
+        self.lc_nesting_type = lc_nesting_type
+        if self.lc_nesting_type == LCNestingType.IPCC:
+            nesting = ipcc_lc_nesting_from_settings()
+        elif self.lc_nesting_type == LCNestingType.ESA:
+            nesting = esa_lc_nesting_from_settings()
         self.aggregation_dialog = DlgCalculateLCSetAggregation(
-            nesting=get_lc_nesting(), parent=self
+            nesting=nesting, parent=self
         )
 
     def open_aggregation_method_dialog(self):
@@ -1207,7 +1222,6 @@ class LCClassInfo:
     idx: int = -1
     lcc: LCClass = None
     parent: LCClass = None
-    child_codes: typing.List[int] = field(default_factory=list)
 
     class Meta:
         ordered = True
@@ -1286,14 +1300,6 @@ class LccInfoUtils:
         try:
             for lcc_info_str in lcc_infos_str:
                 lcc_info = LCClassInfo.Schema().loads(lcc_info_str)
-
-                # If child codes are empty, attempt to fetch from nesting
-                if len(lcc_info.child_codes) == 0:
-                    children = nesting.children_for_parent(lcc_info.lcc)
-                    child_codes = [c.code for c in children]
-                    if len(child_codes) > 0:
-                        lcc_info.child_codes = child_codes
-
                 lcc_infos.append(lcc_info)
 
         except ValidationError as ve:
@@ -1391,14 +1397,6 @@ class LccInfoUtils:
         ]
 
         return (True, match[0]) if len(match) > 0 else (False, None)
-
-    @staticmethod
-    def clear_child_codes(lcc_infos: typing.List['LCClassInfo']):
-        """
-        Clears child class mapping.
-        """
-        for lcci in lcc_infos:
-            lcci.child_codes = []
 
     @staticmethod
     def lc_nesting() -> LCLegendNesting:
@@ -1649,10 +1647,6 @@ class LccInfoUtils:
             lcc_info = LCClassInfo()
             lcc_info.lcc = lcc
             lcc_info.parent = lcc
-            if lcc.code in ref_nesting.nesting:
-                child_codes = ref_nesting.nesting[lcc.code]
-                lcc_info.child_codes = child_codes
-
             def_lcc_infos.append(lcc_info)
 
         # Save to settings

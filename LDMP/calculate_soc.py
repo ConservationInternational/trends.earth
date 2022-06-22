@@ -69,14 +69,15 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
             ('Tropical montane (Fl = 0.64)', .64)
         ]
 
-        lc_setup_widget_class = {
-            AlgorithmRunMode.LOCAL: lc_setup.LandCoverSetupLocalExecutionWidget,
-            AlgorithmRunMode.REMOTE: (
-                lc_setup.LandCoverSetupRemoteExecutionWidget),
-        }[self.script.run_mode]
-        self.lc_setup_widget = lc_setup_widget_class(self)
-
-        # self.lc_setup_widget = lc_setup.LCSetupWidget()
+        if self.script.run_mode == AlgorithmRunMode.LOCAL:
+            self.lc_setup_widget = lc_setup.LandCoverSetupLocalExecutionWidget(
+                self
+            )
+        elif self.script.run_mode == AlgorithmRunMode.REMOTE:
+            self.lc_setup_widget = lc_setup.LandCoverSetupRemoteExecutionWidget(
+                self,
+                lc_nesting_type=lc_setup.LCNestingType.ESA
+            )
 
         self.splitter_collapsed = False
 

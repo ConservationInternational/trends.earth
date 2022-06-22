@@ -4,9 +4,9 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Alex Zvoleff <azvoleff@conservation.org>, 2022
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
 # Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2022
+# Alex Zvoleff <azvoleff@conservation.org>, 2022
 # 
 #, fuzzy
 msgid ""
@@ -15,7 +15,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-06-21 17:06-0400\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
-"Last-Translator: Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2022\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -89,6 +89,13 @@ msgid ""
 " to stay in touch with any advancements with the projects’ distribution "
 "list."
 msgstr ""
+"Pode encontrar mais informação sobre a caixa de ferramentas em `trends.earth"
+" <http://trends.earth>`_ e estão disponíveis relatórios no `website do Vital"
+" Signs Project <http://vitalsigns.org/gef-ldmp/project-description-and-"
+"timeline>`_ Também pode adicionar a sua informação de contacto à `Lista de "
+"Distribuição de Email Vital Signs LD <http://vitalsigns.org/gef-ldmp/email-"
+"distribution-list>`_ para se manter em contacto com quaisquer avanços com a "
+"lista de deistribuição do projeto.\\"
 
 #: ../../source/for_users/faq/index.rst:36
 msgid "How can I provide feedback on the tool?"
@@ -302,7 +309,7 @@ msgstr "Reinicie o QGIS."
 
 #: ../../source/for_users/faq/index.rst:122
 msgid "OR"
-msgstr ""
+msgstr "OU"
 
 #: ../../source/for_users/faq/index.rst:124
 msgid ""
@@ -310,6 +317,9 @@ msgid ""
 "under the directory. For example: "
 "C:\\Documents\\user\\AppData\\Roaming\\QGIS\\QGIS3\\profiles\\default\\python\\plugins"
 msgstr ""
+"Navegue para a pasta AppData na conta do utilizador e encontre a informação "
+"sobre o plugin no diretório. Por exemplo: "
+"C:\\Documents\\user\\AppData\\Roaming\\QGIS\\QGIS3\\profiles\\default\\python\\plugins"
 
 #: ../../source/for_users/faq/index.rst:129
 msgid "Datasets"
@@ -320,6 +330,8 @@ msgid ""
 "Refer to the :ref:`input_data` section for more information on data sources "
 "used in Trends.Earth."
 msgstr ""
+"Consulte a secção :ref:`input_data` para mais informação sobre as fontes de "
+"dados utilizadas na Trends.Earth."
 
 #: ../../source/for_users/faq/index.rst:135
 msgid "When will you update datasets for the current year?"
@@ -394,6 +406,8 @@ msgid ""
 "Refer to the :ref:`background_landdegradation` section for more background "
 "on analyses available in Trends.Earth."
 msgstr ""
+"Consulte a secção :ref:`background_landdegradation` para mais informação "
+"básica sobre as análises disponíveis na Trends.Earth."
 
 #: ../../source/for_users/faq/index.rst:169
 msgid "Who was the default time period for the analysis determined?"
@@ -630,6 +644,21 @@ msgid ""
 "consensus that it this point in time and globally, this is the best "
 "approach."
 msgstr ""
+"A vegetação é um componente principal da maior parte dos ecossistemas e "
+"serve como uma boa representação do seu funcionamento e saúde gerais. O três"
+" sub-indicadores utilizados para o ODS 15.3.1 medem diferentes tipos de "
+"cobertura de solo, que estão relacionados com a vegetação. A produtividade "
+"primária mede diretamente as alterações na quantidade de biomassa presente "
+"numa área, mas não nos informa sobre se essa mudança é ou não positiva (nem "
+"todos os aumentos de biomassa de plantas devem ser interpretados como "
+"melhorias). A cobertura do solo resolve esse problema, interpretando a "
+"paisagem de uma perspetiva temática, observando o que lá estava antes e o "
+"que está agora. Esta inclui a vegetação, mas também o solo descoberto, área "
+"urbana e água. Por fim, o carbono orgânico do solo utiliza o mapa de "
+"cobertura de solo para nos informar sobre as mudanças no carbono orgânico no"
+" solo, ao longo do tempo. Este método não é ideal mas dado o estado atual do"
+" levantamento e da ciência dos solos, existe um consenso de que, neste "
+"momento no tempo e de forma global, esta é a melhor abordagem."
 
 #: ../../source/for_users/faq/index.rst:279
 msgid "Future plans"
@@ -680,88 +709,88 @@ msgstr ""
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr ""
+msgstr "iconCalculator"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr ""
+msgstr "iconChart"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr ""
+msgstr "iconClipboard"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr ""
+msgstr "iconCloudDownload"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr ""
+msgstr "iconCog"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr ""
+msgstr "iconDeletedataset"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
-msgstr ""
+msgstr "iconGlobe"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr ""
+msgstr "iconGraph"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr ""
+msgstr "iconInfo"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr ""
+msgstr "iconLoaddataset"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr ""
+msgstr "iconMarkMarker"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr ""
+msgstr "iconOpendatasetdirectory"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr ""
+msgstr "iconViewdatasetdetails"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr ""
+msgstr "iconWrench"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr ""
+msgstr "iconFolder"
 
 #: ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr ""
+msgstr "iconReports"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr ""
+msgstr "iconTrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr ""
+msgstr "iconVisualization"
 
 #: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr ""
+msgstr "logoCI"
 
 #: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr ""
+msgstr "logoLund"
 
 #: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr ""
+msgstr "logoNASA"
 
 #: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr ""
+msgstr "logoGEF"

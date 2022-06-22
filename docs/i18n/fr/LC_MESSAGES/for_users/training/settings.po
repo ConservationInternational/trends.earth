@@ -28,17 +28,19 @@ msgstr "Réglages"
 
 #: ../../source/for_users/training/settings.rst:7
 msgid "Region of Interest"
-msgstr ""
+msgstr "Région d'intérêt"
 
 #: ../../source/for_users/training/settings.rst:9
 msgid ""
 "**Objective**: Learn how to set up the environment for your analysis using "
 "Trends.Earth."
 msgstr ""
+"**Objectif** : Apprenez à configurer l'environnement pour votre analyse à "
+"l'aide de Trends.Earth."
 
 #: ../../source/for_users/training/settings.rst:11
 msgid "**Estimated time of completion**: 5 minutes"
-msgstr ""
+msgstr "**Temps estimé de réalisation** : 5 minutes"
 
 #: ../../source/for_users/training/settings.rst:13
 msgid "**Internet access**: Required"
@@ -47,14 +49,16 @@ msgstr "**Accès Internet**: Obligatoire"
 #: ../../source/for_users/training/settings.rst:15
 msgid "Click on the Trends.Earth toolbar within QGIS, and click on settings."
 msgstr ""
+"Cliquez sur la barre d'outils de Trends.Earth dans QGIS, puis sur les "
+"paramètres."
 
 #: ../../source/for_users/training/settings.rst:20
 msgid "The **Settings** menu will open in a new window."
-msgstr ""
+msgstr "Le menu **Paramètres** s'ouvre dans une nouvelle fenêtre."
 
 #: ../../source/for_users/training/settings.rst:26
 msgid "Country or Region"
-msgstr ""
+msgstr "Pays ou région"
 
 #: ../../source/for_users/training/settings.rst:27
 msgid ""
@@ -62,6 +66,10 @@ msgid ""
 "analysis is possible using the **Second level** selections to identify a "
 "province or city for your region of interest."
 msgstr ""
+"Sélectionnez un pays dans la liste déroulante **Premier niveau**. Une "
+"analyse sous-nationale est possible en utilisant les sélections du **Second "
+"niveau** pour identifier une province ou une ville pour votre région "
+"d'intérêt."
 
 #: ../../source/for_users/training/settings.rst:31
 msgid ""
@@ -94,6 +102,8 @@ msgstr "Point"
 #: ../../source/for_users/training/settings.rst:47
 msgid "Select this option to upload coordinates or select a point on the map."
 msgstr ""
+"Sélectionnez cette option pour télécharger des coordonnées ou sélectionner "
+"un point sur la carte."
 
 #: ../../source/for_users/training/settings.rst:50
 msgid "Area from file"
@@ -102,21 +112,27 @@ msgstr "Zone du fichier"
 #: ../../source/for_users/training/settings.rst:51
 msgid "Select this option to upload a point or polygon of your choice."
 msgstr ""
+"Sélectionnez cette option pour télécharger un point ou un polygone de votre "
+"choix."
 
 #: ../../source/for_users/training/settings.rst:54
 msgid ""
 "Select **Apply a buffer to the chosen area** if you experience issues with "
 "geometries or want to"
 msgstr ""
+"Sélectionnez **Appliquer un tampon à la zone choisie** si vous rencontrez "
+"des problèmes avec les géométries ou si vous voulez"
 
 #: ../../source/for_users/training/settings.rst:55
 msgid ""
 "add a buffer around a point entered in the city or coordinates options."
 msgstr ""
+"ajouter un tampon autour d'un point saisi dans les options ville ou "
+"coordonnées."
 
 #: ../../source/for_users/training/settings.rst:58
 msgid "Trends.Earth login information"
-msgstr ""
+msgstr "Informations de connexion à Trends.Earth"
 
 #: ../../source/for_users/training/settings.rst:59
 msgid ""
@@ -126,24 +142,34 @@ msgid ""
 "to login each time to use Trends.Earth (unless you upgrade QGIS or use a "
 "different computer)."
 msgstr ""
+"Utilisez cet espace pour vous enregistrer et vous connecter à votre compte "
+"Trends.Earth. Vous pouvez à tout moment mettre à jour votre profil, "
+"redéfinir votre mot de passe ou supprimer votre compte. Une fois que vous "
+"vous connectez, vos informations de connexion seront sauvegardées et vous "
+"n'aurez pas besoin de vous connecter à chaque fois pour utiliser "
+"Trends.Earth (sauf si vous mettez à jour QGIS ou si vous utilisez un autre "
+"ordinateur)."
 
 #: ../../source/for_users/training/settings.rst:65
 msgid ""
 "Refer to the :ref:`registration` for details on registering and logging into"
 " your Trends.Earth account."
 msgstr ""
+"Consultez la rubrique :ref:`registration` pour obtenir des détails sur "
+"l'enregistrement et la connexion à votre compte Trends.Earth."
 
 #: ../../source/for_users/training/settings.rst:71
 msgid "Reports"
-msgstr ""
+msgstr "Rapports"
 
 #: ../../source/for_users/training/settings.rst:72
 msgid "This contains configuration options for the Reports module."
 msgstr ""
+"Cette section contient des options de configuration pour le module Rapports."
 
 #: ../../source/for_users/training/settings.rst:79
 msgid "Template Search Path"
-msgstr ""
+msgstr "Chemin de recherche du modèle"
 
 #: ../../source/for_users/training/settings.rst:80
 msgid ""
@@ -152,10 +178,14 @@ msgid ""
 "`[base_data_directory]/reports/templates`, then the system will prioritize "
 "and use the ones in the search path."
 msgstr ""
+"Un répertoire supplémentaire contenant des modèles de rapports (fichiers "
+"qpt). S'il y a des modèles avec le même nom que ceux dans "
+"`[base_data_directory]/reports/templates`, alors le système donnera la "
+"priorité et utilisera ceux dans le chemin de recherche."
 
 #: ../../source/for_users/training/settings.rst:84
 msgid "Common Report Information"
-msgstr ""
+msgstr "Informations sur les rapports communs"
 
 #: ../../source/for_users/training/settings.rst:85
 msgid ""
@@ -163,6 +193,10 @@ msgid ""
 "context. Any changes to the settings under this category, will be applied in"
 " subsequent report generation tasks."
 msgstr ""
+"Informations contextuelles communes qui peuvent être modifiées pour "
+"s'adapter au contexte du rapport. Toute modification des paramètres de cette"
+" catégorie sera appliquée dans les tâches ultérieures de génération de "
+"rapports."
 
 #: ../../source/for_users/training/settings.rst:89
 msgid ""
@@ -170,12 +204,18 @@ msgid ""
 "variables are used. For the default templates (that ship with the toolbox), "
 "only the organization logo and disclaimer text variables are used."
 msgstr ""
+"Celles-ci ne sont applicables que dans les modèles de rapport où les "
+"variables correspondantes sont utilisées. Pour les modèles par défaut (qui "
+"sont livrés avec la boîte à outils), seules les variables relatives au logo "
+"de l'organisation et au texte d'avertissement sont utilisées."
 
 #: ../../source/for_users/training/settings.rst:95
 msgid ""
 "**a. Organization Logo** - This is a path to an image file that can be used "
 "as a logo in the reports. By default,"
 msgstr ""
+"**a. Logo de l'organisation** – Il s'agit d'un chemin vers un fichier image "
+"qui peut être utilisé comme logo dans les rapports. Par défaut,"
 
 #: ../../source/for_users/training/settings.rst:94
 msgid ""
@@ -183,38 +223,51 @@ msgid ""
 "It is available as a QGIS layout variable named "
 ":code:`te_report_organization_logo`."
 msgstr ""
+"il renvoie vers `trends_earth_logo_bl_small.png`, livré avec la boîte à "
+"outils. Il est disponible en tant que variable de mise en page QGIS nommée "
+":code:`te_report_organization_logo`."
 
 #: ../../source/for_users/training/settings.rst:98
 msgid ""
 "**b. Organization Name** - Free text corresponding to the name of the "
 "organization. It is empty by default. It is"
 msgstr ""
+"**b. Nom de l'organisation** – Texte libre correspondant au nom de "
+"l'organisation. Il est vide par défaut. Il est"
 
 #: ../../source/for_users/training/settings.rst:98
 msgid ""
 "available as a QGIS layout variable named "
 ":code:`te_report_organization_name`."
 msgstr ""
+"disponible en tant que variable de mise en page QGIS nommée "
+":code:`te_report_organization_name`."
 
 #: ../../source/for_users/training/settings.rst:101
 msgid ""
 "**c. Footer Text** - Free text that can be used in the footer section of "
 "reports. It is empty by default. It is"
 msgstr ""
+"**c. Footer Text** – Texte libre qui peut être utilisé dans la section du "
+"pied de page des rapports. Il est vide par défaut. Il est"
 
 #: ../../source/for_users/training/settings.rst:101
 msgid "available as a QGIS layout variable named :code:`te_report_footer`."
 msgstr ""
+"disponible en tant que variable de mise en page QGIS nommée "
+":code:`te_report_footer`."
 
 #: ../../source/for_users/training/settings.rst:104
 msgid ""
 "**d. Disclaimer Text** - Disclaimer statement that applies to one or more "
 "elements in the reports such as data."
 msgstr ""
+"**d. Texte d'avertissement** – Déclaration d'avertissement qui s'applique à "
+"un ou plusieurs éléments des rapports, tels que les données."
 
 #: ../../source/for_users/training/settings.rst:104
 msgid "The default statement reads:"
-msgstr ""
+msgstr "La déclaration par défaut se lit comme suit :"
 
 #: ../../source/for_users/training/settings.rst:106
 msgid ""
@@ -223,16 +276,23 @@ msgid ""
 "imply official endorsement or acceptance by Conservation International "
 "Foundation, or by its partner organizations and contributors.`"
 msgstr ""
+"« Les limites fournies proviennent de Natural Earth et sont dans le domaine "
+"public. Les frontières, noms et désignations utilisés dans Trends.Earth "
+"n'impliquent pas une approbation ou une acceptation officielle de la part de"
+" la Fondation Internationale de Conservation, ou de ses organisations "
+"partenaires et contributeurs. »"
 
 #: ../../source/for_users/training/settings.rst:110
 msgid ""
 "It is available as a QGIS layout variable named "
 ":code:`te_report_disclaimer`."
 msgstr ""
+"Il est disponible en tant que variable de mise en page QGIS nommée "
+":code:`te_report_disclaimer`."
 
 #: ../../source/for_users/training/settings.rst:113
 msgid "Log warnings in output directory"
-msgstr ""
+msgstr "Enregistrer les avertissements dans le répertoire de sortie"
 
 #: ../../source/for_users/training/settings.rst:114
 msgid ""
@@ -240,6 +300,10 @@ msgid ""
 " of any warning or errors that arose during the report generation process. "
 "It is useful for debugging purposes. By default, it is unchecked."
 msgstr ""
+"Lorsque cette option est cochée, le dossier du rapport de sortie contiendra "
+"un fichier html contenant les détails de tout avertissement ou erreur "
+"survenus au cours du processus de génération du rapport. Cette option est "
+"utile à des fins de débogage. Par défaut, elle n'est pas cochée."
 
 #: ../../source/for_users/training/settings.rst:121
 msgid "Advanced"
@@ -250,10 +314,12 @@ msgid ""
 "Select the `Advanced` drop-down list to view more options within the "
 "Trends.Earth toolbox."
 msgstr ""
+"Sélectionnez la liste déroulante « Avancé » pour afficher plus d'options "
+"dans la boîte à outils de Trends.Earth."
 
 #: ../../source/for_users/training/settings.rst:129
 msgid "Base data directory"
-msgstr ""
+msgstr "Répertoire des données de base"
 
 #: ../../source/for_users/training/settings.rst:130
 msgid ""
@@ -261,12 +327,18 @@ msgid ""
 "Trends.Earth is stored select *...* button next to the Base data directory "
 "and select a folder to store your data."
 msgstr ""
+"Toutes les données seront enregistrées dans le dossier des données de base. "
+"Pour changer l'endroit où les données de Trends.Earth sont stockées, "
+"sélectionnez le bouton *...* à côté du répertoire des données de base et "
+"sélectionnez un dossier pour stocker vos données."
 
 #: ../../source/for_users/training/settings.rst:133
 msgid ""
 "There are several check boxes to set your preference under the Base data "
 "directory selection."
 msgstr ""
+"Plusieurs cases sont à cocher pour définir votre préférence sous la "
+"sélection du répertoire de données de base."
 
 #: ../../source/for_users/training/settings.rst:135
 msgid ""
@@ -279,103 +351,114 @@ msgid ""
 "have limited bandwidth or are working offline 5) Use binaries for faster "
 "processing - Select folder to store binaries"
 msgstr ""
+"Cochez les cases pour : 1) Filtrer les travaux à distance en fonction du "
+"répertoire de base local ; 2) Activer le mode de débogage – enregistrer les "
+"informations de journalisation détaillées de votre session ; 3) Télécharger "
+"automatiquement les ensembles de données générés à distance – Ne cochez pas "
+"cette case si vous disposez d'une bande passante limitée ou si vous "
+"travaillez hors ligne ; 4) Interroger périodiquement le serveur de "
+"traitement à distance – Ceci définit la fréquence à laquelle le serveur "
+"vérifiera les analyses terminées pour les télécharger automatiquement – Ne "
+"cochez pas cette case si vous disposez d'une bande passante limitée ou si "
+"vous travaillez hors ligne ; 5) Utiliser les binaires pour un traitement "
+"plus rapide – Sélectionnez le dossier dans lequel stocker les binaires"
 
 #: ../../source/for_users/training/settings.rst:147
 msgid "LandPKS login information"
-msgstr ""
+msgstr "Informations de connexion à LandPKS"
 
 #: ../../source/for_users/training/settings.rst:148
 msgid "**Coming soon**"
-msgstr ""
+msgstr "**Bientôt disponible**"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr ""
+msgstr "iconCalculator"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr ""
+msgstr "iconChart"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr ""
+msgstr "iconClipboard"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr ""
+msgstr "iconCloudDownload"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr ""
+msgstr "iconCog"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr ""
+msgstr "iconDeletedataset"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
-msgstr ""
+msgstr "iconGlobe"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr ""
+msgstr "iconGraph"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr ""
+msgstr "iconInfo"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr ""
+msgstr "iconLoaddataset"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr ""
+msgstr "iconMarkMarker"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr ""
+msgstr "iconOpendatasetdirectory"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr ""
+msgstr "iconViewdatasetdetails"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr ""
+msgstr "iconWrench"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr ""
+msgstr "iconFolder"
 
 #: ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr ""
+msgstr "iconReports"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr ""
+msgstr "iconTrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr ""
+msgstr "iconVisualization"
 
 #: ../../../<rst_epilog>:37
 msgid "Trends.Earth"
-msgstr ""
+msgstr "Trends.Earth"
 
 #: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr ""
+msgstr "logoCI"
 
 #: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr ""
+msgstr "logoLund"
 
 #: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr ""
+msgstr "logoNASA"
 
 #: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr ""
+msgstr "logoGEF"

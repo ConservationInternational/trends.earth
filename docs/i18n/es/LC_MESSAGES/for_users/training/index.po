@@ -51,7 +51,7 @@ msgstr "Metadatos del conjunto de datos"
 
 #: ../../source/for_users/training/index.rst:6
 msgid "False Positives/Negatives"
-msgstr ""
+msgstr "Falsos positivos/negativos"
 
 #: ../../source/for_users/training/index.rst:6
 msgid "Dataset Reports"

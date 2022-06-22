@@ -97,7 +97,7 @@ READTHEDOCS_VERSION_NAME_STRING=os.environ.get('READTHEDOCS_VERSION_NAME', '')
 relative_path = '../'
 # On RTD there the root is two folders back - one for the language, and one for the
 # version name, so need to add another "../"
-if READTHEDOCS_VERSION_NAME_STRING is not '':
+if READTHEDOCS_VERSION_NAME_STRING != '':
     relative_path += '../'
 extlinks = {'index_path': (f'{relative_path}%s/{READTHEDOCS_VERSION_NAME_STRING}', '%s')}
 

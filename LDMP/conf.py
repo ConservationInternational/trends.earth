@@ -7,12 +7,17 @@ import typing
 from pathlib import Path
 
 import qgis.core
+from qgis.PyQt import QtCore
 
 from . import download
 from te_schemas.algorithms import ExecutionScript
 from .algorithms import models as algorithm_models
 from .reports.utils import default_report_disclaimer
 from .utils import FileUtils
+
+
+def tr(message):
+    return QtCore.QCoreApplication.translate("tr_conf", message)
 
 
 class AreaSetting(enum.Enum):
@@ -184,12 +189,12 @@ KNOWN_SCRIPTS = _load_script_config(_SCRIPT_CONFIG)
 _ALGORITHM_CONFIG = [
     {
         "name": "SDG 15.3.1",
-        "name_details": "Land degradation",
+        "name_details": tr("Land degradation"),
         "algorithms": [
             {
                 "id": "bdad3786-bc36-46aa-8e3d-d6cede915cef",
-                "name": "Sub-indicators for SDG 15.3.1",
-                "description": (
+                "name": tr("Sub-indicators for SDG 15.3.1"),
+                "description": tr(
                     "Calculate SDG 15.3.1 sub-indicators (required prior to "
                     "15.3.1 indicator calculation)"
                 ),
@@ -202,9 +207,9 @@ _ALGORITHM_CONFIG = [
             },
             {
                 "id": "fe1cffa7-33f7-4148-ac7b-fc726402d59d",
-                "name": "Indicator for SDG 15.3.1",
-                "name_details": "Spatial layer and summary table for total boundary",
-                "description": (
+                "name": tr("Indicator for SDG 15.3.1"),
+                "name_details": tr("Spatial layer and summary table for total boundary"),
+                "description": tr(
                     "Calculate SDG 15.3.1 indicator from productivity, land "
                     "cover, and soil organic carbon sub-indicators"
                 ),
@@ -217,11 +222,11 @@ _ALGORITHM_CONFIG = [
             },
             {
                 "id": "7f7df50d-6069-4028-9252-878fcc5d86d7",
-                "name": "SDG 15.3.1 error recode (false positive/negative)",
+                "name": tr("SDG 15.3.1 error recode (false positive/negative)"),
                 "description": (
-                    "Correct any known errors (false positives or negatives) "
+                    tr("Correct any known errors (false positives or negatives) "
                     "in an SDG 15.3.1 Indicator layer. This can be used to correct "
-                    "misclassifications using expert knowledge or field data."
+                    "misclassifications using expert knowledge or field data.")
                 ),
                 "scripts": [
                     {
@@ -233,10 +238,10 @@ _ALGORITHM_CONFIG = [
             },
             {
                 "id": "e25d2a72-2274-45fa-9b69-74e87873054e",
-                "name": "Land productivity",
+                "name": tr("Land productivity"),
                 "description": (
-                    "Land productivity is the biological productive "
-                    "capacity of land"
+                    tr("Land productivity is the biological productive "
+                    "capacity of land")
                 ),
                 "scripts": [
                     {
@@ -247,8 +252,8 @@ _ALGORITHM_CONFIG = [
             },
             {
                 "id": "277f87e6-5362-4533-ab1d-c28251576884",
-                "name": "Land cover change",
-                "description": (
+                "name": tr("Land cover change"),
+                "description": tr(
                     "Land cover is the physical material at the surface of "
                     "the earth. "
                 ),
@@ -265,10 +270,10 @@ _ALGORITHM_CONFIG = [
             },
             {
                 "id": "f32fd29b-2af8-4564-9189-3dd440758be6",
-                "name": "Soil Organic Carbon",
+                "name": tr("Soil Organic Carbon"),
                 "description": (
-                    "Soil organic carbon is a measure of soil organic "
-                    "matter"
+                    tr("Soil organic carbon is a measure of soil organic "
+                    "matter")
                 ),
                 "scripts": [
                     {
@@ -284,13 +289,13 @@ _ALGORITHM_CONFIG = [
         ]
     },
     {
-        "name": "Drought",
-        "name_details": "Vulnerability and exposure",
+        "name": tr("Drought"),
+        "name_details": tr("Vulnerability and exposure"),
         "algorithms": [
             {
                 "id": "afb8d95a-20a5-11ec-9621-0242ac130002",
-                "name": "Drought vulnerability",
-                "description": (
+                "name": tr("Drought vulnerability"),
+                "description": tr(
                     "Calculate indicators of drought vulnerability "
                     "consistent with UNCCD SO3 Good Practice Guidance"
                 ),
@@ -303,8 +308,8 @@ _ALGORITHM_CONFIG = [
             },
             {
                 "id": "bb5df452-20a5-11ec-9621-0242ac130002",
-                "name": "Drought vulnerability summary table",
-                "description": (
+                "name": tr("Drought vulnerability summary table"),
+                "description": tr(
                     "Summarize drought indicators in alignment with UNCCD "
                     "SO3 reporting requirements"
                 ),
@@ -318,8 +323,8 @@ _ALGORITHM_CONFIG = [
         ]
     },
     {
-        "name": "UNCCD Reporting",
-        "name_details": "Summarize data for reporting",
+        "name": tr("UNCCD Reporting"),
+        "name_details": tr("Summarize data for reporting"),
         "algorithms": [
             # {
             #     "id": "052b3fbc-20a7-11ec-9621-0242ac130002",
@@ -337,8 +342,8 @@ _ALGORITHM_CONFIG = [
             # },
             {
                 "id": "5293b2b2-d90f-4f1f-9556-4b0fe1c6ba91",
-                "name": "Generate data package for UNCCD reporting",
-                "description": (
+                "name": tr("Generate data package for UNCCD reporting"),
+                "description": tr(
                     "Summarize Strategic Objective (SO) 1, SO2, and SO3 "
                     "datasets in proper format for submission to UNCCD for "
                     "2021 reporting cycle"
@@ -353,13 +358,13 @@ _ALGORITHM_CONFIG = [
         ]
     },
     {
-        "name": "SDG 11.3.1",
-        "name_details": "Urban change and land consumption",
+        "name": tr("SDG 11.3.1"),
+        "name_details": tr("Urban change and land consumption"),
         "algorithms": [
             {
                 "id": "bdce0a12-c5ab-485b-ac47-278cedbce789",
-                "name": "Urban change spatial layer",
-                "description": (
+                "name": tr("Urban change spatial layer"),
+                "description": tr(
                     "Calculate indicators of change in urban extent "
                     "(SDG 11.3.1 indicator)"
                 ),
@@ -372,8 +377,8 @@ _ALGORITHM_CONFIG = [
             },
             {
                 "id": "748780b4-39bb-4460-b203-0f2367d7c699",
-                "name": "Urban change summary table for city",
-                "description": (
+                "name": tr("Urban change summary table for city"),
+                "description": tr(
                     "Calculate table summarizing SDG indicator 11.3.1"
                 ),
                 "scripts": [
@@ -386,16 +391,16 @@ _ALGORITHM_CONFIG = [
         ]
     },
     {
-        "name": "Experimental",
+        "name": tr("Experimental"),
         "groups": [
             {
-                "name": "Calculate change in total carbon",
-                "name_details": "Above and below ground, emissions and deforestation",
+                "name": tr("Calculate change in total carbon"),
+                "name_details": tr("Above and below ground, emissions and deforestation"),
                 "algorithms": [
                     {
                         "id": "96f243a2-c8bd-436a-9775-424f20a1b188",
-                        "name": "Calculate change in carbon",
-                        "description": (
+                        "name": tr("Calculate change in carbon"),
+                        "description": tr(
                             "Calculate total carbon (above and below-ground) "
                             "and emissions from deforestation"
                         ),
@@ -413,8 +418,8 @@ _ALGORITHM_CONFIG = [
                     },
                     {
                         "id": "a753f2c9-be4c-4d97-9e21-09b8882e8899",
-                        "name": "Change in carbon summary table",
-                        "description": (
+                        "name": tr("Change in carbon summary table"),
+                        "description": tr(
                             "Calculate table summarizing change in "
                             "total carbon"
                         ),
@@ -428,13 +433,13 @@ _ALGORITHM_CONFIG = [
                 ]
             },
             {
-                "name": "Potential change in biomass due to restoration",
-                "name_details": "Above and below ground woody",
+                "name": tr("Potential change in biomass due to restoration"),
+                "name_details": tr("Above and below ground woody"),
                 "algorithms": [
                     {
                         "id": "61839d52-0d81-428d-90e6-83ea5ed3c032",
-                        "name": "Estimate potential impacts of restoration",
-                        "description": (
+                        "name": tr("Estimate potential impacts of restoration"),
+                        "description": tr(
                             "Estimate potential change in biomass due to "
                             "restoration"
                         ),
@@ -447,8 +452,8 @@ _ALGORITHM_CONFIG = [
                     },
                     {
                         "id": "cb425356-09cf-4390-89dc-8542cdf0805c",
-                        "name": "Table summarizing likely changes in biomass",
-                        "description": (
+                        "name": tr("Table summarizing likely changes in biomass"),
+                        "description": tr(
                             "Generate table summarizing potential change "
                             "in biomass due to restoration"
                         ),

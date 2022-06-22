@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-24 18:41-0400\n"
+"POT-Creation-Date: 2022-06-21 17:06-0400\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
@@ -24,7 +24,7 @@ msgstr ""
 
 #: ../../source/for_users/training/landconsumption.rst:4
 msgid "Land Consumption (SDG 11.3.1)"
-msgstr ""
+msgstr "Consumo de tierra (SDG 11.3.1)"
 
 #: ../../source/for_users/training/landconsumption.rst:6
 msgid ""
@@ -49,6 +49,9 @@ msgid ""
 "methods used in |trends.earth|, please refer to the background section: "
 ":ref:`background_land_consumption`."
 msgstr ""
+"Para una descripción de los conceptos relacionados con el ODS 11.3.1, las "
+"necesidades de datos y los métodos utilizados en |trends.earth|, consulte la"
+" sección de fundamentos: :ref:`background_land_consumption`."
 
 #: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
 #: ../../../<rst_epilog>:37
@@ -270,7 +273,7 @@ msgstr ""
 
 #: ../../../<rst_epilog>:2 ../../../<rst_epilog>:2 ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr ""
+msgstr "iconCalculator"
 
 #: ../../source/for_users/training/landconsumption.rst:77
 #: ../../source/for_users/training/landconsumption.rst:163
@@ -480,6 +483,10 @@ msgid ""
 "11.3.1. For that, select the Calculate icon (|iconCalculator|) from the "
 "Trends.Earth plugin in QGIS."
 msgstr ""
+"Ha descargado el conjunto de datos en su ordenador local, pero todavía "
+"tenemos que estimar el cambio en el tiempo para calcular el indicador 11.3.1"
+" del ODS. Para ello, seleccione el icono para calcular (|iconCalculator|) "
+"del plugin Trends.Earth en QGIS.\n"
 
 #: ../../source/for_users/training/landconsumption.rst:168
 msgid "Select Step 2: Calculate urban change summary table for city."
@@ -492,6 +499,8 @@ msgid ""
 "Input: Load an existing .json file if it has not been populated within the "
 "drop-down list automatically from your QGIS project."
 msgstr ""
+"Entrada: Cargue un archivo .json existente si no se ha incluido "
+"automáticamente en la lista desplegable de su proyecto QGIS."
 
 #: ../../source/for_users/training/landconsumption.rst:179
 msgid ""
@@ -667,23 +676,23 @@ msgstr ""
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr ""
+msgstr "iconChart"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr ""
+msgstr "iconClipboard"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr ""
+msgstr "iconCloudDownload"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr ""
+msgstr "iconCog"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr ""
+msgstr "iconDeletedataset"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
@@ -691,60 +700,60 @@ msgstr "iconGlobe"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr ""
+msgstr "iconGraph"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr ""
+msgstr "iconInfo"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr ""
+msgstr "iconLoaddataset"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr ""
+msgstr "iconMarkMarker"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr ""
+msgstr "iconOpendatasetdirectory"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr ""
+msgstr "iconViewdatasetdetails"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr ""
+msgstr "iconWrench"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr ""
+msgstr "iconFolder"
 
 #: ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr ""
+msgstr "iconReports"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr ""
+msgstr "iconTrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr ""
+msgstr "iconVisualization"
 
 #: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr ""
+msgstr "logoCI"
 
 #: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr ""
+msgstr "logoLund"
 
 #: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr ""
+msgstr "logoNASA"
 
 #: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr ""
+msgstr "logoGEF"

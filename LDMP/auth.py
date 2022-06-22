@@ -15,7 +15,7 @@
 import dataclasses
 
 from qgis.PyQt import (
-    QtCore,
+    QtCore
 )
 
 from qgis.utils import iface

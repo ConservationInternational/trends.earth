@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-24 18:41-0400\n"
+"POT-Creation-Date: 2022-06-21 17:06-0400\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
@@ -24,11 +24,11 @@ msgstr ""
 
 #: ../../source/for_users/training/landdegradation.rst:4
 msgid "Land Degradation"
-msgstr ""
+msgstr "Degradación de la tierra"
 
 #: ../../source/for_users/training/landdegradation.rst:7
 msgid "Land Degradation Sub-indicators"
-msgstr ""
+msgstr "Subindicadores de la degradación de la tierra"
 
 #: ../../source/for_users/training/landdegradation.rst:9
 msgid ""
@@ -39,6 +39,8 @@ msgid ""
 " In this tutorial we will use Colombia as an example, but you can choose any"
 " study area."
 msgstr ""
+"**Objetivo**: Aprender a ejecutar los subindicadores del ODS 15.3.1 (cambios en la productividad de la tierra, la cobertura del suelo y el carbono orgánico del suelo) utilizando Trends.Earth y los datos por defecto: Trends.Earth (trayectoria, rendimiento y estado) para la productividad de la tierra, ESA CCI para la cobertura del suelo y SoilGrids para el carbono orgánico del suelo. En este tutorial utilizaremos a Colombia como ejemplo, pero puede elegir cualquier área de estudio.\n"
+" "
 
 #: ../../source/for_users/training/landdegradation.rst:11
 msgid "**Estimated time of completion**: 35 minutes"
@@ -54,12 +56,16 @@ msgid ""
 "Click on the Trends.Earth toolbar within QGIS, and click on the "
 "**Trends.Earth** icon."
 msgstr ""
+"Haga clic en la barra de herramientas de Trends.Earth dentro de QGIS, y "
+"luego haga clic en el icono **Trends.Earth**."
 
 #: ../../source/for_users/training/landdegradation.rst:20
 msgid ""
 "The **Trends.Earth** menu will open. In the **Algorithm** window, click on "
 "**SDG 15.3.1 - Land degradation** and select **Execute remotely** button."
 msgstr ""
+"Se abrirá el menú de **Trends.Earth**. En la ventana **Algorithm**, haga "
+"clic en **SDG 15.3.1 - Land degradation** y seleccione **Execute remotely**."
 
 #: ../../source/for_users/training/landdegradation.rst:26
 #: ../../source/for_users/training/landdegradation.rst:95
@@ -70,6 +76,8 @@ msgid ""
 "The region of interest is already set up in Settings. If you need to change,"
 " select the **Change region** button."
 msgstr ""
+"La región de interés ya está definida en los ajustes. Si necesita "
+"modificarla, pulse el botón **Change region**."
 
 #: ../../source/for_users/training/landdegradation.rst:29
 #: ../../source/for_users/training/landdegradation.rst:100
@@ -80,6 +88,8 @@ msgid ""
 "Refer to the :ref:`tut_settings` section of this manual for more information"
 " on setting up your area of interest."
 msgstr ""
+"Consulte la sección : ref:`tut_settings` de este manual para obtener más "
+"información sobre la configuración de su área de interés."
 
 #: ../../source/for_users/training/landdegradation.rst:31
 msgid ""
@@ -88,15 +98,20 @@ msgid ""
 "progress period (for comparison to baseline)** check box to set the progress"
 " period for reporting period."
 msgstr ""
+"En el cuadro de diálogo **SDG15.3.1 Indicator (one-step) | Land "
+"Degradation**, seleccione los datos de **Trends.Earth land productivity**. "
+"También seleccione la casilla **Include progress period (para la comparar "
+"con la línea de base)** para establecer el período de progreso del período "
+"de informe."
 
 #: ../../source/for_users/training/landdegradation.rst:36
 msgid "Type in the Execution name and notes."
-msgstr ""
+msgstr "Escriba el nombre de la ejecución y las notas."
 
 #: ../../source/for_users/training/landdegradation.rst:38
 #: ../../source/for_users/training/landdegradation.rst:559
 msgid "Select **Schedule remote execution** button."
-msgstr ""
+msgstr "Pulse el botón **Schedule remote execution**."
 
 #: ../../source/for_users/training/landdegradation.rst:40
 msgid ""
@@ -115,6 +130,8 @@ msgid ""
 "Refer to the :ref:`tut_land_degradation` section of this manual to learn "
 "about custom sub-indicators"
 msgstr ""
+"Consulte la sección :ref:`tut_land_degradation` de este manual para ver los "
+"subindicadores personalizados"
 
 #: ../../source/for_users/training/landdegradation.rst:48
 msgid ""
@@ -124,6 +141,11 @@ msgid ""
 "<https://www.unccd.int/sites/default/files/relevant-"
 "links/2021-03/Indicator_15.3.1_GPG_v2_29Mar_Advanced-version.pdf>`_."
 msgstr ""
+"o la sección :ref:`background_landdegradation` para conocer los indicadores "
+"de productividad de Trends.Earth desarrollados siguiendo la guía` UNCCD Good"
+" Practice Guidance (GPG) "
+"<https://www.unccd.int/sites/default/files/relevant-"
+"links/2021-03/Indicator_15.3.1_GPG_v2_29Mar_Advanced-version.pdf>`_."
 
 #: ../../source/for_users/training/landdegradation.rst:52
 msgid ""
@@ -131,6 +153,9 @@ msgid ""
 "submitted will appear in the menu if the **Download remotely-generated "
 "datasets automatically** is checked in **Advanced settings**."
 msgstr ""
+"En el panel **Trends.Earth**, seleccione la ventana **Datasets**. La tarea "
+"realizada aparecerá en el menú si la opción **Download remotely-generated "
+"datasets automatically** está marcada en **Advanced settings**."
 
 #: ../../source/for_users/training/landdegradation.rst:56
 #: ../../source/for_users/training/landdegradation.rst:567
@@ -139,17 +164,22 @@ msgid ""
 "Refer to the :ref:`tut_settings` section of this manual to learn more about "
 "**Advanced settings**"
 msgstr ""
+"Consulte la sección :ref:`tut_settings` de este manual para obtener más "
+"información sobre **Advanced settings*."
 
 #: ../../source/for_users/training/landdegradation.rst:58
 msgid ""
 "Click on the Refresh button if the analysis does not appear in the menu."
 msgstr ""
+"Haga clic en el botón actualizar si el análisis no aparece en el menú."
 
 #: ../../source/for_users/training/landdegradation.rst:60
 msgid ""
 "Once the task is done, select the add layer drop-down button to **Add "
 "default layers from this dataset to the map**"
 msgstr ""
+"Una vez completada la tarea, seleccione el botón desplegable para añadir "
+"capas: **Add default layers from this dataset to the map**"
 
 #: ../../source/for_users/training/landdegradation.rst:65
 msgid ""
@@ -157,10 +187,14 @@ msgid ""
 "land productivity dynamics, and population disaggregated by gender, will be "
 "added to the map for the region of interest."
 msgstr ""
+"Los datos por defecto: Degradación del carbono orgánico del suelo, "
+"degradación de la cobertura del suelo, dinámica de la productividad de la "
+"tierra y población clasificada por género, serán añadidos al mapa de la "
+"región de interés."
 
 #: ../../source/for_users/training/landdegradation.rst:74
 msgid "Calculate SDG 15.3.1 Indicator and UNCCD's SO 2-3"
-msgstr ""
+msgstr "Calcular el indicador ODS 15.3.1 y el OE 2-3 de la CNULD"
 
 #: ../../source/for_users/training/landdegradation.rst:76
 msgid ""
@@ -170,6 +204,12 @@ msgid ""
 "degradation disaggregated by sex, in raster format and tabular outputs with "
 "areas estimated."
 msgstr ""
+"**Objetivo**: Aprender a integrar los subindicadores de la cobertura "
+"terrestre, productividad de la tierra y del carbono orgánico del suelo para "
+"calcular el **SDG 15.3.1 Indicator** y el **UNCCD's SO 2-3 Indicator** sobre"
+" la proporción de la población expuesta a la degradación de la tierra, "
+"clasificada por sexo, en formato ráster y salidas tabulares con áreas "
+"estimadas."
 
 #: ../../source/for_users/training/landdegradation.rst:78
 #: ../../source/for_users/training/landdegradation.rst:214
@@ -193,6 +233,10 @@ msgid ""
 "tutorials to compute them: :ref:`tut_land_degradation`, "
 ":ref:`tut_custom_lc`, :ref:`tut_custom_lpd`, and :ref:`tut_custom_soc`."
 msgstr ""
+"Debe haber calculado los subindicadores antes de ejecutar esta herramienta. "
+"Si no lo ha hecho, consulte los siguientes tutoriales específicos para "
+"realizar el cálculo: :ref:`tut_land_degradation`, :ref:`tut_custom_lc`, "
+":ref:`tut_custom_lpd`, y :ref:`tut_custom_soc`."
 
 #: ../../source/for_users/training/landdegradation.rst:85
 #: ../../source/for_users/training/landdegradation.rst:479
@@ -200,6 +244,8 @@ msgid ""
 "Search for the Trends.Earth toolbar within QGIS, and click on the "
 "Trends.Earth icon."
 msgstr ""
+"Localice la barra de herramientas de Trends.Earth en QGIS y haga clic en el "
+"icono de Trends.Earth."
 
 #: ../../source/for_users/training/landdegradation.rst:90
 msgid ""
@@ -207,12 +253,18 @@ msgid ""
 "**SDG 15.3.1- Land Degradation** and select **Execute locally** under "
 "**Indicator for SDG 15.3.1**."
 msgstr ""
+"Se abrirá el panel **Trends.Earth**. En la ventana **Algorithm**, haga clic "
+"en **SDG 15.3.1- Land Degradation** y seleccione **Execute locally** en "
+"**Indicator for SDG 15.3.1**."
 
 #: ../../source/for_users/training/landdegradation.rst:97
 msgid ""
 "Select the datasets from **Baseline dataset** and **Progress dataset** drop-"
 "down lists according to your selections in the sub-indicator analysis."
 msgstr ""
+"Seleccione los conjuntos de datos de las listas desplegables **Baseline "
+"dataset** y **Baseline dataset** según sus selecciones en el análisis de "
+"subindicadores."
 
 #: ../../source/for_users/training/landdegradation.rst:105
 msgid ""
@@ -220,6 +272,8 @@ msgid ""
 "recognize them and they will show up pre-filled in each corresponding "
 "section."
 msgstr ""
+"-Si tienes los subindicadores cargados en el mapa de QGIS, la herramienta "
+"los reconocerá y se mostrarán en cada sección correspondiente."
 
 #: ../../source/for_users/training/landdegradation.rst:108
 msgid ""
@@ -246,6 +300,18 @@ msgid ""
 "|trends.earth| provides access the **WorldPop** dataset, which is used by "
 "default by the UNCCD for calculating indicator SO2-3."
 msgstr ""
+"Haga clic en la ventana **Advanced** para expandirla y mostrar las opciones "
+"avanzadas, luego seleccione la casilla **Population (requerida para calcular"
+" las poblaciones expuestas por la degradación)** para calcular el `SO 2-3 de"
+" la UNCCD, proporción de la población expuesta a la degradación de la tierra"
+" clasificada por sexo <https://prais4-reporting-"
+"manual.readthedocs.io/en/latest/SO2.html#so-2-3-trends-in-population-"
+"exposure-to-land-degradation-disaggregated-by-sex>`_. Asegúrese de marcar la"
+" casilla **Population** tanto para la **Population** como para el **Progress"
+" Period** en caso de que esté interesado en tener un resumen de los "
+"resultados para ambos períodos. |trends.earth| proporciona acceso al "
+"conjunto de datos **WorldPop**, que es utilizado por defecto por la UNCCD "
+"para calcular el indicador SO2-3."
 
 #: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
 msgid "Trends.Earth"
@@ -254,37 +320,46 @@ msgstr "Trends.Earth"
 #: ../../source/for_users/training/landdegradation.rst:116
 #: ../../source/for_users/training/landdegradation.rst:615
 msgid "Select **Execute locally** button."
-msgstr ""
+msgstr "Pulse el botón **Execute locally**."
 
 #: ../../source/for_users/training/landdegradation.rst:118
 msgid "When the analysis is completed a **Success** message will notify you."
 msgstr ""
+"Cuando el análisis se haya completado, un mensaje de **Success** se lo "
+"notificará."
 
 #: ../../source/for_users/training/landdegradation.rst:120
 msgid ""
 "In the **Datasets** window, click on **Load dataset onto QGIS map area**"
 msgstr ""
+"En la ventana **Datasets**, haga clic en **Load dataset onto QGIS map area**"
 
 #: ../../source/for_users/training/landdegradation.rst:125
 msgid ""
 "The SDG 15.3.1 data will be added to the map for the region of interest."
 msgstr ""
+"Los datos del ODS 15.3.1 serán añadidos al mapa de la región de interés."
 
 #: ../../source/for_users/training/landdegradation.rst:132
 msgid ""
 "Refer to the :ref:`background_landdegradation` background for interpreting "
 "the results of this analysis."
 msgstr ""
+"Consulte el apartado :ref:`background_landdegradation` para interpretar los "
+"resultados de este análisis."
 
 #: ../../source/for_users/training/landdegradation.rst:135
 msgid "SDG 15.3.1 Land Degradation Summary"
-msgstr ""
+msgstr "Resumen ODS 15.3.1 de la degradación de la tierra "
 
 #: ../../source/for_users/training/landdegradation.rst:137
 msgid ""
 "**Objective**: Learn how to open and interpret the summary tables produced "
 "by Trends.Earth when calculating the final SDG 15.3.1 Indicator layer."
 msgstr ""
+"**Objetivo**: Aprender a abrir e interpretar las tablas de resúmenes "
+"producidas por Trends.Earth al calcular la capa final del indicador SDG "
+"15.3.1."
 
 #: ../../source/for_users/training/landdegradation.rst:139
 msgid "**Estimated time of completion**: 25 minutes"
@@ -305,6 +380,10 @@ msgid ""
 ":ref:`training_final_ldindicator` for instructions on how to run this "
 "analysis."
 msgstr ""
+"Deberá calcular previamente el SDG 15.3.1 utilizando la herramienta "
+"**Indicator for SDG 15.3.1**. Consulte la sección "
+":ref:`training_final_ldindicator` para obtener instrucciones sobre cómo "
+"ejecutar este análisis."
 
 #: ../../source/for_users/training/landdegradation.rst:149
 msgid ""
@@ -312,6 +391,9 @@ msgid ""
 "the summary table. In the **Datasets** window, click on click on **Open "
 "Dataset Directory**"
 msgstr ""
+"Cuando se calcula el indicador para el ODS 15.3.1 se crea un archivo Excel "
+"con la tabla de resúmenes. En la ventana **Datasets**, haga clic en **Open "
+"Dataset Directory**."
 
 #: ../../source/for_users/training/landdegradation.rst:154
 msgid ""
@@ -319,6 +401,10 @@ msgid ""
 "data will open. You will see two summary tables in case both Baseline and "
 "Progress period SDG 15.3.1 were calculated"
 msgstr ""
+"Se abrirá el directorio en el que se guardó la tabla de resúmenes junto con "
+"los datos geoespaciales. Verá dos tablas de resúmenes en caso de que se "
+"hayan calculado tanto el período de referencia como el de progreso SDG "
+"15.3.1"
 
 #: ../../source/for_users/training/landdegradation.rst:159
 msgid ""
@@ -326,6 +412,10 @@ msgid ""
 " each of the different names the bottom of the screen: SDG 15.3.1, "
 "Productivity, Soil organic carbon, Land Cover, Population and UNCCD SO1-1."
 msgstr ""
+"El archivo de la tabla de resumen contiene 6 pestañas, las cuales puede "
+"explorar haciendo clic en cada uno de los diferentes nombres de la parte "
+"inferior de la pantalla: ODS 15.3.1, productividad, carbono orgánico del "
+"suelo, cobertura del suelo, población y UNCCD SO1-1."
 
 #: ../../source/for_users/training/landdegradation.rst:161
 msgid ""
@@ -439,6 +529,9 @@ msgid ""
 "In the **Population** tab you will find a summary of population affected by "
 "land degradation classes, with absolute and percent values reported."
 msgstr ""
+"En la pestaña **Population* encontrará un resumen de la población afectada "
+"por las clases de degradación de la tierra, con valores absolutos y "
+"porcentuales."
 
 #: ../../source/for_users/training/landdegradation.rst:200
 msgid ""
@@ -448,16 +541,24 @@ msgid ""
 "UNCCD. Each table indicates at the top the page number and section of the "
 "template the information is referring to."
 msgstr ""
+"En la pestaña **UNCCD SO1-1** encontrará cinco tablas que contienen "
+"información similar a la presentada en las pestañas anteriores, pero en este"
+" caso con un formato específico que se ajusta a la plantilla de presentación"
+" de informes exigida por la UNCCD. Cada tabla indica en la parte superior el"
+" número de página y la sección de la plantilla a la que se refiere la "
+"información."
 
 #: ../../source/for_users/training/landdegradation.rst:206
 msgid ""
 "Refer to the :ref:`indicator-productivity` to learn more on land "
 "productivity."
 msgstr ""
+"Consulte :ref:`indicador-productividad` para aprender más sobre la "
+"productividad de la tierra."
 
 #: ../../source/for_users/training/landdegradation.rst:211
 msgid "Custom Data - Productivity"
-msgstr ""
+msgstr "Datos personalizados - Productividad"
 
 #: ../../source/for_users/training/landdegradation.rst:212
 msgid ""
@@ -473,6 +574,9 @@ msgid ""
 "reporting indicating areas of Declining, Moderate decline, Stressed, Stable,"
 " or Increasing."
 msgstr ""
+"Los datos de productividad de la tierra deben ser formateados siguiendo las "
+"directrices de la CNULD para la presentación de los informes indicando las "
+"áreas de disminución, disminución moderada, estrés, estable o en aumento."
 
 #: ../../source/for_users/training/landdegradation.rst:230
 msgid ""
@@ -488,11 +592,11 @@ msgstr "Declinación = 1"
 
 #: ../../source/for_users/training/landdegradation.rst:224
 msgid "Moderate decline = 2"
-msgstr ""
+msgstr "Disminución moderada = 2"
 
 #: ../../source/for_users/training/landdegradation.rst:225
 msgid "Stressed = 3"
-msgstr ""
+msgstr "Estrés = 3"
 
 #: ../../source/for_users/training/landdegradation.rst:226
 msgid "Stable = 4"
@@ -511,18 +615,24 @@ msgid ""
 "If your layer is not coded in such a way, please do the necessary "
 "adjustments/reclassification prior to using Trends.Earth."
 msgstr ""
+"Si su capa no está codificada de esta manera, por favor haga los "
+"ajustes/reclasificación necesarios antes de usar Trends.Earth."
 
 #: ../../source/for_users/training/landdegradation.rst:232
 msgid ""
 "To load a **custom productivity data** click on the **Datasets** window, and"
 " then click on **Import dataset**."
 msgstr ""
+"Para cargar un **dato de productividad personalizado** haga clic en la "
+"ventana **Datasets**, y luego en **Import dataset**."
 
 #: ../../source/for_users/training/landdegradation.rst:237
 msgid ""
 "Several options will appear. Select **Import custom Productivity dataset** "
 "from the list."
 msgstr ""
+"Aparecerán varias opciones. Seleccione **Import custom Productivity "
+"dataset** de la lista."
 
 #: ../../source/for_users/training/landdegradation.rst:242
 msgid ""
@@ -545,6 +655,12 @@ msgid ""
 "modifying the resolution of the file. We recommend leaving those as defaults"
 " unless you have valid reasons for changing them."
 msgstr ""
+"En la ventana **Load a Custom Land Productivity Dataset** tiene opciones "
+"para seleccionar el número de banda en el que se almacenan los datos de "
+"productividad, en caso de que su archivo de entrada sea un ráster "
+"multibanda. También tiene la opción de modificar la resolución del archivo. "
+"Le recomendamos que deje estas opciones por defecto, a menos que tenga "
+"motivos válidas para cambiarlas."
 
 #: ../../source/for_users/training/landdegradation.rst:251
 msgid ""
@@ -552,6 +668,9 @@ msgid ""
 "file** and navigate to the folder where you want to save the file. Type in a"
 " name and click **OK**."
 msgstr ""
+"Haga clic en **Browse** en la parte inferior de la ventana para seleccionar "
+"el **Archivo rasterizado de salida** y navegue hasta la carpeta donde desea "
+"guardar el archivo. Escriba un nombre y haga clic en **OK**."
 
 #: ../../source/for_users/training/landdegradation.rst:254
 msgid ""
@@ -569,26 +688,38 @@ msgid ""
 "import it. For that reason, it is **extremely important** for you to explore"
 " the output layer to make sure the results are mapped as expected."
 msgstr ""
+"Si los valores del archivo de entrada no coinciden exactamente con los "
+"requisitos descritos anteriormente, aparecerá un mensaje de advertencia. En "
+"muchos de los casos la advertencia se produce por la definición de NoData, "
+"pero la herramienta seguirá intentando importarlo. Por esta razón, es "
+"**extremadamente importante** que explore la capa de salida para asegurarse "
+"de que los resultados se mapean como se espera."
 
 #: ../../source/for_users/training/landdegradation.rst:261
 msgid ""
 "Once you click **OK** a progress bar will appear showing the percentage of "
 "the task completed."
 msgstr ""
+"Una vez que haga clic en **OK**, aparecerá una barra de progreso que muestra"
+" el porcentaje de la tarea completado."
 
 #: ../../source/for_users/training/landdegradation.rst:266
 msgid ""
 "In the **Datasets** window, find the **Imported dataset (land "
 "productivity)** on click on **Load dataset onto QGIS map area**."
 msgstr ""
+"En la ventana **Datasets**, busque **Imported dataset (productividad de la "
+"tierra)** y haga clic en **Load dataset onto QGIS map area**."
 
 #: ../../source/for_users/training/landdegradation.rst:272
 msgid "Refer to the :ref:`indicator-land-cover` to learn more on land cover."
 msgstr ""
+"Consulte :ref:`indicator-land-cover` para obtener más información sobre la "
+"cobertura del suelo."
 
 #: ../../source/for_users/training/landdegradation.rst:277
 msgid "Custom Data - Land Cover"
-msgstr ""
+msgstr "Datos personalizados - Cobertura del suelo"
 
 #: ../../source/for_users/training/landdegradation.rst:278
 msgid ""
@@ -622,12 +753,16 @@ msgid ""
 "To load a custom productivity data click on the **Datasets** window, and "
 "then click on **Import dataset**."
 msgstr ""
+"Para cargar un dato de productividad personalizado, haga clic en la ventana "
+"**Datasets* y, a continuación, en **Import dataset**."
 
 #: ../../source/for_users/training/landdegradation.rst:295
 msgid ""
 "Several options will appear. Select **Import custom Land Cover dataset** "
 "from the list."
 msgstr ""
+"Aparecerán varias opciones. Seleccione **Import custom Land Cover dataset** "
+"de la lista."
 
 #: ../../source/for_users/training/landdegradation.rst:300
 msgid ""
@@ -636,6 +771,11 @@ msgid ""
 "select raster, since the data distributed by the UNCCD is in raster format. "
 "Click on **Browse** to navigate to the land cover file you wish to import."
 msgstr ""
+"En la ventana **Load a Custom Land Cover Dataset**, utilice el botón de "
+"opción para seleccionar el formato del archivo de entrada (raster o vector)."
+" Para este tutorial seleccione raster, ya que los datos distribuidos por la "
+"UNCCD están en formato raster. Haga clic en **Browse** para navegar hasta el"
+" archivo de la cobertura del suelo que desea importar."
 
 #: ../../source/for_users/training/landdegradation.rst:305
 msgid ""
@@ -645,6 +785,12 @@ msgid ""
 "modifying the resolution of the file. We recommend leaving those as defaults"
 " unless you have valid reasons for changing them."
 msgstr ""
+"En la ventana **Load a Custom Land Cover Dataset** también tiene la opción "
+"de seleccionar el número de banda en las que se almacenan los datos de la "
+"cobertura del suelo, en caso de que su archivo de entrada sea un ráster "
+"multibanda. También tiene la opción de modificar la resolución del archivo. "
+"Le recomendamos que deje estas opciones por defecto, a menos que tenga "
+"motivos válidos para cambiarlas."
 
 #: ../../source/for_users/training/landdegradation.rst:307
 msgid ""
@@ -652,6 +798,10 @@ msgid ""
 "cover dataset for Uganda was developed for the **year 2000**, define it as "
 "such. Make sure you are assigning the correct **Year of data**."
 msgstr ""
+"Establezca el año de referencia de los datos. En este caso, dado que el "
+"conjunto de datos sobre la cubierta terrestre de Uganda corresponde al **año"
+" 2000**, defínalo como tal. Asegúrese de que está asignando el **Year of "
+"data** correctamente."
 
 #: ../../source/for_users/training/landdegradation.rst:309
 msgid ""
@@ -741,6 +891,10 @@ msgid ""
 "to the folder where you want to save the file. Type in a name and click "
 "**OK**."
 msgstr ""
+"De vuelta a la ventana de **Load a Custom Land Cover dataset**, haga clic en"
+" **Browse** en la parte inferior de la ventana para seleccionar el **Output "
+"raster file** y ubique la carpeta donde desea guardar el archivo. Escriba un"
+" nombre y haga clic en **OK**."
 
 #: ../../source/for_users/training/landdegradation.rst:343
 msgid ""
@@ -754,10 +908,14 @@ msgid ""
 "In the **Datasets** window, find the **Imported dataset (land cover "
 "change)** on click on **Load dataset onto QGIS map area**."
 msgstr ""
+"En la ventana **Datasets**, busque **Imported dataset (cambio en la "
+"cobertura del suelo)** y haga clic en **Load dataset onto QGIS map area**."
 
 #: ../../source/for_users/training/landdegradation.rst:353
 msgid ".The imported land cover dataset will be loaded to QGIS."
 msgstr ""
+".El conjunto de datos importados de la cobertura del suelo se cargarán en "
+"QGIS."
 
 #: ../../source/for_users/training/landdegradation.rst:358
 msgid ""
@@ -767,6 +925,13 @@ msgid ""
 "tutorial, we will use another land cover map from Uganda from the year 2015."
 " **Make sure to change the year date in the import menu**."
 msgstr ""
+"Usted cuenta con un dato de la cobertura del suelo personalizado importado "
+"correspondiente al año (2000), pero se necesitan dos para realizar el "
+"análisis de los cambios en la cobertura del suelo. Repita ahora los pasos "
+"del 1 al 8, pero esta vez con el mapa de la cobertura del suelo más "
+"reciente. Para este tutorial, utilizaremos otro mapa de cobertura del suelo "
+"de Uganda del año 2015. **Asegúrese de cambiar la fecha del año en el menú "
+"de importación**."
 
 #: ../../source/for_users/training/landdegradation.rst:360
 msgid ""
@@ -779,6 +944,8 @@ msgstr ""
 #: ../../source/for_users/training/landdegradation.rst:366
 msgid "Calculating Land Cover sub-indicator with custom data"
 msgstr ""
+"Cálculo del subindicador de la cobertura del suelo con los datos "
+"personalizados"
 
 #: ../../source/for_users/training/landdegradation.rst:368
 msgid ""
@@ -786,6 +953,10 @@ msgid ""
 "land cover change analysis tool needs to be run. In the **Algorithm "
 "window**, click on **Execute locally** under **Land cover change**."
 msgstr ""
+"Ahora que ambos datos de cobertura del suelo se han importado en "
+"Trends.Earth, es necesario ejecutar la herramienta de análisis del cambio en"
+" la cobertura del suelo. En la ventana **Algorithm**, haga clic en **Execute"
+" locally** en **Land cover change**."
 
 #: ../../source/for_users/training/landdegradation.rst:377
 msgid ""
@@ -793,6 +964,9 @@ msgid ""
 "option next to **Initial year layer** and **Target year layer** to change "
 "the dates accordingly."
 msgstr ""
+"Se abrirá la ventana **Land Cover | Land Degradation**. Utilice la opción "
+"del menú desplegable junto a **Initial year layer** y **Target year layer** "
+"para cambiar las fechas según corresponda."
 
 #: ../../source/for_users/training/landdegradation.rst:388
 msgid ""
@@ -802,6 +976,12 @@ msgid ""
 "transitions in beige (zero) will be identified as stable, and transitions in"
 " green (plus sign) will be identified as improvements."
 msgstr ""
+"Haga clic en **Advanced** para ampliarlo. Aquí podrá definir el contenido de"
+" cada transición de la cubierta terrestre en términos de degradación. Las "
+"transiciones indicadas en púrpura (signo menos) se identificarán como "
+"degradación en el resultado final, las transiciones en beige (cero) se "
+"identificarán como estables, y las transiciones en verde (signo más) se "
+"identificarán como mejoras."
 
 #: ../../source/for_users/training/landdegradation.rst:390
 msgid ""
@@ -822,12 +1002,16 @@ msgid ""
 "If you did change the meaning of some of the transitions, click on **Save "
 "table to file...** to save the definition for later use."
 msgstr ""
+"Si ha cambiado el contenido de algunas transiciones, haga clic en **Save "
+"table to file...** para así guardar la definición para un uso posterior."
 
 #: ../../source/for_users/training/landdegradation.rst:397
 msgid ""
 ". If you have made no changes to the default matrix, simply click **Execute "
 "locally**."
 msgstr ""
+". Si no ha realizado ningún cambio en la matriz por defecto, simplemente "
+"haga clic en **Execute locally**."
 
 #: ../../source/for_users/training/landdegradation.rst:400
 #: ../../source/for_users/training/landdegradation.rst:463
@@ -835,6 +1019,8 @@ msgid ""
 "When you click **Execute locally**, a progress bar will appear showing the "
 "percentage of the task completed."
 msgstr ""
+"Al hacer clic en **Execute locally**, aparecerá una barra de progreso que "
+"muestra el porcentaje de la tarea completado."
 
 #: ../../source/for_users/training/landdegradation.rst:407
 msgid ""
@@ -842,10 +1028,13 @@ msgid ""
 "dataset calculated using custom Land Cover data and click on click on **Add "
 "default layers from this dataset to map**."
 msgstr ""
+"En la ventana **Datasets**, localice el conjunto de datos del subindicador "
+"**Land cover change** calculado con los datos personalizados de la cobertura"
+" del suelo y haga clic en **Add default layers from this dataset to map**."
 
 #: ../../source/for_users/training/landdegradation.rst:416
 msgid "Custom Data - SOC"
-msgstr ""
+msgstr "Datos personalizados - SOC"
 
 #: ../../source/for_users/training/landdegradation.rst:418
 msgid ""
@@ -877,12 +1066,16 @@ msgid ""
 "To load a custom Soil Organic Carbon data click on the **Datasets** window, "
 "and then click on **Import dataset**."
 msgstr ""
+"Para cargar un dato personalizado del carbono orgánico del suelo, haga clic "
+"en la ventana **Datasets**, y luego en **Import dataset**."
 
 #: ../../source/for_users/training/landdegradation.rst:437
 msgid ""
 "Several options will appear. Select **Import custom Soil Organic Carbon** "
 "from the list."
 msgstr ""
+"Aparecerán varias opciones. De la lista seleccione **Import custom Soil "
+"Organic Carbon**."
 
 #: ../../source/for_users/training/landdegradation.rst:443
 msgid ""
@@ -892,6 +1085,11 @@ msgid ""
 "raster format. Click on **Browse** to navigate to the SOC file you wish to "
 "import."
 msgstr ""
+"En la ventana **Load a Custom Soil Organic Carbon (SOC) dataset**, marque el"
+" botón de opción para seleccionar el formato del archivo de entrada (raster "
+"o vector). Para este tutorial seleccione raster, ya que los datos "
+"distribuidos por la UNCCD están en formato raster. Haga clic en **Browse** "
+"para navegar hasta el archivo SOC que desea importar."
 
 #: ../../source/for_users/training/landdegradation.rst:449
 msgid ""
@@ -901,6 +1099,12 @@ msgid ""
 "modifying the resolution of the file. We recommend leaving those as defaults"
 " unless you have valid reasons for changing them."
 msgstr ""
+"En la ventana **Load a Custom Soil Organic Carbon (SOC) dataset** también "
+"dispone de opciones para seleccionar el número de banda en el que se "
+"almacenan los datos SOC, por si su archivo de entrada es un ráster "
+"multibanda. También tiene la opción de modificar la resolución del archivo. "
+"Le recomendamos que deje estas opciones por defecto, a menos que tenga "
+"motivos válidos para cambiarlas."
 
 #: ../../source/for_users/training/landdegradation.rst:451
 msgid ""
@@ -908,6 +1112,9 @@ msgid ""
 "dataset for Uganda was developed for the **year 2000**, define it as such. "
 "Make sure you are assigning the correct year."
 msgstr ""
+"Defina el año de referencia de los datos. En este caso, dado que el conjunto"
+" de datos SOC para Uganda se desarrolló durante el **año 2000**, defínalo "
+"como tal. Asegúrese de que está asignando el año correcto."
 
 #: ../../source/for_users/training/landdegradation.rst:453
 msgid ""
@@ -939,10 +1146,14 @@ msgid ""
 "In the **Datasets** window, find the **Imported dataset (Soil Organic "
 "Carbon) and click on click on **Load dataset onto QGIS map area**."
 msgstr ""
+"En la ventana **Datasets**, busque **Imported dataset (Carbono orgánico del "
+"suelo)** y haga clic en **Load dataset onto QGIS map area**."
 
 #: ../../source/for_users/training/landdegradation.rst:474
 msgid "Calculating soil organic carbon sub-indicator with custom data"
 msgstr ""
+"Calculando el subindicador de carbono orgánico del suelo en base a los datos"
+" personalizados"
 
 #: ../../source/for_users/training/landdegradation.rst:476
 msgid ""
@@ -951,6 +1162,11 @@ msgid ""
 " ensure the custom soil organic carbon data is loaded within QGIS "
 "(see:ref:`load_custom_soc`)."
 msgstr ""
+"Una vez que haya importado un conjunto de datos personalizados del carbono "
+"orgánico del suelo, es posible calcular la degradación del carbono orgánico "
+"del suelo a partir de esos datos. Para ello, primero asegúrese de que los "
+"datos personalizados del carbono orgánico del suelo están cargados en QGIS "
+"(véase:ref:`load_custom_soc`)."
 
 #: ../../source/for_users/training/landdegradation.rst:484
 msgid ""
@@ -958,6 +1174,9 @@ msgid ""
 "**SDG 15.3.1- Land Degradation** and select **Execute locally** under **Soil"
 " Organic Carbon**."
 msgstr ""
+"Se abrirá el panel **Trends.Earth**. En la ventana **Algorithm**, haga clic "
+"en **SDG 15.3.1- Land Degradation** y seleccione **Execute locally** en "
+"**Soil Organic Carbon**."
 
 #: ../../source/for_users/training/landdegradation.rst:492
 msgid ""
@@ -970,6 +1189,15 @@ msgid ""
 "datasets. Enter a **Execution name** and make sure to type in some notes for"
 " future reference."
 msgstr ""
+"Se abrirá la ventana **Soil Organic Carbon | Land Degradation**. Haga clic "
+"en las listas desplegables y seleccione **Initial year layer** y **Target "
+"year layer** para cargar el conjunto de datos de la cobertura del suelo que "
+"ya ha procesado en Trends.Earth representando el año inicial y el año "
+"objetivo de la serie temporal donde se calculará el subindicador SOC. "
+"Consulte el tutorial :ref:`tut_custom_lc` para obtener más información sobre"
+" la carga de conjuntos de datos de la cobertura del suelo. Introduzca un "
+"**Execution name** y asegúrese de escribir algunas notas que sirvan como "
+"referencia en el futuro."
 
 #: ../../source/for_users/training/landdegradation.rst:499
 msgid ""
@@ -979,6 +1207,12 @@ msgid ""
 "Climatic Regions listed under the drop-down menu, or either enter a **Custom"
 " value** in case you have valid reasons for changing them."
 msgstr ""
+"En **Advanced configuration**, tiene las opciones para establecer el "
+"**Climate regime** que sea más apropiado para su región de interés. Puede "
+"dejar esta opción por defecto, **Specify regime** seleccionando una de las "
+"regiones climáticas globales que aparecen en el menú desplegable, o bien "
+"introducir un **Custom value** en caso de que tenga motivos válidos para "
+"cambiarlo."
 
 #: ../../source/for_users/training/landdegradation.rst:505
 msgid ""
@@ -986,12 +1220,19 @@ msgid ""
 "organic carbon dataset** box and select the custom dataset representing SOC "
 "you just imported as **Initial year layer**"
 msgstr ""
+"En el apartado **Advanced configuration**, marque la casilla **Custom "
+"initial soil organic carbon dataset** y seleccione el conjunto de datos "
+"personalizados que representa el SOC que acaba de importar como **Initial "
+"year layer**."
 
 #: ../../source/for_users/training/landdegradation.rst:510
 msgid ""
 "Click **Execute locally**. A progress bar will appear on your screen. Do not"
 " quit QGIS or turn off your computer until the calculation is complete."
 msgstr ""
+"Haga clic en **Execute locally**. Una barra de progreso aparecerá en su "
+"pantalla. No salga de QGIS ni apague el ordenador hasta que el cálculo se "
+"haya completado."
 
 #: ../../source/for_users/training/landdegradation.rst:516
 msgid ""
@@ -999,6 +1240,9 @@ msgid ""
 " click on click on **Add default layers from this dataset to map** under "
 "**Load dataset onto QGIS map area**."
 msgstr ""
+"En la ventana **Datasets**, busque la tarea **Soil organic carbon change** y"
+" haga clic en **Add default layers from this dataset to map** en **Load "
+"dataset onto QGIS map area**."
 
 #: ../../source/for_users/training/landdegradation.rst:521
 msgid ""
@@ -1013,14 +1257,18 @@ msgid ""
 "the imported soil organic carbon data to compute the final SDG 15.3.1 after "
 "integration with land cover and land productivity."
 msgstr ""
+"Consulte el tutorial :ref:`indicator-soc` para obtener las instrucciones "
+"sobre cómo utilizar los datos importados del carbono orgánico del suelo con "
+"el fin de calcular el SDG 15.3.1 final después de la integración con la "
+"cobertura del suelo y la productividad de la tierra."
 
 #: ../../source/for_users/training/landdegradation.rst:533
 msgid "Strategic Objective 3"
-msgstr ""
+msgstr "Objetivo estratégico 3"
 
 #: ../../source/for_users/training/landdegradation.rst:536
 msgid "Default data for UNCCD SO 3"
-msgstr ""
+msgstr "Datos predeterminados para el UNCCD SO 3"
 
 #: ../../source/for_users/training/landdegradation.rst:538
 msgid ""
@@ -1031,6 +1279,13 @@ msgid ""
 "the European Commission's Joint Research Centre - JRC. In this tutorial we "
 "will use Colombia as an example, but you can choose any study area."
 msgstr ""
+"**Objetivo**: : Aprender a calcular los 3 indicadores de la sequía Amenaza, "
+"Exposición y Vulnerabilidad utilizando Trends.Earth y los datos por defecto:"
+" conjunto de datos de precipitación mensual del Global Precipitation "
+"Climatology Center -GPC, recuento de población cuadriculado de WorldPop y "
+"Vulnerabilidad a la sequía del Centro Común de Investigación de la Comisión "
+"Europea - JRC. En este tutorial utilizaremos a Colombia como ejemplo, pero "
+"puede elegir cualquier área de estudio."
 
 #: ../../source/for_users/training/landdegradation.rst:540
 #: ../../source/for_users/training/landdegradation.rst:588
@@ -1042,6 +1297,8 @@ msgid ""
 "In the **Algorithm** window, click on **Drought - Vulnerability and "
 "exposure** and select **Execute remotely** under **Drought vulnerability**."
 msgstr ""
+"En la ventana **Algorithm**, haga clic en **Drought - Vulnerability and "
+"exposure** y seleccione **Execute remotely** en **Drought vulnerability**."
 
 #: ../../source/for_users/training/landdegradation.rst:554
 msgid ""
@@ -1057,12 +1314,27 @@ msgid ""
 "50 North. Type in an **Execution name** and make sure to leave some notes "
 "about this step for future reference."
 msgstr ""
+"Establezca el **año inicial** y el **año final** y el **retraso (meses)** "
+"que se aplicarán al conjunto de datos de precipitaciones para calcular el "
+"riesgo y la exposición a la sequía. Seleccione la casilla **Include JRC "
+"Vulnerability Index** para calcular la vulnerabilidad a la sequía de la "
+"región de interés. El conjunto de datos de precipitaciones por defecto es el"
+" Centro de Climatología de Precipitaciones Globales (GPCC) v2020 con una "
+"resolución espacial de aproximadamente 27 km2. Pronto los usuarios tendrán "
+"la opción de elegir el conjunto de datos CHIRPS del Grupo de Riesgos "
+"Climáticos - aunque tiene una resolución espacial más fina, de "
+"aproximadamente 5 km2, el conjunto de datos CHIRPS no ofrecen una cobertura "
+"global completa, extendiéndose desde el 50 Sur al 50 Norte. Escriba un "
+"**nombre de ejecución** y asegúrese de dejar algunas notas sobre este paso "
+"para referencias futuras."
 
 #: ../../source/for_users/training/landdegradation.rst:562
 msgid ""
 "Refer to the :ref:`background_unccdreporting` section of this manual to "
 "learn about drought Hazard, Exposure and Vulnerability."
 msgstr ""
+"Consulte la sección :ref:`background_unccdreporting` de este manual para "
+"conocer el peligro de sequía, la exposición y vulnerabilidad."
 
 #: ../../source/for_users/training/landdegradation.rst:564
 #: ../../source/for_users/training/landdegradation.rst:617
@@ -1071,11 +1343,14 @@ msgid ""
 "submitted will appear in the menu if the **Download remotely-generated "
 "datasets automatically** is checked in settings."
 msgstr ""
+"En el panel **Trends.Earth**, seleccione la pestaña **Datasets**. La tarea "
+"enviada aparecerá en el menú si la opción **Download remotely-generated "
+"datasets automatically** está marcada en la configuración."
 
 #: ../../source/for_users/training/landdegradation.rst:569
 msgid ""
 ". Select the Refresh button if the analysis does not appear in the menu."
-msgstr ""
+msgstr ". Pulse el botón actualizar si el análisis no aparece en el menú."
 
 #: ../../source/for_users/training/landdegradation.rst:571
 #: ../../source/for_users/training/landdegradation.rst:625
@@ -1083,6 +1358,8 @@ msgid ""
 "Select the add layer drop-down button to **Add default layers from this "
 "layer to the map**"
 msgstr ""
+"Seleccione el botón desplegable de añadir capas para **Add default layers "
+"from this layer to the map**"
 
 #: ../../source/for_users/training/landdegradation.rst:576
 msgid ""
@@ -1090,16 +1367,22 @@ msgid ""
 "Drought Vulnerability Index for 2018, and population disaggregated by "
 "gender, will be added to the map for the region of interest."
 msgstr ""
+"Los datos por defecto: Índice de precipitación estandarizada para todas las "
+"épocas, Índice de vulnerabilidad a la sequía del CCI para 2018 y población "
+"clasificada por género, se añadirán al mapa para la región de interés."
 
 #: ../../source/for_users/training/landdegradation.rst:584
 msgid "Summarizing SO 3 indicators for reporting to UNCCD"
 msgstr ""
+"Resumir los indicadores del OE 3 para presentar como informe a la UNCCD"
 
 #: ../../source/for_users/training/landdegradation.rst:586
 msgid ""
 "**Objective**: Learn to integrate the drought indicators in alingment with "
 "UNCCD SO3 reporting requirements."
 msgstr ""
+"**Objetivo**: Aprende a integrar los indicadores de sequía de acuerdo a los "
+"requisitos de presentación de informes del OE3 de la CNULD."
 
 #: ../../source/for_users/training/landdegradation.rst:593
 msgid ""
@@ -1107,12 +1390,17 @@ msgid ""
 "hazard, exposure and vulnerability. If you have not, please refer to the "
 "previous step on this tutorial."
 msgstr ""
+"Es necesario que haya calculado previamente los indicadores de peligro de "
+"sequía, exposición y vulnerabilidad. En caso contrario, consulte el paso "
+"anterior de este tutorial."
 
 #: ../../source/for_users/training/landdegradation.rst:595
 msgid ""
 "Click on the Trends.Earth toolbar within QGIS, and click on the Trends.Earth"
 " icon."
 msgstr ""
+"Haga clic en la barra de herramientas de Trends.Earth dentro de QGIS, y haga"
+" clic en el icono de Trends.Earth."
 
 #: ../../source/for_users/training/landdegradation.rst:597
 msgid ""
@@ -1120,11 +1408,16 @@ msgid ""
 "click on **Drought - Vulnerability and exposure** and select **Execute "
 "locally** under **Drought vulnerability summary table**."
 msgstr ""
+"Se abrirá el panel **Trends.Earth**. En la ventana **Algorithm**, haga clic "
+"en **Drought - Vulnerability and exposure** y seleccione **Execute locally**"
+" en **Drought vulnerability summary table**."
 
 #: ../../source/for_users/training/landdegradation.rst:607
 msgid ""
 "Select the **Drought dataset (hazard and exposure)** from the drop-down list"
 msgstr ""
+"Seleccione el **Drought dataset (peligro y exposición)** de la lista "
+"desplegable"
 
 #: ../../source/for_users/training/landdegradation.rst:609
 msgid ""
@@ -1133,48 +1426,55 @@ msgid ""
 "drought indicator datasets loaded to the QGIS map canvas, Trends.Earth will "
 "automatically select them"
 msgstr ""
+"Asegúrese de marcar la casilla **Drought dataset for vulnerability** para "
+"que así este conjunto de datos también sean incluidos en el cálculo del "
+"resumen. Si cuenta con los conjuntos de datos del indicador de sequía "
+"cargados en el lienzo del mapa en QGIS, Trends.Earth los seleccionará "
+"automáticamente"
 
 #: ../../source/for_users/training/landdegradation.rst:623
 msgid "Select the Refresh button if the analysis does not appear in the menu."
-msgstr ""
+msgstr "Pulse el botón actualizar si el análisis no aparece en el menú."
 
 #: ../../source/for_users/training/landdegradation.rst:630
 msgid ""
 "The data for SO 3 Indicators will be added to the map for the region of "
 "interest."
 msgstr ""
+"Los datos de los indicadores del SO 3 serán añadidos al mapa de la región de"
+" interés."
 
 #: ../../source/for_users/training/landdegradation.rst:634
 msgid "Exploring NDVI (Plot Data)"
-msgstr ""
+msgstr "Exploración del NDVI (datos de la parcela)"
 
 #: ../../source/for_users/training/landdegradation.rst:636
 msgid "**Coming soon**"
-msgstr ""
+msgstr "**Próximamente**"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr ""
+msgstr "iconCalculadora"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr ""
+msgstr "iconTabla"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr ""
+msgstr "iconPortapapeles"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr ""
+msgstr "iconDescargadelanube"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr ""
+msgstr "iconCog"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr ""
+msgstr "iconBorrarconjuntodedatos"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
@@ -1182,60 +1482,60 @@ msgstr "iconGlobe"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr ""
+msgstr "iconGráfico"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr ""
+msgstr "iconInfomación"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr ""
+msgstr "iconCargarconjuntodedatos"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr ""
+msgstr "iconMercadodemarcas"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr ""
+msgstr "iconAbrirdirectoriodeconjuntodedatos"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr ""
+msgstr "iconVerdetallesdelconjuntodedatos"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr ""
+msgstr "iconLlaveinglesa"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr ""
+msgstr "iconCarpeta"
 
 #: ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr ""
+msgstr "iconInformes"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr ""
+msgstr "iconTrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr ""
+msgstr "iconVisualización"
 
 #: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr ""
+msgstr "logoCI"
 
 #: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr ""
+msgstr "logoLund"
 
 #: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr ""
+msgstr "logoNASA"
 
 #: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr ""
+msgstr "logoGEF"

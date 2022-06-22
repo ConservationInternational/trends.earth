@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-24 18:41-0400\n"
+"POT-Creation-Date: 2022-06-21 17:06-0400\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
@@ -24,7 +24,7 @@ msgstr ""
 
 #: ../../source/for_users/features/landconsumption.rst:4
 msgid "Land Consumption and SDG 11.3.1"
-msgstr ""
+msgstr "Consumo de tierras y ODS 11.3.1"
 
 #: ../../source/for_users/features/landconsumption.rst:7
 msgid "Background"
@@ -82,6 +82,22 @@ msgid ""
 "need for generation and dissemination of up-to-date and accurate data on "
 "growth trends across cities and urban settlements."
 msgstr ""
+"Un país que maximiza las múltiples ventajas asociadas a la urbanización es "
+"aquel que es capaz de entender, medir y predecir las tendencias de "
+"crecimiento de sus zonas urbanas; y a su vez poner en marcha las "
+"acciones/intervenciones necesarias para aprovechar las ventajas de dicho "
+"crecimiento, minimizando al mismo tiempo los igualmente diversos retos "
+"asociados a la urbanización no planificada. La planificación proactiva, que "
+"es un importante requisito previo para la urbanización sostenible, exige que"
+" las autoridades municipales y otros agentes implicados prevean la dirección"
+" del crecimiento de una ciudad, o moldeen este crecimiento proporcionando "
+"las instalaciones, los servicios y los marcos políticos y legales necesarios"
+" antes del desarrollo. El resultado es un crecimiento planificado y "
+"equitativo en el que la mayoría de los residentes de la ciudad tienen acceso"
+" a los servicios básicos y a las oportunidades económicas y sociales, y en "
+"el que prevalece la sostenibilidad medioambiental. En el centro de todo esto"
+" está la necesidad de generar y difundir datos actualizados y precisos sobre"
+" las tendencias de crecimiento en las ciudades y asentamientos urbanos."
 
 #: ../../source/for_users/features/landconsumption.rst:14
 msgid ""
@@ -1091,6 +1107,8 @@ msgid ""
 "For a step-by-step guide on how to run the analysis in |trends.earth|, "
 "please refer to the following tutorial: :ref:`tut_land_consumption`."
 msgstr ""
+"Para obtener una guía paso a paso sobre cómo realizar el análisis en "
+"|trends.earth|, consulte el siguiente tutorial: :ref:`tut_land_consumption`."
 
 #: ../../source/for_users/features/landconsumption.rst:202
 msgid "**Citations:**"
@@ -1188,27 +1206,27 @@ msgstr ""
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr ""
+msgstr "iconCalculator"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr ""
+msgstr "iconChart"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr ""
+msgstr "iconClipboard"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr ""
+msgstr "iconCloudDownload"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr ""
+msgstr "iconCog"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr ""
+msgstr "iconDeletedataset"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
@@ -1216,60 +1234,60 @@ msgstr "iconGlobe"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr ""
+msgstr "iconGraph"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr ""
+msgstr "iconInfo"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr ""
+msgstr "iconLoaddataset"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr ""
+msgstr "iconMarkMarker"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr ""
+msgstr "iconOpendatasetdirectory"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr ""
+msgstr "iconViewdatasetdetails"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr ""
+msgstr "iconWrench"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr ""
+msgstr "iconFolder"
 
 #: ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr ""
+msgstr "iconReports"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr ""
+msgstr "iconTrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr ""
+msgstr "iconVisualization"
 
 #: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr ""
+msgstr "logoCI"
 
 #: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr ""
+msgstr "logoLund"
 
 #: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr ""
+msgstr "logoNASA"
 
 #: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr ""
+msgstr "logoGEF"

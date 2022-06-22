@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-24 18:41-0400\n"
+"POT-Creation-Date: 2022-06-21 17:06-0400\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
@@ -28,6 +28,7 @@ msgstr "Informes de la UNCCD"
 #: ../../source/for_users/training/unccdreporting.rst:8
 msgid "Generate data package for UNCCD reporting"
 msgstr ""
+"Generar un paquete de datos para la presentación de informes de la CLD"
 
 #: ../../source/for_users/training/unccdreporting.rst:10
 msgid ""
@@ -35,6 +36,9 @@ msgid ""
 "**UNCCD Reporting - Generate data package for UNCCD reporting** and select "
 "**Execute locally**."
 msgstr ""
+"En el panel **Trends.Earth**, seleccione la ventana **Algoritmo**, haga clic"
+" en **Informes de clD - Generar paquete de datos para informes de CLD** y "
+"seleccione **Ejecutar de forma local**."
 
 #: ../../source/for_users/training/unccdreporting.rst:15
 msgid ""
@@ -42,6 +46,9 @@ msgid ""
 "lists for the region of interest. Enter **Execution name** and **Notes**. "
 "Select **Execute locally**."
 msgstr ""
+"La ventana aparecerá con los datos por defecto rellenados en las listas "
+"desplegables para la región de interés. Introduzca el **nombre de la "
+"ejecución** y las **notas**. Seleccione **Ejecutar de forma local**."
 
 #: ../../source/for_users/training/unccdreporting.rst:20
 msgid ""
@@ -49,58 +56,70 @@ msgid ""
 "submitted will appear in the menu if the **Download remotely-generated "
 "datasets automatically** is checked in settings."
 msgstr ""
+"En el panel **Trends.Earth**, seleccione la pestaña **Conjuntos de datos**. "
+"La tarea presentada aparecerá en el menú si la opción **Descargar "
+"automáticamente los conjuntos de datos generados a distancia** está marcada "
+"en la configuración."
 
 #: ../../source/for_users/training/unccdreporting.rst:24
 msgid ""
 "Refer to the :ref:`tut_settings` section of this manual to learn more about "
 "**Advanced settings**"
 msgstr ""
+"Consulte la sección :ref:'tut_settings' de este manual para obtener más "
+"información sobre la **Configuración avanzada**"
 
 #: ../../source/for_users/training/unccdreporting.rst:26
 msgid "Select the Refresh button if the analysis does not appear in the menu."
-msgstr ""
+msgstr "Seleccione el botón Actualizar si el análisis no aparece en el menú."
 
 #: ../../source/for_users/training/unccdreporting.rst:28
 msgid ""
 "Select the add layer drop-down button to **Add default layers from this "
 "layer to the map**"
 msgstr ""
+"Seleccione el botón desplegable de añadir capa para **Añadir capas por "
+"defecto de esta capa al mapa**"
 
 #: ../../source/for_users/training/unccdreporting.rst:33
 msgid ""
 "The final SDG 15.3.1 Indicator using default data will be added to the map "
 "for the region of interest."
 msgstr ""
+"El indicador final del ODS 15.3.1 que utiliza datos predeterminados se "
+"añadirá al mapa para la región de interés."
 
 #: ../../source/for_users/training/unccdreporting.rst:36
 msgid ""
 "Refer to the :ref:`background_unccdreporting` background for interpreting "
 "the results of this analysis."
 msgstr ""
+"Consulte el fondo :ref:`background_unccdreporting` para interpretar los "
+"resultados de este análisis."
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr ""
+msgstr "iconCalculadora"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr ""
+msgstr "iconTabla"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr ""
+msgstr "iconPortapapeles"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr ""
+msgstr "iconDescargadelanube"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr ""
+msgstr "iconCog"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr ""
+msgstr "iconBorrarconjuntodedatos"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
@@ -108,47 +127,47 @@ msgstr "iconGlobe"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr ""
+msgstr "iconGráfico"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr ""
+msgstr "iconInfo"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr ""
+msgstr "iconCargarconjuntodedatos"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr ""
+msgstr "iconMarcadordemarca"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr ""
+msgstr "iconoAbrirdirectoriodeconjuntodedatos"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr ""
+msgstr "iconoVerdetallesdelconjuntodedatos"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr ""
+msgstr "iconoLlaveinglesa"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr ""
+msgstr "iconCarpeta"
 
 #: ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr ""
+msgstr "iconInformes"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr ""
+msgstr "iconTrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr ""
+msgstr "iconVisualización"
 
 #: ../../../<rst_epilog>:37
 msgid "Trends.Earth"
@@ -156,16 +175,16 @@ msgstr "Trends.Earth"
 
 #: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr ""
+msgstr "logoCI"
 
 #: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr ""
+msgstr "logoLund"
 
 #: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr ""
+msgstr "logoNASA"
 
 #: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr ""
+msgstr "logoGEF"

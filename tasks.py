@@ -930,7 +930,7 @@ def translate_pull(c, force=False):
             [
                 lrelease,
                 os.path.join(
-                    c.plugin.i18n_dir, 'LDMP.{}.ts'.format(translation)
+                    c.plugin.i18n_dir, 'LDMP_{}.ts'.format(translation)
                 )
             ]
         )

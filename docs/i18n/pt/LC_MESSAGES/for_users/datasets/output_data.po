@@ -25,7 +25,7 @@ msgstr ""
 
 #: ../../source/for_users/datasets/output_data.rst:4
 msgid "Output datasets from Trends.Earth"
-msgstr ""
+msgstr "Conjuntos de dados de saída da Trends.Earth"
 
 #: ../../source/for_users/datasets/output_data.rst:6
 msgid ""
@@ -33,6 +33,10 @@ msgid ""
 "widely supported format, so these datasets can be used within QGIS as well "
 "as within any other GIS software."
 msgstr ""
+"Os dados espaciais produzidos pela |trends.earth| estão no formato GeoTiff. "
+"Este é um formato largamente suportado, por isso estes conjuntos de dados "
+"podem ser utilizados dentro do QGIS assim como com qualquer outro software "
+"GIS."
 
 #: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
 #: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
@@ -58,10 +62,15 @@ msgid ""
 " choose a file with that tool, it will show you a list of the layers within "
 "that file, as well as the band number for each layer."
 msgstr ""
+"Para ver quais das camadas abaixo está contida num ficheiro de saída da "
+"|trends.earth|, use a ferramenta `load data "
+"<../documentation/load_data.html>`_. Quando escolher um ficheiro com essa "
+"ferramenta, irá ser apresentada uma lista das camadas nesse ficheiro, assim "
+"como o número de banda para cada camada."
 
 #: ../../source/for_users/datasets/output_data.rst:20
 msgid "Land degradation (SDG 15.3.1)"
-msgstr ""
+msgstr "Degradação de solo (ODS 15.3.1)"
 
 #: ../../source/for_users/datasets/output_data.rst:23
 msgid "SDG 15.3.1 Indicator"
@@ -422,7 +431,7 @@ msgstr "Aumentando"
 
 #: ../../source/for_users/datasets/output_data.rst:172
 msgid "Land Productivity Dynamics - JRC"
-msgstr ""
+msgstr "Dinâmica de Produtividade do Solo - JRC"
 
 #: ../../source/for_users/datasets/output_data.rst:181
 msgid "Moderate decline"
@@ -530,6 +539,8 @@ msgid ""
 "Mosaic cropland (>50%) / natural vegetation (tree, shrub, "
 "herbaceous cover) (<50%)"
 msgstr ""
+"Terra de cultivo em mosaico (>50%) / vegetação natural (árvore, arbusto, "
+"cobertura herbácea) (<50%)"
 
 #: ../../source/for_users/datasets/output_data.rst:250
 msgid "40"
@@ -540,6 +551,8 @@ msgid ""
 "Mosaic natural vegetation (tree, shrub, herbaceous cover) "
 "(>50%) / cropland (<50%)"
 msgstr ""
+"Vegetação natural em mosaico (árvore, arbusto, cobertura herbácea) (>50%) / "
+"terra de cultivo (<50%)"
 
 #: ../../source/for_users/datasets/output_data.rst:253
 msgid "50"
@@ -1175,19 +1188,19 @@ msgstr ""
 
 #: ../../source/for_users/datasets/output_data.rst:452
 msgid "Drought hazard, vulnerability, and exposure"
-msgstr ""
+msgstr "Risco, vulnerabilidade e exposição à seca"
 
 #: ../../source/for_users/datasets/output_data.rst:456
 msgid "Standardized Precipitation Index (SPI)"
-msgstr ""
+msgstr "Índice de Precipitação Padronizado (IPP)"
 
 #: ../../source/for_users/datasets/output_data.rst:463
 msgid "Standardized precipitation index, scaled * 1000"
-msgstr ""
+msgstr "Índice de precipitação padronizado, escala *1000"
 
 #: ../../source/for_users/datasets/output_data.rst:468
 msgid "Population at maximum drought"
-msgstr ""
+msgstr "População em seca máxima"
 
 #: ../../source/for_users/datasets/output_data.rst:470
 msgid ""
@@ -1197,10 +1210,16 @@ msgid ""
 " drought. For the purpose of these analyses, drought is defined as an SPI "
 "less than -1.0 (a lag 12 SPI is the default used in the tool)."
 msgstr ""
+"Como um indicador da exposição de uma população à seca, as ferramentas de "
+"seca da Trends.Earth produzem uma camada que avalia a população total (ou "
+"população masculina ou feminina, dependendo das seleções feitas pelo "
+"utilizador) num período de seca máxima. Para o propósito destas análises, a "
+"seca é definida como um IPP inferior a -1.0 (um atraso de 12 SPI é a "
+"predefinição usada na ferramenta)."
 
 #: ../../source/for_users/datasets/output_data.rst:481
 msgid "Any negative value"
-msgstr ""
+msgstr "Qualquer valor negativo"
 
 #: ../../source/for_users/datasets/output_data.rst:481
 msgid ""
@@ -1208,10 +1227,13 @@ msgid ""
 "SPI < -1) during a particular (typically four- year) period. The pixel value"
 " indicates the population of the pixel at the time of maximum drought."
 msgstr ""
+"Um valor positivo indica que um pixel **foi** exposto à seca (definida como "
+"SPI < -1) durante um particular período (tipicamente de quatro anos). O "
+"valor do pixel indica a população do pixel no momento da seca máxima."
 
 #: ../../source/for_users/datasets/output_data.rst:486
 msgid "Any positive value"
-msgstr ""
+msgstr "Qualquer valor positivo"
 
 #: ../../source/for_users/datasets/output_data.rst:486
 msgid ""
@@ -1219,10 +1241,13 @@ msgid ""
 "particular (typically four-year) period. The pixel value indicates the "
 "maximum population of the pixel during the period."
 msgstr ""
+"Um valor positivo indica que um pixel **não foi** exposto à seca durante um "
+"particular período (tipicamente de quatro anos). O valor do pixel indica a "
+"população máxima do pixel durante o período."
 
 #: ../../source/for_users/datasets/output_data.rst:494
 msgid "Sustainable urbanization (SDG 11.3.1)"
-msgstr ""
+msgstr "Urbanização sustentável (ODS 11.3.1)"
 
 #: ../../source/for_users/datasets/output_data.rst:498
 #: ../../source/for_users/datasets/output_data.rst:505
@@ -1299,16 +1324,16 @@ msgstr "População"
 
 #: ../../source/for_users/datasets/output_data.rst:547
 msgid "Population density"
-msgstr ""
+msgstr "Densidade populacional"
 
 #: ../../source/for_users/datasets/output_data.rst:554
 #: ../../source/for_users/datasets/output_data.rst:570
 msgid "Population density in persons per sq km"
-msgstr ""
+msgstr "Densidade populacional em pessoas por km2"
 
 #: ../../source/for_users/datasets/output_data.rst:558
 msgid "Population (total, male, or female)"
-msgstr ""
+msgstr "População (total, masculina ou feminina)"
 
 #: ../../source/for_users/datasets/output_data.rst:560
 msgid ""
@@ -1318,6 +1343,12 @@ msgid ""
 "female population. The pixels values in each all are coded the same way, and"
 " refer to actual population counts per grid cell."
 msgstr ""
+"Este resultado utiliza dados do projeto `WorldPop "
+"<https://www.worldpop.org>`_. Dependendo da ferramenta utilizada na "
+"Trends.Earth, os resultados da população podem ser: população total "
+"(masculina e feminina),  população masculina total ou população feminina "
+"total. Os valores dos píxeis em cada são todos codificados da mesma forma e "
+"referem-se às contagens da população atuais por célula da grelha."
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"

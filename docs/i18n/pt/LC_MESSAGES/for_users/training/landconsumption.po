@@ -25,7 +25,7 @@ msgstr ""
 
 #: ../../source/for_users/training/landconsumption.rst:4
 msgid "Land Consumption (SDG 11.3.1)"
-msgstr ""
+msgstr "Consumo do Solo (SDG 11.3.1)"
 
 #: ../../source/for_users/training/landconsumption.rst:6
 msgid ""
@@ -49,6 +49,9 @@ msgid ""
 "methods used in |trends.earth|, please refer to the background section: "
 ":ref:`background_land_consumption`."
 msgstr ""
+"Para uma descrição dos conceitos subjacentes ao SDG 11.3.1, das necessidades"
+" de dados e dos métodos utilizados na |trends.earth|, consulte a secção de "
+"informações de fundo: :ref:`background_land_consumption`."
 
 #: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
 #: ../../../<rst_epilog>:37
@@ -472,6 +475,10 @@ msgid ""
 "11.3.1. For that, select the Calculate icon (|iconCalculator|) from the "
 "Trends.Earth plugin in QGIS."
 msgstr ""
+"Acabou de transferir o conjunto de dados para o seu computador local, mas "
+"ainda precisamos de estimar as alterações ao longo do tempo para calcular o "
+"indicador SDG 11.3.1. Para isso, selecione o ícone Calcular "
+"(|iconCalculator|) no plugin da Trends.Earth no QGIS."
 
 #: ../../source/for_users/training/landconsumption.rst:168
 msgid "Select Step 2: Calculate urban change summary table for city."
@@ -484,6 +491,8 @@ msgid ""
 "Input: Load an existing .json file if it has not been populated within the "
 "drop-down list automatically from your QGIS project."
 msgstr ""
+"Entrada: Carregue um ficheiro .json existente se este não tiver sido "
+"preenchido automaticamente dentro da lista suspensa do seu projecto QGIS."
 
 #: ../../source/for_users/training/landconsumption.rst:179
 msgid ""

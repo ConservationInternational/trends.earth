@@ -1,0 +1,1190 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017-2022, Conservation International
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 1.99.11\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-06-21 17:06-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: ../../source/for_users/downloads/index.md:1
+msgid "Downloads"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md:3
+msgid ""
+"This page lists data packages containing default datasets that can be "
+"used in Trends.Earth."
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md:6
+msgid ""
+"**This site and the products of Trends.Earth are made available under the"
+" terms of the Creative Commons Attribution 4.0 International License (CC "
+"BY 4.0). The boundaries and names used, and the designations used, do not"
+" imply official endorsement or acceptance by Conservation International "
+"Foundation, or its partner organizations and contributors.**"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md:12
+msgid "SDG Indicator 15.3.1 (UNCCD Strategic Objectives 1 and 2)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md:14
+msgid ""
+"The below datasets can be used to support assessing SDG Indicator 15.3.1,"
+" and include indicators of change in land productivity dynamics (LPD), "
+"land cover, and soil organic carbon. These datasets can be used to "
+"support reporting on UNCCD Strategic Objectives 1 and 2. Note that there "
+"are three different LPD datasets available (from JRC, from the default "
+"Trends.Earth method, and from FAO-WOCAT)."
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "Country"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "SDG 15.3.1 using JRC LPD"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "SDG 15.3.1 using Trends.Earth LPD"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "SDG 15.3.1 using FAO-WOCAT LPD"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "ABW"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[ABW (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/ABW_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[ABW (Trends.Earth "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/ABW_NaturalEarth_SDG15_TrendsEarth-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[ABW (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/ABW_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "BLR"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[BLR (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/BLR_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[BLR (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/BLR_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "BOL"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[BOL (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/BOL_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[BOL (Trends.Earth "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/BOL_NaturalEarth_SDG15_TrendsEarth-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[BOL (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/BOL_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "BTN"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[BTN (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/BTN_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[BTN (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/BTN_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "CHN"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[CHN (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/CHN_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[CHN (Trends.Earth "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/CHN_NaturalEarth_SDG15_TrendsEarth-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[CHN (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/CHN_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "COG"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[COG (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/COG_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[COG (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/COG_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "COL"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[COL (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/COL_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[COL (Trends.Earth "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/COL_NaturalEarth_SDG15_TrendsEarth-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[COL (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/COL_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "CRI"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[CRI (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/CRI_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[CRI (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/CRI_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "CYP"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[CYP (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/CYP_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[CYP (Trends.Earth "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/CYP_NaturalEarth_SDG15_TrendsEarth-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[CYP (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/CYP_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "ESB"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[ESB (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/ESB_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[ESB (Trends.Earth "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/ESB_NaturalEarth_SDG15_TrendsEarth-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[ESB (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/ESB_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "ETH"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[ETH (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/ETH_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[ETH (Trends.Earth "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/ETH_NaturalEarth_SDG15_TrendsEarth-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[ETH (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/ETH_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "GEO"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[GEO (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/GEO_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[GEO (Trends.Earth "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/GEO_NaturalEarth_SDG15_TrendsEarth-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[GEO (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/GEO_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "GUY"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[GUY (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/GUY_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[GUY (Trends.Earth "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/GUY_NaturalEarth_SDG15_TrendsEarth-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[GUY (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/GUY_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "IDN"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[IDN (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/IDN_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[IDN (Trends.Earth "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/IDN_NaturalEarth_SDG15_TrendsEarth-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[IDN (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/IDN_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "IND"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[IND (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/IND_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[IND (Trends.Earth "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/IND_NaturalEarth_SDG15_TrendsEarth-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[IND (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/IND_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "ISR"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[ISR (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/ISR_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[ISR (Trends.Earth "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/ISR_NaturalEarth_SDG15_TrendsEarth-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[ISR (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/ISR_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "KEN"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[KEN (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/KEN_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[KEN (Trends.Earth "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/KEN_NaturalEarth_SDG15_TrendsEarth-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[KEN (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/KEN_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "KOR"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[KOR (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/KOR_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[KOR (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/KOR_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "LBN"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[LBN (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/LBN_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[LBN (Trends.Earth "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/LBN_NaturalEarth_SDG15_TrendsEarth-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[LBN (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/LBN_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "MAR"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[MAR (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/MAR_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[MAR (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/MAR_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "MWI"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[MWI (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/MWI_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[MWI (Trends.Earth "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/MWI_NaturalEarth_SDG15_TrendsEarth-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[MWI (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/MWI_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "MYS"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[MYS (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/MYS_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[MYS (Trends.Earth "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/MYS_NaturalEarth_SDG15_TrendsEarth-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[MYS (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/MYS_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "NAM"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[NAM (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/NAM_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[NAM (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/NAM_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "NIC"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[NIC (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/NIC_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[NIC (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/NIC_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "PAK"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[PAK (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/PAK_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[PAK (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/PAK_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "PER"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[PER (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/PER_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[PER (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/PER_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "PRK"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[PRK (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/PRK_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[PRK (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/PRK_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "PSX"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[PSX (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/PSX_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[PSX (Trends.Earth "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/PSX_NaturalEarth_SDG15_TrendsEarth-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[PSX (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/PSX_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "SAH"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[SAH (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/SAH_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[SAH (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/SAH_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "SDS"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[SDS (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/SDS_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[SDS (Trends.Earth "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/SDS_NaturalEarth_SDG15_TrendsEarth-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[SDS (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/SDS_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "SOL"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[SOL (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/SOL_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[SOL (Trends.Earth "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/SOL_NaturalEarth_SDG15_TrendsEarth-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[SOL (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/SOL_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "SOM"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[SOM (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/SOM_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[SOM (Trends.Earth "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/SOM_NaturalEarth_SDG15_TrendsEarth-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[SOM (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/SOM_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "SUR"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[SUR (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/SUR_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[SUR (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/SUR_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "SYR"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[SYR (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/SYR_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[SYR (Trends.Earth "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/SYR_NaturalEarth_SDG15_TrendsEarth-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[SYR (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/SYR_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "THA"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[THA (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/THA_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[THA (Trends.Earth "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/THA_NaturalEarth_SDG15_TrendsEarth-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[THA (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/THA_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "TKM"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[TKM (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/TKM_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[TKM (Trends.Earth "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/TKM_NaturalEarth_SDG15_TrendsEarth-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[TKM (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/TKM_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "TUR"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[TUR (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/TUR_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[TUR (Trends.Earth "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/TUR_NaturalEarth_SDG15_TrendsEarth-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[TUR (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/TUR_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "TZA"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[TZA (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/TZA_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[TZA (Trends.Earth "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/TZA_NaturalEarth_SDG15_TrendsEarth-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[TZA (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/TZA_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "UKR"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[UKR (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/UKR_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[UKR (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/UKR_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "ZAF"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[ZAF (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/ZAF_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[ZAF (Trends.Earth "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/ZAF_NaturalEarth_SDG15_TrendsEarth-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[ZAF (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/ZAF_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md:64
+msgid "Drought hazard, vulnerability and exposure (UNCCD Strategic Objective 3)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md:66
+msgid ""
+"The below datasets can be used to support assessing drought hazard, "
+"vulnerability, and exposure, and for reporting on UNCCD Strategic "
+"Objective 3."
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "Drought indicators (2000-2019)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[ABW "
+"(Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/ABW_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[BLR "
+"(Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/BLR_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[BTN "
+"(Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/BTN_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[COG "
+"(Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/COG_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[COL "
+"(Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/COL_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[CRI "
+"(Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/CRI_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[CYP "
+"(Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/CYP_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[ESB "
+"(Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/ESB_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[GEO "
+"(Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/GEO_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[GUY "
+"(Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/GUY_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[IDN "
+"(Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/IDN_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[IND "
+"(Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/IND_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[ISR "
+"(Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/ISR_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[KEN "
+"(Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/KEN_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[KOR "
+"(Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/KOR_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[LBN "
+"(Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/LBN_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[MWI "
+"(Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/MWI_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[MYS "
+"(Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/MYS_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[NAM "
+"(Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/NAM_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[NIC "
+"(Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/NIC_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[PRK "
+"(Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/PRK_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[PSX "
+"(Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/PSX_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[SAH "
+"(Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/SAH_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[SDS "
+"(Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/SDS_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[SOL "
+"(Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/SOL_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[SOM "
+"(Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/SOM_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[SUR "
+"(Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/SUR_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[SYR "
+"(Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/SYR_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[THA "
+"(Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/THA_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[TKM "
+"(Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/TKM_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[TUR "
+"(Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/TUR_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[TZA "
+"(Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/TZA_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[UKR "
+"(Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/UKR_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[ZAF "
+"(Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/ZAF_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+

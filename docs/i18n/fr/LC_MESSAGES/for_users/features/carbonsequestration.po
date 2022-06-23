@@ -42,7 +42,7 @@ msgstr ""
 
 #: ../../source/for_users/features/carbonsequestration.rst:15
 msgid "Rationale for Monitoring"
-msgstr ""
+msgstr "Principes de bases de la surveillance"
 
 #: ../../source/for_users/features/carbonsequestration.rst:17
 msgid ""
@@ -60,7 +60,7 @@ msgstr ""
 
 #: ../../source/for_users/features/carbonsequestration.rst:25
 msgid "Indicator and data needs"
-msgstr ""
+msgstr "Besoins d'indicateur et de données"
 
 #: ../../source/for_users/features/carbonsequestration.rst:27
 msgid ""
@@ -109,7 +109,7 @@ msgstr ""
 
 #: ../../source/for_users/features/carbonsequestration.rst:59
 msgid "**Citations:**"
-msgstr ""
+msgstr "**Citations :**"
 
 #: ../../source/for_users/features/carbonsequestration.rst:61
 msgid ""
@@ -118,6 +118,10 @@ msgid ""
 "integrated pan-tropical biomass map using multiple reference datasets. "
 "Global Change Biology, 22, pp. 1406–1420."
 msgstr ""
+"Avitabile, V., Herold, M., Heuvelink, G. B. M., Lewis, S. L., Phillips, O. "
+"L., Asner, G. P., Armston, J., Ashton, P. S., Banin, L. et al., 2016. An "
+"integrated pan-tropical biomass map using multiple reference datasets. "
+"Global Change Biology, 22, pp. 1406–1420."
 
 #: ../../source/for_users/features/carbonsequestration.rst:63
 msgid ""
@@ -157,6 +161,11 @@ msgid ""
 "hemisphere: Spatially explicit estimates for 2010 derived from Envisat ASAR."
 " Remote Sensing of Environment, 168, pp. 316-334."
 msgstr ""
+"Santoro, M., Beaudoin, A., Beer, C., Cartus, O., Fransson, J.E.S., Hall, "
+"R.J., Pathe, C., Schmullius, C., Schepaschenko, D., Shvidenko, A., Thurner, "
+"M. and Wegmüller, U., 2015. Forest growing stock volume of the northern "
+"hemisphere: Spatially explicit estimates for 2010 derived from Envisat ASAR."
+" Remote Sensing of Environment, 168, pp. 316-334."
 
 #: ../../source/for_users/features/carbonsequestration.rst:73
 msgid ""

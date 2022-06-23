@@ -23,17 +23,17 @@ msgstr ""
 
 #: ../../source/for_users/gettingstarted/index.rst:7
 msgid "QGIS"
-msgstr ""
+msgstr "QGIS"
 
 #: ../../source/for_users/gettingstarted/index.rst:7
 msgid "Browser"
-msgstr ""
+msgstr "Navegador"
 
 #: ../../source/for_users/gettingstarted/index.rst:7
 #: ../../source/for_users/gettingstarted/index.rst:4
 #: ../../source/for_users/gettingstarted/index.rst:7
 msgid "Getting Started"
-msgstr ""
+msgstr "Primeiros Passos"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"

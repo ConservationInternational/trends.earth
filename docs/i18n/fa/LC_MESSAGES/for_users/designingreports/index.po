@@ -1,0 +1,749 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017-2022, Conservation International
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 1.99.11\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-06-21 17:06-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: ../../source/for_users/designingreports/index.rst:4
+msgid "Designing Reports"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:6
+msgid ""
+"Reports are, in simplest terms, created by populating a report template "
+"with textual and/or spatial data from one or more jobs. It is important "
+"to note that reports are generated at the layer/band level hence the "
+"number of reports from a single job will correspond to the number of "
+"**default** bands for the given job."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:11
+msgid "Designing reports is a two-step process that involves:"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:13
+msgid "Designing templates using the QGIS layout framework;"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:14
+msgid "Specifying the configuration parameters in a report configuration file."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:17
+msgid "Prerequisites"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:18
+msgid ""
+"Before embarking on designing new or customizing existing reports, it is "
+"recommended to familiarize with the following topics:"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:21
+msgid ""
+"`QGIS Expression Framework "
+"<https://docs.qgis.org/3.16/en/docs/user_manual/working_with_vector/expression.html>`_"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:22
+msgid ""
+"`QGIS Layout Framework "
+"<https://docs.qgis.org/3.16/en/docs/user_manual/print_composer/index.html>`_"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:23
+msgid ""
+"`JSON Data Format <https://developer.mozilla.org/en-"
+"US/docs/Learn/JavaScript/Objects/JSON>`_"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:29
+msgid "Layout Expression Variables"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:30
+msgid ""
+"A report is made up of static content (such as logos, disclaimer text "
+"etc.) that does not change from one report to another. It may also "
+"include dynamic content (such as maps or attribute information) that is "
+"generated at runtime during the execution process."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:34
+msgid ""
+"The Trends.Earth toolbox provides a number of layout expression variables"
+" that can be used to insert dynamic content in a layout. Some of these "
+"are available at design time while others are only available at runtime. "
+"The table below provides a summary of the available variables."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:39
+msgid "Job Variables"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:40
+msgid ""
+"These are characterized by a `te_job_` prefix and only available at "
+"runtime."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:43
+#: ../../source/for_users/designingreports/index.rst:67
+msgid "Variable Name"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:43
+#: ../../source/for_users/designingreports/index.rst:67
+#: ../../source/for_users/designingreports/index.rst:244
+#: ../../source/for_users/designingreports/index.rst:278
+#: ../../source/for_users/designingreports/index.rst:303
+#: ../../source/for_users/designingreports/index.rst:332
+msgid "Description"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:43
+#: ../../source/for_users/designingreports/index.rst:67
+msgid "Data Type"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:45
+msgid "`te_job_id`"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:45
+msgid "Unique identified corresponding to the job's UUID"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:45
+#: ../../source/for_users/designingreports/index.rst:47
+#: ../../source/for_users/designingreports/index.rst:49
+#: ../../source/for_users/designingreports/index.rst:51
+#: ../../source/for_users/designingreports/index.rst:55
+#: ../../source/for_users/designingreports/index.rst:57
+#: ../../source/for_users/designingreports/index.rst:59
+#: ../../source/for_users/designingreports/index.rst:69
+msgid "String"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:47
+msgid "`te_job_input_params`"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:47
+msgid "JSON representation of a job's input parameters"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:49
+msgid "`te_job_paths`"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:49
+msgid "Local path to the job's dataset(s)"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:51
+msgid "`te_job_alg_name`"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:51
+msgid "Job's algorithm name"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:53
+msgid "`te_job_creation_date`"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:53
+msgid "Creation date/time of a job"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:53
+#, python-format
+msgid "String in %Y-%m-%d %H:%M format"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:55
+msgid "`te_job_status`"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:55
+msgid "Completion status of a job e.g. DOWNLOADED, GENERATED_LOCALLY etc."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:57
+msgid "`te_job_name`"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:57
+msgid "Name of the job as inputted by the user."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:59
+msgid "`te_job_comments`"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:59
+msgid "Comments to a job as provided by the user"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:63
+msgid "Layer Variables"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:64
+msgid ""
+"These are characterized by a `te_current_layer_` prefix and only "
+"available at runtime."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:69
+msgid "`te_current_layer_name`"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:69
+msgid "Name of the layer in the current execution context"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:73
+msgid "Report Settings Variables"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:74
+msgid ""
+"These are characterized by a `te_report_` prefix and are available at "
+"both design time and runtime. Refer to the :ref:`report_settings` section"
+" for a detailed description of the report settings and corresponding "
+"variable names."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:78
+msgid "Template Types"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:79
+msgid "There are two main report template types:"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:82
+msgid "Full Template"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:83
+msgid ""
+"This is designed to contain - or provide an allowance to include - more "
+"information such as author name. The default template is set on an A4 "
+"page and includes a layout title, map, legend, scale bar, north arrow, "
+"disclaimer text. and logo."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:88
+msgid "Simple Template"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:89
+msgid ""
+"This is designed to be a lighter version of the template with the default"
+" one set on an 83mm by 59mm page size (in landscape mode) or vice versa "
+"in portrait mode and contains a map, legend, north arrow, scale bar, "
+"disclaimer text and logo."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:94
+msgid ""
+"For each template type, you will need to provide both the portrait and "
+"landscape versions as the toolbox will select one of these depending on "
+"the dimensions of the map layer being rendered."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:98
+msgid "Designing Report Templates"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:99
+msgid "You can create templates either by:"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:102
+msgid "Creating A New One"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:103
+msgid "Navigate to **Project > New Print Layout...**."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:109
+msgid "Specify a user-friendly name for the layout."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:116
+msgid "Modifying an Existing One"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:117
+msgid "Navigate to **Project > Layout Manager...**."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:123
+msgid ""
+"Select **Specific** in the drop-down menu under **New from Template** "
+"section."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:129
+msgid ""
+"Click on the browse button (with three dots) to select an existing qpt "
+"template. The default templates can be found in "
+"`[base_data_directory]/reports/templates`."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:135
+msgid "Click on **Create...** button."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:141
+msgid "Specify a user-friendly name for the template."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:150
+msgid "Adding Layout Items"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:151
+msgid ""
+"You can add items to the template in a similar fashion as defined in the "
+"`QGIS manual "
+"<https://docs.qgis.org/3.16/en/docs/user_manual/print_composer/composer_items/index.html>`_."
+" Trends.Earth expression variables are available in the **Expression "
+"Builder** dialog and can be inserted in label items as any other QGIS "
+"variable."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:158
+msgid ""
+"For instance, to insert a job's algorithm name in a label item, you can "
+"use the following expression: :code:`[% @te_job_alg_name %]`."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:164
+msgid ""
+"For a map item, do not add any layers or specify a map theme as the "
+"layers and their ordering will be automatically set during the report "
+"generation process."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:167
+msgid ""
+"When using a legend item, ensure the **Auto update** option is selected. "
+"The toolbox will determine which legend items to show/hide depending on "
+"the rendering context."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:174
+msgid ""
+"For map items rendering a job's layers or label items that use the "
+"toolbox's expression variables, please ensure that you define their "
+"corresponding item IDs so that they can be flagged for updating during "
+"the report generation process. A preferred naming convention - for the "
+"item ID - is `[item_type.context_name]` e.g. :code:`label.layer_name`, "
+":code:`label.job_alg_name`, :code:`map.main`. We will see how these item "
+"IDs are used in the :ref:`item_scope_mapping` section."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:187
+msgid "Configuring Report Parameters"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:188
+msgid ""
+"The next step is to define which templates will be used for which "
+"algorithms. This is done through a report configuration file "
+"-`templates.json`- that is created in "
+"`[base_data_directory]/reports/templates` on loading the toolbox for the "
+"first time."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:192
+msgid ""
+"`templates.json` is a list of report configuration objects where each "
+"configuration object corresponds to one or more scopes. A scope, in this "
+"case, refers to an algorithm. A configuration is made up of two parts:"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:195
+msgid ""
+"**template_info** - Contains information about the QGIS report templates "
+"associated with one or more algorithm scopes."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:196
+msgid "**output_options** - Output options for exporting a report."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:198
+msgid "See sample below:"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:240
+msgid "template_info"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:241
+msgid ""
+"Contains information about the QGIS report templates associated with one "
+"or more algorithm scopes."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:244
+#: ../../source/for_users/designingreports/index.rst:278
+#: ../../source/for_users/designingreports/index.rst:303
+#: ../../source/for_users/designingreports/index.rst:332
+msgid "Property Name"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:244
+#: ../../source/for_users/designingreports/index.rst:278
+#: ../../source/for_users/designingreports/index.rst:303
+#: ../../source/for_users/designingreports/index.rst:332
+msgid "Required"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:246
+msgid "`id`"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:246
+msgid "A unique UUID identifier in string format"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:246
+#: ../../source/for_users/designingreports/index.rst:252
+#: ../../source/for_users/designingreports/index.rst:254
+#: ../../source/for_users/designingreports/index.rst:256
+#: ../../source/for_users/designingreports/index.rst:258
+#: ../../source/for_users/designingreports/index.rst:260
+#: ../../source/for_users/designingreports/index.rst:280
+#: ../../source/for_users/designingreports/index.rst:289
+#: ../../source/for_users/designingreports/index.rst:305
+#: ../../source/for_users/designingreports/index.rst:309
+#: ../../source/for_users/designingreports/index.rst:334
+msgid "Yes"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:248
+#: ../../source/for_users/designingreports/index.rst:305
+msgid "`name`"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:248
+msgid "A friendly name of the template configuration"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:248
+#: ../../source/for_users/designingreports/index.rst:250
+#: ../../source/for_users/designingreports/index.rst:341
+msgid "No"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:250
+msgid "`description`"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:250
+msgid "A brief description of the template configuration"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:252
+msgid "`simple_portrait_path`"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:252
+msgid "Name of the template file for a simple portrait layout"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:254
+msgid "`simple_landscape_path`"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:254
+msgid "Name of the template file for a simple landscape layout"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:256
+msgid "`full_portrait_path`"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:256
+msgid "Name of the template file for a full portrait layout"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:258
+msgid "`full_landscape_path`"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:258
+msgid "Name of the template file for a full landscape layout"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:260
+msgid "`item_scopes`"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:260
+msgid ""
+"A list of item scope objects. It should contain at least one scope "
+"definition."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:262
+msgid "See :ref:`item_scope_mapping` for more information."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:267
+msgid ""
+"The paths defined above are basically file names which are relative to "
+"the location of the `templates.json` configuration file."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:274
+msgid "output_options"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:275
+msgid "Options for exporting an output report."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:280
+msgid "`formats`"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:280
+msgid ""
+"A list of format objects specifying the output format of the report. You "
+"can have a report produced in multiple types such as PDF and PNG."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:284
+msgid "At least one output format needs to be defined."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:286
+msgid ""
+"See :ref:`output_format` for configuration options for an output format "
+"object."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:289
+msgid "`template_type`"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:289
+msgid "Report template type in string format."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:291
+msgid "Supported options include: **SIMPLE**, **FULL** or **ALL**."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:293
+#: ../../source/for_users/designingreports/index.rst:338
+msgid "Please note that these should be in uppercase as provided above."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:299
+msgid "item_scope_mapping"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:300
+msgid ""
+"Provides a mechanism for grouping layout items based on a scope (i.e. "
+"algorithm)."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:305
+msgid ""
+"Name of the algorithm that will be matched to this configuration e.g. "
+"`productivity`, `sdg-15-3-1-sub-indicators` etc. Refers to the algorithm "
+"names defined in `scripts.json` in the toolbox's data folder."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:309
+msgid "`type_id_mapping`"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:309
+msgid ""
+"A dictionary containing an enumeration of the layout item type and "
+"corresponding list of item IDs defined in the template."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:312
+msgid "Supported layout item types include: **map**, **label**, **picture**"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:322
+msgid "See :ref:`adding_layout_items` on how to specify item IDs."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:328
+msgid "output_format"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:329
+msgid "Format information for the report output."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:334
+msgid "`format_type`"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:334
+msgid "An enumeration of the file output type."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:336
+msgid "Supported enumeration options include: **PDF** and **IMAGE**."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:341
+msgid "`params`"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:341
+msgid ""
+"Depending on the specified output type, this property contains additional"
+" information regarding the format."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:344
+msgid ""
+"For instance, if the IMAGE is specified as the output format, then this "
+"property can be used to specify the IMAGE type. Does nothing for PDF type"
+" and defaults to PNG for an IMAGE type."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:351
+msgid "Resetting to Default Templates and Configuration"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:352
+msgid ""
+"To revert back to the default templates and report configuration file "
+"that ship with the toolbox, perform the following steps:"
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:354
+msgid ""
+"Close QGIS then back-up the `templates` folder in "
+"`[base_data_directory]/reports/templates`."
+msgstr ""
+
+#: ../../source/for_users/designingreports/index.rst:356
+msgid "Proceed to delete the `templates` folder then restart QGIS."
+msgstr ""
+
+#: ../../../<rst_epilog>:2
+msgid "iconCalculator"
+msgstr ""
+
+#: ../../../<rst_epilog>:4
+msgid "iconChart"
+msgstr ""
+
+#: ../../../<rst_epilog>:6
+msgid "iconClipboard"
+msgstr ""
+
+#: ../../../<rst_epilog>:8
+msgid "iconCloudDownload"
+msgstr ""
+
+#: ../../../<rst_epilog>:10
+msgid "iconCog"
+msgstr ""
+
+#: ../../../<rst_epilog>:12
+msgid "iconDeletedataset"
+msgstr ""
+
+#: ../../../<rst_epilog>:14
+msgid "iconGlobe"
+msgstr ""
+
+#: ../../../<rst_epilog>:16
+msgid "iconGraph"
+msgstr ""
+
+#: ../../../<rst_epilog>:18
+msgid "iconInfo"
+msgstr ""
+
+#: ../../../<rst_epilog>:20
+msgid "iconLoaddataset"
+msgstr ""
+
+#: ../../../<rst_epilog>:21
+msgid "iconMarkMarker"
+msgstr ""
+
+#: ../../../<rst_epilog>:23
+msgid "iconOpendatasetdirectory"
+msgstr ""
+
+#: ../../../<rst_epilog>:25
+msgid "iconViewdatasetdetails"
+msgstr ""
+
+#: ../../../<rst_epilog>:27
+msgid "iconWrench"
+msgstr ""
+
+#: ../../../<rst_epilog>:29
+msgid "iconFolder"
+msgstr ""
+
+#: ../../../<rst_epilog>:31
+msgid "iconReports"
+msgstr ""
+
+#: ../../../<rst_epilog>:33
+msgid "iconTrendsEarth"
+msgstr ""
+
+#: ../../../<rst_epilog>:35
+msgid "iconVisualization"
+msgstr ""
+
+#: ../../../<rst_epilog>:37
+msgid "Trends.Earth"
+msgstr ""
+
+#: ../../../<rst_epilog>
+msgid "logoCI"
+msgstr ""
+
+#: ../../../<rst_epilog>
+msgid "logoLund"
+msgstr ""
+
+#: ../../../<rst_epilog>
+msgid "logoNASA"
+msgstr ""
+
+#: ../../../<rst_epilog>
+msgid "logoGEF"
+msgstr ""
+

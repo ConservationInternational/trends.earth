@@ -23,15 +23,15 @@ msgstr ""
 
 #: ../../source/for_users/gettingstarted/browser_version.rst:4
 msgid "Browser"
-msgstr ""
+msgstr "Navegador"
 
 #: ../../source/for_users/gettingstarted/browser_version.rst:7
 msgid "Trends.Earth Browser Application"
-msgstr ""
+msgstr "Aplicação de Navegador Trends.Earth"
 
 #: ../../source/for_users/gettingstarted/browser_version.rst:8
 msgid "**Coming soon!**"
-msgstr ""
+msgstr "**Em breve!**"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"

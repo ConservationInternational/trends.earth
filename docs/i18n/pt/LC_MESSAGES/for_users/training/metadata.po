@@ -24,7 +24,7 @@ msgstr ""
 
 #: ../../source/for_users/training/metadata.rst:4
 msgid "Dataset Metadata"
-msgstr ""
+msgstr "Metadados do Conjunto de Dados"
 
 #: ../../source/for_users/training/metadata.rst:6
 msgid "**Objective**: Learn how to edit and view dataset metadata."

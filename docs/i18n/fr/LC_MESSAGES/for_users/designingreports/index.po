@@ -625,50 +625,59 @@ msgstr "Options pour exporter les rapports de sortie."
 
 #: ../../source/for_users/designingreports/index.rst:280
 msgid "`formats`"
-msgstr ""
+msgstr "`formats`"
 
 #: ../../source/for_users/designingreports/index.rst:280
 msgid ""
 "A list of format objects specifying the output format of the report. You can"
 " have a report produced in multiple types such as PDF and PNG."
 msgstr ""
+"Une liste des éléments de format indiquant le format d'exportation du "
+"rapport. Votre rapport peut être exporté vers de multiples formats comme PDF"
+" et PNG."
 
 #: ../../source/for_users/designingreports/index.rst:284
 msgid "At least one output format needs to be defined."
-msgstr ""
+msgstr "Vous devez définir au moins un format d'exportation."
 
 #: ../../source/for_users/designingreports/index.rst:286
 msgid ""
 "See :ref:`output_format` for configuration options for an output format "
 "object."
 msgstr ""
+"Voir :ref:`output_format` pour les options de configuration des éléments de "
+"format d'exportation."
 
 #: ../../source/for_users/designingreports/index.rst:289
 msgid "`template_type`"
-msgstr ""
+msgstr "`template_type`"
 
 #: ../../source/for_users/designingreports/index.rst:289
 msgid "Report template type in string format."
-msgstr ""
+msgstr "Type de modèle de rapport au format string."
 
 #: ../../source/for_users/designingreports/index.rst:291
 msgid "Supported options include: **SIMPLE**, **FULL** or **ALL**."
-msgstr ""
+msgstr "Les options supportées incluent : **SIMPLE**, **ENTIER** ou **TOUT**."
 
 #: ../../source/for_users/designingreports/index.rst:293
 #: ../../source/for_users/designingreports/index.rst:338
 msgid "Please note that these should be in uppercase as provided above."
 msgstr ""
+"Veuillez noter que ceux-ci doivent être en majuscules comme indiqué ci-"
+"dessus."
 
 #: ../../source/for_users/designingreports/index.rst:299
 msgid "item_scope_mapping"
-msgstr ""
+msgstr "item_scope_mapping"
 
 #: ../../source/for_users/designingreports/index.rst:300
 msgid ""
 "Provides a mechanism for grouping layout items based on a scope (i.e. "
 "algorithm)."
 msgstr ""
+"Fournit un mécanisme pour regrouper les éléments de mise en page en fonction"
+" de l'échelle (c'est-à-dire un algorithme)."
 
 #: ../../source/for_users/designingreports/index.rst:305
 msgid ""
@@ -676,54 +685,67 @@ msgid ""
 "`productivity`, `sdg-15-3-1-sub-indicators` etc. Refers to the algorithm "
 "names defined in `scripts.json` in the toolbox's data folder."
 msgstr ""
+"Le nom de l'algorithme qui sera associé à cette configuration, par exemple "
+"'productivité', 'odd-15-3-1-sous-indicateurs' etc. Correspond aux noms "
+"d'algorithmes définis dans 'script.json' dans le dossier de données de la "
+"boîte à outils."
 
 #: ../../source/for_users/designingreports/index.rst:309
 msgid "`type_id_mapping`"
-msgstr ""
+msgstr "`type_id_mapping`"
 
 #: ../../source/for_users/designingreports/index.rst:309
 msgid ""
 "A dictionary containing an enumeration of the layout item type and "
 "corresponding list of item IDs defined in the template."
 msgstr ""
+"Un dictionnaire contenant une énumération des types d'éléments de mise en "
+"page et la liste correspondante des identifiants des éléments définis dans "
+"le modèle."
 
 #: ../../source/for_users/designingreports/index.rst:312
 msgid "Supported layout item types include: **map**, **label**, **picture**"
 msgstr ""
+"Les types d'éléments de format supportés incluent : **carte**, "
+"**étiquette**, **image**"
 
 #: ../../source/for_users/designingreports/index.rst:322
 msgid "See :ref:`adding_layout_items` on how to specify item IDs."
 msgstr ""
+"Voir :ref:`adding_layout_items` pour savoir comment définir les identifiants"
+" des éléments."
 
 #: ../../source/for_users/designingreports/index.rst:328
 msgid "output_format"
-msgstr ""
+msgstr "output_format"
 
 #: ../../source/for_users/designingreports/index.rst:329
 msgid "Format information for the report output."
-msgstr ""
+msgstr "Informations sur le format du rapport exporté."
 
 #: ../../source/for_users/designingreports/index.rst:334
 msgid "`format_type`"
-msgstr ""
+msgstr "`format_type`"
 
 #: ../../source/for_users/designingreports/index.rst:334
 msgid "An enumeration of the file output type."
-msgstr ""
+msgstr "Une énumération des types de fichiers exportés."
 
 #: ../../source/for_users/designingreports/index.rst:336
 msgid "Supported enumeration options include: **PDF** and **IMAGE**."
-msgstr ""
+msgstr "Les options d'énumération supportées incluent : **PDF** et **IMAGE**."
 
 #: ../../source/for_users/designingreports/index.rst:341
 msgid "`params`"
-msgstr ""
+msgstr "`params`"
 
 #: ../../source/for_users/designingreports/index.rst:341
 msgid ""
 "Depending on the specified output type, this property contains additional "
 "information regarding the format."
 msgstr ""
+"En fonction du type de fichier d'exportation défini, cette propriété "
+"contient des informations additionnelles sur le format."
 
 #: ../../source/for_users/designingreports/index.rst:344
 msgid ""
@@ -731,26 +753,33 @@ msgid ""
 "property can be used to specify the IMAGE type. Does nothing for PDF type "
 "and defaults to PNG for an IMAGE type."
 msgstr ""
+"Par exemple, si IMAGE est défini comme le format d'exportation, cette "
+"propriété peut être utilisée pour définir le type IMAGE. N'affecte pas le "
+"type PDF et définit par défaut PNG pour un type IMAGE."
 
 #: ../../source/for_users/designingreports/index.rst:351
 msgid "Resetting to Default Templates and Configuration"
-msgstr ""
+msgstr "Réinitialise les modèles et la configuration par défaut "
 
 #: ../../source/for_users/designingreports/index.rst:352
 msgid ""
 "To revert back to the default templates and report configuration file that "
 "ship with the toolbox, perform the following steps:"
 msgstr ""
+"Pour revenir aux modèles et au ficher de configuration du rapport par défaut"
+" édité avec la boîte à outils, suivez les étapes ci-dessous :"
 
 #: ../../source/for_users/designingreports/index.rst:354
 msgid ""
 "Close QGIS then back-up the `templates` folder in "
 "`[base_data_directory]/reports/templates`."
 msgstr ""
+"Fermez QGIS puis restaurez le dossier `templates` dans "
+"`[base_data_directory]/reports/templates`."
 
 #: ../../source/for_users/designingreports/index.rst:356
 msgid "Proceed to delete the `templates` folder then restart QGIS."
-msgstr ""
+msgstr "Supprimez le dossier 'templates' puis relancez QGIS."
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"

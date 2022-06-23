@@ -25,7 +25,7 @@ msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:4
 msgid "QGIS"
-msgstr ""
+msgstr "QGIS"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:9
 msgid "Install QGIS"
@@ -48,6 +48,8 @@ msgid ""
 "To install the plugin, first install QGIS version |qgisMinVersion| or higher"
 " following the below steps:"
 msgstr ""
+"Para instalar o plugin, comece por instalar a versão QGIS |qgisMinVersion| "
+"ou superior executando os seguintes passos:"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:19
 msgid "Choose either 32 or 64 bit version"
@@ -141,7 +143,7 @@ msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:56
 msgid "Install QGIS Software"
-msgstr ""
+msgstr "Instale o Software QGIS"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:58
 msgid ""
@@ -186,7 +188,7 @@ msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:78
 msgid "Install toolbox (plugin)"
-msgstr ""
+msgstr "Instale o toolbox (plugin)"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:79
 msgid ""
@@ -252,13 +254,16 @@ msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:117
 msgid "Trends.Earth Registration"
-msgstr ""
+msgstr "Inscrição na Trends.Earth"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:118
 msgid ""
 "To Register, click the **Register for Trends.Earth (step 1)** button from "
 "the \"Settings\" dialog box under **Trends.Earth login information**."
 msgstr ""
+"Para se inscrever, clique no botão **Inscreva-se no Trends.Earth (passo 1)**"
+" na caixa de diálogo \"Configurações\" em **Dadosde início de sessão na "
+"Trends.Earth**."
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:123
 msgid "Enter your email, name, organization and country of residence."
@@ -280,16 +285,24 @@ msgid ""
 "receive this email , click on the \"Edit selected configuration\" icon in "
 "the \"Settings\" dialog:"
 msgstr ""
+"4. Depois de se inscrever, receberá um email de api@trends.earth com a sua "
+"senha. Se não vir o email na sua caixa de entrada ao fim de 15-20 segundos, "
+"verifique a sua pasta de correio eletrónico não solicitado para o caso do "
+"email ter sido enviado para lá. Uma vez recebido este email , clique no "
+"ícone \"Editar configuração selecionada\" na caixa de diálogo "
+"\"Configurações\":"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:139
 msgid ""
 "This will bring up the \"Authentication\" dialog asking for your password. "
 "Enter the password you received from api@trends.earth and click \"Save\":"
 msgstr ""
+"Isto fará surgir a caixa de diálogo \"Autenticação\", pedindo a sua senha. "
+"Introduza a senha que recebeu de api@trends.earth e clique em \"Guardar\":"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:144
 msgid "From the \"Settings\" dialog  click on \"Test connection\":"
-msgstr ""
+msgstr "Na caixa de diálogo \"Configurações\" clique em \"Conexão de teste\":"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:149
 msgid ""
@@ -302,17 +315,19 @@ msgstr "Agora você está pronto para começar a usar o Trends.Earth!"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:159
 msgid "Trends.Earth Advanced Settings"
-msgstr ""
+msgstr "Configurações Avançadas Trends.Earth"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:161
 msgid ""
 "Refer to the :ref:`advanced` section for more information on the advanced "
 "settings for Trends.Earth."
 msgstr ""
+"Consulte a secção :ref:`advanced` para obter mais informações sobre as "
+"configurações avançadas da Trends.Earth."
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:167
 msgid "Setting up your data folder"
-msgstr ""
+msgstr "Escolher a sua pasta de dados"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:169
 msgid ""
@@ -325,7 +340,7 @@ msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:171
 msgid "**Estimated time of completion**: 5 minutes"
-msgstr ""
+msgstr "**Tempo estimado para a conclusão**: 5 minutos"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:173
 msgid "**Internet access**: Required"
@@ -345,14 +360,20 @@ msgid ""
 "indicators and XLSX spreadsheets for the tabular outputs. You will need to "
 "define in each case where files will be stored in your computer in settings."
 msgstr ""
+"Os resultados da análise da Trends.Earth são rasters em formato TIF para os "
+"indicadores, e folhas de cálculo XLSX para os resultados tabulares. Terá de "
+"definir nas configurações onde os ficheiros serão armazenados no seu "
+"computador em cada caso."
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:181
 msgid "Open settings in |trends.earth|"
-msgstr ""
+msgstr "Abra as configurações em |trends.earth|"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:186
 msgid "Scroll down to **Advanced** options and expand to see more features."
 msgstr ""
+"Role para baixo até às opções **Avançadas** e expanda para ver mais "
+"funcionalidades."
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:191
 msgid ""
@@ -360,6 +381,10 @@ msgid ""
 "folder where data will be stored or *...* to change the location of data "
 "stored and downloaded from |trends.earth|."
 msgstr ""
+"3. O **Diretório de dados de base** pode ser definido selecionando **Abrir**"
+" para abrir a pasta onde os dados serão armazenados ou *...* para alterar a "
+"localização dos dados armazenados e descarregados a partir de "
+"|trends.earth|."
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:197
 msgid "**OPTIONAL: Computing Pyramids**"
@@ -403,6 +428,12 @@ msgid ""
 "the QGIS window, they all refer to the same file. This means that the "
 "pyramids need to be computed only once for the three sub-indicators."
 msgstr ""
+"Ao utilizar a opção **Calcular os três subindicadores num único passo** "
+"(descrita no tutorial :ref:`tut_land_degradation`), todas as bandas são "
+"armazenadas num único ficheiro TIF, pelo que, embora possa ver três camadas "
+"carregadas na janela QGIS, todas elas se referem ao mesmo ficheiro. Isto "
+"significa que as pirâmides precisam de ser calculadas apenas uma vez para os"
+" três subindicadores."
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:209
 msgid ""
@@ -500,6 +531,8 @@ msgid ""
 "To load the tool click on the **Datasets** tab and select **Load Base Map** "
 "in the bottom right of the window."
 msgstr ""
+"Para carregar a ferramenta clique na aba *Conjuntos de dados** e selecione "
+"**Carregar Mapa de Base** no canto inferior direito da janela."
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:250
 msgid "On the **Add basemap** window you can do one of two things:"

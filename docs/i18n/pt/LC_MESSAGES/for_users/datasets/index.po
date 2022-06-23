@@ -23,17 +23,17 @@ msgstr ""
 
 #: ../../source/for_users/datasets/index.rst:7
 msgid "Input datasets"
-msgstr ""
+msgstr "Conjuntos de dados de entrada"
 
 #: ../../source/for_users/datasets/index.rst:7
 msgid "Output datasets"
-msgstr ""
+msgstr "Conjuntos de dados de saída"
 
 #: ../../source/for_users/datasets/index.rst:7
 #: ../../source/for_users/datasets/index.rst:4
 #: ../../source/for_users/datasets/index.rst:7
 msgid "Datasets (input and output)"
-msgstr ""
+msgstr "Conjuntos de dados (entrada e saída)"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"

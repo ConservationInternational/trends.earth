@@ -5,6 +5,7 @@
 # 
 # Translators:
 # Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2022
+# Alex Zvoleff <azvoleff@conservation.org>, 2022
 # 
 #, fuzzy
 msgid ""
@@ -13,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-06-21 17:06-0400\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
-"Last-Translator: Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2022\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,6 +26,8 @@ msgstr ""
 msgid ""
 "Trends.Earth Global Land Productivity datasets at 10-m spatial resolution"
 msgstr ""
+"Conjuntos de dados globais da produtividade de terrenos da Trends.Earth, com"
+" resolução espacial de 10 m"
 
 #: ../../source/for_users/datasets/sen2svis.md:7
 msgid ""
@@ -41,6 +44,20 @@ msgid ""
 "NDVI, the 2-band Enhanced Vegetation Index- EVI2, and the Modified Soil "
 "Adjusted Vegetation Index – MSAVI."
 msgstr ""
+"Conjuntos de dados geoespaciais globais representando a produtividade  anual"
+" integral de terrenos com resolução espacial de 10 m, de 2018 a 2021, com "
+"falhas mínimas de observação. É aplicado um modelo harmónico aos índices de "
+"vegetação derivados das imagens A e B do Instrumento Multiespetral Sentinel "
+"2, para minimizar o impacto de pixéis de boa qualidade em falta, "
+"principalmente devido à cobertura por nuvens. Os índices de vegetação por "
+"deteção remota têm sido amplamente utilizados como representativos da "
+"produtividade da terra e para monitorizar o estado da vegetação, dado que "
+"dependem das conhecidas interações entre a fotossíntese e bandas estreitas "
+"do espetro eletromagnético. Os valores de produtividade global de terrenos a"
+" 10 m da Trends.Earth são produzidos com base em três índices de vegetação: "
+"os Índices de Vegetação de Diferença Normalizada –  IVDN, o Índice de "
+"Vegetação Melhorado de duas bandas - IVM2, e o Índice de Vegetação Ajustado "
+"ao Solo Modificado – IVASM."
 
 #: ../../source/for_users/datasets/sen2svis.md:19
 msgid ""
@@ -49,39 +66,44 @@ msgid ""
 "South excluding Antarctica and are available at annual steps from 2018 to "
 "2021. Theoretically, pixel values are as follows:"
 msgstr ""
+"Os conjuntos de dados da produtividade de terrenos com resolução espacial de"
+" 10 m da Trends.Earth cobrem praticamente todos os pixéis de terreno, dos "
+"180° Este aos 180°  Oeste e dos 80°  Norte aos 80° Sul, excluindo a "
+"Antártida e estão disponíveis em edições anuais de 2018 a 2021. "
+"Teoricamente, os valores dos pixéis são os seguintes:,"
 
 #: ../../source/for_users/datasets/sen2svis.md:0
 msgid "VI"
-msgstr ""
+msgstr "IV"
 
 #: ../../source/for_users/datasets/sen2svis.md:0
 msgid "Maximum value"
-msgstr ""
+msgstr "Valor máximo"
 
 #: ../../source/for_users/datasets/sen2svis.md:0
 msgid "Minimum value"
-msgstr ""
+msgstr "Valor mínimo"
 
 #: ../../source/for_users/datasets/sen2svis.md:0
 #: ../../source/for_users/datasets/sen2svis.md:0
 msgid "EVI2"
-msgstr ""
+msgstr "IVM2"
 
 #: ../../source/for_users/datasets/sen2svis.md:0
 msgid "1.25"
-msgstr ""
+msgstr "1,25"
 
 #: ../../source/for_users/datasets/sen2svis.md:0
 msgid "-0.7"
-msgstr ""
+msgstr "-0,7"
 
 #: ../../source/for_users/datasets/sen2svis.md:0
 msgid "1.5"
-msgstr ""
+msgstr "1,5"
 
 #: ../../source/for_users/datasets/sen2svis.md:0
 msgid "-0.5"
-msgstr ""
+msgstr "-0,5"
 
 #: ../../source/for_users/datasets/sen2svis.md:0
 msgid "NDVI"
@@ -100,3 +122,6 @@ msgid ""
 "However, please note that in real life actual values are greater than 0, "
 "excepts for exceptionally dark pixels, such those covering water bodies."
 msgstr ""
+"No entanto, tenha em atenção que na vida real, os valores reais são "
+"superiores a zero, exceto para os pixéis excecionalmente escuros, tais como "
+"os que cobrem corpos de água."

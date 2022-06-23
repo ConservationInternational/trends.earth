@@ -25,7 +25,7 @@ msgstr ""
 
 #: ../../source/for_users/training/landdegradation.rst:4
 msgid "Land Degradation"
-msgstr ""
+msgstr "Degradação do Solo"
 
 #: ../../source/for_users/training/landdegradation.rst:7
 msgid "Land Degradation Sub-indicators"
@@ -1073,6 +1073,9 @@ msgid ""
 "submitted will appear in the menu if the **Download remotely-generated "
 "datasets automatically** is checked in settings."
 msgstr ""
+"No painel **Trends.Earth** selecione o separador **Conjuntos de dados**. A "
+"tarefa submetida irá aparecer no menu se  **Descarregar automaticamente "
+"conjuntos de dados gerados remotamente** estiver selecionado nas definições."
 
 #: ../../source/for_users/training/landdegradation.rst:569
 msgid ""
@@ -1085,6 +1088,8 @@ msgid ""
 "Select the add layer drop-down button to **Add default layers from this "
 "layer to the map**"
 msgstr ""
+"Escolha o botão de camada para **Adicionar camadas predefinidas desta camada"
+" ao mapa**"
 
 #: ../../source/for_users/training/landdegradation.rst:576
 msgid ""
@@ -1140,7 +1145,7 @@ msgstr ""
 
 #: ../../source/for_users/training/landdegradation.rst:623
 msgid "Select the Refresh button if the analysis does not appear in the menu."
-msgstr ""
+msgstr "Selecione o botão Atualizar se a análise não aparecer no menu."
 
 #: ../../source/for_users/training/landdegradation.rst:630
 msgid ""
@@ -1154,7 +1159,7 @@ msgstr ""
 
 #: ../../source/for_users/training/landdegradation.rst:636
 msgid "**Coming soon**"
-msgstr ""
+msgstr "**Em breve**"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"

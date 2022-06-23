@@ -54,8 +54,6 @@ WidgetLandCoverSetupRemoteExecutionUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/land_cover_setup_widget.ui")
 )
 
-mb = iface.messageBar()
-
 
 class tr_lc_setup(object):
     def tr(message):
@@ -124,10 +122,10 @@ class LCClassComboBox(QtWidgets.QComboBox):
 
         # Add the translations of the item labels in order of their codes
         self.addItems(
-            [c.name_long for c in self.nesting.parent.orderByCode().key]
+            [c.name_long for c in self.nesting.parent.orderByCode().key_with_nodata()]
         )
 
-        for n in range(0, len(nesting.parent.key)):
+        for n in range(0, len(nesting.parent.key_with_nodata())):
             color = self.nesting.parent.classByNameLong(
                 self.itemData(n, QtCore.Qt.DisplayRole)
             ).color
@@ -179,7 +177,7 @@ class LCAggTableModel(QtCore.QAbstractTableModel):
         self.colnames_pretty = [x[1] for x in colname_tuples]
 
     def rowCount(self, parent=None):
-        return len(self.nesting.child.key)
+        return len(self.nesting.child.key_with_nodata())
 
     def columnCount(self, parent=None):
         return len(self.colnames_json)
@@ -194,7 +192,7 @@ class LCAggTableModel(QtCore.QAbstractTableModel):
         elif role != QtCore.Qt.DisplayRole:
             return None
         col_name = self.colnames_json[index.column()]
-        initial_class = self.nesting.child.key[index.row()]
+        initial_class = self.nesting.child.key_with_nodata()[index.row()]
 
         if col_name == 'Child_Code':
             return initial_class.code
@@ -486,6 +484,7 @@ class DlgCalculateLCSetAggregation(
                 new_nesting_dict.update(
                     {key: [v for v in values if v in new_child_codes]}
                 )
+
             # And add into the nesting dict any classes that are in the data
             # but were missing from the input, including the child legend no
             # data code (it should be nested under parent nodata as well)
@@ -515,7 +514,7 @@ class DlgCalculateLCSetAggregation(
 
         # Add selector in cell
 
-        for row in range(0, len(nesting.child.key)):
+        for row in range(0, len(nesting.child.key_with_nodata())):
             # Set the default final codes for each row. Note that the QComboBox
             # entries are potentially translated, so need to link the
             # translated names back to a particular code.
@@ -524,7 +523,7 @@ class DlgCalculateLCSetAggregation(
             # to by default
             child_code = self.table_model.index(row, 0).data()
             parent_class = [
-                nesting.parentClassForChild(c) for c in nesting.child.key
+                nesting.parentClassForChild(c) for c in nesting.child.key_with_nodata()
                 if c.code == child_code
             ][0]
 
@@ -669,7 +668,7 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
 
     def load_agg(self, values, child_nodata_code=-32768):
         # Set all of the classes to no data by default, and default to nesting
-        # be under the CCD legend
+        # under the CCD legend
         default_nesting = get_lc_nesting(get_default=True)
 
         # From the default nesting class instance, setup the actual nesting
@@ -798,26 +797,10 @@ class LCDefineDegradationWidget(
 
         self.setupUi(self)
 
-        self.nesting = get_lc_nesting()
         self.trans_matrix = get_trans_matrix()
 
-        self.deg_def_matrix.setRowCount(len(self.trans_matrix.legend.key))
-        self.deg_def_matrix.setColumnCount(len(self.trans_matrix.legend.key))
-        self.deg_def_matrix.setHorizontalHeaderLabels(
-            [c.name_short for c in self.trans_matrix.legend.key]
-        )
-        self.deg_def_matrix.setVerticalHeaderLabels(
-            [c.name_short for c in self.trans_matrix.legend.key]
-        )
+        self.setup_deg_def_matrix(self.trans_matrix.legend)
 
-        for row in range(0, self.deg_def_matrix.rowCount()):
-            for col in range(0, self.deg_def_matrix.columnCount()):
-                line_edit = TransMatrixEdit()
-                line_edit.setValidator(
-                    QtGui.QRegExpValidator(QtCore.QRegExp("[-0+]"))
-                )
-                line_edit.setAlignment(QtCore.Qt.AlignHCenter)
-                self.deg_def_matrix.setCellWidget(row, col, line_edit)
         self.set_trans_matrix()
 
         # Setup the vertical label for the rows of the table
@@ -840,24 +823,6 @@ class LCDefineDegradationWidget(
             label_lc_baseline_year, 1, 0, 1, 1, QtCore.Qt.AlignCenter
         )
 
-        self.deg_def_matrix.setStyleSheet('QTableWidget {border: 0px;}')
-        self.deg_def_matrix.horizontalHeader().setStyleSheet(
-            'QHeaderView::section {background-color: white;border: 0px;}'
-        )
-        self.deg_def_matrix.verticalHeader().setStyleSheet(
-            'QHeaderView::section {background-color: white;border: 0px;}'
-        )
-
-        for row in range(0, self.deg_def_matrix.rowCount()):
-            self.deg_def_matrix.horizontalHeader().setSectionResizeMode(
-                row, QtWidgets.QHeaderView.Stretch
-            )
-
-        for col in range(0, self.deg_def_matrix.columnCount()):
-            self.deg_def_matrix.verticalHeader().setSectionResizeMode(
-                col, QtWidgets.QHeaderView.Stretch
-            )
-
         self.btn_transmatrix_reset.clicked.connect(
             lambda: self.set_trans_matrix(get_default=True)
         )
@@ -877,6 +842,43 @@ class LCDefineDegradationWidget(
         self.legend_stable.setStyleSheet(
             'QLineEdit {background: #FFFFE0;} QLineEdit:hover {border: 1px solid gray; background: #FFFFE0;}'
         )
+
+    def setup_deg_def_matrix(self, legend):
+        self.deg_def_matrix.setRowCount(len(legend.key))
+        self.deg_def_matrix.setColumnCount(len(legend.key))
+        self.deg_def_matrix.setHorizontalHeaderLabels(
+            [c.name_short for c in legend.key]
+        )
+        self.deg_def_matrix.setVerticalHeaderLabels(
+            [c.name_short for c in legend.key]
+        )
+
+        for row in range(0, self.deg_def_matrix.rowCount()):
+            for col in range(0, self.deg_def_matrix.columnCount()):
+                line_edit = TransMatrixEdit()
+                line_edit.setValidator(
+                    QtGui.QRegExpValidator(QtCore.QRegExp("[-0+]"))
+                )
+                line_edit.setAlignment(QtCore.Qt.AlignHCenter)
+                self.deg_def_matrix.setCellWidget(row, col, line_edit)
+
+        self.deg_def_matrix.setStyleSheet('QTableWidget {border: 0px;}')
+        self.deg_def_matrix.horizontalHeader().setStyleSheet(
+            'QHeaderView::section {background-color: white;border: 0px;}'
+        )
+        self.deg_def_matrix.verticalHeader().setStyleSheet(
+            'QHeaderView::section {background-color: white;border: 0px;}'
+        )
+
+        for row in range(0, self.deg_def_matrix.rowCount()):
+            self.deg_def_matrix.horizontalHeader().setSectionResizeMode(
+                row, QtWidgets.QHeaderView.Stretch
+            )
+
+        for col in range(0, self.deg_def_matrix.columnCount()):
+            self.deg_def_matrix.verticalHeader().setSectionResizeMode(
+                col, QtWidgets.QHeaderView.Stretch
+            )
 
     def trans_matrix_loadfile(self):
         f, _ = QtWidgets.QFileDialog.getOpenFileName(
@@ -955,6 +957,8 @@ class LCDefineDegradationWidget(
             LCTransitionDefinitionDeg.Schema().dumps(matrix)
         )
 
+        self.setup_deg_def_matrix(matrix.legend)
+
         for row in range(0, self.deg_def_matrix.rowCount()):
             initial_class = matrix.legend.key[row]
 
@@ -1006,13 +1010,13 @@ class LCDefineDegradationWidget(
                     )
                 transitions.append(
                     LCTransitionMeaningDeg(
-                        self.nesting.parent.key[row],
-                        self.nesting.parent.key[col], meaning
+                        self.trans_matrix.legend.key[row],
+                        self.trans_matrix.legend.key[col], meaning
                     )
                 )
 
         return LCTransitionDefinitionDeg(
-            legend=self.nesting.parent,
+            legend=self.trans_matrix.legend,
             name="Land cover transition definition matrix",
             definitions=LCTransitionMatrixDeg(
                 name="Degradation matrix", transitions=transitions

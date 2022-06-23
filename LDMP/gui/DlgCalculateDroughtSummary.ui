@@ -99,7 +99,7 @@
               </font>
              </property>
              <property name="title">
-              <string>Drought dataset (tiers 1 and 2)</string>
+              <string>Drought dataset (hazard and exposure)</string>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_8">
               <item>
@@ -151,14 +151,14 @@
               </font>
              </property>
              <property name="title">
-              <string>Drought dataset for tier 3</string>
+              <string>Drought dataset for vulnerability</string>
              </property>
              <property name="checkable">
               <bool>true</bool>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_5">
               <item>
-               <widget class="WidgetDataIOSelectTELayerExisting" name="combo_layer_jrc_vulnerability">
+               <widget class="WidgetDataIOSelectTELayerExisting" name="combo_layer_so3_vulnerability">
                 <property name="enabled">
                  <bool>true</bool>
                 </property>

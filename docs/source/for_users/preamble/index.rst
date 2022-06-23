@@ -2,7 +2,7 @@
 
 Preamble
 ===================
-Trends.Earth is a platform to monitor land changeusing earth observations. It is now available 
+Trends.Earth is a platform to monitor land change using earth observations. It is now available 
 as a browser-based tool in addition to the plugin to desktop QGIS spatial-analytical 
 software.
 
@@ -16,15 +16,16 @@ consumption rate to population growth) by providing a platform for analyzing dat
 commitments to the United Nations Convention to Combat Desertification (UNCCD) and UN-Habitat. 
 
 The development of Trends.Earth was funded by the Global Environment Facility and NASA, 
-led by Conservation International and its partners. `Conservation International <https://www.conservation.org/>`_  
+led by Conservation International and its partners. `Conservation International`_  
 works to spotlight and secure the critical benefits that nature provides to humanity. 
 
 **Monitor land change**
 
 Trends.Earth (formerly the Land Degradation Monitoring Toolbox) is a platform
-from `Conservation International <http://www.conservation.org/trendsearth>`_
-for monitoring land change using earth observations in an innovative desktop
-and cloud-based system.
+from `Conservation International`_ for monitoring land change using earth observations
+in an innovative desktop and cloud-based system.
+
+.. _Conservation International: http://www.conservation.org/trendsearth
 
 **Track achievement of the sustainable development goals**
 
@@ -32,7 +33,7 @@ The three sub-indicators for monitoring achievement of Land Degradation
 Neutrality (LDN, Sustainable Development Goal (SDG) Target 15.3), are supported
 by |trends.earth|: productivity, land cover, and soil organic carbon.  The tool
 also supports countries in analyzing data to prepare for their reporting
-committments to the United Nations Convention to Combat Desertification
+commitments to the United Nations Convention to Combat Desertification
 (UNCCD).
 
 Trends.Earth allows users to plot time series of key indicators of land change

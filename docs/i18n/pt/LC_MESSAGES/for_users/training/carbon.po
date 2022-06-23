@@ -50,16 +50,14 @@ msgid ""
 "Refer to the :ref:`background_carbon` for background information on the "
 "datasets and"
 msgstr ""
-"Consulte :ref:`background_carbon` para informações de fundo sobre os "
-"conjuntos de dados e"
 
 #: ../../source/for_users/training/carbon.rst:14
 msgid "methodology used for this tutorial."
-msgstr "a metodologia que foi utilizada para este tutorial."
+msgstr ""
 
 #: ../../source/for_users/training/carbon.rst:19
 msgid "Calculate change in carbon"
-msgstr "Calcular a mudança de carbono"
+msgstr ""
 
 #: ../../source/for_users/training/carbon.rst:21
 msgid ""
@@ -67,17 +65,12 @@ msgid ""
 "**Experimental** menu, select **Calculate change in total carbon - Above and"
 " below ground emissions, and deforestation** menu."
 msgstr ""
-"Na aba **Algoritmos** do plugin da Trends.Earth no QGIS, no menu "
-"**Experimental**, selecione o menu **Calcular a alteração no total de "
-"carbono - Emissões acima e abaixo do solo, e desflorestação***."
 
 #: ../../source/for_users/training/carbon.rst:27
 msgid ""
 "Select the **Calculate change in carbon** menu by selecting **Execute "
 "locally**."
 msgstr ""
-"Selecione o menu **Calcular a alteração no carbono** selecionando **Executar"
-" localmente**."
 
 #: ../../source/for_users/training/carbon.rst:32
 msgid ""
@@ -86,19 +79,14 @@ msgid ""
 "loss, carbon emissions from deforestation. Define the percent tree cover "
 "considered forest for your area of interest."
 msgstr ""
-"Aparecerá  uma janela onde poderá selecionar os parâmetros da análise do "
-"carbono. Selecione o ano de início e o ano-alvo para a monitorização da "
-"perda de coberto arbóreo, e as emissões de carbono da desflorestação. Defina"
-" a percentagem de coberto arbóreo que é considerado florestal para a sua "
-"área de interesse."
 
 #: ../../source/for_users/training/carbon.rst:39
 msgid ""
 "The definition of canopy cover should be changed to accommodate the specific"
 " area of interest."
 msgstr ""
-"A definição de coberto florestal deverá ser alterada para incluir a área de "
-"interesse específica."
+"A definição de cobertura de árvores deve ser alterada para acomodar a área "
+"específica de interesse."
 
 #: ../../source/for_users/training/carbon.rst:38
 msgid ""
@@ -107,14 +95,10 @@ msgid ""
 "definition can change for arid regions. For more information, please see the"
 " publication\""
 msgstr ""
-"O coberto arbóreo global dos mapas de conjunto de dados baseado na "
-"percentagem de coberto arbóreo do ano 2000. Muitos estudos citam um limiar "
-"de 25% - 30% para definir floresta, contudo esta definição pode mudar para "
-"regiões áridas. Para mais informações veja a publicação\"."
 
 #: ../../source/for_users/training/carbon.rst:44
 msgid "Select **Change region** to define the area of interest."
-msgstr "Selecione **Alterar a região** para definir a área de interesse."
+msgstr ""
 
 #: ../../source/for_users/training/carbon.rst:50
 msgid ""
@@ -153,7 +137,7 @@ msgstr ""
 
 #: ../../source/for_users/training/carbon.rst:66
 msgid "Add a descriptive name and notes for the analysis"
-msgstr "Adicione um nome descritivo e notas para a análise"
+msgstr ""
 
 #: ../../source/for_users/training/carbon.rst:68
 msgid ""
@@ -161,9 +145,6 @@ msgid ""
 "and method for calculating the root to shoot ratio (below ground biomass) "
 "Select **Schedule remote exectution**"
 msgstr ""
-"Selecione o menu **Configuração avançada** para selecionar o conjunto de "
-"dados de biomassa e o método para calcular o rácio de raiz para rebento "
-"(biomassa abaixo do solo) Selecione **Programar execução remota**"
 
 #: ../../source/for_users/training/carbon.rst:74
 msgid ""
@@ -179,23 +160,19 @@ msgstr ""
 
 #: ../../source/for_users/training/carbon.rst:77
 msgid "Change in carbon summary table"
-msgstr "Mudança na tabela de resumo do carbono"
+msgstr ""
 
 #: ../../source/for_users/training/carbon.rst:79
 msgid ""
 "Go the the **Datasets** tab to **Add default layers from this dataset to "
 "map**."
 msgstr ""
-"Vá à aba **Conjuntos de Dados** para **Adicionar camadas predefinidas deste "
-"conjunto de dados ao mapa**."
 
 #: ../../source/for_users/training/carbon.rst:84
 msgid ""
 "In order to view the defined area of interest with reference data, select "
 "the **Load Base Map** in the **Datasets** tab."
 msgstr ""
-"Para ver a área de interesse definida com dados de referência, selecione "
-"**Carregar Mapa de Base** na aba *Conjuntos de Dados**."
 
 #: ../../source/for_users/training/carbon.rst:95
 msgid ""
@@ -203,9 +180,6 @@ msgid ""
 "emissions, and deforestation** menu under **Change in carbon summary "
 "table**, select the **Execute locally** button."
 msgstr ""
-"No menu **Calcular a mudança no carbono total - Emissões acima e abaixo do "
-"solo, e desflorestação** em **Alterar na tabela de resumo do carbono**, "
-"selecione o botão **Executar localmente**."
 
 #: ../../source/for_users/training/carbon.rst:101
 msgid ""
@@ -213,9 +187,6 @@ msgid ""
 "region is the same area of interest, provide descriptive names and notes and"
 " select **Execute locally**."
 msgstr ""
-"As camadas serão pré-preenchidas nas listas suspensas da camada de dados. "
-"Confirme que a região é a mesma área de interesse, forneça notas e nomes "
-"descritivos e selecione **Executar localmente**."
 
 #: ../../source/for_users/training/carbon.rst:101
 msgid ""
@@ -223,9 +194,6 @@ msgid ""
 "**trends_earth_data*** folder under your user account on your computer "
 "(e.g., C:\\Users\\mnoon\\trends_earth_data)."
 msgstr ""
-"Uma folha de cálculo comparando os resultados finais é guardada na sua pasta"
-" **trends_earth_data**** sob a sua conta de utilizador no seu computador "
-"(por exemplo, C:\\Users\\mnoon\\trends_earth_data)."
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"

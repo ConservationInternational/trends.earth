@@ -110,11 +110,6 @@ msgid ""
 "definition can change for arid regions. For more information, please see the"
 " publication: `Quantification of global gross forest cover`_ \""
 msgstr ""
-"O conjunto de dados mapeia a cobertura de árvores global com base na "
-"percentagem de cobertura no ano 2000. Muitos estudos citam limites de 25% - "
-"30% para definir uma floresta; no entanto, esta definição pode mudar para "
-"regiões áridas. Para mais informação consulte a publicação: `Quantificação "
-"para a cobertura florestal total global`_ \""
 
 #: ../../source/for_users/features/carbonemissions.rst:38
 msgid ""

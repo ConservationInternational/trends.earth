@@ -13,6 +13,7 @@
 """
 
 import dataclasses
+import functools
 import json
 import os
 import typing
@@ -22,22 +23,17 @@ from pathlib import Path
 import numpy as np
 import qgis.core
 import qgis.utils
-from osgeo import gdal
-from osgeo import osr
-from qgis.PyQt import QtCore
-from qgis.PyQt import QtWidgets
-from qgis.PyQt import uic
+from osgeo import gdal, osr
+from qgis.PyQt import QtCore, QtWidgets, uic
 from qgis.PyQt.QtCore import QSettings
 from te_schemas.jobs import JobStatus
 from te_schemas.results import Band as JobBand
-from te_schemas.results import ResultType
+from te_schemas.results import Raster, ResultType, RasterType
 
-from . import conf
-from . import GetTempFilename
-from . import layers
-from . import utils
-from . import worker
-from .jobs.manager import job_manager
+from . import GetTempFilename, areaofinterest, conf, layers, utils, worker
+from . import metadata_dialog
+from . import metadata
+from .jobs.manager import job_manager, update_uris_if_needed, set_results_extents
 from .jobs.models import Job
 from .logger import log
 
@@ -81,8 +77,6 @@ Ui_WidgetDataIOSelectTEDatasetExisting, _ = uic.loadUiType(
         "gui/WidgetDataIOSelectTEDatasetExisting.ui"
     )
 )
-
-mb = qgis.utils.iface.messageBar()
 
 
 @dataclasses.dataclass()
@@ -634,7 +628,7 @@ class DlgDataIOLoadTE(QtWidgets.QDialog, Ui_DlgDataIOLoadTE):
 
     def show_job_info(self):
         self.parsed_name_la.setEnabled(True)
-        self.parsed_name_le.setText(job_manager.get_job_basename(self.job))
+        self.parsed_name_le.setText(self.job.get_basename())
         self.parsed_name_le.setEnabled(True)
         self.parsed_result_la.setEnabled(True)
         try:
@@ -681,6 +675,8 @@ class DlgDataIOLoadTE(QtWidgets.QDialog, Ui_DlgDataIOLoadTE):
             try:
                 raw_job = json.loads(path.read_text())
                 job = Job.Schema().load(raw_job)
+                update_uris_if_needed(job, path)
+                set_results_extents(job)
             except json.JSONDecodeError:
                 error_message = "Could not parse the selected file into a valid JSON"
 
@@ -895,6 +891,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
     """Base class for individual data loading dialogs"""
 
     input_widget: ImportSelectFileInputWidget
+    metadata: qgis.core.QgsLayerMetadata
 
     layer_loaded = QtCore.pyqtSignal(list)
 
@@ -908,6 +905,12 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         # The datatype determines whether the dataset resampling is done with
         # nearest neighbor and mode or nearest neighbor and mean
         self.datatype = 'categorical'
+        self.metadata = None
+
+        self.btnMetadata = QtWidgets.QPushButton(self.tr("Metadata"))
+        layout = self.btnBox.layout()
+        layout.insertWidget(0, self.btnMetadata)
+        self.btnMetadata.clicked.connect(self.open_metadata_editor)
 
     def validate_input(self, value):
         if self.input_widget.radio_raster_input.isChecked():
@@ -995,9 +998,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         in_srs = osr.SpatialReference()
         in_srs.ImportFromWkt(ds_in.GetProjectionRef())
 
-        tx = osr.CoordinateTransformation(
-            in_srs, wgs84_srs, qgis.core.QgsProject.instance()
-        )
+        tx = osr.CoordinateTransformation(in_srs, wgs84_srs)
 
         geo_t = ds_in.GetGeoTransform()
         x_size = ds_in.RasterXSize
@@ -1113,6 +1114,14 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
             return False
         else:
             return True
+
+    def open_metadata_editor(self):
+        dlg = metadata_dialog.DlgDatasetMetadata(self)
+        dlg.exec_()
+        self.metadata = dlg.get_metadata()
+
+    def save_metadata(self, job):
+        metadata.init_dataset_metadata(job, self.metadata)
 
 
 class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
@@ -1239,6 +1248,8 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
         )
         job_manager.import_job(job, Path(out_file))
 
+        super().save_metadata(job)
+
 
 class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
     output_widget: ImportSelectRasterOutput
@@ -1344,6 +1355,8 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
         )
         job_manager.import_job(job, Path(out_file))
 
+        super().save_metadata(job)
+
 
 def _get_layers(node):
     l = []
@@ -1360,11 +1373,15 @@ def _get_layers(node):
     return l
 
 
+@functools.lru_cache(
+    maxsize=None
+)  # not using functools.cache, as it was only introduced in Python 3.9
 def _get_usable_bands(
     band_name: typing.Optional[str] = "any",
     selected_job_id: uuid.UUID = None,
     filter_field: str = None,
-    filter_value: str = None
+    filter_value: str = None,
+    aoi = None
 ) -> typing.List[Band]:
     result = []
 
@@ -1377,8 +1394,7 @@ def _get_usable_bands(
                           None) or (job.id == selected_job_id)
         is_valid_type = (
             job.results and (
-                ResultType(job.results.type)
-                in (ResultType.RASTER_RESULTS, ResultType.LOCAL_RESULTS)
+                ResultType(job.results.type) == ResultType.RASTER_RESULTS
             )
         )
 
@@ -1390,6 +1406,9 @@ def _get_usable_bands(
                     if raster.uri is not None and (
                         (band_info.name == band_name or band_name == 'any')
                     ):
+                        if aoi is not None:
+                            if not _check_band_overlap(aoi, raster):
+                                continue
                         if (
                             filter_field is None or filter_value is None
                             or band_info.metadata[filter_field] == filter_value
@@ -1417,42 +1436,44 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
 
         self.layer_list = None
 
+        self.NO_LAYERS_MESSAGE =  self.tr('No layers available in this region')
+
     def populate(self, selected_job_id=None):
-        usable_bands = _get_usable_bands(
-            band_name=self.property("layer_type"),
-            selected_job_id=selected_job_id,
-            filter_field=self.property("layer_filter_field"),
-            filter_value=self.property("layer_filter_value")
-        )
+        aoi = areaofinterest.prepare_area_of_interest()
+        layer_types = self.property("layer_type").split(';')
+        usable_bands = []
+        for layer_type in layer_types:
+            usable_bands.extend(
+                _get_usable_bands(
+                    band_name=layer_type,
+                    selected_job_id=selected_job_id,
+                    filter_field=self.property("layer_filter_field"),
+                    filter_value=self.property("layer_filter_value"),
+                    aoi = aoi
+                )
+            )
         self.layer_list = usable_bands
         old_text = self.currentText()
         self.comboBox_layers.clear()
-        self.comboBox_layers.addItem('')
-        i = 0
 
-        for usable_band in usable_bands:
-            self.comboBox_layers.addItem(usable_band.get_name_info())
-            # the "+ 1" below is to account for blank entry at the beginning of
-            # the combobox
-            self.comboBox_layers.setItemData(
-                i + 1, usable_band.get_hover_info(), QtCore.Qt.ToolTipRole
-            )
-            i += 1
-
+        if len(usable_bands) == 0:
+            self.comboBox_layers.addItem(self.NO_LAYERS_MESSAGE)
+        else:
+            for i, usable_band in enumerate(usable_bands):
+                self.comboBox_layers.addItem(usable_band.get_name_info())
+                self.comboBox_layers.setItemData(
+                    i, usable_band.get_hover_info(), QtCore.Qt.ToolTipRole
+                )
         if not self.set_index_from_text(old_text):
-            # Set current index to 1 so that the blank line isn't chosen by
-            # default
-            self.comboBox_layers.setCurrentIndex(1)
+            self.comboBox_layers.setCurrentIndex(0)
 
-    def get_current_extent(self, band_name):
+    def get_current_extent(self):
         band = self.get_current_band()
 
         return qgis.core.QgsRasterLayer(str(band.path), "raster file",
                                         "gdal").extent()
 
     def get_current_data_file(self) -> Path:
-        # Minus 1 below to account for blank line at beginning
-
         return self.get_current_band().path
 
     def get_layer(self) -> qgis.core.QgsRasterLayer:
@@ -1461,17 +1482,13 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
         )
 
     def get_current_band(self) -> Band:
-        # Minus 1 below to account for blank line at beginning
-
-        return self.layer_list[self.comboBox_layers.currentIndex() - 1]
+        return self.layer_list[self.comboBox_layers.currentIndex()]
 
     def set_index_from_job_id(self, job_id):
         if self.layer_list:
             for i in range(len(self.layer_list)):
                 if self.layer_list[i].job.id == job_id:
-                    # the "+ 1" below is to account for blank entry
-                    # at the beginning of the combobox
-                    self.comboBox_layers.setCurrentIndex(i + 1)
+                    self.comboBox_layers.setCurrentIndex(i)
 
                     return True
 
@@ -1479,12 +1496,9 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
 
     def set_index_from_text(self, text):
         if self.layer_list:
-            for i in range(len(self.layer_list)):
-                if self.layer_list[i] == text:
-                    # the "+ 1" below is to account for blank entry
-                    # at the beginning of the combobox
-                    self.comboBox_layers.setCurrentIndex(i + 1)
-
+            for i, layer in enumerate(self.layer_list):
+                if text == layer:
+                    self.comboBox_layers.setCurrentIndex(i)
                     return True
 
         return False
@@ -1513,8 +1527,54 @@ class WidgetDataIOSelectTELayerImport(
     pass
 
 
+@functools.lru_cache(
+    maxsize=None
+)  # not using functools.cache, as it was only introduced in Python 3.9
+def _extent_as_geom(extent: typing.Tuple[float, float, float, float]):
+    return qgis.core.QgsGeometry.fromRect(qgis.core.QgsRectangle(*extent))
+
+
+def _check_band_overlap(aoi, raster):
+    if raster.type == RasterType.ONE_FILE_RASTER:
+        if aoi.calc_frac_overlap(_extent_as_geom(raster.extent)) >= 0.99:
+            return True
+    elif raster.type == RasterType.TILED_RASTER:
+        frac = 0
+        for extent in raster.extents:
+            frac += aoi.calc_frac_overlap(_extent_as_geom(extent))
+        if frac >= .99:
+            return True
+        else:
+            return False
+
+def _check_dataset_overlap_raster(aoi, raster_results):
+    frac = 0
+    for extent in raster_results.get_extents():
+        this_frac = aoi.calc_frac_overlap(_extent_as_geom(extent))
+        frac += this_frac
+    if frac >= .99:
+        return True
+    else:
+        return False
+
+
+def _check_dataset_overlap_vector(aoi, vector_results):
+    "Checks to see if the vector results are NOT disjoint with the aoi"
+    extent = vector_results.extent
+    log(f"vector extent is {extent}")
+    if extent is not None:
+        log(f"vector calc_disjoint is {aoi.calc_disjoint(_extent_as_geom(extent))}")
+        return not aoi.calc_disjoint(_extent_as_geom(extent))
+    else:
+        return False
+
+
+@functools.lru_cache(
+    maxsize=None
+)  # not using functools.cache, as it was only introduced in Python 3.9
 def get_usable_datasets(
-    dataset_name: typing.Optional[str] = "any"
+    dataset_name: typing.Optional[str] = "any",
+    aoi = None
 ) -> typing.List[Dataset]:
     result = []
 
@@ -1524,21 +1584,40 @@ def get_usable_datasets(
             JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY
         )
         try:
-            is_valid_type = ResultType(
-                job.results.type
-            ) in (ResultType.RASTER_RESULTS, ResultType.LOCAL_RESULTS)
+            is_valid_type = ResultType(job.results.type) in [
+                ResultType.RASTER_RESULTS, ResultType.VECTOR_RESULTS
+            ]
         except AttributeError:
             # Catch case of an invalid type
 
             continue
 
-        if is_available and is_valid_type and job.results.uri is not None:
-            path = job.results.uri.uri
-
-            if job.script.name == dataset_name:
+        if is_available and is_valid_type:
+            if (
+                    ResultType(job.results.type) == ResultType.RASTER_RESULTS and
+                    (
+                        aoi is None or
+                        _check_dataset_overlap_raster(aoi, job.results)
+                    ) and
+                    job.script.name == dataset_name and 
+                    job.results.uri is not None
+            ):
                 result.append(Dataset(
                     job=job,
-                    path=path,
+                    path=job.results.uri.uri,
+                ))
+            elif  (
+                    ResultType(job.results.type) == ResultType.VECTOR_RESULTS and
+                    (
+                        aoi is None or
+                        _check_dataset_overlap_vector(aoi, job.results)
+                    ) and
+                    job.results.vector.type.value == dataset_name and
+                    job.results.vector.uri is not None
+            ):
+                result.append(Dataset(
+                    job=job,
+                    path=job.results.vector.uri.uri
                 ))
     result.sort(key=lambda ub: ub.job.start_date, reverse=True)
 
@@ -1606,7 +1685,6 @@ class DlgDataIOAddLayersToMap(QtWidgets.QDialog, Ui_DlgDataIOAddLayersToMap):
                     QtCore.QItemSelectionModel.Select
                 )
 
-
 class WidgetDataIOSelectTEDatasetExisting(
     QtWidgets.QWidget, Ui_WidgetDataIOSelectTEDatasetExisting
 ):
@@ -1624,8 +1702,11 @@ class WidgetDataIOSelectTEDatasetExisting(
             self.selected_job_changed
         )
 
+        self.NO_DATASETS_MESSAGE =  self.tr('No datasets available in this region')
+
     def populate(self):
-        usable_datasets = get_usable_datasets(self.property("dataset_type"))
+        aoi = areaofinterest.prepare_area_of_interest()
+        usable_datasets = get_usable_datasets(self.property("dataset_type"), aoi=aoi)
         self.dataset_list = usable_datasets
         # Ensure selected_job_changed is called only once when adding items to
         # combobox
@@ -1634,24 +1715,20 @@ class WidgetDataIOSelectTEDatasetExisting(
         )
         old_text = self.currentText()
         self.comboBox_datasets.clear()
-        # Add a blank item to be shown when no dataset is chosen
-        self.comboBox_datasets.addItem('')
-        i = 0
 
-        for usable_dataset in usable_datasets:
-            self.comboBox_datasets.addItem(usable_dataset.get_name_info())
-            # the "+ 1" below is to account for blank entry at the beginning of
-            # the combobox
-            self.comboBox_datasets.setItemData(
-                i + 1, usable_dataset.get_hover_info(), QtCore.Qt.ToolTipRole
-            )
-            i += 1
+        if len(usable_datasets) == 0:
+            self.comboBox_datasets.addItem(self.NO_DATASETS_MESSAGE)
+        else:
+            for i, usable_dataset in enumerate(usable_datasets):
+                self.comboBox_datasets.addItem(usable_dataset.get_name_info())
+                self.comboBox_datasets.setItemData(
+                    i, usable_dataset.get_hover_info(), QtCore.Qt.ToolTipRole
+                )
 
         if not self.set_index_from_text(old_text):
-            # Set current index to 1 so that the blank line isn't chosen by
-            # default
-            self.comboBox_datasets.setCurrentIndex(1)
+            self.comboBox_datasets.setCurrentIndex(0)
         self.selected_job_changed()
+        # Reconnect function to fire on selected dataset change
         self.comboBox_datasets.currentIndexChanged.connect(
             self.selected_job_changed
         )
@@ -1663,42 +1740,52 @@ class WidgetDataIOSelectTEDatasetExisting(
         return self.comboBox_datasets.currentText()
 
     def get_current_dataset(self):
-        return self.dataset_list[self.comboBox_datasets.currentIndex() - 1]
+        current_dataset = self.dataset_list[self.comboBox_datasets.currentIndex()]
+        if current_dataset != self.NO_DATASETS_MESSAGE:
+            return current_dataset
+        else:
+            return None
 
     def get_current_extent(self):
-        band = self.get_bands('any')[0]
-
-        return qgis.core.QgsRasterLayer(str(band.path), "raster file",
-                                        "gdal").extent()
+        job = self.get_current_job()
+        if job:
+            if ResultType(job.results.type) == ResultType.RASTER_RESULTS:
+                band = self.get_bands('any')[0]
+                return qgis.core.QgsRasterLayer(
+                    str(band.path), "raster file", "gdal").extent()
+            elif ResultType(job.results.type) == ResultType.VECTOR_RESULTS:
+                rect = qgis.core.QgsVectorLayer(
+                    str(self.get_current_data_file()),
+                    "vector file", "ogr"
+                ).extent()
+                return (rect.xMinimum(), rect.yMinimum(), rect.yMaximum(), rect.yMaximum())
 
     def get_bands(self, band_name) -> Band:
-        return _get_usable_bands(band_name, self.get_current_dataset().job.id)
+        aoi = areaofinterest.prepare_area_of_interest()
+        return _get_usable_bands(band_name, self.get_current_dataset().job.id, aoi=aoi)
 
     def set_index_from_text(self, text):
         if self.dataset_list:
             for i in range(len(self.dataset_list)):
                 if self.dataset_list[i] == text:
-                    # the "+ 1" below is to account for blank entry
-                    # at the beginning of the combobox
-                    self.comboBox_datasets.setCurrentIndex(i + 1)
+                    self.comboBox_datasets.setCurrentIndex(i)
 
                     return True
 
         return False
 
-    def selected_job_changed(self):
-        if len(self.dataset_list) > 1:
-            # the "- 1" below is to account for blank entry
-            # at the beginning of the combobox
-            current_job = self.dataset_list[
-                self.comboBox_datasets.currentIndex() - 1]
-            # Allow for a current_job of '' (no job selected)
+    def get_current_job(self):
+        current_dataset = self.get_current_dataset()
+        if current_dataset:
+            return current_dataset.job
+        else:
+            return None
 
-            if current_job != '':
-                # the "- 1" below i
-                # s to account for blank entry
-                # at the beginning of the combobox
-                job_id = current_job.job.id
+    def selected_job_changed(self):
+        if len(self.dataset_list) >= 1:
+            current_job = self.get_current_job()
+            if current_job:
+                job_id = current_job.id
             else:
                 job_id = None
             self.job_selected.emit(job_id)

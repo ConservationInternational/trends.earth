@@ -2,13 +2,18 @@ import datetime as dt
 import tempfile
 from pathlib import Path
 
-import LDMP.logger
 import numpy as np
 import openpyxl
 import qgis.core
 from osgeo import gdal
 from te_schemas.results import Band as JobBand
+from te_schemas.results import DataType
+from te_schemas.results import Raster
+from te_schemas.results import RasterFileType
+from te_schemas.results import RasterResults
+from te_schemas.results import URI
 
+import LDMP.logger
 from .. import areaofinterest
 from .. import calculate
 from .. import calculate_urban
@@ -19,8 +24,10 @@ from ..jobs.models import Job
 
 
 def compute_urban_change_summary_table(
-    urban_change_job: Job, area_of_interest: areaofinterest.AOI,
-    job_output_path: Path, dataset_output_path: Path
+    urban_change_job: Job,
+    area_of_interest: areaofinterest.AOI,
+    job_output_path: Path,
+    dataset_output_path: Path,
 ) -> Job:
     urban_files = []
 
@@ -39,22 +46,22 @@ def compute_urban_change_summary_table(
     in_files = urban_files + pop_files
     urban_band_nums = np.arange(len(urban_files)) + 1
     pop_band_nums = np.arange(len(pop_files)) + 1 + urban_band_nums.max()
-    _, wkts = area_of_interest.meridian_split('layer', 'wkt', warn=False)
+    _, wkts = area_of_interest.meridian_split("layer", "wkt", warn=False)
     bbs = area_of_interest.get_aligned_output_bounds(urban_files[1])
 
     for n in range(len(wkts)):
         # Compute the pixel-aligned bounding box (slightly larger than
         # aoi). Use this instead of croptocutline in gdal.Warp in order to
         # keep the pixels aligned with the chosen productivity layer.
-        indic_vrt = tempfile.NamedTemporaryFile(suffix='.vrt').name
-        LDMP.logger.log(u'Saving indicator VRT to: {}'.format(indic_vrt))
+        indic_vrt = tempfile.NamedTemporaryFile(suffix=".vrt").name
+        LDMP.logger.log("Saving indicator VRT to: {}".format(indic_vrt))
         gdal.BuildVRT(
             indic_vrt,
             in_files,
             outputBounds=bbs[n],
-            resolution='highest',
+            resolution="highest",
             resampleAlg=gdal.GRA_NearestNeighbour,
-            separate=True
+            separate=True,
         )
 
         output_indicator_tifs = []
@@ -69,40 +76,39 @@ def compute_urban_change_summary_table(
             )
         output_indicator_tifs.append(output_indicator_tif)
 
-        LDMP.logger.log(
-            f'Saving urban clipped files to {output_indicator_tif}'
-        )
+        LDMP.logger.log(f"Saving urban clipped files to {output_indicator_tif}")
         geojson = calculate.json_geom_to_geojson(
             qgis.core.QgsGeometry.fromWkt(wkts[n]).asJson()
         )
         clip_worker = worker.StartWorker(
             calculate.ClipWorker,
-            'masking layers (part {} of {})'.format(n + 1,
-                                                    len(wkts)), indic_vrt,
-            str(output_indicator_tif), geojson, bbs[n]
+            "masking layers (part {} of {})".format(n + 1, len(wkts)),
+            indic_vrt,
+            str(output_indicator_tif),
+            geojson,
+            bbs[n],
         )
 
         if clip_worker.success:
-            LDMP.logger.log('Calculating summary table...')
+            LDMP.logger.log("Calculating summary table...")
             urban_summary_worker = worker.StartWorker(
                 UrbanSummaryWorker,
-                'calculating summary table (part {} of {})'.format(
-                    n + 1, len(wkts)
-                ), str(output_indicator_tif), urban_band_nums, pop_band_nums, 9
+                "calculating summary table (part {} of {})".format(n + 1, len(wkts)),
+                str(output_indicator_tif),
+                urban_band_nums,
+                pop_band_nums,
+                9,
             )
 
             if urban_summary_worker.success:
                 if n == 0:
                     areas, populations = urban_summary_worker.get_return()
                 else:
-                    these_areas, these_populations = urban_summary_worker.get_return(
-                    )
+                    these_areas, these_populations = urban_summary_worker.get_return()
                     areas = areas + these_areas
                     populations = populations + these_populations
             else:
-                raise RuntimeError(
-                    "Error calculating urban change summary table."
-                )
+                raise RuntimeError("Error calculating urban change summary table.")
         else:
             raise RuntimeError("Error masking urban change input layers.")
 
@@ -114,35 +120,48 @@ def compute_urban_change_summary_table(
     bands = []
 
     for name in ("Urban", "Population"):
-        # TODO: NOTE to A. Zvoleff: seems weird to hardcode years in this, but I'm following the previous implementation, so not going to change it
+        # TODO: NOTE to A. Zvoleff: seems weird to hardcode years in this, but I'm
+        # following the previous implementation, so not going to change it
 
         for year in range(2000, 2016, 5):
-            bands.append(JobBand(name=name, metadata={"year": year}), )
-    urban_change_job.results.bands = bands
+            bands.append(
+                JobBand(name=name, metadata={"year": year}),
+            )
 
     if len(output_indicator_tifs) == 1:
         output_path = output_indicator_tifs[0]
     else:
         output_path = job_output_path.parent / f"{job_output_path.stem}.vrt"
-        gdal.BuildVRT(
-            str(output_path), [str(path) for path in output_indicator_tifs]
-        )
-    urban_change_job.results.data_path = output_path
+        gdal.BuildVRT(str(output_path), [str(path) for path in output_indicator_tifs])
+
+    urban_change_job.results = RasterResults(
+        name="urban_change_summary",
+        uri=URI(uri=output_path, type="local"),
+        rasters={
+            DataType.INT16.value: Raster(
+                uri=URI(uri=output_path, type="local"),
+                bands=bands,
+                datatype=DataType.INT16,
+                filetype=RasterFileType.GEOTIFF,
+            ),
+        },
+    )
 
     return urban_change_job
 
 
 def save_summary_table(areas, populations, out_file):
-    template_summary_table_path = Path(__file__).parents[
-        1] / "data/summary_table_urban.xlsx"
+    template_summary_table_path = (
+        Path(__file__).parents[1] / "data/summary_table_urban.xlsx"
+    )
     workbook = openpyxl.load_workbook(str(template_summary_table_path))
-    sheet = workbook['SDG 11.3.1 Summary Table']
+    sheet = workbook["SDG 11.3.1 Summary Table"]
     summary.write_table_to_sheet(sheet, areas, 23, 2)
     summary.write_table_to_sheet(sheet, populations, 37, 2)
-    utils.maybe_add_image_to_sheet('trends_earth_logo_bl_300width.png', sheet)
+    utils.maybe_add_image_to_sheet("trends_earth_logo_bl_300width.png", sheet)
     try:
         workbook.save(out_file)
-        LDMP.logger.log(u'Summary table saved to {}'.format(out_file))
+        LDMP.logger.log("Summary table saved to {}".format(out_file))
 
     except IOError as exc:
         raise RuntimeError(
@@ -199,14 +218,14 @@ class UrbanSummaryWorker(worker.AbstractWorker):
             for x in range(0, xsize, x_block_size):
                 if self.killed:
                     LDMP.logger.log(
-                        "Processing of {} killed by user after processing {} out of {} blocks."
-                        .format(self.prod_out_file, y, ysize)
+                        "Processing of {} killed by user after processing {} out of {} blocks.".format(
+                            self.prod_out_file, y, ysize
+                        )
                     )
 
                     break
                 self.progress.emit(
-                    100 * (float(y) + (float(x) / xsize) * y_block_size) /
-                    ysize
+                    100 * (float(y) + (float(x) / xsize) * y_block_size) / ysize
                 )
 
                 if x + x_block_size < xsize:
@@ -219,8 +238,10 @@ class UrbanSummaryWorker(worker.AbstractWorker):
                     [
                         summary.calc_cell_area(
                             lat + pixel_height * n,
-                            lat + pixel_height * (n + 1), long_width
-                        ) for n in range(rows)
+                            lat + pixel_height * (n + 1),
+                            long_width,
+                        )
+                        for n in range(rows)
                     ]
                 )
                 # Convert areas from meters into hectares
@@ -240,16 +261,12 @@ class UrbanSummaryWorker(worker.AbstractWorker):
                     # Now loop over the classes
 
                     for c in range(1, self.n_classes + 1):
-                        areas[c - 1, i] += np.sum(
-                            (urban_array == c) * cell_areas_array
-                        )
+                        areas[c - 1, i] += np.sum((urban_array == c) * cell_areas_array)
                         pop_masked = pop_array.copy() * (urban_array == c)
                         # Convert population densities to persons per hectare
                         # from persons per sq km
                         pop_masked = pop_masked / 100
-                        populations[c - 1, i] += np.sum(
-                            pop_masked * cell_areas_array
-                        )
+                        populations[c - 1, i] += np.sum(pop_masked * cell_areas_array)
 
                 blocks += 1
             lat += pixel_height * rows

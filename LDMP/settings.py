@@ -11,6 +11,10 @@
  ***************************************************************************/
 """
 
+from enum import (
+    auto,
+    Flag
+)
 import os
 import zipfile
 import typing
@@ -40,6 +44,7 @@ from . import (
 from .conf import (
     Setting,
     settings_manager,
+    TR_ALL_REGIONS
 )
 from .jobs.manager import job_manager
 
@@ -57,10 +62,12 @@ Ui_WidgetSelectArea, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/WidgetSelectArea.ui"))
 Ui_WidgetSettingsAdvanced, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/WidgetSettingsAdvanced.ui"))
+Ui_WidgetSettingsReport, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/WidgetSettingsReport.ui"))
 
 
 from .logger import log
-
+from .utils import FileUtils
 
 ICON_PATH = os.path.join(os.path.dirname(__file__), 'icons')
 
@@ -68,10 +75,11 @@ ICON_PATH = os.path.join(os.path.dirname(__file__), 'icons')
 settings = QtCore.QSettings()
 
 
-def tr(message):
-    return QtCore.QCoreApplication.translate("tr_settings", message)
+class tr_settings(QtCore.QObject):
+    def tr(txt):
+        return QtCore.QCoreApplication.translate(self.__class__.__name__, txt)
 
-        
+
 # Function to indicate if child is a folder within parent
 def is_subdir(child, parent):
     parent = os.path.normpath(os.path.realpath(parent))
@@ -104,8 +112,8 @@ def _get_user_email(auth_setup, warn=True):
     if warn and email is None:
         QtWidgets.QMessageBox.critical(
             None,
-            tr("Error"),
-            tr("Please setup access to {auth_setup.name} before "
+            tr_settings.tr("Error"),
+            tr_settings.tr("Please setup access to {auth_setup.name} before "
                "using this function.")
         )
         return None
@@ -128,6 +136,15 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
             message_bar=self.message_bar)
         self.verticalLayout_advanced.layout().insertWidget(
             0, self.widgetSettingsAdvanced)
+
+        # Report settings
+        self.widget_settings_report = WidgetSettingsReport(
+            self,
+            message_bar=self.message_bar
+        )
+        self.reports_layout.layout().insertWidget(
+            0, self.widget_settings_report
+        )
 
         # set Dialog UIs
         self.dlg_settings_register = DlgSettingsRegister()
@@ -234,7 +251,7 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
                 QtWidgets.QMessageBox.information(
                     None,
                     self.tr("Success"),
-                    tr(f'Trends.Earth user {email} deleted.')
+                    self.tr(f'Trends.Earth user {email} deleted.')
                 )
                 # remove currently used config (as set in QSettings) and
                 # trigger GUI
@@ -245,7 +262,22 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
     def accept(self):
         self.area_widget.save_settings()
         self.widgetSettingsAdvanced.update_settings()
+        self.widget_settings_report.save_settings()
         super().accept()
+
+
+class AreaWidgetSection(Flag):
+    """
+    Defines main sections in the AreaWidget, primarily used to set which
+    sections to hide/show.
+    """
+    COUNTRY = auto()
+    REGION = auto()
+    POINT = auto()
+    FILE = auto()
+    BUFFER = auto()
+    NAME = auto()
+    DISCLAIMER = auto()
 
 
 class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
@@ -260,6 +292,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.canvas = iface.mapCanvas()
         self.vector_file = None
         self.current_cities_key = None
+        self.hide_on_choose_point = True
 
         self.admin_bounds_key = download.get_admin_bounds()
 
@@ -379,7 +412,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 
     def populate_admin_1(self):
         self.secondLevel_area_admin_1.clear()
-        self.secondLevel_area_admin_1.addItems(['All regions'])
+        self.secondLevel_area_admin_1.addItems([TR_ALL_REGIONS])
         self.secondLevel_area_admin_1.addItems(
             sorted(
                 self.admin_bounds_key[
@@ -416,10 +449,72 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 
     def point_chooser(self):
         log("Choosing point from canvas...")
+
         self.canvas.setMapTool(self.choose_point_tool)
-        self.window().hide()
-        QtWidgets.QMessageBox.critical(None, self.tr(
-            "Point chooser"), self.tr("Click the map to choose a point."))
+
+        msg_bar = iface.messageBar()
+        msg_duration = 5
+
+        # Check layers
+        if qgis.core.QgsProject.instance().count() == 0:
+            msg_bar.pushMessage(
+                self.tr(
+                    'The map must have at least one layer.'
+                ),
+                qgis.core.Qgis.Warning,
+                msg_duration
+            )
+            return
+
+        if self.hide_on_choose_point:
+            self.window().hide()
+
+        msg_bar.pushMessage(
+            self.tr('Click the map to choose a point.'),
+            qgis.core.Qgis.Info,
+            msg_duration
+        )
+
+    def set_section_visibility(self, sections: AreaWidgetSection, show=False):
+        """
+        Specify one or more sections to hide with support for bitwise
+        operators.
+        """
+        # Country (and region)
+        if bool(sections & AreaWidgetSection.COUNTRY):
+            self.area_fromadmin.setVisible(show)
+            self.frame_country_region.setVisible(show)
+
+        # Region
+        if bool(sections & AreaWidgetSection.REGION):
+            self.second_level_label.setVisible(show)
+            self.second_level.setVisible(show)
+
+        # Disclaimer
+        if bool(sections & AreaWidgetSection.DISCLAIMER):
+            self.label_disclaimer.setVisible(show)
+
+        # Point
+        if bool(sections & AreaWidgetSection.POINT):
+            self.area_frompoint.setVisible(show)
+            self.frame_area_frompoint.setVisible(show)
+
+        # File
+        if bool(sections & AreaWidgetSection.FILE):
+            self.area_fromfile.setVisible(show)
+            self.frame_area_fromfile.setVisible(show)
+
+        # Buffer
+        if bool(sections & AreaWidgetSection.BUFFER):
+            self.checkbox_buffer.setVisible(show)
+            self.frame.setVisible(show)
+
+        # Name
+        if bool(sections & AreaWidgetSection.NAME):
+            self.label_2.setVisible(show)
+            self.area_settings_name.setVisible(show)
+
+        self.updateGeometry()
 
     def generate_name_setting(self):
         if self.area_fromadmin.isChecked():
@@ -1066,7 +1161,8 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
         except PermissionError:
             QtWidgets.QMessageBox.critical(None,
                                            self.tr("Error"),
-                                           self.tr("Unable to write to {}. Try a different folder.".format(filename)))
+                                           self.tr("Unable to write to {}. Try a "
+                                                   "different folder.".format(out_folder)))
 
             return None
 
@@ -1164,3 +1260,162 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
                 return False
         else:
             return False
+
+
+class WidgetSettingsReport(QtWidgets.QWidget, Ui_WidgetSettingsReport):
+    """
+    Report settings widget.
+    """
+    disclaimer_te: QtWidgets.QPlainTextEdit
+    footer_te: QtWidgets.QPlainTextEdit
+    log_warnings_cb: QtWidgets.QCheckBox
+    message_bar: qgis.gui.QgsMessageBar
+    org_logo_le: QtWidgets.QLineEdit
+    org_logo_tb: QtWidgets.QToolButton
+    org_name_le: QtWidgets.QLineEdit
+    template_search_path_le: QtWidgets.QLineEdit
+    template_search_path_tb: QtWidgets.QToolButton
+
+    def __init__(self, parent=None, message_bar=None):
+        super().__init__(parent)
+        self.setupUi(self)
+
+        self.message_bar = message_bar
+
+        # Set icons
+        self.org_logo_tb.setIcon(FileUtils.get_icon('mActionFileOpen.svg'))
+        self.template_search_path_tb.setIcon(
+            FileUtils.get_icon('mActionFileOpen.svg')
+        )
+
+        # Connect signals
+        self.template_search_path_tb.clicked.connect(
+            self.on_select_template_path
+        )
+        self.org_logo_tb.clicked.connect(
+            self.on_select_org_logo
+        )
+
+    def _load_settings(self):
+        """
+        Load settings in the configuration.
+        """
+        search_path = settings_manager.get_value(
+            Setting.REPORT_TEMPLATE_SEARCH_PATH
+        )
+        self.template_search_path_le.setText(search_path)
+        self.template_search_path_le.setToolTip(search_path)
+
+        logo_path = settings_manager.get_value(
+            Setting.REPORT_ORG_LOGO_PATH
+        )
+        self.org_logo_le.setText(logo_path)
+        self.org_logo_le.setToolTip(logo_path)
+
+        self.org_name_le.setText(
+            settings_manager.get_value(Setting.REPORT_ORG_NAME)
+        )
+        self.footer_te.setPlainText(
+            settings_manager.get_value(Setting.REPORT_FOOTER)
+        )
+        self.disclaimer_te.setPlainText(
+            settings_manager.get_value(Setting.REPORT_DISCLAIMER)
+        )
+        log_warnings = settings_manager.get_value(Setting.REPORT_LOG_WARNING)
+        self.log_warnings_cb.setChecked(log_warnings)
+
+    def showEvent(self, event):
+        super().showEvent(event)
+        self._load_settings()
+
+    def on_select_template_path(self):
+        # Slot for choosing template search path
+        template_dir = self.template_search_path_le.text()
+        if not template_dir:
+            template_dir = settings_manager.get_value(Setting.BASE_DIR)
+
+        template_dir = QtWidgets.QFileDialog.getExistingDirectory(
+            self,
+            self.tr('Select Report Template Search Path'),
+            template_dir,
+            options=QtWidgets.QFileDialog.DontResolveSymlinks |
+                    QtWidgets.QFileDialog.ShowDirsOnly
+        )
+        if template_dir:
+            self.template_search_path_le.setText(template_dir)
+            self.template_search_path_le.setToolTip(template_dir)
+            msg = self.tr(
+                'QGIS needs to be restarted for the changes to take effect.'
+            )
+            if self.message_bar is not None:
+                self.message_bar.pushMessage(
+                    self.tr('Template Search Path'),
+                    msg,
+                    qgis.core.Qgis.Warning,
+                    5
+                )
+
+    def _image_files_filter(self):
+        # QFileDialog filter for image files.
+        formats = [
+            f'*.{bytes(fmt).decode()}'
+            for fmt in QtGui.QImageReader.supportedImageFormats()
+        ]
+        tr_prefix = self.tr('All Images')
+        formats_txt = ' '.join(formats)
+
+        return f'{tr_prefix} ({formats_txt})'
+
+    def on_select_org_logo(self):
+        # Slot for selecting organization logo
+        org_logo_path = self.org_logo_le.text()
+        if not org_logo_path:
+            logo_dir = settings_manager.get_value(Setting.BASE_DIR)
+        else:
+            fi = QtCore.QFileInfo(org_logo_path)
+            file_dir = fi.dir()
+            logo_dir = file_dir.path()
+
+        org_logo_path, _ = QtWidgets.QFileDialog.getOpenFileName(
+            self,
+            self.tr('Select Organization Logo'),
+            logo_dir,
+            self._image_files_filter(),
+            options=QtWidgets.QFileDialog.DontResolveSymlinks
+        )
+        if org_logo_path:
+            self.org_logo_le.setText(org_logo_path)
+            self.org_logo_le.setToolTip(org_logo_path)
+
+    def save_settings(self):
+        # Persist settings.
+        settings_manager.write_value(
+            Setting.REPORT_TEMPLATE_SEARCH_PATH,
+            self.template_search_path_le.text()
+        )
+        settings_manager.write_value(
+            Setting.REPORT_ORG_LOGO_PATH,
+            self.org_logo_le.text()
+        )
+        settings_manager.write_value(
+            Setting.REPORT_ORG_NAME,
+            self.org_name_le.text()
+        )
+        settings_manager.write_value(
+            Setting.REPORT_FOOTER,
+            self.footer_te.toPlainText()
+        )
+        settings_manager.write_value(
+            Setting.REPORT_DISCLAIMER,
+            self.disclaimer_te.toPlainText()
+        )
+        settings_manager.write_value(
+            Setting.REPORT_LOG_WARNING,
+            self.log_warnings_cb.isChecked()
+        )
+
+    def sizeHint(self) -> QtCore.QSize:
+        return QtCore.QSize(450, 350)
+
+
+

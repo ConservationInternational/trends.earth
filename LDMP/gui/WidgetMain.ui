@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>426</width>
+    <width>505</width>
     <height>601</height>
    </rect>
   </property>
@@ -65,11 +65,18 @@ for running algorithms and their results.</string>
             <property name="placeholderText">
              <string>Search...</string>
             </property>
-            <property name="showSearchIcon">
+            <property name="showSearchIcon" stdset="0">
              <bool>true</bool>
             </property>
             <property name="qgisRelation" stdset="0">
              <string notr="true"/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButton_filter">
+            <property name="text">
+             <string/>
             </property>
            </widget>
           </item>
@@ -94,6 +101,13 @@ for running algorithms and their results.</string>
            <widget class="QPushButton" name="import_dataset_pb">
             <property name="text">
              <string>Import dataset...</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="create_layer_pb">
+            <property name="text">
+             <string>Create…</string>
             </property>
            </widget>
           </item>

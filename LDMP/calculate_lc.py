@@ -101,10 +101,10 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
 
         if job is not None:
             main_msg = "Submitted"
-            description = "Land cover task submitted to Google Earth Engine."
+            description = "Land cover task submitted to Trends.Earth server."
         else:
             main_msg = "Error"
-            description = "Unable to submit land cover task to Google Earth Engine."
+            description = "Unable to submit land cover task to Trends.Earth server."
         self.mb.pushMessage(
             self.tr(main_msg),
             self.tr(description),

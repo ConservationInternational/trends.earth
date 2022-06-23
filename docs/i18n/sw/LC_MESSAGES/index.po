@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-23 09:01-0400\n"
+"POT-Creation-Date: 2022-06-22 14:58-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,35 +46,23 @@ msgid "trends.earth"
 msgstr ""
 
 #: ../../source/index.rst:17
-msgid ":index_path:`عربى <ar>`"
+msgid ":index_path:`English<en>`"
 msgstr ""
 
 #: ../../source/index.rst:17
-msgid ":index_path:`中国人 <zh>`"
+msgid ":index_path:`Spanish <es>`"
 msgstr ""
 
 #: ../../source/index.rst:17
-msgid ":index_path:`English <en>`"
+msgid ":index_path:`French <fr>`"
 msgstr ""
 
 #: ../../source/index.rst:17
-msgid ":index_path:`Español <es>`"
-msgstr ""
-
-#: ../../source/index.rst:17
-msgid ":index_path:`Français <fr>`"
+msgid ":index_path:`Swahili <sw>`"
 msgstr ""
 
 #: ../../source/index.rst:17
 msgid ":index_path:`Português <pt>`"
-msgstr ""
-
-#: ../../source/index.rst:17
-msgid ":index_path:`русский <ru>`"
-msgstr ""
-
-#: ../../source/index.rst:17
-msgid ":index_path:`Kiswahili <sw>`"
 msgstr ""
 
 #: ../../source/index.rst:20
@@ -196,17 +184,5 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid "`Português <../pt/index.html>`_"
-#~ msgstr ""
-
-#~ msgid ":index_path:`English<en>`"
-#~ msgstr ""
-
-#~ msgid ":index_path:`Spanish <es>`"
-#~ msgstr ""
-
-#~ msgid ":index_path:`French <fr>`"
-#~ msgstr ""
-
-#~ msgid ":index_path:`Swahili <sw>`"
 #~ msgstr ""
 

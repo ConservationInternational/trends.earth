@@ -1,0 +1,215 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017-2022, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
+# Alex Zvoleff <azvoleff@conservation.org>, 2022
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 1.99.11\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-06-21 17:06-0400\n"
+"PO-Revision-Date: 2022-05-26 11:58+0000\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
+"Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+
+#: ../../source/for_users/training/metadata.rst:4
+msgid "Dataset Metadata"
+msgstr "Metadatos del conjunto de datos\n"
+
+#: ../../source/for_users/training/metadata.rst:6
+msgid "**Objective**: Learn how to edit and view dataset metadata."
+msgstr ""
+"**Objetivo**: Aprender a editar y visualizar metadatos del conjunto de "
+"datos."
+
+#: ../../source/for_users/training/metadata.rst:8
+msgid "**Estimated time of completion**: 40 minutes"
+msgstr "**Tiempo estimado de finalización**: 40 minutos"
+
+#: ../../source/for_users/training/metadata.rst:10
+msgid "**Internet access**: Not needed"
+msgstr "**Acceso a internet**: No se necesita"
+
+#: ../../source/for_users/training/metadata.rst:12
+msgid ""
+"Click on the Trends.Earth toolbar within QGIS, and click on the Trends.Earth"
+" icon."
+msgstr ""
+"Haga clic en la barra de herramientas Trends.Earth dentro de QGIS y haga "
+"clic en el icono Trends.Earth."
+
+#: ../../source/for_users/training/metadata.rst:17
+msgid ""
+"The **Trends.Earth** menu will open. In the **Dataset** window, where "
+"existing tasks are listed in the menu if the **Download remotely-generated "
+"datasets automatically** is checked in settings."
+msgstr ""
+"Se abrirá el menú **Trends.Earth**. En la ventana **Conjuntos de datos**, "
+"donde se enumeran las tareas existentes en el menú si la opción **Descargar "
+"automáticamente los conjuntos de datos generados de forma remota** está "
+"marcada en la configuración."
+
+#: ../../source/for_users/training/metadata.rst:20
+msgid ""
+"Refer to the :ref:`tut_settings` section of this manual to learn more about "
+"**Advanced settings**"
+msgstr ""
+"Consulte la sección :ref:'tut_settings' de este manual para obtener más "
+"información sobre **Configuración avanzada**"
+
+#: ../../source/for_users/training/metadata.rst:22
+msgid "Select the Refresh button if no datasets appear in the menu."
+msgstr ""
+"Seleccione el botón Actualizar si no aparecen conjuntos de datos en el menú."
+
+#: ../../source/for_users/training/metadata.rst:24
+msgid ""
+"Press the Edit metadata button to open a drop-down menu with available "
+"options"
+msgstr ""
+"Pulse el botón Editar metadatos para abrir un menú desplegable con las "
+"opciones disponibles"
+
+#: ../../source/for_users/training/metadata.rst:29
+msgid ""
+"The drop-down menu allows to select any raster from the list of all "
+"available rasters of the dataset to edit or view its metadata. Once raster "
+"is selected a metadata editor dialog will show up."
+msgstr ""
+"El menú desplegable permite seleccionar cualquier ráster de la lista de "
+"todos los rásteres disponibles del conjunto de datos para editar o ver sus "
+"metadatos. Una vez seleccionado el ráster, aparecerá un cuadro de diálogo "
+"del editor de metadatos."
+
+#: ../../source/for_users/training/metadata.rst:34
+msgid ""
+"Fill in the necessary information or edit existing data in the dialog fields"
+" and press OK button to save your changes. Metadata will be saved in the "
+"QGIS QMD format, in a separate file for each raster in the dataset folder."
+msgstr ""
+"Rellene la información necesaria o edite los datos existentes en los campos "
+"del diálogo y pulse el botón OK para guardar los cambios. Los metadatos se "
+"guardarán en el formato QGIS QMD, en un archivo separado para cada ráster en"
+" la carpeta del conjunto de datos."
+
+#: ../../source/for_users/training/metadata.rst:36
+msgid ""
+"Metadata also can be viewed/edited from the Dataset details dialog via the "
+"same Metadata button, as described in the step 3 above."
+msgstr ""
+"Los metadatos también se pueden ver/editar desde el cuadro de diálogo de "
+"detalles del conjunto de datos a través del mismo botón de metadatos, como "
+"se describe en el paso 3 anterior."
+
+#: ../../source/for_users/training/metadata.rst:41
+msgid ""
+"When exporting dataset to the ZIP archive from the Dataset details dialog "
+"all existing metadata in the QMD format will be automatically converted to "
+"ISO XML format and packaged together with the layers."
+msgstr ""
+"Al exportar el conjunto de datos al archivo ZIP desde el cuadro de diálogo "
+"Detalles del conjunto de datos, todos los metadatos existentes en formato "
+"QMD se convertirán automáticamente al formato XML ISO y se empaquetarán "
+"junto con las capas."
+
+#: ../../../<rst_epilog>:2
+msgid "iconCalculator"
+msgstr "iconCalculadora"
+
+#: ../../../<rst_epilog>:4
+msgid "iconChart"
+msgstr "iconTabla"
+
+#: ../../../<rst_epilog>:6
+msgid "iconClipboard"
+msgstr "iconPortapapeles"
+
+#: ../../../<rst_epilog>:8
+msgid "iconCloudDownload"
+msgstr "iconDescargadelanube"
+
+#: ../../../<rst_epilog>:10
+msgid "iconCog"
+msgstr "iconCog"
+
+#: ../../../<rst_epilog>:12
+msgid "iconDeletedataset"
+msgstr "iconBorrarconjuntodedatos"
+
+#: ../../../<rst_epilog>:14
+msgid "iconGlobe"
+msgstr "iconGlobe"
+
+#: ../../../<rst_epilog>:16
+msgid "iconGraph"
+msgstr "iconGráfico"
+
+#: ../../../<rst_epilog>:18
+msgid "iconInfo"
+msgstr "iconInformación"
+
+#: ../../../<rst_epilog>:20
+msgid "iconLoaddataset"
+msgstr "iconCargarconjuntodedatos"
+
+#: ../../../<rst_epilog>:21
+msgid "iconMarkMarker"
+msgstr "iconMarkMarker"
+
+#: ../../../<rst_epilog>:23
+msgid "iconOpendatasetdirectory"
+msgstr "iconoAbrirdirectoriodeconjuntodedatos"
+
+#: ../../../<rst_epilog>:25
+msgid "iconViewdatasetdetails"
+msgstr "iconoVerdetallesdelconjuntodedatos"
+
+#: ../../../<rst_epilog>:27
+msgid "iconWrench"
+msgstr "iconoLlaveinglesa"
+
+#: ../../../<rst_epilog>:29
+msgid "iconFolder"
+msgstr "iconCarpeta"
+
+#: ../../../<rst_epilog>:31
+msgid "iconReports"
+msgstr "iconInformes"
+
+#: ../../../<rst_epilog>:33
+msgid "iconTrendsEarth"
+msgstr "iconTrendsEarth"
+
+#: ../../../<rst_epilog>:35
+msgid "iconVisualization"
+msgstr "iconVisualización"
+
+#: ../../../<rst_epilog>:37
+msgid "Trends.Earth"
+msgstr "Trends.Earth"
+
+#: ../../../<rst_epilog>:0
+msgid "logoCI"
+msgstr "logoCI"
+
+#: ../../../<rst_epilog>:0
+msgid "logoLund"
+msgstr "logoLund"
+
+#: ../../../<rst_epilog>:0
+msgid "logoNASA"
+msgstr "logoNASA"
+
+#: ../../../<rst_epilog>:0
+msgid "logoGEF"
+msgstr "logoGEF"

@@ -30,7 +30,38 @@ import sphinx_rtd_theme
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
 # extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode', 'rinoh.frontend.sphinx']
 # extensions = ['sphinx.ext.todo', 'sphinx.ext.viewcode', 'rst2pdf.pdfbuilder']
-extensions = ["sphinx_rtd_theme", "sphinx.ext.todo", "sphinx.ext.viewcode"]
+extensions = [
+    "sphinx_rtd_theme",
+    "sphinx.ext.todo",
+    "sphinx.ext.viewcode",
+    "sphinx.ext.extlinks",
+    "sphinxcontrib.spelling",
+    "myst_parser",
+]
+
+myst_enable_extensions = [
+    "amsmath",
+    "colon_fence",
+    "deflist",
+    "dollarmath",
+    "fieldlist",
+    "html_admonition",
+    "html_image",
+    "linkify",
+    "replacements",
+    "smartquotes",
+    "strikethrough",
+    "substitution",
+    "tasklist",
+]
+
+# Spellcheck options
+spelling_word_list_filename = ["known_good_spellings.txt"]
+# Don't check the general/index.rst file due to all the names in the publications lists
+# that show up as misspellings
+spelling_exclude_patterns = ["general/index.rst"]
+spelling_ignore_pypi_package_names = True
+
 
 todo_include_todos = True
 
@@ -38,7 +69,7 @@ todo_include_todos = True
 templates_path = ["_templates"]
 
 # The suffix of source filenames.
-source_suffix = ".rst"
+source_suffix = [".rst", ".md"]
 
 # The encoding of source files.
 # source_encoding = 'utf-8-sig'
@@ -58,9 +89,17 @@ gettext_compact = False
 # built documents.
 #
 # The short X.Y version.
-version = "1.99.7"
+version = "1.99.11"
 # The full version, including alpha/beta/rc tags.
-release = "1.99.7"
+release = "1.99.11"
+
+READTHEDOCS_VERSION_STRING = os.environ.get('READTHEDOCS_VERSION', '')
+relative_path = '../'
+# On RTD there the root is two folders back - one for the language, and one for the
+# version name, so need to add another "../"
+if READTHEDOCS_VERSION_STRING != '':
+    relative_path += '../'
+extlinks = {'index_path': (f'{relative_path}%s/{READTHEDOCS_VERSION_STRING}', '%s')}
 
 rst_epilog = """
 .. |iconCalculator| image:: /static/common/icon-calculator.png
@@ -92,6 +131,8 @@ rst_epilog = """
    :width: 2em
 .. |iconFolder| image:: /static/common/icon-folder.png
    :width: 2em
+.. |iconReports| image:: /static/common/reports_button.png
+   :width: 82
 .. |iconTrendsEarth| image:: /static/common/icon-trends_earth.png
    :width: 2em
 .. |iconVisualization| image:: /static/common/icon-reporting.png
@@ -112,7 +153,7 @@ rst_epilog = """
     :width: 125
     :target: https://www.thegef.org
 .. |CURRENT| replace:: {current_version}
-.. |qgisMinVersion| replace:: 3.14
+.. |qgisMinVersion| replace:: 3.22
 """.format(
     current_version=version
 )
@@ -174,13 +215,12 @@ html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
-# html_logo = '../resources/en/common/trends_earth_logo_bl_1200.png'
-html_logo = "../resources/en/common/trends_earth_logo_square_32x32.ico"
+html_logo = "trends_earth_logo_square_32x32.ico"
 
 # The name of an image file (within the static path) to use as favicon of the
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
 # pixels large.
-html_favicon = "../resources/en/common/trends_earth_logo_square_32x32.ico"
+html_favicon = "trends_earth_logo_square_32x32.ico"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -191,9 +231,7 @@ html_show_sourcelink = False
 
 # Note the underscore SHOULD be used below as this is how the static folder is
 # named by sphinx on generation.
-html_context = {
-    "css_files": ["_static/custom.css"],
-}
+html_css_files = ["custom.css"]
 
 # If not '', a 'Last updated on:' timestamp is inserted at every page bottom,
 # using the given strftime format.
@@ -248,83 +286,6 @@ latex_documents = [
         u"Trends.Earth Documentation",
         u"Conservation International",
         "manual",
-    ),
-    (
-        "training/tutorial_installation",
-        u"Trends.Earth_Tutorial01_Installation.tex",
-        u"Installation",
-        u"Conservation International",
-        "howto",
-    ),
-    (
-        "training/tutorial_run_all_subindicators",
-        u"Trends.Earth_Tutorial02_Computing_Indicators.tex",
-        u"Compute Sub-indicators",
-        u"Conservation International",
-        "howto",
-    ),
-    (
-        "training/tutorial_task_download",
-        u"Trends.Earth_Tutorial03_Downloading_Results.tex",
-        u"Downloading Results",
-        u"Conservation International",
-        "howto",
-    ),
-    (
-        "training/tutorial_custom_lpd",
-        u"Trends.Earth_Tutorial04_Using_Custom_Productivity.tex",
-        u"Using Custom Land Productivity Data",
-        u"Conservation International",
-        "howto",
-    ),
-    (
-        "training/tutorial_custom_landcover",
-        u"Trends.Earth_Tutorial05_Using_Custom_Land_Cover.tex",
-        u"Using Custom Land Cover Data",
-        u"Conservation International",
-        "howto",
-    ),
-    (
-        "training/tutorial_custom_soc",
-        u"Trends.Earth_Tutorial06_Using_Custom_Soil_Carbon.tex",
-        u"Using Custom Soil Organic Carbon Data",
-        u"Conservation International",
-        "howto",
-    ),
-    (
-        "training/tutorial_compute_sdg_indicator",
-        u"Trends.Earth_Tutorial07_Computing_SDG_Indicator.tex",
-        u"How to Compute the SDG Indicator",
-        u"Conservation International",
-        "howto",
-    ),
-    (
-        "training/tutorial_summary_table",
-        u"Trends.Earth_Tutorial08_The_Summary_Table.tex",
-        u"The Summary Table",
-        u"Conservation International",
-        "howto",
-    ),
-    (
-        "training/tutorial_load_basemap",
-        u"Trends.Earth_Tutorial09_Loading_a_Basemap.tex",
-        u"Loading a Basemap",
-        u"Conservation International",
-        "howto",
-    ),
-    (
-        "training/tutorial_forest_carbon",
-        u"Trends.Earth_Tutorial10_Forest_Carbon.tex",
-        u"Forest and Carbon Change Tool",
-        u"Conservation International",
-        "howto",
-    ),
-    (
-        "training/tutorial_compute_urban_indicator",
-        u"Trends.Earth_Tutorial11_Urban_Change_SDG_Indicator.tex",
-        u"Urban Change SDG 11.3.1",
-        u"Conservation International",
-        "howto",
     ),
 ]
 

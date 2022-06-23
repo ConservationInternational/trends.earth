@@ -12,6 +12,7 @@
  ***************************************************************************/
 """
 
+import json
 from pathlib import Path
 
 from osgeo import (
@@ -48,8 +49,6 @@ DlgCalculateTcDataUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateTCData.ui"))
 DlgCalculateTcSummaryTableUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateTCSummaryTable.ui"))
-
-mb = iface.messageBar()
 
 
 # TODO: Still need to code below for local calculation of Total Carbon change
@@ -371,10 +370,10 @@ class DlgCalculateTCData(calculate.DlgCalculateBase, DlgCalculateTcDataUi):
         resp = job_manager.submit_remote_job(payload, self.script.id)
         if resp:
             main_msg = "Submitted"
-            description = "Total carbon submitted to Google Earth Engine."
+            description = "Total carbon submitted to Trends.Earth server."
         else:
             main_msg = "Error"
-            description = "Unable to submit total carbon task to Google Earth Engine."
+            description = "Unable to submit total carbon task to Trends.Earth server."
         self.mb.pushMessage(
             self.tr(main_msg),
             self.tr(description),

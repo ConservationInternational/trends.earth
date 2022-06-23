@@ -1,0 +1,296 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017-2022, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Fanja Andriamialisoa <Fandriamialisoa@aol.com>, 2022
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
+# Alex Zvoleff <azvoleff@conservation.org>, 2022
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 1.99.11\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-06-21 17:06-0400\n"
+"PO-Revision-Date: 2022-05-26 11:58+0000\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
+"Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+
+#: ../../source/for_users/training/restoration.rst:4
+msgid "Potential Carbon Sequestration under Restoration"
+msgstr "Séquestration potentielle du carbone dans le cadre d'une restauration"
+
+#: ../../source/for_users/training/restoration.rst:6
+msgid ""
+"**Objective**: Learn how to compute carbon sequestration under different "
+"forest restoration activities."
+msgstr ""
+"**Objectif** : Apprendre à calculer la séquestration du carbone dans le "
+"cadre de différentes activités de restauration forestière."
+
+#: ../../source/for_users/training/restoration.rst:8
+msgid "**Estimated time of completion**: 20 minutes"
+msgstr "**Temps estimé d'achèvement**: 20 minutes"
+
+#: ../../source/for_users/training/restoration.rst:10
+msgid "**Internet access**: Required"
+msgstr "**Accès Internet**: Obligatoire"
+
+#: ../../source/for_users/training/restoration.rst:13
+msgid ""
+"Refer to the :ref:`background_restoration` for background information on the"
+" datasets and"
+msgstr ""
+"Reportez-vous à la :ref:`background_restoration` pour des informations "
+"générales sur les ensembles de données et les"
+
+#: ../../source/for_users/training/restoration.rst:14
+msgid "methodology used for this tutorial."
+msgstr "méthodologie utilisée pour ce tutoriel."
+
+#: ../../source/for_users/training/restoration.rst:19
+msgid "Estimate potential impacts of restoration"
+msgstr "Estimer les impacts potentiels de la restauration"
+
+#: ../../source/for_users/training/restoration.rst:21
+msgid ""
+"In the **Algorithms** tab in Trends.Earth plugin in QGIS, under the "
+"**Experimental** menu, select **Potential change in biomass due to "
+"restoration - Above and below ground woody** menu."
+msgstr ""
+"Dans l'onglet **Algorithmes** du plugin Trends.Earth dans QGIS, sous le menu"
+" **Expérimental**, sélectionnez **Changement potentiel de la biomasse dû à "
+"la restauration – Ligneux aériens et souterrains**."
+
+#: ../../source/for_users/training/restoration.rst:27
+msgid ""
+"Select the **Estimate potential impacts of restoration** menu by selecting "
+"**Execute locally**."
+msgstr ""
+"Sélectionnez le menu **Estimer les impacts potentiels de la restauration** "
+"en sélectionnant **Exécuter localement**."
+
+#: ../../source/for_users/training/restoration.rst:32
+msgid ""
+"A window will appear where you can select the paramaters for the restoration"
+" analysis. Select the type of restoration: terrestrial or coastal "
+"(mangrove). Define the length of the intervention in year."
+msgstr ""
+"Une fenêtre apparaît dans laquelle vous pouvez sélectionner les paramètres "
+"de l'analyse de la restauration. Sélectionnez le type de restauration : "
+"terrestre ou côtière (mangrove). Définir la durée de l'intervention en "
+"année."
+
+#: ../../source/for_users/training/restoration.rst:39
+msgid "Select **Change region** to define the area of interest."
+msgstr "Sélectionnez **Changer de région** pour définir la zone d'intérêt."
+
+#: ../../source/for_users/training/restoration.rst:45
+msgid ""
+"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth are "
+"in the `public domain`_. The boundaries and names used, and the designations"
+" used, in Trends.Earth do not imply official endorsement or acceptance by "
+"Conservation International Foundation, or by its partner organizations and "
+"contributors."
+msgstr ""
+"Les `Natural Earth Administrative Boundaries`_ fournies dans Trends.Earth "
+"sont dans le `public domain`_. Les limites et les noms utilisés, ainsi que "
+"les désignations utilisées, dans Trends.Earth n'impliquent pas l'approbation"
+" officielle ou l'acceptation par Conservation International Foundation, ou "
+"par ses organisations partenaires et contributeurs."
+
+#: ../../source/for_users/training/restoration.rst:51
+msgid ""
+"If using Trends.Earth for official purposes, it is recommended that users "
+"choose an official boundary provided by the designated office of their "
+"country."
+msgstr ""
+"Si vous utilisez Trends.Earth à des fins officielles, il est recommandé de "
+"choisir une frontière officielle fournie par le bureau désigné de votre "
+"pays."
+
+#: ../../source/for_users/training/restoration.rst:59
+msgid ""
+"Use your own area file: If you want to use your own area of analysis, make "
+"sure the **Area from file** option is highlighted. Then click **Browse** and"
+" navigate to the folder in your computer where you have the file stored."
+msgstr ""
+"Utilisez votre propre fichier de zone: Si vous souhaitez utiliser votre "
+"propre zone d'analyse, assurez-vous que l'option **Area from file** est en "
+"surbrillance. Cliquez ensuite sur **Parcourir** et naviguez jusqu'au dossier"
+" de votre ordinateur où vous avez stocké le fichier."
+
+#: ../../source/for_users/training/restoration.rst:61
+msgid "Add a descriptive name and notes for the analysis"
+msgstr "Ajoutez un nom descriptif et des notes pour l'analyse."
+
+#: ../../source/for_users/training/restoration.rst:63
+msgid "Select **Schedule remote exectution**"
+msgstr "Sélectionnez **Programmer l'exécution à distance**."
+
+#: ../../source/for_users/training/restoration.rst:68
+msgid ""
+"A light blue bar will temporarily show, indicating that the task was "
+"successfully submitted. The analysis will be run in Google servers and could"
+" take between 5 and 15 minutes depending on the size of the study area "
+"(larger areas tend to take longer)."
+msgstr ""
+"Une barre bleu clair s'affichera temporairement, indiquant que la tâche a "
+"été soumise avec succès. L'analyse sera exécutée sur les serveurs de Google "
+"et pourrait prendre entre 5 et 15 minutes en fonction de la taille de la "
+"zone d'étude (les grandes zones ont tendance à prendre plus de temps)."
+
+#: ../../source/for_users/training/restoration.rst:71
+msgid "Table summarizing likely changes in biomass"
+msgstr "Tableau résumant les changements probables de la biomasse"
+
+#: ../../source/for_users/training/restoration.rst:73
+msgid ""
+"Go the the **Datasets** tab to **Add default layers from this dataset to "
+"map**."
+msgstr ""
+"Allez dans l'onglet **Ensemble de données** pour **Ajouter des couches par "
+"défaut de ce jeu de données à la carte**."
+
+#: ../../source/for_users/training/restoration.rst:78
+msgid ""
+"In order to view the defined area of interest with reference data, select "
+"the **Load Base Map** in the **Datasets** tab."
+msgstr ""
+"Afin de visualiser la zone d'intérêt définie avec les données de référence, "
+"sélectionnez l'option **Chargez la carte de base** dans l'onglet **Ensembles"
+" de données**."
+
+#: ../../source/for_users/training/restoration.rst:86
+msgid ""
+"Go back to the **Algorithms** tab in Trends.Earth plugin in QGIS, under the "
+"**Experimental** menu, select **Potential change in biomass due to "
+"restoration - Above and below ground woody** menu and select the **Execute "
+"locally** button under **Table summarizing likely changes in biomass**."
+msgstr ""
+"Revenez à l'onglet **Algorithmes** du plugin Trends.Earth dans QGIS, sous le"
+" menu **Expérimental**, sélectionnez **Changement potentiel de la biomasse "
+"dû à la restauration – Ligneux aériens et souterrains** et sélectionnez le "
+"bouton **Exécuter localement** sous **Tableau résumant les changements "
+"probables de la biomasse**."
+
+#: ../../source/for_users/training/restoration.rst:94
+msgid ""
+"The layers will pre-populate in the data layer drop-down lists. Confirm the "
+"region is the same area of interest, provide descriptive names and notes and"
+" select **Execute locally**."
+msgstr ""
+"Les couches seront pré-remplies dans les listes déroulantes des couches de "
+"données. Confirmez que la région correspond à la même zone d'intérêt, "
+"fournissez des noms et des notes descriptives et sélectionnez **Exécuter "
+"localement**."
+
+#: ../../source/for_users/training/restoration.rst:94
+msgid ""
+"A spreadsheet comparing the final outputs is saved in your "
+"**trends_earth_data*** folder under your user account on your computer "
+"(e.g., C:\\Users\\mnoon\\trends_earth_data)."
+msgstr ""
+"Une feuille de calcul comparant les résultats finaux est enregistrée dans "
+"votre dossier **tendances_données_terrestres*** sous votre compte "
+"d'utilisateur sur votre ordinateur (par exemple, "
+"C:\\Users\\mnoon\\tendances_données_terrestres)."
+
+#: ../../../<rst_epilog>:2
+msgid "iconCalculator"
+msgstr "iconCalculator"
+
+#: ../../../<rst_epilog>:4
+msgid "iconChart"
+msgstr "iconChart"
+
+#: ../../../<rst_epilog>:6
+msgid "iconClipboard"
+msgstr "iconClipboard"
+
+#: ../../../<rst_epilog>:8
+msgid "iconCloudDownload"
+msgstr "iconCloudDownload"
+
+#: ../../../<rst_epilog>:10
+msgid "iconCog"
+msgstr "iconCog"
+
+#: ../../../<rst_epilog>:12
+msgid "iconDeletedataset"
+msgstr "iconDeletedataset"
+
+#: ../../../<rst_epilog>:14
+msgid "iconGlobe"
+msgstr "iconGlobe"
+
+#: ../../../<rst_epilog>:16
+msgid "iconGraph"
+msgstr "iconGraph"
+
+#: ../../../<rst_epilog>:18
+msgid "iconInfo"
+msgstr "iconInfo"
+
+#: ../../../<rst_epilog>:20
+msgid "iconLoaddataset"
+msgstr "iconLoaddataset"
+
+#: ../../../<rst_epilog>:21
+msgid "iconMarkMarker"
+msgstr "iconMarkMarker"
+
+#: ../../../<rst_epilog>:23
+msgid "iconOpendatasetdirectory"
+msgstr "iconOpendatasetdirectory"
+
+#: ../../../<rst_epilog>:25
+msgid "iconViewdatasetdetails"
+msgstr "iconViewdatasetdetails"
+
+#: ../../../<rst_epilog>:27
+msgid "iconWrench"
+msgstr "iconWrench"
+
+#: ../../../<rst_epilog>:29
+msgid "iconFolder"
+msgstr "iconFolder"
+
+#: ../../../<rst_epilog>:31
+msgid "iconReports"
+msgstr "iconReports"
+
+#: ../../../<rst_epilog>:33
+msgid "iconTrendsEarth"
+msgstr "iconTrendsEarth"
+
+#: ../../../<rst_epilog>:35
+msgid "iconVisualization"
+msgstr "iconTrendsEarth"
+
+#: ../../../<rst_epilog>:37
+msgid "Trends.Earth"
+msgstr "Trends.Earth"
+
+#: ../../../<rst_epilog>:0
+msgid "logoCI"
+msgstr "logoCI"
+
+#: ../../../<rst_epilog>:0
+msgid "logoLund"
+msgstr "logoLund"
+
+#: ../../../<rst_epilog>:0
+msgid "logoNASA"
+msgstr "logoNASA"
+
+#: ../../../<rst_epilog>:0
+msgid "logoGEF"
+msgstr "logoGEF"

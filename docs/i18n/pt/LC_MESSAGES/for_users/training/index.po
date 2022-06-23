@@ -29,7 +29,7 @@ msgstr "Configurações"
 
 #: ../../source/for_users/training/index.rst:6
 msgid "Land Degradation"
-msgstr "Degradação do Solo"
+msgstr ""
 
 #: ../../source/for_users/training/index.rst:6
 msgid "UNCCD Reporting"
@@ -37,33 +37,33 @@ msgstr "Relatório do UNCCD"
 
 #: ../../source/for_users/training/index.rst:6
 msgid "Land Consumption"
-msgstr "Consumo do Solo"
+msgstr ""
 
 #: ../../source/for_users/training/index.rst:6
 msgid "Carbon"
-msgstr "Carbono"
+msgstr ""
 
 #: ../../source/for_users/training/index.rst:6
 msgid "Restoration"
-msgstr "Recuperação"
+msgstr ""
 
 #: ../../source/for_users/training/index.rst:6
 msgid "Dataset Metadata"
-msgstr "Metadados do Conjunto de Dados"
+msgstr ""
 
 #: ../../source/for_users/training/index.rst:6
 msgid "False Positives/Negatives"
-msgstr "Falsos Positivos/Negativos"
+msgstr ""
 
 #: ../../source/for_users/training/index.rst:6
 msgid "Dataset Reports"
-msgstr "Relatórios do Conjunto de Dados"
+msgstr ""
 
 #: ../../source/for_users/training/index.rst:6
 #: ../../source/for_users/training/index.rst:3
 #: ../../source/for_users/training/index.rst:6
 msgid "Training Manual"
-msgstr "Manual de Treino"
+msgstr ""
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"

@@ -96,7 +96,7 @@
                  </size>
                 </property>
                 <property name="title">
-                 <string>Tier 1 and 2 indicators</string>
+                 <string>Hazard and Exposure indicators</string>
                 </property>
                 <layout class="QGridLayout" name="gridLayout_8">
                  <item row="0" column="0">
@@ -283,7 +283,7 @@
               <item>
                <widget class="QGroupBox" name="groupBox_3">
                 <property name="title">
-                 <string>Tier 3 indicator</string>
+                 <string>Vulnerability indicator</string>
                 </property>
                 <layout class="QGridLayout" name="gridLayout">
                  <item row="0" column="0">

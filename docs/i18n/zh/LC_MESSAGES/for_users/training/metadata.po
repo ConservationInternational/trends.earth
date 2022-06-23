@@ -1,185 +1,189 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
-#
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
+# Alex Zvoleff <azvoleff@conservation.org>, 2022
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-06-21 17:06-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2022-05-26 11:58+0000\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
+"Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Language: zh\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../../source/for_users/training/metadata.rst:4
 msgid "Dataset Metadata"
-msgstr ""
+msgstr "数据集元数据"
 
 #: ../../source/for_users/training/metadata.rst:6
 msgid "**Objective**: Learn how to edit and view dataset metadata."
-msgstr ""
+msgstr "**目标**：了解如何编辑和查看数据集元数据。"
 
 #: ../../source/for_users/training/metadata.rst:8
 msgid "**Estimated time of completion**: 40 minutes"
-msgstr ""
+msgstr "**预计完成时间**：40分钟"
 
 #: ../../source/for_users/training/metadata.rst:10
 msgid "**Internet access**: Not needed"
-msgstr ""
+msgstr "**互联网访问**：不需要"
 
 #: ../../source/for_users/training/metadata.rst:12
 msgid ""
-"Click on the Trends.Earth toolbar within QGIS, and click on the "
-"Trends.Earth icon."
-msgstr ""
+"Click on the Trends.Earth toolbar within QGIS, and click on the Trends.Earth"
+" icon."
+msgstr "单击 QGIS 中的 Trends.Earth 工具栏，然后单击 Trends.Earth 图标。"
 
 #: ../../source/for_users/training/metadata.rst:17
 msgid ""
 "The **Trends.Earth** menu will open. In the **Dataset** window, where "
-"existing tasks are listed in the menu if the **Download remotely-"
-"generated datasets automatically** is checked in settings."
+"existing tasks are listed in the menu if the **Download remotely-generated "
+"datasets automatically** is checked in settings."
 msgstr ""
+"**Trends.Earth** 菜单将打开。在 **数据集** 窗口，如果在设置中选中了 **自动下载远程生成的数据集**，则会在菜单中列出现有任务。"
 
 #: ../../source/for_users/training/metadata.rst:20
 msgid ""
-"Refer to the :ref:`tut_settings` section of this manual to learn more "
-"about **Advanced settings**"
-msgstr ""
+"Refer to the :ref:`tut_settings` section of this manual to learn more about "
+"**Advanced settings**"
+msgstr "请参阅本手册的 :ref:`tut_settings` 部分，以了解关于**高级设置**的更多信息"
 
 #: ../../source/for_users/training/metadata.rst:22
 msgid "Select the Refresh button if no datasets appear in the menu."
-msgstr ""
+msgstr "如果菜单中没有数据集，请选择“刷新”按钮。"
 
 #: ../../source/for_users/training/metadata.rst:24
 msgid ""
 "Press the Edit metadata button to open a drop-down menu with available "
 "options"
-msgstr ""
+msgstr "按下“编辑”元数据按钮，以打开包含可用选项的下拉菜单"
 
 #: ../../source/for_users/training/metadata.rst:29
 msgid ""
 "The drop-down menu allows to select any raster from the list of all "
-"available rasters of the dataset to edit or view its metadata. Once "
-"raster is selected a metadata editor dialog will show up."
-msgstr ""
+"available rasters of the dataset to edit or view its metadata. Once raster "
+"is selected a metadata editor dialog will show up."
+msgstr "下拉菜单允许从数据集的所有可用栅格列表中选择任何栅格以编辑或查看其元数据。选择栅格后，将显示元数据编辑器对话框。"
 
 #: ../../source/for_users/training/metadata.rst:34
 msgid ""
-"Fill in the necessary information or edit existing data in the dialog "
-"fields and press OK button to save your changes. Metadata will be saved "
-"in the QGIS QMD format, in a separate file for each raster in the dataset"
-" folder."
+"Fill in the necessary information or edit existing data in the dialog fields"
+" and press OK button to save your changes. Metadata will be saved in the "
+"QGIS QMD format, in a separate file for each raster in the dataset folder."
 msgstr ""
+"在对话框字段中填写必要的信息或编辑现有数据，然后按 OK 按钮保存更改。元数据将以 QGIS QMD 格式保存在数据集文件夹中每个栅格的单独文件中。"
 
 #: ../../source/for_users/training/metadata.rst:36
 msgid ""
-"Metadata also can be viewed/edited from the Dataset details dialog via "
-"the same Metadata button, as described in the step 3 above."
-msgstr ""
+"Metadata also can be viewed/edited from the Dataset details dialog via the "
+"same Metadata button, as described in the step 3 above."
+msgstr "如上述步骤 3 中所述，元数据也可以通过相同的“元数据”按钮，从“数据集”详情对话框中加以查看/编辑。"
 
 #: ../../source/for_users/training/metadata.rst:41
 msgid ""
-"When exporting dataset to the ZIP archive from the Dataset details dialog"
-" all existing metadata in the QMD format will be automatically converted "
-"to ISO XML format and packaged together with the layers."
-msgstr ""
+"When exporting dataset to the ZIP archive from the Dataset details dialog "
+"all existing metadata in the QMD format will be automatically converted to "
+"ISO XML format and packaged together with the layers."
+msgstr "将数据集从“数据集“详情对话框导出到 ZIP 存档时，QMD 格式的所有现有元数据将自动转换为 ISO XML 格式，并与图层一起打包。"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr ""
+msgstr "iconCalculator"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr ""
+msgstr "iconChart"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr ""
+msgstr "iconClipboard"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr ""
+msgstr "iconCloudDownload"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr ""
+msgstr "iconCog"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr ""
+msgstr "iconDeletedataset"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
-msgstr ""
+msgstr "iconGlobe"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr ""
+msgstr "iconGraph"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr ""
+msgstr "iconInfo"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr ""
+msgstr "iconLoaddataset"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr ""
+msgstr "iconMarkMarker"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr ""
+msgstr "iconOpendatasetdirectory"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr ""
+msgstr "iconViewdatasetdetails"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr ""
+msgstr "iconWrench"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr ""
+msgstr "iconFolder"
 
 #: ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr ""
+msgstr "iconReports"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr ""
+msgstr "iconTrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr ""
+msgstr "iconVisualization"
 
 #: ../../../<rst_epilog>:37
 msgid "Trends.Earth"
-msgstr ""
+msgstr "Trends.Earth"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr ""
+msgstr "logoCI"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr ""
+msgstr "logoLund"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr ""
+msgstr "logoNASA"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr ""
-
+msgstr "logoGEF"

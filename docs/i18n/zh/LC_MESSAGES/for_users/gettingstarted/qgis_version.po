@@ -1,192 +1,207 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
-#
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
+# Alex Zvoleff <azvoleff@conservation.org>, 2022
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-06-21 17:06-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2022-05-26 11:57+0000\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
+"Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Language: zh\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:4
 msgid "QGIS"
-msgstr ""
+msgstr "QGIS"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:9
 msgid "Install QGIS"
-msgstr ""
+msgstr "安装 QGIS"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:10
 msgid ""
-"Before installing the toolbox, QGIS version |qgisMinVersion| or higher "
-"needs to be installed on your computer."
-msgstr ""
+"Before installing the toolbox, QGIS version |qgisMinVersion| or higher needs"
+" to be installed on your computer."
+msgstr "安装工具箱前，需要在您的计算机上安装 QGIS 版本或更高版本|qgisMinVersion|。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:14
 msgid "Download QGIS"
-msgstr ""
+msgstr "下载 QGIS"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:16
 msgid ""
-"To install the plugin, first install QGIS version |qgisMinVersion| or "
-"higher following the below steps:"
-msgstr ""
+"To install the plugin, first install QGIS version |qgisMinVersion| or higher"
+" following the below steps:"
+msgstr "要安装插件，请首先安装 QGIS 版本或更高版本|qgisMinVersion|，遵循以下步骤："
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:19
 msgid "Choose either 32 or 64 bit version"
-msgstr ""
+msgstr "选择 32 或 64 位版本"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:21
 msgid ""
 "You have the option of installing a 32-bit or 64-bit version of QGIS. To "
-"know which version to install, check which type of operating system you "
-"have following the below instructions. If you are unsure which you need, "
-"try downloading the 64 bit version first. If that version doesn't work "
-"properly, un-install it and then install the 32 bit version."
+"know which version to install, check which type of operating system you have"
+" following the below instructions. If you are unsure which you need, try "
+"downloading the 64 bit version first. If that version doesn't work properly,"
+" un-install it and then install the 32 bit version."
 msgstr ""
+"您可以选择安装 32 位或 64 位版本的 QGIS。要了解要安装的版本，请按照以下说明检查您拥有的操作系统类型。您如果不确定需要哪个，请先尝试下载 "
+"64 位版本。如果此版本不能正常运行，请卸载，然后安装 32 位版本。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:27
 msgid "Windows 8 or Windows 10"
-msgstr ""
+msgstr "Windows 8 或 Windows 10"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:29
 msgid "From the \"Start\" screen, type \"This PC\"."
-msgstr ""
+msgstr "在“开始”屏幕上，键入“这台电脑”。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:31
 msgid "Right click (or tap and hold) \"This PC\", and click \"Properties\"."
-msgstr ""
+msgstr "右键单击（或长按）“这台电脑”，然后单击“属性”。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:33
 msgid "Windows 7, or Vista"
-msgstr ""
+msgstr "Windows 7 或 Vista"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:35
 msgid ""
 "Open \"System\" by clicking the \"Start\" button , right-clicking "
 "\"Computer\", and then clicking \"Properties\"."
-msgstr ""
+msgstr "单击“开始”按钮，右键单击“计算机”，然后单击“属性”，打开“系统”。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:38
 msgid "Under System, you can view the system type."
-msgstr ""
+msgstr "在“系统”下，您可以查看系统类型。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:40
 msgid "Mac: Click the Apple icon in the top left and select \"About this Mac\"."
-msgstr ""
+msgstr "Mac：单击左上角的 Apple 图标，然后选择“关于本机”。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:42
 msgid ""
-"After determining whether you need the 32 or 64 bit version, download the"
-" appropriate installer:"
-msgstr ""
+"After determining whether you need the 32 or 64 bit version, download the "
+"appropriate installer:"
+msgstr "您确定需要 32 位还是 64 位版本后，下载相应的安装程序："
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:45
 msgid ""
 "Windows: `Download Windows installer from here "
 "<https://qgis.org/en/site/forusers/download.html#windows>`_."
 msgstr ""
+"Windows：`从此处下载 Windows "
+"安装程序<https://qgis.org/en/site/forusers/download.html#windows>`_。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:48
 msgid ""
 "MacOS: `Download MacOS installer from here "
 "<https://qgis.org/en/site/forusers/download.html#mac>`_."
 msgstr ""
+"MacOS：`从此处下载 MacOS "
+"安装程序<https://qgis.org/en/site/forusers/download.html#mac>`_。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:51
 msgid ""
-"Linux: `Download Linux installer from here, or from the repository for "
-"your Linux distribution "
+"Linux: `Download Linux installer from here, or from the repository for your "
+"Linux distribution "
 "<https://qgis.org/en/site/forusers/download.html#linux>`_."
 msgstr ""
+"Linux：`从此处下载 Linux 安装程序，或从您的 Linux "
+"发行版的存储库下载<https://qgis.org/en/site/forusers/download.html#linux>`_。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:56
 msgid "Install QGIS Software"
-msgstr ""
+msgstr "安装 QGIS 软件"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:58
 msgid ""
 "Once the installer is downloaded from the website, it needs to be run "
 "(double click on it). Select the Default settings for all options."
-msgstr ""
+msgstr "从网站下载安装程序后，需要运行它（双击它）。为所有选项选择默认设置。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:62
 msgid "Installing older versions of QGIS"
-msgstr ""
+msgstr "安装旧版本的 QGIS"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:64
 msgid ""
-"Older versions of QGIS can be accessed at the below links. We recommend "
-"the latest version of QGIS (see instructions above) but the below links "
-"might be useful if you have a specific need for accessing an older "
-"version of the Trends.Earth plugin (for example the QGIS2 version of the "
-"plugin)."
+"Older versions of QGIS can be accessed at the below links. We recommend the "
+"latest version of QGIS (see instructions above) but the below links might be"
+" useful if you have a specific need for accessing an older version of the "
+"Trends.Earth plugin (for example the QGIS2 version of the plugin)."
 msgstr ""
+"可以通过以下链接访问旧版本的 QGIS。我们推荐最新版本的 QGIS（参见上面的说明），但如果您需要访问旧版本的 Trends.Earth "
+"插件（例如插件的 QGIS2 版本），以下链接可能会有用。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:69
 msgid ""
 "Windows: `Download older versions of QGIS for Windows here "
 "<https://qgis.org/downloads/>`_."
-msgstr ""
+msgstr "Windows：`在此处下载旧版本的 Windows 版 QGIS<https://qgis.org/downloads/>`_。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:72
 msgid ""
 "MacOS: `Download older versions of QGIS for MacOS here "
 "<https://qgis.org/downloads/macOS>`_."
-msgstr ""
+msgstr "MacOS：`在此处下载旧版本的 MacOS 版 QGIS <https://qgis.org/downloads/macOS>`_。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:78
 msgid "Install toolbox (plugin)"
-msgstr ""
+msgstr "安装工具箱（插件）"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:79
 msgid ""
-"There are different ways to install |trends.earth|, depending on whether "
-"you want to install the stable version (recommended) or the development "
+"There are different ways to install |trends.earth|, depending on whether you"
+" want to install the stable version (recommended) or the development "
 "version."
-msgstr ""
+msgstr "|trends.earth| 有不同的安装方式，这取决于您要安装稳定版（推荐）还是开发版。"
 
-#: ../../../<rst_epilog>:37
+#: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
+#: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
 msgid "Trends.Earth"
-msgstr ""
+msgstr "Trends.Earth"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:83
 msgid "Installing the stable version (recommended)"
-msgstr ""
+msgstr "安装稳定版（推荐）"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:84
 msgid ""
-"The preferred way to install the |trends.earth| is through QGIS. To "
-"install from within QGIS, first launch QGIS, and then go to `Plugins` in "
-"the menu bar at the top of the program and select `Manage and install "
-"plugins`."
+"The preferred way to install the |trends.earth| is through QGIS. To install "
+"from within QGIS, first launch QGIS, and then go to `Plugins` in the menu "
+"bar at the top of the program and select `Manage and install plugins`."
 msgstr ""
+"安装|trends.earth| 的首选方式是通过QGIS。要从 QGIS 中安装，首先启动 "
+"QGIS，然后转到程序顶部菜单栏中的“插件”，然后选择“管理和安装插件”。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:91
 msgid ""
-"Then search for a plugin called `trends.earth` and select `Install "
-"plugin` at the bottom right of the screen."
-msgstr ""
+"Then search for a plugin called `trends.earth` and select `Install plugin` "
+"at the bottom right of the screen."
+msgstr "然后搜索名为 \"trends.earth\" 的插件，并选择屏幕右下方的“安装插件”。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:97
 msgid ""
-"If your plugin has been installed properly, there will be a menu bar in "
-"the top left of your browser that looks like this:"
-msgstr ""
+"If your plugin has been installed properly, there will be a menu bar in the "
+"top left of your browser that looks like this:"
+msgstr "如果您的插件已正确安装，您的浏览器左上角会出现一个菜单栏，如下所示："
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:104
 msgid "Installing the development version (advanced users)"
-msgstr ""
+msgstr "安装开发版（高级用户）"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:106
 msgid ""
@@ -195,362 +210,380 @@ msgid ""
 "<https://github.com/ConservationInternational/trends.earth#development-"
 "version>`_ for |trends.earth|."
 msgstr ""
+"有两种方法可以安装插件的开发版本。有关详细信息，请参阅 |trends.earth| 的 `README "
+"<https://github.com/ConservationInternational/trends.earth#development-"
+"version>`_。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:117
 msgid "Trends.Earth Registration"
-msgstr ""
+msgstr "Trends.Earth 注册"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:118
 msgid ""
-"To Register, click the **Register for Trends.Earth (step 1)** button from"
-" the \"Settings\" dialog box under **Trends.Earth login information**."
-msgstr ""
+"To Register, click the **Register for Trends.Earth (step 1)** button from "
+"the \"Settings\" dialog box under **Trends.Earth login information**."
+msgstr "要注册，请在**Trends.Earth 登录信息** 下的“设置”对话框中单击**注册 Trends.Earth（步骤 1）** 按钮。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:123
 msgid "Enter your email, name, organization and country of residence."
-msgstr ""
+msgstr "输入您的电子邮件，姓名，组织和居住国家/地区。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:128
 msgid ""
 "Select **Ok** and you will see a message indicating your user has been "
 "registered."
-msgstr ""
+msgstr "选择** Ok **，您将看到一条消息，表明您的用户已注册。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:133
 msgid ""
-"4. After registering, you will receive an email from api@trends.earth "
-"with your password. If you don't see the email in your inbox after 15-20 "
-"seconds, please check your spam folder in case the email was sent there. "
-"Once you receive this email , click on the \"Edit selected "
-"configuration\" icon in the \"Settings\" dialog:"
+"4. After registering, you will receive an email from api@trends.earth with "
+"your password. If you don't see the email in your inbox after 15-20 seconds,"
+" please check your spam folder in case the email was sent there. Once you "
+"receive this email , click on the \"Edit selected configuration\" icon in "
+"the \"Settings\" dialog:"
 msgstr ""
+"4. 注册后，您将收到一封来自 api@trends.earth 的电子邮件，其中包含您的密码。如果您在 15-20 "
+"秒后没有在收件箱中看到此电子邮件，请检查您的垃圾邮件文件夹，以防邮件被发送到那里。收到此电子邮件后，单击“设置”对话框中的“编辑所选配置”图标："
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:139
 msgid ""
-"This will bring up the \"Authentication\" dialog asking for your "
-"password. Enter the password you received from api@trends.earth and click"
-" \"Save\":"
-msgstr ""
+"This will bring up the \"Authentication\" dialog asking for your password. "
+"Enter the password you received from api@trends.earth and click \"Save\":"
+msgstr "这将打开“身份验证”对话框，询问您的密码。输入您从 api@trends.earth 收到的密码，然后单击“保存”："
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:144
 msgid "From the \"Settings\" dialog  click on \"Test connection\":"
-msgstr ""
+msgstr "在“设置”对话框中单击“测试连接”："
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:149
-msgid "You will see a message indicating you have successfully been logged in:"
-msgstr ""
+msgid ""
+"You will see a message indicating you have successfully been logged in:"
+msgstr "您将看到一条消息，表明您已成功登录："
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:154
 msgid "You are now ready to start using Trends.Earth!"
-msgstr ""
+msgstr "您现在可以开始使用Trends.Earth了！"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:159
 msgid "Trends.Earth Advanced Settings"
-msgstr ""
+msgstr "Trends.Earth 高级设置"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:161
 msgid ""
-"Refer to the :ref:`advanced` section for more information on the advanced"
-" settings for Trends.Earth."
-msgstr ""
+"Refer to the :ref:`advanced` section for more information on the advanced "
+"settings for Trends.Earth."
+msgstr "有关 Trends.Earth 高级设置的更多信息，请参阅 :ref:`advanced` 部分。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:167
 msgid "Setting up your data folder"
-msgstr ""
+msgstr "设置数据文件夹"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:169
 msgid ""
-"**Objective**: Learn how to check the status of submitted tasks, download"
-" them and compute pyramids for faster visualization of results in QGIS."
-msgstr ""
+"**Objective**: Learn how to check the status of submitted tasks, download "
+"them and compute pyramids for faster visualization of results in QGIS."
+msgstr "**目标**：了解如何检查已提交任务的状态、下载它们并计算金字塔，以便在 QGIS 中更快地看到结果。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:171
 msgid "**Estimated time of completion**: 5 minutes"
-msgstr ""
+msgstr "**预计完成时间**：5 分钟"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:173
 msgid "**Internet access**: Required"
-msgstr ""
+msgstr "**互联网接入**：必填"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:175
 msgid ""
 "`Download this page as a PDF for offline use "
 "<../pdfs/Trends.Earth_Tutorial03_Downloading_Results.pdf>`_"
 msgstr ""
+"`将此页面下载为 PDF 以供离线使用 "
+"<../pdfs/Trends.Earth_Tutorial03_Downloading_Results.pdf>`_"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:178
 msgid ""
 "The results of Trends.Earth analysis are rasters in TIF format for "
-"indicators and XLSX spreadsheets for the tabular outputs. You will need "
-"to define in each case where files will be stored in your computer in "
-"settings."
+"indicators and XLSX spreadsheets for the tabular outputs. You will need to "
+"define in each case where files will be stored in your computer in settings."
 msgstr ""
+"Trends.Earth 分析的结果是用于指标的 TIF 格式的栅格，和用于表格输出的 XLSX "
+"电子表格。在各种情况下，您都需要在设置中定义将文件存储在计算机中的位置。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:181
 msgid "Open settings in |trends.earth|"
-msgstr ""
+msgstr "在 |trends.earth| 中打开设置"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:186
 msgid "Scroll down to **Advanced** options and expand to see more features."
-msgstr ""
+msgstr "向下滚动到 **高级** 选项并展开，以查看更多功能。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:191
 msgid ""
-"3. The **Base data directory** can be set by selecting **Open** to open "
-"the folder where data will be stored or *...* to change the location of "
-"data stored and downloaded from |trends.earth|."
+"3. The **Base data directory** can be set by selecting **Open** to open the "
+"folder where data will be stored or *...* to change the location of data "
+"stored and downloaded from |trends.earth|."
 msgstr ""
+"3. "
+"可以选择**打开**以打开存储数据的文件夹，或选择*...*以更改从|trends.earth|存储和下载数据的位置，以此来设置**基本数据目录**。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:197
 msgid "**OPTIONAL: Computing Pyramids**"
-msgstr ""
+msgstr "**可选：计算金字塔**"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:199
 msgid ""
 "When the raster file is too big, due to a large study area, high spatial "
 "resolution, or a large number of bands in the file, the data could take "
-"several seconds to display. If you change the zoom or turn layers on an  "
-"off frequently, this could make the work a bit frustrating. An option to "
-"overcome this is to compute **Pyramids** to the file. This process will "
-"take from **minutes to hours** to run depending on the size of the area, "
-"so make sure to have enough time for it to process. To compute pyramids "
-"you have to:"
+"several seconds to display. If you change the zoom or turn layers on an  off"
+" frequently, this could make the work a bit frustrating. An option to "
+"overcome this is to compute **Pyramids** to the file. This process will take"
+" from **minutes to hours** to run depending on the size of the area, so make"
+" sure to have enough time for it to process. To compute pyramids you have "
+"to:"
 msgstr ""
+"如果栅格文件太大，由于研究区域大、空间分辨率高或文件中有大量波段，数据可能需要几秒钟才能显示。如果您经常更改缩放或关闭图层，这可能会使工作有点令人沮丧。克服这个问题的一个选项是计算文件的**金字塔**。根据区域的大小，此过程将需要**几分钟到几小时**才能运行，因此请确保有足够的时间进行处理。要计算金字塔，您必须："
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:201
 msgid ""
-"Navigate with your cursor to the layer you want to compute pyramids for "
-"and right click over it. A menu will open. Navigate to **Properties** and"
-" click on it."
-msgstr ""
+"Navigate with your cursor to the layer you want to compute pyramids for and "
+"right click over it. A menu will open. Navigate to **Properties** and click "
+"on it."
+msgstr "将光标导航到要为其计算金字塔的图层并右键单击它。这将打开一个菜单。导航到 **属性** 并单击它。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:204
 msgid ""
 "When using the **Calculate all three sub-indicators in one step** option "
-"(described in the tutorial :ref:`tut_land_degradation`), all the bands "
-"are stored in a single TIF file, so even though you see three layers "
-"loaded in the QGIS window, they all refer to the same file. This means "
-"that the pyramids need to be computed only once for the three sub-"
-"indicators."
+"(described in the tutorial :ref:`tut_land_degradation`), all the bands are "
+"stored in a single TIF file, so even though you see three layers loaded in "
+"the QGIS window, they all refer to the same file. This means that the "
+"pyramids need to be computed only once for the three sub-indicators."
 msgstr ""
+"当使用**一步计算所有三个子指标**选项（在教程中描述 :ref:`tut_land_degradation`）时，所有波段都存储在一个 TIF "
+"文件中，所以即使您看到 QGIS 窗口加载了三层 ，它们都引用同一个文件。这意味着只需为三个子指标计算一次金字塔。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:209
 msgid ""
-"The Layer Properties menu will open. From the options on the left, "
-"navigate to **Pyramids** and click on it."
-msgstr ""
+"The Layer Properties menu will open. From the options on the left, navigate "
+"to **Pyramids** and click on it."
+msgstr "图层属性菜单将会打开。从左侧的选项中，导航到 **金字塔** 并单击它。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:214
-msgid "Once on the **Pyramids** tab you will see a description about they are."
-msgstr ""
+msgid ""
+"Once on the **Pyramids** tab you will see a description about they are."
+msgstr "在 **金字塔** 选项卡上，您将看到关于它们的描述。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:219
 msgid ""
 "To the right of the window you will see the **Resolutions** options. "
 "Selecting all of them will make displaying in QGIS the fastest, but this "
 "could take hours to compute depending on the file size and processing "
-"capabilities of the computer you are using. For the Uganda example, we "
-"can select them all, but if using a larger area or higher spatial "
-"resolution than the default 250m, we recommend you select alternating "
-"resolutions options (i.e. one resolution selected and one not selected, "
-"and so on). Resolutions are selected by clicking on them. When selected, "
-"they will turn blue."
+"capabilities of the computer you are using. For the Uganda example, we can "
+"select them all, but if using a larger area or higher spatial resolution "
+"than the default 250m, we recommend you select alternating resolutions "
+"options (i.e. one resolution selected and one not selected, and so on). "
+"Resolutions are selected by clicking on them. When selected, they will turn "
+"blue."
 msgstr ""
+"在窗口右侧，您将看到 **分辨率** 选项。全选将使 QGIS "
+"中的显示速度最快，但这可能需要数小时来计算，具体取决于所用计算机的文件大小和处理能力。对于乌干达示例，您可以全选它们，但如果使用比默认 250m "
+"更大的区域或更高的空间分辨率，我们建议您选择交替分辨率选项（即选择一种分辨率和不选择一种分辨率，依此类推）。通过单击它们来选择分辨率。选中后，它们将变为蓝色。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:221
 msgid "Make sure that the settings at the bottom are set to:"
-msgstr ""
+msgstr "确保将底部的设置设为："
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:223
 msgid "**Overview format**: External"
-msgstr ""
+msgstr "**概览格式**：外部"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:224
 msgid "**Resampling method**: Nearest Neighbour"
-msgstr ""
+msgstr "**重采样方法**：最近邻"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:226
 msgid ""
 "Then click on the **Build pyramids** button. The progress bar next to it "
 "will show which percentage of the task has been completed."
-msgstr ""
+msgstr "然后点击**建造金字塔**按钮。它旁边的进度条将显示任务已完成的百分比。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:231
 msgid ""
 "When pyramids have been built you will notice that the icons next to the "
-"resolutions will have changed from **red crosses** to **yellow "
-"pyramids**."
-msgstr ""
+"resolutions will have changed from **red crosses** to **yellow pyramids**."
+msgstr "金字塔建成后，您会注意到分辨率旁边的图标将从**红十字**变为**黄色金字塔**。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:236
 msgid "Click **OK** to go back to the QGIS main interface."
-msgstr ""
+msgstr "点击 **好** 以返回 QGIS 主界面。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:241
 msgid "**Adding a basemap**"
-msgstr ""
+msgstr "**添加底图**"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:243
 msgid ""
-"Basemaps are very useful as a reference for identifying specific "
-"locations in maps. When downloaded, Trends.Earth results are displayed on"
-" an empty QGIS project, which could limit the user ability for "
-"identifying know places in the landscape. To facilitate this process, you"
-" can use the **Add Basemap** tool which will load country and state "
-"boundaries, roads, rivers, cities, coastlines and water bodies with "
-"labels to the QGIS project."
+"Basemaps are very useful as a reference for identifying specific locations "
+"in maps. When downloaded, Trends.Earth results are displayed on an empty "
+"QGIS project, which could limit the user ability for identifying know places"
+" in the landscape. To facilitate this process, you can use the **Add "
+"Basemap** tool which will load country and state boundaries, roads, rivers, "
+"cities, coastlines and water bodies with labels to the QGIS project."
 msgstr ""
+"底图作为识别地图中特定位置的参考非常有用。下载后，Trends.Earth 结果显示在一个空的 QGIS "
+"项目上，这可能会限制用户识别景观中已知地点的能力。为促进此过程，您可以使用 **添加底图** "
+"工具，将国家和州边界、道路、河流、城市、海岸线和带有标签的水体加载到 QGIS 项目中。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:245
 msgid ""
-"To load the tool click on the **Datasets** tab and select **Load Base "
-"Map** in the bottom right of the window."
-msgstr ""
+"To load the tool click on the **Datasets** tab and select **Load Base Map** "
+"in the bottom right of the window."
+msgstr "要加载此工具，请单击 **数据集** 选项卡，然后选择窗口右下角的 **加载基本地图**。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:250
 msgid "On the **Add basemap** window you can do one of two things:"
-msgstr ""
+msgstr "在 **添加底图** 窗口，您可以执行以下两项操作之一："
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:252
 msgid ""
 "**Use a mask option selected** will create a mask blocking all the "
 "information outside of the selected area. In this example, all the "
-"information outside of Uganda will not be displayed on the map. This "
-"option is useful when displaying the sub-indicators downloaded from "
-"Trends.Earth, since the data download is not clipped to administrative "
-"boundaries (a bounding box is used instead). You can use first and second"
-" level administrative boundaries."
+"information outside of Uganda will not be displayed on the map. This option "
+"is useful when displaying the sub-indicators downloaded from Trends.Earth, "
+"since the data download is not clipped to administrative boundaries (a "
+"bounding box is used instead). You can use first and second level "
+"administrative boundaries."
 msgstr ""
+"**使用选定的掩码选项** 将创建一个掩码，阻止所选区域之外的所有信息。在此示例中，乌干达以外的所有信息都不会显示在地图上。当显示从 "
+"Trends.Earth 下载的子指标时，此选项很有用，因为数据下载不会裁剪到管理边界（而是使用边界框）。您可以使用第一级和第二级管理边界。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:254
 msgid ""
-"**Use a mask option not selected** will load all the reference "
-"information, but no mask will be applied."
-msgstr ""
+"**Use a mask option not selected** will load all the reference information, "
+"but no mask will be applied."
+msgstr "**使用未选择的掩码选项** 将加载所有参考信息，但不会应用掩码。"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:259
 msgid ""
-"Once the basemap is loaded, you will notice the information added to the "
-"map and to the Layer panel. The basemap has information for:"
-msgstr ""
+"Once the basemap is loaded, you will notice the information added to the map"
+" and to the Layer panel. The basemap has information for:"
+msgstr "加载底图后，您会注意到添加到地图和图层面板的信息。底图包含以下信息："
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:261
 msgid "Lake"
-msgstr ""
+msgstr "湖泊"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:262
 msgid "River"
-msgstr ""
+msgstr "河流"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:263
 msgid "Coastline"
-msgstr ""
+msgstr "海岸线"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:264
 msgid "City"
-msgstr ""
+msgstr "城市"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:265
 msgid "Disputed border"
-msgstr ""
+msgstr "有争议的边界"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:266
 msgid "Subnational border"
-msgstr ""
+msgstr "次国家边界"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:267
 msgid "National border"
-msgstr ""
+msgstr "国界"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:268
 msgid "Ocean"
-msgstr ""
+msgstr "海洋"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr ""
+msgstr "iconCalculator"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr ""
+msgstr "iconChart"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr ""
+msgstr "iconClipboard"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr ""
+msgstr "iconCloudDownload"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr ""
+msgstr "iconCog"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr ""
+msgstr "iconDeletedataset"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
-msgstr ""
+msgstr "iconGlobe"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr ""
+msgstr "iconGraph"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr ""
+msgstr "iconInfo"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr ""
+msgstr "iconLoaddataset"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr ""
+msgstr "iconMarkMarker"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr ""
+msgstr "iconOpendatasetdirectory"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr ""
+msgstr "iconViewdatasetdetails"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr ""
+msgstr "iconWrench"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr ""
+msgstr "iconFolder"
 
 #: ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr ""
+msgstr "iconReports"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr ""
+msgstr "iconTrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr ""
+msgstr "iconVisualization"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr ""
+msgstr "logoCI"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr ""
+msgstr "logoLund"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr ""
+msgstr "logoNASA"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr ""
-
+msgstr "logoGEF"

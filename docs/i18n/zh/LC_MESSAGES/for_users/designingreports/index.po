@@ -1,22 +1,25 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
-#
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Alex Zvoleff <azvoleff@conservation.org>, 2022
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-06-21 17:06-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2022-05-26 11:57+0000\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
+"Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Language: zh\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../../source/for_users/designingreports/index.rst:4
 msgid "Designing Reports"
@@ -24,11 +27,11 @@ msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:6
 msgid ""
-"Reports are, in simplest terms, created by populating a report template "
-"with textual and/or spatial data from one or more jobs. It is important "
-"to note that reports are generated at the layer/band level hence the "
-"number of reports from a single job will correspond to the number of "
-"**default** bands for the given job."
+"Reports are, in simplest terms, created by populating a report template with"
+" textual and/or spatial data from one or more jobs. It is important to note "
+"that reports are generated at the layer/band level hence the number of "
+"reports from a single job will correspond to the number of **default** bands"
+" for the given job."
 msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:11
@@ -40,7 +43,8 @@ msgid "Designing templates using the QGIS layout framework;"
 msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:14
-msgid "Specifying the configuration parameters in a report configuration file."
+msgid ""
+"Specifying the configuration parameters in a report configuration file."
 msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:17
@@ -77,18 +81,18 @@ msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:30
 msgid ""
-"A report is made up of static content (such as logos, disclaimer text "
-"etc.) that does not change from one report to another. It may also "
-"include dynamic content (such as maps or attribute information) that is "
-"generated at runtime during the execution process."
+"A report is made up of static content (such as logos, disclaimer text etc.) "
+"that does not change from one report to another. It may also include dynamic"
+" content (such as maps or attribute information) that is generated at "
+"runtime during the execution process."
 msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:34
 msgid ""
-"The Trends.Earth toolbox provides a number of layout expression variables"
-" that can be used to insert dynamic content in a layout. Some of these "
-"are available at design time while others are only available at runtime. "
-"The table below provides a summary of the available variables."
+"The Trends.Earth toolbox provides a number of layout expression variables "
+"that can be used to insert dynamic content in a layout. Some of these are "
+"available at design time while others are only available at runtime. The "
+"table below provides a summary of the available variables."
 msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:39
@@ -97,8 +101,7 @@ msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:40
 msgid ""
-"These are characterized by a `te_job_` prefix and only available at "
-"runtime."
+"These are characterized by a `te_job_` prefix and only available at runtime."
 msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:43
@@ -113,7 +116,7 @@ msgstr ""
 #: ../../source/for_users/designingreports/index.rst:303
 #: ../../source/for_users/designingreports/index.rst:332
 msgid "Description"
-msgstr ""
+msgstr "描述"
 
 #: ../../source/for_users/designingreports/index.rst:43
 #: ../../source/for_users/designingreports/index.rst:67
@@ -172,7 +175,6 @@ msgid "Creation date/time of a job"
 msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:53
-#, python-format
 msgid "String in %Y-%m-%d %H:%M format"
 msgstr ""
 
@@ -198,110 +200,114 @@ msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:59
 msgid "Comments to a job as provided by the user"
-msgstr ""
+msgstr "用户提供的对工作的评论"
 
 #: ../../source/for_users/designingreports/index.rst:63
 msgid "Layer Variables"
-msgstr ""
+msgstr "层变量"
 
 #: ../../source/for_users/designingreports/index.rst:64
 msgid ""
-"These are characterized by a `te_current_layer_` prefix and only "
-"available at runtime."
-msgstr ""
+"These are characterized by a `te_current_layer_` prefix and only available "
+"at runtime."
+msgstr "这些以 `te_current_layer_`  前缀为特点，仅在运行时可用。"
 
 #: ../../source/for_users/designingreports/index.rst:69
 msgid "`te_current_layer_name`"
-msgstr ""
+msgstr "`te_current_layer_name`"
 
 #: ../../source/for_users/designingreports/index.rst:69
 msgid "Name of the layer in the current execution context"
-msgstr ""
+msgstr "当前执行上下文层的名称"
 
 #: ../../source/for_users/designingreports/index.rst:73
 msgid "Report Settings Variables"
-msgstr ""
+msgstr "报告设置变量"
 
 #: ../../source/for_users/designingreports/index.rst:74
 msgid ""
-"These are characterized by a `te_report_` prefix and are available at "
-"both design time and runtime. Refer to the :ref:`report_settings` section"
-" for a detailed description of the report settings and corresponding "
-"variable names."
+"These are characterized by a `te_report_` prefix and are available at both "
+"design time and runtime. Refer to the :ref:`report_settings` section for a "
+"detailed description of the report settings and corresponding variable "
+"names."
 msgstr ""
+"这些以 `te_report_` 前缀为特点，在设计时和运行时可用。有关报告设置和相应变量名称的详细说明，请参阅 "
+":ref:`report_settings` 部分。"
 
 #: ../../source/for_users/designingreports/index.rst:78
 msgid "Template Types"
-msgstr ""
+msgstr "模板类型"
 
 #: ../../source/for_users/designingreports/index.rst:79
 msgid "There are two main report template types:"
-msgstr ""
+msgstr "有两种主要的报告模板类型："
 
 #: ../../source/for_users/designingreports/index.rst:82
 msgid "Full Template"
-msgstr ""
+msgstr "完整模板"
 
 #: ../../source/for_users/designingreports/index.rst:83
 msgid ""
 "This is designed to contain - or provide an allowance to include - more "
-"information such as author name. The default template is set on an A4 "
-"page and includes a layout title, map, legend, scale bar, north arrow, "
-"disclaimer text. and logo."
+"information such as author name. The default template is set on an A4 page "
+"and includes a layout title, map, legend, scale bar, north arrow, disclaimer"
+" text. and logo."
 msgstr ""
+"这旨在包含——或允许包含——更多信息，例如作者姓名。默认模板设置在 A4 页面上，包括布局标题、地图、图例、比例尺、指北针、免责声明文本和徽标。"
 
 #: ../../source/for_users/designingreports/index.rst:88
 msgid "Simple Template"
-msgstr ""
+msgstr "简单模板"
 
 #: ../../source/for_users/designingreports/index.rst:89
 msgid ""
-"This is designed to be a lighter version of the template with the default"
-" one set on an 83mm by 59mm page size (in landscape mode) or vice versa "
-"in portrait mode and contains a map, legend, north arrow, scale bar, "
-"disclaimer text and logo."
+"This is designed to be a lighter version of the template with the default "
+"one set on an 83mm by 59mm page size (in landscape mode) or vice versa in "
+"portrait mode and contains a map, legend, north arrow, scale bar, disclaimer"
+" text and logo."
 msgstr ""
+"这是模板的轻量化版本，默认设置为 83mm x 59mm 页面大小（横向模式），纵向模式反之亦然，包含地图、图例、指北针、比例尺、免责声明文本和徽标。"
 
 #: ../../source/for_users/designingreports/index.rst:94
 msgid ""
 "For each template type, you will need to provide both the portrait and "
-"landscape versions as the toolbox will select one of these depending on "
-"the dimensions of the map layer being rendered."
-msgstr ""
+"landscape versions as the toolbox will select one of these depending on the "
+"dimensions of the map layer being rendered."
+msgstr "对于每种模板类型，您都需要提供纵向和横向版本，因为工具箱将根据正在渲染的地图图层的尺寸选择其中之一。"
 
 #: ../../source/for_users/designingreports/index.rst:98
 msgid "Designing Report Templates"
-msgstr ""
+msgstr "设计报告模板"
 
 #: ../../source/for_users/designingreports/index.rst:99
 msgid "You can create templates either by:"
-msgstr ""
+msgstr "您可以通过以下方式创建模板："
 
 #: ../../source/for_users/designingreports/index.rst:102
 msgid "Creating A New One"
-msgstr ""
+msgstr "创建新的"
 
 #: ../../source/for_users/designingreports/index.rst:103
 msgid "Navigate to **Project > New Print Layout...**."
-msgstr ""
+msgstr "导航到**项目 > 新打印布局...**。"
 
 #: ../../source/for_users/designingreports/index.rst:109
 msgid "Specify a user-friendly name for the layout."
-msgstr ""
+msgstr "为布局指定一个便于使用的名称。"
 
 #: ../../source/for_users/designingreports/index.rst:116
 msgid "Modifying an Existing One"
-msgstr ""
+msgstr "修改现有的"
 
 #: ../../source/for_users/designingreports/index.rst:117
 msgid "Navigate to **Project > Layout Manager...**."
-msgstr ""
+msgstr "导航到 **项目 > 布局管理器...**。"
 
 #: ../../source/for_users/designingreports/index.rst:123
 msgid ""
 "Select **Specific** in the drop-down menu under **New from Template** "
 "section."
-msgstr ""
+msgstr "在 **从模板新建** 部分的下拉菜单中选择 **具体**。"
 
 #: ../../source/for_users/designingreports/index.rst:129
 msgid ""
@@ -309,18 +315,20 @@ msgid ""
 "template. The default templates can be found in "
 "`[base_data_directory]/reports/templates`."
 msgstr ""
+"单击浏览按钮（带有三个点）以选择现有的 qpt 模板。默认模板可以在 `[base_data_directory]/reports/templates`"
+" 中找到。"
 
 #: ../../source/for_users/designingreports/index.rst:135
 msgid "Click on **Create...** button."
-msgstr ""
+msgstr "单击**创建...** 按钮。"
 
 #: ../../source/for_users/designingreports/index.rst:141
 msgid "Specify a user-friendly name for the template."
-msgstr ""
+msgstr "为模板指定一个便于使用的名称。"
 
 #: ../../source/for_users/designingreports/index.rst:150
 msgid "Adding Layout Items"
-msgstr ""
+msgstr "添加布局项"
 
 #: ../../source/for_users/designingreports/index.rst:151
 msgid ""
@@ -331,41 +339,49 @@ msgid ""
 "Builder** dialog and can be inserted in label items as any other QGIS "
 "variable."
 msgstr ""
+"您可以按照 `QGIS 手册 "
+"<https://docs.qgis.org/3.16/en/docs/user_manual/print_composer/composer_items/index.html>`_"
+" 中定义的类似方式，将项目添加到模板中。Trends.Earth 表达式变量在 **表达式生成器** 对话框中可用，并且可以像任何其他 QGIS "
+"变量一样插入标签项中。"
 
 #: ../../source/for_users/designingreports/index.rst:158
 msgid ""
-"For instance, to insert a job's algorithm name in a label item, you can "
-"use the following expression: :code:`[% @te_job_alg_name %]`."
-msgstr ""
+"For instance, to insert a job's algorithm name in a label item, you can use "
+"the following expression: :code:`[% @te_job_alg_name %]`."
+msgstr "例如，要在标签项中插入作业的算法名称，可以使用以下表达式：:code:`[% @te_job_alg_name %]`。"
 
 #: ../../source/for_users/designingreports/index.rst:164
 msgid ""
-"For a map item, do not add any layers or specify a map theme as the "
-"layers and their ordering will be automatically set during the report "
-"generation process."
-msgstr ""
+"For a map item, do not add any layers or specify a map theme as the layers "
+"and their ordering will be automatically set during the report generation "
+"process."
+msgstr "对于地图项，请勿添加任何图层或指定地图主题，因为图层和它们的顺序将在报告生成过程中自动设置。"
 
 #: ../../source/for_users/designingreports/index.rst:167
 msgid ""
-"When using a legend item, ensure the **Auto update** option is selected. "
-"The toolbox will determine which legend items to show/hide depending on "
-"the rendering context."
-msgstr ""
+"When using a legend item, ensure the **Auto update** option is selected. The"
+" toolbox will determine which legend items to show/hide depending on the "
+"rendering context."
+msgstr "使用图例项时，请确保选择 **自动更新** 选项。工具箱将根据渲染上下文确定显示/隐藏哪些图例项。"
 
 #: ../../source/for_users/designingreports/index.rst:174
 msgid ""
-"For map items rendering a job's layers or label items that use the "
-"toolbox's expression variables, please ensure that you define their "
-"corresponding item IDs so that they can be flagged for updating during "
-"the report generation process. A preferred naming convention - for the "
-"item ID - is `[item_type.context_name]` e.g. :code:`label.layer_name`, "
-":code:`label.job_alg_name`, :code:`map.main`. We will see how these item "
-"IDs are used in the :ref:`item_scope_mapping` section."
+"For map items rendering a job's layers or label items that use the toolbox's"
+" expression variables, please ensure that you define their corresponding "
+"item IDs so that they can be flagged for updating during the report "
+"generation process. A preferred naming convention - for the item ID - is "
+"`[item_type.context_name]` e.g. :code:`label.layer_name`, "
+":code:`label.job_alg_name`, :code:`map.main`. We will see how these item IDs"
+" are used in the :ref:`item_scope_mapping` section."
 msgstr ""
+"对于使用工具箱的表达式变量渲染作业图层或标签项的地图项，请确保定义其对应的项目 ID，以便在报告生成过程中对其进行标记以进行更新。项目 ID "
+"的首选命名约定是 `[item_type.context_name]`，例如 :code:`label.layer_name`, "
+":code:`label.job_alg_name`, :code:`map.main`。我们将在 :ref:`item_scope_mapping` "
+"部分看到这些项目 ID 如何被使用。"
 
 #: ../../source/for_users/designingreports/index.rst:187
 msgid "Configuring Report Parameters"
-msgstr ""
+msgstr "配置报告参数"
 
 #: ../../source/for_users/designingreports/index.rst:188
 msgid ""
@@ -375,59 +391,61 @@ msgid ""
 "`[base_data_directory]/reports/templates` on loading the toolbox for the "
 "first time."
 msgstr ""
+"下一步是定义哪些模板将用于哪些算法。这是通过报告配置文件 `templates.json` 完成的，此文件是第一次加载工具箱时，在 "
+"`[base_data_directory]/reports/templates` 中创建的。"
 
 #: ../../source/for_users/designingreports/index.rst:192
 msgid ""
 "`templates.json` is a list of report configuration objects where each "
 "configuration object corresponds to one or more scopes. A scope, in this "
 "case, refers to an algorithm. A configuration is made up of two parts:"
-msgstr ""
+msgstr "`templates.json` 是报表配置对象的列表，其中每个配置对象对应一个或多个范围。在这种情况下，范围是指算法。配置由两部分组成："
 
 #: ../../source/for_users/designingreports/index.rst:195
 msgid ""
 "**template_info** - Contains information about the QGIS report templates "
 "associated with one or more algorithm scopes."
-msgstr ""
+msgstr "**template_info**——包含与一个或多个算法范围关联的 QGIS 报告模板的信息。"
 
 #: ../../source/for_users/designingreports/index.rst:196
 msgid "**output_options** - Output options for exporting a report."
-msgstr ""
+msgstr "**output_options**——用于导出报告的输出选项。"
 
 #: ../../source/for_users/designingreports/index.rst:198
 msgid "See sample below:"
-msgstr ""
+msgstr "请参阅下方的示例："
 
 #: ../../source/for_users/designingreports/index.rst:240
 msgid "template_info"
-msgstr ""
+msgstr "template_info"
 
 #: ../../source/for_users/designingreports/index.rst:241
 msgid ""
-"Contains information about the QGIS report templates associated with one "
-"or more algorithm scopes."
-msgstr ""
+"Contains information about the QGIS report templates associated with one or "
+"more algorithm scopes."
+msgstr "包含与一个或多个算法范围关联的 QGIS 报告模板的信息。"
 
 #: ../../source/for_users/designingreports/index.rst:244
 #: ../../source/for_users/designingreports/index.rst:278
 #: ../../source/for_users/designingreports/index.rst:303
 #: ../../source/for_users/designingreports/index.rst:332
 msgid "Property Name"
-msgstr ""
+msgstr "属性名称"
 
 #: ../../source/for_users/designingreports/index.rst:244
 #: ../../source/for_users/designingreports/index.rst:278
 #: ../../source/for_users/designingreports/index.rst:303
 #: ../../source/for_users/designingreports/index.rst:332
 msgid "Required"
-msgstr ""
+msgstr "必需"
 
 #: ../../source/for_users/designingreports/index.rst:246
 msgid "`id`"
-msgstr ""
+msgstr "`id`"
 
 #: ../../source/for_users/designingreports/index.rst:246
 msgid "A unique UUID identifier in string format"
-msgstr ""
+msgstr "字符串格式的唯一 UUID 标识符"
 
 #: ../../source/for_users/designingreports/index.rst:246
 #: ../../source/for_users/designingreports/index.rst:252
@@ -441,137 +459,137 @@ msgstr ""
 #: ../../source/for_users/designingreports/index.rst:309
 #: ../../source/for_users/designingreports/index.rst:334
 msgid "Yes"
-msgstr ""
+msgstr "是"
 
 #: ../../source/for_users/designingreports/index.rst:248
 #: ../../source/for_users/designingreports/index.rst:305
 msgid "`name`"
-msgstr ""
+msgstr "`名称`"
 
 #: ../../source/for_users/designingreports/index.rst:248
 msgid "A friendly name of the template configuration"
-msgstr ""
+msgstr "模板配置的简单名称"
 
 #: ../../source/for_users/designingreports/index.rst:248
 #: ../../source/for_users/designingreports/index.rst:250
 #: ../../source/for_users/designingreports/index.rst:341
 msgid "No"
-msgstr ""
+msgstr "否"
 
 #: ../../source/for_users/designingreports/index.rst:250
 msgid "`description`"
-msgstr ""
+msgstr "`描述`"
 
 #: ../../source/for_users/designingreports/index.rst:250
 msgid "A brief description of the template configuration"
-msgstr ""
+msgstr "模板配置的简要说明"
 
 #: ../../source/for_users/designingreports/index.rst:252
 msgid "`simple_portrait_path`"
-msgstr ""
+msgstr "`simple_portrait_path`"
 
 #: ../../source/for_users/designingreports/index.rst:252
 msgid "Name of the template file for a simple portrait layout"
-msgstr ""
+msgstr "简单纵向布局的模板文件的名称"
 
 #: ../../source/for_users/designingreports/index.rst:254
 msgid "`simple_landscape_path`"
-msgstr ""
+msgstr "`simple_landscape_path`"
 
 #: ../../source/for_users/designingreports/index.rst:254
 msgid "Name of the template file for a simple landscape layout"
-msgstr ""
+msgstr "简单横向布局的模板文件的名称"
 
 #: ../../source/for_users/designingreports/index.rst:256
 msgid "`full_portrait_path`"
-msgstr ""
+msgstr "`full_portrait_path`"
 
 #: ../../source/for_users/designingreports/index.rst:256
 msgid "Name of the template file for a full portrait layout"
-msgstr ""
+msgstr "完整纵向布局的模板文件的名称"
 
 #: ../../source/for_users/designingreports/index.rst:258
 msgid "`full_landscape_path`"
-msgstr ""
+msgstr "`full_landscape_path`"
 
 #: ../../source/for_users/designingreports/index.rst:258
 msgid "Name of the template file for a full landscape layout"
-msgstr ""
+msgstr "完整横向布局的模板文件的名称"
 
 #: ../../source/for_users/designingreports/index.rst:260
 msgid "`item_scopes`"
-msgstr ""
+msgstr "`item_scopes`"
 
 #: ../../source/for_users/designingreports/index.rst:260
 msgid ""
 "A list of item scope objects. It should contain at least one scope "
 "definition."
-msgstr ""
+msgstr "项目范围对象的列表。它应该至少包含一个范围定义。"
 
 #: ../../source/for_users/designingreports/index.rst:262
 msgid "See :ref:`item_scope_mapping` for more information."
-msgstr ""
+msgstr "欲了解更多信息，请参阅 :ref:`item_scope_mapping`。"
 
 #: ../../source/for_users/designingreports/index.rst:267
 msgid ""
-"The paths defined above are basically file names which are relative to "
-"the location of the `templates.json` configuration file."
-msgstr ""
+"The paths defined above are basically file names which are relative to the "
+"location of the `templates.json` configuration file."
+msgstr "上方定义的路径基本上是相对于 `templates.json` 配置文件的位置的文件名。"
 
 #: ../../source/for_users/designingreports/index.rst:274
 msgid "output_options"
-msgstr ""
+msgstr "output_options"
 
 #: ../../source/for_users/designingreports/index.rst:275
 msgid "Options for exporting an output report."
-msgstr ""
+msgstr "用于导出输出报告的选项。"
 
 #: ../../source/for_users/designingreports/index.rst:280
 msgid "`formats`"
-msgstr ""
+msgstr "`格式`"
 
 #: ../../source/for_users/designingreports/index.rst:280
 msgid ""
-"A list of format objects specifying the output format of the report. You "
-"can have a report produced in multiple types such as PDF and PNG."
-msgstr ""
+"A list of format objects specifying the output format of the report. You can"
+" have a report produced in multiple types such as PDF and PNG."
+msgstr "指定报告输出格式的格式对象列表。您可以生成多种类型的报告，例如 PDF 和 PNG。"
 
 #: ../../source/for_users/designingreports/index.rst:284
 msgid "At least one output format needs to be defined."
-msgstr ""
+msgstr "至少需要定义一种输出格式。"
 
 #: ../../source/for_users/designingreports/index.rst:286
 msgid ""
 "See :ref:`output_format` for configuration options for an output format "
 "object."
-msgstr ""
+msgstr "关于输出格式对象的配置选项，请参阅 :ref:`output_format`。"
 
 #: ../../source/for_users/designingreports/index.rst:289
 msgid "`template_type`"
-msgstr ""
+msgstr "`template_type`"
 
 #: ../../source/for_users/designingreports/index.rst:289
 msgid "Report template type in string format."
-msgstr ""
+msgstr "字符串格式的报告模板类型。"
 
 #: ../../source/for_users/designingreports/index.rst:291
 msgid "Supported options include: **SIMPLE**, **FULL** or **ALL**."
-msgstr ""
+msgstr "支持的选项包括：**简单**、**完整** 或 **全部**。"
 
 #: ../../source/for_users/designingreports/index.rst:293
 #: ../../source/for_users/designingreports/index.rst:338
 msgid "Please note that these should be in uppercase as provided above."
-msgstr ""
+msgstr "请注意，这些应该是上方提供的大写字母。"
 
 #: ../../source/for_users/designingreports/index.rst:299
 msgid "item_scope_mapping"
-msgstr ""
+msgstr "item_scope_mapping"
 
 #: ../../source/for_users/designingreports/index.rst:300
 msgid ""
 "Provides a mechanism for grouping layout items based on a scope (i.e. "
 "algorithm)."
-msgstr ""
+msgstr "提供一种基于范围（即算法）对布局项进行分组的机制。"
 
 #: ../../source/for_users/designingreports/index.rst:305
 msgid ""
@@ -579,171 +597,175 @@ msgid ""
 "`productivity`, `sdg-15-3-1-sub-indicators` etc. Refers to the algorithm "
 "names defined in `scripts.json` in the toolbox's data folder."
 msgstr ""
+"将与此配置匹配的算法的名称，例如 `productivity`、`sdg-15-3-1-sub-indicators`等。指的是工具箱数据文件夹的 "
+"`scripts.json` 中定义的算法名称。"
 
 #: ../../source/for_users/designingreports/index.rst:309
 msgid "`type_id_mapping`"
-msgstr ""
+msgstr "`type_id_mapping`"
 
 #: ../../source/for_users/designingreports/index.rst:309
 msgid ""
 "A dictionary containing an enumeration of the layout item type and "
 "corresponding list of item IDs defined in the template."
-msgstr ""
+msgstr "包含布局项目类型的枚举，和模板中定义的相应项目 ID 列表的字典。"
 
 #: ../../source/for_users/designingreports/index.rst:312
 msgid "Supported layout item types include: **map**, **label**, **picture**"
-msgstr ""
+msgstr "支持的布局项类型包括：**地图**、**标签**、**图片**"
 
 #: ../../source/for_users/designingreports/index.rst:322
 msgid "See :ref:`adding_layout_items` on how to specify item IDs."
-msgstr ""
+msgstr "关于如何指定项目 ID 的信息，请参阅 :ref:`adding_layout_items`。"
 
 #: ../../source/for_users/designingreports/index.rst:328
 msgid "output_format"
-msgstr ""
+msgstr "output_format"
 
 #: ../../source/for_users/designingreports/index.rst:329
 msgid "Format information for the report output."
-msgstr ""
+msgstr "报告输出的格式信息。"
 
 #: ../../source/for_users/designingreports/index.rst:334
 msgid "`format_type`"
-msgstr ""
+msgstr "`format_type`"
 
 #: ../../source/for_users/designingreports/index.rst:334
 msgid "An enumeration of the file output type."
-msgstr ""
+msgstr "文件输出类型的枚举。"
 
 #: ../../source/for_users/designingreports/index.rst:336
 msgid "Supported enumeration options include: **PDF** and **IMAGE**."
-msgstr ""
+msgstr "支持的枚举选项包括：**PDF** 和 **IMAGE**。"
 
 #: ../../source/for_users/designingreports/index.rst:341
 msgid "`params`"
-msgstr ""
+msgstr "`参数`"
 
 #: ../../source/for_users/designingreports/index.rst:341
 msgid ""
-"Depending on the specified output type, this property contains additional"
-" information regarding the format."
-msgstr ""
+"Depending on the specified output type, this property contains additional "
+"information regarding the format."
+msgstr "根据指定的输出类型，此属性包含关于格式的附加信息。"
 
 #: ../../source/for_users/designingreports/index.rst:344
 msgid ""
 "For instance, if the IMAGE is specified as the output format, then this "
-"property can be used to specify the IMAGE type. Does nothing for PDF type"
-" and defaults to PNG for an IMAGE type."
+"property can be used to specify the IMAGE type. Does nothing for PDF type "
+"and defaults to PNG for an IMAGE type."
 msgstr ""
+"例如，如果将 IMAGE 指定为输出格式，则此属性可用于指定 IMAGE 类型。对于 PDF 类型，不执行任何操作，对于 IMAGE 类型，默认为 "
+"PNG。"
 
 #: ../../source/for_users/designingreports/index.rst:351
 msgid "Resetting to Default Templates and Configuration"
-msgstr ""
+msgstr "重置为默认模板和配置"
 
 #: ../../source/for_users/designingreports/index.rst:352
 msgid ""
-"To revert back to the default templates and report configuration file "
-"that ship with the toolbox, perform the following steps:"
-msgstr ""
+"To revert back to the default templates and report configuration file that "
+"ship with the toolbox, perform the following steps:"
+msgstr "要恢复到工具箱附带的默认模板和报告配置文件，请执行以下步骤："
 
 #: ../../source/for_users/designingreports/index.rst:354
 msgid ""
 "Close QGIS then back-up the `templates` folder in "
 "`[base_data_directory]/reports/templates`."
 msgstr ""
+"关闭 QGIS，然后备份 `[base_data_directory]/reports/templates` 中的 `templates` 文件夹。"
 
 #: ../../source/for_users/designingreports/index.rst:356
 msgid "Proceed to delete the `templates` folder then restart QGIS."
-msgstr ""
+msgstr "继续删除“模板”文件夹，然后重新启动 QGIS。"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr ""
+msgstr "iconCalculator"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr ""
+msgstr "iconChart"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr ""
+msgstr "iconClipboard"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr ""
+msgstr "iconCloudDownload"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr ""
+msgstr "iconCog"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr ""
+msgstr "iconDeletedataset"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
-msgstr ""
+msgstr "iconGlobe"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr ""
+msgstr "iconGraph"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr ""
+msgstr "iconInfo"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr ""
+msgstr "iconLoaddataset"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr ""
+msgstr "iconMarkMarker"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr ""
+msgstr "iconOpendatasetdirectory"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr ""
+msgstr "iconViewdatasetdetails"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr ""
+msgstr "iconWrench"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr ""
+msgstr "iconFolder"
 
 #: ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr ""
+msgstr "iconReports"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr ""
+msgstr "iconTrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr ""
+msgstr "iconVisualization"
 
 #: ../../../<rst_epilog>:37
 msgid "Trends.Earth"
-msgstr ""
+msgstr "Trends.Earth"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr ""
+msgstr "logoCI"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr ""
+msgstr "logoLund"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr ""
+msgstr "logoNASA"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr ""
-
+msgstr "logoGEF"

@@ -1,61 +1,72 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
-#
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
+# Alex Zvoleff <azvoleff@conservation.org>, 2022
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-06-21 17:06-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2022-05-26 11:57+0000\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
+"Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Language: zh\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../../source/for_users/datasets/output_data.rst:4
 msgid "Output datasets from Trends.Earth"
-msgstr ""
+msgstr "从 Trends.Earth 输出数据集"
 
 #: ../../source/for_users/datasets/output_data.rst:6
 msgid ""
-"The spatial data produced by |trends.earth| is in GeoTiff format. This is"
-" a widely supported format, so these datasets can be used within QGIS as "
-"well as within any other GIS software."
+"The spatial data produced by |trends.earth| is in GeoTiff format. This is a "
+"widely supported format, so these datasets can be used within QGIS as well "
+"as within any other GIS software."
 msgstr ""
+"|trends.earth|生成的空间数据为 GeoTiff 格式。这是一种广泛支持的格式，因此这些数据集可以在 QGIS 以及其他任何 GIS "
+"软件中使用。"
 
-#: ../../../<rst_epilog>:37
+#: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
+#: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
 msgid "Trends.Earth"
-msgstr ""
+msgstr "Trends.Earth"
 
 #: ../../source/for_users/datasets/output_data.rst:10
 msgid ""
-"If you wish to use |trends.earth| data outside of the tool itself, you "
-"will need to know how the data is coded. The tables below provide "
-"guidance on what the exact layers are that are produced by each analysis "
-"in |trends.earth|."
+"If you wish to use |trends.earth| data outside of the tool itself, you will "
+"need to know how the data is coded. The tables below provide guidance on "
+"what the exact layers are that are produced by each analysis in "
+"|trends.earth|."
 msgstr ""
+"如果您想使用|trends.earth|工具本身以外的数据，您需要知道数据是如何编码的。下表提供了|trends.earth|中每个分析产生的确切图层的指导。"
 
 #: ../../source/for_users/datasets/output_data.rst:14
 msgid ""
-"To see which of the below layers is contained within a |trends.earth| "
-"output file, use the `load data <../documentation/load_data.html>`_ tool."
-" When you choose a file with that tool, it will show you a list of the "
-"layers within that file, as well as the band number for each layer."
+"To see which of the below layers is contained within a |trends.earth| output"
+" file, use the `load data <../documentation/load_data.html>`_ tool. When you"
+" choose a file with that tool, it will show you a list of the layers within "
+"that file, as well as the band number for each layer."
 msgstr ""
+"要查看下方哪个图层包含在|trends.earth|输出文件中，请使用 `load data "
+"<../documentation/load_data.html>`_ "
+"工具。当您使用此工具选择文件时，它将显示此文件中的图层列表，以及每个图层的波段编号。"
 
 #: ../../source/for_users/datasets/output_data.rst:20
 msgid "Land degradation (SDG 15.3.1)"
-msgstr ""
+msgstr "土地退化 (SDG 15.3.1)"
 
 #: ../../source/for_users/datasets/output_data.rst:23
 msgid "SDG 15.3.1 Indicator"
-msgstr ""
+msgstr "SDG 15.3.1 指标"
 
 #: ../../source/for_users/datasets/output_data.rst:26
 #: ../../source/for_users/datasets/output_data.rst:45
@@ -81,7 +92,7 @@ msgstr ""
 #: ../../source/for_users/datasets/output_data.rst:550
 #: ../../source/for_users/datasets/output_data.rst:566
 msgid "Value"
-msgstr ""
+msgstr "值"
 
 #: ../../source/for_users/datasets/output_data.rst:26
 #: ../../source/for_users/datasets/output_data.rst:45
@@ -109,7 +120,7 @@ msgstr ""
 #: ../../source/for_users/datasets/output_data.rst:550
 #: ../../source/for_users/datasets/output_data.rst:566
 msgid "Meaning"
-msgstr ""
+msgstr "含义"
 
 #: ../../source/for_users/datasets/output_data.rst:28
 #: ../../source/for_users/datasets/output_data.rst:47
@@ -135,7 +146,7 @@ msgstr ""
 #: ../../source/for_users/datasets/output_data.rst:552
 #: ../../source/for_users/datasets/output_data.rst:568
 msgid "-32768"
-msgstr ""
+msgstr "-32768"
 
 #: ../../source/for_users/datasets/output_data.rst:28
 #: ../../source/for_users/datasets/output_data.rst:47
@@ -159,7 +170,7 @@ msgstr ""
 #: ../../source/for_users/datasets/output_data.rst:552
 #: ../../source/for_users/datasets/output_data.rst:568
 msgid "No data"
-msgstr ""
+msgstr "没有数据"
 
 #: ../../source/for_users/datasets/output_data.rst:30
 #: ../../source/for_users/datasets/output_data.rst:65
@@ -167,13 +178,13 @@ msgstr ""
 #: ../../source/for_users/datasets/output_data.rst:201
 #: ../../source/for_users/datasets/output_data.rst:532
 msgid "-1"
-msgstr ""
+msgstr "-1"
 
 #: ../../source/for_users/datasets/output_data.rst:30
 #: ../../source/for_users/datasets/output_data.rst:84
 #: ../../source/for_users/datasets/output_data.rst:201
 msgid "Degradation"
-msgstr ""
+msgstr "降解"
 
 #: ../../source/for_users/datasets/output_data.rst:32
 #: ../../source/for_users/datasets/output_data.rst:67
@@ -181,13 +192,13 @@ msgstr ""
 #: ../../source/for_users/datasets/output_data.rst:97
 #: ../../source/for_users/datasets/output_data.rst:203
 msgid "0"
-msgstr ""
+msgstr "0"
 
 #: ../../source/for_users/datasets/output_data.rst:32
 #: ../../source/for_users/datasets/output_data.rst:86
 #: ../../source/for_users/datasets/output_data.rst:203
 msgid "No change"
-msgstr ""
+msgstr "没有变化"
 
 #: ../../source/for_users/datasets/output_data.rst:34
 #: ../../source/for_users/datasets/output_data.rst:69
@@ -199,20 +210,20 @@ msgstr ""
 #: ../../source/for_users/datasets/output_data.rst:505
 #: ../../source/for_users/datasets/output_data.rst:534
 msgid "1"
-msgstr ""
+msgstr "1"
 
 #: ../../source/for_users/datasets/output_data.rst:34
 #: ../../source/for_users/datasets/output_data.rst:205
 msgid "Improvement"
-msgstr ""
+msgstr "起色"
 
 #: ../../source/for_users/datasets/output_data.rst:39
 msgid "Productivity"
-msgstr ""
+msgstr "生产率"
 
 #: ../../source/for_users/datasets/output_data.rst:42
 msgid "Productivity trajectory (trend)"
-msgstr ""
+msgstr "生产力轨迹（趋势）"
 
 #: ../../source/for_users/datasets/output_data.rst:49
 #: ../../source/for_users/datasets/output_data.rst:109
@@ -225,43 +236,43 @@ msgstr ""
 #: ../../source/for_users/datasets/output_data.rst:554
 #: ../../source/for_users/datasets/output_data.rst:570
 msgid "Any other value"
-msgstr ""
+msgstr "其他任何值"
 
 #: ../../source/for_users/datasets/output_data.rst:49
 msgid "Linear trend of annually integrated NDVI, scaled by 10,000"
-msgstr ""
+msgstr "年度综合 NDVI 的线性趋势，以 10,000 为尺度"
 
 #: ../../source/for_users/datasets/output_data.rst:54
 msgid "Productivity trajectory (significance)"
-msgstr ""
+msgstr "生产力轨迹（显着性）"
 
 #: ../../source/for_users/datasets/output_data.rst:61
 msgid "-3"
-msgstr ""
+msgstr "-3"
 
 #: ../../source/for_users/datasets/output_data.rst:61
 msgid "Significant decline (p > .99)"
-msgstr ""
+msgstr "显着下降 (p > .99)"
 
 #: ../../source/for_users/datasets/output_data.rst:63
 msgid "-2"
-msgstr ""
+msgstr "-2"
 
 #: ../../source/for_users/datasets/output_data.rst:63
 msgid "Significant decline (p > .95)"
-msgstr ""
+msgstr "显着下降 (p > .95)"
 
 #: ../../source/for_users/datasets/output_data.rst:65
 msgid "Significant decline (p > .90)"
-msgstr ""
+msgstr "显着下降 (p > .90)"
 
 #: ../../source/for_users/datasets/output_data.rst:67
 msgid "No significant change"
-msgstr ""
+msgstr "无显着变化"
 
 #: ../../source/for_users/datasets/output_data.rst:69
 msgid "Significant increase (p > .90)"
-msgstr ""
+msgstr "显着增加 (p > .90)"
 
 #: ../../source/for_users/datasets/output_data.rst:71
 #: ../../source/for_users/datasets/output_data.rst:162
@@ -271,11 +282,11 @@ msgstr ""
 #: ../../source/for_users/datasets/output_data.rst:507
 #: ../../source/for_users/datasets/output_data.rst:536
 msgid "2"
-msgstr ""
+msgstr "2"
 
 #: ../../source/for_users/datasets/output_data.rst:71
 msgid "Significant increase (p > .95)"
-msgstr ""
+msgstr "显着增加 (p > .95)"
 
 #: ../../source/for_users/datasets/output_data.rst:73
 #: ../../source/for_users/datasets/output_data.rst:164
@@ -285,30 +296,31 @@ msgstr ""
 #: ../../source/for_users/datasets/output_data.rst:509
 #: ../../source/for_users/datasets/output_data.rst:538
 msgid "3"
-msgstr ""
+msgstr "3"
 
 #: ../../source/for_users/datasets/output_data.rst:73
 msgid "Significant increase (p > .99)"
-msgstr ""
+msgstr "显着增加 (p > .99)"
 
 #: ../../source/for_users/datasets/output_data.rst:77
 msgid "Productivity performance (degradation)"
-msgstr ""
+msgstr "生产力表现（退化）"
 
 #: ../../source/for_users/datasets/output_data.rst:90
 msgid "Productivity performance (ratio)"
-msgstr ""
+msgstr "生产力表现（比率）"
 
 #: ../../source/for_users/datasets/output_data.rst:97
 msgid ""
-"Ratio of mean NDVI and maximum productivity. See background on "
-"`performance <../background/understanding_indicators15.html#productivity-"
-"performance>`_."
+"Ratio of mean NDVI and maximum productivity. See background on `performance "
+"<../background/understanding_indicators15.html#productivity-performance>`_."
 msgstr ""
+"平均 NDVI 与最大生产力的比率。查看背景`performance "
+"<../background/understanding_indicators15.html#productivity-performance>`_。"
 
 #: ../../source/for_users/datasets/output_data.rst:102
 msgid "Productivity performance (units)"
-msgstr ""
+msgstr "生产力表现（单位）"
 
 #: ../../source/for_users/datasets/output_data.rst:109
 msgid ""
@@ -316,58 +328,62 @@ msgid ""
 "`performance <../background/understanding_indicators15.html#productivity-"
 "performance>`_."
 msgstr ""
+"用于计算表现的单位的 ID。查看背景`performance "
+"<../background/understanding_indicators15.html#productivity-performance>`_。"
 
 #: ../../source/for_users/datasets/output_data.rst:114
 msgid "Productivity state (degradation)"
-msgstr ""
+msgstr "生产力状态（退化）"
 
 #: ../../source/for_users/datasets/output_data.rst:121
 msgid ""
 "Change in productivity state classes between baseline and target period, "
-"calculated as the rank in the target period minus the rank in the "
-"baseline period. Positive values indicate improvement, negative values "
-"indicate decline."
-msgstr ""
+"calculated as the rank in the target period minus the rank in the baseline "
+"period. Positive values indicate improvement, negative values indicate "
+"decline."
+msgstr "基线期和目标期之间生产力状态等级的变化，计算为目标期的排名减去基线期的排名。正值表示改善，负值表示退化。"
 
 #: ../../source/for_users/datasets/output_data.rst:128
 msgid "Productivity state classes"
-msgstr ""
+msgstr "生产力状态等级"
 
 #: ../../source/for_users/datasets/output_data.rst:135
 msgid ""
 "Percentile class for productivity state. See background on `productivity "
-"state <../background/understanding_indicators15.html#productivity-"
-"state>`_."
+"state <../background/understanding_indicators15.html#productivity-state>`_."
 msgstr ""
+"生产力状态的百分等级。查看背景`productivity state "
+"<../background/understanding_indicators15.html#productivity-state>`_。"
 
 #: ../../source/for_users/datasets/output_data.rst:140
 msgid "Productivity state NDVI mean"
-msgstr ""
+msgstr "生产力状态 NDVI 平均值"
 
 #: ../../source/for_users/datasets/output_data.rst:147
 msgid ""
 "Mean annually integrated NDVI for the baseline period chosen for "
-"productivity state, scaled by 10,000. See background on `productivity "
-"state <../background/understanding_indicators15.html#productivity-"
-"state>`_."
+"productivity state, scaled by 10,000. See background on `productivity state "
+"<../background/understanding_indicators15.html#productivity-state>`_."
 msgstr ""
+"针对生产力状态选择的基线期的年均综合 NDVI，按 10,000 缩放。查看背景`productivity state "
+"<../background/understanding_indicators15.html#productivity-state>`_。"
 
 #: ../../source/for_users/datasets/output_data.rst:153
 msgid "SDG 15.3.1 productivity indicator"
-msgstr ""
+msgstr "SDG 15.3.1 生产力指标"
 
 #: ../../source/for_users/datasets/output_data.rst:160
 #: ../../source/for_users/datasets/output_data.rst:179
 msgid "Declining"
-msgstr ""
+msgstr "下降"
 
 #: ../../source/for_users/datasets/output_data.rst:162
 msgid "Early signs of decline"
-msgstr ""
+msgstr "下降的早期迹象"
 
 #: ../../source/for_users/datasets/output_data.rst:164
 msgid "Stable but stressed"
-msgstr ""
+msgstr "稳定但有压力"
 
 #: ../../source/for_users/datasets/output_data.rst:166
 #: ../../source/for_users/datasets/output_data.rst:185
@@ -376,12 +392,12 @@ msgstr ""
 #: ../../source/for_users/datasets/output_data.rst:511
 #: ../../source/for_users/datasets/output_data.rst:540
 msgid "4"
-msgstr ""
+msgstr "4"
 
 #: ../../source/for_users/datasets/output_data.rst:166
 #: ../../source/for_users/datasets/output_data.rst:185
 msgid "Stable"
-msgstr ""
+msgstr "稳定"
 
 #: ../../source/for_users/datasets/output_data.rst:168
 #: ../../source/for_users/datasets/output_data.rst:187
@@ -389,561 +405,561 @@ msgstr ""
 #: ../../source/for_users/datasets/output_data.rst:332
 #: ../../source/for_users/datasets/output_data.rst:513
 msgid "5"
-msgstr ""
+msgstr "5"
 
 #: ../../source/for_users/datasets/output_data.rst:168
 #: ../../source/for_users/datasets/output_data.rst:187
 msgid "Increasing"
-msgstr ""
+msgstr "增加"
 
 #: ../../source/for_users/datasets/output_data.rst:172
 msgid "Land Productivity Dynamics - JRC"
-msgstr ""
+msgstr "土地生产力动态——JRC"
 
 #: ../../source/for_users/datasets/output_data.rst:181
 msgid "Moderate decline"
-msgstr ""
+msgstr "中度下降"
 
 #: ../../source/for_users/datasets/output_data.rst:183
 msgid "Stressed"
-msgstr ""
+msgstr "有压力"
 
 #: ../../source/for_users/datasets/output_data.rst:191
 msgid "Land cover"
-msgstr ""
+msgstr "土地覆盖"
 
 #: ../../source/for_users/datasets/output_data.rst:194
 msgid "Land cover (degradation)"
-msgstr ""
+msgstr "土地覆盖（退化）"
 
 #: ../../source/for_users/datasets/output_data.rst:209
 msgid "Land cover (7 class)"
-msgstr ""
+msgstr "土地覆盖（7 级）"
 
 #: ../../source/for_users/datasets/output_data.rst:216
 msgid "Tree-covered"
-msgstr ""
+msgstr "树木覆盖"
 
 #: ../../source/for_users/datasets/output_data.rst:218
 msgid "Grasslands"
-msgstr ""
+msgstr "草原"
 
 #: ../../source/for_users/datasets/output_data.rst:220
 msgid "Cropland"
-msgstr ""
+msgstr "农田"
 
 #: ../../source/for_users/datasets/output_data.rst:222
 msgid "Wetland"
-msgstr ""
+msgstr "湿地"
 
 #: ../../source/for_users/datasets/output_data.rst:224
 msgid "Artificial"
-msgstr ""
+msgstr "人工的"
 
 #: ../../source/for_users/datasets/output_data.rst:226
 #: ../../source/for_users/datasets/output_data.rst:334
 #: ../../source/for_users/datasets/output_data.rst:515
 msgid "6"
-msgstr ""
+msgstr "6"
 
 #: ../../source/for_users/datasets/output_data.rst:226
 msgid "Other land"
-msgstr ""
+msgstr "其他土地"
 
 #: ../../source/for_users/datasets/output_data.rst:228
 #: ../../source/for_users/datasets/output_data.rst:336
 #: ../../source/for_users/datasets/output_data.rst:517
 msgid "7"
-msgstr ""
+msgstr "7"
 
 #: ../../source/for_users/datasets/output_data.rst:228
 msgid "Water body"
-msgstr ""
+msgstr "水体"
 
 #: ../../source/for_users/datasets/output_data.rst:232
 msgid "Land cover (ESA classes)"
-msgstr ""
+msgstr "土地覆盖（ESA 等级）"
 
 #: ../../source/for_users/datasets/output_data.rst:239
 msgid "10"
-msgstr ""
+msgstr "10"
 
 #: ../../source/for_users/datasets/output_data.rst:239
 msgid "Cropland, rainfed"
-msgstr ""
+msgstr "农田，雨养"
 
 #: ../../source/for_users/datasets/output_data.rst:241
 msgid "11"
-msgstr ""
+msgstr "11"
 
 #: ../../source/for_users/datasets/output_data.rst:241
 msgid "Herbaceous cover"
-msgstr ""
+msgstr "草本覆盖"
 
 #: ../../source/for_users/datasets/output_data.rst:243
 #: ../../source/for_users/datasets/output_data.rst:338
 msgid "12"
-msgstr ""
+msgstr "12"
 
 #: ../../source/for_users/datasets/output_data.rst:243
 msgid "Tree or shrub cover"
-msgstr ""
+msgstr "树木或灌木覆盖"
 
 #: ../../source/for_users/datasets/output_data.rst:245
 msgid "20"
-msgstr ""
+msgstr "20"
 
 #: ../../source/for_users/datasets/output_data.rst:245
 msgid "Cropland, irrigated or post‐flooding"
-msgstr ""
+msgstr "农田，灌溉或洪水后"
 
 #: ../../source/for_users/datasets/output_data.rst:247
 msgid "30"
-msgstr ""
+msgstr "30"
 
 #: ../../source/for_users/datasets/output_data.rst:247
 msgid ""
-"Mosaic cropland (>50%) / natural vegetation (tree, shrub, herbaceous "
-"cover) (<50%)"
-msgstr ""
+"Mosaic cropland (>50%) / natural vegetation (tree, shrub, "
+"herbaceous cover) (<50%)"
+msgstr "马赛克农田 (>50%) /天然植被（树木、灌木、草本覆盖）(<50%)"
 
 #: ../../source/for_users/datasets/output_data.rst:250
 msgid "40"
-msgstr ""
+msgstr "40"
 
 #: ../../source/for_users/datasets/output_data.rst:250
 msgid ""
-"Mosaic natural vegetation (tree, shrub, herbaceous cover) (>50%) / "
-"cropland (<50%)"
-msgstr ""
+"Mosaic natural vegetation (tree, shrub, herbaceous cover) "
+"(>50%) / cropland (<50%)"
+msgstr "马赛克自然植被（树木、灌木、草本覆盖）(>50%) /农田 (<50%)"
 
 #: ../../source/for_users/datasets/output_data.rst:253
 msgid "50"
-msgstr ""
+msgstr "50"
 
 #: ../../source/for_users/datasets/output_data.rst:253
 msgid "Tree cover, broadleaved, evergreen, closed to open (>15%)"
-msgstr ""
+msgstr "树盖，阔叶，常绿，闭合到开放 (>15%)"
 
 #: ../../source/for_users/datasets/output_data.rst:255
 msgid "60"
-msgstr ""
+msgstr "60"
 
 #: ../../source/for_users/datasets/output_data.rst:255
 msgid "Tree cover, broadleaved, deciduous, closed to open (>15%)"
-msgstr ""
+msgstr "树木覆盖，阔叶，落叶，闭合到开放 (>15%)"
 
 #: ../../source/for_users/datasets/output_data.rst:257
 #: ../../source/for_users/datasets/output_data.rst:398
 msgid "61"
-msgstr ""
+msgstr "61"
 
 #: ../../source/for_users/datasets/output_data.rst:257
 msgid "Tree cover, broadleaved, deciduous, closed (>40%)"
-msgstr ""
+msgstr "树木覆盖，阔叶，落叶，闭合 (>40%)"
 
 #: ../../source/for_users/datasets/output_data.rst:259
 #: ../../source/for_users/datasets/output_data.rst:400
 msgid "62"
-msgstr ""
+msgstr "62"
 
 #: ../../source/for_users/datasets/output_data.rst:259
 msgid "Tree cover, broadleaved, deciduous, open (15‐40%)"
-msgstr ""
+msgstr "树木覆盖，阔叶，落叶，开放 (15-40%)"
 
 #: ../../source/for_users/datasets/output_data.rst:261
 msgid "70"
-msgstr ""
+msgstr "70"
 
 #: ../../source/for_users/datasets/output_data.rst:261
 msgid "Tree cover, needleleaved, evergreen, closed to open (>15%)"
-msgstr ""
+msgstr "树盖，针叶，常绿，闭合到开放 (>15%)"
 
 #: ../../source/for_users/datasets/output_data.rst:263
 #: ../../source/for_users/datasets/output_data.rst:410
 msgid "71"
-msgstr ""
+msgstr "71"
 
 #: ../../source/for_users/datasets/output_data.rst:263
 msgid "Tree cover, needleleaved, evergreen, closed (>40%)"
-msgstr ""
+msgstr "树盖，针叶，常绿，闭合 (>40%)"
 
 #: ../../source/for_users/datasets/output_data.rst:265
 #: ../../source/for_users/datasets/output_data.rst:412
 msgid "72"
-msgstr ""
+msgstr "72"
 
 #: ../../source/for_users/datasets/output_data.rst:265
 msgid "Tree cover, needleleaved, evergreen, open (15‐40%)"
-msgstr ""
+msgstr "树盖，针叶，常绿，开放 (15‐40%)"
 
 #: ../../source/for_users/datasets/output_data.rst:267
 msgid "80"
-msgstr ""
+msgstr "80"
 
 #: ../../source/for_users/datasets/output_data.rst:267
 msgid "Tree cover, needleleaved, deciduous, closed to open (>15%)"
-msgstr ""
+msgstr "树盖，针叶，落叶，闭合到开放 (>15%)"
 
 #: ../../source/for_users/datasets/output_data.rst:269
 msgid "81"
-msgstr ""
+msgstr "81"
 
 #: ../../source/for_users/datasets/output_data.rst:269
 msgid "Tree cover, needleleaved, deciduous, closed (>40%)"
-msgstr ""
+msgstr "树盖，针叶，落叶，闭合 (>40%)"
 
 #: ../../source/for_users/datasets/output_data.rst:271
 msgid "82"
-msgstr ""
+msgstr "82"
 
 #: ../../source/for_users/datasets/output_data.rst:271
 msgid "Tree cover, needleleaved, deciduous, open (15‐40%)"
-msgstr ""
+msgstr "树盖，针叶，落叶，开放 (15-40%)"
 
 #: ../../source/for_users/datasets/output_data.rst:273
 msgid "90"
-msgstr ""
+msgstr "90"
 
 #: ../../source/for_users/datasets/output_data.rst:273
 msgid "Tree cover, mixed leaf type (broadleaved and needleleaved)"
-msgstr ""
+msgstr "树盖，混合叶型（阔叶和针叶）"
 
 #: ../../source/for_users/datasets/output_data.rst:275
 msgid "100"
-msgstr ""
+msgstr "100"
 
 #: ../../source/for_users/datasets/output_data.rst:275
 msgid "Mosaic tree and shrub (>50%) / herbaceous cover (<50%)"
-msgstr ""
+msgstr "花叶树和灌木 (>50%) / 草本覆盖 (<50%)"
 
 #: ../../source/for_users/datasets/output_data.rst:277
 msgid "110"
-msgstr ""
+msgstr "110"
 
 #: ../../source/for_users/datasets/output_data.rst:277
 msgid "Mosaic herbaceous cover (>50%) / tree and shrub (<50%)"
-msgstr ""
+msgstr "花叶草本覆盖率 (>50%) / 乔木和灌木 (<50%)"
 
 #: ../../source/for_users/datasets/output_data.rst:279
 msgid "120"
-msgstr ""
+msgstr "120"
 
 #: ../../source/for_users/datasets/output_data.rst:279
 msgid "Shrubland"
-msgstr ""
+msgstr "灌木丛"
 
 #: ../../source/for_users/datasets/output_data.rst:281
 msgid "121"
-msgstr ""
+msgstr "121"
 
 #: ../../source/for_users/datasets/output_data.rst:281
 msgid "Evergreen shrubland"
-msgstr ""
+msgstr "常绿灌木丛"
 
 #: ../../source/for_users/datasets/output_data.rst:283
 msgid "122"
-msgstr ""
+msgstr "122"
 
 #: ../../source/for_users/datasets/output_data.rst:283
 msgid "Deciduous shrubland"
-msgstr ""
+msgstr "落叶灌丛"
 
 #: ../../source/for_users/datasets/output_data.rst:285
 msgid "130"
-msgstr ""
+msgstr "130"
 
 #: ../../source/for_users/datasets/output_data.rst:285
 msgid "Grassland"
-msgstr ""
+msgstr "草原"
 
 #: ../../source/for_users/datasets/output_data.rst:287
 msgid "140"
-msgstr ""
+msgstr "140"
 
 #: ../../source/for_users/datasets/output_data.rst:287
 msgid "Lichens and mosses"
-msgstr ""
+msgstr "地衣和苔藓"
 
 #: ../../source/for_users/datasets/output_data.rst:289
 msgid "150"
-msgstr ""
+msgstr "150"
 
 #: ../../source/for_users/datasets/output_data.rst:289
 msgid "Sparse vegetation (tree, shrub, herbaceous cover) (<15%)"
-msgstr ""
+msgstr "稀疏植被（树木、灌木、草本覆盖物）(<15%)"
 
 #: ../../source/for_users/datasets/output_data.rst:291
 msgid "151"
-msgstr ""
+msgstr "151"
 
 #: ../../source/for_users/datasets/output_data.rst:291
 msgid "Sparse tree (<15%)"
-msgstr ""
+msgstr "稀疏树木 (<15%)"
 
 #: ../../source/for_users/datasets/output_data.rst:293
 msgid "152"
-msgstr ""
+msgstr "152"
 
 #: ../../source/for_users/datasets/output_data.rst:293
 msgid "Sparse shrub (<15%)"
-msgstr ""
+msgstr "稀疏灌木 (<15%)"
 
 #: ../../source/for_users/datasets/output_data.rst:295
 msgid "153"
-msgstr ""
+msgstr "153"
 
 #: ../../source/for_users/datasets/output_data.rst:295
 msgid "Sparse herbaceous cover (<15%)"
-msgstr ""
+msgstr "稀疏的草本覆盖 (<15%)"
 
 #: ../../source/for_users/datasets/output_data.rst:297
 msgid "160"
-msgstr ""
+msgstr "160"
 
 #: ../../source/for_users/datasets/output_data.rst:297
 msgid "Tree cover, flooded, fresh or brakish water"
-msgstr ""
+msgstr "树木覆盖、水淹、淡水或微咸水"
 
 #: ../../source/for_users/datasets/output_data.rst:299
 msgid "170"
-msgstr ""
+msgstr "170"
 
 #: ../../source/for_users/datasets/output_data.rst:299
 msgid "Tree cover, flooded, saline water"
-msgstr ""
+msgstr "树木覆盖，水淹，盐水"
 
 #: ../../source/for_users/datasets/output_data.rst:301
 msgid "180"
-msgstr ""
+msgstr "180"
 
 #: ../../source/for_users/datasets/output_data.rst:301
 msgid "Shrub or herbaceous cover, flooded, fresh/saline/brakish water"
-msgstr ""
+msgstr "灌木或草本覆盖，水淹，淡水/盐水/微咸水"
 
 #: ../../source/for_users/datasets/output_data.rst:303
 msgid "190"
-msgstr ""
+msgstr "190"
 
 #: ../../source/for_users/datasets/output_data.rst:303
 msgid "Urban areas"
-msgstr ""
+msgstr "城市地区"
 
 #: ../../source/for_users/datasets/output_data.rst:305
 msgid "200"
-msgstr ""
+msgstr "200"
 
 #: ../../source/for_users/datasets/output_data.rst:305
 msgid "Bare areas"
-msgstr ""
+msgstr "裸露区域"
 
 #: ../../source/for_users/datasets/output_data.rst:307
 msgid "201"
-msgstr ""
+msgstr "201"
 
 #: ../../source/for_users/datasets/output_data.rst:307
 msgid "Consolidated bare areas"
-msgstr ""
+msgstr "合并裸露区域"
 
 #: ../../source/for_users/datasets/output_data.rst:309
 msgid "202"
-msgstr ""
+msgstr "202"
 
 #: ../../source/for_users/datasets/output_data.rst:309
 msgid "Unconsolidated bare areas"
-msgstr ""
+msgstr "未合并的裸露区域"
 
 #: ../../source/for_users/datasets/output_data.rst:311
 msgid "210"
-msgstr ""
+msgstr "210"
 
 #: ../../source/for_users/datasets/output_data.rst:311
 msgid "Water bodies"
-msgstr ""
+msgstr "水体"
 
 #: ../../source/for_users/datasets/output_data.rst:313
 msgid "220"
-msgstr ""
+msgstr "220"
 
 #: ../../source/for_users/datasets/output_data.rst:313
 msgid "Permanent snow and ice"
-msgstr ""
+msgstr "永久冰雪"
 
 #: ../../source/for_users/datasets/output_data.rst:317
 msgid "Land cover (transitions)"
-msgstr ""
+msgstr "土地覆盖（过渡）"
 
 #: ../../source/for_users/datasets/output_data.rst:324
 msgid "Tree-covered - Tree-covered (no change)"
-msgstr ""
+msgstr "树木覆盖——树木覆盖（无变化）"
 
 #: ../../source/for_users/datasets/output_data.rst:326
 msgid "Grassland - Grassland (no change)"
-msgstr ""
+msgstr "草原——草原（无变化）"
 
 #: ../../source/for_users/datasets/output_data.rst:328
 msgid "Cropland - Cropland (no change)"
-msgstr ""
+msgstr "农田——农田（无变化）"
 
 #: ../../source/for_users/datasets/output_data.rst:330
 msgid "Wetland - Wetland (no change)"
-msgstr ""
+msgstr "湿地——湿地（无变化）"
 
 #: ../../source/for_users/datasets/output_data.rst:332
 msgid "Artificial - Artificial (no change)"
-msgstr ""
+msgstr "人工——人工（无变化）"
 
 #: ../../source/for_users/datasets/output_data.rst:334
 msgid "Other land - Other land (no change)"
-msgstr ""
+msgstr "其他土地——其他土地（无变化）"
 
 #: ../../source/for_users/datasets/output_data.rst:336
 msgid "Water body - Water body (no change)"
-msgstr ""
+msgstr "水体——水体（无变化）"
 
 #: ../../source/for_users/datasets/output_data.rst:338
 msgid "Forest - Grassland"
-msgstr ""
+msgstr "森林——草原"
 
 #: ../../source/for_users/datasets/output_data.rst:340
 msgid "13"
-msgstr ""
+msgstr "13"
 
 #: ../../source/for_users/datasets/output_data.rst:340
 msgid "Forest - Cropland"
-msgstr ""
+msgstr "森林——农田"
 
 #: ../../source/for_users/datasets/output_data.rst:342
 msgid "14"
-msgstr ""
+msgstr "14"
 
 #: ../../source/for_users/datasets/output_data.rst:342
 msgid "Forest - Wetland"
-msgstr ""
+msgstr "森林——湿地"
 
 #: ../../source/for_users/datasets/output_data.rst:344
 msgid "15"
-msgstr ""
+msgstr "15"
 
 #: ../../source/for_users/datasets/output_data.rst:344
 msgid "Forest - Artificial"
-msgstr ""
+msgstr "森林——人工"
 
 #: ../../source/for_users/datasets/output_data.rst:346
 msgid "16"
-msgstr ""
+msgstr "16"
 
 #: ../../source/for_users/datasets/output_data.rst:346
 msgid "Forest - Other land"
-msgstr ""
+msgstr "森林——其他土地"
 
 #: ../../source/for_users/datasets/output_data.rst:348
 msgid "17"
-msgstr ""
+msgstr "17"
 
 #: ../../source/for_users/datasets/output_data.rst:348
 msgid "Forest - Water body"
-msgstr ""
+msgstr "森林——水体"
 
 #: ../../source/for_users/datasets/output_data.rst:350
 msgid "21"
-msgstr ""
+msgstr "21"
 
 #: ../../source/for_users/datasets/output_data.rst:350
 msgid "Grassland - Forest"
-msgstr ""
+msgstr "草原——森林"
 
 #: ../../source/for_users/datasets/output_data.rst:352
 msgid "23"
-msgstr ""
+msgstr "23"
 
 #: ../../source/for_users/datasets/output_data.rst:352
 msgid "Grassland - Cropland"
-msgstr ""
+msgstr "草原——农田"
 
 #: ../../source/for_users/datasets/output_data.rst:354
 msgid "24"
-msgstr ""
+msgstr "24"
 
 #: ../../source/for_users/datasets/output_data.rst:354
 msgid "Grassland - Wetland"
-msgstr ""
+msgstr "草原——湿地"
 
 #: ../../source/for_users/datasets/output_data.rst:356
 msgid "25"
-msgstr ""
+msgstr "25"
 
 #: ../../source/for_users/datasets/output_data.rst:356
 msgid "Grassland - Artificial"
-msgstr ""
+msgstr "草原——人工"
 
 #: ../../source/for_users/datasets/output_data.rst:358
 msgid "26"
-msgstr ""
+msgstr "26"
 
 #: ../../source/for_users/datasets/output_data.rst:358
 msgid "Grassland - Other land"
-msgstr ""
+msgstr "草原——其他土地"
 
 #: ../../source/for_users/datasets/output_data.rst:360
 msgid "27"
-msgstr ""
+msgstr "27"
 
 #: ../../source/for_users/datasets/output_data.rst:360
 msgid "Grassland - Water body"
-msgstr ""
+msgstr "草原——水体"
 
 #: ../../source/for_users/datasets/output_data.rst:362
 msgid "31"
-msgstr ""
+msgstr "31"
 
 #: ../../source/for_users/datasets/output_data.rst:362
 msgid "Cropland - Forest"
-msgstr ""
+msgstr "农田——森林"
 
 #: ../../source/for_users/datasets/output_data.rst:364
 msgid "32"
-msgstr ""
+msgstr "32"
 
 #: ../../source/for_users/datasets/output_data.rst:364
 msgid "Cropland - Grassland"
-msgstr ""
+msgstr "农田——草原"
 
 #: ../../source/for_users/datasets/output_data.rst:366
 msgid "34"
-msgstr ""
+msgstr "34"
 
 #: ../../source/for_users/datasets/output_data.rst:366
 msgid "Cropland - Wetland"
-msgstr ""
+msgstr "农田——湿地"
 
 #: ../../source/for_users/datasets/output_data.rst:368
 msgid "35"
-msgstr ""
+msgstr "35"
 
 #: ../../source/for_users/datasets/output_data.rst:368
 msgid "Cropland - Artificial"
-msgstr ""
+msgstr "农田——人工"
 
 #: ../../source/for_users/datasets/output_data.rst:370
 msgid "36"
-msgstr ""
+msgstr "36"
 
 #: ../../source/for_users/datasets/output_data.rst:370
 msgid "Cropland - Other land"
-msgstr ""
+msgstr "农田——其他土地"
 
 #: ../../source/for_users/datasets/output_data.rst:372
 msgid "37"
-msgstr ""
+msgstr "37"
 
 #: ../../source/for_users/datasets/output_data.rst:372
 msgid "Cropland - Water body"
-msgstr ""
+msgstr "农田——水体"
 
 #: ../../source/for_users/datasets/output_data.rst:374
 msgid "41"
-msgstr ""
+msgstr "41"
 
 #: ../../source/for_users/datasets/output_data.rst:374
 msgid "Wetland - Forest"
@@ -1120,21 +1136,22 @@ msgstr ""
 #: ../../source/for_users/datasets/output_data.rst:424
 #: ../../source/for_users/datasets/output_data.rst:440
 msgid "Soil organic carbon"
-msgstr ""
+msgstr "土壤有机碳"
 
 #: ../../source/for_users/datasets/output_data.rst:427
 msgid "Soil organic carbon (degradation)"
-msgstr ""
+msgstr "土壤有机碳（降解）"
 
 #: ../../source/for_users/datasets/output_data.rst:434
 msgid ""
 "Percentage change in soil organic carbon content (0 - 30 cm depth) from "
-"baseline to target year. Positive values indicate increase, negative "
-"values indicate decrease."
+"baseline to target year. Positive values indicate increase, negative values "
+"indicate decrease."
 msgstr ""
 
 #: ../../source/for_users/datasets/output_data.rst:447
-msgid "Soil organic carbon content (0 - 30 cm depth) in metric tons per hectare"
+msgid ""
+"Soil organic carbon content (0 - 30 cm depth) in metric tons per hectare"
 msgstr ""
 
 #: ../../source/for_users/datasets/output_data.rst:452
@@ -1143,7 +1160,7 @@ msgstr ""
 
 #: ../../source/for_users/datasets/output_data.rst:456
 msgid "Standardized Precipitation Index (SPI)"
-msgstr ""
+msgstr "标准化降水指数（SPI）"
 
 #: ../../source/for_users/datasets/output_data.rst:463
 msgid "Standardized precipitation index, scaled * 1000"
@@ -1155,11 +1172,11 @@ msgstr ""
 
 #: ../../source/for_users/datasets/output_data.rst:470
 msgid ""
-"As an indicator of population exposure to drought, Trends.Earth's drought"
-" tools produce a layer assessing total population (or male or female "
-"population, depending on the selections made by the user) at time of "
-"maximum drought. For the purpose of these analyses, drought is defined as"
-" an SPI less than -1.0 (a lag 12 SPI is the default used in the tool)."
+"As an indicator of population exposure to drought, Trends.Earth's drought "
+"tools produce a layer assessing total population (or male or female "
+"population, depending on the selections made by the user) at time of maximum"
+" drought. For the purpose of these analyses, drought is defined as an SPI "
+"less than -1.0 (a lag 12 SPI is the default used in the tool)."
 msgstr ""
 
 #: ../../source/for_users/datasets/output_data.rst:481
@@ -1168,10 +1185,9 @@ msgstr ""
 
 #: ../../source/for_users/datasets/output_data.rst:481
 msgid ""
-"A positive value indicates a pixel **was** exposed to drought (defined as"
-" SPI < -1) during a particular (typically four- year) period. The pixel "
-"value indicates the population of the pixel at the time of maximum "
-"drought."
+"A positive value indicates a pixel **was** exposed to drought (defined as "
+"SPI < -1) during a particular (typically four- year) period. The pixel value"
+" indicates the population of the pixel at the time of maximum drought."
 msgstr ""
 
 #: ../../source/for_users/datasets/output_data.rst:486
@@ -1180,8 +1196,8 @@ msgstr ""
 
 #: ../../source/for_users/datasets/output_data.rst:486
 msgid ""
-"A positive value indicates a pixel **was not** exposed to drought during "
-"a particular (typically four-year) period. The pixel value indicates the "
+"A positive value indicates a pixel **was not** exposed to drought during a "
+"particular (typically four-year) period. The pixel value indicates the "
 "maximum population of the pixel during the period."
 msgstr ""
 
@@ -1260,7 +1276,7 @@ msgstr ""
 
 #: ../../source/for_users/datasets/output_data.rst:544
 msgid "Population"
-msgstr ""
+msgstr "人口"
 
 #: ../../source/for_users/datasets/output_data.rst:547
 msgid "Population density"
@@ -1277,98 +1293,97 @@ msgstr ""
 
 #: ../../source/for_users/datasets/output_data.rst:560
 msgid ""
-"This output draws on data from the `WorldPop <https://www.worldpop.org>`_"
-" project. Depending on the tool used in Trends.Earth, population outputs "
-"can be: total population (male and female), total male population, or "
-"total female population. The pixels values in each all are coded the same"
-" way, and refer to actual population counts per grid cell."
+"This output draws on data from the `WorldPop <https://www.worldpop.org>`_ "
+"project. Depending on the tool used in Trends.Earth, population outputs can "
+"be: total population (male and female), total male population, or total "
+"female population. The pixels values in each all are coded the same way, and"
+" refer to actual population counts per grid cell."
 msgstr ""
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr ""
+msgstr "iconCalculator"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr ""
+msgstr "iconChart"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr ""
+msgstr "iconClipboard"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr ""
+msgstr "iconCloudDownload"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr ""
+msgstr "iconCog"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr ""
+msgstr "iconDeletedataset"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
-msgstr ""
+msgstr "iconGlobe"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr ""
+msgstr "iconGraph"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr ""
+msgstr "iconInfo"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr ""
+msgstr "iconLoaddataset"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr ""
+msgstr "iconMarkMarker"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr ""
+msgstr "iconOpendatasetdirectory"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr ""
+msgstr "iconViewdatasetdetails"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr ""
+msgstr "iconWrench"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr ""
+msgstr "iconFolder"
 
 #: ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr ""
+msgstr "iconReports"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr ""
+msgstr "iconTrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr ""
+msgstr "iconVisualization"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr ""
+msgstr "logoCI"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr ""
+msgstr "logoLund"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr ""
+msgstr "logoNASA"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr ""
-
+msgstr "logoGEF"

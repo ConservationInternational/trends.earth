@@ -1,22 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
-#
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-06-21 17:06-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2022-05-26 11:58+0000\n"
+"Language-Team: Persian (https://www.transifex.com/conservation-international/teams/80165/fa/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Language: fa\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: ../../source/for_users/preamble/index.rst:4
 msgid "Preamble"
@@ -24,25 +23,24 @@ msgstr ""
 
 #: ../../source/for_users/preamble/index.rst:5
 msgid ""
-"Trends.Earth is a platform to monitor land change using earth "
-"observations. It is now available as a browser-based tool in addition to "
-"the plugin to desktop QGIS spatial-analytical software."
+"Trends.Earth is a platform to monitor land change using earth observations. "
+"It is now available as a browser-based tool in addition to the plugin to "
+"desktop QGIS spatial-analytical software."
 msgstr ""
 
 #: ../../source/for_users/preamble/index.rst:9
 msgid ""
-"The tool allows users to assess time series of key indicators of land "
-"change to produce maps and other graphics that can support monitoring and"
-" reporting, and to track the impact of sustainable land management. The "
-"tool supports monitoring progress on land degradation neutrality (SDG "
-"15.3.1), land consumption (SDG 11.3.1), modeling carbon emissions from "
-"deforestation, and modeling potential carbon sequestration from "
-"restoration activities. Trends.Earth supports monitoring and reporting on"
-" Sustainable Development Goals (SDGs) 15.3.1 (area of degraded land) and "
-"11.3.1 (ration of land consumption rate to population growth) by "
-"providing a platform for analyzing data for reporting commitments to the "
-"United Nations Convention to Combat Desertification (UNCCD) and UN-"
-"Habitat."
+"The tool allows users to assess time series of key indicators of land change"
+" to produce maps and other graphics that can support monitoring and "
+"reporting, and to track the impact of sustainable land management. The tool "
+"supports monitoring progress on land degradation neutrality (SDG 15.3.1), "
+"land consumption (SDG 11.3.1), modeling carbon emissions from deforestation,"
+" and modeling potential carbon sequestration from restoration activities. "
+"Trends.Earth supports monitoring and reporting on Sustainable Development "
+"Goals (SDGs) 15.3.1 (area of degraded land) and 11.3.1 (ration of land "
+"consumption rate to population growth) by providing a platform for analyzing"
+" data for reporting commitments to the United Nations Convention to Combat "
+"Desertification (UNCCD) and UN-Habitat."
 msgstr ""
 
 #: ../../source/for_users/preamble/index.rst:18
@@ -60,8 +58,8 @@ msgstr ""
 #: ../../source/for_users/preamble/index.rst:24
 msgid ""
 "Trends.Earth (formerly the Land Degradation Monitoring Toolbox) is a "
-"platform from `Conservation International`_ for monitoring land change "
-"using earth observations in an innovative desktop and cloud-based system."
+"platform from `Conservation International`_ for monitoring land change using"
+" earth observations in an innovative desktop and cloud-based system."
 msgstr ""
 
 #: ../../source/for_users/preamble/index.rst:30
@@ -73,21 +71,21 @@ msgid ""
 "The three sub-indicators for monitoring achievement of Land Degradation "
 "Neutrality (LDN, Sustainable Development Goal (SDG) Target 15.3), are "
 "supported by |trends.earth|: productivity, land cover, and soil organic "
-"carbon.  The tool also supports countries in analyzing data to prepare "
-"for their reporting commitments to the United Nations Convention to "
-"Combat Desertification (UNCCD)."
+"carbon.  The tool also supports countries in analyzing data to prepare for "
+"their reporting commitments to the United Nations Convention to Combat "
+"Desertification (UNCCD)."
 msgstr ""
 
-#: ../../../<rst_epilog>:37
+#: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
 msgid "Trends.Earth"
 msgstr ""
 
 #: ../../source/for_users/preamble/index.rst:39
 msgid ""
 "Trends.Earth allows users to plot time series of key indicators of land "
-"change (including degradation and improvement), to produce maps and other"
-" graphics that can support monitoring and reporting, and to track the "
-"impact of sustainable land management or other projects."
+"change (including degradation and improvement), to produce maps and other "
+"graphics that can support monitoring and reporting, and to track the impact "
+"of sustainable land management or other projects."
 msgstr ""
 
 #: ../../source/for_users/preamble/index.rst:44
@@ -96,9 +94,9 @@ msgstr ""
 
 #: ../../source/for_users/preamble/index.rst:46
 msgid ""
-"For more information about the toolbox, see the `General Information "
-"section <_general>` For toolbox users, see the `User Guide <_for_users>` "
-"For developers, see the `Developers Guide <_for_developers>`"
+"For more information about the toolbox, see the `General Information section"
+" <_general>` For toolbox users, see the `User Guide <_for_users>` For "
+"developers, see the `Developers Guide <_for_developers>`"
 msgstr ""
 
 #: ../../../<rst_epilog>:2
@@ -173,19 +171,18 @@ msgstr ""
 msgid "iconVisualization"
 msgstr ""
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoCI"
 msgstr ""
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoLund"
 msgstr ""
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoNASA"
 msgstr ""
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoGEF"
 msgstr ""
-

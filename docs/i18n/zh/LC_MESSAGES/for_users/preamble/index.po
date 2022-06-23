@@ -1,22 +1,26 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
-#
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
+# Alex Zvoleff <azvoleff@conservation.org>, 2022
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-06-21 17:06-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2022-05-26 11:58+0000\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
+"Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Language: zh\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../../source/for_users/preamble/index.rst:4
 msgid "Preamble"
@@ -24,25 +28,24 @@ msgstr ""
 
 #: ../../source/for_users/preamble/index.rst:5
 msgid ""
-"Trends.Earth is a platform to monitor land change using earth "
-"observations. It is now available as a browser-based tool in addition to "
-"the plugin to desktop QGIS spatial-analytical software."
+"Trends.Earth is a platform to monitor land change using earth observations. "
+"It is now available as a browser-based tool in addition to the plugin to "
+"desktop QGIS spatial-analytical software."
 msgstr ""
 
 #: ../../source/for_users/preamble/index.rst:9
 msgid ""
-"The tool allows users to assess time series of key indicators of land "
-"change to produce maps and other graphics that can support monitoring and"
-" reporting, and to track the impact of sustainable land management. The "
-"tool supports monitoring progress on land degradation neutrality (SDG "
-"15.3.1), land consumption (SDG 11.3.1), modeling carbon emissions from "
-"deforestation, and modeling potential carbon sequestration from "
-"restoration activities. Trends.Earth supports monitoring and reporting on"
-" Sustainable Development Goals (SDGs) 15.3.1 (area of degraded land) and "
-"11.3.1 (ration of land consumption rate to population growth) by "
-"providing a platform for analyzing data for reporting commitments to the "
-"United Nations Convention to Combat Desertification (UNCCD) and UN-"
-"Habitat."
+"The tool allows users to assess time series of key indicators of land change"
+" to produce maps and other graphics that can support monitoring and "
+"reporting, and to track the impact of sustainable land management. The tool "
+"supports monitoring progress on land degradation neutrality (SDG 15.3.1), "
+"land consumption (SDG 11.3.1), modeling carbon emissions from deforestation,"
+" and modeling potential carbon sequestration from restoration activities. "
+"Trends.Earth supports monitoring and reporting on Sustainable Development "
+"Goals (SDGs) 15.3.1 (area of degraded land) and 11.3.1 (ration of land "
+"consumption rate to population growth) by providing a platform for analyzing"
+" data for reporting commitments to the United Nations Convention to Combat "
+"Desertification (UNCCD) and UN-Habitat."
 msgstr ""
 
 #: ../../source/for_users/preamble/index.rst:18
@@ -60,8 +63,8 @@ msgstr ""
 #: ../../source/for_users/preamble/index.rst:24
 msgid ""
 "Trends.Earth (formerly the Land Degradation Monitoring Toolbox) is a "
-"platform from `Conservation International`_ for monitoring land change "
-"using earth observations in an innovative desktop and cloud-based system."
+"platform from `Conservation International`_ for monitoring land change using"
+" earth observations in an innovative desktop and cloud-based system."
 msgstr ""
 
 #: ../../source/for_users/preamble/index.rst:30
@@ -73,22 +76,23 @@ msgid ""
 "The three sub-indicators for monitoring achievement of Land Degradation "
 "Neutrality (LDN, Sustainable Development Goal (SDG) Target 15.3), are "
 "supported by |trends.earth|: productivity, land cover, and soil organic "
-"carbon.  The tool also supports countries in analyzing data to prepare "
-"for their reporting commitments to the United Nations Convention to "
-"Combat Desertification (UNCCD)."
+"carbon.  The tool also supports countries in analyzing data to prepare for "
+"their reporting commitments to the United Nations Convention to Combat "
+"Desertification (UNCCD)."
 msgstr ""
 
-#: ../../../<rst_epilog>:37
+#: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
 msgid "Trends.Earth"
-msgstr ""
+msgstr "Trends.Earth"
 
 #: ../../source/for_users/preamble/index.rst:39
 msgid ""
 "Trends.Earth allows users to plot time series of key indicators of land "
-"change (including degradation and improvement), to produce maps and other"
-" graphics that can support monitoring and reporting, and to track the "
-"impact of sustainable land management or other projects."
+"change (including degradation and improvement), to produce maps and other "
+"graphics that can support monitoring and reporting, and to track the impact "
+"of sustainable land management or other projects."
 msgstr ""
+"Trends.Earth允许用户绘制土地变化（包括退化和改善）关键指标的时间序列，生成可支持监测和报告的地图和其他图形，并跟踪可持续土地管理或其他项目的影响。"
 
 #: ../../source/for_users/preamble/index.rst:44
 msgid "**More information**"
@@ -96,96 +100,95 @@ msgstr ""
 
 #: ../../source/for_users/preamble/index.rst:46
 msgid ""
-"For more information about the toolbox, see the `General Information "
-"section <_general>` For toolbox users, see the `User Guide <_for_users>` "
-"For developers, see the `Developers Guide <_for_developers>`"
+"For more information about the toolbox, see the `General Information section"
+" <_general>` For toolbox users, see the `User Guide <_for_users>` For "
+"developers, see the `Developers Guide <_for_developers>`"
 msgstr ""
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr ""
+msgstr "iconCalculator"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr ""
+msgstr "iconChart"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr ""
+msgstr "iconClipboard"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr ""
+msgstr "iconCloudDownload"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr ""
+msgstr "iconCog"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr ""
+msgstr "iconDeletedataset"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
-msgstr ""
+msgstr "iconGlobe"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr ""
+msgstr "iconGraph"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr ""
+msgstr "iconInfo"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr ""
+msgstr "iconLoaddataset"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr ""
+msgstr "iconMarkMarker"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr ""
+msgstr "iconOpendatasetdirectory"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr ""
+msgstr "iconViewdatasetdetails"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr ""
+msgstr "iconWrench"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr ""
+msgstr "iconFolder"
 
 #: ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr ""
+msgstr "iconReports"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr ""
+msgstr "iconTrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr ""
+msgstr "iconVisualization"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr ""
+msgstr "logoCI"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr ""
+msgstr "logoLund"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr ""
+msgstr "logoNASA"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr ""
-
+msgstr "logoGEF"

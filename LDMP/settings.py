@@ -386,6 +386,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
                     self.area_admin_0.currentText()].level1_regions.keys()
             )
         )
+        self.secondLevel_area_admin_1.setCurrentIndex(0)
 
     def area_type_toggle(self):
         # if self.area_frompoint.isChecked():

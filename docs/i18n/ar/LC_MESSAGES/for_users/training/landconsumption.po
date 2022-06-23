@@ -1,41 +1,46 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
-#
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
+# Alex Zvoleff <azvoleff@conservation.org>, 2022
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-06-21 17:06-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2022-05-26 11:58+0000\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
+"Language-Team: Arabic (https://www.transifex.com/conservation-international/teams/80165/ar/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 #: ../../source/for_users/training/landconsumption.rst:4
 msgid "Land Consumption (SDG 11.3.1)"
-msgstr ""
+msgstr "استهلاك الأرض (SDG 11.3.1)"
 
 #: ../../source/for_users/training/landconsumption.rst:6
 msgid ""
-"**Objective**: Learn how to compute urban extent and population for 2000,"
-" 2005, 2010, 2015 in raster format and tabular outputs with areas "
-"estimated."
+"**Objective**: Learn how to compute urban extent and population for 2000, "
+"2005, 2010, 2015 in raster format and tabular outputs with areas estimated."
 msgstr ""
+"**الهدف**: تعلم كيفية حساب الامتداد الحضري والسكان للأعوام 2000 و2005 و2010 "
+"و2015 في شكل نقطي ومخرجات مجدولة مع تقدير المناطق."
 
 #: ../../source/for_users/training/landconsumption.rst:8
 msgid "**Estimated time of completion**: 40 minutes"
-msgstr ""
+msgstr "** الوقت المقدر للانتهاء **: 40 دقيقة"
 
 #: ../../source/for_users/training/landconsumption.rst:10
 msgid "**Internet access**: Required"
-msgstr ""
+msgstr "** الوصول إلى الإنترنت **: مطلوب"
 
 #: ../../source/for_users/training/landconsumption.rst:13
 msgid ""
@@ -43,27 +48,38 @@ msgid ""
 "methods used in |trends.earth|, please refer to the background section: "
 ":ref:`background_land_consumption`."
 msgstr ""
+"للحصول على وصف للمفاهيم الكامنة وراء هدف التنمية المستدامة 11.3.1، احتياجات "
+"البيانات والأساليب المستخدمة في |trends.earth|، يرجى الرجوع إلى قسم الخلفية:"
+" المرجع:`background_land_consumption`."
 
+#: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
 #: ../../../<rst_epilog>:37
 msgid "Trends.Earth"
-msgstr ""
+msgstr "Trends.Earth"
 
 #: ../../source/for_users/training/landconsumption.rst:16
 msgid ""
 "On July 20th 2019 we launched an updated version of the ISI dataset. We "
-"recommend using the most current version. However, if you run any "
-"analysis of SDG 11.3.1 in |trends.earth| before that date and would like "
-"to replicate them, please use the previous plug in version available "
-"`here "
+"recommend using the most current version. However, if you run any analysis "
+"of SDG 11.3.1 in |trends.earth| before that date and would like to replicate"
+" them, please use the previous plug in version available `here "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.64>`_"
 " and refer to this `website "
 "<https://github.com/ConservationInternational/trends.earth#development-"
 "version>`_ for instruction on how to install it."
 msgstr ""
+"في 20 يوليو 2019، أطلقنا نسخة محدثة من مجموعة بيانات ISI. نوصي باستخدام أحدث"
+" إصدار. ومع ذلك، إذا أجريت أي تحليل لهدف التنمية المستدامة 11.3.1 في | "
+"Trends.earth | قبل هذا التاريخ وترغب في تكرارها، يرجى استخدام إصدار البرنامج"
+" الإضافي السابق المتاح `هنا "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.64>"
+" `_ وارجع إلى هذا `الموقع الإلكتروني "
+"<https://github.com/ConservationInternational/trends.earth#development-"
+"version> `_ للحصول على إرشادات حول كيفية تثبيته."
 
 #: ../../source/for_users/training/landconsumption.rst:19
 msgid "Exploring the Urban Mapper"
-msgstr ""
+msgstr "استكشاف مصمم الخرائط الحضري"
 
 #: ../../source/for_users/training/landconsumption.rst:20
 msgid ""
@@ -72,13 +88,23 @@ msgid ""
 "called `Trends.Earth Urban Mapper "
 "<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
 "mapper>`_. This step is fundamental to make sure that the built up area "
-"identified by the indicators accurately reflects the conditions in your "
-"area of study. The `Trends.Earth Urban Mapper "
+"identified by the indicators accurately reflects the conditions in your area"
+" of study. The `Trends.Earth Urban Mapper "
 "<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
-"mapper>`_ allows users to explore how changing different parameters "
-"impact the extent of the built up area data which will be then used to "
-"define changes in urban extent."
+"mapper>`_ allows users to explore how changing different parameters impact "
+"the extent of the built up area data which will be then used to define "
+"changes in urban extent."
 msgstr ""
+"الخطوة الأولى قبل تحليل التغيير الحضري هي تحديد مدى المناطق المبنية. لذلك، "
+"أنشأنا واجهة ويب تفاعلية تسمى مخطط الأرض `Trends.Earth Urban Mapper "
+"<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
+"mapper>`_. هذه الخطوة أساسية للتأكد من أن المنطقة المبنية التي تم تحديدها "
+"بواسطة المؤشرات تعكس بدقة الظروف في منطقة الدراسة الخاصة بك. يتيح مخطط الأرض"
+" `Trends.Earth Urban Mapper "
+"<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
+"mapper>`_  للمستخدمين استكشاف كيفية تأثير تغيير المعلمات المختلفة على مدى "
+"بيانات المنطقة المبنية التي سيتم استخدامها بعد ذلك لتحديد التغييرات في "
+"النطاق الحضري."
 
 #: ../../source/for_users/training/landconsumption.rst:22
 msgid ""
@@ -86,113 +112,153 @@ msgid ""
 "<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
 "mapper>`_ before you run the analysis in QGIS."
 msgstr ""
+"انتقل إلى مخطط الأرض `Trends.Earth Urban Mapper "
+"<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
+"mapper>`_ قبل بدء التحليل في QGIS."
 
 #: ../../source/for_users/training/landconsumption.rst:25
 msgid ""
-"This tool can be used to analyze changes in built up area in almost any "
-"city of the world. Click on the **Search Places** window in the top "
-"center of the page and type the city you want to analyze. For this "
-"tutorial, type **Kampala, Uganda** and click on the option showing right "
-"underneath."
+"This tool can be used to analyze changes in built up area in almost any city"
+" of the world. Click on the **Search Places** window in the top center of "
+"the page and type the city you want to analyze. For this tutorial, type "
+"**Kampala, Uganda** and click on the option showing right underneath."
 msgstr ""
+"يمكن استخدام هذه الأداة لتحليل التغييرات في المناطق المبنية في أي مدينة في "
+"العالم تقريباً. انقر فوق نافذة **البحث عن الأماكن** في أعلى منتصف الصفحة "
+"واكتب المدينة التي تريد تحليلها. في هذا البرنامج التعليمي ، اكتب **Kampala, "
+"Uganda** وانقر على الخيار الذي يظهر أسفله مباشرةً."
 
 #: ../../source/for_users/training/landconsumption.rst:28
 msgid ""
 "This tool allows you to change three parameters in order to correctly "
-"identify the most appropriate built up extent for your city: **Impervious"
-" surface index, night time lights index, and water frequency**. The first"
-" time you run the tool in a new city, click **Run analysis** to see how "
-"the default parameters perform, and from there you can customize the "
-"analysis. You can use the high spatial resolution images in the "
-"background to evaluate the product."
+"identify the most appropriate built up extent for your city: **Impervious "
+"surface index, night time lights index, and water frequency**. The first "
+"time you run the tool in a new city, click **Run analysis** to see how the "
+"default parameters perform, and from there you can customize the analysis. "
+"You can use the high spatial resolution images in the background to evaluate"
+" the product."
 msgstr ""
+"تتيح لك هذه الأداة تغيير ثلاث معامِلات لتحديد مدى البناء الأنسب لمدينتك بشكل"
+" صحيح: **مؤشر السطح المنيع، ومؤشر الأضواء الليلية، وتردد المياه**. في المرة "
+"الأولى التي تقوم فيها بتشغيل الأداة في مدينة جديدة، انقر فوق **بدء التحليل**"
+" لمعرفة كيفية أداء المعلمات الافتراضية، ومن هناك يمكنك تخصيص التحليل. يمكنك "
+"استخدام الصور عالية الدقة المكانية في الخلفية لتقييم المنتج."
 
 #: ../../source/for_users/training/landconsumption.rst:30
 msgid ""
-"Now the map with the built up area defined by the default parameters will"
-" load into the map color coded in the following way:"
+"Now the map with the built up area defined by the default parameters will "
+"load into the map color coded in the following way:"
 msgstr ""
+"الآن سيتم تحميل الخريطة مع المنطقة المبنية المحددة بواسطة المعلمات "
+"الافتراضية في لون الخريطة المشفر بالطريقة التالية:"
 
 #: ../../source/for_users/training/landconsumption.rst:32
 msgid "Black: Built-up areas present since before 2000"
-msgstr ""
+msgstr "الأسود: المناطق المبنية الموجودة قبل عام 2000"
 
 #: ../../source/for_users/training/landconsumption.rst:33
 msgid "Red: Built-up areas constructed between 2000 and 2005"
-msgstr ""
+msgstr "الأحمر: المساحات المبنية بين عامي 2000 و 2005"
 
 #: ../../source/for_users/training/landconsumption.rst:34
 msgid "Orange: Built-up areas constructed between 2005 and 2010"
-msgstr ""
+msgstr "البرتقالي: المساحات المبنية بين 2005 و 2010"
 
 #: ../../source/for_users/training/landconsumption.rst:35
 msgid "Yellow: Built-up areas constructed between 2010 and 2015"
-msgstr ""
+msgstr "الأصفر: المساحات المبنية بين عامي 2010 و 2015"
 
 #: ../../source/for_users/training/landconsumption.rst:40
 msgid ""
-"Now you should use your knowledge of the city to explore the data set. We"
-" can, for example, zoom in to an area in western Kampala to see how the "
+"Now you should use your knowledge of the city to explore the data set. We "
+"can, for example, zoom in to an area in western Kampala to see how the "
 "default parameters perform (ISI: 30, NTL: 10, WFR: 25):"
 msgstr ""
+"الآن يجب عليك استخدام معرفتك بالمدينة لاستكشاف مجموعة البيانات. يمكننا على "
+"سبيل المثال، تكبير منطقة في غرب كمبالا لمعرفة كيفية أداء المعلمات الافتراضية"
+" (ISI: 30 ، TL: 10  WFR: 25):"
 
 #: ../../source/for_users/training/landconsumption.rst:45
 msgid ""
-"In this area, the data set seems to be missing some constructions, so we "
-"can adjust the ISI threshold to a lower value to include areas with lower"
-" density of impervious surface into our definition of built-up for "
-"Kampala. Let's **change the Impervious Surface Indicator threshold from "
-"30 to 25 and click Run Analysis**"
+"In this area, the data set seems to be missing some constructions, so we can"
+" adjust the ISI threshold to a lower value to include areas with lower "
+"density of impervious surface into our definition of built-up for Kampala. "
+"Let's **change the Impervious Surface Indicator threshold from 30 to 25 and "
+"click Run Analysis**"
 msgstr ""
+"في هذه المنطقة، يبدو أن مجموعة البيانات تفتقد إلى بعض الإنشاءات، لذلك يمكننا"
+" تعديل حدود ISI إلى قيمة أقل لتشمل المناطق ذات الكثافة المنخفضة للسطح غير "
+"المنفذ في تعريفنا للبناء المبني لكمبالا. دعنا نقوم بـ **تغيير حدود مؤشر "
+"السطح المنيع من 30 إلى 25 وانقر فوق بدء التحليل**"
 
 #: ../../source/for_users/training/landconsumption.rst:50
 msgid ""
-"This seems to have increased the built-up area in the direction we "
-"wanted, but we can now see some straight discontinuity lines in the "
-"outskirts of the city after which there is no information. This is a sign"
-" that the Night Time Lights threshold is being too restrictive. If we set"
-" the parameter to a lower value, we will allow the analysis to include "
-"areas with low night time light density. **Change the Night Time Light "
-"threshold from 10 to 2 and click Run Analysis.**"
+"This seems to have increased the built-up area in the direction we wanted, "
+"but we can now see some straight discontinuity lines in the outskirts of the"
+" city after which there is no information. This is a sign that the Night "
+"Time Lights threshold is being too restrictive. If we set the parameter to a"
+" lower value, we will allow the analysis to include areas with low night "
+"time light density. **Change the Night Time Light threshold from 10 to 2 and"
+" click Run Analysis.**"
 msgstr ""
+"يبدو أن هذا أدى إلى زيادة المساحة المبنية في الاتجاه الذي أردناه، ولكن "
+"يمكننا الآن رؤية بعض خطوط الانقطاع المستقيمة في ضواحي المدينة والتي لا توجد "
+"معلومات بعدها. هذه علامة على أن حدود أضواء الليل شديدة التقييد. إذا قمنا "
+"بتعيين المعلمة على قيمة أقل، فسنسمح للتحليل بتضمين مناطق ذات كثافة إضاءة "
+"ليلية منخفضة. **قم بتغيير حدود أضواء الليل من 10 إلى 2 وانقر فوق بدء "
+"التحليل.**"
 
 #: ../../source/for_users/training/landconsumption.rst:55
 msgid ""
-"We can now see that the built up area information extends too all the "
-"area we were exploring. We can run the analysis as many times as we need."
-" Each time we click **Run Analysis** a new layer will be added to the "
-"map. You can turns the different layers on and off or change the "
-"transparency of each of them in the **Layers Menu** on the top right "
-"section of the map."
+"We can now see that the built up area information extends too all the area "
+"we were exploring. We can run the analysis as many times as we need. Each "
+"time we click **Run Analysis** a new layer will be added to the map. You can"
+" turns the different layers on and off or change the transparency of each of"
+" them in the **Layers Menu** on the top right section of the map."
 msgstr ""
+"يمكننا الآن أن نرى أن معلومات المنطقة المبنية تمتد أيضاً إلى كل المنطقة التي"
+" كنا نستكشفها. يمكننا إجراء التحليل عدة مرات حسب حاجتنا. في كل مرة نقوم فيها"
+" بالنقر فوق **بدء التحليل**، ستتم إضافة طبقة جديدة إلى الخريطة. يمكنك تشغيل "
+"وإيقاف الطبقات المختلفة أو تغيير شفافية كل منها في **قائمة الطبقات** في "
+"الجزء العلوي الأيمن من الخريطة."
 
 #: ../../source/for_users/training/landconsumption.rst:60
 msgid ""
 "We recommend you spend some time exploring the effect of the different "
 "values in each parameter for your city, since your results will greatly "
-"depend on them. Make sure to navigate to different parts of the city to "
-"make sure the parameters work well in areas the high density areas close "
-"to downtown and also in moderate and low density areas. You can find "
-"below the spatial distribution of threshold parameters selected for the "
-"sample of 224 cities tested which may serve you as a guide for "
-"identifying which values may be most relevant for your city of interest. "
-"Once you feel like you have identified the best values for the city you "
-"want to analyze, you are ready to go to QGIS to run the analysis."
+"depend on them. Make sure to navigate to different parts of the city to make"
+" sure the parameters work well in areas the high density areas close to "
+"downtown and also in moderate and low density areas. You can find below the "
+"spatial distribution of threshold parameters selected for the sample of 224 "
+"cities tested which may serve you as a guide for identifying which values "
+"may be most relevant for your city of interest. Once you feel like you have "
+"identified the best values for the city you want to analyze, you are ready "
+"to go to QGIS to run the analysis."
 msgstr ""
+"نوصيك بقضاء بعض الوقت في استكشاف تأثير القيم المختلفة في كل معلمة لمدينتك، "
+"لأن نتائجك ستعتمد عليها بشكل كبير. تأكد من التنقل إلى أجزاء مختلفة من "
+"المدينة للتأكد من أن المعلمات تعمل بشكل جيد في المناطق ذات الكثافة العالية "
+"بالقرب من وسط المدينة وأيضاً في المناطق ذات الكثافة المعتدلة والمنخفضة. "
+"يمكنك العثور أدناه على التوزيع المكاني لمعلمات العتبة المحددة لعينة من 224 "
+"مدينة تم اختبارها والتي قد تخدمك كدليل لتحديد القيم التي قد تكون أكثر ملاءمة"
+" لمدينتك. بمجرد أن تشعر أنك حددت أفضل القيم للمدينة التي تريد تحليلها، فأنت "
+"على استعداد للذهاب إلى QGIS لإجراء التحليل."
 
 #: ../../source/for_users/training/landconsumption.rst:71
 msgid "Step 1: Built-up series"
-msgstr ""
+msgstr "الخطوة 1: سلسلة مدمجة"
 
 #: ../../source/for_users/training/landconsumption.rst:72
 msgid ""
-"Select the Calculate icon (|iconCalculator|) from the Trends.Earth plugin"
-" in QGIS."
+"Select the Calculate icon (|iconCalculator|) from the Trends.Earth plugin in"
+" QGIS."
 msgstr ""
+"حدد أيقونة الحساب (| iconCalculator |) من المكون الإضافي Trends.Earth في "
+"QGIS."
 
-#: ../../../<rst_epilog>:2
+#: ../../../<rst_epilog>:2 ../../../<rst_epilog>:2 ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr ""
+msgstr "أيقونة حاسبة"
 
 #: ../../source/for_users/training/landconsumption.rst:77
 #: ../../source/for_users/training/landconsumption.rst:163
@@ -201,87 +267,111 @@ msgid ""
 "**Urban change and land consumption indicators (SDG indicator 11.3.1)** "
 "button."
 msgstr ""
+"سيتم فتح قائمة **حساب المؤشرات**. في تلك النافذة، انقر فوق الزر **مؤشرات "
+"التغير الحضري واستهلاك الأراضي (مؤشر SDG 11.3.1)**."
 
 #: ../../source/for_users/training/landconsumption.rst:82
 msgid "Select Step 1: Calculate urban change spatial layers"
-msgstr ""
+msgstr "حدد الخطوة 1: حساب الطبقات المكانية للتغيير الحضري"
 
 #: ../../source/for_users/training/landconsumption.rst:87
 msgid ""
-"The **Calculate Urban Area Change Metrics** menu will open. In that "
-"window, you will step through the four tabs to set the parameters for "
-"your analysis. In the settings tab you will input the parameters you have"
-" determined as most appropriate for the city by exploring the "
-"`Trends.Earth Urban Mapper "
+"The **Calculate Urban Area Change Metrics** menu will open. In that window, "
+"you will step through the four tabs to set the parameters for your analysis."
+" In the settings tab you will input the parameters you have determined as "
+"most appropriate for the city by exploring the `Trends.Earth Urban Mapper "
 "<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
 "mapper>`_."
 msgstr ""
+"سيتم فتح قائمة **حساب مقاييس تغيير المنطقة الحضرية**. في هذه النافذة، ستتنقل"
+" عبر علامات التبويب الأربع لتعيين المعلمات لتحليلك. في علامة تبويب "
+"\"الإعدادات\"، ستقوم بإدخال المعلمات التي حددتها على أنها الأكثر ملاءمة "
+"للمدينة من خلال استكشاف مخطط الأرض `Trends.Earth Urban Mapper "
+"<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
+"mapper>`_."
 
 #: ../../source/for_users/training/landconsumption.rst:89
 msgid ""
-"Select the Impervious Surface Index (ISI) by choosing a value between "
-"0-100. Lower values will include low density areas."
+"Select the Impervious Surface Index (ISI) by choosing a value between 0-100."
+" Lower values will include low density areas."
 msgstr ""
+"حدد مؤشر السطح غير المنفذ (ISI) باختيار قيمة بين 0-100. ستتضمن القيم "
+"المنخفضة مناطق منخفضة الكثافة."
 
 #: ../../source/for_users/training/landconsumption.rst:91
 msgid ""
-"Select the Night Time Lights Index (NTL) by choosing a value between "
-"0-100. Lower values will include low light areas."
+"Select the Night Time Lights Index (NTL) by choosing a value between 0-100. "
+"Lower values will include low light areas."
 msgstr ""
+"حدد مؤشر أضواء الليل (NTL) باختيار قيمة بين 0-100. ستتضمن القيم المنخفضة "
+"مناطق الإضاءة المنخفضة."
 
 #: ../../source/for_users/training/landconsumption.rst:93
 msgid ""
-"Select the Water Frequency (WFR) by choosing a value between 0-100. Lower"
-" values will include low frequency water bodies."
+"Select the Water Frequency (WFR) by choosing a value between 0-100. Lower "
+"values will include low frequency water bodies."
 msgstr ""
+"حدد تردد الماء (WFR) باختيار قيمة بين 0-100. ستشمل القيم المنخفضة المسطحات "
+"المائية ذات التردد المنخفض."
 
 #: ../../source/for_users/training/landconsumption.rst:98
 msgid ""
-"In this case, we will change them to: ISI = 25, NTL = 2, and WFR = 25 and"
-" click Next."
+"In this case, we will change them to: ISI = 25, NTL = 2, and WFR = 25 and "
+"click Next."
 msgstr ""
+"في هذه الحالة، سنقوم بتغييرها إلى: ISI = 25 و NTL = 2 و WFR = 25 ثم انقر فوق"
+" التالي."
 
 #: ../../source/for_users/training/landconsumption.rst:103
 msgid "On the Advanced tab, you will need to define:"
-msgstr ""
+msgstr "في علامة التبويب \"الخيارات المتقدمة\"، ستحتاج إلى تحديد:"
 
 #: ../../source/for_users/training/landconsumption.rst:105
 msgid "The thresholds for suburban and urban built up areas."
-msgstr ""
+msgstr "الحدود القصوى للضواحي والمناطق الحضرية."
 
 #: ../../source/for_users/training/landconsumption.rst:107
 msgid ""
-"Define the area of largest captured open space (ha) which is the "
-"contiguous captured open space larger than this area that will be "
-"considered rural."
+"Define the area of largest captured open space (ha) which is the contiguous "
+"captured open space larger than this area that will be considered rural."
 msgstr ""
+"حدد مساحة أكبر مساحة مفتوحة تم التقاطها (هكتار) وهي المساحة المفتوحة "
+"المتجاورة التي تم التقاطها أكبر من هذه المنطقة التي سيتم اعتبارها ريفية."
 
 #: ../../source/for_users/training/landconsumption.rst:109
 msgid ""
 "Select which population density dataset you would like to use for the "
 "analysis."
-msgstr ""
+msgstr "حدد مجموعة بيانات الكثافة السكانية التي ترغب في استخدامها للتحليل."
 
 #: ../../source/for_users/training/landconsumption.rst:114
 msgid ""
-"We'll use the default options for now, but you can change them to fit the"
-" needs of your analysis. Click Next."
+"We'll use the default options for now, but you can change them to fit the "
+"needs of your analysis. Click Next."
 msgstr ""
+"سنستخدم الخيارات الافتراضية في الوقت الحالي، ولكن يمكنك تغييرها لتناسب "
+"احتياجات تحليلك. انقر فوق التالي."
 
 #: ../../source/for_users/training/landconsumption.rst:116
 msgid ""
-"On the Area tab you can select a country, region or city from the drop-"
-"down lists or upload an area from a file. If you select a city or upload "
-"a point location of a city, apply a buffer to the chosen area so that "
-"analysis encompasses all potential urban areas."
+"On the Area tab you can select a country, region or city from the drop-down "
+"lists or upload an area from a file. If you select a city or upload a point "
+"location of a city, apply a buffer to the chosen area so that analysis "
+"encompasses all potential urban areas."
 msgstr ""
+"في علامة تبويب \"المنطقة\"، يمكنك تحديد بلد أو منطقة أو مدينة من القوائم "
+"المنسدلة أو تحميل منطقة من ملف. إذا قمت بتحديد مدينة أو تحميل موقع نقطة "
+"لمدينة، فقم بتطبيق منطقة عازلة على المنطقة المختارة بحيث يشمل هذا التحليل "
+"جميع المناطق الحضرية المحتملة."
 
 #: ../../source/for_users/training/landconsumption.rst:118
 msgid ""
-"If you are using your own polygon for analysis, we recommend you do not "
-"use buffers, since that will affect the area of analysis and the final "
-"area calculation."
+"If you are using your own polygon for analysis, we recommend you do not use "
+"buffers, since that will affect the area of analysis and the final area "
+"calculation."
 msgstr ""
+"إذا كنت تستخدم المضلع الخاص بك للتحليل، نوصيك بعدم استخدام المخازن المؤقتة "
+"\"buffers\"، حيث سيؤثر ذلك على منطقة التحليل وحساب المنطقة النهائية."
 
 #: ../../source/for_users/training/landconsumption.rst:124
 msgid ""
@@ -289,162 +379,219 @@ msgid ""
 "<http://www.naturalearthdata.com>`_, and are in the `public domain "
 "<https://creativecommons.org/publicdomain>`_. The boundaries and names  "
 "used, and the designations used, in Trends.Earth do not imply official "
-"endorsement or acceptance by Conservation International Foundation, or by"
-" its partner organizations and contributors. If using Trends.Earth for "
-"official purposes, it is recommended that users choose an official "
-"boundary provided by the designated office of their country."
+"endorsement or acceptance by Conservation International Foundation, or by "
+"its partner organizations and contributors. If using Trends.Earth for "
+"official purposes, it is recommended that users choose an official boundary "
+"provided by the designated office of their country."
 msgstr ""
+"الحدود المقدمة مأخوذة من  `Natural Earth "
+"<http://www.naturalearthdata.com>`_، وهي في \"النطاق العام "
+"<https://creativecommons.org/publicdomain>`_. لا تعني الحدود والأسماء "
+"المستخدمة والتسميات المستخدمة في Trends.Earth تأييداً رسمياً أو قبولاً من "
+"قِبل Conservation International Foundation أو المنظمات الشريكة والمساهمين. "
+"في حالة استخدام Trends.Earth لأغراض رسمية، يوصى بأن يختار المستخدمون حداً "
+"رسمياً يوفره المكتب المعين لبلدهم."
 
 #: ../../source/for_users/training/landconsumption.rst:126
 msgid ""
-"On the Options tab you have to assign a name the task and some notes on "
-"how you customized the parameters for your analysis for future reference."
+"On the Options tab you have to assign a name the task and some notes on how "
+"you customized the parameters for your analysis for future reference."
 msgstr ""
+"في علامة التبويب \"الخيارات\"، يتعين عليك تعيين اسم للمهمة وبعض الملاحظات "
+"حول كيفية تخصيص المعلمات لتحليلك للرجوع إليها في المستقبل."
 
 #: ../../source/for_users/training/landconsumption.rst:128
 msgid ""
-"When all the parameters have been defined, click \"Calculate\", and the "
-"task will be submitted to Google Earth Engine for computing."
+"When all the parameters have been defined, click \"Calculate\", and the task"
+" will be submitted to Google Earth Engine for computing."
 msgstr ""
+"عندما يتم تحديد جميع المعلمات، انقر فوق \"حساب\"، وسيتم إرسال المهمة إلى "
+"Google Earth Engine للحساب."
 
 #: ../../source/for_users/training/landconsumption.rst:133
 msgid ""
-"The analysis for cities takes approximately 30 min to run, depending on "
-"the size of the area and the servers usage. To check the status of the "
-"task you can click on the Download button on the |trends.earth| tool-bar."
-" When the windows open, click **Refresh list**."
+"The analysis for cities takes approximately 30 min to run, depending on the "
+"size of the area and the servers usage. To check the status of the task you "
+"can click on the Download button on the |trends.earth| tool-bar. When the "
+"windows open, click **Refresh list**."
 msgstr ""
+"يستغرق تحليل المدن حوالي 30 دقيقة، اعتماداً على حجم المنطقة واستخدام "
+"الخوادم. للتحقق من حالة المهمة، يمكنك النقر فوق الزر \"تحميل\" في شريط أدوات"
+" |trends.earth|. عند فتح النوافذ، انقر فوق **تحديث القائمة**."
 
 #: ../../source/for_users/training/landconsumption.rst:141
 msgid ""
-"When the Google Earth Engine task has completed and you received the "
-"email, click \"Refresh List\" and the status will show FINISHED."
+"When the Google Earth Engine task has completed and you received the email, "
+"click \"Refresh List\" and the status will show FINISHED."
 msgstr ""
+"عند اكتمال مهمة Google Earth Engine واستلام البريد الإلكتروني، انقر فوق "
+"\"تحديث القائمة\" وستظهر الحالة \"مكتملة\"."
 
 #: ../../source/for_users/training/landconsumption.rst:146
 msgid ""
-"To download the results, click on the task and select \"Download "
-"results\" at the bottom of the window. A pop up window will open for you "
-"to select where to save the layer and to assign it a name."
+"To download the results, click on the task and select \"Download results\" "
+"at the bottom of the window. A pop up window will open for you to select "
+"where to save the layer and to assign it a name."
 msgstr ""
+"لتنزيل النتائج، انقر فوق المهمة وحدد \"تنزيل النتائج\" أسفل النافذة. ستفتح "
+"لك نافذة منبثقة لتحديد مكان حفظ الطبقة وتعيين اسم لها."
 
 #: ../../source/for_users/training/landconsumption.rst:151
 msgid ""
 "Then click \"Save\". The layer will be saved on your computer and "
 "automatically loaded into your current QGIS project."
 msgstr ""
+"ثم انقر فوق \"حفظ\". سيتم حفظ الطبقة على جهاز الكمبيوتر الخاص بك وتحميلها "
+"تلقائياً في مشروع QGIS الحالي الخاص بك."
 
 #: ../../source/for_users/training/landconsumption.rst:157
 msgid "Step 2: Urban change"
-msgstr ""
+msgstr "الخطوة الثانية: التغيير العمراني"
 
 #: ../../source/for_users/training/landconsumption.rst:158
 msgid ""
 "You have now downloaded the dataset to your local computer, but we still "
-"need to estimate the change over time in order to compute the SDG "
-"indicator 11.3.1. For that, select the Calculate icon (|iconCalculator|) "
-"from the Trends.Earth plugin in QGIS."
+"need to estimate the change over time in order to compute the SDG indicator "
+"11.3.1. For that, select the Calculate icon (|iconCalculator|) from the "
+"Trends.Earth plugin in QGIS."
 msgstr ""
+"لقد قمت الآن بتنزيل مجموعة البيانات على جهاز الكمبيوتر المحلي الخاص بك، "
+"لكننا ما زلنا بحاجة إلى تقدير التغيير بمرور الوقت من أجل حساب مؤشر أهداف "
+"التنمية المستدامة SDG 11.3.1. لذلك، حدد رمز الحساب (| iconCalculator |) من "
+"البرنامج الإضافي Trends.Earth في QGIS."
 
 #: ../../source/for_users/training/landconsumption.rst:168
 msgid "Select Step 2: Calculate urban change summary table for city."
-msgstr ""
+msgstr "حدد الخطوة 2: حساب جدول ملخص التغيير العمراني للمدينة."
 
 #: ../../source/for_users/training/landconsumption.rst:173
 msgid ""
-"Input: Load an existing .json file if it has not been populated within "
-"the drop-down list automatically from your QGIS project."
+"Input: Load an existing .json file if it has not been populated within the "
+"drop-down list automatically from your QGIS project."
 msgstr ""
+"الإدخال: قم بتحميل ملف بصيغة .json موجود إذا لم يتم ملؤه في القائمة المنسدلة"
+" تلقائياً من مشروع QGIS الخاص بك."
 
 #: ../../source/for_users/training/landconsumption.rst:179
 msgid ""
-"Output: Select browse to navigate to a file on your computer and save the"
-" json file and excel table."
+"Output: Select browse to navigate to a file on your computer and save the "
+"json file and excel table."
 msgstr ""
+"الإخراج: حدد \"استعراض\" للانتقال إلى ملف موجود على جهاز الكمبيوتر الخاص بك "
+"وحفظ ملف بصيغة json وجدول Excel."
 
 #: ../../source/for_users/training/landconsumption.rst:184
 msgid "Area: Define the area for your analysis"
-msgstr ""
+msgstr "المنطقة: عرّف المجال الخاص بتحليلك"
 
 #: ../../source/for_users/training/landconsumption.rst:189
 msgid ""
-"Options: Enter a task name and notes for the analysis. This final step is"
-" calculated locally on your computer, it will load automatically in your "
-"QGIS project window."
+"Options: Enter a task name and notes for the analysis. This final step is "
+"calculated locally on your computer, it will load automatically in your QGIS"
+" project window."
 msgstr ""
+"الخيارات: أدخل اسم مهمة وملاحظات للتحليل. يتم حساب هذه الخطوة الأخيرة محلياً"
+" على جهاز الكمبيوتر الخاص بك، وسيتم تحميلها تلقائياً في نافذة مشروع QGIS "
+"الخاص بك."
 
 #: ../../source/for_users/training/landconsumption.rst:194
 msgid ""
-"View results: A window will appear when the processing is complete. "
-"Select **OK**."
-msgstr ""
+"View results: A window will appear when the processing is complete. Select "
+"**OK**."
+msgstr "استعراض النتائج: ستظهر نافذة عند اكتمال المعالجة. حدد **موافق**."
 
 #: ../../source/for_users/training/landconsumption.rst:199
 msgid ""
 "After clicking OK, the four annual urban extent maps with their "
 "corresponding zoning will load into the QGIS project."
 msgstr ""
+"بعد النقر فوق \"موافق\"، سيتم تحميل خرائط المدى الحضري السنوية الأربعة مع "
+"تقسيمها المقابل إلى مشروع QGIS."
 
 #: ../../source/for_users/training/landconsumption.rst:202
 msgid ""
-"If you selected the buffer option for running the analysis, you may "
-"notice that the results do not seem to display a perfectly circular "
-"shape. We use planar coordinates to measure distance when computing the "
-"buffer, while displaying the results in geographic coordinates. This will"
-" cause an apparent distortion the further away your area is from the "
-"equator, but there is nothing to worry, the results are correct."
+"If you selected the buffer option for running the analysis, you may notice "
+"that the results do not seem to display a perfectly circular shape. We use "
+"planar coordinates to measure distance when computing the buffer, while "
+"displaying the results in geographic coordinates. This will cause an "
+"apparent distortion the further away your area is from the equator, but "
+"there is nothing to worry, the results are correct."
 msgstr ""
+"إذا حددت خيار المخزن المؤقت لتشغيل التحليل، فقد تلاحظ أن النتائج لا تعرض "
+"شكلاً دائرياً تماماً. نستخدم الإحداثيات المستوية لقياس المسافة عند حساب "
+"المخزن المؤقت، مع عرض النتائج في الإحداثيات الجغرافية. سيؤدي هذا إلى تشويه "
+"واضح كلما ابتعدت منطقتك عن خط الاستواء، ولكن لا داعي للقلق، فالنتائج صحيحة."
 
 #: ../../source/for_users/training/landconsumption.rst:207
 msgid ""
-"To explore the summary table, navigate to the folder in your computer "
-"where you saved the excel file and double click on it to open. If an "
-"error window appears, select the **Yes** and the summary will proceed to "
-"open."
+"To explore the summary table, navigate to the folder in your computer where "
+"you saved the excel file and double click on it to open. If an error window "
+"appears, select the **Yes** and the summary will proceed to open."
 msgstr ""
+"لاستكشاف جدول الملخص، انتقل إلى المجلد الموجود في جهاز الكمبيوتر الخاص بك "
+"حيث قمت بحفظ ملف Excel وانقر فوقه نقراً مزدوجاً لفتحه. إذا ظهرت نافذة خطأ، "
+"فحدد **نعم** وسيستمر الملخص في الفتح."
 
 #: ../../source/for_users/training/landconsumption.rst:218
 msgid ""
-"In this table you'll find the area of the different city land cover "
-"classes (urban, suburban, fringe open space, capture open space and "
-"water) and the rural areas. You'll also find the population for each of "
-"the years analyzed (2000, 2005, 2010, and 2015) and the final SDG 11.3.1."
+"In this table you'll find the area of the different city land cover classes "
+"(urban, suburban, fringe open space, capture open space and water) and the "
+"rural areas. You'll also find the population for each of the years analyzed "
+"(2000, 2005, 2010, and 2015) and the final SDG 11.3.1."
 msgstr ""
+"ستجد في هذا الجدول مساحة فئات الغطاء الأرضي المختلفة للمدينة (حضري، ضواحي، "
+"مساحة مفتوحة هامشية، مساحة مفتوحة ومياه) والمناطق الريفية. ستجد أيضاً عدد "
+"السكان لكل سنة من السنوات التي تم تحليلها (2000 و 2005 و 2010 و 2015) وآخر "
+"أهداف التنمية المستدامة 11.3.1."
 
 #: ../../source/for_users/training/landconsumption.rst:221
 msgid ""
-"In order to improve the Impervious Surface Index and the guidance we "
-"provide to users, it would be very useful for us to learn the parameters "
-"you selected for your city, and your assessment on how the tool performed"
-" by filling this `online form "
+"In order to improve the Impervious Surface Index and the guidance we provide"
+" to users, it would be very useful for us to learn the parameters you "
+"selected for your city, and your assessment on how the tool performed by "
+"filling this `online form "
 "<https://docs.google.com/forms/d/e/1FAIpQLSdLRBzeQ5ZknHJKEtTTzd2VBo2lroPy2RLUSKFpfCyCBRqPKg/viewform>`_"
 " it will not take you more than 30 seconds to fill, and it will help us "
 "improve the tool. Thanks!"
 msgstr ""
+"من أجل تحسين مؤشر الأسطح غير المنفذة والإرشادات التي نقدمها للمستخدمين، "
+"سيكون من المفيد جداً بالنسبة لنا معرفة المعلمات التي حددتها لمدينتك، وتقييمك"
+" لكيفية أداء الأداة من خلال ملء هذا \"النموذج عبر الإنترنت "
+"<https://docs.google.com/forms/d/e/1FAIpQLSdLRBzeQ5ZknHJKEtTTzd2VBo2lroPy2RLUSKFpfCyCBRqPKg/viewform>\""
+" _ لن يستغرق الملء أكثر من 30 ثانية، وسيساعدنا في تحسين الأداة. شكراً!"
 
 #: ../../source/for_users/training/landconsumption.rst:225
 msgid "Extra: Water frequency parameter"
-msgstr ""
+msgstr "إضافي: معلمة تردد المياه"
 
 #: ../../source/for_users/training/landconsumption.rst:227
 msgid ""
-"On this tutorial we did not explore the effect of the third parameter the"
-" `Urban Mapper page "
+"On this tutorial we did not explore the effect of the third parameter the "
+"`Urban Mapper page "
 "<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
-"mapper>`_. allow us to change, Water Frequency. This parameter will "
-"remain unchanged for most cities, but for those places in which capturing"
-" water dynamics is important for understanding how a city is changing, it"
-" will be very useful."
+"mapper>`_. allow us to change, Water Frequency. This parameter will remain "
+"unchanged for most cities, but for those places in which capturing water "
+"dynamics is important for understanding how a city is changing, it will be "
+"very useful."
 msgstr ""
+"في هذا البرنامج التعليمي، لم نستكشف تأثير المعلمة الثالثة 'Urban Mapper page"
+" <https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
+"mapper> `_. تسمح لنا بتغيير تردد المياه. ستبقى هذه المعلمة بدون تغيير في "
+"معظم المدن، ولكن بالنسبة لتلك الأماكن التي تكون فيها ديناميكيات التقاط "
+"المياه مهمة لفهم كيفية تغير المدينة، ستكون مفيدة للغاية."
 
 #: ../../source/for_users/training/landconsumption.rst:229
 msgid ""
 "The water Frequency parameter should be interpreted as follows: A pixel "
-"needs to be covered by water for at least X percent of the time for it to"
-" be considered water, otherwise it will be considered land\". This means "
-"that the higher the value, the less water the map will show and the more "
-"land (i.e. built up if that is the case)."
+"needs to be covered by water for at least X percent of the time for it to be"
+" considered water, otherwise it will be considered land\". This means that "
+"the higher the value, the less water the map will show and the more land "
+"(i.e. built up if that is the case)."
 msgstr ""
+"يجب تفسير معلمة تردد الماء على النحو التالي: يجب تغطية البكسل بالماء لمدة X "
+"في المائة على الأقل من الوقت حتى يتم اعتباره ماء، وإلا فسيتم اعتباره "
+"أرضاً\". وهذا يعني أنه كلما زادت القيمة، ستظهر الخريطة كمية أقل من المياه "
+"والمزيد من الأراضي (أي مبنية إذا كانت هذه هي الحالة)."
 
 #: ../../source/for_users/training/landconsumption.rst:231
 msgid ""
@@ -452,108 +599,118 @@ msgid ""
 "<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
 "mapper>`_ and let's go to **Dubai**."
 msgstr ""
+"لاستكشاف إحدى هذه الحالات، انتقل إلى صفحة Urban Mapper "
+"<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
+"mapper> `_ ودعنا ننتقل إلى **دُبي**."
 
 #: ../../source/for_users/training/landconsumption.rst:236
 msgid ""
-"One of the main feature we'll notice is a set of islands. However, when "
-"we click **Run Analysis**, the dataset seems to miss them"
+"One of the main feature we'll notice is a set of islands. However, when we "
+"click **Run Analysis**, the dataset seems to miss them"
 msgstr ""
+"إحدى السمات الرئيسية التي سنلاحظها هي مجموعة الجزر. ومع ذلك، عند النقر فوق "
+"**تشغيل التحليل**، يبدو أن مجموعة البيانات قد فوّتتها"
 
 #: ../../source/for_users/training/landconsumption.rst:241
 msgid ""
 "If we change the Water Frequency parameter from 25 to 80, we can start "
-"seeing the recently built-up areas in the water (ISI = 30, NTL = 10, WFR "
-"= 80). But we are still missing some portions."
+"seeing the recently built-up areas in the water (ISI = 30, NTL = 10, WFR = "
+"80). But we are still missing some portions."
 msgstr ""
+"إذا قمنا بتغيير معامل تردد المياه من 25 إلى 80، فيمكننا البدء في رؤية "
+"المناطق المبنية مؤخراً في الماء (ISI = 30 ،NTL = 10 ،WFR = 80). لكننا ما "
+"زلنا نفتقد بعض الأجزاء."
 
 #: ../../source/for_users/training/landconsumption.rst:246
 msgid ""
 "In this case, it seems like portions of these newly constructed islands "
-"don't have much lights on them. So if we set the NTL threshold to a lower"
-" value (e.g. 5) we will capture them."
+"don't have much lights on them. So if we set the NTL threshold to a lower "
+"value (e.g. 5) we will capture them."
 msgstr ""
+"في هذه الحالة، يبدو أن أجزاء من هذه الجزر المشيدة حديثاً لا تحتوي على الكثير"
+" من الأضواء. لذلك إذا قمنا بتعيين حد NTL على قيمة أقل (على سبيل المثال 5) "
+"فسنقوم بالتقاطها."
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr ""
+msgstr "أيقونة المخطط"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr ""
+msgstr "أيقونة الحافظة"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr ""
+msgstr "أيقونة التحميل السحابي"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr ""
+msgstr "أيقونة الترس"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr ""
+msgstr "أيقونة حذف مجموعة البيانات"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
-msgstr ""
+msgstr "أيقونة الكرة الأرضية"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr ""
+msgstr "أيقونة رسم بياني"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr ""
+msgstr "أيقونة المعلومات"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr ""
+msgstr "أيقونة تحميل مجموعة البيانات"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr ""
+msgstr "أيقونة علامة ماركر"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr ""
+msgstr "أيقونة افتح دليل مجموعة البيانات"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr ""
+msgstr "أيقونة عرض تفاصيل مجموعة البيانات"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr ""
+msgstr "أيقونة مفتاح الربط"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr ""
+msgstr "أيقونة المجلد"
 
 #: ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr ""
+msgstr "أيقونة تقارير"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr ""
+msgstr "أيقونة TrendsEarth "
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr ""
+msgstr "أيقونة التصور "
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr ""
+msgstr "شعار CI"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr ""
+msgstr "شعار لوند"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr ""
+msgstr "شعار ناسا"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr ""
-
+msgstr "شعار جيف"

@@ -1,44 +1,53 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
-#
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Alex Zvoleff <azvoleff@conservation.org>, 2022
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-06-21 17:06-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2022-05-26 11:58+0000\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
+"Language-Team: Russian (https://www.transifex.com/conservation-international/teams/80165/ru/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: ../../source/for_users/training/unccdreporting.rst:4
 msgid "UNCCD Reporting"
-msgstr ""
+msgstr "Отчеты для UNCCD "
 
 #: ../../source/for_users/training/unccdreporting.rst:8
 msgid "Generate data package for UNCCD reporting"
-msgstr ""
+msgstr "Создать пакет данных для отчетов для UNCCD"
 
 #: ../../source/for_users/training/unccdreporting.rst:10
 msgid ""
 "In the **Trends.Earth** panel, select the **Algorithm** window, click on "
-"**UNCCD Reporting - Generate data package for UNCCD reporting** and "
-"select **Execute locally**."
+"**UNCCD Reporting - Generate data package for UNCCD reporting** and select "
+"**Execute locally**."
 msgstr ""
+"На панели **Trends.Earth** выберите окно **Алгоритм**, нажмите на **Отчеты "
+"для UNCCD — создать пакет данных для отчетов для UNCCD** и выберите "
+"**Осуществить локально**."
 
 #: ../../source/for_users/training/unccdreporting.rst:15
 msgid ""
 "The window will appear with the default data populated in the drop-down "
-"lists for the region of interest. Enter **Execution name** and **Notes**."
-" Select **Execute locally**."
+"lists for the region of interest. Enter **Execution name** and **Notes**. "
+"Select **Execute locally**."
 msgstr ""
+"Появится окно с данными по умолчанию, заполненными в раскрывающихся списках "
+"для интересующего вас региона. Введите **Название выполнения** и "
+"**Примечание**. Выберите **Осуществить локально**."
 
 #: ../../source/for_users/training/unccdreporting.rst:20
 msgid ""
@@ -46,124 +55,134 @@ msgid ""
 "submitted will appear in the menu if the **Download remotely-generated "
 "datasets automatically** is checked in settings."
 msgstr ""
+"На панели **Trends.Earth** выберите закладку **Наборы данных**. Сданное "
+"задание появится в меню, если поставлена галочка в настройках для "
+"**Скачивать автоматически удаленно созданные наборы данных**."
 
 #: ../../source/for_users/training/unccdreporting.rst:24
 msgid ""
-"Refer to the :ref:`tut_settings` section of this manual to learn more "
-"about **Advanced settings**"
+"Refer to the :ref:`tut_settings` section of this manual to learn more about "
+"**Advanced settings**"
 msgstr ""
+"Обратитесь к разделу :ref:`tut_settings` данного руководства, чтобы получить"
+" дополнительную информацию о **Дополнительных настройках**"
 
 #: ../../source/for_users/training/unccdreporting.rst:26
 msgid "Select the Refresh button if the analysis does not appear in the menu."
-msgstr ""
+msgstr "Выберите кнопку \"Обновить\", если анализ не появляется в меню."
 
 #: ../../source/for_users/training/unccdreporting.rst:28
 msgid ""
 "Select the add layer drop-down button to **Add default layers from this "
 "layer to the map**"
 msgstr ""
+"Выберите раскрывающуюся кнопку для добавления уровня, чтобы **добавить "
+"уровни по умолчанию  из данного уровня на карте**"
 
 #: ../../source/for_users/training/unccdreporting.rst:33
 msgid ""
-"The final SDG 15.3.1 Indicator using default data will be added to the "
-"map for the region of interest."
+"The final SDG 15.3.1 Indicator using default data will be added to the map "
+"for the region of interest."
 msgstr ""
+"Окончательный SDG 15.3.1 Indicator, использующий данные по умолчанию, будет "
+"добавлен на карте для интересующего вас региона."
 
 #: ../../source/for_users/training/unccdreporting.rst:36
 msgid ""
-"Refer to the :ref:`background_unccdreporting` background for interpreting"
-" the results of this analysis."
+"Refer to the :ref:`background_unccdreporting` background for interpreting "
+"the results of this analysis."
 msgstr ""
+"Обращайтесь к информации :ref:`background_unccdreporting` для интерпретации "
+"результатов данного анализа."
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr ""
+msgstr "iconCalculator"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr ""
+msgstr "iconChart"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr ""
+msgstr "iconClipboard"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr ""
+msgstr "iconCloudDownload"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr ""
+msgstr "iconCog"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr ""
+msgstr "iconDeletedataset"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
-msgstr ""
+msgstr "iconGlobe"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr ""
+msgstr "iconGraph"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr ""
+msgstr "iconInfo"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr ""
+msgstr "iconLoaddataset"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr ""
+msgstr "iconMarkMarker"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr ""
+msgstr "iconOpendatasetdirectory"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr ""
+msgstr "iconViewdatasetdetails"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr ""
+msgstr "iconWrench"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr ""
+msgstr "iconFolder"
 
 #: ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr ""
+msgstr "iconReports"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr ""
+msgstr "iconTrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr ""
+msgstr "iconVisualization"
 
 #: ../../../<rst_epilog>:37
 msgid "Trends.Earth"
-msgstr ""
+msgstr "Trends.Earth"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr ""
+msgstr "logoCI"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr ""
+msgstr "logoLund"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr ""
+msgstr "logoNASA"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr ""
-
+msgstr "logoGEF"

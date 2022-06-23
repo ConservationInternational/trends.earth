@@ -1,42 +1,48 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
-#
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
+# Alex Zvoleff <azvoleff@conservation.org>, 2022
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-06-21 17:06-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2022-05-26 11:57+0000\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
+"Language-Team: Arabic (https://www.transifex.com/conservation-international/teams/80165/ar/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 #: ../../source/for_users/datasets/input_data.rst:4
 msgid "Input Data Used in Trends.Earth"
-msgstr ""
+msgstr "بيانات الإدخال المستخدمة في المؤشرات"
 
 #: ../../source/for_users/datasets/input_data.rst:6
 msgid ""
-"|trends.earth| draws on a number of data sources. The data sets listed "
-"below are owned/made available by the following organizations and "
-"individuals under separate terms as indicated in their respective "
-"metadata."
+"|trends.earth| draws on a number of data sources. The data sets listed below"
+" are owned/made available by the following organizations and individuals "
+"under separate terms as indicated in their respective metadata."
 msgstr ""
+"|trends.earth| يعتمد على عدد من مصادر البيانات. مجموعات البيانات المذكورة "
+"أدناه مملوكة / متاحة من قبل المنظمات والأفراد التالية تحت بنود منفصلة كما هو"
+" موضح في البيانات الوصفية الخاصة بكل منها."
 
-#: ../../../<rst_epilog>:37
+#: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
 msgid "Trends.Earth"
-msgstr ""
+msgstr "Trends.Earth"
 
 #: ../../source/for_users/datasets/input_data.rst:11
 msgid "NDVI"
-msgstr ""
+msgstr "NDVI"
 
 #: ../../source/for_users/datasets/input_data.rst:14
 #: ../../source/for_users/datasets/input_data.rst:30
@@ -47,7 +53,7 @@ msgstr ""
 #: ../../source/for_users/datasets/input_data.rst:101
 #: ../../source/for_users/datasets/input_data.rst:112
 msgid "Sensor/Dataset"
-msgstr ""
+msgstr "جهاز الاستشعار / مجموعة البيانات"
 
 #: ../../source/for_users/datasets/input_data.rst:14
 #: ../../source/for_users/datasets/input_data.rst:30
@@ -58,7 +64,7 @@ msgstr ""
 #: ../../source/for_users/datasets/input_data.rst:101
 #: ../../source/for_users/datasets/input_data.rst:112
 msgid "Temporal"
-msgstr ""
+msgstr "زمني"
 
 #: ../../source/for_users/datasets/input_data.rst:14
 #: ../../source/for_users/datasets/input_data.rst:30
@@ -69,7 +75,7 @@ msgstr ""
 #: ../../source/for_users/datasets/input_data.rst:101
 #: ../../source/for_users/datasets/input_data.rst:112
 msgid "Spatial"
-msgstr ""
+msgstr "مكاني"
 
 #: ../../source/for_users/datasets/input_data.rst:14
 #: ../../source/for_users/datasets/input_data.rst:30
@@ -80,7 +86,7 @@ msgstr ""
 #: ../../source/for_users/datasets/input_data.rst:101
 #: ../../source/for_users/datasets/input_data.rst:112
 msgid "Extent"
-msgstr ""
+msgstr "مدى"
 
 #: ../../source/for_users/datasets/input_data.rst:14
 #: ../../source/for_users/datasets/input_data.rst:30
@@ -91,20 +97,20 @@ msgstr ""
 #: ../../source/for_users/datasets/input_data.rst:101
 #: ../../source/for_users/datasets/input_data.rst:112
 msgid "License"
-msgstr ""
+msgstr "رخصة"
 
 #: ../../source/for_users/datasets/input_data.rst:16
 msgid "`AVHRR/GIMMS`_"
-msgstr ""
+msgstr "`AVHRR/GIMMS`_"
 
 #: ../../source/for_users/datasets/input_data.rst:16
 msgid "1982-2015"
-msgstr ""
+msgstr "1982-2015"
 
 #: ../../source/for_users/datasets/input_data.rst:16
 #: ../../source/for_users/datasets/input_data.rst:103
 msgid "8 km"
-msgstr ""
+msgstr "8 كم"
 
 #: ../../source/for_users/datasets/input_data.rst:16
 #: ../../source/for_users/datasets/input_data.rst:18
@@ -118,7 +124,7 @@ msgstr ""
 #: ../../source/for_users/datasets/input_data.rst:103
 #: ../../source/for_users/datasets/input_data.rst:114
 msgid "Global"
-msgstr ""
+msgstr "عالمي"
 
 #: ../../source/for_users/datasets/input_data.rst:16
 #: ../../source/for_users/datasets/input_data.rst:18
@@ -132,295 +138,301 @@ msgstr ""
 #: ../../source/for_users/datasets/input_data.rst:103
 #: ../../source/for_users/datasets/input_data.rst:114
 msgid "`Public Domain`_"
-msgstr ""
+msgstr "`النطاق العام`_"
 
 #: ../../source/for_users/datasets/input_data.rst:18
 msgid "`MOD13Q1-coll6`_"
-msgstr ""
+msgstr "`MOD13Q1-coll6_`"
 
 #: ../../source/for_users/datasets/input_data.rst:18
 msgid "2001-2016"
-msgstr ""
+msgstr "2001-2016"
 
 #: ../../source/for_users/datasets/input_data.rst:18
 #: ../../source/for_users/datasets/input_data.rst:91
 msgid "250 m"
-msgstr ""
+msgstr "250 م"
 
 #: ../../source/for_users/datasets/input_data.rst:27
 msgid "Soil Moisture"
-msgstr ""
+msgstr "رطوبة التربة"
 
 #: ../../source/for_users/datasets/input_data.rst:32
 msgid "`MERRA 2`_"
-msgstr ""
+msgstr "`MERRA 2`_"
 
 #: ../../source/for_users/datasets/input_data.rst:32
 msgid "1980-2016"
-msgstr ""
+msgstr "1980-2016"
 
 #: ../../source/for_users/datasets/input_data.rst:32
 msgid "0.5° x 0.625°"
-msgstr ""
+msgstr "0.5 درجة × 0.625 درجة"
 
 #: ../../source/for_users/datasets/input_data.rst:34
 msgid "`ERA I`_"
-msgstr ""
+msgstr "`العصر الأول`_"
 
 #: ../../source/for_users/datasets/input_data.rst:34
 msgid "1979-2016"
-msgstr ""
+msgstr "1979-2016"
 
 #: ../../source/for_users/datasets/input_data.rst:34
 msgid "0.75° x 0.75°"
-msgstr ""
+msgstr "0.75 درجة × 0.75 درجة"
 
 #: ../../source/for_users/datasets/input_data.rst:42
 msgid "Precipitation and Drought"
-msgstr ""
+msgstr "هطول الأمطار والجفاف"
 
 #: ../../source/for_users/datasets/input_data.rst:47
 msgid "`GPCP v2.3 1 month`_"
-msgstr ""
+msgstr "`GPCP v2.3 1 شهر`_"
 
 #: ../../source/for_users/datasets/input_data.rst:47
 msgid "1979-2019"
-msgstr ""
+msgstr "1979-2019"
 
 #: ../../source/for_users/datasets/input_data.rst:47
 msgid "2.5° x 2.5°"
-msgstr ""
+msgstr "2.5 درجة × 2.5 درجة"
 
 #: ../../source/for_users/datasets/input_data.rst:49
 msgid "`GPCC V6`_"
-msgstr ""
+msgstr "`GPCC V6`_"
 
 #: ../../source/for_users/datasets/input_data.rst:49
 msgid "1891-2019"
-msgstr ""
+msgstr "1891-2019"
 
 #: ../../source/for_users/datasets/input_data.rst:49
 msgid "1° x 1°"
-msgstr ""
+msgstr "1 درجة × 1 درجة"
 
 #: ../../source/for_users/datasets/input_data.rst:51
 msgid "`CHIRPS`_"
-msgstr ""
+msgstr "`CHIRPS`_"
 
 #: ../../source/for_users/datasets/input_data.rst:51
 msgid "1981-2016"
-msgstr ""
+msgstr "1981-2016"
 
 #: ../../source/for_users/datasets/input_data.rst:51
 msgid "5 km"
-msgstr ""
+msgstr "5 كم"
 
 #: ../../source/for_users/datasets/input_data.rst:51
 msgid "50N-50S"
-msgstr ""
+msgstr "50 شمال - 50 جنوب"
 
 #: ../../source/for_users/datasets/input_data.rst:53
 msgid "`PERSIANN-CDR`_"
-msgstr ""
+msgstr "`PERSIANN-CDR`_"
 
 #: ../../source/for_users/datasets/input_data.rst:53
 msgid "1983-2015"
-msgstr ""
+msgstr "1983-2015"
 
 #: ../../source/for_users/datasets/input_data.rst:53
 msgid "25 km"
-msgstr ""
+msgstr "25 كم"
 
 #: ../../source/for_users/datasets/input_data.rst:53
 msgid "60N-60S"
-msgstr ""
+msgstr "60 شمال - 60 جنوب"
 
 #: ../../source/for_users/datasets/input_data.rst:62
 msgid "Evapotranspiration"
-msgstr ""
+msgstr "التبخر"
 
 #: ../../source/for_users/datasets/input_data.rst:67
 msgid "MOD16A2_"
-msgstr ""
+msgstr "MOD16A2_"
 
 #: ../../source/for_users/datasets/input_data.rst:67
 msgid "2000-2014"
-msgstr ""
+msgstr "2000-2014"
 
 #: ../../source/for_users/datasets/input_data.rst:67
 msgid "1 km"
-msgstr ""
+msgstr "1 كم"
 
 #: ../../source/for_users/datasets/input_data.rst:74
 msgid "Land cover"
-msgstr ""
+msgstr "الغطاء الأرضي"
 
 #: ../../source/for_users/datasets/input_data.rst:79
 msgid "`ESA CCI Land Cover`_"
-msgstr ""
+msgstr "`ESA CCI الغطاء الأرضي`_"
 
 #: ../../source/for_users/datasets/input_data.rst:79
 msgid "1992-2018"
-msgstr ""
+msgstr "1992-2018"
 
 #: ../../source/for_users/datasets/input_data.rst:79
 msgid "300 m"
-msgstr ""
+msgstr "300 م"
 
 #: ../../source/for_users/datasets/input_data.rst:79
 msgid "`CC by-SA 3.0`_"
-msgstr ""
+msgstr "`CC by-SA 3.0`_"
 
 #: ../../source/for_users/datasets/input_data.rst:86
 msgid "Soil carbon"
-msgstr ""
+msgstr "كربون التربة"
 
 #: ../../source/for_users/datasets/input_data.rst:91
 msgid "`Soil Grids (ISRIC)`_"
-msgstr ""
+msgstr "`شبكات التربة(ISRIC)`_"
 
 #: ../../source/for_users/datasets/input_data.rst:91
 #: ../../source/for_users/datasets/input_data.rst:114
 msgid "Present"
-msgstr ""
+msgstr "الحالي"
 
 #: ../../source/for_users/datasets/input_data.rst:91
 msgid "`CC by-SA 4.0`_"
-msgstr ""
+msgstr "`CC by-SA 4.0`_"
 
 #: ../../source/for_users/datasets/input_data.rst:98
 msgid "Agroecological Zones"
-msgstr ""
+msgstr "مناطق الزراعة الإيكولوجية"
 
 #: ../../source/for_users/datasets/input_data.rst:103
 msgid "`FAO - IIASA Global Agroecological Zones (GAEZ)`_"
-msgstr ""
+msgstr "`FAO - IIASA Global Agroecological Zones (GAEZ)`_"
 
 #: ../../source/for_users/datasets/input_data.rst:103
 msgid "2000"
-msgstr ""
+msgstr "2000"
 
 #: ../../source/for_users/datasets/input_data.rst:109
 msgid "Administrative Boundaries"
-msgstr ""
+msgstr "الحدود الإدارية"
 
 #: ../../source/for_users/datasets/input_data.rst:114
 msgid "`Natural Earth Administrative Boundaries`_"
-msgstr ""
+msgstr "`الحدود الإدارية للأرض الطبيعية`_"
 
 #: ../../source/for_users/datasets/input_data.rst:114
 msgid "10/50m"
-msgstr ""
+msgstr "10/50 م"
 
 #: ../../source/for_users/datasets/input_data.rst:118
 msgid ""
-"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth "
-"are in the `public domain`_. The boundaries and names used, and the "
-"designations used, in Trends.Earth do not imply official endorsement or "
-"acceptance by Conservation International Foundation, or by its partner "
-"organizations and contributors."
+"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth are "
+"in the `public domain`_. The boundaries and names used, and the designations"
+" used, in Trends.Earth do not imply official endorsement or acceptance by "
+"Conservation International Foundation, or by its partner organizations and "
+"contributors."
 msgstr ""
+"&quot;الحدود الإدارية للأرض الطبيعية&quot; التي تم تقديمها في برنامج "
+"&quot;مؤشرات&quot;. الأرض موجودة في &quot;المجال العام&quot; _. الحدود "
+"والأسماء المستخدمة ، والتسميات المستخدمة ، في Trends.Earth لا تعني المصادقة "
+"أو القبول الرسمي من قبل مؤسسة Conservation International ، أو من قبل "
+"المنظمات الشريكة والمساهمين."
 
 #: ../../source/for_users/datasets/input_data.rst:124
 msgid ""
-"If using Trends.Earth for official purposes, it is recommended that users"
-" choose an official boundary provided by the designated office of their "
+"If using Trends.Earth for official purposes, it is recommended that users "
+"choose an official boundary provided by the designated office of their "
 "country."
 msgstr ""
+"إذا كنت تستخدم Trends.Earth لأغراض رسمية ، فمن المستحسن أن يختار المستخدمون "
+"حدًا رسميًا يوفره المكتب المعين لبلدهم."
 
 #: ../../source/for_users/datasets/input_data.rst:133
 msgid "Population"
-msgstr ""
+msgstr "السكان"
 
 #: ../../source/for_users/datasets/input_data.rst:134
 msgid "**Coming soon**"
-msgstr ""
+msgstr "**قريبا**"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr ""
+msgstr " أيقونة الحاسبة"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr ""
+msgstr "أيقونة المخطط"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr ""
+msgstr "أيقونة الحافظة"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr ""
+msgstr "أيقونة التحميل السحابي"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr ""
+msgstr "أيقونة Cog"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr ""
+msgstr "أيقونة حذف مجموعة البيانات"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
-msgstr ""
+msgstr "أيقونة الكرة الأرضية"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr ""
+msgstr "أيقونة الرسم البياني"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr ""
+msgstr "أيقونة المعلومات"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr ""
+msgstr "أيقونة تحميل مجموعة البيانات"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr ""
+msgstr "أيقونة التحديد"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr ""
+msgstr "أيقونة فتح دليل مجموعة البيانات"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr ""
+msgstr "أيقونة عرض تفاصيل مجموعة البيانات"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr ""
+msgstr "أيقونة مفتاح الربط"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr ""
+msgstr "أيقونة المجلد"
 
 #: ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr ""
+msgstr "أيقونة التقارير"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr ""
+msgstr "أيقونة TrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr ""
+msgstr "أيقونة التصور"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr ""
+msgstr "شعار CI"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr ""
+msgstr "شعار Lund"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr ""
+msgstr "شعار ناسا"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr ""
-
+msgstr "شعار GEF"

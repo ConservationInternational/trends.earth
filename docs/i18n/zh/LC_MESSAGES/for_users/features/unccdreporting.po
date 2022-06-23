@@ -1,150 +1,164 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
-#
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
+# Alex Zvoleff <azvoleff@conservation.org>, 2022
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-06-21 17:06-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2022-05-26 11:57+0000\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
+"Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Language: zh\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../../source/for_users/features/unccdreporting.rst:4
 msgid "UNCCD Reporting - SDG 15.3.1"
-msgstr ""
+msgstr "UNCCD报告--可持续发展目标（SDG）15.3.1"
 
 #: ../../source/for_users/features/unccdreporting.rst:6
 msgid ""
 "As part of the \"2030 Agenda for Sustainable Development\", Sustainable "
 "Development Goal (SDG) 15 is to:"
-msgstr ""
+msgstr "作为 \"2030年可持续发展议程 \"的一部分，可持续发展目标（SDG）15是："
 
 #: ../../source/for_users/features/unccdreporting.rst:9
 msgid ""
-"\"Protect, restore and promote sustainable use of terrestrial ecosystems,"
-" sustainably manage forests, combat desertification, and halt and reverse"
-" land degradation and halt biodiversity loss\""
-msgstr ""
+"\"Protect, restore and promote sustainable use of terrestrial ecosystems, "
+"sustainably manage forests, combat desertification, and halt and reverse "
+"land degradation and halt biodiversity loss\""
+msgstr "\"保护、恢复和促进陆地生态系统的可持续利用，可持续地管理森林，防治荒漠化，并制止和扭转土地退化，遏制生物多样性的丧失\""
 
 #: ../../source/for_users/features/unccdreporting.rst:13
 msgid ""
-"Each SDG has specific targets addressing different components, in this "
-"case, of life on land. Target 15.3 aims to:"
-msgstr ""
+"Each SDG has specific targets addressing different components, in this case,"
+" of life on land. Target 15.3 aims to:"
+msgstr "每个可持续发展目标都有针对不同组成部分的具体目标，在本案例中是针对土地上的生活。具体目标15.3旨在："
 
 #: ../../source/for_users/features/unccdreporting.rst:16
 msgid ""
-"\"By 2030, combat desertification, restore degraded land and soil, "
-"including land affected by desertification, drought and floods, and "
-"strive to achieve a land degradation-neutral world\""
-msgstr ""
+"\"By 2030, combat desertification, restore degraded land and soil, including"
+" land affected by desertification, drought and floods, and strive to achieve"
+" a land degradation-neutral world\""
+msgstr "\"截止2030年，防治荒漠化，恢复退化的土地和土壤，包括受荒漠化、干旱和洪水影响的土地，并努力实现一个土地退化中立的世界\""
 
 #: ../../source/for_users/features/unccdreporting.rst:20
 msgid ""
-"Indicators will be used then to assess the progress of each SDG target. "
-"In the case of SDG 15.3 the progress towards a land degradation neutral "
-"world will be assessed using indicator 15.3.1:"
-msgstr ""
+"Indicators will be used then to assess the progress of each SDG target. In "
+"the case of SDG 15.3 the progress towards a land degradation neutral world "
+"will be assessed using indicator 15.3.1:"
+msgstr "然后将使用指标来评估每个SDG目标的进展。就可持续发展目标15.3而言，将使用指标15.3.1评估实现土地退化中立世界的进展："
 
 #: ../../source/for_users/features/unccdreporting.rst:24
 msgid "\"proportion of land that is degraded over total land area\""
-msgstr ""
+msgstr "\"退化的土地占总土地面积的比例\""
 
 #: ../../source/for_users/features/unccdreporting.rst:26
 msgid ""
 "As the custodian agency for SDG 15.3, the United Nations Convention to "
-"Combat Desertification (UNCCD) has developed a `Good Practice Guidance "
-"(GPG) <https://www.unccd.int/sites/default/files/documents/2021-09"
-"/UNCCD_GPG_SDG-Indicator-15.3.1_version2_2021.pdf>`_. providing "
-"recommendations on how to calculate SDG Indicator 15.3.1."
+"Combat Desertification (UNCCD) has developed a `Good Practice Guidance (GPG)"
+" <https://www.unccd.int/sites/default/files/documents/2021-09/UNCCD_GPG_SDG-"
+"Indicator-15.3.1_version2_2021.pdf>`_. providing recommendations on how to "
+"calculate SDG Indicator 15.3.1."
 msgstr ""
+"作为可持续发展目标15.3的监管机构，UNCCD）制定了《良好实践指南》（GPG）<https://www.unccd.int/sites/default/files/documents/2021-09/UNCCD_GPG_SDG-"
+"Indicator-15.3.1_version2_2021.pdf>_.就如何计算可持续发展目标指标15.3.1提供建议。"
 
 #: ../../source/for_users/features/unccdreporting.rst:31
 msgid ""
 "This document provides a brief introduction to SDG Indicator 15.3.1 and "
 "describes how each indicator is calculated by |trends.earth|."
-msgstr ""
+msgstr "本文件简要介绍了可持续发展目标指标15.3.1，并描述了每个指标如何通过|trends.earth|计算。"
 
+#: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
+#: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
+#: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
+#: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
+#: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
 #: ../../../<rst_epilog>:37
 msgid "Trends.Earth"
-msgstr ""
+msgstr "Trends.Earth"
 
 #: ../../source/for_users/features/unccdreporting.rst:34
 msgid ""
-"In order to assess the area degraded, SDG Indicator 15.3.1 uses "
-"information from 3 sub-indicators:"
-msgstr ""
+"In order to assess the area degraded, SDG Indicator 15.3.1 uses information "
+"from 3 sub-indicators:"
+msgstr "为了评估退化的面积，SDG指标15.3.1使用了3个次级指标的信息："
 
 #: ../../source/for_users/features/unccdreporting.rst:37
 msgid "Vegetation productivity"
-msgstr ""
+msgstr "植被生产力"
 
 #: ../../source/for_users/features/unccdreporting.rst:38
 #: ../../source/for_users/features/unccdreporting.rst:78
 msgid "Land cover"
-msgstr ""
+msgstr "土地覆盖"
 
 #: ../../source/for_users/features/unccdreporting.rst:39
 #: ../../source/for_users/features/unccdreporting.rst:110
 msgid "Soil organic carbon"
-msgstr ""
+msgstr "土壤有机碳"
 
 #: ../../source/for_users/features/unccdreporting.rst:44
 msgid ""
-"|trends.earth| allows the user to compute each of these sub-indicators in"
-" a spatially explicit way generating raster maps which are then "
-"integrated into a final SDG 15.3.1 indicator map and produces a table "
-"result reporting areas potentially improved and degraded for the area of "
-"analysis."
+"|trends.earth| allows the user to compute each of these sub-indicators in a "
+"spatially explicit way generating raster maps which are then integrated into"
+" a final SDG 15.3.1 indicator map and produces a table result reporting "
+"areas potentially improved and degraded for the area of analysis."
 msgstr ""
+"|trends.earth|允许用户以空间明确的方式计算这些次级指标中的每一项，生成栅格地图，然后将其整合到最终的SDG "
+"15.3.1指标地图中，并产生一个表格结果，报告分析区域的潜在改善和退化的区域。"
 
 #: ../../source/for_users/features/unccdreporting.rst:50
 msgid "Sub-indicators"
-msgstr ""
+msgstr "次级指标"
 
 #: ../../source/for_users/features/unccdreporting.rst:55
 msgid "Productivity"
-msgstr ""
+msgstr "生产率"
 
 #: ../../source/for_users/features/unccdreporting.rst:57
 msgid ""
 "Land productivity is the biological productive capacity of the land, the "
-"source of all the food, fiber and fuel that sustains humans (United "
-"Nations Statistical Commission 2016). Net primary productivity (NPP) is "
-"the net amount of carbon assimilated after photosynthesis and autotrophic"
-" respiration over a given period of time (Clark et al. 2001) and is "
-"typically represented in units such as kg/ha/yr. NPP is a variable time "
-"consuming and costly to estimate, for that reason, we rely on remotely "
-"sensed information to derive indicators of NPP."
+"source of all the food, fiber and fuel that sustains humans (United Nations "
+"Statistical Commission 2016). Net primary productivity (NPP) is the net "
+"amount of carbon assimilated after photosynthesis and autotrophic "
+"respiration over a given period of time (Clark et al. 2001) and is typically"
+" represented in units such as kg/ha/yr. NPP is a variable time consuming and"
+" costly to estimate, for that reason, we rely on remotely sensed information"
+" to derive indicators of NPP."
 msgstr ""
+"土地生产力是土地的生物生产能力，是维持人类的所有食物，纤维和燃料的来源（联合国统计委员会，2016年）。净初级生产力（净初级生产力）是指在一定时期内光合作用和自养呼吸作用后吸收的碳的净量（Clark"
+" et al。2001），通常以单位如kg / ha / yr表示。核电厂估算时间长，成本高，因此，我们依靠遥感信息来推导核电厂指标。"
 
 #: ../../source/for_users/features/unccdreporting.rst:66
 msgid ""
-"One of the most commonly used surrogates of NPP is the Normalized "
-"Difference Vegetation Index (NDVI), computed using information from the "
-"red and near infrared portions of the electromagnetic spectrum. In "
-"|trends.earth| we make use of bi-weekly products from MODIS and AVHRR to "
-"compute annual integrals of NDVI (computed as the mean annual NDVI for "
-"simplicity of interpretation of results). These annual integrals of NDVI "
-"are then used to compute each of the productivity indicators explained "
-"below."
+"One of the most commonly used surrogates of NPP is the Normalized Difference"
+" Vegetation Index (NDVI), computed using information from the red and near "
+"infrared portions of the electromagnetic spectrum. In |trends.earth| we make"
+" use of bi-weekly products from MODIS and AVHRR to compute annual integrals "
+"of NDVI (computed as the mean annual NDVI for simplicity of interpretation "
+"of results). These annual integrals of NDVI are then used to compute each of"
+" the productivity indicators explained below."
 msgstr ""
+"NPP最常用的代用指标之一是归一化植被指数（NDVI），使用电磁波谱中的红色和近红外部分的信息计算。在|trends.earth|中，我们利用MODIS和AVHRR的双周产品来计算NDVI的年度积分（为简化结果的解释，计算为平均年度NDVI）。然后，这些NDVI的年度积分被用来计算下面解释的每个生产力指标。"
 
 #: ../../source/for_users/features/unccdreporting.rst:74
 msgid ""
 "Land Productivity Dynamics (LPD) data are provided by the Joint Research "
 "Council (JRC) as the default data for computing the final SDG 15.3.1 "
 "Indicator."
-msgstr ""
+msgstr "土地生产力动态（LPD）数据由联合研究理事会（JRC）提供，作为计算最终SDG 15.3.1指标的默认数据。"
 
 #: ../../source/for_users/features/unccdreporting.rst:80
 msgid ""
@@ -155,147 +169,158 @@ msgid ""
 "dataset, but local maps can also be used. The indicator is computed as "
 "follows:"
 msgstr ""
+"为了评估土地覆被的变化，用户需要覆盖研究区域的基线年和目标年的土地覆被地图。这些地图需要具有可接受的精度，并以能够进行有效比较的方式创建。|trends.earth|使用ESA"
+" CCI土地覆盖地图作为默认数据集，但也可以使用本地地图。该指标的计算方法如下："
 
 #: ../../source/for_users/features/unccdreporting.rst:86
 msgid ""
 "Reclassify both land cover maps to the 7 land cover classes needed for "
 "reporting to the UNCCD (forest, grassland, cropland, wetland, artificial "
 "area, bare land and water)."
-msgstr ""
+msgstr "将两张土地覆被图重新分类为需要向UNCCD报告的7个土地覆被等级（森林、草原、耕地、湿地、人工区、裸地和水）。"
 
 #: ../../source/for_users/features/unccdreporting.rst:90
 msgid ""
-"Perform a land cover transition analysis to identify which pixels "
-"remained in the same land cover class, and which ones changed."
-msgstr ""
+"Perform a land cover transition analysis to identify which pixels remained "
+"in the same land cover class, and which ones changed."
+msgstr "进行土地覆被过渡分析，以确定哪些像素保持在同一土地覆被等级，哪些像素发生了变化。"
 
 #: ../../source/for_users/features/unccdreporting.rst:93
 msgid ""
-"Based on your local knowledge of the conditions in the study area and the"
-" land degradation processed occurring there, use the table below to "
-"identify which transitions correspond to degradation (- sign), "
-"improvement (+ sign), or no change in terms of land condition (zero)."
+"Based on your local knowledge of the conditions in the study area and the "
+"land degradation processed occurring there, use the table below to identify "
+"which transitions correspond to degradation (- sign), improvement (+ sign), "
+"or no change in terms of land condition (zero)."
 msgstr ""
+"基于您对研究地区的条件和当地发生的土地退化处理的地方知识，使用下面的表格来确定哪些过渡对应于土地条件的退化（-号）、改善（+号）或没有变化（零）。"
 
 #: ../../source/for_users/features/unccdreporting.rst:102
 msgid ""
-"|trends.earth| will combine the information from the land cover maps and "
-"the table of degradation typologies by land cover transition to compute "
-"the land cover sub-indicator."
-msgstr ""
+"|trends.earth| will combine the information from the land cover maps and the"
+" table of degradation typologies by land cover transition to compute the "
+"land cover sub-indicator."
+msgstr "|trends.earth|将结合土地覆被地图和按土地覆被过渡的退化类型表的信息，计算出土地覆被分指标。"
 
 #: ../../source/for_users/features/unccdreporting.rst:112
 msgid ""
-"The third sub-indicator for monitoring land degradation as part of the "
-"SDG process quantifies changes in soil organic carbon (SOC) over the "
-"reporting period. Changes in SOC are particularly difficult to assess for"
-" several reasons, some of them being the high spatial variability of soil"
-" properties, the time and cost intensiveness of conducting representative"
-" soil surveys and the lack of time series data on SOC for most regions of"
-" the world. To address some of the limitations, a combined land cover/SOC"
-" method is used in |trends.earth| to estimate changes in SOC and identify"
-" potentially degraded areas. The indicator is computed as follows:"
+"The third sub-indicator for monitoring land degradation as part of the SDG "
+"process quantifies changes in soil organic carbon (SOC) over the reporting "
+"period. Changes in SOC are particularly difficult to assess for several "
+"reasons, some of them being the high spatial variability of soil properties,"
+" the time and cost intensiveness of conducting representative soil surveys "
+"and the lack of time series data on SOC for most regions of the world. To "
+"address some of the limitations, a combined land cover/SOC method is used in"
+" |trends.earth| to estimate changes in SOC and identify potentially degraded"
+" areas. The indicator is computed as follows:"
 msgstr ""
+"作为可持续发展目标进程的一部分，监测土地退化的第三个次级指标对报告期内土壤有机碳（SOC）的变化进行量化。基于某些原因，SOC的变化特别难以评估，其中一些原因是土壤特性的高度空间变异性，进行代表性土壤调查的时间和成本密集性，以及世界上大多数地区缺乏SOC的时间序列数据。为了解决其中的一些局限性，在|trends.earth|中使用了一种土地覆盖/SOC的综合方法来估计SOC的变化并确定潜在的退化区域。该指标的计算方法如下："
 
 #: ../../source/for_users/features/unccdreporting.rst:122
 msgid ""
 "Determine the SOC reference values. |trends.earth| uses SoilGrids 250m "
 "carbon stocks for the first 30 cm of the soil profile as the reference "
-"values for calculation (NOTE: SoilGrids uses information from a variety "
-"of data sources and ranging from many years to produce this product, "
-"therefore assigning a date for calculations purposes could cause "
-"inaccuracies in the stock change calculations)."
+"values for calculation (NOTE: SoilGrids uses information from a variety of "
+"data sources and ranging from many years to produce this product, therefore "
+"assigning a date for calculations purposes could cause inaccuracies in the "
+"stock change calculations)."
 msgstr ""
+"确定SOC的参考值。|trends.earth||使用SoilGrids "
+"250m土壤剖面前30厘米的碳储量作为计算的参考值（注意：SoilGrids使用各种数据源和多年的信息来制作该产品，因此为计算目的指定一个日期可能导致储量变化计算的不准确）。"
 
 #: ../../source/for_users/features/unccdreporting.rst:129
 msgid ""
 "Reclassify the land cover maps to the 7 land cover classes needed for "
 "reporting to the UNCCD (forest, grassland, cropland, wetland, artificial "
-"area, bare land and water). Ideally annual land cover maps are preferred,"
-" but at least land cover maps for the starting and end years are needed."
+"area, bare land and water). Ideally annual land cover maps are preferred, "
+"but at least land cover maps for the starting and end years are needed."
 msgstr ""
+"将土地覆被图重新分类为需要向UNCCD报告的7个土地覆被等级（森林、草原、耕地、湿地、人工区、裸地和水）。最好是年度土地覆被图，但至少需要起始和结束年份的土地覆被图。"
 
 #: ../../source/for_users/features/unccdreporting.rst:134
 msgid ""
-"To estimate the changes in C stocks for the reporting period C conversion"
-" coefficients for changes in land use, management and inputs are "
-"recommended by the IPCC and the UNCCD. However, spatially explicit "
-"information on management and C inputs is not available for most regions."
-" As such, only land use conversion coefficient can be applied for "
-"estimating changes in C stocks (using land cover as a proxy for land "
-"use). The coefficients used were the result of a literature review "
-"performed by the UNCCD and are presented in the table below. Those "
-"coefficients represent the proportional in C stocks after 20 years of "
-"land cover change."
+"To estimate the changes in C stocks for the reporting period C conversion "
+"coefficients for changes in land use, management and inputs are recommended "
+"by the IPCC and the UNCCD. However, spatially explicit information on "
+"management and C inputs is not available for most regions. As such, only "
+"land use conversion coefficient can be applied for estimating changes in C "
+"stocks (using land cover as a proxy for land use). The coefficients used "
+"were the result of a literature review performed by the UNCCD and are "
+"presented in the table below. Those coefficients represent the proportional "
+"in C stocks after 20 years of land cover change."
 msgstr ""
+"为了估算报告期内碳储存量的变化，气候变化专门组织和防治荒漠化公约建议了土地使用，管理和投入变化的C换算系数。然而，大部分地区都没有关于管理和C输入的空间明确信息。因此，只有土地利用转换系数可用于估算碳储量的变化（使用土地覆盖作为土地利用的替代指标）。所使用的系数是“防治荒漠化公约”进行的文献审查的结果，并列于下表。这些系数表示土地覆被变化20年后C储量的比例。"
 
 #: ../../source/for_users/features/unccdreporting.rst:147
 msgid ""
 "Changes in SOC are better studied for land cover transitions involving "
-"agriculture, and for that reason there is a different set of coefficients"
-" for each of the main global climatic regions: Temperate Dry (f = 0.80), "
+"agriculture, and for that reason there is a different set of coefficients "
+"for each of the main global climatic regions: Temperate Dry (f = 0.80), "
 "Temperate Moist (f = 0.69), Tropical Dry (f = 0.58), Tropical Moist (f = "
 "0.48), and Tropical Montane (f = 0.64)."
 msgstr ""
+"SOC的变化对涉及农业的土地覆被过渡研究比较好，因此，对全球每个主要气候区都有一套不同的系数。温带干旱区（f=0.80）、温带湿润区（f=0.69）、热带干旱区（f=0.58）、热带湿润区（f=0.48）和热带山地（f=0.64）。"
 
 #: ../../source/for_users/features/unccdreporting.rst:153
-#, python-format
 msgid ""
 "Compute relative different in SOC between the baseline and the target "
 "period, areas which experienced a loss in SOC of 10% of more during the "
 "reporting period will be considered potentially degraded, and areas "
 "experiencing a gain of 10% or more as potentially improved."
-msgstr ""
+msgstr "计算基线期和目标期之间SOC的相对差异，在报告期内SOC损失10%以上的地区将被认为是潜在的退化，而收益10%以上的地区则为潜在的改善。"
 
 #: ../../source/for_users/features/unccdreporting.rst:163
 msgid "Combining indicators"
-msgstr ""
+msgstr "合并指标"
 
 #: ../../source/for_users/features/unccdreporting.rst:165
 msgid ""
-"The integration of the three SDG 15.3.1 sub-indicators is done following "
-"the one-out all-out rule, this means that if an area was identified as "
-"potentially degraded by any of the sub-indicators, then that area will be"
-" considered potentially degraded for reporting purposes."
+"The integration of the three SDG 15.3.1 sub-indicators is done following the"
+" one-out all-out rule, this means that if an area was identified as "
+"potentially degraded by any of the sub-indicators, then that area will be "
+"considered potentially degraded for reporting purposes."
 msgstr ""
+"三个SDG "
+"15.3.1分项指标的整合是按照一出一进的规则进行的，这意味着如果一个地区被任何一个分项指标确定为潜在的退化，那么这个地区将被认为是潜在的退化，以便报告。"
 
 #: ../../source/for_users/features/unccdreporting.rst:174
 msgid "UNCCD Strategic Objective 2 (SO 2)"
-msgstr ""
+msgstr "UNCCD 战略目标2 (SO 2)"
 
 #: ../../source/for_users/features/unccdreporting.rst:177
 msgid "To improve the living conditions of affected populations"
-msgstr ""
+msgstr "改善受影响人口的生活条件"
 
 #: ../../source/for_users/features/unccdreporting.rst:179
 msgid ""
-"Addressing the global challenges of desertification, land degradation, "
-"and drought (DLDD) and their impacts on coupled human-environmental "
-"systems is a key component of the 2030 Agenda for Sustainable "
-"Development. In particular, Sustainable Development Goal (SDG) 15.3 aims "
-"to, by 2030, combat desertification, restore degraded land and soil, "
-"including land affected by desertification, drought and floods, and "
-"strive to achieve a land degradation-neutral world. Addressing this "
-"challenge is essential for improving the livelihoods of those most "
-"affected by DLDD and for safeguarding against the most extreme effects of"
-" climate change."
+"Addressing the global challenges of desertification, land degradation, and "
+"drought (DLDD) and their impacts on coupled human-environmental systems is a"
+" key component of the 2030 Agenda for Sustainable Development. In "
+"particular, Sustainable Development Goal (SDG) 15.3 aims to, by 2030, combat"
+" desertification, restore degraded land and soil, including land affected by"
+" desertification, drought and floods, and strive to achieve a land "
+"degradation-neutral world. Addressing this challenge is essential for "
+"improving the livelihoods of those most affected by DLDD and for "
+"safeguarding against the most extreme effects of climate change."
 msgstr ""
+"应对荒漠化、土地退化和干旱（DLDD）的全球挑战及其对人类-"
+"环境耦合系统的影响是《2030年可持续发展议程》的一个关键组成部分。特别是，SDG15.3旨在截止2030年，防治荒漠化，恢复退化的土地和土壤，包括受荒漠化、干旱和洪水影响的土地，并努力实现一个土地退化中立的世界。应对这一挑战对于改善受荒漠化、土地退化和干旱影响最严重者的生计以及防范气候变化的最极端影响至关重要。"
 
 #: ../../source/for_users/features/unccdreporting.rst:186
 msgid ""
 "The livelihoods of people in degraded areas include multiple human and "
-"natural characteristics of local environments, including adequate access "
-"to food and water, either directly through subsistence livelihoods, "
-"through sufficient income to purchase food and water security, or a "
-"combination of both. If food and water security are achieved, "
-"outmigration from affected areas should no longer be forced but rather "
-"voluntary in nature. Socially and economically marginalized populations, "
-"communities and households tend to be disproportionally vulnerable to "
-"climate change and the combined effects of DLDD. The ability to identify "
-"and quantify the makeup, distribution, and relative vulnerability of such"
-" populations,communities, and households is critical in reinforcing "
-"livelihood resilience in order to enhance positive adaptations to DLDD"
+"natural characteristics of local environments, including adequate access to "
+"food and water, either directly through subsistence livelihoods, through "
+"sufficient income to purchase food and water security, or a combination of "
+"both. If food and water security are achieved, outmigration from affected "
+"areas should no longer be forced but rather voluntary in nature. Socially "
+"and economically marginalized populations, communities and households tend "
+"to be disproportionally vulnerable to climate change and the combined "
+"effects of DLDD. The ability to identify and quantify the makeup, "
+"distribution, and relative vulnerability of such populations,communities, "
+"and households is critical in reinforcing livelihood resilience in order to "
+"enhance positive adaptations to DLDD"
 msgstr ""
+"退化地区人们的生计包括当地环境的多种人类和自然特征，包括直接通过维持生计获得足够的食物和水，通过足够的收入购买食物和水安全，或两者结合。如果实现了食物和水的安全，受影响地区的外迁就不再是被迫的，而是自愿性的。在社会和经济上被边缘化的人口、社区和家庭往往更容易受到气候变化和DLDD综合效应的影响。识别和量化这些人口、社区和家庭的构成、分布和相对脆弱性的能力，对于加强生计复原力，以提高对DLDD的积极适应性至关重要。"
 
 #: ../../source/for_users/features/unccdreporting.rst:194
 msgid ""
@@ -303,388 +328,411 @@ msgid ""
 "indicator on **Trends in Population Exposure to Land Degradation "
 "Disaggregated by Sex (SO 2-3)** by calculating the proportions of "
 "population, disaggregated by sex, exposed to land degradation. "
-"|trends.earth| uses gridded data representing the spatial distribution of"
-" the population over the SDG 15.3.1 Indicator map to establish its "
-"exposure to land degradation."
+"|trends.earth| uses gridded data representing the spatial distribution of "
+"the population over the SDG 15.3.1 Indicator map to establish its exposure "
+"to land degradation."
 msgstr ""
+"|trends.earth|允许用户监测UNCCD战略目标2的指标：**按性别分列的人口受土地退化影响的趋势（SO "
+"2-3）**，计算按性别分列的受土地退化影响的人口比例。|trends.earth|使用代表人口在可持续发展目标15.3.1指标地图上的空间分布的网格化数据来确定其对土地退化的暴露程度。"
 
 #: ../../source/for_users/features/unccdreporting.rst:198
 msgid "The (SO 2-3) indicator uses the following metrics:"
-msgstr ""
+msgstr "(SO 2-3)指标使用以下单位："
 
 #: ../../source/for_users/features/unccdreporting.rst:200
 msgid ""
-"-Percentage of the female population exposed to land degradation "
-"-Percentage of the male population exposed to land degradation "
-"-Percentage of the total (female and male) population exposed to land "
-"degradation"
-msgstr ""
+"-Percentage of the female population exposed to land degradation -Percentage"
+" of the male population exposed to land degradation -Percentage of the total"
+" (female and male) population exposed to land degradation"
+msgstr "-面临土地退化的女性人口百分比 -面临土地退化的男性人口百分比 -面临土地退化的总人口（女性和男性）百分比"
 
 #: ../../source/for_users/features/unccdreporting.rst:204
 msgid ""
 "|trends.earth| provides access the WorldPop dataset, which is used by "
 "default by the UNCCD for calculating indicator SO2-3."
-msgstr ""
+msgstr "|trends.earth|提供访问WorldPop数据集的机会，UNCCD默认使用该数据集来计算SO2-3指标。"
 
 #: ../../source/for_users/features/unccdreporting.rst:207
 msgid "UNCCD Strategic Objective 3 (SO 3)"
-msgstr ""
+msgstr "UNCCD 战略目标 3 (SO 3)"
 
 #: ../../source/for_users/features/unccdreporting.rst:210
 msgid ""
-"To mitigate, adapt to, and manage the effects of drought in order to "
-"enhance resilience of vulnerable populations and ecosystems."
-msgstr ""
+"To mitigate, adapt to, and manage the effects of drought in order to enhance"
+" resilience of vulnerable populations and ecosystems."
+msgstr "减轻、适应和管理干旱的影响，以提高弱势人口和生态系统的复原力。"
 
 #: ../../source/for_users/features/unccdreporting.rst:213
 msgid "Drought and land degradation"
-msgstr ""
+msgstr "干旱和土地退化"
 
 #: ../../source/for_users/features/unccdreporting.rst:214
 msgid ""
-"**Land degradation** as defined by the UNCCD refers to any reduction or "
-"loss in the biological or economic productive capacity of the land "
-"resource base. It is generally caused by human activities, exacerbated by"
-" natural processes, and often magnified by and closely intertwined with "
-"climate change and biodiversity loss.Land degradation reduces "
-"agricultural productivity and increases the vulnerability of those areas "
-"already at risk of impacts from climate variability and change, "
-"especially in regions of the world."
+"**Land degradation** as defined by the UNCCD refers to any reduction or loss"
+" in the biological or economic productive capacity of the land resource "
+"base. It is generally caused by human activities, exacerbated by natural "
+"processes, and often magnified by and closely intertwined with climate "
+"change and biodiversity loss.Land degradation reduces agricultural "
+"productivity and increases the vulnerability of those areas already at risk "
+"of impacts from climate variability and change, especially in regions of the"
+" world."
 msgstr ""
+"**土地退化**根据UNCCD的定义，指土地资源基础的生物或经济生产能力的任何减少或损失。它通常是由人类活动造成的，并因自然过程而加剧，往往因气候变化和生物多样性丧失而放大，并与之密切相关。土地退化降低了农业生产力，增加了那些已经面临气候变异和变化影响的地区的脆弱性，特别是在世界各区域。"
 
 #: ../../source/for_users/features/unccdreporting.rst:220
 msgid ""
-"**Drought** is a complex, slow-onset phenomenon that happens over "
-"different time scales. It is characterized by a reduction in water "
-"availability, leading to cascading effects on people's livelihoods and "
-"economic sectors. Drought is sometimes simplistically defined as a period"
-" of dry weather long enough to cause a hydrological imbalance, although a"
-" globally agreed upon definition for drought does not exist. Moreover, "
-"drought hardly occurs as a single risk event but rather interlinked with "
-"other hazards such as heatwaves, wildfires, sand/dust storms, or floods."
+"**Drought** is a complex, slow-onset phenomenon that happens over different "
+"time scales. It is characterized by a reduction in water availability, "
+"leading to cascading effects on people's livelihoods and economic sectors. "
+"Drought is sometimes simplistically defined as a period of dry weather long "
+"enough to cause a hydrological imbalance, although a globally agreed upon "
+"definition for drought does not exist. Moreover, drought hardly occurs as a "
+"single risk event but rather interlinked with other hazards such as "
+"heatwaves, wildfires, sand/dust storms, or floods."
 msgstr ""
+"**干旱**是一种复杂的、缓慢发生的现象，在不同的时间范围内发生。它的特点是水供应的减少，导致对人们的生计和经济部门的连带影响。干旱有时被简单地定义为一段足够长的干旱天气，导致水文失衡，尽管全球一致同意的干旱定义并不存在。此外，干旱几乎不作为一个单一的风险事件发生，而是与其他危害，如热浪、野火、沙尘暴或洪水相互关联。"
 
 #: ../../source/for_users/features/unccdreporting.rst:226
 msgid ""
 "The International Panel on Climate Change (IPCC) defines drought as \"a "
-"period of abnormally dry weather long enough to cause a serious "
-"hydrological imbalance\". Drought is a relative term, therefore any "
-"discussion in terms of precipitation deficit must refer to the particular"
-" precipitation-related activity that is under discussion. For example, "
-"shortage of precipitation during the growing season impinges on crop "
-"production or ecosystem function in general (due to soil moisture "
-"drought, also termed agricultural drought), and during the runoff and "
-"percolation season primarily affects water supplies (hydrological "
-"drought). Storage changes in soil moisture and groundwater are also "
-"affected by increases in actual evapotranspiration in addition to "
-"reductions in precipitation. A period with an abnormal precipitation "
-"deficit is defined as a meteorological drought. See also Soil moisture "
-"(IPCC Assessment Report 5, 2014). The United Nations Disasters Risk "
-"Reduction (UNDRR) defines drought as a slow-onset hazard, often referred "
-"to as a creeping phenomenon. The absence of a precise, universally "
-"accepted definition of drought adds to the confusion. Definitions must be"
-" region specific because each climate regime has distinctive climatic "
-"characteristics (UNDRR GAR Chapter 6). The lack of agreed upon definition"
-" complicates monitoring efforts, as the definition and monitoring "
-"approach are typically context specific. where poverty rates remain high "
-"despite efforts to reduce poverty, inequality, and enhance the socio-"
-"economic well-being of all people worldwide."
+"period of abnormally dry weather long enough to cause a serious hydrological"
+" imbalance\". Drought is a relative term, therefore any discussion in terms "
+"of precipitation deficit must refer to the particular precipitation-related "
+"activity that is under discussion. For example, shortage of precipitation "
+"during the growing season impinges on crop production or ecosystem function "
+"in general (due to soil moisture drought, also termed agricultural drought),"
+" and during the runoff and percolation season primarily affects water "
+"supplies (hydrological drought). Storage changes in soil moisture and "
+"groundwater are also affected by increases in actual evapotranspiration in "
+"addition to reductions in precipitation. A period with an abnormal "
+"precipitation deficit is defined as a meteorological drought. See also Soil "
+"moisture (IPCC Assessment Report 5, 2014). The United Nations Disasters Risk"
+" Reduction (UNDRR) defines drought as a slow-onset hazard, often referred to"
+" as a creeping phenomenon. The absence of a precise, universally accepted "
+"definition of drought adds to the confusion. Definitions must be region "
+"specific because each climate regime has distinctive climatic "
+"characteristics (UNDRR GAR Chapter 6). The lack of agreed upon definition "
+"complicates monitoring efforts, as the definition and monitoring approach "
+"are typically context specific. where poverty rates remain high despite "
+"efforts to reduce poverty, inequality, and enhance the socio-economic well-"
+"being of all people worldwide."
 msgstr ""
+"国际气候变化专门委员会（IPCC）将干旱定义为 "
+"\"一段足够长的异常干燥天气，导致严重的水文不平衡\"。干旱是一个相对的术语，因此任何关于降水不足的讨论都必须指正在讨论的与降水有关的特定活动。例如，生长季节的降水短缺对作物生产或生态系统功能产生普遍影响（由于土壤水分干旱，也称为农业干旱），而在径流和渗漏季节主要影响水供应（水文干旱）。土壤水分和地下水的储存变化，除了降水减少外，还受到实际蒸发量增加的影响。降水异常不足的时期被定义为气象干旱。另见土壤水分（IPCC评估报告5，2014）。联合国减少灾害风险组织（UNDRR）将干旱定义为一种缓慢发生的危害，通常被称为爬行现象。缺少一个精确的、普遍接受的干旱定义，使人更加困惑。定义必须是针对地区的，因为每个气候系统都有独特的气候特征（UNDRR"
+" GAR第6章）。缺乏一致的定义使监测工作变得复杂，因为定义和监测方法通常是针对具体环境的。 "
+"尽管努力减少贫困、不平等和提高全世界人民的社会经济福祉，但贫困率仍然很高。"
 
 #: ../../source/for_users/features/unccdreporting.rst:238
 msgid ""
 "Drought increasingly impacts larger numbers of people, livelihoods, "
-"ecosystems, and economies worldwide. When it occurs concomitantly with "
-"land degradation, it can expose already vulnerable populations to "
-"deleterious livelihood, environmental, socio-economic, and health risks "
-"and decrease population and community resilience."
+"ecosystems, and economies worldwide. When it occurs concomitantly with land "
+"degradation, it can expose already vulnerable populations to deleterious "
+"livelihood, environmental, socio-economic, and health risks and decrease "
+"population and community resilience."
 msgstr ""
+"干旱对全世界越来越多的人、生计、生态系统和经济产生影响。当它与土地退化同时发生时，它可能使已经脆弱的人口面临有害的生计、环境、社会经济和健康风险，并降低人口和社区的复原力。"
 
 #: ../../source/for_users/features/unccdreporting.rst:243
-msgid "The UNCCD has adopted a monitoring framework with three levels for SO 3:"
-msgstr ""
+msgid ""
+"The UNCCD has adopted a monitoring framework with three levels for SO 3:"
+msgstr "UNCCD采用了一个监测框架，对战略目标3分为三个级别："
 
 #: ../../source/for_users/features/unccdreporting.rst:245
 msgid ""
-"Level I SO 3-1 Trends in the proportion of land under drought over the "
-"total land area(Hazard), Level II SO 3-2 Trends in the proportion of the "
-"total population exposed to drought(Exposure), Level III SO 3-3 Trends in"
-" the degree of drought vulnerability (Vulnerability)."
+"Level I SO 3-1 Trends in the proportion of land under drought over the total"
+" land area(Hazard), Level II SO 3-2 Trends in the proportion of the total "
+"population exposed to drought(Exposure), Level III SO 3-3 Trends in the "
+"degree of drought vulnerability (Vulnerability)."
 msgstr ""
+"一级SO 3-1 干旱土地占总土地面积的比例趋势（危害），二级SO 3-2 遭受干旱的总人口比例趋势（暴露），三级SO 3-3 "
+"干旱脆弱性程度趋势（脆弱）。"
 
 #: ../../source/for_users/features/unccdreporting.rst:249
 msgid "Under the IPCC framework:"
-msgstr ""
+msgstr "根据IPCC框架："
 
 #: ../../source/for_users/features/unccdreporting.rst:251
 msgid ""
 "**Hazard** is the potential occurrence of a natural or human-induced "
 "physical event or trend or physical impact that may cause loss of life, "
 "injury, or other health impacts, as well as damage and loss to property, "
-"infrastructure, livelihoods, service provision, ecosystems and "
-"environmental resources."
+"infrastructure, livelihoods, service provision, ecosystems and environmental"
+" resources."
 msgstr ""
+"**危害**是指可能发生的自然或人类引起的物理事件或趋势或物理影响，可能造成生命损失、伤害或其他健康影响，以及对财产、基础设施、生计、服务供应、生态系统和环境资源的破坏和损失。"
 
 #: ../../source/for_users/features/unccdreporting.rst:255
 msgid ""
-"**Exposure** characterizes the presence of people, livelihoods, species "
-"or ecosystems, environmental functions, services, and resources, "
+"**Exposure** characterizes the presence of people, livelihoods, species or "
+"ecosystems, environmental functions, services, and resources, "
 "infrastructure, or economic, social, or cultural assets in places and "
 "settings that could be adversely affected."
-msgstr ""
+msgstr "**接触**描述了人、生计、物种或生态系统、环境功能、服务和资源、基础设施，或经济、社会或文化资产，在可能受到不利影响的地方和环境的存在。"
 
 #: ../../source/for_users/features/unccdreporting.rst:258
 msgid ""
 "**Vulnerability** is defined as the propensity or predisposition to be "
 "adversely affected by climate change and related processes."
-msgstr ""
+msgstr "**脆弱**被定义为受到气候变化和相关过程的不利影响的倾向或倾向性。"
 
 #: ../../source/for_users/features/unccdreporting.rst:260
 msgid ""
-"In order to assess the SO 3 indicators, |trends.earth| uses information "
-"from 3 sub-indicators:"
-msgstr ""
+"In order to assess the SO 3 indicators, |trends.earth| uses information from"
+" 3 sub-indicators:"
+msgstr "为了评估SO 3指标，|trends.earth|使用3个次级指标的信息："
 
 #: ../../source/for_users/features/unccdreporting.rst:262
 #: ../../source/for_users/features/unccdreporting.rst:289
 msgid "Standardized Precipitation Index (SPI)"
-msgstr ""
+msgstr "标准化降水指数（SPI）"
 
 #: ../../source/for_users/features/unccdreporting.rst:263
 msgid "Gridded global population dataset"
-msgstr ""
+msgstr "全球人口网格化数据集"
 
 #: ../../source/for_users/features/unccdreporting.rst:264
 msgid "Drought Vulnerability Index (DVI)"
-msgstr ""
+msgstr "干旱脆弱性指数（DVI）"
 
 #: ../../source/for_users/features/unccdreporting.rst:266
 msgid ""
 "|trends.earth| allows the user to compute each of these indicators in a "
-"spatially explicit way generating raster maps and producing a summary "
-"table reporting areas potentially improved and degraded for the area of "
-"analysis. SO 3-1 \"Trends in the proportion of land under drought over "
-"the total land area\"."
+"spatially explicit way generating raster maps and producing a summary table "
+"reporting areas potentially improved and degraded for the area of analysis. "
+"SO 3-1 \"Trends in the proportion of land under drought over the total land "
+"area\"."
 msgstr ""
+"|trends.earth|允许用户以空间明确的方式计算这些指标中的每一项，生成栅格地图并产生一个汇总表，报告分析区域内可能改善和退化的区域。SO "
+"3-1 \"干旱土地占总土地面积比例的趋势\"。"
 
 #: ../../source/for_users/features/unccdreporting.rst:270
 msgid ""
 "The United Nations Convention to Combat Desertification (UNCCD) has "
 "developed a `Good practice guidance for national reporting on UNCCD "
 "Strategic Objective 3 "
-"<https://www.unccd.int/sites/default/files/documents/2021-09"
-"/UNCCD_GPG_Strategic-Objective-3_2021.pdf>`_ (GPG-SO3). providing "
-"recommendations on how to calculate indicators of SO3."
+"<https://www.unccd.int/sites/default/files/documents/2021-09/UNCCD_GPG_Strategic-"
+"Objective-3_2021.pdf>`_ (GPG-SO3). providing recommendations on how to "
+"calculate indicators of SO3."
 msgstr ""
+"UNCCD制定了 "
+"\"关于UNCCD战略目标3的国家报告的良好实践指南<https://www.unccd.int/sites/default/files/documents/2021-09/UNCCD_GPG_Strategic-"
+"Objective-3_2021.pdf>\"（GPG-SO3）。 提供了关于如何计算SO3指标的建议。"
 
 #: ../../source/for_users/features/unccdreporting.rst:275
 msgid ""
-"This document provides a brief introduction to the UNCCD Strategic "
-"Objective 3 and describes how each indicator is calculated by "
-"|trends.earth|, following the Strategic Objective 3 Good Practice "
-"Guidance."
-msgstr ""
+"This document provides a brief introduction to the UNCCD Strategic Objective"
+" 3 and describes how each indicator is calculated by |trends.earth|, "
+"following the Strategic Objective 3 Good Practice Guidance."
+msgstr "本文件简要介绍了《联合国防治荒漠化公约》战略目标3，并介绍了每项指标是如何按照战略目标3良好实践指南由|trends.earth|计算的。"
 
 #: ../../source/for_users/features/unccdreporting.rst:279
 msgid "SO3 Level I indicator (SO 3-1 Hazard)"
-msgstr ""
+msgstr "SO3一级指标（SO 3-1危险)"
 
 #: ../../source/for_users/features/unccdreporting.rst:281
 msgid "Steps to calculate Level I indicator following the UNCCD GPG-SO3:"
-msgstr ""
+msgstr "按照UNCCD GPG-SO3计算一级指标的步骤："
 
 #: ../../source/for_users/features/unccdreporting.rst:283
 msgid ""
-"Calculate SPI using an accumulation period of 12 months (SPI-12) and "
-"gridded precipitation data"
-msgstr ""
+"Calculate SPI using an accumulation period of 12 months (SPI-12) and gridded"
+" precipitation data"
+msgstr "使用12个月的累积期（SPI-12）和网格化降水数据计算SPI。"
 
 #: ../../source/for_users/features/unccdreporting.rst:284
 msgid ""
-"Identify the drought intensity class of each pixel based on the "
-"previously calculated SPI"
-msgstr ""
+"Identify the drought intensity class of each pixel based on the previously "
+"calculated SPI"
+msgstr "根据之前计算的SPI，确定每个像素的干旱强度等级。"
 
 #: ../../source/for_users/features/unccdreporting.rst:285
 msgid "Calculate proportion of land within each drought intensity class."
-msgstr ""
+msgstr "计算每个干旱强度等级内的土地比例。"
 
 #: ../../source/for_users/features/unccdreporting.rst:291
 msgid ""
 "The Standardized Precipitation Index (SPI) has been widely used to "
 "characterize meteorological drought or precipitation deficit, and was "
-"recognized through the Lincoln Declaration on Drought as the "
-"internationally preferred index for calculating and monitoring "
-"meteorological drought. SPI is calculated as standard deviations that the"
-" observed precipitation over a specified period would deviate from the "
-"long-term mean over periods of that duration considered over typically 30"
-" years of data, for a normal distribution and fitted probability "
-"distribution for the actual precipitation record. The primary advantages "
-"for using the SPI for global drought monitoring, prediction, and risk "
-"assessment is that it is currently in use in many countries globally and "
-"is endorsed by the World Meteorological Organization. Other key "
-"advantages are that the SPI represents both precipitation deficits and "
-"surpluses, and it can be calculated at different timescales (e.g., SPI-3,"
-" SPI-6, SPI-12, with the number indicating the number of months over "
-"which the index is calculated). Thus, it indirectly considers effects of "
-"accumulating precipitation deficits, which are critical for soil moisture"
-" and hydrological droughts."
+"recognized through the Lincoln Declaration on Drought as the internationally"
+" preferred index for calculating and monitoring meteorological drought. SPI "
+"is calculated as standard deviations that the observed precipitation over a "
+"specified period would deviate from the long-term mean over periods of that "
+"duration considered over typically 30 years of data, for a normal "
+"distribution and fitted probability distribution for the actual "
+"precipitation record. The primary advantages for using the SPI for global "
+"drought monitoring, prediction, and risk assessment is that it is currently "
+"in use in many countries globally and is endorsed by the World "
+"Meteorological Organization. Other key advantages are that the SPI "
+"represents both precipitation deficits and surpluses, and it can be "
+"calculated at different timescales (e.g., SPI-3, SPI-6, SPI-12, with the "
+"number indicating the number of months over which the index is calculated). "
+"Thus, it indirectly considers effects of accumulating precipitation "
+"deficits, which are critical for soil moisture and hydrological droughts."
 msgstr ""
+"标准化降水指数（SPI）已被广泛用于描述气象干旱或降水不足的特征，并通过《林肯干旱宣言》被确认为计算和监测气象干旱的国际首选指数。SPI的计算方法是对正态分布和实际降水记录的拟合概率分布，在特定时期内观察到的降水会偏离该时期的长期平均值的标准偏差，通常是30年的数据。使用SPI进行全球干旱监测、预测和风险评估的主要优势是，它目前已在全球许多国家使用，并得到世界气象组织的认可。其他主要优点是，SPI既代表降水不足，也代表降水过剩，而且可以按不同的时间尺度计算（例如，SPI-3，SPI-6，SPI-12，数字表示计算指数的月份数）。因此，它间接考虑了累积降水不足的影响，这对土壤水分和水文干旱至关重要。"
 
 #: ../../source/for_users/features/unccdreporting.rst:303
 msgid ""
-"By default, |trends.earth| offers access to SPI calculated from the "
-"Global Precipitation Climatology Centre (GPCC) Monitoring Product, a "
-"raster representing precipitation and derived from rain gauge data "
-"featuring spatial resolution of ~27 sq km and covering the entire globe. "
-"Users have also the option to use an alternative SPI calculated from the "
-"Climate Hazards Group InfraRed Precipitation with Stations (CHIRPS), with"
-" precipitation estimates based on satellite observations combined to "
-"gauged station data at ~5 sq km. While CHIRPS features higher spatial "
-"resolution, it has a \"quasi-global\" coverage that spans 50°S to 50°N. "
-"Therefore, users interested in calculating SO3-1 Hazard for areas outside"
-" this range will not be able to use the CHRIPS dataset."
+"By default, |trends.earth| offers access to SPI calculated from the Global "
+"Precipitation Climatology Centre (GPCC) Monitoring Product, a raster "
+"representing precipitation and derived from rain gauge data featuring "
+"spatial resolution of ~27 sq km and covering the entire globe. Users have "
+"also the option to use an alternative SPI calculated from the Climate "
+"Hazards Group InfraRed Precipitation with Stations (CHIRPS), with "
+"precipitation estimates based on satellite observations combined to gauged "
+"station data at ~5 sq km. While CHIRPS features higher spatial resolution, "
+"it has a \"quasi-global\" coverage that spans 50°S to 50°N. Therefore, users"
+" interested in calculating SO3-1 Hazard for areas outside this range will "
+"not be able to use the CHRIPS dataset."
 msgstr ""
+"默认情况下，|trends.earth|提供访问从全球降水气候学中心（GPCC）监测产品中计算出的SPI，这是一个代表降水的栅格，由雨量计数据得出，空间分辨率约为27平方公里，覆盖整个地球。用户还可以选择使用由气候危害小组红外降水站（CHIRPS）计算出的另一种SPI，其降水估计值基于卫星观测和~5平方公里的测站数据的结合。虽然CHIRPS具有更高的空间分辨率，但它的覆盖范围是"
+" \"准全球\"，即南纬50度到北纬50度。因此，对这一范围以外地区的SO3-1危害计算感兴趣的用户将无法使用CHRIPS的数据集。"
 
 #: ../../source/for_users/features/unccdreporting.rst:312
 msgid "Step 1. Calculating SPI"
-msgstr ""
+msgstr "第1步，计算SPI。"
 
 #: ../../source/for_users/features/unccdreporting.rst:314
 msgid ""
-"The SPI quantifies observed precipitation as a standardized departure "
-"from a selected probability distribution function that models the raw "
-"data. The raw data can be fitted to a gamma or a Pearson Type III "
-"distribution, and then transformed to a normal distribution. The "
-"transformed precipitation data are then used to compute the dimensionless"
-" SPI value, defined as the standardized anomaly of the precipitation."
+"The SPI quantifies observed precipitation as a standardized departure from a"
+" selected probability distribution function that models the raw data. The "
+"raw data can be fitted to a gamma or a Pearson Type III distribution, and "
+"then transformed to a normal distribution. The transformed precipitation "
+"data are then used to compute the dimensionless SPI value, defined as the "
+"standardized anomaly of the precipitation."
 msgstr ""
+"SPI将观察到的降水量化为对选定的概率分布函数的标准化偏离，该函数对原始数据进行建模。原始数据可以被拟合为伽马或皮尔逊III型分布，然后被转换为正态分布。然后用转换后的降水数据来计算无量纲的SPI值，定义为降水的标准化异常值。"
 
 #: ../../source/for_users/features/unccdreporting.rst:318
 msgid ""
 "The detailed equations for computing this index are described in the "
 "following steps using the gamma distribution:"
-msgstr ""
+msgstr "计算该指数的详细方程式在以下步骤中使用伽马分布进行描述："
 
 #: ../../source/for_users/features/unccdreporting.rst:323
-msgid "The transformation of the precipitation value into SPI has the purpose of:"
-msgstr ""
+msgid ""
+"The transformation of the precipitation value into SPI has the purpose of:"
+msgstr "将降水值转化为SPI的目的是："
 
 #: ../../source/for_users/features/unccdreporting.rst:321
 msgid "Transforming the mean of the precipitation value adjusted to 0;"
-msgstr ""
+msgstr "将降水值的平均值调整为0，进行转化；"
 
 #: ../../source/for_users/features/unccdreporting.rst:322
 msgid "Standard deviation of the precipitation is adjusted to 1.0; and"
-msgstr ""
+msgstr "降水的标准偏差被调整为1.0；以及"
 
 #: ../../source/for_users/features/unccdreporting.rst:323
 msgid "Skewness of the existing data must be readjusted to zero."
-msgstr ""
+msgstr "必须将现有数据的偏度重新调整为零。"
 
 #: ../../source/for_users/features/unccdreporting.rst:325
 msgid ""
-"When these goals have been achieved the standardized precipitation index "
-"can be interpreted as mean 0 and standard deviation of 1.0."
-msgstr ""
+"When these goals have been achieved the standardized precipitation index can"
+" be interpreted as mean 0 and standard deviation of 1.0."
+msgstr "当这些目标实现后，标准化的降水指数可以解释为平均值为0，标准偏差为1.0。"
 
 #: ../../source/for_users/features/unccdreporting.rst:328
 msgid "Mean of the precipitation can be computed as:"
-msgstr ""
+msgstr "降水的平均值可以计算为："
 
 #: ../../source/for_users/features/unccdreporting.rst:333
 msgid "where N is the number of precipitation observations."
-msgstr ""
+msgstr "其中N是降水观测值的数量。"
 
 #: ../../source/for_users/features/unccdreporting.rst:335
 msgid "The standard deviation for the precipitation is computed as:"
-msgstr ""
+msgstr "降水的标准偏差计算为："
 
 #: ../../source/for_users/features/unccdreporting.rst:340
 msgid "The skewness of the given precipitation is computed as:"
-msgstr ""
+msgstr "给定降水的偏度计算方法为："
 
 #: ../../source/for_users/features/unccdreporting.rst:345
 msgid ""
 "The precipitation is converted to lognormal values and the statistics U, "
 "shape and scale parameters of gamma distribution is computed:"
-msgstr ""
+msgstr "降水被转换为对数正态值，并计算出伽马分布的统计量U、形状和尺度参数："
 
 #: ../../source/for_users/features/unccdreporting.rst:351
 msgid ""
-"The resulting parameters are then used to find the cumulative probability"
-" of an observed precipitation event. The cumulative probability is given "
-"by:"
-msgstr ""
+"The resulting parameters are then used to find the cumulative probability of"
+" an observed precipitation event. The cumulative probability is given by:"
+msgstr "然后用得到的参数来寻找观察到的降水事件的累积概率。累积概率由以下公式得出："
 
 #: ../../source/for_users/features/unccdreporting.rst:358
 msgid ""
 "Since the gamma function is undefined for x = 0 and a precipitation "
 "distribution may contain zeros, the cumulative probability becomes:"
-msgstr ""
+msgstr "由于伽马函数对于x=0是未定义的，而且降水分布可能包含零，所以累积概率变成："
 
 #: ../../source/for_users/features/unccdreporting.rst:364
 msgid "where the probability from q is zero."
-msgstr ""
+msgstr "其中来自q的概率为零。"
 
 #: ../../source/for_users/features/unccdreporting.rst:366
 msgid ""
-"The cumulative probability H(x) is then transformed to the standard "
-"normal random variable Z with mean zero and variance of one:"
-msgstr ""
+"The cumulative probability H(x) is then transformed to the standard normal "
+"random variable Z with mean zero and variance of one:"
+msgstr "然后将累积概率H(x)转换为标准正态随机变量Z，其均值为0，方差为1："
 
 #: ../../source/for_users/features/unccdreporting.rst:372
 msgid "where:"
-msgstr ""
+msgstr "其中："
 
 #: ../../source/for_users/features/unccdreporting.rst:378
 msgid "Step 2. Identifying drought intensity classes"
-msgstr ""
+msgstr "第2步，确定干旱强度等级。"
 
 #: ../../source/for_users/features/unccdreporting.rst:380
 msgid ""
 "The dimensionless SPI values are interpreted as the number of standard "
-"deviations by which the observed anomaly deviates from the long-term mean"
-" and are typically labeled categorically based on condition (i.e., "
-"extremely wet, extremely dry, normal) as shown in the table below. A "
-"drought occurs when the SPI is consecutively negative, and its value "
-"reaches an intensity of -1 or less and ends when the SPI becomes "
-"positive."
+"deviations by which the observed anomaly deviates from the long-term mean "
+"and are typically labeled categorically based on condition (i.e., extremely "
+"wet, extremely dry, normal) as shown in the table below. A drought occurs "
+"when the SPI is consecutively negative, and its value reaches an intensity "
+"of -1 or less and ends when the SPI becomes positive."
 msgstr ""
+"无量纲的SPI值被解释为观察到的异常值偏离长期平均值的标准差数量，通常根据情况分类标注（即极湿、极干、正常），如下表所示。当SPI连续为负值时，就会发生干旱，其数值达到-1或更低的强度，当SPI变为正值时，干旱就会结束。"
 
 #: ../../source/for_users/features/unccdreporting.rst:388
 msgid ""
-"Drought intensity classes are identified by assessing the December SPI-12"
-" values for ear year of time-series. The December SPI-12 values represent"
-" the precipitation deficits (or excesses) over the Gregorian (January-"
-"December) calendar year. Positive SPI values are discarded, since they "
-"indicate that there was no drought in the given period."
+"Drought intensity classes are identified by assessing the December SPI-12 "
+"values for ear year of time-series. The December SPI-12 values represent the"
+" precipitation deficits (or excesses) over the Gregorian (January-December) "
+"calendar year. Positive SPI values are discarded, since they indicate that "
+"there was no drought in the given period."
 msgstr ""
+"干旱强度等级是通过评估时间序列中每一年的12月SPI-12值来确定的。12月的SPI-12值代表公历年（1-12月）的降水赤字（或过剩）。正的SPI值被放弃，因为它们表明在给定的时期内没有干旱。"
 
 #: ../../source/for_users/features/unccdreporting.rst:392
 msgid ""
 "For further details on SPI, see the `Good practice guidance for national "
 "reporting on UNCCD Strategic Objective 3 "
-"<https://www.unccd.int/sites/default/files/documents/2021-09"
-"/UNCCD_GPG_Strategic-Objective-3_2021.pdf>`_. We also recommend reading "
-"the Tools4LDN Technical Report on Monitoring Progress Towards UNCCD "
-"Strategic Objective 3 `A review of Publicly Available Geospatial Datasets"
-" and Indicators in Support of Drought Monitoring "
+"<https://www.unccd.int/sites/default/files/documents/2021-09/UNCCD_GPG_Strategic-"
+"Objective-3_2021.pdf>`_. We also recommend reading the Tools4LDN Technical "
+"Report on Monitoring Progress Towards UNCCD Strategic Objective 3 `A review "
+"of Publicly Available Geospatial Datasets and Indicators in Support of "
+"Drought Monitoring "
 "<https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/6033f28abca1996aedc492d5/1614017200233/ci-4-Tools4LDN2-FNL+web.pdf>`_."
 msgstr ""
+"关于SPI的进一步详情，请参见 "
+"\"关于UNCCD战略目标3的国家报告的良好实践指南<https://www.unccd.int/sites/default/files/documents/2021-09/UNCCD_GPG_Strategic-"
+"Objective-3_2021.pdf>\"。我们还建议阅读Tools4LDN关于监测UNCCD战略目标3进展情况的技术报告 "
+"\"对支持干旱监测的公共可用地理空间数据集和指标的审查<https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/6033f28abca1996aedc492d5/1614017200233/ci-4-Tools4LDN2-FNL+web.pdf>\"。"
 
 #: ../../source/for_users/features/unccdreporting.rst:398
 msgid ""
 "Step 3. Calculating the proportion of land within each drought intensity "
 "class."
-msgstr ""
+msgstr "第3步，计算每个干旱强度等级内的土地比例。"
 
 #: ../../source/for_users/features/unccdreporting.rst:400
 msgid ""
 "The equation to estimate the percentage of land within drought intensity "
 "classes takes the land area under the each drought intensity class "
 "identified in the previous step over the the total land area, as follows:"
-msgstr ""
+msgstr "估算干旱强度等级内的土地百分比的公式，是将上一步确定的每个干旱强度等级下的土地面积除以总土地面积，如下所示："
 
 #: ../../source/for_users/features/unccdreporting.rst:406
 msgid "Where:"
@@ -692,8 +740,8 @@ msgstr ""
 
 #: ../../source/for_users/features/unccdreporting.rst:408
 msgid ""
-"`Pij` is the proportion of land under the drought intensity class i in "
-"the year j"
+"`Pij` is the proportion of land under the drought intensity class i in the "
+"year j"
 msgstr ""
 
 #: ../../source/for_users/features/unccdreporting.rst:410
@@ -712,44 +760,43 @@ msgstr ""
 
 #: ../../source/for_users/features/unccdreporting.rst:418
 msgid ""
-"The UNCCD SO3 Level III drought Exposure indicator is built upon the SO 3"
-" Level I Hazard indicator by overlaying a gridded population data. Using "
-"the overlaying population as a proxy for calculating drought exposure is "
-"a straight-forward method. Knowing how many people are directly affected "
-"by drought can help aid get allocated to the most needed areas, based on "
+"The UNCCD SO3 Level III drought Exposure indicator is built upon the SO 3 "
+"Level I Hazard indicator by overlaying a gridded population data. Using the "
+"overlaying population as a proxy for calculating drought exposure is a "
+"straight-forward method. Knowing how many people are directly affected by "
+"drought can help aid get allocated to the most needed areas, based on "
 "percent of population exposed and strength of that exposure (drought "
 "severity). This method can also serve as a proxy for socioeconomic "
 "drought.The gender disaggregation calculation for the SO3 Level II "
-"population indicator is computed based on percent male and percent female"
-" in each grid cell. The outputs include exposure information by gender "
-"(percent male and percent female) exposed to each Level I drought "
-"intensity class. This produces two comparable grids that could be "
-"aggregated to administrative boundaries if desired, where global and "
-"local spatial relationships between gender and drought occurrence and/or "
-"severity can be better quantified and visualized."
+"population indicator is computed based on percent male and percent female in"
+" each grid cell. The outputs include exposure information by gender (percent"
+" male and percent female) exposed to each Level I drought intensity class. "
+"This produces two comparable grids that could be aggregated to "
+"administrative boundaries if desired, where global and local spatial "
+"relationships between gender and drought occurrence and/or severity can be "
+"better quantified and visualized."
 msgstr ""
 
 #: ../../source/for_users/features/unccdreporting.rst:427
 msgid ""
 "The WorldPop collection is a global gridded high resolution geospatial "
-"dataset on population distributions,demographics, and dynamics. "
-"WorldPop's spatially disaggregated layers are gridded with an output "
-"resolution of 3 arc-seconds and 30 arc-seconds (approximately 100 m & 1 "
-"km, respectively at the equator) and incorporates inputs such as "
-"population census tables & national geographic boundaries, roads, land "
-"cover, built structures, urban areas, night-time lights, infrastructure, "
-"environmental data, protected areas, and water bodies. The strengths of "
-"WorldPop are that the population estimation method of dasymetric mapping "
-"is multivariate, i.e., highly modeled, and therefore tailored to match "
-"data conditions and geographical nature of each individual country and "
-"region. Gender information is also available. The weakness of WorldPop is"
-" that the utilization of such complex interpolation models with sparse "
-"census data may lead to highly uncertain and imprecise population "
-"estimates in some sub-national and rural regions. In spite of the "
-"aforementioned limitation, WorldPop remains the most ideal gridded "
-"population dataset as it satisfies all our inclusion criteria, including "
-"spatial resolution, global coverage, frequency of data updates, and "
-"inclusion of a gender-disaggregated component."
+"dataset on population distributions,demographics, and dynamics. WorldPop's "
+"spatially disaggregated layers are gridded with an output resolution of 3 "
+"arc-seconds and 30 arc-seconds (approximately 100 m & 1 km, respectively at "
+"the equator) and incorporates inputs such as population census tables & "
+"national geographic boundaries, roads, land cover, built structures, urban "
+"areas, night-time lights, infrastructure, environmental data, protected "
+"areas, and water bodies. The strengths of WorldPop are that the population "
+"estimation method of dasymetric mapping is multivariate, i.e., highly "
+"modeled, and therefore tailored to match data conditions and geographical "
+"nature of each individual country and region. Gender information is also "
+"available. The weakness of WorldPop is that the utilization of such complex "
+"interpolation models with sparse census data may lead to highly uncertain "
+"and imprecise population estimates in some sub-national and rural regions. "
+"In spite of the aforementioned limitation, WorldPop remains the most ideal "
+"gridded population dataset as it satisfies all our inclusion criteria, "
+"including spatial resolution, global coverage, frequency of data updates, "
+"and inclusion of a gender-disaggregated component."
 msgstr ""
 
 #: ../../source/for_users/features/unccdreporting.rst:438
@@ -765,18 +812,17 @@ msgstr ""
 
 #: ../../source/for_users/features/unccdreporting.rst:444
 msgid ""
-"Drought Vulnerability assessment is based on the Drought Vulnerability "
-"Index (DVI), a composite index incorporating three components reflecting "
-"the vulnerability of the population to drought: i) social, ii) economic "
-"and iii) infrastructural. Currently DVI does not feature components on "
-"ecological or ecosystem vulnerability. |trends.earth| offers access to "
-"the global default DVI dataset produced by the Joint Research Centre "
-"(JRC). The JRC has developed a framework which integrates 15 economic, "
-"social, and infrastructural components related to drought vulnerability "
-"derived from global data sources. This framework recommends that drought "
-"vulnerability indicators should encompass orthogonal social, "
-"infrastructural, and economic factors that are generic and valid for any "
-"region."
+"Drought Vulnerability assessment is based on the Drought Vulnerability Index"
+" (DVI), a composite index incorporating three components reflecting the "
+"vulnerability of the population to drought: i) social, ii) economic and iii)"
+" infrastructural. Currently DVI does not feature components on ecological or"
+" ecosystem vulnerability. |trends.earth| offers access to the global default"
+" DVI dataset produced by the Joint Research Centre (JRC). The JRC has "
+"developed a framework which integrates 15 economic, social, and "
+"infrastructural components related to drought vulnerability derived from "
+"global data sources. This framework recommends that drought vulnerability "
+"indicators should encompass orthogonal social, infrastructural, and economic"
+" factors that are generic and valid for any region."
 msgstr ""
 
 #: ../../source/for_users/features/unccdreporting.rst:452
@@ -785,17 +831,17 @@ msgid ""
 "al., 2016 "
 "<https://www.sciencedirect.com/science/article/pii/S0959378016300565>`_ "
 "adopts an approach for SO3 assessing drought vulnerability that was "
-"initially proposed by the United Nations Office for Disaster Risk "
-"Reduction (UNDRR - formerly the United Nations International Strategy for"
-" Disaster Reduction or UNISDR) that reflects the state of the individual "
-"and collective social, economic, and infrastructural factors of a region "
-"[61]. This methodology has also been operationally implemented within the"
-" JRC Global Drought Observatory (GDO) to document and map global risk of "
-"drought impact for agriculture. The authors state that the factors that "
-"have been included do not represent a complete description of "
-"vulnerability in relation to a specific exposed element but can be viewed"
-" as the foundation for building a regional plan for reducing "
-"vulnerability and facilitating adaptation."
+"initially proposed by the United Nations Office for Disaster Risk Reduction "
+"(UNDRR - formerly the United Nations International Strategy for Disaster "
+"Reduction or UNISDR) that reflects the state of the individual and "
+"collective social, economic, and infrastructural factors of a region [61]. "
+"This methodology has also been operationally implemented within the JRC "
+"Global Drought Observatory (GDO) to document and map global risk of drought "
+"impact for agriculture. The authors state that the factors that have been "
+"included do not represent a complete description of vulnerability in "
+"relation to a specific exposed element but can be viewed as the foundation "
+"for building a regional plan for reducing vulnerability and facilitating "
+"adaptation."
 msgstr ""
 
 #: ../../source/for_users/features/unccdreporting.rst:460
@@ -808,19 +854,19 @@ msgid ""
 "composite model that derives from the aggregation of 15 proxy indicators "
 "(show in the Table below) that represent social, economic, and "
 "infrastructural vulnerability at each geographic location (a similar "
-"methodology as the DVI, discussed subsequently) and are derived from both"
-" at the national level and very high spatial resolution gridded data."
+"methodology as the DVI, discussed subsequently) and are derived from both at"
+" the national level and very high spatial resolution gridded data."
 msgstr ""
 
 #: ../../source/for_users/features/unccdreporting.rst:470
 msgid ""
-"This process involves first combining the indicators presented in the "
-"Table for each factor using a Data Envelopment Analysis (DEA) model, a "
-"deterministic and non-parametric linear programming technique that can be"
-" used to quantify the relative exposure of a region to drought from a "
-"multidimensional set of indicators. Secondly, arithmetically aggregating "
-"the individual factors resulting from the DEA model into a composite "
-"model of drought vulnerability such that:"
+"This process involves first combining the indicators presented in the Table "
+"for each factor using a Data Envelopment Analysis (DEA) model, a "
+"deterministic and non-parametric linear programming technique that can be "
+"used to quantify the relative exposure of a region to drought from a "
+"multidimensional set of indicators. Secondly, arithmetically aggregating the"
+" individual factors resulting from the DEA model into a composite model of "
+"drought vulnerability such that:"
 msgstr ""
 
 #: ../../source/for_users/features/unccdreporting.rst:477
@@ -831,89 +877,88 @@ msgstr ""
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr ""
+msgstr "iconCalculator"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr ""
+msgstr "iconChart"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr ""
+msgstr "iconClipboard"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr ""
+msgstr "iconCloudDownload"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr ""
+msgstr "iconCog"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr ""
+msgstr "iconDeletedataset"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
-msgstr ""
+msgstr "iconGlobe"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr ""
+msgstr "iconGraph"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr ""
+msgstr "iconInfo"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr ""
+msgstr "iconLoaddataset"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr ""
+msgstr "iconMarkMarker"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr ""
+msgstr "iconOpendatasetdirectory"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr ""
+msgstr "iconViewdatasetdetails"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr ""
+msgstr "iconWrench"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr ""
+msgstr "iconFolder"
 
 #: ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr ""
+msgstr "iconReports"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr ""
+msgstr "iconTrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr ""
+msgstr "iconVisualization"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr ""
+msgstr "logoCI"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr ""
+msgstr "logoLund"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr ""
+msgstr "logoNASA"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr ""
-
+msgstr "logoGEF"

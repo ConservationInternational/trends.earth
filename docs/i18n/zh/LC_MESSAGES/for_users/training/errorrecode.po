@@ -1,22 +1,26 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
-#
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
+# Alex Zvoleff <azvoleff@conservation.org>, 2022
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-06-21 17:06-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2022-06-21 21:07+0000\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
+"Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Language: zh\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../../source/for_users/training/errorrecode.rst:4
 msgid "False positive/negative layers"
@@ -24,45 +28,45 @@ msgstr ""
 
 #: ../../source/for_users/training/errorrecode.rst:6
 msgid ""
-"**Objective**: Learn how to create false positive/negative vector "
-"datasets."
+"**Objective**: Learn how to create false positive/negative vector datasets."
 msgstr ""
 
 #: ../../source/for_users/training/errorrecode.rst:8
 msgid "**Estimated time of completion**: 40 minutes"
-msgstr ""
+msgstr "**预计完成时间**：40分钟"
 
 #: ../../source/for_users/training/errorrecode.rst:10
 msgid "**Internet access**: Not needed"
-msgstr ""
+msgstr "**互联网访问**：不需要"
 
 #: ../../source/for_users/training/errorrecode.rst:12
 msgid ""
-"Click on the Trends.Earth toolbar within QGIS, and click on the "
-"Trends.Earth icon."
-msgstr ""
+"Click on the Trends.Earth toolbar within QGIS, and click on the Trends.Earth"
+" icon."
+msgstr "单击 QGIS 中的 Trends.Earth 工具栏，然后单击 Trends.Earth 图标。"
 
 #: ../../source/for_users/training/errorrecode.rst:17
 msgid ""
 "The **Trends.Earth** menu will open. In the **Dataset** window, where "
-"existing tasks are listed in the menu if the **Download remotely-"
-"generated datasets automatically** is checked in settings."
+"existing tasks are listed in the menu if the **Download remotely-generated "
+"datasets automatically** is checked in settings."
 msgstr ""
+"**Trends.Earth** 菜单将打开。在 **数据集** 窗口，如果在设置中选中了 **自动下载远程生成的数据集**，则会在菜单中列出现有任务。"
 
 #: ../../source/for_users/training/errorrecode.rst:20
 msgid ""
-"Refer to the :ref:`tut_settings` section of this manual to learn more "
-"about **Advanced settings**"
-msgstr ""
+"Refer to the :ref:`tut_settings` section of this manual to learn more about "
+"**Advanced settings**"
+msgstr "请参阅本手册的 :ref:`tut_settings` 部分，以了解关于**高级设置**的更多信息"
 
 #: ../../source/for_users/training/errorrecode.rst:22
 msgid "Select the Refresh button if no datasets appear in the menu."
-msgstr ""
+msgstr "如果菜单中没有数据集，请选择“刷新”按钮。"
 
 #: ../../source/for_users/training/errorrecode.rst:24
 msgid ""
-"Press the **Create** button at the bottom of the **Trends.Earth** menu "
-"and then select **False positive layer**"
+"Press the **Create** button at the bottom of the **Trends.Earth** menu and "
+"then select **False positive layer**"
 msgstr ""
 
 #: ../../source/for_users/training/errorrecode.rst:29
@@ -83,22 +87,22 @@ msgstr ""
 
 #: ../../source/for_users/training/errorrecode.rst:44
 msgid ""
-"To define areas in the dataset it is necessary to add it to QGIS map "
-"canvas using **Edit layer** button"
+"To define areas in the dataset it is necessary to add it to QGIS map canvas "
+"using **Edit layer** button"
 msgstr ""
 
 #: ../../source/for_users/training/errorrecode.rst:49
 msgid ""
-"If this is first time when layer added to QGIS canvas a dialog asking for"
-" indicator layers will be shown"
+"If this is first time when layer added to QGIS canvas a dialog asking for "
+"indicator layers will be shown"
 msgstr ""
 
 #: ../../source/for_users/training/errorrecode.rst:54
 msgid ""
-"In this dialog it is necessary to select indicator layers which will be "
-"used to calculate charts. This is one-time action, choice made in this "
-"dialog will be preserved and used in all subsequent edits of this "
-"specific vector dataset."
+"In this dialog it is necessary to select indicator layers which will be used"
+" to calculate charts. This is one-time action, choice made in this dialog "
+"will be preserved and used in all subsequent edits of this specific vector "
+"dataset."
 msgstr ""
 
 #: ../../source/for_users/training/errorrecode.rst:56
@@ -119,124 +123,123 @@ msgstr ""
 msgid ""
 "The **Polygon** tool used to digitize polygons manually, using the same "
 "point-and-click approach as native QGIS digitizing tools do. When "
-"**Polygon** tool is selected and digitizing started in the top-right "
-"corner of the QGIS map canvas a widget showing area of the polygon will "
-"be displayed."
+"**Polygon** tool is selected and digitizing started in the top-right corner "
+"of the QGIS map canvas a widget showing area of the polygon will be "
+"displayed."
 msgstr ""
 
 #: ../../source/for_users/training/errorrecode.rst:73
 msgid ""
-"The **Buffer** tool used to digitize polygons by selecting a center point"
-" and defining a radius or area of the circle around that center point. "
-"Once **Buffer** tools is selected and center point defined with the mouse"
-" click in the top-right corner of the QGIS map canvas a widget showing "
-"circle radius will be shown. Enter desired radius and press **Enter** key"
-" to create circle. Alternatively it is possible to draw circle manually "
-"by moving mouse cursor, in this case current radius will be displayed in "
-"the same widget."
+"The **Buffer** tool used to digitize polygons by selecting a center point "
+"and defining a radius or area of the circle around that center point. Once "
+"**Buffer** tools is selected and center point defined with the mouse click "
+"in the top-right corner of the QGIS map canvas a widget showing circle "
+"radius will be shown. Enter desired radius and press **Enter** key to create"
+" circle. Alternatively it is possible to draw circle manually by moving "
+"mouse cursor, in this case current radius will be displayed in the same "
+"widget."
 msgstr ""
 
 #: ../../source/for_users/training/errorrecode.rst:78
 msgid ""
-"When digitizing of the polygon is finished a custom attribute form will "
-"be shown."
+"When digitizing of the polygon is finished a custom attribute form will be "
+"shown."
 msgstr ""
 
 #: ../../source/for_users/training/errorrecode.rst:83
 msgid ""
-"In addition to various attributes this form also contains indicators "
-"chart calculated based on the rasters selected in the step 7."
+"In addition to various attributes this form also contains indicators chart "
+"calculated based on the rasters selected in the step 7."
 msgstr ""
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr ""
+msgstr "iconCalculator"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr ""
+msgstr "iconChart"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr ""
+msgstr "iconClipboard"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr ""
+msgstr "iconCloudDownload"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr ""
+msgstr "iconCog"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr ""
+msgstr "iconDeletedataset"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
-msgstr ""
+msgstr "iconGlobe"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr ""
+msgstr "iconGraph"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr ""
+msgstr "iconInfo"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr ""
+msgstr "iconLoaddataset"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr ""
+msgstr "iconMarkMarker"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr ""
+msgstr "iconOpendatasetdirectory"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr ""
+msgstr "iconViewdatasetdetails"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr ""
+msgstr "iconWrench"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr ""
+msgstr "iconFolder"
 
 #: ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr ""
+msgstr "iconReports"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr ""
+msgstr "iconTrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr ""
+msgstr "iconVisualization"
 
 #: ../../../<rst_epilog>:37
 msgid "Trends.Earth"
-msgstr ""
+msgstr "Trends.Earth"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr ""
+msgstr "logoCI"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr ""
+msgstr "logoLund"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr ""
+msgstr "logoNASA"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr ""
-
+msgstr "logoGEF"

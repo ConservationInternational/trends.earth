@@ -1,110 +1,134 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
-#
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Alex Zvoleff <azvoleff@conservation.org>, 2022
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-06-21 17:06-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2022-05-26 11:57+0000\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
+"Language-Team: Arabic (https://www.transifex.com/conservation-international/teams/80165/ar/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 #: ../../source/for_users/designingreports/index.rst:4
 msgid "Designing Reports"
-msgstr ""
+msgstr "تصميم التقارير"
 
 #: ../../source/for_users/designingreports/index.rst:6
 msgid ""
-"Reports are, in simplest terms, created by populating a report template "
-"with textual and/or spatial data from one or more jobs. It is important "
-"to note that reports are generated at the layer/band level hence the "
-"number of reports from a single job will correspond to the number of "
-"**default** bands for the given job."
+"Reports are, in simplest terms, created by populating a report template with"
+" textual and/or spatial data from one or more jobs. It is important to note "
+"that reports are generated at the layer/band level hence the number of "
+"reports from a single job will correspond to the number of **default** bands"
+" for the given job."
 msgstr ""
+"يتم إنشاء التقارير، بعبارات أبسط، عن طريق ملء قالب تقرير ببيانات نصية و / أو"
+" مكانية من وظيفة واحدة أو أكثر. من المهم ملاحظة أنه يتم إنشاء التقارير على "
+"مستوى الطبقة / النطاق، وبالتالي فإن عدد التقارير من وظيفة واحدة سيتوافق مع "
+"عدد **النطاقات الافتراضية** للوظيفة المحددة."
 
 #: ../../source/for_users/designingreports/index.rst:11
 msgid "Designing reports is a two-step process that involves:"
-msgstr ""
+msgstr "تصميم التقارير هو عملية من خطوتين تتضمن:"
 
 #: ../../source/for_users/designingreports/index.rst:13
 msgid "Designing templates using the QGIS layout framework;"
-msgstr ""
+msgstr "تصميم القوالب باستخدام إطار عمل تخطيط QGIS؛"
 
 #: ../../source/for_users/designingreports/index.rst:14
-msgid "Specifying the configuration parameters in a report configuration file."
-msgstr ""
+msgid ""
+"Specifying the configuration parameters in a report configuration file."
+msgstr "تحديد معاملات التكوين في ملف تكوين التقرير."
 
 #: ../../source/for_users/designingreports/index.rst:17
 msgid "Prerequisites"
-msgstr ""
+msgstr "المتطلبات الأساسية"
 
 #: ../../source/for_users/designingreports/index.rst:18
 msgid ""
 "Before embarking on designing new or customizing existing reports, it is "
 "recommended to familiarize with the following topics:"
 msgstr ""
+"قبل الشروع في تصميم تقارير جديدة أو تخصيص تقارير حالية، يوصى بالتعرف على "
+"الموضوعات التالية:"
 
 #: ../../source/for_users/designingreports/index.rst:21
 msgid ""
 "`QGIS Expression Framework "
 "<https://docs.qgis.org/3.16/en/docs/user_manual/working_with_vector/expression.html>`_"
 msgstr ""
+"`إطار تعبير QGIS "
+"<https://docs.qgis.org/3.16/en/docs/user_manual/working_with_vector/expression.html>"
+" `_"
 
 #: ../../source/for_users/designingreports/index.rst:22
 msgid ""
 "`QGIS Layout Framework "
 "<https://docs.qgis.org/3.16/en/docs/user_manual/print_composer/index.html>`_"
 msgstr ""
+"`إطار عمل تخطيط QGIS "
+"<https://docs.qgis.org/3.16/en/docs/user_manual/print_composer/index.html> "
+"`_"
 
 #: ../../source/for_users/designingreports/index.rst:23
 msgid ""
 "`JSON Data Format <https://developer.mozilla.org/en-"
 "US/docs/Learn/JavaScript/Objects/JSON>`_"
 msgstr ""
+"`تنسيق بيانات JSON <https://developer.mozilla.org/en-"
+"US/docs/Learn/JavaScript/Objects/JSON> `_"
 
 #: ../../source/for_users/designingreports/index.rst:29
 msgid "Layout Expression Variables"
-msgstr ""
+msgstr "متغيرات تعبير التخطيط"
 
 #: ../../source/for_users/designingreports/index.rst:30
 msgid ""
-"A report is made up of static content (such as logos, disclaimer text "
-"etc.) that does not change from one report to another. It may also "
-"include dynamic content (such as maps or attribute information) that is "
-"generated at runtime during the execution process."
+"A report is made up of static content (such as logos, disclaimer text etc.) "
+"that does not change from one report to another. It may also include dynamic"
+" content (such as maps or attribute information) that is generated at "
+"runtime during the execution process."
 msgstr ""
+"يتكون التقرير من محتوى ثابت (مثل الشعارات ونص إخلاء المسؤولية وما إلى ذلك) "
+"لا يتغير من تقرير إلى آخر. قد يتضمن أيضاً محتوى ديناميكياً (مثل الخرائط أو "
+"معلومات السمات) يتم إنشاؤه في وقت التشغيل أثناء عملية التنفيذ."
 
 #: ../../source/for_users/designingreports/index.rst:34
 msgid ""
-"The Trends.Earth toolbox provides a number of layout expression variables"
-" that can be used to insert dynamic content in a layout. Some of these "
-"are available at design time while others are only available at runtime. "
-"The table below provides a summary of the available variables."
+"The Trends.Earth toolbox provides a number of layout expression variables "
+"that can be used to insert dynamic content in a layout. Some of these are "
+"available at design time while others are only available at runtime. The "
+"table below provides a summary of the available variables."
 msgstr ""
+"يوفر صندوق أدوات Trends.Earth عدداً من متغيرات تعبير التخطيط التي يمكن "
+"استخدامها لإدراج محتوى ديناميكي في تخطيط. بعضها متاح في وقت التصميم بينما "
+"البعض الآخر متاح فقط في وقت التشغيل. يقدم الجدول أدناه ملخصاً للمتغيرات "
+"المتاحة."
 
 #: ../../source/for_users/designingreports/index.rst:39
 msgid "Job Variables"
-msgstr ""
+msgstr "متغيرات الوظيفة"
 
 #: ../../source/for_users/designingreports/index.rst:40
 msgid ""
-"These are characterized by a `te_job_` prefix and only available at "
-"runtime."
-msgstr ""
+"These are characterized by a `te_job_` prefix and only available at runtime."
+msgstr "تتميز هذه ببادئة `te_job_` وهي متاحة فقط في وقت التشغيل."
 
 #: ../../source/for_users/designingreports/index.rst:43
 #: ../../source/for_users/designingreports/index.rst:67
 msgid "Variable Name"
-msgstr ""
+msgstr "اسم المتغير"
 
 #: ../../source/for_users/designingreports/index.rst:43
 #: ../../source/for_users/designingreports/index.rst:67
@@ -113,20 +137,20 @@ msgstr ""
 #: ../../source/for_users/designingreports/index.rst:303
 #: ../../source/for_users/designingreports/index.rst:332
 msgid "Description"
-msgstr ""
+msgstr "الوصف"
 
 #: ../../source/for_users/designingreports/index.rst:43
 #: ../../source/for_users/designingreports/index.rst:67
 msgid "Data Type"
-msgstr ""
+msgstr "نوع البيانات"
 
 #: ../../source/for_users/designingreports/index.rst:45
 msgid "`te_job_id`"
-msgstr ""
+msgstr "`te_job_id`"
 
 #: ../../source/for_users/designingreports/index.rst:45
 msgid "Unique identified corresponding to the job's UUID"
-msgstr ""
+msgstr "يتم تحديد معرف فريد يتوافق مع UUID الخاص بالوظيفة"
 
 #: ../../source/for_users/designingreports/index.rst:45
 #: ../../source/for_users/designingreports/index.rst:47
@@ -137,171 +161,182 @@ msgstr ""
 #: ../../source/for_users/designingreports/index.rst:59
 #: ../../source/for_users/designingreports/index.rst:69
 msgid "String"
-msgstr ""
+msgstr "نص"
 
 #: ../../source/for_users/designingreports/index.rst:47
 msgid "`te_job_input_params`"
-msgstr ""
+msgstr "`te_job_input_params`"
 
 #: ../../source/for_users/designingreports/index.rst:47
 msgid "JSON representation of a job's input parameters"
-msgstr ""
+msgstr "تمثيل JSON لمعلمات إدخال الوظيفة"
 
 #: ../../source/for_users/designingreports/index.rst:49
 msgid "`te_job_paths`"
-msgstr ""
+msgstr "`te_job_paths`"
 
 #: ../../source/for_users/designingreports/index.rst:49
 msgid "Local path to the job's dataset(s)"
-msgstr ""
+msgstr "المسار المحلي إلى مجموعة (مجموعات) بيانات الوظيفة"
 
 #: ../../source/for_users/designingreports/index.rst:51
 msgid "`te_job_alg_name`"
-msgstr ""
+msgstr "`te_job_alg_name`"
 
 #: ../../source/for_users/designingreports/index.rst:51
 msgid "Job's algorithm name"
-msgstr ""
+msgstr "اسم خوارزمية الوظيفة"
 
 #: ../../source/for_users/designingreports/index.rst:53
 msgid "`te_job_creation_date`"
-msgstr ""
+msgstr "`te_job_creation_date`"
 
 #: ../../source/for_users/designingreports/index.rst:53
 msgid "Creation date/time of a job"
-msgstr ""
+msgstr "تاريخ / وقت إنشاء الوظيفة"
 
 #: ../../source/for_users/designingreports/index.rst:53
-#, python-format
 msgid "String in %Y-%m-%d %H:%M format"
-msgstr ""
+msgstr "نص في صيغة %Y-%m-%d %H:%M"
 
 #: ../../source/for_users/designingreports/index.rst:55
 msgid "`te_job_status`"
-msgstr ""
+msgstr "`te_job_status`"
 
 #: ../../source/for_users/designingreports/index.rst:55
 msgid "Completion status of a job e.g. DOWNLOADED, GENERATED_LOCALLY etc."
 msgstr ""
+"حالة الانتهاء من وظيفة على سبيل المثال تم التنزيل، والمُنشأ محلياً، إلخ."
 
 #: ../../source/for_users/designingreports/index.rst:57
 msgid "`te_job_name`"
-msgstr ""
+msgstr "`te_job_name`"
 
 #: ../../source/for_users/designingreports/index.rst:57
 msgid "Name of the job as inputted by the user."
-msgstr ""
+msgstr "اسم الوظيفة كما أدخلها المستخدم."
 
 #: ../../source/for_users/designingreports/index.rst:59
 msgid "`te_job_comments`"
-msgstr ""
+msgstr "`te_job_comments`"
 
 #: ../../source/for_users/designingreports/index.rst:59
 msgid "Comments to a job as provided by the user"
-msgstr ""
+msgstr "تعليقات على الوظيفة كما قدمها المستخدم"
 
 #: ../../source/for_users/designingreports/index.rst:63
 msgid "Layer Variables"
-msgstr ""
+msgstr "متغيرات الطبقة"
 
 #: ../../source/for_users/designingreports/index.rst:64
 msgid ""
-"These are characterized by a `te_current_layer_` prefix and only "
-"available at runtime."
-msgstr ""
+"These are characterized by a `te_current_layer_` prefix and only available "
+"at runtime."
+msgstr "تتميز هذه ببادئة `te_current_layer_` وهي متاحة فقط في وقت التشغيل."
 
 #: ../../source/for_users/designingreports/index.rst:69
 msgid "`te_current_layer_name`"
-msgstr ""
+msgstr "`te_current_layer_name`"
 
 #: ../../source/for_users/designingreports/index.rst:69
 msgid "Name of the layer in the current execution context"
-msgstr ""
+msgstr "اسم الطبقة في سياق التنفيذ الحالي"
 
 #: ../../source/for_users/designingreports/index.rst:73
 msgid "Report Settings Variables"
-msgstr ""
+msgstr "متغيرات إعدادات التقرير"
 
 #: ../../source/for_users/designingreports/index.rst:74
 msgid ""
-"These are characterized by a `te_report_` prefix and are available at "
-"both design time and runtime. Refer to the :ref:`report_settings` section"
-" for a detailed description of the report settings and corresponding "
-"variable names."
+"These are characterized by a `te_report_` prefix and are available at both "
+"design time and runtime. Refer to the :ref:`report_settings` section for a "
+"detailed description of the report settings and corresponding variable "
+"names."
 msgstr ""
+" تتميز ببادئة \"te_report_\" وهي متوفرة في كل من وقت التصميم ووقت التشغيل. "
+"راجع: المرجع: قسم \"report_settings\" للحصول على وصف تفصيلي لإعدادات التقرير"
+" وأسماء المتغيرات المقابلة."
 
 #: ../../source/for_users/designingreports/index.rst:78
 msgid "Template Types"
-msgstr ""
+msgstr "أنواع القوالب"
 
 #: ../../source/for_users/designingreports/index.rst:79
 msgid "There are two main report template types:"
-msgstr ""
+msgstr "هناك نوعان رئيسيان من قوالب التقارير:"
 
 #: ../../source/for_users/designingreports/index.rst:82
 msgid "Full Template"
-msgstr ""
+msgstr "قالب كامل"
 
 #: ../../source/for_users/designingreports/index.rst:83
 msgid ""
 "This is designed to contain - or provide an allowance to include - more "
-"information such as author name. The default template is set on an A4 "
-"page and includes a layout title, map, legend, scale bar, north arrow, "
-"disclaimer text. and logo."
+"information such as author name. The default template is set on an A4 page "
+"and includes a layout title, map, legend, scale bar, north arrow, disclaimer"
+" text. and logo."
 msgstr ""
+"تم تصميم هذا لاحتواء - أو توفير السماح لتضمين - المزيد من المعلومات مثل اسم "
+"المؤلف. يتم تعيين القالب الافتراضي على صفحة A4 ويتضمن عنوان تخطيط، وخريطة، "
+"ووسيلة إيضاح، وشريط مقياس، وسهم شمالي، ونص إخلاء مسؤولية. وشعار."
 
 #: ../../source/for_users/designingreports/index.rst:88
 msgid "Simple Template"
-msgstr ""
+msgstr "قالب بسيط"
 
 #: ../../source/for_users/designingreports/index.rst:89
 msgid ""
-"This is designed to be a lighter version of the template with the default"
-" one set on an 83mm by 59mm page size (in landscape mode) or vice versa "
-"in portrait mode and contains a map, legend, north arrow, scale bar, "
-"disclaimer text and logo."
+"This is designed to be a lighter version of the template with the default "
+"one set on an 83mm by 59mm page size (in landscape mode) or vice versa in "
+"portrait mode and contains a map, legend, north arrow, scale bar, disclaimer"
+" text and logo."
 msgstr ""
+"تم تصميم هذا ليكون إصداراً أخف من القالب مع مجموعة افتراضية واحدة على حجم "
+"صفحة 83 مم × 59 مم (في الوضع الأفقي) أو العكس في الوضع الرأسي ويحتوي على "
+"خريطة ومفتاح وسهم شمالي وشريط مقياس ونص إخلاء مسؤولية وشعار. "
 
 #: ../../source/for_users/designingreports/index.rst:94
 msgid ""
 "For each template type, you will need to provide both the portrait and "
-"landscape versions as the toolbox will select one of these depending on "
-"the dimensions of the map layer being rendered."
+"landscape versions as the toolbox will select one of these depending on the "
+"dimensions of the map layer being rendered."
 msgstr ""
+"لكل نوع قالب، ستحتاج إلى توفير كل من الإصدارين الرأسي والأفقي حيث سيحدد مربع"
+" الأدوات أحدهما بناءً على أبعاد طبقة الخريطة التي يتم عرضها."
 
 #: ../../source/for_users/designingreports/index.rst:98
 msgid "Designing Report Templates"
-msgstr ""
+msgstr "تصميم قوالب التقارير"
 
 #: ../../source/for_users/designingreports/index.rst:99
 msgid "You can create templates either by:"
-msgstr ""
+msgstr "يمكنك إنشاء قوالب إما عن طريق:"
 
 #: ../../source/for_users/designingreports/index.rst:102
 msgid "Creating A New One"
-msgstr ""
+msgstr "إنشاء قالب جديد "
 
 #: ../../source/for_users/designingreports/index.rst:103
 msgid "Navigate to **Project > New Print Layout...**."
-msgstr ""
+msgstr "انتقل إلى ** مشروع> تخطيط طباعة جديد ... **."
 
 #: ../../source/for_users/designingreports/index.rst:109
 msgid "Specify a user-friendly name for the layout."
-msgstr ""
+msgstr "حدد اسماً يسهل استخدامه للتخطيط."
 
 #: ../../source/for_users/designingreports/index.rst:116
 msgid "Modifying an Existing One"
-msgstr ""
+msgstr "تعديل واحد موجود"
 
 #: ../../source/for_users/designingreports/index.rst:117
 msgid "Navigate to **Project > Layout Manager...**."
-msgstr ""
+msgstr "انتقل إلى ** المشروع> مدير التخطيط ... **."
 
 #: ../../source/for_users/designingreports/index.rst:123
 msgid ""
 "Select **Specific** in the drop-down menu under **New from Template** "
 "section."
-msgstr ""
+msgstr "حدد ** محدد ** في القائمة المنسدلة ضمن قسم ** جديد من النموذج **."
 
 #: ../../source/for_users/designingreports/index.rst:129
 msgid ""
@@ -309,18 +344,20 @@ msgid ""
 "template. The default templates can be found in "
 "`[base_data_directory]/reports/templates`."
 msgstr ""
+"انقر فوق زر التصفح (بثلاث نقاط) لتحديد قالب qpt موجود. يمكن العثور على "
+"القوالب الافتراضية في \"`[base_data_directory]/reports/templates`."
 
 #: ../../source/for_users/designingreports/index.rst:135
 msgid "Click on **Create...** button."
-msgstr ""
+msgstr "انقر على **إنشاء...** زر."
 
 #: ../../source/for_users/designingreports/index.rst:141
 msgid "Specify a user-friendly name for the template."
-msgstr ""
+msgstr "حدد اسماً مألوفاً للمستخدم للقالب."
 
 #: ../../source/for_users/designingreports/index.rst:150
 msgid "Adding Layout Items"
-msgstr ""
+msgstr "إضافة عناصر التخطيط"
 
 #: ../../source/for_users/designingreports/index.rst:151
 msgid ""
@@ -331,41 +368,59 @@ msgid ""
 "Builder** dialog and can be inserted in label items as any other QGIS "
 "variable."
 msgstr ""
+"يمكنك إضافة عناصر إلى القالب بطريقة مماثلة كما هو محدد في `دليل QGIS "
+"<https://docs.qgis.org/3.16/en/docs/user_manual/print_composer/composer_items/index.html>`"
+" _. اتجاهات. تتوفر متغيرات تعبير Earth في مربع الحوار ** منشئ التعبير** "
+"ويمكن إدراجها في عناصر التسمية مثل أي متغير QGIS آخر.\n"
 
 #: ../../source/for_users/designingreports/index.rst:158
 msgid ""
-"For instance, to insert a job's algorithm name in a label item, you can "
-"use the following expression: :code:`[% @te_job_alg_name %]`."
+"For instance, to insert a job's algorithm name in a label item, you can use "
+"the following expression: :code:`[% @te_job_alg_name %]`."
 msgstr ""
+"على سبيل المثال، لإدراج اسم خوارزمية الوظيفة في عنصر التسمية، يمكنك استخدام "
+"التعبير التالي:: الكود: `[% @te_job_alg_name %]`."
 
 #: ../../source/for_users/designingreports/index.rst:164
 msgid ""
-"For a map item, do not add any layers or specify a map theme as the "
-"layers and their ordering will be automatically set during the report "
-"generation process."
+"For a map item, do not add any layers or specify a map theme as the layers "
+"and their ordering will be automatically set during the report generation "
+"process."
 msgstr ""
+"بالنسبة لعنصر الخريطة، لا تضيف أي طبقات أو تحدد موضوع الخريطة حيث سيتم تعيين"
+" الطبقات وطلبها تلقائياً أثناء عملية إنشاء التقرير."
 
 #: ../../source/for_users/designingreports/index.rst:167
 msgid ""
-"When using a legend item, ensure the **Auto update** option is selected. "
-"The toolbox will determine which legend items to show/hide depending on "
-"the rendering context."
+"When using a legend item, ensure the **Auto update** option is selected. The"
+" toolbox will determine which legend items to show/hide depending on the "
+"rendering context."
 msgstr ""
+"عند استخدام عنصر وسيلة إيضاح، تأكد من تحديد خيار ** التحديث التلقائي **. "
+"سيحدد مربع الأدوات عناصر وسيلة الإيضاح التي سيتم إظهارها / إخفاؤها بناءً على"
+" سياق العرض."
 
 #: ../../source/for_users/designingreports/index.rst:174
 msgid ""
-"For map items rendering a job's layers or label items that use the "
-"toolbox's expression variables, please ensure that you define their "
-"corresponding item IDs so that they can be flagged for updating during "
-"the report generation process. A preferred naming convention - for the "
-"item ID - is `[item_type.context_name]` e.g. :code:`label.layer_name`, "
-":code:`label.job_alg_name`, :code:`map.main`. We will see how these item "
-"IDs are used in the :ref:`item_scope_mapping` section."
+"For map items rendering a job's layers or label items that use the toolbox's"
+" expression variables, please ensure that you define their corresponding "
+"item IDs so that they can be flagged for updating during the report "
+"generation process. A preferred naming convention - for the item ID - is "
+"`[item_type.context_name]` e.g. :code:`label.layer_name`, "
+":code:`label.job_alg_name`, :code:`map.main`. We will see how these item IDs"
+" are used in the :ref:`item_scope_mapping` section."
 msgstr ""
+"بالنسبة لعناصر الخريطة التي تعرض طبقات الوظيفة أو عناصر التسمية التي تستخدم "
+"متغيرات تعبير مربع الأدوات، يرجى التأكد من تحديد معرفات العناصر المقابلة لها"
+" بحيث يمكن وضع علامة عليها للتحديث أثناء عملية إنشاء التقرير. اصطلاح التسمية"
+" المفضل - لمعرف العنصر - هو \"[item_type.context_name]` على سبيل المثال : "
+"كود: `label.layer_name` ،: كود:` label.job_alg_name` ،: كود: `map.main`. "
+"سنرى كيف يتم استخدام معرّفات العناصر هذه في: المرجع: قسم "
+"\"item_scope_mapping\"."
 
 #: ../../source/for_users/designingreports/index.rst:187
 msgid "Configuring Report Parameters"
-msgstr ""
+msgstr "تكوين معلمات التقرير"
 
 #: ../../source/for_users/designingreports/index.rst:188
 msgid ""
@@ -375,6 +430,9 @@ msgid ""
 "`[base_data_directory]/reports/templates` on loading the toolbox for the "
 "first time."
 msgstr ""
+"الخطوة التالية هي تحديد القوالب التي سيتم استخدامها من أجل الخوارزميات. يتم "
+"ذلك من خلال ملف تكوين التقرير --`templates.json`- الذي تم إنشاؤه في "
+"`[base_data_directory] / Reports / قوالب` عند تحميل صندوق الأدوات لأول مرة. "
 
 #: ../../source/for_users/designingreports/index.rst:192
 msgid ""
@@ -382,52 +440,59 @@ msgid ""
 "configuration object corresponds to one or more scopes. A scope, in this "
 "case, refers to an algorithm. A configuration is made up of two parts:"
 msgstr ""
+"`templates.json` هي قائمة بكائنات تكوين التقرير حيث يتوافق كل كائن تكوين مع "
+"نطاق واحد أو أكثر. النطاق، في هذه الحالة، يشير إلى خوارزمية. يتكون التكوين "
+"من جزأين: "
 
 #: ../../source/for_users/designingreports/index.rst:195
 msgid ""
 "**template_info** - Contains information about the QGIS report templates "
 "associated with one or more algorithm scopes."
 msgstr ""
+"**معلومات_القالب** - يحتوي على معلومات حول قوالب تقارير QGIS المرتبطة بواحد "
+"أو أكثر من نطاقات الخوارزمية."
 
 #: ../../source/for_users/designingreports/index.rst:196
 msgid "**output_options** - Output options for exporting a report."
-msgstr ""
+msgstr "** خيارات_المخرجات** - خيارات الإخراج لتصدير تقرير."
 
 #: ../../source/for_users/designingreports/index.rst:198
 msgid "See sample below:"
-msgstr ""
+msgstr "انظر النموذج أدناه:"
 
 #: ../../source/for_users/designingreports/index.rst:240
 msgid "template_info"
-msgstr ""
+msgstr "معلومات_القالب"
 
 #: ../../source/for_users/designingreports/index.rst:241
 msgid ""
-"Contains information about the QGIS report templates associated with one "
-"or more algorithm scopes."
+"Contains information about the QGIS report templates associated with one or "
+"more algorithm scopes."
 msgstr ""
+"يحتوي على معلومات حول قوالب تقارير QGIS المرتبطة بواحد أو أكثر من نطاقات "
+"الخوارزمية."
 
 #: ../../source/for_users/designingreports/index.rst:244
 #: ../../source/for_users/designingreports/index.rst:278
 #: ../../source/for_users/designingreports/index.rst:303
 #: ../../source/for_users/designingreports/index.rst:332
 msgid "Property Name"
-msgstr ""
+msgstr "اسم الخاصية"
 
 #: ../../source/for_users/designingreports/index.rst:244
 #: ../../source/for_users/designingreports/index.rst:278
 #: ../../source/for_users/designingreports/index.rst:303
 #: ../../source/for_users/designingreports/index.rst:332
 msgid "Required"
-msgstr ""
+msgstr "مطلوب"
 
 #: ../../source/for_users/designingreports/index.rst:246
 msgid "`id`"
-msgstr ""
+msgstr "`id`"
 
 #: ../../source/for_users/designingreports/index.rst:246
 msgid "A unique UUID identifier in string format"
-msgstr ""
+msgstr "معرف UUID الفريد بتنسيق سلسلة"
 
 #: ../../source/for_users/designingreports/index.rst:246
 #: ../../source/for_users/designingreports/index.rst:252
@@ -441,137 +506,142 @@ msgstr ""
 #: ../../source/for_users/designingreports/index.rst:309
 #: ../../source/for_users/designingreports/index.rst:334
 msgid "Yes"
-msgstr ""
+msgstr "نعم"
 
 #: ../../source/for_users/designingreports/index.rst:248
 #: ../../source/for_users/designingreports/index.rst:305
 msgid "`name`"
-msgstr ""
+msgstr "`name`"
 
 #: ../../source/for_users/designingreports/index.rst:248
 msgid "A friendly name of the template configuration"
-msgstr ""
+msgstr "اسم مألوف لتكوين القالب"
 
 #: ../../source/for_users/designingreports/index.rst:248
 #: ../../source/for_users/designingreports/index.rst:250
 #: ../../source/for_users/designingreports/index.rst:341
 msgid "No"
-msgstr ""
+msgstr "لا"
 
 #: ../../source/for_users/designingreports/index.rst:250
 msgid "`description`"
-msgstr ""
+msgstr "`description`"
 
 #: ../../source/for_users/designingreports/index.rst:250
 msgid "A brief description of the template configuration"
-msgstr ""
+msgstr "وصف موجز لتكوين القالب"
 
 #: ../../source/for_users/designingreports/index.rst:252
 msgid "`simple_portrait_path`"
-msgstr ""
+msgstr "`simple_portrait_path`"
 
 #: ../../source/for_users/designingreports/index.rst:252
 msgid "Name of the template file for a simple portrait layout"
-msgstr ""
+msgstr "اسم ملف القالب لتخطيط رأسي بسيط"
 
 #: ../../source/for_users/designingreports/index.rst:254
 msgid "`simple_landscape_path`"
-msgstr ""
+msgstr "`simple_landscape_path`"
 
 #: ../../source/for_users/designingreports/index.rst:254
 msgid "Name of the template file for a simple landscape layout"
-msgstr ""
+msgstr "اسم ملف القالب لتخطيط أفقي بسيط"
 
 #: ../../source/for_users/designingreports/index.rst:256
 msgid "`full_portrait_path`"
-msgstr ""
+msgstr "`full_portrait_path`"
 
 #: ../../source/for_users/designingreports/index.rst:256
 msgid "Name of the template file for a full portrait layout"
-msgstr ""
+msgstr "اسم ملف القالب لتخطيط رأسي كامل"
 
 #: ../../source/for_users/designingreports/index.rst:258
 msgid "`full_landscape_path`"
-msgstr ""
+msgstr "`full_landscape_path`"
 
 #: ../../source/for_users/designingreports/index.rst:258
 msgid "Name of the template file for a full landscape layout"
-msgstr ""
+msgstr "اسم ملف القالب لتخطيط أفقي كامل"
 
 #: ../../source/for_users/designingreports/index.rst:260
 msgid "`item_scopes`"
-msgstr ""
+msgstr "`item_scopes`"
 
 #: ../../source/for_users/designingreports/index.rst:260
 msgid ""
 "A list of item scope objects. It should contain at least one scope "
 "definition."
-msgstr ""
+msgstr "قائمة كائنات نطاق العنصر. يجب أن يحتوي على تعريف نطاق واحد على الأقل."
 
 #: ../../source/for_users/designingreports/index.rst:262
 msgid "See :ref:`item_scope_mapping` for more information."
-msgstr ""
+msgstr "راجع: المرجع: `item_scope_mapping` لمزيد من المعلومات."
 
 #: ../../source/for_users/designingreports/index.rst:267
 msgid ""
-"The paths defined above are basically file names which are relative to "
-"the location of the `templates.json` configuration file."
+"The paths defined above are basically file names which are relative to the "
+"location of the `templates.json` configuration file."
 msgstr ""
+"المسارات المحددة أعلاه هي في الأساس أسماء ملفات مرتبطة بموقع ملف التكوين "
+"`templates.json` ."
 
 #: ../../source/for_users/designingreports/index.rst:274
 msgid "output_options"
-msgstr ""
+msgstr "output_options"
 
 #: ../../source/for_users/designingreports/index.rst:275
 msgid "Options for exporting an output report."
-msgstr ""
+msgstr "خيارات لتصدير تقرير المخرجات."
 
 #: ../../source/for_users/designingreports/index.rst:280
 msgid "`formats`"
-msgstr ""
+msgstr "`formats`"
 
 #: ../../source/for_users/designingreports/index.rst:280
 msgid ""
-"A list of format objects specifying the output format of the report. You "
-"can have a report produced in multiple types such as PDF and PNG."
+"A list of format objects specifying the output format of the report. You can"
+" have a report produced in multiple types such as PDF and PNG."
 msgstr ""
+"قائمة بكائنات التنسيق تحدد تنسيق المخرجات للتقرير. يمكنك الحصول على تقرير "
+"يتم إنتاجه بأنواع متعددة مثل PDF و PNG."
 
 #: ../../source/for_users/designingreports/index.rst:284
 msgid "At least one output format needs to be defined."
-msgstr ""
+msgstr "يجب تحديد تنسيق واحد على الأقل للمخرجات."
 
 #: ../../source/for_users/designingreports/index.rst:286
 msgid ""
 "See :ref:`output_format` for configuration options for an output format "
 "object."
 msgstr ""
+"راجع: المرجع: `output_format` للحصول على خيارات التكوين لكائن تنسيق الإخراج."
 
 #: ../../source/for_users/designingreports/index.rst:289
 msgid "`template_type`"
-msgstr ""
+msgstr "`template_type`"
 
 #: ../../source/for_users/designingreports/index.rst:289
 msgid "Report template type in string format."
-msgstr ""
+msgstr "نوع نموذج التقرير في تنسيق سلسلة."
 
 #: ../../source/for_users/designingreports/index.rst:291
 msgid "Supported options include: **SIMPLE**, **FULL** or **ALL**."
-msgstr ""
+msgstr "تشمل الخيارات المدعومة: ** بسيط ** أو ** كامل ** أو ** الكل **."
 
 #: ../../source/for_users/designingreports/index.rst:293
 #: ../../source/for_users/designingreports/index.rst:338
 msgid "Please note that these should be in uppercase as provided above."
-msgstr ""
+msgstr "يرجى ملاحظة أن هذه يجب أن تكون بأحرف كبيرة كما هو مذكور أعلاه."
 
 #: ../../source/for_users/designingreports/index.rst:299
 msgid "item_scope_mapping"
-msgstr ""
+msgstr "item_scope_mapping"
 
 #: ../../source/for_users/designingreports/index.rst:300
 msgid ""
 "Provides a mechanism for grouping layout items based on a scope (i.e. "
 "algorithm)."
-msgstr ""
+msgstr "يوفر آلية لتجميع عناصر التخطيط بناءً على نطاق (أي خوارزمية)."
 
 #: ../../source/for_users/designingreports/index.rst:305
 msgid ""
@@ -579,171 +649,186 @@ msgid ""
 "`productivity`, `sdg-15-3-1-sub-indicators` etc. Refers to the algorithm "
 "names defined in `scripts.json` in the toolbox's data folder."
 msgstr ""
+"اسم الخوارزمية التي ستتم مطابقتها مع هذا التكوين، على سبيل المثال "
+"`productivity`, `sdg-15-3-1-sub-indicators` إلخ. تشير إلى أسماء الخوارزمية "
+"المحددة في  `scripts.json` في مجلد بيانات صندوق الأدوات."
 
 #: ../../source/for_users/designingreports/index.rst:309
 msgid "`type_id_mapping`"
-msgstr ""
+msgstr "`type_id_mapping`"
 
 #: ../../source/for_users/designingreports/index.rst:309
 msgid ""
 "A dictionary containing an enumeration of the layout item type and "
 "corresponding list of item IDs defined in the template."
 msgstr ""
+"قاموس يحتوي على تعداد لنوع عنصر التخطيط والقائمة المقابلة لمعرفات العناصر "
+"المحددة في القالب."
 
 #: ../../source/for_users/designingreports/index.rst:312
 msgid "Supported layout item types include: **map**, **label**, **picture**"
 msgstr ""
+"تشمل أنواع عناصر التخطيط المدعومة: ** خريطة ** ، ** مُلصَق تسمية ** ، ** "
+"صورة **"
 
 #: ../../source/for_users/designingreports/index.rst:322
 msgid "See :ref:`adding_layout_items` on how to specify item IDs."
-msgstr ""
+msgstr "راجع: المرجع: `adding_layout_items` حول كيفية تحديد معرّفات العناصر."
 
 #: ../../source/for_users/designingreports/index.rst:328
 msgid "output_format"
-msgstr ""
+msgstr "تنسيق_المخرجات"
 
 #: ../../source/for_users/designingreports/index.rst:329
 msgid "Format information for the report output."
-msgstr ""
+msgstr "تنسيق المعلومات لإخراج التقرير."
 
 #: ../../source/for_users/designingreports/index.rst:334
 msgid "`format_type`"
-msgstr ""
+msgstr "`format_type`"
 
 #: ../../source/for_users/designingreports/index.rst:334
 msgid "An enumeration of the file output type."
-msgstr ""
+msgstr "تعداد لنوع الملف المخرجات."
 
 #: ../../source/for_users/designingreports/index.rst:336
 msgid "Supported enumeration options include: **PDF** and **IMAGE**."
-msgstr ""
+msgstr "تشمل خيارات التعداد المدعومة: ** PDF ** و ** IMAGE **."
 
 #: ../../source/for_users/designingreports/index.rst:341
 msgid "`params`"
-msgstr ""
+msgstr "`params`"
 
 #: ../../source/for_users/designingreports/index.rst:341
 msgid ""
-"Depending on the specified output type, this property contains additional"
-" information regarding the format."
+"Depending on the specified output type, this property contains additional "
+"information regarding the format."
 msgstr ""
+"بناءً على نوع المخرجات المحدد، تحتوي هذه الخاصية على معلومات إضافية بخصوص "
+"التنسيق."
 
 #: ../../source/for_users/designingreports/index.rst:344
 msgid ""
 "For instance, if the IMAGE is specified as the output format, then this "
-"property can be used to specify the IMAGE type. Does nothing for PDF type"
-" and defaults to PNG for an IMAGE type."
+"property can be used to specify the IMAGE type. Does nothing for PDF type "
+"and defaults to PNG for an IMAGE type."
 msgstr ""
+"على سبيل المثال، إذا تم تحديد IMAGE كتنسيق مخرجات، فيمكن استخدام هذه الخاصية"
+" لتحديد نوع IMAGE. لا يفعل شيئاً لنوع PDF ويتم تعيينه افتراضياً على PNG لنوع"
+" IMAGE."
 
 #: ../../source/for_users/designingreports/index.rst:351
 msgid "Resetting to Default Templates and Configuration"
-msgstr ""
+msgstr "إعادة التعيين إلى القوالب الافتراضية والتكوين"
 
 #: ../../source/for_users/designingreports/index.rst:352
 msgid ""
-"To revert back to the default templates and report configuration file "
-"that ship with the toolbox, perform the following steps:"
+"To revert back to the default templates and report configuration file that "
+"ship with the toolbox, perform the following steps:"
 msgstr ""
+"للرجوع إلى القوالب الافتراضية وملف تكوين التقرير الذي يأتي مع مربع الأدوات، "
+"قم بتنفيذ الخطوات التالية:"
 
 #: ../../source/for_users/designingreports/index.rst:354
 msgid ""
 "Close QGIS then back-up the `templates` folder in "
 "`[base_data_directory]/reports/templates`."
 msgstr ""
+"أغلق QGIS ثم احتفظ بنسخة احتياطية من مجلد `templates` في\n"
+"`[base_data_directory]/reports/templates`."
 
 #: ../../source/for_users/designingreports/index.rst:356
 msgid "Proceed to delete the `templates` folder then restart QGIS."
-msgstr ""
+msgstr "تابع حذف مجلد `templates` ثم أعد تشغيل QGIS."
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr ""
+msgstr "iconCalculator"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr ""
+msgstr "iconChart"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr ""
+msgstr "iconClipboard"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr ""
+msgstr "iconCloudDownload"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr ""
+msgstr "iconCog"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr ""
+msgstr "iconDeletedataset"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
-msgstr ""
+msgstr "iconGlobe"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr ""
+msgstr "iconGraph"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr ""
+msgstr "iconInfo"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr ""
+msgstr "iconLoaddataset"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr ""
+msgstr "iconMarkMarker"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr ""
+msgstr "iconOpendatasetdirectory"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr ""
+msgstr "iconViewdatasetdetails"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr ""
+msgstr "iconWrench"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr ""
+msgstr "iconFolder"
 
 #: ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr ""
+msgstr "iconReports"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr ""
+msgstr "iconTrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr ""
+msgstr "iconVisualization"
 
 #: ../../../<rst_epilog>:37
 msgid "Trends.Earth"
-msgstr ""
+msgstr "Trends.Earth"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr ""
+msgstr "logoCI"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr ""
+msgstr "logoLund"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr ""
+msgstr "logoNASA"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr ""
-
+msgstr "logoGEF"

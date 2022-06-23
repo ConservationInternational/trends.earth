@@ -1,207 +1,241 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
-#
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Alex Zvoleff <azvoleff@conservation.org>, 2022
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-06-21 17:06-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2022-05-26 11:58+0000\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
+"Language-Team: Russian (https://www.transifex.com/conservation-international/teams/80165/ru/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: ../../source/for_users/training/reports.rst:4
 msgid "Dataset Reports"
-msgstr ""
+msgstr "Отчеты о наборах данных"
 
 #: ../../source/for_users/training/reports.rst:6
 msgid ""
 "**Objective**: Learn how to generate and view reports from one or more "
 "datasets."
 msgstr ""
+"**Цель**: узнать, как создавать и просматривать отчеты из одного или "
+"нескольких наборов данных."
 
 #: ../../source/for_users/training/reports.rst:8
 msgid "**Estimated time of completion**: 10 minutes"
-msgstr ""
+msgstr "**Ориентировочное время выполнения**: 10 минут"
 
 #: ../../source/for_users/training/reports.rst:10
 msgid "**Internet access**: Not Required"
-msgstr ""
+msgstr "**Доступ в Интернет**: не требуется"
 
 #: ../../source/for_users/training/reports.rst:15
 msgid "View Dataset Output Reports"
-msgstr ""
+msgstr "Просмотр выходных отчетов набора данных"
 
 #: ../../source/for_users/training/reports.rst:17
 msgid ""
 "Select the **Open report directory** sub-menu in a dataset item's report "
 "button."
 msgstr ""
+"Выберите подменю **Открыть каталог отчетов** с помощью кнопки отчета "
+"элемента набора данных."
 
 #: ../../source/for_users/training/reports.rst:23
 msgid ""
-"This action will open the directory containing the output reports for the"
-" selected dataset. Depending on the report configuration for the given "
+"This action will open the directory containing the output reports for the "
+"selected dataset. Depending on the report configuration for the given "
 "algorithm, the directory will contain PDF and/or image files showing the "
 "default thematic layers for the selected dataset."
 msgstr ""
+"Это действие откроет каталог, содержащий выходные отчеты для выбранного "
+"набора данных. В зависимости от конфигурации отчета для данного алгоритма "
+"каталог будет содержать файлы PDF и/или изображения, показывающие "
+"тематические слои по умолчанию для выбранного набора данных."
 
 #: ../../source/for_users/training/reports.rst:28
 msgid ""
-"The example below is from the sub-indicators for SDG 15.3.1 algorithm "
-"with the AOI set to Uganda."
+"The example below is from the sub-indicators for SDG 15.3.1 algorithm with "
+"the AOI set to Uganda."
 msgstr ""
+"Приведенный ниже пример взят из подпоказателей для алгоритма ЦУР 15.3.1 с "
+"выбором Уганды в качестве области интереса."
 
 #: ../../source/for_users/training/reports.rst:37
 msgid "Open Report Layouts"
-msgstr ""
+msgstr "Открыть макеты отчета"
 
 #: ../../source/for_users/training/reports.rst:39
-msgid "Select the **Open layouts...** sub-menu in a dataset item's report button."
+msgid ""
+"Select the **Open layouts...** sub-menu in a dataset item's report button."
 msgstr ""
+"Выберите подменю **Открыть макеты...** в кнопке отчета элемента набора "
+"данных."
 
 #: ../../source/for_users/training/reports.rst:45
 msgid ""
 "This action will open the QGIS project containing the job's layers and "
 "layouts in a separate application instance."
 msgstr ""
+"Это действие откроет проект QGIS, содержащий слои и макеты задания, в "
+"отдельном экземпляре приложения."
 
 #: ../../source/for_users/training/reports.rst:48
 msgid ""
-"By default, on opening the project, a warning message will appear "
-"indicating Python macros cannot be run. This is a security features that "
-"prevents users from running macros for QGIS projects from unknown or "
-"untrusted sources. However, in this case, the project is locally "
-"generated hence it is safe to run macros by clicking on the **Enable "
-"Macros** button in the message bar (top-right corner)."
+"By default, on opening the project, a warning message will appear indicating"
+" Python macros cannot be run. This is a security features that prevents "
+"users from running macros for QGIS projects from unknown or untrusted "
+"sources. However, in this case, the project is locally generated hence it is"
+" safe to run macros by clicking on the **Enable Macros** button in the "
+"message bar (top-right corner)."
 msgstr ""
+"По умолчанию при открытии проекта появляется предупреждающее сообщение о "
+"невозможности запуска макросов Python. Это функция безопасности, которая не "
+"позволяет пользователям запускать макросы для проектов QGIS из неизвестных "
+"или ненадежных источников. Однако в этом случае проект генерируется "
+"локально, поэтому можно безопасно запускать макросы, нажав кнопку **Включить"
+" макросы** на панели сообщений (в правом верхнем углу)."
 
 #: ../../source/for_users/training/reports.rst:57
 msgid ""
-"On the Layout Manager dialog, select a layout name in the list then click"
-" on **Show** to edit the layout."
+"On the Layout Manager dialog, select a layout name in the list then click on"
+" **Show** to edit the layout."
 msgstr ""
+"В диалоговом окне «Диспетчер макетов» выберите имя макета в списке, затем "
+"нажмите **Показать**, чтобы отредактировать макет."
 
 #: ../../source/for_users/training/reports.rst:65
 msgid ""
-"If the **Reports** button (|iconReports|) is disabled, it means the "
-"report generation task is still running and will automatically be enabled"
-" once the process is complete."
+"If the **Reports** button (|iconReports|) is disabled, it means the report "
+"generation task is still running and will automatically be enabled once the "
+"process is complete."
 msgstr ""
+"Если кнопка **Отчеты** (|iconReports|) отключена, это означает, что задача "
+"создания отчетов все еще выполняется и будет автоматически включена после "
+"завершения процесса."
 
-#: ../../../<rst_epilog>:31
+#: ../../../<rst_epilog>:31 ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr ""
+msgstr "iconReports"
 
 #: ../../source/for_users/training/reports.rst:66
 msgid ""
-"If the **Reports** button is not visible, then it means there is no "
-"report configuration defined for datasets resulting from the given "
-"algorithm."
+"If the **Reports** button is not visible, then it means there is no report "
+"configuration defined for datasets resulting from the given algorithm."
 msgstr ""
+"Если кнопка **Отчеты** не видна, это означает, что для наборов данных, "
+"полученных в результате данного алгоритма, не определена конфигурация "
+"отчета."
 
 #: ../../source/for_users/training/reports.rst:70
 msgid ""
-"To allow macros to be executed automatically, go to **Settings > "
-"Options** then, under the **General** category, scroll to the bottom to "
-"the **Enable Macros** setting. Select **Always**, though this option is "
-"not recommended especially if you interact with qgs or qgz projects from "
-"external sources."
+"To allow macros to be executed automatically, go to **Settings > Options** "
+"then, under the **General** category, scroll to the bottom to the **Enable "
+"Macros** setting. Select **Always**, though this option is not recommended "
+"especially if you interact with qgs or qgz projects from external sources."
 msgstr ""
+"Чтобы разрешить автоматическое выполнение макросов, перейдите в **Настройки "
+"> Параметры**, затем в категории **Общие** прокрутите вниз до параметра "
+"**Включить макросы**. Выберите **Всегда**, хотя этот вариант не "
+"рекомендуется, особенно если вы взаимодействуете с проектами qgs или qgz из "
+"внешних источников."
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr ""
+msgstr "iconCalculator"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr ""
+msgstr "iconChart"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr ""
+msgstr "iconClipboard"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr ""
+msgstr "iconCloudDownload"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr ""
+msgstr "iconCog"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr ""
+msgstr "iconDeletedataset"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
-msgstr ""
+msgstr "iconGlobe"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr ""
+msgstr "iconGraph"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr ""
+msgstr "iconInfo"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr ""
+msgstr "iconLoaddataset"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr ""
+msgstr "iconMarkMarker"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr ""
+msgstr "iconOpendatasetdirectory"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr ""
+msgstr "iconViewdatasetdetails"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr ""
+msgstr "iconWrench"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr ""
+msgstr "iconFolder"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr ""
+msgstr "iconTrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr ""
+msgstr "iconVisualization"
 
 #: ../../../<rst_epilog>:37
 msgid "Trends.Earth"
-msgstr ""
+msgstr "Trends.Earth"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr ""
+msgstr "logoCI"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr ""
+msgstr "logoLund"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr ""
+msgstr "logoNASA"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr ""
-
+msgstr "logoGEF"

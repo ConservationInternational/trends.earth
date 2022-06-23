@@ -1,22 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
-#
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-06-21 17:06-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2022-05-26 11:57+0000\n"
+"Language-Team: Persian (https://www.transifex.com/conservation-international/teams/80165/fa/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Language: fa\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:4
 msgid "QGIS"
@@ -28,8 +27,8 @@ msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:10
 msgid ""
-"Before installing the toolbox, QGIS version |qgisMinVersion| or higher "
-"needs to be installed on your computer."
+"Before installing the toolbox, QGIS version |qgisMinVersion| or higher needs"
+" to be installed on your computer."
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:14
@@ -38,8 +37,8 @@ msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:16
 msgid ""
-"To install the plugin, first install QGIS version |qgisMinVersion| or "
-"higher following the below steps:"
+"To install the plugin, first install QGIS version |qgisMinVersion| or higher"
+" following the below steps:"
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:19
@@ -49,10 +48,10 @@ msgstr ""
 #: ../../source/for_users/gettingstarted/qgis_version.rst:21
 msgid ""
 "You have the option of installing a 32-bit or 64-bit version of QGIS. To "
-"know which version to install, check which type of operating system you "
-"have following the below instructions. If you are unsure which you need, "
-"try downloading the 64 bit version first. If that version doesn't work "
-"properly, un-install it and then install the 32 bit version."
+"know which version to install, check which type of operating system you have"
+" following the below instructions. If you are unsure which you need, try "
+"downloading the 64 bit version first. If that version doesn't work properly,"
+" un-install it and then install the 32 bit version."
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:27
@@ -87,8 +86,8 @@ msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:42
 msgid ""
-"After determining whether you need the 32 or 64 bit version, download the"
-" appropriate installer:"
+"After determining whether you need the 32 or 64 bit version, download the "
+"appropriate installer:"
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:45
@@ -105,8 +104,8 @@ msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:51
 msgid ""
-"Linux: `Download Linux installer from here, or from the repository for "
-"your Linux distribution "
+"Linux: `Download Linux installer from here, or from the repository for your "
+"Linux distribution "
 "<https://qgis.org/en/site/forusers/download.html#linux>`_."
 msgstr ""
 
@@ -126,11 +125,10 @@ msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:64
 msgid ""
-"Older versions of QGIS can be accessed at the below links. We recommend "
-"the latest version of QGIS (see instructions above) but the below links "
-"might be useful if you have a specific need for accessing an older "
-"version of the Trends.Earth plugin (for example the QGIS2 version of the "
-"plugin)."
+"Older versions of QGIS can be accessed at the below links. We recommend the "
+"latest version of QGIS (see instructions above) but the below links might be"
+" useful if you have a specific need for accessing an older version of the "
+"Trends.Earth plugin (for example the QGIS2 version of the plugin)."
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:69
@@ -151,12 +149,13 @@ msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:79
 msgid ""
-"There are different ways to install |trends.earth|, depending on whether "
-"you want to install the stable version (recommended) or the development "
+"There are different ways to install |trends.earth|, depending on whether you"
+" want to install the stable version (recommended) or the development "
 "version."
 msgstr ""
 
-#: ../../../<rst_epilog>:37
+#: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
+#: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
 msgid "Trends.Earth"
 msgstr ""
 
@@ -166,22 +165,21 @@ msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:84
 msgid ""
-"The preferred way to install the |trends.earth| is through QGIS. To "
-"install from within QGIS, first launch QGIS, and then go to `Plugins` in "
-"the menu bar at the top of the program and select `Manage and install "
-"plugins`."
+"The preferred way to install the |trends.earth| is through QGIS. To install "
+"from within QGIS, first launch QGIS, and then go to `Plugins` in the menu "
+"bar at the top of the program and select `Manage and install plugins`."
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:91
 msgid ""
-"Then search for a plugin called `trends.earth` and select `Install "
-"plugin` at the bottom right of the screen."
+"Then search for a plugin called `trends.earth` and select `Install plugin` "
+"at the bottom right of the screen."
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:97
 msgid ""
-"If your plugin has been installed properly, there will be a menu bar in "
-"the top left of your browser that looks like this:"
+"If your plugin has been installed properly, there will be a menu bar in the "
+"top left of your browser that looks like this:"
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:104
@@ -202,8 +200,8 @@ msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:118
 msgid ""
-"To Register, click the **Register for Trends.Earth (step 1)** button from"
-" the \"Settings\" dialog box under **Trends.Earth login information**."
+"To Register, click the **Register for Trends.Earth (step 1)** button from "
+"the \"Settings\" dialog box under **Trends.Earth login information**."
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:123
@@ -218,18 +216,17 @@ msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:133
 msgid ""
-"4. After registering, you will receive an email from api@trends.earth "
-"with your password. If you don't see the email in your inbox after 15-20 "
-"seconds, please check your spam folder in case the email was sent there. "
-"Once you receive this email , click on the \"Edit selected "
-"configuration\" icon in the \"Settings\" dialog:"
+"4. After registering, you will receive an email from api@trends.earth with "
+"your password. If you don't see the email in your inbox after 15-20 seconds,"
+" please check your spam folder in case the email was sent there. Once you "
+"receive this email , click on the \"Edit selected configuration\" icon in "
+"the \"Settings\" dialog:"
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:139
 msgid ""
-"This will bring up the \"Authentication\" dialog asking for your "
-"password. Enter the password you received from api@trends.earth and click"
-" \"Save\":"
+"This will bring up the \"Authentication\" dialog asking for your password. "
+"Enter the password you received from api@trends.earth and click \"Save\":"
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:144
@@ -237,7 +234,8 @@ msgid "From the \"Settings\" dialog  click on \"Test connection\":"
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:149
-msgid "You will see a message indicating you have successfully been logged in:"
+msgid ""
+"You will see a message indicating you have successfully been logged in:"
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:154
@@ -250,8 +248,8 @@ msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:161
 msgid ""
-"Refer to the :ref:`advanced` section for more information on the advanced"
-" settings for Trends.Earth."
+"Refer to the :ref:`advanced` section for more information on the advanced "
+"settings for Trends.Earth."
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:167
@@ -260,8 +258,8 @@ msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:169
 msgid ""
-"**Objective**: Learn how to check the status of submitted tasks, download"
-" them and compute pyramids for faster visualization of results in QGIS."
+"**Objective**: Learn how to check the status of submitted tasks, download "
+"them and compute pyramids for faster visualization of results in QGIS."
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:171
@@ -281,9 +279,8 @@ msgstr ""
 #: ../../source/for_users/gettingstarted/qgis_version.rst:178
 msgid ""
 "The results of Trends.Earth analysis are rasters in TIF format for "
-"indicators and XLSX spreadsheets for the tabular outputs. You will need "
-"to define in each case where files will be stored in your computer in "
-"settings."
+"indicators and XLSX spreadsheets for the tabular outputs. You will need to "
+"define in each case where files will be stored in your computer in settings."
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:181
@@ -296,9 +293,9 @@ msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:191
 msgid ""
-"3. The **Base data directory** can be set by selecting **Open** to open "
-"the folder where data will be stored or *...* to change the location of "
-"data stored and downloaded from |trends.earth|."
+"3. The **Base data directory** can be set by selecting **Open** to open the "
+"folder where data will be stored or *...* to change the location of data "
+"stored and downloaded from |trends.earth|."
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:197
@@ -309,39 +306,39 @@ msgstr ""
 msgid ""
 "When the raster file is too big, due to a large study area, high spatial "
 "resolution, or a large number of bands in the file, the data could take "
-"several seconds to display. If you change the zoom or turn layers on an  "
-"off frequently, this could make the work a bit frustrating. An option to "
-"overcome this is to compute **Pyramids** to the file. This process will "
-"take from **minutes to hours** to run depending on the size of the area, "
-"so make sure to have enough time for it to process. To compute pyramids "
-"you have to:"
+"several seconds to display. If you change the zoom or turn layers on an  off"
+" frequently, this could make the work a bit frustrating. An option to "
+"overcome this is to compute **Pyramids** to the file. This process will take"
+" from **minutes to hours** to run depending on the size of the area, so make"
+" sure to have enough time for it to process. To compute pyramids you have "
+"to:"
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:201
 msgid ""
-"Navigate with your cursor to the layer you want to compute pyramids for "
-"and right click over it. A menu will open. Navigate to **Properties** and"
-" click on it."
+"Navigate with your cursor to the layer you want to compute pyramids for and "
+"right click over it. A menu will open. Navigate to **Properties** and click "
+"on it."
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:204
 msgid ""
 "When using the **Calculate all three sub-indicators in one step** option "
-"(described in the tutorial :ref:`tut_land_degradation`), all the bands "
-"are stored in a single TIF file, so even though you see three layers "
-"loaded in the QGIS window, they all refer to the same file. This means "
-"that the pyramids need to be computed only once for the three sub-"
-"indicators."
+"(described in the tutorial :ref:`tut_land_degradation`), all the bands are "
+"stored in a single TIF file, so even though you see three layers loaded in "
+"the QGIS window, they all refer to the same file. This means that the "
+"pyramids need to be computed only once for the three sub-indicators."
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:209
 msgid ""
-"The Layer Properties menu will open. From the options on the left, "
-"navigate to **Pyramids** and click on it."
+"The Layer Properties menu will open. From the options on the left, navigate "
+"to **Pyramids** and click on it."
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:214
-msgid "Once on the **Pyramids** tab you will see a description about they are."
+msgid ""
+"Once on the **Pyramids** tab you will see a description about they are."
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:219
@@ -349,12 +346,12 @@ msgid ""
 "To the right of the window you will see the **Resolutions** options. "
 "Selecting all of them will make displaying in QGIS the fastest, but this "
 "could take hours to compute depending on the file size and processing "
-"capabilities of the computer you are using. For the Uganda example, we "
-"can select them all, but if using a larger area or higher spatial "
-"resolution than the default 250m, we recommend you select alternating "
-"resolutions options (i.e. one resolution selected and one not selected, "
-"and so on). Resolutions are selected by clicking on them. When selected, "
-"they will turn blue."
+"capabilities of the computer you are using. For the Uganda example, we can "
+"select them all, but if using a larger area or higher spatial resolution "
+"than the default 250m, we recommend you select alternating resolutions "
+"options (i.e. one resolution selected and one not selected, and so on). "
+"Resolutions are selected by clicking on them. When selected, they will turn "
+"blue."
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:221
@@ -378,8 +375,7 @@ msgstr ""
 #: ../../source/for_users/gettingstarted/qgis_version.rst:231
 msgid ""
 "When pyramids have been built you will notice that the icons next to the "
-"resolutions will have changed from **red crosses** to **yellow "
-"pyramids**."
+"resolutions will have changed from **red crosses** to **yellow pyramids**."
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:236
@@ -392,19 +388,18 @@ msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:243
 msgid ""
-"Basemaps are very useful as a reference for identifying specific "
-"locations in maps. When downloaded, Trends.Earth results are displayed on"
-" an empty QGIS project, which could limit the user ability for "
-"identifying know places in the landscape. To facilitate this process, you"
-" can use the **Add Basemap** tool which will load country and state "
-"boundaries, roads, rivers, cities, coastlines and water bodies with "
-"labels to the QGIS project."
+"Basemaps are very useful as a reference for identifying specific locations "
+"in maps. When downloaded, Trends.Earth results are displayed on an empty "
+"QGIS project, which could limit the user ability for identifying know places"
+" in the landscape. To facilitate this process, you can use the **Add "
+"Basemap** tool which will load country and state boundaries, roads, rivers, "
+"cities, coastlines and water bodies with labels to the QGIS project."
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:245
 msgid ""
-"To load the tool click on the **Datasets** tab and select **Load Base "
-"Map** in the bottom right of the window."
+"To load the tool click on the **Datasets** tab and select **Load Base Map** "
+"in the bottom right of the window."
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:250
@@ -415,23 +410,23 @@ msgstr ""
 msgid ""
 "**Use a mask option selected** will create a mask blocking all the "
 "information outside of the selected area. In this example, all the "
-"information outside of Uganda will not be displayed on the map. This "
-"option is useful when displaying the sub-indicators downloaded from "
-"Trends.Earth, since the data download is not clipped to administrative "
-"boundaries (a bounding box is used instead). You can use first and second"
-" level administrative boundaries."
+"information outside of Uganda will not be displayed on the map. This option "
+"is useful when displaying the sub-indicators downloaded from Trends.Earth, "
+"since the data download is not clipped to administrative boundaries (a "
+"bounding box is used instead). You can use first and second level "
+"administrative boundaries."
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:254
 msgid ""
-"**Use a mask option not selected** will load all the reference "
-"information, but no mask will be applied."
+"**Use a mask option not selected** will load all the reference information, "
+"but no mask will be applied."
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:259
 msgid ""
-"Once the basemap is loaded, you will notice the information added to the "
-"map and to the Layer panel. The basemap has information for:"
+"Once the basemap is loaded, you will notice the information added to the map"
+" and to the Layer panel. The basemap has information for:"
 msgstr ""
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:261
@@ -538,19 +533,18 @@ msgstr ""
 msgid "iconVisualization"
 msgstr ""
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoCI"
 msgstr ""
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoLund"
 msgstr ""
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoNASA"
 msgstr ""
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoGEF"
 msgstr ""
-

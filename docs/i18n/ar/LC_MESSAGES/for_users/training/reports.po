@@ -1,26 +1,29 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
-#
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Alex Zvoleff <azvoleff@conservation.org>, 2022
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-06-21 17:06-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2022-05-26 11:58+0000\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
+"Language-Team: Arabic (https://www.transifex.com/conservation-international/teams/80165/ar/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 #: ../../source/for_users/training/reports.rst:4
 msgid "Dataset Reports"
-msgstr ""
+msgstr "تقارير مجموعة البيانات"
 
 #: ../../source/for_users/training/reports.rst:6
 msgid ""
@@ -48,16 +51,16 @@ msgstr ""
 
 #: ../../source/for_users/training/reports.rst:23
 msgid ""
-"This action will open the directory containing the output reports for the"
-" selected dataset. Depending on the report configuration for the given "
+"This action will open the directory containing the output reports for the "
+"selected dataset. Depending on the report configuration for the given "
 "algorithm, the directory will contain PDF and/or image files showing the "
 "default thematic layers for the selected dataset."
 msgstr ""
 
 #: ../../source/for_users/training/reports.rst:28
 msgid ""
-"The example below is from the sub-indicators for SDG 15.3.1 algorithm "
-"with the AOI set to Uganda."
+"The example below is from the sub-indicators for SDG 15.3.1 algorithm with "
+"the AOI set to Uganda."
 msgstr ""
 
 #: ../../source/for_users/training/reports.rst:37
@@ -65,7 +68,8 @@ msgid "Open Report Layouts"
 msgstr ""
 
 #: ../../source/for_users/training/reports.rst:39
-msgid "Select the **Open layouts...** sub-menu in a dataset item's report button."
+msgid ""
+"Select the **Open layouts...** sub-menu in a dataset item's report button."
 msgstr ""
 
 #: ../../source/for_users/training/reports.rst:45
@@ -76,132 +80,129 @@ msgstr ""
 
 #: ../../source/for_users/training/reports.rst:48
 msgid ""
-"By default, on opening the project, a warning message will appear "
-"indicating Python macros cannot be run. This is a security features that "
-"prevents users from running macros for QGIS projects from unknown or "
-"untrusted sources. However, in this case, the project is locally "
-"generated hence it is safe to run macros by clicking on the **Enable "
-"Macros** button in the message bar (top-right corner)."
+"By default, on opening the project, a warning message will appear indicating"
+" Python macros cannot be run. This is a security features that prevents "
+"users from running macros for QGIS projects from unknown or untrusted "
+"sources. However, in this case, the project is locally generated hence it is"
+" safe to run macros by clicking on the **Enable Macros** button in the "
+"message bar (top-right corner)."
 msgstr ""
 
 #: ../../source/for_users/training/reports.rst:57
 msgid ""
-"On the Layout Manager dialog, select a layout name in the list then click"
-" on **Show** to edit the layout."
+"On the Layout Manager dialog, select a layout name in the list then click on"
+" **Show** to edit the layout."
 msgstr ""
 
 #: ../../source/for_users/training/reports.rst:65
 msgid ""
-"If the **Reports** button (|iconReports|) is disabled, it means the "
-"report generation task is still running and will automatically be enabled"
-" once the process is complete."
+"If the **Reports** button (|iconReports|) is disabled, it means the report "
+"generation task is still running and will automatically be enabled once the "
+"process is complete."
 msgstr ""
 
-#: ../../../<rst_epilog>:31
+#: ../../../<rst_epilog>:31 ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr ""
+msgstr "أيقونة التقارير"
 
 #: ../../source/for_users/training/reports.rst:66
 msgid ""
-"If the **Reports** button is not visible, then it means there is no "
-"report configuration defined for datasets resulting from the given "
-"algorithm."
+"If the **Reports** button is not visible, then it means there is no report "
+"configuration defined for datasets resulting from the given algorithm."
 msgstr ""
 
 #: ../../source/for_users/training/reports.rst:70
 msgid ""
-"To allow macros to be executed automatically, go to **Settings > "
-"Options** then, under the **General** category, scroll to the bottom to "
-"the **Enable Macros** setting. Select **Always**, though this option is "
-"not recommended especially if you interact with qgs or qgz projects from "
-"external sources."
+"To allow macros to be executed automatically, go to **Settings > Options** "
+"then, under the **General** category, scroll to the bottom to the **Enable "
+"Macros** setting. Select **Always**, though this option is not recommended "
+"especially if you interact with qgs or qgz projects from external sources."
 msgstr ""
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr ""
+msgstr "أيقونة حاسبة"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr ""
+msgstr "أيقونة المخطط"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr ""
+msgstr "أيقونة الحافظة"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr ""
+msgstr "أيقونة التحميل السحابي"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr ""
+msgstr "أيقونة Cog"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr ""
+msgstr "أيقونة حذف مجموعة البيانات"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
-msgstr ""
+msgstr "أيقونة الكرة الأرضية"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr ""
+msgstr "أيقونة الرسم البياني"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr ""
+msgstr "أيقونة المعلومات"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr ""
+msgstr "أيقونة تحميل مجموعة البيانات"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr ""
+msgstr "أيقونة التحديد"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr ""
+msgstr "أيقونة فتح دليل مجموعة البيانات"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr ""
+msgstr "أيقونة عرض تفاصيل مجموعة البيانات"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr ""
+msgstr "أيقونة مفتاح الربط"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr ""
+msgstr "أيقونة المجلد"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr ""
+msgstr "أيقونة TrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr ""
+msgstr "أيقونة التصور"
 
 #: ../../../<rst_epilog>:37
 msgid "Trends.Earth"
-msgstr ""
+msgstr "Trends.Earth"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr ""
+msgstr "شعار CI"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr ""
+msgstr "شعار Lund"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr ""
+msgstr "شعار ناسا"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr ""
-
+msgstr "شعار GEF"

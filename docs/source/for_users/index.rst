@@ -4,11 +4,13 @@ Trends.Earth User Guide
 
 .. toctree::
     :maxdepth: 3
-    :numbered:
+    :numbered: 3
 
     preamble/index
     features/index
     gettingstarted/index
-    modules/index
+    training/index
     faq/index
-    datasources/index
+    datasets/index
+    designingreports/index
+    downloads/index

@@ -11,23 +11,38 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
-
-from builtins import object
 import os
+from builtins import object
 
-from qgis.core import QgsApplication, QgsMessageLog, Qgis
-from qgis.PyQt.QtCore import QCoreApplication, Qt
-from qgis.PyQt.QtWidgets import QAction, QMessageBox, QApplication, QMenu, QToolButton
+from qgis.core import Qgis
+from qgis.core import QgsApplication
+from qgis.core import QgsExpression
+from qgis.core import QgsMasterLayoutInterface
+from qgis.core import QgsMessageLog
+from qgis.gui import QgsLayoutDesignerInterface
+from qgis.PyQt.QtCore import QCoreApplication
+from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtGui import QIcon
+from qgis.PyQt.QtWidgets import QAction
+from qgis.PyQt.QtWidgets import QApplication
+from qgis.PyQt.QtWidgets import QMenu
+from qgis.PyQt.QtWidgets import QMessageBox
+from qgis.PyQt.QtWidgets import QToolButton
 
-from . import (
-    about,
-    conf,
-    main_widget,
-)
+from . import about
+from . import conf
+from . import main_widget
+from .charts import calculate_error_recode_stats
 from .jobs.manager import job_manager
+from .maptools import BufferMapTool
+from .maptools import PolygonMapTool
 from .processing_provider.provider import Provider
+from .reports.expressions import ReportExpressionUtils
+from .reports.template_manager import template_manager
 from .settings import DlgSettings
+from .timeseries import show_time_series
+from .utils import FileUtils
+from .visualization import download_base_map
 
 
 class LDMPPlugin(object):
@@ -48,21 +63,23 @@ class LDMPPlugin(object):
 
         # Declare instance attributes
         self.actions = []
-        self.menu = QMenu(self.tr(u'&Trends.Earth'))
+        self.menu = QMenu(self.tr(u"&Trends.Earth"))
         self.menu.setIcon(
-            QIcon(os.path.join(os.path.dirname(__file__),
-                  'trends_earth_logo_square_32x32.png')))
-        self.raster_menu = self.iface.rasterMenu()
-        self.raster_menu.addMenu(self.menu)
+            QIcon(
+                os.path.join(
+                    os.path.dirname(__file__), "trends_earth_logo_square_32x32.png"
+                )
+            )
+        )
 
-        self.toolbar = self.iface.addToolBar(u'trends.earth')
-        self.toolbar.setObjectName('trends_earth_toolbar')
-        self.toolButton = QToolButton()
-        self.toolButton.setMenu(QMenu())
-        self.toolButton.setPopupMode(QToolButton.MenuButtonPopup)
-        self.toolBtnAction = self.toolbar.addWidget(self.toolButton)
-        self.actions.append(self.toolBtnAction)
-        self.dlg_about = about.DlgAbout()
+        self.raster_menu = None
+        self.toolbar = None
+        self.toolButton = None
+        self.toolBtnAction = None
+        self.dlg_about = None
+        self.start_action = None
+        self.dock_widget = None
+        self.time_series_dlg = None
 
     def initProcessing(self):
         self.provider = Provider()
@@ -72,17 +89,18 @@ class LDMPPlugin(object):
         return QCoreApplication.translate("plugin", message)
 
     def add_action(
-            self,
-            icon_path,
-            text,
-            callback,
-            enabled_flag=True,
-            add_to_menu=True,
-            add_to_toolbar=True,
-            set_as_default_action=False,
-            status_tip=None,
-            whats_this=None,
-            parent=None):
+        self,
+        icon_path,
+        text,
+        callback,
+        enabled_flag=True,
+        add_to_menu=True,
+        add_to_toolbar=True,
+        set_as_default_action=False,
+        status_tip=None,
+        whats_this=None,
+        parent=None,
+    ):
         """Add a toolbar icon to the toolbar.
 
         :param icon_path: Path to the icon for this action. Can be a resource
@@ -152,36 +170,109 @@ class LDMPPlugin(object):
 
     def initGui(self):
         self.initProcessing()
+        QgsExpression.registerFunction(calculate_error_recode_stats)
+
+        """
+        Moved the initialization here so that the processing can be 
+        initialized first thereby enabling the plugin to be used in 
+        qgis_process executable for batch processes particularly in 
+        report generation.
+        """
+        self.raster_menu = self.iface.rasterMenu()
+        self.raster_menu.addMenu(self.menu)
+
+        self.toolbar = self.iface.addToolBar(u"trends.earth")
+        self.toolbar.setObjectName("trends_earth_toolbar")
+        self.toolButton = QToolButton()
+        self.toolButton.setMenu(QMenu())
+        self.toolButton.setPopupMode(QToolButton.MenuButtonPopup)
+        self.toolBtnAction = self.toolbar.addWidget(self.toolButton)
+        self.actions.append(self.toolBtnAction)
+        self.dlg_about = about.DlgAbout()
+
+        # Initialize reports module
+        self.init_reports()
 
         """Create Main manu icon and plugins menu entries."""
-        start_action = self.add_action(os.path.join(os.path.dirname(__file__), 'icons', 'trends_earth_logo_square_32x32.ico'),
-            text='Trends.Earth',
+        self.start_action = self.add_action(
+            os.path.join(
+                os.path.dirname(__file__), "icons", "trends_earth_logo_square_32x32.ico"
+            ),
+            text="Trends.Earth",
             callback=self.run_docked_interface,
             parent=self.iface.mainWindow(),
-            status_tip=self.tr('Trends.Earth dock interface'),
-            set_as_default_action=True)
-        start_action.setCheckable(True)
+            status_tip=self.tr("Trends.Earth dock interface"),
+            set_as_default_action=True,
+        )
+        self.start_action.setCheckable(True)
 
         self.add_action(
-            os.path.join(os.path.dirname(__file__), 'icons', 'wrench.svg'),
-            text=self.tr(u'Settings'),
+            os.path.join(os.path.dirname(__file__), "icons", "wrench.svg"),
+            text=self.tr("Settings"),
             callback=self.run_settings,
             parent=self.iface.mainWindow(),
-            status_tip=self.tr('Trends.Earth Settings'))
+            status_tip=self.tr("Trends.Earth Settings"),
+        )
 
         self.add_action(
-            os.path.join(os.path.dirname(__file__), 'icons', 'info.svg'),
-            text=self.tr(u'About'),
-            add_to_toolbar=False,
+            os.path.join(os.path.dirname(__file__), "icons", "info.svg"),
+            text=self.tr("About"),
             callback=self.run_about,
             parent=self.iface.mainWindow(),
-            status_tip=self.tr('About trends.earth'))
+            status_tip=self.tr("About trends.earth"),
+        )
+
+        self.action_polygon = QAction(
+            QIcon(
+                os.path.join(
+                    os.path.dirname(__file__), "icons", "mActionCapturePolygon.svg"
+                )
+            ),
+            self.tr("Digitize polygon"),
+            self.iface.mainWindow(),
+        )
+        self.action_polygon.triggered.connect(self.activate_polygon_tool)
+        self.action_polygon.setCheckable(True)
+        # self.action_polygon.setEnabled(False)
+
+        self.action_buffer = QAction(
+            QIcon(
+                os.path.join(
+                    os.path.dirname(__file__), "icons", "mActionCaptureBuffer.svg"
+                )
+            ),
+            self.tr(u"Buffer tool"),
+            self.iface.mainWindow(),
+        )
+        self.action_buffer.triggered.connect(self.activate_buffer_tool)
+        self.action_buffer.setCheckable(True)
+        # self.action_buffer.setEnabled(False)
+
+        self.polygon_tool = PolygonMapTool(self.iface.mapCanvas())
+        self.polygon_tool.setAction(self.action_polygon)
+        # self.polygon_tool.digitized.connect()
+
+        self.buffer_tool = BufferMapTool(self.iface.mapCanvas())
+        self.buffer_tool.setAction(self.action_buffer)
+        # self.buffer_tool.digitized.connect()
+
+        self.ndvi_action = QAction(
+            FileUtils.get_icon("chart.svg"),
+            self.tr("Plot time series"),
+            self.iface.mainWindow(),
+        )
+        self.ndvi_action.setCheckable(True)
+        self.ndvi_action.setToolTip(self.tr("Plot time series"))
+        self.ndvi_action.triggered.connect(self.run_ndvi)
+
+        self.toolbar.addActions(
+            [self.action_polygon, self.action_buffer, self.ndvi_action]
+        )
 
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
         for action in self.actions:
-            self.iface.removePluginRasterMenu(
-                self.tr(u'&trends.earth'), action)
+            self.iface.removePluginRasterMenu(self.tr(u"&trends.earth"), action)
             self.iface.removeToolBarIcon(action)
         # remove the menu
         self.raster_menu.removeAction(self.menu.menuAction())
@@ -189,16 +280,31 @@ class LDMPPlugin(object):
         del self.toolbar
 
         QgsApplication.processingRegistry().removeProvider(self.provider)
+        QgsExpression.unregisterFunction(calculate_error_recode_stats.name())
 
     def run_docked_interface(self, checked):
         if checked:
-            self.dock_widget = main_widget.MainWidget(
-                self.iface, parent=self.iface.mainWindow())
-            self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dock_widget)
+            if self.dock_widget is None:
+                self.dock_widget = main_widget.MainWidget(
+                    self.iface, parent=self.iface.mainWindow()
+                )
+                self.iface.addDockWidget(Qt.RightDockWidgetArea, self.dock_widget)
+                self.dock_widget.visibilityChanged.connect(
+                    self.on_dock_visibility_changed
+                )
             self.dock_widget.show()
         else:
-            if hasattr(self, 'dock_widget') and self.dock_widget.isVisible():
+            if self.dock_widget is not None and self.dock_widget.isVisible():
                 self.dock_widget.hide()
+
+    def on_dock_visibility_changed(self, status):
+        """
+        Check/uncheck start action.
+        """
+        if status:
+            self.start_action.setChecked(True)
+        else:
+            self.start_action.setChecked(False)
 
     def run_settings(self):
         old_base_dir = conf.settings_manager.get_value(conf.Setting.BASE_DIR)
@@ -213,3 +319,37 @@ class LDMPPlugin(object):
     def run_about(self):
         self.dlg_about.show()
         result = self.dlg_about.exec_()
+
+    def activate_polygon_tool(self):
+        self.iface.mapCanvas().setMapTool(self.polygon_tool)
+
+    def activate_buffer_tool(self):
+        self.iface.mapCanvas().setMapTool(self.buffer_tool)
+
+    def init_reports(self):
+        # Initialize report module.
+        # Register custom report variables on opening the layout designer
+        self.iface.layoutDesignerOpened.connect(self.on_layout_designer_opened)
+        # Copy report config and templates to data directory
+        template_manager.use_data_dir_config_source()
+
+        # Download basemap as its required in the reports
+        download_base_map(use_mask=False)
+
+    def on_layout_designer_opened(self, designer: QgsLayoutDesignerInterface):
+        # Register custom report variables in a print layout only.
+        layout_type = designer.masterLayout().layoutType()
+        if layout_type == QgsMasterLayoutInterface.PrintLayout:
+            layout = designer.layout()
+            ReportExpressionUtils.register_variables(layout)
+
+    def run_ndvi(self):
+        # Show NDVI query dialog.
+        if self.time_series_dlg is None:
+            self.time_series_dlg = show_time_series(self.iface, self.iface.mapCanvas())
+            self.time_series_dlg.sync_action = self.ndvi_action
+        else:
+            self.time_series_dlg.show()
+
+        self.time_series_dlg.raise_()
+        self.time_series_dlg.activateWindow()

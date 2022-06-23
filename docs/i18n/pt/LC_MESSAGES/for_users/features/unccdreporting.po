@@ -553,7 +553,7 @@ msgstr ""
 #: ../../source/for_users/features/unccdreporting.rst:262
 #: ../../source/for_users/features/unccdreporting.rst:289
 msgid "Standardized Precipitation Index (SPI)"
-msgstr "Índice de Precipitação Padronizado (IPP)"
+msgstr ""
 
 #: ../../source/for_users/features/unccdreporting.rst:263
 msgid "Gridded global population dataset"

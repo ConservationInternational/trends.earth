@@ -28,7 +28,7 @@ msgstr "Relatório do UNCCD"
 
 #: ../../source/for_users/training/unccdreporting.rst:8
 msgid "Generate data package for UNCCD reporting"
-msgstr "Gerar pacote de dados para relatório UNCCD"
+msgstr ""
 
 #: ../../source/for_users/training/unccdreporting.rst:10
 msgid ""
@@ -36,9 +36,6 @@ msgid ""
 "**UNCCD Reporting - Generate data package for UNCCD reporting** and select "
 "**Execute locally**."
 msgstr ""
-"No painel **Trends.Earth**  selecione a janela **Algoritmo**, clique em "
-"**Relatórios UNCCD - Gerar pacote de dados para relatório UNCCD** e "
-"selecione **Executar localmente**."
 
 #: ../../source/for_users/training/unccdreporting.rst:15
 msgid ""
@@ -46,9 +43,6 @@ msgid ""
 "lists for the region of interest. Enter **Execution name** and **Notes**. "
 "Select **Execute locally**."
 msgstr ""
-"A janela irá aparecer com a data predefinida preenchida nas listas drop-down"
-" para a região de interesse. Introduza **Nome da execução** e **Notas**. "
-"Selecione **Executar localmente**."
 
 #: ../../source/for_users/training/unccdreporting.rst:20
 msgid ""
@@ -56,45 +50,36 @@ msgid ""
 "submitted will appear in the menu if the **Download remotely-generated "
 "datasets automatically** is checked in settings."
 msgstr ""
-"No painel **Trends.Earth** selecione o separador **Conjuntos de dados**. A "
-"tarefa submetida irá aparecer no menu se  **Descarregar automaticamente "
-"conjuntos de dados gerados remotamente** estiver selecionado nas definições."
 
 #: ../../source/for_users/training/unccdreporting.rst:24
 msgid ""
 "Refer to the :ref:`tut_settings` section of this manual to learn more about "
 "**Advanced settings**"
 msgstr ""
-"Consulte a secção :ref:`tut_settings` deste manual para saber mais sobre "
-"**Definições avançadas**"
+"Consulte a secção :ref:`tut_settings` deste manual, para aprender mais sobre"
+" **Definições Avançadas**"
 
 #: ../../source/for_users/training/unccdreporting.rst:26
 msgid "Select the Refresh button if the analysis does not appear in the menu."
-msgstr "Selecione o botão Atualizar se a análise não aparecer no menu."
+msgstr ""
 
 #: ../../source/for_users/training/unccdreporting.rst:28
 msgid ""
 "Select the add layer drop-down button to **Add default layers from this "
 "layer to the map**"
 msgstr ""
-"Escolha o botão de camada para **Adicionar camadas predefinidas desta camada"
-" ao mapa**"
 
 #: ../../source/for_users/training/unccdreporting.rst:33
 msgid ""
 "The final SDG 15.3.1 Indicator using default data will be added to the map "
 "for the region of interest."
 msgstr ""
-"O último indicador ODS 15.3.1 que utiliza dados predifinidos será adicionado"
-" ao mapa para a região de interesse."
 
 #: ../../source/for_users/training/unccdreporting.rst:36
 msgid ""
 "Refer to the :ref:`background_unccdreporting` background for interpreting "
 "the results of this analysis."
 msgstr ""
-"Consulte :ref:`background_unccdreporting` sobre informação para interpretar "
-"os resultados desta análise."
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"

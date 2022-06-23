@@ -25,7 +25,7 @@ msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:4
 msgid "Input Data Used in Trends.Earth"
-msgstr "Dados de Entrada Utilizados na Trends.Earth"
+msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:6
 msgid ""
@@ -157,7 +157,7 @@ msgstr "250 m"
 
 #: ../../source/for_users/datasets/input_data.rst:27
 msgid "Soil Moisture"
-msgstr "Humidade do Solo"
+msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:32
 msgid "`MERRA 2`_"
@@ -185,7 +185,7 @@ msgstr "0.75° x 0.75°"
 
 #: ../../source/for_users/datasets/input_data.rst:42
 msgid "Precipitation and Drought"
-msgstr "Precipitação e Seca"
+msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:47
 msgid "`GPCP v2.3 1 month`_"
@@ -193,7 +193,7 @@ msgstr "`GPCP v2.3 1 mês`_"
 
 #: ../../source/for_users/datasets/input_data.rst:47
 msgid "1979-2019"
-msgstr "1979-2019"
+msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:47
 msgid "2.5° x 2.5°"
@@ -201,11 +201,11 @@ msgstr "2.5° x 2.5°"
 
 #: ../../source/for_users/datasets/input_data.rst:49
 msgid "`GPCC V6`_"
-msgstr "`GPCC V6`_"
+msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:49
 msgid "1891-2019"
-msgstr "1891-2019"
+msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:49
 msgid "1° x 1°"
@@ -269,7 +269,7 @@ msgstr "`ESA CCI Land Cover`_"
 
 #: ../../source/for_users/datasets/input_data.rst:79
 msgid "1992-2018"
-msgstr "1992-2018"
+msgstr ""
 
 #: ../../source/for_users/datasets/input_data.rst:79
 msgid "300 m"
@@ -350,7 +350,7 @@ msgstr "População"
 
 #: ../../source/for_users/datasets/input_data.rst:134
 msgid "**Coming soon**"
-msgstr "**Em breve**"
+msgstr ""
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"

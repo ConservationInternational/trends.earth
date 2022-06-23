@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 import fnmatch
 import glob
 import hashlib
@@ -14,6 +13,8 @@ import sys
 import zipfile
 from datetime import datetime
 from datetime import timezone
+from pathlib import Path
+from pathlib import PurePath
 from tempfile import mkstemp
 from tempfile import TemporaryDirectory
 
@@ -122,8 +123,11 @@ def _replace(file_path, regex, subst):
 ###############################################################################
 
 
-@task(help={'v': 'Version to set'})
-def set_version(c, v=None):
+@task(help={'v': 'Version to set',
+            'ta': 'Also set version for trends.earth-algorithms',
+            'ts': 'Also set version for trends.earth-schemas'
+})
+def set_version(c, v=None, ta=False, ts=False):
     # Validate the version matches the regex
 
     if not v:
@@ -168,7 +172,7 @@ def set_version(c, v=None):
         # Set in Sphinx docs in make.conf
         print('Setting version to {} in sphinx conf.py'.format(v))
         sphinx_regex = re.compile(
-            "(((version)|(release)) = ')[0-9]+([.][0-9]+)+", re.IGNORECASE
+            '(((version)|(release)) = ")[0-9]+([.][0-9]+)+', re.IGNORECASE
         )
         _replace(
             os.path.join(c.sphinx.sourcedir, 'conf.py'), sphinx_regex,
@@ -240,7 +244,7 @@ def set_version(c, v=None):
         # Set in scripts.json
         print('Setting version to {} in scripts.json'.format(v))
         scripts_regex = re.compile(
-            '("script version": ")[0-9]+([-._][0-9]+)+', re.IGNORECASE
+            '("version": ")[0-9]+([-._][0-9]+)+', re.IGNORECASE
         )
         _replace(
             os.path.join(c.plugin.source_dir, 'data', 'scripts.json'),
@@ -260,6 +264,11 @@ def set_version(c, v=None):
                 'requirements.txt', requirements_txt_regex, '\g<1>develop'
             )
 
+
+    for module in c.plugin.ext_libs.local_modules:
+        module_path = Path(module['path']).parent
+        print(f"Also setting tag for {module['name']}")
+        subprocess.check_call(['invoke', 'set-version', '-v', v], cwd=module_path)
 
 @task()
 def release_github(c):
@@ -295,8 +304,10 @@ def release_github(c):
     # https://docs.github.com/en/rest/reference/repos#update-a-release-asset
 
 
-@task()
-def set_tag(c):
+@task(help={
+    'ext_libs': 'Also set tag for local copies of modules under ext_libs'
+})
+def set_tag(c, ext_libs=False):
     v = get_version(c)
     ret = subprocess.run(
         ['git', 'diff-index', 'HEAD', '--'], capture_output=True, text=True
@@ -339,6 +350,11 @@ def set_tag(c):
         ]
     )
     subprocess.check_call(['git', 'push', 'origin', 'v{}'.format(v)])
+
+    for module in c.plugin.ext_libs.local_modules:
+        module_path = Path(module['path']).parent
+        print(f"Also setting tag for {module['name']}")
+        subprocess.check_call(['invoke', 'set-tag'], cwd=module_path)
 
 
 def check_tecli_python_version():
@@ -595,6 +611,28 @@ def read_requirements():
     return not_comments(0, idx), not_comments(idx + 1, None)
 
 
+def _safe_remove_folder(rootdir):
+    '''
+    Supports removing a folder that may have symlinks in it
+
+    Needed on windows to avoid removing the original files linked to within
+    each folder
+    '''
+    rootdir = Path(rootdir)
+    if rootdir.is_symlink():
+        rootdir.rmdir()
+    else:
+        folders = [path for path in Path(rootdir).iterdir() if path.is_dir()]
+        for folder in folders:
+            if folder.is_symlink():
+                folder.rmdir()
+            else:
+                shutil.rmtree(folder)
+        files = [path for path in Path(rootdir).iterdir()]
+        for file in files:
+            file.unlink()
+
+
 @task(
     help={
         'clean': 'Clean out dependencies first',
@@ -602,12 +640,12 @@ def read_requirements():
         'pip': 'Path to pip (usually "pip" or "pip3"'
     }
 )
-def plugin_setup(c, clean=False, link=False, pip='pip'):
+def plugin_setup(c, clean=True, link=False, pip='pip'):
     '''install dependencies'''
     ext_libs = os.path.abspath(c.plugin.ext_libs.path)
 
     if clean and os.path.exists(ext_libs):
-        shutil.rmtree(ext_libs)
+        _safe_remove_folder(ext_libs)
 
     if sys.version_info[0] < 3:
         if not os.path.exists(ext_libs):
@@ -635,14 +673,13 @@ def plugin_setup(c, clean=False, link=False, pip='pip'):
             )
 
     if link:
-        for module in c.plugin.ext_libs.module_symlinks:
+        for module in c.plugin.ext_libs.local_modules:
             l = os.path.abspath(c.plugin.ext_libs.path
                                 ) + os.path.sep + module['name']
 
             if os.path.islink(l):
                 print(
-                    "Local repo of {} already linked to plugin ext_libs".
-                    format(module['name'])
+                    f"{l} is already a link (to {os.readlink(l)})"
                 )
             else:
                 print(
@@ -656,7 +693,7 @@ def plugin_setup(c, clean=False, link=False, pip='pip'):
 
 @task(
     help={
-        'clean': "run rmtree",
+        'clean': "remove existing install folder first",
         'version': 'what version of QGIS to install to',
         'profile': 'what profile to install to (only applies to QGIS3',
         'fast': 'Skip compiling numba files',
@@ -703,9 +740,8 @@ def plugin_install(
             )
         )
 
-        if clean:
-            if os.path.exists(dst_this_plugin):
-                rmtree(dst_this_plugin)
+        if clean and os.path.exists(dst_this_plugin):
+            _safe_remove_folder(dst_this_plugin)
 
         for root, dirs, files in os.walk(src):
             relpath = os.path.relpath(root)
@@ -725,17 +761,23 @@ def plugin_install(
                         .format(f, os.path.join(dst_plugins, relpath, f))
                     )
             _filter_excludes(root, dirs, c)
-    elif not os.path.exists(dst_this_plugin):
-        print(
-            "Linking plugin development folder to QGIS version {} plugin folder at {}"
-            .format(version, dst_this_plugin)
-        )
-        os.symlink(src, dst_this_plugin)
     else:
-        print(
-            "Not linking - plugin folder for QGIS version {} already exists at {}"
-            .format(version, dst_this_plugin)
-        )
+            if clean and os.path.exists(dst_this_plugin):
+                print(f"Removing folder {dst_this_plugin}")
+                _safe_remove_folder(dst_this_plugin)
+
+            if os.path.exists(dst_this_plugin):
+                print(
+                    f"Not linking - plugin folder for QGIS version {version} already "
+                    f"exists at {dst_this_plugin}. Use '-c' to clean that folder if "
+                    "desired."
+                )
+            else:
+                print(
+                    "Linking plugin development folder to QGIS version {} plugin folder at {}"
+                    .format(version, dst_this_plugin)
+                )
+                os.symlink(src, dst_this_plugin)
 
 
 # Compile all ui and resource files
@@ -862,7 +904,8 @@ def check_path(app):
 @task(
     help={
         'force':
-        'Force the download of the translations files regardless of whether timestamps on the local computer are newer than those on the server'
+        'Force the download of the translations files regardless of whether '
+        'timestamps on the local computer are newer than those on the server'
     }
 )
 def translate_pull(c, force=False):
@@ -877,9 +920,9 @@ def translate_pull(c, force=False):
     print("Pulling transifex translations...")
 
     if force:
-        subprocess.check_call(['tx', 'pull', '-s', '-f', '--parallel'])
+        subprocess.check_call(['tx', 'pull', '-f'])
     else:
-        subprocess.check_call(['tx', 'pull', '-s', '--parallel'])
+        subprocess.check_call(['tx', 'pull'])
     print("Releasing translations using lrelease...")
 
     for translation in c.plugin.translations:
@@ -887,7 +930,7 @@ def translate_pull(c, force=False):
             [
                 lrelease,
                 os.path.join(
-                    c.plugin.i18n_dir, 'LDMP.{}.ts'.format(translation)
+                    c.plugin.i18n_dir, 'LDMP_{}.ts'.format(translation)
                 )
             ]
         )
@@ -911,10 +954,13 @@ def translate_push(c, force=False, version=3):
     print("Building changelog...")
     changelog_build(c)
 
+    print("Building download page...")
+    build_download_page(c)
+
     # Below is necessary just to avoid warning messages regarding missing image
     # files when Sphinx is used later on
     print("Localizing resources...")
-    _localize_resources(c, 'en')
+    localize_resources(c, 'en')
 
     print("Gathering strings...")
     gettext(c)
@@ -957,9 +1003,9 @@ def translate_push(c, force=False, version=3):
         )
 
     if force:
-        subprocess.check_call('tx push --parallel -f -s')
+        subprocess.check_call('tx push -f -s')
     else:
-        subprocess.check_call('tx push --parallel -s')
+        subprocess.check_call('tx push -s')
 
 
 @task(help={'language': 'language'})
@@ -983,6 +1029,47 @@ def gettext(c, language=None):
 # Build documentation
 ###############################################################################
 
+@task(
+    help={
+        'ignore_errors': 'ignore documentation errors',
+        'language': "which language to build (all are built by default)",
+        'fast': "only check english docs"
+    }
+)
+def docs_spellcheck(c, ignore_errors=False, language=None, fast=False):
+    if language:
+        languages = [language]
+    else:
+        languages = [c.sphinx.base_language]
+        languages.extend(c.plugin.translations)
+
+    for language in languages:
+        print("\nBuilding {lang} documentation...".format(lang=language))
+        SPHINX_OPTS = '-D language={lang} -A language={lang} {sourcedir}'.format(
+            lang=language, sourcedir=c.sphinx.sourcedir
+        )
+
+        if language != 'en' or ignore_errors:
+            subprocess.check_call(
+                "sphinx-build -b spelling -a {sphinx_opts} {builddir}/html/{lang}".
+                format(
+                    sphinx_opts=SPHINX_OPTS,
+                    builddir=c.sphinx.builddir,
+                    lang=language
+                )
+            )
+        else:
+            subprocess.check_call(
+                "sphinx-build -n -W -b spelling -a {sphinx_opts} {builddir}/html/{lang}"
+                .format(
+                    sphinx_opts=SPHINX_OPTS,
+                    builddir=c.sphinx.builddir,
+                    lang=language
+                )
+            )
+
+        if fast:
+            break
 
 @task(
     help={
@@ -1005,6 +1092,9 @@ def docs_build(c, clean=False, ignore_errors=False, language=None, fast=False):
     print("\nBuilding changelog...")
     changelog_build(c)
 
+    print("\nBuilding download page...")
+    build_download_page(c)
+
     for language in languages:
         print("\nBuilding {lang} documentation...".format(lang=language))
         SPHINX_OPTS = '-D language={lang} -A language={lang} {sourcedir}'.format(
@@ -1016,7 +1106,7 @@ def docs_build(c, clean=False, ignore_errors=False, language=None, fast=False):
                 lang=language
             )
         )
-        _localize_resources(c, language)
+        localize_resources(c, language)
 
         subprocess.check_call(
             "sphinx-intl --config {sourcedir}/conf.py build --language={lang}".
@@ -1080,7 +1170,10 @@ def docs_build(c, clean=False, ignore_errors=False, language=None, fast=False):
             )
 
 
-def _localize_resources(c, language):
+def localize_resources(c, language=None):
+    if language is None:
+        language = c.sphinx.base_language
+
     print(
         "Removing all static content from {sourcedir}/static.".format(
             sourcedir=c.sphinx.sourcedir
@@ -1129,6 +1222,43 @@ def _localize_resources(c, language):
                 shutil.copy2(s, d)
 
 
+def check_docs_image_ext(c):
+    """
+    Check the capitalization of *.png images for docs. They should be in
+    lowercase otherwise they will be skipped from the build process as Linux
+    is case-sensitive w.r.t. file extensions.
+    """
+    res_dir = c.sphinx.resourcedir
+    if not os.path.exists(res_dir):
+        print('doc\'s resource directory does not exist. Unable to browse image files.')
+        return
+
+    for p in Path(res_dir).rglob('*.PNG'):
+        if p.suffix.isupper():
+            np = Path(f"{p.with_suffix('').as_posix()}.png")
+            os.rename(p.as_posix(), np.as_posix())
+
+
+@task
+def rtd_pre_build(c):
+    """
+    Checks capitalization and copies docs resources based on language
+    prior to build in RTD.
+    """
+    print('Checking case of image extensions...')
+    check_docs_image_ext(c)
+    print('Copying docs resources based on language...')
+    localize_resources(c)
+    if (
+        os.environ['READTHEDOCS_PROJECT'] == 'trends.earth' and
+        os.environ['READTHEDOCS_VERSION_TYPE'] in ['branch', 'tag']
+    ):
+        print("Building download page...")
+        build_download_page(c)
+    print("Building changelog...")
+    changelog_build(c)
+
+
 @task
 def changelog_build(c):
     out_txt = [
@@ -1172,6 +1302,136 @@ def changelog_build(c):
         metadata = fout.writelines(out_txt)
 
 
+def _make_download_link(c, title, key, data):
+    filename = data.get(key, "")
+    if filename:
+        return (
+            f'[{title}]'
+            f'(https://{c.data_downloads.s3_bucket}/'
+            f'{c.data_downloads.s3_prefix}{filename})'
+        )
+    else:
+        return ''
+
+
+def _make_sdg_download_row(c, iso, data):
+    return (
+        f'| {iso} | ' +
+        f'{_make_download_link(c, f"{iso} (JRC LPD)", "JRC-LPD-5", data)} | ' +
+        f'{_make_download_link(c, f"{iso} (Trends.Earth LPD)", "TrendsEarth-LPD-5", data)} | ' +
+        f'{_make_download_link(c, f"{iso} (FAO-WOCAT LPD)", "FAO-WOCAT-LPD-5", data)} |\n'
+    )
+
+def _make_drought_download_row(c, iso, data):
+    return (
+        f'| {iso} | ' +
+        f'{_make_download_link(c, f"{iso} (Drought)", "Drought", data)} |\n'
+    )
+
+
+@task
+def build_download_page(c):
+    out_txt = '''# Downloads
+
+This page lists data packages containing default datasets that can be used in
+Trends.Earth.
+
+**This site and the products of Trends.Earth are made available under the terms of the
+Creative Commons Attribution 4.0 International License (CC BY 4.0). The boundaries and
+names used, and the designations used, do not imply official endorsement or acceptance
+by Conservation International Foundation, or its partner organizations and
+contributors.**
+
+## SDG Indicator 15.3.1 (UNCCD Strategic Objectives 1 and 2)
+
+The below datasets can be used to support assessing SDG Indicator 15.3.1, and include
+indicators of change in land productivity dynamics (LPD), land cover, and soil organic
+carbon. These datasets can be used to support reporting on UNCCD Strategic Objectives 1
+and 2. Note that there are three different LPD datasets available (from JRC, from
+the default Trends.Earth method, and from FAO-WOCAT).
+
+| Country | SDG 15.3.1 using JRC LPD | SDG 15.3.1 using Trends.Earth LPD  | SDG 15.3.1 using FAO-WOCAT LPD |
+|---------|---------|--------------------|---------------|
+'''
+
+    try:
+        with open(
+            os.path.join(os.path.dirname(__file__), 'aws_credentials.json'), 'r'
+        ) as fin:
+            keys = json.load(fin)
+        client = boto3.client(
+            's3',
+            aws_access_key_id=keys['access_key_id'],
+            aws_secret_access_key=keys['secret_access_key']
+        )
+    except FileNotFoundError:
+        print('Failed to read AWS keys from aws_credentials.json - keys must be in '
+              'environment variable')
+        client = boto3.client('s3')
+
+    objects = client.list_objects(
+        Bucket=c.data_downloads.s3_bucket, Prefix=c.data_downloads.s3_prefix
+    )['Contents']
+
+    sdg_links = {}
+    for item in objects:
+        if item['Key'] == c.data_downloads.s3_prefix:
+            # Skip the key that is just the parent folder itself
+            continue
+        filename = PurePath(item['Key']).name
+        iso = re.match('[A-Z]{3}', filename)[0]
+        
+        if iso not in sdg_links:
+            sdg_links[iso] = {}
+
+        if re.search('SDG15_JRC-LPD-5', filename):
+            sdg_links[iso]['JRC-LPD-5'] = filename
+        elif re.search('SDG15_TrendsEarth-LPD-5', filename):
+            sdg_links[iso]['TrendsEarth-LPD-5'] = filename
+        elif re.search('SDG15_FAO-WOCAT-LPD-5', filename):
+            sdg_links[iso]['FAO-WOCAT-LPD-5'] = filename
+        else:
+            continue
+
+    for iso, values in sdg_links.items():
+        out_txt += _make_sdg_download_row(c, iso, values)
+
+
+    out_txt +='''
+
+## Drought hazard, vulnerability and exposure (UNCCD Strategic Objective 3)
+
+The below datasets can be used to support assessing drought hazard, vulnerability, and
+exposure, and for reporting on UNCCD Strategic Objective 3.
+
+| Country | Drought indicators (2000-2019) |
+|---------|--------------------------------|
+'''
+
+    drought_links = {}
+    for item in objects:
+        if item['Key'] == c.data_downloads.s3_prefix:
+            # Skip the key that is just the parent folder itself
+            continue
+        filename = PurePath(item['Key']).name
+        iso = re.match('[A-Z]{3}', filename)[0]
+        
+        if iso not in drought_links:
+            drought_links[iso] = {}
+
+        if re.search('Drought', filename):
+            drought_links[iso]['Drought'] = filename
+        else:
+            continue
+
+    for iso, values in drought_links.items():
+        out_txt += _make_drought_download_row(c, iso, values)
+
+    with open(
+        os.path.join(os.path.dirname(__file__), c.data_downloads.downloads_page), 'w'
+    ) as fout:
+        fout.writelines(out_txt)
+
 ###############################################################################
 # Package plugin zipfile
 ###############################################################################
@@ -1190,7 +1450,7 @@ def changelog_build(c):
 )
 def zipfile_build(
     c,
-    clean=False,
+    clean=True,
     version=3,
     tests=False,
     filename=None,
@@ -1225,6 +1485,10 @@ def zipfile_build(
         filename = os.path.join(
             package_dir, '{}_QGIS{}.zip'.format(c.plugin.name, version)
         )
+
+    print(f'Removing untracked datafiles from {c.plugin.data_dir}...')
+    subprocess.check_call(['git', 'clean', '-f', '-x', c.plugin.data_dir])
+
     print('Building zipfile...')
     with zipfile.ZipFile(filename, 'w', zipfile.ZIP_DEFLATED) as zf:
         if not tests:
@@ -1247,16 +1511,18 @@ def _make_zip(zipFile, c):
 @task(
     help={
         'qgis': 'QGIS version to target',
-        'clean': 'Clean out dependencies before packaging',
-        'pip': 'Path to pip (usually "pip" or "pip3"'
+        'clean': 'Clean out dependencies and untracked data files before packaging',
+        'pip': 'Path to pip (usually "pip" or "pip3"',
+        'tag': 'Whether to tag on Github',
+        'filename': 'Name for output file'
     }
 )
-def zipfile_deploy(c, qgis, clean=False, pip='pip'):
+def zipfile_deploy(c, qgis, clean=True, pip='pip', tag=False, filename=None):
     binaries_sync(c)
     binaries_deploy(c, qgis=qgis)
     print('Binaries uploaded')
 
-    filename = zipfile_build(c, pip=pip)
+    filename = zipfile_build(c, pip=pip, clean=clean, tag=tag, filename=filename)
     try:
         with open(
             os.path.join(os.path.dirname(__file__), 'aws_credentials.json'),
@@ -1580,11 +1846,12 @@ def binaries_compile(c, clean=False, python='python'):
 ###############################################################################
 
 ns = Collection(
-    set_version, set_tag, plugin_setup, plugin_install, docs_build,
+    set_version, set_tag, plugin_setup, plugin_install, docs_build, docs_spellcheck,
     translate_pull, translate_push, changelog_build, tecli_login, tecli_clear,
     tecli_config, tecli_publish, tecli_run, tecli_info, tecli_logs,
     zipfile_build, zipfile_deploy, binaries_compile, binaries_sync,
-    binaries_deploy, release_github, update_script_ids, testdata_sync
+    binaries_deploy, release_github, update_script_ids, testdata_sync,
+    rtd_pre_build, build_download_page
 )
 
 ns.configure(
@@ -1598,12 +1865,14 @@ ns.configure(
             'LDMP/version.json',
             'ext_libs': {
                 'path': 'LDMP/ext-libs',
-                'module_symlinks': []
+                'local_modules': []
             },
             'gui_dir':
             'LDMP/gui',
             'source_dir':
             'LDMP',
+            'data_dir':
+            'LDMP/data',
             'i18n_dir':
             'LDMP/i18n',
             'translations': ['fr', 'es', 'sw', 'pt', 'ar', 'ru', 'zh', 'fa'],
@@ -1640,35 +1909,20 @@ ns.configure(
             'tecli': '../trends.earth-CLI/tecli'
         },
         'sphinx': {
-            'docroot':
-            'docs',
-            'sourcedir':
-            'docs/source',
-            'builddir':
-            'docs/build',
-            'resourcedir':
-            'docs/resources',
-            'deploy_s3_bucket':
-            'trends.earth',
-            'docs_s3_prefix':
-            'docs/',
-            'transifex_name':
-            'trendsearth',
-            'base_language':
-            'en',
-            'latex_documents': [
-                'Trends.Earth.tex', 'Trends.Earth_Tutorial01_Installation.tex',
-                'Trends.Earth_Tutorial02_Computing_Indicators.tex',
-                'Trends.Earth_Tutorial03_Downloading_Results.tex',
-                'Trends.Earth_Tutorial04_Using_Custom_Productivity.tex',
-                'Trends.Earth_Tutorial05_Using_Custom_Land_Cover.tex',
-                'Trends.Earth_Tutorial06_Using_Custom_Soil_Carbon.tex',
-                'Trends.Earth_Tutorial07_Computing_SDG_Indicator.tex',
-                'Trends.Earth_Tutorial08_The_Summary_Table.tex',
-                'Trends.Earth_Tutorial09_Loading_a_Basemap.tex',
-                'Trends.Earth_Tutorial10_Forest_Carbon.tex',
-                'Trends.Earth_Tutorial11_Urban_Change_SDG_Indicator.tex'
-            ]
+            'docroot': 'docs',
+            'sourcedir': 'docs/source',
+            'builddir': 'docs/build',
+            'resourcedir': 'docs/resources',
+            'deploy_s3_bucket': 'trends.earth',
+            'docs_s3_prefix': 'docs/',
+            'transifex_name': 'trendsearth-v2',
+            'base_language': 'en',
+            'latex_documents': ['Trends.Earth.tex']
+        },
+        'data_downloads': {
+            'downloads_page': 'docs/source/for_users/downloads/index.md',
+            's3_bucket': 'data.trends.earth',
+            's3_prefix': 'unccd_reporting/2016-2019/packages/'
         },
         'github': {
             'api_url': 'https://api.github.com',

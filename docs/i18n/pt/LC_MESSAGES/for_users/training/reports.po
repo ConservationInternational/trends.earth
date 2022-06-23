@@ -24,15 +24,13 @@ msgstr ""
 
 #: ../../source/for_users/training/reports.rst:4
 msgid "Dataset Reports"
-msgstr "Relatórios de Conjuntos de Dados"
+msgstr ""
 
 #: ../../source/for_users/training/reports.rst:6
 msgid ""
 "**Objective**: Learn how to generate and view reports from one or more "
 "datasets."
 msgstr ""
-"**Objetivo**: Saber como gerar e ver relatórios a partir de um ou mais "
-"conjuntos de dados."
 
 #: ../../source/for_users/training/reports.rst:8
 msgid "**Estimated time of completion**: 10 minutes"
@@ -40,19 +38,17 @@ msgstr "**Tempo estimado de conclusão**: 10 minutos"
 
 #: ../../source/for_users/training/reports.rst:10
 msgid "**Internet access**: Not Required"
-msgstr "*Acesso à Internet**: Não Obrigatório"
+msgstr ""
 
 #: ../../source/for_users/training/reports.rst:15
 msgid "View Dataset Output Reports"
-msgstr "Ver Relatórios de Resultados de Conjunto de Dados"
+msgstr ""
 
 #: ../../source/for_users/training/reports.rst:17
 msgid ""
 "Select the **Open report directory** sub-menu in a dataset item's report "
 "button."
 msgstr ""
-"Escolha o sub-menu **Abrir diretório de relatórios** no botão de relatório "
-"do item do conjunto de dados."
 
 #: ../../source/for_users/training/reports.rst:23
 msgid ""
@@ -61,38 +57,27 @@ msgid ""
 "algorithm, the directory will contain PDF and/or image files showing the "
 "default thematic layers for the selected dataset."
 msgstr ""
-"Esta ação irá abrir o diretório que contem os relatórios de resultados para "
-"o conjunto de dados selecionado. Dependendo da configuração do relatório "
-"para o algoritmo dado, o diretório irá conter ficheiros PDF e/ou de imagem, "
-"que irão apresentar camadas temáticas predefinidas para o conjunto de dados "
-"selecionado."
 
 #: ../../source/for_users/training/reports.rst:28
 msgid ""
 "The example below is from the sub-indicators for SDG 15.3.1 algorithm with "
 "the AOI set to Uganda."
 msgstr ""
-"O exemplo em baixo é de um dos sub-indicadores para o algoritmo ODS 15.3.1 "
-"com a ADI definida para o Uganda."
 
 #: ../../source/for_users/training/reports.rst:37
 msgid "Open Report Layouts"
-msgstr "Abrir Esquemas de Relatório"
+msgstr ""
 
 #: ../../source/for_users/training/reports.rst:39
 msgid ""
 "Select the **Open layouts...** sub-menu in a dataset item's report button."
 msgstr ""
-"Escolha o sub-menu **Abrir esquemas...** no botão de relatório de um item do"
-" conjunto de dados."
 
 #: ../../source/for_users/training/reports.rst:45
 msgid ""
 "This action will open the QGIS project containing the job's layers and "
 "layouts in a separate application instance."
 msgstr ""
-"Esta ação irá abrir o projeto QGIS que contém as camadas e esquemas do "
-"trabalho numa instância da aplicação separada."
 
 #: ../../source/for_users/training/reports.rst:48
 msgid ""
@@ -103,21 +88,12 @@ msgid ""
 " safe to run macros by clicking on the **Enable Macros** button in the "
 "message bar (top-right corner)."
 msgstr ""
-"Por defeito, ao abrir um projeto, irá aparecer uma mensagem de aviso que "
-"indica que as macros de Python não podem ser corridas. Esta é uma "
-"funcionalidade de segurança que evita que os utilizadores corram macros para"
-" projetos QGIS de fontes desconhecidas ou não fidedignas. No entanto, neste "
-"caso, o projeto é gerado localmente, por isso é seguro correr macros "
-"clicando no botão \"Permitir Macros\" na barra de mensagem (canto superior "
-"direito)."
 
 #: ../../source/for_users/training/reports.rst:57
 msgid ""
 "On the Layout Manager dialog, select a layout name in the list then click on"
 " **Show** to edit the layout."
 msgstr ""
-"No diálogo de Gestor de Esquemas escolha o nome do esquema na lista e depois"
-" clique em **Mostrar** para editar o esquema."
 
 #: ../../source/for_users/training/reports.rst:65
 msgid ""
@@ -125,9 +101,6 @@ msgid ""
 "generation task is still running and will automatically be enabled once the "
 "process is complete."
 msgstr ""
-"Se o botão **Relatórios** (|iconReports|) estiver desativado, isto significa"
-" que a tarefa de criação do relatório ainda está a correr e será ativado "
-"automaticamente assim que o processo estiver completo."
 
 #: ../../../<rst_epilog>:31 ../../../<rst_epilog>:31
 msgid "iconReports"
@@ -138,9 +111,6 @@ msgid ""
 "If the **Reports** button is not visible, then it means there is no report "
 "configuration defined for datasets resulting from the given algorithm."
 msgstr ""
-"Se o botão **Relatórios** não estiver visível, isto significa que não está "
-"definida qualquer configuração de relatório para os conjuntos de dados "
-"resultantes de um dado algoritmo."
 
 #: ../../source/for_users/training/reports.rst:70
 msgid ""
@@ -149,11 +119,6 @@ msgid ""
 "Macros** setting. Select **Always**, though this option is not recommended "
 "especially if you interact with qgs or qgz projects from external sources."
 msgstr ""
-"Para permitir que as macros sejam executadas automaticamente, vá a "
-"**Definições > Opções** e depois, na categoria **Geral**, desça até ao fundo"
-" até à opção **Permitir Macros**. Escolha **Sempre**, sendo que esta opção "
-"não é recomendada, especialmente de interagir com projetos qgs ou qgz de "
-"fontes externas."
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"

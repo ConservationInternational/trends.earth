@@ -1,70 +1,48 @@
-import os
 import dataclasses
 import datetime as dt
-import enum
 import json
-import tempfile
 import re
-import shutil
-import zipfile
 import tarfile
-
-from typing import (
-    List,
-    Dict,
-    Tuple,
-    Optional
-)
+import tempfile
+import zipfile
 from pathlib import Path
-
-from PyQt5 import QtWidgets
-
-import numpy as np
-from osgeo import (
-    gdal,
-    osr,
-)
-import qgis.core
-
-from te_schemas import (
-    schemas,
-    land_cover,
-    reporting,
-    SchemaBase
-)
-
-from ..conf import (
-    settings_manager,
-    Setting
-)
-
-from .. import (
-    areaofinterest,
-    data_io,
-    tr,
-    utils,
-    worker,
-    __version__,
-    __revision__,
-    __release_date__
-)
-from ..jobs.models import Job
-from ..logger import log
+from typing import Dict
+from typing import Optional
 
 import marshmallow_dataclass
+import numpy as np
+import qgis.core
+from osgeo import gdal
+from osgeo import osr
+from PyQt5 import QtWidgets
+from te_schemas import land_cover
+from te_schemas import reporting
+from te_schemas import SchemaBase
+from te_schemas import schemas
+from te_schemas.results import FileResults
+from te_schemas.results import URI
+
+from .. import __release_date__
+from .. import __revision__
+from .. import __version__
+from .. import areaofinterest
+from .. import data_io
+from ..jobs.models import Job
+from ..logger import log
 
 
 @dataclasses.dataclass()
 class UNCCDReportWidgets:
-    '''Combo boxes and methods used in UNCCD report generation'''
+    """Combo boxes and methods used in UNCCD report generation"""
+
     combo_dataset_so1_so2: data_io.WidgetDataIOSelectTEDatasetExisting
+    combo_dataset_error_recode: data_io.WidgetDataIOSelectTEDatasetExisting
     combo_dataset_so3: data_io.WidgetDataIOSelectTEDatasetExisting
-    combo_layer_jrc_vulnerability: data_io.WidgetDataIOSelectTELayerExisting
 
     def populate(self):
         self.combo_dataset_so1_so2.populate()
         self.combo_dataset_so3.populate()
-        self.combo_layer_jrc_vulnerability.populate()
+        self.combo_dataset_error_recode.populate()
 
 
 @dataclasses.dataclass()
@@ -77,46 +55,47 @@ class UNCCDReportInputInfo:
 def _get_unccd_report_inputs(combo_box):
     path = combo_box.get_current_data_file()
     summary_path = [
-        p for p in path.parents[0].glob('*.json')
-        if bool(re.search('_summary.json', str(p)))
-    ]
-    all_paths = [
-        p for p in path.parents[0].glob('*')
-    ]
+        p
+        for p in path.parents[0].glob("*.json")
+        if bool(re.search("_summary.json", str(p)))
+    ][0]
+    all_paths = [p for p in path.parents[0].glob("*")]
     all_files = [x for x in all_paths if x.is_file()]
-    return UNCCDReportInputInfo(
-        path,
-        summary_path,
-        all_files
-    )
+    return UNCCDReportInputInfo(path, summary_path, all_files)
+
 
 def get_main_unccd_report_job_params(
-        task_name: str,
-        combo_dataset_so1_so2: data_io.WidgetDataIOSelectTEDatasetExisting,
-        combo_dataset_so3: data_io.WidgetDataIOSelectTEDatasetExisting,
-        combo_layer_jrc_vulnerability: data_io.WidgetDataIOSelectTELayerExisting,
-        task_notes: Optional[str] = "",
+    task_name: str,
+    combo_dataset_so1_so2: data_io.WidgetDataIOSelectTEDatasetExisting,
+    combo_dataset_so3: data_io.WidgetDataIOSelectTEDatasetExisting,
+    include_so1_so2: bool,
+    include_so3: bool,
+    task_notes: Optional[str] = "",
 ) -> Dict:
 
-    so1_so2_inputs = _get_unccd_report_inputs(combo_dataset_so1_so2)
-    so3_inputs = _get_unccd_report_inputs(combo_dataset_so3)
+    params = {"task_name": task_name, "task_notes": task_notes}
 
-    return {
-        "task_name": task_name,
-        "task_notes": task_notes,
-        "so1_so2_path": str(so1_so2_inputs.path),
-        "so1_so2_summary_path": str(so1_so2_inputs.summary_path),
-        "so1_so2_all_paths": [str(p) for p in so1_so2_inputs.all_paths],
-        "so3_path": str(so3_inputs.path),
-        "so3_summary_path": str(so3_inputs.summary_path),
-        "so3_all_paths": [str(p) for p in so3_inputs.all_paths]
-    }
+    if include_so1_so2:
+        so1_so2_inputs = _get_unccd_report_inputs(combo_dataset_so1_so2)
+        params.update(
+            {
+                "so1_so2_path": str(so1_so2_inputs.path),
+                "so1_so2_summary_path": str(so1_so2_inputs.summary_path),
+                "so1_so2_all_paths": [str(p) for p in so1_so2_inputs.all_paths],
+            }
+        )
 
+    if include_so3:
+        so3_inputs = _get_unccd_report_inputs(combo_dataset_so3)
+        params.update(
+            {
+                "so3_path": str(so3_inputs.path),
+                "so3_summary_path": str(so3_inputs.summary_path),
+                "so3_all_paths": [str(p) for p in so3_inputs.all_paths],
+            }
+        )
 
-def _make_zip(out_zip, in_files):
-    with zipfile.ZipFile(out_zip, 'w', zipfile.ZIP_DEFLATED) as zf:
-        for in_file in in_files:
-            zf.write(in_file, in_file.name)
+    return params
 
 
 def _make_tar_gz(out_tar_gz, in_files):
@@ -124,11 +103,22 @@ def _make_tar_gz(out_tar_gz, in_files):
         for in_file in in_files:
             tar.add(in_file, arcname=in_file.name)
 
+
+def _set_affected_areas_only(in_file, out_file, schema):
+    with open(in_file, "r") as f:
+        summary = schema.load(json.load(f))
+    summary.metadata.affected_areas_only = True
+    out_json = json.loads(schema.dumps(summary))
+    with open(out_file, "w") as f:
+        json.dump(out_json, f, indent=4)
+    return out_file
+
+
 def compute_unccd_report(
     report_job: Job,
     area_of_interest: areaofinterest.AOI,
     job_output_path: Path,
-    dataset_output_path: Path
+    dataset_output_path: Path,
 ) -> Job:
     """Generate UNCCD report from SO1/SO2 and SO3 datasets"""
 
@@ -136,23 +126,46 @@ def compute_unccd_report(
 
     tar_gz_path = job_output_path.parent / f"{job_output_path.stem}.tar.gz"
 
-    log('Building tar.gz file...')
-    _make_tar_gz(
-        tar_gz_path,
-        [Path(p) for p in params['so1_so2_all_paths']] + [Path(p) for p in params['so3_all_paths']]
-    )
-    
-    # summary_json_output_path = job_output_path.parent / f"{job_output_path.stem}_summary.json"
-    # save_reporting_json(
-    #     summary_json_output_path,
-    #     summary_table,
-    #     report_job.params,
-    #     report_job.task_name,
-    #     area_of_interest,
-    #     summary_table_stable_kwargs
-    # )
+    with tempfile.TemporaryDirectory() as temp_dir:
+        paths = []
+        if params["affected_only"]:
+            if params["include_so1_so2"]:
+                summary_path_so1_so2 = Path(params["so1_so2_summary_path"])
+                paths += [
+                    _set_affected_areas_only(
+                        summary_path_so1_so2,
+                        Path(temp_dir) / summary_path_so1_so2.name,
+                        reporting.TrendsEarthLandConditionSummary.Schema(),
+                    )
+                ]
+            if params["include_so3"]:
+                summary_path_so3 = Path(params["so3_summary_path"])
+                paths += [
+                    _set_affected_areas_only(
+                        summary_path_so3,
+                        Path(temp_dir) / summary_path_so3.name,
+                        reporting.TrendsEarthDroughtSummary.Schema(),
+                    )
+                ]
+            for path in paths:
+                log(f"{path} exists {path.exists()} (in context manager)")
+        else:
+            if params["include_so1_so2"]:
+                paths += [Path(p) for p in params["so1_so2_all_paths"]]
+            if params["include_so3"]:
+                paths += [Path(p) for p in params["so3_all_paths"]]
 
-    report_job.results.data_path = tar_gz_path
+        for path in paths:
+            log(f"{path} exists: {path.exists()}")
+        log(f"Building tar.gz file with {paths}...")
+        _make_tar_gz(tar_gz_path, paths)
+
+    report_job.results
+
+    report_job.results = FileResults(
+        name="unccd_report",
+        uri=URI(uri=tar_gz_path, type="local"),
+    )
     report_job.end_date = dt.datetime.now(dt.timezone.utc)
     report_job.progress = 100
 

@@ -282,12 +282,12 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
         resp = job_manager.submit_remote_job(payload, self.script.id)
         if resp:
             main_msg = "Submitted"
-            description = "Soil organic carbon task submitted to Google Earth Engine."
+            description = "Soil organic carbon task submitted to Trends.Earth server."
 
         else:
             main_msg = "Error"
             description = (
-                "Unable to submit Soil organic carbon task to Google Earth Engine.")
+                "Unable to submit Soil organic carbon task to Trends.Earth server.")
         self.mb.pushMessage(
             self.tr(main_msg),
             self.tr(description),

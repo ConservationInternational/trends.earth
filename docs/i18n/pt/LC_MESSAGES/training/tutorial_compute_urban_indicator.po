@@ -1,33 +1,33 @@
 # SOME DESCRIPTIVE TITLE.
-# Copyright (C) 2017-2021, Conservation International
+# Copyright (C) 2017-2022, Conservation International
 # This file is distributed under the same license as the Trends.Earth package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # 
 # Translators:
-# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2019
-# Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2020
-# Alex Zvoleff <azvoleff@conservation.org>, 2021
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
+# Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2022
+# Alex Zvoleff <azvoleff@conservation.org>, 2022
 # 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 1.0.7\n"
+"Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-15 21:04-0400\n"
-"PO-Revision-Date: 2019-01-28 02:15+0000\n"
-"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2021\n"
+"POT-Creation-Date: 2022-06-21 17:06-0400\n"
+"PO-Revision-Date: 2022-05-26 11:58+0000\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: pt\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:4
-msgid "SDG 11.3.1 - Land Consumption Rate"
-msgstr "ODS 11.3.1 - Taxa de Consumo da Terra"
+#: ../../source/for_users/training/landconsumption.rst:4
+msgid "Land Consumption (SDG 11.3.1)"
+msgstr "Consumo do Solo (SDG 11.3.1)"
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:5
+#: ../../source/for_users/training/landconsumption.rst:6
 msgid ""
 "**Objective**: Learn how to compute urban extent and population for 2000, "
 "2005, 2010, 2015 in raster format and tabular outputs with areas estimated."
@@ -35,38 +35,30 @@ msgstr ""
 "**Objetivo**: Aprender a calcular a extensão urbana e a população para 2000,"
 " 2005, 2010, 2015 em formato raster e saídas tabulares com áreas estimadas."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:7
+#: ../../source/for_users/training/landconsumption.rst:8
 msgid "**Estimated time of completion**: 40 minutes"
-msgstr "**Tempo estimado de conclusão**: 40 minutos"
+msgstr "**Tempo estimado para conclusão**: 40 minutos"
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:9
+#: ../../source/for_users/training/landconsumption.rst:10
 msgid "**Internet access**: Required"
 msgstr "**Acesso à Internet**: Obrigatório"
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:11
-msgid ""
-"`Download this page as a PDF for offline use "
-"<../pdfs/Trends.Earth_Tutorial11_Urban_Change_SDG_Indicator.pdf>`_"
-msgstr ""
-"`Faça o download desta página como um PDF para uso off-line "
-"<../pdfs/Trends.Earth_Tutorial11_Urban_Change_SDG_Indicator.pdf>`_"
-
-#: ../../source/training/tutorial_compute_urban_indicator.rst:15
+#: ../../source/for_users/training/landconsumption.rst:13
 msgid ""
 "For a description on the concepts behind SDG 11.3.1, the data needs and "
 "methods used in |trends.earth|, please refer to the background section: "
-":ref:`indicator-11-3-1-background`."
+":ref:`background_land_consumption`."
 msgstr ""
-"Para uma descrição dos conceitos por trás do ODS 11.3.1,  dados necessarios "
-"e os métodos usados em |trends.earth|, por favor, consulte a seção de fundo:"
-" :ref:`indicator-11-3-1-background`."
+"Para uma descrição dos conceitos subjacentes ao SDG 11.3.1, das necessidades"
+" de dados e dos métodos utilizados na |trends.earth|, consulte a secção de "
+"informações de fundo: :ref:`background_land_consumption`."
 
-#: ../../../<rst_epilog>:26 ../../../<rst_epilog>:26 ../../../<rst_epilog>:26
-#: ../../../<rst_epilog>:26
+#: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
+#: ../../../<rst_epilog>:37
 msgid "Trends.Earth"
 msgstr "Trends.Earth"
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:18
+#: ../../source/for_users/training/landconsumption.rst:16
 msgid ""
 "On July 20th 2019 we launched an updated version of the ISI dataset. We "
 "recommend using the most current version. However, if you run any analysis "
@@ -87,11 +79,11 @@ msgstr ""
 "<https://github.com/ConservationInternational/trends.earth#development-"
 "version>`_ para instruções sobre como instalá-lo."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:21
+#: ../../source/for_users/training/landconsumption.rst:19
 msgid "Exploring the Urban Mapper"
 msgstr "Explorando o Mapeador Urbano"
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:22
+#: ../../source/for_users/training/landconsumption.rst:20
 msgid ""
 "The first step before analyzing urban change is to define the extent of "
 "built up areas. For that, we have created an interactive web interface "
@@ -117,7 +109,7 @@ msgstr ""
 "parâmetros afeta a extensão dos dados da área construída, que serão usados "
 "para definir mudanças na extensão urbana."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:24
+#: ../../source/for_users/training/landconsumption.rst:22
 msgid ""
 "Navigate to the `Trends.Earth Urban Mapper "
 "<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
@@ -127,7 +119,7 @@ msgstr ""
 "<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
 "mapper>`_ antes de executar a análise no QGIS."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:27
+#: ../../source/for_users/training/landconsumption.rst:25
 msgid ""
 "This tool can be used to analyze changes in built up area in almost any city"
 " of the world. Click on the **Search Places** window in the top center of "
@@ -140,7 +132,7 @@ msgstr ""
 "analisar. Para este tutorial, digite **Kampala, Uganda** e clique na opção "
 "que aparece logo abaixo."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:30
+#: ../../source/for_users/training/landconsumption.rst:28
 msgid ""
 "This tool allows you to change three parameters in order to correctly "
 "identify the most appropriate built up extent for your city: **Impervious "
@@ -158,7 +150,7 @@ msgstr ""
 "partir daí, você poderá personalizar a análise. Você pode usar as imagens de"
 " alta resolução espacial em segundo plano para avaliar o produto."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:32
+#: ../../source/for_users/training/landconsumption.rst:30
 msgid ""
 "Now the map with the built up area defined by the default parameters will "
 "load into the map color coded in the following way:"
@@ -166,23 +158,23 @@ msgstr ""
 "Agora, o mapa com a área construída definida pelos parâmetros padrão será "
 "carregado na cor do mapa codificada da seguinte maneira:"
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:34
+#: ../../source/for_users/training/landconsumption.rst:32
 msgid "Black: Built-up areas present since before 2000"
 msgstr "Preto: Áreas construídas presentes desde antes de 2000"
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:35
+#: ../../source/for_users/training/landconsumption.rst:33
 msgid "Red: Built-up areas constructed between 2000 and 2005"
 msgstr "Vermelho: áreas construídas entre 2000 e 2005"
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:36
+#: ../../source/for_users/training/landconsumption.rst:34
 msgid "Orange: Built-up areas constructed between 2005 and 2010"
 msgstr "Laranja: áreas construídas entre 2005 e 2010"
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:37
+#: ../../source/for_users/training/landconsumption.rst:35
 msgid "Yellow: Built-up areas constructed between 2010 and 2015"
 msgstr "Amarelo: áreas construídas entre 2010 e 2015"
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:42
+#: ../../source/for_users/training/landconsumption.rst:40
 msgid ""
 "Now you should use your knowledge of the city to explore the data set. We "
 "can, for example, zoom in to an area in western Kampala to see how the "
@@ -192,7 +184,7 @@ msgstr ""
 "dados. Podemos, por exemplo, aumentar o zoom em uma área no oeste de Kampala"
 " para ver como os parâmetros padrão funcionam (ISI: 30, NTL: 10, WFR: 25):"
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:47
+#: ../../source/for_users/training/landconsumption.rst:45
 msgid ""
 "In this area, the data set seems to be missing some constructions, so we can"
 " adjust the ISI threshold to a lower value to include areas with lower "
@@ -206,7 +198,7 @@ msgstr ""
 "para Kampala. Vamos **alterar o limite do indicador de superfície "
 "impermeável de 30 para 25 e clicar em Executar análise**"
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:52
+#: ../../source/for_users/training/landconsumption.rst:50
 msgid ""
 "This seems to have increased the built-up area in the direction we wanted, "
 "but we can now see some straight discontinuity lines in the outskirts of the"
@@ -224,7 +216,7 @@ msgstr ""
 "densidade de luz noturna. **Altere o limite de luz noturna de 10 para 2 e "
 "clique em Executar análise.**"
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:57
+#: ../../source/for_users/training/landconsumption.rst:55
 msgid ""
 "We can now see that the built up area information extends too all the area "
 "we were exploring. We can run the analysis as many times as we need. Each "
@@ -239,7 +231,7 @@ msgstr ""
 " ou alterar a transparência de cada uma delas no **Menu Camadas** na parte "
 "superior direita do mapa."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:62
+#: ../../source/for_users/training/landconsumption.rst:60
 msgid ""
 "We recommend you spend some time exploring the effect of the different "
 "values in each parameter for your city, since your results will greatly "
@@ -264,11 +256,11 @@ msgstr ""
 "para a cidade que deseja analisar, está pronto para ir ao QGIS para executar"
 " a análise."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:73
+#: ../../source/for_users/training/landconsumption.rst:71
 msgid "Step 1: Built-up series"
 msgstr "Etapa 1: série temporal de área construída"
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:74
+#: ../../source/for_users/training/landconsumption.rst:72
 msgid ""
 "Select the Calculate icon (|iconCalculator|) from the Trends.Earth plugin in"
 " QGIS."
@@ -278,10 +270,10 @@ msgstr ""
 
 #: ../../../<rst_epilog>:2 ../../../<rst_epilog>:2 ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr ""
+msgstr "iconCalculator"
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:79
-#: ../../source/training/tutorial_compute_urban_indicator.rst:165
+#: ../../source/for_users/training/landconsumption.rst:77
+#: ../../source/for_users/training/landconsumption.rst:163
 msgid ""
 "The **Calculate Indicators** menu will open. In that window, click on "
 "**Urban change and land consumption indicators (SDG indicator 11.3.1)** "
@@ -290,11 +282,11 @@ msgstr ""
 "O menu **Calcular Indicadores** será aberto. Nessa janela, clique no botão "
 "**Indicadores de mudança urbana e consumo de terra (indicador ODS 11.3.1)**."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:84
+#: ../../source/for_users/training/landconsumption.rst:82
 msgid "Select Step 1: Calculate urban change spatial layers"
 msgstr "Selecione Etapa 1: Calcular camadas espaciais de mudança urbana"
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:89
+#: ../../source/for_users/training/landconsumption.rst:87
 msgid ""
 "The **Calculate Urban Area Change Metrics** menu will open. In that window, "
 "you will step through the four tabs to set the parameters for your analysis."
@@ -307,10 +299,11 @@ msgstr ""
 "janela, você percorrerá as quatro abas para definir os parâmetros para sua "
 "análise. Na aba de configurações você irá inserir os parâmetros que você "
 "determinou como mais apropriados para a cidade, explorando o `Trends.Earth "
-"Urban Mapper <https://geflanddegradation.users.earthengine.app/view"
-"/trendsearth-urban-mapper>`_."
+"Urban Mapper "
+"<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
+"mapper>`_."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:91
+#: ../../source/for_users/training/landconsumption.rst:89
 msgid ""
 "Select the Impervious Surface Index (ISI) by choosing a value between 0-100."
 " Lower values will include low density areas."
@@ -318,7 +311,7 @@ msgstr ""
 "Selecione o Índice de Superfície Impermeável (ISI) escolhendo um valor entre"
 " 0-100. Valores mais baixos incluirão áreas de baixa densidade."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:93
+#: ../../source/for_users/training/landconsumption.rst:91
 msgid ""
 "Select the Night Time Lights Index (NTL) by choosing a value between 0-100. "
 "Lower values will include low light areas."
@@ -326,7 +319,7 @@ msgstr ""
 "Selecione o índice de luzes noturnas (NTL), selecionando um valor entre 0 e "
 "100. Valores mais baixos incluirão áreas com pouca luz."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:95
+#: ../../source/for_users/training/landconsumption.rst:93
 msgid ""
 "Select the Water Frequency (WFR) by choosing a value between 0-100. Lower "
 "values will include low frequency water bodies."
@@ -334,7 +327,7 @@ msgstr ""
 "Selecione a freqüência da água (WFR), escolhendo um valor entre 0-100. "
 "Valores mais baixos incluirão corpos de água de baixa frequência."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:100
+#: ../../source/for_users/training/landconsumption.rst:98
 msgid ""
 "In this case, we will change them to: ISI = 25, NTL = 2, and WFR = 25 and "
 "click Next."
@@ -342,15 +335,15 @@ msgstr ""
 "Neste caso, vamos alterá-los para: ISI = 25, NTL = 2 e WFR = 25 e clique em "
 "Próximo."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:105
+#: ../../source/for_users/training/landconsumption.rst:103
 msgid "On the Advanced tab, you will need to define:"
 msgstr "Na aba Avançado, você precisará definir:"
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:107
+#: ../../source/for_users/training/landconsumption.rst:105
 msgid "The thresholds for suburban and urban built up areas."
 msgstr "Os limiares para áreas urbanas suburbanas e urbanas."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:109
+#: ../../source/for_users/training/landconsumption.rst:107
 msgid ""
 "Define the area of largest captured open space (ha) which is the contiguous "
 "captured open space larger than this area that will be considered rural."
@@ -358,7 +351,7 @@ msgstr ""
 "Defina a área do maior espaço aberto capturado (ha), o espaço aberto "
 "contíguo capturado  maior que essa área definida será considerada rural."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:111
+#: ../../source/for_users/training/landconsumption.rst:109
 msgid ""
 "Select which population density dataset you would like to use for the "
 "analysis."
@@ -366,7 +359,7 @@ msgstr ""
 "Selecione qual conjunto de dados de densidade populacional você gostaria de "
 "usar para a análise."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:116
+#: ../../source/for_users/training/landconsumption.rst:114
 msgid ""
 "We'll use the default options for now, but you can change them to fit the "
 "needs of your analysis. Click Next."
@@ -374,7 +367,7 @@ msgstr ""
 "Usaremos as opções padrão por enquanto, mas você pode alterá-las para "
 "atender às necessidades de sua análise. Clique em próximo."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:118
+#: ../../source/for_users/training/landconsumption.rst:116
 msgid ""
 "On the Area tab you can select a country, region or city from the drop-down "
 "lists or upload an area from a file. If you select a city or upload a point "
@@ -387,7 +380,7 @@ msgstr ""
 "um buffer à área escolhida para que a análise englobe todas as áreas urbanas"
 " potenciais."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:120
+#: ../../source/for_users/training/landconsumption.rst:118
 msgid ""
 "If you are using your own polygon for analysis, we recommend you do not use "
 "buffers, since that will affect the area of analysis and the final area "
@@ -396,7 +389,7 @@ msgstr ""
 "Se você estiver usando seu próprio polígono para análise, recomendamos não "
 "usar buffers, pois isso afetará a área de análise e o cálculo final da área."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:126
+#: ../../source/for_users/training/landconsumption.rst:124
 msgid ""
 "The provided boundaries are from `Natural Earth "
 "<http://www.naturalearthdata.com>`_, and are in the `public domain "
@@ -416,7 +409,7 @@ msgstr ""
 "oficiais, é recomendável que os usuários escolham um limite oficial "
 "fornecido pelo escritório designado de seu país."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:128
+#: ../../source/for_users/training/landconsumption.rst:126
 msgid ""
 "On the Options tab you have to assign a name the task and some notes on how "
 "you customized the parameters for your analysis for future reference."
@@ -425,7 +418,7 @@ msgstr ""
 "como você personalizou os parâmetros para sua análise para referência "
 "futura."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:130
+#: ../../source/for_users/training/landconsumption.rst:128
 msgid ""
 "When all the parameters have been defined, click \"Calculate\", and the task"
 " will be submitted to Google Earth Engine for computing."
@@ -433,7 +426,7 @@ msgstr ""
 "Quando todos os parâmetros tiverem sido definidos, clique em \"Calcular\" e "
 "a tarefa será enviada ao Google Earth Engine para computação."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:135
+#: ../../source/for_users/training/landconsumption.rst:133
 msgid ""
 "The analysis for cities takes approximately 30 min to run, depending on the "
 "size of the area and the servers usage. To check the status of the task you "
@@ -445,7 +438,7 @@ msgstr ""
 "status da tarefa, você pode clicar no botão Download no |trends.earth| barra"
 " de ferramentas. Quando as janelas abrirem, clique em **Atualizar lista**."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:143
+#: ../../source/for_users/training/landconsumption.rst:141
 msgid ""
 "When the Google Earth Engine task has completed and you received the email, "
 "click \"Refresh List\" and the status will show FINISHED."
@@ -453,7 +446,7 @@ msgstr ""
 "Quando a tarefa do Google Earth Engine estiver concluída e você receber o "
 "e-mail, clique em \"Atualizar lista\" e o status será FINALIZADO."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:148
+#: ../../source/for_users/training/landconsumption.rst:146
 msgid ""
 "To download the results, click on the task and select \"Download results\" "
 "at the bottom of the window. A pop up window will open for you to select "
@@ -463,7 +456,7 @@ msgstr ""
 "resultados\" na parte inferior da janela. Uma janela pop-up será aberta para"
 " você selecionar onde salvar a camada e atribuir um nome a ela."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:153
+#: ../../source/for_users/training/landconsumption.rst:151
 msgid ""
 "Then click \"Save\". The layer will be saved on your computer and "
 "automatically loaded into your current QGIS project."
@@ -471,37 +464,37 @@ msgstr ""
 "Em seguida, clique em \"Salvar\". A camada será salva no seu computador e "
 "carregada automaticamente em seu projeto QGIS atual."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:159
+#: ../../source/for_users/training/landconsumption.rst:157
 msgid "Step 2: Urban change"
 msgstr "Etapa 2: mudança urbana"
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:160
+#: ../../source/for_users/training/landconsumption.rst:158
 msgid ""
-"You have now downloaded the detaset to your local computer, but we still "
+"You have now downloaded the dataset to your local computer, but we still "
 "need to estimate the change over time in order to compute the SDG indicator "
 "11.3.1. For that, select the Calculate icon (|iconCalculator|) from the "
 "Trends.Earth plugin in QGIS."
 msgstr ""
-"Você já  deve ter baixado os dados para o seu computador local, mas ainda "
-"precisamos estimar a mudança ao longo do tempo para calcular o indicador ODS"
-" 11.3.1. Para isso, selecione o ícone Calcular (|iconCalculator|) do plugin "
-"Trends.Earth no QGIS."
+"Acabou de transferir o conjunto de dados para o seu computador local, mas "
+"ainda precisamos de estimar as alterações ao longo do tempo para calcular o "
+"indicador SDG 11.3.1. Para isso, selecione o ícone Calcular "
+"(|iconCalculator|) no plugin da Trends.Earth no QGIS."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:170
+#: ../../source/for_users/training/landconsumption.rst:168
 msgid "Select Step 2: Calculate urban change summary table for city."
 msgstr ""
 "Selecione a Etapa 2: Calcular a tabela de resumo de alterações urbanas para "
 "a cidade."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:175
+#: ../../source/for_users/training/landconsumption.rst:173
 msgid ""
 "Input: Load an existing .json file if it has not been populated within the "
-"dropdown automatically from your QGIS project."
+"drop-down list automatically from your QGIS project."
 msgstr ""
-"Entrada: Carregue um arquivo .json existente se ele não tiver sido "
-"preenchido automaticamente no menu suspenso do seu projeto QGIS."
+"Entrada: Carregue um ficheiro .json existente se este não tiver sido "
+"preenchido automaticamente dentro da lista suspensa do seu projecto QGIS."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:181
+#: ../../source/for_users/training/landconsumption.rst:179
 msgid ""
 "Output: Select browse to navigate to a file on your computer and save the "
 "json file and excel table."
@@ -509,11 +502,11 @@ msgstr ""
 "Saída: Selecione navegar para navegar para um arquivo no seu computador e "
 "salve o arquivo json e a tabela do Excel."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:186
+#: ../../source/for_users/training/landconsumption.rst:184
 msgid "Area: Define the area for your analysis"
 msgstr "Área: defina a área para sua análise"
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:191
+#: ../../source/for_users/training/landconsumption.rst:189
 msgid ""
 "Options: Enter a task name and notes for the analysis. This final step is "
 "calculated locally on your computer, it will load automatically in your QGIS"
@@ -523,7 +516,7 @@ msgstr ""
 "calculado localmente no seu computador, ele será carregado automaticamente "
 "na janela do seu projeto QGIS."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:196
+#: ../../source/for_users/training/landconsumption.rst:194
 msgid ""
 "View results: A window will appear when the processing is complete. Select "
 "**OK**."
@@ -531,7 +524,7 @@ msgstr ""
 "Exibir resultados: uma janela será exibida quando o processamento for "
 "concluído. Selecione **OK**."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:201
+#: ../../source/for_users/training/landconsumption.rst:199
 msgid ""
 "After clicking OK, the four annual urban extent maps with their "
 "corresponding zoning will load into the QGIS project."
@@ -539,7 +532,7 @@ msgstr ""
 "Depois de clicar em OK, os quatro mapas anuais de extensão urbana com seu "
 "zoneamento correspondente serão carregados no projeto QGIS."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:204
+#: ../../source/for_users/training/landconsumption.rst:202
 msgid ""
 "If you selected the buffer option for running the analysis, you may notice "
 "that the results do not seem to display a perfectly circular shape. We use "
@@ -555,7 +548,7 @@ msgstr ""
 "causará uma distorção aparente quanto mais longe sua área estiver do "
 "equador, mas não há nada para se preocupar, os resultados estão corretos."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:209
+#: ../../source/for_users/training/landconsumption.rst:207
 msgid ""
 "To explore the summary table, navigate to the folder in your computer where "
 "you saved the excel file and double click on it to open. If an error window "
@@ -566,7 +559,7 @@ msgstr ""
 "aparecer uma janela de erro, selecione o **Sim** e o resumo continuará "
 "abrindo."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:220
+#: ../../source/for_users/training/landconsumption.rst:218
 msgid ""
 "In this table you'll find the area of the different city land cover classes "
 "(urban, suburban, fringe open space, capture open space and water) and the "
@@ -578,7 +571,7 @@ msgstr ""
 "água) e as áreas rurais. Você também encontrará a população para cada um dos"
 " anos analisados (2000, 2005, 2010 e 2015) e o ODS final 11.3.1."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:223
+#: ../../source/for_users/training/landconsumption.rst:221
 msgid ""
 "In order to improve the Impervious Surface Index and the guidance we provide"
 " to users, it would be very useful for us to learn the parameters you "
@@ -596,27 +589,29 @@ msgstr ""
 " você não levará mais de 30 segundos para preencher, e isso nos ajudará a "
 "melhorar a ferramenta. Muito obrigado!"
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:227
+#: ../../source/for_users/training/landconsumption.rst:225
 msgid "Extra: Water frequency parameter"
 msgstr "Extra: parâmetro de frequência da água"
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:229
+#: ../../source/for_users/training/landconsumption.rst:227
 msgid ""
 "On this tutorial we did not explore the effect of the third parameter the "
-"`Urban Mapper page <https://geflanddegradation.users.earthengine.app/view"
-"/trendsearth-urban-mapper>`_. allow us to change, Water Frequency. This "
-"parameter will remain unchanged for most cities, but for those places in "
-"which capturing water dynamics is important for understanding how a city is "
-"changing, it will be very useful."
+"`Urban Mapper page "
+"<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
+"mapper>`_. allow us to change, Water Frequency. This parameter will remain "
+"unchanged for most cities, but for those places in which capturing water "
+"dynamics is important for understanding how a city is changing, it will be "
+"very useful."
 msgstr ""
 "Neste tutorial nós não exploramos o efeito do terceiro parâmetro que a "
-"página `Urban Mapper <https://geflanddegradation.users.earthengine.app/view"
-"/trendsearth-urban-mapper>`_ nos permite mudar: Freqüência da Água. Esse "
-"parâmetro permanecerá inalterado para a maioria das cidades, mas para "
-"aqueles lugares em que a captura da dinâmica da água é importante para "
-"entender como uma cidade está mudando, ela será muito útil."
+"página `Urban Mapper "
+"<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
+"mapper>`_ nos permite mudar: Freqüência da Água. Esse parâmetro permanecerá "
+"inalterado para a maioria das cidades, mas para aqueles lugares em que a "
+"captura da dinâmica da água é importante para entender como uma cidade está "
+"mudando, ela será muito útil."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:231
+#: ../../source/for_users/training/landconsumption.rst:229
 msgid ""
 "The water Frequency parameter should be interpreted as follows: A pixel "
 "needs to be covered by water for at least X percent of the time for it to be"
@@ -630,7 +625,7 @@ msgstr ""
 "significa que quanto maior o valor, menos água será mostrada no mapa e mais "
 "terra (isto é, se for o caso)."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:233
+#: ../../source/for_users/training/landconsumption.rst:231
 msgid ""
 "To explore one of such cases, navigate to the `Urban Mapper page "
 "<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
@@ -640,7 +635,7 @@ msgstr ""
 "<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
 "mapper>`_ e vamos para o **Dubai**."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:238
+#: ../../source/for_users/training/landconsumption.rst:236
 msgid ""
 "One of the main feature we'll notice is a set of islands. However, when we "
 "click **Run Analysis**, the dataset seems to miss them"
@@ -649,7 +644,7 @@ msgstr ""
 "entanto, quando clicamos em **Executar análise**, o conjunto de dados parece"
 " não tê-los"
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:243
+#: ../../source/for_users/training/landconsumption.rst:241
 msgid ""
 "If we change the Water Frequency parameter from 25 to 80, we can start "
 "seeing the recently built-up areas in the water (ISI = 30, NTL = 10, WFR = "
@@ -659,7 +654,7 @@ msgstr ""
 "ver as áreas recentemente construídas na água (ISI = 30, NTL = 10, WFR = "
 "80). Mas ainda estamos perdendo algumas porções."
 
-#: ../../source/training/tutorial_compute_urban_indicator.rst:248
+#: ../../source/for_users/training/landconsumption.rst:246
 msgid ""
 "In this case, it seems like portions of these newly constructed islands "
 "don't have much lights on them. So if we set the NTL threshold to a lower "
@@ -671,60 +666,84 @@ msgstr ""
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr ""
+msgstr "iconChart"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr ""
+msgstr "iconClipboard"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr ""
+msgstr "iconCloudDownload"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr ""
+msgstr "iconCog"
 
 #: ../../../<rst_epilog>:12
-msgid "iconGlobe"
-msgstr ""
+msgid "iconDeletedataset"
+msgstr "iconDeletedataset"
 
 #: ../../../<rst_epilog>:14
-msgid "iconGraph"
-msgstr ""
+msgid "iconGlobe"
+msgstr "iconGlobe"
 
 #: ../../../<rst_epilog>:16
-msgid "iconInfo"
-msgstr ""
+msgid "iconGraph"
+msgstr "iconGraph"
 
 #: ../../../<rst_epilog>:18
-msgid "iconMarkMarker"
-msgstr ""
+msgid "iconInfo"
+msgstr "iconInfo"
 
 #: ../../../<rst_epilog>:20
+msgid "iconLoaddataset"
+msgstr "iconLoaddataset"
+
+#: ../../../<rst_epilog>:21
+msgid "iconMarkMarker"
+msgstr "iconMarkMarker"
+
+#: ../../../<rst_epilog>:23
+msgid "iconOpendatasetdirectory"
+msgstr "iconOpendatasetdirectory"
+
+#: ../../../<rst_epilog>:25
+msgid "iconViewdatasetdetails"
+msgstr "iconViewdatasetdetails"
+
+#: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr ""
+msgstr "iconWrench"
 
-#: ../../../<rst_epilog>:22
+#: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr ""
+msgstr "iconFolder"
 
-#: ../../../<rst_epilog>:24
+#: ../../../<rst_epilog>:31
+msgid "iconReports"
+msgstr "iconReports"
+
+#: ../../../<rst_epilog>:33
+msgid "iconTrendsEarth"
+msgstr "iconTrendsEarth"
+
+#: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr ""
+msgstr "iconVisualization"
 
 #: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr ""
+msgstr "logoCI"
 
 #: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr ""
+msgstr "logoLund"
 
 #: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr ""
+msgstr "logoNASA"
 
 #: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr ""
+msgstr "logoGEF"

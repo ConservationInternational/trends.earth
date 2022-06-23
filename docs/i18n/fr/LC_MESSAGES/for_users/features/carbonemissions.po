@@ -1,0 +1,425 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017-2022, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Fanja Andriamialisoa <Fandriamialisoa@aol.com>, 2022
+# Alex Zvoleff <azvoleff@conservation.org>, 2022
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 1.99.11\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-06-21 17:06-0400\n"
+"PO-Revision-Date: 2022-05-26 11:57+0000\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
+"Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+
+#: ../../source/for_users/features/carbonemissions.rst:4
+msgid "Carbon emissions from deforestation"
+msgstr "Émissions de carbone dues à la déforestation"
+
+#: ../../source/for_users/features/carbonemissions.rst:7
+msgid "Background"
+msgstr "Contexte"
+
+#: ../../source/for_users/features/carbonemissions.rst:9
+msgid ""
+"Global forests store carbon, which can be released as carbon dioxide back "
+"into the atmosphere from degradation or deforestation, driving climate "
+"change. Between 2001-2020, global forests lost 10% area coverage, or 411 "
+"million hectares, releasing 165 Gt of carbon dioxide emissions (UMD & WRI, "
+"2022). There is an increasing trend where high losses on tropical primary "
+"forests are shifting areas, like the Amazon rainforest, from a carbon sink "
+"to a carbon source (Bacchini et al., 2017). Drivers of this loss are "
+"attributed to wildfires, shifting agriculture, forestry, urbanization and "
+"commodity driven deforestation (Curtis et al., 2019)."
+msgstr ""
+"Toutes les forêts stockent du carbone, qui peut être rejeté dans "
+"l'atmosphère sous forme de dioxyde de carbone par la dégradation ou la "
+"déforestation, induisant un changement climatique. Entre 2001 et 2020, les "
+"forêts ont perdu 10 % de leur superficie à l'échelle de la planète, soit 411"
+" millions d'hectares, libérant ainsi 165 milliards de tonnes de dioxyde de "
+"carbone (UMD et WRI 2022). La tendance est à la hausse, car la destruction "
+"importante des forêts tropicales primaires ait passer des zones, comme la "
+"forêt tropicale amazonienne, de puits de carbone à des sources de carbone "
+"(Bacchini et al., 2017). Les causes de ces destructions sont attribuées aux "
+"incendies, aux changements de l'agriculture, à la sylviculture, à "
+"l'urbanisation ainsi qu'à l'expansion des terres agricoles (Cutirs et al. "
+"2019)."
+
+#: ../../source/for_users/features/carbonemissions.rst:15
+msgid "Rationale for Monitoring"
+msgstr "Principes de bases de la surveillance"
+
+#: ../../source/for_users/features/carbonemissions.rst:17
+msgid ""
+"Monitoring deforestation is the first step to understand the cause of tree "
+"cover loss and to plan interventions for preventing it."
+msgstr ""
+"Surveiller la déforestation est la première étape pour comprendre la cause "
+"de la perte de superficie des forêts et pour prévoir des mesures afin de "
+"l'empêcher."
+
+#: ../../source/for_users/features/carbonemissions.rst:20
+msgid ""
+"Refer to the :ref:`tut_forest_carbon` for the tutorial to use this "
+"methodology and data."
+msgstr ""
+"Référez-vous au :ref:`tut_forest_carbon` pour voir le didacticiel et "
+"apprendre comment utiliser cette méthodologie et ces données."
+
+#: ../../source/for_users/features/carbonemissions.rst:23
+msgid "Indicator and data needs"
+msgstr "Besoins d'indicateur et de données"
+
+#: ../../source/for_users/features/carbonemissions.rst:25
+msgid ""
+"Trends.Earth allows the user to analyze the area of forest cover, carbon "
+"stored in forests, forest loss and estimated emissions from deforestation "
+"within an area of interest in terrestrial forests anywhere on Earth. The "
+"user is first prompted to select the years for monitoring their specified "
+"area for the analysis. In order to define the baseline forest area, they "
+"will assign a threshold to define forests."
+msgstr ""
+"Trends.Earth permet à l'utilisateur d'analyser la superficie de couverture "
+"forestière, le carbone stocké dans les forêts, la perte des forêts et "
+"l'estimation des émissions dues de la déforestation, dans une zone d'intérêt"
+" des forêts territoriales, n'importe où sur la planète. L'utilisateur est "
+"d'abord invité à sélectionner les années pour la surveillance de la zone "
+"spécifique de son analyse. Pour définir la base de référence d'une zone "
+"forestière, il définira un seuil afin de délimiter les forêts."
+
+#: ../../source/for_users/features/carbonemissions.rst:33
+msgid ""
+"The definition of canopy cover should be changed to accommodate the specific"
+" area of interest."
+msgstr ""
+"La définition de la superficie de la canopée doit être adaptée à la zone "
+"d'intérêt spécifique."
+
+#: ../../source/for_users/features/carbonemissions.rst:32
+msgid ""
+"The dataset maps global tree cover based on percent canopy cover in the year"
+" 2000. Many studies cite 25% - 30% threshold to define forest, however this "
+"definition can change for arid regions. For more information, please see the"
+" publication: `Quantification of global gross forest cover`_ \""
+msgstr ""
+"Le jeu de données cartographie la superficie des forêts en fonction du "
+"pourcentage de la surface couverte par la canopée en l'an 2000. De "
+"nombreuses études évoquent un seuil de 25 à 30 % pour définir la forêt, mais"
+" cette définition peut être différente dans les régions arides. Pour plus "
+"d'informations, lisez la publication : `Quantification of global gross "
+"forest cover`_"
+
+#: ../../source/for_users/features/carbonemissions.rst:38
+msgid ""
+"The region is then selected using the pre-existing national/sub-national "
+"boundaries, a coordinate or a custom uploaded dataset."
+msgstr ""
+"La région est ensuite sélectionnée en utilisant les frontières "
+"nationales/subnationales pré-existantes, un jeu de données coordonné ou "
+"personnellement téléchargé. "
+
+#: ../../source/for_users/features/carbonemissions.rst:41
+msgid ""
+"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth are "
+"in the `public domain`_. The boundaries and names used, and the designations"
+" used, in Trends.Earth do not imply official endorsement or acceptance by "
+"Conservation International Foundation, or by its partner organizations and "
+"contributors."
+msgstr ""
+"Les `Natural Earth Administrative Boundaries`_ fournies dans Trends.Earth "
+"sont dans le `public domain`_. Les limites et les noms utilisés, ainsi que "
+"les désignations utilisées, dans Trends.Earth n'impliquent pas l'approbation"
+" officielle ou l'acceptation par Conservation International Foundation, ou "
+"par ses organisations partenaires et contributeurs."
+
+#: ../../source/for_users/features/carbonemissions.rst:47
+msgid ""
+"If using Trends.Earth for official purposes, it is recommended that users "
+"choose an official boundary provided by the designated office of their "
+"country."
+msgstr ""
+"Si vous utilisez Trends.Earth à des fins officielles, il est recommandé de "
+"choisir une frontière officielle fournie par le bureau désigné de votre "
+"pays."
+
+#: ../../source/for_users/features/carbonemissions.rst:55
+msgid ""
+"Users can set up ***Advanced configuration** to use a different biomass "
+"dataset, or upload a custom biomass dataset and to select the method for "
+"calculating the root to shoot ratio for below ground biomass."
+msgstr ""
+"Les utilisateurs peuvent choisir la ***Configuration avancée*** pour "
+"utiliser un jeu de données de biomasse différent, ou télécharger un jeu de "
+"données de biomasse personnel et pour sélectionner la méthode de calcul du "
+"rapport racines/partie aérienne de la biomasse souterraine."
+
+#: ../../source/for_users/features/carbonemissions.rst:61
+msgid "The table below list the biomass datasets available in Trends.Earth:"
+msgstr ""
+"Le tableau ci-dessous répertorie les jeux de données de biomasse disponibles"
+" dans Trends.Earth :"
+
+#: ../../source/for_users/features/carbonemissions.rst:66
+msgid ""
+"The results provide annual breakdowns of forest cover, forest loss, carbon "
+"(tC) stored and carbon emissions (tCO2) for the region, summarizing the "
+"baseline and final year land cover, forest area loss, carbon loss and carbon"
+" emissions over the entire period. There are two spatial outputs from the "
+"analysis. The first is the dataset visualizing the estimated change in "
+"biomass:"
+msgstr ""
+"Les résultats fournissent un décompte annuel de la superficie des forêts, de"
+" la perte forestière, du carbone (tC) stocké et des émissions de carbone "
+"(tCO2) de la région, en synthétisant le point de référence et la superficie "
+"finale de l'année, la perte de la zone de forêt, la perte de carbone et les "
+"émissions de carbone sur la totalité de la période. L'analyse fournit deux "
+"composantes spatiales. La première est le jeu de données visualisant "
+"l'estimation de l'évolution de la biomasse :"
+
+#: ../../source/for_users/features/carbonemissions.rst:73
+msgid "The second is the forest loss layer for the region:"
+msgstr "La seconde est la superficie de forêt perdue pour la région :"
+
+#: ../../source/for_users/features/carbonemissions.rst:78
+msgid "**Citations:**"
+msgstr "**Citations :**"
+
+#: ../../source/for_users/features/carbonemissions.rst:80
+msgid ""
+"Avitabile, V., Herold, M., Heuvelink, G. B. M., Lewis, S. L., Phillips, O. "
+"L., Asner, G. P., Armston, J., Ashton, P. S., Banin, L. et al., 2016. An "
+"integrated pan-tropical biomass map using multiple reference datasets. "
+"Global Change Biology, 22, pp. 1406–1420."
+msgstr ""
+"Avitabile, V., Herold, M., Heuvelink, G. B. M., Lewis, S. L., Phillips, O. "
+"L., Asner, G. P., Armston, J., Ashton, P. S., Banin, L. et al., 2016. An "
+"integrated pan-tropical biomass map using multiple reference datasets. "
+"Global Change Biology, 22, pp. 1406–1420."
+
+#: ../../source/for_users/features/carbonemissions.rst:81
+msgid ""
+"Avitabile, V., Herold, M., Lewis, S.L., Phillips, O.L., Aguilar-"
+"Amuchastegui, N., Asner, G. P., Brienen, R.J.W., DeVries, B., Cazzolla "
+"Gatti, R. et al., 2014. Comparative analysis and fusion for improved global "
+"biomass mapping.  Global Vegetation Monitoring and Modeling,  3 – 7 February"
+" 2014, Avignon (France)."
+msgstr ""
+"Avitabile, V., Herold, M., Lewis, S.L., Phillips, O.L., Aguilar-"
+"Amuchastegui, N., Asner, G. P., Brienen, R.J.W., DeVries, B., Cazzolla "
+"Gatti, R. et al., 2014. Comparative analysis and fusion for improved global "
+"biomass mapping. Global Vegetation Monitoring and Modeling,  3 – 7 Février "
+"2014, Avignon (France)."
+
+#: ../../source/for_users/features/carbonemissions.rst:82
+msgid ""
+"Baccini, A., W. Walker, L. Carvalho, M. Farina, D. Sulla-Menashe and R. A. "
+"Houghton, 2017. \"Tropical forests are a net carbon source based on "
+"aboveground measurements of gain and loss.\" 358 (6360): 230-234. "
+"https://www.science.org/doi/10.1126/science.aam5962"
+msgstr ""
+"Baccini, A., W. Walker, L. Carvalho, M. Farina, D. Sulla-Menashe and R. A. "
+"Houghton, 2017. \"Tropical forests are a net carbon source based on "
+"aboveground measurements of gain and loss.\" 358 (6360): 230-234. "
+"https://www.science.org/doi/10.1126/science.aam5962"
+
+#: ../../source/for_users/features/carbonemissions.rst:83
+msgid ""
+"Baccini, A., S J. Goetz, W.S. Walker, N. T. Laporte, M. Sun, D. Sulla-"
+"Menashe, J. Hackler, P.S.A. Beck, R. Dubayah, M.A. Friedl, S. Samanta and R."
+" A. Houghton. Estimated carbon dioxide emissions from tropical deforestation"
+" improved by carbon-density maps. 2012 Nature Climate Change, "
+"https://doi.org/10.1038/NCLIMATE1354"
+msgstr ""
+"Baccini, A., S J. Goetz, W.S. Walker, N. T. Laporte, M. Sun, D. Sulla-"
+"Menashe, J. Hackler, P.S.A. Beck, R. Dubayah, M.A. Friedl, S. Samanta and R."
+" A. Houghton. Estimated carbon dioxide emissions from tropical deforestation"
+" improved by carbon-density maps. 2012 Nature Climate Change, "
+"https://doi.org/10.1038/NCLIMATE1354"
+
+#: ../../source/for_users/features/carbonemissions.rst:84
+msgid ""
+"Curtis, P.G., C.M. Slay, N.L. Harris, A. Tyukavina, and M.C. Hansen. 2019. "
+"“Classifying Drivers of Global Forest Loss.” Science."
+msgstr ""
+"Curtis, P.G., C.M. Slay, N.L. Harris, A. Tyukavina, and M.C. Hansen. 2019. "
+"“Classifying Drivers of Global Forest Loss.” Science."
+
+#: ../../source/for_users/features/carbonemissions.rst:85
+msgid ""
+"Hansen, M. C., S. V. Stehman, and P. V. Potapov. \"Quantification of global "
+"gross forest cover.\" PNAS. 107 (19) 8650-8655. "
+"https://www.pnas.org/doi/10.1073/pnas.0912668107"
+msgstr ""
+"Hansen, M. C., S. V. Stehman, and P. V. Potapov. \"Quantification of global "
+"gross forest cover.\" PNAS. 107 (19) 8650-8655. "
+"https://www.pnas.org/doi/10.1073/pnas.0912668107"
+
+#: ../../source/for_users/features/carbonemissions.rst:86
+msgid ""
+"Hansen, M. C., P. V. Potapov, R. Moore, M. Hancher, S. A. Turubanova, A. "
+"Tyukavina, D. Thau, S. V. Stehman, S. J. Goetz, T. R. Loveland, A. "
+"Kommareddy, A. Egorov, L. Chini, C. O. Justice, and J. R. G. "
+"Townshend.“High-Resolution Global Maps of 21st-Century Forest Cover Change.”"
+" Science 342 (15 November): 850–53. Data available on-line at: "
+"https://earthenginepartners.appspot.com/science-2013-global-forest."
+msgstr ""
+"Hansen, M. C., P. V. Potapov, R. Moore, M. Hancher, S. A. Turubanova, A. "
+"Tyukavina, D. Thau, S. V. Stehman, S. J. Goetz, T. R. Loveland, A. "
+"Kommareddy, A. Egorov, L. Chini, C. O. Justice, and J. R. G. "
+"Townshend.“High-Resolution Global Maps of 21st-Century Forest Cover Change.”"
+" Science 342 (15 November): 850–53. Données disponible en ligne sur : "
+"https://earthenginepartners.appspot.com/science-2013-global-forest."
+
+#: ../../source/for_users/features/carbonemissions.rst:87
+msgid ""
+"Intergovernmental Panel on Climate Change (IPCC), 2006. IPCC Guidelines for "
+"National Greenhouse Gas Inventories � Volume 4. Egglestone, H.S., L. "
+"Buendia, K. Miwa, T. Ngara and K. Tanabe (Eds)."
+msgstr ""
+"Groupe d'experts intergouvernemental sur l'évolution du climat (GIEC), 2006."
+" Lignes directrices du GIEC pour les inventaires de gaz à effet de serre � "
+"Volume 4. Egglestone, H.S., L. Buendia, K. Miwa, T. Ngara and K. Tanabe "
+"(Eds). "
+
+#: ../../source/for_users/features/carbonemissions.rst:88
+msgid ""
+"Intergovernmental Panel on Climate Change (IPCC), IPCC/IGES, Hayama, Japan. "
+"http://www.ipcc-nggip.iges.or.jp/public/2006gl/vol4.html"
+msgstr ""
+"Groupe d'experts intergouvernemental sur l'évolution du climat (GIEC), "
+"GIEC/IGES, Hayama, Japon. http://www.ipcc-"
+"nggip.iges.or.jp/public/2006gl/vol4.html"
+
+#: ../../source/for_users/features/carbonemissions.rst:89
+msgid ""
+"Mokany, K., R. Raison, A.S. Prokushkin. Critical analysis of root: shoot "
+"ratios in terrestrial biomesGlob. Chang. Biol., 12 (1) (2006), pp. 84-96"
+msgstr ""
+"Mokany, K., R. Raison, A.S. Prokushkin. Critical analysis of root: shoot "
+"ratios in terrestrial biomesGlob. Chang. Biol., 12 (1) (2006), pp. 84-96"
+
+#: ../../source/for_users/features/carbonemissions.rst:90
+msgid ""
+"Santoro, M., Beaudoin, A., Beer, C., Cartus, O., Fransson, J.E.S., Hall, "
+"R.J., Pathe, C., Schmullius, C., Schepaschenko, D., Shvidenko, A., Thurner, "
+"M. and Wegmüller, U., 2015. Forest growing stock volume of the northern "
+"hemisphere: Spatially explicit estimates for 2010 derived from Envisat ASAR."
+" Remote Sensing of Environment, 168, pp. 316-334."
+msgstr ""
+"Santoro, M., Beaudoin, A., Beer, C., Cartus, O., Fransson, J.E.S., Hall, "
+"R.J., Pathe, C., Schmullius, C., Schepaschenko, D., Shvidenko, A., Thurner, "
+"M. and Wegmüller, U., 2015. Forest growing stock volume of the northern "
+"hemisphere: Spatially explicit estimates for 2010 derived from Envisat ASAR."
+" Remote Sensing of Environment, 168, pp. 316-334."
+
+#: ../../source/for_users/features/carbonemissions.rst:91
+msgid ""
+"University of Maryland and World Resources Institute. \"Global Primary "
+"Forest Loss\". Accessed through Global Forest Watch: "
+"https://www.globalforestwatch.org/dashboards/global/?category=summary&location=WyJnbG9iYWwiXQ%3D%3D&map=eyJkYXRhc2V0cyI6W3sib3BhY2l0eSI6MC43LCJ2aXNpYmlsaXR5Ijp0cnVlLCJkYXRhc2V0IjoicHJpbWFyeS1mb3Jlc3RzIiwibGF5ZXJzIjpbInByaW1hcnktZm9yZXN0cy0yMDAxIl19LHsiZGF0YXNldCI6InBvbGl0aWNhbC1ib3VuZGFyaWVzIiwibGF5ZXJzIjpbImRpc3B1dGVkLXBvbGl0aWNhbC1ib3VuZGFyaWVzIiwicG9saXRpY2FsLWJvdW5kYXJpZXMiXSwiYm91bmRhcnkiOnRydWUsIm9wYWNpdHkiOjEsInZpc2liaWxpdHkiOnRydWV9LHsiZGF0YXNldCI6InRyZWUtY292ZXItbG9zcyIsImxheWVycyI6WyJ0cmVlLWNvdmVyLWxvc3MiXSwib3BhY2l0eSI6MSwidmlzaWJpbGl0eSI6dHJ1ZSwidGltZWxpbmVQYXJhbXMiOnsic3RhcnREYXRlIjoiMjAwMi0wMS0wMSIsImVuZERhdGUiOiIyMDIwLTEyLTMxIiwidHJpbUVuZERhdGUiOiIyMDIwLTEyLTMxIn0sInBhcmFtcyI6eyJ0aHJlc2hvbGQiOjMwLCJ2aXNpYmlsaXR5Ijp0cnVlfX1dfQ%3D%3D&showMap=true"
+msgstr ""
+"Université du Maryland et World Resources Institute. \"Global Primary Forest"
+" Loss\". Accès via Global Forest Watch : "
+"https://www.globalforestwatch.org/dashboards/global/?category=summary&location=WyJnbG9iYWwiXQ%3D%3D&map=eyJkYXRhc2V0cyI6W3sib3BhY2l0eSI6MC43LCJ2aXNpYmlsaXR5Ijp0cnVlLCJkYXRhc2V0IjoicHJpbWFyeS1mb3Jlc3RzIiwibGF5ZXJzIjpbInByaW1hcnktZm9yZXN0cy0yMDAxIl19LHsiZGF0YXNldCI6InBvbGl0aWNhbC1ib3VuZGFyaWVzIiwibGF5ZXJzIjpbImRpc3B1dGVkLXBvbGl0aWNhbC1ib3VuZGFyaWVzIiwicG9saXRpY2FsLWJvdW5kYXJpZXMiXSwiYm91bmRhcnkiOnRydWUsIm9wYWNpdHkiOjEsInZpc2liaWxpdHkiOnRydWV9LHsiZGF0YXNldCI6InRyZWUtY292ZXItbG9zcyIsImxheWVycyI6WyJ0cmVlLWNvdmVyLWxvc3MiXSwib3BhY2l0eSI6MSwidmlzaWJpbGl0eSI6dHJ1ZSwidGltZWxpbmVQYXJhbXMiOnsic3RhcnREYXRlIjoiMjAwMi0wMS0wMSIsImVuZERhdGUiOiIyMDIwLTEyLTMxIiwidHJpbUVuZERhdGUiOiIyMDIwLTEyLTMxIn0sInBhcmFtcyI6eyJ0aHJlc2hvbGQiOjMwLCJ2aXNpYmlsaXR5Ijp0cnVlfX1dfQ%3D%3D&showMap=true"
+
+#: ../../../<rst_epilog>:2
+msgid "iconCalculator"
+msgstr "iconCalculator"
+
+#: ../../../<rst_epilog>:4
+msgid "iconChart"
+msgstr "iconChart"
+
+#: ../../../<rst_epilog>:6
+msgid "iconClipboard"
+msgstr "iconClipboard"
+
+#: ../../../<rst_epilog>:8
+msgid "iconCloudDownload"
+msgstr "iconCloudDownload"
+
+#: ../../../<rst_epilog>:10
+msgid "iconCog"
+msgstr "iconCog"
+
+#: ../../../<rst_epilog>:12
+msgid "iconDeletedataset"
+msgstr "iconDeletedataset"
+
+#: ../../../<rst_epilog>:14
+msgid "iconGlobe"
+msgstr "iconGlobe"
+
+#: ../../../<rst_epilog>:16
+msgid "iconGraph"
+msgstr "iconGraph"
+
+#: ../../../<rst_epilog>:18
+msgid "iconInfo"
+msgstr "iconInfo"
+
+#: ../../../<rst_epilog>:20
+msgid "iconLoaddataset"
+msgstr "iconLoaddataset"
+
+#: ../../../<rst_epilog>:21
+msgid "iconMarkMarker"
+msgstr "iconMarkMarker"
+
+#: ../../../<rst_epilog>:23
+msgid "iconOpendatasetdirectory"
+msgstr "iconOpendatasetdirectory"
+
+#: ../../../<rst_epilog>:25
+msgid "iconViewdatasetdetails"
+msgstr "iconViewdatasetdetails"
+
+#: ../../../<rst_epilog>:27
+msgid "iconWrench"
+msgstr "iconWrench"
+
+#: ../../../<rst_epilog>:29
+msgid "iconFolder"
+msgstr "iconFolder"
+
+#: ../../../<rst_epilog>:31
+msgid "iconReports"
+msgstr "iconReports"
+
+#: ../../../<rst_epilog>:33
+msgid "iconTrendsEarth"
+msgstr "iconTrendsEarth"
+
+#: ../../../<rst_epilog>:35
+msgid "iconVisualization"
+msgstr "iconVisualization"
+
+#: ../../../<rst_epilog>:37
+msgid "Trends.Earth"
+msgstr "Trends.Earth"
+
+#: ../../../<rst_epilog>:0
+msgid "logoCI"
+msgstr "logoCI"
+
+#: ../../../<rst_epilog>:0
+msgid "logoLund"
+msgstr "logoLund"
+
+#: ../../../<rst_epilog>:0
+msgid "logoNASA"
+msgstr "logoNASA"
+
+#: ../../../<rst_epilog>:0
+msgid "logoGEF"
+msgstr "logoGEF"

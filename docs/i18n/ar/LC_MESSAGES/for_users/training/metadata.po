@@ -29,6 +29,7 @@ msgstr "البيانات الوصفية لمجموعة البيانات"
 #: ../../source/for_users/training/metadata.rst:6
 msgid "**Objective**: Learn how to edit and view dataset metadata."
 msgstr ""
+"**الهدف**: تعلّم كيفية تعديل البيانات الوصفية لمجموعة البيانات وعرضها.\n"
 
 #: ../../source/for_users/training/metadata.rst:8
 msgid "**Estimated time of completion**: 40 minutes"
@@ -36,13 +37,15 @@ msgstr "** الوقت المقدر للانتهاء **: 40 دقيقة"
 
 #: ../../source/for_users/training/metadata.rst:10
 msgid "**Internet access**: Not needed"
-msgstr ""
+msgstr "**الوصول إلى الإنترنت**: غير مطلوب\n"
 
 #: ../../source/for_users/training/metadata.rst:12
 msgid ""
 "Click on the Trends.Earth toolbar within QGIS, and click on the Trends.Earth"
 " icon."
 msgstr ""
+"اضغط على شريط أدوات Trends.Earth داخل QGIS، وبعدها اضغط على أيقونة "
+"Trends.Earth.\n"
 
 #: ../../source/for_users/training/metadata.rst:17
 msgid ""
@@ -50,24 +53,28 @@ msgid ""
 "existing tasks are listed in the menu if the **Download remotely-generated "
 "datasets automatically** is checked in settings."
 msgstr ""
+"ستفتح قائمة **Trends.Earth**. في نافذة **مجموعة البيانات**، حيث تظهر المهام "
+"الحالية مدرجة في القائمة إذا كان خيار **تنزيل مجموعات البيانات المُنشأة عن "
+"بُعد تلقائياً** محدداً في الإعدادات.\n"
 
 #: ../../source/for_users/training/metadata.rst:20
 msgid ""
 "Refer to the :ref:`tut_settings` section of this manual to learn more about "
 "**Advanced settings**"
 msgstr ""
-"راجع: المرجع: قسم `tut_settings` من هذا الدليل لمعرفة المزيد حول **الإعدادات"
-" المتقدمة**"
+"يرجى الرجوع إلى قسم: ref:`tut_settings` من هذا الدليل لمعرفة المزيد حول "
+"**الإعدادات المتقدمة**"
 
 #: ../../source/for_users/training/metadata.rst:22
 msgid "Select the Refresh button if no datasets appear in the menu."
-msgstr ""
+msgstr "اضغط على زر \"تحديث\" إذا لم تظهر أي مجموعات بيانات في القائمة.\n"
 
 #: ../../source/for_users/training/metadata.rst:24
 msgid ""
 "Press the Edit metadata button to open a drop-down menu with available "
 "options"
 msgstr ""
+"اضغط على زر تعديل البيانات الوصفية لفتح قائمة منسدلة بالخيارات المتاحة\n"
 
 #: ../../source/for_users/training/metadata.rst:29
 msgid ""
@@ -75,6 +82,9 @@ msgid ""
 "available rasters of the dataset to edit or view its metadata. Once raster "
 "is selected a metadata editor dialog will show up."
 msgstr ""
+"تسمح القائمة المنسدلة بتحديد أي ملف نقطي من قائمة كافة الملفات النقطية "
+"المتاحة في مجموعة البيانات لمجموعة البيانات لتعديل بياناتها الوصفية أو "
+"عرضها. بمجرد اختيار ملف نقطي، سيظهر مربع حوار لتعديل البيانات الوصفية."
 
 #: ../../source/for_users/training/metadata.rst:34
 msgid ""
@@ -82,12 +92,17 @@ msgid ""
 " and press OK button to save your changes. Metadata will be saved in the "
 "QGIS QMD format, in a separate file for each raster in the dataset folder."
 msgstr ""
+"املأ المعلومات الضرورية أو عدّل البيانات الموجودة في حقول الحوار واضغط على "
+"زر موافق لحفظ التغييرات. ستُحفظ البيانات الأولية بتنسيق QGIS QMD، في ملف "
+"منفصل لكل ملف نقطي في مجلد مجموعة البيانات.\n"
 
 #: ../../source/for_users/training/metadata.rst:36
 msgid ""
 "Metadata also can be viewed/edited from the Dataset details dialog via the "
 "same Metadata button, as described in the step 3 above."
 msgstr ""
+"يمكن أيضاً عرض/تعديل البيانات الوصفية من مربع حوار تفاصيل مجموعة البيانات "
+"عبر نفس زر البيانات الوصفية، كما هو موضح في الخطوة رقم 3 أعلاه.\n"
 
 #: ../../source/for_users/training/metadata.rst:41
 msgid ""
@@ -95,78 +110,81 @@ msgid ""
 "all existing metadata in the QMD format will be automatically converted to "
 "ISO XML format and packaged together with the layers."
 msgstr ""
+"عند تصدير مجموعة البيانات إلى أرشيف ZIP من مربع حوار تفاصيل مجموعة البيانات،"
+" ستُحول جميع البيانات الوصفية الموجودة بتنسيق QMD تلقائياً إلى تنسيق ISO XML"
+" وتُجمَع مع الطبقات.\n"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr "أيقونة حاسبة"
+msgstr "iconCalculator"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr "أيقونة المخطط"
+msgstr "iconChart"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr "أيقونة الحافظة"
+msgstr "iconClipboard"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr "أيقونة التحميل السحابي"
+msgstr "iconCloudDownload"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr "أيقونة Cog"
+msgstr "iconCog"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr "أيقونة حذف مجموعة البيانات"
+msgstr "iconDeletedataset"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
-msgstr "أيقونة الكرة الأرضية"
+msgstr "iconGlobe"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr "أيقونة الرسم البياني"
+msgstr "iconGraph"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr "أيقونة المعلومات"
+msgstr "iconInfo"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr "أيقونة تحميل مجموعة البيانات"
+msgstr "iconLoaddataset"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr "أيقونة التحديد"
+msgstr "iconMarkMarker"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr "أيقونة فتح دليل مجموعة البيانات"
+msgstr "iconOpendatasetdirectory"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr "أيقونة عرض تفاصيل مجموعة البيانات"
+msgstr "iconViewdatasetdetails"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr "أيقونة مفتاح الربط"
+msgstr "iconWrench"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr "أيقونة المجلد"
+msgstr "iconFolder"
 
 #: ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr "أيقونة التقارير"
+msgstr "iconReports"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr "أيقونة TrendsEarth"
+msgstr "iconTrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr "أيقونة التصور"
+msgstr "iconVisualization"
 
 #: ../../../<rst_epilog>:37
 msgid "Trends.Earth"
@@ -174,16 +192,16 @@ msgstr "Trends.Earth"
 
 #: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr "شعار CI"
+msgstr "logoCI"
 
 #: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr "شعار Lund"
+msgstr "logoLund"
 
 #: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr "شعار ناسا"
+msgstr "logoNASA"
 
 #: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr "شعار GEF"
+msgstr "logoGEF"

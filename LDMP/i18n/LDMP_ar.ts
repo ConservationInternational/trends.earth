@@ -450,42 +450,42 @@
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="168"/>
         <source>Name</source>
-        <translation>الاسم</translation>
+        <translation>الاسم </translation>
     </message>
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="175"/>
         <source>Role</source>
-        <translation type="unfinished"/>
+        <translation>الدور</translation>
     </message>
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="192"/>
         <source>Phone</source>
-        <translation type="unfinished"/>
+        <translation>الهاتف</translation>
     </message>
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="212"/>
         <source>Type</source>
-        <translation type="unfinished"/>
+        <translation>النوع</translation>
     </message>
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="215"/>
         <source>Type of address, e.g &apos;postal&apos;</source>
-        <translation type="unfinished"/>
+        <translation>نوع العنوان، مثلاً &quot;بريدي&quot;</translation>
     </message>
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="223"/>
         <source>Free-form physical address component</source>
-        <translation type="unfinished"/>
+        <translation>مكون العنوان المادي الحر</translation>
     </message>
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="228"/>
         <source>Postal Code</source>
-        <translation type="unfinished"/>
+        <translation>الرمز البريدي</translation>
     </message>
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="231"/>
         <source>Postal (or ZIP) code</source>
-        <translation type="unfinished"/>
+        <translation>الرمز البريدي</translation>
     </message>
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="236"/>
@@ -495,67 +495,67 @@
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="239"/>
         <source>City or locality name</source>
-        <translation type="unfinished"/>
+        <translation>المدينة أو اسم الموقع</translation>
     </message>
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="244"/>
         <source>Administrative Area</source>
-        <translation type="unfinished"/>
+        <translation>المنطقة الإدارية</translation>
     </message>
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="247"/>
         <source>Administrative area (state, province/territory, etc.)</source>
-        <translation type="unfinished"/>
+        <translation>المنطقة الإدارية (الولاية، المقاطعة/الحي، إلخ.)</translation>
     </message>
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="252"/>
         <source>Country</source>
-        <translation type="unfinished"/>
+        <translation>الدولة</translation>
     </message>
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="255"/>
         <source>Free-form country</source>
-        <translation type="unfinished"/>
+        <translation>دولة حرة</translation>
     </message>
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="288"/>
         <source>Organization</source>
-        <translation type="unfinished"/>
+        <translation>المنظمة</translation>
     </message>
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="298"/>
         <source>Email</source>
-        <translation type="unfinished"/>
+        <translation>البريد الإلكتروني</translation>
     </message>
     <message>
         <location filename="../gui/DlgSelectDS.ui" line="14"/>
         <source>Dataset selection</source>
-        <translation type="unfinished"/>
+        <translation>اختيار مجموعة البيانات</translation>
     </message>
     <message>
         <location filename="../gui/DlgSelectDS.ui" line="20"/>
         <source>sdg-15-3-1-summary</source>
-        <translation type="unfinished"/>
+        <translation>ملخص-‎sdg-15-3-1</translation>
     </message>
     <message>
         <location filename="../gui/DlgSelectDS.ui" line="27"/>
         <source>SDG 15.3.1 Indicator</source>
-        <translation>مؤشر SDG 15.3.1</translation>
+        <translation>مؤشر ‎SDG 15.3.1 </translation>
     </message>
     <message>
         <location filename="../gui/DlgSelectDS.ui" line="34"/>
         <source>Soil organic carbon degradation</source>
-        <translation type="unfinished"/>
+        <translation>تدهور الكربون العضوي في التربة</translation>
     </message>
     <message>
         <location filename="../gui/DlgSelectDS.ui" line="41"/>
         <source>Dataset</source>
-        <translation type="unfinished"/>
+        <translation>مجموعة البيانات</translation>
     </message>
     <message>
         <location filename="../gui/DlgSelectDS.ui" line="48"/>
         <source>SDG 15.3.1 indicator</source>
-        <translation type="unfinished"/>
+        <translation>مؤشر ‎SDG 15.3.1 </translation>
     </message>
     <message>
         <location filename="../gui/DlgSelectDS.ui" line="63"/>
@@ -580,12 +580,12 @@
     <message>
         <location filename="../gui/DlgSelectDS.ui" line="88"/>
         <source>Soil organic carbon (degradation)</source>
-        <translation>الكربون العضوي للتربة (تدهور)</translation>
+        <translation>(تدهور) الكربون العضوي في التربة</translation>
     </message>
     <message>
         <location filename="../gui/DlgSelectDS.ui" line="95"/>
         <source>Land Productivity Dynamics (from JRC)</source>
-        <translation type="unfinished"/>
+        <translation>ديناميات إنتاجية الأرض (من JRC)</translation>
     </message>
     <message>
         <location filename="../gui/DlgSelectDS.ui" line="102"/>
@@ -595,12 +595,12 @@
     <message>
         <location filename="../gui/DlgSelectDS.ui" line="109"/>
         <source>Land cover degradation</source>
-        <translation type="unfinished"/>
+        <translation>تدهور التغطية الأرضية</translation>
     </message>
     <message>
         <location filename="../gui/DlgSelectDS.ui" line="116"/>
         <source>Productivity degradation</source>
-        <translation type="unfinished"/>
+        <translation>تدهور الإنتاجية</translation>
     </message>
 </context>
 <context>
@@ -613,7 +613,7 @@
     <message>
         <location filename="../gui/DlgAbout.ui" line="102"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Version VERSION_NUMBER&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Access the user guide here:&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en&quot;&gt;&lt;span style=&quot; font-size:12pt; text-decoration: underline; color:#0000ff;&quot;&gt;http://trends.earth/docs/en&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;trends.earth (formerly the Land Degradation Monitoring Toolbox) is a tool for monitoring land change. trends.earth is a &lt;/span&gt;&lt;a href=&quot;http://www.qgis.org&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;QGIS&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt; plugin that supports monitoring of land change, including changes in productivity, land cover, and soil organic carbon. The tool can support monitoring land degradation for reporting to the Global Environment Facility (GEF) and United Nations Convention to Combat Desertification (UNCCD), as well as tracking progress towards achivement of Sustainable Development Goal (SDG) target 15.3, Land Degradation Neutrality (LDN).&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;trends.earth was produced as an output of the GEF-funded project &amp;quot;&lt;/span&gt;&lt;a href=&quot;http://vitalsigns.org/gef-ldmp&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;Enabling the use of global data sources to assess and monitor land degradation at multiple scales&amp;quot;&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;. The project aims to provide guidance on robust methods and a tool for assessing, monitoring status, and estimating trends in land degradation using remote sensing technology.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;trends.earth is free and open-source. The &lt;/span&gt;&lt;a href=&quot;https://github.com/ConservationInternational/trends.earth&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;code is freely available online&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;. The code is licensed under the GNU General Public License, version 2.0 or later.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;This products of trends.earth are made available under the terms of the Creative Commons Attribution 4.0 International License (&lt;/span&gt;&lt;a href=&quot;https://creativecommons.org/licenses/by/4.0/&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;CC BY 4.0&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;). The boundaries and names used, and the designations used, in trends.earth do not imply official endorsement or acceptance by Conservation International Foundation, or its partner organizations and contributors.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;If you encounter any bugs or have any issues with using the plugin, please contact us at &lt;/span&gt;&lt;a href=&quot;mailto:trends.earth@conservation.org&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;trends.earth@conservation.org&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;, or &lt;/span&gt;&lt;a href=&quot;https://github.com/ConservationInternational/trends.earth/issues&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;report an issue on github&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Citation:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Trends.Earth. Conservation International. Available online at: http://trends.earth. 2022.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;الإصدار VERSION_NUMBER&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;اقرأ دليل المستخدم من هنا:&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en&quot;&gt;&lt;span style=&quot; font-size:12pt; text-decoration: underline; color:#0000ff;&quot;&gt;http://trends.earth/docs/en&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;trends.earth (المعروفة سابقًا باسم مجموعة أدوات مراقبة تدهور الأراضي) هي أداة لرصد تغير الأراضي. trends.earth هي أداة &lt;/span&gt;&lt;a href=&quot;http://www.qgis.org&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;QGIS&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt; تدعم مراقبة تغير الأراضي، بما في ذلك التغيرات في الإنتاجية والتغطية الأرضية والكربون العضوي للتربة. يمكن أن تدعم الأداة مراقبة تدهور الأراضي لتقديم التقارير إلى مرفق البيئة العالمية (GEF) واتفاقية الأمم المتحدة لمكافحة التصحر (UNCCD)، بالإضافة إلى تتبع التقدم المحرز نحو تحقيق الهدف 15.3 من أهداف التنمية المستدامة (SDG)، وتحييد تدهور الأراضي (LDN).&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;تم إنشاء trends.earth كأحد مخرجات المشروع الممول من مرفق البيئة العالمية&amp;quot;&lt;/span&gt;&lt;a href=&quot;http://vitalsigns.org/gef-ldmp&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;وتتيح استخدام مصادر البيانات العالمية لتقييم ورصد تدهور الأراضي على مستويات متعددة&amp;quot;&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;. يهدف المشروع إلى تقديم إرشادات حول الأساليب القوية وأداة لتقييم ورصد الحالة وتقدير الاتجاهات في تدهور الأراضي باستخدام تكنولوجيا الاستشعار عن بعد.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;trends.earth مجاني ومفتوح المصدر.  &lt;/span&gt;&lt;a href=&quot;https://github.com/ConservationInternational/trends.earth&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;الكود متاح مجاناً عبر الإنترنت.&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;. الكود مُرخص بموجب رخصة GNU العمومية العامة، الإصدار 2.0 أو ما بعده.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;يتم توفير منتجات trends.earth هذه بموجب شروط ترخيص Creative Commons Attribution 4.0 الدولي (&lt;/span&gt;&lt;a href=&quot;https://creativecommons.org/licenses/by/4.0/&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;CC BY 4.0&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;). لا تعني الحدود والأسماء المستخدمة والتسميات المستخدمة في trends.earth تأييداً رسمياً أو قبولاً من قِبل المؤسسة الدولية للمحافظة أو المنظمات الشريكة والمساهمين.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;إذا واجهت أي أعطال أو كانت لديك أية مشكلات في استخدام المكون الإضافي، يرجى التواصل معنا عبر &lt;/span&gt;&lt;a href=&quot;mailto:trends.earth@conservation.org&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;trends.earth@conservation.org&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;, أو &lt;/span&gt;&lt;a href=&quot;https://github.com/ConservationInternational/trends.earth/issues&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;أبلغ عن المشكلة علىgithub&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;الاقتباس:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Trends.Earth. منظمة المحافظة العاليمة. متاح على الإنترنت في: http://trends.earth. 2022.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -661,7 +661,7 @@
     <message>
         <location filename="../calculate.py" line="459"/>
         <source>Schedule remote execution</source>
-        <translation type="unfinished"/>
+        <translation>جدولة التنفيذ عن بعد</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="461"/>
@@ -699,7 +699,7 @@
     <message>
         <location filename="../calculate_drought_vulnerability.py" line="107"/>
         <source>Initial and final year are less 5 years apart in - results will be more reliable if more data (years) are included in the analysis.</source>
-        <translation type="unfinished"/>
+        <translation>تفصل بين العام الأول والعام الأخير 5 سنوات - ستكون النتائج أكثر موثوقية إذا تم تضمين المزيد من البيانات (السنوات) في التحليل.</translation>
     </message>
 </context>
 <context>
@@ -707,52 +707,52 @@
     <message>
         <location filename="../gui/DlgCalculateDroughtSummary.ui" line="20"/>
         <source>Summarise drought indicators</source>
-        <translation type="unfinished"/>
+        <translation>تلخيص مؤشرات الجفاف</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateDroughtSummary.ui" line="102"/>
         <source>Drought dataset (hazard and exposure)</source>
-        <translation type="unfinished"/>
+        <translation>مجموعة بيانات الجفاف (الخطر والتعرض)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateDroughtSummary.ui" line="154"/>
         <source>Drought dataset for vulnerability</source>
-        <translation type="unfinished"/>
+        <translation>مجموعة بيانات الجفاف للضعف</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateDroughtSummary.ui" line="223"/>
         <source>The current selected region of interest</source>
-        <translation>منطقة الاهتمام المحددة حالياً</translation>
+        <translation>منطقة الاهتمام المحددة الحالية</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateDroughtSummary.ui" line="236"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;يفتح مربع حوار الإعدادات بغرض تغيير منطقة الاهتمام.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt; &lt;head/&gt; &lt;body&gt; &lt;p&gt; يفتح نافذة الإعدادات لتغيير منطقة الاهتمام.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateDroughtSummary.ui" line="239"/>
         <source>Change region</source>
-        <translation>تغيير المنطقة</translation>
+        <translation>تغيير المنطقة </translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateDroughtSummary.ui" line="248"/>
         <source>Execution name:</source>
-        <translation type="unfinished"/>
+        <translation>اسم التنفيذ:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateDroughtSummary.ui" line="255"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt; &lt;head/&gt; &lt;body&gt; &lt;p&gt; مدخل الاسم الذي سيتم تعيينه لمهمة التنفيذ، إذا لم يتم ملؤه، فسيتم استخدام اسم الخوارزمية كاسم للمهمة.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateDroughtSummary.ui" line="262"/>
         <source>Notes:</source>
-        <translation type="unfinished"/>
+        <translation>الملاحظات:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateDroughtSummary.ui" line="287"/>
         <source>User notes associated with the executed task.</source>
-        <translation type="unfinished"/>
+        <translation>ملاحظات المستخدم المرتبطة بالمهمة المنفذة.</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateDroughtSummary.ui" line="321"/>
@@ -764,7 +764,14 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;This tool facilitates summarizing indicators of drought vulnerability for assessment of maximum drought (over four year periods within the interval selected). The output of this tool can be used to assess drought indicators within a particular region, or to prepare data for reporting to UNCCD on Strategic Objective 3.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#sdg-indicator-15-3-1&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;ملخص الجفاف&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;تسهل هذه الأداة تلخيص مؤشرات التعرض للجفاف من أجل تقييم أقصى درجات الجفاف (أكثر من أربع سنوات ضمن الفترة الزمنية المحددة). يمكن استخدام ناتج هذه الأداة لتقييم مؤشرات الجفاف داخل منطقة معينة، أو لإعداد البيانات لتقديم التقارير إلى اتفاقية مكافحة التصحر بشأن الهدف الاستراتيجي 3.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#sdg-indicator-15-3-1&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;المزيد من المعلومات&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../calculate_drought_vulnerability.py" line="242"/>
@@ -774,17 +781,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../calculate_drought_vulnerability.py" line="197"/>
         <source>You must select a {dataset_name} layer before you can use the drought tool.</source>
-        <translation type="unfinished"/>
+        <translation>يجب اختيار طبقة {dataset_name} قبل أن تتمكن من استخدام أداة الجفاف.</translation>
     </message>
     <message>
         <location filename="../calculate_drought_vulnerability.py" line="210"/>
         <source>You must select a {layer_name} layer before you can use the drought tool.</source>
-        <translation type="unfinished"/>
+        <translation>يجب اختيار طبقة {layer_name} قبل أن تتمكن من استخدام أداة الجفاف.</translation>
     </message>
     <message>
         <location filename="../calculate_drought_vulnerability.py" line="242"/>
         <source>Area of interest is not entirely within the drought dataset.</source>
-        <translation type="unfinished"/>
+        <translation>منطقة الاهتمام ليست بالكامل ضمن مجموعة بيانات الجفاف.</translation>
     </message>
 </context>
 <context>
@@ -792,12 +799,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="20"/>
         <source> Land Cover | Land Degradation</source>
-        <translation type="unfinished"/>
+        <translation>الغطاء الأرضي | تدهور الأرض</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="62"/>
         <source>The current selected region of interest</source>
-        <translation>منطقة الاهتمام المحددة حالياً</translation>
+        <translation>منطقة الاهتمام المخترة الحالية</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="65"/>
@@ -807,7 +814,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="75"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;يفتح مربع حوار الإعدادات بغرض تغيير منطقة الاهتمام.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt; &lt;head/&gt; &lt;body&gt; &lt;p&gt; يفتح نافذة الإعدادات لتغيير منطقة الاهتمام.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="78"/>
@@ -817,32 +824,32 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="93"/>
         <source>Input the name that will be assigned to the execution task.</source>
-        <translation type="unfinished"/>
+        <translation>أدخل الاسم الذي سيتم تعيينه لمهمة التنفيذ.</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="96"/>
         <source>Execution name:</source>
-        <translation type="unfinished"/>
+        <translation>اسم التنفيذ:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="103"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt; &lt;head/&gt; &lt;body&gt; &lt;p&gt; مدخل الاسم الذي سيتم تعيينه لمهمة التنفيذ، إذا لم يتم ملؤه، فسيتم استخدام اسم الخوارزمية كاسم للمهمة.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="116"/>
         <source>Notes:</source>
-        <translation type="unfinished"/>
+        <translation>الملاحظات:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="141"/>
         <source>User notes associated with the executed task.</source>
-        <translation type="unfinished"/>
+        <translation>ملاحظات المستخدم المرتبطة بالمهمة المنفذة.</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="154"/>
         <source>Advanced configuration</source>
-        <translation type="unfinished"/>
+        <translation>التكوين المتقدم</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLC.ui" line="189"/>
@@ -858,7 +865,18 @@ p, li { white-space: pre-wrap; }
 &lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; Trends.Earth will combine the information from the land cover maps and the table of degradation typologies by land cover transition to compute the land cover sub-indicator.&lt;/li&gt;&lt;/ol&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#land-cover&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;More information on the Land Cover SDG 15.3.1 Sub-indicator&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;h3 style=&quot; margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:large; font-weight:600;&quot;&gt;الغطاء الأرضي&lt;/span&gt;&lt;/h3&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;لتقييم التغييرات في الغطاء الأرضي يحتاج المستخدمون إلى خرائط الغطاء الأرضي التي تغطي منطقة الدراسة لخط الأساس والسنوات المستهدفة. يجب أن تكون هذه الخرائط ذات دقة مقبولة وأن يتم إنشاؤها بطريقة تسمح بإجراء مقارنات صحيحة. يستخدم Trends.Earth خرائط الغطاء الأرضي ESA CCI كمجموعة بيانات افتراضية، ولكن يمكن أيضاً استخدام الخرائط المحلية. يتم حساب المؤشر على النحو التالي:&lt;/p&gt;
+&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;أعد تصنيف خرائط الغطاء الأرضي إلى فئات الغطاء الأرضي السبعة اللازمة لتقديم التقارير إلى اتفاقية الأمم المتحدة لمكافحة التصحر (الغابات، والأراضي العشبية، والأراضي الزراعية، والأراضي الرطبة، والمنطقة الاصطناعية، والأراضي الجرداء والمياه).&lt;/li&gt;
+&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;قم بإجراء تحليل انتقال للغطاء الأرضي لتحديد وحدات البكسل التي بقيت في نفس فئة الغطاء الأرضي وأي منها تم تغييره.&lt;/li&gt;
+&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;استناداً إلى معرفتك المحلية بالظروف في منطقة الدراسة وتدهور الأراضي الذي يتم معالجته هناك، استخدم الجدول أدناه، في القسم المتقدم، لتحديد التحولات التي تتوافق مع التدهور (علامة -)، أو التحسن (علامة +)، أو لا التغيير من حيث حالة الأرض (صفر).&lt;/li&gt;
+&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; سيجمع Trends.Earth المعلومات من خرائط الغطاء الأرضي وجدول أنماط التدهور عن طريق انتقال الغطاء الأرضي لحساب المؤشر الفرعي للغطاء الأرضي.&lt;/li&gt;&lt;/ol&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#land-cover&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;المزيد من المعلومات عن أهداف الغطاء الأرضي للتطوير المستدام 15.3.1 المؤشر الفرعي&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../calculate_lc.py" line="192"/>
@@ -898,7 +916,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../calculate_lc.py" line="192"/>
         <source>Nesting of land cover legends for initial and final land cover layer must be identical.</source>
-        <translation type="unfinished"/>
+        <translation>يجب أن يكون تداخل أساطير الغطاء الأرضي لطبقة الغطاء الأرضي الأولية والنهائية متطابقاً.</translation>
     </message>
 </context>
 <context>
@@ -966,12 +984,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../lc_setup.py" line="541"/>
         <source>Some of the class codes ({unnecessary_child_codes!r}) in the definition file do not appear in the chosen data file.</source>
-        <translation type="unfinished"/>
+        <translation>لا تظهر بعض أكواد الفئات ({unnecessary_child_codes! r}) في ملف التعريف في ملف البيانات المختار.</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="551"/>
         <source>Some of the class codes ({child_codes_missing_from_input!r}) in the data file do not appear in the chosen definition file.</source>
-        <translation type="unfinished"/>
+        <translation>لا تظهر بعض أكواد الفئات ({child_codes_missing_from_input!r}) في ملف التعريف في ملف البيانات المختار.</translation>
     </message>
 </context>
 <context>
@@ -979,7 +997,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateLDNErrorRecode.ui" line="20"/>
         <source>Correct errors found in SDG 15.3.1 indicator layer</source>
-        <translation type="unfinished"/>
+        <translation>تصحيح الأخطاء الموجودة في طبقة مؤشر أهداف التطوير المستدام 15.3.1</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNErrorRecode.ui" line="102"/>
@@ -1009,17 +1027,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateLDNErrorRecode.ui" line="200"/>
         <source>Error polygon dataset</source>
-        <translation type="unfinished"/>
+        <translation>مجموعة بيانات مضلع الخطأ</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNErrorRecode.ui" line="242"/>
         <source>The current selected region of interest</source>
-        <translation>منطقة الاهتمام المحددة حالياً</translation>
+        <translation>منطقة الاهتمام المختارة الحالية</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNErrorRecode.ui" line="255"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;يفتح مربع حوار الإعدادات بغرض تغيير منطقة الاهتمام.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt; &lt;head/&gt; &lt;body&gt; &lt;p&gt; يفتح نافذة الإعدادات لتغيير منطقة الاهتمام.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNErrorRecode.ui" line="258"/>
@@ -1029,22 +1047,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateLDNErrorRecode.ui" line="267"/>
         <source>Execution name:</source>
-        <translation type="unfinished"/>
+        <translation>اسم التنفيذ:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNErrorRecode.ui" line="274"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt; &lt;head/&gt; &lt;body&gt; &lt;p&gt; مدخل الاسم الذي سيتم تعيينه لمهمة التنفيذ، إذا لم يتم ملؤه، فسيتم استخدام اسم الخوارزمية كاسم للمهمة.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNErrorRecode.ui" line="281"/>
         <source>Notes:</source>
-        <translation type="unfinished"/>
+        <translation>الملاحظات:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNErrorRecode.ui" line="306"/>
         <source>User notes associated with the executed task.</source>
-        <translation type="unfinished"/>
+        <translation>ملاحظات المستخدم المرتبطة بالمهمة المنفذة.</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNErrorRecode.ui" line="343"/>
@@ -1071,7 +1089,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../calculate_ldn.py" line="1056"/>
         <source>This function coming soon!</source>
-        <translation type="unfinished"/>
+        <translation>ستصدر هذه الخاصية قريباً!</translation>
     </message>
     <message>
         <location filename="../calculate_ldn.py" line="1073"/>
@@ -1081,7 +1099,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../calculate_ldn.py" line="1073"/>
         <source>Initial and final year are less 5 years apart in - results will be more reliable if more data (years) are included in the analysis.</source>
-        <translation type="unfinished"/>
+        <translation>تفصل بين العام الأول والعام الأخير 5 سنوات - ستكون النتائج أكثر موثوقية إذا تم تضمين المزيد من البيانات (السنوات) في التحليل.</translation>
     </message>
 </context>
 <context encoding="UTF-8">
@@ -1089,32 +1107,32 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="20"/>
         <source>SDG 15.3.1 Indicator (Summary) | Land Degradation</source>
-        <translation type="unfinished"/>
+        <translation>مؤشر أهداف التطوير المستدام 15.3.1 (ملخص) | تدهور الأرض</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="78"/>
         <source>Land productivity data</source>
-        <translation type="unfinished"/>
+        <translation>بيانات إنتاجية الأرض</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="84"/>
         <source>Trends.Earth land productivity dynamics</source>
-        <translation type="unfinished"/>
+        <translation>ديناميات Trends.Earth لإنتاجية الأرض</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="94"/>
         <source>Pre-calculated land productivity dynamics (from JRC or FAO-WOCAT)</source>
-        <translation type="unfinished"/>
+        <translation>ديناميات إنتاجية الأراضي المحسوبة مسبقاً (من مركز البحوث الزراعية أو منظمة الفاو-وات)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="131"/>
         <source>Baseline dataset</source>
-        <translation type="unfinished"/>
+        <translation>مجموعة البيانات الأساسية</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="162"/>
         <source>Advanced (baseline)</source>
-        <translation type="unfinished"/>
+        <translation>(خط الأساس) المتقدم </translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="733"/>
@@ -1124,22 +1142,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="835"/>
         <source>State (degradation)</source>
-        <translation type="unfinished"/>
+        <translation>(تدهور) الحالة </translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="790"/>
         <source>Performance (degradation)</source>
-        <translation type="unfinished"/>
+        <translation>(تدهور) الأداء </translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="869"/>
         <source>Land Productivity Dynamics (LPD) dataset</source>
-        <translation type="unfinished"/>
+        <translation>مجموعة بيانات ديناميكيات إنتاجية الأرض (LPD)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="348"/>
         <source>Trend (degradation)</source>
-        <translation type="unfinished"/>
+        <translation>(تدهور) الاتجاه </translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="928"/>
@@ -1154,82 +1172,82 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1032"/>
         <source>Population (required to calculate population exposed by degradation)</source>
-        <translation type="unfinished"/>
+        <translation>السكان (مطلوب لحساب السكان المعرضين للتدهور)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1118"/>
         <source>Total population</source>
-        <translation type="unfinished"/>
+        <translation>مجموع السكان</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1054"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Male population&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt; &lt;head/&gt; &lt;body&gt; &lt;p align=&quot;right&quot;&gt; السكان الذكور &lt;/p&gt; &lt;/body&gt; &lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1061"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Female population&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt; &lt;head/&gt; &lt;body&gt; &lt;p align=&quot;right&quot;&gt; السكان الإناث &lt;/p&gt; &lt;/body&gt; &lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1150"/>
         <source>type</source>
-        <translation type="unfinished"/>
+        <translation>النوع</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1086"/>
         <source>male</source>
-        <translation type="unfinished"/>
+        <translation>ذكر</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1111"/>
         <source>female</source>
-        <translation type="unfinished"/>
+        <translation>أنثى</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1044"/>
         <source>Population broken down by sex</source>
-        <translation type="unfinished"/>
+        <translation>السكان مقسمين حسب النوع</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1128"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Total population&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt; &lt;head/&gt; &lt;body&gt; &lt;p align=&quot;right&quot;&gt; إجمالي السكان &lt;/p&gt; &lt;/body&gt; &lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1153"/>
         <source>total</source>
-        <translation type="unfinished"/>
+        <translation>الإجمالي</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="617"/>
         <source>Include progress period (for comparison to baseline)</source>
-        <translation type="unfinished"/>
+        <translation>تضمين فترة التقدم (للمقارنة بخط الأساس)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="648"/>
         <source>Progress dataset</source>
-        <translation type="unfinished"/>
+        <translation>مجموعة بيانات التقدم</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="703"/>
         <source>Advanced (progress period)</source>
-        <translation type="unfinished"/>
+        <translation>(فترة التقدم) المتقدمة</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="751"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Trend (degradation)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt; &lt;head/&gt; &lt;body&gt; &lt;p&gt; &lt;span style=&quot; font-style:italic;&quot;&gt; (تدهور) الاتجاه &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1177"/>
         <source>The current selected region of interest</source>
-        <translation>منطقة الاهتمام المحددة حالياً</translation>
+        <translation>منطقة الاهتمام المحددة الحالية</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1190"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;يفتح مربع حوار الإعدادات بغرض تغيير منطقة الاهتمام.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt; &lt;head/&gt; &lt;body&gt; &lt;p&gt; يفتح نافذة الإعدادات لتغيير منطقة الاهتمام.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1193"/>
@@ -1239,22 +1257,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1202"/>
         <source>Execution name:</source>
-        <translation type="unfinished"/>
+        <translation>اسم التنفيذ</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1209"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt; &lt;head/&gt; &lt;body&gt; &lt;p&gt; مدخل الاسم الذي سيتم تعيينه لمهمة التنفيذ، إذا لم يتم ملؤه، فسيتم استخدام اسم الخوارزمية كاسم للمهمة.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1216"/>
         <source>Notes:</source>
-        <translation type="unfinished"/>
+        <translation>الملاحظات:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1241"/>
         <source>User notes associated with the executed task.</source>
-        <translation type="unfinished"/>
+        <translation>ملاحظات المستخدم المرتبطة بالمهمة المنفذة.</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1275"/>
@@ -1278,12 +1296,31 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;Trends.Earth allows the user to compute each of these subindicators in a spatially explicit way generating raster maps which are then integrated into a final SDG 15.3.1 indicator map and produces a table result reporting areas potentially improved and degraded for the area of analysis.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#sdg-indicator-15-3-1&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information on indicator SDG 15.3.1&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;مؤشر أهداف التطوير المستدام 15.3.1&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;كجزء من &quot;خطة التنمية المستدامة لعام 2030&quot;، الهدف 15 من أهداف التنمية المستدامة هو:&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&quot;حماية واستعادة وتعزيز الاستخدام المستدام للنظم الإيكولوجية الأرضية، وإدارة الغابات على نحو مستدام، ومكافحة التصحر، ووقف تدهور الأراضي وعكس اتجاهه ووقف فقدان التنوع البيولوجي&quot;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;لكل هدف من أهداف التنمية المستدامة أهداف محددة تتناول مكونات مختلفة ، في هذه الحالة ، من الحياة على الأرض. الهدف 15.3 يهدف إلى:&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&quot;بحلول عام 2030، مكافحة التصحر، واستعادة الأراضي والتربة المتدهورة، بما في ذلك الأراضي المعرضة للتصحر والجفاف والفيضانات، والسعي لتحقيق عالم خالٍ من تدهور الأراضي&quot;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;سيتم استخدام المؤشرات بعد ذلك لتقييم التقدم المحرز في كل هدف من أهداف التنمية المستدامة. في حالة الهدف 15.3 من أهداف التنمية المستدامة ، سيتم تقييم التقدم المحرز نحو عالم محايد لتدهور الأراضي باستخدام المؤشر 15.3.1:&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&quot;نسبة الأراضي المتدهورة على إجمالي مساحة الأرض&quot;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;بصفتها الوكالة الراعية لهدف التنمية المستدامة 15.3، وضعت اتفاقية الأمم المتحدة لمكافحة التصحر (UNCCD) &lt;/span&gt;&lt;a href=&quot;http://www2.unccd.int/sites/default/files/relevant-links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;إرشادات الممارسات الجيدة (GPG) &lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;. تقديم توصيات حول كيفية حساب أهداف التنمية المستدامة المؤشر15.3.1.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;من أجل تقييم المنطقة المتدهورة، يستخدم مؤشر أهداف التنمية المستدامة 15.3.1 معلومات من 3 مؤشرات فرعية:&lt;/span&gt;&lt;/p&gt;
+&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;إنتاجية الغطاء النباتي&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;الغطاء الأرضي&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;الكربون العضوي للتربة&lt;/li&gt;&lt;/ol&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt; يسمح Trends.Earth للمستخدم بحساب كل من هذه المؤشرات الفرعية بطريقة صريحة مكانياً لإنشاء خرائط نقطية يتم دمجها بعد ذلك في خريطة مؤشر هدف التنمية المستدامة 15.3.1 النهائية وتنتج جدولًا لمناطق الإبلاغ عن النتائج التي يُحتمل أن تكون محسّنة ومتدهورة لمنطقة التحليل.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#sdg-indicator-15-3-1&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;المزيد من المعلومات عن مؤشر هدف التطوير المستدام 15.3.1&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../calculate_ldn.py" line="614"/>
         <source>No datasets available in this region (see advanced)</source>
-        <translation type="unfinished"/>
+        <translation>لا توجد مجموعات بيانات متاحة في هذه المنطقة (انظر الإعدادات المتقدمة)</translation>
     </message>
     <message>
         <location filename="../calculate_ldn.py" line="823"/>
@@ -1293,22 +1330,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../calculate_ldn.py" line="714"/>
         <source>You must select a {layer_name} layer before you can use the SDG calculation tool.</source>
-        <translation type="unfinished"/>
+        <translation>يجب تحديد طبقة {layer_name} قبل أن تتمكن من استخدام أداة حساب هدف التدوير المستدام.</translation>
     </message>
     <message>
         <location filename="../calculate_ldn.py" line="763"/>
         <source>Area of interest is not entirely within the {check_layer_name} layer.</source>
-        <translation type="unfinished"/>
+        <translation>منطقة الاهتمام ليست بالكامل ضمن طبقة {check_layer_name}.</translation>
     </message>
     <message>
         <location filename="../calculate_ldn.py" line="815"/>
         <source>Resolutions of {model_layer_name} layer and {check_layer_name} layer do not match.</source>
-        <translation type="unfinished"/>
+        <translation>لا تتطابق قرارات طبقة {model_layer_name} وطبقة {check_layer_name}.</translation>
     </message>
     <message>
         <location filename="../calculate_ldn.py" line="823"/>
         <source>Coordinate systems of {model_layer_name} layer and {check_layer_name} layer do not match.</source>
-        <translation type="unfinished"/>
+        <translation>أنظمة الإحداثيات لطبقة {model_layer_name} وطبقة {check_layer_name} غير متطابقة.</translation>
     </message>
 </context>
 <context>
@@ -1369,17 +1406,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateDrought.ui" line="20"/>
         <source>Calulate Standardized Precipitation Index (SPI)</source>
-        <translation type="unfinished"/>
+        <translation>حساب مؤشر هطول الأمطار القياسي (SPI)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="1078"/>
         <source>User notes associated with the executed task.</source>
-        <translation type="unfinished"/>
+        <translation>ملاحظات المستخدم المرتبطة بالمهمة المنفذة.</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateDrought.ui" line="99"/>
         <source>Hazard and Exposure indicators</source>
-        <translation type="unfinished"/>
+        <translation>مؤشرات الخطر والتعرض</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateDrought.ui" line="117"/>
@@ -1394,52 +1431,52 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateDrought.ui" line="155"/>
         <source>Select the final year, should be great than the initial year</source>
-        <translation type="unfinished"/>
+        <translation>حدد السنة الأخيرة، يجب أن تكون كبيرة من السنة الأولى</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateDrought.ui" line="193"/>
         <source>Select the initial year, should be less than the final year.</source>
-        <translation type="unfinished"/>
+        <translation>اختر السنة الأولى، يجب أن تكون أقل من العام الأخير.</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateDrought.ui" line="223"/>
         <source>Lag (months):</source>
-        <translation type="unfinished"/>
+        <translation>التأخير (أشهر):</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateDrought.ui" line="248"/>
         <source>Precipitation dataset</source>
-        <translation type="unfinished"/>
+        <translation>مجموعة بيانات هطول الأمطار</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateDrought.ui" line="255"/>
         <source>GPCC</source>
-        <translation type="unfinished"/>
+        <translation>GPCC</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateDrought.ui" line="268"/>
         <source>CHIRPS</source>
-        <translation type="unfinished"/>
+        <translation>CHIRPS</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateDrought.ui" line="286"/>
         <source>Vulnerability indicator</source>
-        <translation type="unfinished"/>
+        <translation>مؤشر الضعف</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateDrought.ui" line="292"/>
         <source>Include JRC Vulnerability Index</source>
-        <translation type="unfinished"/>
+        <translation>تضمين مؤشر الضعف JRC</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="1014"/>
         <source>The current selected region of interest</source>
-        <translation>منطقة الاهتمام المحددة حالياً</translation>
+        <translation>منطقة الاهتمام المحددة الحالية</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="1027"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;يفتح مربع حوار الإعدادات بغرض تغيير منطقة الاهتمام.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt; &lt;head/&gt; &lt;body&gt; &lt;p&gt; يفتح نافذة الإعدادات لتغيير منطقة الاهتمام.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="1030"/>
@@ -1449,17 +1486,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="1039"/>
         <source>Execution name:</source>
-        <translation type="unfinished"/>
+        <translation>اسم التنفيذ:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="1046"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt; &lt;head/&gt; &lt;body&gt; &lt;p&gt; مدخل الاسم الذي سيتم تعيينه لمهمة التنفيذ، إذا لم يتم ملؤه، فسيتم استخدام اسم الخوارزمية كاسم للمهمة.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="1053"/>
         <source>Notes:</source>
-        <translation type="unfinished"/>
+        <translation>الملاحظات:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateDrought.ui" line="417"/>
@@ -1473,47 +1510,56 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;For further recommendations on assessing drought vulnerability, we recommend users review the recommendations of the Tools4LDN project, available in &lt;/span&gt;&lt;a href=&quot;https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/6033f28abca1996aedc492d5/1614017200233/ci-4-Tools4LDN2-FNL+web.pdf&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;English&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt; and &lt;/span&gt;&lt;a href=&quot;https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/60f08dd4d2de6f76157bb62b/1626377693923/ci-3-Tools4LDN2-SPN_WebUpdate.pdf&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Spanish&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt; from the project website.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;احسب مؤشرات التعرض للجفاف&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;احسب المؤشرات التي يمكن استخدامها لتقييم قابلية التأثر بالجفاف، بما يتفق مع إرشادات الممارسة الجيدة من اتفاقية الأمم المتحدة لمكافحة التصحر بشأن الهدف الاستراتيجي 3.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt; بالإضافة إلى مؤشرات الجفاف المستمدة من بيانات هطول الأمطار (باستخدام مؤشر الهطول الموحد)، يمكن لهذه الأداة أيضاً توفير الوصول إلى مجموعة بيانات التعرض للجفاف لعام 2018، والتي أصدرتها لجنة البحوث المشتركة (JRC) التابعة للمفوضية الأوروبية. تعد مجموعة البيانات هذه مفيدة للغاية لعمليات التقييم على المستوى العالمي.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;لمزيد من التوصيات حول تقييم قابلية التعرض للجفاف، نوصي المستخدمين بمراجعة توصيات مشروع Tools4LDN ، المتاح بلغات &lt;/span&gt;&lt;a href=&quot;https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/6033f28abca1996aedc492d5/1614017200233/ci-4-Tools4LDN2-FNL+web.pdf&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;الإنجليزية&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt; و &lt;/span&gt;&lt;a href=&quot;https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/60f08dd4d2de6f76157bb62b/1626377693923/ci-3-Tools4LDN2-SPN_WebUpdate.pdf&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;الأسبانية&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt; من موقع المشروع.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;المزيد من المعلومات&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="20"/>
         <source>SDG 15.3.1 Indicator (one-step) | Land Degradation</source>
-        <translation type="unfinished"/>
+        <translation>مؤشر SDG 15.3.1 (خطوة واحدة) | تدهور الأرض</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="87"/>
         <source>Presets for UNCCD 2016-2019 reporting period</source>
-        <translation type="unfinished"/>
+        <translation>الإعدادات المسبقة للفترة المشمولة بالتقرير 2016-2019 لاتفاقية الأمم المتحدة لمكافحة التصحر</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="105"/>
         <source>UNCCD Default Data</source>
-        <translation type="unfinished"/>
+        <translation>بيانات UNCCD الافتراضية</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="118"/>
         <source>Trends.Earth Default Data</source>
-        <translation type="unfinished"/>
+        <translation>Trends.Earth البيانات الافتراضية</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="131"/>
         <source>FAO-WOCAT Default Data</source>
-        <translation type="unfinished"/>
+        <translation>البيانات الافتراضية لـ FAO-WOCAT</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="141"/>
         <source>Land productivity data</source>
-        <translation type="unfinished"/>
+        <translation>بيانات إنتاجية الأرض</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="147"/>
         <source>Trends.Earth land productivity dynamics</source>
-        <translation type="unfinished"/>
+        <translation>ديناميات إنتاجية الأرض في Trends.Earth </translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="157"/>
         <source>Pre-calculated land productivity dynamics (from JRC or FAO-WOCAT)</source>
-        <translation type="unfinished"/>
+        <translation>ديناميات إنتاجية الأراضي المحسوبة مسبقًا (من مركز البحوث الزراعية أو منظمة الفاو-وات)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="182"/>
@@ -1528,7 +1574,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="756"/>
         <source>Initial year</source>
-        <translation>السنة الأولى</translation>
+        <translation>السنة الابتدائية</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="990"/>
@@ -1543,17 +1589,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="723"/>
         <source>Final year</source>
-        <translation type="unfinished"/>
+        <translation>السنة النهائية</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="770"/>
         <source>Allow time period to vary by indicator:</source>
-        <translation type="unfinished"/>
+        <translation>اسمح للفترة الزمنية بالتنوع حسب المؤشر:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="957"/>
         <source>Use the same time period across all indicators:</source>
-        <translation type="unfinished"/>
+        <translation>استخدم نفس الفترة الزمنية عبر جميع المؤشرات:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="777"/>
@@ -1563,22 +1609,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="763"/>
         <source>Land Productivity Dynamics (LPD) dataset</source>
-        <translation type="unfinished"/>
+        <translation>مجموعة بيانات ديناميكيات إنتاجية الأرض (LPD)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="615"/>
         <source>Include progress period (for comparison to baseline)</source>
-        <translation type="unfinished"/>
+        <translation>تضمين فترة التقدم (للمقارنة بخط الأساس)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="634"/>
         <source>Progress period</source>
-        <translation type="unfinished"/>
+        <translation>ءاستخدم نفس الفترة الزمنية عبر جميع المؤشرات:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="1085"/>
         <source>Advanced configuration</source>
-        <translation type="unfinished"/>
+        <translation>التكوين المتقدم</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="1094"/>
@@ -1600,7 +1646,14 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;This algorithm enables the simultaneous calculation of the three SDG 15.3.1 sub-indicators (Productivity, Land Cover and Soil Organic Carbon) in a single step. This is done using the remote Trends.Earth datasets described in each of the individual sub-indicator's sections.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;احسب جميع المؤشرات الفرعية لهدف التنمية المستدامة 15.3.1 في خطوة واحدة&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;تتيح هذه الخوارزمية الحساب المتزامن للمؤشرات الفرعية الثلاثة لهدف التنمية المستدامة 15.3.1 (الإنتاجية والغطاء الأرضي والكربون العضوي للتربة) في خطوة واحدة. ويتم ذلك باستخدام مجموعات بيانات الاتجاهات البعيدة الموضحة في كل قسم من أقسام المؤشرات الفرعية الفردية.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;المزيد من المعلومات&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../calculate_ldn.py" line="442"/>
@@ -1610,7 +1663,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../calculate_ldn.py" line="442"/>
         <source>Initial and final year are less 10 years apart in {period} - results will be more reliable if more data (years) are included in the analysis.</source>
-        <translation type="unfinished"/>
+        <translation>تفصل بين العام الأول والعام الأخير 10 سنوات في {period} - ستكون النتائج أكثر موثوقية إذا تم تضمين المزيد من البيانات (السنوات) في التحليل.</translation>
     </message>
 </context>
 <context encoding="UTF-8">
@@ -1618,7 +1671,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="26"/>
         <source>Land Productivity | Land Degradation</source>
-        <translation type="unfinished"/>
+        <translation>إنتاجية الأرض | تدهور الأرض</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="99"/>
@@ -1633,17 +1686,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="127"/>
         <source>Pre-calculated land productivity dynamics (from JRC or FAO-WOCAT)</source>
-        <translation type="unfinished"/>
+        <translation>ديناميات إنتاجية الأراضي المحسوبة مسبقًا (من مركز البحوث الزراعية أو منظمة الفاو-وات)</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="164"/>
         <source>The current selected region of interest</source>
-        <translation>منطقة الاهتمام المحددة حالياً</translation>
+        <translation>منطقة الاهتمام المحددة الحالية</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="177"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;يفتح مربع حوار الإعدادات بغرض تغيير منطقة الاهتمام.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <translation>&lt;html&gt; &lt;head/&gt; &lt;body&gt; &lt;p&gt; يفتح نافذة الإعدادات لتغيير منطقة الاهتمام.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="180"/>
@@ -1653,27 +1706,27 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="189"/>
         <source>Execution name:</source>
-        <translation type="unfinished"/>
+        <translation>اسم التنفيذ:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="196"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt; &lt;head/&gt; &lt;body&gt; &lt;p&gt; مدخل الاسم الذي سيتم تعيينه لمهمة التنفيذ، إذا لم يتم ملؤه، فسيتم استخدام اسم الخوارزمية كاسم للمهمة.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="203"/>
         <source>Notes:</source>
-        <translation type="unfinished"/>
+        <translation>الملاحظات:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="228"/>
         <source>User notes associated with the executed task.</source>
-        <translation type="unfinished"/>
+        <translation>ملاحظات المستخدم المرتبطة بالمهمة المنفذة.</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="235"/>
         <source>Advanced configuration</source>
-        <translation type="unfinished"/>
+        <translation>التكوين المتقدم</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateProd.ui" line="256"/>
@@ -1865,22 +1918,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateRestBiomassData.ui" line="198"/>
         <source>Execution name:</source>
-        <translation type="unfinished"/>
+        <translation>اسم التنفيذ:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateRestBiomassData.ui" line="205"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt; &lt;head/&gt; &lt;body&gt; &lt;p&gt; مدخل الاسم الذي سيتم تعيينه لمهمة التنفيذ، إذا لم يتم ملؤه، فسيتم استخدام اسم الخوارزمية كاسم للمهمة.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateRestBiomassData.ui" line="212"/>
         <source>Notes:</source>
-        <translation type="unfinished"/>
+        <translation>الملاحظات:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateRestBiomassData.ui" line="237"/>
         <source>User notes associated with the executed task.</source>
-        <translation type="unfinished"/>
+        <translation>ملاحظات المستخدم المرتبطة بالمهمة المنفذة.</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateRestBiomassData.ui" line="271"/>
@@ -1929,22 +1982,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="178"/>
         <source>Execution name:</source>
-        <translation type="unfinished"/>
+        <translation>اسم التنفيذ:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="185"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt; &lt;head/&gt; &lt;body&gt; &lt;p&gt; مدخل الاسم الذي سيتم تعيينه لمهمة التنفيذ، إذا لم يتم ملؤه، فسيتم استخدام اسم الخوارزمية كاسم للمهمة.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="192"/>
         <source>Notes:</source>
-        <translation type="unfinished"/>
+        <translation>الملاحظات:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="217"/>
         <source>User notes associated with the executed task.</source>
-        <translation type="unfinished"/>
+        <translation>ملاحظات المستخدم المرتبطة بالمهمة المنفذة.</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateRestBiomassSummaryTable.ui" line="251"/>
@@ -2003,7 +2056,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="127"/>
         <source>Execution name:</source>
-        <translation type="unfinished"/>
+        <translation>اسم التنفيذ:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="134"/>
@@ -2013,17 +2066,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="141"/>
         <source>Notes:</source>
-        <translation type="unfinished"/>
+        <translation>الملاحظات:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="166"/>
         <source>User notes associated with the executed task.</source>
-        <translation type="unfinished"/>
+        <translation>ملاحظات المستخدم المرتبطة بالمهمة المنفذة.</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="173"/>
         <source>Advanced configuration</source>
-        <translation type="unfinished"/>
+        <translation>التكوين المتقدم</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateSOC.ui" line="188"/>
@@ -2181,7 +2234,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="209"/>
         <source>Select the initial year, should be less than the final year.</source>
-        <translation type="unfinished"/>
+        <translation>اختر السنة الأولى، يجب أن تكون أقل من العام الأخير.</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="243"/>
@@ -2226,27 +2279,27 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="403"/>
         <source>Execution name:</source>
-        <translation type="unfinished"/>
+        <translation>اسم التنفيذ:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="410"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt; &lt;head/&gt; &lt;body&gt; &lt;p&gt; مدخل الاسم الذي سيتم تعيينه لمهمة التنفيذ، إذا لم يتم ملؤه، فسيتم استخدام اسم الخوارزمية كاسم للمهمة.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="417"/>
         <source>Notes:</source>
-        <translation type="unfinished"/>
+        <translation>الملاحظات:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="442"/>
         <source>User notes associated with the executed task.</source>
-        <translation type="unfinished"/>
+        <translation>ملاحظات المستخدم المرتبطة بالمهمة المنفذة.</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="449"/>
         <source>Advanced configuration</source>
-        <translation type="unfinished"/>
+        <translation>التكوين المتقدم</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCData.ui" line="458"/>
@@ -2390,22 +2443,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="224"/>
         <source>Execution name:</source>
-        <translation type="unfinished"/>
+        <translation>اسم التنفيذ:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="231"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt; &lt;head/&gt; &lt;body&gt; &lt;p&gt; مدخل الاسم الذي سيتم تعيينه لمهمة التنفيذ، إذا لم يتم ملؤه، فسيتم استخدام اسم الخوارزمية كاسم للمهمة.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="238"/>
         <source>Notes:</source>
-        <translation type="unfinished"/>
+        <translation>الملاحظات:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="263"/>
         <source>User notes associated with the executed task.</source>
-        <translation type="unfinished"/>
+        <translation>ملاحظات المستخدم المرتبطة بالمهمة المنفذة.</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateTCSummaryTable.ui" line="297"/>
@@ -2475,12 +2528,12 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateUNCCD.ui" line="346"/>
         <source>Select the initial year, should be less than the final year.</source>
-        <translation type="unfinished"/>
+        <translation>اختر السنة الأولى، يجب أن تكون أقل من العام الأخير.</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUNCCD.ui" line="308"/>
         <source>Select the final year, should be great than the initial year</source>
-        <translation type="unfinished"/>
+        <translation>حدد السنة الأخيرة، يجب أن تكون كبيرة من السنة الأولى</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUNCCD.ui" line="246"/>
@@ -2505,22 +2558,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateUNCCD.ui" line="402"/>
         <source>Execution name:</source>
-        <translation type="unfinished"/>
+        <translation>اسم التنفيذ:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUNCCD.ui" line="409"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt; &lt;head/&gt; &lt;body&gt; &lt;p&gt; مدخل الاسم الذي سيتم تعيينه لمهمة التنفيذ، إذا لم يتم ملؤه، فسيتم استخدام اسم الخوارزمية كاسم للمهمة.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUNCCD.ui" line="416"/>
         <source>Notes:</source>
-        <translation type="unfinished"/>
+        <translation>الملاحظات:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUNCCD.ui" line="441"/>
         <source>User notes associated with the executed task.</source>
-        <translation type="unfinished"/>
+        <translation>ملاحظات المستخدم المرتبطة بالمهمة المنفذة.</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUNCCD.ui" line="478"/>
@@ -2543,7 +2596,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../calculate_unccd.py" line="89"/>
         <source>This function coming soon!</source>
-        <translation type="unfinished"/>
+        <translation>ستصدر هذه الخاصية قريباً!</translation>
     </message>
     <message>
         <location filename="../calculate_unccd.py" line="106"/>
@@ -2553,7 +2606,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../calculate_unccd.py" line="106"/>
         <source>Initial and final year are less 5 years apart in - results will be more reliable if more data (years) are included in the analysis.</source>
-        <translation type="unfinished"/>
+        <translation>تفصل بين العام الأول والعام الأخير 5 سنوات - ستكون النتائج أكثر موثوقية إذا تم تضمين المزيد من البيانات (السنوات) في التحليل.</translation>
     </message>
 </context>
 <context encoding="UTF-8">
@@ -2601,22 +2654,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateUNCCDReport.ui" line="300"/>
         <source>Execution name:</source>
-        <translation type="unfinished"/>
+        <translation>اسم التنفيذ:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUNCCDReport.ui" line="307"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt; &lt;head/&gt; &lt;body&gt; &lt;p&gt; مدخل الاسم الذي سيتم تعيينه لمهمة التنفيذ، إذا لم يتم ملؤه، فسيتم استخدام اسم الخوارزمية كاسم للمهمة.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUNCCDReport.ui" line="314"/>
         <source>Notes:</source>
-        <translation type="unfinished"/>
+        <translation>الملاحظات:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUNCCDReport.ui" line="339"/>
         <source>User notes associated with the executed task.</source>
-        <translation type="unfinished"/>
+        <translation>ملاحظات المستخدم المرتبطة بالمهمة المنفذة.</translation>
     </message>
     <message encoding="UTF-8">
         <location filename="../gui/DlgCalculateUNCCDReport.ui" line="373"/>
@@ -2748,27 +2801,27 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="262"/>
         <source>Execution name:</source>
-        <translation type="unfinished"/>
+        <translation>اسم التنفيذ:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="269"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt; &lt;head/&gt; &lt;body&gt; &lt;p&gt; مدخل الاسم الذي سيتم تعيينه لمهمة التنفيذ، إذا لم يتم ملؤه، فسيتم استخدام اسم الخوارزمية كاسم للمهمة.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="276"/>
         <source>Notes:</source>
-        <translation type="unfinished"/>
+        <translation>الملاحظات:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="301"/>
         <source>User notes associated with the executed task.</source>
-        <translation type="unfinished"/>
+        <translation>ملاحظات المستخدم المرتبطة بالمهمة المنفذة.</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="308"/>
         <source>Advanced configuration</source>
-        <translation type="unfinished"/>
+        <translation>التكوين المتقدم</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanData.ui" line="323"/>
@@ -2870,22 +2923,22 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../gui/DlgCalculateUrbanSummaryTable.ui" line="175"/>
         <source>Execution name:</source>
-        <translation type="unfinished"/>
+        <translation>اسم التنفيذ:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanSummaryTable.ui" line="182"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Input for the name that will be assigned to the execution task, if not filled the algorithm name will be used as the task name.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;html&gt; &lt;head/&gt; &lt;body&gt; &lt;p&gt; مدخل الاسم الذي سيتم تعيينه لمهمة التنفيذ، إذا لم يتم ملؤه، فسيتم استخدام اسم الخوارزمية كاسم للمهمة.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanSummaryTable.ui" line="189"/>
         <source>Notes:</source>
-        <translation type="unfinished"/>
+        <translation>الملاحظات:</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanSummaryTable.ui" line="214"/>
         <source>User notes associated with the executed task.</source>
-        <translation type="unfinished"/>
+        <translation>ملاحظات المستخدم المرتبطة بالمهمة المنفذة.</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateUrbanSummaryTable.ui" line="248"/>

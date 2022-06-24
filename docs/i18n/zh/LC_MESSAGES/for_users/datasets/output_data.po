@@ -963,175 +963,175 @@ msgstr "41"
 
 #: ../../source/for_users/datasets/output_data.rst:374
 msgid "Wetland - Forest"
-msgstr ""
+msgstr "湿地——森林"
 
 #: ../../source/for_users/datasets/output_data.rst:376
 msgid "42"
-msgstr ""
+msgstr "42"
 
 #: ../../source/for_users/datasets/output_data.rst:376
 msgid "Wetland - Grassland"
-msgstr ""
+msgstr "湿地——草原"
 
 #: ../../source/for_users/datasets/output_data.rst:378
 msgid "43"
-msgstr ""
+msgstr "43"
 
 #: ../../source/for_users/datasets/output_data.rst:378
 msgid "Wetland - Cropland"
-msgstr ""
+msgstr "湿地——农田"
 
 #: ../../source/for_users/datasets/output_data.rst:380
 msgid "45"
-msgstr ""
+msgstr "45"
 
 #: ../../source/for_users/datasets/output_data.rst:380
 msgid "Wetland - Artificial"
-msgstr ""
+msgstr "湿地——人工"
 
 #: ../../source/for_users/datasets/output_data.rst:382
 msgid "46"
-msgstr ""
+msgstr "46"
 
 #: ../../source/for_users/datasets/output_data.rst:382
 msgid "Wetland - Other land"
-msgstr ""
+msgstr "湿地——其他土地"
 
 #: ../../source/for_users/datasets/output_data.rst:384
 msgid "47"
-msgstr ""
+msgstr "47"
 
 #: ../../source/for_users/datasets/output_data.rst:384
 msgid "Wetland - Water body"
-msgstr ""
+msgstr "湿地——水体"
 
 #: ../../source/for_users/datasets/output_data.rst:386
 msgid "51"
-msgstr ""
+msgstr "51"
 
 #: ../../source/for_users/datasets/output_data.rst:386
 msgid "Artificial - Forest"
-msgstr ""
+msgstr "人工——森林"
 
 #: ../../source/for_users/datasets/output_data.rst:388
 msgid "52"
-msgstr ""
+msgstr "52"
 
 #: ../../source/for_users/datasets/output_data.rst:388
 msgid "Artificial - Grassland"
-msgstr ""
+msgstr "人工——草原"
 
 #: ../../source/for_users/datasets/output_data.rst:390
 msgid "53"
-msgstr ""
+msgstr "53"
 
 #: ../../source/for_users/datasets/output_data.rst:390
 msgid "Artificial - Cropland"
-msgstr ""
+msgstr "人工——农田"
 
 #: ../../source/for_users/datasets/output_data.rst:392
 msgid "54"
-msgstr ""
+msgstr "54"
 
 #: ../../source/for_users/datasets/output_data.rst:392
 msgid "Artificial - Wetland"
-msgstr ""
+msgstr "人工——湿地"
 
 #: ../../source/for_users/datasets/output_data.rst:394
 msgid "56"
-msgstr ""
+msgstr "56"
 
 #: ../../source/for_users/datasets/output_data.rst:394
 msgid "Artificial - Other land"
-msgstr ""
+msgstr "人工——其他土地"
 
 #: ../../source/for_users/datasets/output_data.rst:396
 msgid "57"
-msgstr ""
+msgstr "57"
 
 #: ../../source/for_users/datasets/output_data.rst:396
 msgid "Artificial - Water body"
-msgstr ""
+msgstr "人工——水体"
 
 #: ../../source/for_users/datasets/output_data.rst:398
 msgid "Other land - Forest"
-msgstr ""
+msgstr "其他土地——森林"
 
 #: ../../source/for_users/datasets/output_data.rst:400
 msgid "Other land - Grassland"
-msgstr ""
+msgstr "其他土地——草原"
 
 #: ../../source/for_users/datasets/output_data.rst:402
 msgid "63"
-msgstr ""
+msgstr "63"
 
 #: ../../source/for_users/datasets/output_data.rst:402
 msgid "Other land - Cropland"
-msgstr ""
+msgstr "其他土地——农田"
 
 #: ../../source/for_users/datasets/output_data.rst:404
 msgid "64"
-msgstr ""
+msgstr "64"
 
 #: ../../source/for_users/datasets/output_data.rst:404
 msgid "Other land - Wetland"
-msgstr ""
+msgstr "其他土地——湿地"
 
 #: ../../source/for_users/datasets/output_data.rst:406
 msgid "65"
-msgstr ""
+msgstr "65"
 
 #: ../../source/for_users/datasets/output_data.rst:406
 msgid "Other land - Artificial"
-msgstr ""
+msgstr "其他土地——人工"
 
 #: ../../source/for_users/datasets/output_data.rst:408
 msgid "67"
-msgstr ""
+msgstr "67"
 
 #: ../../source/for_users/datasets/output_data.rst:408
 msgid "Other land - Water body"
-msgstr ""
+msgstr "其他土地——水体"
 
 #: ../../source/for_users/datasets/output_data.rst:410
 msgid "Water body - Forest"
-msgstr ""
+msgstr "水体——森林"
 
 #: ../../source/for_users/datasets/output_data.rst:412
 msgid "Water body - Grassland"
-msgstr ""
+msgstr "水体——草原"
 
 #: ../../source/for_users/datasets/output_data.rst:414
 msgid "73"
-msgstr ""
+msgstr "73"
 
 #: ../../source/for_users/datasets/output_data.rst:414
 msgid "Water body - Cropland"
-msgstr ""
+msgstr "水体——农田"
 
 #: ../../source/for_users/datasets/output_data.rst:416
 msgid "74"
-msgstr ""
+msgstr "74"
 
 #: ../../source/for_users/datasets/output_data.rst:416
 msgid "Water body - Wetland"
-msgstr ""
+msgstr "水体——湿地"
 
 #: ../../source/for_users/datasets/output_data.rst:418
 msgid "75"
-msgstr ""
+msgstr "75"
 
 #: ../../source/for_users/datasets/output_data.rst:418
 msgid "Water body - Artificial"
-msgstr ""
+msgstr "水体——人工"
 
 #: ../../source/for_users/datasets/output_data.rst:420
 msgid "76"
-msgstr ""
+msgstr "76"
 
 #: ../../source/for_users/datasets/output_data.rst:420
 msgid "Water body - Other land"
-msgstr ""
+msgstr "水体——其他土地"
 
 #: ../../source/for_users/datasets/output_data.rst:424
 #: ../../source/for_users/datasets/output_data.rst:440
@@ -1147,28 +1147,28 @@ msgid ""
 "Percentage change in soil organic carbon content (0 - 30 cm depth) from "
 "baseline to target year. Positive values indicate increase, negative values "
 "indicate decrease."
-msgstr ""
+msgstr "从基线到目标年份的土壤有机碳含量（0–30 厘米深度）的百分比变化。正值表示增加，负值表示减少。"
 
 #: ../../source/for_users/datasets/output_data.rst:447
 msgid ""
 "Soil organic carbon content (0 - 30 cm depth) in metric tons per hectare"
-msgstr ""
+msgstr "以每公顷公吨计的土壤有机碳含量（0–30 cm 深度）"
 
 #: ../../source/for_users/datasets/output_data.rst:452
 msgid "Drought hazard, vulnerability, and exposure"
-msgstr ""
+msgstr "干旱危害、脆弱性和暴露"
 
 #: ../../source/for_users/datasets/output_data.rst:456
 msgid "Standardized Precipitation Index (SPI)"
-msgstr "标准化降水指数（SPI）"
+msgstr "标准化降水指数 (SPI)"
 
 #: ../../source/for_users/datasets/output_data.rst:463
 msgid "Standardized precipitation index, scaled * 1000"
-msgstr ""
+msgstr "标准化降水指数，缩放 * 1000"
 
 #: ../../source/for_users/datasets/output_data.rst:468
 msgid "Population at maximum drought"
-msgstr ""
+msgstr "最大干旱人口"
 
 #: ../../source/for_users/datasets/output_data.rst:470
 msgid ""
@@ -1178,101 +1178,104 @@ msgid ""
 " drought. For the purpose of these analyses, drought is defined as an SPI "
 "less than -1.0 (a lag 12 SPI is the default used in the tool)."
 msgstr ""
+"作为人口受干旱影响的指标，Trends.Earth "
+"的干旱工具会生成一个图层，用于评估最大干旱时的总人口（或男性或女性人口，取决于用户所做的选择）。出于这些分析的目的，干旱被定义为 SPI 小于 "
+"-1.0（滞后 12 SPI 是此工具中使用的默认值）。"
 
 #: ../../source/for_users/datasets/output_data.rst:481
 msgid "Any negative value"
-msgstr ""
+msgstr "任何负值"
 
 #: ../../source/for_users/datasets/output_data.rst:481
 msgid ""
 "A positive value indicates a pixel **was** exposed to drought (defined as "
 "SPI < -1) during a particular (typically four- year) period. The pixel value"
 " indicates the population of the pixel at the time of maximum drought."
-msgstr ""
+msgstr "正值表示像素在特定（通常为四年）时期**曾**受干旱影响（定义为 SPI < -1）。像素值表示最大干旱时像素的人口。"
 
 #: ../../source/for_users/datasets/output_data.rst:486
 msgid "Any positive value"
-msgstr ""
+msgstr "任何正值"
 
 #: ../../source/for_users/datasets/output_data.rst:486
 msgid ""
 "A positive value indicates a pixel **was not** exposed to drought during a "
 "particular (typically four-year) period. The pixel value indicates the "
 "maximum population of the pixel during the period."
-msgstr ""
+msgstr "正值表示像素在特定（通常为四年）时期**未曾**受干旱影响。像素值表示此时期内像素的最大人口数量。"
 
 #: ../../source/for_users/datasets/output_data.rst:494
 msgid "Sustainable urbanization (SDG 11.3.1)"
-msgstr ""
+msgstr "可持续城市化 (SDG 11.3.1)"
 
 #: ../../source/for_users/datasets/output_data.rst:498
 #: ../../source/for_users/datasets/output_data.rst:505
 msgid "Urban"
-msgstr ""
+msgstr "城市"
 
 #: ../../source/for_users/datasets/output_data.rst:507
 msgid "Suburban"
-msgstr ""
+msgstr "郊区"
 
 #: ../../source/for_users/datasets/output_data.rst:509
 msgid "Built-up rural"
-msgstr ""
+msgstr "建成的农村"
 
 #: ../../source/for_users/datasets/output_data.rst:511
 msgid "Open space (fringe)"
-msgstr ""
+msgstr "空地（边缘）"
 
 #: ../../source/for_users/datasets/output_data.rst:513
 msgid "Open space (captured)"
-msgstr ""
+msgstr "空地（已捕获）"
 
 #: ../../source/for_users/datasets/output_data.rst:515
 msgid "Open space (rural)"
-msgstr ""
+msgstr "空地（农村）"
 
 #: ../../source/for_users/datasets/output_data.rst:517
 msgid "Open space (fringe water)"
-msgstr ""
+msgstr "空地（边缘水）"
 
 #: ../../source/for_users/datasets/output_data.rst:519
 msgid "8"
-msgstr ""
+msgstr "8"
 
 #: ../../source/for_users/datasets/output_data.rst:519
 msgid "Open space (captured water)"
-msgstr ""
+msgstr "空地（捕获的水）"
 
 #: ../../source/for_users/datasets/output_data.rst:521
 msgid "9"
-msgstr ""
+msgstr "9"
 
 #: ../../source/for_users/datasets/output_data.rst:521
 msgid "Open space (rural water)"
-msgstr ""
+msgstr "空地（农村的水）"
 
 #: ../../source/for_users/datasets/output_data.rst:525
 msgid "Urban series"
-msgstr ""
+msgstr "都市系列"
 
 #: ../../source/for_users/datasets/output_data.rst:532
 msgid "Water"
-msgstr ""
+msgstr "水"
 
 #: ../../source/for_users/datasets/output_data.rst:534
 msgid "Built up by 2000"
-msgstr ""
+msgstr "2000 年建成"
 
 #: ../../source/for_users/datasets/output_data.rst:536
 msgid "Built up by 2005"
-msgstr ""
+msgstr "2005 年建成"
 
 #: ../../source/for_users/datasets/output_data.rst:538
 msgid "Built up by 2010"
-msgstr ""
+msgstr "2010 年建成"
 
 #: ../../source/for_users/datasets/output_data.rst:540
 msgid "Built up by 2015"
-msgstr ""
+msgstr "2015 年建成"
 
 #: ../../source/for_users/datasets/output_data.rst:544
 msgid "Population"
@@ -1280,16 +1283,16 @@ msgstr "人口"
 
 #: ../../source/for_users/datasets/output_data.rst:547
 msgid "Population density"
-msgstr ""
+msgstr "人口密度"
 
 #: ../../source/for_users/datasets/output_data.rst:554
 #: ../../source/for_users/datasets/output_data.rst:570
 msgid "Population density in persons per sq km"
-msgstr ""
+msgstr "每平方公里人口密度"
 
 #: ../../source/for_users/datasets/output_data.rst:558
 msgid "Population (total, male, or female)"
-msgstr ""
+msgstr "人口（总人数、男性或女性）"
 
 #: ../../source/for_users/datasets/output_data.rst:560
 msgid ""
@@ -1299,6 +1302,8 @@ msgid ""
 "female population. The pixels values in each all are coded the same way, and"
 " refer to actual population counts per grid cell."
 msgstr ""
+"此输出使用来自 `WorldPop <https://www.worldpop.org>`_ 项目的数据。根据 Trends.Earth "
+"中使用的工具，人口输出可以是：总人口（男性和女性）、总男性人口或总女性人口。每个当中的像素值都以相同的方式编码，并参考每个网格单元的实际人口计数。"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"

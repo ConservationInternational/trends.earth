@@ -24,7 +24,7 @@ msgstr ""
 #: ../../source/for_users/datasets/sen2svis.md:5
 msgid ""
 "Trends.Earth Global Land Productivity datasets at 10-m spatial resolution"
-msgstr ""
+msgstr "Trends.Earth 10 米空间分辨率的全球土地生产力数据集"
 
 #: ../../source/for_users/datasets/sen2svis.md:7
 msgid ""
@@ -41,6 +41,10 @@ msgid ""
 "NDVI, the 2-band Enhanced Vegetation Index- EVI2, and the Modified Soil "
 "Adjusted Vegetation Index – MSAVI."
 msgstr ""
+"全球地理空间数据集，代表 2018 年至 2021 年 10 米空间分辨率的年度整体土地生产力，观测差距最小。将谐波模型应用于源自 Sentinel 2"
+" 多光谱仪器 A 和 B "
+"图像的植被指数，以最大程度地减少主要由于云层覆盖而丢失优质像素的影响。遥感植被指数已被广泛用作土地生产力的代表和监测植被状况，因为它们依赖于众所周知的光合作用和电磁频谱窄带之间的生物物理相互作用。Trends.Earth"
+" 10 米全球土地生产力基于三个植被指数生成：归一化差异植被指数——NDVI、2 波段增强植被指数——EVI2 和改良土壤调整植被指数——MSAVI。"
 
 #: ../../source/for_users/datasets/sen2svis.md:19
 msgid ""
@@ -49,39 +53,41 @@ msgid ""
 "South excluding Antarctica and are available at annual steps from 2018 to "
 "2021. Theoretically, pixel values are as follows:"
 msgstr ""
+"Trends.Earth 空间分辨率为 10 米的土地生产力数据集，几乎涵盖了从东 180° 到西 180°，和从北纬 80° 到南纬 "
+"80°（不包括南极洲）的所有陆地像素，并在 2018 年至 2021 年期间按年提供。理论上，像素值如下："
 
 #: ../../source/for_users/datasets/sen2svis.md:0
 msgid "VI"
-msgstr ""
+msgstr "VI"
 
 #: ../../source/for_users/datasets/sen2svis.md:0
 msgid "Maximum value"
-msgstr ""
+msgstr "最大值"
 
 #: ../../source/for_users/datasets/sen2svis.md:0
 msgid "Minimum value"
-msgstr ""
+msgstr "最小值"
 
 #: ../../source/for_users/datasets/sen2svis.md:0
 #: ../../source/for_users/datasets/sen2svis.md:0
 msgid "EVI2"
-msgstr ""
+msgstr "EVI2"
 
 #: ../../source/for_users/datasets/sen2svis.md:0
 msgid "1.25"
-msgstr ""
+msgstr "1.25"
 
 #: ../../source/for_users/datasets/sen2svis.md:0
 msgid "-0.7"
-msgstr ""
+msgstr "-0.7"
 
 #: ../../source/for_users/datasets/sen2svis.md:0
 msgid "1.5"
-msgstr ""
+msgstr "1.5"
 
 #: ../../source/for_users/datasets/sen2svis.md:0
 msgid "-0.5"
-msgstr ""
+msgstr "-0.5"
 
 #: ../../source/for_users/datasets/sen2svis.md:0
 msgid "NDVI"
@@ -99,4 +105,4 @@ msgstr "-1"
 msgid ""
 "However, please note that in real life actual values are greater than 0, "
 "excepts for exceptionally dark pixels, such those covering water bodies."
-msgstr ""
+msgstr "但是请注意，在现实生活中，实际值大于 0，除了特别暗的像素，例如覆盖水体的像素。"

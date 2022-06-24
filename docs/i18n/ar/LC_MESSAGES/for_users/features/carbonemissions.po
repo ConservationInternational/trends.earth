@@ -24,11 +24,11 @@ msgstr ""
 
 #: ../../source/for_users/features/carbonemissions.rst:4
 msgid "Carbon emissions from deforestation"
-msgstr ""
+msgstr "انبعاثات الكربون الناتجة عن إزالة الغابات"
 
 #: ../../source/for_users/features/carbonemissions.rst:7
 msgid "Background"
-msgstr ""
+msgstr "معلومات أساسية"
 
 #: ../../source/for_users/features/carbonemissions.rst:9
 msgid ""
@@ -42,26 +42,38 @@ msgid ""
 "attributed to wildfires, shifting agriculture, forestry, urbanization and "
 "commodity driven deforestation (Curtis et al., 2019)."
 msgstr ""
+"تخزن الغابات حول العالم الكربون الذي يمكن إطلاقه كثاني أكسيد الكربون مرة "
+"أخرى في الغلاف الجوي بسبب التدهور أو إزالة الغابات مما يؤدي إلى تغير المناخ."
+" بين عامي 2001 و2020، قلت مساحة تغطية الغابات العالمية بنسبة 10٪ أو 411 "
+"مليون هكتار، مما أدى إلى إطلاق 165 جيجا طن من انبعاثات ثاني أكسيد الكربون "
+"(UMD & WRI, 2022). هناك مؤشر متزايد حيث تؤدي الخسائر الكبيرة في الغابات "
+"البدائية الاستوائية إلى تحويل مناطق مثل غابات الأمازون المطيرة من مصرف كربون"
+" إلى مصدر الكربون (Bacchini et al., 2017). ترجع أسباب هذه الخسارة إلى حرائق "
+"الغابات والزراعة المتحركة والتحريج والتحضر وإزالة الغابات المدفوعة بتأمين "
+"السلع الأساسية (Curtis et al., 2019)."
 
 #: ../../source/for_users/features/carbonemissions.rst:15
 msgid "Rationale for Monitoring"
-msgstr ""
+msgstr "مبررات المراقبة"
 
 #: ../../source/for_users/features/carbonemissions.rst:17
 msgid ""
 "Monitoring deforestation is the first step to understand the cause of tree "
 "cover loss and to plan interventions for preventing it."
 msgstr ""
+"مراقبة إزالة الغابات هي الخطوة الأولى لفهم سبب فقدان الغطاء الشجري والتخطيط "
+"للتدخلات لمنع فقدانه."
 
 #: ../../source/for_users/features/carbonemissions.rst:20
 msgid ""
 "Refer to the :ref:`tut_forest_carbon` for the tutorial to use this "
 "methodology and data."
 msgstr ""
+"راجع :ref:`tut_forest_carbon` لمعرفة طريقة استخدام هذه المنهجية والبيانات."
 
 #: ../../source/for_users/features/carbonemissions.rst:23
 msgid "Indicator and data needs"
-msgstr ""
+msgstr "احتياجات المؤشر والبيانات"
 
 #: ../../source/for_users/features/carbonemissions.rst:25
 msgid ""
@@ -72,12 +84,17 @@ msgid ""
 "area for the analysis. In order to define the baseline forest area, they "
 "will assign a threshold to define forests."
 msgstr ""
+"يسمح Trends.Earth للمستخدم بتحليل مساحة الغطاء الغابوي والكربون المخزن في "
+"الغابات وإزالة الغابات والانبعاثات المقدرة الناتجة عن إزالة الغابات داخل "
+"منطقة معينة في الغابات البرية في أي مكان على الأرض. يُطلب من المستخدم أولاً "
+"تحديد السنوات لمراقبة المنطقة المحددة المراد تحليلها. من أجل تحديد مساحة "
+"الغابات الأساسية، سيقوم المستخدم بتحديد حد أدنى لتعيين الغابات."
 
 #: ../../source/for_users/features/carbonemissions.rst:33
 msgid ""
 "The definition of canopy cover should be changed to accommodate the specific"
 " area of interest."
-msgstr "يجب تغيير تعريف غطاء المظلة لاستيعاب منطقة الاهتمام المحددة."
+msgstr "يجب تغيير تعريف المظلات الشجرية لاستيعاب المنطقة المحددة."
 
 #: ../../source/for_users/features/carbonemissions.rst:32
 msgid ""
@@ -86,12 +103,19 @@ msgid ""
 "definition can change for arid regions. For more information, please see the"
 " publication: `Quantification of global gross forest cover`_ \""
 msgstr ""
+"تحدد قاعدة البيانات الغطاء الشجري العالمي استناداً إلى النسبة المئوية "
+"للمظلات الشجرية في عام 2000. تشير العديد من الدراسات إلى نسبة 25٪ إلى 30٪ "
+"كحد أدنى لتعيين المنطقة كغابة، ومع ذلك يمكن أن يتغير هذا التعريف للمناطق "
+"القاحلة. لمزيد من المعلومات، يرجى الاطلاع على المنشور: `Quantification of "
+"global gross forest cover`_ \""
 
 #: ../../source/for_users/features/carbonemissions.rst:38
 msgid ""
 "The region is then selected using the pre-existing national/sub-national "
 "boundaries, a coordinate or a custom uploaded dataset."
 msgstr ""
+"يتم بعد ذلك تحديد المنطقة باستخدام الحدود الوطنية/دون الوطنية الموجودة "
+"مسبقاً أو إحداثيات أو قاعدة بيانات مخصصة تم تحميلها."
 
 #: ../../source/for_users/features/carbonemissions.rst:41
 msgid ""
@@ -122,10 +146,14 @@ msgid ""
 "dataset, or upload a custom biomass dataset and to select the method for "
 "calculating the root to shoot ratio for below ground biomass."
 msgstr ""
+"يمكن للمستخدمين تعيين ***الإعدادات المتقدمة** لاستخدام قاعدة بيانات كتلة "
+"حيوية أخرى، أو رفع قاعدة بيانات كتلة حيوية مخصصة وتحديد طريقة حساب نسبة وزن "
+"الجذر إلى وزن المجموع الخضري للكتلة الحيوية الموجودة تحت الأرض."
 
 #: ../../source/for_users/features/carbonemissions.rst:61
 msgid "The table below list the biomass datasets available in Trends.Earth:"
 msgstr ""
+"يسرد الجدول أدناه قواعد بيانات الكتلة الحيوية المتوفرة على Trends.Earth:"
 
 #: ../../source/for_users/features/carbonemissions.rst:66
 msgid ""
@@ -136,14 +164,19 @@ msgid ""
 "analysis. The first is the dataset visualizing the estimated change in "
 "biomass:"
 msgstr ""
+"توفر النتائج تفصيلاً سنوياً للغطاء الغابوي وفقدان الغابات والكربون (tC) "
+"المخزن وانبعاثات الكربون (tCO2) للمنطقة وتلخيص لحالة الغطاء الأرضي الأساسي "
+"والغطاء الأرضي للسنة الماضية وفقدان مساحة الغابات وفقدان الكربون وانبعاثات "
+"الكربون على مدار الفترة بأكملها. هناك نوعان من النواتج المكانية من التحليل. "
+"الأول هو قاعدة البيانات التي تصور التغيير المقدر في الكتلة الحيوية:"
 
 #: ../../source/for_users/features/carbonemissions.rst:73
 msgid "The second is the forest loss layer for the region:"
-msgstr ""
+msgstr "والثاني هو طبقة الغابات المفقودة للمنطقة:"
 
 #: ../../source/for_users/features/carbonemissions.rst:78
 msgid "**Citations:**"
-msgstr ""
+msgstr "**المراجع:**"
 
 #: ../../source/for_users/features/carbonemissions.rst:80
 msgid ""
@@ -152,6 +185,12 @@ msgid ""
 "integrated pan-tropical biomass map using multiple reference datasets. "
 "Global Change Biology, 22, pp. 1406–1420."
 msgstr ""
+"Avitabile, V., Herold, M., Heuvelink, G. B. M., Lewis, S. L., Phillips, O. "
+"L., Asner, G. P., Armston, J., Ashton, P. S., Banin, L. et al., 2016. An "
+"integrated pan-tropical biomass map using multiple reference datasets (خريطة"
+" الكتلة الحيوية المتكاملة لعموم المناطق الاستوائية باستخدام قواعد بيانات "
+"مرجعية متعددة). Global Change Biology (بيولوجيا التغيير العالمي)، 22, pp. "
+"1406–1420"
 
 #: ../../source/for_users/features/carbonemissions.rst:81
 msgid ""
@@ -161,6 +200,12 @@ msgid ""
 "biomass mapping.  Global Vegetation Monitoring and Modeling,  3 – 7 February"
 " 2014, Avignon (France)."
 msgstr ""
+"Avitabile, V., Herold, M., Lewis, S.L., Phillips, O.L., Aguilar-"
+"Amuchastegui, N., Asner, G. P., Brienen, R.J.W., DeVries, B., Cazzolla "
+"Gatti, R. et al., 2014. Comparative analysis and fusion for improved global "
+"biomass mapping.  Global Vegetation Monitoring and Modeling (التحليل المقارن"
+" والاندماج لتحسين رسم خرائط الكتلة الحيوية العالمية. مراقبة الغطاء النباتي "
+"والنمذجة العالمية),  3 – 7 February 2014, Avignon (France)."
 
 #: ../../source/for_users/features/carbonemissions.rst:82
 msgid ""
@@ -169,6 +214,11 @@ msgid ""
 "aboveground measurements of gain and loss.\" 358 (6360): 230-234. "
 "https://www.science.org/doi/10.1126/science.aam5962"
 msgstr ""
+"Baccini, A., W. Walker, L. Carvalho, M. Farina, D. Sulla-Menashe and R. A. "
+"Houghton, 2017. \"Tropical forests are a net carbon source based on "
+"aboveground measurements of gain and loss.\"(الغابات الاستوائية هي مصدر صافي"
+" للكربون يعتمد على قياسات الكسب والخسارة فوق سطح الأرض) 358 (6360): 230-234."
+" https://www.science.org/doi/10.1126/science.aam5962"
 
 #: ../../source/for_users/features/carbonemissions.rst:83
 msgid ""
@@ -178,12 +228,21 @@ msgid ""
 " improved by carbon-density maps. 2012 Nature Climate Change, "
 "https://doi.org/10.1038/NCLIMATE1354"
 msgstr ""
+"Baccini, A., S J. Goetz, W.S. Walker, N. T. Laporte, M. Sun, D. Sulla-"
+"Menashe, J. Hackler, P.S.A. Beck, R. Dubayah, M.A. Friedl, S. Samanta and R."
+" A. Houghton. Estimated carbon dioxide emissions from tropical deforestation"
+" improved by carbon-density maps.(تحسين انبعاثات ثاني أكسيد الكربون المقدرة "
+"من إزالة الغابات الاستوائية بواسطة خرائط كثافة الكربون). 2012 Nature Climate"
+" Change,(تغير مناخ الطبيعة) https://doi.org/10.1038/NCLIMATE1354"
 
 #: ../../source/for_users/features/carbonemissions.rst:84
 msgid ""
 "Curtis, P.G., C.M. Slay, N.L. Harris, A. Tyukavina, and M.C. Hansen. 2019. "
 "“Classifying Drivers of Global Forest Loss.” Science."
 msgstr ""
+"Curtis, P.G., C.M. Slay, N.L. Harris, A. Tyukavina, and M.C. Hansen. 2019. "
+"“Classifying Drivers of Global Forest Loss.”(تصنيف عوامل فقدان الغابات في "
+"العالم) Science."
 
 #: ../../source/for_users/features/carbonemissions.rst:85
 msgid ""
@@ -191,6 +250,9 @@ msgid ""
 "gross forest cover.\" PNAS. 107 (19) 8650-8655. "
 "https://www.pnas.org/doi/10.1073/pnas.0912668107"
 msgstr ""
+"Hansen, M. C., S. V. Stehman, and P. V. Potapov. \"Quantification of global "
+"gross forest cover.\"(القياس الكمي للغطاء الغابوي الإجمالي العالمي) PNAS. "
+"107 (19) 8650-8655. https://www.pnas.org/doi/10.1073/pnas.0912668107"
 
 #: ../../source/for_users/features/carbonemissions.rst:86
 msgid ""
@@ -201,6 +263,13 @@ msgid ""
 " Science 342 (15 November): 850–53. Data available on-line at: "
 "https://earthenginepartners.appspot.com/science-2013-global-forest."
 msgstr ""
+"Hansen, M. C., P. V. Potapov, R. Moore, M. Hancher, S. A. Turubanova, A. "
+"Tyukavina, D. Thau, S. V. Stehman, S. J. Goetz, T. R. Loveland, A. "
+"Kommareddy, A. Egorov, L. Chini, C. O. Justice, and J. R. G. "
+"Townshend.“High-Resolution Global Maps of 21st-Century Forest Cover "
+"Change.”(خرائط عالمية عالية الدقة لتغير الغطاء الغابوي في القرن الحادي "
+"والعشرين) Science 342 (15 November): 850–53. البيانات متوفرة على الإنترنت من"
+" خلال: https://earthenginepartners.appspot.com/science-2013-global-forest."
 
 #: ../../source/for_users/features/carbonemissions.rst:87
 msgid ""
@@ -208,18 +277,30 @@ msgid ""
 "National Greenhouse Gas Inventories � Volume 4. Egglestone, H.S., L. "
 "Buendia, K. Miwa, T. Ngara and K. Tanabe (Eds)."
 msgstr ""
+"Intergovernmental Panel on Climate Change (الهيئة الحكومية الدولية المعنية "
+"بتغير المناخ) (IPCC), 2006. IPCC Guidelines for National Greenhouse Gas "
+"Inventories (منهجيات ومبادئ توجيهية للعمليات الوطنية لحصر غازات الاحتباس "
+"الحراري) � Volume 4. Egglestone, H.S., L. Buendia, K. Miwa, T. Ngara and K. "
+"Tanabe (Eds)."
 
 #: ../../source/for_users/features/carbonemissions.rst:88
 msgid ""
 "Intergovernmental Panel on Climate Change (IPCC), IPCC/IGES, Hayama, Japan. "
 "http://www.ipcc-nggip.iges.or.jp/public/2006gl/vol4.html"
 msgstr ""
+"Intergovernmental Panel on Climate Change (الهيئة الحكومية الدولية المعنية "
+"بتغير المناخ) (IPCC), IPCC/IGES, Hayama, Japan. http://www.ipcc-"
+"nggip.iges.or.jp/public/2006gl/vol4.html"
 
 #: ../../source/for_users/features/carbonemissions.rst:89
 msgid ""
 "Mokany, K., R. Raison, A.S. Prokushkin. Critical analysis of root: shoot "
 "ratios in terrestrial biomesGlob. Chang. Biol., 12 (1) (2006), pp. 84-96"
 msgstr ""
+"Mokany, K., R. Raison, A.S. Prokushkin. Critical analysis of root: shoot "
+"ratios in terrestrial biomes (تحليل نقدي لنسب وزن الجذر إلى وزن المجموع "
+"الخضري في المناطق الأحيائية البرية) Glob. Chang. Biol., 12 (1) (2006), pp. "
+"84-96"
 
 #: ../../source/for_users/features/carbonemissions.rst:90
 msgid ""
@@ -229,6 +310,13 @@ msgid ""
 "hemisphere: Spatially explicit estimates for 2010 derived from Envisat ASAR."
 " Remote Sensing of Environment, 168, pp. 316-334."
 msgstr ""
+"Santoro, M., Beaudoin, A., Beer, C., Cartus, O., Fransson, J.E.S., Hall, "
+"R.J., Pathe, C., Schmullius, C., Schepaschenko, D., Shvidenko, A., Thurner, "
+"M. and Wegmüller, U., 2015. Forest growing stock volume of the northern "
+"hemisphere: Spatially explicit estimates for 2010 derived from Envisat ASAR."
+" Remote Sensing of Environment (حجم مخزون نمو الغابات في نصف الكرة الشمالي: "
+"تقديرات مكانية محددة لعام 2010 مستمدة من Envisat ASAR. استشعار البيئة عن "
+"بعد) , 168, pp. 316-334."
 
 #: ../../source/for_users/features/carbonemissions.rst:91
 msgid ""
@@ -236,78 +324,82 @@ msgid ""
 "Forest Loss\". Accessed through Global Forest Watch: "
 "https://www.globalforestwatch.org/dashboards/global/?category=summary&location=WyJnbG9iYWwiXQ%3D%3D&map=eyJkYXRhc2V0cyI6W3sib3BhY2l0eSI6MC43LCJ2aXNpYmlsaXR5Ijp0cnVlLCJkYXRhc2V0IjoicHJpbWFyeS1mb3Jlc3RzIiwibGF5ZXJzIjpbInByaW1hcnktZm9yZXN0cy0yMDAxIl19LHsiZGF0YXNldCI6InBvbGl0aWNhbC1ib3VuZGFyaWVzIiwibGF5ZXJzIjpbImRpc3B1dGVkLXBvbGl0aWNhbC1ib3VuZGFyaWVzIiwicG9saXRpY2FsLWJvdW5kYXJpZXMiXSwiYm91bmRhcnkiOnRydWUsIm9wYWNpdHkiOjEsInZpc2liaWxpdHkiOnRydWV9LHsiZGF0YXNldCI6InRyZWUtY292ZXItbG9zcyIsImxheWVycyI6WyJ0cmVlLWNvdmVyLWxvc3MiXSwib3BhY2l0eSI6MSwidmlzaWJpbGl0eSI6dHJ1ZSwidGltZWxpbmVQYXJhbXMiOnsic3RhcnREYXRlIjoiMjAwMi0wMS0wMSIsImVuZERhdGUiOiIyMDIwLTEyLTMxIiwidHJpbUVuZERhdGUiOiIyMDIwLTEyLTMxIn0sInBhcmFtcyI6eyJ0aHJlc2hvbGQiOjMwLCJ2aXNpYmlsaXR5Ijp0cnVlfX1dfQ%3D%3D&showMap=true"
 msgstr ""
+"University of Maryland and World Resources Institute. \"Global Primary "
+"Forest Loss\" (فقدان الغابات البدائية على مستوى العالم). يمكن الوصول إليها "
+"من خلال Global Forest Watch: "
+"https://www.globalforestwatch.org/dashboards/global/?category=summary&location=WyJnbG9iYWwiXQ%3D%3D&map=eyJkYXRhc2V0cyI6W3sib3BhY2l0eSI6MC43LCJ2aXNpYmlsaXR5Ijp0cnVlLCJkYXRhc2V0IjoicHJpbWFyeS1mb3Jlc3RzIiwibGF5ZXJzIjpbInByaW1hcnktZm9yZXN0cy0yMDAxIl19LHsiZGF0YXNldCI6InBvbGl0aWNhbC1ib3VuZGFyaWVzIiwibGF5ZXJzIjpbImRpc3B1dGVkLXBvbGl0aWNhbC1ib3VuZGFyaWVzIiwicG9saXRpY2FsLWJvdW5kYXJpZXMiXSwiYm91bmRhcnkiOnRydWUsIm9wYWNpdHkiOjEsInZpc2liaWxpdHkiOnRydWV9LHsiZGF0YXNldCI6InRyZWUtY292ZXItbG9zcyIsImxheWVycyI6WyJ0cmVlLWNvdmVyLWxvc3MiXSwib3BhY2l0eSI6MSwidmlzaWJpbGl0eSI6dHJ1ZSwidGltZWxpbmVQYXJhbXMiOnsic3RhcnREYXRlIjoiMjAwMi0wMS0wMSIsImVuZERhdGUiOiIyMDIwLTEyLTMxIiwidHJpbUVuZERhdGUiOiIyMDIwLTEyLTMxIn0sInBhcmFtcyI6eyJ0aHJlc2hvbGQiOjMwLCJ2aXNpYmlsaXR5Ijp0cnVlfX1dfQ%3D%3D&showMap=true"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr "أيقونة حاسبة"
+msgstr "iconالآلة_الحاسبة"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr "أيقونة المخطط"
+msgstr "iconمخطط_بياني"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr "أيقونة الحافظة"
+msgstr "iconالحافظة"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr "أيقونة التحميل السحابي"
+msgstr "iconتنزيل_من_السحابة"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr "أيقونة Cog"
+msgstr "iconترس"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr "أيقونة حذف مجموعة البيانات"
+msgstr "iconإزالة_قاعدة_بيانات"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
-msgstr "أيقونة الكرة الأرضية"
+msgstr "iconالكرة_الأرضية"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr "أيقونة الرسم البياني"
+msgstr "iconرسم_بياني"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr "أيقونة المعلومات"
+msgstr "iconمعلومات"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr "أيقونة تحميل مجموعة البيانات"
+msgstr "iconتحميل_قاعدة_بيانات"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr "أيقونة التحديد"
+msgstr "iconوضع_علامة"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr "أيقونة فتح دليل مجموعة البيانات"
+msgstr "iconفتح_فهرس_قاعدة_البيانات"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr "أيقونة عرض تفاصيل مجموعة البيانات"
+msgstr "iconعرض_تفاصيل _قاعدة_البيانات"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr "أيقونة مفتاح الربط"
+msgstr "iconمفتاح_ربط"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr "أيقونة المجلد"
+msgstr "iconملف"
 
 #: ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr "أيقونة التقارير"
+msgstr "iconتقارير"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr "أيقونة TrendsEarth"
+msgstr "iconTrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr "أيقونة التصور"
+msgstr "iconالتصوير_المرئي"
 
 #: ../../../<rst_epilog>:37
 msgid "Trends.Earth"
@@ -315,16 +407,16 @@ msgstr "Trends.Earth"
 
 #: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr "شعار CI"
+msgstr "logoمنظمة_CI"
 
 #: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr "شعار Lund"
+msgstr "logoجامعة_لوند"
 
 #: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr "شعار ناسا"
+msgstr "logoوكالة_ناسا"
 
 #: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr "شعار GEF"
+msgstr "logoصندوق_البيئة_العالمي"

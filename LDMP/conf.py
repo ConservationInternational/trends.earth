@@ -25,7 +25,6 @@ tr_conf = tr_conf()
 
 
 TR_ALL_REGIONS = tr_conf.tr("All regions")
-log(f"TR_ALL_REGIONS translated as {TR_ALL_REGIONS}")
 
 
 class AreaSetting(enum.Enum):

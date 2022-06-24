@@ -24,11 +24,11 @@ msgstr ""
 
 #: ../../source/for_users/training/landdegradation.rst:4
 msgid "Land Degradation"
-msgstr ""
+msgstr "Dégradation des terres"
 
 #: ../../source/for_users/training/landdegradation.rst:7
 msgid "Land Degradation Sub-indicators"
-msgstr ""
+msgstr "Sous-indicateurs de la dégradation des terres"
 
 #: ../../source/for_users/training/landdegradation.rst:9
 msgid ""
@@ -39,10 +39,18 @@ msgid ""
 " In this tutorial we will use Colombia as an example, but you can choose any"
 " study area."
 msgstr ""
+"**Objectif** : Apprendre à exécuter les sous-indicateurs de l'ODD 15.3.1 "
+"(changements de la productivité des terres, la couverture terrestre et le "
+"carbone organique du sol) à l'aide de Trends.Earth et des données par "
+"défaut : Trends.Earth (trajectoire, performance et état) pour la "
+"productivité des terres, ESA CCI pour la couverture terrestre et SoilGrids "
+"pour le carbone organique du sol. Dans ce tutoriel, nous utiliserons la "
+"Colombie comme exemple, mais vous pouvez choisir n'importe quelle zone "
+"d'étude."
 
 #: ../../source/for_users/training/landdegradation.rst:11
 msgid "**Estimated time of completion**: 35 minutes"
-msgstr ""
+msgstr "**Temps de finalisation estimé** : 35 minutes"
 
 #: ../../source/for_users/training/landdegradation.rst:13
 #: ../../source/for_users/training/landdegradation.rst:542
@@ -54,12 +62,17 @@ msgid ""
 "Click on the Trends.Earth toolbar within QGIS, and click on the "
 "**Trends.Earth** icon."
 msgstr ""
+"Cliquez sur la barre d'outils Trends.Earth dans QGIS, puis cliquez sur "
+"l'icône **Trends.Earth**."
 
 #: ../../source/for_users/training/landdegradation.rst:20
 msgid ""
 "The **Trends.Earth** menu will open. In the **Algorithm** window, click on "
 "**SDG 15.3.1 - Land degradation** and select **Execute remotely** button."
 msgstr ""
+"Le menu **Trends.Earth** va s'afficher. Dans la fenêtre **Algorithme**, "
+"cliquez sur **ODD 15.3.1 – Dégradation des terres** et sélectionnez le "
+"bouton **Exécuter à distance**."
 
 #: ../../source/for_users/training/landdegradation.rst:26
 #: ../../source/for_users/training/landdegradation.rst:95
@@ -70,6 +83,8 @@ msgid ""
 "The region of interest is already set up in Settings. If you need to change,"
 " select the **Change region** button."
 msgstr ""
+"La région d'intérêt est déjà configurée dans les Paramètres. Si vous "
+"souhaitez la changer, sélectionnez le bouton **Changer de région**."
 
 #: ../../source/for_users/training/landdegradation.rst:29
 #: ../../source/for_users/training/landdegradation.rst:100
@@ -80,6 +95,8 @@ msgid ""
 "Refer to the :ref:`tut_settings` section of this manual for more information"
 " on setting up your area of interest."
 msgstr ""
+"Veuillez consulter la section :ref:`tut_settings` de ce manuel pour plus "
+"d'informations sur la configuration de votre zone d'intérêt."
 
 #: ../../source/for_users/training/landdegradation.rst:31
 msgid ""
@@ -88,15 +105,20 @@ msgid ""
 "progress period (for comparison to baseline)** check box to set the progress"
 " period for reporting period."
 msgstr ""
+"Dans ** l'indicateur ODD15.3.1 (une étape) |boîte de dialogue Dégradation "
+"des terres**, sélectionnez les données **Tendances.Productivité des "
+"terres**. Cochez également la case **Inclure la période de progression (pour"
+" la comparaison avec la base de référence)** pour définir la période de "
+"progression pour la période de rapport."
 
 #: ../../source/for_users/training/landdegradation.rst:36
 msgid "Type in the Execution name and notes."
-msgstr ""
+msgstr "Saisissez le nom et les notes de l'exécution."
 
 #: ../../source/for_users/training/landdegradation.rst:38
 #: ../../source/for_users/training/landdegradation.rst:559
 msgid "Select **Schedule remote execution** button."
-msgstr ""
+msgstr "Sélectionnez le bouton **Planifier l'exécution à distance**."
 
 #: ../../source/for_users/training/landdegradation.rst:40
 msgid ""
@@ -107,14 +129,16 @@ msgid ""
 msgstr ""
 "Une barre bleu clair s'affichera temporairement, indiquant que la tâche a "
 "été soumise avec succès. L'analyse sera exécutée sur les serveurs de Google "
-"et pourrait prendre entre 5 et 15 minutes en fonction de la taille de la "
-"zone d'étude (les grandes zones ont tendance à prendre plus de temps)."
+"et pourrait prendre entre 5 et 15 minutes selon la taille de la zone d'étude"
+" (les grandes zones ont tendance à prendre plus de temps)."
 
 #: ../../source/for_users/training/landdegradation.rst:48
 msgid ""
 "Refer to the :ref:`tut_land_degradation` section of this manual to learn "
 "about custom sub-indicators"
 msgstr ""
+"Veuillez consulter la section :ref:`tut_land_degradation` de ce manuel pour "
+"en savoir plus sur les sous-indicateurs personnalisés"
 
 #: ../../source/for_users/training/landdegradation.rst:48
 msgid ""
@@ -124,6 +148,11 @@ msgid ""
 "<https://www.unccd.int/sites/default/files/relevant-"
 "links/2021-03/Indicator_15.3.1_GPG_v2_29Mar_Advanced-version.pdf>`_."
 msgstr ""
+"ou la section :ref:`background_landdegradation` de ce manuel pour en savoir "
+"plus sur les indicateurs de productivité Trends.Earth développés "
+"conformément au `Guide de bonnes pratiques (Good Practice Guidance, GPG) de "
+"la CNULCD <https://www.unccd.int/sites/default/files/relevant-"
+"links/2021-03/Indicator_15.3.1_GPG_v2_29Mar_Advanced-version.pdf>`_."
 
 #: ../../source/for_users/training/landdegradation.rst:52
 msgid ""
@@ -131,6 +160,10 @@ msgid ""
 "submitted will appear in the menu if the **Download remotely-generated "
 "datasets automatically** is checked in **Advanced settings**."
 msgstr ""
+"Dans le panneau **Trends.Earth**, sélectionnez la fenêtre **Jeux de "
+"données**. La tâche soumise apparaîtra dans le menu si l'option "
+"**Télécharger automatiquement les jeux de données générés à distance** est "
+"cochée dans **Paramètres avancés**."
 
 #: ../../source/for_users/training/landdegradation.rst:56
 #: ../../source/for_users/training/landdegradation.rst:567
@@ -139,19 +172,24 @@ msgid ""
 "Refer to the :ref:`tut_settings` section of this manual to learn more about "
 "**Advanced settings**"
 msgstr ""
-"Consultez la section :ref:`tut_settings` de ce manuel pour en savoir plus "
-"sur les **Advanced settings**."
+"Veuillez consulter la section :ref:`tut_settings` de ce manuel pour en "
+"savoir plus sur les **Paramètres avancés**"
 
 #: ../../source/for_users/training/landdegradation.rst:58
 msgid ""
 "Click on the Refresh button if the analysis does not appear in the menu."
 msgstr ""
+"Cliquez sur le bouton « Actualiser » si l'analyse n'apparaît pas dans le "
+"menu."
 
 #: ../../source/for_users/training/landdegradation.rst:60
 msgid ""
 "Once the task is done, select the add layer drop-down button to **Add "
 "default layers from this dataset to the map**"
 msgstr ""
+"Une fois la tâche terminée, sélectionnez le bouton avec menu déroulant « "
+"Ajouter une couche » pour **Ajouter des couches par défaut à la carte à "
+"partir de ce jeu de données**.  "
 
 #: ../../source/for_users/training/landdegradation.rst:65
 msgid ""
@@ -159,10 +197,14 @@ msgid ""
 "land productivity dynamics, and population disaggregated by gender, will be "
 "added to the map for the region of interest."
 msgstr ""
+"Les données par défaut – dégradation du carbone organique du sol, "
+"dégradation de la couverture terrestre, dynamique de la productivité des "
+"terres et population désagrégée par sexe – seront ajoutées à la carte pour "
+"la région d'intérêt."
 
 #: ../../source/for_users/training/landdegradation.rst:74
 msgid "Calculate SDG 15.3.1 Indicator and UNCCD's SO 2-3"
-msgstr ""
+msgstr "Calculer l'indicateur ODD 15.3.1 et l'OS 2-3 de la CNULCD"
 
 #: ../../source/for_users/training/landdegradation.rst:76
 msgid ""
@@ -172,6 +214,12 @@ msgid ""
 "degradation disaggregated by sex, in raster format and tabular outputs with "
 "areas estimated."
 msgstr ""
+"**Objectif** : Apprendre à intégrer les sous-indicateurs de la couverture "
+"terrestre, de la productivité des terres et du carbone organique du sol pour"
+" calculer l'**indicateur ODD 15.3.1** et l'**indicateur OS 2-3 de la "
+"CNULCD** sur la proportion de la population exposée à la dégradation des "
+"terres ventilée par sexe, au format raster et avec des résultats sous forme "
+"tabulaire avec les superficies estimées."
 
 #: ../../source/for_users/training/landdegradation.rst:78
 #: ../../source/for_users/training/landdegradation.rst:214
@@ -195,6 +243,10 @@ msgid ""
 "tutorials to compute them: :ref:`tut_land_degradation`, "
 ":ref:`tut_custom_lc`, :ref:`tut_custom_lpd`, and :ref:`tut_custom_soc`."
 msgstr ""
+"Vous devez avoir préalablement calculé les sous-indicateurs avant d'exécuter"
+" cet outil. Si ce n'est pas le cas, veuillez consulter les tutoriels "
+"spécifiques suivants pour les calculer : :ref:`tut_land_degradation`, "
+":ref:`tut_custom_lc`, :ref:`tut_custom_lpd`, and :ref:`tut_custom_soc`."
 
 #: ../../source/for_users/training/landdegradation.rst:85
 #: ../../source/for_users/training/landdegradation.rst:479

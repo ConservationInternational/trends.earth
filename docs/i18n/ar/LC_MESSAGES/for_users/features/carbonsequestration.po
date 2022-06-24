@@ -24,11 +24,11 @@ msgstr ""
 
 #: ../../source/for_users/features/carbonsequestration.rst:4
 msgid "Potential carbon sequestration from restoration"
-msgstr ""
+msgstr "النسبة المتوقعة لعزل الكربون عن طريق استعادة الغابات"
 
 #: ../../source/for_users/features/carbonsequestration.rst:7
 msgid "Background"
-msgstr ""
+msgstr "المعلومات الأساسية"
 
 #: ../../source/for_users/features/carbonsequestration.rst:9
 msgid ""
@@ -39,10 +39,16 @@ msgid ""
 "Forest landscape restoration is a natural climate solution for removing "
 "carbon dioxide from the atmosphere through different reforestation efforts."
 msgstr ""
+"يمكن أن تزيل استعادة الغابات 400 جيجا طن من ثاني أكسيد الكربون بحلول عام "
+"2100 (Griscom et. al., 2017)، مما يضعنا على الطريق لتقليل انبعاثات الكربون "
+"لنظل ضمن نطاق هدف اتفاقية باريس للمناخ للعمل على \"بقاء متوسط الزيادة في "
+"درجة حرارة الكوكب تحت درجتين مئويتين فوق مستويات ما قبل الثورة الصناعية\" "
+"(UNFCCC 2015). استعادة المناظر الطبيعية للغابات هي حل مناخي طبيعي لإزالة "
+"ثاني أكسيد الكربون من الغلاف الجوي من خلال جهود إعادة التشجير المختلفة."
 
 #: ../../source/for_users/features/carbonsequestration.rst:15
 msgid "Rationale for Monitoring"
-msgstr ""
+msgstr "مبررات المراقبة"
 
 #: ../../source/for_users/features/carbonsequestration.rst:17
 msgid ""
@@ -51,16 +57,21 @@ msgid ""
 "allows users to estimate the potential climate benefits of different forest "
 "landscape restoration approaches."
 msgstr ""
+"هناك حاجة إلى أدوات لدعم تحديد أولويات استعادة الغابات وتخطيط أنشطة "
+"الاستعادة على أرض الواقع. يسمح هذه النموذج في Trends.Earth للمستخدمين بتقدير"
+" الفوائد المناخية المحتملة لمختلف مناهج استعادة المناظر الطبيعية للغابات."
 
 #: ../../source/for_users/features/carbonsequestration.rst:22
 msgid ""
 "Refer to the :ref:`tut_carbon_sequestration_restoration` for the tutorial to"
 " use this methodology and data."
 msgstr ""
+"راجع :ref:`tut_carbon_sequestration_restoration` لمعرفة طريقة استخدام هذه "
+"المنهجية والبيانات."
 
 #: ../../source/for_users/features/carbonsequestration.rst:25
 msgid "Indicator and data needs"
-msgstr ""
+msgstr "احتياجات المؤشر والبيانات"
 
 #: ../../source/for_users/features/carbonsequestration.rst:27
 msgid ""
@@ -68,6 +79,9 @@ msgid ""
 "mangrove) within a region and length of restoration activity to estimate "
 "change in biomass (CO2 equivalence) for 8 different restoration activities."
 msgstr ""
+"تسمح هذه الوحدة للمستخدمين باختيار نوع الاستعادة (البرية أو الأيكة الساحلية)"
+" داخل المنطقة ومدة نشاط الاستعادة لتقدير التغيير في الكتلة الحيوية (معادلة "
+"ثاني أكسيد الكربون) لـ 8 أنشطة استعادة مختلفة."
 
 #: ../../source/for_users/features/carbonsequestration.rst:33
 msgid ""
@@ -75,6 +89,8 @@ msgid ""
 " national/sub-national boundaries, a coordinate or a custom uploaded "
 "dataset."
 msgstr ""
+"يتم بعد ذلك تحديد سنوات التدخل والمنطقة باستخدام الحدود الوطنية/دون الوطنية "
+"الموجودة مسبقاً أو إحداثيات أو قاعدة بيانات مخصصة تم تحميلها."
 
 #: ../../source/for_users/features/carbonsequestration.rst:36
 msgid ""
@@ -105,10 +121,13 @@ msgid ""
 " output with the change in biomass compared to pre-restoration levels and "
 "final total biomass in tons CO2 equivalence."
 msgstr ""
+"يُظهر Trends.Earth التغيير في الكتلة الحيوية في إطار السيناريوهات الثمانية "
+"ومخرجات مجدولة مع التغيير في الكتلة الحيوية مقارنة بمستويات ما قبل الاستعادة"
+" والكتلة الحيوية الإجمالية النهائية في مكافئ ثاني أكسيد الكربون بالطن."
 
 #: ../../source/for_users/features/carbonsequestration.rst:59
 msgid "**Citations:**"
-msgstr ""
+msgstr "**المراجع:**"
 
 #: ../../source/for_users/features/carbonsequestration.rst:61
 msgid ""
@@ -117,6 +136,12 @@ msgid ""
 "integrated pan-tropical biomass map using multiple reference datasets. "
 "Global Change Biology, 22, pp. 1406–1420."
 msgstr ""
+"Avitabile, V., Herold, M., Heuvelink, G. B. M., Lewis, S. L., Phillips, O. "
+"L., Asner, G. P., Armston, J., Ashton, P. S., Banin, L. et al., 2016. An "
+"integrated pan-tropical biomass map using multiple reference datasets (خريطة"
+" الكتلة الحيوية المتكاملة لعموم المناطق الاستوائية باستخدام قواعد بيانات "
+"مرجعية متعددة). Global Change Biology (بيولوجيا التغيير العالمي)، 22, pp. "
+"1406–1420"
 
 #: ../../source/for_users/features/carbonsequestration.rst:63
 msgid ""
@@ -126,6 +151,12 @@ msgid ""
 "biomass mapping.  Global Vegetation Monitoring and Modeling, 3 – 7 February "
 "2014, Avignon (France)."
 msgstr ""
+"Avitabile, V., Herold, M., Lewis, S.L., Phillips, O.L., Aguilar-"
+"Amuchastegui, N., Asner, G. P., Brienen, R.J.W., DeVries, B., Cazzolla "
+"Gatti, R. et al., 2014. Comparative analysis and fusion for improved global "
+"biomass mapping.  Global Vegetation Monitoring and Modeling (التحليل المقارن"
+" والاندماج لتحسين رسم خرائط الكتلة الحيوية العالمية. مراقبة الغطاء النباتي "
+"والنمذجة العالمية),  3 – 7 February 2014, Avignon (France)."
 
 #: ../../source/for_users/features/carbonsequestration.rst:65
 msgid ""
@@ -133,6 +164,10 @@ msgid ""
 "rates from forest landscape restoration activities. Carbon Balance and "
 "Management 13, 22 (2018)."
 msgstr ""
+"Bernal, B., Murray, L. T. & Pearson, T. R. H. Global carbon dioxide removal "
+"rates from forest landscape restoration activities. Carbon Balance and "
+"Management (المعدلات العالمية لإزالة ثاني أكسيد الكربون من أنشطة استعادة "
+"المناظر الطبيعية للغابات. إدارة توازن الكربون) 13, 22 (2018)."
 
 #: ../../source/for_users/features/carbonsequestration.rst:67
 msgid ""
@@ -141,12 +176,19 @@ msgid ""
 "Global Baseline of Mangrove Extent. Remote Sensing. 2018; 10(10):1669. "
 "https://doi.org/10.3390/rs10101669"
 msgstr ""
+"Bunting P, Rosenqvist A, Lucas RM, Rebelo L-M, Hilarides L, Thomas N, Hardy "
+"A, Itoh T, Shimada M, Finlayson CM. The Global Mangrove Watch—A New 2010 "
+"Global Baseline of Mangrove Extent. Remote Sensing. (مراقبة الأيك الساحلية "
+"على مستوى العالم - أساس عالمي جديد لعام 2010 لنطاق الأيكة الساحلية. "
+"الاستشعار عن بعد.) 2018; 10(10):1669. https://doi.org/10.3390/rs10101669"
 
 #: ../../source/for_users/features/carbonsequestration.rst:69
 msgid ""
 "Griscom, B. W., et. al., 2017. Natural climate solutions. PNAS. 114(44) "
 "11645-11650. https://doi.org/10.1073/pnas.1710465114"
 msgstr ""
+"Griscom, B. W., et. al., 2017. Natural climate solutions. (حلول المناخ "
+"الطبيعي) PNAS. 114(44) 11645-11650. https://doi.org/10.1073/pnas.1710465114"
 
 #: ../../source/for_users/features/carbonsequestration.rst:71
 msgid ""
@@ -156,6 +198,13 @@ msgid ""
 "hemisphere: Spatially explicit estimates for 2010 derived from Envisat ASAR."
 " Remote Sensing of Environment, 168, pp. 316-334."
 msgstr ""
+"Santoro, M., Beaudoin, A., Beer, C., Cartus, O., Fransson, J.E.S., Hall, "
+"R.J., Pathe, C., Schmullius, C., Schepaschenko, D., Shvidenko, A., Thurner, "
+"M. and Wegmüller, U., 2015. Forest growing stock volume of the northern "
+"hemisphere: Spatially explicit estimates for 2010 derived from Envisat ASAR."
+" Remote Sensing of Environment (حجم مخزون نمو الغابات في نصف الكرة الشمالي: "
+"تقديرات مكانية محددة لعام 2010 مستمدة من Envisat ASAR. استشعار البيئة عن "
+"بعد) , 168, pp. 316-334."
 
 #: ../../source/for_users/features/carbonsequestration.rst:73
 msgid ""
@@ -163,78 +212,81 @@ msgid ""
 "Agreement (UNFCCC, Paris). 2015. Available at "
 "unfccc.int/resource/docs/2015/cop21/eng/l09r01.pdf."
 msgstr ""
+"United Nations Framework Convention on Climate Change (اتفاقية الأمم المتحدة"
+" الإطارية بشأن التغير المناخي), COP 21 Climate Agreement (UNFCCC, Paris). "
+"2015. متواجدة على unfccc.int/resource/docs/2015/cop21/eng/l09r01.pdf."
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr "أيقونة حاسبة"
+msgstr "iconالآلة_الحاسبة"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr "أيقونة المخطط"
+msgstr "iconمخطط_بياني"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr "أيقونة الحافظة"
+msgstr "iconالحافظة"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr "أيقونة التحميل السحابي"
+msgstr "iconتنزيل_من_السحابة"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr "أيقونة Cog"
+msgstr "iconترس"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr "أيقونة حذف مجموعة البيانات"
+msgstr "iconإزالة_قاعدة_بيانات"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
-msgstr "أيقونة الكرة الأرضية"
+msgstr "iconالكرة_الأرضية"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr "أيقونة الرسم البياني"
+msgstr "iconرسم_بياني"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr "أيقونة المعلومات"
+msgstr "iconمعلومات"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr "أيقونة تحميل مجموعة البيانات"
+msgstr "iconتحميل_قاعدة_بيانات"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr "أيقونة التحديد"
+msgstr "iconوضع_علامة"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr "أيقونة فتح دليل مجموعة البيانات"
+msgstr "iconفتح_فهرس_قاعدة_البيانات"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr "أيقونة عرض تفاصيل مجموعة البيانات"
+msgstr "iconعرض_تفاصيل _قاعدة_البيانات"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr "أيقونة مفتاح الربط"
+msgstr "iconمفتاح_ربط"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr "أيقونة المجلد"
+msgstr "iconملف"
 
 #: ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr "أيقونة التقارير"
+msgstr "iconتقارير"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr "أيقونة TrendsEarth"
+msgstr "iconTrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr "أيقونة التصور"
+msgstr "iconالتصوير_المرئي"
 
 #: ../../../<rst_epilog>:37
 msgid "Trends.Earth"
@@ -242,16 +294,16 @@ msgstr "Trends.Earth"
 
 #: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr "شعار CI"
+msgstr "logoمنظمة_CI "
 
 #: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr "شعار Lund"
+msgstr "logoجامعة_لوند"
 
 #: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr "شعار ناسا"
+msgstr "logoوكالة_ناسا"
 
 #: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr "شعار GEF"
+msgstr "logoصندوق_البيئة_العالمي"

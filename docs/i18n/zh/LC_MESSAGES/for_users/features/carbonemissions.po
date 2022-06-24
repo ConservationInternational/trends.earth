@@ -88,6 +88,7 @@ msgid ""
 "definition can change for arid regions. For more information, please see the"
 " publication: `Quantification of global gross forest cover`_ \""
 msgstr ""
+"该数据集根据2000年的树冠覆盖率绘制全球树木覆盖图。许多研究引用25%到30%这一阈值来定义森林，然而这一定义在干旱地区会发生变化。更多信息，请参见出版物：\"全球总森林覆盖率的量化\"_\""
 
 #: ../../source/for_users/features/carbonemissions.rst:38
 msgid ""

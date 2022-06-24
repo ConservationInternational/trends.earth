@@ -23,7 +23,7 @@ msgstr ""
 
 #: ../../source/for_users/designingreports/index.rst:4
 msgid "Designing Reports"
-msgstr ""
+msgstr "设计报告"
 
 #: ../../source/for_users/designingreports/index.rst:6
 msgid ""
@@ -33,51 +33,58 @@ msgid ""
 "reports from a single job will correspond to the number of **default** bands"
 " for the given job."
 msgstr ""
+"简言之，报告是通过使用来自一个或多个作业的文本和/或空间数据填充报告模板来创建的。需要注意的是，报告是在层/波段级别生成的，因此来自单个作业的报告数量将对应于给定作业的**默认**波段数。"
 
 #: ../../source/for_users/designingreports/index.rst:11
 msgid "Designing reports is a two-step process that involves:"
-msgstr ""
+msgstr "设计报告包括两步过程，包括："
 
 #: ../../source/for_users/designingreports/index.rst:13
 msgid "Designing templates using the QGIS layout framework;"
-msgstr ""
+msgstr "使用 QGIS 布局框架来设计模板；"
 
 #: ../../source/for_users/designingreports/index.rst:14
 msgid ""
 "Specifying the configuration parameters in a report configuration file."
-msgstr ""
+msgstr "在报告配置文件中指定配置参数。"
 
 #: ../../source/for_users/designingreports/index.rst:17
 msgid "Prerequisites"
-msgstr ""
+msgstr "先决条件"
 
 #: ../../source/for_users/designingreports/index.rst:18
 msgid ""
 "Before embarking on designing new or customizing existing reports, it is "
 "recommended to familiarize with the following topics:"
-msgstr ""
+msgstr "在开始设计新报告或自定义现有报告之前，建议了解以下主题："
 
 #: ../../source/for_users/designingreports/index.rst:21
 msgid ""
 "`QGIS Expression Framework "
 "<https://docs.qgis.org/3.16/en/docs/user_manual/working_with_vector/expression.html>`_"
 msgstr ""
+"`QGIS 表达式框架 "
+"<https://docs.qgis.org/3.16/en/docs/user_manual/working_with_vector/expression.html>`_"
 
 #: ../../source/for_users/designingreports/index.rst:22
 msgid ""
 "`QGIS Layout Framework "
 "<https://docs.qgis.org/3.16/en/docs/user_manual/print_composer/index.html>`_"
 msgstr ""
+"`QGIS 布局框架 "
+"<https://docs.qgis.org/3.16/en/docs/user_manual/print_composer/index.html>`_"
 
 #: ../../source/for_users/designingreports/index.rst:23
 msgid ""
 "`JSON Data Format <https://developer.mozilla.org/en-"
 "US/docs/Learn/JavaScript/Objects/JSON>`_"
 msgstr ""
+"`JSON 数据格式 <https://developer.mozilla.org/en-"
+"US/docs/Learn/JavaScript/Objects/JSON>`_"
 
 #: ../../source/for_users/designingreports/index.rst:29
 msgid "Layout Expression Variables"
-msgstr ""
+msgstr "布局表达式变量"
 
 #: ../../source/for_users/designingreports/index.rst:30
 msgid ""
@@ -86,6 +93,7 @@ msgid ""
 " content (such as maps or attribute information) that is generated at "
 "runtime during the execution process."
 msgstr ""
+"报告由静态内容（例如徽标、免责声明文本等）组成，不会从一份报告更改为另一份报告。它还可能包括在执行过程中的运行时生成的动态内容（例如地图或属性信息）。"
 
 #: ../../source/for_users/designingreports/index.rst:34
 msgid ""
@@ -94,20 +102,22 @@ msgid ""
 "available at design time while others are only available at runtime. The "
 "table below provides a summary of the available variables."
 msgstr ""
+"Trends.Earth "
+"工具箱提供了许多布局表达式变量，可用于在布局中插入动态内容。其中一些在设计时可用，而另一些仅在运行时可用。下表提供了可用变量的汇总。"
 
 #: ../../source/for_users/designingreports/index.rst:39
 msgid "Job Variables"
-msgstr ""
+msgstr "作业变量"
 
 #: ../../source/for_users/designingreports/index.rst:40
 msgid ""
 "These are characterized by a `te_job_` prefix and only available at runtime."
-msgstr ""
+msgstr "这些以 `te_job_` 前缀为特点，并且仅在运行时可用。"
 
 #: ../../source/for_users/designingreports/index.rst:43
 #: ../../source/for_users/designingreports/index.rst:67
 msgid "Variable Name"
-msgstr ""
+msgstr "变量名称"
 
 #: ../../source/for_users/designingreports/index.rst:43
 #: ../../source/for_users/designingreports/index.rst:67
@@ -121,15 +131,15 @@ msgstr "描述"
 #: ../../source/for_users/designingreports/index.rst:43
 #: ../../source/for_users/designingreports/index.rst:67
 msgid "Data Type"
-msgstr ""
+msgstr "数据类型"
 
 #: ../../source/for_users/designingreports/index.rst:45
 msgid "`te_job_id`"
-msgstr ""
+msgstr "`te_job_id`"
 
 #: ../../source/for_users/designingreports/index.rst:45
 msgid "Unique identified corresponding to the job's UUID"
-msgstr ""
+msgstr "与作业的 UUID 对应的唯一标识"
 
 #: ../../source/for_users/designingreports/index.rst:45
 #: ../../source/for_users/designingreports/index.rst:47
@@ -140,63 +150,63 @@ msgstr ""
 #: ../../source/for_users/designingreports/index.rst:59
 #: ../../source/for_users/designingreports/index.rst:69
 msgid "String"
-msgstr ""
+msgstr "字符串"
 
 #: ../../source/for_users/designingreports/index.rst:47
 msgid "`te_job_input_params`"
-msgstr ""
+msgstr "`te_job_input_params`"
 
 #: ../../source/for_users/designingreports/index.rst:47
 msgid "JSON representation of a job's input parameters"
-msgstr ""
+msgstr "作业输入参数的 JSON 表示"
 
 #: ../../source/for_users/designingreports/index.rst:49
 msgid "`te_job_paths`"
-msgstr ""
+msgstr "`te_job_paths`"
 
 #: ../../source/for_users/designingreports/index.rst:49
 msgid "Local path to the job's dataset(s)"
-msgstr ""
+msgstr "作业数据集的本地路径"
 
 #: ../../source/for_users/designingreports/index.rst:51
 msgid "`te_job_alg_name`"
-msgstr ""
+msgstr "`te_job_alg_name`"
 
 #: ../../source/for_users/designingreports/index.rst:51
 msgid "Job's algorithm name"
-msgstr ""
+msgstr "作业的算法名称"
 
 #: ../../source/for_users/designingreports/index.rst:53
 msgid "`te_job_creation_date`"
-msgstr ""
+msgstr "`te_job_creation_date`"
 
 #: ../../source/for_users/designingreports/index.rst:53
 msgid "Creation date/time of a job"
-msgstr ""
+msgstr "作业的创建日期/时间"
 
 #: ../../source/for_users/designingreports/index.rst:53
 msgid "String in %Y-%m-%d %H:%M format"
-msgstr ""
+msgstr "%Y-%m-%d %H:%M 格式的字符串"
 
 #: ../../source/for_users/designingreports/index.rst:55
 msgid "`te_job_status`"
-msgstr ""
+msgstr "`te_job_status`"
 
 #: ../../source/for_users/designingreports/index.rst:55
 msgid "Completion status of a job e.g. DOWNLOADED, GENERATED_LOCALLY etc."
-msgstr ""
+msgstr "作业的完成状态，例如 DOWNLOADED、GENERATED_LOCALLY 等。"
 
 #: ../../source/for_users/designingreports/index.rst:57
 msgid "`te_job_name`"
-msgstr ""
+msgstr "`te_job_name`"
 
 #: ../../source/for_users/designingreports/index.rst:57
 msgid "Name of the job as inputted by the user."
-msgstr ""
+msgstr "用户输入的作业名称。"
 
 #: ../../source/for_users/designingreports/index.rst:59
 msgid "`te_job_comments`"
-msgstr ""
+msgstr "`te_job_comments`"
 
 #: ../../source/for_users/designingreports/index.rst:59
 msgid "Comments to a job as provided by the user"

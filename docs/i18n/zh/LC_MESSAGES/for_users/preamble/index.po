@@ -24,7 +24,7 @@ msgstr ""
 
 #: ../../source/for_users/preamble/index.rst:4
 msgid "Preamble"
-msgstr ""
+msgstr "前言"
 
 #: ../../source/for_users/preamble/index.rst:5
 msgid ""
@@ -32,6 +32,7 @@ msgid ""
 "It is now available as a browser-based tool in addition to the plugin to "
 "desktop QGIS spatial-analytical software."
 msgstr ""
+"Trends.Earth 是一个使用地球观测来监测土地变化的平台。除了桌面 QGIS 空间分析软件的插件外，它现在还可以作为基于浏览器的工具使用。"
 
 #: ../../source/for_users/preamble/index.rst:9
 msgid ""
@@ -47,6 +48,10 @@ msgid ""
 " data for reporting commitments to the United Nations Convention to Combat "
 "Desertification (UNCCD) and UN-Habitat."
 msgstr ""
+"此工具允许用户评估土地变化关键指标的时间序列，以生成支持监测和报告的地图和其他图形，并跟踪可持续土地管理的影响。此工具支持监测土地退化中和 (SDG "
+"15.3.1)、土地消耗 (SDG 11.3.1) 方面的进展，模拟毁林产生的碳排放，还模拟恢复活动产生的潜在碳封存。为了向《联合国防治荒漠化公约》 "
+"(UNCCD) 和联合国人居署汇报工作，Trends.Earth 提供了一个数据分析平台，以支持对可持续发展目标 (SDG) "
+"15.3.1（退化土地面积）和 11.3.1（土地消耗率与人口增长的比率）的监测和报告。"
 
 #: ../../source/for_users/preamble/index.rst:18
 msgid ""
@@ -55,10 +60,12 @@ msgid ""
 "`Conservation International`_ works to spotlight and secure the critical "
 "benefits that nature provides to humanity."
 msgstr ""
+"Trends.Earth 的开发由全球环境基金和美国国家航空航天局提供资助，由保护国际及其合作伙伴领导。`Conservation "
+"International`_ 致力于关注和保护大自然为人类提供的重要利益。"
 
 #: ../../source/for_users/preamble/index.rst:22
 msgid "**Monitor land change**"
-msgstr ""
+msgstr "**监控土地变化**"
 
 #: ../../source/for_users/preamble/index.rst:24
 msgid ""
@@ -66,10 +73,11 @@ msgid ""
 "platform from `Conservation International`_ for monitoring land change using"
 " earth observations in an innovative desktop and cloud-based system."
 msgstr ""
+"Trends.Earth（以前的土地退化监测工具箱）是“保护国际”_ 的一个平台，用于在创新的桌面和基于云的系统中，使用地球观测来监测土地变化。"
 
 #: ../../source/for_users/preamble/index.rst:30
 msgid "**Track achievement of the sustainable development goals**"
-msgstr ""
+msgstr "**跟踪可持续发展目标的实现情况**"
 
 #: ../../source/for_users/preamble/index.rst:32
 msgid ""
@@ -80,6 +88,8 @@ msgid ""
 "their reporting commitments to the United Nations Convention to Combat "
 "Desertification (UNCCD)."
 msgstr ""
+"|trends.earth|支持监测实现土地退化零增长（LDN，可持续发展目标 SDG 目标 "
+"15.3）的三个子指标：生产力、土地覆盖和土壤有机碳。此工具还支持各国分析数据，以准备其对《联合国防治荒漠化公约》(UNCCD) 的汇报工作。"
 
 #: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
 msgid "Trends.Earth"
@@ -96,7 +106,7 @@ msgstr ""
 
 #: ../../source/for_users/preamble/index.rst:44
 msgid "**More information**"
-msgstr ""
+msgstr "**更多信息**"
 
 #: ../../source/for_users/preamble/index.rst:46
 msgid ""
@@ -104,6 +114,8 @@ msgid ""
 " <_general>` For toolbox users, see the `User Guide <_for_users>` For "
 "developers, see the `Developers Guide <_for_developers>`"
 msgstr ""
+"关于工具箱的更多信息，请参阅`一般信息部分 <_general>`。对于工具箱用户，请参阅`用户指南 "
+"<_for_users>`。对于开发人员，请参阅`开发人员指南 <_for_developers>`"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"

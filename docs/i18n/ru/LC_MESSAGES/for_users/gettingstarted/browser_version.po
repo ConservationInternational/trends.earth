@@ -27,11 +27,11 @@ msgstr "Браузер"
 
 #: ../../source/for_users/gettingstarted/browser_version.rst:7
 msgid "Trends.Earth Browser Application"
-msgstr ""
+msgstr "Приложение-браузер Trends.Earth"
 
 #: ../../source/for_users/gettingstarted/browser_version.rst:8
 msgid "**Coming soon!**"
-msgstr ""
+msgstr "**Встречайте скоро!**"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"

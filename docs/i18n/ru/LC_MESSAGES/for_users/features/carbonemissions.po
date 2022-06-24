@@ -24,11 +24,11 @@ msgstr ""
 
 #: ../../source/for_users/features/carbonemissions.rst:4
 msgid "Carbon emissions from deforestation"
-msgstr ""
+msgstr "Выбросы углерода в результате обезлесения"
 
 #: ../../source/for_users/features/carbonemissions.rst:7
 msgid "Background"
-msgstr "Справочная информация"
+msgstr "Сведения"
 
 #: ../../source/for_users/features/carbonemissions.rst:9
 msgid ""
@@ -42,6 +42,17 @@ msgid ""
 "attributed to wildfires, shifting agriculture, forestry, urbanization and "
 "commodity driven deforestation (Curtis et al., 2019)."
 msgstr ""
+"Мировые леса накапливают углерод, который может выделяться в виде "
+"углекислого газа обратно в атмосферу в результате деградации или "
+"обезлесения, что приводит к изменению климата. В период с 2001 по 2020 год "
+"мировые леса потеряли 10% площади, или 411 миллионов гектаров, что привело к"
+" выбросу 165 Гт углекислого газа (UMD & WRI, 2022). Наблюдается растущая "
+"тенденция, когда высокие темпы исчезновения тропических первичных лесов "
+"приводят к тому, что такие районы, как тропические леса Амазонки, "
+"превращаются из поглотителя углерода в источник углерода (Bacchini и др., "
+"2017). Причины этих исчезновений лесов объясняются лесными пожарами, "
+"перемещением сельского хозяйства, лесной промышленностью, урбанизацией и "
+"обезлесением, вызванным производством товаров (Curtis и др., 2019)."
 
 #: ../../source/for_users/features/carbonemissions.rst:15
 msgid "Rationale for Monitoring"
@@ -52,16 +63,20 @@ msgid ""
 "Monitoring deforestation is the first step to understand the cause of tree "
 "cover loss and to plan interventions for preventing it."
 msgstr ""
+"Мониторинг обезлесения — это первый шаг к пониманию причины исчезновения "
+"лесного покрова и планированию мероприятий по его предотвращению."
 
 #: ../../source/for_users/features/carbonemissions.rst:20
 msgid ""
 "Refer to the :ref:`tut_forest_carbon` for the tutorial to use this "
 "methodology and data."
 msgstr ""
+"Обратитесь к :ref:`tut_forest_carbon` для получения руководства по "
+"использованию этой методологии и данных."
 
 #: ../../source/for_users/features/carbonemissions.rst:23
 msgid "Indicator and data needs"
-msgstr "Индикаторы и потребности в данных"
+msgstr "Потребности в показателях и данных"
 
 #: ../../source/for_users/features/carbonemissions.rst:25
 msgid ""
@@ -72,14 +87,20 @@ msgid ""
 "area for the analysis. In order to define the baseline forest area, they "
 "will assign a threshold to define forests."
 msgstr ""
+"Trends.Earth позволяет пользователю анализировать площадь лесного покрова, "
+"накопленный в лесах углерод, исчезновение лесов и предполагаемые выбросы в "
+"результате обезлесения в пределах интересующей области в наземных лесах в "
+"любой точке Земли. Сначала пользователю предлагается выбрать годы для "
+"мониторинга указанной им области для анализа. Чтобы определить базовую "
+"лесную площадь, нужно назначить порог для определения лесов."
 
 #: ../../source/for_users/features/carbonemissions.rst:33
 msgid ""
 "The definition of canopy cover should be changed to accommodate the specific"
 " area of interest."
 msgstr ""
-"Определение покрова должно быть изменено, чтобы учесть конкретную "
-"интересующую область."
+"Определение лесного покрова должно быть изменено с учетом конкретной "
+"области, представляющей интерес."
 
 #: ../../source/for_users/features/carbonemissions.rst:32
 msgid ""
@@ -88,12 +109,20 @@ msgid ""
 "definition can change for arid regions. For more information, please see the"
 " publication: `Quantification of global gross forest cover`_ \""
 msgstr ""
+"Набор данных отображает мировой лесной покров на основе процентного лесного "
+"покрова в 2000 году. Во многих исследованиях указывается порог в 25–30% для "
+"определения леса, однако это определение может измениться для засушливых "
+"регионов. Для получения дополнительной информации, пожалуйста, ознакомьтесь "
+"с публикацией: \"Количественная оценка общего мирового лесного покрова\"_ \""
 
 #: ../../source/for_users/features/carbonemissions.rst:38
 msgid ""
 "The region is then selected using the pre-existing national/sub-national "
 "boundaries, a coordinate or a custom uploaded dataset."
 msgstr ""
+"Затем регион выбирается с использованием уже существующих "
+"государственных/внутригосударственных границ, координат или "
+"пользовательского загруженного набора данных."
 
 #: ../../source/for_users/features/carbonemissions.rst:41
 msgid ""
@@ -125,10 +154,15 @@ msgid ""
 "dataset, or upload a custom biomass dataset and to select the method for "
 "calculating the root to shoot ratio for below ground biomass."
 msgstr ""
+"Пользователи могут настроить ***Расширенную конфигурацию** для использования"
+" другого набора данных о биомассе или загрузить пользовательский набор "
+"данных о биомассе и выбрать метод расчета коэффициента корневой поросли для "
+"подземной биомассы."
 
 #: ../../source/for_users/features/carbonemissions.rst:61
 msgid "The table below list the biomass datasets available in Trends.Earth:"
 msgstr ""
+"В таблице ниже указаны наборы данных о биомассе, доступные в Trends.Earth:"
 
 #: ../../source/for_users/features/carbonemissions.rst:66
 msgid ""
@@ -139,14 +173,20 @@ msgid ""
 "analysis. The first is the dataset visualizing the estimated change in "
 "biomass:"
 msgstr ""
+"В результатах представлены годовые данные о лесном покрове, исчезновении "
+"лесов, накопленном углероде (tC) и выбросах углерода (tCO2) для региона, "
+"суммирующие данные о земляном покрове за базовый и последний год, уменьшении"
+" площади лесов, снижении углерода и выбросах углерода за весь период. В "
+"результате анализа можно получить два пространственных вывода. Первый —  это"
+" набор данных, визуализирующий предполагаемое изменение биомассы:"
 
 #: ../../source/for_users/features/carbonemissions.rst:73
 msgid "The second is the forest loss layer for the region:"
-msgstr ""
+msgstr "Второй — это слой исчезновения лесов для региона:"
 
 #: ../../source/for_users/features/carbonemissions.rst:78
 msgid "**Citations:**"
-msgstr "**Цитирование:**"
+msgstr "**Цитаты:**"
 
 #: ../../source/for_users/features/carbonemissions.rst:80
 msgid ""
@@ -155,6 +195,10 @@ msgid ""
 "integrated pan-tropical biomass map using multiple reference datasets. "
 "Global Change Biology, 22, pp. 1406–1420."
 msgstr ""
+"Avitabile, V., Herold, M., Heuvelink, G. B. M., Lewis, S. L., Phillips, O. "
+"L., Asner, G. P., Armston, J., Ashton, P. S., Banin, L. и др., 2016. "
+"Интегрированная карта пантропической биомассы с использованием нескольких "
+"базовых наборов данных. Global Change Biology, 22, стр. 1406–1420."
 
 #: ../../source/for_users/features/carbonemissions.rst:81
 msgid ""
@@ -164,6 +208,11 @@ msgid ""
 "biomass mapping.  Global Vegetation Monitoring and Modeling,  3 – 7 February"
 " 2014, Avignon (France)."
 msgstr ""
+"Avitabile, V., Herold, M., Lewis, S.L., Phillips, O.L., Aguilar-"
+"Amuchastegui, N., Asner, G. P., Brienen, R.J.W., DeVries, B., Cazzolla "
+"Gatti, R. и др., 2014. Сравнительный анализ и синтез для улучшения "
+"глобального отображения биомассы.  Мониторинг и моделирование мировой "
+"растительности, 3–7 февраля 2014 года, Авиньон (Франция)."
 
 #: ../../source/for_users/features/carbonemissions.rst:82
 msgid ""
@@ -172,6 +221,10 @@ msgid ""
 "aboveground measurements of gain and loss.\" 358 (6360): 230-234. "
 "https://www.science.org/doi/10.1126/science.aam5962"
 msgstr ""
+"Baccini, A., W. Walker, L. Carvalho, M. Farina, D. Sulla-Menashe and R. A. "
+"Houghton, 2017. \"Тропические леса являются чистым источником углерода, "
+"согласно наземным измерениям прироста и убыли\". 358 (6360): 230–234. "
+"https://www.science.org/doi/10.1126/science.aam5962"
 
 #: ../../source/for_users/features/carbonemissions.rst:83
 msgid ""
@@ -181,12 +234,19 @@ msgid ""
 " improved by carbon-density maps. 2012 Nature Climate Change, "
 "https://doi.org/10.1038/NCLIMATE1354"
 msgstr ""
+"Baccini, A., S J. Goetz, W.S. Walker, N. T. Laporte, M. Sun, D. Sulla-"
+"Menashe, J. Hackler, P.S.A. Beck, R. Dubayah, M.A. Friedl, S. Samanta and R."
+" A. Houghton. Оценочные выбросы углекислого газа в результате вырубки "
+"тропических лесов, улучшенные с помощью карт концентрации углерода. 2012 "
+"Nature Climate Change, https://doi.org/10.1038/NCLIMATE1354"
 
 #: ../../source/for_users/features/carbonemissions.rst:84
 msgid ""
 "Curtis, P.G., C.M. Slay, N.L. Harris, A. Tyukavina, and M.C. Hansen. 2019. "
 "“Classifying Drivers of Global Forest Loss.” Science."
 msgstr ""
+"Curtis, P.G., C.M. Slay, N.L. Harris, A. Tyukavina, and M.C. Hansen. 2019. "
+"\"Классификация факторов глобального исчезновения лесов\". Science."
 
 #: ../../source/for_users/features/carbonemissions.rst:85
 msgid ""
@@ -194,6 +254,9 @@ msgid ""
 "gross forest cover.\" PNAS. 107 (19) 8650-8655. "
 "https://www.pnas.org/doi/10.1073/pnas.0912668107"
 msgstr ""
+"Hansen, M. C., S. V. Stehman, and P. V. Potapov. \"Количественная оценка "
+"общего мирового лесного покрова\". PNAS. 107 (19) 8650-8655. "
+"https://www.pnas.org/doi/10.1073/pnas.0912668107"
 
 #: ../../source/for_users/features/carbonemissions.rst:86
 msgid ""
@@ -204,6 +267,12 @@ msgid ""
 " Science 342 (15 November): 850–53. Data available on-line at: "
 "https://earthenginepartners.appspot.com/science-2013-global-forest."
 msgstr ""
+"Hansen, M. C., P. V. Potapov, R. Moore, M. Hancher, S. A. Turubanova, A. "
+"Tyukavina, D. Thau, S. V. Stehman, S. J. Goetz, T. R. Loveland, A. "
+"Kommareddy, A. Egorov, L. Chini, C. O. Justice и J. R. G. Townshend. "
+"\"Глобальные карты изменения лесного покрова в 21 веке с высоким "
+"разрешением\". Science 342 (15 ноября): 850–53. Данные доступны онлайн по "
+"адресу: https://earthenginepartners.appspot.com/science-2013-global-forest."
 
 #: ../../source/for_users/features/carbonemissions.rst:87
 msgid ""
@@ -211,18 +280,27 @@ msgid ""
 "National Greenhouse Gas Inventories � Volume 4. Egglestone, H.S., L. "
 "Buendia, K. Miwa, T. Ngara and K. Tanabe (Eds)."
 msgstr ""
+"Межправительственная группа экспертов по изменению климата (МГЭИК), 2006. "
+"Руководство МГЭИК для национальных кадастров парниковых газов � Том 4. "
+"Egglestone, H.S., L. Buendia, K. Miwa, T. Ngara and K. Tanabe (Eds)."
 
 #: ../../source/for_users/features/carbonemissions.rst:88
 msgid ""
 "Intergovernmental Panel on Climate Change (IPCC), IPCC/IGES, Hayama, Japan. "
 "http://www.ipcc-nggip.iges.or.jp/public/2006gl/vol4.html"
 msgstr ""
+"Межправительственная группа экспертов по изменению климата (МГЭИК), "
+"МГЭИК/IGES, Хаяма, Япония. http://www.ipcc-"
+"nggip.iges.or.jp/public/2006gl/vol4.html"
 
 #: ../../source/for_users/features/carbonemissions.rst:89
 msgid ""
 "Mokany, K., R. Raison, A.S. Prokushkin. Critical analysis of root: shoot "
 "ratios in terrestrial biomesGlob. Chang. Biol., 12 (1) (2006), pp. 84-96"
 msgstr ""
+"Mokany, K., R. Raison, A.S. Prokushkin. Критический анализ коэффициента "
+"корневой поросли в наземных биомах. Global Change Biology, 12 (1) (2006), "
+"стр. 84–96"
 
 #: ../../source/for_users/features/carbonemissions.rst:90
 msgid ""
@@ -232,6 +310,11 @@ msgid ""
 "hemisphere: Spatially explicit estimates for 2010 derived from Envisat ASAR."
 " Remote Sensing of Environment, 168, pp. 316-334."
 msgstr ""
+"Santoro, M., Beaudoin, A., Beer, C., Cartus, O., Fransson, J.E.S., Hall, "
+"R.J., Pathe, C., Schmullius, C., Schepaschenko, D., Shvidenko, A., Thurner, "
+"M. и Wegmüller, U., 2015. Объем древостоя в северном полушарии: "
+"пространственно точные оценки на 2010 год, полученные от Envisat ASAR. "
+"Remote Sensing of Environment, 168, стр. 316–334."
 
 #: ../../source/for_users/features/carbonemissions.rst:91
 msgid ""
@@ -239,6 +322,9 @@ msgid ""
 "Forest Loss\". Accessed through Global Forest Watch: "
 "https://www.globalforestwatch.org/dashboards/global/?category=summary&location=WyJnbG9iYWwiXQ%3D%3D&map=eyJkYXRhc2V0cyI6W3sib3BhY2l0eSI6MC43LCJ2aXNpYmlsaXR5Ijp0cnVlLCJkYXRhc2V0IjoicHJpbWFyeS1mb3Jlc3RzIiwibGF5ZXJzIjpbInByaW1hcnktZm9yZXN0cy0yMDAxIl19LHsiZGF0YXNldCI6InBvbGl0aWNhbC1ib3VuZGFyaWVzIiwibGF5ZXJzIjpbImRpc3B1dGVkLXBvbGl0aWNhbC1ib3VuZGFyaWVzIiwicG9saXRpY2FsLWJvdW5kYXJpZXMiXSwiYm91bmRhcnkiOnRydWUsIm9wYWNpdHkiOjEsInZpc2liaWxpdHkiOnRydWV9LHsiZGF0YXNldCI6InRyZWUtY292ZXItbG9zcyIsImxheWVycyI6WyJ0cmVlLWNvdmVyLWxvc3MiXSwib3BhY2l0eSI6MSwidmlzaWJpbGl0eSI6dHJ1ZSwidGltZWxpbmVQYXJhbXMiOnsic3RhcnREYXRlIjoiMjAwMi0wMS0wMSIsImVuZERhdGUiOiIyMDIwLTEyLTMxIiwidHJpbUVuZERhdGUiOiIyMDIwLTEyLTMxIn0sInBhcmFtcyI6eyJ0aHJlc2hvbGQiOjMwLCJ2aXNpYmlsaXR5Ijp0cnVlfX1dfQ%3D%3D&showMap=true"
 msgstr ""
+"Мэрилендский университет и Институт мировых ресурсов. \"Глобальное "
+"исчезновение первичных лесов\". Доступ через Global Forest Watch: "
+"https://www.globalforestwatch.org/dashboards/global/?category=summary&location=WyJnbG9iYWwiXQ%3D%3D&map=eyJkYXRhc2V0cyI6W3sib3BhY2l0eSI6MC43LCJ2aXNpYmlsaXR5Ijp0cnVlLCJkYXRhc2V0IjoicHJpbWFyeS1mb3Jlc3RzIiwibGF5ZXJzIjpbInByaW1hcnktZm9yZXN0cy0yMDAxIl19LHsiZGF0YXNldCI6InBvbGl0aWNhbC1ib3VuZGFyaWVzIiwibGF5ZXJzIjpbImRpc3B1dGVkLXBvbGl0aWNhbC1ib3VuZGFyaWVzIiwicG9saXRpY2FsLWJvdW5kYXJpZXMiXSwiYm91bmRhcnkiOnRydWUsIm9wYWNpdHkiOjEsInZpc2liaWxpdHkiOnRydWV9LHsiZGF0YXNldCI6InRyZWUtY292ZXItbG9zcyIsImxheWVycyI6WyJ0cmVlLWNvdmVyLWxvc3MiXSwib3BhY2l0eSI6MSwidmlzaWJpbGl0eSI6dHJ1ZSwidGltZWxpbmVQYXJhbXMiOnsic3RhcnREYXRlIjoiMjAwMi0wMS0wMSIsImVuZERhdGUiOiIyMDIwLTEyLTMxIiwidHJpbUVuZERhdGUiOiIyMDIwLTEyLTMxIn0sInBhcmFtcyI6eyJ0aHJlc2hvbGQiOjMwLCJ2aXNpYmlsaXR5Ijp0cnVlfX1dfQ%3D%3D&showMap=true"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"

@@ -23,29 +23,29 @@ msgstr ""
 
 #: ../../source/for_users/features/index.rst:6
 msgid "Land Degradation and SDG 15.3.1"
-msgstr ""
+msgstr "Dégradation des terres et ODD 15.3.1"
 
 #: ../../source/for_users/features/index.rst:6
 msgid "UNCCD Reporting - SDG 15.3.1"
-msgstr ""
+msgstr "Rapports de la CNULCD - ODD 15.3.1"
 
 #: ../../source/for_users/features/index.rst:6
 msgid "Land Consumption and SDG 11.3.1"
-msgstr ""
+msgstr "Consommation des terres et ODD 11.3.1"
 
 #: ../../source/for_users/features/index.rst:6
 msgid "Carbon Emissions from Deforestation"
-msgstr ""
+msgstr "Émissions de carbone dues à la déforestation"
 
 #: ../../source/for_users/features/index.rst:6
 msgid "Carbon Sequestration from Restoration"
-msgstr ""
+msgstr "Séquestration de carbone par la restauration"
 
 #: ../../source/for_users/features/index.rst:6
 #: ../../source/for_users/features/index.rst:3
 #: ../../source/for_users/features/index.rst:6
 msgid "Features"
-msgstr ""
+msgstr "Caractéristiques"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"

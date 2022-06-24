@@ -24,11 +24,11 @@ msgstr ""
 
 #: ../../source/for_users/features/carbonsequestration.rst:4
 msgid "Potential carbon sequestration from restoration"
-msgstr ""
+msgstr "Потенциальное поглощение углерода в результате восстановления"
 
 #: ../../source/for_users/features/carbonsequestration.rst:7
 msgid "Background"
-msgstr "Справочная информация"
+msgstr "Сведения"
 
 #: ../../source/for_users/features/carbonsequestration.rst:9
 msgid ""
@@ -39,6 +39,13 @@ msgid ""
 "Forest landscape restoration is a natural climate solution for removing "
 "carbon dioxide from the atmosphere through different reforestation efforts."
 msgstr ""
+"Восстановление может устранить 400 Гт CO2 к 2100 году (Griscom и др, 2017), "
+"что поставит нас на путь сокращения выбросов углерода, чтобы, придерживаясь "
+"Парижского соглашения по климату, удержать \"рост глобальной средней "
+"температуры намного ниже 2 °C по сравнению с доиндустриальным уровнем\" "
+"(UNFCCC 2015). Восстановление лесных ландшафтов —  это естественное "
+"климатическое решение для устранения углекислого газа из атмосферы с помощью"
+" различных мероприятий по восстановлению лесов."
 
 #: ../../source/for_users/features/carbonsequestration.rst:15
 msgid "Rationale for Monitoring"
@@ -51,16 +58,23 @@ msgid ""
 "allows users to estimate the potential climate benefits of different forest "
 "landscape restoration approaches."
 msgstr ""
+"Существует потребность в инструментах для поддержки определения приоритетов "
+"восстановления и планирования восстановительных мероприятий на местах. Этот "
+"модуль в Trends.Earth позволяет пользователям оценивать потенциальные "
+"климатические выгоды от различных подходов к восстановлению лесных "
+"ландшафтов."
 
 #: ../../source/for_users/features/carbonsequestration.rst:22
 msgid ""
 "Refer to the :ref:`tut_carbon_sequestration_restoration` for the tutorial to"
 " use this methodology and data."
 msgstr ""
+"Обратитесь к :ref:`tut_carbon_sequestration_restoration` для получения "
+"руководства по использованию этой методологии и данных."
 
 #: ../../source/for_users/features/carbonsequestration.rst:25
 msgid "Indicator and data needs"
-msgstr "Индикаторы и потребности в данных"
+msgstr "Потребности в показателях и данных"
 
 #: ../../source/for_users/features/carbonsequestration.rst:27
 msgid ""
@@ -68,6 +82,10 @@ msgid ""
 "mangrove) within a region and length of restoration activity to estimate "
 "change in biomass (CO2 equivalence) for 8 different restoration activities."
 msgstr ""
+"Этот модуль позволяет пользователям выбирать тип восстановления (наземный "
+"или мангровый) в пределах региона, а также продолжительность "
+"восстановительных мероприятий, чтобы оценить изменение биомассы (эквивалент "
+"CO2) для 8 различных восстановительных мероприятий."
 
 #: ../../source/for_users/features/carbonsequestration.rst:33
 msgid ""
@@ -75,6 +93,9 @@ msgid ""
 " national/sub-national boundaries, a coordinate or a custom uploaded "
 "dataset."
 msgstr ""
+"Затем выбираются годы вмешательства и регион с использованием уже "
+"существующих государственных/внутригосударственных границ, координат или "
+"загруженного пользовательского набора данных."
 
 #: ../../source/for_users/features/carbonsequestration.rst:36
 msgid ""
@@ -106,10 +127,13 @@ msgid ""
 " output with the change in biomass compared to pre-restoration levels and "
 "final total biomass in tons CO2 equivalence."
 msgstr ""
+"Trends.Earth дает изменение биомассы по 8 сценариям и табличный результат с "
+"изменением биомассы по сравнению с уровнями до восстановления и конечной "
+"общей биомассой в тоннах эквивалента CO2."
 
 #: ../../source/for_users/features/carbonsequestration.rst:59
 msgid "**Citations:**"
-msgstr "**Цитирование:**"
+msgstr "**Цитаты:**"
 
 #: ../../source/for_users/features/carbonsequestration.rst:61
 msgid ""
@@ -118,6 +142,10 @@ msgid ""
 "integrated pan-tropical biomass map using multiple reference datasets. "
 "Global Change Biology, 22, pp. 1406–1420."
 msgstr ""
+"Avitabile, V., Herold, M., Heuvelink, G. B. M., Lewis, S. L., Phillips, O. "
+"L., Asner, G. P., Armston, J., Ashton, P. S., Banin, L. и др., 2016. "
+"Интегрированная карта пантропической биомассы с использованием нескольких "
+"базовых наборов данных. Global Change Biology, 22, стр. 1406–1420."
 
 #: ../../source/for_users/features/carbonsequestration.rst:63
 msgid ""
@@ -127,6 +155,11 @@ msgid ""
 "biomass mapping.  Global Vegetation Monitoring and Modeling, 3 – 7 February "
 "2014, Avignon (France)."
 msgstr ""
+"Avitabile, V., Herold, M., Lewis, S.L., Phillips, O.L., Aguilar-"
+"Amuchastegui, N., Asner, G. P., Brienen, R.J.W., DeVries, B., Cazzolla "
+"Gatti, R. и др., 2014. Сравнительный анализ и синтез для улучшения "
+"глобального отображения биомассы.  Глобальный мониторинг и моделирование "
+"растительности, 3–7 февраля 2014 года, Авиньон (Франция)."
 
 #: ../../source/for_users/features/carbonsequestration.rst:65
 msgid ""
@@ -134,6 +167,9 @@ msgid ""
 "rates from forest landscape restoration activities. Carbon Balance and "
 "Management 13, 22 (2018)."
 msgstr ""
+"Bernal, B., Murray, L. T. & Pearson, T. R. H. Глобальные показатели "
+"устранения углекислого газа в результате мероприятий по восстановлению "
+"лесных ландшафтов. Carbon Balance and Management 13, 22 (2018)."
 
 #: ../../source/for_users/features/carbonsequestration.rst:67
 msgid ""
@@ -142,12 +178,18 @@ msgid ""
 "Global Baseline of Mangrove Extent. Remote Sensing. 2018; 10(10):1669. "
 "https://doi.org/10.3390/rs10101669"
 msgstr ""
+"Bunting P, Rosenqvist A, Lucas RM, Rebelo L-M, Hilarides L, Thomas N, Hardy "
+"A, Itoh T, Shimada M, Finlayson CM. Глобальный мониторинг мангровых лесов — "
+"Новый глобальный базовый уровень распространения мангровых лесов за 2010 "
+"год. Remote Sensing. 2018; 10(10):1669. https://doi.org/10.3390/rs10101669"
 
 #: ../../source/for_users/features/carbonsequestration.rst:69
 msgid ""
 "Griscom, B. W., et. al., 2017. Natural climate solutions. PNAS. 114(44) "
 "11645-11650. https://doi.org/10.1073/pnas.1710465114"
 msgstr ""
+"Griscom, B. W. и др., 2017. Природные климатические решения. PNAS. 114(44) "
+"11645-11650. https://doi.org/10.1073/pnas.1710465114"
 
 #: ../../source/for_users/features/carbonsequestration.rst:71
 msgid ""
@@ -157,6 +199,11 @@ msgid ""
 "hemisphere: Spatially explicit estimates for 2010 derived from Envisat ASAR."
 " Remote Sensing of Environment, 168, pp. 316-334."
 msgstr ""
+"Santoro, M., Beaudoin, A., Beer, C., Cartus, O., Fransson, J.E.S., Hall, "
+"R.J., Pathe, C., Schmullius, C., Schepaschenko, D., Shvidenko, A., Thurner, "
+"M. и Wegmüller, U., 2015. Объем древостоя в северном полушарии: "
+"пространственно точные оценки на 2010 год, полученные от Envisat ASAR. "
+"Remote Sensing of Environment, 168, стр. 316–334."
 
 #: ../../source/for_users/features/carbonsequestration.rst:73
 msgid ""
@@ -164,6 +211,9 @@ msgid ""
 "Agreement (UNFCCC, Paris). 2015. Available at "
 "unfccc.int/resource/docs/2015/cop21/eng/l09r01.pdf."
 msgstr ""
+"Рамочная конвенция ООН об изменении климата, Соглашение по климату КС-21 "
+"(РКИК, Париж). 2015. Доступно по адресу "
+"unfccc.int/resource/docs/2015/cop21/eng/l09r01.pdf."
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
@@ -255,4 +305,4 @@ msgstr "logoNASA"
 
 #: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr "logoGEF"
+msgstr "logoNASA"

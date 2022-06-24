@@ -7,7 +7,6 @@ Trends.Earth
    :align: center
    :alt: trends.earth
 
-|
 
 .. raw:: html
 

@@ -20,5 +20,7 @@ jobs:
           architecture: "x64"
       - name: Install build requirements
         run: pip install -r requirements-dev.txt
+      - name: Set version SHA
+        run: invoke set-version
       - name: Build zipfile
         run: invoke zipfile-deploy --filename LDMP_$GITHUB_REF_NAME.zip -q 3.22

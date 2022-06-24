@@ -36,8 +36,17 @@ trans_result = QtCore.QCoreApplication.installTranslator(translator)
 
 from . import logger
 
-with open(os.path.join(plugin_dir, "version.json")) as f:
-    version_info = json.load(f)
+try:
+    with open(os.path.join(plugin_dir, "version.json")) as f:
+        version_info = json.load(f)
+except:
+    # Will happen for a dev version if user downloads directly from github and installs
+    # without using invoke script
+    version_info = {
+        "version": "99.99.99",
+        "revision": "unknown",
+        "release_date": "2099/01/01 00:00:00Z"
+    }
 __version__ = version_info["version"]
 __version_major__ = re.sub(r"([0-9]+)(\.[0-9]+)+$", r"\g<1>", __version__)
 __revision__ = version_info["revision"]

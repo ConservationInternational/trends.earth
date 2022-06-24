@@ -339,20 +339,28 @@ msgid ""
 " make them public. If you notice any update that we missed, please do let us"
 " know."
 msgstr ""
+"Trends.Earth использует общедоступные данные, поэтому самые актуальные "
+"наборы данных будут добавлены в панель инструментов, как только поставщики "
+"исходных данных сделают их общедоступными. Если вы заметили какие-либо "
+"обновления, которые мы пропустили, пожалуйста, сообщите нам об этом."
 
 #: ../../source/for_users/faq/index.rst:142
 msgid "Is there an option to download the original data?"
-msgstr ""
+msgstr "Есть ли возможность скачать исходные данные?"
 
 #: ../../source/for_users/faq/index.rst:144
 msgid ""
 "Users can download the original data using the Download option within the "
 "toolbox."
 msgstr ""
+"Пользователи могут скачивать исходные данные, используя опцию \"Скачать\" в "
+"панели инструментов."
 
 #: ../../source/for_users/faq/index.rst:148
 msgid "Will the toolbox support higher resolution datasets?"
 msgstr ""
+"Будет ли панель инструментов поддерживать наборы данных с более высоким "
+"разрешением?"
 
 #: ../../source/for_users/faq/index.rst:150
 msgid ""
@@ -360,10 +368,15 @@ msgid ""
 " productivity analysis, and ESA LCC CCI (300m) for land cover change "
 "analysis."
 msgstr ""
+"В настоящее время панель инструментов поддерживает данные AVHRR (8 км) и "
+"MODIS (250 м) для первичного анализа продуктивности, а также ESA LCC CCI "
+"(300 м) для анализа изменений земляного покрова."
 
 #: ../../source/for_users/faq/index.rst:154
 msgid "Can the toolbox support analysis with national-level datasets?"
 msgstr ""
+"Может ли панель инструментов поддерживать анализ с использованием наборов "
+"данных национального уровня?"
 
 #: ../../source/for_users/faq/index.rst:156
 msgid ""
@@ -373,20 +386,28 @@ msgid ""
 "advantage of existing datasets that might be of higher quality at a "
 "national-level than the global datasets that are the defaults in the tool."
 msgstr ""
+"Это распространенный вопрос от пользователей, над которым работает команда. "
+"Trends.Earth позволит скачивать наборы данных национального уровня о "
+"почвенном углероде и земляном покрове до конца марта 2018 года. Это позволит"
+" пользователям использовать преимущества существующих наборов данных, "
+"которые могут быть более высокого качества на национальном уровне, чем "
+"глобальные наборы данных, используемые в панели инструментов по умолчанию."
 
 #: ../../source/for_users/faq/index.rst:163
 msgid "Methods"
-msgstr ""
+msgstr "Методы"
 
 #: ../../source/for_users/faq/index.rst:166
 msgid ""
 "Refer to the :ref:`background_landdegradation` section for more background "
 "on analyses available in Trends.Earth."
 msgstr ""
+"Обратитесь к разделу :ref:`background_landdegradation` для получения "
+"дополнительной информации об анализе, доступном в Trends.Earth."
 
 #: ../../source/for_users/faq/index.rst:169
 msgid "Who was the default time period for the analysis determined?"
-msgstr ""
+msgstr "Кем был определен период времени для анализа по умолчанию ?"
 
 #: ../../source/for_users/faq/index.rst:171
 msgid ""
@@ -397,6 +418,12 @@ msgid ""
 " a document that provides detailed recommendations for measuring land "
 "degradation and has been adopted by the UNCCD."
 msgstr ""
+"Период времени анализа по умолчанию: с 2001 по 2015 год. Он был рекомендован"
+" в \"Руководстве по передовому опыту "
+"<http://www2.unccd.int/sites/default/files/relevant-"
+"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>\"_.,"
+" документе, который содержит подробные рекомендации по измерению деградации "
+"земель, а также был принят КБОООН."
 
 #: ../../source/for_users/faq/index.rst:178
 msgid "Productivity"
@@ -405,6 +432,7 @@ msgstr "производительность"
 #: ../../source/for_users/faq/index.rst:181
 msgid "How does the result provided by state differs from trajectory?"
 msgstr ""
+"Чем результат, предоставляемый государством, отличается от траектории?"
 
 #: ../../source/for_users/faq/index.rst:183
 msgid ""
@@ -415,6 +443,13 @@ msgid ""
 "degradation. By comparing a long term mean to the most recent period, state "
 "is able to capture such recent changes."
 msgstr ""
+"Траекторный анализ использует линейные регрессии и непараметрические тесты "
+"для выявления долгосрочных существенных тенденций в первичной "
+"продуктивности. Однако этот метод не способен зафиксировать более поздние "
+"изменения в первичной продуктивности, которые могут быть сигналами "
+"краткосрочных процессов улучшения или деградации. Сравнивая долгосрочное "
+"среднее значение с самым последним периодом, государство может зафиксировать"
+" такого рода недавние изменения."
 
 #: ../../source/for_users/faq/index.rst:192
 msgid "Land cover"
@@ -427,6 +462,10 @@ msgid ""
 " characteristics. Could it be possible to allow the user to define the "
 "aggregation criteria?"
 msgstr ""
+"В настоящее время агрегирование данных о земляном покрове производится в "
+"соответствии с руководством КБОООН, но эта классификация не учитывает "
+"особенности на уровне стран. Можно ли разрешить пользователю определять "
+"критерии агрегирования?"
 
 #: ../../source/for_users/faq/index.rst:197
 msgid ""
@@ -434,10 +473,13 @@ msgid ""
 " cover GUI so that appropriate aggregations occur depending on the context "
 "of your country."
 msgstr ""
+"Пользователи могут вносить эти изменения, используя расширенные настройки в "
+"графическом интерфейсе земляного покрова, чтобы соответствующие "
+"агрегирования происходили в зависимости от контекста вашей страны."
 
 #: ../../source/for_users/faq/index.rst:202
 msgid "How can we isolate woody plant encroachment within the toolbox?"
-msgstr ""
+msgstr "Как мы можем изолировать закустаривание в панели инструментов?"
 
 #: ../../source/for_users/faq/index.rst:204
 msgid ""
@@ -447,16 +489,23 @@ msgid ""
 "woody encroachment and this transition can be marked as an indicator of "
 "degradation."
 msgstr ""
+"Это можно изменить с помощью матрицы изменений земляного покрова в панели "
+"инструментов. Для каждого перехода пользователь может отметить изменение как"
+" стабильное, с улучшением или c деградацией. Переход от пастбищ к местности,"
+" покрытой кустарниками, может указывать на закустаривание, и этот переход "
+"может быть отмечен как показатель деградации."
 
 #: ../../source/for_users/faq/index.rst:211
 msgid "Carbon stocks"
-msgstr ""
+msgstr "Запасы углерода"
 
 #: ../../source/for_users/faq/index.rst:214
 msgid ""
 "Why use soil organic carbon (SOC) instead of above and below-ground carbon "
 "to  measure carbon stocks?"
 msgstr ""
+"Зачем использовать почвенный органический углерод (SOC) вместо надземного и "
+"подземного углерода для измерения запасов углерода?"
 
 #: ../../source/for_users/faq/index.rst:216
 msgid ""
@@ -469,12 +518,24 @@ msgid ""
 "links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_"
 " published by the UNCCD recommends for the time being to use SOC as a proxy."
 msgstr ""
+"Первоначально предлагаемым показателем были запасы углерода, которые "
+"включали бы наземную и подземную биомассу. Однако, учитывая отсутствие "
+"последовательно генерируемых и сопоставимых наборов данных, которые "
+"оценивают запасы углерода в древесных растениях (включая кустарники), "
+"травах, пахотных землях и других типах земляного покрова как над землей, так"
+" и под землей, в \"Руководстве по передовому опыту "
+"<http://www2.unccd.int/sites/default/files/relevant-"
+"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>\"_,"
+" опубликованном КБОООН, пока рекомендуется использовать почвенный "
+"органический углерод в качестве показателя."
 
 #: ../../source/for_users/faq/index.rst:225
 msgid ""
 "Is it possible to measure identify processes of degradation linked to "
 "salinization using this tool?"
 msgstr ""
+"Можно ли с помощью этого инструмента измерить и выявить процессы деградации,"
+" связанные с засолением?"
 
 #: ../../source/for_users/faq/index.rst:227
 msgid ""
@@ -482,15 +543,20 @@ msgid ""
 "that decrease would be identified by the productivity indicators, but the "
 "users would have to use their local knowledge to assign the causes."
 msgstr ""
+"Не напрямую. Если засоление привело к снижению первичной продуктивности, это"
+" снижение будет определено показателями продуктивности, но пользователям "
+"придется использовать свои знания местности для определения причин."
 
 #: ../../source/for_users/faq/index.rst:232
 msgid "Land degradation outputs"
-msgstr ""
+msgstr "Результаты деградации земель"
 
 #: ../../source/for_users/faq/index.rst:235
 msgid ""
 "How were the layers combined to define the final land degradation layer?"
 msgstr ""
+"Как были объединены слои для определения окончательного слоя деградации "
+"земель?"
 
 #: ../../source/for_users/faq/index.rst:237
 msgid ""
@@ -503,12 +569,22 @@ msgid ""
 "of the three indicators at a particular pixel, then that pixel is mapped as "
 "being “degraded”."
 msgstr ""
+"Производительность, состояние и траектория (три показателя изменения "
+"продуктивности_) объединены в соответствии с измененной версией руководства "
+"по передовому опыту, разработанного КБОООН (в разделе Показатель ЦУР 15.3.1 "
+"настоящего руководства представлена таблица). Продуктивность, почвенный "
+"углерод и изменение земляного покрова (три подпоказателя ЦУР 15.3.1) "
+"объединяются по принципу \"нет одного, нет ничего\". Другими словами: если "
+"наблюдается снижение любого из трех показателей в конкретном пикселе, то "
+"этот пиксель отображается как \"деградировавший\"."
 
 #: ../../source/for_users/faq/index.rst:246
 msgid ""
 "Why do I see areas the data says are improving or degrading when I know they"
 " are not?"
 msgstr ""
+"Почему я вижу области, которые, судя по данным, улучшаются или деградируют, "
+"хотя я знаю, что это не так?"
 
 #: ../../source/for_users/faq/index.rst:248
 msgid ""
@@ -526,12 +602,28 @@ msgid ""
 "not be the most relevant at all scales and geographies. A functionality to "
 "use local data will be added shortly."
 msgstr ""
+"Конечный результат следует интерпретировать как показ областей, потенциально"
+" подверженных деградации. Показатель деградации земель основан на изменениях"
+" продуктивности, земляного покрова и органического углерода почвы. Несколько"
+" факторов могут привести к выявлению моделей деградации, которые, по-"
+"видимому, не коррелируют с тем, что происходит на местах, причем дата "
+"анализа очень важна. Например, если климатические условия во время начала "
+"анализа были особенно влажными, тенденции с этого момента могут "
+"свидетельствовать о значительном снижении первичной продуктивности и "
+"деградации. Пользователь может использовать Trends.Earth для решения "
+"некоторых из этих проблем, связанных с воздействием климата. Разрешение "
+"данных потенциально может быть еще одним ограничением. Trends.Earth по "
+"умолчанию использует глобальные наборы данных, которые не будут наиболее "
+"релевантными во всех масштабах и географических регионах. В ближайшее время "
+"будет добавлена функция использования локальных данных."
 
 #: ../../source/for_users/faq/index.rst:262
 msgid ""
 "All of the sub-indicators are measuring vegetation: how does this contribute"
 " to understanding and identifying land degradation?"
 msgstr ""
+"Все подпоказатели измеряют растительность: как это способствует пониманию и "
+"выявлению деградации земель?"
 
 #: ../../source/for_users/faq/index.rst:264
 msgid ""
@@ -550,14 +642,30 @@ msgid ""
 "consensus that it this point in time and globally, this is the best "
 "approach."
 msgstr ""
+"Растительность является ключевым компонентом большинства экосистем и служит "
+"хорошим показателем их общего функционирования и состояния. Три "
+"подпоказателя, используемые для ЦУР 15.3.1, измеряют различные аспекты "
+"земляного покрова, которые связаны с растительностью. Первичная "
+"продуктивность напрямую измеряет изменение количества биомассы, "
+"присутствующей в одной области, но она не сообщает нам, является ли это "
+"изменение положительным или нет (не все увеличения биомассы растений следует"
+" интерпретировать как улучшение). Земляной покров заполняет этот пробел, "
+"интерпретируя ландшафт с тематической точки зрения, рассматривая то, что "
+"было там раньше, и то, что есть сейчас. Он включает в себя растительность, а"
+" также голую землю, города и воду. Наконец, показатель органического "
+"углерода почвы использует карту земляного покрова для информирования об "
+"изменениях органического углерода почвы с течением времени. Этот метод не "
+"идеален, но, учитывая текущее состояние мирового почвоведения и геодезии, "
+"существует консенсус в отношении того, что на данный момент времени и в "
+"глобальном масштабе это наилучший подход."
 
 #: ../../source/for_users/faq/index.rst:279
 msgid "Future plans"
-msgstr ""
+msgstr "Планы на будущее"
 
 #: ../../source/for_users/faq/index.rst:282
 msgid "When will there be an offline version of the toolbox?"
-msgstr ""
+msgstr "Когда появится автономная версия панели инструментов?"
 
 #: ../../source/for_users/faq/index.rst:284
 msgid ""
@@ -571,10 +679,22 @@ msgid ""
 "offline version of the toolbox and provide countries with data relevant for "
 "reporting at the national level within the pilot project countries."
 msgstr ""
+"Окончательная панель инструментов будет доступна как в автономной, так и в "
+"онлайн-версии. Онлайн-версия позволяет пользователям проще получать доступ к"
+" текущим наборам данных, а также использовать Google Earth Engine для "
+"проведения вычислений в облаке. Автономная версия позволяет пользователям "
+"получать доступ к данным и выполнять анализы там, где подключение к "
+"Интернету может быть ограничено, но у нее есть недостаток, заключающийся в "
+"том, что пользователям требуется достаточно локальных вычислительных "
+"мощностей для проведения анализа локально. Техническая группа намерена "
+"создать автономную версию панели инструментов и предоставить странам данные,"
+" необходимые для отчетности на национальном уровне в странах пилотного "
+"проекта."
 
 #: ../../source/for_users/faq/index.rst:295
 msgid "Will you create a trends.earth toolbox for ESRI users?"
 msgstr ""
+"Создадите ли вы панель инструментов Trends.Earth для пользователей ESRI?"
 
 #: ../../source/for_users/faq/index.rst:297
 msgid ""
@@ -583,6 +703,10 @@ msgid ""
 "toolbox. There are currently no plans to build a toolbox within ArcGIS or "
 "ArcPro."
 msgstr ""
+"В настоящее время панель инструментов доступна в качестве плагина к QGIS, "
+"программному пакету с открытым исходным кодом. Это позволяет пользователям "
+"по всему миру получить бесплатный доступ к панели инструментов. В настоящее "
+"время нет планов по созданию панели инструментов в ArcGIS или ArcPro."
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"

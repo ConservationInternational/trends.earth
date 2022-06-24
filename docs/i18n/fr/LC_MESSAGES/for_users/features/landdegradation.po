@@ -25,7 +25,7 @@ msgstr ""
 
 #: ../../source/for_users/features/landdegradation.rst:4
 msgid "Land degradation and SDG 15.3.1"
-msgstr ""
+msgstr "Dégradation des terres et ODD 15.3.1"
 
 #: ../../source/for_users/features/landdegradation.rst:6
 msgid ""
@@ -89,6 +89,12 @@ msgid ""
 "links/2021-03/Indicator_15.3.1_GPG_v2_29Mar_Advanced-version.pdf>`_. "
 "providing recommendations on how to calculate SDG Indicator 15.3.1."
 msgstr ""
+"En tant qu'agence en charge de la cible ODD 15.3, la Convention des Nations "
+"unies sur la lutte contre la désertification (CNULCD) a élaboré un « Guide "
+"de bonnes pratiques (GPG) "
+"<https://www.unccd.int/sites/default/files/relevant-"
+"links/2021-03/Indicator_15.3.1_GPG_v2_29Mar_Advanced-version.pdf> »_. "
+"donnant des recommandations pour calculer l'indice ODD 15.3.1."
 
 #: ../../source/for_users/features/landdegradation.rst:31
 msgid ""
@@ -136,6 +142,11 @@ msgid ""
 " a final SDG 15.3.1 indicator map and produces a table result reporting "
 "areas potentially improved and degraded for the area of analysis."
 msgstr ""
+"|trends.earth|permet à l'utilisateur de calculer chacun des sous-indicateurs"
+" d'une façon spatialement explicite, générant des cartes raster qui sont "
+"ensuite intégrées dans une carte d'indice ODD 15.3.1 final et produit un "
+"résultat sous forme de tableau indiquant les zones avec amélioration ou "
+"dégradation potentielles pour la région analysée."
 
 #: ../../source/for_users/features/landdegradation.rst:50
 msgid "Sub-indicators"
@@ -504,6 +515,12 @@ msgid ""
 "outliers). The value representing the 90th percentile will be considered the"
 " maximum productivity for that unit."
 msgstr ""
+"Pour chaque unité, extrayez toutes les valeurs NDVI moyennes calculées à "
+"l'étape 1 et créez une distribution de fréquence. De cette distribution, "
+"déterminez la valeur qui représente le 90e percentile (nous conseillons "
+"d'utiliser la valeur NDVI absolue maximale pour éviter les erreurs possibles"
+" dues à la présence de valeurs extrêmes). La valeur représentant le 90e "
+"percentile sera considérée comme la productivité maximale pour chaque unité."
 
 #: ../../source/for_users/features/landdegradation.rst:233
 msgid ""
@@ -773,7 +790,7 @@ msgstr "iconInfo"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr "iconLoaddataset"
+msgstr "iconLoaddataset "
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"

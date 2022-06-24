@@ -24,7 +24,7 @@ msgstr ""
 
 #: ../../source/for_users/features/unccdreporting.rst:4
 msgid "UNCCD Reporting - SDG 15.3.1"
-msgstr ""
+msgstr "Отчет КБОООН — ЦУР 15.3.1"
 
 #: ../../source/for_users/features/unccdreporting.rst:6
 msgid ""

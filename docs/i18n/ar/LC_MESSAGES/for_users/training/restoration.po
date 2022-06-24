@@ -24,13 +24,15 @@ msgstr ""
 
 #: ../../source/for_users/training/restoration.rst:4
 msgid "Potential Carbon Sequestration under Restoration"
-msgstr ""
+msgstr "تنحية الكربون المحتملة بإعادة تأهيل الغابات\n"
 
 #: ../../source/for_users/training/restoration.rst:6
 msgid ""
 "**Objective**: Learn how to compute carbon sequestration under different "
 "forest restoration activities."
 msgstr ""
+"**الهدف**: تعلم كيفية حساب تنحية الكربون في إطار الأنشطة المختلفة لإعادة "
+"تأهيل الغابات."
 
 #: ../../source/for_users/training/restoration.rst:8
 msgid "**Estimated time of completion**: 20 minutes"
@@ -45,14 +47,16 @@ msgid ""
 "Refer to the :ref:`background_restoration` for background information on the"
 " datasets and"
 msgstr ""
+"يرجى الرجوع إلى: ref:`background_restoration` للاطلاع على معلومات أساسية عن "
+"مجموعات البيانات و"
 
 #: ../../source/for_users/training/restoration.rst:14
 msgid "methodology used for this tutorial."
-msgstr "المنهجية المستخدمة في هذا البرنامج التعليمي."
+msgstr "المنهجية المستخدمة في هذا البرنامج التدريبي.\n"
 
 #: ../../source/for_users/training/restoration.rst:19
 msgid "Estimate potential impacts of restoration"
-msgstr "تقدير الآثار المحتملة للترميم"
+msgstr "تقدير الآثار المحتملة لإعادة تأهيل الغابات\n"
 
 #: ../../source/for_users/training/restoration.rst:21
 msgid ""
@@ -60,12 +64,17 @@ msgid ""
 "**Experimental** menu, select **Potential change in biomass due to "
 "restoration - Above and below ground woody** menu."
 msgstr ""
+"في علامة التبويب **الخوارزميات** في إضافة Trends.Earth في QGIS، تحت قائمة "
+"**تجريبي**، اختر قائمة **التغيير المحتمل في الكتلة الحيوية بإعادة تأهيل "
+"الغابات - فوق وتحت الأرض الخشبية **.\n"
 
 #: ../../source/for_users/training/restoration.rst:27
 msgid ""
 "Select the **Estimate potential impacts of restoration** menu by selecting "
 "**Execute locally**."
 msgstr ""
+"اختر قائمة **تقدير التأثيرات المحتملة لإعادة تأهيل الغابات** عن طريق اختيار "
+"**التنفيذ محلياً**.\n"
 
 #: ../../source/for_users/training/restoration.rst:32
 msgid ""
@@ -73,6 +82,8 @@ msgid ""
 " analysis. Select the type of restoration: terrestrial or coastal "
 "(mangrove). Define the length of the intervention in year."
 msgstr ""
+"ستظهر نافذة يمكنك تحديد فيها معلمات تحليل إعادة تأهيل الغابات. حدد نوع إعادة"
+" التأهيل: أرضية أو ساحلية (الأيكة الساحلية). اختر مدة التدخل في السنة.\n"
 
 #: ../../source/for_users/training/restoration.rst:39
 msgid "Select **Change region** to define the area of interest."

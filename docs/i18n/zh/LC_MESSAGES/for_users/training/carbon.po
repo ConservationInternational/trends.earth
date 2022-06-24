@@ -24,14 +24,14 @@ msgstr ""
 
 #: ../../source/for_users/training/carbon.rst:4
 msgid "Forest and Carbon Change Tool"
-msgstr ""
+msgstr "森林和碳变化工具"
 
 #: ../../source/for_users/training/carbon.rst:6
 msgid ""
 "**Objective**: Learn how to compute forest cover, forest loss, above and "
 "below ground biomass and emissions from deforestation in raster format and "
 "tabular outputs with areas estimated."
-msgstr ""
+msgstr "**目标**：了解如何以栅格格式计算森林覆盖率、森林损失、地上与地下生物量和森林砍伐产生的排放量，以及估计面积的表格输出。"
 
 #: ../../source/for_users/training/carbon.rst:8
 msgid "**Estimated time of completion**: 20 minutes"
@@ -45,7 +45,7 @@ msgstr "**互联网接入**：必填"
 msgid ""
 "Refer to the :ref:`background_carbon` for background information on the "
 "datasets and"
-msgstr ""
+msgstr "关于数据集的背景信息，请参阅 :ref:`background_carbon`"
 
 #: ../../source/for_users/training/carbon.rst:14
 msgid "methodology used for this tutorial."
@@ -53,7 +53,7 @@ msgstr "本教程使用的方法。"
 
 #: ../../source/for_users/training/carbon.rst:19
 msgid "Calculate change in carbon"
-msgstr ""
+msgstr "计算碳变化"
 
 #: ../../source/for_users/training/carbon.rst:21
 msgid ""
@@ -61,12 +61,14 @@ msgid ""
 "**Experimental** menu, select **Calculate change in total carbon - Above and"
 " below ground emissions, and deforestation** menu."
 msgstr ""
+"在 QGIS 中 Trends.Earth 插件的 **算法** 选项卡中，在 **实验性** 菜单下，选择 "
+"**计算总碳的变化——地上和地下排放，以及森林砍伐** 菜单。"
 
 #: ../../source/for_users/training/carbon.rst:27
 msgid ""
 "Select the **Calculate change in carbon** menu by selecting **Execute "
 "locally**."
-msgstr ""
+msgstr "选择**本地执行**，以进一步选择**计算碳变化**菜单。"
 
 #: ../../source/for_users/training/carbon.rst:32
 msgid ""
@@ -75,12 +77,13 @@ msgid ""
 "loss, carbon emissions from deforestation. Define the percent tree cover "
 "considered forest for your area of interest."
 msgstr ""
+"将出现一个窗口，您可以在其中选择碳分析的参数。选择监测树木覆盖损失、毁林造成的碳排放的初始年份和目标年份。为您的感兴趣区域定义被视为森林的树木覆盖百分比。"
 
 #: ../../source/for_users/training/carbon.rst:39
 msgid ""
 "The definition of canopy cover should be changed to accommodate the specific"
 " area of interest."
-msgstr "树冠覆盖的定义应该改变，以适应特定的关注领域。"
+msgstr "应更改冠层覆盖的定义以适应特定的感兴趣区域。"
 
 #: ../../source/for_users/training/carbon.rst:38
 msgid ""
@@ -89,6 +92,8 @@ msgid ""
 "definition can change for arid regions. For more information, please see the"
 " publication\""
 msgstr ""
+"此数据集根据 2000 年的树冠覆盖百分比，绘制了全球树木覆盖图。许多研究引用 25%–30% "
+"的阈值来定义森林，但是这个定义可能会因干旱地区而改变。欲了解更多信息，请参阅出版物“"
 
 #: ../../source/for_users/training/carbon.rst:44
 msgid "Select **Change region** to define the area of interest."
@@ -128,7 +133,7 @@ msgid ""
 "Select the **Advanced configuration** menu to select the biomass dataset, "
 "and method for calculating the root to shoot ratio (below ground biomass) "
 "Select **Schedule remote exectution**"
-msgstr ""
+msgstr "选择 **高级配置** 菜单以选择生物量数据集，以及计算根冠比（地下生物量）的方法。选择**安排远程执行**"
 
 #: ../../source/for_users/training/carbon.rst:74
 msgid ""
@@ -141,13 +146,13 @@ msgstr ""
 
 #: ../../source/for_users/training/carbon.rst:77
 msgid "Change in carbon summary table"
-msgstr ""
+msgstr "碳变化汇总表"
 
 #: ../../source/for_users/training/carbon.rst:79
 msgid ""
 "Go the the **Datasets** tab to **Add default layers from this dataset to "
 "map**."
-msgstr "转到**数据集**选项卡以**将此数据集中的默认图层添加到地图**。"
+msgstr "转到**数据集**选项卡，以**将此数据集中的默认图层添加到地图**。"
 
 #: ../../source/for_users/training/carbon.rst:84
 msgid ""
@@ -160,14 +165,14 @@ msgid ""
 "In the **Calculate change in total carbon - Above and below ground "
 "emissions, and deforestation** menu under **Change in carbon summary "
 "table**, select the **Execute locally** button."
-msgstr ""
+msgstr "在**碳变化汇总表**下的**计算总碳变化——地上和地下排放，以及森林砍伐** 菜单中，选择**本地执行**按钮。"
 
 #: ../../source/for_users/training/carbon.rst:101
 msgid ""
 "The layers will pre-populate in the data layer drop-down lists. Confirm the "
 "region is the same area of interest, provide descriptive names and notes and"
 " select **Execute locally**."
-msgstr "这些层将预先填充在数据层下拉列表中。确认此区域是同一感兴趣区域，提供描述性名称和注释并选择**本地执行**。"
+msgstr "这些层将预先填充在数据层下拉列表中。确认此区域是同一个感兴趣区域，提供描述性名称和注释，并选择**本地执行**。"
 
 #: ../../source/for_users/training/carbon.rst:101
 msgid ""
@@ -175,8 +180,8 @@ msgid ""
 "**trends_earth_data*** folder under your user account on your computer "
 "(e.g., C:\\Users\\mnoon\\trends_earth_data)."
 msgstr ""
-"比较最终输出的电子表格保存在您计算机用户账户下的 **trends_earth_data*** 文件夹中（例如 "
-"C:\\Users\\mnoon\\trends_earth_data）。"
+"比较最终输出的电子表格保存在您计算机用户账户下的 **trends_earth_data*** "
+"文件夹中（例如，C:\\Users\\mnoon\\trends_earth_data）。"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"

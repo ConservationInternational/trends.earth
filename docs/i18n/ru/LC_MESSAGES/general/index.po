@@ -24,7 +24,7 @@ msgstr ""
 
 #: ../../source/general/index.rst:4
 msgid "General information"
-msgstr ""
+msgstr "Общая информация"
 
 #: ../../source/general/index.rst:6
 msgid ""
@@ -32,6 +32,10 @@ msgid ""
 "global data sources to assess and monitor land degradation at multiple "
 "scales\", funded by the Global Environment Facility."
 msgstr ""
+"Ресурс|trends.earth| был подготовлен в рамках проекта \"Обеспечение "
+"возможности использования глобальных источников данных для оценки и "
+"мониторинга деградации земель в различных масштабах\", финансируемого "
+"Глобальным экологическим фондом (Global Environment Facility, GEF)."
 
 #: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
 #: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
@@ -43,7 +47,7 @@ msgstr "Trends.Earth"
 
 #: ../../source/general/index.rst:11
 msgid "Contacting the team"
-msgstr ""
+msgstr "Связь с командой"
 
 #: ../../source/general/index.rst:13
 msgid ""
@@ -54,10 +58,16 @@ msgid ""
 "<https://github.com/ConservationInternational/trends.earth/issues>`_ for "
 "|trends.earth|."
 msgstr ""
+"Свяжитесь с командой `Trends.Earth <mailto:trends.earth@conservation.org>`_,"
+" чтобы представить любые замечания или предложения. Если у вы хотели бы "
+"сообщить о конкретных ошибках или улучшениях для этого инструмента, вы также"
+" можете направить их через `Трекер проблем на Github "
+"<https://github.com/ConservationInternational/trends.earth/issues>`_ для "
+"|trends.earth|."
 
 #: ../../source/general/index.rst:21
 msgid "Authors"
-msgstr ""
+msgstr "Авторы"
 
 #: ../../source/general/index.rst:23
 msgid ""
@@ -66,6 +76,10 @@ msgid ""
 "Administration (NASA), and is funded by the Global Environment Facility "
 "(GEF)."
 msgstr ""
+"Проект мониторинга деградации земель подготовлен  с участием партнерства "
+"Conservation International, Лундского университета и Национального "
+"управления по аэронавтике и исследованию космического пространства (NASA) и "
+"финансируется Глобальным экологическим фондом (GEF)."
 
 #: ../../source/general/index.rst:27
 msgid ""
@@ -73,12 +87,17 @@ msgid ""
 "Genesis, Lennart Olsson, Mariano Gonzalez-Roglich, Monica Noon, Tristan "
 "Schnader, Anna Tengberg, and Alex Zvoleff."
 msgstr ""
+"Авторы документации и сайта |trends.earth|: Йенгох Генезис, Леннарт Олссон, "
+"Мариано Гонсалес-Роглих, Моника Нун, Тристан Шнадер, Анна Тенгберг и Алекс "
+"Зволефф."
 
 #: ../../source/general/index.rst:35
 msgid ""
 "|trends.earth| uses `Google Earth Engine <https://earthengine.google.com>`_ "
 "to compute indicators in the cloud."
 msgstr ""
+"Для расчет покузателе на ресурсе|trends.earth| используется `Google Earth "
+"Engine <https://earthengine.google.com>`_."
 
 #: ../../source/general/index.rst:43
 msgid ""
@@ -88,6 +107,12 @@ msgid ""
 " partnership with University of North Carolina - Wilmington and Brown "
 "University and is funded by the Global Environment Facility (GEF)."
 msgstr ""
+"Проект `Tools4LDN <https://www.tools4ldn.org/>`_ является результатом "
+"партнерства Conservation International, Бернского университета, Университета"
+" Колорадо в сотрудничестве с агентствами USDA и USAID,  Калифорнийского "
+"университета в Санта-Барбаре в сотрудничестве с Университетом Северной "
+"Каролины в Уилмингтоне и Университетом Брауна и финансируется Глобальным "
+"экологическим фондом (GEF)."
 
 #: ../../source/general/index.rst:49
 msgid ""
@@ -97,10 +122,15 @@ msgid ""
 "Lopez-Carr, Kevin Mwenda, Jason Neff, George Peacock, Narcisa Pricope, Sanna"
 " Sokolow, and Ingrid Teich."
 msgstr ""
+"Соавторы документации и сайта |trends.earth|: Габриэль Далдеган, Мариано "
+"Гонсалес-Роглих, Моника Нун и Алекс Зволефф в сотрудничестве с Джеффом "
+"Херриком, Татенда Леманном, Ханспетером Линигером, Дэвидом Лопес-Карром, "
+"Кевином Мвенда, Джейсоном Неффом, Джорджем Пикоком, Нарцисой Прикоуп, Санной"
+" Соколоу и Ингрид Тейч."
 
 #: ../../source/general/index.rst:55
 msgid "Acknowledgements"
-msgstr ""
+msgstr "Благодарности"
 
 #: ../../source/general/index.rst:57
 msgid ""
@@ -108,6 +138,9 @@ msgid ""
 "participants in the webinars and workshops held by the GEF Land Degradation "
 "Monitoring Project have been critical to the development of the tool."
 msgstr ""
+"Отзывы первых пользователей |trends.earth| и участников вебинаров и "
+"семинаров, проведенных в рамках Проекта GEF по мониторингу деградации "
+"земель, сыграли решающую роль для развития этого инструмента."
 
 #: ../../source/general/index.rst:61
 msgid ""
@@ -116,6 +149,11 @@ msgid ""
 "on the structure of the tool, and on the UNCCD reporting process, and also "
 "provided early input and testing of the tool."
 msgstr ""
+"Нил Симс, Саша Александр, Ренато Кумани и Сара Минелли внесли вклад в "
+"реализацию ЦУР 15.3 и формирование индикаторов LDN на |trends.earth|, "
+"структуры инструмента и процесса отчетности в рамках Конвенции ООН по борьбе"
+" с опустыниванием, а также обеспечили участие на раннем этапе и тестирование"
+" инструмента."
 
 #: ../../source/general/index.rst:66
 msgid ""
@@ -130,20 +168,35 @@ msgid ""
 "Rwegasira, Ndeye Kany Sarr, Mamadou Adama Sarr, Edward Senyonjo, Olipa "
 "Simon, Samba Sow, Felly Mugizi Tusiime and John Wasige."
 msgstr ""
+"Проект выражает благодарность следующим участникам семинара, состоявшегося в"
+" октябре 2017 года в Морогоро, Танзания, за их отзывы и предложения "
+"относительного этого инструмента: Джонс Агвата, полковник Папа Ассане Ндиур,"
+" лейтенант Фендама Балде, Папа Неху Диагне, Абдул Азиз Диуф, Ричард Альфонс "
+"Гилиба, Мозес Изабирье, Веттес Калема, Джозеф Кихауле, профессор Д. Н. "
+"Кимаро, Джеймс Лваса, Пауло Мандела, Моду Мустафа Сарр, Джозеф Мутьяба, "
+"Стивен Мувайя, Джозеф Мвалугело, проф. Маджалива Мванджалоло, Эдсон Аспон "
+"Мвиджаге, Джером Нчимби, Элибарики Нгови, Табби Нджунге, Даниэль Нкондола, "
+"Блез Окиньи, Джозеф Опио, Розалия Рвегасира, Ндейе Кани Сарр, Мамаду Адама "
+"Сарр, Эдвард Сеньонджо, Олипа Симон, Самба Соу, Фелли Мугизи Тусиме и Джон "
+"Васиге."
 
 #: ../../source/general/index.rst:78
 msgid "Citation"
-msgstr ""
+msgstr "Цитирование"
 
 #: ../../source/general/index.rst:80
 msgid "If you wish to cite |trends.earth|, please use the following citation:"
 msgstr ""
+"Если вы хотите процитировать |trends.earth|, пожалуйста, используйте "
+"следующую отсылку к источнику:"
 
 #: ../../source/general/index.rst:82
 msgid ""
 "Trends.Earth. Conservation International. Available online at: "
 "`http://trends.earth <http://trends.earth>`_. 2022."
 msgstr ""
+"Trends.Earth. Conservation International. Онлайн-доступ по адресу: "
+"`http://trends.earth <http://trends.earth>`_. 2022."
 
 #: ../../source/general/index.rst:86
 msgid "License"
@@ -155,6 +208,10 @@ msgid ""
 "General Public License, version 2.0 or later "
 "<https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html>`_."
 msgstr ""
+"Ресурс |trends.earth| является бесплатным и имеет открытый исходный код. "
+"Ресурс лицензирован в соответствии с `GNU General Public License, версия 2.0"
+" и более поздние версии <https://www.gnu.org/licenses/old-"
+"licenses/gpl-2.0.en.html>`_."
 
 #: ../../source/general/index.rst:92
 msgid ""
@@ -165,10 +222,16 @@ msgid ""
 "official endorsement or acceptance by Conservation International Foundation,"
 " or its partner organizations and contributors."
 msgstr ""
+"Данный сайт и продукция |trends.earth| предоставляются на условиях лицензии "
+"`Creative Commons Attribution 4.0 International License (CC BY 4.0) "
+"<https://creativecommons.org/licenses/by/4.0>`_. Границы и названия, "
+"используемые на сайте |trends.earth|, а также используемые обозначения не "
+"требуют официального одобрения или утверждения Фондом Conservation "
+"International или его партнерскими организациями и спонсорами."
 
 #: ../../source/general/index.rst:100
 msgid "Trademark"
-msgstr ""
+msgstr "Торговая марка"
 
 #: ../../source/general/index.rst:102
 msgid ""
@@ -176,19 +239,24 @@ msgid ""
 "No. 6,074,442 and Int. Cl.: 9,35,42) by the United States Patent and "
 "Trademark Office."
 msgstr ""
+"|trends.earth| обладает товарным знаком обслуживания, зарегистрированным 9 "
+"июня 2020 г. (рег. № 6,074,442 и Int. Cl.: 9,35,42) Ведомством по патентам и"
+" товарным знакам США (United States Patent and Trademark Office)."
 
 #: ../../source/general/index.rst:108
 msgid "Publications"
-msgstr ""
+msgstr "Публикации"
 
 #: ../../source/general/index.rst:111
 msgid "Peer-reviewed Publications"
-msgstr ""
+msgstr "Рецензируемые публикации"
 
 #: ../../source/general/index.rst:113
 msgid ""
 "The below peer-reviewed publications either use or relate to |trends.earth|."
 msgstr ""
+"Приведенные ниже рецензируемые публикации используют данные или имеют "
+"отношение к |trends.earth|."
 
 #: ../../source/general/index.rst:115
 msgid ""
@@ -196,6 +264,9 @@ msgid ""
 " Areas: The Transition to the Use of New Technologies and Multidisciplinary "
 "Studies. Earth, 2(3), pp.635-652."
 msgstr ""
+"Аламанос А. и Линнан С., 2021. Оценка показателей ЦУР в регионах с дефицитом"
+" данных: переход к использованию новых технологий и междисциплинарных "
+"исследований. Earth, 2(3), сс. 635-652."
 
 #: ../../source/general/index.rst:117
 msgid ""
@@ -204,6 +275,10 @@ msgid ""
 "system science: status and prospects. Curr. Opin. Environ. Sustain. 38, "
 "44–52. https://doi.org/10.1016/j.cosust.2019.05.003"
 msgstr ""
+"Донг Ж., Меттернихт Г., Хостерт П., Феншолт Р., Чоудхури Р. Р., 2019. "
+"Дистанционное зондирование и геопространственные технологии в поддержку "
+"нормативной науки о земельных системах: состояние и перспективы. Curr. Opin."
+" Environ. Sustain. 38, 44-52. https://doi.org/10.1016/j.cosust.2019.05.003"
 
 #: ../../source/general/index.rst:121
 msgid ""
@@ -212,6 +287,10 @@ msgid ""
 "land degradation assessment and monitoring. Ecol. Indic. 107, 105545. "
 "https://doi.org/10.1016/j.ecolind.2019.105545"
 msgstr ""
+"Исдейл М. Х., Фаринья C., Хара С., Перес Леон Н., Уманья Ф., Титтонелл П., "
+"Бруззон О., 2019. Трендовые циклы динамики растительности как инструмент "
+"оценки и мониторинга деградации земель. Ecol. Indic. 107, 105545. "
+"https://doi.org/10.1016/j.ecolind.2019.105545"
 
 #: ../../source/general/index.rst:124
 msgid ""
@@ -221,6 +300,11 @@ msgid ""
 "the potential of data cube. Big Earth Data 4, 3–22. "
 "https://doi.org/10.1080/20964471.2020.1711633"
 msgstr ""
+"Джулиани Г., Шатену Б., Бенвенути А., Лакруа П., Санторо М., Маззетти П., "
+"2020a. Мониторинг деградации земель на национальном уровне с использованием "
+"временных рядов данных спутникового наблюдения Земли для поддержки ЦУР 15 — "
+"изучение потенциала куба данных. Big Earth Data 4, 3-22. "
+"https://doi.org/10.1080/20964471.2020.1711633."
 
 #: ../../source/general/index.rst:128
 msgid ""
@@ -230,6 +314,11 @@ msgid ""
 "case on Land degradation. Int. J. Appl. Earth Obs. Geoinformation 88, "
 "102068. https://doi.org/10.1016/j.jag.2020.102068"
 msgstr ""
+"Джулиани Г., Мазетти П., Санторо М., Нативи С., Ван Беммелен Я., Коланджели "
+"Г., Леманн А., 2020b. Формирование знаний с использованием спутниковых "
+"наблюдений Земли для поддержки Целей устойчивого развития (ЦУР). На "
+"практическом примере деградации земель. Int. J. Appl. Earth Obs. "
+"Geoinformation 88, 102068. https://doi.org/10.1016/j.jag.2020.102068"
 
 #: ../../source/general/index.rst:132
 msgid ""
@@ -240,6 +329,12 @@ msgid ""
 "database. Environ. Sci. Policy 93, 34–42. "
 "https://doi.org/10.1016/j.envsci.2018.12.019"
 msgstr ""
+"Гонсалес-Роглих М., Зволефф А., Нун М., Линигер Х., Флейнер Р., Харари Н., "
+"Гарсия К., 2019. Синергия глобальных инструментов для мониторинга прогресса "
+"на пути к нейтральности деградации земель: Trends.Earth и Всемирный обзор "
+"природоохранных подходов и технологий на основе базы данных устойчивого "
+"управления земельными ресурсами. Environ. Sci. Policy 93, 34-42. "
+"https://doi.org/10.1016/j.envsci.2018.12.019"
 
 #: ../../source/general/index.rst:137
 msgid ""
@@ -248,6 +343,10 @@ msgid ""
 " development goal 15.3 in Central Asia. Science of The Total Environment, "
 "807, p.150868. https://doi.org/10.1016/j.scitotenv.2021.150868"
 msgstr ""
+"Цзян Л., Бао А., Джиапер Г., Лю Р., Юан Й. и Ю T., 2022. Мониторинг "
+"деградации земель и оценка ее факторов для поддержки цели устойчивого "
+"развития 15.3 в Центральной Азии. Science of The Total Environment, 807, "
+"p.150868. https://doi.org/10.1016/j.scitotenv.2021.150868"
 
 #: ../../source/general/index.rst:140
 msgid ""
@@ -256,6 +355,11 @@ msgid ""
 "case study of Hyderabad city, India. Modeling Earth Systems and Environment,"
 " 7(1), pp.589-602. https://doi.org/10.1007/s40808-020-00937-0"
 msgstr ""
+"Кадаверугу А., Нагешвар Рао К. и Вишванадх Г. К., 2021. Количественная "
+"оценка услуг по смягчению последствий наводнений с помощью городских зеленых"
+" насаждений с использованием модели InVEST на примере города Хайдарабад, "
+"Индия. Modeling Earth Systems and Environment, 7(1), сc. 589-602. "
+"https://doi.org/10.1007/s40808-020-00937-0"
 
 #: ../../source/general/index.rst:143
 msgid ""
@@ -263,6 +367,10 @@ msgid ""
 "Neutrality: the Modern Approach to Research on Arid Regions at the National "
 "Level. Arid Ecosyst. 10, 87–92. https://doi.org/10.1134/S2079096120020092"
 msgstr ""
+"Куст Г. С., Андреева О. В., Лобковский В. А., 2020. Нейтральный баланс "
+"деградации земель — современный подход к исследованиям засушливых регионов "
+"на национальном уровне. Arid Ecosyst. 10, 87-92. "
+"https://doi.org/10.1134/S2079096120020092"
 
 #: ../../source/general/index.rst:146
 msgid ""
@@ -271,6 +379,10 @@ msgid ""
 "Support of SDG Indicator 15.3. 1. Sustainability, 13(24), p.13664. "
 "https://doi.org/10.3390/su132413664"
 msgstr ""
+"Й. Ху, Ван К., Ю X. и Инь С., 2021. Оценка тенденций изменения плодородия "
+"земель и их причин в бассейне реки Хань в Китае: в поддержку показателя ЦУР "
+"15.3. 1. Sustainability, 13(24), p.13664. "
+"https://doi.org/10.3390/su132413664"
 
 #: ../../source/general/index.rst:149
 msgid ""
@@ -279,6 +391,11 @@ msgid ""
 "index based on natural soil productivity and human management. J. Environ. "
 "Manage. 277, 111402. https://doi.org/10.1016/j.jenvman.2020.111402"
 msgstr ""
+"Ли Ц., Лун Ф., Лю М, Сяо Х., Ванг К., Ванг Л., Й. Ху, Ки В., Сунь Д., 2021. "
+"Экспресс-диагностика здоровья сельскохозяйственных почв: новый индекс "
+"здоровья почвы, основанный на естественном плодородии почв и управлении "
+"человеком. J. Environ. Manage. 277, 111402. "
+"https://doi.org/10.1016/j.jenvman.2020.111402"
 
 #: ../../source/general/index.rst:153
 msgid ""
@@ -287,6 +404,11 @@ msgid ""
 " knowledge in evidence-based decision-making. Environ. Sci. Policy 94, "
 "123–134. https://doi.org/10.1016/j.envsci.2019.01.001"
 msgstr ""
+"Линигер Х., Харари Н., ван Линден Г., Флейнер Р., де Лейв Й., Баи З., "
+"Критчли В., 2019. Достижение нейтрального баланса деградации земель: роль "
+"знаний об устойчивом землепользовании в принятии решений на основе "
+"фактических данных. Environ. Sci. Policy 94, 123-134. "
+"https://doi.org/10.1016/j.envsci.2019.01.001"
 
 #: ../../source/general/index.rst:157
 msgid ""
@@ -294,6 +416,9 @@ msgid ""
 " Observation Solutions for Namibia’s SDG Monitoring System. Remote Sens. 11,"
 " 1612. https://doi.org/10.3390/rs11131612"
 msgstr ""
+"Мариатхасан В., Безуиденхудт Э., Олимпио К. Р., 2019. Оценка решений по "
+"наблюдению Земли для целей системы мониторинга ЦУР в Намибии. Remote Sens. "
+"11, 1612. https://doi.org/10.3390/rs11131612"
 
 #: ../../source/general/index.rst:160
 msgid ""
@@ -303,6 +428,11 @@ msgid ""
 "Environmental Science & Policy, 131, pp.93-104. "
 "https://doi.org/10.1016/j.envsci.2021.12.023"
 msgstr ""
+"Мазетти П., Нативи С., Санторо М., Джулиани Г., Родила Д., Фолино А., Карузо"
+" С., Аракри Г. и Леманн А., 2022. Формализация знаний для принятия "
+"обоснованных решений в области наук о Земле: база знаний GEOEssential. "
+"Environmental Science & Policy, 131, pp.93-104. "
+"https://doi.org/10.1016/j.envsci.2021.12.023"
 
 #: ../../source/general/index.rst:164
 msgid ""
@@ -310,6 +440,9 @@ msgid ""
 "WRF modelling system. Environmental Modelling & Software 112, 166–178 "
 "(2019). https://doi.org/10.1016/j.envsoft.2018.10.018"
 msgstr ""
+"Мейер Д. и Рихерт М. Инструментарий QGIS с открытым исходным кодом для "
+"системы моделирования Advanced Research WRF. Environmental Modelling & "
+"Software 112, 166-178 (2019). https://doi.org/10.101/j.envsoft.2018.10.018"
 
 #: ../../source/general/index.rst:167
 msgid ""
@@ -318,6 +451,10 @@ msgid ""
 "Support SDG Target 15.3. In Geospatial Intelligence (pp. 119-129). Springer,"
 " Cham. https://doi.org/10.1007/978-3-030-80458-9_9"
 msgstr ""
+"Мусса С., Эль-Брирхи Э. Х. и Алами О. Б., 2022. Мониторинг тенденций "
+"плодородия земель в регионе Сус-Масса с использованием данных временных "
+"рядов Landsat для поддержки цели 15.3 ЦУР. Geospatial Intelligence (сс. "
+"119-129). Springer, Cham. https://doi.org/10.1007/978-3-030-80458-9_9"
 
 #: ../../source/general/index.rst:170
 msgid ""
@@ -325,6 +462,10 @@ msgid ""
 "region. In IOP Conference Series: Earth and Environmental Science (Vol. 723,"
 " No. 4, p. 042053). IOP Publishing. doi:10.1088/1755-1315/723/4/042053"
 msgstr ""
+"Огородников С.С., 2021, март. Нейтральный баланс деградации земель в "
+"Тульской области. В серии конференций IOP: Earth and Environmental Science "
+"(Vol. 723, No. 4, p. 042053). IOP Publishing. "
+"doi:10.1088/1755-1315/723/4/042053"
 
 #: ../../source/general/index.rst:173
 msgid ""
@@ -332,6 +473,9 @@ msgid ""
 "Observations for Sustainable Urban Development. Remote Sens. 12, 1646. "
 "https://doi.org/10.3390/rs12101646"
 msgstr ""
+"Пракаш М., Рамадж С., Каввада А., Гудман С., 2020. Открытые наблюдения Земли"
+" для устойчивого городского развития. Remote Sens. 12, 1646. "
+"https://doi.org/10.3390/rs12101646"
 
 #: ../../source/general/index.rst:176
 msgid ""
@@ -339,6 +483,9 @@ msgid ""
 " planning tools: city of Hamilton, Canada. Hydrological Sciences Journal, "
 "66(7), pp.1124-1131. https://doi.org/10.1080/02626667.2021.1918340"
 msgstr ""
+"Филип Э., 2021. Цель устойчивого развития 11.3. 1 и применение современных "
+"инструментов планирования: город Гамильтон, Канада. Hydrological Sciences "
+"Journal, 66(7), сс. 1124-1131. https://doi.org/10.1080/02626667.2021.1918340"
 
 #: ../../source/general/index.rst:179
 msgid ""
@@ -347,6 +494,10 @@ msgid ""
 "Datasets to Support Sustainable Development Goal 15.3. Remote Sensing, "
 "13(9), p.1754. https://doi.org/10.3390/rs13091754"
 msgstr ""
+"Рейт Дж., Газарян Г., Мутони Ф. и Дубовик О., 2021. Оценка деградации земель"
+" в полузасушливой Танзании — использование многомасштабных наборов данных "
+"дистанционного зондирования для поддержки Цели устойчивого развития 15.3. "
+"Remote Sensing, 13(9), с. 1754. https://doi.org/10.3390/rs13091754"
 
 #: ../../source/general/index.rst:182
 msgid ""
@@ -355,6 +506,11 @@ msgid ""
 "degraded areas for restoration planning. Restoration Ecology, 29(6), "
 "p.e13454. https://doi.org/10.1111/rec.13454"
 msgstr ""
+"Роу Х. И., Грубер, Д. и Фастигги М., 2021. С чего начать? Новый подход к "
+"дистанционному зондированию на основе гражданской науки для составления карт"
+" рекреационных нарушений и других деградированных территорий в целях "
+"планирования восстановления. Restoration Ecology, 29(6), p.e13454. "
+"https://doi.org/10.1111/rec.13454"
 
 #: ../../source/general/index.rst:185
 msgid ""
@@ -364,6 +520,11 @@ msgid ""
 "Habitat International, 123, p.102543. "
 "https://doi.org/10.1016/j.habitatint.2022.102543"
 msgstr ""
+"Скьявина М., Мелькиорри М., Фрейре С., Флорио П., Эрлих Д., Томмази П., "
+"Пезарези М. и Кемпер Т., 2022. Эффективность землепользования функциональных"
+" городских районов: глобальная картина и эволюция траекторий развития. "
+"Habitat International, 123, p.102543. "
+"https://doi.org/10.1016/j.habitatint.2022.102543"
 
 #: ../../source/general/index.rst:189
 msgid ""
@@ -372,6 +533,10 @@ msgid ""
 "Goals. Environmental Science & Policy 92, 349–355 (2019). "
 "https://doi.org/10.1016/j.envsci.2018.10.014"
 msgstr ""
+"Симс Н. К. и др. Разработка руководства по передовой практике для оценки "
+"деградации земель в контексте Целей устойчивого развития ООН. Environmental "
+"Science & Policy 92, 349-355 (2019). "
+"https://doi.org/10.1016/j.envsci.2018.10.014"
 
 #: ../../source/general/index.rst:193
 msgid ""
@@ -380,6 +545,11 @@ msgid ""
 " Level Degradation Assessments in Support of the 2030 Development Agenda. "
 "Remote Sens. 11, 2918. https://doi.org/10.3390/rs11242918"
 msgstr ""
+"Тейч И., Гонсалес Роглих М., Корсо М. Л., Гарсия К. Л., 2019. Объединение "
+"наблюдений Земли, облачных вычислений и экспертных знаний для информирования"
+" оценок деградации на национальном уровне в поддержку Повестки дня в области"
+" развития на период до 2030 года. Remote Sens. 11, 2918. "
+"https://doi.org/10.3390/rs11242918"
 
 #: ../../source/general/index.rst:197
 msgid ""
@@ -388,6 +558,11 @@ msgid ""
 "implications for degradation monitoring. African Journal of Range & Forage "
 "Science 35, 209–221 (2018). https://doi.org/10.2989/10220119.2018.1516237"
 msgstr ""
+"Тимм Хоффманн М., Сковно А., Белл В. и Машеле С. Долгосрочные изменения в "
+"землепользовании, земном покрове и растительности в засушливых районах Кару "
+"в Южной Африке: последствия для мониторинга деградации. African Journal of "
+"Range & Forage Science 35, 209-221 (2018). "
+"https://doi.org/10.2989/10220119.2018.1516237"
 
 #: ../../source/general/index.rst:202
 msgid ""
@@ -396,6 +571,10 @@ msgid ""
 " the Eastern European Plain by Remote Sensing Data. Moscow Univ. Soil Sci. "
 "Bull. 76, 11–18 (2021). https://doi.org/10.3103/S0147687421010063"
 msgstr ""
+"Трифонова Т. А., Мищенко Н. В., Шутов П. С. и др. Оценка динамики "
+"продукционных процессов в ландшафтах подзоны южной тайги Восточно-"
+"Европейской равнины по данным дистанционного зондирования. МГУ. Вестник МГУ."
+" 76, 11-18 (2021). https://doi.org/10.3103/S0147687421010063"
 
 #: ../../source/general/index.rst:206
 msgid ""
@@ -404,6 +583,11 @@ msgid ""
 "monitoring land degradation and restoration. Ecol. Indic. 113, 106206. "
 "https://doi.org/10.1016/j.ecolind.2020.106206"
 msgstr ""
+"Вентер З. С., Скотт С. Л., Десмет П. Г., Хоффман М. Т., 2020. Применение "
+"трендов распространения растительности, полученных с помощью Landsat, в "
+"Южной Африке: возможности для мониторинга деградации и восстановления "
+"земель. Ecol. Indic. 113, 106206. "
+"https://doi.org/10.1016/j.ecolind.2020.106206"
 
 #: ../../source/general/index.rst:210
 msgid ""
@@ -412,10 +596,14 @@ msgid ""
 "neutrality target setting process. Environ. Sci. Policy 101, 54–62. "
 "https://doi.org/10.1016/j.envsci.2019.07.003"
 msgstr ""
+"Фон Мальтиц Г. П., Гамбиза Ж., Келлнер К., Рамбау Т., Линдек Л., Кгопе Б., "
+"2019. Опыт процесса установления целевых показателей нейтральности "
+"деградации земель в Южной Африке. Environ. Sci. Policy 101, 54-62. "
+"https://doi.org/10.1016/j.envsci.2019.07.003"
 
 #: ../../source/general/index.rst:218
 msgid "Academic dissertations"
-msgstr ""
+msgstr "Научные диссертации"
 
 #: ../../source/general/index.rst:220
 msgid ""
@@ -423,6 +611,10 @@ msgid ""
 "Infrastructure and prioritisation for rehabilitation and drought mitigation "
 "in the Tsitsa River Catchment (Masters dissertation, Rhodes University)."
 msgstr ""
+"Махлаба Б., 2022. Оценка состояния деградации экологической инфраструктуры и"
+" определение приоритетов для восстановления и смягчения последствий засухи в"
+" водосборном бассейне реки Цица (магистерская диссертация, Университет "
+"Родоса)."
 
 #: ../../source/general/index.rst:222
 msgid ""
@@ -430,16 +622,22 @@ msgid ""
 "Techniques in Support of Sustainable Land Management: A Case Study of Narok "
 "County (Doctoral dissertation, University of Nairobi)."
 msgstr ""
+"Овуор Г. О., 2021. Мониторинг нейтрального баланса деградации земель с "
+"использованием геопространственных методов в поддержку устойчивого "
+"землепользования: кейс-стади округа Нарок (докторская диссертация, "
+"Университет Найроби)."
 
 #: ../../source/general/index.rst:228
 msgid "Other resources"
-msgstr ""
+msgstr "Другие ресурсы"
 
 #: ../../source/general/index.rst:230
 msgid ""
 "Print documentation from the Trends.Earth project (including fact sheets, "
 "reports, and other materials) is listed below."
 msgstr ""
+"Ниже приводится печатная документация по проекту Trends.Earth, в том числе "
+"факты и данные, доклады и другие ресурсы."
 
 #: ../../source/general/index.rst:236
 msgid "Reports"
@@ -452,6 +650,10 @@ msgid ""
 "<https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/61e6ee8f42b6c16e2cb538cf/1642524304092/ci-6-Tools4LDN-"
 "report-FNL+web.pdf>`_"
 msgstr ""
+"`Обзор общедоступных геопространственных наборов данных и индикаторов в "
+"поддержку мониторинга деградации земель "
+"<https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/61e6ee8f42b6c16e2cb538cf/1642524304092/ci-6-Tools4LDN-"
+"report-FNL+web.pdf>`_"
 
 #: ../../source/general/index.rst:240
 msgid ""
@@ -459,6 +661,9 @@ msgid ""
 "Support of Drought Monitoring "
 "<https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/6033f28abca1996aedc492d5/1614017200233/ci-4-Tools4LDN2-FNL+web.pdf>`_"
 msgstr ""
+"`Обзор общедоступных геопространственных наборов данных и показателей в "
+"поддержку мониторинга засухи "
+"<https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/6033f28abca1996aedc492d5/1614017200233/ci-4-Tools4LDN2-FNL+web.pdf>`_"
 
 #: ../../source/general/index.rst:242
 msgid ""
@@ -467,6 +672,10 @@ msgid ""
 " Populations Affected by Desertification, Land Degradation, and Drought "
 "<https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/60abf26cb4223a6ade81cecd/1621881469733/ci-3-Tools4LDN-3+%281%29.pdf>`_"
 msgstr ""
+"`Обзор общедоступных геопространственных наборов данных и показателей в "
+"поддержку стратегической цели (СЦ) 2 КБО ООН: Улучшение условий жизни "
+"населения, пострадавшего от опустынивания, деградации земель и засухи "
+"<https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/60abf26cb4223a6ade81cecd/1621881469733/ci-3-Tools4LDN-3+%281%29.pdf>`_."
 
 #: ../../source/general/index.rst:245
 msgid ""
@@ -474,6 +683,9 @@ msgid ""
 "<https://www.unccd.int/sites/default/files/inline-"
 "files/MethodologicalNote_PopExposureToLD.pdf>`_"
 msgstr ""
+"`Тенденции подверженности населения деградации земель — методологическая "
+"записка <https://www.unccd.int/sites/default/files/inline-"
+"files/MethodologicalNote_PopExposureToLD.pdf>`_."
 
 #: ../../source/general/index.rst:247
 msgid ""
@@ -485,6 +697,13 @@ msgid ""
 " (IAEG-SDGs). "
 "<http://ggim.un.org/documents/Report_Global_and_Complementary_Geospatial_Data_for_SDGs.pdf>`_"
 msgstr ""
+"`Арнольд С., Джун К., Олав Е. 2019. Глобальные и дополнительные "
+"(неавторитетные) геопространственные данные для ЦУР: роль и применение. "
+"Отчет, подготовленный совместно Целевой группой по глобальным данным и "
+"Целевой группой по альтернативным источникам данных Рабочей группы по "
+"геопространственной информации Межведомственной экспертной группы по "
+"индикаторам целей устойчивого развития (МЭГИ-ЦУР). "
+"<http://ggim.un.org/documents/Report_Global_and_Complementary_Geospatial_Data_for_SDGs.pdf>`_"
 
 #: ../../source/general/index.rst:253
 msgid ""
@@ -492,6 +711,9 @@ msgid ""
 "an Indicator of Land Degradation "
 "<http://vitalsigns.org/sites/default/files/VS_GEFLDMP_Report1_C1_R3_WEB_HR.pdf>`_"
 msgstr ""
+"Использование спектральных индексов растительности для измерения валовой "
+"первичной продуктивности как индикатора деградации земель "
+"<http://vitalsigns.org/sites/default/files/VS_GEFLDMP_Report1_C1_R3_WEB_HR.pdf>`_"
 
 #: ../../source/general/index.rst:256
 msgid ""
@@ -499,12 +721,17 @@ msgid ""
 "disaggregation or targeted analysis "
 "<http://vitalsigns.org/sites/default/files/CI_GEF_Report%202_C1_R1_PRINT.pdf>`_"
 msgstr ""
+"`Оценка подходов к включению данных более высокого разрешения для "
+"дезагрегирования или целевого анализа "
+"<http://vitalsigns.org/sites/default/files/CI_GEF_Report%202_C1_R1_PRINT.pdf>`_."
 
 #: ../../source/general/index.rst:259
 msgid ""
 "`Disentangling the effects of climate and land use on land degradation "
 "<http://vitalsigns.org/sites/default/files/CI_GEF_Report%205_C1_R1_PRINT.pdf>`_"
 msgstr ""
+"`Раграничивание влияния климата и землепользования на деградацию земель "
+"<http://vitalsigns.org/sites/default/files/CI_GEF_Report%205_C1_R1_PRINT.pdf>`_."
 
 #: ../../source/general/index.rst:261
 msgid ""
@@ -512,6 +739,8 @@ msgid ""
 "development "
 "<http://vitalsigns.org/sites/default/files/CI_GEF_Guidance%20ENG_C1_R1_PRINT%20%281%29.pdf>`_"
 msgstr ""
+"`Мониторинг и оценка деградации земель для поддержки устойчивого развития "
+"<http://vitalsigns.org/sites/default/files/CI_GEF_Guidance%20ENG_C1_R1_PRINT%20%281%29.pdf>`_"
 
 #: ../../source/general/index.rst:263
 msgid ""
@@ -519,22 +748,29 @@ msgid ""
 "développement durable "
 "<http://vitalsigns.org/sites/default/files/CI_GEF_Guidance%20FRE_C1_R1_PRINT%20%281%29.pdf>`_"
 msgstr ""
+"`(на французском языке) Suivre et évaluer la dégradation des terres pour "
+"soutenir le développement durable "
+"<http://vitalsigns.org/sites/default/files/CI_GEF_Guidance%20FRE_C1_R1_PRINT%20%281%29.pdf>`_"
 
 #: ../../source/general/index.rst:270
 msgid "Fact sheets"
-msgstr ""
+msgstr "Факты и данные"
 
 #: ../../source/general/index.rst:272
 msgid ""
 "`Conceptual Fact Sheet for Trends.Earth "
 "<http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet.pdf>`_"
 msgstr ""
+"`Факты о концепции Trends.Earth "
+"<http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet.pdf>`_"
 
 #: ../../source/general/index.rst:274
 msgid ""
 "`Technical Fact Sheet for Trends.Earth "
 "<http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet_Technical.pdf>`_"
 msgstr ""
+"`Технические данные о Trends.Earth "
+"<http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet_Technical.pdf>`_"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"

@@ -23,7 +23,7 @@ msgstr ""
 
 #: ../../source/for_developers/development.rst:4
 msgid "Development"
-msgstr ""
+msgstr "Разработка"
 
 #: ../../source/for_developers/development.rst:6
 msgid ""
@@ -31,6 +31,9 @@ msgid ""
 "General Public License, version 2.0 or later "
 "<https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html>`_."
 msgstr ""
+"|trends.earth| — это бесплатное и открытое программное обеспечение, "
+"лицензированное `Универсальной общественной лицензией GNU, версия 2.0 или "
+"более поздней <https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html>`_."
 
 #: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
 #: ../../../<rst_epilog>:37
@@ -46,6 +49,12 @@ msgid ""
 " `trends.earth <https://github.com/ConservationInternational/trends.earth>`_"
 " GitHub repository."
 msgstr ""
+"Инструмент |trends.earth| состоит из ряда компонентов. Первый — это плагин "
+"QGIS, поддерживающий расчет индикаторов, доступ к сырым данным, отчетности и"
+" производству печатных карт. Код для плагина и дальнейшие инструкции по его "
+"установке, если вы хотите модифицировать код, находятся в репозитории GitHub"
+" `trends.earth "
+"<https://github.com/ConservationInternational/trends.earth>`_."
 
 #: ../../source/for_developers/development.rst:17
 msgid ""
@@ -60,6 +69,15 @@ msgid ""
 "<https://github.com/ConservationInternational/landdegradation>`_ repository "
 "on GitHub."
 msgstr ""
+"Плагин |trends.earth| QGIS поддерживается рядом разных скриптов Python, "
+"которые позволяют рассчитывать множество индикаторов на Google Earth Engine "
+"(GEE). Эти скрипты находятся в субпапке \"gee\" этого репозитория GitHub. "
+"Скрипты GEE поддерживаются модулем Python `деградация земель` , который "
+"включает код для обработки вводов и выводов для плагина, а также другие "
+"распространенные функции, поддерживающие расчет интегралов NDVI, "
+"статистическую значимость и другой общий код. Код для этого модуля доступен "
+"в репозитории `деградация земель "
+"<https://github.com/ConservationInternational/landdegradation>` _ на GitHub."
 
 #: ../../source/for_developers/development.rst:28
 msgid ""
@@ -67,14 +85,17 @@ msgid ""
 " the plugin code, by modifying the processing code, or by contributing to "
 "translating the website and plugin."
 msgstr ""
+"Внизу приводятся дальнейшие подробности касательно того, как сделать вклад в"
+" Trends.Earth, работая над кодом плагина, модифицируя код обработки или "
+"содействуя переводом веб-сайта и плагина."
 
 #: ../../source/for_developers/development.rst:33
 msgid "Modifying the QGIS Plugin code"
-msgstr ""
+msgstr "Модификация кода плагина QGIS"
 
 #: ../../source/for_developers/development.rst:37
 msgid "Downloading the trends.earth code"
-msgstr ""
+msgstr "Скачивание кода trends.earth"
 
 #: ../../source/for_developers/development.rst:39
 msgid ""
@@ -84,6 +105,11 @@ msgid ""
 "Clone this repository to a convenient place on your machine in order to "
 "ensure you have the latest version of the code."
 msgstr ""
+"Код Trends.Earth как для плагина, так и для скриптов Google Eearth Engine, "
+"которые его поддерживают, расположены на GitHub в репозитории \"trends.earth"
+" <https://github.com/ConservationInternational/trends.earth>\"_. Клонируйте "
+"этот репозиторий в удобное место на вашем компьютере, чтобы убедиться, что "
+"вы располагаете самой последней версией кода."
 
 #: ../../source/for_developers/development.rst:45
 msgid ""
@@ -93,6 +119,10 @@ msgid ""
 "\"qgis2\" branch is the older version of the plugin, and supports QGIS2 "
 "version 2.18+."
 msgstr ""
+"Есть ряд разных веток репозитория trends.earth, которые находятся в активной"
+" разработке. Плагин официально поддерживает QGIS3, и большая часть "
+"разработки происходит на ветке \"разработка\". Ветка \"qgis2\" — это более "
+"старая версия плагина, и она поддерживает версию QGIS2 2.18+."
 
 #: ../../source/for_developers/development.rst:50
 msgid ""
@@ -104,21 +134,30 @@ msgid ""
 "checkout the schemas submodule. If you prefer, you can also do this from the"
 " command line by running the below two commands in shell::"
 msgstr ""
+"Когда вы впервые скачаете код trends.earth, вам также понадобится "
+"клонировать субмодуль \"схемы\", расположенный в нем под \"LDMP\\\\схемы\". "
+"Если вы используете TortoiseGit на Windows, вы можете нажать правой кнопкой "
+"мыши в любом месте внутри папки trends.earth и выбрать \"TortoiseGit\", а "
+"затем \"Обновление субмодуля...\" Нажатие \"окей\" в окне, которое появится,"
+" проверит субмодуль схем. Если вы предпочитаете, можете также сделать это из"
+" командной строки, произведя две команды, указанные ниже в оболочке:"
 
 #: ../../source/for_developers/development.rst:61
 msgid ""
 "Once you are done you should see files within the \"LDMP\\\\schemas\" folder"
 " within the trends.earth folder."
 msgstr ""
+"Как только вы закончите, вы должны увидеть файлы внутри папки "
+"\"LDMP\\\\схемы\" внутри папки trends.earth."
 
 #: ../../source/for_developers/development.rst:65
 #: ../../source/for_developers/development.rst:756
 msgid "Installing dependencies"
-msgstr ""
+msgstr "Установка зависимостей"
 
 #: ../../source/for_developers/development.rst:68
 msgid "Python"
-msgstr ""
+msgstr "Python"
 
 #: ../../source/for_developers/development.rst:70
 msgid ""
@@ -132,11 +171,21 @@ msgid ""
 "required. To download Python 3.7 (recommended) though Anaconda, `see this "
 "page <https://www.anaconda.com/distribution/#download-section>`_."
 msgstr ""
+"Плагин кодирован в Python. Вдобавок к тому, что он используется для запуска "
+"плагина через QGIS, Python также используют для поддержки управления "
+"плагином (смена версии, установка разрабатываемых версий и т.д.). Хотя "
+"Python включен в QGIS, вам потребуется локальная версия Python, которую вы "
+"можете настроить с помощью программного обеспечения, необходимого для "
+"управления плагина. Самый простой способ управлять множеством версий Python "
+"— это через `дистрибутив Anaconda <https://www.anaconda.com>`_. Для работы "
+"по разработке плагина требуется Python 3. Чтобы скачать Python 3.7 "
+"(рекомендуется) через Anaconda, `ознакомьтесь с этой страницей "
+"<https://www.anaconda.com/distribution/#download-section>_`."
 
 #: ../../source/for_developers/development.rst:81
 #: ../../source/for_developers/development.rst:759
 msgid "Python dependencies"
-msgstr ""
+msgstr "Зависимости Python"
 
 #: ../../source/for_developers/development.rst:83
 msgid ""
@@ -147,6 +196,12 @@ msgid ""
 " installed by navigating in a command prompt to the root of the trends.earth"
 " code folder and typing::"
 msgstr ""
+"Чтобы работать с кодом trends.earth, вам необходимо, чтобы на вашем "
+"компьютере был установлен Invoke, а также ряд других пакетов, которые "
+"используются для управления документацией, переводами и т.д. Все эти пакеты "
+"перечислены в файле требований \"dev\" для Trends.Earth, так что их можно "
+"установить, пройдя в командной строке в корневой каталог папке кода "
+"trends.earth и набрав::"
 
 #: ../../source/for_developers/development.rst:93
 msgid ""
@@ -157,10 +212,16 @@ msgid ""
 "<https://docs.anaconda.com/anaconda/user-guide/getting-started/#write-a-"
 "python-program-using-anaconda-prompt-or-terminal>`_."
 msgstr ""
+"Если вы используете Anaconda, вы сначала захотите установить виртуальную "
+"среду Python 3.7, прежде чем запустить указанную выше команду (и любые из "
+"других invoke-команд, перечисленных на странице). Один из способов сделать "
+"это — запустить \"командную строку Anaconda\", `следуя инструкциям на этой "
+"странице Anaconda <https://docs.anaconda.com/anaconda/user-guide/getting-"
+"started/#write-a-python-program-using-anaconda-prompt-or-terminal>`_."
 
 #: ../../source/for_developers/development.rst:100
 msgid "PyQt"
-msgstr ""
+msgstr "PyQt"
 
 #: ../../source/for_developers/development.rst:102
 msgid ""
@@ -168,6 +229,9 @@ msgid ""
 "for Trends.Earth for QGIS3 you need to install PyQt5. This package can be "
 "installed from pip using::"
 msgstr ""
+"PyQt5 — это набор графических инструментов, используемых QGIS3. Чтобы "
+"собрать пользовательский интерфейс для Trends.Earth для QGIS3, вам "
+"необходимо установить PyQt5. Пакет можно установить из pip, используя:: "
 
 #: ../../source/for_developers/development.rst:109
 msgid ""
@@ -181,16 +245,27 @@ msgid ""
 "filename. Choose \"amd64\" for 64-bit python, and \"win32\" for 32-bit "
 "python."
 msgstr ""
+"PyQt4 — это набор графических инструментов, используемых QGIS2. Лучший "
+"ресурс для этого пакета на Windows — из набора пакетов, поддерживаемых "
+"Кристофером Гольке на UC Irvine. Чтобы скачать PyQt4, выберите `подходящий "
+"пакет с этой страницы <https://www.lfd.uci.edu/~gohlke/pythonlibs/#pyqt4>`_."
+" Выберите подходящий файл для той версии Python, которую вы используете. "
+"Например, если вы используете Python 2.7, выберите версию \"cp27\" в "
+"названии файла. Если вы используете Python 3.7, выберите версию с \"cp37\" в"
+" названии файла. Выберите \"amd64\" для python 64-bit и \"win32\" для python"
+" 32-bit."
 
 #: ../../source/for_developers/development.rst:119
 msgid ""
 "After downloading from the above link, use ``pip`` to install it. For "
 "example, for the 64-bit wheel for Python 3.7, you would run::"
 msgstr ""
+"После скачивания по приведенной выше ссылке используйте \"pip\", чтобы "
+"установить его. Например, для колеса 64-bit для Python 3.7 вы запустите::"
 
 #: ../../source/for_developers/development.rst:125
 msgid "Changing the version of the plugin"
-msgstr ""
+msgstr "Изменение версии плагина"
 
 #: ../../source/for_developers/development.rst:127
 msgid ""
@@ -202,6 +277,14 @@ msgid ""
 "versions are used by the Trends.Earth development team while testing new "
 "features prior to their public release."
 msgstr ""
+"Согласно договоренности, в Trend.Earth номера версий, которые заканчиваются "
+"нечетным числом (например, 0.65), это разрабатываемые версии, тогда как "
+"версии, которые заканчиваются четным числом (например, 0.66), это выпускные "
+"версии. Разрабатываемые версии плагина никогда не выпускаются через "
+"репозиторий QGIS, поэтому обычные пользователи плагина их никогда не видят. "
+"Разрабатываемые версии, заканчивающиеся на нечетное число, используются "
+"командой разработчиков Trend.Earth во время испытаний новых функций до их "
+"публичного выпуска.  "
 
 #: ../../source/for_developers/development.rst:135
 msgid ""
@@ -214,6 +297,14 @@ msgid ""
 "within every GEE script) so there is an invoke task to assist with changing "
 "the version. To change the version to be 0.67, you would run::"
 msgstr ""
+"Если вы желаете внести изменения в код и скачали публичный выпуск плагина "
+"(тот, который заканчивается четным числом), первый шаг —  это обновить "
+"версию плагина до следующего за ним последовательного нечетного числа. Так, "
+"например, если вы скачали версию 0.66 плагина, вам понадобится обновить "
+"версию до 0.67, прежде чем вы начнете вносить свои изменения. В коде есть "
+"несколько мест, где упоминается версия (также, как и внутри каждого скрипта "
+"GEE), поэтому есть invoke-задача, которая помогает с изменением версии. "
+"Чтобы изменить эту версию до 0.67, вы запустите::"
 
 #: ../../source/for_developers/development.rst:146
 msgid ""
@@ -222,10 +313,14 @@ msgid ""
 "that has already been released - always INCREASE the value of the version "
 "tag to the next odd number."
 msgstr ""
+"Запуск приведенной выше команды обновит номер версии в каждом месте, где он "
+"упоминается в этом коде. Чтобы избежать путаницы, никогда не меняйте версию "
+"на ту, что уже была выпущена, а всегда УВЕЛИЧИВАЙТЕ значение метки версии на"
+" следующее нечетное число."
 
 #: ../../source/for_developers/development.rst:152
 msgid "Testing changes to the plugin"
-msgstr ""
+msgstr "Испытание изменений в плагине"
 
 #: ../../source/for_developers/development.rst:154
 msgid ""
@@ -235,6 +330,12 @@ msgid ""
 "the QGIS repository (where it can be accessed by other users) to ensure that"
 " any changes to the code do not break the plugin."
 msgstr ""
+"После внесения изменений в код плагина вам потребуется протестировать их, "
+"чтобы убедиться в том, что плагин ведет себя согласно ожиданий и что не "
+"возникнет  никаких багов или ошибок. Плагин должен пройти исчерпывающие "
+"испытания, прежде чем будет выпущен в репозиторий QGIS (где его могут "
+"оценивать другие пользователи), чтобы убедиться, что никакие изменения кода "
+"не ломают плагин. "
 
 #: ../../source/for_developers/development.rst:160
 msgid ""
@@ -244,6 +345,11 @@ msgid ""
 "have setup the plugin with all of the dependencies that it needs in order to"
 " run from within QGIS. To do this, run::"
 msgstr ""
+"Чтобы протестировать любые изменения, которые вы внесли в плагин внутри "
+"QGIS, вам понадобится установить его локально. Есть invoke-задачи, которые "
+"помогают с этим процессом. Первый шаг, предшествующий установке плагина, это"
+" убедиться, что вы оснастили плагин всеми зависимостями, которые ему нужны "
+"для запуска из QGIS. Чтобы это сделать, запустите::"
 
 #: ../../source/for_developers/development.rst:168
 msgid ""
@@ -253,12 +359,19 @@ msgid ""
 "machine. To start from scratch, add the ``-c`` (clean) flag to the above "
 "command."
 msgstr ""
+"Приведенная выше задача должна быть выполнена сразу же после скачивания кода"
+" trends.earth, или если в зависимости для плагина были внесены какие-либо "
+"изменения. По умолчанию \"плагин-настройка\" будет использовать любые "
+"кешированные файлы на вашем компьютере. Чтобы начать с нуля, добавьте флажок"
+" \"-с\" (чисто) к приведенной выше команде. "
 
 #: ../../source/for_developers/development.rst:174
 msgid ""
 "After running ``plugin-setup``, you are ready to install the plugin to the "
 "QGIS plugins folder on your machine. To do this, run::"
 msgstr ""
+"После запуска \"плагина-установки\" вы готовы к установке плагина в папку "
+"плагинов QGIS на вашем компьютере. Чтобы сделать это, запустите:: "
 
 #: ../../source/for_developers/development.rst:179
 msgid ""
@@ -268,6 +381,10 @@ msgid ""
 "Trends.Earth plugin in order to see the effects of the changes you have "
 "made."
 msgstr ""
+"После запуска приведенной выше команды вам понадобится либо: 1) "
+"перезапустить QGIS, или 2) использовать `Перезагрузчик плагина  "
+"<https://plugins.qgis.org/plugins/plugin_reloader/>`_ чтобы перезагрузить "
+"плагин Trends.Earth и посмотреть последствия внесенных вами изменений."
 
 #: ../../source/for_developers/development.rst:184
 msgid ""
@@ -277,6 +394,12 @@ msgid ""
 " (clean) flag to the above command. You may need to close QGIS in order to "
 "successfully perform a clean install of the plugin using the ``-c`` flag."
 msgstr ""
+"По умолчанию \"плагин-установка\" запишется сверху любых существующих файлов"
+" на вашем компьютере, но не тронет никаких данных (административные границы "
+"и т.д.), которые этот плагин мог скачать. Чтобы начать все сначала, добавьте"
+" флажок \"-c\" (чисто) к приведенной выше команде. Возможно, вам "
+"понадобиться закрыть QGIS, чтобы успешно выполнить чистую установку плагина,"
+" используя флажок \"-с\"."
 
 #: ../../source/for_developers/development.rst:191
 msgid ""
@@ -286,10 +409,16 @@ msgid ""
 "entirely functional on QGIS3 - the plugin was originally designed for QGIS2 "
 "and is still being tested on QGIS3."
 msgstr ""
+"По умолчанию плагин-установка предполагает, что вы хотите установить плагин "
+"для использования в QGIS3. Чтобы установить плагин для использования в "
+"QGIS3, добавьте флажок \"-v 2\" в команду \"плагин-установка\". Помните, что"
+" плагин может быть, а может и не быть полностью функциональным на QGIS3 — "
+"этот плагин был изначально разработан для QGIS2 и все еще тестируется на "
+"QGIS3."
 
 #: ../../source/for_developers/development.rst:198
 msgid "Syncing and deploying changes to the binaries"
-msgstr ""
+msgstr "Синхронизация и внедрение изменений в двоичные файлы"
 
 #: ../../source/for_developers/development.rst:200
 msgid ""
@@ -301,12 +430,24 @@ msgid ""
 "and all of its dependencies, the Trends.Earth team makes pre-compiled "
 "binaries available for download if users choose to install them."
 msgstr ""
+"Чтобы ускорить вычисления в Trends.Earth, некоторые из инструментов "
+"позволяют использовать предварительно скомпилированные двоичные файлы, "
+"которые были скомпилированы с использованием `numba "
+"<https://numba.pydata.org>`_. Numba — это открытый компилятор, который может"
+" компилитровать код Python и NumPy, делая это быстрее, чем когда он запущен "
+"как обычный Python. Чтобы пользователям Trends.Earth не потребовалось "
+"скачивать Numba и все из его зависимостей, команда Trends.Earth делает "
+"предварительно скомпилированные двоичные файлы доступными для скачивания, "
+"если пользователи выбирают их установить."
 
 #: ../../source/for_developers/development.rst:208
 msgid ""
 "To generate pre-compiled binaries for the OS, bitness (32/64 bit) and Python"
 " version you are running on your machine, use::"
 msgstr ""
+"Чтобы сгенерировать предварительно скомпилированные двоичные файлы для OS "
+"битностью 32/64 бита и версии Python, которая используется на вашем "
+"компьютере, используйте::"
 
 #: ../../source/for_developers/development.rst:214
 msgid ""
@@ -317,6 +458,12 @@ msgid ""
 "you Python version. On MacOS, you will most likely need to install Xcode. On"
 " Linux, install the appropriate version of GCC."
 msgstr ""
+"Для того чтобы приведенная выше команда работала, вам потребуется компилятор"
+" C++. Для Windows зайдите на `эту страницу github "
+"<https://wiki.python.org/moin/WindowsCompilers#Which_Microsoft_Visual_C.2B-.2B-_compiler_to_use_with_a_specific_Python_version_.3F>`_,"
+" чтобы узнать, как установить компилятор Microsoft Visual C++, необходимый "
+"для версии Python. На MacOs вам, скорее всего, понадобится установить Xcode."
+" На Linux установите подходящую версию GCC. "
 
 #: ../../source/for_developers/development.rst:222
 msgid ""
@@ -324,6 +471,9 @@ msgid ""
 "Web services S3 bucket. To upload the binaries generated with the above "
 "command to the bucket, run::"
 msgstr ""
+"Чтобы сделать эти двоичные файлы публично доступными, их распространяют "
+"через бакет S3 сервисов Amazon Web. Чтобы загрузить в бакет эти двоичные "
+"файлы, сгенерированные приведенной выше командой, запустите::"
 
 #: ../../source/for_developers/development.rst:228
 #: ../../source/for_developers/development.rst:238
@@ -332,6 +482,8 @@ msgid ""
 "The above command will fail if you do not have keys allowing write access to"
 " the ``trends.earth`` bucket on S3."
 msgstr ""
+"Приведенная выше команда не сработает, если у вас нет ключей, дающих право "
+"доступа в бакет \"trends.earth\" на S3."
 
 #: ../../source/for_developers/development.rst:231
 msgid ""
@@ -340,10 +492,15 @@ msgid ""
 "version of the plugin that they are using. To generate that zipfile so that "
 "it can be accessed by Trends.Earth users, run::"
 msgstr ""
+"Указанная выше команда синхронизирует каждый индивидуальный двоичный файл с "
+"S3. Однако пользователи инструментария скачивают двоичные файлы как один "
+"файл zip, привязанный к версии плагина, которые они используют. Для того "
+"чтобы сгенерировать этот файл zip, чтобы пользователи Trends.Earth могли его"
+" оценить, запустите::"
 
 #: ../../source/for_developers/development.rst:243
 msgid "Building a plugin ZIP file"
-msgstr ""
+msgstr "Построение файла ZIP плагина"
 
 #: ../../source/for_developers/development.rst:245
 msgid ""
@@ -355,6 +512,13 @@ msgid ""
 "<https://github.com/ConservationInternational/trends.earth#installing-"
 "latest-packaged-development-version>`_, run::"
 msgstr ""
+"Есть несколько invoke-задач, которые помогают построить файл ZIP, для того "
+"чтобы внедрить плагин в репозиторий QGIS или поделиться разрабатываемой "
+"версией плагина с другими. Чтобы заархивировать плагин и все его зависимости"
+" в файл ZIP, который можно установить, придерживаясь 'процедуры, описанной в"
+" файле readme "
+"<https://github.com/ConservationInternational/trends.earth#installing-"
+"latest-packaged-development-version>`_, запустите::"
 
 #: ../../source/for_developers/development.rst:255
 msgid ""
@@ -367,10 +531,18 @@ msgid ""
 "need to share the latest features with someone before they are available in "
 "the publicly released version of the plugin."
 msgstr ""
+"Эта команда создаст папку под именем \"построить\" в корневом каталоге папки"
+" кода trends.earth, и в этой папке она создаст файл \"LDMP.zip\". Этим "
+"файлом можно делиться с другими, которые могут использовать его для `ручной "
+"установки Trends.Earth "
+"<https://github.com/ConservationInternational/trends.earth#installing-"
+"latest-packaged-development-version>`_. Это может быть полезно, если есть "
+"необходимость поделиться с кем-то самыми свежими функциями, прежде чем они "
+"станут доступными в публично выпущенной версии плагина."
 
 #: ../../source/for_developers/development.rst:264
 msgid "Deploying the development version ZIP file"
-msgstr ""
+msgstr "Внедрение файла ZIP разрабатываемой версии "
 
 #: ../../source/for_developers/development.rst:266
 msgid ""
@@ -379,6 +551,10 @@ msgid ""
 "create a ZIP file and make it available on that page (the ZIP file is stored"
 " on S3), run::"
 msgstr ""
+"Страница GitHub Trends.Earth дает ссылку на файл ZIP, который дает доступ "
+"пользователям, которые могут не быть разработчиками, к разрабатываемой "
+"версии Trends.Earth. Чтобы создать файл ZIP и сделать его доступным на этой "
+"странице (файл ZIP хранится на S3), запустите::"
 
 #: ../../source/for_developers/development.rst:273
 msgid ""
@@ -386,10 +562,13 @@ msgid ""
 "`https://s3.amazonaws.com/trends.earth/sharing/LDMP.zip "
 "<https://s3.amazonaws.com/trends.earth/sharing/LDMP.zip>`_."
 msgstr ""
+"Эта команда заархивирует плагин и скопирует его в "
+"`https://s3.amazonaws.com/trends.earth/sharing/LDMP.zip "
+"<https://s3.amazonaws.com/trends.earth/sharing/LDMP.zip>`_."
 
 #: ../../source/for_developers/development.rst:281
 msgid "Modifying the Earth Engine processing code"
-msgstr ""
+msgstr "Модификация кода обработки Earth Engine"
 
 #: ../../source/for_developers/development.rst:284
 msgid ""
@@ -402,14 +581,23 @@ msgid ""
 "accounts on GEE. The below describes how to test and deploy GEE scripts to "
 "be used with Trends.Earth."
 msgstr ""
+"Все скрипты обработки Google Earth Engine (GEE), используемые Trends.Earth, "
+"сберегаются в папке \"gee\" под главной папкой trends.earth. Чтобы эти "
+"скрипты были доступны пользователям плагина trends.earth QGIS, они должны "
+"быть внедрены в сервис api.trends.earth, поддерживаемый Международным "
+"обществом сохранения природы, чтобы позволить пользователям плагина "
+"использовать Earth Engine без необходимости уметь программировать или иметь "
+"индивидуальные пользовательские учетные записи на GEE. Ниже описано, как "
+"протестировать и внедрить скрипты GEE, которые будут использоваться с "
+"Trends.Earth. "
 
 #: ../../source/for_developers/development.rst:293
 msgid "Setting up dependencies"
-msgstr ""
+msgstr "Настройка зависимостей"
 
 #: ../../source/for_developers/development.rst:296
 msgid "trends.earth-CLI"
-msgstr ""
+msgstr "trends.earth-CLI"
 
 #: ../../source/for_developers/development.rst:298
 msgid ""
@@ -418,6 +606,9 @@ msgid ""
 "`trends.earth-CLI <https://github.com/Vizzuality/trends.earth-CLI>`_ "
 "repository."
 msgstr ""
+"Пакет Python \"trends.earth-CLI\" требуется для работы с сервером "
+"api.trends.earth server. Этот пакет находится на GitHub в репозитории "
+"`trends.earth-CLI <https://github.com/Vizzuality/trends.earth-CLI>`_."
 
 #: ../../source/for_developers/development.rst:303
 msgid ""
@@ -430,6 +621,14 @@ msgid ""
 "`trends.earth-CLI <https://github.com/Vizzuality/trends.earth-CLI>`_ "
 "repository into that same folder."
 msgstr ""
+"Первый шаг — это клонировать репозиторий на ваш компьютер. Мы рекомендуем "
+"вам клонировать репозиторий в ту же папку, где находится ваш код "
+"trends.earth. Например, если у вас на компьютере была папка \"Код\", "
+"клонируйте и репозиторий `trends.earth "
+"<https://github.com/ConservationInternational/trends.earth>`_ (код для "
+"плагина QGIS и связанные с ним скрипты GEE), и репозиторий  `trends.earth-"
+"CLI <https://github.com/Vizzuality/trends.earth-CLI>`_ в одну и ту же папку."
+" "
 
 #: ../../source/for_developers/development.rst:312
 msgid ""

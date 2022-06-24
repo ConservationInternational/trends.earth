@@ -23,7 +23,7 @@ msgstr ""
 
 #: ../../source/for_developers/development.rst:4
 msgid "Development"
-msgstr ""
+msgstr "تطوير"
 
 #: ../../source/for_developers/development.rst:6
 msgid ""
@@ -31,6 +31,9 @@ msgid ""
 "General Public License, version 2.0 or later "
 "<https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html>`_."
 msgstr ""
+"|trends.earth|هو برنامج مجاني ومفتوح المصدر، ومرخص بموجب (رخصة جنو العمومية "
+"العامة ، إصدار 2.0 أو أحدث <https://www.gnu.org/licenses/old-"
+"licenses/gpl-2.0.en.html> \"_."
 
 #: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
 #: ../../../<rst_epilog>:37
@@ -46,6 +49,8 @@ msgid ""
 " `trends.earth <https://github.com/ConservationInternational/trends.earth>`_"
 " GitHub repository."
 msgstr ""
+"هناك عدد من العناصر المكونة لأداة| Trends.earth |. الأول هو برنامج ملحق لـ QGIS يدعم حساب المؤشرات والوصول إلى البيانات الأولية وإعداد التقارير وإنتاج الخرائط المطبوعة. رمز المكون الإضافي \n"
+" وإرشادات أخرى حول تثبيته إذا كنت ترغب في تعديل التعليمات البرمجية ، الموجودة في `trends.earth  <https://github.com/ConservationInternational/trends.earth>` _ ملف GitHub."
 
 #: ../../source/for_developers/development.rst:17
 msgid ""
@@ -60,6 +65,16 @@ msgid ""
 "<https://github.com/ConservationInternational/landdegradation>`_ repository "
 "on GitHub."
 msgstr ""
+"البرنامج الملحق لـ|trends.earth|QGIS  مدعوم بعدد من نصوص Python المختلفة "
+"التي تسمح بحساب المؤشرات المختلفة على Google Earth Engine (GEE). توجد هذه "
+"البرامج النصية في المجلد الفرعي \"gee\" لملف GitHub هذا. يتم دعم البرامج "
+"النصية لـ GEE بواسطة وحدة Python الخاصة بـ \"landdegradation\"، والتي تتضمن "
+"تعليمات برمجية لمعالجة المدخلات والمخرجات للبرنامج الملحق، بالإضافة إلى "
+"الوظائف الشائعة الأخرى التي تدعم حساب تكاملات NDVI والأهمية الإحصائية "
+"والتعليمات البرمجية المشتركة الأخرى. التعليمات البرمجية لهذه الوحدة متاح في "
+"ملف ` landdegradation "
+"<https://github.com/ConservationInternational/landdegradation> `_ على "
+"GitHub."
 
 #: ../../source/for_developers/development.rst:28
 msgid ""
@@ -67,14 +82,17 @@ msgid ""
 " the plugin code, by modifying the processing code, or by contributing to "
 "translating the website and plugin."
 msgstr ""
+"يوجد مزيد من التفاصيل أدناه حول كيفية المساهمة في Trends.Earth من خلال العمل"
+" على التعليمات البرمجية للبرنامج الملحق، أو عن طريق تعديل التعليمات البرمجية"
+" للمعالجة، أو بالمساهمة في ترجمة موقع الويب والبرنامج الملحق."
 
 #: ../../source/for_developers/development.rst:33
 msgid "Modifying the QGIS Plugin code"
-msgstr ""
+msgstr "تعديل التعليمات البرمجية للبرنامج الملحق QGIS"
 
 #: ../../source/for_developers/development.rst:37
 msgid "Downloading the trends.earth code"
-msgstr ""
+msgstr "تنزيل التعليمات البرمجية لـ trends.earth "
 
 #: ../../source/for_developers/development.rst:39
 msgid ""
@@ -84,6 +102,11 @@ msgid ""
 "Clone this repository to a convenient place on your machine in order to "
 "ensure you have the latest version of the code."
 msgstr ""
+"توجد التعليمات البرمجية لـ Trends.Earth لكل من البرنامج الملحق ونصوص Google "
+"Earth Engine التي تدعمها على GitHub في ملف `trends.earth "
+"<https://github.com/ConservationInternational/trends.earth>`_. انسخ هذا "
+"الملف إلى مكان مناسب على جهازك لضمان حصولك على أحدث إصدار من التعليمات "
+"البرمجية."
 
 #: ../../source/for_developers/development.rst:45
 msgid ""
@@ -93,6 +116,10 @@ msgid ""
 "\"qgis2\" branch is the older version of the plugin, and supports QGIS2 "
 "version 2.18+."
 msgstr ""
+"هناك عدد من الفروع المختلفة لملف trends.earth التي هي قيد التطوير النشط. "
+"يدعم البرنامج الملحق QGIS3 رسميًا وتحدث غالبية التطوير في فرع \"develop\". "
+"الفرع \"qgis2\" هو الإصدار الأقدم من البرنامج الملحق، ويدعم QGIS2 الإصدار "
+"2.18+."
 
 #: ../../source/for_developers/development.rst:50
 msgid ""
@@ -104,21 +131,30 @@ msgid ""
 "checkout the schemas submodule. If you prefer, you can also do this from the"
 " command line by running the below two commands in shell::"
 msgstr ""
+"في المرة الأولى التي تقوم فيها بتنزيل التعليمات البرمجية لـ trends.earth، "
+"ستحتاج أيضًا إلى استنساخ الوحدة الفرعية \"schemas\" الموجودة بداخلها، ضمن "
+"\"LDMP\\\\schemas\". إذا كنت تستخدم TortoiseGit على نظام التشغيل Windows، "
+"فيمكنك النقر بزر الماوس الأيمن فوق أي مكان داخل مجلد trends.earth  واختر "
+"\"TortoiseGit\" ثم \"تحديث الوحدة الفرعية ...\". النقر فوق \"OK\" في النافذة"
+" التي تظهر سيؤدي إلى سحب الوحدة الفرعية لـ schemas. إذا كنت تفضل ذلك، يمكنك "
+"أيضًا القيام بذلك من سطر الأوامر عن طريق تشغيل الأمرين أدناه في shell::"
 
 #: ../../source/for_developers/development.rst:61
 msgid ""
 "Once you are done you should see files within the \"LDMP\\\\schemas\" folder"
 " within the trends.earth folder."
 msgstr ""
+"بمجرد الانتهاء من ذلك، سترى الملفات داخل مجلد \"LDMP \\\\ schemas\" داخل "
+"مجلد Trends.earth."
 
 #: ../../source/for_developers/development.rst:65
 #: ../../source/for_developers/development.rst:756
 msgid "Installing dependencies"
-msgstr ""
+msgstr "تثبيت البرامج الملحقة"
 
 #: ../../source/for_developers/development.rst:68
 msgid "Python"
-msgstr ""
+msgstr "Python"
 
 #: ../../source/for_developers/development.rst:70
 msgid ""
@@ -132,11 +168,20 @@ msgid ""
 "required. To download Python 3.7 (recommended) though Anaconda, `see this "
 "page <https://www.anaconda.com/distribution/#download-section>`_."
 msgstr ""
+"البرنامج الملحق تم برمجته في Python. بالإضافة إلى استخدامه لتشغيل البرنامج "
+"الملحق من خلال QGIS، يتم استخدام Python أيضًا لدعم إدارة البرنامج الملحق "
+"(تغيير الإصدار، تثبيت إصدارات مطورة، وما إلى ذلك). على الرغم من تضمين Python"
+" في QGIS، إلا أنك ستحتاج أيضًا إلى إصدار محلي من Python يمكنك إعداده "
+"باستخدام البرنامج المطلوب لإدارة البرنامج الملحق. أسهل طريقة لإدارة إصدارات "
+"متعددة من Python هي من خلال  `Anaconda distribution "
+"<https://www.anaconda.com>`_. للعمل على تطوير البرنامج الملحق، مطلوب Python "
+"3. لتنزيل Python 3.7 (موصى به) برغم Anaconda ، `انظر هذه الصفحة "
+"<https://www.anaconda.com/distribution/#download-section>` _."
 
 #: ../../source/for_developers/development.rst:81
 #: ../../source/for_developers/development.rst:759
 msgid "Python dependencies"
-msgstr ""
+msgstr "ملحقات Python"
 
 #: ../../source/for_developers/development.rst:83
 msgid ""
@@ -147,6 +192,11 @@ msgid ""
 " installed by navigating in a command prompt to the root of the trends.earth"
 " code folder and typing::"
 msgstr ""
+"من أجل العمل مع التعليمات البرمجية لـ trends.earth، يجب أن يكون لديك Invoke "
+"مثبتًا على جهازك، بالإضافة إلى عدد من الحزم الأخرى المستخدمة لإدارة توثيق "
+"المستندات والترجمات وما إلى ذلك. هذه الحزم مدرجة جميعًا في ملف متطلبات \"dev"
+" \" لـ Trends.Earth، بحيث يمكن تثبيتها من خلال التنقل في موجّه الأوامر إلى "
+"المجلد الأساسي للتعليمات البرمجية لـ trends.earth والكتابة::"
 
 #: ../../source/for_developers/development.rst:93
 msgid ""
@@ -157,10 +207,16 @@ msgid ""
 "<https://docs.anaconda.com/anaconda/user-guide/getting-started/#write-a-"
 "python-program-using-anaconda-prompt-or-terminal>`_."
 msgstr ""
+"إذا كنت تستخدم Anaconda، فستحتاج أولاً إلى تنشيط البيئة الافتراضية لـ Python"
+" 3.7 قبل تشغيل الأمر أعلاه (وأي من أوامر الاستدعاء الأخرى المدرجة في "
+"الصفحة). طريقة واحدة للقيام بذلك هي عن طريق بدء \"Anaconda prompt\", من خلال"
+" \"اتباع الإرشادات الموجودة على صفحة Anaconda "
+"<https://docs.anaconda.com/anaconda/user-guide/getting-started/#write-a-"
+"python-program-using-anaconda-prompt-or-terminal>` _."
 
 #: ../../source/for_developers/development.rst:100
 msgid "PyQt"
-msgstr ""
+msgstr "PyQt"
 
 #: ../../source/for_developers/development.rst:102
 msgid ""
@@ -168,6 +224,9 @@ msgid ""
 "for Trends.Earth for QGIS3 you need to install PyQt5. This package can be "
 "installed from pip using::"
 msgstr ""
+"PyQt5 هي مجموعة أدوات الرسومات المستخدمة بواسطة QGIS3. لتجميع واجهة المستخدم"
+" الخاصة بـ Trends.Earth لـ QGIS3، يلزمك تثبيت PyQt5. يمكن تثبيت هذه الحزمة "
+"من pip باستخدام::"
 
 #: ../../source/for_developers/development.rst:109
 msgid ""
@@ -181,16 +240,26 @@ msgid ""
 "filename. Choose \"amd64\" for 64-bit python, and \"win32\" for 32-bit "
 "python."
 msgstr ""
+"PyQt4 هي مجموعة أدوات الرسوم التي يستخدمها QGIS2. أفضل مصدر لهذه الحزمة على "
+"Windows هو من مجموعة الحزم التي يحتفظ بها Christoph Gohlke في UC Irvine. "
+"لتنزيل PyQt4، حدد `الحزمة المناسبة من هذه الصفحة "
+"<https://www.lfd.uci.edu/~gohlke/pythonlibs/#pyqt4>` _. اختر الملف المناسب "
+"لإصدار Python الذي تستخدمه. على سبيل المثال، إذا كنت تستخدم Python 2.7، "
+"فاختر الإصدار الذي يحتوي على \"cp27\" في اسم الملف. إذا كنت تستخدم Python "
+"3.7، فاختر الإصدار الذي يحتوي على \"cp37\" في اسم الملف. اختر \"amd64\" لـ  "
+"64-bit python، و \"win32\" لـ 32-bit python."
 
 #: ../../source/for_developers/development.rst:119
 msgid ""
 "After downloading from the above link, use ``pip`` to install it. For "
 "example, for the 64-bit wheel for Python 3.7, you would run::"
 msgstr ""
+"بعد التنزيل من الرابط أعلاه، استخدم `` pip `` لتثبيته. على سبيل المثال، "
+"بالنسبة إلى  64-bit wheel for Python 3.7، يمكنك تشغيل ::"
 
 #: ../../source/for_developers/development.rst:125
 msgid "Changing the version of the plugin"
-msgstr ""
+msgstr "تغيير نسخة البرنامج الملحق"
 
 #: ../../source/for_developers/development.rst:127
 msgid ""
@@ -202,6 +271,12 @@ msgid ""
 "versions are used by the Trends.Earth development team while testing new "
 "features prior to their public release."
 msgstr ""
+"اتفاقية Trends.Earth هي أن أرقام الإصدارات المنتهية برقم فردي (على سبيل "
+"المثال 0.65) هي إصدارات مطورة، بينما الإصدارات المنتهية برقم زوجي (على سبيل "
+"المثال (0.66) هي إصدارات عامة. لا يتم إطلاق إصدارات مطورة من البرنامج الملحق"
+" عبر ملف QGIS، لذلك لا يراها المستخدمون العاديون للبرنامج الملحق مطلقًا. "
+"يستخدم فريق تطوير Trends.Earth الإصدارات المطورة ذات الأرقام الفردية أثناء "
+"اختبار الميزات الجديدة قبل إصدارها العام."
 
 #: ../../source/for_developers/development.rst:135
 msgid ""
@@ -214,6 +289,14 @@ msgid ""
 "within every GEE script) so there is an invoke task to assist with changing "
 "the version. To change the version to be 0.67, you would run::"
 msgstr ""
+"إذا كنت ترغب في إجراء تغييرات على التعليمات البرمجية وقمت بتنزيل إصدار عام "
+"من البرنامج الملحق (واحد ينتهي برقم زوجي)، فإن الخطوة الأولى هي تحديث إصدار "
+"البرنامج الملحق إلى الرقم الفردي التسلسلي التالي. لذلك، على سبيل المثال، إذا"
+" قمت بتنزيل الإصدار 0.66 من البرنامج الملحق، فستحتاج إلى تحديث الإصدار ليكون"
+" 0.67 قبل أن تبدأ في إجراء التغييرات. هناك العديد من الأماكن في التعليمات "
+"البرمجية حيث يتم ذكر الإصدار (وكذلك داخل كل برنامج نصي من GEE) لذلك هناك "
+"مهمة استدعاء للمساعدة في تغيير الإصدار. لتغيير الإصدار ليكون 0.67، يمكنك "
+"تشغيل ::"
 
 #: ../../source/for_developers/development.rst:146
 msgid ""
@@ -222,10 +305,14 @@ msgid ""
 "that has already been released - always INCREASE the value of the version "
 "tag to the next odd number."
 msgstr ""
+"سيؤدي تشغيل الأمر أعلاه إلى تحديث رقم الإصدار في كل مكان تتم الإشارة إليه في"
+" التعليمات البرمجية. لتجنب الالتباس، لا تقم أبدًا بتغيير الإصدار إلى إصدار "
+"تم إصداره بالفعل - قم دائمًا بزيادة قيمة علامة الإصدار إلى الرقم الفردي "
+"التالي."
 
 #: ../../source/for_developers/development.rst:152
 msgid "Testing changes to the plugin"
-msgstr ""
+msgstr "اختبار التغييرات على البرنامج الملحق"
 
 #: ../../source/for_developers/development.rst:154
 msgid ""
@@ -235,6 +322,11 @@ msgid ""
 "the QGIS repository (where it can be accessed by other users) to ensure that"
 " any changes to the code do not break the plugin."
 msgstr ""
+"بعد إجراء التغييرات على التعليمات البرمجية للبرنامج الملحق، ستحتاج إلى "
+"اختبارها للتأكد من أن البرنامج الملحق يعمل كما هو متوقع، ولضمان عدم ظهور "
+"عيوب أو أخطاء. يجب أن يخضع المكون الإضافي لاختبارات مكثفة قبل إصداره في ملف "
+"QGIS (حيث يمكن الوصول إليه من قبل مستخدمين آخرين) للتأكد من أن أي تغييرات في"
+" التعليمات البرمجية لا تعطل البرنامج الملحق."
 
 #: ../../source/for_developers/development.rst:160
 msgid ""
@@ -244,6 +336,10 @@ msgid ""
 "have setup the plugin with all of the dependencies that it needs in order to"
 " run from within QGIS. To do this, run::"
 msgstr ""
+"لاختبار أي تغييرات أجريتها على البرنامج الملحق داخل QGIS، ستحتاج إلى تثبيته "
+"محليًا. هناك استدعاء للمهام التي تساعد في هذه العملية. تتمثل الخطوة الأولى "
+"قبل تثبيت البرنامج الملحق في التأكد من إعداد البرنامج الملحق بكل الملحقات "
+"التي يحتاج لها للتشغيل من داخل QGIS. للقيام بذلك، قم بتشغيل ::"
 
 #: ../../source/for_developers/development.rst:168
 msgid ""
@@ -253,12 +349,18 @@ msgid ""
 "machine. To start from scratch, add the ``-c`` (clean) flag to the above "
 "command."
 msgstr ""
+"لا يلزم تشغيل المهمة المذكورة أعلاه  فورًا إلا بعد تنزيل التعليمات البرمجية "
+"لـ trends.earth، أو إذا تم إجراء أي تغييرات على الملحقات الخاصة بالبرنامج "
+"الملحق. بشكل افتراضي، سيعيد ``إعداد البرنامج الملحق'' استخدام أي ملفات مخزنة"
+" مؤقتًا على جهازك. للبدء من الصفر، أضف علامة ``-c`` (clean) إلى الأمر أعلاه."
 
 #: ../../source/for_developers/development.rst:174
 msgid ""
 "After running ``plugin-setup``, you are ready to install the plugin to the "
 "QGIS plugins folder on your machine. To do this, run::"
 msgstr ""
+"بعد تشغيل ``plugin-setup``، أنت جاهز لتثبيت البرنامج الملحق في مجلد ملحقات "
+"QGIS على جهازك. للقيام بذلك، قم بتشغيل ::"
 
 #: ../../source/for_developers/development.rst:179
 msgid ""
@@ -268,6 +370,10 @@ msgid ""
 "Trends.Earth plugin in order to see the effects of the changes you have "
 "made."
 msgstr ""
+"بعد تشغيل الأمر أعلاه، ستحتاج إما إلى 1) إعادة تشغيل QGIS، أو 2) استخدام "
+"Plugin Reloader <https://plugins.qgis.org/plugins/plugin_reloader/>` _ "
+"لإعادة تحميل البرنامج الملحق Trends.Earth من أجل رؤية تأثيرات التغييرات التي"
+" أجريتها."
 
 #: ../../source/for_developers/development.rst:184
 msgid ""
@@ -277,6 +383,11 @@ msgid ""
 " (clean) flag to the above command. You may need to close QGIS in order to "
 "successfully perform a clean install of the plugin using the ``-c`` flag."
 msgstr ""
+"بشكل افتراضي، سيقوم ``plugin-install`` بالكتابة فوق أي ملفات للبرنامج الملحق"
+" الموجودة على جهازك، لكنه يترك في مكانه أي بيانات (حدود إدارية، وما إلى ذلك)"
+" قد يكون البرنامج الملحق قد قام بتنزيلها. للبدء من الصفر، أضف علامة ``-c`` "
+"(clean) إلى الأمر أعلاه. قد تحتاج إلى إغلاق QGIS من أجل إجراء تثبيت نظيف "
+"بنجاح للبرنامج الملحق باستخدام علامة ``-c``."
 
 #: ../../source/for_developers/development.rst:191
 msgid ""
@@ -286,10 +397,15 @@ msgid ""
 "entirely functional on QGIS3 - the plugin was originally designed for QGIS2 "
 "and is still being tested on QGIS3."
 msgstr ""
+"يفترض تثبيت البرنامج الملحق أنك تريد تثبيت البرنامج الملحق لاستخدامه في "
+"QGIS3. لتثبيت البرنامج الملحق للاستخدام في QGIS3، أضف العلامة``-v 2`` إلى "
+"أمر``plugin-install``. تذكر أن البرنامج الملحق قد يعمل أو لا يعمل بشكل كامل "
+"على QGIS3 - تم تصميم البرنامج الملحق في الأصل لـ QGIS2 ولا يزال قيد الاختبار"
+" على QGIS3."
 
 #: ../../source/for_developers/development.rst:198
 msgid "Syncing and deploying changes to the binaries"
-msgstr ""
+msgstr "مزامنة ونشر التغييرات على الثنائيات"
 
 #: ../../source/for_developers/development.rst:200
 msgid ""
@@ -301,12 +417,20 @@ msgid ""
 "and all of its dependencies, the Trends.Earth team makes pre-compiled "
 "binaries available for download if users choose to install them."
 msgstr ""
+"لتسريع الحسابات في Trends.Earth، تسمح بعض الأدوات باستخدام الثنائيات المجمعة"
+" مسبقًا والتي تم تجميعها باستخدام `` numba <https://numba.pydata.org> `_. "
+"Numba  هو برنامج مجمّع مفتوح المصدر يمكنه تجميع رمز Python وNumPy، مما يجعله"
+" أسرع من تشغيله مثل Python العادي. لتجنب مستخدمي Trends.Earth، تحتاج إلى "
+"تنزيل Numba وجميع ملحقاته، يوفر فريق Trends.Earth الثنائيات المجمعة مسبقًا "
+"للتنزيل إذا اختار المستخدمون تثبيتها."
 
 #: ../../source/for_developers/development.rst:208
 msgid ""
 "To generate pre-compiled binaries for the OS, bitness (32/64 bit) and Python"
 " version you are running on your machine, use::"
 msgstr ""
+"لإنشاء ثنائيات مجمعة مسبقًا لنظام التشغيل و bitness (32/64 بت) وإصدار Python"
+" الذي تقوم بتشغيله على جهازك، استخدم ::"
 
 #: ../../source/for_developers/development.rst:214
 msgid ""
@@ -317,6 +441,12 @@ msgid ""
 "you Python version. On MacOS, you will most likely need to install Xcode. On"
 " Linux, install the appropriate version of GCC."
 msgstr ""
+"ستحتاج إلى مجمّع C ++ حتى يعمل الأمر أعلاه. في نظام التشغيل Windows، راجع "
+"`this github page "
+"<https://wiki.python.org/moin/WindowsCompilers#Which_Microsoft_Visual_C.2B-.2B-_compiler_to_use_with_a_specific_Python_version_.3F>`_"
+" للحصول على تفاصيل حول كيفية تثبيت برنامج التحويل البرمجي Microsoft Visual C"
+" ++ المطلوب لإصدار Python الخاص بك. على نظام MacOS، ستحتاج على الأرجح إلى "
+"تثبيت Xcode. على نظام Linux، قم بتثبيت الإصدار المناسب من GCC."
 
 #: ../../source/for_developers/development.rst:222
 msgid ""
@@ -324,6 +454,9 @@ msgid ""
 "Web services S3 bucket. To upload the binaries generated with the above "
 "command to the bucket, run::"
 msgstr ""
+"لإتاحة الثنائيات للجمهور، يتم توزيعها من خلال وحدة التخزين السحابي Amazon "
+"Web services S3. لتحميل الثنائيات التي تم إنشاؤها باستخدام الأمر أعلاه إلى، "
+"تشغيل ::"
 
 #: ../../source/for_developers/development.rst:228
 #: ../../source/for_developers/development.rst:238
@@ -332,6 +465,8 @@ msgid ""
 "The above command will fail if you do not have keys allowing write access to"
 " the ``trends.earth`` bucket on S3."
 msgstr ""
+"سيفشل الأمر أعلاه إذا لم يكن لديك مفاتيح تسمح لك بالوصول للكتابة إلى وحدة "
+"تخزين``Trends.earth`` في S3."
 
 #: ../../source/for_developers/development.rst:231
 msgid ""
@@ -340,10 +475,14 @@ msgid ""
 "version of the plugin that they are using. To generate that zipfile so that "
 "it can be accessed by Trends.Earth users, run::"
 msgstr ""
+"سيقوم الأمر أعلاه بمزامنة كل ملف ثنائي فردي مع S3. ومع ذلك، يقوم مستخدمو "
+"toolbox بتنزيل الثنائيات كملف مضغوط واحد مرتبط بإصدار البرنامج الملحق الذي "
+"يستخدمونه. لإنشاء هذا الملف المضغوط بحيث يمكن الوصول إليه بواسطة مستخدمي "
+"Trends.Earth، قم بتشغيل::"
 
 #: ../../source/for_developers/development.rst:243
 msgid "Building a plugin ZIP file"
-msgstr ""
+msgstr "بناء ملف مضغوط للبرنامج الملحق"
 
 #: ../../source/for_developers/development.rst:245
 msgid ""
@@ -355,6 +494,12 @@ msgid ""
 "<https://github.com/ConservationInternational/trends.earth#installing-"
 "latest-packaged-development-version>`_, run::"
 msgstr ""
+"هناك العديد من مهام الاستدعاء للمساعدة في إنشاء ملف مضغوط لنشر البرنامج "
+"الملحق في ملف QGIS، أو لمشاركة تطير إصدار من البرنامج الملحق مع الآخرين. "
+"لضغط البرنامج الملحق وجميع تبعياته في ملف ZIP يمكن تثبيته باتباع `the "
+"process described in the Trends.Earth readme "
+"<https://github.com/ConservationInternational/trends.earth#installing-"
+"latest-packaged-development-version>`_, تشغيل ::"
 
 #: ../../source/for_developers/development.rst:255
 msgid ""
@@ -367,10 +512,18 @@ msgid ""
 "need to share the latest features with someone before they are available in "
 "the publicly released version of the plugin."
 msgstr ""
+"سيؤدي هذا الأمر إلى إنشاء مجلد باسم `` build '' في مجلد التعليمات البرمجية "
+"الأساسي trends.earth، وفي هذا المجلد سيتم إنشاء ملف يسمى `` LDMP.zip ''. "
+"يمكن مشاركة هذا الملف مع الآخرين الذين يمكنهم استخدامه لتثبيت برنامج "
+"Trends.Earth يدويًا "
+"<https://github.com/ConservationInternational/trends.earth#installing-"
+"latest-packaged-development-version> `_. يمكن أن يكون هذا مفيدًا إذا كانت "
+"هناك حاجة لمشاركة أحدث الميزات مع شخص ما قبل توفرها في الإصدار العام من "
+"البرنامج الملحق."
 
 #: ../../source/for_developers/development.rst:264
 msgid "Deploying the development version ZIP file"
-msgstr ""
+msgstr "نشر ملف ZIP الخاص بتطوير إصدار"
 
 #: ../../source/for_developers/development.rst:266
 msgid ""
@@ -379,6 +532,9 @@ msgid ""
 "create a ZIP file and make it available on that page (the ZIP file is stored"
 " on S3), run::"
 msgstr ""
+"توفر صفحة Trends.Earth GitHub ارتباطًا بملف ZIP يسمح للمستخدمين الذين قد لا "
+"يكونون مطورين بالوصول إلى تطوير إصدار من Trends.Earth. لإنشاء ملف ZIP "
+"وإتاحته على تلك الصفحة (يتم تخزين ملف ZIP على S3)، تشغيل ::"
 
 #: ../../source/for_developers/development.rst:273
 msgid ""
@@ -386,10 +542,13 @@ msgid ""
 "`https://s3.amazonaws.com/trends.earth/sharing/LDMP.zip "
 "<https://s3.amazonaws.com/trends.earth/sharing/LDMP.zip>`_."
 msgstr ""
+"سيقوم هذا الأمر بضغط البرنامج الملحق ونسخه إلى `` "
+"https://s3.amazonaws.com/trends.earth/sharing/LDMP.zip "
+"<https://s3.amazonaws.com/trends.earth/sharing/LDMP.zip> `_."
 
 #: ../../source/for_developers/development.rst:281
 msgid "Modifying the Earth Engine processing code"
-msgstr ""
+msgstr "تعديل التعليمات البرمجية لمعالجة Earth Engine"
 
 #: ../../source/for_developers/development.rst:284
 msgid ""
@@ -402,14 +561,21 @@ msgid ""
 "accounts on GEE. The below describes how to test and deploy GEE scripts to "
 "be used with Trends.Earth."
 msgstr ""
+"يتم تخزين البرامج النصية لمعالجة Google Earth Engine (GEE) المستخدمة بواسطة "
+"Trends.Earth في مجلد \"gee\" ضمن مجلد trends.earth الرئيسي. لكي يكون هذا "
+"البرنامج النصي متاحًا لمستخدمي البرنامج الملحق Trend.earth QGIS، يجب نشرهم "
+"في خدمة api.trends.earth التي تحتفظ بها منظمة Conservation International "
+"للسماح لمستخدمي البرنامج الملحق باستخدام Earth Engine دون الحاجة إلى معرفة "
+"الكيفية لبرمجة أو الحصول على حسابات مستخدمين فردية على GEE. يوضح ما يلي "
+"كيفية اختبار ونشر البرامج النصية لـ GEE لاستخدامها مع Trends.Earth."
 
 #: ../../source/for_developers/development.rst:293
 msgid "Setting up dependencies"
-msgstr ""
+msgstr "إعداد البرامج الملحقة"
 
 #: ../../source/for_developers/development.rst:296
 msgid "trends.earth-CLI"
-msgstr ""
+msgstr "trends.earth-CLI"
 
 #: ../../source/for_developers/development.rst:298
 msgid ""
@@ -418,6 +584,9 @@ msgid ""
 "`trends.earth-CLI <https://github.com/Vizzuality/trends.earth-CLI>`_ "
 "repository."
 msgstr ""
+"حزمة Python \"trends.earth-CLI\" مطلوبة للعمل مع خادم api.trends.earth. توجد"
+" هذه الحزمة على GitHub في ملف `trends.earth-CLI "
+"<https://github.com/Vizzuality/trends.earth-CLI>`_"
 
 #: ../../source/for_developers/development.rst:303
 msgid ""
@@ -430,6 +599,13 @@ msgid ""
 "`trends.earth-CLI <https://github.com/Vizzuality/trends.earth-CLI>`_ "
 "repository into that same folder."
 msgstr ""
+"الخطوة الأولى هي استنساخ هذا الملف على جهازك. نوصيك باستنساخ الملف في نفس "
+"المجلد حيث تضع التعليمات البرمجية لـtrends.earth. على سبيل المثال، إذا كان "
+"لديك مجلد \"Code\" على جهازك، فقم باستنساخ كل من ملف `trends.earth  "
+"<https://github.com/ConservationInternational/trends.earth> `_ (التعليمات "
+"البرمجية للبرنامج الملحق QGIS ونصوص GEE المرتبطة به) وأيضًا  ملف "
+"`trends.earth-CLI <https://github.com/Vizzuality/trends.earth-CLI>` _ في نفس"
+" المجلد."
 
 #: ../../source/for_developers/development.rst:312
 msgid ""

@@ -612,47 +612,57 @@ msgstr ""
 
 #: ../../source/for_developers/changelog.rst:173
 msgid "Fix marshhmallow error on plugin load"
-msgstr ""
+msgstr "Исправить ошибку маршмэллоу при загрузке плагина"
 
 #: ../../source/for_developers/changelog.rst:176
 msgid ""
 "`0.56 (April 9, 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56>`_"
 msgstr ""
+"`0.56 (9 апреля 2018) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56>`_"
 
 #: ../../source/for_developers/changelog.rst:178
 msgid "Fix issue with rasterizing data (empty rasters on output)"
-msgstr ""
+msgstr "Устранить проблему с данными растеризации (пустые растеры на выходе)"
 
 #: ../../source/for_developers/changelog.rst:179
 msgid "Force user to choose output resolution if rasterizing a vector"
 msgstr ""
+"Заставить пользователя выбрать выходное разрешение при растеризации вектора"
 
 #: ../../source/for_developers/changelog.rst:180
 msgid "Support calculation of SOC degradation from custom SOC and LC data"
 msgstr ""
+"Поддерживать расчет снижения количества почвенного органического углерода, "
+"исходя из пользовательских данных о почвенном органическом углероде и "
+"почвенном покрове"
 
 #: ../../source/for_developers/changelog.rst:183
 msgid ""
 "`0.54 (April 8, 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.54>`_"
 msgstr ""
+"`0.54 (8 апреля 2018) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.54>`_"
 
 #: ../../source/for_developers/changelog.rst:185
 msgid "Support loading of custom LPD, SOC, and LC data."
 msgstr ""
+"Поддерживать загрузку пользовательских данных о динамике производительности "
+"земли, почвенном органическом углероде и почвенном покрове."
 
 #: ../../source/for_developers/changelog.rst:186
 msgid "Cleanup styles so they match maps.trends.earth"
-msgstr ""
+msgstr "Почистить стили, чтобы они соответствовали maps.trends.earth"
 
 #: ../../source/for_developers/changelog.rst:187
 msgid "Upgrade pyopenxl"
-msgstr ""
+msgstr "Обновить pyopenxl"
 
 #: ../../source/for_developers/changelog.rst:188
 msgid "Add import/load icons to all layer selector boxes"
-msgstr ""
+msgstr "Добавить иконки импорта/загрузки в окна селектора всех слоев"
 
 #: ../../source/for_developers/changelog.rst:191
 #: ../../source/for_developers/changelog.rst:196
@@ -660,399 +670,487 @@ msgid ""
 "`0.52.1 (March 21, 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.52.1>`_"
 msgstr ""
+"`0.52.1 (21 марта 2018) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.52.1>`_"
 
 #: ../../source/for_developers/changelog.rst:193
 #: ../../source/for_developers/changelog.rst:198
 msgid "Minor bug fixes during Antalya workshop."
-msgstr ""
+msgstr "Устранение незначительных ошибок во время мастер-класса в Анталии."
 
 #: ../../source/for_developers/changelog.rst:201
 msgid ""
 "`0.52 (March 19, 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.52>`_"
 msgstr ""
+"`0.52 (19 марта 2018) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.52>`_"
 
 #: ../../source/for_developers/changelog.rst:203
 msgid "Clean AOI processing code."
-msgstr ""
+msgstr "Почистить код обработки Ассоциации иллюстраторов."
 
 #: ../../source/for_developers/changelog.rst:206
 msgid ""
 "`0.50 (March 15, 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.50>`_"
 msgstr ""
+"`0.50 (15 марта 2018) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.50>`_"
 
 #: ../../source/for_developers/changelog.rst:208
 msgid ""
 "Pass exception if only related to Trends.Earth logo addition in Excel file."
 msgstr ""
+"Пропускать исключение, только если это относится к дополнению лого "
+"Trends.Earth в файле Excel."
 
 #: ../../source/for_developers/changelog.rst:210
 msgid "Various minor bug fixes."
-msgstr ""
+msgstr "Устранение множества незначительных багов."
 
 #: ../../source/for_developers/changelog.rst:213
 msgid ""
 "`0.48 (March 13, 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.48>`_"
 msgstr ""
+"`0.48 (13 марта 2018) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.48>`_"
 
 #: ../../source/for_developers/changelog.rst:215
 msgid "Fix table formatting"
-msgstr ""
+msgstr "Исправить форматирование таблицы"
 
 #: ../../source/for_developers/changelog.rst:218
 msgid ""
 "`0.46 (March 13, 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.46>`_"
 msgstr ""
+"0.46 (13 марта 2018) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.46>`_"
 
 #: ../../source/for_developers/changelog.rst:220
 msgid ""
 "Support reporting table calculation with multiple geometries (Fiji, Russia)"
 msgstr ""
+"Поддерживать отчетность о табличном расчете со множеством геометрических "
+"форм (Фиджи, Россия)"
 
 #: ../../source/for_developers/changelog.rst:221
 msgid "Add LPD and LC tables to UNCCD worksheet tab"
 msgstr ""
+"Добавить таблицы динамики производительности земли и почвенного покрова на "
+"вкладку листа UNCCD"
 
 #: ../../source/for_developers/changelog.rst:222
 msgid "Clean up the warning message in the LPD import tool"
 msgstr ""
+"Очистить предупреждающее сообщение в инструменте для импорта динамики "
+"производительности земли"
 
 #: ../../source/for_developers/changelog.rst:223
 msgid "Fix TE final combined productivity layer loading"
 msgstr ""
+"Исправить загрузку слоя конечной комбинированной производительности TE"
 
 #: ../../source/for_developers/changelog.rst:224
 msgid "Fix download tasks (still no styles)"
-msgstr ""
+msgstr "Исправить задачи по скачиванию (все еще без стилей)"
 
 #: ../../source/for_developers/changelog.rst:227
 msgid ""
 "`0.44 (March 12, 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.44>`_"
 msgstr ""
+"`0.44 (12 марта 2018) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.44>`_"
 
 #: ../../source/for_developers/changelog.rst:229
 msgid "Add JRC LPD"
 msgstr ""
+"Добавить динамику производительности земли Центра совместных исследований"
 
 #: ../../source/for_developers/changelog.rst:230
 msgid "Add tool for uploading custom land cover data"
 msgstr ""
+"Добавить инструмент для загрузки пользовательских данных о наземном покрове"
 
 #: ../../source/for_developers/changelog.rst:231
 msgid "Add tool for uploading custom productivity data"
 msgstr ""
+"Добавить инструмент для загрузки пользовательских данных о "
+"производительности"
 
 #: ../../source/for_developers/changelog.rst:232
 msgid "Add note that custom SOC upload is coming soon"
 msgstr ""
+"Добавить заметку о том, что скоро начнется загрузка пользовательских данных "
+"о почвенном органическом углероде"
 
 #: ../../source/for_developers/changelog.rst:233
 msgid "Add tool to add basemaps using Natural Earth data"
 msgstr ""
+"Добавить инструмент для добавления схематических карт с использованием "
+"данных Natural Earth"
 
 #: ../../source/for_developers/changelog.rst:234
 msgid "Add all-in-one tool for calculating all three sub-indicators at once"
 msgstr ""
+"Инструмент все-в-одном для расчета всех трех субиндикаторов за один раз"
 
 #: ../../source/for_developers/changelog.rst:235
 msgid "Rename \"Bare lands\" class to \"Other lands\" for consistency with UNCCD"
 msgstr ""
+"Переименовать класс \"Голые земли\" на \"Другие земли\" для соответствия "
+"UNCCD"
 
 #: ../../source/for_developers/changelog.rst:236
 msgid "Update docs"
-msgstr ""
+msgstr "Обновить документы"
 
 #: ../../source/for_developers/changelog.rst:237
 msgid "Upgrade to marshmallow 3.0.0b7"
-msgstr ""
+msgstr "Обновить до маршмэллоу 3.0.0b7"
 
 #: ../../source/for_developers/changelog.rst:238
 msgid "Move GEE code into the main trends.earth repository"
-msgstr ""
+msgstr "Переместить код GEE в главный репозиторий trends.earth"
 
 #: ../../source/for_developers/changelog.rst:239
 msgid ""
 "Improve handling of AOIs, particularly when shapefiles are used for input"
 msgstr ""
+"Улучшить управление файлов Ассоциации иллюстраторов, особенно, когда для "
+"ввода используются шейп-файлы"
 
 #: ../../source/for_developers/changelog.rst:240
 msgid "Handle multi-file outputs from GEE by tiling them in VRTs"
-msgstr ""
+msgstr "Управляйте мультифайловыми выводами из GEE, облицовывая их в VRT"
 
 #: ../../source/for_developers/changelog.rst:241
 msgid "Support processing data for countries that cross the 180th meridian"
 msgstr ""
+"Поддерживать данные обработки для стран, которые пересекают 180 меридиан"
 
 #: ../../source/for_developers/changelog.rst:242
 msgid "Improve formatting of summary table"
-msgstr ""
+msgstr "Улучшить форматирование таблицы сводки"
 
 #: ../../source/for_developers/changelog.rst:243
 msgid "From now on, GEE script versions will be matched to the plugin version"
-msgstr ""
+msgstr "С этого момента версии скриптов GEE будут совпадать с версией плагина"
 
 #: ../../source/for_developers/changelog.rst:246
 msgid ""
 "`0.42 (February 4, 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.42>`_"
 msgstr ""
+"`0.42 (4 февраля 2018) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.42>`_"
 
 #: ../../source/for_developers/changelog.rst:248
 msgid ""
 "Fix crash on change of LC aggregation (due setEnabled on removed label)"
 msgstr ""
+"Устранить сбой при замене агрегации LC (из-за setEnabled на удаленных "
+"ярлыках)"
 
 #: ../../source/for_developers/changelog.rst:251
 msgid ""
 "`0.40 (February 4, 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.40>`_"
 msgstr ""
+"`0.40 (4 февраля 2018) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.40>`_"
 
 #: ../../source/for_developers/changelog.rst:253
 msgid "Remove use of mode for land cover indicator."
-msgstr ""
+msgstr "Убрать использование режима для индикатора наземного покрова."
 
 #: ../../source/for_developers/changelog.rst:254
 msgid "Combine the summary table and SDG indicator map creation tools."
 msgstr ""
+"Объединить инструменты создания таблицы сводки и карт индикаторов  отчета по"
+" устойчивому развитию.."
 
 #: ../../source/for_developers/changelog.rst:255
 msgid "Add stub for where JRC LPD product will be available."
 msgstr ""
+"Добавить стаб для мест, где будет доступен продукт по динамике "
+"производительности земли Центра совместных исследований."
 
 #: ../../source/for_developers/changelog.rst:256
 msgid "Save productivity sub-indicator as band 2 in SDG indicator file."
 msgstr ""
+"Сохранить субиндикатор продуктивности как полосу 2 в файле индикатора отчета"
+" по устойчивому развитию."
 
 #: ../../source/for_developers/changelog.rst:257
 msgid "Bump GEE script to v0.3."
-msgstr ""
+msgstr "Усилить скрипт GEE до v0.3."
 
 #: ../../source/for_developers/changelog.rst:258
 msgid ""
 "Fix error due to divide by zero on summary table generation when a class has"
 " zero area."
 msgstr ""
+"Устранить ошибку в связи с делением на ноль при генерации таблицы сводки, "
+"когда класс имеет нулевую площадь."
 
 #: ../../source/for_developers/changelog.rst:260
 msgid "Default to MODIS for productivity calculations."
-msgstr ""
+msgstr "По умолчанию MODIS для расчетов производительности."
 
 #: ../../source/for_developers/changelog.rst:263
 msgid ""
 "`0.38 (January 16, 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.38>`_"
 msgstr ""
+"`0.38 (16 января 2018) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.38>`_"
 
 #: ../../source/for_developers/changelog.rst:265
 msgid "Add annual soil organic carbon calculation"
-msgstr ""
+msgstr "Добавить ежегодный расчет почвенного органического углерода"
 
 #: ../../source/for_developers/changelog.rst:266
 msgid ""
 "Cleanup AOI processing code, allow multiple input polygons in shapefile AOIs"
 msgstr ""
+"Почистить код обработки Ассоциации иллюстраторов, позволить полигоны "
+"множественных выводов в шейп-файлах Ассоциации иллюстраторов"
 
 #: ../../source/for_developers/changelog.rst:268
 msgid "Add shading to side of land cover aggregation table items"
-msgstr ""
+msgstr "Затенить пункты агрегированной таблицы наземного покрова"
 
 #: ../../source/for_developers/changelog.rst:269
 msgid "Fix firstShow issue on aggregation table"
-msgstr ""
+msgstr "Устранить проблему firstShow в агрегированной таблице"
 
 #: ../../source/for_developers/changelog.rst:270
 msgid ""
 "Revise summary table output to provide further information on each of the "
 "three indicators"
 msgstr ""
+"Проверьте вывод таблицы сводки, чтобы предоставить дальнейшую информацию по "
+"каждому из трех индикаторов"
 
 #: ../../source/for_developers/changelog.rst:272
 msgid ""
 "Add supplemental datasets to performance, state, land cover and soil organic"
 " carbon output."
 msgstr ""
+"Добавить дополнительные наборы данных к выводу данных о работе, состоянии, "
+"наземном покрове и почвенном органическом углероде."
 
 #: ../../source/for_developers/changelog.rst:274
 msgid ""
 "Update no data and masking values to consistently be -32768 (no data) and "
 "-32767 (masked data)"
 msgstr ""
+"Не обновлять отсутствие данных и маскировочные значения, чтобы они "
+"последовательно составляли -32768 (отсутствие данных) и -32767 "
+"(замаскированные данные)"
 
 #: ../../source/for_developers/changelog.rst:276
 msgid "Allow naming of file downloads"
-msgstr ""
+msgstr "Позволить присвоение имен скачиваниям файлов"
 
 #: ../../source/for_developers/changelog.rst:277
 msgid "Add icon to toolbar menu, fix plugin name."
 msgstr ""
+"Добавить иконку в меню панели инструментов, исправить название плагина."
 
 #: ../../source/for_developers/changelog.rst:278
 msgid "Refactor layer styling code to pull band info from GEE output."
 msgstr ""
+"Реструктурировать код стилизации слоев, чтобы вытянуть полосную информацию "
+"из вывода GEE."
 
 #: ../../source/for_developers/changelog.rst:279
 msgid "Add a tool to load existing trends.earth datasets into QGIS."
 msgstr ""
+"Добавить инструмент для загрузки существующих наборов данных trends.earth в "
+"QGIS."
 
 #: ../../source/for_developers/changelog.rst:280
 msgid ""
 "Fix land cover date limits - don't allow invalid dates toi be selected from "
 "CCI data."
 msgstr ""
+"Установить ограничения данных о наземном покрове — не позволять отбирать "
+"недействительные данные из данных CCI."
 
 #: ../../source/for_developers/changelog.rst:284
 msgid ""
 "`0.36 (December 14, 2017) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.36>`_"
 msgstr ""
+"`0.36 (14 декабря 2017) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.36>`_"
 
 #: ../../source/for_developers/changelog.rst:286
 msgid "Fix issue with showEvent on create map reporting tool."
 msgstr ""
+"Устранить проблему с showEvent с инструментом отчетности по созданию карты."
 
 #: ../../source/for_developers/changelog.rst:289
 msgid ""
 "`0.34 (December 14, 2017) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.34>`_"
 msgstr ""
+"`0.34 (14 декабря 2017) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.34>`_"
 
 #: ../../source/for_developers/changelog.rst:293
 msgid ""
 "`0.32 (December 14, 2017) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.32>`_"
 msgstr ""
+"`0.32 (14 декабря, 2017) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.32>`_"
 
 #: ../../source/for_developers/changelog.rst:297
 msgid ""
 "`0.30 (December 12, 2017) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.30>`_"
 msgstr ""
+"0.30 (12 декабря 2017) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.30>`_"
 
 #: ../../source/for_developers/changelog.rst:301
 msgid ""
 "`0.24 (December 6, 2017) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.24>`_"
 msgstr ""
+"`0.24 (6 декабря 2017) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.24>`_"
 
 #: ../../source/for_developers/changelog.rst:305
 msgid ""
 "`0.22 (December 4, 2017) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.22>`_"
 msgstr ""
+"`0.22 (4 декабря 2017) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.22>`_"
 
 #: ../../source/for_developers/changelog.rst:309
 msgid ""
 "`0.18 (December 2, 2017) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.18>`_"
 msgstr ""
+"`0.18 (2 декабря 2017) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.18>`_"
 
 #: ../../source/for_developers/changelog.rst:313
 msgid ""
 "`0.16 (November 6, 2017) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.16>`_"
 msgstr ""
+"`0.16 (6 ноября 2017) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.16>`_"
 
 #: ../../source/for_developers/changelog.rst:317
 msgid ""
 "`0.14 (October 25, 2017) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.14>`_"
 msgstr ""
+"`0.14 (25 октября 2017) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.14>`_"
 
 #: ../../source/for_developers/changelog.rst:321
 msgid ""
 "`0.12 (October 6, 2017) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.12>`_"
 msgstr ""
+"`0.12 (October 6, 2017) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.12>`_"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr "iconCalculator"
+msgstr "иконкаКалькулятор"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr "iconChart"
+msgstr "иконкаТаблица"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr "iconClipboard"
+msgstr "иконкаБуферОбмена"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr "iconCloudDownload"
+msgstr "иконкаОблачноеСкачивание"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr "iconCog"
+msgstr "иконкаШестерня"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr "iconDeletedataset"
+msgstr "иконкаУдалитьНаборДанных"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
-msgstr "iconGlobe"
+msgstr "иконкаГлобус"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr "iconGraph"
+msgstr "иконкаГрафик"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr "iconInfo"
+msgstr "иконкаИнформация"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr "iconLoaddataset"
+msgstr "иконкаЗагрузитьНаборДанных"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr "iconMarkMarker"
+msgstr "иконкаМаркировка"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr "iconOpendatasetdirectory"
+msgstr "иконкаУказательОткрытогоНабораДанных"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr "iconViewdatasetdetails"
+msgstr "иконкаОтобразитьПодробностиНабораДанных"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr "iconWrench"
+msgstr "иконкаГаечныйКлюч"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr "iconFolder"
+msgstr "иконкаПапка"
 
 #: ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr "iconReports"
+msgstr "иконкаОтчеты"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr "iconTrendsEarth"
+msgstr "иконкаTrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr "iconVisualization"
+msgstr "иконкаВизуализация"
 
 #: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr "logoCI"
+msgstr "логоCI"
 
 #: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr "logoLund"
+msgstr "логоLund"
 
 #: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr "logoNASA"
+msgstr "логоNASA"
 
 #: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr "logoGEF"
+msgstr "логоGEF"

@@ -28,7 +28,7 @@ msgstr "Réglages"
 
 #: ../../source/for_users/training/index.rst:6
 msgid "Land Degradation"
-msgstr ""
+msgstr "Dégradation des terres"
 
 #: ../../source/for_users/training/index.rst:6
 msgid "UNCCD Reporting"
@@ -36,33 +36,33 @@ msgstr "Rapports de la CNULCD"
 
 #: ../../source/for_users/training/index.rst:6
 msgid "Land Consumption"
-msgstr ""
+msgstr "Consommation foncière"
 
 #: ../../source/for_users/training/index.rst:6
 msgid "Carbon"
-msgstr ""
+msgstr "Carbone"
 
 #: ../../source/for_users/training/index.rst:6
 msgid "Restoration"
-msgstr ""
+msgstr "Restauration"
 
 #: ../../source/for_users/training/index.rst:6
 msgid "Dataset Metadata"
-msgstr "Métadonnées de l'ensemble de données"
+msgstr "Métadonnées du jeu de données"
 
 #: ../../source/for_users/training/index.rst:6
 msgid "False Positives/Negatives"
-msgstr ""
+msgstr "Faux positifs/négatifs"
 
 #: ../../source/for_users/training/index.rst:6
 msgid "Dataset Reports"
-msgstr "Rapports sur les ensembles de données"
+msgstr "Rapports de jeu de données"
 
 #: ../../source/for_users/training/index.rst:6
 #: ../../source/for_users/training/index.rst:3
 #: ../../source/for_users/training/index.rst:6
 msgid "Training Manual"
-msgstr ""
+msgstr "Manuel de formation"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"

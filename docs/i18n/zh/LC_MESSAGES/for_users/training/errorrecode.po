@@ -24,12 +24,12 @@ msgstr ""
 
 #: ../../source/for_users/training/errorrecode.rst:4
 msgid "False positive/negative layers"
-msgstr ""
+msgstr "假阳性/阴性层"
 
 #: ../../source/for_users/training/errorrecode.rst:6
 msgid ""
 "**Objective**: Learn how to create false positive/negative vector datasets."
-msgstr ""
+msgstr "**目的**：学习如何创建假阳性/阴性矢量数据集。"
 
 #: ../../source/for_users/training/errorrecode.rst:8
 msgid "**Estimated time of completion**: 40 minutes"
@@ -37,65 +37,64 @@ msgstr "**预计完成时间**：40分钟"
 
 #: ../../source/for_users/training/errorrecode.rst:10
 msgid "**Internet access**: Not needed"
-msgstr "**互联网访问**：不需要"
+msgstr "**互联网接入**：不需要"
 
 #: ../../source/for_users/training/errorrecode.rst:12
 msgid ""
 "Click on the Trends.Earth toolbar within QGIS, and click on the Trends.Earth"
 " icon."
-msgstr "单击 QGIS 中的 Trends.Earth 工具栏，然后单击 Trends.Earth 图标。"
+msgstr "点击QGIS内的Trends.Earth工具条，并点击Trends.Earth图标。"
 
 #: ../../source/for_users/training/errorrecode.rst:17
 msgid ""
 "The **Trends.Earth** menu will open. In the **Dataset** window, where "
 "existing tasks are listed in the menu if the **Download remotely-generated "
 "datasets automatically** is checked in settings."
-msgstr ""
-"**Trends.Earth** 菜单将打开。在 **数据集** 窗口，如果在设置中选中了 **自动下载远程生成的数据集**，则会在菜单中列出现有任务。"
+msgstr "将打开**趋势.地球**菜单。在**数据集**窗口中，如果在设置中勾选了**自动下载远程生成的数据集**，现有的任务就会列在菜单中。"
 
 #: ../../source/for_users/training/errorrecode.rst:20
 msgid ""
 "Refer to the :ref:`tut_settings` section of this manual to learn more about "
 "**Advanced settings**"
-msgstr "请参阅本手册的 :ref:`tut_settings` 部分，以了解关于**高级设置**的更多信息"
+msgstr "请参阅本手册的 ref:`tut_settings`部分，以了解更多关于**高级设置**的信息。"
 
 #: ../../source/for_users/training/errorrecode.rst:22
 msgid "Select the Refresh button if no datasets appear in the menu."
-msgstr "如果菜单中没有数据集，请选择“刷新”按钮。"
+msgstr "如果菜单中没有出现数据集，请选择 \"刷新 \"按钮。"
 
 #: ../../source/for_users/training/errorrecode.rst:24
 msgid ""
 "Press the **Create** button at the bottom of the **Trends.Earth** menu and "
 "then select **False positive layer**"
-msgstr ""
+msgstr "按**Trends.Earth**菜单底部的**创建**按钮，然后选择**假阳性层**。"
 
 #: ../../source/for_users/training/errorrecode.rst:29
 msgid ""
 "A new dataset called \"False positive/negative\" will be added to the "
 "**Dataset** window."
-msgstr ""
+msgstr "一个名为 \"假阳性/阴性 \"的新数据集将被添加到**数据集**窗口。"
 
 #: ../../source/for_users/training/errorrecode.rst:34
 msgid ""
 "To add the vector dataset to QGIS map canvas for viewing use **Add to "
 "canvas** button"
-msgstr ""
+msgstr "要将矢量数据集添加到QGIS地图画布上进行查看，请使用**添加到画布**按钮。"
 
 #: ../../source/for_users/training/errorrecode.rst:39
 msgid "Layer will be added with the predefined styling as shown below"
-msgstr ""
+msgstr "图层将被添加到预定义的样式中，如下文所示。"
 
 #: ../../source/for_users/training/errorrecode.rst:44
 msgid ""
 "To define areas in the dataset it is necessary to add it to QGIS map canvas "
 "using **Edit layer** button"
-msgstr ""
+msgstr "要在数据集中定义区域，必须使用**编辑图层**按钮将其添加到QGIS地图画布中。"
 
 #: ../../source/for_users/training/errorrecode.rst:49
 msgid ""
 "If this is first time when layer added to QGIS canvas a dialog asking for "
 "indicator layers will be shown"
-msgstr ""
+msgstr "如果这是第一次将图层添加到QGIS画布上，将显示一个要求指示图层的对话框。"
 
 #: ../../source/for_users/training/errorrecode.rst:54
 msgid ""
@@ -103,21 +102,21 @@ msgid ""
 " to calculate charts. This is one-time action, choice made in this dialog "
 "will be preserved and used in all subsequent edits of this specific vector "
 "dataset."
-msgstr ""
+msgstr "在这个对话框中，有必要选择用于计算图表的指标层。这是一次性操作，在此对话框中做出的选择将被保留，并用于此特定矢量数据集的所有后续编辑。"
 
 #: ../../source/for_users/training/errorrecode.rst:56
 msgid ""
 "Once the dataset added to the canvas in editing mode, polygons can be "
 "created using either **Polygon** tool"
-msgstr ""
+msgstr "一旦在编辑模式下将数据集添加到画布上，就可以使用**多边形**工具创建多边形。"
 
 #: ../../source/for_users/training/errorrecode.rst:61
 msgid "or **Buffer** tool"
-msgstr ""
+msgstr "或**缓冲区**工具"
 
 #: ../../source/for_users/training/errorrecode.rst:66
 msgid "which can be found on the **Trends.Earth** toolbar."
-msgstr ""
+msgstr "这可以在**Trends.Earth**的工具栏上找到。"
 
 #: ../../source/for_users/training/errorrecode.rst:68
 msgid ""
@@ -127,6 +126,7 @@ msgid ""
 "of the QGIS map canvas a widget showing area of the polygon will be "
 "displayed."
 msgstr ""
+"**Polygon**工具用于手动数字化多边形，使用与本地QGIS数字化工具相同的点选方法。当**多边形**工具被选中并在QGIS地图画布的右上角开始数字化时，将显示一个显示多边形区域的小部件。"
 
 #: ../../source/for_users/training/errorrecode.rst:73
 msgid ""
@@ -139,90 +139,91 @@ msgid ""
 "mouse cursor, in this case current radius will be displayed in the same "
 "widget."
 msgstr ""
+"**缓冲区**工具用于通过选择中心点和定义半径或该中心点周围的圆的面积来实现多边形的数字化。一旦选择了**缓冲区**工具，并在QGIS地图画布的右上角用鼠标点击定义了中心点，一个显示圆半径的部件就会出现。输入所需的半径，然后按**输入键**来创建圆。另外，也可以通过移动鼠标光标来手动绘制圆，在这种情况下，当前的半径将显示在同一个小部件中。"
 
 #: ../../source/for_users/training/errorrecode.rst:78
 msgid ""
 "When digitizing of the polygon is finished a custom attribute form will be "
 "shown."
-msgstr ""
+msgstr "当多边形的数字化完成后，将显示一个自定义属性表格。"
 
 #: ../../source/for_users/training/errorrecode.rst:83
 msgid ""
 "In addition to various attributes this form also contains indicators chart "
 "calculated based on the rasters selected in the step 7."
-msgstr ""
+msgstr "除了各种属性之外，这个表格还包含了根据步骤7中选择的栅格计算的指标图。"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr "iconCalculator"
+msgstr "图标计算器"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr "iconChart"
+msgstr "图标图表"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr "iconClipboard"
+msgstr "图标剪贴板"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr "iconCloudDownload"
+msgstr "图标云下载"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr "iconCog"
+msgstr "图标设置"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr "iconDeletedataset"
+msgstr "图标删除数据集"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
-msgstr "iconGlobe"
+msgstr "图标全球"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr "iconGraph"
+msgstr "图标图形"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr "iconInfo"
+msgstr "图标信息"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr "iconLoaddataset"
+msgstr "图标加载数据集"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr "iconMarkMarker"
+msgstr "图标标识器"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr "iconOpendatasetdirectory"
+msgstr "图标打开数据集目录"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr "iconViewdatasetdetails"
+msgstr "图标浏览数据集细节"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr "iconWrench"
+msgstr "图标扳手"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr "iconFolder"
+msgstr "图标文件夹"
 
 #: ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr "iconReports"
+msgstr "图标报告"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr "iconTrendsEarth"
+msgstr "图标TrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr "iconVisualization"
+msgstr "图标视觉化"
 
 #: ../../../<rst_epilog>:37
 msgid "Trends.Earth"
@@ -230,16 +231,16 @@ msgstr "Trends.Earth"
 
 #: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr "logoCI"
+msgstr "标识CI"
 
 #: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr "logoLund"
+msgstr "标识Lund"
 
 #: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr "logoNASA"
+msgstr "标识NASA"
 
 #: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr "logoGEF"
+msgstr "标识GEF"

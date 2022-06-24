@@ -24,7 +24,7 @@ msgstr ""
 
 #: ../../source/general/index.rst:4
 msgid "General information"
-msgstr ""
+msgstr "معلومات عامة"
 
 #: ../../source/general/index.rst:6
 msgid ""
@@ -32,6 +32,9 @@ msgid ""
 "global data sources to assess and monitor land degradation at multiple "
 "scales\", funded by the Global Environment Facility."
 msgstr ""
+"|اتجاهات.الأرض| تم إنتاجه كجزء من مشروع \"تمكين استخدام مصادر البيانات "
+"العالمية لتقييم ورصد تدهور الأراضي على مستويات متعددة\"، بتمويل من مرفق "
+"البيئة العالمية."
 
 #: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
 #: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
@@ -39,11 +42,11 @@ msgstr ""
 #: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
 #: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
 msgid "Trends.Earth"
-msgstr "Trends.Earth"
+msgstr "اتجاهات.الأرض"
 
 #: ../../source/general/index.rst:11
 msgid "Contacting the team"
-msgstr ""
+msgstr "التواصل مع الفريق"
 
 #: ../../source/general/index.rst:13
 msgid ""
@@ -54,10 +57,16 @@ msgid ""
 "<https://github.com/ConservationInternational/trends.earth/issues>`_ for "
 "|trends.earth|."
 msgstr ""
+"تواصل مع فريق 'اتجاهات.الأرض <mailto:trends.earth@conservation.org>'_ إذا "
+"كان لديك أي تعليقات أو اقتراحات. إذا كانت لديك أخطاء محددة للإبلاغ عنها أو "
+"تودّ إدخال تحسينات على الأداة التي ترغب في اقتراحها، فيمكنك أيضًا إرسالها في"
+" `` متعقب المشكلات على Github "
+"<https://github.com/ConservationInternational/trends.earth/issues> `_ الخاص "
+"ب|اتجاهات.الأرض|."
 
 #: ../../source/general/index.rst:21
 msgid "Authors"
-msgstr ""
+msgstr "المؤلفون"
 
 #: ../../source/general/index.rst:23
 msgid ""
@@ -66,6 +75,9 @@ msgid ""
 "Administration (NASA), and is funded by the Global Environment Facility "
 "(GEF)."
 msgstr ""
+"إن مشروع مراقبة تدهور الأراضي هو شراكة بين منظمة Conservation International،"
+" وجامعة Lund، والإدارة الوطنية للملاحة الجوية والفضاء (NASA)، ويتم تمويله من"
+" قبل مرفق البيئة العالمية (GEF)."
 
 #: ../../source/general/index.rst:27
 msgid ""
@@ -73,6 +85,9 @@ msgid ""
 "Genesis, Lennart Olsson, Mariano Gonzalez-Roglich, Monica Noon, Tristan "
 "Schnader, Anna Tengberg, and Alex Zvoleff."
 msgstr ""
+"يتضمن المساهمون في التوثيق و|اتجاهات.الأرض|ينغوه جينيسيس، ولينارت أولسون، "
+"وماريانو غونزاليس روغليش، ومونيكا نون، وتريستان شنادر، وآنا تنجبيرغ، وأليكس "
+"زفوليف."
 
 #: ../../source/general/index.rst:35
 msgid ""
@@ -90,6 +105,11 @@ msgid ""
 " partnership with University of North Carolina - Wilmington and Brown "
 "University and is funded by the Global Environment Facility (GEF)."
 msgstr ""
+"مشروع Tools4LDN <https://www.tools4ldn.org/> `_ هو شراكة بين Conservation "
+"International، وجامعة برن، وجامعة كولورادو بالشراكة مع وزارة الزراعة "
+"الأمريكية، والوكالة الأمريكية للتنمية الدولية، وجامعة كاليفورنيا - سانتا "
+"باربرا بالشراكة مع جامعة نورث كارولينا - ويلمنجتون وجامعة براون. بتمويل من "
+"مرفق البيئة العالمية (GEF)."
 
 #: ../../source/general/index.rst:49
 msgid ""
@@ -99,10 +119,14 @@ msgid ""
 "Lopez-Carr, Kevin Mwenda, Jason Neff, George Peacock, Narcisa Pricope, Sanna"
 " Sokolow, and Ingrid Teich."
 msgstr ""
+"يتضمن المساهمون في التوثيق و|اتجاهات.الأرض| غابرييل دالدجان، وماريانو "
+"جونزاليس روجليتش، ومونيكا نون، وأليكس زفوليف بالشراكة مع جيف هيريك، وتاتندا "
+"ليمان، وهانسبيتر لينيغر، وديفيد لوبيز كار، وكيفين مويندا، وجيسون نيف، وجورج "
+"بيكوك، ونارسيسا بريكوب، وسانا سوكولوف، وإنجريد تايش."
 
 #: ../../source/general/index.rst:55
 msgid "Acknowledgements"
-msgstr ""
+msgstr "الشكر والتقدير"
 
 #: ../../source/general/index.rst:57
 msgid ""
@@ -110,6 +134,9 @@ msgid ""
 "participants in the webinars and workshops held by the GEF Land Degradation "
 "Monitoring Project have been critical to the development of the tool."
 msgstr ""
+"الملاحظات التي قدمها المستخدمون الأوائل لـ|اتجاهات.الأرض| والمشاركون في "
+"الندوات عبر الإنترنت وورش العمل التي عقدها مشروع مراقبة تدهور الأراضي التابع"
+" لمرفق البيئة العالمية، كانت مهمة في تطوير الأداة."
 
 #: ../../source/general/index.rst:61
 msgid ""
@@ -118,6 +145,10 @@ msgid ""
 "on the structure of the tool, and on the UNCCD reporting process, and also "
 "provided early input and testing of the tool."
 msgstr ""
+"قدم كل من نيل سيمز، وساشا ألكسندر، وريناتو كوماني، وسارا مينيلي ملاحظات حول "
+"تنفيذ SDG 15.3 ومؤشرات LDN في |اتجاهات.الأرض| وبنية الأداة، وعملية إعداد "
+"تقارير اتفاقية الأمم المتحدة لمكافحة التصحر، كما قدموا ملاحظات وتجربة مبكرة "
+"للأداة."
 
 #: ../../source/general/index.rst:66
 msgid ""
@@ -132,24 +163,37 @@ msgid ""
 "Rwegasira, Ndeye Kany Sarr, Mamadou Adama Sarr, Edward Senyonjo, Olipa "
 "Simon, Samba Sow, Felly Mugizi Tusiime and John Wasige."
 msgstr ""
+"يقدم المشروع كل الشكر والتقدير للمشاركين في ورشة العمل التي عقدت في "
+"موروجورو، تنزانيا في أكتوبر، 2017 لمشاركة ملاحظاتهم واقتراحاتهم حول الأداة: "
+"جونز أغواتا، والعقيد بابا أساني نديور، والملازم فينداما بالدي، وبابا نيكو "
+"دياني، وعبد العزيز ضيوف، وريتشارد ألفونس جيليبا، وموسى إيزابيري، وفيتس "
+"كاليما، وجوزيف كيهولي، البروفيسور دي إن كيمارو، وجيمس لوسا، وباولو مانديلا، "
+"ومودو مصطفى سار، وجوزيف موتيابا، وستيفن موايا، وجوزيف موالوغيلو، والبروفيسور"
+" مجاليوا موانجالولو، وإيدسون أسبون مويجاجي، وجيروم نشمبي، وإليباريكي نجوي، "
+"تواببي نجونج، ودانيال نكوندولا، وبليز أوكيني، وجوزيف أوبيو، وروزاليا "
+"روجاسيرا، وندي كاني سار، ومامادو أداما سار، وإدوارد سينيونجو، وأوليبا سيمون،"
+" وسامبا سو، وفيلي موجيزي توسيم، وجون واسيج."
 
 #: ../../source/general/index.rst:78
 msgid "Citation"
-msgstr ""
+msgstr "الاستشهادات المرجعية"
 
 #: ../../source/general/index.rst:80
 msgid "If you wish to cite |trends.earth|, please use the following citation:"
 msgstr ""
+"إذا كنت تودّ اقتباس|اتجاهات.الأرض|، فيرجى استخدام الاستشهادات التالية:"
 
 #: ../../source/general/index.rst:82
 msgid ""
 "Trends.Earth. Conservation International. Available online at: "
 "`http://trends.earth <http://trends.earth>`_. 2022."
 msgstr ""
+"اتجاهات.الأرض. Conservation International. ُمتاحة عبر الإنترنت على: "
+"`http://trends.earth <http://trends.earth>`_. 2022."
 
 #: ../../source/general/index.rst:86
 msgid "License"
-msgstr "رخصة"
+msgstr "الترخيص"
 
 #: ../../source/general/index.rst:88
 msgid ""
@@ -170,10 +214,16 @@ msgid ""
 "official endorsement or acceptance by Conservation International Foundation,"
 " or its partner organizations and contributors."
 msgstr ""
+"هذا الموقع ومنتجات |اتجاهات.الأرض| يتم توفيرها بموجب شروط `` رخصة المشاع "
+"الإبداعي نَسب المُصنَّف 4.0 (CC BY 4.0) "
+"<https://creativecommons.org/licenses/by/4.0> \"_. الحدود والأسماء "
+"المستخدمة، والتسميات المستخدمة في |اتجاهات.الأرض| لا يعني التأييد أو القبول "
+"الرسمي من قِبل مؤسسة Conservation International أو المنظمات الشريكة "
+"والمساهمين."
 
 #: ../../source/general/index.rst:100
 msgid "Trademark"
-msgstr ""
+msgstr "العلامة التجارية"
 
 #: ../../source/general/index.rst:102
 msgid ""
@@ -181,19 +231,24 @@ msgid ""
 "No. 6,074,442 and Int. Cl.: 9,35,42) by the United States Patent and "
 "Trademark Office."
 msgstr ""
+"|اتجاهات.الأرض| لديها علامة خدمة تجارية تم تسجيلها في 9 يونيو 2020 (رقم "
+"التسجيل 6074442 والتصنيف الدولي لبراءات الاختراع: 9,35,42) من قبل مكتب "
+"براءات الاختراع والعلامات التجارية بالولايات المتحدة الأمريكية."
 
 #: ../../source/general/index.rst:108
 msgid "Publications"
-msgstr ""
+msgstr "المنشورات"
 
 #: ../../source/general/index.rst:111
 msgid "Peer-reviewed Publications"
-msgstr ""
+msgstr "المنشورات التي راجعها الأقران"
 
 #: ../../source/general/index.rst:113
 msgid ""
 "The below peer-reviewed publications either use or relate to |trends.earth|."
 msgstr ""
+"المنشورات التي راجعها الأقران أدناه إما تستخدم أو لها علاقة "
+"ب|اتجاهات.الأرض|."
 
 #: ../../source/general/index.rst:115
 msgid ""
@@ -201,6 +256,9 @@ msgid ""
 " Areas: The Transition to the Use of New Technologies and Multidisciplinary "
 "Studies. Earth, 2(3), pp.635-652."
 msgstr ""
+"ألامانوس أ.، ولينان س.، 2021. تقدير مؤشرات أهداف التنمية المستدامة في مناطق "
+"ندرة البيانات: الانتقال إلى استخدام التقنيات الجديدة والدراسات متعددة "
+"التخصصات. الأرض، 2 (3)، ص 635-652."
 
 #: ../../source/general/index.rst:117
 msgid ""
@@ -209,6 +267,10 @@ msgid ""
 "system science: status and prospects. Curr. Opin. Environ. Sustain. 38, "
 "44–52. https://doi.org/10.1016/j.cosust.2019.05.003"
 msgstr ""
+"ج. دونج، ج. ميتيرنيشت، ب. هوستيرت، ر. فينشولت، ر.ر. تشودهوري، 2019. تقنيات "
+"الاستشعار عن بعد والجغرافيا المكانية لدعم علم نظام الأرض المعياري: الحالة "
+"والاحتمالات. الرأي الحالي في الاستدامة البيئية. 38، 44-52. "
+"https://doi.org/10.1016/j.cosust.2019.05.003"
 
 #: ../../source/general/index.rst:121
 msgid ""
@@ -217,6 +279,10 @@ msgid ""
 "land degradation assessment and monitoring. Ecol. Indic. 107, 105545. "
 "https://doi.org/10.1016/j.ecolind.2019.105545"
 msgstr ""
+"إيسديل م.ه.، فارينا ك، هارا س.، بيريز ليون ن.، أومانا ف.، تيتونيل ب.، بروزون"
+" و.، 2019. دورات اتجاه ديناميات الغطاء النباتي كأداة لتقييم ورصد تدهور "
+"الأراضي. المؤشرات البيئية. 107، 105545. "
+"https://doi.org/10.1016/j.ecolind.2019.105545"
 
 #: ../../source/general/index.rst:124
 msgid ""
@@ -226,6 +292,11 @@ msgid ""
 "the potential of data cube. Big Earth Data 4, 3–22. "
 "https://doi.org/10.1080/20964471.2020.1711633"
 msgstr ""
+"جولياني ج.، شاتينو ب.، بنفينوتي أ.، لاكروا ب.، سانتورو م.، مازيتي ب.،2020a. "
+"رصد تدهور الأراضي على المستوى الوطني باستخدام بيانات السلاسل الزمنية لرصد "
+"الأرض عبر الأقمار الصناعية لدعم الهدف الخامس عشر من أهداف التنمية المستدامة "
+"- استكشاف إمكانات مكعب البيانات. بيانات الأرض الكبيرة 4، 3–22. "
+"https://doi.org/10.1080/20964471.2020.1711633"
 
 #: ../../source/general/index.rst:128
 msgid ""
@@ -235,6 +306,11 @@ msgid ""
 "case on Land degradation. Int. J. Appl. Earth Obs. Geoinformation 88, "
 "102068. https://doi.org/10.1016/j.jag.2020.102068"
 msgstr ""
+"جولياني ج.، مازيتي ب.، سانتورو م.، ناتيفي س.، فان بيملين ج.، كولانجلي ج.، "
+"ليمان أ.، 2020b. توليد المعرفة باستخدام رصد الأرض عبر الأقمار الصناعية لدعم "
+"أهداف التنمية المستدامة (SDG): حالة استخدام بشأن تدهور الأراضي. المجلة "
+"الدولية لرصد الأرض التطبيقي والمعلومات الجغرافية 88، 102068. "
+"https://doi.org/10.1016/j.jag.2020.102068"
 
 #: ../../source/general/index.rst:132
 msgid ""
@@ -245,6 +321,11 @@ msgid ""
 "database. Environ. Sci. Policy 93, 34–42. "
 "https://doi.org/10.1016/j.envsci.2018.12.019"
 msgstr ""
+"غونزاليس روغليش م.، زفوليف أ.، نون م.، لينيغر ه.، فلينر ر.، هاراري ن.، "
+"جارسيا ك.، 2019. تحقيق التآزر بين الأدوات العالمية لرصد التقدم المحرز نحو "
+"تحييد تدهور الأراضي: اتجاهات.الأرض والعالم نظرة عامة على قاعدة بيانات إدارة "
+"الأراضي المستدامة لأساليب وتقنيات الحفظ. العلوم والسياسات البيئية 93، 34–42."
+" https://doi.org/10.1016/j.envsci.2018.12.019"
 
 #: ../../source/general/index.rst:137
 msgid ""
@@ -253,6 +334,10 @@ msgid ""
 " development goal 15.3 in Central Asia. Science of The Total Environment, "
 "807, p.150868. https://doi.org/10.1016/j.scitotenv.2021.150868"
 msgstr ""
+"جيانغ ل.، وباو أ.، وجيابير غ.، وليو ر.، ويوان ي.، ويو ت.، 2022. رصد تدهور "
+"الأراضي وتقييم مسبباته لدعم هدف التنمية المستدامة 15.3 في آسيا الوسطى. علم "
+"البيئة الكلية، 807، ص 150868. "
+"https://doi.org/10.1016/j.scitotenv.2021.150868"
 
 #: ../../source/general/index.rst:140
 msgid ""
@@ -261,6 +346,10 @@ msgid ""
 "case study of Hyderabad city, India. Modeling Earth Systems and Environment,"
 " 7(1), pp.589-602. https://doi.org/10.1007/s40808-020-00937-0"
 msgstr ""
+" كادافيروغو أ.، وناغشوار راو ك.، وفيسواناده غ.ك.، 2021. القياس الكمي لخدمات "
+"تخفيف الفيضانات عن طريق المساحات الخضراء الحضرية باستخدام نموذج InVEST: "
+"دراسة حالة لمدينة حيدر أباد، الهند. وضع نماذج أنظمة الأرض والبيئة، 7 (1)، ص "
+"589-602. https://doi.org/10.1007/s40808-020-00937-0"
 
 #: ../../source/general/index.rst:143
 msgid ""
@@ -268,6 +357,9 @@ msgid ""
 "Neutrality: the Modern Approach to Research on Arid Regions at the National "
 "Level. Arid Ecosyst. 10, 87–92. https://doi.org/10.1134/S2079096120020092"
 msgstr ""
+"كوست غ.س.، أندريفا و.ف.، لوبكوفسكي ف.أ.، 2020. تحييد تدهور الأراضي: النهج "
+"الحديث للبحث في المناطق القاحلة على المستوى الوطني. النظام البيئي القاحل. "
+"10، 87-92. https://doi.org/10.1134/S2079096120020092"
 
 #: ../../source/general/index.rst:146
 msgid ""
@@ -276,6 +368,9 @@ msgid ""
 "Support of SDG Indicator 15.3. 1. Sustainability, 13(24), p.13664. "
 "https://doi.org/10.3390/su132413664"
 msgstr ""
+"هو ي.، ووانغ س.، ويو ش.، وين س.، 2021. تقييم اتجاهات تغيّر إنتاجية الأراضي "
+"وأسبابها في حوض نهر هان، الصين: دعمًا لمؤشر أهداف التنمية المستدامة 15.3. 1."
+" الاستدامة، 13 (24)، ص 13664. https://doi.org/10.3390/su132413664"
 
 #: ../../source/general/index.rst:149
 msgid ""
@@ -284,6 +379,10 @@ msgid ""
 "index based on natural soil productivity and human management. J. Environ. "
 "Manage. 277, 111402. https://doi.org/10.1016/j.jenvman.2020.111402"
 msgstr ""
+"لي ز.، لون ف.، ليو م.، شاو ش.، وانغ س.، وانغ ل.، شو ي.، تشي و.، سان د.، "
+"2021. التشخيص السريع لصحة التربة الزراعية: مؤشر جديد لصحة التربة يعتمد على "
+"إنتاجية التربة الطبيعية والإدارة البشرية. مجلة الإدارة البيئية. 277، 111402."
+" https://doi.org/10.1016/j.jenvman.2020.111402"
 
 #: ../../source/general/index.rst:153
 msgid ""
@@ -292,6 +391,10 @@ msgid ""
 " knowledge in evidence-based decision-making. Environ. Sci. Policy 94, "
 "123–134. https://doi.org/10.1016/j.envsci.2019.01.001"
 msgstr ""
+"ه. لينيغر، ن. هاراري، غ. فان ليندين، ر. فلينر، ج. دي ليوو، ز.، باي، و. "
+"كريتشلي، 2019. تحقيق تحييد تدهور الأراضي: دور المعرفة بالإدارة المستدامة "
+"للأراضي في صنع القرار القائم على الأدلة. العلوم والسياسات البيئية 94، "
+"123-134. https://doi.org/10.1016/j.envsci.2019.01.001"
 
 #: ../../source/general/index.rst:157
 msgid ""
@@ -299,6 +402,9 @@ msgid ""
 " Observation Solutions for Namibia’s SDG Monitoring System. Remote Sens. 11,"
 " 1612. https://doi.org/10.3390/rs11131612"
 msgstr ""
+"ف. ماريثاسان، إ. بيزاودينهاوت، ك.ر. أوليمبيو، 2019. تقييم حلول رصد الأرض "
+"لنظام رصد أهداف التنمية المستدامة في ناميبيا. الاستشعار عن بعد. 11، 1612. "
+"https://doi.org/10.3390/rs11131612"
 
 #: ../../source/general/index.rst:160
 msgid ""
@@ -308,6 +414,11 @@ msgid ""
 "Environmental Science & Policy, 131, pp.93-104. "
 "https://doi.org/10.1016/j.envsci.2021.12.023"
 msgstr ""
+"ب. مازيتي، وس. ناتيفي، وم. سانتورو، وغ. غيولياني، ود. روديلا، وأ. فولينو، "
+"وس. كاروسو، وج. أراكري، وأ. ليمان. إضفاء الطابع الرسمي على المعرفة لاتخاذ "
+"قرارات مدروسة في علوم الأرض: قاعدة المعارف الأساسية لتوقعات البيئة العالمية."
+" العلوم والسياسات البيئية، 131، ص 93 - 104. "
+"https://doi.org/10.1016/j.envsci.2021.12.023"
 
 #: ../../source/general/index.rst:164
 msgid ""
@@ -315,6 +426,9 @@ msgid ""
 "WRF modelling system. Environmental Modelling & Software 112, 166–178 "
 "(2019). https://doi.org/10.1016/j.envsoft.2018.10.018"
 msgstr ""
+"د.ماير وم. ريتشيرت. مجموعة أدوات QGIS مفتوحة المصدر لنظام وضع نماذج البحث "
+"المتقدم WRF. وضع النماذج البيئية والبرمجيات 112، 166 - 178 (2019). "
+"https://doi.org/10.1016/j.envsoft.2018.10.018"
 
 #: ../../source/general/index.rst:167
 msgid ""
@@ -323,6 +437,10 @@ msgid ""
 "Support SDG Target 15.3. In Geospatial Intelligence (pp. 119-129). Springer,"
 " Cham. https://doi.org/10.1007/978-3-030-80458-9_9"
 msgstr ""
+"س. موسى، إ.ه البررجي، وو.ب علمي، 2022. رصد اتجاهات إنتاجية الأراضي في منطقة "
+"سوس ماسة باستخدام بيانات السلاسل الزمنية لاندسات لدعم هدف التنمية المستدامة "
+"15.3. في الاستخبارات الجغرافية المكانية (ص 119-129). سبرينغر، شام. "
+"https://doi.org/10.1007/978-3-030-80458-9_9"
 
 #: ../../source/general/index.rst:170
 msgid ""
@@ -330,6 +448,9 @@ msgid ""
 "region. In IOP Conference Series: Earth and Environmental Science (Vol. 723,"
 " No. 4, p. 042053). IOP Publishing. doi:10.1088/1755-1315/723/4/042053"
 msgstr ""
+"س.س أوجوردنيكوف، مارس، 2021. وتحييد تدهور الأراضي في منطقة تولا. في سلسلة "
+"مؤتمرات IOP: علوم الأرض والبيئة (المجلد. 723، رقم 4، ص 042053). النشر IOP. "
+"doi: 10.1088 / 1755-1315 / 723/4/042053"
 
 #: ../../source/general/index.rst:173
 msgid ""
@@ -337,6 +458,9 @@ msgid ""
 "Observations for Sustainable Urban Development. Remote Sens. 12, 1646. "
 "https://doi.org/10.3390/rs12101646"
 msgstr ""
+"م. براكاش، س. راماج،أ. كافافادا، س. جودمان، 2020. رصد الأرض المفتوحة من أجل "
+"التنمية الحضرية المستدامة. الاستشعار عن بعد. 12، 1646. "
+"https://doi.org/10.3390/rs12101646"
 
 #: ../../source/general/index.rst:176
 msgid ""
@@ -344,6 +468,9 @@ msgid ""
 " planning tools: city of Hamilton, Canada. Hydrological Sciences Journal, "
 "66(7), pp.1124-1131. https://doi.org/10.1080/02626667.2021.1918340"
 msgstr ""
+"إ. فيليب، 2021. اقتران هدف التنمية المستدامة 11.3. 1 مع أدوات التخطيط "
+"الحالية: مدينة هاميلتون، كندا. مجلة العلوم الهيدرولوجية، 66 (7)، ص "
+"1124-1131. https://doi.org/10.1080/02626667.2021.1918340"
 
 #: ../../source/general/index.rst:179
 msgid ""
@@ -352,6 +479,10 @@ msgid ""
 "Datasets to Support Sustainable Development Goal 15.3. Remote Sensing, "
 "13(9), p.1754. https://doi.org/10.3390/rs13091754"
 msgstr ""
+"ج. ريث، وغ. غازاريان، وف. موتوني، وو. دوبوفيك، 2021. تقييم تدهور الأراضي في "
+"تنزانيا شبه القاحلة - استخدام مجموعات بيانات الاستشعار عن بعد متعددة النطاق "
+"لدعم هدف التنمية المستدامة 15.3. الاستشعار عن بعد، 13 (9)، ص 1754. "
+"https://doi.org/10.3390/rs13091754"
 
 #: ../../source/general/index.rst:182
 msgid ""
@@ -360,6 +491,10 @@ msgid ""
 "degraded areas for restoration planning. Restoration Ecology, 29(6), "
 "p.e13454. https://doi.org/10.1111/rec.13454"
 msgstr ""
+"ه.ي. رو، ود. جروبر، وم. فاستيجي، 2021. من أين تبدأ؟ علم المواطن الجديد، نهج "
+"الاستشعار عن بعد لرسم خرائط للاضطرابات الترفيهية والمناطق المتدهورة الأخرى "
+"لتخطيط الاستصلاح. الاستصلاح البيئي، 29 (6)، ص.e13454. "
+"https://doi.org/10.1111/rec.13454"
 
 #: ../../source/general/index.rst:185
 msgid ""
@@ -369,6 +504,10 @@ msgid ""
 "Habitat International, 123, p.102543. "
 "https://doi.org/10.1016/j.habitatint.2022.102543"
 msgstr ""
+"م. شيافينا، وم. ميلشيوري، وس. فريري، وب. فلوريو، ود. إرليش، وب. توماسي، وم. "
+"بيساريسي، وت. كيمبر. كفاءة استخدام الأراضي في المناطق الحضرية الوظيفية: "
+"النمط العالمي وتطور مسارات التنمية. هابيتات انترناشيونال، 123، ص 102543. "
+"https://doi.org/10.1016/j.habitatint.2022.102543"
 
 #: ../../source/general/index.rst:189
 msgid ""
@@ -377,6 +516,9 @@ msgid ""
 "Goals. Environmental Science & Policy 92, 349–355 (2019). "
 "https://doi.org/10.1016/j.envsci.2018.10.014"
 msgstr ""
+"ن.س. سيمز، وآخرون. تطوير إرشادات الممارسات الجيدة لتقدير تدهور الأراضي في "
+"سياق أهداف الأمم المتحدة للتنمية المستدامة. العلوم والسياسات البيئية 92، "
+"349–355 (2019). https://doi.org/10.1016/j.envsci.2018.10.014"
 
 #: ../../source/general/index.rst:193
 msgid ""
@@ -385,6 +527,10 @@ msgid ""
 " Level Degradation Assessments in Support of the 2030 Development Agenda. "
 "Remote Sens. 11, 2918. https://doi.org/10.3390/rs11242918"
 msgstr ""
+" إ. تايش، م. جونزاليز روجليش، م. كورسو، م.ل. س.ل. جارسيا، 2019. الجمع بين "
+"رصد الأرض والحوسبة السحابية ومعرفة الخبراء لإثراء تقييمات التدهور على "
+"المستوى الوطني لدعم خطة التنمية لعام 2030. الاستشعار عن بعد 11، 2918. "
+"https://doi.org/10.3390/rs11242918"
 
 #: ../../source/general/index.rst:197
 msgid ""
@@ -393,6 +539,10 @@ msgid ""
 "implications for degradation monitoring. African Journal of Range & Forage "
 "Science 35, 209–221 (2018). https://doi.org/10.2989/10220119.2018.1516237"
 msgstr ""
+"تيم هوفمان، م. سكونو، أ. بيل، و. و س. ماشيل. التغييرات طويلة الأجل في "
+"استخدام الأراضي والغطاء الأرضي والغطاء النباتي في أراضي كارو الجافة في جنوب "
+"إفريقيا: الآثار المترتبة على مراقبة التدهور. المجلة الأفريقية لعلوم المراعي "
+"والأعلاف 35، 209 - 221 (2018). https://doi.org/10.2989/10220119.2018.1516237"
 
 #: ../../source/general/index.rst:202
 msgid ""
@@ -401,6 +551,10 @@ msgid ""
 " the Eastern European Plain by Remote Sensing Data. Moscow Univ. Soil Sci. "
 "Bull. 76, 11–18 (2021). https://doi.org/10.3103/S0147687421010063"
 msgstr ""
+"ت. أ تريفونوفا، ون.ف ميششينكو، وب.س شوتوف. وآخرون. تقدير ديناميكيات عمليات "
+"الإنتاج في المناظر الطبيعية لمنطقة تايغا الجنوبية الفرعية لسهل أوروبا "
+"الشرقية عن طريق بيانات الاستشعار عن بعد. جامعة موسكو. علوم التربة. ثور. 76، "
+"11-18 (2021). https://doi.org/10.3103/S0147687421010063"
 
 #: ../../source/general/index.rst:206
 msgid ""
@@ -409,6 +563,10 @@ msgid ""
 "monitoring land degradation and restoration. Ecol. Indic. 113, 106206. "
 "https://doi.org/10.1016/j.ecolind.2020.106206"
 msgstr ""
+"ز.س. فينتر، وس.ل. سكوت، وب.ج ديسميت، وم.ت هوفمان، 2020. تطبيق اتجاهات الغطاء"
+" النباتي المشتق من القمر الصناعي فوق جنوب إفريقيا: إمكانية رصد تدهور الأراضي"
+" واستصلاحها. المؤشرات البيئية 113، 106206. "
+"https://doi.org/10.1016/j.ecolind.2020.106206"
 
 #: ../../source/general/index.rst:210
 msgid ""
@@ -417,10 +575,13 @@ msgid ""
 "neutrality target setting process. Environ. Sci. Policy 101, 54–62. "
 "https://doi.org/10.1016/j.envsci.2019.07.003"
 msgstr ""
+"غ. ب. فون مالتيتز، ج. جامبياز، ك. كيلنر، ت. رامباو، ل. لينديك، ب. جوب، 2019."
+" تجارب من عملية وضع أهداف تحييد أثر تدهور الأراضي في جنوب أفريقيا. العلوم "
+"والسياسات البيئية 101، 54-62. https://doi.org/10.1016/j.envsci.2019.07.003"
 
 #: ../../source/general/index.rst:218
 msgid "Academic dissertations"
-msgstr ""
+msgstr "الأطروحات الأكاديمية"
 
 #: ../../source/general/index.rst:220
 msgid ""
@@ -428,6 +589,9 @@ msgid ""
 "Infrastructure and prioritisation for rehabilitation and drought mitigation "
 "in the Tsitsa River Catchment (Masters dissertation, Rhodes University)."
 msgstr ""
+"ب. ماهلابا، 2022. تقييم حالة التدهور في البنية التحتية البيئية وتحديد "
+"أولويات إعادة التأهيل والتخفيف من آثار الجفاف في حوض نهر تسيتسا (رسالة "
+"ماجستير، جامعة رودس)."
 
 #: ../../source/general/index.rst:222
 msgid ""
@@ -435,16 +599,21 @@ msgid ""
 "Techniques in Support of Sustainable Land Management: A Case Study of Narok "
 "County (Doctoral dissertation, University of Nairobi)."
 msgstr ""
+"غ. و. أور، 2021. رصد تحييد تدهور الأراضي باستخدام تقنيات الجغرافيا المكانية "
+"لدعم الإدارة المستدامة للأراضي: دراسة حالة لمقاطعة ناروك (أطروحة دكتوراه، "
+"جامعة نيروبي)."
 
 #: ../../source/general/index.rst:228
 msgid "Other resources"
-msgstr ""
+msgstr "المراجع الأخرى"
 
 #: ../../source/general/index.rst:230
 msgid ""
 "Print documentation from the Trends.Earth project (including fact sheets, "
 "reports, and other materials) is listed below."
 msgstr ""
+"الوثائق المطبوعة من مشروع اتجاهات.الأرض (بما في ذلك، صحائف الوقائع والتقارير"
+" والمواد الأخرى) مُدرجة أدناه."
 
 #: ../../source/general/index.rst:236
 msgid "Reports"
@@ -457,6 +626,10 @@ msgid ""
 "<https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/61e6ee8f42b6c16e2cb538cf/1642524304092/ci-6-Tools4LDN-"
 "report-FNL+web.pdf>`_"
 msgstr ""
+"'مراجعة لمجموعات البيانات والمؤشرات الجغرافية المكانية المتاحة للعامة لدعم "
+"رصد تدهور الأراضي "
+"<https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/61e6ee8f42b6c16e2cb538cf/1642524304092/ci-6-Tools4LDN-"
+"report-FNL+web.pdf> `_"
 
 #: ../../source/general/index.rst:240
 msgid ""
@@ -464,6 +637,10 @@ msgid ""
 "Support of Drought Monitoring "
 "<https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/6033f28abca1996aedc492d5/1614017200233/ci-4-Tools4LDN2-FNL+web.pdf>`_"
 msgstr ""
+"'مراجعة مجموعات البيانات والمؤشرات الجغراية المكانية المتاحة للعامة لدعم رصد"
+" الجفاف "
+"<https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/6033f28abca1996aedc492d5/1614017200233/ci-4-Tools4LDN2-FNL+web.pdf>\""
+" _"
 
 #: ../../source/general/index.rst:242
 msgid ""
@@ -472,6 +649,11 @@ msgid ""
 " Populations Affected by Desertification, Land Degradation, and Drought "
 "<https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/60abf26cb4223a6ade81cecd/1621881469733/ci-3-Tools4LDN-3+%281%29.pdf>`_"
 msgstr ""
+"\"مراجعة مجموعات البيانات والمؤشرات الجغرافية المكانية المتاحة للعامة لدعم "
+"الهدف الاستراتيجي لاتفاقية الأمم المتحدة لمكافحة التصحر (SO) 2: لتحسين "
+"الظروف المعيشية للسكان المتأثرين بالتصحر وتدهور الأراضي والجفاف "
+"<https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/60abf26cb4223a6ade81cecd/1621881469733/ci-3-Tools4LDN-3+%281%29.pdf>'"
+" _"
 
 #: ../../source/general/index.rst:245
 msgid ""
@@ -479,6 +661,9 @@ msgid ""
 "<https://www.unccd.int/sites/default/files/inline-"
 "files/MethodologicalNote_PopExposureToLD.pdf>`_"
 msgstr ""
+"'الاتجاهات في تعرض السكان لتدهور الأراضي - ملاحظة منهجية "
+"<https://www.unccd.int/sites/default/files/inline-"
+"files/MethodologicalNote_PopExposureToLD.pdf>` _"
 
 #: ../../source/general/index.rst:247
 msgid ""
@@ -490,6 +675,14 @@ msgid ""
 " (IAEG-SDGs). "
 "<http://ggim.un.org/documents/Report_Global_and_Complementary_Geospatial_Data_for_SDGs.pdf>`_"
 msgstr ""
+"س. أرنولد، س. جون، إ. أولاف، 2019. البيانات الجغرافية المكانية العالمية "
+"والتكميلية (غير الرسمية) لأهداف التنمية المستدامة: الدور والاستخدام. تم "
+"إعداد التقرير بالاشتراك مع فريق العمل المهتم بالبيانات العالمية وفريق العمل "
+"المهتم بمصادر البيانات البديلة من قبل الفريق العامل المهتم بالمعلومات "
+"الجغرافية المكانية التابع لفريق الخبراء المشترك بين الوكالات المهتم بمؤشرات "
+"أهداف التنمية المستدامة (IAEG-SDGs). "
+"<http://ggim.un.org/documents/Report_Global_and_Complementary_Geospatial_Data_for_SDGs.pdf>"
+" `_"
 
 #: ../../source/general/index.rst:253
 msgid ""
@@ -497,6 +690,10 @@ msgid ""
 "an Indicator of Land Degradation "
 "<http://vitalsigns.org/sites/default/files/VS_GEFLDMP_Report1_C1_R3_WEB_HR.pdf>`_"
 msgstr ""
+"'استخدام مؤشرات الغطاء النباتي الطيفي لقياس الإنتاجية الأولية الإجمالية "
+"كمؤشر على تدهور الأراضي "
+"<http://vitalsigns.org/sites/default/files/VS_GEFLDMP_Report1_C1_R3_WEB_HR.pdf>\""
+" _"
 
 #: ../../source/general/index.rst:256
 msgid ""
@@ -504,12 +701,18 @@ msgid ""
 "disaggregation or targeted analysis "
 "<http://vitalsigns.org/sites/default/files/CI_GEF_Report%202_C1_R1_PRINT.pdf>`_"
 msgstr ""
+"'تقييم مناهج دمج البيانات عالية الدقة من أجل التصنيف أو التحليل المستهدف "
+"<http://vitalsigns.org/sites/default/files/CI_GEF_Report%202_C1_R1_PRINT.pdf>'"
+" _"
 
 #: ../../source/general/index.rst:259
 msgid ""
 "`Disentangling the effects of climate and land use on land degradation "
 "<http://vitalsigns.org/sites/default/files/CI_GEF_Report%205_C1_R1_PRINT.pdf>`_"
 msgstr ""
+"'تحليل تأثيرات المناخ واستخدام الأراضي على تدهور الأراضي "
+"<http://vitalsigns.org/sites/default/files/CI_GEF_Report%205_C1_R1_PRINT.pdf>'"
+" _"
 
 #: ../../source/general/index.rst:261
 msgid ""
@@ -517,6 +720,9 @@ msgid ""
 "development "
 "<http://vitalsigns.org/sites/default/files/CI_GEF_Guidance%20ENG_C1_R1_PRINT%20%281%29.pdf>`_"
 msgstr ""
+"\"رصد وتقييم تدهور الأراضي لدعم التنمية المستدامة "
+"<http://vitalsigns.org/sites/default/files/CI_GEF_Guidance%20ENG_C1_R1_PRINT%20%281%29.pdf>'"
+" _"
 
 #: ../../source/general/index.rst:263
 msgid ""
@@ -524,26 +730,33 @@ msgid ""
 "développement durable "
 "<http://vitalsigns.org/sites/default/files/CI_GEF_Guidance%20FRE_C1_R1_PRINT%20%281%29.pdf>`_"
 msgstr ""
+"`(الفرنسية) Suivre et évaluer la dégradation des terres pour soutenir le "
+"développement durable "
+"<http://vitalsigns.org/sites/default/files/CI_GEF_Guidance%20FRE_C1_R1_PRINT%20%281%29.pdf>`_\n"
 
 #: ../../source/general/index.rst:270
 msgid "Fact sheets"
-msgstr ""
+msgstr "صحائف الحقائق"
 
 #: ../../source/general/index.rst:272
 msgid ""
 "`Conceptual Fact Sheet for Trends.Earth "
 "<http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet.pdf>`_"
 msgstr ""
+"'صحيفة الحقائق المفاهيمية لاتجاهات.الأرض "
+"<http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet.pdf>` _"
 
 #: ../../source/general/index.rst:274
 msgid ""
 "`Technical Fact Sheet for Trends.Earth "
 "<http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet_Technical.pdf>`_"
 msgstr ""
+"'صحيفة الحقائق التقنية لاتجاهات.الأرض "
+"<http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet_Technical.pdf>'_"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr "أيقونة حاسبة"
+msgstr "أيقونة الآلة الحاسبة"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
@@ -555,15 +768,15 @@ msgstr "أيقونة الحافظة"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr "أيقونة التحميل السحابي"
+msgstr "أيقونة التنزيل السحابي"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr "أيقونة Cog"
+msgstr "أيقونة الترس"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr "أيقونة حذف مجموعة البيانات"
+msgstr "أيقونة مجموعة البيانات المحذوفة"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
@@ -583,19 +796,19 @@ msgstr "أيقونة تحميل مجموعة البيانات"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr "أيقونة التحديد"
+msgstr "أيقونة علامة التحديد"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr "أيقونة فتح دليل مجموعة البيانات"
+msgstr "أيقونة دليل مجموعة البيانات المفتوحة"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr "أيقونة عرض تفاصيل مجموعة البيانات"
+msgstr "أيقونة عرض تفاصيل البيانات"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr "أيقونة مفتاح الربط"
+msgstr "أيقونة مفتاح البراغي"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
@@ -607,15 +820,15 @@ msgstr "أيقونة التقارير"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr "أيقونة TrendsEarth"
+msgstr "أيقونة اتجاهات الأرض"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr "أيقونة التصور"
+msgstr "أيقونة التصوير المرئي"
 
 #: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr "شعار CI"
+msgstr "شعار هوية الشركة"
 
 #: ../../../<rst_epilog>:0
 msgid "logoLund"
@@ -627,4 +840,4 @@ msgstr "شعار ناسا"
 
 #: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr "شعار GEF"
+msgstr "شعار مرفق البيئة العالمية"

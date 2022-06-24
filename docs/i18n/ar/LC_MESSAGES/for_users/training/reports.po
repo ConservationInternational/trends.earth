@@ -23,31 +23,34 @@ msgstr ""
 
 #: ../../source/for_users/training/reports.rst:4
 msgid "Dataset Reports"
-msgstr "تقارير مجموعة البيانات"
+msgstr "تقارير مجموعة البيانات\n"
 
 #: ../../source/for_users/training/reports.rst:6
 msgid ""
 "**Objective**: Learn how to generate and view reports from one or more "
 "datasets."
 msgstr ""
+"**الهدف**: تعرف على كيفية إنشاء التقارير من مجموعة بيانات واحدة أو أكثر "
+"وعرضها.\n"
 
 #: ../../source/for_users/training/reports.rst:8
 msgid "**Estimated time of completion**: 10 minutes"
-msgstr ""
+msgstr "**الوقت المقدر للإكمال**: 10 دقائق\n"
 
 #: ../../source/for_users/training/reports.rst:10
 msgid "**Internet access**: Not Required"
-msgstr ""
+msgstr "**الوصول إلى الإنترنت**: غير مطلوب\n"
 
 #: ../../source/for_users/training/reports.rst:15
 msgid "View Dataset Output Reports"
-msgstr ""
+msgstr "عرض تقارير إخراج مجموعة البيانات\n"
 
 #: ../../source/for_users/training/reports.rst:17
 msgid ""
 "Select the **Open report directory** sub-menu in a dataset item's report "
 "button."
 msgstr ""
+"اختر القائمة الفرعية **فتح دليل التقرير** في زر تقرير عنصر مجموعة بيانات.\n"
 
 #: ../../source/for_users/training/reports.rst:23
 msgid ""
@@ -56,27 +59,35 @@ msgid ""
 "algorithm, the directory will contain PDF and/or image files showing the "
 "default thematic layers for the selected dataset."
 msgstr ""
+"سيفتح هذا الإجراء الدليل الذي يضم تقارير الإخراج لمجموعة البيانات المحددة. "
+"على حسب ضبط التقرير للخوارزمية المحددة، سيحتوي الدليل على ملفات PDF و/أو "
+"ملفات صور توضح الطبقات النسقية الافتراضية لمجموعة البيانات المحددة.\n"
 
 #: ../../source/for_users/training/reports.rst:28
 msgid ""
 "The example below is from the sub-indicators for SDG 15.3.1 algorithm with "
 "the AOI set to Uganda."
 msgstr ""
+"المثال التالي مأخوذ من المؤشرات الفرعية لخوارزمية هدف التنمية المستدامة رقم "
+"15.3.1 مع تعيين AOI لأوغندا.\n"
 
 #: ../../source/for_users/training/reports.rst:37
 msgid "Open Report Layouts"
-msgstr ""
+msgstr "افتح تقرير التخطيطات\n"
 
 #: ../../source/for_users/training/reports.rst:39
 msgid ""
 "Select the **Open layouts...** sub-menu in a dataset item's report button."
 msgstr ""
+"اختر القائمة الفرعية **فتح التخطيطات...** في زر تقرير عنصر مجموعة بيانات.\n"
 
 #: ../../source/for_users/training/reports.rst:45
 msgid ""
 "This action will open the QGIS project containing the job's layers and "
 "layouts in a separate application instance."
 msgstr ""
+"سيفتح هذا الإجراء مشروع QGIS الذي يحتوي طبقات الوظيفة وتخطيطاتها في نسخة "
+"منفصلة من التطبيق.\n"
 
 #: ../../source/for_users/training/reports.rst:48
 msgid ""
@@ -87,12 +98,20 @@ msgid ""
 " safe to run macros by clicking on the **Enable Macros** button in the "
 "message bar (top-right corner)."
 msgstr ""
+"الوضع الافتراضي عند فتح المشروع، أن تظهر رسالة تحذير تشير إلى عدم إمكانية "
+"تشغيل وحدات ماكرو بايثون. وهي أحد خصائص الأمان التي تمنع المستخدمين من تشغيل"
+" وحدات الماكرو لمشاريع QGIS من مصادر غير معروفة أو غير موثوق بها. ومع ذلك، "
+"في هذه الحالة، يُنشأ المشروع محلياً ومن ثم يمكن تشغيل وحدات الماكرو بأمان "
+"بالضغط على زر **تمكين وحدات الماكرو** في شريط الرسائل (الزاوية العلوية "
+"اليمنى).\n"
 
 #: ../../source/for_users/training/reports.rst:57
 msgid ""
 "On the Layout Manager dialog, select a layout name in the list then click on"
 " **Show** to edit the layout."
 msgstr ""
+"في مربع حوار مدير التخطيط، حدد اسم التخطيط في القائمة ثم اضغط على **إظهار** "
+"لتعديل التخطيط.\n"
 
 #: ../../source/for_users/training/reports.rst:65
 msgid ""
@@ -100,16 +119,20 @@ msgid ""
 "generation task is still running and will automatically be enabled once the "
 "process is complete."
 msgstr ""
+"إذا كان زر **التقارير** (|iconReports|) معطلاً، فهذا يعني أن مهمة إنشاء "
+"التقرير لا تزال قيد التشغيل وستمّكن تلقائياً بمجرد اكتمال العملية."
 
 #: ../../../<rst_epilog>:31 ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr "أيقونة التقارير"
+msgstr "iconReports"
 
 #: ../../source/for_users/training/reports.rst:66
 msgid ""
 "If the **Reports** button is not visible, then it means there is no report "
 "configuration defined for datasets resulting from the given algorithm."
 msgstr ""
+"إذا كان الزر **التقارير** غير ظاهر، فهذا يعني أنه لا توجد إعدادات ضبط تقرير "
+"محددة لمجموعات البيانات الناتجة عن الخوارزمية المحددة.\n"
 
 #: ../../source/for_users/training/reports.rst:70
 msgid ""
@@ -118,74 +141,78 @@ msgid ""
 "Macros** setting. Select **Always**, though this option is not recommended "
 "especially if you interact with qgs or qgz projects from external sources."
 msgstr ""
+"للسماح بتنفيذ وحدات الماكرو تلقائياً، انتقل إلى **الإعدادات>الخيارات**، ثم "
+"تحت فئة **عام**، مرر لأسفل إلى إعداد * تمكين وحدات الماكرو**. اختر "
+"**دائماً**، على الرغم من أننا لا نوصي بهذا الخيار خاصةً إذا كنت تتعامل مع "
+"مشاريع qgs أو qgz من مصادر خارجية.\n"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr "أيقونة حاسبة"
+msgstr "iconCalculator"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr "أيقونة المخطط"
+msgstr "iconChart"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr "أيقونة الحافظة"
+msgstr "iconClipboard"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr "أيقونة التحميل السحابي"
+msgstr "iconCloudDownload"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr "أيقونة Cog"
+msgstr "iconCog"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr "أيقونة حذف مجموعة البيانات"
+msgstr "iconDeletedataset"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
-msgstr "أيقونة الكرة الأرضية"
+msgstr "iconGlobe"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr "أيقونة الرسم البياني"
+msgstr "iconGraph"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr "أيقونة المعلومات"
+msgstr "iconInfo"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr "أيقونة تحميل مجموعة البيانات"
+msgstr "iconLoaddataset"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr "أيقونة التحديد"
+msgstr "iconMarkMarker"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr "أيقونة فتح دليل مجموعة البيانات"
+msgstr "iconOpendatasetdirectory"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr "أيقونة عرض تفاصيل مجموعة البيانات"
+msgstr "iconViewdatasetdetails"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr "أيقونة مفتاح الربط"
+msgstr "iconWrench"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr "أيقونة المجلد"
+msgstr "iconFolder"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr "أيقونة TrendsEarth"
+msgstr "iconTrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr "أيقونة التصور"
+msgstr "iconVisualization"
 
 #: ../../../<rst_epilog>:37
 msgid "Trends.Earth"
@@ -193,16 +220,16 @@ msgstr "Trends.Earth"
 
 #: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr "شعار CI"
+msgstr "logoCI"
 
 #: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr "شعار Lund"
+msgstr "logoLund"
 
 #: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr "شعار ناسا"
+msgstr "logoNASA"
 
 #: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr "شعار GEF"
+msgstr "logoGEF"

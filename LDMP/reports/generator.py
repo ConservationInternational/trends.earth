@@ -1127,7 +1127,8 @@ class ReportGeneratorManager(QObject):
         self._ctx_file_paths[ctx] = file_path
 
         # Notify user
-        tr_msg = self.tr(f'are being processed...')
+        tr_msg = self.tr(f'are being processed (id '
+                         f'{[str(job.id) for job in ctx.jobs]})...')
         self._push_info_message(f'{ctx_display_name} {tr_msg}')
 
         return True

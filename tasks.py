@@ -792,38 +792,6 @@ def compile_files(c, version, clean, fast=False):
         print("ERROR: unknown qgis version {}".format(version))
 
         return
-    pyrcc_path = check_path(pyrcc)
-
-    if not pyrcc:
-        print(
-            "ERROR: {} is not in your path---unable to compile resource file(s)"
-            .format(pyrcc)
-        )
-
-        return
-    else:
-        res_files = c.plugin.resource_files
-        res_count = 0
-        skip_count = 0
-
-        for res in res_files:
-            if os.path.exists(res):
-                (base, ext) = os.path.splitext(res)
-                output = "{0}.py".format(base)
-
-                if clean or file_changed(res, output):
-                    print("Compiling {0} to {1}".format(res, output))
-                    subprocess.check_call([pyrcc_path, '-o', output, res])
-                    res_count += 1
-                else:
-                    skip_count += 1
-            else:
-                print("{} does not exist---skipped".format(res))
-        print(
-            "Compiled {} resource files. Skipped {}.".format(
-                res_count, skip_count
-            )
-        )
 
 
 def file_changed(infile, outfile):
@@ -1876,7 +1844,6 @@ ns.configure(
             'i18n_dir':
             'LDMP/i18n',
             'translations': ['fr', 'es', 'sw', 'pt', 'ar', 'ru', 'zh', 'fa'],
-            'resource_files': ['LDMP/resources.qrc'],
             'numba': {
                 'aot_files': [
                     'LDMP/localexecution/ldn_numba.py',

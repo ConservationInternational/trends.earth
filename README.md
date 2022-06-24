@@ -2,9 +2,8 @@
 
 [![Trends.Earth](https://s3.amazonaws.com/trends.earth/sharing/trends_earth_logo_bl_600width.png)](http://trends.earth)
 
-[![Build
-Status](https://travis-ci.org/ConservationInternational/trends.earth.svg?branch=master)](https://travis-ci.org/ConservationInternational/trends.earth)
 [![Documentation Status](https://readthedocs.org/projects/trendsearth/badge/?version=latest)](https://trendsearth.readthedocs.io/en/latest/?badge=latest)
+[![Zipfile Status](https://github.com/ConservationInternational/trends.earth/actions/workflows/build_zipfile.yaml/badge.svg)](https://github.com/ConservationInternational/trends.earth/actions/workflows/build_zipfile.yaml)
 
 `Trends.Earth` (formerly the Land Degradation Monitoring Toolbox) is a tool for
 monitoring land change. `Trends.Earth` is a [QGIS](http://www.qgis.org) plugin
@@ -52,11 +51,11 @@ GitHub](https://github.com/ConservationInternational/trends.earth/releases).
 Now follow the instructions below on [installing the plugin from a
 zipfile](#installing-plugin-from-a-zipfile).
 
-## Installation of development version of plugin
+## Installation of unstable version of plugin
 
-If you are interested in using the development version of the plugin, with the
-very latest (but not as well tested) features, or in contributing to the
-development of it, you will want to install the development version. There are
+If you are interested in using the unstable (actively under development) version of the
+plugin, with the very latest (but not as well tested) features, or in contributing to
+the development of it, you will want to install the development version. There are
 two ways to install the development version:
 
 - Using a packaged version (zipfile)
@@ -69,15 +68,16 @@ of the plugin.
 
 ### Development version from zipfile
 
-First download the latest Trends.Earth zipfile. QGIS3+ is required for the
-latest versions of Trends.Earth. The QGIS2 version is no longer supported
-(support ended in March 2020).
+[Download the latest `Trends.Earth` zipfile for
+QGIS3](https://s3.amazonaws.com/trends.earth/sharing/LDMP_main.zip).
 
-- [Download the latest `Trends.Earth` zipfile for QGIS3](https://s3.amazonaws.com/trends.earth/sharing/LDMP_QGIS3.zip).
+QGIS3+ is required for the latest versions of Trends.Earth. The QGIS2 version is no
+longer supported (support ended in March 2020).
 
-In case you want to use a previous version of `Trends.Earth` (e.g. versions that work with QGIS2),
-please refer to this [repository](https://github.com/ConservationInternational/trends.earth/releases)
-where all `Trends.Earth` releases are available.
+If you want to use a previous version of `Trends.Earth` (e.g. versions that work with
+QGIS2), please refer to this
+[repository](https://github.com/ConservationInternational/trends.earth/releases) where
+all `Trends.Earth` releases are available.
 
 Now follow the instructions below on [installing the plugin from a
 zipfile](#installing-plugin-from-a-zipfile).

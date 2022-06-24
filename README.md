@@ -26,7 +26,7 @@ Lund University.
 
 ## Documentation
 
-See the [user guide](http://trends.earth/docs/en) for information on how to use
+See the [user guide](http://trends.earth) for information on how to use
 the plugin.
 
 ## Installation of stable version of plugin

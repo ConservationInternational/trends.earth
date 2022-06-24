@@ -383,6 +383,11 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
             Setting.REGION_NAME)
 
         if secondLevel_area_admin_1:
+            if secondLevel_area_admin_1== 'All regions':
+                # all regions is always stored in untranslated in qsettings (to avoid
+                # issues if user changes language) so need to convert to translated
+                # version prior to searching for the value in the combo box
+                secondLevel_area_admin_1 = TR_ALL_REGIONS
             self.secondLevel_area_admin_1.setCurrentIndex(
                 self.secondLevel_area_admin_1.findText(secondLevel_area_admin_1))
         secondLevel_city=settings_manager.get_value(Setting.CITY_NAME)
@@ -419,7 +424,6 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
                     self.area_admin_0.currentText()].level1_regions.keys()
             )
         )
-        self.secondLevel_area_admin_1.setCurrentIndex(0)
 
     def area_type_toggle(self):
         # if self.area_frompoint.isChecked():
@@ -643,6 +647,11 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
             if self.radioButton_secondLevel_region.isChecked():
                 area_name="country_region"
                 region_name=self.secondLevel_area_admin_1.currentText()
+                if region_name == TR_ALL_REGIONS:
+                    # To avoid issues if user changes language on their system, store
+                    # special "All regions" value in English rather than in translated
+                    # form
+                    region_name = 'All regions'
             else:
                 area_name="country_city"
                 city_name=self.secondLevel_city.currentText()

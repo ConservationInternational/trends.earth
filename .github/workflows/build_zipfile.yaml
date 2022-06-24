@@ -11,12 +11,14 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
       - name: Setup python
-      - uses: actions/checkout@v3
-      - uses: actions/setup-python@v3
+        uses: actions/setup-python@v3
         with:
           python-version: "3.9"
           architecture: "x64"
-      - run: pip install -r requirements.txt
+      - name: Install build requirements
+        run: pip install -r requirements.txt
       - name: Build zipfile
-      - run: invoke zipfile-deploy --filename LDMP_$GITHUB_REF_NAME.zip -q 3.22
+        run: invoke zipfile-deploy --filename LDMP_$GITHUB_REF_NAME.zip -q 3.22

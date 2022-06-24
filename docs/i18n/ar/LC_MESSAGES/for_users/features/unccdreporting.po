@@ -25,6 +25,8 @@ msgstr ""
 #: ../../source/for_users/features/unccdreporting.rst:4
 msgid "UNCCD Reporting - SDG 15.3.1"
 msgstr ""
+"تقرير اتفاقية الأمم المتحدة لمكافحة التصحر (UNCCD) - غاية هدف التنمية "
+"المستدامة 15.3.1"
 
 #: ../../source/for_users/features/unccdreporting.rst:6
 msgid ""
@@ -701,14 +703,16 @@ msgid ""
 "`areaij` is the land area under the drought intensity class i in the "
 "reporting year j"
 msgstr ""
+"'المنطقة j' هي مساحة الأرض التي تندرج تحت فئة كثافة الجفاف i في السنة "
+"المشمولة بالتقرير j"
 
 #: ../../source/for_users/features/unccdreporting.rst:412
 msgid "`Total area` is all the total land area."
-msgstr ""
+msgstr "\"المساحة الإجمالية\" هي إجمالي مساحة الأرض."
 
 #: ../../source/for_users/features/unccdreporting.rst:416
 msgid "SO3 Level II indicator (SO 3-2 Exposure)"
-msgstr ""
+msgstr "مؤشر SO3 من المستوى الثاني (التعرض SO 3-2)"
 
 #: ../../source/for_users/features/unccdreporting.rst:418
 msgid ""
@@ -728,6 +732,19 @@ msgid ""
 "relationships between gender and drought occurrence and/or severity can be "
 "better quantified and visualized."
 msgstr ""
+"تمّ إنشاء مؤشر التعرض للجفاف التابع لاتفاقية الأمم المتحدة لمكافحة التصحر "
+"SO3 من المستوى الثالث وفقاً لمؤشر الخطر SO3 من المستوى الأول عن طريق تراكب "
+"بيانات السكان الشبكية. يُعد استخدام تراكب السكان كمؤشر بديل لحساب التعرض "
+"للجفاف طريقة مباشرة. يُمكن أن تساعد معرفة عدد الأشخاص المتأثرين بالجفاف بشكل"
+" مباشر في تخصيص المساعدة للمناطق الأكثر احتياجًا، بناءً على النسبة المئوية "
+"للسكان المعرضين وقوة هذا التعرض (شدة الجفاف). كما يمكن أن تعمل هذه الطريقة "
+"كمؤشر بديل للجفاف الاجتماعي والاقتصادي. يُحسب التصنيف الجنساني لمؤشر السكان "
+"SO3 من المستوى الثاني على أساس النسبة المئوية للذكور والنسبة المئوية للإناث "
+"في كل خلية شبكية. تشمل النواتج معلومات التعرض حسب الجنس (النسبة المئوية "
+"للذكور والإناث) المعرضين لكل فئة من فئات شدة الجفاف من المستوى الأول. ينتج "
+"عن ذلك شبكتان متشابهتان يمكن تجميعهما للحدود الإدارية عند الرغبة، حيث يمكن "
+"تحديد العلاقات المكانية العالمية والمحلية بين الجنس وحدوث الجفاف و/أو شدته "
+"بشكل أفضل."
 
 #: ../../source/for_users/features/unccdreporting.rst:427
 msgid ""
@@ -750,6 +767,22 @@ msgid ""
 "including spatial resolution, global coverage, frequency of data updates, "
 "and inclusion of a gender-disaggregated component."
 msgstr ""
+"إن مجموعة WorldPop هي مجموعة بيانات جغرافية مكانية عالمية شبكية عالية الدقة "
+"بشأن التوزيعات السكانية والتركيبة السكانية والديناميكيات. إن طبقات WorldPop "
+"المصنفة مكانيًا مصفوفة بدقة إخراج تبلغ 3 ثوانٍ قوسية و 30 ثانية قوسية (نحو "
+"100 متر وكيلومتر واحد على التوالي عند خط الاستواء) وتتضمن مدخلات مثل جداول "
+"التعداد السكاني والحدود الجغرافية الوطنية، والطرق، والغطاء الأرضي، والمنشآت "
+"المبنية، والمناطق الحضرية، والأضواء الليلية، والبنية التحتية، والبيانات "
+"البيئية، والمناطق المحمية، والمسطحات المائية. تكمن نقاط قوة WorldPop في أن "
+"طريقة تقدير السكان لرسم الخرائط الديزيمترية متعددة المتغيرات، أي مصممة بدقة "
+"عالية، وبالتالي فهي مصممة لمطابقة ظروف البيانات والطبيعة الجغرافية لكل بلد "
+"ومنطقة على حدة. والمعلومات الجنسانية متاحة أيضًا. تتمثل نقطة ضعف WorldPop في"
+" أن استخدام نماذج الاستيفاء المعقدة مع بيانات التعداد المتفرقة قد يؤدي إلى "
+"تقديرات سكانية غير مؤكدة وغير دقيقة في بعض المناطق الوطنية الفرعية والريفية."
+" على الرغم من القيود المذكورة أعلاه، تظل WorldPop أكثر مجموعات البيانات "
+"السكانية الشبكية مثالية لأنها تلبي جميع معايير الإدراج لدينا، بما في ذلك "
+"الدقة المكانية والتغطية العالمية وتكرار تحديثات البيانات وإدراج مكون مصنف "
+"حسب الجنس."
 
 #: ../../source/for_users/features/unccdreporting.rst:438
 msgid ""
@@ -757,10 +790,12 @@ msgid ""
 "number of people within each drought intensity classes over of the total "
 "population."
 msgstr ""
+"تُحسب النسب المئوية للسكان المعرضين للجفاف من خلال عدد الأشخاص في كل فئة من "
+"فئات شدة الجفاف على إجمالي عدد السكان."
 
 #: ../../source/for_users/features/unccdreporting.rst:443
 msgid "SO3 Level III indicator (SO 3-3 Vulnerability)"
-msgstr ""
+msgstr "مؤشر SO3 من المستوى الثالث (قابلية التأثر SO 3-3)"
 
 #: ../../source/for_users/features/unccdreporting.rst:444
 msgid ""
@@ -776,6 +811,15 @@ msgid ""
 "indicators should encompass orthogonal social, infrastructural, and economic"
 " factors that are generic and valid for any region."
 msgstr ""
+"يعتمد تقييم قابلية التأثر بالجفاف على مؤشر التعرض للجفاف (DVI)، وهو مؤشر "
+"مركب يتضمن ثلاثة مكونات تعكس تعرض السكان للجفاف: 1) اجتماعي، 2) اقتصادي، 3) "
+"البنية التحتية. لا تحتوي DVI حاليًا على مكونات تتعلق بالضعف البيئي أو النظام"
+" البيئي. | اتجاهات.الأرض | يوفر الوصول إلى مجموعة بيانات DVI الافتراضية "
+"العالمية التي ينتجها مركز الأبحاث المشتركة (JRC). طور مركز البحوث المشتركة "
+"(JRC) إطار عمل يدمج 15 مكونًا اقتصاديًا واجتماعيًا وبنية تحتية تتعلق بقابلية"
+" التعرض للجفاف المستمدة من مصادر البيانات العالمية. يوصي هذا الإطار بأن "
+"مؤشرات التعرض للجفاف يجب أن تشمل العوامل الاجتماعية والبنية التحتية "
+"والاقتصادية المتعامدة والتي تكون عامة وصالحة لأي منطقة."
 
 #: ../../source/for_users/features/unccdreporting.rst:452
 msgid ""
@@ -795,6 +839,18 @@ msgid ""
 "for building a regional plan for reducing vulnerability and facilitating "
 "adaptation."
 msgstr ""
+"يتبع إطار عمل مركز البحوث المشتركة لرصد مخاطر الجفاف كما هو موضح في `Carrão "
+"et al., 2016 "
+"<https://www.sciencedirect.com/science/article/pii/S0959378016300565>` _ "
+"نهجًا لSO3 لتقييم قابلية التأثر بالجفاف الذي اقترحه في البداية مكتب الأمم "
+"المتحدة للحد من مخاطر الكوارث (UNDRR - المعروفة سابقاً بالاستراتيجية الدولية"
+" للحد من الكوارث للأمم المتحدة أو UNISDR) التي تعكس حالة العوامل الاجتماعية "
+"والاقتصادية والبنية التحتية الفردية والجماعية للمنطقة [61]. كما نفذت هذه "
+"المنهجية عمليًا داخل مرصد الجفاف العالمي التابع لمركز البحوث المشتركة (GDO) "
+"لتوثيق ورسم خرائط للمخاطر العالمية لتأثير الجفاف على الزراعة. يذكر المؤلفون "
+"أن العوامل التي تم تضمينها لا تمثل وصفًا كاملاً لقابلية التأثر فيما يتعلق "
+"بعنصر مكشوف محدد ولكن يمكن اعتبارها أساسًا لبناء خطة إقليمية لتقليل قابلية "
+"للتأثر وتسهيل التكيّف."
 
 #: ../../source/for_users/features/unccdreporting.rst:460
 msgid ""
@@ -809,6 +865,15 @@ msgid ""
 "methodology as the DVI, discussed subsequently) and are derived from both at"
 " the national level and very high spatial resolution gridded data."
 msgstr ""
+"المنهجية المستخدمة في `Carrão et al., 2016 "
+"<https://www.sciencedirect.com/science/article/pii/S0959378016300565>`_ تتبع"
+" المفهوم الذي ينص على أن الأفراد والسكان يحتاجون إلى مجموعة من العوامل شبه "
+"المستقلة التي تتميز بمجموعة من المؤشرات البديلة لتحقيق مرونة إيجابية في "
+"مواجهة الآثار. تستخدم المنهجية نموذجًا مركبًا من خطوتين مشتقًا من تجميع 15 "
+"مؤشرًا بديلاً (موضحة في الجدول أدناه) والتي تمثل قابلية التأثر الاجتماعي "
+"والاقتصادي وتأثر البنية التحتية في كل موقع جغرافي (منهجية مماثلة مثل DVI، "
+"وستُناقش لاحقًا) و مستمدة من البيانات الشبكية على المستوى الوطني ومن "
+"البيانات الشبكية عالية الدقة المكانية."
 
 #: ../../source/for_users/features/unccdreporting.rst:470
 msgid ""
@@ -820,16 +885,24 @@ msgid ""
 " individual factors resulting from the DEA model into a composite model of "
 "drought vulnerability such that:"
 msgstr ""
+"تتضمن هذه العملية أولاً الجمع بين المؤشرات الواردة في الجدول لكل عامل "
+"باستخدام نموذج تحليل مغلف البيانات (DEA)، وهي تقنية برمجة خطية حتمية وغير "
+"بارامترية يمكن استخدامها لتحديد كمية التعرض النسبي لمنطقة ما للجفاف من "
+"مجموعة من المؤشرات متعددة الأبعاد. ثانيًا، التجميع الحسابي للعوامل الفردية "
+"الناتجة عن نموذج تحليل مغلف البيانات في نموذج مركب لقابلية التأثر بالجفاف، "
+"مثل:"
 
 #: ../../source/for_users/features/unccdreporting.rst:477
 msgid ""
 "where Soc i, Econ i, and Infr i are the social, economic, and "
 "infrastructural vulnerability factors for region i."
 msgstr ""
+"حيث Soc i وEcon i وInfr i هي عوامل قابلية التأثر الاجتماعية والاقتصادية "
+"وقابلية تأثر البنية التحتية للمنطقة i."
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr "أيقونة حاسبة"
+msgstr "أيقونة الآلة الحاسبة"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
@@ -841,15 +914,15 @@ msgstr "أيقونة الحافظة"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr "أيقونة التحميل السحابي"
+msgstr "أيقونة التنزيل السحابي"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr "أيقونة Cog"
+msgstr "أيقونة الترس"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr "أيقونة حذف مجموعة البيانات"
+msgstr "أيقونة مجموعة البيانات المحذوفة"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
@@ -869,19 +942,19 @@ msgstr "أيقونة تحميل مجموعة البيانات"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr "أيقونة التحديد"
+msgstr "أيقونة علامة التحديد"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr "أيقونة فتح دليل مجموعة البيانات"
+msgstr "أيقونة دليل مجموعة البيانات المفتوحة"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr "أيقونة عرض تفاصيل مجموعة البيانات"
+msgstr "أيقونة عرض تفاصيل البيانات"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr "أيقونة مفتاح الربط"
+msgstr "أيقونة مفتاح البراغي"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
@@ -893,15 +966,15 @@ msgstr "أيقونة التقارير"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr "أيقونة TrendsEarth"
+msgstr "أيقونة اتجاهات الأرض"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr "أيقونة التصور"
+msgstr "أيقونة التصوير المرئي"
 
 #: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr "شعار CI"
+msgstr "شعار هوية الشركة"
 
 #: ../../../<rst_epilog>:0
 msgid "logoLund"
@@ -913,4 +986,4 @@ msgstr "شعار ناسا"
 
 #: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr "شعار GEF"
+msgstr "شعار مرفق البيئة العالمية"

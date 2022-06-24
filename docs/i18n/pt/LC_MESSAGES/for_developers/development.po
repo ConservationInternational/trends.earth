@@ -855,6 +855,16 @@ msgid ""
 "requested QGIS will look for the template file taking QGIS locale into "
 "accont, as a fall-back option English version of the template file is used."
 msgstr ""
+"Por agora apenas são suportadas camadas \"falsos positivos/negativos\", mas "
+"podem ser adicionadas mais se necessário. Qualquer camada de vector é criada"
+" a partir dos ficheiros modelo GeoPackage, que podem ser encontrados dentro "
+"da pasta ``data/error_recode``do diretório de instalação do plugin. Para "
+"cada tipo de vector, existem 6 ficheiros modelo, um para cada idioma oficial"
+" da ONU. O código de idioma ISO é adicionado como sufixo ao nome do "
+"ficheiro. Isto é necessário para fornecer etiquetas localizadas nos "
+"formulários de atributos. Quando a criação da camada de vector é pedida, o "
+"QGIS irá procurar o ficheiro modelo tendo em conta a localização do QGIS, "
+"como opção alternativa será utilizada a versão em Inglês do ficheiro modelo."
 
 #: ../../source/for_developers/development.rst:439
 msgid ""
@@ -864,6 +874,11 @@ msgid ""
 "styling and attribute form configuration which will be automatically applied"
 " to the layer when loading into QGIS."
 msgstr ""
+"Para alterar o esquema da camada é necessário alterar os ficheiros modelo "
+"correspondentes na pasta ``data/error_recode`` do diretório de instalação do"
+" plugin. Além disso, o ficheiro modelo contém embutidos um estilo e "
+"configuração de formulário de atributo predefinidos, que serão aplicados "
+"automaticamente à camada ao carregar no QGIS."
 
 #: ../../source/for_developers/development.rst:445
 msgid ""
@@ -1255,7 +1270,7 @@ msgstr ""
 
 #: ../../source/for_developers/development.rst:617
 msgid "Layer Variable"
-msgstr ""
+msgstr "Variável de Camada"
 
 #: ../../source/for_developers/development.rst:618
 msgid ""
@@ -1263,12 +1278,17 @@ msgid ""
 "variable information is encapsulated in a :code:`LayerVarInfo` object that "
 "is made up of three attributes:"
 msgstr ""
+"Fornece informação sobre a camada raster atual a ser executada. Esta "
+"informação de variável está encapsulada num objeto :code:`LayerVarInfo` que "
+"consiste em três atributos:"
 
 #: ../../source/for_developers/development.rst:624
 msgid ""
 "Name of the report layout variable. It should be prefixed with "
 "`te_current_layer_`."
 msgstr ""
+"Nome do variável de esquema de relatório of the report layout variable. Deve"
+" ter como prefixo `te_current_layer_`."
 
 #: ../../source/for_developers/development.rst:630
 msgid ""
@@ -1277,25 +1297,32 @@ msgid ""
 " object to a format that is compatible with QGIS expressions. You can also "
 "use lambda functions here."
 msgstr ""
+"Um objeto de função que será utilizado para extrair e/ou converter um valor "
+"de um objeto `QgsRasterLayer "
+"<https://qgis.org/pyqgis/master/core/QgsRasterLayer.html>`_ para um formato "
+"compatível com expressões QGIS. Pode utilizar funções lambda aqui."
 
 #: ../../source/for_developers/development.rst:634
 msgid ""
 "For instance, :code:`lambda layer: layer.name()` returns the layer name."
 msgstr ""
+"Por exemplo, :code:`lambda layer: layer.name()` devolve o nome da camada."
 
 #: ../../source/for_developers/development.rst:638
 msgid ""
 "The code snippet below shows how to add a variable `te_current_layer_height`"
 " that corresponds to the raster layer's height."
 msgstr ""
+"O fragmento de código em baixo mostra como adicionar uma variável "
+"`te_current_layer_height` que corresponde à altura do camada raster."
 
 #: ../../source/for_developers/development.rst:657
 msgid "These variables are only available in the layout scope."
-msgstr ""
+msgstr "Estas variáveis estão apenas disponíveis no âmbito do esquema."
 
 #: ../../source/for_developers/development.rst:663
 msgid "Adding Chart Configurations"
-msgstr ""
+msgstr "Adiciomar Configurações de Gráfico"
 
 #: ../../source/for_developers/development.rst:664
 msgid ""
@@ -1303,6 +1330,9 @@ msgid ""
 " a specific algorithm. Defining a new chart configuration is a three-step "
 "process:"
 msgstr ""
+"Os gráficos podem ser agrupados utilizando o objeto de configuração de "
+"gráficos que corresponde a um algoritmo específico. A definição de uma nova "
+"configuração de gráficos é um processo com três passos:"
 
 #: ../../source/for_developers/development.rst:667
 msgid ""
@@ -1318,12 +1348,25 @@ msgid ""
 " root output directory which is also available as an attribute in the base "
 "class. See the code snippet below:"
 msgstr ""
+"Crie uma nova classe de gráficos que herda de :code:`BaseChart` no módulo "
+"`LDMP.reports.charts "
+"<https://github.com/ConservationInternational/trends.earth/tree/master/LDMP/reports/charts.py>`_."
+" Implemente a função :code:`export` para especificar o tipo de gráfico, "
+"propriedades, etc utilizando a biblioteca Python :code:`Plotly` incluída com"
+" o QGIS. Por fim, dentro da função :code:`export`, chame a função "
+":code:`save_image` para escrever o código de objeto :code:`Figure` Plotly "
+"como um ficheiro de imagem, utilizando qualquer um dos formatos suportados "
+"pela classe  :code:`QImageWriter` de Qt. Também pode especificar o caminho "
+"em relação com diretório de resultado de raiz, que tambémestá disponível "
+"como um atributo na classe base. Veja o fragmento de código em baixo:"
 
 #: ../../source/for_developers/development.rst:697
 msgid ""
 "You can refer to the :code:`UniqueValuesPieChart` class for a more complete "
 "example."
 msgstr ""
+"Pode consultar a classe :code:`UniqueValuesPieChart` para um exemplo mais "
+"completo."
 
 #: ../../source/for_developers/development.rst:699
 msgid ""
@@ -1336,12 +1379,23 @@ msgid ""
 "charts. You can refer to the :code:`LandCoverChartsConfiguration` class for "
 "a more complete example."
 msgstr ""
+"Crie uma classe configuração de gráfico chart configuration class que herda "
+"de :code:`BaseAlgorithmChartsConfiguration` e implemente a função "
+":code:`_add_charts`. A classe de configuração de gráfico define basicamente "
+"quais os gráficos que serão utilizados para um dado algoritmo. O atributo  "
+":code:`layer_band_infos` é uma lista de objetos :code:`LayerBandInfo` que "
+"contém a camada e dados band_info necessários para produzir os gráficos. "
+"Pode consultar a classe :code:`LandCoverChartsConfiguration` para um exemplo"
+" mais completo."
 
 #: ../../source/for_developers/development.rst:705
 msgid ""
 "Finally, map an algorithm (name) to the correspond chart configuration class"
 " in the :code:`AlgorithmChartsManager` class as shown below:"
 msgstr ""
+"Por fim, mapeie uma algoritmo (nome) à classe de configuração de gráficos "
+"correspondente na classe :code:`AlgorithmChartsManager` tal como apresentado"
+" em baixo:"
 
 #: ../../source/for_developers/development.rst:719
 msgid ""
@@ -1349,6 +1403,10 @@ msgid ""
 ":code:`ReportTaskProcessor` object, will create a new chart configuration "
 "object for a corresponding job's algorithm when reports are being generated."
 msgstr ""
+"A classe :code:`AlgorithmChartsManager`, que é instanciada no objeto "
+":code:`ReportTaskProcessor`, irá criar um novo objeto de configuração de "
+"gráficos para o algoritmo de um trabalho correspondente quando os relatórios"
+" estiverem a ser gerados."
 
 #: ../../source/for_developers/development.rst:724
 msgid "Contributing to the documentation"

@@ -361,7 +361,7 @@ msgstr ""
 
 #: ../../source/for_users/faq/index.rst:154
 msgid "Can the toolbox support analysis with national-level datasets?"
-msgstr ""
+msgstr "هل يمكن أن يدعم صندوق الأدوات تحليل بقواعد بيانات على المستوى الوطني؟"
 
 #: ../../source/for_users/faq/index.rst:156
 msgid ""
@@ -371,20 +371,27 @@ msgid ""
 "advantage of existing datasets that might be of higher quality at a "
 "national-level than the global datasets that are the defaults in the tool."
 msgstr ""
+"هذا طلب شائع من المستخدمين ويعمل الفريق على تنفيذه. سوف يسمح Trends.Earth "
+"بتحميل قواعد بيانات كربون التربة والغطاء الأرضي على المستوى الوطني قبل نهاية"
+" مارس 2018. وسيتيح ذلك للمستخدمين الاستفادة من قواعد البيانات الموجودة التي "
+"قد تكون ذات جودة أعلى على المستوى الوطني من قواعد البيانات العالمية التي هي "
+"الخيار الافتراضي في الأداة."
 
 #: ../../source/for_users/faq/index.rst:163
 msgid "Methods"
-msgstr ""
+msgstr "الأساليب"
 
 #: ../../source/for_users/faq/index.rst:166
 msgid ""
 "Refer to the :ref:`background_landdegradation` section for more background "
 "on analyses available in Trends.Earth."
 msgstr ""
+"راجع :ref:`background_landdegradation` للمزيد من المعلومات الأساسية عن "
+"التحليلات المتاحة على Trends.Earth."
 
 #: ../../source/for_users/faq/index.rst:169
 msgid "Who was the default time period for the analysis determined?"
-msgstr ""
+msgstr "ما هي الفترة الزمنية الافتراضية للتحليل المحدد؟"
 
 #: ../../source/for_users/faq/index.rst:171
 msgid ""
@@ -395,6 +402,12 @@ msgid ""
 " a document that provides detailed recommendations for measuring land "
 "degradation and has been adopted by the UNCCD."
 msgstr ""
+"الفترة الزمنية الافتراضية للتحليل هي من سنوات 2001 إلى 2015. وقد أوصت بها "
+"`Good Practice Guidelines "
+"<http://www2.unccd.int/sites/default/files/relevant-"
+"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_.،"
+" وهي وثيقة تقدم توصيات مفصلة لقياس تدهور الأراضي وقد تم تبنيها من قبل "
+"اتفاقية الأمم المتحدة لمكافحة التصحر (UNCCD)."
 
 #: ../../source/for_users/faq/index.rst:178
 msgid "Productivity"
@@ -402,7 +415,7 @@ msgstr "إنتاجية"
 
 #: ../../source/for_users/faq/index.rst:181
 msgid "How does the result provided by state differs from trajectory?"
-msgstr ""
+msgstr "كيف تختلف النتيجة التي تقدمها الدولة عن المسار؟"
 
 #: ../../source/for_users/faq/index.rst:183
 msgid ""
@@ -413,6 +426,12 @@ msgid ""
 "degradation. By comparing a long term mean to the most recent period, state "
 "is able to capture such recent changes."
 msgstr ""
+"يستخدم تحليل المسار الانحدارات الخطية والاختبارات غير المعلمية لتحديد "
+"المؤشرات المهمة طويلة الأجل في الإنتاجية الأولية. ولكن هذه الطريقة ليست "
+"قادرة على تسجيل المزيد من التغييرات الحديثة في الإنتاجية الأولية والتي يمكن "
+"أن تكون إشارات لعمليات تحسّن أو تدهور قصيرة المدى. تصبح الدولة قادرة على "
+"تسجيل هذه التغييرات الحديثة من خلال مقارنة وسيلة طويلة الأجل مع الفترة "
+"الأخيرة."
 
 #: ../../source/for_users/faq/index.rst:192
 msgid "Land cover"
@@ -425,6 +444,9 @@ msgid ""
 " characteristics. Could it be possible to allow the user to define the "
 "aggregation criteria?"
 msgstr ""
+"في الوقت الحالي، يتم عرض الغطاء الأرضي وفقاً للمبادئ التوجيهية لاتفاقية "
+"الأمم المتحدة لمكافحة التصحر (UNCCD)، لكن هذا التصنيف لا يأخذ في الاعتبار "
+"الخصائص على المستوى القطري. هل يمكن السماح للمستخدم بتحديد معايير التجميع؟"
 
 #: ../../source/for_users/faq/index.rst:197
 msgid ""
@@ -432,10 +454,12 @@ msgid ""
 " cover GUI so that appropriate aggregations occur depending on the context "
 "of your country."
 msgstr ""
+"يمكن للمستخدمين إجراء هذه التغييرات باستخدام الإعدادات المتقدمة في واجهة "
+"المستخدم الرسومية للغطاء الأرضي بحيث تظهر التجميعات المناسبة حسب بلدك."
 
 #: ../../source/for_users/faq/index.rst:202
 msgid "How can we isolate woody plant encroachment within the toolbox?"
-msgstr ""
+msgstr "كيف يمكننا عزل زحف النباتات الخشبية من خلال صندوق الأدوات؟"
 
 #: ../../source/for_users/faq/index.rst:204
 msgid ""
@@ -445,16 +469,22 @@ msgid ""
 "woody encroachment and this transition can be marked as an indicator of "
 "degradation."
 msgstr ""
+"يمكن تغيير ذلك باستخدام مصفوفة تغير الغطاء الأرضي الموجودة في صندوق الأدوات."
+" يمكن للمستخدم تحديد التغيير على أنه مستقر أو متحسن أو متراجع لكل عملية "
+"تحول. التحول من الأراضي العشبية/المراعي إلى أراضي شجيرات قد يشير إلى زحف "
+"النباتات الخشبية ويمكن تمييز هذا التحول كمؤشر على التدهور."
 
 #: ../../source/for_users/faq/index.rst:211
 msgid "Carbon stocks"
-msgstr ""
+msgstr "مخزونات الكربون"
 
 #: ../../source/for_users/faq/index.rst:214
 msgid ""
 "Why use soil organic carbon (SOC) instead of above and below-ground carbon "
 "to  measure carbon stocks?"
 msgstr ""
+"لماذا نستخدم الكربون العضوي في التربة (SOC) بدلاً من الكربون الموجود فوق "
+"وتحت الأرض لقياس مخزون الكربون؟"
 
 #: ../../source/for_users/faq/index.rst:216
 msgid ""
@@ -467,12 +497,23 @@ msgid ""
 "links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_"
 " published by the UNCCD recommends for the time being to use SOC as a proxy."
 msgstr ""
+"المؤشر المقترح في الأصل هو مخزون الكربون، والذي سيتضمن الكتلة الحيوية "
+"الموجودة فوق وتحت الأرض. ومع ذلك، نظراً لعدم وجود قاعدة بيانات يتم تجديدها "
+"باستمرار وقابلة للمقارنة لتقييم مخزون الكربون في النباتات الخشبية (بما في "
+"ذلك الشجيرات) والأعشاب والأراضي الزراعية وأنواع الغطاء الأرضي الأخرى فوق "
+"الأرض وتحتها، توصي `Good Practice Guidelines "
+"<http://www2.unccd.int/sites/default/files/relevant-"
+"links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf>`_"
+" المنشورة من قِبل اتفاقية الأمم المتحدة لمكافحة التصحر (UNCCD) باستخدام "
+"الكربون العضوي في التربة (SOC) كوكيل لمخزون الكربون للوقت الحالي."
 
 #: ../../source/for_users/faq/index.rst:225
 msgid ""
 "Is it possible to measure identify processes of degradation linked to "
 "salinization using this tool?"
 msgstr ""
+"هل من الممكن قياس وتحديد عمليات التدهور المرتبطة بالملوحة باستخدام هذه "
+"الأداة؟"
 
 #: ../../source/for_users/faq/index.rst:227
 msgid ""
@@ -480,15 +521,18 @@ msgid ""
 "that decrease would be identified by the productivity indicators, but the "
 "users would have to use their local knowledge to assign the causes."
 msgstr ""
+"ليس بشكل مباشر. إذا أدى التملّح إلى انخفاض في الإنتاجية الأولية فسيتم تحديد "
+"هذا الانخفاض من خلال مؤشرات الإنتاجية، ولكن سيتعين على المستخدمين استخدام "
+"معرفتهم المحلية لتحديد الأسباب."
 
 #: ../../source/for_users/faq/index.rst:232
 msgid "Land degradation outputs"
-msgstr ""
+msgstr "نواتج تدهور الأراضي"
 
 #: ../../source/for_users/faq/index.rst:235
 msgid ""
 "How were the layers combined to define the final land degradation layer?"
-msgstr ""
+msgstr "كيف تم تجميع الطبقات لتحديد طبقة تدهور الأراضي النهائية؟"
 
 #: ../../source/for_users/faq/index.rst:237
 msgid ""
@@ -501,12 +545,20 @@ msgid ""
 "of the three indicators at a particular pixel, then that pixel is mapped as "
 "being “degraded”."
 msgstr ""
+"يتم الجمع بين الأداء والحالة والمسار (المؤشرات الثلاثة للتغيّر في "
+"الإنتاجية_) باتباع نسخة معدلة من إرشادات أفضل الممارسات التي وضعتها اتفاقية "
+"الأمم المتحدة لمكافحة التصحر (UNCCD) (يوجد جدول في قسم هدف التنمية المستدامة"
+" 15.3.1). يتم الجمع بين الإنتاجية وكربون التربة وتغير الغطاء الأرضي "
+"(المؤشرات الفرعية الثلاثة لهدف التنمية المستدامة 15.3.1) باستخدام مبدأ \"إذا"
+" قل جزء، قل الكل\". بمعنى آخر: إذا كان هناك انخفاض في أي من المؤشرات الثلاثة"
+" عند بكسل معين، فسيتم تعيين هذا البكسل باعتباره \"متدهوراً\"."
 
 #: ../../source/for_users/faq/index.rst:246
 msgid ""
 "Why do I see areas the data says are improving or degrading when I know they"
 " are not?"
 msgstr ""
+"لماذا أرى أماكن تقول البيانات إنها تتحسن أو تتدهور وأنا أعرف أنها ليست كذلك؟"
 
 #: ../../source/for_users/faq/index.rst:248
 msgid ""
@@ -524,12 +576,25 @@ msgid ""
 "not be the most relevant at all scales and geographies. A functionality to "
 "use local data will be added shortly."
 msgstr ""
+"يجب تفسير الناتج النهائي على أنه يوضح المناطق التي يحتمل أن تكون متدهورة. "
+"يعتمد مؤشر تدهور الأراضي على التغيرات في الإنتاجية والغطاء الأرضي والكربون "
+"العضوي في التربة. هناك عدة عوامل يمكن أن تؤدي إلى تحديد أنماط التدهور التي "
+"لا يبدو أنها مرتبطة بما يحدث على أرض الواقع، ومنها تاريخ التحليل وهو مهم "
+"للغاية. علي سبيل المثال، إذا كانت الظروف المناخية في بداية التحليل رطبة "
+"للغاية يمكن أن تظهر المؤشرات منذ تلك اللحظة انخفاضاً كبيراً في الإنتاجية "
+"الأولية والتدهور. يمكن للمستخدم استخدام Trends.Earth لمعالجة بعض هذه "
+"المشكلات وتصحيحها من خلال تأثير المناخ. يمكن أن تشكل دقة البيانات قيداً آخر."
+" يستخدم Trends.Earth بشكل افتراضي قواعد البيانات العالمية التي لا يمكن "
+"تطبيقها في جميع المقاييس والمناطق الجغرافية. ستتم إضافة خاصية لاستخدام "
+"البيانات المحلية قريباً."
 
 #: ../../source/for_users/faq/index.rst:262
 msgid ""
 "All of the sub-indicators are measuring vegetation: how does this contribute"
 " to understanding and identifying land degradation?"
 msgstr ""
+"تقيس جميع المؤشرات الفرعية الغطاء النباتي: كيف يساهم ذلك في فهم وتحديد تدهور"
+" الأراضي؟"
 
 #: ../../source/for_users/faq/index.rst:264
 msgid ""
@@ -548,14 +613,27 @@ msgid ""
 "consensus that it this point in time and globally, this is the best "
 "approach."
 msgstr ""
+"يعتبر الغطاء النباتي مكوناً رئيسياً لمعظم النظم البيئية، ويعمل بمثابة وكيل "
+"جيد لوظائفها وصحتها بشكل عام. تقيس المؤشرات الفرعية الثلاثة المستخدمة لهدف "
+"التنمية المستدامة 15.3.1 جوانب مختلفة من الغطاء الأرضي والتي تتعلق بالغطاء "
+"النباتي. تقيس الإنتاجية الأولية بشكل مباشر التغيير في كمية الكتلة الحيوية "
+"الموجودة في منطقة واحدة، ولكنها لا تخبرنا إذا كان هذا التغيير إيجابياً أم لا"
+" (لا ينبغي تفسير جميع الزيادات في الكتلة الحيوية النباتية على أنها تحسن). "
+"يسد الغطاء الأرضي هذه الفجوة من خلال تفسير المشهد من منظور موضوعي بالنظر إلى"
+" ما كان موجوداً من قبل وما هو موجود الآن. إنه يشمل الغطاء النباتي ويشمل "
+"أيضاً الأراضي الجرداء والمناطق الحضرية والمياه. أخيراً، يستخدم مؤشر الكربون "
+"العضوي للتربة خريطة الغطاء الأرضي لتوضيح التغييرات في الكربون العضوي للتربة "
+"بمرور الوقت. هذه الطريقة ليست مثالية، ولكن بالنظر إلى الحالة الراهنة لعلوم "
+"التربة العالمية وعمليات المسح، هناك إجماع على أن هذا هو أفضل نهج في هذه "
+"الفترة الزمنية وعلى الصعيد العالمي."
 
 #: ../../source/for_users/faq/index.rst:279
 msgid "Future plans"
-msgstr ""
+msgstr "خطط مستقبلية"
 
 #: ../../source/for_users/faq/index.rst:282
 msgid "When will there be an offline version of the toolbox?"
-msgstr ""
+msgstr "متى سيكون هناك إصدار من صندوق الأدوات غير متصل بالإنترنت؟"
 
 #: ../../source/for_users/faq/index.rst:284
 msgid ""
@@ -569,10 +647,19 @@ msgid ""
 "offline version of the toolbox and provide countries with data relevant for "
 "reporting at the national level within the pilot project countries."
 msgstr ""
+"سيكون صندوق الأدوات النهائي متاحاً كإصدار غير متصل بالإنترنت وإصدار متصل "
+"بالإنترنت. يتيح الإصدار المتصل بالإنترنت للمستخدمين الوصول إلى قواعد "
+"البيانات الحالية بسهولة أكبر، مع السماح للمستخدمين أيضاً بالاستفادة من "
+"Google Earth Engine لتوفير حوسبة سحابية. يسمح الإصدار غير المتصل بالإنترنت "
+"للمستخدمين بالوصول إلى البيانات وإجراء التحليلات عندما يكون الاتصال "
+"بالإنترنت محدوداً، ولكن له عيباً في مطالبة المستخدمين بقدرة حوسبة محلية "
+"كافية لإجراء التحليلات محلياً. يعتزم الفريق التقني بناء نسخة غير متصلة "
+"بالإنترنت من صندوق الأدوات وتزويد البلدان بالبيانات المتعلقة للتقرير على "
+"المستوى الوطني داخل بلدان المشروع التجريبي."
 
 #: ../../source/for_users/faq/index.rst:295
 msgid "Will you create a trends.earth toolbox for ESRI users?"
-msgstr ""
+msgstr "هل ستقومون بإنشاء صندوق أدوات trends.earth لمستخدمي ESRI؟"
 
 #: ../../source/for_users/faq/index.rst:297
 msgid ""
@@ -581,91 +668,94 @@ msgid ""
 "toolbox. There are currently no plans to build a toolbox within ArcGIS or "
 "ArcPro."
 msgstr ""
+"يتوفر صندوق الأدوات حالياً كمكوِّن إضافي لـ QGIS، وهي حزمة برامج مفتوحة "
+"المصدر. يتيح ذلك للمستخدمين في جميع أنحاء العالم الوصول المجاني إلى صندوق "
+"الأدوات. حالياً لا توجد خطط لإنشاء صندوق أدوات داخل ArcGIS أو ArcPro."
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr "أيقونة حاسبة"
+msgstr "iconالآلة_الحاسبة"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr "أيقونة المخطط"
+msgstr "iconمخطط_بياني"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr "أيقونة الحافظة"
+msgstr "iconالحافظة"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr "أيقونة التحميل السحابي"
+msgstr "iconتنزيل_من_السحابة"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr "أيقونة Cog"
+msgstr "iconترس"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr "أيقونة حذف مجموعة البيانات"
+msgstr "iconإزالة_قاعدة_بيانات"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
-msgstr "أيقونة الكرة الأرضية"
+msgstr "iconالكرة_الأرضية"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr "أيقونة الرسم البياني"
+msgstr "iconرسم_بياني"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr "أيقونة المعلومات"
+msgstr "iconمعلومات"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr "أيقونة تحميل مجموعة البيانات"
+msgstr "iconتحميل_قاعدة_بيانات"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr "أيقونة التحديد"
+msgstr "iconوضع_علامة"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr "أيقونة فتح دليل مجموعة البيانات"
+msgstr "iconفتح_فهرس_قاعدة_البيانات"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr "أيقونة عرض تفاصيل مجموعة البيانات"
+msgstr "iconعرض_تفاصيل _قاعدة_البيانات"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr "أيقونة مفتاح الربط"
+msgstr "iconمفتاح_ربط"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr "أيقونة المجلد"
+msgstr "iconملف"
 
 #: ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr "أيقونة التقارير"
+msgstr "iconتقارير"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr "أيقونة TrendsEarth"
+msgstr "iconTrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr "أيقونة التصور"
+msgstr "iconالتصوير_المرئي"
 
 #: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr "شعار CI"
+msgstr "logoمنظمة_CI"
 
 #: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr "شعار Lund"
+msgstr "logoجامعة_لوند"
 
 #: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr "شعار ناسا"
+msgstr "logoوكالة_ناسا"
 
 #: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr "شعار GEF"
+msgstr "logoصندوق_البيئة_العالمي"

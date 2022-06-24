@@ -28,7 +28,7 @@ msgstr "设置"
 
 #: ../../source/for_users/training/index.rst:6
 msgid "Land Degradation"
-msgstr ""
+msgstr "土地退化"
 
 #: ../../source/for_users/training/index.rst:6
 msgid "UNCCD Reporting"
@@ -36,15 +36,15 @@ msgstr "UNCCD 报告"
 
 #: ../../source/for_users/training/index.rst:6
 msgid "Land Consumption"
-msgstr ""
+msgstr "土地消耗"
 
 #: ../../source/for_users/training/index.rst:6
 msgid "Carbon"
-msgstr ""
+msgstr "碳"
 
 #: ../../source/for_users/training/index.rst:6
 msgid "Restoration"
-msgstr ""
+msgstr "恢复"
 
 #: ../../source/for_users/training/index.rst:6
 msgid "Dataset Metadata"
@@ -52,7 +52,7 @@ msgstr "数据集元数据"
 
 #: ../../source/for_users/training/index.rst:6
 msgid "False Positives/Negatives"
-msgstr ""
+msgstr "假阳性/阴性"
 
 #: ../../source/for_users/training/index.rst:6
 msgid "Dataset Reports"
@@ -62,7 +62,7 @@ msgstr "数据集报告"
 #: ../../source/for_users/training/index.rst:3
 #: ../../source/for_users/training/index.rst:6
 msgid "Training Manual"
-msgstr ""
+msgstr "培训手册"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"

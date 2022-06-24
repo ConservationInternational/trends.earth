@@ -23,11 +23,11 @@ msgstr ""
 
 #: ../../source/for_users/features/landconsumption.rst:4
 msgid "Land Consumption and SDG 11.3.1"
-msgstr ""
+msgstr "استهلاك الأراضي وغاية هدف التنمية المستدامة 11.3.1"
 
 #: ../../source/for_users/features/landconsumption.rst:7
 msgid "Background"
-msgstr ""
+msgstr "معلومات أساسية"
 
 #: ../../source/for_users/features/landconsumption.rst:8
 #: ../../source/for_users/features/landconsumption.rst:25
@@ -103,7 +103,7 @@ msgstr ""
 
 #: ../../source/for_users/features/landconsumption.rst:19
 msgid "Rationale for Monitoring"
-msgstr ""
+msgstr "مبررات المراقبة"
 
 #: ../../source/for_users/features/landconsumption.rst:27
 msgid ""
@@ -140,7 +140,7 @@ msgstr ""
 
 #: ../../source/for_users/features/landconsumption.rst:34
 msgid "Indicator and data needs"
-msgstr ""
+msgstr "احتياجات المؤشر والبيانات"
 
 #: ../../source/for_users/features/landconsumption.rst:36
 msgid ""
@@ -697,7 +697,7 @@ msgstr ""
 
 #: ../../source/for_users/features/landconsumption.rst:202
 msgid "**Citations:**"
-msgstr ""
+msgstr "**المراجع:**"
 
 #: ../../source/for_users/features/landconsumption.rst:204
 msgid ""

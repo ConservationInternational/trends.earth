@@ -27,83 +27,83 @@ msgstr "浏览器"
 
 #: ../../source/for_users/gettingstarted/browser_version.rst:7
 msgid "Trends.Earth Browser Application"
-msgstr ""
+msgstr "Trends.Earth 浏览器应用程序"
 
 #: ../../source/for_users/gettingstarted/browser_version.rst:8
 msgid "**Coming soon!**"
-msgstr ""
+msgstr "**即将推出！**"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr "iconCalculator"
+msgstr "图标计算器"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr "iconChart"
+msgstr "图标图表"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr "iconClipboard"
+msgstr "图标剪贴板"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr "iconCloudDownload"
+msgstr "图标云端下载"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr "iconCog"
+msgstr "图标 Cog"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr "iconDeletedataset"
+msgstr "图标删除数据集"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
-msgstr "iconGlobe"
+msgstr "图标地球"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr "iconGraph"
+msgstr "图标图形"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr "iconInfo"
+msgstr "图标信息"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr "iconLoaddataset"
+msgstr "图标加载数据集"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr "iconMarkMarker"
+msgstr "图标 MarkMarker"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr "iconOpendatasetdirectory"
+msgstr "图标打开数据集目录"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr "iconViewdatasetdetails"
+msgstr "图标查看数据集详细信息"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr "iconWrench"
+msgstr "图标 Wrench"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr "iconFolder"
+msgstr "图标文件夹"
 
 #: ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr "iconReports"
+msgstr "图标报告"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr "iconTrendsEarth"
+msgstr "图标 TrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr "iconVisualization"
+msgstr "图标可视化"
 
 #: ../../../<rst_epilog>:37
 msgid "Trends.Earth"
@@ -111,7 +111,7 @@ msgstr "Trends.Earth"
 
 #: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr "logoCI"
+msgstr "徽标 CI"
 
 #: ../../../<rst_epilog>:0
 msgid "logoLund"

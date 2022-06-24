@@ -24,11 +24,11 @@ msgstr ""
 
 #: ../../source/for_users/training/landdegradation.rst:4
 msgid "Land Degradation"
-msgstr ""
+msgstr "土地退化"
 
 #: ../../source/for_users/training/landdegradation.rst:7
 msgid "Land Degradation Sub-indicators"
-msgstr ""
+msgstr "土地退化次级指标"
 
 #: ../../source/for_users/training/landdegradation.rst:9
 msgid ""
@@ -39,10 +39,13 @@ msgid ""
 " In this tutorial we will use Colombia as an example, but you can choose any"
 " study area."
 msgstr ""
+"**目标**：了解如何使用 Trends.Earth来运行 SDG 15.3.1子指标（土地生产力、土地覆盖和土壤有机碳的变化） "
+"，以及默认数据：Trends.Earth（轨迹、性能和状态）用于土地生产力，ESA CCI 用于土地覆盖，SoilGrids 用于土壤有机碳。 "
+"在本教程中，我们将以哥伦比亚为例，但您可以选择任何研究区域。"
 
 #: ../../source/for_users/training/landdegradation.rst:11
 msgid "**Estimated time of completion**: 35 minutes"
-msgstr ""
+msgstr "**预计完成时间**：35分钟"
 
 #: ../../source/for_users/training/landdegradation.rst:13
 #: ../../source/for_users/training/landdegradation.rst:542
@@ -53,13 +56,14 @@ msgstr "**互联网接入**：必填"
 msgid ""
 "Click on the Trends.Earth toolbar within QGIS, and click on the "
 "**Trends.Earth** icon."
-msgstr ""
+msgstr "单击 QGIS 中的 Trends.Earth 工具栏，然后单击 **Trends.Earth** 图标。"
 
 #: ../../source/for_users/training/landdegradation.rst:20
 msgid ""
 "The **Trends.Earth** menu will open. In the **Algorithm** window, click on "
 "**SDG 15.3.1 - Land degradation** and select **Execute remotely** button."
 msgstr ""
+"**Trends.Earth** 菜单将打开。 在**算法**窗口中，单击**SDG 15.3.1 - 土地退化**并选择**远程执行**按钮。"
 
 #: ../../source/for_users/training/landdegradation.rst:26
 #: ../../source/for_users/training/landdegradation.rst:95
@@ -69,7 +73,7 @@ msgstr ""
 msgid ""
 "The region of interest is already set up in Settings. If you need to change,"
 " select the **Change region** button."
-msgstr ""
+msgstr "关注区域已在“设置”中创建。 如果您需要更改，请选择**更改区域**按钮。"
 
 #: ../../source/for_users/training/landdegradation.rst:29
 #: ../../source/for_users/training/landdegradation.rst:100
@@ -79,7 +83,7 @@ msgstr ""
 msgid ""
 "Refer to the :ref:`tut_settings` section of this manual for more information"
 " on setting up your area of interest."
-msgstr ""
+msgstr "有关设置您关注领域的更多信息，请参阅本手册的 :ref:`tut_settings` 部分。"
 
 #: ../../source/for_users/training/landdegradation.rst:31
 msgid ""
@@ -88,15 +92,17 @@ msgid ""
 "progress period (for comparison to baseline)** check box to set the progress"
 " period for reporting period."
 msgstr ""
+"在**SDG15.3.1指标（一步式）| \n"
+"土地退化** 对话框，选择 **Trends.Earth 土地生产力** 数据。 同时选中**包括发展时期（用于与基线比较）**复选框，以设置报告期的发展时期。"
 
 #: ../../source/for_users/training/landdegradation.rst:36
 msgid "Type in the Execution name and notes."
-msgstr ""
+msgstr "输入执行名称和注释。"
 
 #: ../../source/for_users/training/landdegradation.rst:38
 #: ../../source/for_users/training/landdegradation.rst:559
 msgid "Select **Schedule remote execution** button."
-msgstr ""
+msgstr "选择**安排远程执行**按钮。"
 
 #: ../../source/for_users/training/landdegradation.rst:40
 msgid ""
@@ -111,7 +117,7 @@ msgstr ""
 msgid ""
 "Refer to the :ref:`tut_land_degradation` section of this manual to learn "
 "about custom sub-indicators"
-msgstr ""
+msgstr "有关自定义次级指标的信息，请参阅本手册的：ref:'tut\\u land\\u degration'一节"
 
 #: ../../source/for_users/training/landdegradation.rst:48
 msgid ""
@@ -121,6 +127,10 @@ msgid ""
 "<https://www.unccd.int/sites/default/files/relevant-"
 "links/2021-03/Indicator_15.3.1_GPG_v2_29Mar_Advanced-version.pdf>`_."
 msgstr ""
+"参阅本手册的 :ref:`background_landdegradation` 部分，以了解遵循`UNCCD 良好实践指南 (GPG) "
+"<https://www.unccd.int/sites/default/files/relevant-"
+"links/2021-03/Indicator_15.3.1_GPG_v2_29Mar_Advanced-"
+"version.pdf>`_开发的Trends.Earth生产力指标。"
 
 #: ../../source/for_users/training/landdegradation.rst:52
 msgid ""
@@ -128,6 +138,8 @@ msgid ""
 "submitted will appear in the menu if the **Download remotely-generated "
 "datasets automatically** is checked in **Advanced settings**."
 msgstr ""
+"在 **Trends.Earth** 面板中，选择 **数据集** 窗口。 "
+"如果在**高级设置**中勾选了**自动下载远程生成的数据集**，提交的任务将出现在菜单中。"
 
 #: ../../source/for_users/training/landdegradation.rst:56
 #: ../../source/for_users/training/landdegradation.rst:567
@@ -135,29 +147,29 @@ msgstr ""
 msgid ""
 "Refer to the :ref:`tut_settings` section of this manual to learn more about "
 "**Advanced settings**"
-msgstr "请参阅本手册的 :ref:`tut_settings` 部分，以了解关于**高级设置**的更多信息"
+msgstr "有关**高级设置**的更多信息，请参阅本手册的：ref：` tut\\u settings'部分"
 
 #: ../../source/for_users/training/landdegradation.rst:58
 msgid ""
 "Click on the Refresh button if the analysis does not appear in the menu."
-msgstr ""
+msgstr "如果菜单中未显示分析，请单击刷新按钮。"
 
 #: ../../source/for_users/training/landdegradation.rst:60
 msgid ""
 "Once the task is done, select the add layer drop-down button to **Add "
 "default layers from this dataset to the map**"
-msgstr ""
+msgstr "任务完成后，选择添加图层下拉按钮以**将此数据集中的默认图层添加到地图**"
 
 #: ../../source/for_users/training/landdegradation.rst:65
 msgid ""
 "The default data: Soil organic carbon degradation, land cover degradation, "
 "land productivity dynamics, and population disaggregated by gender, will be "
 "added to the map for the region of interest."
-msgstr ""
+msgstr "默认数据：土壤有机碳退化、土地覆盖退化、土地生产力动态和按性别分类的人口，将添加到关注区域的地图中。"
 
 #: ../../source/for_users/training/landdegradation.rst:74
 msgid "Calculate SDG 15.3.1 Indicator and UNCCD's SO 2-3"
-msgstr ""
+msgstr "计算SDG 15.3.1指标和UNCCD的SO 2-3"
 
 #: ../../source/for_users/training/landdegradation.rst:76
 msgid ""
@@ -167,6 +179,8 @@ msgid ""
 "degradation disaggregated by sex, in raster format and tabular outputs with "
 "areas estimated."
 msgstr ""
+"**目标**：学习整合土地覆盖、土地生产力和土壤有机碳次级指标，以计算**SDG 15.3.1 指标**和**UNCCD的SO "
+"2-3指标**关于暴露于土地退化环境中的按性别分列的人口比例，以带有估算面积的栅格格式和表格形式输出。"
 
 #: ../../source/for_users/training/landdegradation.rst:78
 #: ../../source/for_users/training/landdegradation.rst:214
@@ -190,13 +204,15 @@ msgid ""
 "tutorials to compute them: :ref:`tut_land_degradation`, "
 ":ref:`tut_custom_lc`, :ref:`tut_custom_lpd`, and :ref:`tut_custom_soc`."
 msgstr ""
+"在运行此工具之前，您需要事先计算次级指标。如果还没有，请参考以下具体教程计算：:ref:`tut_land_degradation`、:ref:`tut_custom_lc`、:ref:`tut_custom_lpd`"
+" 和 :ref:`tut_custom_soc`。"
 
 #: ../../source/for_users/training/landdegradation.rst:85
 #: ../../source/for_users/training/landdegradation.rst:479
 msgid ""
 "Search for the Trends.Earth toolbar within QGIS, and click on the "
 "Trends.Earth icon."
-msgstr ""
+msgstr "在QGIS中搜索Trends.Earth工具栏，然后单击Trends.Earth图标。"
 
 #: ../../source/for_users/training/landdegradation.rst:90
 msgid ""
@@ -204,19 +220,21 @@ msgid ""
 "**SDG 15.3.1- Land Degradation** and select **Execute locally** under "
 "**Indicator for SDG 15.3.1**."
 msgstr ""
+"**Trends.Earth**面板将打开。 在**算法** 窗口中，单击**SDG 15.3.1- 土地退化** 并在**SDG "
+"15.3.1的指标**下选择 **本地执行**。"
 
 #: ../../source/for_users/training/landdegradation.rst:97
 msgid ""
 "Select the datasets from **Baseline dataset** and **Progress dataset** drop-"
 "down lists according to your selections in the sub-indicator analysis."
-msgstr ""
+msgstr "根据您在次级指标分析中的选择，从**基线数据集**和**发展数据集**下拉列表中选择数据集。"
 
 #: ../../source/for_users/training/landdegradation.rst:105
 msgid ""
 "-If you have the sub-indicators loaded into the QGIS map, the tool will "
 "recognize them and they will show up pre-filled in each corresponding "
 "section."
-msgstr ""
+msgstr "-如果您将次级指标加载到QGIS地图中，该工具将识别出它们，并且它们将显示在各自相应的部分中。"
 
 #: ../../source/for_users/training/landdegradation.rst:108
 msgid ""
@@ -225,6 +243,7 @@ msgid ""
 "make sure to check that the one being used to compute the final SDG is the "
 "one you want."
 msgstr ""
+"如果您为每个次级指标加载了多个图层（例如，使用默认数据和自定义数据计算的土地覆盖变化），请确保检查用于计算最终SDG 的图层是否是您想要的图层 ."
 
 #: ../../source/for_users/training/landdegradation.rst:110
 msgid ""
@@ -239,6 +258,12 @@ msgid ""
 "|trends.earth| provides access the **WorldPop** dataset, which is used by "
 "default by the UNCCD for calculating indicator SO2-3."
 msgstr ""
+"单击**高级**将展开并显示高级选项，然后选择**人口（计算暴露于退化的人口所需）** 复选框以计算“UNCCD 的SO "
+"2-3，暴露于土地退化环境中的按性别分列的人口比例<https://prais4-reporting-"
+"manual.readthedocs.io/en/latest/SO2.html#so-2-3-trends-in-population-"
+"exposure-to-land-degradation-disaggregated-by-sex>`_。 "
+"如果您想获得两个时期的摘要结果，请务必勾选**基线** 和**发展时期** 两项的 **人口** 框。 |trends.earth| 提供访问 "
+"**世界人口** 数据集的权限，UNCCD 默认使用该数据集计算SO2-3指标。"
 
 #: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
 msgid "Trends.Earth"
@@ -247,47 +272,48 @@ msgstr "Trends.Earth"
 #: ../../source/for_users/training/landdegradation.rst:116
 #: ../../source/for_users/training/landdegradation.rst:615
 msgid "Select **Execute locally** button."
-msgstr ""
+msgstr "选择**本地执行**按钮。"
 
 #: ../../source/for_users/training/landdegradation.rst:118
 msgid "When the analysis is completed a **Success** message will notify you."
-msgstr ""
+msgstr "分析完成后，会有一条**成功**消息通知您。"
 
 #: ../../source/for_users/training/landdegradation.rst:120
 msgid ""
 "In the **Datasets** window, click on **Load dataset onto QGIS map area**"
-msgstr ""
+msgstr "在**数据集**窗口中，单击**将数据集加载到QGIS地图区域**"
 
 #: ../../source/for_users/training/landdegradation.rst:125
 msgid ""
 "The SDG 15.3.1 data will be added to the map for the region of interest."
-msgstr ""
+msgstr "SDG 15.3.1数据将被添加到关注区域的地图中。"
 
 #: ../../source/for_users/training/landdegradation.rst:132
 msgid ""
 "Refer to the :ref:`background_landdegradation` background for interpreting "
 "the results of this analysis."
-msgstr ""
+msgstr "解读本次分析的结果，请参阅：ref：` background\\u landdegration`背景部分。"
 
 #: ../../source/for_users/training/landdegradation.rst:135
 msgid "SDG 15.3.1 Land Degradation Summary"
-msgstr ""
+msgstr "SDG 15.3.1土地退化总结"
 
 #: ../../source/for_users/training/landdegradation.rst:137
 msgid ""
 "**Objective**: Learn how to open and interpret the summary tables produced "
 "by Trends.Earth when calculating the final SDG 15.3.1 Indicator layer."
-msgstr ""
+msgstr "**目标**：了解在计算最终SDG 15.3.1指标层时如何打开并解释Trends.Earth生成的汇总表。"
 
 #: ../../source/for_users/training/landdegradation.rst:139
 msgid "**Estimated time of completion**: 25 minutes"
-msgstr ""
+msgstr "**预计完成时间**：25分钟"
 
 #: ../../source/for_users/training/landdegradation.rst:143
 msgid ""
 "`Download this page as a PDF for offline use "
 "<../pdfs/Trends.Earth_Tutorial08_The_Summary_Table.pdf>`_"
 msgstr ""
+"`以PDF格式下载此页面以供离线使用 <../pdfs/Trends.Earth_Tutorial08_The_Summary_Table.pdf>`_"
 
 #: ../../source/for_users/training/landdegradation.rst:147
 msgid ""
@@ -296,20 +322,22 @@ msgid ""
 ":ref:`training_final_ldindicator` for instructions on how to run this "
 "analysis."
 msgstr ""
+"您需要提前使用**SDG 15.3.1指标**工具计算出的SDG 15.3.1。有关如何运行此分析的说明，请参阅：ref：'training\\u "
+"final\\u ldindicator'一节。"
 
 #: ../../source/for_users/training/landdegradation.rst:149
 msgid ""
 "When you calculate Indicator for SDG 15.3.1 an Excel file is created with "
 "the summary table. In the **Datasets** window, click on click on **Open "
 "Dataset Directory**"
-msgstr ""
+msgstr "当您计算SDG 15.3.1的指标时，会创建一个包含汇总表的Excel文件。在**数据集**窗口中，单击**打开数据集目录**"
 
 #: ../../source/for_users/training/landdegradation.rst:154
 msgid ""
 "The directory where the summary table was saved along with the geospatial "
 "data will open. You will see two summary tables in case both Baseline and "
 "Progress period SDG 15.3.1 were calculated"
-msgstr ""
+msgstr "与地理空间数据一起保存的汇总表的目录将打开。 如果计算了基线和发展时期两组的SDG 15.3.1，您会看到两个汇总表"
 
 #: ../../source/for_users/training/landdegradation.rst:159
 msgid ""
@@ -317,12 +345,13 @@ msgid ""
 " each of the different names the bottom of the screen: SDG 15.3.1, "
 "Productivity, Soil organic carbon, Land Cover, Population and UNCCD SO1-1."
 msgstr ""
+"汇总表文件包含6个选项卡，您可以通过单击屏幕底部的不同名称进行浏览：SDG 15.3.1、生产力、土壤有机碳、土地覆盖、人口和UNCCD SO1-1。"
 
 #: ../../source/for_users/training/landdegradation.rst:161
 msgid ""
 "In the **SDG 15.3.1** tab you will find the area calculations derived from "
 "the indicator map you explored in QGIS."
-msgstr ""
+msgstr "在**SDG 15.3.1**选项卡中，您会找到根据您在QGIS中研究的指标地图得出的面积计算结果。"
 
 #: ../../source/for_users/training/landdegradation.rst:163
 msgid ""
@@ -332,13 +361,15 @@ msgid ""
 "the period selected. No data in the SDG 15.3.1 is an indication of no data "
 "in some of the input datasets used in the analysis."
 msgstr ""
+"对于您所进行分析的区域，您将看到总土地面积（不包括水域）：得到了改善、保持稳定的土地，退化的区域，以及所选期间没有数据的区域的信息。SDG "
+"15.3.1中没有数据表明分析中所使用的某些输入数据集中没有数据。"
 
 #: ../../source/for_users/training/landdegradation.rst:168
 msgid ""
 "In the **Productivity** tab you will find at the top, a similar summary as "
 "previously explained, but in this case representing the results of the land "
 "productivity sub-indicator alone."
-msgstr ""
+msgstr "在**生产力**选项卡的顶部，您将看到与前面解释的类似的汇总，但在此处，仅代表土地生产力次级指标的结果。"
 
 #: ../../source/for_users/training/landdegradation.rst:170
 msgid ""
@@ -348,55 +379,57 @@ msgid ""
 "productivity classes: Increasing, Stable, Stable but stressed, Early signs "
 "of decline, and Declining."
 msgstr ""
+"在下方部分中，您会看到两个表格，每个表格都包含研究中所发现的各个土地覆盖转变的面积信息（以平方公里为单位），这些信息分别按 5 "
+"个最终土地生产力的等级进行了划分：增长，稳定 , 稳定但有压力, 早期衰退迹象, 衰退。"
 
 #: ../../source/for_users/training/landdegradation.rst:175
 msgid ""
 "In the **Soil organic carbon** tab you will find at the top, a similar "
 "summary as previously explained, but in this case representing the results "
 "of the soil organic carbon sub-indicator alone."
-msgstr ""
+msgstr "在**土壤有机碳**选项卡的顶部，您会发现与前面解释的类似的汇总，但在此处，仅代表土壤有机碳次级指标的结果。"
 
 #: ../../source/for_users/training/landdegradation.rst:177
 #: ../../source/for_users/training/landdegradation.rst:187
 msgid "In the sections below you will find two tables:"
-msgstr ""
+msgstr "在以下部分中，您会看到两个表格："
 
 #: ../../source/for_users/training/landdegradation.rst:179
 msgid ""
 "The first one contains information on changes in carbon stocks from the "
 "baseline (initial year of analysis) to the target (final year of analysis)."
-msgstr ""
+msgstr "第一个包含从基线（分析的最初年份）到目标（分析的最后一年）碳储量变化的信息。"
 
 #: ../../source/for_users/training/landdegradation.rst:180
 msgid ""
 "The second presents information soil organic carbon change from baseline to "
 "target by type of land cover transition (as percentage of initial stock)."
-msgstr ""
+msgstr "第二个根据土地覆盖过渡的类型（占初始存量的百分比）提供从基线到目标的土壤有机碳变化的信息。"
 
 #: ../../source/for_users/training/landdegradation.rst:185
 msgid ""
 "In the **Land cover** tab you will find at the top, a similar summary as "
 "previously explained, but in this case representing the results of the land "
 "cover change sub-indicator alone."
-msgstr ""
+msgstr "在**土地覆盖**选项卡的顶部，您会发现与前面解释的类似的汇总，但在此处，仅代表土地覆盖变化次级指标的结果。"
 
 #: ../../source/for_users/training/landdegradation.rst:189
 msgid ""
 "The first contains information on land cover change by cover class (sq, km "
 "and %)."
-msgstr ""
+msgstr "第一个包含按覆盖类别（平方公里和%）划分的土地覆盖变化信息。"
 
 #: ../../source/for_users/training/landdegradation.rst:190
 msgid ""
 "The second contains information on land area by type of land cover "
 "transition (sq. km)."
-msgstr ""
+msgstr "第二个包含按土地覆盖过渡类型划分的土地面积信息（平方公里）。"
 
 #: ../../source/for_users/training/landdegradation.rst:195
 msgid ""
 "In the **Population** tab you will find a summary of population affected by "
 "land degradation classes, with absolute and percent values reported."
-msgstr ""
+msgstr "在**人口**选项卡中，您将找到受土地退化类别影响的人口汇总，其中报告了绝对值和百分比值。"
 
 #: ../../source/for_users/training/landdegradation.rst:200
 msgid ""
@@ -406,77 +439,79 @@ msgid ""
 "UNCCD. Each table indicates at the top the page number and section of the "
 "template the information is referring to."
 msgstr ""
+"在 **UNCCD SO1-1** 选项卡中，您看看到五个表格，其中包含与前面选项卡中提供的信息相似的内容，但在此处，其格式仅与 UNCCD "
+"所要求的报告模板相匹配。 每个表格的顶部都显示了信息所对应的模板的页码和部分。"
 
 #: ../../source/for_users/training/landdegradation.rst:206
 msgid ""
 "Refer to the :ref:`indicator-productivity` to learn more on land "
 "productivity."
-msgstr ""
+msgstr "请参阅:ref:`indicator-productivity`了解更多关于土地生产力的信息。"
 
 #: ../../source/for_users/training/landdegradation.rst:211
 msgid "Custom Data - Productivity"
-msgstr ""
+msgstr "自定义数据 - 生产力"
 
 #: ../../source/for_users/training/landdegradation.rst:212
 msgid ""
 "**Objective**: Learn how to load custom land productivity data computed "
 "outside of Trends.Earth."
-msgstr ""
+msgstr "**目标**：了解如何加载在 Trends.Earth之外计算的自定义土地生产力数据。"
 
 #: ../../source/for_users/training/landdegradation.rst:219
 msgid ""
 "Land productivity data should be formatted following UNCCD guidelines for "
 "reporting indicating areas of Declining, Moderate decline, Stressed, Stable,"
 " or Increasing."
-msgstr ""
+msgstr "土地生产力数据的格式应遵循UNCCD的报告指南，以标示出衰退、中度衰退、承压、稳定或增长的地区。"
 
 #: ../../source/for_users/training/landdegradation.rst:230
 msgid ""
 "For the productivity data to be used in Trends.Earth the file need to be "
 "coded in the following way:"
-msgstr ""
+msgstr "对于要在Trends.Earth中使用的生产力数据，需要按以下方式对文件进行编码："
 
 #: ../../source/for_users/training/landdegradation.rst:223
 msgid "Declining = 1"
-msgstr ""
+msgstr "衰退=1"
 
 #: ../../source/for_users/training/landdegradation.rst:224
 msgid "Moderate decline = 2"
-msgstr ""
+msgstr "中度衰退=2"
 
 #: ../../source/for_users/training/landdegradation.rst:225
 msgid "Stressed = 3"
-msgstr ""
+msgstr "承压=3"
 
 #: ../../source/for_users/training/landdegradation.rst:226
 msgid "Stable = 4"
-msgstr ""
+msgstr "稳定=4"
 
 #: ../../source/for_users/training/landdegradation.rst:227
 msgid "Increasing = 5"
-msgstr ""
+msgstr "增长=5"
 
 #: ../../source/for_users/training/landdegradation.rst:228
 msgid "No data = 0 or -32768"
-msgstr ""
+msgstr "无数据=0 或 -32768"
 
 #: ../../source/for_users/training/landdegradation.rst:230
 msgid ""
 "If your layer is not coded in such a way, please do the necessary "
 "adjustments/reclassification prior to using Trends.Earth."
-msgstr ""
+msgstr "如果您的图层没有以这种方式编码，请在使用Trends.Earth之前进行必要的调整/重新分类。"
 
 #: ../../source/for_users/training/landdegradation.rst:232
 msgid ""
 "To load a **custom productivity data** click on the **Datasets** window, and"
 " then click on **Import dataset**."
-msgstr ""
+msgstr "要加载**自定义生产力数据**，请单击**数据集**窗口，然后单击**导入数据集**。"
 
 #: ../../source/for_users/training/landdegradation.rst:237
 msgid ""
 "Several options will appear. Select **Import custom Productivity dataset** "
 "from the list."
-msgstr ""
+msgstr "将显示多个选项。从列表中选择**导入自定义生产力数据集**。"
 
 #: ../../source/for_users/training/landdegradation.rst:242
 msgid ""
@@ -485,6 +520,7 @@ msgid ""
 "select raster, since the data distributed by the UNCCD is in raster format. "
 "Click on **Browse** to navigate to the productivity file you wish to import."
 msgstr ""
+"在**加载自定义土地生产力数据集**中，使用单选按钮选择输入文件的格式（光栅或矢量）。对于本教程，请选择光栅，因为UNCCD分发的数据是光栅格式的。单击**浏览**导航到要导入的生产率文件。"
 
 #: ../../source/for_users/training/landdegradation.rst:248
 msgid ""
@@ -494,19 +530,20 @@ msgid ""
 "modifying the resolution of the file. We recommend leaving those as defaults"
 " unless you have valid reasons for changing them."
 msgstr ""
+"在**加载自定义土地生产力数据集**窗口中，如果输入文件是多波段光栅，您可以选择存储生产力数据的波段编号。您还可以选择修改文件的分辨率。我们建议将其保留为默认值，除非您有合理理由更改它们。"
 
 #: ../../source/for_users/training/landdegradation.rst:251
 msgid ""
 "Click **Browse** at the bottom of the window to select the **Output raster "
 "file** and navigate to the folder where you want to save the file. Type in a"
 " name and click **OK**."
-msgstr ""
+msgstr "单击窗口底部的**浏览**，选择**输出光栅文件**，并导航到要保存文件的文件夹。输入名称并单击**确定**。"
 
 #: ../../source/for_users/training/landdegradation.rst:254
 msgid ""
 "Back at the **Load a Custom Land Productivity Dataset** window click **OK** "
 "on the lower right corner to process the data."
-msgstr ""
+msgstr "回到**加载自定义土地生产力数据集**窗口，单击右下角的**确定**处理数据。"
 
 #: ../../source/for_users/training/landdegradation.rst:256
 msgid ""
@@ -516,32 +553,33 @@ msgid ""
 "import it. For that reason, it is **extremely important** for you to explore"
 " the output layer to make sure the results are mapped as expected."
 msgstr ""
+"如果输入文件的值与上述要求不完全匹配，您将看到一条警告消息。在许多情况下，警告是由无数据的定义触发的，但该工具仍将尝试导入它。因此，了解输出层以确保结果按预期映射，对您来说**极其重要**。"
 
 #: ../../source/for_users/training/landdegradation.rst:261
 msgid ""
 "Once you click **OK** a progress bar will appear showing the percentage of "
 "the task completed."
-msgstr ""
+msgstr "单击**确定**后，将出现一个进度条，显示完成任务的百分比。"
 
 #: ../../source/for_users/training/landdegradation.rst:266
 msgid ""
 "In the **Datasets** window, find the **Imported dataset (land "
 "productivity)** on click on **Load dataset onto QGIS map area**."
-msgstr ""
+msgstr "在**数据集**窗口中，找到**导入的数据集（土地生产力）**点击**将数据集加载到QGIS地图区域**。"
 
 #: ../../source/for_users/training/landdegradation.rst:272
 msgid "Refer to the :ref:`indicator-land-cover` to learn more on land cover."
-msgstr ""
+msgstr "请参阅 :ref:`indicator-land-cover` 以了解更多关于土地覆盖的信息。"
 
 #: ../../source/for_users/training/landdegradation.rst:277
 msgid "Custom Data - Land Cover"
-msgstr ""
+msgstr "自定义数据-土地覆盖"
 
 #: ../../source/for_users/training/landdegradation.rst:278
 msgid ""
 "**Objective**: Learn how to load custom land cover data and to compute the "
 "land cover change sub-indicator using Trends.Earth."
-msgstr ""
+msgstr "**目标**：学习如何加载自定义土地覆盖数据，并使用Trends.Earth计算土地覆盖变化次级指标。"
 
 #: ../../source/for_users/training/landdegradation.rst:280
 msgid "**Estimated time of completion**: 40 minutes"
@@ -555,18 +593,19 @@ msgid ""
 " and can be downloaded from this `link "
 "<https://s3.amazonaws.com/trends.earth/sharing/RCMRD_Uganda_Land_Cover.zip>`_."
 msgstr ""
+"本教程的土地覆盖数据集由“发展绘图资源区域中心<http://geoportal.rcmrd.org/layers/servir%3Auganda_landcover_2014_scheme_i>”提供，可从“链接<https://s3.amazonaws.com/trends.earth/sharing/RCMRD_Uganda_Land_Cover.zip>”下载。"
 
 #: ../../source/for_users/training/landdegradation.rst:290
 msgid ""
 "To load a custom productivity data click on the **Datasets** window, and "
 "then click on **Import dataset**."
-msgstr ""
+msgstr "要加载自定义生产率数据，请单击**数据集**窗口，然后单击**导入数据集**。"
 
 #: ../../source/for_users/training/landdegradation.rst:295
 msgid ""
 "Several options will appear. Select **Import custom Land Cover dataset** "
 "from the list."
-msgstr ""
+msgstr "会显示多个选项。从列表中选择**导入自定义土地覆盖数据集**。"
 
 #: ../../source/for_users/training/landdegradation.rst:300
 msgid ""
@@ -575,6 +614,7 @@ msgid ""
 "select raster, since the data distributed by the UNCCD is in raster format. "
 "Click on **Browse** to navigate to the land cover file you wish to import."
 msgstr ""
+"在**加载自定义土地覆盖数据集**窗口中，使用单选按钮选择输入文件的格式（光栅或矢量）。对于本教程，请选择光栅，因为UNCCD分发的数据是光栅格式的。单击**浏览**导航到您想要导入的土地覆盖文件。"
 
 #: ../../source/for_users/training/landdegradation.rst:305
 msgid ""
@@ -584,13 +624,14 @@ msgid ""
 "modifying the resolution of the file. We recommend leaving those as defaults"
 " unless you have valid reasons for changing them."
 msgstr ""
+"在**加载自定义土地覆盖数据集**窗口中，如果输入文件是多波段光栅，您还可以选择存储土地覆盖数据的波段编号。您还可以选择修改文件的分辨率。我们建议将其保留为默认值，除非您有合理理由更改它们。"
 
 #: ../../source/for_users/training/landdegradation.rst:307
 msgid ""
 "Define the year of reference for the data. In this case, since the land "
 "cover dataset for Uganda was developed for the **year 2000**, define it as "
 "such. Make sure you are assigning the correct **Year of data**."
-msgstr ""
+msgstr "定义数据的参考年份。在此处，由于乌干达的土地覆盖数据集是为**2000年**开发的，由此对其进行定义。确保您指定了正确的**数据年份**。"
 
 #: ../../source/for_users/training/landdegradation.rst:309
 msgid ""
@@ -599,54 +640,55 @@ msgid ""
 "original input values of your dataset to one of the 7 UNCCD recommended land"
 " cover classes."
 msgstr ""
+"单击**编辑定义**按钮，将打开**设置土地覆盖数据聚合菜单**。在这里，您需要将数据集的每个原始输入值分配至UNCCD建议的7个土地覆盖类别中的一个。"
 
 #: ../../source/for_users/training/landdegradation.rst:314
 msgid "For this example, the Uganda dataset has 18 land cover classes:"
-msgstr ""
+msgstr "例如，乌干达数据集有18个土地覆盖类型："
 
 #: ../../source/for_users/training/landdegradation.rst:327
 msgid ""
 "From the Metadata of the land cover dataset, we know that the best "
 "aggregation approach is the following:"
-msgstr ""
+msgstr "根据土地覆盖数据集的元数据，我们知道最佳的聚合方法如下："
 
 #: ../../source/for_users/training/landdegradation.rst:320
 msgid "No data = 0"
-msgstr ""
+msgstr "无数据=0"
 
 #: ../../source/for_users/training/landdegradation.rst:321
 msgid "Tree covered = 1 through 7"
-msgstr ""
+msgstr "树木覆盖 = 1 到 7"
 
 #: ../../source/for_users/training/landdegradation.rst:322
 msgid "Grassland = 8 through 11"
-msgstr ""
+msgstr "草地= 8 到 11"
 
 #: ../../source/for_users/training/landdegradation.rst:323
 msgid "Cropland = 12 through 14"
-msgstr ""
+msgstr "农田 = 12 到 14"
 
 #: ../../source/for_users/training/landdegradation.rst:324
 msgid "Wetland = 15"
-msgstr ""
+msgstr "湿地 = 15"
 
 #: ../../source/for_users/training/landdegradation.rst:325
 msgid "Water body = 16"
-msgstr ""
+msgstr "水域 = 16"
 
 #: ../../source/for_users/training/landdegradation.rst:326
 msgid "Artificial = 17"
-msgstr ""
+msgstr "人造 = 17"
 
 #: ../../source/for_users/training/landdegradation.rst:327
 msgid "Other land = 18"
-msgstr ""
+msgstr "其他土地 = 18"
 
 #: ../../source/for_users/training/landdegradation.rst:329
 msgid ""
 "Use the **Setup aggregation of land cover data menu** to assign to each "
 "number in the **Input class** its corresponding **Output class**."
-msgstr ""
+msgstr "使用**设置土地覆盖数据聚合菜单**为**输入类**中的每个数字分配其对应的**输出类**。"
 
 #: ../../source/for_users/training/landdegradation.rst:331
 msgid ""
@@ -666,6 +708,7 @@ msgid ""
 "to the folder where you want to save the file. Type in a name and click "
 "**OK**."
 msgstr ""
+"回到**加载自定义土地覆盖数据集**窗口，单击窗口底部的**浏览**，选择**输出光栅文件**，并导航至想要保存文件的文件夹。输入名称并单击**确定**。"
 
 #: ../../source/for_users/training/landdegradation.rst:343
 msgid ""
@@ -676,11 +719,11 @@ msgstr "将出现一个进度条，显示已完成任务的百分比。"
 msgid ""
 "In the **Datasets** window, find the **Imported dataset (land cover "
 "change)** on click on **Load dataset onto QGIS map area**."
-msgstr ""
+msgstr "在**数据集**窗口中，找到**导入的数据集（土地覆盖变化）**点击**将数据集加载到QGIS地图区域**。"
 
 #: ../../source/for_users/training/landdegradation.rst:353
 msgid ".The imported land cover dataset will be loaded to QGIS."
-msgstr ""
+msgstr ".导入的土地覆盖数据集将加载到QGIS。"
 
 #: ../../source/for_users/training/landdegradation.rst:358
 msgid ""
@@ -690,16 +733,17 @@ msgid ""
 "tutorial, we will use another land cover map from Uganda from the year 2015."
 " **Make sure to change the year date in the import menu**."
 msgstr ""
+"您有一个单一年份（2000年）的导入自定义土地覆盖数据，但需要两个来执行土地覆盖变化的分析。现在重复步骤1到8，但这次使用最新的土地覆盖图。在本教程中，我们将使用2015年乌干达的另一幅土地覆盖图**确保在导入菜单中更改年份日期**。"
 
 #: ../../source/for_users/training/landdegradation.rst:360
 msgid ""
 "Once you have imported the land cover maps for years 2000 and 2015, you "
 "should have them both loaded to QGIS."
-msgstr ""
+msgstr "导入2000年和2015年的土地覆盖图后，它们应都将加载到QGIS中。"
 
 #: ../../source/for_users/training/landdegradation.rst:366
 msgid "Calculating Land Cover sub-indicator with custom data"
-msgstr ""
+msgstr "利用自定义数据计算土地覆盖次级指标"
 
 #: ../../source/for_users/training/landdegradation.rst:368
 msgid ""
@@ -707,13 +751,14 @@ msgid ""
 "land cover change analysis tool needs to be run. In the **Algorithm "
 "window**, click on **Execute locally** under **Land cover change**."
 msgstr ""
+"现在，这两项土地覆盖数据集都已导入Trends.Earth，需要运行土地覆盖变化分析工具。在**算法窗口**，单击**土地覆盖变化**下的**本地执行**。"
 
 #: ../../source/for_users/training/landdegradation.rst:377
 msgid ""
 "The **Land Cover | Land Degradation** window will open. Use the drop down "
 "option next to **Initial year layer** and **Target year layer** to change "
 "the dates accordingly."
-msgstr ""
+msgstr "**土地覆盖|土地退化**窗口将会打开。使用**初始年份图层**和**目标年份图层**旁的下拉选项以更改相应日期。"
 
 #: ../../source/for_users/training/landdegradation.rst:388
 msgid ""
@@ -723,6 +768,7 @@ msgid ""
 "transitions in beige (zero) will be identified as stable, and transitions in"
 " green (plus sign) will be identified as improvements."
 msgstr ""
+"单击**高级**展开。在这里，您将用退化的程度来定义每个土地覆盖转变的含义。以紫色（负号）表示的变化将被视为最终输出为衰退，以米色（零）表示的转变将被视为稳定，以绿色（加号）表示的转变将被视为改善。"
 
 #: ../../source/for_users/training/landdegradation.rst:390
 msgid ""
@@ -739,20 +785,20 @@ msgstr ""
 msgid ""
 "If you did change the meaning of some of the transitions, click on **Save "
 "table to file...** to save the definition for later use."
-msgstr ""
+msgstr "如果您更改了某些转变的含义，请单击**将表格保存到文件…**以保存定义供之后使用。"
 
 #: ../../source/for_users/training/landdegradation.rst:397
 msgid ""
 ". If you have made no changes to the default matrix, simply click **Execute "
 "locally**."
-msgstr ""
+msgstr ". 如果您未对默认矩阵进行更改，只需单击**本地执行**。"
 
 #: ../../source/for_users/training/landdegradation.rst:400
 #: ../../source/for_users/training/landdegradation.rst:463
 msgid ""
 "When you click **Execute locally**, a progress bar will appear showing the "
 "percentage of the task completed."
-msgstr ""
+msgstr "单击**本地执行**时，将会出现一个进度条，显示完成任务的百分比。"
 
 #: ../../source/for_users/training/landdegradation.rst:407
 msgid ""

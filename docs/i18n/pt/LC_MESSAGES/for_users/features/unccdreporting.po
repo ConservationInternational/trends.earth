@@ -25,7 +25,7 @@ msgstr ""
 
 #: ../../source/for_users/features/unccdreporting.rst:4
 msgid "UNCCD Reporting - SDG 15.3.1"
-msgstr "Relatórios UNCCD - ODS 15.3.1"
+msgstr "Relatório da UNCCD - OBS 15.3.1"
 
 #: ../../source/for_users/features/unccdreporting.rst:6
 msgid ""
@@ -86,6 +86,12 @@ msgid ""
 "Indicator-15.3.1_version2_2021.pdf>`_. providing recommendations on how to "
 "calculate SDG Indicator 15.3.1."
 msgstr ""
+"Como entidade de custódia do ODS 15.3, a Convenção das Nações Unidas para o "
+"Combate à Desertificação (UNCCD) desenvolveu uma `Diretriz de Boas Práticas "
+"(GPG) "
+"<https://www.unccd.int/sites/default/files/documents/2021-09/UNCCD_GPG_SDG-"
+"Indicator-15.3.1_version2_2021.pdf>`_. com recomendações de como calcular o "
+"indicador ODS 15.3.1."
 
 #: ../../source/for_users/features/unccdreporting.rst:31
 msgid ""
@@ -133,6 +139,11 @@ msgid ""
 " a final SDG 15.3.1 indicator map and produces a table result reporting "
 "areas potentially improved and degraded for the area of analysis."
 msgstr ""
+"O |trends.earth| permite ao utilizador calcular cada um destes sub-"
+"indicadores de uma forma espacialmente explícita ao gerar mapas raster que "
+"são depois integrados num mapa indicador final de ODS 15.3.1 e produz um "
+"resultado em tabela que reporta as zonas potencialmente melhoradas e "
+"degradadas da área de análise."
 
 #: ../../source/for_users/features/unccdreporting.rst:50
 msgid "Sub-indicators"
@@ -188,6 +199,9 @@ msgid ""
 "Council (JRC) as the default data for computing the final SDG 15.3.1 "
 "Indicator."
 msgstr ""
+"Os dados da Dinâmica de Produtividade da Terra (LPD) são fornecidos pelo "
+"Joint Research Council (JRC) como dados padrão para calcular o Indicador ODS"
+" 15.3.1 final."
 
 #: ../../source/for_users/features/unccdreporting.rst:80
 msgid ""
@@ -368,11 +382,11 @@ msgstr ""
 
 #: ../../source/for_users/features/unccdreporting.rst:174
 msgid "UNCCD Strategic Objective 2 (SO 2)"
-msgstr ""
+msgstr "Objetivo Estratégico 2 do UNCCD (OE 2)"
 
 #: ../../source/for_users/features/unccdreporting.rst:177
 msgid "To improve the living conditions of affected populations"
-msgstr ""
+msgstr "Para melhorar as condições de vida das populações afetadas"
 
 #: ../../source/for_users/features/unccdreporting.rst:179
 msgid ""
@@ -386,6 +400,16 @@ msgid ""
 "improving the livelihoods of those most affected by DLDD and for "
 "safeguarding against the most extreme effects of climate change."
 msgstr ""
+"Enfrentar os desafios globais da desertificação, degradação da terra e seca "
+"(DDTS) e os seus impactos em sistemas humano-ambientais acoplados é um "
+"componente-chave da Agenda para o Desenvolvimento Sustentável de 2030. Em "
+"particular, o Objetivo de Desenvolvimento Sustentável (ODS) 15.3 pretende, "
+"até 2030, combater a desertificação, restaurar terra e solo degradado, "
+"incluindo terra afetada pela desertificação, seca e inundações, e tentar "
+"alcançar um mundo neutro em termos de degradação da terra. Enfrentar este "
+"desafio é essencial para melhorar a subsistência dos mais afetados por DDTS "
+"e para salvaguardar contra os efeitos mais extremos das alterações "
+"climáticas."
 
 #: ../../source/for_users/features/unccdreporting.rst:186
 msgid ""
@@ -402,6 +426,18 @@ msgid ""
 "and households is critical in reinforcing livelihood resilience in order to "
 "enhance positive adaptations to DLDD"
 msgstr ""
+"A subsistência das pessoas em zonas degradadas inclui várias características"
+" humanas e naturais dos ambientes locais, incluindo acesso adequado a comida"
+" e água, tanto diretamente por subsistência, por rendimento suficiente para "
+"ter segurança alimentar ou por uma combinação de ambos. Se a segurança "
+"alimentar for alcançada, a emigração das zonas afetadas já não será forçada,"
+" mas sim voluntária por natureza. As populações, comunidades e agregados "
+"social e economicamente marginalizados tendem a ser desproporcionalmente "
+"vulneráveis a alterações climáticas e aos efeitos combinados do DDTS. A "
+"capacidade de identificar e quantificar a constituição, distribuição e "
+"vulnerabilidade relativa dessas populações, comunidades e agregados é "
+"crítica no reforço da resiliência da subsistência para poder melhorar as "
+"adaptações positivas ao DDTS."
 
 #: ../../source/for_users/features/unccdreporting.rst:194
 msgid ""
@@ -413,10 +449,17 @@ msgid ""
 "the population over the SDG 15.3.1 Indicator map to establish its exposure "
 "to land degradation."
 msgstr ""
+"O |trends.earth| permite aos utilizadores monitorizarem o indicador de "
+"Objetivo Estratégico 2 da UNCCD em **Tendências na Exposição da População a "
+"Degradação da Terra Desagregado por Sexo (OE 2-3)** ao calcular as "
+"proporções de população, desagregada por sexo, exposta à degradação da "
+"terra. O |trends.earth| usa dados matriciais representando a distribuição "
+"espacial da população pelo mapa do Indicador ODS 15.3.1 para estabelecer a "
+"sua exposição à degradação da terra."
 
 #: ../../source/for_users/features/unccdreporting.rst:198
 msgid "The (SO 2-3) indicator uses the following metrics:"
-msgstr ""
+msgstr "O indicador (OE 2-3) usa as seguintes métricas:"
 
 #: ../../source/for_users/features/unccdreporting.rst:200
 msgid ""
@@ -424,26 +467,34 @@ msgid ""
 " of the male population exposed to land degradation -Percentage of the total"
 " (female and male) population exposed to land degradation"
 msgstr ""
+"-Percentagem da população feminina exposta à degradação da terra "
+"-Percentagem da população masculina exposta à degradação da terra "
+"-Percentagem da população total (masculina e feminina) exposta à degradação "
+"da terra"
 
 #: ../../source/for_users/features/unccdreporting.rst:204
 msgid ""
 "|trends.earth| provides access the WorldPop dataset, which is used by "
 "default by the UNCCD for calculating indicator SO2-3."
 msgstr ""
+"O|trends.earth| proporciona acesso ao conjunto de dados WorldPop, que é "
+"usado por padrão pela UNCCD para calcular o indicador EO 2-3."
 
 #: ../../source/for_users/features/unccdreporting.rst:207
 msgid "UNCCD Strategic Objective 3 (SO 3)"
-msgstr ""
+msgstr "Objetivo Estratégico 3 da UNCCD (OE 3)"
 
 #: ../../source/for_users/features/unccdreporting.rst:210
 msgid ""
 "To mitigate, adapt to, and manage the effects of drought in order to enhance"
 " resilience of vulnerable populations and ecosystems."
 msgstr ""
+"Para mitigar, adaptar e gerir os efeitos da seca para poder melhorar a "
+"resiliência das populações vulneráveis e ecossistemas."
 
 #: ../../source/for_users/features/unccdreporting.rst:213
 msgid "Drought and land degradation"
-msgstr ""
+msgstr "Seca e degradação da terra"
 
 #: ../../source/for_users/features/unccdreporting.rst:214
 msgid ""
@@ -456,6 +507,14 @@ msgid ""
 "of impacts from climate variability and change, especially in regions of the"
 " world."
 msgstr ""
+"**Degradação da terra** conforme definido pela UNCCD refere-se a qualquer "
+"redução ou perda da capacidade de produtividade biológica ou económica da "
+"base do recurso terrestre. É geralmente causada por atividades humanas, "
+"exacerbada por processos naturais e frequentemente agravada pelas alterações"
+" climáticas e perda de biodiversidade. A degradação da terra reduz a "
+"produtividade agrícola e aumenta a vulnerabilidade das áreas que já estão em"
+" risco de impactos devido à variabilidade e alterações climáticas, "
+"especialmente em regiões do mundo."
 
 #: ../../source/for_users/features/unccdreporting.rst:220
 msgid ""
@@ -468,6 +527,15 @@ msgid ""
 "single risk event but rather interlinked with other hazards such as "
 "heatwaves, wildfires, sand/dust storms, or floods."
 msgstr ""
+"A **seca** é um fenómeno complexo e de aparecimento lento que ocorre ao "
+"longo de diferentes escalas temporais. É caracterizado por uma redução da "
+"disponibilidade da água, levando a efeitos cascata na subsistência das "
+"pessoas e nos setores económicos. A seca é às vezes definida de forma "
+"simplista como um período seco suficientemente longo para causar um "
+"desequilíbrio hidrológico, apesar de não existir uma definição globalmente "
+"aceite para seca. Adicionalmente, a seca raramente ocorre como evento de "
+"risco único, mas sim ligada a outros perigos como ondas de calor, incêndios,"
+" tempestades de areia ou inundações."
 
 #: ../../source/for_users/features/unccdreporting.rst:226
 msgid ""
@@ -494,6 +562,29 @@ msgid ""
 "efforts to reduce poverty, inequality, and enhance the socio-economic well-"
 "being of all people worldwide."
 msgstr ""
+"O Painel Internacional para as Alterações Climáticas (IPCC) define seca como"
+" \"um período de tempo anormalmente seco e suficientemente prolongado para "
+"causar um desequilíbrio hidrológico grave\". Seca é um termo relativo, "
+"portanto qualquer discussão em termos de défice de precipitação deve referir"
+" uma atividade específica relativa à precipitação que esteja sob discussão. "
+"Por exemplo, a falta de precipitação durante a estação de cultivo afeta a "
+"produção de colheitas ou o funcionamento dos ecossistemas em geral (devido à"
+" secagem da humidade no solo, também denominada seca agrícola), e durante a "
+"época de escoamento e percolação afeta principalmente os recursos hídricos "
+"(seca hídrica). As alterações de armazenamento de humidade e água "
+"subterrânea no solo também são afetadas por aumentos na evapotranspiração "
+"efetiva para além das reduções de precipitação. Consulte também Humidade do "
+"solo (Relatório de Avaliação 5 do IPCC, 2014). O Gabinete das Nações Unidas "
+"para a Redução de Risco de Desastres (UNDRR) define seca como um perigo de "
+"aparecimento lento, frequentemente denominado como um fenómeno gradual. A "
+"ausência de uma definição exata e universalmente aceite de seca contribui "
+"para a confusão. As definições têm de ser específicas por região porque as "
+"alterações climáticas têm características climáticas distintas (Capítulo 6 "
+"do GAR UNDRR). A falta de uma definição consensual complica os esforços de "
+"monitorização, visto que a definição e a abordagem de monitorização são "
+"tipicamente contextuais. Onde as taxas de pobreza permanecem altas apesar de"
+" o esforço para reduzir a pobreza, desigualdade e melhorar o bem-estar "
+"socioeconómico de todas as pessoas a nível mundial."
 
 #: ../../source/for_users/features/unccdreporting.rst:238
 msgid ""
@@ -503,11 +594,16 @@ msgid ""
 "livelihood, environmental, socio-economic, and health risks and decrease "
 "population and community resilience."
 msgstr ""
+"A seca afeta um número crescente de pessoas, subsistências, ecossistemas e "
+"economias a nível mundial. Quando ocorre em simultâneo com degradação da "
+"terra, pode expor populações já vulneráveis a riscos nocivos de "
+"subsistência, ambientais, socioeconómicos e de saúde e diminuir a "
+"resiliência da população e da comunidade."
 
 #: ../../source/for_users/features/unccdreporting.rst:243
 msgid ""
 "The UNCCD has adopted a monitoring framework with three levels for SO 3:"
-msgstr ""
+msgstr "A UNCDD adotou um quadro de monitorização com 3 níveis para o OE 3:"
 
 #: ../../source/for_users/features/unccdreporting.rst:245
 msgid ""
@@ -516,10 +612,14 @@ msgid ""
 "population exposed to drought(Exposure), Level III SO 3-3 Trends in the "
 "degree of drought vulnerability (Vulnerability)."
 msgstr ""
+"Nível I OE 3-1 Tendências na proporção de terra sob seca ao longo da área "
+"total de terra(Perigo), Nível II OE 3-2 Tendências na proporção da população"
+" total exposta a seca(Exposição), Nível III OE 3-3 Tendências no grau de "
+"vulnerabilidade a seca (Vulnerabilidade)."
 
 #: ../../source/for_users/features/unccdreporting.rst:249
 msgid "Under the IPCC framework:"
-msgstr ""
+msgstr "Ao abrigo do quadro do IPCC:"
 
 #: ../../source/for_users/features/unccdreporting.rst:251
 msgid ""
@@ -529,6 +629,11 @@ msgid ""
 "infrastructure, livelihoods, service provision, ecosystems and environmental"
 " resources."
 msgstr ""
+"**Perigo** é a potencial ocorrência de um evento ou tendência física "
+"induzida por humanos ou um impacto físico que pode causar perda de vida, "
+"lesão ou outros impactos de saúde, assim como danos e perda de propriedade, "
+"infraestrutura, subsistências, fornecimento de serviços, ecossistemas e "
+"recursos ambientais."
 
 #: ../../source/for_users/features/unccdreporting.rst:255
 msgid ""
@@ -537,31 +642,39 @@ msgid ""
 "infrastructure, or economic, social, or cultural assets in places and "
 "settings that could be adversely affected."
 msgstr ""
+"**Exposição** caracteriza a presença de pessoais, subsistências, espécies ou"
+" ecossistemas, funções, serviços e recursos ambientais, infraestrutura, ou "
+"ativos económicos, sociais ou culturais em locais e ambientes que podem ser "
+"adversamente afetados."
 
 #: ../../source/for_users/features/unccdreporting.rst:258
 msgid ""
 "**Vulnerability** is defined as the propensity or predisposition to be "
 "adversely affected by climate change and related processes."
 msgstr ""
+"**Vulnerabilidade** é definida como a propensão ou predisposição para ser "
+"adversamente afetado por alterações climáticas e processos relacionados."
 
 #: ../../source/for_users/features/unccdreporting.rst:260
 msgid ""
 "In order to assess the SO 3 indicators, |trends.earth| uses information from"
 " 3 sub-indicators:"
 msgstr ""
+"Para poder avaliar os indicadores do OE 3, o |trends.earth| usa informações "
+"de 3 sub-indicadores:"
 
 #: ../../source/for_users/features/unccdreporting.rst:262
 #: ../../source/for_users/features/unccdreporting.rst:289
 msgid "Standardized Precipitation Index (SPI)"
-msgstr ""
+msgstr "Índice de Precipitação Normalizado (SPI)"
 
 #: ../../source/for_users/features/unccdreporting.rst:263
 msgid "Gridded global population dataset"
-msgstr ""
+msgstr "Conjunto de dados de população global matricial"
 
 #: ../../source/for_users/features/unccdreporting.rst:264
 msgid "Drought Vulnerability Index (DVI)"
-msgstr ""
+msgstr "Índice de Vulnerabilidade a Seca (DVI)"
 
 #: ../../source/for_users/features/unccdreporting.rst:266
 msgid ""
@@ -571,6 +684,11 @@ msgid ""
 "SO 3-1 \"Trends in the proportion of land under drought over the total land "
 "area\"."
 msgstr ""
+"O |trends.earth| permite que o utilizador calcule cada um destes indicadores"
+" de uma forma espacialmente explícita gerando mapas de raster e produzindo "
+"uma tabela de resumo a apresentar áreas potencialmente renovadas e "
+"degradadas para a área de análise. EO 3-1 \"Tendências na proporção de terra"
+" sob seca sobre a área total de terra\"."
 
 #: ../../source/for_users/features/unccdreporting.rst:270
 msgid ""
@@ -581,6 +699,12 @@ msgid ""
 "Objective-3_2021.pdf>`_ (GPG-SO3). providing recommendations on how to "
 "calculate indicators of SO3."
 msgstr ""
+"A Convenção das Nações Unidas para o Combate à Desertificação (UNCCD) "
+"desenvolveu uma Diretriz de boas práticas para relatórios nacionais no "
+"Objetivo Estratégico 3 da UNCCD "
+"<https://www.unccd.int/sites/default/files/documents/2021-09/UNCCD_GPG_Strategic-"
+"Objective-3_2021.pdf>`_ (GPG-EO3). com recomendações de como calcular os "
+"indicadores do EO3."
 
 #: ../../source/for_users/features/unccdreporting.rst:275
 msgid ""
@@ -588,30 +712,39 @@ msgid ""
 " 3 and describes how each indicator is calculated by |trends.earth|, "
 "following the Strategic Objective 3 Good Practice Guidance."
 msgstr ""
+"Este documento contém uma breve introdução ao Objetivo Estratégico 3 da "
+"UNCCD e descreve como cada indicar é calculado pelo |trends.earth|, "
+"respeitando a Diretriz de Boas Práticas do Objetivo Estratégico 3."
 
 #: ../../source/for_users/features/unccdreporting.rst:279
 msgid "SO3 Level I indicator (SO 3-1 Hazard)"
-msgstr ""
+msgstr "Indicador de Nível I do EO3 (EO 3-1 Perigo)"
 
 #: ../../source/for_users/features/unccdreporting.rst:281
 msgid "Steps to calculate Level I indicator following the UNCCD GPG-SO3:"
 msgstr ""
+"Passos para calcular o indicador de Nível I segundo o GPG-OE3 da UNCCD:"
 
 #: ../../source/for_users/features/unccdreporting.rst:283
 msgid ""
 "Calculate SPI using an accumulation period of 12 months (SPI-12) and gridded"
 " precipitation data"
 msgstr ""
+"Calcule o SPI usando um período de acumulação de 12 meses (SPI-12) e dados "
+"matriciais de precipitação"
 
 #: ../../source/for_users/features/unccdreporting.rst:284
 msgid ""
 "Identify the drought intensity class of each pixel based on the previously "
 "calculated SPI"
 msgstr ""
+"Identifique a classe de intensidade de seca de cada pixel com base no SPI "
+"calculado anteriormente"
 
 #: ../../source/for_users/features/unccdreporting.rst:285
 msgid "Calculate proportion of land within each drought intensity class."
 msgstr ""
+"Calcule a proporção de terra dentro de cada classe de intensidade de seca."
 
 #: ../../source/for_users/features/unccdreporting.rst:291
 msgid ""
@@ -633,6 +766,23 @@ msgid ""
 "Thus, it indirectly considers effects of accumulating precipitation "
 "deficits, which are critical for soil moisture and hydrological droughts."
 msgstr ""
+"O Índice de Precipitação Normalizado (SPI) tem sido largamente usado para "
+"caracterizar a seca meteorológica ou o défice de precipitação e foi "
+"reconhecido pela Declaração Lincoln sobre Seca como o índice preferido "
+"internacionalmente para calcular e monitorizar secas meteorológicas. O SPI é"
+" calculado como desvios padrão que a precipitação observada ao longo de um "
+"período específico tem da média a longo prazo em períodos sobre períodos "
+"dessa duração ao longo de tipicamente 30 anos de dados, para uma "
+"distribuição normal e distribuição de probabilidade ajustada para o registo "
+"de precipitação efetivo. As principais vantagens de usar o SPI para a "
+"monitorização e previsão global de secas e avaliação de risco é que é usado "
+"globalmente por muitos países e é apoiado pela Organização Meteorológica "
+"Internacional. Outras vantagens-chave são que o SPI representa tanto défices"
+" como excessos de precipitação, e pode ser calculado em escalas de tempo "
+"diferentes (ex: SPI-3, SPI-6, SPI-12, com o número a indicar o número de "
+"meses ao longo do qual o índice é calculado). Como tal, considera "
+"indiretamente  os efeitos da acumulação de défices de precipitação, que são "
+"críticos para a humidade do solo e secas hídricas."
 
 #: ../../source/for_users/features/unccdreporting.rst:303
 msgid ""
@@ -648,10 +798,22 @@ msgid ""
 " interested in calculating SO3-1 Hazard for areas outside this range will "
 "not be able to use the CHRIPS dataset."
 msgstr ""
+"Por predefinição, o |trends.earth| oferece acesso ao SPI calculado a partir "
+"do Produto de Monitorização do Centro Global de Climatologia (GPCC), um "
+"raster que representa precipitação e derivado de dados de medição de chuva "
+"com uma resolução espacial de ~27 km² e que cobre o globo inteiro. Os "
+"utilizadores também têm a opção de usar um SPI alternativo calculado a "
+"partir do Climate Hazards Group InfraRed Precipitation with Stations "
+"(CHIRPS), com estimativas de precipitação baseadas em observações de "
+"satélites combinadas com dados de estações medidos em ~5 km². Apesar de o "
+"CHIRPS possuir uma resolução espacial resolução, tem uma cobertura quase "
+"global que abrange 50°S a 50°N. Como tal, os utilizadores interessados em "
+"calcular o OE3-1 Perigo para áreas fora desta gama não poderão utilizar o "
+"conjunto de dados CHIRPS."
 
 #: ../../source/for_users/features/unccdreporting.rst:312
 msgid "Step 1. Calculating SPI"
-msgstr ""
+msgstr "Passo 1. Calcular o SPI"
 
 #: ../../source/for_users/features/unccdreporting.rst:314
 msgid ""
@@ -662,87 +824,106 @@ msgid ""
 "data are then used to compute the dimensionless SPI value, defined as the "
 "standardized anomaly of the precipitation."
 msgstr ""
+"O SPI quantifica a precipitação observada como desvio normalizado de uma "
+"função de distribuição de probabilidade selecionada que modela os dados "
+"brutos. Os dados brutos podem ser ajustados para uma distribuição gama ou "
+"Pearson Tipo III e depois transformados numa distribuição normal. Os dados "
+"de precipitação transformados são então usados para calcular o valor SPI sem"
+" dimensões, definidos como a anomalia normalizada da precipitação."
 
 #: ../../source/for_users/features/unccdreporting.rst:318
 msgid ""
 "The detailed equations for computing this index are described in the "
 "following steps using the gamma distribution:"
 msgstr ""
+"As equações detalhadas para calcular este índice são descritas nos passos "
+"seguintes usando a distribuição gama:"
 
 #: ../../source/for_users/features/unccdreporting.rst:323
 msgid ""
 "The transformation of the precipitation value into SPI has the purpose of:"
-msgstr ""
+msgstr "A transformação do valor de precipitação no SPI tem o propósito de:"
 
 #: ../../source/for_users/features/unccdreporting.rst:321
 msgid "Transforming the mean of the precipitation value adjusted to 0;"
-msgstr ""
+msgstr "Transformar a média do valor de precipitação ajustada para 0;"
 
 #: ../../source/for_users/features/unccdreporting.rst:322
 msgid "Standard deviation of the precipitation is adjusted to 1.0; and"
-msgstr ""
+msgstr "Desvio padrão da precipitação é ajustado para 1,0; e"
 
 #: ../../source/for_users/features/unccdreporting.rst:323
 msgid "Skewness of the existing data must be readjusted to zero."
-msgstr ""
+msgstr "O enviesamento dos dados existentes tem de ser reajustado para zero."
 
 #: ../../source/for_users/features/unccdreporting.rst:325
 msgid ""
 "When these goals have been achieved the standardized precipitation index can"
 " be interpreted as mean 0 and standard deviation of 1.0."
 msgstr ""
+"Quando estes objetivos tiverem sido alcançados, o índice de precipitação "
+"normalizado pode ser interpretado como média 0 e desvio padrão de 1,0."
 
 #: ../../source/for_users/features/unccdreporting.rst:328
 msgid "Mean of the precipitation can be computed as:"
-msgstr ""
+msgstr "A média da precipitação pode ser calculada como:"
 
 #: ../../source/for_users/features/unccdreporting.rst:333
 msgid "where N is the number of precipitation observations."
-msgstr ""
+msgstr "em que N é o número de observações de precipitação."
 
 #: ../../source/for_users/features/unccdreporting.rst:335
 msgid "The standard deviation for the precipitation is computed as:"
-msgstr ""
+msgstr "O desvio padrão da precipitação é calculado como:"
 
 #: ../../source/for_users/features/unccdreporting.rst:340
 msgid "The skewness of the given precipitation is computed as:"
-msgstr ""
+msgstr "O enviesamento da precipitação dada é calculado como:"
 
 #: ../../source/for_users/features/unccdreporting.rst:345
 msgid ""
 "The precipitation is converted to lognormal values and the statistics U, "
 "shape and scale parameters of gamma distribution is computed:"
 msgstr ""
+"A precipitação é convertida para valores lognormal e os parâmetros de "
+"estatística U, forma e escala da distribuição gama são calculados:"
 
 #: ../../source/for_users/features/unccdreporting.rst:351
 msgid ""
 "The resulting parameters are then used to find the cumulative probability of"
 " an observed precipitation event. The cumulative probability is given by:"
 msgstr ""
+"Os parâmetros resultantes são então usados para encontrar a probabilidade "
+"cumulativa de um evento de precipitação observado. A probabilidade "
+"cumulativa é dada por:"
 
 #: ../../source/for_users/features/unccdreporting.rst:358
 msgid ""
 "Since the gamma function is undefined for x = 0 and a precipitation "
 "distribution may contain zeros, the cumulative probability becomes:"
 msgstr ""
+"Uma vez que a função gama é indefinida para x = 0 e uma distribuição de "
+"precipitação pode conter zeros, a probabilidade cumulativa torna-se:"
 
 #: ../../source/for_users/features/unccdreporting.rst:364
 msgid "where the probability from q is zero."
-msgstr ""
+msgstr "em que a probabilidade de q é zero."
 
 #: ../../source/for_users/features/unccdreporting.rst:366
 msgid ""
 "The cumulative probability H(x) is then transformed to the standard normal "
 "random variable Z with mean zero and variance of one:"
 msgstr ""
+"A probabilidade H(x) é depois transformada na variável aleatória normalizada"
+" Z com média de zero e variância de um:"
 
 #: ../../source/for_users/features/unccdreporting.rst:372
 msgid "where:"
-msgstr ""
+msgstr "onde:"
 
 #: ../../source/for_users/features/unccdreporting.rst:378
 msgid "Step 2. Identifying drought intensity classes"
-msgstr ""
+msgstr "Passo 2. Identificar classes de intensidade de seca"
 
 #: ../../source/for_users/features/unccdreporting.rst:380
 msgid ""
@@ -753,6 +934,13 @@ msgid ""
 "when the SPI is consecutively negative, and its value reaches an intensity "
 "of -1 or less and ends when the SPI becomes positive."
 msgstr ""
+"Os valores SPI sem dimensão são interpretados como o número de desvios "
+"padrão nos quais a anomalia observada se desvia da média a longo prazo e são"
+" tipicamente identificados categoricamente com base em condição (ex: "
+"extremamente molhado, extremamente seco, normal) conforme mostrado na tabela"
+" abaixo. Uma seca ocorre quando o SPI é consecutivamente negativo e o seu "
+"valor alcança uma intensidade de -1 ou menos e termina quando o SPI se torna"
+" positivo."
 
 #: ../../source/for_users/features/unccdreporting.rst:388
 msgid ""
@@ -762,6 +950,11 @@ msgid ""
 "calendar year. Positive SPI values are discarded, since they indicate that "
 "there was no drought in the given period."
 msgstr ""
+"As classes de intensidade de seca são identificadas ao avaliar os valores "
+"SPI-12 de dezembro para o ano da série cronológica. Os valores SPI-12 de "
+"dezembro representam os défices (ou excessos) de precipitação ao longo do "
+"ano de calendário gregoriano (janeiro-dezembro). Os valores positivos do SPI"
+" são descartados, dado que indicam que não houve seca no período dado."
 
 #: ../../source/for_users/features/unccdreporting.rst:392
 msgid ""
@@ -774,12 +967,22 @@ msgid ""
 "Drought Monitoring "
 "<https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/6033f28abca1996aedc492d5/1614017200233/ci-4-Tools4LDN2-FNL+web.pdf>`_."
 msgstr ""
+"Para mais informações sobre o SPI, consulte as `Diretriz de boas práticas "
+"para relatórios nacionais no Objetivo Estratégico 3 da UNCCD "
+"<https://www.unccd.int/sites/default/files/documents/2021-09/UNCCD_GPG_Strategic-"
+"Objective-3_2021.pdf>`_. Também recomendamos que leia o Relatório Técnico da"
+" Tools4LDN sobre Monitorizar o Progresso para o Objetivo Estratégico 3 da "
+"UNCCD `Uma análise de Dados Geoespaciais e Indicadores Disponíveis "
+"Publicamente em Suporte da Monitorização de Secas "
+"<https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/6033f28abca1996aedc492d5/1614017200233/ci-4-Tools4LDN2-FNL+web.pdf>`_."
 
 #: ../../source/for_users/features/unccdreporting.rst:398
 msgid ""
 "Step 3. Calculating the proportion of land within each drought intensity "
 "class."
 msgstr ""
+"Passo 3. Calcular a proporção de terra dentro de cada classe de intensidade "
+"de seca."
 
 #: ../../source/for_users/features/unccdreporting.rst:400
 msgid ""
@@ -787,30 +990,38 @@ msgid ""
 "classes takes the land area under the each drought intensity class "
 "identified in the previous step over the the total land area, as follows:"
 msgstr ""
+"A equação para estimar a percentagem de terra dentro das classes de "
+"intensidade de seca tem em conta a área de terreno sob cada classe de "
+"intensidade de seca identificada no passo anterior sobre o total de área de "
+"terreno, como se segue:"
 
 #: ../../source/for_users/features/unccdreporting.rst:406
 msgid "Where:"
-msgstr ""
+msgstr "Onde:"
 
 #: ../../source/for_users/features/unccdreporting.rst:408
 msgid ""
 "`Pij` is the proportion of land under the drought intensity class i in the "
 "year j"
 msgstr ""
+"`Pij` é a proporção de terreno sob a classe de intensidade de seca i no ano "
+"j"
 
 #: ../../source/for_users/features/unccdreporting.rst:410
 msgid ""
 "`areaij` is the land area under the drought intensity class i in the "
 "reporting year j"
 msgstr ""
+"`areaij` é a área terrestre sob a classe de intensidade de seca i no ano de "
+"relatório j"
 
 #: ../../source/for_users/features/unccdreporting.rst:412
 msgid "`Total area` is all the total land area."
-msgstr ""
+msgstr "`Área total` é a área terrestre total."
 
 #: ../../source/for_users/features/unccdreporting.rst:416
 msgid "SO3 Level II indicator (SO 3-2 Exposure)"
-msgstr ""
+msgstr "Indicador Nível II do OE3 (OE 3-2 Exposição)"
 
 #: ../../source/for_users/features/unccdreporting.rst:418
 msgid ""
@@ -830,6 +1041,22 @@ msgid ""
 "relationships between gender and drought occurrence and/or severity can be "
 "better quantified and visualized."
 msgstr ""
+"O indicador de seca Exposição de Nível III do OE3 da UNCCD é criado a partir"
+" do indicador Perigo de Nível I do OE 3 ao sobrepor dados de população "
+"matriciais. Usar a população sobreposta como substituição para o cálculo da "
+"exposição a seca é um método simples. Saber quantas pessoas são diretamente "
+"afetadas pela seca pode ajudar a alocar ajuda para as zonas mais "
+"necessitadas, com base na percentagem de população exposta e na força da "
+"exposição (severidade da seca). Este método pode também servir como "
+"substituto para a seca socioeconómica. O cálculo de desagregação de sexo "
+"para o indicador de população de Nível II do OE3 é calculado com base na "
+"percentagem de homens e mulheres em cada célula da grelha. Os resultados "
+"incluem dados de exposição por sexo (percentagem de homens e percentagem de "
+"mulheres) expostos a cada classe de intensidade de seca de Nível I. Isto "
+"produz duas matrizes comparáveis que podem ser agregadas em fronteiras "
+"administrativas se desejado, onde as relações espaciais globais e locais "
+"entre sexo e ocorrência e/ou severidade de seca podem ser melhor "
+"quantificadas e visualizadas."
 
 #: ../../source/for_users/features/unccdreporting.rst:427
 msgid ""
@@ -852,6 +1079,26 @@ msgid ""
 "including spatial resolution, global coverage, frequency of data updates, "
 "and inclusion of a gender-disaggregated component."
 msgstr ""
+"A coleção WorldPop é um conjunto global matricial de dados geoespaciais de "
+"alta resolução em distribuições de população, demografia e dinâmica. As "
+"camadas desagregadas espacialmente da WorldPop são dispostos em matriz com "
+"uma resolução e resultados de 3 arc/s e 30 arc/s (aproximadamente 100 m e 1 "
+"km  respetivamente no equador) e incorpora entradas como tabelas de censos "
+"de população e fronteiras geográficas, estradas, cobertura de terra, "
+"estruturas construídas, áreas urbanas, luzes noturnas, infraestrutura, dados"
+" ambientais, áreas protegidas e massas de água nacionais. As vantagens do "
+"WorldPop são que o método de estimação da população do mapeamento "
+"dasimétrico é multivariado, ou seja, altamente modelado e, portanto, "
+"personalizado para corresponder às condições de dados e natureza geográfica "
+"de cada país e região individual. Informações de sexo também estão "
+"disponíveis. A desvantagem do WorldPop é que a utilização desses modelos "
+"complexos de interpolação com dados de censos escassos pode levar a "
+"estimativas extremamente incertas ou imprecisas em algumas regiões sub-"
+"nacionais e rurais. Apesar de as limitações mencionadas, o WorldPop "
+"permanece o conjunto de dados de população matriciais mais ideal dado que "
+"satisfaz todos os nossos critérios de inclusão, incluindo resolução "
+"espacial, cobertura global, frequência de atualizações de dados e inclusão "
+"de um componente desagregado por sexo."
 
 #: ../../source/for_users/features/unccdreporting.rst:438
 msgid ""
@@ -859,10 +1106,12 @@ msgid ""
 "number of people within each drought intensity classes over of the total "
 "population."
 msgstr ""
+"As percentagens de Exposição de população à seca são calculados pelo número "
+"de pessoas em cada classe de intensidade de seca sobre a população total."
 
 #: ../../source/for_users/features/unccdreporting.rst:443
 msgid "SO3 Level III indicator (SO 3-3 Vulnerability)"
-msgstr ""
+msgstr "Indicador de Nível III do OE3 (OE 3-3 Vulnerabilidade)"
 
 #: ../../source/for_users/features/unccdreporting.rst:444
 msgid ""
@@ -878,6 +1127,17 @@ msgid ""
 "indicators should encompass orthogonal social, infrastructural, and economic"
 " factors that are generic and valid for any region."
 msgstr ""
+"A avaliação da Vulnerabilidade a Seca é baseada no Índice de Vulnerabilidade"
+" a Secas (DVI), um índice composto que incorpora três componentes que "
+"refletem a vulnerabilidade da população à seca: i) social, ii) económico e "
+"iii) infraestrutural. Atualmente, o DVI não possui componentes de "
+"vulnerabilidade ecológica ou de ecossistema. O |trends.earth| oferece acesso"
+" ao conjunto de dados DVI padrão produzido pelo Joint Research Centre (JRC)."
+" O JRC desenvolveu um quadro que integra 15 componentes económicos, sociais "
+"e infraestruturais relacionados com vulnerabilidade à seca derivados de "
+"fontes de dados globais. Este quadro recomenda que os indicadores de "
+"vulnerabilidade à seca devem englobar fatores sociais, infraestruturais e "
+"económicos ortogonais que sejam genéricos e válidos para qualquer região."
 
 #: ../../source/for_users/features/unccdreporting.rst:452
 msgid ""
@@ -897,6 +1157,21 @@ msgid ""
 "for building a regional plan for reducing vulnerability and facilitating "
 "adaptation."
 msgstr ""
+"O quadro JRC para monitorizar o risco de seca conforme descrito em `Carrão "
+"et al., 2016 "
+"<https://www.sciencedirect.com/science/article/pii/S0959378016300565>`_ "
+"adota uma abordagem do OE3 para avaliar a vulnerabilidade à seca que foi "
+"inicialmente proposta pelo Gabinete das Nações Unidas para a Redução de "
+"Risco de Desastres (UNDRR - anteriormente conhecida como a Estratégia "
+"Internacional das Nações Unidas para a Redução de Desastres) que reflete o "
+"estado dos fatores sociais, económicos e infraestruturais individuais e "
+"coletivos de uma região [61]. Esta metodologia também foi implementada "
+"operacionalmente dentro do Observatório de Seca Global JRC (GDO) para "
+"documentar e mapear o risco global do impacto da seca para a agricultura. Os"
+" autores afirmam que os fatores incluídos não representam uma descrição "
+"completa da vulnerabilidade em relação a um elemento específico exposto, mas"
+" podem ser vistos como os alicerces para construir um plano regional para "
+"reduzir a vulnerabilidade e facilitar a adaptação."
 
 #: ../../source/for_users/features/unccdreporting.rst:460
 msgid ""
@@ -911,6 +1186,17 @@ msgid ""
 "methodology as the DVI, discussed subsequently) and are derived from both at"
 " the national level and very high spatial resolution gridded data."
 msgstr ""
+"A metodologia usada em `Carrão et al., 2016 "
+"<https://www.sciencedirect.com/science/article/pii/S0959378016300565>`_ "
+"segue o conceito de que os indivíduos e populações requerem uma gama de "
+"fatores semi-independentes caracterizados por um conjunto de indicadores "
+"substitutos para alcançar a resiliência positiva a impactos. A metodologia "
+"usa um modelo composto de dois passos que deriva da agregação de 15 "
+"indicadores substitutos (mostrados na Tabela abaixo) que representam "
+"vulnerabilidade social, económica e infraestrutural em cada localização "
+"geográfica (uma metodologia semelhante ao DVI, discutida subsequentemente) e"
+" são derivados tanto do nível nacional como de dados matriciais de resolução"
+" espacial muito alta."
 
 #: ../../source/for_users/features/unccdreporting.rst:470
 msgid ""
@@ -922,12 +1208,21 @@ msgid ""
 " individual factors resulting from the DEA model into a composite model of "
 "drought vulnerability such that:"
 msgstr ""
+"Este processo envolve primeiro combinar os indicadores apresentados na "
+"Tabela para cada fator usando um modelo de Análise Envoltória de Dados "
+"(DEA), uma técnica de programação linear determinística e não paramétrica "
+"que pode ser usada para quantificar a exposição relativa de uma região à "
+"seca a partir de um conjunto multi-dimensional de indicadores. Em segundo "
+"lugar, agregar aritmeticamente os fatores individuais resultantes do modelo "
+"DEA num modelo composto de vulnerabilidade à seca como:"
 
 #: ../../source/for_users/features/unccdreporting.rst:477
 msgid ""
 "where Soc i, Econ i, and Infr i are the social, economic, and "
 "infrastructural vulnerability factors for region i."
 msgstr ""
+"onde Soc i, Econ i e Infr i são os fatores de vulnerabilidade social, "
+"económica e infraestrutural da região i."
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"

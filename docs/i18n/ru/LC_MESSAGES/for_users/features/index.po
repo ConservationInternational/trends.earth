@@ -31,21 +31,21 @@ msgstr ""
 
 #: ../../source/for_users/features/index.rst:6
 msgid "Land Consumption and SDG 11.3.1"
-msgstr ""
+msgstr "Землепользование и ЦУР 11.3.1"
 
 #: ../../source/for_users/features/index.rst:6
 msgid "Carbon Emissions from Deforestation"
-msgstr ""
+msgstr "Выбросы углерода в результате вырубки лесов"
 
 #: ../../source/for_users/features/index.rst:6
 msgid "Carbon Sequestration from Restoration"
-msgstr ""
+msgstr "Секвестрация углерода в результате восстановления"
 
 #: ../../source/for_users/features/index.rst:6
 #: ../../source/for_users/features/index.rst:3
 #: ../../source/for_users/features/index.rst:6
 msgid "Features"
-msgstr ""
+msgstr "Характеристики"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"

@@ -103,7 +103,7 @@ msgstr ""
 
 #: ../../source/for_users/features/landconsumption.rst:19
 msgid "Rationale for Monitoring"
-msgstr ""
+msgstr "Principes de bases de la surveillance"
 
 #: ../../source/for_users/features/landconsumption.rst:27
 msgid ""
@@ -140,7 +140,7 @@ msgstr ""
 
 #: ../../source/for_users/features/landconsumption.rst:34
 msgid "Indicator and data needs"
-msgstr ""
+msgstr "Besoins d'indicateur et de données"
 
 #: ../../source/for_users/features/landconsumption.rst:36
 msgid ""
@@ -697,7 +697,7 @@ msgstr ""
 
 #: ../../source/for_users/features/landconsumption.rst:202
 msgid "**Citations:**"
-msgstr ""
+msgstr "**Citations :**"
 
 #: ../../source/for_users/features/landconsumption.rst:204
 msgid ""

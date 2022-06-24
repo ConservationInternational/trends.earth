@@ -965,6 +965,8 @@ msgid ""
 ". If you have made no changes to the default matrix, simply click **Execute "
 "locally**."
 msgstr ""
+". إذا لم تجر أي تغييرات على المصفوفة الافتراضية، فما عليك سوى الضغط على "
+"**التنفيذ محلياً**. "
 
 #: ../../source/for_users/training/landdegradation.rst:400
 #: ../../source/for_users/training/landdegradation.rst:463
@@ -972,6 +974,8 @@ msgid ""
 "When you click **Execute locally**, a progress bar will appear showing the "
 "percentage of the task completed."
 msgstr ""
+"عند الضغط على **التنفيذ محلياً**، سيظهر شريط تقدم يوضح النسبة المئوية للمهمة"
+" المكتملة.\n"
 
 #: ../../source/for_users/training/landdegradation.rst:407
 msgid ""
@@ -979,20 +983,25 @@ msgid ""
 "dataset calculated using custom Land Cover data and click on click on **Add "
 "default layers from this dataset to map**."
 msgstr ""
+"ابحث في نافذة **مجموعات البيانات **، عن مجموعة بيانات المؤشر الفرعي **تغيير "
+"الغطاء الأرضي** المحسوبة باستخدام بيانات الغطاء الأرضي المخصصة واضغط على "
+"**إضافة طبقات افتراضية من مجموعة البيانات هذه إلى الخريطة**."
 
 #: ../../source/for_users/training/landdegradation.rst:416
 msgid "Custom Data - SOC"
-msgstr ""
+msgstr "بيانات مخصصة - كربون التربة العضوي (SOC)"
 
 #: ../../source/for_users/training/landdegradation.rst:418
 msgid ""
 "**Objective**: Learn how to load custom soil organic carbon data to compute "
 "the carbon change sub-indicator using Trends.Earth."
 msgstr ""
+"**الهدف**: تعلّم كيفية تحميل بيانات مخصصة لكربون التربة العضوي لحساب المؤشر "
+"الفرعي لتغير الكربون باستخدام Trends.Earth."
 
 #: ../../source/for_users/training/landdegradation.rst:427
 msgid "Loading custom soil organic carbon data"
-msgstr ""
+msgstr "تحميل بيانات مخصصة لكربون التربة العضوي\n"
 
 #: ../../source/for_users/training/landdegradation.rst:429
 msgid ""
@@ -1001,18 +1010,25 @@ msgid ""
 "different units, please make the necessary conversions before using it in "
 "Trends.Earth."
 msgstr ""
+"تفترض هذه الأداة أن وحدات طبقة البيانات النقطية التي سيتم استيرادها **طن "
+"متري من الكربون العضوي لكل هكتار**. إذا كانت الطبقة التي تستخدمها مقاسة "
+"بوحدة مختلفة، فيرجى إجراء التحويلات اللازمة قبل استخدامها في Trends.Earth.\n"
 
 #: ../../source/for_users/training/landdegradation.rst:431
 msgid ""
 "To load a custom Soil Organic Carbon data click on the **Datasets** window, "
 "and then click on **Import dataset**."
 msgstr ""
+"لتحميل بيانات مخصصة لكربون التربة العضوي، يرجى الضغط على النافذة **مجموعات "
+"البيانات**، ثم اضغط على **استيراد مجموعة بيانات**.\n"
 
 #: ../../source/for_users/training/landdegradation.rst:437
 msgid ""
 "Several options will appear. Select **Import custom Soil Organic Carbon** "
 "from the list."
 msgstr ""
+"ستظهر عدة خيارات. اختر **استيراد بيانات مخصصة لكربون التربة العضوي** من "
+"القائمة.\n"
 
 #: ../../source/for_users/training/landdegradation.rst:443
 msgid ""
@@ -1022,6 +1038,11 @@ msgid ""
 "raster format. Click on **Browse** to navigate to the SOC file you wish to "
 "import."
 msgstr ""
+"في نافذة ** تحميل مجموعة بيانات مخصصة لكربون التربة العضوي (SOC)**، استخدم "
+"زر الاختيار لتحديد تنسيق الملف المدخَل (نقطي أو متجهي). فيما يخص هذا "
+"البرنامَج التدريبي، يرجى اختيار \"نقطي\"، نظراً لأن تنسيق البيانات التي "
+"يوزعها UNCCD نقطي. اضغط على **تصفح** للانتقال إلى ملف كربون التربة العضوي "
+"(SOC) الذي تود استيراده.\n"
 
 #: ../../source/for_users/training/landdegradation.rst:449
 msgid ""
@@ -1031,6 +1052,11 @@ msgid ""
 "modifying the resolution of the file. We recommend leaving those as defaults"
 " unless you have valid reasons for changing them."
 msgstr ""
+"في نافذة **تحميل مجموعة بيانات مخصصة لكربون التربة العضوي (SOC)**، تظهر "
+"أمامك أيضاً خيارات لتحديد رقم النطاق المخزًّن فيه بيانات SOC، إذا كان الملف "
+"الذي تود إدخاله بتنسيق خطوط نقطية متعددة النطاقات. ويظهر أمامك أيضاً خيار "
+"تعديل دقة الملف. نوصي بترك هذه الإعدادات الافتراضية كما هي إلا إذا كانت لديك"
+" أسباب وجيهة لتغييرها."
 
 #: ../../source/for_users/training/landdegradation.rst:451
 msgid ""
@@ -1038,6 +1064,9 @@ msgid ""
 "dataset for Uganda was developed for the **year 2000**, define it as such. "
 "Make sure you are assigning the correct year."
 msgstr ""
+"حدد السنة المرجعية للبيانات. في هذه الحالة، نظراً لأن مجموعة بيانات كربون "
+"التربة العضوي (SOC) لأوغندا تم تطويرها لعام **2000**، حدد السنة على هذا "
+"النحو. يُرجى التأكد من تحديد السنة الصحيحة.\n"
 
 #: ../../source/for_users/training/landdegradation.rst:453
 msgid ""
@@ -1057,16 +1086,20 @@ msgid ""
 "Back at the **Load a Custom Soil Organic Carbon (SOC) dataset** click **OK**"
 " for the tool to run."
 msgstr ""
+"بالعودة إلى **تحميل مجموعة بيانات مخصصة لكربون التربة العضوي (SOC)** اضغط "
+"على **موافق** لتشغيل الأداة.\n"
 
 #: ../../source/for_users/training/landdegradation.rst:466
 msgid ""
 "In the **Datasets** window, find the **Imported dataset (Soil Organic "
 "Carbon) and click on click on **Load dataset onto QGIS map area**."
 msgstr ""
+"في نافذة **مجموعات البيانات**، ابحث عن **مجموعة البيانات المستوردة (كربون "
+"التربة العضوي) واضغط على **تحميل مجموعة البيانات على منطقة خريطة QGIS**."
 
 #: ../../source/for_users/training/landdegradation.rst:474
 msgid "Calculating soil organic carbon sub-indicator with custom data"
-msgstr ""
+msgstr "حساب المؤشر الفرعي لكربون التربة العضوي ببيانات مخصصة\n"
 
 #: ../../source/for_users/training/landdegradation.rst:476
 msgid ""
@@ -1075,6 +1108,10 @@ msgid ""
 " ensure the custom soil organic carbon data is loaded within QGIS "
 "(see:ref:`load_custom_soc`)."
 msgstr ""
+"بمجرد استيراد مجموعة بيانات مخصصة لكربون التربة العضوي، يمكنك حساب تدهور "
+"كربون التربة العضوي من تلك البيانات. للقيام بذلك، تأكد أولاً من تحميل "
+"البيانات المخصصة لكربون التربة العضوي داخل QGIS (اطلع "
+"على:ref:`load_custom_soc`).\n"
 
 #: ../../source/for_users/training/landdegradation.rst:484
 msgid ""
@@ -1082,6 +1119,9 @@ msgid ""
 "**SDG 15.3.1- Land Degradation** and select **Execute locally** under **Soil"
 " Organic Carbon**."
 msgstr ""
+"ستفتح لوحة **Trends.Earth**. في نافذة **الخوارزمية**، اضغط على ** هدف "
+"التنمية المستدامة (SDG) رقم 15.3.1 - تدهور الأرض** واختر **التنفيذ محلياً** "
+"المضمّن تحت **كربون التربة العضوي**.\n"
 
 #: ../../source/for_users/training/landdegradation.rst:492
 msgid ""
@@ -1094,6 +1134,13 @@ msgid ""
 "datasets. Enter a **Execution name** and make sure to type in some notes for"
 " future reference."
 msgstr ""
+"ستفتح نافذة **كربون التربة العضوي | تدهور الأرض**. اضغط على القوائم المنسدلة"
+" واختر **طبقة السنة الأولية** و **طبقة السنة المستهدفة** لتحميل مجموعة "
+"بيانات الغطاء الأرضي التي عالجتها في Trends.Earth التي تمثل السنوات الأولية "
+"والمستهدفة من السلسلة الزمنية التي سيُحسب لها المؤشر الفرعي لكربون التربة "
+"العضوي(SOC). يُرجى الرجوع إلى البرنامج التدريبي:ref:`tut_custom_lc للاطلاع "
+"على المزيد من المعلومات حول تحميل مجموعات بيانات الغطاء الأرضي. أدخل **اسم "
+"التنفيذ** وتأكد من كتابة بعض الملاحظات للرجوع إليها مستقبلاً.\n"
 
 #: ../../source/for_users/training/landdegradation.rst:499
 msgid ""
@@ -1103,6 +1150,10 @@ msgid ""
 "Climatic Regions listed under the drop-down menu, or either enter a **Custom"
 " value** in case you have valid reasons for changing them."
 msgstr ""
+"تحت **الضبط المتقدم**، يظهر لك خيارات لتعيين **نظام المناخ** الذي يناسب "
+"المنطقة التي تعنيك. يمكنك ترك هذا الخيار كخيار افتراضي، أو **تحديد النظام **"
+" عن طريق تحديد إحدى المناطق المناخية العالمية المدرجة ضمن القائمة المنسدلة، "
+"أو إدخال **قيمة مخصصة** في حالة وجود أسباب وجيهة لتغييرها."
 
 #: ../../source/for_users/training/landdegradation.rst:505
 msgid ""
@@ -1110,12 +1161,17 @@ msgid ""
 "organic carbon dataset** box and select the custom dataset representing SOC "
 "you just imported as **Initial year layer**"
 msgstr ""
+"ما زالنا تحت **التكوين المتقدم**، ضع علامة في مربع **مجموعة بيانات أولية "
+"مخصصة لكربون التربة العضوي** وحدد مجموعة البيانات المخصصة التي تمثل كربون "
+"التربة العضوي (SOC) التي استوردتها للتو باعتبارها **طبقة السنة الأولية**\n"
 
 #: ../../source/for_users/training/landdegradation.rst:510
 msgid ""
 "Click **Execute locally**. A progress bar will appear on your screen. Do not"
 " quit QGIS or turn off your computer until the calculation is complete."
 msgstr ""
+"اضغط على **التنفيذ محلياً**. سيظهر شريط تقدم على شاشتك. لا تخرج من QGIS أو "
+"توقف تشغيل الكمبيوتر حتى يكتمل الحساب.\n"
 
 #: ../../source/for_users/training/landdegradation.rst:516
 msgid ""
@@ -1123,11 +1179,15 @@ msgid ""
 " click on click on **Add default layers from this dataset to map** under "
 "**Load dataset onto QGIS map area**."
 msgstr ""
+"في نافذة **مجموعات البيانات**، ابحث عن مهمة ** تغيير كربون التربة العضوي** "
+"واضغط على **إضافة طبقات افتراضية من مجموعة البيانات إلى الخريطة** تحت "
+"**تحميل مجموعة البيانات على منطقة خريطة QGIS**.\n"
 
 #: ../../source/for_users/training/landdegradation.rst:521
 msgid ""
 "For example, we can see areas of degradation in soil carbon around Kampala:"
 msgstr ""
+"على سبيل المثال، يمكننا رؤية مناطق التدهور في كربون التربة حول كمبالا:\n"
 
 #: ../../source/for_users/training/landdegradation.rst:527
 msgid ""
@@ -1135,14 +1195,20 @@ msgid ""
 "the imported soil organic carbon data to compute the final SDG 15.3.1 after "
 "integration with land cover and land productivity."
 msgstr ""
+"يرجى الرجوع إلى البرنامج التدريبي: ref:`indicator-soc` للاطلاع على إرشادات "
+"حول كيفية استخدام البيانات المستوردة لكربون التربة العضوي لحساب الهدف "
+"النهائي للتنمية المستدامة (SDG) رقم 15.3.1 بعد التكامل مع الغطاء الأرضي "
+"وإنتاجية الأرض."
 
 #: ../../source/for_users/training/landdegradation.rst:533
 msgid "Strategic Objective 3"
-msgstr ""
+msgstr "الهدف الاستراتيجي 3\n"
 
 #: ../../source/for_users/training/landdegradation.rst:536
 msgid "Default data for UNCCD SO 3"
 msgstr ""
+"البيانات الافتراضية للهدف الاستراتيجي رقم 3 لاتفاقية الأمم المتحدة لمكافحة "
+"التصحر الهدف الاستراتيجي (UNCCD)\n"
 
 #: ../../source/for_users/training/landdegradation.rst:538
 msgid ""
@@ -1153,17 +1219,25 @@ msgid ""
 "the European Commission's Joint Research Centre - JRC. In this tutorial we "
 "will use Colombia as an example, but you can choose any study area."
 msgstr ""
+"**الهدف**: تعلّم كيفية حساب مؤشرات الهدف الاستراتيجي رقم 3 لخطر الجفاف "
+"والتعرض له وقابلية التأثر به باستخدام Trends.Earth والبيانات الافتراضية "
+"التالية: مجموعة بيانات هطول الأمطار الشهرية التي يوفرها المركز العالمي لمناخ"
+" الهطول - GPC، عدد السكان الشبكي الذي يوفره WorldPop وقابلية التأثر بالجفاف "
+"التي يوفرها مركز البحوث المشتركة للمفوضية الأوروبية - JRC. في هذا البرنامج "
+"التدريبي سنستخدم كولومبيا مثالاً، ولكن يمكنك اختيار أي منطقة للدراسة.\n"
 
 #: ../../source/for_users/training/landdegradation.rst:540
 #: ../../source/for_users/training/landdegradation.rst:588
 msgid "**Estimated time of completion**: 15 minutes"
-msgstr ""
+msgstr "**الوقت المقدر للانتهاء**: 15 دقيقة\n"
 
 #: ../../source/for_users/training/landdegradation.rst:544
 msgid ""
 "In the **Algorithm** window, click on **Drought - Vulnerability and "
 "exposure** and select **Execute remotely** under **Drought vulnerability**."
 msgstr ""
+"في نافذة **الخوارزمية**، اضغط على **الجفاف - قابلية التأثر به والتعرض له** "
+"واختر **التنفيذ عن بُعد** الموجود تحت **قابلية التأثر بالجفاف**.\n"
 
 #: ../../source/for_users/training/landdegradation.rst:554
 msgid ""
@@ -1179,12 +1253,24 @@ msgid ""
 "50 North. Type in an **Execution name** and make sure to leave some notes "
 "about this step for future reference."
 msgstr ""
+"حدد العام **الأولي** و**النهائي** و **التأخير (بالشهور)** التي ستُتطبق على "
+"مجموعة بيانات هطول الأمطار لحساب مخاطر الجفاف والتعرض له. ضع علامة في مربع "
+"**تضمين مؤشر JRC لقابلية التأثر بالجفاف** لحساب قابلية التأثر بالجفاف "
+"للمنطقة التي تعنيك. مجموعة بيانات الهطول الافتراضية هي المركز العالمي لعلم "
+"المناخ (GPCC) v2020 بدقة مكانية تبلغ حوالي 27 كيلومتراً مربعاً. قريباً "
+"سيُتاح للمستخدمين خيار تحديد مجموعة بيانات CHIRPS التي توفرها مجموعة Climate"
+" Hazard Group - على الرغم من أنها تتميز بدقة مكانية أعلى، تبلغ حوالي 5 "
+"كيلومترات مربعة، إلا أنها لا تقدم تغطية عالمية كاملة، حيث أنها تمتد من 50 "
+"جنوباً إلى 50 شمالاً. اكتب **اسم التنفيذ** وتأكد من كتابة بعض الملاحظات حول "
+"هذه الخطوة للرجوع إليها مستقبلاً.\n"
 
 #: ../../source/for_users/training/landdegradation.rst:562
 msgid ""
 "Refer to the :ref:`background_unccdreporting` section of this manual to "
 "learn about drought Hazard, Exposure and Vulnerability."
 msgstr ""
+"يرجى الرجوع إلى قسم: :ref:`background_unccdreporting` في هذا الدليل للتعرف "
+"على مخاطر الجفاف"
 
 #: ../../source/for_users/training/landdegradation.rst:564
 #: ../../source/for_users/training/landdegradation.rst:617
@@ -1193,14 +1279,14 @@ msgid ""
 "submitted will appear in the menu if the **Download remotely-generated "
 "datasets automatically** is checked in settings."
 msgstr ""
-"في لوحة **Trends.Earth**، حدد علامة التبويب **مجموعات البيانات**. ستظهر "
-"المهمة المرسلة في القائمة إذا تم تحديد **تنزيل مجموعات البيانات المُنشأة عن "
-"بُعد تلقائياً** في الإعدادات."
+"في لوحة **Trends.Earth**، اختر علامة التبويب **مجموعات البيانات**. ستظهر "
+"المهمة المقدمة في القائمة إذا كان خيار **تنزيل مجموعات البيانات المُنشأة عن "
+"بُعد تلقائياً** محدداً في الإعدادات.\n"
 
 #: ../../source/for_users/training/landdegradation.rst:569
 msgid ""
 ". Select the Refresh button if the analysis does not appear in the menu."
-msgstr ""
+msgstr ". اختر الزر \"تحديث\" إذا لم يظهر التحليل في القائمة.\n"
 
 #: ../../source/for_users/training/landdegradation.rst:571
 #: ../../source/for_users/training/landdegradation.rst:625
@@ -1208,8 +1294,8 @@ msgid ""
 "Select the add layer drop-down button to **Add default layers from this "
 "layer to the map**"
 msgstr ""
-"حدد زر القائمة المنسدلة لإضافة طبقة لكي تقوم بـ **إضافة طبقات افتراضية من "
-"هذه الطبقة إلى الخريطة**"
+"حدد زر \"إضافة طبقة\" من القائمة المنسدلة لكي **تضيف طبقات افتراضية من هذه "
+"الطبقة إلى الخريطة**\n"
 
 #: ../../source/for_users/training/landdegradation.rst:576
 msgid ""
@@ -1217,16 +1303,23 @@ msgid ""
 "Drought Vulnerability Index for 2018, and population disaggregated by "
 "gender, will be added to the map for the region of interest."
 msgstr ""
+"البيانات الافتراضية: سيُضاف مؤشر الهطول المعياري لجميع الفترات، ومؤشر JRC "
+"لقابلية التأثر بالجفاف لعام 2018، والسكان مقسمون حسب الجنس، إلى الخريطة "
+"الخاصة بالمنطقة التي تعنيك.\n"
 
 #: ../../source/for_users/training/landdegradation.rst:584
 msgid "Summarizing SO 3 indicators for reporting to UNCCD"
 msgstr ""
+"تلخيص مؤشرات الهدف الاستراتيجي رقم 3 لتقديم التقارير إلى اتفاقية الأمم "
+"المتحدة لمكافحة التصحر (UNCCD)"
 
 #: ../../source/for_users/training/landdegradation.rst:586
 msgid ""
 "**Objective**: Learn to integrate the drought indicators in alingment with "
 "UNCCD SO3 reporting requirements."
 msgstr ""
+"**الهدف**: تعلم كيفية دمج مؤشرات الجفاف بما يتماشى مع متطلبات تقديم التقارير"
+" الخاصة بالهدف الاستراتيجي رقم 3 لاتفاقية الأمم المتحدة لمكافحة التصحر.\n"
 
 #: ../../source/for_users/training/landdegradation.rst:593
 msgid ""
@@ -1234,12 +1327,17 @@ msgid ""
 "hazard, exposure and vulnerability. If you have not, please refer to the "
 "previous step on this tutorial."
 msgstr ""
+"يجب أن يتوافر لديك حساب مؤشرات خطر الجفاف والتعرض له وقابلية التأثر به الذي "
+"قمت به مسبقاً. أمل إذا لم يكن في حوزتك، فيُرجى الرجوع إلى الخطوة السابقة في "
+"هذا البرنامج التدريبي.\n"
 
 #: ../../source/for_users/training/landdegradation.rst:595
 msgid ""
 "Click on the Trends.Earth toolbar within QGIS, and click on the Trends.Earth"
 " icon."
 msgstr ""
+"اضغط على شريط أدوات Trends.Earth داخل QGIS، واضغط على على أيقونة "
+"Trends.Earth.\n"
 
 #: ../../source/for_users/training/landdegradation.rst:597
 msgid ""
@@ -1247,11 +1345,14 @@ msgid ""
 "click on **Drought - Vulnerability and exposure** and select **Execute "
 "locally** under **Drought vulnerability summary table**."
 msgstr ""
+"ستفتح لوحة **Trends.Earth**. في نافذة **الخوارزمية**، اضغط على **الجفاف - "
+"قابلية التأثر به والتعرض له** واختر **التنفيذ محلياً** الموجود تحت **جدول "
+"ملخص قابلية التأثر بالجفاف**.\n"
 
 #: ../../source/for_users/training/landdegradation.rst:607
 msgid ""
 "Select the **Drought dataset (hazard and exposure)** from the drop-down list"
-msgstr ""
+msgstr "اختر **مجموعة بيانات الجفاف (خطره والتعرض له) ** من القائمة المنسدلة\n"
 
 #: ../../source/for_users/training/landdegradation.rst:609
 msgid ""
@@ -1260,109 +1361,113 @@ msgid ""
 "drought indicator datasets loaded to the QGIS map canvas, Trends.Earth will "
 "automatically select them"
 msgstr ""
+"تأكد من وضع علامة في المربع **مجموعة بيانات قابلية التأثر بالجفاف** بحيث "
+"تُضمّن مجموعة البيانات هذه أيضاً في حساب الملخص. إذا كان لديك مجموعات بيانات"
+" مؤشر الجفاف محمّلة على لوحة خريطة QGIS، فسيختارها Trends.Earth تلقائياً\n"
 
 #: ../../source/for_users/training/landdegradation.rst:623
 msgid "Select the Refresh button if the analysis does not appear in the menu."
-msgstr "حدد الزر \"تحديث\" إذا لم يظهر التحليل في القائمة."
+msgstr "اضغط على زر \"تحديث\" إذا لم يظهر التحليل في القائمة.\n"
 
 #: ../../source/for_users/training/landdegradation.rst:630
 msgid ""
 "The data for SO 3 Indicators will be added to the map for the region of "
 "interest."
 msgstr ""
+"ستضاف بيانات مؤشرات الهدف الاستراتيجي رقم 3 إلى خريطة المنطقة التي تعنيك.\n"
 
 #: ../../source/for_users/training/landdegradation.rst:634
 msgid "Exploring NDVI (Plot Data)"
-msgstr ""
+msgstr "استكشاف NDVI (رسم بياني)\n"
 
 #: ../../source/for_users/training/landdegradation.rst:636
 msgid "**Coming soon**"
-msgstr "**قريباً**"
+msgstr "**قريباً**\n"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr "أيقونة حاسبة"
+msgstr "iconCalculator"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr "أيقونة المخطط"
+msgstr "iconChart"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr "أيقونة الحافظة"
+msgstr "iconClipboard"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr "أيقونة التحميل السحابي"
+msgstr "iconCloudDownload"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr "أيقونة Cog"
+msgstr "iconCog"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr "أيقونة حذف مجموعة البيانات"
+msgstr "iconDeletedataset"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
-msgstr "أيقونة الكرة الأرضية"
+msgstr "iconGlobe"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr "أيقونة الرسم البياني"
+msgstr "iconGraph"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr "أيقونة المعلومات"
+msgstr "iconInfo"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr "أيقونة تحميل مجموعة البيانات"
+msgstr "iconLoaddataset"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr "أيقونة التحديد"
+msgstr "iconMarkMarker"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr "أيقونة فتح دليل مجموعة البيانات"
+msgstr "iconOpendatasetdirectory"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr "أيقونة عرض تفاصيل مجموعة البيانات"
+msgstr "iconViewdatasetdetails"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr "أيقونة مفتاح الربط"
+msgstr "iconWrench"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr "أيقونة المجلد"
+msgstr "iconFolder"
 
 #: ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr "أيقونة التقارير"
+msgstr "iconReports"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr "أيقونة TrendsEarth"
+msgstr "iconTrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr "أيقونة التصور"
+msgstr "iconVisualization"
 
 #: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr "شعار CI"
+msgstr "logoCI"
 
 #: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr "شعار Lund"
+msgstr "logoLund"
 
 #: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr "شعار ناسا"
+msgstr "logoNASA"
 
 #: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr "شعار GEF"
+msgstr "logoGEF"

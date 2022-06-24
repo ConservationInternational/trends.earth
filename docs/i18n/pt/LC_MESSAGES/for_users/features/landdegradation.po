@@ -25,7 +25,7 @@ msgstr ""
 
 #: ../../source/for_users/features/landdegradation.rst:4
 msgid "Land degradation and SDG 15.3.1"
-msgstr ""
+msgstr "Degradação da terra e ODS 15.3.1"
 
 #: ../../source/for_users/features/landdegradation.rst:6
 msgid ""
@@ -86,6 +86,11 @@ msgid ""
 "links/2021-03/Indicator_15.3.1_GPG_v2_29Mar_Advanced-version.pdf>`_. "
 "providing recommendations on how to calculate SDG Indicator 15.3.1."
 msgstr ""
+"Como entidade de custódia do ODS 15.3, a Convenção das Nações Unidas para o "
+"Combate à Desertificação (UNCCD) desenvolveu uma `Diretriz de Boas Práticas "
+"(GPG) <https://www.unccd.int/sites/default/files/relevant-"
+"links/2021-03/Indicator_15.3.1_GPG_v2_29Mar_Advanced-version.pdf>`_. com "
+"recomendações de como calcular o indicador ODS 15.3.1."
 
 #: ../../source/for_users/features/landdegradation.rst:31
 msgid ""
@@ -133,6 +138,11 @@ msgid ""
 " a final SDG 15.3.1 indicator map and produces a table result reporting "
 "areas potentially improved and degraded for the area of analysis."
 msgstr ""
+"O |trends.earth| permite ao utilizador calcular cada um destes sub-"
+"indicadores de uma forma espacialmente explícita ao gerar mapas raster que "
+"são depois integrados num mapa indicador final de ODS 15.3.1 e produz um "
+"resultado em tabela que reporta as zonas potencialmente melhoradas e "
+"degradadas da área de análise."
 
 #: ../../source/for_users/features/landdegradation.rst:50
 msgid "Sub-indicators"
@@ -490,6 +500,12 @@ msgid ""
 "outliers). The value representing the 90th percentile will be considered the"
 " maximum productivity for that unit."
 msgstr ""
+"Para cada unidade, extraia todos os valores NDVI médios calculados no passo "
+"1 e crie uma frequência de distribuição. A partir desta distribuição, "
+"determine o valor que representa o percentil 90 (não recomendamos que use o "
+"valor máximo absoluto de NDVI para evitar possíveis erros devido à presença "
+"de outliers). O valor que representa o percentil 90 será considerado a "
+"produtividade máxima dessa unidade."
 
 #: ../../source/for_users/features/landdegradation.rst:233
 msgid ""

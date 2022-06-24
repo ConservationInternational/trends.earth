@@ -867,7 +867,7 @@ msgstr "描述"
 #: ../../source/for_developers/development.rst:580
 #: ../../source/for_developers/development.rst:622
 msgid "Data Type"
-msgstr ""
+msgstr "数据类型"
 
 #: ../../source/for_developers/development.rst:580
 #: ../../source/for_developers/development.rst:622
@@ -890,7 +890,7 @@ msgstr ""
 #: ../../source/for_developers/development.rst:587
 #: ../../source/for_developers/development.rst:624
 msgid "String"
-msgstr ""
+msgstr "字符串"
 
 #: ../../source/for_developers/development.rst:582
 #: ../../source/for_developers/development.rst:587

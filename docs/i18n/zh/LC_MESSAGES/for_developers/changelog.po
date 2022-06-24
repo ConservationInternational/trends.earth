@@ -23,11 +23,11 @@ msgstr ""
 
 #: ../../source/for_developers/changelog.rst:2
 msgid "Changelog"
-msgstr ""
+msgstr "修改日志"
 
 #: ../../source/for_developers/changelog.rst:4
 msgid "This page lists the version history of |trends.earth|."
-msgstr ""
+msgstr "本页列出了|trends.earth|的历史版本。"
 
 #: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
 msgid "Trends.Earth"
@@ -38,106 +38,117 @@ msgid ""
 "`1.0.6 (July 15, 2021) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.6>`_"
 msgstr ""
+"`1.0.6 (2021年7月15日) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.6>`_"
 
 #: ../../source/for_developers/changelog.rst:9
 msgid ""
 "Remove trends.earth-schemas as a submodule and install through setup.py "
 "(much cleaner for version tracking, development, etc.)"
-msgstr ""
+msgstr "删除trends.earth-schemas这个子模块，通过setup.py进行安装（对版本跟踪和开发等来说更干净）。"
 
 #: ../../source/for_developers/changelog.rst:11
 msgid ""
 "Fix bug in loading 2020 NDVI data in GEE code (asset name wasn't set right "
 "so 2020 wasn't loading)"
-msgstr ""
+msgstr "修正在GEE代码中加载2020年NDVI数据的错误（资产名称设置不对，所以2020年没有加载）。"
 
 #: ../../source/for_developers/changelog.rst:13
 msgid "Various invoke tasks added to help with plugin development/release."
-msgstr ""
+msgstr "增加了各种调用任务以帮助插件的开发/发布。"
 
 #: ../../source/for_developers/changelog.rst:16
 msgid ""
 "`1.0.4 (June 30, 2021) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.4>`_"
 msgstr ""
+"`1.0.4 (2021年6月30日) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.4>`_"
 
 #: ../../source/for_developers/changelog.rst:18
 msgid ""
 "Add WorldPop and Gridded Population of the World version 4 (GPWv4) to the "
 "datasets available through Trends.Earth"
 msgstr ""
+"在Trends.Earth提供的数据集中增加WorldPop和Gridded Population of World 版本 4 (GPWv4)。"
 
 #: ../../source/for_developers/changelog.rst:20
 msgid "Update to allow access to ESA-CCI land cover through 2020"
-msgstr ""
+msgstr "更新以允许访问欧洲航空局气候变化倡议（ESA-CCI）土地覆被，直到2020年。"
 
 #: ../../source/for_developers/changelog.rst:21
 msgid "Update GPCC and GPCP datasets"
-msgstr ""
+msgstr "更新全球降水气候中心（GPCC）和全球降水气候学项目（GPCP）数据集。"
 
 #: ../../source/for_developers/changelog.rst:22
 msgid "Fix bug when non-integer buffers are used"
-msgstr ""
+msgstr "修复使用非整数缓冲区时的错误。"
 
 #: ../../source/for_developers/changelog.rst:23
 msgid "Minor documentation typo fixes"
-msgstr ""
+msgstr "细微的文档错别字修正。"
 
 #: ../../source/for_developers/changelog.rst:26
 msgid ""
 "`1.0.2 (August 14, 2020) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.2>`_"
 msgstr ""
+"`1.0.2 (2022年8月14日) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.2>`_"
 
 #: ../../source/for_developers/changelog.rst:28
 msgid ""
 "Fix urban area code to allow processing of AOIs with areas between 10,000 sq"
 " km and 25,000 sq km."
-msgstr ""
+msgstr "固定城市区域代码，以允许处理面积在10,000平方公里和25,000平方公里之间的兴趣面（AOI）。"
 
 #: ../../source/for_developers/changelog.rst:30
 msgid "Add latest MERRA2 data (through 2019)."
-msgstr ""
+msgstr "添加最新的MERRA2数据（到2019年）。"
 
 #: ../../source/for_developers/changelog.rst:31
 msgid "Remove maximum area limitation from download tool."
-msgstr ""
+msgstr "移除下载工具的最大面积限制。"
 
 #: ../../source/for_developers/changelog.rst:32
 msgid "Bump httplib2 to 0.18.0."
-msgstr ""
+msgstr "将httplib2提升到0.18.0。"
 
 #: ../../source/for_developers/changelog.rst:33
 msgid "Update from GPCC V6 to GPCC V7"
-msgstr ""
+msgstr "从GPCC V6到GPCC V7的更新。"
 
 #: ../../source/for_developers/changelog.rst:34
 msgid "Add 2019 Hansen et al. deforestation data"
-msgstr ""
+msgstr "添加2019年汉森（Hansen）等人的森林砍伐数据。"
 
 #: ../../source/for_developers/changelog.rst:35
 msgid ""
 "Update to latest colormap for degradation data (addressing issues with "
 "reg/green colorblindness)."
-msgstr ""
+msgstr "更新到最新的退化数据的颜色图（解决注册/绿色盲的问题）。"
 
 #: ../../source/for_developers/changelog.rst:37
 msgid ""
 "Add support for more datatypes in input shapefiles (add PointZ, MultiPoint, "
 "MultiPointZ, PolygonZ, MultiPolygonZ)."
 msgstr ""
+"在输入形状文件中增加对更多数据类型的支持（增加PointZ, MultiPoint, MultiPointZ, PolygonZ, "
+"MultiPolygonZ）。"
 
 #: ../../source/for_developers/changelog.rst:39
 msgid ""
 "Misc bugfixes to address Python errors that were coming up with some "
 "QMessageBox messages."
-msgstr ""
+msgstr "修复了一些Python错误，这些错误在一些QMessageBox信息中出现。"
 
 #: ../../source/for_developers/changelog.rst:43
 msgid ""
 "`1.0.0 (April 27, 2020) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.0>`_"
 msgstr ""
+"`1.0.0 (2020年4月27日) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.0>`_"
 
 #: ../../source/for_developers/changelog.rst:45
 msgid ""
@@ -146,6 +157,7 @@ msgid ""
 "the SDG15.3.1 summary table calculation, but eventually this will be "
 "expanded to other tools as well."
 msgstr ""
+"增加下载和使用预编译的二进制文件（用Numba编译）的能力，以加快部分本地计算的速度。现在这只适用于SDG15.3.1的汇总表计算，但最终也会扩展到其他工具。"
 
 #: ../../source/for_developers/changelog.rst:49
 msgid ""
@@ -155,327 +167,351 @@ msgid ""
 "running. These log messages can be useful when trying to trouble-shoot "
 "problems if you encounter any."
 msgstr ""
+"与此相关，在设置窗口中现在有一个 \"高级 "
+"\"设置按钮，它将允许用户下载预编译的二进制文件，并打开或关闭工具运行时的详细日志信息。如果您遇到任何问题，这些日志信息在试图排除故障时可能很有用。"
 
 #: ../../source/for_developers/changelog.rst:54
 msgid ""
 "Improve checks for geometry validity for geometries in input files, and give"
 " an error message rather than throwing an exception when there are geometry "
 "errors."
-msgstr ""
+msgstr "改进对输入文件中几何体有效性的检查，当出现几何体错误时，给出错误信息，而非抛出一个异常。"
 
 #: ../../source/for_developers/changelog.rst:57
 msgid ""
 "Fix processing using new MODIS data (assets were not properly updated in the"
 " last release)"
-msgstr ""
+msgstr "修复使用新的MODIS数据的处理过程（资产在上一版中没有正确更新）。"
 
 #: ../../source/for_developers/changelog.rst:59
 msgid "Fix color-coding of land covers in land cover class aggregation window"
-msgstr ""
+msgstr "修正土地覆被等级汇总窗口中土地覆被的颜色编码问题。"
 
 #: ../../source/for_developers/changelog.rst:60
 msgid "Add more detailed version information to about dialog."
-msgstr ""
+msgstr "在关于对话框中添加更详细的版本信息。"
 
 #: ../../source/for_developers/changelog.rst:61
 msgid "Add additional detail to data download tool."
-msgstr ""
+msgstr "为数据下载工具增加额外的细节。"
 
 #: ../../source/for_developers/changelog.rst:62
 msgid "Add job ID to downloads window to facilitate bug reporting."
-msgstr ""
+msgstr "在下载窗口添加工作ID，以方便报告错误。"
 
 #: ../../source/for_developers/changelog.rst:63
 msgid "Minor bug fixes (sorting of jobs and downloads tables)."
-msgstr ""
+msgstr "细微错误修复（工作和下载表的排序）。"
 
 #: ../../source/for_developers/changelog.rst:66
 msgid ""
 "`0.98 (April 2, 2020) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.98>`_"
 msgstr ""
+"`0.98 ( 2020年4月2日) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.98>`_"
 
 #: ../../source/for_developers/changelog.rst:68
 msgid "First QGIS3 release - many fixes to upgrade to Qt5 and QGIS3 API."
-msgstr ""
+msgstr "第一个QGIS3版本--为升级到Qt5和QGIS3 应用程序接口（API）做了许多修正。"
 
 #: ../../source/for_developers/changelog.rst:69
 msgid ""
 "Upgrade all dependencies of plugin to latest versions as of January 2020."
-msgstr ""
+msgstr "从2020年1月起，将插件的所有依赖项升级到最新版本。"
 
 #: ../../source/for_developers/changelog.rst:70
 msgid ""
 "Fix data download tool to have default 1styles for all available datasets."
-msgstr ""
+msgstr "修正数据下载工具，使其对所有可用的数据集具有默认的样式1（1styles）。"
 
 #: ../../source/for_developers/changelog.rst:72
 msgid ""
 "Begin moving to QgsProcessing and QgsTask frameworks - currently only the "
 "carbon tool is migrated, but all tools will be migrated prior to version "
 "1.0./"
-msgstr ""
+msgstr "开始向QgsProcessing和QgsTask框架迁移--目前只有碳工具被迁移，但所有工具都将在1.0./版本之前被迁移。"
 
 #: ../../source/for_developers/changelog.rst:74
 msgid ""
 "Cleanup formatting of carbon tool output spreadsheet to make meaning of each"
 " column clearer."
-msgstr ""
+msgstr "清理碳工具输出电子表格的格式，让每一栏的含义更加清晰。"
 
 #: ../../source/for_developers/changelog.rst:76
 msgid "Update all GEE scripts to use latest version of GEE API (0.1.213)."
-msgstr ""
+msgstr "更新所有谷歌地球引擎（GEE）脚本以使用最新版本的GEE API（0.1.213）。"
 
 #: ../../source/for_developers/changelog.rst:77
 msgid "Save more settings chosen in tool dialog boxes across QGIS sessions."
-msgstr ""
+msgstr "在QGIS会话中保存更多在工具对话框中选择的设置。"
 
 #: ../../source/for_developers/changelog.rst:78
 msgid ""
 "Clean up buffering code, to use Lambert Equal Area projections centered on "
 "polygon centroids for buffering."
-msgstr ""
+msgstr "清理缓冲代码，使用以多边形中心点为中心的兰伯特等面积投影进行缓冲。"
 
 #: ../../source/for_developers/changelog.rst:80
 msgid ""
 "Move documentation into docs folder at root of trends.earth repository."
-msgstr ""
+msgstr "将文档移至trends.earth软件仓库根部的docs文件夹。"
 
 #: ../../source/for_developers/changelog.rst:81
 msgid ""
 "Add more details on how to documentation on how to contribute to development"
 " of Trends.Earth,"
-msgstr ""
+msgstr "增加更多关于如何为Trends.Earth的开发做贡献的细节文件。"
 
 #: ../../source/for_developers/changelog.rst:83
 msgid ""
 "Clean up repository by removing compiled translations files, and adding "
 "these file types to .gitignore."
-msgstr ""
+msgstr "通过删除编译的翻译文件来清理软件仓库，并将这些文件类型添加到.gitignore。"
 
 #: ../../source/for_developers/changelog.rst:85
 msgid "Change transifex project name to be \"trendsearth\"."
-msgstr ""
+msgstr "将transifex项目名称改为 \"trendsearth\"。"
 
 #: ../../source/for_developers/changelog.rst:86
 msgid "Various compatibility and minor bug fixes."
-msgstr ""
+msgstr "各种兼容性和小错误的修复。"
 
 #: ../../source/for_developers/changelog.rst:89
 msgid ""
 "`0.66 (July 20, 2019) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.66>`_"
 msgstr ""
+"`0.66 (2019年7月20日) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.66>`_"
 
 #: ../../source/for_developers/changelog.rst:91
 msgid ""
 "Limit maximum area for tasks to 10,000,000 sq km, except for urban area "
 "tasks, which is limited to 10,000 sq km."
-msgstr ""
+msgstr "将任务的最大面积限制在10,000,000平方公里，但城市地区的任务则限制在10,000平方公里。"
 
 #: ../../source/for_developers/changelog.rst:93
 msgid "Add background section on SDG 11.3.1, and update SDG 11.3.1 tutorial."
-msgstr ""
+msgstr "增加SDG 11.3.1的背景部分，并更新SDG 11.3.1教程。"
 
 #: ../../source/for_developers/changelog.rst:94
 msgid ""
 "Update SDG 11.3.1 code to include 1998 in the series (internally during "
 "calculation) in order to filter noise from the beginning of the urban "
 "series."
-msgstr ""
+msgstr "更新SDG11.3.1代码，将1998年纳入系列中（在计算过程中内部），以过滤城市系列开始时的噪音。"
 
 #: ../../source/for_developers/changelog.rst:96
 msgid ""
 "Fix date restrictions in SDG 15.3.1 all-in-one tool to account for both ESA "
 "and MODIS availability."
-msgstr ""
+msgstr "修正SDG 15.3.1一体化工具中的日期限制，以考虑到ESA和MODIS的可用性。"
 
 #: ../../source/for_developers/changelog.rst:98
 msgid "Add section to readme on how to install Github releases."
-msgstr ""
+msgstr "在readme中增加关于如何安装Github版本的章节。"
 
 #: ../../source/for_developers/changelog.rst:99
 msgid ""
 "Update and review Spanish translations, update google translations for other"
 " languages."
-msgstr ""
+msgstr "更新和审查西班牙语的翻译，更新谷歌对其他语言的翻译。"
 
 #: ../../source/for_developers/changelog.rst:103
 msgid ""
 "`0.64 (July 9, 2019) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.64>`_"
 msgstr ""
+"`0.64 (2019年7月9日) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.64>`_"
 
 #: ../../source/for_developers/changelog.rst:105
 msgid "Fix handling of nodata in total carbon tool."
-msgstr ""
+msgstr "修复碳总量工具中的节点数据处理。"
 
 #: ../../source/for_developers/changelog.rst:106
 msgid "Add support for 2018 Hansen data in total carbon tool."
-msgstr ""
+msgstr "在碳总量工具中增加对2018年汉森（Hansen）数据的支持。"
 
 #: ../../source/for_developers/changelog.rst:107
 msgid ""
 "Add support for global 30m biomass data from Wood's Hole in total carbon"
-msgstr ""
+msgstr "在碳总量中增加对Wood's Hole的全球30米生物量数据的支持。"
 
 #: ../../source/for_developers/changelog.rst:108
 msgid ""
 "Set maximum final year for one step SDG 15.3.1 tool to be 2015 (matching the"
 " ESA data)."
-msgstr ""
+msgstr "将一步到位的SDG 15.3.1工具的最大最终年份设定为2015年（与ESA数据相匹配）。"
 
 #: ../../source/for_developers/changelog.rst:110
 msgid ""
 "Make Trends.Earth productivity the default dataset in SDG one step tool for "
 "15.3.1."
-msgstr ""
+msgstr "让Trends.Earth生产力成为SDG一步工具中15.3.1的默认数据集。"
 
 #: ../../source/for_developers/changelog.rst:114
 msgid ""
 "`0.62 (January 27, 2019) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.62>`_"
 msgstr ""
+"`0.62 (2019年1月27日) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.62>`_"
 
 #: ../../source/for_developers/changelog.rst:116
 msgid ""
 "Add experimental tool for mapping potential carbon returns from alternative "
 "restoration interventions."
-msgstr ""
+msgstr "增加实验工具，用于绘制替代性恢复干预措施的潜在碳回报图。"
 
 #: ../../source/for_developers/changelog.rst:118
 msgid "Add 2018 MODIS data."
-msgstr ""
+msgstr "添加2018年MODIS数据。"
 
 #: ../../source/for_developers/changelog.rst:119
 msgid "Miscellaneous fixes to window sizing for GUI windows."
-msgstr ""
+msgstr "对图形用户界面（GUI）窗口的大小进行了杂项修正。"
 
 #: ../../source/for_developers/changelog.rst:120
 msgid ""
 "Upgrade to latest openpyxl - fixes loading of Trends.Earth logo in summary "
 "tables."
-msgstr ""
+msgstr "升级到最新的openpyxl - 修复了汇总表中Trends.Earth标识的加载问题。"
 
 #: ../../source/for_developers/changelog.rst:122
 msgid "Add publication list to help docs."
-msgstr ""
+msgstr "在帮助文档中添加出版物列表。"
 
 #: ../../source/for_developers/changelog.rst:125
 msgid ""
 "`0.60 (December 3, 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.60>`_"
 msgstr ""
+"`0.60 ( 2018年12月3日) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.60>`_"
 
 #: ../../source/for_developers/changelog.rst:127
 msgid ""
 "Add calculation of change in urban area and population growth rate (SDG "
 "11.3.1)"
-msgstr ""
+msgstr "增加城市面积变化和人口增长率的计算（SDG 11.3.1）。"
 
 #: ../../source/for_developers/changelog.rst:129
 msgid "Fix default button/entry field heights Add city selection for AOI"
-msgstr ""
+msgstr "修复默认按钮/输入字段的高度 为AOI增加城市选择。"
 
 #: ../../source/for_developers/changelog.rst:131
 msgid "Add optional buffering of AOI"
-msgstr ""
+msgstr "增加AOI的可选缓冲"
 
 #: ../../source/for_developers/changelog.rst:134
 msgid ""
 "`0.58 (August 11, 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.58>`_"
 msgstr ""
+"`0.58 (2018年8月11日) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.58>`_"
 
 #: ../../source/for_developers/changelog.rst:136
 msgid "Add a testing section to the calculations page"
-msgstr ""
+msgstr "在计算页上增加一个测试部分"
 
 #: ../../source/for_developers/changelog.rst:137
 msgid ""
 "Add testing version of total carbon (above and below-ground) and emissions "
 "due to deforestation"
-msgstr ""
+msgstr "添加测试版的碳总量（地上和地下）和由于森林砍伐造成的排放。"
 
 #: ../../source/for_developers/changelog.rst:139
 msgid "Minor bug fixes, including for invalid polygons in input AOIs"
-msgstr ""
+msgstr "细微错误修复，包括对输入AOIs中无效的多边形的修复。"
 
 #: ../../source/for_developers/changelog.rst:142
 msgid ""
 "`0.56.5 (May 21, 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.5>`_"
 msgstr ""
+"`0.56.5 (2018年5月21日) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.5>`_"
 
 #: ../../source/for_developers/changelog.rst:144
 msgid "Fix error with LPD import requesting a data year."
-msgstr ""
+msgstr "修正LPD导入时请求数据年份的错误。"
 
 #: ../../source/for_developers/changelog.rst:147
 msgid ""
 "`0.56.4 (May 21, 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.4>`_"
 msgstr ""
+"`0.56.4 (2018年5月21日) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.4>`_"
 
 #: ../../source/for_developers/changelog.rst:149
 msgid "Always resample imported data to the highest resolution."
-msgstr ""
+msgstr "始终将导入的数据重新取样到最高分辨率。"
 
 #: ../../source/for_developers/changelog.rst:150
 msgid ""
 "Fix custom SOC import climate zones to use an expanded climate zones dataset"
 " to eliminate no data."
-msgstr ""
+msgstr "修正自定义SOC导入气候区，使用扩大的气候区数据集，以消除没有数据的情况。"
 
 #: ../../source/for_developers/changelog.rst:152
 msgid "Update MOD16A2 with latest data."
-msgstr ""
+msgstr "用最新数据更新MOD16A2。"
 
 #: ../../source/for_developers/changelog.rst:153
 msgid "Force entry of date on SOC and LC data import"
-msgstr ""
+msgstr "强制输入SOC和土地覆被（LC）数据导入的日期"
 
 #: ../../source/for_developers/changelog.rst:154
 msgid "Add global Trends.Earth outputs to download tool."
-msgstr ""
+msgstr "在下载工具中加入全球Trends.Earth输出。"
 
 #: ../../source/for_developers/changelog.rst:155
 msgid "Fix handling of NULL values in legends."
-msgstr ""
+msgstr "修正对图例中NULL值的处理。"
 
 #: ../../source/for_developers/changelog.rst:158
 msgid ""
 "`0.56.3 (April 21, 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.3>`_"
 msgstr ""
+"`0.56.3(2018年4月21日) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.3>`_"
 
 #: ../../source/for_developers/changelog.rst:160
 msgid ""
 "Fix calculation of summary tables for AOIs that are split across the 180th "
 "meridian (Fiji, Russia, etc.)."
-msgstr ""
+msgstr "为跨越180度经线的AOI（斐济、俄罗斯等）修正汇总表的计算。"
 
 #: ../../source/for_developers/changelog.rst:162
 msgid ""
 "Modify state calculation so areas with very small magnitude changes in NDVI "
 "integral (< .01 NDVI units over full period) are considered stable."
-msgstr ""
+msgstr "修改状态计算，使NDVI积分变化幅度非常小的地区（在整个时期内<0.01NDVI单位）被视为稳定。"
 
 #: ../../source/for_developers/changelog.rst:166
 msgid ""
 "`0.56.2 (April 10, 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.2>`_"
 msgstr ""
+"`0.56.2(2018年4月10日) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.2>`_"
 
 #: ../../source/for_developers/changelog.rst:168
 msgid "Minor unicode fixes."
-msgstr ""
+msgstr "细微的unicode修复。"
 
 #: ../../source/for_developers/changelog.rst:171
 msgid ""
 "`0.56.1 (April 10, 2018) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.1>`_"
 msgstr ""
+"`0.56.1(2018年4月10日) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/0.56.1>`_"
 
 #: ../../source/for_developers/changelog.rst:173
 msgid "Fix marshhmallow error on plugin load"

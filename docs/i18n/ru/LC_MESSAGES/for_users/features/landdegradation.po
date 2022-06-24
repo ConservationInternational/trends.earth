@@ -24,13 +24,15 @@ msgstr ""
 
 #: ../../source/for_users/features/landdegradation.rst:4
 msgid "Land degradation and SDG 15.3.1"
-msgstr ""
+msgstr "Деградация земель и ЦУР 15.3.1"
 
 #: ../../source/for_users/features/landdegradation.rst:6
 msgid ""
 "As part of the \"2030 Agenda for Sustainable Development\", Sustainable "
 "Development Goal (SDG) 15 is to:"
 msgstr ""
+"В рамках «Повестки дня в области устойчивого развития на период до 2030 "
+"года» Цель устойчивого развития (ЦУР) 15 заключается в следующем:"
 
 #: ../../source/for_users/features/landdegradation.rst:9
 msgid ""
@@ -38,12 +40,17 @@ msgid ""
 "sustainably manage forests, combat desertification, and halt and reverse "
 "land degradation and halt biodiversity loss\""
 msgstr ""
+"«Защита, восстановление и продвижение устойчивого использования наземных "
+"экосистем, устойчивое управление лесами, борьба с опустыниванием, остановка "
+"и обращение вспять деградации земель и прекращение потери биоразнообразия»."
 
 #: ../../source/for_users/features/landdegradation.rst:13
 msgid ""
 "Each SDG has specific targets addressing different components, in this case,"
 " of life on land. Target 15.3 aims to:"
 msgstr ""
+"Каждая ЦУР имеет конкретные задачи, касающиеся различных компонентов, в "
+"данном случае — жизни на земле. Задача 15.3 направлена на:"
 
 #: ../../source/for_users/features/landdegradation.rst:16
 msgid ""
@@ -51,6 +58,9 @@ msgid ""
 " land affected by desertification, drought and floods, and strive to achieve"
 " a land degradation-neutral world\""
 msgstr ""
+"«К 2030 году бороться с опустыниванием, восстановить деградировавшие земли и"
+" почвы, включая земли, пострадавшие от опустынивания, засухи и наводнений, и"
+" стремиться к созданию мира, нейтрального в отношении деградации земель»."
 
 #: ../../source/for_users/features/landdegradation.rst:20
 msgid ""
@@ -58,10 +68,14 @@ msgid ""
 "the case of SDG 15.3 the progress towards a land degradation neutral world "
 "will be assessed using indicator 15.3.1:"
 msgstr ""
+"Для оценки прогресса в достижении каждой цели ЦУР будут использоваться "
+"индикаторы. В случае ЦУР 15.3 прогресс в направлении создания мира, "
+"нейтрального к деградации земель, будет оцениваться с помощью индикатора "
+"15.3.1:"
 
 #: ../../source/for_users/features/landdegradation.rst:24
 msgid "\"proportion of land that is degraded over total land area\""
-msgstr ""
+msgstr "«доля деградированных земель от общей площади земель»"
 
 #: ../../source/for_users/features/landdegradation.rst:26
 msgid ""
@@ -71,12 +85,19 @@ msgid ""
 "links/2021-03/Indicator_15.3.1_GPG_v2_29Mar_Advanced-version.pdf>`_. "
 "providing recommendations on how to calculate SDG Indicator 15.3.1."
 msgstr ""
+"В качестве учреждения, отвечающего за ЦУР 15.3, Конвенция ООН по борьбе с "
+"опустыниванием (UNCCD) разработала «Руководство по надлежащей практике» "
+"(GPG) <https://www.unccd.int/sites/default/files/relevant-"
+"links/2021-03/Indicator_15.3.1_GPG_v2_29Mar_Advanced-version.pdf>`_. "
+"содержащее рекомендации по расчету показателя ЦУР 15.3.1."
 
 #: ../../source/for_users/features/landdegradation.rst:31
 msgid ""
 "This document provides a brief introduction to SDG Indicator 15.3.1 and "
 "describes how each indicator is calculated by |trends.earth|."
 msgstr ""
+"Этот документ содержит краткое введение в показатель ЦУР 15.3.1 и описывает,"
+" как каждый показатель рассчитывается |trends.earth|."
 
 #: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
 #: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
@@ -92,10 +113,12 @@ msgid ""
 "In order to assess the area degraded, SDG Indicator 15.3.1 uses information "
 "from 3 sub-indicators:"
 msgstr ""
+"Для оценки деградированной площади Индикатор ЦУР 15.3.1 использует "
+"информацию из 3 суб-индикаторов:"
 
 #: ../../source/for_users/features/landdegradation.rst:37
 msgid "Vegetation productivity"
-msgstr ""
+msgstr "Продуктивность растительности"
 
 #: ../../source/for_users/features/landdegradation.rst:38
 #: ../../source/for_users/features/landdegradation.rst:265
@@ -114,10 +137,15 @@ msgid ""
 " a final SDG 15.3.1 indicator map and produces a table result reporting "
 "areas potentially improved and degraded for the area of analysis."
 msgstr ""
+"|trends.earth| позволяет пользователю рассчитать каждый из этих суб-"
+"индикаторов в пространственно-явном виде, создавая растровые карты, которые "
+"затем интегрируются в итоговую карту индикаторов ЦУР 15.3.1 и выдают "
+"табличный результат, сообщающий о потенциально улучшенных и деградированных "
+"областях для анализируемой территории."
 
 #: ../../source/for_users/features/landdegradation.rst:50
 msgid "Sub-indicators"
-msgstr ""
+msgstr "cуб-индикаторы"
 
 #: ../../source/for_users/features/landdegradation.rst:55
 msgid "Productivity"

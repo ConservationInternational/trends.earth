@@ -25,13 +25,15 @@ msgstr ""
 
 #: ../../source/for_users/training/restoration.rst:4
 msgid "Potential Carbon Sequestration under Restoration"
-msgstr ""
+msgstr "Potencial Captura de Carbono durante a Recuperação"
 
 #: ../../source/for_users/training/restoration.rst:6
 msgid ""
 "**Objective**: Learn how to compute carbon sequestration under different "
 "forest restoration activities."
 msgstr ""
+"**Objetivo**: Saber como calcular a captura de carbono durante diferentes "
+"atividades de recuperação florestal."
 
 #: ../../source/for_users/training/restoration.rst:8
 msgid "**Estimated time of completion**: 20 minutes"
@@ -46,14 +48,16 @@ msgid ""
 "Refer to the :ref:`background_restoration` for background information on the"
 " datasets and"
 msgstr ""
+"Consulte :ref:`background_restoration` para mais informação básica sobre os "
+"conjuntos de dados e"
 
 #: ../../source/for_users/training/restoration.rst:14
 msgid "methodology used for this tutorial."
-msgstr ""
+msgstr "metodologia utilizados para este tutorial."
 
 #: ../../source/for_users/training/restoration.rst:19
 msgid "Estimate potential impacts of restoration"
-msgstr ""
+msgstr "Estime potenciais impactos da recuperação"
 
 #: ../../source/for_users/training/restoration.rst:21
 msgid ""
@@ -61,12 +65,17 @@ msgid ""
 "**Experimental** menu, select **Potential change in biomass due to "
 "restoration - Above and below ground woody** menu."
 msgstr ""
+"No separador **Algoritmos** no plugin Trends.Earth plugin em QGIS, no menu "
+"**Experimental** , selecione o menu **Potencial alteração de biomassa devido"
+" à recuperação - Com madeira acima e abaixo do solo** ."
 
 #: ../../source/for_users/training/restoration.rst:27
 msgid ""
 "Select the **Estimate potential impacts of restoration** menu by selecting "
 "**Execute locally**."
 msgstr ""
+"Selecione o menu **Estimar potenciais impactos da recuperação** escolhendo "
+"**Executar localmente**."
 
 #: ../../source/for_users/training/restoration.rst:32
 msgid ""
@@ -74,10 +83,13 @@ msgid ""
 " analysis. Select the type of restoration: terrestrial or coastal "
 "(mangrove). Define the length of the intervention in year."
 msgstr ""
+"Irá aparecer uma janela onde pode selecionar os parâmetros para a análise da"
+" recuperação. Escolha o tipo de recuperação: terrestre ou costal (mangal). "
+"Defina a duração da intervenção em anos."
 
 #: ../../source/for_users/training/restoration.rst:39
 msgid "Select **Change region** to define the area of interest."
-msgstr ""
+msgstr "Selecione **Alterar região** para definir a área de interesse."
 
 #: ../../source/for_users/training/restoration.rst:45
 msgid ""
@@ -116,11 +128,11 @@ msgstr ""
 
 #: ../../source/for_users/training/restoration.rst:61
 msgid "Add a descriptive name and notes for the analysis"
-msgstr ""
+msgstr "Adicione um nome descritivo e notas para a análise"
 
 #: ../../source/for_users/training/restoration.rst:63
 msgid "Select **Schedule remote exectution**"
-msgstr ""
+msgstr "Selecione **Agendar execução remota**"
 
 #: ../../source/for_users/training/restoration.rst:68
 msgid ""
@@ -136,19 +148,23 @@ msgstr ""
 
 #: ../../source/for_users/training/restoration.rst:71
 msgid "Table summarizing likely changes in biomass"
-msgstr ""
+msgstr "Tabela que resume as possíveis alterações na biomassa"
 
 #: ../../source/for_users/training/restoration.rst:73
 msgid ""
 "Go the the **Datasets** tab to **Add default layers from this dataset to "
 "map**."
 msgstr ""
+"Vá ao separador **Conjuntos de dados** para **Adicionar camadas predefinidas"
+" deste conjunto de dados ao mapa**."
 
 #: ../../source/for_users/training/restoration.rst:78
 msgid ""
 "In order to view the defined area of interest with reference data, select "
 "the **Load Base Map** in the **Datasets** tab."
 msgstr ""
+"De forma a ver a área de interesse definida com dados de referência, "
+"seleciona **Carregar Mapa Base** no separador **Conjuntos de dados**."
 
 #: ../../source/for_users/training/restoration.rst:86
 msgid ""
@@ -157,6 +173,11 @@ msgid ""
 "restoration - Above and below ground woody** menu and select the **Execute "
 "locally** button under **Table summarizing likely changes in biomass**."
 msgstr ""
+"Regresse ao separador **Algoritmos** no plugin Trends.Earth em QGIS, no menu"
+" **Experimental** selecione o menu **Potencial alteração de biomassa devido "
+"à recuperação - Com madeira acima e abaixo do solo**  e escolha o botão "
+"**Executar localmente** em **Tabela que resuma possíveis alterações na "
+"biomassa**."
 
 #: ../../source/for_users/training/restoration.rst:94
 msgid ""
@@ -164,6 +185,9 @@ msgid ""
 "region is the same area of interest, provide descriptive names and notes and"
 " select **Execute locally**."
 msgstr ""
+"As camadas irão ser preenchidas nas listas de camadas de dados. Confirme que"
+" a região é a mesma da área de interesse, insira nomes descritivos e notas e"
+" selecione **Executar localmente**."
 
 #: ../../source/for_users/training/restoration.rst:94
 msgid ""
@@ -171,6 +195,9 @@ msgid ""
 "**trends_earth_data*** folder under your user account on your computer "
 "(e.g., C:\\Users\\mnoon\\trends_earth_data)."
 msgstr ""
+"Uma folha de cálculo comparando os resultados finais é guardada na sua pasta"
+" **trends_earth_data*** na sua conta de utilizador do seu computador (por "
+"exemplo C:\\Users\\mnoon\\trends_earth_data)."
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"

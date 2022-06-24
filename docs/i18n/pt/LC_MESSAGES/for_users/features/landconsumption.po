@@ -24,7 +24,7 @@ msgstr ""
 
 #: ../../source/for_users/features/landconsumption.rst:4
 msgid "Land Consumption and SDG 11.3.1"
-msgstr "Consumo do Solo e o ODS 11.3.1"
+msgstr "Consumo de Terra e ODS 11.3.1"
 
 #: ../../source/for_users/features/landconsumption.rst:7
 msgid "Background"
@@ -81,6 +81,21 @@ msgid ""
 "need for generation and dissemination of up-to-date and accurate data on "
 "growth trends across cities and urban settlements."
 msgstr ""
+"Um país que maximiza os vários benefícios associados à urbanização é um que "
+"consegue compreender, medir e prever as tendências de crescimento das suas "
+"áreas urbanas; e que coloca em vigor as ações/intervenções para explorar as "
+"vantagens desse crescimento, enquanto minimiza os desafios igualmente "
+"diversos associados à urbanização não planeada. O planeamento proativo, que "
+"é um dos principais pré-requisitos da urbanização sustentável, requer que as"
+" autoridades municipais e outros atores relevantes prevejam a direção de "
+"crescimento de uma cidade e/ou moldar este crescimento ao proporcionar as "
+"instalações, serviços, políticas e enquadramento jurídico necessários antes "
+"do desenvolvimento. Isto resulta num crescimento planeado e equitativo onde "
+"a maioria dos residentes da cidade têm acesso aos serviços sociais e "
+"económicos básicos e a oportunidades sociais, e onde prevalece a "
+"sustentabilidade ambiental. No centro de tudo isto está a necessidade de "
+"geração e disseminação de dados exatos e atualizados de tendências de "
+"crescimento nas cidades e aglomerados urbanos."
 
 #: ../../source/for_users/features/landconsumption.rst:14
 msgid ""
@@ -1073,6 +1088,8 @@ msgid ""
 "For a step-by-step guide on how to run the analysis in |trends.earth|, "
 "please refer to the following tutorial: :ref:`tut_land_consumption`."
 msgstr ""
+"Para um guia passo-a-passo de como efetuar a análise no |trends.earth|, "
+"consulte o tutorial seguinte:"
 
 #: ../../source/for_users/features/landconsumption.rst:202
 msgid "**Citations:**"

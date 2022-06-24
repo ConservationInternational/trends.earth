@@ -23,33 +23,35 @@ msgstr ""
 
 #: ../../source/for_users/features/index.rst:6
 msgid "Land Degradation and SDG 15.3.1"
-msgstr ""
+msgstr "تدهور الأراضي وغاية هدف التنمية المستدامة 15.3.1"
 
 #: ../../source/for_users/features/index.rst:6
 msgid "UNCCD Reporting - SDG 15.3.1"
 msgstr ""
+"تقرير اتفاقية الأمم المتحدة لمكافحة التصحر (UNCCD) - غاية هدف التنمية "
+"المستدامة 15.3.1"
 
 #: ../../source/for_users/features/index.rst:6
 msgid "Land Consumption and SDG 11.3.1"
-msgstr ""
+msgstr "استهلاك الأراضي وغاية هدف التنمية المستدامة 11.3.1"
 
 #: ../../source/for_users/features/index.rst:6
 msgid "Carbon Emissions from Deforestation"
-msgstr ""
+msgstr "انبعاثات الكربون الناتجة عن إزالة الغابات"
 
 #: ../../source/for_users/features/index.rst:6
 msgid "Carbon Sequestration from Restoration"
-msgstr ""
+msgstr "عزل الكربون عن طريق استعادة الغابات"
 
 #: ../../source/for_users/features/index.rst:6
 #: ../../source/for_users/features/index.rst:3
 #: ../../source/for_users/features/index.rst:6
 msgid "Features"
-msgstr ""
+msgstr "المزايا"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr "أيقونة حاسبة"
+msgstr "iconالآلة_الحاسبة"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"

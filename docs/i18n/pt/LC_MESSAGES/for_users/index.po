@@ -23,7 +23,7 @@ msgstr ""
 
 #: ../../source/for_users/index.rst:3
 msgid "Trends.Earth User Guide"
-msgstr ""
+msgstr "Manual de Utilização da Trends.Earth"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"

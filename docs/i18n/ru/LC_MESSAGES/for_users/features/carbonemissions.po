@@ -28,7 +28,7 @@ msgstr ""
 
 #: ../../source/for_users/features/carbonemissions.rst:7
 msgid "Background"
-msgstr ""
+msgstr "Справочная информация"
 
 #: ../../source/for_users/features/carbonemissions.rst:9
 msgid ""
@@ -45,7 +45,7 @@ msgstr ""
 
 #: ../../source/for_users/features/carbonemissions.rst:15
 msgid "Rationale for Monitoring"
-msgstr ""
+msgstr "Обоснование для мониторинга"
 
 #: ../../source/for_users/features/carbonemissions.rst:17
 msgid ""
@@ -61,7 +61,7 @@ msgstr ""
 
 #: ../../source/for_users/features/carbonemissions.rst:23
 msgid "Indicator and data needs"
-msgstr ""
+msgstr "Индикаторы и потребности в данных"
 
 #: ../../source/for_users/features/carbonemissions.rst:25
 msgid ""
@@ -146,7 +146,7 @@ msgstr ""
 
 #: ../../source/for_users/features/carbonemissions.rst:78
 msgid "**Citations:**"
-msgstr ""
+msgstr "**Цитирование:**"
 
 #: ../../source/for_users/features/carbonemissions.rst:80
 msgid ""

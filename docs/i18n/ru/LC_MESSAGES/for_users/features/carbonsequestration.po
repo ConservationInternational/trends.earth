@@ -28,7 +28,7 @@ msgstr ""
 
 #: ../../source/for_users/features/carbonsequestration.rst:7
 msgid "Background"
-msgstr ""
+msgstr "Справочная информация"
 
 #: ../../source/for_users/features/carbonsequestration.rst:9
 msgid ""
@@ -42,7 +42,7 @@ msgstr ""
 
 #: ../../source/for_users/features/carbonsequestration.rst:15
 msgid "Rationale for Monitoring"
-msgstr ""
+msgstr "Обоснование для мониторинга"
 
 #: ../../source/for_users/features/carbonsequestration.rst:17
 msgid ""
@@ -60,7 +60,7 @@ msgstr ""
 
 #: ../../source/for_users/features/carbonsequestration.rst:25
 msgid "Indicator and data needs"
-msgstr ""
+msgstr "Индикаторы и потребности в данных"
 
 #: ../../source/for_users/features/carbonsequestration.rst:27
 msgid ""
@@ -109,7 +109,7 @@ msgstr ""
 
 #: ../../source/for_users/features/carbonsequestration.rst:59
 msgid "**Citations:**"
-msgstr ""
+msgstr "**Цитирование:**"
 
 #: ../../source/for_users/features/carbonsequestration.rst:61
 msgid ""

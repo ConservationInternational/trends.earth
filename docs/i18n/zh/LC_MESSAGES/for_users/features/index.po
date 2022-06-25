@@ -27,25 +27,25 @@ msgstr "土地退化和SDG15.3.1"
 
 #: ../../source/for_users/features/index.rst:6
 msgid "UNCCD Reporting - SDG 15.3.1"
-msgstr "UNCCD报告--可持续发展目标（SDG）15.3.1"
+msgstr "UNCCD 报告 - SDG 15.3.1"
 
 #: ../../source/for_users/features/index.rst:6
 msgid "Land Consumption and SDG 11.3.1"
-msgstr ""
+msgstr "土地消耗和 SDG 11.3.1"
 
 #: ../../source/for_users/features/index.rst:6
 msgid "Carbon Emissions from Deforestation"
-msgstr ""
+msgstr "源于森林破坏的碳排放"
 
 #: ../../source/for_users/features/index.rst:6
 msgid "Carbon Sequestration from Restoration"
-msgstr ""
+msgstr "源于生态恢复的碳汇"
 
 #: ../../source/for_users/features/index.rst:6
 #: ../../source/for_users/features/index.rst:3
 #: ../../source/for_users/features/index.rst:6
 msgid "Features"
-msgstr ""
+msgstr "特点"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"

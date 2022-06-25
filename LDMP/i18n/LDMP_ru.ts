@@ -6739,42 +6739,42 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../reports/charts.py" line="781"/>
         <source>Land Cover Area</source>
-        <translation type="unfinished"/>
+        <translation>Площадь земельного покрова</translation>
     </message>
     <message>
         <location filename="../reports/charts.py" line="782"/>
         <source>in</source>
-        <translation type="unfinished"/>
+        <translation>в</translation>
     </message>
     <message>
         <location filename="../reports/charts.py" line="855"/>
         <source>Summary of SDG 15.3.1 Indicator</source>
-        <translation type="unfinished"/>
+        <translation>Краткий обзор показателя ЦУР 15.3.1</translation>
     </message>
     <message>
         <location filename="../reports/charts.py" line="896"/>
         <source>Change in Land Cover</source>
-        <translation type="unfinished"/>
+        <translation>Изменение в земельном покрове</translation>
     </message>
     <message>
         <location filename="../reports/charts.py" line="920"/>
         <source>Change in Soil Organic Carbon (Tonnes)</source>
-        <translation type="unfinished"/>
+        <translation>Изменение содержания органического углерода в почве (в тоннах)</translation>
     </message>
     <message>
         <location filename="../reports/charts.py" line="935"/>
         <source>Tonnes</source>
-        <translation type="unfinished"/>
+        <translation>В тоннах</translation>
     </message>
     <message>
         <location filename="../reports/charts.py" line="942"/>
         <source>Land Cover Change by Productivity Class</source>
-        <translation type="unfinished"/>
+        <translation>Изменение земельного покрова по классам продуктивности</translation>
     </message>
     <message>
         <location filename="../reports/charts.py" line="954"/>
         <source>%</source>
-        <translation type="unfinished"/>
+        <translation>%</translation>
     </message>
 </context>
 <context>

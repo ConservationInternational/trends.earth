@@ -6740,42 +6740,42 @@ pour les algorithmes en cours d&apos;exécution et leurs résultats.</translatio
     <message>
         <location filename="../reports/charts.py" line="781"/>
         <source>Land Cover Area</source>
-        <translation type="unfinished"/>
+        <translation>Zone de couverture terrestre</translation>
     </message>
     <message>
         <location filename="../reports/charts.py" line="782"/>
         <source>in</source>
-        <translation type="unfinished"/>
+        <translation>sur</translation>
     </message>
     <message>
         <location filename="../reports/charts.py" line="855"/>
         <source>Summary of SDG 15.3.1 Indicator</source>
-        <translation type="unfinished"/>
+        <translation>Résumé de l&apos;indicateur SDG 15.3.1</translation>
     </message>
     <message>
         <location filename="../reports/charts.py" line="896"/>
         <source>Change in Land Cover</source>
-        <translation type="unfinished"/>
+        <translation>Changement de la couverture terrestre</translation>
     </message>
     <message>
         <location filename="../reports/charts.py" line="920"/>
         <source>Change in Soil Organic Carbon (Tonnes)</source>
-        <translation type="unfinished"/>
+        <translation>Variation du carbone organique du sol (tonnes)</translation>
     </message>
     <message>
         <location filename="../reports/charts.py" line="935"/>
         <source>Tonnes</source>
-        <translation type="unfinished"/>
+        <translation>Tonnes</translation>
     </message>
     <message>
         <location filename="../reports/charts.py" line="942"/>
         <source>Land Cover Change by Productivity Class</source>
-        <translation type="unfinished"/>
+        <translation>Changement de la couverture terrestre par classe de productivité</translation>
     </message>
     <message>
         <location filename="../reports/charts.py" line="954"/>
         <source>%</source>
-        <translation type="unfinished"/>
+        <translation>%</translation>
     </message>
 </context>
 <context>

@@ -6586,7 +6586,7 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../reports/charts.py" line="954"/>
         <source>%</source>
-        <translation type="unfinished"/>
+        <translation>%</translation>
     </message>
 </context>
 <context>

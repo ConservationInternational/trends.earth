@@ -6736,42 +6736,42 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../reports/charts.py" line="781"/>
         <source>Land Cover Area</source>
-        <translation type="unfinished"/>
+        <translation>Área de Cobertura de Solo</translation>
     </message>
     <message>
         <location filename="../reports/charts.py" line="782"/>
         <source>in</source>
-        <translation type="unfinished"/>
+        <translation>em</translation>
     </message>
     <message>
         <location filename="../reports/charts.py" line="855"/>
         <source>Summary of SDG 15.3.1 Indicator</source>
-        <translation type="unfinished"/>
+        <translation>Resumo do Indicador ODS 15.3.1</translation>
     </message>
     <message>
         <location filename="../reports/charts.py" line="896"/>
         <source>Change in Land Cover</source>
-        <translation type="unfinished"/>
+        <translation>Alteração da Cobertura do Solo</translation>
     </message>
     <message>
         <location filename="../reports/charts.py" line="920"/>
         <source>Change in Soil Organic Carbon (Tonnes)</source>
-        <translation type="unfinished"/>
+        <translation>ALteração do Carbono Orgânico do Solo (Toneladas)</translation>
     </message>
     <message>
         <location filename="../reports/charts.py" line="935"/>
         <source>Tonnes</source>
-        <translation type="unfinished"/>
+        <translation>Toneladas</translation>
     </message>
     <message>
         <location filename="../reports/charts.py" line="942"/>
         <source>Land Cover Change by Productivity Class</source>
-        <translation type="unfinished"/>
+        <translation>Alteração de Cobertura do Solo por Classe de Produtividade</translation>
     </message>
     <message>
         <location filename="../reports/charts.py" line="954"/>
         <source>%</source>
-        <translation type="unfinished"/>
+        <translation>%</translation>
     </message>
 </context>
 <context>

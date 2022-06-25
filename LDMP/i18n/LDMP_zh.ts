@@ -6726,42 +6726,42 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../reports/charts.py" line="781"/>
         <source>Land Cover Area</source>
-        <translation type="unfinished"/>
+        <translation>土地覆盖面积</translation>
     </message>
     <message>
         <location filename="../reports/charts.py" line="782"/>
         <source>in</source>
-        <translation type="unfinished"/>
+        <translation>在</translation>
     </message>
     <message>
         <location filename="../reports/charts.py" line="855"/>
         <source>Summary of SDG 15.3.1 Indicator</source>
-        <translation type="unfinished"/>
+        <translation>SDG 15.3.1 指标摘要</translation>
     </message>
     <message>
         <location filename="../reports/charts.py" line="896"/>
         <source>Change in Land Cover</source>
-        <translation type="unfinished"/>
+        <translation>土地覆盖变化</translation>
     </message>
     <message>
         <location filename="../reports/charts.py" line="920"/>
         <source>Change in Soil Organic Carbon (Tonnes)</source>
-        <translation type="unfinished"/>
+        <translation>土壤有机碳变化（吨）</translation>
     </message>
     <message>
         <location filename="../reports/charts.py" line="935"/>
         <source>Tonnes</source>
-        <translation type="unfinished"/>
+        <translation>吨</translation>
     </message>
     <message>
         <location filename="../reports/charts.py" line="942"/>
         <source>Land Cover Change by Productivity Class</source>
-        <translation type="unfinished"/>
+        <translation>按生产力等级划分的土地覆盖变化</translation>
     </message>
     <message>
         <location filename="../reports/charts.py" line="954"/>
         <source>%</source>
-        <translation type="unfinished"/>
+        <translation>％</translation>
     </message>
 </context>
 <context>

@@ -23,11 +23,11 @@ msgstr ""
 
 #: ../../source/for_developers/index.rst:3
 msgid "Developers Guide"
-msgstr ""
+msgstr "دليل المطورين"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr "أيقونة حاسبة"
+msgstr "أيقونة الحاسبة"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"

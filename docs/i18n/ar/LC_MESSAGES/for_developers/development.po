@@ -618,16 +618,25 @@ msgid ""
 "below (if you downloaded the code on Windows into a folder called "
 "\"C:/Users/azvol/Code/trends.earth-CLI/tecli\"):"
 msgstr ""
+"عندما تقوم بإعداد نظامك على النحو الموصى به أعلاه، ستعمل trends.earth-CLI مع"
+" مهام الاستدعاء المستخدمة لإدارة trends.earth دون أي تعديلات. ومع ذلك، إذا "
+"قمت بتنزيل Trend.earth-CLI في مجلد مختلف، فستحتاج إلى إضافة ملف باسم "
+"\"invoke.yaml\" إلى الملف الأساسي الخاص بـ trends.earth ، وفي هذا الملف أخبر"
+" Trends.Earth أين يحدد موقع التعليمات البرمجية لـ Trends.earth-CLI. يجب أن "
+"يبدو ملف YAML مشابهًا لما أدناه (إذا قمت بتنزيل التعليمات البرمجية الموجود "
+"على Windows في مجلد يسمى \"C:/Users/azvol/Code/trends.earth-CLI/tecli\"):"
 
 #: ../../source/for_developers/development.rst:326
 msgid ""
 "Again, you **do not** need to add this .yaml file if you setup your system "
 "as recommended above."
 msgstr ""
+"مرة أخرى، ** لا ** تحتاج إلى إضافة ملف .yaml هذا إذا قمت بإعداد نظامك على "
+"النحو الموصى به أعلاه."
 
 #: ../../source/for_developers/development.rst:330
 msgid "docker"
-msgstr ""
+msgstr "دوكر(docker)"
 
 #: ../../source/for_developers/development.rst:332
 msgid ""
@@ -639,10 +648,17 @@ msgid ""
 "this page <https://docs.docker.com/install>`_ that are appropriate for the "
 "Linux distribution you are using."
 msgstr ""
+"تتطلب حزمة Trends.earth-CLI `docker <http://www.docker.com>`_  لكي تعمل. "
+"`اتبع هذه الإرشادات لتثبيت docker على Windows "
+"<https://docs.docker.com/docker-for-windows/install/>`_, ، وهذه الإرشادات "
+"لتثبيت docker على Mac OS <https://docs.docker.com/docker-for-"
+"mac/install/>`_. إذا كنت تعمل على Linux، فاتبع الإرشادات الموجودة في هذه "
+"الصفحة <https://docs.docker.com/install> `_ المناسبة لتوزيع Linux الذي "
+"تستخدمه."
 
 #: ../../source/for_developers/development.rst:342
 msgid "Testing an Earth Engine script locally"
-msgstr ""
+msgstr "اختبار برنامج Earth Engine النصي محليًا"
 
 #: ../../source/for_developers/development.rst:344
 msgid ""
@@ -653,10 +669,15 @@ msgid ""
 "cloud console), then and encode it in base64. Provide that base64 encoded "
 "key to tecli with the following command::"
 msgstr ""
+"بعد تثبيت حزمة Trend.earth-CLI، ستحتاج إلى إعداد ملف .tecli.yml برمز token "
+"للوصول إلى حساب خدمة GEE من أجل اختبار البرامج النصية على GEE. لإعداد حساب "
+"خدمة GEE لـ tecli، احصل أولاً على مفتاح حساب الخدمة الخاص بك بتنسيق JSON (من"
+" وحدة التحكم السحابية في google)، ثم قم بترميزه في base64. قم بتوفير هذا "
+"المفتاح المشفر base64 إلى tecli بالأمر التالي::"
 
 #: ../../source/for_developers/development.rst:353
 msgid "where \"key\" is the base64 encoded JSON format service account key."
-msgstr ""
+msgstr "حيث \"key\" هو مفتاح حساب خدمة تنسيق JSON بترميز base64."
 
 #: ../../source/for_developers/development.rst:355
 msgid ""
@@ -667,6 +688,12 @@ msgid ""
 "\"land_cover\" script, go to the root directory of the Trends.Earth code, "
 "and, in a command prompt, run::"
 msgstr ""
+"أثناء تحويل برنامج نصي حدد التعليمات البرمجية ليتم تشغيله على GEE من "
+"JavaScript إلى Python، أو عند إجراء تعديلات على هذه التعليمات البرمجية، قد "
+"يكون من المفيد اختبار البرنامج النصي محليًا، دون نشره على خادم "
+"api.trends.earth. للقيام بذلك، استخدم مهمة استدعاء ``run``. على سبيل المثال،"
+" لاختبار البرنامج النصي \"land_cover\"، انتقل إلى الملف الرئيسي للتعليمات "
+"البرمجية الخاصة بـ Trends.Earth، وفي موجه الأوامر، قم بتشغيل ::"
 
 #: ../../source/for_developers/development.rst:364
 msgid ""
@@ -676,20 +703,27 @@ msgid ""
 "run. Before submitting a new script to api.trends.earth, always make sure "
 "that ``invoke tecli-run`` is able to run the script without any errors."
 msgstr ""
+"سيستخدم هذا حزمة trends.earth-CLI لإنشاء وتشغيل حاوية Docker ستحاول تشغيل "
+"البرنامج النصي \"land_cover\". إذا كانت هناك أية أخطاء في بناء الجملة في "
+"البرنامج النصي، فستظهر هذه الأخطاء عند تشغيل الحاوية. قبل إرسال برنامج نصي "
+"جديد إلى api.trends.earth، تأكد دائمًا من أن ``invoke tecli-run`` قادر على "
+"تشغيل البرنامج النصي دون أي أخطاء."
 
 #: ../../source/for_developers/development.rst:370
 msgid "When using ``invoke tecli-run`` you may get an error saying:"
-msgstr ""
+msgstr "عند استخدام ``invoke tecli-run``، قد تظهر رسالة خطأ تقول:"
 
 #: ../../source/for_developers/development.rst:378
 msgid ""
 "This error can be caused if the clock on the docker container gets out of "
 "sync with the system clock. Restarting docker should fix this error."
 msgstr ""
+"يمكن أن يحدث هذا الخطأ إذا خرجت الساعة الموجودة في حاوية docker عن المزامنة "
+"مع ساعة النظام. يجب أن يؤدي إعادة تشغيل docker إلى إصلاح هذا الخطأ."
 
 #: ../../source/for_developers/development.rst:382
 msgid "Deploying a GEE script to api.trends.earth"
-msgstr ""
+msgstr "نشر برنامج GEE النصي على api.trends.earth"
 
 #: ../../source/for_developers/development.rst:384
 msgid ""
@@ -698,6 +732,10 @@ msgid ""
 "can deploy it to the api.trends.earth server. The first step in the process "
 "is logging in to the api.trends.earth server. To login, run::"
 msgstr ""
+"عندما تنتهي من اختبار برنامج GEE النصي وترغب في أن يكون الوصول إليه متاحًا "
+"باستخدام البرنامج المساعد QGIS (ومستخدمي Trends.Earth الآخرين)، يمكنك نشره "
+"على خادم api.trends.earth. الخطوة الأولى في العملية هي تسجيل الدخول إلى خادم"
+" api.trends.earth. لتسجيل الدخول، قم بتشغيل ::"
 
 #: ../../source/for_developers/development.rst:391
 msgid ""
@@ -707,6 +745,11 @@ msgid ""
 "login, but the below command will fail**. To upload a script (for example, "
 "the \"land_cover\" script) to the server, run::"
 msgstr ""
+"سيُطلب منك اسم مستخدم وكلمة مرور. وهما نفس اسم المستخدم وكلمة المرور اللذين "
+"تستخدمهما لتسجيل الدخول إلى خادم Trends.Earth من البرنامج الملحق QGIS. ** "
+"إذا لم تكن مسؤولاً، فستتمكن من تسجيل الدخول، لكن الأمر أدناه سيفشل **. "
+"لتحميل برنامج نصي (على سبيل المثال، البرنامج النصي \"land_cover\") على "
+"الخادم، قم بتشغيل ::"
 
 #: ../../source/for_developers/development.rst:399
 msgid ""
@@ -716,6 +759,12 @@ msgid ""
 "errors that you make will affect anyone using the plugin. Whenever you are "
 "testing be sure to use development version numbers (odd version numbers)."
 msgstr ""
+"إذا كان هذا البرنامج النصي موجودًا بالفعل على الخادم، فسيتم سؤالك عما إذا "
+"كنت تريد الكتابة فوق البرنامج النصي الحالي. كن حذرًا جدًا عند تحميل البرامج "
+"النصية ذات إصدارات بأرقام زوجية، حيث إنها نصوص برمجية متاحة للجمهور، وأي "
+"أخطاء تقوم بها ستؤثر على أي شخص يستخدم البرنامج الملحق. في أي وقت تقوم فيه "
+"بالاختبار، تأكد من استخدام أرقام الإصدارات المطورة (أرقام الإصدارات "
+"الفردية)."
 
 #: ../../source/for_developers/development.rst:405
 msgid ""
@@ -724,6 +773,10 @@ msgid ""
 "- though note building the script may take a few minutes). To check the "
 "status, of a deployed script, run::"
 msgstr ""
+"بعد نشر نص برمجي على الخادم، يمكنك استخدام مهمة `tecli-info` للتحقق من حالة "
+"البرنامج النصي (لمعرفة ما إذا كان قد تم نشره بنجاح - على الرغم من أن بناء "
+"النص البرمجي قد يستغرق بضع دقائق). للتحقق من حالة البرنامج النصي المنشور، قم"
+" بتشغيل::"
 
 #: ../../source/for_developers/development.rst:412
 msgid ""
@@ -731,6 +784,9 @@ msgid ""
 " GEE scripts at once (this is necessary whenever the plugin version number "
 "changes), run::"
 msgstr ""
+"إذا كنت تقوم بإنشاء إصدار جديد من البرنامج الملحق، وتريد تحميل جميع نصوص GEE"
+" النصية مرة واحدة (يعد هذا ضروريًا عندما يتغير رقم إصدار البرنامج الملحق)، "
+"فقم بتشغيل ::"
 
 #: ../../source/for_developers/development.rst:418
 msgid ""
@@ -738,16 +794,21 @@ msgid ""
 "unless you are intending to overwrite all the publicly available scripts "
 "used by the plugin."
 msgstr ""
+"مرة أخرى - لا تقم مطلقًا بتشغيل ما ورد أعلاه على إصدار عام من البرنامج "
+"الملحق إلا إذا كنت تنوي الكتابة فوق جميع البرامج النصية المتاحة للجمهور التي"
+" يستخدمها البرنامج الملحق."
 
 #: ../../source/for_developers/development.rst:423
 msgid "Editing vector layer templates"
-msgstr ""
+msgstr "تعديل قوالب vector layer"
 
 #: ../../source/for_developers/development.rst:425
 msgid ""
 "Trends.Earth allow users to digitize new vector features to delineate areas "
 "of special interest."
 msgstr ""
+"Trends.Earth يسمح للمستخدمين برقمنة ميزات vector الجديدة لتحديد المناطق ذات "
+"الأهمية الخاصة."
 
 #: ../../source/for_developers/development.rst:428
 msgid ""
@@ -761,6 +822,14 @@ msgid ""
 "requested QGIS will look for the template file taking QGIS locale into "
 "accont, as a fall-back option English version of the template file is used."
 msgstr ""
+"في الوقت الحالي يتم دعم الطبقات \"الإيجابية/ السلبية الخاطئة\" فقط، ولكن "
+"يمكن إضافة المزيد إذا لزم الأمر. يتم إنشاء أي طبقة متجهة من ملفات قالب "
+"GeoPackage، والتي يمكن العثور عليها داخل مجلد ``data/error_recode`` في ملف "
+"تثبيت البرنامج الملحق. لكل نوع (vector ) 6 ملفات نموذجية، ملف واحد لكل لغة "
+"رسمية للأمم المتحدة. تمت إضافة رمز لغة ISO كلاحقة لاسم الملف. يعد ذلك "
+"ضروريًا لتوفير تسميات مترجمة في نماذج السمات. عند طلب إنشاء طبقة vector، "
+"سيبحث QGIS عن ملف القالب الذي يأخذ لغة QGIS إلى حساب، حيث يتم استخدام نسخة "
+"إنجليزية للخيار الخلفي من ملف القالب."
 
 #: ../../source/for_developers/development.rst:439
 msgid ""
@@ -770,6 +839,10 @@ msgid ""
 "styling and attribute form configuration which will be automatically applied"
 " to the layer when loading into QGIS."
 msgstr ""
+"لتغيير مخطط الطبقة، من الضروري تغيير ملفات القالب المقابلة في مجلد "
+"``data/error_recode`` في ملف تثبيت البرنامج الملحق. يحتوي ملف القالب أيضًا "
+"على تصميم افتراضي مدمج وتكوين نموذج السمة والذي سيتم تطبيقه تلقائيًا على "
+"الطبقة عند التحميل في QGIS."
 
 #: ../../source/for_developers/development.rst:445
 msgid ""
@@ -777,10 +850,13 @@ msgid ""
 "for charts are stored in the vector layer attribute table. Values from the "
 "corresponding fields extracted with the help of expressions."
 msgstr ""
+"لعرض المخطّطات في شكل سمة، يتم استخدام عنصر واجهة QML مدمج. يتم تخزين بيانات"
+" المخطّطات في جدول سمات vector layer. القيم من الحقول المقابلة مستخرجة "
+"بمساعدة التعبيرات."
 
 #: ../../source/for_developers/development.rst:449
 msgid "The code to generate charts looks like this:"
-msgstr ""
+msgstr "التعليمات البرمجية المستخدمة لعمل المخطّطات تظهر مثل هذا:"
 
 #: ../../source/for_developers/development.rst:479
 msgid ""
@@ -792,24 +868,32 @@ msgid ""
 "percentage of the polygon area. For example, in case of productivity "
 "indicator fields will be:"
 msgstr ""
+"لاستخراج دالة قيمة الحقل تستخدم "
+"``expression.evaluate(\"\\\"prod_deg\\\"\")``، الحجة الوحيدة التي تقبلها هي "
+"اسم الحقل. يحتوي الرسم البياني للطبقات الإيجابية / السلبية الخاطئة على ثلاثة"
+" مؤشرات: الإنتاجية والغطاء الأرضي والكربون العضوي للتربة. كل مؤشر للبرنامج "
+"الملحق نسبة إنتاجية لمنطقة المضلع  وتحافظ على استقرار ثلاث قيم: مستقرة "
+"ومتردية محسّنة. على سبيل المثال، في حالة وجود حقول مؤشر الإنتاجية ستكون:"
 
 #: ../../source/for_developers/development.rst:487
 msgid "prod_deg - degraded productivity"
-msgstr ""
+msgstr "prod_deg - إنتاجية متردية"
 
 #: ../../source/for_developers/development.rst:488
 msgid "prod_stab - stable productivity"
-msgstr ""
+msgstr "prod_stab - إنتاجية مستقرة"
 
 #: ../../source/for_developers/development.rst:489
 msgid "prod_imp - improved productivity"
-msgstr ""
+msgstr "prod_imp - إنتاجية محسّنة"
 
 #: ../../source/for_developers/development.rst:491
 msgid ""
 "The same naming approach is applied to land cover (``land_*`` fields) and "
 "soil organic carbon (``soil_*`` fields)."
 msgstr ""
+"يتم تطبيق نفس نهج التسمية على الغطاء الأرضي (``land_*`` fields) والكربون "
+"العضوي للتربة (``land_*`` fields)."
 
 #: ../../source/for_developers/development.rst:494
 msgid ""
@@ -822,6 +906,14 @@ msgid ""
 "percentage. As pixel counting is built on numpy array functions it is very "
 "fast even for big polygons."
 msgstr ""
+"يتم حساب النسبة المئوية للمساحة باستخدام وظيفة التعبير المخصص، ويمكن العثور "
+"على التعليمات البرمجية الخاصة بها في ملف `` charts.py '' في  الملف الرئيسي "
+"للبرنامج الملحق. تم تحسّين الوظيفة للعمل مع المضلعات الكبيرة واستخدامات سير "
+"العمل التالية. للحصول على هندسة معينة، ابحث عن bbox واستخرج raster susbset "
+"باستخدام bbox هذا. قم بإجراء تنقيط هندسي في الذاكرة وقم بتطبيقه كقناع على "
+"raster. ثم عد عدد البيكسلات التي لها قيمة محددة وحساب النسبة المئوية. نظرًا "
+"لأن عد البكسل مبني على وظائف مصفوفة عددية ، فهو سريع جدًا حتى بالنسبة "
+"للمضلعات الكبيرة."
 
 #: ../../source/for_developers/development.rst:503
 msgid ""
@@ -830,10 +922,14 @@ msgid ""
 " plugin will setup default expression values for all indicator fields, so "
 "the value will be updated on every geometry change."
 msgstr ""
+"في المحاولة الأولى لتعديل طبقة vector، سيُعرض على المستخدم مربع حوار حيث يجب"
+" عليه تحديد مجموعات البيانات التي سيستخدمها للمؤشرات. ثم سيقوم البرنامج "
+"الملحق بإعداد قيم التعبير الافتراضية لجميع حقول المؤشر، لذلك سيتم تحديث "
+"القيمة في كل تغيير هندسي."
 
 #: ../../source/for_developers/development.rst:509
 msgid "Dataset metadata handling"
-msgstr ""
+msgstr "معالجة البيانات الوصفية لمجموعة البيانات"
 
 #: ../../source/for_developers/development.rst:511
 msgid ""
@@ -842,6 +938,10 @@ msgid ""
 "Metadata editor dialog is opened from the **Edit metadata** menu in the "
 "Trends.Earth dock."
 msgstr ""
+"يتم تخزين البيانات الوصفية لمجموعة البيانات بتنسيق QGIS QMD. يمكن إنشاء "
+"ملفات QMD هذه لكل raster على حدة وأيضًا لمجموعة البيانات بأكملها. يتم فتح "
+"مربع حوار محرر البيانات الوصفية من قائمة ** Edit metadata ** في Trends.Earth"
+" dock."
 
 #: ../../source/for_developers/development.rst:516
 msgid ""
@@ -849,14 +949,17 @@ msgid ""
 "XSLT transformation. Corresponding transformation are located in the "
 "``data\\xsl`` subdirectory of the plugin installation folder."
 msgstr ""
+"عندما يتم تصدير مجموعة البيانات إلى ZIP، يتم إجراء التحويل إلى ISO XML "
+"باستخدام تحويل XSLT. يوجد التحويل المقابل في الملف الفرعي ``data\\xsl`` "
+"لمجلد تثبيت البرنامج الملحق."
 
 #: ../../source/for_developers/development.rst:522
 msgid "Updating the Reporting Framework"
-msgstr ""
+msgstr "تحديث إطار عمل التقارير"
 
 #: ../../source/for_developers/development.rst:527
 msgid "Overview of the Reporting Framework"
-msgstr ""
+msgstr "نظرة عامة على إطار عمل إعداد التقارير"
 
 #: ../../source/for_developers/development.rst:528
 msgid ""
@@ -868,12 +971,22 @@ msgid ""
 "information about :code:`qgis_process` `here "
 "<https://docs.qgis.org/3.22/en/docs/user_manual/processing/standalone.html>`_."
 msgstr ""
+"تم تصميم إطار عمل التقارير ليكون قابلاً للتوسعة مع توفير التفاعل للمستخدم من"
+" خلال عمليات غير محظورة. يمكن عمل رفع ثقيل لإطار العمل من خلال فئات "
+":التعليمات البرمجية: `QgsProject` و` QgsPrintLayout` والتي ليست موضوع آمن "
+"وبالتالي، لذلك استخدم :الكود البرمجي: `qgis_process` للقيام برفع ثقيل لإنشاء"
+" التقارير (والمخططات). يمكنك العثور على مزيد من المعلومات حول: الرمز "
+"البرمجي: `qgis_process`` هنا "
+"<https://docs.qgis.org/3.22/en/docs/user_manual/processing/standalone.html> "
+"`_."
 
 #: ../../source/for_developers/development.rst:533
 msgid ""
 "There are two main steps the toolbox performs when generating reports (and "
 "charts) for the default layers in a job:"
 msgstr ""
+"هناك خطوتان رئيسيتان ينفذهما toolbox عند إنشاء التقارير (والمخططات) للطبقات "
+"الافتراضية في وظيفة:"
 
 #: ../../source/for_developers/development.rst:535
 msgid ""
@@ -885,6 +998,8 @@ msgid ""
 "(that inherits from `QgsTask "
 "<https://qgis.org/pyqgis/master/core/QgsTask.html>`_)."
 msgstr ""
+"يقوم بإنشاء كود: code: \"ReportTaskContext\" الذي يشكل كود :code:`ReportConfiguration`  (انظر:ref:`config_report_params`) و :code:`Job` الكود الذي يتم تمثيله في لوحة **Datasets**. هذا الكود :code:`ReportTaskContext` متسلسل إلى ملف JSON ثم تم تمريره كواحد من الوسيطات في كود :code:`ReportProcessHandlerTask` \n"
+" (الذي يستقبل من `QgsTask <https://qgis.org/pyqgis/master/core/QgsTask.html>`_)."
 
 #: ../../source/for_developers/development.rst:540
 msgid ""
@@ -901,14 +1016,24 @@ msgid ""
 ":ref:`modifying_charts_config` for more information about chart "
 "configurations)"
 msgstr ""
+"يقوم كود :code:`ReportProcessHandlerTask` ببدء مثيل منفصل "
+"من:code:`qgis_process` ويمرر المسار إلى ملف JSON كمدخل إلى خوارزمية معالجة: "
+":code:`trendsearth:reporttask`. هذا غلاف رفيع يقوم بإلغاء تسلسل الملف إلى "
+"كود :code:`ReportTaskContext` ويمرره إلى كود :code:`ReportTaskProcessor "
+"المسؤول عن إنشاء التقارير ومشروع QGIS للوظيفة. بالنسبة للخوارزميات التي "
+"تتطلب مخططات، يقوم كود:code:`ReportTaskProcessor` بتمرير كود الوظيفة إلىة "
+"كود :code:`AlgorithmChartsManager`  الذي يتحقق مما إذا كان هناك تكوين مخطط "
+"محدد لخوارزمية الوظيفة. إذا تم تعريفه، فإنه ينشئ المخططات المقابلة كملفات "
+"PNG. (راجع :ref:`modifying_charts_config` للحصول على مزيد من المعلومات حول "
+"تكوينات المخططات)"
 
 #: ../../source/for_developers/development.rst:548
 msgid "The diagram below provides a high-level illustration of this process:"
-msgstr ""
+msgstr "يوفر الرسم البياني أدناه توضيحًا عالي المستوى لهذه العملية:"
 
 #: ../../source/for_developers/development.rst:554
 msgid "`* Click on the image for an enlarged view.`"
-msgstr ""
+msgstr "`* اضغط على الصورة للحصول على رؤية مكبرة.`"
 
 #: ../../source/for_developers/development.rst:557
 msgid ""
@@ -920,10 +1045,16 @@ msgid ""
 "<https://github.com/ConservationInternational/trends.earth/tree/master/LDMP/processing_provider/report.py>`_"
 " modules."
 msgstr ""
+"تم تبسيط بعض أسماء الوظائف في الرسم البياني أعلاه لأغراض التوضيح. يمكن "
+"العثور على الفئات المذكورة أعلاه في وحدات `LDMP.reports "
+"<https://github.com/ConservationInternational/trends.earth/tree/master/LDMP/reports>`_"
+" و`LDMP.processing_provider.report "
+"<https://github.com/ConservationInternational/trends.earth/tree/master/LDMP/processing_provider/report.py>`_"
+" ."
 
 #: ../../source/for_developers/development.rst:565
 msgid "Adding Report Layout Variables"
-msgstr ""
+msgstr "إضافة متغيرات مخطط التقرير"
 
 #: ../../source/for_developers/development.rst:566
 msgid ""
@@ -932,6 +1063,9 @@ msgid ""
 "Currently, the toolbox supports variables listed in the "
 ":ref:`layout_expr_vars` section."
 msgstr ""
+"توفر متغيرات التقرير معلومات السياق المتعلقة بوظيفة أو طبقة (أو نطاق) "
+"أو:ref:`report_settings` أثناء عملية تنفيذ التقرير. حاليًا، يدعم toolbox  "
+"المتغيرات المدرجة في قسم :ref:`layout_expr_vars`"
 
 #: ../../source/for_developers/development.rst:569
 msgid ""
@@ -941,16 +1075,21 @@ msgid ""
 " module and, is subsequently updated and evaluated by the "
 ":code:`ReportTaskProcessor` object."
 msgstr ""
+"يتم تعريف كل متغير على أنه : code: `namedtuple` في الوحدة "
+"`LDMP.reports.expressions "
+"<https://github.com/ConservationInternational/trends.earth/tree/master/LDMP/reports/expressions.py>`_"
+"  ويتم لاحقًا تحديثها وتقييمها من خلال كود :code:`ReportTaskProcessor`."
 
 #: ../../source/for_developers/development.rst:572
 msgid ""
 "Follow the guidelines below on how to add new job or current layer "
 "variables."
 msgstr ""
+"اتبع الإرشادات أدناه حول كيفية إضافة وظيفة جديدة أو متغيرات الطبقة الحالية."
 
 #: ../../source/for_developers/development.rst:575
 msgid "Job Variable"
-msgstr ""
+msgstr "متغير الوظيفة"
 
 #: ../../source/for_developers/development.rst:576
 msgid ""
@@ -958,11 +1097,14 @@ msgid ""
 "to a report layout. Information about each job variable is encapsulated in a"
 " :code:`JobAttrVarInfo` object that is made up of four attributes:"
 msgstr ""
+"يتيح معلومات حول الوظيفة الحالية - التي يتم تنفيذها - ليتم إضافتها إلى مخطط "
+"التقرير. يتم تغليف المعلومات حول كل متغير وظيفة في كود:code:`JobAttrVarInfo`"
+" المكون من أربع سمات:"
 
 #: ../../source/for_developers/development.rst:580
 #: ../../source/for_developers/development.rst:622
 msgid "Attribute Name"
-msgstr ""
+msgstr "اسم السمة"
 
 #: ../../source/for_developers/development.rst:580
 #: ../../source/for_developers/development.rst:622
@@ -977,11 +1119,11 @@ msgstr "نوع البيانات"
 #: ../../source/for_developers/development.rst:580
 #: ../../source/for_developers/development.rst:622
 msgid "Default Value"
-msgstr ""
+msgstr "القيمة الافتراضية"
 
 #: ../../source/for_developers/development.rst:582
 msgid "`job_attr`"
-msgstr ""
+msgstr "`job_attr`"
 
 #: ../../source/for_developers/development.rst:582
 msgid ""
@@ -990,33 +1132,36 @@ msgid ""
 "notation to refer to attributes in inner nested classes e.g. "
 "`results.uri.uri`."
 msgstr ""
+"اسم السمة للكود :code:`Job` كما هو مستخدم في dot notation. على سبيل المثال، "
+"`id` يتوافق مع :code:`job.id`. يمكنك حتى استخدام dot notation للإشارة إلى "
+"السمات في الفئات المتداخلة الداخلية، على سبيل المثال `results.uri.uri`."
 
 #: ../../source/for_developers/development.rst:582
 #: ../../source/for_developers/development.rst:587
 #: ../../source/for_developers/development.rst:624
 msgid "String"
-msgstr "نص"
+msgstr "سلسلة"
 
 #: ../../source/for_developers/development.rst:582
 #: ../../source/for_developers/development.rst:587
 #: ../../source/for_developers/development.rst:624
 msgid "N/A"
-msgstr ""
+msgstr "N/A\n"
 
 #: ../../source/for_developers/development.rst:587
 #: ../../source/for_developers/development.rst:624
 msgid "`var_name`"
-msgstr ""
+msgstr "`var_name`"
 
 #: ../../source/for_developers/development.rst:587
 msgid ""
 "Name of the report layout variable. It should be prefixed with `te_job_`."
-msgstr ""
+msgstr "اسم متغير مخطط التقرير. يجب أن يكون مسبوق بـ `te_job_`."
 
 #: ../../source/for_developers/development.rst:590
 #: ../../source/for_developers/development.rst:627
 msgid "`default_value`"
-msgstr ""
+msgstr "`default_value`"
 
 #: ../../source/for_developers/development.rst:590
 #: ../../source/for_developers/development.rst:627
@@ -1024,18 +1169,20 @@ msgid ""
 "A default value to use for `var_name`, mostly applied when designing "
 "layouts."
 msgstr ""
+"قيمة افتراضية لاستخدامها لـ `var_name`, يتم تطبيقها غالبًا عند تصميم "
+"التخطيطات."
 
 #: ../../source/for_developers/development.rst:590
 #: ../../source/for_developers/development.rst:590
 #: ../../source/for_developers/development.rst:627
 #: ../../source/for_developers/development.rst:627
 msgid "object"
-msgstr ""
+msgstr "الكود"
 
 #: ../../source/for_developers/development.rst:593
 #: ../../source/for_developers/development.rst:630
 msgid "`fmt_func`"
-msgstr ""
+msgstr "`fmt_func`"
 
 #: ../../source/for_developers/development.rst:593
 msgid ""
@@ -1044,26 +1191,31 @@ msgid ""
 " can be used to convert the value of a job's `id` from UUID to string. You "
 "can also use lambda functions here."
 msgstr ""
+"كود الدالة سيتم استخدامه لتحويل قيمة سمة الوظيفة إلى تنسيق متوافق مع تعبيرات"
+" QGIS. على سبيل المثال يمكن استخدام :code:`str` لتحويل قيمة` id` للوظيفة من "
+"UUID إلى سلسلة. يمكنك أيضًا استخدام وظائف lambda هنا."
 
 #: ../../source/for_developers/development.rst:593
 #: ../../source/for_developers/development.rst:630
 msgid "function object"
-msgstr ""
+msgstr "كود الدالة"
 
 #: ../../source/for_developers/development.rst:593
 #: ../../source/for_developers/development.rst:630
 msgid "None"
-msgstr ""
+msgstr "لاشيء"
 
 #: ../../source/for_developers/development.rst:601
 msgid ""
 "The code snippet below shows how to add a variable `te_job_result_name` that"
 " corresponds to :code:`job.results.name`."
 msgstr ""
+"يوضح كود snippet أدناه كيفية إضافة متغير`te_job_result_name` يتوافق مع "
+":code:`job.results.name`."
 
 #: ../../source/for_developers/development.rst:617
 msgid "Layer Variable"
-msgstr ""
+msgstr "متغير طبقة"
 
 #: ../../source/for_developers/development.rst:618
 msgid ""
@@ -1071,12 +1223,14 @@ msgid ""
 "variable information is encapsulated in a :code:`LayerVarInfo` object that "
 "is made up of three attributes:"
 msgstr ""
+"يوفر معلومات حول طبقة raster الحالية الجاري تنفيذها. يتم تغليف هذه المعلومات"
+" المتغيرة في كود :code:`LayerVarInfo` المكون من ثلاث سمات:"
 
 #: ../../source/for_developers/development.rst:624
 msgid ""
 "Name of the report layout variable. It should be prefixed with "
 "`te_current_layer_`."
-msgstr ""
+msgstr "اسم متغير تخطيط التقرير. يجب أن يكون مسبوق بـ `te_current_layer_`."
 
 #: ../../source/for_developers/development.rst:630
 msgid ""
@@ -1085,25 +1239,30 @@ msgid ""
 " object to a format that is compatible with QGIS expressions. You can also "
 "use lambda functions here."
 msgstr ""
+"كود دالة سيتم استخدامه لاستخراج و/أو تحويل قيمة من كود `QgsRasterLayer "
+"<https://qgis.org/pyqgis/master/core/QgsRasterLayer.html>` _ إلى تنسيق "
+"متوافق مع تعبيرات QGIS. يمكنك أيضًا استخدام وظائف lambda هنا."
 
 #: ../../source/for_developers/development.rst:634
 msgid ""
 "For instance, :code:`lambda layer: layer.name()` returns the layer name."
-msgstr ""
+msgstr "على سبيل المثال :code:`lambda layer: layer.name()` يُرجع اسم الطبقة."
 
 #: ../../source/for_developers/development.rst:638
 msgid ""
 "The code snippet below shows how to add a variable `te_current_layer_height`"
 " that corresponds to the raster layer's height."
 msgstr ""
+"يوضح كود snippet أدناه كيفية إضافة متغير `te_current_layer_height` يتوافق مع"
+" ارتفاع طبقة raster ."
 
 #: ../../source/for_developers/development.rst:657
 msgid "These variables are only available in the layout scope."
-msgstr ""
+msgstr "هذه المتغيرات متاحة فقط في نطاق التخطيط."
 
 #: ../../source/for_developers/development.rst:663
 msgid "Adding Chart Configurations"
-msgstr ""
+msgstr "إضافة تكوينات الرسم البياني"
 
 #: ../../source/for_developers/development.rst:664
 msgid ""
@@ -1111,6 +1270,8 @@ msgid ""
 " a specific algorithm. Defining a new chart configuration is a three-step "
 "process:"
 msgstr ""
+"يمكن تجميع المخططات باستخدام كود تكوين مخطط يتوافق مع خوارزمية محددة. تحديد "
+"تكوين مخطط جديد هو عملية من ثلاث خطوات:"
 
 #: ../../source/for_developers/development.rst:667
 msgid ""
@@ -1126,12 +1287,22 @@ msgid ""
 " root output directory which is also available as an attribute in the base "
 "class. See the code snippet below:"
 msgstr ""
+"أنشئ فئة مخطط جديدة تستقبل من code:`BaseChart` في وحدة `LDMP.reports.charts "
+"<https://github.com/ConservationInternational/trends.earth/tree/master/LDMP/reports/charts.py>`_."
+" قم بتنفيذ دالة :code:`export` لتحديد نوع المخطط والخصائص وما إلى ذلك "
+"باستخدام  :code:`Plotly` Python library  التي تأتي مع QGIS. أخيرًا ، داخل "
+"دالة :code:`export` قم باستدعاء دالة :  :code:`save_image` لكتابة كود Plotly"
+"  :code:`Figure` كملف صورة باستخدام أي من التنسيقات التي تدعمها فئات "
+":code:`QImageWriter`. يمكنك أيضًا تحديد المسار بالنسبة إلى ملف الإخراج "
+"الأساسي والذي يتوفر أيضًا كسمة في الفئة الأساسية. انظر كود snippet أدناه:"
 
 #: ../../source/for_developers/development.rst:697
 msgid ""
 "You can refer to the :code:`UniqueValuesPieChart` class for a more complete "
 "example."
 msgstr ""
+"يمكنك الرجوع إلى فئة  :code:`UniqueValuesPieChart` للحصول على أمثاله أكثر "
+"اكتمالاً."
 
 #: ../../source/for_developers/development.rst:699
 msgid ""
@@ -1144,12 +1315,20 @@ msgid ""
 "charts. You can refer to the :code:`LandCoverChartsConfiguration` class for "
 "a more complete example."
 msgstr ""
+"أنشئ فئة تكوين مخطط ترث من::code:`BaseAlgorithmChartsConfiguration` ونفِّذ "
+"دالة :code:`_add_charts`. تحدد فئة تكوين المخطط بشكل أساسي المخططات التي "
+"سيتم استخدامها لخوارزمية معينة. السمة :code:`layer_band_infos`هي قائمة من "
+"التعليمات البرمجية الخاصة بـ :code:`LayerBandInfo` التي تحتوي على بيانات "
+"الطبقة ومعلومات النطاق المطلوبة لإنتاج المخططات. يمكنك الرجوع إلى فئة "
+":code:`LandCoverChartsConfiguration` للحصول على مثال أكثر اكتمالاً."
 
 #: ../../source/for_developers/development.rst:705
 msgid ""
 "Finally, map an algorithm (name) to the correspond chart configuration class"
 " in the :code:`AlgorithmChartsManager` class as shown below:"
 msgstr ""
+"أخيراً، قم بتعيين خوارزمية (name) إلى فئة تكوين المخطط المقابل في "
+":code:`AlgorithmChartsManager` كما هو موضح أدناه:"
 
 #: ../../source/for_developers/development.rst:719
 msgid ""
@@ -1157,14 +1336,17 @@ msgid ""
 ":code:`ReportTaskProcessor` object, will create a new chart configuration "
 "object for a corresponding job's algorithm when reports are being generated."
 msgstr ""
+"إن فئة :code:`AlgorithmChartsManager`، والتي تم إنشاء مثيل لها في كود "
+":code:`ReportTaskProcessor`، ستنشئ كوداً جديدًا لتكوين مخطط لخوارزمية مهمة "
+"مقابلة عند إنشاء التقارير."
 
 #: ../../source/for_developers/development.rst:724
 msgid "Contributing to the documentation"
-msgstr ""
+msgstr "المساهمة في التوثيق"
 
 #: ../../source/for_developers/development.rst:727
 msgid "Overview"
-msgstr ""
+msgstr "نظرة عامة"
 
 #: ../../source/for_developers/development.rst:729
 msgid ""
@@ -1174,6 +1356,10 @@ msgid ""
 "you are unfamiliar with either of these tools, see their documentation for "
 "more information on how they are used."
 msgstr ""
+"تم إنتاج وثائق Trends.Earth باستخدام Sphinx <http://www.sphinx-"
+"doc.org/en/master/> `_ ، وهي مكتوبة بتنسيق` reStructuredText "
+"<http://docutils.sourceforge.net/rst.html> `_. إذا لم تكن معتادًا على أي من "
+"هذه الأدوات، فراجع وثائقها للحصول على مزيد من المعلومات حول كيفية استخدامها."
 
 #: ../../source/for_developers/development.rst:735
 msgid ""
@@ -1181,6 +1367,9 @@ msgid ""
 "the main trends.earth directory. Within that folder there are a number of "
 "key files and folders to be aware of:"
 msgstr ""
+"يتم تخزين مستندات Trends.Earth في مجلد \"docs\" ضمن ملف trends.earth. يوجد "
+"داخل هذا المجلد عدد من الملفات والمجلدات الرئيسية التي يجب أن تكون على دراية"
+" بها:"
 
 #: ../../source/for_developers/development.rst:739
 msgid ""
@@ -1188,6 +1377,8 @@ msgid ""
 "format). Note it will only appear on your machine after running the ``docs-"
 "build`` invoke task."
 msgstr ""
+"الإنشاء: يحتوي على وثائق الإنشاء الخاصة trends.earth (بتنسيق PDF و HTML). "
+"لاحظ أنه لن يظهر على جهازك إلا بعد تشغيل مهمة استدعاء ``docs-build``"
 
 #: ../../source/for_developers/development.rst:742
 msgid ""
@@ -1195,6 +1386,9 @@ msgid ""
 "files in here are normally processed automatically using invoke tasks, so "
 "you shouldn't ever have reason to modify anything in this folder."
 msgstr ""
+"i18n: يحتوي على ترجمات للوثائق إلى لغات أخرى. عادةً ما تتم معالجة الملفات "
+"الموجودة هنا تلقائيًا باستخدام مهام الاستدعاء، لذلك لن يكون لديك سبب لتعديل "
+"أي شيء في هذا المجلد."
 
 #: ../../source/for_developers/development.rst:745
 msgid ""
@@ -1205,6 +1399,11 @@ msgid ""
 "added under \"resources\" with two-letter language codes to include images "
 "specific to a particular language."
 msgstr ""
+"الموارد: تحتوي على أي موارد (صور أو ملفات PDF بشكل أساسي) يشار إليها في "
+"الوثائق. يوجد حاليًا مجلد واحد فقط (\"EN\"، للغة الإنجليزية) حيث أن جميع "
+"الصور الموجودة في الوثائق مأخوذة من النسخة الإنجليزية من البرنامج الملحق - "
+"إذا كان من الممكن إضافة مجلدات إضافية مناسبة ضمن \"الموارد\" برموز لغة مكونة"
+" من حرفين لتضمينها صور خاصة بلغة معينة."
 
 #: ../../source/for_developers/development.rst:751
 msgid ""
@@ -1212,6 +1411,9 @@ msgid ""
 "documentation (these are the actual English text of the documentation, and "
 "are the files you are most likely to need to modify)."
 msgstr ""
+"المصدر: يحتوي على ملفات المصدر reStructuredText التي تحدد الوثائق (هذا  النص"
+" الإنجليزي الفعلي للوثائق، وهذه الملفات التي من المرجح أن تحتاج إلى "
+"تعديلها)."
 
 #: ../../source/for_developers/development.rst:761
 msgid ""
@@ -1221,15 +1423,20 @@ msgid ""
 "requirements file for Trends.Earth, so they can be installed by navigating "
 "in a command prompt to the root of the trends.earth code folder and typing::"
 msgstr ""
+"من أجل العمل بالتوثيق المستندي، تحتاج إلى استدعاء Sphinx و sphinx-intl و "
+"sphinx-rtd-theme (سمة موقع Trends.Earth) المثبتة على جهازك. يتم سرد جميع هذه"
+" الحزم في ملف متطلبات \"dev\" الخاص بـ Trends.Earth، بحيث يمكن تثبيتها "
+"بالانتقال في موجه الأوامر إلى المجلد الرئيسي للتعليمات البرمجية الخاصة بـ "
+"trends.earth واكتب::"
 
 #: ../../source/for_developers/development.rst:770
 msgid "LaTeX"
-msgstr ""
+msgstr "LaTeX"
 
 #: ../../source/for_developers/development.rst:772
 msgid ""
 "LaTeX is used to produce PDF outputs of the documentation for Trends.Earth."
-msgstr ""
+msgstr "يستخدم LaTeX لإنتاج مخرجات PDF لوثائق Trends.Earth."
 
 #: ../../source/for_developers/development.rst:774
 msgid ""
@@ -1240,12 +1447,21 @@ msgid ""
 "The LaTeX installer is quite large (several GB) so it might take some time "
 "to download and install."
 msgstr ""
+"للتثبيت على Windows، \"اتبع العملية الموضحة هنا "
+"<https://www.tug.org/protext>`_ لتثبيت توزيع ProTeXt لـ LaTeX من `zipfile "
+"المتوفر هنا "
+"<http://ftp.math.purdue.edu/mirrors/ctan.org/systems/windows/protext/>`_. إن"
+" مثبّت LaTeX كبير جدًا (عدة غيغابايت) لذا قد يستغرق تنزيله وتثبيته بعض "
+"الوقت."
 
 #: ../../source/for_developers/development.rst:781
 msgid ""
 "On MacOS, MacTeX is a good option, and can be installed `following the "
 "instructions here <http://www.tug.org/mactex/>`_."
 msgstr ""
+"في نظام MacOS، يعد MacTeX خيارًا جيدًا ويمكن تثبيته \"باتباع الإرشادات "
+"الواردة هنا في نظام MacOS، يعد MacTeX خيارًا جيدًا ويمكن تثبيته `باتباع "
+"الإرشادات الواردة هنا <http://www.tug.org/mactex/>`_."
 
 #: ../../source/for_developers/development.rst:784
 msgid ""
@@ -1253,10 +1469,12 @@ msgid ""
 "package manager to find and install whatever LaTeX distribution is included "
 "by default."
 msgstr ""
+"على Linux، يجب أن يكون تثبيت LaTeX أسهل بكثير - استخدم مدير حزم التوزيع "
+"الخاص بك للعثور على أي توزيع LaTeX مضمّن افتراضيًا وتثبيته."
 
 #: ../../source/for_developers/development.rst:789
 msgid "Qt Linguist"
-msgstr ""
+msgstr "Qt Linguist\n"
 
 #: ../../source/for_developers/development.rst:791
 msgid ""
@@ -1264,6 +1482,8 @@ msgid ""
 "for translation. The \"lrelease\" command must be available and on your "
 "path. Try trying::"
 msgstr ""
+"هناك حاجة أيضًا إلى Qt Linguist لسحب السلاسل من الكود وGUI للترجمة. يجب أن "
+"يكون الأمر \"lrelease\" متاحًا وفي مسارك. حاول تجربة::"
 
 #: ../../source/for_developers/development.rst:797
 msgid ""
@@ -1273,10 +1493,16 @@ msgid ""
 " install Qt Linguist ensure you add the folder containing lrelease to your "
 "path so that the Trends.Earth invoke script can find it."
 msgstr ""
+"داخل نافذة طرفية. إذا لم يتم العثور على الملف، فستحتاج إلى تثبيت Qt "
+"Linguist. `هذه الصفحة <https://github.com/lelegard/qtlinguist-"
+"installers/releases>` _ هي أحد مصادر أدوات التثبيت لشركة Qt Linguist. بمجرد "
+"تثبيت Qt Linguist، تأكد من إضافة المجلد الذي يحتوي على lrelease إلى المسار "
+"الخاص بك حتى يتمكن البرنامج النصي invoke الخاص بـ Trends.Earth من العثور "
+"عليه."
 
 #: ../../source/for_developers/development.rst:805
 msgid "Updating and building the documentation"
-msgstr ""
+msgstr "تحديث وبناء الوثائق"
 
 #: ../../source/for_developers/development.rst:807
 msgid ""
@@ -1294,6 +1520,17 @@ msgid ""
 "(for \"fast\"). This option will build only the English HTML documentation, "
 "which should take only a few seconds. To build using the fast option, run::"
 msgstr ""
+"بمجرد تثبيت متطلبات Sphinx، تكون جاهزًا لبدء تعديل الوثائق. توجد الملفات "
+"المراد تعديلها ضمن مجلد  \"docs\\\\source\". بعد إجراء أي تغييرات على هذه "
+"الملفات، ستحتاج إلى إنشاء الوثائق لعرض النتائج. يوجد إصداران من وثائق "
+"Trends.Earth: إصدار HTML (يُستَخدَم لموقع الويب) ونسخة PDF (للتنزيل دون "
+"اتصال بالإنترنت). لإنشاء وثائق لـ Trends.Earth، استخدم مهمة الاستدعاء "
+"\"docs-build\". بشكل افتراضي، ستنشئ هذه المهمة التوثيق الكامل لـ "
+"Trends.Earth، بتنسيق HTML وPDF لجميع اللغات المدعومة. قد يستغرق هذا بعض "
+"الوقت للتشغيل (حتى بضع ساعات). إذا كنت تقوم فقط باختبار نتائج بعض التغييرات "
+"الطفيفة على الوثائق، فمن الأفضل عادةً استخدام الخيار ``-f`` (for \"fast\"). "
+"سيؤدي هذا الخيار إلى إنشاء وثائق HTML باللغة الإنجليزية فقط، والتي يجب أن "
+"تستغرق بضع ثوانٍ فقط. للبناء باستخدام الخيار السريع، قم بتشغيل ::"
 
 #: ../../source/for_developers/development.rst:823
 msgid ""
@@ -1302,12 +1539,17 @@ msgid ""
 "documentation. Load the \"index.html\" file in a web browser to see how it "
 "looks."
 msgstr ""
+"سيستغرق تشغيل الأمر أعلاه بضع ثوانٍ، ثم إذا نظرت أسفل "
+"\"docs\\\\build\\\\html\\\\en\"، فسترى إصدار HTML من الوثائق. قم بتحميل ملف "
+"\"index.html\" في متصفح الويب لترى كيف يبدو."
 
 #: ../../source/for_developers/development.rst:827
 msgid ""
 "To build the full documentation, for all languages, in PDF and in HTML "
 "(remember this could take a few hours to complete), run::"
 msgstr ""
+"لإنشاء التوثيق الكامل، لجميع اللغات، بتنسيق PDF و HTML (تذكر أن هذا قد "
+"يستغرق بضع ساعات حتى يكتمل)، قم بتشغيل ::"
 
 #: ../../source/for_developers/development.rst:832
 msgid ""
@@ -1315,6 +1557,9 @@ msgid ""
 "documentation under \"docs\\\\build\\\\html\\\\en\", and the PDFs of the "
 "documentation under \"docs\\\\build\\\\html\\\\en\\\\pdfs\"."
 msgstr ""
+"بعد تشغيل الأمر أعلاه ، سترى (للغة الإنجليزية) وثائق HTML ضمن "
+"\"docs\\\\build\\\\html\\\\en\"، وملفات PDF للوثائق ضمن "
+"\"docs\\\\build\\\\html\\\\en\\\\pdfs\"."
 
 #: ../../source/for_developers/development.rst:836
 msgid ""
@@ -1323,12 +1568,17 @@ msgid ""
 "for that language. For example, to build the Spanish documentation only, "
 "run::"
 msgstr ""
+"إذا كنت ترغب في اختبار لغة معينة (عند اختبار الترجمات، على سبيل المثال)، "
+"يمكنك تحديد رمز لغة مكون من حرفين لإنشاء المستندات لتلك اللغة فقط. على سبيل "
+"المثال، لإنشاء الوثائق الإسبانية فقط، قم بتشغيل ::"
 
 #: ../../source/for_developers/development.rst:843
 msgid ""
 "Note that options can be combined, so you can use the fast option to build "
 "only the HTML version of the Spanish documentation by running::"
 msgstr ""
+"لاحظ أنه يمكن دمج الخيارات، بحيث يمكنك استخدام الخيار السريع لإنشاء إصدار "
+"HTML فقط من الوثائق الإسبانية عن طريق تشغيل ::"
 
 #: ../../source/for_developers/development.rst:848
 msgid ""
@@ -1337,6 +1587,9 @@ msgid ""
 "files that are no longer used in the updated documentation. To do this, use "
 "the ``-c`` (clean) option::"
 msgstr ""
+"عند إنشاء التوثيق الكامل لموقع الويب، من الأفضل إزالة أي نسخ قديمة من "
+"الوثائق أولاً، حيث قد تحتوي على ملفات لم تعد مستخدمة في الوثائق المحدثة. "
+"للقيام بذلك، استخدم خيار ``-c`` (clean) ::"
 
 #: ../../source/for_developers/development.rst:855
 msgid ""
@@ -1348,6 +1601,12 @@ msgid ""
 " regardless of whether there are any errors. To do this, use the ``-i`` "
 "(ignore errors) option::"
 msgstr ""
+"بشكل عام، يجب أن يكتمل بناء المستندات دون أي أخطاء إذا كنت تخطط لمشاركة "
+"الوثائق أو نشرها على موقع الويب. ومع ذلك، عند اختبار الأشياء محليًا، قد ترغب"
+" في تجاهل أخطاء التوثيق التي تظهر فقط لبعض اللغات (بسبب أخطاء بناء الجملة "
+"الناشئة عن أخطاء الترجمة، وما إلى ذلك)، والاستمرار في بناء الوثائق المتبقية "
+"بغض النظر عما إذا كانت هناك أية أخطاء. للقيام بذلك، استخدم خيار``-i`` "
+"(ignore errors) ::"
 
 #: ../../source/for_developers/development.rst:864
 msgid ""
@@ -1355,22 +1614,29 @@ msgid ""
 " idea to push the latest strings to Transifex so they can be translated. To "
 "update the strings on Transifex with any new changes, run::"
 msgstr ""
+"متى قمت بإجراء أي تغييرات على نص الوثائق، فمن الأفضل دفع أحدث السلاسل إلى "
+"Transifex حتى يمكن ترجمتها. لتحديث السلاسل على Transifex بأي تغييرات جديدة، "
+"قم بتشغيل ::"
 
 #: ../../source/for_developers/development.rst:870
 msgid ""
 "To successfully run the above command you will need to have the key for the "
 "Trends.Earth transifex account."
 msgstr ""
+"لتشغيل الأمر أعلاه بنجاح، يجب أن يكون لديك مفتاح حساب transifex لـ "
+"Trends.Earth"
 
 #: ../../source/for_developers/development.rst:874
 msgid "Building documentation for release"
-msgstr ""
+msgstr "بناء وثائق للإصدار"
 
 #: ../../source/for_developers/development.rst:876
 msgid ""
 "Before releasing new documentation, always pull the latest translations from"
 " Transifex so that all translations are up to date. To do this, run::"
 msgstr ""
+"قبل إصدار وثائق جديدة، اسحب دائمًا أحدث الترجمات من Transifex حتى تكون جميع "
+"الترجمات محدثة. للقيام بذلك، قم بتشغيل ::"
 
 #: ../../source/for_developers/development.rst:881
 msgid ""
@@ -1378,6 +1644,8 @@ msgid ""
 "website, or in PDF) you must build the entire documentation using ``docs-"
 "build`` with no additional parameters::"
 msgstr ""
+"لإنشاء نسخة من التوثيق للإصدار العام (سواء لموقع الويب أو بتنسيق PDF) ، يجب "
+"عليك إنشاء الوثائق بالكامل باستخدام  ``docs-build`` بدون أي معلمات إضافية:"
 
 #: ../../source/for_developers/development.rst:887
 msgid ""
@@ -1386,6 +1654,10 @@ msgid ""
 "needed to allow the build to complete successfully. Once the build completes"
 " with no errors, the files are ready to be deployed on the website."
 msgstr ""
+"يجب أن تكتمل هذه العملية بنجاح مع عدم وجود أخطاء. في حالة حدوث أي أخطاء "
+"أثناء العملية، راجع رسالة الخطأ وقم بإجراء أي تعديلات لازمة للسماح للإنشاء "
+"بنجاح تام. بمجرد اكتمال البناء بدون أخطاء، تكون الملفات جاهزة لإصدار على "
+"موقع الويب."
 
 #: ../../source/for_developers/development.rst:892
 msgid ""
@@ -1396,10 +1668,15 @@ msgid ""
 "leading to lost work done by the translators if the latest translations have"
 " not yet been committed to github."
 msgstr ""
+"يحتوي كلا الأمرين أعلاه أيضًا على خيارات ``-f`` (force)  تفرض سحب أو دفع "
+"أحدث الترجمات من أو إلى Transifex (على التوالي). استخدم هذه الخيارات فقط إذا"
+" كنت متأكدًا تمامًا مما تفعله، حيث يمكنها الكتابة فوق الترجمات تماماً على "
+"Transifex، مما يؤدي إلى فقد العمل الذي قام به المترجمون إذا لم يتم الالتزام "
+"بأحدث الترجمات في github بعد."
 
 #: ../../source/for_developers/development.rst:900
 msgid "Adding new documentation text"
-msgstr ""
+msgstr "إضافة نص وثائقي جديدة"
 
 #: ../../source/for_developers/development.rst:902
 msgid ""
@@ -1408,12 +1685,18 @@ msgid ""
 "that they are properly translated, and (for tutorials) to ensure that they "
 "are generated in PDF so they can be downloaded for offline use."
 msgstr ""
+"يجب إضافة أي ملفات .rst جديدة تمت إضافتها إلى الوثائق إلى العديد من ملفات "
+"التكوين للتأكد من ظهورها في قائمة التنقل، وترجمتها بشكل صحيح، و (للبرامج "
+"التعليمية) لضمان إنشائها في PDF حتى يتمكنوا من ذلك. يمكن تنزيلها للاستخدام "
+"في وضع عدم الاتصال."
 
 #: ../../source/for_developers/development.rst:907
 msgid ""
 "docs\\\\source\\\\index.rst: add new .rst files in the appropriate place "
 "here to ensure that they are linked to from the navigation menu."
 msgstr ""
+"docs\\\\source\\\\index.rst: أضف ملفات .rst جديدة في المكان المناسب هنا "
+"للتأكد من أنها مرتبطة من قائمة التنقل."
 
 #: ../../source/for_developers/development.rst:909
 msgid ""
@@ -1421,6 +1704,8 @@ msgid ""
 "files already included) in order to make the translation software aware of "
 "them so that they can be translated"
 msgstr ""
+".tx\\\\config: قم بإدراج ملفات .rst الجديدة هنا (بنفس تنسيق الملفات الأخرى "
+"المضمنة بالفعل) من أجل جعل برنامج الترجمة على علم بها حتى يمكن ترجمتها"
 
 #: ../../source/for_developers/development.rst:912
 msgid ""
@@ -1431,10 +1716,15 @@ msgid ""
 "included in the PDF version of the website as a whole, regardless of whether"
 " it is in the ``latex_documents`` list."
 msgstr ""
+"docs\\\\source\\\\conf.py: إذا كنت ترغب في إنشاء ملف PDF لصفحة من موقع "
+"الويب، فيجب عليك إدراج هذه الصفحة هنا في قائمة ```latex_documents``. عادةً "
+"ما نقوم بذلك فقط لصفحات البرامج التعليمية التي نريد إتاحتها للمشاركين في "
+"ورشة العمل في ملفات PDF فردية. سيتم تضمين كل صفحة على الموقع في نسخة PDF من "
+"الموقع ككل، بغض النظر عما إذا كانت مدرجة في قائمة ``latex_documents``."
 
 #: ../../source/for_developers/development.rst:920
 msgid "Adding new images or other resources"
-msgstr ""
+msgstr "إضافة صور جديدة أو موارد أخرى"
 
 #: ../../source/for_developers/development.rst:922
 msgid ""
@@ -1451,6 +1741,16 @@ msgid ""
 "as the default for all languages for which a native version of the image is "
 "not provided, while a localized version will be used when available."
 msgstr ""
+"يجب إضافة أي صور جديدة أو موارد أخرى (ملفات PDF، إلخ) التي تحتاج لها الوثائق"
+" ضمن \"docs\\\\resources\\\\en\". إذا رغبت في ذلك، فمن الممكن تحميل إصدارات "
+"مختلفة من الصورة بحيث تظهر الصورة مع الترجمات المناسبة. قد يكون هذا مفيدًا "
+"إذا كنت تريد إظهار واجهة GUI باللغة المناسبة، على سبيل المثال. للقيام بذلك، "
+"قم أولاً بتحميل نسخة من الصورة إلى \"docs\\\\resources\\en\" (مع نص باللغة "
+"الإنجليزية). بعد ذلك، أنشئ نسخة من الصورة بنص مترجم وضع تلك الصورة تحت "
+"المجلد المناسب لتلك اللغة (على سبيل المثال، ستظهر صورة تظهر الترجمات "
+"الإسبانية ضمن \"docs\\\\resources\\\\es\"). سيتم استخدام النسخة الإنجليزية "
+"من الصورة كإصدار افتراضي لجميع اللغات التي لم يتم توفير نسخة أصلية من الصورة"
+" لها، بينما سيتم استخدام النسخة المترجمة عند توفرها."
 
 #: ../../source/for_developers/development.rst:935
 msgid ""
@@ -1462,10 +1762,16 @@ msgid ""
 "``docs\\\\resources\\\\en`` or, for translated images, the appropriate "
 "language-specific folder under ``docs\\\\resources``."
 msgstr ""
+"يوجد مجلد آخر،``docs\\\\source\\\\static``، يستخدم للاحتفاظ بالموارد مؤقتًا "
+"أثناء تشغيل البرامج النصية التي تبني توثيق مستندي Trends.Earth. قد يكون لديك"
+" صور مدرجة تحت هذا المجلد إذا كنت قد بنيت التوثيق على هذا الجهاز. ** يجب عدم"
+" استخدام هذا المجلد مطلقًا لإضافة موارد جديدة ** - يجب دائمًا وضع الموارد "
+"الجديدة ضمن ``docs\\\\resources\\\\en`` أو، بالنسبة للصور المترجمة، المجلد "
+"المناسب الخاص باللغة ضمن ``docs\\\\resources``."
 
 #: ../../source/for_developers/development.rst:944
 msgid "Contributing as a translator"
-msgstr ""
+msgstr "المساهمة كمترجم"
 
 #: ../../source/for_developers/development.rst:946
 msgid ""
@@ -1477,14 +1783,20 @@ msgid ""
 "emailing us at `trends.earth@conservation.org "
 "<mailto:trends.earth@conservation.org>`_."
 msgstr ""
+"تتم إدارة الترجمات لكل من البرنامج الملحق QGIS وكذلك لهذا الموقع بواسطة "
+"`transifex <http://www.transifex.com>` _. إذا كنت ترغب في المساهمة في ترجمة "
+"البرنامج الملحق والوثائق (ونرغب في الحصول على مساعدتك!) يمكنك طلب الانضمام "
+"إلى فريقنا من خلال transifex <https://www.transifex.com/conservation-"
+"international/trendsearth> `_ ، أو عن طريق مراسلتنا عبر البريد الإلكتروني "
+"على `trends.earth@conservation.org <mailto:trends.earth@conservation.org>`_."
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr "أيقونة حاسبة"
+msgstr "أيقونة الحاسبة"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr "أيقونة المخطط"
+msgstr "أيقونة المخططات"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
@@ -1492,7 +1804,7 @@ msgstr "أيقونة الحافظة"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr "أيقونة التحميل السحابي"
+msgstr "أيقونة التنزيل السحابي"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
@@ -1520,11 +1832,11 @@ msgstr "أيقونة تحميل مجموعة البيانات"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr "أيقونة التحديد"
+msgstr "أيقونة MarkMarker\n"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr "أيقونة فتح دليل مجموعة البيانات"
+msgstr "أيقونة فتح ملف مجموعة البيانات"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
@@ -1548,20 +1860,20 @@ msgstr "أيقونة TrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr "أيقونة التصور"
+msgstr "أيقونة المؤثرات البصرية"
 
 #: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr "شعار CI"
+msgstr "رمز CI"
 
 #: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr "شعار Lund"
+msgstr "رمز Lund"
 
 #: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr "شعار ناسا"
+msgstr "رمز NASA"
 
 #: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr "شعار GEF"
+msgstr "رمز GEF"

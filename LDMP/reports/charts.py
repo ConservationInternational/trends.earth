@@ -14,7 +14,7 @@ from qgis.PyQt.QtCore import (
     QCoreApplication,
     QTemporaryFile,
     QUrl,
-    QObject
+    QObject,
 )
 from qgis.PyQt.QtGui import (
     QColor
@@ -44,6 +44,12 @@ from ..layers import (
     styles
 )
 from .models import slugify
+
+class tr_reports_charts(QObject):
+    def tr(self, txt):
+        return QCoreApplication.translate(self.__class__.__name__, txt)
+
+tr_reports_charts = tr_reports_charts()
 
 # Contains information about a layer and source band_info
 LayerBandInfo = namedtuple(
@@ -772,8 +778,8 @@ def land_cover_title(year) -> str:
     """
     Translatable title for land cover charts.
     """
-    tr_base_title = self.tr('Land Cover Area')
-    tr_in = self.tr('in')
+    tr_base_title = tr_reports_charts.tr('Land Cover Area')
+    tr_in = tr_reports_charts.tr('in')
 
     return f'{tr_base_title} (km<sup>2</sup>) {tr_in} {year!s}'
 
@@ -846,7 +852,7 @@ class SdgSummaryChartsConfiguration(BaseAlgorithmChartsConfiguration):
 
         summary_area_collection = job_attr.summary_area()
 
-        base_title_tr = self.tr('Summary of SDG 15.3.1 Indicator')
+        base_title_tr = tr_reports_charts.tr('Summary of SDG 15.3.1 Indicator')
         base_chart_name = 'sdg_15_3_1_summary'
 
         # Pie chart for summary indicator in area
@@ -887,7 +893,7 @@ class SdgSummaryChartsConfiguration(BaseAlgorithmChartsConfiguration):
 
         self._charts.append(pie_chart_lc_final_year)
 
-        tr_lc_change = self.tr('Change in Land Cover')
+        tr_lc_change = tr_reports_charts.tr('Change in Land Cover')
         lc_change_title = f'{tr_lc_change} (km<sup>2</sup>)'
         lc_chart_base_name = f'land-cover-changes-{init_year!s}-{final_year!s}'
 
@@ -911,7 +917,7 @@ class SdgSummaryChartsConfiguration(BaseAlgorithmChartsConfiguration):
         init_soc_value_info_collection = job_attr.soc(str(init_year))
         final_soc_value_info_collection = job_attr.soc(str(final_year))
 
-        tr_soc_change = self.tr('Change in Soil Organic Carbon (Tonnes)')
+        tr_soc_change = tr_reports_charts.tr('Change in Soil Organic Carbon (Tonnes)')
         soc_chart_base_name = f'soc-changes-{init_year!s}-{final_year!s}'
 
         # Add positive/negative soil organic carbon bar graph
@@ -926,14 +932,14 @@ class SdgSummaryChartsConfiguration(BaseAlgorithmChartsConfiguration):
         soc_change_barchart.target_year = final_year
         soc_change_barchart.plot_title = tr_soc_change
         soc_change_barchart.base_chart_name = soc_chart_base_name
-        soc_change_barchart.value_axis_label = self.tr('Tonnes')
+        soc_change_barchart.value_axis_label = tr_reports_charts.tr('Tonnes')
         soc_change_barchart.use_value_type = InfoValueType.AREA
         self._charts.append(soc_change_barchart)
 
         # LC productivity data
         lc_prod_info_items = job_attr.lc_by_productivity()
 
-        tr_lc_productivity_title = self.tr('Land Cover Change by Productivity Class')
+        tr_lc_productivity_title = tr_reports_charts.tr('Land Cover Change by Productivity Class')
 
         # Add productivity stacked bar graph
         productivity_barchart = StackedBarChart(
@@ -945,7 +951,7 @@ class SdgSummaryChartsConfiguration(BaseAlgorithmChartsConfiguration):
         productivity_barchart.base_chart_name = f'land-cover-change-by-' \
                                                 f'productivity-{init_year!s}' \
                                                 f'-{final_year!s}'
-        productivity_barchart.value_axis_label = self.tr('%')
+        productivity_barchart.value_axis_label = tr_reports_charts.tr('%')
         self._charts.append(productivity_barchart)
 
 

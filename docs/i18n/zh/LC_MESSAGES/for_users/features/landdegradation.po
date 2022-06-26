@@ -24,44 +24,44 @@ msgstr ""
 
 #: ../../source/for_users/features/landdegradation.rst:4
 msgid "Land degradation and SDG 15.3.1"
-msgstr ""
+msgstr "土地退化和 SDG 15.3.1"
 
 #: ../../source/for_users/features/landdegradation.rst:6
 msgid ""
 "As part of the \"2030 Agenda for Sustainable Development\", Sustainable "
 "Development Goal (SDG) 15 is to:"
-msgstr "作为 \"2030年可持续发展议程 \"的一部分，可持续发展目标（SDG）15是："
+msgstr "作为“2030 年可持续发展议程”的一部分，可持续发展目标 (SDG) 15 是："
 
 #: ../../source/for_users/features/landdegradation.rst:9
 msgid ""
 "\"Protect, restore and promote sustainable use of terrestrial ecosystems, "
 "sustainably manage forests, combat desertification, and halt and reverse "
 "land degradation and halt biodiversity loss\""
-msgstr "\"保护、恢复和促进陆地生态系统的可持续利用，可持续地管理森林，防治荒漠化，并制止和扭转土地退化，遏制生物多样性的丧失\""
+msgstr "“保护、恢复和促进可持续利用陆地生态系统，可持续管理森林，防治荒漠化，制止和扭转土地退化，遏制生物多样性的丧失”"
 
 #: ../../source/for_users/features/landdegradation.rst:13
 msgid ""
 "Each SDG has specific targets addressing different components, in this case,"
 " of life on land. Target 15.3 aims to:"
-msgstr "每个可持续发展目标都有针对不同组成部分的具体目标，在本案例中是针对土地上的生活。具体目标15.3旨在："
+msgstr "每个 SDG 都包含针对不同组成部分的具体目标，在本例中针对的是陆地生命。目标 15.3 旨在："
 
 #: ../../source/for_users/features/landdegradation.rst:16
 msgid ""
 "\"By 2030, combat desertification, restore degraded land and soil, including"
 " land affected by desertification, drought and floods, and strive to achieve"
 " a land degradation-neutral world\""
-msgstr "\"截止2030年，防治荒漠化，恢复退化的土地和土壤，包括受荒漠化、干旱和洪水影响的土地，并努力实现一个土地退化中立的世界\""
+msgstr "“到 2030 年，防治荒漠化，恢复退化的土地和土壤，包括受荒漠化、干旱和洪涝影响的土地，努力建立一个不再出现土地退化的世界”"
 
 #: ../../source/for_users/features/landdegradation.rst:20
 msgid ""
 "Indicators will be used then to assess the progress of each SDG target. In "
 "the case of SDG 15.3 the progress towards a land degradation neutral world "
 "will be assessed using indicator 15.3.1:"
-msgstr "然后将使用指标来评估每个SDG目标的进展。就可持续发展目标15.3而言，将使用指标15.3.1评估实现土地退化中立世界的进展："
+msgstr "然后使用指标来评估每个 SDG 目标的实现情况。就 SDG 15.3 而言，将使用指标 15.3.1 评估土地退化零增长目标的实现情况："
 
 #: ../../source/for_users/features/landdegradation.rst:24
 msgid "\"proportion of land that is degraded over total land area\""
-msgstr "\"退化的土地占总土地面积的比例\""
+msgstr "“退化土地占土地总面积的比例”"
 
 #: ../../source/for_users/features/landdegradation.rst:26
 msgid ""
@@ -71,12 +71,16 @@ msgid ""
 "links/2021-03/Indicator_15.3.1_GPG_v2_29Mar_Advanced-version.pdf>`_. "
 "providing recommendations on how to calculate SDG Indicator 15.3.1."
 msgstr ""
+"作为 SDG 15.3 的监管机构，联合国防治荒漠化公约 (UNCCD) 组织制定了“良好实践指南 (GPG) "
+"<https://www.unccd.int/sites/default/files/relevant-"
+"links/2021-03/Indicator_15.3.1_GPG_v2_29Mar_Advanced-version.pdf>`_.， 就如何计算 "
+"SDG 指标 15.3.1 提出建议。"
 
 #: ../../source/for_users/features/landdegradation.rst:31
 msgid ""
 "This document provides a brief introduction to SDG Indicator 15.3.1 and "
 "describes how each indicator is calculated by |trends.earth|."
-msgstr "本文件简要介绍了可持续发展目标指标15.3.1，并描述了每个指标如何通过|trends.earth|计算。"
+msgstr "本文档简要介绍了 SDG 指标 15.3.1，并描述了 |trends.earth| 是如何计算每个指标的。"
 
 #: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
 #: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
@@ -91,7 +95,7 @@ msgstr "Trends.Earth"
 msgid ""
 "In order to assess the area degraded, SDG Indicator 15.3.1 uses information "
 "from 3 sub-indicators:"
-msgstr "为了评估退化的面积，SDG指标15.3.1使用了3个次级指标的信息："
+msgstr "为评估退化区域，SDG 指标 15.3.1 使用来自 3 个子指标的信息："
 
 #: ../../source/for_users/features/landdegradation.rst:37
 msgid "Vegetation productivity"
@@ -114,8 +118,8 @@ msgid ""
 " a final SDG 15.3.1 indicator map and produces a table result reporting "
 "areas potentially improved and degraded for the area of analysis."
 msgstr ""
-"|trends.earth|允许用户以空间明确的方式计算这些次级指标中的每一项，生成栅格地图，然后将其整合到最终的SDG "
-"15.3.1指标地图中，并产生一个表格结果，报告分析区域的潜在改善和退化的区域。"
+"|trends.earth| 允许用户以空间显式方式计算所有这些子指标，生成栅格地图，然后将其整合到最终的 SDG 15.3.1 "
+"指标地图中，并生成一个表格结果，对分析区域可能改善和退化的区域进行报告。"
 
 #: ../../source/for_users/features/landdegradation.rst:50
 msgid "Sub-indicators"

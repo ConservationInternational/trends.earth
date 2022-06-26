@@ -24,15 +24,15 @@ msgstr ""
 
 #: ../../source/for_users/features/unccdreporting.rst:4
 msgid "UNCCD Reporting - SDG 15.3.1"
-msgstr ""
+msgstr "Отчетность КБО ООН - ЦУР 15.3.1"
 
 #: ../../source/for_users/features/unccdreporting.rst:6
 msgid ""
 "As part of the \"2030 Agenda for Sustainable Development\", Sustainable "
 "Development Goal (SDG) 15 is to:"
 msgstr ""
-"В рамках «Повестки дня в области устойчивого развития на период до 2030 "
-"года» Цель устойчивого развития (ЦУР) 15 заключается в следующем:"
+"В рамках \"Повестки дня в области устойчивого развития на период до 2030 "
+"года\" цель в области устойчивого развития (ЦУР) 15 заключается в следующем:"
 
 #: ../../source/for_users/features/unccdreporting.rst:9
 msgid ""
@@ -40,17 +40,18 @@ msgid ""
 "sustainably manage forests, combat desertification, and halt and reverse "
 "land degradation and halt biodiversity loss\""
 msgstr ""
-"«Защита, восстановление и продвижение устойчивого использования наземных "
-"экосистем, устойчивое управление лесами, борьба с опустыниванием, остановка "
-"и обращение вспять деградации земель и прекращение потери биоразнообразия»."
+"\"Защищайте, восстанавливайте и поощряйте устойчивое использование наземных "
+"экосистем, устойчиво управляйте лесами, боритесь с опустыниванием, "
+"останавливайте и обращайте вспять деградацию земель и останавливайте утрату "
+"биоразнообразия\""
 
 #: ../../source/for_users/features/unccdreporting.rst:13
 msgid ""
 "Each SDG has specific targets addressing different components, in this case,"
 " of life on land. Target 15.3 aims to:"
 msgstr ""
-"Каждая ЦУР имеет конкретные задачи, касающиеся различных компонентов, в "
-"данном случае — жизни на земле. Задача 15.3 направлена на:"
+"Каждый показатель ЦУР имеет конкретные задачи, касающиеся различных "
+"компонентов, в данном случае жизни на суше. Задача 15.3 направлена на:"
 
 #: ../../source/for_users/features/unccdreporting.rst:16
 msgid ""
@@ -58,9 +59,10 @@ msgid ""
 " land affected by desertification, drought and floods, and strive to achieve"
 " a land degradation-neutral world\""
 msgstr ""
-"«К 2030 году бороться с опустыниванием, восстановить деградировавшие земли и"
-" почвы, включая земли, пострадавшие от опустынивания, засухи и наводнений, и"
-" стремиться к созданию мира, нейтрального в отношении деградации земель»."
+"\"К 2030 году побороть опустынивание, восстановить деградированные земли и "
+"почвы, в том числе земли, пострадавшие от опустынивания, засухи и "
+"наводнений, и стремиться к тому, чтобы уровень деградации земель в мире стал"
+" нейтральным\"."
 
 #: ../../source/for_users/features/unccdreporting.rst:20
 msgid ""
@@ -68,14 +70,14 @@ msgid ""
 "the case of SDG 15.3 the progress towards a land degradation neutral world "
 "will be assessed using indicator 15.3.1:"
 msgstr ""
-"Для оценки прогресса в достижении каждой цели ЦУР будут использоваться "
-"индикаторы. В случае ЦУР 15.3 прогресс в направлении создания мира, "
-"нейтрального к деградации земель, будет оцениваться с помощью индикатора "
-"15.3.1:"
+"Затем показатели будут использоваться для оценки прогресса в достижении "
+"каждой задачи ЦУР. В случае ЦУР 15.3 прогресс в достижении мира с "
+"нейтральным уровнем деградации земель будет оцениваться с использованием "
+"показателя 15.3.1:"
 
 #: ../../source/for_users/features/unccdreporting.rst:24
 msgid "\"proportion of land that is degraded over total land area\""
-msgstr "«доля деградированных земель от общей площади земель»"
+msgstr "\"доля деградированных земель по отношению к общей площади земель\""
 
 #: ../../source/for_users/features/unccdreporting.rst:26
 msgid ""
@@ -85,14 +87,20 @@ msgid ""
 "Indicator-15.3.1_version2_2021.pdf>`_. providing recommendations on how to "
 "calculate SDG Indicator 15.3.1."
 msgstr ""
+"В качестве курирующего агентства ЦУР 15.3 Конвенция Организации Объединенных"
+" Наций по борьбе с опустыниванием (КБО ООН) разработала \"Руководство по "
+"передовой практике\" "
+"<https://www.unccd.int/sites/default/files/documents/2021-09/UNCCD_GPG_SDG-"
+"Indicator-15.3.1_version2_2021.pdf>, предоставляющее рекомендаций по расчету"
+" показателя ЦУР 15.3.1."
 
 #: ../../source/for_users/features/unccdreporting.rst:31
 msgid ""
 "This document provides a brief introduction to SDG Indicator 15.3.1 and "
 "describes how each indicator is calculated by |trends.earth|."
 msgstr ""
-"Этот документ содержит краткое введение в показатель ЦУР 15.3.1 и описывает,"
-" как каждый показатель рассчитывается |trends.earth|."
+"Этот документ представляет собой краткое введение в показатель ЦУР 15.3.1, и"
+" в нем описывается, как |trends.earth|рассчитывает каждый показатель."
 
 #: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
 #: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
@@ -108,8 +116,8 @@ msgid ""
 "In order to assess the area degraded, SDG Indicator 15.3.1 uses information "
 "from 3 sub-indicators:"
 msgstr ""
-"Для оценки деградированной площади Индикатор ЦУР 15.3.1 использует "
-"информацию из 3 суб-индикаторов:"
+"Для оценки площади деградированных территорий показатель ЦУР 15.3.1 "
+"использует информацию из трех вспомогательных показателей:"
 
 #: ../../source/for_users/features/unccdreporting.rst:37
 msgid "Vegetation productivity"
@@ -132,15 +140,15 @@ msgid ""
 " a final SDG 15.3.1 indicator map and produces a table result reporting "
 "areas potentially improved and degraded for the area of analysis."
 msgstr ""
-"|trends.earth| позволяет пользователю рассчитать каждый из этих суб-"
-"индикаторов в пространственно-явном виде, создавая растровые карты, которые "
-"затем интегрируются в итоговую карту индикаторов ЦУР 15.3.1 и выдают "
-"табличный результат, сообщающий о потенциально улучшенных и деградированных "
-"областях для анализируемой территории."
+"|trends.earth| позволяет пользователю вычислять каждый из этих "
+"вспомогательных показателей в явной пространственной форме, создавая "
+"растровые карты, которые затем интегрируются в окончательную карту "
+"показателей ЦУР 15.3.1 и создают результаты в виде таблицы, сообщая о "
+"потенциально улучшенных и ухудшенных областях для области анализа."
 
 #: ../../source/for_users/features/unccdreporting.rst:50
 msgid "Sub-indicators"
-msgstr "cуб-индикаторы"
+msgstr "Вспомогательные показатели"
 
 #: ../../source/for_users/features/unccdreporting.rst:55
 msgid "Productivity"
@@ -157,6 +165,15 @@ msgid ""
 " costly to estimate, for that reason, we rely on remotely sensed information"
 " to derive indicators of NPP."
 msgstr ""
+"Продуктивность земли — это биологическая продуктивная способность земли, "
+"источник всех продуктов питания, клетчатки и топлива, которые поддерживают "
+"жизнь людей (Статистическая комиссия Организации Объединенных Наций, 2016 "
+"г.). Чистая первичная продуктивность (NPP) представляет собой чистое "
+"количество углерода, ассимилированного после фотосинтеза и автотрофного "
+"дыхания за определенный период времени (Кларк и др., 2001), и обычно "
+"выражается в таких единицах, как кг/га/год. NPP — это переменная, "
+"определение которой требует много времени и средств, поэтому для получения "
+"показателей NPP мы полагаемся на данные дистанционного зондирования."
 
 #: ../../source/for_users/features/unccdreporting.rst:66
 msgid ""
@@ -168,6 +185,14 @@ msgid ""
 "of results). These annual integrals of NDVI are then used to compute each of"
 " the productivity indicators explained below."
 msgstr ""
+"Одним из наиболее часто используемых заменителей NPP является "
+"нормализованный разностный индекс растительности (NDVI), вычисляемый с "
+"использованием информации из красной и ближней инфракрасной частей "
+"электромагнитного спектра. В |trends.earth| мы используем двухнедельные "
+"продукты от MODIS и AVHRR для вычисления годовых интегралов NDVI "
+"(рассчитанных как среднегодовой NDVI для простоты интерпретации "
+"результатов). Эти годовые интегралы NDVI затем используются для расчета "
+"каждого из показателей производительности, описанных ниже."
 
 #: ../../source/for_users/features/unccdreporting.rst:74
 msgid ""
@@ -175,6 +200,9 @@ msgid ""
 "Council (JRC) as the default data for computing the final SDG 15.3.1 "
 "Indicator."
 msgstr ""
+"Данные о динамике продуктивности земель (LPD) предоставляются Объединенным "
+"исследовательским советом (JRC) в качестве данных по умолчанию для расчета "
+"окончательного показателя ЦУР 15.3.1."
 
 #: ../../source/for_users/features/unccdreporting.rst:80
 msgid ""
@@ -185,6 +213,13 @@ msgid ""
 "dataset, but local maps can also be used. The indicator is computed as "
 "follows:"
 msgstr ""
+"Для оценки изменения земного покрова пользователям необходимы карты земного "
+"покрова, охватывающие изучаемую территорию за исходный и целевой годы. Эти "
+"карты должны иметь приемлемую точность и создаваться таким образом, чтобы "
+"можно было проводить достоверные сравнения. |trends.earth| использует карты "
+"земного покрова ESA CCI в качестве набора данных по умолчанию, но также "
+"можно использовать локальные карты. Показатель рассчитывается следующим "
+"образом:"
 
 #: ../../source/for_users/features/unccdreporting.rst:86
 msgid ""
@@ -192,12 +227,17 @@ msgid ""
 "reporting to the UNCCD (forest, grassland, cropland, wetland, artificial "
 "area, bare land and water)."
 msgstr ""
+"Переклассифицируйте обе карты земного покрова по 7 классам земного покрова, "
+"необходимым для отчетности в UNCCD (леса, пастбища, пахотные земли, водно-"
+"болотные угодья, искусственный ареал, необлесенные угодья и вода)."
 
 #: ../../source/for_users/features/unccdreporting.rst:90
 msgid ""
 "Perform a land cover transition analysis to identify which pixels remained "
 "in the same land cover class, and which ones changed."
 msgstr ""
+"Выполните анализ перехода земного покрова, чтобы определить, какие пиксели "
+"остались в том же классе земного покрова, а какие изменились."
 
 #: ../../source/for_users/features/unccdreporting.rst:93
 msgid ""
@@ -206,6 +246,11 @@ msgid ""
 "which transitions correspond to degradation (- sign), improvement (+ sign), "
 "or no change in terms of land condition (zero)."
 msgstr ""
+"Основываясь на ваших местных знаниях об условиях в районе исследования и "
+"происходящих там процессах деградации земель, используйте приведенную ниже "
+"таблицу, чтобы определить, какие переходы соответствуют деградации (знак -),"
+" улучшению (знак +) или отсутствию изменений (нуль) с точки зрения состояния"
+" земель."
 
 #: ../../source/for_users/features/unccdreporting.rst:102
 msgid ""
@@ -213,6 +258,9 @@ msgid ""
 " table of degradation typologies by land cover transition to compute the "
 "land cover sub-indicator."
 msgstr ""
+"|trends.earth|объединит информацию из карт земного покрова и таблицы "
+"типологий деградации по переходу земного покрова для расчета "
+"вспомогательного показателя земного покрова."
 
 #: ../../source/for_users/features/unccdreporting.rst:112
 msgid ""
@@ -226,6 +274,17 @@ msgid ""
 " |trends.earth| to estimate changes in SOC and identify potentially degraded"
 " areas. The indicator is computed as follows:"
 msgstr ""
+"Третий вспомогательный показатель для мониторинга деградации земель в рамках"
+" процесса достижения ЦУР позволяет количественно оценить изменения "
+"содержания органического углерода в почве (SOC) за отчетный период. "
+"Изменения SOC особенно трудно оценить по нескольким причинам, некоторые из "
+"которых связаны с высокой пространственной изменчивостью свойств почвы, "
+"затратами времени и средств на проведение репрезентативных обследований почв"
+" и отсутствием данных временных рядов о SOC для большинства регионов мира. "
+"Для устранения некоторых ограничений в |trends.earth|используется "
+"комбинированный метод земного покрова/SOC для оценки изменений SOC и "
+"определения потенциально деградировавших участков. Индикатор рассчитывается "
+"следующим образом:"
 
 #: ../../source/for_users/features/unccdreporting.rst:122
 msgid ""
@@ -236,6 +295,12 @@ msgid ""
 "assigning a date for calculations purposes could cause inaccuracies in the "
 "stock change calculations)."
 msgstr ""
+"Определите эталонные значения SOC. |trends.earth| использует 250-метровые "
+"запасы углерода SoilGrids для первых 30 см профиля почвы в качестве "
+"эталонных значений для расчета (ПРИМЕЧАНИЕ: SoilGrids использует информацию "
+"из различных источников данных за многие годы для производства этого "
+"продукта, поэтому назначение даты для расчетов может привести к неточностям "
+"в расчетах изменения запасов)."
 
 #: ../../source/for_users/features/unccdreporting.rst:129
 msgid ""
@@ -244,6 +309,11 @@ msgid ""
 "area, bare land and water). Ideally annual land cover maps are preferred, "
 "but at least land cover maps for the starting and end years are needed."
 msgstr ""
+"Реклассифицируйте карты земного покрова по 7 классам земного покрова, "
+"необходимым для отчетности в UNCCD (леса, пастбища, пахотные земли, водно-"
+"болотные угодья, искусственный ареал, необлесенные угодья и вода). В идеале "
+"предпочтительны годовые карты земного покрова, но необходимы, по крайней "
+"мере, карты земного покрова за начальный и конечный годы."
 
 #: ../../source/for_users/features/unccdreporting.rst:134
 msgid ""
@@ -257,6 +327,17 @@ msgid ""
 "presented in the table below. Those coefficients represent the proportional "
 "in C stocks after 20 years of land cover change."
 msgstr ""
+"Для оценки изменений в запасах углерода за отчетный период МГЭИК и КБО ООН "
+"рекомендуются коэффициенты преобразования углерода для изменений в "
+"землепользовании, управлении и затратах. Тем не менее, для большинства "
+"регионов недоступна четкая пространственная информация об управлении и "
+"затратах углерода. Таким образом, для оценки изменений в запасах углерода "
+"может применяться только коэффициент преобразования землепользования (с "
+"использованием растительного покрова в качестве показателя "
+"землепользования). Используемые коэффициенты были получены в результате "
+"обзора литературы, проведенного UNCCD, и представлены в таблице ниже. Эти "
+"коэффициенты представляют пропорциональные запасы углерода после 20 лет "
+"изменения земного покрова."
 
 #: ../../source/for_users/features/unccdreporting.rst:147
 msgid ""
@@ -266,6 +347,12 @@ msgid ""
 "Temperate Moist (f = 0.69), Tropical Dry (f = 0.58), Tropical Moist (f = "
 "0.48), and Tropical Montane (f = 0.64)."
 msgstr ""
+"Изменения SOC лучше изучены в отношении переходов земного покрова, связанных"
+" с сельским хозяйством, и по этой причине существует различный набор "
+"коэффициентов для каждого из основных глобальных климатических регионов: "
+"умеренный засушливый (f = 0,80), умеренный влажный (f = 0,69), тропический "
+"сухой (f = 0,58), тропический влажный (f = 0,48) и тропический горный (f = "
+"0,64)."
 
 #: ../../source/for_users/features/unccdreporting.rst:153
 msgid ""
@@ -274,10 +361,14 @@ msgid ""
 "reporting period will be considered potentially degraded, and areas "
 "experiencing a gain of 10% or more as potentially improved."
 msgstr ""
+"Вычислите относительную разницу в SOC между исходным и целевым периодами, "
+"области, в которых SOC снизился на 10 % или более в течение отчетного "
+"периода, будут считаться потенциально ухудшенными, а области, в которых "
+"наблюдается прирост на 10 % или более, — потенциально улучшенными."
 
 #: ../../source/for_users/features/unccdreporting.rst:163
 msgid "Combining indicators"
-msgstr ""
+msgstr "Объединение показателей"
 
 #: ../../source/for_users/features/unccdreporting.rst:165
 msgid ""
@@ -286,14 +377,19 @@ msgid ""
 "potentially degraded by any of the sub-indicators, then that area will be "
 "considered potentially degraded for reporting purposes."
 msgstr ""
+"Интеграция трех вспомогательных показателей ЦУР 15.3.1 осуществляется в "
+"соответствии с правилом \"исключается один - исключаются все\", это "
+"означает, что если какой-либо из вспомогательных показателей определил район"
+" как потенциально деградировавший, то этот район будет считаться "
+"потенциально деградировавшим для целей отчетности."
 
 #: ../../source/for_users/features/unccdreporting.rst:174
 msgid "UNCCD Strategic Objective 2 (SO 2)"
-msgstr ""
+msgstr "Стратегическая цель 2 КБО ООН (СЦ 2)"
 
 #: ../../source/for_users/features/unccdreporting.rst:177
 msgid "To improve the living conditions of affected populations"
-msgstr ""
+msgstr "Чтобы улучшить условия жизни пострадавшего населения"
 
 #: ../../source/for_users/features/unccdreporting.rst:179
 msgid ""
@@ -307,6 +403,16 @@ msgid ""
 "improving the livelihoods of those most affected by DLDD and for "
 "safeguarding against the most extreme effects of climate change."
 msgstr ""
+"Решение глобальных проблем опустынивания, деградации земель и засухи (ОДЗЗ) "
+"и их воздействия на связанные между собой системы человека и окружающей "
+"среды является ключевым компонентом Повестки дня в области устойчивого "
+"развития на период до 2030 года. В частности, цель в области устойчивого "
+"развития (ЦУР) 15.3 направлена на борьбу с опустыниванием к 2030 году, "
+"восстановление деградированных земель и почв, включая земли, пострадавшие от"
+" опустынивания, засухи и наводнений, и обеспечение достижения нейтрального "
+"уровня деградации земель в мире. Решение этой проблемы необходимо для "
+"улучшения условий жизни тех, кто больше всего пострадал от ОДЗЗ, и для "
+"защиты от наиболее экстремальных последствий изменения климата."
 
 #: ../../source/for_users/features/unccdreporting.rst:186
 msgid ""
@@ -323,6 +429,20 @@ msgid ""
 "and households is critical in reinforcing livelihood resilience in order to "
 "enhance positive adaptations to DLDD"
 msgstr ""
+"Средства к существованию людей в деградированных районах включают множество "
+"человеческих и природных характеристик местной окружающей среды, в том числе"
+" адекватный доступ к пище и воде либо непосредственно за счет средств к "
+"существованию, либо за счет достаточных доходов для покупки продуктов "
+"питания и водоснабжения, либо за счет сочетания того и другого. Если "
+"обеспечена продовольственная и водная безопасность, отток населения из "
+"пострадавших районов должен носить не принудительный, а добровольный "
+"характер. Социально и экономически маргинализированные группы населения, "
+"общины и домохозяйства, как правило, непропорционально уязвимы к изменению "
+"климата и совокупным последствиям ОДЗЗ. Способность выявлять и количественно"
+" оценивать состав, распределение и относительную уязвимость таких групп "
+"населения, сообществ и домохозяйств имеет решающее значение для повышения "
+"устойчивости средств к существованию, чтобы улучшить позитивную адаптацию к "
+"ОДЗЗ."
 
 #: ../../source/for_users/features/unccdreporting.rst:194
 msgid ""
@@ -334,10 +454,17 @@ msgid ""
 "the population over the SDG 15.3.1 Indicator map to establish its exposure "
 "to land degradation."
 msgstr ""
+"|trends.earth| позволяет пользователям отслеживать показатель Стратегической"
+" цели 2 КБО ООН **Тенденции подверженности населения деградации земель с "
+"разбивкой по полу (СЦ 2-3)** путем расчета доли населения с разбивкой по "
+"полу, подвергающегося деградации земель. |trends.earth| использует данные с "
+"привязкой к координатной сетке, отражающие пространственное распределение "
+"населения по карте индикатора ЦУР 15.3.1, чтобы установить его "
+"подверженность деградации земель."
 
 #: ../../source/for_users/features/unccdreporting.rst:198
 msgid "The (SO 2-3) indicator uses the following metrics:"
-msgstr ""
+msgstr "Показатель (СЦ 2-3) использует следующие исходные величины:"
 
 #: ../../source/for_users/features/unccdreporting.rst:200
 msgid ""
@@ -345,26 +472,34 @@ msgid ""
 " of the male population exposed to land degradation -Percentage of the total"
 " (female and male) population exposed to land degradation"
 msgstr ""
+"- Процент женского населения, подверженного воздействию деградации земель - "
+"Процент мужского населения, подверженного воздействию деградации земель - "
+"Процент общего (женского и мужского) населения, подверженного воздействию "
+"деградации земель"
 
 #: ../../source/for_users/features/unccdreporting.rst:204
 msgid ""
 "|trends.earth| provides access the WorldPop dataset, which is used by "
 "default by the UNCCD for calculating indicator SO2-3."
 msgstr ""
+"|trends.earth| предоставляет доступ к набору данных WorldPop, который по "
+"умолчанию используется КБО ООН для расчета показателя СЦ 2-3."
 
 #: ../../source/for_users/features/unccdreporting.rst:207
 msgid "UNCCD Strategic Objective 3 (SO 3)"
-msgstr ""
+msgstr "Стратегическая цель 3 КБО ООН (СЦ 3)"
 
 #: ../../source/for_users/features/unccdreporting.rst:210
 msgid ""
 "To mitigate, adapt to, and manage the effects of drought in order to enhance"
 " resilience of vulnerable populations and ecosystems."
 msgstr ""
+"Смягчать последствия засухи, адаптироваться к ним и управлять ими, чтобы "
+"повысить устойчивость уязвимых групп населения и экосистем."
 
 #: ../../source/for_users/features/unccdreporting.rst:213
 msgid "Drought and land degradation"
-msgstr ""
+msgstr "Засуха и деградация земель"
 
 #: ../../source/for_users/features/unccdreporting.rst:214
 msgid ""
@@ -377,6 +512,14 @@ msgid ""
 "of impacts from climate variability and change, especially in regions of the"
 " world."
 msgstr ""
+"**Деградация земель**, как она определена в КБО ООН, относится к любому "
+"сокращению или утрате биологической или экономической продуктивной "
+"способности базы земельных ресурсов. Как правило, причиной этого является "
+"деятельность человека, что усугубляется естественными процессами и часто "
+"усиливается и тесно переплетается с изменением климата и утратой "
+"биоразнообразия. Деградация земель снижает производительность сельского "
+"хозяйства и повышает уязвимость тех районов, которые уже подвержены риску "
+"воздействия изменчивости и изменения климата, особенно в регионах мира."
 
 #: ../../source/for_users/features/unccdreporting.rst:220
 msgid ""
@@ -389,6 +532,15 @@ msgid ""
 "single risk event but rather interlinked with other hazards such as "
 "heatwaves, wildfires, sand/dust storms, or floods."
 msgstr ""
+"**Засуха** — это сложное, медленно наступающее явление, которое происходит в"
+" разных временных масштабах. Оно характеризуется сокращением доступности "
+"воды, что приводит к каскадным последствиям для средств к существованию "
+"людей и секторов экономики. Засуху иногда упрощенно определяют как период "
+"засушливой погоды, достаточно продолжительный, чтобы вызвать гидрологический"
+" дисбаланс, хотя общепринятого определения засухи не существует. Более того,"
+" засуха едва ли возникает как отдельное рискованное событие, а скорее "
+"связана с другими опасностями, такими как волны тепла, лесные пожары, "
+"песчаные/пылевые бури или наводнения."
 
 #: ../../source/for_users/features/unccdreporting.rst:226
 msgid ""
@@ -415,6 +567,31 @@ msgid ""
 "efforts to reduce poverty, inequality, and enhance the socio-economic well-"
 "being of all people worldwide."
 msgstr ""
+"Международная группа экспертов по изменению климата (IPCC) определяет засуху"
+" как \"период аномально сухой погоды, достаточно продолжительный, чтобы "
+"вызвать серьезный гидрологический дисбаланс\". Засуха является относительным"
+" термином, поэтому любое обсуждение с точки зрения дефицита осадков должно "
+"относиться к конкретной обсуждаемой деятельности, связанной с осадками. "
+"Например, нехватка осадков в течение вегетационного периода отрицательно "
+"сказывается на производстве сельскохозяйственных культур или "
+"функционировании экосистемы в целом (из-за дефицита почвенной влаги, также "
+"называемого сельскохозяйственной засухой), а в период поверхностного стока и"
+" просачивания в первую очередь влияет на запасы воды (гидрологическая "
+"засуха). Изменения запасов влаги в почве и грунтовых вод также зависят от "
+"увеличения фактической эвапотранспирации в дополнение к уменьшению "
+"количества осадков. Период с аномальным дефицитом осадков определяется как "
+"метеорологическая засуха. См. также \"Влажность почвы\" (оценочный отчет "
+"МГЭИК, № 5, 2014 г.). Организация Объединенных Наций по снижению риска "
+"бедствий (UNDRR) определяет засуху как медленно наступающую опасность, "
+"которую часто называют ползучим явлением. Отсутствие точного, общепринятого "
+"определения засухи усугубляет путаницу. Определения должны относиться к "
+"конкретному региону, поскольку каждый климатический режим имеет "
+"отличительные климатические характеристики (UNDRR GAR, глава 6). Отсутствие "
+"согласованного определения усложняет усилия по мониторингу, поскольку "
+"определение и подход к мониторингу обычно зависят от контекста. где уровень "
+"бедности остается высоким, несмотря на усилия по сокращению бедности, "
+"неравенства и повышению социально-экономического благосостояния всех людей "
+"во всем мире."
 
 #: ../../source/for_users/features/unccdreporting.rst:238
 msgid ""
@@ -424,11 +601,17 @@ msgid ""
 "livelihood, environmental, socio-economic, and health risks and decrease "
 "population and community resilience."
 msgstr ""
+"Засуха все больше влияет на все большее число людей, средства к "
+"существованию, экосистемы и экономику во всем мире. Когда это происходит "
+"одновременно с деградацией земель, оно может подвергать и без того уязвимое "
+"население вредным средствам к существованию, экологическим, социально-"
+"экономическим рискам и рискам для здоровья, а также снижать устойчивость "
+"населения и общин."
 
 #: ../../source/for_users/features/unccdreporting.rst:243
 msgid ""
 "The UNCCD has adopted a monitoring framework with three levels for SO 3:"
-msgstr ""
+msgstr "В КБО ООН принята система мониторинга с тремя уровнями для СЦ 3:"
 
 #: ../../source/for_users/features/unccdreporting.rst:245
 msgid ""
@@ -437,10 +620,14 @@ msgid ""
 "population exposed to drought(Exposure), Level III SO 3-3 Trends in the "
 "degree of drought vulnerability (Vulnerability)."
 msgstr ""
+"Уровень I СЦ 3-1 Тенденции доли земель, подверженных засухе, по отношению к "
+"общей площади суши (опасность), Уровень II СЦ 3-2 Тенденции доли всего "
+"населения, подверженного засухе (воздействие), Уровень III СЦ 3-3 Тенденции "
+"степени уязвимости к засухе (уязвимость)."
 
 #: ../../source/for_users/features/unccdreporting.rst:249
 msgid "Under the IPCC framework:"
-msgstr ""
+msgstr "В рамках МГЭИК:"
 
 #: ../../source/for_users/features/unccdreporting.rst:251
 msgid ""
@@ -450,6 +637,12 @@ msgid ""
 "infrastructure, livelihoods, service provision, ecosystems and environmental"
 " resources."
 msgstr ""
+"**Опасность** — это потенциальное возникновение природного или "
+"антропогенного физического события или тенденции или физического "
+"воздействия, которое может привести к гибели людей, травмам или другим "
+"последствиям для здоровья, а также к повреждению и утрате имущества, "
+"инфраструктуры, средств к существованию, предоставления услуг, экосистем и "
+"ресурсов окружающей среды."
 
 #: ../../source/for_users/features/unccdreporting.rst:255
 msgid ""
@@ -458,18 +651,26 @@ msgid ""
 "infrastructure, or economic, social, or cultural assets in places and "
 "settings that could be adversely affected."
 msgstr ""
+"**Воздействие** характеризует присутствие людей, средств к существованию, "
+"видов или экосистем, экологических функций, услуг и ресурсов, инфраструктуры"
+" или экономических, социальных или культурных активов в местах и условиях, "
+"которые могут подвергнуться неблагоприятному воздействию."
 
 #: ../../source/for_users/features/unccdreporting.rst:258
 msgid ""
 "**Vulnerability** is defined as the propensity or predisposition to be "
 "adversely affected by climate change and related processes."
 msgstr ""
+"**Уязвимость** определяется как склонность или предрасположенность к "
+"неблагоприятному воздействию изменения климата и связанных с ним процессов."
 
 #: ../../source/for_users/features/unccdreporting.rst:260
 msgid ""
 "In order to assess the SO 3 indicators, |trends.earth| uses information from"
 " 3 sub-indicators:"
 msgstr ""
+"Чтобы оценить показатели СЦ 3, |trends.earth| использует информацию из 3 "
+"вспомогательных показателей:"
 
 #: ../../source/for_users/features/unccdreporting.rst:262
 #: ../../source/for_users/features/unccdreporting.rst:289
@@ -478,11 +679,11 @@ msgstr "Стандартизированный индекс осадков (СИ
 
 #: ../../source/for_users/features/unccdreporting.rst:263
 msgid "Gridded global population dataset"
-msgstr ""
+msgstr "Глобальный набор данных о населении с привязкой к координатной сетке"
 
 #: ../../source/for_users/features/unccdreporting.rst:264
 msgid "Drought Vulnerability Index (DVI)"
-msgstr ""
+msgstr "Индекс уязвимости к засухе (ИУЗ)"
 
 #: ../../source/for_users/features/unccdreporting.rst:266
 msgid ""
@@ -492,6 +693,11 @@ msgid ""
 "SO 3-1 \"Trends in the proportion of land under drought over the total land "
 "area\"."
 msgstr ""
+"|trends.earth| позволяет пользователю вычислять каждый из этих показателей в"
+" явной пространственной форме, генерируя растровые карты и создавая сводную "
+"таблицу, сообщая о потенциально улучшенных и ухудшенных областях для области"
+" анализа. СЦ 3-1 \"Тенденции в соотношении засушливых земель и общей площади"
+" земель\"."
 
 #: ../../source/for_users/features/unccdreporting.rst:270
 msgid ""
@@ -502,6 +708,12 @@ msgid ""
 "Objective-3_2021.pdf>`_ (GPG-SO3). providing recommendations on how to "
 "calculate indicators of SO3."
 msgstr ""
+"В рамках Конвенции Организации Объединенных Наций по борьбе с опустыниванием"
+" (КБО ООН) разработано \"Руководство по передовой практике для национальной "
+"отчетности по Стратегической цели 3 КБО ООН\" "
+"<https://www.unccd.int/sites/default/files/documents/2021-09/UNCCD_GPG_Strategic-"
+"Objective-3_2021.pdf>`_ (РПП-СЦ 3), содержащее рекомендации по расчету "
+"показателей СЦ 3."
 
 #: ../../source/for_users/features/unccdreporting.rst:275
 msgid ""
@@ -509,30 +721,39 @@ msgid ""
 " 3 and describes how each indicator is calculated by |trends.earth|, "
 "following the Strategic Objective 3 Good Practice Guidance."
 msgstr ""
+"В этом документе содержится краткое введение в Стратегическую цель 3 КБО ООН"
+" и описывается, как |trends.earth| рассчитывает каждый показатель в "
+"соответствии с Руководством по передовой практике в отношении Стратегической"
+" цели 3."
 
 #: ../../source/for_users/features/unccdreporting.rst:279
 msgid "SO3 Level I indicator (SO 3-1 Hazard)"
-msgstr ""
+msgstr "Показатель СЦ 3 уровня I (Опасность СЦ 3-1)"
 
 #: ../../source/for_users/features/unccdreporting.rst:281
 msgid "Steps to calculate Level I indicator following the UNCCD GPG-SO3:"
-msgstr ""
+msgstr "Этапы расчета показателя Уровня I в соответствии с РУЭП-СЦ 3 КБО ООН:"
 
 #: ../../source/for_users/features/unccdreporting.rst:283
 msgid ""
 "Calculate SPI using an accumulation period of 12 months (SPI-12) and gridded"
 " precipitation data"
 msgstr ""
+"Рассчитайте СИО, используя 12-месячный период накопления (СИО-12) и данные "
+"об осадках с привязкой к координатной сетке."
 
 #: ../../source/for_users/features/unccdreporting.rst:284
 msgid ""
 "Identify the drought intensity class of each pixel based on the previously "
 "calculated SPI"
 msgstr ""
+"Определите класс интенсивности засухи для каждого пикселя на основе ранее "
+"рассчитанного СИО."
 
 #: ../../source/for_users/features/unccdreporting.rst:285
 msgid "Calculate proportion of land within each drought intensity class."
 msgstr ""
+"Рассчитайте долю земель в пределах каждого класса интенсивности засухи."
 
 #: ../../source/for_users/features/unccdreporting.rst:291
 msgid ""
@@ -554,6 +775,24 @@ msgid ""
 "Thus, it indirectly considers effects of accumulating precipitation "
 "deficits, which are critical for soil moisture and hydrological droughts."
 msgstr ""
+"Стандартизированный индекс осадков (СИО) широко использовался для "
+"характеристики метеорологической засухи или дефицита осадков и был признан в"
+" Линкольнской декларации по засухе предпочтительным на международном уровне "
+"индексом для расчета и мониторинга метеорологической засухи. СИО "
+"рассчитывается как стандартное отклонение, что наблюдаемые осадки за "
+"определенный период будут отклоняться от долгосрочного среднего значения за "
+"периоды такой продолжительности, рассматриваемые обычно для данных за 30 лет"
+" для нормального распределения и подогнанного распределения вероятностей для"
+" фактических данных об осадках. Основными преимуществами использования СИО "
+"для глобального мониторинга, прогнозирования и оценки рисков засухи является"
+" то, что в настоящее время он используется во многих странах мира и одобрен "
+"Всемирной метеорологической организацией. Другими ключевыми преимуществами "
+"являются то, что СИО представляет собой как дефицит осадков, так и их "
+"излишек, и его можно рассчитать в различных временных масштабах (например, "
+"СИО-3, СИО-6, СИО-12, где число указывает количество месяцев, в течение "
+"которых рассчитывается индекс). Таким образом, он косвенно учитывает "
+"последствия накопления дефицита осадков, что имеет решающее значение для "
+"влажности почвы и гидрологических засух."
 
 #: ../../source/for_users/features/unccdreporting.rst:303
 msgid ""
@@ -569,10 +808,23 @@ msgid ""
 " interested in calculating SO3-1 Hazard for areas outside this range will "
 "not be able to use the CHRIPS dataset."
 msgstr ""
+"По умолчанию |trends.earth| предлагает доступ к СИО, рассчитанному на основе"
+" продукта мониторинга Глобального центра по климатологии осадков (ГЦКО), "
+"растра, представляющего количество осадков и полученного из данных дождемера"
+" с пространственным разрешением ~ 27 кв. км и охватывающим весь земной шар. "
+"У пользователей также есть возможность использовать альтернативный СИО, "
+"рассчитанный на основе станционных данных об инфракрасных осадках Группы "
+"климатических опасностей (CHIRPS), с оценками осадков, основанными на "
+"спутниковых наблюдениях, объединенных с данными измерительных станций на "
+"площади около 5 кв. км. Хотя CHIRPS имеет более высокое пространственное "
+"разрешение, он имеет \"квазиглобальное\" покрытие, охватывающее от 50° южной"
+" широты до 50° северной широты. Таким образом, пользователи, "
+"заинтересованные в расчете опасности СЦ 3-1 для областей за пределами этого "
+"диапазона, не смогут использовать набор данных CHRIPS."
 
 #: ../../source/for_users/features/unccdreporting.rst:312
 msgid "Step 1. Calculating SPI"
-msgstr ""
+msgstr "Шаг 1. Расчет СИО"
 
 #: ../../source/for_users/features/unccdreporting.rst:314
 msgid ""
@@ -583,87 +835,108 @@ msgid ""
 "data are then used to compute the dimensionless SPI value, defined as the "
 "standardized anomaly of the precipitation."
 msgstr ""
+"СИО дает количественную оценку наблюдаемых осадков как стандартизированное "
+"отклонение от выбранной функции распределения вероятностей, которая "
+"моделирует необработанные данные. Необработанные данные могут быть "
+"приспособлены к гамма-распределению или распределению Пирсона типа III, а "
+"затем преобразованы в нормальное распределение. Преобразованные данные об "
+"осадках затем используются для расчета безразмерной величины СИО, "
+"определяемой как стандартизированная аномалия осадков."
 
 #: ../../source/for_users/features/unccdreporting.rst:318
 msgid ""
 "The detailed equations for computing this index are described in the "
 "following steps using the gamma distribution:"
 msgstr ""
+"Подробные уравнения для вычисления этого индекса описаны в следующих шагах с"
+" использованием гамма-распределения:"
 
 #: ../../source/for_users/features/unccdreporting.rst:323
 msgid ""
 "The transformation of the precipitation value into SPI has the purpose of:"
-msgstr ""
+msgstr "Преобразование количества осадков в СИО преследует следующие цели:"
 
 #: ../../source/for_users/features/unccdreporting.rst:321
 msgid "Transforming the mean of the precipitation value adjusted to 0;"
-msgstr ""
+msgstr "Преобразование среднего значения осадков с поправкой на 0;"
 
 #: ../../source/for_users/features/unccdreporting.rst:322
 msgid "Standard deviation of the precipitation is adjusted to 1.0; and"
-msgstr ""
+msgstr "Стандартное отклонение осадков доводится до 1,0; а также"
 
 #: ../../source/for_users/features/unccdreporting.rst:323
 msgid "Skewness of the existing data must be readjusted to zero."
-msgstr ""
+msgstr "Асимметрия существующих данных должна быть скорректирована до нуля."
 
 #: ../../source/for_users/features/unccdreporting.rst:325
 msgid ""
 "When these goals have been achieved the standardized precipitation index can"
 " be interpreted as mean 0 and standard deviation of 1.0."
 msgstr ""
+"Когда эти цели достигнуты, стандартизованный индекс осадков можно "
+"интерпретировать как среднее значение 0 и стандартное отклонение 1,0."
 
 #: ../../source/for_users/features/unccdreporting.rst:328
 msgid "Mean of the precipitation can be computed as:"
-msgstr ""
+msgstr "Среднее количество осадков можно рассчитать как:"
 
 #: ../../source/for_users/features/unccdreporting.rst:333
 msgid "where N is the number of precipitation observations."
-msgstr ""
+msgstr "где N – количество наблюдений за осадками."
 
 #: ../../source/for_users/features/unccdreporting.rst:335
 msgid "The standard deviation for the precipitation is computed as:"
-msgstr ""
+msgstr "Стандартное отклонение для осадков рассчитывается как:"
 
 #: ../../source/for_users/features/unccdreporting.rst:340
 msgid "The skewness of the given precipitation is computed as:"
-msgstr ""
+msgstr "Асимметрия данных осадков рассчитывается как:"
 
 #: ../../source/for_users/features/unccdreporting.rst:345
 msgid ""
 "The precipitation is converted to lognormal values and the statistics U, "
 "shape and scale parameters of gamma distribution is computed:"
 msgstr ""
+"Осадки преобразуются в логарифмически нормальные значения и вычисляются "
+"статистика U, параметры формы и масштаба гамма-распределения:"
 
 #: ../../source/for_users/features/unccdreporting.rst:351
 msgid ""
 "The resulting parameters are then used to find the cumulative probability of"
 " an observed precipitation event. The cumulative probability is given by:"
 msgstr ""
+"Полученные параметры затем используются для определения кумулятивной "
+"вероятности наблюдаемого явления осадков. Кумулятивная вероятность "
+"определяется по формуле:"
 
 #: ../../source/for_users/features/unccdreporting.rst:358
 msgid ""
 "Since the gamma function is undefined for x = 0 and a precipitation "
 "distribution may contain zeros, the cumulative probability becomes:"
 msgstr ""
+"Поскольку гамма-функция не определена для x = 0, а распределение осадков "
+"может содержать нули, кумулятивная вероятность принимает вид:"
 
 #: ../../source/for_users/features/unccdreporting.rst:364
 msgid "where the probability from q is zero."
-msgstr ""
+msgstr "где вероятность из q равна нулю."
 
 #: ../../source/for_users/features/unccdreporting.rst:366
 msgid ""
 "The cumulative probability H(x) is then transformed to the standard normal "
 "random variable Z with mean zero and variance of one:"
 msgstr ""
+"Затем кумулятивная вероятность H(x) преобразуется в стандартную нормальную "
+"случайную величину Z со средним значением, равным нулю, и дисперсией, равной"
+" единице:"
 
 #: ../../source/for_users/features/unccdreporting.rst:372
 msgid "where:"
-msgstr ""
+msgstr "где:"
 
 #: ../../source/for_users/features/unccdreporting.rst:378
 msgid "Step 2. Identifying drought intensity classes"
-msgstr ""
+msgstr "Шаг 2. Определение классов интенсивности засухи"
 
 #: ../../source/for_users/features/unccdreporting.rst:380
 msgid ""
@@ -674,6 +947,13 @@ msgid ""
 "when the SPI is consecutively negative, and its value reaches an intensity "
 "of -1 or less and ends when the SPI becomes positive."
 msgstr ""
+"Безразмерные значения СИО интерпретируются как число стандартных отклонений,"
+" на которое наблюдаемая аномалия отклоняется от долгосрочного среднего "
+"значения, и обычно обозначаются категориально в зависимости от состояния (т."
+" е. чрезвычайно влажное, чрезвычайно сухое, нормальное), как показано в "
+"таблице ниже. Засуха возникает, когда СИО последовательно отрицательный, и "
+"его значение достигает интенсивности -1 или меньше и заканчивается, когда "
+"СИО становится положительным."
 
 #: ../../source/for_users/features/unccdreporting.rst:388
 msgid ""
@@ -683,6 +963,11 @@ msgid ""
 "calendar year. Positive SPI values are discarded, since they indicate that "
 "there was no drought in the given period."
 msgstr ""
+"Классы интенсивности засухи определяются путем оценки декабрьских значений "
+"СИО-12 для каждого года временных рядов. Декабрьские значения СИО-12 "
+"представляют дефицит (или избыток) осадков по григорианскому (январь-"
+"декабрь) календарному году. Положительные значения СИО отбрасываются, так "
+"как они указывают на отсутствие засухи в данный период."
 
 #: ../../source/for_users/features/unccdreporting.rst:392
 msgid ""

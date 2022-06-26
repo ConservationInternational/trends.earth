@@ -23,7 +23,7 @@ msgstr ""
 
 #: ../../source/for_developers/index.rst:3
 msgid "Developers Guide"
-msgstr ""
+msgstr "Руководство для разработчиков"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"

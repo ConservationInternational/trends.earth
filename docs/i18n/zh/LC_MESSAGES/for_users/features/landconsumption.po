@@ -23,7 +23,7 @@ msgstr ""
 
 #: ../../source/for_users/features/landconsumption.rst:4
 msgid "Land Consumption and SDG 11.3.1"
-msgstr ""
+msgstr "土地消耗和 SDG 11.3.1"
 
 #: ../../source/for_users/features/landconsumption.rst:7
 msgid "Background"
@@ -35,7 +35,7 @@ msgstr "背景"
 msgid ""
 "Source: UN-Habitat (2019) SDG Indicator 11.3.1 Training Module: Land Use "
 "Efficiency. United Nations Human Settlement Programme (UN-Habitat), Nairobi."
-msgstr ""
+msgstr "来源：联合国人居署 (2019) SDG 指标 11.3.1 培训模块：土地利用率。联合国人类住区规划署（联合国人居署），内罗毕"
 
 #: ../../source/for_users/features/landconsumption.rst:10
 msgid ""
@@ -49,6 +49,7 @@ msgid ""
 "prevailing physical and social conditions, presence of enabling policies, "
 "among other things."
 msgstr ""
+"各种形式的人类住区占用土地的方式各不相同。就像生物体一样，城市住区（城市）的发展、转变、适应、创新和变化出现新的趋势。城市住区扩大、缩小、变得稠密、热闹、老化，有时它们的功能甚至会迁移到更利于生存的区域。城市住区的所有这些趋势都与人口变化、经济潜力和生产力、占主导地位的自然和社会条件、有利政策的存在等因素密切相关。"
 
 #: ../../source/for_users/features/landconsumption.rst:12
 msgid ""
@@ -67,6 +68,7 @@ msgid ""
 "need for generation and dissemination of up-to-date and accurate data on "
 "growth trends across cities and urban settlements."
 msgstr ""
+"一个能将城市化带来的诸多好处最大化的国家能够理解、衡量和预测其国内城市地区的发展趋势；进而采取必要的行动/干预措施，来利用这种发展带来的好处，同时最大限度地减少无计划的城市化带来的同样复杂的挑战。积极规划——这是可持续城市化的主要先决条件——要求城市主管部门和其他相关参与者预测城市的发展方向，和/或通过在开发前提供所需的设施、服务、政策和法律框架来引导城市发展。这样就会实现有计划的、公平的增长，让大多数城市居民可以获得基本服务、经济和社会机会，并且让环境可持续性占主导地位。为了实现所有这些目标，核心任务就是生成和传播有关城市和城市住区发展趋势的最新的准确数据。"
 
 #: ../../source/for_users/features/landconsumption.rst:14
 msgid ""
@@ -87,6 +89,9 @@ msgid ""
 "drainage); increased cost of infrastructure per capita; reduction in "
 "economies of agglomeration; and decreased urban productivity."
 msgstr ""
+"**目标 11.3 旨在到 2030 年，在所有国家加强包容和可持续的城市建设，加强参与性、综合性、可持续的人类住区规划和管理能力**。为监测目标 "
+"11.3 的实现情况，联合国制定了指标 "
+"11.3.1，该指标衡量城市利用土地的效率，该效率是通过计算城市消耗土地空间的速度与其人口增长速度的比率得出的。**经验表明，紧凑的城市能够更有效地利用土地，更有能力以较低成本提供公共产品和基本服务**。这样的城市可以消耗更少的能源，更好地管理废物，并且更有可能使集聚经济的优势最大化。另一方面，庞大的城市（非紧凑型城市）对流动性有更大需求；能源消耗增加；环境恶化；基本服务（例如水、卫生、排水）人均成本增加；基础设施人均成本增加；集聚经济效应降低；城市生产力下降。"
 
 #: ../../source/for_users/features/landconsumption.rst:16
 msgid ""
@@ -100,6 +105,7 @@ msgid ""
 "and formulation of informed policies and guidelines, but is also at the core"
 " of promoting sustainable urbanization."
 msgstr ""
+"通过衡量城市消耗土地的速度与人口增长率，城市主管部门和决策者可以预测对公共产品和服务的需求，确定新的发展领域，并主动引导可持续的城市发展。为了提供充足的基础设施、服务和便利设施，从而改善所有人的生活条件，上述做法是必需的。因此，生成和传播有关该指标的数据不仅对于了解城市发展动态和制定合理政策和指导方针至关重要，而且也是促进可持续城市建设的核心要素。"
 
 #: ../../source/for_users/features/landconsumption.rst:19
 msgid "Rationale for Monitoring"
@@ -114,6 +120,7 @@ msgid ""
 "significant implications on the demand for and cost of providing services, "
 "as well as on environmental preservation and conservation."
 msgstr ""
+"了解城市/城市地区空间扩张和其人口变化率的关系，对于确定人类住区发展的性质（正式与非正式）以及边远土地向城市化功能转变的速度等至关重要。这两个元素对提供服务的需求和成本以及环境和生态保护具有重要意义。"
 
 #: ../../source/for_users/features/landconsumption.rst:29
 msgid ""
@@ -127,6 +134,7 @@ msgid ""
 "accommodate population growth from migration and natural increase while "
 "preserving environmentally sensitive areas from development."
 msgstr ""
+"为实现可持续发展，各国需要了解其城市地区的发展速度和发展方向。这不仅能帮助他们了解发展趋势并有效满足对基本服务的需求，还有助于制定鼓励优化利用城市土地、有效保护其他用途的土地（自然环境、农田等）的政策。此外，为了进行包容和可持续的城市建设，资源的利用方式需要适应移民和自然生育造成的人口增长，同时要保护环境敏感区免受发展的负面影响。"
 
 #: ../../source/for_users/features/landconsumption.rst:31
 msgid ""
@@ -137,6 +145,8 @@ msgid ""
 "minimum, slowing down urban sprawl and if possible, ensuring that the "
 "compactness of cities is maintained or increased over time**."
 msgstr ""
+"因此，监测 SDG 指标 11.3.1 实现情况的目的是为决策者和利益相关者及时提供必要信息，以加快推进更加包容和可持续的城市建设。**到 2030 "
+"年实现目标 11.3 至少需要减缓城市扩张，并尽可能保持或逐渐提高城市的紧凑性**。"
 
 #: ../../source/for_users/features/landconsumption.rst:34
 msgid "Indicator and data needs"
@@ -150,6 +160,8 @@ msgid ""
 "time are needed, and even more if we are interested in assessing the change "
 "in the indicator over time."
 msgstr ""
+"指标 11.3.1 被定义为**土地消耗率与人口增长率的比率**（图 "
+"1）。为了计算该指标，需要至少两个时间点的城市范围和人口信息。如果我们想要评估指标随着时间的变化，则需要更多信息。"
 
 #: ../../source/for_users/features/landconsumption.rst:41
 msgid ""
@@ -158,6 +170,8 @@ msgid ""
 "population growth rate (APGR) between times 1 and 2. Ln: natural logarithm, "
 "Urb: urban area, pop: population, t: time in years.`"
 msgstr ""
+"`图 1：可持续发展目标 (SDG) 指标 11.3.1 为时间点 1 和 2 之间的年土地消耗率 (ALCR) 与年人口增长率 (APGR) "
+"的比率。Ln：自然对数，Urb：城市地区，pop：人口，t：以年为单位的时间。`"
 
 #: ../../source/for_users/features/landconsumption.rst:43
 msgid ""
@@ -176,6 +190,12 @@ msgid ""
 " computes SDG 11.3.1 both in the form of maps and tables for ease of "
 "interpretation and reporting."
 msgstr ""
+"评估 SDG 11.3.1 "
+"随着时间的变化需要大量信息，因为这需要知道多年的城市范围和人口数量。我们可以使用地球观测数据来估计城市内建成区的范围，然后使用空间分析算法估计城市环境中的不同元素（例如建筑物、空地、水体等）的范围。在"
+" |trends.earth| 中，我们采用了下面的工作流（图 2）来促进该过程。利用 Google Earth Engine 的超级计算机、1997 "
+"年至 2019 年间的完整 Landsat 档案以及 GMIS 数据集（Brown de Colstoun "
+"等人，2017），|Trends.Earth| 计算了全球范围的一系列 30 m 分辨率不透水面指数，以了解 2000 年、2005 年、2010 年和"
+" 2015 年的城市范围。结合用户输入信息和人口数据，该工具以地图及图表的形式呈现 SDG 11.3.1，便于解释和报告。"
 
 #: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
 #: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
@@ -193,10 +213,14 @@ msgid ""
 "mapper>`_ `where the user defines built-up extent by simply assigning a "
 "series of thresholds.`"
 msgstr ""
+"`图 2：计算 SDG 11.3.1 的 Trends.Earth 工作流。全球 30 m "
+"不透水面指数已预先计算出来，可供用户在``Trends.Earth Urban Mapper "
+"<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
+"mapper>`_`中探究，用户只需分配一系列阈值即可确定建成区的范围。"
 
 #: ../../source/for_users/features/landconsumption.rst:51
 msgid "Land consumption"
-msgstr ""
+msgstr "土地消耗"
 
 #: ../../source/for_users/features/landconsumption.rst:53
 msgid ""
@@ -205,10 +229,12 @@ msgid ""
 "In the section below, you will learn how the indicators were computed, and "
 "some recommendation how to use them to compute the indicator for SDG 11.3.1."
 msgstr ""
+"为了在 |trends.earth| 中估计土地消耗情况，可以使用预先计算出来的全球范围的 30 m "
+"分辨率不透水面指标时间序列。在下面一节，你将了解这些指标是如何计算出来的，并获得如何使用它们来计算 SDG 11.3.1 指标的一些建议。"
 
 #: ../../source/for_users/features/landconsumption.rst:56
 msgid "ISI in Trends.Earth"
-msgstr ""
+msgstr "Trends.Earth 中的 ISI"
 
 #: ../../source/for_users/features/landconsumption.rst:58
 msgid ""
@@ -228,6 +254,13 @@ msgid ""
 " were run, one per eco region as defined by the RESOLVE dataset (Dinerstein "
 "et al 2017)."
 msgstr ""
+"鉴于缺乏具有精细空间分辨率的不透水面数据集时间序列来记录全球城市变化，我们利用可以获取的最好的不透水面数据集，即 2010 "
+"年全球人造不透水面（GMIS，Brown de Colstoun 等人，2017），利用 1997 年至 2019 年的 230 万 Landsat "
+"图像（1.15 拍字节）在 Google Earth Engine（Gorelick 等人，2017）中训练一系列全球随机森林模型（Breiman "
+"2001）。为了确保仅使用高质量数据对模型进行训练，我们将 GMIS 与 2010 年的 ESA CCI 土地覆盖数据结合了起来，如图 3 "
+"所示。利用该数据集，我们得以训练随机森林模型，然后将其应用于一组从 Landsat 表面反射率数据得出的 24 个波段堆栈，从而生成 1998 "
+"年、2000 年、2005 年、2010 年、2015 年和 2018 年的不透水面指标。运行了 846 个模型，每个生态区一个，如 RESOLVE "
+"数据集（Dinerstein 等人，2017）所定义。"
 
 #: ../../source/for_users/features/landconsumption.rst:63
 msgid ""
@@ -236,6 +269,8 @@ msgid ""
 "24 bands derived from Landsat imagery to predict impervious surface area for"
 " the years 1998, 2000, 2005, 2010, 2015, and 2018.`"
 msgstr ""
+"`图 3：运行了 846 个随机森林模型。每个模型都是使用 GMIS 和 ESA CCI 数据集进行训练，然后应用于从 Landsat 图像中提取的 "
+"24 个波段的堆栈，以预测 1998 年、2000 年、2005 年、2010 年、2015 年和 2018 年的不透水面区域。"
 
 #: ../../source/for_users/features/landconsumption.rst:65
 msgid ""
@@ -249,12 +284,16 @@ msgid ""
 "the 3-year period. Six of these stacks were generated for 1998, 2000, 2005, "
 "2010, 2015, and 2018, and were the input to the random forest models."
 msgstr ""
+"由于某些区域的可用图像有限，我们在每一年都包括了前几年和后几年的图像（例如，2005 年的堆栈包括 2004 年、2005 年和 2006 "
+"年的图像）。24 个波段堆栈中的每一个都包含 7 个反射波段（3 年期间的中位数）、代表 7 个原始波段所有可能的组合的 15 个归一化差异指数以及代表"
+" 3 年期间每个特定像素的 NDVI 最大值和标准偏差的 2 个 NDVI 特定波段。在生成的堆栈中，有六个是针对 1998 年、2000 年、2005"
+" 年、2010 年、2015 年和 2018 年的，它们是随机森林模型的输入信息。"
 
 #: ../../source/for_users/features/landconsumption.rst:70
 msgid ""
 "`Figure 4: Description of the bands in the 24-band stack used in the random "
 "forest models.`"
-msgstr ""
+msgstr "`图 4：随机森林模型中使用的 24 波段堆栈中波段的描述。`"
 
 #: ../../source/for_users/features/landconsumption.rst:72
 msgid ""
@@ -269,10 +308,15 @@ msgid ""
 "<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
 "mapper>`_ for their area of interest."
 msgstr ""
+"由于缺乏全球范围的参考或可比数据集，因此很难评估此类数据集的准确性。我们将 2010 年 ISI 数据集的结果与全球部分城市的 GMIS "
+"原始数据集进行了比较，以评估其准确性。我们发现均方根误差 (RMSE) 介于 9.9 和 14.4% 之间，对于在 0%（没有不透水面）到 "
+"100%（完全不透水）之间变化的指标而言，这是一个可接受度很高的结果。但是，我们强烈建议用户通过视觉检查`Trends.Earth Urban "
+"Mapper <https://geflanddegradation.users.earthengine.app/view/trendsearth-"
+"urban-mapper>`_ 来评估他们关注的区域的结果。"
 
 #: ../../source/for_users/features/landconsumption.rst:75
 msgid "From ISI to built-up"
-msgstr ""
+msgstr "从 ISI 到建成区"
 
 #: ../../source/for_users/features/landconsumption.rst:77
 msgid ""
@@ -283,6 +327,10 @@ msgid ""
 "<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
 "mapper>`_, which will vary by region."
 msgstr ""
+"为了估计城市中不透水面所占的面积，我们需要将连续不透水面指数 (ISI) 转换为二元地图，将已建成区域与未建成区域分开。这个过程是通过在 "
+"`Trends.Earth Urban Mapper "
+"<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
+"mapper>`_ 中确定一系列阈值来完成的，这些阈值会因地区而不同。"
 
 #: ../../source/for_users/features/landconsumption.rst:82
 msgid ""
@@ -292,13 +340,16 @@ msgid ""
 "Impervious Surface Index (ISI, right) to the binary built up area map "
 "(built, left) will ocurr for their city of interest.`"
 msgstr ""
+"`图 5：在`Trends.Earth Urban Mapper "
+"<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
+"mapper>`_`中，用户可以决定如何针对他们关注的城市，将连续不透水面指数（ISI，右）转换为二元建成区地图（已建成，左）。`"
 
 #: ../../source/for_users/features/landconsumption.rst:84
 msgid ""
 "In |trends.earth| the user needs to define 3 threshold values which will be "
 "used by the tool to estimate the built-up area for the area of interest. "
 "Those thresholds are:"
-msgstr ""
+msgstr "在 |trends.earth| 中，用户需要确定 3 个阈值，工具将使用这些阈值来估计关注区域的建成面积。这些阈值是："
 
 #: ../../source/for_users/features/landconsumption.rst:86
 msgid ""
@@ -310,6 +361,8 @@ msgid ""
 "peripheries of the cities. Setting this value higher will make the "
 "assessment to focus on the high density city centers."
 msgstr ""
+"**不透水面指数 (ISI, 0-100)**：这是一个介于 0 到 100 的指数，数值越高，30 m 像素中不透水面的百分比越高。设置较低的 ISI"
+" 阈值表示你的最终建成区数据集将包括建筑密度低的区域，该区域通常位于城市的外围。将此值设置得较高将使评估集中在高密度的城市中心。"
 
 #: ../../source/for_users/features/landconsumption.rst:87
 msgid ""
@@ -327,6 +380,12 @@ msgid ""
 " peripheries of the cities. Setting this value higher will make the "
 "assessment to focus on the high density city centers."
 msgstr ""
+"**夜间灯光指数 (NTL, "
+"0-100)**：在某些情况下，覆盖着干燥裸土或岩石的区域的不透水面指数可能呈现高值，因为这些类型的表面具有与人造不透水面相似的光谱特性。为了过滤这些区域，我们使用夜间灯光指数，来去除城市边界外存在的高"
+" ISI 和低夜间灯光的区域。我们缺少针对所讨论的时间段（2000–2015 "
+"年）进行一致性校准的夜间灯光时间序列，这意味着我们不能用对应的年份遮罩某年份，因此对于 2015 年，我们使用 VIIRS Nighttime "
+"Day/Night Band Composites Version 1 (NOA, 2019)。将 NTL "
+"阈值设置得较低意味着你的最终建成区数据集将包括光密度低的区域，该类区域通常位于城市的外围。将此值设置得较高将使评估集中在高密度的城市中心。"
 
 #: ../../source/for_users/features/landconsumption.rst:88
 msgid ""
@@ -343,6 +402,10 @@ msgid ""
 "bodies to areas with a high frequency of water occurrence (i.e. permanent "
 "rivers and lakes)."
 msgstr ""
+"**水频率指数 (WFI, "
+"0-100)**：水的存在是沿海或河滨环境的一个非常动态的特征，有时水会淹没陆地区域，有时人类会占据水体空间。为了记录其中一些动态，我们在工具中集成了一个水频率数据集（Pekel"
+" 等人，2016）。 "
+"通过调整水频率阈值，用户可以选择突出显示这些陆–水动态区域。将水频率阈值设置得较低时，你的最终建成区数据集将被视为在整个时间序列中被具有较低水频率的水域所覆盖，例如间歇性河流或湖泊。将此值设置得较高会将水体限制在水出现频率高的区域（即永久性河流和湖泊）。"
 
 #: ../../source/for_users/features/landconsumption.rst:93
 msgid ""
@@ -352,10 +415,13 @@ msgid ""
 " Impervious Surface Index (ISI, right) to the binary built up area map "
 "(built, left).`"
 msgstr ""
+"`图 6：在``Trends.Earth Urban Mapper "
+"<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
+"mapper>`_`中，用户确定一系列阈值，从而将连续不透水面指数（ISI，右）转换为二元建成区域图（已建成，左）。`"
 
 #: ../../source/for_users/features/landconsumption.rst:96
 msgid "Consistency test"
-msgstr ""
+msgstr "一致性测试"
 
 #: ../../source/for_users/features/landconsumption.rst:98
 msgid ""
@@ -367,6 +433,9 @@ msgid ""
 " this analysis, to add pre and post data points to filter possible errors in"
 " the classifications of the 2000 through 2015 series."
 msgstr ""
+"在将遥感数据分类为衍生产品，例如由|trends.earth| "
+"计算的不透水面指数时，会出现遗漏和分类错误。执行时间序列分析的一个好处是可以使用来自不同年份的图像来找出分析结果中的不一致。出于这个原因，我们在这个分析中计算了"
+" 1998 年和 2018 年的 ISI 分层，通过添加前后数据点来过滤 2000 年至 2015 年序列的分类中可能出现的错误。"
 
 #: ../../source/for_users/features/landconsumption.rst:100
 msgid ""
@@ -377,6 +446,8 @@ msgid ""
 " of each pixel for each year as \"built-up\" or \"not-built\". One main rule"
 " is later applied to that series:"
 msgstr ""
+"将上一节中定义的阈值（ISI、NTL 和 WFR）应用于 1998 年、2000 年、2005 年、2010 年、2015 年和 2018 "
+"年的每个单独分层，就生成了一系列二元地图。六个二元地图随后被合并成一个时间序列数据集，其中包含每个像素每年的特征信息（“建成”或“未建成”）。之后将一个主要规则应用于该序列："
 
 #: ../../source/for_users/features/landconsumption.rst:102
 msgid ""
@@ -391,10 +462,13 @@ msgid ""
 "comfortable making that assumption. Visual inspection of the results support"
 " the approach."
 msgstr ""
+"当第一次检测为已建成后，只有 50% "
+"或更多的数据点将同一区域识别为已建成时，一个像素才被认为是已建成。对于此类像素，第一次检测为已建成将被视为转换年份。在第一次检测后，建成不到 50% "
+"的区域将被视为分类错误，因此视为未建成。我们认识到，通过应用这个规则，我们限制了数据集对于从已建成到未建成的转换的检测能力。然而，鉴于这种转变在城市环境中发生的可能性很小，我们对做出这样的假设感到满意。对结果的目视检查支持该方法。"
 
 #: ../../source/for_users/features/landconsumption.rst:105
 msgid "Global testing"
-msgstr ""
+msgstr "全球测试"
 
 #: ../../source/for_users/features/landconsumption.rst:107
 msgid ""
@@ -417,13 +491,22 @@ msgid ""
 "data was available), hyper arid areas, and areas with low image "
 "availability."
 msgstr ""
+"|trends.earth| 通过`Urban Mapper "
+"<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
+"mapper>`_和 QGIS 插件提供对全球 30 m "
+"不透水面指数时间序列的访问。然而，重要的是要了解数据集有其局限性，它需要用户的输入和控制才能准确评估指标 SDG 11.3.1 "
+"的变化。为了测试该指标的表现，我们对全球 224 个城市（200 个国家首都 + 美国的 24 个大城市，图 7）进行了分析。使用 `Urban "
+"Mapper <https://geflanddegradation.users.earthengine.app/view/trendsearth-"
+"urban-mapper>`_ 并将产品与空间分辨率非常高的图像进行视觉比较，我们得以确定适合每个城市的阈值（ISI、NTL 和 WFI），并用从 0 "
+"到 5 的分数评估产品的质量。结果显示，对于 83% 的被评估城市，Trends.Earth 数据可用于估计指标 SDG "
+"11.3.1。最大的局限仍然存在于小岛国（没有可用的训练数据）、超干旱地区和图像可用性低的地区。"
 
 #: ../../source/for_users/features/landconsumption.rst:109
 msgid ""
 "**No data**: Cities for which no training data was available to build the "
 "impervious surface data set. These cities represent 6.2% of the sample "
 "assessed."
-msgstr ""
+msgstr "**无数据**：没有训练数据可用于构建不透水面数据集的的城市。这些城市占评估样本的 6.2%。"
 
 #: ../../source/for_users/features/landconsumption.rst:110
 msgid ""
@@ -432,6 +515,8 @@ msgid ""
 "These results  should not be used for computing SDG 11.3.1 indicator. These "
 "cities represent 0.9% of the sample assessed."
 msgstr ""
+"**不可用**：此类城市可获取结果，但由于 Landsat 图像可用性低，无法产生优质产品。这些结果不应该用于计算 SDG 11.3.1 "
+"指标。这些城市占评估样本的 0.9%。"
 
 #: ../../source/for_users/features/landconsumption.rst:111
 msgid ""
@@ -440,6 +525,8 @@ msgid ""
 "significant errors. These results should not be used for computing SDG "
 "11.3.1 indicator. These cities represent 4.0% of the sample assessed."
 msgstr ""
+"**有很大问题**：此类城市的结果可用于在视觉上了解建成区扩张的空间模式，但存在明显错误。这些结果不应该用于计算 SDG 11.3.1 "
+"指标。这些城市占评估样本的 4.0%。"
 
 #: ../../source/for_users/features/landconsumption.rst:112
 msgid ""
@@ -448,13 +535,14 @@ msgid ""
 "detailed inspection of the data. These cities represent 6.2% of the sample "
 "assessed."
 msgstr ""
+"**有些问题**：结果将一些裸露土壤表面与建成区混同的城市，在对数据进行仔细检查后可用于计算 SDG 11.3.1。这些城市占评估样本的 6.2%。"
 
 #: ../../source/for_users/features/landconsumption.rst:113
 msgid ""
 "**Minor issues**: Cities with high quality data but with the presence of "
 "some small areas of confusion. This data could be used for computing SDG "
 "11.3.1. These cities represent 12.5% of the sample assessed."
-msgstr ""
+msgstr "**有些小问题**：具有高质量数据但存在一些小的混乱区域的城市。该数据可用于计算 SDG 11.3.1。这些城市占评估样本的 12.5%。"
 
 #: ../../source/for_users/features/landconsumption.rst:114
 msgid ""
@@ -463,6 +551,8 @@ msgid ""
 "available in Google Earth, high confidence for estimating SDG 11.3.1. These "
 "cities represent 70.1% of the sample assessed."
 msgstr ""
+"**高质量**：此类城市具有高质量数据，这表示使用 Trends.Earth 数据的建成区和 Google Earth "
+"提供的高分辨率图像完全一致，对估算 SDG 11.3.1 具有高可信度。这些城市占评估样本的 70.1%。"
 
 #: ../../source/for_users/features/landconsumption.rst:119
 msgid ""
@@ -472,13 +562,15 @@ msgid ""
 "island states (for which no training data was available), hyper arid areas, "
 "and areas with low image availability.`"
 msgstr ""
+"`图 7：在对全球 224 个大城市进行测试后，结果显示，对于 83% 的被评估城市，Trends.Earth 数据可用于估算指标 SDG "
+"11.3.1。最大的局限仍然存在于小岛国（没有可用的训练数据）、超干旱地区和图像可用性低的地区。`"
 
 #: ../../source/for_users/features/landconsumption.rst:128
 msgid ""
 "`Figure 8: Spatial distribution of threshold parameters selected for the "
 "sample of 224 cities tested. Top: Impervious surface area indicator, Middle:"
 " Nighttime lights indicator, and Bottom: Water frequency indicator.`"
-msgstr ""
+msgstr "`图 8：为 224 个被测试城市样本选择的阈值参数的空间分布。顶部：不透水面区域指标，中间：夜间灯光指标，底部：水频率指标。`"
 
 #: ../../source/for_users/features/landconsumption.rst:130
 msgid ""
@@ -491,17 +583,21 @@ msgid ""
 "city, careful inspection of the dataset should be perform, in order to find "
 "the set of parameters which better work for each site."
 msgstr ""
+"通过对全球 224 个城市的分析，我们估计出了最常用的参数范围。最常用的值是：**ISI = 30，NTL = 10，WFR = "
+"25**。这些值是`Trends.Earth Urban Mapper "
+"<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
+"mapper>`_和 QGIS 插件中确定的默认参数，但一定要注意，对于每个城市都应该仔细检查数据集，以便找到更适合每个位置的参数。"
 
 #: ../../source/for_users/features/landconsumption.rst:135
 msgid ""
 "`Figure 9: Frequency distribution of threshold parameters selected for the "
 "sample of 224 cities tested. Left: Impervious surface area indicator, "
 "Middle: Nighttime lights indicator, and Right: Water frequency indicator.`"
-msgstr ""
+msgstr "`图 9：为 224 个被测试城市样本选择的阈值参数的频率分布。左：不透水面区域指标，中：夜间灯光指标，右：水频率指标。`"
 
 #: ../../source/for_users/features/landconsumption.rst:138
 msgid "Urban zones"
-msgstr ""
+msgstr "城市分区"
 
 #: ../../source/for_users/features/landconsumption.rst:140
 msgid ""
@@ -512,73 +608,75 @@ msgid ""
 "which will be used in the estimation of the annual land consumption rate "
 "(Figure 1):"
 msgstr ""
+"城市范围是拟研究区域，包括城市的建成区和城市化空地，以及通过邻近分析增加的区域（联合国人居署，2019 年）。为了确定估算年土地消耗率要使用的区域（图 "
+"1），联合国人居署建议将关注区域分为以下 6 类："
 
 #: ../../source/for_users/features/landconsumption.rst:142
 msgid ""
 "Built-up areas will be classified based on the density within a 500 m of "
 "each pixel radius:"
-msgstr ""
+msgstr "建成区将根据每个半径 500 m 的像素内的密度进行分类："
 
 #: ../../source/for_users/features/landconsumption.rst:144
 msgid "Urban: > 50% built-up in the 500 m radius."
-msgstr ""
+msgstr "城市：在 500 m 半径内建成区大于 50%。"
 
 #: ../../source/for_users/features/landconsumption.rst:145
 msgid "Suburban: 25-50% built-up in the 500 m radius."
-msgstr ""
+msgstr "近郊：在 500 m 半径内建成区占 25-50%。"
 
 #: ../../source/for_users/features/landconsumption.rst:146
 msgid "Rural: < 25 % built-up in the 500 m radius."
-msgstr ""
+msgstr "农村：在 500 m 半径内建成区小于 25%。"
 
 #: ../../source/for_users/features/landconsumption.rst:148
 msgid ""
 "The non-built up areas will be considered open space (OS), and will be "
 "classified as follows:"
-msgstr ""
+msgstr "非建成区将被视为空地 (OS)，并将分类如下："
 
 #: ../../source/for_users/features/landconsumption.rst:150
 msgid "Fringe open space: open space < 100 m from urban and suburban."
-msgstr ""
+msgstr "边缘空地：距离城市和近郊小于 100 m 的空地。"
 
 #: ../../source/for_users/features/landconsumption.rst:151
 msgid "Captured open space: open space fully surrounded by fringe open space."
-msgstr ""
+msgstr "被包围空地：被边缘空地完全包围的空地。"
 
 #: ../../source/for_users/features/landconsumption.rst:152
 msgid "Rural open space: All other open space."
-msgstr ""
+msgstr "农村空地：所有其他空地。"
 
 #: ../../source/for_users/features/landconsumption.rst:154
 msgid ""
 "In |trends.earth|, we have added to the scheme above by differentiating land"
 " from water open space, since the uses citizens can do of each space are "
 "very different."
-msgstr ""
+msgstr "在 |trends.earth| 中，我们在上述方案中又对土地和水上空地做了区分，因为公民利用每个空间的方式很不一样。"
 
 #: ../../source/for_users/features/landconsumption.rst:156
 msgid "Fringe open space - water: Fringe open space covered by water"
-msgstr ""
+msgstr "边缘空地–水：被水覆盖的边缘空地"
 
 #: ../../source/for_users/features/landconsumption.rst:157
 msgid "Captured open space - water: Captured open space covered by water"
-msgstr ""
+msgstr "被包围空地–水：被水覆盖的被包围的空地"
 
 #: ../../source/for_users/features/landconsumption.rst:158
 msgid "Rural open space - water: Rural open space covered by water"
-msgstr ""
+msgstr "农村空地–水：被水覆盖的农村空地"
 
 #: ../../source/for_users/features/landconsumption.rst:160
 msgid ""
 "Urban extent is determined by the combined area of classes 1, 2, 4, 5, 7, "
 "and 8 (urban, suburban, and fringe and captured open space)."
-msgstr ""
+msgstr "将 1、2、4、5、7 和 8 类（城市、近郊、边缘和被包围空地）区域合并，即可确定城市范围。"
 
 #: ../../source/for_users/features/landconsumption.rst:165
 msgid ""
 "`Figure 10: Result of the SDG 11.3.1 analysis displaying the different "
 "elements which comprise the urban space.`"
-msgstr ""
+msgstr "`图 10：SDG 11.3.1 分析结果显示了构成城市空间的不同元素。`"
 
 #: ../../source/for_users/features/landconsumption.rst:167
 msgid ""
@@ -586,10 +684,11 @@ msgid ""
 "time for the periods 2000-2005, 2010, and 2010-2015 needed to estimate the "
 "annual land consumption rate."
 msgstr ""
+"有了这些信息，我们现在就可以估算 2000–2005 年、2010 年和 2010–2015 年期间的城市扩张率，并利用它来估算年土地消耗率。"
 
 #: ../../source/for_users/features/landconsumption.rst:170
 msgid "Population growth"
-msgstr ""
+msgstr "人口增长"
 
 #: ../../source/for_users/features/landconsumption.rst:174
 msgid ""
@@ -599,6 +698,7 @@ msgid ""
 "The estimation of the number of people living within each service area can "
 "be achieved through two broad approaches:"
 msgstr ""
+"一旦确定了城市化区域，下一步就是确定每个分析年有多少人居住在这些区域内。然后使用该信息来计算年化人口增长率。可以通过两种宽泛的方法来估算居住在每个服务区域内的人数："
 
 #: ../../source/for_users/features/landconsumption.rst:176
 msgid ""
@@ -612,6 +712,8 @@ msgid ""
 "data architecture. This option provides the most accurate and authoritative "
 "population data for the indicator computation and is highly encouraged."
 msgstr ""
+"**使用来自国家统计局 (NSO) "
+"的高分辨率数据**：在这个选项中，人口普查数据用于汇总居住在城市边界内所有家庭的人数。用户还可以根据特定报告年份的家庭特征轻松进行预测和推断。如果使用动态人口普查单元来识别城市化区域，这一过程会更容易，这尤其是因为这些单元与官方人口数据架构很吻合。这个选项为指标计算提供了最准确、最权威的人口数据，我们强烈推荐。"
 
 #: ../../source/for_users/features/landconsumption.rst:178
 msgid ""
@@ -638,10 +740,16 @@ msgid ""
 "indicator computation where high resolution data from national statistical "
 "offices is not available or readily accessible."
 msgstr ""
+"**使用网格人口**：在这个选项中，将人口分配到整个行政或人口普查区域单元，就会生成人口网格。可居住区域的存在与否（土地利用类别）等属性可用于分配人口，因此未开发土地或工业区中的网格单元将比高密度住宅区的人口少。在生成的网格中，每个网格单元将具有唯一的值，该值取决于封闭行政/人口普查单位内的总人口、可居住土地利用类别的个数和/或数量等因素。图"
+" 5 "
+"示范了仅使用一种土地利用类别（建成区）的人口网格的一般逻辑。人口网格覆盖的区域应始终大于定义的城市边界。一旦创建了人口网格，就可以通过汇总封闭网格单元的人口来估计居住在城市边界内的人口。在没有"
+" NSO 的高分辨率数据的情况下，此选项可以较好地估计人口，不过高质量的输入数据和多层次分析对于提高数据准确性至关重要。描述 1km² 和 250m "
+"网格内人口的全球数据集可供使用（例如 GPWv4、GHS-"
+"POP、WorldPop），其中大多数数据集假设人口平均分配到可居住类别（例如建成区）。在国家统计局的高分辨率数据不可用或不易获取的情况下，建议使用这种方法计算指标。"
 
 #: ../../source/for_users/features/landconsumption.rst:181
 msgid "Population in Trends.Earth"
-msgstr ""
+msgstr "Trends.Earth 中的人口"
 
 #: ../../source/for_users/features/landconsumption.rst:183
 msgid ""
@@ -656,22 +764,26 @@ msgid ""
 "relevant high quality data by simply replacing the corresponding cells in "
 "the final tabular output."
 msgstr ""
+"在|trends.earth|中，我们建议用户使用选项 "
+"1，因为国家统计局提供的高分辨率数据的准确性总是高于全球栅格产品获得的数据，而全球栅格产品在大多数情况下是为全国范围的分析而制作的。不过考虑到在某些地区，大多数用户无法轻易获得人口数据，我们提供了Gridded"
+" Population of the World V4 (GPWv4, CIESIN, 2016) 的数据作为参考。即使在 |trends.earth|"
+" 中选择使用 GPWv4，只需要替换最终输出表格中的相应单元格，人口数据就可以轻松地替换为与本地相关的高质量数据。"
 
 #: ../../source/for_users/features/landconsumption.rst:186
 msgid "Trends in SDG 11.3.1"
-msgstr ""
+msgstr "SDG 11.3.1 的趋势"
 
 #: ../../source/for_users/features/landconsumption.rst:188
 msgid ""
 "The final outputs of the SDG 11.3.1 computations in |trends.earth| will be:"
-msgstr ""
+msgstr "|trends.earth| 中 SDG 11.3.1 计算的最终输出结果将是："
 
 #: ../../source/for_users/features/landconsumption.rst:190
 msgid ""
 "The maps as presented Figures 10 and 11, which will allow for a visual "
 "interpretation of the changes occurred in the urban space between 2000 and "
 "2015 at 5-year intervals."
-msgstr ""
+msgstr "通过图 10 和 11 所示的地图，我们可以对 2000 年至 2015 年期间城市空间每隔 5 年发生的变化进行视觉解读。"
 
 #: ../../source/for_users/features/landconsumption.rst:192
 msgid ""
@@ -681,6 +793,8 @@ msgid ""
 " 11.3.1 will also be computed automatically, and a trend of the indicator "
 "over time will be provided."
 msgstr ""
+"一张表格，它总结了城市空间内不同空间（城市、近郊和不同类别的空地）的面积计算结果，以及相应的人口数量。在这个表中，还将自动计算 SDG "
+"11.3.1，并显示指标随时间变化的趋势。"
 
 #: ../../source/for_users/features/landconsumption.rst:197
 msgid ""
@@ -688,12 +802,14 @@ msgid ""
 "|trends.earth| is a tabular outputs displaying the area, population and the "
 "indicator for SDG 11.3.1 for the city analyzed.`"
 msgstr ""
+"`图 11：|trends.earth| 中 SDG 11.3.1 分析的最终输出结果之一是一张表格，它显示了被分析城市的面积、人口和 SDG "
+"11.3.1 指标。`"
 
 #: ../../source/for_users/features/landconsumption.rst:200
 msgid ""
 "For a step-by-step guide on how to run the analysis in |trends.earth|, "
 "please refer to the following tutorial: :ref:`tut_land_consumption`."
-msgstr ""
+msgstr "如要获取在 |trends.earth| 中进行分析的分步指南，请参阅以下教程：:ref:`tut_land_consumption`。"
 
 #: ../../source/for_users/features/landconsumption.rst:202
 msgid "**Citations:**"
@@ -704,6 +820,8 @@ msgid ""
 "Breiman, L., 2001. Random forests. Mach. Learn. 45, 5–32. "
 "https://doi.org/10.1023/a:1010933404324"
 msgstr ""
+"Breiman, L., 2001. Random forests. Mach. Learn. 45, 5–32. "
+"https://doi.org/10.1023/a:1010933404324"
 
 #: ../../source/for_users/features/landconsumption.rst:206
 msgid ""
@@ -713,6 +831,11 @@ msgid ""
 "Socioeconomic Data and Applications Center (SEDAC). "
 "https://doi.org/10.7927/H4P55KKF."
 msgstr ""
+"Brown de Colstoun, E. C., C. Huang, P. Wang, J. C. Tilton, B. Tan, J. "
+"Phillips, S. Niemczura, P.-Y. Ling, and R. E. Wolfe. 2017. Global Man-made "
+"Impervious Surface (GMIS) Dataset From Landsat. Palisades, NY: NASA "
+"Socioeconomic Data and Applications Center (SEDAC). "
+"https://doi.org/10.7927/H4P55KKF."
 
 #: ../../source/for_users/features/landconsumption.rst:208
 msgid ""
@@ -722,6 +845,11 @@ msgid ""
 "Center for International Earth Science Information Network - Columbia "
 "University. https://doi.org/10.7927/H4HX19NJ."
 msgstr ""
+"CIESIN. 2016. Gridded Population of the World, Version 4 (GPWv4): Population"
+" Density Adjusted to Match 2015 Revision of UN WPP Country Totals. "
+"Palisades, NY: NASA Socioeconomic Data and Applications Center (SEDAC). "
+"Center for International Earth Science Information Network - Columbia "
+"University. https://doi.org/10.7927/H4HX19NJ."
 
 #: ../../source/for_users/features/landconsumption.rst:210
 msgid ""
@@ -729,6 +857,9 @@ msgid ""
 "Protecting Half the Terrestrial Realm. BioScience 67, 534–545. "
 "https://doi.org/10.1093/biosci/bix014"
 msgstr ""
+"Dinerstein, E., Olson, et al, 2017. An Ecoregion-Based Approach to "
+"Protecting Half the Terrestrial Realm. BioScience 67, 534–545. "
+"https://doi.org/10.1093/biosci/bix014"
 
 #: ../../source/for_users/features/landconsumption.rst:212
 msgid ""
@@ -738,6 +869,11 @@ msgid ""
 "applications and experiences 202, 18–27. "
 "https://doi.org/10.1016/j.rse.2017.06.031"
 msgstr ""
+"Gorelick, N., Hancher, M., Dixon, M., Ilyushchenko, S., Thau, D., Moore, R.,"
+" 2017. Google Earth Engine: Planetary-scale geospatial analysis for "
+"everyone. Remote Sens. Environ., Big Remotely Sensed Data: tools, "
+"applications and experiences 202, 18–27. "
+"https://doi.org/10.1016/j.rse.2017.06.031"
 
 #: ../../source/for_users/features/landconsumption.rst:214
 msgid ""
@@ -745,6 +881,9 @@ msgid ""
 "resolution mapping of global surface water and its long-term changes. Nature"
 " 540, 418-422 (2016). https://doi.org/10.1038/nature20584."
 msgstr ""
+"Jean-Francois Pekel, Andrew Cottam, Noel Gorelick, Alan S. Belward, High-"
+"resolution mapping of global surface water and its long-term changes. Nature"
+" 540, 418-422 (2016). https://doi.org/10.1038/nature20584."
 
 #: ../../source/for_users/features/landconsumption.rst:216
 msgid ""
@@ -752,6 +891,9 @@ msgid ""
 "through: https://developers.google.com/earth-"
 "engine/datasets/catalog/NOAA_VIIRS_DNB_MONTHLY_V1_VCMCFG"
 msgstr ""
+"NOA. 2019. VIIRS Nighttime Day/Night Band Composites Version 1. Available "
+"through: https://developers.google.com/earth-"
+"engine/datasets/catalog/NOAA_VIIRS_DNB_MONTHLY_V1_VCMCFG"
 
 #: ../../source/for_users/features/landconsumption.rst:218
 msgid ""
@@ -759,6 +901,9 @@ msgid ""
 "https://unhabitat.org/wp-content/uploads/2019/02/Indicator-11.3.1-Training-"
 "Module_Land-Consumption_Jan-2019.pdf"
 msgstr ""
+"UN-Habitat (2019) Module 3: Land consumption. Accessed on 05/10/2019 from:  "
+"https://unhabitat.org/wp-content/uploads/2019/02/Indicator-11.3.1-Training-"
+"Module_Land-Consumption_Jan-2019.pdf"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"

@@ -12,10 +12,8 @@ from qgis.PyQt import uic
 from qgis.utils import iface
 from te_schemas.jobs import JobStatus
 from te_schemas.results import Band as JobBand
-from te_schemas.results import (
-    TimeSeriesTableResult,
-    RasterResults
-)
+from te_schemas.results import RasterResults
+from te_schemas.results import TimeSeriesTableResult
 
 from . import manager
 from .. import layers
@@ -266,9 +264,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
 
         self.open_details_tb.clicked.connect(self.show_details)
         self.open_directory_tb.clicked.connect(self.open_job_directory)
-        self.delete_tb.clicked.connect(
-            functools.partial(utils.delete_dataset, self.job)
-        )
+        self.delete_tb.clicked.connect(self.delete_dataset)
         self.load_tb.clicked.connect(self.load_layer)
 
         self.load_vector_menu_setup()
@@ -300,12 +296,12 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             QtGui.QIcon(os.path.join(ICON_PATH, "mActionAddOgrLayer.svg"))
         )
 
-        self.plot_tb.setIcon(FileUtils.get_icon('chart.svg'))
+        self.plot_tb.setIcon(FileUtils.get_icon("chart.svg"))
         self.plot_tb.clicked.connect(self.show_time_series_plot)
         self.plot_tb.setEnabled(False)
         self.plot_tb.hide()
 
-        self.report_pb.setIcon(FileUtils.get_icon('report.svg'))
+        self.report_pb.setIcon(FileUtils.get_icon("report.svg"))
         self._report_handler = DatasetReportHandler(
             self.report_pb, self.job, self.main_dock.iface
         )
@@ -316,11 +312,9 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             self.edit_tb.setEnabled(False)
             layers = QgsProject.instance().mapLayers()
             for l in layers.values():
+                # Ensure this vector layer is added to the map
                 if l.source().split("|")[0] == str(job.results.vector.uri.uri):
                     self.edit_tb.setEnabled(True)
-                    break
-                else:
-                    self.edit_tb.setEnabled(False)
                     break
 
         self.name_la.setText(self.job.visible_name)
@@ -455,6 +449,11 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
     def load_dataset(self):
         manager.job_manager.display_default_job_results(self.job)
 
+    def delete_dataset(self):
+        self.main_dock.pause_scheduler()
+        utils.delete_dataset(self.job)
+        self.main_dock.resume_scheduler()
+
     def load_dataset_choose_layers(self):
         self.main_dock.pause_scheduler()
         dialogue = DlgDataIOAddLayersToMap(self, self.job)
@@ -469,23 +468,21 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         table = self.job.results.table
         if len(table) == 0:
             self.main_dock.iface.messageBar().pushMessage(
-                self.tr('Time series table is empty'),
-                level=1,
-                duration=5
+                self.tr("Time series table is empty"), level=1, duration=5
             )
             return
 
-        data = [x for x in table if x['name'] == 'mean'][0]
+        data = [x for x in table if x["name"] == "mean"][0]
         task_name = self.job.task_name
-        base_title = self.tr('Time Series')
+        base_title = self.tr("Time Series")
         dlg_plot = DlgPlotTimeries(self.main_dock.iface.mainWindow())
-        dlg_plot.setWindowTitle(f'{base_title} - {task_name}')
-        labels = {'title': task_name,
-                  'bottom': self.tr('Time'),
-                  'left': [
-                      self.tr('Integrated NDVI'), self.tr('NDVI x 10000')
-                  ]}
-        dlg_plot.plot_data(data['time'], data['y'], labels)
+        dlg_plot.setWindowTitle(f"{base_title} - {task_name}")
+        labels = {
+            "title": task_name,
+            "bottom": self.tr("Time"),
+            "left": [self.tr("Integrated NDVI"), self.tr("NDVI x 10000")],
+        }
+        dlg_plot.plot_data(data["time"], data["y"], labels)
         dlg_plot.exec_()
 
     def edit_layer(self):
@@ -615,13 +612,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                 else None
             )
             if job:
-                band = None
-                for raster in job.results.rasters.values():
-                    band = next(
-                        (b for b in raster.bands if b.name == data["band_name"]), None
-                    )
-                    if band:
-                        break
+                band = job.results.get_bands()[data["band"] - 1]
                 layers.add_layer(
                     str(data["path"]), int(data["band"]), JobBand.Schema().dump(band)
                 )

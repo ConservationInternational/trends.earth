@@ -54,35 +54,35 @@ msgstr "trends.earth"
 
 #: ../../source/index.rst:17
 msgid ":index_path:`عربى <ar>`"
-msgstr ""
+msgstr ":index_path:`عربى <ar>`"
 
 #: ../../source/index.rst:17
 msgid ":index_path:`中国人 <zh>`"
-msgstr ""
+msgstr ":index_path:`中国人 <zh>`"
 
 #: ../../source/index.rst:17
 msgid ":index_path:`English <en>`"
-msgstr ""
+msgstr ":index_path:`English <en>`"
 
 #: ../../source/index.rst:17
 msgid ":index_path:`Español <es>`"
-msgstr ""
+msgstr ":index_path:`Español <es>`"
 
 #: ../../source/index.rst:17
 msgid ":index_path:`Français <fr>`"
-msgstr ""
+msgstr ":index_path:`Français <fr>`"
 
 #: ../../source/index.rst:17
 msgid ":index_path:`Português <pt>`"
-msgstr ""
+msgstr ":index_path:`Português <pt>`"
 
 #: ../../source/index.rst:17
 msgid ":index_path:`русский <ru>`"
-msgstr ""
+msgstr ":index_path:`русский <ru>`"
 
 #: ../../source/index.rst:17
 msgid ":index_path:`Kiswahili <sw>`"
-msgstr ""
+msgstr ":index_path:`Kiswahili <sw>`"
 
 #: ../../source/index.rst:20
 msgid ""

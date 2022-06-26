@@ -100,7 +100,8 @@ def _get_extent_tuple_vector(path):
         ):
             # If there are not yet any features, then the extent will be set as ranging
             # from -infinite to infinite - so catch this with above check
-            log(f"Failed to calculate extent for {path} - appears undefined")
+            if conf.settings_manager.get_value(conf.Setting.DEBUG):
+                log(f"Failed to calculate extent for {path} - appears undefined")
             return None
         else:
             if conf.settings_manager.get_value(conf.Setting.DEBUG):

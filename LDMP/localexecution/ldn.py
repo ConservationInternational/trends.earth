@@ -6,17 +6,17 @@ from typing import Dict
 from typing import List
 from typing import Optional
 
-import te_algorithms.gdal.land_deg.config as ld_config
 from qgis.PyQt import QtWidgets
-from te_algorithms.gdal.land_deg.land_deg import summarise_land_degradation
 from te_schemas.aoi import AOI
 from te_schemas.productivity import ProductivityMode
 from te_schemas.results import Band as JobBand
 
+import te_algorithms.gdal.land_deg.config as ld_config
 from .. import data_io
 from .. import tr
 from ..jobs.models import Job
 from ..logger import log
+from te_algorithms.gdal.land_deg.land_deg import summarise_land_degradation
 
 NODATA_VALUE = -32768
 MASK_VALUE = -32767
@@ -153,7 +153,7 @@ def _get_ld_inputs(
     years = [i[0].metadata[sort_property] for i in sorted_aux_bands]
 
     return LdnInputInfo(
-        path=usable_band_info.job.results.uri.uri,
+        path=usable_band_info.path,
         main_band=main_band,
         main_band_index=main_band_index,
         aux_bands=aux_bands,
@@ -173,7 +173,7 @@ def _get_pop_inputs(
     if pop_mode == PopulationMode.Total.value:
         total_pop_band_info = total_pop_selection_widget.get_current_band()
         bands = [total_pop_band_info.band_info]
-        paths = [total_pop_band_info.job.results.uri.uri]
+        paths = [total_pop_band_info.path]
         band_indices = [total_pop_band_info.band_index]
         years = [total_pop_band_info.band_info.metadata["year"]]
 
@@ -182,8 +182,8 @@ def _get_pop_inputs(
         female_pop_band_info = female_pop_selection_widget.get_current_band()
         bands = [male_pop_band_info.band_info, female_pop_band_info.band_info]
         paths = [
-            male_pop_band_info.job.results.uri.uri,
-            female_pop_band_info.job.results.uri.uri,
+            male_pop_band_info.path,
+            female_pop_band_info.path,
         ]
         band_indices = [male_pop_band_info.band_index, female_pop_band_info.band_index]
         years = [
@@ -215,7 +215,7 @@ def _get_ld_input_aux_band(
     aux_band = aux_bands[0]
 
     return {
-        "path": usable_band_info.job.results.uri.uri,
+        "path": usable_band_info.path,
         "band": aux_band[0],
         "band_index": aux_band[1],
     }

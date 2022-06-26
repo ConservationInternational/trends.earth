@@ -23,11 +23,11 @@ msgstr ""
 
 #: ../../source/for_users/features/landconsumption.rst:4
 msgid "Land Consumption and SDG 11.3.1"
-msgstr "استهلاك الأراضي وغاية هدف التنمية المستدامة 11.3.1"
+msgstr "استهلاك الأراضي وSDG 11.3.1"
 
 #: ../../source/for_users/features/landconsumption.rst:7
 msgid "Background"
-msgstr "معلومات أساسية"
+msgstr "الخلفية"
 
 #: ../../source/for_users/features/landconsumption.rst:8
 #: ../../source/for_users/features/landconsumption.rst:25
@@ -36,6 +36,9 @@ msgid ""
 "Source: UN-Habitat (2019) SDG Indicator 11.3.1 Training Module: Land Use "
 "Efficiency. United Nations Human Settlement Programme (UN-Habitat), Nairobi."
 msgstr ""
+"برنامج الأمم المتحدة للمستوطنات البشرية (2019) مؤشر SDG 11.3.1 وحدة التدريب:"
+" كفاءة استخدام الأرض. برنامج الأمم المتحدة للمستوطنات البشرية (UN-Habitat)، "
+"نيروبي."
 
 #: ../../source/for_users/features/landconsumption.rst:10
 msgid ""
@@ -49,6 +52,13 @@ msgid ""
 "prevailing physical and social conditions, presence of enabling policies, "
 "among other things."
 msgstr ""
+"تلائم المستوطنات البشرية بجميع أشكالها المختلفة الأرض بطرق متنوعة. تمامًا "
+"مثل الكائنات الحية، تتطور المستوطنات الحضرية (المدن) وتتحول وتتكيف وتبتكر "
+"وتتغير مع الاتجاهات الناشئة. تتوسع المستوطنات الحضرية وتتقلص وتكثف وتشتد "
+"وتتقدم في العمر، وفي بعض الأحيان تهاجر وظائفها إلى مناطق أكثر ملاءمة لبقائها"
+" على قيد الحياة. ترتبط كل هذه الاتجاهات في المستوطنات الحضرية ارتباطًا "
+"وثيقًا بعوامل مثل التغيرات في السكان، والإمكانات الاقتصادية والإنتاجية، "
+"والظروف المادية والاجتماعية السائدة، ووجود سياسات تمكينية، من بين أمور أخرى."
 
 #: ../../source/for_users/features/landconsumption.rst:12
 msgid ""
@@ -67,6 +77,17 @@ msgid ""
 "need for generation and dissemination of up-to-date and accurate data on "
 "growth trends across cities and urban settlements."
 msgstr ""
+"إن الدولة التي تزيد من الفوائد العديدة المرتبطة بالتوسع الحضري هي الدولة "
+"القادرة على فهم اتجاهات النمو في مناطقها الحضرية وقياسها والتنبؤ بها؛ "
+"وبالتالي وضع الإجراءات/التدخلات اللازمة للاستفادة من فوائد هذا النمو، مع "
+"التقليل إلى أدنى حد من التحديات المتنوعة بنفس القدر المرتبط بالتوسع الحضري "
+"غير المخطط له. يتطلب التخطيط الاستباقي - وهو شرط مسبق رئيسي للتحضر المستدام "
+"- أن تتنبأ سلطات المدينة والجهات الفاعلة الأخرى ذات الصلة باتجاه نمو "
+"المدينة، و/أو تشكيل هذا النمو من خلال توفير المرافق والخدمات والأطر السياسية"
+" والقانونية المطلوبة قبل التطوير. ويؤدي ذلك إلى نمو مخطط ومنصف حيث يحصل "
+"غالبية سكان المدينة على الخدمات الأساسية والفرص الاقتصادية والاجتماعية وحيث "
+"تسود الاستدامة البيئية. في قلب كل ذلك تكمن الحاجة إلى توليد ونشر بيانات "
+"محدثة ودقيقة عن اتجاهات النمو عبر المدن والمستوطنات الحضرية."
 
 #: ../../source/for_users/features/landconsumption.rst:14
 msgid ""
@@ -87,6 +108,19 @@ msgid ""
 "drainage); increased cost of infrastructure per capita; reduction in "
 "economies of agglomeration; and decreased urban productivity."
 msgstr ""
+"** تهدف الغاية 11.3 إلى تعزيز التحضر الشامل والمستدام والقدرة على التخطيط "
+"والإدارة التشاركية والمتكاملة والمستدامة للمستوطنات البشرية في جميع البلدان "
+"بحلول عام 2030**. لرصد التقدم المحرز نحو تحقيق الهدف 11.3، حددت الأمم "
+"المتحدة المؤشر 11.3.1، والذي يقيس مدى كفاءة المدن في استخدام الأراضي، والذي "
+"يتم قياسه كنسبة من المعدل الذي تستهلك به المدن الأرض مكانيًا مقابل معدل نمو "
+"سكانها. ** أظهرت الأدلة التجريبية أن المدن المتراصفة تستخدم الأراضي بكفاءة "
+"أكبر وتكون في وضع أفضل لتوفير السلع العامة والخدمات الأساسية بتكلفة أقل **. "
+"يمكن لمثل هذه المدن أن تستهلك طاقة أقل، وتدير النفايات بشكل أفضل، ومن المرجح"
+" أن تعظم الفوائد المرتبطة باقتصاديات التكتل. من ناحية أخرى، تشهد المدن "
+"المترامية الأطراف (المدن غير المتضامة) زيادة في الطلب على التنقل؛ وزيادة "
+"استهلاك الطاقة وحدوث تدهور بيئي، وزيادة تكلفة توفير الخدمات الأساسية للفرد "
+"(مثل المياه والخدمات الصحية والصرف الصحي) وزيادة تكلفة البنية التحتية للفرد "
+"والحد من اقتصادات التكتل وانخفاض الإنتاجية الحضرية."
 
 #: ../../source/for_users/features/landconsumption.rst:16
 msgid ""
@@ -100,10 +134,17 @@ msgid ""
 "and formulation of informed policies and guidelines, but is also at the core"
 " of promoting sustainable urbanization."
 msgstr ""
+"من خلال قياس معدل استهلاك المدن للأراضي مقابل معدل نموها السكاني، يمكن "
+"لسلطات المدينة وصانعي القرار توقع الطلب على السلع والخدمات العامة، وتحديد "
+"مجالات النمو الجديدة، والتأثير بشكل استباقي على التنمية الحضرية المستدامة. "
+"وهذا ضروري لتوفير البنية التحتية والخدمات والمرافق الملائمة لتحسين الظروف "
+"المعيشية للجميع. وبالتالي، فإن توليد ونشر البيانات حول هذا المؤشر ليس فقط "
+"أمرًا حاسمًا لفهم ديناميكيات النمو الحضري وصياغة سياسات وإرشادات مستنيرة، بل"
+" هو أيضًا في صميم تعزيز التحضر المستدام."
 
 #: ../../source/for_users/features/landconsumption.rst:19
 msgid "Rationale for Monitoring"
-msgstr "مبررات المراقبة"
+msgstr "الأساس المنطقي للمراقبة"
 
 #: ../../source/for_users/features/landconsumption.rst:27
 msgid ""
@@ -114,6 +155,11 @@ msgid ""
 "significant implications on the demand for and cost of providing services, "
 "as well as on environmental preservation and conservation."
 msgstr ""
+"إن فهم كيفية توسع مدينة/منطقة حضرية مكانيًا مقابل معدل تغيرها السكاني أمر "
+"بالغ الأهمية لتحديد - من بين أمور أخرى - طبيعة نمو المستوطنات البشرية "
+"(الرسمية مقابل غير الرسمية) وسرعة تحويل الأراضي البعيدة إلى وظائف حضرية. "
+"لهذين العنصرين آثار كبيرة على الطلب على الخدمات وتكلفة تقديمها، وكذلك على "
+"الحفاظ على البيئة وحمايتها."
 
 #: ../../source/for_users/features/landconsumption.rst:29
 msgid ""
@@ -127,6 +173,13 @@ msgid ""
 "accommodate population growth from migration and natural increase while "
 "preserving environmentally sensitive areas from development."
 msgstr ""
+"لتحقيق التنمية المستدامة، تحتاج البلدان إلى فهم مدى سرعة نمو مناطقها الحضرية"
+" وفي أي اتجاه. لن يساعدهم ذلك فقط على فهم اتجاهات النمو والتعامل بفعالية مع "
+"الطلب على الخدمات الأساسية، بل سيساعد أيضًا في وضع سياسات تشجع الاستخدام "
+"الأمثل للأراضي الحضرية، وتحمي بشكل فعال الاستخدامات الأخرى للأراضي (البيئات "
+"الطبيعية، والأراضي الزراعية، وما إلى ذلك). بالإضافة إلى ذلك، يتطلب تحقيق "
+"التحضر الشامل والمستدام استخدام الموارد بطريقة يمكن أن تستوعب النمو السكاني "
+"من الهجرة والزيادة الطبيعية مع الحفاظ على المناطق الحساسة بيئيًا من التنمية."
 
 #: ../../source/for_users/features/landconsumption.rst:31
 msgid ""
@@ -137,10 +190,15 @@ msgid ""
 "minimum, slowing down urban sprawl and if possible, ensuring that the "
 "compactness of cities is maintained or increased over time**."
 msgstr ""
+"لذلك، فإن الغرض من رصد التقدم المحرز مقابل مؤشر أهداف التنمية المستدامة "
+"11.3.1 هو توفير المعلومات الضرورية وفي الوقت المناسب لصانعي القرار وأصحاب "
+"المصلحة من أجل تسريع التقدم نحو التحضر المعزز الشامل والمستدام. ** يتطلب "
+"تحقيق الهدف 11.3 بحلول عام 2030 كحد أدنى، إبطاء الزحف العمراني، وإن أمكن، "
+"ضمان الحفاظ على تراص المدن أو زيادته بمرور الوقت **."
 
 #: ../../source/for_users/features/landconsumption.rst:34
 msgid "Indicator and data needs"
-msgstr "احتياجات المؤشر والبيانات"
+msgstr "متطلبات المؤشر والبيانات "
 
 #: ../../source/for_users/features/landconsumption.rst:36
 msgid ""
@@ -150,6 +208,10 @@ msgid ""
 "time are needed, and even more if we are interested in assessing the change "
 "in the indicator over time."
 msgstr ""
+"يُعرَّف المؤشر 11.3.1 بأنه ** نسبة معدل استهلاك الأراضي إلى معدل النمو "
+"السكاني ** (الشكل 1). من أجل حساب هذا المؤشر، نحتاج إلى معلومات عن النطاق "
+"الحضري والسكان في لحظتين على الأقل من الوقت، وحتى أكثر إذا كنا مهتمين بتقييم"
+" التغيير في المؤشر بمرور الوقت."
 
 #: ../../source/for_users/features/landconsumption.rst:41
 msgid ""
@@ -158,6 +220,10 @@ msgid ""
 "population growth rate (APGR) between times 1 and 2. Ln: natural logarithm, "
 "Urb: urban area, pop: population, t: time in years.`"
 msgstr ""
+"الشكل 1: يتم حساب مؤشر هدف التنمية المستدامة 11.3.1 على أنه نسبة معدل "
+"استهلاك الأراضي السنوي (ALCR) إلى معدل النمو السكاني السنوي (APGR) بين "
+"الأوقات 1 و2. Ln: اللوغاريتم الطبيعي، Urb: المنطقة الحضرية، pop: عدد السكان،"
+" t: الوقت بالسنوات.`"
 
 #: ../../source/for_users/features/landconsumption.rst:43
 msgid ""
@@ -176,13 +242,26 @@ msgid ""
 " computes SDG 11.3.1 both in the form of maps and tables for ease of "
 "interpretation and reporting."
 msgstr ""
+"تقييم التغييرات في هدف التنمية المستدامة 11.3.1. يتطلب بمرور الوقت قدرًا "
+"كبيرًا من المعلومات، لأنه يتطلب معرفة النطاق الحضري وعدد السكان لعدة سنوات. "
+"تسمح لنا بيانات مراقبة الأرض بتقدير نطاق المساحة المبنية داخل المدينة، ثم "
+"باستخدام خوارزميات التحليل المكاني لتقدير مدى العناصر المختلفة داخل البيئة "
+"الحضرية (مثل المباني، والمساحات المفتوحة، والمسطحات المائية، وما إلى ذلك). "
+"في | Trends.earth | لقد اعتمدنا سير العمل أدناه (الشكل 2) لتسهيل العملية. "
+"الاستفادة من أجهزة الكمبيوتر الفائقة لـ Google Earth Engine، وأرشيف Landsat "
+"الكامل بين عامي 1997 و2019، ومجموعة بيانات GMIS (Brown de Colstoun et al "
+"2017) ،| Trends.Earth | تم حساب سلسلة من المؤشرات السطحية غير المنفذة "
+"عالميًا والمتاحة على مستوى العالم بدقة 30 متر للإبلاغ عن النطاق الحضري "
+"للأعوام 2000 و2005 و2010 و2015. جنبًا إلى جنب مع مدخلات المستخدمين وبيانات "
+"السكان، تحسب الأداة الهدف 11.3.1 في شكل خرائط وجداول لسهولة التفسير وإعداد "
+"التقارير."
 
 #: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
 #: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
 #: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
 #: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
 msgid "Trends.Earth"
-msgstr "Trends.Earth"
+msgstr "Trends.Earth\n"
 
 #: ../../source/for_users/features/landconsumption.rst:48
 msgid ""
@@ -193,10 +272,16 @@ msgid ""
 "mapper>`_ `where the user defines built-up extent by simply assigning a "
 "series of thresholds.`"
 msgstr ""
+"`الشكل 2: يوضح سير أعمال Trends.Earth لحساب هدف التنمية المستدامة 11.3.1. تم"
+" حساب 30 مليونًا من مؤشرات الأسطح غير المنفذة العالمية مسبقًا وهي متاحة "
+"للمستخدمين لاستكشافها في ` مصمم الخرائط الحضري Trends.Earth  "
+"<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
+"mapper>` _ `حيث يحدد المستخدم نطاق البناء ببساطة عن طريق تعيين سلسلة من "
+"الحدود."
 
 #: ../../source/for_users/features/landconsumption.rst:51
 msgid "Land consumption"
-msgstr ""
+msgstr "استهلاك الأراضي"
 
 #: ../../source/for_users/features/landconsumption.rst:53
 msgid ""
@@ -205,10 +290,14 @@ msgid ""
 "In the section below, you will learn how the indicators were computed, and "
 "some recommendation how to use them to compute the indicator for SDG 11.3.1."
 msgstr ""
+"لتقدير استهلاك الأراضي في |trends.earth|، تتوفر سلسلة زمنية محسوبة مسبقًا من"
+" مؤشرات السطح غير المنفذة عالميًا بدقة 30 مترًا. في القسم أدناه، ستتعرف على "
+"كيفية حساب المؤشرات، وستتعرف على بعض التوصيات حول كيفية استخدامها لحساب مؤشر"
+" SDG  11.3.1."
 
 #: ../../source/for_users/features/landconsumption.rst:56
 msgid "ISI in Trends.Earth"
-msgstr ""
+msgstr "ISI في Trends.Earth\n"
 
 #: ../../source/for_users/features/landconsumption.rst:58
 msgid ""
@@ -228,6 +317,19 @@ msgid ""
 " were run, one per eco region as defined by the RESOLVE dataset (Dinerstein "
 "et al 2017)."
 msgstr ""
+"نظرًا لعدم توفر سلسلة زمنية من مجموعة بيانات سطحية غير منفذة بدقة مكانية "
+"دقيقة لالتقاط التغيرات الحضرية على مستوى العالم، قمنا بحساب واحدة باستخدام "
+"أفضل مجموعة بيانات سطحية غير منفذة، السطح العالمي عديم النفاذية من صنع "
+"الإنسان لعام 2010 (GMIS, Brown de Colstoun et al 2017) لتدريب سلسلة من نماذج"
+" الغابات العشوائية العالمية (Breiman 2001) في Google Earth Engine (Gorelick "
+"et al 2017) باستخدام 2.3 مليون صورة Landsat (1.15 بيتا بايت من البيانات) بين"
+" عامي 1997 و 2019. للتأكد من أن النماذج قد تم تدريبها فقط باستخدام بيانات "
+"عالية الجودة، قمنا بدمج GMIS مع بيانات الغطاء الأرضي ESA CCI لعام 2010 كما "
+"هو موضح في الشكل 3. سمحت لنا مجموعة البيانات هذه بتدريب نماذج الغابات "
+"العشوائية، والتي تم تطبيقها بعد ذلك على مجموعة من 24 حزمة نطاق مستمدة من "
+"بيانات انعكاس سطح Landsat لتوليد مؤشرات سطحية غير قابلة للنفاذ للأعوام 1998 "
+"و2000 و2005 و2010 و2015 و2018. تم تشغيل سلسلة من 846 نموذجًا، واحد لكل منطقة"
+" بيئية على النحو المحدد في حل مجموعة البيانات (Dinerstein وآخرون 2017)."
 
 #: ../../source/for_users/features/landconsumption.rst:63
 msgid ""
@@ -236,6 +338,10 @@ msgid ""
 "24 bands derived from Landsat imagery to predict impervious surface area for"
 " the years 1998, 2000, 2005, 2010, 2015, and 2018.`"
 msgstr ""
+"الشكل 3: تم تشغيل سلسلة من 846 نموذجًا عشوائيًا للغابات. تم تدريب كل نموذج "
+"باستخدام مجموعات بيانات GMIS وESA CCI، ثم تم تطبيقه على مجموعة من 24 نطاقًا "
+"مستمدة من صور Landsat للتنبؤ بمساحة سطح غير منفذة للأعوام 1998 و2000 و2005 "
+"و2010 و2015 و2018."
 
 #: ../../source/for_users/features/landconsumption.rst:65
 msgid ""
@@ -249,12 +355,22 @@ msgid ""
 "the 3-year period. Six of these stacks were generated for 1998, 2000, 2005, "
 "2010, 2015, and 2018, and were the input to the random forest models."
 msgstr ""
+"نظرًا لأن توفر الصور محدود، في بعض المناطق، قمنا بتضمين كل عام صورًا من "
+"السنوات السابقة واللاحقة (على سبيل المثال، تتضمن المجموعة لعام 2005 صورًا من"
+" 2004 و2005 و2006). احتوت كل مجموعة من حزم النطاق الـ 24 على 7 نطاقات انعكاس"
+" (متوسط فترة 3 سنوات)، و15 مؤشر فرق معياري تمثل جميع التركيبات الممكنة "
+"للنطاقات السبعة الأصلية، ثم نطاقي NDVI المعينين يمثلان الحد الأقصى والانحراف"
+" المعياري لـ NDVI لكل بكسل معين خلال فترة 3 سنوات. تم إنشاء ستة من هذه "
+"المجموعات للأعوام 1998 و2000 و2005 و2010 و2015 و2018، وكانت مدخلاً لنماذج "
+"الغابات العشوائية."
 
 #: ../../source/for_users/features/landconsumption.rst:70
 msgid ""
 "`Figure 4: Description of the bands in the 24-band stack used in the random "
 "forest models.`"
 msgstr ""
+"\"الشكل 4: وصف النطاقات في المجموعة ذات 24 نطاقًا المستخدمة في نماذج الغابة "
+"العشوائية.\""
 
 #: ../../source/for_users/features/landconsumption.rst:72
 msgid ""
@@ -269,10 +385,19 @@ msgid ""
 "<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
 "mapper>`_ for their area of interest."
 msgstr ""
+"من الصعب تقييم دقة مجموعة البيانات هذه، نظرًا لعدم وجود مرجعية أو مجموعات "
+"بيانات قابلة للمقارنة على مستوى العالم. قارنا نتائج مجموعة بيانات ISI لعام "
+"2010 بمجموعة بيانات GMIS الأصلية لمجموعة فرعية من المدن على مستوى العالم "
+"لتقييم دقتها. وجدنا أن خطأ الجذر التربيعي (RMSE) تراوح بين 9.9 و14.4%، وهو "
+"مؤشر يتراوح بين 0% (لا يوجد سطح غير قابل للنفاذ) إلى 100% (غير منفّذ "
+"تمامًا)، وهي نتيجة مقبولة جدًا. ومع ذلك، فإننا نحث المستخدمين على تقييم "
+"النتائج بصريًا من خلال فحص برنامج Trends.Earth Urban Mapper "
+"<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
+"mapper> `_ لمجال اهتمامهم."
 
 #: ../../source/for_users/features/landconsumption.rst:75
 msgid "From ISI to built-up"
-msgstr ""
+msgstr "من ISI إلى المبني"
 
 #: ../../source/for_users/features/landconsumption.rst:77
 msgid ""
@@ -283,6 +408,12 @@ msgid ""
 "<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
 "mapper>`_, which will vary by region."
 msgstr ""
+"لتقدير المساحة التي تشغلها أسطح غير منفذة في مدينة ما، نحتاج إلى تحويل مؤشر "
+"السطح عديم النفاذية المستمر (ISI) إلى خريطة ثنائية تفصل بين المناطق المبنية "
+"عن تلك غير المبنية. تتم هذه العملية من خلال تحديد سلسلة من قيم العتبة في "
+"\"مخطط خرائط الأرض الحضرية "
+"<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
+"mapper>` _, والتي ستختلف حسب المنطقة."
 
 #: ../../source/for_users/features/landconsumption.rst:82
 msgid ""
@@ -292,6 +423,11 @@ msgid ""
 "Impervious Surface Index (ISI, right) to the binary built up area map "
 "(built, left) will ocurr for their city of interest.`"
 msgstr ""
+"\"الشكل 5: في` `Trends.Earth رسم خرائط المناطق العمرانية "
+"<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
+"mapper>`_ `يتحكم المستخدم في كيفية التحويل من مؤشر السطح عديم النفاذية "
+"المستمر (ISI، على اليمين) إلى خريطة المنطقة المبنية الثنائية (المبنية، على "
+"اليسار) للمدينة التي تهمهم.`"
 
 #: ../../source/for_users/features/landconsumption.rst:84
 msgid ""
@@ -299,6 +435,8 @@ msgid ""
 "used by the tool to estimate the built-up area for the area of interest. "
 "Those thresholds are:"
 msgstr ""
+"في|trends.earth|يحتاج المستخدم إلى تحديد 3 قيم حدية ستستخدمها الأداة لتقدير "
+"المساحة العمرانية لمنطقة المرغوبة. هذه الحدود هي:"
 
 #: ../../source/for_users/features/landconsumption.rst:86
 msgid ""
@@ -310,6 +448,11 @@ msgid ""
 "peripheries of the cities. Setting this value higher will make the "
 "assessment to focus on the high density city centers."
 msgstr ""
+"** مؤشر السطح عديم النفاذية (ISI, 0-100)**: هذا مؤشر يتراوح بين 0 و100، مع "
+"القيم الأعلى تدل على أعلى نسبة سطح عديم النفاذية في 30 م بكسل. سيعني تعيين "
+"قيمة حدية ISI أقل أن مجموعة بيانات المساحة المبنية النهائية ستتضمن مناطق ذات"
+" كثافة إنشاء منخفضة، وعادة ما توجد في أطراف المدن. تعيين هذه القيمة أعلى "
+"سيجعل التقييم يركز على مراكز المدن عالية الكثافة."
 
 #: ../../source/for_users/features/landconsumption.rst:87
 msgid ""
@@ -327,6 +470,18 @@ msgid ""
 " peripheries of the cities. Setting this value higher will make the "
 "assessment to focus on the high density city centers."
 msgstr ""
+"** مؤشر أضواء الوقت الليلي (NTL, 0-100)**: يمكن لمؤشر السطح عديم النفاذية، "
+"في بعض الحالات، أن يقدم قيمًا عالية للمناطق المغطاة بالتربة أو الصخور "
+"العارية الجافة، نظرًا لأن هذا النوع من الأسطح لها خصائص طيفية مماثلة لتلك "
+"الأسطح المانعة للتسرب من صنع الإنسان. لتصفية هذه المناطق، نستخدم الأضواء "
+"الليلية، ونزيل المناطق ذات ISI المرتفع وأضواء الليل المنخفضة الموجودة خارج "
+"حدود المدينة. يعني عدم وجود سلسلة زمنية من أضواء الليل التي تمت معايرتها "
+"باستمرار للفترة الزمنية التي تم النظر فيها (2000-2015)، أنه لا يمكننا إخفاء "
+"السنة بالسنة المقابلة، لذلك نستخدم الإصدار الأول لـ VIIRS Nighttime "
+"Day/Night Band Composites لعام 2015 (NOA, 2019). سيعني تعيين قيمة حدية NTL "
+"أقل أن مجموعة بيانات المنطقة المبنية النهائية ستتضمن مناطق ذات كثافة إضاءة "
+"منخفضة، توجد عادةً في أطراف المدن. تعيين هذه القيمة أعلى سيجعل التقييم يركز "
+"على مراكز المدن عالية الكثافة."
 
 #: ../../source/for_users/features/landconsumption.rst:88
 msgid ""
@@ -343,6 +498,17 @@ msgid ""
 "bodies to areas with a high frequency of water occurrence (i.e. permanent "
 "rivers and lakes)."
 msgstr ""
+"** مؤشر تردد المياه (WFI, 0-100) **: يعد وجود المياه سمة ديناميكية للغاية "
+"للبيئة الساحلية أو النهرية، وفي بعض الحالات سوف تغمر المياه مناطق اليابسة، "
+"وفي حالات أخرى، يتعدى البشر على المسطحات المائية لإشغال المناطق الخاوية. "
+"لالتقاط بعض هذه الديناميكيات، قمنا بدمج مجموعة بيانات تواتر المياه في الأداة"
+" (Pekel et al 2016). من خلال تعديل القيمة الحدية لتردد المياه، يمكن للمستخدم"
+" اختيار تسليط الضوء على هذه المناطق الديناميكية للمياه الأرضية. سيؤدي تحديد "
+"القيمة الحدية لتردد المياه الأقل أن مجموعة بيانات منطقة البناء النهائية "
+"الخاصة بك ستعتبر مغطاة بالمناطق المائية ذات الترددات المنخفضة للمياه طوال "
+"السلسلة الزمنية، مثل الأنهار أو البحيرات المتقطعة. سيؤدي تحديد هذه القيمة "
+"أعلى إلى قصر المسطحات المائية على المناطق ذات التواتر العالي لحدوث المياه "
+"(أي الأنهار والبحيرات الدائمة)."
 
 #: ../../source/for_users/features/landconsumption.rst:93
 msgid ""
@@ -352,10 +518,15 @@ msgid ""
 " Impervious Surface Index (ISI, right) to the binary built up area map "
 "(built, left).`"
 msgstr ""
+"\"الشكل 6: في` `مصمم خرائط Trends.Earth  "
+"<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
+"mapper> `_ `يحدد المستخدم سلسلة من القيم الحدية للانتقال من مؤشر السطح "
+"المستمر عديم النفاذية (ISI, right) إلى خريطة المنطقة الثنائية المبنية "
+"(built, left).`"
 
 #: ../../source/for_users/features/landconsumption.rst:96
 msgid "Consistency test"
-msgstr ""
+msgstr "اختبار الاتساق"
 
 #: ../../source/for_users/features/landconsumption.rst:98
 msgid ""
@@ -367,6 +538,12 @@ msgid ""
 " this analysis, to add pre and post data points to filter possible errors in"
 " the classifications of the 2000 through 2015 series."
 msgstr ""
+"عند تصنيف بيانات الاستشعار عن بعد إلى منتجات مشتقة، مثل مؤشر السطح عديم "
+"النفاذية المحسوب بواسطة|trends.earth|، تحدث أخطاء السهو والخطأ. تتمثل إحدى "
+"مزايا إجراء تحليل السلاسل الزمنية في أنه يمكن استخدام الصور من سنوات مختلفة "
+"لتحديد التناقضات في التحليل. لهذا السبب، تم حساب طبقات ISI لعامي 1998 و2018 "
+"في هذا التحليل، لإضافة نقاط بيانات سابقة وبعدية لتصفية الأخطاء المحتملة في "
+"تصنيفات سلسلة 2000 حتى 2015."
 
 #: ../../source/for_users/features/landconsumption.rst:100
 msgid ""
@@ -377,6 +554,12 @@ msgid ""
 " of each pixel for each year as \"built-up\" or \"not-built\". One main rule"
 " is later applied to that series:"
 msgstr ""
+"يتم تطبيق القيم الحدية المحددة في القسم السابق (ISI وNTL وWFR) على كل طبقة "
+"من الطبقات الفردية للأعوام 1998 و2000 و2005 و2010 و2015 و2018، مما يؤدي إلى "
+"إنشاء سلسلة من الخرائط الثنائية. يتم لاحقًا دمج الخرائط الثنائية الست في "
+"مجموعة بيانات متسلسلة زمنية تحتوي على معلومات حول طبيعة كل بكسل لكل سنة على "
+"أنها \"مدمجة\" أو \"غير مبنية\". تم تطبيق قاعدة رئيسية واحدة لاحقًا على تلك "
+"السلسلة:"
 
 #: ../../source/for_users/features/landconsumption.rst:102
 msgid ""
@@ -391,10 +574,19 @@ msgid ""
 "comfortable making that assumption. Visual inspection of the results support"
 " the approach."
 msgstr ""
+"يتم اعتبار البكسل مبنيًا فقط إذا كانت نسبة 50% أو أكثر من نقاط البيانات بعد "
+"=أول اكتشاف مبني حدد نفس المنطقة التي تم بناؤها. بالنسبة لمثل هذه البكسلات، "
+"سيتم اعتبار الاكتشاف الأول كما تم إنشاؤه عام التحويل. سيتم اعتبار المناطق "
+"التي تقل نسبة تشييدها عن 50% بعد الاكتشاف الأول على أنها أخطاء في التصنيف، "
+"ونتيجة لذلك، لن يتم بناؤها. نحن ندرك أنه من خلال تطبيق هذه القاعدة، فإننا "
+"نحد من قدرة مجموعة البيانات على اكتشاف التحولات من داخل الحيز العمراني إلى "
+"غير المبنية. ومع ذلك، نظرًا لانخفاض احتمالية حدوث هذا الانتقال في البيئات "
+"الحضرية، نشعر بالراحة عند اتخاذ هذا الافتراض. الفحص البصري للنتائج يدعم "
+"النهج."
 
 #: ../../source/for_users/features/landconsumption.rst:105
 msgid "Global testing"
-msgstr ""
+msgstr "اختبار عالمي"
 
 #: ../../source/for_users/features/landconsumption.rst:107
 msgid ""
@@ -417,6 +609,21 @@ msgid ""
 "data was available), hyper arid areas, and areas with low image "
 "availability."
 msgstr ""
+"|trends.earth| يوفر من خلال `Urban Mapper "
+"<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
+"mapper>`_ والبرنامج الملحق QGIS إمكانية الوصول إلى سلسلة زمنية عالمية تبلغ "
+"30 م من مؤشرات الأسطح عديمة النفاذية. ومع ذلك، من المهم أن نفهم أن مجموعة "
+"البيانات لها حدودها، وأن مدخلات المستخدم والتحكم فيه ضروريان لتقييم "
+"التغييرات في المؤشر SDG 11.3.1 بدقة. لاختبار أداء المؤشر، قمنا بإجراء "
+"التحليل على 224 مدينة على مستوى العالم (200 عاصمة وطنية + 24 مدينة كبيرة في "
+"الولايات المتحدة الأمريكية، الشكل 7). باستخدام `Urban Mapper "
+"<https://geflanddegradation.users.earthengine.app/view/trendsearth-urban-"
+"mapper>`_ ومقارنة المنتج بصريًا بصور مكانية عالية الدقة، تمكنا من تحديد "
+"الحدود المناسبة لكل مدينة (ISI وNTL وWFI) وكذلك تقييم جودة المنتج في مقياس "
+"من 0 إلى 5. تظهر النتائج أنه بالنسبة لـ 83% من المدن التي تم تقييمها، يمكن "
+"استخدام بيانات الأرض لتقدير هدف SDG 11.3.1. لا تزال أكبر القيود موجودة في "
+"الدول الجزرية الصغيرة (التي لا تتوفر عنها بيانات تدريب)، والمناطق شديدة "
+"الجفاف، والمناطق ذات توافر الصور المنخفض."
 
 #: ../../source/for_users/features/landconsumption.rst:109
 msgid ""
@@ -424,6 +631,8 @@ msgid ""
 "impervious surface data set. These cities represent 6.2% of the sample "
 "assessed."
 msgstr ""
+"** لا توجد بيانات **: المدن التي لا تتوفر لها بيانات تدريب لبناء مجموعة "
+"بيانات سطحية منيعة. تمثل هذه المدن 6.2% من العينة المقيّمة."
 
 #: ../../source/for_users/features/landconsumption.rst:110
 msgid ""
@@ -432,6 +641,9 @@ msgid ""
 "These results  should not be used for computing SDG 11.3.1 indicator. These "
 "cities represent 0.9% of the sample assessed."
 msgstr ""
+"** غير قابلة للاستخدام **: المدن التي تتوفر نتائجها، ولكن بسبب قلة توفر صور "
+"Landsat حال دون إنتاج منتج عالي الجودة. لا ينبغي استخدام هذه النتائج لحساب "
+"مؤشر SDG 11.3.1. تمثل هذه المدن 0.9% من العينة المقيمة."
 
 #: ../../source/for_users/features/landconsumption.rst:111
 msgid ""
@@ -440,6 +652,9 @@ msgid ""
 "significant errors. These results should not be used for computing SDG "
 "11.3.1 indicator. These cities represent 4.0% of the sample assessed."
 msgstr ""
+"**مشكلة صعبة**: المدن ذات نتائج الاستخدام المحتمل للتقليل البصري للأنماط "
+"المكانية لتوسيع المساحة المبنية، ولكن مع وجود أخطاء كبيرة. لا ينبغي استخدام "
+"هذه النتائج لحساب مؤشر SDG 11.3.1. تمثل هذه المدن 4.0% من العينة المقيّمة."
 
 #: ../../source/for_users/features/landconsumption.rst:112
 msgid ""
@@ -448,6 +663,9 @@ msgid ""
 "detailed inspection of the data. These cities represent 6.2% of the sample "
 "assessed."
 msgstr ""
+"** بعض المشكلات **: يمكن استخدام المدن التي تظهر نتائجها بعض المشكلات التي "
+"تخلط بين أسطح التربة المكشوفة والمساحة المبنية لحساب  SDG 11.3.1 بعد إجراء "
+"فحص تفصيلي للبيانات. تمثل هذه المدن 6.2% من العينة المقيّمة."
 
 #: ../../source/for_users/features/landconsumption.rst:113
 msgid ""
@@ -455,6 +673,9 @@ msgid ""
 "some small areas of confusion. This data could be used for computing SDG "
 "11.3.1. These cities represent 12.5% of the sample assessed."
 msgstr ""
+"** مشكلات ثانوية **: مدن بها بيانات عالية الجودة ولكن مع وجود بعض مناطق "
+"الالتباس الصغيرة. يمكن استخدام هذه البيانات لحساب SDG 11.3.1. تمثل هذه المدن"
+" 12.5% من العينة المقيّمة."
 
 #: ../../source/for_users/features/landconsumption.rst:114
 msgid ""
@@ -463,6 +684,10 @@ msgid ""
 "available in Google Earth, high confidence for estimating SDG 11.3.1. These "
 "cities represent 70.1% of the sample assessed."
 msgstr ""
+"** جودة عالية **: مدن ذات بيانات عالية الجودة تُظهر اتفاقًا تامًا بين "
+"المناطق المبنية باستخدام المؤشرات، وبيانات الأرض والصور عالية الدقة المتوفرة"
+" في Google Earth، وثقة عالية لتقدير SDG 11.3.1. تمثل هذه المدن 70.1% من "
+"العينة المقيّمة."
 
 #: ../../source/for_users/features/landconsumption.rst:119
 msgid ""
@@ -472,6 +697,10 @@ msgid ""
 "island states (for which no training data was available), hyper arid areas, "
 "and areas with low image availability.`"
 msgstr ""
+"الشكل 7: بعد الاختبار في 224 مدينة كبيرة حول العالم، تُظهر النتائج أنه "
+"بالنسبة لـ 83% من المدن التي تم تقييمها، يمكن استخدام بيانات الأرض لتقدير "
+"SDG 11.3.1. يبقى القيد الأكبر في الدول الجزرية الصغيرة (التي لا تتوفر عنها "
+"بيانات تدريب)، والمناطق شديدة الجفاف، والمناطق ذات توافر الصور المنخفض."
 
 #: ../../source/for_users/features/landconsumption.rst:128
 msgid ""
@@ -479,6 +708,9 @@ msgid ""
 "sample of 224 cities tested. Top: Impervious surface area indicator, Middle:"
 " Nighttime lights indicator, and Bottom: Water frequency indicator.`"
 msgstr ""
+"الشكل 8: التوزيع المكاني للقيم الحدية للمعلمات المختارة لعينة من 224 مدينة "
+"تم اختبارها. الأعلى: مؤشر مساحة السطح عديم النفادية، الجزء الأوسط: مؤشر "
+"أضواء الليل، الأقل: مؤشر تردد الماء"
 
 #: ../../source/for_users/features/landconsumption.rst:130
 msgid ""
@@ -491,6 +723,13 @@ msgid ""
 "city, careful inspection of the dataset should be perform, in order to find "
 "the set of parameters which better work for each site."
 msgstr ""
+"من تحليل 224 مدينة على مستوى العالم، تمكنا من تقدير نطاق المعايير الأكثر "
+"استخدامًا. كانت القيم الأكثر شيوعًا المستخدمة هي: ** ISI = 30 ،NTL = 10 ،WFR"
+" = 25 **. كانت هذه هي المعلمات الافتراضية المحددة في `` Trends.Earth Urban "
+"Mapper <https://geflanddegradation.users.earthengine.app/view/trendsearth-"
+"urban-mapper> `_ والبرنامج الملحق QGIS، ولكن من المهم أن نتذكر أنه بالنسبة "
+"لكل مدينة، يجب إجراء فحص دقيق لمجموعة البيانات، من أجل العثور على مجموعة "
+"المعلمات التي تعمل بشكل أفضل لكل موقع."
 
 #: ../../source/for_users/features/landconsumption.rst:135
 msgid ""
@@ -498,10 +737,13 @@ msgid ""
 "sample of 224 cities tested. Left: Impervious surface area indicator, "
 "Middle: Nighttime lights indicator, and Right: Water frequency indicator.`"
 msgstr ""
+"الشكل 9: التوزيع التكراري لمعلمات القيمة الحدية المختارة لعينة من 224 مدينة "
+"تم اختبارها. يسار: مؤشر مساحة السطح عديم النفاذية، الأوسط: مؤشر الأضواء "
+"ليلية، ويمين: مؤشر تردد الماء"
 
 #: ../../source/for_users/features/landconsumption.rst:138
 msgid "Urban zones"
-msgstr ""
+msgstr "المناطق الحضرية"
 
 #: ../../source/for_users/features/landconsumption.rst:140
 msgid ""
@@ -512,42 +754,53 @@ msgid ""
 "which will be used in the estimation of the annual land consumption rate "
 "(Figure 1):"
 msgstr ""
+"النطاق الحضري هو مجال الدراسة المقترح الذي يتكون من المنطقة المبنية "
+"والمساحات المفتوحة الحضرية للمدينة، إلى جانب المناطق المضافة بواسطة تحليل "
+"القرب (UN-Habitat, 2019). يقترح UN-Habitat تصنيف منطقة الاهتمام إلى الفئات "
+"الست التالية من أجل تحديد المنطقة التي سيتم استخدامها في تقدير معدل استهلاك "
+"الأراضي السنوي (الشكل 1):"
 
 #: ../../source/for_users/features/landconsumption.rst:142
 msgid ""
 "Built-up areas will be classified based on the density within a 500 m of "
 "each pixel radius:"
 msgstr ""
+"سيتم تصنيف المناطق المبنية بناءً على الكثافة في نطاق 500 متر لكل نصف قطر "
+"بكسل:"
 
 #: ../../source/for_users/features/landconsumption.rst:144
 msgid "Urban: > 50% built-up in the 500 m radius."
-msgstr ""
+msgstr "المناطق الحضرية:> 50% مبنية في دائرة نصف قطرها 500 متر."
 
 #: ../../source/for_users/features/landconsumption.rst:145
 msgid "Suburban: 25-50% built-up in the 500 m radius."
-msgstr ""
+msgstr "الضواحي: 25-50% مبنية في دائرة نصف قطرها 500 متر."
 
 #: ../../source/for_users/features/landconsumption.rst:146
 msgid "Rural: < 25 % built-up in the 500 m radius."
-msgstr ""
+msgstr "المناطق الريفية: <25% مبنية في دائرة نصف قطرها 500 متر."
 
 #: ../../source/for_users/features/landconsumption.rst:148
 msgid ""
 "The non-built up areas will be considered open space (OS), and will be "
 "classified as follows:"
 msgstr ""
+"تعتبر المناطق غير المبنية مساحات مفتوحة (OS)، وسيتم تصنيفها على النحو "
+"التالي:"
 
 #: ../../source/for_users/features/landconsumption.rst:150
 msgid "Fringe open space: open space < 100 m from urban and suburban."
 msgstr ""
+"مساحة مفتوحة هامشية: مساحة مفتوحة <100 متر من المناطق الحضرية والضواحي."
 
 #: ../../source/for_users/features/landconsumption.rst:151
 msgid "Captured open space: open space fully surrounded by fringe open space."
 msgstr ""
+"مساحة مفتوحة تم التقاطها: مساحة مفتوحة محاطة بالكامل بمساحة مفتوحة هامشية."
 
 #: ../../source/for_users/features/landconsumption.rst:152
 msgid "Rural open space: All other open space."
-msgstr ""
+msgstr "المساحات الريفية المفتوحة: جميع المساحات المفتوحة الأخرى."
 
 #: ../../source/for_users/features/landconsumption.rst:154
 msgid ""
@@ -555,30 +808,37 @@ msgid ""
 " from water open space, since the uses citizens can do of each space are "
 "very different."
 msgstr ""
+"في|trends.earth|، أضفنا إلى scheme أعلاه من خلال التمييز بين الأرض والمساحة "
+"المفتوحة المائية، نظرًا لأن الاستخدامات التي يمكن للمواطنين القيام بها لكل "
+"مساحة مختلفة تمامًا."
 
 #: ../../source/for_users/features/landconsumption.rst:156
 msgid "Fringe open space - water: Fringe open space covered by water"
-msgstr ""
+msgstr "مساحة حدودية مفتوحة - ماء: مساحة حدودية مفتوحة مغطاة بالمياه"
 
 #: ../../source/for_users/features/landconsumption.rst:157
 msgid "Captured open space - water: Captured open space covered by water"
-msgstr ""
+msgstr "مساحة مفتوحة مُلتقَطة - المياه: مساحة مفتوحة مُلتقَطة مغطاة بالمياه"
 
 #: ../../source/for_users/features/landconsumption.rst:158
 msgid "Rural open space - water: Rural open space covered by water"
-msgstr ""
+msgstr "مساحة ريفية مفتوحة - مياه: مساحة ريفية مفتوحة مغطاة بالمياه"
 
 #: ../../source/for_users/features/landconsumption.rst:160
 msgid ""
 "Urban extent is determined by the combined area of classes 1, 2, 4, 5, 7, "
 "and 8 (urban, suburban, and fringe and captured open space)."
 msgstr ""
+"يتم تحديد الامتداد الحضري من خلال المنطقة المدمجة للفئات 1 و 2 و 4 و 5 و 7 و"
+" 8 (المناطق الحضرية والضواحي والهامشية والمفتوحة التي تم التقاطها)."
 
 #: ../../source/for_users/features/landconsumption.rst:165
 msgid ""
 "`Figure 10: Result of the SDG 11.3.1 analysis displaying the different "
 "elements which comprise the urban space.`"
 msgstr ""
+"\"الشكل 10: نتيجة تحليل SDG 11.3.1 الذي يعرض العناصر المختلفة التي تشكل "
+"الحيز الحضري.\""
 
 #: ../../source/for_users/features/landconsumption.rst:167
 msgid ""
@@ -586,10 +846,13 @@ msgid ""
 "time for the periods 2000-2005, 2010, and 2010-2015 needed to estimate the "
 "annual land consumption rate."
 msgstr ""
+"باستخدام هذه المعلومات ، يمكننا الآن تقدير معدلات التوسع الحضري بمرور الوقت "
+"للفترات 2000-2005 و2010 و2010-2015 اللازمة لتقدير معدل استهلاك الأراضي "
+"السنوي."
 
 #: ../../source/for_users/features/landconsumption.rst:170
 msgid "Population growth"
-msgstr ""
+msgstr "النمو السكاني"
 
 #: ../../source/for_users/features/landconsumption.rst:174
 msgid ""
@@ -599,6 +862,10 @@ msgid ""
 "The estimation of the number of people living within each service area can "
 "be achieved through two broad approaches:"
 msgstr ""
+"بمجرد تحديد المناطق الحضرية، فإن الخطوة التالية هي تحديد عدد الأشخاص الذين "
+"يعيشون داخل تلك المناطق لكل تحليل سنوي. ثم يتم استخدام هذه المعلومات لحساب "
+"معدل النمو السكاني السنوي. يمكن تقدير عدد الأشخاص الذين يعيشون داخل كل منطقة"
+" خدمة من خلال نهجين رئيسيين:"
 
 #: ../../source/for_users/features/landconsumption.rst:176
 msgid ""
@@ -612,6 +879,13 @@ msgid ""
 "data architecture. This option provides the most accurate and authoritative "
 "population data for the indicator computation and is highly encouraged."
 msgstr ""
+"** استخدام بيانات عالية الدقة من مكاتب الإحصاء الوطنية (NSOs) **: في هذا "
+"الخيار، تُستخدم بيانات التعداد لتجميع عدد الأشخاص الذين يعيشون في جميع الأسر"
+" المعيشية داخل الحدود الحضرية. يمكن أيضًا إجراء الإسقاطات والاستقراء بسهولة "
+"بناءً على خصائص الأسرة لسنوات إعداد التقارير الخاصة. تكون العملية أسهل بكثير"
+" حيث تُستخدم وحدات التعداد الديناميكي لتحديد المنطقة الحضرية، لا سيما لأنها "
+"تتماشى جيدًا مع بنية بيانات السكان الرسمية. يوفر هذا الخيار بيانات السكان "
+"الأكثر دقة وموثوقية لحساب المؤشر ويتم تشجيعه بشدة."
 
 #: ../../source/for_users/features/landconsumption.rst:178
 msgid ""
@@ -638,10 +912,29 @@ msgid ""
 "indicator computation where high resolution data from national statistical "
 "offices is not available or readily accessible."
 msgstr ""
+"** استخدام الشبكة السكانية **: في هذا الخيار، يتم إنشاء شبكة سكانية عن طريق "
+"توزيع السكان على الإدارة أو وحدة منطقة التعداد بأكملها. يمكن استخدام سمات "
+"مثل وجود مناطق صالحة للسكن (فئات استخدام الأراضي) لتوزيع السكان، مثل أن "
+"خلايا الشبكة في مسارات الأراضي غير المطورة أو في المناطق الصناعية سيكون عدد "
+"سكانها أقل من المناطق السكنية عالية الكثافة. في الشبكة الناتجة، سيكون لكل "
+"خلية شبكة قيمة فريدة، والتي تعتمد على عوامل مثل إجمالي عدد السكان داخل "
+"الوحدة الإدارية/التعدادية المتضمنة، وعدد و/أو كمية فئات استخدام الأراضي "
+"الصالحة للسكن. يوضح الشكل 5 المنطق العام للشبكات السكانية باستخدام فئة "
+"استخدام واحدة فقط - المناطق المبنية. يجب أن تغطي الشبكة السكانية دائمًا "
+"مساحة أكبر من الحدود الحضرية المحددة. بمجرد إنشاء شبكات السكان ، يمكن عندئذٍ"
+" تقدير السكان الذين يعيشون داخل الحدود الحضرية من خلال تجميع السكان لخلايا "
+"الشبكة المغلقة. في حالة عدم وجود بيانات عالية الدقة من NSO، ينتج عن هذا "
+"الخيار تقديرات أفضل للسكان، على الرغم من أن بيانات الإدخال عالية الجودة "
+"والتحليل متعدد المستويات ضروريان لتحسين دقة البيانات. تتوفر مجموعات البيانات"
+" العالمية التي تمثل السكان عند 1 كيلومتر مربع وشبكات 250 مترًا (مثل gs GPWv4"
+" وGHS-POP وWorldPop)؛ يفترض معظمها التوزيع المتساوي للسكان على الفئات "
+"الصالحة للسكن (مثل المناطق المبنية). يُقترح هذا النهج لحساب المؤشرات حيث لا "
+"تتوفر بيانات عالية الدقة من المكاتب الإحصائية الوطنية أو يمكن الوصول إليها "
+"بسهولة."
 
 #: ../../source/for_users/features/landconsumption.rst:181
 msgid "Population in Trends.Earth"
-msgstr ""
+msgstr "تعداد السكان في Trends.Earth\n"
 
 #: ../../source/for_users/features/landconsumption.rst:183
 msgid ""
@@ -656,15 +949,25 @@ msgid ""
 "relevant high quality data by simply replacing the corresponding cells in "
 "the final tabular output."
 msgstr ""
+"في |Trends.earth| نوصي المستخدمين باستخدام الخيار 1، نظرًا لأنهم يتناولون "
+"مقاييس المدينة، فإن دقة البيانات عالية الدقة التي تقدمها المكاتب الإحصائية "
+"الوطنية ستكون دائمًا أعلى من تلك التي تم الحصول عليها بواسطة منتجات البيانات"
+" النقطية العالمية التي تم إنتاجها في معظم الحالات من أجل التحليل على المستوى"
+" الوطني. ومع ذلك، مع إدراك أنه في بعض المناطق لن تكون بيانات التعداد السكاني"
+" متاحة بسهولة لمعظم المستخدمين، فإننا نقدم بيانات من Gridded Population of "
+"the World V4 (GPWv4, CIESIN, 2016) كمرجع. حتى إذا كان خيار استخدام GPWv4 "
+"في|trends.earth|، يمكن استبدال بيانات التعداد السكاني بسهولة ببيانات عالية "
+"الجودة ذات صلة محليًا عن طريق استبدال الخلايا المقابلة في الإخراج الجدولي "
+"النهائي."
 
 #: ../../source/for_users/features/landconsumption.rst:186
 msgid "Trends in SDG 11.3.1"
-msgstr ""
+msgstr "Trends في SDG 11.3.1"
 
 #: ../../source/for_users/features/landconsumption.rst:188
 msgid ""
 "The final outputs of the SDG 11.3.1 computations in |trends.earth| will be:"
-msgstr ""
+msgstr "المخرجات النهائية لحسابات SDG 11.3.1 في |Trends.earth| سوف تكون:"
 
 #: ../../source/for_users/features/landconsumption.rst:190
 msgid ""
@@ -672,6 +975,8 @@ msgid ""
 "interpretation of the changes occurred in the urban space between 2000 and "
 "2015 at 5-year intervals."
 msgstr ""
+"الخرائط كما هي معروضة في الشكلين 10 و11، والتي ستسمح بتفسير مرئي للتغييرات "
+"التي حدثت في المساحة الحضرية بين عامي 2000 و2015 خلال فترة 5 سنوات."
 
 #: ../../source/for_users/features/landconsumption.rst:192
 msgid ""
@@ -681,6 +986,10 @@ msgid ""
 " 11.3.1 will also be computed automatically, and a trend of the indicator "
 "over time will be provided."
 msgstr ""
+"جدول يلخص حسابات المنطقة للمساحات المختلفة داخل حيز المدينة (حضري، ضواحي، "
+"وفئات مختلفة من المساحات المفتوحة)، وكذلك أعداد السكان المقابلة. في هذا "
+"الجدول، سيتم أيضًا حساب SDG 11.3.1 تلقائيًا، وسيتم توفير اتجاه المؤشر بمرور "
+"الوقت."
 
 #: ../../source/for_users/features/landconsumption.rst:197
 msgid ""
@@ -688,22 +997,30 @@ msgid ""
 "|trends.earth| is a tabular outputs displaying the area, population and the "
 "indicator for SDG 11.3.1 for the city analyzed.`"
 msgstr ""
+"\"الشكل 11: أحد المخرجات النهائية لتحليل SDG 11.3.1 في|trends.earth|عبارة عن"
+" نواتج مجدولة تعرض المنطقة والتعداد السكاني ومؤشر SDG 11.3.1 للمدينة التي تم"
+" تحليلها."
 
 #: ../../source/for_users/features/landconsumption.rst:200
 msgid ""
 "For a step-by-step guide on how to run the analysis in |trends.earth|, "
 "please refer to the following tutorial: :ref:`tut_land_consumption`."
 msgstr ""
+"للحصول على إرشادات مفصلة خطوة بخطوة حول كيفية تشغيل التحليل في "
+"|trends.earth|، يرجى الرجوع إلى الدليل التوجيهي التالي "
+":ref:`tut_land_consumption`."
 
 #: ../../source/for_users/features/landconsumption.rst:202
 msgid "**Citations:**"
-msgstr "**المراجع:**"
+msgstr "**مراجع:**\n"
 
 #: ../../source/for_users/features/landconsumption.rst:204
 msgid ""
 "Breiman, L., 2001. Random forests. Mach. Learn. 45, 5–32. "
 "https://doi.org/10.1023/a:1010933404324"
 msgstr ""
+"Breiman, L., 2001. Random forests. Mach. Learn. 45, 5–32. "
+"https://doi.org/10.1023/a:1010933404324\n"
 
 #: ../../source/for_users/features/landconsumption.rst:206
 msgid ""
@@ -713,6 +1030,11 @@ msgid ""
 "Socioeconomic Data and Applications Center (SEDAC). "
 "https://doi.org/10.7927/H4P55KKF."
 msgstr ""
+"Brown de Colstoun, E. C., C. Huang, P. Wang, J. C. Tilton, B. Tan, J. "
+"Phillips, S. Niemczura, P.-Y. Ling, and R. E. Wolfe. 2017. Global Man-made "
+"Impervious Surface (GMIS) Dataset From Landsat. Palisades, NY: NASA "
+"Socioeconomic Data and Applications Center (SEDAC). "
+"https://doi.org/10.7927/H4P55KKF.\n"
 
 #: ../../source/for_users/features/landconsumption.rst:208
 msgid ""
@@ -722,6 +1044,11 @@ msgid ""
 "Center for International Earth Science Information Network - Columbia "
 "University. https://doi.org/10.7927/H4HX19NJ."
 msgstr ""
+"CIESIN. 2016. Gridded Population of the World, Version 4 (GPWv4): Population"
+" Density Adjusted to Match 2015 Revision of UN WPP Country Totals. "
+"Palisades, NY: NASA Socioeconomic Data and Applications Center (SEDAC). "
+"Center for International Earth Science Information Network - Columbia "
+"University. https://doi.org/10.7927/H4HX19NJ."
 
 #: ../../source/for_users/features/landconsumption.rst:210
 msgid ""
@@ -729,6 +1056,9 @@ msgid ""
 "Protecting Half the Terrestrial Realm. BioScience 67, 534–545. "
 "https://doi.org/10.1093/biosci/bix014"
 msgstr ""
+"Dinerstein, E., Olson, et al, 2017. An Ecoregion-Based Approach to "
+"Protecting Half the Terrestrial Realm. BioScience 67, 534–545. "
+"https://doi.org/10.1093/biosci/bix014"
 
 #: ../../source/for_users/features/landconsumption.rst:212
 msgid ""
@@ -738,6 +1068,11 @@ msgid ""
 "applications and experiences 202, 18–27. "
 "https://doi.org/10.1016/j.rse.2017.06.031"
 msgstr ""
+"Gorelick, N., Hancher, M., Dixon, M., Ilyushchenko, S., Thau, D., Moore, R.,"
+" 2017. Google Earth Engine: Planetary-scale geospatial analysis for "
+"everyone. Remote Sens. Environ., Big Remotely Sensed Data: tools, "
+"applications and experiences 202, 18–27. "
+"https://doi.org/10.1016/j.rse.2017.06.031\n"
 
 #: ../../source/for_users/features/landconsumption.rst:214
 msgid ""
@@ -745,6 +1080,9 @@ msgid ""
 "resolution mapping of global surface water and its long-term changes. Nature"
 " 540, 418-422 (2016). https://doi.org/10.1038/nature20584."
 msgstr ""
+"Jean-Francois Pekel, Andrew Cottam, Noel Gorelick, Alan S. Belward, High-"
+"resolution mapping of global surface water and its long-term changes. Nature"
+" 540, 418-422 (2016). https://doi.org/10.1038/nature20584."
 
 #: ../../source/for_users/features/landconsumption.rst:216
 msgid ""
@@ -752,6 +1090,9 @@ msgid ""
 "through: https://developers.google.com/earth-"
 "engine/datasets/catalog/NOAA_VIIRS_DNB_MONTHLY_V1_VCMCFG"
 msgstr ""
+"NOA. 2019. VIIRS Nighttime Day/Night Band Composites Version 1. Available "
+"through: https://developers.google.com/earth-"
+"engine/datasets/catalog/NOAA_VIIRS_DNB_MONTHLY_V1_VCMCFG"
 
 #: ../../source/for_users/features/landconsumption.rst:218
 msgid ""
@@ -759,6 +1100,9 @@ msgid ""
 "https://unhabitat.org/wp-content/uploads/2019/02/Indicator-11.3.1-Training-"
 "Module_Land-Consumption_Jan-2019.pdf"
 msgstr ""
+"UN-Habitat (2019) Module 3: Land consumption. Accessed on 05/10/2019 from:  "
+"https://unhabitat.org/wp-content/uploads/2019/02/Indicator-11.3.1-Training-"
+"Module_Land-Consumption_Jan-2019.pdf"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
@@ -778,7 +1122,7 @@ msgstr "أيقونة التحميل السحابي"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr "أيقونة Cog"
+msgstr "أيقونة الترس"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
@@ -802,11 +1146,11 @@ msgstr "أيقونة تحميل مجموعة البيانات"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr "أيقونة التحديد"
+msgstr "أيقونة MarkMarker"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr "أيقونة فتح دليل مجموعة البيانات"
+msgstr "أيقونة فتح مجلد مجموعة البيانات"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
@@ -830,19 +1174,19 @@ msgstr "أيقونة TrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr "أيقونة التصور"
+msgstr "أيقونة المؤثرات البصرية"
 
 #: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr "شعار CI"
+msgstr "أيقونة CI"
 
 #: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr "شعار Lund"
+msgstr "أيقونة Lund"
 
 #: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr "شعار ناسا"
+msgstr "شعار NASA"
 
 #: ../../../<rst_epilog>:0
 msgid "logoGEF"

@@ -11,7 +11,6 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
-
 import dataclasses
 import functools
 import json
@@ -23,17 +22,29 @@ from pathlib import Path
 import numpy as np
 import qgis.core
 import qgis.utils
-from osgeo import gdal, osr
-from qgis.PyQt import QtCore, QtWidgets, uic
+from osgeo import gdal
+from osgeo import osr
+from qgis.PyQt import QtCore
+from qgis.PyQt import QtWidgets
+from qgis.PyQt import uic
 from qgis.PyQt.QtCore import QSettings
 from te_schemas.jobs import JobStatus
 from te_schemas.results import Band as JobBand
-from te_schemas.results import Raster, ResultType, RasterType
+from te_schemas.results import Raster
+from te_schemas.results import RasterType
+from te_schemas.results import ResultType
 
-from . import GetTempFilename, areaofinterest, conf, layers, utils, worker
-from . import metadata_dialog
+from . import areaofinterest
+from . import conf
+from . import GetTempFilename
+from . import layers
 from . import metadata
-from .jobs.manager import job_manager, update_uris_if_needed, set_results_extents
+from . import metadata_dialog
+from . import utils
+from . import worker
+from .jobs.manager import job_manager
+from .jobs.manager import set_results_extents
+from .jobs.manager import update_uris_if_needed
 from .jobs.models import Job
 from .logger import log
 
@@ -1399,28 +1410,26 @@ def _get_usable_bands(
         )
 
         if is_available and is_of_interest and is_valid_type:
-            for raster in job.results.rasters.values():
+            for band_index, band_info in enumerate(job.results.get_bands(), start=1):
 
-                for band_index, band_info in enumerate(raster.bands):
-
-                    if raster.uri is not None and (
-                        (band_info.name == band_name or band_name == 'any')
+                if job.results.uri is not None and (
+                    (band_info.name == band_name or band_name == 'any')
+                ):
+                    if aoi is not None:
+                        if not _check_dataset_overlap_raster(aoi, job.results):
+                            continue
+                    if (
+                        filter_field is None or filter_value is None
+                        or band_info.metadata[filter_field] == filter_value
                     ):
-                        if aoi is not None:
-                            if not _check_band_overlap(aoi, raster):
-                                continue
-                        if (
-                            filter_field is None or filter_value is None
-                            or band_info.metadata[filter_field] == filter_value
-                        ):
-                            result.append(
-                                Band(
-                                    job=job,
-                                    path=raster.uri.uri,
-                                    band_index=band_index + 1,
-                                    band_info=band_info
-                                )
+                        result.append(
+                            Band(
+                                job=job,
+                                path=job.results.uri.uri,
+                                band_index=band_index,
+                                band_info=band_info
                             )
+                        )
     result.sort(key=lambda ub: ub.job.start_date, reverse=True)
 
     return result

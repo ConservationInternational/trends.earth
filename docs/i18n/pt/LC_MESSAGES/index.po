@@ -29,11 +29,11 @@ msgstr "Manual de Utilização da Trends.Earth"
 
 #: ../../source/index.rst:36 ../../source/index.rst:36
 msgid "User Guide"
-msgstr ""
+msgstr "Guia de Utilizador"
 
 #: ../../source/index.rst:42
 msgid "Trends.Earth Developers Guide"
-msgstr ""
+msgstr "Guia para Programadores Trends.Earth"
 
 #: ../../source/index.rst:42 ../../source/index.rst:42
 msgid "Developers Guide"
@@ -42,7 +42,7 @@ msgstr "Guia dos Programadores"
 #: ../../source/index.rst:48 ../../source/index.rst:48
 #: ../../source/index.rst:48
 msgid "General Information"
-msgstr ""
+msgstr "Informação Geral"
 
 #: ../../source/index.rst:4 ../../../<rst_epilog>:37
 msgid "Trends.Earth"
@@ -54,35 +54,35 @@ msgstr "trends.earth"
 
 #: ../../source/index.rst:17
 msgid ":index_path:`عربى <ar>`"
-msgstr ""
+msgstr ":index_path:`عربى <ar>`"
 
 #: ../../source/index.rst:17
 msgid ":index_path:`中国人 <zh>`"
-msgstr ""
+msgstr ":index_path:`中国人 <zh>`"
 
 #: ../../source/index.rst:17
 msgid ":index_path:`English <en>`"
-msgstr ""
+msgstr ":index_path:`English <en>`"
 
 #: ../../source/index.rst:17
 msgid ":index_path:`Español <es>`"
-msgstr ""
+msgstr ":index_path:`Español <es>`"
 
 #: ../../source/index.rst:17
 msgid ":index_path:`Français <fr>`"
-msgstr ""
+msgstr ":index_path:`Français <fr>`"
 
 #: ../../source/index.rst:17
 msgid ":index_path:`Português <pt>`"
-msgstr ""
+msgstr ":index_path:`Português <pt>`"
 
 #: ../../source/index.rst:17
 msgid ":index_path:`русский <ru>`"
-msgstr ""
+msgstr ":index_path:`русский <ru>`"
 
 #: ../../source/index.rst:17
 msgid ":index_path:`Kiswahili <sw>`"
-msgstr ""
+msgstr ":index_path:`Kiswahili <sw>`"
 
 #: ../../source/index.rst:20
 msgid ""
@@ -95,6 +95,15 @@ msgid ""
 "University of North Carolina - Wilmington and Brown University with "
 "additional funding from the Global Environment Facility (GEF)."
 msgstr ""
+"A Trends.Earth foi produzida por uma parceria entre a Conservation "
+"International, a Universidade de Lund e a Administração Nacional da "
+"Aeronáutica e do Espaço (NASA), com o apoio do Fundo para o Ambiente Mundial"
+" (GEF). Foi adicionalmente desenvolvida através de uma parceria entre a "
+"Conservation International, a Universidade de Berna e a Universidade do "
+"Colorado, em parceria com a USDA e USAID, Universidade da Califórnia - Santa"
+" Bárbara em parceria com a Universidade da Carolina do Norte - Wilmington e "
+"a Universidade de Brown, com financiamento adicional do Fundo para o "
+"Ambiente Mundial (GEF)."
 
 #: ../../source/index.rst:54
 msgid ""

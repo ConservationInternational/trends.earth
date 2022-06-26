@@ -50,9 +50,8 @@ plugin repository](http://plugins.qgis.org/plugins/LDMP/).
 
 Download a stable version of `Trends.Earth` from
 [the list of available releases on
-GitHub](https://github.com/ConservationInternational/trends.earth/releases).
-
-Now follow the instructions below on [installing the plugin from a
+GitHub](https://github.com/ConservationInternational/trends.earth/releases). Then follow
+the instructions below on [installing the plugin from a
 zipfile](#installing-plugin-from-a-zipfile).
 
 ## Installation of unstable version of plugin
@@ -73,18 +72,15 @@ of the plugin.
 ### Development version from zipfile
 
 [Download the latest `Trends.Earth` zipfile for
-QGIS3](https://s3.amazonaws.com/trends.earth/sharing/LDMP_main.zip).
+QGIS3](https://s3.amazonaws.com/trends.earth/sharing/LDMP_main.zip). Then follow the
+instructions below on [installing the plugin from a
+zipfile](#installing-plugin-from-a-zipfile).
 
 QGIS3+ is required for the latest versions of Trends.Earth. The QGIS2 version is no
-longer supported (support ended in March 2020).
-
-If you want to use a previous version of `Trends.Earth` (e.g. versions that work with
-QGIS2), please refer to this
+longer supported (support ended in March 2020). If you want to use a previous version of
+`Trends.Earth` (e.g. versions that work with QGIS2), please refer to this
 [repository](https://github.com/ConservationInternational/trends.earth/releases) where
 all `Trends.Earth` releases are available.
-
-Now follow the instructions below on [installing the plugin from a
-zipfile](#installing-plugin-from-a-zipfile).
 
 ### Development version from source
 

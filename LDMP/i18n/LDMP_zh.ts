@@ -4654,7 +4654,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../reports/generator.py" line="1130"/>
         <source>are being processed (id {[str(job.id) for job in ctx.jobs]})...</source>
-        <translation type="unfinished"/>
+        <translation>正在处理(编号{[str(工作.编号) for 工作 in ctx.工作]})...</translation>
     </message>
 </context>
 <context>
@@ -6154,7 +6154,9 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../layers.py" line="102"/>
         <source>Land cover degradation comparison ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})</source>
-        <translation type="unfinished"/>
+        <translation>土地覆盖退化比较
+({基线_年份_起始}-{基线_年份_最终} vs 
+{发展_年份_起始}-{发展_年份_最终})</translation>
     </message>
     <message>
         <location filename="../layers.py" line="109"/>

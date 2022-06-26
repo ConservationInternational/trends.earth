@@ -33,7 +33,7 @@ msgstr "Guía del usuario"
 
 #: ../../source/index.rst:42
 msgid "Trends.Earth Developers Guide"
-msgstr ""
+msgstr "Guía de desarrolladores de Trends.Earth"
 
 #: ../../source/index.rst:42 ../../source/index.rst:42
 msgid "Developers Guide"
@@ -42,7 +42,7 @@ msgstr "Guía para desarrolladores"
 #: ../../source/index.rst:48 ../../source/index.rst:48
 #: ../../source/index.rst:48
 msgid "General Information"
-msgstr ""
+msgstr "Información general"
 
 #: ../../source/index.rst:4 ../../../<rst_epilog>:37
 msgid "Trends.Earth"
@@ -62,7 +62,7 @@ msgstr ":index_path:`中国人 <zh>`"
 
 #: ../../source/index.rst:17
 msgid ":index_path:`English <en>`"
-msgstr ":index_path:`English <en>`"
+msgstr ":index_path:`inglés <en>`"
 
 #: ../../source/index.rst:17
 msgid ":index_path:`Español <es>`"
@@ -95,6 +95,14 @@ msgid ""
 "University of North Carolina - Wilmington and Brown University with "
 "additional funding from the Global Environment Facility (GEF)."
 msgstr ""
+"Trends.Earth lo ha producido una colaboración de Conservación Internacional,"
+" y la Administración Nacional de Aeronáutica y el Espacio (NASA), con el "
+"apoyo del Fondo Mundial para el Medio Ambiente (GEF, por sus siglas en "
+"inglés). Se desarrolló más a través de una colaboración con Conservación "
+"Internacional, Universidad de Berna, Universidad de Colorado en colaboración"
+" con USDA y USAID, Universidad de California (Santa Bárbara en colaboración "
+"con la Universidad de Carolina del Norte) Wilmington y la Universidad Brown "
+"con fondos adicionales del GEF."
 
 #: ../../source/index.rst:54
 msgid ""

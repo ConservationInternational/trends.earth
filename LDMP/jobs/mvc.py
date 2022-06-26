@@ -12,10 +12,8 @@ from qgis.PyQt import uic
 from qgis.utils import iface
 from te_schemas.jobs import JobStatus
 from te_schemas.results import Band as JobBand
-from te_schemas.results import (
-    TimeSeriesTableResult,
-    RasterResults
-)
+from te_schemas.results import RasterResults
+from te_schemas.results import TimeSeriesTableResult
 
 from . import manager
 from .. import layers
@@ -300,12 +298,12 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             QtGui.QIcon(os.path.join(ICON_PATH, "mActionAddOgrLayer.svg"))
         )
 
-        self.plot_tb.setIcon(FileUtils.get_icon('chart.svg'))
+        self.plot_tb.setIcon(FileUtils.get_icon("chart.svg"))
         self.plot_tb.clicked.connect(self.show_time_series_plot)
         self.plot_tb.setEnabled(False)
         self.plot_tb.hide()
 
-        self.report_pb.setIcon(FileUtils.get_icon('report.svg'))
+        self.report_pb.setIcon(FileUtils.get_icon("report.svg"))
         self._report_handler = DatasetReportHandler(
             self.report_pb, self.job, self.main_dock.iface
         )
@@ -316,11 +314,9 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             self.edit_tb.setEnabled(False)
             layers = QgsProject.instance().mapLayers()
             for l in layers.values():
+                # Ensure this vector layer is added to the map
                 if l.source().split("|")[0] == str(job.results.vector.uri.uri):
                     self.edit_tb.setEnabled(True)
-                    break
-                else:
-                    self.edit_tb.setEnabled(False)
                     break
 
         self.name_la.setText(self.job.visible_name)
@@ -469,23 +465,21 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         table = self.job.results.table
         if len(table) == 0:
             self.main_dock.iface.messageBar().pushMessage(
-                self.tr('Time series table is empty'),
-                level=1,
-                duration=5
+                self.tr("Time series table is empty"), level=1, duration=5
             )
             return
 
-        data = [x for x in table if x['name'] == 'mean'][0]
+        data = [x for x in table if x["name"] == "mean"][0]
         task_name = self.job.task_name
-        base_title = self.tr('Time Series')
+        base_title = self.tr("Time Series")
         dlg_plot = DlgPlotTimeries(self.main_dock.iface.mainWindow())
-        dlg_plot.setWindowTitle(f'{base_title} - {task_name}')
-        labels = {'title': task_name,
-                  'bottom': self.tr('Time'),
-                  'left': [
-                      self.tr('Integrated NDVI'), self.tr('NDVI x 10000')
-                  ]}
-        dlg_plot.plot_data(data['time'], data['y'], labels)
+        dlg_plot.setWindowTitle(f"{base_title} - {task_name}")
+        labels = {
+            "title": task_name,
+            "bottom": self.tr("Time"),
+            "left": [self.tr("Integrated NDVI"), self.tr("NDVI x 10000")],
+        }
+        dlg_plot.plot_data(data["time"], data["y"], labels)
         dlg_plot.exec_()
 
     def edit_layer(self):
@@ -500,7 +494,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                 if prod:
                     self.job.params["prod"] = {
                         "path": str(prod.path),
-                        "band": prod.band_index,
+                        "band": prod.band_index + 1,
                         "band_name": prod.band_info.name,
                         "uuid": str(prod.job.id),
                     }
@@ -508,7 +502,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                 if lc:
                     self.job.params["lc"] = {
                         "path": str(lc.path),
-                        "band": lc.band_index,
+                        "band": lc.band_index + 1,
                         "band_name": lc.band_info.name,
                         "uuid": str(lc.job.id),
                     }
@@ -516,7 +510,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                 if soil:
                     self.job.params["soil"] = {
                         "path": str(soil.path),
-                        "band": soil.band_index,
+                        "band": soil.band_index + 1,
                         "band_name": soil.band_info.name,
                         "uuid": str(soil.job.id),
                     }

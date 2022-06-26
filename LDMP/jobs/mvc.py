@@ -264,9 +264,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
 
         self.open_details_tb.clicked.connect(self.show_details)
         self.open_directory_tb.clicked.connect(self.open_job_directory)
-        self.delete_tb.clicked.connect(
-            functools.partial(utils.delete_dataset, self.job)
-        )
+        self.delete_tb.clicked.connect(self.delete_dataset)
         self.load_tb.clicked.connect(self.load_layer)
 
         self.load_vector_menu_setup()
@@ -451,6 +449,11 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
     def load_dataset(self):
         manager.job_manager.display_default_job_results(self.job)
 
+    def delete_dataset(self):
+        self.main_dock.pause_scheduler()
+        utils.delete_dataset(self.job)
+        self.main_dock.resume_scheduler()
+
     def load_dataset_choose_layers(self):
         self.main_dock.pause_scheduler()
         dialogue = DlgDataIOAddLayersToMap(self, self.job)
@@ -494,7 +497,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                 if prod:
                     self.job.params["prod"] = {
                         "path": str(prod.path),
-                        "band": prod.band_index + 1,
+                        "band": prod.band_index,
                         "band_name": prod.band_info.name,
                         "uuid": str(prod.job.id),
                     }
@@ -502,7 +505,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                 if lc:
                     self.job.params["lc"] = {
                         "path": str(lc.path),
-                        "band": lc.band_index + 1,
+                        "band": lc.band_index,
                         "band_name": lc.band_info.name,
                         "uuid": str(lc.job.id),
                     }
@@ -510,7 +513,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                 if soil:
                     self.job.params["soil"] = {
                         "path": str(soil.path),
-                        "band": soil.band_index + 1,
+                        "band": soil.band_index,
                         "band_name": soil.band_info.name,
                         "uuid": str(soil.job.id),
                     }
@@ -609,13 +612,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                 else None
             )
             if job:
-                band = None
-                for raster in job.results.rasters.values():
-                    band = next(
-                        (b for b in raster.bands if b.name == data["band_name"]), None
-                    )
-                    if band:
-                        break
+                band = job.results.get_bands()[data["band"] - 1]
                 layers.add_layer(
                     str(data["path"]), int(data["band"]), JobBand.Schema().dump(band)
                 )

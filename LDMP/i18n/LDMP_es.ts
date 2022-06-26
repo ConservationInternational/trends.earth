@@ -4725,7 +4725,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../reports/generator.py" line="1130"/>
         <source>are being processed (id {[str(job.id) for job in ctx.jobs]})...</source>
-        <translation type="unfinished"/>
+        <translation>se están procesando (id {[str(job.id) para el trabajo en ctx.jobs]})...</translation>
     </message>
 </context>
 <context>

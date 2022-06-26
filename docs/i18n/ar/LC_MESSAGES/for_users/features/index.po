@@ -63,11 +63,11 @@ msgstr "أيقونة الحافظة"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr "أيقونة التحميل السحابي"
+msgstr "أيقونة التنزيل السحابي"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr "أيقونة Cog"
+msgstr "أيقونة الترس"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
@@ -91,11 +91,11 @@ msgstr "أيقونة تحميل مجموعة البيانات"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr "أيقونة التحديد"
+msgstr "أيقونة MarkMarker"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr "أيقونة فتح دليل مجموعة البيانات"
+msgstr "أيقونة فتح مجلد مجموعة البيانات"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
@@ -119,7 +119,7 @@ msgstr "أيقونة TrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr "أيقونة التصور"
+msgstr "أيقونة المؤثرات البصرية"
 
 #: ../../../<rst_epilog>:37
 msgid "Trends.Earth"
@@ -135,7 +135,7 @@ msgstr "شعار Lund"
 
 #: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr "شعار ناسا"
+msgstr "شعار NASA"
 
 #: ../../../<rst_epilog>:0
 msgid "logoGEF"

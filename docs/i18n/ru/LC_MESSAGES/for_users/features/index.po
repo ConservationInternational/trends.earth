@@ -23,11 +23,11 @@ msgstr ""
 
 #: ../../source/for_users/features/index.rst:6
 msgid "Land Degradation and SDG 15.3.1"
-msgstr ""
+msgstr "Деградация земель и ЦУР 15.3.1"
 
 #: ../../source/for_users/features/index.rst:6
 msgid "UNCCD Reporting - SDG 15.3.1"
-msgstr ""
+msgstr "Отчет КБОООН — ЦУР 15.3.1"
 
 #: ../../source/for_users/features/index.rst:6
 msgid "Land Consumption and SDG 11.3.1"

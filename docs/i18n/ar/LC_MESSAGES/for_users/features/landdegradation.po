@@ -31,6 +31,8 @@ msgid ""
 "As part of the \"2030 Agenda for Sustainable Development\", Sustainable "
 "Development Goal (SDG) 15 is to:"
 msgstr ""
+"كجزء من \"خطة التنمية المستدامة لعام 2030\"، يتمثل هدف التنمية المستدامة رقم"
+" 15 في:"
 
 #: ../../source/for_users/features/landdegradation.rst:9
 msgid ""
@@ -38,12 +40,17 @@ msgid ""
 "sustainably manage forests, combat desertification, and halt and reverse "
 "land degradation and halt biodiversity loss\""
 msgstr ""
+"\"حماية واستعادة وتعزيز الاستخدام المستدام للنظم الإيكولوجية الأرضية، وإدارة"
+" الغابات على نحو مستدام، ومكافحة التصحر، ووقف تدهور الأراضي وعكس اتجاهه ووقف"
+" فقدان التنوع البيولوجي\""
 
 #: ../../source/for_users/features/landdegradation.rst:13
 msgid ""
 "Each SDG has specific targets addressing different components, in this case,"
 " of life on land. Target 15.3 aims to:"
 msgstr ""
+"لكل هدف من أهداف التنمية المستدامة أهداف محددة تتناول مكونات مختلفة، في هذه "
+"الحالة، من الحياة على الأرض. يعمل الهدف 15.3 على:"
 
 #: ../../source/for_users/features/landdegradation.rst:16
 msgid ""
@@ -51,6 +58,9 @@ msgid ""
 " land affected by desertification, drought and floods, and strive to achieve"
 " a land degradation-neutral world\""
 msgstr ""
+"\"بحلول عام 2030، مكافحة التصحر، واستعادة الأراضي والتربة المتدهورة، بما في "
+"ذلك الأراضي المتأثرة بالتصحر والجفاف والفيضانات، والسعي جاهدين لتحقيق عالم "
+"خالٍ من تدهور الأراضي"
 
 #: ../../source/for_users/features/landdegradation.rst:20
 msgid ""
@@ -58,10 +68,13 @@ msgid ""
 "the case of SDG 15.3 the progress towards a land degradation neutral world "
 "will be assessed using indicator 15.3.1:"
 msgstr ""
+"سيتم استخدام المؤشرات بعد ذلك لتقييم التقدم المحرز في كل هدف من أهداف "
+"التنمية المستدامة. في حالة الهدف 15.3 من أهداف التنمية المستدامة، سيتم تقييم"
+" التقدم المحرز نحو عالم محايد لتدهور الأراضي باستخدام المؤشر 15.3.1:"
 
 #: ../../source/for_users/features/landdegradation.rst:24
 msgid "\"proportion of land that is degraded over total land area\""
-msgstr ""
+msgstr "\"نسبة الأراضي المتدهورة على إجمالي مساحة الأرض\""
 
 #: ../../source/for_users/features/landdegradation.rst:26
 msgid ""
@@ -77,6 +90,8 @@ msgid ""
 "This document provides a brief introduction to SDG Indicator 15.3.1 and "
 "describes how each indicator is calculated by |trends.earth|."
 msgstr ""
+"تقدم هذه الوثيقة مقدمة موجزة لمؤشر هدف التنمية المستدامة 15.3.1 وتصف كيفية "
+"حساب كل مؤشر من خلال|trends.earth|."
 
 #: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
 #: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
@@ -92,10 +107,12 @@ msgid ""
 "In order to assess the area degraded, SDG Indicator 15.3.1 uses information "
 "from 3 sub-indicators:"
 msgstr ""
+"من أجل تقييم المنطقة المتدهورة، يستخدم مؤشر هدف التنمية المستدامة 15.3.1 "
+"معلومات من 3 مؤشرات فرعية:"
 
 #: ../../source/for_users/features/landdegradation.rst:37
 msgid "Vegetation productivity"
-msgstr ""
+msgstr "إنتاجية الغطاء النباتي"
 
 #: ../../source/for_users/features/landdegradation.rst:38
 #: ../../source/for_users/features/landdegradation.rst:265
@@ -114,10 +131,14 @@ msgid ""
 " a final SDG 15.3.1 indicator map and produces a table result reporting "
 "areas potentially improved and degraded for the area of analysis."
 msgstr ""
+"|trends.earth| يسمح للمستخدم بحساب كل من هذه المؤشرات الفرعية بطريقة صريحة "
+"مكانيًا لإنشاء خرائط نقطية يتم دمجها بعد ذلك في خريطة مؤشر هدف التنمية "
+"المستدامة 15.3.1 النهائية وتنتج جدولًا لمناطق الإبلاغ عن النتائج التي يحتمل "
+"أن تكون محسّنة ومتدهورة لمنطقة التحليل."
 
 #: ../../source/for_users/features/landdegradation.rst:50
 msgid "Sub-indicators"
-msgstr ""
+msgstr "المؤشرات الفرعية"
 
 #: ../../source/for_users/features/landdegradation.rst:55
 msgid "Productivity"
@@ -134,6 +155,13 @@ msgid ""
 " costly to estimate, for that reason, we rely on remotely sensed information"
 " to derive indicators of NPP."
 msgstr ""
+"إنتاجية الأرض هي القدرة الإنتاجية البيولوجية للأرض، ومصدر جميع الأغذية "
+"والألياف والوقود الذي يدعم الإنسان (اللجنة الإحصائية للأمم المتحدة 2016). "
+"صافي الإنتاجية الأولية هو صافي كمية الكربون التي تم استيعابها بعد التمثيل "
+"الضوئي والتنفس الذاتي التغذية خلال فترة زمنية معينة (كلارك وآخرون 2001) ويتم"
+" تمثيلها عادةً بوحدات مثل كجم / هكتار / سنة. صافي الإنتاجية الأولية عبارة عن"
+" عملية متغيرة تستغرق وقتًا طويلاً ومكلفة لتقديرها، ولهذا السبب، نعتمد على "
+"المعلومات المستشعرة عن بُعد لاشتقاق مؤشرات صافي الإنتاجية الأولية."
 
 #: ../../source/for_users/features/landdegradation.rst:66
 msgid ""
@@ -145,6 +173,14 @@ msgid ""
 "of results). These annual integrals of NDVI are then used to compute each of"
 " the productivity indicators explained below."
 msgstr ""
+"أحد البدائل الأكثر استخدامًا لصافي الإنتاجية الأولية هو فهرس الغطاء النباتي "
+"للاختلاف المعياري، والذي يتم حسابه باستخدام معلومات من الأجزاء الحمراء "
+"والقريبة من الأشعة تحت الحمراء من الطيف الكهرومغناطيسي. في |trends.earth| "
+"نحن نستخدم المنتجات نصف الأسبوعية من MODIS و AVHRR لحساب التكاملات السنوية "
+"لمؤشر الفرق المعياري للغطاء النباتي (محسوبة على أنها متوسط مؤشر مؤشر الفرق "
+"المعياري للغطاء النباتي السنوي لتبسيط تفسير النتائج). ثم يتم استخدام هذه "
+"التكاملات السنوية من دليل مؤشر الفرق المعياري للغطاء النباتي لحساب كل من "
+"مؤشرات الإنتاجية الموضحة أدناه."
 
 #: ../../source/for_users/features/landdegradation.rst:74
 msgid ""
@@ -184,6 +220,14 @@ msgid ""
 "trends could be identified as human caused land degradation, when they are "
 "driven by regional patterns of changes in water availability."
 msgstr ""
+"ضمن نظام بيئي معين، تتأثر الإنتاجية الأولية بعدة عوامل، مثل درجة الحرارة، "
+"وتوافر الضوء والمغذيات والمياه. من بين هؤلاء، يعد توافر المياه الأكثر تغيرًا"
+" بمرور الوقت، ويمكن أن يكون له تأثيرات كبيرة جدًا في كمية الأنسجة النباتية "
+"التي يتم إنتاجها كل عام. عند استخدام التكاملات السنوية لمؤشر الفرق المعياري "
+"للغطاء النباتي لإجراء تحليل المسار، من المهم تفسير النتائج التي تحتوي على "
+"معلومات هطول الأمطار التاريخية كسياق. وبخلاف ذلك، يمكن تحديد اتجاهات "
+"الإنتاجية المتدنية على أنها تسبب الإنسان في تدهور الأراضي، عندما تكون مدفوعة"
+" بالأنماط الإقليمية للتغيرات في توافر المياه."
 
 #: ../../source/for_users/features/landdegradation.rst:112
 msgid ""
@@ -192,6 +236,10 @@ msgid ""
 "those which could be a consequence of human land use decisions on the "
 "ground. The methods currently supported for climate corrections are:"
 msgstr ""
+"|trends.earth| يسمح للمستخدم بإجراء أنواع مختلفة من التحليل لفصل الأسباب "
+"المناخية للتغيرات في الإنتاجية الأولية، عن تلك التي يمكن أن تكون نتيجة "
+"لقرارات استخدام الأرض البشرية في الواقع. الأساليب المدعومة حاليًا لتصحيحات "
+"المناخ هي:"
 
 #: ../../source/for_users/features/landdegradation.rst:117
 msgid ""
@@ -204,6 +252,14 @@ msgid ""
 " land degradation by trend analysis of vegetation index data. Remote Sens. "
 "Environ. 2012, 125, 10–22.`"
 msgstr ""
+"** تحليل الاتجاه المتبقي: ** يستخدم تحليل الاتجاه المتبقي نماذج الانحدار "
+"الخطي للتنبؤ بمؤشر الفرق المعياري للغطاء النباتي لكمية معينة من الأمطار. يتم"
+" تفسير الاتجاهات في الاختلاف بين مؤشر مؤشر الفرق المعياري للغطاء النباتي "
+"المتوقع ودليل مؤشر الفرق المعياري للغطاء النباتي المرصود (المتبقي) على أنه "
+"تغير إنتاجي غير متعلق بالمناخ. يرجى الرجوع إلى الاقتباس التالي لمزيد من "
+"التفاصيل حول الطريقة وقيودها: ويسلز، ك.ج.؛ فان دن بيرغ، ف.؛ سكولز، آر.ج. "
+"حدود إمكانية اكتشاف تدهور الأراضي من خلال تحليل اتجاهات بيانات مؤشر الغطاء "
+"النباتي. استشعار البيئة عن بعد. 2012, 125, 10–22.`"
 
 #: ../../source/for_users/features/landdegradation.rst:126
 msgid ""
@@ -221,6 +277,19 @@ msgid ""
 "variability? A case study in South Africa. J. Arid Environ. 2007, 68, "
 "271–297.`"
 msgstr ""
+"** كفاءة استخدام المطر: ** كفاءة استخدام المطر هي نسبة صافي الإنتاجية "
+"الأولية السنوي إلى هطول الأمطار السنوي. |trends.earth| يستخدم التكاملات "
+"السنوية لمؤشر الفرق المعياري للغطاء النباتي كبديل لصافي الإنتاجية الأولية "
+"السنوي، ويوفر إمكانية الاختيار من بين منتجات هطول الأمطار المختلفة لحساب "
+"كفاءة استخدام المطر. بعد حساب كفاءة استخدام المطر لكل سنة من السنوات قيد "
+"التحليل، يتم تطبيق انحدار خطي واختبار دلالة غير بارامترية على اتجاه كفاءة "
+"استخدام المطر بمرور الوقت. تشير الاتجاهات الإيجابية الهامة في كفاءة استخدام "
+"المطر إلى تحسن محتمل في حالة الأراضي، وأن الاتجاهات السلبية الهامة قد تؤدي "
+"إلى تدهور محتمل. يرجى الرجوع إلى البحث المنشور التالي للحصول على تفاصيل حول "
+"الأساليب وقيودها: ويسلز، ك.ج.؛ برينس، إس. دي.؛ مالهيربي، جي.؛ سمول، ج.؛ "
+"فروست، بي. فانزيل، دي. هل يمكن التمييز بين تدهور الأراضي الناجم عن النشاط "
+"البشري وآثار تقلبية هطول الأمطار؟ دراسة حالة في جنوب إفريقيا. مجلة البيئات "
+"القاحلة. 2007, 68, 271–297.`"
 
 #: ../../source/for_users/features/landdegradation.rst:139
 msgid ""
@@ -237,6 +306,17 @@ msgid ""
 "indicate potential improvement in land condition, and negative significant "
 "trends potential degradation."
 msgstr ""
+"** كفاءة استخدام المياه: ** تفترض كفاءة استخدام المطر وجود علاقة خطية بين "
+"كمية المياه التي تسقط على شكل ترسيب في مكان معين وكمية المياه التي ستستخدمها"
+" النباتات بالفعل. هذا الافتراض لا ينطبق على كل نظام. تحاول كفاءة استخدام "
+"المياه معالجة هذا القيد باستخدام إجمالي النتح التبخري السنوي بدلاً من "
+"الترسيب. يُعرَّف النتح التبخري السنوي على أنه الهطول مطروح منه المياه "
+"المفقودة بسبب الجريان السطحي، وإعادة التغذية إلى المياه الجوفية والتغيرات في"
+" تخزين مياه التربة. يتبع باقي التحليل كما هو موضّح بالنسبة كفاءة استخدام "
+"المطر: يتم تطبيق اختبار الانحدار الخطي واختبار الدلالة غير البارامترية على "
+"اتجاه كفاءة استخدام المياه بمرور الوقت. تشير الاتجاهات الإيجابية الهامة في "
+"كفاءة استخدام المياه إلى التحسن المحتمل في حالة الأراضي، والاتجاهات السلبية "
+"الهامة للتدهور المحتمل."
 
 #: ../../source/for_users/features/landdegradation.rst:151
 msgid ""
@@ -244,6 +324,9 @@ msgid ""
 "NDVI trend analysis over time using the original NDVI data or with climatic "
 "corrections:"
 msgstr ""
+"يسرد الجدول أدناه مجموعات البيانات المتوفرة في |trends.earth| لإجراء تحليل "
+"اتجاه مؤشر الفرق المعياري للغطاء النباتي بمرور الوقت باستخدام بيانات مؤشر "
+"الفرق المعياري للغطاء النباتي الأصلية أو مع التصحيحات المناخية:"
 
 #: ../../source/for_users/features/landdegradation.rst:161
 msgid "Productivity State"
@@ -255,12 +338,16 @@ msgid ""
 "in primary productivity as compared to a baseline period. The indicator is "
 "computed as follows:"
 msgstr ""
+"يسمح مؤشر حالة الإنتاجية باكتشاف التغييرات الأخيرة في الإنتاجية الأولية "
+"مقارنة بفترة خط الأساس. يتم حساب المؤشر على النحو التالي:"
 
 #: ../../source/for_users/features/landdegradation.rst:167
 msgid ""
 "Define the baseline period (historical period to which to compare recent "
 "primary productivity)."
 msgstr ""
+"حدد الفترة الأساسية (الفترة التاريخية التي تقارن بها الإنتاجية الأولية "
+"الحديثة)."
 
 #: ../../source/for_users/features/landdegradation.rst:170
 msgid ""
@@ -268,6 +355,8 @@ msgid ""
 "is recommended to use a 3-year to avoid annual fluctuations related to "
 "climate."
 msgstr ""
+"تحديد فترة المقارنة (السنوات الأخيرة المستخدمة لحساب المقارنة). يوصى "
+"باستخدام 3 سنوات لتجنب التقلبات السنوية المتعلقة بالمناخ."
 
 #: ../../source/for_users/features/landdegradation.rst:174
 msgid ""
@@ -277,6 +366,11 @@ msgid ""
 "expanded frequency distribution curve is then used to define the cut-off "
 "values of the 10 percentile classes."
 msgstr ""
+"لكل بكسل، استخدم التكاملات السنوية لمؤشر الفرق المعياري للغطاء لنباتي لفترة "
+"الأساس لحساب توزيع التردد. في حالة عدم وجود بعض القيم المتطرفة في مؤشر الفرق"
+" المعياري للغطاء النباتي في فترة خط الأساس، أضف 5٪ على طرفي التوزيع. ثم يتم "
+"استخدام منحنى توزيع التردد الموسع لتحديد القيم الفاصلة للفئات المئوية "
+"العشرة."
 
 #: ../../source/for_users/features/landdegradation.rst:180
 msgid ""
@@ -285,6 +379,10 @@ msgid ""
 "number corresponding to that percentile class. Possible values range from 1 "
 "(lowest class) to 10 (highest class)."
 msgstr ""
+"احسب متوسط مؤشر الفرق المعياري للغطاء النباتي للفترة الأساس، وحدد الفئة "
+"المئوية التي ينتمي إليها. عيّن إلى متوسط مؤشر الفرق المعياري للغطاء النباتي "
+"لفترة الأساس الرقم المقابل لتلك الفئة المئوية. تتراوح القيم الممكنة من 1 "
+"(أدنى فئة) إلى 10 (أعلى فئة)."
 
 #: ../../source/for_users/features/landdegradation.rst:185
 msgid ""
@@ -293,12 +391,18 @@ msgid ""
 "period the number corresponding to that percentile class. Possible values "
 "range from 1 (lowest class) to 10 (highest class)."
 msgstr ""
+"احسب متوسط مؤشر الفرق المعياري للغطاء النباتي لفترة المقارنة، وحدد الفئة "
+"المئوية التي ينتمي إليها. خصص إلى متوسط مؤشر مؤشر الفرق المعياري للغطاء "
+"النباتي لفترة المقارنة الرقم المقابل لتلك الفئة المئوية. تتراوح القيم "
+"الممكنة من 1 (أدنى فئة) إلى 10 (أعلى فئة)."
 
 #: ../../source/for_users/features/landdegradation.rst:190
 msgid ""
 "Determine the difference in class number between the comparison and the "
 "baseline period (comparison minus baseline)."
 msgstr ""
+"تحديد الفرق في رقم الصنف بين المقارنة وفترة الأساس (المقارنة مطروحًا منها خط"
+" الأساس)."
 
 #: ../../source/for_users/features/landdegradation.rst:193
 msgid ""
@@ -307,12 +411,17 @@ msgid ""
 "2, that pixel would indicate a recent improvement in terms of primary "
 "productivity. Pixels with small changes are considered stable."
 msgstr ""
+"إذا كان الاختلاف في الفئة بين خط الأساس وفترة المقارنة هو 2، فمن المحتمل أن "
+"يتدهور هذا البكسل. إذا كان الاختلاف ≥ 2، فإن هذا البكسل يشير إلى تحسن حديث "
+"من حيث الإنتاجية الأولية. تعتبر وحدات البكسل ذات التغييرات الصغيرة مستقرة."
 
 #: ../../source/for_users/features/landdegradation.rst:201
 msgid ""
 "The table below list the datasets available in |trends.earth| to compute the"
 " Productivity State indicator:"
 msgstr ""
+"يسرد الجدول أدناه مجموعات البيانات المتوفرة في |trends.earth| لحساب مؤشر "
+"حالة الإنتاجية:"
 
 #: ../../source/for_users/features/landdegradation.rst:210
 msgid "Productivity Performance"
@@ -328,18 +437,27 @@ msgid ""
 "provided by ESA CCI at 300m resolution) to define this areas of analysis. "
 "The indicator is computed as follows:"
 msgstr ""
+"يقيس مؤشر أداء الإنتاجية الإنتاجية المحلية بالنسبة لأنواع الغطاء النباتي "
+"الأخرى المماثلة في أنواع الغطاء الأرضي المماثلة أو المناطق المناخية الحيوية "
+"في جميع أنحاء منطقة الدراسة. |trends.earth| يستخدم مزيجًا فريدًا من وحدات "
+"التربة (وحدات تصنيف التربة باستخدام نظام وزارة الزراعة الأمريكية الذي توفره "
+"SoilGrids بدقة 250 مترًا) والغطاء الأرضي (37 فئة كاملة للغطاء الأرضي مقدمة "
+"من ESA CCI بدقة 300 متر) لتحديد مجالات التحليل هذه. يتم حساب المؤشر على "
+"النحو التالي:"
 
 #: ../../source/for_users/features/landdegradation.rst:220
 msgid ""
 "Define the analysis period, and use the time series of NDVI to compute mean "
 "the NDVI for each pixel."
 msgstr ""
+"حدد فترة التحليل، واستخدم السلاسل الزمنية لمؤشر الفرق المعياري للغطاء "
+"النباتي لحساب متوسط مؤشر الفرق المعياري للغطاء النباتي لكل بكسل."
 
 #: ../../source/for_users/features/landdegradation.rst:223
 msgid ""
 "Define similar ecologically similar units as the unique intersection of land"
 " cover and soil type."
-msgstr ""
+msgstr "حدد وحدات مماثلة بيئيًا مثل التقاطع الفريد للغطاء الأرضي ونوع التربة."
 
 #: ../../source/for_users/features/landdegradation.rst:226
 msgid ""
@@ -350,28 +468,41 @@ msgid ""
 "outliers). The value representing the 90th percentile will be considered the"
 " maximum productivity for that unit."
 msgstr ""
+"لكل وحدة، قم باستخراج جميع قيم مؤشر الفرق المعياري للغطاء النباتي المتوسطة "
+"المحسوبة في الخطوة 1، وقم بإنشاء توزيع تردد. من هذا التوزيع، حدد القيمة التي"
+" تمثل النسبة المئوية التسعين (لا نوصي باستخدام الحد الأقصى لقيمة مؤشر الفرق "
+"المعياري للغطاء النباتي المطلقة لتجنب الأخطاء المحتملة بسبب وجود القيم "
+"المتطرفة). ستعتبر القيمة التي تمثل النسبة المئوية التسعين هي أقصى إنتاجية "
+"لتلك الوحدة."
 
 #: ../../source/for_users/features/landdegradation.rst:233
 msgid ""
 "Compute the ratio of mean NDVI and maximum productivity (in each case "
 "compare the mean observed value to the maximum for its corresponding unit)."
 msgstr ""
+"احسب نسبة متوسط مؤشر الفرق المعياري للغطاء النباتي والإنتاجية القصوى (في كل "
+"حالة قارن متوسط القيمة الملاحظة إلى الحد الأقصى للوحدة المقابلة)."
 
 #: ../../source/for_users/features/landdegradation.rst:236
 msgid ""
 "If observed mean NDVI is lower than 50% than the maximum productivity, that "
 "pixel is considered potentially degraded for this indicator."
 msgstr ""
+"إذا كان متوسط مؤشر الفرق المعياري للغطاء النباتي المرصود أقل من 50٪ من الحد "
+"الأقصى للإنتاجية، فسيتم اعتبار هذا البكسل متدهورًا بشكل محتمل بالنسبة لهذا "
+"المؤشر."
 
 #: ../../source/for_users/features/landdegradation.rst:242
 msgid ""
 "The table below list the datasets available in |trends.earth| to compute the"
 " Productivity Performance indicator:"
 msgstr ""
+"يسرد الجدول أدناه مجموعات البيانات المتوفرة في|trends.earth| لحساب مؤشر أداء"
+" الإنتاجية:"
 
 #: ../../source/for_users/features/landdegradation.rst:251
 msgid "Combining Productivity Indicators"
-msgstr ""
+msgstr "الجمع بين مؤشرات الإنتاجية"
 
 #: ../../source/for_users/features/landdegradation.rst:253
 msgid ""
@@ -381,6 +512,10 @@ msgid ""
 "information provided by State to inform the type of degradation occurring in"
 " the area."
 msgstr ""
+"يتم بعد ذلك دمج المؤشرات الفرعية الثلاثة للإنتاجية كما هو موضح في الجداول "
+"أدناه. لتقارير هدف التنمية المستدامة 15.3.1، مطلوب مؤشر من 3 فئات، ولكن "
+"|trends.earth| ينتج أيضًا فئة 5 واحدة تستفيد من المعلومات التي تقدمها الدولة"
+" للإبلاغ عن نوع التدهور الذي يحدث في المنطقة."
 
 #: ../../source/for_users/features/landdegradation.rst:267
 msgid ""
@@ -391,6 +526,11 @@ msgid ""
 "dataset, but local maps can also be used. The indicator is computed as "
 "follows:"
 msgstr ""
+"لتقييم التغييرات في الغطاء الأرضي يحتاج المستخدمون إلى خرائط الغطاء الأرضي "
+"التي تغطي منطقة الدراسة لخط الأساس والسنوات المستهدفة. يجب أن تكون هذه "
+"الخرائط ذات دقة مقبولة وأن يتم إنشاؤها بطريقة تسمح بإجراء مقارنات صحيحة. "
+"|trends.earth| يستخدم خرائط الغطاء الأرضي ESA CCI كمجموعة بيانات افتراضية، "
+"ولكن يمكن أيضًا استخدام الخرائط المحلية. يتم حساب المؤشر على النحو التالي:"
 
 #: ../../source/for_users/features/landdegradation.rst:273
 msgid ""
@@ -398,12 +538,18 @@ msgid ""
 "reporting to the UNCCD (forest, grassland, cropland, wetland, artificial "
 "area, bare land and water)."
 msgstr ""
+"أعد تصنيف خرائط الغطاء الأرضي إلى فئات الغطاء الأرضي السبعة اللازمة لتقديم "
+"التقارير إلى اتفاقية الأمم المتحدة لمكافحة التصحر (الغابات والأراضي العشبية "
+"والأراضي الزراعية والأراضي الرطبة والمنطقة الاصطناعية والأراضي الجرداء "
+"والمياه)."
 
 #: ../../source/for_users/features/landdegradation.rst:277
 msgid ""
 "Perform a land cover transition analysis to identify which pixels remained "
 "in the same land cover class, and which ones changed."
 msgstr ""
+"قم بإجراء تحليل انتقال للغطاء الأرضي لتحديد وحدات البكسل التي بقيت في نفس "
+"فئة الغطاء الأرضي وأي منها تم تغييره."
 
 #: ../../source/for_users/features/landdegradation.rst:280
 msgid ""
@@ -412,6 +558,9 @@ msgid ""
 "which transitions correspond to degradation (- sign), improvement (+ sign), "
 "or no change in terms of land condition (zero)."
 msgstr ""
+"استنادًا إلى معرفتك المحلية بالظروف في منطقة الدراسة وتدهور الأراضي الذي يتم"
+" معالجته هناك، استخدم الجدول أدناه لتحديد التحولات التي تتوافق مع التدهور "
+"(علامة -)، أو التحسين (علامة +)، أو لا يوجد تغيير من حيث حالة الأرض (صفر)."
 
 #: ../../source/for_users/features/landdegradation.rst:289
 msgid ""
@@ -419,6 +568,8 @@ msgid ""
 " table of degradation typologies by land cover transition to compute the "
 "land cover sub-indicator."
 msgstr ""
+"|trends.earth| سيجمع المعلومات من خرائط الغطاء الأرضي وجدول أنماط التدهور عن"
+" طريق انتقال الغطاء الأرضي لحساب المؤشر الفرعي للغطاء الأرضي."
 
 #: ../../source/for_users/features/landdegradation.rst:301
 msgid ""
@@ -432,6 +583,15 @@ msgid ""
 " |trends.earth| to estimate changes in SOC and identify potentially degraded"
 " areas. The indicator is computed as follows:"
 msgstr ""
+"يحدد المؤشر الفرعي الثالث لرصد تدهور الأراضي كجزء من عملية أهداف التنمية "
+"المستدامة التغيرات في الكربون العضوي في التربة خلال الفترة المشمولة "
+"بالتقرير. من الصعب بشكل خاص تقييم التغييرات في الكربون العضوي في التربة لعدة"
+" أسباب، بعضها هو التباين المكاني العالي لخصائص التربة، والوقت والتكلفة "
+"المكثفة لإجراء مسوحات التربة التمثيلية ونقص بيانات السلاسل الزمنية على "
+"الكربون العضوي في التربة لمعظم مناطق العالم. لمعالجة بعض القيود، يتم استخدام"
+" طريقة مجمعة للغطاء الأرضي / الكربون العضوي في التربة في |trends.earth| "
+"لتقدير التغييرات في الكربون العضوي في التربة وتحديد المناطق التي يحتمل "
+"تدهورها. يتم حساب المؤشر على النحو التالي:"
 
 #: ../../source/for_users/features/landdegradation.rst:311
 msgid ""
@@ -442,6 +602,8 @@ msgid ""
 "assigning a date for calculations purposes could cause inaccuracies in the "
 "stock change calculations)."
 msgstr ""
+"تحديد القيم المرجعية الكربون العضوي في التربة.\n"
+"|trends.earth| يستخدم مخزون الكربون SoilGrids 250m لأول 30 سم من ملف تعريف التربة كقيم مرجعية للحساب (ملاحظة: تستخدم SoilGrids معلومات من مجموعة متنوعة من مصادر البيانات وتتراوح بين سنوات عديدة لإنتاج هذا المنتج، وبالتالي فإن تعيين تاريخ لأغراض الحسابات يمكن تسبب في عدم الدقة في حسابات تغيير المخزون)."
 
 #: ../../source/for_users/features/landdegradation.rst:318
 msgid ""
@@ -450,6 +612,11 @@ msgid ""
 "area, bare land and water). Ideally annual land cover maps are preferred, "
 "but at least land cover maps for the starting and end years are needed."
 msgstr ""
+"أعد تصنيف خرائط الغطاء الأرضي إلى فئات الغطاء الأرضي السبعة اللازمة لتقديم "
+"التقارير إلى اتفاقية الأمم المتحدة لمكافحة التصحر (الغابات والأراضي العشبية "
+"والأراضي الزراعية والأراضي الرطبة والمنطقة الاصطناعية والأراضي الجرداء "
+"والمياه). يُفضل خرائط الغطاء الأرضي السنوية بشكل مثالي، ولكن هناك حاجة إلى "
+"خرائط الغطاء الأرضي على الأقل لسنتي البداية والنهاية."
 
 #: ../../source/for_users/features/landdegradation.rst:323
 msgid ""
@@ -463,6 +630,15 @@ msgid ""
 "presented in the table below. Those coefficients represent the proportional "
 "in C stocks after 20 years of land cover change."
 msgstr ""
+"لتقدير التغييرات في مخزونات الكربون خلال الفترة المشمولة بالتقرير، أوصت "
+"الهيئة الحكومية الدولية المعنية بتغير المناخ واتفاقية مكافحة التصحر، "
+"باستخدام معاملات التحويل \"ج\" للتغيرات في استخدام الأراضي، والإدارة "
+"والمدخلات. ومع ذلك، فإن المعلومات الصريحة مكانيًا حول الإدارة ومدخلات C ليست"
+" متاحة لمعظم المناطق. على هذا النحو، يمكن تطبيق معامل تحويل استخدام الأراضي "
+"فقط لتقدير التغيرات في مخزون الكربون (باستخدام الغطاء الأرضي كمؤشر لاستخدام "
+"الأراضي). كانت المعاملات المستخدمة نتيجة لمراجعة الأدبيات التي أجرتها "
+"اتفاقية مكافحة التصحر وهي معروضة في الجدول أدناه. تمثل هذه المعاملات النسبة "
+"في مخزون الكربون بعد 20 عامًا من تغير الغطاء الأرضي."
 
 #: ../../source/for_users/features/landdegradation.rst:336
 msgid ""
@@ -472,6 +648,11 @@ msgid ""
 "Temperate Moist (f = 0.69), Tropical Dry (f = 0.58), Tropical Moist (f = "
 "0.48), and Tropical Montane (f = 0.64)."
 msgstr ""
+"تمت دراسة التغييرات في الكربون العضوي في التربة بشكل أفضل لتحولات الغطاء "
+"الأرضي التي تنطوي على الزراعة، ولهذا السبب توجد مجموعة مختلفة من المعاملات "
+"لكل من المناطق المناخية العالمية الرئيسية: معتدل جاف (f = 0.80)، رطب معتدل "
+"(f = 0.69)، استوائي جاف (f = 0.58)، رطب استوائي (f = 0.48)، و نظم بيئية "
+"جبلية (f = 0.64)."
 
 #: ../../source/for_users/features/landdegradation.rst:342
 msgid ""
@@ -480,10 +661,14 @@ msgid ""
 "reporting period will be considered potentially degraded, and areas "
 "experiencing a gain of 10% or more as potentially improved."
 msgstr ""
+"حساب الاختلاف النسبي في نسب الكربون العضوي في التربة بين خط الأساس والفترة "
+"المستهدفة، سيتم اعتبار المناطق التي شهدت خسارة في الكربون العضوي في التربة "
+"بنسبة 10 ٪ أكثر خلال الفترة المشمولة بالتقرير متدهورة، والمناطق التي تشهد "
+"مكاسب بنسبة 10 ٪ أو أكثر من المحتمل أن تكون محسّنة."
 
 #: ../../source/for_users/features/landdegradation.rst:353
 msgid "Combining indicators"
-msgstr ""
+msgstr "الجمع بين المؤشرات"
 
 #: ../../source/for_users/features/landdegradation.rst:355
 msgid ""
@@ -492,6 +677,10 @@ msgid ""
 "potentially degraded by any of the sub-indicators, then that area will be "
 "considered potentially degraded for reporting purposes."
 msgstr ""
+"يتم دمج المؤشرات الفرعية الثلاثة لهدف التنمية المستدامة 15.3.1 باتباع قاعدة "
+"\"واحدة تعمم للجميع\" التالية، وهذا يعني أنه إذا تم تحديد منطقة ما على أنها "
+"تدهور محتمل بواسطة أي من المؤشرات الفرعية، فسيتم اعتبار هذا المجال محتملًا "
+"تدهورت لأغراض الإبلاغ."
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
@@ -499,7 +688,7 @@ msgstr "أيقونة حاسبة"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr "أيقونة المخطط"
+msgstr "أيقونة مخطط"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
@@ -511,7 +700,7 @@ msgstr "أيقونة التحميل السحابي"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr "أيقونة Cog"
+msgstr "أيقونة الترس"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
@@ -523,11 +712,11 @@ msgstr "أيقونة الكرة الأرضية"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr "أيقونة الرسم البياني"
+msgstr "أيقونة رسم بياني"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr "أيقونة المعلومات"
+msgstr "أيقونة معلومات"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
@@ -535,7 +724,7 @@ msgstr "أيقونة تحميل مجموعة البيانات"
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr "أيقونة التحديد"
+msgstr "أيقونة تظليل علامة"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
@@ -551,7 +740,7 @@ msgstr "أيقونة مفتاح الربط"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr "أيقونة المجلد"
+msgstr "أيقونة ملف"
 
 #: ../../../<rst_epilog>:31
 msgid "iconReports"
@@ -571,7 +760,7 @@ msgstr "شعار CI"
 
 #: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr "شعار Lund"
+msgstr "شعار لوند"
 
 #: ../../../<rst_epilog>:0
 msgid "logoNASA"

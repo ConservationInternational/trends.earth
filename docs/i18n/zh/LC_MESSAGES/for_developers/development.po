@@ -513,16 +513,21 @@ msgid ""
 "below (if you downloaded the code on Windows into a folder called "
 "\"C:/Users/azvol/Code/trends.earth-CLI/tecli\"):"
 msgstr ""
+"当您按照上述建议设置系统时，trends.earth-CLI 将与用于管理 Trends.earth 的调用任务一起运行，无需任何修改。但是，如果您将 "
+"trends.earth-CLI 下载到不同的文件夹中，那么您需要将一个名为 \"invoke.yaml\" 的文件添加到 trends.earth "
+"存储库的根目录中，并在此文件中告诉 Trends.Earth 在哪里 找到 trends.earth-CLI 代码。此 YAML "
+"文件应如下所示（如果您将 Windows 上的代码下载到名为 \"C:/Users/azvol/Code/trends.earth-"
+"CLI/tecli\" 的文件夹中）："
 
 #: ../../source/for_developers/development.rst:326
 msgid ""
 "Again, you **do not** need to add this .yaml file if you setup your system "
 "as recommended above."
-msgstr ""
+msgstr "同样，如果您按照上述建议设置系统，则**不需要**添加此 .yaml 文件。"
 
 #: ../../source/for_developers/development.rst:330
 msgid "docker"
-msgstr ""
+msgstr "docker"
 
 #: ../../source/for_developers/development.rst:332
 msgid ""
@@ -534,10 +539,15 @@ msgid ""
 "this page <https://docs.docker.com/install>`_ that are appropriate for the "
 "Linux distribution you are using."
 msgstr ""
+"Trends.earth-CLI 包需要 `docker <http://www.docker.com>`_ 才能运行。`按照这些说明在 Windows"
+" 上安装 docker <https://docs.docker.com/docker-for-windows/install/>`_，和`这些说明在 "
+"Mac OS 上安装 docker <https://docs.docker.com/docker-for-"
+"mac/install/>`_。如果您正在运行 "
+"Linux，请遵循此页面上的说明<https://docs.docker.com/install>`_，适合您使用的 Linux 发行版。"
 
 #: ../../source/for_developers/development.rst:342
 msgid "Testing an Earth Engine script locally"
-msgstr ""
+msgstr "本地测试 Earth Engine 脚本"
 
 #: ../../source/for_developers/development.rst:344
 msgid ""
@@ -548,10 +558,12 @@ msgid ""
 "cloud console), then and encode it in base64. Provide that base64 encoded "
 "key to tecli with the following command::"
 msgstr ""
+"安装 Trends.earth-CLI 包后，您需要设置一个 .tecli.yml 文件，其中包含 GEE 服务账户的访问令牌，以便在 GEE "
+"上测试脚本。要为 tecli 设置 GEE 服务账户，首先以 JSON 格式（从谷歌云控制台）获取您的服务账户的密钥，然后将其编码为 base64。"
 
 #: ../../source/for_developers/development.rst:353
 msgid "where \"key\" is the base64 encoded JSON format service account key."
-msgstr ""
+msgstr "其中，\"key\" 是 base64 编码的 JSON 格式服务账户密钥。"
 
 #: ../../source/for_developers/development.rst:355
 msgid ""
@@ -562,6 +574,9 @@ msgid ""
 "\"land_cover\" script, go to the root directory of the Trends.Earth code, "
 "and, in a command prompt, run::"
 msgstr ""
+"在将脚本指定要在 GEE 上运行的代码从 JavaScript 转换为 Python 时，或者在修改此代码时，在本地测试脚本而不将其部署到 "
+"api.trends.earth 服务器会很有用。为此，请使用``run``调用任务。例如，要测试“land_cover”脚本，请转到 "
+"Trends.Earth 代码的根目录，然后在命令提示符下运行："
 
 #: ../../source/for_developers/development.rst:364
 msgid ""
@@ -571,20 +586,23 @@ msgid ""
 "run. Before submitting a new script to api.trends.earth, always make sure "
 "that ``invoke tecli-run`` is able to run the script without any errors."
 msgstr ""
+"这将使用 Trends.earth-CLI 包来构建和运行一个 docker 容器，此容器将尝试运行 \"land_cover\" "
+"脚本。如果脚本中有任何语法错误，这些将在容器运行时显示。 在向 api.trends.earth 提交新脚本之前，请始终确保 ``invoke "
+"tecli-run`` 能够运行脚本而不会出现任何错误。"
 
 #: ../../source/for_developers/development.rst:370
 msgid "When using ``invoke tecli-run`` you may get an error saying:"
-msgstr ""
+msgstr "当使用 ``invoke tecli-run`` 时，您可能会收到一个错误提示："
 
 #: ../../source/for_developers/development.rst:378
 msgid ""
 "This error can be caused if the clock on the docker container gets out of "
 "sync with the system clock. Restarting docker should fix this error."
-msgstr ""
+msgstr "如果 docker 容器上的时钟与系统时钟不同步，则可能会导致此错误。重新启动 docker 应该可以解决此错误。"
 
 #: ../../source/for_developers/development.rst:382
 msgid "Deploying a GEE script to api.trends.earth"
-msgstr ""
+msgstr "将 GEE 脚本部署到 api.trends.earth"
 
 #: ../../source/for_developers/development.rst:384
 msgid ""
@@ -593,6 +611,8 @@ msgid ""
 "can deploy it to the api.trends.earth server. The first step in the process "
 "is logging in to the api.trends.earth server. To login, run::"
 msgstr ""
+"当您完成 GEE 脚本的测试，并希望 QGIS 插件（以及 Trends.Earth 的其他用户）可以访问它时，您可以将它部署到 "
+"api.trends.earth 服务器。此过程的第一步是登录 api.trends.earth 服务器。要登录，请运行："
 
 #: ../../source/for_developers/development.rst:391
 msgid ""
@@ -602,6 +622,9 @@ msgid ""
 "login, but the below command will fail**. To upload a script (for example, "
 "the \"land_cover\" script) to the server, run::"
 msgstr ""
+"您将被要求输入用户名和密码。 这些与您用于从 QGIS 插件登录 Trends.Earth "
+"服务器的用户名和密码相同。**您如果不是管理员，将可以登录，但以下命令将失败**。要将脚本（例如 \"land_cover\" "
+"脚本）上传到服务器，请运行："
 
 #: ../../source/for_developers/development.rst:399
 msgid ""
@@ -611,6 +634,7 @@ msgid ""
 "errors that you make will affect anyone using the plugin. Whenever you are "
 "testing be sure to use development version numbers (odd version numbers)."
 msgstr ""
+"如果服务器上已经存在此脚本，系统将询问您是否要覆盖现有脚本。上传带有偶数版本的脚本时要非常小心，因为这些是公开可用的脚本，您犯的任何错误都会影响使用此插件的人。每当您进行测试时，请务必使用开发版本号（奇数版本号）。"
 
 #: ../../source/for_developers/development.rst:405
 msgid ""
@@ -619,30 +643,32 @@ msgid ""
 "- though note building the script may take a few minutes). To check the "
 "status, of a deployed script, run::"
 msgstr ""
+"将脚本发布到服务器后，您可以使用 `tecli-info` "
+"任务检查脚本的状态（以了解它是否部署成功——尽管注意构建脚本可能需要几分钟）。要检查已部署脚本的状态，请运行："
 
 #: ../../source/for_developers/development.rst:412
 msgid ""
 "If you are making a new release of the plugin, and want to upload ALL of the"
 " GEE scripts at once (this is necessary whenever the plugin version number "
 "changes), run::"
-msgstr ""
+msgstr "如果您正在制作插件的新版本，并且想要一次上传所有 GEE 脚本（每当插件版本号更改时，这是必需的），请运行："
 
 #: ../../source/for_developers/development.rst:418
 msgid ""
 "Again - never run the above on a publicly released version of the plugin "
 "unless you are intending to overwrite all the publicly available scripts "
 "used by the plugin."
-msgstr ""
+msgstr "同样地——除非您打算覆盖插件使用的所有公开可用的脚本，否则切勿在公开发布的插件版本上运行上述内容。"
 
 #: ../../source/for_developers/development.rst:423
 msgid "Editing vector layer templates"
-msgstr ""
+msgstr "编辑矢量图层模板"
 
 #: ../../source/for_developers/development.rst:425
 msgid ""
 "Trends.Earth allow users to digitize new vector features to delineate areas "
 "of special interest."
-msgstr ""
+msgstr "Trends.Earth 让用户可以数字化新的矢量特征，来描绘特别感兴趣的区域。"
 
 #: ../../source/for_developers/development.rst:428
 msgid ""
@@ -656,6 +682,10 @@ msgid ""
 "requested QGIS will look for the template file taking QGIS locale into "
 "accont, as a fall-back option English version of the template file is used."
 msgstr ""
+"目前仅支持“假阳性/阴性”层，但如有必要，可以添加更多。任何矢量图层都是从模板 GeoPackage 文件创建的，可以在插件安装目录的 "
+"``data/error_recode`` 文件夹中找到。每种矢量类型有 6 个模板文件，每种联合国官方语言有一个。ISO "
+"语言代码作为后缀添加到文件名。这对于在属性形式中提供本地化标签是必要的。当请求创建矢量图层时，QGIS 将查找将 QGIS "
+"语言环境纳入账户的模板文件，作为使用模板文件的英文版本的备用选项。"
 
 #: ../../source/for_developers/development.rst:439
 msgid ""
@@ -665,17 +695,19 @@ msgid ""
 "styling and attribute form configuration which will be automatically applied"
 " to the layer when loading into QGIS."
 msgstr ""
+"要更改图层的架构，需要更改插件安装目录的“data/error_recode”文件夹中的相应模板文件。模板文件还包含一个内置的默认样式和属性表单配置，在加载到"
+" QGIS 时将自动应用于图层。"
 
 #: ../../source/for_developers/development.rst:445
 msgid ""
 "To display charts in the attribute form a built-in QML widget is used. Data "
 "for charts are stored in the vector layer attribute table. Values from the "
 "corresponding fields extracted with the help of expressions."
-msgstr ""
+msgstr "为了在属性表单中显示图表，使用了内置的 QML 小部件。图表数据存储在矢量图层属性表中。借助表达式从相应字段中提取的值。"
 
 #: ../../source/for_developers/development.rst:449
 msgid "The code to generate charts looks like this:"
-msgstr ""
+msgstr "生成图表的代码如下所示："
 
 #: ../../source/for_developers/development.rst:479
 msgid ""
@@ -687,24 +719,26 @@ msgid ""
 "percentage of the polygon area. For example, in case of productivity "
 "indicator fields will be:"
 msgstr ""
+"要提取字段值函数 ``expression.evaluate(\"\\\"prod_deg\\\"\")`` "
+"使用，它接受的唯一参数是字段的名称。对于假阳性/阴性层，图表包含三个指标：生产力、土地覆盖和土壤有机碳。对于每个指标插件，保持三个值稳定、退化和改进的多边形区域百分比。例如，在生产力指标字段的情况下，将是："
 
 #: ../../source/for_developers/development.rst:487
 msgid "prod_deg - degraded productivity"
-msgstr ""
+msgstr "prod_deg——生产力下降"
 
 #: ../../source/for_developers/development.rst:488
 msgid "prod_stab - stable productivity"
-msgstr ""
+msgstr "prod_stab——生产力稳定"
 
 #: ../../source/for_developers/development.rst:489
 msgid "prod_imp - improved productivity"
-msgstr ""
+msgstr "prod_imp——生产力提升"
 
 #: ../../source/for_developers/development.rst:491
 msgid ""
 "The same naming approach is applied to land cover (``land_*`` fields) and "
 "soil organic carbon (``soil_*`` fields)."
-msgstr ""
+msgstr "相同的命名方法应用于土地覆盖（``land_*`` 字段）和土壤有机碳（``soil_*`` 字段）。"
 
 #: ../../source/for_developers/development.rst:494
 msgid ""
@@ -717,6 +751,9 @@ msgid ""
 "percentage. As pixel counting is built on numpy array functions it is very "
 "fast even for big polygons."
 msgstr ""
+"面积百分比的计算是通过自定义表达式函数完成的，其代码可以在插件根目录下的``charts.py``文件中找到。功能优化以处理大型多边形并使用以下工作流程。对于给定的几何图形，找到一个"
+" bbox 并用它来提取栅格子集。执行内存几何光栅化，并将其作为掩码应用于光栅。然后计算具有特定值的像素数并计算百分比。由于像素计数建立在 numpy "
+"数组函数上，因此即使对于大型多边形也非常快。"
 
 #: ../../source/for_developers/development.rst:503
 msgid ""
@@ -725,10 +762,11 @@ msgid ""
 " plugin will setup default expression values for all indicator fields, so "
 "the value will be updated on every geometry change."
 msgstr ""
+"在第一次尝试编辑矢量图层时，用户将看到一个对话框，他们应该在其中选择要用于指标的数据集。然后插件将为所有指标字段设置默认表达式值，因此，此值将在每次几何更改时更新。"
 
 #: ../../source/for_developers/development.rst:509
 msgid "Dataset metadata handling"
-msgstr ""
+msgstr "数据集元数据处理"
 
 #: ../../source/for_developers/development.rst:511
 msgid ""
@@ -737,6 +775,8 @@ msgid ""
 "Metadata editor dialog is opened from the **Edit metadata** menu in the "
 "Trends.Earth dock."
 msgstr ""
+"数据集元数据以 QGIS QMD 格式存储。这些 QMD 文件可以为每个栅格单独创建，也可以为整个数据集创建。元数据编辑器对话框从 "
+"Trends.Earth 停靠栏的 **编辑元数据** 菜单打开。"
 
 #: ../../source/for_developers/development.rst:516
 msgid ""
@@ -744,14 +784,15 @@ msgid ""
 "XSLT transformation. Corresponding transformation are located in the "
 "``data\\xsl`` subdirectory of the plugin installation folder."
 msgstr ""
+"将数据集导出到 ZIP 时，使用 XSLT 转换执行到 ISO XML 的转换。相应的转换位于插件安装文件夹的 ``data\\xsl`` 子目录中。"
 
 #: ../../source/for_developers/development.rst:522
 msgid "Updating the Reporting Framework"
-msgstr ""
+msgstr "更新报告框架"
 
 #: ../../source/for_developers/development.rst:527
 msgid "Overview of the Reporting Framework"
-msgstr ""
+msgstr "报告框架概述"
 
 #: ../../source/for_developers/development.rst:528
 msgid ""
@@ -763,12 +804,17 @@ msgid ""
 "information about :code:`qgis_process` `here "
 "<https://docs.qgis.org/3.22/en/docs/user_manual/processing/standalone.html>`_."
 msgstr ""
+"报告框架设计为可扩展的，同时还通过非阻塞操作向用户提供交互性。此框架大量利用 :code:`QgsProject` 和 "
+":code:`QgsPrintLayout` 类，它们的线程不安全，因此使用 :code:`qgis_process` "
+"来完成生成报告（和图表）的繁重工作。您可以在 "
+"`此处<https://docs.qgis.org/3.22/en/docs/user_manual/processing/standalone.html>`_"
+" 找到关于 :code:`qgis_process` 的更多信息。"
 
 #: ../../source/for_developers/development.rst:533
 msgid ""
 "There are two main steps the toolbox performs when generating reports (and "
 "charts) for the default layers in a job:"
-msgstr ""
+msgstr "在为作业中的默认图层生成报告（和图表）时，工具箱会执行两个主要步骤："
 
 #: ../../source/for_developers/development.rst:535
 msgid ""
@@ -780,6 +826,11 @@ msgid ""
 "(that inherits from `QgsTask "
 "<https://qgis.org/pyqgis/master/core/QgsTask.html>`_)."
 msgstr ""
+"它创建一个 :code:`ReportTaskContext` 对象，此对象构成一个 :code:`ReportConfiguration` "
+"对象（请参阅 :ref:`config_report_params`）和一个在 **数据集** 面板中表示的 :code:`Job` 对象。这个 "
+":code:`ReportTaskContext` 对象被序列化为 JSON 文件，然后作为参数之一传递给 "
+":code:`ReportProcessHandlerTask` 对象（继承自 `QgsTask "
+"<https://qgis.org/pyqgis/master/core/QgsTask.html>`_）。"
 
 #: ../../source/for_developers/development.rst:540
 msgid ""
@@ -796,14 +847,21 @@ msgid ""
 ":ref:`modifying_charts_config` for more information about chart "
 "configurations)"
 msgstr ""
+":code:`ReportProcessHandlerTask` 对象启动一个单独的 :code:`qgis_process` 实例，并将 JSON "
+"文件的路径作为 :code:`trendsearth:reporttask` 处理算法的输入传递。这是一个瘦包装器，将文件反序列化为 "
+":code:`ReportTaskContext` 对象，并将其传递给负责生成报告和作业的 QGIS 项目的 "
+":code:`ReportTaskProcessor` 对象。对于需要图表的算法，:code:`ReportTaskProcessor` "
+"对象将作业对象传递给 :code:`AlgorithmChartsManager` "
+"对象，此对象检查是否为作业算法定义了图表配置。如果已定义，它会将相应的图表生成为 PNG 文件。（关于图表配置的更多信息，请参阅 "
+":ref:`modifying_charts_config`）"
 
 #: ../../source/for_developers/development.rst:548
 msgid "The diagram below provides a high-level illustration of this process:"
-msgstr ""
+msgstr "下图提供了此过程的高级说明："
 
 #: ../../source/for_developers/development.rst:554
 msgid "`* Click on the image for an enlarged view.`"
-msgstr ""
+msgstr "`* 点击图片以查看大图。`"
 
 #: ../../source/for_developers/development.rst:557
 msgid ""
@@ -815,10 +873,15 @@ msgid ""
 "<https://github.com/ConservationInternational/trends.earth/tree/master/LDMP/processing_provider/report.py>`_"
 " modules."
 msgstr ""
+"出于说明目的，上图中的一些函数名称已简化。上述类可以在 `LDMP.reports "
+"<https://github.com/ConservationInternational/trends.earth/tree/master/LDMP/reports>`_"
+" 和 `LDMP.processing_provider.report "
+"<https://github.com/ConservationInternational/trends.earth/tree/master/LDMP/processing_provider/report.py>`_"
+" 模块中找到。"
 
 #: ../../source/for_developers/development.rst:565
 msgid "Adding Report Layout Variables"
-msgstr ""
+msgstr "添加报告布局变量"
 
 #: ../../source/for_developers/development.rst:566
 msgid ""
@@ -827,6 +890,8 @@ msgid ""
 "Currently, the toolbox supports variables listed in the "
 ":ref:`layout_expr_vars` section."
 msgstr ""
+"报告变量在报告执行过程中提供与作业、层（或波段）或 :ref:`report_settings` 相关的上下文信息。目前，此工具箱支持 "
+":ref:`layout_expr_vars` 部分中列出的变量。"
 
 #: ../../source/for_developers/development.rst:569
 msgid ""
@@ -836,16 +901,19 @@ msgid ""
 " module and, is subsequently updated and evaluated by the "
 ":code:`ReportTaskProcessor` object."
 msgstr ""
+"每个变量在 `LDMP.reports.expressions "
+"<https://github.com/ConservationInternational/trends.earth/tree/master/LDMP/reports/expressions.py>`_"
+" 模块中定义为一个 :code:`namedtuple`，随后由 ReportTaskProcessor 对象进行更新和评估。"
 
 #: ../../source/for_developers/development.rst:572
 msgid ""
 "Follow the guidelines below on how to add new job or current layer "
 "variables."
-msgstr ""
+msgstr "请遵循以下关于如何添加新作业或当前图层变量的指南。"
 
 #: ../../source/for_developers/development.rst:575
 msgid "Job Variable"
-msgstr ""
+msgstr "作业变量"
 
 #: ../../source/for_developers/development.rst:576
 msgid ""
@@ -853,11 +921,13 @@ msgid ""
 "to a report layout. Information about each job variable is encapsulated in a"
 " :code:`JobAttrVarInfo` object that is made up of four attributes:"
 msgstr ""
+"它可以将关于当前作业——正在执行——的信息添加到报告布局中。每个作业变量的信息都封装在一个 :code:`JobAttrVarInfo` "
+"对象中，此对象由四个属性组成："
 
 #: ../../source/for_developers/development.rst:580
 #: ../../source/for_developers/development.rst:622
 msgid "Attribute Name"
-msgstr ""
+msgstr "属性名称"
 
 #: ../../source/for_developers/development.rst:580
 #: ../../source/for_developers/development.rst:622
@@ -872,11 +942,11 @@ msgstr "数据类型"
 #: ../../source/for_developers/development.rst:580
 #: ../../source/for_developers/development.rst:622
 msgid "Default Value"
-msgstr ""
+msgstr "默认值"
 
 #: ../../source/for_developers/development.rst:582
 msgid "`job_attr`"
-msgstr ""
+msgstr "`job_attr`"
 
 #: ../../source/for_developers/development.rst:582
 msgid ""
@@ -885,6 +955,8 @@ msgid ""
 "notation to refer to attributes in inner nested classes e.g. "
 "`results.uri.uri`."
 msgstr ""
+":code:`Job` 对象的属性名称，以点表示法使用。例如，`id` 对应于 "
+":code:`job.id`。您甚至可以使用点符号来引用内部嵌套类中的属性，例如 `results.uri.uri`。"
 
 #: ../../source/for_developers/development.rst:582
 #: ../../source/for_developers/development.rst:587
@@ -896,41 +968,41 @@ msgstr "字符串"
 #: ../../source/for_developers/development.rst:587
 #: ../../source/for_developers/development.rst:624
 msgid "N/A"
-msgstr ""
+msgstr "不适用"
 
 #: ../../source/for_developers/development.rst:587
 #: ../../source/for_developers/development.rst:624
 msgid "`var_name`"
-msgstr ""
+msgstr "`var_name`"
 
 #: ../../source/for_developers/development.rst:587
 msgid ""
 "Name of the report layout variable. It should be prefixed with `te_job_`."
-msgstr ""
+msgstr "报告布局变量的名称。它应该以 `te_job_` 为前缀。"
 
 #: ../../source/for_developers/development.rst:590
 #: ../../source/for_developers/development.rst:627
 msgid "`default_value`"
-msgstr ""
+msgstr "`default_value`"
 
 #: ../../source/for_developers/development.rst:590
 #: ../../source/for_developers/development.rst:627
 msgid ""
 "A default value to use for `var_name`, mostly applied when designing "
 "layouts."
-msgstr ""
+msgstr "`var_name` 使用的默认值，主要应用于设计布局时。"
 
 #: ../../source/for_developers/development.rst:590
 #: ../../source/for_developers/development.rst:590
 #: ../../source/for_developers/development.rst:627
 #: ../../source/for_developers/development.rst:627
 msgid "object"
-msgstr ""
+msgstr "对象"
 
 #: ../../source/for_developers/development.rst:593
 #: ../../source/for_developers/development.rst:630
 msgid "`fmt_func`"
-msgstr ""
+msgstr "`fmt_func`"
 
 #: ../../source/for_developers/development.rst:593
 msgid ""
@@ -939,39 +1011,41 @@ msgid ""
 " can be used to convert the value of a job's `id` from UUID to string. You "
 "can also use lambda functions here."
 msgstr ""
+"用于将作业的属性值转换为与 QGIS 表达式兼容的格式的函数对象。例如，:code:`str` 可用于将作业的 `id` 值从 UUID "
+"转换为字符串。您也可以在此处使用 lambda 函数。"
 
 #: ../../source/for_developers/development.rst:593
 #: ../../source/for_developers/development.rst:630
 msgid "function object"
-msgstr ""
+msgstr "函数对象"
 
 #: ../../source/for_developers/development.rst:593
 #: ../../source/for_developers/development.rst:630
 msgid "None"
-msgstr ""
+msgstr "全无"
 
 #: ../../source/for_developers/development.rst:601
 msgid ""
 "The code snippet below shows how to add a variable `te_job_result_name` that"
 " corresponds to :code:`job.results.name`."
-msgstr ""
+msgstr "下方的代码片段显示了如何添加对应于 :code:`job.results.name` 的变量 `te_job_result_name`。"
 
 #: ../../source/for_developers/development.rst:617
 msgid "Layer Variable"
-msgstr ""
+msgstr "图层变量"
 
 #: ../../source/for_developers/development.rst:618
 msgid ""
 "It provides information about the current raster layer being executed. This "
 "variable information is encapsulated in a :code:`LayerVarInfo` object that "
 "is made up of three attributes:"
-msgstr ""
+msgstr "它提供关于当前正在执行的栅格图层的信息。此变量信息被封装在一个 :code:`LayerVarInfo` 对象中，此对象由三个属性组成："
 
 #: ../../source/for_developers/development.rst:624
 msgid ""
 "Name of the report layout variable. It should be prefixed with "
 "`te_current_layer_`."
-msgstr ""
+msgstr "报告布局变量的名称。它应该以 `te_current_layer_` 作为前缀。"
 
 #: ../../source/for_developers/development.rst:630
 msgid ""
@@ -980,32 +1054,35 @@ msgid ""
 " object to a format that is compatible with QGIS expressions. You can also "
 "use lambda functions here."
 msgstr ""
+"一个函数对象，用于从 `QgsRasterLayer "
+"<https://qgis.org/pyqgis/master/core/QgsRasterLayer.html>`_ 对象中提取值，和/或将值转换为与"
+" QGIS 表达式兼容的格式。您也可以在此处使用 lambda 函数。"
 
 #: ../../source/for_developers/development.rst:634
 msgid ""
 "For instance, :code:`lambda layer: layer.name()` returns the layer name."
-msgstr ""
+msgstr "例如，:code:`lambda layer: layer.name()` 返回图层名称。"
 
 #: ../../source/for_developers/development.rst:638
 msgid ""
 "The code snippet below shows how to add a variable `te_current_layer_height`"
 " that corresponds to the raster layer's height."
-msgstr ""
+msgstr "下方的代码片段显示了如何添加与栅格图层高度相对应的变量 `te_current_layer_height`。"
 
 #: ../../source/for_developers/development.rst:657
 msgid "These variables are only available in the layout scope."
-msgstr ""
+msgstr "这些变量仅在布局范围内可用。"
 
 #: ../../source/for_developers/development.rst:663
 msgid "Adding Chart Configurations"
-msgstr ""
+msgstr "添加图表配置"
 
 #: ../../source/for_developers/development.rst:664
 msgid ""
 "Charts can be grouped using a chart configuration object that corresponds to"
 " a specific algorithm. Defining a new chart configuration is a three-step "
 "process:"
-msgstr ""
+msgstr "可以使用对应于特定算法的图表配置对象，对图表进行分组。定义新的图表配置是一个三步过程："
 
 #: ../../source/for_developers/development.rst:667
 msgid ""
@@ -1021,12 +1098,18 @@ msgid ""
 " root output directory which is also available as an attribute in the base "
 "class. See the code snippet below:"
 msgstr ""
+"在 `LDMP.reports.charts "
+"<https://github.com/ConservationInternational/trends.earth/tree/master/LDMP/reports/charts.py>`_"
+" 模块中，创建一个继承自 :code:`BaseChart` 的新图表类。使用 QGIS 附带的 :code:`Plotly` Python 库实现 "
+":code:`export` 函数以指定图表类型、属性等。最后，在 :code:`export` 函数中，调用 :code:`save_image` "
+"函数以使用 Qt 的 :code:`QImageWriter` 类支持的任何格式，将 Plotly 的 :code:`Figure` "
+"对象写入图像文件。您还可以将路径指定为相对于根输出目录的路径，此路径也可用作基类中的属性。请参阅下方的代码片段："
 
 #: ../../source/for_developers/development.rst:697
 msgid ""
 "You can refer to the :code:`UniqueValuesPieChart` class for a more complete "
 "example."
-msgstr ""
+msgstr "对于更完整的示例，可以参考 :code:`UniqueValuesPieChart` 类。"
 
 #: ../../source/for_developers/development.rst:699
 msgid ""
@@ -1039,12 +1122,16 @@ msgid ""
 "charts. You can refer to the :code:`LandCoverChartsConfiguration` class for "
 "a more complete example."
 msgstr ""
+"创建一个继承自 :code:`BaseAlgorithmChartsConfiguration` 的图表配置类，并实现 "
+":code:`_add_charts` 函数。图表配置类基本定义了哪些图表将用于给定算法。:code:`layer_band_infos` 属性是一个 "
+":code:`LayerBandInfo` 对象列表，其中包含生成图表所需的图层和 band_info 数据。您可以参考 "
+":code:`LandCoverChartsConfiguration` 类以获得更完整的示例。"
 
 #: ../../source/for_developers/development.rst:705
 msgid ""
 "Finally, map an algorithm (name) to the correspond chart configuration class"
 " in the :code:`AlgorithmChartsManager` class as shown below:"
-msgstr ""
+msgstr "最后，将算法（名称）映射到 :code:`AlgorithmChartsManager` 类中对应的图表配置类，如下所示："
 
 #: ../../source/for_developers/development.rst:719
 msgid ""
@@ -1052,14 +1139,16 @@ msgid ""
 ":code:`ReportTaskProcessor` object, will create a new chart configuration "
 "object for a corresponding job's algorithm when reports are being generated."
 msgstr ""
+"在 :code:`ReportTaskProcessor` 对象中实例化的 :code:`AlgorithmChartsManager` "
+"类，将在生成报告时为相应作业的算法创建一个新的图表配置对象。"
 
 #: ../../source/for_developers/development.rst:724
 msgid "Contributing to the documentation"
-msgstr ""
+msgstr "为文档做贡献"
 
 #: ../../source/for_developers/development.rst:727
 msgid "Overview"
-msgstr ""
+msgstr "概况"
 
 #: ../../source/for_developers/development.rst:729
 msgid ""
@@ -1069,6 +1158,9 @@ msgid ""
 "you are unfamiliar with either of these tools, see their documentation for "
 "more information on how they are used."
 msgstr ""
+"Trends.Earth 的文档是使用 `Sphinx <http://www.sphinx-doc.org/en/master/>`_ 生成的，并以 "
+"`reStructuredText <http://docutils.sourceforge.net/rst.html>`_ "
+"格式编写。如果您不熟悉这些工具中的任何一个，请参阅它们的文档以获取关于如何使用它们的更多信息。"
 
 #: ../../source/for_developers/development.rst:735
 msgid ""
@@ -1076,6 +1168,8 @@ msgid ""
 "the main trends.earth directory. Within that folder there are a number of "
 "key files and folders to be aware of:"
 msgstr ""
+"Trends.Earth 的文档存储在 Trends.earth 主目录下的 \"docs\" "
+"文件夹中。在此文件夹中，有许多需要注意的重要文件和文件夹："
 
 #: ../../source/for_developers/development.rst:739
 msgid ""
@@ -1083,13 +1177,15 @@ msgid ""
 "format). Note it will only appear on your machine after running the ``docs-"
 "build`` invoke task."
 msgstr ""
+"构建：包含 Trends.earth 的构建文档（PDF 和 HTML 格式）。注意，它只会在运行 ``docs-build`` "
+"调用任务后出现在您的机器上。"
 
 #: ../../source/for_developers/development.rst:742
 msgid ""
 "i18n: contains translations of the documentation into other languages. The "
 "files in here are normally processed automatically using invoke tasks, so "
 "you shouldn't ever have reason to modify anything in this folder."
-msgstr ""
+msgstr "i18n：包含将文档翻译成其他语言的版本。这里的文件通常是使用调用任务自动处理的，所以您不应该修改此文件夹中的任何东西。"
 
 #: ../../source/for_developers/development.rst:745
 msgid ""
@@ -1100,13 +1196,15 @@ msgid ""
 "added under \"resources\" with two-letter language codes to include images "
 "specific to a particular language."
 msgstr ""
+"资源：包含文档中提到的任何资源（主要是图像或 "
+"PDF）。目前只有一个文件夹（\"EN\"，表示英语），因为文档中的所有图像都来自插件的英语版本——如果合适，可以在“资源”下添加带有两个字母语言代码的附加文件夹，以包含特定语言的图像。"
 
 #: ../../source/for_developers/development.rst:751
 msgid ""
 "source: contains the reStructuredText source files that define the "
 "documentation (these are the actual English text of the documentation, and "
 "are the files you are most likely to need to modify)."
-msgstr ""
+msgstr "源：包含定义文档的 reStructuredText 源文件（这些是文档的实际英文文本，是您最有可能需要修改的文件）。"
 
 #: ../../source/for_developers/development.rst:761
 msgid ""
@@ -1116,15 +1214,18 @@ msgid ""
 "requirements file for Trends.Earth, so they can be installed by navigating "
 "in a command prompt to the root of the trends.earth code folder and typing::"
 msgstr ""
+"为使用文档，您需要在机器上安装 invoke、Sphinx、sphinx-intl 和 sphinx-rtd-theme（Trends.Earth "
+"网站的主题）。这些包都列在 Trends.Earth 的“开发”需求文件中，因此，可以在命令提示符中导航到 Trends.earth "
+"代码文件夹的根目录，并键入以下内容以安装它们："
 
 #: ../../source/for_developers/development.rst:770
 msgid "LaTeX"
-msgstr ""
+msgstr "LaTeX"
 
 #: ../../source/for_developers/development.rst:772
 msgid ""
 "LaTeX is used to produce PDF outputs of the documentation for Trends.Earth."
-msgstr ""
+msgstr "LaTeX 用于生成 Trends.Earth 文档的 PDF 输出。"
 
 #: ../../source/for_developers/development.rst:774
 msgid ""
@@ -1135,30 +1236,33 @@ msgid ""
 "The LaTeX installer is quite large (several GB) so it might take some time "
 "to download and install."
 msgstr ""
+"要在 Windows 上安装，请按照此处列出的过程 <https://www.tug.org/protext>`_，从此处提供的 zip 文件 "
+"<http://ftp.math.purdue.edu/mirrors/ctan.org/systems/windows/protext/>`_ 安装 "
+"LaTeX 的 proTeXt 发行版。LaTeX 安装程序非常大（数个 GB），因此下载和安装可能需要一些时间。"
 
 #: ../../source/for_developers/development.rst:781
 msgid ""
 "On MacOS, MacTeX is a good option, and can be installed `following the "
 "instructions here <http://www.tug.org/mactex/>`_."
-msgstr ""
+msgstr "在 MacOS 上，MacTeX 是个很好的选择，可以按照此处的说明进行安装<http://www.tug.org/mactex/>`_。"
 
 #: ../../source/for_developers/development.rst:784
 msgid ""
 "On Linux, installing LaTeX should be much easier - use your distribution's "
 "package manager to find and install whatever LaTeX distribution is included "
 "by default."
-msgstr ""
+msgstr "在 Linux 上，安装 LaTeX 应该更容易——使用您发行版的包管理器，来查找和安装默认包含的任何 LaTeX 发行版。"
 
 #: ../../source/for_developers/development.rst:789
 msgid "Qt Linguist"
-msgstr ""
+msgstr "Qt Linguist"
 
 #: ../../source/for_developers/development.rst:791
 msgid ""
 "Qt Linguist is also needed in order to pull strings from the code and GUI "
 "for translation. The \"lrelease\" command must be available and on your "
 "path. Try trying::"
-msgstr ""
+msgstr "为了从代码和 GUI 中提取字符串进行翻译，还需要 Qt Linguist。\"lrelease\" 命令必须可用并且在您的路径上。请尝试："
 
 #: ../../source/for_developers/development.rst:797
 msgid ""
@@ -1168,10 +1272,14 @@ msgid ""
 " install Qt Linguist ensure you add the folder containing lrelease to your "
 "path so that the Trends.Earth invoke script can find it."
 msgstr ""
+"在终端窗口中。您如果找不到文件，则需要安装 Qt Linguist。`此页面 "
+"<https://github.com/lelegard/qtlinguist-installers/releases>`_ 是 Qt Linguist"
+" 安装程序的一个来源。安装 Qt Linguist 后，确保将包含 lrelease 的文件夹添加到路径中，以便 Trends.Earth "
+"调用脚本可以找到。"
 
 #: ../../source/for_developers/development.rst:805
 msgid "Updating and building the documentation"
-msgstr ""
+msgstr "更新和构建文档"
 
 #: ../../source/for_developers/development.rst:807
 msgid ""
@@ -1189,6 +1297,12 @@ msgid ""
 "(for \"fast\"). This option will build only the English HTML documentation, "
 "which should take only a few seconds. To build using the fast option, run::"
 msgstr ""
+"安装 sphinx 要求后，您就可以开始修改文档了。要修改的文件位于 \"docs\\\\source\" "
+"文件夹下。对这些文件进行更改后，您将需要构建文档以查看结果。Trends.Earth 文档有两个版本：HTML 版本（用于网站）和 PDF "
+"版本（用于离线下载）。要构建 Trends.Earth 的文档，请使用 \"docs-build\" 调用任务。默认情况下，此任务将为 "
+"Trends.Earth 构建所有支持语言的 HTML 和 PDF "
+"格式的完整文档。这可能需要一些时间来运行（最多几个小时）。如果您只是测试对文档进行一些细微更改的结果，通常最好使用``-f`` "
+"选项（用于“快速”）。此选项将仅构建英文 HTML 文档，这应该只需要几秒钟。要使用快速选项构建，请运行："
 
 #: ../../source/for_developers/development.rst:823
 msgid ""
@@ -1197,12 +1311,14 @@ msgid ""
 "documentation. Load the \"index.html\" file in a web browser to see how it "
 "looks."
 msgstr ""
+"上方的命令需要几秒钟才能运行，您如果在 \"docs\\\\build\\\\html\\\\en\" 下查看，会看到文档的 HTML "
+"版本。在浏览器中加载 \"index.html\" 文件以查看其外观。"
 
 #: ../../source/for_developers/development.rst:827
 msgid ""
 "To build the full documentation, for all languages, in PDF and in HTML "
 "(remember this could take a few hours to complete), run::"
-msgstr ""
+msgstr "要以 PDF 和 HTML 格式构建所有语言的完整文档（请记住，这可能需要几个小时才能完成），请运行："
 
 #: ../../source/for_developers/development.rst:832
 msgid ""
@@ -1210,6 +1326,8 @@ msgid ""
 "documentation under \"docs\\\\build\\\\html\\\\en\", and the PDFs of the "
 "documentation under \"docs\\\\build\\\\html\\\\en\\\\pdfs\"."
 msgstr ""
+"运行上述命令后，您将看到（英文）\"docs\\\\build\\\\html\\\\en\" 下的 HTML 文档，以及 "
+"\"docs\\\\build\\\\html\\\\en\\\\pdfs\" 下的 PDF 文档。"
 
 #: ../../source/for_developers/development.rst:836
 msgid ""
@@ -1217,13 +1335,13 @@ msgid ""
 "example), you can specify a two letter language code to only build the docs "
 "for that language. For example, to build the Spanish documentation only, "
 "run::"
-msgstr ""
+msgstr "如果您想测试特定语言（例如，在测试翻译时），您可以指定两个字母的语言代码以仅构建此语言的文档。例如，要仅构建西班牙语文档，请运行："
 
 #: ../../source/for_developers/development.rst:843
 msgid ""
 "Note that options can be combined, so you can use the fast option to build "
 "only the HTML version of the Spanish documentation by running::"
-msgstr ""
+msgstr "请注意，选项可以组合，因此您可以使用快速选项，通过运行以下命令，仅构建西班牙语文档的 HTML 版本："
 
 #: ../../source/for_developers/development.rst:848
 msgid ""
@@ -1232,6 +1350,7 @@ msgid ""
 "files that are no longer used in the updated documentation. To do this, use "
 "the ``-c`` (clean) option::"
 msgstr ""
+"在为网站构建完整文档时，最好先删除文档的所有旧版本，因为它们可能包含更新文档中不再使用的文件。为此，请使用 ``-c`` (clean) 选项："
 
 #: ../../source/for_developers/development.rst:855
 msgid ""
@@ -1243,6 +1362,8 @@ msgid ""
 " regardless of whether there are any errors. To do this, use the ``-i`` "
 "(ignore errors) option::"
 msgstr ""
+"一般来说，如果您打算共享文档或将其发布到网站上，则 docs-build "
+"必须完成且没有任何错误。但是，在本地测试时，您可能希望忽略仅针对某些语言弹出的文档错误（由于翻译错误等引起的语法错误），并继续构建剩余的文档，无论是否有任何错误。为此，请使用``-i``（忽略错误）选项："
 
 #: ../../source/for_developers/development.rst:864
 msgid ""
@@ -1250,29 +1371,31 @@ msgid ""
 " idea to push the latest strings to Transifex so they can be translated. To "
 "update the strings on Transifex with any new changes, run::"
 msgstr ""
+"每当您对文档的文本进行任何更改时，最好将最新的字符串推送到 Transifex，以便进行翻译。要使用任何新的更改来更新 Transifex "
+"上的字符串，请运行："
 
 #: ../../source/for_developers/development.rst:870
 msgid ""
 "To successfully run the above command you will need to have the key for the "
 "Trends.Earth transifex account."
-msgstr ""
+msgstr "要成功运行上述命令，您需要有 Trends.Earth transifex 账户的密钥。"
 
 #: ../../source/for_developers/development.rst:874
 msgid "Building documentation for release"
-msgstr ""
+msgstr "构建发布文档"
 
 #: ../../source/for_developers/development.rst:876
 msgid ""
 "Before releasing new documentation, always pull the latest translations from"
 " Transifex so that all translations are up to date. To do this, run::"
-msgstr ""
+msgstr "在发布新文档之前，请始终从 Transifex 中提取最新的翻译，以便所有翻译都是最新的。为此，请运行："
 
 #: ../../source/for_developers/development.rst:881
 msgid ""
 "To build a version of the documentation for public release (either to the "
 "website, or in PDF) you must build the entire documentation using ``docs-"
 "build`` with no additional parameters::"
-msgstr ""
+msgstr "要构建公开发布的文档版本（网站或 PDF 格式），您必须使用 ``docs-build`` 构建整个文档，无需其他参数："
 
 #: ../../source/for_developers/development.rst:887
 msgid ""
@@ -1281,6 +1404,7 @@ msgid ""
 "needed to allow the build to complete successfully. Once the build completes"
 " with no errors, the files are ready to be deployed on the website."
 msgstr ""
+"此过程必须成功完成且没有错误。如果在此过程中发生任何错误，请查看错误消息，并进行必要的修改以使构建成功完成。一旦构建完成且没有错误，就可以将文件部署在网站上。"
 
 #: ../../source/for_developers/development.rst:892
 msgid ""
@@ -1291,10 +1415,13 @@ msgid ""
 "leading to lost work done by the translators if the latest translations have"
 " not yet been committed to github."
 msgstr ""
+"上述两个命令也有 ``-f`` （强制）选项，强制从 Transifex "
+"拉或推最新的翻译（分别）。仅当您非常确定自己在做什么时才使用这些选项，因为它们可以完全覆盖 Transifex 上的翻译，如果最新的翻译尚未提交到 "
+"github，则会导致翻译人员所做的工作丢失。"
 
 #: ../../source/for_developers/development.rst:900
 msgid "Adding new documentation text"
-msgstr ""
+msgstr "添加新的文档文本"
 
 #: ../../source/for_developers/development.rst:902
 msgid ""
@@ -1303,19 +1430,21 @@ msgid ""
 "that they are properly translated, and (for tutorials) to ensure that they "
 "are generated in PDF so they can be downloaded for offline use."
 msgstr ""
+"添加到文档中的任何新 .rst 文件都需要添加到多个配置文件中，以确保它们出现在导航菜单中，它们被正确翻译，并且（对于教程）确保它们以 PDF "
+"格式生成，以便它们可以下载以供离线使用。"
 
 #: ../../source/for_developers/development.rst:907
 msgid ""
 "docs\\\\source\\\\index.rst: add new .rst files in the appropriate place "
 "here to ensure that they are linked to from the navigation menu."
-msgstr ""
+msgstr "docs\\\\source\\\\index.rst：在此处的适当位置添加新的 .rst 文件，以确保从导航菜单链接到它们。"
 
 #: ../../source/for_developers/development.rst:909
 msgid ""
 ".tx\\\\config: list new .rst files here (in the same format as the other "
 "files already included) in order to make the translation software aware of "
 "them so that they can be translated"
-msgstr ""
+msgstr ".tx\\\\config：在此处列出新的 .rst 文件（与已包含的其他文件格式相同），以使翻译软件能够识别它们，以便进行翻译"
 
 #: ../../source/for_developers/development.rst:912
 msgid ""
@@ -1326,10 +1455,13 @@ msgid ""
 "included in the PDF version of the website as a whole, regardless of whether"
 " it is in the ``latex_documents`` list."
 msgstr ""
+"docs\\\\source\\\\conf.py：如果要生成网站页面的 PDF 文件，则必须在 ``latex_documents`` "
+"列表中列出该页面。通常我们只对希望以个人 PDF 格式提供给研讨会参与者的教程页面执行此操作。网站上的每个页面都将包含在整个网站的 PDF "
+"版本中，无论它是否在 ``latex_documents`` 列表中。"
 
 #: ../../source/for_developers/development.rst:920
 msgid "Adding new images or other resources"
-msgstr ""
+msgstr "添加新图像或其他资源"
 
 #: ../../source/for_developers/development.rst:922
 msgid ""
@@ -1346,6 +1478,10 @@ msgid ""
 "as the default for all languages for which a native version of the image is "
 "not provided, while a localized version will be used when available."
 msgstr ""
+"文档所需的任何新图像或其他资源（PDF 等）都应添加到 \"docs\\\\resources\\\\en\" "
+"下。如果需要，可以上传不同版本的图像，以便图像显示正确的翻译。例如，如果您想以适当的语言显示 GUI 界面，这可能很有用。为此，首先将图像的副本上传到 "
+"\"docs\\\\resources\\en\"（其中包含英文文本）。然后，创建带有翻译文本的图像副本，并将此图像放在此语言的相应文件夹下（例如，显示西班牙语翻译的图像将位于"
+" \"docs\\\\resources\\\\es\" 下）。图像的英文版本将用作未提供图像本地版本的所有语言的默认设置，而本地化版本将在可用时使用。"
 
 #: ../../source/for_developers/development.rst:935
 msgid ""
@@ -1357,10 +1493,14 @@ msgid ""
 "``docs\\\\resources\\\\en`` or, for translated images, the appropriate "
 "language-specific folder under ``docs\\\\resources``."
 msgstr ""
+"还有另一个文件夹 ``docs\\\\source\\\\static``，用于在运行构建 Trends.Earth "
+"文档的脚本时临时保存资源。如果您曾经在这台机器上构建过文档，那么您可能在此文件夹下列出了图像。**永远不要使用此文件夹添加新资源**——新资源应始终位于"
+" ``docs\\\\resources\\\\en`` 下，或者对于翻译的图像，应位于 ``docs\\\\resources`` "
+"下相应的特定语言文件夹。"
 
 #: ../../source/for_developers/development.rst:944
 msgid "Contributing as a translator"
-msgstr ""
+msgstr "作为译者做贡献"
 
 #: ../../source/for_developers/development.rst:946
 msgid ""
@@ -1372,6 +1512,11 @@ msgid ""
 "emailing us at `trends.earth@conservation.org "
 "<mailto:trends.earth@conservation.org>`_."
 msgstr ""
+"QGIS 插件和本网站的翻译均由 `transifex <http://www.transifex.com>`_ "
+"管理。您如果想为翻译插件和文档做出贡献（我们很乐意得到您的帮助！），可以通过 transifex "
+"<https://www.transifex.com/conservation-international/trendsearth>`_ "
+"请求加入我们的团队，或发送电子邮件至 `trends.earth @conservation.org "
+"<mailto:trends.earth@conservation.org>`_。"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"

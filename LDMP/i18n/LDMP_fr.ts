@@ -61,9 +61,6 @@
     </message>
 </context>
 <context>
-    <name>BaseAlgorithmChartsConfiguration</name>
-</context>
-<context>
     <name>BufferMapTool</name>
     <message>
         <location filename="../maptools.py" line="390"/>
@@ -4726,9 +4723,6 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
-    <name>SdgSummaryChartsConfiguration</name>
-</context>
-<context>
     <name>TCSummary</name>
     <message>
         <location filename="../processing_provider/carbon.py" line="36"/>
@@ -6173,8 +6167,8 @@ pour les algorithmes en cours d&apos;exécution et leurs résultats.</translatio
     </message>
     <message>
         <location filename="../layers.py" line="102"/>
-        <source>Land cover degradation comparison ({year_initial} to {year_final})</source>
-        <translation>Comparaison de la dégradation de la couverture terrestre ({year_initial} à {year_final})</translation>
+        <source>Land cover degradation comparison ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../layers.py" line="109"/>

@@ -5,24 +5,28 @@
 [![Documentation Status](https://readthedocs.org/projects/trendsearth/badge/?version=latest)](https://trendsearth.readthedocs.io/en/latest/?badge=latest)
 [![Zipfile Status](https://github.com/ConservationInternational/trends.earth/actions/workflows/build_zipfile.yaml/badge.svg)](https://github.com/ConservationInternational/trends.earth/actions/workflows/build_zipfile.yaml)
 
-`Trends.Earth` (formerly the Land Degradation Monitoring Toolbox) is a tool for
-monitoring land change. `Trends.Earth` is a [QGIS](http://www.qgis.org) plugin
-that supports monitoring of land change, including changes in productivity,
-land cover, and soil organic carbon. The tool can support monitoring land
-degradation for reporting to the Global Environment Facility (GEF) and United
-Nations Convention to Combat Desertification (UNCCD), as well as tracking
-progress towards achievement of Sustainable Development Goal (SDG) target 15.3,
-Land Degradation Neutrality (LDN).
+`Trends.Earth` is a free and open source tool to understand land change: the how and why
+behind changes on the ground. Trends.Earth allows users to draw on the best available
+information from across a range of sources - from globally available data to customized
+local maps. A broad range of users are applying Trends.Earth for projects ranging from
+planning and monitoring restoration efforts, to tracking urbanization, to developing
+official national report for submission to the United Nations Convention to Combat
+Desertification (UNCCD).
 
-`Trends.Earth` was produced as an output of the GEF-funded project [“Enabling
-the use of global data sources to assess and monitor land degradation at
-multiple scales”](http://vitalsigns.org/gef-ldmp). The project aims to provide
-guidance on robust methods and a tool for assessing, monitoring status, and
-estimating trends in land degradation using remote sensing technology.
+`Trends.Earth` is a [QGIS](http://www.qgis.org) plugin that supports monitoring of land
+change, including trends in urbanization, and changes in productivity, land cover, and
+soil organic carbon. The tool can support monitoring land degradation for reporting to
+the Global Environment Facility (GEF) and United Nations Convention to Combat
+Desertification (UNCCD), as well as tracking progress towards achievement of Sustainable
+Development Goal (SDG) target 15.3, Land Degradation Neutrality (LDN).
 
-The Land Degradation Monitoring Project is a collaboration of Conservation
-International, the National Aeronautics and Space Administration (NASA), and
-Lund University.
+Trends.Earth was produced by a partnership of Conservation International, Lund
+University, and the National Aeronautics and Space Administration (NASA), with
+the support of the Global Environment Facility (GEF). It was further developed
+through a partnership with Conservation International, University of Bern,
+University of Colorado in partnership with USDA and USAID, University of California -
+Santa Barbara in partnership with University of North Carolina - Wilmington and Brown
+University with additional funding from the Global Environment Facility (GEF).
 
 ## Documentation
 

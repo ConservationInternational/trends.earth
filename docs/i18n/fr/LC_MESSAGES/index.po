@@ -1,49 +1,56 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
-#
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
+# Monica Noon <mnoon@conservation.org>, 2022
+# Alex Zvoleff <azvoleff@conservation.org>, 2022
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-06-23 09:01-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2022-06-26 18:04+0000\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
+"Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 #: ../../source/index.rst:36
 msgid "Trends.Earth User Guide"
-msgstr ""
+msgstr "Guide d'utilisateur Trends.Earth"
 
-#: ../../source/index.rst:36
+#: ../../source/index.rst:36 ../../source/index.rst:36
 msgid "User Guide"
-msgstr ""
+msgstr "Mode d'emploi"
 
 #: ../../source/index.rst:42
 msgid "Trends.Earth Developers Guide"
 msgstr ""
 
-#: ../../source/index.rst:42
+#: ../../source/index.rst:42 ../../source/index.rst:42
 msgid "Developers Guide"
-msgstr ""
+msgstr "Guide pour les développeurs"
 
+#: ../../source/index.rst:48 ../../source/index.rst:48
 #: ../../source/index.rst:48
 msgid "General Information"
 msgstr ""
 
-#: ../../../<rst_epilog>:37 ../../source/index.rst:4
+#: ../../source/index.rst:4 ../../../<rst_epilog>:37
 msgid "Trends.Earth"
-msgstr ""
+msgstr "Trends.Earth"
 
+#: ../../source/index.rstNone
 msgid "trends.earth"
-msgstr ""
+msgstr "trends.earth"
 
 #: ../../source/index.rst:17
 msgid ":index_path:`عربى <ar>`"
@@ -79,11 +86,11 @@ msgstr ""
 
 #: ../../source/index.rst:20
 msgid ""
-"Trends.Earth was produced by a partnership of Conservation International,"
-" Lund University, and the National Aeronautics and Space Administration "
-"(NASA), with the support of the Global Environment Facility (GEF). It was"
-" further developed through a partnership with Conservation International,"
-" University of Bern, University of Colorado in partnership with USDA and "
+"Trends.Earth was produced by a partnership of Conservation International, "
+"Lund University, and the National Aeronautics and Space Administration "
+"(NASA), with the support of the Global Environment Facility (GEF). It was "
+"further developed through a partnership with Conservation International, "
+"University of Bern, University of Colorado in partnership with USDA and "
 "USAID, University of California - Santa Barbara in partnership with "
 "University of North Carolina - Wilmington and Brown University with "
 "additional funding from the Global Environment Facility (GEF)."
@@ -94,119 +101,93 @@ msgid ""
 "`Download this documentation as a PDF for offline use "
 "<pdfs/Trends.Earth.pdf>`_"
 msgstr ""
+"`Télécharger cette documentation en format PDF pour une utilisation hors "
+"ligne <pdfs/Trends.Earth.pdf>`_"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr ""
+msgstr "icôneCalculatrice"
 
 #: ../../../<rst_epilog>:4
 msgid "iconChart"
-msgstr ""
+msgstr "icôneTableau"
 
 #: ../../../<rst_epilog>:6
 msgid "iconClipboard"
-msgstr ""
+msgstr "icônePresse-papiers"
 
 #: ../../../<rst_epilog>:8
 msgid "iconCloudDownload"
-msgstr ""
+msgstr "icôneTéléchargementCloud"
 
 #: ../../../<rst_epilog>:10
 msgid "iconCog"
-msgstr ""
+msgstr "icôneRouedentée"
 
 #: ../../../<rst_epilog>:12
 msgid "iconDeletedataset"
-msgstr ""
+msgstr "icôneSupprimerl'ensemble"
 
 #: ../../../<rst_epilog>:14
 msgid "iconGlobe"
-msgstr ""
+msgstr "icôneGlobe"
 
 #: ../../../<rst_epilog>:16
 msgid "iconGraph"
-msgstr ""
+msgstr "icôneGraphique"
 
 #: ../../../<rst_epilog>:18
 msgid "iconInfo"
-msgstr ""
+msgstr "icôneInfos"
 
 #: ../../../<rst_epilog>:20
 msgid "iconLoaddataset"
-msgstr ""
+msgstr "iconLoaddataset "
 
 #: ../../../<rst_epilog>:21
 msgid "iconMarkMarker"
-msgstr ""
+msgstr "icôneMarqueur"
 
 #: ../../../<rst_epilog>:23
 msgid "iconOpendatasetdirectory"
-msgstr ""
+msgstr "icôneOuvrirlerépertoiredel'ensemble"
 
 #: ../../../<rst_epilog>:25
 msgid "iconViewdatasetdetails"
-msgstr ""
+msgstr "icôneAfficherlesdétailsdel'ensemble"
 
 #: ../../../<rst_epilog>:27
 msgid "iconWrench"
-msgstr ""
+msgstr "icôneClé"
 
 #: ../../../<rst_epilog>:29
 msgid "iconFolder"
-msgstr ""
+msgstr "icôneDossier"
 
 #: ../../../<rst_epilog>:31
 msgid "iconReports"
-msgstr ""
+msgstr "icôneRapports"
 
 #: ../../../<rst_epilog>:33
 msgid "iconTrendsEarth"
-msgstr ""
+msgstr "icôneTrendsEarth"
 
 #: ../../../<rst_epilog>:35
 msgid "iconVisualization"
-msgstr ""
+msgstr "icôneVisualisation"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoCI"
-msgstr ""
+msgstr "Logo CI"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoLund"
-msgstr ""
+msgstr "Logo Lund"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoNASA"
-msgstr ""
+msgstr "Logo NASA"
 
-#: ../../../<rst_epilog>
+#: ../../../<rst_epilog>:0
 msgid "logoGEF"
-msgstr ""
-
-#~ msgid "`English <../en/index.html>`_"
-#~ msgstr ""
-
-#~ msgid "`Español <../es/index.html>`_"
-#~ msgstr ""
-
-#~ msgid "`Francais <../fr/index.html>`_"
-#~ msgstr ""
-
-#~ msgid "`Swahili <../sw/index.html>`_"
-#~ msgstr ""
-
-#~ msgid "`Português <../pt/index.html>`_"
-#~ msgstr ""
-
-#~ msgid ":index_path:`English<en>`"
-#~ msgstr ""
-
-#~ msgid ":index_path:`Spanish <es>`"
-#~ msgstr ""
-
-#~ msgid ":index_path:`French <fr>`"
-#~ msgstr ""
-
-#~ msgid ":index_path:`Swahili <sw>`"
-#~ msgstr ""
-
+msgstr "Logo GEF"

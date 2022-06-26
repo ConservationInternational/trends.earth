@@ -4668,7 +4668,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../reports/generator.py" line="1130"/>
         <source>are being processed (id {[str(job.id) for job in ctx.jobs]})...</source>
-        <translation type="unfinished"/>
+        <translation>sont en cours de traitement (ID {[str(job.id) for job in ctx.jobs]})...</translation>
     </message>
 </context>
 <context>
@@ -6168,7 +6168,7 @@ pour les algorithmes en cours d&apos;exécution et leurs résultats.</translatio
     <message>
         <location filename="../layers.py" line="102"/>
         <source>Land cover degradation comparison ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})</source>
-        <translation type="unfinished"/>
+        <translation>Comparaison de la dégradation de la couverture terrestre ({baseline_year_initial}-{baseline_year_final} vs {progress_year_initial}-{progress_year_final})</translation>
     </message>
     <message>
         <location filename="../layers.py" line="109"/>

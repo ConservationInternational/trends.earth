@@ -1128,24 +1128,22 @@ def docs_build(c, clean=False, ignore_errors=False, language=None, fast=False):
                 sphinx_opts=SPHINX_OPTS, tex_dir=tex_dir
             )
         )
-
-        for doc in c.sphinx.latex_documents:
-            for n in range(3):
+        
+        tex_files = [Path(tex_file).name for tex_file in glob.glob(f'{tex_dir}/*.tex')]
+        for tex_file in tex_files:
+            for _ in range(3):
                 # Run multiple times to ensure crossreferences are right
-                subprocess.check_call(['xelatex', doc], cwd=tex_dir)
+                subprocess.check_call(['xelatex', tex_file], cwd=tex_dir)
             # Move the PDF to the html folder so it will be uploaded with the
             # site
-            doc_pdf = os.path.splitext(doc)[0] + '.pdf'
+            pdf_file = os.path.splitext(tex_file)[0] + '.pdf'
             out_dir = '{builddir}/html/{lang}/pdfs'.format(
                 builddir=c.sphinx.builddir, lang=language
             )
 
             if not os.path.exists(out_dir):
                 os.makedirs(out_dir)
-            shutil.move(
-                '{tex_dir}/{doc}'.format(tex_dir=tex_dir, doc=doc_pdf),
-                '{out_dir}/{doc}'.format(out_dir=out_dir, doc=doc_pdf)
-            )
+            shutil.move(f'{tex_dir}/{pdf_file}', f'{out_dir}/{pdf_file}')
 
 
 def localize_resources(c, language=None):
@@ -1893,8 +1891,7 @@ ns.configure(
             'deploy_s3_bucket': 'trends.earth',
             'docs_s3_prefix': 'docs/',
             'transifex_name': 'trendsearth-v2',
-            'base_language': 'en',
-            'latex_documents': ['Trends.Earth.tex']
+            'base_language': 'en'
         },
         'data_downloads': {
             'downloads_page': 'docs/source/for_users/downloads/index.md',

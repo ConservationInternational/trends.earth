@@ -238,11 +238,25 @@ html_css_files = ["custom.css"]
 
 latex_documents = [
     (
-        "index",
-        u"Trends.Earth.tex",
-        u"Trends.Earth Documentation",
-        u"Conservation International",
-        "manual",
+        "for_users/index",
+        f"TrendsEarth_User_Guide_{version}_{language}.tex",
+        "Trends.Earth User Guide",
+        "Conservation International",
+        "manual"
+    ),
+    (
+        "for_developers/index",
+        f"TrendsEarth_Developers_Guide_{version}_{language}.tex",
+        "Trends.Earth - Developers Guide",
+        "Conservation International",
+        "manual"
+    ),
+    (
+        "general/index",
+        f"TrendsEarth_General_Information_{version}_{language}.tex",
+        "Trends.Earth - General Information",
+        "Conservation International",
+        "manual"
     ),
 ]
 
@@ -259,7 +273,7 @@ latex_logo = "../resources/en/common/trends_earth_logo_bl_1200.png"
 
 # For "manual" documents, if this is true, then toplevel headings are parts,
 # not chapters.
-latex_use_parts = True
+#latex_use_parts = True
 
 # If true, show page references after internal links.
 # latex_show_pagerefs = False
@@ -278,15 +292,6 @@ latex_use_parts = True
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [
-    (
-        "index",
-        "TemplateClass",
-        u"trends.earth documentation",
-        [u"Conservation International"],
-        1,
-    )
-]
 
 latex_engine = 'xelatex'
 latex_use_xindy = False

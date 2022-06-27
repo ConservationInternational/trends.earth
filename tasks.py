@@ -125,9 +125,10 @@ def _replace(file_path, regex, subst):
 
 @task(help={'v': 'Version to set',
             'ta': 'Also set version for trends.earth-algorithms',
-            'ts': 'Also set version for trends.earth-schemas'
+            'ts': 'Also set version for trends.earth-schemas',
+            'tag': 'Also set tag(s)'
 })
-def set_version(c, v=None, ta=False, ts=False):
+def set_version(c, v=None, ta=False, ts=False, tag=False):
     # Validate the version matches the regex
 
     if not v:
@@ -172,7 +173,7 @@ def set_version(c, v=None, ta=False, ts=False):
         # Set in Sphinx docs in make.conf
         print('Setting version to {} in sphinx conf.py'.format(v))
         sphinx_regex = re.compile(
-            '(((version)|(release)) = ")[0-9]+([.][0-9]+)+', re.IGNORECASE
+            '(((version)|(release)) = ")[0-9]+([.][0-9]+)+(rc[0-9]*)?', re.IGNORECASE
         )
         _replace(
             os.path.join(c.sphinx.sourcedir, 'conf.py'), sphinx_regex,
@@ -181,7 +182,7 @@ def set_version(c, v=None, ta=False, ts=False):
 
         # Set in metadata.txt
         print('Setting version to {} in metadata.txt'.format(v))
-        sphinx_regex = re.compile("^(version=)[0-9]+([.][0-9]+)+")
+        sphinx_regex = re.compile("^(version=)[0-9]+([.][0-9]+)+(rc[0-9]*)?")
         _replace(
             os.path.join(c.plugin.source_dir, 'metadata.txt'), sphinx_regex,
             '\g<1>' + v
@@ -191,7 +192,7 @@ def set_version(c, v=None, ta=False, ts=False):
         # underscore
         v_gee = v.replace('.', '_')
 
-        if not v or not re.match("[0-9]+(_[0-9]+)+", v_gee):
+        if not v or not re.match("[0-9]+(_[0-9]+)+(rc[0-9]*)?", v_gee):
             print('Must specify a valid version (example: 0.36)')
 
             return
@@ -222,9 +223,11 @@ def set_version(c, v=None, ta=False, ts=False):
                 elif file == 'requirements.txt':
                     print('Setting version to {} in {}'.format(v, filepath))
 
-                    if (int(v.split('.')[-1]) % 2) == 0:
-                        # Last number in version string is even, so use a tagged version of
-                        # schemas matching this version
+                    if (
+                        ('rc' in v.split('.')[-1]) or (int(v.split('.')[-1]) % 2 == 0)
+                    ):
+                        # Last number in version string is even (or this is an RC), so
+                        # use a tagged version of schemas matching this version
                         _replace(
                             filepath, requirements_txt_regex, '\g<1>v' + v
                         )
@@ -237,14 +240,14 @@ def set_version(c, v=None, ta=False, ts=False):
                 elif file == '__init__.py':
                     print('Setting version to {} in {}'.format(v, filepath))
                     init_version_regex = re.compile(
-                        '^(__version__[ ]*=[ ]*["\'])[0-9]+([.][0-9]+)+'
+                        '^(__version__[ ]*=[ ]*["\'])[0-9]+([.][0-9]+)+(rc[0-9]*)?'
                     )
                     _replace(filepath, init_version_regex, '\g<1>' + v)
 
         # Set in scripts.json
         print('Setting version to {} in scripts.json'.format(v))
         scripts_regex = re.compile(
-            '("version": ")[0-9]+([-._][0-9]+)+', re.IGNORECASE
+            '("version": ")[0-9]+([-._][0-9]+)+(rc[0-9]*)?', re.IGNORECASE
         )
         _replace(
             os.path.join(c.plugin.source_dir, 'data', 'scripts.json'),
@@ -253,9 +256,11 @@ def set_version(c, v=None, ta=False, ts=False):
 
         print('Setting version to {} in package requirements.txt'.format(v))
 
-        if (int(v.split('.')[-1]) % 2) == 0:
-            # Last number in version string is even, so use a tagged version of
-            # schemas matching this version
+        if (
+            ('rc' in v.split('.')[-1]) or (int(v.split('.')[-1]) % 2 == 0)
+        ):
+            # Last number in version string is even (or an RC), so use a tagged version
+            # of schemas matching this version
             _replace('requirements.txt', requirements_txt_regex, '\g<1>v' + v)
         else:
             # Last number in version string is odd, so this is a development
@@ -264,11 +269,16 @@ def set_version(c, v=None, ta=False, ts=False):
                 'requirements.txt', requirements_txt_regex, '\g<1>develop'
             )
 
+    if tag:
+        set_tag(c)
 
     for module in c.plugin.ext_libs.local_modules:
         module_path = Path(module['path']).parent
         print(f"Also setting tag for {module['name']}")
-        subprocess.check_call(['invoke', 'set-version', '-v', v], cwd=module_path)
+        if tag:
+            subprocess.check_call(['invoke', 'set-version', '-v', v, '-t'], cwd=module_path)
+        else:
+            subprocess.check_call(['invoke', 'set-version', '-v', v], cwd=module_path)
 
 @task()
 def release_github(c):
@@ -1118,24 +1128,22 @@ def docs_build(c, clean=False, ignore_errors=False, language=None, fast=False):
                 sphinx_opts=SPHINX_OPTS, tex_dir=tex_dir
             )
         )
-
-        for doc in c.sphinx.latex_documents:
-            for n in range(3):
+        
+        tex_files = [Path(tex_file).name for tex_file in glob.glob(f'{tex_dir}/*.tex')]
+        for tex_file in tex_files:
+            for _ in range(3):
                 # Run multiple times to ensure crossreferences are right
-                subprocess.check_call(['xelatex', doc], cwd=tex_dir)
+                subprocess.check_call(['xelatex', tex_file], cwd=tex_dir)
             # Move the PDF to the html folder so it will be uploaded with the
             # site
-            doc_pdf = os.path.splitext(doc)[0] + '.pdf'
+            pdf_file = os.path.splitext(tex_file)[0] + '.pdf'
             out_dir = '{builddir}/html/{lang}/pdfs'.format(
                 builddir=c.sphinx.builddir, lang=language
             )
 
             if not os.path.exists(out_dir):
                 os.makedirs(out_dir)
-            shutil.move(
-                '{tex_dir}/{doc}'.format(tex_dir=tex_dir, doc=doc_pdf),
-                '{out_dir}/{doc}'.format(out_dir=out_dir, doc=doc_pdf)
-            )
+            shutil.move(f'{tex_dir}/{pdf_file}', f'{out_dir}/{pdf_file}')
 
 
 def localize_resources(c, language=None):
@@ -1238,7 +1246,7 @@ def changelog_build(c):
         metadata = fin.readlines()
 
     changelog_header_re = re.compile('^changelog=', re.IGNORECASE)
-    version_header_re = re.compile('^[ ]*[0-9]+(\.[0-9]+){1,2}', re.IGNORECASE)
+    version_header_re = re.compile('^[ ]*[0-9]+(\.[0-9]+){1,2}(rc[0-9]*)?', re.IGNORECASE)
 
     at_changelog = False
 
@@ -1883,8 +1891,7 @@ ns.configure(
             'deploy_s3_bucket': 'trends.earth',
             'docs_s3_prefix': 'docs/',
             'transifex_name': 'trendsearth-v2',
-            'base_language': 'en',
-            'latex_documents': ['Trends.Earth.tex']
+            'base_language': 'en'
         },
         'data_downloads': {
             'downloads_page': 'docs/source/for_users/downloads/index.md',

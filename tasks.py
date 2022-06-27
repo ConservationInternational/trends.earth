@@ -275,7 +275,10 @@ def set_version(c, v=None, ta=False, ts=False, tag=False):
     for module in c.plugin.ext_libs.local_modules:
         module_path = Path(module['path']).parent
         print(f"Also setting tag for {module['name']}")
-        subprocess.check_call(['invoke', 'set-version', '-v', v, '-t', tag], cwd=module_path)
+        if tag:
+            subprocess.check_call(['invoke', 'set-version', '-v', v, '-t'], cwd=module_path)
+        else:
+            subprocess.check_call(['invoke', 'set-version', '-v', v], cwd=module_path)
 
 @task()
 def release_github(c):

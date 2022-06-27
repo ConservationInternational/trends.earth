@@ -4,6 +4,7 @@
 
 [![Documentation Status](https://readthedocs.org/projects/trendsearth/badge/?version=latest)](https://trendsearth.readthedocs.io/en/latest/?badge=latest)
 [![Zipfile Status](https://github.com/ConservationInternational/trends.earth/actions/workflows/build_zipfile.yaml/badge.svg)](https://github.com/ConservationInternational/trends.earth/actions/workflows/build_zipfile.yaml)
+[![Push to transifex status](https://github.com/ConservationInternational/trends.earth/actions/workflows/translate_push.yaml/badge.svg)](https://github.com/ConservationInternational/trends.earth/actions/workflows/translate_push.yaml)
 
 `Trends.Earth` is a free and open source tool to understand land change: the how and why
 behind changes on the ground. Trends.Earth allows users to draw on the best available

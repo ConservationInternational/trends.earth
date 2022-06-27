@@ -1246,7 +1246,7 @@ def changelog_build(c):
         metadata = fin.readlines()
 
     changelog_header_re = re.compile('^changelog=', re.IGNORECASE)
-    version_header_re = re.compile('^[ ]*[0-9]+(\.[0-9]+){1,2}', re.IGNORECASE)
+    version_header_re = re.compile('^[ ]*[0-9]+(\.[0-9]+){1,2}(rc[0-9]*)?', re.IGNORECASE)
 
     at_changelog = False
 

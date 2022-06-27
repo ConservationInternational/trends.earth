@@ -3,6 +3,7 @@ name: Push to transifex
 on:
   schedule:
     - cron: "0 4 * * *"
+  workflow_dispatch:
 
 jobs:
   transifex_push:

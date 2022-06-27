@@ -2,7 +2,7 @@
 name=trends.earth
 qgisMinimumVersion=3.22
 description=Analyze land change in support of sustainable land management, achieving the Land Degradation Neutrality (LDN) Sustainable Development Goal (SDG), and to support reporting to the Global Environment Facility (GEF) and United Nations Convention to Combat Desertification (UNCCD)
-version=1.99.11
+version=2.0rc1
 author=Conservation International
 email=trends.earth@conservation.org
 
@@ -27,7 +27,21 @@ deprecated=False
 hasProcessingProvider=yes
 
 # Uncomment the following line and add your changelog:
-changelog=1.0.6 (July 15, 2021)
+changelog=2.0.0rc1 (June 27 2022)
+    - All new interface with simplified navigation screens and dataset loading
+    - Updated documentation and website
+    - Trends.Earth is now translated into all the official UN languages, as well as
+      Portuguese. Swahili and Farsi translations (for the new interface) are planned as
+      well.
+    - New functions to support latest UNCCD reporting cycle (including direct support
+      for exporting results for upload to UNCCD PRAIS system)
+    - New functions to support assessing drought hazard, vulnerability, and
+      exposure
+    - New timeseries tool functions (now supports plotting restrend, WUE, etc.)
+  1.0.8 (October 15, 2021)
+    - Address bug in saving final layer for SDG calculation (related to issues 
+      #500, and #505)
+  1.0.6 (July 15, 2021)
     - Remove trends.earth-schemas as a submodule and install through setup.py 
       (much cleaner for version tracking, development, etc.)
     - Fix bug in loading 2020 NDVI data in GEE code (asset name wasn't set 

@@ -270,57 +270,57 @@
 <context>
     <name>DatasetEditorWidget</name>
     <message>
-        <location filename="../jobs/mvc.py" line="444"/>
+        <location filename="../jobs/mvc.py" line="438"/>
         <source>Add default layers from this dataset to map</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="448"/>
+        <location filename="../jobs/mvc.py" line="442"/>
         <source>Select specific layers from this dataset to add to map...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="471"/>
+        <location filename="../jobs/mvc.py" line="470"/>
         <source>Time series table is empty</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="480"/>
+        <location filename="../jobs/mvc.py" line="477"/>
         <source>Time Series</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="484"/>
+        <location filename="../jobs/mvc.py" line="482"/>
         <source>Time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="486"/>
+        <location filename="../jobs/mvc.py" line="483"/>
         <source>Integrated NDVI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="486"/>
+        <location filename="../jobs/mvc.py" line="483"/>
         <source>NDVI x 10000</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="572"/>
+        <location filename="../jobs/mvc.py" line="569"/>
         <source>Dataset metadata</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="579"/>
+        <location filename="../jobs/mvc.py" line="576"/>
         <source>{} metadata</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="594"/>
+        <location filename="../jobs/mvc.py" line="591"/>
         <source>Add vector layer to map</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="598"/>
+        <location filename="../jobs/mvc.py" line="595"/>
         <source>Add raster layers to map</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2901,12 +2901,12 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1665"/>
+        <location filename="../data_io.py" line="1674"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1665"/>
+        <location filename="../data_io.py" line="1674"/>
         <source>Select a layer to load.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -2914,47 +2914,47 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgDataIOImportBase</name>
     <message>
-        <location filename="../data_io.py" line="910"/>
+        <location filename="../data_io.py" line="921"/>
         <source>Metadata</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1110"/>
+        <location filename="../data_io.py" line="1121"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="918"/>
+        <location filename="../data_io.py" line="929"/>
         <source>Choose an input raster file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="928"/>
+        <location filename="../data_io.py" line="939"/>
         <source>Choose an input polygon dataset.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="942"/>
+        <location filename="../data_io.py" line="953"/>
         <source>Cannot process {}. Unknown geometry type:{}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1037"/>
+        <location filename="../data_io.py" line="1048"/>
         <source>Vector remapping failed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1060"/>
+        <location filename="../data_io.py" line="1071"/>
         <source>Raster remapping failed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1080"/>
+        <location filename="../data_io.py" line="1091"/>
         <source>Rasterizing failed.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1110"/>
+        <location filename="../data_io.py" line="1121"/>
         <source>Raster import failed.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3046,32 +3046,32 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1313"/>
+        <location filename="../data_io.py" line="1324"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1275"/>
+        <location filename="../data_io.py" line="1286"/>
         <source>Choose an output file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1300"/>
+        <location filename="../data_io.py" line="1311"/>
         <source>The chosen field ({}) is not numeric. Choose a field that contains numbers.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1313"/>
+        <location filename="../data_io.py" line="1324"/>
         <source>The input file ({}) does not appear to be a valid productivity input file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1327"/>
+        <location filename="../data_io.py" line="1338"/>
         <source>Warning</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1327"/>
+        <location filename="../data_io.py" line="1338"/>
         <source>The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3084,37 +3084,37 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1216"/>
+        <location filename="../data_io.py" line="1227"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1145"/>
+        <location filename="../data_io.py" line="1156"/>
         <source>Choose an output file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1153"/>
+        <location filename="../data_io.py" line="1164"/>
         <source>Enter the year of the input data.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1178"/>
+        <location filename="../data_io.py" line="1189"/>
         <source>The chosen field ({}) is not numeric. Choose a numeric field.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1194"/>
+        <location filename="../data_io.py" line="1205"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The file should contain values of soil organic carbon in tonnes / hectare.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1205"/>
+        <location filename="../data_io.py" line="1216"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The minimum value in this file is {}. The no data value should be -32768, and all other values should be &gt;= 0.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1216"/>
+        <location filename="../data_io.py" line="1227"/>
         <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The maximum value in this file is {}. The maximum value allowed is 1000 tonnes / hectare.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -3152,7 +3152,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="663"/>
+        <location filename="../data_io.py" line="674"/>
         <source>Could not load file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4230,32 +4230,32 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>ImportSelectFileInputWidget</name>
     <message>
-        <location filename="../data_io.py" line="763"/>
+        <location filename="../data_io.py" line="774"/>
         <source>Select a raster input file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="763"/>
+        <location filename="../data_io.py" line="774"/>
         <source>Raster file (*.tif *.dat *.img *.vrt)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="819"/>
+        <location filename="../data_io.py" line="830"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="819"/>
+        <location filename="../data_io.py" line="830"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="806"/>
+        <location filename="../data_io.py" line="817"/>
         <source>Select a vector input file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="806"/>
+        <location filename="../data_io.py" line="817"/>
         <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4263,22 +4263,22 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>ImportSelectRasterOutput</name>
     <message>
-        <location filename="../data_io.py" line="865"/>
+        <location filename="../data_io.py" line="876"/>
         <source>Choose a name for the output file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="865"/>
+        <location filename="../data_io.py" line="876"/>
         <source>Raster file (*.tif)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="879"/>
+        <location filename="../data_io.py" line="890"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="879"/>
+        <location filename="../data_io.py" line="890"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4825,7 +4825,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1705"/>
+        <location filename="../data_io.py" line="1714"/>
         <source>No datasets available in this region</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4833,7 +4833,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>WidgetDataIOSelectTELayerBase</name>
     <message>
-        <location filename="../data_io.py" line="1439"/>
+        <location filename="../data_io.py" line="1448"/>
         <source>No layers available in this region</source>
         <translation type="unfinished"></translation>
     </message>

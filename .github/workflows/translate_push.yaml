@@ -1,0 +1,28 @@
+name: Push to transifex
+
+on:
+  schedule:
+    - cron: "0 4 * * *"
+
+jobs:
+  transifex_push:
+    name: Push latest strings to transifex
+    runs-on: ubuntu-latest
+    env:
+      TX_TOKEN: ${{ secrets.TX_TOKEN }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Setup python
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.9"
+          architecture: "x64"
+      - name: Install build requirements
+        run: pip install -r requirements-dev.txt
+      - name: Set version SHA
+        run: invoke set-version
+      - name: Install transifex CLI
+        run: curl -o- https://raw.githubusercontent.com/transifex/cli/master/install.sh | bash
+      - name: Push strings to transifex
+        run: invoke translate-push

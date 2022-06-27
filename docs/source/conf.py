@@ -275,26 +275,26 @@ html_css_files = ["custom.css"]
 # html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = "TemplateClassdoc"
+# htmlhelp_basename = "TemplateClassdoc"
 
 # -- Options for LaTeX output --------------------------------------------------
 
-latex_documents = [
-    (
-        "index",
-        u"Trends.Earth.tex",
-        u"Trends.Earth Documentation",
-        u"Conservation International",
-        "manual",
-    ),
-]
+# latex_documents = [
+#     (
+#         "index",
+#         u"Trends.Earth.tex",
+#         u"Trends.Earth Documentation",
+#         u"Conservation International",
+#         "manual",
+#     ),
+# ]
 
-latex_elements = {
-    # The paper size ('letterpaper' or 'a4paper').
-    "papersize": "a4paper",
-    "preamble": u"""\\usepackage{fontspec}
-                    \\setmainfont{lmroman10-regular.otf}""",
-}
+# latex_elements = {
+#     # The paper size ('letterpaper' or 'a4paper').
+#     "papersize": "a4paper",
+#     "preamble": u"""\\usepackage{fontspec}
+#                     \\setmainfont{lmroman10-regular.otf}""",
+# }
 
 # The name of an image file (relative to this directory) to place at the top of
 # the title page.
@@ -321,12 +321,12 @@ latex_logo = "../resources/en/common/trends_earth_logo_bl_1200.png"
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-man_pages = [
-    (
-        "index",
-        "TemplateClass",
-        u"trends.earth documentation",
-        [u"Conservation International"],
-        1,
-    )
-]
+# man_pages = [
+#     (
+#         "index",
+#         "TemplateClass",
+#         u"trends.earth documentation",
+#         [u"Conservation International"],
+#         1,
+#     )
+# ]

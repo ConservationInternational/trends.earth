@@ -28,6 +28,11 @@ hasProcessingProvider=yes
 
 # Uncomment the following line and add your changelog:
 changelog=1.0.6 (July 15, 2021)
+  2.0.0rc1 (July 15, 2021)
+
+  1.0.8 (July 15, 2021)
+
+  1.0.6 (July 15, 2021)
     - Remove trends.earth-schemas as a submodule and install through setup.py 
       (much cleaner for version tracking, development, etc.)
     - Fix bug in loading 2020 NDVI data in GEE code (asset name wasn't set 

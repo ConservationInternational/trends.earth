@@ -125,9 +125,10 @@ def _replace(file_path, regex, subst):
 
 @task(help={'v': 'Version to set',
             'ta': 'Also set version for trends.earth-algorithms',
-            'ts': 'Also set version for trends.earth-schemas'
+            'ts': 'Also set version for trends.earth-schemas',
+            'tag': 'Also set tag(s)'
 })
-def set_version(c, v=None, ta=False, ts=False):
+def set_version(c, v=None, ta=False, ts=False, tag=False):
     # Validate the version matches the regex
 
     if not v:
@@ -172,7 +173,7 @@ def set_version(c, v=None, ta=False, ts=False):
         # Set in Sphinx docs in make.conf
         print('Setting version to {} in sphinx conf.py'.format(v))
         sphinx_regex = re.compile(
-            '(((version)|(release)) = ")[0-9]+([.][0-9]+)+', re.IGNORECASE
+            '(((version)|(release)) = ")[0-9]+([.][0-9]+)+(rc[0-9]*)?', re.IGNORECASE
         )
         _replace(
             os.path.join(c.sphinx.sourcedir, 'conf.py'), sphinx_regex,
@@ -181,7 +182,7 @@ def set_version(c, v=None, ta=False, ts=False):
 
         # Set in metadata.txt
         print('Setting version to {} in metadata.txt'.format(v))
-        sphinx_regex = re.compile("^(version=)[0-9]+([.][0-9]+)+")
+        sphinx_regex = re.compile("^(version=)[0-9]+([.][0-9]+)+(rc[0-9]*)?")
         _replace(
             os.path.join(c.plugin.source_dir, 'metadata.txt'), sphinx_regex,
             '\g<1>' + v
@@ -191,7 +192,7 @@ def set_version(c, v=None, ta=False, ts=False):
         # underscore
         v_gee = v.replace('.', '_')
 
-        if not v or not re.match("[0-9]+(_[0-9]+)+", v_gee):
+        if not v or not re.match("[0-9]+(_[0-9]+)+(rc[0-9]*)?", v_gee):
             print('Must specify a valid version (example: 0.36)')
 
             return
@@ -222,9 +223,11 @@ def set_version(c, v=None, ta=False, ts=False):
                 elif file == 'requirements.txt':
                     print('Setting version to {} in {}'.format(v, filepath))
 
-                    if (int(v.split('.')[-1]) % 2) == 0:
-                        # Last number in version string is even, so use a tagged version of
-                        # schemas matching this version
+                    if (
+                        ('rc' in v.split('.')[-1]) or (int(v.split('.')[-1]) % 2 == 0)
+                    ):
+                        # Last number in version string is even (or this is an RC), so
+                        # use a tagged version of schemas matching this version
                         _replace(
                             filepath, requirements_txt_regex, '\g<1>v' + v
                         )
@@ -237,14 +240,14 @@ def set_version(c, v=None, ta=False, ts=False):
                 elif file == '__init__.py':
                     print('Setting version to {} in {}'.format(v, filepath))
                     init_version_regex = re.compile(
-                        '^(__version__[ ]*=[ ]*["\'])[0-9]+([.][0-9]+)+'
+                        '^(__version__[ ]*=[ ]*["\'])[0-9]+([.][0-9]+)+(rc[0-9]*)?'
                     )
                     _replace(filepath, init_version_regex, '\g<1>' + v)
 
         # Set in scripts.json
         print('Setting version to {} in scripts.json'.format(v))
         scripts_regex = re.compile(
-            '("version": ")[0-9]+([-._][0-9]+)+', re.IGNORECASE
+            '("version": ")[0-9]+([-._][0-9]+)+(rc[0-9]*)?', re.IGNORECASE
         )
         _replace(
             os.path.join(c.plugin.source_dir, 'data', 'scripts.json'),
@@ -253,9 +256,11 @@ def set_version(c, v=None, ta=False, ts=False):
 
         print('Setting version to {} in package requirements.txt'.format(v))
 
-        if (int(v.split('.')[-1]) % 2) == 0:
-            # Last number in version string is even, so use a tagged version of
-            # schemas matching this version
+        if (
+            ('rc' in v.split('.')[-1]) or (int(v.split('.')[-1]) % 2 == 0)
+        ):
+            # Last number in version string is even (or an RC), so use a tagged version
+            # of schemas matching this version
             _replace('requirements.txt', requirements_txt_regex, '\g<1>v' + v)
         else:
             # Last number in version string is odd, so this is a development
@@ -264,11 +269,13 @@ def set_version(c, v=None, ta=False, ts=False):
                 'requirements.txt', requirements_txt_regex, '\g<1>develop'
             )
 
+    if tag:
+        set_tag(c)
 
     for module in c.plugin.ext_libs.local_modules:
         module_path = Path(module['path']).parent
         print(f"Also setting tag for {module['name']}")
-        subprocess.check_call(['invoke', 'set-version', '-v', v], cwd=module_path)
+        subprocess.check_call(['invoke', 'set-version', '-v', v, '-t', tag], cwd=module_path)
 
 @task()
 def release_github(c):

@@ -24,15 +24,15 @@ msgstr ""
 
 #: ../../source/for_users/features/landdegradation.rst:4
 msgid "Land degradation and SDG 15.3.1"
-msgstr ""
+msgstr "تردي الأراضي و SDG 15.3.1"
 
 #: ../../source/for_users/features/landdegradation.rst:6
 msgid ""
 "As part of the \"2030 Agenda for Sustainable Development\", Sustainable "
 "Development Goal (SDG) 15 is to:"
 msgstr ""
-"كجزء من \"خطة التنمية المستدامة لعام 2030\"، يتمثل هدف التنمية المستدامة رقم"
-" 15 في:"
+"كجزء من \"خطة التنمية المستدامة لعام 2030\"، يتمثل هدف التنمية المستدامة "
+"(SDG) رقم 15 في:"
 
 #: ../../source/for_users/features/landdegradation.rst:9
 msgid ""
@@ -49,8 +49,8 @@ msgid ""
 "Each SDG has specific targets addressing different components, in this case,"
 " of life on land. Target 15.3 aims to:"
 msgstr ""
-"لكل هدف من أهداف التنمية المستدامة أهداف محددة تتناول مكونات مختلفة، في هذه "
-"الحالة، من الحياة على الأرض. يعمل الهدف 15.3 على:"
+"لكل  SDG أهداف محددة تتناول مكونات مختلفة، في هذه الحالة، من الحياة على "
+"الأرض. تهدف الغاية 15.3 إلى:"
 
 #: ../../source/for_users/features/landdegradation.rst:16
 msgid ""
@@ -58,9 +58,9 @@ msgid ""
 " land affected by desertification, drought and floods, and strive to achieve"
 " a land degradation-neutral world\""
 msgstr ""
-"\"بحلول عام 2030، مكافحة التصحر، واستعادة الأراضي والتربة المتدهورة، بما في "
-"ذلك الأراضي المتأثرة بالتصحر والجفاف والفيضانات، والسعي جاهدين لتحقيق عالم "
-"خالٍ من تدهور الأراضي"
+"\"بحلول عام 2030 قد نكون تمكنا من مكافحة التصحر، واستعادة الأراضي والتربة "
+"المتدهورة، بما في ذلك الأراضي المتأثرة بالتصحر والجفاف والفيضانات، والسعي "
+"جاهدين لتحقيق عالم خالٍ من تدهور الأراضي\""
 
 #: ../../source/for_users/features/landdegradation.rst:20
 msgid ""
@@ -68,9 +68,9 @@ msgid ""
 "the case of SDG 15.3 the progress towards a land degradation neutral world "
 "will be assessed using indicator 15.3.1:"
 msgstr ""
-"سيتم استخدام المؤشرات بعد ذلك لتقييم التقدم المحرز في كل هدف من أهداف "
-"التنمية المستدامة. في حالة الهدف 15.3 من أهداف التنمية المستدامة، سيتم تقييم"
-" التقدم المحرز نحو عالم محايد لتدهور الأراضي باستخدام المؤشر 15.3.1:"
+"سيتم استخدام المؤشرات بعد ذلك لتقييم التقدم المحرز في كل هدف من SDG. في حالة"
+" SDG 15.3، سيتم تقييم التقدم المحرز نحو عالم محايد لتدهور الأراضي باستخدام "
+"المؤشر 15.3.1:"
 
 #: ../../source/for_users/features/landdegradation.rst:24
 msgid "\"proportion of land that is degraded over total land area\""
@@ -84,14 +84,19 @@ msgid ""
 "links/2021-03/Indicator_15.3.1_GPG_v2_29Mar_Advanced-version.pdf>`_. "
 "providing recommendations on how to calculate SDG Indicator 15.3.1."
 msgstr ""
+"بصفتها الوكالة الراعية SDG 15.3، طورت اتفاقية الأمم المتحدة لمكافحة التصحر "
+"(UNCCD) `إرشادات الممارسات الجيدة (GPG) "
+"<https://www.unccd.int/sites/default/files/relevant-"
+"links/2021-03/Indicator_15.3.1_GPG_v2_29Mar_Advanced-version.pdf> `_. والتي "
+"توفر توصيات حول كيفية حساب مؤشر SDG 15.3.1."
 
 #: ../../source/for_users/features/landdegradation.rst:31
 msgid ""
 "This document provides a brief introduction to SDG Indicator 15.3.1 and "
 "describes how each indicator is calculated by |trends.earth|."
 msgstr ""
-"تقدم هذه الوثيقة مقدمة موجزة لمؤشر هدف التنمية المستدامة 15.3.1 وتصف كيفية "
-"حساب كل مؤشر من خلال|trends.earth|."
+"تقدم هذه الوثيقة مقدمة موجزة لمؤشر SDG 15.3.1 وتصف كيفية حساب كل مؤشر من "
+"خلال |trends.earth|."
 
 #: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
 #: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
@@ -100,15 +105,15 @@ msgstr ""
 #: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
 #: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
 msgid "Trends.Earth"
-msgstr "Trends.Earth"
+msgstr "Trends.Earth\n"
 
 #: ../../source/for_users/features/landdegradation.rst:34
 msgid ""
 "In order to assess the area degraded, SDG Indicator 15.3.1 uses information "
 "from 3 sub-indicators:"
 msgstr ""
-"من أجل تقييم المنطقة المتدهورة، يستخدم مؤشر هدف التنمية المستدامة 15.3.1 "
-"معلومات من 3 مؤشرات فرعية:"
+"من أجل تقييم المنطقة المتدهورة، يستخدم مؤشر SDG 15.3.1 معلومات من 3 مؤشرات "
+"فرعية:"
 
 #: ../../source/for_users/features/landdegradation.rst:37
 msgid "Vegetation productivity"
@@ -132,9 +137,9 @@ msgid ""
 "areas potentially improved and degraded for the area of analysis."
 msgstr ""
 "|trends.earth| يسمح للمستخدم بحساب كل من هذه المؤشرات الفرعية بطريقة صريحة "
-"مكانيًا لإنشاء خرائط نقطية يتم دمجها بعد ذلك في خريطة مؤشر هدف التنمية "
-"المستدامة 15.3.1 النهائية وتنتج جدولًا لمناطق الإبلاغ عن النتائج التي يحتمل "
-"أن تكون محسّنة ومتدهورة لمنطقة التحليل."
+"مكانيًا لإنشاء خرائط نقطية يتم دمجها بعد ذلك في خريطة مؤشر SDG 15.3.1 "
+"النهائية وينتج عن نتائج الجدول تقرير المناطق التي يحتمل أن تكون محسّنة "
+"ومتدهورة في مجال التحليل."
 
 #: ../../source/for_users/features/landdegradation.rst:50
 msgid "Sub-indicators"
@@ -157,11 +162,11 @@ msgid ""
 msgstr ""
 "إنتاجية الأرض هي القدرة الإنتاجية البيولوجية للأرض، ومصدر جميع الأغذية "
 "والألياف والوقود الذي يدعم الإنسان (اللجنة الإحصائية للأمم المتحدة 2016). "
-"صافي الإنتاجية الأولية هو صافي كمية الكربون التي تم استيعابها بعد التمثيل "
-"الضوئي والتنفس الذاتي التغذية خلال فترة زمنية معينة (كلارك وآخرون 2001) ويتم"
-" تمثيلها عادةً بوحدات مثل كجم / هكتار / سنة. صافي الإنتاجية الأولية عبارة عن"
-" عملية متغيرة تستغرق وقتًا طويلاً ومكلفة لتقديرها، ولهذا السبب، نعتمد على "
-"المعلومات المستشعرة عن بُعد لاشتقاق مؤشرات صافي الإنتاجية الأولية."
+"صافي الإنتاجية الأولية (NPP) هو صافي كمية الكربون التي تم استيعابها بعد "
+"التمثيل الضوئي والتنفس الذاتي خلال فترة زمنية معينة (كلارك وآخرون 2001) ويتم"
+" تمثيلها عادةً بوحدات مثل كجم/هكتار/سنة. NPP هي عملية متغيرة تستغرق وقتًا "
+"طويلاً ومكلفة لتقديرها، ولهذا السبب، نعتمد على المعلومات المستشعرة عن بُعد "
+"لاشتقاق مؤشرات NPP."
 
 #: ../../source/for_users/features/landdegradation.rst:66
 msgid ""
@@ -173,20 +178,21 @@ msgid ""
 "of results). These annual integrals of NDVI are then used to compute each of"
 " the productivity indicators explained below."
 msgstr ""
-"أحد البدائل الأكثر استخدامًا لصافي الإنتاجية الأولية هو فهرس الغطاء النباتي "
-"للاختلاف المعياري، والذي يتم حسابه باستخدام معلومات من الأجزاء الحمراء "
-"والقريبة من الأشعة تحت الحمراء من الطيف الكهرومغناطيسي. في |trends.earth| "
-"نحن نستخدم المنتجات نصف الأسبوعية من MODIS و AVHRR لحساب التكاملات السنوية "
-"لمؤشر الفرق المعياري للغطاء النباتي (محسوبة على أنها متوسط مؤشر مؤشر الفرق "
-"المعياري للغطاء النباتي السنوي لتبسيط تفسير النتائج). ثم يتم استخدام هذه "
-"التكاملات السنوية من دليل مؤشر الفرق المعياري للغطاء النباتي لحساب كل من "
-"مؤشرات الإنتاجية الموضحة أدناه."
+"أحد البدائل الأكثر استخدامًا لـ NPP هو فهرس الغطاء النباتي للاختلاف المعياري"
+" (NDVI)، والذي يتم حسابه باستخدام معلومات من الأجزاء الحمراء والقريبة من "
+"الأشعة تحت الحمراء من الطيف الكهرومغناطيسي. في |Trends.earth| نحن نستخدم "
+"المنتجات نصف الأسبوعية من MODIS و AVHRR لحساب التكاملات السنوية لـ NDVI "
+"(محسوبة على أنها متوسط مؤشر NDVI السنوي لتبسيط تفسير النتائج). ثم يتم "
+"استخدام هذه التكاملات السنوية من دليل NDVI لحساب كل من مؤشرات الإنتاجية "
+"الموضحة أدناه."
 
 #: ../../source/for_users/features/landdegradation.rst:74
 msgid ""
 "Land productivity is assessed in |trends.earth| using three measures of "
 "change derived from NDVI time series data: trajectory, performance and state"
 msgstr ""
+"يتم تقييم إنتاجية الأرض في |trends.earth| باستخدام ثلاثة مقاييس للتغيير "
+"مستمدة من بيانات السلاسل الزمنية لـ NDVI: المسار والأداء والحالة"
 
 #: ../../source/for_users/features/landdegradation.rst:83
 msgid "Productivity Trajectory"
@@ -203,10 +209,17 @@ msgid ""
 "indicate potential improvement in land condition, and negative significant "
 "trends potential degradation."
 msgstr ""
+"يقيس المسار معدل التغيير في الإنتاجية الأولية بمرور الوقت. كما هو موضح في "
+"الشكل أدناه، |trends.earth|يحسب انحدارًا خطيًا على مستوى البكسل لتحديد "
+"المناطق التي تشهد تغيرات في الإنتاجية الأولية للفترة قيد التحليل. يتم بعد "
+"ذلك تطبيق اختبار أهمية غير باريمترية من Mann-Kendall، مع الأخذ في الاعتبار "
+"التغييرات المهمة فقط تلك التي تظهر قيمة p ≤ 0.05. تشير الاتجاهات الإيجابية "
+"الهامة في مؤشر NDVI إلى تحسن محتمل في حالة الأراضي، وأن الاتجاهات السلبية "
+"الهامة قد تؤدي إلى تدهور محتمل."
 
 #: ../../source/for_users/features/landdegradation.rst:100
 msgid "Correcting for the effects of climate"
-msgstr ""
+msgstr "تصحيح تأثيرات المناخ"
 
 #: ../../source/for_users/features/landdegradation.rst:102
 msgid ""

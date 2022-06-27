@@ -104,54 +104,11 @@ extlinks = {'index_path': (f'{relative_path}%s/{READTHEDOCS_VERSION_STRING}', '%
 rst_epilog = """
 .. |iconCalculator| image:: /static/common/icon-calculator.png
    :width: 2em
-.. |iconChart| image:: /static/common/icon-chart.png
-   :width: 2em
-.. |iconClipboard| image:: /static/common/icon-clipboard.png
-   :width: 2em
-.. |iconCloudDownload| image:: /static/common/icon-cloud-download.png
-   :width: 2em
-.. |iconCog| image:: /static/common/icon-cog.png
-   :width: 2em
-.. |iconDeletedataset| image:: /static/common/icon-delete_dataset.png
-   :width: 2em
-.. |iconGlobe| image:: /static/common/icon-globe.png
-   :width: 2em
-.. |iconGraph| image:: /static/common/icon-graph.png
-   :width: 2em
-.. |iconInfo| image:: /static/common/icon-info.png
-   :width: 2em
-.. |iconLoaddataset| image:: /static/common/icon-load_dataset_onto_qgis_map_area.png
-.. |iconMarkMarker| image:: /static/common/icon-map-marker.png
-   :width: 2em
-.. |iconOpendatasetdirectory| image:: /static/common/icon-open_dataset_directory.png
-   :width: 2em
-.. |iconViewdatasetdetails| image:: /static/common/icon-view_dataset_details.png
-   :width: 2em
-.. |iconWrench| image:: /static/common/icon-wrench.png
-   :width: 2em
-.. |iconFolder| image:: /static/common/icon-folder.png
-   :width: 2em
 .. |iconReports| image:: /static/common/reports_button.png
    :width: 82
-.. |iconTrendsEarth| image:: /static/common/icon-trends_earth.png
-   :width: 2em
-.. |iconVisualization| image:: /static/common/icon-reporting.png
-   :width: 2em
 .. |trends.earth| image:: /static/common/trends_earth_logo_bl_print.png
    :width: 7em
    :alt: Trends.Earth
-.. |logoCI| image:: /static/common/logo_CI_square.png
-    :width: 150
-    :target: http://www.conservation.org
-.. |logoLund| image:: /static/common/logo_Lund_square.png
-    :width: 125
-    :target: http://www.lunduniversity.lu.se
-.. |logoNASA| image:: /static/common/logo_NASA_square.png
-    :width: 125
-    :target: http://www.nasa.gov
-.. |logoGEF| image:: /static/common/logo_GEF.png
-    :width: 125
-    :target: https://www.thegef.org
 .. |CURRENT| replace:: {current_version}
 .. |qgisMinVersion| replace:: 3.22
 """.format(
@@ -279,15 +236,15 @@ html_css_files = ["custom.css"]
 
 # -- Options for LaTeX output --------------------------------------------------
 
-# latex_documents = [
-#     (
-#         "index",
-#         u"Trends.Earth.tex",
-#         u"Trends.Earth Documentation",
-#         u"Conservation International",
-#         "manual",
-#     ),
-# ]
+latex_documents = [
+    (
+        "index",
+        u"Trends.Earth.tex",
+        u"Trends.Earth Documentation",
+        u"Conservation International",
+        "manual",
+    ),
+]
 
 # latex_elements = {
 #     # The paper size ('letterpaper' or 'a4paper').
@@ -302,7 +259,7 @@ latex_logo = "../resources/en/common/trends_earth_logo_bl_1200.png"
 
 # For "manual" documents, if this is true, then toplevel headings are parts,
 # not chapters.
-# latex_use_parts = False
+latex_use_parts = True
 
 # If true, show page references after internal links.
 # latex_show_pagerefs = False
@@ -321,12 +278,18 @@ latex_logo = "../resources/en/common/trends_earth_logo_bl_1200.png"
 
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
-# man_pages = [
-#     (
-#         "index",
-#         "TemplateClass",
-#         u"trends.earth documentation",
-#         [u"Conservation International"],
-#         1,
-#     )
-# ]
+man_pages = [
+    (
+        "index",
+        "TemplateClass",
+        u"trends.earth documentation",
+        [u"Conservation International"],
+        1,
+    )
+]
+
+latex_engine = 'xelatex'
+latex_use_xindy = False
+# latex_elements = {
+#     'preamble': '\\usepackage[UTF8]{ctex}\n',
+# }

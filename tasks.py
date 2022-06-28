@@ -990,10 +990,11 @@ def translate_push(c, force=False, version=3):
 def gettext(c, language=None):
     if not language:
         language = c.sphinx.base_language
+    script_folder = os.path.realpath(__file__)
     SPHINX_OPTS = (
-        f'-D language={language} -A language={language} {c.sphinx.sourcedir}'
+        f'-D language={language} -A language={language} {script_folder}/{c.sphinx.sourcedir}'
     )
-    I18N_SPHINX_OPTS = f'{SPHINX_OPTS} {c.sphinx.docroot}/i18n/pot'
+    I18N_SPHINX_OPTS = f'{SPHINX_OPTS} {script_folder}/{c.sphinx.docroot}/i18n/pot'
 
     subprocess.check_call(
         f"{c.sphinx.sphinx_build} -b gettext -a {I18N_SPHINX_OPTS}"

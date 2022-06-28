@@ -1857,7 +1857,7 @@ ns.configure(
             'tecli': '../trends.earth-CLI/tecli'
         },
         'sphinx': {
-            'sphinx_build': 'python -m sphinx.cmd.build',
+            'sphinx_build': f'{sys.executable} -m sphinx.cmd.build',
             'docroot': 'docs',
             'sourcedir': 'docs/source',
             'builddir': 'docs/build',

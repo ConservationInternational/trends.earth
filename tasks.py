@@ -990,16 +990,13 @@ def translate_push(c, force=False, version=3):
 def gettext(c, language=None):
     if not language:
         language = c.sphinx.base_language
-    SPHINX_OPTS = '-D language={lang} -A language={lang} {sourcedir}'.format(
-        lang=language, sourcedir=c.sphinx.sourcedir
+    SPHINX_OPTS = (
+        f'-D language={language} -A language={language} {c.sphinx.sourcedir}'
     )
-    I18N_SPHINX_OPTS = '{sphinx_opts} {docroot}/i18n/pot'.format(
-        docroot=c.sphinx.docroot, sphinx_opts=SPHINX_OPTS
-    )
+    I18N_SPHINX_OPTS = f'{SPHINX_OPTS} {c.sphinx.docroot}/i18n/pot'
+
     subprocess.check_call(
-        "sphinx-build -b gettext -a {i18n_sphinx_opts}".format(
-            i18n_sphinx_opts=I18N_SPHINX_OPTS
-        )
+        f"{c.sphinx.sphinx_build} -b gettext -a {I18N_SPHINX_OPTS}"
     )
 
 
@@ -1022,28 +1019,20 @@ def docs_spellcheck(c, ignore_errors=False, language=None, fast=False):
         languages.extend(c.plugin.translations)
 
     for language in languages:
-        print("\nBuilding {lang} documentation...".format(lang=language))
-        SPHINX_OPTS = '-D language={lang} -A language={lang} {sourcedir}'.format(
-            lang=language, sourcedir=c.sphinx.sourcedir
+        print(f"\nBuilding {language} documentation...")
+        SPHINX_OPTS = (
+            f'-D language={language} -A language={language} {c.sphinx.sourcedir}'
         )
 
         if language != 'en' or ignore_errors:
             subprocess.check_call(
-                "sphinx-build -b spelling -a {sphinx_opts} {builddir}/html/{lang}".
-                format(
-                    sphinx_opts=SPHINX_OPTS,
-                    builddir=c.sphinx.builddir,
-                    lang=language
-                )
+                f"{c.sphinx.sphinx_build} -b spelling -a {SPHINX_OPTS} "
+                f"{c.sphinx.builddir}/html/{language}"
             )
         else:
             subprocess.check_call(
-                "sphinx-build -n -W -b spelling -a {sphinx_opts} {builddir}/html/{lang}"
-                .format(
-                    sphinx_opts=SPHINX_OPTS,
-                    builddir=c.sphinx.builddir,
-                    lang=language
-                )
+                f"{c.sphinx.sphinx_build} -n -W -b spelling -a {SPHINX_OPTS} "
+                f"{c.sphinx.builddir}/html/{language}"
             )
 
         if fast:
@@ -1074,16 +1063,13 @@ def docs_build(c, clean=False, ignore_errors=False, language=None, fast=False):
     build_download_page(c)
 
     for language in languages:
-        print("\nBuilding {lang} documentation...".format(lang=language))
-        SPHINX_OPTS = '-D language={lang} -A language={lang} {sourcedir}'.format(
-            lang=language, sourcedir=c.sphinx.sourcedir
+        print(f"\nBuilding {language} documentation...")
+        SPHINX_OPTS = (
+            f'-D language={language} -A language={language} {c.sphinx.sourcedir}'
         )
 
-        print(
-            "\nLocalizing resources for {lang} documentation...".format(
-                lang=language
-            )
-        )
+        print(f"\nLocalizing resources for {language} documentation...")
+
         localize_resources(c, language)
 
         subprocess.check_call(
@@ -1095,21 +1081,13 @@ def docs_build(c, clean=False, ignore_errors=False, language=None, fast=False):
 
         if language != 'en' or ignore_errors:
             subprocess.check_call(
-                "sphinx-build -b html -a {sphinx_opts} {builddir}/html/{lang}".
-                format(
-                    sphinx_opts=SPHINX_OPTS,
-                    builddir=c.sphinx.builddir,
-                    lang=language
-                )
+                f"{c.sphinx.sphinx_build} -b html -a {SPHINX_OPTS} "
+                f"{c.sphinx.builddir}/html/{language}"
             )
         else:
             subprocess.check_call(
-                "sphinx-build -n -W -b html -a {sphinx_opts} {builddir}/html/{lang}"
-                .format(
-                    sphinx_opts=SPHINX_OPTS,
-                    builddir=c.sphinx.builddir,
-                    lang=language
-                )
+                f"{c.sphinx.sphinx_build} -n -W -b html -a {SPHINX_OPTS} "
+                f"{c.sphinx.builddir}/html/{language}"
             )
         print(
             "HTML Build finished. The HTML pages for '{lang}' are in {builddir}."
@@ -1120,13 +1098,9 @@ def docs_build(c, clean=False, ignore_errors=False, language=None, fast=False):
             break
 
         # Build PDF, by first making latex from sphinx, then pdf from that
-        tex_dir = "{builddir}/latex/{lang}".format(
-            builddir=c.sphinx.builddir, lang=language
-        )
+        tex_dir = f"{c.sphinx.builddir}/latex/{language}"
         subprocess.check_call(
-            "sphinx-build -b latex -a {sphinx_opts} {tex_dir}".format(
-                sphinx_opts=SPHINX_OPTS, tex_dir=tex_dir
-            )
+            f"{c.sphinx.sphinx_build} -b latex -a {SPHINX_OPTS} {tex_dir}"
         )
         
         tex_files = [Path(tex_file).name for tex_file in glob.glob(f'{tex_dir}/*.tex')]
@@ -1137,9 +1111,7 @@ def docs_build(c, clean=False, ignore_errors=False, language=None, fast=False):
             # Move the PDF to the html folder so it will be uploaded with the
             # site
             pdf_file = os.path.splitext(tex_file)[0] + '.pdf'
-            out_dir = '{builddir}/html/{lang}/pdfs'.format(
-                builddir=c.sphinx.builddir, lang=language
-            )
+            out_dir = f'{c.sphinx.builddir}/html/{language}/pdfs'
 
             if not os.path.exists(out_dir):
                 os.makedirs(out_dir)
@@ -1884,6 +1856,7 @@ ns.configure(
             'tecli': '../trends.earth-CLI/tecli'
         },
         'sphinx': {
+            'sphinx_build': 'python -m sphinx.cmd.build',
             'docroot': 'docs',
             'sourcedir': 'docs/source',
             'builddir': 'docs/build',

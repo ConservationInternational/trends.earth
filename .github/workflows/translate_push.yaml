@@ -22,10 +22,8 @@ jobs:
         with:
           python-version: "3.9"
           architecture: "x64"
-      - name: Install build requirements
-        run: pip install -r requirements-dev.txt
-      - name: Set version SHA
-        run: invoke set-version
+          cache: pip
+      - run: pip install -r requirements-dev.txt
       - name: Install transifex CLI
         run: curl -o- https://raw.githubusercontent.com/transifex/cli/master/install.sh | bash
       - name: Push strings to transifex

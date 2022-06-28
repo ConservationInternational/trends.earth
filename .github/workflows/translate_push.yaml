@@ -27,4 +27,4 @@ jobs:
       - name: Install transifex CLI
         run: curl -o- https://raw.githubusercontent.com/transifex/cli/master/install.sh | bash
       - name: Push strings to transifex
-        run: invoke translate-push
+        run: python -m invoke translate-push

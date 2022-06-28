@@ -990,7 +990,7 @@ def translate_push(c, force=False, version=3):
 def gettext(c, language=None):
     if not language:
         language = c.sphinx.base_language
-    script_folder = os.path.realpath(__file__)
+    script_folder = str(Path(__file__).basename)
     SPHINX_OPTS = (
         f'-D language={language} -A language={language} {script_folder}/{c.sphinx.sourcedir}'
     )

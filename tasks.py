@@ -998,7 +998,7 @@ def gettext(c, language=None):
     I18N_SPHINX_OPTS = f'{SPHINX_OPTS} {script_folder}/{c.sphinx.docroot}/i18n/pot'
 
     subprocess.check_call(
-        [c.sphinx.sphinx_build]
+        [c.sphinx.sphinx_build], shell=True
     )
     subprocess.check_call(
         [c.sphinx.sphinx_build, '-b', 'gettext', '-a', I18N_SPHINX_OPTS]

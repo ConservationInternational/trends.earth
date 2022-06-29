@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-27 07:09-0400\n"
+"POT-Creation-Date: 2022-06-27 21:58-0400\n"
 "PO-Revision-Date: 2022-06-26 18:04+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language-Team: Russian (https://www.transifex.com/conservation-international/teams/80165/ru/)\n"
@@ -134,89 +134,9 @@ msgid "iconCalculator"
 msgstr "иконкаКалькулятор"
 
 #: ../../../<rst_epilog>:4
-msgid "iconChart"
-msgstr "иконкаТаблица"
-
-#: ../../../<rst_epilog>:6
-msgid "iconClipboard"
-msgstr "иконкаБуферОбмена"
-
-#: ../../../<rst_epilog>:8
-msgid "iconCloudDownload"
-msgstr "иконкаОблачноеСкачивание"
-
-#: ../../../<rst_epilog>:10
-msgid "iconCog"
-msgstr "иконкаШестерня"
-
-#: ../../../<rst_epilog>:12
-msgid "iconDeletedataset"
-msgstr "иконкаУдалитьНаборДанных"
-
-#: ../../../<rst_epilog>:14
-msgid "iconGlobe"
-msgstr "иконкаГлобус"
-
-#: ../../../<rst_epilog>:16
-msgid "iconGraph"
-msgstr "иконкаГрафик"
-
-#: ../../../<rst_epilog>:18
-msgid "iconInfo"
-msgstr "иконкаИнформация"
-
-#: ../../../<rst_epilog>:20
-msgid "iconLoaddataset"
-msgstr "иконкаЗагрузитьНаборДанных"
-
-#: ../../../<rst_epilog>:21
-msgid "iconMarkMarker"
-msgstr "иконкаМаркировка"
-
-#: ../../../<rst_epilog>:23
-msgid "iconOpendatasetdirectory"
-msgstr "иконкаУказательОткрытогоНабораДанных"
-
-#: ../../../<rst_epilog>:25
-msgid "iconViewdatasetdetails"
-msgstr "иконкаОтобразитьПодробностиНабораДанных"
-
-#: ../../../<rst_epilog>:27
-msgid "iconWrench"
-msgstr "иконкаГаечныйКлюч"
-
-#: ../../../<rst_epilog>:29
-msgid "iconFolder"
-msgstr "иконкаПапка"
-
-#: ../../../<rst_epilog>:31
 msgid "iconReports"
 msgstr "иконкаОтчеты"
 
-#: ../../../<rst_epilog>:33
-msgid "iconTrendsEarth"
-msgstr "иконкаTrendsEarth"
-
-#: ../../../<rst_epilog>:35
-msgid "iconVisualization"
-msgstr "иконкаВизуализация"
-
-#: ../../../<rst_epilog>:37
+#: ../../../<rst_epilog>:6
 msgid "Trends.Earth"
 msgstr "Trends.Earth"
-
-#: ../../../<rst_epilog>:0
-msgid "logoCI"
-msgstr "логоCI"
-
-#: ../../../<rst_epilog>:0
-msgid "logoLund"
-msgstr "логоLund"
-
-#: ../../../<rst_epilog>:0
-msgid "logoNASA"
-msgstr "логоNASA"
-
-#: ../../../<rst_epilog>:0
-msgid "logoGEF"
-msgstr "logoNASA"

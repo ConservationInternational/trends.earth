@@ -1,36 +1,33 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
-#
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
 # Translators:
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
 # Monica Noon <mnoon@conservation.org>, 2022
 # Alex Zvoleff <azvoleff@conservation.org>, 2022
+# 
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 1.99.11\n"
+"Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-27 07:09-0400\n"
+"POT-Creation-Date: 2022-06-27 21:58-0400\n"
 "PO-Revision-Date: 2022-06-26 18:04+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
-"Language: fr\n"
-"Language-Team: French (https://www.transifex.com/conservation-"
-"international/teams/80165/fr/)\n"
-"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
-"1000000 == 0 ? 1 : 2\n"
+"Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 #: ../../source/index.rst:42
 msgid "Trends.Earth User Guide"
 msgstr "Guide d'utilisateur Trends.Earth"
 
-#: ../../source/index.rst:42
+#: ../../source/index.rst:42 ../../source/index.rst:42
 msgid "User Guide"
 msgstr "Mode d'emploi"
 
@@ -38,14 +35,16 @@ msgstr "Mode d'emploi"
 msgid "Trends.Earth Developers Guide"
 msgstr "Guide des développeurs Trends.Earth"
 
-#: ../../source/index.rst:48
+#: ../../source/index.rst:48 ../../source/index.rst:48
 msgid "Developers Guide"
 msgstr "Guide pour les développeurs"
 
+#: ../../source/index.rst:54 ../../source/index.rst:54
 #: ../../source/index.rst:54
 msgid "General Information"
 msgstr "Informations générales"
 
+#: ../../source/index.rstNone
 msgid "trends.earth"
 msgstr "trends.earth"
 
@@ -83,38 +82,49 @@ msgstr ":index_path:`Kiswahili <sw>`"
 
 #: ../../source/index.rst:22
 msgid ""
-"Trends.Earth is a free and open source tool to understand land change: "
-"the how and why behind changes on the ground. Trends.Earth allows users "
-"to draw on the best available information from across a range of sources "
-"- from globally available data to customized local maps. A broad range of"
-" users are applying Trends.Earth for projects ranging from planning and "
-"monitoring restoration efforts, to tracking urbanization, to developing "
-"official national report for submission to the United Nations Convention "
-"to Combat Desertification (UNCCD)."
+"Trends.Earth is a free and open source tool to understand land change: the "
+"how and why behind changes on the ground. Trends.Earth allows users to draw "
+"on the best available information from across a range of sources - from "
+"globally available data to customized local maps. A broad range of users are"
+" applying Trends.Earth for projects ranging from planning and monitoring "
+"restoration efforts, to tracking urbanization, to developing official "
+"national report for submission to the United Nations Convention to Combat "
+"Desertification (UNCCD)."
 msgstr ""
+"Trends.Earth est un outil gratuit et open source permettant de comprendre "
+"les changements de la couverture terrestre : le comment et le pourquoi des "
+"changements sur le terrain. Trends.Earth permet aux utilisateurs de "
+"s'appuyer sur les meilleures informations disponibles à partir d'une grande "
+"diversité de sources – des données disponibles au niveau mondial jusqu'aux "
+"cartes locales personnalisées. Un large éventail d'utilisateurs utilisent "
+"Trends.Earth dans le cadre des projets allant de la planification et du "
+"suivi des efforts de restauration jusqu'au suivi de l'urbanisation, en "
+"passant par l'élaboration de rapports nationaux officiels visant à être "
+"soumis à la Convention des Nations unies sur la lutte contre la "
+"désertification (CNULCD)."
 
 #: ../../source/index.rst:30
 msgid ""
-"Trends.Earth was produced by a partnership of Conservation International,"
-" Lund University, and the National Aeronautics and Space Administration "
-"(NASA), with the support of the Global Environment Facility (GEF). It was"
-" further developed through a partnership with Conservation International,"
-" University of Bern, University of Colorado in partnership with USDA and "
+"Trends.Earth was produced by a partnership of Conservation International, "
+"Lund University, and the National Aeronautics and Space Administration "
+"(NASA), with the support of the Global Environment Facility (GEF). It was "
+"further developed through a partnership with Conservation International, "
+"University of Bern, University of Colorado in partnership with USDA and "
 "USAID, University of California - Santa Barbara in partnership with "
 "University of North Carolina - Wilmington and Brown University with "
 "additional funding from the Global Environment Facility (GEF)."
 msgstr ""
 "Trends.Earth est le résultat d'un partenariat entre Conservation "
 "International, l'Université de Lund et la National Aeronautics and Space "
-"Administration (NASA), avec le soutien du Fonds pour l'environnement "
-"mondial (FEM). Il a pu être développé par la suite grâce à un partenariat"
-" avec Conservation International, l'Université de Berne, l'Université du "
-"Colorado en partenariat avec le département de l’Agriculture des États-"
-"Unis (USDA) et l'Agence des États-Unis pour le développement "
-"international (USAID), l'Université de Californie à Santa Barbara en "
-"partenariat avec l'Université de la Caroline du Nord à Wilmington et "
-"l'Université Brown, avec un financement supplémentaire de la part du "
-"Fonds pour l'environnement mondial (FEM)."
+"Administration (NASA), avec le soutien du Fonds pour l'environnement mondial"
+" (FEM). Il a pu être développé par la suite grâce à un partenariat avec "
+"Conservation International, l'Université de Berne, l'Université du Colorado "
+"en partenariat avec le département de l’Agriculture des États-Unis (USDA) et"
+" l'Agence des États-Unis pour le développement international (USAID), "
+"l'Université de Californie à Santa Barbara en partenariat avec l'Université "
+"de la Caroline du Nord à Wilmington et l'Université Brown, avec un "
+"financement supplémentaire de la part du Fonds pour l'environnement mondial "
+"(FEM)."
 
 #: ../../source/index.rst:60
 msgid ""
@@ -129,90 +139,9 @@ msgid "iconCalculator"
 msgstr "icôneCalculatrice"
 
 #: ../../../<rst_epilog>:4
-msgid "iconChart"
-msgstr "icôneTableau"
-
-#: ../../../<rst_epilog>:6
-msgid "iconClipboard"
-msgstr "icônePresse-papiers"
-
-#: ../../../<rst_epilog>:8
-msgid "iconCloudDownload"
-msgstr "icôneTéléchargementCloud"
-
-#: ../../../<rst_epilog>:10
-msgid "iconCog"
-msgstr "icôneRouedentée"
-
-#: ../../../<rst_epilog>:12
-msgid "iconDeletedataset"
-msgstr "icôneSupprimerl'ensemble"
-
-#: ../../../<rst_epilog>:14
-msgid "iconGlobe"
-msgstr "icôneGlobe"
-
-#: ../../../<rst_epilog>:16
-msgid "iconGraph"
-msgstr "icôneGraphique"
-
-#: ../../../<rst_epilog>:18
-msgid "iconInfo"
-msgstr "icôneInfos"
-
-#: ../../../<rst_epilog>:20
-msgid "iconLoaddataset"
-msgstr "iconLoaddataset "
-
-#: ../../../<rst_epilog>:21
-msgid "iconMarkMarker"
-msgstr "icôneMarqueur"
-
-#: ../../../<rst_epilog>:23
-msgid "iconOpendatasetdirectory"
-msgstr "icôneOuvrirlerépertoiredel'ensemble"
-
-#: ../../../<rst_epilog>:25
-msgid "iconViewdatasetdetails"
-msgstr "icôneAfficherlesdétailsdel'ensemble"
-
-#: ../../../<rst_epilog>:27
-msgid "iconWrench"
-msgstr "icôneClé"
-
-#: ../../../<rst_epilog>:29
-msgid "iconFolder"
-msgstr "icôneDossier"
-
-#: ../../../<rst_epilog>:31
 msgid "iconReports"
 msgstr "icôneRapports"
 
-#: ../../../<rst_epilog>:33
-msgid "iconTrendsEarth"
-msgstr "icôneTrendsEarth"
-
-#: ../../../<rst_epilog>:35
-msgid "iconVisualization"
-msgstr "icôneVisualisation"
-
-#: ../../../<rst_epilog>:37
+#: ../../../<rst_epilog>:6
 msgid "Trends.Earth"
 msgstr "Trends.Earth"
-
-#: ../../../<rst_epilog>
-msgid "logoCI"
-msgstr "Logo CI"
-
-#: ../../../<rst_epilog>
-msgid "logoLund"
-msgstr "Logo Lund"
-
-#: ../../../<rst_epilog>
-msgid "logoNASA"
-msgstr "Logo NASA"
-
-#: ../../../<rst_epilog>
-msgid "logoGEF"
-msgstr "Logo GEF"
-

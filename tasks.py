@@ -992,7 +992,8 @@ def gettext(c, language=None):
         language = c.sphinx.base_language
     script_folder = str(Path(__file__).parent)
     SPHINX_OPTS = (
-        f'-D language={language} -A language={language} {script_folder}/{c.sphinx.sourcedir}'
+        f'-D language={language} -A language={language} '
+        f'{script_folder}/{c.sphinx.sourcedir}'
     )
     I18N_SPHINX_OPTS = f'{SPHINX_OPTS} {script_folder}/{c.sphinx.docroot}/i18n/pot'
 

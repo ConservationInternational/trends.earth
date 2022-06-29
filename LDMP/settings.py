@@ -383,8 +383,8 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
             Setting.REGION_NAME)
 
         if secondLevel_area_admin_1:
-            if secondLevel_area_admin_1== 'All regions':
-                # all regions is always stored in untranslated in qsettings (to avoid
+            if secondLevel_area_admin_1 == 'All regions':
+                # all regions is always stored untranslated in qsettings (to avoid
                 # issues if user changes language) so need to convert to translated
                 # version prior to searching for the value in the combo box
                 secondLevel_area_admin_1 = TR_ALL_REGIONS

@@ -715,7 +715,6 @@ def plugin_install(
 ):
     '''install plugin to qgis'''
     set_version(c)
-    compile_files(c, version, clean, fast)
     plugin_name = c.plugin.name
     src = os.path.join(os.path.dirname(__file__), plugin_name)
 
@@ -788,20 +787,6 @@ def plugin_install(
                     .format(version, dst_this_plugin)
                 )
                 os.symlink(src, dst_this_plugin)
-
-
-# Compile all ui and resource files
-def compile_files(c, version, clean, fast=False):
-    # check to see if we have pyrcc
-
-    if version == 2:
-        pyrcc = 'pyrcc4'
-    elif version == 3:
-        pyrcc = 'pyrcc5'
-    else:
-        print("ERROR: unknown qgis version {}".format(version))
-
-        return
 
 
 def file_changed(infile, outfile):
@@ -878,15 +863,8 @@ def check_path(app):
 # Translation
 ###############################################################################
 
-
-@task(
-    help={
-        'force':
-        'Force the download of the translations files regardless of whether '
-        'timestamps on the local computer are newer than those on the server'
-    }
-)
-def translate_pull(c, force=False):
+def _lrelease(c):
+    print("Releasing translations using lrelease...")
     lrelease = check_path('lrelease')
 
     if not lrelease:
@@ -895,13 +873,6 @@ def translate_pull(c, force=False):
         )
 
         return
-    print("Pulling transifex translations...")
-
-    if force:
-        subprocess.check_call(['tx', 'pull', '-f'])
-    else:
-        subprocess.check_call(['tx', 'pull'])
-    print("Releasing translations using lrelease...")
 
     for translation in c.plugin.translations:
         subprocess.check_call(
@@ -912,6 +883,23 @@ def translate_pull(c, force=False):
                 )
             ]
         )
+
+@task(
+    help={
+        'force':
+        'Force the download of the translations files regardless of whether '
+        'timestamps on the local computer are newer than those on the server'
+    }
+)
+def translate_pull(c, force=False):
+    print("Pulling transifex translations...")
+
+    if force:
+        subprocess.check_call(['tx', 'pull', '-f'])
+    else:
+        subprocess.check_call(['tx', 'pull'])
+
+    _lrelease(c)
 
 
 # @task
@@ -1420,7 +1408,9 @@ def zipfile_build(
         )
 
     plugin_setup(c, clean=clean, pip=pip)
-    compile_files(c, version=version, clean=clean)
+
+    # Make sure compiled versions of translation files are included
+    _lrelease(c)
 
     package_dir = c.plugin.package_dir
 
@@ -1844,7 +1834,7 @@ ns.configure(
             'tests': ['LDMP/test'],
             'excludes': [
                 'LDMP/data_prep_scripts', 'LDMP/binaries', 'docs', 'gee',
-                'util', '*.pyc', 'LDMP/schemas/.gitgnore', 'LDMP/schemas/.git'
+                'util', '*.pyc', '*.ts', '*.pro'
             ],
             # skip certain files inadvertently found by exclude pattern globbing
             'skip_exclude': [],

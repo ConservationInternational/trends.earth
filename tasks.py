@@ -896,9 +896,9 @@ def translate_pull(c, force=False):
     print("Pulling transifex translations...")
 
     if force:
-        subprocess.check_call(['tx', 'pull', '-f'])
+        subprocess.check_call([c.sphinx.tx_path, 'pull', '-f'])
     else:
-        subprocess.check_call(['tx', 'pull'])
+        subprocess.check_call([c.sphinx.tx_path, 'pull'])
 
     _lrelease(c)
 
@@ -974,9 +974,9 @@ def translate_push(c, force=False, version=3):
         )
 
     if force:
-        subprocess.check_call(['tx', 'push', '-f', '-s'])
+        subprocess.check_call([c.sphinx.tx_path, 'push', '-f', '-s'])
     else:
-        subprocess.check_call(['tx', 'push', '-s'])
+        subprocess.check_call([c.sphinx.tx_path, 'push', '-s'])
 
 
 @task(help={'language': 'language'})
@@ -1880,6 +1880,7 @@ ns.configure(
             'deploy_s3_bucket': 'trends.earth',
             'docs_s3_prefix': 'docs/',
             'transifex_name': 'trendsearth-v2',
+            'tx_path': f'{os.path.dirname(__file__)}/tx',
             'base_language': 'en'
         },
         'data_downloads': {

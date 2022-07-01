@@ -5,7 +5,6 @@ sphinx-intl
 sphinx-rtd-theme
 sphinx-rtd-theme
 sphinxcontrib-spelling
-transifex-client>=0.13.6
 myst-parser
 linkify-it-py
 pylint

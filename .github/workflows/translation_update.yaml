@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TX_TOKEN: ${{ secrets.TX_TOKEN }}
+      TX_HOSTNAME: ${{ secrets.TX_HOSTNAME }}
       AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

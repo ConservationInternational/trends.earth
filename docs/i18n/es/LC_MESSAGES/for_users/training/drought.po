@@ -1,22 +1,26 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
-#
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
+# Alex Zvoleff <azvoleff@conservation.org>, 2022
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-07-01 11:29-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2022-07-01 20:25+0000\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
+"Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Language: es\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 #: ../../source/for_users/training/drought.rst:2
 msgid "Drought hazard, exposure, and vulnerability"
@@ -24,73 +28,99 @@ msgstr ""
 
 #: ../../source/for_users/training/drought.rst:5
 msgid "Default data for UNCCD SO 3"
-msgstr ""
+msgstr "Datos predeterminados para el UNCCD SO 3"
 
 #: ../../source/for_users/training/drought.rst:7
 msgid ""
-"**Objective**: : Learn how to calculate SO 3 indicators of drought "
-"Hazard, Exposure and Vulnerability using Trends.Earth and the default "
-"data: monthly precipitation dataset from the Global Precipitation "
-"Climatology Center -GPC, gridded population count from WorldPop and "
-"Vulnerability to drought from the European Commission's Joint Research "
-"Centre - JRC. In this tutorial we will use Colombia as an example, but "
-"you can choose any study area."
+"**Objective**: : Learn how to calculate SO 3 indicators of drought Hazard, "
+"Exposure and Vulnerability using Trends.Earth and the default data: monthly "
+"precipitation dataset from the Global Precipitation Climatology Center -GPC,"
+" gridded population count from WorldPop and Vulnerability to drought from "
+"the European Commission's Joint Research Centre - JRC. In this tutorial we "
+"will use Colombia as an example, but you can choose any study area."
 msgstr ""
+"**Objetivo**: : Aprender a calcular los 3 indicadores de la sequía Amenaza, "
+"Exposición y Vulnerabilidad utilizando Trends.Earth y los datos por defecto:"
+" conjunto de datos de precipitación mensual del Global Precipitation "
+"Climatology Center -GPC, recuento de población cuadriculado de WorldPop y "
+"Vulnerabilidad a la sequía del Centro Común de Investigación de la Comisión "
+"Europea - JRC. En este tutorial utilizaremos a Colombia como ejemplo, pero "
+"puede elegir cualquier área de estudio."
 
 #: ../../source/for_users/training/drought.rst:9
 #: ../../source/for_users/training/drought.rst:57
 msgid "**Estimated time of completion**: 15 minutes"
-msgstr ""
+msgstr "**Tiempo estimado de finalización**: 15 minutos"
 
 #: ../../source/for_users/training/drought.rst:11
 msgid "**Internet access**: Required"
-msgstr ""
+msgstr "**Acceso a Internet**: Necesario"
 
 #: ../../source/for_users/training/drought.rst:13
 msgid ""
 "In the **Algorithm** window, click on **Drought - Vulnerability and "
-"exposure** and select **Execute remotely** under **Drought "
-"vulnerability**."
+"exposure** and select **Execute remotely** under **Drought vulnerability**."
 msgstr ""
+"En la ventana **Algorithm**, haga clic en **Drought - Vulnerability and "
+"exposure** y seleccione **Execute remotely** en **Drought vulnerability**."
 
 #: ../../source/for_users/training/drought.rst:18
 #: ../../source/for_users/training/drought.rst:71
 msgid ""
-"The region of interest is already set up in Settings. If you need to "
-"change, select the **Change region** button."
+"The region of interest is already set up in Settings. If you need to change,"
+" select the **Change region** button."
 msgstr ""
+"La región de interés ya está definida en los ajustes. Si necesita "
+"modificarla, pulse el botón **Change region**."
 
 #: ../../source/for_users/training/drought.rst:21
 #: ../../source/for_users/training/drought.rst:74
 msgid ""
-"Refer to the :ref:`tut_settings` section of this manual for more "
-"information on setting up your area of interest."
+"Refer to the :ref:`tut_settings` section of this manual for more information"
+" on setting up your area of interest."
 msgstr ""
+"Consulte la sección : ref:`tut_settings` de este manual para obtener más "
+"información sobre la configuración de su área de interés."
 
 #: ../../source/for_users/training/drought.rst:23
 msgid ""
-"Set the **Initial** and **Final** year and the **Lag(months)** that will "
-"be applied to the Precipitation Dataset for calculating drought Hazard "
-"and Exposure. Select the **Include JRC Vulnerability Index** check box to"
-" calculate drought Vulnerability for the region of interest. The default "
-"Precipitation dataset is the Global Precipitation Climatology Centre "
-"(GPCC) v2020 at roughly 27 sq km spatial resolution. Soon users will have"
-" the option to select the CHIRPS dataset from the Climate Hazard Group – "
-"although featuring finer spatial resolution, at approximately 5 sq km, "
-"the CHIRPS dataset does not offer complete global coverage, extending "
-"from 50 South to 50 North. Type in an **Execution name** and make sure to"
-" leave some notes about this step for future reference."
+"Set the **Initial** and **Final** year and the **Lag(months)** that will be "
+"applied to the Precipitation Dataset for calculating drought Hazard and "
+"Exposure. Select the **Include JRC Vulnerability Index** check box to "
+"calculate drought Vulnerability for the region of interest. The default "
+"Precipitation dataset is the Global Precipitation Climatology Centre (GPCC) "
+"v2020 at roughly 27 sq km spatial resolution. Soon users will have the "
+"option to select the CHIRPS dataset from the Climate Hazard Group – although"
+" featuring finer spatial resolution, at approximately 5 sq km, the CHIRPS "
+"dataset does not offer complete global coverage, extending from 50 South to "
+"50 North. Type in an **Execution name** and make sure to leave some notes "
+"about this step for future reference."
 msgstr ""
+"Establezca el **año inicial** y el **año final** y el **retraso (meses)** "
+"que se aplicarán al conjunto de datos de precipitaciones para calcular el "
+"riesgo y la exposición a la sequía. Seleccione la casilla **Include JRC "
+"Vulnerability Index** para calcular la vulnerabilidad a la sequía de la "
+"región de interés. El conjunto de datos de precipitaciones por defecto es el"
+" Centro de Climatología de Precipitaciones Globales (GPCC) v2020 con una "
+"resolución espacial de aproximadamente 27 km2. Pronto los usuarios tendrán "
+"la opción de elegir el conjunto de datos CHIRPS del Grupo de Riesgos "
+"Climáticos - aunque tiene una resolución espacial más fina, de "
+"aproximadamente 5 km2, el conjunto de datos CHIRPS no ofrecen una cobertura "
+"global completa, extendiéndose desde el 50 Sur al 50 Norte. Escriba un "
+"**nombre de ejecución** y asegúrese de dejar algunas notas sobre este paso "
+"para referencias futuras."
 
 #: ../../source/for_users/training/drought.rst:28
 msgid "Select **Schedule remote execution** button."
-msgstr ""
+msgstr "Pulse el botón **Schedule remote execution**."
 
 #: ../../source/for_users/training/drought.rst:31
 msgid ""
 "Refer to the :ref:`background_unccdreporting` section of this manual to "
 "learn about drought Hazard, Exposure and Vulnerability."
 msgstr ""
+"Consulte la sección :ref:`background_unccdreporting` de este manual para "
+"conocer el peligro de sequía, la exposición y vulnerabilidad."
 
 #: ../../source/for_users/training/drought.rst:33
 #: ../../source/for_users/training/drought.rst:86
@@ -99,17 +129,23 @@ msgid ""
 "submitted will appear in the menu if the **Download remotely-generated "
 "datasets automatically** is checked in settings."
 msgstr ""
+"En el panel **Trends.Earth**, seleccione la pestaña **Datasets**. La tarea "
+"enviada aparecerá en el menú si la opción **Download remotely-generated "
+"datasets automatically** está marcada en la configuración."
 
 #: ../../source/for_users/training/drought.rst:36
 #: ../../source/for_users/training/drought.rst:90
 msgid ""
-"Refer to the :ref:`tut_settings` section of this manual to learn more "
-"about **Advanced settings**"
+"Refer to the :ref:`tut_settings` section of this manual to learn more about "
+"**Advanced settings**"
 msgstr ""
+"Consulte la sección :ref:`tut_settings` de este manual para obtener más "
+"información sobre **Advanced settings*."
 
 #: ../../source/for_users/training/drought.rst:38
-msgid ". Select the Refresh button if the analysis does not appear in the menu."
-msgstr ""
+msgid ""
+". Select the Refresh button if the analysis does not appear in the menu."
+msgstr ". Pulse el botón actualizar si el análisis no aparece en el menú."
 
 #: ../../source/for_users/training/drought.rst:40
 #: ../../source/for_users/training/drought.rst:94
@@ -117,6 +153,8 @@ msgid ""
 "Select the add layer drop-down button to **Add default layers from this "
 "layer to the map**"
 msgstr ""
+"Seleccione el botón desplegable de añadir capas para **Add default layers "
+"from this layer to the map**"
 
 #: ../../source/for_users/training/drought.rst:45
 msgid ""
@@ -124,20 +162,26 @@ msgid ""
 "Drought Vulnerability Index for 2018, and population disaggregated by "
 "gender, will be added to the map for the region of interest."
 msgstr ""
+"Los datos por defecto: Índice de precipitación estandarizada para todas las "
+"épocas, Índice de vulnerabilidad a la sequía del CCI para 2018 y población "
+"clasificada por género, se añadirán al mapa para la región de interés."
 
 #: ../../source/for_users/training/drought.rst:53
 msgid "Summarizing SO 3 indicators for reporting to UNCCD"
 msgstr ""
+"Resumir los indicadores del OE 3 para presentar como informe a la UNCCD"
 
 #: ../../source/for_users/training/drought.rst:55
 msgid ""
-"**Objective**: Learn to integrate the drought indicators in alingment "
-"with UNCCD SO3 reporting requirements."
+"**Objective**: Learn to integrate the drought indicators in alingment with "
+"UNCCD SO3 reporting requirements."
 msgstr ""
+"**Objetivo**: Aprende a integrar los indicadores de sequía de acuerdo a los "
+"requisitos de presentación de informes del OE3 de la CNULD."
 
 #: ../../source/for_users/training/drought.rst:59
 msgid "**Internet access**: Not required"
-msgstr ""
+msgstr "**Acceso a Internet**: no requerido"
 
 #: ../../source/for_users/training/drought.rst:62
 msgid ""
@@ -145,57 +189,72 @@ msgid ""
 "hazard, exposure and vulnerability. If you have not, please refer to the "
 "previous step on this tutorial."
 msgstr ""
+"Es necesario que haya calculado previamente los indicadores de peligro de "
+"sequía, exposición y vulnerabilidad. En caso contrario, consulte el paso "
+"anterior de este tutorial."
 
 #: ../../source/for_users/training/drought.rst:64
 msgid ""
-"Click on the Trends.Earth toolbar within QGIS, and click on the "
-"Trends.Earth icon."
+"Click on the Trends.Earth toolbar within QGIS, and click on the Trends.Earth"
+" icon."
 msgstr ""
+"Haga clic en la barra de herramientas de Trends.Earth dentro de QGIS, y haga"
+" clic en el icono de Trends.Earth."
 
 #: ../../source/for_users/training/drought.rst:66
 msgid ""
-"The **Trends.Earth** panel will open. In the **Algorithm** window, click "
-"on click on **Drought - Vulnerability and exposure** and select **Execute"
-" locally** under **Drought vulnerability summary table**."
+"The **Trends.Earth** panel will open. In the **Algorithm** window, click on "
+"click on **Drought - Vulnerability and exposure** and select **Execute "
+"locally** under **Drought vulnerability summary table**."
 msgstr ""
+"Se abrirá el panel **Trends.Earth**. En la ventana **Algorithm**, haga clic "
+"en **Drought - Vulnerability and exposure** y seleccione **Execute locally**"
+" en **Drought vulnerability summary table**."
 
 #: ../../source/for_users/training/drought.rst:76
 msgid ""
-"Select the **Drought dataset (hazard and exposure)** from the drop-down "
-"list"
+"Select the **Drought dataset (hazard and exposure)** from the drop-down list"
 msgstr ""
+"Seleccione el **Drought dataset (peligro y exposición)** de la lista "
+"desplegable"
 
 #: ../../source/for_users/training/drought.rst:78
 msgid ""
 "Make sure to check the **Drought dataset for vulnerability** box so this "
 "dataset set is also included in the summary calculation. If you have the "
-"drought indicator datasets loaded to the QGIS map canvas, Trends.Earth "
-"will automatically select them"
+"drought indicator datasets loaded to the QGIS map canvas, Trends.Earth will "
+"automatically select them"
 msgstr ""
+"Asegúrese de marcar la casilla **Drought dataset for vulnerability** para "
+"que así este conjunto de datos también sean incluidos en el cálculo del "
+"resumen. Si cuenta con los conjuntos de datos del indicador de sequía "
+"cargados en el lienzo del mapa en QGIS, Trends.Earth los seleccionará "
+"automáticamente"
 
 #: ../../source/for_users/training/drought.rst:84
 msgid "Select **Execute locally** button."
-msgstr ""
+msgstr "Pulse el botón **Execute locally**."
 
 #: ../../source/for_users/training/drought.rst:92
 msgid "Select the Refresh button if the analysis does not appear in the menu."
-msgstr ""
+msgstr "Pulse el botón actualizar si el análisis no aparece en el menú."
 
 #: ../../source/for_users/training/drought.rst:99
 msgid ""
 "The data for SO 3 Indicators will be added to the map for the region of "
 "interest."
 msgstr ""
+"Los datos de los indicadores del SO 3 serán añadidos al mapa de la región de"
+" interés."
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr ""
+msgstr "iconCalculator"
 
 #: ../../../<rst_epilog>:4
 msgid "iconReports"
-msgstr ""
+msgstr "iconReports"
 
 #: ../../../<rst_epilog>:6
 msgid "Trends.Earth"
-msgstr ""
-
+msgstr "Trends.Earth"

@@ -715,7 +715,6 @@ def plugin_install(
 ):
     '''install plugin to qgis'''
     set_version(c)
-    compile_files(c, version, clean, fast)
     plugin_name = c.plugin.name
     src = os.path.join(os.path.dirname(__file__), plugin_name)
 
@@ -788,20 +787,6 @@ def plugin_install(
                     .format(version, dst_this_plugin)
                 )
                 os.symlink(src, dst_this_plugin)
-
-
-# Compile all ui and resource files
-def compile_files(c, version, clean, fast=False):
-    # check to see if we have pyrcc
-
-    if version == 2:
-        pyrcc = 'pyrcc4'
-    elif version == 3:
-        pyrcc = 'pyrcc5'
-    else:
-        print("ERROR: unknown qgis version {}".format(version))
-
-        return
 
 
 def file_changed(infile, outfile):
@@ -878,15 +863,8 @@ def check_path(app):
 # Translation
 ###############################################################################
 
-
-@task(
-    help={
-        'force':
-        'Force the download of the translations files regardless of whether '
-        'timestamps on the local computer are newer than those on the server'
-    }
-)
-def translate_pull(c, force=False):
+def _lrelease(c):
+    print("Releasing translations using lrelease...")
     lrelease = check_path('lrelease')
 
     if not lrelease:
@@ -895,13 +873,6 @@ def translate_pull(c, force=False):
         )
 
         return
-    print("Pulling transifex translations...")
-
-    if force:
-        subprocess.check_call(['tx', 'pull', '-f'])
-    else:
-        subprocess.check_call(['tx', 'pull'])
-    print("Releasing translations using lrelease...")
 
     for translation in c.plugin.translations:
         subprocess.check_call(
@@ -912,6 +883,24 @@ def translate_pull(c, force=False):
                 )
             ]
         )
+
+
+@task(
+    help={
+        'force':
+        'Force the download of the translations files regardless of whether '
+        'timestamps on the local computer are newer than those on the server'
+    }
+)
+def translate_pull(c, force=False):
+    print("Pulling transifex translations...")
+
+    if force:
+        subprocess.check_call([c.sphinx.tx_path, 'pull', '-f'])
+    else:
+        subprocess.check_call([c.sphinx.tx_path, 'pull'])
+
+    _lrelease(c)
 
 
 # @task
@@ -946,12 +935,16 @@ def translate_push(c, force=False, version=3):
 
     for translation in c.plugin.translations:
         subprocess.check_call(
-            "sphinx-intl --config {sourcedir}/conf.py update -p {docroot}/i18n/pot -l {lang}"
-            .format(
-                sourcedir=c.sphinx.sourcedir,
-                docroot=c.sphinx.docroot,
-                lang=translation
-            )
+            c.sphinx.sphinx_intl.split() +
+            [
+                '--config',
+                f'{c.sphinx.sourcedir}/conf.py',
+                'update',
+                '-p',
+                f'{c.sphinx.docroot}/i18n/pot',
+                '-l',
+                f'{translation}'
+            ]
         )
 
     print("Gathering strings for translation using pylupdate...")
@@ -981,25 +974,26 @@ def translate_push(c, force=False, version=3):
         )
 
     if force:
-        subprocess.check_call('tx push -f -s')
+        subprocess.check_call([c.sphinx.tx_path, 'push', '-f', '-s'])
     else:
-        subprocess.check_call('tx push -s')
+        subprocess.check_call([c.sphinx.tx_path, 'push', '-s'])
 
 
 @task(help={'language': 'language'})
 def gettext(c, language=None):
     if not language:
         language = c.sphinx.base_language
-    SPHINX_OPTS = '-D language={lang} -A language={lang} {sourcedir}'.format(
-        lang=language, sourcedir=c.sphinx.sourcedir
+    script_folder = str(Path(__file__).parent)
+    SPHINX_OPTS = (
+        f'-D language={language} -A language={language} '
+        f'{script_folder}/{c.sphinx.sourcedir}'
     )
-    I18N_SPHINX_OPTS = '{sphinx_opts} {docroot}/i18n/pot'.format(
-        docroot=c.sphinx.docroot, sphinx_opts=SPHINX_OPTS
-    )
+    I18N_SPHINX_OPTS = f'{SPHINX_OPTS} {script_folder}/{c.sphinx.docroot}/i18n/pot'
+
     subprocess.check_call(
-        "sphinx-build -b gettext -a {i18n_sphinx_opts}".format(
-            i18n_sphinx_opts=I18N_SPHINX_OPTS
-        )
+        c.sphinx.sphinx_build.split() +
+        ['-b', 'gettext', '-a'] +
+        I18N_SPHINX_OPTS.split()
     )
 
 
@@ -1022,28 +1016,24 @@ def docs_spellcheck(c, ignore_errors=False, language=None, fast=False):
         languages.extend(c.plugin.translations)
 
     for language in languages:
-        print("\nBuilding {lang} documentation...".format(lang=language))
-        SPHINX_OPTS = '-D language={lang} -A language={lang} {sourcedir}'.format(
-            lang=language, sourcedir=c.sphinx.sourcedir
+        print(f"\nBuilding {language} documentation...")
+        SPHINX_OPTS = (
+            f'-D language={language} -A language={language} {c.sphinx.sourcedir}'
         )
 
         if language != 'en' or ignore_errors:
             subprocess.check_call(
-                "sphinx-build -b spelling -a {sphinx_opts} {builddir}/html/{lang}".
-                format(
-                    sphinx_opts=SPHINX_OPTS,
-                    builddir=c.sphinx.builddir,
-                    lang=language
-                )
+                c.sphinx.sphinx_intl.split() +
+                ['-b', 'spelling', '-a'] +
+                SPHINX_OPTS.split() +
+                [f"{c.sphinx.builddir}/html/{language}"]
             )
         else:
             subprocess.check_call(
-                "sphinx-build -n -W -b spelling -a {sphinx_opts} {builddir}/html/{lang}"
-                .format(
-                    sphinx_opts=SPHINX_OPTS,
-                    builddir=c.sphinx.builddir,
-                    lang=language
-                )
+                c.sphinx.sphinx_build.split() +
+                ['-n', '-W', '-b', 'spelling', '-a'] +
+                SPHINX_OPTS.split() +
+                [f"{c.sphinx.builddir}/html/{language}"]
             )
 
         if fast:
@@ -1074,42 +1064,40 @@ def docs_build(c, clean=False, ignore_errors=False, language=None, fast=False):
     build_download_page(c)
 
     for language in languages:
-        print("\nBuilding {lang} documentation...".format(lang=language))
-        SPHINX_OPTS = '-D language={lang} -A language={lang} {sourcedir}'.format(
-            lang=language, sourcedir=c.sphinx.sourcedir
+        print(f"\nBuilding {language} documentation...")
+        SPHINX_OPTS = (
+            f'-D language={language} -A language={language} {c.sphinx.sourcedir}'
         )
 
-        print(
-            "\nLocalizing resources for {lang} documentation...".format(
-                lang=language
-            )
-        )
+        print(f"\nLocalizing resources for {language} documentation...")
+
         localize_resources(c, language)
 
         subprocess.check_call(
-            "sphinx-intl --config {sourcedir}/conf.py build --language={lang}".
-            format(sourcedir=c.sphinx.sourcedir, lang=language)
+            c.sphinx.sphinx_intl.split() +
+            [
+                '--config',
+                f'{c.sphinx.sourcedir}/conf.py',
+                'build',
+                f"--language={language}"
+            ]
         )
 
         # Build HTML docs
 
         if language != 'en' or ignore_errors:
             subprocess.check_call(
-                "sphinx-build -b html -a {sphinx_opts} {builddir}/html/{lang}".
-                format(
-                    sphinx_opts=SPHINX_OPTS,
-                    builddir=c.sphinx.builddir,
-                    lang=language
-                )
+                c.sphinx.sphinx_build.split() +
+                ['-b', 'html', '-a'] +
+                SPHINX_OPTS.split() +
+                [f"{c.sphinx.builddir}/html/{language}"]
             )
         else:
             subprocess.check_call(
-                "sphinx-build -n -W -b html -a {sphinx_opts} {builddir}/html/{lang}"
-                .format(
-                    sphinx_opts=SPHINX_OPTS,
-                    builddir=c.sphinx.builddir,
-                    lang=language
-                )
+                c.sphinx.sphinx_build.split() +
+                ['-n', '-W', '-b', 'html', '-a'] +
+                SPHINX_OPTS.split() +
+                [f"{c.sphinx.builddir}/html/{language}"]
             )
         print(
             "HTML Build finished. The HTML pages for '{lang}' are in {builddir}."
@@ -1120,13 +1108,12 @@ def docs_build(c, clean=False, ignore_errors=False, language=None, fast=False):
             break
 
         # Build PDF, by first making latex from sphinx, then pdf from that
-        tex_dir = "{builddir}/latex/{lang}".format(
-            builddir=c.sphinx.builddir, lang=language
-        )
+        tex_dir = f"{c.sphinx.builddir}/latex/{language}"
         subprocess.check_call(
-            "sphinx-build -b latex -a {sphinx_opts} {tex_dir}".format(
-                sphinx_opts=SPHINX_OPTS, tex_dir=tex_dir
-            )
+            c.sphinx.sphinx_build.split() +
+            ['-b', 'latex', '-a'] +
+            SPHINX_OPTS.split() +
+            [f"{tex_dir}"]
         )
         
         tex_files = [Path(tex_file).name for tex_file in glob.glob(f'{tex_dir}/*.tex')]
@@ -1137,9 +1124,7 @@ def docs_build(c, clean=False, ignore_errors=False, language=None, fast=False):
             # Move the PDF to the html folder so it will be uploaded with the
             # site
             pdf_file = os.path.splitext(tex_file)[0] + '.pdf'
-            out_dir = '{builddir}/html/{lang}/pdfs'.format(
-                builddir=c.sphinx.builddir, lang=language
-            )
+            out_dir = f'{c.sphinx.builddir}/html/{language}/pdfs'
 
             if not os.path.exists(out_dir):
                 os.makedirs(out_dir)
@@ -1446,7 +1431,9 @@ def zipfile_build(
         )
 
     plugin_setup(c, clean=clean, pip=pip)
-    compile_files(c, version=version, clean=clean)
+
+    # Make sure compiled versions of translation files are included
+    _lrelease(c)
 
     package_dir = c.plugin.package_dir
 
@@ -1870,7 +1857,7 @@ ns.configure(
             'tests': ['LDMP/test'],
             'excludes': [
                 'LDMP/data_prep_scripts', 'LDMP/binaries', 'docs', 'gee',
-                'util', '*.pyc', 'LDMP/schemas/.gitgnore', 'LDMP/schemas/.git'
+                'util', '*.pyc', '*.ts', '*.pro'
             ],
             # skip certain files inadvertently found by exclude pattern globbing
             'skip_exclude': [],
@@ -1884,6 +1871,8 @@ ns.configure(
             'tecli': '../trends.earth-CLI/tecli'
         },
         'sphinx': {
+            'sphinx_build': f'{sys.executable} -m sphinx.cmd.build',
+            'sphinx_intl': 'sphinx-intl',
             'docroot': 'docs',
             'sourcedir': 'docs/source',
             'builddir': 'docs/build',
@@ -1891,6 +1880,7 @@ ns.configure(
             'deploy_s3_bucket': 'trends.earth',
             'docs_s3_prefix': 'docs/',
             'transifex_name': 'trendsearth-v2',
+            'tx_path': f'{os.path.dirname(__file__)}/tx',
             'base_language': 'en'
         },
         'data_downloads': {

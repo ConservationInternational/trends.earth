@@ -1,6 +1,6 @@
 Pillow==9.0.1
 pandas==1.1.2
-numpy==1.21.0
+numpy==1.22.0
 matplotlib==3.3.1
 matplotlib-scalebar==0.6.2
 earthengine-api==0.1.232

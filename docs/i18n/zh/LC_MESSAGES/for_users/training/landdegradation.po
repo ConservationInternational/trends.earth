@@ -10,9 +10,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 1.99.11\n"
+"Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-21 17:06-0400\n"
+"POT-Creation-Date: 2022-07-01 11:29-0400\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
@@ -48,7 +48,6 @@ msgid "**Estimated time of completion**: 35 minutes"
 msgstr "**预计完成时间**：35分钟"
 
 #: ../../source/for_users/training/landdegradation.rst:13
-#: ../../source/for_users/training/landdegradation.rst:542
 msgid "**Internet access**: Required"
 msgstr "**互联网接入**：必填"
 
@@ -68,8 +67,6 @@ msgstr ""
 #: ../../source/for_users/training/landdegradation.rst:26
 #: ../../source/for_users/training/landdegradation.rst:95
 #: ../../source/for_users/training/landdegradation.rst:382
-#: ../../source/for_users/training/landdegradation.rst:549
-#: ../../source/for_users/training/landdegradation.rst:602
 msgid ""
 "The region of interest is already set up in Settings. If you need to change,"
 " select the **Change region** button."
@@ -78,8 +75,6 @@ msgstr "关注区域已在“设置”中创建。 如果您需要更改，请�
 #: ../../source/for_users/training/landdegradation.rst:29
 #: ../../source/for_users/training/landdegradation.rst:100
 #: ../../source/for_users/training/landdegradation.rst:385
-#: ../../source/for_users/training/landdegradation.rst:552
-#: ../../source/for_users/training/landdegradation.rst:605
 msgid ""
 "Refer to the :ref:`tut_settings` section of this manual for more information"
 " on setting up your area of interest."
@@ -100,7 +95,6 @@ msgid "Type in the Execution name and notes."
 msgstr "输入执行名称和注释。"
 
 #: ../../source/for_users/training/landdegradation.rst:38
-#: ../../source/for_users/training/landdegradation.rst:559
 msgid "Select **Schedule remote execution** button."
 msgstr "选择**安排远程执行**按钮。"
 
@@ -142,8 +136,6 @@ msgstr ""
 "如果在**高级设置**中勾选了**自动下载远程生成的数据集**，提交的任务将出现在菜单中。"
 
 #: ../../source/for_users/training/landdegradation.rst:56
-#: ../../source/for_users/training/landdegradation.rst:567
-#: ../../source/for_users/training/landdegradation.rst:621
 msgid ""
 "Refer to the :ref:`tut_settings` section of this manual to learn more about "
 "**Advanced settings**"
@@ -193,7 +185,6 @@ msgstr "**预计完成时间**：20分钟"
 #: ../../source/for_users/training/landdegradation.rst:216
 #: ../../source/for_users/training/landdegradation.rst:282
 #: ../../source/for_users/training/landdegradation.rst:422
-#: ../../source/for_users/training/landdegradation.rst:590
 msgid "**Internet access**: Not required"
 msgstr "**互联网接入**：不需要"
 
@@ -265,12 +256,11 @@ msgstr ""
 "如果您想获得两个时期的摘要结果，请务必勾选**基线** 和**发展时期** 两项的 **人口** 框。 |trends.earth| 提供访问 "
 "**世界人口** 数据集的权限，UNCCD 默认使用该数据集计算SO2-3指标。"
 
-#: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
+#: ../../../<rst_epilog>:6 ../../../<rst_epilog>:6
 msgid "Trends.Earth"
 msgstr "Trends.Earth"
 
 #: ../../source/for_users/training/landdegradation.rst:116
-#: ../../source/for_users/training/landdegradation.rst:615
 msgid "Select **Execute locally** button."
 msgstr "选择**本地执行**按钮。"
 
@@ -981,154 +971,11 @@ msgstr ""
 "关于在与土地覆盖和土地生产力整合后，如何使用导入的土壤有机碳数据来计算最终 SDG 15.3.1 的说明，请参阅 :ref:`indicator-"
 "soc` 教程。"
 
-#: ../../source/for_users/training/landdegradation.rst:533
-msgid "Strategic Objective 3"
-msgstr "战略目标 3"
-
-#: ../../source/for_users/training/landdegradation.rst:536
-msgid "Default data for UNCCD SO 3"
-msgstr "UNCCD SO 3 的默认数据"
-
-#: ../../source/for_users/training/landdegradation.rst:538
-msgid ""
-"**Objective**: : Learn how to calculate SO 3 indicators of drought Hazard, "
-"Exposure and Vulnerability using Trends.Earth and the default data: monthly "
-"precipitation dataset from the Global Precipitation Climatology Center -GPC,"
-" gridded population count from WorldPop and Vulnerability to drought from "
-"the European Commission's Joint Research Centre - JRC. In this tutorial we "
-"will use Colombia as an example, but you can choose any study area."
-msgstr ""
-"**目标**：了解如何使用 Trends.Earth 和默认数据计算 SO 3 干旱危害、暴露和脆弱性指标：来自全球降水气候学中心——GPC "
-"的月降水数据集，来自 WorldPop 的网格化人口计数，以及来自欧盟委员会联合研究中心——JRC "
-"的干旱脆弱性。在本教程中，我们将以哥伦比亚为例，但您可以选择任何研究区域。"
-
-#: ../../source/for_users/training/landdegradation.rst:540
-#: ../../source/for_users/training/landdegradation.rst:588
-msgid "**Estimated time of completion**: 15 minutes"
-msgstr "**预计完成时间**：15 分钟"
-
-#: ../../source/for_users/training/landdegradation.rst:544
-msgid ""
-"In the **Algorithm** window, click on **Drought - Vulnerability and "
-"exposure** and select **Execute remotely** under **Drought vulnerability**."
-msgstr "在 **算法** 窗口，单击 **干旱——脆弱性和暴露**，并在 **干旱脆弱性**下选择 **远程执行**。"
-
-#: ../../source/for_users/training/landdegradation.rst:554
-msgid ""
-"Set the **Initial** and **Final** year and the **Lag(months)** that will be "
-"applied to the Precipitation Dataset for calculating drought Hazard and "
-"Exposure. Select the **Include JRC Vulnerability Index** check box to "
-"calculate drought Vulnerability for the region of interest. The default "
-"Precipitation dataset is the Global Precipitation Climatology Centre (GPCC) "
-"v2020 at roughly 27 sq km spatial resolution. Soon users will have the "
-"option to select the CHIRPS dataset from the Climate Hazard Group – although"
-" featuring finer spatial resolution, at approximately 5 sq km, the CHIRPS "
-"dataset does not offer complete global coverage, extending from 50 South to "
-"50 North. Type in an **Execution name** and make sure to leave some notes "
-"about this step for future reference."
-msgstr ""
-"设置 **初始** 和 **最终**年份以及 **滞后（月）** ，它们将应用于降水数据集，以计算干旱危害和暴露。选中 **包括 JRC 脆弱性索引**"
-" 复选框，以计算感兴趣区域的干旱脆弱性。默认降水数据集是全球降水气候中心 (GPCC) v2020，空间分辨率约为 27 "
-"平方公里。很快，用户将可以从气候危害组中选择 CHIRPS 数据集——尽管 CHIRPS 数据集具有更精细的空间分辨率，大约 5 平方公里，但不能提供从"
-" 50 南到 50 北的全球完整覆盖。输入 **执行名称** 并确保留下关于此步骤的一些注释以供将来参考。"
-
-#: ../../source/for_users/training/landdegradation.rst:562
-msgid ""
-"Refer to the :ref:`background_unccdreporting` section of this manual to "
-"learn about drought Hazard, Exposure and Vulnerability."
-msgstr "请参阅本手册的 :ref:`background_unccdreporting` 部分，以了解干旱危害、暴露和脆弱性。"
-
-#: ../../source/for_users/training/landdegradation.rst:564
-#: ../../source/for_users/training/landdegradation.rst:617
-msgid ""
-"In the **Trends.Earth** panel, select the **Datasets** tab. The task "
-"submitted will appear in the menu if the **Download remotely-generated "
-"datasets automatically** is checked in settings."
-msgstr ""
-"在 **Trends.Earth** 面板中，选择 **数据集** "
-"选项卡。如果在设置中勾选了**自动下载远程生成的数据集**，则提交的任务将出现在菜单中。"
-
-#: ../../source/for_users/training/landdegradation.rst:569
-msgid ""
-". Select the Refresh button if the analysis does not appear in the menu."
-msgstr "如果分析未出现在菜单中，请选择“刷新”按钮。"
-
-#: ../../source/for_users/training/landdegradation.rst:571
-#: ../../source/for_users/training/landdegradation.rst:625
-msgid ""
-"Select the add layer drop-down button to **Add default layers from this "
-"layer to the map**"
-msgstr "选择添加图层下拉按钮，以**将此图层中的默认图层添加到地图**"
-
-#: ../../source/for_users/training/landdegradation.rst:576
-msgid ""
-"The default data: Standardized Precipitation Index for all epochs, JRC's "
-"Drought Vulnerability Index for 2018, and population disaggregated by "
-"gender, will be added to the map for the region of interest."
-msgstr "默认数据：所有时期的标准化降水指数、JRC 的 2018 年干旱脆弱性指数以及按性别分类的人口，将被添加到感兴趣区域的地图中。"
-
-#: ../../source/for_users/training/landdegradation.rst:584
-msgid "Summarizing SO 3 indicators for reporting to UNCCD"
-msgstr "总结用于向 UNCCD 报告的 SO 3 指标"
-
-#: ../../source/for_users/training/landdegradation.rst:586
-msgid ""
-"**Objective**: Learn to integrate the drought indicators in alingment with "
-"UNCCD SO3 reporting requirements."
-msgstr "**目标**：学习将干旱指标与 UNCCD SO3 报告要求相结合。"
-
-#: ../../source/for_users/training/landdegradation.rst:593
-msgid ""
-"You will need to have previously calculated the indicators of drought "
-"hazard, exposure and vulnerability. If you have not, please refer to the "
-"previous step on this tutorial."
-msgstr "您需要事先计算干旱危害、暴露和脆弱性的指标。如果还没有这样做，请参阅本教程的上一步。"
-
-#: ../../source/for_users/training/landdegradation.rst:595
-msgid ""
-"Click on the Trends.Earth toolbar within QGIS, and click on the Trends.Earth"
-" icon."
-msgstr "单击 QGIS 中的 Trends.Earth 工具栏，然后单击 Trends.Earth 图标。"
-
-#: ../../source/for_users/training/landdegradation.rst:597
-msgid ""
-"The **Trends.Earth** panel will open. In the **Algorithm** window, click on "
-"click on **Drought - Vulnerability and exposure** and select **Execute "
-"locally** under **Drought vulnerability summary table**."
-msgstr ""
-"**Trends.Earth** 面板将打开。在 **算法** 窗口中，点击 **干旱——脆弱性和暴露**，并在 **干旱脆弱性汇总表** 下选择 "
-"**本地执行**。"
-
-#: ../../source/for_users/training/landdegradation.rst:607
-msgid ""
-"Select the **Drought dataset (hazard and exposure)** from the drop-down list"
-msgstr "从下拉列表中选择**干旱数据集（危害和暴露）**"
-
-#: ../../source/for_users/training/landdegradation.rst:609
-msgid ""
-"Make sure to check the **Drought dataset for vulnerability** box so this "
-"dataset set is also included in the summary calculation. If you have the "
-"drought indicator datasets loaded to the QGIS map canvas, Trends.Earth will "
-"automatically select them"
-msgstr ""
-"确保选中**针对脆弱性的干旱数据集**复选框，以便此数据集集也包含在汇总计算中。如果您将干旱指标数据集加载到 QGIS "
-"地图画布中，Trends.Earth 将自动选择它们"
-
-#: ../../source/for_users/training/landdegradation.rst:623
-msgid "Select the Refresh button if the analysis does not appear in the menu."
-msgstr "如果分析未出现在菜单中，请选择“刷新”按钮。"
-
-#: ../../source/for_users/training/landdegradation.rst:630
-msgid ""
-"The data for SO 3 Indicators will be added to the map for the region of "
-"interest."
-msgstr "SO 3 指标的数据将被添加到感兴趣区域的地图中。"
-
-#: ../../source/for_users/training/landdegradation.rst:634
+#: ../../source/for_users/training/landdegradation.rst:532
 msgid "Exploring NDVI (Plot Data)"
 msgstr "探索 NDVI（绘图数据）"
 
-#: ../../source/for_users/training/landdegradation.rst:636
+#: ../../source/for_users/training/landdegradation.rst:534
 msgid "**Coming soon**"
 msgstr "**即将推出**"
 
@@ -1137,85 +984,5 @@ msgid "iconCalculator"
 msgstr "iconCalculator"
 
 #: ../../../<rst_epilog>:4
-msgid "iconChart"
-msgstr "iconChart"
-
-#: ../../../<rst_epilog>:6
-msgid "iconClipboard"
-msgstr "iconClipboard"
-
-#: ../../../<rst_epilog>:8
-msgid "iconCloudDownload"
-msgstr "iconCloudDownload"
-
-#: ../../../<rst_epilog>:10
-msgid "iconCog"
-msgstr "iconCog"
-
-#: ../../../<rst_epilog>:12
-msgid "iconDeletedataset"
-msgstr "iconDeletedataset"
-
-#: ../../../<rst_epilog>:14
-msgid "iconGlobe"
-msgstr "iconGlobe"
-
-#: ../../../<rst_epilog>:16
-msgid "iconGraph"
-msgstr "iconGraph"
-
-#: ../../../<rst_epilog>:18
-msgid "iconInfo"
-msgstr "iconInfo"
-
-#: ../../../<rst_epilog>:20
-msgid "iconLoaddataset"
-msgstr "iconLoaddataset"
-
-#: ../../../<rst_epilog>:21
-msgid "iconMarkMarker"
-msgstr "iconMarkMarker"
-
-#: ../../../<rst_epilog>:23
-msgid "iconOpendatasetdirectory"
-msgstr "iconOpendatasetdirectory"
-
-#: ../../../<rst_epilog>:25
-msgid "iconViewdatasetdetails"
-msgstr "iconViewdatasetdetails"
-
-#: ../../../<rst_epilog>:27
-msgid "iconWrench"
-msgstr "iconWrench"
-
-#: ../../../<rst_epilog>:29
-msgid "iconFolder"
-msgstr "iconFolder"
-
-#: ../../../<rst_epilog>:31
 msgid "iconReports"
 msgstr "iconReports"
-
-#: ../../../<rst_epilog>:33
-msgid "iconTrendsEarth"
-msgstr "iconTrendsEarth"
-
-#: ../../../<rst_epilog>:35
-msgid "iconVisualization"
-msgstr "iconVisualization"
-
-#: ../../../<rst_epilog>:0
-msgid "logoCI"
-msgstr "logoCI"
-
-#: ../../../<rst_epilog>:0
-msgid "logoLund"
-msgstr "logoLund"
-
-#: ../../../<rst_epilog>:0
-msgid "logoNASA"
-msgstr "logoNASA"
-
-#: ../../../<rst_epilog>:0
-msgid "logoGEF"
-msgstr "logoGEF"

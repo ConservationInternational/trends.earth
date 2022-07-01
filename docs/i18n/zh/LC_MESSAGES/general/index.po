@@ -10,9 +10,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 1.99.11\n"
+"Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-21 17:06-0400\n"
+"POT-Creation-Date: 2022-06-27 21:58-0400\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
@@ -33,11 +33,11 @@ msgid ""
 "scales\", funded by the Global Environment Facility."
 msgstr "|trends.earth| 是作为“启用全球数据源以多尺度评估和监测土地退化情况”项目的一部分而制作的，该项目由全球环境基金资助。"
 
-#: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
-#: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
-#: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
-#: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
-#: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
+#: ../../../<rst_epilog>:6 ../../../<rst_epilog>:6 ../../../<rst_epilog>:6
+#: ../../../<rst_epilog>:6 ../../../<rst_epilog>:6 ../../../<rst_epilog>:6
+#: ../../../<rst_epilog>:6 ../../../<rst_epilog>:6 ../../../<rst_epilog>:6
+#: ../../../<rst_epilog>:6 ../../../<rst_epilog>:6 ../../../<rst_epilog>:6
+#: ../../../<rst_epilog>:6 ../../../<rst_epilog>:6
 msgid "Trends.Earth"
 msgstr "Trends.Earth"
 
@@ -682,85 +682,5 @@ msgid "iconCalculator"
 msgstr "图标计算器"
 
 #: ../../../<rst_epilog>:4
-msgid "iconChart"
-msgstr "图标图表"
-
-#: ../../../<rst_epilog>:6
-msgid "iconClipboard"
-msgstr "图标剪贴板"
-
-#: ../../../<rst_epilog>:8
-msgid "iconCloudDownload"
-msgstr "图标云端下载"
-
-#: ../../../<rst_epilog>:10
-msgid "iconCog"
-msgstr "图标Cog"
-
-#: ../../../<rst_epilog>:12
-msgid "iconDeletedataset"
-msgstr "图标删除数据集"
-
-#: ../../../<rst_epilog>:14
-msgid "iconGlobe"
-msgstr "图标地球"
-
-#: ../../../<rst_epilog>:16
-msgid "iconGraph"
-msgstr "图标图形"
-
-#: ../../../<rst_epilog>:18
-msgid "iconInfo"
-msgstr "图标信息"
-
-#: ../../../<rst_epilog>:20
-msgid "iconLoaddataset"
-msgstr "图示加载数据集"
-
-#: ../../../<rst_epilog>:21
-msgid "iconMarkMarker"
-msgstr "图标 MarkMarker"
-
-#: ../../../<rst_epilog>:23
-msgid "iconOpendatasetdirectory"
-msgstr "图标打开数据集目录"
-
-#: ../../../<rst_epilog>:25
-msgid "iconViewdatasetdetails"
-msgstr "图示查看数据集详细信"
-
-#: ../../../<rst_epilog>:27
-msgid "iconWrench"
-msgstr "图标 Wrench"
-
-#: ../../../<rst_epilog>:29
-msgid "iconFolder"
-msgstr "图标文件夹"
-
-#: ../../../<rst_epilog>:31
 msgid "iconReports"
 msgstr "图标报告"
-
-#: ../../../<rst_epilog>:33
-msgid "iconTrendsEarth"
-msgstr "图标 TrendsEarth"
-
-#: ../../../<rst_epilog>:35
-msgid "iconVisualization"
-msgstr "图标可视化"
-
-#: ../../../<rst_epilog>:0
-msgid "logoCI"
-msgstr "徽标 CI"
-
-#: ../../../<rst_epilog>:0
-msgid "logoLund"
-msgstr "徽标隆德"
-
-#: ../../../<rst_epilog>:0
-msgid "logoNASA"
-msgstr "徽标 NASA"
-
-#: ../../../<rst_epilog>:0
-msgid "logoGEF"
-msgstr "徽标 GEF"

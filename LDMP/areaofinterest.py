@@ -31,7 +31,7 @@ def get_admin_poly_geojson():
     if not admin_polys:
         return None
     current_region = conf.settings_manager.get_value(conf.Setting.REGION_NAME)
-    if not current_region or current_region == conf.TR_ALL_REGIONS:
+    if (not current_region) or (current_region == "All regions"):
         result = admin_polys["geojson"]
     else:
         region_code = conf.ADMIN_BOUNDS_KEY[current_country].level1_regions[

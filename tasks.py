@@ -974,9 +974,9 @@ def translate_push(c, force=False, version=3):
         )
 
     if force:
-        subprocess.check_call('tx push -f -s')
+        subprocess.check_call(['tx', 'push', '-f', '-s'])
     else:
-        subprocess.check_call('tx push -s')
+        subprocess.check_call(['tx', 'push', '-s'])
 
 
 @task(help={'language': 'language'})

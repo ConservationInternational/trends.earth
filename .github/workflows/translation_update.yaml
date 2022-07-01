@@ -6,6 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
+  if: github.ref_name == 'main'
   translation_update:
     name: Update translations from transifex
     runs-on: ubuntu-latest

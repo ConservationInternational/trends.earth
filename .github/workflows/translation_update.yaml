@@ -29,8 +29,8 @@ jobs:
       - name: Push strings to transifex
         run: invoke translate-push
       - name: Pull updated strings from transifex
-        run: invoke translate-push
-			- name: Create pull request
+        run: invoke translate-pull
+      - name: Create pull request
       	id: cpr
         uses: peter-evans/create-pull-request@v4
         with:

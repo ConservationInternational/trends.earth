@@ -10,9 +10,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 1.99.11\n"
+"Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-21 17:06-0400\n"
+"POT-Creation-Date: 2022-07-01 11:29-0400\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
@@ -53,7 +53,6 @@ msgid "**Estimated time of completion**: 35 minutes"
 msgstr "**Temps de finalisation estimé** : 35 minutes"
 
 #: ../../source/for_users/training/landdegradation.rst:13
-#: ../../source/for_users/training/landdegradation.rst:542
 msgid "**Internet access**: Required"
 msgstr "**Accès Internet**: Obligatoire"
 
@@ -77,8 +76,6 @@ msgstr ""
 #: ../../source/for_users/training/landdegradation.rst:26
 #: ../../source/for_users/training/landdegradation.rst:95
 #: ../../source/for_users/training/landdegradation.rst:382
-#: ../../source/for_users/training/landdegradation.rst:549
-#: ../../source/for_users/training/landdegradation.rst:602
 msgid ""
 "The region of interest is already set up in Settings. If you need to change,"
 " select the **Change region** button."
@@ -89,8 +86,6 @@ msgstr ""
 #: ../../source/for_users/training/landdegradation.rst:29
 #: ../../source/for_users/training/landdegradation.rst:100
 #: ../../source/for_users/training/landdegradation.rst:385
-#: ../../source/for_users/training/landdegradation.rst:552
-#: ../../source/for_users/training/landdegradation.rst:605
 msgid ""
 "Refer to the :ref:`tut_settings` section of this manual for more information"
 " on setting up your area of interest."
@@ -116,7 +111,6 @@ msgid "Type in the Execution name and notes."
 msgstr "Saisissez le nom et les notes de l'exécution."
 
 #: ../../source/for_users/training/landdegradation.rst:38
-#: ../../source/for_users/training/landdegradation.rst:559
 msgid "Select **Schedule remote execution** button."
 msgstr "Sélectionnez le bouton **Planifier l'exécution à distance**."
 
@@ -166,8 +160,6 @@ msgstr ""
 "cochée dans **Paramètres avancés**."
 
 #: ../../source/for_users/training/landdegradation.rst:56
-#: ../../source/for_users/training/landdegradation.rst:567
-#: ../../source/for_users/training/landdegradation.rst:621
 msgid ""
 "Refer to the :ref:`tut_settings` section of this manual to learn more about "
 "**Advanced settings**"
@@ -232,7 +224,6 @@ msgstr "**Temps estimé d'achèvement**: 20 minutes"
 #: ../../source/for_users/training/landdegradation.rst:216
 #: ../../source/for_users/training/landdegradation.rst:282
 #: ../../source/for_users/training/landdegradation.rst:422
-#: ../../source/for_users/training/landdegradation.rst:590
 msgid "**Internet access**: Not required"
 msgstr "**Accès Internet**: Non requis"
 
@@ -325,12 +316,11 @@ msgstr ""
 "l'UNCCD pour le calcul de l'indicateur SO2-3, est accessible depuis le site "
 "trends.earth."
 
-#: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
+#: ../../../<rst_epilog>:6 ../../../<rst_epilog>:6
 msgid "Trends.Earth"
 msgstr "Trends.Earth"
 
 #: ../../source/for_users/training/landdegradation.rst:116
-#: ../../source/for_users/training/landdegradation.rst:615
 msgid "Select **Execute locally** button."
 msgstr "Sélectionnez le bouton **Execute locally**."
 
@@ -1277,198 +1267,11 @@ msgstr ""
 " pour calculer l’ODD 15.3.1 final après intégration avec la couverture "
 "terrestre et la productivité des terres."
 
-#: ../../source/for_users/training/landdegradation.rst:533
-msgid "Strategic Objective 3"
-msgstr "Objectif stratégique 3"
-
-#: ../../source/for_users/training/landdegradation.rst:536
-msgid "Default data for UNCCD SO 3"
-msgstr "Données par défaut pour UNCCD SO 3"
-
-#: ../../source/for_users/training/landdegradation.rst:538
-msgid ""
-"**Objective**: : Learn how to calculate SO 3 indicators of drought Hazard, "
-"Exposure and Vulnerability using Trends.Earth and the default data: monthly "
-"precipitation dataset from the Global Precipitation Climatology Center -GPC,"
-" gridded population count from WorldPop and Vulnerability to drought from "
-"the European Commission's Joint Research Centre - JRC. In this tutorial we "
-"will use Colombia as an example, but you can choose any study area."
-msgstr ""
-"**Objective** : Apprendre à calculer les indicateurs SO 3 de risque de "
-"sécheresse, d’exposition et de vulnérabilité à l’aide des tendances.Terre et"
-" données par défaut : ensemble de données mensuelles sur les précipitations "
-"du Global Precipitation Climatology Center -Le GPC, le dénombrement "
-"quadrillé de la population de WorldPop et la vulnérabilité à la sécheresse "
-"du Centre commun de recherche de la Commission européenne - CCR. Dans ce "
-"tutoriel, nous utiliserons la Colombie comme exemple, mais vous pouvez "
-"choisir n’importe quelle zone d’étude."
-
-#: ../../source/for_users/training/landdegradation.rst:540
-#: ../../source/for_users/training/landdegradation.rst:588
-msgid "**Estimated time of completion**: 15 minutes"
-msgstr "**Temps estimée d'achèvement**: 15 minutes"
-
-#: ../../source/for_users/training/landdegradation.rst:544
-msgid ""
-"In the **Algorithm** window, click on **Drought - Vulnerability and "
-"exposure** and select **Execute remotely** under **Drought vulnerability**."
-msgstr ""
-"Dans la fenêtre **Algorithm**, cliquez sur **Drought - Vulnerability and "
-"exposure** et sélectionnez **Execute remotly** sous **Drought "
-"vulnerability**."
-
-#: ../../source/for_users/training/landdegradation.rst:554
-msgid ""
-"Set the **Initial** and **Final** year and the **Lag(months)** that will be "
-"applied to the Precipitation Dataset for calculating drought Hazard and "
-"Exposure. Select the **Include JRC Vulnerability Index** check box to "
-"calculate drought Vulnerability for the region of interest. The default "
-"Precipitation dataset is the Global Precipitation Climatology Centre (GPCC) "
-"v2020 at roughly 27 sq km spatial resolution. Soon users will have the "
-"option to select the CHIRPS dataset from the Climate Hazard Group – although"
-" featuring finer spatial resolution, at approximately 5 sq km, the CHIRPS "
-"dataset does not offer complete global coverage, extending from 50 South to "
-"50 North. Type in an **Execution name** and make sure to leave some notes "
-"about this step for future reference."
-msgstr ""
-"Définissez les **Initial** et **Final** années et le **Lag(months)** qui "
-"seront appliqués à l’ensemble de données sur les précipitations pour "
-"calculer le risque de sécheresse et l’exposition. Cochez la case **Include "
-"JCR Vulnerability Index** pour calculer la vulnérabilité à la sécheresse "
-"pour la région d’intérêt. L’ensemble de données par défaut sur les "
-"précipitations est le Global Precipitation Climatology Centre (GPCC) v2020 à"
-" une résolution spatiale d’environ 27 km carrés. Bientôt, les utilisateurs "
-"auront la possibilité de sélectionner l’ensemble de données du SCHIRPT à "
-"partir du Groupe des risques climatiques – bien qu’il présente une "
-"résolution spatiale plus fine, à environ 5 km², l’ensemble de données du "
-"SCHIRPT n’offre pas une couverture mondiale complète, s’étendant de 50 Sud à"
-" 50 Nord. Saisissez un **Execution name** et assurez-vous de laisser des "
-"notes sur cette étape pour référence future."
-
-#: ../../source/for_users/training/landdegradation.rst:562
-msgid ""
-"Refer to the :ref:`background_unccdreporting` section of this manual to "
-"learn about drought Hazard, Exposure and Vulnerability."
-msgstr ""
-"Reportez-vous à la section :ref:background_unccdreporting du présent manuel "
-"pour en savoir plus sur les risques de sécheresse, l’exposition et la "
-"vulnérabilité."
-
-#: ../../source/for_users/training/landdegradation.rst:564
-#: ../../source/for_users/training/landdegradation.rst:617
-msgid ""
-"In the **Trends.Earth** panel, select the **Datasets** tab. The task "
-"submitted will appear in the menu if the **Download remotely-generated "
-"datasets automatically** is checked in settings."
-msgstr ""
-"Dans le panneau **Trends.Earth**, sélectionnez l’onglet **Datasets**. La "
-"tâche soumise s’affichera dans le menu si **Download remotely-generated "
-"datasets automatically** est coché dans les paramètres."
-
-#: ../../source/for_users/training/landdegradation.rst:569
-msgid ""
-". Select the Refresh button if the analysis does not appear in the menu."
-msgstr ""
-". Sélectionnez le bouton Actualiser si l’analyse n’apparaît pas dans le "
-"menu."
-
-#: ../../source/for_users/training/landdegradation.rst:571
-#: ../../source/for_users/training/landdegradation.rst:625
-msgid ""
-"Select the add layer drop-down button to **Add default layers from this "
-"layer to the map**"
-msgstr ""
-"Sélectionnez le bouton déroulant Ajouter un calque pour **Add default layers"
-" from this layer to the map**"
-
-#: ../../source/for_users/training/landdegradation.rst:576
-msgid ""
-"The default data: Standardized Precipitation Index for all epochs, JRC's "
-"Drought Vulnerability Index for 2018, and population disaggregated by "
-"gender, will be added to the map for the region of interest."
-msgstr ""
-"Les données par défaut : Indice de précipitations normalisé pour toutes les "
-"époques, Indice de vulnérabilité à la sécheresse du CCR pour 2018, et "
-"population ventilée par sexe, seront ajoutées à la carte pour la région "
-"d'intérêt."
-
-#: ../../source/for_users/training/landdegradation.rst:584
-msgid "Summarizing SO 3 indicators for reporting to UNCCD"
-msgstr "Résumé des indicateurs de SO 3 pour le rapport à l'UNCCD"
-
-#: ../../source/for_users/training/landdegradation.rst:586
-msgid ""
-"**Objective**: Learn to integrate the drought indicators in alingment with "
-"UNCCD SO3 reporting requirements."
-msgstr ""
-"**Objective** : Apprendre à intégrer les indicateurs de sécheresse en accord"
-" avec les exigences du rapport SO3 de l'UNCCD."
-
-#: ../../source/for_users/training/landdegradation.rst:593
-msgid ""
-"You will need to have previously calculated the indicators of drought "
-"hazard, exposure and vulnerability. If you have not, please refer to the "
-"previous step on this tutorial."
-msgstr ""
-"Vous devrez avoir préalablement calculé les indicateurs de danger, "
-"d'exposition et de vulnérabilité à la sécheresse. Si vous ne l'avez pas "
-"fait, veuillez vous référer à l'étape précédente de ce tutoriel."
-
-#: ../../source/for_users/training/landdegradation.rst:595
-msgid ""
-"Click on the Trends.Earth toolbar within QGIS, and click on the Trends.Earth"
-" icon."
-msgstr ""
-"Cliquez sur la barre d'outils Trends.Earth dans QGIS, puis sur l'icône "
-"Trends.Earth."
-
-#: ../../source/for_users/training/landdegradation.rst:597
-msgid ""
-"The **Trends.Earth** panel will open. In the **Algorithm** window, click on "
-"click on **Drought - Vulnerability and exposure** and select **Execute "
-"locally** under **Drought vulnerability summary table**."
-msgstr ""
-"Le panneau **Trends.Earth** s'ouvrira. Dans la fenêtre **Algorithm**, "
-"cliquez sur **Drought - Vulnerability and exposure** et sélectionnez "
-"**Execute locally** sous **Drought vulnerability summary table**."
-
-#: ../../source/for_users/training/landdegradation.rst:607
-msgid ""
-"Select the **Drought dataset (hazard and exposure)** from the drop-down list"
-msgstr ""
-"Sélectionnez l'ensemble de données **Drought dataset (hazard and exposure)**"
-" dans la liste déroulante."
-
-#: ../../source/for_users/training/landdegradation.rst:609
-msgid ""
-"Make sure to check the **Drought dataset for vulnerability** box so this "
-"dataset set is also included in the summary calculation. If you have the "
-"drought indicator datasets loaded to the QGIS map canvas, Trends.Earth will "
-"automatically select them"
-msgstr ""
-"Assurez-vous de cocher la case **Dought dataset for vulnerability** pour que"
-" cet ensemble de données soit également inclus dans le calcul du résumé. Si "
-"les jeux de données d'indicateurs de sécheresse sont chargés dans le canevas"
-" de carte QGIS, Trends.Earth les sélectionnera automatiquement."
-
-#: ../../source/for_users/training/landdegradation.rst:623
-msgid "Select the Refresh button if the analysis does not appear in the menu."
-msgstr ""
-"Sélectionnez le bouton Actualiser si l'analyse n'apparaît pas dans le menu."
-
-#: ../../source/for_users/training/landdegradation.rst:630
-msgid ""
-"The data for SO 3 Indicators will be added to the map for the region of "
-"interest."
-msgstr ""
-"Les données des indicateurs SO 3 seront ajoutées à la carte pour la région "
-"concernée."
-
-#: ../../source/for_users/training/landdegradation.rst:634
+#: ../../source/for_users/training/landdegradation.rst:532
 msgid "Exploring NDVI (Plot Data)"
 msgstr "Exploration du NDVI (données de tracé)"
 
-#: ../../source/for_users/training/landdegradation.rst:636
+#: ../../source/for_users/training/landdegradation.rst:534
 msgid "**Coming soon**"
 msgstr "**Coming soon**"
 
@@ -1477,85 +1280,5 @@ msgid "iconCalculator"
 msgstr "icôneCalculateur"
 
 #: ../../../<rst_epilog>:4
-msgid "iconChart"
-msgstr "icôneChart"
-
-#: ../../../<rst_epilog>:6
-msgid "iconClipboard"
-msgstr "icôneClipboard"
-
-#: ../../../<rst_epilog>:8
-msgid "iconCloudDownload"
-msgstr "icôneCloudTélécharger"
-
-#: ../../../<rst_epilog>:10
-msgid "iconCog"
-msgstr "icôneCog"
-
-#: ../../../<rst_epilog>:12
-msgid "iconDeletedataset"
-msgstr "iconDeletedataset"
-
-#: ../../../<rst_epilog>:14
-msgid "iconGlobe"
-msgstr "iconGlobe"
-
-#: ../../../<rst_epilog>:16
-msgid "iconGraph"
-msgstr "iconGraph"
-
-#: ../../../<rst_epilog>:18
-msgid "iconInfo"
-msgstr "iconInfo"
-
-#: ../../../<rst_epilog>:20
-msgid "iconLoaddataset"
-msgstr "iconLoaddataset"
-
-#: ../../../<rst_epilog>:21
-msgid "iconMarkMarker"
-msgstr "iconMarkMarker"
-
-#: ../../../<rst_epilog>:23
-msgid "iconOpendatasetdirectory"
-msgstr "iconOpendatasetdirectory"
-
-#: ../../../<rst_epilog>:25
-msgid "iconViewdatasetdetails"
-msgstr "iconViewdatasetdetails"
-
-#: ../../../<rst_epilog>:27
-msgid "iconWrench"
-msgstr "iconWrench"
-
-#: ../../../<rst_epilog>:29
-msgid "iconFolder"
-msgstr "iconFolder"
-
-#: ../../../<rst_epilog>:31
 msgid "iconReports"
 msgstr "iconReports"
-
-#: ../../../<rst_epilog>:33
-msgid "iconTrendsEarth"
-msgstr "iconTrendsEarth"
-
-#: ../../../<rst_epilog>:35
-msgid "iconVisualization"
-msgstr "iconVisualization"
-
-#: ../../../<rst_epilog>:0
-msgid "logoCI"
-msgstr "logoCI"
-
-#: ../../../<rst_epilog>:0
-msgid "logoLund"
-msgstr "logoLund"
-
-#: ../../../<rst_epilog>:0
-msgid "logoNASA"
-msgstr "logoNASA"
-
-#: ../../../<rst_epilog>:0
-msgid "logoGEF"
-msgstr "logoGEF"

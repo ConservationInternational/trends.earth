@@ -4,6 +4,7 @@
 
 [![Documentation Status](https://readthedocs.org/projects/trendsearth/badge/?version=latest)](https://trendsearth.readthedocs.io/en/latest/?badge=latest)
 [![Zipfile Status](https://github.com/ConservationInternational/trends.earth/actions/workflows/build_zipfile.yaml/badge.svg)](https://github.com/ConservationInternational/trends.earth/actions/workflows/build_zipfile.yaml)
+[![Update translations](https://github.com/ConservationInternational/trends.earth/actions/workflows/translation_update.yaml/badge.svg)](https://github.com/ConservationInternational/trends.earth/actions/workflows/translation_update.yaml)
 
 `Trends.Earth` is a free and open source tool to understand land change: the how and why
 behind changes on the ground. Trends.Earth allows users to draw on the best available
@@ -88,7 +89,7 @@ Open a terminal window and clone the latest version of the repository from
 Github:
 
 ```
-git clone --recurse-submodules https://github.com/ConservationInternational/trends.earth
+git clone https://github.com/ConservationInternational/trends.earth
 ```
 
 Navigate to the root folder of the newly cloned repository, and install
@@ -103,12 +104,6 @@ for the project:
 
 ```
 invoke plugin-setup
-```
-
-Once `invoke plugin-setup` has run, you need to be sure all dependencies are setup with command:
-
-```
-invoke  set-version -v <version number as in version.txt>
 ```
 
 then you can install the plugin using invoke:

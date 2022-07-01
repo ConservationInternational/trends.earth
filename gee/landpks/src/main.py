@@ -470,12 +470,13 @@ def base_image(year, geojson, lang, gc_client, metadata):
     h = get_hash(f)
     url = Url(upload_to_google_cloud(gc_client, f), h)
 
+    about = metadata["base_image"]["about"][lang].format(YEAR=year)
     out = ImageryPNG(
         name="base_image",
         lang=lang,
         title=title,
         date=[start_date, end_date],
-        about=metadata["base_image"]["about"][lang].format(YEAR=year),
+        about=about,
         url=url,
     )
     schema = ImageryPNGSchema()

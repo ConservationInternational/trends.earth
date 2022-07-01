@@ -10,9 +10,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 1.99.11\n"
+"Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-21 17:06-0400\n"
+"POT-Creation-Date: 2022-06-27 21:58-0400\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language-Team: Arabic (https://www.transifex.com/conservation-international/teams/80165/ar/)\n"
@@ -36,11 +36,11 @@ msgstr ""
 "العالمية لتقييم ورصد تدهور الأراضي على مستويات متعددة\"، بتمويل من مرفق "
 "البيئة العالمية."
 
-#: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
-#: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
-#: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
-#: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
-#: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
+#: ../../../<rst_epilog>:6 ../../../<rst_epilog>:6 ../../../<rst_epilog>:6
+#: ../../../<rst_epilog>:6 ../../../<rst_epilog>:6 ../../../<rst_epilog>:6
+#: ../../../<rst_epilog>:6 ../../../<rst_epilog>:6 ../../../<rst_epilog>:6
+#: ../../../<rst_epilog>:6 ../../../<rst_epilog>:6 ../../../<rst_epilog>:6
+#: ../../../<rst_epilog>:6 ../../../<rst_epilog>:6
 msgid "Trends.Earth"
 msgstr "اتجاهات.الأرض"
 
@@ -759,85 +759,5 @@ msgid "iconCalculator"
 msgstr "أيقونة الآلة الحاسبة"
 
 #: ../../../<rst_epilog>:4
-msgid "iconChart"
-msgstr "أيقونة المخطط"
-
-#: ../../../<rst_epilog>:6
-msgid "iconClipboard"
-msgstr "أيقونة الحافظة"
-
-#: ../../../<rst_epilog>:8
-msgid "iconCloudDownload"
-msgstr "أيقونة التنزيل السحابي"
-
-#: ../../../<rst_epilog>:10
-msgid "iconCog"
-msgstr "أيقونة الترس"
-
-#: ../../../<rst_epilog>:12
-msgid "iconDeletedataset"
-msgstr "أيقونة مجموعة البيانات المحذوفة"
-
-#: ../../../<rst_epilog>:14
-msgid "iconGlobe"
-msgstr "أيقونة الكرة الأرضية"
-
-#: ../../../<rst_epilog>:16
-msgid "iconGraph"
-msgstr "أيقونة الرسم البياني"
-
-#: ../../../<rst_epilog>:18
-msgid "iconInfo"
-msgstr "أيقونة المعلومات"
-
-#: ../../../<rst_epilog>:20
-msgid "iconLoaddataset"
-msgstr "أيقونة تحميل مجموعة البيانات"
-
-#: ../../../<rst_epilog>:21
-msgid "iconMarkMarker"
-msgstr "أيقونة علامة التحديد"
-
-#: ../../../<rst_epilog>:23
-msgid "iconOpendatasetdirectory"
-msgstr "أيقونة دليل مجموعة البيانات المفتوحة"
-
-#: ../../../<rst_epilog>:25
-msgid "iconViewdatasetdetails"
-msgstr "أيقونة عرض تفاصيل البيانات"
-
-#: ../../../<rst_epilog>:27
-msgid "iconWrench"
-msgstr "أيقونة مفتاح البراغي"
-
-#: ../../../<rst_epilog>:29
-msgid "iconFolder"
-msgstr "أيقونة المجلد"
-
-#: ../../../<rst_epilog>:31
 msgid "iconReports"
 msgstr "أيقونة التقارير"
-
-#: ../../../<rst_epilog>:33
-msgid "iconTrendsEarth"
-msgstr "أيقونة اتجاهات الأرض"
-
-#: ../../../<rst_epilog>:35
-msgid "iconVisualization"
-msgstr "أيقونة التصوير المرئي"
-
-#: ../../../<rst_epilog>:0
-msgid "logoCI"
-msgstr "شعار هوية الشركة"
-
-#: ../../../<rst_epilog>:0
-msgid "logoLund"
-msgstr "شعار Lund"
-
-#: ../../../<rst_epilog>:0
-msgid "logoNASA"
-msgstr "شعار ناسا"
-
-#: ../../../<rst_epilog>:0
-msgid "logoGEF"
-msgstr "شعار مرفق البيئة العالمية"

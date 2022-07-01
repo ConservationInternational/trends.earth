@@ -10,9 +10,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trends.Earth 1.99.11\n"
+"Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-21 17:06-0400\n"
+"POT-Creation-Date: 2022-06-27 21:58-0400\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
@@ -49,8 +49,8 @@ msgstr ""
 "关于 SDG 11.3.1 背后的概念、|trends.earth| "
 "中使用的数据需求和方法的描述，请参阅背景部分：:ref:`background_land_consumption`。"
 
-#: ../../../<rst_epilog>:37 ../../../<rst_epilog>:37 ../../../<rst_epilog>:37
-#: ../../../<rst_epilog>:37
+#: ../../../<rst_epilog>:6 ../../../<rst_epilog>:6 ../../../<rst_epilog>:6
+#: ../../../<rst_epilog>:6
 msgid "Trends.Earth"
 msgstr "Trends.Earth"
 
@@ -526,85 +526,5 @@ msgid ""
 msgstr "在此情况下，这些新建岛屿的某些部分似乎没有太多灯光。 因此，如果我们将 NTL 阈值设置为较低的值（例如 5），我们将捕捉到它们。"
 
 #: ../../../<rst_epilog>:4
-msgid "iconChart"
-msgstr "图表图标"
-
-#: ../../../<rst_epilog>:6
-msgid "iconClipboard"
-msgstr "剪贴板图标"
-
-#: ../../../<rst_epilog>:8
-msgid "iconCloudDownload"
-msgstr "云下载图标"
-
-#: ../../../<rst_epilog>:10
-msgid "iconCog"
-msgstr "齿轮图标"
-
-#: ../../../<rst_epilog>:12
-msgid "iconDeletedataset"
-msgstr "删除数据集图标"
-
-#: ../../../<rst_epilog>:14
-msgid "iconGlobe"
-msgstr "地球仪图标"
-
-#: ../../../<rst_epilog>:16
-msgid "iconGraph"
-msgstr "图像图标"
-
-#: ../../../<rst_epilog>:18
-msgid "iconInfo"
-msgstr "信息图表"
-
-#: ../../../<rst_epilog>:20
-msgid "iconLoaddataset"
-msgstr "加载数据集图标"
-
-#: ../../../<rst_epilog>:21
-msgid "iconMarkMarker"
-msgstr "标记器图标"
-
-#: ../../../<rst_epilog>:23
-msgid "iconOpendatasetdirectory"
-msgstr "打开数据集目录图标"
-
-#: ../../../<rst_epilog>:25
-msgid "iconViewdatasetdetails"
-msgstr "浏览数据集细节图标"
-
-#: ../../../<rst_epilog>:27
-msgid "iconWrench"
-msgstr "扳手图标"
-
-#: ../../../<rst_epilog>:29
-msgid "iconFolder"
-msgstr "文件夹图标"
-
-#: ../../../<rst_epilog>:31
 msgid "iconReports"
 msgstr "报告图标"
-
-#: ../../../<rst_epilog>:33
-msgid "iconTrendsEarth"
-msgstr "TrendsEarth图标"
-
-#: ../../../<rst_epilog>:35
-msgid "iconVisualization"
-msgstr "可视化图标"
-
-#: ../../../<rst_epilog>:0
-msgid "logoCI"
-msgstr "CI标志"
-
-#: ../../../<rst_epilog>:0
-msgid "logoLund"
-msgstr "Lund标志"
-
-#: ../../../<rst_epilog>:0
-msgid "logoNASA"
-msgstr "NASA标志"
-
-#: ../../../<rst_epilog>:0
-msgid "logoGEF"
-msgstr "GEF标志"

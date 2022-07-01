@@ -935,12 +935,16 @@ def translate_push(c, force=False, version=3):
 
     for translation in c.plugin.translations:
         subprocess.check_call(
-            "sphinx-intl --config {sourcedir}/conf.py update -p {docroot}/i18n/pot -l {lang}"
-            .format(
-                sourcedir=c.sphinx.sourcedir,
-                docroot=c.sphinx.docroot,
-                lang=translation
-            )
+            c.sphinx.sphinx_intl.split() +
+            [
+                '--config',
+                f'{c.sphinx.sourcedir}/conf.py',
+                'update',
+                '-p',
+                f'{c.sphinx.docroot}/i18n/pot',
+                '-l',
+                f'{translation}'
+            ]
         )
 
     print("Gathering strings for translation using pylupdate...")

@@ -49,3 +49,6 @@ jobs:
           labels: |
             i18n
             automated pr
+          add-paths: |
+            docs/i18n/**/*.po
+            LDMP/i18n/*.ts

@@ -31,7 +31,7 @@ jobs:
       - name: Pull updated strings from transifex
         run: invoke translate-pull
       - name: Create pull request
-      	id: cpr
+        id: cpr
         uses: peter-evans/create-pull-request@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -41,7 +41,7 @@ jobs:
           signoff: false
           branch: translation-updates
           delete-branch: true
-          title: 'Update translations'
+          title: "Update translations"
           body: |
             Refresh translations
           labels: |

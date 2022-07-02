@@ -33,9 +33,9 @@ API_URL = "https://api2.trends.earth"
 TIMEOUT = 20
 
 
-class tr_api(QtCore.QObject):
-    def tr(self, txt):
-        return QtCore.QCoreApplication.translate(self.__class__.__name__, txt)
+class tr_api(object):
+    def tr(message):
+        return QtCore.QCoreApplication.translate("tr_api", message)
 
 
 ###############################################################################

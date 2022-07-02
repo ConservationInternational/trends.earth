@@ -11,7 +11,7 @@ behind changes on the ground. Trends.Earth allows users to draw on the best avai
 information from across a range of sources - from globally available data to customized
 local maps. A broad range of users are applying Trends.Earth for projects ranging from
 planning and monitoring restoration efforts, to tracking urbanization, to developing
-official national report for submission to the United Nations Convention to Combat
+official national reports for submission to the United Nations Convention to Combat
 Desertification (UNCCD).
 
 `Trends.Earth` is a [QGIS](http://www.qgis.org) plugin that supports monitoring of land

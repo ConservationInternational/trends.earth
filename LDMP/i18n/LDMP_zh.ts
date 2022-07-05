@@ -96,17 +96,17 @@
 <context>
     <name>CalculationOptionsWidget</name>
     <message>
-        <location filename="../calculate.py" line="257"/>
+        <location filename="../calculate.py" line="252"/>
         <source>Select folder containing data</source>
         <translation>选择包含数据的文件夹</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="270"/>
+        <location filename="../calculate.py" line="265"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="270"/>
+        <location filename="../calculate.py" line="265"/>
         <source>Cannot read {}. Choose a different folder.</source>
         <translation>无法阅读 {}。选择其他文件夹。</translation>
     </message>
@@ -114,42 +114,42 @@
 <context>
     <name>CalculationOutputWidget</name>
     <message>
-        <location filename="../calculate.py" line="307"/>
+        <location filename="../calculate.py" line="302"/>
         <source>Choose a prefix to be used when naming output files</source>
         <translation>选择命名输出文件时要使用的前缀</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="307"/>
+        <location filename="../calculate.py" line="302"/>
         <source>Base name (*)</source>
         <translation>基本名称（*）</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="319"/>
+        <location filename="../calculate.py" line="314"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="319"/>
+        <location filename="../calculate.py" line="314"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>无法写入{}。选择一个不同的文件。</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="336"/>
+        <location filename="../calculate.py" line="331"/>
         <source>Overwrite file?</source>
         <translation>覆盖文件？</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="336"/>
+        <location filename="../calculate.py" line="331"/>
         <source>Using the prefix &quot;{}&quot; would lead to overwriting existing file(s) {}. Do you want to overwrite these file(s)?</source>
         <translation>使用前缀“ {}”将导致覆盖现有文件{}。您要覆盖这些文件吗？</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="344"/>
+        <location filename="../calculate.py" line="339"/>
         <source>Information</source>
         <translation>信息</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="344"/>
+        <location filename="../calculate.py" line="339"/>
         <source>Choose a different output prefix and try again.</source>
         <translation>选择其他输出前缀，然后重试。</translation>
     </message>
@@ -648,32 +648,32 @@
 <context>
     <name>DlgCalculateBase</name>
     <message>
-        <location filename="../calculate.py" line="459"/>
+        <location filename="../calculate.py" line="454"/>
         <source>Schedule remote execution</source>
         <translation>安排远程执行</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="461"/>
+        <location filename="../calculate.py" line="456"/>
         <source>Execute locally</source>
         <translation>本地执行</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="499"/>
+        <location filename="../calculate.py" line="494"/>
         <source>Current region: {region}</source>
         <translation>当前区域：{region}</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="541"/>
+        <location filename="../calculate.py" line="536"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="529"/>
+        <location filename="../calculate.py" line="524"/>
         <source>Unable to calculate bounding box.</source>
         <translation>无法计算边界框。</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="541"/>
+        <location filename="../calculate.py" line="536"/>
         <source>Choose an output base name.</source>
         <translation>选择输出基本名称。</translation>
     </message>
@@ -5702,6 +5702,24 @@ for running algorithms and their results.</source>
     </message>
 </context>
 <context>
+    <name>tr_areaofinterest</name>
+    <message>
+        <location filename="../areaofinterest.py" line="598"/>
+        <source>Error</source>
+        <translation type="unfinished">错误</translation>
+    </message>
+    <message>
+        <location filename="../areaofinterest.py" line="467"/>
+        <source>Invalid geometry in row {}. Check that all input geom_jsons are valid before processing. Try using the check validity tool on the &quot;Vector&quot; menu on the toolbar for more information on which features are invalid (Under &quot;Vector&quot; - &quot;Geometry Tools&quot; - &quot;Check Validity&quot;).</source>
+        <translation type="unfinished">第 {} 行中的几何图形无效。在处理之前检查所有输入 geom_jsons 是否有效。尝试使用工具栏“矢量”菜单上的检查有效性工具，以获取关于哪些功能无效的更多信息（在“矢量”——“几何工具”——“检查有效性”下）。</translation>
+    </message>
+    <message>
+        <location filename="../areaofinterest.py" line="598"/>
+        <source>Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian.</source>
+        <translation type="unfinished">错误-图层不在地理坐标系中。无法在第180个子午线上包裹图层。</translation>
+    </message>
+</context>
+<context>
     <name>tr_auth</name>
     <message>
         <location filename="../auth.py" line="74"/>
@@ -5754,17 +5772,17 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../areaofinterest.py" line="591"/>
         <source>Error</source>
-        <translation>错误</translation>
+        <translation type="obsolete">错误</translation>
     </message>
     <message>
         <location filename="../areaofinterest.py" line="460"/>
         <source>Invalid geometry in row {}. Check that all input geom_jsons are valid before processing. Try using the check validity tool on the &quot;Vector&quot; menu on the toolbar for more information on which features are invalid (Under &quot;Vector&quot; - &quot;Geometry Tools&quot; - &quot;Check Validity&quot;).</source>
-        <translation>第 {} 行中的几何图形无效。在处理之前检查所有输入 geom_jsons 是否有效。尝试使用工具栏“矢量”菜单上的检查有效性工具，以获取关于哪些功能无效的更多信息（在“矢量”——“几何工具”——“检查有效性”下）。</translation>
+        <translation type="obsolete">第 {} 行中的几何图形无效。在处理之前检查所有输入 geom_jsons 是否有效。尝试使用工具栏“矢量”菜单上的检查有效性工具，以获取关于哪些功能无效的更多信息（在“矢量”——“几何工具”——“检查有效性”下）。</translation>
     </message>
     <message>
         <location filename="../areaofinterest.py" line="591"/>
         <source>Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian.</source>
-        <translation>错误-图层不在地理坐标系中。无法在第180个子午线上包裹图层。</translation>
+        <translation type="obsolete">错误-图层不在地理坐标系中。无法在第180个子午线上包裹图层。</translation>
     </message>
 </context>
 <context>

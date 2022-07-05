@@ -96,17 +96,17 @@
 <context>
     <name>CalculationOptionsWidget</name>
     <message>
-        <location filename="../calculate.py" line="257"/>
+        <location filename="../calculate.py" line="252"/>
         <source>Select folder containing data</source>
         <translation>حدد مجلد يحتوي على البيانات</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="270"/>
+        <location filename="../calculate.py" line="265"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="270"/>
+        <location filename="../calculate.py" line="265"/>
         <source>Cannot read {}. Choose a different folder.</source>
         <translation>لا يمكن القراءة {}. اختيار مجلد مختلف.</translation>
     </message>
@@ -114,42 +114,42 @@
 <context>
     <name>CalculationOutputWidget</name>
     <message>
-        <location filename="../calculate.py" line="307"/>
+        <location filename="../calculate.py" line="302"/>
         <source>Choose a prefix to be used when naming output files</source>
         <translation>اختر بادئة ليتم استخدامها عند تسمية ملفات الإخراج</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="307"/>
+        <location filename="../calculate.py" line="302"/>
         <source>Base name (*)</source>
         <translation>الاسم الأساسي (*)</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="319"/>
+        <location filename="../calculate.py" line="314"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="319"/>
+        <location filename="../calculate.py" line="314"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>لا يمكن الكتابة إلى {}. اختيار ملف مختلف.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="336"/>
+        <location filename="../calculate.py" line="331"/>
         <source>Overwrite file?</source>
         <translation>ملف الكتابة الفوقية؟</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="336"/>
+        <location filename="../calculate.py" line="331"/>
         <source>Using the prefix &quot;{}&quot; would lead to overwriting existing file(s) {}. Do you want to overwrite these file(s)?</source>
         <translation>يؤدي استخدام البادئة &amp;quot;{}&amp;quot; إلى استبدال الملف (الملفات) الموجودة {}. هل تريد استبدال هذه الملفات؟</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="344"/>
+        <location filename="../calculate.py" line="339"/>
         <source>Information</source>
         <translation>معلومات</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="344"/>
+        <location filename="../calculate.py" line="339"/>
         <source>Choose a different output prefix and try again.</source>
         <translation>اختر بادئة إخراج مختلفة وحاول مرة أخرى.</translation>
     </message>
@@ -648,32 +648,32 @@
 <context>
     <name>DlgCalculateBase</name>
     <message>
-        <location filename="../calculate.py" line="459"/>
+        <location filename="../calculate.py" line="454"/>
         <source>Schedule remote execution</source>
         <translation>جدولة التنفيذ عن بعد</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="461"/>
+        <location filename="../calculate.py" line="456"/>
         <source>Execute locally</source>
         <translation>التنفيذ محلياً</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="499"/>
+        <location filename="../calculate.py" line="494"/>
         <source>Current region: {region}</source>
         <translation>المنطقة الحالية: {region}</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="541"/>
+        <location filename="../calculate.py" line="536"/>
         <source>Error</source>
         <translation>خطأ</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="529"/>
+        <location filename="../calculate.py" line="524"/>
         <source>Unable to calculate bounding box.</source>
         <translation>غير قادر على حساب المربع المحيط.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="541"/>
+        <location filename="../calculate.py" line="536"/>
         <source>Choose an output base name.</source>
         <translation>اختر اسم قاعدة الإخراج.</translation>
     </message>
@@ -5749,6 +5749,24 @@ for running algorithms and their results.</source>
     </message>
 </context>
 <context>
+    <name>tr_areaofinterest</name>
+    <message>
+        <location filename="../areaofinterest.py" line="598"/>
+        <source>Error</source>
+        <translation type="unfinished">خطأ</translation>
+    </message>
+    <message>
+        <location filename="../areaofinterest.py" line="467"/>
+        <source>Invalid geometry in row {}. Check that all input geom_jsons are valid before processing. Try using the check validity tool on the &quot;Vector&quot; menu on the toolbar for more information on which features are invalid (Under &quot;Vector&quot; - &quot;Geometry Tools&quot; - &quot;Check Validity&quot;).</source>
+        <translation type="unfinished">هندسة غير صالحة في الصف {}. تحقق من أن جميع geom_jsons المدخلة صالحة قبل المعالجة. حاول استخدام أداة التحقق من الصلاحية في قائمة &quot;فيكتور&quot; على شريط الأدوات لمزيد من المعلومات حول الميزات غير الصالحة (ضمن &quot;فيكتور&quot; - &quot;أدوات الهندسة&quot; - &quot;التحقق من الصلاحية&quot;).</translation>
+    </message>
+    <message>
+        <location filename="../areaofinterest.py" line="598"/>
+        <source>Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian.</source>
+        <translation type="unfinished">خطأ - الطبقة ليست في نظام الإحداثيات الجغرافية. لا يمكن التفاف الطبقة عبر خط الطول 180.</translation>
+    </message>
+</context>
+<context>
     <name>tr_auth</name>
     <message>
         <location filename="../auth.py" line="74"/>
@@ -5801,17 +5819,17 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../areaofinterest.py" line="591"/>
         <source>Error</source>
-        <translation>خطأ</translation>
+        <translation type="obsolete">خطأ</translation>
     </message>
     <message>
         <location filename="../areaofinterest.py" line="460"/>
         <source>Invalid geometry in row {}. Check that all input geom_jsons are valid before processing. Try using the check validity tool on the &quot;Vector&quot; menu on the toolbar for more information on which features are invalid (Under &quot;Vector&quot; - &quot;Geometry Tools&quot; - &quot;Check Validity&quot;).</source>
-        <translation>هندسة غير صالحة في الصف {}. تحقق من أن جميع geom_jsons المدخلة صالحة قبل المعالجة. حاول استخدام أداة التحقق من الصلاحية في قائمة &quot;فيكتور&quot; على شريط الأدوات لمزيد من المعلومات حول الميزات غير الصالحة (ضمن &quot;فيكتور&quot; - &quot;أدوات الهندسة&quot; - &quot;التحقق من الصلاحية&quot;).</translation>
+        <translation type="obsolete">هندسة غير صالحة في الصف {}. تحقق من أن جميع geom_jsons المدخلة صالحة قبل المعالجة. حاول استخدام أداة التحقق من الصلاحية في قائمة &quot;فيكتور&quot; على شريط الأدوات لمزيد من المعلومات حول الميزات غير الصالحة (ضمن &quot;فيكتور&quot; - &quot;أدوات الهندسة&quot; - &quot;التحقق من الصلاحية&quot;).</translation>
     </message>
     <message>
         <location filename="../areaofinterest.py" line="591"/>
         <source>Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian.</source>
-        <translation>خطأ - الطبقة ليست في نظام الإحداثيات الجغرافية. لا يمكن التفاف الطبقة عبر خط الطول 180.</translation>
+        <translation type="obsolete">خطأ - الطبقة ليست في نظام الإحداثيات الجغرافية. لا يمكن التفاف الطبقة عبر خط الطول 180.</translation>
     </message>
 </context>
 <context>

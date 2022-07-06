@@ -70,11 +70,6 @@ WidgetCalculationOutputUi, _ = uic.loadUiType(
 ICON_PATH = os.path.join(os.path.dirname(__file__), 'icons')
 
 
-class tr_calculate(object):
-    def tr(message):
-        return QtCore.QCoreApplication.translate("tr_calculate", message)
-
-
 def get_local_script_metadata(script_name) -> Optional[dict]:
     """Get a specific value from local_script dictionary.
     """

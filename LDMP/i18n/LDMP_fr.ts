@@ -96,17 +96,17 @@
 <context>
     <name>CalculationOptionsWidget</name>
     <message>
-        <location filename="../calculate.py" line="257"/>
+        <location filename="../calculate.py" line="252"/>
         <source>Select folder containing data</source>
         <translation>Sélectionner un dossier contenant des données</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="270"/>
+        <location filename="../calculate.py" line="265"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="270"/>
+        <location filename="../calculate.py" line="265"/>
         <source>Cannot read {}. Choose a different folder.</source>
         <translation>Impossible à lire {}. Choisissez un autre dossier.</translation>
     </message>
@@ -114,42 +114,42 @@
 <context>
     <name>CalculationOutputWidget</name>
     <message>
-        <location filename="../calculate.py" line="307"/>
+        <location filename="../calculate.py" line="302"/>
         <source>Choose a prefix to be used when naming output files</source>
         <translation>Choisissez un préfixe à utiliser pour nommer les fichiers de sortie</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="307"/>
+        <location filename="../calculate.py" line="302"/>
         <source>Base name (*)</source>
         <translation>Nom de base (*)</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="319"/>
+        <location filename="../calculate.py" line="314"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="319"/>
+        <location filename="../calculate.py" line="314"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>Impossible d'écrire sur {}. Choisissez un fichier différent.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="336"/>
+        <location filename="../calculate.py" line="331"/>
         <source>Overwrite file?</source>
         <translation>Écraser le fichier?</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="336"/>
+        <location filename="../calculate.py" line="331"/>
         <source>Using the prefix &quot;{}&quot; would lead to overwriting existing file(s) {}. Do you want to overwrite these file(s)?</source>
         <translation>L&amp;#39;utilisation du préfixe &amp;quot;{}&amp;quot; entraînerait l&amp;#39;écrasement des fichiers existants {}. Souhaitez-vous remplacer ces fichiers?</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="344"/>
+        <location filename="../calculate.py" line="339"/>
         <source>Information</source>
         <translation>Information</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="344"/>
+        <location filename="../calculate.py" line="339"/>
         <source>Choose a different output prefix and try again.</source>
         <translation>Choisissez un préfixe de sortie différent et réessayez.</translation>
     </message>
@@ -648,32 +648,32 @@
 <context>
     <name>DlgCalculateBase</name>
     <message>
-        <location filename="../calculate.py" line="459"/>
+        <location filename="../calculate.py" line="454"/>
         <source>Schedule remote execution</source>
         <translation>Planifier l'exécution à distance</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="461"/>
+        <location filename="../calculate.py" line="456"/>
         <source>Execute locally</source>
         <translation>Exécuter localement</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="499"/>
+        <location filename="../calculate.py" line="494"/>
         <source>Current region: {region}</source>
         <translation>Région actuelle : {région}</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="541"/>
+        <location filename="../calculate.py" line="536"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="529"/>
+        <location filename="../calculate.py" line="524"/>
         <source>Unable to calculate bounding box.</source>
         <translation>Impossible de calculer la zone de délimitation.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="541"/>
+        <location filename="../calculate.py" line="536"/>
         <source>Choose an output base name.</source>
         <translation>Choisissez un nom de base de sortie.</translation>
     </message>
@@ -5716,6 +5716,24 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
     </message>
 </context>
 <context>
+    <name>tr_areaofinterest</name>
+    <message>
+        <location filename="../areaofinterest.py" line="598"/>
+        <source>Error</source>
+        <translation type="unfinished">Erreur</translation>
+    </message>
+    <message>
+        <location filename="../areaofinterest.py" line="467"/>
+        <source>Invalid geometry in row {}. Check that all input geom_jsons are valid before processing. Try using the check validity tool on the &quot;Vector&quot; menu on the toolbar for more information on which features are invalid (Under &quot;Vector&quot; - &quot;Geometry Tools&quot; - &quot;Check Validity&quot;).</source>
+        <translation type="unfinished">Géométrie non valide dans la ligne {}. Vérifiez que tous les geom_jsons d'entrée sont valides avant le traitement. Essayez d'utiliser l'outil de vérification de la validité dans le menu &quot;Vector&quot; de la barre d'outils pour obtenir plus d'informations sur les caractéristiques non valides (sous « Vector » - « Geometry Tools » - « Check Validity »).</translation>
+    </message>
+    <message>
+        <location filename="../areaofinterest.py" line="598"/>
+        <source>Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian.</source>
+        <translation type="unfinished">Erreur - La couche n'est pas dans un système de coordonnées géographiques. Impossible d'envelopper la couche sur le 180ème méridien.</translation>
+    </message>
+</context>
+<context>
     <name>tr_auth</name>
     <message>
         <location filename="../auth.py" line="74"/>
@@ -5768,17 +5786,17 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
     <message>
         <location filename="../areaofinterest.py" line="591"/>
         <source>Error</source>
-        <translation>Erreur</translation>
+        <translation type="obsolete">Erreur</translation>
     </message>
     <message>
         <location filename="../areaofinterest.py" line="460"/>
         <source>Invalid geometry in row {}. Check that all input geom_jsons are valid before processing. Try using the check validity tool on the &quot;Vector&quot; menu on the toolbar for more information on which features are invalid (Under &quot;Vector&quot; - &quot;Geometry Tools&quot; - &quot;Check Validity&quot;).</source>
-        <translation>Géométrie non valide dans la ligne {}. Vérifiez que tous les geom_jsons d'entrée sont valides avant le traitement. Essayez d'utiliser l'outil de vérification de la validité dans le menu &quot;Vector&quot; de la barre d'outils pour obtenir plus d'informations sur les caractéristiques non valides (sous « Vector » - « Geometry Tools » - « Check Validity »).</translation>
+        <translation type="obsolete">Géométrie non valide dans la ligne {}. Vérifiez que tous les geom_jsons d'entrée sont valides avant le traitement. Essayez d'utiliser l'outil de vérification de la validité dans le menu &quot;Vector&quot; de la barre d'outils pour obtenir plus d'informations sur les caractéristiques non valides (sous « Vector » - « Geometry Tools » - « Check Validity »).</translation>
     </message>
     <message>
         <location filename="../areaofinterest.py" line="591"/>
         <source>Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian.</source>
-        <translation>Erreur - La couche n'est pas dans un système de coordonnées géographiques. Impossible d'envelopper la couche sur le 180ème méridien.</translation>
+        <translation type="obsolete">Erreur - La couche n'est pas dans un système de coordonnées géographiques. Impossible d'envelopper la couche sur le 180ème méridien.</translation>
     </message>
 </context>
 <context>

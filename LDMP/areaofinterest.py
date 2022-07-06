@@ -7,11 +7,18 @@ import qgis.core
 import qgis.gui
 from osgeo import gdal
 from osgeo import ogr
+from qgis.PyQt import QtWidgets
+from qgis.PyQt.QtCore import QCoreApplication
 
 from . import conf
 from . import download
 from .layers import _get_qgis_version
 from .logger import log
+
+
+class tr_areaofinterest(object):
+    def tr(message):
+        return QCoreApplication.translate("tr_areaofinterest", message)
 
 
 def get_city_geojson() -> typing.Dict:
@@ -459,8 +466,8 @@ class AOI(object):
                     log("Invalid feature in row {}.".format(n))
                     QtWidgets.QMessageBox.critical(
                         None,
-                        tr_calculate.tr("Error"),
-                        tr_calculate.tr(
+                        tr_areaofinterest.tr("Error"),
+                        tr_areaofinterest.tr(
                             "Invalid geometry in row {}. "
                             "Check that all input geom_jsons "
                             "are valid before processing. "
@@ -590,8 +597,8 @@ def _transform_layer(l, crs_dst, datatype="polygon", wrap=False):
         if not l.crs().isGeographic():
             QtWidgets.QMessageBox.critical(
                 None,
-                tr_calculate.tr("Error"),
-                tr_calculate.tr(
+                tr_areaofinterest.tr("Error"),
+                tr_areaofinterest.tr(
                     "Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian."
                 ),
             )

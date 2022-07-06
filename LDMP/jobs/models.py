@@ -145,8 +145,6 @@ def get_job_local_script(script_name: str) -> ExecutionScript:
 
 def _get_script_by_id_from_remote(script_id: str) -> ExecutionScript:
     remote_scripts = get_remote_scripts()
-    log(f"remote_scripts: {remote_scripts}")
-
     if remote_scripts is None:
         return
     try:

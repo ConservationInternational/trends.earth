@@ -473,8 +473,11 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
             return
 
         data = [x for x in table if x["name"] == "mean"][0]
-        task_name = self.job.task_name
         base_title = self.tr("Time Series")
+        if self.job.task_name:
+            task_name = self.job.task_name
+        else:
+            task_name = ""
         dlg_plot = DlgPlotTimeries(self.main_dock.iface.mainWindow())
         dlg_plot.setWindowTitle(f"{base_title} - {task_name}")
         labels = {

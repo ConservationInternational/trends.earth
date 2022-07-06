@@ -96,17 +96,17 @@
 <context>
     <name>CalculationOptionsWidget</name>
     <message>
-        <location filename="../calculate.py" line="257"/>
+        <location filename="../calculate.py" line="252"/>
         <source>Select folder containing data</source>
         <translation>Chagua folda iliyo na data</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="270"/>
+        <location filename="../calculate.py" line="265"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="270"/>
+        <location filename="../calculate.py" line="265"/>
         <source>Cannot read {}. Choose a different folder.</source>
         <translation>Haiwezi kusoma {}. Chagua folda tofauti.</translation>
     </message>
@@ -114,42 +114,42 @@
 <context>
     <name>CalculationOutputWidget</name>
     <message>
-        <location filename="../calculate.py" line="307"/>
+        <location filename="../calculate.py" line="302"/>
         <source>Choose a prefix to be used when naming output files</source>
         <translation>Chagua kiambishi awali kitumike wakati wa kutaja faili za pato</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="307"/>
+        <location filename="../calculate.py" line="302"/>
         <source>Base name (*)</source>
         <translation>Jina la msingi (*)</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="319"/>
+        <location filename="../calculate.py" line="314"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="319"/>
+        <location filename="../calculate.py" line="314"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>Haiwezi kuandika kwa {}. Chagua faili tofauti.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="336"/>
+        <location filename="../calculate.py" line="331"/>
         <source>Overwrite file?</source>
         <translation>Kuboresha faili?</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="336"/>
+        <location filename="../calculate.py" line="331"/>
         <source>Using the prefix &quot;{}&quot; would lead to overwriting existing file(s) {}. Do you want to overwrite these file(s)?</source>
         <translation>Kutumia kiambishi awali &amp;quot;{}&amp;quot; kungesababisha kufuta tena faili zilizopo {}. Je! Unataka kufuta faili hizi?</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="344"/>
+        <location filename="../calculate.py" line="339"/>
         <source>Information</source>
         <translation>Habari</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="344"/>
+        <location filename="../calculate.py" line="339"/>
         <source>Choose a different output prefix and try again.</source>
         <translation>Chagua kiambishi tofauti cha pato na ujaribu tena.</translation>
     </message>
@@ -648,32 +648,32 @@
 <context>
     <name>DlgCalculateBase</name>
     <message>
-        <location filename="../calculate.py" line="459"/>
+        <location filename="../calculate.py" line="454"/>
         <source>Schedule remote execution</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="461"/>
+        <location filename="../calculate.py" line="456"/>
         <source>Execute locally</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="499"/>
+        <location filename="../calculate.py" line="494"/>
         <source>Current region: {region}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="541"/>
+        <location filename="../calculate.py" line="536"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="529"/>
+        <location filename="../calculate.py" line="524"/>
         <source>Unable to calculate bounding box.</source>
         <translation>Haiwezi kuhesabu sanduku la kufunga.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="541"/>
+        <location filename="../calculate.py" line="536"/>
         <source>Choose an output base name.</source>
         <translation>Chagua jina la msingi wa pato.</translation>
     </message>
@@ -5527,6 +5527,24 @@ for running algorithms and their results.</source>
     </message>
 </context>
 <context>
+    <name>tr_areaofinterest</name>
+    <message>
+        <location filename="../areaofinterest.py" line="598"/>
+        <source>Error</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../areaofinterest.py" line="467"/>
+        <source>Invalid geometry in row {}. Check that all input geom_jsons are valid before processing. Try using the check validity tool on the &quot;Vector&quot; menu on the toolbar for more information on which features are invalid (Under &quot;Vector&quot; - &quot;Geometry Tools&quot; - &quot;Check Validity&quot;).</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../areaofinterest.py" line="598"/>
+        <source>Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian.</source>
+        <translation type="unfinished">Kosa - safu sio katika mfumo wa kuratibu kijiografia. Haiwezi kufunika safu kwenye meridi ya 180.</translation>
+    </message>
+</context>
+<context>
     <name>tr_auth</name>
     <message>
         <location filename="../auth.py" line="74"/>
@@ -5579,17 +5597,12 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../areaofinterest.py" line="591"/>
         <source>Error</source>
-        <translation>Hitilafu</translation>
-    </message>
-    <message>
-        <location filename="../areaofinterest.py" line="460"/>
-        <source>Invalid geometry in row {}. Check that all input geom_jsons are valid before processing. Try using the check validity tool on the &quot;Vector&quot; menu on the toolbar for more information on which features are invalid (Under &quot;Vector&quot; - &quot;Geometry Tools&quot; - &quot;Check Validity&quot;).</source>
-        <translation type="unfinished"></translation>
+        <translation type="obsolete">Hitilafu</translation>
     </message>
     <message>
         <location filename="../areaofinterest.py" line="591"/>
         <source>Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian.</source>
-        <translation>Kosa - safu sio katika mfumo wa kuratibu kijiografia. Haiwezi kufunika safu kwenye meridi ya 180.</translation>
+        <translation type="obsolete">Kosa - safu sio katika mfumo wa kuratibu kijiografia. Haiwezi kufunika safu kwenye meridi ya 180.</translation>
     </message>
 </context>
 <context>

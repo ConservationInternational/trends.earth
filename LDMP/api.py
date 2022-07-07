@@ -32,7 +32,7 @@ from LDMP.worker import AbstractWorker, start_worker
 
 from LDMP import log, debug_on
 
-API_URL = 'https://api.trends.earth'
+API_URL = 'https://api2.trends.earth'
 TIMEOUT = 20
 
 

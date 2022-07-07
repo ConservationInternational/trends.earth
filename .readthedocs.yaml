@@ -1,5 +1,10 @@
 version: 2
 
+formats:
+  - pdf
+  - epub
+
+sphinx:
 build:
   os: ubuntu-22.04
   tools:
@@ -8,7 +13,6 @@ build:
     pre_build:
       - python -m invoke rtd-pre-build
 
-sphinx:
    configuration: docs/source/conf.py
 
 python:

@@ -1908,7 +1908,7 @@ ns.configure(
             'LDMP/data',
             'i18n_dir':
             'LDMP/i18n',
-            'translations': ['fr', 'es', 'sw', 'pt', 'ar', 'ru', 'zh', 'fa'],
+            'translations': ['fr', 'es', 'sw', 'pt'],
             'resource_files': ['LDMP/resources.qrc'],
             'numba': {
                 'aot_files': [

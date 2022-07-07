@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 import fnmatch
 import glob
 import hashlib
@@ -12,13 +11,17 @@ import stat
 import subprocess
 import sys
 import zipfile
-from datetime import datetime, timezone
-from pathlib import Path, PurePath
-from tempfile import TemporaryDirectory, mkstemp
+from datetime import datetime
+from datetime import timezone
+from pathlib import Path
+from pathlib import PurePath
+from tempfile import mkstemp
+from tempfile import TemporaryDirectory
 
 import boto3
 import requests
-from invoke import Collection, task
+from invoke import Collection
+from invoke import task
 
 
 # Below is from:
@@ -119,12 +122,81 @@ def _replace(file_path, regex, subst):
 # Misc development tasks (change version, deploy GEE scripts)
 ###############################################################################
 
+# Compile all ui and resource files
+def compile_files(c, version, clean, fast=False):
+    # check to see if we have pyuic
+    if version == 2:
+        pyuic = 'pyuic4'
+    elif version ==3:
+        pyuic = 'pyuic5'
+    else:
+        print("ERROR: unknown qgis version {}".format(version))
+        return
+    pyuic_path = check_path(pyuic)
+
+    if not pyuic_path:
+        print("ERROR: {} is not in your path---unable to compile ui files".format(pyuic))
+        return
+    else:
+        ui_files = glob.glob('{}/*.ui'.format(c.plugin.gui_dir))
+        ui_count = 0
+        skip_count = 0
+        for ui in ui_files:
+            if os.path.exists(ui):
+                (base, ext) = os.path.splitext(ui)
+                output = "{0}.py".format(base)
+                if clean or file_changed(ui, output):
+                    # Fix the links to c header files that Qt Designer adds to 
+                    # UI files when QGIS custom widgets are used
+                    ui_regex = re.compile("(<header>)qgs[a-z]*.h(</header>)", re.IGNORECASE)
+                    _replace(ui, ui_regex, '\g<1>qgis.gui\g<2>')
+                    print("Compiling {0} to {1}".format(ui, output))
+                    subprocess.check_call([pyuic_path, '-x', ui, '-o', output])
+                    ui_count += 1
+                else:
+                    skip_count += 1
+            else:
+                print("{} does not exist---skipped".format(ui))
+        print("Compiled {} UI files. Skipped {}.".format(ui_count, skip_count))
+
+    # check to see if we have pyrcc
+    if version == 2:
+        pyrcc = 'pyrcc4'
+    elif version ==3:
+        pyrcc = 'pyrcc5'
+    else:
+        print("ERROR: unknown qgis version {}".format(version))
+        return
+    pyrcc_path = check_path(pyrcc)
+
+    if not pyrcc:
+        print("ERROR: {} is not in your path---unable to compile resource file(s)".format(pyrcc))
+        return
+    else:
+        res_files = c.plugin.resource_files
+        res_count = 0
+        skip_count = 0
+        for res in res_files:
+            if os.path.exists(res):
+                (base, ext) = os.path.splitext(res)
+                output = "{0}.py".format(base)
+                if clean or file_changed(res, output):
+                    print("Compiling {0} to {1}".format(res, output))
+                    subprocess.check_call([pyrcc_path, '-o', output, res])
+                    res_count += 1
+                else:
+                    skip_count += 1
+            else:
+                print("{} does not exist---skipped".format(res))
+        print("Compiled {} resource files. Skipped {}.".format(res_count, skip_count))
+
 
 @task(help={'v': 'Version to set',
             'ta': 'Also set version for trends.earth-algorithms',
-            'ts': 'Also set version for trends.earth-schemas'
+            'ts': 'Also set version for trends.earth-schemas',
+            'tag': 'Also set tag(s)'
 })
-def set_version(c, v=None, ta=False, ts=False):
+def set_version(c, v=None, ta=False, ts=False, tag=False):
     # Validate the version matches the regex
 
     if not v:
@@ -169,7 +241,7 @@ def set_version(c, v=None, ta=False, ts=False):
         # Set in Sphinx docs in make.conf
         print('Setting version to {} in sphinx conf.py'.format(v))
         sphinx_regex = re.compile(
-            '(((version)|(release)) = ")[0-9]+([.][0-9]+)+', re.IGNORECASE
+            '(((version)|(release)) = ")[0-9]+([.][0-9]+)+(rc[0-9]*)?', re.IGNORECASE
         )
         _replace(
             os.path.join(c.sphinx.sourcedir, 'conf.py'), sphinx_regex,
@@ -178,7 +250,7 @@ def set_version(c, v=None, ta=False, ts=False):
 
         # Set in metadata.txt
         print('Setting version to {} in metadata.txt'.format(v))
-        sphinx_regex = re.compile("^(version=)[0-9]+([.][0-9]+)+")
+        sphinx_regex = re.compile("^(version=)[0-9]+([.][0-9]+)+(rc[0-9]*)?")
         _replace(
             os.path.join(c.plugin.source_dir, 'metadata.txt'), sphinx_regex,
             '\g<1>' + v
@@ -188,7 +260,7 @@ def set_version(c, v=None, ta=False, ts=False):
         # underscore
         v_gee = v.replace('.', '_')
 
-        if not v or not re.match("[0-9]+(_[0-9]+)+", v_gee):
+        if not v or not re.match("[0-9]+(_[0-9]+)+(rc[0-9]*)?", v_gee):
             print('Must specify a valid version (example: 0.36)')
 
             return
@@ -219,9 +291,11 @@ def set_version(c, v=None, ta=False, ts=False):
                 elif file == 'requirements.txt':
                     print('Setting version to {} in {}'.format(v, filepath))
 
-                    if (int(v.split('.')[-1]) % 2) == 0:
-                        # Last number in version string is even, so use a tagged version of
-                        # schemas matching this version
+                    if (
+                        ('rc' in v.split('.')[-1]) or (int(v.split('.')[-1]) % 2 == 0)
+                    ):
+                        # Last number in version string is even (or this is an RC), so
+                        # use a tagged version of schemas matching this version
                         _replace(
                             filepath, requirements_txt_regex, '\g<1>v' + v
                         )
@@ -234,14 +308,14 @@ def set_version(c, v=None, ta=False, ts=False):
                 elif file == '__init__.py':
                     print('Setting version to {} in {}'.format(v, filepath))
                     init_version_regex = re.compile(
-                        '^(__version__[ ]*=[ ]*["\'])[0-9]+([.][0-9]+)+'
+                        '^(__version__[ ]*=[ ]*["\'])[0-9]+([.][0-9]+)+(rc[0-9]*)?'
                     )
                     _replace(filepath, init_version_regex, '\g<1>' + v)
 
         # Set in scripts.json
         print('Setting version to {} in scripts.json'.format(v))
         scripts_regex = re.compile(
-            '("version": ")[0-9]+([-._][0-9]+)+', re.IGNORECASE
+            '("version": ")[0-9]+([-._][0-9]+)+(rc[0-9]*)?', re.IGNORECASE
         )
         _replace(
             os.path.join(c.plugin.source_dir, 'data', 'scripts.json'),
@@ -250,9 +324,11 @@ def set_version(c, v=None, ta=False, ts=False):
 
         print('Setting version to {} in package requirements.txt'.format(v))
 
-        if (int(v.split('.')[-1]) % 2) == 0:
-            # Last number in version string is even, so use a tagged version of
-            # schemas matching this version
+        if (
+            ('rc' in v.split('.')[-1]) or (int(v.split('.')[-1]) % 2 == 0)
+        ):
+            # Last number in version string is even (or an RC), so use a tagged version
+            # of schemas matching this version
             _replace('requirements.txt', requirements_txt_regex, '\g<1>v' + v)
         else:
             # Last number in version string is odd, so this is a development
@@ -261,11 +337,16 @@ def set_version(c, v=None, ta=False, ts=False):
                 'requirements.txt', requirements_txt_regex, '\g<1>develop'
             )
 
+    if tag:
+        set_tag(c)
 
     for module in c.plugin.ext_libs.local_modules:
         module_path = Path(module['path']).parent
         print(f"Also setting tag for {module['name']}")
-        subprocess.check_call(['invoke', 'set-version', '-v', v], cwd=module_path)
+        if tag:
+            subprocess.check_call(['invoke', 'set-version', '-v', v, '-t'], cwd=module_path)
+        else:
+            subprocess.check_call(['invoke', 'set-version', '-v', v], cwd=module_path)
 
 @task()
 def release_github(c):
@@ -777,52 +858,6 @@ def plugin_install(
                 os.symlink(src, dst_this_plugin)
 
 
-# Compile all ui and resource files
-def compile_files(c, version, clean, fast=False):
-    # check to see if we have pyrcc
-
-    if version == 2:
-        pyrcc = 'pyrcc4'
-    elif version == 3:
-        pyrcc = 'pyrcc5'
-    else:
-        print("ERROR: unknown qgis version {}".format(version))
-
-        return
-    pyrcc_path = check_path(pyrcc)
-
-    if not pyrcc:
-        print(
-            "ERROR: {} is not in your path---unable to compile resource file(s)"
-            .format(pyrcc)
-        )
-
-        return
-    else:
-        res_files = c.plugin.resource_files
-        res_count = 0
-        skip_count = 0
-
-        for res in res_files:
-            if os.path.exists(res):
-                (base, ext) = os.path.splitext(res)
-                output = "{0}.py".format(base)
-
-                if clean or file_changed(res, output):
-                    print("Compiling {0} to {1}".format(res, output))
-                    subprocess.check_call([pyrcc_path, '-o', output, res])
-                    res_count += 1
-                else:
-                    skip_count += 1
-            else:
-                print("{} does not exist---skipped".format(res))
-        print(
-            "Compiled {} resource files. Skipped {}.".format(
-                res_count, skip_count
-            )
-        )
-
-
 def file_changed(infile, outfile):
     try:
         infile_s = os.stat(infile)
@@ -897,14 +932,8 @@ def check_path(app):
 # Translation
 ###############################################################################
 
-
-@task(
-    help={
-        'force':
-        'Force the download of the translations files regardless of whether timestamps on the local computer are newer than those on the server'
-    }
-)
-def translate_pull(c, force=False):
+def _lrelease(c):
+    print("Releasing translations using lrelease...")
     lrelease = check_path('lrelease')
 
     if not lrelease:
@@ -913,23 +942,34 @@ def translate_pull(c, force=False):
         )
 
         return
-    print("Pulling transifex translations...")
-
-    if force:
-        subprocess.check_call(['tx', 'pull', '-s', '-f', '--parallel'])
-    else:
-        subprocess.check_call(['tx', 'pull', '-s', '--parallel'])
-    print("Releasing translations using lrelease...")
 
     for translation in c.plugin.translations:
         subprocess.check_call(
             [
                 lrelease,
                 os.path.join(
-                    c.plugin.i18n_dir, 'LDMP.{}.ts'.format(translation)
+                    c.plugin.i18n_dir, 'LDMP_{}.ts'.format(translation)
                 )
             ]
         )
+
+
+@task(
+    help={
+        'force':
+        'Force the download of the translations files regardless of whether '
+        'timestamps on the local computer are newer than those on the server'
+    }
+)
+def translate_pull(c, force=False):
+    print("Pulling transifex translations...")
+
+    if force:
+        subprocess.check_call([c.sphinx.tx_path, 'pull', '-f'])
+    else:
+        subprocess.check_call([c.sphinx.tx_path, 'pull'])
+
+    _lrelease(c)
 
 
 # @task
@@ -950,6 +990,9 @@ def translate_push(c, force=False, version=3):
     print("Building changelog...")
     changelog_build(c)
 
+    print("Building download page...")
+    build_download_page(c)
+
     # Below is necessary just to avoid warning messages regarding missing image
     # files when Sphinx is used later on
     print("Localizing resources...")
@@ -961,12 +1004,16 @@ def translate_push(c, force=False, version=3):
 
     for translation in c.plugin.translations:
         subprocess.check_call(
-            "sphinx-intl --config {sourcedir}/conf.py update -p {docroot}/i18n/pot -l {lang}"
-            .format(
-                sourcedir=c.sphinx.sourcedir,
-                docroot=c.sphinx.docroot,
-                lang=translation
-            )
+            c.sphinx.sphinx_intl.split() +
+            [
+                '--config',
+                f'{c.sphinx.sourcedir}/conf.py',
+                'update',
+                '-p',
+                f'{c.sphinx.docroot}/i18n/pot',
+                '-l',
+                f'{translation}'
+            ]
         )
 
     print("Gathering strings for translation using pylupdate...")
@@ -996,25 +1043,26 @@ def translate_push(c, force=False, version=3):
         )
 
     if force:
-        subprocess.check_call('tx push --parallel -f -s')
+        subprocess.check_call([c.sphinx.tx_path, 'push', '-f', '-s'])
     else:
-        subprocess.check_call('tx push --parallel -s')
+        subprocess.check_call([c.sphinx.tx_path, 'push', '-s'])
 
 
 @task(help={'language': 'language'})
 def gettext(c, language=None):
     if not language:
         language = c.sphinx.base_language
-    SPHINX_OPTS = '-D language={lang} -A language={lang} {sourcedir}'.format(
-        lang=language, sourcedir=c.sphinx.sourcedir
+    script_folder = str(Path(__file__).parent)
+    SPHINX_OPTS = (
+        f'-D language={language} -A language={language} '
+        f'{script_folder}/{c.sphinx.sourcedir}'
     )
-    I18N_SPHINX_OPTS = '{sphinx_opts} {docroot}/i18n/pot'.format(
-        docroot=c.sphinx.docroot, sphinx_opts=SPHINX_OPTS
-    )
+    I18N_SPHINX_OPTS = f'{SPHINX_OPTS} {script_folder}/{c.sphinx.docroot}/i18n/pot'
+
     subprocess.check_call(
-        "sphinx-build -b gettext -a {i18n_sphinx_opts}".format(
-            i18n_sphinx_opts=I18N_SPHINX_OPTS
-        )
+        c.sphinx.sphinx_build.split() +
+        ['-b', 'gettext', '-a'] +
+        I18N_SPHINX_OPTS.split()
     )
 
 
@@ -1037,28 +1085,24 @@ def docs_spellcheck(c, ignore_errors=False, language=None, fast=False):
         languages.extend(c.plugin.translations)
 
     for language in languages:
-        print("\nBuilding {lang} documentation...".format(lang=language))
-        SPHINX_OPTS = '-D language={lang} -A language={lang} {sourcedir}'.format(
-            lang=language, sourcedir=c.sphinx.sourcedir
+        print(f"\nBuilding {language} documentation...")
+        SPHINX_OPTS = (
+            f'-D language={language} -A language={language} {c.sphinx.sourcedir}'
         )
 
         if language != 'en' or ignore_errors:
             subprocess.check_call(
-                "sphinx-build -b spelling -a {sphinx_opts} {builddir}/html/{lang}".
-                format(
-                    sphinx_opts=SPHINX_OPTS,
-                    builddir=c.sphinx.builddir,
-                    lang=language
-                )
+                c.sphinx.sphinx_intl.split() +
+                ['-b', 'spelling', '-a'] +
+                SPHINX_OPTS.split() +
+                [f"{c.sphinx.builddir}/html/{language}"]
             )
         else:
             subprocess.check_call(
-                "sphinx-build -n -W -b spelling -a {sphinx_opts} {builddir}/html/{lang}"
-                .format(
-                    sphinx_opts=SPHINX_OPTS,
-                    builddir=c.sphinx.builddir,
-                    lang=language
-                )
+                c.sphinx.sphinx_build.split() +
+                ['-n', '-W', '-b', 'spelling', '-a'] +
+                SPHINX_OPTS.split() +
+                [f"{c.sphinx.builddir}/html/{language}"]
             )
 
         if fast:
@@ -1085,43 +1129,44 @@ def docs_build(c, clean=False, ignore_errors=False, language=None, fast=False):
     print("\nBuilding changelog...")
     changelog_build(c)
 
+    print("\nBuilding download page...")
+    build_download_page(c)
+
     for language in languages:
-        print("\nBuilding {lang} documentation...".format(lang=language))
-        SPHINX_OPTS = '-D language={lang} -A language={lang} {sourcedir}'.format(
-            lang=language, sourcedir=c.sphinx.sourcedir
+        print(f"\nBuilding {language} documentation...")
+        SPHINX_OPTS = (
+            f'-D language={language} -A language={language} {c.sphinx.sourcedir}'
         )
 
-        print(
-            "\nLocalizing resources for {lang} documentation...".format(
-                lang=language
-            )
-        )
+        print(f"\nLocalizing resources for {language} documentation...")
+
         localize_resources(c, language)
 
         subprocess.check_call(
-            "sphinx-intl --config {sourcedir}/conf.py build --language={lang}".
-            format(sourcedir=c.sphinx.sourcedir, lang=language)
+            c.sphinx.sphinx_intl.split() +
+            [
+                '--config',
+                f'{c.sphinx.sourcedir}/conf.py',
+                'build',
+                f"--language={language}"
+            ]
         )
 
         # Build HTML docs
 
         if language != 'en' or ignore_errors:
             subprocess.check_call(
-                "sphinx-build -b html -a {sphinx_opts} {builddir}/html/{lang}".
-                format(
-                    sphinx_opts=SPHINX_OPTS,
-                    builddir=c.sphinx.builddir,
-                    lang=language
-                )
+                c.sphinx.sphinx_build.split() +
+                ['-b', 'html', '-a'] +
+                SPHINX_OPTS.split() +
+                [f"{c.sphinx.builddir}/html/{language}"]
             )
         else:
             subprocess.check_call(
-                "sphinx-build -n -W -b html -a {sphinx_opts} {builddir}/html/{lang}"
-                .format(
-                    sphinx_opts=SPHINX_OPTS,
-                    builddir=c.sphinx.builddir,
-                    lang=language
-                )
+                c.sphinx.sphinx_build.split() +
+                ['-n', '-W', '-b', 'html', '-a'] +
+                SPHINX_OPTS.split() +
+                [f"{c.sphinx.builddir}/html/{language}"]
             )
         print(
             "HTML Build finished. The HTML pages for '{lang}' are in {builddir}."
@@ -1132,32 +1177,27 @@ def docs_build(c, clean=False, ignore_errors=False, language=None, fast=False):
             break
 
         # Build PDF, by first making latex from sphinx, then pdf from that
-        tex_dir = "{builddir}/latex/{lang}".format(
-            builddir=c.sphinx.builddir, lang=language
-        )
+        tex_dir = f"{c.sphinx.builddir}/latex/{language}"
         subprocess.check_call(
-            "sphinx-build -b latex -a {sphinx_opts} {tex_dir}".format(
-                sphinx_opts=SPHINX_OPTS, tex_dir=tex_dir
-            )
+            c.sphinx.sphinx_build.split() +
+            ['-b', 'latex', '-a'] +
+            SPHINX_OPTS.split() +
+            [f"{tex_dir}"]
         )
-
-        for doc in c.sphinx.latex_documents:
-            for n in range(3):
+        
+        tex_files = [Path(tex_file).name for tex_file in glob.glob(f'{tex_dir}/*.tex')]
+        for tex_file in tex_files:
+            for _ in range(3):
                 # Run multiple times to ensure crossreferences are right
-                subprocess.check_call(['xelatex', doc], cwd=tex_dir)
+                subprocess.check_call(['xelatex', tex_file], cwd=tex_dir)
             # Move the PDF to the html folder so it will be uploaded with the
             # site
-            doc_pdf = os.path.splitext(doc)[0] + '.pdf'
-            out_dir = '{builddir}/html/{lang}/pdfs'.format(
-                builddir=c.sphinx.builddir, lang=language
-            )
+            pdf_file = os.path.splitext(tex_file)[0] + '.pdf'
+            out_dir = f'{c.sphinx.builddir}/html/{language}/pdfs'
 
             if not os.path.exists(out_dir):
                 os.makedirs(out_dir)
-            shutil.move(
-                '{tex_dir}/{doc}'.format(tex_dir=tex_dir, doc=doc_pdf),
-                '{out_dir}/{doc}'.format(out_dir=out_dir, doc=doc_pdf)
-            )
+            shutil.move(f'{tex_dir}/{pdf_file}', f'{out_dir}/{pdf_file}')
 
 
 def localize_resources(c, language=None):
@@ -1239,6 +1279,12 @@ def rtd_pre_build(c):
     check_docs_image_ext(c)
     print('Copying docs resources based on language...')
     localize_resources(c)
+    if (
+        os.environ['READTHEDOCS_PROJECT'] == 'trends.earth' and
+        os.environ['READTHEDOCS_VERSION_TYPE'] in ['branch', 'tag']
+    ):
+        print("Building download page...")
+        build_download_page(c)
     print("Building changelog...")
     changelog_build(c)
 
@@ -1254,7 +1300,7 @@ def changelog_build(c):
         metadata = fin.readlines()
 
     changelog_header_re = re.compile('^changelog=', re.IGNORECASE)
-    version_header_re = re.compile('^[ ]*[0-9]+(\.[0-9]+){1,2}', re.IGNORECASE)
+    version_header_re = re.compile('^[ ]*[0-9]+(\.[0-9]+){1,2}(rc[0-9]*)?', re.IGNORECASE)
 
     at_changelog = False
 
@@ -1279,7 +1325,7 @@ def changelog_build(c):
             ]
         out_txt.extend(line)
 
-    out_file = '{docroot}/source/about/changelog.rst'.format(
+    out_file = '{docroot}/source/for_developers/changelog.rst'.format(
         docroot=c.sphinx.docroot
     )
     with open(out_file, 'w') as fout:
@@ -1291,12 +1337,130 @@ def _make_download_link(c, title, key, data):
     if filename:
         return (
             f'[{title}]'
-            f'(http://{c.data_downloads.s3_bucket}' +
-            f'.s3.us-east-1.amazonaws.com/{c.data_downloads.s3_prefix}{filename})'
+            f'(https://{c.data_downloads.s3_bucket}/'
+            f'{c.data_downloads.s3_prefix}{filename})'
         )
     else:
         return ''
 
+
+def _make_sdg_download_row(c, iso, data):
+    return (
+        f'| {iso} | ' +
+        f'{_make_download_link(c, f"{iso} (JRC LPD)", "JRC-LPD-5", data)} | ' +
+        f'{_make_download_link(c, f"{iso} (Trends.Earth LPD)", "TrendsEarth-LPD-5", data)} | ' +
+        f'{_make_download_link(c, f"{iso} (FAO-WOCAT LPD)", "FAO-WOCAT-LPD-5", data)} |\n'
+    )
+
+def _make_drought_download_row(c, iso, data):
+    return (
+        f'| {iso} | ' +
+        f'{_make_download_link(c, f"{iso} (Drought)", "Drought", data)} |\n'
+    )
+
+
+@task
+def build_download_page(c):
+    out_txt = '''# Downloads
+
+This page lists data packages containing default datasets that can be used in
+Trends.Earth.
+
+**This site and the products of Trends.Earth are made available under the terms of the
+Creative Commons Attribution 4.0 International License (CC BY 4.0). The boundaries and
+names used, and the designations used, do not imply official endorsement or acceptance
+by Conservation International Foundation, or its partner organizations and
+contributors.**
+
+## SDG Indicator 15.3.1 (UNCCD Strategic Objectives 1 and 2)
+
+The below datasets can be used to support assessing SDG Indicator 15.3.1, and include
+indicators of change in land productivity dynamics (LPD), land cover, and soil organic
+carbon. These datasets can be used to support reporting on UNCCD Strategic Objectives 1
+and 2. Note that there are three different LPD datasets available (from JRC, from
+the default Trends.Earth method, and from FAO-WOCAT).
+
+| Country | SDG 15.3.1 using JRC LPD | SDG 15.3.1 using Trends.Earth LPD  | SDG 15.3.1 using FAO-WOCAT LPD |
+|---------|---------|--------------------|---------------|
+'''
+
+    try:
+        with open(
+            os.path.join(os.path.dirname(__file__), 'aws_credentials.json'), 'r'
+        ) as fin:
+            keys = json.load(fin)
+        client = boto3.client(
+            's3',
+            aws_access_key_id=keys['access_key_id'],
+            aws_secret_access_key=keys['secret_access_key']
+        )
+    except FileNotFoundError:
+        print('Failed to read AWS keys from aws_credentials.json - keys must be in '
+              'environment variable')
+        client = boto3.client('s3')
+
+    objects = client.list_objects(
+        Bucket=c.data_downloads.s3_bucket, Prefix=c.data_downloads.s3_prefix
+    )['Contents']
+
+    sdg_links = {}
+    for item in objects:
+        if item['Key'] == c.data_downloads.s3_prefix:
+            # Skip the key that is just the parent folder itself
+            continue
+        filename = PurePath(item['Key']).name
+        iso = re.match('[A-Z]{3}', filename)[0]
+        
+        if iso not in sdg_links:
+            sdg_links[iso] = {}
+
+        if re.search('SDG15_JRC-LPD-5', filename):
+            sdg_links[iso]['JRC-LPD-5'] = filename
+        elif re.search('SDG15_TrendsEarth-LPD-5', filename):
+            sdg_links[iso]['TrendsEarth-LPD-5'] = filename
+        elif re.search('SDG15_FAO-WOCAT-LPD-5', filename):
+            sdg_links[iso]['FAO-WOCAT-LPD-5'] = filename
+        else:
+            continue
+
+    for iso, values in sdg_links.items():
+        out_txt += _make_sdg_download_row(c, iso, values)
+
+
+    out_txt +='''
+
+## Drought hazard, vulnerability and exposure (UNCCD Strategic Objective 3)
+
+The below datasets can be used to support assessing drought hazard, vulnerability, and
+exposure, and for reporting on UNCCD Strategic Objective 3.
+
+| Country | Drought indicators (2000-2019) |
+|---------|--------------------------------|
+'''
+
+    drought_links = {}
+    for item in objects:
+        if item['Key'] == c.data_downloads.s3_prefix:
+            # Skip the key that is just the parent folder itself
+            continue
+        filename = PurePath(item['Key']).name
+        iso = re.match('[A-Z]{3}', filename)[0]
+        
+        if iso not in drought_links:
+            drought_links[iso] = {}
+
+        if re.search('Drought', filename):
+            drought_links[iso]['Drought'] = filename
+        else:
+            continue
+
+    for iso, values in drought_links.items():
+        out_txt += _make_drought_download_row(c, iso, values)
+
+    with open(
+        os.path.join(os.path.dirname(__file__), c.data_downloads.downloads_page), 'w'
+    ) as fout:
+        fout.writelines(out_txt)
 
 ###############################################################################
 # Package plugin zipfile
@@ -1325,6 +1489,7 @@ def zipfile_build(
 ):
     """Create plugin package"""
     set_version(c)
+    compile_files(c, version, clean)
 
     if tag:
         set_tag(c)
@@ -1336,7 +1501,9 @@ def zipfile_build(
         )
 
     plugin_setup(c, clean=clean, pip=pip)
-    compile_files(c, version=version, clean=clean)
+
+    # Make sure compiled versions of translation files are included
+    _lrelease(c)
 
     package_dir = c.plugin.package_dir
 
@@ -1379,15 +1546,16 @@ def _make_zip(zipFile, c):
         'qgis': 'QGIS version to target',
         'clean': 'Clean out dependencies and untracked data files before packaging',
         'pip': 'Path to pip (usually "pip" or "pip3"',
-        'tag': 'Whether to tag on Github'
+        'tag': 'Whether to tag on Github',
+        'filename': 'Name for output file'
     }
 )
-def zipfile_deploy(c, qgis, clean=True, pip='pip', tag=False):
+def zipfile_deploy(c, qgis, clean=True, pip='pip', tag=False, filename=None):
     binaries_sync(c)
     binaries_deploy(c, qgis=qgis)
     print('Binaries uploaded')
 
-    filename = zipfile_build(c, pip=pip, clean=clean, tag=tag)
+    filename = zipfile_build(c, pip=pip, clean=clean, tag=tag, filename=filename)
     try:
         with open(
             os.path.join(os.path.dirname(__file__), 'aws_credentials.json'),
@@ -1716,7 +1884,7 @@ ns = Collection(
     tecli_config, tecli_publish, tecli_run, tecli_info, tecli_logs,
     zipfile_build, zipfile_deploy, binaries_compile, binaries_sync,
     binaries_deploy, release_github, update_script_ids, testdata_sync,
-    rtd_pre_build
+    rtd_pre_build, build_download_page
 )
 
 ns.configure(
@@ -1740,8 +1908,7 @@ ns.configure(
             'LDMP/data',
             'i18n_dir':
             'LDMP/i18n',
-            #'translations': ['fr', 'es', 'pt', 'sw', 'ar', 'ru', 'zh'],
-            'translations': ['fr', 'es', 'sw', 'pt'],
+            'translations': ['fr', 'es', 'sw', 'pt', 'ar', 'ru', 'zh', 'fa'],
             'resource_files': ['LDMP/resources.qrc'],
             'numba': {
                 'aot_files': [
@@ -1761,7 +1928,7 @@ ns.configure(
             'tests': ['LDMP/test'],
             'excludes': [
                 'LDMP/data_prep_scripts', 'LDMP/binaries', 'docs', 'gee',
-                'util', '*.pyc', 'LDMP/schemas/.gitgnore', 'LDMP/schemas/.git'
+                'util', '*.pyc', '*.ts', '*.pro'
             ],
             # skip certain files inadvertently found by exclude pattern globbing
             'skip_exclude': [],
@@ -1775,20 +1942,22 @@ ns.configure(
             'tecli': '../trends.earth-CLI/tecli'
         },
         'sphinx': {
+            'sphinx_build': f'{sys.executable} -m sphinx.cmd.build',
+            'sphinx_intl': 'sphinx-intl',
             'docroot': 'docs',
             'sourcedir': 'docs/source',
             'builddir': 'docs/build',
             'resourcedir': 'docs/resources',
             'deploy_s3_bucket': 'trends.earth',
             'docs_s3_prefix': 'docs/',
-            'transifex_name': 'trendsearth',
-            'base_language': 'en',
-            'latex_documents': ['Trends.Earth.tex']
+            'transifex_name': 'trendsearth-v2',
+            'tx_path': f'{os.path.dirname(__file__)}/tx',
+            'base_language': 'en'
         },
         'data_downloads': {
-            'downloads_page': 'docs/source/about/development/changelog.rst',
-            's3_bucket': 'trends.earth',
-            's3_prefix': 'data/packages/'
+            'downloads_page': 'docs/source/for_users/downloads/index.md',
+            's3_bucket': 'data.trends.earth',
+            's3_prefix': 'unccd_reporting/2016-2019/packages/'
         },
         'github': {
             'api_url': 'https://api.github.com',

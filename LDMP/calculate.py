@@ -15,6 +15,7 @@
 from builtins import object
 import os
 from pathlib import Path
+import re
 import json
 import tempfile
 
@@ -25,6 +26,7 @@ from qgis.PyQt.QtGui import QIcon, QPixmap, QDoubleValidator
 from qgis.PyQt.QtCore import (QTextCodec, QSettings, pyqtSignal,
     QCoreApplication)
 
+import qgis
 from qgis.core import (QgsFeature, QgsPointXY, QgsGeometry, QgsJsonUtils,
     QgsVectorLayer, QgsCoordinateTransform, QgsCoordinateReferenceSystem,
     Qgis, QgsProject, QgsLayerTreeGroup, QgsLayerTreeLayer,
@@ -74,6 +76,11 @@ def get_script_slug(script_name):
     # Note that dots and underscores can't be used in the slugs, so they are 
     # replaced with dashesk
     return script_name + '-' + scripts[script_name]['script version'].replace('.', '-')
+
+def _get_qgis_version():
+    qgis_version_match = re.match("(^[0-9]*)\.([0-9]*)", qgis.core.Qgis.QGIS_VERSION)
+
+    return int(qgis_version_match[1]), int(qgis_version_match[2])
 
 # Transform CRS of a layer while optionally wrapping geometries
 # across the 180th meridian
@@ -388,7 +395,15 @@ class AOI(object):
             # Need to convert from km to meters
             geom_buffered = geom.buffer(d * 1000, 100)
             log('Feature area in sq km after buffering (and in aeqd) is: {}'.format(geom_buffered.area()/(1000 * 1000)))
-            geom_buffered.transform(to_aeqd, QgsCoordinateTransform.TransformDirection.ReverseTransform)
+            # Use correct transform direction enum based on version
+            major_version, minor_version = _get_qgis_version()
+            if major_version >= 3 and minor_version >= 22:
+                trans_dir = qgis.core.Qgis.TransformDirection.Reverse
+            else:
+                trans_dir = (
+                    qgis.core.QgsCoordinateTransform.TransformDirection.ReverseTransform
+                )
+            geom_buffered.transform(to_aeqd, trans_dir)
             f.setGeometry(geom_buffered)
             feats.append(f)
             log('Feature area after buffering (and in WGS84) is: {}'.format(geom_buffered.area()))
@@ -430,7 +445,7 @@ class AOI(object):
         return frac
 
     def get_geojson(self, split=False):
-        geojson= {"type": "FeatureCollection", "features" :[]}
+        geojson = {"type": "FeatureCollection", "features" :[]}
 
         if split:
             geojson['features'].append(meridian_split(out_type='layer', out_format='geojson'))

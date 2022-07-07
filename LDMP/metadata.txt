@@ -27,7 +27,9 @@ deprecated=False
 hasProcessingProvider=yes
 
 # Uncomment the following line and add your changelog:
-changelog=1.0.8 (October 15, 2021)
+changelog=1.0.10 (July 7, 2022)
+    - Address bug with TransformDirection related to changes in QGIS 3.22+
+  1.0.8 (October 15, 2021)
     - Address bug in saving final layer for SDG calculation (related to issues 
       #500, and #505)
   1.0.6 (July 15, 2021)

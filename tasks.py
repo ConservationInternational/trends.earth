@@ -1336,21 +1336,6 @@ def _make_download_link(c, title, key, data):
         return ''
 
 
-def _make_sdg_download_row(c, iso, data):
-    return (
-        f'| {iso} | ' +
-        f'{_make_download_link(c, f"{iso} (JRC LPD)", "JRC-LPD-5", data)} | ' +
-        f'{_make_download_link(c, f"{iso} (Trends.Earth LPD)", "TrendsEarth-LPD-5", data)} | ' +
-        f'{_make_download_link(c, f"{iso} (FAO-WOCAT LPD)", "FAO-WOCAT-LPD-5", data)} |\n'
-    )
-
-def _make_drought_download_row(c, iso, data):
-    return (
-        f'| {iso} | ' +
-        f'{_make_download_link(c, f"{iso} (Drought)", "Drought", data)} |\n'
-    )
-
-
 ###############################################################################
 # Package plugin zipfile
 ###############################################################################

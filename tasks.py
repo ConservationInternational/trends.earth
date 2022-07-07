@@ -991,7 +991,6 @@ def translate_push(c, force=False, version=3):
     changelog_build(c)
 
     print("Building download page...")
-    build_download_page(c)
 
     # Below is necessary just to avoid warning messages regarding missing image
     # files when Sphinx is used later on
@@ -1130,7 +1129,6 @@ def docs_build(c, clean=False, ignore_errors=False, language=None, fast=False):
     changelog_build(c)
 
     print("\nBuilding download page...")
-    build_download_page(c)
 
     for language in languages:
         print(f"\nBuilding {language} documentation...")
@@ -1279,12 +1277,6 @@ def rtd_pre_build(c):
     check_docs_image_ext(c)
     print('Copying docs resources based on language...')
     localize_resources(c)
-    if (
-        os.environ['READTHEDOCS_PROJECT'] == 'trends.earth' and
-        os.environ['READTHEDOCS_VERSION_TYPE'] in ['branch', 'tag']
-    ):
-        print("Building download page...")
-        build_download_page(c)
     print("Building changelog...")
     changelog_build(c)
 
@@ -1325,7 +1317,7 @@ def changelog_build(c):
             ]
         out_txt.extend(line)
 
-    out_file = '{docroot}/source/for_developers/changelog.rst'.format(
+    out_file = '{docroot}/source/about/changelog.rst'.format(
         docroot=c.sphinx.docroot
     )
     with open(out_file, 'w') as fout:
@@ -1358,109 +1350,6 @@ def _make_drought_download_row(c, iso, data):
         f'{_make_download_link(c, f"{iso} (Drought)", "Drought", data)} |\n'
     )
 
-
-@task
-def build_download_page(c):
-    out_txt = '''# Downloads
-
-This page lists data packages containing default datasets that can be used in
-Trends.Earth.
-
-**This site and the products of Trends.Earth are made available under the terms of the
-Creative Commons Attribution 4.0 International License (CC BY 4.0). The boundaries and
-names used, and the designations used, do not imply official endorsement or acceptance
-by Conservation International Foundation, or its partner organizations and
-contributors.**
-
-## SDG Indicator 15.3.1 (UNCCD Strategic Objectives 1 and 2)
-
-The below datasets can be used to support assessing SDG Indicator 15.3.1, and include
-indicators of change in land productivity dynamics (LPD), land cover, and soil organic
-carbon. These datasets can be used to support reporting on UNCCD Strategic Objectives 1
-and 2. Note that there are three different LPD datasets available (from JRC, from
-the default Trends.Earth method, and from FAO-WOCAT).
-
-| Country | SDG 15.3.1 using JRC LPD | SDG 15.3.1 using Trends.Earth LPD  | SDG 15.3.1 using FAO-WOCAT LPD |
-|---------|---------|--------------------|---------------|
-'''
-
-    try:
-        with open(
-            os.path.join(os.path.dirname(__file__), 'aws_credentials.json'), 'r'
-        ) as fin:
-            keys = json.load(fin)
-        client = boto3.client(
-            's3',
-            aws_access_key_id=keys['access_key_id'],
-            aws_secret_access_key=keys['secret_access_key']
-        )
-    except FileNotFoundError:
-        print('Failed to read AWS keys from aws_credentials.json - keys must be in '
-              'environment variable')
-        client = boto3.client('s3')
-
-    objects = client.list_objects(
-        Bucket=c.data_downloads.s3_bucket, Prefix=c.data_downloads.s3_prefix
-    )['Contents']
-
-    sdg_links = {}
-    for item in objects:
-        if item['Key'] == c.data_downloads.s3_prefix:
-            # Skip the key that is just the parent folder itself
-            continue
-        filename = PurePath(item['Key']).name
-        iso = re.match('[A-Z]{3}', filename)[0]
-        
-        if iso not in sdg_links:
-            sdg_links[iso] = {}
-
-        if re.search('SDG15_JRC-LPD-5', filename):
-            sdg_links[iso]['JRC-LPD-5'] = filename
-        elif re.search('SDG15_TrendsEarth-LPD-5', filename):
-            sdg_links[iso]['TrendsEarth-LPD-5'] = filename
-        elif re.search('SDG15_FAO-WOCAT-LPD-5', filename):
-            sdg_links[iso]['FAO-WOCAT-LPD-5'] = filename
-        else:
-            continue
-
-    for iso, values in sdg_links.items():
-        out_txt += _make_sdg_download_row(c, iso, values)
-
-
-    out_txt +='''
-
-## Drought hazard, vulnerability and exposure (UNCCD Strategic Objective 3)
-
-The below datasets can be used to support assessing drought hazard, vulnerability, and
-exposure, and for reporting on UNCCD Strategic Objective 3.
-
-| Country | Drought indicators (2000-2019) |
-|---------|--------------------------------|
-'''
-
-    drought_links = {}
-    for item in objects:
-        if item['Key'] == c.data_downloads.s3_prefix:
-            # Skip the key that is just the parent folder itself
-            continue
-        filename = PurePath(item['Key']).name
-        iso = re.match('[A-Z]{3}', filename)[0]
-        
-        if iso not in drought_links:
-            drought_links[iso] = {}
-
-        if re.search('Drought', filename):
-            drought_links[iso]['Drought'] = filename
-        else:
-            continue
-
-    for iso, values in drought_links.items():
-        out_txt += _make_drought_download_row(c, iso, values)
-
-    with open(
-        os.path.join(os.path.dirname(__file__), c.data_downloads.downloads_page), 'w'
-    ) as fout:
-        fout.writelines(out_txt)
 
 ###############################################################################
 # Package plugin zipfile
@@ -1884,7 +1773,7 @@ ns = Collection(
     tecli_config, tecli_publish, tecli_run, tecli_info, tecli_logs,
     zipfile_build, zipfile_deploy, binaries_compile, binaries_sync,
     binaries_deploy, release_github, update_script_ids, testdata_sync,
-    rtd_pre_build, build_download_page
+    rtd_pre_build
 )
 
 ns.configure(

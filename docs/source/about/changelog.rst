@@ -3,6 +3,11 @@ Changelog
 
 This page lists the version history of |trends.earth|.
 
+`1.0.10 (July 7, 2022) <https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.10>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+    - Address bug with TransformDirection related to changes in QGIS 3.22+
+
 `1.0.8 (October 15, 2021) <https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.8>`_
 -----------------------------------------------------------------------------------------------------------------------------
 

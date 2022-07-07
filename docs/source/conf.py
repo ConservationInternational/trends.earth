@@ -296,6 +296,9 @@ latex_logo = '../resources/en/common/trends_earth_logo_bl_1200.png'
 # If false, no module index is generated.
 #latex_domain_indices = True
 
+latex_engine = 'xelatex'
+latex_use_xindy = False
+
 
 # -- Options for manual page output --------------------------------------------
 

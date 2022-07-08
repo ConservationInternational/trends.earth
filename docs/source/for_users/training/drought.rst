@@ -12,7 +12,7 @@ Default data for UNCCD SO 3
 
 1. In the **Algorithm** window, click on **Drought - Vulnerability and exposure** and select **Execute remotely** under **Drought vulnerability**.
 
-.. image:: ../../../resources/en/documentation/calculate/so3_drought_vulnerability_exposure.PNG
+.. image:: ../../../resources/en/documentation/calculate/so3_drought_vulnerability_exposure.png
    :align: center
 
 -  The region of interest is already set up in Settings. If you need to change, select the **Change region** button.

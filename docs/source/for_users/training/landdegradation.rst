@@ -89,7 +89,7 @@ Calculate SDG 15.3.1 Indicator and UNCCD's SO 2-3
 
 2. The **Trends.Earth** panel will open. In the **Algorithm** window, click on **SDG 15.3.1- Land Degradation** and select **Execute locally** under **Indicator for SDG 15.3.1**.
 
-.. image:: ../../../resources/en/documentation/calculate/so1_sdg1531_indicator.PNG
+.. image:: ../../../resources/en/documentation/calculate/so1_sdg1531_indicator.png
    :align: center
 
 3. The region of interest is already set up in Settings. If you need to change, select the **Change region** button.
@@ -110,7 +110,7 @@ Calculate SDG 15.3.1 Indicator and UNCCD's SO 2-3
 4. Click on **Advanced** to expand it and show advanced options then select the **Population (required to calculate populations exposed by degradation)** check box to calculate `UNCCD's SO 2-3, proportion of population exposed to land degradation disaggregated by sex <https://prais4-reporting-manual.readthedocs.io/en/latest/SO2.html#so-2-3-trends-in-population-exposure-to-land-degradation-disaggregated-by-sex>`_. Make sure to check the **Population** box both for **Baseline** and **Progress Period** in case you are interested in having summary results for both periods.
    |trends.earth| provides access the **WorldPop** dataset, which is used by default by the UNCCD for calculating indicator SO2-3. 
 
-.. image:: ../../../resources/en/documentation/calculate/so2_ld_pop_exposure.PNG
+.. image:: ../../../resources/en/documentation/calculate/so2_ld_pop_exposure.png
    :align: center
    
 5. Select **Execute locally** button.
@@ -367,7 +367,7 @@ Calculating Land Cover sub-indicator with custom data
 
 1. Now that both land cover datasets have been imported into Trends.Earth, the land cover change analysis tool needs to be run. In the **Algorithm window**, click on **Execute locally** under **Land cover change**.
    
-.. image:: ../../../resources/en/training/t08/trends_earth_calculate_custom_land_cover.PNG
+.. image:: ../../../resources/en/training/t08/trends_earth_calculate_custom_land_cover.png
    :align: center   
    
 .. image:: ../../../resources/en/training/t08/call_lc_change_locally.png

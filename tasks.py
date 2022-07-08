@@ -1235,8 +1235,8 @@ def rtd_pre_build(c):
     print('Copying docs resources based on language...')
     localize_resources(c)
     if (
-        os.environ['READTHEDOCS_PROJECT'] == 'trends.earth' and
-        os.environ['READTHEDOCS_VERSION_TYPE'] in ['branch', 'tag']
+        os.environ.get('READTHEDOCS_PROJECT') == 'trends.earth' and
+        os.environ.get('READTHEDOCS_VERSION_TYPE') in ['branch', 'tag']
     ):
         print("Building download page...")
         build_download_page(c)

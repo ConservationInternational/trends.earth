@@ -985,7 +985,7 @@ def gettext(c, language=None):
         language = c.sphinx.base_language
     script_folder = str(Path(__file__).parent)
     SPHINX_OPTS = (
-        f'-D language={language} -A language={language} '
+        f'-t language_{language} -A language={language} '
         f'{script_folder}/{c.sphinx.sourcedir}'
     )
     I18N_SPHINX_OPTS = f'{SPHINX_OPTS} {script_folder}/{c.sphinx.docroot}/i18n/pot'
@@ -1018,7 +1018,7 @@ def docs_spellcheck(c, ignore_errors=False, language=None, fast=False):
     for language in languages:
         print(f"\nBuilding {language} documentation...")
         SPHINX_OPTS = (
-            f'-D language={language} -A language={language} {c.sphinx.sourcedir}'
+            f'-t language_{language} -A language={language} {c.sphinx.sourcedir}'
         )
 
         if language != 'en' or ignore_errors:
@@ -1082,7 +1082,7 @@ def docs_build(
     for language in languages:
         print(f"\nBuilding {language} documentation...")
         SPHINX_OPTS = (
-            f'-D language={language} -A language={language} {c.sphinx.sourcedir}'
+            f'-t language_{language} -A language={language} {c.sphinx.sourcedir}'
         )
 
         print(f"\nLocalizing resources for {language} documentation...")
@@ -1114,8 +1114,8 @@ def docs_build(
                 [f"{c.sphinx.builddir}/html/{language}"]
             )
         print(
-            "HTML Build finished. The HTML pages for '{language}' "
-            f"are in {c.sphinx.builddir}."
+            f"HTML Build finished. The HTML pages for '{language}' "
+            f"are in {c.sphinx.builddir}/html/{language}."
         )
 
         if pdf:
@@ -1141,6 +1141,7 @@ def docs_build(
                 if not os.path.exists(out_dir):
                     os.makedirs(out_dir)
                 shutil.move(f'{tex_dir}/{pdf_file}', f'{out_dir}/{pdf_file}')
+
                 if upload:
                     data = open(f'{out_dir}/{pdf_file}', 'rb')
                     client.put_object(

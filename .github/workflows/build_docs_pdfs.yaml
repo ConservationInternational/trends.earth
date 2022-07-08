@@ -25,5 +25,7 @@ jobs:
       - run: pip install -r requirements-dev.txt
       - name: Setup Latex
         run: sudo apt-get install texlive-xetex
+      - name: Docs pre-build
+        run: invoke rtd-pre-build
       - name: Build PDF and  push to S3
         run: invoke docs-build --pdf --upload

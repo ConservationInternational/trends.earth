@@ -21,7 +21,7 @@ the Global Environment Facility (GEF) and United Nations Convention to Combat
 Desertification (UNCCD), as well as tracking progress towards achievement of Sustainable
 Development Goal (SDG) target 15.3, Land Degradation Neutrality (LDN).
 
-Trends.Earth was produced by a partnership of Conservation International, Lund
+`Trends.Earth` was produced by a partnership of Conservation International, Lund
 University, and the National Aeronautics and Space Administration (NASA), with
 the support of the Global Environment Facility (GEF). It was further developed
 through a partnership with Conservation International, University of Bern,

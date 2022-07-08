@@ -286,42 +286,42 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="477"/>
+        <location filename="../jobs/mvc.py" line="476"/>
         <source>Time Series</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="482"/>
+        <location filename="../jobs/mvc.py" line="485"/>
         <source>Time</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="483"/>
+        <location filename="../jobs/mvc.py" line="486"/>
         <source>Integrated NDVI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="483"/>
+        <location filename="../jobs/mvc.py" line="486"/>
         <source>NDVI x 10000</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="569"/>
+        <location filename="../jobs/mvc.py" line="572"/>
         <source>Dataset metadata</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="576"/>
+        <location filename="../jobs/mvc.py" line="579"/>
         <source>{} metadata</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="591"/>
+        <location filename="../jobs/mvc.py" line="594"/>
         <source>Add vector layer to map</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="595"/>
+        <location filename="../jobs/mvc.py" line="598"/>
         <source>Add raster layers to map</source>
         <translation type="unfinished"></translation>
     </message>
@@ -4017,28 +4017,33 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="322"/>
+        <location filename="../timeseries.py" line="339"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
         <location filename="../timeseries.py" line="264"/>
         <source>The bounding box of the requested area (approximately {:.6n} sq km) is too large. The timeseries tool can process a maximum area of 10 million sq km at a time. Choose a smaller area to process.</source>
-        <translation>Sanduku linaloshikilia eneo la ombi (takriban {: .6n} sq km) ni kubwa sana. Chombo cha timeseries kinaweza kusindika eneo la juu la sq milioni 10 kwa wakati mmoja. Chagua eneo dogo kuchakatwa.</translation>
+        <translation type="obsolete">Sanduku linaloshikilia eneo la ombi (takriban {: .6n} sq km) ni kubwa sana. Chombo cha timeseries kinaweza kusindika eneo la juu la sq milioni 10 kwa wakati mmoja. Chagua eneo dogo kuchakatwa.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="313"/>
+        <location filename="../timeseries.py" line="330"/>
         <source>Submitted</source>
         <translation>Iliwasilishwa</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="313"/>
+        <location filename="../timeseries.py" line="330"/>
         <source>Time series calculation task submitted to Trends.Earth server.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="322"/>
+        <location filename="../timeseries.py" line="339"/>
         <source>Unable to submit time series calculation task to Trends.Earth server</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../timeseries.py" line="282"/>
+        <source>The bounding box of the requested area (approximately {:.6n} sq km) is too large. The timeseries tool can process a maximum area of 1 million sq km at a time. Choose a smaller area to process.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

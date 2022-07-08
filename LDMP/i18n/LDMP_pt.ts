@@ -286,42 +286,42 @@
         <translation>A tabela de série de tempo está vazio</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="477"/>
+        <location filename="../jobs/mvc.py" line="476"/>
         <source>Time Series</source>
         <translation>Série de Tempo</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="482"/>
+        <location filename="../jobs/mvc.py" line="485"/>
         <source>Time</source>
         <translation>Tempo</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="483"/>
+        <location filename="../jobs/mvc.py" line="486"/>
         <source>Integrated NDVI</source>
         <translation>NDVI integrado</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="483"/>
+        <location filename="../jobs/mvc.py" line="486"/>
         <source>NDVI x 10000</source>
         <translation>NDVI x 10000</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="569"/>
+        <location filename="../jobs/mvc.py" line="572"/>
         <source>Dataset metadata</source>
         <translation>Metadados da base de dados</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="576"/>
+        <location filename="../jobs/mvc.py" line="579"/>
         <source>{} metadata</source>
         <translation>Metadados {}</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="591"/>
+        <location filename="../jobs/mvc.py" line="594"/>
         <source>Add vector layer to map</source>
         <translation>Adicionar camada de vetor ao mapa</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="595"/>
+        <location filename="../jobs/mvc.py" line="598"/>
         <source>Add raster layers to map</source>
         <translation>Adicionar camadas raster ao mapa</translation>
     </message>
@@ -4198,29 +4198,34 @@ p, li { white-space: pre-wrap; }
         <translation>Submeter pedido</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="322"/>
+        <location filename="../timeseries.py" line="339"/>
         <source>Error</source>
         <translation>Erro</translation>
     </message>
     <message>
         <location filename="../timeseries.py" line="264"/>
         <source>The bounding box of the requested area (approximately {:.6n} sq km) is too large. The timeseries tool can process a maximum area of 10 million sq km at a time. Choose a smaller area to process.</source>
-        <translation>A extensão delimitadora da área solicitada (aproximadamente {: .6n} km2) é muito grande. A ferramenta de séries temporais pode processar uma área máxima de 10 milhões de quilômetros quadrados por vez. Escolha uma área menor para processar.</translation>
+        <translation type="obsolete">A extensão delimitadora da área solicitada (aproximadamente {: .6n} km2) é muito grande. A ferramenta de séries temporais pode processar uma área máxima de 10 milhões de quilômetros quadrados por vez. Escolha uma área menor para processar.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="313"/>
+        <location filename="../timeseries.py" line="330"/>
         <source>Submitted</source>
         <translation>Submetido</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="313"/>
+        <location filename="../timeseries.py" line="330"/>
         <source>Time series calculation task submitted to Trends.Earth server.</source>
         <translation>Tarefa de cálculo das séries temporais submetida ao servidor Trends.Earth.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="322"/>
+        <location filename="../timeseries.py" line="339"/>
         <source>Unable to submit time series calculation task to Trends.Earth server</source>
         <translation>Não foi possível submeter a tarefa de cálculo das séries temporais ao servidor Trends.Earth</translation>
+    </message>
+    <message>
+        <location filename="../timeseries.py" line="282"/>
+        <source>The bounding box of the requested area (approximately {:.6n} sq km) is too large. The timeseries tool can process a maximum area of 1 million sq km at a time. Choose a smaller area to process.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

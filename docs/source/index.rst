@@ -56,6 +56,3 @@ University with additional funding from the Global Environment Facility (GEF).
   :caption: General Information
 
   General Information <general/index>
-
-.. note:: `Download this documentation as a PDF for offline use
-   <pdfs/Trends.Earth.pdf>`_

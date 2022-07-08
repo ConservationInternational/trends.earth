@@ -400,7 +400,7 @@ Step 3. Calculating the proportion of land within each drought intensity class.
 The equation to estimate the percentage of land within drought intensity classes takes the land area under the each drought intensity class identified
 in the previous step over the the total land area, as follows:
 
-.. image:: ../../../resources/en/documentation/understanding_indicators15/so3_level2_equation.PNG
+.. image:: ../../../resources/en/documentation/understanding_indicators15/so3_level2_equation.png
    :align: center
  
 Where:

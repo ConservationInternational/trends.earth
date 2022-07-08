@@ -286,42 +286,42 @@
         <translation>时间序列表为空</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="477"/>
+        <location filename="../jobs/mvc.py" line="476"/>
         <source>Time Series</source>
         <translation>时间序列</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="482"/>
+        <location filename="../jobs/mvc.py" line="485"/>
         <source>Time</source>
         <translation>时间</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="483"/>
+        <location filename="../jobs/mvc.py" line="486"/>
         <source>Integrated NDVI</source>
         <translation>综合 NDVI</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="483"/>
+        <location filename="../jobs/mvc.py" line="486"/>
         <source>NDVI x 10000</source>
         <translation>NDVI x 10000</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="569"/>
+        <location filename="../jobs/mvc.py" line="572"/>
         <source>Dataset metadata</source>
         <translation>数据集元数据</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="576"/>
+        <location filename="../jobs/mvc.py" line="579"/>
         <source>{} metadata</source>
         <translation>{} 元数据</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="591"/>
+        <location filename="../jobs/mvc.py" line="594"/>
         <source>Add vector layer to map</source>
         <translation>将矢量图层添加到地图</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="595"/>
+        <location filename="../jobs/mvc.py" line="598"/>
         <source>Add raster layers to map</source>
         <translation>将栅格图层添加到地图</translation>
     </message>
@@ -4185,29 +4185,34 @@ p, li { white-space: pre-wrap; }
         <translation>提交请求</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="322"/>
+        <location filename="../timeseries.py" line="339"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
         <location filename="../timeseries.py" line="264"/>
         <source>The bounding box of the requested area (approximately {:.6n} sq km) is too large. The timeseries tool can process a maximum area of 10 million sq km at a time. Choose a smaller area to process.</source>
-        <translation>请求区域的边界框（大约{：.6n}平方千米）太大。时间序列工具一次最多可以处理1000万平方公里的面积。选择较小的区域进行处理。</translation>
+        <translation type="obsolete">请求区域的边界框（大约{：.6n}平方千米）太大。时间序列工具一次最多可以处理1000万平方公里的面积。选择较小的区域进行处理。</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="313"/>
+        <location filename="../timeseries.py" line="330"/>
         <source>Submitted</source>
         <translation>提交</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="313"/>
+        <location filename="../timeseries.py" line="330"/>
         <source>Time series calculation task submitted to Trends.Earth server.</source>
         <translation>时间序列计算任务提交到 Trends.Earth 服务器。</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="322"/>
+        <location filename="../timeseries.py" line="339"/>
         <source>Unable to submit time series calculation task to Trends.Earth server</source>
         <translation>无法向 Trends.Earth 服务器提交时间序列计算任务</translation>
+    </message>
+    <message>
+        <location filename="../timeseries.py" line="282"/>
+        <source>The bounding box of the requested area (approximately {:.6n} sq km) is too large. The timeseries tool can process a maximum area of 1 million sq km at a time. Choose a smaller area to process.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

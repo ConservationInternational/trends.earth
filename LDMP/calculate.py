@@ -67,6 +67,11 @@ WidgetCalculationOutputUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/WidgetCalculationOutput.ui"))
 
 
+class tr_calculate(object):
+    def tr(message):
+        return QtCore.QCoreApplication.translate("tr_calculate", message)
+
+
 ICON_PATH = os.path.join(os.path.dirname(__file__), 'icons')
 
 
@@ -251,7 +256,7 @@ class CalculationOptionsWidget(QtWidgets.QWidget, WidgetCalculationOptionsUi):
 
         folder = QtWidgets.QFileDialog.getExistingDirectory(
             self,
-            self.tr('Select folder containing data'),
+            tr_calculate.tr('Select folder containing data'),
             QtCore.QSettings().value("LDMP/localdata_dir", None)
         )
 
@@ -262,8 +267,8 @@ class CalculationOptionsWidget(QtWidgets.QWidget, WidgetCalculationOptionsUi):
 
                 return True
             else:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr(u"Cannot read {}. Choose a different folder.".format(folder)))
+                QtWidgets.QMessageBox.critical(None, tr_calculate.tr("Error"),
+                                           tr_calculate.tr(u"Cannot read {}. Choose a different folder.".format(folder)))
 
                 return False
         else:
@@ -300,9 +305,9 @@ class CalculationOutputWidget(QtWidgets.QWidget, WidgetCalculationOutputUi):
             initial_path = QtCore.QSettings().value("LDMP/output_dir", None)
 
         f, _ = QtWidgets.QFileDialog.getSaveFileName(self,
-                self.tr('Choose a prefix to be used when naming output files'),
+                tr_calculate.tr('Choose a prefix to be used when naming output files'),
                 initial_path,
-                self.tr('Base name (*)'))
+                tr_calculate.tr('Base name (*)'))
 
         if f:
             if os.access(os.path.dirname(f), os.W_OK):
@@ -311,8 +316,8 @@ class CalculationOutputWidget(QtWidgets.QWidget, WidgetCalculationOutputUi):
                 self.output_basename.setText(f)
                 self.set_output_summary(f)
             else:
-                QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                                           self.tr(u"Cannot write to {}. Choose a different file.".format(f)))
+                QtWidgets.QMessageBox.critical(None, tr_calculate.tr("Error"),
+                                           tr_calculate.tr(u"Cannot write to {}. Choose a different file.".format(f)))
 
     def set_output_summary(self, f):
         out_files = [f + suffix for suffix in self.output_suffixes]
@@ -329,15 +334,15 @@ class CalculationOutputWidget(QtWidgets.QWidget, WidgetCalculationOutputUi):
 
         if len(overwrites) > 0:
             resp = QtWidgets.QMessageBox.question(self,
-                    self.tr('Overwrite file?'),
-                    self.tr('Using the prefix "{}" would lead to overwriting existing file(s) {}. Do you want to overwrite these file(s)?'.format(
+                    tr_calculate.tr('Overwrite file?'),
+                    tr_calculate.tr('Using the prefix "{}" would lead to overwriting existing file(s) {}. Do you want to overwrite these file(s)?'.format(
                         self.output_basename.text(),
                         ", ".join(["{}"]*len(overwrites)).format(*overwrites))),
                     QtWidgets.QMessageBox.Yes, QtWidgets.QMessageBox.No)
 
             if resp == QtWidgets.QMessageBox.No:
-                QtWidgets.QMessageBox.information(None, self.tr("Information"),
-                                           self.tr(u"Choose a different output prefix and try again."))
+                QtWidgets.QMessageBox.information(None, tr_calculate.tr("Information"),
+                                           tr_calculate.tr(u"Choose a different output prefix and try again."))
 
                 return False
 
@@ -451,9 +456,9 @@ class DlgCalculateBase(QtWidgets.QDialog):
         ok_button.clicked.connect(self.btn_calculate)
 
         if self.script.run_mode == AlgorithmRunMode.REMOTE:
-            ok_button.setText(self.tr("Schedule remote execution"))
+            ok_button.setText(tr_calculate.tr("Schedule remote execution"))
         else:
-            ok_button.setText(self.tr("Execute locally"))
+            ok_button.setText(tr_calculate.tr("Execute locally"))
         self.main_dock.cache_refresh_about_to_begin.connect(
             functools.partial(self.toggle_execution_button, False))
         self.main_dock.cache_refresh_finished.connect(
@@ -491,7 +496,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
 
     def update_current_region(self):
         region=settings_manager.get_value(Setting.AREA_NAME)
-        self.region_la.setText(self.tr(f"Current region: {region}"))
+        self.region_la.setText(tr_calculate.tr(f"Current region: {region}"))
         self.changed_region.emit()
 
     def run_settings(self):
@@ -523,8 +528,8 @@ class DlgCalculateBase(QtWidgets.QDialog):
         if not ret:
             QtWidgets.QMessageBox.critical(
                 None,
-                self.tr("Error"),
-                self.tr("Unable to calculate bounding box.")
+                tr_calculate.tr("Error"),
+                tr_calculate.tr("Unable to calculate bounding box.")
             )
 
             return False
@@ -533,8 +538,8 @@ class DlgCalculateBase(QtWidgets.QDialog):
 
         if self._has_output:
             if not self.output_tab.output_basename.text():
-                QtWidgets.QMessageBox.information(None, self.tr("Error"),
-                                              self.tr("Choose an output base name."))
+                QtWidgets.QMessageBox.information(None, tr_calculate.tr("Error"),
+                                              tr_calculate.tr("Choose an output base name."))
 
                 return False
 

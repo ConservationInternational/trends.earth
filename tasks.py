@@ -1044,10 +1044,20 @@ def docs_spellcheck(c, ignore_errors=False, language=None, fast=False):
         'clean': 'clean out built artifacts first',
         'ignore_errors': 'ignore documentation errors',
         'language': "which language to build (all are built by default)",
-        'fast': "only build english html docs"
+        'fast': "only build english html docs",
+        'pdf': "build pdf docs",
+        'upload': "upload pdfs of docs to S3",
     }
 )
-def docs_build(c, clean=False, ignore_errors=False, language=None, fast=False):
+def docs_build(
+    c,
+    clean=False,
+    ignore_errors=False,
+    language=None,
+    fast=False,
+    pdf=False,
+    upload=False
+):
     if clean:
         rmtree(c.sphinx.builddir)
 
@@ -1057,11 +1067,17 @@ def docs_build(c, clean=False, ignore_errors=False, language=None, fast=False):
         languages = [c.sphinx.base_language]
         languages.extend(c.plugin.translations)
 
+    if fast:
+        pdf = False
+        languages = ['en']
+
     print("\nBuilding changelog...")
     changelog_build(c)
 
     print("\nBuilding download page...")
     build_download_page(c)
+
+    client = _get_s3_client()
 
     for language in languages:
         print(f"\nBuilding {language} documentation...")
@@ -1083,8 +1099,6 @@ def docs_build(c, clean=False, ignore_errors=False, language=None, fast=False):
             ]
         )
 
-        # Build HTML docs
-
         if language != 'en' or ignore_errors:
             subprocess.check_call(
                 c.sphinx.sphinx_build.split() +
@@ -1100,35 +1114,45 @@ def docs_build(c, clean=False, ignore_errors=False, language=None, fast=False):
                 [f"{c.sphinx.builddir}/html/{language}"]
             )
         print(
-            "HTML Build finished. The HTML pages for '{lang}' are in {builddir}."
-            .format(lang=language, builddir=c.sphinx.builddir)
+            "HTML Build finished. The HTML pages for '{language}' "
+            f"are in {c.sphinx.builddir}."
         )
 
-        if fast:
-            break
+        if pdf:
+            # Build PDF, by first making latex from sphinx, then pdf from that
+            tex_dir = f"{c.sphinx.builddir}/latex/{language}"
+            subprocess.check_call(
+                c.sphinx.sphinx_build.split() +
+                ['-b', 'latex', '-a'] +
+                SPHINX_OPTS.split() +
+                [f"{tex_dir}"]
+            )
+            
+            tex_files = [Path(tex_file).name for tex_file in glob.glob(f'{tex_dir}/*.tex')]
+            for tex_file in tex_files:
+                for _ in range(3):
+                    # Run multiple times to ensure crossreferences are right
+                    subprocess.check_call(['xelatex', tex_file], cwd=tex_dir)
+                # Move the PDF to the html folder so it will be uploaded with the
+                # site
+                pdf_file = os.path.splitext(tex_file)[0] + '.pdf'
+                out_dir = f'{c.sphinx.builddir}/html/{language}/pdfs'
 
-        # Build PDF, by first making latex from sphinx, then pdf from that
-        tex_dir = f"{c.sphinx.builddir}/latex/{language}"
-        subprocess.check_call(
-            c.sphinx.sphinx_build.split() +
-            ['-b', 'latex', '-a'] +
-            SPHINX_OPTS.split() +
-            [f"{tex_dir}"]
-        )
-        
-        tex_files = [Path(tex_file).name for tex_file in glob.glob(f'{tex_dir}/*.tex')]
-        for tex_file in tex_files:
-            for _ in range(3):
-                # Run multiple times to ensure crossreferences are right
-                subprocess.check_call(['xelatex', tex_file], cwd=tex_dir)
-            # Move the PDF to the html folder so it will be uploaded with the
-            # site
-            pdf_file = os.path.splitext(tex_file)[0] + '.pdf'
-            out_dir = f'{c.sphinx.builddir}/html/{language}/pdfs'
-
-            if not os.path.exists(out_dir):
-                os.makedirs(out_dir)
-            shutil.move(f'{tex_dir}/{pdf_file}', f'{out_dir}/{pdf_file}')
+                if not os.path.exists(out_dir):
+                    os.makedirs(out_dir)
+                shutil.move(f'{tex_dir}/{pdf_file}', f'{out_dir}/{pdf_file}')
+                if upload:
+                    data = open(f'{out_dir}/{pdf_file}', 'rb')
+                    client.put_object(
+                        Key='sharing/{}'.format(pdf_file),
+                        Body=data,
+                        Bucket=c.sphinx.deploy_s3_bucket
+                    )
+                    data.close()
+                    print(f'{pdf_file} uploaded to S3')
+            print(
+                f"PDF Build finished. The PDF pages for '{language}' are in {out_dir}."
+            )
 
 
 def localize_resources(c, language=None):
@@ -1315,20 +1339,7 @@ the default Trends.Earth method, and from FAO-WOCAT).
 |---------|---------|--------------------|---------------|
 '''
 
-    try:
-        with open(
-            os.path.join(os.path.dirname(__file__), 'aws_credentials.json'), 'r'
-        ) as fin:
-            keys = json.load(fin)
-        client = boto3.client(
-            's3',
-            aws_access_key_id=keys['access_key_id'],
-            aws_secret_access_key=keys['secret_access_key']
-        )
-    except FileNotFoundError:
-        print('Failed to read AWS keys from aws_credentials.json - keys must be in '
-              'environment variable')
-        client = boto3.client('s3')
+    client = _get_s3_client()
 
     objects = client.list_objects(
         Bucket=c.data_downloads.s3_bucket, Prefix=c.data_downloads.s3_prefix
@@ -1486,22 +1497,8 @@ def zipfile_deploy(c, qgis, clean=True, pip='pip', tag=False, filename=None):
     print('Binaries uploaded')
 
     filename = zipfile_build(c, pip=pip, clean=clean, tag=tag, filename=filename)
-    try:
-        with open(
-            os.path.join(os.path.dirname(__file__), 'aws_credentials.json'),
-            'r'
-        ) as fin:
-            keys = json.load(fin)
-        client = boto3.client(
-            's3',
-            aws_access_key_id=keys['access_key_id'],
-            aws_secret_access_key=keys['secret_access_key']
-        )
-    except IOError:
-        print(
-            'Warning: AWS credentials file not found. Credentials must be in environment variable or in default AWS credentials location.'
-        )
-        client = boto3.client('s3')
+    client = _get_s3_client()
+
     print('Uploading package to S3')
     data = open(filename, 'rb')
     client.put_object(
@@ -1525,7 +1522,7 @@ def _recursive_dir_create(d):
         )
 
 
-def _s3_sync(c, bucket, s3_prefix, local_folder, patterns=['*']):
+def _get_s3_client():
     try:
         with open(
             os.path.join(os.path.dirname(__file__), 'aws_credentials.json'),
@@ -1542,6 +1539,12 @@ def _s3_sync(c, bucket, s3_prefix, local_folder, patterns=['*']):
             'Warning: AWS credentials file not found. Credentials must be in environment variable or in default AWS credentials location.'
         )
         client = boto3.client('s3')
+
+    return client
+
+
+def _s3_sync(c, bucket, s3_prefix, local_folder, patterns=['*']):
+    client = _get_s3_client()
 
     objects = client.list_objects(
         Bucket=bucket, Prefix='{}/'.format(s3_prefix)
@@ -1642,22 +1645,7 @@ def _check_hash(expected, filename):
 def binaries_sync(c, extensions=None):
     if not extensions:
         extensions = c.plugin.numba.binary_extensions
-    try:
-        with open(
-            os.path.join(os.path.dirname(__file__), 'aws_credentials.json'),
-            'r'
-        ) as fin:
-            keys = json.load(fin)
-        client = boto3.client(
-            's3',
-            aws_access_key_id=keys['access_key_id'],
-            aws_secret_access_key=keys['secret_access_key']
-        )
-    except IOError:
-        print(
-            'Warning: AWS credentials file not found. Credentials must be in environment variable or in default AWS credentials location.'
-        )
-        client = boto3.client('s3')
+    client = _get_s3_client()
     patterns = [
         os.path.join(c.plugin.numba.binary_folder, '*' + p) for p in extensions
     ]
@@ -1669,23 +1657,6 @@ def binaries_sync(c, extensions=None):
 
 @task
 def testdata_sync(c):
-    try:
-        with open(
-            os.path.join(os.path.dirname(__file__), 'aws_credentials.json'),
-            'r'
-        ) as fin:
-            keys = json.load(fin)
-        client = boto3.client(
-            's3',
-            aws_access_key_id=keys['access_key_id'],
-            aws_secret_access_key=keys['secret_access_key']
-        )
-    except IOError:
-        print(
-            'Warning: AWS credentials file not found. Credentials must be in environment variable or in default AWS credentials location.'
-        )
-        client = boto3.client('s3')
-
     _s3_sync(
         c, c.sphinx.deploy_s3_bucket, 'plugin_testdata',
         'LDMP/test/integration/fixtures', c.plugin.testdata_patterns

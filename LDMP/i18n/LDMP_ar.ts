@@ -1,4 +1,4 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.0" language="ar">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="ar">
 <context>
     <name>AlgorithmEditorWidget</name>
     <message>
@@ -93,64 +93,9 @@
 </context>
 <context>
     <name>CalculationOptionsWidget</name>
-    <message>
-        <location filename="../calculate.py" line="252"/>
-        <source>Select folder containing data</source>
-        <translation>حدد مجلد يحتوي على البيانات</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="265"/>
-        <source>Error</source>
-        <translation>خطأ</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="265"/>
-        <source>Cannot read {}. Choose a different folder.</source>
-        <translation>لا يمكن القراءة {}. اختيار مجلد مختلف.</translation>
-    </message>
 </context>
 <context>
     <name>CalculationOutputWidget</name>
-    <message>
-        <location filename="../calculate.py" line="302"/>
-        <source>Choose a prefix to be used when naming output files</source>
-        <translation>اختر بادئة ليتم استخدامها عند تسمية ملفات الإخراج</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="302"/>
-        <source>Base name (*)</source>
-        <translation>الاسم الأساسي (*)</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="314"/>
-        <source>Error</source>
-        <translation>خطأ</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="314"/>
-        <source>Cannot write to {}. Choose a different file.</source>
-        <translation>لا يمكن الكتابة إلى {}. اختيار ملف مختلف.</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="331"/>
-        <source>Overwrite file?</source>
-        <translation>ملف الكتابة الفوقية؟</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="331"/>
-        <source>Using the prefix &quot;{}&quot; would lead to overwriting existing file(s) {}. Do you want to overwrite these file(s)?</source>
-        <translation>يؤدي استخدام البادئة &amp;quot;{}&amp;quot; إلى استبدال الملف (الملفات) الموجودة {}. هل تريد استبدال هذه الملفات؟</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="339"/>
-        <source>Information</source>
-        <translation>معلومات</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="339"/>
-        <source>Choose a different output prefix and try again.</source>
-        <translation>اختر بادئة إخراج مختلفة وحاول مرة أخرى.</translation>
-    </message>
 </context>
 <context>
     <name>ClipRaster</name>
@@ -645,36 +590,6 @@
 </context>
 <context>
     <name>DlgCalculateBase</name>
-    <message>
-        <location filename="../calculate.py" line="454"/>
-        <source>Schedule remote execution</source>
-        <translation>جدولة التنفيذ عن بعد</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="456"/>
-        <source>Execute locally</source>
-        <translation>التنفيذ محلياً</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="494"/>
-        <source>Current region: {region}</source>
-        <translation>المنطقة الحالية: {region}</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="536"/>
-        <source>Error</source>
-        <translation>خطأ</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="524"/>
-        <source>Unable to calculate bounding box.</source>
-        <translation>غير قادر على حساب المربع المحيط.</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="536"/>
-        <source>Choose an output base name.</source>
-        <translation>اختر اسم قاعدة الإخراج.</translation>
-    </message>
 </context>
 <context>
     <name>DlgCalculateDrought</name>
@@ -5741,6 +5656,84 @@ for running algorithms and their results.</source>
         <location filename="../auth.py" line="183"/>
         <source>Auth method with id {authConfigId} is {authConfig.method()}. This method is not supported by by {auth_setup.name}</source>
         <translation>طريقة المصادقة مع معرّف {authConfigId} هي {authConfig.method ()}. هذه الطريقة غير مدعومة بـ {auth_setup.name}</translation>
+    </message>
+</context>
+<context>
+    <name>tr_calculate</name>
+    <message>
+        <location filename="../calculate.py" line="257"/>
+        <source>Select folder containing data</source>
+        <translation>حدد مجلد يحتوي على البيانات</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="541"/>
+        <source>Error</source>
+        <translation>خطأ</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="270"/>
+        <source>Cannot read {}. Choose a different folder.</source>
+        <translation>لا يمكن القراءة {}. اختيار مجلد مختلف.</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="307"/>
+        <source>Choose a prefix to be used when naming output files</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="307"/>
+        <source>Base name (*)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="319"/>
+        <source>Cannot write to {}. Choose a different file.</source>
+        <translation>لا يمكن الكتابة إلى {}. اختيار ملف مختلف.</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="336"/>
+        <source>Overwrite file?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="336"/>
+        <source>Using the prefix &quot;{}&quot; would lead to overwriting existing file(s) {}. Do you want to overwrite these file(s)?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="344"/>
+        <source>Information</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="344"/>
+        <source>Choose a different output prefix and try again.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="459"/>
+        <source>Schedule remote execution</source>
+        <translation>جدولة التنفيذ عن بعد</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="461"/>
+        <source>Execute locally</source>
+        <translation>التنفيذ محلياً</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="499"/>
+        <source>Current region: {region}</source>
+        <translation>المنطقة الحالية: {region}</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="529"/>
+        <source>Unable to calculate bounding box.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="541"/>
+        <source>Choose an output base name.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

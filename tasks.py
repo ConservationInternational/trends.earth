@@ -1850,7 +1850,7 @@ ns.configure(
             'builddir': 'docs/build',
             'resourcedir': 'docs/resources',
             'zipfile_deploy_s3_bucket': 'trends.earth',
-            'documentation_deploy_s3_bucket': 'trends.earth',
+            'documentation_deploy_s3_bucket': 'data.trends.earth',
             'docs_s3_prefix': 'docs/',
             'transifex_name': 'trendsearth-v2',
             'tx_path': f'{os.path.dirname(__file__)}/tx',

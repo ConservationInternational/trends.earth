@@ -92,12 +92,6 @@
     </message>
 </context>
 <context>
-    <name>CalculationOptionsWidget</name>
-</context>
-<context>
-    <name>CalculationOutputWidget</name>
-</context>
-<context>
     <name>ClipRaster</name>
     <message>
         <location filename="../processing_provider/utilities.py" line="39"/>
@@ -587,9 +581,6 @@
         <source>Potential change in biomass due to restoration (above and belowground woody)</source>
         <translation>Variation potentielle de la biomasse due à la restauration (ligneuses souterraines et souterraines)</translation>
     </message>
-</context>
-<context>
-    <name>DlgCalculateBase</name>
 </context>
 <context>
     <name>DlgCalculateDrought</name>
@@ -1090,21 +1081,6 @@ p, li { white-space : pre-wrap ; }
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Population féminine&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1150"/>
-        <source>type</source>
-        <translation>type</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1086"/>
-        <source>male</source>
-        <translation>homme</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1111"/>
-        <source>female</source>
-        <translation>femme</translation>
-    </message>
-    <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1044"/>
         <source>Population broken down by sex</source>
         <translation>Population ventilée par sexe</translation>
@@ -1113,11 +1089,6 @@ p, li { white-space : pre-wrap ; }
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1128"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Total population&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Population totale&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1153"/>
-        <source>total</source>
-        <translation>total</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="617"/>
@@ -1179,7 +1150,7 @@ p, li { white-space : pre-wrap ; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;SDG Indicator 15.3.1&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;As part of the â2030 Agenda for Sustainable Developmentâ, Sustainable Development Goal (SDG) 15 is to:&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;âProtect, restore and promote sustainable use of terrestrial ecosystems, sustainably manage forests, combat desertification, and halt and reverse land degradation and halt biodiversity lossâ&lt;/span&gt;&lt;/p&gt;
@@ -1715,7 +1686,48 @@ p, li { white-space: pre-wrap; }
 &lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;If observed mean NDVI is lower than 50% than the maximum productivity, that pixel is considered potentially degraded for this indicator.&lt;/li&gt;&lt;/ol&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#productivity-performance&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information on Productivity Performance&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Productivité&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;La productivité des sols est la capacité de production biologique de la terre, la source de toute la nourriture, des fibres et des combustibles soutenant les êtres humains (Commission de statistique des Nations Unies, 2016). La productivité primaire nette (PPN) est la quantité nette de carbone assimilée après la photosynthèse et la respiration autotrophe sur une période donnée (Clark et al., 2001) et est généralement représentée en unités telles que kg/ha/an. La PPN est une variable dont l&apos;estimation est longue et coûteuse. C&apos;est pour cela que nous utilisons des informations de télédétection pour obtenir des indicateurs de PPN.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;L’un des substituts les plus couramment utilisés à la PPN est l’Indice de végétation par différence normalisée (IVDN), calculé à partir des informations provenant des parties rouge et proche infrarouge du spectre électromagnétique. Dans Trends.Earth, nous utilisons des produits bihebdomadaires de MODIS et AVHRR pour calculer les intégrales annuelles de l&apos;IVDN (calculé comme IVDN annuel moyen pour simplifier l’interprétation des résultats). Ces intégrales annuelles de l&apos;IVDN sont ensuite utilisées pour calculer chacun des indicateurs de productivité expliqués ci-dessous.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#productivity&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Plus d&apos;informations sur le sous-indicateur Productivité de l&apos;ODD 15.3.1&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;La productivité des terres est évaluée dans Trends.Earth à l&apos;aide de trois mesures de changement dérivées des données de séries chronologiques de l&apos;IVDN : &lt;/span&gt;&lt;/p&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Trajectoire&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Performance&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;État&lt;/li&gt;&lt;/ul&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Trajectoire de la productivité&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;La trajectoire mesure le taux de variation de la productivité primaire au fil du temps. Trends.Earth calcule une régression linéaire au niveau du pixel pour identifier les zones connaissant des changements de productivité primaire pour la période analysée. Un test de signification non paramétrique de Mann-Kendall est ensuite appliqué, en prenant uniquement en compte les changements significatifs affichant une valeur de p â¤ 00,05. Les tendances significatives positives de l&apos;IVDN indiqueraient une amélioration potentielle de l’état des terres et les tendances significatives négatives une dégradation potentielle.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#productivity-trajectory&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Plus d&apos;informations sur la trajectoire de la productivité&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;État de la productivité&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;L’indicateur de l’état de la productivité permet de détecter les changements récents dans la productivité primaire par rapport à une période de référence. L’indicateur est calculé comme suit :&lt;/span&gt;&lt;/p&gt;
+&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Définir la période de référence (période historique à laquelle la productivité primaire récente sera comparée).&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Définir la période de comparaison (années récentes utilisées pour calculer la comparaison). Il est recommandé d’utiliser une période de trois ans pour éviter les fluctuations annuelles liées au climat.&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Pour chaque pixel, utilisez les intégrales annuelles de l&apos;IVDN pour la période de référence pour calculer une distribution de fréquence. Lorsque la période de référence a omis des valeurs extrêmes de l&apos;IVDN, ajouter 5 % aux deux extrêmes de la distribution. Cette courbe de distribution de fréquence étendue est ensuite utilisée pour définir les valeurs seuils des classes du 10e centile.&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Calculer l&apos;IVDN moyen pour la période de référence et déterminer la classe de centile à laquelle elle appartient. Attribuer à l’indicateur IVDN moyen, pour la période de référence, le nombre correspondant à cette classe de centile. Les valeurs possibles vont de 1 (classe la plus basse) à 10 (classe la plus élevée).&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Calculer l&apos;IVDN moyen pour la période de comparaison et déterminer la classe de centile à laquelle elle appartient. Attribuer à l’indicateur IVDN moyen, pour la période de comparaison, le nombre correspondant à cette classe de centile. Les valeurs possibles vont de 1 (classe la plus basse) à 10 (classe la plus élevée).&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Déterminer la différence de numéro de classe entre la comparaison et la période de référence (comparaison moins référence).&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Si la différence de classe entre la référence et la période de comparaison est â¤ 22, alors ce pixel pourrait potentiellement être dégradé. Si la différence est  â¥  2, ce pixel indiquerait une amélioration récente en matière de productivité primaire. Les pixels avec de petites modifications sont considérés comme stables.&lt;/li&gt;&lt;/ol&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#productivity-state&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Plus d&apos;informations sur l&apos;état de la productivité&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Performance de la productivité&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;L’indicateur de performance de la productivité mesure la productivité locale par rapport à d’autres types de végétation similaires dans des types de couverture terrestre similaires ou des régions bioclimatiques dans l&apos;ensemble de la zone d’étude. Trends.Earth emploie la combinaison unique d’unités géologiques (unités de taxonomie des sols utilisant le système USDA fourni par SoilGrids à une résolution de 250 m) et de couverture terrestre (37 classes de couverture terrestre fournies par l’ESA CCI à une résolution de 300 m) pour définir cette zone d’analyse. L’indicateur est calculé comme suit :&lt;/span&gt;&lt;/p&gt;
+&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Définir la période d’analyse, et utiliser les séries chronologiques de l&apos;IVDN pour calculer l&apos;IVDN pour chaque pixel.&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Définir des unités similaires sur le plan écologique comme étant l’intersection unique de la couverture terrestre et du type de sol.&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Pour chaque unité, extraire toutes les valeurs IVDN moyennes calculées lors de l&apos;étape 1, et créer une distribution de fréquence. À partir de cette distribution, déterminer la valeur qui représente le 90e centile (nous déconseillons l&apos;utilisation de la valeur IVDN maximale absolue pour éviter les erreurs possibles dues à la présence de valeurs aberrantes). La valeur représentant le 90e centile sera considérée comme la productivité maximale pour cette unité.&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Calculer le rapport entre l&apos;IVDN moyen et la productivité maximale (dans chaque cas, comparer la valeur moyenne observée au maximum de l&apos;unité correspondante).&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Si l&apos;IVDN moyen observé est inférieur à 50 % de la productivité maximale, ce pixel est considéré comme potentiellement dégradé pour cet indicateur.&lt;/li&gt;&lt;/ol&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#productivity-performance&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Plus d&apos;informations sur la performance de la productivité&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../calculate_prod.py" line="189"/>
@@ -2611,7 +2623,16 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Submitting a false positive / false negative layer is optional. This layer can be used to correct for cases when there are known errors in the indicator data used for Strategic Objective 1.&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Affected areas&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Checking the &amp;quot;Calculation is for affected areas only&amp;quot; box will include an indicator in the report that this calculation is for affected areas. Note that reporting on affected areas is an optional element in the UNCCD 2022 reporting process and is additional to national reporting. âAffected Areasâ are defined in Article 1 of the Convention as âarid, semi-arid and/or dry sub-humid areas affected or threatened by desertification.â Parties may opt to use this definition or to provide the operational definition of affected area in use in their country.â&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Générer le rapport de la CNULCD&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Calculer le rapport sur les objectifs stratégiques 1, 2 et 3 de la CNULCD&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Couche de faux positifs/faux négatifs&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;La présentation d&apos;une couche de faux positifs/faux négatifs est facultative. Cette couche peut servir à corriger les cas où il y a des erreurs connues dans les données des indicateurs utilisés pour l&apos;objectif stratégique 1.&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Zones touchées&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Si vous cochez la case « Le calcul concerne uniquement les zones touchées », le rapport comportera un indicateur indiquant que ce calcul concerne les zones touchées. Notez que le rapport sur les zones touchées est un élément facultatif dans le processus de rapport de la CNULCD 2022 et s&apos;ajoute au rapport national. Les zones touchées sont définies dans l&apos;article 1 de la Convention comme des zones arides, semi-arides et/ou subhumides sèches touchées ou menacées par la désertification. Les parties peuvent choisir d&apos;utiliser cette définition ou de fournir la définition opérationnelle de zone touchée utilisée dans leur pays.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../calculate_unccd.py" line="203"/>
@@ -4065,7 +4086,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../timeseries.py" line="282"/>
         <source>The bounding box of the requested area (approximately {:.6n} sq km) is too large. The timeseries tool can process a maximum area of 1 million sq km at a time. Choose a smaller area to process.</source>
-        <translation type="unfinished"/>
+        <translation>Le cadre de délimitation de la zone demandée (environ {:.6n} km²) est trop grand. L&apos;outil de séries chronologiques peut traiter une zone maximale d&apos;un million de km² à la fois. Veuillez sélectionner une zone plus petite à traiter.</translation>
     </message>
 </context>
 <context>
@@ -5498,7 +5519,7 @@ pour les algorithmes en cours d&apos;exécution et leurs résultats.</translatio
     <message>
         <location filename="../gui/WidgetMain.ui" line="110"/>
         <source>Createâ¦</source>
-        <translation type="unfinished"/>
+        <translation>Créerâ¦</translation>
     </message>
     <message>
         <location filename="../gui/WidgetMain.ui" line="117"/>
@@ -5645,12 +5666,12 @@ pour les algorithmes en cours d&apos;exécution et leurs résultats.</translatio
     <message>
         <location filename="../calculate.py" line="307"/>
         <source>Choose a prefix to be used when naming output files</source>
-        <translation type="unfinished"/>
+        <translation>Choisissez un préfixe à utiliser pour nommer les fichiers de sortie.</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="307"/>
         <source>Base name (*)</source>
-        <translation type="unfinished"/>
+        <translation>Nom de base (*)</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="319"/>
@@ -5660,12 +5681,12 @@ pour les algorithmes en cours d&apos;exécution et leurs résultats.</translatio
     <message>
         <location filename="../calculate.py" line="336"/>
         <source>Overwrite file?</source>
-        <translation type="unfinished"/>
+        <translation>Écraser le fichier ?</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="336"/>
         <source>Using the prefix &quot;{}&quot; would lead to overwriting existing file(s) {}. Do you want to overwrite these file(s)?</source>
-        <translation type="unfinished"/>
+        <translation>L&apos;utilisation du préfixe « {} » entraînerait l&apos;écrasement du ou des fichiers existants {}. Voulez-vous écraser ce(s) fichier(s) ?</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="344"/>
@@ -5675,7 +5696,7 @@ pour les algorithmes en cours d&apos;exécution et leurs résultats.</translatio
     <message>
         <location filename="../calculate.py" line="344"/>
         <source>Choose a different output prefix and try again.</source>
-        <translation type="unfinished"/>
+        <translation>Choisissez un autre préfixe de sortie et réessayez.</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="459"/>
@@ -5695,12 +5716,12 @@ pour les algorithmes en cours d&apos;exécution et leurs résultats.</translatio
     <message>
         <location filename="../calculate.py" line="529"/>
         <source>Unable to calculate bounding box.</source>
-        <translation type="unfinished"/>
+        <translation>Impossible de calculer le cadre de délimitation.</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="541"/>
         <source>Choose an output base name.</source>
-        <translation type="unfinished"/>
+        <translation>Choisissez un nom de base de sortie.</translation>
     </message>
 </context>
 <context>

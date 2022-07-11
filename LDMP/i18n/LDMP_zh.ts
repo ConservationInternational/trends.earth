@@ -1,4 +1,4 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.0" language="zh">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="zh">
 <context>
     <name>AlgorithmEditorWidget</name>
     <message>
@@ -93,64 +93,9 @@
 </context>
 <context>
     <name>CalculationOptionsWidget</name>
-    <message>
-        <location filename="../calculate.py" line="252"/>
-        <source>Select folder containing data</source>
-        <translation>选择包含数据的文件夹</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="265"/>
-        <source>Error</source>
-        <translation>错误</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="265"/>
-        <source>Cannot read {}. Choose a different folder.</source>
-        <translation>无法阅读 {}。选择其他文件夹。</translation>
-    </message>
 </context>
 <context>
     <name>CalculationOutputWidget</name>
-    <message>
-        <location filename="../calculate.py" line="302"/>
-        <source>Choose a prefix to be used when naming output files</source>
-        <translation>选择命名输出文件时要使用的前缀</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="302"/>
-        <source>Base name (*)</source>
-        <translation>基本名称（*）</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="314"/>
-        <source>Error</source>
-        <translation>错误</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="314"/>
-        <source>Cannot write to {}. Choose a different file.</source>
-        <translation>无法写入{}。选择一个不同的文件。</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="331"/>
-        <source>Overwrite file?</source>
-        <translation>覆盖文件？</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="331"/>
-        <source>Using the prefix &quot;{}&quot; would lead to overwriting existing file(s) {}. Do you want to overwrite these file(s)?</source>
-        <translation>使用前缀“ {}”将导致覆盖现有文件{}。您要覆盖这些文件吗？</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="339"/>
-        <source>Information</source>
-        <translation>信息</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="339"/>
-        <source>Choose a different output prefix and try again.</source>
-        <translation>选择其他输出前缀，然后重试。</translation>
-    </message>
 </context>
 <context>
     <name>ClipRaster</name>
@@ -645,36 +590,6 @@
 </context>
 <context>
     <name>DlgCalculateBase</name>
-    <message>
-        <location filename="../calculate.py" line="454"/>
-        <source>Schedule remote execution</source>
-        <translation>安排远程执行</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="456"/>
-        <source>Execute locally</source>
-        <translation>本地执行</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="494"/>
-        <source>Current region: {region}</source>
-        <translation>当前区域：{region}</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="536"/>
-        <source>Error</source>
-        <translation>错误</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="524"/>
-        <source>Unable to calculate bounding box.</source>
-        <translation>无法计算边界框。</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="536"/>
-        <source>Choose an output base name.</source>
-        <translation>选择输出基本名称。</translation>
-    </message>
 </context>
 <context>
     <name>DlgCalculateDrought</name>
@@ -5703,6 +5618,84 @@ for running algorithms and their results.</source>
         <location filename="../auth.py" line="183"/>
         <source>Auth method with id {authConfigId} is {authConfig.method()}. This method is not supported by by {auth_setup.name}</source>
         <translation>id 为{authConfigId}的身份验证方法是{authConfig.method()}。{auth_setup.name}不支持此方法</translation>
+    </message>
+</context>
+<context>
+    <name>tr_calculate</name>
+    <message>
+        <location filename="../calculate.py" line="257"/>
+        <source>Select folder containing data</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="541"/>
+        <source>Error</source>
+        <translation>错误</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="270"/>
+        <source>Cannot read {}. Choose a different folder.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="307"/>
+        <source>Choose a prefix to be used when naming output files</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="307"/>
+        <source>Base name (*)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="319"/>
+        <source>Cannot write to {}. Choose a different file.</source>
+        <translation>无法写入{}。选择一个不同的文件。</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="336"/>
+        <source>Overwrite file?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="336"/>
+        <source>Using the prefix &quot;{}&quot; would lead to overwriting existing file(s) {}. Do you want to overwrite these file(s)?</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="344"/>
+        <source>Information</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="344"/>
+        <source>Choose a different output prefix and try again.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="459"/>
+        <source>Schedule remote execution</source>
+        <translation>安排远程执行</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="461"/>
+        <source>Execute locally</source>
+        <translation>本地执行</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="499"/>
+        <source>Current region: {region}</source>
+        <translation>当前区域：{region}</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="529"/>
+        <source>Unable to calculate bounding box.</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="541"/>
+        <source>Choose an output base name.</source>
+        <translation type="unfinished"/>
     </message>
 </context>
 <context>

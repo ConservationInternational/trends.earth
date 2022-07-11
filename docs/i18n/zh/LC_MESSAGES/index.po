@@ -1,27 +1,25 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
-#
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
 # Translators:
 # Alex Zvoleff <azvoleff@conservation.org>, 2022
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-05 04:15+0000\n"
+"POT-Creation-Date: 2022-07-11 04:14+0000\n"
 "PO-Revision-Date: 2022-06-26 18:04+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
-"Language: zh\n"
-"Language-Team: Chinese (https://www.transifex.com/conservation-"
-"international/teams/80165/zh/)\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.10.3\n"
+"Language: zh\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../../source/index.rst:42
 msgid "Trends.Earth User Guide"
@@ -43,7 +41,7 @@ msgstr "开发者指南"
 msgid "General Information"
 msgstr "基本信息"
 
-#: ../../source/index.rst:-1
+#: ../../source/index.rst-1
 msgid "trends.earth"
 msgstr "trends.earth"
 
@@ -80,38 +78,29 @@ msgid ":index_path:`Kiswahili <sw>`"
 msgstr ":index_path:`Kiswahili <sw>`"
 
 #: ../../source/index.rst:22
-#, fuzzy
 msgid ""
-"Trends.Earth is a free and open source tool to understand land change: "
-"the how and why behind changes on the ground. Trends.Earth allows users "
-"to draw on the best available information from across a range of sources "
-"- from globally available data to customized local maps. A broad range of"
-" users are applying Trends.Earth for projects ranging from planning and "
-"monitoring restoration efforts, to tracking urbanization, to developing "
-"official national reports for submission to the United Nations Convention"
-" to Combat Desertification (UNCCD)."
+"Trends.Earth is a free and open source tool to understand land change: the "
+"how and why behind changes on the ground. Trends.Earth allows users to draw "
+"on the best available information from across a range of sources - from "
+"globally available data to customized local maps. A broad range of users are"
+" applying Trends.Earth for projects ranging from planning and monitoring "
+"restoration efforts, to tracking urbanization, to developing official "
+"national reports for submission to the United Nations Convention to Combat "
+"Desertification (UNCCD)."
 msgstr ""
-"Trends.Earth 是一个免费的开源工具，用于了解土地变化：地面上的变化是如何以及为何产生的。Trends.Earth "
-"让用户能够利用最佳的现有信息，这些信息出自一系列来源——从全球可用的数据到定制化本地地图。广泛的用户正在他们的项目中应用 "
-"Trends.Earth，从计划修复和监控成果，到跟踪城市化进程，到编撰用于提交的国家官方报告，再到联合国防治荒漠化公约（UNCCD）。"
 
 #: ../../source/index.rst:30
 msgid ""
-"Trends.Earth was produced by a partnership of Conservation International,"
-" Lund University, and the National Aeronautics and Space Administration "
-"(NASA), with the support of the Global Environment Facility (GEF). It was"
-" further developed through a partnership with Conservation International,"
-" University of Bern, University of Colorado in partnership with USDA and "
+"Trends.Earth was produced by a partnership of Conservation International, "
+"Lund University, and the National Aeronautics and Space Administration "
+"(NASA), with the support of the Global Environment Facility (GEF). It was "
+"further developed through a partnership with Conservation International, "
+"University of Bern, University of Colorado in partnership with USDA and "
 "USAID, University of California - Santa Barbara in partnership with "
 "University of North Carolina - Wilmington and Brown University with "
 "additional funding from the Global Environment Facility (GEF)."
-msgstr "Trends.Earth是由国际自然保护组织、隆德大学和美国国家航空航天局（NASA）在全球环境基金（GEF）的支持下联合制作的。通过和国际保护组织，伯尔尼大学，科罗拉多大学与美国农业部和美国国际开发署的联合团队，加州大学圣巴巴拉分校与北卡罗莱纳大学威尔明顿分校的联合团队，以及布朗大学的共同协作，并在全球环境基金（GEF）的额外资助下，该项目得到了进一步的发展。"
-
-#: ../../source/index.rst:60
-msgid ""
-"`Download this documentation as a PDF for offline use "
-"<pdfs/Trends.Earth.pdf>`_"
-msgstr "`以PDF格式下载此文档以供脱机状态下使用<pdfs/Trends.Earth.pdf>`_"
+msgstr ""
+"Trends.Earth是由国际自然保护组织、隆德大学和美国国家航空航天局（NASA）在全球环境基金（GEF）的支持下联合制作的。通过和国际保护组织，伯尔尼大学，科罗拉多大学与美国农业部和美国国际开发署的联合团队，加州大学圣巴巴拉分校与北卡罗莱纳大学威尔明顿分校的联合团队，以及布朗大学的共同协作，并在全球环境基金（GEF）的额外资助下，该项目得到了进一步的发展。"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
@@ -124,4 +113,3 @@ msgstr "图标报告"
 #: ../../../<rst_epilog>:6
 msgid "Trends.Earth"
 msgstr "Trends.Earth"
-

@@ -1145,7 +1145,7 @@ def docs_build(
                 if upload:
                     data = open(f'{out_dir}/{pdf_file}', 'rb')
                     client.put_object(
-                        Key='sharing/{}'.format(pdf_file),
+                        Key='documentation/{}'.format(pdf_file),
                         Body=data,
                         Bucket=c.sphinx.documentation_deploy_s3_bucket
                     )

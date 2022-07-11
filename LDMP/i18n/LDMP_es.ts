@@ -1,4 +1,4 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.0" language="es">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="es">
 <context>
     <name>AlgorithmEditorWidget</name>
     <message>
@@ -93,64 +93,9 @@
 </context>
 <context>
     <name>CalculationOptionsWidget</name>
-    <message>
-        <location filename="../calculate.py" line="252"/>
-        <source>Select folder containing data</source>
-        <translation>Seleccionar carpeta que contenga datos</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="265"/>
-        <source>Error</source>
-        <translation>Error</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="265"/>
-        <source>Cannot read {}. Choose a different folder.</source>
-        <translation>No se puede leer {}. Elige una carpeta diferente.</translation>
-    </message>
 </context>
 <context>
     <name>CalculationOutputWidget</name>
-    <message>
-        <location filename="../calculate.py" line="302"/>
-        <source>Choose a prefix to be used when naming output files</source>
-        <translation>Elija un prefijo para usar al nombrar archivos de salida</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="302"/>
-        <source>Base name (*)</source>
-        <translation>Nombre base (*)</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="314"/>
-        <source>Error</source>
-        <translation>Error</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="314"/>
-        <source>Cannot write to {}. Choose a different file.</source>
-        <translation>No se puede escribir en {}. Elija un archivo diferente.</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="331"/>
-        <source>Overwrite file?</source>
-        <translation>¿Sobre escribir el archivo?</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="331"/>
-        <source>Using the prefix &quot;{}&quot; would lead to overwriting existing file(s) {}. Do you want to overwrite these file(s)?</source>
-        <translation>El uso del prefijo &quot;{}&quot; llevaría a sobrescribir los archivos existentes {}. ¿Desea sobrescribir estos archivos?</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="339"/>
-        <source>Information</source>
-        <translation>Información</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="339"/>
-        <source>Choose a different output prefix and try again.</source>
-        <translation>Elija un prefijo de salida diferente e intente nuevamente.</translation>
-    </message>
 </context>
 <context>
     <name>ClipRaster</name>
@@ -650,36 +595,6 @@
 </context>
 <context>
     <name>DlgCalculateBase</name>
-    <message>
-        <location filename="../calculate.py" line="454"/>
-        <source>Schedule remote execution</source>
-        <translation>Programar la ejecución remota</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="456"/>
-        <source>Execute locally</source>
-        <translation>Ejecutar a nivel local</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="494"/>
-        <source>Current region: {region}</source>
-        <translation>Región actual: {región}</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="536"/>
-        <source>Error</source>
-        <translation>Error</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="524"/>
-        <source>Unable to calculate bounding box.</source>
-        <translation>No se puede calcular el cuadro delimitador.</translation>
-    </message>
-    <message>
-        <location filename="../calculate.py" line="536"/>
-        <source>Choose an output base name.</source>
-        <translation>Elija un nombre base de salida.</translation>
-    </message>
 </context>
 <context>
     <name>DlgCalculateDrought</name>
@@ -5762,6 +5677,84 @@ en busca de algoritmos en ejecución y sus resultados.</translation>
         <location filename="../auth.py" line="183"/>
         <source>Auth method with id {authConfigId} is {authConfig.method()}. This method is not supported by by {auth_setup.name}</source>
         <translation>El método de autenticación con la identificación {authConfigId} es {authConfig.method()}. Este método no es compatible con {auth_setup.name}</translation>
+    </message>
+</context>
+<context>
+    <name>tr_calculate</name>
+    <message>
+        <location filename="../calculate.py" line="257"/>
+        <source>Select folder containing data</source>
+        <translation>Seleccionar carpeta que contenga datos</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="541"/>
+        <source>Error</source>
+        <translation>Error</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="270"/>
+        <source>Cannot read {}. Choose a different folder.</source>
+        <translation>No puedo leer {}. Elige una carpeta diferente.</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="307"/>
+        <source>Choose a prefix to be used when naming output files</source>
+        <translation>Elija un prefijo para usar al nombrar archivos de salida</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="307"/>
+        <source>Base name (*)</source>
+        <translation>Nombre base (*)</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="319"/>
+        <source>Cannot write to {}. Choose a different file.</source>
+        <translation>No se puede escribir en {}. Elija un archivo diferente.</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="336"/>
+        <source>Overwrite file?</source>
+        <translation>¿Sobre escribir el archivo?</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="336"/>
+        <source>Using the prefix &quot;{}&quot; would lead to overwriting existing file(s) {}. Do you want to overwrite these file(s)?</source>
+        <translation>El uso del prefijo &quot;{}&quot; llevaría a sobrescribir los archivos existentes {}. ¿Desea sobrescribir estos archivos?</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="344"/>
+        <source>Information</source>
+        <translation>Información</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="344"/>
+        <source>Choose a different output prefix and try again.</source>
+        <translation>Elija un prefijo de salida diferente e intente nuevamente.</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="459"/>
+        <source>Schedule remote execution</source>
+        <translation>Programar la ejecución remota</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="461"/>
+        <source>Execute locally</source>
+        <translation>Ejecutar a nivel local</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="499"/>
+        <source>Current region: {region}</source>
+        <translation>Región actual: {región}</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="529"/>
+        <source>Unable to calculate bounding box.</source>
+        <translation>No se puede calcular el cuadro delimitador.</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="541"/>
+        <source>Choose an output base name.</source>
+        <translation>Elija un nombre base de salida.</translation>
     </message>
 </context>
 <context>

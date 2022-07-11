@@ -1147,7 +1147,7 @@ def docs_build(
                     client.put_object(
                         Key='sharing/{}'.format(pdf_file),
                         Body=data,
-                        Bucket=c.sphinx.deploy_s3_bucket
+                        Bucket=c.sphinx.documentation_deploy_s3_bucket
                     )
                     data.close()
                     print(f'{pdf_file} uploaded to S3')
@@ -1505,7 +1505,7 @@ def zipfile_deploy(c, qgis, clean=True, pip='pip', tag=False, filename=None):
     client.put_object(
         Key='sharing/{}'.format(os.path.basename(filename)),
         Body=data,
-        Bucket=c.sphinx.deploy_s3_bucket
+        Bucket=c.sphinx.zipfile_deploy_s3_bucket
     )
     data.close()
     print('Package uploaded')
@@ -1651,7 +1651,7 @@ def binaries_sync(c, extensions=None):
         os.path.join(c.plugin.numba.binary_folder, '*' + p) for p in extensions
     ]
     _s3_sync(
-        c, c.sphinx.deploy_s3_bucket, 'plugin_binaries',
+        c, c.sphinx.zipfile_deploy_s3_bucket, 'plugin_binaries',
         c.plugin.numba.binary_folder, patterns
     )
 
@@ -1659,7 +1659,7 @@ def binaries_sync(c, extensions=None):
 @task
 def testdata_sync(c):
     _s3_sync(
-        c, c.sphinx.deploy_s3_bucket, 'plugin_testdata',
+        c, c.sphinx.zipfile_deploy_s3_bucket, 'plugin_testdata',
         'LDMP/test/integration/fixtures', c.plugin.testdata_patterns
     )
 
@@ -1849,7 +1849,8 @@ ns.configure(
             'sourcedir': 'docs/source',
             'builddir': 'docs/build',
             'resourcedir': 'docs/resources',
-            'deploy_s3_bucket': 'trends.earth',
+            'zipfile_deploy_s3_bucket': 'trends.earth',
+            'documentation_deploy_s3_bucket': 'trends.earth',
             'docs_s3_prefix': 'docs/',
             'transifex_name': 'trendsearth-v2',
             'tx_path': f'{os.path.dirname(__file__)}/tx',

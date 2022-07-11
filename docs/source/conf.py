@@ -108,7 +108,7 @@ relative_path = '../'
 if READTHEDOCS_VERSION_STRING != '':
     relative_path += '../'
 
-pdf_url_base = 'http://trends.earth.s3.us-east-1.amazonaws.com/sharing/'
+pdf_url_base = 'http://data.trends.earth/documentation/'
 
 
 extlinks = {

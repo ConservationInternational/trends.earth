@@ -92,12 +92,6 @@
     </message>
 </context>
 <context>
-    <name>CalculationOptionsWidget</name>
-</context>
-<context>
-    <name>CalculationOutputWidget</name>
-</context>
-<context>
     <name>ClipRaster</name>
     <message>
         <location filename="../processing_provider/utilities.py" line="39"/>
@@ -587,9 +581,6 @@
         <source>Potential change in biomass due to restoration (above and belowground woody)</source>
         <translation>Потенциальные изменения в биомассе в результате восстановления (надземные и подземные)</translation>
     </message>
-</context>
-<context>
-    <name>DlgCalculateBase</name>
 </context>
 <context>
     <name>DlgCalculateDrought</name>
@@ -1090,21 +1081,6 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Население женского пола&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1150"/>
-        <source>type</source>
-        <translation>тип</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1086"/>
-        <source>male</source>
-        <translation>мужчины</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1111"/>
-        <source>female</source>
-        <translation>женщины</translation>
-    </message>
-    <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1044"/>
         <source>Population broken down by sex</source>
         <translation>Население в разбивке по полу</translation>
@@ -1113,11 +1089,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1128"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Total population&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Общая численность населения&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1153"/>
-        <source>total</source>
-        <translation>итого</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="617"/>
@@ -1179,7 +1150,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;SDG Indicator 15.3.1&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;As part of the â2030 Agenda for Sustainable Developmentâ, Sustainable Development Goal (SDG) 15 is to:&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;âProtect, restore and promote sustainable use of terrestrial ecosystems, sustainably manage forests, combat desertification, and halt and reverse land degradation and halt biodiversity lossâ&lt;/span&gt;&lt;/p&gt;
@@ -1714,7 +1685,48 @@ p, li { white-space: pre-wrap; }
 &lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;If observed mean NDVI is lower than 50% than the maximum productivity, that pixel is considered potentially degraded for this indicator.&lt;/li&gt;&lt;/ol&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#productivity-performance&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information on Productivity Performance&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Продуктивность&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Продуктивность земли — это биологическая продуктивная способность земли — источника всех продуктов питания, волокон и топлива, которые поддерживают жизнь человека (Статистическая комиссия ООН, 2016 г.). Чистая первичная продуктивность (ЧПП) — это чистое количество углерода, ассимилированного после фотосинтеза и автотрофного дыхания за определенный период времени (Кларк и соавторы, 2001 г.) и обычно выражается в таких единицах, как кг/га/год. Оценка ЧПП требует много времени и средств, поэтому мы полагаемся на данные дистанционного зондирования для получения показателей ЧПП.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Одним из наиболее часто используемых заменителей ЧПП является Нормализованный разностный индекс вегетации (NDVI), вычисляемый с использованием информации из красной и ближней инфракрасной частей электромагнитного спектра. В Trends.Earth мы используем двухнедельные произведения от MODIS и AVHRR для расчета годовых интегралов NDVI (рассчитывается как среднегодовой NDVI для простоты интерпретации результатов). Эти годовые интегралы NDVI затем используются для расчета каждого из показателей продуктивности, описанных ниже.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#productivity&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Дополнительная информация о вспомогательном показателе продуктивности в ЦУР 15.3.1&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Продуктивность земель оценивается в Trends.Earth с использованием трех измерений изменений, полученные из данных временного ряда NDVI: &lt;/span&gt;&lt;/p&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;тенденция&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Продуктивность&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Состояние&lt;/li&gt;&lt;/ul&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Тенденция продуктивности&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Тенденция измеряет скорость изменения первичной продуктивности с течением времени. Trends.Earth вычисляет линейную регрессию на уровне пикселей, чтобы определить области, в которых произошли изменения в первичной продуктивности за анализируемый период. Затем применяется непареметрический критерий значимости Манна-Кендалла, учитывающий только существенные изменения, которые показывают p-значение â‰¤ 0,05. Положительные значимые тенденции в NDVI указывают на потенциальное улучшение состояния земель, а отрицательные значимые тенденции — на потенциальную деградацию.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#productivity-trajectory&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Дополнительная информация о траектории продуктивности&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Состояние продуктивности&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Показатель состояния продуктивности позволяет обнаруживать недавние изменения первичной продуктивности по сравнению с базовым периодом. Показатель рассчитывается следующим образом:&lt;/span&gt;&lt;/p&gt;
+&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Определите базовый период (исторический период, с которым следует сравнивать недавнюю первичную продуктивность).&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Определите период сравнения (последние годы, используемые для расчета сравнения). Рекомендуется использовать 3-годичный период, чтобы избежать годовых колебаний, связанных с климатом.&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Для каждого пикселя используйте годовые интегралы NDVI за базовый период, чтобы вычислить частотное распределение. Если в базовом периоде отсутствуют некоторые экстремальные значения NDVI, добавьте 5% на обеих крайних точках распределения. Эта расширенная кривая частотного распределения затем используется для определения значений отсечки 10 процентильных классов.&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Вычислите средний NDVI для базового периода и определите класс процентилей, к которому он принадлежит. Присвойте среднему NDVI за базовый период число, соответствующее этому процентильному классу. Возможные значения варьируются от 1 (низший класс) до 10 (высший класс).&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Вычислите средний NDVI за период сравнения и определите процентильный класс, к которому он принадлежит. Присвойте среднему NDVI за период сравнения число, соответствующее этому процентильному классу. Возможные значения варьируются от 1 (низший класс) до 10 (высший класс).&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Определите разницу в номере класса между периодом сравнения и базовым периодом (сравнение минус базовый период).&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Если разница в классе между базовым уровнем и периодом сравнения составляет â‰¤ 2, то этот пиксель потенциально может быть поврежден. Если разница â¥ 2, этот пиксель указывает на недавнее улучшение первичной продуктивности. Пиксели с небольшими изменениями считаются стабильными.&lt;/li&gt;&lt;/ol&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#productivity-state&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Дополнительная информация о состоянии продуктивности&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Эффективность продуктивности&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Индикатор эффективности продуктивности измеряет локальную продуктивность по сравнению с другими аналогичными типами растительности в аналогичных типах земного покрова или биоклиматических регионах на всей исследуемой территории. Trends.Earth использует уникальную комбинацию почвенных единиц (единицы почвенной таксономии с использованием системы USDA, предоставленной SoilGrids на 250м) и земного покрова (все 37 классов земного покрова, предоставленные ESA CCI с разрешением 300 м), чтобы определить эти области анализа. Показатель рассчитывается следующим образом:&lt;/span&gt;&lt;/p&gt;
+&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Определите период анализа и используйте временной ряд NDVI для вычисления среднего значения NDVI для каждого пикселя.&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Определить сходные экологически сходные единицы как уникальное сочетание земного покрова и типа почвы.&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Для каждой единицы извлеките все средние значения NDVI, вычисленные на шаге 1и создайте частотное распределение. Из этого распределения определите значение, которое представляет 90-й процентиль (мы не рекомендуем использовать абсолютное максимальное значение NDVI, чтобы избежать возможных ошибок из-за наличия выбросов). Значение, представляющее 90-й процентиль будет считаться максимальной продуктивностью для этой единицы.&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Вычислите отношение среднего NDVI к максимальной продуктивности (в каждом случае сравните среднее наблюдаемое значение с максимальным для соответствующей единицы).&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Если наблюдаемый средний показатель NDVI ниже 50% от максимальной продуктивности, этот пиксель считается потенциально деградировавшим по этому показателю.&lt;/li&gt;&lt;/ol&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#productivity-performance&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Дополнительная информация о продуктивности&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../calculate_prod.py" line="189"/>
@@ -2610,7 +2622,17 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Submitting a false positive / false negative layer is optional. This layer can be used to correct for cases when there are known errors in the indicator data used for Strategic Objective 1.&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Affected areas&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Checking the &amp;quot;Calculation is for affected areas only&amp;quot; box will include an indicator in the report that this calculation is for affected areas. Note that reporting on affected areas is an optional element in the UNCCD 2022 reporting process and is additional to national reporting. âAffected Areasâ are defined in Article 1 of the Convention as âarid, semi-arid and/or dry sub-humid areas affected or threatened by desertification.â Parties may opt to use this definition or to provide the operational definition of affected area in use in their country.â&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Создать отчет КБО ООН&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Расчет отчета по стратегическим целям 1, 2 и 3&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Ложноположительный/ложноотрицательный слой&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Отправка ложноположительного/ложноотрицательного слоя необязательна. Этот слой можно использовать для исправления случаев, когда в данных показателей, используемых для Стратегической цели 1, имеются известные ошибки.&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Затрагиваемые районы&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;При установке флажка «Расчет только для затрагиваемых районов» в отчет будет включено указание на то, что этот расчет относится к затрагиваемым районам. Обратите внимание, что отчетность по затрагиваемым районам является необязательным элементом процесса отчетности КБО ООН 2022 и дополняет национальную отчетность. «Затрагиваемые районы» определяются в статье 1 Конвенции как «засушливые, полузасушливые и /или сухие
+субгумидные районы, затрагиваемые опустыниванием или находящиеся под угрозой опустынивания». Стороны могут предоставить рабочее определение затрагиваемого района, используемое в их стране. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../calculate_unccd.py" line="203"/>
@@ -4064,7 +4086,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../timeseries.py" line="282"/>
         <source>The bounding box of the requested area (approximately {:.6n} sq km) is too large. The timeseries tool can process a maximum area of 1 million sq km at a time. Choose a smaller area to process.</source>
-        <translation type="unfinished"/>
+        <translation>Ограничивающий прямоугольник запрашиваемой области (примерно {:.6n} кв. км) слишком велик. Инструмент временных рядов может одновременно обрабатывать не более 1 млн кв. км. Выберите меньшую область для обработки.</translation>
     </message>
 </context>
 <context>
@@ -5496,7 +5518,7 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../gui/WidgetMain.ui" line="110"/>
         <source>Createâ¦</source>
-        <translation type="unfinished"/>
+        <translation>Создайте:</translation>
     </message>
     <message>
         <location filename="../gui/WidgetMain.ui" line="117"/>
@@ -5572,7 +5594,7 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../areaofinterest.py" line="598"/>
         <source>Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian.</source>
-        <translation type="unfinished"/>
+        <translation>Ошибка — слой не в географической системе координат. Невозможно обернуть слой через 180-й меридиан.</translation>
     </message>
 </context>
 <context>
@@ -5628,7 +5650,7 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../calculate.py" line="257"/>
         <source>Select folder containing data</source>
-        <translation type="unfinished"/>
+        <translation>Выберите папку с данными</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="541"/>
@@ -5638,17 +5660,17 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../calculate.py" line="270"/>
         <source>Cannot read {}. Choose a different folder.</source>
-        <translation type="unfinished"/>
+        <translation>Не удалось считать {}. Выберите другую папку.</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="307"/>
         <source>Choose a prefix to be used when naming output files</source>
-        <translation type="unfinished"/>
+        <translation>Выберите префикс, который будет использоваться при присвоении имен выходным файлам.</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="307"/>
         <source>Base name (*)</source>
-        <translation type="unfinished"/>
+        <translation>Базовое имя (*)</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="319"/>
@@ -5658,22 +5680,22 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../calculate.py" line="336"/>
         <source>Overwrite file?</source>
-        <translation type="unfinished"/>
+        <translation>Перезаписать файл?</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="336"/>
         <source>Using the prefix &quot;{}&quot; would lead to overwriting existing file(s) {}. Do you want to overwrite these file(s)?</source>
-        <translation type="unfinished"/>
+        <translation>Использование префикса &quot;{}&quot; приведет к перезаписи существующего(-их) файла(-ов) {}. Хотите перезаписать эти файлы?</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="344"/>
         <source>Information</source>
-        <translation type="unfinished"/>
+        <translation>Информация</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="344"/>
         <source>Choose a different output prefix and try again.</source>
-        <translation type="unfinished"/>
+        <translation>Выберите другой выходной префикс и повторите попытку.</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="459"/>
@@ -5693,12 +5715,12 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../calculate.py" line="529"/>
         <source>Unable to calculate bounding box.</source>
-        <translation type="unfinished"/>
+        <translation>Невозможно рассчитать ограничивающую рамку.</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="541"/>
         <source>Choose an output base name.</source>
-        <translation type="unfinished"/>
+        <translation>Выберите выходное базовое имя.</translation>
     </message>
 </context>
 <context>

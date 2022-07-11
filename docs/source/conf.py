@@ -335,6 +335,4 @@ latex_logo = "../resources/en/common/trends_earth_logo_bl_1200.png"
 
 latex_engine = "xelatex"
 latex_use_xindy = False
-# latex_elements = {
-#     'preamble': '\\usepackage[UTF8]{ctex}\n',
-# }
+latex_elements = {"extraclassoptions": "openany,oneside"}

@@ -1,56 +1,60 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
 # Translators:
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
 # Alex Zvoleff <azvoleff@conservation.org>, 2022
-# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-27 21:58-0400\n"
+"POT-Creation-Date: 2022-07-11 04:14+0000\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
-"Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Language: zh\n"
+"Language-Team: Chinese (https://www.transifex.com/conservation-"
+"international/teams/80165/zh/)\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.10.3\n"
 
-#: ../../source/general/index.rst:4
+#: ../../source/general/index.rst:3
+msgid ""
+":docs_pdf:`Download this section of the documentation as a PDF for "
+"offline use <General_Information>`"
+msgstr ""
+
+#: ../../source/general/index.rst:7
 msgid "General information"
 msgstr "一般信息"
 
-#: ../../source/general/index.rst:6
+#: ../../source/general/index.rst:9
 msgid ""
 "|trends.earth| was produced as part of the project \"Enabling the use of "
 "global data sources to assess and monitor land degradation at multiple "
 "scales\", funded by the Global Environment Facility."
 msgstr "|trends.earth| 是作为“启用全球数据源以多尺度评估和监测土地退化情况”项目的一部分而制作的，该项目由全球环境基金资助。"
 
-#: ../../../<rst_epilog>:6 ../../../<rst_epilog>:6 ../../../<rst_epilog>:6
-#: ../../../<rst_epilog>:6 ../../../<rst_epilog>:6 ../../../<rst_epilog>:6
-#: ../../../<rst_epilog>:6 ../../../<rst_epilog>:6 ../../../<rst_epilog>:6
-#: ../../../<rst_epilog>:6 ../../../<rst_epilog>:6 ../../../<rst_epilog>:6
-#: ../../../<rst_epilog>:6 ../../../<rst_epilog>:6
+#: ../../../<rst_epilog>:6
 msgid "Trends.Earth"
 msgstr "Trends.Earth"
 
-#: ../../source/general/index.rst:11
+#: ../../source/general/index.rst:14
 msgid "Contacting the team"
 msgstr "联系平台团队"
 
-#: ../../source/general/index.rst:13
+#: ../../source/general/index.rst:16
 msgid ""
-"Contact the `Trends.Earth <mailto:trends.earth@conservation.org>`_ team with"
-" any comments or suggestions. If you have specific bugs to report or "
-"improvements to the tool that you would like to suggest, you can also submit"
-" them in the `issue tracker on Github "
+"Contact the `Trends.Earth <mailto:trends.earth@conservation.org>`_ team "
+"with any comments or suggestions. If you have specific bugs to report or "
+"improvements to the tool that you would like to suggest, you can also "
+"submit them in the `issue tracker on Github "
 "<https://github.com/ConservationInternational/trends.earth/issues>`_ for "
 "|trends.earth|."
 msgstr ""
@@ -58,11 +62,11 @@ msgstr ""
 "`_团队有任何意见或建议。如果您有特定的错误报告或改进您想要建议的工具，您也可以在Github上的`问题跟踪器中提交它们<https://github.com/ConservationInternational/trends.earth/issues>"
 " `_ for | trends.earth |。"
 
-#: ../../source/general/index.rst:21
+#: ../../source/general/index.rst:24
 msgid "Authors"
 msgstr "作者"
 
-#: ../../source/general/index.rst:23
+#: ../../source/general/index.rst:26
 msgid ""
 "The Land Degradation Monitoring Project is a partnership of Conservation "
 "International, Lund University, and the National Aeronautics and Space "
@@ -70,7 +74,7 @@ msgid ""
 "(GEF)."
 msgstr "土地退化监测项目是由国际保育基金会、隆德大学和美国国家航空航天局（NASA）联合推出的，并由全球环境基金（GEF）提供资助。"
 
-#: ../../source/general/index.rst:27
+#: ../../source/general/index.rst:30
 msgid ""
 "Contributors to the documentation and to |trends.earth| include Yengoh "
 "Genesis, Lennart Olsson, Mariano Gonzalez-Roglich, Monica Noon, Tristan "
@@ -79,102 +83,103 @@ msgstr ""
 "文档和 |trends.earth| 的贡献者包括 Yengoh Genesis、Lennart Olsson、Mariano Gonzalez-"
 "Roglich、Monica Noon、Tristan Schnader、Anna Tengberg 和 Alex Zvoleff。"
 
-#: ../../source/general/index.rst:35
+#: ../../source/general/index.rst:38
 msgid ""
-"|trends.earth| uses `Google Earth Engine <https://earthengine.google.com>`_ "
-"to compute indicators in the cloud."
-msgstr ""
-"|trends.earth| 使用‘谷歌地球引擎 <https://earthengine.google.com>’_的云端服务来计算指标。"
+"|trends.earth| uses `Google Earth Engine "
+"<https://earthengine.google.com>`_ to compute indicators in the cloud."
+msgstr "|trends.earth| 使用‘谷歌地球引擎 <https://earthengine.google.com>’_的云端服务来计算指标。"
 
-#: ../../source/general/index.rst:43
+#: ../../source/general/index.rst:46
 msgid ""
-"The `Tools4LDN <https://www.tools4ldn.org/>`_ Project is a partnership of "
-"Conservation International, University of Bern, University of Colorado in "
-"partnership with USDA and USAID, University of California - Santa Barbara in"
-" partnership with University of North Carolina - Wilmington and Brown "
-"University and is funded by the Global Environment Facility (GEF)."
+"The `Tools4LDN <https://www.tools4ldn.org/>`_ Project is a partnership of"
+" Conservation International, University of Bern, University of Colorado "
+"in partnership with USDA and USAID, University of California - Santa "
+"Barbara in partnership with University of North Carolina - Wilmington and"
+" Brown University and is funded by the Global Environment Facility (GEF)."
 msgstr ""
 "‘Tools4LDN "
 "<https://www.tools4ldn.org/>’_项目是由国际保育基金会、伯尔尼大学、科罗拉多大学与美国农业部和美国国际开发署、加州大学圣巴巴拉分校、北卡罗来纳大学威尔明顿分校和布朗大学联合推出的，并由全球环境基金（GEF）提供资助。"
 
-#: ../../source/general/index.rst:49
+#: ../../source/general/index.rst:52
 msgid ""
 "Contributors to the documentation and to |trends.earth| include Gabriel "
 "Daldegan, Mariano Gonzalez-Roglich, Monica Noon, and Alex Zvoleff in "
 "partnership with Jeff Herrick, Tatenda Lemann, Hanspeter Liniger, David "
-"Lopez-Carr, Kevin Mwenda, Jason Neff, George Peacock, Narcisa Pricope, Sanna"
-" Sokolow, and Ingrid Teich."
+"Lopez-Carr, Kevin Mwenda, Jason Neff, George Peacock, Narcisa Pricope, "
+"Sanna Sokolow, and Ingrid Teich."
 msgstr ""
-"文档和 |trends.earth| 的贡献者包括 Gabriel Daldegan、Mariano Gonzalez-Roglich、Monica "
-"Noon 与 Alex Zvoleff、 Jeff Herrick、Tatenda Lemann、Hanspeter Liniger、David "
-"Lopez-Carr、Kevin Mwenda、Jason Neff、George Peacock、Narcisa Pricope、Sanna "
-"Sokolow 和 Ingrid Teich。"
+"文档和 |trends.earth| 的贡献者包括 Gabriel Daldegan、Mariano Gonzalez-"
+"Roglich、Monica Noon 与 Alex Zvoleff、 Jeff Herrick、Tatenda Lemann、Hanspeter"
+" Liniger、David Lopez-Carr、Kevin Mwenda、Jason Neff、George Peacock、Narcisa "
+"Pricope、Sanna Sokolow 和 Ingrid Teich。"
 
-#: ../../source/general/index.rst:55
+#: ../../source/general/index.rst:58
 msgid "Acknowledgements"
 msgstr "鸣谢"
 
-#: ../../source/general/index.rst:57
+#: ../../source/general/index.rst:60
 msgid ""
 "The feedback provided by early users of |trends.earth| and by the "
-"participants in the webinars and workshops held by the GEF Land Degradation "
-"Monitoring Project have been critical to the development of the tool."
-msgstr ""
-"|trends.earth| 的早期用户以及由 GEF 土地退化监测项目举办的网络研讨会和专题讨论会的参与者所提供的反馈对该工具的开发至关重要。"
+"participants in the webinars and workshops held by the GEF Land "
+"Degradation Monitoring Project have been critical to the development of "
+"the tool."
+msgstr "|trends.earth| 的早期用户以及由 GEF 土地退化监测项目举办的网络研讨会和专题讨论会的参与者所提供的反馈对该工具的开发至关重要。"
 
-#: ../../source/general/index.rst:61
+#: ../../source/general/index.rst:64
 msgid ""
-"Neil Sims, Sasha Alexander, Renato Cumani, and Sara Minelli provided input "
-"on the implementation of the SDG 15.3 and LDN indicators in |trends.earth|, "
-"on the structure of the tool, and on the UNCCD reporting process, and also "
-"provided early input and testing of the tool."
+"Neil Sims, Sasha Alexander, Renato Cumani, and Sara Minelli provided "
+"input on the implementation of the SDG 15.3 and LDN indicators in "
+"|trends.earth|, on the structure of the tool, and on the UNCCD reporting "
+"process, and also provided early input and testing of the tool."
 msgstr ""
-"Neil Sims、Sasha Alexander、Renato Cumani 和 Sara Minelli 就 SDG  15.3 和 LDN 指标在"
-" |trends.earth| 中的实施、工具结构和 UNCCD 报告流程提供了意见，并对该工具进行了早期提意和测试。"
+"Neil Sims、Sasha Alexander、Renato Cumani 和 Sara Minelli 就 SDG  15.3 和 LDN "
+"指标在 |trends.earth| 中的实施、工具结构和 UNCCD 报告流程提供了意见，并对该工具进行了早期提意和测试。"
 
-#: ../../source/general/index.rst:66
+#: ../../source/general/index.rst:69
 msgid ""
-"The project acknowledges the participants of the workshop held in Morogoro, "
-"Tanzania in October, 2017 for sharing their feedback and suggestions on the "
-"tool: Jones Agwata, Col. Papa Assane Ndiour, Lt. Fendama Baldé, Papa Nékhou "
-"Diagne, Abdoul Aziz Diouf, Richard Alphonce Giliba, Moses Isabirye, Vettes "
-"Kalema, Joseph Kihaule, Prof. D.N. Kimaro, James Lwasa, Paulo Mandela, Modou"
-" Moustapha Sarr, Joseph Mutyaba, Stephen Muwaya, Joseph Mwalugelo, Prof. "
-"Majaliwa Mwanjalolo, Edson Aspon Mwijage, Jerome Nchimbi, Elibariki Ngowi, "
-"Tabby Njunge, Daniel Nkondola, Blaise Okinyi, Joseph Opio, Rozalia "
-"Rwegasira, Ndeye Kany Sarr, Mamadou Adama Sarr, Edward Senyonjo, Olipa "
-"Simon, Samba Sow, Felly Mugizi Tusiime and John Wasige."
+"The project acknowledges the participants of the workshop held in "
+"Morogoro, Tanzania in October, 2017 for sharing their feedback and "
+"suggestions on the tool: Jones Agwata, Col. Papa Assane Ndiour, Lt. "
+"Fendama Baldé, Papa Nékhou Diagne, Abdoul Aziz Diouf, Richard Alphonce "
+"Giliba, Moses Isabirye, Vettes Kalema, Joseph Kihaule, Prof. D.N. Kimaro,"
+" James Lwasa, Paulo Mandela, Modou Moustapha Sarr, Joseph Mutyaba, "
+"Stephen Muwaya, Joseph Mwalugelo, Prof. Majaliwa Mwanjalolo, Edson Aspon "
+"Mwijage, Jerome Nchimbi, Elibariki Ngowi, Tabby Njunge, Daniel Nkondola, "
+"Blaise Okinyi, Joseph Opio, Rozalia Rwegasira, Ndeye Kany Sarr, Mamadou "
+"Adama Sarr, Edward Senyonjo, Olipa Simon, Samba Sow, Felly Mugizi Tusiime"
+" and John Wasige."
 msgstr ""
-"感谢 2017 年 10 月在坦桑尼亚莫罗戈罗举办的研讨会的参与者分享其对该工具的反馈和建议，这些参与者包括：Jones Agwata、 Col. "
-"Papa Assane Ndiour、Lt. Fendama Baldé、Papa Nékhou Diagne、Abdoul Aziz "
+"感谢 2017 年 10 月在坦桑尼亚莫罗戈罗举办的研讨会的参与者分享其对该工具的反馈和建议，这些参与者包括：Jones Agwata、 Col."
+" Papa Assane Ndiour、Lt. Fendama Baldé、Papa Nékhou Diagne、Abdoul Aziz "
 "Diouf、Richard Alphonce Giliba、Moses Isabirye、Vettes Kalema、Joseph "
-"Kihaule、D.N. Kimaro教授、James Lwasa、Paulo Mandela、Modou Moustapha Sarr、Joseph "
-"Mutyaba、Stephen Muwaya、Joseph Mwalugelo、Majaliwa Mwanjalolo 教授、Edson Aspon "
-"Mwijage、 Jerome Nchimbi、Elibariki Ngowi、 Tabby Njunge、Daniel Nkondola、 "
-"Blaise Okinyi、Joseph Opio、Rozalia Rwegasira、Ndeye Kany Sarr、Mamadou Adama "
-"Sarr、Edward Senyonjo、Olipa Simon、Samba Sow、Felly Mugizi Tusiime 和 John "
-"Wasige。"
+"Kihaule、D.N. Kimaro教授、James Lwasa、Paulo Mandela、Modou Moustapha "
+"Sarr、Joseph Mutyaba、Stephen Muwaya、Joseph Mwalugelo、Majaliwa Mwanjalolo "
+"教授、Edson Aspon Mwijage、 Jerome Nchimbi、Elibariki Ngowi、 Tabby "
+"Njunge、Daniel Nkondola、 Blaise Okinyi、Joseph Opio、Rozalia Rwegasira、Ndeye"
+" Kany Sarr、Mamadou Adama Sarr、Edward Senyonjo、Olipa Simon、Samba Sow、Felly"
+" Mugizi Tusiime 和 John Wasige。"
 
-#: ../../source/general/index.rst:78
+#: ../../source/general/index.rst:81
 msgid "Citation"
 msgstr "引文"
 
-#: ../../source/general/index.rst:80
+#: ../../source/general/index.rst:83
 msgid "If you wish to cite |trends.earth|, please use the following citation:"
 msgstr "如果您想引用| trends.earth |，请使用以下引文："
 
-#: ../../source/general/index.rst:82
+#: ../../source/general/index.rst:85
 msgid ""
 "Trends.Earth. Conservation International. Available online at: "
 "`http://trends.earth <http://trends.earth>`_. 2022."
 msgstr ""
-"Trends.Earth。国际保育基金会。在线查阅：‘http://trends.earth <http://trends.earth>’_2022。"
+"Trends.Earth。国际保育基金会。在线查阅：‘http://trends.earth "
+"<http://trends.earth>’_2022。"
 
-#: ../../source/general/index.rst:86
+#: ../../source/general/index.rst:89
 msgid "License"
 msgstr "执照"
 
-#: ../../source/general/index.rst:88
+#: ../../source/general/index.rst:91
 msgid ""
 "|trends.earth| is free and open-source. It is licensed under the `GNU "
 "General Public License, version 2.0 or later "
@@ -184,89 +189,91 @@ msgstr ""
 "通用公共许可证2.0或更高版本<https://www.gnu.org/licenses/old-"
 "licenses/gpl-2.0.en.html>’_。"
 
-#: ../../source/general/index.rst:92
+#: ../../source/general/index.rst:95
 msgid ""
-"This site and the products of |trends.earth| are made available under the "
-"terms of the `Creative Commons Attribution 4.0 International License (CC BY "
-"4.0) <https://creativecommons.org/licenses/by/4.0>`_. The boundaries and "
-"names used, and the designations used, in |trends.earth| do not imply "
-"official endorsement or acceptance by Conservation International Foundation,"
-" or its partner organizations and contributors."
+"This site and the products of |trends.earth| are made available under the"
+" terms of the `Creative Commons Attribution 4.0 International License (CC"
+" BY 4.0) <https://creativecommons.org/licenses/by/4.0>`_. The boundaries "
+"and names used, and the designations used, in |trends.earth| do not imply"
+" official endorsement or acceptance by Conservation International "
+"Foundation, or its partner organizations and contributors."
 msgstr ""
 "本网站和 |trends.earth|产品是根据‘知识共享归属 4.0 国际许可（CC BY "
 "4.0）<https://creativecommons.org/licenses/by/4.0>’_的条款提供的。|trends.earth| "
 "中使用的边界、名称以及指定名称并不意味着获得了国际保育基金会或其伙伴组织和贡献者的官方认可或接受。"
 
-#: ../../source/general/index.rst:100
+#: ../../source/general/index.rst:103
 msgid "Trademark"
 msgstr "商标"
 
-#: ../../source/general/index.rst:102
+#: ../../source/general/index.rst:105
 msgid ""
-"|trends.earth| has a service mark trademark registered June 9, 2020 (reg. "
-"No. 6,074,442 and Int. Cl.: 9,35,42) by the United States Patent and "
+"|trends.earth| has a service mark trademark registered June 9, 2020 (reg."
+" No. 6,074,442 and Int. Cl.: 9,35,42) by the United States Patent and "
 "Trademark Office."
 msgstr ""
 "|trends.earth| 拥有经美国专利商标局注册于 2020 年 6 月 9 日的服务商标（注册号：6,074,442 "
 "，国际分类号：9,35,42）。"
 
-#: ../../source/general/index.rst:108
+#: ../../source/general/index.rst:111
 msgid "Publications"
 msgstr "出版物"
 
-#: ../../source/general/index.rst:111
+#: ../../source/general/index.rst:114
 msgid "Peer-reviewed Publications"
 msgstr "同行评审出版物"
 
-#: ../../source/general/index.rst:113
+#: ../../source/general/index.rst:116
 msgid ""
-"The below peer-reviewed publications either use or relate to |trends.earth|."
+"The below peer-reviewed publications either use or relate to "
+"|trends.earth|."
 msgstr "以下同行评审出版物使用或涉及到 |trends.earth|。"
 
-#: ../../source/general/index.rst:115
+#: ../../source/general/index.rst:118
 msgid ""
-"Alamanos, A. and Linnane, S., 2021. Estimating SDG Indicators in Data-Scarce"
-" Areas: The Transition to the Use of New Technologies and Multidisciplinary "
-"Studies. Earth, 2(3), pp.635-652."
+"Alamanos, A. and Linnane, S., 2021. Estimating SDG Indicators in Data-"
+"Scarce Areas: The Transition to the Use of New Technologies and "
+"Multidisciplinary Studies. Earth, 2(3), pp.635-652."
 msgstr ""
 "Alamanos, A. 和 Linnane, S.，2021。数据匮乏地区的 SDG "
 "指标估计：向使用新技术和多学科研究过渡。《Earth》，2（3），第 635-652 页。"
 
-#: ../../source/general/index.rst:117
+#: ../../source/general/index.rst:120
 msgid ""
-"Dong, J., Metternicht, G., Hostert, P., Fensholt, R., Chowdhury, R.R., 2019."
-" Remote sensing and geospatial technologies in support of a normative land "
-"system science: status and prospects. Curr. Opin. Environ. Sustain. 38, "
-"44–52. https://doi.org/10.1016/j.cosust.2019.05.003"
+"Dong, J., Metternicht, G., Hostert, P., Fensholt, R., Chowdhury, R.R., "
+"2019. Remote sensing and geospatial technologies in support of a "
+"normative land system science: status and prospects. Curr. Opin. Environ."
+" Sustain. 38, 44–52. https://doi.org/10.1016/j.cosust.2019.05.003"
 msgstr ""
 "Dong, J.、Metternicht, G.、Hostert, P.、 Fensholt, R.、Chowdhury, R.R.，2019。 "
 "利用遥感和地理空间技术支持规范土地系统科学：现状和前景。《Current Opinion in Environmental "
 "Sustainability》。38，44-52。https://doi.org/10.1016/j.cosust.2019.05.003 "
 
-#: ../../source/general/index.rst:121
+#: ../../source/general/index.rst:124
 msgid ""
-"Easdale, M.H., Fariña, C., Hara, S., Pérez León, N., Umaña, F., Tittonell, "
-"P., Bruzzone, O., 2019. Trend-cycles of vegetation dynamics as a tool for "
-"land degradation assessment and monitoring. Ecol. Indic. 107, 105545. "
-"https://doi.org/10.1016/j.ecolind.2019.105545"
+"Easdale, M.H., Fariña, C., Hara, S., Pérez León, N., Umaña, F., "
+"Tittonell, P., Bruzzone, O., 2019. Trend-cycles of vegetation dynamics as"
+" a tool for land degradation assessment and monitoring. Ecol. Indic. 107,"
+" 105545. https://doi.org/10.1016/j.ecolind.2019.105545"
 msgstr ""
-"Easdale, M.H.、Fariña, C.、Hara, S.、Pérez León, N.、Umaña, F.、Tittonell, P.、 "
-"Bruzzone, O.，2019。以植被动态趋势周期为工具进行土地退化评估和监测。《Ecological Indicators》 107, "
+"Easdale, M.H.、Fariña, C.、Hara, S.、Pérez León, N.、Umaña, F.、Tittonell, P.、"
+" Bruzzone, O.，2019。以植被动态趋势周期为工具进行土地退化评估和监测。《Ecological Indicators》 107, "
 "105545。https://doi.org/10.1016/j.ecolind.2019.105545"
 
-#: ../../source/general/index.rst:124
+#: ../../source/general/index.rst:127
 msgid ""
 "Giuliani, G., Chatenoux, B., Benvenuti, A., Lacroix, P., Santoro, M., "
 "Mazzetti, P., 2020a. Monitoring land degradation at national level using "
-"satellite Earth Observation time-series data to support SDG15 – exploring "
-"the potential of data cube. Big Earth Data 4, 3–22. "
+"satellite Earth Observation time-series data to support SDG15 – exploring"
+" the potential of data cube. Big Earth Data 4, 3–22. "
 "https://doi.org/10.1080/20964471.2020.1711633"
 msgstr ""
-"Giuliani, G.、Chatenoux, B.、Benvenuti, A.、Lacroix, P.、Santoro, M.、Mazzetti, "
-"P.，2020a。使用卫星地球观测时间序列数据监测国家层面的土地退化，以支持 SDG15——探索数据立方体的潜力。《Big Earth Data》 "
+"Giuliani, G.、Chatenoux, B.、Benvenuti, A.、Lacroix, P.、Santoro, "
+"M.、Mazzetti, P.，2020a。使用卫星地球观测时间序列数据监测国家层面的土地退化，以支持 "
+"SDG15——探索数据立方体的潜力。《Big Earth Data》 "
 "4，3-22。https://doi.org/10.1080/20964471.2020.1711633"
 
-#: ../../source/general/index.rst:128
+#: ../../source/general/index.rst:131
 msgid ""
 "Giuliani, G., Mazzetti, P., Santoro, M., Nativi, S., Van Bemmelen, J., "
 "Colangeli, G., Lehmann, A., 2020b. Knowledge generation using satellite "
@@ -274,58 +281,62 @@ msgid ""
 "case on Land degradation. Int. J. Appl. Earth Obs. Geoinformation 88, "
 "102068. https://doi.org/10.1016/j.jag.2020.102068"
 msgstr ""
-"Giuliani, G.、Mazzetti, P.、Santoro, M.、Nativi, S.、Van Bemmelen, J.、Colangeli,"
-" G.、Lehmann, A.，2020b。利用卫星地球观测生成知识以支持可持续发展目标（SDG）：土地退化用例。《International "
-"Journal of Applied Earth Observation and Geoinformation》88， "
+"Giuliani, G.、Mazzetti, P.、Santoro, M.、Nativi, S.、Van Bemmelen, "
+"J.、Colangeli, G.、Lehmann, "
+"A.，2020b。利用卫星地球观测生成知识以支持可持续发展目标（SDG）：土地退化用例。《International Journal of "
+"Applied Earth Observation and Geoinformation》88， "
 "102068。https://doi.org/10.1016/j.jag.2020.102068"
 
-#: ../../source/general/index.rst:132
+#: ../../source/general/index.rst:135
 msgid ""
 "Gonzalez-Roglich, M., Zvoleff, A., Noon, M., Liniger, H., Fleiner, R., "
-"Harari, N., Garcia, C., 2019. Synergizing global tools to monitor progress "
-"towards land degradation neutrality: Trends.Earth and the World Overview of "
-"Conservation Approaches and Technologies sustainable land management "
-"database. Environ. Sci. Policy 93, 34–42. "
+"Harari, N., Garcia, C., 2019. Synergizing global tools to monitor "
+"progress towards land degradation neutrality: Trends.Earth and the World "
+"Overview of Conservation Approaches and Technologies sustainable land "
+"management database. Environ. Sci. Policy 93, 34–42. "
 "https://doi.org/10.1016/j.envsci.2018.12.019"
 msgstr ""
-"Gonzalez-Roglich, M.、Zvoleff, A.、Noon, M.、Liniger, H.、Fleiner, R.、Harari, "
-"N.、Garcia, C.，2019。协同全球工具监测土地退化零增长进展：Trends.Earth "
+"Gonzalez-Roglich, M.、Zvoleff, A.、Noon, M.、Liniger, H.、Fleiner, R.、Harari,"
+" N.、Garcia, C.，2019。协同全球工具监测土地退化零增长进展：Trends.Earth "
 "和“世界保护方法和技术概览”可持续土地管理数据库。《Environmental Science & "
 "Policy》93，34-42。https://doi.org/10.1016/j.envsci.2018.12.019"
 
-#: ../../source/general/index.rst:137
+#: ../../source/general/index.rst:140
 msgid ""
 "Jiang, L., Bao, A., Jiapaer, G., Liu, R., Yuan, Y. and Yu, T., 2022. "
-"Monitoring land degradation and assessing its drivers to support sustainable"
-" development goal 15.3 in Central Asia. Science of The Total Environment, "
-"807, p.150868. https://doi.org/10.1016/j.scitotenv.2021.150868"
+"Monitoring land degradation and assessing its drivers to support "
+"sustainable development goal 15.3 in Central Asia. Science of The Total "
+"Environment, 807, p.150868. "
+"https://doi.org/10.1016/j.scitotenv.2021.150868"
 msgstr ""
 "Jiang, L.、Bao, A.、Jiapaer, G.、Liu, R.、Yuan, Y. 和 Yu, "
 "T.，2022。监测土地退化并评估其驱动因素以支持中亚可持续发展目标15.3。《Science of The Total "
 "Environment》，807，p.150868。https://doi.org/10.1016/j.scitotenv.2021.150868"
 
-#: ../../source/general/index.rst:140
-msgid ""
-"Kadaverugu, A., Nageshwar Rao, C. and Viswanadh, G.K., 2021. Quantification "
-"of flood mitigation services by urban green spaces using InVEST model: a "
-"case study of Hyderabad city, India. Modeling Earth Systems and Environment,"
-" 7(1), pp.589-602. https://doi.org/10.1007/s40808-020-00937-0"
-msgstr ""
-"Kadaverugu, A.、Nageshwar Rao, C. 和 Viswanadh, G.K.，2021。使用 InVEST "
-"模型对城市绿地防洪功能进行量化：印度海德拉巴市案例研究。《Modeling Earth Systems and Environment》，7（1），第 "
-"589-602 页。https://doi.org/10.1007/s40808-020-00937-0"
-
 #: ../../source/general/index.rst:143
 msgid ""
+"Kadaverugu, A., Nageshwar Rao, C. and Viswanadh, G.K., 2021. "
+"Quantification of flood mitigation services by urban green spaces using "
+"InVEST model: a case study of Hyderabad city, India. Modeling Earth "
+"Systems and Environment, 7(1), pp.589-602. "
+"https://doi.org/10.1007/s40808-020-00937-0"
+msgstr ""
+"Kadaverugu, A.、Nageshwar Rao, C. 和 Viswanadh, G.K.，2021。使用 InVEST "
+"模型对城市绿地防洪功能进行量化：印度海德拉巴市案例研究。《Modeling Earth Systems and "
+"Environment》，7（1），第 589-602 页。https://doi.org/10.1007/s40808-020-00937-0"
+
+#: ../../source/general/index.rst:146
+msgid ""
 "Kust, G.S., Andreeva, O.V., Lobkovskiy, V.A., 2020. Land Degradation "
-"Neutrality: the Modern Approach to Research on Arid Regions at the National "
-"Level. Arid Ecosyst. 10, 87–92. https://doi.org/10.1134/S2079096120020092"
+"Neutrality: the Modern Approach to Research on Arid Regions at the "
+"National Level. Arid Ecosyst. 10, 87–92. "
+"https://doi.org/10.1134/S2079096120020092"
 msgstr ""
 "Kust, G. S.、Andreeva, O. V.、Lobkovskiy, V. "
 "A.，2020。土地退化零增长：国家层面干旱地区研究的现代方法。《Arid "
 "ecosystems》。10，87-92。https://doi.org/10.1134/S2079096120020092 "
 
-#: ../../source/general/index.rst:146
+#: ../../source/general/index.rst:149
 msgid ""
 "Hu, Y., Wang, C., Yu, X. and Yin, S., 2021. Evaluating Trends of Land "
 "Productivity Change and Their Causes in the Han River Basin, China: In "
@@ -335,105 +346,110 @@ msgstr ""
 "Hu, Y.、Wang, C.、Yu, X. 和 Yin, "
 "S.，2021。评估中国汉江流域的土地生产力变化趋势及其原因：支持SDG指标15.3.1。《Sustainability》，13（24），p.13664。https://doi.org/10.3390/su132413664"
 
-#: ../../source/general/index.rst:149
+#: ../../source/general/index.rst:152
 msgid ""
-"Li, Z., Lun, F., Liu, M., Xiao, X., Wang, C., Wang, L., Xu, Y., Qi, W., Sun,"
-" D., 2021. Rapid diagnosis of agricultural soil health: A novel soil health "
-"index based on natural soil productivity and human management. J. Environ. "
-"Manage. 277, 111402. https://doi.org/10.1016/j.jenvman.2020.111402"
+"Li, Z., Lun, F., Liu, M., Xiao, X., Wang, C., Wang, L., Xu, Y., Qi, W., "
+"Sun, D., 2021. Rapid diagnosis of agricultural soil health: A novel soil "
+"health index based on natural soil productivity and human management. J. "
+"Environ. Manage. 277, 111402. "
+"https://doi.org/10.1016/j.jenvman.2020.111402"
 msgstr ""
 "Li, Z.、Lun, F.、Liu, M.、Xiao, X.、Wang, C.、Wang, L.、Xu, Y.、Qi, W.、Sun, "
 "D.，2021。农业土壤健康的快速诊断：基于自然土壤生产力和人类管理的新型土壤健康指数。《Journal of Environmental "
 "Management》。 277，111402。https://doi.org/10.1016/j.jenvman.2020.111402"
 
-#: ../../source/general/index.rst:153
+#: ../../source/general/index.rst:156
 msgid ""
-"Liniger, H., Harari, N., van Lynden, G., Fleiner, R., de Leeuw, J., Bai, Z.,"
-" Critchley, W., 2019. Achieving land degradation neutrality: The role of SLM"
-" knowledge in evidence-based decision-making. Environ. Sci. Policy 94, "
-"123–134. https://doi.org/10.1016/j.envsci.2019.01.001"
+"Liniger, H., Harari, N., van Lynden, G., Fleiner, R., de Leeuw, J., Bai, "
+"Z., Critchley, W., 2019. Achieving land degradation neutrality: The role "
+"of SLM knowledge in evidence-based decision-making. Environ. Sci. Policy "
+"94, 123–134. https://doi.org/10.1016/j.envsci.2019.01.001"
 msgstr ""
 "Liniger, H.、Harari, N.、van Lynden, G.、Fleiner, R.、de Leeuw, J.、Bai, "
-"Z.、Critchley, W.，2019。实现土地退化零增长：可持续土地管理知识在循证决策中的作用。《Environmental Science & "
-"Policy》 94，123-134。https://doi.org/10.1016/j.envsci.2019.01.001"
+"Z.、Critchley, W.，2019。实现土地退化零增长：可持续土地管理知识在循证决策中的作用。《Environmental Science"
+" & Policy》 94，123-134。https://doi.org/10.1016/j.envsci.2019.01.001"
 
-#: ../../source/general/index.rst:157
+#: ../../source/general/index.rst:160
 msgid ""
-"Mariathasan, V., Bezuidenhoudt, E., Olympio, K.R., 2019. Evaluation of Earth"
-" Observation Solutions for Namibia’s SDG Monitoring System. Remote Sens. 11,"
-" 1612. https://doi.org/10.3390/rs11131612"
+"Mariathasan, V., Bezuidenhoudt, E., Olympio, K.R., 2019. Evaluation of "
+"Earth Observation Solutions for Namibia’s SDG Monitoring System. Remote "
+"Sens. 11, 1612. https://doi.org/10.3390/rs11131612"
 msgstr ""
 "Mariathasan, V.、Bezuidenhoudt, E.、Olympio, "
 "K.R.。2019。纳米比亚可持续发展目标监测系统的地球观测解决方案评估。《Remote "
 "Sensing》11，1612。https://doi.org/10.3390/rs11131612"
 
-#: ../../source/general/index.rst:160
+#: ../../source/general/index.rst:163
 msgid ""
-"Mazzetti, P., Nativi, S., Santoro, M., Giuliani, G., Rodila, D., Folino, A.,"
-" Caruso, S., Aracri, G. and Lehmann, A., 2022. Knowledge formalization for "
-"Earth Science informed decision-making: The GEOEssential Knowledge Base. "
-"Environmental Science & Policy, 131, pp.93-104. "
+"Mazzetti, P., Nativi, S., Santoro, M., Giuliani, G., Rodila, D., Folino, "
+"A., Caruso, S., Aracri, G. and Lehmann, A., 2022. Knowledge formalization"
+" for Earth Science informed decision-making: The GEOEssential Knowledge "
+"Base. Environmental Science & Policy, 131, pp.93-104. "
 "https://doi.org/10.1016/j.envsci.2021.12.023"
 msgstr ""
 "Mazzetti, P.、Nativi, S.、Santoro, M.、Giuliani, G.、Rodila, D.、Folino, "
 "A.、Caruso, S.、Aracri, G. 和 Lehmann, A， "
-"2022。地球科学理性决策的知识形式化：GEOEssential知识库。《Environmental Science & Policy》，131，第 "
-"93-104 页。https://doi.org/10.1016/j.envsci.2021.12.023"
-
-#: ../../source/general/index.rst:164
-msgid ""
-"Meyer, D. & Riechert, M. Open source QGIS toolkit for the Advanced Research "
-"WRF modelling system. Environmental Modelling & Software 112, 166–178 "
-"(2019). https://doi.org/10.1016/j.envsoft.2018.10.018"
-msgstr ""
-"Meyer, D. 和 Riechert, M，用于高级研究 WRF 建模系统的开源 QGIS 工具包。《Environmental Modelling"
-" & Software》112，166-178 （2019）。 "
-"https://doi.org/10.1016/j.envsoft.2018.10.018"
+"2022。地球科学理性决策的知识形式化：GEOEssential知识库。《Environmental Science & "
+"Policy》，131，第 93-104 页。https://doi.org/10.1016/j.envsci.2021.12.023"
 
 #: ../../source/general/index.rst:167
 msgid ""
+"Meyer, D. & Riechert, M. Open source QGIS toolkit for the Advanced "
+"Research WRF modelling system. Environmental Modelling & Software 112, "
+"166–178 (2019). https://doi.org/10.1016/j.envsoft.2018.10.018"
+msgstr ""
+"Meyer, D. 和 Riechert, M，用于高级研究 WRF 建模系统的开源 QGIS 工具包。《Environmental "
+"Modelling & Software》112，166-178 （2019）。 "
+"https://doi.org/10.1016/j.envsoft.2018.10.018"
+
+#: ../../source/general/index.rst:170
+msgid ""
 "Moussa, S., El Brirchi, E.H. and Alami, O.B., 2022. Monitoring Land "
-"Productivity Trends in Souss-Massa Region Using Landsat Time Series Data to "
-"Support SDG Target 15.3. In Geospatial Intelligence (pp. 119-129). Springer,"
-" Cham. https://doi.org/10.1007/978-3-030-80458-9_9"
+"Productivity Trends in Souss-Massa Region Using Landsat Time Series Data "
+"to Support SDG Target 15.3. In Geospatial Intelligence (pp. 119-129). "
+"Springer, Cham. https://doi.org/10.1007/978-3-030-80458-9_9"
 msgstr ""
 "Moussa, S.、El Brirchi, E.H. 和 Alami, "
 "O.B.，2022。使用Landsat时间序列数据监测苏斯马萨地区的土地生产力趋势以支持SDG目标15.3。《Geospatial "
 "Intelligence》（第 119-129 页）。Springer, "
 "Cham。https://doi.org/10.1007/978-3-030-80458-9_9"
 
-#: ../../source/general/index.rst:170
+#: ../../source/general/index.rst:173
 msgid ""
 "Ogorodnikov, S.S., 2021, March. Land Degradation Neutrality in the Tula "
-"region. In IOP Conference Series: Earth and Environmental Science (Vol. 723,"
-" No. 4, p. 042053). IOP Publishing. doi:10.1088/1755-1315/723/4/042053"
+"region. In IOP Conference Series: Earth and Environmental Science (Vol. "
+"723, No. 4, p. 042053). IOP Publishing. "
+"doi:10.1088/1755-1315/723/4/042053"
 msgstr ""
 "Ogorodnikov, S.S.，2021年三月。图拉地区的土地退化零增长。《IOP Conference Series: Earth and "
 "Environmental Science》（第723卷，第4期，p.042053）。IOP Publishing。 "
 "doi:10.1088/1755-1315/723/4/042053"
 
-#: ../../source/general/index.rst:173
+#: ../../source/general/index.rst:176
 msgid ""
 "Prakash, M., Ramage, S., Kavvada, A., Goodman, S., 2020. Open Earth "
 "Observations for Sustainable Urban Development. Remote Sens. 12, 1646. "
 "https://doi.org/10.3390/rs12101646"
 msgstr ""
-"Prakash, M.、Ramage, S.、Kavvada, A.、Goodman, S.，2020。开放式地球观测促进可持续城市发展。《Remote"
-" Sensing》。12，1646。 https://doi.org/10.3 390/rs12101646"
-
-#: ../../source/general/index.rst:176
-msgid ""
-"Philip, E., 2021. Coupling Sustainable Development Goal 11.3. 1 with current"
-" planning tools: city of Hamilton, Canada. Hydrological Sciences Journal, "
-"66(7), pp.1124-1131. https://doi.org/10.1080/02626667.2021.1918340"
-msgstr ""
-"Philip, E.，2021。可持续发展目标11.3. 1与当前规划工具相结合：加拿大汉密尔顿市。《Hydrological Sciences "
-"Journal》， 66（7），第 1124-1131 页。https://doi.org/10.1080/02626667.2021.1918340"
+"Prakash, M.、Ramage, S.、Kavvada, A.、Goodman, "
+"S.，2020。开放式地球观测促进可持续城市发展。《Remote Sensing》。12，1646。 https://doi.org/10.3 "
+"390/rs12101646"
 
 #: ../../source/general/index.rst:179
 msgid ""
-"Reith, J., Ghazaryan, G., Muthoni, F. and Dubovyk, O., 2021. Assessment of "
-"Land Degradation in Semiarid Tanzania—Using Multiscale Remote Sensing "
+"Philip, E., 2021. Coupling Sustainable Development Goal 11.3. 1 with "
+"current planning tools: city of Hamilton, Canada. Hydrological Sciences "
+"Journal, 66(7), pp.1124-1131. "
+"https://doi.org/10.1080/02626667.2021.1918340"
+msgstr ""
+"Philip, E.，2021。可持续发展目标11.3. 1与当前规划工具相结合：加拿大汉密尔顿市。《Hydrological Sciences "
+"Journal》， 66（7），第 1124-1131 "
+"页。https://doi.org/10.1080/02626667.2021.1918340"
+
+#: ../../source/general/index.rst:182
+msgid ""
+"Reith, J., Ghazaryan, G., Muthoni, F. and Dubovyk, O., 2021. Assessment "
+"of Land Degradation in Semiarid Tanzania—Using Multiscale Remote Sensing "
 "Datasets to Support Sustainable Development Goal 15.3. Remote Sensing, "
 "13(9), p.1754. https://doi.org/10.3390/rs13091754"
 msgstr ""
@@ -441,23 +457,23 @@ msgstr ""
 "O.，2021。坦桑尼亚半干旱地区的土地退化评估——使用多尺度遥感数据集支持可持续发展目标15.3。《Remote "
 "Sensing》，13（9），p.1754。https://doi.org/10.3390/rs13091754"
 
-#: ../../source/general/index.rst:182
+#: ../../source/general/index.rst:185
 msgid ""
-"Rowe, H.I., Gruber, D. and Fastiggi, M., 2021. Where to start? A new citizen"
-" science, remote sensing approach to map recreational disturbance and other "
-"degraded areas for restoration planning. Restoration Ecology, 29(6), "
-"p.e13454. https://doi.org/10.1111/rec.13454"
+"Rowe, H.I., Gruber, D. and Fastiggi, M., 2021. Where to start? A new "
+"citizen science, remote sensing approach to map recreational disturbance "
+"and other degraded areas for restoration planning. Restoration Ecology, "
+"29(6), p.e13454. https://doi.org/10.1111/rec.13454"
 msgstr ""
 "Rowe, H.I.、Gruber, D. 和 Fastiggi, M., 2021. "
 "从哪里开始？一种用于绘制旅游干扰和其他退化地区以制定恢复规划的新公民科学及遥感方法。《Restoration "
 "Ecology》，29（6），p.e13454。https://doi.org/10.1111/rec.13454"
 
-#: ../../source/general/index.rst:185
+#: ../../source/general/index.rst:188
 msgid ""
-"Schiavina, M., Melchiorri, M., Freire, S., Florio, P., Ehrlich, D., Tommasi,"
-" P., Pesaresi, M. and Kemper, T., 2022. Land use efficiency of functional "
-"urban areas: Global pattern and evolution of development trajectories. "
-"Habitat International, 123, p.102543. "
+"Schiavina, M., Melchiorri, M., Freire, S., Florio, P., Ehrlich, D., "
+"Tommasi, P., Pesaresi, M. and Kemper, T., 2022. Land use efficiency of "
+"functional urban areas: Global pattern and evolution of development "
+"trajectories. Habitat International, 123, p.102543. "
 "https://doi.org/10.1016/j.habitatint.2022.102543"
 msgstr ""
 "Schiavina, M.、Melchiorri, M.、Freire, S.、Florio, P.、Ehrlich, D.、Tommasi, "
@@ -465,7 +481,7 @@ msgstr ""
 "International》，123，p.102543. "
 "https://doi.org/10.1016/j.habitatint.2022.102543"
 
-#: ../../source/general/index.rst:189
+#: ../../source/general/index.rst:192
 msgid ""
 "Sims, N. C. et al. Developing good practice guidance for estimating land "
 "degradation in the context of the United Nations Sustainable Development "
@@ -475,43 +491,45 @@ msgstr ""
 "Sims, N. C.等人，在联合国可持续发展目标背景下为土地退化评估制定良好实践指南。《Environmental Science & "
 "Policy》92，349-355 （2019），https://doi.org/10.1016/j.envsci.2018.10.014"
 
-#: ../../source/general/index.rst:193
+#: ../../source/general/index.rst:196
 msgid ""
-"Teich, I., Gonzalez Roglich, M., Corso, M.L., García, C.L., 2019. Combining "
-"Earth Observations, Cloud Computing, and Expert Knowledge to Inform National"
-" Level Degradation Assessments in Support of the 2030 Development Agenda. "
-"Remote Sens. 11, 2918. https://doi.org/10.3390/rs11242918"
+"Teich, I., Gonzalez Roglich, M., Corso, M.L., García, C.L., 2019. "
+"Combining Earth Observations, Cloud Computing, and Expert Knowledge to "
+"Inform National Level Degradation Assessments in Support of the 2030 "
+"Development Agenda. Remote Sens. 11, 2918. "
+"https://doi.org/10.3390/rs11242918"
 msgstr ""
 "Teich, I.、Gonzalez Roglich, M.、Corso, M.L.、García, "
-"C.L.，2019。结合地球观测、云计算和专家知识为支持2030年发展议程的国家级退化评估提供信息。《Remote Sensing》11，2918。 "
-"https://doi.org/10.3 390/rs11242918"
+"C.L.，2019。结合地球观测、云计算和专家知识为支持2030年发展议程的国家级退化评估提供信息。《Remote "
+"Sensing》11，2918。 https://doi.org/10.3 390/rs11242918"
 
-#: ../../source/general/index.rst:197
+#: ../../source/general/index.rst:200
 msgid ""
-"Timm Hoffman, M., Skowno, A., Bell, W. & Mashele, S. Long-term changes in "
-"land use, land cover and vegetation in the Karoo drylands of South Africa: "
-"implications for degradation monitoring. African Journal of Range & Forage "
-"Science 35, 209–221 (2018). https://doi.org/10.2989/10220119.2018.1516237"
+"Timm Hoffman, M., Skowno, A., Bell, W. & Mashele, S. Long-term changes in"
+" land use, land cover and vegetation in the Karoo drylands of South "
+"Africa: implications for degradation monitoring. African Journal of Range"
+" & Forage Science 35, 209–221 (2018). "
+"https://doi.org/10.2989/10220119.2018.1516237"
 msgstr ""
 "Timm Hoffman, M.、Skowno, A.、Bell, W. 和 Mashele, "
 "S。南非卡鲁旱地土地利用、土地覆盖和植被的长期变化：对退化监测的影响。《African Journal of Range & Forage "
 "Science》 35，209-221 （2018）。 https://doi.org/10.2989/10220119.2018.1516237"
 
-#: ../../source/general/index.rst:202
+#: ../../source/general/index.rst:205
 msgid ""
 "Trifonova, T.A., Mishchenko, N.V., Shutov, P.S. et al. Estimation of the "
-"Dynamics of Production Processes in Landscapes of the South Taiga Subzone of"
-" the Eastern European Plain by Remote Sensing Data. Moscow Univ. Soil Sci. "
-"Bull. 76, 11–18 (2021). https://doi.org/10.3103/S0147687421010063"
+"Dynamics of Production Processes in Landscapes of the South Taiga Subzone"
+" of the Eastern European Plain by Remote Sensing Data. Moscow Univ. Soil "
+"Sci. Bull. 76, 11–18 (2021). https://doi.org/10.3103/S0147687421010063"
 msgstr ""
 "Trifonova, T.A.、Mishchenko, N.V.、Shutov, "
 "P.S.等人。通过遥感数据估计东欧平原南泰加亚区景观的生产过程动态。《Moscow University Soil Science "
 "Bulletin》，76，11-18 （2021）。https://doi.org/10.3103/S0147687421010063"
 
-#: ../../source/general/index.rst:206
+#: ../../source/general/index.rst:209
 msgid ""
-"Venter, Z.S., Scott, S.L., Desmet, P.G., Hoffman, M.T., 2020. Application of"
-" Landsat-derived vegetation trends over South Africa: Potential for "
+"Venter, Z.S., Scott, S.L., Desmet, P.G., Hoffman, M.T., 2020. Application"
+" of Landsat-derived vegetation trends over South Africa: Potential for "
 "monitoring land degradation and restoration. Ecol. Indic. 113, 106206. "
 "https://doi.org/10.1016/j.ecolind.2020.106206"
 msgstr ""
@@ -519,7 +537,7 @@ msgstr ""
 "M.T.，2020。基于Landsat影像的植被趋势在南非的应用：监测土地退化和恢复的潜力。《Ecological "
 "Indicators》。113，106206。 https://doi.org/10.1016/j.ecolind.2020.106206"
 
-#: ../../source/general/index.rst:210
+#: ../../source/general/index.rst:213
 msgid ""
 "von Maltitz, G.P., Gambiza, J., Kellner, K., Rambau, T., Lindeque, L., "
 "Kgope, B., 2019. Experiences from the South African land degradation "
@@ -530,68 +548,70 @@ msgstr ""
 "B.，2019。南非土地退化零增长目标设定过程的经验。《Environmental Science & Policy》101，54-62。 "
 "https://doi.org/10.1016/j.envsci.2019.07.003"
 
-#: ../../source/general/index.rst:218
+#: ../../source/general/index.rst:221
 msgid "Academic dissertations"
 msgstr "学术论文"
 
-#: ../../source/general/index.rst:220
+#: ../../source/general/index.rst:223
 msgid ""
 "Mahlaba, B., 2022. The assessment of degradation state in Ecological "
-"Infrastructure and prioritisation for rehabilitation and drought mitigation "
-"in the Tsitsa River Catchment (Masters dissertation, Rhodes University)."
+"Infrastructure and prioritisation for rehabilitation and drought "
+"mitigation in the Tsitsa River Catchment (Masters dissertation, Rhodes "
+"University)."
 msgstr "Mahlaba, B.，2022。Tsita河流域生态基础设施退化状态评估以及恢复和缓解干旱的优先顺序（罗德斯大学硕士学位论文）。"
 
-#: ../../source/general/index.rst:222
+#: ../../source/general/index.rst:225
 msgid ""
-"Owuor, G.O., 2021. Monitoring Land Degradation Neutrality using Geospatial "
-"Techniques in Support of Sustainable Land Management: A Case Study of Narok "
-"County (Doctoral dissertation, University of Nairobi)."
+"Owuor, G.O., 2021. Monitoring Land Degradation Neutrality using "
+"Geospatial Techniques in Support of Sustainable Land Management: A Case "
+"Study of Narok County (Doctoral dissertation, University of Nairobi)."
 msgstr "Owuor, G.O.，2021。利用地理空间技术监测土地退化零增长进展以支持可持续土地管理：纳罗克镇案例研究（内罗毕大学博士论文）。"
 
-#: ../../source/general/index.rst:228
+#: ../../source/general/index.rst:231
 msgid "Other resources"
 msgstr "其他资源"
 
-#: ../../source/general/index.rst:230
+#: ../../source/general/index.rst:233
 msgid ""
-"Print documentation from the Trends.Earth project (including fact sheets, "
-"reports, and other materials) is listed below."
+"Print documentation from the Trends.Earth project (including fact sheets,"
+" reports, and other materials) is listed below."
 msgstr "以下是 Trends.Earth 项目的印刷文件（包括概况介绍、报告和其他材料）。"
 
-#: ../../source/general/index.rst:236
+#: ../../source/general/index.rst:239
 msgid "Reports"
 msgstr "报告"
 
-#: ../../source/general/index.rst:238
+#: ../../source/general/index.rst:241
 msgid ""
 "`A Review of Publicly Available Geospatial Datasets and Indicators In "
 "Support of Land Degradation Monitoring "
-"<https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/61e6ee8f42b6c16e2cb538cf/1642524304092/ci-6-Tools4LDN-"
-"report-FNL+web.pdf>`_"
+"<https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/61e6ee8f42b6c16e2cb538cf/1642524304092/ci-6"
+"-Tools4LDN-report-FNL+web.pdf>`_"
 msgstr ""
 "‘支持土地退化监测的公共可用地理空间数据集和指标综述 "
-"<https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/61e6ee8f42b6c16e2cb538cf/1642524304092/ci-6-Tools4LDN-"
-"report-FNL+web.pdf>’_"
+"<https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/61e6ee8f42b6c16e2cb538cf/1642524304092/ci-6"
+"-Tools4LDN-report-FNL+web.pdf>’_"
 
-#: ../../source/general/index.rst:240
+#: ../../source/general/index.rst:243
 msgid ""
 "`A Review of Publicly Available Geospatial Datasets and Indicators in "
 "Support of Drought Monitoring "
 "<https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/6033f28abca1996aedc492d5/1614017200233/ci-4-Tools4LDN2-FNL+web.pdf>`_"
-msgstr ""
-"‘支持干旱监测的公共可用地理空间数据集和指标综述<https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/6033f28abca1996aedc492d5/1614017200233/ci-4-Tools4LDN2-FNL+web.pdf>`_"
+msgstr "‘支持干旱监测的公共可用地理空间数据集和指标综述<https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/6033f28abca1996aedc492d5/1614017200233/ci-4-Tools4LDN2-FNL+web.pdf>`_"
 
-#: ../../source/general/index.rst:242
+#: ../../source/general/index.rst:245
+#, python-format
 msgid ""
 "`A Review of Publicly Available Geospatial Datasets and Indicators in "
-"Support of UNCCD Strategic Objective (SO) 2: To Improve Living Conditions of"
-" Populations Affected by Desertification, Land Degradation, and Drought "
+"Support of UNCCD Strategic Objective (SO) 2: To Improve Living Conditions"
+" of Populations Affected by Desertification, Land Degradation, and "
+"Drought "
 "<https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/60abf26cb4223a6ade81cecd/1621881469733/ci-3-Tools4LDN-3+%281%29.pdf>`_"
 msgstr ""
 "‘支持 UNCCD 战略目标（SO）2：改善遭受荒漠化、土地退化和干旱影响的人口生活条件的公共可用地理空间数据集和指标综述 "
 "<https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/60abf26cb4223a6ade81cecd/1621881469733/ci-3-Tools4LDN-3+%281%29.pdf>’_"
 
-#: ../../source/general/index.rst:245
+#: ../../source/general/index.rst:248
 msgid ""
 "`Trends in Population Exposure to Land Degradation - Methodological note "
 "<https://www.unccd.int/sites/default/files/inline-"
@@ -600,29 +620,29 @@ msgstr ""
 "‘遭受土地退化影响的人口趋势——方法说明 <https://www.unccd.int/sites/default/files/inline-"
 "files/MethodologicalNote_PopExposureToLD.pdf>’_"
 
-#: ../../source/general/index.rst:247
+#: ../../source/general/index.rst:250
 msgid ""
 "`Arnold S., Jun C., Olav E. 2019. Global and Complementary (Non-"
 "authoritative) Geospatial Data for SDGs: Role and Utilisation. Report "
 "produced jointly by the Task Team on Global Data and Task Team on "
-"Alternative Data Sources by the Working Group on Geospatial Information of "
-"the Inter-agency and Expert Group on Sustainable Development Goal Indicators"
-" (IAEG-SDGs). "
+"Alternative Data Sources by the Working Group on Geospatial Information "
+"of the Inter-agency and Expert Group on Sustainable Development Goal "
+"Indicators (IAEG-SDGs). "
 "<http://ggim.un.org/documents/Report_Global_and_Complementary_Geospatial_Data_for_SDGs.pdf>`_"
 msgstr ""
 "‘Arnold S.、Jun C. 和 Olav "
 "E.，2019。用于可持续发展目标的全球和补充（非权威）地理空间数据：作用和应用。本报告由全球数据工作组和替代数据源工作组联合编写并由跨机构地理空间信息工作组和可持续发展目标指标专家组发布。<http://ggim.un.org/documents/Report_Global_and_Complementary_Geospatial_Data_for_SDGs.pdf>’_"
 
-#: ../../source/general/index.rst:253
+#: ../../source/general/index.rst:256
 msgid ""
-"`Using Spectral Vegetation Indices to Measure Gross Primary Productivity as "
-"an Indicator of Land Degradation "
+"`Using Spectral Vegetation Indices to Measure Gross Primary Productivity "
+"as an Indicator of Land Degradation "
 "<http://vitalsigns.org/sites/default/files/VS_GEFLDMP_Report1_C1_R3_WEB_HR.pdf>`_"
 msgstr ""
 "‘利用光谱植被指数测量初级生产总量作为土地退化指标 "
 "<http://vitalsigns.org/sites/default/files/VS_GEFLDMP_Report1_C1_R3_WEB_HR.pdf>’_"
 
-#: ../../source/general/index.rst:256
+#: ../../source/general/index.rst:259
 msgid ""
 "`Evaluation of approaches for incorporating higher-resolution data for "
 "disaggregation or targeted analysis "
@@ -631,7 +651,7 @@ msgstr ""
 "‘纳入高分辨率数据进行分类或针对性分析方法的评估 "
 "<http://vitalsigns.org/sites/default/files/CI_GEF_Report%202_C1_R1_PRINT.pdf>’_"
 
-#: ../../source/general/index.rst:259
+#: ../../source/general/index.rst:262
 msgid ""
 "`Disentangling the effects of climate and land use on land degradation "
 "<http://vitalsigns.org/sites/default/files/CI_GEF_Report%205_C1_R1_PRINT.pdf>`_"
@@ -639,7 +659,8 @@ msgstr ""
 "‘阐明气候和土地利用对土地退化的影响 "
 "<http://vitalsigns.org/sites/default/files/CI_GEF_Report%205_C1_R1_PRINT.pdf>’_"
 
-#: ../../source/general/index.rst:261
+#: ../../source/general/index.rst:264
+#, python-format
 msgid ""
 "`Monitoring and assessing land degradation to support sustainable "
 "development "
@@ -648,7 +669,8 @@ msgstr ""
 "‘监测和评估土地退化以支持可持续发展 "
 "<http://vitalsigns.org/sites/default/files/CI_GEF_Guidance%20ENG_C1_R1_PRINT%20%281%29.pdf>’_"
 
-#: ../../source/general/index.rst:263
+#: ../../source/general/index.rst:266
+#, python-format
 msgid ""
 "`(French) Suivre et évaluer la dégradation des terres pour soutenir le "
 "développement durable "
@@ -657,11 +679,11 @@ msgstr ""
 "‘（法语）监测和评估土地退化以支持可持续发展 "
 "<http://vitalsigns.org/sites/default/files/CI_GEF_Guidance%20FRE_C1_R1_PRINT%20%281%29.pdf>’_"
 
-#: ../../source/general/index.rst:270
+#: ../../source/general/index.rst:273
 msgid "Fact sheets"
 msgstr "相关资料"
 
-#: ../../source/general/index.rst:272
+#: ../../source/general/index.rst:275
 msgid ""
 "`Conceptual Fact Sheet for Trends.Earth "
 "<http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet.pdf>`_"
@@ -669,7 +691,7 @@ msgstr ""
 "‘Trends.Earth 概念说明书 "
 "<http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet.pdf>’_"
 
-#: ../../source/general/index.rst:274
+#: ../../source/general/index.rst:277
 msgid ""
 "`Technical Fact Sheet for Trends.Earth "
 "<http://trends.earth/docs/en/_static/common/Trends.Earth_Fact_Sheet_Technical.pdf>`_"
@@ -684,3 +706,4 @@ msgstr "图标计算器"
 #: ../../../<rst_epilog>:4
 msgid "iconReports"
 msgstr "图标报告"
+

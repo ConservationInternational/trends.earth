@@ -1144,9 +1144,15 @@ def docs_build(
 
                 if upload:
                     data = open(f'{out_dir}/{pdf_file}', 'rb')
+                    key = f'documentation/{pdf_file}'
                     client.put_object(
-                        Key='documentation/{}'.format(pdf_file),
+                        Key=key,
                         Body=data,
+                        Bucket=c.sphinx.documentation_deploy_s3_bucket
+                    )
+                    client.put_object_acl(
+                        ACL="public-read",
+                        Key=key,
                         Bucket=c.sphinx.documentation_deploy_s3_bucket
                     )
                     data.close()

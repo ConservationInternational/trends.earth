@@ -108,7 +108,7 @@ relative_path = "../"
 if READTHEDOCS_VERSION_STRING != "":
     relative_path += "../"
 
-pdf_url_base = "http://data.trends.earth/documentation/"
+pdf_url_base = "https://data.trends.earth/documentation/"
 
 
 extlinks = {

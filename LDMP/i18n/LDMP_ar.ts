@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0" language="ar" sourcelanguage="">
+<!DOCTYPE TS>
+<TS version="2.1" language="ar">
 <context>
     <name>AlgorithmEditorWidget</name>
     <message>
@@ -23,12 +24,12 @@
     <message>
         <location filename="../maptools.py" line="52"/>
         <source>0.00 km&#xc2;&#xb2;</source>
-        <translation>0.00 كيلومتر مربع</translation>
+        <translation type="unfinished">0.00 كيلومتر مربع</translation>
     </message>
     <message>
         <location filename="../maptools.py" line="57"/>
         <source>{:.6g} km&#xc2;&#xb2;</source>
-        <translation>{:.6g} كيلومتر مربع</translation>
+        <translation type="unfinished">{:.6g} كيلومتر مربع</translation>
     </message>
     <message>
         <location filename="../settings.py" line="464"/>
@@ -89,7 +90,7 @@
     <message>
         <location filename="../maptools.py" line="98"/>
         <source> km&#xc2;&#xb2;</source>
-        <translation>كيلومتر مربع</translation>
+        <translation type="unfinished">كيلومتر مربع</translation>
     </message>
 </context>
 <context>
@@ -661,11 +662,11 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;ملخص الجفاف&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;تسهل هذه الأداة تلخيص مؤشرات التعرض للجفاف من أجل تقييم أقصى درجات الجفاف (أكثر من أربع سنوات ضمن الفترة الزمنية المحددة). يمكن استخدام ناتج هذه الأداة لتقييم مؤشرات الجفاف داخل منطقة معينة، أو لإعداد البيانات لتقديم التقارير إلى اتفاقية مكافحة التصحر بشأن الهدف الاستراتيجي 3.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#sdg-indicator-15-3-1&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;المزيد من المعلومات&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;ملخص الجفاف&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;تسهل هذه الأداة تلخيص مؤشرات التعرض للجفاف من أجل تقييم أقصى درجات الجفاف (أكثر من أربع سنوات ضمن الفترة الزمنية المحددة). يمكن استخدام ناتج هذه الأداة لتقييم مؤشرات الجفاف داخل منطقة معينة، أو لإعداد البيانات لتقديم التقارير إلى اتفاقية مكافحة التصحر بشأن الهدف الاستراتيجي 3.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#sdg-indicator-15-3-1&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;المزيد من المعلومات&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../calculate_drought_vulnerability.py" line="242"/>
@@ -762,7 +763,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;h3 style=&quot; margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:large; font-weight:600;&quot;&gt;الغطاء الأرضي&lt;/span&gt;&lt;/h3&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;لتقييم التغييرات في الغطاء الأرضي يحتاج المستخدمون إلى خرائط الغطاء الأرضي التي تغطي منطقة الدراسة لخط الأساس والسنوات المستهدفة. يجب أن تكون هذه الخرائط ذات دقة مقبولة وأن يتم إنشاؤها بطريقة تسمح بإجراء مقارنات صحيحة. يستخدم Trends.Earth خرائط الغطاء الأرضي ESA CCI كمجموعة بيانات افتراضية، ولكن يمكن أيضاً استخدام الخرائط المحلية. يتم حساب المؤشر على النحو التالي:&lt;/p&gt;
 &lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;أعد تصنيف خرائط الغطاء الأرضي إلى فئات الغطاء الأرضي السبعة اللازمة لتقديم التقارير إلى اتفاقية الأمم المتحدة لمكافحة التصحر (الغابات، والأراضي العشبية، والأراضي الزراعية، والأراضي الرطبة، والمنطقة الاصطناعية، والأراضي الجرداء والمياه).&lt;/li&gt;
@@ -969,10 +970,10 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;إعادة ترميز المؤشر (إيجابي/سلبي زائف)
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;إعادة ترميز المؤشر (إيجابي/سلبي زائف)
 &lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;تدعم هذه الأداة إعادة حساب طبقة مؤشر معينة بغرض تصحيح أخطاء معلومة (إيجابيات زائفة أو سلبيات زائفة).&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;تدعم هذه الأداة إعادة حساب طبقة مؤشر معينة بغرض تصحيح أخطاء معلومة (إيجابيات زائفة أو سلبيات زائفة).&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
 </translation>
     </message>
     <message>
@@ -1084,21 +1085,6 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;html&gt; &lt;head/&gt; &lt;body&gt; &lt;p align=&quot;right&quot;&gt; السكان الإناث &lt;/p&gt; &lt;/body&gt; &lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1150"/>
-        <source>type</source>
-        <translation type="obsolete">النوع</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1086"/>
-        <source>male</source>
-        <translation type="obsolete">ذكر</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1111"/>
-        <source>female</source>
-        <translation type="obsolete">أنثى</translation>
-    </message>
-    <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1044"/>
         <source>Population broken down by sex</source>
         <translation>السكان مقسمين حسب النوع</translation>
@@ -1107,11 +1093,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1128"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Total population&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt; &lt;head/&gt; &lt;body&gt; &lt;p align=&quot;right&quot;&gt; إجمالي السكان &lt;/p&gt; &lt;/body&gt; &lt;/html&gt;</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1153"/>
-        <source>total</source>
-        <translation type="obsolete">الإجمالي</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="617"/>
@@ -1388,13 +1369,13 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;احسب مؤشرات التعرض للجفاف&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;احسب المؤشرات التي يمكن استخدامها لتقييم قابلية التأثر بالجفاف، بما يتفق مع إرشادات الممارسة الجيدة من اتفاقية الأمم المتحدة لمكافحة التصحر بشأن الهدف الاستراتيجي 3.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt; بالإضافة إلى مؤشرات الجفاف المستمدة من بيانات هطول الأمطار (باستخدام مؤشر الهطول الموحد)، يمكن لهذه الأداة أيضاً توفير الوصول إلى مجموعة بيانات التعرض للجفاف لعام 2018، والتي أصدرتها لجنة البحوث المشتركة (JRC) التابعة للمفوضية الأوروبية. تعد مجموعة البيانات هذه مفيدة للغاية لعمليات التقييم على المستوى العالمي.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;لمزيد من التوصيات حول تقييم قابلية التعرض للجفاف، نوصي المستخدمين بمراجعة توصيات مشروع Tools4LDN ، المتاح بلغات &lt;/span&gt;&lt;a href=&quot;https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/6033f28abca1996aedc492d5/1614017200233/ci-4-Tools4LDN2-FNL+web.pdf&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;الإنجليزية&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt; و &lt;/span&gt;&lt;a href=&quot;https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/60f08dd4d2de6f76157bb62b/1626377693923/ci-3-Tools4LDN2-SPN_WebUpdate.pdf&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;الأسبانية&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt; من موقع المشروع.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;المزيد من المعلومات&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;احسب مؤشرات التعرض للجفاف&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;احسب المؤشرات التي يمكن استخدامها لتقييم قابلية التأثر بالجفاف، بما يتفق مع إرشادات الممارسة الجيدة من اتفاقية الأمم المتحدة لمكافحة التصحر بشأن الهدف الاستراتيجي 3.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt; بالإضافة إلى مؤشرات الجفاف المستمدة من بيانات هطول الأمطار (باستخدام مؤشر الهطول الموحد)، يمكن لهذه الأداة أيضاً توفير الوصول إلى مجموعة بيانات التعرض للجفاف لعام 2018، والتي أصدرتها لجنة البحوث المشتركة (JRC) التابعة للمفوضية الأوروبية. تعد مجموعة البيانات هذه مفيدة للغاية لعمليات التقييم على المستوى العالمي.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;لمزيد من التوصيات حول تقييم قابلية التعرض للجفاف، نوصي المستخدمين بمراجعة توصيات مشروع Tools4LDN ، المتاح بلغات &lt;/span&gt;&lt;a href=&quot;https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/6033f28abca1996aedc492d5/1614017200233/ci-4-Tools4LDN2-FNL+web.pdf&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;الإنجليزية&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt; و &lt;/span&gt;&lt;a href=&quot;https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/60f08dd4d2de6f76157bb62b/1626377693923/ci-3-Tools4LDN2-SPN_WebUpdate.pdf&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;الأسبانية&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt; من موقع المشروع.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;المزيد من المعلومات&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="20"/>
@@ -1524,11 +1505,11 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;احسب جميع المؤشرات الفرعية لهدف التنمية المستدامة 15.3.1 في خطوة واحدة&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;تتيح هذه الخوارزمية الحساب المتزامن للمؤشرات الفرعية الثلاثة لهدف التنمية المستدامة 15.3.1 (الإنتاجية والغطاء الأرضي والكربون العضوي للتربة) في خطوة واحدة. ويتم ذلك باستخدام مجموعات بيانات الاتجاهات البعيدة الموضحة في كل قسم من أقسام المؤشرات الفرعية الفردية.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;المزيد من المعلومات&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;احسب جميع المؤشرات الفرعية لهدف التنمية المستدامة 15.3.1 في خطوة واحدة&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;تتيح هذه الخوارزمية الحساب المتزامن للمؤشرات الفرعية الثلاثة لهدف التنمية المستدامة 15.3.1 (الإنتاجية والغطاء الأرضي والكربون العضوي للتربة) في خطوة واحدة. ويتم ذلك باستخدام مجموعات بيانات الاتجاهات البعيدة الموضحة في كل قسم من أقسام المؤشرات الفرعية الفردية.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;المزيد من المعلومات&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../calculate_ldn.py" line="441"/>
@@ -1711,7 +1692,48 @@ p, li { white-space: pre-wrap; }
 &lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;If observed mean NDVI is lower than 50% than the maximum productivity, that pixel is considered potentially degraded for this indicator.&lt;/li&gt;&lt;/ol&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#productivity-performance&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information on Productivity Performance&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;الإنتاجية&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;إنتاجية الأرض هي القدرة الإنتاجية البيولوجية للأرض، ومصدر جميع الأغذية والألياف والوقود الذي يدعم الإنسان (اللجنة الإحصائية للأمم المتحدة 2016). صافي الإنتاجية الأولية (NPP) هو صافي كمية الكربون التي تم استيعابها بعد التمثيل الضوئي والتنفس ذاتي التغذية خلال فترة زمنية معينة (كلارك وآخرون 2001) ويتم تمثيلها عادةً بوحدات مثل كجم / هكتار / سنة. إن عملية حساب صافي الإنتاجية الأولية متغيرة وتستغرق وقتًا طويلاً ومكلفة لتقديرها، ولذلك نعتمد على المعلومات المستشعرة عن بُعد لاستخراج مؤشرات صافي الإنتاجية الأولية.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;أحد البدائل الأكثر استخدامًا لصافي الإنتاجية الأولية هو مؤشر الفرق المعياري للغطاء النباتي(NDVI)، الذي يُحسب باستخدام معلومات من الأجزاء الحمراء والقريبة من تحت الحمراء من الطيف الكهرومغناطيسي. في اتجاهات.الأرض، نستخدم المنتجات نصف الأسبوعية من مقياس طيف التصوير ذو الدقة المتوسطة ومقياس الإشعاع المتقدم عالي الدقة لحساب التكاملات السنوية لمؤشر الفرق المعياري للغطاء النباتي (تُحسب على أنها متوسط مؤشر الفرق المعياري للغطاء النباتي السنوي لتبسيط تفسير النتائج). ثم تُستخدم هذه التكاملات السنوية من دليل مؤشر الفرق المعياري للغطاء النباتي لحساب كل من مؤشرات الإنتاجية الموضحة أدناه.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#productivity&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;للمزيد من المعلومات عن إنتاجية المؤشر الفرعي 15.3.1 لأهداف التنمية المستدامة &lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;يتم تقييم إنتاجية الأرض في اتجاهات.الأرض باستخدام ثلاثة مقاييس للتغيير مشتقة من بيانات التسلسل الزمني لمؤشر الفرق المعياري للغطاء النباتي: &lt;/span&gt;&lt;/p&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;الاتجاه&lt;/li&gt;
+&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;الأداء&lt;/li&gt;
+&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;الحالة&lt;/li&gt;&lt;/ul&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;اتجاه الإنتاجية&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt; يقيس الاتجاه معدل التغير في الإنتاجية الأولية بمرور الوقت. يحسب اتجاهات.الأرض انحدارًا خطيًا على مستوى البكسل لتحديد المناطق التي تشهد تغيرات في الإنتاجية الأولية للفترة قيد التحليل. يُطبق بعد ذلك اختبار أهمية غير باريمترية من Mann-Kendall، مع الأخذ في الاعتبار التغييرات المهمة فقط لتلك التي تظهر قيمة p â ¤ 0.05. تشير الاتجاهات الإيجابية المهمة في مؤشر الفرق المعياري للغطاء النباتي إلى احتمالية تحسن حالة الأراضي، والاتجاهات السلبية المهمة إلى احتمالية تدهورها. &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#productivity-trajectory&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt; للمزيد من المعلومات عن مسار الإنتاجية &lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;حالة الإنتاجية&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt; يُتيح مؤشر الحالة الإنتاجية اكتشاف التغيرات الأخيرة في الإنتاجية الأولية مقارنة بالفترة الأساسية. يُحسب المؤشر على النحو التالي:&lt;/span&gt;&lt;/p&gt;
+&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;حدد الفترة الأساسية (الفترة التاريخية التي تقارن بها الإنتاجية الأولية الحديثة).&lt;/li&gt;
+&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;حدد فترة المقارنة (السنوات الأخيرة المستخدمة لحساب المقارنة). يوصى باستخدام 3 سنوات لتجنب التقلبات السنوية المتعلقة بالمناخ.&lt;/li&gt;
+&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; استخدم لكل بكسل التكاملات السنوية لمؤشر الفرق المعياري للغطاء النباتي لفترة الأساس لحساب توزيع التردد. في حالة عدم وجود بعض القيم المتطرفة في مؤشر الفرق المعياري للغطاء النباتي في الفترة الأساسية، أضف 5% على طرفي التوزيع. ثم يُستخدم منحنى توزيع التردد الموسع لتحديد القيم الفاصلة للفئات المئوية العشرة. &lt;/li&gt;
+&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;احسب متوسط مؤشر الفرق المعياري للغطاء النباتي للفترة الأساسية، وحدد الفئة المئوية التي ينتمي إليها. عيّن الرقم المقابل لتلك الفئة المئوية إلى متوسط مؤشر الفرق المعياري للغطاء النباتي للفترة الأساسية. تتراوح القيم الممكنة من 1 (أدنى فئة) إلى 10 (أعلى فئة).&lt;/li&gt;
+&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;احسب متوسط الفرق المعياري للغطاء النباتي لفترة المقارنة وحدد الفئة المئوية التي ينتمي إليها عيّن الرقم المقابل لتلك الفئة المئوية إلى متوسط مؤشر الفرق المعياري للغطاء النباتي لفترة المقارنة. تتراوح القيم الممكنة من 1 (أدنى فئة) إلى 10 (أعلى فئة).&lt;/li&gt;
+&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;حدد الفرق في رقم الفئة بين فترة المقارنة والفترة الأساسية (فترة المقارنة مطروحًا منها الفترة الأساسية). &lt;/li&gt;
+&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;إذا كان الاختلاف في الفئة بين الفترة الأساسية وفترة المقارنة هوâ¤2، فقد ينخفض هذا البكسل. إذا كان الاختلاف â ‰ ¥ 2، فقد يشير هذا البكسل إلى تحسن حديث من حيث الإنتاجية الأولية. تعتبر وحدات البكسل ذات التغييرات الصغيرة مستقرة. &lt;/li&gt;&lt;/ol&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#productivity-state&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;للمزيد من المعلومات عن حالة الإنتاجية&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt; أداء الإنتاجية &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt; يقيس مؤشر أداء الإنتاجية الإنتاجية المحلية نسبةً لأنواع النباتات المماثلة الأخرى في أنواع الغطاء الأرضي المماثلة أو المناطق المناخية الحيوية في جميع أنحاء منطقة الدراسة. يستخدم اتجاهات.الأرض مجموعة فريدة من وحدات التربة (وحدات تصنيف التربة باستخدام نظام وزارة الزراعة الأمريكية الذي توفره SoilGrids بدقة 250 مترًا) والغطاء الأرضي (37 فئة كاملة للغطاء الأرضي توفرها ESA CCI بدقة 300 متر) لتحديد مجالات التحليل هذه. يُحسب المؤشر على النحو التالي: &lt;/span&gt;&lt;/p&gt;
+&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; حدد فترة التحليل، واستخدم التسلسل الزمني لمؤشر الفرق المعياري للغطاء النباتي لحساب متوسط مؤشر الفرق المعياري للغطاء النباتي لكل بكسل. &lt;/li&gt;
+&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; حدد وحدات مماثلة بيئيًا مثل التقاطع الفريد للغطاء الأرضي ونوع التربة.&lt;/li&gt;
+&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;استخرج لكل وحدة جميع القيم لمتوسط مؤشر الفرق المعياري للغطاء النباتي المحسوبة في الخطوة 1، وأنشئ توزيع التردد. من هذا التوزيع، حدد القيمة التي تمثل النسبة المئوية التسعين (لا نوصي باستخدام الحد الأقصى لقيمة الفرق المعياري للغطاء النباتي المطلقة لتجنب الأخطاء المحتملة بسبب وجود القيم المتطرفة). ستعتبر القيمة التي تمثل النسبة المئوية التسعين هي أقصى إنتاجية لتلك الوحدة. &lt;/li&gt;
+&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;احسب نسبة متوسط مؤشر الفرق المعياري للغطاء النباتي والإنتاجية القصوى (في كل حالة، قارن متوسط القيمة المرصودة بالحد الأقصى للوحدة المقابلة لها).&lt;/li&gt;
+&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;إذا كان متوسط مؤشر الفرق المعياري للغطاء النباتي المرصود أقل من 50% من الحد الأقصى للإنتاجية، فيُعتبر هذا البكسل متدهورًا بشكل محتمل بالنسبة لهذا المؤشر.&lt;/li&gt;&lt;/ol&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#productivity-performance&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt; للمزيد من المعلومات عن أداء الإنتاجية&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../calculate_prod.py" line="189"/>
@@ -1830,7 +1852,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;تقدير تغير الكتلة الحيوية&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;تقدير التغيير المحتمل في الكتلة الحيوية بسبب إعادة التأهيل&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
@@ -1900,7 +1922,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;ملخص تغير الكتلة الحيوية&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;يلخّص التغير المحتمل في الكتلة الحيوية بسبب إعادة التأهيل&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
@@ -2026,7 +2048,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;! DOCTYPE HTML PUBLIC &quot;- //W3C //DTD HTML 4.0 //EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt; &lt;head&gt; &lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt; &lt;style type=&quot;text/css&quot;&gt;
 p، li {white-space: pre-wrap؛ }
-&lt;/style&gt; &lt;/head&gt; &lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt; &lt;/head&gt; &lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;h3 style=&quot; margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:large; font-weight:600;&quot;&gt;كربون التربة العضوي&lt;/span&gt;&lt;/h3&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; يحدد المؤشر الفرعي الثالث لرصد تدهور الأرض، كجزء من عملية أهداف التنمية المستدامة، تغيرات كربون التربة العضوي (SOC) خلال الفترة المشمولة بالتقرير. ويتسم تقييم التغييرات في SOC بصعوبة بالغة لعدة أسباب، يتمثل بعضها في التباين المكاني العالي لخصائص التربة، وطول الوقت وارتفاع التكلفة اللازمين لإجراء مسوحات التربة التمثيلية ونقص بيانات السلاسل الزمنية المتناولة لـ SOC لمعظم مناطق العالم. لمعالجة بعض هذه القيود، تُستخدم طريقة مشتركة للغطاء الأرضي/كربون التربة العضوي في Trends.Earth لتقدير التغييرات في الـ SOC وتحديد المناطق التي يحتمل أن تكون متدهورة. يتم حساب المؤشر على النحو التالي: &lt;/p&gt;
 &lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt; &lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; حدد القيم المرجعية لكربون التربة العضوي (SOC). يستخدم Trends.Earth مخزونات SoilGrids 250m من الكربون لأول 30 سم من ملف تعريف التربة كقيم مرجعية للحساب (ملاحظة: تستخدم SoilGrids معلومات من مجموعة متنوعة من مصادر البيانات وتتراوح بين عدة سنوات لإنتاج هذا المنتج، لذا فقد يسبب تحديد تاريخ لغرض الحساب أخطاءً في حسابات تغيير المخزون). &lt;/li&gt;
@@ -2256,7 +2278,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;التغير في إجمالي الكربون&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;خوارزمية لحساب الانبعاثات فوق الأرض وتحتها الناتجة عن إزالة الغابات&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
@@ -2388,7 +2410,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;جدول ملخص تغير الكربون&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;خوارزمية لملخص حساب الانبعاثات فوق الأرض وتحتها الناتجة عن إزالة الغابات&lt;/p&gt;
@@ -2511,12 +2533,12 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;البيانات الافتراضية لإعداد تقارير اتفاقية الأمم المتحدة لمكافحة التصحر&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;تحسب مجموعات البيانات الافتراضية المستخدمة في عملية إعداد تقرير اتفاقية الأمم المتحدة لمكافحة التصحر (UNCCD) لعام 2022. تستخدم هذه الأداة نفس مجموعات البيانات والأساليب العالمية المستخدمة لإنتاج التقديرات &lt;/span&gt;&lt;a href=&quot;https://prais4-reporting-manual.readthedocs.io/en/latest/introduction.html#default-data&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;الافتراضية&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt; والقومية التي ملأتها مسبقاً اتفاقية الأمم المتحدة لمكافحة التصحر (UNCCD) في &lt;/span&gt;&lt;a href=&quot;https://reporting.unccd.int&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;PRAIS 4&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;تستطيع البلدان التي تود استبدال التقديرات القومية الافتراضية الواردة في PRAIS 4 (أو استخدام بيانات متاحة قومياً أو محلياً أو حدود قومية رسمية) القيام بذلك داخل Trends.Earth باستخدام الأدوات المختلفة المتاحة تحت &amp;quot;الخوارزميات&amp;quot; tab:&lt;/span&gt;&lt;/p&gt;
-&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;استخدم الأدوات المتاحة تحت &amp;quot;هدف التنمية المستدامة رقم 15.3.1 - تدهور الأرض &amp;quot; لكي تنتج تقديرات مخصصة للهدف الاستراتيجي رقم 1 (حالة الأرض) والهدف الاستراتيجي رقم 2 (السكان المعرضون)&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;
-&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;استخدم الأدوات المتاحة تحت &amp;quot;الجفاف - قابلية التأثر به والتعرض له&amp;quot; لكي تنتج تقديرات الهدف الاستراتيجي رقم 3 (التعرض للجفاف)&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;البيانات الافتراضية لإعداد تقارير اتفاقية الأمم المتحدة لمكافحة التصحر&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;تحسب مجموعات البيانات الافتراضية المستخدمة في عملية إعداد تقرير اتفاقية الأمم المتحدة لمكافحة التصحر (UNCCD) لعام 2022. تستخدم هذه الأداة نفس مجموعات البيانات والأساليب العالمية المستخدمة لإنتاج التقديرات &lt;/span&gt;&lt;a href=&quot;https://prais4-reporting-manual.readthedocs.io/en/latest/introduction.html#default-data&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;الافتراضية&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt; والقومية التي ملأتها مسبقاً اتفاقية الأمم المتحدة لمكافحة التصحر (UNCCD) في &lt;/span&gt;&lt;a href=&quot;https://reporting.unccd.int&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;PRAIS 4&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;تستطيع البلدان التي تود استبدال التقديرات القومية الافتراضية الواردة في PRAIS 4 (أو استخدام بيانات متاحة قومياً أو محلياً أو حدود قومية رسمية) القيام بذلك داخل Trends.Earth باستخدام الأدوات المختلفة المتاحة تحت &amp;quot;الخوارزميات&amp;quot; tab:&lt;/span&gt;&lt;/p&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;استخدم الأدوات المتاحة تحت &amp;quot;هدف التنمية المستدامة رقم 15.3.1 - تدهور الأرض &amp;quot; لكي تنتج تقديرات مخصصة للهدف الاستراتيجي رقم 1 (حالة الأرض) والهدف الاستراتيجي رقم 2 (السكان المعرضون)&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;استخدم الأدوات المتاحة تحت &amp;quot;الجفاف - قابلية التأثر به والتعرض له&amp;quot; لكي تنتج تقديرات الهدف الاستراتيجي رقم 3 (التعرض للجفاف)&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../calculate_unccd.py" line="89"/>
@@ -2614,7 +2636,16 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Submitting a false positive / false negative layer is optional. This layer can be used to correct for cases when there are known errors in the indicator data used for Strategic Objective 1.&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Affected areas&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Checking the &amp;quot;Calculation is for affected areas only&amp;quot; box will include an indicator in the report that this calculation is for affected areas. Note that reporting on affected areas is an optional element in the UNCCD 2022 reporting process and is additional to national reporting. &#xe2;&#x80;&#x9c;Affected Areas&#xe2;&#x80;&#x9d; are defined in Article 1 of the Convention as &#xe2;&#x80;&#x9c;arid, semi-arid and/or dry sub-humid areas affected or threatened by desertification.&#xe2;&#x80;&#x9d; Parties may opt to use this definition or to provide the operational definition of affected area in use in their country.&#xe2;&#x80;&#x9d;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt; استخراج تقرير اتفاقية الأمم المتحدة لمكافحة التصحر &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt; حساب تقرير الأهداف الاستراتيجية لاتفاقية الأمم المتحدة لمكافحة التصحر 1، و2، و3 &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;طبقة إيجابية كاذبة / سلبية كاذبة&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;يُعد إرسال طبقة إيجابية كاذبة / سلبية كاذبة أمرًا اختياريًا. يمكن استخدام هذه الطبقة لتصحيح الحالات التي توجد فيها أخطاء معروفة في بيانات المؤشر المستخدمة للهدف الاستراتيجي 1.&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-style:italic;&quot;&gt; المناطق المتأثرة &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;التحقق من &amp;quot; أن الحساب للمناطق المتأثرة فقط&amp;quot; سيتضمن المربع مؤشرًا في التقرير على أن هذا الحساب مخصص للمناطق المتأثرة. لاحظ أن الإبلاغ عن المناطق المتأثرة يُعد عنصرًا اختياريًا في عملية تقديم تقارير اتفاقية الأمم المتحدة لمكافحة التصحر 2022 وإضافة إلى التقارير الوطنية. تُعرّف âالمناطق المتأثرةâ في المادة 1 من الاتفاقية بأنها âمناطق قاحلة أو/ وشبه قاحلة أو/ وجافة شبه رطبة متأثرة أو مهددة بالتصحر.â قد تختار الأطراف استخدام هذا التعريف أو تقديم التعريف الإجرائي للمنطقة المتأثرة المستخدمة في بلدهم.â&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../calculate_unccd.py" line="203"/>
@@ -2805,7 +2836,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;مقاييس تغير المنطقة الحضرية&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;خوارزمية مؤشر هدف التنمية المستدامة رقم 11.3.1 لنسبة معدل استهلاك الأراضي إلى معدل النمو السكاني.&lt;/p&gt;
@@ -2884,7 +2915,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;جدول ملخص التغير الحضري&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; ملخص لمؤشر هدف التنمية المستدامة رقم 11.3.1 لنسبة معدل استهلاك الأراضي إلى معدل النمو السكان.&lt;/p&gt;
@@ -3065,7 +3096,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;يجب ترميز فئات الإنتاجية في بيانات الإدخال على النحو التالي:&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1: في تراجع&lt;/span&gt;&lt;/p&gt;
@@ -3531,7 +3562,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;0 or -32768: No data&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:7.875pt; font-weight:400; font-style:normal;;text-align:right;direction:rtl&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;;text-align:right;direction:rtl&quot;&gt; &lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;يجب ترميز فئات الإنتاجية في بيانات الإدخال على النحو التالي:&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;;text-align:right;direction:rtl&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;;text-align:right;direction:rtl&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;1: التراجع&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;;text-align:right;direction:rtl&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;2: علامات التراجع المبكرة&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;;text-align:right;direction:rtl&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;3: مستقر لكنه متوتر&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;;text-align:right;direction:rtl&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;4: مستقر&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;;text-align:right;direction:rtl&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;5: زيادة&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;;text-align:right;direction:rtl&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;0 أو -32768: لا توجد بيانات&lt;/span&gt; &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.875pt; font-weight:400; font-style:normal;;text-align:right;direction:rtl&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;;text-align:right;direction:rtl&quot;&gt; &lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;يجب ترميز فئات الإنتاجية في بيانات الإدخال على النحو التالي:&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;;text-align:right;direction:rtl&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;;text-align:right;direction:rtl&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;1: التراجع&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;;text-align:right;direction:rtl&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;2: علامات التراجع المبكرة&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;;text-align:right;direction:rtl&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;3: مستقر لكنه متوتر&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;;text-align:right;direction:rtl&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;4: مستقر&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;;text-align:right;direction:rtl&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;5: زيادة&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;;text-align:right;direction:rtl&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;0 أو -32768: لا توجد بيانات&lt;/span&gt; &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -3582,7 +3613,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:7.875pt; font-weight:400; font-style:normal;;text-align:right;direction:rtl&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.875pt; font-weight:400; font-style:normal;;text-align:right;direction:rtl&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;;text-align:right;direction:rtl&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
@@ -4090,7 +4121,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../timeseries.py" line="282"/>
         <source>The bounding box of the requested area (approximately {:.6n} sq km) is too large. The timeseries tool can process a maximum area of 1 million sq km at a time. Choose a smaller area to process.</source>
-        <translation type="unfinished"></translation>
+        <translation>المربع المحيط بالمنطقة المطلوبة (نحو {: .6n} كيلومتر مربع) كبير جدًا. يمكن لأداة التسلسل الزمني معالجة مساحة أقصاها مليون كيلومتر مربع في المرة الواحدة. اختر منطقة أصغر للمعالجة.</translation>
     </message>
 </context>
 <context>
@@ -4769,7 +4800,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;;text-align:right;direction:rtl&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;;text-align:right;direction:rtl&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;;text-align:right;direction:rtl&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
@@ -5041,8 +5072,8 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDatasetItemDetails.ui" line="176"/>
@@ -5523,7 +5554,7 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../gui/WidgetMain.ui" line="110"/>
         <source>Create&#xe2;&#x80;&#xa6;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">الإنشاء:</translation>
     </message>
     <message>
         <location filename="../gui/WidgetMain.ui" line="117"/>
@@ -5670,12 +5701,12 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../calculate.py" line="307"/>
         <source>Choose a prefix to be used when naming output files</source>
-        <translation type="unfinished"></translation>
+        <translation>اختر بادئة لاستخدامها عند تسمية ملفات الإخراج</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="307"/>
         <source>Base name (*)</source>
-        <translation type="unfinished"></translation>
+        <translation>الاسم الأساسي (*)</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="319"/>
@@ -5685,22 +5716,22 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../calculate.py" line="336"/>
         <source>Overwrite file?</source>
-        <translation type="unfinished"></translation>
+        <translation>هل تودّ تبديل الملف؟</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="336"/>
         <source>Using the prefix &quot;{}&quot; would lead to overwriting existing file(s) {}. Do you want to overwrite these file(s)?</source>
-        <translation type="unfinished"></translation>
+        <translation>سيؤدي استخدام البادئة &quot;{}&quot; إلى تبديل الملف (الملفات) الموجودة {}. هل تريد الكتابة فوق هذا الملف (هذه الملفات)؟</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="344"/>
         <source>Information</source>
-        <translation type="unfinished">معلومات</translation>
+        <translation>المعلومات</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="344"/>
         <source>Choose a different output prefix and try again.</source>
-        <translation type="unfinished"></translation>
+        <translation>اختر بادئة إخراج مختلفة وحاول مرة أخرى.</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="459"/>
@@ -5720,12 +5751,12 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../calculate.py" line="529"/>
         <source>Unable to calculate bounding box.</source>
-        <translation type="unfinished"></translation>
+        <translation>تعذّر حساب المربع المحيط.</translation>
     </message>
     <message>
         <location filename="../calculate.py" line="541"/>
         <source>Choose an output base name.</source>
-        <translation type="unfinished"></translation>
+        <translation>اختر اسم أساسي لملف الإخراج.</translation>
     </message>
 </context>
 <context>

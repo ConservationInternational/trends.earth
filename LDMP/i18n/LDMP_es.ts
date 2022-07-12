@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0" language="es" sourcelanguage="">
+<!DOCTYPE TS>
+<TS version="2.1" language="es">
 <context>
     <name>AlgorithmEditorWidget</name>
     <message>
@@ -23,12 +24,12 @@
     <message>
         <location filename="../maptools.py" line="52"/>
         <source>0.00 km&#xc2;&#xb2;</source>
-        <translation>0,00 kmÂ²</translation>
+        <translation type="unfinished">0,00 kmÂ²</translation>
     </message>
     <message>
         <location filename="../maptools.py" line="57"/>
         <source>{:.6g} km&#xc2;&#xb2;</source>
-        <translation>{:.6g} kmÂ²</translation>
+        <translation type="unfinished">{:.6g} kmÂ²</translation>
     </message>
     <message>
         <location filename="../settings.py" line="464"/>
@@ -89,7 +90,7 @@
     <message>
         <location filename="../maptools.py" line="98"/>
         <source> km&#xc2;&#xb2;</source>
-        <translation>kmÂ²</translation>
+        <translation type="unfinished">kmÂ²</translation>
     </message>
 </context>
 <context>
@@ -397,7 +398,7 @@
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="215"/>
         <source>Type of address, e.g &apos;postal&apos;</source>
-        <translation>Tipo de dirección, por ejemplo, &apos;postal&apos;</translation>
+        <translation>Tipo de dirección, por ejemplo, 'postal'</translation>
     </message>
     <message>
         <location filename="../gui/DlgDatasetMetadata.ui" line="223"/>
@@ -666,11 +667,11 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Resumen de sequía&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Esta herramienta simplifica el resumen de los indicadores de vulnerabilidad de sequía para la evaluación de la sequía máxima (en periodos de cuatro años dentro del intervalo seleccionado). El resultado de esta herramienta se puede usar para evaluar los indicadores de sequía dentro de una región en particular, o para preparar los datos para informar a la UNCCD sobre el Objetivo Estratégico 3.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#sdg-indicator-15-3-1&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Más información&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;Resumen de sequía&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;Esta herramienta simplifica el resumen de los indicadores de vulnerabilidad de sequía para la evaluación de la sequía máxima (en periodos de cuatro años dentro del intervalo seleccionado). El resultado de esta herramienta se puede usar para evaluar los indicadores de sequía dentro de una región en particular, o para preparar los datos para informar a la UNCCD sobre el Objetivo Estratégico 3.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#sdg-indicator-15-3-1&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Más información&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../calculate_drought_vulnerability.py" line="242"/>
@@ -767,7 +768,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;h3 style=&quot; margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:large; font-weight:600;&quot;&gt;Cubierta terrestre&lt;/span&gt;&lt;/h3&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Para poder evaluar los cambios en la cubierta terrestre, los usuarios necesitan mapas de cubierta terrestre que cubran la zona de estudio para los años de referencia y objetivo. Estos mapas tienen que tener una precisión aceptable y deben crearse de tal manera que permitan las comparaciones válidas. Trends.Earth utiliza mapas de cubierta terrestre ESA CCI como el conjunto de datos por defecto, pero también pueden usarse mapas locales. El indicador se computa así: &lt;/p&gt;
 &lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Reclasificar ambos mapas de cubierta terrestre a las 7 clases de cubierta terrestre necesarias para informar a la UNCCD (bosque, prado, campo de cultivo, humedal, zona artificial, terreno no urbanizado y agua).&lt;/li&gt;
@@ -974,9 +975,9 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//ES&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Indicador de recodificación (falso positivo/negativo)&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Esta herramienta permite recalcular una capa de indicadores para corregir errores conocidos (falsos positivos o falsos negativos).&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;Indicador de recodificación (falso positivo/negativo)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;Esta herramienta permite recalcular una capa de indicadores para corregir errores conocidos (falsos positivos o falsos negativos).&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../calculate_ldn.py" line="1055"/>
@@ -1087,21 +1088,6 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Población femenina&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1150"/>
-        <source>type</source>
-        <translation type="obsolete">tipo</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1086"/>
-        <source>male</source>
-        <translation type="obsolete">hombre</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1111"/>
-        <source>female</source>
-        <translation type="obsolete">mujer</translation>
-    </message>
-    <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1044"/>
         <source>Population broken down by sex</source>
         <translation>Población desglosada por sexo</translation>
@@ -1110,11 +1096,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1128"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Total population&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;right&quot;&gt;Población total&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
-        <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="1153"/>
-        <source>total</source>
-        <translation type="obsolete">total</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateLDNSummaryTableAdmin.ui" line="617"/>
@@ -1391,13 +1372,13 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Calcular los indicadores de vulnerabilidad de sequía&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Calcular los indicadores que se pueden usar para evaluar la vulnerabilidad de la sequía, conforme a la Guía de Buenas Prácticas de la UNCCD sobre el Objetivo Estratégico 3.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Además de los indicadores de sequía que se derivan de los datos de precipitación (usando el Índice de Precipitación Estandarizado), esta herramienta también puede ofrecer acceso a un conjunto de datos de vulnerabilidad de la sequía para 2018, creado por el Centro Común de Investigación (JRC) de la Comisión Europea. Este conjunto de datos es el más útil para las evaluaciones a escala global.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Para consultar más recomendaciones sobre la evaluación de la vulnerabilidad de la sequía, recomendamos a los usuarios que revisen las recomendaciones del proyecto Tools4LDN, disponible en &lt;/span&gt;&lt;a href=&quot;https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/6033f28abca1996aedc492d5/1614017200233/ci-4-Tools4LDN2-FNL+web.pdf&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;inglés&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt; y &lt;/span&gt;&lt;a href=&quot;https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/60f08dd4d2de6f76157bb62b/1626377693923/ci-3-Tools4LDN2-SPN_WebUpdate.pdf&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;español&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt; desde el sitio web del proyecto.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Más información&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;Calcular los indicadores de vulnerabilidad de sequía&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;Calcular los indicadores que se pueden usar para evaluar la vulnerabilidad de la sequía, conforme a la Guía de Buenas Prácticas de la UNCCD sobre el Objetivo Estratégico 3.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;Además de los indicadores de sequía que se derivan de los datos de precipitación (usando el Índice de Precipitación Estandarizado), esta herramienta también puede ofrecer acceso a un conjunto de datos de vulnerabilidad de la sequía para 2018, creado por el Centro Común de Investigación (JRC) de la Comisión Europea. Este conjunto de datos es el más útil para las evaluaciones a escala global.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;Para consultar más recomendaciones sobre la evaluación de la vulnerabilidad de la sequía, recomendamos a los usuarios que revisen las recomendaciones del proyecto Tools4LDN, disponible en &lt;/span&gt;&lt;a href=&quot;https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/6033f28abca1996aedc492d5/1614017200233/ci-4-Tools4LDN2-FNL+web.pdf&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;inglés&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt; y &lt;/span&gt;&lt;a href=&quot;https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/60f08dd4d2de6f76157bb62b/1626377693923/ci-3-Tools4LDN2-SPN_WebUpdate.pdf&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;español&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt; desde el sitio web del proyecto.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Más información&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="20"/>
@@ -1532,12 +1513,12 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Calcular todos los subindicadores del ODS 15.3.1 en un solo paso&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Este algoritmo posibilita el cálculo simultáneo de los tres subindicadores del ODS 15.3.1 (Productividad, Cobertura Terrestre y Carbono Orgánico del Suelo) en un único paso. Esto se hace usando los conjuntos de datos remotos de Trends.Earth descritos en cada una de las secciones de los subindicadores.&lt;/span&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;Calcular todos los subindicadores del ODS 15.3.1 en un solo paso&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;Este algoritmo posibilita el cálculo simultáneo de los tres subindicadores del ODS 15.3.1 (Productividad, Cobertura Terrestre y Carbono Orgánico del Suelo) en un único paso. Esto se hace usando los conjuntos de datos remotos de Trends.Earth descritos en cada una de las secciones de los subindicadores.&lt;/span&gt;
 &lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Obtener más información&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Obtener más información&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../calculate_ldn.py" line="441"/>
@@ -1720,7 +1701,49 @@ p, li { white-space: pre-wrap; }
 &lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;If observed mean NDVI is lower than 50% than the maximum productivity, that pixel is considered potentially degraded for this indicator.&lt;/li&gt;&lt;/ol&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#productivity-performance&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information on Productivity Performance&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;!DOCTYPE HTML PÚBLICO &quot;-//W3C//DTD HTML 4.0//ES&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { espacio en blanco: previo al cierre; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;Productividad&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;La productividad de la tierra es la capacidad productiva biológica de la tierra, fuente de todos los alimentos, fibras y combustibles que sustentan a los seres humanos (Comisión de Estadística de las Naciones Unidas 2016). La productividad primaria neta (NPP) es la cantidad neta de carbono asimilada después de la fotosíntesis y la respiración autotrófica durante un período de tiempo determinado (Clark et al. 2001) y se suele representar en unidades como kg/ha/año. El NPP es una variable que requiere mucho tiempo y es costosa de estimar, por esa razón, nos basamos en la información de teledetección para derivar indicadores de NPP.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;Uno de los sustitutos más usados de la NPP es el Índice de Vegetación de Diferencia Normalizada (NDVI), que se calcula usando información de las porciones roja y cercana al infrarrojo del espectro electromagnético. En Trends.Earth usamos productos quincenales de MODIS y AVHRR para calcular las integrales anuales del NDVI (calculadas como la media anual del NDVI para simplificar la interpretación de los resultados). Estas integrales anuales de NDVI se utilizan luego para calcular cada uno de los indicadores de productividad que se explican a continuación.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#productivity&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Más información sobre el subindicador de productividad SDG 15.3.1&lt;/span&gt;&lt;/a&gt;
+&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;La productividad de la tierra se evalúa en Trends.Earth usando tres medidas de cambio derivadas de los datos de las series temporales de NDVI: &lt;/span&gt;&lt;/p&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;tendencia&lt;/li&gt;
+&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Rendimiento&lt;/li&gt;
+&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Estado&lt;/li&gt;&lt;/ul&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;Tendencia de productividad&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;La tendencia mide la tasa de cambio de la productividad primaria a lo largo del tiempo. Trends.Earth calcula una regresión lineal a nivel de píxel para identificar las áreas que experimentan cambios en la productividad primaria para el período analizado. A continuación, se aplica una prueba de significación no paramétrica de Mann-Kendall, considerando solo los cambios significativos aquellos que muestran un valor p â¤&quot;0,05. Las tendencias significativas positivas del NDVI indicarían una mejora potencial del estado de la tierra, y las tendencias significativas negativas una degradación potencial.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#productivity-trajectory&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Más información sobre la trayectoria de la productividad&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;Estado de productividad&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;El indicador de estado de la productividad permite detectar los cambios recientes en la productividad primaria en comparación con un período de referencia. El indicador se calcula de la siguiente manera:&lt;/span&gt;&lt;/p&gt;
+&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Defina el período de referencia (período histórico con el que se comparará la productividad primaria reciente).&lt;/li&gt;
+&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Defina el período de comparación (años recientes usados para calcular la comparación). Se recomienda usar un período de 3 años para evitar las fluctuaciones anuales relacionadas con el clima.&lt;/li&gt;
+&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Para cada píxel, use las integrales anuales del NDVI para el período de referencia para calcular una distribución de frecuencia. En caso de que el período de referencia no haya tenido algunos valores extremos en el NDVI, agregue un 5 % en ambos extremos de la distribución. Esa curva de distribución de frecuencias ampliada se usa entonces para definir los valores de corte de las 10 clases de percentiles.&lt;/li&gt;
+&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Calcular el NDVI medio para el período de referencia y determinar la clase de percentil a la que pertenece. Asigne al NDVI medio para el período de referencia el número correspondiente a esa clase de percentil. Los valores posibles van de 1 (clase más baja) a 10 (clase más alta).&lt;/li&gt;
+&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; Calcular el NDVI medio para el período de comparación y determinar la clase de percentil a la que pertenece. Asigne al NDVI medio del período de comparación el número correspondiente a esa clase percentil. Los valores posibles van de 1 (clase más baja) a 10 (clase más alta).&lt;/li&gt;
+&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Determine la diferencia de número de clase entre el período de comparación y el de referencia (comparación menos referencia).&lt;/li&gt;
+&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Si la diferencia de clase entre la línea de base y el período de comparación es â¤ 2, entonces ese píxel podría ser potencialmente degradado. Si la diferencia es â¥ 2, ese píxel indicaría una mejora reciente en términos de productividad primaria. Los píxeles con pequeños cambios se consideran estables.&lt;/li&gt;&lt;/ol&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#productivity-state&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Más información sobre el estado de productividad&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;Rendimiento de la productividad&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;El indicador de rendimiento de la productividad mide la productividad local en relación con otros tipos de vegetación similares en tipos de cobertura del suelo o regiones bioclimáticas similares en toda la zona de estudio. Trends.Earth usa la combinación única de unidades de suelo (unidades de taxonomía del suelo usando el sistema USDA proporcionado por SoilGrids con una resolución de 250m) y la cobertura del suelo (las 37 clases de cobertura del suelo proporcionadas por ESA CCI con una resolución de 300m) para definir estas áreas de análisis. El indicador se calcula de la siguiente manera:&lt;/span&gt;&lt;/p&gt;
+&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Definir el periodo de análisis, y usar las series temporales de NDVI para calcular la media del NDVI para cada píxel.&lt;/li&gt;
+&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Defina las unidades ecológicamente similares como la intersección única de la cubierta terrestre y el tipo de suelo.&lt;/li&gt;
+&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; Para cada unidad, extraiga todos los valores medios de NDVI calculados en el paso 1 y cree una distribución de frecuencias. A partir de esta distribución, determine el valor que representa el percentil 90 (no se recomienda usar el valor máximo absoluto del NDVI para evitar posibles errores debidos a la presencia de valores atípicos). El valor que representa el percentil 90 se considerará la máxima productividad para esa unidad.&lt;/li&gt;
+&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Calcule la relación entre el NDVI medio y la productividad máxima (en cada caso, compare el valor medio observado con el máximo de su unidad correspondiente).&lt;/li&gt;
+&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Si el NDVI medio observado es inferior al 50 % de la productividad máxima, ese píxel se considera potencialmente degradado para este indicador.&lt;/li&gt;&lt;/ol&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#productivity-performance&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Más información sobre el rendimiento de la productividad&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../calculate_prod.py" line="189"/>
@@ -1836,7 +1859,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Estimación del cambio de la biomasa&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Estimación del cambio probable en la biomasa debido a la restauración&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
@@ -1907,7 +1930,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt; &lt;head&gt; &lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt; &lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt; &lt;/head&gt; &lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt; &lt;/head&gt; &lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-weight:600;&quot;&gt;Resumen del cambio de la biomasa&lt;/span&gt;
 &lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt; &lt;br /&gt; &lt;/p&gt;
@@ -2038,7 +2061,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt; &lt;head&gt; &lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt; &lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt; &lt;/head&gt; &lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt; &lt;/head&gt; &lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;h3 style=&quot; margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:large; font-weight:600;&quot;&gt;Carbono orgánico del suelo&lt;/span&gt; &lt;/h3&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;El tercer subindicador para el seguimiento de la degradación de la tierra en el marco del proceso de los ODS consiste en cuantificar los avances en materia de carbono orgánico del suelo (SOC) durante el período de referencia. Los cambios en el SOC son especialmente difíciles de evaluar por diversas razones, algunas de ellas son la gran variabilidad espacial de las características del suelo, el tiempo y el costo que implica la realización de estudios representativos del suelo y la ausencia de series temporales de datos sobre SOC para la mayoría de las regiones del mundo. Para hacer frente a algunas de las limitaciones, en Trends.Earth se usa un método combinado de cobertura terrestre/SOC para estimar los cambios en el SOC e identificar las zonas potencialmente degradadas. El indicador se calcula como sigue:&lt;/p&gt;
 &lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt; &lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Determine los valores de referencia del SOC. Trends.Earth usa las reservas de carbono de 250m de SoilGrids para los primeros 30 cm del perfil del suelo como valores de referencia para el cálculo (NOTA: SoilGrids usa la información de una variedad de fuentes de datos y de varios años para producir este producto, por lo tanto, la asignación de una fecha para fines de cálculo puede causar inexactitudes en los cálculos de cambio de las reservas).&lt;/li&gt;
@@ -2270,7 +2293,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt; &lt;head&gt; &lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt; &lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt; &lt;/head&gt; &lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt; &lt;/head&gt; &lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-weight:600;&quot;&gt;Cambio en el carbono total&lt;/span&gt; &lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt; &lt;br /&gt; &lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Algoritmo de cálculo de las emisiones de la deforestación por encima y por debajo del suelo&lt;/p&gt; &lt;/body&gt; &lt;/html&gt; 
@@ -2402,7 +2425,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Cuadro de resumen de los cambios en el carbono&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Algoritmo para resumir el cálculo de las emisiones por encima y por debajo del suelo derivadas de la deforestación.&lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
@@ -2526,11 +2549,11 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt; &lt;head&gt; &lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt; &lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt; &lt;/head&gt; &lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Datos por defecto para los informes de la CNULD&lt;/span&gt; &lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Calcula los conjuntos de datos predeterminados utilizados en el proceso de presentación de informes de la CNULD de 2022. Esta herramienta utiliza los mismos conjuntos de datos globales y enfoques utilizados para producir las estimaciones nacionales por &lt;/span&gt;&lt;a href=&quot;https://prais4-reporting-manual.readthedocs.io/en/latest/introduction.html#default-data&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;defecto&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt; pre-rellenadas por la UNCCD en &lt;/span&gt;&lt;a href=&quot;https://reporting.unccd.int&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;PRAIS 4&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Los países que quieran sustituir las previsiones nacionales por defecto proporcionadas en PRAIS 4 (o utilizar los datos disponibles a nivel nacional o local o los límites nacionales oficiales) pueden realizarlo dentro de Trends.Earth utilizando las distintas herramientas disponibles en la pestaña &amp;quot;Algoritmos&amp;quot;&lt;/span&gt;&lt;/p&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Utilizar las herramientas bajo &amp;quot;ODS 15.3.1 - Degradación de la tierra&amp;quot; para producir estimaciones personalizadas del Objetivo Estratégico 1 (estado de la tierra) y del Objetivo Estratégico 2 (población expuesta)&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;
-&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt; &lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Usar las herramientas bajo &amp;quot;Sequía - Vulnerabilidad y exposición&amp;quot; para producir estimaciones del Objetivo Estratégico 3 (vulnerabilidad a la sequía)&lt;/span&gt; &lt;/li&gt; &lt;/ul&gt; &lt;/body&gt; &lt;/html&gt;</translation>
+&lt;/style&gt; &lt;/head&gt; &lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;Datos por defecto para los informes de la CNULD&lt;/span&gt; &lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;Calcula los conjuntos de datos predeterminados utilizados en el proceso de presentación de informes de la CNULD de 2022. Esta herramienta utiliza los mismos conjuntos de datos globales y enfoques utilizados para producir las estimaciones nacionales por &lt;/span&gt;&lt;a href=&quot;https://prais4-reporting-manual.readthedocs.io/en/latest/introduction.html#default-data&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;defecto&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt; pre-rellenadas por la UNCCD en &lt;/span&gt;&lt;a href=&quot;https://reporting.unccd.int&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;PRAIS 4&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;Los países que quieran sustituir las previsiones nacionales por defecto proporcionadas en PRAIS 4 (o utilizar los datos disponibles a nivel nacional o local o los límites nacionales oficiales) pueden realizarlo dentro de Trends.Earth utilizando las distintas herramientas disponibles en la pestaña &amp;quot;Algoritmos&amp;quot;&lt;/span&gt;&lt;/p&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;Utilizar las herramientas bajo &amp;quot;ODS 15.3.1 - Degradación de la tierra&amp;quot; para producir estimaciones personalizadas del Objetivo Estratégico 1 (estado de la tierra) y del Objetivo Estratégico 2 (población expuesta)&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt; &lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;Usar las herramientas bajo &amp;quot;Sequía - Vulnerabilidad y exposición&amp;quot; para producir estimaciones del Objetivo Estratégico 3 (vulnerabilidad a la sequía)&lt;/span&gt; &lt;/li&gt; &lt;/ul&gt; &lt;/body&gt; &lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../calculate_unccd.py" line="89"/>
@@ -2632,7 +2655,16 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Submitting a false positive / false negative layer is optional. This layer can be used to correct for cases when there are known errors in the indicator data used for Strategic Objective 1.&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Affected areas&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Checking the &amp;quot;Calculation is for affected areas only&amp;quot; box will include an indicator in the report that this calculation is for affected areas. Note that reporting on affected areas is an optional element in the UNCCD 2022 reporting process and is additional to national reporting. &#xe2;&#x80;&#x9c;Affected Areas&#xe2;&#x80;&#x9d; are defined in Article 1 of the Convention as &#xe2;&#x80;&#x9c;arid, semi-arid and/or dry sub-humid areas affected or threatened by desertification.&#xe2;&#x80;&#x9d; Parties may opt to use this definition or to provide the operational definition of affected area in use in their country.&#xe2;&#x80;&#x9d;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">&lt;!DOCTYPE HTML PÚBLICO &quot;-//W3C//DTD HTML 4.0//ES&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { espacio en blanco: previo al cierre; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;Generar informe UNCCD&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;Calcular informe sobre los objetivos estratégicos 1, 2 y 3 de la CLD&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Capa de falsos positivos y falsos negativos&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;La presentación de una capa de falsos positivos y falsos negativos es opcional. Esta capa puede usarse para corregir los casos en los que hay errores conocidos en los datos de los indicadores usados para el Objetivo Estratégico 1.&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Zonas afectadas&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Si se marca la casilla &amp;quot; El cálculo es solo para las zonas afectadas &amp;quot; se incluirá un indicador en el informe de que este cálculo es para las zonas afectadas. Observe que la presentación de informes sobre las zonas afectadas es un elemento opcional en el proceso de presentación de informes de la CLD 2022 y es adicional a la presentación de informes nacionales. Las zonas afectadas se definen en el artículo 1 de la convención como &quot;zonas áridas, semiáridas y/o subhúmedas secas afectadas o amenazadas por la desertificación&quot;. Las Partes pueden optar por usar esta definición o proporcionar la definición operativa de zona afectada que se use en su país. â&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../calculate_unccd.py" line="203"/>
@@ -2831,7 +2863,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt; &lt;head&gt; &lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt; &lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt; &lt;/head&gt; &lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt; &lt;/head&gt; &lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-weight:600;&quot;&gt;Métricas de cambio de la zona urbana&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;SDG 11.3.1 Algoritmo indicador de la relación entre la tasa de consumo de suelo y la tasa de crecimiento de la población.
 &lt;/p&gt;
@@ -2913,7 +2945,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt; &lt;head&gt; &lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt; &lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt; &lt;/head&gt; &lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt; &lt;/head&gt; &lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-weight:600;&quot;&gt;Cuadro resumen del cambio urbano&lt;/span&gt; &lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt; &lt;br /&gt; &lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Resumen para el ODS 11.3.1 Indicador de la relación entre la tasa de consumo de suelo y la tasa de crecimiento de la población.
@@ -3095,7 +3127,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//ES&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Las clases de productividad en los datos de entrada deben codificarse como sigue:&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1: En declive&lt;/span&gt;&lt;/p&gt;
@@ -3555,7 +3587,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Las clases de productividad deben estar codificadas del diguiente modo:&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1: Declinando&lt;/span&gt;&lt;/p&gt;
@@ -3614,7 +3646,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
@@ -4111,7 +4143,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../timeseries.py" line="282"/>
         <source>The bounding box of the requested area (approximately {:.6n} sq km) is too large. The timeseries tool can process a maximum area of 1 million sq km at a time. Choose a smaller area to process.</source>
-        <translation type="unfinished"></translation>
+        <translation>El cuadro delimitador del área solicitada (aproximadamente {:.6n} km2) es demasiado grande. La herramienta de series temporales puede procesar un área máxima de 1 millón de km2 a la vez. Elija un área más pequeña para procesar.</translation>
     </message>
 </context>
 <context>
@@ -4790,7 +4822,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
@@ -5062,8 +5094,8 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDatasetItemDetails.ui" line="176"/>
@@ -5544,7 +5576,7 @@ en busca de algoritmos en ejecución y sus resultados.</translation>
     <message>
         <location filename="../gui/WidgetMain.ui" line="110"/>
         <source>Create&#xe2;&#x80;&#xa6;</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Createâ¦</translation>
     </message>
     <message>
         <location filename="../gui/WidgetMain.ui" line="117"/>
@@ -5615,7 +5647,7 @@ en busca de algoritmos en ejecución y sus resultados.</translation>
     <message>
         <location filename="../areaofinterest.py" line="467"/>
         <source>Invalid geometry in row {}. Check that all input geom_jsons are valid before processing. Try using the check validity tool on the &quot;Vector&quot; menu on the toolbar for more information on which features are invalid (Under &quot;Vector&quot; - &quot;Geometry Tools&quot; - &quot;Check Validity&quot;).</source>
-        <translation type="unfinished"></translation>
+        <translation>Geometría no válida en la fila {}. Compruebe que todas las geom_jsons de entrada son válidas antes de procesarlas. Pruebe a usar la herramienta de comprobación de validez en el menú &quot;Vector&quot; de la barra de herramientas para obtener más información sobre qué características no son válidas (En &quot;Vector&quot; - &quot;Herramientas de geometría&quot; - &quot;Comprobar validez&quot;).</translation>
     </message>
     <message>
         <location filename="../areaofinterest.py" line="598"/>

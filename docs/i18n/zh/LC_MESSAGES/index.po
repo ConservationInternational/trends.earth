@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-11 04:14+0000\n"
+"POT-Creation-Date: 2022-07-12 06:50-0400\n"
 "PO-Revision-Date: 2022-06-26 18:04+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
@@ -25,7 +25,7 @@ msgstr ""
 msgid "Trends.Earth User Guide"
 msgstr "Trends.Earth 用户指南"
 
-#: ../../source/index.rst:42
+#: ../../source/index.rst:42 ../../source/index.rst:42
 msgid "User Guide"
 msgstr "用户指南"
 
@@ -33,15 +33,16 @@ msgstr "用户指南"
 msgid "Trends.Earth Developers Guide"
 msgstr "Trends.Earth开发人员指南"
 
-#: ../../source/index.rst:48
+#: ../../source/index.rst:48 ../../source/index.rst:48
 msgid "Developers Guide"
 msgstr "开发者指南"
 
+#: ../../source/index.rst:54 ../../source/index.rst:54
 #: ../../source/index.rst:54
 msgid "General Information"
 msgstr "基本信息"
 
-#: ../../source/index.rst-1
+#: ../../source/index.rstNone
 msgid "trends.earth"
 msgstr "trends.earth"
 
@@ -88,6 +89,10 @@ msgid ""
 "national reports for submission to the United Nations Convention to Combat "
 "Desertification (UNCCD)."
 msgstr ""
+"Trends.Earth是一款用于了解土地变化的免费开源工具：土地变化背后的方式和原因。 "
+"Trends.Earth允许用户从一系列来源中提取最佳可用信息-从全球可用数据到定制的本地地图。 "
+"广大的用户们正在将Trends.Earth应用于从规划和监测恢复工作，到跟踪城市化，再到编写提交给联合国防治荒漠化公约 (UNCCD) "
+"的官方国家报告等项目。"
 
 #: ../../source/index.rst:30
 msgid ""

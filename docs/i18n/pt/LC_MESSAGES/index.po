@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-11 04:14+0000\n"
+"POT-Creation-Date: 2022-07-12 06:50-0400\n"
 "PO-Revision-Date: 2022-06-26 18:04+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
@@ -26,7 +26,7 @@ msgstr ""
 msgid "Trends.Earth User Guide"
 msgstr "Manual de Utilização da Trends.Earth"
 
-#: ../../source/index.rst:42
+#: ../../source/index.rst:42 ../../source/index.rst:42
 msgid "User Guide"
 msgstr "Guia de Utilizador"
 
@@ -34,15 +34,16 @@ msgstr "Guia de Utilizador"
 msgid "Trends.Earth Developers Guide"
 msgstr "Guia para Programadores Trends.Earth"
 
-#: ../../source/index.rst:48
+#: ../../source/index.rst:48 ../../source/index.rst:48
 msgid "Developers Guide"
 msgstr "Guia dos Programadores"
 
+#: ../../source/index.rst:54 ../../source/index.rst:54
 #: ../../source/index.rst:54
 msgid "General Information"
 msgstr "Informação Geral"
 
-#: ../../source/index.rst-1
+#: ../../source/index.rstNone
 msgid "trends.earth"
 msgstr "trends.earth"
 
@@ -89,6 +90,16 @@ msgid ""
 "national reports for submission to the United Nations Convention to Combat "
 "Desertification (UNCCD)."
 msgstr ""
+"A Trends.Earth é uma ferramenta grátis e 'open source' para estudar as "
+"alterações dos solos: o como e porquê por detrás das alterações no solo. A "
+"Trends.Earth permite aos utilizadores utilizar a melhor informação "
+"disponível a partir de uma gama de fontes - desde dados disponíveis "
+"globalmente até mapas locais personalizados. Uma grande variedade de "
+"utilizadores estão a aplicar a Trends.Earth para projetos, como o "
+"planeamento e seguimento de esforços de recuperação, a monitorização da "
+"urbanizações e a criação de relatórios nacionais oficiais para serem "
+"submetidos à Convenção das Nações Unidas para o Combate à Desertificação "
+"(UNCCD)."
 
 #: ../../source/index.rst:30
 msgid ""

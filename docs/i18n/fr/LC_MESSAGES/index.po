@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-11 04:14+0000\n"
+"POT-Creation-Date: 2022-07-12 06:50-0400\n"
 "PO-Revision-Date: 2022-06-26 18:04+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
@@ -26,7 +26,7 @@ msgstr ""
 msgid "Trends.Earth User Guide"
 msgstr "Guide d'utilisateur Trends.Earth"
 
-#: ../../source/index.rst:42
+#: ../../source/index.rst:42 ../../source/index.rst:42
 msgid "User Guide"
 msgstr "Mode d'emploi"
 
@@ -34,15 +34,16 @@ msgstr "Mode d'emploi"
 msgid "Trends.Earth Developers Guide"
 msgstr "Guide des développeurs Trends.Earth"
 
-#: ../../source/index.rst:48
+#: ../../source/index.rst:48 ../../source/index.rst:48
 msgid "Developers Guide"
 msgstr "Guide pour les développeurs"
 
+#: ../../source/index.rst:54 ../../source/index.rst:54
 #: ../../source/index.rst:54
 msgid "General Information"
 msgstr "Informations générales"
 
-#: ../../source/index.rst-1
+#: ../../source/index.rstNone
 msgid "trends.earth"
 msgstr "trends.earth"
 
@@ -89,6 +90,16 @@ msgid ""
 "national reports for submission to the United Nations Convention to Combat "
 "Desertification (UNCCD)."
 msgstr ""
+"Trends.Earth est un outil gratuit et open source permettant de comprendre le"
+" changement des sols : le comment et le pourquoi des changements sur le "
+"terrain. Trends.Earth permet aux utilisateurs d'exploiter les meilleures "
+"informations disponibles à partir d'un éventail de sources - des données "
+"disponibles à l'échelle mondiale aux cartes locales personnalisées. Un grand"
+" nombre d'utilisateurs se servent de Trends.Earth pour des projets allant de"
+" la planification et de la surveillance des efforts de restauration au suivi"
+" de l'urbanisation, en passant par l'élaboration de rapports nationaux "
+"officiels à soumettre à la Convention des Nations Unies sur la lutte contre "
+"la désertification (CNULCD)."
 
 #: ../../source/index.rst:30
 msgid ""

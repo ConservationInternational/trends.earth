@@ -27,7 +27,7 @@ deprecated=False
 hasProcessingProvider=yes
 
 # Uncomment the following line and add your changelog:
-changelog=2.0.0rc1 (June 27 2022)
+changelog=2.0.0rc1 (June 27, 2022)
     - All new interface with simplified navigation screens and dataset loading
     - Updated documentation and website
     - Trends.Earth is now translated into all the official UN languages, as well as

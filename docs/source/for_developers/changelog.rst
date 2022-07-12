@@ -3,7 +3,7 @@ Changelog
 
 This page lists the version history of |trends.earth|.
 
-`2.0.0rc1 (June 27 2022) <https://github.com/ConservationInternational/trends.earth/releases/tag/2.0.0rc1>`_
+`2.0.0rc1 (June 27, 2022) <https://github.com/ConservationInternational/trends.earth/releases/tag/2.0.0rc1>`_
 -----------------------------------------------------------------------------------------------------------------------------
 
     - All new interface with simplified navigation screens and dataset loading

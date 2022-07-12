@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-08 14:22-0400\n"
+"POT-Creation-Date: 2022-07-12 06:50-0400\n"
 "PO-Revision-Date: 2022-05-26 11:56+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fa\n"
@@ -35,7 +35,7 @@ msgstr ""
 
 #: ../../source/for_developers/changelog.rst:7
 msgid ""
-"`2.0.0rc1 (June 27 2022) "
+"`2.0.0rc1 (June 27, 2022) "
 "<https://github.com/ConservationInternational/trends.earth/releases/tag/2.0.0rc1>`_"
 msgstr ""
 
@@ -899,4 +899,9 @@ msgstr ""
 #: ../../../<rst_epilog>:4
 msgid "iconReports"
 msgstr ""
+
+#~ msgid ""
+#~ "`2.0.0rc1 (June 27 2022) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/2.0.0rc1>`_"
+#~ msgstr ""
 

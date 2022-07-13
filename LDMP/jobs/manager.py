@@ -48,6 +48,11 @@ from .models import Job
 logger = logging.getLogger(__name__)
 
 
+class tr_manager(object):
+    def tr(message):
+        return QCoreApplication.translate("tr_manager", message)
+
+
 def is_gdal_vsi_path(path: Path):
     return re.match(r"(\\)|(/)vsi(s3)|(gs)", str(path)) is not None
 
@@ -688,7 +693,7 @@ class JobManager(QtCore.QObject):
                 rasters=rasters,
                 uri=URI(uri=dataset_path, type='local'),
             ),
-            task_name="Imported dataset",
+            task_name=tr_manager.tr("Imported dataset"),
             task_notes="",
             script=script,
             end_date=now
@@ -715,7 +720,7 @@ class JobManager(QtCore.QObject):
                     ),
                 uri=None
             ),
-            task_name="False positive/negative",
+            task_name=tr_manager.tr("False positive/negative"),
             task_notes="",
             end_date=now
         )

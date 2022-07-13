@@ -863,7 +863,8 @@ def check_path(app):
 # Translation
 ###############################################################################
 
-def _lrelease(c):
+@task
+def lrelease(c):
     print("Releasing translations using lrelease...")
     lrelease = check_path('lrelease')
 
@@ -900,7 +901,7 @@ def translate_pull(c, force=False):
     else:
         subprocess.check_call([c.sphinx.tx_path, 'pull'])
 
-    _lrelease(c)
+    lrelease(c)
 
 
 # @task
@@ -1451,7 +1452,7 @@ def zipfile_build(
     plugin_setup(c, clean=clean, pip=pip)
 
     # Make sure compiled versions of translation files are included
-    _lrelease(c)
+    lrelease(c)
 
     package_dir = c.plugin.package_dir
 
@@ -1788,7 +1789,7 @@ def binaries_compile(c, clean=False, python='python'):
 
 ns = Collection(
     set_version, set_tag, plugin_setup, plugin_install, docs_build, docs_spellcheck,
-    translate_pull, translate_push, changelog_build, tecli_login, tecli_clear,
+    translate_pull, translate_push, lrelease, changelog_build, tecli_login, tecli_clear,
     tecli_config, tecli_publish, tecli_run, tecli_info, tecli_logs,
     zipfile_build, zipfile_deploy, binaries_compile, binaries_sync,
     binaries_deploy, release_github, update_script_ids, testdata_sync,

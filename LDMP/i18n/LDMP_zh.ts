@@ -1,4 +1,4 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="zh">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.0" language="zh">
 <context>
     <name>AlgorithmEditorWidget</name>
     <message>
@@ -4223,11 +4223,6 @@ p, li { white-space: pre-wrap; }
         <translation>从数据集中选择初始年份，确保年份不等于或大于目标年份</translation>
     </message>
     <message>
-        <location filename="../gui/land_cover_setup_widget_local.ui" line="70"/>
-        <source>Land cover (7 class)</source>
-        <translation>土地覆盖（7 级）</translation>
-    </message>
-    <message>
         <location filename="../gui/land_cover_setup_widget_local.ui" line="54"/>
         <source>Target year layer</source>
         <translation>目标年份层</translation>
@@ -4368,59 +4363,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../lc_setup.py" line="930"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>无法写入{}。选择一个不同的文件。</translation>
-    </message>
-</context>
-<context>
-    <name>LDMPPlugin</name>
-    <message>
-        <location filename="../plugin.py" line="66"/>
-        <source>&amp;Trends.Earth</source>
-        <translation>&amp;Trends.Earth</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="197"/>
-        <source>Trends.Earth dock interface</source>
-        <translation>Trends.Earth 对接界面</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="209"/>
-        <source>Settings</source>
-        <translation>设置</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="209"/>
-        <source>Trends.Earth Settings</source>
-        <translation>趋势地球设置</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="217"/>
-        <source>About</source>
-        <translation>关于</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="217"/>
-        <source>About trends.earth</source>
-        <translation>关于trends.earth</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="225"/>
-        <source>Digitize polygon</source>
-        <translation>数字化多边形</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="238"/>
-        <source>Buffer tool</source>
-        <translation>缓冲工具</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="265"/>
-        <source>Plot time series</source>
-        <translation>绘制时间序列</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="275"/>
-        <source>&amp;trends.earth</source>
-        <translation>&amp;trends.earth</translation>
     </message>
 </context>
 <context>
@@ -5513,8 +5455,8 @@ for running algorithms and their results.</source>
     </message>
     <message>
         <location filename="../gui/WidgetMain.ui" line="110"/>
-        <source>Createâ¦</source>
-        <translation>生成</translation>
+        <source>Create...</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/WidgetMain.ui" line="117"/>
@@ -6669,6 +6611,67 @@ for running algorithms and their results.</source>
         <location filename="../lc_setup.py" line="261"/>
         <source>{f} does not appear to contain a valid land cover transition matrix definition: {e}</source>
         <translation>{f}似乎不包含有效的土地覆盖转换矩阵定义：{e}</translation>
+    </message>
+</context>
+<context>
+    <name>tr_manager</name>
+    <message>
+        <location filename="../jobs/manager.py" line="684"/>
+        <source>Imported dataset</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../jobs/manager.py" line="707"/>
+        <source>False positive/negative</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>tr_plugin</name>
+    <message>
+        <location filename="../plugin.py" line="280"/>
+        <source>&amp;Trends.Earth</source>
+        <translation>&amp;Trends.Earth</translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="202"/>
+        <source>Trends.Earth dock interface</source>
+        <translation>Trends.Earth 对接界面</translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="214"/>
+        <source>Settings</source>
+        <translation>设置</translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="214"/>
+        <source>Trends.Earth Settings</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="222"/>
+        <source>About</source>
+        <translation>关于</translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="222"/>
+        <source>About Trends.Earth</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="230"/>
+        <source>Digitize polygon</source>
+        <translation>数字化多边形</translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="243"/>
+        <source>Buffer tool</source>
+        <translation>缓冲工具</translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="270"/>
+        <source>Plot time series</source>
+        <translation>绘制时间序列</translation>
     </message>
 </context>
 <context>

@@ -1,4 +1,4 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="ar">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.0" language="ar">
 <context>
     <name>AlgorithmEditorWidget</name>
     <message>
@@ -4261,11 +4261,6 @@ p, li { white-space: pre-wrap; }
         <translation>حدد السنة الأولى من مجموعة البيانات، وتأكد من أن السنة ليست مساوية أو أكبر من السنة المستهدفة</translation>
     </message>
     <message>
-        <location filename="../gui/land_cover_setup_widget_local.ui" line="70"/>
-        <source>Land cover (7 class)</source>
-        <translation>غطاء أرضي (7 درجات)</translation>
-    </message>
-    <message>
         <location filename="../gui/land_cover_setup_widget_local.ui" line="54"/>
         <source>Target year layer</source>
         <translation>طبقة السنة المستهدفة</translation>
@@ -4406,59 +4401,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../lc_setup.py" line="930"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>لا يمكن الكتابة إلى {}. اختيار ملف مختلف.</translation>
-    </message>
-</context>
-<context>
-    <name>LDMPPlugin</name>
-    <message>
-        <location filename="../plugin.py" line="66"/>
-        <source>&amp;Trends.Earth</source>
-        <translation>&amp;Trends.Earth</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="197"/>
-        <source>Trends.Earth dock interface</source>
-        <translation>واجهة Trends.Earth</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="209"/>
-        <source>Settings</source>
-        <translation>الإعدادات</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="209"/>
-        <source>Trends.Earth Settings</source>
-        <translation>Trends.Earth إعدادات</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="217"/>
-        <source>About</source>
-        <translation>حول</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="217"/>
-        <source>About trends.earth</source>
-        <translation>حول الاتجاهات</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="225"/>
-        <source>Digitize polygon</source>
-        <translation>رقمنة المضلع</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="238"/>
-        <source>Buffer tool</source>
-        <translation>أداة المخزن</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="265"/>
-        <source>Plot time series</source>
-        <translation>سلسلة زمنية مؤامرة</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="275"/>
-        <source>&amp;trends.earth</source>
-        <translation>وtrends.earth</translation>
     </message>
 </context>
 <context>
@@ -5551,8 +5493,8 @@ for running algorithms and their results.</source>
     </message>
     <message>
         <location filename="../gui/WidgetMain.ui" line="110"/>
-        <source>Createâ¦</source>
-        <translation>الإنشاء:</translation>
+        <source>Create...</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/WidgetMain.ui" line="117"/>
@@ -6705,6 +6647,67 @@ for running algorithms and their results.</source>
         <location filename="../lc_setup.py" line="261"/>
         <source>{f} does not appear to contain a valid land cover transition matrix definition: {e}</source>
         <translation>يبدو أن {f} لا يحتوي على تعريف مصفوفة صالح لانتقال الغطاء الأرضي: {e}</translation>
+    </message>
+</context>
+<context>
+    <name>tr_manager</name>
+    <message>
+        <location filename="../jobs/manager.py" line="684"/>
+        <source>Imported dataset</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../jobs/manager.py" line="707"/>
+        <source>False positive/negative</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>tr_plugin</name>
+    <message>
+        <location filename="../plugin.py" line="280"/>
+        <source>&amp;Trends.Earth</source>
+        <translation>&amp;Trends.Earth</translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="202"/>
+        <source>Trends.Earth dock interface</source>
+        <translation>واجهة Trends.Earth</translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="214"/>
+        <source>Settings</source>
+        <translation>إعدادات</translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="214"/>
+        <source>Trends.Earth Settings</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="222"/>
+        <source>About</source>
+        <translation>حول</translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="222"/>
+        <source>About Trends.Earth</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="230"/>
+        <source>Digitize polygon</source>
+        <translation>رقمنة المضلع</translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="243"/>
+        <source>Buffer tool</source>
+        <translation>أداة المخزن</translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="270"/>
+        <source>Plot time series</source>
+        <translation>سلسلة زمنية مؤامرة</translation>
     </message>
 </context>
 <context>

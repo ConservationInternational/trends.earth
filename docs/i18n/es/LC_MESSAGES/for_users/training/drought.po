@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-01 11:29-0400\n"
+"POT-Creation-Date: 2022-07-13 04:15+0000\n"
 "PO-Revision-Date: 2022-07-01 20:25+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
@@ -24,7 +24,7 @@ msgstr ""
 
 #: ../../source/for_users/training/drought.rst:2
 msgid "Drought hazard, exposure, and vulnerability"
-msgstr ""
+msgstr "Peligro de sequía, exposición y vulnerabilidad"
 
 #: ../../source/for_users/training/drought.rst:5
 msgid "Default data for UNCCD SO 3"

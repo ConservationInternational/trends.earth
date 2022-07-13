@@ -1,4 +1,4 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.1" language="fr">
+<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.0" language="fr">
 <context>
     <name>AlgorithmEditorWidget</name>
     <message>
@@ -4228,11 +4228,6 @@ p, li { white-space: pre-wrap; }
         <translation>Sélectionner l&apos;année initiale à partir d&apos;un ensemble de données, vérifier que l&apos;année n&apos;est pas égale ou supérieure à l&apos;année cible.</translation>
     </message>
     <message>
-        <location filename="../gui/land_cover_setup_widget_local.ui" line="70"/>
-        <source>Land cover (7 class)</source>
-        <translation>Couverture terrestre (7 catégories)</translation>
-    </message>
-    <message>
         <location filename="../gui/land_cover_setup_widget_local.ui" line="54"/>
         <source>Target year layer</source>
         <translation>Couche de l&apos;année cible</translation>
@@ -4373,59 +4368,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../lc_setup.py" line="930"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>Impossible d&apos;écrire sur {}. Choisissez un fichier différent.</translation>
-    </message>
-</context>
-<context>
-    <name>LDMPPlugin</name>
-    <message>
-        <location filename="../plugin.py" line="66"/>
-        <source>&amp;Trends.Earth</source>
-        <translation>&amp;Trends.Earth</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="197"/>
-        <source>Trends.Earth dock interface</source>
-        <translation>Interface de connexion de Trends.Earth</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="209"/>
-        <source>Settings</source>
-        <translation>Réglages</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="209"/>
-        <source>Trends.Earth Settings</source>
-        <translation>Tendances Paramètres de la Terre</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="217"/>
-        <source>About</source>
-        <translation>À propos</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="217"/>
-        <source>About trends.earth</source>
-        <translation>À propos de trends.earth</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="225"/>
-        <source>Digitize polygon</source>
-        <translation>Numériser le polygone</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="238"/>
-        <source>Buffer tool</source>
-        <translation>Tampon</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="265"/>
-        <source>Plot time series</source>
-        <translation>Tracer la série chronologique</translation>
-    </message>
-    <message>
-        <location filename="../plugin.py" line="275"/>
-        <source>&amp;trends.earth</source>
-        <translation>&amp;trends.earth</translation>
     </message>
 </context>
 <context>
@@ -5518,8 +5460,8 @@ pour les algorithmes en cours d&apos;exécution et leurs résultats.</translatio
     </message>
     <message>
         <location filename="../gui/WidgetMain.ui" line="110"/>
-        <source>Createâ¦</source>
-        <translation>Créerâ¦</translation>
+        <source>Create...</source>
+        <translation type="unfinished"/>
     </message>
     <message>
         <location filename="../gui/WidgetMain.ui" line="117"/>
@@ -6672,6 +6614,67 @@ pour les algorithmes en cours d&apos;exécution et leurs résultats.</translatio
         <location filename="../lc_setup.py" line="261"/>
         <source>{f} does not appear to contain a valid land cover transition matrix definition: {e}</source>
         <translation>{f} ne semble pas contenir une définition valide de matrice de transition de couverture terrestre : {e}</translation>
+    </message>
+</context>
+<context>
+    <name>tr_manager</name>
+    <message>
+        <location filename="../jobs/manager.py" line="684"/>
+        <source>Imported dataset</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../jobs/manager.py" line="707"/>
+        <source>False positive/negative</source>
+        <translation type="unfinished"/>
+    </message>
+</context>
+<context>
+    <name>tr_plugin</name>
+    <message>
+        <location filename="../plugin.py" line="280"/>
+        <source>&amp;Trends.Earth</source>
+        <translation>&amp;Trends.Earth</translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="202"/>
+        <source>Trends.Earth dock interface</source>
+        <translation>Interface de connexion de Trends.Earth</translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="214"/>
+        <source>Settings</source>
+        <translation>Réglages</translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="214"/>
+        <source>Trends.Earth Settings</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="222"/>
+        <source>About</source>
+        <translation>À propos</translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="222"/>
+        <source>About Trends.Earth</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="230"/>
+        <source>Digitize polygon</source>
+        <translation>Numériser le polygone</translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="243"/>
+        <source>Buffer tool</source>
+        <translation>Tampon</translation>
+    </message>
+    <message>
+        <location filename="../plugin.py" line="270"/>
+        <source>Plot time series</source>
+        <translation>Tracer la série chronologique</translation>
     </message>
 </context>
 <context>

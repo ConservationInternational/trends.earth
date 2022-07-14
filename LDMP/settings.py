@@ -1045,6 +1045,9 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
         # if new binaries have been downloaded)
         self.binary_state_changed=False
 
+        # TODO: re-enable this one LandPKS login is working
+        self.landpks_gb.hide()
+
     def closeEvent(self, event):
         super(WidgetSettingsAdvanced, self).closeEvent(event)
 

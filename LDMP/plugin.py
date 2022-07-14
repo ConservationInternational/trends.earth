@@ -46,6 +46,11 @@ from .utils import FileUtils
 from .visualization import download_base_map
 
 
+class tr_plugin(object):
+    def tr(message):
+        return QCoreApplication.translate("tr_plugin", message)
+
+
 class LDMPPlugin(object):
     """QGIS Plugin Implementation."""
 
@@ -64,7 +69,7 @@ class LDMPPlugin(object):
 
         # Declare instance attributes
         self.actions = []
-        self.menu = QMenu(self.tr(u"&Trends.Earth"))
+        self.menu = QMenu(tr_plugin.tr(u"&Trends.Earth"))
         self.menu.setIcon(
             QIcon(
                 os.path.join(
@@ -205,25 +210,25 @@ class LDMPPlugin(object):
             text="Trends.Earth",
             callback=self.run_docked_interface,
             parent=self.iface.mainWindow(),
-            status_tip=self.tr("Trends.Earth dock interface"),
+            status_tip=tr_plugin.tr("Trends.Earth dock interface"),
             set_as_default_action=True,
         )
         self.start_action.setCheckable(True)
 
         self.add_action(
             os.path.join(os.path.dirname(__file__), "icons", "wrench.svg"),
-            text=self.tr("Settings"),
+            text=tr_plugin.tr("Settings"),
             callback=self.run_settings,
             parent=self.iface.mainWindow(),
-            status_tip=self.tr("Trends.Earth Settings"),
+            status_tip=tr_plugin.tr("Trends.Earth Settings"),
         )
 
         self.add_action(
             os.path.join(os.path.dirname(__file__), "icons", "info.svg"),
-            text=self.tr("About"),
+            text=tr_plugin.tr("About"),
             callback=self.run_about,
             parent=self.iface.mainWindow(),
-            status_tip=self.tr("About trends.earth"),
+            status_tip=tr_plugin.tr("About Trends.Earth"),
         )
 
         self.action_polygon = QAction(
@@ -232,7 +237,7 @@ class LDMPPlugin(object):
                     os.path.dirname(__file__), "icons", "mActionCapturePolygon.svg"
                 )
             ),
-            self.tr("Digitize polygon"),
+            tr_plugin.tr("Digitize polygon"),
             self.iface.mainWindow(),
         )
         self.action_polygon.triggered.connect(self.activate_polygon_tool)
@@ -245,7 +250,7 @@ class LDMPPlugin(object):
                     os.path.dirname(__file__), "icons", "mActionCaptureBuffer.svg"
                 )
             ),
-            self.tr(u"Buffer tool"),
+            tr_plugin.tr(u"Buffer tool"),
             self.iface.mainWindow(),
         )
         self.action_buffer.triggered.connect(self.activate_buffer_tool)
@@ -262,11 +267,11 @@ class LDMPPlugin(object):
 
         self.ndvi_action = QAction(
             FileUtils.get_icon("chart.svg"),
-            self.tr("Plot time series"),
+            tr_plugin.tr("Plot time series"),
             self.iface.mainWindow(),
         )
         self.ndvi_action.setCheckable(True)
-        self.ndvi_action.setToolTip(self.tr("Plot time series"))
+        self.ndvi_action.setToolTip(tr_plugin.tr("Plot time series"))
         self.ndvi_action.triggered.connect(self.run_ndvi)
 
         self.toolbar.addActions(
@@ -276,7 +281,7 @@ class LDMPPlugin(object):
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
         for action in self.actions:
-            self.iface.removePluginRasterMenu(self.tr(u"&trends.earth"), action)
+            self.iface.removePluginRasterMenu(tr_plugin.tr(u"&Trends.Earth"), action)
             self.iface.removeToolBarIcon(action)
         # remove the menu
         self.raster_menu.removeAction(self.menu.menuAction())

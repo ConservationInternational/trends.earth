@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-05 04:15+0000\n"
+"POT-Creation-Date: 2022-07-11 04:14+0000\n"
 "PO-Revision-Date: 2022-06-26 18:04+0000\n"
 "Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-"
 "roglich@conservation.org>, 2022\n"
@@ -104,12 +104,6 @@ msgid ""
 "additional funding from the Global Environment Facility (GEF)."
 msgstr ""
 
-#: ../../source/index.rst:60
-msgid ""
-"`Download this documentation as a PDF for offline use "
-"<pdfs/Trends.Earth.pdf>`_"
-msgstr ""
-
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
 msgstr ""
@@ -138,5 +132,10 @@ msgstr ""
 #~ " official national report for submission"
 #~ " to the United Nations Convention to"
 #~ " Combat Desertification (UNCCD)."
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`Download this documentation as a PDF"
+#~ " for offline use <pdfs/Trends.Earth.pdf>`_"
 #~ msgstr ""
 

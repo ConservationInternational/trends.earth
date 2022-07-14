@@ -180,6 +180,9 @@ class DlgCalculateUNCCDReport(DlgCalculateBase, DlgCalculateUNCCDReportUi):
 
         self.changed_region.connect(self.combo_boxes.populate)
 
+        # TODO: re-enable once false positive/negative tool is finished
+        self.error_recode_gb.hide()
+
     def showEvent(self, event):
         super().showEvent(event)
         self.combo_boxes.populate()

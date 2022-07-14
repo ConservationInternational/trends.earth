@@ -219,14 +219,16 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             self.tr("Download raw dataset used in Trends.Earth...")
         )
         action_download_raw.triggered.connect(self.download_data)
-        action_download_landpks = self.download_menu.addAction(
-            self.tr("Download Land Potential Knowledge System (LandPKS) data...")
-        )
-        action_download_landpks.triggered.connect(self.download_landpks)
-        self.pushButton_download.setMenu(self.download_menu)
-        self.pushButton_download.setIcon(
-            QtGui.QIcon(os.path.join(ICON_PATH, "cloud-download.svg"))
-        )
+
+        # TODO: re-enable this one LandPKS login is working
+        # action_download_landpks = self.download_menu.addAction(
+        #     self.tr("Download Land Potential Knowledge System (LandPKS) data...")
+        # )
+        # action_download_landpks.triggered.connect(self.download_landpks)
+        # self.pushButton_download.setMenu(self.download_menu)
+        # self.pushButton_download.setIcon(
+        #     QtGui.QIcon(os.path.join(ICON_PATH, "cloud-download.svg"))
+        # )
 
         self.pushButton_download.clicked.connect(self.download_data)
 

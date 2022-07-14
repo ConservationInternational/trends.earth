@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-27 21:58-0400\n"
+"POT-Creation-Date: 2022-07-12 06:50-0400\n"
 "PO-Revision-Date: 2022-05-26 11:56+0000\n"
 "Language-Team: Persian (https://www.transifex.com/conservation-international/teams/80165/fa/)\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +18,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: ../../source/for_users/index.rst:3
+msgid ""
+":docs_pdf:`Download this section of the documentation as a PDF for offline "
+"use <User_Guide>`"
+msgstr ""
+
+#: ../../source/for_users/index.rst:7
 msgid "Trends.Earth User Guide"
 msgstr ""
 

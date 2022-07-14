@@ -1,34 +1,31 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
-#
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
 # Translators:
 # Alex Zvoleff <azvoleff@conservation.org>, 2022
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-05 04:15+0000\n"
+"POT-Creation-Date: 2022-07-12 06:50-0400\n"
 "PO-Revision-Date: 2022-06-26 18:04+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
-"Language: ar\n"
-"Language-Team: Arabic (https://www.transifex.com/conservation-"
-"international/teams/80165/ar/)\n"
-"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : "
-"n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+"Language-Team: Arabic (https://www.transifex.com/conservation-international/teams/80165/ar/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.10.3\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 #: ../../source/index.rst:42
 msgid "Trends.Earth User Guide"
 msgstr "Trends.Earth دليل المستخدم"
 
-#: ../../source/index.rst:42
+#: ../../source/index.rst:42 ../../source/index.rst:42
 msgid "User Guide"
 msgstr "دليل المستخدم"
 
@@ -36,15 +33,16 @@ msgstr "دليل المستخدم"
 msgid "Trends.Earth Developers Guide"
 msgstr "دليل مطوري Trends.Earth"
 
-#: ../../source/index.rst:48
+#: ../../source/index.rst:48 ../../source/index.rst:48
 msgid "Developers Guide"
 msgstr "دليل المطورين"
 
+#: ../../source/index.rst:54 ../../source/index.rst:54
 #: ../../source/index.rst:54
 msgid "General Information"
 msgstr "معلومات عامة"
 
-#: ../../source/index.rst:-1
+#: ../../source/index.rstNone
 msgid "trends.earth"
 msgstr "trends.earth"
 
@@ -81,32 +79,31 @@ msgid ":index_path:`Kiswahili <sw>`"
 msgstr ":index_path:`Kiswahili <sw>`"
 
 #: ../../source/index.rst:22
-#, fuzzy
 msgid ""
-"Trends.Earth is a free and open source tool to understand land change: "
-"the how and why behind changes on the ground. Trends.Earth allows users "
-"to draw on the best available information from across a range of sources "
-"- from globally available data to customized local maps. A broad range of"
-" users are applying Trends.Earth for projects ranging from planning and "
-"monitoring restoration efforts, to tracking urbanization, to developing "
-"official national reports for submission to the United Nations Convention"
-" to Combat Desertification (UNCCD)."
+"Trends.Earth is a free and open source tool to understand land change: the "
+"how and why behind changes on the ground. Trends.Earth allows users to draw "
+"on the best available information from across a range of sources - from "
+"globally available data to customized local maps. A broad range of users are"
+" applying Trends.Earth for projects ranging from planning and monitoring "
+"restoration efforts, to tracking urbanization, to developing official "
+"national reports for submission to the United Nations Convention to Combat "
+"Desertification (UNCCD)."
 msgstr ""
-"Trends.Earth هي أداة مجانية ومفتوحة المصدر لفهم تغيُّر الأراضي: كيفية "
-"التغييرات على الأرض والسبب وراءها. تتيح Trends.Earth للمستخدمين الاعتماد "
-"على أفضل المعلومات المتاحة من مجموعة من المصادر - من البيانات المتاحة "
-"عالمياً إلى الخرائط المحلية المخصَّصة. تقوم مجموعة واسعة من المستخدمين "
-"بتطبيق Trends.Earth على مشاريع تتراوح من تخطيط ورصد جهود الترميم، إلى "
-"تتبُّع التمدُّن، إلى وضع تقرير وطني رسمي لتقديمه إلى اتفاقية الأمم "
-"المتحدة لمكافحة التصحُّر (UNCCD)."
+"اتجاهات.الأرض هي أداة مجانية ومفتوحة المصدر لفهم تغيُّر الأرض: كيف ولماذا "
+"تحدث التغييرات على الأرض. تتيح اتجاهات.الأرض للمستخدمين الاعتماد على أفضل "
+"المعلومات المتاحة من مجموعة من المصادر - من البيانات المتاحة عالميًا إلى "
+"الخرائط المحلية المخصصة. تستخدم مجموعة واسعة من المستخدمين اتجاهات.الأرض في "
+"المشاريع في إجراءات تتراوح من التخطيط ورصد جهود الاستعادة، إلى تتبع التحضر، "
+"وتطوير التقارير الوطنية الرسمية لتقديمها إلى اتفاقية الأمم المتحدة لمكافحة "
+"التصحر (UNCCD)."
 
 #: ../../source/index.rst:30
 msgid ""
-"Trends.Earth was produced by a partnership of Conservation International,"
-" Lund University, and the National Aeronautics and Space Administration "
-"(NASA), with the support of the Global Environment Facility (GEF). It was"
-" further developed through a partnership with Conservation International,"
-" University of Bern, University of Colorado in partnership with USDA and "
+"Trends.Earth was produced by a partnership of Conservation International, "
+"Lund University, and the National Aeronautics and Space Administration "
+"(NASA), with the support of the Global Environment Facility (GEF). It was "
+"further developed through a partnership with Conservation International, "
+"University of Bern, University of Colorado in partnership with USDA and "
 "USAID, University of California - Santa Barbara in partnership with "
 "University of North Carolina - Wilmington and Brown University with "
 "additional funding from the Global Environment Facility (GEF)."
@@ -114,18 +111,10 @@ msgstr ""
 "Trends.Earth نتاج شراكة بين Conservation International، وجامعة لوند، "
 "والإدارة الوطنية للملاحة الجوية والفضاء  (NASA) ، بدعم من مرفق البيئة "
 "العالمية (GEF). تم تطويره بشكل أكبر من خلال شراكة مع Conservation "
-"International وجامعة برن وجامعة كولورادو بالشراكة مع وزارة الزراعة "
-"الأمريكية والوكالة الأمريكية للتنمية الدولية وجامعة كاليفورنيا - سانتا "
-"باربرا بالشراكة مع جامعة نورث كارولينا - ويلمنجتون وجامعة براون بتمويل "
-"إضافي من مرفق البيئة العالمية."
-
-#: ../../source/index.rst:60
-msgid ""
-"`Download this documentation as a PDF for offline use "
-"<pdfs/Trends.Earth.pdf>`_"
-msgstr ""
-"قم بتنزيل هذه الوثائق كملف بي دي إف للاستخدام دون اتصال "
-"<pdfs/Trends.Earth.pdf>\" _"
+"International وجامعة برن وجامعة كولورادو بالشراكة مع وزارة الزراعة الأمريكية"
+" والوكالة الأمريكية للتنمية الدولية وجامعة كاليفورنيا - سانتا باربرا "
+"بالشراكة مع جامعة نورث كارولينا - ويلمنجتون وجامعة براون بتمويل إضافي من "
+"مرفق البيئة العالمية."
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
@@ -138,4 +127,3 @@ msgstr "iconReports"
 #: ../../../<rst_epilog>:6
 msgid "Trends.Earth"
 msgstr "Trends.Earth\n"
-

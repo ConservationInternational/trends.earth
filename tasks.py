@@ -199,7 +199,7 @@ def set_version(c, v=None, ta=False, ts=False, tag=False):
 
         gee_id_regex = re.compile('(, )?"id": "[0-9a-z-]*"(, )?')
         gee_script_name_regex = re.compile(
-            '("name": "[0-9a-zA-Z -]*)( [0-9]+(_[0-9]+)+)?"'
+            '("name": "[0-9a-zA-Z -]*)( [0-9]+(_[0-9]+)+)(rc[0-9]*)?"'
         )
         requirements_txt_regex = re.compile(
             '((trends.earth-schemas.git@)|(trends.earth-algorithms.git@))([.0-9a-z]*)'

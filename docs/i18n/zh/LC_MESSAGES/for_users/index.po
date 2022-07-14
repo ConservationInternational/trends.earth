@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-27 21:58-0400\n"
+"POT-Creation-Date: 2022-07-12 06:50-0400\n"
 "PO-Revision-Date: 2022-05-26 11:56+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
@@ -22,6 +22,12 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: ../../source/for_users/index.rst:3
+msgid ""
+":docs_pdf:`Download this section of the documentation as a PDF for offline "
+"use <User_Guide>`"
+msgstr "：docs\\u pdf:`将本节文档下载为pdf，供脱机使用<User_Guide>`"
+
+#: ../../source/for_users/index.rst:7
 msgid "Trends.Earth User Guide"
 msgstr "Trends.Earth 用户指南"
 

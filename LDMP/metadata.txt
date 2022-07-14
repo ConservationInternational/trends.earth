@@ -2,7 +2,7 @@
 name=trends.earth
 qgisMinimumVersion=3.22
 description=Analyze land change in support of sustainable land management, achieving the Land Degradation Neutrality (LDN) Sustainable Development Goal (SDG), and to support reporting to the Global Environment Facility (GEF) and United Nations Convention to Combat Desertification (UNCCD)
-version=2.0rc1
+version=2.0
 author=Conservation International
 email=trends.earth@conservation.org
 
@@ -27,7 +27,7 @@ deprecated=False
 hasProcessingProvider=yes
 
 # Uncomment the following line and add your changelog:
-changelog=2.0.0rc1 (June 27 2022)
+changelog=2.0.0rc1 (June 27, 2022)
     - All new interface with simplified navigation screens and dataset loading
     - Updated documentation and website
     - Trends.Earth is now translated into all the official UN languages, as well as

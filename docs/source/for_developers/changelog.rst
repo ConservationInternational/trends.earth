@@ -3,7 +3,7 @@ Changelog
 
 This page lists the version history of |trends.earth|.
 
-`2.0.0rc1 (June 27 2022) <https://github.com/ConservationInternational/trends.earth/releases/tag/2.0.0rc1>`_
+`2.0.0rc1 (June 27, 2022) <https://github.com/ConservationInternational/trends.earth/releases/tag/2.0.0rc1>`_
 -----------------------------------------------------------------------------------------------------------------------------
 
     - All new interface with simplified navigation screens and dataset loading
@@ -16,6 +16,11 @@ This page lists the version history of |trends.earth|.
     - New functions to support assessing drought hazard, vulnerability, and
       exposure
     - New timeseries tool functions (now supports plotting restrend, WUE, etc.)
+
+`1.0.10 (July 7, 2022) <https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.10>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+    - Address bug with TransformDirection related to changes in QGIS 3.22+
 
 `1.0.8 (October 15, 2021) <https://github.com/ConservationInternational/trends.earth/releases/tag/1.0.8>`_
 -----------------------------------------------------------------------------------------------------------------------------

@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-27 21:58-0400\n"
+"POT-Creation-Date: 2022-07-12 06:50-0400\n"
 "PO-Revision-Date: 2022-05-26 11:56+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
 "Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
@@ -22,6 +22,14 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 #: ../../source/for_developers/index.rst:3
+msgid ""
+":docs_pdf:`Download this section of the documentation as a PDF for offline "
+"use <Developer_Guide>`"
+msgstr ""
+":docs_pdf:`Descarregue esta secção da documentação com PDF para uso "
+"offline<Developer_Guide>`"
+
+#: ../../source/for_developers/index.rst:7
 msgid "Developers Guide"
 msgstr "Guia dos Programadores"
 

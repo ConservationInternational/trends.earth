@@ -1167,7 +1167,25 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;Trends.Earth allows the user to compute each of these subindicators in a spatially explicit way generating raster maps which are then integrated into a final SDG 15.3.1 indicator map and produces a table result reporting areas potentially improved and degraded for the area of analysis.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#sdg-indicator-15-3-1&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information on indicator SDG 15.3.1&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;可持续发展目标(SDG)指标15.3.1&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;作为《2030年可持续发展议程》的一部分，可持续发展目标（SDG）15是为了：&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;保护、恢复和促进陆地生态系统的可持续利用，可持续管理森林，防治荒漠化，制止和扭转土地退化，制止生物多样性的丧失&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;每个SDG都有针对不同组成部分的具体目标，在这里是指土地上的生命。目标15.3旨在：&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;到2030年，防治荒漠化，恢复退化的土地和土壤，包括因荒漠化、干旱和洪水而暴露的土地，并努力实现一个土地不再退化的世界&lt;/span&gt;&lt;/p&gt;。
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;届时将使用指标来评估每个SDG目标的进展。就SDG15.3而言，将使用指标15.3.1来评估实现土地退化中立世界的进展情况：&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;土地退化面积占土地总面积的比例&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;作为SDG15.3的监管机构，《联合国防治荒漠化公约》（UNCCD）制定了&lt;/span&gt;&lt;a href=&quot;http://www2.unccd.int/sites/default/files/relevant-links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;《良好实践指南》（GPG）&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;，就如何计算SDG指标15.3.1提供建议。&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;为了评估退化的面积，SDG指标15.3.1使用了3个分指标的信息：&lt;/span&gt;&lt;/p&gt;。
+&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;植被生产率&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;土地覆盖率&lt;/li&gt;。
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;土壤有机碳&lt;/li&gt;&lt;/ol&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Trends.Earth允许用户以空间明确的方式计算这些分指标中的每一项，生成栅格地图，然后将其整合到最终的SDG 15.3.1指标地图中，并产生成一个表格显示的结果，报告分析区域内可能改善和退化的区域。&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#sdg-indicator-15-3-1&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;关于指标SDG15.3.1的更多信息&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../calculate_ldn.py" line="613"/>
@@ -2618,7 +2636,16 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Submitting a false positive / false negative layer is optional. This layer can be used to correct for cases when there are known errors in the indicator data used for Strategic Objective 1.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-style:italic;&quot;&gt;Affected areas&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Checking the &amp;quot;Calculation is for affected areas only&amp;quot; box will include an indicator in the report that this calculation is for affected areas. Note that reporting on affected areas is an optional element in the UNCCD 2022 reporting process and is additional to national reporting. âAffected Areasâ are defined in Article 1 of the Convention as âarid, semi-arid and/or dry sub-humid areas affected or threatened by desertification.â Parties may opt to use this definition or to provide the operational definition of affected area in use in their country.â&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;生成UNCCD报告&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;计算UNCCD战略目标1、2、3的报告&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-style:italic;&quot;&gt;假阳性/假阴性层&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;提交假阳性/假阴性层是可选的。该层可用于纠正用于战略目标1的指标数据中存在已知错误的情况。&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-style:italic;&quot;&gt;受影响的地区&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;勾选&amp;quot;计算仅适用于受影响地区&amp;quot;方框将在报告中包含一个指标，表明该计算适用于受影响地区。请注意，关于受影响地区的报告是UNCCD2022年报告过程中的一个可选要素，是国家报告的补充。受影响地区 在《公约》第1条中被定义为 &quot;受荒漠化影响或威胁的干旱、半干旱和/或亚湿润干旱地区&quot;，缔约方可选择使用这一定义或提供其国家使用的受影响地区的实际定义。â&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../calculate_unccd.py" line="206"/>
@@ -5442,7 +5469,7 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../gui/WidgetMain.ui" line="110"/>
         <source>Create...</source>
-        <translation type="unfinished"/>
+        <translation>生成...</translation>
     </message>
     <message>
         <location filename="../gui/WidgetMain.ui" line="117"/>
@@ -6636,92 +6663,92 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../lc_setup.py" line="77"/>
         <source>Herbaceous cover</source>
-        <translation type="unfinished"/>
+        <translation>草本植物覆盖</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="79"/>
         <source>Tree or shrub cover</source>
-        <translation type="unfinished"/>
+        <translation>树木或灌木覆盖</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="81"/>
         <source>Cropland, irrigated or postâflooding</source>
-        <translation type="unfinished"/>
+        <translation>灌溉过的农田或洪水过后的农田</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="83"/>
         <source>Mosaic cropland (&gt;50%) / natural vegetation (tree, shrub, herbaceous cover) (&lt;50%)</source>
-        <translation type="unfinished"/>
+        <translation>镶嵌式耕地（&gt;50%）/自然植被（树木、灌木、草本植物覆盖）（&lt;50%）</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="85"/>
         <source>Mosaic natural vegetation (tree, shrub, herbaceous cover) (&gt;50%) / cropland (&lt;50%)</source>
-        <translation type="unfinished"/>
+        <translation>镶嵌式自然植被（树木、灌木、草本植物覆盖）（&gt;50%）/耕地（&lt;50%）</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="87"/>
         <source>Tree cover, broadleaved, evergreen, closed to open (&gt;15%)</source>
-        <translation type="unfinished"/>
+        <translation>树木覆盖，常绿阔叶树，封闭至开放（&gt;15%）</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="89"/>
         <source>Tree cover, broadleaved, deciduous, closed to open (&gt;15%)</source>
-        <translation type="unfinished"/>
+        <translation>树木覆盖，阔叶树，落叶树，封闭至开放（&gt;15%）</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="91"/>
         <source>Tree cover, broadleaved, deciduous, closed (&gt;40%)</source>
-        <translation type="unfinished"/>
+        <translation>树木覆盖，阔叶树，落叶树，封闭的（&gt;40%）</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="93"/>
         <source>Tree cover, broadleaved, deciduous, open (15â40%)</source>
-        <translation type="unfinished"/>
+        <translation>树木覆盖，阔叶树，落叶，开放（15â40%）</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="95"/>
         <source>Tree cover, needleleaved, evergreen, closed to open (&gt;15%)</source>
-        <translation type="unfinished"/>
+        <translation>树木覆盖，针叶树，常绿，封闭至开放（&gt;15%）</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="97"/>
         <source>Tree cover, needleleaved, evergreen, closed (&gt;40%)</source>
-        <translation type="unfinished"/>
+        <translation>树木覆盖，针叶树，常绿，封闭（&gt;40%）</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="99"/>
         <source>Tree cover, needleleaved, evergreen, open (15â40%)</source>
-        <translation type="unfinished"/>
+        <translation>树木覆盖，针叶树，常绿，开放（15â  40%）</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="101"/>
         <source>Tree cover, needleleaved, deciduous, closed to open (&gt;15%)</source>
-        <translation type="unfinished"/>
+        <translation>树木覆盖，针叶树，落叶树，封闭至开放（&gt;15%）</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="103"/>
         <source>Tree cover, needleleaved, deciduous, closed (&gt;40%)</source>
-        <translation type="unfinished"/>
+        <translation>树木覆盖，针叶树，落叶树，封闭的（&gt;40%）</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="105"/>
         <source>Tree cover, needleleaved, deciduous, open (15â40%)</source>
-        <translation type="unfinished"/>
+        <translation>树木覆盖，针叶，落叶，开放 (15â40%)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="107"/>
         <source>Tree cover, mixed leaf type (broadleaved and needleleaved)</source>
-        <translation type="unfinished"/>
+        <translation>树木覆盖，混合叶子类型（阔叶和针叶）</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="109"/>
         <source>Mosaic tree and shrub (&gt;50%) / herbaceous cover (&lt;50%)</source>
-        <translation type="unfinished"/>
+        <translation>镶嵌式树木和灌木（&gt;50%）/草本植物覆盖（&lt;50%）</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="111"/>
         <source>Mosaic herbaceous cover (&gt;50%) / tree and shrub (&lt;50%)</source>
-        <translation type="unfinished"/>
+        <translation>镶嵌式草本植物覆盖率（&gt;50%）/乔木和灌木（&lt;50%）</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="113"/>
@@ -6731,82 +6758,82 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../lc_setup.py" line="115"/>
         <source>Evergreen shrubland</source>
-        <translation type="unfinished"/>
+        <translation>常绿灌从带</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="117"/>
         <source>Deciduous shrubland</source>
-        <translation type="unfinished"/>
+        <translation>落叶灌从带</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="121"/>
         <source>Lichens and mosses</source>
-        <translation type="unfinished"/>
+        <translation>地衣和苔藓</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="123"/>
         <source>Sparse vegetation (tree, shrub, herbaceous cover) (&lt;15%)</source>
-        <translation type="unfinished"/>
+        <translation>稀疏的植被（树木、灌木、草本植物覆盖）（&lt;15%）</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="125"/>
         <source>Sparse tree (&lt;15%)</source>
-        <translation type="unfinished"/>
+        <translation>稀疏的树木（&lt;15%）</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="127"/>
         <source>Sparse shrub (&lt;15%)</source>
-        <translation type="unfinished"/>
+        <translation>稀疏的灌木（&lt;15%）</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="129"/>
         <source>Sparse herbaceous cover (&lt;15%)</source>
-        <translation type="unfinished"/>
+        <translation>稀疏的草本植物覆盖（&lt;15%）</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="131"/>
         <source>Tree cover, flooded, fresh or brakish water</source>
-        <translation type="unfinished"/>
+        <translation>树木覆盖，被淹没，淡水或半咸水</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="133"/>
         <source>Tree cover, flooded, saline water</source>
-        <translation type="unfinished"/>
+        <translation>树木覆盖，被淹没，盐水</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="135"/>
         <source>Shrub or herbaceous cover, flooded, fresh/saline/brakish water</source>
-        <translation type="unfinished"/>
+        <translation>灌木或草本覆盖，淹没，淡水/盐水/半咸水</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="137"/>
         <source>Urban areas</source>
-        <translation type="unfinished"/>
+        <translation>城市区域</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="139"/>
         <source>Bare areas</source>
-        <translation type="unfinished"/>
+        <translation>裸露区域</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="141"/>
         <source>Consolidated bare areas</source>
-        <translation type="unfinished"/>
+        <translation>巩固的裸露区域</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="143"/>
         <source>Unconsolidated bare areas</source>
-        <translation type="unfinished"/>
+        <translation>未巩固的裸露区域</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="145"/>
         <source>Water bodies</source>
-        <translation type="unfinished"/>
+        <translation>水体</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="147"/>
         <source>Permanent snow and ice</source>
-        <translation type="unfinished"/>
+        <translation>永久性冰雪</translation>
     </message>
 </context>
 <context>
@@ -6814,12 +6841,12 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../jobs/manager.py" line="684"/>
         <source>Imported dataset</source>
-        <translation type="unfinished"/>
+        <translation>导入的数据集</translation>
     </message>
     <message>
         <location filename="../jobs/manager.py" line="707"/>
         <source>False positive/negative</source>
-        <translation type="unfinished"/>
+        <translation>假阳性/阴性</translation>
     </message>
 </context>
 <context>
@@ -6842,7 +6869,7 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../plugin.py" line="214"/>
         <source>Trends.Earth Settings</source>
-        <translation type="unfinished"/>
+        <translation>Trends.Earth 设置</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="222"/>
@@ -6852,7 +6879,7 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../plugin.py" line="222"/>
         <source>About Trends.Earth</source>
-        <translation type="unfinished"/>
+        <translation>关于 Trends.Earth</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="230"/>

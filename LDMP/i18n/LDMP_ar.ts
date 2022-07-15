@@ -1169,7 +1169,26 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;Trends.Earth allows the user to compute each of these subindicators in a spatially explicit way generating raster maps which are then integrated into a final SDG 15.3.1 indicator map and produces a table result reporting areas potentially improved and degraded for the area of analysis.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#sdg-indicator-15-3-1&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information on indicator SDG 15.3.1&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;مؤشر أهداف التنمية المستدامة 15.3.1&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;كجزء من âأجندة 2030 للتنمية المستدامةâ، يتمثل الهدف 15 من أهداف التنمية المستدامة (SDG) في:&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;âحماية واستعادة وتعزيز الاستخدام المستدام للنظم البيئية الأرضية، وإدارة الغابات على نحو مستدام، ومكافحة التصحر، ووقف تدهور الأراضي وإصلاح آثره ووقف فقدان التنوع البيولوجي â&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;لكل من أهداف التنمية المستدامة مقاصد محددة تتناول مكونات مختلفة، في هذه الحالة، من الحياة في البرّ. المقصد 15.3 يهدف إلى:&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;âبحلول عام 2030، مكافحة التصحر، واستعادة الأراضي والتربة المتدهورة، بما في ذلك الأراضي المعرضة للتصحر والجفاف والفيضانات، والسعي لتحقيق عالم خالٍ من تدهور الأراضيâ&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;ستستخدم المؤشرات بعد ذلك لتقييم التقدم المحرز في كل مقصد من أهداف التنمية المستدامة. في حالة المقصد 15.3 من أهداف التنمية المستدامة، سيُستخدم المؤشر 15.3.1 لتقييم التقدم المحرز نحو عالم خالٍ من تدهور الأراضي:&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;âنسبة الأراضي المتدهورة مقارنة بإجمالي مساحة الأرضâ&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt; وضعت اتفاقية الأمم المتحدة لمكافحة التصحر (UNCCD)، بصفتها الوكالة الراعية لمقصد هدف التنمية المستدامة 15.3، &lt;/span&gt;&lt;a href=&quot;http://www2.unccd.int/sites/default/files/relevant-links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;دليل الممارسات السليمة (GPG)&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;. والذي يقدم توصيات عن كيفية حساب مؤشر أهداف التنمية المستدامة 15.3.1.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;في سبيل تقييم المنطقة المتدهورة، يستخدم مؤشر أهداف التنمية المستدامة 15.3.1 معلومات من 3 مؤشرات فرعية:&lt;/span&gt;&lt;/p&gt;
+&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;إنتاجية النَبْت&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;الغطاء الخضري&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;الكربون العضوي في التربة&lt;/li&gt;&lt;/ol&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;تسمح أداة Trends.Earth للمستخدم بحساب كل من هذه المؤشرات الفرعية بطريقة واضحة مكانياً وتنشئ خرائط نقطية تُدمج بعد ذلك في الخريطة النهائية لمؤشر أهداف التنمية المستدامة 15.3.1 وتنشئ جدولاً بالنتائج يعرض المناطق المحتمل أن تكون قد تحسنت أو تدهورت في المنطقة التي يُجرى عليها التحليل.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#sdg-indicator-15-3-1&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;لمزيد من المعلومات حول مؤشر أهداف التنمية المستدامة 15.3.1&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../calculate_ldn.py" line="613"/>
@@ -2634,7 +2653,16 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Submitting a false positive / false negative layer is optional. This layer can be used to correct for cases when there are known errors in the indicator data used for Strategic Objective 1.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-style:italic;&quot;&gt;Affected areas&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Checking the &amp;quot;Calculation is for affected areas only&amp;quot; box will include an indicator in the report that this calculation is for affected areas. Note that reporting on affected areas is an optional element in the UNCCD 2022 reporting process and is additional to national reporting. âAffected Areasâ are defined in Article 1 of the Convention as âarid, semi-arid and/or dry sub-humid areas affected or threatened by desertification.â Parties may opt to use this definition or to provide the operational definition of affected area in use in their country.â&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;إنشاء تقرير لاتفاقية الأمم المتحدة لمكافحة التصحر UNCCD&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;حساب تقرير عن الأهداف الإستراتيجية لاتفاقية الأمم المتحدة لمكافحة التصحر أرقام 1 و2 و3&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-style:italic;&quot;&gt;طبقة إيجابية كاذبة/سلبية كاذبة&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt; إرسال طبقة إيجابية كاذبة/سلبية كاذبة اختياري. يمكن استخدام هذه الطبقة لتصحيح الحالات التي توجد فيها أخطاء معروفة في بيانات المؤشر المستخدمة للهدف الاستراتيجي رقم 1.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-style:italic;&quot;&gt;المناطق المتأثرة&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;سيؤدي تحديد مربع &amp;quot;الحساب يتناول المناطق المتأثرة فقط&amp;quot; إلى تضمين مؤشراً في التقرير يفيد بأن الحساب تناول المناطق المتأثرة فحسب. يُرجى العلم بأن إنشاء تقارير عن المناطق المتأثرة يعد عنصراً اختيارياً في عملية تقديم تقارير اتفاقية الأمم المتحدة لمكافحة التصحر (UNCCD) لعام 2022 ويمثل إضافة إلى التقارير القومية. âالمناطق المتأثرةâ معرّفة في المادة الأولى من الاتفاقية بأنها âمناطق قاحلة و/أو شبه قاحلة و/أو جافة شبه رطبة تعاني التصحر أو مهددة بهâ قد تختار الأطراف استخدام هذا التعريف أو تقدّم تعريفاً تشغيلياً للمنطقة المتأثرة المستخدم في بلدهم.â&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../calculate_unccd.py" line="206"/>
@@ -5480,7 +5508,7 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../gui/WidgetMain.ui" line="110"/>
         <source>Create...</source>
-        <translation type="unfinished"/>
+        <translation>إنشاء...</translation>
     </message>
     <message>
         <location filename="../gui/WidgetMain.ui" line="117"/>
@@ -6672,92 +6700,92 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../lc_setup.py" line="77"/>
         <source>Herbaceous cover</source>
-        <translation type="unfinished"/>
+        <translation>الغطاء العشبي</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="79"/>
         <source>Tree or shrub cover</source>
-        <translation type="unfinished"/>
+        <translation>غطاء شجري أو شجيري</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="81"/>
         <source>Cropland, irrigated or postâflooding</source>
-        <translation type="unfinished"/>
+        <translation>الأراضي الزراعية المروية أو ما بعد الفيضان</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="83"/>
         <source>Mosaic cropland (&gt;50%) / natural vegetation (tree, shrub, herbaceous cover) (&lt;50%)</source>
-        <translation type="unfinished"/>
+        <translation>أرض زراعية فسيفسائية (&gt; 50%) / نَبْت طبيعية (غطاء شجري أو شجيري أو عشبي) (&lt;50%)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="85"/>
         <source>Mosaic natural vegetation (tree, shrub, herbaceous cover) (&gt;50%) / cropland (&lt;50%)</source>
-        <translation type="unfinished"/>
+        <translation>نَبْت طبيعي فسيفسائي (غطاء شجري أو شجيري أو عشبي) (&gt; 50%) / أرض زراعية (&lt;50%)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="87"/>
         <source>Tree cover, broadleaved, evergreen, closed to open (&gt;15%)</source>
-        <translation type="unfinished"/>
+        <translation>غطاء شجري، عريض الأوراق، دائم الخضرة، من مغلق إلى مفتوح (&gt;15%)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="89"/>
         <source>Tree cover, broadleaved, deciduous, closed to open (&gt;15%)</source>
-        <translation type="unfinished"/>
+        <translation>غطاء شجري، عريض الأوراق، متساقط الأوراق، من مغلق إلى مفتوح (&gt;15%)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="91"/>
         <source>Tree cover, broadleaved, deciduous, closed (&gt;40%)</source>
-        <translation type="unfinished"/>
+        <translation>غطاء شجري، عريض الأوراق، متساقط الأوراق، مغلق (&gt;40%)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="93"/>
         <source>Tree cover, broadleaved, deciduous, open (15â40%)</source>
-        <translation type="unfinished"/>
+        <translation>غطاء شجري، عريض الأوراق، متساقط الأوراق، مفتوح (15â40%)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="95"/>
         <source>Tree cover, needleleaved, evergreen, closed to open (&gt;15%)</source>
-        <translation type="unfinished"/>
+        <translation>غطاء شجري، إبريّ الأوراق، دائم الخضرة، من مغلق إلى مفتوح (&gt;15%)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="97"/>
         <source>Tree cover, needleleaved, evergreen, closed (&gt;40%)</source>
-        <translation type="unfinished"/>
+        <translation>غطاء شجري، إبريّ الأوراق، دائم الخضرة، مغلق (&gt;40%)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="99"/>
         <source>Tree cover, needleleaved, evergreen, open (15â40%)</source>
-        <translation type="unfinished"/>
+        <translation>غطاء شجري، إبريّ الأوراق، دائم الخضرة، مفتوح (15â40%)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="101"/>
         <source>Tree cover, needleleaved, deciduous, closed to open (&gt;15%)</source>
-        <translation type="unfinished"/>
+        <translation>غطاء شجري، إبريّ الأوراق، متساقط الأوراق، مغلق إلى مفتوح (&gt;15%)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="103"/>
         <source>Tree cover, needleleaved, deciduous, closed (&gt;40%)</source>
-        <translation type="unfinished"/>
+        <translation>غطاء شجري، إبريّ الأوراق، متساقط الأوراق، مغلق (&gt;40%)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="105"/>
         <source>Tree cover, needleleaved, deciduous, open (15â40%)</source>
-        <translation type="unfinished"/>
+        <translation>غطاء شجري، إبريّ الأوراق، متساقط الأوراق، مفتوح (15â40%)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="107"/>
         <source>Tree cover, mixed leaf type (broadleaved and needleleaved)</source>
-        <translation type="unfinished"/>
+        <translation>غطاء شجري، مختلط نوع الأوراق (عريض الأوراق وإبريّ الأوراق)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="109"/>
         <source>Mosaic tree and shrub (&gt;50%) / herbaceous cover (&lt;50%)</source>
-        <translation type="unfinished"/>
+        <translation>غطاء شجري وشجيري فسيفسائي (&gt; 50%) / غطاء عشبي (&lt;50%)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="111"/>
         <source>Mosaic herbaceous cover (&gt;50%) / tree and shrub (&lt;50%)</source>
-        <translation type="unfinished"/>
+        <translation>غطاء عشبي فسيفسائي (&gt; 50%) / غطاء شجري وشجيري (&lt;50%)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="113"/>
@@ -6767,82 +6795,82 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../lc_setup.py" line="115"/>
         <source>Evergreen shrubland</source>
-        <translation type="unfinished"/>
+        <translation>أرض شجيرية دائمة الخضرة</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="117"/>
         <source>Deciduous shrubland</source>
-        <translation type="unfinished"/>
+        <translation>أرض شجيرية متساقطة الأوراق</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="121"/>
         <source>Lichens and mosses</source>
-        <translation type="unfinished"/>
+        <translation>أشنيات وحزازيات</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="123"/>
         <source>Sparse vegetation (tree, shrub, herbaceous cover) (&lt;15%)</source>
-        <translation type="unfinished"/>
+        <translation>نبت غير كثيف (غطاء شجري وشجيري وعشبي) (&lt;15%)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="125"/>
         <source>Sparse tree (&lt;15%)</source>
-        <translation type="unfinished"/>
+        <translation>شجر غير كثيف (&lt;15%)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="127"/>
         <source>Sparse shrub (&lt;15%)</source>
-        <translation type="unfinished"/>
+        <translation>شجيرية غير كثيف (&lt;15%)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="129"/>
         <source>Sparse herbaceous cover (&lt;15%)</source>
-        <translation type="unfinished"/>
+        <translation>غطاء عشبي غير كثيف (&lt;15%)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="131"/>
         <source>Tree cover, flooded, fresh or brakish water</source>
-        <translation type="unfinished"/>
+        <translation>غطاء شجري، مغمور، مياه عذبة أو قليلة الملوحة</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="133"/>
         <source>Tree cover, flooded, saline water</source>
-        <translation type="unfinished"/>
+        <translation>غطاء شجري، مغمور، مياه مالحة</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="135"/>
         <source>Shrub or herbaceous cover, flooded, fresh/saline/brakish water</source>
-        <translation type="unfinished"/>
+        <translation>غطاء شجيري أو عشبي، مغمور، مياه عذبة/ مالحة/قليلة الملوحة</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="137"/>
         <source>Urban areas</source>
-        <translation type="unfinished"/>
+        <translation>مناطق حضرية</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="139"/>
         <source>Bare areas</source>
-        <translation type="unfinished"/>
+        <translation>مناطق عارية</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="141"/>
         <source>Consolidated bare areas</source>
-        <translation type="unfinished"/>
+        <translation>مناطق عارية مجمعة</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="143"/>
         <source>Unconsolidated bare areas</source>
-        <translation type="unfinished"/>
+        <translation>مناطق عارية غير مجمعة</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="145"/>
         <source>Water bodies</source>
-        <translation type="unfinished"/>
+        <translation>مسطحات مائية</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="147"/>
         <source>Permanent snow and ice</source>
-        <translation type="unfinished"/>
+        <translation>ثلج وجليد دائمان</translation>
     </message>
 </context>
 <context>
@@ -6850,12 +6878,12 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../jobs/manager.py" line="684"/>
         <source>Imported dataset</source>
-        <translation type="unfinished"/>
+        <translation>مجموعة البيانات المستوردة</translation>
     </message>
     <message>
         <location filename="../jobs/manager.py" line="707"/>
         <source>False positive/negative</source>
-        <translation type="unfinished"/>
+        <translation>إيجابية/سلبي كاذب</translation>
     </message>
 </context>
 <context>
@@ -6878,7 +6906,7 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../plugin.py" line="214"/>
         <source>Trends.Earth Settings</source>
-        <translation type="unfinished"/>
+        <translation>إعدادات Trends.Earth</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="222"/>
@@ -6888,7 +6916,7 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../plugin.py" line="222"/>
         <source>About Trends.Earth</source>
-        <translation type="unfinished"/>
+        <translation>عن Trends.Earth</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="230"/>

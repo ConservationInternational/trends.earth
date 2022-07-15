@@ -1167,7 +1167,26 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;Trends.Earth allows the user to compute each of these subindicators in a spatially explicit way generating raster maps which are then integrated into a final SDG 15.3.1 indicator map and produces a table result reporting areas potentially improved and degraded for the area of analysis.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#sdg-indicator-15-3-1&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information on indicator SDG 15.3.1&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Indicateur ODD 15.3.1&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Dans le cadre du Programme de développement durable à l’horizon 2030, l&apos;objectif de développement durable (ODD) 15 consiste à :&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Protéger, restaurer et promouvoir l&apos;utilisation durable des écosystèmes terrestres, gérer durablement les forêts, lutter contre la désertification, enrayer et inverser le processus de dégradation des sols et mettre fin à l&apos;appauvrissement de biodiversité &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Chaque ODD a des cibles spécifiques qui abordent de différentes composantes, dans le cas présent, de la vie sur terre. La cible 15.3 vise à :&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;D’ici à 2030, lutter contre la désertification, restaurer les terres et sols dégradés, notamment les terres exposées à la désertification, à la sécheresse et aux inondations, et s’efforcer de parvenir à un monde en matière de dégradation des sols&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Des indicateurs seront ensuite utilisés pour évaluer les progrès de chaque cible des ODD. Dans le cas de l’ODD 15.3, les progrès vers un monde neutre en matière de dégradation des sols seront évalués à l’aide de l’indicateur 15.3.1 :&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Proportion de la surface émergée totale occupée par des sols dégradés&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;En tant qu’agence en charge de l&apos;ODD 15.3, la Convention des Nations unies sur la lutte contre la désertification (CNULCD) a élaboré un &lt;/span&gt;&lt;a href=&quot;http://www2.unccd.int/sites/default/files/relevant-links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Guide de bonnes pratiques (GPG)&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;. donnant des recommandations pour calculer l&apos;indicateur ODD 15.3.1.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Afin d’évaluer la zone dégradée, l’indicateur ODD 15.3.1 utilise les informations dérivées de trois sous-indicateurs :&lt;/span&gt;&lt;/p&gt;
+&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Productivité de la végétation&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Couverture terrestre&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Carbone organique du sol&lt;/li&gt;&lt;/ol&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Trends.Earth permet à l’utilisateur de calculer chacun des sous-indicateurs d’une façon spatialement explicite, générant des cartes raster qui sont ensuite intégrées à une carte finale de l’indicateur ODD 15.3.1 et produit un résultat sous forme de tableau indiquant les zones avec amélioration ou dégradation potentielles pour la zone d&apos;analyse.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#sdg-indicator-15-3-1&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt; Plus d&apos;informations sur l&apos;indicateur ODD 15.3.1&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../calculate_ldn.py" line="613"/>
@@ -2623,7 +2642,16 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Submitting a false positive / false negative layer is optional. This layer can be used to correct for cases when there are known errors in the indicator data used for Strategic Objective 1.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-style:italic;&quot;&gt;Affected areas&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Checking the &amp;quot;Calculation is for affected areas only&amp;quot; box will include an indicator in the report that this calculation is for affected areas. Note that reporting on affected areas is an optional element in the UNCCD 2022 reporting process and is additional to national reporting. âAffected Areasâ are defined in Article 1 of the Convention as âarid, semi-arid and/or dry sub-humid areas affected or threatened by desertification.â Parties may opt to use this definition or to provide the operational definition of affected area in use in their country.â&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Générer le rapport de la CNULCD&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Calculer le rapport sur les objectifs stratégiques 1, 2 et 3 de la CNULCD&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-style:italic;&quot;&gt;Couche de faux positifs/faux négatifs&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;La présentation d&apos;une couche de faux positifs/faux négatifs est facultative. Cette couche peut servir à corriger les cas où il y a des erreurs connues dans les données des indicateurs utilisés pour l&apos;objectif stratégique 1.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-style:italic;&quot;&gt;Zones touchées&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Si vous cochez la case « Le calcul concerne uniquement les zones touchées », le rapport comportera un indicateur indiquant que ce calcul concerne les zones touchées. Notez que le rapport sur les zones touchées est un élément facultatif dans le processus de rapport de la CNULCD 2022 et s&apos;ajoute au rapport national. Les zones touchées sont définies dans l&apos;article 1 de la Convention comme des zones arides, semi-arides et/ou subhumides sèches touchées ou menacées par la désertification. Les parties peuvent choisir d&apos;utiliser cette définition ou de fournir la définition opérationnelle de zone touchée utilisée dans leur pays.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../calculate_unccd.py" line="206"/>
@@ -5447,7 +5475,7 @@ pour les algorithmes en cours d&apos;exécution et leurs résultats.</translatio
     <message>
         <location filename="../gui/WidgetMain.ui" line="110"/>
         <source>Create...</source>
-        <translation type="unfinished"/>
+        <translation>Créer...</translation>
     </message>
     <message>
         <location filename="../gui/WidgetMain.ui" line="117"/>
@@ -6639,92 +6667,92 @@ pour les algorithmes en cours d&apos;exécution et leurs résultats.</translatio
     <message>
         <location filename="../lc_setup.py" line="77"/>
         <source>Herbaceous cover</source>
-        <translation type="unfinished"/>
+        <translation>Couverture herbacée</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="79"/>
         <source>Tree or shrub cover</source>
-        <translation type="unfinished"/>
+        <translation>Couverture d&apos;arbres ou d&apos;arbustes</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="81"/>
         <source>Cropland, irrigated or postâflooding</source>
-        <translation type="unfinished"/>
+        <translation>Terres cultivées, irriguées ou après inondation</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="83"/>
         <source>Mosaic cropland (&gt;50%) / natural vegetation (tree, shrub, herbaceous cover) (&lt;50%)</source>
-        <translation type="unfinished"/>
+        <translation>Mosaïque de terres cultivées (&gt; 50 %) / végétation naturelle (arbres, arbustes, couverture herbacée) (&lt; 50 %)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="85"/>
         <source>Mosaic natural vegetation (tree, shrub, herbaceous cover) (&gt;50%) / cropland (&lt;50%)</source>
-        <translation type="unfinished"/>
+        <translation>Mosaïque de végétation naturelle (arbres, arbustes, couverture herbacée) (&gt; 50 %) / terres cultivées (&lt; 50 %)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="87"/>
         <source>Tree cover, broadleaved, evergreen, closed to open (&gt;15%)</source>
-        <translation type="unfinished"/>
+        <translation>Couverture végétale, feuillus, à feuilles persistantes, fermée à ouverte (&gt; 15 %)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="89"/>
         <source>Tree cover, broadleaved, deciduous, closed to open (&gt;15%)</source>
-        <translation type="unfinished"/>
+        <translation>Couverture végétale, feuillus, à feuilles caduques, fermée à ouverte (&gt; 15 %)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="91"/>
         <source>Tree cover, broadleaved, deciduous, closed (&gt;40%)</source>
-        <translation type="unfinished"/>
+        <translation>Couverture végétale, feuillus, à feuilles caduques, fermée (&gt; 40 %)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="93"/>
         <source>Tree cover, broadleaved, deciduous, open (15â40%)</source>
-        <translation type="unfinished"/>
+        <translation>Couverture végétale, feuillus, à feuilles caduques, ouverte (15 à 40 %)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="95"/>
         <source>Tree cover, needleleaved, evergreen, closed to open (&gt;15%)</source>
-        <translation type="unfinished"/>
+        <translation>Couverture végétale, à aiguilles, à feuilles persistantes, fermée à ouverte (&gt; 15 %)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="97"/>
         <source>Tree cover, needleleaved, evergreen, closed (&gt;40%)</source>
-        <translation type="unfinished"/>
+        <translation>Couverture végétale, à aiguilles, à feuilles persistantes, fermée (&gt; 40 %)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="99"/>
         <source>Tree cover, needleleaved, evergreen, open (15â40%)</source>
-        <translation type="unfinished"/>
+        <translation>Couverture végétale, à aiguilles, à feuilles persistantes, ouverte (15 à 40 %)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="101"/>
         <source>Tree cover, needleleaved, deciduous, closed to open (&gt;15%)</source>
-        <translation type="unfinished"/>
+        <translation>Couverture végétale, à aiguilles, feuillus, fermée à ouverte (&gt; 15 %)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="103"/>
         <source>Tree cover, needleleaved, deciduous, closed (&gt;40%)</source>
-        <translation type="unfinished"/>
+        <translation>Couverture végétale, à aiguilles, à feuilles caduques, fermée (&gt; 40 %)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="105"/>
         <source>Tree cover, needleleaved, deciduous, open (15â40%)</source>
-        <translation type="unfinished"/>
+        <translation>Couverture végétale, à aiguilles, à feuilles caduques, ouverte (15 à 40 %)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="107"/>
         <source>Tree cover, mixed leaf type (broadleaved and needleleaved)</source>
-        <translation type="unfinished"/>
+        <translation>Couverture végétale, type foliaire mixte (feuillus et à aiguilles)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="109"/>
         <source>Mosaic tree and shrub (&gt;50%) / herbaceous cover (&lt;50%)</source>
-        <translation type="unfinished"/>
+        <translation>Mosaïque d’arbres et arbustes (&gt; 50 %) / couverture herbacée (&lt; 50 %)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="111"/>
         <source>Mosaic herbaceous cover (&gt;50%) / tree and shrub (&lt;50%)</source>
-        <translation type="unfinished"/>
+        <translation>Mosaïque de couverture herbacée (&gt; 50 %) / arbres et arbustes (&lt; 50 %)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="113"/>
@@ -6734,82 +6762,82 @@ pour les algorithmes en cours d&apos;exécution et leurs résultats.</translatio
     <message>
         <location filename="../lc_setup.py" line="115"/>
         <source>Evergreen shrubland</source>
-        <translation type="unfinished"/>
+        <translation>Terre à arbustes à feuilles persistantes</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="117"/>
         <source>Deciduous shrubland</source>
-        <translation type="unfinished"/>
+        <translation>Terre à arbustes à feuilles caduques</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="121"/>
         <source>Lichens and mosses</source>
-        <translation type="unfinished"/>
+        <translation>Lichens et mousses</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="123"/>
         <source>Sparse vegetation (tree, shrub, herbaceous cover) (&lt;15%)</source>
-        <translation type="unfinished"/>
+        <translation>Végétation clairsemée (arbres, arbustes, couverture herbacée) (&lt; 15  %)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="125"/>
         <source>Sparse tree (&lt;15%)</source>
-        <translation type="unfinished"/>
+        <translation>Arbres clairsemés (&lt; 15 %)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="127"/>
         <source>Sparse shrub (&lt;15%)</source>
-        <translation type="unfinished"/>
+        <translation>Arbustes clairsemés (&lt; 15 %)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="129"/>
         <source>Sparse herbaceous cover (&lt;15%)</source>
-        <translation type="unfinished"/>
+        <translation>Couverture herbacée clairsemée (&lt; 15 %)</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="131"/>
         <source>Tree cover, flooded, fresh or brakish water</source>
-        <translation type="unfinished"/>
+        <translation>Couverture végétale, inondée, eau douce ou eau saumâtre</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="133"/>
         <source>Tree cover, flooded, saline water</source>
-        <translation type="unfinished"/>
+        <translation>Couverture végétale, inondée, eau salée</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="135"/>
         <source>Shrub or herbaceous cover, flooded, fresh/saline/brakish water</source>
-        <translation type="unfinished"/>
+        <translation>Couverture végétale ou herbacée, inondée, eau douce/saline/saumâtre</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="137"/>
         <source>Urban areas</source>
-        <translation type="unfinished"/>
+        <translation>Zones urbaines</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="139"/>
         <source>Bare areas</source>
-        <translation type="unfinished"/>
+        <translation>Zones nues</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="141"/>
         <source>Consolidated bare areas</source>
-        <translation type="unfinished"/>
+        <translation>Zones nues consolidées</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="143"/>
         <source>Unconsolidated bare areas</source>
-        <translation type="unfinished"/>
+        <translation>Zones nues non consolidées</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="145"/>
         <source>Water bodies</source>
-        <translation type="unfinished"/>
+        <translation>Étendues d’eau</translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="147"/>
         <source>Permanent snow and ice</source>
-        <translation type="unfinished"/>
+        <translation>Neige et glace permanentes</translation>
     </message>
 </context>
 <context>
@@ -6817,12 +6845,12 @@ pour les algorithmes en cours d&apos;exécution et leurs résultats.</translatio
     <message>
         <location filename="../jobs/manager.py" line="684"/>
         <source>Imported dataset</source>
-        <translation type="unfinished"/>
+        <translation>Jeu de données importé</translation>
     </message>
     <message>
         <location filename="../jobs/manager.py" line="707"/>
         <source>False positive/negative</source>
-        <translation type="unfinished"/>
+        <translation>Faux positif/faux négatif</translation>
     </message>
 </context>
 <context>
@@ -6845,7 +6873,7 @@ pour les algorithmes en cours d&apos;exécution et leurs résultats.</translatio
     <message>
         <location filename="../plugin.py" line="214"/>
         <source>Trends.Earth Settings</source>
-        <translation type="unfinished"/>
+        <translation>Paramètres Trends.Earth</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="222"/>
@@ -6855,7 +6883,7 @@ pour les algorithmes en cours d&apos;exécution et leurs résultats.</translatio
     <message>
         <location filename="../plugin.py" line="222"/>
         <source>About Trends.Earth</source>
-        <translation type="unfinished"/>
+        <translation>À propos de Trends.Earth</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="230"/>

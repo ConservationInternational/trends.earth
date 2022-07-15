@@ -295,8 +295,8 @@ style_text_dict = {
 
 with open(
     os.path.join(os.path.dirname(os.path.realpath(__file__)), "data", "styles.json")
-) as script_file:
-    styles = json.load(script_file)
+) as style_file:
+    styles = json.load(style_file)
 
 
 def round_to_n(x, sf=3):

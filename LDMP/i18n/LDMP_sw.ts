@@ -822,47 +822,47 @@ p, li { white-space: pre-wrap; }
         <translation>Hifadhi</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="356"/>
+        <location filename="../lc_setup.py" line="463"/>
         <source>Select a land cover definition file</source>
         <translation>Chagua faili ya ufafanuzi wa bima ya ardhi</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="387"/>
+        <location filename="../lc_setup.py" line="494"/>
         <source>Land cover definition (*.json)</source>
         <translation>Ufafanuzi wa bima ya ardhi (* .json)</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="400"/>
+        <location filename="../lc_setup.py" line="507"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="369"/>
+        <location filename="../lc_setup.py" line="476"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Haiwezi kusoma {}. Chagua faili tofauti.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="387"/>
+        <location filename="../lc_setup.py" line="494"/>
         <source>Choose where to save this land cover definition</source>
         <translation>Chagua wapi kuokoa ufafanuzi wa bima hii ya ardhi</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="400"/>
+        <location filename="../lc_setup.py" line="507"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>Haiwezi kuandika kwa {}. Chagua faili tofauti.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="456"/>
+        <location filename="../lc_setup.py" line="563"/>
         <source>Warning</source>
         <translation>Onyo</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="446"/>
+        <location filename="../lc_setup.py" line="553"/>
         <source>Some of the class codes ({unnecessary_child_codes!r}) in the definition file do not appear in the chosen data file.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="456"/>
+        <location filename="../lc_setup.py" line="563"/>
         <source>Some of the class codes ({child_codes_missing_from_input!r}) in the data file do not appear in the chosen definition file.</source>
         <translation type="unfinished"/>
     </message>
@@ -2489,37 +2489,37 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;Generate UNCCD Report&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;Calculate report on UNCCD Strategic Objectives 1, 2, and 3&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;False positive / false negative layer&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Submitting a false positive / false negative layer is optional. This layer can be used to correct for cases when there are known errors in the indicator data used for Strategic Objective 1.&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Affected areas&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Checking the &amp;quot;Calculation is for affected areas only&amp;quot; box will include an indicator in the report that this calculation is for affected areas. Note that reporting on affected areas is an optional element in the UNCCD 2022 reporting process and is additional to national reporting. âAffected Areasâ are defined in Article 1 of the Convention as âarid, semi-arid and/or dry sub-humid areas affected or threatened by desertification.â Parties may opt to use this definition or to provide the operational definition of affected area in use in their country.â&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-style:italic;&quot;&gt;False positive / false negative layer&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Submitting a false positive / false negative layer is optional. This layer can be used to correct for cases when there are known errors in the indicator data used for Strategic Objective 1.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-style:italic;&quot;&gt;Affected areas&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Checking the &amp;quot;Calculation is for affected areas only&amp;quot; box will include an indicator in the report that this calculation is for affected areas. Note that reporting on affected areas is an optional element in the UNCCD 2022 reporting process and is additional to national reporting. âAffected Areasâ are defined in Article 1 of the Convention as âarid, semi-arid and/or dry sub-humid areas affected or threatened by desertification.â Parties may opt to use this definition or to provide the operational definition of affected area in use in their country.â&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="203"/>
+        <location filename="../calculate_unccd.py" line="206"/>
         <source>Error</source>
         <translation>Kosa</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="189"/>
+        <location filename="../calculate_unccd.py" line="192"/>
         <source>You must select a {dataset_name} layer before you can use the UNCCD reporting tool.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="203"/>
+        <location filename="../calculate_unccd.py" line="206"/>
         <source>You must select a {layer_name} layer before you can use the UNCCD reporting tool.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="217"/>
+        <location filename="../calculate_unccd.py" line="220"/>
         <source>SO1 and SO2</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="221"/>
+        <location filename="../calculate_unccd.py" line="224"/>
         <source>SO3 (hazard and exposure)</source>
         <translation type="unfinished"/>
     </message>
@@ -2872,32 +2872,32 @@ p, li { white-space: pre-wrap; }
         <translation>Kumbuka: Ikiwa kusoma faili kubwa inashauriwa kuwa chaguzi hapo juu ichunguzwe, kwani itaharakisha mchakato wa kusoma madarasa ya pembejeo kutoka kwa daftari. Walakini, ukigundua kuwa Trends.Earth haigambulii madarasa yote kwenye faili ya uingizaji, inaweza kuwa muhimu kuzima chaguo hili. (Inatumika tu ikiwa pembejeo mbaya imechaguliwa)</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="746"/>
+        <location filename="../lc_setup.py" line="847"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="617"/>
+        <location filename="../lc_setup.py" line="718"/>
         <source>Choose an output file.</source>
         <translation>Chagua faili ya pato.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="624"/>
+        <location filename="../lc_setup.py" line="725"/>
         <source>No definition set</source>
         <translation>Hakuna ufafanuzi uliowekwa</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="624"/>
+        <location filename="../lc_setup.py" line="725"/>
         <source>Click &quot;Edit Definition&quot; to define the land cover definition before exporting.</source>
         <translation>Bofya &quot;Badilisha Definition&quot; ili kufafanua ufafanuzi wa bima ya ardhi kabla ya kusafirisha.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="636"/>
+        <location filename="../lc_setup.py" line="737"/>
         <source>Enter the year of the input data.</source>
         <translation>Ingiza mwaka wa data ya pembejeo.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="746"/>
+        <location filename="../lc_setup.py" line="847"/>
         <source>Error reading data. Trends.Earth supports a maximum of 60 different land cover classes</source>
         <translation>Hitilafu ya kusoma data. Trends.Earth inasaidia kiwango cha juu cha masomo 60 ya bima ya ardhi</translation>
     </message>
@@ -4172,37 +4172,37 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LCDefineDegradationWidget</name>
     <message>
-        <location filename="../lc_setup.py" line="808"/>
+        <location filename="../lc_setup.py" line="909"/>
         <source>Land cover in initial year </source>
         <translation>Kifuniko cha ardhi katika mwaka wa kwanza</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="884"/>
+        <location filename="../lc_setup.py" line="985"/>
         <source>Select a transition matrix definition file</source>
         <translation>Chagua faili ya ufafanuzi wa matrix ya mpito</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="916"/>
+        <location filename="../lc_setup.py" line="1017"/>
         <source>Transition matrix definition (*.json)</source>
         <translation>Ufafanuzi wa matrix ya mpito (* .json)</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="930"/>
+        <location filename="../lc_setup.py" line="1031"/>
         <source>Error</source>
         <translation>Hitilafu</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="897"/>
+        <location filename="../lc_setup.py" line="998"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Haiwezi kusoma {}. Chagua faili tofauti.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="916"/>
+        <location filename="../lc_setup.py" line="1017"/>
         <source>Choose where to save this transition matrix definition</source>
         <translation>Chagua wapi kuokoa ufafanuzi wa matrix ya mpito</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="930"/>
+        <location filename="../lc_setup.py" line="1031"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>Haiwezi kuandika kwa {}. Chagua faili tofauti.</translation>
     </message>
@@ -4250,12 +4250,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../main_widget.py" line="222"/>
-        <source>Download Land Potential Knowledge System (LandPKS) data...</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../main_widget.py" line="240"/>
+        <location filename="../main_widget.py" line="242"/>
         <source>Create false positive/negative layer</source>
         <translation type="unfinished"/>
     </message>
@@ -5075,97 +5070,97 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../settings.py" line="1052"/>
+        <location filename="../settings.py" line="1055"/>
         <source>Warning</source>
         <translation>Onyo</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1052"/>
+        <location filename="../settings.py" line="1055"/>
         <source>You must restart QGIS for these changes to take effect.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../settings.py" line="1114"/>
+        <location filename="../settings.py" line="1117"/>
         <source>Binaries &lt;b&gt;are&lt;/b&gt; loaded.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../settings.py" line="1116"/>
+        <location filename="../settings.py" line="1119"/>
         <source>Binaries &lt;b&gt;are not&lt;/b&gt; loaded.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../settings.py" line="1127"/>
+        <location filename="../settings.py" line="1130"/>
         <source>No base data directory set</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../settings.py" line="1171"/>
+        <location filename="../settings.py" line="1174"/>
         <source>Unable to write to {}. Try a different folder.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../settings.py" line="1153"/>
+        <location filename="../settings.py" line="1156"/>
         <source>Choose a folder</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../settings.py" line="1153"/>
+        <location filename="../settings.py" line="1156"/>
         <source>Choose a folder before downloading binaries.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../settings.py" line="1262"/>
+        <location filename="../settings.py" line="1265"/>
         <source>Error</source>
         <translation>Kosa</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1160"/>
+        <location filename="../settings.py" line="1163"/>
         <source>Unable to write to {}. Choose a different folder.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../settings.py" line="1189"/>
+        <location filename="../settings.py" line="1192"/>
         <source>Unable to write to {}. Check that you have permissions to write to this folder, and that you are not trying to overwrite the binaries that you currently have loaded in QGIS.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../settings.py" line="1197"/>
+        <location filename="../settings.py" line="1200"/>
         <source>Unable to read binaries from {}. Check that binaries were downloaded successfully.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../settings.py" line="1206"/>
+        <location filename="../settings.py" line="1209"/>
         <source>Error downloading binaries.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../settings.py" line="1216"/>
+        <location filename="../settings.py" line="1219"/>
         <source>Success</source>
         <translation>Mafanikio</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1212"/>
+        <location filename="../settings.py" line="1215"/>
         <source>Downloaded binaries.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../settings.py" line="1216"/>
+        <location filename="../settings.py" line="1219"/>
         <source>All binaries up to date.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../settings.py" line="1234"/>
+        <location filename="../settings.py" line="1237"/>
         <source>Select folder containing Trends.Earth binaries</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../settings.py" line="1245"/>
+        <location filename="../settings.py" line="1248"/>
         <source>Choose a different folder - cannot install binaries within the Trends.Earth QGIS plugin installation folder.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../settings.py" line="1262"/>
+        <location filename="../settings.py" line="1265"/>
         <source>Cannot read {folder_path!r}. Choose a different folder.</source>
         <translation type="unfinished"/>
     </message>
@@ -5223,27 +5218,27 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../settings.py" line="1346"/>
+        <location filename="../settings.py" line="1349"/>
         <source>Select Report Template Search Path</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../settings.py" line="1356"/>
+        <location filename="../settings.py" line="1359"/>
         <source>QGIS needs to be restarted for the changes to take effect.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../settings.py" line="1360"/>
+        <location filename="../settings.py" line="1363"/>
         <source>Template Search Path</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../settings.py" line="1373"/>
+        <location filename="../settings.py" line="1376"/>
         <source>All Images</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../settings.py" line="1388"/>
+        <location filename="../settings.py" line="1391"/>
         <source>Select Organization Logo</source>
         <translation type="unfinished"/>
     </message>
@@ -5527,217 +5522,207 @@ for running algorithms and their results.</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="193"/>
+        <location filename="../conf.py" line="195"/>
         <source>Land degradation</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="197"/>
+        <location filename="../conf.py" line="199"/>
         <source>Sub-indicators for SDG 15.3.1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="198"/>
+        <location filename="../conf.py" line="200"/>
         <source>Calculate SDG 15.3.1 sub-indicators (required prior to 15.3.1 indicator calculation)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="211"/>
+        <location filename="../conf.py" line="213"/>
         <source>Indicator for SDG 15.3.1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="212"/>
+        <location filename="../conf.py" line="214"/>
         <source>Spatial layer and summary table for total boundary</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="215"/>
+        <location filename="../conf.py" line="217"/>
         <source>Calculate SDG 15.3.1 indicator from productivity, land cover, and soil organic carbon sub-indicators</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="228"/>
-        <source>SDG 15.3.1 error recode (false positive/negative)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../conf.py" line="229"/>
-        <source>Correct any known errors (false positives or negatives) in an SDG 15.3.1 Indicator layer. This can be used to correct misclassifications using expert knowledge or field data.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location filename="../conf.py" line="245"/>
+        <location filename="../conf.py" line="247"/>
         <source>Land productivity</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="246"/>
+        <location filename="../conf.py" line="248"/>
         <source>Land productivity is the biological productive capacity of land</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="261"/>
+        <location filename="../conf.py" line="263"/>
         <source>Land cover change</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="262"/>
+        <location filename="../conf.py" line="264"/>
         <source>Land cover is the physical material at the surface of the earth. </source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="279"/>
+        <location filename="../conf.py" line="281"/>
         <source>Soil Organic Carbon</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="280"/>
+        <location filename="../conf.py" line="282"/>
         <source>Soil organic carbon is a measure of soil organic matter</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="299"/>
+        <location filename="../conf.py" line="301"/>
         <source>Drought</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="300"/>
+        <location filename="../conf.py" line="302"/>
         <source>Vulnerability and exposure</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="304"/>
+        <location filename="../conf.py" line="306"/>
         <source>Drought vulnerability</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="305"/>
+        <location filename="../conf.py" line="307"/>
         <source>Calculate indicators of drought vulnerability consistent with UNCCD SO3 Good Practice Guidance</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="318"/>
+        <location filename="../conf.py" line="320"/>
         <source>Drought vulnerability summary table</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="319"/>
+        <location filename="../conf.py" line="321"/>
         <source>Summarize drought indicators in alignment with UNCCD SO3 reporting requirements</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="333"/>
+        <location filename="../conf.py" line="335"/>
         <source>UNCCD Reporting</source>
         <translation>Taarifa ya UNCCD</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="334"/>
+        <location filename="../conf.py" line="336"/>
         <source>Summarize data for reporting</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="352"/>
+        <location filename="../conf.py" line="354"/>
         <source>Generate data package for UNCCD reporting</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="353"/>
+        <location filename="../conf.py" line="355"/>
         <source>Summarize Strategic Objective (SO) 1, SO2, and SO3 datasets in proper format for submission to UNCCD for 2021 reporting cycle</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="368"/>
+        <location filename="../conf.py" line="370"/>
         <source>SDG 11.3.1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="369"/>
+        <location filename="../conf.py" line="371"/>
         <source>Urban change and land consumption</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="373"/>
+        <location filename="../conf.py" line="375"/>
         <source>Urban change spatial layer</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="374"/>
+        <location filename="../conf.py" line="376"/>
         <source>Calculate indicators of change in urban extent (SDG 11.3.1 indicator)</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="387"/>
+        <location filename="../conf.py" line="389"/>
         <source>Urban change summary table for city</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="388"/>
+        <location filename="../conf.py" line="390"/>
         <source>Calculate table summarizing SDG indicator 11.3.1</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="401"/>
+        <location filename="../conf.py" line="403"/>
         <source>Experimental</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="404"/>
+        <location filename="../conf.py" line="406"/>
         <source>Calculate change in total carbon</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="405"/>
+        <location filename="../conf.py" line="407"/>
         <source>Above and below ground, emissions and deforestation</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="411"/>
+        <location filename="../conf.py" line="413"/>
         <source>Calculate change in carbon</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="412"/>
+        <location filename="../conf.py" line="414"/>
         <source>Calculate total carbon (above and below-ground) and emissions from deforestation</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="430"/>
+        <location filename="../conf.py" line="432"/>
         <source>Change in carbon summary table</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="431"/>
+        <location filename="../conf.py" line="433"/>
         <source>Calculate table summarizing change in total carbon</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="444"/>
+        <location filename="../conf.py" line="446"/>
         <source>Potential change in biomass due to restoration</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="445"/>
+        <location filename="../conf.py" line="447"/>
         <source>Above and below ground woody</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="449"/>
+        <location filename="../conf.py" line="451"/>
         <source>Estimate potential impacts of restoration</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="450"/>
+        <location filename="../conf.py" line="452"/>
         <source>Estimate potential change in biomass due to restoration</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="462"/>
+        <location filename="../conf.py" line="464"/>
         <source>Table summarizing likely changes in biomass</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../conf.py" line="465"/>
+        <location filename="../conf.py" line="467"/>
         <source>Generate table summarizing potential change in biomass due to restoration</source>
         <translation type="unfinished"/>
     </message>
@@ -6411,38 +6396,258 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_lc_setup</name>
     <message>
-        <location filename="../lc_setup.py" line="172"/>
+        <location filename="../lc_setup.py" line="279"/>
         <source>Input code</source>
         <translation>Nambari ya kuingiza</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="173"/>
+        <location filename="../lc_setup.py" line="280"/>
         <source>Input class</source>
         <translation>Darasa la uingizaji</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="174"/>
+        <location filename="../lc_setup.py" line="281"/>
         <source>Output class</source>
         <translation>Darasa la pato</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="261"/>
+        <location filename="../lc_setup.py" line="368"/>
         <source>Error</source>
         <translation>Kosa</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="247"/>
+        <location filename="../lc_setup.py" line="354"/>
         <source>Cannot read {}.</source>
         <translation>Haiwezi kusoma {}.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="230"/>
+        <location filename="../lc_setup.py" line="337"/>
         <source>{f} does not appear to contain a valid land cover legend nesting definition: {e}</source>
         <translation type="unfinished"/>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="261"/>
+        <location filename="../lc_setup.py" line="368"/>
         <source>{f} does not appear to contain a valid land cover transition matrix definition: {e}</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="73"/>
+        <source>No data</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="65"/>
+        <source>Tree-covered</source>
+        <translation>Iliyofunikwa na mti</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="119"/>
+        <source>Grassland</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="67"/>
+        <source>Cropland</source>
+        <translation>Cropland</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="68"/>
+        <source>Wetland</source>
+        <translation>Mazingira</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="69"/>
+        <source>Artificial</source>
+        <translation>Bandia</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="70"/>
+        <source>Other land</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="71"/>
+        <source>Water body</source>
+        <translation>Mwili wa maji</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="75"/>
+        <source>Cropland, rainfed</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="77"/>
+        <source>Herbaceous cover</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="79"/>
+        <source>Tree or shrub cover</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="81"/>
+        <source>Cropland, irrigated or postâflooding</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="83"/>
+        <source>Mosaic cropland (&gt;50%) / natural vegetation (tree, shrub, herbaceous cover) (&lt;50%)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="85"/>
+        <source>Mosaic natural vegetation (tree, shrub, herbaceous cover) (&gt;50%) / cropland (&lt;50%)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="87"/>
+        <source>Tree cover, broadleaved, evergreen, closed to open (&gt;15%)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="89"/>
+        <source>Tree cover, broadleaved, deciduous, closed to open (&gt;15%)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="91"/>
+        <source>Tree cover, broadleaved, deciduous, closed (&gt;40%)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="93"/>
+        <source>Tree cover, broadleaved, deciduous, open (15â40%)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="95"/>
+        <source>Tree cover, needleleaved, evergreen, closed to open (&gt;15%)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="97"/>
+        <source>Tree cover, needleleaved, evergreen, closed (&gt;40%)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="99"/>
+        <source>Tree cover, needleleaved, evergreen, open (15â40%)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="101"/>
+        <source>Tree cover, needleleaved, deciduous, closed to open (&gt;15%)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="103"/>
+        <source>Tree cover, needleleaved, deciduous, closed (&gt;40%)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="105"/>
+        <source>Tree cover, needleleaved, deciduous, open (15â40%)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="107"/>
+        <source>Tree cover, mixed leaf type (broadleaved and needleleaved)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="109"/>
+        <source>Mosaic tree and shrub (&gt;50%) / herbaceous cover (&lt;50%)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="111"/>
+        <source>Mosaic herbaceous cover (&gt;50%) / tree and shrub (&lt;50%)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="113"/>
+        <source>Shrubland</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="115"/>
+        <source>Evergreen shrubland</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="117"/>
+        <source>Deciduous shrubland</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="121"/>
+        <source>Lichens and mosses</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="123"/>
+        <source>Sparse vegetation (tree, shrub, herbaceous cover) (&lt;15%)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="125"/>
+        <source>Sparse tree (&lt;15%)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="127"/>
+        <source>Sparse shrub (&lt;15%)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="129"/>
+        <source>Sparse herbaceous cover (&lt;15%)</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="131"/>
+        <source>Tree cover, flooded, fresh or brakish water</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="133"/>
+        <source>Tree cover, flooded, saline water</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="135"/>
+        <source>Shrub or herbaceous cover, flooded, fresh/saline/brakish water</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="137"/>
+        <source>Urban areas</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="139"/>
+        <source>Bare areas</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="141"/>
+        <source>Consolidated bare areas</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="143"/>
+        <source>Unconsolidated bare areas</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="145"/>
+        <source>Water bodies</source>
+        <translation type="unfinished"/>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="147"/>
+        <source>Permanent snow and ice</source>
         <translation type="unfinished"/>
     </message>
 </context>

@@ -14,6 +14,7 @@
 
 import json
 import os
+import re
 import typing
 from copy import deepcopy
 from pathlib import Path
@@ -23,6 +24,7 @@ from qgis.PyQt import QtCore
 from qgis.PyQt import QtGui
 from qgis.PyQt import QtWidgets
 from qgis.PyQt import uic
+from qgis.core import QgsApplication
 from qgis.utils import iface
 from te_schemas.land_cover import LCClass
 from te_schemas.land_cover import LCLegend
@@ -34,7 +36,6 @@ from te_schemas.land_cover import LCTransitionMeaningDeg
 from . import conf
 from . import data_io
 from .jobs.manager import job_manager
-from .layers import tr_style_text
 from .logger import log
 
 DlgCalculateLCSetAggregationUi, _ = uic.loadUiType(
@@ -54,11 +55,117 @@ WidgetLandCoverSetupRemoteExecutionUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/land_cover_setup_widget.ui")
 )
 
-
 class tr_lc_setup(object):
     def tr(message):
         return QtCore.QCoreApplication.translate("tr_lc_setup", message)
 
+
+tr_dict = {
+    "No data": tr_lc_setup.tr("No data"),
+    "Tree-covered": tr_lc_setup.tr("Tree-covered"),
+    "Grassland": tr_lc_setup.tr("Grassland"),
+    "Cropland": tr_lc_setup.tr("Cropland"),
+    "Wetland": tr_lc_setup.tr("Wetland"),
+    "Artificial": tr_lc_setup.tr("Artificial"),
+    "Other land": tr_lc_setup.tr("Other land"),
+    "Water body": tr_lc_setup.tr("Water body"),
+	"Cropland, rainfed":
+	tr_lc_setup.tr("Cropland, rainfed"),
+	"Herbaceous cover":
+	tr_lc_setup.tr("Herbaceous cover"),
+	"Tree or shrub cover":
+	tr_lc_setup.tr("Tree or shrub cover"),
+	"Cropland, irrigated or post‐flooding":
+	tr_lc_setup.tr("Cropland, irrigated or post‐flooding"),
+	"Mosaic cropland (>50%) / natural vegetation (tree, shrub, herbaceous cover) (<50%)":
+	tr_lc_setup.tr("Mosaic cropland (>50%) / natural vegetation (tree, shrub, herbaceous cover) (<50%)"),
+	"Mosaic natural vegetation (tree, shrub, herbaceous cover) (>50%) / cropland (<50%)":
+	tr_lc_setup.tr("Mosaic natural vegetation (tree, shrub, herbaceous cover) (>50%) / cropland (<50%)"),
+	"Tree cover, broadleaved, evergreen, closed to open (>15%)":
+	tr_lc_setup.tr("Tree cover, broadleaved, evergreen, closed to open (>15%)"),
+	"Tree cover, broadleaved, deciduous, closed to open (>15%)":
+	tr_lc_setup.tr("Tree cover, broadleaved, deciduous, closed to open (>15%)"),
+	"Tree cover, broadleaved, deciduous, closed (>40%)":
+	tr_lc_setup.tr("Tree cover, broadleaved, deciduous, closed (>40%)"),
+	"Tree cover, broadleaved, deciduous, open (15‐40%)":
+	tr_lc_setup.tr("Tree cover, broadleaved, deciduous, open (15‐40%)"),
+	"Tree cover, needleleaved, evergreen, closed to open (>15%)":
+	tr_lc_setup.tr("Tree cover, needleleaved, evergreen, closed to open (>15%)"),
+	"Tree cover, needleleaved, evergreen, closed (>40%)":
+	tr_lc_setup.tr("Tree cover, needleleaved, evergreen, closed (>40%)"),
+	"Tree cover, needleleaved, evergreen, open (15‐40%)":
+	tr_lc_setup.tr("Tree cover, needleleaved, evergreen, open (15‐40%)"),
+	"Tree cover, needleleaved, deciduous, closed to open (>15%)":
+	tr_lc_setup.tr("Tree cover, needleleaved, deciduous, closed to open (>15%)"),
+	"Tree cover, needleleaved, deciduous, closed (>40%)":
+	tr_lc_setup.tr("Tree cover, needleleaved, deciduous, closed (>40%)"),
+	"Tree cover, needleleaved, deciduous, open (15‐40%)":
+	tr_lc_setup.tr("Tree cover, needleleaved, deciduous, open (15‐40%)"),
+	"Tree cover, mixed leaf type (broadleaved and needleleaved)":
+	tr_lc_setup.tr("Tree cover, mixed leaf type (broadleaved and needleleaved)"),
+	"Mosaic tree and shrub (>50%) / herbaceous cover (<50%)":
+	tr_lc_setup.tr("Mosaic tree and shrub (>50%) / herbaceous cover (<50%)"),
+	"Mosaic herbaceous cover (>50%) / tree and shrub (<50%)":
+	tr_lc_setup.tr("Mosaic herbaceous cover (>50%) / tree and shrub (<50%)"),
+	"Shrubland":
+	tr_lc_setup.tr("Shrubland"),
+	"Evergreen shrubland":
+	tr_lc_setup.tr("Evergreen shrubland"),
+	"Deciduous shrubland":
+	tr_lc_setup.tr("Deciduous shrubland"),
+	"Grassland":
+	tr_lc_setup.tr("Grassland"),
+	"Lichens and mosses":
+	tr_lc_setup.tr("Lichens and mosses"),
+	"Sparse vegetation (tree, shrub, herbaceous cover) (<15%)":
+	tr_lc_setup.tr("Sparse vegetation (tree, shrub, herbaceous cover) (<15%)"),
+	"Sparse tree (<15%)":
+	tr_lc_setup.tr("Sparse tree (<15%)"),
+	"Sparse shrub (<15%)":
+	tr_lc_setup.tr("Sparse shrub (<15%)"),
+	"Sparse herbaceous cover (<15%)":
+	tr_lc_setup.tr("Sparse herbaceous cover (<15%)"),
+	"Tree cover, flooded, fresh or brakish water":
+	tr_lc_setup.tr("Tree cover, flooded, fresh or brakish water"),
+	"Tree cover, flooded, saline water":
+	tr_lc_setup.tr("Tree cover, flooded, saline water"),
+	"Shrub or herbaceous cover, flooded, fresh/saline/brakish water":
+	tr_lc_setup.tr("Shrub or herbaceous cover, flooded, fresh/saline/brakish water"),
+	"Urban areas":
+	tr_lc_setup.tr("Urban areas"),
+	"Bare areas":
+	tr_lc_setup.tr("Bare areas"),
+	"Consolidated bare areas":
+	tr_lc_setup.tr("Consolidated bare areas"),
+	"Unconsolidated bare areas":
+	tr_lc_setup.tr("Unconsolidated bare areas"),
+	"Water bodies":
+	tr_lc_setup.tr("Water bodies"),
+	"Permanent snow and ice":
+	tr_lc_setup.tr("Permanent snow and ice"),
+}
+
+# TODO: Finish this - probably makes more sense to do it by subclassing dict, or see
+# here: https://stackoverflow.com/questions/3387691/how-to-perfectly-override-a-dict
+def _tr_cover_class(translations):
+    '''
+    Handle translation of cover class names preceded by numeric codes
+
+    Some cover class names are preceded by numeric codes. Translate these by stripping
+    the code, finding the translation, and then re-adding the code.
+    '''
+    label = re.sub('^-?[0-9]* - ', '', item['label'])
+    code = re.sub(' - .*$', '', item['label'])
+
+    translations.get()
+    nesting.translate(tr_dict)
+
+# Need to reset the land cover legends if the locale has changed (in order to ensure
+# class names with the proper translation are used)
+CURRENT_LOCALE = str(QtCore.QLocale(QgsApplication.locale()))
+PRIOR_LOCALE = conf.settings_manager.get_value(conf.Setting.PRIOR_LOCALE)
+if CURRENT_LOCALE != PRIOR_LOCALE:
+    conf.settings_manager.write_value(conf.Setting.PRIOR_LOCALE, CURRENT_LOCALE)
 
 def json_serial(obj):
     """JSON serializer for objects not serializable by default json code"""
@@ -238,7 +345,7 @@ def read_lc_nesting_file(f):
         return None
     else:
         log(u'Loaded land cover legend nesting definition from {}'.format(f))
-
+        nesting.translate(tr_dict)
         return nesting
 
 
@@ -269,12 +376,12 @@ def read_lc_matrix_file(f):
         return None
     else:
         log(f'Loaded land cover transition matrix definition from {f}')
-
+        matrix.translate(tr_dict)
         return matrix
 
 
 def get_lc_nesting(get_default=False):
-    if not get_default:
+    if not get_default and (CURRENT_LOCALE == PRIOR_LOCALE):
         nesting = QtCore.QSettings().value(
             "LDMP/land_cover_legend_nesting", None
         )
@@ -301,7 +408,7 @@ def get_lc_nesting(get_default=False):
 
 
 def get_trans_matrix(get_default=False):
-    if not get_default:
+    if not get_default and (CURRENT_LOCALE == PRIOR_LOCALE):
         matrix = QtCore.QSettings().value(
             "LDMP/land_cover_deg_trans_matrix", None
         )
@@ -515,9 +622,7 @@ class DlgCalculateLCSetAggregation(
         # Add selector in cell
 
         for row in range(0, len(nesting.child.key_with_nodata())):
-            # Set the default final codes for each row. Note that the QComboBox
-            # entries are potentially translated, so need to link the
-            # translated names back to a particular code.
+            # Set the default final codes for each row
 
             # Get the input code for this row and the final label it should map
             # to by default
@@ -527,14 +632,10 @@ class DlgCalculateLCSetAggregation(
                 if c.code == child_code
             ][0]
 
-            # Figure out which label translation this Parent_Label (in English)
-            # is equivalent to
-            parent_label_tr = tr_style_text(parent_class.name_long)
-
             lc_class_combo = LCClassComboBox(nesting)
 
             # Find the index in the combo box of this translated final label
-            ind = lc_class_combo.findText(parent_label_tr)
+            ind = lc_class_combo.findText(parent_class.name_long)
 
             if ind != -1:
                 lc_class_combo.setCurrentIndex(ind)

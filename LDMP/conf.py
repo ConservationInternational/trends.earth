@@ -38,6 +38,7 @@ class Setting(enum.Enum):
     LOCAL_POLLING_FREQUENCY = "private/local_polling_frequency_seconds"
     UPDATE_FREQUENCY_MILLISECONDS = "private/update_frequency_milliseconds"
     UNKNOWN_AREA_OF_INTEREST = "private/unknown_area_of_interest"
+    PRIOR_LOCALE = "private/prior_locale"
 
     DEBUG = "advanced/debug"
     BINARIES_ENABLED = "advanced/binaries_enabled"
@@ -80,6 +81,7 @@ class SettingsManager:
         Setting.UPDATE_FREQUENCY_MILLISECONDS: 10000,
         Setting.LOCAL_POLLING_FREQUENCY: 30,
         Setting.UNKNOWN_AREA_OF_INTEREST: "unknown-area",
+        Setting.PRIOR_LOCALE: "unknown",
         Setting.REMOTE_POLLING_FREQUENCY: 3 * 60,
         Setting.DEBUG: False,
         Setting.FILTER_JOBS_BY_BASE_DIR: True,

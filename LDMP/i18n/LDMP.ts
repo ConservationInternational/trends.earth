@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0">
+<!DOCTYPE TS>
+<TS version="2.1">
 <context>
     <name>AlgorithmEditorWidget</name>
     <message>
@@ -6422,7 +6423,7 @@ for running algorithms and their results.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="73"/>
+        <location filename="../lc_setup.py" line="64"/>
         <source>No data</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6432,7 +6433,7 @@ for running algorithms and their results.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="119"/>
+        <location filename="../lc_setup.py" line="117"/>
         <source>Grassland</source>
         <translation type="unfinished"></translation>
     </message>
@@ -6462,183 +6463,168 @@ for running algorithms and their results.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="75"/>
+        <location filename="../lc_setup.py" line="73"/>
         <source>Cropland, rainfed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="77"/>
+        <location filename="../lc_setup.py" line="75"/>
         <source>Herbaceous cover</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="79"/>
+        <location filename="../lc_setup.py" line="77"/>
         <source>Tree or shrub cover</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="81"/>
-        <source>Cropland, irrigated or post&#xe2;&#x80;&#x90;flooding</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lc_setup.py" line="83"/>
         <source>Mosaic cropland (&gt;50%) / natural vegetation (tree, shrub, herbaceous cover) (&lt;50%)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="85"/>
+        <location filename="../lc_setup.py" line="83"/>
         <source>Mosaic natural vegetation (tree, shrub, herbaceous cover) (&gt;50%) / cropland (&lt;50%)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="87"/>
+        <location filename="../lc_setup.py" line="85"/>
         <source>Tree cover, broadleaved, evergreen, closed to open (&gt;15%)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="89"/>
+        <location filename="../lc_setup.py" line="87"/>
         <source>Tree cover, broadleaved, deciduous, closed to open (&gt;15%)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="91"/>
+        <location filename="../lc_setup.py" line="89"/>
         <source>Tree cover, broadleaved, deciduous, closed (&gt;40%)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="93"/>
-        <source>Tree cover, broadleaved, deciduous, open (15&#xe2;&#x80;&#x90;40%)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lc_setup.py" line="95"/>
         <source>Tree cover, needleleaved, evergreen, closed to open (&gt;15%)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="97"/>
+        <location filename="../lc_setup.py" line="95"/>
         <source>Tree cover, needleleaved, evergreen, closed (&gt;40%)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="99"/>
-        <source>Tree cover, needleleaved, evergreen, open (15&#xe2;&#x80;&#x90;40%)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lc_setup.py" line="101"/>
         <source>Tree cover, needleleaved, deciduous, closed to open (&gt;15%)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="103"/>
+        <location filename="../lc_setup.py" line="101"/>
         <source>Tree cover, needleleaved, deciduous, closed (&gt;40%)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="105"/>
-        <source>Tree cover, needleleaved, deciduous, open (15&#xe2;&#x80;&#x90;40%)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../lc_setup.py" line="107"/>
         <source>Tree cover, mixed leaf type (broadleaved and needleleaved)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="109"/>
+        <location filename="../lc_setup.py" line="107"/>
         <source>Mosaic tree and shrub (&gt;50%) / herbaceous cover (&lt;50%)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="111"/>
+        <location filename="../lc_setup.py" line="109"/>
         <source>Mosaic herbaceous cover (&gt;50%) / tree and shrub (&lt;50%)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="113"/>
+        <location filename="../lc_setup.py" line="111"/>
         <source>Shrubland</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="115"/>
+        <location filename="../lc_setup.py" line="113"/>
         <source>Evergreen shrubland</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="117"/>
+        <location filename="../lc_setup.py" line="115"/>
         <source>Deciduous shrubland</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="121"/>
+        <location filename="../lc_setup.py" line="119"/>
         <source>Lichens and mosses</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="123"/>
+        <location filename="../lc_setup.py" line="121"/>
         <source>Sparse vegetation (tree, shrub, herbaceous cover) (&lt;15%)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="125"/>
+        <location filename="../lc_setup.py" line="123"/>
         <source>Sparse tree (&lt;15%)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="127"/>
+        <location filename="../lc_setup.py" line="125"/>
         <source>Sparse shrub (&lt;15%)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="129"/>
+        <location filename="../lc_setup.py" line="127"/>
         <source>Sparse herbaceous cover (&lt;15%)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="131"/>
+        <location filename="../lc_setup.py" line="129"/>
         <source>Tree cover, flooded, fresh or brakish water</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="133"/>
+        <location filename="../lc_setup.py" line="131"/>
         <source>Tree cover, flooded, saline water</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="135"/>
+        <location filename="../lc_setup.py" line="133"/>
         <source>Shrub or herbaceous cover, flooded, fresh/saline/brakish water</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="137"/>
+        <location filename="../lc_setup.py" line="135"/>
         <source>Urban areas</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="139"/>
+        <location filename="../lc_setup.py" line="137"/>
         <source>Bare areas</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="141"/>
+        <location filename="../lc_setup.py" line="139"/>
         <source>Consolidated bare areas</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="143"/>
+        <location filename="../lc_setup.py" line="141"/>
         <source>Unconsolidated bare areas</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="145"/>
+        <location filename="../lc_setup.py" line="143"/>
         <source>Water bodies</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="147"/>
+        <location filename="../lc_setup.py" line="145"/>
         <source>Permanent snow and ice</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="79"/>
+        <source>Cropland, irrigated or post‐flooding</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

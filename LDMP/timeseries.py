@@ -96,10 +96,7 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
         self.area_widget = AreaWidget()
         self.area_widget.hide_on_choose_point = False
         self.area_widget.set_section_visibility(
-            AreaWidgetSection.FILE
-            | AreaWidgetSection.BUFFER
-            | AreaWidgetSection.NAME
-            | AreaWidgetSection.DISCLAIMER
+            AreaWidgetSection.FILE | AreaWidgetSection.NAME
         )
         self.vl_aoi.addWidget(self.area_widget)
 

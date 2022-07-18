@@ -577,9 +577,9 @@ class DlgCalculateBase(QtWidgets.QDialog):
             QtWidgets.QMessageBox.critical(
                 None,
                 tr_calculate.tr("Error"),
-                tr_calculate.tr("You have chosen to run calculations on a point (or "
-                                "for a city). To run this tool you must also a "
-                                "buffer.")
+                tr_calculate.tr("You have chosen to run this calculation on a point "
+                                "(or for a city). To run this tool on a point you "
+                                "must also select a buffer.")
             )
             return False
 

@@ -3897,27 +3897,27 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="339"/>
+        <location filename="../timeseries.py" line="336"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="330"/>
+        <location filename="../timeseries.py" line="327"/>
         <source>Submitted</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="330"/>
+        <location filename="../timeseries.py" line="327"/>
         <source>Time series calculation task submitted to Trends.Earth server.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="339"/>
+        <location filename="../timeseries.py" line="336"/>
         <source>Unable to submit time series calculation task to Trends.Earth server</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="282"/>
+        <location filename="../timeseries.py" line="279"/>
         <source>The bounding box of the requested area (approximately {:.6n} sq km) is too large. The timeseries tool can process a maximum area of 1 million sq km at a time. Choose a smaller area to process.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5408,78 +5408,83 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_calculate</name>
     <message>
-        <location filename="../calculate.py" line="257"/>
+        <location filename="../calculate.py" line="271"/>
         <source>Select folder containing data</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="541"/>
+        <location filename="../calculate.py" line="602"/>
         <source>Error</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="270"/>
+        <location filename="../calculate.py" line="286"/>
         <source>Cannot read {}. Choose a different folder.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="307"/>
+        <location filename="../calculate.py" line="328"/>
         <source>Choose a prefix to be used when naming output files</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="307"/>
+        <location filename="../calculate.py" line="328"/>
         <source>Base name (*)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="319"/>
+        <location filename="../calculate.py" line="344"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="336"/>
+        <location filename="../calculate.py" line="368"/>
         <source>Overwrite file?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="336"/>
+        <location filename="../calculate.py" line="368"/>
         <source>Using the prefix &quot;{}&quot; would lead to overwriting existing file(s) {}. Do you want to overwrite these file(s)?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="344"/>
+        <location filename="../calculate.py" line="382"/>
         <source>Information</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="344"/>
+        <location filename="../calculate.py" line="382"/>
         <source>Choose a different output prefix and try again.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="459"/>
+        <location filename="../calculate.py" line="503"/>
         <source>Schedule remote execution</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="461"/>
+        <location filename="../calculate.py" line="505"/>
         <source>Execute locally</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="499"/>
+        <location filename="../calculate.py" line="542"/>
         <source>Current region: {region}</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="529"/>
+        <location filename="../calculate.py" line="590"/>
         <source>Unable to calculate bounding box.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="541"/>
+        <location filename="../calculate.py" line="602"/>
         <source>Choose an output base name.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="577"/>
+        <source>You have chosen to run calculations on a point (or for a city). To run this tool you must also a buffer.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6625,6 +6630,21 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../lc_setup.py" line="79"/>
         <source>Cropland, irrigated or post‐flooding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="91"/>
+        <source>Tree cover, broadleaved, deciduous, open (15‐40%)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="97"/>
+        <source>Tree cover, needleleaved, evergreen, open (15‐40%)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="103"/>
+        <source>Tree cover, needleleaved, deciduous, open (15‐40%)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

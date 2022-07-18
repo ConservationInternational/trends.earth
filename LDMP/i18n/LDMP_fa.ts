@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="fa">
+<!DOCTYPE TS><TS version="2.0" language="fa" sourcelanguage="">
 <context>
     <name>AlgorithmEditorWidget</name>
     <message>
@@ -5484,7 +5483,7 @@ for running algorithms and their results.</source>
     </message>
     <message>
         <location filename="../calculate.py" line="577"/>
-        <source>You have chosen to run calculations on a point (or for a city). To run this tool you must also a buffer.</source>
+        <source>You have chosen to run this calculation on a point (or for a city). To run this tool on a point you must also select a buffer.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -6629,22 +6628,22 @@ for running algorithms and their results.</source>
     </message>
     <message>
         <location filename="../lc_setup.py" line="79"/>
-        <source>Cropland, irrigated or post‐flooding</source>
+        <source>Cropland, irrigated or post&#xe2;&#x80;&#x90;flooding</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="91"/>
-        <source>Tree cover, broadleaved, deciduous, open (15‐40%)</source>
+        <source>Tree cover, broadleaved, deciduous, open (15&#xe2;&#x80;&#x90;40%)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="97"/>
-        <source>Tree cover, needleleaved, evergreen, open (15‐40%)</source>
+        <source>Tree cover, needleleaved, evergreen, open (15&#xe2;&#x80;&#x90;40%)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../lc_setup.py" line="103"/>
-        <source>Tree cover, needleleaved, deciduous, open (15‐40%)</source>
+        <source>Tree cover, needleleaved, deciduous, open (15&#xe2;&#x80;&#x90;40%)</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

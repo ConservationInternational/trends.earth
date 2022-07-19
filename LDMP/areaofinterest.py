@@ -599,7 +599,8 @@ def _transform_layer(l, crs_dst, datatype="polygon", wrap=False):
                 None,
                 tr_areaofinterest.tr("Error"),
                 tr_areaofinterest.tr(
-                    "Error - layer is not in a geographic coordinate system. Cannot wrap layer across 180th meridian."
+                    "Error - layer is not in a geographic coordinate system. "
+                    "Cannot wrap layer across 180th meridian."
                 ),
             )
             log(

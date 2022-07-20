@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="2.0">
+<!DOCTYPE TS>
+<TS version="2.1">
 <context>
     <name>AlgorithmEditorWidget</name>
     <message>
@@ -2788,9 +2789,6 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
-    <name>DlgDataIOImportBase</name>
-</context>
-<context>
     <name>DlgDataIOImportLC</name>
     <message>
         <location filename="../gui/DlgDataIOImportLC.ui" line="23"/>
@@ -3984,12 +3982,6 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
-    <name>ImportSelectFileInputWidget</name>
-</context>
-<context>
-    <name>ImportSelectRasterOutput</name>
-</context>
-<context>
     <name>LCDefineDegradationWidget</name>
     <message>
         <location filename="../lc_setup.py" line="909"/>
@@ -4472,9 +4464,6 @@ p, li { white-space: pre-wrap; }
         <source>Form</source>
         <translation type="unfinished"></translation>
     </message>
-</context>
-<context>
-    <name>WidgetDataIOSelectTELayerBase</name>
 </context>
 <context>
     <name>WidgetDataIOSelectTELayerExisting</name>

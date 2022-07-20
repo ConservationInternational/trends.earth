@@ -103,9 +103,21 @@ source_file = docs/i18n/pot/for_users/gettingstarted/index.pot
 source_lang = en
 type = PO
 
+[o:conservation-international:p:trendsearth:r:for_users--gettingstarted--basemap]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/for_users/gettingstarted/basemap.po
+source_file = docs/i18n/pot/for_users/gettingstarted/basemap.pot
+source_lang = en
+type = PO
+
 [o:conservation-international:p:trendsearth:r:for_users--gettingstarted--browser_version]
 file_filter = docs/i18n/<lang>/LC_MESSAGES/for_users/gettingstarted/browser_version.po
 source_file = docs/i18n/pot/for_users/gettingstarted/browser_version.pot
+source_lang = en
+type = PO
+
+[o:conservation-international:p:trendsearth:r:for_users--gettingstarted--pyramids]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/for_users/gettingstarted/pyramids.po
+source_file = docs/i18n/pot/for_users/gettingstarted/pyramids.pot
 source_lang = en
 type = PO
 

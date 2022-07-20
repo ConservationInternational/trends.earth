@@ -17,3 +17,5 @@ Training Manual
    Dataset Metadata <metadata>
    False Positives/Negatives <errorrecode>
    Dataset Reports <reports>
+   Adding a Basemap <basemap>
+   Computing Pyramids <pyramids>

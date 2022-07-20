@@ -1,22 +1,25 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
-#
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Alex Zvoleff <azvoleff@conservation.org>, 2022
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-07-20 14:58-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2022-07-20 19:07+0000\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
+"Language-Team: Arabic (https://www.transifex.com/conservation-international/teams/80165/ar/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 #: ../../source/for_users/training/pyramids.rst:4
 msgid "Computing Pyramids"
@@ -26,92 +29,117 @@ msgstr ""
 msgid ""
 "When the raster file is too big, due to a large study area, high spatial "
 "resolution, or a large number of bands in the file, the data could take "
-"several seconds to display. If you change the zoom or turn layers on an  "
-"off frequently, this could make the work a bit frustrating. An option to "
-"overcome this is to compute **Pyramids** to the file. This process will "
-"take from **minutes to hours** to run depending on the size of the area, "
-"so make sure to have enough time for it to process. To compute pyramids "
-"you have to:"
+"several seconds to display. If you change the zoom or turn layers on an  off"
+" frequently, this could make the work a bit frustrating. An option to "
+"overcome this is to compute **Pyramids** to the file. This process will take"
+" from **minutes to hours** to run depending on the size of the area, so make"
+" sure to have enough time for it to process. To compute pyramids you have "
+"to:"
 msgstr ""
+"عندما يكون الملف النقطي كبيراً جداً، بسبب مساحة دراسة كبيرة، أو دقة مكانية "
+"عالية، أو عدد كبير من النطاقات في الملف، فقد يستغرق عرض البيانات عدة ثوانٍ. "
+"إذا قمت بتغيير التكبير / التصغير أو تشغيل الطبقات بشكل متكرر، فقد يجعل هذا "
+"العمل محبطاً بعض الشيء. أحد الخيارات للتغلب على هذا هو حساب ** الأهرامات** "
+"في الملف. ستستغرق هذه العملية من **دقائق إلى ساعات** للتشغيل حسب حجم "
+"المنطقة، لذا تأكد من وجود وقت كافٍ لها حتى تتم معالجتها. لحساب الأهرام التي "
+"ترغب في حسابها:"
 
 #: ../../source/for_users/training/pyramids.rst:8
 msgid ""
-"Navigate with your cursor to the layer you want to compute pyramids for "
-"and right click over it. A menu will open. Navigate to **Properties** and"
-" click on it."
+"Navigate with your cursor to the layer you want to compute pyramids for and "
+"right click over it. A menu will open. Navigate to **Properties** and click "
+"on it."
 msgstr ""
+"انتقل باستخدام المؤشر إلى الطبقة التي تريد حساب الأهرامات لها وانقر عليها "
+"بزر الفأرة الأيمن. سيتم فتح قائمة. انتقل إلى **الخصائص** وانقر عليها."
 
 #: ../../source/for_users/training/pyramids.rst:11
 msgid ""
 "When using the **Calculate all three sub-indicators in one step** option "
-"(described in the tutorial :ref:`tut_land_degradation`), all the bands "
-"are stored in a single TIF file, so even though you see three layers "
-"loaded in the QGIS window, they all refer to the same file. This means "
-"that the pyramids need to be computed only once for the three sub-"
-"indicators."
+"(described in the tutorial :ref:`tut_land_degradation`), all the bands are "
+"stored in a single TIF file, so even though you see three layers loaded in "
+"the QGIS window, they all refer to the same file. This means that the "
+"pyramids need to be computed only once for the three sub-indicators."
 msgstr ""
+"عند استخدام الخيار **احسب جميع المؤشرات الفرعية الثلاثة في خطوة واحدة** "
+"(موصوف في البرنامج التعليمي: المرجع: `tut_land_degradation`)، يتم تخزين جميع"
+" النطاقات في ملف TIF واحد، لذلك على الرغم من أنك ترى ثلاث طبقات محملة في "
+"نافذة QGIS، تشير جميعها إلى نفس الملف. هذا يعني أن الأهرامات تحتاج إلى حساب "
+"مرة واحدة فقط بالنسبة للمؤشرات الفرعية الثلاثة."
 
 #: ../../source/for_users/training/pyramids.rst:16
 msgid ""
-"The Layer Properties menu will open. From the options on the left, "
-"navigate to **Pyramids** and click on it."
+"The Layer Properties menu will open. From the options on the left, navigate "
+"to **Pyramids** and click on it."
 msgstr ""
+"سيتم فتح قائمة خصائص الطبقة. من الخيارات الموجودة على اليسار، انتقل إلى ** "
+"الأهرامات** وانقر عليها."
 
 #: ../../source/for_users/training/pyramids.rst:21
-msgid "Once on the **Pyramids** tab you will see a description about they are."
-msgstr ""
+msgid ""
+"Once on the **Pyramids** tab you will see a description about they are."
+msgstr "بمجرد دخولك إلى علامة التبويب **الأهرامات**، سترى وصفاً لها."
 
 #: ../../source/for_users/training/pyramids.rst:26
 msgid ""
 "To the right of the window you will see the **Resolutions** options. "
 "Selecting all of them will make displaying in QGIS the fastest, but this "
 "could take hours to compute depending on the file size and processing "
-"capabilities of the computer you are using. For the Uganda example, we "
-"can select them all, but if using a larger area or higher spatial "
-"resolution than the default 250m, we recommend you select alternating "
-"resolutions options (i.e. one resolution selected and one not selected, "
-"and so on). Resolutions are selected by clicking on them. When selected, "
-"they will turn blue."
+"capabilities of the computer you are using. For the Uganda example, we can "
+"select them all, but if using a larger area or higher spatial resolution "
+"than the default 250m, we recommend you select alternating resolutions "
+"options (i.e. one resolution selected and one not selected, and so on). "
+"Resolutions are selected by clicking on them. When selected, they will turn "
+"blue."
 msgstr ""
+"على يمين النافذة سترى خيارات **الدقة**. سيؤدي تحديدها جميعاً إلى جعل العرض "
+"في QGIS أسرع، ولكن قد يستغرق ذلك ساعات للحساب اعتماداً على حجم الملف وقدرات "
+"المعالجة للكمبيوتر الذي تستخدمه. بالنسبة لمثال أوغندا، يمكننا تحديدها "
+"جميعاً، ولكن في حالة استخدام مساحة أكبر أو دقة مكانية أعلى من الدقة "
+"الافتراضية 250 متراً، نوصيك بتحديد خيارات الدقة البديلة (أي دقة واحدة محددة "
+"وواحدة غير محددة، وهكذا). يتم تحديد القرارات من خلال النقر عليها. عند "
+"التحديد، سيتحولون إلى اللون الأزرق."
 
 #: ../../source/for_users/training/pyramids.rst:28
 msgid "Make sure that the settings at the bottom are set to:"
-msgstr ""
+msgstr "تأكد من ضبط الإعدادات في الجزء السفلي على:"
 
 #: ../../source/for_users/training/pyramids.rst:30
 msgid "**Overview format**: External"
-msgstr ""
+msgstr "**تنسيق النظرة العامة**: خارجي"
 
 #: ../../source/for_users/training/pyramids.rst:31
 msgid "**Resampling method**: Nearest Neighbour"
-msgstr ""
+msgstr "**طريقة إعادة التشكيل**: أقرب الجيران"
 
 #: ../../source/for_users/training/pyramids.rst:33
 msgid ""
 "Then click on the **Build pyramids** button. The progress bar next to it "
 "will show which percentage of the task has been completed."
 msgstr ""
+"ثم اضغط على زر **بناء الأهرامات**. سيعرض شريط التقدم الموجود بجانبه النسبة "
+"المئوية للمهمة التي تم إكمالها."
 
 #: ../../source/for_users/training/pyramids.rst:38
 msgid ""
 "When pyramids have been built you will notice that the icons next to the "
-"resolutions will have changed from **red crosses** to **yellow "
-"pyramids**."
+"resolutions will have changed from **red crosses** to **yellow pyramids**."
 msgstr ""
+"عندما يتم بناء الأهرامات، ستلاحظ أن الأيقونة المجاورة للقرارات قد تغيرت من "
+"**الصلبان الحمراء** إلى **الأهرامات الصفراء**."
 
 #: ../../source/for_users/training/pyramids.rst:43
 msgid "Click **OK** to go back to the QGIS main interface."
-msgstr ""
+msgstr "انقر فوق **موافق** للرجوع إلى واجهة QGIS الرئيسية."
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr ""
+msgstr "أيقونة الحاسبة"
 
 #: ../../../<rst_epilog>:4
 msgid "iconReports"
-msgstr ""
+msgstr "iconReports"
 
 #: ../../../<rst_epilog>:6
 msgid "Trends.Earth"
-msgstr ""
-
+msgstr "Trends.Earth\n"

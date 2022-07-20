@@ -1,22 +1,26 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth
-# package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
-#
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Alex Zvoleff <azvoleff@conservation.org>, 2022
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-07-20 14:58-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2022-07-20 19:07+0000\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022\n"
+"Language-Team: French (https://www.transifex.com/conservation-international/teams/80165/fr/)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
 
 #: ../../source/for_users/training/basemap.rst:4
 msgid "Adding a basemap"
@@ -24,89 +28,113 @@ msgstr ""
 
 #: ../../source/for_users/training/basemap.rst:6
 msgid ""
-"Basemaps are very useful as a reference for identifying specific "
-"locations in maps. When downloaded, Trends.Earth results are displayed on"
-" an empty QGIS project, which could limit the user ability for "
-"identifying know places in the landscape. To facilitate this process, you"
-" can use the **Add Basemap** tool which will load country and state "
-"boundaries, roads, rivers, cities, coastlines and water bodies with "
-"labels to the QGIS project."
+"Basemaps are very useful as a reference for identifying specific locations "
+"in maps. When downloaded, Trends.Earth results are displayed on an empty "
+"QGIS project, which could limit the user ability for identifying know places"
+" in the landscape. To facilitate this process, you can use the **Add "
+"Basemap** tool which will load country and state boundaries, roads, rivers, "
+"cities, coastlines and water bodies with labels to the QGIS project."
 msgstr ""
+"Les cartes de base sont très utiles comme référence pour l'identification "
+"d'emplacements spécifiques dans les cartes. Une fois téléchargés, les "
+"résultats de Trends.Earth sont affichés sur un projet QGIS vide, ce qui "
+"pourrait limiter la capacité de l'utilisateur à identifier des lieux connus "
+"dans le paysage. Pour faciliter ce processus, vous pouvez utiliser l'outil "
+"**Ajouter un fond de carte** qui chargera les frontières de pays et d'état, "
+"les routes, les rivières, les villes, les littoraux et les plans d'eau avec "
+"des étiquettes au projet QGIS."
 
 #: ../../source/for_users/training/basemap.rst:8
 msgid ""
-"To load the tool click on the **Datasets** tab and select **Load Base "
-"Map** in the bottom right of the window."
+"To load the tool click on the **Datasets** tab and select **Load Base Map** "
+"in the bottom right of the window."
 msgstr ""
+"Pour charger l'outil, cliquez sur l'onglet « Ensembles de données » et "
+"sélectionnez « Charger la carte de base » dans le coin inférieur droit de la"
+" fenêtre."
 
 #: ../../source/for_users/training/basemap.rst:13
 msgid "On the **Add basemap** window you can do one of two things:"
 msgstr ""
+"Dans la fenêtre **Ajouter un fond de carte**, vous pouvez effectuer l'une "
+"des deux opérations suivantes:"
 
 #: ../../source/for_users/training/basemap.rst:15
 msgid ""
 "**Use a mask option selected** will create a mask blocking all the "
 "information outside of the selected area. In this example, all the "
-"information outside of Uganda will not be displayed on the map. This "
-"option is useful when displaying the sub-indicators downloaded from "
-"Trends.Earth, since the data download is not clipped to administrative "
-"boundaries (a bounding box is used instead). You can use first and second"
-" level administrative boundaries."
+"information outside of Uganda will not be displayed on the map. This option "
+"is useful when displaying the sub-indicators downloaded from Trends.Earth, "
+"since the data download is not clipped to administrative boundaries (a "
+"bounding box is used instead). You can use first and second level "
+"administrative boundaries."
 msgstr ""
+"**Utiliser une option de masque sélectionnée** créera un masque bloquant "
+"toutes les informations en dehors de la zone sélectionnée. Dans cet exemple,"
+" toutes les informations en dehors de l'Ouganda ne seront pas affichées sur "
+"la carte. Cette option est utile lors de l'affichage des sous-indicateurs "
+"téléchargés à partir de Trends.Earth, car le téléchargement des données "
+"n'est pas limité aux limites administratives (un cadre de sélection est "
+"utilisé à la place). Vous pouvez utiliser les limites administratives du "
+"premier et du second niveau."
 
 #: ../../source/for_users/training/basemap.rst:17
 msgid ""
-"**Use a mask option not selected** will load all the reference "
-"information, but no mask will be applied."
+"**Use a mask option not selected** will load all the reference information, "
+"but no mask will be applied."
 msgstr ""
+"**Utiliser une option de masque non sélectionnée** chargera toutes les "
+"informations de référence, mais aucun masque ne sera appliqué."
 
 #: ../../source/for_users/training/basemap.rst:22
 msgid ""
-"Once the basemap is loaded, you will notice the information added to the "
-"map and to the Layer panel. The basemap has information for:"
+"Once the basemap is loaded, you will notice the information added to the map"
+" and to the Layer panel. The basemap has information for:"
 msgstr ""
+"Une fois la carte de base chargée, vous remarquerez les informations "
+"ajoutées à la carte et au panneau « Couche ». La carte de base contient des "
+"informations sur :"
 
 #: ../../source/for_users/training/basemap.rst:24
 msgid "Lake"
-msgstr ""
+msgstr "Lac"
 
 #: ../../source/for_users/training/basemap.rst:25
 msgid "River"
-msgstr ""
+msgstr "Rivière"
 
 #: ../../source/for_users/training/basemap.rst:26
 msgid "Coastline"
-msgstr ""
+msgstr "Littoral"
 
 #: ../../source/for_users/training/basemap.rst:27
 msgid "City"
-msgstr ""
+msgstr "Ville"
 
 #: ../../source/for_users/training/basemap.rst:28
 msgid "Disputed border"
-msgstr ""
+msgstr "Frontière contestée"
 
 #: ../../source/for_users/training/basemap.rst:29
 msgid "Subnational border"
-msgstr ""
+msgstr "Frontière infranationale"
 
 #: ../../source/for_users/training/basemap.rst:30
 msgid "National border"
-msgstr ""
+msgstr "Frontière nationale"
 
 #: ../../source/for_users/training/basemap.rst:31
 msgid "Ocean"
-msgstr ""
+msgstr "Océan"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
-msgstr ""
+msgstr "icôneCalculatrice"
 
 #: ../../../<rst_epilog>:4
 msgid "iconReports"
-msgstr ""
+msgstr "icôneRapports"
 
 #: ../../../<rst_epilog>:6
 msgid "Trends.Earth"
-msgstr ""
-
+msgstr "Trends.Earth"

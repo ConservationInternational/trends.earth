@@ -1,118 +1,64 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
 # Translators:
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
 # Alex Zvoleff <azvoleff@conservation.org>, 2022
-# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-27 21:58-0400\n"
+"POT-Creation-Date: 2022-07-20 14:58-0400\n"
 "PO-Revision-Date: 2022-05-26 11:57+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
-"Language-Team: Russian (https://www.transifex.com/conservation-international/teams/80165/ru/)\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Language: ru\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Language-Team: Russian (https://www.transifex.com/conservation-"
+"international/teams/80165/ru/)\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) "
+"|| (n%100>=11 && n%100<=14)? 2 : 3)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:4
-msgid "QGIS"
-msgstr "QGIS"
+#, fuzzy
+msgid "Installing Trends.Earth"
+msgstr "Откройте настройки в |trends.earth|"
 
 #: ../../source/for_users/gettingstarted/qgis_version.rst:9
-msgid "Install QGIS"
-msgstr "Установить QGIS"
+msgid "QGIS installation"
+msgstr ""
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:10
+#: ../../source/for_users/gettingstarted/qgis_version.rst:11
+#, fuzzy
 msgid ""
-"Before installing the toolbox, QGIS version |qgisMinVersion| or higher needs"
-" to be installed on your computer."
+"Before installing the plugin, QGIS version |qgisMinVersion| or higher "
+"needs to be installed on your computer."
 msgstr ""
 "Перед установкой набора инструментов на вашем компьютере должен быть "
 "установлен QGIS версии |qgisMinVersion| или выше."
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:14
+#: ../../source/for_users/gettingstarted/qgis_version.rst:15
 msgid "Download QGIS"
 msgstr "Скачайте QGIS"
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:16
+#: ../../source/for_users/gettingstarted/qgis_version.rst:17
+#, fuzzy
 msgid ""
-"To install the plugin, first install QGIS version |qgisMinVersion| or higher"
-" following the below steps:"
+"To install the plugin, you must have QGIS version |qgisMinVersion| or "
+"higher. Download the appropriate installer depending on your operating "
+"system:"
 msgstr ""
-"Чтобы установить плагин, сначала установите QGIS версии |qgisMinVersion| или"
-" выше, выполнив следующие шаги:"
+"Перед установкой набора инструментов на вашем компьютере должен быть "
+"установлен QGIS версии |qgisMinVersion| или выше."
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:19
-msgid "Choose either 32 or 64 bit version"
-msgstr "Выберите 32-битную или 64-битную версию"
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:21
-msgid ""
-"You have the option of installing a 32-bit or 64-bit version of QGIS. To "
-"know which version to install, check which type of operating system you have"
-" following the below instructions. If you are unsure which you need, try "
-"downloading the 64 bit version first. If that version doesn't work properly,"
-" un-install it and then install the 32 bit version."
-msgstr ""
-"У вас есть возможность установить 32-битную или 64-битную версию QGIS. Чтобы"
-" узнать, какую версию нужно установить, проверьте тип операционной системы, "
-"следуя приведенным ниже инструкциям. Если вы не уверены, какая версия вам "
-"нужна, попробуйте сначала загрузить 64-битную версию. Если эта версия не "
-"будет работать должным образом, удалите ее, а затем установите 32-битную "
-"версию."
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:27
-msgid "Windows 8 or Windows 10"
-msgstr "Windows 8 или Windows 10"
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:29
-msgid "From the \"Start\" screen, type \"This PC\"."
-msgstr "На экране «Пуск» введите «Этот компьютер»."
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:31
-msgid "Right click (or tap and hold) \"This PC\", and click \"Properties\"."
-msgstr ""
-"Щелкните правой кнопкой мыши (или коснитесь и удерживайте) иконку «Этот "
-"компьютер» и выберите «Свойства»."
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:33
-msgid "Windows 7, or Vista"
-msgstr "Windows 7 или Vista"
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:35
-msgid ""
-"Open \"System\" by clicking the \"Start\" button , right-clicking "
-"\"Computer\", and then clicking \"Properties\"."
-msgstr ""
-"Откройте окно «Система», нажав кнопку «Пуск», щелкнув правой кнопкой мыши на"
-" «Компьютер», а затем выбрав «Свойства»."
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:38
-msgid "Under System, you can view the system type."
-msgstr "В разделе «Система» вы можете просмотреть тип системы."
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:40
-msgid "Mac: Click the Apple icon in the top left and select \"About this Mac\"."
-msgstr ""
-"Mac: нажмите на значок Apple в левом верхнем углу и выберите «Об этом Mac»."
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:42
-msgid ""
-"After determining whether you need the 32 or 64 bit version, download the "
-"appropriate installer:"
-msgstr ""
-"Определив, нужна ли вам 32-битная или 64-битная версия, загрузите "
-"соответствующий установщик:"
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:45
+#: ../../source/for_users/gettingstarted/qgis_version.rst:20
 msgid ""
 "Windows: `Download Windows installer from here "
 "<https://qgis.org/en/site/forusers/download.html#windows>`_."
@@ -120,7 +66,7 @@ msgstr ""
 "Windows: `Загрузите установщик для Windows отсюда "
 "<https://qgis.org/en/site/forusers/download.html#windows>`_."
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:48
+#: ../../source/for_users/gettingstarted/qgis_version.rst:23
 msgid ""
 "MacOS: `Download MacOS installer from here "
 "<https://qgis.org/en/site/forusers/download.html#mac>`_."
@@ -128,45 +74,46 @@ msgstr ""
 "MacOS: `Загрузите установщик для MacOS отсюда "
 "<https://qgis.org/en/site/forusers/download.html#mac>`_."
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:51
+#: ../../source/for_users/gettingstarted/qgis_version.rst:26
 msgid ""
-"Linux: `Download Linux installer from here, or from the repository for your "
-"Linux distribution "
+"Linux: `Download Linux installer from here, or from the repository for "
+"your Linux distribution "
 "<https://qgis.org/en/site/forusers/download.html#linux>`_."
 msgstr ""
 "Linux: `Загрузите установщик для Linux отсюда или из репозитория своего "
 "дистрибутива Linux "
 "<https://qgis.org/en/site/forusers/download.html#linux>`_."
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:56
-msgid "Install QGIS Software"
-msgstr "Установите программу QGIS"
+#: ../../source/for_users/gettingstarted/qgis_version.rst:31
+msgid "Install QGIS"
+msgstr "Установить QGIS"
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:58
+#: ../../source/for_users/gettingstarted/qgis_version.rst:33
 msgid ""
 "Once the installer is downloaded from the website, it needs to be run "
 "(double click on it). Select the Default settings for all options."
 msgstr ""
-"После загрузки установщика с веб-сайта его необходимо запустить (щелкните по"
-" нему дважды). Выберите настройки по умолчанию для всех параметров."
+"После загрузки установщика с веб-сайта его необходимо запустить (щелкните"
+" по нему дважды). Выберите настройки по умолчанию для всех параметров."
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:62
+#: ../../source/for_users/gettingstarted/qgis_version.rst:37
 msgid "Installing older versions of QGIS"
 msgstr "Установка старых версий QGIS"
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:64
+#: ../../source/for_users/gettingstarted/qgis_version.rst:39
 msgid ""
-"Older versions of QGIS can be accessed at the below links. We recommend the "
-"latest version of QGIS (see instructions above) but the below links might be"
-" useful if you have a specific need for accessing an older version of the "
-"Trends.Earth plugin (for example the QGIS2 version of the plugin)."
+"Older versions of QGIS can be accessed at the below links. We recommend "
+"the latest version of QGIS (see instructions above) but the below links "
+"might be useful if you have a specific need for accessing an older "
+"version of QGIS (for example if you need to install an older version of "
+"|trends.earth|)."
 msgstr ""
-"Доступ к более старым версиям QGIS можно получить по ссылкам ниже. Мы "
-"рекомендуем последнюю версию QGIS (см. инструкции выше), но приведенные ниже"
-" ссылки могут быть полезны, если вам нужна старая версия подключаемого "
-"модуля Trends.Earth (например, версия подключаемого модуля QGIS2)."
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:69
+#: ../../../<rst_epilog>:6
+msgid "Trends.Earth"
+msgstr "Trends.Earth"
+
+#: ../../source/for_users/gettingstarted/qgis_version.rst:44
 msgid ""
 "Windows: `Download older versions of QGIS for Windows here "
 "<https://qgis.org/downloads/>`_."
@@ -174,7 +121,7 @@ msgstr ""
 "Windows: `Загрузите старые версии QGIS для Windows здесь "
 "<https://qgis.org/downloads/>`_."
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:72
+#: ../../source/for_users/gettingstarted/qgis_version.rst:47
 msgid ""
 "MacOS: `Download older versions of QGIS for MacOS here "
 "<https://qgis.org/downloads/macOS>`_."
@@ -182,61 +129,90 @@ msgstr ""
 "MacOS: `Загрузите старые версии QGIS для MacOS здесь "
 "<https://qgis.org/downloads/macOS>`_."
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:78
-msgid "Install toolbox (plugin)"
-msgstr "Установите набор инструментов (плагин)"
+#: ../../source/for_users/gettingstarted/qgis_version.rst:53
+#, fuzzy
+msgid "Trends.Earth installation"
+msgstr "Регистрация в Trends.Earth"
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:79
+#: ../../source/for_users/gettingstarted/qgis_version.rst:55
 msgid ""
-"There are different ways to install |trends.earth|, depending on whether you"
-" want to install the stable version (recommended) or the development "
+"There are different ways to install |trends.earth|, depending on whether "
+"you want to install the stable version (recommended) or the development "
 "version."
 msgstr ""
-"Существуют разные способы установки |trends.earth|, в зависимости от того, "
-"хотите ли вы установить стабильную версию (рекомендуется) или же "
+"Существуют разные способы установки |trends.earth|, в зависимости от "
+"того, хотите ли вы установить стабильную версию (рекомендуется) или же "
 "нестабильную версию."
 
-#: ../../../<rst_epilog>:6 ../../../<rst_epilog>:6 ../../../<rst_epilog>:6
-#: ../../../<rst_epilog>:6 ../../../<rst_epilog>:6 ../../../<rst_epilog>:6
-msgid "Trends.Earth"
-msgstr "Trends.Earth"
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:83
+#: ../../source/for_users/gettingstarted/qgis_version.rst:59
 msgid "Installing the stable version (recommended)"
 msgstr "Установка стабильной версии (рекомендуется)"
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:84
+#: ../../source/for_users/gettingstarted/qgis_version.rst:61
 msgid ""
-"The preferred way to install the |trends.earth| is through QGIS. To install "
-"from within QGIS, first launch QGIS, and then go to `Plugins` in the menu "
-"bar at the top of the program and select `Manage and install plugins`."
+"The preferred way to install the |trends.earth| is through QGIS. To "
+"install from within QGIS, first launch QGIS, and then go to `Plugins` in "
+"the menu bar at the top of the program and select `Manage and install "
+"plugins`."
 msgstr ""
 "Предпочтительный способ установки |trends.earth| — через QGIS. Чтобы "
-"установить его из QGIS, сначала запустите QGIS, а затем перейдите в раздел "
-"«Плагины» в строке меню в верхней части программы и выберите «Управление и "
-"установка плагинов»."
+"установить его из QGIS, сначала запустите QGIS, а затем перейдите в "
+"раздел «Плагины» в строке меню в верхней части программы и выберите "
+"«Управление и установка плагинов»."
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:91
+#: ../../source/for_users/gettingstarted/qgis_version.rst:68
 msgid ""
-"Then search for a plugin called `trends.earth` and select `Install plugin` "
-"at the bottom right of the screen."
+"Then search for a plugin called `trends.earth` and select `Install "
+"plugin` at the bottom right of the screen."
 msgstr ""
 "Затем найдите плагин под названием «trends.earth» и выберите «Установить "
 "плагин» в правом нижнем углу экрана."
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:97
+#: ../../source/for_users/gettingstarted/qgis_version.rst:74
 msgid ""
-"If your plugin has been installed properly, there will be a menu bar in the "
-"top left of your browser that looks like this:"
+"If your plugin has been installed properly, there will be a menu bar in "
+"the top left of your browser that looks like this:"
 msgstr ""
 "Если ваш плагин был установлен правильно, в левом верхнем углу вашего "
 "браузера появится строка меню, которая выглядит следующим образом:"
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:104
+#: ../../source/for_users/gettingstarted/qgis_version.rst:81
+msgid "If problems arise during installation"
+msgstr ""
+
+#: ../../source/for_users/gettingstarted/qgis_version.rst:83
+msgid ""
+"If you encounter any issues when installing or upgrading the plugin, we "
+"recommend you try the following before contacting the developers of "
+"|Trends.Earth|:"
+msgstr ""
+
+#: ../../source/for_users/gettingstarted/qgis_version.rst:86
+msgid ""
+"Try restarting QGIS after installing or upgrading the plugin - this can "
+"solve many common installation issues."
+msgstr ""
+
+#: ../../source/for_users/gettingstarted/qgis_version.rst:89
+msgid ""
+"If you are having a problem upgrading the plugin, try uninstalling the "
+"old version of Trends.Earth before installing the new one. This can be "
+"done from within the `Installed tab of the plugins window "
+"<(https://docs.qgis.org/3.22/en/docs/user_manual/plugins/plugins.html"
+"#the-installed-tab>`_."
+msgstr ""
+
+#: ../../source/for_users/gettingstarted/qgis_version.rst:94
+msgid ""
+"If the above don't work, please contact us at "
+"trends.earth@conservation.org."
+msgstr ""
+
+#: ../../source/for_users/gettingstarted/qgis_version.rst:97
 msgid "Installing the development version (advanced users)"
 msgstr "Установка нестабильной версии (для продвинутых пользователей)"
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:106
+#: ../../source/for_users/gettingstarted/qgis_version.rst:99
 msgid ""
 "There are two ways to install the development version of the plugin. For "
 "more details, see the `README "
@@ -248,24 +224,25 @@ msgstr ""
 "<https://github.com/ConservationInternational/trends.earth#development-"
 "version>`_ для |trends.earth|."
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:117
-msgid "Trends.Earth Registration"
+#: ../../source/for_users/gettingstarted/qgis_version.rst:110
+#, fuzzy
+msgid "Trends.Earth registration"
 msgstr "Регистрация в Trends.Earth"
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:118
+#: ../../source/for_users/gettingstarted/qgis_version.rst:113
 msgid ""
-"To Register, click the **Register for Trends.Earth (step 1)** button from "
-"the \"Settings\" dialog box under **Trends.Earth login information**."
+"To Register, click the **Register for Trends.Earth (step 1)** button from"
+" the \"Settings\" dialog box under **Trends.Earth login information**."
 msgstr ""
-"Чтобы зарегистрироваться, нажмите кнопку **Зарегистрироваться в Trends.Earth"
-" (шаг 1)** в диалоговом окне «Настройки» в разделе **Информация для входа в "
-"Trends.Earth**."
+"Чтобы зарегистрироваться, нажмите кнопку **Зарегистрироваться в "
+"Trends.Earth (шаг 1)** в диалоговом окне «Настройки» в разделе "
+"**Информация для входа в Trends.Earth**."
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:123
+#: ../../source/for_users/gettingstarted/qgis_version.rst:118
 msgid "Enter your email, name, organization and country of residence."
 msgstr "Укажите адрес эл. почты, имя, организацию и страну проживания."
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:128
+#: ../../source/for_users/gettingstarted/qgis_version.rst:123
 msgid ""
 "Select **Ok** and you will see a message indicating your user has been "
 "registered."
@@ -273,13 +250,13 @@ msgstr ""
 "Нажмите **ОК**, и вы увидите сообщение о том, что ваш пользователь "
 "зарегистрирован."
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:133
+#: ../../source/for_users/gettingstarted/qgis_version.rst:128
 msgid ""
-"4. After registering, you will receive an email from api@trends.earth with "
-"your password. If you don't see the email in your inbox after 15-20 seconds,"
-" please check your spam folder in case the email was sent there. Once you "
-"receive this email , click on the \"Edit selected configuration\" icon in "
-"the \"Settings\" dialog:"
+"4. After registering, you will receive an email from api@trends.earth "
+"with your password. If you don't see the email in your inbox after 15-20 "
+"seconds, please check your spam folder in case the email was sent there. "
+"Once you receive this email , click on the \"Edit selected "
+"configuration\" icon in the \"Settings\" dialog:"
 msgstr ""
 "4. После регистрации вы получите электронное письмо с адреса "
 "api@trends.earth со своим паролем. Если вы не увидите письмо в папке "
@@ -287,314 +264,27 @@ msgstr ""
 "возможно, письмо попало туда. Получив это письмо, нажмите на значок "
 "«Изменить выбранную конфигурацию» в диалоговом окне «Настройки»:"
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:139
+#: ../../source/for_users/gettingstarted/qgis_version.rst:134
 msgid ""
-"This will bring up the \"Authentication\" dialog asking for your password. "
-"Enter the password you received from api@trends.earth and click \"Save\":"
+"This will bring up the \"Authentication\" dialog asking for your "
+"password. Enter the password you received from api@trends.earth and click"
+" \"Save\":"
 msgstr ""
 "Будет показано диалоговое окно «Аутентификация» и запрошен ваш пароль. "
-"Укажите пароль, полученный с адреса api@trends.earth, и нажмите «Сохранить»:"
+"Укажите пароль, полученный с адреса api@trends.earth, и нажмите "
+"«Сохранить»:"
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:144
+#: ../../source/for_users/gettingstarted/qgis_version.rst:139
 msgid "From the \"Settings\" dialog  click on \"Test connection\":"
 msgstr "В диалоговом окне «Настройки» нажмите «Проверить соединение»:"
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:149
-msgid ""
-"You will see a message indicating you have successfully been logged in:"
+#: ../../source/for_users/gettingstarted/qgis_version.rst:144
+msgid "You will see a message indicating you have successfully been logged in:"
 msgstr "Вы увидите сообщение о том, что вы успешно вошли в систему:"
 
-#: ../../source/for_users/gettingstarted/qgis_version.rst:154
+#: ../../source/for_users/gettingstarted/qgis_version.rst:149
 msgid "You are now ready to start using Trends.Earth!"
 msgstr "Теперь вы готовы начать использовать Trends.Earth!"
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:159
-msgid "Trends.Earth Advanced Settings"
-msgstr "Расширенные настройки Trends.Earth"
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:161
-msgid ""
-"Refer to the :ref:`advanced` section for more information on the advanced "
-"settings for Trends.Earth."
-msgstr ""
-"Обратитесь к разделу :ref:`advanced` для получения дополнительной информации"
-" о расширенных настройках Trends.Earth."
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:167
-msgid "Setting up your data folder"
-msgstr "Настройка папки данных"
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:169
-msgid ""
-"**Objective**: Learn how to check the status of submitted tasks, download "
-"them and compute pyramids for faster visualization of results in QGIS."
-msgstr ""
-"**Цель**: научиться проверять статус отправленных задач, загружать их и "
-"вычислять пирамиды для более быстрой визуализации результатов в QGIS."
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:171
-msgid "**Estimated time of completion**: 5 minutes"
-msgstr "**Ориентировочное время выполнения**: 5 минут"
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:173
-msgid "**Internet access**: Required"
-msgstr "** Доступ в интернет **: требуется"
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:175
-msgid ""
-"`Download this page as a PDF for offline use "
-"<../pdfs/Trends.Earth_Tutorial03_Downloading_Results.pdf>`_"
-msgstr ""
-"`Загрузите эту страницу в формате PDF для использования в автономном режиме "
-"<../pdfs/Trends.Earth_Tutorial03_Downloading_Results.pdf>`_"
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:178
-msgid ""
-"The results of Trends.Earth analysis are rasters in TIF format for "
-"indicators and XLSX spreadsheets for the tabular outputs. You will need to "
-"define in each case where files will be stored in your computer in settings."
-msgstr ""
-"Результаты анализа Trends.Earth представляют собой растры в формате TIF (для"
-" показателей) и электронные таблицы XLSX (для табличных выходных данных). В "
-"настройках вам нужно будет определить, где файлы будут храниться на вашем "
-"компьютере."
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:181
-msgid "Open settings in |trends.earth|"
-msgstr "Откройте настройки в |trends.earth|"
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:186
-msgid "Scroll down to **Advanced** options and expand to see more features."
-msgstr ""
-"Прокрутите вниз до пункта **Дополнительно** и разверните его, чтобы "
-"просмотреть дополнительные функции."
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:191
-msgid ""
-"3. The **Base data directory** can be set by selecting **Open** to open the "
-"folder where data will be stored or *...* to change the location of data "
-"stored and downloaded from |trends.earth|."
-msgstr ""
-"3. **Базовый каталог данных** можно настроить, выбрав **Открыть**, чтобы "
-"открыть папку, в которой будут храниться данные, или *...*, чтобы изменить "
-"расположение данных, сохраненных и загруженных из |trends.earth|."
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:197
-msgid "**OPTIONAL: Computing Pyramids**"
-msgstr "**НЕОБЯЗАТЕЛЬНО: вычисление пирамид**"
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:199
-msgid ""
-"When the raster file is too big, due to a large study area, high spatial "
-"resolution, or a large number of bands in the file, the data could take "
-"several seconds to display. If you change the zoom or turn layers on an  off"
-" frequently, this could make the work a bit frustrating. An option to "
-"overcome this is to compute **Pyramids** to the file. This process will take"
-" from **minutes to hours** to run depending on the size of the area, so make"
-" sure to have enough time for it to process. To compute pyramids you have "
-"to:"
-msgstr ""
-"Если растровый файл слишком велик из-за большой области исследования, "
-"высокого пространственного разрешения или большого количества каналов в "
-"файле, отображение данных может занять несколько секунд. Если вы часто "
-"меняете масштаб или отключаете слои, это может быть утомительно. Чтобы "
-"обойти это, можно вычислить **пирамиды**. Этот процесс займет от "
-"**нескольких минут до нескольких часов** в зависимости от размера области, "
-"поэтому убедитесь, что у вас есть достаточно времени для его обработки. Для "
-"вычисления пирамид необходимо:"
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:201
-msgid ""
-"Navigate with your cursor to the layer you want to compute pyramids for and "
-"right click over it. A menu will open. Navigate to **Properties** and click "
-"on it."
-msgstr ""
-"Переместить курсор к слою, для которого вы хотите вычислить пирамиды, и "
-"щелкните его правой кнопкой мыши. Откроется меню. Перейдите к **Свойства** и"
-" нажмите на него."
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:204
-msgid ""
-"When using the **Calculate all three sub-indicators in one step** option "
-"(described in the tutorial :ref:`tut_land_degradation`), all the bands are "
-"stored in a single TIF file, so even though you see three layers loaded in "
-"the QGIS window, they all refer to the same file. This means that the "
-"pyramids need to be computed only once for the three sub-indicators."
-msgstr ""
-"При использовании параметра **Рассчитать все три подпоказателя за один шаг**"
-" (описанного в руководстве :ref:`tut_land_degradation`) все полосы "
-"сохраняются в одном файле TIF, поэтому даже если вы видите три загруженных "
-"слоя в окне QGIS, все они ссылаются на один и тот же файл. Это означает, что"
-" пирамиды необходимо вычислить только один раз для трех подпоказателей."
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:209
-msgid ""
-"The Layer Properties menu will open. From the options on the left, navigate "
-"to **Pyramids** and click on it."
-msgstr ""
-"Откроется меню свойств слоя. Из вариантов слева перейдите во вкладку "
-"**Пирамиды** и нажмите на нее."
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:214
-msgid ""
-"Once on the **Pyramids** tab you will see a description about they are."
-msgstr ""
-"Во вкладке **Пирамиды** вы увидите описание того, что они собой "
-"представляют."
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:219
-msgid ""
-"To the right of the window you will see the **Resolutions** options. "
-"Selecting all of them will make displaying in QGIS the fastest, but this "
-"could take hours to compute depending on the file size and processing "
-"capabilities of the computer you are using. For the Uganda example, we can "
-"select them all, but if using a larger area or higher spatial resolution "
-"than the default 250m, we recommend you select alternating resolutions "
-"options (i.e. one resolution selected and one not selected, and so on). "
-"Resolutions are selected by clicking on them. When selected, they will turn "
-"blue."
-msgstr ""
-"Справа от окна вы увидите параметры **Разрешение**. Если выбрать все, то "
-"отображение в QGIS будет самым быстрым, но это может занять несколько часов "
-"в зависимости от размера файла и возможностей вашего компьютера. В примере с"
-" Угандой мы можем выбрать их все, но при использовании большей площади или "
-"более высокого пространственного разрешения, чем 250 м по умолчанию, мы "
-"рекомендуем вам выбрать варианты чередующихся разрешений (т. е. одно "
-"разрешение выбрано, другое не выбрано и т. д.). Разрешения выбираются "
-"нажатием. При выборе они станут синими. "
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:221
-msgid "Make sure that the settings at the bottom are set to:"
-msgstr "Убедитесь, что настройки внизу установлены на:"
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:223
-msgid "**Overview format**: External"
-msgstr "**Формат обзора**: внешний"
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:224
-msgid "**Resampling method**: Nearest Neighbour"
-msgstr "**Метод повторной выборки**: ближайший сосед"
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:226
-msgid ""
-"Then click on the **Build pyramids** button. The progress bar next to it "
-"will show which percentage of the task has been completed."
-msgstr ""
-"Затем нажмите на кнопку **Построить пирамиды**. Индикатор выполнения рядом с"
-" ним покажет, какой процент задачи был выполнен."
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:231
-msgid ""
-"When pyramids have been built you will notice that the icons next to the "
-"resolutions will have changed from **red crosses** to **yellow pyramids**."
-msgstr ""
-"Когда пирамиды будут построены, вы заметите, что значки рядом с разрешениями"
-" изменились с **красных крестов** на **желтые пирамиды**."
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:236
-msgid "Click **OK** to go back to the QGIS main interface."
-msgstr "Нажмите **ОК**, чтобы вернуться к основному интерфейсу QGIS."
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:241
-msgid "**Adding a basemap**"
-msgstr "**Добавление базовой карты**"
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:243
-msgid ""
-"Basemaps are very useful as a reference for identifying specific locations "
-"in maps. When downloaded, Trends.Earth results are displayed on an empty "
-"QGIS project, which could limit the user ability for identifying know places"
-" in the landscape. To facilitate this process, you can use the **Add "
-"Basemap** tool which will load country and state boundaries, roads, rivers, "
-"cities, coastlines and water bodies with labels to the QGIS project."
-msgstr ""
-"Базовые карты очень полезны в качестве ориентира для определения конкретных "
-"мест на картах. При загрузке результаты Trends.Earth отображаются в пустом "
-"проекте QGIS, что может ограничить возможности пользователя по идентификации"
-" известных мест на ландшафте. Чтобы облегчить этот процесс, вы можете "
-"использовать инструмент **Добавить базовую карту**, который загрузит границы"
-" страны и штатов, а также дороги, реки, города, береговые линии и водоемы с "
-"подписями в проект QGIS."
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:245
-msgid ""
-"To load the tool click on the **Datasets** tab and select **Load Base Map** "
-"in the bottom right of the window."
-msgstr ""
-"Чтобы загрузить инструмент, нажмите на вкладку **Наборы данных** и выберите "
-"**Загрузить базовую карту** в правом нижнем углу окна."
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:250
-msgid "On the **Add basemap** window you can do one of two things:"
-msgstr ""
-"В окне **Добавить базовую карту** вы можете совершить одно из двух действий:"
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:252
-msgid ""
-"**Use a mask option selected** will create a mask blocking all the "
-"information outside of the selected area. In this example, all the "
-"information outside of Uganda will not be displayed on the map. This option "
-"is useful when displaying the sub-indicators downloaded from Trends.Earth, "
-"since the data download is not clipped to administrative boundaries (a "
-"bounding box is used instead). You can use first and second level "
-"administrative boundaries."
-msgstr ""
-"Если включить опцию **Использовать маску**, то будет создана маска, "
-"блокирующая всю информацию за пределами выбранной области. В этом примере "
-"вся информация за пределами Уганды не будет отображаться на карте. Этот "
-"параметр полезен при отображении вспомогательных индикаторов, загруженных из"
-" Trends.Earth, поскольку загружаемые данные не ограничиваются "
-"административными границами (вместо этого используется ограничивающая "
-"рамка). Вы можете использовать административные границы первого и второго "
-"уровня."
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:254
-msgid ""
-"**Use a mask option not selected** will load all the reference information, "
-"but no mask will be applied."
-msgstr ""
-"Если опция **Использовать маску** не выбрана, то будет загружена вся "
-"справочная информация, но маска применена не будет."
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:259
-msgid ""
-"Once the basemap is loaded, you will notice the information added to the map"
-" and to the Layer panel. The basemap has information for:"
-msgstr ""
-"После загрузки базовой карты вы заметите, что информация добавлена ​​на "
-"карту и на панель «Слой». Базовая карта содержит информацию о:"
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:261
-msgid "Lake"
-msgstr "Озерах"
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:262
-msgid "River"
-msgstr "Реках"
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:263
-msgid "Coastline"
-msgstr "Береговых линиях"
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:264
-msgid "City"
-msgstr "Городах"
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:265
-msgid "Disputed border"
-msgstr "Спорных границах"
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:266
-msgid "Subnational border"
-msgstr "Границах внутри стран"
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:267
-msgid "National border"
-msgstr "Государственных границах"
-
-#: ../../source/for_users/gettingstarted/qgis_version.rst:268
-msgid "Ocean"
-msgstr "Океанах"
 
 #: ../../../<rst_epilog>:2
 msgid "iconCalculator"
@@ -603,3 +293,474 @@ msgstr "iconCalculator"
 #: ../../../<rst_epilog>:4
 msgid "iconReports"
 msgstr "iconReports"
+
+#~ msgid "QGIS"
+#~ msgstr "QGIS"
+
+#~ msgid ""
+#~ "To install the plugin, first install "
+#~ "QGIS version |qgisMinVersion| or higher "
+#~ "following the below steps:"
+#~ msgstr ""
+#~ "Чтобы установить плагин, сначала установите"
+#~ " QGIS версии |qgisMinVersion| или выше, "
+#~ "выполнив следующие шаги:"
+
+#~ msgid "Choose either 32 or 64 bit version"
+#~ msgstr "Выберите 32-битную или 64-битную версию"
+
+#~ msgid ""
+#~ "You have the option of installing "
+#~ "a 32-bit or 64-bit version of "
+#~ "QGIS. To know which version to "
+#~ "install, check which type of operating"
+#~ " system you have following the below"
+#~ " instructions. If you are unsure "
+#~ "which you need, try downloading the "
+#~ "64 bit version first. If that "
+#~ "version doesn't work properly, un-"
+#~ "install it and then install the 32"
+#~ " bit version."
+#~ msgstr ""
+#~ "У вас есть возможность установить "
+#~ "32-битную или 64-битную версию QGIS. "
+#~ "Чтобы узнать, какую версию нужно "
+#~ "установить, проверьте тип операционной "
+#~ "системы, следуя приведенным ниже инструкциям."
+#~ " Если вы не уверены, какая версия "
+#~ "вам нужна, попробуйте сначала загрузить "
+#~ "64-битную версию. Если эта версия не "
+#~ "будет работать должным образом, удалите "
+#~ "ее, а затем установите 32-битную версию."
+
+#~ msgid "Windows 8 or Windows 10"
+#~ msgstr "Windows 8 или Windows 10"
+
+#~ msgid "From the \"Start\" screen, type \"This PC\"."
+#~ msgstr "На экране «Пуск» введите «Этот компьютер»."
+
+#~ msgid "Right click (or tap and hold) \"This PC\", and click \"Properties\"."
+#~ msgstr ""
+#~ "Щелкните правой кнопкой мыши (или "
+#~ "коснитесь и удерживайте) иконку «Этот "
+#~ "компьютер» и выберите «Свойства»."
+
+#~ msgid "Windows 7, or Vista"
+#~ msgstr "Windows 7 или Vista"
+
+#~ msgid ""
+#~ "Open \"System\" by clicking the "
+#~ "\"Start\" button , right-clicking "
+#~ "\"Computer\", and then clicking "
+#~ "\"Properties\"."
+#~ msgstr ""
+#~ "Откройте окно «Система», нажав кнопку "
+#~ "«Пуск», щелкнув правой кнопкой мыши на"
+#~ " «Компьютер», а затем выбрав «Свойства»."
+
+#~ msgid "Under System, you can view the system type."
+#~ msgstr "В разделе «Система» вы можете просмотреть тип системы."
+
+#~ msgid ""
+#~ "Mac: Click the Apple icon in the"
+#~ " top left and select \"About this "
+#~ "Mac\"."
+#~ msgstr ""
+#~ "Mac: нажмите на значок Apple в "
+#~ "левом верхнем углу и выберите «Об "
+#~ "этом Mac»."
+
+#~ msgid ""
+#~ "After determining whether you need the"
+#~ " 32 or 64 bit version, download "
+#~ "the appropriate installer:"
+#~ msgstr ""
+#~ "Определив, нужна ли вам 32-битная или"
+#~ " 64-битная версия, загрузите соответствующий "
+#~ "установщик:"
+
+#~ msgid "Install QGIS Software"
+#~ msgstr "Установите программу QGIS"
+
+#~ msgid ""
+#~ "Older versions of QGIS can be "
+#~ "accessed at the below links. We "
+#~ "recommend the latest version of QGIS "
+#~ "(see instructions above) but the below"
+#~ " links might be useful if you "
+#~ "have a specific need for accessing "
+#~ "an older version of the Trends.Earth "
+#~ "plugin (for example the QGIS2 version"
+#~ " of the plugin)."
+#~ msgstr ""
+#~ "Доступ к более старым версиям QGIS "
+#~ "можно получить по ссылкам ниже. Мы "
+#~ "рекомендуем последнюю версию QGIS (см. "
+#~ "инструкции выше), но приведенные ниже "
+#~ "ссылки могут быть полезны, если вам "
+#~ "нужна старая версия подключаемого модуля "
+#~ "Trends.Earth (например, версия подключаемого "
+#~ "модуля QGIS2)."
+
+#~ msgid "Install toolbox (plugin)"
+#~ msgstr "Установите набор инструментов (плагин)"
+
+#~ msgid "Trends.Earth Advanced Settings"
+#~ msgstr "Расширенные настройки Trends.Earth"
+
+#~ msgid ""
+#~ "Refer to the :ref:`advanced` section for"
+#~ " more information on the advanced "
+#~ "settings for Trends.Earth."
+#~ msgstr ""
+#~ "Обратитесь к разделу :ref:`advanced` для "
+#~ "получения дополнительной информации о "
+#~ "расширенных настройках Trends.Earth."
+
+#~ msgid "Setting up your data folder"
+#~ msgstr "Настройка папки данных"
+
+#~ msgid ""
+#~ "**Objective**: Learn how to check the"
+#~ " status of submitted tasks, download "
+#~ "them and compute pyramids for faster "
+#~ "visualization of results in QGIS."
+#~ msgstr ""
+#~ "**Цель**: научиться проверять статус "
+#~ "отправленных задач, загружать их и "
+#~ "вычислять пирамиды для более быстрой "
+#~ "визуализации результатов в QGIS."
+
+#~ msgid "**Estimated time of completion**: 5 minutes"
+#~ msgstr "**Ориентировочное время выполнения**: 5 минут"
+
+#~ msgid "**Internet access**: Required"
+#~ msgstr "** Доступ в интернет **: требуется"
+
+#~ msgid ""
+#~ "`Download this page as a PDF for"
+#~ " offline use "
+#~ "<../pdfs/Trends.Earth_Tutorial03_Downloading_Results.pdf>`_"
+#~ msgstr ""
+#~ "`Загрузите эту страницу в формате PDF"
+#~ " для использования в автономном режиме "
+#~ "<../pdfs/Trends.Earth_Tutorial03_Downloading_Results.pdf>`_"
+
+#~ msgid ""
+#~ "The results of Trends.Earth analysis are"
+#~ " rasters in TIF format for indicators"
+#~ " and XLSX spreadsheets for the "
+#~ "tabular outputs. You will need to "
+#~ "define in each case where files "
+#~ "will be stored in your computer in"
+#~ " settings."
+#~ msgstr ""
+#~ "Результаты анализа Trends.Earth представляют "
+#~ "собой растры в формате TIF (для "
+#~ "показателей) и электронные таблицы XLSX "
+#~ "(для табличных выходных данных). В "
+#~ "настройках вам нужно будет определить, "
+#~ "где файлы будут храниться на вашем "
+#~ "компьютере."
+
+#~ msgid "Scroll down to **Advanced** options and expand to see more features."
+#~ msgstr ""
+#~ "Прокрутите вниз до пункта **Дополнительно**"
+#~ " и разверните его, чтобы просмотреть "
+#~ "дополнительные функции."
+
+#~ msgid ""
+#~ "3. The **Base data directory** can "
+#~ "be set by selecting **Open** to "
+#~ "open the folder where data will be"
+#~ " stored or *...* to change the "
+#~ "location of data stored and downloaded"
+#~ " from |trends.earth|."
+#~ msgstr ""
+#~ "3. **Базовый каталог данных** можно "
+#~ "настроить, выбрав **Открыть**, чтобы открыть"
+#~ " папку, в которой будут храниться "
+#~ "данные, или *...*, чтобы изменить "
+#~ "расположение данных, сохраненных и загруженных"
+#~ " из |trends.earth|."
+
+#~ msgid "**OPTIONAL: Computing Pyramids**"
+#~ msgstr "**НЕОБЯЗАТЕЛЬНО: вычисление пирамид**"
+
+#~ msgid ""
+#~ "When the raster file is too big,"
+#~ " due to a large study area, "
+#~ "high spatial resolution, or a large "
+#~ "number of bands in the file, the"
+#~ " data could take several seconds to"
+#~ " display. If you change the zoom "
+#~ "or turn layers on an  off "
+#~ "frequently, this could make the work "
+#~ "a bit frustrating. An option to "
+#~ "overcome this is to compute **Pyramids**"
+#~ " to the file. This process will "
+#~ "take from **minutes to hours** to "
+#~ "run depending on the size of the"
+#~ " area, so make sure to have "
+#~ "enough time for it to process. To"
+#~ " compute pyramids you have to:"
+#~ msgstr ""
+#~ "Если растровый файл слишком велик из-за"
+#~ " большой области исследования, высокого "
+#~ "пространственного разрешения или большого "
+#~ "количества каналов в файле, отображение "
+#~ "данных может занять несколько секунд. "
+#~ "Если вы часто меняете масштаб или "
+#~ "отключаете слои, это может быть "
+#~ "утомительно. Чтобы обойти это, можно "
+#~ "вычислить **пирамиды**. Этот процесс займет"
+#~ " от **нескольких минут до нескольких "
+#~ "часов** в зависимости от размера "
+#~ "области, поэтому убедитесь, что у вас"
+#~ " есть достаточно времени для его "
+#~ "обработки. Для вычисления пирамид необходимо:"
+
+#~ msgid ""
+#~ "Navigate with your cursor to the "
+#~ "layer you want to compute pyramids "
+#~ "for and right click over it. A "
+#~ "menu will open. Navigate to "
+#~ "**Properties** and click on it."
+#~ msgstr ""
+#~ "Переместить курсор к слою, для которого"
+#~ " вы хотите вычислить пирамиды, и "
+#~ "щелкните его правой кнопкой мыши. "
+#~ "Откроется меню. Перейдите к **Свойства** "
+#~ "и нажмите на него."
+
+#~ msgid ""
+#~ "When using the **Calculate all three "
+#~ "sub-indicators in one step** option "
+#~ "(described in the tutorial "
+#~ ":ref:`tut_land_degradation`), all the bands "
+#~ "are stored in a single TIF file,"
+#~ " so even though you see three "
+#~ "layers loaded in the QGIS window, "
+#~ "they all refer to the same file."
+#~ " This means that the pyramids need"
+#~ " to be computed only once for "
+#~ "the three sub-indicators."
+#~ msgstr ""
+#~ "При использовании параметра **Рассчитать все"
+#~ " три подпоказателя за один шаг** "
+#~ "(описанного в руководстве "
+#~ ":ref:`tut_land_degradation`) все полосы сохраняются"
+#~ " в одном файле TIF, поэтому даже "
+#~ "если вы видите три загруженных слоя "
+#~ "в окне QGIS, все они ссылаются на"
+#~ " один и тот же файл. Это "
+#~ "означает, что пирамиды необходимо вычислить"
+#~ " только один раз для трех "
+#~ "подпоказателей."
+
+#~ msgid ""
+#~ "The Layer Properties menu will open. "
+#~ "From the options on the left, "
+#~ "navigate to **Pyramids** and click on"
+#~ " it."
+#~ msgstr ""
+#~ "Откроется меню свойств слоя. Из "
+#~ "вариантов слева перейдите во вкладку "
+#~ "**Пирамиды** и нажмите на нее."
+
+#~ msgid "Once on the **Pyramids** tab you will see a description about they are."
+#~ msgstr ""
+#~ "Во вкладке **Пирамиды** вы увидите "
+#~ "описание того, что они собой "
+#~ "представляют."
+
+#~ msgid ""
+#~ "To the right of the window you "
+#~ "will see the **Resolutions** options. "
+#~ "Selecting all of them will make "
+#~ "displaying in QGIS the fastest, but "
+#~ "this could take hours to compute "
+#~ "depending on the file size and "
+#~ "processing capabilities of the computer "
+#~ "you are using. For the Uganda "
+#~ "example, we can select them all, "
+#~ "but if using a larger area or "
+#~ "higher spatial resolution than the "
+#~ "default 250m, we recommend you select"
+#~ " alternating resolutions options (i.e. one"
+#~ " resolution selected and one not "
+#~ "selected, and so on). Resolutions are"
+#~ " selected by clicking on them. When"
+#~ " selected, they will turn blue."
+#~ msgstr ""
+#~ "Справа от окна вы увидите параметры "
+#~ "**Разрешение**. Если выбрать все, то "
+#~ "отображение в QGIS будет самым быстрым,"
+#~ " но это может занять несколько часов"
+#~ " в зависимости от размера файла и "
+#~ "возможностей вашего компьютера. В примере "
+#~ "с Угандой мы можем выбрать их все,"
+#~ " но при использовании большей площади "
+#~ "или более высокого пространственного "
+#~ "разрешения, чем 250 м по умолчанию, "
+#~ "мы рекомендуем вам выбрать варианты "
+#~ "чередующихся разрешений (т. е. одно "
+#~ "разрешение выбрано, другое не выбрано и"
+#~ " т. д.). Разрешения выбираются нажатием."
+#~ " При выборе они станут синими. "
+
+#~ msgid "Make sure that the settings at the bottom are set to:"
+#~ msgstr "Убедитесь, что настройки внизу установлены на:"
+
+#~ msgid "**Overview format**: External"
+#~ msgstr "**Формат обзора**: внешний"
+
+#~ msgid "**Resampling method**: Nearest Neighbour"
+#~ msgstr "**Метод повторной выборки**: ближайший сосед"
+
+#~ msgid ""
+#~ "Then click on the **Build pyramids** "
+#~ "button. The progress bar next to "
+#~ "it will show which percentage of "
+#~ "the task has been completed."
+#~ msgstr ""
+#~ "Затем нажмите на кнопку **Построить "
+#~ "пирамиды**. Индикатор выполнения рядом с "
+#~ "ним покажет, какой процент задачи был"
+#~ " выполнен."
+
+#~ msgid ""
+#~ "When pyramids have been built you "
+#~ "will notice that the icons next to"
+#~ " the resolutions will have changed "
+#~ "from **red crosses** to **yellow "
+#~ "pyramids**."
+#~ msgstr ""
+#~ "Когда пирамиды будут построены, вы "
+#~ "заметите, что значки рядом с "
+#~ "разрешениями изменились с **красных крестов**"
+#~ " на **желтые пирамиды**."
+
+#~ msgid "Click **OK** to go back to the QGIS main interface."
+#~ msgstr "Нажмите **ОК**, чтобы вернуться к основному интерфейсу QGIS."
+
+#~ msgid "**Adding a basemap**"
+#~ msgstr "**Добавление базовой карты**"
+
+#~ msgid ""
+#~ "Basemaps are very useful as a "
+#~ "reference for identifying specific locations"
+#~ " in maps. When downloaded, Trends.Earth "
+#~ "results are displayed on an empty "
+#~ "QGIS project, which could limit the "
+#~ "user ability for identifying know places"
+#~ " in the landscape. To facilitate this"
+#~ " process, you can use the **Add "
+#~ "Basemap** tool which will load country"
+#~ " and state boundaries, roads, rivers, "
+#~ "cities, coastlines and water bodies with"
+#~ " labels to the QGIS project."
+#~ msgstr ""
+#~ "Базовые карты очень полезны в качестве"
+#~ " ориентира для определения конкретных мест"
+#~ " на картах. При загрузке результаты "
+#~ "Trends.Earth отображаются в пустом проекте "
+#~ "QGIS, что может ограничить возможности "
+#~ "пользователя по идентификации известных мест"
+#~ " на ландшафте. Чтобы облегчить этот "
+#~ "процесс, вы можете использовать инструмент "
+#~ "**Добавить базовую карту**, который загрузит"
+#~ " границы страны и штатов, а также "
+#~ "дороги, реки, города, береговые линии и"
+#~ " водоемы с подписями в проект QGIS."
+
+#~ msgid ""
+#~ "To load the tool click on the "
+#~ "**Datasets** tab and select **Load Base"
+#~ " Map** in the bottom right of "
+#~ "the window."
+#~ msgstr ""
+#~ "Чтобы загрузить инструмент, нажмите на "
+#~ "вкладку **Наборы данных** и выберите "
+#~ "**Загрузить базовую карту** в правом "
+#~ "нижнем углу окна."
+
+#~ msgid "On the **Add basemap** window you can do one of two things:"
+#~ msgstr ""
+#~ "В окне **Добавить базовую карту** вы "
+#~ "можете совершить одно из двух действий:"
+
+#~ msgid ""
+#~ "**Use a mask option selected** will "
+#~ "create a mask blocking all the "
+#~ "information outside of the selected "
+#~ "area. In this example, all the "
+#~ "information outside of Uganda will not"
+#~ " be displayed on the map. This "
+#~ "option is useful when displaying the "
+#~ "sub-indicators downloaded from Trends.Earth,"
+#~ " since the data download is not "
+#~ "clipped to administrative boundaries (a "
+#~ "bounding box is used instead). You "
+#~ "can use first and second level "
+#~ "administrative boundaries."
+#~ msgstr ""
+#~ "Если включить опцию **Использовать маску**,"
+#~ " то будет создана маска, блокирующая "
+#~ "всю информацию за пределами выбранной "
+#~ "области. В этом примере вся информация"
+#~ " за пределами Уганды не будет "
+#~ "отображаться на карте. Этот параметр "
+#~ "полезен при отображении вспомогательных "
+#~ "индикаторов, загруженных из Trends.Earth, "
+#~ "поскольку загружаемые данные не ограничиваются"
+#~ " административными границами (вместо этого "
+#~ "используется ограничивающая рамка). Вы можете"
+#~ " использовать административные границы первого"
+#~ " и второго уровня."
+
+#~ msgid ""
+#~ "**Use a mask option not selected** "
+#~ "will load all the reference information,"
+#~ " but no mask will be applied."
+#~ msgstr ""
+#~ "Если опция **Использовать маску** не "
+#~ "выбрана, то будет загружена вся "
+#~ "справочная информация, но маска применена "
+#~ "не будет."
+
+#~ msgid ""
+#~ "Once the basemap is loaded, you "
+#~ "will notice the information added to "
+#~ "the map and to the Layer panel."
+#~ " The basemap has information for:"
+#~ msgstr ""
+#~ "После загрузки базовой карты вы "
+#~ "заметите, что информация добавлена ​​на "
+#~ "карту и на панель «Слой». Базовая "
+#~ "карта содержит информацию о:"
+
+#~ msgid "Lake"
+#~ msgstr "Озерах"
+
+#~ msgid "River"
+#~ msgstr "Реках"
+
+#~ msgid "Coastline"
+#~ msgstr "Береговых линиях"
+
+#~ msgid "City"
+#~ msgstr "Городах"
+
+#~ msgid "Disputed border"
+#~ msgstr "Спорных границах"
+
+#~ msgid "Subnational border"
+#~ msgstr "Границах внутри стран"
+
+#~ msgid "National border"
+#~ msgstr "Государственных границах"
+
+#~ msgid "Ocean"
+#~ msgstr "Океанах"
+

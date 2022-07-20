@@ -688,8 +688,10 @@ class DlgDataIOLoadTE(QtWidgets.QDialog, Ui_DlgDataIOLoadTE):
                 job = Job.Schema().load(raw_job)
                 update_uris_if_needed(job, path)
                 set_results_extents(job)
-            except json.JSONDecodeError:
-                error_message = "Could not parse the selected file into a valid JSON"
+            except (json.JSONDecodeError, KeyError):
+                error_message = self.tr(
+                    "Could not parse the selected file into a valid JSON"
+                )
 
         return job, error_message
 

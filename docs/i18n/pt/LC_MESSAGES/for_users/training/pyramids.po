@@ -1,0 +1,155 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017-2022, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2022
+# Alex Zvoleff <azvoleff@conservation.org>, 2022
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-20 14:58-0400\n"
+"PO-Revision-Date: 2022-07-20 19:07+0000\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022\n"
+"Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pt\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+
+#: ../../source/for_users/training/pyramids.rst:4
+msgid "Computing Pyramids"
+msgstr ""
+
+#: ../../source/for_users/training/pyramids.rst:6
+msgid ""
+"When the raster file is too big, due to a large study area, high spatial "
+"resolution, or a large number of bands in the file, the data could take "
+"several seconds to display. If you change the zoom or turn layers on an  off"
+" frequently, this could make the work a bit frustrating. An option to "
+"overcome this is to compute **Pyramids** to the file. This process will take"
+" from **minutes to hours** to run depending on the size of the area, so make"
+" sure to have enough time for it to process. To compute pyramids you have "
+"to:"
+msgstr ""
+"Quando o arquivo raster é muito grande, devido a uma grande área de estudo, "
+"uma alta resolução espacial ou um grande número de bandas no arquivo, os "
+"dados podem levar vários segundos para serem exibidos. Se você alterar o "
+"zoom ou desligar as camadas com freqüência, isso pode tornar o trabalho um "
+"pouco frustrante. Uma opção para superar isso é computar **Pyramids** no "
+"arquivo. Esse processo levará de **minutos a horas** para ser executado, "
+"dependendo do tamanho da área, portanto, certifique-se de ter tempo "
+"suficiente para processá-lo. Para calcular as pirâmides, você deve:"
+
+#: ../../source/for_users/training/pyramids.rst:8
+msgid ""
+"Navigate with your cursor to the layer you want to compute pyramids for and "
+"right click over it. A menu will open. Navigate to **Properties** and click "
+"on it."
+msgstr ""
+"Navegue com o cursor até a camada para a qual deseja calcular as pirâmides e"
+" clique com o botão direito sobre elas. Um menu será aberto. Navegue até "
+"**Propriedades** e clique nele."
+
+#: ../../source/for_users/training/pyramids.rst:11
+msgid ""
+"When using the **Calculate all three sub-indicators in one step** option "
+"(described in the tutorial :ref:`tut_land_degradation`), all the bands are "
+"stored in a single TIF file, so even though you see three layers loaded in "
+"the QGIS window, they all refer to the same file. This means that the "
+"pyramids need to be computed only once for the three sub-indicators."
+msgstr ""
+"Ao utilizar a opção **Calcular os três subindicadores num único passo** "
+"(descrita no tutorial :ref:`tut_land_degradation`), todas as bandas são "
+"armazenadas num único ficheiro TIF, pelo que, embora possa ver três camadas "
+"carregadas na janela QGIS, todas elas se referem ao mesmo ficheiro. Isto "
+"significa que as pirâmides precisam de ser calculadas apenas uma vez para os"
+" três subindicadores."
+
+#: ../../source/for_users/training/pyramids.rst:16
+msgid ""
+"The Layer Properties menu will open. From the options on the left, navigate "
+"to **Pyramids** and click on it."
+msgstr ""
+"O menu Propriedades da camada será aberto. Nas opções à esquerda, navegue "
+"até **Pirâmides** e clique nele."
+
+#: ../../source/for_users/training/pyramids.rst:21
+msgid ""
+"Once on the **Pyramids** tab you will see a description about they are."
+msgstr ""
+"Quando estiver na guia **Pirâmides**, você verá uma descrição sobre eles."
+
+#: ../../source/for_users/training/pyramids.rst:26
+msgid ""
+"To the right of the window you will see the **Resolutions** options. "
+"Selecting all of them will make displaying in QGIS the fastest, but this "
+"could take hours to compute depending on the file size and processing "
+"capabilities of the computer you are using. For the Uganda example, we can "
+"select them all, but if using a larger area or higher spatial resolution "
+"than the default 250m, we recommend you select alternating resolutions "
+"options (i.e. one resolution selected and one not selected, and so on). "
+"Resolutions are selected by clicking on them. When selected, they will turn "
+"blue."
+msgstr ""
+"À direita da janela, você verá as opções **Resoluções**. A seleção de todos "
+"eles fará com que a exibição no QGIS seja a mais rápida, mas isso pode levar"
+" horas para ser calculado, dependendo do tamanho do arquivo e das "
+"capacidades de processamento do computador que você está usando. Para o "
+"exemplo de Uganda, podemos selecioná-los todos, mas se estiver usando uma "
+"área maior ou resolução espacial maior que a padrão de 250 m, recomendamos "
+"selecionar opções de resoluções alternadas (ou seja, uma resolução "
+"selecionada e uma não selecionada, e assim por diante). As resoluções são "
+"selecionadas clicando nelas. Quando selecionado, eles ficarão azuis."
+
+#: ../../source/for_users/training/pyramids.rst:28
+msgid "Make sure that the settings at the bottom are set to:"
+msgstr ""
+"Certifique-se de que as configurações na parte inferior estão definidas "
+"para:"
+
+#: ../../source/for_users/training/pyramids.rst:30
+msgid "**Overview format**: External"
+msgstr "**Formato de visão geral**: externo"
+
+#: ../../source/for_users/training/pyramids.rst:31
+msgid "**Resampling method**: Nearest Neighbour"
+msgstr "**Método de reamostragem**: vizinho mais próximo"
+
+#: ../../source/for_users/training/pyramids.rst:33
+msgid ""
+"Then click on the **Build pyramids** button. The progress bar next to it "
+"will show which percentage of the task has been completed."
+msgstr ""
+"Em seguida, clique no botão **Build pyramids**. A barra de progresso ao lado"
+" mostrará qual porcentagem da tarefa foi concluída."
+
+#: ../../source/for_users/training/pyramids.rst:38
+msgid ""
+"When pyramids have been built you will notice that the icons next to the "
+"resolutions will have changed from **red crosses** to **yellow pyramids**."
+msgstr ""
+"Quando as pirâmides forem construídas, você notará que os ícones próximos às"
+" resoluções terão mudado de **cruz vermelha** para **amarela pirâmide**."
+
+#: ../../source/for_users/training/pyramids.rst:43
+msgid "Click **OK** to go back to the QGIS main interface."
+msgstr "Clique em **OK** para voltar à interface principal do QGIS."
+
+#: ../../../<rst_epilog>:2
+msgid "iconCalculator"
+msgstr "iconCalculator"
+
+#: ../../../<rst_epilog>:4
+msgid "iconReports"
+msgstr "iconReports"
+
+#: ../../../<rst_epilog>:6
+msgid "Trends.Earth"
+msgstr "Trends.Earth"

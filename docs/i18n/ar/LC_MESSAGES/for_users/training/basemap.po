@@ -1,0 +1,130 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017-2022, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Alex Zvoleff <azvoleff@conservation.org>, 2022
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-20 14:58-0400\n"
+"PO-Revision-Date: 2022-07-20 19:07+0000\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
+"Language-Team: Arabic (https://www.transifex.com/conservation-international/teams/80165/ar/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: ../../source/for_users/training/basemap.rst:4
+msgid "Adding a basemap"
+msgstr ""
+
+#: ../../source/for_users/training/basemap.rst:6
+msgid ""
+"Basemaps are very useful as a reference for identifying specific locations "
+"in maps. When downloaded, Trends.Earth results are displayed on an empty "
+"QGIS project, which could limit the user ability for identifying know places"
+" in the landscape. To facilitate this process, you can use the **Add "
+"Basemap** tool which will load country and state boundaries, roads, rivers, "
+"cities, coastlines and water bodies with labels to the QGIS project."
+msgstr ""
+"تعد خرائط الأساس مفيدة جداً كمرجع لتحديد مواقع محددة في الخرائط. عند "
+"التنزيل، يتم عرض نتائج Trends.Earth في مشروع QGIS فارغ، مما قد يحد من قدرة "
+"المستخدم على تحديد الأماكن المعروفة في المناظر الطبيعية. لتسهيل هذه العملية،"
+" يمكنك استخدام أداة **إضافة خريطة الأساس** التي ستحمّل حدود الدولة والولاية "
+"والطرق والأنهار والمدن والسواحل والمسطحات المائية مع ملصقات لمشروع QGIS."
+
+#: ../../source/for_users/training/basemap.rst:8
+msgid ""
+"To load the tool click on the **Datasets** tab and select **Load Base Map** "
+"in the bottom right of the window."
+msgstr ""
+"لتحميل الأداة، انقر فوق علامة التبويب **مجموعات البيانات** وحدد **تحميل "
+"خريطة الأساس** في الجزء السفلي الأيمن من النافذة."
+
+#: ../../source/for_users/training/basemap.rst:13
+msgid "On the **Add basemap** window you can do one of two things:"
+msgstr "في نافذة **إضافة خريطة الأساس**، يمكنك إجراء أحد أمرين:"
+
+#: ../../source/for_users/training/basemap.rst:15
+msgid ""
+"**Use a mask option selected** will create a mask blocking all the "
+"information outside of the selected area. In this example, all the "
+"information outside of Uganda will not be displayed on the map. This option "
+"is useful when displaying the sub-indicators downloaded from Trends.Earth, "
+"since the data download is not clipped to administrative boundaries (a "
+"bounding box is used instead). You can use first and second level "
+"administrative boundaries."
+msgstr ""
+"**استخدم خيار القناع المحدد** سينشئ قناعاً يحجب جميع المعلومات خارج المنطقة "
+"المحددة. في هذا المثال، لن يتم عرض جميع المعلومات الموجودة خارج أوغندا على "
+"الخريطة. يكون هذا الخيار مفيداً عند عرض المؤشرات الفرعية التي تم تنزيلها من "
+"Trends.Earth، نظراً لأن تنزيل البيانات لا يقتصر على الحدود الإدارية (يتم "
+"استخدام مربع إحاطة بدلاً من ذلك). يمكنك استخدام الحدود الإدارية من المستوى "
+"الأول والثاني."
+
+#: ../../source/for_users/training/basemap.rst:17
+msgid ""
+"**Use a mask option not selected** will load all the reference information, "
+"but no mask will be applied."
+msgstr ""
+"**استخدم خيار قناع غير محدد** سيتم تحميل جميع المعلومات المرجعية، ولكن لن "
+"يتم تطبيق أي قناع."
+
+#: ../../source/for_users/training/basemap.rst:22
+msgid ""
+"Once the basemap is loaded, you will notice the information added to the map"
+" and to the Layer panel. The basemap has information for:"
+msgstr ""
+"بمجرد تحميل خريطة الأساس، ستلاحظ المعلومات المضافة إلى الخريطة ولوحة الطبقة."
+" تحتوي خريطة الأساس على معلومات عن:"
+
+#: ../../source/for_users/training/basemap.rst:24
+msgid "Lake"
+msgstr "البحيرة"
+
+#: ../../source/for_users/training/basemap.rst:25
+msgid "River"
+msgstr "النهر"
+
+#: ../../source/for_users/training/basemap.rst:26
+msgid "Coastline"
+msgstr "الساحل"
+
+#: ../../source/for_users/training/basemap.rst:27
+msgid "City"
+msgstr "المدينة"
+
+#: ../../source/for_users/training/basemap.rst:28
+msgid "Disputed border"
+msgstr "الحدود المتنازع عليها"
+
+#: ../../source/for_users/training/basemap.rst:29
+msgid "Subnational border"
+msgstr "الحدود دون الوطنية"
+
+#: ../../source/for_users/training/basemap.rst:30
+msgid "National border"
+msgstr "الحدود الوطنية"
+
+#: ../../source/for_users/training/basemap.rst:31
+msgid "Ocean"
+msgstr "المحيط"
+
+#: ../../../<rst_epilog>:2
+msgid "iconCalculator"
+msgstr "أيقونة الحاسبة"
+
+#: ../../../<rst_epilog>:4
+msgid "iconReports"
+msgstr "iconReports"
+
+#: ../../../<rst_epilog>:6
+msgid "Trends.Earth"
+msgstr "Trends.Earth\n"

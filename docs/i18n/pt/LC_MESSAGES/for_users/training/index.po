@@ -1,27 +1,30 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
 # Translators:
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
 # Gabriel Antunes Daldegan <gdaldegan@conservation.org>, 2022
 # Alex Zvoleff <azvoleff@conservation.org>, 2022
-# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-01 11:29-0400\n"
+"POT-Creation-Date: 2022-07-20 14:58-0400\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
-"Language-Team: Portuguese (https://www.transifex.com/conservation-international/teams/80165/pt/)\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Language: pt\n"
-"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+"Language-Team: Portuguese (https://www.transifex.com/conservation-"
+"international/teams/80165/pt/)\n"
+"Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
+"1000000 == 0 ? 1 : 2\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
 
 #: ../../source/for_users/training/index.rst:6
 msgid "Settings"
@@ -64,6 +67,13 @@ msgid "Dataset Reports"
 msgstr "Relatórios do Conjunto de Dados"
 
 #: ../../source/for_users/training/index.rst:6
+msgid "Adding a Basemap"
+msgstr ""
+
+#: ../../source/for_users/training/index.rst:6
+msgid "Computing Pyramids"
+msgstr ""
+
 #: ../../source/for_users/training/index.rst:3
 #: ../../source/for_users/training/index.rst:6
 msgid "Training Manual"
@@ -80,3 +90,4 @@ msgstr "iconReports"
 #: ../../../<rst_epilog>:6
 msgid "Trends.Earth"
 msgstr "Trends.Earth"
+

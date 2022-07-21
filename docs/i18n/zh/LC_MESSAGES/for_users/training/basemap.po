@@ -1,0 +1,118 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017-2022, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Alex Zvoleff <azvoleff@conservation.org>, 2022
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-20 14:58-0400\n"
+"PO-Revision-Date: 2022-07-20 19:07+0000\n"
+"Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
+"Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: ../../source/for_users/training/basemap.rst:4
+msgid "Adding a basemap"
+msgstr ""
+
+#: ../../source/for_users/training/basemap.rst:6
+msgid ""
+"Basemaps are very useful as a reference for identifying specific locations "
+"in maps. When downloaded, Trends.Earth results are displayed on an empty "
+"QGIS project, which could limit the user ability for identifying know places"
+" in the landscape. To facilitate this process, you can use the **Add "
+"Basemap** tool which will load country and state boundaries, roads, rivers, "
+"cities, coastlines and water bodies with labels to the QGIS project."
+msgstr ""
+"底图作为识别地图中特定位置的参考非常有用。下载后，Trends.Earth 结果显示在一个空的 QGIS "
+"项目上，这可能会限制用户识别景观中已知地点的能力。为促进此过程，您可以使用 **添加底图** "
+"工具，将国家和州边界、道路、河流、城市、海岸线和带有标签的水体加载到 QGIS 项目中。"
+
+#: ../../source/for_users/training/basemap.rst:8
+msgid ""
+"To load the tool click on the **Datasets** tab and select **Load Base Map** "
+"in the bottom right of the window."
+msgstr "要加载此工具，请单击 **数据集** 选项卡，然后选择窗口右下角的 **加载基本地图**。"
+
+#: ../../source/for_users/training/basemap.rst:13
+msgid "On the **Add basemap** window you can do one of two things:"
+msgstr "在 **添加底图** 窗口，您可以执行以下两项操作之一："
+
+#: ../../source/for_users/training/basemap.rst:15
+msgid ""
+"**Use a mask option selected** will create a mask blocking all the "
+"information outside of the selected area. In this example, all the "
+"information outside of Uganda will not be displayed on the map. This option "
+"is useful when displaying the sub-indicators downloaded from Trends.Earth, "
+"since the data download is not clipped to administrative boundaries (a "
+"bounding box is used instead). You can use first and second level "
+"administrative boundaries."
+msgstr ""
+"**使用选定的掩码选项** 将创建一个掩码，阻止所选区域之外的所有信息。在此示例中，乌干达以外的所有信息都不会显示在地图上。当显示从 "
+"Trends.Earth 下载的子指标时，此选项很有用，因为数据下载不会裁剪到管理边界（而是使用边界框）。您可以使用第一级和第二级管理边界。"
+
+#: ../../source/for_users/training/basemap.rst:17
+msgid ""
+"**Use a mask option not selected** will load all the reference information, "
+"but no mask will be applied."
+msgstr "**使用未选择的掩码选项** 将加载所有参考信息，但不会应用掩码。"
+
+#: ../../source/for_users/training/basemap.rst:22
+msgid ""
+"Once the basemap is loaded, you will notice the information added to the map"
+" and to the Layer panel. The basemap has information for:"
+msgstr "加载底图后，您会注意到添加到地图和图层面板的信息。底图包含以下信息："
+
+#: ../../source/for_users/training/basemap.rst:24
+msgid "Lake"
+msgstr "湖泊"
+
+#: ../../source/for_users/training/basemap.rst:25
+msgid "River"
+msgstr "河流"
+
+#: ../../source/for_users/training/basemap.rst:26
+msgid "Coastline"
+msgstr "海岸线"
+
+#: ../../source/for_users/training/basemap.rst:27
+msgid "City"
+msgstr "城市"
+
+#: ../../source/for_users/training/basemap.rst:28
+msgid "Disputed border"
+msgstr "有争议的边界"
+
+#: ../../source/for_users/training/basemap.rst:29
+msgid "Subnational border"
+msgstr "次国家边界"
+
+#: ../../source/for_users/training/basemap.rst:30
+msgid "National border"
+msgstr "国界"
+
+#: ../../source/for_users/training/basemap.rst:31
+msgid "Ocean"
+msgstr "海洋"
+
+#: ../../../<rst_epilog>:2
+msgid "iconCalculator"
+msgstr "图标计算器"
+
+#: ../../../<rst_epilog>:4
+msgid "iconReports"
+msgstr "图标报告"
+
+#: ../../../<rst_epilog>:6
+msgid "Trends.Earth"
+msgstr "Trends.Earth"

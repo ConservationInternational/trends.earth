@@ -28,10 +28,10 @@ jobs:
       - run: pip install -r requirements-dev.txt
       - name: Install transifex CLI
         run: curl -o- https://raw.githubusercontent.com/transifex/cli/master/install.sh | bash
-      - name: Push strings to transifex
-        run: invoke translate-push
       - name: Pull updated strings from transifex
         run: invoke translate-pull
+      - name: Push strings to transifex
+        run: invoke translate-push
       - name: Create pull request
         id: cpr
         uses: peter-evans/create-pull-request@v4

@@ -1,0 +1,135 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2017-2022, Conservation International
+# This file is distributed under the same license as the Trends.Earth package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# 
+# Translators:
+# Alex Zvoleff <azvoleff@conservation.org>, 2022
+# Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
+# 
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Trends.Earth 2.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-07-20 14:58-0400\n"
+"PO-Revision-Date: 2022-07-20 19:07+0000\n"
+"Last-Translator: Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022\n"
+"Language-Team: Spanish (https://www.transifex.com/conservation-international/teams/80165/es/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: es\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+
+#: ../../source/for_users/training/basemap.rst:4
+msgid "Adding a basemap"
+msgstr ""
+
+#: ../../source/for_users/training/basemap.rst:6
+msgid ""
+"Basemaps are very useful as a reference for identifying specific locations "
+"in maps. When downloaded, Trends.Earth results are displayed on an empty "
+"QGIS project, which could limit the user ability for identifying know places"
+" in the landscape. To facilitate this process, you can use the **Add "
+"Basemap** tool which will load country and state boundaries, roads, rivers, "
+"cities, coastlines and water bodies with labels to the QGIS project."
+msgstr ""
+"Los mapas base son muy útiles como referencia para identificar ubicaciones "
+"específicas en los mapas. Cuando se descargan, los resultados de "
+"Trends.Earth se muestran en un proyecto QGIS vacío, lo que podría limitar la"
+" capacidad del usuario para identificar lugares conocidos en el paisaje. "
+"Para facilitar este proceso, puede utilizar la herramienta **Agregar mapa "
+"base** que cargará las fronteras del país y del estado, carreteras, ríos, "
+"ciudades, costas y masas de agua con etiquetas para el proyecto QGIS."
+
+#: ../../source/for_users/training/basemap.rst:8
+msgid ""
+"To load the tool click on the **Datasets** tab and select **Load Base Map** "
+"in the bottom right of the window."
+msgstr ""
+"Para cargar la herramienta, haga clic en la pestaña **Conjuntos de datos** y"
+" elija **Cargar mapa base** en la parte inferior derecha de la ventana."
+
+#: ../../source/for_users/training/basemap.rst:13
+msgid "On the **Add basemap** window you can do one of two things:"
+msgstr ""
+"En la ventana **Agregar mapa base** puede hacer una de estas dos cosas:"
+
+#: ../../source/for_users/training/basemap.rst:15
+msgid ""
+"**Use a mask option selected** will create a mask blocking all the "
+"information outside of the selected area. In this example, all the "
+"information outside of Uganda will not be displayed on the map. This option "
+"is useful when displaying the sub-indicators downloaded from Trends.Earth, "
+"since the data download is not clipped to administrative boundaries (a "
+"bounding box is used instead). You can use first and second level "
+"administrative boundaries."
+msgstr ""
+"**Usar una opción de máscara seleccionada** creará una máscara que bloqueará"
+" toda la información fuera del área seleccionada. En este ejemplo, toda la "
+"información fuera de Uganda no se mostrará en el mapa. Esta opción es útil "
+"cuando se muestran los subindicadores descargados de Trends.Earth, ya que la"
+" descarga de datos no se recorta a límites administrativos (en su lugar, se "
+"usa un cuadro delimitador). Puede usar límites administrativos de primer y "
+"segundo nivel."
+
+#: ../../source/for_users/training/basemap.rst:17
+msgid ""
+"**Use a mask option not selected** will load all the reference information, "
+"but no mask will be applied."
+msgstr ""
+"**Usar una opción de máscara no seleccionada** cargará toda la información "
+"de referencia, pero no se aplicará máscara."
+
+#: ../../source/for_users/training/basemap.rst:22
+msgid ""
+"Once the basemap is loaded, you will notice the information added to the map"
+" and to the Layer panel. The basemap has information for:"
+msgstr ""
+"Una vez que se haya cargado el mapa base, observará la información agregada "
+"al mapa y al panel Capa. El mapa base tiene información para:"
+
+#: ../../source/for_users/training/basemap.rst:24
+msgid "Lake"
+msgstr "lago"
+
+#: ../../source/for_users/training/basemap.rst:25
+msgid "River"
+msgstr "Río"
+
+#: ../../source/for_users/training/basemap.rst:26
+msgid "Coastline"
+msgstr "Línea costera"
+
+#: ../../source/for_users/training/basemap.rst:27
+msgid "City"
+msgstr "Ciudad"
+
+#: ../../source/for_users/training/basemap.rst:28
+msgid "Disputed border"
+msgstr "Límite disputado"
+
+#: ../../source/for_users/training/basemap.rst:29
+msgid "Subnational border"
+msgstr "Frontera subnacional"
+
+#: ../../source/for_users/training/basemap.rst:30
+msgid "National border"
+msgstr "frontera nacional"
+
+#: ../../source/for_users/training/basemap.rst:31
+msgid "Ocean"
+msgstr "Oceano"
+
+#: ../../../<rst_epilog>:2
+msgid "iconCalculator"
+msgstr "iconCalculator"
+
+#: ../../../<rst_epilog>:4
+msgid "iconReports"
+msgstr "iconReports"
+
+#: ../../../<rst_epilog>:6
+msgid "Trends.Earth"
+msgstr "Trends.Earth"

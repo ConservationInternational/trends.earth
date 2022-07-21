@@ -126,9 +126,10 @@ def _replace(file_path, regex, subst):
 @task(help={'v': 'Version to set',
             'ta': 'Also set version for trends.earth-algorithms',
             'ts': 'Also set version for trends.earth-schemas',
-            'tag': 'Also set tag(s)'
+            'tag': 'Also set tag(s)',
+            'gee': 'Also set versions for gee scripts',
 })
-def set_version(c, v=None, ta=False, ts=False, tag=False):
+def set_version(c, v=None, ta=False, ts=False, tag=False, gee=False):
     # Validate the version matches the regex
 
     if not v:
@@ -188,71 +189,73 @@ def set_version(c, v=None, ta=False, ts=False, tag=False):
             '\g<1>' + v
         )
 
-        # For the GEE config files the version can't have a dot, so convert to
-        # underscore
-        v_gee = v.replace('.', '_')
-
-        if not v or not re.match("[0-9]+(_[0-9]+)+(rc[0-9]*)?", v_gee):
-            print('Must specify a valid version (example: 0.36)')
-
-            return
-
-        gee_id_regex = re.compile('(, )?"id": "[0-9a-z-]*"(, )?')
-        gee_script_name_regex = re.compile(
-            '("name": "[0-9a-zA-Z -]*)( [0-9]+(_[0-9]+)+)(rc[0-9]*)?"'
-        )
         requirements_txt_regex = re.compile(
             '((trends.earth-schemas.git@)|(trends.earth-algorithms.git@))([.0-9a-z]*)'
         )
 
-        # Set version for GEE scripts
+        if gee:
+            # For the GEE config files the version can't have a dot, so convert to
+            # underscore
+            v_gee = v.replace('.', '_')
 
-        for subdir, dirs, files in os.walk(c.gee.script_dir):
-            for file in files:
-                filepath = os.path.join(subdir, file)
+            if not v or not re.match("[0-9]+(_[0-9]+)+(rc[0-9]*)?", v_gee):
+                print('Must specify a valid version (example: 0.36)')
 
-                if file == 'configuration.json':
-                    # Validate the version matches the regex
-                    print('Setting version to {} in {}'.format(v, filepath))
-                    # Update the version string
-                    _replace(
-                        filepath, gee_script_name_regex, '\g<1> ' + v_gee + '"'
-                    )
-                    # Clear the ID since a new one will be assigned due to the new name
-                    _replace(filepath, gee_id_regex, '')
-                elif file == 'requirements.txt':
-                    print('Setting version to {} in {}'.format(v, filepath))
+                return
 
-                    if (
-                        ('rc' in v.split('.')[-1]) or (int(v.split('.')[-1]) % 2 == 0)
-                    ):
-                        # Last number in version string is even (or this is an RC), so
-                        # use a tagged version of schemas matching this version
+            gee_id_regex = re.compile('(, )?"id": "[0-9a-z-]*"(, )?')
+            gee_script_name_regex = re.compile(
+                '("name": "[0-9a-zA-Z -]*)( [0-9]+(_[0-9]+)+)(rc[0-9]*)?"'
+            )
+
+            # Set version for GEE scripts
+
+            for subdir, dirs, files in os.walk(c.gee.script_dir):
+                for file in files:
+                    filepath = os.path.join(subdir, file)
+
+                    if file == 'configuration.json':
+                        # Validate the version matches the regex
+                        print('Setting version to {} in {}'.format(v, filepath))
+                        # Update the version string
                         _replace(
-                            filepath, requirements_txt_regex, '\g<1>v' + v
+                            filepath, gee_script_name_regex, '\g<1> ' + v_gee + '"'
                         )
-                    else:
-                        # Last number in version string is odd, so this is a development
-                        # version, so use development version of schemas
-                        _replace(
-                            filepath, requirements_txt_regex, '\g<1>develop'
-                        )
-                elif file == '__init__.py':
-                    print('Setting version to {} in {}'.format(v, filepath))
-                    init_version_regex = re.compile(
-                        '^(__version__[ ]*=[ ]*["\'])[0-9]+([.][0-9]+)+(rc[0-9]*)?'
-                    )
-                    _replace(filepath, init_version_regex, '\g<1>' + v)
+                        # Clear the ID since a new one will be assigned due to the new name
+                        _replace(filepath, gee_id_regex, '')
+                    elif file == 'requirements.txt':
+                        print('Setting version to {} in {}'.format(v, filepath))
 
-        # Set in scripts.json
-        print('Setting version to {} in scripts.json'.format(v))
-        scripts_regex = re.compile(
-            '("version": ")[0-9]+([-._][0-9]+)+(rc[0-9]*)?', re.IGNORECASE
-        )
-        _replace(
-            os.path.join(c.plugin.source_dir, 'data', 'scripts.json'),
-            scripts_regex, '\g<1>' + v
-        )
+                        if (
+                            ('rc' in v.split('.')[-1]) or (int(v.split('.')[-1]) % 2 == 0)
+                        ):
+                            # Last number in version string is even (or this is an RC), so
+                            # use a tagged version of schemas matching this version
+                            _replace(
+                                filepath, requirements_txt_regex, '\g<1>v' + v
+                            )
+                        else:
+                            # Last number in version string is odd, so this is a development
+                            # version, so use development version of schemas
+                            _replace(
+                                filepath, requirements_txt_regex, '\g<1>develop'
+                            )
+                    elif file == '__init__.py':
+                        print('Setting version to {} in {}'.format(v, filepath))
+                        init_version_regex = re.compile(
+                            '^(__version__[ ]*=[ ]*["\'])[0-9]+([.][0-9]+)+(rc[0-9]*)?'
+                        )
+                        _replace(filepath, init_version_regex, '\g<1>' + v)
+
+            # Set in scripts.json
+            print('Setting version to {} in scripts.json'.format(v))
+            scripts_regex = re.compile(
+                '("version": ")[0-9]+([-._][0-9]+)+(rc[0-9]*)?', re.IGNORECASE
+            )
+            _replace(
+                os.path.join(c.plugin.source_dir, 'data', 'scripts.json'),
+                scripts_regex, '\g<1>' + v
+            )
 
         print('Setting version to {} in package requirements.txt'.format(v))
 

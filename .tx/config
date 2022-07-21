@@ -127,6 +127,12 @@ source_file = docs/i18n/pot/for_users/training/index.pot
 source_lang = en
 type = PO
 
+[o:conservation-international:p:trendsearth:r:for_users--training--basemap]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/for_users/training/basemap.po
+source_file = docs/i18n/pot/for_users/training/basemap.pot
+source_lang = en
+type = PO
+
 [o:conservation-international:p:trendsearth:r:for_users--training--carbon]
 file_filter = docs/i18n/<lang>/LC_MESSAGES/for_users/training/carbon.po
 source_file = docs/i18n/pot/for_users/training/carbon.pot
@@ -154,6 +160,12 @@ type = PO
 [o:conservation-international:p:trendsearth:r:for_users--training--metadata]
 file_filter = docs/i18n/<lang>/LC_MESSAGES/for_users/training/metadata.po
 source_file = docs/i18n/pot/for_users/training/metadata.pot
+source_lang = en
+type = PO
+
+[o:conservation-international:p:trendsearth:r:for_users--training--pyramids]
+file_filter = docs/i18n/<lang>/LC_MESSAGES/for_users/training/pyramids.po
+source_file = docs/i18n/pot/for_users/training/pyramids.pot
 source_lang = en
 type = PO
 

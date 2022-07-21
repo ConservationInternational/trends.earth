@@ -89,6 +89,10 @@ Ui_WidgetDataIOSelectTEDatasetExisting, _ = uic.loadUiType(
     )
 )
 
+class tr_data_io(object):
+    def tr(message):
+        return QtCore.QCoreApplication.translate("tr_data_io", message)
+
 
 @dataclasses.dataclass()
 class Band:
@@ -672,7 +676,7 @@ class DlgDataIOLoadTE(QtWidgets.QDialog, Ui_DlgDataIOLoadTE):
             else:
                 self.file_lineedit.clear()
                 QtWidgets.QMessageBox.critical(
-                    self, self.tr("Could not load file"), error_message
+                    self, tr_data_io.tr("Could not load file"), error_message
                 )
 
     def parse_chosen_path(
@@ -688,8 +692,10 @@ class DlgDataIOLoadTE(QtWidgets.QDialog, Ui_DlgDataIOLoadTE):
                 job = Job.Schema().load(raw_job)
                 update_uris_if_needed(job, path)
                 set_results_extents(job)
-            except json.JSONDecodeError:
-                error_message = "Could not parse the selected file into a valid JSON"
+            except (json.JSONDecodeError, KeyError):
+                error_message = tr_data_io.tr(
+                    "Could not parse the selected file into a valid JSON"
+                )
 
         return job, error_message
 
@@ -772,8 +778,8 @@ class ImportSelectFileInputWidget(
         else:
             initial_file = QSettings().value("LDMP/input_dir", None)
         raster_file, _ = QtWidgets.QFileDialog.getOpenFileName(
-            self, self.tr('Select a raster input file'), initial_file,
-            self.tr('Raster file (*.tif *.dat *.img *.vrt)')
+            self, tr_data_io.tr('Select a raster input file'), initial_file,
+            tr_data_io.tr('Raster file (*.tif *.dat *.img *.vrt)')
         )
         # Try loading this raster to verify the file works
 
@@ -785,8 +791,8 @@ class ImportSelectFileInputWidget(
 
         if not os.access(raster_file, os.R_OK or not l.isValid()):
             QtWidgets.QMessageBox.critical(
-                None, self.tr("Error"),
-                self.tr(
+                None, tr_data_io.tr("Error"),
+                tr_data_io.tr(
                     u"Cannot read {}. Choose a different file.".
                     format(raster_file)
                 )
@@ -815,8 +821,8 @@ class ImportSelectFileInputWidget(
         else:
             initial_file = QSettings().value("LDMP/input_dir", None)
         vector_file, _ = QtWidgets.QFileDialog.getOpenFileName(
-            self, self.tr('Select a vector input file'), initial_file,
-            self.tr('Vector file (*.shp *.kml *.kmz *.geojson)')
+            self, tr_data_io.tr('Select a vector input file'), initial_file,
+            tr_data_io.tr('Vector file (*.shp *.kml *.kmz *.geojson)')
         )
         # Try loading this vector to verify the file works
 
@@ -828,8 +834,8 @@ class ImportSelectFileInputWidget(
 
         if not os.access(vector_file, os.R_OK) or not l.isValid():
             QtWidgets.QMessageBox.critical(
-                None, self.tr("Error"),
-                self.tr(
+                None, tr_data_io.tr("Error"),
+                tr_data_io.tr(
                     u"Cannot read {}. Choose a different file.".
                     format(vector_file)
                 )
@@ -874,8 +880,8 @@ class ImportSelectRasterOutput(
                 conf.Setting.BASE_DIR
             )
         raw_output_path, _ = QtWidgets.QFileDialog.getSaveFileName(
-            self, self.tr('Choose a name for the output file'), initial_file,
-            self.tr('Raster file (*.tif)')
+            self, tr_data_io.tr('Choose a name for the output file'), initial_file,
+            tr_data_io.tr('Raster file (*.tif)')
         )
 
         if raw_output_path:
@@ -888,8 +894,8 @@ class ImportSelectRasterOutput(
                 return True
             else:
                 QtWidgets.QMessageBox.critical(
-                    self, self.tr("Error"),
-                    self.tr(
+                    self, tr_data_io.tr("Error"),
+                    tr_data_io.tr(
                         u"Cannot write to {}. Choose a different file.".
                         format(raw_output_path)
                     )
@@ -918,7 +924,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         self.datatype = 'categorical'
         self.metadata = None
 
-        self.btnMetadata = QtWidgets.QPushButton(self.tr("Metadata"))
+        self.btnMetadata = QtWidgets.QPushButton(tr_data_io.tr("Metadata"))
         layout = self.btnBox.layout()
         layout.insertWidget(0, self.btnMetadata)
         self.btnMetadata.clicked.connect(self.open_metadata_editor)
@@ -927,8 +933,8 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         if self.input_widget.radio_raster_input.isChecked():
             if self.input_widget.lineEdit_raster_file.text() == '':
                 QtWidgets.QMessageBox.critical(
-                    None, self.tr("Error"),
-                    self.tr("Choose an input raster file.")
+                    None, tr_data_io.tr("Error"),
+                    tr_data_io.tr("Choose an input raster file.")
                 )
 
                 return
@@ -937,8 +943,8 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
 
             if in_file == '':
                 QtWidgets.QMessageBox.critical(
-                    None, self.tr("Error"),
-                    self.tr("Choose an input polygon dataset.")
+                    None, tr_data_io.tr("Error"),
+                    tr_data_io.tr("Choose an input polygon dataset.")
                 )
 
                 return
@@ -951,8 +957,8 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
                 self.vector_datatype = "point"
             else:
                 QtWidgets.QMessageBox.critical(
-                    None, self.tr("Error"),
-                    self.tr(
+                    None, tr_data_io.tr("Error"),
+                    tr_data_io.tr(
                         u"Cannot process {}. Unknown geometry type:{}".format(
                             in_file, l.wkbType()
                         )
@@ -1046,7 +1052,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
 
         if not remap_vector_worker.success:
             QtWidgets.QMessageBox.critical(
-                None, self.tr("Error"), self.tr("Vector remapping failed.")
+                None, tr_data_io.tr("Error"), tr_data_io.tr("Vector remapping failed.")
             )
 
             return False
@@ -1069,7 +1075,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
 
         if not remap_raster_worker.success:
             QtWidgets.QMessageBox.critical(
-                None, self.tr("Error"), self.tr("Raster remapping failed.")
+                None, tr_data_io.tr("Error"), tr_data_io.tr("Raster remapping failed.")
             )
 
             return False
@@ -1089,7 +1095,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
 
         if not rasterize_worker.success:
             QtWidgets.QMessageBox.critical(
-                None, self.tr("Error"), self.tr("Rasterizing failed.")
+                None, tr_data_io.tr("Error"), tr_data_io.tr("Rasterizing failed.")
             )
 
             return False
@@ -1119,7 +1125,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
 
         if not raster_import_worker.success:
             QtWidgets.QMessageBox.critical(
-                None, self.tr("Error"), self.tr("Raster import failed.")
+                None, tr_data_io.tr("Error"), tr_data_io.tr("Raster import failed.")
             )
 
             return False
@@ -1154,7 +1160,7 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
     def validate_input(self, value):
         if self.output_widget.lineEdit_output_file.text() == '':
             QtWidgets.QMessageBox.critical(
-                None, self.tr("Error"), self.tr("Choose an output file.")
+                None, tr_data_io.tr("Error"), tr_data_io.tr("Choose an output file.")
             )
 
             return
@@ -1162,8 +1168,8 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
         if self.input_widget.spinBox_data_year.text(
         ) == self.input_widget.spinBox_data_year.specialValueText():
             QtWidgets.QMessageBox.critical(
-                None, self.tr("Error"),
-                self.tr(u"Enter the year of the input data.")
+                None, tr_data_io.tr("Error"),
+                tr_data_io.tr(u"Enter the year of the input data.")
             )
 
             return
@@ -1187,8 +1193,8 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
 
             if not l.fields().field(idx).isNumeric():
                 QtWidgets.QMessageBox.critical(
-                    None, self.tr("Error"),
-                    self.tr(
+                    None, tr_data_io.tr("Error"),
+                    tr_data_io.tr(
                         u"The chosen field ({}) is not numeric. Choose a numeric field."
                         .format(field)
                     )
@@ -1203,9 +1209,11 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
 
         if not stats:
             QtWidgets.QMessageBox.critical(
-                None, self.tr("Error"),
-                self.tr(
-                    u"The input file ({}) does not appear to be a valid soil organic carbon input file. The file should contain values of soil organic carbon in tonnes / hectare."
+                None, tr_data_io.tr("Error"),
+                tr_data_io.tr(
+                    "The input file ({}) does not appear to be a valid soil organic "
+                    "carbon input file. The file should contain values of soil "
+                    "organic carbon in tonnes / hectare."
                     .format(in_file)
                 )
             )
@@ -1214,9 +1222,11 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
 
         if stats[0] < 0:
             QtWidgets.QMessageBox.critical(
-                None, self.tr("Error"),
-                self.tr(
-                    u"The input file ({}) does not appear to be a valid soil organic carbon input file. The minimum value in this file is {}. The no data value should be -32768, and all other values should be >= 0."
+                None, tr_data_io.tr("Error"),
+                tr_data_io.tr(
+                    "The input file ({}) does not appear to be a valid soil organic "
+                    "carbon input file. The minimum value in this file is {}. The no "
+                    "data value should be -32768, and all other values should be >= 0."
                     .format(in_file, stats[0])
                 )
             )
@@ -1225,9 +1235,11 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
 
         if stats[1] > 1000:
             QtWidgets.QMessageBox.critical(
-                None, self.tr("Error"),
-                self.tr(
-                    u"The input file ({}) does not appear to be a valid soil organic carbon input file. The maximum value in this file is {}. The maximum value allowed is 1000 tonnes / hectare."
+                None, tr_data_io.tr("Error"),
+                tr_data_io.tr(
+                    "The input file ({}) does not appear to be a valid soil organic "
+                    "carbon input file. The maximum value in this file is {}. "
+                    "The maximum value allowed is 1000 tonnes / hectare."
                     .format(in_file, stats[1])
                 )
             )
@@ -1284,7 +1296,7 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
     def validate_input(self, value):
         if self.output_widget.lineEdit_output_file.text() == '':
             QtWidgets.QMessageBox.critical(
-                None, self.tr("Error"), self.tr("Choose an output file.")
+                None, tr_data_io.tr("Error"), tr_data_io.tr("Choose an output file.")
             )
 
             return
@@ -1309,9 +1321,10 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
 
             if not l.fields().field(idx).isNumeric():
                 QtWidgets.QMessageBox.critical(
-                    None, self.tr("Error"),
-                    self.tr(
-                        u"The chosen field ({}) is not numeric. Choose a field that contains numbers."
+                    None, tr_data_io.tr("Error"),
+                    tr_data_io.tr(
+                        "The chosen field ({}) is not numeric. Choose a field that "
+                        "contains numbers."
                         .format(field)
                     )
                 )
@@ -1322,9 +1335,10 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
 
         if not values:
             QtWidgets.QMessageBox.critical(
-                None, self.tr("Error"),
-                self.tr(
-                    u"The input file ({}) does not appear to be a valid productivity input file."
+                None, tr_data_io.tr("Error"),
+                tr_data_io.tr(
+                    "The input file ({}) does not appear to be a valid productivity "
+                    "input file."
                     .format(in_file)
                 )
             )
@@ -1336,9 +1350,14 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
 
         if len(invalid_values) > 0:
             QtWidgets.QMessageBox.warning(
-                None, self.tr("Warning"),
-                self.tr(
-                    u"The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized."
+                None, tr_data_io.tr("Warning"),
+                tr_data_io.tr(
+                    "The input file ({}) does not appear to be a valid productivity "
+                    "input file. Trends.Earth will load the file anyway, but review "
+                    "the map once it has loaded to ensure the values make sense. The "
+                    "only values allowed in a productivity input file are -32768, 1, "
+                    "2, 3, 4 and 5. There are {} value(s) in the input file "
+                    "that were not recognized."
                     .format(in_file, len(invalid_values))
                 )
             )
@@ -1445,7 +1464,7 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
 
         self.layer_list = None
 
-        self.NO_LAYERS_MESSAGE =  self.tr('No layers available in this region')
+        self.NO_LAYERS_MESSAGE =  tr_data_io.tr('No layers available in this region')
 
     def populate(self, selected_job_id=None):
         aoi = areaofinterest.prepare_area_of_interest()
@@ -1666,13 +1685,13 @@ class DlgDataIOAddLayersToMap(QtWidgets.QDialog, Ui_DlgDataIOAddLayersToMap):
 
             # QtWidgets.QMessageBox.critical(
             #     None,
-            #     self.tr("Error"),
-            #     self.tr(f'Unable to automatically add "{band.name}". '
+            #     tr_data_io.tr("Error"),
+            #     tr_data_io.tr(f'Unable to automatically add "{band.name}". '
             #             'No style is defined for this type of layer.')
             # )
         else:
             QtWidgets.QMessageBox.critical(
-                None, self.tr("Error"), self.tr("Select a layer to load.")
+                None, tr_data_io.tr("Error"), tr_data_io.tr("Select a layer to load.")
             )
 
     def update_band_list(self):
@@ -1711,7 +1730,7 @@ class WidgetDataIOSelectTEDatasetExisting(
             self.selected_job_changed
         )
 
-        self.NO_DATASETS_MESSAGE =  self.tr('No datasets available in this region')
+        self.NO_DATASETS_MESSAGE = tr_data_io.tr('No datasets available in this region')
 
     def populate(self):
         aoi = areaofinterest.prepare_area_of_interest()

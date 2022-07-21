@@ -1,4 +1,6 @@
-<?xml version="1.0" ?><!DOCTYPE TS><TS version="2.0" language="ru">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="ru">
 <context>
     <name>AlgorithmEditorWidget</name>
     <message>
@@ -21,13 +23,13 @@
     </message>
     <message>
         <location filename="../maptools.py" line="52"/>
-        <source>0.00 kmÂ²</source>
-        <translation>0,00 км²</translation>
+        <source>0.00 km&#xc2;&#xb2;</source>
+        <translation type="unfinished">0,00 км²</translation>
     </message>
     <message>
         <location filename="../maptools.py" line="57"/>
-        <source>{:.6g} kmÂ²</source>
-        <translation>{:.6g} км²</translation>
+        <source>{:.6g} km&#xc2;&#xb2;</source>
+        <translation type="unfinished">{:.6g} км²</translation>
     </message>
     <message>
         <location filename="../settings.py" line="464"/>
@@ -87,8 +89,8 @@
     </message>
     <message>
         <location filename="../maptools.py" line="98"/>
-        <source> kmÂ²</source>
-        <translation>км²</translation>
+        <source> km&#xc2;&#xb2;</source>
+        <translation type="unfinished">км²</translation>
     </message>
 </context>
 <context>
@@ -538,8 +540,8 @@
     </message>
     <message>
         <location filename="../gui/DlgAbout.ui" line="102"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Version VERSION_NUMBER&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Access the user guide here:&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en&quot;&gt;&lt;span style=&quot; font-size:12pt; text-decoration: underline; color:#0000ff;&quot;&gt;http://trends.earth/docs/en&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;trends.earth (formerly the Land Degradation Monitoring Toolbox) is a tool for monitoring land change. trends.earth is a &lt;/span&gt;&lt;a href=&quot;http://www.qgis.org&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;QGIS&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt; plugin that supports monitoring of land change, including changes in productivity, land cover, and soil organic carbon. The tool can support monitoring land degradation for reporting to the Global Environment Facility (GEF) and United Nations Convention to Combat Desertification (UNCCD), as well as tracking progress towards achivement of Sustainable Development Goal (SDG) target 15.3, Land Degradation Neutrality (LDN).&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;trends.earth was produced as an output of the GEF-funded project &amp;quot;&lt;/span&gt;&lt;a href=&quot;http://vitalsigns.org/gef-ldmp&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;Enabling the use of global data sources to assess and monitor land degradation at multiple scales&amp;quot;&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;. The project aims to provide guidance on robust methods and a tool for assessing, monitoring status, and estimating trends in land degradation using remote sensing technology.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;trends.earth is free and open-source. The &lt;/span&gt;&lt;a href=&quot;https://github.com/ConservationInternational/trends.earth&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;code is freely available online&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;. The code is licensed under the GNU General Public License, version 2.0 or later.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;This products of trends.earth are made available under the terms of the Creative Commons Attribution 4.0 International License (&lt;/span&gt;&lt;a href=&quot;https://creativecommons.org/licenses/by/4.0/&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;CC BY 4.0&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;). The boundaries and names used, and the designations used, in trends.earth do not imply official endorsement or acceptance by Conservation International Foundation, or its partner organizations and contributors.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;If you encounter any bugs or have any issues with using the plugin, please contact us at &lt;/span&gt;&lt;a href=&quot;mailto:trends.earth@conservation.org&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;trends.earth@conservation.org&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;, or &lt;/span&gt;&lt;a href=&quot;https://github.com/ConservationInternational/trends.earth/issues&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;report an issue on github&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Citation:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Trends.Earth. Conservation International. Available online at: http://trends.earth. 2022.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Версия VERSION_NUMBER&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Доступ к руководству пользователя здесь:&lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en&quot;&gt;&lt;span style=&quot; font-size:12pt; text-decoration: underline; color:#0000ff;&quot;&gt;http://trends.earth/docs/en&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;trends. trends.earth (ранее — Land Degradation Monitoring Toolbox) — это инструмент для мониторинга изменения земель. trends.earth — это плагин &lt;/span&gt;&lt;a href=&quot;http://www.qgis.org&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;QGIS&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;, который поддерживает мониторинг изменения земель, включая изменения продуктивности, почвенного покрова и органического углерода в почве. Этот инструмент может поддерживать мониторинг деградации земель для подачи отчетности в Глобальный экологический фонд (GEF) и Конвенцию ООН по борьбе с опустыниванием (UNCCD), а также отслеживать прогресс в достижении цели в области устойчивого развития (SDG) 15.3, нейтрального баланса деградации земель (LDN).&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;trends.earth появился в результате финансируемого GEF проекта &amp;quot;&lt;/span&gt;&lt;a href=&quot;http://vitalsigns.org/gef-ldmp&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;Обеспечение возможности использования глобальных источников данных для оценки и мониторинга деградации земель в различных масштабах&amp;quot;&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;. Цель проекта — предоставить инструмент и руководство по надежным методам оценки, мониторинга состояния и определения тенденций деградации земель с использованием технологии дистанционного зондирования.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;trends.earth является бесплатным решением с открытым исходным кодом. &lt;/span&gt;&lt;a href=&quot;https://github.com/ConservationInternational/trends.earth&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;Код находится в свободном онлайн-доступе&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;. Код лицензируется по Стандартной общественной лицензии GNU, версия 2.0 и выше.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Продукты trends.earth предоставляются на условиях международной лицензии Creative Commons Attribution 4.0 (&lt;/span&gt;&lt;a href=&quot;https://creativecommons.org/licenses/by/4.0/&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;CC BY 4.0&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;). Используемые в trends.earth границы и названия, а также обозначения не означают официального одобрения или признания со стороны фонда Conservation International или его партнерских организаций и спонсоров.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;При появлении ошибок или каких-либо проблем при использовании плагина, пожалуйста, свяжитесь с нами по адресу &lt;/span&gt;&lt;a href=&quot;mailto:trends.earth@conservation.org&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;trends.earth@conservation.org&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt; или &lt;/span&gt;&lt;a href=&quot;https://github.com/ConservationInternational/trends.earth/issues&quot;&gt;&lt;span style=&quot; font-size:8pt; text-decoration: underline; color:#0000ff;&quot;&gt;сообщите о проблеме на github&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;. &lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;При цитировании:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;Trends.Earth. Conservation International. Доступно онлайн по адресу: http://trends.earth. 2022.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;Version VERSION_NUMBER&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;Access the user guide here:&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;a href=&quot;http://trends.earth&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;http://trends.earth&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Trends.Earth is a free and open source tool to understand land change: the how and why behind changes on the ground. Trends.Earth allows users to draw on the best available information from across a range of sources - from globally available data to customized local maps. A broad range of users are applying Trends.Earth for projects ranging from planning and monitoring restoration efforts, to tracking urbanization, to developing official national reports for submission to the United Nations Convention to Combat Desertification (UNCCD).&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Trends.Earth was produced by a partnership of Conservation International, Lund University, and the National Aeronautics and Space Administration (NASA), with the support of the Global Environment Facility (GEF). It was further developed through a partnership with Conservation International, University of Bern, University of Colorado in partnership with USDA and USAID, University of California - Santa Barbara in partnership with University of North Carolina - Wilmington and Brown University with additional funding from the Global Environment Facility (GEF).&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Trends.earth was originally produced as an output of the GEF-funded project &amp;quot;&lt;/span&gt;&lt;a href=&quot;http://vitalsigns.org/gef-ldmp&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Enabling the use of global data sources to assess and monitor land degradation at multiple scales&amp;quot;&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Trends.Earth is free and open-source. The &lt;/span&gt;&lt;a href=&quot;https://github.com/ConservationInternational/trends.earth&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;code is freely available online&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;. The code is licensed under the GNU General Public License, version 2.0 or later.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;The products of Trends.Earth are made available under the terms of the Creative Commons Attribution 4.0 International License (&lt;/span&gt;&lt;a href=&quot;https://creativecommons.org/licenses/by/4.0/&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;CC BY 4.0&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;). The boundaries and names used, and the designations used, in trends.earth do not imply official endorsement or acceptance by Conservation International Foundation, or its partner organizations and contributors.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;If you encounter any bugs or have any issues with using the plugin, please contact us at &lt;/span&gt;&lt;a href=&quot;mailto:trends.earth@conservation.org&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;trends.earth@conservation.org&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;, or &lt;/span&gt;&lt;a href=&quot;https://github.com/ConservationInternational/trends.earth/issues&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;report an issue on github&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;&lt;br/&gt;&lt;/span&gt;&lt;span style=&quot; font-size:11pt; font-weight:600;&quot;&gt;Citation:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-size:11pt;&quot;&gt;Trends.Earth. Conservation International. Available online at: http://trends.earth. 2022.&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -652,19 +654,12 @@
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;Drought summary&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;This tool facilitates summarizing indicators of drought vulnerability for assessment of maximum drought (over four year periods within the interval selected). The output of this tool can be used to assess drought indicators within a particular region, or to prepare data for reporting to UNCCD on Strategic Objective 3.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#sdg-indicator-15-3-1&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Сводка по засухе&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Этот инструмент помогает обобщить показатели уязвимости к засухе для оценки максимальной засухи (за четырехлетние периоды в пределах выбранного интервала). Результаты этого инструмента можно использовать для оценки показателей засухи в конкретном регионе или для подготовки данных для отчетности перед UNCCD по «Стратегической цели 3».&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Drought summary&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;This tool facilitates summarizing indicators of drought vulnerability for assessment of maximum drought (over four year periods within the interval selected). The output of this tool can be used to assess drought indicators within a particular region, or to prepare data for reporting to UNCCD on Strategic Objective 3.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#sdg-indicator-15-3-1&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Дополнительная информация&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/unccdreporting.html#unccd-strategic-objective-3-so-3&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../calculate_drought_vulnerability.py" line="242"/>
@@ -745,33 +740,6 @@ p, li { white-space: pre-wrap; }
         <translation>Расширенная настройка</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateLC.ui" line="189"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;h3 style=&quot; margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:large; font-weight:600;&quot;&gt;Land cover&lt;/span&gt;&lt;/h3&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;To assess changes in land cover users need land cover maps covering the study area for the baseline and target years. These maps need to be of acceptable accuracy and created in such a way which allows for valid comparisons. Trends.Earth uses ESA CCI land cover maps as the default dataset, but local maps can also be used. The indicator is computed as follows:&lt;/p&gt;
-&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Reclassify both land cover maps to the 7 land cover classes needed for reporting to the UNCCD (forest, grassland, cropland, wetland, artificial area, bare land and water).&lt;/li&gt;
-&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Perform a land cover transition analysis to identify which pixels remained in the same land cover class, and which ones changed.&lt;/li&gt;
-&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Based on your local knowledge of the conditions in the study area and the land degradation processed occurring there, use the table below, in the advanced section, to identify which transitions correspond to degradation (- sign), improvement (+ sign), or no change in terms of land condition (zero).&lt;/li&gt;
-&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; Trends.Earth will combine the information from the land cover maps and the table of degradation typologies by land cover transition to compute the land cover sub-indicator.&lt;/li&gt;&lt;/ol&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#land-cover&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;More information on the Land Cover SDG 15.3.1 Sub-indicator&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;h3 style=&quot; margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:large; font-weight:600;&quot;&gt;Земельный покров&lt;/span&gt;&lt;/h3&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Для оценки изменений в земельном покрове пользователям необходимы карты земельного покрова, охватывающие территорию исследования для базового и целевого годов. Эти карты должны быть приемлемой точности и созданы таким образом, чтобы обеспечить возможность корректных сравнений. Trends.Earth использует карты земельного покрова ESA CCI в качестве набора данных по умолчанию, но также можно использовать и местные карты. Индикатор рассчитывается следующим образом:&lt;/p&gt;
-&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Реклассифицируйте обе карты земельного покрова до 7 классов земельного покрова, необходимых для отчетности перед UNCCD (лес, луг, пашня, водно-болотные угодья, искусственные территории, голые земли и вода).&lt;/li&gt;
-&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Проведите анализ изменения земельного покрова, чтобы определить, какие пиксели остались в том же классе земельного покрова, а какие изменились.&lt;/li&gt;
-&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Основываясь на местных сведениях об условиях на исследуемой территории и происходящей там деградации земель, используйте таблицу ниже в расширенном разделе, чтобы определить, какие изменения соответствуют деградации (знак -), улучшению (знак +) или отсутствию изменений с точки зрения состояния земель (ноль).&lt;/li&gt;
-&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; Trends.Earth объединит информацию с карт почвенного покрова и таблицы типологий деградации по изменениям земельного покрова для расчета суб-индикатора земельного покрова.&lt;/li&gt;&lt;/ol&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#land-cover&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Дополнительная информация о суб-индикаторе земельного покрова SDG 15.3.1&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
         <location filename="../calculate_lc.py" line="187"/>
         <source>Error</source>
         <translation>ошибка</translation>
@@ -811,6 +779,22 @@ p, li { white-space: pre-wrap; }
         <source>Nesting of land cover legends for initial and final land cover layer must be identical.</source>
         <translation>Расположение легенд земельного покрова для начального и конечного слоя земельного покрова должно быть одинаковым.</translation>
     </message>
+    <message>
+        <location filename="../gui/DlgCalculateLC.ui" line="189"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;h3 style=&quot; margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Land cover&lt;/span&gt;&lt;/h3&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;To assess changes in land cover users need land cover maps covering the study area for the baseline and target years. These maps need to be of acceptable accuracy and created in such a way which allows for valid comparisons. Trends.Earth uses ESA CCI land cover maps as the default dataset, but local maps can also be used. The indicator is computed as follows:&lt;/span&gt;&lt;/p&gt;
+&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Reclassify both land cover maps to the 7 land cover classes needed for reporting to the UNCCD (forest, grassland, cropland, wetland, artificial area, bare land and water).&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Perform a land cover transition analysis to identify which pixels remained in the same land cover class, and which ones changed.&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Based on your local knowledge of the conditions in the study area and the land degradation processed occurring there, use the table below, in the advanced section, to identify which transitions correspond to degradation (- sign), improvement (+ sign), or no change in terms of land condition (zero).&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; Trends.Earth will combine the information from the land cover maps and the table of degradation typologies by land cover transition to compute the land cover sub-indicator.&lt;/li&gt;&lt;/ol&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/unccdreporting.html#land-cover&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information on the Land Cover SDG 15.3.1 Sub-indicator&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DlgCalculateLCSetAggregation</name>
@@ -840,47 +824,47 @@ p, li { white-space: pre-wrap; }
         <translation>Сохранить</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="356"/>
+        <location filename="../lc_setup.py" line="463"/>
         <source>Select a land cover definition file</source>
         <translation>Выберите файл определения обложки</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="387"/>
+        <location filename="../lc_setup.py" line="494"/>
         <source>Land cover definition (*.json)</source>
         <translation>Определение земельного покрова (* .json)</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="400"/>
+        <location filename="../lc_setup.py" line="507"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="369"/>
+        <location filename="../lc_setup.py" line="476"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Не могу читать {}. Выберите другой файл.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="387"/>
+        <location filename="../lc_setup.py" line="494"/>
         <source>Choose where to save this land cover definition</source>
         <translation>Выберите, где сохранить это определение обложки</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="400"/>
+        <location filename="../lc_setup.py" line="507"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>Невозможно написать {}. Выберите другой файл.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="456"/>
+        <location filename="../lc_setup.py" line="563"/>
         <source>Warning</source>
         <translation>Предупреждение</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="446"/>
+        <location filename="../lc_setup.py" line="553"/>
         <source>Some of the class codes ({unnecessary_child_codes!r}) in the definition file do not appear in the chosen data file.</source>
         <translation>Некоторые коды классов ({unnecessary_child_codes!r}) в файле определения не появляются в выбранном файле данных.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="456"/>
+        <location filename="../lc_setup.py" line="563"/>
         <source>Some of the class codes ({child_codes_missing_from_input!r}) in the data file do not appear in the chosen definition file.</source>
         <translation>Некоторые коды классов ({child_codes_missing_from_input!r}) в файле данных не появляются в выбранном файле определения.</translation>
     </message>
@@ -962,15 +946,15 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;Recode indicator (false positive/negative)&lt;/span&gt;&lt;/p&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Recode indicator (false positive/negative)&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;This tool supports recalculating an indicator layer in order to correct known errors (false positives or false negatives).&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Показатель перекодирования (ложноположительный/отрицательный)&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Этот инструмент поддерживает пересчет слоя показателей для исправления известных ошибок (ложноположительных или ложноотрицательных результатов).&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;Показатель перекодирования (ложноположительный/отрицательный)&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;Этот инструмент поддерживает пересчет слоя показателей для исправления известных ошибок (ложноположительных или ложноотрицательных результатов).&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../calculate_ldn.py" line="1055"/>
@@ -1150,24 +1134,24 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;SDG Indicator 15.3.1&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;As part of the â2030 Agenda for Sustainable Developmentâ, Sustainable Development Goal (SDG) 15 is to:&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;âProtect, restore and promote sustainable use of terrestrial ecosystems, sustainably manage forests, combat desertification, and halt and reverse land degradation and halt biodiversity lossâ&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;Each SDG has specific targets addressing different components, in this case, of life on land. Target 15.3 aims to:&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;âBy 2030, combat desertification, restore degraded land and soil, including land exposed by desertification, drought and floods, and strive to achieve a land degradation-neutral worldâ&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;Indicators will be used then to assess the progress of each SDG target. In the case of SDG 15.3 the progress towards a land degradation neutral world will be assessed using indicator 15.3.1:&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;âproportion of land that is degraded over total land areaâ&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;As the custodian agency for SDG 15.3, the United Nations Convention to Combat Desertification (UNCCD) has developed a &lt;/span&gt;&lt;a href=&quot;http://www2.unccd.int/sites/default/files/relevant-links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Good Practice Guidance (GPG)&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;. providing recommendations on how to calculate SDG Indicator 15.3.1.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;In order to assess the area degraded, SDG Indicator 15.3.1 uses information from 3 sub-indicators:&lt;/span&gt;&lt;/p&gt;
-&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Vegetation productivity&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Land cover&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Soil organic carbon&lt;/li&gt;&lt;/ol&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;Trends.Earth allows the user to compute each of these subindicators in a spatially explicit way generating raster maps which are then integrated into a final SDG 15.3.1 indicator map and produces a table result reporting areas potentially improved and degraded for the area of analysis.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#sdg-indicator-15-3-1&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information on indicator SDG 15.3.1&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="unfinished"/>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;SDG Indicator 15.3.1&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;As part of the &#xe2;&#x80;&#x9c;2030 Agenda for Sustainable Development&#xe2;&#x80;&#x9d;, Sustainable Development Goal (SDG) 15 is to:&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&#xe2;&#x80;&#x9c;Protect, restore and promote sustainable use of terrestrial ecosystems, sustainably manage forests, combat desertification, and halt and reverse land degradation and halt biodiversity loss&#xe2;&#x80;&#x9d;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Each SDG has specific targets addressing different components, in this case, of life on land. Target 15.3 aims to:&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&#xe2;&#x80;&#x9c;By 2030, combat desertification, restore degraded land and soil, including land exposed by desertification, drought and floods, and strive to achieve a land degradation-neutral world&#xe2;&#x80;&#x9d;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Indicators will be used then to assess the progress of each SDG target. In the case of SDG 15.3 the progress towards a land degradation neutral world will be assessed using indicator 15.3.1:&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:40px; margin-right:40px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&#xe2;&#x80;&#x9c;proportion of land that is degraded over total land area&#xe2;&#x80;&#x9d;&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;As the custodian agency for SDG 15.3, the United Nations Convention to Combat Desertification (UNCCD) has developed a &lt;/span&gt;&lt;a href=&quot;http://www2.unccd.int/sites/default/files/relevant-links/2017-10/Good%20Practice%20Guidance_SDG%20Indicator%2015.3.1_Version%201.0.pdf&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Good Practice Guidance (GPG)&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;. providing recommendations on how to calculate SDG Indicator 15.3.1.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;In order to assess the area degraded, SDG Indicator 15.3.1 uses information from 3 sub-indicators:&lt;/span&gt;&lt;/p&gt;
+&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Vegetation productivity&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Land cover&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Soil organic carbon&lt;/li&gt;&lt;/ol&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Trends.Earth allows the user to compute each of these subindicators in a spatially explicit way generating raster maps which are then integrated into a final SDG 15.3.1 indicator map and produces a table result reporting areas potentially improved and degraded for the area of analysis.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landdegradation.html&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information on indicator SDG 15.3.1&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../calculate_ldn.py" line="613"/>
@@ -1355,23 +1339,14 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;Calculate Drought Vulnerability Indicators&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;Calculate indicators that can be used to assess drought vulnerability, consistent with Good Practice Guidance from UNCCD on Strategic Objective 3.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;In addition to indicators of drought derived from precipitation data (using the Standardized Precipitation Index), this tool also can provide access to a drought vulnerability dataset for 2018, produced by the Joint Research Commission (JRC) of the European Commission. This dataset is most useful for global-scale assessments.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;For further recommendations on assessing drought vulnerability, we recommend users review the recommendations of the Tools4LDN project, available in &lt;/span&gt;&lt;a href=&quot;https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/6033f28abca1996aedc492d5/1614017200233/ci-4-Tools4LDN2-FNL+web.pdf&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;English&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt; and &lt;/span&gt;&lt;a href=&quot;https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/60f08dd4d2de6f76157bb62b/1626377693923/ci-3-Tools4LDN2-SPN_WebUpdate.pdf&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Spanish&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt; from the project website.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Рассчитать индикаторы уязвимости к засухе&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Рассчитать индикаторы, которые можно использовать для оценки уязвимости к засухе, в соответствии с Руководством UNCCD по надлежащей практике для достижения «Стратегической цели 3».&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;В дополнение к показателям засухи, полученным на основе данных об осадках (с использованием стандартизированного индекса осадков), данный инструмент также может предоставить доступ к набору данных об уязвимости к засухе за 2018 год, подготовленному Объединенным исследовательским центром (JRC) Европейской комиссии. Этот набор данных наиболее полезен для оценок глобального масштаба.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt; Для получения дополнительных рекомендаций по оценке уязвимости к засухе мы рекомендуем пользователям ознакомиться с рекомендациями проекта Tools4LDN, доступными на &lt;/span&gt;&lt;a href=&quot;https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/6033f28abca1996aedc492d5/1614017200233/ci-4-Tools4LDN2-FNL+web.pdf&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;английском&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt; и &lt;/span&gt;&lt;a href=&quot;https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/60f08dd4d2de6f76157bb62b/1626377693923/ci-3-Tools4LDN2-SPN_WebUpdate.pdf&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;испанском&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt; сайте проекта.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Calculate Drought Vulnerability Indicators&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Calculate indicators that can be used to assess drought vulnerability, consistent with Good Practice Guidance from UNCCD on Strategic Objective 3.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;In addition to indicators of drought derived from precipitation data (using the Standardized Precipitation Index), this tool also can provide access to a drought vulnerability dataset for 2018, produced by the Joint Research Commission (JRC) of the European Commission. This dataset is most useful for global-scale assessments.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;For further recommendations on assessing drought vulnerability, we recommend users review the recommendations of the Tools4LDN project, available in &lt;/span&gt;&lt;a href=&quot;https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/6033f28abca1996aedc492d5/1614017200233/ci-4-Tools4LDN2-FNL+web.pdf&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;English&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt; and &lt;/span&gt;&lt;a href=&quot;https://static1.squarespace.com/static/5dffad039a288739c6ae0b85/t/60f08dd4d2de6f76157bb62b/1626377693923/ci-3-Tools4LDN2-SPN_WebUpdate.pdf&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Spanish&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt; from the project website.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Дополнительная информация&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/unccdreporting.html#unccd-strategic-objective-3-so-3&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information on assessing drought vulnerability&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../gui/DlgCalculateOneStep.ui" line="20"/>
@@ -1493,20 +1468,12 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;Calculate all SDG 15.3.1 sub-indicators in a single step&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;This algorithm enables the simultaneous calculation of the three SDG 15.3.1 sub-indicators (Productivity, Land Cover and Soil Organic Carbon) in a single step. This is done using the remote Trends.Earth datasets described in each of the individual sub-indicator's sections.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap;
-}
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Рассчитайте все подпоказатели ЦУР 15.3.1 за один шаг&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Этот алгоритм обеспечивает одновременный расчет трех подпоказателей ЦУР 15.3.1 (производительность, земельный покров и органический углерод почвы) за один шаг. Это делается с помощью удаленных наборов данных Trends.Earth, описанных в каждом из разделов отдельных подпоказателей.&lt;/span&gt;&lt;/p&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:16px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Calculate all SDG 15.3.1 sub-indicators in a single step&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;This algorithm enables the simultaneous calculation of the three SDG 15.3.1 sub-indicators (Productivity, Land Cover and Soil Organic Carbon) in a single step. This is done using the remote Trends.Earth datasets described in each of the individual sub-indicator&apos;s sections.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Дополнительная информация&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landdegradation.html&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../calculate_ldn.py" line="441"/>
@@ -1646,87 +1613,46 @@ p, li { white-space: pre-wrap;
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;Productivity&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;Land productivity is the biological productive capacity of the land, the source of all the food, fiber and fuel that sustains humans (United Nations Statistical Commission 2016). Net primary productivity (NPP) is the net amount of carbon assimilated after photosynthesis and autotrophic respiration over a given period of time (Clark et al. 2001) and is typically represented in units such as kg/ha/yr. NPP is a variable time consuming and costly to estimate, for that reason, we rely on remotely sensed information to derive indicators of NPP.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;One of the most commonly used surrogates of NPP is the Normalized Difference Vegetation Index (NDVI), computed using information from the red and near infrared portions of the electromagnetic spectrum. In Trends.Earth we make use of bi-weekly products from MODIS and AVHRR to compute annual integrals of NDVI (computed as the mean annual NDVI for simplicity of interpretation of results). These annual integrals of NDVI are then used to compute each of the productivity indicators explained below.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#productivity&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information on the Productivity SDG 15.3.1 sub-indicator&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;Land productivity is assessed in Trends.Earth using three measures of change derived from NDVI time series data: &lt;/span&gt;&lt;/p&gt;
-&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;trend&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Performance&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;State&lt;/li&gt;&lt;/ul&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;Productivity trend&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;trend measures the rate of change in primary productivity over time. Trends.Earth computes a linear regression at the pixel level to identify areas experiencing changes in primary productivity for the period under analysis. A Mann-Kendall non-paremetric significance test is then applied, considering only significant changes those that show a p-value â¤ 0.05. Positive significant trends in NDVI would indicate potential improvement in land condition, and negative significant trends potential degradation.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#productivity-trajectory&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information on Productivity Trajectory&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;Productivity State&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;The Productivity State indicator allows for the detection of recent changes in primary productivity as compared to a baseline period. The indicator is computed as follows:&lt;/span&gt;&lt;/p&gt;
-&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Define the baseline period (historical period to which to compare recent primary productivity).&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Define the comparison period (recent years used to compute comparison). It is recommended to use a 3-year to avoid annual fluctuations related to climate.&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;For each pixel, use the annual integrals of NDVI for the baseline period to compute a frequency distribution. In case the baseline period missed some extreme values in NDVI, add 5% on both extremes of the distribution. That expanded frequency distribution curve is then used to define the cut-off values of the 10 percentile classes.&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Compute the mean NDVI for the baseline period, and determine the percentile class it belongs to. Assign to the mean NDVI for the baseline period the number corresponding to that percentile class. Possible values range from 1 (lowest class) to 10 (highest class).&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Compute the mean NDVI for the comparison period, and determine the percentile class it belongs to. Assign to the mean NDVI for the comparison period the number corresponding to that percentile class. Possible values range from 1 (lowest class) to 10 (highest class).&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Determine the difference in class number between the comparison and the baseline period (comparison minus baseline).&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;If the difference in class between the baseline and the comparison period is â¤ 2, then that pixel could potentially be degraded. If the difference is â¥ 2, that pixel would indicate a recent improvement in terms of primary productivity. Pixels with small changes are considered stable.&lt;/li&gt;&lt;/ol&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#productivity-state&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information on Productivity State&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;Productivity Performance&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;The Productivity Performance indicator measures local productivity relative to other similar vegetation types in similar land cover types or bioclimatic regions throughout the study area. Trends.Earth uses the unique combination of soil units (soil taxonomy units using USDA system provided by SoilGrids at 250m resolution) and land cover (full 37 land cover classes provided by ESA CCI at 300m resolution) to define this areas of analysis. The indicator is computed as follows:&lt;/span&gt;&lt;/p&gt;
-&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Define the analysis period, and use the time series of NDVI to compute mean the NDVI for each pixel.&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Define similar ecologically similar units as the unique intersection of land cover and soil type.&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;For each unit, extract all the mean NDVI values computed in step 1, and create a frequency distribution. From this distribution determine the value which represents the 90th percentile (we donât recommend using the absolute maximum NDVI value to avoid possible errors due to the presence of outliers). The value representing the 90th percentile will be considered the maximum productivity for that unit.&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Compute the ratio of mean NDVI and maximum productivity (in each case compare the mean observed value to the maximum for its corresponding unit).&lt;/li&gt;
-&lt;li style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;If observed mean NDVI is lower than 50% than the maximum productivity, that pixel is considered potentially degraded for this indicator.&lt;/li&gt;&lt;/ol&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#productivity-performance&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information on Productivity Performance&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Продуктивность&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Продуктивность земли — это биологическая продуктивная способность земли — источника всех продуктов питания, волокон и топлива, которые поддерживают жизнь человека (Статистическая комиссия ООН, 2016 г.). Чистая первичная продуктивность (ЧПП) — это чистое количество углерода, ассимилированного после фотосинтеза и автотрофного дыхания за определенный период времени (Кларк и соавторы, 2001 г.) и обычно выражается в таких единицах, как кг/га/год. Оценка ЧПП требует много времени и средств, поэтому мы полагаемся на данные дистанционного зондирования для получения показателей ЧПП.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Productivity&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Land productivity is the biological productive capacity of the land, the source of all the food, fiber and fuel that sustains humans (United Nations Statistical Commission 2016). Net primary productivity (NPP) is the net amount of carbon assimilated after photosynthesis and autotrophic respiration over a given period of time (Clark et al. 2001) and is typically represented in units such as kg/ha/yr. NPP is a variable time consuming and costly to estimate, for that reason, we rely on remotely sensed information to derive indicators of NPP.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Одним из наиболее часто используемых заменителей ЧПП является Нормализованный разностный индекс вегетации (NDVI), вычисляемый с использованием информации из красной и ближней инфракрасной частей электромагнитного спектра. В Trends.Earth мы используем двухнедельные произведения от MODIS и AVHRR для расчета годовых интегралов NDVI (рассчитывается как среднегодовой NDVI для простоты интерпретации результатов). Эти годовые интегралы NDVI затем используются для расчета каждого из показателей продуктивности, описанных ниже.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;One of the most commonly used surrogates of NPP is the Normalized Difference Vegetation Index (NDVI), computed using information from the red and near infrared portions of the electromagnetic spectrum. In Trends.Earth we make use of bi-weekly products from MODIS and AVHRR to compute annual integrals of NDVI (computed as the mean annual NDVI for simplicity of interpretation of results). These annual integrals of NDVI are then used to compute each of the productivity indicators explained below.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#productivity&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Дополнительная информация о вспомогательном показателе продуктивности в ЦУР 15.3.1&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landdegradation.html#productivity&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information on the Productivity SDG 15.3.1 sub-indicator&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Продуктивность земель оценивается в Trends.Earth с использованием трех измерений изменений, полученные из данных временного ряда NDVI: &lt;/span&gt;&lt;/p&gt;
-&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;тенденция&lt;/li&gt;
-&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Продуктивность&lt;/li&gt;
-&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Состояние&lt;/li&gt;&lt;/ul&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Land productivity is assessed in Trends.Earth using three measures of change derived from NDVI time series data: &lt;/span&gt;&lt;/p&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;trend&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Performance&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;State&lt;/li&gt;&lt;/ul&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Тенденция продуктивности&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Тенденция измеряет скорость изменения первичной продуктивности с течением времени. Trends.Earth вычисляет линейную регрессию на уровне пикселей, чтобы определить области, в которых произошли изменения в первичной продуктивности за анализируемый период. Затем применяется непареметрический критерий значимости Манна-Кендалла, учитывающий только существенные изменения, которые показывают p-значение â‰¤ 0,05. Положительные значимые тенденции в NDVI указывают на потенциальное улучшение состояния земель, а отрицательные значимые тенденции — на потенциальную деградацию.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Productivity trend&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;trend measures the rate of change in primary productivity over time. Trends.Earth computes a linear regression at the pixel level to identify areas experiencing changes in primary productivity for the period under analysis. A Mann-Kendall non-paremetric significance test is then applied, considering only significant changes those that show a p-value &#xe2;&#x89;&#xa4; 0.05. Positive significant trends in NDVI would indicate potential improvement in land condition, and negative significant trends potential degradation.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#productivity-trajectory&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Дополнительная информация о траектории продуктивности&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landdegradation.html#productivity-trajectory&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information on Productivity Trajectory&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Состояние продуктивности&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Показатель состояния продуктивности позволяет обнаруживать недавние изменения первичной продуктивности по сравнению с базовым периодом. Показатель рассчитывается следующим образом:&lt;/span&gt;&lt;/p&gt;
-&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Определите базовый период (исторический период, с которым следует сравнивать недавнюю первичную продуктивность).&lt;/li&gt;
-&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Определите период сравнения (последние годы, используемые для расчета сравнения). Рекомендуется использовать 3-годичный период, чтобы избежать годовых колебаний, связанных с климатом.&lt;/li&gt;
-&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Для каждого пикселя используйте годовые интегралы NDVI за базовый период, чтобы вычислить частотное распределение. Если в базовом периоде отсутствуют некоторые экстремальные значения NDVI, добавьте 5% на обеих крайних точках распределения. Эта расширенная кривая частотного распределения затем используется для определения значений отсечки 10 процентильных классов.&lt;/li&gt;
-&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Вычислите средний NDVI для базового периода и определите класс процентилей, к которому он принадлежит. Присвойте среднему NDVI за базовый период число, соответствующее этому процентильному классу. Возможные значения варьируются от 1 (низший класс) до 10 (высший класс).&lt;/li&gt;
-&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Вычислите средний NDVI за период сравнения и определите процентильный класс, к которому он принадлежит. Присвойте среднему NDVI за период сравнения число, соответствующее этому процентильному классу. Возможные значения варьируются от 1 (низший класс) до 10 (высший класс).&lt;/li&gt;
-&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Определите разницу в номере класса между периодом сравнения и базовым периодом (сравнение минус базовый период).&lt;/li&gt;
-&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Если разница в классе между базовым уровнем и периодом сравнения составляет â‰¤ 2, то этот пиксель потенциально может быть поврежден. Если разница â¥ 2, этот пиксель указывает на недавнее улучшение первичной продуктивности. Пиксели с небольшими изменениями считаются стабильными.&lt;/li&gt;&lt;/ol&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Productivity State&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;The Productivity State indicator allows for the detection of recent changes in primary productivity as compared to a baseline period. The indicator is computed as follows:&lt;/span&gt;&lt;/p&gt;
+&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Define the baseline period (historical period to which to compare recent primary productivity).&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Define the comparison period (recent years used to compute comparison). It is recommended to use a 3-year to avoid annual fluctuations related to climate.&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;For each pixel, use the annual integrals of NDVI for the baseline period to compute a frequency distribution. In case the baseline period missed some extreme values in NDVI, add 5% on both extremes of the distribution. That expanded frequency distribution curve is then used to define the cut-off values of the 10 percentile classes.&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Compute the mean NDVI for the baseline period, and determine the percentile class it belongs to. Assign to the mean NDVI for the baseline period the number corresponding to that percentile class. Possible values range from 1 (lowest class) to 10 (highest class).&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Compute the mean NDVI for the comparison period, and determine the percentile class it belongs to. Assign to the mean NDVI for the comparison period the number corresponding to that percentile class. Possible values range from 1 (lowest class) to 10 (highest class).&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Determine the difference in class number between the comparison and the baseline period (comparison minus baseline).&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;If the difference in class between the baseline and the comparison period is &#xe2;&#x89;&#xa4; 2, then that pixel could potentially be degraded. If the difference is &#xe2;&#x89;&#xa5; 2, that pixel would indicate a recent improvement in terms of primary productivity. Pixels with small changes are considered stable.&lt;/li&gt;&lt;/ol&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#productivity-state&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Дополнительная информация о состоянии продуктивности&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landdegradation.html#productivity-state&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information on Productivity State&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Эффективность продуктивности&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Индикатор эффективности продуктивности измеряет локальную продуктивность по сравнению с другими аналогичными типами растительности в аналогичных типах земного покрова или биоклиматических регионах на всей исследуемой территории. Trends.Earth использует уникальную комбинацию почвенных единиц (единицы почвенной таксономии с использованием системы USDA, предоставленной SoilGrids на 250м) и земного покрова (все 37 классов земного покрова, предоставленные ESA CCI с разрешением 300 м), чтобы определить эти области анализа. Показатель рассчитывается следующим образом:&lt;/span&gt;&lt;/p&gt;
-&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Определите период анализа и используйте временной ряд NDVI для вычисления среднего значения NDVI для каждого пикселя.&lt;/li&gt;
-&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Определить сходные экологически сходные единицы как уникальное сочетание земного покрова и типа почвы.&lt;/li&gt;
-&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Для каждой единицы извлеките все средние значения NDVI, вычисленные на шаге 1и создайте частотное распределение. Из этого распределения определите значение, которое представляет 90-й процентиль (мы не рекомендуем использовать абсолютное максимальное значение NDVI, чтобы избежать возможных ошибок из-за наличия выбросов). Значение, представляющее 90-й процентиль будет считаться максимальной продуктивностью для этой единицы.&lt;/li&gt;
-&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Вычислите отношение среднего NDVI к максимальной продуктивности (в каждом случае сравните среднее наблюдаемое значение с максимальным для соответствующей единицы).&lt;/li&gt;
-&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Если наблюдаемый средний показатель NDVI ниже 50% от максимальной продуктивности, этот пиксель считается потенциально деградировавшим по этому показателю.&lt;/li&gt;&lt;/ol&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Productivity Performance&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;The Productivity Performance indicator measures local productivity relative to other similar vegetation types in similar land cover types or bioclimatic regions throughout the study area. Trends.Earth uses the unique combination of soil units (soil taxonomy units using USDA system provided by SoilGrids at 250m resolution) and land cover (full 37 land cover classes provided by ESA CCI at 300m resolution) to define this areas of analysis. The indicator is computed as follows:&lt;/span&gt;&lt;/p&gt;
+&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Define the analysis period, and use the time series of NDVI to compute mean the NDVI for each pixel.&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Define similar ecologically similar units as the unique intersection of land cover and soil type.&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;For each unit, extract all the mean NDVI values computed in step 1, and create a frequency distribution. From this distribution determine the value which represents the 90th percentile (we don&#xe2;&#x80;&#x99;t recommend using the absolute maximum NDVI value to avoid possible errors due to the presence of outliers). The value representing the 90th percentile will be considered the maximum productivity for that unit.&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Compute the ratio of mean NDVI and maximum productivity (in each case compare the mean observed value to the maximum for its corresponding unit).&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;If observed mean NDVI is lower than 50% than the maximum productivity, that pixel is considered potentially degraded for this indicator.&lt;/li&gt;&lt;/ol&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#productivity-performance&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Дополнительная информация о продуктивности&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landdegradation.html#productivity-performance&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information on Productivity Performance&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../calculate_prod.py" line="189"/>
@@ -1834,14 +1760,14 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Biomass Change Estimate&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Estimate likely change in biomass due to restoration&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Оценка изменения биомассы&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Оценить вероятное изменение биомассы в результате восстановления&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
@@ -1904,14 +1830,14 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Biomass Change Summary&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Summarize likely change in Biomass due to restoration&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Сводка изменений биомассы&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Обобщите вероятные изменения биомассы в связи с восстановлением&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
@@ -2020,35 +1946,6 @@ p, li { white-space: pre-wrap; }
         <translation>Пользовательский исходный набор данных по органическому углероду почвы</translation>
     </message>
     <message>
-        <location filename="../gui/DlgCalculateSOC.ui" line="394"/>
-        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;h3 style=&quot; margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:large; font-weight:600;&quot;&gt;Soil organic carbon&lt;/span&gt;&lt;/h3&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;The third sub-indicator for monitoring land degradation as part of the SDG process quantifies changes in soil organic carbon (SOC) over the reporting period. Changes in SOC are particularly difficult to assess for several reasons, some of them being the high spatial variability of soil properties, the time and cost intensiveness of conducting representative soil surveys and the lack of time series data on SOC for most regions of the world. To address some of the limitations, a combined land cover/SOC method is used in Trends.Earth to estimate changes in SOC and identify potentially degraded areas. The indicator is computed as follows:&lt;/p&gt;
-&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Determine the SOC reference values. Trends.Earth uses SoilGrids 250m carbon stocks for the first 30 cm of the soil profile as the reference values for calculation (NOTE: SoilGrids uses information from a variety of data sources and ranging from many years to produce this product, therefore assigning a date for calculations purposes could cause inaccuracies in the stock change calculations).&lt;/li&gt;
-&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Reclassify the land cover maps to the 7 land cover classes needed for reporting to the UNCCD (forest, grassland, cropland, wetland, artificial area, bare land and water). Ideally annual land cover maps are preferred, but at least land cover maps for the starting and end years are needed.&lt;/li&gt;
-&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;To estimate the changes in C stocks for the reporting period C conversion coefficients for changes in land use, management and inputs are recommended by the IPCC and the UNCCD. However, spatially explicit information on management and C inputs is not available for most regions. As such, only land use conversion coefficient can be applied for estimating changes in C stocks (using land cover as a proxy for land use). The coefficients used were the result of a literature review performed by the UNCCD and are presented at the &lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#soil-organic-carbon&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Trends.Earth website&lt;/span&gt;&lt;/a&gt;. Those coefficients represent the proportional in C stocks after 20 years of land cover change.&lt;/li&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;&quot;&gt;Changes in SOC are better studied for land cover transitions involving agriculture, and for that reason there is a different set of coefficients for each of the main global climatic regions: Temperate Dry (f = 0.80), Temperate Moist (f = 0.69), Tropical Dry (f = 0.58), Tropical Moist (f = 0.48), and Tropical Montane (f = 0.64).&lt;/p&gt;
-&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Compute relative different in SOC between the baseline and the target period, areas which experienced a loss in SOC of 10% of more during the reporting period will be considered potentially degraded, and areas experiencing a gain of 10% or more as potentially improved.&lt;/li&gt;&lt;/ol&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#soil-organic-carbon&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;More information on the Soil Organic Carbon SDG 15.3.1 sub-indicator&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;h3 style=&quot; margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:large; font-weight:600;&quot;&gt;Почвенный органический углерод&lt;/span&gt;&lt;/h3&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Третий субиндикатор для мониторинга деградации земель в рамках процесса ЦУР дает количественную оценку изменений содержания органического углерода в почве (SOC) за отчетный период. Изменения SOC особенно трудно оценить по нескольким причинам, некоторые из которых связаны с высокой пространственной изменчивостью свойств почвы, затратами времени и средств на проведение репрезентативных обследований почв и отсутствием данных временных рядов о SOC для большинства регионов мира. Чтобы устранить некоторые ограничения, в Trends.Earth используется комбинированный метод земного покрова/SOC для оценки изменений SOC и выявления потенциально деградировавших территорий. Этот показатель рассчитывается следующим образом:&lt;/p&gt;
-&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Определите эталонные значения SOC. Trends.Earth использует 250-метровые запасы углерода системы SoilGrids для первых 30 см профиля почвы в качестве эталонных значений для расчета (ПРИМЕЧАНИЕ: SoilGrids использует информацию из различных источников данных за многие годы для производства этого продукта, поэтому назначение даты для расчетов может привести к неточностям в расчетах изменения запасов).&lt;/li&gt;
-&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Переклассифицируйте карты земного покрова на 7 классов земного покрова, необходимых для отчетности в рамках Конвенции Организации Объединённых Наций по борьбе с опустыниванием (лес, пастбища, пахотные земли, водно-болотные угодья, искусственные территории, пустующая земля и вода). В идеале предпочтительнее годовые карты земного покрова, но необходимы как минимум карты земного покрова за начальный и конечный годы.&lt;/li&gt;
-&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Для оценки изменений в запасах углерода за отчетный период МГЭИК и КБО ООН рекомендуют коэффициенты преобразования углерода для изменений в землепользовании, управлении и вводимых ресурсах. Тем не менее, для большинства регионов недоступна точная пространственная информация об управлении и углеродных ресурсах. Таким образом, для оценки изменений в запасах углерода может применяться только коэффициент преобразования землепользования (с использованием растительного покрова в качестве показателя землепользования). Используемые коэффициенты являются результатом обзора литературы, проведенного КБО ООН, и представлены на &lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#soil-organic-carbon&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;веб-сайте Trends.Earth&lt;/span&gt;&lt;/a&gt;. Эти коэффициенты представляют пропорциональные запасы углерода после 20 лет изменения земного покрова.&lt;/li&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;&quot;&gt;Изменения в SOC лучше изучены для изменений земного покрова, связанных с сельским хозяйством, и по этой причине существует другой набор коэффициентов для каждого из основных глобальных климатических регионов: умеренный засушливый (f = 0,80), умеренный влажный (f = 0,69), сухой тропический (f = 0,58), влажный тропический (f = 0,48) и горный тропический (f = 0,64).&lt;/p&gt;
-&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Вычислите относительную разницу в SOC между базовым и целевым периодами; области, в которых произошло снижение уровня SOC на 10% и более в течение отчетного периода, будут считаться потенциально деградировавшими, а области, в которых наблюдается прирост на 10% или более, будут считаться как потенциально улучшенными.&lt;/li&gt;&lt;/ol&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators15.html#soil-organic-carbon&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Дополнительная информация о подпоказателе ЦУР 15.3.1 &quot;Почвенный органический углерод&quot;&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
-    </message>
-    <message>
         <location filename="../calculate_soc.py" line="217"/>
         <source>Error</source>
         <translation>ошибка</translation>
@@ -2087,6 +1984,23 @@ p, li { white-space: pre-wrap; }
         <location filename="../calculate_soc.py" line="217"/>
         <source>Area of interest is not entirely within the final land cover layer.</source>
         <translation>Интересующая область не полностью находится в пределах окончательного слоя почвенного покрова.</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgCalculateSOC.ui" line="394"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;h3 style=&quot; margin-top:14px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Soil organic carbon&lt;/span&gt;&lt;/h3&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;The third sub-indicator for monitoring land degradation as part of the SDG process quantifies changes in soil organic carbon (SOC) over the reporting period. Changes in SOC are particularly difficult to assess for several reasons, some of them being the high spatial variability of soil properties, the time and cost intensiveness of conducting representative soil surveys and the lack of time series data on SOC for most regions of the world. To address some of the limitations, a combined land cover/SOC method is used in Trends.Earth to estimate changes in SOC and identify potentially degraded areas. The indicator is computed as follows:&lt;/span&gt;&lt;/p&gt;
+&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Determine the SOC reference values. Trends.Earth uses SoilGrids 250m carbon stocks for the first 30 cm of the soil profile as the reference values for calculation (NOTE: SoilGrids uses information from a variety of data sources and ranging from many years to produce this product, therefore assigning a date for calculations purposes could cause inaccuracies in the stock change calculations).&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Reclassify the land cover maps to the 7 land cover classes needed for reporting to the UNCCD (forest, grassland, cropland, wetland, artificial area, bare land and water). Ideally annual land cover maps are preferred, but at least land cover maps for the starting and end years are needed.&lt;/li&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;To estimate the changes in C stocks for the reporting period C conversion coefficients for changes in land use, management and inputs are recommended by the IPCC and the UNCCD. However, spatially explicit information on management and C inputs is not available for most regions. As such, only land use conversion coefficient can be applied for estimating changes in C stocks (using land cover as a proxy for land use). The coefficients used were the result of a literature review performed by the UNCCD and are presented at the &lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landdegradation.html#soil-organic-carbon&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Trends.Earth website&lt;/span&gt;&lt;/a&gt;. Those coefficients represent the proportional in C stocks after 20 years of land cover change.&lt;/li&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:1; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Changes in SOC are better studied for land cover transitions involving agriculture, and for that reason there is a different set of coefficients for each of the main global climatic regions: Temperate Dry (f = 0.80), Temperate Moist (f = 0.69), Tropical Dry (f = 0.58), Tropical Moist (f = 0.48), and Tropical Montane (f = 0.64).&lt;/span&gt;&lt;/p&gt;
+&lt;li style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot; style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Compute relative different in SOC between the baseline and the target period, areas which experienced a loss in SOC of 10% of more during the reporting period will be considered potentially degraded, and areas experiencing a gain of 10% or more as potentially improved.&lt;/li&gt;&lt;/ol&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landdegradation.html#soil-organic-carbon&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information on the Soil Organic Carbon SDG 15.3.1 sub-indicator&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -2259,14 +2173,14 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Change in Total Carbon&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Algorithm for calculation above and below ground emissions from deforestation&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Изменение общего количества углерода&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Алгоритм расчета надземных и подземных выбросов в результате обезлесения&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
@@ -2389,7 +2303,7 @@ p, li { white-space: pre-wrap }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Carbon Change Summary Table&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Algorithm for summary of the calculation above and below ground emissions from deforestation.&lt;/p&gt;
@@ -2397,7 +2311,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Сводная таблица изменений углерода&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Алгоритм сводного расчета надземных и подземных выбросов в результате обезлесения.&lt;/p&gt;
@@ -2511,21 +2425,21 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;Default Data for UNCCD Reporting&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;Calculates default datasets used in 2022 UNCCD Reporting Process. This tool uses the same global datasets and approaches used to produce the &lt;/span&gt;&lt;a href=&quot;https://prais4-reporting-manual.readthedocs.io/en/latest/introduction.html#default-data&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;default&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt; national-estimates pre-filled by UNCCD in &lt;/span&gt;&lt;a href=&quot;https://reporting.unccd.int&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;PRAIS 4&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;Countries wishing to replace the default national estimates provided in PRAIS 4 (or to use nationally or locally available data or official national boundaries) can do so within Trends.Earth using the various tools available under the &amp;quot;Algorithms&amp;quot; tab:&lt;/span&gt;&lt;/p&gt;
-&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;Use the tools under &amp;quot;SDG 15.3.1 - Land degradation&amp;quot; to produce customized estimates of Strategic Objective 1 (land condition) and Strategic Objective 2 (population exposed)&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Default Data for UNCCD Reporting&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Calculates default datasets used in 2022 UNCCD Reporting Process. This tool uses the same global datasets and approaches used to produce the &lt;/span&gt;&lt;a href=&quot;https://prais4-reporting-manual.readthedocs.io/en/latest/introduction.html#default-data&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;default&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt; national-estimates pre-filled by UNCCD in &lt;/span&gt;&lt;a href=&quot;https://reporting.unccd.int&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;PRAIS 4&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Countries wishing to replace the default national estimates provided in PRAIS 4 (or to use nationally or locally available data or official national boundaries) can do so within Trends.Earth using the various tools available under the &amp;quot;Algorithms&amp;quot; tab:&lt;/span&gt;&lt;/p&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Use the tools under &amp;quot;SDG 15.3.1 - Land degradation&amp;quot; to produce customized estimates of Strategic Objective 1 (land condition) and Strategic Objective 2 (population exposed)&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;
 &lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Use the tools under &amp;quot;Drought - Vulnerability and exposure&amp;quot; to produce estimates of Strategic Objective 3 (drought vulnerability)&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Данные по умолчанию для отчетов КБО ООН&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Рассчитывает наборы данных по умолчанию, используемые в процессе отчетности КБО ООН 2022 года. Этот инструмент использует те же глобальные наборы данных и подходы, которые использовались для получения национальных оценок &lt;/span&gt;&lt;a href=&quot;https://prais4-reporting-manual.readthedocs.io/en/latest/introduction.html#default-data&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;по умолчанию&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;, предварительно заполненных КБО ООН в &lt;/span&gt;&lt;a href=&quot;https://reporting.unccd.int&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Системе обзора эффективности и внедрения PRAIS 4&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Страны, желающие заменить национальные оценки по умолчанию, представленные в PRAIS 4 (или использовать общенациональные или местные данные, или же официальные национальные границы), могут сделать это в Trends.Earth, используя различные инструменты, доступные в разделе &amp;quot;Алгоритмы&amp;quot; вкладка:&lt;/span&gt;&lt;/p&gt;
-&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Используйте инструменты раздела &amp;quot;ЦУР 15.3.1 — Деградация земель&amp;quot; для получения индивидуальных оценок Стратегической цели 1 (состояние земли) и Стратегической цели 2 (население, подвергающееся воздействию)&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;
-&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Используйте инструменты раздела &amp;quot;Засуха — уязвимость и незащищенность&amp;quot; для оценки стратегической цели 3 (уязвимость к засухе)&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;Данные по умолчанию для отчетов КБО ООН&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;Рассчитывает наборы данных по умолчанию, используемые в процессе отчетности КБО ООН 2022 года. Этот инструмент использует те же глобальные наборы данных и подходы, которые использовались для получения национальных оценок &lt;/span&gt;&lt;a href=&quot;https://prais4-reporting-manual.readthedocs.io/en/latest/introduction.html#default-data&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;по умолчанию&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;, предварительно заполненных КБО ООН в &lt;/span&gt;&lt;a href=&quot;https://reporting.unccd.int&quot;&gt;&lt;span style=&quot; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;Системе обзора эффективности и внедрения PRAIS 4&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;Страны, желающие заменить национальные оценки по умолчанию, представленные в PRAIS 4 (или использовать общенациональные или местные данные, или же официальные национальные границы), могут сделать это в Trends.Earth, используя различные инструменты, доступные в разделе &amp;quot;Алгоритмы&amp;quot; вкладка:&lt;/span&gt;&lt;/p&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;Используйте инструменты раздела &amp;quot;ЦУР 15.3.1 — Деградация земель&amp;quot; для получения индивидуальных оценок Стратегической цели 1 (состояние земли) и Стратегической цели 2 (население, подвергающееся воздействию)&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;
+&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;Используйте инструменты раздела &amp;quot;Засуха — уязвимость и незащищенность&amp;quot; для оценки стратегической цели 3 (уязвимость к засухе)&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../calculate_unccd.py" line="89"/>
@@ -2615,47 +2529,46 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;Generate UNCCD Report&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;Calculate report on UNCCD Strategic Objectives 1, 2, and 3&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;False positive / false negative layer&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Submitting a false positive / false negative layer is optional. This layer can be used to correct for cases when there are known errors in the indicator data used for Strategic Objective 1.&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Affected areas&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Checking the &amp;quot;Calculation is for affected areas only&amp;quot; box will include an indicator in the report that this calculation is for affected areas. Note that reporting on affected areas is an optional element in the UNCCD 2022 reporting process and is additional to national reporting. âAffected Areasâ are defined in Article 1 of the Convention as âarid, semi-arid and/or dry sub-humid areas affected or threatened by desertification.â Parties may opt to use this definition or to provide the operational definition of affected area in use in their country.â&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Generate UNCCD Report&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Calculate report on UNCCD Strategic Objectives 1, 2, and 3&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-style:italic;&quot;&gt;False positive / false negative layer&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Submitting a false positive / false negative layer is optional. This layer can be used to correct for cases when there are known errors in the indicator data used for Strategic Objective 1.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-style:italic;&quot;&gt;Affected areas&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Checking the &amp;quot;Calculation is for affected areas only&amp;quot; box will include an indicator in the report that this calculation is for affected areas. Note that reporting on affected areas is an optional element in the UNCCD 2022 reporting process and is additional to national reporting. &#xe2;&#x80;&#x9c;Affected Areas&#xe2;&#x80;&#x9d; are defined in Article 1 of the Convention as &#xe2;&#x80;&#x9c;arid, semi-arid and/or dry sub-humid areas affected or threatened by desertification.&#xe2;&#x80;&#x9d; Parties may opt to use this definition or to provide the operational definition of affected area in use in their country.&#xe2;&#x80;&#x9d;&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Создать отчет КБО ООН&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Расчет отчета по стратегическим целям 1, 2 и 3&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Ложноположительный/ложноотрицательный слой&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Отправка ложноположительного/ложноотрицательного слоя необязательна. Этот слой можно использовать для исправления случаев, когда в данных показателей, используемых для Стратегической цели 1, имеются известные ошибки.&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;Затрагиваемые районы&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;При установке флажка «Расчет только для затрагиваемых районов» в отчет будет включено указание на то, что этот расчет относится к затрагиваемым районам. Обратите внимание, что отчетность по затрагиваемым районам является необязательным элементом процесса отчетности КБО ООН 2022 и дополняет национальную отчетность. «Затрагиваемые районы» определяются в статье 1 Конвенции как «засушливые, полузасушливые и /или сухие
-субгумидные районы, затрагиваемые опустыниванием или находящиеся под угрозой опустынивания». Стороны могут предоставить рабочее определение затрагиваемого района, используемое в их стране. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:18px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:600;&quot;&gt;Создать отчет КБО ООН&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:'Ubuntu'; font-size:11pt;&quot;&gt;Рассчитать отчет по стратегическим целям 1, 2 и 3 КБО ООН&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-style:italic;&quot;&gt;Ложноположительный/ложноотрицательный слой&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Отправлять ложноположительный/ложноотрицательный слой необязательно. Этот слой можно использовать для исправления случаев, когда в данных индикатора, используемых для стратегической цели 1, есть известные ошибки.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt; font-style:italic;&quot;&gt;Затронутые территории&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;Установка флажка в ячейке &amp;quot;Расчет только для затронутых территорий&amp;quot; будет включать в отчет индикатор того, что этот расчет относится к затронутым территориям. Обратите внимание, что отчетность по затронутым территориям является необязательным элементом процесса отчетности КБО ООН в 2022 году и дополняет национальную отчетность. &quot;Затронутые территории&quot; определяются в статье 1 Конвенции как &quot;засушливые, полузасушливые и/или сухие субгумидные районы, затронутые опустыниванием или находящиеся под угрозой опустынивания&quot;. Стороны могут по своему выбору использовать это определение или предоставить рабочее определение затронутой зоны, используемое в их стране. &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="203"/>
+        <location filename="../calculate_unccd.py" line="206"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="189"/>
+        <location filename="../calculate_unccd.py" line="192"/>
         <source>You must select a {dataset_name} layer before you can use the UNCCD reporting tool.</source>
         <translation>Прежде чем использовать инструмент создания отчетов КБО ООН, необходимо выбрать уровень {dataset_name}.</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="203"/>
+        <location filename="../calculate_unccd.py" line="206"/>
         <source>You must select a {layer_name} layer before you can use the UNCCD reporting tool.</source>
         <translation>Прежде чем использовать инструмент создания отчетов КБО ООН, необходимо выбрать уровень {layer_name}.</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="217"/>
+        <location filename="../calculate_unccd.py" line="220"/>
         <source>SO1 and SO2</source>
         <translation>СЦ1 и СЦ2</translation>
     </message>
     <message>
-        <location filename="../calculate_unccd.py" line="221"/>
+        <location filename="../calculate_unccd.py" line="224"/>
         <source>SO3 (hazard and exposure)</source>
         <translation>СЦ3 (опасность и воздействие)</translation>
     </message>
@@ -2814,21 +2727,13 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Urban Area Change Metrics&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;SDG 11.3.1 Indicator algorithm for ratio of land consumption rate to population growth rate.&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators11.html&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;More information&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Показатели изменения городских территорий&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;ЦУР 11.3.1. Алгоритм индикатора отношения темпов землепользования к темпам прироста населения.&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators11.html&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Дополнительная информация&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Urban Area Change Metrics&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;SDG 11.3.1 Indicator algorithm for ratio of land consumption rate to population growth rate.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landconsumption.html&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../calculate_urban.py" line="165"/>
@@ -2893,21 +2798,13 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Ubuntu'; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Urban Change Summary Table&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Summary for SDG 11.3.1 Indicator for ratio of land consumption rate to population growth rate.&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators11.html#&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;More information&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;Сводная таблица городских изменений&lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Сводка по индикатору ЦУР 11.3.1. отношения темпов землепользования к темпам прироста населения.&lt;/p&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;http://trends.earth/docs/en/background/understanding_indicators11.html#&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt;Дополнительная информация&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:12pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;Urban Change Summary Table&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt; font-weight:600;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;Summary for SDG 11.3.1 Indicator for ratio of land consumption rate to population growth rate.&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Ubuntu&apos;; font-size:11pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;a href=&quot;https://docs.trends.earth/en/latest/for_users/features/landconsumption.html&quot;&gt;&lt;span style=&quot; font-family:&apos;Ubuntu&apos;; font-size:11pt; text-decoration: underline; color:#0000ff;&quot;&gt;More information&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../calculate_urban.py" line="269"/>
@@ -2936,64 +2833,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../gui/DlgDataIOAddLayersToMap.ui" line="36"/>
         <source>Select a layer</source>
         <translation>Выберите слой</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1674"/>
-        <source>Error</source>
-        <translation>ошибка</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1674"/>
-        <source>Select a layer to load.</source>
-        <translation>Выбрать уровень для загрузки.</translation>
-    </message>
-</context>
-<context>
-    <name>DlgDataIOImportBase</name>
-    <message>
-        <location filename="../data_io.py" line="921"/>
-        <source>Metadata</source>
-        <translation>Метаданные</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1121"/>
-        <source>Error</source>
-        <translation>ошибка</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="929"/>
-        <source>Choose an input raster file.</source>
-        <translation>Выберите входной растровый файл.</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="939"/>
-        <source>Choose an input polygon dataset.</source>
-        <translation>Выберите входной набор данных многоугольника.</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="953"/>
-        <source>Cannot process {}. Unknown geometry type:{}</source>
-        <translation>Не удается обработать {}. Неизвестный тип геометрии: {}</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1048"/>
-        <source>Vector remapping failed.</source>
-        <translation>Не удалось переназначить вектор.</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1071"/>
-        <source>Raster remapping failed.</source>
-        <translation>Не удалось переназначить растр.</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1091"/>
-        <source>Rasterizing failed.</source>
-        <translation>Растеризация не удалась.</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1121"/>
-        <source>Raster import failed.</source>
-        <translation>Не удалось импортировать растр.</translation>
     </message>
 </context>
 <context>
@@ -3024,32 +2863,32 @@ p, li { white-space: pre-wrap; }
         <translation>Примечание. При чтении большого файла рекомендуется проверить вышеуказанную опцию, поскольку это значительно ускорит процесс чтения входных классов из набора данных. Однако, если вы обнаружите, что Trends.Earth не идентифицирует все классы во входном файле, может потребоваться отключить эту опцию. (Применяется, только если выбран растровый ввод)</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="746"/>
+        <location filename="../lc_setup.py" line="847"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="617"/>
+        <location filename="../lc_setup.py" line="718"/>
         <source>Choose an output file.</source>
         <translation>Выберите выходной файл.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="624"/>
+        <location filename="../lc_setup.py" line="725"/>
         <source>No definition set</source>
         <translation>Нет определения</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="624"/>
+        <location filename="../lc_setup.py" line="725"/>
         <source>Click &quot;Edit Definition&quot; to define the land cover definition before exporting.</source>
         <translation>Нажмите «Изменить определение», чтобы определить определение земельного покрова перед экспортом.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="636"/>
+        <location filename="../lc_setup.py" line="737"/>
         <source>Enter the year of the input data.</source>
         <translation>Введите год ввода данных.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="746"/>
+        <location filename="../lc_setup.py" line="847"/>
         <source>Error reading data. Trends.Earth supports a maximum of 60 different land cover classes</source>
         <translation>Ошибка чтения данных. Trends.Earth поддерживает максимум 60 различных классов земного покрова</translation>
     </message>
@@ -3071,7 +2910,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Productivity classes in the input data must be coded as follows:&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1: Declining&lt;/span&gt;&lt;/p&gt;
@@ -3083,7 +2922,7 @@ p, li { white-space: pre-wrap; }
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Классы производительности во входных данных должны быть закодированы следующим образом:&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1: снижение&lt;/span&gt;&lt;/p&gt;
@@ -3093,36 +2932,6 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;5: рост&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;0 или -32768: нет данных&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
-    <message>
-        <location filename="../data_io.py" line="1324"/>
-        <source>Error</source>
-        <translation>ошибка</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1286"/>
-        <source>Choose an output file.</source>
-        <translation>Выберите выходной файл.</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1311"/>
-        <source>The chosen field ({}) is not numeric. Choose a field that contains numbers.</source>
-        <translation>Выбранное поле ({}) не является числовым. Выберите поле, содержащее числа.</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1324"/>
-        <source>The input file ({}) does not appear to be a valid productivity input file.</source>
-        <translation>Входной файл ({}) не является допустимым файлом ввода производительности.</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1338"/>
-        <source>Warning</source>
-        <translation>Предупреждение</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1338"/>
-        <source>The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.</source>
-        <translation>Входной файл ({}) не является допустимым входным файлом производительности. Trends.Earth загрузит файл в любом случае, но просмотрите карту после загрузки, чтобы убедиться, что значения имеют смысл. Единственные допустимые значения во входном файле производительности - это -32768, 1, 2, 3, 4 и 5. Во входном файле есть {} значения, которые не были распознаны.</translation>
-    </message>
 </context>
 <context>
     <name>DlgDataIOImportSOC</name>
@@ -3130,41 +2939,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../gui/DlgDataIOImportSOC.ui" line="23"/>
         <source>Load a Custom Soil Organic Carbon (SOC) dataset</source>
         <translation>Загрузка пользовательского набора данных по органическому углероду почвы (SOC)</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1227"/>
-        <source>Error</source>
-        <translation>ошибка</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1156"/>
-        <source>Choose an output file.</source>
-        <translation>Выберите выходной файл.</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1164"/>
-        <source>Enter the year of the input data.</source>
-        <translation>Введите год ввода данных.</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1189"/>
-        <source>The chosen field ({}) is not numeric. Choose a numeric field.</source>
-        <translation>Выбранное поле ({}) не является числовым. Выберите числовое поле.</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1205"/>
-        <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The file should contain values of soil organic carbon in tonnes / hectare.</source>
-        <translation>Входной файл ({}) не является допустимым входным файлом органического углерода почвы. Файл должен содержать значения органического углерода в почве в тоннах / га.</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1216"/>
-        <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The minimum value in this file is {}. The no data value should be -32768, and all other values should be &gt;= 0.</source>
-        <translation>Входной файл ({}) не является допустимым входным файлом органического углерода почвы. Минимальное значение в этом файле: {}. Значение без данных должно быть -32768, а все остальные значения должны быть&amp;gt; = 0.</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1227"/>
-        <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The maximum value in this file is {}. The maximum value allowed is 1000 tonnes / hectare.</source>
-        <translation>Входной файл ({}) не является допустимым входным файлом органического углерода почвы. Максимальное значение в этом файле: {}. Максимально допустимое значение составляет 1000 тонн / га.</translation>
     </message>
 </context>
 <context>
@@ -3198,11 +2972,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../gui/DlgDataIOLoadTE.ui" line="101"/>
         <source>Referenced dataset</source>
         <translation>Ссылочный набор данных</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="674"/>
-        <source>Could not load file</source>
-        <translation>Не удалось загрузить файл</translation>
     </message>
 </context>
 <context>
@@ -3527,7 +3296,7 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Productivity classes in the input data must be coded as follows:&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;1: Declining&lt;/span&gt;&lt;/p&gt;
@@ -3538,7 +3307,7 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;0 or -32768: No data&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Классы производительности во входных данных должны быть закодированы следующим образом:&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;1: снижение&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;2: Ранние признаки снижения&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;3: Стабильно, но подчеркнуто&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;4: Стабильный&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;5: увеличение&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;0 или -32768: нет данных&lt;/span&gt; &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt; font-weight:600;&quot;&gt;Классы производительности во входных данных должны быть закодированы следующим образом:&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;1: снижение&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;2: Ранние признаки снижения&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;3: Стабильно, но подчеркнуто&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;4: Стабильный&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;5: увеличение&lt;/span&gt; &lt;/p&gt;&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt; &lt;span style=&quot; font-size:8pt;&quot;&gt;0 или -32768: нет данных&lt;/span&gt; &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
 <context>
@@ -3584,12 +3353,12 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.875pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
@@ -4064,27 +3833,27 @@ p, li { white-space: pre-wrap; }
         <translation>Отправить запрос</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="339"/>
+        <location filename="../timeseries.py" line="336"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="330"/>
+        <location filename="../timeseries.py" line="327"/>
         <source>Submitted</source>
         <translation>Отправлено</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="330"/>
+        <location filename="../timeseries.py" line="327"/>
         <source>Time series calculation task submitted to Trends.Earth server.</source>
         <translation>Задача расчета временных рядов отправлена ​​на сервер Trends.Earth.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="339"/>
+        <location filename="../timeseries.py" line="336"/>
         <source>Unable to submit time series calculation task to Trends.Earth server</source>
         <translation>Не удалось отправить задачу расчета временных рядов на сервер Trends.Earth.</translation>
     </message>
     <message>
-        <location filename="../timeseries.py" line="282"/>
+        <location filename="../timeseries.py" line="279"/>
         <source>The bounding box of the requested area (approximately {:.6n} sq km) is too large. The timeseries tool can process a maximum area of 1 million sq km at a time. Choose a smaller area to process.</source>
         <translation>Ограничивающий прямоугольник запрашиваемой области (примерно {:.6n} кв. км) слишком велик. Инструмент временных рядов может одновременно обрабатывать не более 1 млн кв. км. Выберите меньшую область для обработки.</translation>
     </message>
@@ -4277,95 +4046,39 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
-    <name>ImportSelectFileInputWidget</name>
-    <message>
-        <location filename="../data_io.py" line="774"/>
-        <source>Select a raster input file</source>
-        <translation>Выберите входной растровый файл</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="774"/>
-        <source>Raster file (*.tif *.dat *.img *.vrt)</source>
-        <translation>Растровый файл (*.tif *.dat *.img *.vrt)</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="830"/>
-        <source>Error</source>
-        <translation>ошибка</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="830"/>
-        <source>Cannot read {}. Choose a different file.</source>
-        <translation>Не могу читать {}. Выберите другой файл.</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="817"/>
-        <source>Select a vector input file</source>
-        <translation>Выберите векторный входной файл</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="817"/>
-        <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
-        <translation>Векторный файл (* .shp * .kml * .kmz * .geojson)</translation>
-    </message>
-</context>
-<context>
-    <name>ImportSelectRasterOutput</name>
-    <message>
-        <location filename="../data_io.py" line="876"/>
-        <source>Choose a name for the output file</source>
-        <translation>Выберите имя для выходного файла</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="876"/>
-        <source>Raster file (*.tif)</source>
-        <translation>Растровый файл (* .tif)</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="890"/>
-        <source>Error</source>
-        <translation>ошибка</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="890"/>
-        <source>Cannot write to {}. Choose a different file.</source>
-        <translation>Невозможно написать {}. Выберите другой файл.</translation>
-    </message>
-</context>
-<context>
     <name>LCDefineDegradationWidget</name>
     <message>
-        <location filename="../lc_setup.py" line="808"/>
+        <location filename="../lc_setup.py" line="909"/>
         <source>Land cover in initial year </source>
         <translation>Земельный покров в начальный год</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="884"/>
+        <location filename="../lc_setup.py" line="985"/>
         <source>Select a transition matrix definition file</source>
         <translation>Выберите файл определения матрицы перехода</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="916"/>
+        <location filename="../lc_setup.py" line="1017"/>
         <source>Transition matrix definition (*.json)</source>
         <translation>Определение матрицы перехода (* .json)</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="930"/>
+        <location filename="../lc_setup.py" line="1031"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="897"/>
+        <location filename="../lc_setup.py" line="998"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Не могу читать {}. Выберите другой файл.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="916"/>
+        <location filename="../lc_setup.py" line="1017"/>
         <source>Choose where to save this transition matrix definition</source>
         <translation>Выберите, где сохранить это определение матрицы перехода</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="930"/>
+        <location filename="../lc_setup.py" line="1031"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>Невозможно написать {}. Выберите другой файл.</translation>
     </message>
@@ -4413,12 +4126,7 @@ p, li { white-space: pre-wrap; }
         <translation>Скачать исходный набор данных, который используется в Trends.Earth...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="222"/>
-        <source>Download Land Potential Knowledge System (LandPKS) data...</source>
-        <translation>Скачать данные &quot;Информационной системы потенциальной производительности земли&quot; (LandPKS)...</translation>
-    </message>
-    <message>
-        <location filename="../main_widget.py" line="240"/>
+        <location filename="../main_widget.py" line="242"/>
         <source>Create false positive/negative layer</source>
         <translation>Создать ложноположительный/ложноотрицательный слой</translation>
     </message>
@@ -4702,12 +4410,12 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
 </context>
@@ -4823,19 +4531,6 @@ p, li { white-space: pre-wrap; }
         <location filename="../gui/WidgetDataIOSelectTEDatasetExisting.ui" line="20"/>
         <source>Form</source>
         <translation>форма</translation>
-    </message>
-    <message>
-        <location filename="../data_io.py" line="1714"/>
-        <source>No datasets available in this region</source>
-        <translation>Нет доступных наборов данных в этой области</translation>
-    </message>
-</context>
-<context>
-    <name>WidgetDataIOSelectTELayerBase</name>
-    <message>
-        <location filename="../data_io.py" line="1448"/>
-        <source>No layers available in this region</source>
-        <translation>Нет доступных слоев в этой области</translation>
     </message>
 </context>
 <context>
@@ -4974,13 +4669,13 @@ p, li { white-space: pre-wrap; }
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;Sans Serif&apos;; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="../gui/WidgetDatasetItemDetails.ui" line="176"/>
@@ -5242,97 +4937,97 @@ p, li { white-space: pre-wrap; }
         <translation>Разрешить доступ к данным LandPKS</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1052"/>
+        <location filename="../settings.py" line="1055"/>
         <source>Warning</source>
         <translation>Предупреждение</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1052"/>
+        <location filename="../settings.py" line="1055"/>
         <source>You must restart QGIS for these changes to take effect.</source>
         <translation>Необходимо перезапустить QGIS, чтобы эти изменения вступили в силу.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1114"/>
+        <location filename="../settings.py" line="1117"/>
         <source>Binaries &lt;b&gt;are&lt;/b&gt; loaded.</source>
         <translation>Двоичные файлы &lt;b&gt;&lt;/b&gt;загружены.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1116"/>
+        <location filename="../settings.py" line="1119"/>
         <source>Binaries &lt;b&gt;are not&lt;/b&gt; loaded.</source>
         <translation>Двоичные файлы &lt;b&gt;не&lt;/b&gt; загружены.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1127"/>
+        <location filename="../settings.py" line="1130"/>
         <source>No base data directory set</source>
         <translation>Основной каталог данных не задан</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1171"/>
+        <location filename="../settings.py" line="1174"/>
         <source>Unable to write to {}. Try a different folder.</source>
         <translation>Не получается создать запись в {}. Попробуйте другую папку.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1153"/>
+        <location filename="../settings.py" line="1156"/>
         <source>Choose a folder</source>
         <translation>Выбрать папку</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1153"/>
+        <location filename="../settings.py" line="1156"/>
         <source>Choose a folder before downloading binaries.</source>
         <translation>Выберите папку перед загрузкой двоичных файлов.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1262"/>
+        <location filename="../settings.py" line="1265"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1160"/>
+        <location filename="../settings.py" line="1163"/>
         <source>Unable to write to {}. Choose a different folder.</source>
         <translation>Не получается создать запись в {}. Выберите другую папку.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1189"/>
+        <location filename="../settings.py" line="1192"/>
         <source>Unable to write to {}. Check that you have permissions to write to this folder, and that you are not trying to overwrite the binaries that you currently have loaded in QGIS.</source>
         <translation>Не получается создать запись в {}. Убедитесь, что у вас есть права на запись в эту папку и что вы не пытаетесь перезаписать двоичные файлы, загруженные в данный момент в QGIS.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1197"/>
+        <location filename="../settings.py" line="1200"/>
         <source>Unable to read binaries from {}. Check that binaries were downloaded successfully.</source>
         <translation>Не получается прочитать двоичные файлы из {}. Убедитесь, что бинарные файлы были успешно загружены.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1206"/>
+        <location filename="../settings.py" line="1209"/>
         <source>Error downloading binaries.</source>
         <translation>Ошибка при скачивании двоичных файлов.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1216"/>
+        <location filename="../settings.py" line="1219"/>
         <source>Success</source>
         <translation>успех</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1212"/>
+        <location filename="../settings.py" line="1215"/>
         <source>Downloaded binaries.</source>
         <translation>Скачанные двоичные файлы.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1216"/>
+        <location filename="../settings.py" line="1219"/>
         <source>All binaries up to date.</source>
         <translation>Все двоичные файлы обновлены.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1234"/>
+        <location filename="../settings.py" line="1237"/>
         <source>Select folder containing Trends.Earth binaries</source>
         <translation>Выберите папку, содержащую двоичные файлы Trends.Earth</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1245"/>
+        <location filename="../settings.py" line="1248"/>
         <source>Choose a different folder - cannot install binaries within the Trends.Earth QGIS plugin installation folder.</source>
         <translation>Выберите другую папку — невозможно установить двоичные файлы в папке установки подключаемого модуля Trends.Earth QGIS.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1262"/>
+        <location filename="../settings.py" line="1265"/>
         <source>Cannot read {folder_path!r}. Choose a different folder.</source>
         <translation>Не получается прочитать {folder_path!r}. Выберите другую папку.</translation>
     </message>
@@ -5390,27 +5085,27 @@ p, li { white-space: pre-wrap; }
         <translation>Записывать предупреждения в выходной каталог</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1346"/>
+        <location filename="../settings.py" line="1349"/>
         <source>Select Report Template Search Path</source>
         <translation>Выбрать путь поиска шаблона отчета</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1356"/>
+        <location filename="../settings.py" line="1359"/>
         <source>QGIS needs to be restarted for the changes to take effect.</source>
         <translation>Чтобы изменения вступили в силу, необходимо перезапустить QGIS.</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1360"/>
+        <location filename="../settings.py" line="1363"/>
         <source>Template Search Path</source>
         <translation>Путь поиска шаблона</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1373"/>
+        <location filename="../settings.py" line="1376"/>
         <source>All Images</source>
         <translation>Все изображения</translation>
     </message>
     <message>
-        <location filename="../settings.py" line="1388"/>
+        <location filename="../settings.py" line="1391"/>
         <source>Select Organization Logo</source>
         <translation>Выберите логотип организации</translation>
     </message>
@@ -5460,7 +5155,7 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../gui/WidgetMain.ui" line="110"/>
         <source>Create...</source>
-        <translation type="unfinished"/>
+        <translation>Создать...</translation>
     </message>
     <message>
         <location filename="../gui/WidgetMain.ui" line="117"/>
@@ -5590,79 +5285,84 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_calculate</name>
     <message>
-        <location filename="../calculate.py" line="257"/>
+        <location filename="../calculate.py" line="271"/>
         <source>Select folder containing data</source>
         <translation>Выберите папку с данными</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="541"/>
+        <location filename="../calculate.py" line="602"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="270"/>
+        <location filename="../calculate.py" line="286"/>
         <source>Cannot read {}. Choose a different folder.</source>
         <translation>Не удалось считать {}. Выберите другую папку.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="307"/>
+        <location filename="../calculate.py" line="328"/>
         <source>Choose a prefix to be used when naming output files</source>
         <translation>Выберите префикс, который будет использоваться при присвоении имен выходным файлам.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="307"/>
+        <location filename="../calculate.py" line="328"/>
         <source>Base name (*)</source>
         <translation>Базовое имя (*)</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="319"/>
+        <location filename="../calculate.py" line="344"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>Невозможно написать {}. Выберите другой файл.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="336"/>
+        <location filename="../calculate.py" line="368"/>
         <source>Overwrite file?</source>
         <translation>Перезаписать файл?</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="336"/>
+        <location filename="../calculate.py" line="368"/>
         <source>Using the prefix &quot;{}&quot; would lead to overwriting existing file(s) {}. Do you want to overwrite these file(s)?</source>
         <translation>Использование префикса &quot;{}&quot; приведет к перезаписи существующего(-их) файла(-ов) {}. Хотите перезаписать эти файлы?</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="344"/>
+        <location filename="../calculate.py" line="382"/>
         <source>Information</source>
         <translation>Информация</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="344"/>
+        <location filename="../calculate.py" line="382"/>
         <source>Choose a different output prefix and try again.</source>
         <translation>Выберите другой выходной префикс и повторите попытку.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="459"/>
+        <location filename="../calculate.py" line="503"/>
         <source>Schedule remote execution</source>
         <translation>Запланировать удаленное выполнение</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="461"/>
+        <location filename="../calculate.py" line="505"/>
         <source>Execute locally</source>
         <translation>Выполнить локально</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="499"/>
+        <location filename="../calculate.py" line="542"/>
         <source>Current region: {region}</source>
         <translation>Текущий регион: {region}</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="529"/>
+        <location filename="../calculate.py" line="590"/>
         <source>Unable to calculate bounding box.</source>
         <translation>Невозможно рассчитать ограничивающую рамку.</translation>
     </message>
     <message>
-        <location filename="../calculate.py" line="541"/>
+        <location filename="../calculate.py" line="602"/>
         <source>Choose an output base name.</source>
         <translation>Выберите выходное базовое имя.</translation>
+    </message>
+    <message>
+        <location filename="../calculate.py" line="577"/>
+        <source>You have chosen to run this calculation on a point (or for a city). To run this tool on a point you must also select a buffer.</source>
+        <translation>Вы выбрали запуск этого расчета для точки (или для города). Чтобы запустить этот инструмент в точке, вы также должны выбрать буфер.</translation>
     </message>
 </context>
 <context>
@@ -5696,219 +5396,372 @@ for running algorithms and their results.</source>
         <translation>Все регионы</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="193"/>
+        <location filename="../conf.py" line="195"/>
         <source>Land degradation</source>
         <translation>Деградация земель</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="197"/>
+        <location filename="../conf.py" line="199"/>
         <source>Sub-indicators for SDG 15.3.1</source>
         <translation>Подпоказатели для SDG 15.3.1</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="198"/>
+        <location filename="../conf.py" line="200"/>
         <source>Calculate SDG 15.3.1 sub-indicators (required prior to 15.3.1 indicator calculation)</source>
         <translation>Рассчитать подпоказатели SDG 15.3.1 (требуется до расчета показателя 15.3.1)</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="211"/>
+        <location filename="../conf.py" line="213"/>
         <source>Indicator for SDG 15.3.1</source>
         <translation>Показатель для SDG 15.3.1</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="212"/>
+        <location filename="../conf.py" line="214"/>
         <source>Spatial layer and summary table for total boundary</source>
         <translation>Пространственный слой и сводная таблица для общей границы</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="215"/>
+        <location filename="../conf.py" line="217"/>
         <source>Calculate SDG 15.3.1 indicator from productivity, land cover, and soil organic carbon sub-indicators</source>
         <translation>Рассчитать показатель SDG 15.3.1 на основе подпоказателей продуктивности, растительного покрова и почвенного органического углерода.</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="228"/>
-        <source>SDG 15.3.1 error recode (false positive/negative)</source>
-        <translation>Перекодирование ошибки SDG 15.3.1 (ложноположительный/ложноотрицательный результат)</translation>
-    </message>
-    <message>
-        <location filename="../conf.py" line="229"/>
-        <source>Correct any known errors (false positives or negatives) in an SDG 15.3.1 Indicator layer. This can be used to correct misclassifications using expert knowledge or field data.</source>
-        <translation>Исправьте все известные ошибки (ложноположительные/ложноотрицательные результаты) в слое показателя SDG 15.3.1. Это можно использовать для исправления ошибочных классификаций, используя экспертные знания или данные с мест.</translation>
-    </message>
-    <message>
-        <location filename="../conf.py" line="245"/>
+        <location filename="../conf.py" line="247"/>
         <source>Land productivity</source>
         <translation>Продуктивность земли</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="246"/>
+        <location filename="../conf.py" line="248"/>
         <source>Land productivity is the biological productive capacity of land</source>
         <translation>Продуктивность земли — это биологическая продуктивная способность земли</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="261"/>
+        <location filename="../conf.py" line="263"/>
         <source>Land cover change</source>
         <translation>Изменение растительного покрова</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="262"/>
+        <location filename="../conf.py" line="264"/>
         <source>Land cover is the physical material at the surface of the earth. </source>
         <translation>Растительный покров — это физический материал на поверхности земли.</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="279"/>
+        <location filename="../conf.py" line="281"/>
         <source>Soil Organic Carbon</source>
         <translation>Органический углерод в почве</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="280"/>
+        <location filename="../conf.py" line="282"/>
         <source>Soil organic carbon is a measure of soil organic matter</source>
         <translation>Органический углерод в почве является мерой органического вещества в почве</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="299"/>
+        <location filename="../conf.py" line="301"/>
         <source>Drought</source>
         <translation>Засуха</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="300"/>
+        <location filename="../conf.py" line="302"/>
         <source>Vulnerability and exposure</source>
         <translation>Уязвимость и незащищенность</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="304"/>
+        <location filename="../conf.py" line="306"/>
         <source>Drought vulnerability</source>
         <translation>Уязвимость к засухе</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="305"/>
+        <location filename="../conf.py" line="307"/>
         <source>Calculate indicators of drought vulnerability consistent with UNCCD SO3 Good Practice Guidance</source>
         <translation>Рассчитать показатели уязвимости к засухе в соответствии с руководством по эффективной практике UNCCD SO3</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="318"/>
+        <location filename="../conf.py" line="320"/>
         <source>Drought vulnerability summary table</source>
         <translation>Сводная таблица уязвимости к засухе</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="319"/>
+        <location filename="../conf.py" line="321"/>
         <source>Summarize drought indicators in alignment with UNCCD SO3 reporting requirements</source>
         <translation>Обобщить показатели засухи в соответствии с требованиями к отчетности UNCCD SO3</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="333"/>
+        <location filename="../conf.py" line="335"/>
         <source>UNCCD Reporting</source>
         <translation>Отчетность UNCCD</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="334"/>
+        <location filename="../conf.py" line="336"/>
         <source>Summarize data for reporting</source>
         <translation>Обобщить данные для отчетности</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="352"/>
+        <location filename="../conf.py" line="354"/>
         <source>Generate data package for UNCCD reporting</source>
         <translation>Создать пакет данных для отчетности UNCCD</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="353"/>
+        <location filename="../conf.py" line="355"/>
         <source>Summarize Strategic Objective (SO) 1, SO2, and SO3 datasets in proper format for submission to UNCCD for 2021 reporting cycle</source>
         <translation>Обобщить наборы данных стратегической цели (СЦ) 1, СЦ 2 и СЦ 3 в надлежащем формате для представления в UNCCD для отчетного цикла 2021 года.</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="368"/>
+        <location filename="../conf.py" line="370"/>
         <source>SDG 11.3.1</source>
         <translation>SDG 11.3.1</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="369"/>
+        <location filename="../conf.py" line="371"/>
         <source>Urban change and land consumption</source>
         <translation>Городские изменения и потребление земли</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="373"/>
+        <location filename="../conf.py" line="375"/>
         <source>Urban change spatial layer</source>
         <translation>Пространственный слой городских изменений</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="374"/>
+        <location filename="../conf.py" line="376"/>
         <source>Calculate indicators of change in urban extent (SDG 11.3.1 indicator)</source>
         <translation>Рассчитать показатели изменения городской территории (показатель SDG 11.3.1)</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="387"/>
+        <location filename="../conf.py" line="389"/>
         <source>Urban change summary table for city</source>
         <translation>Сводная таблица городских изменений для города</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="388"/>
+        <location filename="../conf.py" line="390"/>
         <source>Calculate table summarizing SDG indicator 11.3.1</source>
         <translation>Рассчитать таблицу, обобщающую показатель SDG 11.3.1</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="401"/>
+        <location filename="../conf.py" line="403"/>
         <source>Experimental</source>
         <translation>Экспериментальный</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="404"/>
+        <location filename="../conf.py" line="406"/>
         <source>Calculate change in total carbon</source>
         <translation>Рассчитать изменение общего содержания углерода</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="405"/>
+        <location filename="../conf.py" line="407"/>
         <source>Above and below ground, emissions and deforestation</source>
         <translation>Надземные и подземные выбросы и вырубка лесов</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="411"/>
+        <location filename="../conf.py" line="413"/>
         <source>Calculate change in carbon</source>
         <translation>Рассчитать изменение углерода</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="412"/>
+        <location filename="../conf.py" line="414"/>
         <source>Calculate total carbon (above and below-ground) and emissions from deforestation</source>
         <translation>Рассчитать общий углерод (над и под землей) и выбросы от обезлесения</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="430"/>
+        <location filename="../conf.py" line="432"/>
         <source>Change in carbon summary table</source>
         <translation>Изменение сводной таблицы углерода</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="431"/>
+        <location filename="../conf.py" line="433"/>
         <source>Calculate table summarizing change in total carbon</source>
         <translation>Рассчитать сводную таблицу изменения общего содержания углерода</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="444"/>
+        <location filename="../conf.py" line="446"/>
         <source>Potential change in biomass due to restoration</source>
         <translation>Потенциальное изменение биомассы в результате восстановления</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="445"/>
+        <location filename="../conf.py" line="447"/>
         <source>Above and below ground woody</source>
         <translation>Древесная масса над и под землей</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="449"/>
+        <location filename="../conf.py" line="451"/>
         <source>Estimate potential impacts of restoration</source>
         <translation>Оценить потенциальное воздействие восстановления</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="450"/>
+        <location filename="../conf.py" line="452"/>
         <source>Estimate potential change in biomass due to restoration</source>
         <translation>Оценить потенциальное изменение биомассы в результате восстановления</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="462"/>
+        <location filename="../conf.py" line="464"/>
         <source>Table summarizing likely changes in biomass</source>
         <translation>Таблица, обобщающая вероятные изменения в биомассе</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="465"/>
+        <location filename="../conf.py" line="467"/>
         <source>Generate table summarizing potential change in biomass due to restoration</source>
         <translation>Генерировать таблицу со сводной информацией о потенциальном изменении биомассы, обусловленном восстановлением</translation>
+    </message>
+</context>
+<context>
+    <name>tr_data_io</name>
+    <message>
+        <location filename="../data_io.py" line="678"/>
+        <source>Could not load file</source>
+        <translation>Не удалось загрузить файл</translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="696"/>
+        <source>Could not parse the selected file into a valid JSON</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="780"/>
+        <source>Select a raster input file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="780"/>
+        <source>Raster file (*.tif *.dat *.img *.vrt)</source>
+        <translation>Растровый файл (*.tif *.dat *.img *.vrt)</translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1693"/>
+        <source>Error</source>
+        <translation>ошибка</translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="836"/>
+        <source>Cannot read {}. Choose a different file.</source>
+        <translation>Не могу читать {}. Выберите другой файл.</translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="823"/>
+        <source>Select a vector input file</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="823"/>
+        <source>Vector file (*.shp *.kml *.kmz *.geojson)</source>
+        <translation>Векторный файл (* .shp * .kml * .kmz * .geojson)</translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="882"/>
+        <source>Choose a name for the output file</source>
+        <translation>Выберите имя для выходного файла</translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="882"/>
+        <source>Raster file (*.tif)</source>
+        <translation>Растровый файл (* .tif)</translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="896"/>
+        <source>Cannot write to {}. Choose a different file.</source>
+        <translation>Невозможно написать {}. Выберите другой файл.</translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="927"/>
+        <source>Metadata</source>
+        <translation>Метаданные</translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="935"/>
+        <source>Choose an input raster file.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="945"/>
+        <source>Choose an input polygon dataset.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="959"/>
+        <source>Cannot process {}. Unknown geometry type:{}</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1054"/>
+        <source>Vector remapping failed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1077"/>
+        <source>Raster remapping failed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1097"/>
+        <source>Rasterizing failed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1127"/>
+        <source>Raster import failed.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1298"/>
+        <source>Choose an output file.</source>
+        <translation>Выберите выходной файл.</translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1170"/>
+        <source>Enter the year of the input data.</source>
+        <translation>Введите год ввода данных.</translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1195"/>
+        <source>The chosen field ({}) is not numeric. Choose a numeric field.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1211"/>
+        <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The file should contain values of soil organic carbon in tonnes / hectare.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1224"/>
+        <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The minimum value in this file is {}. The no data value should be -32768, and all other values should be &gt;= 0.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1237"/>
+        <source>The input file ({}) does not appear to be a valid soil organic carbon input file. The maximum value in this file is {}. The maximum value allowed is 1000 tonnes / hectare.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1323"/>
+        <source>The chosen field ({}) is not numeric. Choose a field that contains numbers.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1337"/>
+        <source>The input file ({}) does not appear to be a valid productivity input file.</source>
+        <translation>Входной файл ({}) не является допустимым файлом ввода производительности.</translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1352"/>
+        <source>Warning</source>
+        <translation>Предупреждение</translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1352"/>
+        <source>The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1467"/>
+        <source>No layers available in this region</source>
+        <translation>Нет доступных слоев в этой области</translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1693"/>
+        <source>Select a layer to load.</source>
+        <translation>Выбрать уровень для загрузки.</translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1733"/>
+        <source>No datasets available in this region</source>
+        <translation>Нет доступных наборов данных в этой области</translation>
     </message>
 </context>
 <context>
@@ -6580,39 +6433,259 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_lc_setup</name>
     <message>
-        <location filename="../lc_setup.py" line="172"/>
+        <location filename="../lc_setup.py" line="279"/>
         <source>Input code</source>
         <translation>Введите код</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="173"/>
+        <location filename="../lc_setup.py" line="280"/>
         <source>Input class</source>
         <translation>Входной класс</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="174"/>
+        <location filename="../lc_setup.py" line="281"/>
         <source>Output class</source>
         <translation>Выходной класс</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="261"/>
+        <location filename="../lc_setup.py" line="368"/>
         <source>Error</source>
         <translation>ошибка</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="247"/>
+        <location filename="../lc_setup.py" line="354"/>
         <source>Cannot read {}.</source>
         <translation>Не могу читать {}.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="230"/>
+        <location filename="../lc_setup.py" line="337"/>
         <source>{f} does not appear to contain a valid land cover legend nesting definition: {e}</source>
         <translation>{f} не содержит действительного определения вложенности легенды земного покрова: {e}</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="261"/>
+        <location filename="../lc_setup.py" line="368"/>
         <source>{f} does not appear to contain a valid land cover transition matrix definition: {e}</source>
         <translation>{f} не содержит действительного определения матрицы перехода земного покрова: {e}</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="64"/>
+        <source>No data</source>
+        <translation>Нет данных</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="65"/>
+        <source>Tree-covered</source>
+        <translation>Дерево покрытым</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="117"/>
+        <source>Grassland</source>
+        <translation>Пастбище</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="67"/>
+        <source>Cropland</source>
+        <translation>Пахотные</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="68"/>
+        <source>Wetland</source>
+        <translation>водно-болотных</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="69"/>
+        <source>Artificial</source>
+        <translation>искусственный</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="70"/>
+        <source>Other land</source>
+        <translation>Прочие земли</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="71"/>
+        <source>Water body</source>
+        <translation>Водоем</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="73"/>
+        <source>Cropland, rainfed</source>
+        <translation>Пахотные земли, неорошаемые</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="75"/>
+        <source>Herbaceous cover</source>
+        <translation>Травянистый покров</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="77"/>
+        <source>Tree or shrub cover</source>
+        <translation>Покрытие из деревьев или кустарников</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="81"/>
+        <source>Mosaic cropland (&gt;50%) / natural vegetation (tree, shrub, herbaceous cover) (&lt;50%)</source>
+        <translation>Мозаичная пашня (&gt;50%) / естественная растительность (дерево, кустарник, травянистый покров) (&lt;50%)</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="83"/>
+        <source>Mosaic natural vegetation (tree, shrub, herbaceous cover) (&gt;50%) / cropland (&lt;50%)</source>
+        <translation>Мозаичная естественная растительность (дерево, кустарник, травянистый покров) (&gt;50%) / пашня (&lt;50%)</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="85"/>
+        <source>Tree cover, broadleaved, evergreen, closed to open (&gt;15%)</source>
+        <translation>Древесный покров, широколиственный, вечнозеленый, сомкнутый или открытый (&gt; 15%)</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="87"/>
+        <source>Tree cover, broadleaved, deciduous, closed to open (&gt;15%)</source>
+        <translation>Древесный покров, широколиственный, лиственный, сомкнутый или открытый (&gt; 15%)</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="89"/>
+        <source>Tree cover, broadleaved, deciduous, closed (&gt;40%)</source>
+        <translation>Древесный покров, широколиственный, лиственный, сомкнутый (&gt;40%)</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="93"/>
+        <source>Tree cover, needleleaved, evergreen, closed to open (&gt;15%)</source>
+        <translation>Древесный покров, хвойный, вечнозеленый, сомкнутый или открытый (&gt; 15%)</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="95"/>
+        <source>Tree cover, needleleaved, evergreen, closed (&gt;40%)</source>
+        <translation>Древесный покров, хвойный, вечнозеленый, сомкнутый (&gt;40%)</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="99"/>
+        <source>Tree cover, needleleaved, deciduous, closed to open (&gt;15%)</source>
+        <translation>Древесный покров, хвойный, лиственный, сомкнутый или открытый (&gt; 15%)</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="101"/>
+        <source>Tree cover, needleleaved, deciduous, closed (&gt;40%)</source>
+        <translation>Древесный покров, хвойный, лиственный, сомкнутый (&gt;40%)</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="105"/>
+        <source>Tree cover, mixed leaf type (broadleaved and needleleaved)</source>
+        <translation>Древесный покров, смешанно-лиственный (широколиственный и хвойный)</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="107"/>
+        <source>Mosaic tree and shrub (&gt;50%) / herbaceous cover (&lt;50%)</source>
+        <translation>Мозаичный древесный и кустарниковый (&gt;50%) / травяной покров (&lt;50%)</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="109"/>
+        <source>Mosaic herbaceous cover (&gt;50%) / tree and shrub (&lt;50%)</source>
+        <translation>Мозаичный травяной покров (&gt;50%) / древесно-кустарниковый покров (&lt;50%)</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="111"/>
+        <source>Shrubland</source>
+        <translation>Кустарник</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="113"/>
+        <source>Evergreen shrubland</source>
+        <translation>Вечнозеленый кустарник</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="115"/>
+        <source>Deciduous shrubland</source>
+        <translation>Лиственный кустарник</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="119"/>
+        <source>Lichens and mosses</source>
+        <translation>Лишайники и мхи</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="121"/>
+        <source>Sparse vegetation (tree, shrub, herbaceous cover) (&lt;15%)</source>
+        <translation>Редкая растительность (дерево, кустарник, травянистый покров) (&lt;15%)</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="123"/>
+        <source>Sparse tree (&lt;15%)</source>
+        <translation>Редкая древесная растительность (&lt;15%)</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="125"/>
+        <source>Sparse shrub (&lt;15%)</source>
+        <translation>Редкая кустарниковая растительность (&lt;15%)</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="127"/>
+        <source>Sparse herbaceous cover (&lt;15%)</source>
+        <translation>Редкий травяной покров (&lt;15%)</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="129"/>
+        <source>Tree cover, flooded, fresh or brakish water</source>
+        <translation>Древесный покров, затопленный, пресная или солоноватая вода</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="131"/>
+        <source>Tree cover, flooded, saline water</source>
+        <translation>Древесный покров, затопление, соленая вода</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="133"/>
+        <source>Shrub or herbaceous cover, flooded, fresh/saline/brakish water</source>
+        <translation>Кустарниковый или травянистый покров, затопленный, пресная/соленая/солоноватая вода</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="135"/>
+        <source>Urban areas</source>
+        <translation>Городские территории</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="137"/>
+        <source>Bare areas</source>
+        <translation>Безлесные территории</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="139"/>
+        <source>Consolidated bare areas</source>
+        <translation>Консолидированные безлесные территории</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="141"/>
+        <source>Unconsolidated bare areas</source>
+        <translation>Неконсолидированные безлесные территории</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="143"/>
+        <source>Water bodies</source>
+        <translation>Водоемы</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="145"/>
+        <source>Permanent snow and ice</source>
+        <translation>Постоянный снежный и ледяной покров</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="79"/>
+        <source>Cropland, irrigated or post&#xe2;&#x80;&#x90;flooding</source>
+        <translation type="unfinished">Пахотные угодья, орошаемые или после затопления</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="91"/>
+        <source>Tree cover, broadleaved, deciduous, open (15&#xe2;&#x80;&#x90;40%)</source>
+        <translation type="unfinished">Древесный покров, широколиственный, лиственный, открытый (15–40%)</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="97"/>
+        <source>Tree cover, needleleaved, evergreen, open (15&#xe2;&#x80;&#x90;40%)</source>
+        <translation type="unfinished">Древесный покров, хвойный, вечнозеленый, открытый (15–40%)</translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="103"/>
+        <source>Tree cover, needleleaved, deciduous, open (15&#xe2;&#x80;&#x90;40%)</source>
+        <translation type="unfinished">Древесный покров, хвойный, лиственный, открытый (15–40%)</translation>
     </message>
 </context>
 <context>
@@ -6620,12 +6693,12 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../jobs/manager.py" line="684"/>
         <source>Imported dataset</source>
-        <translation type="unfinished"/>
+        <translation>Импортированный набор данных</translation>
     </message>
     <message>
         <location filename="../jobs/manager.py" line="707"/>
         <source>False positive/negative</source>
-        <translation type="unfinished"/>
+        <translation>Ложный положительный/отрицательный</translation>
     </message>
 </context>
 <context>
@@ -6648,7 +6721,7 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../plugin.py" line="214"/>
         <source>Trends.Earth Settings</source>
-        <translation type="unfinished"/>
+        <translation>Настройки Trends.Earth</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="222"/>
@@ -6658,7 +6731,7 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../plugin.py" line="222"/>
         <source>About Trends.Earth</source>
-        <translation type="unfinished"/>
+        <translation>О Trends.Earth</translation>
     </message>
     <message>
         <location filename="../plugin.py" line="230"/>

@@ -9,17 +9,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-12 06:50-0400\n"
+"POT-Creation-Date: 2022-07-22 04:19+0000\n"
 "PO-Revision-Date: 2022-05-26 11:56+0000\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: sw\n"
 "Language-Team: Swahili (https://www.transifex.com/conservation-"
 "international/teams/80165/sw/)\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.9.1\n"
+"Generated-By: Babel 2.10.3\n"
 
 #: ../../source/for_developers/changelog.rst:2
 msgid "Changelog"
@@ -35,8 +35,8 @@ msgstr ""
 
 #: ../../source/for_developers/changelog.rst:7
 msgid ""
-"`2.0.0rc1 (June 27, 2022) "
-"<https://github.com/ConservationInternational/trends.earth/releases/tag/2.0.0rc1>`_"
+"`2.0 (July 20, 2022) "
+"<https://github.com/ConservationInternational/trends.earth/releases/tag/2.0>`_"
 msgstr ""
 
 #: ../../source/for_developers/changelog.rst:9
@@ -902,6 +902,11 @@ msgstr ""
 
 #~ msgid ""
 #~ "`2.0.0rc1 (June 27 2022) "
+#~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/2.0.0rc1>`_"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "`2.0.0rc1 (June 27, 2022) "
 #~ "<https://github.com/ConservationInternational/trends.earth/releases/tag/2.0.0rc1>`_"
 #~ msgstr ""
 

@@ -558,6 +558,11 @@ class JobManager(QtCore.QObject):
             ResultType.TIME_SERIES_TABLE: self._download_timeseries_table,
         }.get(job.results.type)
 
+        if job.status == jobs.JobStatus.DOWNLOADED:
+            # TODO:  We should never get here, but we do sometimes... Need to debug
+            # more to figure out why
+            return None
+
         if handler:
             handler: typing.Callable
             output_path = handler(job)

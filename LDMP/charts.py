@@ -20,10 +20,9 @@ def calculate_error_recode_stats(band_datas, feature, parent, context):
 
     stats = {
         band["out_name"]: get_stats_for_geom(
-            band["path"], band["name"], band["index"], ogr_geom
+            band["path"], band["name"], band["index"], ogr_geom, -32768
         )
         for band in band_datas
     }
-    log(f"got stats: {stats}")
 
-    return stats
+    return json.dumps(stats)

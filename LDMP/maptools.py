@@ -147,8 +147,8 @@ class PolygonMapTool(QgsMapToolDigitizeFeature):
             return
         self.delete_widget()
 
-        self.widget = AreaWidget()
-        iface.addUserInputWidget(self.widget)
+        #self.widget = AreaWidget()
+        #iface.addUserInputWidget(self.widget)
 
     def delete_widget(self):
         if self.widget:
@@ -180,17 +180,18 @@ class PolygonMapTool(QgsMapToolDigitizeFeature):
     def cadCanvasMoveEvent(self, e: QgsMapMouseEvent):
         super().cadCanvasMoveEvent(e)
 
-        if self.active:
-            curve = self.captureCurve().clone()
-            curve.addVertex(QgsPoint(e.mapPoint()))
-            curve.close()
-            ring = curve.curveToLine()
-            poly = QgsPolygon()
-            poly.setExteriorRing(ring)
-            g = QgsGeometry(poly)
-            crs = self.currentVectorLayer().crs()
-            f = QgsUnitTypes.fromUnitToUnitFactor(QgsUnitTypes.distanceToAreaUnit(crs.mapUnits()), QgsUnitTypes.AreaSquareKilometers)
-            self.widget.set_area(g.area() * f)
+        # Disable until crash is resolved
+        # if self.active:
+        #     curve = self.captureCurve().clone()
+        #     curve.addVertex(QgsPoint(e.mapPoint()))
+        #     curve.close()
+        #     ring = curve.curveToLine()
+        #     poly = QgsPolygon()
+        #     poly.setExteriorRing(ring)
+        #     g = QgsGeometry(poly)
+        #     crs = self.currentVectorLayer().crs()
+        #     f = QgsUnitTypes.fromUnitToUnitFactor(QgsUnitTypes.distanceToAreaUnit(crs.mapUnits()), QgsUnitTypes.AreaSquareKilometers)
+        #     self.widget.set_area(g.area() * f)
 
     def digitized(self, f: QgsFeature):
         self.active = False

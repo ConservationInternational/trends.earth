@@ -496,6 +496,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                 prod = dlg.prod_band()
                 lc = dlg.lc_band()
                 soil = dlg.soil_band()
+                sdg = dlg.sdg_band()
 
                 if prod:
                     self.job.params["prod"] = {
@@ -542,6 +543,12 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                         "name": soil.band_info.name,
                         "out_name": "soil_organic_carbon",
                         "index": soil.band_index,
+                    },
+                    {
+                        "path": str(sdg.path.as_posix()),
+                        "name": sdg.band_info.name,
+                        "out_name": "sdg",
+                        "index": sdg.band_index,
                     },
                 ]
                 log("setting default stats value")
@@ -602,9 +609,10 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
 
     def load_rasters_layers(self):
         jobs = manager.job_manager._known_downloaded_jobs.copy()
+        self._load_raster(jobs, "sdg")
         self._load_raster(jobs, "prod")
-        self._load_raster(jobs, "lc")
         self._load_raster(jobs, "soil")
+        self._load_raster(jobs, "lc")
 
     def _load_raster(self, jobs, name):
         if name in self.job.params:

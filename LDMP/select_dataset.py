@@ -62,6 +62,9 @@ class DlgSelectDataset(QtWidgets.QDialog, Ui_DlgSelectDS):
     def soil_band(self):
         return self.combo_soil.get_current_band()
 
+    def sdg_band(self):
+        return self.combo_sdg.get_current_band()
+
     def update_current_region(self):
         region = settings_manager.get_value(Setting.AREA_NAME)
         self.region_la.setText(self.tr(f"Current region: {region}"))

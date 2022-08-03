@@ -65,7 +65,7 @@
 <context>
     <name>BufferMapTool</name>
     <message>
-        <location filename="../maptools.py" line="390"/>
+        <location filename="../maptools.py" line="391"/>
         <source>add feature</source>
         <translation>添加功能</translation>
     </message>
@@ -245,22 +245,22 @@
         <translation>NDVI x 10000</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="572"/>
+        <location filename="../jobs/mvc.py" line="579"/>
         <source>Dataset metadata</source>
         <translation>数据集元数据</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="579"/>
+        <location filename="../jobs/mvc.py" line="586"/>
         <source>{} metadata</source>
         <translation>{} 元数据</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="594"/>
+        <location filename="../jobs/mvc.py" line="601"/>
         <source>Add vector layer to map</source>
         <translation>将矢量图层添加到地图</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="598"/>
+        <location filename="../jobs/mvc.py" line="605"/>
         <source>Add raster layers to map</source>
         <translation>将栅格图层添加到地图</translation>
     </message>
@@ -3425,7 +3425,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgSelectDataset</name>
     <message>
-        <location filename="../select_dataset.py" line="67"/>
+        <location filename="../select_dataset.py" line="70"/>
         <source>Current region: {region}</source>
         <translation>当前区域：{region}</translation>
     </message>
@@ -4148,7 +4148,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>PolygonMapTool</name>
     <message>
-        <location filename="../maptools.py" line="205"/>
+        <location filename="../maptools.py" line="206"/>
         <source>add feature</source>
         <translation>添加功能</translation>
     </message>
@@ -6695,12 +6695,12 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_manager</name>
     <message>
-        <location filename="../jobs/manager.py" line="684"/>
+        <location filename="../jobs/manager.py" line="689"/>
         <source>Imported dataset</source>
         <translation>导入的数据集</translation>
     </message>
     <message>
-        <location filename="../jobs/manager.py" line="707"/>
+        <location filename="../jobs/manager.py" line="712"/>
         <source>False positive/negative</source>
         <translation>假阳性/阴性</translation>
     </message>

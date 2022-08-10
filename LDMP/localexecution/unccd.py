@@ -13,12 +13,14 @@ import marshmallow_dataclass
 import numpy as np
 import qgis.core
 from osgeo import gdal
+from osgeo import ogr
 from osgeo import osr
 from PyQt5 import QtWidgets
 from te_schemas import land_cover
 from te_schemas import reporting
 from te_schemas import SchemaBase
 from te_schemas import schemas
+from te_schemas.error_recode import ErrorRecodePolygons
 from te_schemas.results import FileResults
 from te_schemas.results import URI
 
@@ -68,8 +70,10 @@ def get_main_unccd_report_job_params(
     task_name: str,
     combo_dataset_so1_so2: data_io.WidgetDataIOSelectTEDatasetExisting,
     combo_dataset_so3: data_io.WidgetDataIOSelectTEDatasetExisting,
+    combo_dataset_error_recode: data_io.WidgetDataIOSelectTEDatasetExisting,
     include_so1_so2: bool,
     include_so3: bool,
+    include_error_recode: bool,
     task_notes: Optional[str] = "",
 ) -> Dict:
 
@@ -95,6 +99,15 @@ def get_main_unccd_report_job_params(
             }
         )
 
+    if include_error_recode:
+        params.update(
+            {
+                "error_recode_path": str(
+                    combo_dataset_error_recode.get_current_data_file()
+                )
+            }
+        )
+
     return params
 
 
@@ -114,6 +127,32 @@ def _set_affected_areas_only(in_file, out_file, schema):
     return out_file
 
 
+def _get_error_recode_polygons(in_file):
+    ds_in = ogr.Open(in_file)
+    layer_in = ds_in.GetLayer()
+    out_file = tempfile.mktemp(suffix=".geojson")
+    print(out_file)
+    out_ds = ogr.GetDriverByName("GeoJSON").CreateDataSource(out_file)
+    layer_out = out_ds.CopyLayer(layer_in, "error_recode")
+    del layer_out
+    del out_ds
+    with open(out_file, "r") as f:
+        polys = ErrorRecodePolygons.Schema().load(json.load(f))
+    return polys
+
+
+def _set_error_recode(in_file, out_file, error_recode_polys):
+    with open(in_file, "r") as f:
+        summary = reporting.TrendsEarthLandConditionSummary.Schema().load(json.load(f))
+    summary.land_condition["integrated"].error_recode = error_recode_polys
+    out_json = json.loads(
+        reporting.TrendsEarthLandConditionSummary.Schema().dumps(summary)
+    )
+    with open(out_file, "w") as f:
+        json.dump(out_json, f, indent=4)
+    return out_file
+
+
 def compute_unccd_report(
     report_job: Job,
     area_of_interest: areaofinterest.AOI,
@@ -128,6 +167,27 @@ def compute_unccd_report(
 
     with tempfile.TemporaryDirectory() as temp_dir:
         paths = []
+        if params["include_error_recode"]:
+            orig_summary_path_so1_so2 = Path(params["so1_so2_summary_path"])
+            new_summary_path_so1_so2 = Path(temp_dir) / orig_summary_path_so1_so2.name
+            error_recode_polys = _get_error_recode_polygons(params["error_recode_path"])
+            _set_error_recode(
+                orig_summary_path_so1_so2, new_summary_path_so1_so2, error_recode_polys
+            )
+            # Make sure this modified file is used as basis for the SO1/SO2 summary
+            # below (if affected_only is set)
+            params["so1_so2_summary_path"] = str(new_summary_path_so1_so2)
+            # Make sure this mofified file is used if affected_areas_only is NOT set
+            for i in range(len(params["so1_so2_all_paths"])):
+                if params["so1_so2_all_paths"][i] == str(orig_summary_path_so1_so2):
+                    log(
+                        f'Replacing {str(params["so1_so2_all_paths"][i])} with '
+                        f"{str(new_summary_path_so1_so2)}"
+                    )
+                    params["so1_so2_all_paths"][i] = str(new_summary_path_so1_so2)
+
+            params["so1_so2_summary_path"] = str(new_summary_path_so1_so2)
+
         if params["affected_only"]:
             if params["include_so1_so2"]:
                 summary_path_so1_so2 = Path(params["so1_so2_summary_path"])
@@ -160,13 +220,7 @@ def compute_unccd_report(
         log(f"Building tar.gz file with {paths}...")
         _make_tar_gz(tar_gz_path, paths)
 
-    report_job.results
-
-    report_job.results = FileResults(
+    return FileResults(
         name="unccd_report",
         uri=URI(uri=tar_gz_path, type="local"),
     )
-    report_job.end_date = dt.datetime.now(dt.timezone.utc)
-    report_job.progress = 100
-
-    return report_job

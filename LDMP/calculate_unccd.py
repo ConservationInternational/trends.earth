@@ -180,9 +180,6 @@ class DlgCalculateUNCCDReport(DlgCalculateBase, DlgCalculateUNCCDReportUi):
 
         self.changed_region.connect(self.combo_boxes.populate)
 
-        # TODO: re-enable once false positive/negative tool is finished
-        self.error_recode_gb.hide()
-
     def showEvent(self, event):
         super().showEvent(event)
         self.combo_boxes.populate()
@@ -247,6 +244,7 @@ class DlgCalculateUNCCDReport(DlgCalculateBase, DlgCalculateUNCCDReportUi):
             "task_notes": self.options_tab.task_notes.toPlainText(),
             "include_so1_so2": self.groupbox_so1_so2.isChecked(),
             "include_so3": self.groupbox_so3.isChecked(),
+            "include_error_recode": self.error_recode_gb.isChecked(),
             "affected_only": self.checkBox_affected_areas_only.isChecked(),
         }
         params.update(
@@ -254,8 +252,10 @@ class DlgCalculateUNCCDReport(DlgCalculateBase, DlgCalculateUNCCDReportUi):
                 task_name=self.options_tab.task_name.text(),
                 combo_dataset_so1_so2=self.combo_boxes.combo_dataset_so1_so2,
                 combo_dataset_so3=self.combo_boxes.combo_dataset_so3,
+                combo_dataset_error_recode=self.combo_boxes.combo_dataset_error_recode,
                 include_so1_so2=self.groupbox_so1_so2.isChecked(),
                 include_so3=self.groupbox_so3.isChecked(),
+                include_error_recode=self.error_recode_gb.isChecked(),
                 task_notes=self.options_tab.task_notes.toPlainText(),
             )
         )

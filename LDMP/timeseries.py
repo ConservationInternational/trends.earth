@@ -2,7 +2,7 @@
 """
 /***************************************************************************
  LDMP - A QGIS plugin
- This plugin supports monitoring and reporting of land degradation to the UNCCD 
+ This plugin supports monitoring and reporting of land degradation to the UNCCD
  and in support of the SDG Land Degradation Neutrality (LDN) target.
                               -------------------
         begin                : 2017-05-23
@@ -33,7 +33,7 @@ from .settings import AreaWidgetSection
 
 
 Ui_DlgTimeseries, _ = uic.loadUiType(
-    str(Path(__file__).parent / "gui/DlgTimeSeries.ui")
+    str(Path(__file__).parent / "gui/DlgTimeseries.ui")
 )
 
 

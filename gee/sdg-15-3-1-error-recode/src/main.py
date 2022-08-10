@@ -40,7 +40,7 @@ def calculate_error_recode(
     script_name,
     iso,
     band_name,
-    band_sort_field,
+    filters,
     boundary_dataset,
     substr_regexs,
     write_tifs,
@@ -73,11 +73,11 @@ def calculate_error_recode(
     )
 
     try:
-        input_band = util.get_bands_by_name(
+        input_band = util.get_band_by_name(
             input_job,
             band_name,
-            band_sort_field,
-        )[0]
+            filters,
+        )
     except IndexError:
         logger.exception("Failed to load band name %s".format(band_name))
 
@@ -148,7 +148,7 @@ def run(params, logger):
     script_name = params["script_name"]
     iso = params["iso"]
     band_name = params["band_name"]
-    band_sort_field = params["band_sort_field"]
+    filters = params["filters"]
     boundary_dataset = params.get("boundary_dataset", "UN")
     productivity_dataset = params.get(
         "productivity_dataset", ProductivityMode.JRC_5_CLASS_LPD.value
@@ -164,7 +164,7 @@ def run(params, logger):
         script_name,
         iso,
         band_name,
-        band_sort_field,
+        filters,
         boundary_dataset,
         substr_regexs,
         write_tifs,

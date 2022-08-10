@@ -65,7 +65,7 @@
 <context>
     <name>BufferMapTool</name>
     <message>
-        <location filename="../maptools.py" line="390"/>
+        <location filename="../maptools.py" line="391"/>
         <source>add feature</source>
         <translation>adicionar funcionalidade</translation>
     </message>
@@ -245,22 +245,22 @@
         <translation>NDVI x 10000</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="572"/>
+        <location filename="../jobs/mvc.py" line="579"/>
         <source>Dataset metadata</source>
         <translation>Metadados da base de dados</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="579"/>
+        <location filename="../jobs/mvc.py" line="586"/>
         <source>{} metadata</source>
         <translation>Metadados {}</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="594"/>
+        <location filename="../jobs/mvc.py" line="601"/>
         <source>Add vector layer to map</source>
         <translation>Adicionar camada de vetor ao mapa</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="598"/>
+        <location filename="../jobs/mvc.py" line="605"/>
         <source>Add raster layers to map</source>
         <translation>Adicionar camadas raster ao mapa</translation>
     </message>
@@ -3422,7 +3422,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgSelectDataset</name>
     <message>
-        <location filename="../select_dataset.py" line="67"/>
+        <location filename="../select_dataset.py" line="70"/>
         <source>Current region: {region}</source>
         <translation>Região atual: {region}</translation>
     </message>
@@ -4145,7 +4145,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>PolygonMapTool</name>
     <message>
-        <location filename="../maptools.py" line="205"/>
+        <location filename="../maptools.py" line="206"/>
         <source>add feature</source>
         <translation>adicionar funcionalidade</translation>
     </message>
@@ -6687,12 +6687,12 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_manager</name>
     <message>
-        <location filename="../jobs/manager.py" line="684"/>
+        <location filename="../jobs/manager.py" line="689"/>
         <source>Imported dataset</source>
         <translation>Conjunto de dados importados</translation>
     </message>
     <message>
-        <location filename="../jobs/manager.py" line="707"/>
+        <location filename="../jobs/manager.py" line="712"/>
         <source>False positive/negative</source>
         <translation>Falso positivo/negativo</translation>
     </message>

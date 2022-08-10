@@ -48,7 +48,7 @@ def run_stats(
     try:
         band_datas = []
         for band in bands:
-            band_data = util.get_bands_by_name_v2(
+            band_data = util.get_band_by_name(
                 input_job, band["name"], band.get("filters", None)
             )
             band_datas.append({"name": band["name"], "index": band_data.band_number})

@@ -1752,7 +1752,3 @@ class LccInfoUtils:
 
         # Re-write the matrix but with the original meanings restored
         _ = get_trans_matrix(True, True)
-
-
-
-

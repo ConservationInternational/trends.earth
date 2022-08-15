@@ -22,8 +22,8 @@ from .logger import log
 
 
 class tr_auth(QtCore.QObject):
-    def tr(self, txt):
-        return QtCore.QCoreApplication.translate(self.__class__.__name__, txt)
+    def tr(message):
+        return QtCore.QCoreApplication.translate("tr_auth", message)
 
 
 @dataclasses.dataclass()

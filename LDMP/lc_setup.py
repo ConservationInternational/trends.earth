@@ -172,8 +172,9 @@ def _tr_cover_class(translations):
 
 # Need to reset the land cover legends if the locale has changed (in order to ensure
 # class names with the proper translation are used)
-CURRENT_LOCALE = str(QtCore.QLocale(QgsApplication.locale()))
+CURRENT_LOCALE = QtCore.QLocale(QgsApplication.locale()).name()
 PRIOR_LOCALE = conf.settings_manager.get_value(conf.Setting.PRIOR_LOCALE)
+log(f'CURRENT_LOCALE is {CURRENT_LOCALE}, PRIOR_LOCALE is {PRIOR_LOCALE}')
 if CURRENT_LOCALE != PRIOR_LOCALE:
     conf.settings_manager.write_value(conf.Setting.PRIOR_LOCALE, CURRENT_LOCALE)
 
@@ -421,11 +422,13 @@ def read_lc_matrix_file(f):
 
 def get_lc_nesting(get_default=False, save_settings=True):
     if not get_default and (CURRENT_LOCALE == PRIOR_LOCALE):
+        log('Loading land cover nesting from settings')
         nesting = lc_nesting_from_settings()
     else:
         nesting = None
 
     if nesting is None:
+        log('Land cover nesting is None')
         nesting = read_lc_nesting_file(
             os.path.join(
                 os.path.dirname(os.path.realpath(__file__)), 'data',
@@ -491,11 +494,13 @@ def esa_lc_nesting_from_settings() -> LCLegendNesting:
 
 def get_trans_matrix(get_default=False, save_settings=True):
     if not get_default and (CURRENT_LOCALE == PRIOR_LOCALE):
+        log('Loading land cover degradation matrix from settings')
         matrix = trans_matrix_from_settings()
     else:
         matrix = None
 
     if matrix is None:
+        log('Land cover degradation matrix is None')
         matrix = read_lc_matrix_file(
             os.path.join(
                 os.path.dirname(os.path.realpath(__file__)), 'data',

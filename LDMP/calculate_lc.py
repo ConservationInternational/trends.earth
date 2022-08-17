@@ -54,11 +54,11 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
 
         if self.script.run_mode == AlgorithmRunMode.LOCAL:
             self.lc_setup_widget = lc_setup.LandCoverSetupLocalExecutionWidget(
-                self
+                parent=self
             )
         elif self.script.run_mode == AlgorithmRunMode.REMOTE:
             self.lc_setup_widget = lc_setup.LandCoverSetupRemoteExecutionWidget(
-                self,
+                parent=self,
                 lc_nesting_type=lc_setup.LCNestingType.ESA
             )
 

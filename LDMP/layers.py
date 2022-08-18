@@ -39,6 +39,8 @@ from qgis.PyQt.QtCore import QCoreApplication
 from qgis.PyQt.QtGui import QColor
 from qgis.utils import iface
 
+from te_schemas.land_cover import LCLegendNesting
+
 from .logger import log
 
 
@@ -419,8 +421,7 @@ def _get_cutoff(
             )
 
 
-def create_categorical_color_ramp(style_config: typing.Dict):
-    ramp_items = style_config["ramp"]["items"]
+def create_categorical_color_ramp(ramp_items):
     result = []
 
     for item in ramp_items:
@@ -433,9 +434,12 @@ def create_categorical_color_ramp(style_config: typing.Dict):
     return result
 
 
-def _create_categorical_with_dynamic_ramp_color_ramp(
-    style_config: typing.Dict, band_info
-):
+def create_categorical_color_ramp_from_legend(nesting):
+    nesting = LCLegendNesting.Schema().loads(nesting)
+    return create_categorical_color_ramp(nesting.child.get_ramp_items())
+
+
+def _create_categorical_with_dynamic_ramp_color_ramp(style_config, band_info):
     ramp_items = style_config["ramp"]["items"]
     result = []
 
@@ -559,7 +563,10 @@ def _create_color_ramp(
     ramp_type = style_config["ramp"]["type"]
 
     if ramp_type == "categorical":
-        result = create_categorical_color_ramp(style_config)
+        result = create_categorical_color_ramp(style_config["ramp"]["items"])
+    elif ramp_type == "categorical from legend":
+        result = create_categorical_color_ramp_from_legend(
+            band_info['metadata']['nesting'])
     elif ramp_type == "categorical with dynamic ramp":
         result = _create_categorical_with_dynamic_ramp_color_ramp(
             style_config, band_info

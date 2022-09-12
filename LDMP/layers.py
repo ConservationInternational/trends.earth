@@ -38,7 +38,6 @@ from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtCore import QCoreApplication
 from qgis.PyQt.QtGui import QColor
 from qgis.utils import iface
-
 from te_schemas.land_cover import LCLegendNesting
 
 from .logger import log
@@ -114,6 +113,7 @@ style_text_dict = {
     "lc_deg_deg": tr_layers.tr("Degradation"),
     "lc_deg_stable": tr_layers.tr("Stable"),
     "lc_deg_imp": tr_layers.tr("Improvement"),
+    "lc_title": tr_layers.tr("Land cover ({year})"),
     "lc_7class_title": tr_layers.tr("Land cover ({year}, 7 class)"),
     "lc_esa_title": tr_layers.tr("Land cover ({year}, ESA CCI classes)"),
     "lc_7class_mode_title": tr_layers.tr(

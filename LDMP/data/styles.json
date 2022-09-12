@@ -155,6 +155,23 @@
   "Land cover (7 class)": {
     "title": "lc_7class_title",
     "ramp": {
+      "type": "categorical",
+      "shader": "exact",
+      "items": [
+        { "value": -32768, "color": "#000000", "label": "lc_class_nodata" },
+        { "value": 1, "color": "#787F1B", "label": "lc_class_forest" },
+        { "value": 2, "color": "#FFAC42", "label": "lc_class_grassland" },
+        { "value": 3, "color": "#FFFB6E", "label": "lc_class_cropland" },
+        { "value": 4, "color": "#00DB84", "label": "lc_class_wetland" },
+        { "value": 5, "color": "#E60017", "label": "lc_class_artificial" },
+        { "value": 6, "color": "#B48515", "label": "lc_class_bare" },
+        { "value": 7, "color": "#0053C4", "label": "lc_class_water" }
+      ]
+    }
+  },
+  "Land cover": {
+    "title": "lc_title",
+    "ramp": {
       "type": "categorical from legend",
       "shader": "exact"
     }

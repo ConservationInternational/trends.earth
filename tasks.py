@@ -277,7 +277,7 @@ def set_version(c, v=None, ta=False, ts=False, tag=False, gee=False):
 
     for module in c.plugin.ext_libs.local_modules:
         module_path = Path(module['path']).parent
-        print(f"Also setting tag for {module['name']}")
+        print(f"Also setting version for {module['name']}")
         if tag:
             subprocess.check_call(['invoke', 'set-version', '-v', v, '-t'], cwd=module_path)
         else:
@@ -573,8 +573,9 @@ def tecli_info(c, script=None):
         print('Script "{}" not found.'.format(script))
 
 
-@task(help={'script': 'Script name'})
-def tecli_logs(c, script):
+@task(help={'script': 'Script name',
+            'since': 'Print logs since (number of hours = default 1)'})
+def tecli_logs(c, script, since=1):
     if not check_tecli_python_version():
         return
     dirs = next(os.walk(c.gee.script_dir))[1]
@@ -589,7 +590,7 @@ def tecli_logs(c, script):
         ) and script == dir:
             print('Checking logs for {}...'.format(dir))
             subprocess.check_call(
-                ['python', os.path.abspath(c.gee.tecli), 'logs'],
+                ['python', os.path.abspath(c.gee.tecli), 'logs', f'--since={since}',],
                 cwd=script_dir
             )
             n += 1
@@ -644,6 +645,7 @@ def _safe_remove_folder(rootdir):
         files = [path for path in Path(rootdir).iterdir()]
         for file in files:
             file.unlink()
+        shutil.rmtree(rootdir)
 
 
 @task(
@@ -746,15 +748,15 @@ def plugin_install(
     dst_this_plugin = os.path.abspath(dst_this_plugin)
 
     if not hasattr(os, 'symlink') or not link:
+        if clean and os.path.exists(dst_this_plugin):
+            print(f"Removing folder {dst_this_plugin}")
+            _safe_remove_folder(dst_this_plugin)
+
         print(
             "Copying plugin to QGIS version {} plugin folder at {}".format(
                 version, dst_this_plugin
             )
         )
-
-        if clean and os.path.exists(dst_this_plugin):
-            _safe_remove_folder(dst_this_plugin)
-
         for root, dirs, files in os.walk(src):
             relpath = os.path.relpath(root)
 

@@ -120,7 +120,7 @@ class SettingsManager:
         Setting.REPORT_DISCLAIMER: default_report_disclaimer(),
         Setting.REPORT_LOG_WARNING: False,
         Setting.LC_CLASSES: '',
-        Setting.LC_MAX_CLASSES: 32,
+        Setting.LC_MAX_CLASSES: 38,
         Setting.LC_LAST_DIR: '',
         Setting.LC_IPCC_NESTING: '',
         Setting.LC_ESA_NESTING: ''

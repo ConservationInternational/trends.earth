@@ -50,7 +50,9 @@ class AreaWidget(QtWidgets.QWidget):
         self.line_edit = QtWidgets.QLineEdit(self)
         self.line_edit.setReadOnly(True)
         self.line_edit.setText(self.tr("0.00 km²"))
-        self.line_edit.setSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.Preferred)
+        self.line_edit.setSizePolicy(
+            QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.Preferred
+        )
         self.layout.addWidget(self.line_edit)
 
     def set_area(self, area):
@@ -76,7 +78,9 @@ class BufferWidget(QtWidgets.QWidget):
         self.spin_radius.setSingleStep(1)
         self.spin_radius.setValue(0)
         self.spin_radius.setClearValue(0)
-        self.spin_radius.setSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.Preferred)
+        self.spin_radius.setSizePolicy(
+            QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.Preferred
+        )
         self.layout.addWidget(self.spin_radius)
 
         self.combo_mode = QtWidgets.QComboBox()
@@ -113,14 +117,17 @@ class BufferWidget(QtWidgets.QWidget):
         if self.combo_mode.currentData() == BufferMode.RADIUS:
             return self.spin_radius.value()
         else:
-            return math.sqrt(self.spin_radius.value()/math.pi)
+            return math.sqrt(self.spin_radius.value() / math.pi)
 
     def eventFilter(self, obj: QtCore.QObject, event: QtCore.QEvent):
         if obj == self.spin_radius and event.type() == QtCore.QEvent.KeyPress:
             if event.key() == QtCore.Qt.Key_Escape:
                 self.radius_editing_canceled.emit()
                 return True
-            if event.key() == QtCore.Qt.Key_Enter or event.key() == QtCore.Qt.Key_Return:
+            if (
+                event.key() == QtCore.Qt.Key_Enter
+                or event.key() == QtCore.Qt.Key_Return
+            ):
                 self.radius_editing_finished.emit(self.radius())
                 return True
         return False
@@ -129,12 +136,14 @@ class BufferWidget(QtWidgets.QWidget):
         if self.combo_mode.currentData() == BufferMode.RADIUS:
             self.radius_changed.emit(value)
         else:
-            self.radius_changed.emit(math.sqrt(value/math.pi))
+            self.radius_changed.emit(math.sqrt(value / math.pi))
 
 
 class PolygonMapTool(QgsMapToolDigitizeFeature):
     def __init__(self, canvas: QgsMapCanvas):
-        super().__init__(canvas, iface.cadDockWidget(), QgsMapToolCapture.CapturePolygon)
+        super().__init__(
+            canvas, iface.cadDockWidget(), QgsMapToolCapture.CapturePolygon
+        )
 
         self.canvas = canvas
         self.widget = None
@@ -147,8 +156,8 @@ class PolygonMapTool(QgsMapToolDigitizeFeature):
             return
         self.delete_widget()
 
-        #self.widget = AreaWidget()
-        #iface.addUserInputWidget(self.widget)
+        # self.widget = AreaWidget()
+        # iface.addUserInputWidget(self.widget)
 
     def delete_widget(self):
         if self.widget:
@@ -206,8 +215,10 @@ class PolygonMapTool(QgsMapToolDigitizeFeature):
         layer.beginEditCommand(self.tr("add feature"))
         g = f.geometry()
         fields = layer.fields()
-        attrs = {fields.lookupField('source'): 'manual digitizing'}
-        f = QgsVectorLayerUtils.createFeature(layer, g, attrs, layer.createExpressionContext())
+        attrs = {fields.lookupField("source"): "manual digitizing"}
+        f = QgsVectorLayerUtils.createFeature(
+            layer, g, attrs, layer.createExpressionContext()
+        )
         if iface.openFeatureForm(layer, f):
             layer.addFeature(f)
 
@@ -289,7 +300,9 @@ class BufferMapTool(QgsMapToolAdvancedDigitizing):
 
     def update_rubberband(self, radius):
         layer = self.currentVectorLayer()
-        f = QgsUnitTypes.fromUnitToUnitFactor(QgsUnitTypes.DistanceKilometers, layer.crs().mapUnits())
+        f = QgsUnitTypes.fromUnitToUnitFactor(
+            QgsUnitTypes.DistanceKilometers, layer.crs().mapUnits()
+        )
         if self.active:
             self.radius = radius * f
             if self.rubberband:
@@ -307,7 +320,9 @@ class BufferMapTool(QgsMapToolAdvancedDigitizing):
         if self.active:
             p = e.mapPoint()
             layer = self.currentVectorLayer()
-            f = QgsUnitTypes.fromUnitToUnitFactor(layer.crs().mapUnits(), QgsUnitTypes.DistanceKilometers)
+            f = QgsUnitTypes.fromUnitToUnitFactor(
+                layer.crs().mapUnits(), QgsUnitTypes.DistanceKilometers
+            )
             radius = self.distance(self.start_point, p) * f
 
             if self.widget is not None:
@@ -391,13 +406,17 @@ class BufferMapTool(QgsMapToolAdvancedDigitizing):
         layer.beginEditCommand(self.tr("add feature"))
         g = None
         if convert:
-            f = QgsUnitTypes.fromUnitToUnitFactor(QgsUnitTypes.DistanceKilometers, layer.crs().mapUnits())
+            f = QgsUnitTypes.fromUnitToUnitFactor(
+                QgsUnitTypes.DistanceKilometers, layer.crs().mapUnits()
+            )
             g = QgsGeometry.fromPointXY(self.start_point).buffer(self.radius * f, 10)
         else:
             g = QgsGeometry.fromPointXY(self.start_point).buffer(self.radius, 10)
         fields = layer.fields()
-        attrs = {fields.lookupField('source'): 'buffer tool'}
-        f = QgsVectorLayerUtils.createFeature(layer, g, attrs, layer.createExpressionContext())
+        attrs = {fields.lookupField("source"): "buffer tool"}
+        f = QgsVectorLayerUtils.createFeature(
+            layer, g, attrs, layer.createExpressionContext()
+        )
         if iface.openFeatureForm(layer, f):
             layer.addFeature(f)
 
@@ -413,4 +432,7 @@ class BufferMapTool(QgsMapToolAdvancedDigitizing):
         layer.triggerRepaint()
 
     def distance(self, p1, p2):
-        return math.sqrt((p1.x() - p2.x()) * (p1.x() - p2.x()) + (p1.y() - p2.y()) * (p1.y() - p2.y()))
+        return math.sqrt(
+            (p1.x() - p2.x()) * (p1.x() - p2.x())
+            + (p1.y() - p2.y()) * (p1.y() - p2.y())
+        )

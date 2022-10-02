@@ -48,13 +48,15 @@ from .conf import (
 )
 from .jobs.manager import job_manager
 from .lc_setup import (
-    get_lc_nesting,
+    get_default_esa_nesting,
     LCClassInfo,
     LccInfoUtils
 )
 from te_schemas.land_cover import LCClass
 
 
+Ui_DlgLandCoverRestore, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/DlgLandCoverRestore.ui"))
 Ui_DlgSettings, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgSettings.ui"))
 Ui_DlgSettingsEditForgotPassword, _ = uic.loadUiType(
@@ -72,11 +74,9 @@ Ui_WidgetSettingsAdvanced, _ = uic.loadUiType(
 Ui_WidgetSettingsReport, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/WidgetSettingsReport.ui"))
 Ui_WidgetLandCoverCustomClassesManager, _ = uic.loadUiType(
-    str(Path(__file__).parent / "gui/WidgetLCClassManage.ui")
-)
+    str(Path(__file__).parent / "gui/WidgetLCClassManage.ui"))
 Ui_WidgetLandCoverCustomClassEditor, _ = uic.loadUiType(
-    str(Path(__file__).parent / "gui/WidgetLCClassEditor.ui")
-)
+    str(Path(__file__).parent / "gui/WidgetLCClassEditor.ui"))
 
 
 from .logger import log
@@ -1458,6 +1458,12 @@ class WidgetSettingsReport(QtWidgets.QWidget, Ui_WidgetSettingsReport):
     def sizeHint(self) -> QtCore.QSize:
         return QtCore.QSize(450, 350)
 
+class DlgLandCoverRestore(QtWidgets.QDialog, Ui_DlgLandCoverRestore):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setupUi(self)
+        self.buttonBox.rejected.connect(self.close)
+
 
 class LandCoverCustomClassesManager(
     qgis.gui.QgsPanelWidget,
@@ -1473,6 +1479,9 @@ class LandCoverCustomClassesManager(
         self._last_clr = None
         self._init_load = False
         self.max_classes = settings_manager.get_value(Setting.LC_MAX_CLASSES)
+        self.dlg_land_cover_restore = DlgLandCoverRestore()
+        self.dlg_land_cover_restore.pb_restore_unccd.clicked.connect(self.on_restore_unccd)
+        self.dlg_land_cover_restore.pb_restore_esa.clicked.connect(self.on_restore_esa)
 
         # UI initialization
         self.model = QtGui.QStandardItemModel(self)
@@ -1512,7 +1521,21 @@ class LandCoverCustomClassesManager(
             'mActionReload.svg'
         )
         self.btn_restore.setIcon(restore_icon)
-        self.btn_restore.clicked.connect(self.on_restore_class_infos)
+        self.btn_restore.clicked.connect(self.dlg_land_cover_restore.exec_)
+
+    def on_restore_esa(self):
+        # Slot raised to restore ESA land cover classes.
+        self.dlg_land_cover_restore.close()
+        self.clear_class_infos()
+        LccInfoUtils.set_default_esa_classes(True)
+        self.load_settings()
+
+    def on_restore_unccd(self):
+        # Slot raised to restore UNCCD land cover classes.
+        self.dlg_land_cover_restore.close()
+        self.clear_class_infos()
+        LccInfoUtils.set_default_unccd_classes(True)
+        self.load_settings()
 
     def append_msg(self, msg: str, warning=True):
         # Add warning or info message if a message bar has been defined.
@@ -1572,22 +1595,6 @@ class LandCoverCustomClassesManager(
             return False
 
         return True
-
-    def on_restore_class_infos(self):
-        # Slot raised to restore UNCCD land cover classes.
-        ret = QtWidgets.QMessageBox.warning(
-            self,
-            self.tr('Remove Classes'),
-            self.tr('This action will permanently remove the land cover '
-                    'classes in the table and restore the default UNCCD land '
-                    'cover classes.\nDo you want to proceed?'),
-            QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
-            QtWidgets.QMessageBox.No
-        )
-        if ret == QtWidgets.QMessageBox.Yes:
-            self.clear_class_infos()
-            LccInfoUtils.set_default_unccd_classes(True)
-            self.load_settings()
 
     def save_settings(self) -> bool:
         """
@@ -2006,7 +2013,7 @@ class LandCoverCustomClassEditor(
         if self.default_color is None:
             self.default_color = QtGui.QColor('#8FE142')
 
-        self._default_lc_nesting = get_lc_nesting(True, False)
+        self._default_lc_nesting = get_default_esa_nesting()
 
         self.codes = codes
         self._code_max = 255

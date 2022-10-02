@@ -11,12 +11,12 @@
  ***************************************************************************/
 """
 # pylint: disable=import-error
-
 import typing
-from pathlib import Path
 from dataclasses import dataclass
+from pathlib import Path
 
 import qgis.gui
+import te_algorithms.gdal.land_deg.config as ld_config
 from qgis.core import QgsGeometry
 from qgis.PyQt import QtCore
 from qgis.PyQt import QtWidgets
@@ -25,7 +25,6 @@ from te_schemas.algorithms import ExecutionScript
 from te_schemas.land_cover import LCLegendNesting
 from te_schemas.land_cover import LCTransitionDefinitionDeg
 from te_schemas.productivity import ProductivityMode
-import te_algorithms.gdal.land_deg.config as ld_config
 
 from . import conf
 from . import lc_setup
@@ -136,8 +135,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         )
 
         self.lc_setup_widget = lc_setup.LandCoverSetupRemoteExecutionWidget(
-            self, hide_min_year=True, hide_max_year=True,
-            lc_nesting_type=lc_setup.LCNestingType.ESA
+            self, hide_min_year=True, hide_max_year=True
         )
 
         self.year_initial_baseline.dateChanged.connect(
@@ -187,7 +185,8 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.year_initial_progress_soc.setDate(QtCore.QDate(2015, 1, 1))
         self.year_final_progress_soc.setDate(QtCore.QDate(2019, 1, 1))
 
-        self.lc_setup_widget.aggregation_dialog.reset_nesting_table()
+        lc_setup.LccInfoUtils.set_default_unccd_classes(force_update=True)
+        self.lc_setup_widget.aggregation_dialog.reset_nesting_table(get_default=True)
         self.lc_define_deg_widget.set_trans_matrix(get_default=True)
 
     def set_preset_unccd_default_fao_wocat(self):
@@ -208,7 +207,8 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.year_initial_progress_soc.setDate(QtCore.QDate(2015, 1, 1))
         self.year_final_progress_soc.setDate(QtCore.QDate(2019, 1, 1))
 
-        self.lc_setup_widget.aggregation_dialog.reset_nesting_table()
+        lc_setup.LccInfoUtils.set_default_unccd_classes(force_update=True)
+        self.lc_setup_widget.aggregation_dialog.reset_nesting_table(get_default=True)
         self.lc_define_deg_widget.set_trans_matrix(get_default=True)
 
     def set_preset_unccd_default_te(self):
@@ -225,7 +225,8 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.year_initial_progress_soc.setDate(QtCore.QDate(2015, 1, 1))
         self.year_final_progress_soc.setDate(QtCore.QDate(2019, 1, 1))
 
-        self.lc_setup_widget.aggregation_dialog.reset_nesting_table()
+        lc_setup.LccInfoUtils.set_default_unccd_classes(force_update=True)
+        self.lc_setup_widget.aggregation_dialog.reset_nesting_table(get_default=True)
         self.lc_define_deg_widget.set_trans_matrix(get_default=True)
 
     def update_start_dates(self, widgets):
@@ -412,6 +413,9 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         if not ret:
             return
 
+        trans_matrix = self.lc_define_deg_widget.get_trans_matrix_from_widget()
+        lc_setup.trans_matrix_to_settings(trans_matrix)
+
         periods = {
             'baseline': self._get_period_years(self.widgets_baseline)
         }
@@ -443,7 +447,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                         None, self.tr("Warning"),
                         self.tr(
                             "Initial and final year are less 10 years "
-                            "apart in {period} - results will be more "
+                            f"apart in {period} - results will be more "
                             "reliable if more data (years) are included "
                             "in the analysis."
                         )
@@ -508,13 +512,17 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                 widgets.year_initial_lc.date().year(),
                 'year_final':
                 widgets.year_final_lc.date().year(),
-                'legend_nesting':
+                'legend_nesting_esa_to_custom':
                 LCLegendNesting.Schema().dump(
-                    self.lc_setup_widget.aggregation_dialog.nesting
+                    lc_setup.esa_lc_nesting_from_settings()
+                ),
+                'legend_nesting_custom_to_ipcc':
+                LCLegendNesting.Schema().dump(
+                    lc_setup.ipcc_lc_nesting_from_settings()
                 ),
                 'trans_matrix':
                 LCTransitionDefinitionDeg.Schema().dump(
-                    self.lc_define_deg_widget.trans_matrix
+                    trans_matrix
                 ),
             }
             payload['soil_organic_carbon'] = {
@@ -524,13 +532,17 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                 widgets.year_final_soc.date().year(),
                 'fl':
                 .80,
-                'legend_nesting':
+                'legend_nesting_esa_to_custom':
                 LCLegendNesting.Schema().dump(
-                    self.lc_setup_widget.aggregation_dialog.nesting
-                ),  # TODO: Use SOC matrix for the above once defined
+                    lc_setup.esa_lc_nesting_from_settings()
+                ),
+                'legend_nesting_custom_to_ipcc':
+                LCLegendNesting.Schema().dump(
+                    lc_setup.ipcc_lc_nesting_from_settings()
+                ),
                 'trans_matrix':
                 LCTransitionDefinitionDeg.Schema().dump(
-                    self.lc_define_deg_widget.trans_matrix
+                    trans_matrix
                 ),  # TODO: Use SOC matrix for the above once defined
             }
 

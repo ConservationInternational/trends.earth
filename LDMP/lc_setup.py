@@ -12,7 +12,6 @@
  ***************************************************************************/
 """
 
-from enum import Enum
 import json
 import os
 import re
@@ -20,7 +19,6 @@ import typing
 from copy import deepcopy
 from pathlib import Path
 
-from dataclasses import field
 from marshmallow_dataclass import dataclass
 from marshmallow.exceptions import ValidationError
 from qgis.PyQt import QtCore
@@ -58,11 +56,6 @@ WidgetLandCoverSetupLocalExecutionUi, _ = uic.loadUiType(
 WidgetLandCoverSetupRemoteExecutionUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/land_cover_setup_widget.ui")
 )
-
-class LCNestingType(Enum):
-    # Type of land cover nesting an algorithm should use.
-    IPCC = 1
-    ESA = 2
 
 
 class tr_lc_setup(object):
@@ -170,13 +163,6 @@ def _tr_cover_class(translations):
     translations.get()
     nesting.translate(tr_dict)
 
-# Need to reset the land cover legends if the locale has changed (in order to ensure
-# class names with the proper translation are used)
-CURRENT_LOCALE = QtCore.QLocale(QgsApplication.locale()).name()
-PRIOR_LOCALE = conf.settings_manager.get_value(conf.Setting.PRIOR_LOCALE)
-log(f'CURRENT_LOCALE is {CURRENT_LOCALE}, PRIOR_LOCALE is {PRIOR_LOCALE}')
-if CURRENT_LOCALE != PRIOR_LOCALE:
-    conf.settings_manager.write_value(conf.Setting.PRIOR_LOCALE, CURRENT_LOCALE)
 
 def json_serial(obj):
     """JSON serializer for objects not serializable by default json code"""
@@ -420,42 +406,14 @@ def read_lc_matrix_file(f):
         return matrix
 
 
-def get_lc_nesting(get_default=False, save_settings=True):
-    if not get_default and (CURRENT_LOCALE == PRIOR_LOCALE):
-        log('Loading land cover nesting from settings')
-        nesting = lc_nesting_from_settings()
-    else:
-        nesting = None
-
-    if nesting is None:
-        log('Land cover nesting is None')
-        nesting = read_lc_nesting_file(
-            os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), 'data',
-                'land_cover_nesting_unccd_esa.json'
-            )
+def get_default_esa_nesting():
+    log('Land cover nesting is None')
+    return read_lc_nesting_file(
+        os.path.join(
+            os.path.dirname(os.path.realpath(__file__)), 'data',
+            'land_cover_nesting_unccd_esa.json'
         )
-
-        if nesting and save_settings:
-            lc_nesting_to_settings(nesting)
-    else:
-        nesting = LCLegendNesting.Schema().loads(nesting)
-
-    return nesting
-
-
-def lc_nesting_to_settings(nesting):
-    QtCore.QSettings().setValue(
-        "LDMP/land_cover_legend_nesting",
-        LCLegendNesting.Schema().dumps(nesting)
     )
-
-
-def lc_nesting_from_settings():
-    nesting = QtCore.QSettings().value(
-        "LDMP/land_cover_legend_nesting", None
-    )
-    return nesting
 
 
 def ipcc_lc_nesting_to_settings(nesting: LCLegendNesting):
@@ -492,8 +450,10 @@ def esa_lc_nesting_from_settings() -> LCLegendNesting:
     return LCLegendNesting.Schema().loads(nesting_str)
 
 
-def get_trans_matrix(get_default=False, save_settings=True):
-    if not get_default and (CURRENT_LOCALE == PRIOR_LOCALE):
+def get_trans_matrix(get_default=False, save_settings=True, type='UNCCD'):
+    assert type in ('ESA', 'UNCCD')
+
+    if not get_default:
         log('Loading land cover degradation matrix from settings')
         matrix = trans_matrix_from_settings()
     else:
@@ -504,9 +464,20 @@ def get_trans_matrix(get_default=False, save_settings=True):
         matrix = read_lc_matrix_file(
             os.path.join(
                 os.path.dirname(os.path.realpath(__file__)), 'data',
-                'land_cover_transition_matrix_unccd.json'
+                f'land_cover_transition_matrix_UNCCD.json'
             )
         )
+        nesting = ipcc_lc_nesting_from_settings()
+        if type == 'ESA':
+            # If ESA type is selected, setup a default transition matrix for the ESA
+            # classes by defining each transition based on what the default transition
+            # meaning is for the parent class when using the default UNCCD legend
+            definitions = []
+            for c_initial in matrix.legend.key:
+                for c_final in matrix.legend.key:
+                    nesting.parent_for_child(c_initial)
+                    nesting.parent_for_child(c_final)
+                    definitions.append(matrix)
 
         if matrix and save_settings:
             trans_matrix_to_settings(matrix)
@@ -533,12 +504,8 @@ def trans_matrix_to_settings(matrix: LCTransitionDefinitionDeg):
 class DlgCalculateLCSetAggregation(
     QtWidgets.QDialog, DlgCalculateLCSetAggregationUi
 ):
-    def __init__(self, nesting, parent=None):
+    def __init__(self, parent=None):
         super().__init__(parent)
-
-        self.nesting = nesting
-        self.default_nesting = deepcopy(nesting)
-        self.child_legend = self.nesting.child
 
         self.setupUi(self)
 
@@ -549,7 +516,8 @@ class DlgCalculateLCSetAggregation(
 
         # Setup the class table so that the table is defined when a user first
         # loads the dialog
-        self.setup_nesting_table(self.nesting)
+        self.default_nesting = esa_lc_nesting_from_settings()
+        self.setup_nesting_table(self.default_nesting)
 
     def btn_close_pressed(self):
         self.update_nesting_from_widget()
@@ -581,7 +549,7 @@ class DlgCalculateLCSetAggregation(
 
         if nesting:
             log(f'Loaded nesting from {f}')
-            self.nesting = nesting
+            esa_lc_nesting_to_settings(nesting)
             self.setup_nesting_table(nesting)
 
     def btn_save_pressed(self):
@@ -610,9 +578,10 @@ class DlgCalculateLCSetAggregation(
 
                 return
 
+            nesting = esa_lc_nesting_from_settings()
             with open(f, 'w') as outfile:
                 json.dump(
-                    LCLegendNesting.Schema().dump(self.nesting),
+                    LCLegendNesting.Schema().dump(nesting),
                     outfile,
                     sort_keys=True,
                     indent=4,
@@ -633,8 +602,9 @@ class DlgCalculateLCSetAggregation(
         # custom user data file when this class is instantiated from the
         # DlgDataIOImportLC class.
 
+        child_legend = esa_lc_nesting_from_settings().child
         if nesting_input:
-            valid_child_codes = sorted([c.code for c in self.child_legend.key])
+            valid_child_codes = sorted([c.code for c in child_legend.key])
             child_code_input = sorted(
                 [c.code for c in nesting_input.child.key]
             )
@@ -674,7 +644,7 @@ class DlgCalculateLCSetAggregation(
             # Supplement input child legend with missing classes
             nesting_input.child.key.extend(
                 [
-                    c for c in self.child_legend.key
+                    c for c in child_legend.key
                     if c.code in child_codes_missing_from_input
                 ]
             )
@@ -757,20 +727,22 @@ class DlgCalculateLCSetAggregation(
         return True
 
     def update_nesting_from_widget(self):
+        nesting = esa_lc_nesting_from_settings()
         for row in range(0, self.table_model.rowCount()):
             child_code = self.table_model.index(row, 0).data()
-            child_class = self.nesting.child.classByCode(child_code)
+            child_class = nesting.child.classByCode(child_code)
             new_parent_class = self.remap_view.indexWidget(
                 self.proxy_model.index(row, 2)
             ).get_current_class()
 
-            self.nesting.update_parent(child_class, new_parent_class)
+            nesting.update_parent(child_class, new_parent_class)
+        esa_lc_nesting_to_settings(nesting)
+        self.default_nesting = deepcopy(nesting)
 
-    def reset_nesting_table(self):
-        #self.nesting = get_lc_nesting(get_default=True)
-        self.nesting = deepcopy(self.default_nesting)
-        self.child_legend = self.nesting.child
-        self.setup_nesting_table()
+    def reset_nesting_table(self, get_default=False):
+        if get_default:
+            self.default_nesting = esa_lc_nesting_from_settings()
+        self.setup_nesting_table(nesting_input=self.default_nesting)
 
 
 class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
@@ -867,7 +839,7 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
     def load_agg(self, values, child_nodata_code=-32768):
         # Set all of the classes to no data by default, and default to nesting
         # under the CCD legend
-        default_nesting = get_lc_nesting(get_default=True)
+        default_nesting = ipcc_lc_nesting_from_settings()
 
         # From the default nesting class instance, setup the actual nesting
         # dictionary so that all the default classes have no values nested
@@ -1011,9 +983,9 @@ class LCDefineDegradationWidget(
         )
         self.btn_transmatrix_savefile.setIcon(save_table_icon)
 
-        self.trans_matrix = get_trans_matrix()
+        trans_matrix = get_trans_matrix()
 
-        self.setup_deg_def_matrix(self.trans_matrix.legend)
+        self.setup_deg_def_matrix(trans_matrix.legend)
 
         self.set_trans_matrix()
 
@@ -1202,6 +1174,7 @@ class LCDefineDegradationWidget(
     def get_trans_matrix_from_widget(self):
         # Extract trans_matrix from the QTableWidget
         transitions = []
+        trans_matrix = get_trans_matrix()
 
         for row in range(0, self.deg_def_matrix.rowCount()):
             for col in range(0, self.deg_def_matrix.columnCount()):
@@ -1224,13 +1197,13 @@ class LCDefineDegradationWidget(
                     )
                 transitions.append(
                     LCTransitionMeaningDeg(
-                        self.trans_matrix.legend.key[row],
-                        self.trans_matrix.legend.key[col], meaning
+                        trans_matrix.legend.key[row],
+                        trans_matrix.legend.key[col], meaning
                     )
                 )
 
         return LCTransitionDefinitionDeg(
-            legend=self.trans_matrix.legend,
+            legend=trans_matrix.legend,
             name="Land cover transition definition matrix",
             definitions=LCTransitionMatrixDeg(
                 name="Degradation matrix", transitions=transitions
@@ -1277,8 +1250,7 @@ class LandCoverSetupRemoteExecutionWidget(
         hide_min_year: typing.Optional[bool] = False,
         hide_max_year: typing.Optional[bool] = False,
         selected_min_year: typing.Optional[int] = 2001,
-        selected_max_year: typing.Optional[int] = 2015,
-        lc_nesting_type = LCNestingType.IPCC
+        selected_max_year: typing.Optional[int] = 2015
     ):
         super().__init__(parent)
         self.setupUi(self)
@@ -1303,13 +1275,8 @@ class LandCoverSetupRemoteExecutionWidget(
             self.open_aggregation_method_dialog
         )
 
-        self.lc_nesting_type = lc_nesting_type
-        if self.lc_nesting_type == LCNestingType.IPCC:
-            nesting = ipcc_lc_nesting_from_settings()
-        elif self.lc_nesting_type == LCNestingType.ESA:
-            nesting = esa_lc_nesting_from_settings()
         self.aggregation_dialog = DlgCalculateLCSetAggregation(
-            nesting=nesting, parent=self
+            parent=self
         )
 
     def open_aggregation_method_dialog(self):
@@ -1338,7 +1305,7 @@ class LccInfoUtils:
 
     @staticmethod
     def save_settings(
-            lcc_infos: typing.List['LCClassInfo'],
+            lcc_infos: typing.List['LCClassInfo'] = [],
             restore_default=True
     ) -> bool:
         """
@@ -1353,7 +1320,8 @@ class LccInfoUtils:
             )
             if restore_default:
                 _ = get_trans_matrix(True)
-                _ = get_lc_nesting(True)
+                esa_lc_nesting_to_settings(get_default_esa_nesting())
+                ipcc_lc_nesting_to_settings(get_default_ipcc_nesting())
 
             return True
 
@@ -1397,7 +1365,6 @@ class LccInfoUtils:
         )
         lcc_infos = []
         status = True
-        nesting = get_lc_nesting(save_settings=False)
 
         try:
             for lcc_info_str in lcc_infos_str:
@@ -1507,9 +1474,9 @@ class LccInfoUtils:
         (due to validation errors) then uses the default one.
         """
         try:
-            nesting = get_lc_nesting(save_settings=False)
+            nesting = esa_lc_nesting_from_settings()
         except ValidationError:
-            nesting = get_lc_nesting(True, save_settings=False)
+            nesting = get_default_esa_nesting()
 
         return nesting
 
@@ -1603,6 +1570,8 @@ class LccInfoUtils:
     ):
         """
         Save IPCC land cover nesting to settings.
+
+        This shows how (possibly custom) classes nest under the IPCC classes.
         """
         if len(ref_lcc_infos) == 0:
             if conf.settings_manager.get_value(conf.Setting.DEBUG):
@@ -1613,7 +1582,7 @@ class LccInfoUtils:
 
             return
 
-        reference_nesting = get_lc_nesting(True, save_settings=False)
+        reference_nesting = get_default_esa_nesting()
 
         parents = []
         children = []
@@ -1628,7 +1597,8 @@ class LccInfoUtils:
                 no_data_children.append(child.code)
                 continue
 
-            parents.append(parent)
+            if parent not in parents:
+                parents.append(parent)
             if parent.code not in nesting_map:
                 nesting_map[parent.code] = []
             nesting_map.get(parent.code).append(child.code)
@@ -1659,6 +1629,9 @@ class LccInfoUtils:
     ):
         """
         Save ESA land cover nesting to settings.
+
+        This shows how (possibly custom) classes nest under the ESA classes.
+        The ESA classes are in turn nested under the IPCC.
         """
         if len(ref_lcc_infos) == 0:
             if conf.settings_manager.get_value(conf.Setting.DEBUG):
@@ -1668,7 +1641,7 @@ class LccInfoUtils:
                 )
             return
 
-        reference_nesting = get_lc_nesting(True, save_settings=False)
+        reference_nesting = get_default_esa_nesting()
         default_nesting = deepcopy(reference_nesting)
 
         # Create key for parent legend
@@ -1742,7 +1715,7 @@ class LccInfoUtils:
         if len(lcc_infos) > 0 and not force_update:
             return
 
-        ref_nesting = get_lc_nesting(True, False)
+        ref_nesting = get_default_esa_nesting()
 
         def_lcc_infos = []
         for lcc in ref_nesting.parent.key:
@@ -1757,3 +1730,47 @@ class LccInfoUtils:
 
         # Re-write the matrix but with the original meanings restored
         _ = get_trans_matrix(True, True)
+
+    @staticmethod
+    def set_default_esa_classes(force_update=False):
+        """
+        Overrides the custom land cover classes in the setting and replaces
+        with the ESA classes, nested under UNCCD. If 'force_update' is False then it will
+        only replace if the corresponding setting is empty otherwise it will
+        always update the land cover classes.
+        """
+        status, lcc_infos = LccInfoUtils.load_settings()
+        if len(lcc_infos) > 0 and not force_update:
+            return
+
+        ref_nesting = get_default_esa_nesting()
+
+        esa_nesting = {}
+        def_lcc_infos = []
+        for lcc in ref_nesting.child.key:
+            lcc_info = LCClassInfo()
+            lcc_info.lcc = lcc
+            lcc_info.parent = ref_nesting.parent_for_child(lcc)
+            def_lcc_infos.append(lcc_info)
+            esa_nesting[lcc.code] = [lcc.code]
+
+        # Nodata code shouldn't be listed in nesting dict
+        esa_nesting[ref_nesting.child.nodata.code] = [
+            ref_nesting.child.nodata.code
+        ]
+
+        # Save to settings
+        if len(def_lcc_infos) > 0:
+            LccInfoUtils.save_settings(def_lcc_infos)
+
+        # Re-write the esa nesting matrix
+        esa_lc_nesting_to_settings(
+            LCLegendNesting(
+                parent = ref_nesting.child,
+                child = ref_nesting.child,
+                nesting = esa_nesting
+            )
+        )
+
+        # Re-write the matrix but with the original meanings restored
+        _ = get_trans_matrix(True, True, type='ESA')

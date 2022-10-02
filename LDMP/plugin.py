@@ -22,6 +22,7 @@ from qgis.core import QgsMessageLog
 from qgis.gui import QgsLayoutDesignerInterface
 from qgis.PyQt.QtCore import QCoreApplication
 from qgis.PyQt.QtCore import Qt
+from qgis.PyQt.QtCore import QLocale
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction
 from qgis.PyQt.QtWidgets import QApplication
@@ -35,6 +36,7 @@ from . import main_widget
 from .charts import calculate_error_recode_stats
 from .jobs.manager import job_manager
 from .lc_setup import LccInfoUtils
+from .logger import log
 from .maptools import BufferMapTool
 from .maptools import PolygonMapTool
 from .processing_provider.provider import Provider
@@ -44,6 +46,15 @@ from .settings import DlgSettings
 from .timeseries import show_time_series
 from .utils import FileUtils
 from .visualization import download_base_map
+
+
+# Need to reset the land cover legends if the locale has changed (in order to ensure
+# class names with the proper translation are used)
+CURRENT_LOCALE = QLocale(QgsApplication.locale()).name()
+PRIOR_LOCALE = conf.settings_manager.get_value(conf.Setting.PRIOR_LOCALE)
+log(f'CURRENT_LOCALE is {CURRENT_LOCALE}, PRIOR_LOCALE is {PRIOR_LOCALE}')
+if CURRENT_LOCALE != PRIOR_LOCALE:
+    conf.settings_manager.write_value(conf.Setting.PRIOR_LOCALE, CURRENT_LOCALE)
 
 
 class tr_plugin(object):
@@ -199,8 +210,12 @@ class LDMPPlugin(object):
         # Initialize reports module
         self.init_reports()
 
-        # Check if custom land cover classes exist, if not use default UNCCD
-        LccInfoUtils.set_default_unccd_classes(False)
+        # Check if custom land cover classes exist, if not use default to UNCCD. Need to
+        # re-read defaults if locale has changed in order to handle translation
+        if (CURRENT_LOCALE != PRIOR_LOCALE):
+            LccInfoUtils.set_default_unccd_classes(force_update=True)
+        else:
+            LccInfoUtils.set_default_unccd_classes(force_update=False)
 
         """Create Main manu icon and plugins menu entries."""
         self.start_action = self.add_action(

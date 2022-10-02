@@ -47,3 +47,4 @@ trends.earth_test_user_credentials.json
 venv
 LDMP/data/ne_10m_*
 LDMP/data/trends.earth_basemap_data.zip
+/invoke_old.yaml

@@ -18,28 +18,26 @@ from te_algorithms.gee.util import teimage_v1_to_teimage_v2
 def run(params, logger):
     """."""
     logger.debug("Loading parameters.")
-    asset = params.get('asset')
-    name = params.get('name')
-    geojsons = json.loads(params.get('geojsons'))
-    start_year = params.get('start_year', None)
-    end_year = params.get('end_year', None)
-    temporal_resolution = params.get('temporal_resolution', None)
-    crs = params.get('crs')
+    asset = params.get("asset")
+    name = params.get("name")
+    geojsons = json.loads(params.get("geojsons"))
+    start_year = params.get("start_year", None)
+    end_year = params.get("end_year", None)
+    temporal_resolution = params.get("temporal_resolution", None)
+    crs = params.get("crs")
 
     # Check the ENV. Are we running this locally or in prod?
 
-    if params.get('ENV') == 'dev':
+    if params.get("ENV") == "dev":
         EXECUTION_ID = str(random.randint(1000000, 99999999))
     else:
-        EXECUTION_ID = params.get('EXECUTION_ID', None)
+        EXECUTION_ID = params.get("EXECUTION_ID", None)
     logger.debug(f"Execution ID is {EXECUTION_ID}")
 
     logger.debug("Running main script.")
-    out = download(
-        asset, name, temporal_resolution, start_year, end_year, logger
-    )
+    out = download(asset, name, temporal_resolution, start_year, end_year, logger)
 
     logger.debug("Converting output to TEImageV2 format")
     out = teimage_v1_to_teimage_v2(out)
 
-    return out.export(geojsons, 'download', crs, logger, EXECUTION_ID)
+    return out.export(geojsons, "download", crs, logger, EXECUTION_ID)

@@ -31,15 +31,19 @@ def _run_lc(params, additional_years, logger):
     lc = land_cover(
         params.get("year_initial"),
         params.get("year_final"),
-        trans_matrix=LCTransitionDefinitionDeg.Schema().load(params.get("trans_matrix")),
-        esa_to_custom_nesting=LCLegendNesting.Schema().load(params.get("legend_nesting_esa_to_custom")),
-        ipcc_nesting=LCLegendNesting.Schema().load(params.get("legend_nesting_custom_to_ipcc")),
+        trans_matrix=LCTransitionDefinitionDeg.Schema().load(
+            params.get("trans_matrix")
+        ),
+        esa_to_custom_nesting=LCLegendNesting.Schema().load(
+            params.get("legend_nesting_esa_to_custom")
+        ),
+        ipcc_nesting=LCLegendNesting.Schema().load(
+            params.get("legend_nesting_custom_to_ipcc")
+        ),
         additional_years=additional_years,
         logger=logger,
     )
-    lc.selectBands(
-        ["Land cover (degradation)", "Land cover transitions", "Land cover"]
-    )
+    lc.selectBands(["Land cover (degradation)", "Land cover transitions", "Land cover"])
 
     return lc
 
@@ -51,8 +55,12 @@ def _run_soc(params, logger):
         params.get("year_final"),
         params.get("fl"),
         LCTransitionDefinitionDeg.Schema().load(params.get("trans_matrix")),
-        esa_to_custom_nesting=LCLegendNesting.Schema().load(params.get("legend_nesting_esa_to_custom")),
-        ipcc_nesting=LCLegendNesting.Schema().load(params.get("legend_nesting_custom_to_ipcc")),
+        esa_to_custom_nesting=LCLegendNesting.Schema().load(
+            params.get("legend_nesting_esa_to_custom")
+        ),
+        ipcc_nesting=LCLegendNesting.Schema().load(
+            params.get("legend_nesting_custom_to_ipcc")
+        ),
         dl_annual_lc=False,
         logger=logger,
     )

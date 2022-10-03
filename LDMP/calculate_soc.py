@@ -33,7 +33,7 @@ from . import (
 
 from .jobs.manager import job_manager
 from .logger import log
-from .lc_setup import get_lc_nesting, get_trans_matrix
+from .lc_setup import get_trans_matrix
 
 DlgCalculateSocUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateSOC.ui")
@@ -74,7 +74,7 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
             self.lc_setup_widget = lc_setup.LandCoverSetupLocalExecutionWidget(self)
         elif self.script.run_mode == AlgorithmRunMode.REMOTE:
             self.lc_setup_widget = lc_setup.LandCoverSetupRemoteExecutionWidget(
-                self, lc_nesting_type=lc_setup.LCNestingType.ESA
+                parent=self
             )
 
         self.splitter_collapsed = False
@@ -233,6 +233,20 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
 
         initial_usable = self.lc_setup_widget.initial_year_layer_cb.get_current_band()
         final_usable = self.lc_setup_widget.target_year_layer_cb.get_current_band()
+        # TODO: Fix for case where nesting varies between initial and final
+        # bands
+        initial_nesting = initial_usable.band_info.metadata.get("nesting")
+        final_nesting = final_usable.band_info.metadata.get("nesting")
+        if (initial_nesting and final_nesting) and (initial_nesting != final_nesting):
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr(
+                    "Nesting of land cover legends for "
+                    "initial and final land cover layer must be identical."
+                ),
+            )
+            return
         # initial_usable = self.lc_setup_widget.use_custom_initial.get_current_band()
         # final_usable = self.lc_setup_widget.use_custom_final.get_current_band()
         soc_usable = self.comboBox_custom_soc.get_current_band()

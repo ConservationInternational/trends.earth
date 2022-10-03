@@ -13,6 +13,7 @@
 """
 
 from future import standard_library
+
 standard_library.install_aliases()
 from builtins import object
 import sys
@@ -36,6 +37,7 @@ class tr_worker(object):
 
 class AbstractWorker(QtCore.QObject):
     """Abstract worker, inherit from this and implement the work method"""
+
     # available signals to be used in the concrete worker
     finished = QtCore.pyqtSignal(object)
     was_killed = QtCore.pyqtSignal(object)
@@ -65,17 +67,17 @@ class AbstractWorker(QtCore.QObject):
             self.finished.emit(None)
 
     def work(self):
-        """ Reimplement this putting your calculation here
-            available are:
-                self.progress.emit(0-100)
-                self.killed
-            :returns a python object - use None if killed is true
+        """Reimplement this putting your calculation here
+        available are:
+            self.progress.emit(0-100)
+            self.killed
+        :returns a python object - use None if killed is true
         """
         raise NotImplementedError
 
     def kill(self):
         self.killed = True
-        self.set_message.emit('Aborting...')
+        self.set_message.emit("Aborting...")
         self.toggle_show_progress.emit(False)
         self.was_killed.emit(None)
 
@@ -92,7 +94,7 @@ def start_worker(worker, iface, message, with_progress=True):
         progress_bar.setMinimum(0)
         progress_bar.setMaximum(0)
     cancel_button = QPushButton()
-    cancel_button.setText('Cancel')
+    cancel_button.setText("Cancel")
     cancel_button.clicked.connect(worker.kill)
     message_bar_item.layout().addWidget(progress_bar)
     message_bar_item.layout().addWidget(cancel_button)
@@ -104,17 +106,22 @@ def start_worker(worker, iface, message, with_progress=True):
     thread = QThread(iface.mainWindow())
     worker.moveToThread(thread)
 
-    worker.set_message.connect(lambda message: set_worker_message(
-        message, message_bar_item))
-    worker.toggle_show_progress.connect(lambda show: toggle_worker_progress(
-        show, progress_bar))
-    worker.toggle_show_cancel.connect(lambda show: toggle_worker_cancel(
-        show, cancel_button))
-    worker.finished.connect(lambda result: worker_finished(
-        result, thread, worker, iface, message_bar_item))
+    worker.set_message.connect(
+        lambda message: set_worker_message(message, message_bar_item)
+    )
+    worker.toggle_show_progress.connect(
+        lambda show: toggle_worker_progress(show, progress_bar)
+    )
+    worker.toggle_show_cancel.connect(
+        lambda show: toggle_worker_cancel(show, cancel_button)
+    )
+    worker.finished.connect(
+        lambda result: worker_finished(result, thread, worker, iface, message_bar_item)
+    )
     worker.error.connect(lambda e: worker_error(e))
-    worker.was_killed.connect(lambda result: worker_killed(
-        result, thread, worker, iface, message_bar_item))
+    worker.was_killed.connect(
+        lambda result: worker_killed(result, thread, worker, iface, message_bar_item)
+    )
 
     worker.progress.connect(progress_bar.setValue)
     thread.started.connect(worker.run)
@@ -122,8 +129,10 @@ def start_worker(worker, iface, message, with_progress=True):
 
     return thread, message_bar_item
 
+
 def worker_killed(result, thread, worker, iface, message_bar_item):
     pass
+
 
 def worker_finished(result, thread, worker, iface, message_bar_item):
     message_bar = iface.messageBar()
@@ -139,7 +148,7 @@ def worker_finished(result, thread, worker, iface, message_bar_item):
 
 
 def worker_error(e):
-    log(u'Exception in worker thread: {}'.format(e))
+    log("Exception in worker thread: {}".format(e))
 
 
 def set_worker_message(message, message_bar_item):
@@ -158,6 +167,7 @@ def toggle_worker_progress(show_progress, progress_bar):
 def toggle_worker_cancel(show_cancel, cancel_button):
     cancel_button.setVisible(show_cancel)
 
+
 class StartWorker(object):
     def __init__(self, worker_class, process_name, *args):
         self.exception = None
@@ -170,8 +180,9 @@ class StartWorker(object):
         self.worker.finished.connect(pause.quit)
         self.worker.successfully_finished.connect(self.save_success)
         self.worker.error.connect(self.save_exception)
-        start_worker(self.worker, iface,
-                     tr_worker.tr('Processing: {}'.format(process_name)))
+        start_worker(
+            self.worker, iface, tr_worker.tr("Processing: {}".format(process_name))
+        )
         pause.exec_()
 
         if self.exception:

@@ -28,13 +28,13 @@ from LDMP.test import regular_keys
 
 class DialogSettingsLoginTests(unittest.TestCase):
     def testLoginValid(self):
-        #TODO: pass if there is no internet
+        # TODO: pass if there is no internet
         # Test valid login
         d = DlgSettingsLogin()
-        d.email.setText(regular_keys['email'])
-        d.password.setText(regular_keys['password'])
-        self.assertEquals(regular_keys['email'], d.email.text())
-        self.assertEquals(regular_keys['password'], d.password.text())
+        d.email.setText(regular_keys["email"])
+        d.password.setText(regular_keys["password"])
+        self.assertEquals(regular_keys["email"], d.email.text())
+        self.assertEquals(regular_keys["password"], d.password.text())
         okWidget = d.buttonBox.button(d.buttonBox.Ok)
         QTest.mouseClick(okWidget, Qt.LeftButton)
         self.assertTrue(d.ok)
@@ -42,8 +42,8 @@ class DialogSettingsLoginTests(unittest.TestCase):
     def testLoginNoEmail(self):
         # Test login without email
         d = DlgSettingsLogin()
-        d.email.setText('')
-        d.password.setText(regular_keys['password'])
+        d.email.setText("")
+        d.password.setText(regular_keys["password"])
         okWidget = d.buttonBox.button(d.buttonBox.Ok)
         QTest.mouseClick(okWidget, Qt.LeftButton)
         self.assertFalse(d.ok)
@@ -51,8 +51,8 @@ class DialogSettingsLoginTests(unittest.TestCase):
     def testLoginNoPassword(self):
         # Test login without password
         d = DlgSettingsLogin()
-        d.email.setText(regular_keys['email'])
-        d.password.setText('')
+        d.email.setText(regular_keys["email"])
+        d.password.setText("")
         okWidget = d.buttonBox.button(d.buttonBox.Ok)
         QTest.mouseClick(okWidget, Qt.LeftButton)
         self.assertFalse(d.ok)
@@ -60,8 +60,8 @@ class DialogSettingsLoginTests(unittest.TestCase):
     def testLoginNoPasswordNoEmail(self):
         # Test login without email and without password
         d = DlgSettingsLogin()
-        d.email.setText('')
-        d.password.setText('')
+        d.email.setText("")
+        d.password.setText("")
         okWidget = d.buttonBox.button(d.buttonBox.Ok)
         QTest.mouseClick(okWidget, Qt.LeftButton)
         self.assertFalse(d.ok)
@@ -69,7 +69,7 @@ class DialogSettingsLoginTests(unittest.TestCase):
 
 def SettingsUnitSuite():
     suite = unittest.TestSuite()
-    suite.addTests(unittest.makeSuite(DialogSettingsLoginTests, 'test'))
+    suite.addTests(unittest.makeSuite(DialogSettingsLoginTests, "test"))
     return suite
 
 

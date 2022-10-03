@@ -75,9 +75,7 @@ def compute_biomass_restoration(
             )
         output_biomass_diff_tifs.append(output_biomass_diff_tif)
 
-        logger.log(
-            "Saving clipped biomass file to {}".format(output_biomass_diff_tif)
-        )
+        logger.log("Saving clipped biomass file to {}".format(output_biomass_diff_tif))
         geojson = calculate.json_geom_to_geojson(
             qgis.core.QgsGeometry.fromWkt(wkts[n]).asJson()
         )

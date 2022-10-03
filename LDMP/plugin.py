@@ -52,7 +52,7 @@ from .visualization import download_base_map
 # class names with the proper translation are used)
 CURRENT_LOCALE = QLocale(QgsApplication.locale()).name()
 PRIOR_LOCALE = conf.settings_manager.get_value(conf.Setting.PRIOR_LOCALE)
-log(f'CURRENT_LOCALE is {CURRENT_LOCALE}, PRIOR_LOCALE is {PRIOR_LOCALE}')
+log(f"CURRENT_LOCALE is {CURRENT_LOCALE}, PRIOR_LOCALE is {PRIOR_LOCALE}")
 if CURRENT_LOCALE != PRIOR_LOCALE:
     conf.settings_manager.write_value(conf.Setting.PRIOR_LOCALE, CURRENT_LOCALE)
 
@@ -80,7 +80,7 @@ class LDMPPlugin(object):
 
         # Declare instance attributes
         self.actions = []
-        self.menu = QMenu(tr_plugin.tr(u"&Trends.Earth"))
+        self.menu = QMenu(tr_plugin.tr("&Trends.Earth"))
         self.menu.setIcon(
             QIcon(
                 os.path.join(
@@ -198,7 +198,7 @@ class LDMPPlugin(object):
         self.raster_menu = self.iface.rasterMenu()
         self.raster_menu.addMenu(self.menu)
 
-        self.toolbar = self.iface.addToolBar(u"trends.earth")
+        self.toolbar = self.iface.addToolBar("trends.earth")
         self.toolbar.setObjectName("trends_earth_toolbar")
         self.toolButton = QToolButton()
         self.toolButton.setMenu(QMenu())
@@ -212,7 +212,7 @@ class LDMPPlugin(object):
 
         # Check if custom land cover classes exist, if not use default to UNCCD. Need to
         # re-read defaults if locale has changed in order to handle translation
-        if (CURRENT_LOCALE != PRIOR_LOCALE):
+        if CURRENT_LOCALE != PRIOR_LOCALE:
             LccInfoUtils.set_default_unccd_classes(force_update=True)
         else:
             LccInfoUtils.set_default_unccd_classes(force_update=False)
@@ -265,7 +265,7 @@ class LDMPPlugin(object):
                     os.path.dirname(__file__), "icons", "mActionCaptureBuffer.svg"
                 )
             ),
-            tr_plugin.tr(u"Buffer tool"),
+            tr_plugin.tr("Buffer tool"),
             self.iface.mainWindow(),
         )
         self.action_buffer.triggered.connect(self.activate_buffer_tool)
@@ -296,7 +296,7 @@ class LDMPPlugin(object):
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
         for action in self.actions:
-            self.iface.removePluginRasterMenu(tr_plugin.tr(u"&Trends.Earth"), action)
+            self.iface.removePluginRasterMenu(tr_plugin.tr("&Trends.Earth"), action)
             self.iface.removeToolBarIcon(action)
         # remove the menu
         self.raster_menu.removeAction(self.menu.menuAction())

@@ -568,18 +568,17 @@ class DlgCalculateBase(QtWidgets.QDialog):
         area_method = settings_manager.get_value(Setting.AREA_FROM_OPTION)
         has_buffer = settings_manager.get_value(Setting.BUFFER_CHECKED)
         if (
-            (
-                area_method == AreaSetting.POINT.value or 
-                area_method == AreaSetting.COUNTRY_CITY.value
-            )
-            and not has_buffer
-        ):
+            area_method == AreaSetting.POINT.value
+            or area_method == AreaSetting.COUNTRY_CITY.value
+        ) and not has_buffer:
             QtWidgets.QMessageBox.critical(
                 None,
                 tr_calculate.tr("Error"),
-                tr_calculate.tr("You have chosen to run this calculation on a point "
-                                "(or for a city). To run this tool on a point you "
-                                "must also select a buffer.")
+                tr_calculate.tr(
+                    "You have chosen to run this calculation on a point "
+                    "(or for a city). To run this tool on a point you "
+                    "must also select a buffer."
+                ),
             )
             return False
 

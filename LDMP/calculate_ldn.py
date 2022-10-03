@@ -43,6 +43,7 @@ DlgCalculateLdnErrorRecodeUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateLDNErrorRecode.ui")
 )
 
+
 class tr_calculate_ldn(object):
     def tr(self, message):
         return QtCore.QCoreApplication.translate("tr_calculate_ldn", message)
@@ -71,11 +72,10 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self,
         iface: qgis.gui.QgisInterface,
         script: ExecutionScript,
-        parent: QtWidgets.QWidget = None
+        parent: QtWidgets.QWidget = None,
     ):
         super().__init__(iface, script, parent)
         self.setupUi(self)
-
 
         self.widgets_baseline = TimePeriodWidgets(
             self.radio_time_period_same_baseline,
@@ -156,24 +156,30 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
         self.lc_define_deg_widget = lc_setup.LCDefineDegradationWidget()
 
-        self.checkBox_progress_period.toggled.connect(
-            self.toggle_progress_period
-        )
+        self.checkBox_progress_period.toggled.connect(self.toggle_progress_period)
         self.toggle_progress_period()
 
-        self.button_preset_unccd_default_jrc.clicked.connect(self.set_preset_unccd_default_jrc)
-        self.button_preset_unccd_default_te.clicked.connect(self.set_preset_unccd_default_te)
-        self.button_preset_unccd_default_fao_wocat.clicked.connect(self.set_preset_unccd_default_fao_wocat)
+        self.button_preset_unccd_default_jrc.clicked.connect(
+            self.set_preset_unccd_default_jrc
+        )
+        self.button_preset_unccd_default_te.clicked.connect(
+            self.set_preset_unccd_default_te
+        )
+        self.button_preset_unccd_default_fao_wocat.clicked.connect(
+            self.set_preset_unccd_default_fao_wocat
+        )
 
         self._finish_initialization()
 
     def set_preset_unccd_default_jrc(self):
         self.checkBox_progress_period.setChecked(True)
         self.radio_lpd_precalculated.setChecked(True)
-        self.cb_jrc_baseline.setCurrentIndex(self.cb_jrc_baseline.findText(
-            'JRC Land Productivity Dynamics (2000-2015)'))
-        self.cb_jrc_progress.setCurrentIndex(self.cb_jrc_baseline.findText(
-            'JRC Land Productivity Dynamics (2005-2019)'))
+        self.cb_jrc_baseline.setCurrentIndex(
+            self.cb_jrc_baseline.findText("JRC Land Productivity Dynamics (2000-2015)")
+        )
+        self.cb_jrc_progress.setCurrentIndex(
+            self.cb_jrc_baseline.findText("JRC Land Productivity Dynamics (2005-2019)")
+        )
         self.radio_time_period_same_baseline.setChecked(True)
         self.radio_time_period_vary_progress.setChecked(True)
         self.year_initial_baseline.setDate(QtCore.QDate(2000, 1, 1))
@@ -192,10 +198,16 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
     def set_preset_unccd_default_fao_wocat(self):
         self.checkBox_progress_period.setChecked(True)
         self.radio_lpd_precalculated.setChecked(True)
-        self.cb_jrc_baseline.setCurrentIndex(self.cb_jrc_baseline.findText(
-            'FAO-WOCAT Land Productivity Dynamics (2001-2015)'))
-        self.cb_jrc_progress.setCurrentIndex(self.cb_jrc_baseline.findText(
-            'FAO-WOCAT Land Productivity Dynamics (2005-2019)'))
+        self.cb_jrc_baseline.setCurrentIndex(
+            self.cb_jrc_baseline.findText(
+                "FAO-WOCAT Land Productivity Dynamics (2001-2015)"
+            )
+        )
+        self.cb_jrc_progress.setCurrentIndex(
+            self.cb_jrc_baseline.findText(
+                "FAO-WOCAT Land Productivity Dynamics (2005-2019)"
+            )
+        )
         self.radio_time_period_same_baseline.setChecked(True)
         self.radio_time_period_vary_progress.setChecked(True)
         self.year_initial_baseline.setDate(QtCore.QDate(2001, 1, 1))
@@ -295,19 +307,17 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.toggle_time_period(self.widgets_baseline)
         self.toggle_time_period(self.widgets_progress)
 
-
     def update_time_bounds(self, widgets):
         lc_dataset = conf.REMOTE_DATASETS["Land cover"]["ESA CCI"]
-        start_year_lc = lc_dataset['Start year']
-        end_year_lc = lc_dataset['End year']
+        start_year_lc = lc_dataset["Start year"]
+        end_year_lc = lc_dataset["End year"]
         start_year_lc = QtCore.QDate(start_year_lc, 1, 1)
         end_year_lc = QtCore.QDate(end_year_lc, 1, 1)
 
         if self.radio_lpd_te.isChecked():
-            prod_dataset = conf.REMOTE_DATASETS["NDVI"][
-                "MODIS (MOD13Q1, annual)"]
-            start_year_prod = prod_dataset['Start year']
-            end_year_prod = prod_dataset['End year']
+            prod_dataset = conf.REMOTE_DATASETS["NDVI"]["MODIS (MOD13Q1, annual)"]
+            start_year_prod = prod_dataset["Start year"]
+            end_year_prod = prod_dataset["End year"]
 
             start_year_prod = QtCore.QDate(start_year_prod, 1, 1)
             end_year_prod = QtCore.QDate(end_year_prod, 1, 1)
@@ -315,10 +325,11 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             end_year = min(end_year_prod, end_year_lc)
 
         else:
-            prod_dataset = conf.REMOTE_DATASETS[
-                "Land Productivity Dynamics"][widgets.cb_lpd.currentText()]
-            start_year_prod = prod_dataset['Start year']
-            end_year_prod = prod_dataset['End year']
+            prod_dataset = conf.REMOTE_DATASETS["Land Productivity Dynamics"][
+                widgets.cb_lpd.currentText()
+            ]
+            start_year_prod = prod_dataset["Start year"]
+            end_year_prod = prod_dataset["End year"]
 
             # Don't need to consider prod dates in below lims when using JRC, but do use
             # them to set default time period
@@ -361,7 +372,6 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         widgets.year_initial.setDate(start_year_prod)
         widgets.year_final.setDate(end_year_prod)
 
-
         self.update_start_dates(widgets)
         self.update_end_dates(widgets)
 
@@ -390,17 +400,17 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
     def _get_period_years(self, widgets):
         return {
-            'period_year_initial': widgets.year_initial_prod.date().year(),
-            'period_year_final': widgets.year_final_prod.date().year()
+            "period_year_initial": widgets.year_initial_prod.date().year(),
+            "period_year_final": widgets.year_final_prod.date().year(),
         }
 
     def _get_prod_mode(self, widgets):
         if widgets.radio_lpd_te.isChecked():
             return ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
         else:
-            if 'FAO-WOCAT' in widgets.cb_lpd.currentText():
+            if "FAO-WOCAT" in widgets.cb_lpd.currentText():
                 return ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value
-            elif 'JRC' in widgets.cb_lpd.currentText():
+            elif "JRC" in widgets.cb_lpd.currentText():
                 return ProductivityMode.JRC_5_CLASS_LPD.value
         return None
 
@@ -416,14 +426,10 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         trans_matrix = self.lc_define_deg_widget.get_trans_matrix_from_widget()
         lc_setup.trans_matrix_to_settings(trans_matrix)
 
-        periods = {
-            'baseline': self._get_period_years(self.widgets_baseline)
-        }
+        periods = {"baseline": self._get_period_years(self.widgets_baseline)}
 
         if self.checkBox_progress_period.isChecked():
-            periods.update({
-                'progress': self._get_period_years(self.widgets_progress)
-            })
+            periods.update({"progress": self._get_period_years(self.widgets_progress)})
 
         crosses_180th, geojsons = self.gee_bounding_box
 
@@ -433,24 +439,27 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
             periods.items(), (self.widgets_baseline, self.widgets_progress)
         ):
             payload = {}
-            year_initial = values['period_year_initial']
-            year_final = values['period_year_final']
+            year_initial = values["period_year_initial"]
+            year_final = values["period_year_final"]
 
-            log(f'Setting parameters for {period} period ({year_initial} - {year_final})')
+            log(
+                f"Setting parameters for {period} period ({year_initial} - {year_final})"
+            )
 
             prod_mode = self._get_prod_mode(widgets)
-            payload['productivity'] = {'mode': prod_mode}
+            payload["productivity"] = {"mode": prod_mode}
 
             if prod_mode == ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value:
                 if (year_final - year_initial) < 10:
                     QtWidgets.QMessageBox.warning(
-                        None, self.tr("Warning"),
+                        None,
+                        self.tr("Warning"),
                         self.tr(
                             "Initial and final year are less 10 years "
                             f"apart in {period} - results will be more "
                             "reliable if more data (years) are included "
                             "in the analysis."
-                        )
+                        ),
                     )
 
                 # Have productivity state consider the last 3 years for the
@@ -462,118 +471,96 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                 prod_state_year_tg_end = prod_state_year_bl_end + 3
                 assert prod_state_year_tg_end == year_final
 
-                payload['productivity'].update(
+                payload["productivity"].update(
                     {
-                        'asset_productivity':
-                        conf.REMOTE_DATASETS["NDVI"]["MODIS (MOD13Q1, annual)"]
-                        ["GEE Dataset"],
-                        'traj_method':
-                        'ndvi_trend',
-                        'traj_year_initial':
-                        year_initial,
-                        'traj_year_final':
-                        year_final,
-                        'perf_year_initial':
-                        year_initial,
-                        'perf_year_final':
-                        year_final,
-                        'state_year_bl_start':
-                        prod_state_year_bl_start,
-                        'state_year_bl_end':
-                        prod_state_year_bl_end,
-                        'state_year_tg_start':
-                        prod_state_year_tg_start,
-                        'state_year_tg_end':
-                        prod_state_year_tg_end,
-                        'asset_climate':
-                        None,
+                        "asset_productivity": conf.REMOTE_DATASETS["NDVI"][
+                            "MODIS (MOD13Q1, annual)"
+                        ]["GEE Dataset"],
+                        "traj_method": "ndvi_trend",
+                        "traj_year_initial": year_initial,
+                        "traj_year_final": year_final,
+                        "perf_year_initial": year_initial,
+                        "perf_year_final": year_final,
+                        "state_year_bl_start": prod_state_year_bl_start,
+                        "state_year_bl_end": prod_state_year_bl_end,
+                        "state_year_tg_start": prod_state_year_tg_start,
+                        "state_year_tg_end": prod_state_year_tg_end,
+                        "asset_climate": None,
                     }
                 )
             elif prod_mode in (
                 ProductivityMode.JRC_5_CLASS_LPD.value,
-                ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value
+                ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value,
             ):
-                prod_dataset = conf.REMOTE_DATASETS["Land Productivity Dynamics"][widgets.cb_lpd.currentText()]
-                prod_asset = prod_dataset['GEE Dataset']
-                prod_start_year = prod_dataset['Start year']
-                prod_end_year = prod_dataset['End year']
-                payload['productivity'].update(
+                prod_dataset = conf.REMOTE_DATASETS["Land Productivity Dynamics"][
+                    widgets.cb_lpd.currentText()
+                ]
+                prod_asset = prod_dataset["GEE Dataset"]
+                prod_start_year = prod_dataset["Start year"]
+                prod_end_year = prod_dataset["End year"]
+                payload["productivity"].update(
                     {
-                        'asset': prod_asset,
-                        'year_initial': prod_start_year,
-                        'year_final': prod_end_year
+                        "asset": prod_asset,
+                        "year_initial": prod_start_year,
+                        "year_final": prod_end_year,
                     }
                 )
             else:
                 raise ValueError("Unknown prod_mode {prod_mode}")
 
-            payload['land_cover'] = {
-                'year_initial':
-                widgets.year_initial_lc.date().year(),
-                'year_final':
-                widgets.year_final_lc.date().year(),
-                'legend_nesting_esa_to_custom':
-                LCLegendNesting.Schema().dump(
+            payload["land_cover"] = {
+                "year_initial": widgets.year_initial_lc.date().year(),
+                "year_final": widgets.year_final_lc.date().year(),
+                "legend_nesting_esa_to_custom": LCLegendNesting.Schema().dump(
                     lc_setup.esa_lc_nesting_from_settings()
                 ),
-                'legend_nesting_custom_to_ipcc':
-                LCLegendNesting.Schema().dump(
+                "legend_nesting_custom_to_ipcc": LCLegendNesting.Schema().dump(
                     lc_setup.ipcc_lc_nesting_from_settings()
                 ),
-                'trans_matrix':
-                LCTransitionDefinitionDeg.Schema().dump(
-                    trans_matrix
-                ),
+                "trans_matrix": LCTransitionDefinitionDeg.Schema().dump(trans_matrix),
             }
-            payload['soil_organic_carbon'] = {
-                'year_initial':
-                widgets.year_initial_soc.date().year(),
-                'year_final':
-                widgets.year_final_soc.date().year(),
-                'fl':
-                .80,
-                'legend_nesting_esa_to_custom':
-                LCLegendNesting.Schema().dump(
+            payload["soil_organic_carbon"] = {
+                "year_initial": widgets.year_initial_soc.date().year(),
+                "year_final": widgets.year_final_soc.date().year(),
+                "fl": 0.80,
+                "legend_nesting_esa_to_custom": LCLegendNesting.Schema().dump(
                     lc_setup.esa_lc_nesting_from_settings()
                 ),
-                'legend_nesting_custom_to_ipcc':
-                LCLegendNesting.Schema().dump(
+                "legend_nesting_custom_to_ipcc": LCLegendNesting.Schema().dump(
                     lc_setup.ipcc_lc_nesting_from_settings()
                 ),
-                'trans_matrix':
-                LCTransitionDefinitionDeg.Schema().dump(
+                "trans_matrix": LCTransitionDefinitionDeg.Schema().dump(
                     trans_matrix
                 ),  # TODO: Use SOC matrix for the above once defined
             }
 
-            payload['population'] = {
-                'year': year_final,
-                'asset':
-                "users/geflanddegradation/toolbox_datasets/worldpop_mf_v1_300m",
-                'source': "WorldPop (gender breakdown)"
+            payload["population"] = {
+                "year": year_final,
+                "asset": "users/geflanddegradation/toolbox_datasets/worldpop_mf_v1_300m",
+                "source": "WorldPop (gender breakdown)",
             }
 
             task_name = self.execution_name_le.text()
 
             if len(periods.items()) == 2:
                 if task_name:
-                    task_name = f'{task_name} - {period}'
+                    task_name = f"{task_name} - {period}"
                 else:
-                    task_name = f'{period}'
+                    task_name = f"{period}"
 
             payload.update(
                 {
-                    'geojsons': geojsons,
-                    'crs': self.aoi.get_crs_dst_wkt(),
-                    'crosses_180th': crosses_180th,
-                    'task_name': task_name,
-                    'task_notes': self.task_notes.toPlainText(),
-                    'script': ExecutionScript.Schema().dump(self.script),
-                    'period': {
+                    "geojsons": geojsons,
+                    "crs": self.aoi.get_crs_dst_wkt(),
+                    "crosses_180th": crosses_180th,
+                    "task_name": task_name,
+                    "task_notes": self.task_notes.toPlainText(),
+                    "script": ExecutionScript.Schema().dump(self.script),
+                    "period": {
                         "name": period,
                         "year_initial": year_initial,
-                        "year_final": year_final
-                    }
+                        "year_final": year_final,
+                    },
                 }
             )
 
@@ -591,7 +578,9 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
                 description = "SDG sub-indicator task submitted to Trends.Earth server."
             else:
                 main_msg = "Error"
-                description = "Unable to submit SDG sub-indicator task to Trends.Earth server."
+                description = (
+                    "Unable to submit SDG sub-indicator task to Trends.Earth server."
+                )
             self.mb.pushMessage(
                 self.tr(main_msg), self.tr(description), level=0, duration=5
             )
@@ -609,24 +598,22 @@ class DlgCalculateLDNSummaryTableAdmin(
         self,
         iface: qgis.gui.QgisInterface,
         script: ExecutionScript,
-        parent: QtWidgets.QWidget = None
+        parent: QtWidgets.QWidget = None,
     ):
         super().__init__(iface, script, parent)
         self.setupUi(self)
 
-        self.checkBox_progress_period.toggled.connect(
-            self.toggle_progress_period
-        )
+        self.checkBox_progress_period.toggled.connect(self.toggle_progress_period)
 
         self._finish_initialization()
 
-        self.combo_datasets_baseline.NO_DATASETS_MESSAGE =  self.tr(
-            'No datasets available in this region (see advanced)'
+        self.combo_datasets_baseline.NO_DATASETS_MESSAGE = self.tr(
+            "No datasets available in this region (see advanced)"
         )
-        self.combo_datasets_progress.NO_DATASETS_MESSAGE =  self.tr(
-            'No datasets available in this region (see advanced)'
+        self.combo_datasets_progress.NO_DATASETS_MESSAGE = self.tr(
+            "No datasets available in this region (see advanced)"
         )
-        self.combo_boxes['baseline'] = ldn.SummaryTableLDWidgets(
+        self.combo_boxes["baseline"] = ldn.SummaryTableLDWidgets(
             combo_datasets=self.combo_datasets_baseline,
             combo_layer_traj=self.combo_layer_traj_baseline,
             combo_layer_traj_label=self.combo_layer_traj_label_baseline,
@@ -641,9 +628,9 @@ class DlgCalculateLDNSummaryTableAdmin(
             combo_layer_pop_total=self.combo_layer_population_baseline_total,
             combo_layer_pop_male=self.combo_layer_population_baseline_male,
             combo_layer_pop_female=self.combo_layer_population_baseline_female,
-            radio_lpd_te = self.radio_lpd_te
+            radio_lpd_te=self.radio_lpd_te,
         )
-        self.combo_boxes['progress'] = ldn.SummaryTableLDWidgets(
+        self.combo_boxes["progress"] = ldn.SummaryTableLDWidgets(
             combo_datasets=self.combo_datasets_progress,
             combo_layer_traj=self.combo_layer_traj_progress,
             combo_layer_traj_label=self.combo_layer_traj_label_progress,
@@ -658,7 +645,7 @@ class DlgCalculateLDNSummaryTableAdmin(
             combo_layer_pop_total=self.combo_layer_population_progress_total,
             combo_layer_pop_male=self.combo_layer_population_progress_male,
             combo_layer_pop_female=self.combo_layer_population_progress_female,
-            radio_lpd_te = self.radio_lpd_te
+            radio_lpd_te=self.radio_lpd_te,
         )
 
         self.radio_population_baseline_bysex.toggled.connect(
@@ -673,8 +660,8 @@ class DlgCalculateLDNSummaryTableAdmin(
         self.changed_region.connect(self.populate_combos)
 
     def populate_combos(self):
-        self.combo_boxes['baseline'].populate()
-        self.combo_boxes['progress'].populate()
+        self.combo_boxes["baseline"].populate()
+        self.combo_boxes["progress"].populate()
 
     def showEvent(self, event):
         super().showEvent(event)
@@ -724,147 +711,199 @@ class DlgCalculateLDNSummaryTableAdmin(
     def _validate_layer_selection(self, combo_box, layer_name):
         if len(combo_box.layer_list) == 0:
             QtWidgets.QMessageBox.critical(
-                None, self.tr("Error"),
+                None,
+                self.tr("Error"),
                 self.tr(
                     f"You must select a {layer_name} layer "
                     "before you can use the SDG calculation tool."
-                )
+                ),
             )
             return False
         else:
             return True
 
-
     def validate_layer_selections(self, combo_boxes, pop_mode):
-        '''validate all needed layers are selected'''
+        """validate all needed layers are selected"""
 
         if self.radio_lpd_te.isChecked():
-            if not self._validate_layer_selection(combo_boxes.combo_layer_traj, 'trend'):
+            if not self._validate_layer_selection(
+                combo_boxes.combo_layer_traj, "trend"
+            ):
                 return False
-            if not self._validate_layer_selection(combo_boxes.combo_layer_state, 'state'):
+            if not self._validate_layer_selection(
+                combo_boxes.combo_layer_state, "state"
+            ):
                 return False
-            if not self._validate_layer_selection(combo_boxes.combo_layer_perf, 'performance'):
+            if not self._validate_layer_selection(
+                combo_boxes.combo_layer_perf, "performance"
+            ):
                 return False
 
         else:
-            if not self._validate_layer_selection(combo_boxes.combo_layer_lpd, 'Land Productivity Dynamics'):
+            if not self._validate_layer_selection(
+                combo_boxes.combo_layer_lpd, "Land Productivity Dynamics"
+            ):
                 return False
 
-        if not self._validate_layer_selection(combo_boxes.combo_layer_lc, 'land cover'):
+        if not self._validate_layer_selection(combo_boxes.combo_layer_lc, "land cover"):
             return False
 
-        if not self._validate_layer_selection(combo_boxes.combo_layer_soc, 'soil organic carbon'):
+        if not self._validate_layer_selection(
+            combo_boxes.combo_layer_soc, "soil organic carbon"
+        ):
             return False
 
         if pop_mode == ldn.PopulationMode.BySex.value:
-            if not self._validate_layer_selection(combo_boxes.combo_layer_pop_male, 'population (male)'):
+            if not self._validate_layer_selection(
+                combo_boxes.combo_layer_pop_male, "population (male)"
+            ):
                 return False
-            if not self._validate_layer_selection(combo_boxes.combo_layer_pop_female, 'population (female)'):
+            if not self._validate_layer_selection(
+                combo_boxes.combo_layer_pop_female, "population (female)"
+            ):
                 return False
         else:
-            if not self._validate_layer_selection(combo_boxes.combo_layer_pop_total, 'population (total)'):
+            if not self._validate_layer_selection(
+                combo_boxes.combo_layer_pop_total, "population (total)"
+            ):
                 return False
 
         return True
 
     def _validate_layer_extent(self, check_layer, check_layer_name):
-        log(f'fraction of overlap is {self.aoi.calc_frac_overlap(QgsGeometry.fromRect(check_layer.extent()))}')
-        if self.aoi.calc_frac_overlap(
-            QgsGeometry.fromRect(check_layer.extent())
-        ) < 0.99:
+        log(
+            f"fraction of overlap is {self.aoi.calc_frac_overlap(QgsGeometry.fromRect(check_layer.extent()))}"
+        )
+        if (
+            self.aoi.calc_frac_overlap(QgsGeometry.fromRect(check_layer.extent()))
+            < 0.99
+        ):
             QtWidgets.QMessageBox.critical(
-                None, self.tr("Error"),
+                None,
+                self.tr("Error"),
                 self.tr(
                     f"Area of interest is not entirely within the {check_layer_name} layer."
-                )
+                ),
             )
             return False
         else:
             return True
 
     def validate_layer_extents(self, combo_boxes, pop_mode):
-        '''Check that the layers cover the full extent of the AOI'''
+        """Check that the layers cover the full extent of the AOI"""
 
         if self.radio_lpd_te.isChecked():
-            if not self._validate_layer_extent(combo_boxes.combo_layer_traj.get_layer(), 'trend'):
+            if not self._validate_layer_extent(
+                combo_boxes.combo_layer_traj.get_layer(), "trend"
+            ):
                 return False
 
-            if not self._validate_layer_extent(combo_boxes.combo_layer_perf.get_layer(), 'performance'):
+            if not self._validate_layer_extent(
+                combo_boxes.combo_layer_perf.get_layer(), "performance"
+            ):
                 return False
 
-            if not self._validate_layer_extent(combo_boxes.combo_layer_state.get_layer(), 'state'):
+            if not self._validate_layer_extent(
+                combo_boxes.combo_layer_state.get_layer(), "state"
+            ):
                 return False
 
         else:
-            if not self._validate_layer_extent(combo_boxes.combo_layer_lpd.get_layer(), 'Land Productivity Dynamics'):
+            if not self._validate_layer_extent(
+                combo_boxes.combo_layer_lpd.get_layer(), "Land Productivity Dynamics"
+            ):
                 return False
 
-        if not self._validate_layer_extent(combo_boxes.combo_layer_lc.get_layer(), 'land cover'):
+        if not self._validate_layer_extent(
+            combo_boxes.combo_layer_lc.get_layer(), "land cover"
+        ):
             return False
 
-        if not self._validate_layer_extent(combo_boxes.combo_layer_soc.get_layer(), 'soil organic carbon'):
+        if not self._validate_layer_extent(
+            combo_boxes.combo_layer_soc.get_layer(), "soil organic carbon"
+        ):
             return False
 
         if pop_mode == ldn.PopulationMode.BySex.value:
-            if not self._validate_layer_extent(combo_boxes.combo_layer_pop_male.get_layer(), 'population (male)'):
+            if not self._validate_layer_extent(
+                combo_boxes.combo_layer_pop_male.get_layer(), "population (male)"
+            ):
                 return False
-            if not self._validate_layer_extent(combo_boxes.combo_layer_pop_female.get_layer(), 'population (female)'):
+            if not self._validate_layer_extent(
+                combo_boxes.combo_layer_pop_female.get_layer(), "population (female)"
+            ):
                 return False
         else:
-            if not self._validate_layer_extent(combo_boxes.combo_layer_pop_total.get_layer(), 'population (total)'):
+            if not self._validate_layer_extent(
+                combo_boxes.combo_layer_pop_total.get_layer(), "population (total)"
+            ):
                 return False
 
         return True
 
-    def _validate_crs(self, model_layer, model_layer_name, check_layer, check_layer_name, check_res=True):
+    def _validate_crs(
+        self,
+        model_layer,
+        model_layer_name,
+        check_layer,
+        check_layer_name,
+        check_res=True,
+    ):
         def _res(layer):
             return (
-                round(layer.rasterUnitsPerPixelX(),
-                      10), round(layer.rasterUnitsPerPixelY(), 10)
+                round(layer.rasterUnitsPerPixelX(), 10),
+                round(layer.rasterUnitsPerPixelY(), 10),
             )
 
         if check_res and _res(model_layer) != _res(check_layer):
             QtWidgets.QMessageBox.critical(
-                None, self.tr("Error"),
+                None,
+                self.tr("Error"),
                 self.tr(
                     f"Resolutions of {model_layer_name} layer and {check_layer_name} layer do not match."
-                )
+                ),
             )
             return False
         elif model_layer.crs() != check_layer.crs():
             QtWidgets.QMessageBox.critical(
-                None, self.tr("Error"),
+                None,
+                self.tr("Error"),
                 self.tr(
                     f"Coordinate systems of {model_layer_name} layer and {check_layer_name} layer do not match."
-                )
+                ),
             )
             return False
         else:
             return True
 
-
     def validate_layer_crs(self, combo_boxes, pop_mode):
-        '''check all layers have the same resolution and CRS'''
+        """check all layers have the same resolution and CRS"""
         if self.radio_lpd_te.isChecked():
             model_layer = combo_boxes.combo_layer_traj.get_layer()
-            model_layer_name = 'trend'
+            model_layer_name = "trend"
 
             if not self._validate_crs(
-                model_layer, model_layer_name,
-                combo_boxes.combo_layer_state.get_layer(), 'state'
+                model_layer,
+                model_layer_name,
+                combo_boxes.combo_layer_state.get_layer(),
+                "state",
             ):
                 return False
 
             if not self._validate_crs(
-                model_layer, model_layer_name,
-                combo_boxes.combo_layer_perf.get_layer(), 'performance'
+                model_layer,
+                model_layer_name,
+                combo_boxes.combo_layer_perf.get_layer(),
+                "performance",
             ):
                 return False
 
         if pop_mode == ldn.PopulationMode.BySex.value:
             if not self._validate_crs(
-                combo_boxes.combo_layer_pop_male.get_layer(), 'population (male)',
-                combo_boxes.combo_layer_pop_female.get_layer(), 'population (female)'
+                combo_boxes.combo_layer_pop_male.get_layer(),
+                "population (male)",
+                combo_boxes.combo_layer_pop_female.get_layer(),
+                "population (female)",
             ):
                 return False
 
@@ -875,9 +914,9 @@ class DlgCalculateLDNSummaryTableAdmin(
             return ProductivityMode.TRENDS_EARTH_5_CLASS_LPD.value
         else:
             lpd_band_name = cb_lpd.get_current_band().band_info.name
-            if 'FAO-WOCAT' in lpd_band_name:
+            if "FAO-WOCAT" in lpd_band_name:
                 return ProductivityMode.FAO_WOCAT_5_CLASS_LPD.value
-            elif 'JRC' in lpd_band_name:
+            elif "JRC" in lpd_band_name:
                 return ProductivityMode.JRC_5_CLASS_LPD.value
         return None
 
@@ -900,41 +939,43 @@ class DlgCalculateLDNSummaryTableAdmin(
 
         if (
             not self.validate_layer_selections(
-                self.combo_boxes['baseline'], pop_mode_baseline
-            ) or not self.validate_layer_crs(
-                self.combo_boxes['baseline'], pop_mode_baseline
-            ) or not self.validate_layer_extents(
-                self.combo_boxes['baseline'], pop_mode_baseline
+                self.combo_boxes["baseline"], pop_mode_baseline
+            )
+            or not self.validate_layer_crs(
+                self.combo_boxes["baseline"], pop_mode_baseline
+            )
+            or not self.validate_layer_extents(
+                self.combo_boxes["baseline"], pop_mode_baseline
             )
         ):
-            log('failed baseline layer validation')
+            log("failed baseline layer validation")
 
             return
 
         prod_mode_baseline = self._get_prod_mode(
-            self.radio_lpd_te, self.combo_boxes['progress'].combo_layer_lpd)
+            self.radio_lpd_te, self.combo_boxes["progress"].combo_layer_lpd
+        )
 
         params = {
-            'baseline':
-            ldn.get_main_sdg_15_3_1_job_params(
+            "baseline": ldn.get_main_sdg_15_3_1_job_params(
                 task_name=self.options_tab.task_name.text(),
                 aoi=self.aoi,
                 prod_mode=prod_mode_baseline,
                 pop_mode=pop_mode_baseline,
-                period_name='baseline',
-                combo_layer_lc=self.combo_boxes['baseline'].combo_layer_lc,
-                combo_layer_soc=self.combo_boxes['baseline'].combo_layer_soc,
-                combo_layer_traj=self.combo_boxes['baseline'].combo_layer_traj,
-                combo_layer_perf=self.combo_boxes['baseline'].combo_layer_perf,
-                combo_layer_state=self.combo_boxes['baseline'].
-                combo_layer_state,
-                combo_layer_lpd=self.combo_boxes['baseline'].combo_layer_lpd,
-                combo_layer_pop_total=self.combo_boxes['baseline'].
-                combo_layer_pop_total,
-                combo_layer_pop_male=self.combo_boxes['baseline'].
-                combo_layer_pop_male,
-                combo_layer_pop_female=self.combo_boxes['baseline'].
-                combo_layer_pop_female,
+                period_name="baseline",
+                combo_layer_lc=self.combo_boxes["baseline"].combo_layer_lc,
+                combo_layer_soc=self.combo_boxes["baseline"].combo_layer_soc,
+                combo_layer_traj=self.combo_boxes["baseline"].combo_layer_traj,
+                combo_layer_perf=self.combo_boxes["baseline"].combo_layer_perf,
+                combo_layer_state=self.combo_boxes["baseline"].combo_layer_state,
+                combo_layer_lpd=self.combo_boxes["baseline"].combo_layer_lpd,
+                combo_layer_pop_total=self.combo_boxes[
+                    "baseline"
+                ].combo_layer_pop_total,
+                combo_layer_pop_male=self.combo_boxes["baseline"].combo_layer_pop_male,
+                combo_layer_pop_female=self.combo_boxes[
+                    "baseline"
+                ].combo_layer_pop_female,
                 task_notes=self.options_tab.task_notes.toPlainText(),
             )
         }
@@ -944,7 +985,8 @@ class DlgCalculateLDNSummaryTableAdmin(
 
         if self.checkBox_progress_period.isChecked():
             prod_mode_progress = self._get_prod_mode(
-                self.radio_lpd_te, self.combo_boxes['progress'].combo_layer_lpd)
+                self.radio_lpd_te, self.combo_boxes["progress"].combo_layer_lpd
+            )
 
             if self.radio_population_progress_bysex.isChecked():
                 pop_mode_progress = ldn.PopulationMode.BySex.value
@@ -953,58 +995,56 @@ class DlgCalculateLDNSummaryTableAdmin(
 
             if (
                 not self.validate_layer_selections(
-                    self.combo_boxes['progress'], pop_mode_progress
-                ) or not self.validate_layer_crs(
-                    self.combo_boxes['progress'], pop_mode_progress
-                ) or not self.validate_layer_extents(
-                    self.combo_boxes['progress'], pop_mode_progress
+                    self.combo_boxes["progress"], pop_mode_progress
+                )
+                or not self.validate_layer_crs(
+                    self.combo_boxes["progress"], pop_mode_progress
+                )
+                or not self.validate_layer_extents(
+                    self.combo_boxes["progress"], pop_mode_progress
                 )
             ):
-                log('failed progress layer validation')
+                log("failed progress layer validation")
 
                 return
 
             params.update(
                 {
-                    'progress':
-                    ldn.get_main_sdg_15_3_1_job_params(
+                    "progress": ldn.get_main_sdg_15_3_1_job_params(
                         task_name=self.options_tab.task_name.text(),
                         aoi=self.aoi,
                         prod_mode=prod_mode_progress,
                         pop_mode=pop_mode_progress,
-                        period_name='progress',
-                        combo_layer_lc=self.combo_boxes['progress'].
-                        combo_layer_lc,
-                        combo_layer_soc=self.combo_boxes['progress'].
-                        combo_layer_soc,
-                        combo_layer_traj=self.combo_boxes['progress'].
-                        combo_layer_traj,
-                        combo_layer_perf=self.combo_boxes['progress'].
-                        combo_layer_perf,
-                        combo_layer_state=self.combo_boxes['progress'].
-                        combo_layer_state,
-                        combo_layer_lpd=self.combo_boxes['progress'].
-                        combo_layer_lpd,
-                        combo_layer_pop_total=self.combo_boxes['progress'].
-                        combo_layer_pop_total,
-                        combo_layer_pop_male=self.combo_boxes['progress'].
-                        combo_layer_pop_male,
-                        combo_layer_pop_female=self.combo_boxes['progress'].
-                        combo_layer_pop_female,
-                        task_notes=self.options_tab.task_notes.toPlainText()
+                        period_name="progress",
+                        combo_layer_lc=self.combo_boxes["progress"].combo_layer_lc,
+                        combo_layer_soc=self.combo_boxes["progress"].combo_layer_soc,
+                        combo_layer_traj=self.combo_boxes["progress"].combo_layer_traj,
+                        combo_layer_perf=self.combo_boxes["progress"].combo_layer_perf,
+                        combo_layer_state=self.combo_boxes[
+                            "progress"
+                        ].combo_layer_state,
+                        combo_layer_lpd=self.combo_boxes["progress"].combo_layer_lpd,
+                        combo_layer_pop_total=self.combo_boxes[
+                            "progress"
+                        ].combo_layer_pop_total,
+                        combo_layer_pop_male=self.combo_boxes[
+                            "progress"
+                        ].combo_layer_pop_male,
+                        combo_layer_pop_female=self.combo_boxes[
+                            "progress"
+                        ].combo_layer_pop_female,
+                        task_notes=self.options_tab.task_notes.toPlainText(),
                     )
                 }
             )
 
-        params['task_name'] = self.options_tab.task_name.text()
-        params['task_notes'] = self.options_tab.task_notes.toPlainText()
+        params["task_name"] = self.options_tab.task_name.text()
+        params["task_notes"] = self.options_tab.task_notes.toPlainText()
 
         self.close()
 
         job_manager.submit_local_job_as_qgstask(
-            params,
-            script_name=self.LOCAL_SCRIPT_NAME,
-            area_of_interest=self.aoi
+            params, script_name=self.LOCAL_SCRIPT_NAME, area_of_interest=self.aoi
         )
 
 
@@ -1031,32 +1071,31 @@ class DlgCalculateLDNErrorRecode(DlgCalculateBase, DlgCalculateLdnErrorRecodeUi)
     def set_layer_filter(self):
         if self.rb_sdg.isChecked():
             self.combo_layer_input.setProperty(
-                'layer_type',
-                ';'.join([
-                    ld_config.SDG_BAND_NAME,
-                    ld_config.SDG_STATUS_BAND_NAME
-                ])
+                "layer_type",
+                ";".join([ld_config.SDG_BAND_NAME, ld_config.SDG_STATUS_BAND_NAME]),
             )
         elif self.rb_prod.isChecked():
             self.combo_layer_input.setProperty(
-                'layer_type',
-                ';'.join([
-                    ld_config.JRC_LPD_BAND_NAME,
-                    ld_config.FAO_WOCAT_LPD_BAND_NAME,
-                    ld_config.TE_LPD_BAND_NAME
-                ])
+                "layer_type",
+                ";".join(
+                    [
+                        ld_config.JRC_LPD_BAND_NAME,
+                        ld_config.FAO_WOCAT_LPD_BAND_NAME,
+                        ld_config.TE_LPD_BAND_NAME,
+                    ]
+                ),
             )
         elif self.rb_lc.isChecked():
             self.combo_layer_input.setProperty(
-                'layer_type',
-                ';'.join([
-                    ld_config.LC_DEG_BAND_NAME,
-                    ld_config.LC_DEG_COMPARISON_BAND_NAME
-                ])
+                "layer_type",
+                ";".join(
+                    [ld_config.LC_DEG_BAND_NAME, ld_config.LC_DEG_COMPARISON_BAND_NAME]
+                ),
             )
         elif self.rb_soc.isChecked():
             self.combo_layer_input.setProperty(
-                'layer_type', ld_config.SOC_DEG_BAND_NAME)
+                "layer_type", ld_config.SOC_DEG_BAND_NAME
+            )
         self.combo_layer_input.populate()
         log(f'filter set to {self.combo_layer_input.property("layer_type")}')
 

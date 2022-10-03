@@ -45,7 +45,7 @@ except:
     version_info = {
         "version": "99.99.99",
         "revision": "unknown",
-        "release_date": "2099/01/01 00:00:00Z"
+        "release_date": "2099/01/01 00:00:00Z",
     }
 __version__ = version_info["version"]
 __version_major__ = re.sub(r"([0-9]+)(\.[0-9]+)+$", r"\g<1>", __version__)

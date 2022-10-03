@@ -21,18 +21,22 @@ import numpy as np
 #  at latitude f (on WGS84 ellipsoid). Based on:
 # https://gis.stackexchange.com/questions/127165/more-accurate-way-to-calculate-area-of-rasters
 def _slice_area(f):
-    a = 6378137 # in meters
-    b = 6356752.3142 # in meters,
+    a = 6378137  # in meters
+    b = 6356752.3142  # in meters,
     e = np.sqrt(1 - np.square(b / a))
     zp = 1 + e * np.sin(f)
     zm = 1 - e * np.sin(f)
-    return np.pi * np.square(b) * ((2 * np.arctanh(e * np.sin(f))) / (2 * e) + np.sin(f) / (zp * zm))
+    return (
+        np.pi
+        * np.square(b)
+        * ((2 * np.arctanh(e * np.sin(f))) / (2 * e) + np.sin(f) / (zp * zm))
+    )
 
 
 # Formula to calculate area of a raster cell, following
 # https://gis.stackexchange.com/questions/127165/more-accurate-way-to-calculate-area-of-rasters
 def calc_cell_area(ymin, ymax, x_width):
-    'Calculate cell area on WGS84 ellipsoid'
+    "Calculate cell area on WGS84 ellipsoid"
     if ymin > ymax:
         temp = ymax
         ymax = ymin
@@ -40,7 +44,9 @@ def calc_cell_area(ymin, ymax, x_width):
     # ymin: minimum latitude
     # ymax: maximum latitude
     # x_width: width of cell in degrees
-    return (_slice_area(np.deg2rad(ymax)) - _slice_area(np.deg2rad(ymin))) * (x_width / 360.)
+    return (_slice_area(np.deg2rad(ymax)) - _slice_area(np.deg2rad(ymin))) * (
+        x_width / 360.0
+    )
 
 
 def write_row_to_sheet(sheet, d, row, first_col):
@@ -62,9 +68,9 @@ def write_table_to_sheet(sheet, d, first_row, first_col):
             cell.value = d[row, col]
 
 
-# Used for reading arrays returned as text from algorithms implemented through 
+# Used for reading arrays returned as text from algorithms implemented through
 # QgsProcessing
-def np_array_from_str(s, dtype=float, count=-1, sep=' '):
-    s = s.strip('[')
-    s = s.strip(']')
+def np_array_from_str(s, dtype=float, count=-1, sep=" "):
+    s = s.strip("[")
+    s = s.strip("]")
     return np.fromstring(s, dtype=dtype, count=count, sep=sep)

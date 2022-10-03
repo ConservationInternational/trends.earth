@@ -10,10 +10,7 @@ import typing
 from marshmallow.exceptions import ValidationError
 from qgis.core import Qgis
 
-from ..conf import (
-    Setting,
-    settings_manager
-)
+from ..conf import Setting, settings_manager
 from ..logger import log
 from .models import ReportConfiguration
 from ..utils import FileUtils
@@ -28,21 +25,20 @@ class TemplateManager:
     """
     Reads and validates templates in template settings file.
     """
+
     def __init__(self, load_on_init=True):
         self._configs = []
         self._template_dir = FileUtils.report_templates_dir()
         self._user_temp_search_path = settings_manager.get_value(
             Setting.REPORT_TEMPLATE_SEARCH_PATH
         )
-        self._data_report_dir = ''
-        base_data_dir = settings_manager.get_value(
-            Setting.BASE_DIR
-        )
+        self._data_report_dir = ""
+        base_data_dir = settings_manager.get_value(Setting.BASE_DIR)
         if base_data_dir:
-            self._data_report_dir = f'{base_data_dir}/reports/templates'
+            self._data_report_dir = f"{base_data_dir}/reports/templates"
 
         # Default path for saving multi-dataset reports
-        self._default_output_dir = f'{base_data_dir}/reports/outputs'
+        self._default_output_dir = f"{base_data_dir}/reports/outputs"
 
         self._use_plugin_report_config = True
 
@@ -50,10 +46,7 @@ class TemplateManager:
         if os.path.exists(self.path):
             self._template_file_exists = True
         else:
-            log(
-                f'Report templates file {self.path} not found.',
-                Qgis.Warning
-            )
+            log(f"Report templates file {self.path} not found.", Qgis.Warning)
 
         if load_on_init:
             self.load()
@@ -71,9 +64,9 @@ class TemplateManager:
         Returns the path to the template file.
         """
         if self._use_plugin_report_config:
-            rpt_conf_path = f'{self._template_dir}{os.sep}templates.json'
+            rpt_conf_path = f"{self._template_dir}{os.sep}templates.json"
         else:
-            rpt_conf_path = f'{self._data_report_dir}{os.sep}templates.json'
+            rpt_conf_path = f"{self._data_report_dir}{os.sep}templates.json"
 
         return rpt_conf_path
 
@@ -100,8 +93,8 @@ class TemplateManager:
         return self._default_output_dir
 
     def configs_by_template_name(
-            self,
-            name: str,
+        self,
+        name: str,
     ) -> typing.List[ReportConfiguration]:
         """
         Returns report config objects with template info objects matching the
@@ -109,10 +102,7 @@ class TemplateManager:
         """
         return [rc for rc in self._configs if rc.template_info.name == name]
 
-    def configs_by_template_id(
-            self,
-            id: str
-    ) -> typing.List[ReportConfiguration]:
+    def configs_by_template_id(self, id: str) -> typing.List[ReportConfiguration]:
         # Returns report configs by template id.
         return [rc for rc in self._configs if rc.template_info.id == id]
 
@@ -121,34 +111,23 @@ class TemplateManager:
         Returns a list of report configurations with more than one item scope
         defined. These are used in compound reports.
         """
-        return [
-            rc for rc in self._configs
-            if rc.template_info.is_multi_scope
-        ]
+        return [rc for rc in self._configs if rc.template_info.is_multi_scope]
 
     def single_scope_configs(self) -> typing.List[ReportConfiguration]:
         """
         Returns a list of report configurations with one scope only.
         """
-        return [
-            rc for rc in self._configs
-            if not rc.template_info.is_multi_scope
-        ]
+        return [rc for rc in self._configs if not rc.template_info.is_multi_scope]
 
     @classmethod
     def configs_by_scope_name(
-            cls,
-            name: str,
-            configs: typing.List[ReportConfiguration]
+        cls, name: str, configs: typing.List[ReportConfiguration]
     ) -> typing.List[ReportConfiguration]:
         """
         Returns a list of report configurations whose template objects
         contain the given scope name.
         """
-        return [
-            rc for rc in configs
-            if rc.template_info.contains_scope(name)
-        ]
+        return [rc for rc in configs if rc.template_info.contains_scope(name)]
 
     def clear(self):
         """Clears collection of config objects."""
@@ -182,8 +161,8 @@ class TemplateManager:
             os.mkdir(self._default_output_dir)
         except FileExistsError:
             log(
-                f'Default report output directory already exists: '
-                f'{self._default_output_dir!r}'
+                f"Default report output directory already exists: "
+                f"{self._default_output_dir!r}"
             )
 
     def copy_configuration(self) -> bool:
@@ -194,9 +173,9 @@ class TemplateManager:
         """
         if not self._data_report_dir:
             log(
-                'Unable to copy report configuration. Path to the report '
-                'directory in the base data folder could not be determined.',
-                Qgis.Warning
+                "Unable to copy report configuration. Path to the report "
+                "directory in the base data folder could not be determined.",
+                Qgis.Warning,
             )
             return False
 
@@ -207,7 +186,7 @@ class TemplateManager:
         try:
             _ = copy_tree(self._template_dir, self._data_report_dir)
         except DistutilsFileError as dfe:
-            msg = f'Unable to copy report configuration. {dfe!s}'
+            msg = f"Unable to copy report configuration. {dfe!s}"
             log(msg, Qgis.Warning)
             return False
 
@@ -223,8 +202,11 @@ class TemplateManager:
         if clear_first:
             self.clear()
 
-        dest_dir = self._template_dir if self._use_plugin_report_config \
+        dest_dir = (
+            self._template_dir
+            if self._use_plugin_report_config
             else self._data_report_dir
+        )
 
         with open(self.path) as tf:
             try:
@@ -232,10 +214,7 @@ class TemplateManager:
                 for conf in configs:
                     cf = ReportConfiguration.Schema().load(conf)
                     if self._user_temp_search_path:
-                        cf.update_paths(
-                            dest_dir,
-                            self._user_temp_search_path
-                        )
+                        cf.update_paths(dest_dir, self._user_temp_search_path)
                     else:
                         cf.update_paths(dest_dir)
                     self._configs.append(cf)

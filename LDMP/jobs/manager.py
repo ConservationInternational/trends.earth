@@ -58,14 +58,15 @@ def is_gdal_vsi_path(path: Path):
 
 
 def update_uris_if_needed(job: Job, job_path):
-    'Update uris stored in a job when downloading/importing if it has absolute paths'
+    "Update uris stored in a job when downloading/importing if it has absolute paths"
     # First check if the data is in the same folder as the job file and relative to
     # it. If it is, update the various uris so they are  can still be found after
     # moving the job file
     if (
-        hasattr(job.results, 'uri')  and
-        job.results.uri and not job.results.uri.uri.is_absolute() and
-        not is_gdal_vsi_path(job.results.uri.uri)  # ignore gdal virtual fs
+        hasattr(job.results, "uri")
+        and job.results.uri
+        and not job.results.uri.uri.is_absolute()
+        and not is_gdal_vsi_path(job.results.uri.uri)  # ignore gdal virtual fs
     ):
         # If the path doesn't exist, but the filename does exist in the
         # same folder as the job, assume that is what is meant
@@ -74,16 +75,16 @@ def update_uris_if_needed(job: Job, job_path):
 
 def _get_extent_tuple_raster(path):
     if conf.settings_manager.get_value(conf.Setting.DEBUG):
-        log(f'Trying to calculate extent of raster {path}')
+        log(f"Trying to calculate extent of raster {path}")
     ds = gdal.Open(str(path))
     if ds:
         min_x, xres, _, max_y, _, yres = ds.GetGeoTransform()
         cols = ds.RasterXSize
         rows = ds.RasterYSize
 
-        extent = (min_x, max_y + rows*yres, min_x + cols*xres, max_y)
+        extent = (min_x, max_y + rows * yres, min_x + cols * xres, max_y)
         if conf.settings_manager.get_value(conf.Setting.DEBUG):
-            log(f'Calculated extent {[*extent]}')
+            log(f"Calculated extent {[*extent]}")
         return extent
     else:
         log("Failed to calculate extent - couldn't open dataset")
@@ -92,16 +93,15 @@ def _get_extent_tuple_raster(path):
 
 def _get_extent_tuple_vector(path):
     if conf.settings_manager.get_value(conf.Setting.DEBUG):
-        log(f'Trying to calculate extent of vector {path}')
+        log(f"Trying to calculate extent of vector {path}")
     rect = QgsVectorLayer(str(path), "vector file", "ogr").extent()
     if rect:
         xmin = rect.xMinimum()
         xmax = rect.xMaximum()
         ymin = rect.yMinimum()
         ymax = rect.yMaximum()
-        if (
-            any([(val > 180 or val < -180) for val in [xmin, xmax]]) or
-            any([(val > 90 or val < -90) for val in [ymin, ymax]])
+        if any([(val > 180 or val < -180) for val in [xmin, xmax]]) or any(
+            [(val > 90 or val < -90) for val in [ymin, ymax]]
         ):
             # If there are not yet any features, then the extent will be set as ranging
             # from -infinite to infinite - so catch this with above check
@@ -120,43 +120,49 @@ def _get_extent_tuple_vector(path):
 def _set_results_extents_raster(job):
     for raster in job.results.rasters.values():
         if raster.type == results.RasterType.ONE_FILE_RASTER:
-            if not hasattr(raster, 'extent') or raster.extent is None:
+            if not hasattr(raster, "extent") or raster.extent is None:
                 raster.extent = _get_extent_tuple_raster(raster.uri.uri)
                 if conf.settings_manager.get_value(conf.Setting.DEBUG):
-                    log(f'set job {job.id} {raster.datatype} {raster.type} '
-                        f'extent to {raster.extent}')
+                    log(
+                        f"set job {job.id} {raster.datatype} {raster.type} "
+                        f"extent to {raster.extent}"
+                    )
         elif raster.type == results.RasterType.TILED_RASTER:
-            if not hasattr(raster, 'extents') or raster.extents is None:
+            if not hasattr(raster, "extents") or raster.extents is None:
                 raster.extents = []
                 for raster_tile_uri in raster.tile_uris:
                     raster.extents.append(_get_extent_tuple_raster(raster_tile_uri.uri))
                 if conf.settings_manager.get_value(conf.Setting.DEBUG):
-                    log(f'set job {job.id} {raster.datatype} {raster.type} '
-                        f'extents to {raster.extents}')
+                    log(
+                        f"set job {job.id} {raster.datatype} {raster.type} "
+                        f"extents to {raster.extents}"
+                    )
         else:
             raise RuntimeError(f"Unknown raster type {raster.type!r}")
 
 
 def _set_results_extents_vector(job):
     if conf.settings_manager.get_value(conf.Setting.DEBUG):
-        log(f'Setting extents for job {job.id}')
-    if not hasattr(job.results, 'extent') or job.results.extent is None:
+        log(f"Setting extents for job {job.id}")
+    if not hasattr(job.results, "extent") or job.results.extent is None:
         job.results.extent = _get_extent_tuple_vector(job.results.vector.uri.uri)
         if conf.settings_manager.get_value(conf.Setting.DEBUG):
-            log(f'set job {job.id} {job.results.type} {job.results.vector.type} '
-                f'extent to {job.results.extent}')
+            log(
+                f"set job {job.id} {job.results.type} {job.results.vector.type} "
+                f"extent to {job.results.extent}"
+            )
 
 
 def set_results_extents(job):
-    if (
-        job.results.type == results.ResultType.RASTER_RESULTS and
-        job.status in [jobs.JobStatus.DOWNLOADED, jobs.JobStatus.GENERATED_LOCALLY]
-    ):
+    if job.results.type == results.ResultType.RASTER_RESULTS and job.status in [
+        jobs.JobStatus.DOWNLOADED,
+        jobs.JobStatus.GENERATED_LOCALLY,
+    ]:
         _set_results_extents_raster(job)
-    elif (
-        job.results.type == results.ResultType.VECTOR_RESULTS and
-        job.status in [jobs.JobStatus.DOWNLOADED, jobs.JobStatus.GENERATED_LOCALLY]
-    ):
+    elif job.results.type == results.ResultType.VECTOR_RESULTS and job.status in [
+        jobs.JobStatus.DOWNLOADED,
+        jobs.JobStatus.GENERATED_LOCALLY,
+    ]:
         _set_results_extents_vector(job)
 
 
@@ -169,35 +175,37 @@ class LocalJobTask(QgsTask):
     def __init__(self, description, job, area_of_interest):
         super().__init__(description, QgsTask.CanCancel)
         self.job = job
-        self.job_copy = deepcopy(job) # ensure job in main thread is not accessed
+        self.job_copy = deepcopy(job)  # ensure job in main thread is not accessed
         self.area_of_interest = area_of_interest
         self.results = None
 
     def run(self):
-        logger.debug('Running task')
+        logger.debug("Running task")
         execution_handler = utils.load_object(self.job_copy.script.execution_callable)
-        job_output_path, dataset_output_path = _get_local_job_output_paths(self.job_copy)
+        job_output_path, dataset_output_path = _get_local_job_output_paths(
+            self.job_copy
+        )
         self.results = execution_handler(
             self.job_copy, self.area_of_interest, job_output_path, dataset_output_path
         )
 
         if self.results is None:
-            logger.debug('Completed run function - failure')
+            logger.debug("Completed run function - failure")
             return False
         else:
-            logger.debug('Completed run function - success')
+            logger.debug("Completed run function - success")
             return True
 
     def finished(self, result):
-        logger.debug('Finished task')
+        logger.debug("Finished task")
         self.job.end_date = dt.datetime.now(dt.timezone.utc)
         self.job.progress = 100
         if result:
             self.job.results = self.results
             self.processed_job.emit(self.job)
-            logger.debug('Task succeeded')
+            logger.debug("Task succeeded")
         else:
-            logger.debug('Task failed')
+            logger.debug("Task failed")
 
 
 class JobManager(QtCore.QObject):
@@ -253,39 +261,38 @@ class JobManager(QtCore.QObject):
 
     @property
     def running_jobs_dir(self) -> Path:
-        return Path(
-            conf.settings_manager.get_value(conf.Setting.BASE_DIR)
-        ) / "running-jobs"
+        return (
+            Path(conf.settings_manager.get_value(conf.Setting.BASE_DIR))
+            / "running-jobs"
+        )
 
     @property
     def finished_jobs_dir(self) -> Path:
-        return Path(
-            conf.settings_manager.get_value(conf.Setting.BASE_DIR)
-        ) / "finished-jobs"
+        return (
+            Path(conf.settings_manager.get_value(conf.Setting.BASE_DIR))
+            / "finished-jobs"
+        )
 
     @property
     def failed_jobs_dir(self) -> Path:
-        return Path(
-            conf.settings_manager.get_value(conf.Setting.BASE_DIR)
-        ) / "failed-jobs"
+        return (
+            Path(conf.settings_manager.get_value(conf.Setting.BASE_DIR)) / "failed-jobs"
+        )
 
     @property
     def deleted_jobs_dir(self) -> Path:
-        return Path(
-            conf.settings_manager.get_value(conf.Setting.BASE_DIR)
-        ) / "deleted-jobs"
+        return (
+            Path(conf.settings_manager.get_value(conf.Setting.BASE_DIR))
+            / "deleted-jobs"
+        )
 
     @property
     def datasets_dir(self) -> Path:
-        return Path(
-            conf.settings_manager.get_value(conf.Setting.BASE_DIR)
-        ) / "datasets"
+        return Path(conf.settings_manager.get_value(conf.Setting.BASE_DIR)) / "datasets"
 
     @property
     def exports_dir(self) -> Path:
-        return Path(
-            conf.settings_manager.get_value(conf.Setting.BASE_DIR)
-        ) / "exported"
+        return Path(conf.settings_manager.get_value(conf.Setting.BASE_DIR)) / "exported"
 
     def clear_known_jobs(self):
         self._known_running_jobs = {}
@@ -305,8 +312,7 @@ class JobManager(QtCore.QObject):
         self._state_update_mutex.lock()
 
         self._known_running_jobs = {
-            j.id: j
-            for j in self._get_local_jobs(jobs.JobStatus.RUNNING)
+            j.id: j for j in self._get_local_jobs(jobs.JobStatus.RUNNING)
         }
         self._refresh_local_downloaded_jobs()
         # We copy the dictionary before iterating in order to avoid having it
@@ -316,24 +322,23 @@ class JobManager(QtCore.QObject):
 
         for j_id, j in frozen_known_downloaded_jobs.items():
             if (
-                j.results.uri and not is_gdal_vsi_path(j.results.uri.uri)
+                j.results.uri
+                and not is_gdal_vsi_path(j.results.uri.uri)
                 and not j.results.uri.uri.exists()
             ):
                 log(
-                    f'job {j_id} currently marked as DOWNLOADED but has '
-                    'missing paths, so moving back to FINISHED status'
+                    f"job {j_id} currently marked as DOWNLOADED but has "
+                    "missing paths, so moving back to FINISHED status"
                 )
                 j.results.uri = None
-                self._change_job_status(
-                    j, jobs.JobStatus.FINISHED, force_rewrite=True
-                )
+                self._change_job_status(j, jobs.JobStatus.FINISHED, force_rewrite=True)
         # Refresh again to pickup the changes back in the original dictionary
         self._refresh_local_downloaded_jobs()
         # filter list in case any jobs were moved from downloaded to finished
         self._known_downloaded_jobs = {
             j_id: j
-            for j_id, j in self._known_downloaded_jobs.items() if j.status in
-            [jobs.JobStatus.DOWNLOADED, jobs.JobStatus.GENERATED_LOCALLY]
+            for j_id, j in self._known_downloaded_jobs.items()
+            if j.status in [jobs.JobStatus.DOWNLOADED, jobs.JobStatus.GENERATED_LOCALLY]
         }
 
         # NOTE: finished and failed jobs are treated differently here because
@@ -349,50 +354,46 @@ class JobManager(QtCore.QObject):
     def refresh_from_remote_state(self, emit_signal: bool = True):
         """Request the latest state from the remote server
 
-        Then update filesystem directories too.
+         Then update filesystem directories too.
 
-        Checking for remote updates entails:
+         Checking for remote updates entails:
 
-        - Scanning the `running-jobs` local directory, looking for job metadata files
-        - Scanning the remote server in order to retrieve a list of all remote job
-           metadata files
-        - Comparing each remote job with the local job
-        - If a job is both on the local jobs list and on the remote jobs list, we
-          proceed to update its local job metadata file
+         - Scanning the `running-jobs` local directory, looking for job metadata files
+         - Scanning the remote server in order to retrieve a list of all remote job
+            metadata files
+         - Comparing each remote job with the local job
+         - If a job is both on the local jobs list and on the remote jobs list, we
+           proceed to update its local job metadata file
 
-       - If a job is only on the local list, then something went wrong with its remote
-         processing. We can notify the user and then we remove the job metadata file
-         from the `running-jobs` directory immediately. This job is effectively
-         discarded. The user will need to retry execution, if needed
+        - If a job is only on the local list, then something went wrong with its remote
+          processing. We can notify the user and then we remove the job metadata file
+          from the `running-jobs` directory immediately. This job is effectively
+          discarded. The user will need to retry execution, if needed
 
-       - If a job is only on the remote list, then we might have asked that its
-         results be deleted in the past. We look for the job's id on the
-         `deleted-datasets` directory.
+        - If a job is only on the remote list, then we might have asked that its
+          results be deleted in the past. We look for the job's id on the
+          `deleted-datasets` directory.
 
-         - If we find that the results of this job were deleted on purpose, then we
-           ignore the remote job.
+          - If we find that the results of this job were deleted on purpose, then we
+            ignore the remote job.
 
-         - If we cannot find the job on the `deleted-datasets` directory, then we
-           assume this is a new job that was created by some other means (another
-           client other than QGIS) and we store it locally in either the
-           `running-jobs` dir or the `finished-jobs` dir, depending on the job's status
+          - If we cannot find the job on the `deleted-datasets` directory, then we
+            assume this is a new job that was created by some other means (another
+            client other than QGIS) and we store it locally in either the
+            `running-jobs` dir or the `finished-jobs` dir, depending on the job's status
 
-       - If the job is complete we can now download the results. However, we may have
-         to do that on demand, so it is not done immediately. Instead, we move the
-         job metadata file to the `finished-jobs` directory on disk
+        - If the job is complete we can now download the results. However, we may have
+          to do that on demand, so it is not done immediately. Instead, we move the
+          job metadata file to the `finished-jobs` directory on disk
 
         """
         self._state_update_mutex.lock()
 
         now = dt.datetime.now(tz=dt.timezone.utc)
-        relevant_date = now - dt.timedelta(
-            days=self._relevant_job_age_threshold_days
-        )
+        relevant_date = now - dt.timedelta(days=self._relevant_job_age_threshold_days)
         remote_jobs = get_remote_jobs(end_date=relevant_date)
 
-        if conf.settings_manager.get_value(
-            conf.Setting.FILTER_JOBS_BY_BASE_DIR
-        ):
+        if conf.settings_manager.get_value(conf.Setting.FILTER_JOBS_BY_BASE_DIR):
             relevant_remote_jobs = get_relevant_remote_jobs(remote_jobs)
         else:
             relevant_remote_jobs = remote_jobs
@@ -426,16 +427,12 @@ class JobManager(QtCore.QObject):
             try:
                 _delete_job_datasets(job)
             except PermissionError:
-                log(
-                    f"Permissions error on path skipping deletion of {job.id}..."
-                )
+                log(f"Permissions error on path skipping deletion of {job.id}...")
                 # TODO: add back in old code used for removing visible layers
                 # prior to deletion
 
                 return
-            self._change_job_status(
-                job, jobs.JobStatus.DELETED, force_rewrite=False
-            )
+            self._change_job_status(job, jobs.JobStatus.DELETED, force_rewrite=False)
         else:
             log(f"job {job.id} has already been deleted, skipping...")
         self.deleted_job.emit(job)
@@ -457,13 +454,11 @@ class JobManager(QtCore.QObject):
         # Note - this is a reimplementation of api.run_script
         final_params = params.copy()
         final_params["task_notes"] = params["task_notes"]
-        final_params["local_context"] = jobs.JobLocalContext().Schema().dump(
-            _get_local_context()
+        final_params["local_context"] = (
+            jobs.JobLocalContext().Schema().dump(_get_local_context())
         )
         url_fragment = f"/api/v1/script/{script_id}/run"
-        response = api.call_api(
-            url_fragment, "post", final_params, use_token=True
-        )
+        response = api.call_api(url_fragment, "post", final_params, use_token=True)
         try:
             raw_job = response["data"]
         except TypeError:
@@ -478,8 +473,10 @@ class JobManager(QtCore.QObject):
         return job
 
     def submit_local_job_as_qgstask(
-        self, params: typing.Dict, script_name: str,
-        area_of_interest: areaofinterest.AOI
+        self,
+        params: typing.Dict,
+        script_name: str,
+        area_of_interest: areaofinterest.AOI,
     ):
         final_params = params.copy()
         task_name = final_params.pop("task_name")
@@ -494,7 +491,7 @@ class JobManager(QtCore.QObject):
             task_name=task_name,
             task_notes=task_notes,
             results=RasterResults(name=script_name, rasters={}, uri=None),
-            script=models.get_job_local_script(script_name)
+            script=models.get_job_local_script(script_name),
         )
         self.write_job_metadata_file(job)
         self._update_known_jobs_with_newly_submitted_job(job)
@@ -506,15 +503,17 @@ class JobManager(QtCore.QObject):
         elif job.local_context.area_of_interest_name:
             job_name_parts.append(job.local_context.area_of_interest_name)
         job_name_parts.append(script_name)
-        job_name = ' - '.join(job_name_parts)
+        job_name = " - ".join(job_name_parts)
 
         job_task = LocalJobTask(job_name, job, area_of_interest)
         job_task.processed_job.connect(self.finish_local_job)
         self.tm.addTask(job_task)
 
     def submit_local_job(
-        self, params: typing.Dict, script_name: str,
-        area_of_interest: areaofinterest.AOI
+        self,
+        params: typing.Dict,
+        script_name: str,
+        area_of_interest: areaofinterest.AOI,
     ):
         final_params = params.copy()
         task_name = final_params.pop("task_name")
@@ -529,16 +528,14 @@ class JobManager(QtCore.QObject):
             task_name=task_name,
             task_notes=task_notes,
             results=RasterResults(name=script_name, rasters={}, uri=None),
-            script=models.get_job_local_script(script_name)
+            script=models.get_job_local_script(script_name),
         )
         self.write_job_metadata_file(job)
         self._update_known_jobs_with_newly_submitted_job(job)
         self.submitted_local_job.emit(job)
         self.process_local_job(job, area_of_interest)
 
-    def process_local_job(
-        self, job: Job, area_of_interest: areaofinterest.AOI
-    ):
+    def process_local_job(self, job: Job, area_of_interest: areaofinterest.AOI):
         execution_handler = utils.load_object(job.script.execution_callable)
         job_output_path, dataset_output_path = _get_local_job_output_paths(job)
         done_job = execution_handler(
@@ -547,9 +544,7 @@ class JobManager(QtCore.QObject):
         self.finish_local_job(done_job)
 
     def finish_local_job(self, job):
-        self._move_job_to_dir(
-            job, new_status=jobs.JobStatus.GENERATED_LOCALLY
-        )
+        self._move_job_to_dir(job, new_status=jobs.JobStatus.GENERATED_LOCALLY)
         self.processed_local_job.emit(job)
 
     def download_job_results(self, job: Job) -> Job:
@@ -613,13 +608,12 @@ class JobManager(QtCore.QObject):
 
     def display_default_job_results(self, job: Job):
         if job.results.uri.uri.suffix in [".tif", ".vrt"]:
-            for band_index, band in enumerate(
-                job.results.get_bands(), start=1
-            ):
+            for band_index, band in enumerate(job.results.get_bands(), start=1):
                 if band.add_to_map:
                     layers.add_layer(
-                        str(job.results.uri.uri), band_index,
-                        JobBand.Schema().dump(band)
+                        str(job.results.uri.uri),
+                        band_index,
+                        JobBand.Schema().dump(band),
                     )
 
     def display_selected_job_results(self, job: Job, band_numbers):
@@ -627,8 +621,7 @@ class JobManager(QtCore.QObject):
             for n, band in enumerate(job.results.get_bands(), start=1):
                 if n in band_numbers:
                     layers.add_layer(
-                        str(job.results.uri.uri), n,
-                        JobBand.Schema().dump(band)
+                        str(job.results.uri.uri), n, JobBand.Schema().dump(band)
                     )
 
     def display_error_recode_layer(self, job: Job):
@@ -653,8 +646,8 @@ class JobManager(QtCore.QObject):
             status = jobs.JobStatus.DOWNLOADED
         else:
             status = job.status
-        log(f'job status is: {job.status}')
-        log(f'emitting job {job.id}')
+        log(f"job status is: {job.status}")
+        log(f"emitting job {job.id}")
         self.known_jobs[status][job.id] = job
         self.imported_job.emit(job)
 
@@ -662,9 +655,7 @@ class JobManager(QtCore.QObject):
         self, dataset_path: Path, band_name: str, band_metadata: typing.Dict
     ) -> Job:
         band_info = JobBand(
-            name=band_name,
-            no_data_value=-32768.0,
-            metadata=band_metadata.copy()
+            name=band_name, no_data_value=-32768.0, metadata=band_metadata.copy()
         )
 
         if band_name == "Land cover (7 class)":
@@ -676,14 +667,13 @@ class JobManager(QtCore.QObject):
         else:
             raise RuntimeError(f"Invalid band name: {band_name!r}")
         now = dt.datetime.now(tz=dt.timezone.utc)
-        rasters= {
-            DataType.INT16.value:
-            Raster(
-                uri=URI(uri=dataset_path, type='local'),
+        rasters = {
+            DataType.INT16.value: Raster(
+                uri=URI(uri=dataset_path, type="local"),
                 bands=[band_info],
                 datatype=DataType.INT16,
                 filetype=RasterFileType.GEOTIFF,
-                extent=_get_extent_tuple_raster(dataset_path)
+                extent=_get_extent_tuple_raster(dataset_path),
             )
         }
         job = Job(
@@ -696,12 +686,12 @@ class JobManager(QtCore.QObject):
             results=RasterResults(
                 name=f"{band_name} results",
                 rasters=rasters,
-                uri=URI(uri=dataset_path, type='local'),
+                uri=URI(uri=dataset_path, type="local"),
             ),
             task_name=tr_manager.tr("Imported dataset"),
             task_notes="",
             script=script,
-            end_date=now
+            end_date=now,
         )
 
         return job
@@ -720,14 +710,14 @@ class JobManager(QtCore.QObject):
                 name=f"False positive/negative",
                 type=ResultType.VECTOR_RESULTS,
                 vector=VectorFalsePositive(
-                        uri=None,
-                        type=VectorType.ERROR_RECODE,
-                    ),
-                uri=None
+                    uri=None,
+                    type=VectorType.ERROR_RECODE,
+                ),
+                uri=None,
             ),
             task_name=tr_manager.tr("False positive/negative"),
             task_notes="",
-            end_date=now
+            end_date=now,
         )
 
         self._init_error_recode_layer(job)
@@ -736,16 +726,31 @@ class JobManager(QtCore.QObject):
         self.imported_job.emit(job)
 
     def _init_error_recode_layer(self, job: Job):
-        output_path = self.get_job_file_path(job).with_suffix('.gpkg')
+        output_path = self.get_job_file_path(job).with_suffix(".gpkg")
         output_dir = output_path.parent
         output_dir.mkdir(parents=True, exist_ok=True)
         locale = QgsApplication.locale()
-        path = os.path.join(os.path.dirname(__file__), os.path.pardir, 'data', 'error_recode', 'error_recode_{}.gpkg'.format(locale))
+        path = os.path.join(
+            os.path.dirname(__file__),
+            os.path.pardir,
+            "data",
+            "error_recode",
+            "error_recode_{}.gpkg".format(locale),
+        )
         if os.path.exists(path):
             shutil.copy2(path, output_path)
         else:
-            shutil.copy2(os.path.join(os.path.dirname(__file__), os.path.pardir, 'data', 'error_recode', 'error_recode_en.gpkg'.format(locale)), output_path)
-        job.results.vector.uri=URI(uri=output_path, type='local')
+            shutil.copy2(
+                os.path.join(
+                    os.path.dirname(__file__),
+                    os.path.pardir,
+                    "data",
+                    "error_recode",
+                    "error_recode_en.gpkg".format(locale),
+                ),
+                output_path,
+            )
+        job.results.vector.uri = URI(uri=output_path, type="local")
 
     def _update_known_jobs_with_newly_submitted_job(self, job: Job):
         status = job.status
@@ -775,7 +780,7 @@ class JobManager(QtCore.QObject):
         out_rasters = {}
 
         if len([*job.results.rasters.values()]) == 0:
-            log(f'No results to download for {job.id}')
+            log(f"No results to download for {job.id}")
 
         for key, raster in job.results.rasters.items():
             file_out_base = f"{base_output_path.name}_{key}"
@@ -785,17 +790,15 @@ class JobManager(QtCore.QObject):
 
                 for uri_number, uri in enumerate(raster.tile_uris):
                     out_file = (
-                        base_output_path.parent /
-                        f"{file_out_base}_{uri_number}.tif"
+                        base_output_path.parent / f"{file_out_base}_{uri_number}.tif"
                     )
                     result = _download_result(
                         uri.uri,
-                        base_output_path.parent /
-                        f"{file_out_base}_{uri_number}.tif",
+                        base_output_path.parent / f"{file_out_base}_{uri_number}.tif",
                     )
                     if not result:
                         return None
-                    tile_uris.append(results.URI(uri=out_file, type='local'))
+                    tile_uris.append(results.URI(uri=out_file, type="local"))
 
                 raster.tile_uris = tile_uris
 
@@ -804,14 +807,14 @@ class JobManager(QtCore.QObject):
                     tiles=[str(uri.uri) for uri in tile_uris],
                     out_file=vrt_file,
                 )
-                out_rasters[key] =  results.TiledRaster(
-                        tile_uris=tile_uris,
-                        bands=raster.bands,
-                        datatype=raster.datatype,
-                        filetype=raster.filetype,
-                        uri=results.URI(uri=vrt_file, type='local'),
-                        type=results.RasterType.TILED_RASTER
-                    )
+                out_rasters[key] = results.TiledRaster(
+                    tile_uris=tile_uris,
+                    bands=raster.bands,
+                    datatype=raster.datatype,
+                    filetype=raster.filetype,
+                    uri=results.URI(uri=vrt_file, type="local"),
+                    type=results.RasterType.TILED_RASTER,
+                )
             else:
                 out_file = base_output_path.parent / f"{file_out_base}.tif"
                 result = _download_result(
@@ -820,14 +823,14 @@ class JobManager(QtCore.QObject):
                 )
                 if not result:
                     return None
-                raster_uri = results.URI(uri=out_file, type='local')
+                raster_uri = results.URI(uri=out_file, type="local")
                 raster.uri = raster_uri
-                out_rasters[key] =  results.Raster(
+                out_rasters[key] = results.Raster(
                     uri=raster_uri,
                     bands=raster.bands,
                     datatype=raster.datatype,
                     filetype=raster.filetype,
-                    type=results.RasterType.ONE_FILE_RASTER
+                    type=results.RasterType.ONE_FILE_RASTER,
                 )
 
         job.results.rasters = out_rasters
@@ -835,17 +838,15 @@ class JobManager(QtCore.QObject):
         # Setup the main uri. This could be a vrt (if job.results.rasters
         # has more than one Raster, or if it has one or more TiledRasters)
 
-        if (
-            len(job.results.rasters) > 1 or (
-                len(job.results.rasters) == 1
-                and [*job.results.rasters.values()
-                     ][0].type == results.RasterType.TILED_RASTER
-            )
+        if len(job.results.rasters) > 1 or (
+            len(job.results.rasters) == 1
+            and [*job.results.rasters.values()][0].type
+            == results.RasterType.TILED_RASTER
         ):
             vrt_file = base_output_path.parent / f"{base_output_path.name}.vrt"
             main_raster_file_paths = [raster.uri.uri for raster in out_rasters.values()]
             combine_all_bands_into_vrt(main_raster_file_paths, vrt_file)
-            job.results.uri = results.URI(uri=vrt_file, type='local')
+            job.results.uri = results.URI(uri=vrt_file, type="local")
         else:
             job.results.uri = [*job.results.rasters.values()][0].uri
 
@@ -902,8 +903,7 @@ class JobManager(QtCore.QObject):
         self, remote_jobs: typing.List[Job]
     ) -> typing.Dict[uuid.UUID, Job]:
         self._known_finished_jobs = {
-            j.id: j
-            for j in self._get_local_jobs(jobs.JobStatus.FINISHED)
+            j.id: j for j in self._get_local_jobs(jobs.JobStatus.FINISHED)
         }
         local_ids = self._known_finished_jobs.keys()
         deleted_ids = self._known_deleted_jobs.keys()
@@ -928,27 +928,21 @@ class JobManager(QtCore.QObject):
 
     def _refresh_local_downloaded_jobs(self):
         self._known_downloaded_jobs = {
-            j.id: j
-            for j in self._get_local_jobs(jobs.JobStatus.DOWNLOADED)
+            j.id: j for j in self._get_local_jobs(jobs.JobStatus.DOWNLOADED)
         }
 
     def _refresh_local_generated_jobs(self):
         self._known_downloaded_jobs = {
-            j.id: j
-            for j in self._get_local_jobs(jobs.JobStatus.GENERATED_LOCALLY)
+            j.id: j for j in self._get_local_jobs(jobs.JobStatus.GENERATED_LOCALLY)
         }
 
     def _refresh_local_deleted_jobs(self):
         self._known_deleted_jobs = {
-            j.id: j
-            for j in self._get_local_jobs(jobs.JobStatus.DELETED)
+            j.id: j for j in self._get_local_jobs(jobs.JobStatus.DELETED)
         }
 
     def _move_job_to_dir(
-        self,
-        job: Job,
-        new_status: jobs.JobStatus,
-        force_rewrite: bool = False
+        self, job: Job, new_status: jobs.JobStatus, force_rewrite: bool = False
     ):
         """Move job metadata file to another directory based on the desired status.
 
@@ -956,9 +950,9 @@ class JobManager(QtCore.QObject):
         This also moves job metadata file
 
         """
-        old_path = os.path.splitext(self.get_job_file_path(job))[0] + '.qmd'
+        old_path = os.path.splitext(self.get_job_file_path(job))[0] + ".qmd"
 
-        log(f'moving job {job.id} to dir')
+        log(f"moving job {job.id} to dir")
 
         if job.status != new_status:  # always write
             self._remove_job_metadata_file(job)
@@ -973,10 +967,10 @@ class JobManager(QtCore.QObject):
                 log("No need to move the job file, it is already in place")
 
         if os.path.exists(old_path):
-            new_path = os.path.splitext(self.get_job_file_path(job))[0] + '.qmd'
+            new_path = os.path.splitext(self.get_job_file_path(job))[0] + ".qmd"
             shutil.move(old_path, new_path)
 
-    #@functools.lru_cache(maxsize=None)  # not using functools.cache, as it was only introduced in Python 3.9
+    # @functools.lru_cache(maxsize=None)  # not using functools.cache, as it was only introduced in Python 3.9
     def _get_local_jobs(self, status: jobs.JobStatus) -> typing.List[Job]:
         base_dir = {
             jobs.JobStatus.FINISHED: self.finished_jobs_dir,
@@ -1025,6 +1019,7 @@ class JobManager(QtCore.QObject):
         deleted from disk, in order to avoid showing the user download options that are
         expected to fail.
         """
+
         def is_naive(d):
             return d.tzinfo is None or d.tzinfo.utcoffset(d) is None
 
@@ -1068,9 +1063,7 @@ class JobManager(QtCore.QObject):
             job_age = now - failed_job.end_date
 
             if job_age.days > self._relevant_job_age_threshold_days:
-                log(
-                    f"Removing job {failed_job.id} as it is no longer on server"
-                )
+                log(f"Removing job {failed_job.id} as it is no longer on server")
                 self._remove_job_metadata_file(failed_job)
             else:
                 self._known_failed_jobs[failed_job.id] = failed_job
@@ -1087,7 +1080,8 @@ class JobManager(QtCore.QObject):
         elif job.status == jobs.JobStatus.DELETED:
             base = self.deleted_jobs_dir / f"{job.get_basename(with_uuid=True)}.json"
         elif job.status in (
-            jobs.JobStatus.DOWNLOADED, jobs.JobStatus.GENERATED_LOCALLY
+            jobs.JobStatus.DOWNLOADED,
+            jobs.JobStatus.GENERATED_LOCALLY,
         ):
             base = self.datasets_dir / f"{job.id!s}" / f"{job.get_basename()}.json"
         else:
@@ -1114,8 +1108,7 @@ class JobManager(QtCore.QObject):
         old_path = self.get_job_file_path(job)
 
         if old_path.exists():
-            old_path.unlink(
-            )  # not using the `missing_ok` param as it was introduced only in Python 3.8
+            old_path.unlink()  # not using the `missing_ok` param as it was introduced only in Python 3.8
 
 
 def _get_local_job_output_paths(job: Job) -> typing.Tuple[Path, Path]:
@@ -1135,9 +1128,7 @@ def _get_local_job_output_paths(job: Job) -> typing.Tuple[Path, Path]:
 def _get_local_context() -> str:
     return jobs.JobLocalContext(
         base_dir=conf.settings_manager.get_value(conf.Setting.BASE_DIR),
-        area_of_interest_name=conf.settings_manager.get_value(
-            conf.Setting.AREA_NAME
-        )
+        area_of_interest_name=conf.settings_manager.get_value(conf.Setting.AREA_NAME),
     )
 
 
@@ -1159,7 +1150,7 @@ def _get_access_token():
 
 def _get_user_id() -> uuid:
     if conf.settings_manager.get_value(conf.Setting.DEBUG):
-        log('Retrieving user id...')
+        log("Retrieving user id...")
 
     get_user_reply = api.get_user()
 
@@ -1176,12 +1167,16 @@ def _get_raster_vrt(tiles: List[Path], out_file: Path):
 
 
 def backoff_hdlr(details):
-    log("Backing off {wait:0.1f} seconds after {tries} tries "
+    log(
+        "Backing off {wait:0.1f} seconds after {tries} tries "
         "calling function {target} with args {args} and kwargs "
-        "{kwargs}".format(**details))
+        "{kwargs}".format(**details)
+    )
 
-@backoff.on_predicate(backoff.expo, lambda x: x is None, max_tries=5,
-                      on_backoff=backoff_hdlr)
+
+@backoff.on_predicate(
+    backoff.expo, lambda x: x is None, max_tries=5, on_backoff=backoff_hdlr
+)
 def _download_result(url: str, output_path: Path) -> bool:
     output_path.parent.mkdir(parents=True, exist_ok=True)
     download_worker = ldmp_download.Download(url, str(output_path))
@@ -1197,20 +1192,15 @@ def _download_result(url: str, output_path: Path) -> bool:
 def _delete_job_datasets(job: Job):
     if job.results is not None:
         try:
-           path = os.path.split(job_manager.get_job_file_path(job))[0]
-           shutil.rmtree(path)
+            path = os.path.split(job_manager.get_job_file_path(job))[0]
+            shutil.rmtree(path)
         except OSError:
-            log(
-                f"Could not remove directory {path!r}, "
-                "skipping deletion..."
-            )
+            log(f"Could not remove directory {path!r}, " "skipping deletion...")
     else:
         log("This job has no results to be deleted, skipping...")
 
 
-def get_remote_jobs(
-    end_date: typing.Optional[dt.datetime] = None
-) -> typing.List[Job]:
+def get_remote_jobs(end_date: typing.Optional[dt.datetime] = None) -> typing.List[Job]:
     """Get a list of remote jobs, as returned by the server"""
     # Note - this is a reimplementation of api.get_execution
     try:
@@ -1238,12 +1228,12 @@ def get_remote_jobs(
             query["updated_at"] = end_date.strftime("%Y-%m-%d")
 
         if conf.settings_manager.get_value(conf.Setting.DEBUG):
-            log('Retrieving executions...')
+            log("Retrieving executions...")
 
         response = api.call_api(
             f"/api/v1/execution?{urllib.parse.urlencode(query)}",
             method="get",
-            use_token=True
+            use_token=True,
         )
         try:
             raw_jobs = response["data"]
@@ -1261,22 +1251,16 @@ def get_remote_jobs(
                     if job is not None:
                         remote_jobs.append(job)
                 except ValidationError as exc:
-                    log(
-                        f"Could not retrieve remote job {raw_job['id']}: {str(exc)}"
-                    )
+                    log(f"Could not retrieve remote job {raw_job['id']}: {str(exc)}")
                 except RuntimeError as exc:
                     log(str(exc))
                 except TypeError as exc:
-                    log(
-                        f"Could not retrieve remote job {raw_job['id']}: {str(exc)}"
-                    )
+                    log(f"Could not retrieve remote job {raw_job['id']}: {str(exc)}")
 
     return remote_jobs
 
 
-def get_relevant_remote_jobs(
-    remote_jobs: typing.List[Job]
-) -> typing.List[Job]:
+def get_relevant_remote_jobs(remote_jobs: typing.List[Job]) -> typing.List[Job]:
     """Filter a list of jobs gotten from the remote server for relevant jobs
 
     Relevant jobs are those that whose `local_context.base_dir` matches the current

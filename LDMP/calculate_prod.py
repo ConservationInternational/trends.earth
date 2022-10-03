@@ -212,7 +212,7 @@ class DlgCalculateProd(calculate.DlgCalculateBase, DlgCalculateProdUi):
             climate_gee_dataset = self.climate_datasets[
                 self.traj_climate.currentText()
             ]["GEE Dataset"]
-            log(u"climate_gee_dataset {}".format(climate_gee_dataset))
+            log("climate_gee_dataset {}".format(climate_gee_dataset))
         else:
             climate_gee_dataset = None
 

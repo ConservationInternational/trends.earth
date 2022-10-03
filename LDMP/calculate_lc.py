@@ -14,10 +14,7 @@
 import json
 from pathlib import Path
 
-from qgis.PyQt import (
-    QtWidgets,
-    uic
-)
+from qgis.PyQt import QtWidgets, uic
 
 import qgis.core
 import qgis.gui
@@ -32,10 +29,12 @@ from .jobs.manager import job_manager
 
 
 DlgCalculateLcUi, _ = uic.loadUiType(
-    str(Path(__file__).parent / "gui/DlgCalculateLC.ui"))
+    str(Path(__file__).parent / "gui/DlgCalculateLC.ui")
+)
 
 from te_schemas.schemas import BandInfo, BandInfoSchema
 from te_schemas.land_cover import LCTransitionDefinitionDeg, LCLegendNesting
+
 
 class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
     LOCAL_SCRIPT_NAME = "local-land-cover"
@@ -44,10 +43,10 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
     scrollAreaWidgetContents: QtWidgets.QWidget
 
     def __init__(
-            self,
-            iface: qgis.gui.QgisInterface,
-            script: ExecutionScript,
-            parent: QtWidgets.QWidget
+        self,
+        iface: qgis.gui.QgisInterface,
+        script: ExecutionScript,
+        parent: QtWidgets.QWidget,
     ):
         super().__init__(iface, script, parent)
         self.setupUi(self)
@@ -58,8 +57,7 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
             )
         elif self.script.run_mode == AlgorithmRunMode.REMOTE:
             self.lc_setup_widget = lc_setup.LandCoverSetupRemoteExecutionWidget(
-                parent=self,
-                lc_nesting_type=lc_setup.LCNestingType.ESA
+                parent=self, lc_nesting_type=lc_setup.LCNestingType.ESA
             )
 
         self.lc_define_deg_widget = lc_setup.LCDefineDegradationWidget()
@@ -93,14 +91,14 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
             "geojsons": json.dumps(geojsons),
             "crs": self.aoi.get_crs_dst_wkt(),
             "crosses_180th": crosses_180th,
-            'legend_nesting': LCLegendNesting.Schema().dump(
+            "legend_nesting": LCLegendNesting.Schema().dump(
                 self.lc_setup_widget.aggregation_dialog.nesting
             ),
-            'trans_matrix': LCTransitionDefinitionDeg.Schema().dump(
+            "trans_matrix": LCTransitionDefinitionDeg.Schema().dump(
                 self.lc_define_deg_widget.trans_matrix
             ),
             "task_name": self.execution_name_le.text(),
-            "task_notes": self.task_notes.toPlainText()
+            "task_notes": self.task_notes.toPlainText(),
         }
         job = job_manager.submit_remote_job(payload, self.script.id)
 
@@ -111,10 +109,7 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
             main_msg = "Error"
             description = "Unable to submit land cover task to Trends.Earth server."
         self.mb.pushMessage(
-            self.tr(main_msg),
-            self.tr(description),
-            level=0,
-            duration=5
+            self.tr(main_msg), self.tr(description), level=0, duration=5
         )
 
     def calculate_locally(self):
@@ -126,7 +121,7 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
                 self.tr(
                     "You must add an initial land cover layer to your map before you "
                     "can run the calculation."
-                )
+                ),
             )
             return
 
@@ -137,7 +132,7 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
                 self.tr(
                     "You must add a final land cover layer to your map before you "
                     "can run the calculation."
-                )
+                ),
             )
             return
 
@@ -149,45 +144,44 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
                 None,
                 self.tr("Warning"),
                 self.tr(
-                    'The initial year ({}) is greater than or equal to the target '
-                    'year ({}) - this analysis might generate strange '
-                    'results.'.format(year_initial, year_final)
-                )
+                    "The initial year ({}) is greater than or equal to the target "
+                    "year ({}) - this analysis might generate strange "
+                    "results.".format(year_initial, year_final)
+                ),
             )
 
         initial_layer = self.lc_setup_widget.initial_year_layer_cb.get_layer()
         initial_extent_geom = qgis.core.QgsGeometry.fromRect(initial_layer.extent())
-        if self.aoi.calc_frac_overlap(initial_extent_geom) < .99:
+        if self.aoi.calc_frac_overlap(initial_extent_geom) < 0.99:
             QtWidgets.QMessageBox.critical(
                 None,
                 self.tr("Error"),
                 self.tr(
                     "Area of interest is not entirely within the initial land cover "
                     "layer."
-                )
+                ),
             )
             return
 
         final_layer = self.lc_setup_widget.target_year_layer_cb.get_layer()
         final_extent_geom = qgis.core.QgsGeometry.fromRect(final_layer.extent())
-        if self.aoi.calc_frac_overlap(final_extent_geom) < .99:
+        if self.aoi.calc_frac_overlap(final_extent_geom) < 0.99:
             QtWidgets.QMessageBox.critical(
                 None,
                 self.tr("Error"),
                 self.tr(
                     "Area of interest is not entirely within the final land "
                     "cover layer."
-                )
+                ),
             )
             return
 
-        initial_usable = (
-            self.lc_setup_widget.initial_year_layer_cb.get_current_band())
+        initial_usable = self.lc_setup_widget.initial_year_layer_cb.get_current_band()
         final_usable = self.lc_setup_widget.target_year_layer_cb.get_current_band()
-        # TODO: Fix for case where nesting varies between initial and final 
+        # TODO: Fix for case where nesting varies between initial and final
         # bands
-        initial_nesting = initial_usable.band_info.metadata.get('nesting')
-        final_nesting = final_usable.band_info.metadata.get('nesting')
+        initial_nesting = initial_usable.band_info.metadata.get("nesting")
+        final_nesting = final_usable.band_info.metadata.get("nesting")
         if (initial_nesting and final_nesting) and (initial_nesting != final_nesting):
             QtWidgets.QMessageBox.critical(
                 None,
@@ -195,7 +189,7 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
                 self.tr(
                     "Nesting of land cover legends for "
                     "initial and final land cover layer must be identical."
-                )
+                ),
             )
             return
 
@@ -210,9 +204,9 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
             "lc_initial_band_index": initial_usable.band_index,
             "lc_final_path": str(final_usable.path),
             "lc_final_band_index": final_usable.band_index,
-            'legend_nesting': initial_nesting,
-            'trans_matrix': LCTransitionDefinitionDeg.Schema().dumps(
+            "legend_nesting": initial_nesting,
+            "trans_matrix": LCTransitionDefinitionDeg.Schema().dumps(
                 self.lc_define_deg_widget.trans_matrix
-            )
+            ),
         }
         job_manager.submit_local_job(job_params, self.LOCAL_SCRIPT_NAME, self.aoi)

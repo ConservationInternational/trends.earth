@@ -11,6 +11,7 @@ from LDMP.test.unit.test_calculate_ldn import CalculateLDNUnitSuite
 from LDMP.test.integration.test_calculate_ldn import CalculateLDNIntegrationSuite
 from LDMP.test.integration.test_calculate_urban import CalculateUrbanIntegrationSuite
 
+
 def unitTests():
     suite = unittest.TestSuite()
     suite.addTest(SettingsUnitSuite())
@@ -41,4 +42,3 @@ def run_all():
     #         break
     #     print('Waiting for completion of GEE tasks')
     #     sleep(10)
-

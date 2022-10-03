@@ -16,9 +16,7 @@ from qgis.PyQt.QtCore import (
     QUrl,
     QObject,
 )
-from qgis.PyQt.QtGui import (
-    QColor
-)
+from qgis.PyQt.QtGui import QColor
 
 from qgis import processing
 from qgis.core import (
@@ -35,32 +33,28 @@ from qgis.core import (
     QgsPrintLayout,
     QgsProject,
     QgsUnitTypes,
-    QgsVectorLayer
+    QgsVectorLayer,
 )
 
 from ..jobs.models import Job
-from ..layers import (
-    create_categorical_color_ramp,
-    styles
-)
+from ..layers import create_categorical_color_ramp, styles
 from .models import slugify
+
 
 class tr_reports_charts(QObject):
     def tr(self, txt):
         return QCoreApplication.translate(self.__class__.__name__, txt)
 
+
 tr_reports_charts = tr_reports_charts()
 
 # Contains information about a layer and source band_info
-LayerBandInfo = namedtuple(
-    'LayerBandInfo',
-    'layer band_info'
-)
+LayerBandInfo = namedtuple("LayerBandInfo", "layer band_info")
 
 # Statistical information for a single classification category
 UniqueValuesInfo = namedtuple(
-    'UniqueValuesInfo',
-    'area category_label category_value color count coverage_percent'
+    "UniqueValuesInfo",
+    "area category_label category_value color count coverage_percent",
 )
 
 
@@ -70,8 +64,8 @@ class BaseChart:
     """
 
     def __init__(self, **kwargs):
-        self.layer_band_info = kwargs.pop('layer_band_info', None)
-        self.root_output_dir = kwargs.pop('root_output_dir', '')
+        self.layer_band_info = kwargs.pop("layer_band_info", None)
+        self.root_output_dir = kwargs.pop("root_output_dir", "")
         self._paths = []
         self._dpi = 300
         self._measurement_converter = QgsLayoutMeasurementConverter()
@@ -81,21 +75,21 @@ class BaseChart:
         self._width_mm = 280
         self._height_mm = 210
 
-        self.plot_title = ''
+        self.plot_title = ""
         # Will be prefixed with 'chart-' in the file name.
-        self.base_chart_name = ''
+        self.base_chart_name = ""
 
         self.font_size_legend = 18
         self.font_size_title = 30
         self.font_size_body = 14
 
-        self.value_axis_label = ''
+        self.value_axis_label = ""
 
     @classmethod
     def warning_msg(cls, msg: str) -> str:
         # Append class name to the message.
         cls_name = cls.__class__.__name__
-        return f'{cls_name}: {msg}'
+        return f"{cls_name}: {msg}"
 
     @property
     def paths(self) -> typing.List[str]:
@@ -110,7 +104,7 @@ class BaseChart:
         """
         Returns the year specified in the given band_info.
         """
-        return band_info['metadata']['year']
+        return band_info["metadata"]["year"]
 
     def layer_name(self) -> str:
         """
@@ -118,7 +112,7 @@ class BaseChart:
         """
         layer = self.layer_band_info.layer
         if layer is None:
-            return ''
+            return ""
 
         return slugify(layer.name())
 
@@ -144,13 +138,9 @@ class BaseChart:
         Converts length measurement to equivalent pixels taking into account
         the resolution.
         """
-        measurement = QgsLayoutMeasurement(
-            length,
-            QgsUnitTypes.LayoutMillimeters
-        )
+        measurement = QgsLayoutMeasurement(length, QgsUnitTypes.LayoutMillimeters)
         pix_measurement = self._measurement_converter.convert(
-            measurement,
-            QgsUnitTypes.LayoutPixels
+            measurement, QgsUnitTypes.LayoutPixels
         )
 
         return pix_measurement.length()
@@ -165,9 +155,7 @@ class BaseChart:
         html_item = QgsLayoutItemHtml(layout)
         frame = QgsLayoutFrame(layout, html_item)
         html_item.addFrame(frame)
-        frame.attemptMove(
-            QgsLayoutPoint(16, 0, QgsUnitTypes.LayoutMillimeters)
-        )
+        frame.attemptMove(QgsLayoutPoint(16, 0, QgsUnitTypes.LayoutMillimeters))
         frame.attemptResize(QgsLayoutSize(280, 210))
         layout.addMultiFrame(html_item)
 
@@ -192,14 +180,14 @@ class BaseChart:
             return False
 
         file_name = temp_html_file.fileName()
-        html_path = f'{file_name}.html'
+        html_path = f"{file_name}.html"
 
         # Write figure to html
         figure.write_html(
             html_path,
             auto_open=False,
             auto_play=False,
-            config={'displayModeBar': False}
+            config={"displayModeBar": False},
         )
 
         # Create and export layout
@@ -218,6 +206,7 @@ class InfoValueType(Enum):
     """
     Value to use for plotting in UniqueValueInfo object.
     """
+
     AREA = 0
     PERCENT = 1
 
@@ -236,9 +225,7 @@ class BaseUniqueValuesChart(BaseChart):
 
     @classmethod
     def report(
-            cls,
-            layer_band_info: LayerBandInfo,
-            band_number: int
+        cls, layer_band_info: LayerBandInfo, band_number: int
     ) -> typing.List[UniqueValuesInfo]:
         """
         Returns a list containing area count for each unique pixel
@@ -246,7 +233,7 @@ class BaseUniqueValuesChart(BaseChart):
         """
         layer = layer_band_info.layer
         band_info = layer_band_info.band_info
-        band_info_name = band_info['name']
+        band_info_name = band_info["name"]
         idx_clr_ramp = _create_indexed_color_ramp(band_info_name)
 
         output_temp_file = QTemporaryFile()
@@ -258,25 +245,20 @@ class BaseUniqueValuesChart(BaseChart):
 
         file_name = output_temp_file.fileName()
 
-        alg_name = 'native:rasterlayeruniquevaluesreport'
-        output_table = f'{file_name}.geojson'
-        params = {
-            'INPUT': layer,
-            'BAND': band_number,
-            'OUTPUT_TABLE': output_table
-        }
+        alg_name = "native:rasterlayeruniquevaluesreport"
+        output_table = f"{file_name}.geojson"
+        params = {"INPUT": layer, "BAND": band_number, "OUTPUT_TABLE": output_table}
 
         output = processing.run(alg_name, params)
 
         # Compute pixel size in sq km
-        pixel_count = output['TOTAL_PIXEL_COUNT']
+        pixel_count = output["TOTAL_PIXEL_COUNT"]
         area_calc = QgsDistanceArea()
-        area_calc.setEllipsoid('WGS84')
+        area_calc.setEllipsoid("WGS84")
         ext_geom = QgsGeometry.fromRect(layer.extent())
         extents_area = area_calc.measureArea(ext_geom)
         area_km = area_calc.convertAreaMeasurement(
-            extents_area,
-            QgsUnitTypes.AreaSquareKilometers
+            extents_area, QgsUnitTypes.AreaSquareKilometers
         )
         pixel_area = area_km / pixel_count
 
@@ -286,13 +268,13 @@ class BaseUniqueValuesChart(BaseChart):
         feat_iter = vl.getFeatures()
 
         for f in feat_iter:
-            pix_val = f['value']
-            num_pixels = f['count']
+            pix_val = f["value"]
+            num_pixels = f["count"]
             area_sq_km = num_pixels * pixel_area
             area_percent = area_sq_km / area_km * 100
 
             # Get label and color defined in the band style
-            label = ''
+            label = ""
             clr = Qt.lightGray
             int_pix_val = int(pix_val)
             if int_pix_val in idx_clr_ramp:
@@ -301,12 +283,7 @@ class BaseUniqueValuesChart(BaseChart):
                 clr = ramp_item.color
 
             vi = UniqueValuesInfo(
-                area_sq_km,
-                label,
-                pix_val,
-                clr,
-                num_pixels,
-                area_percent
+                area_sq_km, label, pix_val, clr, num_pixels, area_percent
             )
             unique_vals.append(vi)
 
@@ -317,34 +294,33 @@ class UniqueValuesPieChart(BaseUniqueValuesChart):
     """
     Plots the pixel stats in a pie chart.
     """
+
     def export(self) -> typing.Tuple[bool, list]:
         # Create stats pie chart
         if not self.root_output_dir:
-            return False, ['Output directory not defined']
+            return False, ["Output directory not defined"]
 
         if self.band_number < 1 and len(self.value_info_collection) == 0:
-            return False, ['Band number cannot be less than one']
+            return False, ["Band number cannot be less than one"]
 
         # If unique values collection is empty then extract from the layer.
         if len(self.value_info_collection) == 0:
             self.value_info_collection = self.report(
-                self.layer_band_info,
-                self.band_number
+                self.layer_band_info, self.band_number
             )
 
         file_name_base = self.base_chart_name
         if not file_name_base:
             file_name_base = self.layer_name()
 
-        output_file_path = f'{self.root_output_dir}/' \
-                           f'chart-{file_name_base}.png'
+        output_file_path = f"{self.root_output_dir}/" f"chart-{file_name_base}.png"
 
         labels = []
         values = []
         colors = []
         for val_info in self.value_info_collection:
             # Remove pixel value prefix
-            lbls = val_info.category_label.split('-', maxsplit=1)
+            lbls = val_info.category_label.split("-", maxsplit=1)
             label = lbls[0] if len(lbls) == 1 else lbls[1]
 
             labels.append(label)
@@ -353,32 +329,29 @@ class UniqueValuesPieChart(BaseUniqueValuesChart):
 
         pw, ph = self.preferred_size
 
-        text_info = 'value'
+        text_info = "value"
         if self.use_value_type == InfoValueType.PERCENT:
-            text_info = 'percent'
+            text_info = "percent"
 
         # Create and export pie chart
         fig = go.Figure(data=[go.Pie(labels=labels, values=values)])
         fig.update_traces(
             textinfo=text_info,
             marker=dict(colors=colors),
-            textfont={
-                'size': self.font_size_body
-            }
+            textfont={"size": self.font_size_body},
         )
-        fig.update_layout(title={
-            'text': self.plot_title,
-            'y': 0.95,
-            'x': 0.5,
-            'xanchor': 'center',
-            'yanchor': 'top',
-            'font': {'size': self.font_size_title}
-        },
-            legend={
-                'font': {'size': self.font_size_legend}
+        fig.update_layout(
+            title={
+                "text": self.plot_title,
+                "y": 0.95,
+                "x": 0.5,
+                "xanchor": "center",
+                "yanchor": "top",
+                "font": {"size": self.font_size_title},
             },
+            legend={"font": {"size": self.font_size_legend}},
             width=pw,
-            height=ph
+            height=ph,
         )
 
         # Save image
@@ -392,6 +365,7 @@ class ChangeBarChartType(Enum):
     """
     Type of change barchart types to plot.
     """
+
     CLUSTERED = 0
     POS_NEG = 1
     ALL = 2
@@ -403,8 +377,8 @@ class UniqueValuesChangeBarChart(BaseUniqueValuesChart):
     """
 
     def __init__(self, **kwargs):
-        self.target_layer_band_info = kwargs.pop('target_lbi', None)
-        self.target_band_number = kwargs.pop('target_band', -1)
+        self.target_layer_band_info = kwargs.pop("target_lbi", None)
+        self.target_band_number = kwargs.pop("target_band", -1)
         self.target_value_info_collection = []
         self.chart_type = ChangeBarChartType.ALL
         super().__init__(**kwargs)
@@ -416,42 +390,33 @@ class UniqueValuesChangeBarChart(BaseUniqueValuesChart):
             self.init_year = self.year(self.layer_band_info.band_info)
 
         if self.target_layer_band_info:
-            self.target_year = self.year(
-                self.target_layer_band_info.band_info
-            )
+            self.target_year = self.year(self.target_layer_band_info.band_info)
 
     def export(self) -> typing.Tuple[bool, list]:
         # Create clustered bar graph comparing initial and target years.
         if not self.root_output_dir:
-            return False, ['Output directory not defined']
+            return False, ["Output directory not defined"]
 
         if self.band_number < 1 and len(self.value_info_collection) == 0:
-            return False, [
-                'Initial band number cannot be less than one.'
-            ]
+            return False, ["Initial band number cannot be less than one."]
 
-        if self.target_band_number < 1 and \
-                len(self.target_value_info_collection) == 0:
-            return False, [
-                'Target band number must cannot be less than one.'
-            ]
+        if self.target_band_number < 1 and len(self.target_value_info_collection) == 0:
+            return False, ["Target band number must cannot be less than one."]
 
         # Initial value info collection
         if len(self.value_info_collection) == 0:
             self.value_info_collection = self.report(
-                self.layer_band_info,
-                self.band_number
+                self.layer_band_info, self.band_number
             )
 
         # Target (year) value info collection
         if len(self.target_value_info_collection) == 0:
             self.target_value_info_collection = self.report(
-                self.target_layer_band_info,
-                self.target_band_number
+                self.target_layer_band_info, self.target_band_number
             )
 
-        file_name = slugify(f'chart-{self.base_chart_name}_area')
-        output_file_path = f'{self.root_output_dir}/{file_name}.png'
+        file_name = slugify(f"chart-{self.base_chart_name}_area")
+        output_file_path = f"{self.root_output_dir}/{file_name}.png"
 
         labels = []
         init_values = []
@@ -463,7 +428,7 @@ class UniqueValuesChangeBarChart(BaseUniqueValuesChart):
             target_val_info = self.target_value_info_collection[i]
 
             # Labels
-            lbls = init_val_info.category_label.split('-', maxsplit=1)
+            lbls = init_val_info.category_label.split("-", maxsplit=1)
             label = lbls[0] if len(lbls) == 1 else lbls[1]
             labels.append(label)
 
@@ -481,8 +446,10 @@ class UniqueValuesChangeBarChart(BaseUniqueValuesChart):
         pw, ph = self.preferred_size
 
         # Create and export grouped bar graph
-        if self.chart_type == ChangeBarChartType.CLUSTERED or \
-                self.chart_type == ChangeBarChartType.ALL:
+        if (
+            self.chart_type == ChangeBarChartType.CLUSTERED
+            or self.chart_type == ChangeBarChartType.ALL
+        ):
             fig = go.Figure()
             # Init year
             fig.add_trace(
@@ -492,11 +459,9 @@ class UniqueValuesChangeBarChart(BaseUniqueValuesChart):
                     name=str(self.init_year),
                     marker_color=init_colors,
                     text=init_values,
-                    textposition='auto',
-                    texttemplate='%{y:,.4r}',
-                    textfont={
-                        'size': 10
-                    }
+                    textposition="auto",
+                    texttemplate="%{y:,.4r}",
+                    textfont={"size": 10},
                 )
             )
             # Target year
@@ -507,37 +472,34 @@ class UniqueValuesChangeBarChart(BaseUniqueValuesChart):
                     name=str(self.target_year),
                     marker_color=target_colors,
                     text=target_values,
-                    textposition='auto',
-                    texttemplate='%{y:,.4r}',
-                    textfont={
-                        'size': 10
-                    }
+                    textposition="auto",
+                    texttemplate="%{y:,.4r}",
+                    textfont={"size": 10},
                 )
             )
 
-            fig.update_layout(title={
-                'text': self.plot_title,
-                'y': 0.95,
-                'x': 0.5,
-                'xanchor': 'center',
-                'yanchor': 'top',
-                'font': {'size': self.font_size_title}
-            },
-                xaxis={
-                    'tickfont_size': self.font_size_body
+            fig.update_layout(
+                title={
+                    "text": self.plot_title,
+                    "y": 0.95,
+                    "x": 0.5,
+                    "xanchor": "center",
+                    "yanchor": "top",
+                    "font": {"size": self.font_size_title},
                 },
+                xaxis={"tickfont_size": self.font_size_body},
                 yaxis={
-                    'title': self.value_axis_label,
-                    'titlefont_size': self.font_size_legend,
-                    'tickfont_size': self.font_size_body,
-                    'tickformat': ',.4r'
+                    "title": self.value_axis_label,
+                    "titlefont_size": self.font_size_legend,
+                    "tickfont_size": self.font_size_body,
+                    "tickformat": ",.4r",
                 },
-                barmode='group',
+                barmode="group",
                 bargap=0.15,
                 bargroupgap=0.1,
                 showlegend=False,
                 width=pw,
-                height=ph
+                height=ph,
             )
 
             # Save image
@@ -545,23 +507,28 @@ class UniqueValuesChangeBarChart(BaseUniqueValuesChart):
             self._paths.append(output_file_path)
 
         # Positive/negative bar graph
-        if self.chart_type == ChangeBarChartType.POS_NEG or \
-                self.chart_type == ChangeBarChartType.ALL:
+        if (
+            self.chart_type == ChangeBarChartType.POS_NEG
+            or self.chart_type == ChangeBarChartType.ALL
+        ):
             # Update properties depending on whether to show area or percent
             # ia - init area, ta - target area
-            def change_func(ia, ta): return ta - ia
-            text_template = '%{y:,.4r}'
+            def change_func(ia, ta):
+                return ta - ia
+
+            text_template = "%{y:,.4r}"
 
             # Percent
             if self.use_value_type == InfoValueType.PERCENT:
-                def change_func(ia, ta): return (ta - ia) * 100 / ia
-                text_template = '%{y:.2f}%'
-                if not self.value_axis_label:
-                    self.value_axis_label = '%'
 
-            change_val = list(
-                map(change_func, init_values, target_values)
-            )
+                def change_func(ia, ta):
+                    return (ta - ia) * 100 / ia
+
+                text_template = "%{y:.2f}%"
+                if not self.value_axis_label:
+                    self.value_axis_label = "%"
+
+            change_val = list(map(change_func, init_values, target_values))
 
             # Create and export figure
             fig = go.Figure()
@@ -572,35 +539,32 @@ class UniqueValuesChangeBarChart(BaseUniqueValuesChart):
                     marker_color=target_colors,
                     text=change_val,
                     texttemplate=text_template,
-                    textposition='outside',
-                    textfont={
-                        'size': self.font_size_body
-                    }
+                    textposition="outside",
+                    textfont={"size": self.font_size_body},
                 )
             )
-            fig.update_layout(title={
-                'text': self.plot_title,
-                'y': 0.95,
-                'x': 0.5,
-                'xanchor': 'center',
-                'yanchor': 'top',
-                'font': {'size': self.font_size_title}
-            },
+            fig.update_layout(
+                title={
+                    "text": self.plot_title,
+                    "y": 0.95,
+                    "x": 0.5,
+                    "xanchor": "center",
+                    "yanchor": "top",
+                    "font": {"size": self.font_size_title},
+                },
                 yaxis={
-                    'tickfont_size': self.font_size_body,
-                    'title': self.value_axis_label
+                    "tickfont_size": self.font_size_body,
+                    "title": self.value_axis_label,
                 },
-                xaxis={
-                    'tickfont_size': self.font_size_body
-                },
+                xaxis={"tickfont_size": self.font_size_body},
                 showlegend=False,
                 width=pw,
-                height=ph
+                height=ph,
             )
 
             # Export
-            file_name = slugify(f'chart-{self.base_chart_name}_percent')
-            output_file_path = f'{self.root_output_dir}/{file_name}.png'
+            file_name = slugify(f"chart-{self.base_chart_name}_percent")
+            output_file_path = f"{self.root_output_dir}/{file_name}.png"
 
             # Save image
             self.save_image(fig, output_file_path)
@@ -613,6 +577,7 @@ class StackedBarChart(BaseChart):
     """
     Stacked bar chart.
     """
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
@@ -626,13 +591,13 @@ class StackedBarChart(BaseChart):
     def export(self) -> typing.Tuple[bool, list]:
         # Create chart
         if not self.root_output_dir:
-            return False, ['Output directory not defined']
+            return False, ["Output directory not defined"]
 
         if len(self.data_items) == 0:
-            return False, ['No data items defined.']
+            return False, ["No data items defined."]
 
-        file_name = slugify(f'chart-{self.base_chart_name}')
-        output_file_path = f'{self.root_output_dir}/{file_name}.png'
+        file_name = slugify(f"chart-{self.base_chart_name}")
+        output_file_path = f"{self.root_output_dir}/{file_name}.png"
 
         # Re-arrange elements so that each iterable contains single item
         # category spread across the items in the keys or x-axis.
@@ -664,42 +629,34 @@ class StackedBarChart(BaseChart):
                     x=labels,
                     y=values,
                     name=series_name,
-                    textposition='inside',
-                    texttemplate='%{y:,.2f}',
+                    textposition="inside",
+                    texttemplate="%{y:,.2f}",
                     marker_color=color,
-                    textfont={
-                        'size': self.font_size_labels
-                    }
+                    textfont={"size": self.font_size_labels},
                 )
             )
 
-        fig.update_layout(title={
-            'text': self.plot_title,
-            'y': 0.95,
-            'x': 0.5,
-            'xanchor': 'center',
-            'yanchor': 'top',
-            'font': {'size': self.font_size_title}
-        },
-            xaxis={
-                'tickfont_size': self.font_size_body
+        fig.update_layout(
+            title={
+                "text": self.plot_title,
+                "y": 0.95,
+                "x": 0.5,
+                "xanchor": "center",
+                "yanchor": "top",
+                "font": {"size": self.font_size_title},
             },
+            xaxis={"tickfont_size": self.font_size_body},
             yaxis={
-                'title': self.value_axis_label,
-                'tickfont_size': self.font_size_body,
-                'tickformat': ',.4r'
+                "title": self.value_axis_label,
+                "tickfont_size": self.font_size_body,
+                "tickformat": ",.4r",
             },
-            legend={
-                'font': {'size': self.font_size_legend}
-            },
-            uniformtext={
-                'minsize': 7,
-                'mode': 'hide'
-            },
-            barmode='relative',
+            legend={"font": {"size": self.font_size_legend}},
+            uniformtext={"minsize": 7, "mode": "hide"},
+            barmode="relative",
             showlegend=True,
             width=pw,
-            height=ph
+            height=ph,
         )
 
         # Save image
@@ -714,12 +671,13 @@ class BaseAlgorithmChartsConfiguration:
     Specifies the charts for a given algorithm, will produce charts for a
     given job.
     """
+
     layer_band_infos: typing.List[LayerBandInfo] = field(default_factory=list)
 
     def __init__(self, job: Job, layer_band_infos, **kwargs):
         self.job = job
         self.layer_band_infos = layer_band_infos
-        self._root_output_dir = kwargs.pop('root_output_dir', '')
+        self._root_output_dir = kwargs.pop("root_output_dir", "")
         self._charts = []
         self._add_charts()
 
@@ -753,10 +711,10 @@ class BaseAlgorithmChartsConfiguration:
         messages from one or more charts.
         """
         if not self._root_output_dir:
-            return False, ['Output directory not specified']
+            return False, ["Output directory not specified"]
 
         if not os.path.exists(self._root_output_dir):
-            return False, ['Output directory does not exist']
+            return False, ["Output directory does not exist"]
 
         status = True
         messages = []
@@ -769,7 +727,7 @@ class BaseAlgorithmChartsConfiguration:
 
         # Append class name to the messages
         cls_name = self.__class__.__name__
-        fmt_msgs = map(lambda msg: f'{cls_name} - {msg}', messages)
+        fmt_msgs = map(lambda msg: f"{cls_name} - {msg}", messages)
 
         return status, list(fmt_msgs)
 
@@ -778,10 +736,10 @@ def land_cover_title(year) -> str:
     """
     Translatable title for land cover charts.
     """
-    tr_base_title = tr_reports_charts.tr('Land Cover Area')
-    tr_in = tr_reports_charts.tr('in')
+    tr_base_title = tr_reports_charts.tr("Land Cover Area")
+    tr_in = tr_reports_charts.tr("in")
 
-    return f'{tr_base_title} (km<sup>2</sup>) {tr_in} {year!s}'
+    return f"{tr_base_title} (km<sup>2</sup>) {tr_in} {year!s}"
 
 
 class LandCoverChartsConfiguration(BaseAlgorithmChartsConfiguration):
@@ -797,9 +755,9 @@ class LandCoverChartsConfiguration(BaseAlgorithmChartsConfiguration):
         lc_layer_band_infos = {}
         for lbi in self.layer_band_infos:
             bi = lbi.band_info
-            bi_name = bi['name']
-            if bi_name == 'Land cover (7 class)':
-                year = bi['metadata']['year']
+            bi_name = bi["name"]
+            if bi_name == "Land cover (7 class)":
+                year = bi["metadata"]["year"]
                 lc_layer_band_infos[year] = lbi
 
         sorted_lc_layer_band_infos = dict(sorted(lc_layer_band_infos.items()))
@@ -811,8 +769,7 @@ class LandCoverChartsConfiguration(BaseAlgorithmChartsConfiguration):
         target_band_num = 19
 
         init_yr_pie_chart = UniqueValuesPieChart(
-            layer_band_info=init_layer_band_info,
-            root_output_dir=self._root_output_dir
+            layer_band_info=init_layer_band_info, root_output_dir=self._root_output_dir
         )
         init_year = init_yr_pie_chart.year(init_layer_band_info.band_info)
         init_yr_pie_chart.plot_title = land_cover_title(init_year)
@@ -822,11 +779,9 @@ class LandCoverChartsConfiguration(BaseAlgorithmChartsConfiguration):
 
         target_yr_pie_chart = UniqueValuesPieChart(
             layer_band_info=target_layer_band_info,
-            root_output_dir=self._root_output_dir
+            root_output_dir=self._root_output_dir,
         )
-        target_year = target_yr_pie_chart.year(
-            target_layer_band_info.band_info
-        )
+        target_year = target_yr_pie_chart.year(target_layer_band_info.band_info)
         target_yr_pie_chart.plot_title = land_cover_title(target_year)
         target_yr_pie_chart.band_number = target_band_num
         self._charts.append(target_yr_pie_chart)
@@ -835,7 +790,7 @@ class LandCoverChartsConfiguration(BaseAlgorithmChartsConfiguration):
         lc_change_barchart = UniqueValuesChangeBarChart(
             layer_band_info=init_layer_band_info,
             target_lbi=target_layer_band_info,
-            root_output_dir=self._root_output_dir
+            root_output_dir=self._root_output_dir,
         )
         lc_change_barchart.band_number = init_band_num
         lc_change_barchart.target_band_number = target_band_num
@@ -846,23 +801,24 @@ class SdgSummaryChartsConfiguration(BaseAlgorithmChartsConfiguration):
     """
     Charts for SDG 15.3.1 summary.
     """
+
     def _add_charts(self):
         # Charts for SDG 15.3.1 (sub)indicators
         job_attr = SdgSummaryJobAttributes(self.job)
 
         summary_area_collection = job_attr.summary_area()
 
-        base_title_tr = tr_reports_charts.tr('Summary of SDG 15.3.1 Indicator')
-        base_chart_name = 'sdg_15_3_1_summary'
+        base_title_tr = tr_reports_charts.tr("Summary of SDG 15.3.1 Indicator")
+        base_chart_name = "sdg_15_3_1_summary"
 
         # Pie chart for summary indicator in area
         pie_chart_summary_area = UniqueValuesPieChart(
             root_output_dir=self._root_output_dir
         )
-        title_area = f'{base_title_tr} (km<sup>2</sup>)'
+        title_area = f"{base_title_tr} (km<sup>2</sup>)"
         pie_chart_summary_area.plot_title = title_area
         pie_chart_summary_area.value_info_collection = summary_area_collection
-        pie_chart_summary_area.base_chart_name = f'{base_chart_name}_area'
+        pie_chart_summary_area.base_chart_name = f"{base_chart_name}_area"
 
         self._charts.append(pie_chart_summary_area)
 
@@ -879,7 +835,7 @@ class SdgSummaryChartsConfiguration(BaseAlgorithmChartsConfiguration):
         )
         pie_chart_lc_init_year.plot_title = land_cover_title(init_year)
         pie_chart_lc_init_year.value_info_collection = init_lc_value_info_collection
-        pie_chart_lc_init_year.base_chart_name = f'land_cover_{init_year!s}'
+        pie_chart_lc_init_year.base_chart_name = f"land_cover_{init_year!s}"
 
         self._charts.append(pie_chart_lc_init_year)
 
@@ -889,13 +845,13 @@ class SdgSummaryChartsConfiguration(BaseAlgorithmChartsConfiguration):
         )
         pie_chart_lc_final_year.plot_title = land_cover_title(final_year)
         pie_chart_lc_final_year.value_info_collection = final_lc_value_info_collection
-        pie_chart_lc_final_year.base_chart_name = f'land_cover_{final_year!s}'
+        pie_chart_lc_final_year.base_chart_name = f"land_cover_{final_year!s}"
 
         self._charts.append(pie_chart_lc_final_year)
 
-        tr_lc_change = tr_reports_charts.tr('Change in Land Cover')
-        lc_change_title = f'{tr_lc_change} (km<sup>2</sup>)'
-        lc_chart_base_name = f'land-cover-changes-{init_year!s}-{final_year!s}'
+        tr_lc_change = tr_reports_charts.tr("Change in Land Cover")
+        lc_change_title = f"{tr_lc_change} (km<sup>2</sup>)"
+        lc_chart_base_name = f"land-cover-changes-{init_year!s}-{final_year!s}"
 
         # Add positive/negative land cover bar graph
         lc_change_barchart = UniqueValuesChangeBarChart(
@@ -903,13 +859,12 @@ class SdgSummaryChartsConfiguration(BaseAlgorithmChartsConfiguration):
         )
         lc_change_barchart.chart_type = ChangeBarChartType.POS_NEG
         lc_change_barchart.value_info_collection = init_lc_value_info_collection
-        lc_change_barchart.target_value_info_collection = \
-            final_lc_value_info_collection
+        lc_change_barchart.target_value_info_collection = final_lc_value_info_collection
         lc_change_barchart.init_year = init_year
         lc_change_barchart.target_year = final_year
         lc_change_barchart.plot_title = lc_change_title
         lc_change_barchart.base_chart_name = lc_chart_base_name
-        lc_change_barchart.value_axis_label = 'km<sup>2</sup>'
+        lc_change_barchart.value_axis_label = "km<sup>2</sup>"
         lc_change_barchart.use_value_type = InfoValueType.AREA
         self._charts.append(lc_change_barchart)
 
@@ -917,8 +872,8 @@ class SdgSummaryChartsConfiguration(BaseAlgorithmChartsConfiguration):
         init_soc_value_info_collection = job_attr.soc(str(init_year))
         final_soc_value_info_collection = job_attr.soc(str(final_year))
 
-        tr_soc_change = tr_reports_charts.tr('Change in Soil Organic Carbon (Tonnes)')
-        soc_chart_base_name = f'soc-changes-{init_year!s}-{final_year!s}'
+        tr_soc_change = tr_reports_charts.tr("Change in Soil Organic Carbon (Tonnes)")
+        soc_chart_base_name = f"soc-changes-{init_year!s}-{final_year!s}"
 
         # Add positive/negative soil organic carbon bar graph
         soc_change_barchart = UniqueValuesChangeBarChart(
@@ -926,32 +881,33 @@ class SdgSummaryChartsConfiguration(BaseAlgorithmChartsConfiguration):
         )
         soc_change_barchart.chart_type = ChangeBarChartType.POS_NEG
         soc_change_barchart.value_info_collection = init_soc_value_info_collection
-        soc_change_barchart.target_value_info_collection = \
+        soc_change_barchart.target_value_info_collection = (
             final_soc_value_info_collection
+        )
         soc_change_barchart.init_year = init_year
         soc_change_barchart.target_year = final_year
         soc_change_barchart.plot_title = tr_soc_change
         soc_change_barchart.base_chart_name = soc_chart_base_name
-        soc_change_barchart.value_axis_label = tr_reports_charts.tr('Tonnes')
+        soc_change_barchart.value_axis_label = tr_reports_charts.tr("Tonnes")
         soc_change_barchart.use_value_type = InfoValueType.AREA
         self._charts.append(soc_change_barchart)
 
         # LC productivity data
         lc_prod_info_items = job_attr.lc_by_productivity()
 
-        tr_lc_productivity_title = tr_reports_charts.tr('Land Cover Change by Productivity Class')
+        tr_lc_productivity_title = tr_reports_charts.tr(
+            "Land Cover Change by Productivity Class"
+        )
 
         # Add productivity stacked bar graph
-        productivity_barchart = StackedBarChart(
-            root_output_dir=self._root_output_dir
-        )
+        productivity_barchart = StackedBarChart(root_output_dir=self._root_output_dir)
         productivity_barchart.plot_title = tr_lc_productivity_title
         productivity_barchart.data_items = lc_prod_info_items
         productivity_barchart.use_value_type = InfoValueType.PERCENT
-        productivity_barchart.base_chart_name = f'land-cover-change-by-' \
-                                                f'productivity-{init_year!s}' \
-                                                f'-{final_year!s}'
-        productivity_barchart.value_axis_label = tr_reports_charts.tr('%')
+        productivity_barchart.base_chart_name = (
+            f"land-cover-change-by-" f"productivity-{init_year!s}" f"-{final_year!s}"
+        )
+        productivity_barchart.value_axis_label = tr_reports_charts.tr("%")
         self._charts.append(productivity_barchart)
 
 
@@ -965,7 +921,7 @@ class AlgorithmChartsManager:
     def __init__(self, **kwargs):
         self._alg_charts_config_types = {}
         self._job_chart_configs = []
-        self._root_output_dir = kwargs.pop('root_output_dir', '')
+        self._root_output_dir = kwargs.pop("root_output_dir", "")
         self._set_default_chart_config_types()
         self._messages = []
 
@@ -987,16 +943,11 @@ class AlgorithmChartsManager:
         """
         Set config for known algorithms.
         """
-        self.add_alg_chart_config('land-cover', LandCoverChartsConfiguration)
-        self.add_alg_chart_config(
-            'sdg-15-3-1-summary',
-            SdgSummaryChartsConfiguration
-        )
+        self.add_alg_chart_config("land-cover", LandCoverChartsConfiguration)
+        self.add_alg_chart_config("sdg-15-3-1-summary", SdgSummaryChartsConfiguration)
 
     def add_alg_chart_config(
-            self,
-            alg_name: str,
-            chart_config: typing.Type[BaseAlgorithmChartsConfiguration]
+        self, alg_name: str, chart_config: typing.Type[BaseAlgorithmChartsConfiguration]
     ) -> bool:
         """
         Specify the chart configuration class (not instance) for a given
@@ -1014,8 +965,7 @@ class AlgorithmChartsManager:
         return True
 
     def alg_chart_config_by_name(
-            self,
-            alg_name: str
+        self, alg_name: str
     ) -> typing.Type[BaseAlgorithmChartsConfiguration]:
         """
         Returns the chart configuration class for the given algorithm, else None.
@@ -1030,11 +980,7 @@ class AlgorithmChartsManager:
         """
         return self._messages
 
-    def add_job_layers(
-            self,
-            job: Job,
-            band_infos: typing.List[LayerBandInfo]
-    ) -> bool:
+    def add_job_layers(self, job: Job, band_infos: typing.List[LayerBandInfo]) -> bool:
         """
         Add job-band_info mapping. If the algorithm for the job does not have
         a corresponding mapped chart configuration, it will return False.
@@ -1046,18 +992,13 @@ class AlgorithmChartsManager:
             return False
 
         chart_config_obj = chart_config_cls(
-            job,
-            band_infos,
-            root_output_dir=self._root_output_dir
+            job, band_infos, root_output_dir=self._root_output_dir
         )
         self._job_chart_configs.append(chart_config_obj)
 
         return True
 
-    def get_chart_config_by_job(
-            self,
-            job: Job
-    ) -> BaseAlgorithmChartsConfiguration:
+    def get_chart_config_by_job(self, job: Job) -> BaseAlgorithmChartsConfiguration:
         """
         Return the chart configuration object for the given job, else None.
         """
@@ -1092,41 +1033,34 @@ class SdgSummaryJobAttributes:
 
     def __init__(self, job: Job):
         self._job = job
-        self._params_baseline = self._job.params['baseline']
+        self._params_baseline = self._job.params["baseline"]
         self._data = self._job.results.data
-        self._baseline_results = self._data['report']['land_condition']['baseline']
+        self._baseline_results = self._data["report"]["land_condition"]["baseline"]
 
     def period(self) -> typing.Tuple[int, int]:
         # Initial year and final year
-        period = self._params_baseline['period']
+        period = self._params_baseline["period"]
 
-        return period['year_initial'], period['year_final']
+        return period["year_initial"], period["year_final"]
 
     @classmethod
     def summary_indicator_str_value_mapping(cls) -> typing.Dict[str, int]:
-        return {
-            'Improved': 1,
-            'Stable': 0,
-            'Degraded': -1,
-            'No data': -32768
-        }
+        return {"Improved": 1, "Stable": 0, "Degraded": -1, "No data": -32768}
 
     def land_cover_7_class_str_info_mapping(self) -> typing.Dict[str, int]:
         # Returns a collection of land cover class info (name, color, code)
         # indexed by the category name.
         lc_mapping = {}
 
-        legend_parent = self._baseline_results['land_cover'][
-            'legend_nesting'
-        ]['parent']
+        legend_parent = self._baseline_results["land_cover"]["legend_nesting"]["parent"]
 
-        clr_ramp = _create_indexed_color_ramp('Land cover (7 class)')
+        clr_ramp = _create_indexed_color_ramp("Land cover (7 class)")
 
-        classes = legend_parent['key']
+        classes = legend_parent["key"]
         for c in classes:
-            cls_name = c['name_long']
-            pix_val = c['code']
-            clr = QColor(c['color'])
+            cls_name = c["name_long"]
+            pix_val = c["code"]
+            clr = QColor(c["color"])
 
             # Check if there is a matching ramp item so that we can use
             # the translated name for the category label.
@@ -1135,19 +1069,15 @@ class SdgSummaryJobAttributes:
                 item = clr_ramp[pix_val]
                 lbl_name = item.label
 
-            ramp_item = QgsColorRampShader.ColorRampItem(
-                pix_val,
-                clr,
-                lbl_name
-            )
+            ramp_item = QgsColorRampShader.ColorRampItem(pix_val, clr, lbl_name)
 
             lc_mapping[cls_name] = ramp_item
 
         # Add no data
-        nd = legend_parent['nodata']
-        nd_name = nd['name_long']
-        nd_color = QColor(nd['color'])
-        nd_value = nd['code']
+        nd = legend_parent["nodata"]
+        nd_name = nd["name_long"]
+        nd_color = QColor(nd["color"])
+        nd_value = nd["code"]
 
         # Get translation
         nd_label = nd_name
@@ -1155,11 +1085,7 @@ class SdgSummaryJobAttributes:
             item = clr_ramp[nd_value]
             nd_label = item.label
 
-        nd_item = QgsColorRampShader.ColorRampItem(
-            nd['code'],
-            nd_color,
-            nd_label
-        )
+        nd_item = QgsColorRampShader.ColorRampItem(nd["code"], nd_color, nd_label)
 
         lc_mapping[nd_name] = nd_item
 
@@ -1174,29 +1100,22 @@ class SdgSummaryJobAttributes:
         category_pix_value = self.summary_indicator_str_value_mapping()
 
         total_area = 0
-        areas = self._baseline_results['sdg']['summary']['areas']
-        clr_ramp = _create_indexed_color_ramp('SDG 15.3.1 Indicator')
+        areas = self._baseline_results["sdg"]["summary"]["areas"]
+        clr_ramp = _create_indexed_color_ramp("SDG 15.3.1 Indicator")
 
         # Create UniqueValuesInfo for each LDN summary category type.
         for category_info in areas:
-            name = category_info['name']
-            area = category_info['area']
+            name = category_info["name"]
+            area = category_info["area"]
             pix_val = category_pix_value[name]
             ramp_item = clr_ramp[pix_val]
             color = ramp_item.color
 
             # Darken stable color
             if pix_val == 0:
-                color = QColor('#ffffca')
+                color = QColor("#ffffca")
 
-            vi = UniqueValuesInfo(
-                area,
-                ramp_item.label,
-                pix_val,
-                color,
-                -1,
-                -1
-            )
+            vi = UniqueValuesInfo(area, ramp_item.label, pix_val, color, -1, -1)
             total_area += area
             temp_area_infos.append(vi)
 
@@ -1211,7 +1130,7 @@ class SdgSummaryJobAttributes:
                 tvi.category_value,
                 tvi.color,
                 -1,
-                area_percent
+                area_percent,
             )
             area_infos.append(vi)
 
@@ -1219,10 +1138,10 @@ class SdgSummaryJobAttributes:
 
     @classmethod
     def thematic_category_values_by_year(
-            cls,
-            values_root: typing.Dict,
-            year:str,
-            category_ramp_item_mapping: typing.Dict
+        cls,
+        values_root: typing.Dict,
+        year: str,
+        category_ramp_item_mapping: typing.Dict,
     ) -> typing.List[UniqueValuesInfo]:
         """
         Get value info collection for SDG 15.3.1 sub-indicators.
@@ -1242,12 +1161,7 @@ class SdgSummaryJobAttributes:
             ramp_item = category_ramp_item_mapping[lc_type]
 
             vi = UniqueValuesInfo(
-                area,
-                ramp_item.label,
-                ramp_item.value,
-                ramp_item.color,
-                -1,
-                -1
+                area, ramp_item.label, ramp_item.value, ramp_item.color, -1, -1
             )
             theme_infos.append(vi)
 
@@ -1257,14 +1171,12 @@ class SdgSummaryJobAttributes:
         """
         Detailed info about land cover for the given year.
         """
-        lc_areas = self._baseline_results['land_cover'][
-            'land_cover_areas_by_year'
-        ]['values']
+        lc_areas = self._baseline_results["land_cover"]["land_cover_areas_by_year"][
+            "values"
+        ]
 
         return self.thematic_category_values_by_year(
-            lc_areas,
-            year,
-            self.land_cover_7_class_str_info_mapping()
+            lc_areas, year, self.land_cover_7_class_str_info_mapping()
         )
 
     def soc(self, year: str) -> typing.List[UniqueValuesInfo]:
@@ -1273,28 +1185,26 @@ class SdgSummaryJobAttributes:
         values are grouped by land cover hence we will use the land cover
         classes.
         """
-        soc_areas = self._baseline_results['soil_organic_carbon'][
-            'soc_stock_by_year'
-        ]['values']
+        soc_areas = self._baseline_results["soil_organic_carbon"]["soc_stock_by_year"][
+            "values"
+        ]
 
         return self.thematic_category_values_by_year(
-            soc_areas,
-            year,
-            self.land_cover_7_class_str_info_mapping()
+            soc_areas, year, self.land_cover_7_class_str_info_mapping()
         )
 
     @classmethod
     def value_info_change(
-            cls,
-            init_infos: typing.List[UniqueValuesInfo],
-            final_infos: typing.List[UniqueValuesInfo]
+        cls,
+        init_infos: typing.List[UniqueValuesInfo],
+        final_infos: typing.List[UniqueValuesInfo],
     ) -> typing.List[UniqueValuesInfo]:
         """
         Computes difference between value infos in init and final years.
         """
+
         def compute_diff(
-                init_info: UniqueValuesInfo,
-                final_info: UniqueValuesInfo
+            init_info: UniqueValuesInfo, final_info: UniqueValuesInfo
         ) -> UniqueValuesInfo:
             area_diff = final_info.area - init_info.area
             area_percent = area_diff / init_info.area * 100
@@ -1305,29 +1215,27 @@ class SdgSummaryJobAttributes:
                 init_info.category_value,
                 init_info.color,
                 -1,
-                area_percent
+                area_percent,
             )
 
         return list(map(compute_diff, init_infos, final_infos))
 
-    def lc_by_productivity(
-            self
-    ) -> typing.Dict[str, typing.List[UniqueValuesInfo]]:
+    def lc_by_productivity(self) -> typing.Dict[str, typing.List[UniqueValuesInfo]]:
         """
         Land cover classes grouped by productivity.
         """
-        prod_groups = self._baseline_results['productivity'][
-            'crosstabs_by_productivity_class'
+        prod_groups = self._baseline_results["productivity"][
+            "crosstabs_by_productivity_class"
         ]
 
         category_item_mapping = self.land_cover_7_class_str_info_mapping()
-        categories = list(category_item_mapping.keys())[:-1] # Remove 'No data'
+        categories = list(category_item_mapping.keys())[:-1]  # Remove 'No data'
 
         lc_infos_by_prod_class = {}
 
         for pg in prod_groups:
-            prod_name = pg['name']
-            values = pg['values']
+            prod_name = pg["name"]
+            values = pg["values"]
             prod_change = lc_productivity_change(values)
 
             # Create unique value infos for productivity class using
@@ -1338,16 +1246,11 @@ class SdgSummaryJobAttributes:
                 ramp_item = category_item_mapping[c]
 
                 # Remove dashes in category name
-                lbls = ramp_item.label.split('-', maxsplit=1)
+                lbls = ramp_item.label.split("-", maxsplit=1)
                 label = lbls[0] if len(lbls) == 1 else lbls[1]
 
                 lc_info = UniqueValuesInfo(
-                    area_diff,
-                    label,
-                    ramp_item.value,
-                    ramp_item.color,
-                    -1,
-                    percent_diff
+                    area_diff, label, ramp_item.value, ramp_item.color, -1, percent_diff
                 )
 
                 prod_class_infos.append(lc_info)
@@ -1358,7 +1261,7 @@ class SdgSummaryJobAttributes:
 
 
 def _create_indexed_color_ramp(
-        style_name: str
+    style_name: str,
 ) -> typing.Dict[float, QgsColorRampShader.ColorRampItem]:
     # Create a dictionary containing color ramp items for categorical
     # items indexed by pixel value.
@@ -1367,7 +1270,7 @@ def _create_indexed_color_ramp(
         return {}
 
     ramp_type = band_style["ramp"]["type"]
-    if ramp_type != 'categorical':
+    if ramp_type != "categorical":
         return {}
 
     clr_ramp = create_categorical_color_ramp(band_style)
@@ -1376,14 +1279,12 @@ def _create_indexed_color_ramp(
     return idx_clr_ramp
 
 
-def lc_productivity_change(
-        produc_lc_values: typing.List
-) -> typing.List[tuple]:
+def lc_productivity_change(produc_lc_values: typing.List) -> typing.List[tuple]:
     """
     Create a 2D array containing area difference and percentage of
     productivity class.
     """
-    value_lst = [vl['value'] for vl in produc_lc_values]
+    value_lst = [vl["value"] for vl in produc_lc_values]
     val_array = np.array(value_lst)
 
     # Reshape to 7 by 7 for each LC class in initial and final years
@@ -1399,9 +1300,3 @@ def lc_productivity_change(
         return diff, diff / initial_year_total_area * 100
 
     return list(map(compute_change, initial_year_area_sum, final_year__area_sum))
-
-
-
-
-
-

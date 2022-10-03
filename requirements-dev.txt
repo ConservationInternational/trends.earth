@@ -11,3 +11,5 @@ pylint
 pip>=10.0.0
 requests==2.26.0
 PyQt5
+black[jupyter]
+reorder-python-imports

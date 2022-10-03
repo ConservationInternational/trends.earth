@@ -72,93 +72,96 @@ tr_dict = {
     "Artificial": tr_lc_setup.tr("Artificial"),
     "Other land": tr_lc_setup.tr("Other land"),
     "Water body": tr_lc_setup.tr("Water body"),
-	"Cropland, rainfed":
-	tr_lc_setup.tr("Cropland, rainfed"),
-	"Herbaceous cover":
-	tr_lc_setup.tr("Herbaceous cover"),
-	"Tree or shrub cover":
-	tr_lc_setup.tr("Tree or shrub cover"),
-	"Cropland, irrigated or post‐flooding":
-	tr_lc_setup.tr("Cropland, irrigated or post‐flooding"),
-	"Mosaic cropland (>50%) / natural vegetation (tree, shrub, herbaceous cover) (<50%)":
-	tr_lc_setup.tr("Mosaic cropland (>50%) / natural vegetation (tree, shrub, herbaceous cover) (<50%)"),
-	"Mosaic natural vegetation (tree, shrub, herbaceous cover) (>50%) / cropland (<50%)":
-	tr_lc_setup.tr("Mosaic natural vegetation (tree, shrub, herbaceous cover) (>50%) / cropland (<50%)"),
-	"Tree cover, broadleaved, evergreen, closed to open (>15%)":
-	tr_lc_setup.tr("Tree cover, broadleaved, evergreen, closed to open (>15%)"),
-	"Tree cover, broadleaved, deciduous, closed to open (>15%)":
-	tr_lc_setup.tr("Tree cover, broadleaved, deciduous, closed to open (>15%)"),
-	"Tree cover, broadleaved, deciduous, closed (>40%)":
-	tr_lc_setup.tr("Tree cover, broadleaved, deciduous, closed (>40%)"),
-	"Tree cover, broadleaved, deciduous, open (15‐40%)":
-	tr_lc_setup.tr("Tree cover, broadleaved, deciduous, open (15‐40%)"),
-	"Tree cover, needleleaved, evergreen, closed to open (>15%)":
-	tr_lc_setup.tr("Tree cover, needleleaved, evergreen, closed to open (>15%)"),
-	"Tree cover, needleleaved, evergreen, closed (>40%)":
-	tr_lc_setup.tr("Tree cover, needleleaved, evergreen, closed (>40%)"),
-	"Tree cover, needleleaved, evergreen, open (15‐40%)":
-	tr_lc_setup.tr("Tree cover, needleleaved, evergreen, open (15‐40%)"),
-	"Tree cover, needleleaved, deciduous, closed to open (>15%)":
-	tr_lc_setup.tr("Tree cover, needleleaved, deciduous, closed to open (>15%)"),
-	"Tree cover, needleleaved, deciduous, closed (>40%)":
-	tr_lc_setup.tr("Tree cover, needleleaved, deciduous, closed (>40%)"),
-	"Tree cover, needleleaved, deciduous, open (15‐40%)":
-	tr_lc_setup.tr("Tree cover, needleleaved, deciduous, open (15‐40%)"),
-	"Tree cover, mixed leaf type (broadleaved and needleleaved)":
-	tr_lc_setup.tr("Tree cover, mixed leaf type (broadleaved and needleleaved)"),
-	"Mosaic tree and shrub (>50%) / herbaceous cover (<50%)":
-	tr_lc_setup.tr("Mosaic tree and shrub (>50%) / herbaceous cover (<50%)"),
-	"Mosaic herbaceous cover (>50%) / tree and shrub (<50%)":
-	tr_lc_setup.tr("Mosaic herbaceous cover (>50%) / tree and shrub (<50%)"),
-	"Shrubland":
-	tr_lc_setup.tr("Shrubland"),
-	"Evergreen shrubland":
-	tr_lc_setup.tr("Evergreen shrubland"),
-	"Deciduous shrubland":
-	tr_lc_setup.tr("Deciduous shrubland"),
-	"Grassland":
-	tr_lc_setup.tr("Grassland"),
-	"Lichens and mosses":
-	tr_lc_setup.tr("Lichens and mosses"),
-	"Sparse vegetation (tree, shrub, herbaceous cover) (<15%)":
-	tr_lc_setup.tr("Sparse vegetation (tree, shrub, herbaceous cover) (<15%)"),
-	"Sparse tree (<15%)":
-	tr_lc_setup.tr("Sparse tree (<15%)"),
-	"Sparse shrub (<15%)":
-	tr_lc_setup.tr("Sparse shrub (<15%)"),
-	"Sparse herbaceous cover (<15%)":
-	tr_lc_setup.tr("Sparse herbaceous cover (<15%)"),
-	"Tree cover, flooded, fresh or brakish water":
-	tr_lc_setup.tr("Tree cover, flooded, fresh or brakish water"),
-	"Tree cover, flooded, saline water":
-	tr_lc_setup.tr("Tree cover, flooded, saline water"),
-	"Shrub or herbaceous cover, flooded, fresh/saline/brakish water":
-	tr_lc_setup.tr("Shrub or herbaceous cover, flooded, fresh/saline/brakish water"),
-	"Urban areas":
-	tr_lc_setup.tr("Urban areas"),
-	"Bare areas":
-	tr_lc_setup.tr("Bare areas"),
-	"Consolidated bare areas":
-	tr_lc_setup.tr("Consolidated bare areas"),
-	"Unconsolidated bare areas":
-	tr_lc_setup.tr("Unconsolidated bare areas"),
-	"Water bodies":
-	tr_lc_setup.tr("Water bodies"),
-	"Permanent snow and ice":
-	tr_lc_setup.tr("Permanent snow and ice"),
+    "Cropland, rainfed": tr_lc_setup.tr("Cropland, rainfed"),
+    "Herbaceous cover": tr_lc_setup.tr("Herbaceous cover"),
+    "Tree or shrub cover": tr_lc_setup.tr("Tree or shrub cover"),
+    "Cropland, irrigated or post‐flooding": tr_lc_setup.tr(
+        "Cropland, irrigated or post‐flooding"
+    ),
+    "Mosaic cropland (>50%) / natural vegetation (tree, shrub, herbaceous cover) (<50%)": tr_lc_setup.tr(
+        "Mosaic cropland (>50%) / natural vegetation (tree, shrub, herbaceous cover) (<50%)"
+    ),
+    "Mosaic natural vegetation (tree, shrub, herbaceous cover) (>50%) / cropland (<50%)": tr_lc_setup.tr(
+        "Mosaic natural vegetation (tree, shrub, herbaceous cover) (>50%) / cropland (<50%)"
+    ),
+    "Tree cover, broadleaved, evergreen, closed to open (>15%)": tr_lc_setup.tr(
+        "Tree cover, broadleaved, evergreen, closed to open (>15%)"
+    ),
+    "Tree cover, broadleaved, deciduous, closed to open (>15%)": tr_lc_setup.tr(
+        "Tree cover, broadleaved, deciduous, closed to open (>15%)"
+    ),
+    "Tree cover, broadleaved, deciduous, closed (>40%)": tr_lc_setup.tr(
+        "Tree cover, broadleaved, deciduous, closed (>40%)"
+    ),
+    "Tree cover, broadleaved, deciduous, open (15‐40%)": tr_lc_setup.tr(
+        "Tree cover, broadleaved, deciduous, open (15‐40%)"
+    ),
+    "Tree cover, needleleaved, evergreen, closed to open (>15%)": tr_lc_setup.tr(
+        "Tree cover, needleleaved, evergreen, closed to open (>15%)"
+    ),
+    "Tree cover, needleleaved, evergreen, closed (>40%)": tr_lc_setup.tr(
+        "Tree cover, needleleaved, evergreen, closed (>40%)"
+    ),
+    "Tree cover, needleleaved, evergreen, open (15‐40%)": tr_lc_setup.tr(
+        "Tree cover, needleleaved, evergreen, open (15‐40%)"
+    ),
+    "Tree cover, needleleaved, deciduous, closed to open (>15%)": tr_lc_setup.tr(
+        "Tree cover, needleleaved, deciduous, closed to open (>15%)"
+    ),
+    "Tree cover, needleleaved, deciduous, closed (>40%)": tr_lc_setup.tr(
+        "Tree cover, needleleaved, deciduous, closed (>40%)"
+    ),
+    "Tree cover, needleleaved, deciduous, open (15‐40%)": tr_lc_setup.tr(
+        "Tree cover, needleleaved, deciduous, open (15‐40%)"
+    ),
+    "Tree cover, mixed leaf type (broadleaved and needleleaved)": tr_lc_setup.tr(
+        "Tree cover, mixed leaf type (broadleaved and needleleaved)"
+    ),
+    "Mosaic tree and shrub (>50%) / herbaceous cover (<50%)": tr_lc_setup.tr(
+        "Mosaic tree and shrub (>50%) / herbaceous cover (<50%)"
+    ),
+    "Mosaic herbaceous cover (>50%) / tree and shrub (<50%)": tr_lc_setup.tr(
+        "Mosaic herbaceous cover (>50%) / tree and shrub (<50%)"
+    ),
+    "Shrubland": tr_lc_setup.tr("Shrubland"),
+    "Evergreen shrubland": tr_lc_setup.tr("Evergreen shrubland"),
+    "Deciduous shrubland": tr_lc_setup.tr("Deciduous shrubland"),
+    "Grassland": tr_lc_setup.tr("Grassland"),
+    "Lichens and mosses": tr_lc_setup.tr("Lichens and mosses"),
+    "Sparse vegetation (tree, shrub, herbaceous cover) (<15%)": tr_lc_setup.tr(
+        "Sparse vegetation (tree, shrub, herbaceous cover) (<15%)"
+    ),
+    "Sparse tree (<15%)": tr_lc_setup.tr("Sparse tree (<15%)"),
+    "Sparse shrub (<15%)": tr_lc_setup.tr("Sparse shrub (<15%)"),
+    "Sparse herbaceous cover (<15%)": tr_lc_setup.tr("Sparse herbaceous cover (<15%)"),
+    "Tree cover, flooded, fresh or brakish water": tr_lc_setup.tr(
+        "Tree cover, flooded, fresh or brakish water"
+    ),
+    "Tree cover, flooded, saline water": tr_lc_setup.tr(
+        "Tree cover, flooded, saline water"
+    ),
+    "Shrub or herbaceous cover, flooded, fresh/saline/brakish water": tr_lc_setup.tr(
+        "Shrub or herbaceous cover, flooded, fresh/saline/brakish water"
+    ),
+    "Urban areas": tr_lc_setup.tr("Urban areas"),
+    "Bare areas": tr_lc_setup.tr("Bare areas"),
+    "Consolidated bare areas": tr_lc_setup.tr("Consolidated bare areas"),
+    "Unconsolidated bare areas": tr_lc_setup.tr("Unconsolidated bare areas"),
+    "Water bodies": tr_lc_setup.tr("Water bodies"),
+    "Permanent snow and ice": tr_lc_setup.tr("Permanent snow and ice"),
 }
 
 # TODO: Finish this - probably makes more sense to do it by subclassing dict, or see
 # here: https://stackoverflow.com/questions/3387691/how-to-perfectly-override-a-dict
 def _tr_cover_class(translations):
-    '''
+    """
     Handle translation of cover class names preceded by numeric codes
 
     Some cover class names are preceded by numeric codes. Translate these by stripping
     the code, finding the translation, and then re-adding the code.
-    '''
-    label = re.sub('^-?[0-9]* - ', '', item['label'])
-    code = re.sub(' - .*$', '', item['label'])
+    """
+    label = re.sub("^-?[0-9]* - ", "", item["label"])
+    code = re.sub(" - .*$", "", item["label"])
 
     translations.get()
     nesting.translate(tr_dict)
@@ -166,7 +169,7 @@ def _tr_cover_class(translations):
 
 def json_serial(obj):
     """JSON serializer for objects not serializable by default json code"""
-    #TODO: This was QPyNullVariant under pyqt4 - check the below works on pyqt5
+    # TODO: This was QPyNullVariant under pyqt4 - check the below works on pyqt5
 
     if isinstance(obj, QtCore.QJsonValue.Null):
         return None
@@ -201,17 +204,17 @@ class TransMatrixEdit(QtWidgets.QLineEdit):
         self.textChanged.connect(self.transition_cell_changed)
 
     def transition_cell_changed(self, text):
-        if self.text() == '-':
+        if self.text() == "-":
             self.setStyleSheet(
-                'QLineEdit {background: #9B2779;} QLineEdit:hover {border: 1px solid gray; background: #9B2779;}'
+                "QLineEdit {background: #9B2779;} QLineEdit:hover {border: 1px solid gray; background: #9B2779;}"
             )
-        elif self.text() == '+':
+        elif self.text() == "+":
             self.setStyleSheet(
-                'QLineEdit {background: #006500;} QLineEdit:hover {border: 1px solid gray; background: #006500;}'
+                "QLineEdit {background: #006500;} QLineEdit:hover {border: 1px solid gray; background: #006500;}"
             )
         else:
             self.setStyleSheet(
-                'QLineEdit {background: #FFFFE0;} QLineEdit:hover {border: 1px solid gray; background: #FFFFE0;}'
+                "QLineEdit {background: #FFFFE0;} QLineEdit:hover {border: 1px solid gray; background: #FFFFE0;}"
             )
 
     def focusInEvent(self, e):
@@ -260,14 +263,10 @@ class LCClassComboBox(QtWidgets.QComboBox):
             color = lcc.color
             self.setItemData(n, QtGui.QColor(color), QtCore.Qt.BackgroundRole)
 
-            if color == '#000000':
-                self.setItemData(
-                    n, QtGui.QColor('#FFFFFF'), QtCore.Qt.ForegroundRole
-                )
+            if color == "#000000":
+                self.setItemData(n, QtGui.QColor("#FFFFFF"), QtCore.Qt.ForegroundRole)
             else:
-                self.setItemData(
-                    n, QtGui.QColor('#000000'), QtCore.Qt.ForegroundRole
-                )
+                self.setItemData(n, QtGui.QColor("#000000"), QtCore.Qt.ForegroundRole)
 
         self.index_changed()
 
@@ -275,18 +274,19 @@ class LCClassComboBox(QtWidgets.QComboBox):
         lcc = self._nesting.parent.class_by_name_long(self.currentText())
         if lcc is None:
             # Clear stylesheet
-            self.setStyleSheet('')
+            self.setStyleSheet("")
             return
 
         color = lcc.color
-        if color == '#000000':
+        if color == "#000000":
             self.setStyleSheet(
-                'QComboBox:editable {{background-color: {}; color: #FFFFFF;}}'.
-                format(color)
+                "QComboBox:editable {{background-color: {}; color: #FFFFFF;}}".format(
+                    color
+                )
             )
         else:
             self.setStyleSheet(
-                'QComboBox:editable {{background-color: {};}}'.format(color)
+                "QComboBox:editable {{background-color: {};}}".format(color)
             )
 
     def get_current_class(self):
@@ -302,9 +302,9 @@ class LCAggTableModel(QtCore.QAbstractTableModel):
         # Note that the columns with json names set to to INVALID aren't loaded
         # into the shell, but shown from a widget.
         colname_tuples = [
-            ('Child_Code', tr_lc_setup.tr('Input code')),
-            ('Child_Label', tr_lc_setup.tr('Input class')),
-            ('Parent_Label', tr_lc_setup.tr('Output class'))
+            ("Child_Code", tr_lc_setup.tr("Input code")),
+            ("Child_Label", tr_lc_setup.tr("Input class")),
+            ("Parent_Label", tr_lc_setup.tr("Output class")),
         ]
         self.colnames_json = [x[0] for x in colname_tuples]
         self.colnames_pretty = [x[1] for x in colname_tuples]
@@ -318,36 +318,31 @@ class LCAggTableModel(QtCore.QAbstractTableModel):
     def data(self, index, role):
         if not index.isValid():
             return None
-        elif role == QtCore.Qt.TextAlignmentRole and index.column() in [
-            0, 2, 3
-        ]:
+        elif role == QtCore.Qt.TextAlignmentRole and index.column() in [0, 2, 3]:
             return QtCore.Qt.AlignCenter
         elif role != QtCore.Qt.DisplayRole:
             return None
         col_name = self.colnames_json[index.column()]
         initial_class = self.nesting.child.key_with_nodata()[index.row()]
 
-        if col_name == 'Child_Code':
+        if col_name == "Child_Code":
             return initial_class.code
-        elif col_name == 'Child_Label':
+        elif col_name == "Child_Label":
             return initial_class.name_long
-        elif col_name == 'Parent_Label':
+        elif col_name == "Parent_Label":
             return self.nesting.parentClassForChild(initial_class).name_long
 
     def headerData(self, section, orientation, role=QtCore.Qt.DisplayRole):
         if role == QtCore.Qt.DisplayRole and orientation == QtCore.Qt.Horizontal:
             return self.colnames_pretty[section]
 
-        return QtCore.QAbstractTableModel.headerData(
-            self, section, orientation, role
-        )
+        return QtCore.QAbstractTableModel.headerData(self, section, orientation, role)
 
 
 def read_lc_nesting_file(f):
     if not os.access(f, os.R_OK):
         QtWidgets.QMessageBox.critical(
-            None, tr_lc_setup.tr("Error"),
-            tr_lc_setup.tr(u"Cannot read {}.".format(f))
+            None, tr_lc_setup.tr("Error"), tr_lc_setup.tr("Cannot read {}.".format(f))
         )
 
         return None
@@ -356,21 +351,19 @@ def read_lc_nesting_file(f):
         with open(f) as nesting_file:
             nesting = LCLegendNesting.Schema().loads(nesting_file.read())
     except ValidationError as e:
-        log(
-            "Error loading land cover legend "
-            f"nesting definition from {f}: {e}"
-        )
+        log("Error loading land cover legend " f"nesting definition from {f}: {e}")
         QtWidgets.QMessageBox.critical(
-            None, tr_lc_setup.tr("Error"),
+            None,
+            tr_lc_setup.tr("Error"),
             tr_lc_setup.tr(
                 f"{f} does not appear to contain a valid land cover legend "
                 f"nesting definition: {e}"
-            )
+            ),
         )
 
         return None
     else:
-        log(u'Loaded land cover legend nesting definition from {}'.format(f))
+        log("Loaded land cover legend nesting definition from {}".format(f))
         nesting.translate(tr_dict)
         return nesting
 
@@ -378,97 +371,91 @@ def read_lc_nesting_file(f):
 def read_lc_matrix_file(f):
     if not os.access(f, os.R_OK):
         QtWidgets.QMessageBox.critical(
-            None, tr_lc_setup.tr("Error"),
-            tr_lc_setup.tr(u"Cannot read {}.".format(f))
+            None, tr_lc_setup.tr("Error"), tr_lc_setup.tr("Cannot read {}.".format(f))
         )
 
         return None
 
     try:
         with open(f) as matrix_file:
-            matrix = LCTransitionDefinitionDeg.Schema().loads(
-                matrix_file.read()
-            )
+            matrix = LCTransitionDefinitionDeg.Schema().loads(matrix_file.read())
     except ValidationError as e:
-        log(f'Error loading land cover transition matrix from {f}: {e}')
+        log(f"Error loading land cover transition matrix from {f}: {e}")
         QtWidgets.QMessageBox.critical(
-            None, tr_lc_setup.tr("Error"),
+            None,
+            tr_lc_setup.tr("Error"),
             tr_lc_setup.tr(
                 f"{f} does not appear to contain a valid land cover "
                 f"transition matrix definition: {e}"
-            )
+            ),
         )
 
         return None
     else:
-        log(f'Loaded land cover transition matrix definition from {f}')
+        log(f"Loaded land cover transition matrix definition from {f}")
         matrix.translate(tr_dict)
         return matrix
 
 
 def get_default_esa_nesting():
-    log('Land cover nesting is None')
+    log("Land cover nesting is None")
     return read_lc_nesting_file(
         os.path.join(
-            os.path.dirname(os.path.realpath(__file__)), 'data',
-            'land_cover_nesting_unccd_esa.json'
+            os.path.dirname(os.path.realpath(__file__)),
+            "data",
+            "land_cover_nesting_unccd_esa.json",
         )
     )
 
 
 def ipcc_lc_nesting_to_settings(nesting: LCLegendNesting):
     conf.settings_manager.write_value(
-        conf.Setting.LC_IPCC_NESTING,
-        LCLegendNesting.Schema().dumps(nesting)
+        conf.Setting.LC_IPCC_NESTING, LCLegendNesting.Schema().dumps(nesting)
     )
 
 
 def ipcc_lc_nesting_from_settings() -> LCLegendNesting:
-    nesting_str = conf.settings_manager.get_value(
-        conf.Setting.LC_IPCC_NESTING
-    )
-    if nesting_str == '':
+    nesting_str = conf.settings_manager.get_value(conf.Setting.LC_IPCC_NESTING)
+    if nesting_str == "":
         return None
-    
+
     return LCLegendNesting.Schema().loads(nesting_str)
 
 
 def esa_lc_nesting_to_settings(nesting: LCLegendNesting):
     conf.settings_manager.write_value(
-        conf.Setting.LC_ESA_NESTING,
-        LCLegendNesting.Schema().dumps(nesting)
+        conf.Setting.LC_ESA_NESTING, LCLegendNesting.Schema().dumps(nesting)
     )
 
 
 def esa_lc_nesting_from_settings() -> LCLegendNesting:
-    nesting_str = conf.settings_manager.get_value(
-        conf.Setting.LC_ESA_NESTING
-    )
-    if nesting_str == '':
+    nesting_str = conf.settings_manager.get_value(conf.Setting.LC_ESA_NESTING)
+    if nesting_str == "":
         return None
 
     return LCLegendNesting.Schema().loads(nesting_str)
 
 
-def get_trans_matrix(get_default=False, save_settings=True, type='UNCCD'):
-    assert type in ('ESA', 'UNCCD')
+def get_trans_matrix(get_default=False, save_settings=True, type="UNCCD"):
+    assert type in ("ESA", "UNCCD")
 
     if not get_default:
-        log('Loading land cover degradation matrix from settings')
+        log("Loading land cover degradation matrix from settings")
         matrix = trans_matrix_from_settings()
     else:
         matrix = None
 
     if matrix is None:
-        log('Land cover degradation matrix is None')
+        log("Land cover degradation matrix is None")
         matrix = read_lc_matrix_file(
             os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), 'data',
-                f'land_cover_transition_matrix_UNCCD.json'
+                os.path.dirname(os.path.realpath(__file__)),
+                "data",
+                f"land_cover_transition_matrix_UNCCD.json",
             )
         )
         nesting = ipcc_lc_nesting_from_settings()
-        if type == 'ESA':
+        if type == "ESA":
             # If ESA type is selected, setup a default transition matrix for the ESA
             # classes by defining each transition based on what the default transition
             # meaning is for the parent class when using the default UNCCD legend
@@ -488,22 +475,18 @@ def get_trans_matrix(get_default=False, save_settings=True, type='UNCCD'):
 
 
 def trans_matrix_from_settings() -> str:
-    matrix = QtCore.QSettings().value(
-        "LDMP/land_cover_deg_trans_matrix", None
-    )
+    matrix = QtCore.QSettings().value("LDMP/land_cover_deg_trans_matrix", None)
     return matrix
 
 
 def trans_matrix_to_settings(matrix: LCTransitionDefinitionDeg):
     QtCore.QSettings().setValue(
         "LDMP/land_cover_deg_trans_matrix",
-        LCTransitionDefinitionDeg.Schema().dumps(matrix)
+        LCTransitionDefinitionDeg.Schema().dumps(matrix),
     )
 
 
-class DlgCalculateLCSetAggregation(
-    QtWidgets.QDialog, DlgCalculateLCSetAggregationUi
-):
+class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregationUi):
     def __init__(self, parent=None):
         super().__init__(parent)
 
@@ -525,10 +508,10 @@ class DlgCalculateLCSetAggregation(
 
     def btn_load_pressed(self):
         f, _ = QtWidgets.QFileDialog.getOpenFileName(
-            self, self.tr('Select a land cover definition file'),
-            conf.settings_manager.get_value(
-                conf.Setting.DEFINITIONS_DIRECTORY
-            ), self.tr('Land cover definition (*.json)')
+            self,
+            self.tr("Select a land cover definition file"),
+            conf.settings_manager.get_value(conf.Setting.DEFINITIONS_DIRECTORY),
+            self.tr("Land cover definition (*.json)"),
         )
 
         if f:
@@ -538,17 +521,16 @@ class DlgCalculateLCSetAggregation(
                 )
             else:
                 QtWidgets.QMessageBox.critical(
-                    None, self.tr("Error"),
-                    self.tr(
-                        u"Cannot read {}. Choose a different file.".format(f)
-                    )
+                    None,
+                    self.tr("Error"),
+                    self.tr("Cannot read {}. Choose a different file.".format(f)),
                 )
         else:
             return
         nesting = read_lc_nesting_file(f)
 
         if nesting:
-            log(f'Loaded nesting from {f}')
+            log(f"Loaded nesting from {f}")
             esa_lc_nesting_to_settings(nesting)
             self.setup_nesting_table(nesting)
 
@@ -556,10 +538,10 @@ class DlgCalculateLCSetAggregation(
         self.update_nesting_from_widget()
 
         f, _ = QtWidgets.QFileDialog.getSaveFileName(
-            self, self.tr('Choose where to save this land cover definition'),
-            conf.settings_manager.get_value(
-                conf.Setting.DEFINITIONS_DIRECTORY
-            ), self.tr('Land cover definition (*.json)')
+            self,
+            self.tr("Choose where to save this land cover definition"),
+            conf.settings_manager.get_value(conf.Setting.DEFINITIONS_DIRECTORY),
+            self.tr("Land cover definition (*.json)"),
         )
 
         if f:
@@ -569,24 +551,22 @@ class DlgCalculateLCSetAggregation(
                 )
             else:
                 QtWidgets.QMessageBox.critical(
-                    None, self.tr("Error"),
-                    self.tr(
-                        u"Cannot write to {}. Choose a different file.".
-                        format(f)
-                    )
+                    None,
+                    self.tr("Error"),
+                    self.tr("Cannot write to {}. Choose a different file.".format(f)),
                 )
 
                 return
 
             nesting = esa_lc_nesting_from_settings()
-            with open(f, 'w') as outfile:
+            with open(f, "w") as outfile:
                 json.dump(
                     LCLegendNesting.Schema().dump(nesting),
                     outfile,
                     sort_keys=True,
                     indent=4,
-                    separators=(',', ':'),
-                    default=json_serial
+                    separators=(",", ":"),
+                    default=json_serial,
                 )
 
     def setup_nesting_table(self, nesting_input=None):
@@ -605,9 +585,7 @@ class DlgCalculateLCSetAggregation(
         child_legend = esa_lc_nesting_from_settings().child
         if nesting_input:
             valid_child_codes = sorted([c.code for c in child_legend.key])
-            child_code_input = sorted(
-                [c.code for c in nesting_input.child.key]
-            )
+            child_code_input = sorted([c.code for c in nesting_input.child.key])
             unnecessary_child_codes = sorted(
                 [c for c in child_code_input if c not in valid_child_codes]
             )
@@ -617,34 +595,36 @@ class DlgCalculateLCSetAggregation(
 
             if len(unnecessary_child_codes) > 0:
                 QtWidgets.QMessageBox.warning(
-                    None, self.tr("Warning"),
+                    None,
+                    self.tr("Warning"),
                     self.tr(
                         f"Some of the class codes ({unnecessary_child_codes!r}) "
                         "in the definition file do not appear in the chosen data "
                         "file."
-                    )
+                    ),
                 )
 
             if len(child_codes_missing_from_input) > 0:
                 QtWidgets.QMessageBox.warning(
-                    None, self.tr("Warning"),
+                    None,
+                    self.tr("Warning"),
                     self.tr(
                         f"Some of the class codes ({child_codes_missing_from_input!r}) "
                         "in the data file do not appear in the chosen definition "
                         "file."
-                    )
+                    ),
                 )
 
             # Remove unnecessary classes from the input child legend
             nesting_input.child.key = [
-                c for c in nesting_input.child.key
-                if c.code in valid_child_codes
+                c for c in nesting_input.child.key if c.code in valid_child_codes
             ]
 
             # Supplement input child legend with missing classes
             nesting_input.child.key.extend(
                 [
-                    c for c in child_legend.key
+                    c
+                    for c in child_legend.key
                     if c.code in child_codes_missing_from_input
                 ]
             )
@@ -661,16 +641,17 @@ class DlgCalculateLCSetAggregation(
             # And add into the nesting dict any classes that are in the data
             # but were missing from the input, including the child legend no
             # data code (it should be nested under parent nodata as well)
-            if nesting_input.child.nodata and \
-                    nesting_input.child.nodata.code not in \
-                    child_codes_missing_from_input:
-                child_codes_missing_from_input.append(
-                    nesting_input.child.nodata.code
-                )
+            if (
+                nesting_input.child.nodata
+                and nesting_input.child.nodata.code
+                not in child_codes_missing_from_input
+            ):
+                child_codes_missing_from_input.append(nesting_input.child.nodata.code)
             new_nesting_dict.update(
                 {
-                    nesting_input.parent.nodata.code:
-                    new_nesting_dict.get(nesting_input.parent.nodata.code, [])
+                    nesting_input.parent.nodata.code: new_nesting_dict.get(
+                        nesting_input.parent.nodata.code, []
+                    )
                     + child_codes_missing_from_input
                 }
             )
@@ -695,7 +676,8 @@ class DlgCalculateLCSetAggregation(
             # to by default
             child_code = self.table_model.index(row, 0).data()
             parent_class = [
-                nesting.parentClassForChild(c) for c in nesting.child.key_with_nodata()
+                nesting.parentClassForChild(c)
+                for c in nesting.child.key_with_nodata()
                 if c.code == child_code
             ][0]
 
@@ -720,9 +702,7 @@ class DlgCalculateLCSetAggregation(
             2, QtWidgets.QHeaderView.ResizeToContents
         )
 
-        self.remap_view.setSelectionBehavior(
-            QtWidgets.QAbstractItemView.SelectRows
-        )
+        self.remap_view.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
 
         return True
 
@@ -783,7 +763,7 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
             super().done(value)
 
     def validate_input(self, value):
-        if self.output_widget.lineEdit_output_file.text() == '':
+        if self.output_widget.lineEdit_output_file.text() == "":
             QtWidgets.QMessageBox.critical(
                 None, self.tr("Error"), self.tr("Choose an output file.")
             )
@@ -792,20 +772,22 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
 
         if not self.dlg_agg:
             QtWidgets.QMessageBox.information(
-                None, self.tr("No definition set"),
+                None,
+                self.tr("No definition set"),
                 self.tr(
                     'Click "Edit Definition" to define the land cover definition before exporting.',
-                    None
-                )
+                    None,
+                ),
             )
 
             return
 
-        if self.input_widget.spinBox_data_year.text(
-        ) == self.input_widget.spinBox_data_year.specialValueText():
+        if (
+            self.input_widget.spinBox_data_year.text()
+            == self.input_widget.spinBox_data_year.specialValueText()
+        ):
             QtWidgets.QMessageBox.critical(
-                None, self.tr("Error"),
-                self.tr(u"Enter the year of the input data.")
+                None, self.tr("Error"), self.tr("Enter the year of the input data.")
             )
 
             return
@@ -857,23 +839,22 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
         nesting = LCLegendNesting(
             parent=default_nesting.parent,
             child=LCLegend(
-                name='Default remap',
+                name="Default remap",
                 key=[
-                    LCClass(value, str(value)) for value in sorted(values)
+                    LCClass(value, str(value))
+                    for value in sorted(values)
                     if value != child_nodata_code
                 ],
-                nodata=LCClass(child_nodata_code, 'No data')
+                nodata=LCClass(child_nodata_code, "No data"),
             ),
-            nesting=nest
+            nesting=nest,
         )
         self.dlg_agg = DlgCalculateLCSetAggregation(nesting, parent=self)
 
     def agg_edit(self):
         if self.input_widget.radio_raster_input.isChecked():
             f = self.input_widget.lineEdit_raster_file.text()
-            band_number = int(
-                self.input_widget.comboBox_bandnumber.currentText()
-            )
+            band_number = int(self.input_widget.comboBox_bandnumber.currentText())
 
             if not self.dlg_agg or (
                 self.last_raster != f or self.last_band_number != band_number
@@ -881,23 +862,22 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
                 values = data_io.get_unique_values_raster(
                     f,
                     int(self.input_widget.comboBox_bandnumber.currentText()),
-                    self.checkBox_use_sample.isChecked()
+                    self.checkBox_use_sample.isChecked(),
                 )
 
                 if not values:
                     QtWidgets.QMessageBox.critical(
-                        None, self.tr("Error"),
+                        None,
+                        self.tr("Error"),
                         self.tr(
                             "Error reading data. Trends.Earth supports a maximum of 60 different land cover classes"
-                        )
+                        ),
                     )
 
                     return
                 self.last_raster = f
                 self.last_band_number = band_number
-                self.load_agg(
-                    values, child_nodata_code=self.get_nodata_value()
-                )
+                self.load_agg(values, child_nodata_code=self.get_nodata_value())
         else:
             f = self.input_widget.lineEdit_vector_file.text()
             l = self.input_widget.get_vector_layer()
@@ -905,27 +885,24 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
                 self.input_widget.comboBox_fieldname.currentText()
             )
 
-            if not self.dlg_agg or (
-                self.last_vector != f or self.last_idx != idx
-            ):
+            if not self.dlg_agg or (self.last_vector != f or self.last_idx != idx):
                 values = data_io.get_unique_values_vector(
                     l, self.input_widget.comboBox_fieldname.currentText()
                 )
 
                 if not values:
                     QtWidgets.QMessageBox.critical(
-                        None, self.tr("Error"),
+                        None,
+                        self.tr("Error"),
                         self.tr(
                             "Error reading data. Trends.Earth supports a maximum of 60 different land cover classes"
-                        )
+                        ),
                     )
 
                     return
                 self.last_vector = f
                 self.last_idx = idx
-                self.load_agg(
-                    values, child_nodata_code=self.get_nodata_value()
-                )
+                self.load_agg(values, child_nodata_code=self.get_nodata_value())
         self.dlg_agg.exec_()
 
     def get_nodata_value(self):
@@ -950,37 +927,31 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
             return False
 
         job = job_manager.create_job_from_dataset(
-            Path(out_file), "Land cover (7 class)", {
-                'year': int(self.input_widget.spinBox_data_year.text()),
-                'nesting': LCLegendNesting.Schema().dump(self.dlg_agg.nesting),
-                'source': 'custom data'
-            }
+            Path(out_file),
+            "Land cover (7 class)",
+            {
+                "year": int(self.input_widget.spinBox_data_year.text()),
+                "nesting": LCLegendNesting.Schema().dump(self.dlg_agg.nesting),
+                "source": "custom data",
+            },
         )
         job_manager.import_job(job, Path(out_file))
 
 
-class LCDefineDegradationWidget(
-    QtWidgets.QWidget, WidgetLcDefineDegradationUi
-):
+class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
     def __init__(self, parent=None):
         super().__init__(parent)
 
         self.setupUi(self)
 
         # UI initialization
-        reload_icon = QgsApplication.instance().getThemeIcon(
-            'mActionReload.svg'
-        )
+        reload_icon = QgsApplication.instance().getThemeIcon("mActionReload.svg")
         self.btn_transmatrix_reset.setIcon(reload_icon)
 
-        load_table_icon = QgsApplication.instance().getThemeIcon(
-            'mActionFileOpen.svg'
-        )
+        load_table_icon = QgsApplication.instance().getThemeIcon("mActionFileOpen.svg")
         self.btn_transmatrix_loadfile.setIcon(load_table_icon)
 
-        save_table_icon = QgsApplication.instance().getThemeIcon(
-            'mActionFileSave.svg'
-        )
+        save_table_icon = QgsApplication.instance().getThemeIcon("mActionFileSave.svg")
         self.btn_transmatrix_savefile.setIcon(save_table_icon)
 
         trans_matrix = get_trans_matrix()
@@ -1012,21 +983,17 @@ class LCDefineDegradationWidget(
         self.btn_transmatrix_reset.clicked.connect(
             lambda: self.set_trans_matrix(get_default=False)
         )
-        self.btn_transmatrix_loadfile.clicked.connect(
-            self.trans_matrix_loadfile
-        )
-        self.btn_transmatrix_savefile.clicked.connect(
-            self.trans_matrix_savefile
-        )
+        self.btn_transmatrix_loadfile.clicked.connect(self.trans_matrix_loadfile)
+        self.btn_transmatrix_savefile.clicked.connect(self.trans_matrix_savefile)
 
         self.legend_deg.setStyleSheet(
-            'QLineEdit {background: #9B2779;} QLineEdit:hover {border: 1px solid gray; background: #9B2779;}'
+            "QLineEdit {background: #9B2779;} QLineEdit:hover {border: 1px solid gray; background: #9B2779;}"
         )
         self.legend_imp.setStyleSheet(
-            'QLineEdit {background: #006500;} QLineEdit:hover {border: 1px solid gray; background: #006500;}'
+            "QLineEdit {background: #006500;} QLineEdit:hover {border: 1px solid gray; background: #006500;}"
         )
         self.legend_stable.setStyleSheet(
-            'QLineEdit {background: #FFFFE0;} QLineEdit:hover {border: 1px solid gray; background: #FFFFE0;}'
+            "QLineEdit {background: #FFFFE0;} QLineEdit:hover {border: 1px solid gray; background: #FFFFE0;}"
         )
 
     def setup_deg_def_matrix(self, legend):
@@ -1035,25 +1002,21 @@ class LCDefineDegradationWidget(
         self.deg_def_matrix.setHorizontalHeaderLabels(
             [c.name_short for c in legend.key]
         )
-        self.deg_def_matrix.setVerticalHeaderLabels(
-            [c.name_short for c in legend.key]
-        )
+        self.deg_def_matrix.setVerticalHeaderLabels([c.name_short for c in legend.key])
 
         for row in range(0, self.deg_def_matrix.rowCount()):
             for col in range(0, self.deg_def_matrix.columnCount()):
                 line_edit = TransMatrixEdit()
-                line_edit.setValidator(
-                    QtGui.QRegExpValidator(QtCore.QRegExp("[-0+]"))
-                )
+                line_edit.setValidator(QtGui.QRegExpValidator(QtCore.QRegExp("[-0+]")))
                 line_edit.setAlignment(QtCore.Qt.AlignHCenter)
                 self.deg_def_matrix.setCellWidget(row, col, line_edit)
 
-        self.deg_def_matrix.setStyleSheet('QTableWidget {border: 0px;}')
+        self.deg_def_matrix.setStyleSheet("QTableWidget {border: 0px;}")
         self.deg_def_matrix.horizontalHeader().setStyleSheet(
-            'QHeaderView::section {background-color: white;border: 0px;}'
+            "QHeaderView::section {background-color: white;border: 0px;}"
         )
         self.deg_def_matrix.verticalHeader().setStyleSheet(
-            'QHeaderView::section {background-color: white;border: 0px;}'
+            "QHeaderView::section {background-color: white;border: 0px;}"
         )
 
         for row in range(0, self.deg_def_matrix.rowCount()):
@@ -1068,10 +1031,10 @@ class LCDefineDegradationWidget(
 
     def trans_matrix_loadfile(self):
         f, _ = QtWidgets.QFileDialog.getOpenFileName(
-            self, self.tr('Select a transition matrix definition file'),
-            conf.settings_manager.get_value(
-                conf.Setting.DEFINITIONS_DIRECTORY
-            ), self.tr('Transition matrix definition (*.json)')
+            self,
+            self.tr("Select a transition matrix definition file"),
+            conf.settings_manager.get_value(conf.Setting.DEFINITIONS_DIRECTORY),
+            self.tr("Transition matrix definition (*.json)"),
         )
 
         if f:
@@ -1081,10 +1044,9 @@ class LCDefineDegradationWidget(
                 )
             else:
                 QtWidgets.QMessageBox.critical(
-                    None, self.tr("Error"),
-                    self.tr(
-                        u"Cannot read {}. Choose a different file.".format(f)
-                    )
+                    None,
+                    self.tr("Error"),
+                    self.tr("Cannot read {}. Choose a different file.".format(f)),
                 )
         else:
             return None
@@ -1101,10 +1063,9 @@ class LCDefineDegradationWidget(
     def trans_matrix_savefile(self):
         f, _ = QtWidgets.QFileDialog.getSaveFileName(
             self,
-            self.tr('Choose where to save this transition matrix definition'),
-            conf.settings_manager.get_value(
-                conf.Setting.DEFINITIONS_DIRECTORY
-            ), self.tr('Transition matrix definition (*.json)')
+            self.tr("Choose where to save this transition matrix definition"),
+            conf.settings_manager.get_value(conf.Setting.DEFINITIONS_DIRECTORY),
+            self.tr("Transition matrix definition (*.json)"),
         )
 
         if f:
@@ -1114,16 +1075,14 @@ class LCDefineDegradationWidget(
                 )
             else:
                 QtWidgets.QMessageBox.critical(
-                    None, self.tr("Error"),
-                    self.tr(
-                        u"Cannot write to {}. Choose a different file.".
-                        format(f)
-                    )
+                    None,
+                    self.tr("Error"),
+                    self.tr("Cannot write to {}. Choose a different file.".format(f)),
                 )
 
                 return
 
-            with open(f, 'w') as outfile:
+            with open(f, "w") as outfile:
                 json.dump(
                     LCTransitionDefinitionDeg.Schema().dump(
                         self.get_trans_matrix_from_widget()
@@ -1131,8 +1090,8 @@ class LCDefineDegradationWidget(
                     outfile,
                     sort_keys=True,
                     indent=4,
-                    separators=(',', ':'),
-                    default=json_serial
+                    separators=(",", ":"),
+                    default=json_serial,
                 )
 
     def set_trans_matrix(self, matrix=None, get_default=False):
@@ -1140,7 +1099,7 @@ class LCDefineDegradationWidget(
             matrix = get_trans_matrix(get_default)
         QtCore.QSettings().setValue(
             "LDMP/land_cover_deg_trans_matrix",
-            LCTransitionDefinitionDeg.Schema().dumps(matrix)
+            LCTransitionDefinitionDeg.Schema().dumps(matrix),
         )
 
         self.setup_deg_def_matrix(matrix.legend)
@@ -1154,16 +1113,17 @@ class LCDefineDegradationWidget(
                     initial_class, final_class
                 )
 
-                if meaning == 'stable':
-                    code = '0'
-                elif meaning == 'degradation':
-                    code = '-'
-                elif meaning == 'improvement':
-                    code = '+'
+                if meaning == "stable":
+                    code = "0"
+                elif meaning == "degradation":
+                    code = "-"
+                elif meaning == "improvement":
+                    code = "+"
                 else:
                     log(
-                        'unrecognized transition meaning "{}" when setting transition matrix'
-                        .format(meaning)
+                        'unrecognized transition meaning "{}" when setting transition matrix'.format(
+                            meaning
+                        )
                     )
 
                     return False
@@ -1188,17 +1148,20 @@ class LCDefineDegradationWidget(
                     meaning = "improvement"
                 else:
                     log(
-                        'unrecognized value "{}" when reading transition meaning from cellWidget'
-                        .format(val)
+                        'unrecognized value "{}" when reading transition meaning from cellWidget'.format(
+                            val
+                        )
                     )
                     raise ValueError(
-                        'unrecognized value "{}" when reading transition meaning from cellWidget'
-                        .format(val)
+                        'unrecognized value "{}" when reading transition meaning from cellWidget'.format(
+                            val
+                        )
                     )
                 transitions.append(
                     LCTransitionMeaningDeg(
                         trans_matrix.legend.key[row],
-                        trans_matrix.legend.key[col], meaning
+                        trans_matrix.legend.key[col],
+                        meaning,
                     )
                 )
 
@@ -1207,7 +1170,7 @@ class LCDefineDegradationWidget(
             name="Land cover transition definition matrix",
             definitions=LCTransitionMatrixDeg(
                 name="Degradation matrix", transitions=transitions
-            )
+            ),
         )
 
 
@@ -1250,7 +1213,7 @@ class LandCoverSetupRemoteExecutionWidget(
         hide_min_year: typing.Optional[bool] = False,
         hide_max_year: typing.Optional[bool] = False,
         selected_min_year: typing.Optional[int] = 2001,
-        selected_max_year: typing.Optional[int] = 2015
+        selected_max_year: typing.Optional[int] = 2015,
     ):
         super().__init__(parent)
         self.setupUi(self)
@@ -1271,13 +1234,9 @@ class LandCoverSetupRemoteExecutionWidget(
         if hide_max_year:
             self.target_year_la.hide()
             self.target_year_de.hide()
-        self.aggregation_method_pb.clicked.connect(
-            self.open_aggregation_method_dialog
-        )
+        self.aggregation_method_pb.clicked.connect(self.open_aggregation_method_dialog)
 
-        self.aggregation_dialog = DlgCalculateLCSetAggregation(
-            parent=self
-        )
+        self.aggregation_dialog = DlgCalculateLCSetAggregation(parent=self)
 
     def open_aggregation_method_dialog(self):
         self.aggregation_dialog.exec_()
@@ -1288,25 +1247,26 @@ class LCClassInfo:
     """
     Land cover class information from editor
     """
+
     idx: int = -1
     lcc: LCClass = None
     parent: LCClass = None
 
     class Meta:
         ordered = True
-        load_only = ['idx']
+        load_only = ["idx"]
 
 
 class LccInfoUtils:
     """
     Helper for LCCInfo management operations.
     """
-    CUSTOM_LEGEND_NAME = 'Custom Land Cover'
+
+    CUSTOM_LEGEND_NAME = "Custom Land Cover"
 
     @staticmethod
     def save_settings(
-            lcc_infos: typing.List['LCClassInfo'] = [],
-            restore_default=True
+        lcc_infos: typing.List["LCClassInfo"] = [], restore_default=True
     ) -> bool:
         """
         Saves list of LCClassInfo objects to settings but if settings is
@@ -1314,10 +1274,7 @@ class LccInfoUtils:
         UNCCD land cover classes.
         """
         if len(lcc_infos) == 0:
-            conf.settings_manager.write_value(
-                conf.Setting.LC_CLASSES,
-                []
-            )
+            conf.settings_manager.write_value(conf.Setting.LC_CLASSES, [])
             if restore_default:
                 _ = get_trans_matrix(True)
                 esa_lc_nesting_to_settings(get_default_esa_nesting())
@@ -1331,10 +1288,7 @@ class LccInfoUtils:
             for lcc in lcc_infos:
                 lcc_str = LCClassInfo.Schema().dumps(lcc)
                 infos.append(lcc_str)
-            conf.settings_manager.write_value(
-                conf.Setting.LC_CLASSES,
-                infos
-            )
+            conf.settings_manager.write_value(conf.Setting.LC_CLASSES, infos)
         except ValidationError as ve:
             status = False
         except Exception as exc:
@@ -1343,8 +1297,8 @@ class LccInfoUtils:
         # Update transition matrix and land cover nesting with our new custom
         # classes.
         log(
-            f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - Saving LCCInfo to settings: '
-            f'{status!s}'
+            f"{LccInfoUtils.CUSTOM_LEGEND_NAME} - Saving LCCInfo to settings: "
+            f"{status!s}"
         )
         if status:
             LccInfoUtils.sync_trans_matrix(lcc_infos)
@@ -1353,16 +1307,11 @@ class LccInfoUtils:
         return status
 
     @staticmethod
-    def load_settings() -> typing.Tuple[
-        bool,
-        typing.List['LCClassInfo']
-    ]:
+    def load_settings() -> typing.Tuple[bool, typing.List["LCClassInfo"]]:
         """
         Loads LCCInfo objects from the settings.
         """
-        lcc_infos_str = conf.settings_manager.get_value(
-            conf.Setting.LC_CLASSES
-        )
+        lcc_infos_str = conf.settings_manager.get_value(conf.Setting.LC_CLASSES)
         lcc_infos = []
         status = True
 
@@ -1380,10 +1329,7 @@ class LccInfoUtils:
         return status, lcc_infos
 
     @staticmethod
-    def save_file(
-            file_path: str,
-            lcc_infos: typing.List['LCClassInfo']
-    ) -> bool:
+    def save_file(file_path: str, lcc_infos: typing.List["LCClassInfo"]) -> bool:
         # Saves the LC classes to JSON file.
         lc_cls_infos = []
         status = True
@@ -1407,24 +1353,16 @@ class LccInfoUtils:
             return False
 
         suffix = fi.suffix()
-        if 'json' not in suffix:
-            file_path = f'{file_path}.json'
+        if "json" not in suffix:
+            file_path = f"{file_path}.json"
 
-        with open(file_path, 'w') as f:
-            json.dump(
-                lc_cls_infos,
-                f,
-                sort_keys=True,
-                indent=4
-            )
+        with open(file_path, "w") as f:
+            json.dump(lc_cls_infos, f, sort_keys=True, indent=4)
 
         return True
 
     @staticmethod
-    def load_file(file_path: str) -> typing.Tuple[
-        bool,
-        typing.List['LCClassInfo']
-    ]:
+    def load_file(file_path: str) -> typing.Tuple[bool, typing.List["LCClassInfo"]]:
         # Load classes from file.
         fi = QtCore.QFileInfo(file_path)
         cls_dir = fi.dir().path()
@@ -1439,7 +1377,7 @@ class LccInfoUtils:
             try:
                 classes = json.load(f)
                 for lcc in classes:
-                    lcc_info= LCClassInfo.Schema().load(lcc)
+                    lcc_info = LCClassInfo.Schema().load(lcc)
                     lc_classes.append(lcc_info)
             except ValidationError as ve:
                 status = False
@@ -1453,17 +1391,13 @@ class LccInfoUtils:
 
     @staticmethod
     def lcc_in_infos(
-            lcc: LCClass,
-            lcc_infos: typing.List['LCClassInfo']
-    ) -> typing.Tuple[bool, 'LCClassInfo']:
+        lcc: LCClass, lcc_infos: typing.List["LCClassInfo"]
+    ) -> typing.Tuple[bool, "LCClassInfo"]:
         """
         Checks if the given lc class is in the collection using
         code to compare.
         """
-        match = [
-            lcc_info for lcc_info in lcc_infos
-            if lcc_info.lcc.code == lcc.code
-        ]
+        match = [lcc_info for lcc_info in lcc_infos if lcc_info.lcc.code == lcc.code]
 
         return (True, match[0]) if len(match) > 0 else (False, None)
 
@@ -1481,7 +1415,7 @@ class LccInfoUtils:
         return nesting
 
     @staticmethod
-    def sync_trans_matrix(ref_lcc_infos: typing.List['LCClassInfo']):
+    def sync_trans_matrix(ref_lcc_infos: typing.List["LCClassInfo"]):
         """
         Update transition matrix in settings with custom classes in the
         reference list.
@@ -1489,8 +1423,8 @@ class LccInfoUtils:
         if len(ref_lcc_infos) == 0:
             if conf.settings_manager.get_value(conf.Setting.DEBUG):
                 log(
-                    f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - No land cover '
-                    f'classes to update transition matrix.'
+                    f"{LccInfoUtils.CUSTOM_LEGEND_NAME} - No land cover "
+                    f"classes to update transition matrix."
                 )
             return
 
@@ -1502,8 +1436,8 @@ class LccInfoUtils:
         if matrix is None:
             if conf.settings_manager.get_value(conf.Setting.DEBUG):
                 log(
-                    f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - No transition '
-                    f'matrix in settings'
+                    f"{LccInfoUtils.CUSTOM_LEGEND_NAME} - No transition "
+                    f"matrix in settings"
                 )
             return
 
@@ -1511,22 +1445,19 @@ class LccInfoUtils:
         i = 0
         while i < len(matrix.legend.key):
             lcc = matrix.legend.key[i]
-            lcc_in_ref, lcc_info = LccInfoUtils.lcc_in_infos(
-                lcc,
-                ref_lcc_infos
-            )
+            lcc_in_ref, lcc_info = LccInfoUtils.lcc_in_infos(lcc, ref_lcc_infos)
 
             if not lcc_in_ref:
                 if conf.settings_manager.get_value(conf.Setting.DEBUG):
                     log(
-                        f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - {lcc.name_long} '
-                        f'class not in matrix settings, attempting to remove...'
+                        f"{LccInfoUtils.CUSTOM_LEGEND_NAME} - {lcc.name_long} "
+                        f"class not in matrix settings, attempting to remove..."
                     )
                 matrix.remove_class(lcc)
                 if conf.settings_manager.get_value(conf.Setting.DEBUG):
                     log(
-                        f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - '
-                        f'{lcc.name_long} class successfully removed in matrix.'
+                        f"{LccInfoUtils.CUSTOM_LEGEND_NAME} - "
+                        f"{lcc.name_long} class successfully removed in matrix."
                     )
             else:
                 i += 1
@@ -1537,8 +1468,8 @@ class LccInfoUtils:
             matrix.add_update_class(ref_lcc)
             if conf.settings_manager.get_value(conf.Setting.DEBUG):
                 log(
-                    f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - Adding '
-                    f'{ref_lcc.name_long} class to matrix.'
+                    f"{LccInfoUtils.CUSTOM_LEGEND_NAME} - Adding "
+                    f"{ref_lcc.name_long} class to matrix."
                 )
 
         # Use meanings for default classes if names match.
@@ -1554,20 +1485,18 @@ class LccInfoUtils:
                 continue
 
         matrix.legend.name = LccInfoUtils.CUSTOM_LEGEND_NAME
-        matrix.name = 'Custom land cover degradation transition matrix'
+        matrix.name = "Custom land cover degradation transition matrix"
 
         # Update matrix in settings
         trans_matrix_to_settings(matrix)
         if conf.settings_manager.get_value(conf.Setting.DEBUG):
             log(
-                f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - Saved updated matrix to '
-                f'settings.'
+                f"{LccInfoUtils.CUSTOM_LEGEND_NAME} - Saved updated matrix to "
+                f"settings."
             )
 
     @staticmethod
-    def save_lc_nesting_ipcc(
-            ref_lcc_infos: typing.List['LCClassInfo']
-    ):
+    def save_lc_nesting_ipcc(ref_lcc_infos: typing.List["LCClassInfo"]):
         """
         Save IPCC land cover nesting to settings.
 
@@ -1576,8 +1505,8 @@ class LccInfoUtils:
         if len(ref_lcc_infos) == 0:
             if conf.settings_manager.get_value(conf.Setting.DEBUG):
                 log(
-                    f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - No land cover '
-                    f'classes to update IPCC land cover nesting.'
+                    f"{LccInfoUtils.CUSTOM_LEGEND_NAME} - No land cover "
+                    f"classes to update IPCC land cover nesting."
                 )
 
             return
@@ -1619,14 +1548,12 @@ class LccInfoUtils:
 
         if conf.settings_manager.get_value(conf.Setting.DEBUG):
             log(
-                f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - Saved IPCC lc '
-                f'nesting to settings.'
+                f"{LccInfoUtils.CUSTOM_LEGEND_NAME} - Saved IPCC lc "
+                f"nesting to settings."
             )
 
     @staticmethod
-    def save_lc_nesting_esa(
-            ref_lcc_infos: typing.List['LCClassInfo']
-    ):
+    def save_lc_nesting_esa(ref_lcc_infos: typing.List["LCClassInfo"]):
         """
         Save ESA land cover nesting to settings.
 
@@ -1636,8 +1563,8 @@ class LccInfoUtils:
         if len(ref_lcc_infos) == 0:
             if conf.settings_manager.get_value(conf.Setting.DEBUG):
                 log(
-                    f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - No land cover '
-                    f'classes to update ESA land cover nesting.'
+                    f"{LccInfoUtils.CUSTOM_LEGEND_NAME} - No land cover "
+                    f"classes to update ESA land cover nesting."
                 )
             return
 
@@ -1683,20 +1610,20 @@ class LccInfoUtils:
 
         if conf.settings_manager.get_value(conf.Setting.DEBUG):
             log(
-                f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - Saved ESA lc '
-                f'nesting to settings.'
+                f"{LccInfoUtils.CUSTOM_LEGEND_NAME} - Saved ESA lc "
+                f"nesting to settings."
             )
 
     @staticmethod
-    def sync_lc_nesting(ref_lcc_infos: typing.List['LCClassInfo']):
+    def sync_lc_nesting(ref_lcc_infos: typing.List["LCClassInfo"]):
         """
         Updates both IPCC and ESA land cover nestings in settings.
         """
         if len(ref_lcc_infos) == 0:
             if conf.settings_manager.get_value(conf.Setting.DEBUG):
                 log(
-                    f'{LccInfoUtils.CUSTOM_LEGEND_NAME} - No land cover '
-                    f'classes to update land cover nesting.'
+                    f"{LccInfoUtils.CUSTOM_LEGEND_NAME} - No land cover "
+                    f"classes to update land cover nesting."
                 )
             return
 
@@ -1755,9 +1682,7 @@ class LccInfoUtils:
             esa_nesting[lcc.code] = [lcc.code]
 
         # Nodata code shouldn't be listed in nesting dict
-        esa_nesting[ref_nesting.child.nodata.code] = [
-            ref_nesting.child.nodata.code
-        ]
+        esa_nesting[ref_nesting.child.nodata.code] = [ref_nesting.child.nodata.code]
 
         # Save to settings
         if len(def_lcc_infos) > 0:
@@ -1766,11 +1691,9 @@ class LccInfoUtils:
         # Re-write the esa nesting matrix
         esa_lc_nesting_to_settings(
             LCLegendNesting(
-                parent = ref_nesting.child,
-                child = ref_nesting.child,
-                nesting = esa_nesting
+                parent=ref_nesting.child, child=ref_nesting.child, nesting=esa_nesting
             )
         )
 
         # Re-write the matrix but with the original meanings restored
-        _ = get_trans_matrix(True, True, type='ESA')
+        _ = get_trans_matrix(True, True, type="ESA")

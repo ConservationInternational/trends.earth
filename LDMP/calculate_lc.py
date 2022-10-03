@@ -57,7 +57,7 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
             )
         elif self.script.run_mode == AlgorithmRunMode.REMOTE:
             self.lc_setup_widget = lc_setup.LandCoverSetupRemoteExecutionWidget(
-                parent=self, lc_nesting_type=lc_setup.LCNestingType.ESA
+                parent=self
             )
 
         self.lc_define_deg_widget = lc_setup.LCDefineDegradationWidget()

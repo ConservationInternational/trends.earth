@@ -658,7 +658,7 @@ class JobManager(QtCore.QObject):
             name=band_name, no_data_value=-32768.0, metadata=band_metadata.copy()
         )
 
-        if band_name == "Land cover (7 class)":
+        if band_name in ["Land cover", "Land cover (7 class)"]:
             script = conf.KNOWN_SCRIPTS["local-land-cover"]
         elif band_name == "Soil organic carbon":
             script = conf.KNOWN_SCRIPTS["local-soil-organic-carbon"]

@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Dict
 from typing import List
 from typing import Optional
+from typing import Union
 
 from qgis.PyQt import QtWidgets
 from te_schemas.aoi import AOI
@@ -133,10 +134,15 @@ def _get_ld_input_period(
 
 def _get_ld_inputs(
     data_selection_widget: data_io.WidgetDataIOSelectTELayerExisting,
-    aux_band_name: str,
+    aux_band_name: Union[str, list],
     sort_property: str = "year",
 ) -> LdnInputInfo:
     """Used to get main band and set of aux bands associated with a combo box"""
+    if isinstance(aux_band_name, str):
+        # Some aux_bands may have multiple potential names (this happens with land
+        # cover for example, which can be "Land cover (7 class)" or just "Land cover").
+        # This function assumes a list, so convert a single band name to a length 1 list.
+        aux_band_name = [aux_band_name]
     usable_band_info = data_selection_widget.get_current_band()
     main_band = usable_band_info.band_info
     main_band_index = usable_band_info.band_index
@@ -145,7 +151,7 @@ def _get_ld_inputs(
     for band_index, job_band in enumerate(
         usable_band_info.job.results.get_bands(), start=1
     ):
-        if job_band.name == aux_band_name:
+        if job_band.name in aux_band_name:
             aux_bands.append((job_band, band_index))
     sorted_aux_bands = sorted(aux_bands, key=lambda i: i[0].metadata[sort_property])
     aux_bands = [info[0] for info in sorted_aux_bands]

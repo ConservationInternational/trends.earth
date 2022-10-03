@@ -16,6 +16,7 @@ import json
 import os
 import re
 import typing
+from enum import Enum
 from copy import deepcopy
 from pathlib import Path
 
@@ -486,9 +487,19 @@ def trans_matrix_to_settings(matrix: LCTransitionDefinitionDeg):
     )
 
 
+class AggregationType(Enum):
+    # Type of land cover nesting an algorithm should use.
+    CUSTOM_TO_CUSTOM = 1
+    ESA_TO_CUSTOM = 2
+
+
 class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregationUi):
-    def __init__(self, parent=None):
+    def __init__(
+        self, parent=None, nesting=None, aggregation_type=AggregationType.ESA_TO_CUSTOM
+    ):
         super().__init__(parent)
+
+        self.AGGREGATION_TYPE = aggregation_type
 
         self.setupUi(self)
 
@@ -499,8 +510,21 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
 
         # Setup the class table so that the table is defined when a user first
         # loads the dialog
-        self.default_nesting = esa_lc_nesting_from_settings()
+        if nesting:
+            self.default_nesting = nesting
+        else:
+            self.default_nesting = self.get_default_nesting()
         self.setup_nesting_table(self.default_nesting)
+
+    def set_default_nesting(self, nesting):
+        self.default_nesting = nesting
+        if self.AGGREGATION_TYPE == AggregationType.ESA_TO_CUSTOM:
+            esa_lc_nesting_to_settings(nesting)
+
+    def get_default_nesting(self):
+        if self.AGGREGATION_TYPE == AggregationType.ESA_TO_CUSTOM:
+            self.default_nesting = esa_lc_nesting_from_settings()
+        return self.default_nesting
 
     def btn_close_pressed(self):
         self.update_nesting_from_widget()
@@ -531,7 +555,7 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
 
         if nesting:
             log(f"Loaded nesting from {f}")
-            esa_lc_nesting_to_settings(nesting)
+            self.set_default_nesting(nesting)
             self.setup_nesting_table(nesting)
 
     def btn_save_pressed(self):
@@ -558,7 +582,7 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
 
                 return
 
-            nesting = esa_lc_nesting_from_settings()
+            nesting = self.get_default_nesting()
             with open(f, "w") as outfile:
                 json.dump(
                     LCLegendNesting.Schema().dump(nesting),
@@ -582,7 +606,7 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
         # custom user data file when this class is instantiated from the
         # DlgDataIOImportLC class.
 
-        child_legend = esa_lc_nesting_from_settings().child
+        child_legend = self.get_default_nesting().child
         if nesting_input:
             valid_child_codes = sorted([c.code for c in child_legend.key])
             child_code_input = sorted([c.code for c in nesting_input.child.key])
@@ -707,7 +731,7 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
         return True
 
     def update_nesting_from_widget(self):
-        nesting = esa_lc_nesting_from_settings()
+        nesting = self.get_default_nesting()
         for row in range(0, self.table_model.rowCount()):
             child_code = self.table_model.index(row, 0).data()
             child_class = nesting.child.classByCode(child_code)
@@ -716,12 +740,12 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
             ).get_current_class()
 
             nesting.update_parent(child_class, new_parent_class)
-        esa_lc_nesting_to_settings(nesting)
+        self.set_default_nesting(nesting)
         self.default_nesting = deepcopy(nesting)
 
     def reset_nesting_table(self, get_default=False):
         if get_default:
-            self.default_nesting = esa_lc_nesting_from_settings()
+            self.default_nesting = self.get_default_nesting()
         self.setup_nesting_table(nesting_input=self.default_nesting)
 
 
@@ -820,24 +844,26 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
 
     def load_agg(self, values, child_nodata_code=-32768):
         # Set all of the classes to no data by default, and default to nesting
-        # under the CCD legend
+        # under the current custom legend (which may be the default IPCC legend
+        # in any case)
         default_nesting = ipcc_lc_nesting_from_settings()
 
         # From the default nesting class instance, setup the actual nesting
         # dictionary so that all the default classes have no values nested
         # under them, except for no data - nest all of the values in this
         # dataset under nodata (-32768 for the default data) until the user
-        # determines otherwise
-        nest = {c: [] for c in default_nesting.parent.codes()}
-        # The child nodata code also needs to be handled. Nest this under the
-        # parent nodata code as well.
+        # determines otherwise. Note we use the "child" legend in case the
+        # user has defined a custom legend (which would be stored there).
+        nest = {c: [] for c in default_nesting.child.codes()}
+        # The nodata code in the data being imported needs to be handled.
+        # Nest this under the parent nodata code as well.
 
         if child_nodata_code not in values:
             values = values + [child_nodata_code]
-        nest.update({default_nesting.parent.nodata.code: values})
+        nest.update({default_nesting.child.nodata.code: values})
 
         nesting = LCLegendNesting(
-            parent=default_nesting.parent,
+            parent=default_nesting.child,
             child=LCLegend(
                 name="Default remap",
                 key=[
@@ -849,7 +875,11 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
             ),
             nesting=nest,
         )
-        self.dlg_agg = DlgCalculateLCSetAggregation(nesting, parent=self)
+        self.dlg_agg = DlgCalculateLCSetAggregation(
+            parent=self,
+            nesting=nesting,
+            aggregation_type=AggregationType.CUSTOM_TO_CUSTOM,
+        )
 
     def agg_edit(self):
         if self.input_widget.radio_raster_input.isChecked():
@@ -930,10 +960,12 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
 
         job = job_manager.create_job_from_dataset(
             Path(out_file),
-            "Land cover (7 class)",
+            "Land cover",
             {
                 "year": int(self.input_widget.spinBox_data_year.text()),
-                "nesting": LCLegendNesting.Schema().dump(self.dlg_agg.nesting),
+                "nesting": LCLegendNesting.Schema().dumps(
+                    ipcc_lc_nesting_from_settings()
+                ),
                 "source": "custom data",
             },
         )
@@ -1238,7 +1270,9 @@ class LandCoverSetupRemoteExecutionWidget(
             self.target_year_de.hide()
         self.aggregation_method_pb.clicked.connect(self.open_aggregation_method_dialog)
 
-        self.aggregation_dialog = DlgCalculateLCSetAggregation(parent=self)
+        self.aggregation_dialog = DlgCalculateLCSetAggregation(
+            parent=self, aggregation_type=AggregationType.ESA_TO_CUSTOM
+        )
 
     def open_aggregation_method_dialog(self):
         self.aggregation_dialog.exec_()

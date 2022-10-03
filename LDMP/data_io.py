@@ -64,30 +64,21 @@ Ui_DlgJobsDetails, _ = uic.loadUiType(
     str(Path(__file__).parents[0] / "gui/DlgJobsDetails.ui")
 )
 Ui_WidgetDataIOImportSelectFileInput, _ = uic.loadUiType(
-    str(
-        Path(__file__).parents[0] / "gui/WidgetDataIOImportSelectFileInput.ui"
-    )
+    str(Path(__file__).parents[0] / "gui/WidgetDataIOImportSelectFileInput.ui")
 )
 Ui_WidgetDataIOImportSelectRasterOutput, _ = uic.loadUiType(
-    str(
-        Path(__file__).parents[0] /
-        "gui/WidgetDataIOImportSelectRasterOutput.ui"
-    )
+    str(Path(__file__).parents[0] / "gui/WidgetDataIOImportSelectRasterOutput.ui")
 )
 Ui_WidgetDataIOSelectTELayerExisting, _ = uic.loadUiType(
-    str(
-        Path(__file__).parents[0] / "gui/WidgetDataIOSelectTELayerExisting.ui"
-    )
+    str(Path(__file__).parents[0] / "gui/WidgetDataIOSelectTELayerExisting.ui")
 )
 Ui_WidgetDataIOSelectTELayerImport, _ = uic.loadUiType(
     str(Path(__file__).parents[0] / "gui/WidgetDataIOSelectTELayerImport.ui")
 )
 Ui_WidgetDataIOSelectTEDatasetExisting, _ = uic.loadUiType(
-    str(
-        Path(__file__).parents[0] /
-        "gui/WidgetDataIOSelectTEDatasetExisting.ui"
-    )
+    str(Path(__file__).parents[0] / "gui/WidgetDataIOSelectTEDatasetExisting.ui")
 )
+
 
 class tr_data_io(object):
     def tr(message):
@@ -110,8 +101,7 @@ class Band:
             [
                 self.job.local_context.area_of_interest_name,
                 layers.get_band_title(JobBand.Schema().dump(self.band_info)),
-                utils.utc_to_local(self.job.start_date
-                                   ).strftime("%Y-%m-%d %H:%M")
+                utils.utc_to_local(self.job.start_date).strftime("%Y-%m-%d %H:%M"),
             ]
         )
 
@@ -124,11 +114,10 @@ class Band:
             hover_info_parts = []
         hover_info_parts.extend(
             [
-                self.job.local_context.area_of_interest_name + '\n',
-                layers.get_band_title(JobBand.Schema().dump(self.band_info)) +
-                '\n',
-                utils.utc_to_local(self.job.start_date
-                                   ).strftime("%Y-%m-%d %H:%M") + '\n',
+                self.job.local_context.area_of_interest_name + "\n",
+                layers.get_band_title(JobBand.Schema().dump(self.band_info)) + "\n",
+                utils.utc_to_local(self.job.start_date).strftime("%Y-%m-%d %H:%M")
+                + "\n",
                 # TODO: figure out a way to cleanup the metadata so it is
                 # presentable and useful - likely need to have each script
                 # contain a dictionary of metadata fields that should be
@@ -148,8 +137,7 @@ class Dataset:
             [
                 self.job.local_context.area_of_interest_name,
                 self.job.visible_name,
-                utils.utc_to_local(self.job.start_date
-                                   ).strftime("%Y-%m-%d %H:%M")
+                utils.utc_to_local(self.job.start_date).strftime("%Y-%m-%d %H:%M"),
             ]
         )
 
@@ -159,10 +147,9 @@ class Dataset:
         hover_info_parts = []
         hover_info_parts.extend(
             [
-                self.job.visible_name + ' - ',
-                self.job.local_context.area_of_interest_name + '\n',
-                utils.utc_to_local(self.job.start_date
-                                   ).strftime("%Y-%m-%d %H:%M")
+                self.job.visible_name + " - ",
+                self.job.local_context.area_of_interest_name + "\n",
+                utils.utc_to_local(self.job.start_date).strftime("%Y-%m-%d %H:%M"),
             ]
         )
 
@@ -178,7 +165,7 @@ class RemapVectorWorker(worker.AbstractWorker):
         remap_dict,
         in_data_type,
         out_res,
-        out_data_type=gdal.GDT_Int16
+        out_data_type=gdal.GDT_Int16,
     ):
         worker.AbstractWorker.__init__(self)
 
@@ -197,18 +184,20 @@ class RemapVectorWorker(worker.AbstractWorker):
         crs_src_string = self.l.crs().toProj()
         crs_src = qgis.core.QgsCoordinateReferenceSystem()
         crs_src.createFromProj(crs_src_string)
-        crs_dst = qgis.core.QgsCoordinateReferenceSystem('epsg:4326')
+        crs_dst = qgis.core.QgsCoordinateReferenceSystem("epsg:4326")
         t = qgis.core.QgsCoordinateTransform(
             crs_src, crs_dst, qgis.core.QgsProject.instance()
         )
 
         l_out = qgis.core.QgsVectorLayer(
-            u"{datatype}?crs=proj4:{crs}".format(
+            "{datatype}?crs=proj4:{crs}".format(
                 datatype=self.in_data_type, crs=crs_dst.toProj()
-            ), "land cover (transformed)", "memory"
+            ),
+            "land cover (transformed)",
+            "memory",
         )
         l_out.dataProvider().addAttributes(
-            [qgis.core.QgsField('code', QtCore.QVariant.Int)]
+            [qgis.core.QgsField("code", QtCore.QVariant.Int)]
         )
         l_out.updateFields()
 
@@ -241,37 +230,38 @@ class RemapVectorWorker(worker.AbstractWorker):
 
         if not l_out.isValid():
             log(
-                u'Error remapping and transforming vector layer from "{}" to "{}")'
-                .format(crs_src_string, crs_dst.toProj())
+                'Error remapping and transforming vector layer from "{}" to "{}")'.format(
+                    crs_src_string, crs_dst.toProj()
+                )
             )
 
             return None
 
         # Write l_out to a shapefile for usage by gdal rasterize
-        temp_shp = GetTempFilename('.shp')
-        log(u'Writing temporary shapefile to {}'.format(temp_shp))
+        temp_shp = GetTempFilename(".shp")
+        log("Writing temporary shapefile to {}".format(temp_shp))
         err = qgis.core.QgsVectorFileWriter.writeAsVectorFormat(
             l_out, temp_shp, "UTF-8", crs_dst, "ESRI Shapefile"
         )
 
         if err != qgis.core.QgsVectorFileWriter.NoError:
-            log(u'Error writing layer to {}'.format(temp_shp))
+            log("Error writing layer to {}".format(temp_shp))
 
             return None
 
-        log('Rasterizing...')
+        log("Rasterizing...")
         res = gdal.Rasterize(
             self.out_file,
             temp_shp,
-            format='GTiff',
+            format="GTiff",
             xRes=self.out_res,
             yRes=-self.out_res,
             noData=-32768,
-            attribute='code',
+            attribute="code",
             outputSRS="epsg:4326",
             outputType=self.out_data_type,
-            creationOptions=['COMPRESS=LZW'],
-            callback=self.progress_callback
+            creationOptions=["COMPRESS=LZW"],
+            callback=self.progress_callback,
         )
         os.remove(temp_shp)
 
@@ -291,12 +281,7 @@ class RemapVectorWorker(worker.AbstractWorker):
 
 class RasterizeWorker(worker.AbstractWorker):
     def __init__(
-        self,
-        in_file,
-        out_file,
-        out_res,
-        attribute,
-        out_data_type=gdal.GDT_Int16
+        self, in_file, out_file, out_res, attribute, out_data_type=gdal.GDT_Int16
     ):
         worker.AbstractWorker.__init__(self)
 
@@ -314,15 +299,15 @@ class RasterizeWorker(worker.AbstractWorker):
         res = gdal.Rasterize(
             self.out_file,
             self.in_file,
-            format='GTiff',
+            format="GTiff",
             xRes=self.out_res,
             yRes=-self.out_res,
             noData=-32768,
             attribute=self.attribute,
             outputSRS="epsg:4326",
             outputType=self.out_data_type,
-            creationOptions=['COMPRESS=LZW'],
-            callback=self.progress_callback
+            creationOptions=["COMPRESS=LZW"],
+            callback=self.progress_callback,
         )
 
         if res:
@@ -341,12 +326,7 @@ class RasterizeWorker(worker.AbstractWorker):
 
 class RasterImportWorker(worker.AbstractWorker):
     def __init__(
-        self,
-        in_file,
-        out_file,
-        out_res,
-        resample_mode,
-        out_data_type=gdal.GDT_Int16
+        self, in_file, out_file, out_res, resample_mode, out_data_type=gdal.GDT_Int16
     ):
         worker.AbstractWorker.__init__(self)
 
@@ -364,27 +344,27 @@ class RasterImportWorker(worker.AbstractWorker):
             res = gdal.Warp(
                 self.out_file,
                 self.in_file,
-                format='GTiff',
+                format="GTiff",
                 xRes=self.out_res,
                 yRes=-self.out_res,
                 dstNodata=-32768,
                 dstSRS="epsg:4326",
                 outputType=self.out_data_type,
                 resampleAlg=self.resample_mode,
-                creationOptions=['COMPRESS=LZW'],
-                callback=self.progress_callback
+                creationOptions=["COMPRESS=LZW"],
+                callback=self.progress_callback,
             )
         else:
             res = gdal.Warp(
                 self.out_file,
                 self.in_file,
-                format='GTiff',
+                format="GTiff",
                 dstNodata=-32768,
                 dstSRS="epsg:4326",
                 outputType=self.out_data_type,
                 resampleAlg=self.resample_mode,
-                creationOptions=['COMPRESS=LZW'],
-                callback=self.progress_callback
+                creationOptions=["COMPRESS=LZW"],
+                callback=self.progress_callback,
             )
 
         if res:
@@ -425,7 +405,7 @@ class RemapRasterWorker(worker.AbstractWorker):
 
         driver = gdal.GetDriverByName("GTiff")
         ds_out = driver.Create(
-            self.out_file, xsize, ysize, 1, gdal.GDT_Int16, ['COMPRESS=LZW']
+            self.out_file, xsize, ysize, 1, gdal.GDT_Int16, ["COMPRESS=LZW"]
         )
         src_gt = ds_in.GetGeoTransform()
         ds_out.SetGeoTransform(src_gt)
@@ -438,8 +418,9 @@ class RemapRasterWorker(worker.AbstractWorker):
         for y in range(0, ysize, y_block_size):
             if self.killed:
                 log(
-                    u"Processing of {} killed by user after processing {} out of {} blocks."
-                    .format(deg_file, y, ysize)
+                    "Processing of {} killed by user after processing {} out of {} blocks.".format(
+                        deg_file, y, ysize
+                    )
                 )
 
                 break
@@ -499,22 +480,19 @@ def _get_min_max_tuple(values, min_min, max_max, nodata):
 
 def get_vector_stats(l, attribute, min_min=0, max_max=1000, nodata=0):
     values = np.asarray(
-        [feat.attribute(attribute) for feat in l.getFeatures()],
-        dtype=np.float32
+        [feat.attribute(attribute) for feat in l.getFeatures()], dtype=np.float32
     )
 
     return _get_min_max_tuple(values, min_min, max_max, nodata)
 
 
-def get_raster_stats(
-    f, band_num, sample=True, min_min=0, max_max=1000, nodata=0
-):
+def get_raster_stats(f, band_num, sample=True, min_min=0, max_max=1000, nodata=0):
     # Note that anything less than nodata value is considered no data
 
     if sample:
         # Note need float to correctly mark and ignore nodata for for nanmin
         # and nanmax
-        values = layers.get_sample(f, band_num, n=1e6).astype('float32')
+        values = layers.get_sample(f, band_num, n=1e6).astype("float32")
 
         return _get_min_max_tuple(values, min_min, max_max, nodata)
     else:
@@ -590,9 +568,7 @@ def get_unique_values_raster(f, band_num, sample=True, max_unique=60):
                     v = np.unique(b.ReadAsArray(x, y, cols, rows).ravel())
                 else:
                     v = np.unique(
-                        np.concatenate(
-                            (v, b.ReadAsArray(x, y, cols, rows).ravel())
-                        )
+                        np.concatenate((v, b.ReadAsArray(x, y, cols, rows).ravel()))
                     )
 
                 if v.size > max_unique:
@@ -660,9 +636,7 @@ class DlgDataIOLoadTE(QtWidgets.QDialog, Ui_DlgDataIOLoadTE):
         file_dialog = QtWidgets.QFileDialog(self)
         file_dialog.setFileMode(QtWidgets.QFileDialog.ExistingFile)
         file_dialog.setNameFilter("*.json")
-        file_dialog.setDirectory(
-            conf.settings_manager.get_value(conf.Setting.BASE_DIR)
-        )
+        file_dialog.setDirectory(conf.settings_manager.get_value(conf.Setting.BASE_DIR))
 
         if file_dialog.exec_():
             chosen_raw_path = file_dialog.selectedFiles()[0]
@@ -715,21 +689,15 @@ class ImportSelectFileInputWidget(
         super(ImportSelectFileInputWidget, self).__init__(parent)
         self.setupUi(self)
 
-        self.radio_raster_input.toggled.connect(
-            self.radio_raster_input_toggled
-        )
+        self.radio_raster_input.toggled.connect(self.radio_raster_input_toggled)
 
         self.btn_raster_dataset_browse.clicked.connect(self.open_raster_browse)
-        self.btn_polygon_dataset_browse.clicked.connect(
-            self.open_vector_browse
-        )
+        self.btn_polygon_dataset_browse.clicked.connect(self.open_vector_browse)
 
-        self.groupBox_output_resolution.clicked.connect(
-            self.output_res_toggled
-        )
+        self.groupBox_output_resolution.clicked.connect(self.output_res_toggled)
 
         # Ensure the special value text (set to " ") is displayed by default
-        self.spinBox_data_year.setSpecialValueText(' ')
+        self.spinBox_data_year.setSpecialValueText(" ")
         self.spinBox_data_year.setValue(self.spinBox_data_year.minimum())
 
     def radio_raster_input_toggled(self):
@@ -778,8 +746,10 @@ class ImportSelectFileInputWidget(
         else:
             initial_file = QSettings().value("LDMP/input_dir", None)
         raster_file, _ = QtWidgets.QFileDialog.getOpenFileName(
-            self, tr_data_io.tr('Select a raster input file'), initial_file,
-            tr_data_io.tr('Raster file (*.tif *.dat *.img *.vrt)')
+            self,
+            tr_data_io.tr("Select a raster input file"),
+            initial_file,
+            tr_data_io.tr("Raster file (*.tif *.dat *.img *.vrt)"),
         )
         # Try loading this raster to verify the file works
 
@@ -791,24 +761,21 @@ class ImportSelectFileInputWidget(
 
         if not os.access(raster_file, os.R_OK or not l.isValid()):
             QtWidgets.QMessageBox.critical(
-                None, tr_data_io.tr("Error"),
+                None,
+                tr_data_io.tr("Error"),
                 tr_data_io.tr(
-                    u"Cannot read {}. Choose a different file.".
-                    format(raster_file)
-                )
+                    "Cannot read {}. Choose a different file.".format(raster_file)
+                ),
             )
             self.inputFileChanged.emit(False)
 
             return False
         else:
-            QSettings().setValue(
-                "LDMP/input_dir", os.path.dirname(raster_file)
-            )
+            QSettings().setValue("LDMP/input_dir", os.path.dirname(raster_file))
             self.lineEdit_raster_file.setText(raster_file)
             self.comboBox_bandnumber.clear()
             self.comboBox_bandnumber.addItems(
-                [str(n) for n in range(1,
-                                       l.dataProvider().bandCount() + 1)]
+                [str(n) for n in range(1, l.dataProvider().bandCount() + 1)]
             )
 
             self.inputFileChanged.emit(True)
@@ -821,8 +788,10 @@ class ImportSelectFileInputWidget(
         else:
             initial_file = QSettings().value("LDMP/input_dir", None)
         vector_file, _ = QtWidgets.QFileDialog.getOpenFileName(
-            self, tr_data_io.tr('Select a vector input file'), initial_file,
-            tr_data_io.tr('Vector file (*.shp *.kml *.kmz *.geojson)')
+            self,
+            tr_data_io.tr("Select a vector input file"),
+            initial_file,
+            tr_data_io.tr("Vector file (*.shp *.kml *.kmz *.geojson)"),
         )
         # Try loading this vector to verify the file works
 
@@ -834,19 +803,17 @@ class ImportSelectFileInputWidget(
 
         if not os.access(vector_file, os.R_OK) or not l.isValid():
             QtWidgets.QMessageBox.critical(
-                None, tr_data_io.tr("Error"),
+                None,
+                tr_data_io.tr("Error"),
                 tr_data_io.tr(
-                    u"Cannot read {}. Choose a different file.".
-                    format(vector_file)
-                )
+                    "Cannot read {}. Choose a different file.".format(vector_file)
+                ),
             )
             self.inputFileChanged.emit(False)
 
             return False
         else:
-            QSettings().setValue(
-                "LDMP/input_dir", os.path.dirname(vector_file)
-            )
+            QSettings().setValue("LDMP/input_dir", os.path.dirname(vector_file))
             self.lineEdit_vector_file.setText(vector_file)
             self.comboBox_fieldname.clear()
             self.inputFileChanged.emit(True)
@@ -876,12 +843,12 @@ class ImportSelectRasterOutput(
         if self.lineEdit_output_file.text():
             initial_file = self.lineEdit_output_file.text()
         else:
-            initial_file = conf.settings_manager.get_value(
-                conf.Setting.BASE_DIR
-            )
+            initial_file = conf.settings_manager.get_value(conf.Setting.BASE_DIR)
         raw_output_path, _ = QtWidgets.QFileDialog.getSaveFileName(
-            self, tr_data_io.tr('Choose a name for the output file'), initial_file,
-            tr_data_io.tr('Raster file (*.tif)')
+            self,
+            tr_data_io.tr("Choose a name for the output file"),
+            initial_file,
+            tr_data_io.tr("Raster file (*.tif)"),
         )
 
         if raw_output_path:
@@ -894,11 +861,13 @@ class ImportSelectRasterOutput(
                 return True
             else:
                 QtWidgets.QMessageBox.critical(
-                    self, tr_data_io.tr("Error"),
+                    self,
+                    tr_data_io.tr("Error"),
                     tr_data_io.tr(
-                        u"Cannot write to {}. Choose a different file.".
-                        format(raw_output_path)
-                    )
+                        "Cannot write to {}. Choose a different file.".format(
+                            raw_output_path
+                        )
+                    ),
                 )
 
                 return False
@@ -921,7 +890,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
 
         # The datatype determines whether the dataset resampling is done with
         # nearest neighbor and mode or nearest neighbor and mean
-        self.datatype = 'categorical'
+        self.datatype = "categorical"
         self.metadata = None
 
         self.btnMetadata = QtWidgets.QPushButton(tr_data_io.tr("Metadata"))
@@ -931,41 +900,46 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
 
     def validate_input(self, value):
         if self.input_widget.radio_raster_input.isChecked():
-            if self.input_widget.lineEdit_raster_file.text() == '':
+            if self.input_widget.lineEdit_raster_file.text() == "":
                 QtWidgets.QMessageBox.critical(
-                    None, tr_data_io.tr("Error"),
-                    tr_data_io.tr("Choose an input raster file.")
+                    None,
+                    tr_data_io.tr("Error"),
+                    tr_data_io.tr("Choose an input raster file."),
                 )
 
                 return
         else:
             in_file = self.input_widget.lineEdit_vector_file.text()
 
-            if in_file == '':
+            if in_file == "":
                 QtWidgets.QMessageBox.critical(
-                    None, tr_data_io.tr("Error"),
-                    tr_data_io.tr("Choose an input polygon dataset.")
+                    None,
+                    tr_data_io.tr("Error"),
+                    tr_data_io.tr("Choose an input polygon dataset."),
                 )
 
                 return
             l = self.input_widget.get_vector_layer()
 
-            if l.wkbType() == qgis.core.QgsWkbTypes.Polygon or l.wkbType(
-            ) == qgis.core.QgsWkbTypes.MultiPolygon:
+            if (
+                l.wkbType() == qgis.core.QgsWkbTypes.Polygon
+                or l.wkbType() == qgis.core.QgsWkbTypes.MultiPolygon
+            ):
                 self.vector_datatype = "polygon"
             elif l.wkbType() == qgis.core.QgsWkbTypes.Point:
                 self.vector_datatype = "point"
             else:
                 QtWidgets.QMessageBox.critical(
-                    None, tr_data_io.tr("Error"),
+                    None,
+                    tr_data_io.tr("Error"),
                     tr_data_io.tr(
-                        u"Cannot process {}. Unknown geometry type:{}".format(
+                        "Cannot process {}. Unknown geometry type:{}".format(
                             in_file, l.wkbType()
                         )
-                    )
+                    ),
                 )
                 log(
-                    u"Failed to process {} - unknown geometry type {}.".format(
+                    "Failed to process {} - unknown geometry type {}.".format(
                         in_file, l.wkbType()
                     )
                 )
@@ -979,30 +953,31 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         out_res = self.get_out_res_wgs84()
 
         if in_res < out_res:
-            if self.datatype == 'categorical':
+            if self.datatype == "categorical":
                 log(
-                    u'Resampling with mode (in res: {}, out_res: {}'.format(
+                    "Resampling with mode (in res: {}, out_res: {}".format(
                         in_res, out_res
                     )
                 )
 
                 return gdal.GRA_Mode
-            elif self.datatype == 'continuous':
+            elif self.datatype == "continuous":
                 log(
-                    u'Resampling with average (in res: {}, out_res: {}'.format(
+                    "Resampling with average (in res: {}, out_res: {}".format(
                         in_res, out_res
                     )
                 )
 
                 return gdal.GRA_Average
             else:
-                raise ValueError('Unknown datatype')
+                raise ValueError("Unknown datatype")
         else:
             # If output resolution is finer than the original data, use nearest
             # neighbor
             log(
-                u'Resampling with nearest neighbor (in res: {}, out_res: {}'.
-                format(in_res, out_res)
+                "Resampling with nearest neighbor (in res: {}, out_res: {}".format(
+                    in_res, out_res
+                )
             )
 
             return gdal.GRA_NearestNeighbour
@@ -1025,8 +1000,8 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         (lrx, lry, lrz) = tx.TransformPoint(
             geo_t[0] + geo_t[1] * x_size, geo_t[3] + geo_t[5] * y_size
         )
-        log(u'ulx: {}, uly: {}, ulz: {}'.format(ulx, uly, ulz))
-        log(u'lrx: {}, lry: {}, lrz: {}'.format(lrx, lry, lrz))
+        log("ulx: {}, uly: {}, ulz: {}".format(ulx, uly, ulz))
+        log("lrx: {}, lry: {}, lrz: {}".format(lrx, lry, lrz))
         # As an approximation of what the output res would be in WGS4, use an
         # average of the x and y res of this image
 
@@ -1041,13 +1016,20 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
     def remap_vector(self, l, out_file, remap_dict, attribute):
         out_res = self.get_out_res_wgs84()
         log(
-            u'Remapping and rasterizing {} using output resolution {}, and field "{}"'
-            .format(out_file, out_res, attribute)
+            'Remapping and rasterizing {} using output resolution {}, and field "{}"'.format(
+                out_file, out_res, attribute
+            )
         )
-        log(u'Remap dict "{}"'.format(remap_dict))
+        log('Remap dict "{}"'.format(remap_dict))
         remap_vector_worker = worker.StartWorker(
-            RemapVectorWorker, 'rasterizing and remapping values', l, out_file,
-            attribute, remap_dict, self.vector_datatype, out_res
+            RemapVectorWorker,
+            "rasterizing and remapping values",
+            l,
+            out_file,
+            attribute,
+            remap_dict,
+            self.vector_datatype,
+            out_res,
         )
 
         if not remap_vector_worker.success:
@@ -1061,15 +1043,14 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
 
     def remap_raster(self, in_file, out_file, remap_list):
         # First warp the raster to the correct CRS
-        temp_tif = GetTempFilename('.tif')
+        temp_tif = GetTempFilename(".tif")
         warp_ret = self.warp_raster(temp_tif)
 
         if not warp_ret:
             return False
 
         remap_raster_worker = worker.StartWorker(
-            RemapRasterWorker, 'remapping values', temp_tif, out_file,
-            remap_list
+            RemapRasterWorker, "remapping values", temp_tif, out_file, remap_list
         )
         os.remove(temp_tif)
 
@@ -1089,8 +1070,12 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
             f'and field "{attribute}"'
         )
         rasterize_worker = worker.StartWorker(
-            RasterizeWorker, 'rasterizing vector file', in_file, out_file,
-            out_res, attribute
+            RasterizeWorker,
+            "rasterizing vector file",
+            in_file,
+            out_file,
+            out_res,
+            attribute,
         )
 
         if not rasterize_worker.success:
@@ -1106,10 +1091,10 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         # Select a single output band
         in_file = self.input_widget.lineEdit_raster_file.text()
         band_number = int(self.input_widget.comboBox_bandnumber.currentText())
-        temp_vrt = GetTempFilename('.vrt')
+        temp_vrt = GetTempFilename(".vrt")
         gdal.BuildVRT(temp_vrt, in_file, bandList=[band_number])
 
-        log(u'Importing {} to {}'.format(in_file, out_file))
+        log("Importing {} to {}".format(in_file, out_file))
 
         if self.input_widget.groupBox_output_resolution.isChecked():
             out_res = self.get_out_res_wgs84()
@@ -1118,8 +1103,12 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
             out_res = None
             resample_mode = gdal.GRA_NearestNeighbour
         raster_import_worker = worker.StartWorker(
-            RasterImportWorker, 'importing raster', temp_vrt, out_file,
-            out_res, resample_mode
+            RasterImportWorker,
+            "importing raster",
+            temp_vrt,
+            out_file,
+            out_res,
+            resample_mode,
         )
         os.remove(temp_vrt)
 
@@ -1149,7 +1138,7 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
         # button box with ok/cancel
         self.output_widget = ImportSelectRasterOutput()
         self.verticalLayout.insertWidget(1, self.output_widget)
-        self.datatype = 'continuous'
+        self.datatype = "continuous"
 
     def done(self, value):
         if value == QtWidgets.QDialog.Accepted:
@@ -1158,18 +1147,21 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
             super(DlgDataIOImportSOC, self).done(value)
 
     def validate_input(self, value):
-        if self.output_widget.lineEdit_output_file.text() == '':
+        if self.output_widget.lineEdit_output_file.text() == "":
             QtWidgets.QMessageBox.critical(
                 None, tr_data_io.tr("Error"), tr_data_io.tr("Choose an output file.")
             )
 
             return
 
-        if self.input_widget.spinBox_data_year.text(
-        ) == self.input_widget.spinBox_data_year.specialValueText():
+        if (
+            self.input_widget.spinBox_data_year.text()
+            == self.input_widget.spinBox_data_year.specialValueText()
+        ):
             QtWidgets.QMessageBox.critical(
-                None, tr_data_io.tr("Error"),
-                tr_data_io.tr(u"Enter the year of the input data.")
+                None,
+                tr_data_io.tr("Error"),
+                tr_data_io.tr("Enter the year of the input data."),
             )
 
             return
@@ -1182,8 +1174,7 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
         if self.input_widget.radio_raster_input.isChecked():
             in_file = self.input_widget.lineEdit_raster_file.text()
             stats = get_raster_stats(
-                in_file,
-                int(self.input_widget.comboBox_bandnumber.currentText())
+                in_file, int(self.input_widget.comboBox_bandnumber.currentText())
             )
         else:
             in_file = self.input_widget.lineEdit_vector_file.text()
@@ -1193,55 +1184,59 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
 
             if not l.fields().field(idx).isNumeric():
                 QtWidgets.QMessageBox.critical(
-                    None, tr_data_io.tr("Error"),
+                    None,
+                    tr_data_io.tr("Error"),
                     tr_data_io.tr(
-                        u"The chosen field ({}) is not numeric. Choose a numeric field."
-                        .format(field)
-                    )
+                        "The chosen field ({}) is not numeric. Choose a numeric field.".format(
+                            field
+                        )
+                    ),
                 )
 
                 return
             else:
-                stats = get_vector_stats(
-                    self.input_widget.get_vector_layer(), field
-                )
-        log(u'Stats are: {}'.format(stats))
+                stats = get_vector_stats(self.input_widget.get_vector_layer(), field)
+        log("Stats are: {}".format(stats))
 
         if not stats:
             QtWidgets.QMessageBox.critical(
-                None, tr_data_io.tr("Error"),
+                None,
+                tr_data_io.tr("Error"),
                 tr_data_io.tr(
                     "The input file ({}) does not appear to be a valid soil organic "
                     "carbon input file. The file should contain values of soil "
-                    "organic carbon in tonnes / hectare."
-                    .format(in_file)
-                )
+                    "organic carbon in tonnes / hectare.".format(in_file)
+                ),
             )
 
             return
 
         if stats[0] < 0:
             QtWidgets.QMessageBox.critical(
-                None, tr_data_io.tr("Error"),
+                None,
+                tr_data_io.tr("Error"),
                 tr_data_io.tr(
                     "The input file ({}) does not appear to be a valid soil organic "
                     "carbon input file. The minimum value in this file is {}. The no "
-                    "data value should be -32768, and all other values should be >= 0."
-                    .format(in_file, stats[0])
-                )
+                    "data value should be -32768, and all other values should be >= 0.".format(
+                        in_file, stats[0]
+                    )
+                ),
             )
 
             return
 
         if stats[1] > 1000:
             QtWidgets.QMessageBox.critical(
-                None, tr_data_io.tr("Error"),
+                None,
+                tr_data_io.tr("Error"),
                 tr_data_io.tr(
                     "The input file ({}) does not appear to be a valid soil organic "
                     "carbon input file. The maximum value in this file is {}. "
-                    "The maximum value allowed is 1000 tonnes / hectare."
-                    .format(in_file, stats[1])
-                )
+                    "The maximum value allowed is 1000 tonnes / hectare.".format(
+                        in_file, stats[1]
+                    )
+                ),
             )
 
             return
@@ -1264,10 +1259,12 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
             return False
 
         job = job_manager.create_job_from_dataset(
-            Path(out_file), "Soil organic carbon", {
-                'year': int(self.input_widget.spinBox_data_year.text()),
-                'source': 'custom data'
-            }
+            Path(out_file),
+            "Soil organic carbon",
+            {
+                "year": int(self.input_widget.spinBox_data_year.text()),
+                "source": "custom data",
+            },
         )
         job_manager.import_job(job, Path(out_file))
 
@@ -1294,7 +1291,7 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
             super(DlgDataIOImportProd, self).done(value)
 
     def validate_input(self, value):
-        if self.output_widget.lineEdit_output_file.text() == '':
+        if self.output_widget.lineEdit_output_file.text() == "":
             QtWidgets.QMessageBox.critical(
                 None, tr_data_io.tr("Error"), tr_data_io.tr("Choose an output file.")
             )
@@ -1311,7 +1308,7 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
             values = get_unique_values_raster(
                 in_file,
                 int(self.input_widget.comboBox_bandnumber.currentText()),
-                max_unique=7
+                max_unique=7,
             )
         else:
             in_file = self.input_widget.lineEdit_vector_file.text()
@@ -1321,12 +1318,12 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
 
             if not l.fields().field(idx).isNumeric():
                 QtWidgets.QMessageBox.critical(
-                    None, tr_data_io.tr("Error"),
+                    None,
+                    tr_data_io.tr("Error"),
                     tr_data_io.tr(
                         "The chosen field ({}) is not numeric. Choose a field that "
-                        "contains numbers."
-                        .format(field)
-                    )
+                        "contains numbers.".format(field)
+                    ),
                 )
 
                 return
@@ -1335,31 +1332,29 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
 
         if not values:
             QtWidgets.QMessageBox.critical(
-                None, tr_data_io.tr("Error"),
+                None,
+                tr_data_io.tr("Error"),
                 tr_data_io.tr(
                     "The input file ({}) does not appear to be a valid productivity "
-                    "input file."
-                    .format(in_file)
-                )
+                    "input file.".format(in_file)
+                ),
             )
 
             return
-        invalid_values = [
-            v for v in values if v not in [-32768, 0, 1, 2, 3, 4, 5]
-        ]
+        invalid_values = [v for v in values if v not in [-32768, 0, 1, 2, 3, 4, 5]]
 
         if len(invalid_values) > 0:
             QtWidgets.QMessageBox.warning(
-                None, tr_data_io.tr("Warning"),
+                None,
+                tr_data_io.tr("Warning"),
                 tr_data_io.tr(
                     "The input file ({}) does not appear to be a valid productivity "
                     "input file. Trends.Earth will load the file anyway, but review "
                     "the map once it has loaded to ensure the values make sense. The "
                     "only values allowed in a productivity input file are -32768, 1, "
                     "2, 3, 4 and 5. There are {} value(s) in the input file "
-                    "that were not recognized."
-                    .format(in_file, len(invalid_values))
-                )
+                    "that were not recognized.".format(in_file, len(invalid_values))
+                ),
             )
 
         super().done(value)
@@ -1380,8 +1375,9 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
             return False
 
         job = job_manager.create_job_from_dataset(
-            Path(out_file), "Land Productivity Dynamics (LPD)",
-            {"source": "custom data"}
+            Path(out_file),
+            "Land Productivity Dynamics (LPD)",
+            {"source": "custom data"},
         )
         job_manager.import_job(job, Path(out_file))
 
@@ -1411,34 +1407,30 @@ def _get_usable_bands(
     selected_job_id: uuid.UUID = None,
     filter_field: str = None,
     filter_value: str = None,
-    aoi = None
+    aoi=None,
 ) -> typing.List[Band]:
     result = []
 
     for job in job_manager.relevant_jobs:
         job: Job
-        is_available = job.status in (
-            JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY
-        )
-        is_of_interest = (selected_job_id is
-                          None) or (job.id == selected_job_id)
-        is_valid_type = (
-            job.results and (
-                ResultType(job.results.type) == ResultType.RASTER_RESULTS
-            )
+        is_available = job.status in (JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY)
+        is_of_interest = (selected_job_id is None) or (job.id == selected_job_id)
+        is_valid_type = job.results and (
+            ResultType(job.results.type) == ResultType.RASTER_RESULTS
         )
 
         if is_available and is_of_interest and is_valid_type:
             for band_index, band_info in enumerate(job.results.get_bands(), start=1):
 
                 if job.results.uri is not None and (
-                    (band_info.name == band_name or band_name == 'any')
+                    (band_info.name == band_name or band_name == "any")
                 ):
                     if aoi is not None:
                         if not _check_dataset_overlap_raster(aoi, job.results):
                             continue
                     if (
-                        filter_field is None or filter_value is None
+                        filter_field is None
+                        or filter_value is None
                         or band_info.metadata[filter_field] == filter_value
                     ):
                         result.append(
@@ -1446,7 +1438,7 @@ def _get_usable_bands(
                                 job=job,
                                 path=job.results.uri.uri,
                                 band_index=band_index,
-                                band_info=band_info
+                                band_info=band_info,
                             )
                         )
     result.sort(key=lambda ub: ub.job.start_date, reverse=True)
@@ -1464,11 +1456,11 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
 
         self.layer_list = None
 
-        self.NO_LAYERS_MESSAGE =  tr_data_io.tr('No layers available in this region')
+        self.NO_LAYERS_MESSAGE = tr_data_io.tr("No layers available in this region")
 
     def populate(self, selected_job_id=None):
         aoi = areaofinterest.prepare_area_of_interest()
-        layer_types = self.property("layer_type").split(';')
+        layer_types = self.property("layer_type").split(";")
         usable_bands = []
         for layer_type in layer_types:
             usable_bands.extend(
@@ -1477,7 +1469,7 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
                     selected_job_id=selected_job_id,
                     filter_field=self.property("layer_filter_field"),
                     filter_value=self.property("layer_filter_value"),
-                    aoi = aoi
+                    aoi=aoi,
                 )
             )
         self.layer_list = usable_bands
@@ -1498,8 +1490,7 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
     def get_current_extent(self):
         band = self.get_current_band()
 
-        return qgis.core.QgsRasterLayer(str(band.path), "raster file",
-                                        "gdal").extent()
+        return qgis.core.QgsRasterLayer(str(band.path), "raster file", "gdal").extent()
 
     def get_current_data_file(self) -> Path:
         return self.get_current_band().path
@@ -1532,7 +1523,7 @@ class WidgetDataIOSelectTELayerBase(QtWidgets.QWidget):
         return False
 
     def get_vrt(self):
-        f = GetTempFilename('.vrt')
+        f = GetTempFilename(".vrt")
         band = self.get_current_band()
         gdal.BuildVRT(f, str(band.path), bandList=[band.band_index])
 
@@ -1570,17 +1561,18 @@ def _check_band_overlap(aoi, raster):
         frac = 0
         for extent in raster.extents:
             frac += aoi.calc_frac_overlap(_extent_as_geom(extent))
-        if frac >= .99:
+        if frac >= 0.99:
             return True
         else:
             return False
+
 
 def _check_dataset_overlap_raster(aoi, raster_results):
     frac = 0
     for extent in raster_results.get_extents():
         this_frac = aoi.calc_frac_overlap(_extent_as_geom(extent))
         frac += this_frac
-    if frac >= .99:
+    if frac >= 0.99:
         return True
     else:
         return False
@@ -1601,19 +1593,17 @@ def _check_dataset_overlap_vector(aoi, vector_results):
     maxsize=None
 )  # not using functools.cache, as it was only introduced in Python 3.9
 def get_usable_datasets(
-    dataset_name: typing.Optional[str] = "any",
-    aoi = None
+    dataset_name: typing.Optional[str] = "any", aoi=None
 ) -> typing.List[Dataset]:
     result = []
 
     for job in job_manager.relevant_jobs:
         job: Job
-        is_available = job.status in (
-            JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY
-        )
+        is_available = job.status in (JobStatus.DOWNLOADED, JobStatus.GENERATED_LOCALLY)
         try:
             is_valid_type = ResultType(job.results.type) in [
-                ResultType.RASTER_RESULTS, ResultType.VECTOR_RESULTS
+                ResultType.RASTER_RESULTS,
+                ResultType.VECTOR_RESULTS,
             ]
         except AttributeError:
             # Catch case of an invalid type
@@ -1622,31 +1612,24 @@ def get_usable_datasets(
 
         if is_available and is_valid_type:
             if (
-                    ResultType(job.results.type) == ResultType.RASTER_RESULTS and
-                    (
-                        aoi is None or
-                        _check_dataset_overlap_raster(aoi, job.results)
-                    ) and
-                    job.script.name == dataset_name and 
-                    job.results.uri is not None
+                ResultType(job.results.type) == ResultType.RASTER_RESULTS
+                and (aoi is None or _check_dataset_overlap_raster(aoi, job.results))
+                and job.script.name == dataset_name
+                and job.results.uri is not None
             ):
-                result.append(Dataset(
-                    job=job,
-                    path=job.results.uri.uri,
-                ))
-            elif  (
-                    ResultType(job.results.type) == ResultType.VECTOR_RESULTS and
-                    (
-                        aoi is None or
-                        _check_dataset_overlap_vector(aoi, job.results)
-                    ) and
-                    job.results.vector.type.value == dataset_name and
-                    job.results.vector.uri is not None
+                result.append(
+                    Dataset(
+                        job=job,
+                        path=job.results.uri.uri,
+                    )
+                )
+            elif (
+                ResultType(job.results.type) == ResultType.VECTOR_RESULTS
+                and (aoi is None or _check_dataset_overlap_vector(aoi, job.results))
+                and job.results.vector.type.value == dataset_name
+                and job.results.vector.uri is not None
             ):
-                result.append(Dataset(
-                    job=job,
-                    path=job.results.vector.uri.uri
-                ))
+                result.append(Dataset(job=job, path=job.results.vector.uri.uri))
     result.sort(key=lambda ub: ub.job.start_date, reverse=True)
 
     return result
@@ -1698,20 +1681,19 @@ class DlgDataIOAddLayersToMap(QtWidgets.QDialog, Ui_DlgDataIOAddLayersToMap):
         self.layer_list = self.job.results.get_bands()
 
         band_strings = [
-            f'Band {n}: {layers.get_band_title(JobBand.Schema().dump(band))}'
+            f"Band {n}: {layers.get_band_title(JobBand.Schema().dump(band))}"
             for n, band in enumerate(self.layer_list, start=1)
         ]
         self.layers_model.setStringList(band_strings)
-        self.layers_view.setEditTriggers(
-            QtWidgets.QAbstractItemView.NoEditTriggers
-        )
+        self.layers_view.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
 
         for n in range(len(self.layer_list)):
             if self.layer_list[n].add_to_map:
                 self.layers_view.selectionModel().select(
                     self.layers_model.createIndex(n, 0),
-                    QtCore.QItemSelectionModel.Select
+                    QtCore.QItemSelectionModel.Select,
                 )
+
 
 class WidgetDataIOSelectTEDatasetExisting(
     QtWidgets.QWidget, Ui_WidgetDataIOSelectTEDatasetExisting
@@ -1726,11 +1708,9 @@ class WidgetDataIOSelectTEDatasetExisting(
 
         self.dataset_list = None
 
-        self.comboBox_datasets.currentIndexChanged.connect(
-            self.selected_job_changed
-        )
+        self.comboBox_datasets.currentIndexChanged.connect(self.selected_job_changed)
 
-        self.NO_DATASETS_MESSAGE = tr_data_io.tr('No datasets available in this region')
+        self.NO_DATASETS_MESSAGE = tr_data_io.tr("No datasets available in this region")
 
     def populate(self):
         aoi = areaofinterest.prepare_area_of_interest()
@@ -1738,9 +1718,7 @@ class WidgetDataIOSelectTEDatasetExisting(
         self.dataset_list = usable_datasets
         # Ensure selected_job_changed is called only once when adding items to
         # combobox
-        self.comboBox_datasets.currentIndexChanged.disconnect(
-            self.selected_job_changed
-        )
+        self.comboBox_datasets.currentIndexChanged.disconnect(self.selected_job_changed)
         old_text = self.currentText()
         self.comboBox_datasets.clear()
 
@@ -1757,9 +1735,7 @@ class WidgetDataIOSelectTEDatasetExisting(
             self.comboBox_datasets.setCurrentIndex(0)
         self.selected_job_changed()
         # Reconnect function to fire on selected dataset change
-        self.comboBox_datasets.currentIndexChanged.connect(
-            self.selected_job_changed
-        )
+        self.comboBox_datasets.currentIndexChanged.connect(self.selected_job_changed)
 
     def get_current_data_file(self) -> Path:
         return self.get_current_dataset().path
@@ -1778,15 +1754,20 @@ class WidgetDataIOSelectTEDatasetExisting(
         job = self.get_current_job()
         if job:
             if ResultType(job.results.type) == ResultType.RASTER_RESULTS:
-                band = self.get_bands('any')[0]
+                band = self.get_bands("any")[0]
                 return qgis.core.QgsRasterLayer(
-                    str(band.path), "raster file", "gdal").extent()
+                    str(band.path), "raster file", "gdal"
+                ).extent()
             elif ResultType(job.results.type) == ResultType.VECTOR_RESULTS:
                 rect = qgis.core.QgsVectorLayer(
-                    str(self.get_current_data_file()),
-                    "vector file", "ogr"
+                    str(self.get_current_data_file()), "vector file", "ogr"
                 ).extent()
-                return (rect.xMinimum(), rect.yMinimum(), rect.yMaximum(), rect.yMaximum())
+                return (
+                    rect.xMinimum(),
+                    rect.yMinimum(),
+                    rect.yMaximum(),
+                    rect.yMaximum(),
+                )
 
     def get_bands(self, band_name) -> Band:
         aoi = areaofinterest.prepare_area_of_interest()

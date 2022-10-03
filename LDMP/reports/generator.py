@@ -35,9 +35,7 @@ from qgis.core import (
     QgsVectorLayer,
     QgsTask,
 )
-from qgis.gui import (
-    QgsMessageBar
-)
+from qgis.gui import QgsMessageBar
 from qgis.utils import iface
 
 from qgis.PyQt.QtCore import (
@@ -46,40 +44,22 @@ from qgis.PyQt.QtCore import (
     QDateTime,
     QFile,
     QIODevice,
-    QObject
+    QObject,
 )
-from qgis.PyQt.QtXml import (
-    QDomDocument
-)
+from qgis.PyQt.QtXml import QDomDocument
 
 from te_schemas.results import Band as JobBand
 
 from ..jobs.models import Job
-from ..layers import (
-    get_band_title,
-    styles,
-    style_layer
-)
+from ..layers import get_band_title, styles, style_layer
 from ..logger import log
 
-from .charts import (
-    AlgorithmChartsManager,
-    LayerBandInfo
-)
+from .charts import AlgorithmChartsManager, LayerBandInfo
 from .expressions import ReportExpressionUtils
-from .models import (
-    ReportTaskContext,
-    TemplateType
-)
+from .models import ReportTaskContext, TemplateType
 from .utils import build_report_paths
-from ..utils import (
-    qgis_process_path,
-    FileUtils
-)
-from ..visualization import (
-    download_base_map,
-    ExtractAdministrativeArea
-)
+from ..utils import qgis_process_path, FileUtils
+from ..visualization import download_base_map, ExtractAdministrativeArea
 
 
 @dataclass
@@ -87,6 +67,7 @@ class LegendRendererContext:
     """
     Flags for specifying how legend items will be rendered in the layout.
     """
+
     remove_basemap_layers: bool = True
     remove_sub_group_heading: bool = True
     remove_category_title: bool = True
@@ -98,14 +79,15 @@ class ReportTaskProcessor:
     (in image and/or PDF format) based on information in a
     ReportTaskContext object.
     """
-    BAND_INDEX = 'sourceBandIndex'
-    BASE_MAP_GROUP = 'Basemap'
+
+    BAND_INDEX = "sourceBandIndex"
+    BASE_MAP_GROUP = "Basemap"
 
     def __init__(
-            self,
-            ctx: ReportTaskContext,
-            proj: QgsProject,
-            feedback: QgsProcessingFeedback=None
+        self,
+        ctx: ReportTaskContext,
+        proj: QgsProject,
+        feedback: QgsProcessingFeedback = None,
     ):
         self._ctx = ctx
         self._legend_renderer_ctx = LegendRendererContext()
@@ -119,13 +101,12 @@ class ReportTaskProcessor:
         self._jobs_layers = dict()
         self._should_add_basemap = True
         self._basemap_layers = []
-        self._output_root_dir = ''
+        self._output_root_dir = ""
         self._charts_mgr = AlgorithmChartsManager()
 
         # Stores the reference style for the base layers
         self._base_layers_fonts = {}
         self._base_layers_symbol_sizes = {}
-
 
     @property
     def context(self) -> ReportTaskContext:
@@ -156,7 +137,7 @@ class ReportTaskProcessor:
         return self._messages
 
     def tr(self, message) -> str:
-        return QCoreApplication.translate('ReportTaskProcessor', message)
+        return QCoreApplication.translate("ReportTaskProcessor", message)
 
     def _append_message(self, level, message):
         if level not in self.messages:
@@ -197,12 +178,12 @@ class ReportTaskProcessor:
                     band_info = JobBand.Schema().dump(band)
 
                     # Get corresponding style
-                    band_info_name = band_info['name']
+                    band_info_name = band_info["name"]
                     band_style = styles.get(band_info_name, None)
                     if band_style is None:
                         self._append_warning_msg(
-                            f'Styles for {band_info_name} not found for '
-                            f'band {band_idx!s} in {layer_path}.'
+                            f"Styles for {band_info_name} not found for "
+                            f"band {band_idx!s} in {layer_path}."
                         )
                         continue
 
@@ -212,28 +193,25 @@ class ReportTaskProcessor:
                     if band_layer.isValid():
                         # Style layer
                         if style_layer(
-                                layer_path,
-                                band_layer,
-                                band_idx,
-                                band_style,
-                                band_info,
-                                in_process_alg=True,
-                                processing_feedback=self._feedback
+                            layer_path,
+                            band_layer,
+                            band_idx,
+                            band_style,
+                            band_info,
+                            in_process_alg=True,
+                            processing_feedback=self._feedback,
                         ):
                             # Append source band index as a custom property.
                             # We use this to retrieve the corresponding report
                             # path.
-                            band_layer.setCustomProperty(
-                                self.BAND_INDEX,
-                                band_idx
-                            )
+                            band_layer.setCustomProperty(self.BAND_INDEX, band_idx)
                             layers.append(band_layer)
 
                             # Layer band info for the charts
                             lbi = LayerBandInfo(band_layer, band_info)
                             layer_band_infos.append(lbi)
                     else:
-                        self._append_warning_msg(f'{title}layer is invalid.')
+                        self._append_warning_msg(f"{title}layer is invalid.")
 
             # Add job layer-band info mapping for use in generating charts
             if len(layer_band_infos) > 0:
@@ -250,7 +228,7 @@ class ReportTaskProcessor:
 
     def _add_base_map(self):
         # Add basemap
-        country_name, admin_one_name = '', ''
+        country_name, admin_one_name = "", ""
         # Determine extent using first layer in our collection
         if len(self._jobs_layers) > 0:
             job_id = next(iter(self._jobs_layers))
@@ -265,23 +243,15 @@ class ReportTaskProcessor:
         # Download and apply mask
         if country_name:
             status, document = download_base_map(
-                use_mask=True,
-                country_name=country_name,
-                admin_level_one=admin_one_name
+                use_mask=True, country_name=country_name, admin_level_one=admin_one_name
             )
         else:
             status, document = download_base_map(use_mask=False)
 
         if status:
-            root = self._proj.layerTreeRoot().insertGroup(
-                0,
-                self.BASE_MAP_GROUP
-            )
+            root = self._proj.layerTreeRoot().insertGroup(0, self.BASE_MAP_GROUP)
             QgsLayerDefinition.loadLayerDefinition(
-                document,
-                self._proj,
-                root,
-                QgsReadWriteContext()
+                document, self._proj, root, QgsReadWriteContext()
             )
 
             # Get associated child layers
@@ -299,11 +269,11 @@ class ReportTaskProcessor:
                     continue
 
                 lbl_type = labeling.type()
-                if lbl_type == 'simple':
+                if lbl_type == "simple":
                     settings = labeling.settings()
                     lbl_format = settings.format()
                     self._base_layers_fonts[vl.name()] = lbl_format.size()
-                elif lbl_type == 'rule-based':
+                elif lbl_type == "rule-based":
                     rule_font_size = {}
                     root_rule = labeling.rootRule()
                     child_rules = root_rule.children()
@@ -313,13 +283,12 @@ class ReportTaskProcessor:
                         rule_font_size[cr.description()] = child_format.size()
                     self._base_layers_fonts[vl.name()] = rule_font_size
 
-
                 # Set reference marker symbol sizes
                 renderer = vl.renderer()
 
                 # For now we are only interested in layers with rule-based
                 # renderers
-                if renderer.type() == 'RuleRenderer':
+                if renderer.type() == "RuleRenderer":
                     root_rule = renderer.rootRule()
                     children = root_rule.children()
                     marker_size = {}
@@ -335,8 +304,8 @@ class ReportTaskProcessor:
         # Save project file to disk.
         if not self._output_root_dir:
             self._append_warning_msg(
-                'Root output directory could not be determined. The project '
-                'could not be saved.'
+                "Root output directory could not be determined. The project "
+                "could not be saved."
             )
             return False
 
@@ -347,8 +316,7 @@ class ReportTaskProcessor:
         self._add_open_project_macro()
 
         proj_file = FileUtils.project_path_from_report_task(
-            self._ctx,
-            self._output_root_dir
+            self._ctx, self._output_root_dir
         )
         self._proj.write(proj_file)
 
@@ -364,7 +332,7 @@ class ReportTaskProcessor:
         self._layout.setName(name)
 
         exporter = QgsLayoutExporter(self._layout)
-        if 'pdf' in report_path:
+        if "pdf" in report_path:
             settings = QgsLayoutExporter.PdfExportSettings()
             res = exporter.exportToPdf(report_path, settings)
 
@@ -374,9 +342,7 @@ class ReportTaskProcessor:
             res = exporter.exportToImage(report_path, settings)
 
         if res != QgsLayoutExporter.Success:
-            self._append_warning_msg(
-                f'Failed to export report to {report_path}.'
-            )
+            self._append_warning_msg(f"Failed to export report to {report_path}.")
 
         # Add layout to project
         layout_mgr = self._proj.layoutManager()
@@ -391,8 +357,7 @@ class ReportTaskProcessor:
         basemap_group = root_tree.findGroup(self.BASE_MAP_GROUP)
         if basemap_group is None:
             self._append_warning_msg(
-                'Basemap root group not found, unable to restore basemap '
-                'layer.'
+                "Basemap root group not found, unable to restore basemap " "layer."
             )
             return
 
@@ -423,7 +388,7 @@ class ReportTaskProcessor:
 
             labeling = labeling_rt.clone()
             lbl_type = labeling.type()
-            if lbl_type == 'simple':
+            if lbl_type == "simple":
                 settings = labeling.settings()
                 lbl_format = settings.format()
                 new_size = font_size_info * font_size_factor
@@ -431,7 +396,7 @@ class ReportTaskProcessor:
                 settings.setFormat(lbl_format)
                 labeling.setSettings(settings)
 
-            elif lbl_type == 'rule-based':
+            elif lbl_type == "rule-based":
                 root_rule = labeling.rootRule()
                 child_rules = root_rule.children()
                 for cr in child_rules:
@@ -454,12 +419,9 @@ class ReportTaskProcessor:
 
             # For now we are only interested in layers with rule-based
             # renderers
-            ref_size_info = self._base_layers_symbol_sizes.get(
-                bl.name(),
-                None
-            )
+            ref_size_info = self._base_layers_symbol_sizes.get(bl.name(), None)
             if ref_size_info is not None:
-                if renderer.type() == 'RuleRenderer':
+                if renderer.type() == "RuleRenderer":
                     root_rule = renderer.rootRule()
                     children = root_rule.children()
                     for cr in children:
@@ -486,7 +448,7 @@ class ReportTaskProcessor:
 
     def _update_project_metadata_extents(self, layer=None, title=None):
         # Update the extents and metadata of the project or reference layer.
-        description = ''
+        description = ""
         if layer is None:
             template_info = self._ctx.report_configuration.template_info
             title = template_info.name
@@ -496,12 +458,12 @@ class ReportTaskProcessor:
                 job_rect = self._get_job_layers_extent(j)
                 proj_extent.combineExtentWith(job_rect)
         else:
-            title = title or ''
+            title = title or ""
             proj_extent = layer.extent()
 
         md = self._proj.metadata()
         md.setTitle(title)
-        md.setAuthor('trends.earth QGIS Plugin')
+        md.setAuthor("trends.earth QGIS Plugin")
         md.setAbstract(description)
         md.setCreationDateTime(QDateTime.currentDateTime())
         self._proj.setMetadata(md)
@@ -514,10 +476,12 @@ class ReportTaskProcessor:
 
     def _add_open_project_macro(self):
         # Add macro that shows the layout manager when the project is opened.
-        macro = 'from qgis.utils import iface\r\ndef openProject():' \
-                '\r\n\tiface.showLayoutManager()\r\n\r\n' \
-                'def saveProject():\r\n\tpass\r\n\r\n' \
-                'def closeProject():\r\n\tpass\r\n'
+        macro = (
+            "from qgis.utils import iface\r\ndef openProject():"
+            "\r\n\tiface.showLayoutManager()\r\n\r\n"
+            "def saveProject():\r\n\tpass\r\n\r\n"
+            "def closeProject():\r\n\tpass\r\n"
+        )
         self._proj.writeEntry("Macros", "/pythonCode", macro)
 
     def run(self) -> bool:
@@ -530,9 +494,7 @@ class ReportTaskProcessor:
         except Exception as ex:
             # Use general exception as last resort to capture raster read
             # failures by GDAL.
-            exc_info = ''.join(
-                traceback.TracebackException.from_exception(ex).format()
-            )
+            exc_info = "".join(traceback.TracebackException.from_exception(ex).format())
             self._append_warning_msg(exc_info)
 
         return status
@@ -557,7 +519,7 @@ class ReportTaskProcessor:
         # Create map layers
         self._create_layers()
         if len(self._jobs_layers) == 0:
-            self._append_warning_msg('No map layers could be created.')
+            self._append_warning_msg("No map layers could be created.")
             return False
 
         if self._process_cancelled():
@@ -573,8 +535,10 @@ class ReportTaskProcessor:
         ref_full_temp = full_ls_path if use_landscape else full_pt_path
 
         # Simple
-        if self._options.template_type == TemplateType.SIMPLE \
-                or self._options.template_type == TemplateType.ALL:
+        if (
+            self._options.template_type == TemplateType.SIMPLE
+            or self._options.template_type == TemplateType.ALL
+        ):
             # Remove sub-group heading/layer name
             self._legend_renderer_ctx.remove_sub_group_heading = True
             self.update_base_layers_font(TemplateType.SIMPLE)
@@ -584,8 +548,10 @@ class ReportTaskProcessor:
             return False
 
         # Full
-        if self._options.template_type == TemplateType.FULL \
-                or self._options.template_type == TemplateType.ALL:
+        if (
+            self._options.template_type == TemplateType.FULL
+            or self._options.template_type == TemplateType.ALL
+        ):
             # Retain sub-group heading
             self._legend_renderer_ctx.remove_sub_group_heading = False
             self.update_base_layers_font(TemplateType.FULL)
@@ -616,34 +582,34 @@ class ReportTaskProcessor:
 
         # Check if the templates exist depending on user configuration
         # Simple layout
-        if self._options.template_type == TemplateType.SIMPLE \
-                or self._options.template_type == TemplateType.ALL:
-            if not abs_paths.simple_landscape_exists() \
-                    and not abs_paths.simple_portrait_exists():
-                msg = 'Simple report templates not found.'
-                self._append_warning_msg(
-                    f'{msg}: {simple_pt_path, simple_ls_path}'
-                )
+        if (
+            self._options.template_type == TemplateType.SIMPLE
+            or self._options.template_type == TemplateType.ALL
+        ):
+            if (
+                not abs_paths.simple_landscape_exists()
+                and not abs_paths.simple_portrait_exists()
+            ):
+                msg = "Simple report templates not found."
+                self._append_warning_msg(f"{msg}: {simple_pt_path, simple_ls_path}")
                 return False
 
         # Full layout
-        if self._options.template_type == TemplateType.FULL \
-                or self._options.template_type == TemplateType.ALL:
-            if not abs_paths.full_portrait_exists() \
-                    and not abs_paths.full_landscape_exists():
-                msg = 'Full report templates not found.'
-                self._append_warning_msg(
-                    f'{msg}: {full_pt_path, full_ls_path}'
-                )
+        if (
+            self._options.template_type == TemplateType.FULL
+            or self._options.template_type == TemplateType.ALL
+        ):
+            if (
+                not abs_paths.full_portrait_exists()
+                and not abs_paths.full_landscape_exists()
+            ):
+                msg = "Full report templates not found."
+                self._append_warning_msg(f"{msg}: {full_pt_path, full_ls_path}")
                 return False
 
         return True
 
-    def _generate_reports(
-            self,
-            template_path: str,
-            is_simple: bool
-    ) -> bool:
+    def _generate_reports(self, template_path: str, is_simple: bool) -> bool:
         # Create layout and generate reports based on the given template.
         self._layout = QgsPrintLayout(self._proj)
 
@@ -651,23 +617,16 @@ class ReportTaskProcessor:
         if not status:
             return False
 
-        _, load_status = self._layout.loadFromTemplate(
-            document,
-            QgsReadWriteContext()
-        )
+        _, load_status = self._layout.loadFromTemplate(document, QgsReadWriteContext())
         if not load_status:
-            self._append_warning_msg(
-                f'Could not load template: {template_path}.'
-            )
+            self._append_warning_msg(f"Could not load template: {template_path}.")
             return False
 
         # Update custom report variables from the settings
-        ReportExpressionUtils.register_variables(
-            self._layout
-        )
+        ReportExpressionUtils.register_variables(self._layout)
 
         # Key for fetching report output path
-        report_path_key = 'simple' if is_simple else 'full'
+        report_path_key = "simple" if is_simple else "full"
         template_prefix_tr = self._template_type_tr(report_path_key)
 
         # Process scope items for each job
@@ -678,9 +637,7 @@ class ReportTaskProcessor:
                 continue
 
             rpt_root_dir, job_report_paths = build_report_paths(
-                job,
-                self._options,
-                self._ctx.root_report_dir
+                job, self._options, self._ctx.root_report_dir
             )
             # Set root output directory
             if not self._output_root_dir:
@@ -688,11 +645,11 @@ class ReportTaskProcessor:
                 self._charts_mgr.output_dir = rpt_root_dir
 
             for jl in job_layers:
-                '''
-                (re)load layout and load the template. It would have been 
-                better to clone the layout object but we will lose the 
+                """
+                (re)load layout and load the template. It would have been
+                better to clone the layout object but we will lose the
                 expressions in the label items.
-                '''
+                """
                 if not self._create_layout(template_path):
                     return False
 
@@ -711,7 +668,7 @@ class ReportTaskProcessor:
                 if len(rpt_paths) == 0:
                     continue
 
-                layout_name = f'{template_prefix_tr} - {jl.name()}'
+                layout_name = f"{template_prefix_tr} - {jl.name()}"
 
                 # Update project metadata (relevant for PDF or SVG document
                 # properties)
@@ -732,45 +689,32 @@ class ReportTaskProcessor:
         if not status:
             return False
 
-        _, load_status = self._layout.loadFromTemplate(
-            document,
-            QgsReadWriteContext()
-        )
+        _, load_status = self._layout.loadFromTemplate(document, QgsReadWriteContext())
         if not load_status:
-            self._append_warning_msg(
-                f'Could not load template from {template_path!r}.'
-            )
+            self._append_warning_msg(f"Could not load template from {template_path!r}.")
             return False
 
-        ReportExpressionUtils.register_variables(
-            self._layout
-        )
+        ReportExpressionUtils.register_variables(self._layout)
 
         return True
 
     def _template_type_tr(self, template_type):
         # Returns translated string of the template type.
-        if template_type == 'simple':
-            return self.tr('Simple')
-        elif template_type == 'full':
-            return self.tr('Full')
-        elif template_type == 'all':
-            return self.tr('All')
+        if template_type == "simple":
+            return self.tr("Simple")
+        elif template_type == "full":
+            return self.tr("Full")
+        elif template_type == "all":
+            return self.tr("All")
         else:
             return template_type
 
-    def _process_scope_items(
-            self,
-            job: Job,
-            job_layer: QgsRasterLayer
-    ) -> bool:
+    def _process_scope_items(self, job: Job, job_layer: QgsRasterLayer) -> bool:
         # Update layout items in the given scope/job
         alg_name = job.script.name
         scope_mappings = self._ti.scope_mappings_by_name(alg_name)
         if len(scope_mappings) == 0:
-            self._append_warning_msg(
-                f'Could not find \'{alg_name}\' scope definition.'
-            )
+            self._append_warning_msg(f"Could not find '{alg_name}' scope definition.")
             return False
 
         item_scope = scope_mappings[0]
@@ -778,14 +722,14 @@ class ReportTaskProcessor:
         # Map items
         map_ids = item_scope.map_ids()
         if len(map_ids) == 0:
-            self._append_info_msg(f'No map ids found in \'{alg_name}\' scope.')
+            self._append_info_msg(f"No map ids found in '{alg_name}' scope.")
         if not self._update_map_items(map_ids, job_layer):
             return False
 
         # Label items
         label_ids = item_scope.label_ids()
         if len(label_ids) == 0:
-            self._append_info_msg(f'No label ids found in \'{alg_name}\' scope.')
+            self._append_info_msg(f"No label ids found in '{alg_name}' scope.")
         if not self._update_label_items(label_ids, job, job_layer):
             return False
 
@@ -833,23 +777,16 @@ class ReportTaskProcessor:
                     base_layer_index = model.node2index(layer_node)
                     if not base_layer_index.isValid():
                         continue
-                    model.removeRow(
-                        base_layer_index.row(),
-                        base_layer_index.parent()
-                    )
+                    model.removeRow(base_layer_index.row(), base_layer_index.parent())
 
         # Check whether to remove sub-group (or layer) headings and
         # symbology title.
         child_layers = layer_root.findLayers()
         for cl in child_layers:
             if self._legend_renderer_ctx.remove_sub_group_heading:
-                QgsLegendRenderer.setNodeLegendStyle(
-                    cl, QgsLegendStyle.Hidden
-                )
+                QgsLegendRenderer.setNodeLegendStyle(cl, QgsLegendStyle.Hidden)
             else:
-                QgsLegendRenderer.setNodeLegendStyle(
-                    cl, QgsLegendStyle.Subgroup
-                )
+                QgsLegendRenderer.setNodeLegendStyle(cl, QgsLegendStyle.Subgroup)
 
             # Also check if we need to remove category title e.g.
             # Band xx: xxx...
@@ -866,18 +803,13 @@ class ReportTaskProcessor:
 
     @classmethod
     def update_item_expression_ctx(
-            cls, 
-            item: QgsLayoutItem,
-            job,
-            job_layer
+        cls, item: QgsLayoutItem, job, job_layer
     ) -> QgsExpressionContext:
         # Update the expression context based on the given job and map layer.
         item_exp_ctx = item.createExpressionContext()
 
         return ReportExpressionUtils.update_expression_context(
-            item_exp_ctx,
-            job,
-            job_layer
+            item_exp_ctx, job, job_layer
         )
 
     def _update_label_items(self, labels_ids, job, job_layer) -> bool:
@@ -886,13 +818,10 @@ class ReportTaskProcessor:
             label_item = self._layout.itemById(lid)
             if label_item is not None:
                 lbl_exp_ctx = self.update_item_expression_ctx(
-                    label_item,
-                    job,
-                    job_layer
+                    label_item, job, job_layer
                 )
                 evaluated_txt = QgsExpression.replaceExpressionText(
-                    label_item.text(),
-                    lbl_exp_ctx
+                    label_item.text(), lbl_exp_ctx
                 )
                 label_item.setText(evaluated_txt)
 
@@ -915,14 +844,12 @@ class ReportTaskProcessor:
         template_file = QFile(path)
         try:
             if not template_file.open(QIODevice.ReadOnly):
-                self._append_warning_msg(f'Cannot read \'{path}\'.')
+                self._append_warning_msg(f"Cannot read '{path}'.")
                 return False, None
 
             doc = QDomDocument()
             if not doc.setContent(template_file):
-                self._append_warning_msg(
-                    'Failed to parse template file contents.'
-                )
+                self._append_warning_msg("Failed to parse template file contents.")
                 return False, None
 
         finally:
@@ -936,12 +863,8 @@ class ReportProcessHandlerTask(QgsTask):
     Bridge for communicating with the report task algorithm running in
     'qgis_process'.
     """
-    def __init__(
-            self,
-            ctx_file_path: str,
-            qgis_proc_path: str,
-            description
-    ):
+
+    def __init__(self, ctx_file_path: str, qgis_proc_path: str, description):
         super().__init__(description)
         self._ctx_file_path = ctx_file_path
         self._qgs_proc_path = qgis_proc_path
@@ -961,8 +884,8 @@ class ReportProcessHandlerTask(QgsTask):
         if self._process is not None:
             # Kill qgis_process associated with the given process id
             pid = self._process.pid
-            if os.name == 'nt':
-                subprocess.Popen(f'TASKKILL /F /PID {pid} /T', shell=True)
+            if os.name == "nt":
+                subprocess.Popen(f"TASKKILL /F /PID {pid} /T", shell=True)
             else:
                 try:
                     os.kill(pid, signal.SIGKILL)
@@ -977,22 +900,16 @@ class ReportProcessHandlerTask(QgsTask):
         if self.isCanceled():
             return False
 
-        input_file = f'INPUT={self._ctx_file_path}'
-        args = [
-            self._qgs_proc_path, 'run', 'trendsearth:reporttask',
-            '--', input_file
-        ]
+        input_file = f"INPUT={self._ctx_file_path}"
+        args = [self._qgs_proc_path, "run", "trendsearth:reporttask", "--", input_file]
 
         startupinfo = None
-        if os.name == 'nt':
+        if os.name == "nt":
             startupinfo = subprocess.STARTUPINFO()
             startupinfo.dwFlags |= subprocess.STARTF_USESHOWWINDOW
 
         # Start process
-        self._process = subprocess.Popen(
-            args,
-            startupinfo=startupinfo
-        )
+        self._process = subprocess.Popen(args, startupinfo=startupinfo)
 
         self._process.wait()
 
@@ -1009,6 +926,7 @@ class ReportGeneratorManager(QObject):
     """
     Generates reports for single or multi-datasets based on custom layouts.
     """
+
     task_running = pyqtSignal(str)
     task_completed = pyqtSignal(str)
 
@@ -1036,11 +954,7 @@ class ReportGeneratorManager(QObject):
         if not self.message_bar:
             return
 
-        self.message_bar.pushMessage(
-            self.tr('Report Status'),
-            msg,
-            level
-        )
+        self.message_bar.pushMessage(self.tr("Report Status"), msg, level)
 
     def _push_info_message(self, msg):
         self._push_message(msg, Qgis.Info)
@@ -1058,12 +972,11 @@ class ReportGeneratorManager(QObject):
         else:
             jobs = ctx.jobs
             if len(jobs) == 0:
-                return ''
+                return ""
             root_dir, _ = build_report_paths(
-                jobs[0],
-                ctx.report_configuration.output_options
+                jobs[0], ctx.report_configuration.output_options
             )
-        ctx_file_path = f'{root_dir}/report_{task_id}.json'
+        ctx_file_path = f"{root_dir}/report_{task_id}.json"
 
         # Check if there is an existing file
         if os.path.exists(ctx_file_path):
@@ -1071,13 +984,11 @@ class ReportGeneratorManager(QObject):
 
         # Check write permissions
         if not os.access(root_dir, os.W_OK):
-            tr_msg = self.tr(
-                'Cannot process report due to write permission to'
-            )
-            self._push_warning_message(f'{tr_msg} {root_dir}')
-            return ''
+            tr_msg = self.tr("Cannot process report due to write permission to")
+            self._push_warning_message(f"{tr_msg} {root_dir}")
+            return ""
 
-        with open(ctx_file_path, 'w') as cf:
+        with open(ctx_file_path, "w") as cf:
             ctx_data = ReportTaskContext.Schema().dump(ctx)
             json.dump(ctx_data, cf, indent=2)
 
@@ -1095,10 +1006,10 @@ class ReportGeneratorManager(QObject):
         # Assert if qgis_process path could be found
         if not self._qgis_proc_path:
             tr_msg = self.tr(
-                'could not be found in your system. Unable to run the '
-                'report generator.'
+                "could not be found in your system. Unable to run the "
+                "report generator."
             )
-            self._push_warning_message(f'\'qgis_process\' {tr_msg}')
+            self._push_warning_message(f"'qgis_process' {tr_msg}")
             return False
 
         if len(ctx.jobs) == 1:
@@ -1109,27 +1020,24 @@ class ReportGeneratorManager(QObject):
         # Write task file for subsequent use by the report handler task
         file_path = self._write_context_to_file(ctx, file_suffix)
 
-        report_tr = self.tr('reports')
+        report_tr = self.tr("reports")
 
-        ctx_display_name = f'{ctx.display_name()} {report_tr}'
+        ctx_display_name = f"{ctx.display_name()} {report_tr}"
 
         # Create report handler task
         rpt_handler_task = ReportProcessHandlerTask(
-            file_path,
-            self._qgis_proc_path,
-            ctx_display_name
+            file_path, self._qgis_proc_path, ctx_display_name
         )
-        task_id = QgsApplication.instance().taskManager().addTask(
-            rpt_handler_task
-        )
+        task_id = QgsApplication.instance().taskManager().addTask(rpt_handler_task)
 
         self._submitted_tasks[ctx] = task_id
         self._ctx_file_paths[ctx] = file_path
 
         # Notify user
-        tr_msg = self.tr(f'are being processed (id '
-                         f'{[str(job.id) for job in ctx.jobs]})...')
-        self._push_info_message(f'{ctx_display_name} {tr_msg}')
+        tr_msg = self.tr(
+            f"are being processed (id " f"{[str(job.id) for job in ctx.jobs]})..."
+        )
+        self._push_info_message(f"{ctx_display_name} {tr_msg}")
 
         return True
 
@@ -1149,10 +1057,7 @@ class ReportGeneratorManager(QObject):
 
         return True
 
-    def handler_task_from_context(
-            self,
-            ctx: ReportTaskContext
-    ) -> QgsTask:
+    def handler_task_from_context(self, ctx: ReportTaskContext) -> QgsTask:
         # Retrieves the handler task corresponding to the given context.
         task_id = self._submitted_tasks.get(ctx, -1)
         if task_id == -1:
@@ -1172,8 +1077,10 @@ class ReportGeneratorManager(QObject):
         if handler is None:
             return False
 
-        if handler.status() != QgsTask.Complete or \
-                handler.status() != QgsTask.Terminated:
+        if (
+            handler.status() != QgsTask.Complete
+            or handler.status() != QgsTask.Terminated
+        ):
             handler.cancel()
 
         _ = self._submitted_tasks.pop(ctx)
@@ -1189,20 +1096,13 @@ class ReportGeneratorManager(QObject):
         Returns the ReportTaskContext in submitted jobs based on the
         QgsTask id.
         """
-        ctxs = [
-            ctx for ctx, tid in self._submitted_tasks.items()
-            if tid == task_id
-        ]
+        ctxs = [ctx for ctx, tid in self._submitted_tasks.items() if tid == task_id]
         if len(ctxs) == 0:
             return None
 
         return ctxs[0]
 
-    def on_task_status_changed(
-            self,
-            task_id:int,
-            status: QgsTask.TaskStatus
-    ):
+    def on_task_status_changed(self, task_id: int, status: QgsTask.TaskStatus):
         # Slot raised when the status of a task has changed.
         ctx = self.task_context_by_id(task_id)
 
@@ -1219,10 +1119,7 @@ class ReportGeneratorManager(QObject):
                 ctx_file = QFile(ctx_file_path)
                 status = ctx_file.remove()
                 if not status:
-                    log(
-                        f'Unable to remove report context '
-                        f'file: {ctx_file_path}'
-                    )
+                    log(f"Unable to remove report context " f"file: {ctx_file_path}")
 
             # Remove from list of submitted tasks
             self.remove_task_context(ctx)
@@ -1232,8 +1129,3 @@ class ReportGeneratorManager(QObject):
 
 
 report_generator_manager = ReportGeneratorManager()
-
-
-
-
-

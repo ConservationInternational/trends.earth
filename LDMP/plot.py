@@ -18,15 +18,10 @@ from pathlib import Path
 import pyqtgraph as pg
 
 import qgis.gui
-from qgis.PyQt import (
-    QtWidgets,
-    uic
-)
+from qgis.PyQt import QtWidgets, uic
 
 
-UiDlgPlot, _ = uic.loadUiType(
-    str(Path(__file__).parent / 'gui/DlgPlot.ui')
-)
+UiDlgPlot, _ = uic.loadUiType(str(Path(__file__).parent / "gui/DlgPlot.ui"))
 
 
 class DlgPlot(QtWidgets.QDialog, UiDlgPlot):
@@ -39,7 +34,7 @@ class DlgPlot(QtWidgets.QDialog, UiDlgPlot):
         self.save_data.clicked.connect(self.save_data_clicked)
         self.save_image.clicked.connect(self.save_image_clicked)
 
-        #TODO: Temporary
+        # TODO: Temporary
         self.save_data.hide()
         self.save_image.hide()
 
@@ -56,16 +51,16 @@ def polyfit(x, y, degree):
     coeffs = np.polyfit(x, y, degree)
 
     # Polynomial Coefficients
-    results['polynomial'] = coeffs.tolist()
+    results["polynomial"] = coeffs.tolist()
 
     # r-squared
     p = np.poly1d(coeffs)
     # fit values, and mean
-    yhat = p(x)                         # or [p(z) for z in x]
-    ybar = np.sum(y) / len(y)          # or sum(y)/len(y)
-    ssreg = np.sum((yhat - ybar)**2)   # or sum([ (yihat - ybar)**2 for yihat in yhat])
-    sstot = np.sum((y - ybar)**2)    # or sum([ (yi - ybar)**2 for yi in y])
-    results['determination'] = ssreg / sstot
+    yhat = p(x)  # or [p(z) for z in x]
+    ybar = np.sum(y) / len(y)  # or sum(y)/len(y)
+    ssreg = np.sum((yhat - ybar) ** 2)  # or sum([ (yihat - ybar)**2 for yihat in yhat])
+    sstot = np.sum((y - ybar) ** 2)  # or sum([ (yi - ybar)**2 for yi in y])
+    results["determination"] = ssreg / sstot
 
     return results
 
@@ -75,26 +70,31 @@ class DlgPlotTimeries(DlgPlot):
         super(DlgPlotTimeries, self).__init__(parent)
 
     def plot_data(self, x, y, labels, autoSI=False):
-        line = pg.PlotCurveItem(x, y, pen='b', brush='w')
+        line = pg.PlotCurveItem(x, y, pen="b", brush="w")
         self.plot_window.addItem(line)
 
         # Add trendline
         z = polyfit(x, y, 1)
-        p = np.poly1d(z['polynomial'])
+        p = np.poly1d(z["polynomial"])
 
-        trend = pg.PlotCurveItem(x, p(x), pen='r', brush='w')
+        trend = pg.PlotCurveItem(x, p(x), pen="r", brush="w")
         self.plot_window.addItem(trend)
 
-        self.plot_window.setBackground('w')
+        self.plot_window.setBackground("w")
         self.plot_window.showGrid(x=True, y=True)
 
         legend = pg.LegendItem()
-        legend.addItem(line, 'NDVI')
-        legend.addItem(trend, self.tr('Linear trend (r<sup>2</sup> = {0:.2f})').format(z['determination']))
+        legend.addItem(line, "NDVI")
+        legend.addItem(
+            trend,
+            self.tr("Linear trend (r<sup>2</sup> = {0:.2f})").format(
+                z["determination"]
+            ),
+        )
         legend.setParentItem(self.plot_window.getPlotItem())
         legend.anchor((1, 0), (1, 0))
 
-        yaxis = self.plot_window.getPlotItem().getAxis('left')
+        yaxis = self.plot_window.getPlotItem().getAxis("left")
         yaxis.enableAutoSIPrefix(autoSI)
 
         if labels:
@@ -110,14 +110,14 @@ class DlgPlotBars(DlgPlot):
         # dict to handle string x-axis labels
         xdict = dict(enumerate(x))
 
-        bg = pg.BarGraphItem(x=list(xdict.keys()), height=y, width=0.6, brush='b')
+        bg = pg.BarGraphItem(x=list(xdict.keys()), height=y, width=0.6, brush="b")
         self.plot_window.addItem(bg)
-        self.plot_window.setBackground('w')
+        self.plot_window.setBackground("w")
 
-        xaxis = self.plot_window.getPlotItem().getAxis('bottom')
+        xaxis = self.plot_window.getPlotItem().getAxis("bottom")
         xaxis.setTicks([list(xdict.items())])
 
-        yaxis = self.plot_window.getPlotItem().getAxis('left')
+        yaxis = self.plot_window.getPlotItem().getAxis("left")
         yaxis.enableAutoSIPrefix(autoSI)
 
         if labels:

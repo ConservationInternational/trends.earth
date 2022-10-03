@@ -4,10 +4,7 @@ import typing
 from pathlib import Path
 
 from qgis.PyQt import uic
-from qgis.PyQt.QtCore import (
-    Qt,
-    QFileInfo
-)
+from qgis.PyQt.QtCore import Qt, QFileInfo
 from qgis.PyQt.QtGui import QResizeEvent
 from qgis.PyQt.QtWidgets import (
     QComboBox,
@@ -24,18 +21,12 @@ from qgis.PyQt.QtWidgets import (
 from qgis.core import Qgis
 from qgis.gui import QgsMessageBar
 
-from .conf import (
-    Setting,
-    settings_manager
-)
+from .conf import Setting, settings_manager
 from .jobs.models import Job
 from .reports.generator import report_generator_manager
 from .reports.models import ReportTaskContext
 from .reports.template_manager import template_manager
-from .reports.mvc import (
-    JobSelectionItemDelegate,
-    MultiscopeJobReportModel
-)
+from .reports.mvc import JobSelectionItemDelegate, MultiscopeJobReportModel
 
 from .utils import FileUtils
 
@@ -55,32 +46,27 @@ class DlgGenerateReport(QDialog, DlgGenerateReportUi):
     output_dir_le: QLineEdit
     template_cbo: QComboBox
 
-    def __init__(self, parent: QWidget=None):
+    def __init__(self, parent: QWidget = None):
         super().__init__(parent)
         self.setupUi(self)
 
         # Placeholder text
         self.output_dir_le.setPlaceholderText(
-            self.tr('Base file name for report output files')
+            self.tr("Base file name for report output files")
         )
 
-        self.browse_dir_tb.setIcon(FileUtils.get_icon('mActionFileOpen.svg'))
+        self.browse_dir_tb.setIcon(FileUtils.get_icon("mActionFileOpen.svg"))
         self.browse_dir_tb.clicked.connect(self.on_select_output_dir)
-        self.template_cbo.currentIndexChanged.connect(
-            self._on_template_changed
-        )
+        self.template_cbo.currentIndexChanged.connect(self._on_template_changed)
         self._scope_job_model = MultiscopeJobReportModel()
         self.dataset_scope_tv.setModel(self._scope_job_model)
-        self.dataset_scope_tv.setItemDelegateForColumn(
-            1,
-            JobSelectionItemDelegate(0)
-        )
+        self.dataset_scope_tv.setItemDelegateForColumn(1, JobSelectionItemDelegate(0))
 
         self.load_templates()
 
         ok_btn = self.buttonBox.button(QDialogButtonBox.Ok)
         if ok_btn is not None:
-            ok_btn.setText(self.tr('Generate'))
+            ok_btn.setText(self.tr("Generate"))
         self.buttonBox.accepted.connect(self.generate)
 
         self._rpt_tasK_ctx = None
@@ -106,9 +92,7 @@ class DlgGenerateReport(QDialog, DlgGenerateReportUi):
         config = self.template_cbo.itemData(idx)
         if config is not None:
             self.description_lbl.setText(config.template_info.description)
-            self._scope_job_model.load_scopes(
-                config.template_info.item_scopes
-            )
+            self._scope_job_model.load_scopes(config.template_info.item_scopes)
 
         self._persist_editor()
 
@@ -142,10 +126,9 @@ class DlgGenerateReport(QDialog, DlgGenerateReportUi):
 
         output_dir = QFileDialog.getExistingDirectory(
             self,
-            self.tr('Select Report Output Directory'),
+            self.tr("Select Report Output Directory"),
             init_dir,
-            options=QFileDialog.DontResolveSymlinks |
-                    QFileDialog.ShowDirsOnly
+            options=QFileDialog.DontResolveSymlinks | QFileDialog.ShowDirsOnly,
         )
 
         if output_dir:
@@ -155,13 +138,13 @@ class DlgGenerateReport(QDialog, DlgGenerateReportUi):
     def validate(self) -> bool:
         # Validate user options.
         status = True
-        title = self.tr('Validation')
+        title = self.tr("Validation")
         level = Qgis.Warning
         duration = 5
 
         # Check template
         if not self.template_cbo.currentText():
-            msg = self.tr('No template selected.')
+            msg = self.tr("No template selected.")
             self.msg_bar.pushMessage(title, msg, level, duration)
             status = False
 
@@ -174,7 +157,7 @@ class DlgGenerateReport(QDialog, DlgGenerateReportUi):
 
         # Check output directory
         if not self.output_dir_le.text():
-            msg = self.tr('No output directory specified.')
+            msg = self.tr("No output directory specified.")
             self.msg_bar.pushMessage(title, msg, level, duration)
             status = False
 
@@ -191,8 +174,8 @@ class DlgGenerateReport(QDialog, DlgGenerateReportUi):
             if job is None:
                 if status:
                     status = False
-                tr_msg = self.tr('dataset not specified.')
-                msgs.append(f'{scope_name} {tr_msg}')
+                tr_msg = self.tr("dataset not specified.")
+                msgs.append(f"{scope_name} {tr_msg}")
 
         return status, msgs
 
@@ -208,13 +191,8 @@ class DlgGenerateReport(QDialog, DlgGenerateReportUi):
         jobs = self._scope_job_model.scope_job_mapping.values()
         report_output_dir = self.output_dir_le.text()
 
-        rpt_task_ctx = ReportTaskContext(
-            sel_config,
-            jobs,
-            report_output_dir
-        )
+        rpt_task_ctx = ReportTaskContext(sel_config, jobs, report_output_dir)
 
         report_generator_manager.process_report_task(rpt_task_ctx)
 
         self.accept()
-

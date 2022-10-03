@@ -80,9 +80,8 @@ class Country:
             code=raw_country["code"],
             crs=raw_country["crs"],
             wrap=raw_country["wrap"],
-            level1_regions=regions
+            level1_regions=regions,
         )
-
 
 
 class tr_download(object):
@@ -111,32 +110,36 @@ def check_hash_against_etag(url, filename, expected=None):
     if not expected:
         h = get_header(url)
         if not h:
-            log(u"Failed to fetch expected hash for {}".format(filename))
+            log("Failed to fetch expected hash for {}".format(filename))
             return False
         else:
-            expected = h.get('ETag', '').strip('"')
+            expected = h.get("ETag", "").strip('"')
 
-    with open(filename, 'rb') as f:
+    with open(filename, "rb") as f:
         md5hash = hashlib.md5(f.read()).hexdigest()
 
     if md5hash == expected:
-        log(u"File hash verified for {}".format(filename))
+        log("File hash verified for {}".format(filename))
         return True
     else:
-        log(u"Failed verification of file hash for {}. Expected {}, but got {}".format(filename, expected, md5hash))
+        log(
+            "Failed verification of file hash for {}. Expected {}, but got {}".format(
+                filename, expected, md5hash
+            )
+        )
         return False
 
 
 def extract_zipfile(f, verify=True):
-    filename = os.path.join(os.path.dirname(__file__), 'data', f)
-    url = u'https://s3.amazonaws.com/trends.earth/sharing/{}'.format(f)
+    filename = os.path.join(os.path.dirname(__file__), "data", f)
+    url = "https://s3.amazonaws.com/trends.earth/sharing/{}".format(f)
 
     if os.path.exists(filename) and verify:
         if not check_hash_against_etag(url, filename):
             os.remove(filename)
 
     if not os.path.exists(filename):
-        log(u'Downloading {}'.format(f))
+        log("Downloading {}".format(f))
         # TODO: Dialog box with two options:
         #   1) Download
         #   2) Load from local folder
@@ -144,9 +147,11 @@ def extract_zipfile(f, verify=True):
         try:
             worker.start()
         except PermissionError:
-            QtWidgets.QMessageBox.critical(None,
-                                       tr_download.tr("Error"),
-                                       tr_download.tr("Unable to write to {}.".format(filename)))
+            QtWidgets.QMessageBox.critical(
+                None,
+                tr_download.tr("Error"),
+                tr_download.tr("Unable to write to {}.".format(filename)),
+            )
             return False
         resp = worker.get_resp()
         if not resp:
@@ -155,23 +160,24 @@ def extract_zipfile(f, verify=True):
             return False
 
     try:
-        with zipfile.ZipFile(filename, 'r') as fin:
-            fin.extractall(os.path.join(os.path.dirname(__file__), 'data'))
+        with zipfile.ZipFile(filename, "r") as fin:
+            fin.extractall(os.path.join(os.path.dirname(__file__), "data"))
         return True
     except zipfile.BadZipfile:
         os.remove(filename)
         return False
 
+
 def read_json(f, verify=True):
-    filename = os.path.join(os.path.dirname(__file__), 'data', f)
-    url = u'https://s3.amazonaws.com/trends.earth/sharing/{}'.format(f)
+    filename = os.path.join(os.path.dirname(__file__), "data", f)
+    url = "https://s3.amazonaws.com/trends.earth/sharing/{}".format(f)
 
     if os.path.exists(filename) and verify:
         if not check_hash_against_etag(url, filename):
             os.remove(filename)
 
     if not os.path.exists(filename):
-        log(u'Downloading {}'.format(f))
+        log("Downloading {}".format(f))
         # TODO: Dialog box with two options:
         #   1) Download
         #   2) Load from local folder
@@ -179,9 +185,15 @@ def read_json(f, verify=True):
         try:
             worker.start()
         except PermissionError:
-            QtWidgets.QMessageBox.critical(None,
-                                       tr_download.tr("Error"),
-                                       tr_download.tr("Unable to write to {}. Do you need administrator permissions?".format(filename)))
+            QtWidgets.QMessageBox.critical(
+                None,
+                tr_download.tr("Error"),
+                tr_download.tr(
+                    "Unable to write to {}. Do you need administrator permissions?".format(
+                        filename
+                    )
+                ),
+            )
             return None
         resp = worker.get_resp()
         if not resp:
@@ -189,53 +201,64 @@ def read_json(f, verify=True):
         if not check_hash_against_etag(url, filename):
             return None
 
-    with gzip.GzipFile(filename, 'r') as fin:
+    with gzip.GzipFile(filename, "r") as fin:
         json_bytes = fin.read()
-        json_str = json_bytes.decode('utf-8')
+        json_str = json_bytes.decode("utf-8")
 
     return json.loads(json_str)
 
+
 def download_files(urls, out_folder):
-    if out_folder == '':
-        QtWidgets.QMessageBox.critical(None,
-                                   tr_download.tr("Folder does not exist"),
-                                   tr_download.tr("Folder {} does not exist.".format(out_folder)))
+    if out_folder == "":
+        QtWidgets.QMessageBox.critical(
+            None,
+            tr_download.tr("Folder does not exist"),
+            tr_download.tr("Folder {} does not exist.".format(out_folder)),
+        )
         return None
 
     if not os.access(out_folder, os.W_OK):
-        QtWidgets.QMessageBox.critical(None,
-                                   tr_download.tr("Error"),
-                                   tr_download.tr("Unable to write to {}.".format(out_folder)))
+        QtWidgets.QMessageBox.critical(
+            None,
+            tr_download.tr("Error"),
+            tr_download.tr("Unable to write to {}.".format(out_folder)),
+        )
         return None
 
     downloads = []
     for url in urls:
         out_path = os.path.join(out_folder, os.path.basename(url))
         if not os.path.exists(out_path) or not check_hash_against_etag(url, out_path):
-            log(u'Downloading {} to {}'.format(url, out_path))
+            log("Downloading {} to {}".format(url, out_path))
 
             worker = Download(url, out_path)
             try:
                 worker.start()
             except PermissionError:
-                log(u'Unable to write to {}.'.format(out_folder))
-                QtWidgets.QMessageBox.critical(None,
-                                           tr_download.tr("Error"),
-                                           tr_download.tr("Unable to write to {}.".format(out_folder)))
+                log("Unable to write to {}.".format(out_folder))
+                QtWidgets.QMessageBox.critical(
+                    None,
+                    tr_download.tr("Error"),
+                    tr_download.tr("Unable to write to {}.".format(out_folder)),
+                )
                 return None
 
             resp = worker.get_resp()
             if not resp:
-                log(u'Error accessing {}.'.format(url))
-                QtWidgets.QMessageBox.critical(None,
-                                           tr_download.tr("Error"),
-                                           tr_download.tr("Error accessing {}.".format(url)))
+                log("Error accessing {}.".format(url))
+                QtWidgets.QMessageBox.critical(
+                    None,
+                    tr_download.tr("Error"),
+                    tr_download.tr("Error accessing {}.".format(url)),
+                )
                 return None
             if not check_hash_against_etag(url, out_path):
-                log(u'File verification failed for {}.'.format(out_path))
-                QtWidgets.QMessageBox.critical(None,
-                                           tr_download.tr("Error"),
-                                           tr_download.tr("File verification failed for {}.".format(out_path)))
+                log("File verification failed for {}.".format(out_path))
+                QtWidgets.QMessageBox.critical(
+                    None,
+                    tr_download.tr("Error"),
+                    tr_download.tr("File verification failed for {}.".format(out_path)),
+                )
                 return None
 
             downloads.extend(out_path)
@@ -244,7 +267,7 @@ def download_files(urls, out_folder):
 
 
 def get_admin_bounds() -> typing.Dict[str, Country]:
-    raw_admin_bounds = read_json('admin_bounds_key.json.gz', verify=False)
+    raw_admin_bounds = read_json("admin_bounds_key.json.gz", verify=False)
     countries_regions = {}
     for country_name, raw_country in raw_admin_bounds.items():
         countries_regions[country_name] = Country.deserialize(country_name, raw_country)
@@ -252,7 +275,7 @@ def get_admin_bounds() -> typing.Dict[str, Country]:
 
 
 def get_cities() -> typing.Dict[str, typing.Dict[str, City]]:
-    cities_key = read_json('cities.json.gz', verify=False)
+    cities_key = read_json("cities.json.gz", verify=False)
     countries_cities = {}
     for country_code, city_details in cities_key.items():
         country_cities = {}
@@ -282,24 +305,24 @@ class DownloadWorker(AbstractWorker):
         resp = requests.get(self.url, stream=True)
         if resp.status_code != 200:
             # log(u'Unexpected HTTP status code ({}) while trying to download {}.'.format(resp.status_code, self.url))
-            raise DownloadError(u'Unable to start download of {}'.format(self.url))
+            raise DownloadError("Unable to start download of {}".format(self.url))
 
-        total_size = int(resp.headers['Content-length'])
+        total_size = int(resp.headers["Content-length"])
         if total_size < 1e5:
-            total_size_pretty = '{:.2f} KB'.format(round(total_size / 1024, 2))
+            total_size_pretty = "{:.2f} KB".format(round(total_size / 1024, 2))
         else:
-            total_size_pretty = '{:.2f} MB'.format(round(total_size * 1e-6, 2))
+            total_size_pretty = "{:.2f} MB".format(round(total_size * 1e-6, 2))
 
         # log(u'Downloading {} ({}) to {}'.format(self.url, total_size_pretty, self.outfile))
 
         bytes_dl = 0
         r = requests.get(self.url, stream=True)
-        with open(self.outfile, 'wb') as f:
+        with open(self.outfile, "wb") as f:
             for chunk in r.iter_content(chunk_size=8192):
                 if self.killed == True:
                     # log(u"Download {} killed by user".format(self.url))
                     break
-                elif chunk: # filter out keep-alive new chunks
+                elif chunk:  # filter out keep-alive new chunks
                     f.write(chunk)
                     bytes_dl += len(chunk)
                     self.progress.emit(100 * float(bytes_dl) / float(total_size))
@@ -309,7 +332,9 @@ class DownloadWorker(AbstractWorker):
             # log(u"Download error. File size of {} didn't match expected ({} versus {})".format(self.url, bytes_dl, total_size))
             os.remove(self.outfile)
             if not self.killed:
-                raise DownloadError(u'Final file size of {} does not match expected'.format(self.url))
+                raise DownloadError(
+                    "Final file size of {} does not match expected".format(self.url)
+                )
             return None
         else:
             # log(u"Download of {} complete".format(self.url))
@@ -330,34 +355,47 @@ class Download(object):
             worker.finished.connect(pause.quit)
             worker.successfully_finished.connect(self.save_resp)
             worker.error.connect(self.save_exception)
-            start_worker(worker, iface,
-                         tr_download.tr(u'Downloading {}').format(self.outfile))
+            start_worker(
+                worker, iface, tr_download.tr("Downloading {}").format(self.outfile)
+            )
             pause.exec_()
             if self.get_exception():
                 raise self.get_exception()
         except requests.exceptions.ChunkedEncodingError:
-            log("Download failed due to ChunkedEncodingError - likely a connection loss")
-            QtWidgets.QMessageBox.critical(None,
-                                       tr_download.tr("Error"),
-                                       tr_download.tr("Download failed. Check your internet connection."))
+            log(
+                "Download failed due to ChunkedEncodingError - likely a connection loss"
+            )
+            QtWidgets.QMessageBox.critical(
+                None,
+                tr_download.tr("Error"),
+                tr_download.tr("Download failed. Check your internet connection."),
+            )
             return False
         except requests.exceptions.ConnectionError:
             log("Download failed due to connection error")
-            QtWidgets.QMessageBox.critical(None,
-                                       tr_download.tr("Error"),
-                                       tr_download.tr("Unable to access internet. Check your internet connection."))
+            QtWidgets.QMessageBox.critical(
+                None,
+                tr_download.tr("Error"),
+                tr_download.tr(
+                    "Unable to access internet. Check your internet connection."
+                ),
+            )
             return False
         except requests.exceptions.Timeout:
-            log('Download timed out.')
-            QtWidgets.QMessageBox.critical(None,
-                                       tr_download.tr("Error"),
-                                       tr_download.tr("Download timed out. Check your internet connection."))
+            log("Download timed out.")
+            QtWidgets.QMessageBox.critical(
+                None,
+                tr_download.tr("Error"),
+                tr_download.tr("Download timed out. Check your internet connection."),
+            )
             return False
         except DownloadError:
             log("Download failed.")
-            QtWidgets.QMessageBox.critical(None,
-                                       tr_download.tr("Error"),
-                                       tr_download.tr("Download failed. Check your internet connection."))
+            QtWidgets.QMessageBox.critical(
+                None,
+                tr_download.tr("Error"),
+                tr_download.tr("Download failed. Check your internet connection."),
+            )
             return False
         return True
 

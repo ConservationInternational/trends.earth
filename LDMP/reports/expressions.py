@@ -5,48 +5,32 @@ import json
 from operator import attrgetter
 import typing
 
-from qgis.core import (
-    QgsExpressionContext,
-    QgsLayout,
-    QgsRasterLayer
-)
+from qgis.core import QgsExpressionContext, QgsLayout, QgsRasterLayer
 
-from qgis.PyQt.QtCore import (
-    QCoreApplication
-)
+from qgis.PyQt.QtCore import QCoreApplication
 
-from ..conf import (
-    Setting,
-    settings_manager
-)
+from ..conf import Setting, settings_manager
 from ..jobs.models import Job
-from ..utils import (
-    utc_to_local
-)
+from ..utils import utc_to_local
 
 # Most (if not) all of the job variables' values will be set at runtime
 JobAttrVarInfo = namedtuple(
-    'JobAttrVarInfo',
-    'job_attr var_name default_value fmt_func'
+    "JobAttrVarInfo", "job_attr var_name default_value fmt_func"
 )
 
 
 # Values extracted from the report settings
 ReportSettingVarInfo = namedtuple(
-    'ReportSettingVarInfo',
-    'setting var_name default_value'
+    "ReportSettingVarInfo", "setting var_name default_value"
 )
 
 
 # Information about the current job layer being processed
-LayerVarInfo = namedtuple(
-    'LayerVarInfo',
-    'var_name default_value fmt_func'
-)
+LayerVarInfo = namedtuple("LayerVarInfo", "var_name default_value fmt_func")
 
 
 def tr(message) -> str:
-    return QCoreApplication.translate('report_expression', message)
+    return QCoreApplication.translate("report_expression", message)
 
 
 def format_json(obj) -> str:
@@ -67,16 +51,14 @@ def format_creation_date(creation_date) -> str:
 def _job_attr_var_mapping() -> typing.List[JobAttrVarInfo]:
     # Job attribute and corresponding variable names.
     return [
-        JobAttrVarInfo('id', 'te_job_id', '', str),
-        JobAttrVarInfo('params', 'te_job_input_params', {}, format_json),
-        JobAttrVarInfo('results.uri.uri', 'te_job_paths', '', str),
-        JobAttrVarInfo('script.name', 'te_job_alg_name', '', None),
-        JobAttrVarInfo(
-            'start_date', 'te_job_creation_date', '', format_creation_date
-        ),
-        JobAttrVarInfo('status.value', 'te_job_status', '', None),
-        JobAttrVarInfo('task_name', 'te_job_name', '', None),
-        JobAttrVarInfo('task_notes', 'te_job_comments', '', None)
+        JobAttrVarInfo("id", "te_job_id", "", str),
+        JobAttrVarInfo("params", "te_job_input_params", {}, format_json),
+        JobAttrVarInfo("results.uri.uri", "te_job_paths", "", str),
+        JobAttrVarInfo("script.name", "te_job_alg_name", "", None),
+        JobAttrVarInfo("start_date", "te_job_creation_date", "", format_creation_date),
+        JobAttrVarInfo("status.value", "te_job_status", "", None),
+        JobAttrVarInfo("task_name", "te_job_name", "", None),
+        JobAttrVarInfo("task_notes", "te_job_comments", "", None),
     ]
 
 
@@ -89,31 +71,21 @@ def _report_settings_var_mapping() -> typing.List[ReportSettingVarInfo]:
 
     return [
         ReportSettingVarInfo(
-            Setting.REPORT_ORG_LOGO_PATH,
-            'te_report_organization_logo',
-            org_logo_path
+            Setting.REPORT_ORG_LOGO_PATH, "te_report_organization_logo", org_logo_path
         ),
         ReportSettingVarInfo(
-            Setting.REPORT_ORG_NAME, 'te_report_organization_name', org_name
+            Setting.REPORT_ORG_NAME, "te_report_organization_name", org_name
         ),
+        ReportSettingVarInfo(Setting.REPORT_FOOTER, "te_report_footer", footer),
         ReportSettingVarInfo(
-            Setting.REPORT_FOOTER, 'te_report_footer', footer
+            Setting.REPORT_DISCLAIMER, "te_report_disclaimer", disclaimer
         ),
-        ReportSettingVarInfo(
-            Setting.REPORT_DISCLAIMER, 'te_report_disclaimer', disclaimer
-        )
     ]
 
 
 def _current_job_layer_var_mapping() -> typing.List[LayerVarInfo]:
     # Current job map layer variables whose values will be set at runtime.
-    return [
-        LayerVarInfo(
-            'te_current_layer_name',
-            '',
-            lambda layer: layer.name()
-        )
-    ]
+    return [LayerVarInfo("te_current_layer_name", "", lambda layer: layer.name())]
 
 
 def _get_var_names(var_info_collection: typing.List) -> typing.List[str]:
@@ -125,8 +97,9 @@ class ReportExpressionUtils:
     """
     Helper functions for expressions and variables used in a report.
     """
-    VAR_NAMES_PROP = 'variableNames'
-    VAR_VALUES_PROP = 'variableValues'
+
+    VAR_NAMES_PROP = "variableNames"
+    VAR_VALUES_PROP = "variableValues"
 
     @staticmethod
     def register_variables(layout: QgsLayout) -> None:
@@ -136,9 +109,7 @@ class ReportExpressionUtils:
         """
         ReportExpressionUtils.register_job_variables(layout)
         ReportExpressionUtils.register_report_settings_variables(layout)
-        ReportExpressionUtils.register_current_job_layer_settings_variables(
-            layout
-        )
+        ReportExpressionUtils.register_current_job_layer_settings_variables(layout)
 
         # Need to re-evaluate expressions for layout picture items.
         layout.refresh()
@@ -148,16 +119,14 @@ class ReportExpressionUtils:
         # Registers job-related variable names since the values will be set
         # at runtime.
         ReportExpressionUtils._register_variable_collection(
-            layout,
-            _job_attr_var_mapping()
+            layout, _job_attr_var_mapping()
         )
 
     @staticmethod
     def register_report_settings_variables(layout: QgsLayout):
         # Register/update report variables based on the values in the settings.
         ReportExpressionUtils._register_variable_collection(
-            layout,
-            _report_settings_var_mapping()
+            layout, _report_settings_var_mapping()
         )
 
     @staticmethod
@@ -165,21 +134,18 @@ class ReportExpressionUtils:
         # Register variables for the current job layer when the report is
         # running.
         ReportExpressionUtils._register_variable_collection(
-            layout,
-            _current_job_layer_var_mapping()
+            layout, _current_job_layer_var_mapping()
         )
 
     @staticmethod
     def _register_variable_collection(
-            layout: QgsLayout,
-            var_info_collection: typing.List
+        layout: QgsLayout, var_info_collection: typing.List
     ):
         var_names = _get_var_names(var_info_collection)
 
         # Remove duplicate names and corresponding values
         var_names, var_values = ReportExpressionUtils.remove_variables(
-            layout,
-            var_names
+            layout, var_names
         )
 
         # Now append our variable names with corresponding values
@@ -187,42 +153,27 @@ class ReportExpressionUtils:
             var_names.append(var_info.var_name)
             var_values.append(var_info.default_value)
 
-        layout.setCustomProperty(
-            ReportExpressionUtils.VAR_NAMES_PROP, var_names
-        )
-        layout.setCustomProperty(
-            ReportExpressionUtils.VAR_VALUES_PROP, var_values
-        )
+        layout.setCustomProperty(ReportExpressionUtils.VAR_NAMES_PROP, var_names)
+        layout.setCustomProperty(ReportExpressionUtils.VAR_VALUES_PROP, var_values)
 
     @staticmethod
     def remove_variables(
-            layout: QgsLayout,
-            rem_var_names: typing.List[str]
+        layout: QgsLayout, rem_var_names: typing.List[str]
     ) -> typing.Tuple[typing.List, typing.List]:
         """
         Removes variables from the layout before adding new ones to ensure
         there are no duplicates.
         """
-        var_names = layout.customProperty(
-            ReportExpressionUtils.VAR_NAMES_PROP,
-            []
-        )
-        var_values = layout.customProperty(
-            ReportExpressionUtils.VAR_VALUES_PROP,
-            []
-        )
+        var_names = layout.customProperty(ReportExpressionUtils.VAR_NAMES_PROP, [])
+        var_values = layout.customProperty(ReportExpressionUtils.VAR_VALUES_PROP, [])
         for rvn in rem_var_names:
-            ReportExpressionUtils.remove_variable_name_value(
-                rvn, var_names, var_values
-            )
+            ReportExpressionUtils.remove_variable_name_value(rvn, var_names, var_values)
 
         return var_names, var_values
 
     @staticmethod
     def remove_variable_name_value(
-            rem_var_name: str,
-            var_names: typing.List[str],
-            var_values: typing.List[str]
+        rem_var_name: str, var_names: typing.List[str], var_values: typing.List[str]
     ):
         # Remove the variable name and corresponding value from the collection.
         while rem_var_name in var_names:
@@ -232,16 +183,13 @@ class ReportExpressionUtils:
 
     @staticmethod
     def update_job_layer_expression_context(
-            ctx: QgsExpressionContext,
-            layer: QgsRasterLayer
+        ctx: QgsExpressionContext, layer: QgsRasterLayer
     ) -> QgsExpressionContext:
         # Update expression context with values from current job layer.
         for layer_info in _current_job_layer_var_mapping():
             if not ctx.hasVariable(layer_info.var_name):
                 continue
-            active_scope = ctx.activeScopeForVariable(
-                layer_info.var_name
-            )
+            active_scope = ctx.activeScopeForVariable(layer_info.var_name)
 
             try:
                 fmt_func = layer_info.fmt_func
@@ -256,16 +204,13 @@ class ReportExpressionUtils:
 
     @staticmethod
     def update_job_expression_context(
-            ctx: QgsExpressionContext,
-            job: Job
+        ctx: QgsExpressionContext, job: Job
     ) -> QgsExpressionContext:
         # Update expression context with job attribute values.
         for jv_info in _job_attr_var_mapping():
             if not ctx.hasVariable(jv_info.var_name):
                 continue
-            active_scope = ctx.activeScopeForVariable(
-                jv_info.var_name
-            )
+            active_scope = ctx.activeScopeForVariable(jv_info.var_name)
 
             # Ensure the given job attribute exists
             try:
@@ -287,15 +232,11 @@ class ReportExpressionUtils:
 
     @staticmethod
     def update_expression_context(
-            ctx: QgsExpressionContext,
-            job: Job,
-            layer: QgsRasterLayer
+        ctx: QgsExpressionContext, job: Job, layer: QgsRasterLayer
     ):
         # Update expression contexts for current job and job layer in the
         # report generation cycle.
         ctx = ReportExpressionUtils.update_job_expression_context(ctx, job)
-        ctx = ReportExpressionUtils.update_job_layer_expression_context(
-            ctx, layer
-        )
+        ctx = ReportExpressionUtils.update_job_layer_expression_context(ctx, layer)
 
         return ctx

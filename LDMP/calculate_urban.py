@@ -19,11 +19,7 @@ import numpy as np
 import qgis.gui
 import qgis.core
 from osgeo import gdal
-from qgis.PyQt import (
-    QtCore,
-    QtWidgets,
-    uic
-)
+from qgis.PyQt import QtCore, QtWidgets, uic
 
 from te_schemas.algorithms import ExecutionScript
 
@@ -37,9 +33,11 @@ from .jobs.manager import job_manager
 from .logger import log
 
 DlgCalculateUrbanDataUi, _ = uic.loadUiType(
-    str(Path(__file__).parent / "gui/DlgCalculateUrbanData.ui"))
+    str(Path(__file__).parent / "gui/DlgCalculateUrbanData.ui")
+)
 DlgCalculateUrbanSummaryTableUi, _ = uic.loadUiType(
-    str(Path(__file__).parent / "gui/DlgCalculateUrbanSummaryTable.ui"))
+    str(Path(__file__).parent / "gui/DlgCalculateUrbanSummaryTable.ui")
+)
 
 
 class tr_calculate_urban(object):
@@ -135,12 +133,11 @@ class tr_calculate_urban(object):
 
 
 class DlgCalculateUrbanData(calculate.DlgCalculateBase, DlgCalculateUrbanDataUi):
-
     def __init__(
-            self,
-            iface: qgis.gui.QgisInterface,
-            script: ExecutionScript,
-            parent: QtWidgets.QWidget = None,
+        self,
+        iface: qgis.gui.QgisInterface,
+        script: ExecutionScript,
+        parent: QtWidgets.QWidget = None,
     ):
         super().__init__(iface, script, parent)
         self.setupUi(self)
@@ -160,10 +157,17 @@ class DlgCalculateUrbanData(calculate.DlgCalculateBase, DlgCalculateUrbanDataUi)
 
         # Limit area that can be processed
         aoi_area = self.aoi.get_area() / (1000 * 1000)
-        log(u'AOI area is: {:n}'.format(aoi_area))
+        log("AOI area is: {:n}".format(aoi_area))
         if aoi_area > 25000:
-            QtWidgets.QMessageBox.critical(None, self.tr("Error"),
-                    self.tr("The bounding box of the requested area (approximately {:.6n} sq km) is too large. The urban area change tool can process a maximum area of 25,000 sq. km at a time. Choose a smaller area to process.".format(aoi_area)))
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr(
+                    "The bounding box of the requested area (approximately {:.6n} sq km) is too large. The urban area change tool can process a maximum area of 25,000 sq. km at a time. Choose a smaller area to process.".format(
+                        aoi_area
+                    )
+                ),
+            )
             return False
 
         self.calculate_on_GEE()
@@ -187,18 +191,18 @@ class DlgCalculateUrbanData(calculate.DlgCalculateBase, DlgCalculateUrbanDataUi)
         crosses_180th, geojsons = self.gee_bounding_box
 
         payload = {
-            'un_adju': self.get_pop_def_is_un(),
-            'isi_thr': self.spinBox_isi_thr.value(),
-            'ntl_thr': self.spinBox_ntl_thr.value(),
-            'wat_thr': self.spinBox_wat_thr.value(),
-            'cap_ope': self.spinBox_cap_ope.value(),
-            'pct_suburban': self.spinBox_pct_suburban.value()/100.,
-            'pct_urban': self.spinBox_pct_urban.value()/100.,
-            'geojsons': json.dumps(geojsons),
-            'crs': self.aoi.get_crs_dst_wkt(),
-            'crosses_180th': crosses_180th,
-            'task_name': self.execution_name_le.text(),
-            'task_notes': self.options_tab.task_notes.toPlainText()
+            "un_adju": self.get_pop_def_is_un(),
+            "isi_thr": self.spinBox_isi_thr.value(),
+            "ntl_thr": self.spinBox_ntl_thr.value(),
+            "wat_thr": self.spinBox_wat_thr.value(),
+            "cap_ope": self.spinBox_cap_ope.value(),
+            "pct_suburban": self.spinBox_pct_suburban.value() / 100.0,
+            "pct_urban": self.spinBox_pct_urban.value() / 100.0,
+            "geojsons": json.dumps(geojsons),
+            "crs": self.aoi.get_crs_dst_wkt(),
+            "crosses_180th": crosses_180th,
+            "task_name": self.execution_name_le.text(),
+            "task_notes": self.options_tab.task_notes.toPlainText(),
         }
 
         resp = job_manager.submit_remote_job(payload, self.script.id)
@@ -206,16 +210,14 @@ class DlgCalculateUrbanData(calculate.DlgCalculateBase, DlgCalculateUrbanDataUi)
         if resp:
             main_msg = "Submitted"
             description = (
-                "Urban area change calculation submitted to Trends.Earth server.")
+                "Urban area change calculation submitted to Trends.Earth server."
+            )
 
         else:
             main_msg = "Error"
             description = "Unable to submit urban area task Trends.Earth server."
         self.mb.pushMessage(
-            self.tr(main_msg),
-            self.tr(description),
-            level=0,
-            duration=5
+            self.tr(main_msg), self.tr(description), level=0, duration=5
         )
 
 
@@ -227,10 +229,10 @@ class DlgCalculateUrbanSummaryTable(
     combo_layer_urban_series: data_io.WidgetDataIOSelectTELayerExisting
 
     def __init__(
-            self,
-            iface: qgis.gui.QgisInterface,
-            script: ExecutionScript,
-            parent: QtWidgets.QWidget
+        self,
+        iface: qgis.gui.QgisInterface,
+        script: ExecutionScript,
+        parent: QtWidgets.QWidget,
     ):
         super().__init__(iface, script, parent)
         self.setupUi(self)
@@ -257,7 +259,7 @@ class DlgCalculateUrbanSummaryTable(
                 self.tr(
                     "You must add an urban series layer to your map before you can "
                     "use the urban change summary tool."
-                )
+                ),
             )
             return
 
@@ -265,12 +267,13 @@ class DlgCalculateUrbanSummaryTable(
         # Check that the layers cover the full extent needed
         urban_layer = self.combo_layer_urban_series.get_layer()
         urban_layer_extent_geom = qgis.core.QgsGeometry.fromRect(urban_layer.extent())
-        if self.aoi.calc_frac_overlap(urban_layer_extent_geom) < .99:
+        if self.aoi.calc_frac_overlap(urban_layer_extent_geom) < 0.99:
             QtWidgets.QMessageBox.critical(
                 None,
                 self.tr("Error"),
                 self.tr(
-                    "Area of interest is not entirely within the urban series layer.")
+                    "Area of interest is not entirely within the urban series layer."
+                ),
             )
             return
 

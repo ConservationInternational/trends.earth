@@ -11,23 +11,14 @@
  ***************************************************************************/
 """
 import json
-from enum import (
-    auto,
-    Flag
-)
+from enum import auto, Flag
 import os
 import zipfile
 import typing
 import re
 from pathlib import Path
 
-from qgis.PyQt import (
-    uic,
-    QtCore,
-    QtGui,
-    QtWidgets,
-    uic
-)
+from qgis.PyQt import uic, QtCore, QtGui, QtWidgets, uic
 import qgis.core
 import qgis.gui
 from qgis.utils import iface
@@ -41,48 +32,49 @@ from . import (
     openFolder,
     download,
 )
-from .conf import (
-    Setting,
-    settings_manager,
-    TR_ALL_REGIONS
-)
+from .conf import Setting, settings_manager, TR_ALL_REGIONS
 from .jobs.manager import job_manager
-from .lc_setup import (
-    get_default_esa_nesting,
-    LCClassInfo,
-    LccInfoUtils
-)
+from .lc_setup import get_default_esa_nesting, LCClassInfo, LccInfoUtils
 from te_schemas.land_cover import LCClass
 
 
 Ui_DlgLandCoverRestore, _ = uic.loadUiType(
-    str(Path(__file__).parent / "gui/DlgLandCoverRestore.ui"))
-Ui_DlgSettings, _ = uic.loadUiType(
-    str(Path(__file__).parent / "gui/DlgSettings.ui"))
+    str(Path(__file__).parent / "gui/DlgLandCoverRestore.ui")
+)
+Ui_DlgSettings, _ = uic.loadUiType(str(Path(__file__).parent / "gui/DlgSettings.ui"))
 Ui_DlgSettingsEditForgotPassword, _ = uic.loadUiType(
-    str(Path(__file__).parent / "gui/DlgSettingsEditForgotPassword.ui"))
+    str(Path(__file__).parent / "gui/DlgSettingsEditForgotPassword.ui")
+)
 Ui_DlgSettingsEditUpdate, _ = uic.loadUiType(
-    str(Path(__file__).parent / "gui/DlgSettingsEditUpdate.ui"))
+    str(Path(__file__).parent / "gui/DlgSettingsEditUpdate.ui")
+)
 Ui_DlgSettingsLogin, _ = uic.loadUiType(
-    str(Path(__file__).parent / "gui/DlgSettingsLogin.ui"))
+    str(Path(__file__).parent / "gui/DlgSettingsLogin.ui")
+)
 Ui_DlgSettingsRegister, _ = uic.loadUiType(
-    str(Path(__file__).parent / "gui/DlgSettingsRegister.ui"))
+    str(Path(__file__).parent / "gui/DlgSettingsRegister.ui")
+)
 Ui_WidgetSelectArea, _ = uic.loadUiType(
-    str(Path(__file__).parent / "gui/WidgetSelectArea.ui"))
+    str(Path(__file__).parent / "gui/WidgetSelectArea.ui")
+)
 Ui_WidgetSettingsAdvanced, _ = uic.loadUiType(
-    str(Path(__file__).parent / "gui/WidgetSettingsAdvanced.ui"))
+    str(Path(__file__).parent / "gui/WidgetSettingsAdvanced.ui")
+)
 Ui_WidgetSettingsReport, _ = uic.loadUiType(
-    str(Path(__file__).parent / "gui/WidgetSettingsReport.ui"))
+    str(Path(__file__).parent / "gui/WidgetSettingsReport.ui")
+)
 Ui_WidgetLandCoverCustomClassesManager, _ = uic.loadUiType(
-    str(Path(__file__).parent / "gui/WidgetLCClassManage.ui"))
+    str(Path(__file__).parent / "gui/WidgetLCClassManage.ui")
+)
 Ui_WidgetLandCoverCustomClassEditor, _ = uic.loadUiType(
-    str(Path(__file__).parent / "gui/WidgetLCClassEditor.ui"))
+    str(Path(__file__).parent / "gui/WidgetLCClassEditor.ui")
+)
 
 
 from .logger import log
 from .utils import FileUtils
 
-ICON_PATH = os.path.join(os.path.dirname(__file__), 'icons')
+ICON_PATH = os.path.join(os.path.dirname(__file__), "icons")
 
 
 settings = QtCore.QSettings()
@@ -106,28 +98,27 @@ def is_subdir(child, parent):
 
     if head == parent:
         return True
-    elif tail == '':
+    elif tail == "":
         return False
     else:
         return is_subdir(head, parent)
 
 
 def _get_user_email(auth_setup, warn=True):
-    '''get user email for a particular service from authConfig'''
-    authConfig = auth.get_auth_config(
-        auth_setup,
-        warn=warn
-    )
+    """get user email for a particular service from authConfig"""
+    authConfig = auth.get_auth_config(auth_setup, warn=warn)
     if not authConfig:
         return None
 
-    email = authConfig.config('username')
+    email = authConfig.config("username")
     if warn and email is None:
         QtWidgets.QMessageBox.critical(
             None,
             tr_settings.tr("Error"),
-            tr_settings.tr("Please setup access to {auth_setup.name} before "
-               "using this function.")
+            tr_settings.tr(
+                "Please setup access to {auth_setup.name} before "
+                "using this function."
+            ),
         )
         return None
     else:
@@ -146,36 +137,33 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
 
         # add subcomponent widgets
         self.widgetSettingsAdvanced = WidgetSettingsAdvanced(
-            message_bar=self.message_bar)
+            message_bar=self.message_bar
+        )
         self.verticalLayout_advanced.layout().insertWidget(
-            0, self.widgetSettingsAdvanced)
+            0, self.widgetSettingsAdvanced
+        )
 
         # LC configuration
         lcc_panel_stack = qgis.gui.QgsPanelWidgetStack()
         self.lcc_manager = LandCoverCustomClassesManager(
-            lcc_panel_stack,
-            msg_bar=self.message_bar
+            lcc_panel_stack, msg_bar=self.message_bar
         )
         lcc_panel_stack.setMainPanel(self.lcc_manager)
-        self.lcc_layout.layout().insertWidget(
-            0, lcc_panel_stack
-        )
+        self.lcc_layout.layout().insertWidget(0, lcc_panel_stack)
 
         # Report settings
         self.widget_settings_report = WidgetSettingsReport(
-            self,
-            message_bar=self.message_bar
+            self, message_bar=self.message_bar
         )
-        self.reports_layout.layout().insertWidget(
-            0, self.widget_settings_report
-        )
+        self.reports_layout.layout().insertWidget(0, self.widget_settings_report)
 
         # set Dialog UIs
         self.dlg_settings_register = DlgSettingsRegister()
         self.dlg_settings_login = DlgSettingsLogin()
 
         self.dlg_settings_register.authConfigInitialised.connect(
-            self.selectDefaultAuthConfiguration)
+            self.selectDefaultAuthConfiguration
+        )
 
         self.pushButton_register.clicked.connect(self.register)
         self.pushButton_login.clicked.connect(self.login)
@@ -204,20 +192,17 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
 
     def reloadAuthConfigurations(self):
         authConfigId = settings.value(
-            f"trends_earth/{auth.TE_API_AUTH_SETUP.key}",
-            None
+            f"trends_earth/{auth.TE_API_AUTH_SETUP.key}", None
         )
         if not authConfigId:
             self.message_bar.pushCritical(
-                'Trends.Earth',
-                self.tr('Please register in order to use Trends.Earth')
+                "Trends.Earth", self.tr("Please register in order to use Trends.Earth")
             )
             return
         configs = qgis.core.QgsApplication.authManager().availableAuthMethodConfigs()
         if authConfigId not in configs.keys():
             QtCore.QSettings().setValue(
-                f"trends_earth/{auth.TE_API_AUTH_SETUP.key}",
-                None
+                f"trends_earth/{auth.TE_API_AUTH_SETUP.key}", None
             )
 
     def selectDefaultAuthConfiguration(self, authConfigId):
@@ -260,12 +245,12 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
             None,
             self.tr("Delete user?"),
             self.tr(
-                u"Are you sure you want to delete the user {}? All of your tasks will "
-                u"be lost and you will no longer be able to process data online "
-                u"using Trends.Earth.".format(email)
+                "Are you sure you want to delete the user {}? All of your tasks will "
+                "be lost and you will no longer be able to process data online "
+                "using Trends.Earth.".format(email)
             ),
             QtWidgets.QMessageBox.Yes,
-            QtWidgets.QMessageBox.No
+            QtWidgets.QMessageBox.No,
         )
 
         if reply == QtWidgets.QMessageBox.Yes:
@@ -275,7 +260,7 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
                 QtWidgets.QMessageBox.information(
                     None,
                     self.tr("Success"),
-                    self.tr(f'Trends.Earth user {email} deleted.')
+                    self.tr(f"Trends.Earth user {email} deleted."),
                 )
                 # remove currently used config (as set in QSettings) and
                 # trigger GUI
@@ -288,7 +273,7 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
         self.widgetSettingsAdvanced.update_settings()
         self.widget_settings_report.save_settings()
         if not self.lcc_manager.save_settings():
-            print('Validation failed')
+            print("Validation failed")
             return
 
         self.accept()
@@ -299,6 +284,7 @@ class AreaWidgetSection(Flag):
     Defines main sections in the AreaWidget, primarily used to set which
     sections to hide/show.
     """
+
     COUNTRY = auto()
     REGION = auto()
     POINT = auto()
@@ -325,12 +311,12 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.admin_bounds_key = download.get_admin_bounds()
 
         if not self.admin_bounds_key:
-            raise ValueError('Admin boundaries not available')
+            raise ValueError("Admin boundaries not available")
 
         self.cities = download.get_cities()
 
         if not self.cities:
-            raise ValueError('Cities list not available')
+            raise ValueError("Cities list not available")
 
         # Populate
         self.area_admin_0.addItems(sorted(self.admin_bounds_key.keys()))
@@ -338,17 +324,14 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.populate_cities()
         self.area_admin_0.currentIndexChanged.connect(self.populate_admin_1)
         self.area_admin_0.currentIndexChanged.connect(self.populate_cities)
-        self.area_admin_0.currentIndexChanged.connect(
-            self.generate_name_setting)
+        self.area_admin_0.currentIndexChanged.connect(self.generate_name_setting)
 
         self.secondLevel_area_admin_1.currentIndexChanged.connect(
-            self.generate_name_setting)
-        self.secondLevel_city.currentIndexChanged.connect(
-            self.generate_name_setting)
-        self.area_frompoint_point_x.textChanged.connect(
-            self.generate_name_setting)
-        self.area_frompoint_point_y.textChanged.connect(
-            self.generate_name_setting)
+            self.generate_name_setting
+        )
+        self.secondLevel_city.currentIndexChanged.connect(self.generate_name_setting)
+        self.area_frompoint_point_x.textChanged.connect(self.generate_name_setting)
+        self.area_frompoint_point_y.textChanged.connect(self.generate_name_setting)
         self.area_fromfile_file.textChanged.connect(self.generate_name_setting)
         self.buffer_size_km.valueChanged.connect(self.generate_name_setting)
         self.checkbox_buffer.toggled.connect(self.generate_name_setting)
@@ -358,11 +341,13 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.area_fromfile.clicked.connect(self.area_type_toggle)
 
         self.radioButton_secondLevel_region.clicked.connect(
-            self.radioButton_secondLevel_toggle)
+            self.radioButton_secondLevel_toggle
+        )
         self.radioButton_secondLevel_city.clicked.connect(
-            self.radioButton_secondLevel_toggle)
+            self.radioButton_secondLevel_toggle
+        )
 
-        icon = QtGui.QIcon(os.path.join(ICON_PATH, 'map-marker.svg'))
+        icon = QtGui.QIcon(os.path.join(ICON_PATH, "map-marker.svg"))
         self.area_frompoint_choose_point.setIcon(icon)
         self.area_frompoint_choose_point.clicked.connect(self.point_chooser)
         # TODO: Set range to only accept valid coordinates for current map coordinate system
@@ -372,75 +357,76 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.area_frompoint.clicked.connect(self.area_type_toggle)
 
         # Setup point chooser
-        self.choose_point_tool=qgis.gui.QgsMapToolEmitPoint(self.canvas)
+        self.choose_point_tool = qgis.gui.QgsMapToolEmitPoint(self.canvas)
         self.choose_point_tool.canvasClicked.connect(self.set_point_coords)
 
         self.load_settings()
         self.generate_name_setting()
 
     def load_settings(self):
-        area_from_option=settings_manager.get_value(Setting.AREA_FROM_OPTION)
+        area_from_option = settings_manager.get_value(Setting.AREA_FROM_OPTION)
 
-        if area_from_option == 'country_region' or area_from_option == 'country_city':
+        if area_from_option == "country_region" or area_from_option == "country_city":
             self.area_fromadmin.setChecked(True)
-        elif area_from_option == 'point':
+        elif area_from_option == "point":
             self.area_frompoint.setChecked(True)
-        elif area_from_option == 'vector_layer':
+        elif area_from_option == "vector_layer":
             self.area_fromfile.setChecked(True)
         self.area_frompoint_point_x.setText(
-            str(settings_manager.get_value(Setting.POINT_X)))
+            str(settings_manager.get_value(Setting.POINT_X))
+        )
         self.area_frompoint_point_y.setText(
-            str(settings_manager.get_value(Setting.POINT_Y)))
+            str(settings_manager.get_value(Setting.POINT_Y))
+        )
         self.area_fromfile_file.setText(
-            settings_manager.get_value(Setting.VECTOR_FILE_PATH))
+            settings_manager.get_value(Setting.VECTOR_FILE_PATH)
+        )
         self.area_type_toggle()
-        admin_0=settings_manager.get_value(Setting.COUNTRY_NAME)
+        admin_0 = settings_manager.get_value(Setting.COUNTRY_NAME)
 
         if admin_0:
-            self.area_admin_0.setCurrentIndex(
-                self.area_admin_0.findText(admin_0))
+            self.area_admin_0.setCurrentIndex(self.area_admin_0.findText(admin_0))
             self.populate_admin_1()
 
-        if area_from_option == 'country_region':
+        if area_from_option == "country_region":
             self.radioButton_secondLevel_region.setChecked(True)
-        elif area_from_option == 'country_city':
+        elif area_from_option == "country_city":
             self.radioButton_secondLevel_city.setChecked(True)
         self.radioButton_secondLevel_toggle()
 
-        secondLevel_area_admin_1=settings_manager.get_value(
-            Setting.REGION_NAME)
+        secondLevel_area_admin_1 = settings_manager.get_value(Setting.REGION_NAME)
 
         if secondLevel_area_admin_1:
-            if secondLevel_area_admin_1 == 'All regions':
+            if secondLevel_area_admin_1 == "All regions":
                 # all regions is always stored untranslated in qsettings (to avoid
                 # issues if user changes language) so need to convert to translated
                 # version prior to searching for the value in the combo box
                 secondLevel_area_admin_1 = TR_ALL_REGIONS
             self.secondLevel_area_admin_1.setCurrentIndex(
-                self.secondLevel_area_admin_1.findText(secondLevel_area_admin_1))
-        secondLevel_city=settings_manager.get_value(Setting.CITY_NAME)
+                self.secondLevel_area_admin_1.findText(secondLevel_area_admin_1)
+            )
+        secondLevel_city = settings_manager.get_value(Setting.CITY_NAME)
 
         if secondLevel_city:
             self.populate_cities()
             self.secondLevel_city.setCurrentIndex(
-                self.secondLevel_city.findText(secondLevel_city))
-        buffer_size=settings_manager.get_value(Setting.BUFFER_SIZE)
+                self.secondLevel_city.findText(secondLevel_city)
+            )
+        buffer_size = settings_manager.get_value(Setting.BUFFER_SIZE)
 
         if buffer_size:
             self.buffer_size_km.setValue(float(buffer_size))
-        buffer_checked=settings_manager.get_value(Setting.BUFFER_CHECKED)
+        buffer_checked = settings_manager.get_value(Setting.BUFFER_CHECKED)
         self.checkbox_buffer.setChecked(buffer_checked)
-        self.area_settings_name.setText(
-            settings_manager.get_value(Setting.AREA_NAME))
+        self.area_settings_name.setText(settings_manager.get_value(Setting.AREA_NAME))
 
     def populate_cities(self):
         self.secondLevel_city.clear()
-        country_code=self.admin_bounds_key[self.area_admin_0.currentText(
-        )].code
-        self.current_cities_key={}
+        country_code = self.admin_bounds_key[self.area_admin_0.currentText()].code
+        self.current_cities_key = {}
 
         for wof_id, city in self.cities[country_code].items():
-            self.current_cities_key[city.name_en]=wof_id
+            self.current_cities_key[city.name_en] = wof_id
         self.secondLevel_city.addItems(sorted(self.current_cities_key.keys()))
 
     def populate_admin_1(self):
@@ -449,7 +435,8 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         self.secondLevel_area_admin_1.addItems(
             sorted(
                 self.admin_bounds_key[
-                    self.area_admin_0.currentText()].level1_regions.keys()
+                    self.area_admin_0.currentText()
+                ].level1_regions.keys()
             )
         )
         self.secondLevel_area_admin_1.setCurrentIndex(0)
@@ -461,8 +448,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 
         self.area_frompoint_point_x.setEnabled(self.area_frompoint.isChecked())
         self.area_frompoint_point_y.setEnabled(self.area_frompoint.isChecked())
-        self.area_frompoint_choose_point.setEnabled(
-            self.area_frompoint.isChecked())
+        self.area_frompoint_choose_point.setEnabled(self.area_frompoint.isChecked())
 
         self.area_admin_0.setEnabled(self.area_fromadmin.isChecked())
         self.first_level_label.setEnabled(self.area_fromadmin.isChecked())
@@ -475,9 +461,11 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
 
     def radioButton_secondLevel_toggle(self):
         self.secondLevel_area_admin_1.setEnabled(
-            self.radioButton_secondLevel_region.isChecked())
+            self.radioButton_secondLevel_region.isChecked()
+        )
         self.secondLevel_city.setEnabled(
-            not self.radioButton_secondLevel_region.isChecked())
+            not self.radioButton_secondLevel_region.isChecked()
+        )
         self.generate_name_setting()
 
     def point_chooser(self):
@@ -491,11 +479,9 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         # Check layers
         if qgis.core.QgsProject.instance().count() == 0:
             msg_bar.pushMessage(
-                self.tr(
-                    'The map must have at least one layer.'
-                ),
+                self.tr("The map must have at least one layer."),
                 qgis.core.Qgis.Warning,
-                msg_duration
+                msg_duration,
             )
             return
 
@@ -503,9 +489,9 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
             self.window().hide()
 
         msg_bar.pushMessage(
-            self.tr('Click the map to choose a point.'),
+            self.tr("Click the map to choose a point."),
             qgis.core.Qgis.Info,
-            msg_duration
+            msg_duration,
         )
 
     def set_section_visibility(self, sections: AreaWidgetSection, show=False):
@@ -552,102 +538,99 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
     def generate_name_setting(self):
         if self.area_fromadmin.isChecked():
             if self.radioButton_secondLevel_region.isChecked():
-                name="{}-{}".format(
-                    self.area_admin_0.currentText().lower().replace(' ', '-'),
-                    self.secondLevel_area_admin_1.currentText().lower().replace(' ', '-')
+                name = "{}-{}".format(
+                    self.area_admin_0.currentText().lower().replace(" ", "-"),
+                    self.secondLevel_area_admin_1.currentText()
+                    .lower()
+                    .replace(" ", "-"),
                 )
             else:
-                name="{}-{}".format(
-                    self.area_admin_0.currentText().lower().replace(' ', '-'),
-                    self.secondLevel_city.currentText().lower().replace(' ', '-')
+                name = "{}-{}".format(
+                    self.area_admin_0.currentText().lower().replace(" ", "-"),
+                    self.secondLevel_city.currentText().lower().replace(" ", "-"),
                 )
         elif self.area_frompoint.isChecked():
-            if self.area_frompoint_point_x.text() is not '' and \
-                    self.area_frompoint_point_y.text() is not '':
-                name="pt-lon{:.3f}lat{:.3f}".format(
+            if (
+                self.area_frompoint_point_x.text() is not ""
+                and self.area_frompoint_point_y.text() is not ""
+            ):
+                name = "pt-lon{:.3f}lat{:.3f}".format(
                     float(self.area_frompoint_point_x.text()),
-                    float(self.area_frompoint_point_y.text())
+                    float(self.area_frompoint_point_y.text()),
                 )
             else:
                 return
         elif self.area_fromfile.isChecked():
-            if self.area_fromfile_file.text() is not '':
-                layer=qgis.core.QgsVectorLayer(
-                    self.area_fromfile_file.text(),
-                    "area",
-                    "ogr")
+            if self.area_fromfile_file.text() is not "":
+                layer = qgis.core.QgsVectorLayer(
+                    self.area_fromfile_file.text(), "area", "ogr"
+                )
 
                 if layer.isValid():
-                    centroid=layer.extent().center()
+                    centroid = layer.extent().center()
                     # Store point in EPSG:4326 crs
-                    coord_transform=qgis.core.QgsCoordinateTransform(
+                    coord_transform = qgis.core.QgsCoordinateTransform(
                         layer.sourceCrs(),
                         qgis.core.QgsCoordinateReferenceSystem(4326),
-                        qgis.core.QgsProject.instance())
-                    point=coord_transform.transform(centroid)
-                    name="shape-lon{:.3f}lat{:.3f}".format(
-                        point.x(),
-                        point.y()
+                        qgis.core.QgsProject.instance(),
                     )
+                    point = coord_transform.transform(centroid)
+                    name = "shape-lon{:.3f}lat{:.3f}".format(point.x(), point.y())
                 else:
                     return
             else:
                 return
 
         if self.checkbox_buffer.isChecked():
-            name="{}-buffer-{:.3f}".format(
-                name,
-                self.buffer_size_km.value()
-            )
+            name = "{}-buffer-{:.3f}".format(name, self.buffer_size_km.value())
         self.area_settings_name.setText(name)
 
     def set_point_coords(self, point, button):
         log("Set point coords")
         # TODO: Show a messagebar while tool is active, and then remove the bar when a point is chosen.
-        self.point=point
+        self.point = point
         # Disable the choose point tool
         self.canvas.setMapTool(qgis.gui.QgsMapToolPan(self.canvas))
         # Don't reset_tab_on_show as it would lead to return to first tab after
         # using the point chooser
-        self.window().reset_tab_on_showEvent=False
+        self.window().reset_tab_on_showEvent = False
         self.window().show()
-        self.window().reset_tab_on_showEvent=True
-        self.point=self.canvas.getCoordinateTransform(
-        ).toMapCoordinates(self.canvas.mouseLastXY())
+        self.window().reset_tab_on_showEvent = True
+        self.point = self.canvas.getCoordinateTransform().toMapCoordinates(
+            self.canvas.mouseLastXY()
+        )
 
         # Store point in EPSG:4326 crs
-        transform_instance=qgis.core.QgsCoordinateTransform(
+        transform_instance = qgis.core.QgsCoordinateTransform(
             qgis.core.QgsProject.instance().crs(),
             qgis.core.QgsCoordinateReferenceSystem(4326),
-            qgis.core.QgsProject.instance())
-        transformed_point=transform_instance.transform(self.point)
+            qgis.core.QgsProject.instance(),
+        )
+        transformed_point = transform_instance.transform(self.point)
 
-        log("Chose point: {}, {}.".format(
-            transformed_point.x(), transformed_point.y()))
-        self.area_frompoint_point_x.setText(
-            "{:.8f}".format(transformed_point.x()))
-        self.area_frompoint_point_y.setText(
-            "{:.8f}".format(transformed_point.y()))
+        log("Chose point: {}, {}.".format(transformed_point.x(), transformed_point.y()))
+        self.area_frompoint_point_x.setText("{:.8f}".format(transformed_point.x()))
+        self.area_frompoint_point_y.setText("{:.8f}".format(transformed_point.y()))
 
     def open_vector_browse(self):
-        initial_path=settings_manager.get_value(Setting.VECTOR_FILE_PATH)
+        initial_path = settings_manager.get_value(Setting.VECTOR_FILE_PATH)
 
         if not initial_path:
-            initial_path=settings_manager.get_value(Setting.VECTOR_FILE_DIR)
+            initial_path = settings_manager.get_value(Setting.VECTOR_FILE_DIR)
 
         if not initial_path:
-            initial_path=str(Path.home())
+            initial_path = str(Path.home())
 
-        vector_file, _=QtWidgets.QFileDialog.getOpenFileName(
+        vector_file, _ = QtWidgets.QFileDialog.getOpenFileName(
             self,
-            self.tr('Select a file defining the area of interest'),
+            self.tr("Select a file defining the area of interest"),
             initial_path,
-            self.tr('Vector file (*.shp *.kml *.kmz *.geojson)')
+            self.tr("Vector file (*.shp *.kml *.kmz *.geojson)"),
         )
 
         if vector_file:
             if os.access(vector_file, os.R_OK):
-                self.vector_file=vector_file
+                self.vector_file = vector_file
                 self.area_fromfile_file.setText(vector_file)
 
                 return True
@@ -656,7 +639,8 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
                     None,
                     self.tr("Error"),
                     self.tr(
-                        u"Cannot read {}. Choose a different file.".format(vector_file))
+                        "Cannot read {}. Choose a different file.".format(vector_file)
+                    ),
                 )
 
                 return False
@@ -664,35 +648,35 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
             return False
 
     def save_settings(self):
-        country_name=""
-        region_name=""
-        city_name=""
-        point=(0, 0)
-        vector_path=""
+        country_name = ""
+        region_name = ""
+        city_name = ""
+        point = (0, 0)
+        vector_path = ""
 
         if self.area_fromadmin.isChecked():
-            country_name=self.area_admin_0.currentText()
+            country_name = self.area_admin_0.currentText()
 
             if self.radioButton_secondLevel_region.isChecked():
-                area_name="country_region"
-                region_name=self.secondLevel_area_admin_1.currentText()
+                area_name = "country_region"
+                region_name = self.secondLevel_area_admin_1.currentText()
                 if region_name == TR_ALL_REGIONS:
                     # To avoid issues if user changes language on their system, store
                     # special "All regions" value in English rather than in translated
                     # form
-                    region_name = 'All regions'
+                    region_name = "All regions"
             else:
-                area_name="country_city"
-                city_name=self.secondLevel_city.currentText()
+                area_name = "country_city"
+                city_name = self.secondLevel_city.currentText()
         elif self.area_frompoint.isChecked():
-            area_name="point"
-            point=(
+            area_name = "point"
+            point = (
                 self.area_frompoint_point_x.text(),
                 self.area_frompoint_point_y.text(),
             )
         elif self.area_fromfile.isChecked():
-            area_name="vector_layer"
-            vector_path=self.area_fromfile_file.text()
+            area_name = "vector_layer"
+            vector_path = self.area_fromfile_file.text()
         else:
             raise RuntimeError("Invalid area type")
         settings_manager.write_value(Setting.AREA_FROM_OPTION, area_name)
@@ -703,29 +687,28 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
         settings_manager.write_value(Setting.POINT_Y, point[1])
         settings_manager.write_value(Setting.VECTOR_FILE_PATH, vector_path)
         settings_manager.write_value(
-            Setting.VECTOR_FILE_DIR, str(Path(vector_path).parent))
+            Setting.VECTOR_FILE_DIR, str(Path(vector_path).parent)
+        )
         settings_manager.write_value(
-            Setting.BUFFER_CHECKED, self.checkbox_buffer.isChecked())
-        settings_manager.write_value(
-            Setting.BUFFER_SIZE, self.buffer_size_km.value())
-        settings_manager.write_value(
-            Setting.AREA_NAME, self.area_settings_name.text())
+            Setting.BUFFER_CHECKED, self.checkbox_buffer.isChecked()
+        )
+        settings_manager.write_value(Setting.BUFFER_SIZE, self.buffer_size_km.value())
+        settings_manager.write_value(Setting.AREA_NAME, self.area_settings_name.text())
 
         if self.current_cities_key is not None:
-            settings_manager.write_value(
-                Setting.CITY_KEY, self.current_cities_key)
+            settings_manager.write_value(Setting.CITY_KEY, self.current_cities_key)
         log("area settings have been saved")
 
 
 class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):
-    authConfigInitialised=QtCore.pyqtSignal(str)
+    authConfigInitialised = QtCore.pyqtSignal(str)
 
     def __init__(self, parent=None):
         super(DlgSettingsRegister, self).__init__(parent)
 
         self.setupUi(self)
 
-        self.admin_bounds_key=download.get_admin_bounds()
+        self.admin_bounds_key = download.get_admin_bounds()
         self.country.addItems(sorted(self.admin_bounds_key.keys()))
 
         self.buttonBox.accepted.connect(self.register)
@@ -733,35 +716,35 @@ class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):
 
     def register(self):
         if not self.email.text():
-            QtWidgets.QMessageBox.critical(None,
-                                           self.tr("Error"),
-                                           self.tr("Enter your email address."))
+            QtWidgets.QMessageBox.critical(
+                None, self.tr("Error"), self.tr("Enter your email address.")
+            )
 
             return
         elif not self.name.text():
-            QtWidgets.QMessageBox.critical(None,
-                                           self.tr("Error"),
-                                           self.tr("Enter your name."))
+            QtWidgets.QMessageBox.critical(
+                None, self.tr("Error"), self.tr("Enter your name.")
+            )
 
             return
         elif not self.organization.text():
-            QtWidgets.QMessageBox.critical(None,
-                                           self.tr("Error"),
-                                           self.tr("Enter your organization."))
+            QtWidgets.QMessageBox.critical(
+                None, self.tr("Error"), self.tr("Enter your organization.")
+            )
 
             return
         elif not self.country.currentText():
-            QtWidgets.QMessageBox.critical(None,
-                                           self.tr("Error"),
-                                           self.tr("Enter your country."))
+            QtWidgets.QMessageBox.critical(
+                None, self.tr("Error"), self.tr("Enter your country.")
+            )
 
             return
 
-        resp=api.register(
+        resp = api.register(
             self.email.text(),
             self.name.text(),
             self.organization.text(),
-            self.country.currentText()
+            self.country.currentText(),
         )
 
         if resp:
@@ -769,16 +752,17 @@ class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):
             QtWidgets.QMessageBox.information(
                 None,
                 self.tr("Success"),
-                self.tr("User registered. Your password "
-                        f"has been emailed to {self.email.text()}. "
-                        "Enter that password in Trends.Earth settings "
-                        "to finish setting up the plugin.")
+                self.tr(
+                    "User registered. Your password "
+                    f"has been emailed to {self.email.text()}. "
+                    "Enter that password in Trends.Earth settings "
+                    "to finish setting up the plugin."
+                ),
             )
 
             # add a new auth conf that have to be completed with pwd
             authConfigId = auth.init_auth_config(
-                auth.TE_API_AUTH_SETUP,
-                email=self.email.text()
+                auth.TE_API_AUTH_SETUP, email=self.email.text()
             )
 
             if authConfigId:
@@ -797,31 +781,26 @@ class DlgSettingsLogin(QtWidgets.QDialog, Ui_DlgSettingsLogin):
         self.buttonBox.accepted.connect(self.login)
         self.buttonBox.rejected.connect(self.close)
 
-        self.ok=False
+        self.ok = False
 
     def showEvent(self, event):
         super(DlgSettingsLogin, self).showEvent(event)
 
-        email=_get_user_email(auth.TE_API_AUTH_SETUP, warn=False)
+        email = _get_user_email(auth.TE_API_AUTH_SETUP, warn=False)
 
         if email:
             self.email.setText(email)
 
-
     def login(self):
         if not self.email.text():
             QtWidgets.QMessageBox.critical(
-                None,
-                self.tr("Error"),
-                self.tr("Enter your email address.")
+                None, self.tr("Error"), self.tr("Enter your email address.")
             )
 
             return
         elif not self.password.text():
             QtWidgets.QMessageBox.critical(
-                None,
-                self.tr("Error"),
-                self.tr("Enter your password.")
+                None, self.tr("Error"), self.tr("Enter your password.")
             )
 
             return
@@ -831,22 +810,21 @@ class DlgSettingsLogin(QtWidgets.QDialog, Ui_DlgSettingsLogin):
                 None,
                 self.tr("Success"),
                 self.tr(
-                    'Logged in to the Trends.Earth server as '
-                    f'{self.email.text()}.<html><p>Welcome to '
+                    "Logged in to the Trends.Earth server as "
+                    f"{self.email.text()}.<html><p>Welcome to "
                     'Trends.Earth!<p/><p><a href= "'
                     'https://groups.google.com/forum/#!forum/trends_earth_users/join">Join '
-                    'the Trends.Earth Users email group<a/></p><p> Make sure '
-                    'to join the Trends.Earth users email group to keep up '
-                    'with updates and Q&A about the tool, methods, and '
-                    'datasets in support of Sustainable Development Goals '
-                    'monitoring.')
+                    "the Trends.Earth Users email group<a/></p><p> Make sure "
+                    "to join the Trends.Earth users email group to keep up "
+                    "with updates and Q&A about the tool, methods, and "
+                    "datasets in support of Sustainable Development Goals "
+                    "monitoring."
+                ),
             )
             auth.init_auth_config(
-                auth.TE_API_AUTH_SETUP,
-                self.email.text(),
-                self.password.text()
+                auth.TE_API_AUTH_SETUP, self.email.text(), self.password.text()
             )
-            self.ok=True
+            self.ok = True
             self.close()
 
 
@@ -859,31 +837,26 @@ class DlgSettingsLoginLandPKS(QtWidgets.QDialog, Ui_DlgSettingsLogin):
         self.buttonBox.accepted.connect(self.login)
         self.buttonBox.rejected.connect(self.close)
 
-        self.ok=False
+        self.ok = False
 
     def showEvent(self, event):
         super(DlgSettingsLoginLandPKS, self).showEvent(event)
 
-        email=_get_user_email(auth.LANDPKS_AUTH_SETUP, warn=False)
+        email = _get_user_email(auth.LANDPKS_AUTH_SETUP, warn=False)
 
         if email:
             self.email.setText(email)
 
-
     def login(self):
         if not self.email.text():
             QtWidgets.QMessageBox.critical(
-                None,
-                self.tr("Error"),
-                self.tr("Enter your email address.")
+                None, self.tr("Error"), self.tr("Enter your email address.")
             )
 
             return
         elif not self.password.text():
             QtWidgets.QMessageBox.critical(
-                None,
-                self.tr("Error"),
-                self.tr("Enter your password.")
+                None, self.tr("Error"), self.tr("Enter your password.")
             )
 
             return
@@ -898,27 +871,24 @@ class DlgSettingsLoginLandPKS(QtWidgets.QDialog, Ui_DlgSettingsLogin):
         # IF the authorization works, run the below line - otherwise print an
         # error message telling the user how to fix it and return None
         auth.init_auth_config(
-            auth.LANDPKS_AUTH_SETUP,
-            self.email.text(),
-            self.password.text()
+            auth.LANDPKS_AUTH_SETUP, self.email.text(), self.password.text()
         )
 
         QtWidgets.QMessageBox.information(
             None,
             self.tr("Success"),
             self.tr(
-                'Successfully setup login to the LandPKS server as '
-                f'{self.email.text()}.'
-            )
+                "Successfully setup login to the LandPKS server as "
+                f"{self.email.text()}."
+            ),
         )
 
-        self.ok=True
+        self.ok = True
         self.close()
 
 
 class DlgSettingsEditForgotPassword(
-    QtWidgets.QDialog,
-    Ui_DlgSettingsEditForgotPassword
+    QtWidgets.QDialog, Ui_DlgSettingsEditForgotPassword
 ):
     def __init__(self, parent=None):
         super(DlgSettingsEditForgotPassword, self).__init__(parent)
@@ -928,12 +898,12 @@ class DlgSettingsEditForgotPassword(
         self.buttonBox.accepted.connect(self.reset_password)
         self.buttonBox.rejected.connect(self.close)
 
-        self.ok=False
+        self.ok = False
 
     def showEvent(self, event):
         super(DlgSettingsEditForgotPassword, self).showEvent(event)
 
-        email=_get_user_email(auth.TE_API_AUTH_SETUP, warn=False)
+        email = _get_user_email(auth.TE_API_AUTH_SETUP, warn=False)
 
         if email:
             self.email.setText(email)
@@ -943,24 +913,25 @@ class DlgSettingsEditForgotPassword(
             QtWidgets.QMessageBox.critical(
                 None,
                 self.tr("Error"),
-                self.tr("Enter your email address to reset your password.")
+                self.tr("Enter your email address to reset your password."),
             )
 
             return
 
-        reply=QtWidgets.QMessageBox.question(
+        reply = QtWidgets.QMessageBox.question(
             None,
             self.tr("Reset password?"),
             self.tr(
                 "Are you sure you want to reset the password for "
                 f"{self.email.text()}? Your new password will be emailed "
-                "to you."),
+                "to you."
+            ),
             QtWidgets.QMessageBox.Yes,
-            QtWidgets.QMessageBox.No
+            QtWidgets.QMessageBox.No,
         )
 
         if reply == QtWidgets.QMessageBox.Yes:
-            resp=api.recover_pwd(self.email.text())
+            resp = api.recover_pwd(self.email.text())
 
             if resp:
                 self.close()
@@ -971,9 +942,9 @@ class DlgSettingsEditForgotPassword(
                         f"The password has been reset for {self.email.text()}. "
                         "Check your email for the new password, and then "
                         "return to Trends.Earth to enter it."
-                    )
+                    ),
                 )
-                self.ok=True
+                self.ok = True
 
 
 class DlgSettingsEditUpdate(QtWidgets.QDialog, Ui_DlgSettingsEditUpdate):
@@ -982,17 +953,17 @@ class DlgSettingsEditUpdate(QtWidgets.QDialog, Ui_DlgSettingsEditUpdate):
 
         self.setupUi(self)
 
-        self.user=user
+        self.user = user
 
-        self.admin_bounds_key=download.get_admin_bounds()
+        self.admin_bounds_key = download.get_admin_bounds()
 
-        self.email.setText(user['email'])
-        self.name.setText(user['name'])
-        self.organization.setText(user['institution'])
+        self.email.setText(user["email"])
+        self.name.setText(user["name"])
+        self.organization.setText(user["institution"])
 
         # Add countries, and set index to currently chosen country
         self.country.addItems(sorted(self.admin_bounds_key.keys()))
-        index=self.country.findText(user['country'])
+        index = self.country.findText(user["country"])
 
         if index != -1:
             self.country.setCurrentIndex(index)
@@ -1000,50 +971,57 @@ class DlgSettingsEditUpdate(QtWidgets.QDialog, Ui_DlgSettingsEditUpdate):
         self.buttonBox.accepted.connect(self.update_profile)
         self.buttonBox.rejected.connect(self.close)
 
-        self.ok=False
+        self.ok = False
 
     def update_profile(self):
         if not self.email.text():
-            QtWidgets.QMessageBox.critical(None, self.tr(
-                "Error"), self.tr("Enter your email address."))
+            QtWidgets.QMessageBox.critical(
+                None, self.tr("Error"), self.tr("Enter your email address.")
+            )
 
             return
         elif not self.name.text():
-            QtWidgets.QMessageBox.critical(None, self.tr(
-                "Error"), self.tr("Enter your name."))
+            QtWidgets.QMessageBox.critical(
+                None, self.tr("Error"), self.tr("Enter your name.")
+            )
 
             return
         elif not self.organization.text():
-            QtWidgets.QMessageBox.critical(None, self.tr(
-                "Error"), self.tr("Enter your organization."))
+            QtWidgets.QMessageBox.critical(
+                None, self.tr("Error"), self.tr("Enter your organization.")
+            )
 
             return
         elif not self.country.currentText():
-            QtWidgets.QMessageBox.critical(None, self.tr(
-                "Error"), self.tr("Enter your country."))
+            QtWidgets.QMessageBox.critical(
+                None, self.tr("Error"), self.tr("Enter your country.")
+            )
 
             return
 
-        resp=api.update_user(
+        resp = api.update_user(
             self.email.text(),
             self.name.text(),
             self.organization.text(),
-            self.country.currentText()
+            self.country.currentText(),
         )
 
         if resp:
-            QtWidgets.QMessageBox.information(None, self.tr("Saved"),
-                                              self.tr(u"Updated information for {}.").format(self.email.text()))
+            QtWidgets.QMessageBox.information(
+                None,
+                self.tr("Saved"),
+                self.tr("Updated information for {}.").format(self.email.text()),
+            )
             self.close()
-            self.ok=True
+            self.ok = True
 
 
 class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
-    _settings_base_path: str="trends_earth/advanced"
-    _qgis_settings=qgis.core.QgsSettings()
+    _settings_base_path: str = "trends_earth/advanced"
+    _qgis_settings = qgis.core.QgsSettings()
 
-    binaries_gb=QtWidgets.QGroupBox
-    binaries_dir_le=QtWidgets.QLineEdit
+    binaries_gb = QtWidgets.QGroupBox
+    binaries_dir_le = QtWidgets.QLineEdit
     debug_checkbox: QtWidgets.QCheckBox
     filter_jobs_by_basedir_checkbox: QtWidgets.QCheckBox
     polling_frequency_gb: QtWidgets.QGroupBox
@@ -1057,22 +1035,22 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
         super(WidgetSettingsAdvanced, self).__init__(parent)
         self.setupUi(self)
 
-        self.message_bar=message_bar
+        self.message_bar = message_bar
 
-        self.dlg_settings_login_landpks=DlgSettingsLoginLandPKS()
+        self.dlg_settings_login_landpks = DlgSettingsLoginLandPKS()
 
         self.pushButton_login_landpks.clicked.connect(self.login_landpks)
         self.binaries_browse_button.clicked.connect(self.binary_folder_browse)
         self.binaries_gb.toggled.connect(self.binaries_toggle)
         self.binaries_download_button.clicked.connect(self.binaries_download)
         self.qgsFileWidget_base_directory.fileChanged.connect(
-            self.base_directory_changed)
-        self.pushButton_open_base_directory.clicked.connect(
-            self.open_base_directory)
+            self.base_directory_changed
+        )
+        self.pushButton_open_base_directory.clicked.connect(self.open_base_directory)
 
         # Flag that can be used to indicate if binary state has changed (i.e.
         # if new binaries have been downloaded)
-        self.binary_state_changed=False
+        self.binary_state_changed = False
 
         # TODO: re-enable this one LandPKS login is working
         self.landpks_gb.hide()
@@ -1080,35 +1058,41 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
     def closeEvent(self, event):
         super(WidgetSettingsAdvanced, self).closeEvent(event)
 
-        if self.binaries_gb.isChecked() != self.binaries_checkbox_initial or self.binary_state_changed:
+        if (
+            self.binaries_gb.isChecked() != self.binaries_checkbox_initial
+            or self.binary_state_changed
+        ):
             QtWidgets.QMessageBox.warning(
                 None,
                 self.tr("Warning"),
-                self.tr("You must restart QGIS for these changes to take effect.")
+                self.tr("You must restart QGIS for these changes to take effect."),
             )
 
     def update_settings(self):
         """Store the current value of each setting in QgsSettings"""
         log(f"poll remote: {self.polling_frequency_gb.isChecked()}")
         settings_manager.write_value(
-            Setting.POLL_REMOTE, self.polling_frequency_gb.isChecked())
+            Setting.POLL_REMOTE, self.polling_frequency_gb.isChecked()
+        )
         settings_manager.write_value(
-            Setting.REMOTE_POLLING_FREQUENCY, self.polling_frequency_sb.value())
+            Setting.REMOTE_POLLING_FREQUENCY, self.polling_frequency_sb.value()
+        )
         settings_manager.write_value(
-            Setting.DOWNLOAD_RESULTS, self.download_remote_datasets_chb.isChecked())
+            Setting.DOWNLOAD_RESULTS, self.download_remote_datasets_chb.isChecked()
+        )
         # TODO: save the current region of interest
-        settings_manager.write_value(
-            Setting.DEBUG, self.debug_checkbox.isChecked())
+        settings_manager.write_value(Setting.DEBUG, self.debug_checkbox.isChecked())
         settings_manager.write_value(
             Setting.FILTER_JOBS_BY_BASE_DIR,
-            self.filter_jobs_by_basedir_checkbox.isChecked())
+            self.filter_jobs_by_basedir_checkbox.isChecked(),
+        )
         settings_manager.write_value(
-            Setting.BINARIES_ENABLED, self.binaries_gb.isChecked())
-        settings_manager.write_value(
-            Setting.BINARIES_DIR, self.binaries_dir_le.text())
+            Setting.BINARIES_ENABLED, self.binaries_gb.isChecked()
+        )
+        settings_manager.write_value(Setting.BINARIES_DIR, self.binaries_dir_le.text())
 
-        old_base_dir=settings_manager.get_value(Setting.BASE_DIR)
-        new_base_dir=self.qgsFileWidget_base_directory.filePath()
+        old_base_dir = settings_manager.get_value(Setting.BASE_DIR)
+        new_base_dir = self.qgsFileWidget_base_directory.filePath()
         settings_manager.write_value(Setting.BASE_DIR, new_base_dir)
 
         if old_base_dir != new_base_dir:
@@ -1118,46 +1102,51 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
         self.dlg_settings_login_landpks.exec_()
 
     def show_settings(self):
-        self.debug_checkbox.setChecked(
-            settings_manager.get_value(Setting.DEBUG))
+        self.debug_checkbox.setChecked(settings_manager.get_value(Setting.DEBUG))
         self.filter_jobs_by_basedir_checkbox.setChecked(
-                settings_manager.get_value(Setting.FILTER_JOBS_BY_BASE_DIR))
+            settings_manager.get_value(Setting.FILTER_JOBS_BY_BASE_DIR)
+        )
         self.binaries_dir_le.setText(
-            settings_manager.get_value(Setting.BINARIES_DIR) or "")
+            settings_manager.get_value(Setting.BINARIES_DIR) or ""
+        )
         self.qgsFileWidget_base_directory.setFilePath(
-            settings_manager.get_value(Setting.BASE_DIR) or "")
+            settings_manager.get_value(Setting.BASE_DIR) or ""
+        )
         self.polling_frequency_gb.setChecked(
-            settings_manager.get_value(Setting.POLL_REMOTE))
+            settings_manager.get_value(Setting.POLL_REMOTE)
+        )
         self.polling_frequency_sb.setValue(
-            settings_manager.get_value(Setting.REMOTE_POLLING_FREQUENCY))
+            settings_manager.get_value(Setting.REMOTE_POLLING_FREQUENCY)
+        )
         self.download_remote_datasets_chb.setChecked(
-            settings_manager.get_value(Setting.DOWNLOAD_RESULTS))
+            settings_manager.get_value(Setting.DOWNLOAD_RESULTS)
+        )
 
     def showEvent(self, event):
         super(WidgetSettingsAdvanced, self).showEvent(event)
         self.show_settings()
-        binaries_checked=settings_manager.get_value(Setting.BINARIES_ENABLED)
+        binaries_checked = settings_manager.get_value(Setting.BINARIES_ENABLED)
         # TODO: Have this actually check if they are enabled in summary_numba
         # and calculate_numba. Right now this doesn't really check if they are
         # enabled, just that they are available. Which should be the same
         # thing, but might not always be...
 
         if binaries_available() and binaries_checked:
-            self.binaries_label.setText(self.tr('Binaries <b>are</b> loaded.'))
+            self.binaries_label.setText(self.tr("Binaries <b>are</b> loaded."))
         else:
-            self.binaries_label.setText(
-                self.tr('Binaries <b>are not</b> loaded.'))
+            self.binaries_label.setText(self.tr("Binaries <b>are not</b> loaded."))
         # Set a flag that will be used to indicate whether the status of using
         # binaries or not has changed (needed to allow displaying a message to
         # the user that they need to restart when this setting is changed)
-        self.binaries_checkbox_initial=binaries_checked
+        self.binaries_checkbox_initial = binaries_checked
         self.binaries_gb.setChecked(binaries_checked)
         self.binaries_toggle()
 
     def base_directory_changed(self, new_base_directory):
         if not new_base_directory:
             self.message_bar.pushWarning(
-                'Trends.Earth', self.tr('No base data directory set'))
+                "Trends.Earth", self.tr("No base data directory set")
+            )
 
             return
 
@@ -1166,9 +1155,12 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
                 os.makedirs(new_base_directory)
         except PermissionError:
             self.message_bar.pushCritical(
-                'Trends.Earth',
-                self.tr("Unable to write to {}. Try a different folder.".format(
-                    new_base_directory))
+                "Trends.Earth",
+                self.tr(
+                    "Unable to write to {}. Try a different folder.".format(
+                        new_base_directory
+                    )
+                ),
             )
 
             return
@@ -1179,20 +1171,27 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
         openFolder(self.qgsFileWidget_base_directory.filePath())
 
     def binaries_download(self):
-        out_folder=os.path.join(self.binaries_dir_le.text())
+        out_folder = os.path.join(self.binaries_dir_le.text())
 
-        if out_folder == '':
-            QtWidgets.QMessageBox.information(None,
-                                              self.tr("Choose a folder"),
-                                              self.tr("Choose a folder before downloading binaries."))
+        if out_folder == "":
+            QtWidgets.QMessageBox.information(
+                None,
+                self.tr("Choose a folder"),
+                self.tr("Choose a folder before downloading binaries."),
+            )
 
             return
 
         if not os.access(out_folder, os.W_OK):
-            QtWidgets.QMessageBox.critical(None,
-                                           self.tr("Error"),
-                                           self.tr(
-                                               "Unable to write to {}. Choose a different folder.".format(out_folder)))
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr(
+                    "Unable to write to {}. Choose a different folder.".format(
+                        out_folder
+                    )
+                ),
+            )
 
             return
 
@@ -1200,57 +1199,75 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
             if not os.path.exists(out_folder):
                 os.makedirs(out_folder)
         except PermissionError:
-            QtWidgets.QMessageBox.critical(None,
-                                           self.tr("Error"),
-                                           self.tr("Unable to write to {}. Try a "
-                                                   "different folder.".format(out_folder)))
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr(
+                    "Unable to write to {}. Try a "
+                    "different folder.".format(out_folder)
+                ),
+            )
 
             return None
 
         zip_filename = f"{binaries_name}.zip"
-        zip_url = 'https://s3.amazonaws.com/trends.earth/plugin_binaries/' + zip_filename
+        zip_url = (
+            "https://s3.amazonaws.com/trends.earth/plugin_binaries/" + zip_filename
+        )
         downloads = download.download_files([zip_url], out_folder)
 
         if not downloads:
             return None
 
         try:
-            with zipfile.ZipFile(os.path.join(out_folder, zip_filename), 'r') as zf:
+            with zipfile.ZipFile(os.path.join(out_folder, zip_filename), "r") as zf:
                 zf.extractall(out_folder)
         except PermissionError:
-            QtWidgets.QMessageBox.critical(None,
-                                           self.tr("Error"),
-                                           self.tr(
-                                               "Unable to write to {}. Check that you have permissions to write to this folder, and that you are not trying to overwrite the binaries that you currently have loaded in QGIS.".format(
-                                                   out_folder)))
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr(
+                    "Unable to write to {}. Check that you have permissions to write to this folder, and that you are not trying to overwrite the binaries that you currently have loaded in QGIS.".format(
+                        out_folder
+                    )
+                ),
+            )
 
             return None
         except FileNotFoundError:
-            QtWidgets.QMessageBox.critical(None,
-                                       self.tr("Error"),
-                                       self.tr("Unable to read binaries from {}. Check that binaries were downloaded successfully.".format(out_folder)))
+            QtWidgets.QMessageBox.critical(
+                None,
+                self.tr("Error"),
+                self.tr(
+                    "Unable to read binaries from {}. Check that binaries were downloaded successfully.".format(
+                        out_folder
+                    )
+                ),
+            )
 
             return None
 
         os.remove(os.path.join(out_folder, zip_filename))
 
         if downloads is None:
-            QtWidgets.QMessageBox.critical(None,
-                                           self.tr("Error"),
-                                           self.tr("Error downloading binaries."))
+            QtWidgets.QMessageBox.critical(
+                None, self.tr("Error"), self.tr("Error downloading binaries.")
+            )
         else:
             if len(downloads) > 0:
-                self.binary_state_changed=True
-                QtWidgets.QMessageBox.information(None,
-                                                  self.tr("Success"),
-                                                  self.tr("Downloaded binaries."))
+                self.binary_state_changed = True
+                QtWidgets.QMessageBox.information(
+                    None, self.tr("Success"), self.tr("Downloaded binaries.")
+                )
             else:
-                QtWidgets.QMessageBox.critical(None,
-                                               self.tr("Success"),
-                                               self.tr("All binaries up to date.".format(out_folder)))
+                QtWidgets.QMessageBox.critical(
+                    None,
+                    self.tr("Success"),
+                    self.tr("All binaries up to date.".format(out_folder)),
+                )
 
     def binaries_toggle(self):
-        state=self.binaries_gb.isChecked()
+        state = self.binaries_gb.isChecked()
         settings_manager.write_value(Setting.BINARIES_ENABLED, state)
         self.binaries_dir_le.setEnabled(state)
         self.binaries_browse_button.setEnabled(state)
@@ -1258,20 +1275,21 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
         self.binaries_label.setEnabled(state)
 
     def binary_folder_browse(self):
-        initial_path=self.binaries_dir_le.text()
+        initial_path = self.binaries_dir_le.text()
 
         if not initial_path:
-            initial_path=str(Path.home())
+            initial_path = str(Path.home())
 
-        folder_path=QtWidgets.QFileDialog.getExistingDirectory(
+        folder_path = QtWidgets.QFileDialog.getExistingDirectory(
             self,
-            self.tr('Select folder containing Trends.Earth binaries'),
-            initial_path
+            self.tr("Select folder containing Trends.Earth binaries"),
+            initial_path,
         )
 
         if folder_path:
-            plugin_folder=os.path.normpath(
-                os.path.realpath(os.path.dirname(__file__)))
+            plugin_folder = os.path.normpath(
+                os.path.realpath(os.path.dirname(__file__))
+            )
 
             if is_subdir(folder_path, plugin_folder):
                 QtWidgets.QMessageBox.critical(
@@ -1279,7 +1297,8 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
                     self.tr("Error"),
                     self.tr(
                         "Choose a different folder - cannot install binaries within "
-                        "the Trends.Earth QGIS plugin installation folder.")
+                        "the Trends.Earth QGIS plugin installation folder."
+                    ),
                 )
 
                 return False
@@ -1287,15 +1306,14 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
             if os.access(folder_path, os.W_OK):
                 settings_manager.write_value(Setting.BINARIES_DIR, folder_path)
                 self.binaries_dir_le.setText(folder_path)
-                self.binary_state_changed=True
+                self.binary_state_changed = True
 
                 return True
             else:
                 QtWidgets.QMessageBox.critical(
                     None,
                     self.tr("Error"),
-                    self.tr(
-                        f"Cannot read {folder_path!r}. Choose a different folder.")
+                    self.tr(f"Cannot read {folder_path!r}. Choose a different folder."),
                 )
 
                 return False
@@ -1307,6 +1325,7 @@ class WidgetSettingsReport(QtWidgets.QWidget, Ui_WidgetSettingsReport):
     """
     Report settings widget.
     """
+
     disclaimer_te: QtWidgets.QPlainTextEdit
     footer_te: QtWidgets.QPlainTextEdit
     log_warnings_cb: QtWidgets.QCheckBox
@@ -1324,41 +1343,27 @@ class WidgetSettingsReport(QtWidgets.QWidget, Ui_WidgetSettingsReport):
         self.message_bar = message_bar
 
         # Set icons
-        self.org_logo_tb.setIcon(FileUtils.get_icon('mActionFileOpen.svg'))
-        self.template_search_path_tb.setIcon(
-            FileUtils.get_icon('mActionFileOpen.svg')
-        )
+        self.org_logo_tb.setIcon(FileUtils.get_icon("mActionFileOpen.svg"))
+        self.template_search_path_tb.setIcon(FileUtils.get_icon("mActionFileOpen.svg"))
 
         # Connect signals
-        self.template_search_path_tb.clicked.connect(
-            self.on_select_template_path
-        )
-        self.org_logo_tb.clicked.connect(
-            self.on_select_org_logo
-        )
+        self.template_search_path_tb.clicked.connect(self.on_select_template_path)
+        self.org_logo_tb.clicked.connect(self.on_select_org_logo)
 
     def _load_settings(self):
         """
         Load settings in the configuration.
         """
-        search_path = settings_manager.get_value(
-            Setting.REPORT_TEMPLATE_SEARCH_PATH
-        )
+        search_path = settings_manager.get_value(Setting.REPORT_TEMPLATE_SEARCH_PATH)
         self.template_search_path_le.setText(search_path)
         self.template_search_path_le.setToolTip(search_path)
 
-        logo_path = settings_manager.get_value(
-            Setting.REPORT_ORG_LOGO_PATH
-        )
+        logo_path = settings_manager.get_value(Setting.REPORT_ORG_LOGO_PATH)
         self.org_logo_le.setText(logo_path)
         self.org_logo_le.setToolTip(logo_path)
 
-        self.org_name_le.setText(
-            settings_manager.get_value(Setting.REPORT_ORG_NAME)
-        )
-        self.footer_te.setPlainText(
-            settings_manager.get_value(Setting.REPORT_FOOTER)
-        )
+        self.org_name_le.setText(settings_manager.get_value(Setting.REPORT_ORG_NAME))
+        self.footer_te.setPlainText(settings_manager.get_value(Setting.REPORT_FOOTER))
         self.disclaimer_te.setPlainText(
             settings_manager.get_value(Setting.REPORT_DISCLAIMER)
         )
@@ -1377,35 +1382,30 @@ class WidgetSettingsReport(QtWidgets.QWidget, Ui_WidgetSettingsReport):
 
         template_dir = QtWidgets.QFileDialog.getExistingDirectory(
             self,
-            self.tr('Select Report Template Search Path'),
+            self.tr("Select Report Template Search Path"),
             template_dir,
-            options=QtWidgets.QFileDialog.DontResolveSymlinks |
-                    QtWidgets.QFileDialog.ShowDirsOnly
+            options=QtWidgets.QFileDialog.DontResolveSymlinks
+            | QtWidgets.QFileDialog.ShowDirsOnly,
         )
         if template_dir:
             self.template_search_path_le.setText(template_dir)
             self.template_search_path_le.setToolTip(template_dir)
-            msg = self.tr(
-                'QGIS needs to be restarted for the changes to take effect.'
-            )
+            msg = self.tr("QGIS needs to be restarted for the changes to take effect.")
             if self.message_bar is not None:
                 self.message_bar.pushMessage(
-                    self.tr('Template Search Path'),
-                    msg,
-                    qgis.core.Qgis.Warning,
-                    5
+                    self.tr("Template Search Path"), msg, qgis.core.Qgis.Warning, 5
                 )
 
     def _image_files_filter(self):
         # QFileDialog filter for image files.
         formats = [
-            f'*.{bytes(fmt).decode()}'
+            f"*.{bytes(fmt).decode()}"
             for fmt in QtGui.QImageReader.supportedImageFormats()
         ]
-        tr_prefix = self.tr('All Images')
-        formats_txt = ' '.join(formats)
+        tr_prefix = self.tr("All Images")
+        formats_txt = " ".join(formats)
 
-        return f'{tr_prefix} ({formats_txt})'
+        return f"{tr_prefix} ({formats_txt})"
 
     def on_select_org_logo(self):
         # Slot for selecting organization logo
@@ -1419,10 +1419,10 @@ class WidgetSettingsReport(QtWidgets.QWidget, Ui_WidgetSettingsReport):
 
         org_logo_path, _ = QtWidgets.QFileDialog.getOpenFileName(
             self,
-            self.tr('Select Organization Logo'),
+            self.tr("Select Organization Logo"),
             logo_dir,
             self._image_files_filter(),
-            options=QtWidgets.QFileDialog.DontResolveSymlinks
+            options=QtWidgets.QFileDialog.DontResolveSymlinks,
         )
         if org_logo_path:
             self.org_logo_le.setText(org_logo_path)
@@ -1431,32 +1431,25 @@ class WidgetSettingsReport(QtWidgets.QWidget, Ui_WidgetSettingsReport):
     def save_settings(self):
         # Persist settings.
         settings_manager.write_value(
-            Setting.REPORT_TEMPLATE_SEARCH_PATH,
-            self.template_search_path_le.text()
+            Setting.REPORT_TEMPLATE_SEARCH_PATH, self.template_search_path_le.text()
         )
         settings_manager.write_value(
-            Setting.REPORT_ORG_LOGO_PATH,
-            self.org_logo_le.text()
+            Setting.REPORT_ORG_LOGO_PATH, self.org_logo_le.text()
+        )
+        settings_manager.write_value(Setting.REPORT_ORG_NAME, self.org_name_le.text())
+        settings_manager.write_value(
+            Setting.REPORT_FOOTER, self.footer_te.toPlainText()
         )
         settings_manager.write_value(
-            Setting.REPORT_ORG_NAME,
-            self.org_name_le.text()
+            Setting.REPORT_DISCLAIMER, self.disclaimer_te.toPlainText()
         )
         settings_manager.write_value(
-            Setting.REPORT_FOOTER,
-            self.footer_te.toPlainText()
-        )
-        settings_manager.write_value(
-            Setting.REPORT_DISCLAIMER,
-            self.disclaimer_te.toPlainText()
-        )
-        settings_manager.write_value(
-            Setting.REPORT_LOG_WARNING,
-            self.log_warnings_cb.isChecked()
+            Setting.REPORT_LOG_WARNING, self.log_warnings_cb.isChecked()
         )
 
     def sizeHint(self) -> QtCore.QSize:
         return QtCore.QSize(450, 350)
+
 
 class DlgLandCoverRestore(QtWidgets.QDialog, Ui_DlgLandCoverRestore):
     def __init__(self, parent=None):
@@ -1466,8 +1459,7 @@ class DlgLandCoverRestore(QtWidgets.QDialog, Ui_DlgLandCoverRestore):
 
 
 class LandCoverCustomClassesManager(
-    qgis.gui.QgsPanelWidget,
-    Ui_WidgetLandCoverCustomClassesManager
+    qgis.gui.QgsPanelWidget, Ui_WidgetLandCoverCustomClassesManager
 ):
     def __init__(self, parent=None, msg_bar=None):
         super().__init__(parent)
@@ -1480,45 +1472,39 @@ class LandCoverCustomClassesManager(
         self._init_load = False
         self.max_classes = settings_manager.get_value(Setting.LC_MAX_CLASSES)
         self.dlg_land_cover_restore = DlgLandCoverRestore()
-        self.dlg_land_cover_restore.pb_restore_unccd.clicked.connect(self.on_restore_unccd)
+        self.dlg_land_cover_restore.pb_restore_unccd.clicked.connect(
+            self.on_restore_unccd
+        )
         self.dlg_land_cover_restore.pb_restore_esa.clicked.connect(self.on_restore_esa)
 
         # UI initialization
         self.model = QtGui.QStandardItemModel(self)
         self.model.setHorizontalHeaderLabels(
-            [self.tr('Name'), self.tr('Code'), self.tr('Parent')]
+            [self.tr("Name"), self.tr("Code"), self.tr("Parent")]
         )
         self.tb_classes.setModel(self.model)
         self.selection_model = self.tb_classes.selectionModel()
-        self.selection_model.selectionChanged.connect(
-            self.on_selection_changed
-        )
-        self.tb_classes.clicked.connect(
-            self.on_class_info_clicked
-        )
+        self.selection_model.selectionChanged.connect(self.on_selection_changed)
+        self.tb_classes.clicked.connect(self.on_class_info_clicked)
 
-        add_icon = qgis.core.QgsApplication.instance().getThemeIcon(
-            'symbologyAdd.svg'
-        )
+        add_icon = qgis.core.QgsApplication.instance().getThemeIcon("symbologyAdd.svg")
         self.btn_add_class.setIcon(add_icon)
-        self.btn_add_class.clicked.connect(
-            self.on_add_class
-        )
+        self.btn_add_class.clicked.connect(self.on_add_class)
 
         load_table_icon = qgis.core.QgsApplication.instance().getThemeIcon(
-            'mActionFileOpen.svg'
+            "mActionFileOpen.svg"
         )
         self.btn_load.setIcon(load_table_icon)
         self.btn_load.clicked.connect(self.on_load_file)
 
         save_table_icon = qgis.core.QgsApplication.instance().getThemeIcon(
-            'mActionFileSave.svg'
+            "mActionFileSave.svg"
         )
         self.btn_save.setIcon(save_table_icon)
         self.btn_save.clicked.connect(self.on_save_file)
 
         restore_icon = qgis.core.QgsApplication.instance().getThemeIcon(
-            'mActionReload.svg'
+            "mActionReload.svg"
         )
         self.btn_restore.setIcon(restore_icon)
         self.btn_restore.clicked.connect(self.dlg_land_cover_restore.exec_)
@@ -1547,12 +1533,7 @@ class LandCoverCustomClassesManager(
         else:
             level = qgis.core.Qgis.MessageLevel.Info
 
-        self.msg_bar.pushMessage(
-            self.tr('Land Cover'),
-            msg,
-            level,
-            5
-        )
+        self.msg_bar.pushMessage(self.tr("Land Cover"), msg, level, 5)
 
     def sizeHint(self) -> QtCore.QSize:
         return QtCore.QSize(350, 420)
@@ -1560,22 +1541,16 @@ class LandCoverCustomClassesManager(
     def resizeEvent(self, event: QtGui.QResizeEvent):
         # Adjust column width
         width = self.tb_classes.width()
-        self.tb_classes.setColumnWidth(
-            0, int(width * 0.4)
-        )
-        self.tb_classes.setColumnWidth(
-            1, int(width * 0.16)
-        )
-        self.tb_classes.setColumnWidth(
-            2, int(width * 0.4)
-        )
+        self.tb_classes.setColumnWidth(0, int(width * 0.4))
+        self.tb_classes.setColumnWidth(1, int(width * 0.16))
+        self.tb_classes.setColumnWidth(2, int(width * 0.4))
 
     def on_add_class(self):
         # Slot raised to add a land cover class.
         # Check if max number of classes have been reached
         rows = self.model.rowCount()
         if rows >= self.max_classes:
-            msg = self.tr('Maximum number of classes reached.')
+            msg = self.tr("Maximum number of classes reached.")
             self.append_msg(msg)
 
             return
@@ -1603,7 +1578,7 @@ class LandCoverCustomClassesManager(
         lcc_infos = self.class_infos()
         status = LccInfoUtils.save_settings(lcc_infos)
         if not status:
-            log('Custom land cover classes could not be saved to settings.')
+            log("Custom land cover classes could not be saved to settings.")
 
         return True
 
@@ -1617,11 +1592,11 @@ class LandCoverCustomClassesManager(
         # Load classes from settings.
         status, lc_classes = LccInfoUtils.load_settings()
         if not status:
-            log('Failed to read land cover classes from settings.')
+            log("Failed to read land cover classes from settings.")
             return
 
         if len(lc_classes) == 0:
-            log('No land cover classes in settings.')
+            log("No land cover classes in settings.")
             return
 
         self._load_classes(lc_classes)
@@ -1629,9 +1604,7 @@ class LandCoverCustomClassesManager(
     def on_save_file(self):
         # Slot raised to save current classes to file.
         if not self.has_class_infos():
-            self.append_msg(
-                self.tr('Nothing to save')
-            )
+            self.append_msg(self.tr("Nothing to save"))
             return
 
         last_dir = settings_manager.get_value(Setting.LC_LAST_DIR)
@@ -1640,19 +1613,16 @@ class LandCoverCustomClassesManager(
 
         lcc_save_path, _ = QtWidgets.QFileDialog.getSaveFileName(
             self,
-            self.tr('Save Land Cover Classes'),
+            self.tr("Save Land Cover Classes"),
             last_dir,
-            'JSON (*.json)',
-            options=QtWidgets.QFileDialog.DontResolveSymlinks
+            "JSON (*.json)",
+            options=QtWidgets.QFileDialog.DontResolveSymlinks,
         )
         if lcc_save_path:
             lcc_infos = self.class_infos()
             status = LccInfoUtils.save_file(lcc_save_path, lcc_infos)
             if not status:
-                log(
-                    f'Unable to save land cover '
-                    f'classes to \'{lcc_save_path}\''
-                )
+                log(f"Unable to save land cover " f"classes to '{lcc_save_path}'")
                 return
 
             fi = QtCore.QFileInfo(lcc_save_path)
@@ -1667,15 +1637,15 @@ class LandCoverCustomClassesManager(
 
         lcc_path, _ = QtWidgets.QFileDialog.getOpenFileName(
             self,
-            self.tr('Select Land Cover Classes File'),
+            self.tr("Select Land Cover Classes File"),
             last_dir,
-            'JSON (*.json)',
-            options=QtWidgets.QFileDialog.DontResolveSymlinks
+            "JSON (*.json)",
+            options=QtWidgets.QFileDialog.DontResolveSymlinks,
         )
         if lcc_path:
             status, lcc_infos = LccInfoUtils.load_file(lcc_path)
             if not status:
-                log('Failed to load the custom land cover file.')
+                log("Failed to load the custom land cover file.")
                 return
 
             fi = QtCore.QFileInfo(lcc_path)
@@ -1683,9 +1653,7 @@ class LandCoverCustomClassesManager(
             settings_manager.write_value(Setting.LC_LAST_DIR, cls_dir)
 
             if len(lcc_infos) == 0:
-                self.append_msg(
-                    self.tr('No land cover classes found.')
-                )
+                self.append_msg(self.tr("No land cover classes found."))
                 return
 
             self._load_classes(lcc_infos)
@@ -1699,7 +1667,7 @@ class LandCoverCustomClassesManager(
 
         for lc_cls in classes:
             if not isinstance(lc_cls, LCClassInfo):
-                log('Not class info')
+                log("Not class info")
                 continue
             self.add_class_info_to_table(lc_cls)
 
@@ -1729,9 +1697,9 @@ class LandCoverCustomClassesManager(
                 lc_class_info=lc_cls_info,
                 default_color=self._last_clr,
                 msg_bar=self.msg_bar,
-                codes=self.class_codes()
+                codes=self.class_codes(),
             )
-            self.editor.setPanelTitle(self.tr('Land Cover Class Editor'))
+            self.editor.setPanelTitle(self.tr("Land Cover Class Editor"))
             self.editor.panelAccepted.connect(self.on_editor_accepted)
             self.editor.notify_delete.connect(self.delete_class_info)
 
@@ -1768,14 +1736,12 @@ class LandCoverCustomClassesManager(
         # Update existing LCClassInfo row.
         row = lc_info.idx
         if row == -1:
-            self.append_msg(
-                self.tr('Invalid row for land cover class')
-            )
+            self.append_msg(self.tr("Invalid row for land cover class"))
             return
 
         items = self._update_lcc_row_items(lc_info, True, row)
         if len(items) == 0:
-            self.append_msg(self.tr('Unable to update class.'))
+            self.append_msg(self.tr("Unable to update class."))
             return
 
         self._update_row_data(row, lc_info)
@@ -1787,14 +1753,14 @@ class LandCoverCustomClassesManager(
 
         rows = self.model.rowCount()
         if rows >= self.max_classes:
-            msg = self.tr('Maximum number of classes reached.')
+            msg = self.tr("Maximum number of classes reached.")
             self.append_msg(msg)
 
             return
 
         items = self._update_lcc_row_items(lc_info)
         if len(items) == 0:
-            self.append_msg(self.tr('Unable to add new class.'))
+            self.append_msg(self.tr("Unable to add new class."))
             return
 
         self.model.insertRow(rows, items)
@@ -1810,8 +1776,7 @@ class LandCoverCustomClassesManager(
         return {lcci.lcc.name_long: lcci.child_codes for lcci in lcc_infos}
 
     def validate_child_codes(
-            self,
-            lcc_infos: typing.List['LCClassInfo']
+        self, lcc_infos: typing.List["LCClassInfo"]
     ) -> typing.Tuple[bool, list]:
         """
         Validate children have been specified.
@@ -1821,10 +1786,8 @@ class LandCoverCustomClassesManager(
         child_codes = []
         for lcci in lcc_infos:
             if len(lcci.child_codes) == 0:
-                msg_tr = self.tr(
-                    'class does not have children assigned to it'
-                )
-                warning = f'{lcci.lcc.name_long} {msg_tr}'
+                msg_tr = self.tr("class does not have children assigned to it")
+                warning = f"{lcci.lcc.name_long} {msg_tr}"
                 messages.append(warning)
                 if status:
                     status = False
@@ -1843,8 +1806,8 @@ class LandCoverCustomClassesManager(
             for c in unassigned_codes:
                 lcc = child_legend.class_by_code(c)
                 if lcc is not None:
-                    msg_tr = self.tr('class has not been assigned a parent')
-                    msg = f'{lcc.name_long} {msg_tr}'
+                    msg_tr = self.tr("class has not been assigned a parent")
+                    msg = f"{lcc.name_long} {msg_tr}"
                     messages.append(msg)
 
             if status:
@@ -1853,10 +1816,7 @@ class LandCoverCustomClassesManager(
         return status, messages
 
     def _update_lcc_row_items(
-            self,
-            lc_info: LCClassInfo,
-            update=False,
-            row=None
+        self, lc_info: LCClassInfo, update=False, row=None
     ) -> typing.List[QtGui.QStandardItem]:
         # Create new or update existing row items
         if update and row is None:
@@ -1919,7 +1879,7 @@ class LandCoverCustomClassesManager(
         row_count = self.model.rowCount()
 
         return [self.row_data(i) for i in range(row_count)]
-    
+
     def class_codes(self) -> typing.List[int]:
         """
         Return a list of codes for the classes in the table.
@@ -1963,22 +1923,18 @@ class LandCoverCustomClassesManager(
     def delete_class_info(self, row: int):
         # Notification to remove the given row.
         if row < 0:
-            log('Invalid reference of land cover class to remove.')
+            log("Invalid reference of land cover class to remove.")
             return
 
         # Reject if there is only one record remaining
         rec_count = self.model.rowCount()
         if rec_count == 1:
             msg = self.tr(
-                'There must be at least one class defined. You can create a '
-                'new one then delete this one or you can restore the '
-                'default UNCCD classes by clicking on the Restore button.'
+                "There must be at least one class defined. You can create a "
+                "new one then delete this one or you can restore the "
+                "default UNCCD classes by clicking on the Restore button."
             )
-            QtWidgets.QMessageBox.warning(
-                self,
-                self.tr('Delete Failed'),
-                msg
-            )
+            QtWidgets.QMessageBox.warning(self, self.tr("Delete Failed"), msg)
             return
 
         self.selection_model.blockSignals(True)
@@ -1986,32 +1942,32 @@ class LandCoverCustomClassesManager(
         status = self.model.removeRows(row, 1)
         self.selection_model.blockSignals(False)
         if not status:
-            log(f'Unable to remove land cover class in row {row!s}')
+            log(f"Unable to remove land cover class in row {row!s}")
 
 
 class LandCoverCustomClassEditor(
-    qgis.gui.QgsPanelWidget,
-    Ui_WidgetLandCoverCustomClassEditor
+    qgis.gui.QgsPanelWidget, Ui_WidgetLandCoverCustomClassEditor
 ):
     """
     Widget for defining new or edit existing custom land cover class.
     """
+
     notify_delete = QtCore.pyqtSignal(int)
 
     def __init__(
-            self,
-            parent=None,
-            lc_class_info=None,
-            default_color=None,
-            msg_bar=None,
-            codes=None
+        self,
+        parent=None,
+        lc_class_info=None,
+        default_color=None,
+        msg_bar=None,
+        codes=None,
     ):
         super().__init__(parent)
         self.setupUi(self)
 
         self.default_color = default_color
         if self.default_color is None:
-            self.default_color = QtGui.QColor('#8FE142')
+            self.default_color = QtGui.QColor("#8FE142")
 
         self._default_lc_nesting = get_default_esa_nesting()
 
@@ -2028,25 +1984,23 @@ class LandCoverCustomClassEditor(
 
         # UI initialization
         delete_icon = qgis.core.QgsApplication.instance().getThemeIcon(
-            'mActionDeleteSelected.svg'
+            "mActionDeleteSelected.svg"
         )
         self.btn_remove.setIcon(delete_icon)
         self.btn_remove.setEnabled(False)
         self.btn_remove.clicked.connect(self.on_delete_class)
 
         self.clr_btn.setColor(self.default_color)
-        self.clr_btn.setContext('class_clr')
-        self.clr_btn.setColorDialogTitle(self.tr('Class Color'))
+        self.clr_btn.setContext("class_clr")
+        self.clr_btn.setColorDialogTitle(self.tr("Class Color"))
 
         success_icon = qgis.core.QgsApplication.instance().getThemeIcon(
-            'mIconSuccess.svg'
+            "mIconSuccess.svg"
         )
         self.btn_done.setIcon(success_icon)
         self.btn_done.clicked.connect(self.on_accept_info)
 
-        self.cbo_cls_parent.currentIndexChanged.connect(
-            self._on_parent_changed
-        )
+        self.cbo_cls_parent.currentIndexChanged.connect(self._on_parent_changed)
 
         self._load_default_lc_classes()
 
@@ -2061,7 +2015,7 @@ class LandCoverCustomClassEditor(
 
     def _load_default_lc_classes(self):
         # Load default LC classes.
-        self.cbo_cls_parent.addItem('')
+        self.cbo_cls_parent.addItem("")
         parent_legend = self._default_lc_nesting.parent
         ref_classes = parent_legend.key
         no_data = parent_legend.nodata
@@ -2071,11 +2025,7 @@ class LandCoverCustomClassEditor(
         for idx, lcc in enumerate(ref_classes, start=1):
             self.cbo_cls_parent.insertItem(idx, lcc.name_long, lcc)
             clr = QtGui.QColor(lcc.color)
-            self.cbo_cls_parent.setItemData(
-                idx,
-                clr,
-                QtCore.Qt.DecorationRole
-            )
+            self.cbo_cls_parent.setItemData(idx, clr, QtCore.Qt.DecorationRole)
 
     def _suggest_code(self):
         # Suggest a code value for a new land cover class.
@@ -2094,10 +2044,7 @@ class LandCoverCustomClassEditor(
             return
 
         self.msg_bar.pushMessage(
-            self.tr('Land Cover'),
-            msg,
-            qgis.core.Qgis.MessageLevel.Warning,
-            5
+            self.tr("Land Cover"), msg, qgis.core.Qgis.MessageLevel.Warning, 5
         )
 
     def clear_messages(self):
@@ -2128,25 +2075,25 @@ class LandCoverCustomClassEditor(
         self.clear_messages()
 
         if not self.txt_cls_name.text():
-            self.append_warning_msg(self.tr('Class name cannot be empty.'))
+            self.append_warning_msg(self.tr("Class name cannot be empty."))
             status = False
 
         if not self.clr_btn.color().isValid():
-            self.append_warning_msg(self.tr('Invalid color selected.'))
+            self.append_warning_msg(self.tr("Invalid color selected."))
             status = False
 
         if not self.cbo_cls_parent.currentText():
-            self.append_warning_msg(self.tr('Parent class cannot be empty.'))
+            self.append_warning_msg(self.tr("Parent class cannot be empty."))
             status = False
 
         code = self.sb_cls_code.value()
         if not code:
-            self.append_warning_msg(self.tr('Invalid class code value.'))
+            self.append_warning_msg(self.tr("Invalid class code value."))
             status = False
 
         if code in self.codes and not self.edit_mode:
             self.append_warning_msg(
-                self.tr(f'Code value \'{code!s}\' is already in use.')
+                self.tr(f"Code value '{code!s}' is already in use.")
             )
             status = False
 
@@ -2155,12 +2102,12 @@ class LandCoverCustomClassEditor(
     def on_delete_class(self):
         # Slot raised to delete land cover class.
         if self.lc_class_info is None:
-            log('No land cover class reference.')
+            log("No land cover class reference.")
             return
 
         idx = self.lc_class_info.idx
         if idx < 0:
-            log('Invalid land cover class reference.')
+            log("Invalid land cover class reference.")
             return
 
         row_num = self.lc_class_info.idx
@@ -2227,9 +2174,7 @@ class LandCoverCustomClassEditor(
         if not self.cbo_cls_parent.currentText():
             return
 
-        parent_lcc = self.cbo_cls_parent.itemData(
-            self.cbo_cls_parent.currentIndex()
-        )
+        parent_lcc = self.cbo_cls_parent.itemData(self.cbo_cls_parent.currentIndex())
         if parent_lcc is None:
             return
 
@@ -2241,6 +2186,3 @@ class LandCoverCustomClassEditor(
         if status:
             self.updated = True
             self.acceptPanel()
-
-
-

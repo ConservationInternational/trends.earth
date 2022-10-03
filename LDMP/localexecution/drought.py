@@ -23,7 +23,8 @@ SPI_BAND_NAME = "Standardized Precipitation Index (SPI)"
 
 @dataclasses.dataclass()
 class SummaryTableDroughtWidgets:
-    '''Combo boxes and methods used in the drought summary table widget'''
+    """Combo boxes and methods used in the drought summary table widget"""
+
     combo_dataset_drought: data_io.WidgetDataIOSelectTEDatasetExisting
     combo_layer_so3_vulnerability: data_io.WidgetDataIOSelectTELayerExisting
 
@@ -43,13 +44,11 @@ class DroughtInputInfo:
 def _get_drought_inputs(
     data_selection_widget: data_io.WidgetDataIOSelectTEDatasetExisting,
     band_name: str,
-    sort_property: str = "year"
+    sort_property: str = "year",
 ) -> DroughtInputInfo:
     bands = data_selection_widget.get_bands(band_name)
 
-    sorted_bands = sorted(
-        bands, key=lambda b: b.band_info.metadata[sort_property]
-    )
+    sorted_bands = sorted(bands, key=lambda b: b.band_info.metadata[sort_property])
 
     years = [b.band_info.metadata[sort_property] for b in sorted_bands]
     indices = [b.band_index for b in sorted_bands]
@@ -58,16 +57,14 @@ def _get_drought_inputs(
         path=data_selection_widget.get_current_data_file(),
         bands=[b.band_info for b in sorted_bands],
         indices=indices,
-        years=years
+        years=years,
     )
 
 
-def _get_spi_lag(
-    data_selection_widget: data_io.WidgetDataIOSelectTEDatasetExisting
-):
+def _get_spi_lag(data_selection_widget: data_io.WidgetDataIOSelectTEDatasetExisting):
     band = data_selection_widget.get_bands(SPI_BAND_NAME)[0]
 
-    return band.band_info.metadata['lag']
+    return band.band_info.metadata["lag"]
 
 
 @dataclasses.dataclass()
@@ -78,14 +75,14 @@ class JRCInputInfo:
 
 
 def _get_jrc_input(
-    data_selection_widget: data_io.WidgetDataIOSelectTEDatasetExisting
+    data_selection_widget: data_io.WidgetDataIOSelectTEDatasetExisting,
 ) -> JRCInputInfo:
     usable_band_info = data_selection_widget.get_current_band()
 
     return JRCInputInfo(
         path=usable_band_info.path,
         band=usable_band_info.band_info,
-        band_index=usable_band_info.band_index
+        band_index=usable_band_info.band_index,
     )
 
 
@@ -94,13 +91,11 @@ def get_main_drought_summary_job_params(
     aoi,
     combo_dataset_drought: data_io.WidgetDataIOSelectTEDatasetExisting,
     combo_layer_so3_vulnerability: data_io.WidgetDataIOSelectTELayerExisting,
-    task_notes: Optional[str] = ""
+    task_notes: Optional[str] = "",
 ) -> Dict:
 
     spi_input = _get_drought_inputs(combo_dataset_drought, SPI_BAND_NAME)
-    population_input = _get_drought_inputs(
-        combo_dataset_drought, POPULATION_BAND_NAME
-    )
+    population_input = _get_drought_inputs(combo_dataset_drought, POPULATION_BAND_NAME)
     spi_lag = _get_spi_lag(combo_dataset_drought)
 
     jrc_input = _get_jrc_input(combo_layer_so3_vulnerability)
@@ -108,39 +103,25 @@ def get_main_drought_summary_job_params(
     crosses_180th, geojsons = aoi.bounding_box_gee_geojson()
 
     return {
-        "task_name":
-        task_name,
-        "task_notes":
-        task_notes,
-        "layer_population_path":
-        str(population_input.path),
-        "layer_population_bands":
-        [JobBand.Schema().dump(b) for b in population_input.bands],
-        "layer_population_years":
-        population_input.years,
-        "layer_population_band_indices":
-        population_input.indices,
-        "layer_spi_path":
-        str(spi_input.path),
+        "task_name": task_name,
+        "task_notes": task_notes,
+        "layer_population_path": str(population_input.path),
+        "layer_population_bands": [
+            JobBand.Schema().dump(b) for b in population_input.bands
+        ],
+        "layer_population_years": population_input.years,
+        "layer_population_band_indices": population_input.indices,
+        "layer_spi_path": str(spi_input.path),
         "layer_spi_bands": [JobBand.Schema().dump(b) for b in spi_input.bands],
-        "layer_spi_band_indices":
-        spi_input.indices,
-        "layer_spi_years":
-        spi_input.years,
-        "layer_spi_lag":
-        spi_lag,
-        "layer_jrc_path":
-        str(jrc_input.path),
-        "layer_jrc_band":
-        JobBand.Schema().dump(jrc_input.band),
-        "layer_jrc_band_index":
-        jrc_input.band_index,
-        "crs":
-        aoi.get_crs_dst_wkt(),
-        "geojsons":
-        json.dumps(geojsons),
-        "crosses_180th":
-        crosses_180th,
+        "layer_spi_band_indices": spi_input.indices,
+        "layer_spi_years": spi_input.years,
+        "layer_spi_lag": spi_lag,
+        "layer_jrc_path": str(jrc_input.path),
+        "layer_jrc_band": JobBand.Schema().dump(jrc_input.band),
+        "layer_jrc_band_index": jrc_input.band_index,
+        "crs": aoi.get_crs_dst_wkt(),
+        "geojsons": json.dumps(geojsons),
+        "crosses_180th": crosses_180th,
     }
 
 
@@ -188,8 +169,7 @@ def get_main_drought_summary_job_params(
 
 
 def compute_drought_vulnerability(
-    drought_job: Job, aoi: AOI, job_output_path: Path,
-    dataset_output_path: Path
+    drought_job: Job, aoi: AOI, job_output_path: Path, dataset_output_path: Path
 ) -> Job:
     """Calculate drought vulnerability indicators and save to disk"""
 

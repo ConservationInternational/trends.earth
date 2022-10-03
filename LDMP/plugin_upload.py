@@ -7,6 +7,7 @@
 from __future__ import print_function
 
 from future import standard_library
+
 standard_library.install_aliases()
 from builtins import input
 import sys
@@ -15,10 +16,10 @@ import xmlrpc.client
 from optparse import OptionParser
 
 # Configuration
-PROTOCOL = 'http'
-SERVER = 'plugins.qgis.org'
-PORT = '80'
-ENDPOINT = '/plugins/RPC2/'
+PROTOCOL = "http"
+SERVER = "plugins.qgis.org"
+PORT = "80"
+ENDPOINT = "/plugins/RPC2/"
 VERBOSE = False
 
 
@@ -34,7 +35,8 @@ def main(parameters, arguments):
         parameters.password,
         parameters.server,
         parameters.port,
-        ENDPOINT)
+        ENDPOINT,
+    )
     # fix_print_with_import
     print("Connecting to: %s" % hide_password(address))
 
@@ -42,7 +44,8 @@ def main(parameters, arguments):
 
     try:
         plugin_id, version_id = server.plugin.upload(
-            xmlrpc.client.Binary(open(arguments[0]).read()))
+            xmlrpc.client.Binary(open(arguments[0]).read())
+        )
         # fix_print_with_import
         print("Plugin ID: %s" % plugin_id)
         # fix_print_with_import
@@ -76,28 +79,41 @@ def hide_password(url, start=6):
     :param start: Position of start of password.
     :type start: int
     """
-    start_position = url.find(':', start) + 1
-    end_position = url.find('@')
+    start_position = url.find(":", start) + 1
+    end_position = url.find("@")
     return "%s%s%s" % (
         url[:start_position],
-        '*' * (end_position - start_position),
-        url[end_position:])
+        "*" * (end_position - start_position),
+        url[end_position:],
+    )
 
 
 if __name__ == "__main__":
     parser = OptionParser(usage="%prog [options] plugin.zip")
     parser.add_option(
-        "-w", "--password", dest="password",
-        help="Password for plugin site", metavar="******")
+        "-w",
+        "--password",
+        dest="password",
+        help="Password for plugin site",
+        metavar="******",
+    )
     parser.add_option(
-        "-u", "--username", dest="username",
-        help="Username of plugin site", metavar="user")
+        "-u",
+        "--username",
+        dest="username",
+        help="Username of plugin site",
+        metavar="user",
+    )
     parser.add_option(
-        "-p", "--port", dest="port",
-        help="Server port to connect to", metavar="80")
+        "-p", "--port", dest="port", help="Server port to connect to", metavar="80"
+    )
     parser.add_option(
-        "-s", "--server", dest="server",
-        help="Specify server name", metavar="plugins.qgis.org")
+        "-s",
+        "--server",
+        dest="server",
+        help="Specify server name",
+        metavar="plugins.qgis.org",
+    )
     options, args = parser.parse_args()
     if len(args) != 1:
         # fix_print_with_import
@@ -112,7 +128,7 @@ if __name__ == "__main__":
         # interactive mode
         username = getpass.getuser()
         # fix_print_with_import
-        print("Please enter user name [%s] :" % username, end=' ')
+        print("Please enter user name [%s] :" % username, end=" ")
         res = eval(input())
         if res != "":
             options.username = res

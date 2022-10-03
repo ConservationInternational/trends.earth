@@ -22,6 +22,7 @@ from pathlib import Path
 
 Ui_DlgAbout, _ = uic.loadUiType(str(Path(__file__).parent / "gui/DlgAbout.ui"))
 
+
 class DlgAbout(QtWidgets.QDialog, Ui_DlgAbout):
     def __init__(self, parent=None):
         """Constructor."""
@@ -30,7 +31,9 @@ class DlgAbout(QtWidgets.QDialog, Ui_DlgAbout):
         self.setupUi(self)
 
         # Add version number to about dialog
-        version = '{}<br>(revision {}, {})'.format(
-            __version__, __revision__, __release_date__)
+        version = "{}<br>(revision {}, {})".format(
+            __version__, __revision__, __release_date__
+        )
         self.textBrowser.setText(
-            self.textBrowser.text().replace('VERSION_NUMBER', version))
+            self.textBrowser.text().replace("VERSION_NUMBER", version)
+        )

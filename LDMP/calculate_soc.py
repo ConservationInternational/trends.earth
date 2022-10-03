@@ -36,7 +36,8 @@ from .logger import log
 from .lc_setup import get_lc_nesting, get_trans_matrix
 
 DlgCalculateSocUi, _ = uic.loadUiType(
-    str(Path(__file__).parent / "gui/DlgCalculateSOC.ui"))
+    str(Path(__file__).parent / "gui/DlgCalculateSOC.ui")
+)
 
 
 class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
@@ -53,30 +54,27 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
     LOCAL_SCRIPT_NAME = "local-soil-organic-carbon"
 
     def __init__(
-            self,
-            iface: qgis.gui.QgisInterface,
-            script: ExecutionScript,
-            parent: QtWidgets.QWidget = None,
+        self,
+        iface: qgis.gui.QgisInterface,
+        script: ExecutionScript,
+        parent: QtWidgets.QWidget = None,
     ):
         super().__init__(iface, script, parent)
         self.setupUi(self)
 
         self.regimes = [
-            ('Temperate dry (Fl = 0.80)', .80),
-            ('Temperate moist (Fl = 0.69)', .69),
-            ('Tropical dry (Fl = 0.58)', .58),
-            ('Tropical moist (Fl = 0.48)', .48),
-            ('Tropical montane (Fl = 0.64)', .64)
+            ("Temperate dry (Fl = 0.80)", 0.80),
+            ("Temperate moist (Fl = 0.69)", 0.69),
+            ("Tropical dry (Fl = 0.58)", 0.58),
+            ("Tropical moist (Fl = 0.48)", 0.48),
+            ("Tropical montane (Fl = 0.64)", 0.64),
         ]
 
         if self.script.run_mode == AlgorithmRunMode.LOCAL:
-            self.lc_setup_widget = lc_setup.LandCoverSetupLocalExecutionWidget(
-                self
-            )
+            self.lc_setup_widget = lc_setup.LandCoverSetupLocalExecutionWidget(self)
         elif self.script.run_mode == AlgorithmRunMode.REMOTE:
             self.lc_setup_widget = lc_setup.LandCoverSetupRemoteExecutionWidget(
-                self,
-                lc_nesting_type=lc_setup.LCNestingType.ESA
+                self, lc_nesting_type=lc_setup.LCNestingType.ESA
             )
 
         self.splitter_collapsed = False
@@ -133,9 +131,13 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
         if self.fl_radio_custom.isChecked():
             return float(self.fl_custom_lineEdit.text())
         elif self.fl_radio_chooseRegime.isChecked():
-            return [r[1] for r in self.regimes if r[0] == self.fl_chooseRegime_comboBox.currentText()][0]
+            return [
+                r[1]
+                for r in self.regimes
+                if r[0] == self.fl_chooseRegime_comboBox.currentText()
+            ][0]
         else:
-            return 'per pixel'
+            return "per pixel"
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
@@ -145,8 +147,10 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
         if not ret:
             return
 
-        if self.script.run_mode == AlgorithmRunMode.LOCAL or \
-                self.groupBox_custom_SOC.isChecked():
+        if (
+            self.script.run_mode == AlgorithmRunMode.LOCAL
+            or self.groupBox_custom_SOC.isChecked()
+        ):
             self.calculate_locally()
         else:
             self.calculate_on_GEE()
@@ -159,7 +163,7 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
                 self.tr(
                     "Due to the options you have chosen, this calculation must occur "
                     "offline. You MUST select a custom soil organic carbon dataset."
-                )
+                ),
             )
             return
         if self.script.run_mode != AlgorithmRunMode.LOCAL:
@@ -169,7 +173,7 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
                 self.tr(
                     "Due to the options you have chosen, this calculation must occur "
                     "offline. You MUST select a custom land cover dataset."
-                )
+                ),
             )
             return
 
@@ -180,7 +184,7 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
                 self.tr(
                     "You must add a soil organic carbon layer to your map before you "
                     "can run the calculation."
-                )
+                ),
             )
             return
 
@@ -191,44 +195,43 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
                 None,
                 self.tr("Warning"),
                 self.tr(
-                    f'The initial year ({year_initial}) is greater than or '
-                    'equal to the final year ({year_final}) - this analysis '
-                    'might generate strange results.'
-                )
+                    f"The initial year ({year_initial}) is greater than or "
+                    "equal to the final year ({year_final}) - this analysis "
+                    "might generate strange results."
+                ),
             )
 
         initial_layer = self.lc_setup_widget.initial_year_layer_cb.get_layer()
         # initial_layer = self.lc_setup_widget.use_custom_initial.get_layer()
         initial_extent_geom = qgis.core.QgsGeometry.fromRect(initial_layer.extent())
-        if self.aoi.calc_frac_overlap(initial_extent_geom) < .99:
+        if self.aoi.calc_frac_overlap(initial_extent_geom) < 0.99:
             QtWidgets.QMessageBox.critical(
                 None,
                 self.tr("Error"),
                 self.tr(
                     "Area of interest is not entirely within the initial land cover "
                     "layer."
-                )
+                ),
             )
             return
 
         final_layer = self.lc_setup_widget.target_year_layer_cb.get_layer()
         # final_layer = self.lc_setup_widget.use_custom_final.get_layer()
         final_extent_geom = qgis.core.QgsGeometry.fromRect(final_layer.extent())
-        if self.aoi.calc_frac_overlap(final_extent_geom) < .99:
+        if self.aoi.calc_frac_overlap(final_extent_geom) < 0.99:
             QtWidgets.QMessageBox.critical(
                 None,
                 self.tr("Error"),
                 self.tr(
                     "Area of interest is not entirely within the final land cover "
                     "layer."
-                )
+                ),
             )
             return
 
         self.close()
 
-        initial_usable = (
-            self.lc_setup_widget.initial_year_layer_cb.get_current_band())
+        initial_usable = self.lc_setup_widget.initial_year_layer_cb.get_current_band()
         final_usable = self.lc_setup_widget.target_year_layer_cb.get_current_band()
         # initial_usable = self.lc_setup_widget.use_custom_initial.get_current_band()
         # final_usable = self.lc_setup_widget.use_custom_final.get_current_band()
@@ -247,12 +250,8 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
                 initial_usable.band_info.metadata["year"],
                 final_usable.band_info.metadata["year"],
             ],
-            'legend_nesting': LCLegendNesting.Schema().dump(
-                get_lc_nesting()
-            ),
-            'trans_matrix': LCTransitionDefinitionDeg.Schema().dump(
-                get_trans_matrix()
-            ),
+            "legend_nesting": LCLegendNesting.Schema().dump(get_lc_nesting()),
+            "trans_matrix": LCTransitionDefinitionDeg.Schema().dump(get_trans_matrix()),
             "fl": self.get_fl(),
         }
         job_manager.submit_local_job(job_params, self.LOCAL_SCRIPT_NAME, self.aoi)
@@ -265,19 +264,15 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
         payload = {
             "year_initial": self.lc_setup_widget.initial_year_de.date().year(),
             "year_final": self.lc_setup_widget.target_year_de.date().year(),
-            'fl': self.get_fl(),
-            'download_annual_lc': self.download_annual_lc.isChecked(),
-            'geojsons': json.dumps(geojsons),
-            'crs': self.aoi.get_crs_dst_wkt(),
-            'crosses_180th': crosses_180th,
-            'legend_nesting': LCLegendNesting.Schema().dump(
-                get_lc_nesting()
-            ),
-            'trans_matrix': LCTransitionDefinitionDeg.Schema().dump(
-                get_trans_matrix()
-            ),
-            'task_name': self.execution_name_le.text(),
-            'task_notes': self.options_tab.task_notes.toPlainText()
+            "fl": self.get_fl(),
+            "download_annual_lc": self.download_annual_lc.isChecked(),
+            "geojsons": json.dumps(geojsons),
+            "crs": self.aoi.get_crs_dst_wkt(),
+            "crosses_180th": crosses_180th,
+            "legend_nesting": LCLegendNesting.Schema().dump(get_lc_nesting()),
+            "trans_matrix": LCTransitionDefinitionDeg.Schema().dump(get_trans_matrix()),
+            "task_name": self.execution_name_le.text(),
+            "task_notes": self.options_tab.task_notes.toPlainText(),
         }
 
         resp = job_manager.submit_remote_job(payload, self.script.id)
@@ -288,11 +283,9 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
         else:
             main_msg = "Error"
             description = (
-                "Unable to submit Soil organic carbon task to Trends.Earth server.")
+                "Unable to submit Soil organic carbon task to Trends.Earth server."
+            )
         self.mb.pushMessage(
-            self.tr(main_msg),
-            self.tr(description),
-            level=0,
-            duration=5
+            self.tr(main_msg), self.tr(description), level=0, duration=5
         )
         log("leaving calculate_on_GEE...")

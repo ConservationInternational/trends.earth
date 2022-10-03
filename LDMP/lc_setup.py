@@ -870,7 +870,8 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
                         None,
                         self.tr("Error"),
                         self.tr(
-                            "Error reading data. Trends.Earth supports a maximum of 60 different land cover classes"
+                            "Error reading data. Trends.Earth supports a maximum "
+                            "of 38 different land cover classes"
                         ),
                     )
 
@@ -895,7 +896,8 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
                         None,
                         self.tr("Error"),
                         self.tr(
-                            "Error reading data. Trends.Earth supports a maximum of 60 different land cover classes"
+                            "Error reading data. Trends.Earth supports a maximum "
+                            "of 38 different land cover classes"
                         ),
                     )
 

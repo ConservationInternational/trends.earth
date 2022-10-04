@@ -441,7 +441,7 @@ def create_categorical_color_ramp_from_legend(nesting):
 
 def create_categorical_transitions_color_ramp_from_legend(nesting):
     nesting = LCLegendNesting.Schema().loads(nesting)
-    return create_categorical_color_ramp(nesting.child.get_ramp_items())
+    return create_categorical_color_ramp(nesting.child.get_transitions_ramp_items())
 
 
 def _create_categorical_with_dynamic_ramp_color_ramp(style_config, band_info):

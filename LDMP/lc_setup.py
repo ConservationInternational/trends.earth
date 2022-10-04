@@ -736,7 +736,8 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
             if ind != -1:
                 lc_class_combo.setCurrentIndex(ind)
             self.remap_view.setIndexWidget(
-                self.proxy_model.index(row, self.table_model.parent_label_col()), lc_class_combo
+                self.proxy_model.index(row, self.table_model.parent_label_col()),
+                lc_class_combo,
             )
 
         self.remap_view.horizontalHeader().setSectionResizeMode(
@@ -763,10 +764,12 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
     def update_nesting_from_widget(self):
         nesting = self.get_default_nesting()
         for row in range(0, self.table_model.rowCount()):
-            child_code = self.table_model.index(row, 0).data()
+            child_code = self.table_model.index(
+                row, self.table_model.child_code_col()
+            ).data()
             child_class = nesting.child.classByCode(child_code)
             new_parent_class = self.remap_view.indexWidget(
-                self.proxy_model.index(row, 2)
+                self.proxy_model.index(row, self.table_model.parent_label_col())
             ).get_current_class()
 
             nesting.update_parent(child_class, new_parent_class)

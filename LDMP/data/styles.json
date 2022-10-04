@@ -680,19 +680,8 @@
   "Land cover transitions": {
     "title": "lc_tr_title",
     "ramp": {
-      "type": "categorical",
-      "shader": "discrete",
-      "items": [
-        { "value": -32768, "color": "#000000", "label": "nodata" },
-        { "value": 9, "color": "#ffffe0", "label": "lc_tr_nochange" },
-        { "value": 19, "color": "#787F1B", "label": "lc_tr_forest_loss" },
-        { "value": 29, "color": "#FFAC42", "label": "lc_tr_grassland_loss" },
-        { "value": 39, "color": "#FFFB6E", "label": "lc_tr_cropland_loss" },
-        { "value": 49, "color": "#00DB84", "label": "lc_tr_wetland_loss" },
-        { "value": 59, "color": "#E60017", "label": "lc_tr_artificial_loss" },
-        { "value": 69, "color": "#B48515", "label": "lc_tr_bare_loss" },
-        { "value": 79, "color": "#0053C4", "label": "lc_tr_water_loss" }
-      ]
+      "type": "categorical transitions from legend",
+      "shader": "discrete"
     }
   },
   "Land cover (degradation)": {

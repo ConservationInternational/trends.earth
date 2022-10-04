@@ -295,7 +295,7 @@ class LCClassComboBox(QtWidgets.QComboBox):
 
 
 class LCAggTableModel(QtCore.QAbstractTableModel):
-    def __init__(self, nesting, parent=None, *args):
+    def __init__(self, nesting, parent=None, child_label_col=True, *args):
         QtCore.QAbstractTableModel.__init__(self, parent, *args)
         self.nesting = nesting
 
@@ -307,6 +307,8 @@ class LCAggTableModel(QtCore.QAbstractTableModel):
             ("Child_Label", tr_lc_setup.tr("Input class")),
             ("Parent_Label", tr_lc_setup.tr("Output class")),
         ]
+        if not child_label_col:
+            colname_tuples.pop(1)
         self.colnames_json = [x[0] for x in colname_tuples]
         self.colnames_pretty = [x[1] for x in colname_tuples]
 
@@ -316,10 +318,25 @@ class LCAggTableModel(QtCore.QAbstractTableModel):
     def columnCount(self, parent=None):
         return len(self.colnames_json)
 
+    def child_code_col(self):
+        return self.colnames_json.index("Child_Code")
+
+    def child_label_col(self):
+        try:
+            return self.colnames_json.index("Child_Label")
+        except ValueError:
+            return None
+
+    def parent_label_col(self):
+        return self.colnames_json.index("Parent_Label")
+
     def data(self, index, role):
         if not index.isValid():
             return None
-        elif role == QtCore.Qt.TextAlignmentRole and index.column() in [0, 2, 3]:
+        elif (
+            role == QtCore.Qt.TextAlignmentRole
+            and index.column() != self.child_label_col()
+        ):
             return QtCore.Qt.AlignCenter
         elif role != QtCore.Qt.DisplayRole:
             return None
@@ -686,7 +703,11 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
 
         nesting = self.nesting
 
-        self.table_model = LCAggTableModel(nesting, parent=self)
+        self.table_model = LCAggTableModel(
+            nesting,
+            parent=self,
+            child_label_col=self.AGGREGATION_TYPE == AggregationType.ESA_TO_CUSTOM,
+        )
         self.proxy_model = QtCore.QSortFilterProxyModel()
         self.proxy_model.setSourceModel(self.table_model)
         self.remap_view.setModel(self.proxy_model)
@@ -698,7 +719,9 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
 
             # Get the input code for this row and the final label it should map
             # to by default
-            child_code = self.table_model.index(row, 0).data()
+            child_code = self.table_model.index(
+                row, self.table_model.child_code_col()
+            ).data()
             parent_class = [
                 nesting.parentClassForChild(c)
                 for c in nesting.child.key_with_nodata()
@@ -713,18 +736,25 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
             if ind != -1:
                 lc_class_combo.setCurrentIndex(ind)
             self.remap_view.setIndexWidget(
-                self.proxy_model.index(row, 2), lc_class_combo
+                self.proxy_model.index(row, self.table_model.parent_label_col()), lc_class_combo
             )
 
         self.remap_view.horizontalHeader().setSectionResizeMode(
-            0, QtWidgets.QHeaderView.ResizeToContents
+            self.table_model.child_code_col(), QtWidgets.QHeaderView.ResizeToContents
         )
-        self.remap_view.horizontalHeader().setSectionResizeMode(
-            1, QtWidgets.QHeaderView.Stretch
-        )
-        self.remap_view.horizontalHeader().setSectionResizeMode(
-            2, QtWidgets.QHeaderView.ResizeToContents
-        )
+        if self.AGGREGATION_TYPE == AggregationType.ESA_TO_CUSTOM:
+            # This column is hidden for CUSTOM_TO_CUSTOM transitions
+            self.remap_view.horizontalHeader().setSectionResizeMode(
+                self.table_model.child_label_col(), QtWidgets.QHeaderView.Stretch
+            )
+            self.remap_view.horizontalHeader().setSectionResizeMode(
+                self.table_model.parent_label_col(),
+                QtWidgets.QHeaderView.ResizeToContents,
+            )
+        elif self.AGGREGATION_TYPE == AggregationType.CUSTOM_TO_CUSTOM:
+            self.remap_view.horizontalHeader().setSectionResizeMode(
+                self.table_model.parent_label_col(), QtWidgets.QHeaderView.Stretch
+            )
 
         self.remap_view.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
 

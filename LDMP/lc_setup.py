@@ -528,20 +528,20 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
         # Setup the class table so that the table is defined when a user first
         # loads the dialog
         if nesting:
-            self.default_nesting = nesting
+            self.nesting = nesting
         else:
-            self.default_nesting = self.get_default_nesting()
-        self.setup_nesting_table(self.default_nesting)
+            self.nesting = self.get_nesting()
+        self.setup_nesting(self.nesting)
 
-    def set_default_nesting(self, nesting):
-        self.default_nesting = nesting
+    def set_nesting(self, nesting):
+        self.nesting = nesting
         if self.AGGREGATION_TYPE == AggregationType.ESA_TO_CUSTOM:
             esa_lc_nesting_to_settings(nesting)
 
-    def get_default_nesting(self):
+    def get_nesting(self):
         if self.AGGREGATION_TYPE == AggregationType.ESA_TO_CUSTOM:
-            self.default_nesting = esa_lc_nesting_from_settings()
-        return self.default_nesting
+            self.nesting = esa_lc_nesting_from_settings()
+        return self.nesting
 
     def btn_close_pressed(self):
         self.update_nesting_from_widget()
@@ -572,8 +572,7 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
 
         if nesting:
             log(f"Loaded nesting from {f}")
-            self.set_default_nesting(nesting)
-            self.setup_nesting_table(nesting)
+            self.setup_nesting(nesting)
 
     def btn_save_pressed(self):
         self.update_nesting_from_widget()
@@ -599,7 +598,7 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
 
                 return
 
-            nesting = self.get_default_nesting()
+            nesting = self.get_nesting()
             with open(f, "w") as outfile:
                 json.dump(
                     LCLegendNesting.Schema().dump(nesting),
@@ -610,7 +609,7 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
                     default=json_serial,
                 )
 
-    def setup_nesting_table(self, nesting_input=None):
+    def setup_nesting(self, nesting_input=None):
         # Load the codes each class will be recoded to.
         #
         # The "nesting_input" parameter will include any mappings derived from a
@@ -623,7 +622,7 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
         # custom user data file when this class is instantiated from the
         # DlgDataIOImportLC class.
 
-        child_legend = self.get_default_nesting().child
+        child_legend = self.get_nesting().child
         if nesting_input:
             valid_child_codes = sorted([c.code for c in child_legend.key])
             child_code_input = sorted([c.code for c in nesting_input.child.key])
@@ -699,12 +698,12 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
 
             nesting_input.nesting = new_nesting_dict
 
-            self.nesting = nesting_input
+        self.set_nesting(nesting_input)
+        self.setup_nesting_table()
 
-        nesting = self.nesting
-
+    def setup_nesting_table(self):
         self.table_model = LCAggTableModel(
-            nesting,
+            self.nesting,
             parent=self,
             child_label_col=self.AGGREGATION_TYPE == AggregationType.ESA_TO_CUSTOM,
         )
@@ -714,7 +713,7 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
 
         # Add selector in cell
 
-        for row in range(0, len(nesting.child.key_with_nodata())):
+        for row in range(0, len(self.nesting.child.key_with_nodata())):
             # Set the default final codes for each row
 
             # Get the input code for this row and the final label it should map
@@ -723,12 +722,12 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
                 row, self.table_model.child_code_col()
             ).data()
             parent_class = [
-                nesting.parentClassForChild(c)
-                for c in nesting.child.key_with_nodata()
+                self.nesting.parentClassForChild(c)
+                for c in self.nesting.child.key_with_nodata()
                 if c.code == child_code
             ][0]
 
-            lc_class_combo = LCClassComboBox(nesting)
+            lc_class_combo = LCClassComboBox(self.nesting)
 
             # Find the index in the combo box of this translated final label
             ind = lc_class_combo.findText(parent_class.name_long)
@@ -762,7 +761,7 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
         return True
 
     def update_nesting_from_widget(self):
-        nesting = self.get_default_nesting()
+        nesting = self.get_nesting()
         for row in range(0, self.table_model.rowCount()):
             child_code = self.table_model.index(
                 row, self.table_model.child_code_col()
@@ -773,13 +772,13 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
             ).get_current_class()
 
             nesting.update_parent(child_class, new_parent_class)
-        self.set_default_nesting(nesting)
-        self.default_nesting = deepcopy(nesting)
+        self.set_nesting(nesting)
+        self.nesting = deepcopy(nesting)
 
-    def reset_nesting_table(self, get_default=False):
-        if get_default:
-            self.default_nesting = self.get_default_nesting()
-        self.setup_nesting_table(nesting_input=self.default_nesting)
+    def reset_nesting_table(self):
+        if self.AGGREGATION_TYPE == AggregationType.ESA_TO_CUSTOM:
+            self.nesting = self.get_nesting()
+        self.setup_nesting(nesting_input=self.nesting)
 
 
 class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
@@ -1449,8 +1448,10 @@ class LccInfoUtils:
                     lcc_info = LCClassInfo.Schema().load(lcc)
                     lc_classes.append(lcc_info)
             except ValidationError as ve:
+                log(f'ValidationError while loading {file_path}: {ve}')
                 status = False
             except Exception as exc:
+                log(f'Exception while loading {file_path}: {exc}')
                 status = False
 
         if not status:

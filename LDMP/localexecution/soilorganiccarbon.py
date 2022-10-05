@@ -105,7 +105,7 @@ def compute_soil_organic_carbon(
             bands.append(soc_band)
 
         for year in soc_job.params["lc_years"]:
-            lc_band = JobBand(name="Land cover (7 class)", metadata={"year": year})
+            lc_band = JobBand(name="Land cover", metadata={"year": year})
             bands.append(lc_band)
 
         soc_job.results = RasterResults(

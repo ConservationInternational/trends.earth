@@ -85,6 +85,9 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
         self.close()
         crosses_180th, geojsons = self.gee_bounding_box
 
+        trans_matrix = self.lc_define_deg_widget.get_trans_matrix_from_widget()
+        lc_setup.trans_matrix_to_settings(trans_matrix)
+
         payload = {
             "year_initial": self.lc_setup_widget.initial_year_de.date().year(),
             "year_final": self.lc_setup_widget.target_year_de.date().year(),
@@ -94,9 +97,7 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
             "legend_nesting": LCLegendNesting.Schema().dump(
                 self.lc_setup_widget.aggregation_dialog.nesting
             ),
-            "trans_matrix": LCTransitionDefinitionDeg.Schema().dump(
-                self.lc_define_deg_widget.trans_matrix
-            ),
+            "trans_matrix": LCTransitionDefinitionDeg.Schema().dump(trans_matrix),
             "task_name": self.execution_name_le.text(),
             "task_notes": self.task_notes.toPlainText(),
         }
@@ -195,6 +196,9 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
 
         self.close()
 
+        trans_matrix = self.lc_define_deg_widget.get_trans_matrix_from_widget()
+        lc_setup.trans_matrix_to_settings(trans_matrix)
+
         job_params = {
             "task_name": self.execution_name_le.text(),
             "task_notes": self.task_notes.toPlainText(),
@@ -205,8 +209,6 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
             "lc_final_path": str(final_usable.path),
             "lc_final_band_index": final_usable.band_index,
             "legend_nesting": initial_nesting,
-            "trans_matrix": LCTransitionDefinitionDeg.Schema().dumps(
-                self.lc_define_deg_widget.trans_matrix
-            ),
+            "trans_matrix": LCTransitionDefinitionDeg.Schema().dumps(trans_matrix),
         }
         job_manager.submit_local_job(job_params, self.LOCAL_SCRIPT_NAME, self.aoi)

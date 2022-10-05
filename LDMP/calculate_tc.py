@@ -422,7 +422,7 @@ class DlgCalculateTCData(calculate.DlgCalculateBase, DlgCalculateTcDataUi):
                 BandInfo("Total carbon", add_to_map=add_to_map, metadata={"year": year})
             )
         for year in lc_years:
-            band_infos.append(BandInfo("Land cover (7 class)", metadata={"year": year}))
+            band_infos.append(BandInfo("Land cover", metadata={"year": year}))
 
         out_json = os.path.splitext(out_f)[0] + ".json"
         # TODO: finish implementation

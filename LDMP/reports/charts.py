@@ -756,7 +756,7 @@ class LandCoverChartsConfiguration(BaseAlgorithmChartsConfiguration):
         for lbi in self.layer_band_infos:
             bi = lbi.band_info
             bi_name = bi["name"]
-            if bi_name == "Land cover (7 class)":
+            if bi_name in ["Land cover", "Land cover (7 class)"]:
                 year = bi["metadata"]["year"]
                 lc_layer_band_infos[year] = lbi
 

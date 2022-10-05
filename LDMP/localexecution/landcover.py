@@ -82,11 +82,11 @@ def compute_land_cover(
                 },
             ),
             JobBand(
-                name="Land cover (7 class)",
+                name="Land cover",
                 metadata={"year": lc_job.params["year_initial"], "nesting": nesting},
             ),
             JobBand(
-                name="Land cover (7 class)",
+                name="Land cover",
                 metadata={"year": lc_job.params["year_final"], "nesting": nesting},
             ),
             JobBand(

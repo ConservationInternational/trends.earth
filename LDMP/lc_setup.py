@@ -177,6 +177,32 @@ def json_serial(obj):
     raise TypeError("Type {} not serializable".format(type(obj)))
 
 
+class RotatedHeaderView(QtWidgets.QHeaderView):
+    def __init__(self, orientation, parent=None):
+        super(RotatedHeaderView, self).__init__(orientation, parent)
+        self.setMinimumSectionSize(20)
+
+    def paintSection(self, painter, rect, logicalIndex):
+        painter.save()
+        # translate the painter such that rotate will rotate around the correct point
+        painter.translate(rect.x() + rect.width(), rect.y())
+        painter.rotate(90)
+        # and have parent code paint at this location
+        newrect = QtCore.QRect(0, 0, rect.height(), rect.width())
+        super(RotatedHeaderView, self).paintSection(painter, newrect, logicalIndex)
+        painter.restore()
+
+    def minimumSizeHint(self):
+        size = super(RotatedHeaderView, self).minimumSizeHint()
+        size.transpose()
+        return size
+
+    def sectionSizeFromContents(self, logicalIndex):
+        size = super(RotatedHeaderView, self).sectionSizeFromContents(logicalIndex)
+        size.transpose()
+        return size
+
+
 class VerticalLabel(QtWidgets.QLabel):
     def __init__(self, parent=None):
         super(VerticalLabel, self).__init__(parent)
@@ -1066,9 +1092,15 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
         self.deg_def_matrix.setRowCount(len(legend.key))
         self.deg_def_matrix.setColumnCount(len(legend.key))
         self.deg_def_matrix.setHorizontalHeaderLabels(
-            [c.name_short for c in legend.key]
+            [c.get_name_short() for c in legend.key]
         )
-        self.deg_def_matrix.setVerticalHeaderLabels([c.name_short for c in legend.key])
+        self.deg_def_matrix.setVerticalHeaderLabels(
+            [c.get_name_short() for c in legend.key]
+        )
+        if len(legend.key) > 9:
+            self.deg_def_matrix.setHorizontalHeader(
+                RotatedHeaderView(QtCore.Qt.Horizontal, self.deg_def_matrix)
+            )
 
         for row in range(0, self.deg_def_matrix.rowCount()):
             for col in range(0, self.deg_def_matrix.columnCount()):
@@ -1448,10 +1480,10 @@ class LccInfoUtils:
                     lcc_info = LCClassInfo.Schema().load(lcc)
                     lc_classes.append(lcc_info)
             except ValidationError as ve:
-                log(f'ValidationError while loading {file_path}: {ve}')
+                log(f"ValidationError while loading {file_path}: {ve}")
                 status = False
             except Exception as exc:
-                log(f'Exception while loading {file_path}: {exc}')
+                log(f"Exception while loading {file_path}: {exc}")
                 status = False
 
         if not status:

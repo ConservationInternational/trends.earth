@@ -1098,12 +1098,7 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
             [c.get_name_short() for c in legend.key]
         )
         if len(legend.key) > 9:
-            # It legend is very long, then rotate the column labels. Otherwise rotate the row labels
             self.deg_def_matrix.setHorizontalHeader(
-                RotatedHeaderView(QtCore.Qt.Horizontal, self.deg_def_matrix)
-            )
-        else:
-            self.deg_def_matrix.setVerticalHeader(
                 RotatedHeaderView(QtCore.Qt.Horizontal, self.deg_def_matrix)
             )
 

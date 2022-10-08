@@ -283,7 +283,12 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
             "geojsons": json.dumps(geojsons),
             "crs": self.aoi.get_crs_dst_wkt(),
             "crosses_180th": crosses_180th,
-            "legend_nesting": LCLegendNesting.Schema().dump(get_lc_nesting()),
+            "legend_nesting_esa_to_custom": LCLegendNesting.Schema().dump(
+                lc_setup.esa_lc_nesting_from_settings()
+            ),
+            "legend_nesting_custom_to_ipcc": LCLegendNesting.Schema().dump(
+                lc_setup.ipcc_lc_nesting_from_settings()
+            ),
             "trans_matrix": LCTransitionDefinitionDeg.Schema().dump(get_trans_matrix()),
             "task_name": self.execution_name_le.text(),
             "task_notes": self.options_tab.task_notes.toPlainText(),

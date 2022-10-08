@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>409</width>
+    <width>417</width>
     <height>137</height>
    </rect>
   </property>
@@ -70,7 +70,7 @@
       </font>
      </property>
      <property name="text">
-      <string>Restore 22 class legend from ESA CCI</string>
+      <string>Restore 37 class legend from ESA CCI</string>
      </property>
     </widget>
    </item>

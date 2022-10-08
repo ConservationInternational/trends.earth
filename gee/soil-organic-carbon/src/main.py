@@ -27,7 +27,12 @@ def run(params, logger):
     geojsons = json.loads(params.get("geojsons"))
     crs = params.get("crs")
     trans_matrix = LCTransitionDefinitionDeg.Schema().load(params.get("trans_matrix"))
-    legend_nesting = LCLegendNesting.Schema().load(params.get("legend_nesting"))
+    esa_to_custom_nesting = LCLegendNesting.Schema().load(
+        params.get("legend_nesting_esa_to_custom")
+    )
+    ipcc_nesting = LCLegendNesting.Schema().load(
+        params.get("legend_nesting_custom_to_ipcc")
+    )
 
     # Check the ENV. Are we running this locally or in prod?
 
@@ -39,7 +44,14 @@ def run(params, logger):
 
     logger.debug("Running main script.")
     out = soc(
-        year_initial, year_final, fl, trans_matrix, legend_nesting, dl_annual_lc, logger
+        year_initial,
+        year_final,
+        fl,
+        trans_matrix,
+        esa_to_custom_nesting,
+        ipcc_nesting,
+        dl_annual_lc,
+        logger,
     )
 
     out = teimage_v1_to_teimage_v2(out)

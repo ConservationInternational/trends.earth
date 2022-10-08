@@ -480,8 +480,17 @@ def esa_lc_nesting_from_settings() -> LCLegendNesting:
     return LCLegendNesting.Schema().loads(nesting_str)
 
 
-def get_trans_matrix(get_default=False, save_settings=True, type="UNCCD"):
-    assert type in ("ESA", "UNCCD")
+def _get_default_matrix():
+    return read_lc_matrix_file(
+        os.path.join(
+            os.path.dirname(os.path.realpath(__file__)),
+            "data",
+            f"land_cover_transition_matrix_UNCCD.json",
+        )
+    )
+
+
+def get_trans_matrix(get_default=False, save_settings=True):
 
     if not get_default:
         log("Loading land cover degradation matrix from settings")
@@ -491,24 +500,25 @@ def get_trans_matrix(get_default=False, save_settings=True, type="UNCCD"):
 
     if matrix is None:
         log("Land cover degradation matrix is None")
-        matrix = read_lc_matrix_file(
-            os.path.join(
-                os.path.dirname(os.path.realpath(__file__)),
-                "data",
-                f"land_cover_transition_matrix_UNCCD.json",
-            )
-        )
+        matrix = _get_default_matrix()
         nesting = ipcc_lc_nesting_from_settings()
-        if type == "ESA":
-            # If ESA type is selected, setup a default transition matrix for the ESA
-            # classes by defining each transition based on what the default transition
-            # meaning is for the parent class when using the default UNCCD legend
-            definitions = []
-            for c_initial in matrix.legend.key:
-                for c_final in matrix.legend.key:
-                    nesting.parent_for_child(c_initial)
-                    nesting.parent_for_child(c_final)
-                    definitions.append(matrix)
+        definitions = []
+        for c_initial in nesting.child.key:
+            for c_final in nesting.child.key:
+                definition = deepcopy(
+                    matrix.get_definition(
+                        nesting.parent_for_child(c_initial),
+                        nesting.parent_for_child(c_final),
+                    )
+                )
+                definition.initial = c_initial
+                definition.final = c_final
+                definitions.append(definition)
+        matrix.definitions = LCTransitionMatrixDeg(
+            name="Degradation matrix", transitions=definitions
+        )
+        matrix.legend = nesting.child
+        matrix.name = "Custom transition matrix"
 
         if matrix and save_settings:
             trans_matrix_to_settings(matrix)
@@ -563,10 +573,14 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
         self.nesting = nesting
         if self.AGGREGATION_TYPE == AggregationType.ESA_TO_CUSTOM:
             esa_lc_nesting_to_settings(nesting)
+        elif self.AGGREGATION_TYPE == AggregationType.CUSTOM_TO_CUSTOM:
+            ipcc_lc_nesting_to_settings(nesting)
 
     def get_nesting(self):
         if self.AGGREGATION_TYPE == AggregationType.ESA_TO_CUSTOM:
             self.nesting = esa_lc_nesting_from_settings()
+        elif self.AGGREGATION_TYPE == AggregationType.CUSTOM_TO_CUSTOM:
+            self.nesting = ipcc_lc_nesting_from_settings()
         return self.nesting
 
     def btn_close_pressed(self):
@@ -648,8 +662,8 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
         # custom user data file when this class is instantiated from the
         # DlgDataIOImportLC class.
 
-        child_legend = self.get_nesting().child
         if nesting_input:
+            child_legend = self.get_nesting().child
             valid_child_codes = sorted([c.code for c in child_legend.key])
             child_code_input = sorted([c.code for c in nesting_input.child.key])
             unnecessary_child_codes = sorted(
@@ -801,8 +815,8 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
         self.set_nesting(nesting)
         self.nesting = deepcopy(nesting)
 
-    def reset_nesting_table(self):
-        if self.AGGREGATION_TYPE == AggregationType.ESA_TO_CUSTOM:
+    def reset_nesting_table(self, get_default=False):
+        if get_default:
             self.nesting = self.get_nesting()
         self.setup_nesting(nesting_input=self.nesting)
 
@@ -1101,6 +1115,10 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
             self.deg_def_matrix.setHorizontalHeader(
                 RotatedHeaderView(QtCore.Qt.Horizontal, self.deg_def_matrix)
             )
+        # else:
+        #     self.deg_def_matrix.setHorizontalHeader(
+        #         QtWidgets.QHeaderView(QtCore.Qt.Horizontal, self.deg_def_matrix)
+        #     )
 
         for row in range(0, self.deg_def_matrix.rowCount()):
             for col in range(0, self.deg_def_matrix.columnCount()):
@@ -1401,8 +1419,8 @@ class LccInfoUtils:
             f"{status!s}"
         )
         if status:
-            LccInfoUtils.sync_trans_matrix(lcc_infos)
             LccInfoUtils.sync_lc_nesting(lcc_infos)
+            LccInfoUtils.sync_trans_matrix(lcc_infos)
 
         return status
 
@@ -1798,4 +1816,4 @@ class LccInfoUtils:
         )
 
         # Re-write the matrix but with the original meanings restored
-        _ = get_trans_matrix(True, True, type="ESA")
+        _ = get_trans_matrix(True, True)

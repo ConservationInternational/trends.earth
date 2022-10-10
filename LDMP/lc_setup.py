@@ -479,7 +479,6 @@ def ipcc_lc_nesting_from_settings() -> LCLegendNesting:
 
 
 def esa_lc_nesting_to_settings(nesting: LCLegendNesting):
-    log(f"saving esa_lc_nesting_to_settings with nesting {nesting.nesting}")
     conf.settings_manager.write_value(
         conf.Setting.LC_ESA_NESTING, LCLegendNesting.Schema().dumps(nesting)
     )
@@ -577,14 +576,10 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
         # Setup the class table so that the table is defined when a user first
         # loads the dialog
         if nesting:
-            log(f"nesting 1 {nesting.nesting}")
             self.nesting = nesting
         else:
-            log(f"nesting 1 {nesting}")
             self.nesting = self.get_nesting()
-        log(f"self.nesting 2 {self.nesting.nesting}")
         self.setup_nesting(self.nesting)
-        log(f"self.nesting 3 {self.nesting.nesting}")
 
     def set_nesting(self, nesting):
         self.nesting = nesting
@@ -770,7 +765,6 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
 
         # Add selector in cell
 
-        log(f"nesting.nesting (setup_nesting_table) {self.nesting.nesting}")
         for row in range(0, len(self.nesting.child.key_with_nodata())):
             # Get the input code for this row and the final label it should map
             # to by default
@@ -1713,9 +1707,6 @@ class LccInfoUtils:
         current_child_codes = [c.code for c in current_nesting.child.key]
         ipcc_codes = [c.code for c in reference_esa_nesting.parent.key]
 
-        log(f"current_child_codes {current_child_codes}")
-        log(f"ipcc_codes {ipcc_codes}")
-
         new_esa_parent_key = []
         new_nesting_map = {
             current_nesting.parent.nodata.code: [current_nesting.child.nodata.code]
@@ -1755,20 +1746,15 @@ class LccInfoUtils:
                 new_nesting_map[custom_class.code] = []
 
         # Nest any ESA classes that aren't already neded under nodata
-        log(f"new_nesting_map {new_nesting_map}")
         child_codes_in_nesting = [
             value for key, values in new_nesting_map.items() for value in values
         ]
-        log(f"child_codes_in_nesting {child_codes_in_nesting}")
         for esa_class in reference_esa_nesting.child.key:
             if esa_class.code not in child_codes_in_nesting:
                 new_nesting_map[current_nesting.parent.nodata.code].append(
                     esa_class.code
                 )
 
-        log(f"new_esa_parent_key {new_esa_parent_key}")
-        log(f"saving esa nesting {new_nesting_map}")
-        log(f"current_nesting.child.key {current_nesting.child.key}")
         current_nesting.parent.key = new_esa_parent_key
         current_nesting.parent.name = LccInfoUtils.CUSTOM_LEGEND_NAME
         current_nesting.nesting = new_nesting_map
@@ -1847,15 +1833,11 @@ class LccInfoUtils:
             def_lcc_infos.append(lcc_info)
             esa_nesting[lcc.code] = [lcc.code]
 
-        log(f"esa_nesting (set_default_esa_classes) {esa_nesting}")
-
         # Nodata code shouldn't be listed in nesting dict
         esa_nesting[ref_nesting.child.nodata.code] = [ref_nesting.child.nodata.code]
 
         # Save custom to ipcc nesting to settings
         if len(def_lcc_infos) > 0:
-            log(f"def_lcc_infos {def_lcc_infos}")
-            log(f"def_lcc_infos codes {[lcc.lcc.code for lcc in def_lcc_infos]}")
             LccInfoUtils.save_settings(def_lcc_infos)
 
         # Re-write the esa nesting matrix

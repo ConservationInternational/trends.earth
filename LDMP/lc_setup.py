@@ -645,11 +645,6 @@ class DlgCalculateLCSetAggregationBase(
             child_code = self.table_model.index(
                 row, self.table_model.child_code_col()
             ).data()
-            log(f"child_code {child_code}, row {row}")
-            log(f"parent codes in nesting {[key for key in nesting.nesting]}")
-            log(
-                f"child codes in nesting {[value for values in nesting.nesting.values() for value in values]}"
-            )
             child_class = nesting.child.classByCode(child_code)
             new_parent_class = self.remap_view.indexWidget(
                 self.proxy_model.index(row, self.table_model.parent_label_col())
@@ -877,9 +872,10 @@ class DlgCalculateLCSetAggregationCustom(DlgCalculateLCSetAggregationBase):
                 value for values in nesting_input.nesting.values() for value in values
             ]
 
-        log(f"nesting is {nesting_input.nesting}")
-        log(f"parent codes are {nesting_input.parent.codes()}")
-        log(f"child codes are {nesting_input.child.codes()}")
+        if conf.settings_manager.get_value(conf.Setting.DEBUG):
+            log(f"nesting is {nesting_input.nesting}")
+            log(f"parent codes are {nesting_input.parent.codes()}")
+            log(f"child codes are {nesting_input.child.codes()}")
         self.set_nesting(nesting_input)
         self.setup_nesting_table()
 
@@ -1768,9 +1764,14 @@ class LccInfoUtils:
         reference_nesting.child.name = LccInfoUtils.CUSTOM_LEGEND_NAME
         reference_nesting.child.nodata = child_nodata
         reference_nesting.nesting = nesting_map
+
         ipcc_lc_nesting_to_settings(reference_nesting)
 
         if conf.settings_manager.get_value(conf.Setting.DEBUG):
+            log(f"nesting is {reference_nesting.nesting}")
+            log(f"parent codes are {reference_nesting.parent.codes()}")
+            log(f"child codes are {reference_nesting.child.codes()}")
+
             log(
                 f"{LccInfoUtils.CUSTOM_LEGEND_NAME} - Saved IPCC lc "
                 f"nesting to settings."
@@ -1802,6 +1803,7 @@ class LccInfoUtils:
         new_nesting = deepcopy(current_nesting)
 
         current_child_codes = [c.code for c in current_nesting.child.key]
+        new_child_codes = [lcc.lcc.code for lcc in ref_lcc_infos]
         ipcc_codes = [c.code for c in reference_esa_nesting.parent.key]
 
         new_esa_parent_key = []
@@ -1816,16 +1818,22 @@ class LccInfoUtils:
                     custom_class.code
                 )
             elif custom_class.code in ipcc_codes:
-                # This code is  in the IPCC key, so assume this custom class
+                # This code is in the IPCC key, so assume this custom class
                 # is an IPCC class, so nest the same ESA classes under it as
                 # are nested in the default UNCCD key
                 custom_class_ref = reference_esa_nesting.parent.classByCode(
                     custom_class.code
                 )
                 new_esa_parent_key.append(custom_class_ref)
+                # It is possible that the custom legend may have class codes that match
+                # those in the ESA legend. If that is the case, make sure these codes
+                # aren't included in the children that are nested under this class (as
+                # then they would be added to the legend twice - as both a parent, and
+                # as a child)
                 new_nesting_map[custom_class_ref.code] = [
                     c.code
                     for c in reference_esa_nesting.children_for_parent(custom_class_ref)
+                    if c.code not in new_child_codes
                 ]
 
             elif custom_class.code in current_child_codes:
@@ -1858,6 +1866,10 @@ class LccInfoUtils:
         esa_lc_nesting_to_settings(current_nesting)
 
         if conf.settings_manager.get_value(conf.Setting.DEBUG):
+            log(f"nesting is {current_nesting.nesting}")
+            log(f"parent codes are {current_nesting.parent.codes()}")
+            log(f"child codes are {current_nesting.child.codes()}")
+
             log(
                 f"{LccInfoUtils.CUSTOM_LEGEND_NAME} - Saved ESA lc "
                 f"nesting to settings."

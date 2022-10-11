@@ -5,11 +5,12 @@ from pathlib import Path
 
 from osgeo import gdal
 from osgeo import osr
-from te_schemas import land_cover
 from te_schemas.results import Band as JobBand
 from te_schemas.results import DataType
 from te_schemas.results import Raster
 from te_schemas.results import RasterFileType
+from te_schemas.land_cover import LCLegendNesting
+from te_schemas.land_cover import LCTransitionDefinitionDeg
 from te_schemas.results import RasterResults
 from te_schemas.results import URI
 
@@ -52,10 +53,13 @@ def compute_land_cover(
     lc_job: Job, area_of_interest: AOI, job_output_path: Path, dataset_output_path: Path
 ) -> Job:
     in_vrt = _prepare_land_cover_inputs(lc_job, area_of_interest)
-    trans_matrix = land_cover.LCTransitionDefinitionDeg.Schema().loads(
+    trans_matrix = LCTransitionDefinitionDeg.Schema().loads(
         lc_job.params["trans_matrix"]
     )
-    nesting = lc_job.params["legend_nesting"]
+    nesting = LCLegendNesting.Schema().loads(lc_job.params["legend_nesting"])
+
+    class_codes = sorted([c.code for c in nesting.child.key])
+    class_positions = [*range(1, len(class_codes) + 1)]
 
     lc_change_worker = worker.StartWorker(
         LandCoverChangeWorker,
@@ -63,6 +67,8 @@ def compute_land_cover(
         str(in_vrt),
         str(dataset_output_path),
         trans_matrix.get_list(),
+        (class_codes, class_positions),
+        nesting.child.get_multiplier(),
         trans_matrix.get_persistence_list(),
     )
 
@@ -75,26 +81,32 @@ def compute_land_cover(
                 metadata={
                     "year_initial": lc_job.params["year_initial"],
                     "year_final": lc_job.params["year_final"],
-                    "trans_matrix": land_cover.LCTransitionDefinitionDeg.Schema().dumps(
+                    "trans_matrix": LCTransitionDefinitionDeg.Schema().dumps(
                         trans_matrix
                     ),
-                    "nesting": nesting,
+                    "nesting": LCLegendNesting.Schema().dumps(nesting),
                 },
             ),
             JobBand(
                 name="Land cover",
-                metadata={"year": lc_job.params["year_initial"], "nesting": nesting},
+                metadata={
+                    "year": lc_job.params["year_initial"],
+                    "nesting": LCLegendNesting.Schema().dumps(nesting),
+                },
             ),
             JobBand(
                 name="Land cover",
-                metadata={"year": lc_job.params["year_final"], "nesting": nesting},
+                metadata={
+                    "year": lc_job.params["year_final"],
+                    "nesting": LCLegendNesting.Schema().dumps(nesting),
+                },
             ),
             JobBand(
                 name="Land cover transitions",
                 metadata={
                     "year_initial": lc_job.params["year_initial"],
                     "year_final": lc_job.params["year_final"],
-                    "nesting": nesting,
+                    "nesting": LCLegendNesting.Schema().dumps(nesting),
                 },
             ),
         ]
@@ -117,11 +129,17 @@ def compute_land_cover(
 
 
 class LandCoverChangeWorker(worker.AbstractWorker):
-    def __init__(self, in_f, out_f, trans_matrix, persistence_remap):
+    def __init__(
+        self, in_f, out_f, trans_matrix, class_recode, multiplier, persistence_remap
+    ):
         worker.AbstractWorker.__init__(self)
         self.in_f = in_f
         self.out_f = out_f
         self.trans_matrix = trans_matrix
+        # class_recode is key for recoding classes from raw codes to ordinal codes
+        # used for calculating transitions
+        self.class_recode = class_recode
+        self.multiplier = multiplier
         self.persistence_remap = persistence_remap
 
     def work(self):
@@ -175,8 +193,19 @@ class LandCoverChangeWorker(worker.AbstractWorker):
                 a_i = band_initial.ReadAsArray(x, y, cols, rows)
                 a_f = band_final.ReadAsArray(x, y, cols, rows)
 
-                a_tr = a_i * 10 + a_f
-                a_tr[(a_i < 1) | (a_f < 1)] < --32768
+                ds_out.GetRasterBand(2).WriteArray(a_i, x, y)
+                ds_out.GetRasterBand(3).WriteArray(a_f, x, y)
+
+                # Recode bands from raw codes to ordinal values prior to
+                # calculating transitions
+                for value, replacement in zip(
+                    self.class_recode[0], self.class_recode[1]
+                ):
+                    a_i[a_i == int(value)] = int(replacement)
+                    a_f[a_f == int(value)] = int(replacement)
+
+                a_tr = a_i * self.multiplier + a_f
+                a_tr[(a_i < 1) | (a_f < 1)] < -32768
 
                 a_deg = a_tr.copy()
 
@@ -194,8 +223,6 @@ class LandCoverChangeWorker(worker.AbstractWorker):
                     a_tr[a_tr == int(value)] = int(replacement)
 
                 ds_out.GetRasterBand(1).WriteArray(a_deg, x, y)
-                ds_out.GetRasterBand(2).WriteArray(a_i, x, y)
-                ds_out.GetRasterBand(3).WriteArray(a_f, x, y)
                 ds_out.GetRasterBand(4).WriteArray(a_tr, x, y)
 
                 blocks += 1

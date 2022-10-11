@@ -450,7 +450,7 @@ def get_default_ipcc_nesting():
         )
     )
     nesting.child = deepcopy(nesting.parent)
-    nesting.nesting = {c.code: c.code for c in nesting.parent}
+    nesting.nesting = {c.code: c.code for c in nesting.parent.key}
     return nesting
 
 
@@ -552,19 +552,11 @@ def trans_matrix_to_settings(matrix: LCTransitionDefinitionDeg):
     )
 
 
-class AggregationType(Enum):
-    # Type of land cover nesting an algorithm should use.
-    CUSTOM_TO_CUSTOM = 1
-    ESA_TO_CUSTOM = 2
-
-
-class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregationUi):
-    def __init__(
-        self, parent=None, nesting=None, aggregation_type=AggregationType.ESA_TO_CUSTOM
-    ):
+class DlgCalculateLCSetAggregationBase(
+    QtWidgets.QDialog, DlgCalculateLCSetAggregationUi
+):
+    def __init__(self, parent=None, nesting=None):
         super().__init__(parent)
-
-        self.AGGREGATION_TYPE = aggregation_type
 
         self.setupUi(self)
 
@@ -580,20 +572,6 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
         else:
             self.nesting = self.get_nesting()
         self.setup_nesting(self.nesting)
-
-    def set_nesting(self, nesting):
-        self.nesting = nesting
-        if self.AGGREGATION_TYPE == AggregationType.ESA_TO_CUSTOM:
-            esa_lc_nesting_to_settings(nesting)
-        elif self.AGGREGATION_TYPE == AggregationType.CUSTOM_TO_CUSTOM:
-            ipcc_lc_nesting_to_settings(nesting)
-
-    def get_nesting(self):
-        if self.AGGREGATION_TYPE == AggregationType.ESA_TO_CUSTOM:
-            self.nesting = esa_lc_nesting_from_settings()
-        elif self.AGGREGATION_TYPE == AggregationType.CUSTOM_TO_CUSTOM:
-            self.nesting = ipcc_lc_nesting_from_settings()
-        return self.nesting
 
     def btn_close_pressed(self):
         self.update_nesting_from_widget()
@@ -661,6 +639,44 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
                     default=json_serial,
                 )
 
+    def update_nesting_from_widget(self):
+        nesting = self.get_nesting()
+        for row in range(0, self.table_model.rowCount()):
+            child_code = self.table_model.index(
+                row, self.table_model.child_code_col()
+            ).data()
+            log(f"child_code {child_code}, row {row}")
+            log(f"parent codes in nesting {[key for key in nesting.nesting]}")
+            log(
+                f"child codes in nesting {[value for values in nesting.nesting.values() for value in values]}"
+            )
+            child_class = nesting.child.classByCode(child_code)
+            new_parent_class = self.remap_view.indexWidget(
+                self.proxy_model.index(row, self.table_model.parent_label_col())
+            ).get_current_class()
+
+            nesting.update_parent(child_class, new_parent_class)
+        self.set_nesting(nesting)
+        self.nesting = deepcopy(nesting)
+
+    def reset_nesting_table(self, get_default=False):
+        if get_default:
+            self.nesting = self.get_nesting()
+        self.setup_nesting(nesting_input=self.nesting)
+
+
+class DlgCalculateLCSetAggregationESA(DlgCalculateLCSetAggregationBase):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+    def set_nesting(self, nesting):
+        self.nesting = nesting
+        esa_lc_nesting_to_settings(nesting)
+
+    def get_nesting(self):
+        self.nesting = esa_lc_nesting_from_settings()
+        return self.nesting
+
     def setup_nesting(self, nesting_input=None):
         # Load the codes each class will be recoded to.
         #
@@ -675,6 +691,7 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
         # DlgDataIOImportLC class.
 
         if nesting_input:
+            # All ESA codes need to be represented, and any non-ESA codes should be excluded
             child_legend = self.get_nesting().child
             valid_child_codes = sorted([c.code for c in child_legend.key])
             child_code_input = sorted([c.code for c in nesting_input.child.key])
@@ -695,6 +712,7 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
                         "file."
                     ),
                 )
+                return
 
             if len(child_codes_missing_from_input) > 0:
                 QtWidgets.QMessageBox.warning(
@@ -706,6 +724,7 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
                         "file."
                     ),
                 )
+                return
 
             # Remove unnecessary classes from the input child legend
             nesting_input.child.key = [
@@ -757,7 +776,7 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
         self.table_model = LCAggTableModel(
             self.nesting,
             parent=self,
-            child_label_col=self.AGGREGATION_TYPE == AggregationType.ESA_TO_CUSTOM,
+            child_label_col=True,
         )
         self.proxy_model = QtCore.QSortFilterProxyModel()
         self.proxy_model.setSourceModel(self.table_model)
@@ -792,43 +811,124 @@ class DlgCalculateLCSetAggregation(QtWidgets.QDialog, DlgCalculateLCSetAggregati
         self.remap_view.horizontalHeader().setSectionResizeMode(
             self.table_model.child_code_col(), QtWidgets.QHeaderView.ResizeToContents
         )
-        if self.AGGREGATION_TYPE == AggregationType.ESA_TO_CUSTOM:
-            # This column is hidden for CUSTOM_TO_CUSTOM transitions
-            self.remap_view.horizontalHeader().setSectionResizeMode(
-                self.table_model.child_label_col(), QtWidgets.QHeaderView.Stretch
-            )
-            self.remap_view.horizontalHeader().setSectionResizeMode(
-                self.table_model.parent_label_col(),
-                QtWidgets.QHeaderView.ResizeToContents,
-            )
-        elif self.AGGREGATION_TYPE == AggregationType.CUSTOM_TO_CUSTOM:
-            self.remap_view.horizontalHeader().setSectionResizeMode(
-                self.table_model.parent_label_col(), QtWidgets.QHeaderView.Stretch
-            )
+        # This column is hidden for CUSTOM_TO_CUSTOM transitions
+        self.remap_view.horizontalHeader().setSectionResizeMode(
+            self.table_model.child_label_col(), QtWidgets.QHeaderView.Stretch
+        )
+        self.remap_view.horizontalHeader().setSectionResizeMode(
+            self.table_model.parent_label_col(),
+            QtWidgets.QHeaderView.ResizeToContents,
+        )
 
         self.remap_view.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
 
         return True
 
-    def update_nesting_from_widget(self):
-        nesting = self.get_nesting()
-        for row in range(0, self.table_model.rowCount()):
+
+class DlgCalculateLCSetAggregationCustom(DlgCalculateLCSetAggregationBase):
+    def __init__(self, parent=None, nesting=None):
+        super().__init__(parent, nesting)
+
+    def set_nesting(self, nesting):
+        self.nesting = nesting
+
+    def get_nesting(self):
+        return self.nesting
+
+    def setup_nesting(self, nesting_input=None):
+        if nesting_input:
+            # Get the parent custom legend from the IPCC nesting (the custom legend
+            # is a child of the IPCC legend)
+            default_parent_legend = ipcc_lc_nesting_from_settings().child
+            valid_parent_codes = sorted([c.code for c in default_parent_legend.key])
+            parent_code_input = sorted([c.code for c in nesting_input.parent.key])
+            unnecessary_parent_codes = sorted(
+                [c for c in parent_code_input if c not in valid_parent_codes]
+            )
+            parent_codes_missing_from_input = sorted(
+                [c for c in valid_parent_codes if c not in parent_code_input]
+            )
+
+            if len(unnecessary_parent_codes) > 0:
+                QtWidgets.QMessageBox.warning(
+                    None,
+                    self.tr("Warning"),
+                    self.tr(
+                        f"Some of the parent classes ({unnecessary_parent_codes!r}) "
+                        "in the definition file are not listed in the current class "
+                        "legend. These classes will be ignored."
+                    ),
+                )
+
+            # Remove any classes from the input parent legend that aren't in the current
+            # custom legend
+            nesting_input.parent.key = [
+                c for c in nesting_input.parent.key if c.code in valid_parent_codes
+            ]
+            # Remove invalid parent classes from the nesting dict
+            nesting_input.nesting = {
+                key: values
+                for key, values in nesting_input.nesting.items()
+                if key in valid_parent_codes + [nesting_input.parent.nodata.code]
+            }
+            # Nest under nodata any child classes that were nested under invalid
+            # parent classes
+            child_codes_in_nesting_dict = [
+                value for values in nesting_input.nesting.values() for value in values
+            ]
+
+        log(f"nesting is {nesting_input.nesting}")
+        log(f"parent codes are {nesting_input.parent.codes()}")
+        log(f"child codes are {nesting_input.child.codes()}")
+        self.set_nesting(nesting_input)
+        self.setup_nesting_table()
+
+    def setup_nesting_table(self):
+        self.table_model = LCAggTableModel(
+            self.nesting,
+            parent=self,
+            child_label_col=False,
+        )
+        self.proxy_model = QtCore.QSortFilterProxyModel()
+        self.proxy_model.setSourceModel(self.table_model)
+        self.remap_view.setModel(self.proxy_model)
+
+        # Add selector in cell
+
+        for row in range(0, len(self.nesting.child.key_with_nodata())):
+            # Get the input code for this row and the final label it should map
+            # to by default
             child_code = self.table_model.index(
                 row, self.table_model.child_code_col()
             ).data()
-            child_class = nesting.child.classByCode(child_code)
-            new_parent_class = self.remap_view.indexWidget(
-                self.proxy_model.index(row, self.table_model.parent_label_col())
-            ).get_current_class()
+            parent_class = [
+                self.nesting.parentClassForChild(c)
+                for c in self.nesting.child.key_with_nodata()
+                if c.code == child_code
+            ][0]
 
-            nesting.update_parent(child_class, new_parent_class)
-        self.set_nesting(nesting)
-        self.nesting = deepcopy(nesting)
+            lc_class_combo = LCClassComboBox(self.nesting)
 
-    def reset_nesting_table(self, get_default=False):
-        if get_default:
-            self.nesting = self.get_nesting()
-        self.setup_nesting(nesting_input=self.nesting)
+            # Find the index in the combo box of this translated final label
+            ind = lc_class_combo.findText(parent_class.name_long)
+
+            if ind != -1:
+                lc_class_combo.setCurrentIndex(ind)
+            self.remap_view.setIndexWidget(
+                self.proxy_model.index(row, self.table_model.parent_label_col()),
+                lc_class_combo,
+            )
+
+        self.remap_view.horizontalHeader().setSectionResizeMode(
+            self.table_model.child_code_col(), QtWidgets.QHeaderView.ResizeToContents
+        )
+        self.remap_view.horizontalHeader().setSectionResizeMode(
+            self.table_model.parent_label_col(), QtWidgets.QHeaderView.Stretch
+        )
+
+        self.remap_view.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
+
+        return True
 
 
 class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
@@ -957,11 +1057,7 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
             ),
             nesting=nest,
         )
-        self.dlg_agg = DlgCalculateLCSetAggregation(
-            parent=self,
-            nesting=nesting,
-            aggregation_type=AggregationType.CUSTOM_TO_CUSTOM,
-        )
+        self.dlg_agg = DlgCalculateLCSetAggregationCustom(parent=self, nesting=nesting)
 
     def agg_edit(self):
         if self.input_widget.radio_raster_input.isChecked():
@@ -1362,9 +1458,7 @@ class LandCoverSetupRemoteExecutionWidget(
             self.target_year_de.hide()
         self.aggregation_method_pb.clicked.connect(self.open_aggregation_method_dialog)
 
-        self.aggregation_dialog = DlgCalculateLCSetAggregation(
-            parent=self, aggregation_type=AggregationType.ESA_TO_CUSTOM
-        )
+        self.aggregation_dialog = DlgCalculateLCSetAggregationESA(parent=self)
 
     def open_aggregation_method_dialog(self):
         self.aggregation_dialog.exec_()
@@ -1699,7 +1793,10 @@ class LccInfoUtils:
             return
 
         reference_esa_nesting = get_default_esa_nesting()
-        current_nesting = esa_lc_nesting_from_settings()
+        try:
+            current_nesting = esa_lc_nesting_from_settings()
+        except ValidationError:
+            current_nesting = None
         if current_nesting is None:
             current_nesting = get_default_esa_nesting()
         new_nesting = deepcopy(current_nesting)

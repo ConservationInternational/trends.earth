@@ -30,7 +30,7 @@ from . import auth, conf
 from .logger import log
 
 API_URL = "https://api2.trends.earth"
-TIMEOUT = 20
+TIMEOUT = 30
 
 
 class tr_api(object):
@@ -262,7 +262,9 @@ def backoff_hdlr(details):
 def _make_request(description, **kwargs):
     api_task = RequestTask(description, **kwargs)
     QgsApplication.taskManager().addTask(api_task)
-    api_task.waitForFinished((TIMEOUT + 1) * 1000)
+    result = api_task.waitForFinished((TIMEOUT + 1) * 1000)
+    if not result:
+        log("Request timed out")
     return api_task.resp
 
 

@@ -21,7 +21,6 @@ from qgis.PyQt import (
     uic,
 )
 
-from te_schemas.schemas import BandInfo, BandInfoSchema
 from te_schemas.land_cover import LCTransitionDefinitionDeg, LCLegendNesting
 from te_schemas.algorithms import AlgorithmRunMode, ExecutionScript
 
@@ -264,7 +263,9 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
                 initial_usable.band_info.metadata["year"],
                 final_usable.band_info.metadata["year"],
             ],
-            "legend_nesting": LCLegendNesting.Schema().dump(get_lc_nesting()),
+            "legend_nesting_custom_to_ipcc": LCLegendNesting.Schema().dump(
+                lc_setup.ipcc_lc_nesting_from_settings()
+            ),
             "trans_matrix": LCTransitionDefinitionDeg.Schema().dump(get_trans_matrix()),
             "fl": self.get_fl(),
         }

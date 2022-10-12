@@ -6,11 +6,13 @@ from pathlib import Path
 import numpy as np
 from osgeo import gdal
 from osgeo import osr
+from te_algorithms.gdal.util import trans_factors_for_custom_legend
 from te_schemas.results import Band as JobBand
 from te_schemas.results import DataType
 from te_schemas.results import Raster
 from te_schemas.results import RasterFileType
 from te_schemas.results import RasterResults
+from te_schemas.land_cover import LCLegendNesting
 from te_schemas.results import URI
 
 import LDMP.logger
@@ -61,6 +63,10 @@ def compute_soil_organic_carbon(
         str(climate_zones_path),
     ] + lc_vrts
 
+    nesting = LCLegendNesting.Schema().load(
+        soc_job.params["legend_nesting_custom_to_ipcc"]
+    )
+
     in_vrt_path = tempfile.NamedTemporaryFile(suffix=".vrt").name
     LDMP.logger.log("Saving SOC input files to {}".format(in_vrt_path))
     gdal.BuildVRT(
@@ -85,6 +91,7 @@ def compute_soil_organic_carbon(
         lc_band_nums,
         soc_job.params["lc_years"],
         soc_job.params["fl"],
+        nesting,
     )
 
     if soc_worker.success:
@@ -105,7 +112,13 @@ def compute_soil_organic_carbon(
             bands.append(soc_band)
 
         for year in soc_job.params["lc_years"]:
-            lc_band = JobBand(name="Land cover", metadata={"year": year})
+            lc_band = JobBand(
+                name="Land cover",
+                metadata={
+                    "year": year,
+                    "nesting": LCLegendNesting.Schema().dumps(nesting),
+                },
+            )
             bands.append(lc_band)
 
         soc_job.results = RasterResults(
@@ -127,12 +140,13 @@ def compute_soil_organic_carbon(
 
 
 class SOCWorker(worker.AbstractWorker):
-    def __init__(self, in_vrt, out_f, lc_band_nums, lc_years, fl):
+    def __init__(self, in_vrt, out_f, lc_band_nums, lc_years, fl, ipcc_nesting):
         worker.AbstractWorker.__init__(self)
         self.in_vrt = in_vrt
         self.out_f = out_f
         self.lc_years = lc_years
         self.lc_band_nums = lc_band_nums
+        self.ipcc_nesting = ipcc_nesting
         self.fl = fl
 
     def work(self):
@@ -172,328 +186,89 @@ class SOCWorker(worker.AbstractWorker):
             ]
         )
 
+        # fmt: off
         # stock change factor for land use - note the 99 and -99 will be
         # recoded using the chosen Fl option
         lc_tr_fl_0_map = np.array(
             [
                 [
-                    11,
-                    12,
-                    13,
-                    14,
-                    15,
-                    16,
-                    17,
-                    21,
-                    22,
-                    23,
-                    24,
-                    25,
-                    26,
-                    27,
-                    31,
-                    32,
-                    33,
-                    34,
-                    35,
-                    36,
-                    37,
-                    41,
-                    42,
-                    43,
-                    44,
-                    45,
-                    46,
-                    47,
-                    51,
-                    52,
-                    53,
-                    54,
-                    55,
-                    56,
-                    57,
-                    61,
-                    62,
-                    63,
-                    64,
-                    65,
-                    66,
-                    67,
-                    71,
-                    72,
-                    73,
-                    74,
-                    75,
-                    76,
-                    77,
+                    11,12,13,14,15,16,17,
+                    21,22,23,24,25,26,27,
+                    31,32,33,34,35,36,37,
+                    41,42,43,44,45,46,47,
+                    51,52,53,54,55,56,57,
+                    61,62,63,64,65,66,67,
+                    71,72,73,74,75,76,77,
                 ],
                 [
-                    1,
-                    1,
-                    99,
-                    1,
-                    0.1,
-                    0.1,
-                    1,
-                    1,
-                    1,
-                    99,
-                    1,
-                    0.1,
-                    0.1,
-                    1,
-                    -99,
-                    -99,
-                    1,
-                    1 / 0.71,
-                    0.1,
-                    0.1,
-                    1,
-                    1,
-                    1,
-                    0.71,
-                    1,
-                    0.1,
-                    0.1,
-                    1,
-                    2,
-                    2,
-                    2,
-                    2,
-                    1,
-                    1,
-                    1,
-                    2,
-                    2,
-                    2,
-                    2,
-                    1,
-                    1,
-                    1,
-                    1,
-                    1,
-                    1,
-                    1,
-                    1,
-                    1,
-                    1,
+                    1,1,99,1,0.1,0.1,1,
+                    1,1,99,1,0.1,0.1,1,
+                    -99,-99,1,1 / 0.71,0.1,0.1,1,
+                    1,1,0.71,1,0.1,0.1,1,
+                    2,2,2,2,1,1,1,
+                    2,2,2,2,1,1,1,
+                    1,1,1,1,1,1,1,
                 ],
             ]
+        )
+        lc_tr_fl_0_map = trans_factors_for_custom_legend(
+            lc_tr_fl_0_map, self.ipcc_nesting
         )
 
         # stock change factor for management regime
         lc_tr_fm_map = [
             [
-                11,
-                12,
-                13,
-                14,
-                15,
-                16,
-                17,
-                21,
-                22,
-                23,
-                24,
-                25,
-                26,
-                27,
-                31,
-                32,
-                33,
-                34,
-                35,
-                36,
-                37,
-                41,
-                42,
-                43,
-                44,
-                45,
-                46,
-                47,
-                51,
-                52,
-                53,
-                54,
-                55,
-                56,
-                57,
-                61,
-                62,
-                63,
-                64,
-                65,
-                66,
-                67,
-                71,
-                72,
-                73,
-                74,
-                75,
-                76,
-                77,
+                11,12,13,14,15,16,17,
+                21,22,23,24,25,26,27,
+                31,32,33,34,35,36,37,
+                41,42,43,44,45,46,47,
+                51,52,53,54,55,56,57,
+                61,62,63,64,65,66,67,
+                71,72,73,74,75,76,77,
             ],
             [
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
+                1,1,1,1,1,1,1,
+                1,1,1,1,1,1,1,
+                1,1,1,1,1,1,1,
+                1,1,1,1,1,1,1,
+                1,1,1,1,1,1,1,
+                1,1,1,1,1,1,1,
+                1,1,1,1,1,1,1,
             ],
         ]
+        lc_tr_fm_map = trans_factors_for_custom_legend(
+            lc_tr_fm_map, self.ipcc_nesting
+        )
 
         # stock change factor for input of organic matter
         lc_tr_fo_map = [
             [
-                11,
-                12,
-                13,
-                14,
-                15,
-                16,
-                17,
-                21,
-                22,
-                23,
-                24,
-                25,
-                26,
-                27,
-                31,
-                32,
-                33,
-                34,
-                35,
-                36,
-                37,
-                41,
-                42,
-                43,
-                44,
-                45,
-                46,
-                47,
-                51,
-                52,
-                53,
-                54,
-                55,
-                56,
-                57,
-                61,
-                62,
-                63,
-                64,
-                65,
-                66,
-                67,
-                71,
-                72,
-                73,
-                74,
-                75,
-                76,
-                77,
+                11,12,13,14,15,16,17,
+                21,22,23,24,25,26,27,
+                31,32,33,34,35,36,37,
+                41,42,43,44,45,46,47,
+                51,52,53,54,55,56,57,
+                61,62,63,64,65,66,67,
+                71,72,73,74,75,76,77,
             ],
             [
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
-                1,
+                1,1,1,1,1,1,1,
+                1,1,1,1,1,1,1,
+                1,1,1,1,1,1,1,
+                1,1,1,1,1,1,1,
+                1,1,1,1,1,1,1,
+                1,1,1,1,1,1,1,
+                1,1,1,1,1,1,1,
             ],
         ]
+        # fmt: on
+        lc_tr_fo_map = trans_factors_for_custom_legend(lc_tr_fo_map, self.ipcc_nesting)
 
         blocks = 0
+
+        class_codes = sorted([c.code for c in self.ipcc_nesting.child.key])
+        class_positions = [*range(1, len(class_codes) + 1)]
+        class_recode = (class_codes, class_positions)
 
         for y in range(0, ysize, y_block_size):
             if self.killed:
@@ -552,10 +327,16 @@ class SOCWorker(worker.AbstractWorker):
                     if self.fl == "per pixel":
                         nodata[clim == -128] = True
 
+                    # Recode bands from raw codes to ordinal values prior to
+                    # calculating transitions
+                    for value, replacement in zip(class_recode[0], class_recode[1]):
+                        lc_t0[lc_t0 == int(value)] = int(replacement)
+                        lc_t1[lc_t1 == int(value)] = int(replacement)
+
                     # compute transition map (first digit for baseline land
                     # cover, and second digit for target year land cover), but
                     # only update where changes actually ocurred.
-                    lc_tr = lc_t0 * 10 + lc_t1
+                    lc_tr = lc_t0 * self.ipcc_nesting.get_multiplier() + lc_t1
                     lc_tr[(lc_t0 < 1) | (lc_t1 < 1)] < --32768
 
                     ######################################################

@@ -37,7 +37,13 @@ from qgis.core import (
 )
 
 from ..jobs.models import Job
-from ..layers import create_categorical_color_ramp, styles
+from ..layers import (
+    create_categorical_color_ramp,
+    create_categorical_color_ramp_from_legend,
+    create_categorical_transitions_color_ramp_from_legend,
+    create_categorical_with_dynamic_ramp_color_ramp,
+    styles,
+)
 from .models import slugify
 
 
@@ -234,7 +240,7 @@ class BaseUniqueValuesChart(BaseChart):
         layer = layer_band_info.layer
         band_info = layer_band_info.band_info
         band_info_name = band_info["name"]
-        idx_clr_ramp = _create_indexed_color_ramp(band_info_name)
+        idx_clr_ramp = _create_indexed_color_ramp(band_info_name, band_info)
 
         output_temp_file = QTemporaryFile()
         if not output_temp_file.open():
@@ -1261,7 +1267,7 @@ class SdgSummaryJobAttributes:
 
 
 def _create_indexed_color_ramp(
-    style_name: str,
+    style_name: str, band_info: typing.Dict = None
 ) -> typing.Dict[float, QgsColorRampShader.ColorRampItem]:
     # Create a dictionary containing color ramp items for categorical
     # items indexed by pixel value.
@@ -1270,10 +1276,23 @@ def _create_indexed_color_ramp(
         return {}
 
     ramp_type = band_style["ramp"]["type"]
-    if ramp_type != "categorical":
+    if ramp_type == "categorical":
+        clr_ramp = create_categorical_color_ramp(band_style["ramp"]["items"])
+    elif ramp_type == "categorical from legend":
+        clr_ramp = create_categorical_color_ramp_from_legend(
+            band_info["metadata"]["nesting"]
+        )
+    elif ramp_type == "categorical transitions from legend":
+        clr_ramp = create_categorical_transitions_color_ramp_from_legend(
+            band_info["metadata"]["nesting"]
+        )
+    elif ramp_type == "categorical with dynamic ramp":
+        clr_ramp = create_categorical_with_dynamic_ramp_color_ramp(
+            band_style, band_info
+        )
+    else:
         return {}
 
-    clr_ramp = create_categorical_color_ramp(band_style)
     idx_clr_ramp = {int(cri.value): cri for cri in clr_ramp}
 
     return idx_clr_ramp

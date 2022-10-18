@@ -444,7 +444,7 @@ def create_categorical_transitions_color_ramp_from_legend(nesting):
     return create_categorical_color_ramp(nesting.child.get_transitions_ramp_items())
 
 
-def _create_categorical_with_dynamic_ramp_color_ramp(style_config, band_info):
+def create_categorical_with_dynamic_ramp_color_ramp(style_config, band_info):
     ramp_items = style_config["ramp"]["items"]
     result = []
 
@@ -578,7 +578,7 @@ def _create_color_ramp(
             band_info["metadata"]["nesting"]
         )
     elif ramp_type == "categorical with dynamic ramp":
-        result = _create_categorical_with_dynamic_ramp_color_ramp(
+        result = create_categorical_with_dynamic_ramp_color_ramp(
             style_config, band_info
         )
     elif ramp_type == "zero-centered stretch":

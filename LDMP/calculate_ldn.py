@@ -171,6 +171,24 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
 
         self._finish_initialization()
 
+    def _ask_reset_legend(self):
+        resp = QtWidgets.QMessageBox.question(
+            None,
+            self.tr("Also reset land cover legend?"),
+            self.tr(
+                "The UNCCD default data uses a 7 class land cover legend. Do you "
+                "also want to reset the land cover legend to the UNCCD default? "
+                "This will mean any changes you may have made to the land "
+                "cover legend will be lost."
+            ),
+            QtWidgets.QMessageBox.Yes,
+            QtWidgets.QMessageBox.No,
+        )
+        if resp == QtWidgets.QMessageBox.Yes:
+            return True
+        else:
+            return False
+
     def set_preset_unccd_default_jrc(self):
         self.checkBox_progress_period.setChecked(True)
         self.radio_lpd_precalculated.setChecked(True)
@@ -190,10 +208,12 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.year_final_progress_lc.setDate(QtCore.QDate(2019, 1, 1))
         self.year_initial_progress_soc.setDate(QtCore.QDate(2015, 1, 1))
         self.year_final_progress_soc.setDate(QtCore.QDate(2019, 1, 1))
-
-        lc_setup.LccInfoUtils.set_default_unccd_classes(force_update=True)
-        self.lc_setup_widget.aggregation_dialog.reset_nesting_table(get_default=True)
-        self.lc_define_deg_widget.set_trans_matrix(get_default=True)
+        if self._ask_reset_legend():
+            lc_setup.LccInfoUtils.set_default_unccd_classes(force_update=True)
+            self.lc_setup_widget.aggregation_dialog.reset_nesting_table(
+                get_default=True
+            )
+            self.lc_define_deg_widget.set_trans_matrix(get_default=True)
 
     def set_preset_unccd_default_fao_wocat(self):
         self.checkBox_progress_period.setChecked(True)
@@ -219,9 +239,12 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.year_initial_progress_soc.setDate(QtCore.QDate(2015, 1, 1))
         self.year_final_progress_soc.setDate(QtCore.QDate(2019, 1, 1))
 
-        lc_setup.LccInfoUtils.set_default_unccd_classes(force_update=True)
-        self.lc_setup_widget.aggregation_dialog.reset_nesting_table(get_default=True)
-        self.lc_define_deg_widget.set_trans_matrix(get_default=True)
+        if self._ask_reset_legend():
+            lc_setup.LccInfoUtils.set_default_unccd_classes(force_update=True)
+            self.lc_setup_widget.aggregation_dialog.reset_nesting_table(
+                get_default=True
+            )
+            self.lc_define_deg_widget.set_trans_matrix(get_default=True)
 
     def set_preset_unccd_default_te(self):
         self.checkBox_progress_period.setChecked(True)
@@ -237,9 +260,12 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.year_initial_progress_soc.setDate(QtCore.QDate(2015, 1, 1))
         self.year_final_progress_soc.setDate(QtCore.QDate(2019, 1, 1))
 
-        lc_setup.LccInfoUtils.set_default_unccd_classes(force_update=True)
-        self.lc_setup_widget.aggregation_dialog.reset_nesting_table(get_default=True)
-        self.lc_define_deg_widget.set_trans_matrix(get_default=True)
+        if self._ask_reset_legend():
+            lc_setup.LccInfoUtils.set_default_unccd_classes(force_update=True)
+            self.lc_setup_widget.aggregation_dialog.reset_nesting_table(
+                get_default=True
+            )
+            self.lc_define_deg_widget.set_trans_matrix(get_default=True)
 
     def update_start_dates(self, widgets):
         widgets.year_initial_prod.setDate(widgets.year_initial.date())

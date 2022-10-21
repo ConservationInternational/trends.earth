@@ -1,0 +1,71 @@
+# Runs tests on QGIS 3.10, 3.16, 3.22 LTR and nightly
+name: Continous Integration
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+    branches:
+      - main
+
+env:
+  # Global environment variable
+  IMAGE: qgis/qgis
+  WITH_PYTHON_PEP: "true"
+  MUTE_LOGS: "true"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Running tests on QGIS ${{ matrix.qgis_version_tag }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        qgis_version_tag:
+          - release-3_10
+          - release-3_16
+          - release-3_22
+          - latest
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: recursive
+
+      - name: Preparing docker-compose environment
+        env:
+          QGIS_VERSION_TAG: ${{ matrix.qgis_version_tag }}
+        run: |
+          cat << EOF > .env
+          QGIS_VERSION_TAG=${QGIS_VERSION_TAG}
+          IMAGE=${IMAGE}
+          ON_TRAVIS=true
+          MUTE_LOGS=${MUTE_LOGS}
+          WITH_PYTHON_PEP=${WITH_PYTHON_PEP}
+          EOF
+      - name: Preparing test environment
+        run: |
+          cat .env
+          docker pull "${IMAGE}":${{ matrix.qgis_version_tag }}
+          pip install -U pip
+          pip install -U pep257
+          pip install -U flake8
+          docker-compose up -d
+          sleep 10
+
+      - name: Lint test
+        run: |
+          make pep257
+
+      - name: Run test suite
+        run: |
+          docker-compose exec -T qgis-testing-environment qgis_testrunner.sh LDMP.test.testplugin

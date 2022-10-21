@@ -11,7 +11,7 @@ services:
       MUTE_LOGS: "${MUTE_LOGS}"
       DISPLAY: ":99"
     working_dir: /tests_directory
-    entrypoint: /tests_directory/scripts/docker/qgis-testing-entrypoint.sh
+    entrypoint: /tests_directory/docker/qgis-testing-entrypoint.sh
     # Enable "command:" line below to immediately run unittests upon docker-compose up
     # command: qgis_testrunner.sh test_suite.test_package
     # Default behaviour of the container is to standby

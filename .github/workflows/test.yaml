@@ -29,10 +29,7 @@ jobs:
       fail-fast: false
       matrix:
         qgis_version_tag:
-          - release-3_10
-          - release-3_16
-          - release-3_22
-          - latest
+          - release-3_26
 
     steps:
 
@@ -56,15 +53,8 @@ jobs:
         run: |
           cat .env
           docker pull "${IMAGE}":${{ matrix.qgis_version_tag }}
-          pip install -U pip
-          pip install -U pep257
-          pip install -U flake8
           docker-compose up -d
           sleep 10
-
-      - name: Lint test
-        run: |
-          make pep257
 
       - name: Run test suite
         run: |

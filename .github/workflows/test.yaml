@@ -6,7 +6,6 @@ on:
   push:
     branches:
       - main
-      - test_ci
   pull_request:
     types:
       - opened
@@ -57,7 +56,6 @@ jobs:
           docker pull "${IMAGE}":${{ matrix.qgis_version_tag }}
           docker-compose up -d
           sleep 10
-
       - name: Run test suite
         run: |
           docker-compose exec -T qgis-testing-environment qgis_testrunner.sh LDMP.test.testplugin

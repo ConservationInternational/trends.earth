@@ -167,7 +167,7 @@ def _tr_cover_class(translations):
 
 def json_serial(obj):
     """JSON serializer for objects not serializable by default json code"""
-    # TODO: This was QPyNullVariant under pyqt4 - check the below works on pyqt5
+    # TODO: This was QPyNullVariant under pyqt4 - check the below works on qgis.PyQt
 
     if isinstance(obj, QtCore.QJsonValue.Null):
         return None

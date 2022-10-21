@@ -1494,7 +1494,7 @@ class DlgLandCoverRestore(QtWidgets.QDialog, Ui_DlgLandCoverRestore):
 
 
 class LandCoverCustomClassesManager(
-    qgis.gui.QgsPanelWidget, Ui_WidgetLandCoverCustomClassesManager
+    qgis.PyQt.QtWidgets.QWidget, Ui_WidgetLandCoverCustomClassesManager
 ):
     def __init__(
         self,

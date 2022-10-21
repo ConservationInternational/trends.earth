@@ -1,0 +1,28 @@
+name: Build plugin zipfile
+
+on: [push]
+
+jobs:
+  build_zipfile:
+    name: Build zipfile
+    runs-on: ubuntu-latest
+    env:
+      AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+      - name: Setup python
+        uses: actions/setup-python@v3
+        with:
+          python-version: "3.9"
+          architecture: "x64"
+      - name: Install lrelease
+        run: sudo apt-get install -y qttools5-dev-tools
+      - name: Install build requirements
+        run: pip install -r requirements-dev.txt
+      - name: Set version SHA
+        run: invoke set-version
+      - name: Build zipfile
+        run: invoke zipfile-deploy --filename LDMP_$GITHUB_REF_NAME.zip -q 3.22

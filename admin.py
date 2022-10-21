@@ -34,9 +34,8 @@ PLUGIN_FILES = [
     "__init__.py",
     "LDMP",
     "metadata.txt",
-    "LICENSE"
-    "README.html",
-    "README.md"
+    "LICENSE" "README.html",
+    "README.md",
 ]
 app = typer.Typer()
 
@@ -46,6 +45,7 @@ class GithubRelease:
     """
     Class for defining plugin releases details.
     """
+
     pre_release: bool
     tag_name: str
     url: str
@@ -53,10 +53,7 @@ class GithubRelease:
 
 
 @app.callback()
-def main(
-        context: typer.Context,
-        verbose: bool = False,
-        qgis_profile: str = "default"):
+def main(context: typer.Context, verbose: bool = False, qgis_profile: str = "default"):
     """Performs various development-oriented tasks for this plugin
     :param context: Application context
     :type context: typer.Context
@@ -74,10 +71,11 @@ def main(
 
 @app.command()
 def generate_zip(
-        context: typer.Context,
-        output_directory: typing.Optional[Path] = LOCAL_ROOT_DIR / "dist",
-        version: str = "1.0.0"):
-    """ Generates plugin zip folder, that can be used to installed the
+    context: typer.Context,
+    output_directory: typing.Optional[Path] = LOCAL_ROOT_DIR / "dist",
+    version: str = "1.0.0",
+):
+    """Generates plugin zip folder, that can be used to installed the
         plugin in QGIS
     :param context: Application context
     :type context: typer.Context
@@ -88,7 +86,7 @@ def generate_zip(
     """
     build_dir = build(context)
     output_directory.mkdir(parents=True, exist_ok=True)
-    zip_path = output_directory / f'{SRC_NAME}.{version}.zip'
+    zip_path = output_directory / f"{SRC_NAME}.{version}.zip"
     with zipfile.ZipFile(zip_path, "w") as fh:
         _add_to_zip(build_dir, fh, arc_path_base=build_dir.parent)
     typer.echo(f"zip generated at {str(zip_path)!r}")
@@ -97,12 +95,12 @@ def generate_zip(
 
 @app.command()
 def build(
-        context: typer.Context,
-        output_directory: typing.Optional[Path] = LOCAL_ROOT_DIR / "build" / SRC_NAME,
-        clean: bool = True,
-        tests: bool = False
+    context: typer.Context,
+    output_directory: typing.Optional[Path] = LOCAL_ROOT_DIR / "build" / SRC_NAME,
+    clean: bool = True,
+    tests: bool = False,
 ) -> Path:
-    """ Builds plugin directory for use in QGIS application.
+    """Builds plugin directory for use in QGIS application.
     :param context: Application context
     :type context: typer.Context
     :param output_directory: Build output directory plugin where
@@ -129,9 +127,9 @@ def build(
 
 @app.command()
 def copy_icon(
-        output_directory: typing.Optional[Path] = LOCAL_ROOT_DIR / "build/temp",
+    output_directory: typing.Optional[Path] = LOCAL_ROOT_DIR / "build/temp",
 ) -> Path:
-    """ Copies the plugin intended icon to the specified output
+    """Copies the plugin intended icon to the specified output
         directory.
     :param output_directory: Output directory where the icon will be saved.
     :type output_directory: Path
@@ -152,10 +150,10 @@ def copy_icon(
 
 @app.command()
 def copy_source_files(
-        output_directory: typing.Optional[Path] = LOCAL_ROOT_DIR / "build/temp",
-        tests: bool = False
+    output_directory: typing.Optional[Path] = LOCAL_ROOT_DIR / "build/temp",
+    tests: bool = False,
 ):
-    """ Copies the plugin source files to the specified output
+    """Copies the plugin source files to the specified output
             directory.
     :param output_directory: Output directory where the icon will be saved.
     :type output_directory: Path
@@ -173,10 +171,7 @@ def copy_source_files(
             if child.is_dir():
                 handler = shutil.copytree
                 patterns = shutil.ignore_patterns(
-                    '*.pyc',
-                    'tmp*',
-                    '__pycache__',
-                    'test*'
+                    "*.pyc", "tmp*", "__pycache__", "test*"
                 )
                 handler = partial(handler, ignore=patterns)
 
@@ -185,16 +180,15 @@ def copy_source_files(
             handler(
                 str(child.resolve()),
                 str(target_path),
-
             )
 
 
 @app.command()
 def compile_resources(
-        context: typer.Context,
-        output_directory: typing.Optional[Path] = LOCAL_ROOT_DIR / "build/temp",
+    context: typer.Context,
+    output_directory: typing.Optional[Path] = LOCAL_ROOT_DIR / "build/temp",
 ):
-    """ Compiles plugin resources using the pyrcc package
+    """Compiles plugin resources using the pyrcc package
     :param context: Application context
     :type context: typer.Context
     :param output_directory: Output directory where the resources will be saved.
@@ -207,11 +201,8 @@ def compile_resources(
     subprocess.run(shlex.split(f"pyrcc5 -o {target_path} {resources_path}"))
 
 
-def _add_to_zip(
-        directory: Path,
-        zip_handler: zipfile.ZipFile,
-        arc_path_base: Path):
-    """ Adds to files inside the passed directory to the zip file.
+def _add_to_zip(directory: Path, zip_handler: zipfile.ZipFile, arc_path_base: Path):
+    """Adds to files inside the passed directory to the zip file.
     :param directory: Directory with files that are to be zipped.
     :type directory: Path
     :param zip_handler: Plugin zip file
@@ -221,18 +212,13 @@ def _add_to_zip(
     """
     for item in directory.iterdir():
         if item.is_file():
-            zip_handler.write(item, arcname=str(
-                item.relative_to(arc_path_base)))
+            zip_handler.write(item, arcname=str(item.relative_to(arc_path_base)))
         else:
             _add_to_zip(item, zip_handler, arc_path_base)
 
 
-def _log(
-        msg,
-        *args,
-        context: typing.Optional[typer.Context] = None,
-        **kwargs):
-    """ Logs the message into the terminal.
+def _log(msg, *args, context: typing.Optional[typer.Context] = None, **kwargs):
+    """Logs the message into the terminal.
     :param msg: Directory with files that are to be zipped.
     :type msg: str
     :param context: Application context
@@ -248,16 +234,15 @@ def _log(
 
 
 def _get_existing_releases(
-        context: typing.Optional = None,
+    context: typing.Optional = None,
 ) -> typing.List[GithubRelease]:
-    """ Gets the existing plugin releases in  available in the Github repository.
+    """Gets the existing plugin releases in  available in the Github repository.
     :param context: Application context
     :type context: typer.Context
     :returns: List of github releases
     :rtype: List[GithubRelease]
     """
-    base_url = "https://api.github.com/repos/" \
-               "GEOSYS/qgis-plugin/releases"
+    base_url = "https://api.github.com/repos/" "GEOSYS/qgis-plugin/releases"
     response = httpx.get(base_url)
     result = []
     if response.status_code == 200:
@@ -285,11 +270,9 @@ def _get_existing_releases(
 
 
 def _get_latest_releases(
-        current_releases: typing.List[GithubRelease],
-) -> typing.Tuple[
-    typing.Optional[GithubRelease],
-    typing.Optional[GithubRelease]]:
-    """ Searches for the latest plugin releases from the Github plugin releases.
+    current_releases: typing.List[GithubRelease],
+) -> typing.Tuple[typing.Optional[GithubRelease], typing.Optional[GithubRelease]]:
+    """Searches for the latest plugin releases from the Github plugin releases.
     :param current_releases: Existing plugin releases
      available in the Github repository.
     :type current_releases: list

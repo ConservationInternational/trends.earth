@@ -2,7 +2,7 @@
 name=trends.earth
 qgisMinimumVersion=3.22
 description=Analyze land change in support of sustainable land management, achieving the Land Degradation Neutrality (LDN) Sustainable Development Goal (SDG), and to support reporting to the Global Environment Facility (GEF) and United Nations Convention to Combat Desertification (UNCCD)
-version=2.0.3
+version=2.0.5
 author=Conservation International
 email=trends.earth@conservation.org
 
@@ -28,6 +28,8 @@ hasProcessingProvider=yes
 
 # Uncomment the following line and add your changelog:
 changelog=2.0.3 (October 19, 2022)
+    - Fix SDG summary when using JRC LPD or WOCAT LPD
+  2.0.3 (October 19, 2022)
     - Allow bypassing reset of land cover legend when choosing defaults in
       the SDG tool
     - Disable excel generation when child legend does not have 7 classes

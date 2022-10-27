@@ -11,7 +11,7 @@ except ImportError:
 try:
     import coverage
 except ImportError:
-    pipmain(['install', 'coverage'])
+    pipmain(["install", "coverage"])
     import coverage
 import tempfile
 from osgeo import gdal
@@ -27,17 +27,17 @@ def _run_tests(test_suite, package_name, with_coverage=False):
     version = str(Qgis.QGIS_VERSION_INT)
     version = int(version)
 
-    print('########')
-    print('%s tests has been discovered in %s' % (count, package_name))
-    print('QGIS : %s' % version)
-    print('Python GDAL : %s' % gdal.VersionInfo('VERSION_NUM'))
-    print('QT : %s' % Qt.QT_VERSION_STR)
-    print('Run slow tests : %s' % (not os.environ.get('ON_TRAVIS', False)))
-    print('########')
+    print("########")
+    print("%s tests has been discovered in %s" % (count, package_name))
+    print("QGIS : %s" % version)
+    print("Python GDAL : %s" % gdal.VersionInfo("VERSION_NUM"))
+    print("QT : %s" % Qt.QT_VERSION_STR)
+    print("Run slow tests : %s" % (not os.environ.get("ON_TRAVIS", False)))
+    print("########")
     if with_coverage:
         cov = coverage.Coverage(
-            source=['./'],
-            omit=['*/test/*', './definitions/*'],
+            source=["./"],
+            omit=["*/test/*", "./definitions/*"],
         )
         cov.start()
 
@@ -51,11 +51,11 @@ def _run_tests(test_suite, package_name, with_coverage=False):
         # Produce HTML reports in the `htmlcov` folder and open index.html
         # cov.html_report()
         report.close()
-        with open(report.name, 'r') as fin:
+        with open(report.name, "r") as fin:
             print(fin.read())
 
 
-def test_package(package='LDMP.test'):
+def test_package(package="LDMP.test"):
     """Test package.
     This function is called by Github actions or travis without arguments.
     :param package: The package to test.

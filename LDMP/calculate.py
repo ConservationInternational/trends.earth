@@ -38,10 +38,10 @@ from . import worker
 from .algorithms import models
 from .conf import AreaSetting
 from .conf import REMOTE_DATASETS
+from .conf import OPTIONS_TITLE
 from .conf import Setting
 from .conf import settings_manager
 from .logger import log
-from .settings import DlgSettings
 
 
 DlgCalculateUi, _ = uic.loadUiType(str(Path(__file__).parent / "gui/DlgCalculate.ui"))
@@ -543,10 +543,8 @@ class DlgCalculateBase(QtWidgets.QDialog):
         self.changed_region.emit()
 
     def run_settings(self):
-        dlg_settings = DlgSettings(parent=self)
-
-        if dlg_settings.exec_():
-            self.update_current_region()
+        self.iface.showOptionsDialog(currentPage=OPTIONS_TITLE)
+        self.update_current_region()
 
     def showEvent(self, event):
         super(DlgCalculateBase, self).showEvent(event)
@@ -564,6 +562,9 @@ class DlgCalculateBase(QtWidgets.QDialog):
     def accept(self):
         pass
 
+    def settings_btn_clicked(self):
+        self.iface.showOptionsDialog(currentPage=OPTIONS_TITLE)
+
     def btn_calculate(self):
         area_method = settings_manager.get_value(Setting.AREA_FROM_OPTION)
         has_buffer = settings_manager.get_value(Setting.BUFFER_CHECKED)
@@ -571,15 +572,20 @@ class DlgCalculateBase(QtWidgets.QDialog):
             area_method == AreaSetting.POINT.value
             or area_method == AreaSetting.COUNTRY_CITY.value
         ) and not has_buffer:
-            QtWidgets.QMessageBox.critical(
-                None,
-                tr_calculate.tr("Error"),
-                tr_calculate.tr(
-                    "You have chosen to run this calculation on a point "
-                    "(or for a city). To run this tool on a point you "
-                    "must also select a buffer."
-                ),
-            )
+            message_box = QtWidgets.QMessageBox()
+            message_box.setIcon(QtWidgets.QMessageBox.Warning)
+            message_box.setText(tr_calculate.tr(
+                "You have chosen to run this calculation on a point "
+                "(or for a city). To run this tool on a point you "
+                "must also select a buffer. This can be done in the Trends.Earth settings."
+            ))
+            message_box.setWindowTitle(tr_calculate.tr("Warning"))
+            settings_btn = message_box.addButton('Settings', QtWidgets.QMessageBox.ActionRole)
+            settings_btn.clicked.connect(self.settings_btn_clicked)
+            message_box.setStandardButtons(QtWidgets.QMessageBox.Close)
+
+            message_box.exec()
+
             return False
 
         self.aoi = areaofinterest.prepare_area_of_interest()

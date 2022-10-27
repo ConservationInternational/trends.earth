@@ -1,4 +1,4 @@
-# Runs tests on QGIS 3.10, 3.16, 3.22 LTR and nightly
+# Runs tests on QGIS 3.16, 3.22 LTR, 3.26 and master branch
 name: Continous Integration
 
 on:

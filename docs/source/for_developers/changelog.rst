@@ -3,7 +3,38 @@ Changelog
 
 This page lists the version history of |trends.earth|.
 
-`2.0.0rc1 (June 27, 2022) <https://github.com/ConservationInternational/trends.earth/releases/tag/2.0.0rc1>`_
+`2.0.3 (October 19, 2022) <https://github.com/ConservationInternational/trends.earth/releases/tag/2.0.3>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+    - Fix SDG summary when using JRC LPD or WOCAT LPD
+
+`2.0.3 (October 19, 2022) <https://github.com/ConservationInternational/trends.earth/releases/tag/2.0.3>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+    - Allow bypassing reset of land cover legend when choosing defaults in
+      the SDG tool
+    - Disable excel generation when child legend does not have 7 classes
+    - Fix report generation when using custom legend
+
+`2.0.1 (October 13, 2022) <https://github.com/ConservationInternational/trends.earth/releases/tag/2.0.1>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+    - Added ability to completely customize the land cover legend used in
+      Trends.Earth, including the number, name, color, and coding of each 
+      class in the legend. This applies to all calculatons using land cover
+      data, including the SDG 15.3.1 tool, and the productivity, soil organic
+      carbon, and land cover indicator tools.
+    - Reworked land cover import tool to allow importing data and assigning
+      classes to custom legend.
+    - Misc minor bug fixes.
+    - Add ability to include false positive/negative dataset in UNCCD report.
+      Next release will include further functionality to apply and report on
+      false positive/negatives.
+    - This experimental release disables the creation of Excel output tables
+      for the SDG 15.3.1 tool. This functionality will be present in the next
+      (stable) release.
+
+`2.0 (July 20, 2022) <https://github.com/ConservationInternational/trends.earth/releases/tag/2.0>`_
 -----------------------------------------------------------------------------------------------------------------------------
 
     - All new interface with simplified navigation screens and dataset loading

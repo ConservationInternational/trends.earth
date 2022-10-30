@@ -224,8 +224,11 @@ class DatasetReportHandler:
         one of the prerequisites has not been met.
         """
         self.check_job_report_status()
-        rpt_task_running = report_generator_manager.is_task_running(self._rpt_task_ctx)
-        if self._regenerate_report and not rpt_task_running:
+        if (
+            self._regenerate_report
+            and not report_generator_manager.is_task_running(self._rpt_task_ctx)
+            and not report_generator_manager.is_task_overrun(self._rpt_task_ctx)
+        ):
             report_generator_manager.process_report_task(self._rpt_task_ctx)
             return True
 

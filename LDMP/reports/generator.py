@@ -1,65 +1,63 @@
 """Report generator"""
-
-from dataclasses import dataclass
 import json
 import os
 import signal
 import subprocess
 import traceback
 import typing
+from dataclasses import dataclass
 from uuid import uuid4
 
-from qgis.core import (
-    Qgis,
-    QgsApplication,
-    QgsCoordinateReferenceSystem,
-    QgsExpression,
-    QgsExpressionContext,
-    QgsLayerDefinition,
-    QgsLayoutExporter,
-    QgsLayoutItem,
-    QgsLayoutItemLegend,
-    QgsLayoutItemMap,
-    QgsLayoutItemRegistry,
-    QgsLegendRenderer,
-    QgsLegendStyle,
-    QgsMapLayerLegendUtils,
-    QgsPrintLayout,
-    QgsProcessingFeedback,
-    QgsProject,
-    QgsRasterLayer,
-    QgsReadWriteContext,
-    QgsRectangle,
-    QgsReferencedRectangle,
-    QgsSimpleLegendNode,
-    QgsVectorLayer,
-    QgsTask,
-)
+from qgis.core import Qgis
+from qgis.core import QgsApplication
+from qgis.core import QgsCoordinateReferenceSystem
+from qgis.core import QgsExpression
+from qgis.core import QgsExpressionContext
+from qgis.core import QgsLayerDefinition
+from qgis.core import QgsLayoutExporter
+from qgis.core import QgsLayoutItem
+from qgis.core import QgsLayoutItemLegend
+from qgis.core import QgsLayoutItemMap
+from qgis.core import QgsLayoutItemRegistry
+from qgis.core import QgsLegendRenderer
+from qgis.core import QgsLegendStyle
+from qgis.core import QgsMapLayerLegendUtils
+from qgis.core import QgsPrintLayout
+from qgis.core import QgsProcessingFeedback
+from qgis.core import QgsProject
+from qgis.core import QgsRasterLayer
+from qgis.core import QgsReadWriteContext
+from qgis.core import QgsRectangle
+from qgis.core import QgsReferencedRectangle
+from qgis.core import QgsSimpleLegendNode
+from qgis.core import QgsTask
+from qgis.core import QgsVectorLayer
 from qgis.gui import QgsMessageBar
-from qgis.utils import iface
-
-from qgis.PyQt.QtCore import (
-    pyqtSignal,
-    QCoreApplication,
-    QDateTime,
-    QFile,
-    QIODevice,
-    QObject,
-)
+from qgis.PyQt.QtCore import pyqtSignal
+from qgis.PyQt.QtCore import QCoreApplication
+from qgis.PyQt.QtCore import QDateTime
+from qgis.PyQt.QtCore import QFile
+from qgis.PyQt.QtCore import QIODevice
+from qgis.PyQt.QtCore import QObject
 from qgis.PyQt.QtXml import QDomDocument
-
+from qgis.utils import iface
 from te_schemas.results import Band as JobBand
 
 from ..jobs.models import Job
-from ..layers import get_band_title, styles, style_layer
+from ..layers import get_band_title
+from ..layers import style_layer
+from ..layers import styles
 from ..logger import log
-
-from .charts import AlgorithmChartsManager, LayerBandInfo
+from ..utils import FileUtils
+from ..utils import qgis_process_path
+from ..visualization import download_base_map
+from ..visualization import ExtractAdministrativeArea
+from .charts import AlgorithmChartsManager
+from .charts import LayerBandInfo
 from .expressions import ReportExpressionUtils
-from .models import ReportTaskContext, TemplateType
+from .models import ReportTaskContext
+from .models import TemplateType
 from .utils import build_report_paths
-from ..utils import qgis_process_path, FileUtils
-from ..visualization import download_base_map, ExtractAdministrativeArea
 
 
 @dataclass
@@ -937,6 +935,7 @@ class ReportGeneratorManager(QObject):
 
         # key: ReportTaskContext, value: QgsTask id
         self._submitted_tasks = {}
+        self._submission_counter = {}
         self._ctx_file_paths = {}
         QgsApplication.instance().taskManager().statusChanged.connect(
             self.on_task_status_changed
@@ -999,6 +998,15 @@ class ReportGeneratorManager(QObject):
         Initiates report generation, emits 'task_started' signal and return
         the submission result.
         """
+        # If task has already been run many times then return (as there is
+        # likely an error leading to a failure when generating the report)
+        if self.is_task_overrun(ctx):
+            log(
+                "Skipping report generation - overrun. Check logs "
+                "for a possible failure in report generation"
+            )
+            return False
+        self._submission_counter[ctx] += 1
         # If task is already in list of submissions then return
         if self.is_task_running(ctx):
             return False
@@ -1049,6 +1057,16 @@ class ReportGeneratorManager(QObject):
             return -1
 
         return task.status()
+
+    def is_task_overrun(self, ctx: ReportTaskContext) -> bool:
+        # Check whether the task with the given id has already run multiple times
+        if ctx not in self._submission_counter:
+            self._submission_counter[ctx] = 0
+
+        if self._submission_counter[ctx] < 2:
+            return False
+        else:
+            return True
 
     def is_task_running(self, ctx: ReportTaskContext) -> bool:
         # Check whether the task with the given id is running.

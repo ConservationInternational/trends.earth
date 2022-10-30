@@ -2982,7 +2982,7 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="../lc_setup.py" line="1098"/>
         <source>Error reading data. Trends.Earth supports a maximum of 38 different land cover classes</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Erro ao ler os dados. Trends.Earth suporta um máximo de 60 classes de cobertura terrestre diferentes {38 ?}</translation>
     </message>
 </context>
 <context>

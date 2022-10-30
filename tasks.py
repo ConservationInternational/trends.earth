@@ -265,13 +265,18 @@ def set_version(c, v=None, ta=False, ts=False, tag=False, gee=False):
 
     for module in c.plugin.ext_libs.local_modules:
         module_path = Path(module["path"]).parent
-        print(f"Also setting version for {module['name']}")
-        if tag:
-            subprocess.check_call(
-                ["invoke", "set-version", "-v", v, "-t"], cwd=module_path
-            )
-        else:
-            subprocess.check_call(["invoke", "set-version", "-v", v], cwd=module_path)
+        ret = query_yes_no(
+            f"Also set version {'and tag ' if tag else ''}for {module['name']}?"
+        )
+        if ret:
+            if tag:
+                subprocess.check_call(
+                    ["invoke", "set-version", "-v", v, "-t"], cwd=module_path
+                )
+            else:
+                subprocess.check_call(
+                    ["invoke", "set-version", "-v", v], cwd=module_path
+                )
 
 
 @task()

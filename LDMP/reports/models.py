@@ -1,5 +1,6 @@
 """Data models for the reporting framework."""
 import hashlib
+import json
 import os
 import re
 import typing
@@ -147,10 +148,13 @@ class ItemScopeMapping:
         self.name = name
         self.type_id_mapping = kwargs.pop("type_id_mapping", dict())
 
+    def __hash__(self):
+        return hash(self.name + json.dumps(self.type_id_mapping, sort_keys=True))
+
     def add_item_mapping(self, item_type: str, item_id: str) -> None:
         """Group item ids in a list based on their type."""
         str_item_type = str(item_type)
-        if not str_item_type in self.type_id_mapping:
+        if str_item_type not in self.type_id_mapping:
             self.type_id_mapping[str_item_type] = []
 
         items = self.type_id_mapping[str_item_type]
@@ -259,6 +263,9 @@ class ReportTemplateInfo:
         self._abs_full_landscape_path = ""
         self._absolute_paths = None
 
+    def __hash__(self):
+        return hash([self.id, self.item_scopes])
+
     def add_scope_mapping(self, item_scope: ItemScopeMapping) -> None:
         self.item_scopes.append(item_scope)
 
@@ -363,6 +370,9 @@ class ReportConfiguration:
         self.template_info = template_info
         self.output_options = output_options
 
+    def __hash__(self):
+        return hash([self.template_info, self.output_options])
+
     def update_paths(self, root_template_dir, user_template_dir=None):
         # Convenience function for updating absolute paths for template files.
         self.template_info.update_paths(root_template_dir, user_template_dir)
@@ -387,6 +397,9 @@ class ReportTaskContext:
         self.report_configuration = report_configuration
         self.jobs = jobs or []
         self.root_report_dir = root_report_dir or None
+
+    def __hash__(self):
+        return hash([[job.id for job in self.jobs], hash(self.report_configuration)])
 
     def display_name(self) -> str:
         # Friendly name for the task that can be used in the UI.

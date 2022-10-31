@@ -51,4 +51,5 @@ jobs:
             automated pr
           add-paths: |
             docs/i18n/**/*.po
+            docs/souce/for_users/downloads/*.md
             LDMP/i18n/*.ts

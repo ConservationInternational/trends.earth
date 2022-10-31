@@ -81,7 +81,7 @@ exposure, and for reporting on UNCCD Strategic Objective 3.
 | ESB | [ESB (Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/ESB_NaturalEarth_Drought.tar.gz) |
 | ETH |  |
 | GEO | [GEO (Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/GEO_NaturalEarth_Drought.tar.gz) |
-| GHA |  |
+| GHA | [GHA (Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/GHA_NaturalEarth_Drought.tar.gz) |
 | GUY | [GUY (Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/GUY_NaturalEarth_Drought.tar.gz) |
 | IDN | [IDN (Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/IDN_NaturalEarth_Drought.tar.gz) |
 | IND | [IND (Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/IND_NaturalEarth_Drought.tar.gz) |

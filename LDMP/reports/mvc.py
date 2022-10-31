@@ -2,37 +2,38 @@
 import os
 import typing
 
-from qgis.gui import QgisInterface
 from qgis.core import Qgis
-from qgis.PyQt.QtCore import (
-    QAbstractItemModel,
-    QCoreApplication,
-    QFileInfo,
-    QModelIndex,
-    Qt,
-    QUrl,
-)
-from qgis.PyQt.QtGui import QDesktopServices, QStandardItem, QStandardItemModel
-from qgis.PyQt.QtWidgets import (
-    QComboBox,
-    QMenu,
-    QPushButton,
-    QStyledItemDelegate,
-    QStyleOptionViewItem,
-    QWidget,
-)
-
+from qgis.gui import QgisInterface
+from qgis.PyQt.QtCore import QAbstractItemModel
+from qgis.PyQt.QtCore import QCoreApplication
+from qgis.PyQt.QtCore import QFileInfo
+from qgis.PyQt.QtCore import QModelIndex
+from qgis.PyQt.QtCore import Qt
+from qgis.PyQt.QtCore import QUrl
+from qgis.PyQt.QtGui import QDesktopServices
+from qgis.PyQt.QtGui import QStandardItem
+from qgis.PyQt.QtGui import QStandardItemModel
+from qgis.PyQt.QtWidgets import QComboBox
+from qgis.PyQt.QtWidgets import QMenu
+from qgis.PyQt.QtWidgets import QPushButton
+from qgis.PyQt.QtWidgets import QStyledItemDelegate
+from qgis.PyQt.QtWidgets import QStyleOptionViewItem
+from qgis.PyQt.QtWidgets import QWidget
 from te_schemas.jobs import JobStatus
 
 from ..jobs.manager import job_manager
 from ..jobs.models import Job
 from ..logger import log
-from .models import ReportConfiguration, ItemScopeMapping, ReportTaskContext
-
+from ..utils import FileUtils
+from ..utils import open_qgis_project
 from .generator import report_generator_manager
+from .models import ItemScopeMapping
+from .models import ReportConfiguration
+from .models import ReportTaskContext
 from .template_manager import template_manager
-from .utils import job_has_report, job_has_results, job_report_directory
-from ..utils import FileUtils, open_qgis_project
+from .utils import job_has_report
+from .utils import job_has_results
+from .utils import job_report_directory
 
 
 class DatasetReportHandler:
@@ -223,8 +224,11 @@ class DatasetReportHandler:
         one of the prerequisites has not been met.
         """
         self.check_job_report_status()
-        rpt_task_running = report_generator_manager.is_task_running(self._rpt_task_ctx)
-        if self._regenerate_report and not rpt_task_running:
+        if (
+            self._regenerate_report
+            and not report_generator_manager.is_task_running(self._rpt_task_ctx)
+            and not report_generator_manager.is_task_overrun(self._rpt_task_ctx)
+        ):
             report_generator_manager.process_report_task(self._rpt_task_ctx)
             return True
 

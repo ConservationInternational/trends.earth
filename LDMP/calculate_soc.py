@@ -10,29 +10,24 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
-
 import json
 from pathlib import Path
 
 import qgis.gui
-from qgis.PyQt import (
-    QtGui,
-    QtWidgets,
-    uic,
-)
+from qgis.PyQt import QtGui
+from qgis.PyQt import QtWidgets
+from qgis.PyQt import uic
+from te_schemas.algorithms import AlgorithmRunMode
+from te_schemas.algorithms import ExecutionScript
+from te_schemas.land_cover import LCLegendNesting
+from te_schemas.land_cover import LCTransitionDefinitionDeg
 
-from te_schemas.land_cover import LCTransitionDefinitionDeg, LCLegendNesting
-from te_schemas.algorithms import AlgorithmRunMode, ExecutionScript
-
-from . import (
-    calculate,
-    data_io,
-    lc_setup,
-)
-
+from . import calculate
+from . import data_io
+from . import lc_setup
 from .jobs.manager import job_manager
-from .logger import log
 from .lc_setup import get_trans_matrix
+from .logger import log
 
 DlgCalculateSocUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateSOC.ui")

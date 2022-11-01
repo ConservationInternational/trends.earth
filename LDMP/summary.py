@@ -11,11 +11,10 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
+import numpy as np
 
 from . import conf
 from .logger import log
-
-import numpy as np
 
 #  Calculate the area of a slice of the globe from the equator to the parallel
 #  at latitude f (on WGS84 ellipsoid). Based on:

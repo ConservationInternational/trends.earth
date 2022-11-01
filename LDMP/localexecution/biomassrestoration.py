@@ -18,9 +18,9 @@ from te_schemas.results import URI
 from .. import areaofinterest
 from .. import calculate
 from .. import data_io
+from .. import logger
 from .. import summary
 from .. import utils
-from .. import logger
 from .. import worker
 from ..jobs.models import Job
 

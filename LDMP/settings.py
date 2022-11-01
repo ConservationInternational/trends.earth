@@ -11,31 +11,37 @@
  ***************************************************************************/
 """
 import json
-from enum import auto, Flag
 import os
-import zipfile
-import typing
 import re
+import typing
+import zipfile
+from enum import auto
+from enum import Flag
 from pathlib import Path
 
-from qgis.PyQt import uic, QtCore, QtGui, QtWidgets, uic
 import qgis.core
 import qgis.gui
+from qgis.PyQt import QtCore
+from qgis.PyQt import QtGui
+from qgis.PyQt import QtWidgets
+from qgis.PyQt import uic
 from qgis.utils import iface
-
-from . import (
-    __version__,
-    api,
-    auth,
-    binaries_available,
-    binaries_name,
-    openFolder,
-    download,
-)
-from .conf import Setting, settings_manager, TR_ALL_REGIONS
-from .jobs.manager import job_manager
-from .lc_setup import get_default_esa_nesting, LCClassInfo, LccInfoUtils
 from te_schemas.land_cover import LCClass
+
+from . import __version__
+from . import api
+from . import auth
+from . import binaries_available
+from . import binaries_name
+from . import download
+from . import openFolder
+from .conf import Setting
+from .conf import settings_manager
+from .conf import TR_ALL_REGIONS
+from .jobs.manager import job_manager
+from .lc_setup import get_default_esa_nesting
+from .lc_setup import LccInfoUtils
+from .lc_setup import LCClassInfo
 
 
 Ui_DlgLandCoverRestore, _ = uic.loadUiType(

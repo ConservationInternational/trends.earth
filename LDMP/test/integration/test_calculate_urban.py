@@ -11,19 +11,15 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
-
+import logging
 import os
 import sys
 import tempfile
 
 import numpy as np
-
-import logging
-
 from qgis.testing import unittest
 
 from LDMP.calculate_urban import DlgCalculateUrbanSummaryTable
-
 from LDMP.test import add_default_bands_to_map
 
 

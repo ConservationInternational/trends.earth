@@ -11,22 +11,21 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
-
 import json
 import os
 import re
 import typing
-from enum import Enum
 from copy import deepcopy
+from enum import Enum
 from pathlib import Path
 
-from marshmallow_dataclass import dataclass
 from marshmallow.exceptions import ValidationError
+from marshmallow_dataclass import dataclass
+from qgis.core import QgsApplication
 from qgis.PyQt import QtCore
 from qgis.PyQt import QtGui
 from qgis.PyQt import QtWidgets
 from qgis.PyQt import uic
-from qgis.core import QgsApplication
 from qgis.utils import iface
 from te_schemas.land_cover import LCClass
 from te_schemas.land_cover import LCLegend

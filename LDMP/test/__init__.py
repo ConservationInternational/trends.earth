@@ -11,15 +11,17 @@
         email                : GEF-LDMP@conservation.org
  ***************************************************************************/
 """
-
-import os
 import json
+import os
 
-from qgis.PyQt.QtCore import QTimer, Qt
-from qgis.PyQt.QtWidgets import QMessageBox, QApplication
+from qgis.PyQt.QtCore import Qt
+from qgis.PyQt.QtCore import QTimer
 from qgis.PyQt.QtTest import QTest
+from qgis.PyQt.QtWidgets import QApplication
+from qgis.PyQt.QtWidgets import QMessageBox
 
-from LDMP.layers import add_layer, get_file_metadata
+from LDMP.layers import add_layer
+from LDMP.layers import get_file_metadata
 
 
 with open(

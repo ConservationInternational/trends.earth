@@ -1,10 +1,13 @@
 import os
-from qgis.PyQt.QtGui import QIcon
-from qgis.core import QgsProcessingProvider
 from pathlib import Path
-from .report import ReportTaskContextAlgorithm
+
+from qgis.core import QgsProcessingProvider
+from qgis.PyQt.QtGui import QIcon
+
 from .carbon import TCSummary
-from .utilities import GenerateMask, ClipRaster
+from .report import ReportTaskContextAlgorithm
+from .utilities import ClipRaster
+from .utilities import GenerateMask
 
 ICON_PATH = os.path.join(os.path.dirname(__file__), "icons")
 

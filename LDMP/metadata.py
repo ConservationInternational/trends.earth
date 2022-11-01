@@ -2,11 +2,10 @@ import os
 import tempfile
 from pathlib import Path
 
+import lxml.etree as ET
 import qgis.core
 from qgis.PyQt import QtCore
 from qgis.PyQt import QtXml
-
-import lxml.etree as ET
 
 from .jobs import manager
 from .jobs.models import Job

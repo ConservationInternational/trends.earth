@@ -11,24 +11,19 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
-
 import json
 import os
 from pathlib import Path
 
-
 import qgis.gui
-from qgis.PyQt import (
-    QtCore,
-    QtGui,
-    QtWidgets,
-    uic,
-)
+from qgis.PyQt import QtCore
+from qgis.PyQt import QtGui
+from qgis.PyQt import QtWidgets
+from qgis.PyQt import uic
 from te_schemas.algorithms import ExecutionScript
-from . import (
-    calculate,
-    conf,
-)
+
+from . import calculate
+from . import conf
 from .jobs.manager import job_manager
 from .logger import log
 

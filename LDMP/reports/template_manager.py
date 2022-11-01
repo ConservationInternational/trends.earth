@@ -1,19 +1,19 @@
 """Reads and validates templates."""
-
-from distutils.dir_util import copy_tree
-from distutils.errors import DistutilsFileError
-from enum import Enum
 import json
 import os
 import typing
+from enum import Enum
 
+from distutils.dir_util import copy_tree
+from distutils.errors import DistutilsFileError
 from marshmallow.exceptions import ValidationError
 from qgis.core import Qgis
 
-from ..conf import Setting, settings_manager
+from ..conf import Setting
+from ..conf import settings_manager
 from ..logger import log
-from .models import ReportConfiguration
 from ..utils import FileUtils
+from .models import ReportConfiguration
 
 
 class ConfigurationSource(Enum):

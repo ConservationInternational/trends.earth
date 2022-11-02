@@ -489,7 +489,7 @@ class AOI(object):
         return geojson
 
 
-def qgs_error_message(error_title='Error', error_desciption='', timeout=0):
+def qgs_error_message(error_title="Error", error_desciption="", timeout=0):
     """Displays an error message on the QGIS message bar. A button is included which will open
     the settings for the plugin.
 
@@ -505,26 +505,18 @@ def qgs_error_message(error_title='Error', error_desciption='', timeout=0):
 
     message_bar = qgisiface.messageBar()
 
-    msg_widget = message_bar.createMessage(
-        error_title,
-        error_desciption
-    )
+    msg_widget = message_bar.createMessage(error_title, error_desciption)
 
     settings_btn = QtWidgets.QPushButton(msg_widget)
     settings_btn.setText("Settings")
     settings_btn.pressed.connect(open_settings)
     msg_widget.layout().addWidget(settings_btn)
 
-    message_bar.pushWidget(
-        msg_widget,
-        level=Qgis.Info,
-        duration=timeout
-    )
+    message_bar.pushWidget(msg_widget, level=Qgis.Info, duration=timeout)
 
 
 def open_settings():
-    """Opens the QGIS settings panel. The Trends.Earth tab will be selected.
-    """
+    """Opens the QGIS settings panel. The Trends.Earth tab will be selected."""
     qgisiface.showOptionsDialog(currentPage=conf.OPTIONS_TITLE)
 
 
@@ -543,9 +535,9 @@ def prepare_area_of_interest() -> AOI:
     is_region = area_method == conf.AreaSetting.COUNTRY_REGION.value
     if is_city and not has_buffer:
         qgs_error_message(
-            'Buffer required',
+            "Buffer required",
             "Calculations for cities require a buffer. This can be set in the Trend.Earth settings.",
-            60
+            60,
         )
     elif is_city:
         geojson = get_city_geojson()

@@ -574,13 +574,17 @@ class DlgCalculateBase(QtWidgets.QDialog):
         ) and not has_buffer:
             message_box = QtWidgets.QMessageBox()
             message_box.setIcon(QtWidgets.QMessageBox.Warning)
-            message_box.setText(tr_calculate.tr(
-                "You have chosen to run this calculation on a point "
-                "(or for a city). To run this tool on a point you "
-                "must also select a buffer. This can be done in the Trends.Earth settings."
-            ))
+            message_box.setText(
+                tr_calculate.tr(
+                    "You have chosen to run this calculation on a point "
+                    "(or for a city). To run this tool on a point you "
+                    "must also select a buffer. This can be done in the Trends.Earth settings."
+                )
+            )
             message_box.setWindowTitle(tr_calculate.tr("Warning"))
-            settings_btn = message_box.addButton('Settings', QtWidgets.QMessageBox.ActionRole)
+            settings_btn = message_box.addButton(
+                "Settings", QtWidgets.QMessageBox.ActionRole
+            )
             settings_btn.clicked.connect(self.settings_btn_clicked)
             message_box.setStandardButtons(QtWidgets.QMessageBox.Close)
 

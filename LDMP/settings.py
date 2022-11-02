@@ -175,7 +175,9 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
         self.pushButton_delete_user.clicked.connect(self.delete)
         self.pushButton_forgot_pwd.clicked.connect(self.forgot_pwd)
 
-        self.groupbox_lc_config.collapsedStateChanged.connect(self.collapsed_state_changed)
+        self.groupbox_lc_config.collapsedStateChanged.connect(
+            self.collapsed_state_changed
+        )
 
         self.settings = qgis.core.QgsSettings()
 
@@ -190,8 +192,7 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
         self.reloadAuthConfigurations()
 
     def apply(self):
-        """This is called on OK click in the QGIS options panel.
-        """
+        """This is called on OK click in the QGIS options panel."""
 
         old_base_dir = conf.settings_manager.get_value(conf.Setting.BASE_DIR)
 
@@ -1698,7 +1699,9 @@ class LandCoverCustomClassesManager(
     def set_table_height(self):
 
         table_row_count = self.model.rowCount()
-        row_0_height = self.tb_classes.rowHeight(0)  # There will always be atleast one class
+        row_0_height = self.tb_classes.rowHeight(
+            0
+        )  # There will always be atleast one class
         btns_height = self.horizontalLayout.totalSizeHint().height()
 
         # Step to avoid a too small group box. This is to accomodate the class editor

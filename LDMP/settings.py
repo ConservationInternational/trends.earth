@@ -1760,11 +1760,18 @@ class LandCoverCustomClassesManager(
 
             self.openPanel(self.editor)
 
+            # Changes the size of the box to that of the
+            # LC editor
+            self.groupbox_lc_config.setFixedHeight(215)
+
             # Restore the viewport area
             if vs_bar is not None and vs_bar.value() == 0 and init_pos != -1:
                 vs_bar.setValue(init_pos)
 
     def on_editor_accepted(self, panel):
+        # Sets the size to the number of rows
+        self.set_table_height()
+    
         # Slot raised when editor panel has been accepted.
         lc_cls_info = panel.lc_class_info
         if lc_cls_info is None and not panel.updated:

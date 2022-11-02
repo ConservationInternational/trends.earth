@@ -1771,7 +1771,7 @@ class LandCoverCustomClassesManager(
     def on_editor_accepted(self, panel):
         # Sets the size to the number of rows
         self.set_table_height()
-    
+
         # Slot raised when editor panel has been accepted.
         lc_cls_info = panel.lc_class_info
         if lc_cls_info is None and not panel.updated:

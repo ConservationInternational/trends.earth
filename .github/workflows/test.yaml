@@ -30,7 +30,6 @@ jobs:
       fail-fast: false
       matrix:
         qgis_version_tag:
-          - release-3_16
           - release-3_22
           - release-3_26
           - latest
@@ -63,6 +62,5 @@ jobs:
       - name: Run test suite
         run: |
           docker-compose exec -T qgis-testing-environment sh -c "apt-get update"
-      # Workaround for fixing error about a missing :99 display.
           docker-compose exec -T qgis-testing-environment sh -c "apt-get install -y python3-opencv"
           docker-compose exec -T qgis-testing-environment qgis_testrunner.sh LDMP.test.testplugin

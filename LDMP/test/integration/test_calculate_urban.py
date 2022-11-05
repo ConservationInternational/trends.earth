@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 /***************************************************************************
  LDMP - A QGIS plugin
@@ -65,7 +64,11 @@ class DlgCalculateUrbanSummaryTableWorkerTests(unittest.TestCase):
 
 def CalculateUrbanIntegrationSuite():
     suite = unittest.TestSuite()
-    suite.addTests(unittest.makeSuite(DlgCalculateUrbanSummaryTableWorkerTests, "test"))
+    suite.addTests(
+        unittest.defaultTestLoader.loadTestsFromTestCase(
+            DlgCalculateUrbanSummaryTableWorkerTests, "test"
+        )
+    )
     return suite
 
 

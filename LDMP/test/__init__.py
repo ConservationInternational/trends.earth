@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import os
 
 from qgis.PyQt.QtCore import Qt
@@ -50,7 +49,7 @@ def add_default_bands_to_map(f):
 # Class to store GEE tasks that have been submitted for processing and that
 # have further tests to apply once the results have been returned. Queue stores
 # tuples of (GEE Task ID, settings object)
-class GEETaskList(object):
+class GEETaskList:
     def __init__(self):
         tasks = {}
 

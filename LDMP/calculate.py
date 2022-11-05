@@ -62,7 +62,7 @@ WidgetCalculationOutputUi, _ = uic.loadUiType(
 )
 
 
-class tr_calculate(object):
+class tr_calculate:
     def tr(message):
         return QtCore.QCoreApplication.translate("tr_calculate", message)
 
@@ -306,7 +306,7 @@ class CalculationOptionsWidget(QtWidgets.QWidget, WidgetCalculationOptionsUi):
 
 class CalculationOutputWidget(QtWidgets.QWidget, WidgetCalculationOutputUi):
     def __init__(self, suffixes, subclass_name, parent=None):
-        super(CalculationOutputWidget, self).__init__(parent)
+        super().__init__(parent)
 
         self.output_suffixes = suffixes
         self.subclass_name = subclass_name
@@ -395,7 +395,7 @@ class CalculationHidedOutputWidget(QtWidgets.QWidget, WidgetCalculationOutputUi)
     process_datetime: dt.datetime
 
     def __init__(self, suffixes, subclass_name, parent=None):
-        super(CalculationHidedOutputWidget, self).__init__(parent)
+        super().__init__(parent)
 
         self.output_suffixes = suffixes
         self.subclass_name = subclass_name
@@ -549,7 +549,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
             self.update_current_region()
 
     def showEvent(self, event):
-        super(DlgCalculateBase, self).showEvent(event)
+        super().showEvent(event)
 
         if self._firstShowEvent:
             self._firstShowEvent = False

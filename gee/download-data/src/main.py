@@ -2,13 +2,8 @@
 Code for downloading dataset.
 """
 # Copyright 2017 Conservation International
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-
 import json
 import random
-from builtins import str
 
 from te_algorithms.gee.download import download
 from te_algorithms.gee.util import teimage_v1_to_teimage_v2

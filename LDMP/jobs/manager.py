@@ -48,7 +48,7 @@ from .models import Job
 logger = logging.getLogger(__name__)
 
 
-class tr_manager(object):
+class tr_manager:
     def tr(message):
         return QtCore.QCoreApplication.translate("tr_manager", message)
 

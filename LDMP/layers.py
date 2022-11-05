@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 /***************************************************************************
  LDMP - A QGIS plugin
@@ -16,7 +15,6 @@ import math
 import os
 import re
 import typing
-from builtins import str
 from math import floor
 from math import log10
 from operator import attrgetter
@@ -43,7 +41,7 @@ from te_schemas.land_cover import LCLegendNesting
 from .logger import log
 
 
-class tr_layers(object):
+class tr_layers:
     def tr(message):
         return QCoreApplication.translate("tr_layers", message)
 
@@ -602,7 +600,7 @@ def _create_color_ramp(
 
 
 def _get_qgis_version():
-    qgis_version_match = re.match("(^[0-9]*)\.([0-9]*)", Qgis.QGIS_VERSION)
+    qgis_version_match = re.match(r"(^[0-9]*)\.([0-9]*)", Qgis.QGIS_VERSION)
 
     return int(qgis_version_match[1]), int(qgis_version_match[2])
 

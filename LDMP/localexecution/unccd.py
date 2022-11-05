@@ -118,7 +118,7 @@ def _make_tar_gz(out_tar_gz, in_files):
 
 
 def _set_affected_areas_only(in_file, out_file, schema):
-    with open(in_file, "r") as f:
+    with open(in_file) as f:
         summary = schema.load(json.load(f))
     summary.metadata.affected_areas_only = True
     out_json = json.loads(schema.dumps(summary))
@@ -136,13 +136,13 @@ def _get_error_recode_polygons(in_file):
     layer_out = out_ds.CopyLayer(layer_in, "error_recode")
     del layer_out
     del out_ds
-    with open(out_file, "r") as f:
+    with open(out_file) as f:
         polys = ErrorRecodePolygons.Schema().load(json.load(f))
     return polys
 
 
 def _set_error_recode(in_file, out_file, error_recode_polys):
-    with open(in_file, "r") as f:
+    with open(in_file) as f:
         summary = reporting.TrendsEarthLandConditionSummary.Schema().load(json.load(f))
     summary.land_condition["integrated"].error_recode = error_recode_polys
     out_json = json.loads(

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 /***************************************************************************
  LDMP - A QGIS plugin
@@ -33,7 +32,7 @@ API_URL = "https://api2.trends.earth"
 TIMEOUT = 30
 
 
-class tr_api(object):
+class tr_api:
     def tr(message):
         return QtCore.QCoreApplication.translate("tr_api", message)
 

@@ -41,7 +41,7 @@ class DatasetDetailsDialogue(QtWidgets.QDialog, WidgetDatasetItemDetailsUi):
     path_le: QtWidgets.QLineEdit
 
     def __init__(self, job: Job, parent=None):
-        super(DatasetDetailsDialogue, self).__init__(parent)
+        super().__init__(parent)
         self.setupUi(self)
 
         self.metadata_menu = QtWidgets.QMenu()

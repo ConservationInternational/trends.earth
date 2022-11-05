@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 /***************************************************************************
  LDMP - A QGIS plugin
@@ -80,7 +79,7 @@ Ui_WidgetDataIOSelectTEDatasetExisting, _ = uic.loadUiType(
 )
 
 
-class tr_data_io(object):
+class tr_data_io:
     def tr(message):
         return QtCore.QCoreApplication.translate("tr_data_io", message)
 
@@ -580,7 +579,7 @@ def get_unique_values_raster(f, band_num, sample=True, max_unique=60):
 class DlgJobsDetails(QtWidgets.QDialog, Ui_DlgJobsDetails):
     def __init__(self, parent=None):
         """Constructor."""
-        super(DlgJobsDetails, self).__init__(parent)
+        super().__init__(parent)
 
         self.setupUi(self)
         self.task_status.hide()
@@ -686,7 +685,7 @@ class ImportSelectFileInputWidget(
     inputTypeChanged = QtCore.pyqtSignal(bool)
 
     def __init__(self, parent=None):
-        super(ImportSelectFileInputWidget, self).__init__(parent)
+        super().__init__(parent)
         self.setupUi(self)
 
         self.radio_raster_input.toggled.connect(self.radio_raster_input_toggled)
@@ -833,7 +832,7 @@ class ImportSelectRasterOutput(
     QtWidgets.QWidget, Ui_WidgetDataIOImportSelectRasterOutput
 ):
     def __init__(self, parent=None):
-        super(ImportSelectRasterOutput, self).__init__(parent)
+        super().__init__(parent)
 
         self.setupUi(self)
 
@@ -1144,7 +1143,7 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
         if value == QtWidgets.QDialog.Accepted:
             self.validate_input(value)
         else:
-            super(DlgDataIOImportSOC, self).done(value)
+            super().done(value)
 
     def validate_input(self, value):
         if self.output_widget.lineEdit_output_file.text() == "":
@@ -1166,7 +1165,7 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
 
             return
 
-        ret = super(DlgDataIOImportSOC, self).validate_input(value)
+        ret = super().validate_input(value)
 
         if not ret:
             return
@@ -1241,7 +1240,7 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
 
             return
 
-        super(DlgDataIOImportSOC, self).done(value)
+        super().done(value)
 
         self.ok_clicked()
 
@@ -1288,7 +1287,7 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
         if value == QtWidgets.QDialog.Accepted:
             self.validate_input(value)
         else:
-            super(DlgDataIOImportProd, self).done(value)
+            super().done(value)
 
     def validate_input(self, value):
         if self.output_widget.lineEdit_output_file.text() == "":
@@ -1423,7 +1422,7 @@ def _get_usable_bands(
             for band_index, band_info in enumerate(job.results.get_bands(), start=1):
 
                 if job.results.uri is not None and (
-                    (band_info.name == band_name or band_name == "any")
+                    band_info.name == band_name or band_name == "any"
                 ):
                     if aoi is not None:
                         if not _check_dataset_overlap_raster(aoi, job.results):
@@ -1703,7 +1702,7 @@ class WidgetDataIOSelectTEDatasetExisting(
     job_selected = QtCore.pyqtSignal(uuid.UUID)
 
     def __init__(self, parent=None):
-        super(WidgetDataIOSelectTEDatasetExisting, self).__init__(parent)
+        super().__init__(parent)
         self.setupUi(self)
 
         self.dataset_list = None

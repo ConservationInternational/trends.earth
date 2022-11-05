@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 /***************************************************************************
  LDMP - A QGIS plugin
@@ -66,7 +65,7 @@ binaries_folder = QtCore.QSettings().value(
     "trends_earth/advanced/binaries_folder", None
 )
 te_version = __version__.replace(".", "-")
-qgis_version = re.match("^[0-9]*\.[0-9]*", Qgis.QGIS_VERSION)[0].replace(".", "-")
+qgis_version = re.match(r"^[0-9]*\.[0-9]*", Qgis.QGIS_VERSION)[0].replace(".", "-")
 binaries_name = f"trends_earth_binaries_{te_version}_{qgis_version}"
 
 if binaries_folder:

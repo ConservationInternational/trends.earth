@@ -4,7 +4,6 @@ Code for calculating all three SDG 15.3.1 sub-indicators.
 # Copyright 2017 Conservation International
 import random
 import tempfile
-from builtins import str
 from pathlib import Path
 
 import te_algorithms.gdal.land_deg.config as ld_config

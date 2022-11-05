@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import os
 import sys
 import tempfile
@@ -89,10 +88,14 @@ class DlgCalculateLDNSummaryTableAdminOutputTests(unittest.TestCase):
 def CalculateLDNIntegrationSuite():
     suite = unittest.TestSuite()
     suite.addTests(
-        unittest.makeSuite(DlgCalculateLDNSummaryTableAdminWorkerTests, "test")
+        unittest.defaultTestLoader.loadTestsFromTestCase(
+            DlgCalculateLDNSummaryTableAdminWorkerTests, "test"
+        )
     )
     suite.addTests(
-        unittest.makeSuite(DlgCalculateLDNSummaryTableAdminOutputTests, "test")
+        unittest.defaultTestLoader.loadTestsFromTestCase(
+            DlgCalculateLDNSummaryTableAdminOutputTests, "test"
+        )
     )
     return suite
 

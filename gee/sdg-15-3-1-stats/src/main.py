@@ -3,7 +3,6 @@ Code for calculating all three SDG 15.3.1 sub-indicators.
 """
 # Copyright 2017 Conservation International
 import random
-from builtins import str
 from typing import Dict
 
 from te_algorithms.api import util

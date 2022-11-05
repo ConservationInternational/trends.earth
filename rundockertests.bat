@@ -1,5 +1,4 @@
 @echo off
-REM Run docker tests on your local machine
 
 set QGIS_VERSION_TAG=release-3_26
 set WITH_PYTHON_PEP=true

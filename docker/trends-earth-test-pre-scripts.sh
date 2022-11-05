@@ -8,3 +8,7 @@ ln -sf /tests_directory/LDMP /root/.local/share/QGIS/QGIS3/profiles/default/pyth
 
 pip3 install -r /tests_directory/requirements.txt
 pip3 install -r /tests_directory/requirements-dev.txt
+
+# Ensure that ui files are compiled
+cd /tests_directory
+invoke compile_files

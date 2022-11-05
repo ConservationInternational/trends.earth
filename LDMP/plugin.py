@@ -21,8 +21,8 @@ from qgis.core import QgsMasterLayoutInterface
 from qgis.core import QgsMessageLog
 from qgis.gui import QgsLayoutDesignerInterface
 from qgis.PyQt.QtCore import QCoreApplication
-from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtCore import QLocale
+from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction
 from qgis.PyQt.QtWidgets import QApplication

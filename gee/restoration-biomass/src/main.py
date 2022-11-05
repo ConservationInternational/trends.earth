@@ -2,7 +2,6 @@
 Code for calculating potential carbon gains due to restoration.
 """
 # Copyright 2017 Conservation International
-
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
@@ -12,8 +11,8 @@ import random
 
 import ee
 from te_algorithms.gee.util import TEImage
-from te_schemas.schemas import BandInfo
 from te_algorithms.gee.util import teimage_v1_to_teimage_v2
+from te_schemas.schemas import BandInfo
 
 
 def restoration_carbon(rest_type, length_yr, crs, geojsons, EXECUTION_ID, logger):

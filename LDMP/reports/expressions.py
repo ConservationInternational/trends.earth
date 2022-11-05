@@ -1,15 +1,16 @@
 # Module for managing variables and expressions that can be used in a report.
-
-from collections import namedtuple
 import json
-from operator import attrgetter
 import typing
+from collections import namedtuple
+from operator import attrgetter
 
-from qgis.core import QgsExpressionContext, QgsLayout, QgsRasterLayer
-
+from qgis.core import QgsExpressionContext
+from qgis.core import QgsLayout
+from qgis.core import QgsRasterLayer
 from qgis.PyQt.QtCore import QCoreApplication
 
-from ..conf import Setting, settings_manager
+from ..conf import Setting
+from ..conf import settings_manager
 from ..jobs.models import Job
 from ..utils import utc_to_local
 

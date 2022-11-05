@@ -5,12 +5,12 @@ from pathlib import Path
 
 from osgeo import gdal
 from osgeo import osr
+from te_schemas.land_cover import LCLegendNesting
+from te_schemas.land_cover import LCTransitionDefinitionDeg
 from te_schemas.results import Band as JobBand
 from te_schemas.results import DataType
 from te_schemas.results import Raster
 from te_schemas.results import RasterFileType
-from te_schemas.land_cover import LCLegendNesting
-from te_schemas.land_cover import LCTransitionDefinitionDeg
 from te_schemas.results import RasterResults
 from te_schemas.results import URI
 

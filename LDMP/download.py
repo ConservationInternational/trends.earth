@@ -11,25 +11,24 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
-
 import dataclasses
-import os
 import gzip
+import hashlib
+import json
+import os
 import typing
 import zipfile
-import json
-import requests
-import hashlib
 from pathlib import Path
 
-from qgis.PyQt import QtWidgets, QtCore
-
+import requests
+from qgis.PyQt import QtCore
+from qgis.PyQt import QtWidgets
 from qgis.utils import iface
 
-from .logger import log
-
 from .api import get_header
-from .worker import AbstractWorker, start_worker
+from .logger import log
+from .worker import AbstractWorker
+from .worker import start_worker
 
 
 @dataclasses.dataclass()

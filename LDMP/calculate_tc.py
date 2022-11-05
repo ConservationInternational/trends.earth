@@ -11,39 +11,29 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
-
 import json
 from pathlib import Path
 
-from osgeo import (
-    gdal,
-    osr,
-)
-
 import qgis.core
 import qgis.gui
+from osgeo import gdal
+from osgeo import osr
+from qgis.PyQt import QtCore
+from qgis.PyQt import QtWidgets
+from qgis.PyQt import uic
 from qgis.utils import iface
-
-from qgis.PyQt import (
-    QtWidgets,
-    QtCore,
-    uic,
-)
-
 from te_schemas.algorithms import ExecutionScript
+from te_schemas.schemas import BandInfo
+from te_schemas.schemas import BandInfoSchema
 
-from . import (
-    GetTempFilename,
-    conf,
-    data_io,
-    layers,
-    calculate,
-    worker,
-)
+from . import calculate
+from . import conf
+from . import data_io
+from . import GetTempFilename
+from . import layers
+from . import worker
 from .jobs.manager import job_manager
 from .summary import *
-
-from te_schemas.schemas import BandInfo, BandInfoSchema
 
 DlgCalculateTcDataUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateTCData.ui")

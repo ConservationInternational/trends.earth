@@ -11,14 +11,13 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
-
-import numpy as np
 from pathlib import Path
 
+import numpy as np
 import pyqtgraph as pg
-
 import qgis.gui
-from qgis.PyQt import QtWidgets, uic
+from qgis.PyQt import QtWidgets
+from qgis.PyQt import uic
 
 
 UiDlgPlot, _ = uic.loadUiType(str(Path(__file__).parent / "gui/DlgPlot.ui"))

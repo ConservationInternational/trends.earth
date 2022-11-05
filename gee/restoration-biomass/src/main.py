@@ -2,10 +2,6 @@
 Code for calculating potential carbon gains due to restoration.
 """
 # Copyright 2017 Conservation International
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-
 import json
 import random
 

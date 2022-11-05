@@ -23,7 +23,7 @@ from .. import utils
 from ..jobs.models import Job
 
 
-class tr_calculate_tc(object):
+class tr_calculate_tc:
     def tr(message):
         return QtCore.QCoreApplication.translate("tr_calculate_tc", message)
 
@@ -270,7 +270,7 @@ def write_excel_summary(
     try:
         wb.save(out_file)
 
-    except IOError as exc:
+    except OSError as exc:
         logger.log(f"Error saving {out_file}: {str(exc)}")
         return False
 

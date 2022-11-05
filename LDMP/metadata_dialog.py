@@ -21,7 +21,7 @@ class DlgDatasetMetadata(QtWidgets.QDialog, Ui_DlgDatasetMetadata):
     metadata: qgis.core.QgsLayerMetadata
 
     def __init__(self, parent=None):
-        super(DlgDatasetMetadata, self).__init__(parent)
+        super().__init__(parent)
         self.setupUi(self)
 
         self.btn_add_address.setIcon(

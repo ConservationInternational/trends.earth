@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 /***************************************************************************
  LDMP - A QGIS plugin
@@ -28,7 +27,7 @@ Ui_DlgAbout, _ = uic.loadUiType(str(Path(__file__).parent / "gui/DlgAbout.ui"))
 class DlgAbout(QtWidgets.QDialog, Ui_DlgAbout):
     def __init__(self, parent=None):
         """Constructor."""
-        super(DlgAbout, self).__init__(parent)
+        super().__init__(parent)
 
         self.setupUi(self)
 

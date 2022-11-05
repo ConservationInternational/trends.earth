@@ -135,7 +135,7 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
     message_bar: qgis.gui.QgsMessageBar
 
     def __init__(self, parent=None):
-        super(DlgSettings, self).__init__(parent)
+        super().__init__(parent)
 
         self.setupUi(self)
         self.message_bar = qgis.gui.QgsMessageBar(self)
@@ -305,7 +305,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
     cities: typing.Dict[str, typing.Dict[str, download.City]]
 
     def __init__(self, parent=None):
-        super(AreaWidget, self).__init__(parent)
+        super().__init__(parent)
 
         self.setupUi(self)
 
@@ -557,8 +557,8 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
                 )
         elif self.area_frompoint.isChecked():
             if (
-                self.area_frompoint_point_x.text() is not ""
-                and self.area_frompoint_point_y.text() is not ""
+                self.area_frompoint_point_x.text() != ""
+                and self.area_frompoint_point_y.text() != ""
             ):
                 name = "pt-lon{:.3f}lat{:.3f}".format(
                     float(self.area_frompoint_point_x.text()),
@@ -567,7 +567,7 @@ class AreaWidget(QtWidgets.QWidget, Ui_WidgetSelectArea):
             else:
                 return
         elif self.area_fromfile.isChecked():
-            if self.area_fromfile_file.text() is not "":
+            if self.area_fromfile_file.text() != "":
                 layer = qgis.core.QgsVectorLayer(
                     self.area_fromfile_file.text(), "area", "ogr"
                 )
@@ -710,7 +710,7 @@ class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):
     authConfigInitialised = QtCore.pyqtSignal(str)
 
     def __init__(self, parent=None):
-        super(DlgSettingsRegister, self).__init__(parent)
+        super().__init__(parent)
 
         self.setupUi(self)
 
@@ -780,7 +780,7 @@ class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):
 
 class DlgSettingsLogin(QtWidgets.QDialog, Ui_DlgSettingsLogin):
     def __init__(self, parent=None):
-        super(DlgSettingsLogin, self).__init__(parent)
+        super().__init__(parent)
 
         self.setupUi(self)
 
@@ -790,7 +790,7 @@ class DlgSettingsLogin(QtWidgets.QDialog, Ui_DlgSettingsLogin):
         self.ok = False
 
     def showEvent(self, event):
-        super(DlgSettingsLogin, self).showEvent(event)
+        super().showEvent(event)
 
         email = _get_user_email(auth.TE_API_AUTH_SETUP, warn=False)
 
@@ -836,7 +836,7 @@ class DlgSettingsLogin(QtWidgets.QDialog, Ui_DlgSettingsLogin):
 
 class DlgSettingsLoginLandPKS(QtWidgets.QDialog, Ui_DlgSettingsLogin):
     def __init__(self, parent=None):
-        super(DlgSettingsLoginLandPKS, self).__init__(parent)
+        super().__init__(parent)
 
         self.setupUi(self)
 
@@ -846,7 +846,7 @@ class DlgSettingsLoginLandPKS(QtWidgets.QDialog, Ui_DlgSettingsLogin):
         self.ok = False
 
     def showEvent(self, event):
-        super(DlgSettingsLoginLandPKS, self).showEvent(event)
+        super().showEvent(event)
 
         email = _get_user_email(auth.LANDPKS_AUTH_SETUP, warn=False)
 
@@ -897,7 +897,7 @@ class DlgSettingsEditForgotPassword(
     QtWidgets.QDialog, Ui_DlgSettingsEditForgotPassword
 ):
     def __init__(self, parent=None):
-        super(DlgSettingsEditForgotPassword, self).__init__(parent)
+        super().__init__(parent)
 
         self.setupUi(self)
 
@@ -907,7 +907,7 @@ class DlgSettingsEditForgotPassword(
         self.ok = False
 
     def showEvent(self, event):
-        super(DlgSettingsEditForgotPassword, self).showEvent(event)
+        super().showEvent(event)
 
         email = _get_user_email(auth.TE_API_AUTH_SETUP, warn=False)
 
@@ -955,7 +955,7 @@ class DlgSettingsEditForgotPassword(
 
 class DlgSettingsEditUpdate(QtWidgets.QDialog, Ui_DlgSettingsEditUpdate):
     def __init__(self, user, parent=None):
-        super(DlgSettingsEditUpdate, self).__init__(parent)
+        super().__init__(parent)
 
         self.setupUi(self)
 
@@ -1038,7 +1038,7 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
     message_bar: qgis.gui.QgsMessageBar
 
     def __init__(self, message_bar: qgis.gui.QgsMessageBar, parent=None):
-        super(WidgetSettingsAdvanced, self).__init__(parent)
+        super().__init__(parent)
         self.setupUi(self)
 
         self.message_bar = message_bar
@@ -1062,7 +1062,7 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
         self.landpks_gb.hide()
 
     def closeEvent(self, event):
-        super(WidgetSettingsAdvanced, self).closeEvent(event)
+        super().closeEvent(event)
 
         if (
             self.binaries_gb.isChecked() != self.binaries_checkbox_initial
@@ -1129,7 +1129,7 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
         )
 
     def showEvent(self, event):
-        super(WidgetSettingsAdvanced, self).showEvent(event)
+        super().showEvent(event)
         self.show_settings()
         binaries_checked = settings_manager.get_value(Setting.BINARIES_ENABLED)
         # TODO: Have this actually check if they are enabled in summary_numba

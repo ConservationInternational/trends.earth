@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 /***************************************************************************
  LDMP - A QGIS plugin
@@ -59,7 +58,7 @@ def set_fill_style(maplayers, id, style="no"):
                     elem.setAttribute("v", style)
 
 
-class zoom_to_admin_poly(object):
+class zoom_to_admin_poly:
     def __init__(self, admin_code, admin_1=False):
         self.admin_code = admin_code
         if admin_1:
@@ -379,7 +378,7 @@ def download_base_map(
     ret = download.extract_zipfile("trends.earth_basemap_data.zip", verify=False)
 
     if ret:
-        f = open(os.path.join(os.path.dirname(__file__), "data", "basemap.qlr"), "rt")
+        f = open(os.path.join(os.path.dirname(__file__), "data", "basemap.qlr"))
         lyr_def_content = f.read()
         f.close()
 
@@ -461,7 +460,7 @@ class DlgVisualizationCreateMap(QtWidgets.QDialog, DlgVisualizationCreateMapUi):
             os.path.dirname(__file__), "data", "map_template_{}.qpt".format(orientation)
         )
 
-        with open(template, "rt") as f:
+        with open(template) as f:
             new_composer_content = f.read()
         document = QtXml.QDomDocument()
         document.setContent(new_composer_content)

@@ -2,12 +2,7 @@
 Code for calculating all three SDG 15.3.1 sub-indicators.
 """
 # Copyright 2017 Conservation International
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-
 import random
-from builtins import str
 from concurrent.futures import as_completed
 from concurrent.futures import ThreadPoolExecutor
 

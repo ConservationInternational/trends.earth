@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 /***************************************************************************
  LDMP - A QGIS plugin
@@ -147,9 +146,7 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
     def selection_changed(self):
         if self.data_view.selectedIndexes():
             # Note there can only be one row selected at a time by default
-            row = list(set(index.row() for index in self.data_view.selectedIndexes()))[
-                0
-            ]
+            row = list({index.row() for index in self.data_view.selectedIndexes()})[0]
             first_year = self.datasets[row]["Start year"]
             last_year = self.datasets[row]["End year"]
             if (first_year == "NA") or (last_year == "NA"):
@@ -166,7 +163,7 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
                 self.last_year.setMaximumDate(last_year)
 
     def tab_changed(self):
-        super(DlgDownload, self).tab_changed()
+        super().tab_changed()
         if (
             self.TabBox.currentIndex() == (self.TabBox.count() - 1)
         ) and not self.data_view.selectedIndexes():
@@ -174,14 +171,14 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
             self.button_calculate.setEnabled(False)
 
     def firstShow(self):
-        super(DlgDownload, self).firstShow()
+        super().firstShow()
         # Don't show the time selector for now
         self.TabBox.removeTab(1)
         self.button_prev.setHidden(True)
         self.button_next.setHidden(True)
 
     def showEvent(self, event):
-        super(DlgDownload, self).showEvent(event)
+        super().showEvent(event)
 
         # Don't local/cloud selector for this dialog
         self.options_tab.toggle_show_where_to_run(False)
@@ -238,13 +235,13 @@ class DlgDownload(calculate.DlgCalculateBase, DlgDownloadUi):
         # returns False, which would mean this function should stop execution
         # as well.
         log("btn_calculate clicked")
-        ret = super(DlgDownload, self).btn_calculate()
+        ret = super().btn_calculate()
         log(f"ret: {ret}")
         if not ret:
             return
         log(f"continuing...")
 
-        rows = list(set(index.row() for index in self.data_view.selectedIndexes()))
+        rows = list({index.row() for index in self.data_view.selectedIndexes()})
         # Construct unique dataset names as the concatenation of the category
         # and the title
         selected_names = [

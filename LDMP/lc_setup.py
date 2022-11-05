@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 /***************************************************************************
  LDMP - A QGIS plugin
@@ -58,7 +57,7 @@ WidgetLandCoverSetupRemoteExecutionUi, _ = uic.loadUiType(
 )
 
 
-class tr_lc_setup(object):
+class tr_lc_setup:
     def tr(message):
         return QtCore.QCoreApplication.translate("tr_lc_setup", message)
 
@@ -178,7 +177,7 @@ def json_serial(obj):
 
 class RotatedHeaderView(QtWidgets.QHeaderView):
     def __init__(self, orientation, parent=None):
-        super(RotatedHeaderView, self).__init__(orientation, parent)
+        super().__init__(orientation, parent)
         self.setMinimumSectionSize(20)
 
     def paintSection(self, painter, rect, logicalIndex):
@@ -188,23 +187,23 @@ class RotatedHeaderView(QtWidgets.QHeaderView):
         painter.rotate(90)
         # and have parent code paint at this location
         newrect = QtCore.QRect(0, 0, rect.height(), rect.width())
-        super(RotatedHeaderView, self).paintSection(painter, newrect, logicalIndex)
+        super().paintSection(painter, newrect, logicalIndex)
         painter.restore()
 
     def minimumSizeHint(self):
-        size = super(RotatedHeaderView, self).minimumSizeHint()
+        size = super().minimumSizeHint()
         size.transpose()
         return size
 
     def sectionSizeFromContents(self, logicalIndex):
-        size = super(RotatedHeaderView, self).sectionSizeFromContents(logicalIndex)
+        size = super().sectionSizeFromContents(logicalIndex)
         size.transpose()
         return size
 
 
 class VerticalLabel(QtWidgets.QLabel):
     def __init__(self, parent=None):
-        super(VerticalLabel, self).__init__(parent)
+        super().__init__(parent)
 
     def paintEvent(self, paint_event):
         painter = QtGui.QPainter(self)
@@ -225,7 +224,7 @@ class VerticalLabel(QtWidgets.QLabel):
 
 class TransMatrixEdit(QtWidgets.QLineEdit):
     def __init__(self, parent=None):
-        super(TransMatrixEdit, self).__init__(parent)
+        super().__init__(parent)
 
         self.textChanged.connect(self.transition_cell_changed)
 
@@ -244,13 +243,13 @@ class TransMatrixEdit(QtWidgets.QLineEdit):
             )
 
     def focusInEvent(self, e):
-        super(TransMatrixEdit, self).focusInEvent(e)
+        super().focusInEvent(e)
         self.selectAll()
 
 
 class LCClassComboBox(QtWidgets.QComboBox):
     def __init__(self, nesting=None, parent=None):
-        super(LCClassComboBox, self).__init__(parent)
+        super().__init__(parent)
         self._nesting = nesting
 
         self.currentIndexChanged.connect(self.index_changed)
@@ -948,7 +947,7 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
         self.dlg_agg = None
 
     def showEvent(self, event):
-        super(DlgDataIOImportLC, self).showEvent(event)
+        super().showEvent(event)
 
         # Reset flags to avoid reloading of unique values when files haven't
         # changed:
@@ -992,12 +991,12 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
 
             return
 
-        ret = super(DlgDataIOImportLC, self).validate_input(value)
+        ret = super().validate_input(value)
 
         if not ret:
             return
 
-        super(DlgDataIOImportLC, self).done(value)
+        super().done(value)
 
         self.ok_clicked()
 

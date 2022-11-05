@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 /***************************************************************************
  LDMP - A QGIS plugin
@@ -14,7 +13,6 @@
 from future import standard_library
 
 standard_library.install_aliases()
-from builtins import object
 import sys
 import time
 
@@ -29,7 +27,7 @@ from qgis.PyQt.QtWidgets import QProgressBar, QPushButton
 from .logger import log
 
 
-class tr_worker(object):
+class tr_worker:
     def tr(message):
         return QCoreApplication.translate("tr_worker", message)
 
@@ -167,7 +165,7 @@ def toggle_worker_cancel(show_cancel, cancel_button):
     cancel_button.setVisible(show_cancel)
 
 
-class StartWorker(object):
+class StartWorker:
     def __init__(self, worker_class, process_name, *args):
         self.exception = None
         self.success = None

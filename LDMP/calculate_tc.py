@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 /***************************************************************************
  LDMP - A QGIS plugin
@@ -227,7 +226,7 @@ class DlgCalculateTCData(calculate.DlgCalculateBase, DlgCalculateTcDataUi):
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
         # as well.
-        ret = super(DlgCalculateTCData, self).btn_calculate()
+        ret = super().btn_calculate()
         if not ret:
             return
         if (
@@ -623,7 +622,7 @@ class DlgCalculateTCSummaryTable(
         self._finish_initialization()
 
     def showEvent(self, event):
-        super(DlgCalculateTCSummaryTable, self).showEvent(event)
+        super().showEvent(event)
 
         self.combo_layer_f_loss.populate()
         self.combo_layer_tc.populate()
@@ -632,7 +631,7 @@ class DlgCalculateTCSummaryTable(
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
         # as well.
-        ret = super(DlgCalculateTCSummaryTable, self).btn_calculate()
+        ret = super().btn_calculate()
         if not ret:
             return
 

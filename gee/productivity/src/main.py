@@ -2,13 +2,8 @@
 Code for calculating vegetation productivity.
 """
 # Copyright 2017 Conservation International
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-
 import json
 import random
-from builtins import str
 
 import ee
 from te_algorithms.gdal.land_deg import config

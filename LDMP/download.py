@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 /***************************************************************************
  LDMP - A QGIS plugin
@@ -83,7 +82,7 @@ class Country:
         )
 
 
-class tr_download(object):
+class tr_download:
     def tr(message):
         return QtCore.QCoreApplication.translate("tr_download", message)
 
@@ -340,7 +339,7 @@ class DownloadWorker(AbstractWorker):
             return True
 
 
-class Download(object):
+class Download:
     def __init__(self, url, outfile):
         self.resp = None
         self.exception = None

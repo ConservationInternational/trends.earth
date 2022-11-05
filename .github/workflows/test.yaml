@@ -35,7 +35,6 @@ jobs:
           - latest
 
     steps:
-
       - name: Checkout
         uses: actions/checkout@v2
         with:
@@ -61,6 +60,4 @@ jobs:
 
       - name: Run test suite
         run: |
-          docker-compose exec -T qgis-testing-environment sh -c "apt-get update"
-          docker-compose exec -T qgis-testing-environment sh -c "apt-get install -y python3-opencv"
           docker-compose exec -T qgis-testing-environment qgis_testrunner.sh LDMP.test.testplugin

@@ -993,7 +993,7 @@ class JobManager(QtCore.QObject):
                         log(
                             f"Unable to decode file {job_metadata_path!r} as valid json"
                         )
-                except ValidationError as exc:
+                except ValidationError:
                     if conf.settings_manager.get_value(conf.Setting.DEBUG):
                         log(
                             f"Unable to decode file {job_metadata_path!r} - validation error decoding job"

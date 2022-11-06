@@ -29,7 +29,6 @@ from qgis.PyQt import uic
 from qgis.PyQt.QtCore import QSettings
 from te_schemas.jobs import JobStatus
 from te_schemas.results import Band as JobBand
-from te_schemas.results import Raster
 from te_schemas.results import RasterType
 from te_schemas.results import ResultType
 
@@ -518,7 +517,6 @@ def get_raster_stats(f, band_num, sample=True, min_min=0, max_max=1000, nodata=0
                 else:
                     cols = xsize - x
 
-                d = b.ReadAsArray(x, y, cols, rows).ravel()
                 mn, mx = _get_min_max_tuple(values, min_min, max_max, nodata)
 
                 if not mn or not mx:

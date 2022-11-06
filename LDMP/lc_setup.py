@@ -1794,7 +1794,7 @@ class LccInfoUtils:
             current_nesting = None
         if current_nesting is None:
             current_nesting = get_default_esa_nesting()
-        new_nesting = deepcopy(current_nesting)
+        deepcopy(current_nesting)
 
         current_child_codes = [c.code for c in current_nesting.child.key]
         new_child_codes = [lcc.lcc.code for lcc in ref_lcc_infos]

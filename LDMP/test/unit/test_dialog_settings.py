@@ -15,7 +15,6 @@ import sys
 from qgis.core import *
 from qgis.PyQt.QtCore import *
 from qgis.PyQt.QtTest import QTest
-from qgis.PyQt.QtWidgets import QApplication
 from qgis.testing import unittest
 
 from LDMP.settings import DlgSettingsLogin

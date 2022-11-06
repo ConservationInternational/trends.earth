@@ -10,8 +10,6 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
-import os
-import sys
 from pathlib import Path
 
 from qgis.PyQt import QtWidgets

@@ -2,7 +2,6 @@
 import os
 import typing
 
-from qgis.gui import QgisInterface
 from te_schemas.jobs import Job
 from te_schemas.results import Band as JobBand
 

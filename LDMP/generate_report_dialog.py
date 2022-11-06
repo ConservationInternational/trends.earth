@@ -5,7 +5,6 @@ from pathlib import Path
 from qgis.core import Qgis
 from qgis.gui import QgsMessageBar
 from qgis.PyQt import uic
-from qgis.PyQt.QtCore import QFileInfo
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtGui import QResizeEvent
 from qgis.PyQt.QtWidgets import QComboBox
@@ -18,8 +17,6 @@ from qgis.PyQt.QtWidgets import QTableView
 from qgis.PyQt.QtWidgets import QToolButton
 from qgis.PyQt.QtWidgets import QWidget
 
-from .conf import Setting
-from .conf import settings_manager
 from .jobs.models import Job
 from .reports.generator import report_generator_manager
 from .reports.models import ReportTaskContext

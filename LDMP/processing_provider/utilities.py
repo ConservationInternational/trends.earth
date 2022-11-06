@@ -3,20 +3,13 @@ import os
 
 import numpy as np
 from osgeo import gdal
-from osgeo import osr
-from qgis import processing
-from qgis.core import QgsGeometry
-from qgis.core import QgsProcessing
 from qgis.core import QgsProcessingAlgorithm
-from qgis.core import QgsProcessingException
 from qgis.core import QgsProcessingOutputNumber
 from qgis.core import QgsProcessingParameterFile
 from qgis.core import QgsProcessingParameterFileDestination
-from qgis.core import QgsProcessingParameterNumber
 from qgis.core import QgsProcessingParameterString
 from qgis.PyQt.QtCore import QCoreApplication
 
-from ..logger import log
 from LDMP import GetTempFilename
 
 

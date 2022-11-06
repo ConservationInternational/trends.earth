@@ -20,7 +20,6 @@ from urllib.parse import quote_plus
 import requests
 import backoff
 
-from dateutil import tz
 from qgis.core import QgsApplication, QgsTask
 from qgis.PyQt import QtCore, QtWidgets
 from qgis.utils import iface

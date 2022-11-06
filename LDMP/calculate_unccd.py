@@ -11,7 +11,6 @@
  ***************************************************************************/
 """
 # pylint: disable=import-error
-import datetime
 import typing
 from pathlib import Path
 
@@ -19,14 +18,9 @@ import qgis.gui
 from PyQt5 import QtCore
 from PyQt5 import QtWidgets
 from PyQt5 import uic
-from qgis.core import QgsGeometry
 from te_schemas.algorithms import ExecutionScript
-from te_schemas.land_cover import LCLegendNesting
-from te_schemas.land_cover import LCTransitionDefinitionDeg
 
 from . import conf
-from . import data_io
-from . import lc_setup
 from .calculate import DlgCalculateBase
 from .jobs.manager import job_manager
 from .localexecution import unccd

@@ -15,7 +15,7 @@ from __future__ import annotations
 import json
 import os
 import re
-import typing
+from copy import deepcopy
 from pathlib import Path
 
 from marshmallow.exceptions import ValidationError

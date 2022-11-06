@@ -16,7 +16,6 @@ from te_schemas.results import URI
 import LDMP.logger
 from .. import areaofinterest
 from .. import calculate
-from .. import calculate_urban
 from .. import summary
 from .. import utils
 from .. import worker

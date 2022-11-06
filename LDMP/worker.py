@@ -1,28 +1,13 @@
-"""
-/***************************************************************************
- LDMP - A QGIS plugin
- This plugin supports monitoring and reporting of land degradation to the UNCCD 
- and in support of the SDG Land Degradation Neutrality (LDN) target.
-                              -------------------
-        begin                : 2017-05-23
-        git sha              : $Format:%H$
-        copyright            : (C) 2017 by Conservation International
-        email                : trends.earth@conservation.org
- ***************************************************************************/
-"""
-from future import standard_library
-
-standard_library.install_aliases()
-import sys
-import time
-
 import qgis.gui
-from qgis.utils import iface
 from qgis.core import Qgis
-
 from qgis.PyQt import QtCore
-from qgis.PyQt.QtCore import QThread, Qt, QEventLoop, QCoreApplication
-from qgis.PyQt.QtWidgets import QProgressBar, QPushButton
+from qgis.PyQt.QtCore import QCoreApplication
+from qgis.PyQt.QtCore import QEventLoop
+from qgis.PyQt.QtCore import Qt
+from qgis.PyQt.QtCore import QThread
+from qgis.PyQt.QtWidgets import QProgressBar
+from qgis.PyQt.QtWidgets import QPushButton
+from qgis.utils import iface
 
 from .logger import log
 

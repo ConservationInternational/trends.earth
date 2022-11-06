@@ -10,9 +10,7 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
-import json
 import os
-import re
 import typing
 import zipfile
 from enum import auto
@@ -28,7 +26,6 @@ from qgis.PyQt import uic
 from qgis.utils import iface
 from te_schemas.land_cover import LCClass
 
-from . import __version__
 from . import api
 from . import auth
 from . import binaries_available

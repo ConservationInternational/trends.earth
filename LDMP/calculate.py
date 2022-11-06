@@ -22,12 +22,10 @@ from typing import Optional
 import qgis.core
 import qgis.gui
 from osgeo import gdal
-from osgeo import ogr
 from qgis.PyQt import QtCore
 from qgis.PyQt import QtGui
 from qgis.PyQt import QtWidgets
 from qgis.PyQt import uic
-from qgis.utils import iface
 from te_schemas.algorithms import AlgorithmRunMode
 from te_schemas.algorithms import ExecutionScript
 
@@ -35,12 +33,10 @@ from . import areaofinterest
 from . import download
 from . import GetTempFilename
 from . import worker
-from .algorithms import models
 from .conf import AreaSetting
 from .conf import REMOTE_DATASETS
 from .conf import Setting
 from .conf import settings_manager
-from .logger import log
 from .settings import DlgSettings
 
 
@@ -134,19 +130,19 @@ class DlgCalculate(QtWidgets.QDialog, DlgCalculateUi):
 
     def btn_ld_clicked(self):
         self.close()
-        result = self.dlg_calculate_ld.exec_()
+        self.dlg_calculate_ld.exec_()
 
     def btn_tc_clicked(self):
         self.close()
-        result = self.dlg_calculate_tc.exec_()
+        self.dlg_calculate_tc.exec_()
 
     def btn_rest_biomass_clicked(self):
         self.close()
-        result = self.dlg_calculate_rest_biomass.exec_()
+        self.dlg_calculate_rest_biomass.exec_()
 
     def btn_urban_clicked(self):
         self.close()
-        result = self.dlg_calculate_urban.exec_()
+        self.dlg_calculate_urban.exec_()
 
 
 class DlgCalculateTC(QtWidgets.QDialog, DlgCalculateTCUi):
@@ -171,11 +167,11 @@ class DlgCalculateTC(QtWidgets.QDialog, DlgCalculateTCUi):
 
     def btn_calculate_carbon_change_clicked(self):
         self.close()
-        result = self.dlg_calculate_tc_data.exec_()
+        self.dlg_calculate_tc_data.exec_()
 
     def btn_summary_single_polygon_clicked(self):
         self.close()
-        result = self.dlg_calculate_tc_summary.exec_()
+        self.dlg_calculate_tc_summary.exec_()
 
 
 class DlgCalculateRestBiomass(QtWidgets.QDialog, DlgCalculateRestBiomassUi):
@@ -200,11 +196,11 @@ class DlgCalculateRestBiomass(QtWidgets.QDialog, DlgCalculateRestBiomassUi):
 
     def btn_calculate_rest_biomass_change_clicked(self):
         self.close()
-        result = self.dlg_calculate_rest_biomass_data.exec_()
+        self.dlg_calculate_rest_biomass_data.exec_()
 
     def btn_summary_single_polygon_clicked(self):
         self.close()
-        result = self.dlg_calculate_rest_biomass_summary.exec_()
+        self.dlg_calculate_rest_biomass_summary.exec_()
 
 
 class DlgCalculateUrban(QtWidgets.QDialog, DlgCalculateUrbanUi):
@@ -229,11 +225,11 @@ class DlgCalculateUrban(QtWidgets.QDialog, DlgCalculateUrbanUi):
 
     def btn_calculate_urban_change_clicked(self):
         self.close()
-        result = self.dlg_calculate_urban_data.exec_()
+        self.dlg_calculate_urban_data.exec_()
 
     def btn_summary_single_polygon_clicked(self):
         self.close()
-        result = self.dlg_calculate_urban_summary.exec_()
+        self.dlg_calculate_urban_summary.exec_()
 
 
 class CalculationOptionsWidget(QtWidgets.QWidget, WidgetCalculationOptionsUi):

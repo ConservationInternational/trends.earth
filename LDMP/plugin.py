@@ -12,20 +12,16 @@
 """
 import os
 
-from qgis.core import Qgis
 from qgis.core import QgsApplication
 from qgis.core import QgsExpression
 from qgis.core import QgsMasterLayoutInterface
-from qgis.core import QgsMessageLog
 from qgis.gui import QgsLayoutDesignerInterface
 from qgis.PyQt.QtCore import QCoreApplication
 from qgis.PyQt.QtCore import QLocale
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction
-from qgis.PyQt.QtWidgets import QApplication
 from qgis.PyQt.QtWidgets import QMenu
-from qgis.PyQt.QtWidgets import QMessageBox
 from qgis.PyQt.QtWidgets import QToolButton
 
 from . import about

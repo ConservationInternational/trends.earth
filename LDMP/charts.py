@@ -1,11 +1,6 @@
 import json
 
-import numpy
-from osgeo import gdal
 from osgeo import ogr
-from processing.tools import raster
-from qgis.core import QgsGeometry
-from qgis.core import QgsRectangle
 from qgis.utils import qgsfunction
 from te_algorithms.gdal.land_deg.land_deg_stats import get_stats_for_geom
 

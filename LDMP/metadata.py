@@ -4,7 +4,6 @@ from pathlib import Path
 
 import lxml.etree as ET
 import qgis.core
-from qgis.PyQt import QtCore
 from qgis.PyQt import QtXml
 
 from .jobs import manager

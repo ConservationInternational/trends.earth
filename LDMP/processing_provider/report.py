@@ -16,7 +16,6 @@ from ..conf import Setting
 from ..conf import settings_manager
 from ..reports.generator import ReportTaskProcessor
 from ..reports.models import ReportTaskContext
-from ..utils import FileUtils
 
 
 class ReportTaskContextAlgorithm(QgsProcessingAlgorithm):

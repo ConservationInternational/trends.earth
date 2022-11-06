@@ -1,12 +1,8 @@
 import enum
 import math
-import os
-from pathlib import Path
 
 from qgis.core import QgsFeature
 from qgis.core import QgsGeometry
-from qgis.core import QgsPoint
-from qgis.core import QgsPolygon
 from qgis.core import QgsUnitTypes
 from qgis.core import QgsVectorLayerUtils
 from qgis.gui import QgsDoubleSpinBox
@@ -19,7 +15,6 @@ from qgis.gui import QgsVertexMarker
 from qgis.PyQt import QtCore
 from qgis.PyQt import QtGui
 from qgis.PyQt import QtWidgets
-from qgis.PyQt import uic
 from qgis.utils import iface
 
 

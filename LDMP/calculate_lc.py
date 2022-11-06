@@ -29,7 +29,6 @@ DlgCalculateLcUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateLC.ui")
 )
 
-from te_schemas.schemas import BandInfo, BandInfoSchema
 from te_schemas.land_cover import LCTransitionDefinitionDeg, LCLegendNesting
 
 

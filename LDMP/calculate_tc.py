@@ -20,16 +20,13 @@ from osgeo import osr
 from qgis.PyQt import QtCore
 from qgis.PyQt import QtWidgets
 from qgis.PyQt import uic
-from qgis.utils import iface
 from te_schemas.algorithms import ExecutionScript
 from te_schemas.schemas import BandInfo
-from te_schemas.schemas import BandInfoSchema
 
 from . import calculate
 from . import conf
 from . import data_io
 from . import GetTempFilename
-from . import layers
 from . import worker
 from .jobs.manager import job_manager
 from .summary import *
@@ -413,7 +410,7 @@ class DlgCalculateTCData(calculate.DlgCalculateBase, DlgCalculateTcDataUi):
         for year in lc_years:
             band_infos.append(BandInfo("Land cover", metadata={"year": year}))
 
-        out_json = os.path.splitext(out_f)[0] + ".json"
+        os.path.splitext(out_f)[0] + ".json"
         # TODO: finish implementation
         # - create payload
         # use job_manager to submit a local job
@@ -465,7 +462,6 @@ class TCSummaryWorker(worker.AbstractWorker):
         block_sizes = band_f_loss.GetBlockSize()
         xsize = band_f_loss.XSize
         ysize = band_f_loss.YSize
-        n_out_bands = 1
 
         x_block_size = block_sizes[0]
         y_block_size = block_sizes[1]

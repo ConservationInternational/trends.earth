@@ -1,13 +1,11 @@
 import os
 from pathlib import Path
 
-import qgis.core
 from qgis.PyQt import QtCore
 from qgis.PyQt import QtGui
 from qgis.PyQt import QtWidgets
 from qgis.PyQt import uic
 
-from . import tr
 from .conf import Setting
 from .conf import settings_manager
 from .settings import DlgSettings

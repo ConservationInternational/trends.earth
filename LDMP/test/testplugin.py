@@ -1,6 +1,4 @@
 import sys
-from queue import Queue
-from time import sleep
 
 from qgis.testing import unittest
 

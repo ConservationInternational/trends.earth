@@ -44,7 +44,7 @@ DlgCalculateLdnErrorRecodeUi, _ = uic.loadUiType(
 )
 
 
-class tr_calculate_ldn(object):
+class tr_calculate_ldn:
     def tr(self, message):
         return QtCore.QCoreApplication.translate("tr_calculate_ldn", message)
 
@@ -402,7 +402,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         self.update_end_dates(widgets)
 
     def showEvent(self, event):
-        super(DlgCalculateOneStep, self).showEvent(event)
+        super().showEvent(event)
 
         if self.land_cover_content.layout() is None:
             layout = QtWidgets.QVBoxLayout()
@@ -444,7 +444,7 @@ class DlgCalculateOneStep(DlgCalculateBase, DlgCalculateOneStepUi):
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
         # as well.
-        ret = super(DlgCalculateOneStep, self).btn_calculate()
+        ret = super().btn_calculate()
 
         if not ret:
             return

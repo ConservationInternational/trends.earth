@@ -1,30 +1,10 @@
-# -*- coding: utf-8 -*-
-"""
-/***************************************************************************
- LDMP - A QGIS plugin
- This plugin supports monitoring and reporting of land degradation to the UNCCD 
- and in support of the SDG Land Degradation Neutrality (LDN) target.
-                              -------------------
-        begin                : 2017-05-23
-        git sha              : $Format:%H$
-        copyright            : (C) 2017 by Conservation International
-        email                : trends.earth@conservation.org
- ***************************************************************************/
-"""
 import os
 import sys
 import tempfile
 
-import numpy as np
 from qgis.testing import unittest
 
-from LDMP.calculate import ldn_make_prod5
-from LDMP.calculate import ldn_recode_state
-from LDMP.calculate import ldn_recode_traj
-from LDMP.calculate import ldn_total_by_trans
-from LDMP.calculate import ldn_total_deg_f
 from LDMP.calculate_ldn import DlgCalculateLDNSummaryTableAdmin
-from LDMP.calculate_ldn import ldn_total_by_trans_merge
 from LDMP.test import add_default_bands_to_map
 
 
@@ -108,10 +88,14 @@ class DlgCalculateLDNSummaryTableAdminOutputTests(unittest.TestCase):
 def CalculateLDNIntegrationSuite():
     suite = unittest.TestSuite()
     suite.addTests(
-        unittest.makeSuite(DlgCalculateLDNSummaryTableAdminWorkerTests, "test")
+        unittest.defaultTestLoader.loadTestsFromTestCase(
+            DlgCalculateLDNSummaryTableAdminWorkerTests, "test"
+        )
     )
     suite.addTests(
-        unittest.makeSuite(DlgCalculateLDNSummaryTableAdminOutputTests, "test")
+        unittest.defaultTestLoader.loadTestsFromTestCase(
+            DlgCalculateLDNSummaryTableAdminOutputTests, "test"
+        )
     )
     return suite
 

@@ -1,15 +1,11 @@
 #!/usr/bin/env python
-# coding=utf-8
 """This script uploads a plugin package on the server.
         Authors: A. Pasotti, V. Picavet
         git sha              : $TemplateVCSFormat
 """
-from __future__ import print_function
-
 from future import standard_library
 
 standard_library.install_aliases()
-from builtins import input
 import sys
 import getpass
 import xmlrpc.client
@@ -29,7 +25,7 @@ def main(parameters, arguments):
     :param parameters: Command line parameters.
     :param arguments: Command line arguments.
     """
-    address = "%s://%s:%s@%s:%s%s" % (
+    address = "{}://{}:{}@{}:{}{}".format(
         PROTOCOL,
         parameters.username,
         parameters.password,
@@ -81,7 +77,7 @@ def hide_password(url, start=6):
     """
     start_position = url.find(":", start) + 1
     end_position = url.find("@")
-    return "%s%s%s" % (
+    return "{}{}{}".format(
         url[:start_position],
         "*" * (end_position - start_position),
         url[end_position:],

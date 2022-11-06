@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 /***************************************************************************
  LDMP - A QGIS plugin
@@ -30,8 +29,8 @@ class DialogSettingsLoginTests(unittest.TestCase):
         d = DlgSettingsLogin()
         d.email.setText(regular_keys["email"])
         d.password.setText(regular_keys["password"])
-        self.assertEquals(regular_keys["email"], d.email.text())
-        self.assertEquals(regular_keys["password"], d.password.text())
+        self.assertEqual(regular_keys["email"], d.email.text())
+        self.assertEqual(regular_keys["password"], d.password.text())
         okWidget = d.buttonBox.button(d.buttonBox.Ok)
         QTest.mouseClick(okWidget, Qt.LeftButton)
         self.assertTrue(d.ok)
@@ -66,7 +65,11 @@ class DialogSettingsLoginTests(unittest.TestCase):
 
 def SettingsUnitSuite():
     suite = unittest.TestSuite()
-    suite.addTests(unittest.makeSuite(DialogSettingsLoginTests, "test"))
+    suite.addTests(
+        unittest.defaultTestLoader.loadTestsFromTestCase(
+            DialogSettingsLoginTests, "test"
+        )
+    )
     return suite
 
 

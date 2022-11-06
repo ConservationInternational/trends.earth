@@ -10,8 +10,6 @@ from te_schemas.aoi import AOI
 from te_schemas.results import Band as JobBand
 
 from .. import data_io
-from .. import tr
-from .. import worker
 from ..jobs.models import Job
 
 NODATA_VALUE = -32768

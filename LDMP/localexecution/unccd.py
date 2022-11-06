@@ -1,32 +1,18 @@
 import dataclasses
-import datetime as dt
 import json
 import re
 import tarfile
 import tempfile
-import zipfile
 from pathlib import Path
 from typing import Dict
 from typing import Optional
 
-import marshmallow_dataclass
-import numpy as np
-import qgis.core
-from osgeo import gdal
 from osgeo import ogr
-from osgeo import osr
-from PyQt5 import QtWidgets
-from te_schemas import land_cover
 from te_schemas import reporting
-from te_schemas import SchemaBase
-from te_schemas import schemas
 from te_schemas.error_recode import ErrorRecodePolygons
 from te_schemas.results import FileResults
 from te_schemas.results import URI
 
-from .. import __release_date__
-from .. import __revision__
-from .. import __version__
 from .. import areaofinterest
 from .. import data_io
 from ..jobs.models import Job

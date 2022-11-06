@@ -15,9 +15,7 @@ from te_schemas.productivity import ProductivityMode
 from te_schemas.results import Band as JobBand
 
 from .. import data_io
-from .. import tr
 from ..jobs.models import Job
-from ..logger import log
 
 NODATA_VALUE = -32768
 MASK_VALUE = -32767

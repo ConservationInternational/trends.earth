@@ -14,7 +14,6 @@ from te_schemas.results import RasterFileType
 from te_schemas.results import RasterResults
 from te_schemas.results import URI
 
-from .. import calculate_lc
 from .. import utils
 from .. import worker
 from ..areaofinterest import AOI

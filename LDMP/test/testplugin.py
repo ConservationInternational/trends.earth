@@ -4,7 +4,6 @@ from time import sleep
 
 from qgis.testing import unittest
 
-from LDMP.calculate_prod import DlgCalculateProd
 from LDMP.test.integration.test_calculate_ldn import CalculateLDNIntegrationSuite
 from LDMP.test.integration.test_calculate_urban import CalculateUrbanIntegrationSuite
 from LDMP.test.unit.test_calculate_ldn import CalculateLDNUnitSuite

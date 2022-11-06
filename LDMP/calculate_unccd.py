@@ -92,7 +92,7 @@ class DlgCalculateUNCCD(DlgCalculateBase, DlgCalculateUNCCDUi):
         self.close()
         return
 
-        ret = super(DlgCalculateUNCCD, self).btn_calculate()
+        ret = super().btn_calculate()
 
         if not ret:
             return

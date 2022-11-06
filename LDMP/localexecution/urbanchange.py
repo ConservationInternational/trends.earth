@@ -163,7 +163,7 @@ def save_summary_table(areas, populations, out_file):
         workbook.save(out_file)
         LDMP.logger.log("Summary table saved to {}".format(out_file))
 
-    except IOError as exc:
+    except OSError as exc:
         raise RuntimeError(
             f"Error saving output table - check that {out_file!r} is accessible and "
             f"not already open. - {str(exc)}"

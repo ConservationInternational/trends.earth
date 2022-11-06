@@ -23,7 +23,7 @@ class DlgSelectDataset(QtWidgets.QDialog, Ui_DlgSelectDS):
     changed_region: QtCore.pyqtSignal = QtCore.pyqtSignal()
 
     def __init__(self, parent=None):
-        super(DlgSelectDataset, self).__init__(parent)
+        super().__init__(parent)
         self.setupUi(self)
 
         self.update_current_region()

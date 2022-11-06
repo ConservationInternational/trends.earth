@@ -16,7 +16,7 @@ from .layers import _get_qgis_version
 from .logger import log
 
 
-class tr_areaofinterest(object):
+class tr_areaofinterest:
     def tr(message):
         return QCoreApplication.translate("tr_areaofinterest", message)
 
@@ -77,7 +77,7 @@ def validate_vector_path() -> typing.Tuple[Path, str]:
     return vector_path, error_msg
 
 
-class AOI(object):
+class AOI:
     def __init__(self, crs_dst):
         self.crs_dst = crs_dst
 

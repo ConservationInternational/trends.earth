@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import fnmatch
 import glob
 import hashlib
@@ -60,7 +59,7 @@ def query_yes_no(question, default="yes"):
 
 
 def get_version(c):
-    with open(c.plugin.version_file_raw, "r") as f:
+    with open(c.plugin.version_file_raw) as f:
         return f.readline().strip()
 
 
@@ -175,13 +174,17 @@ def set_version(c, v=None, ta=False, ts=False, tag=False, gee=False):
         sphinx_regex = re.compile(
             '(((version)|(release)) = ")[0-9]+([.][0-9]+)+(rc[0-9]*)?', re.IGNORECASE
         )
-        _replace(os.path.join(c.sphinx.sourcedir, "conf.py"), sphinx_regex, "\g<1>" + v)
+        _replace(
+            os.path.join(c.sphinx.sourcedir, "conf.py"), sphinx_regex, r"\g<1>" + v
+        )
 
         # Set in metadata.txt
         print("Setting version to {} in metadata.txt".format(v))
         sphinx_regex = re.compile("^(version=)[0-9]+([.][0-9]+)+(rc[0-9]*)?")
         _replace(
-            os.path.join(c.plugin.source_dir, "metadata.txt"), sphinx_regex, "\g<1>" + v
+            os.path.join(c.plugin.source_dir, "metadata.txt"),
+            sphinx_regex,
+            r"\g<1>" + v,
         )
 
         requirements_txt_regex = re.compile(
@@ -214,7 +217,7 @@ def set_version(c, v=None, ta=False, ts=False, tag=False, gee=False):
                         print("Setting version to {} in {}".format(v, filepath))
                         # Update the version string
                         _replace(
-                            filepath, gee_script_name_regex, "\g<1> " + v_gee + '"'
+                            filepath, gee_script_name_regex, r"\g<1> " + v_gee + '"'
                         )
                         # Clear the ID since a new one will be assigned due to the new name
                         _replace(filepath, gee_id_regex, "")
@@ -226,17 +229,17 @@ def set_version(c, v=None, ta=False, ts=False, tag=False, gee=False):
                         ):
                             # Last number in version string is even (or this is an RC), so
                             # use a tagged version of schemas matching this version
-                            _replace(filepath, requirements_txt_regex, "\g<1>v" + v)
+                            _replace(filepath, requirements_txt_regex, r"\g<1>v" + v)
                         else:
                             # Last number in version string is odd, so this is a development
                             # version, so use development version of schemas
-                            _replace(filepath, requirements_txt_regex, "\g<1>develop")
+                            _replace(filepath, requirements_txt_regex, r"\g<1>develop")
                     elif file == "__init__.py":
                         print("Setting version to {} in {}".format(v, filepath))
                         init_version_regex = re.compile(
                             "^(__version__[ ]*=[ ]*[\"'])[0-9]+([.][0-9]+)+(rc[0-9]*)?"
                         )
-                        _replace(filepath, init_version_regex, "\g<1>" + v)
+                        _replace(filepath, init_version_regex, r"\g<1>" + v)
 
             # Set in scripts.json
             print("Setting version to {} in scripts.json".format(v))
@@ -246,7 +249,7 @@ def set_version(c, v=None, ta=False, ts=False, tag=False, gee=False):
             _replace(
                 os.path.join(c.plugin.source_dir, "data", "scripts.json"),
                 scripts_regex,
-                "\g<1>" + v,
+                r"\g<1>" + v,
             )
 
         print("Setting version to {} in package requirements.txt".format(v))
@@ -254,11 +257,11 @@ def set_version(c, v=None, ta=False, ts=False, tag=False, gee=False):
         if ("rc" in v.split(".")[-1]) or (int(v.split(".")[-1]) % 2 == 0):
             # Last number in version string is even (or an RC), so use a tagged version
             # of schemas matching this version
-            _replace("requirements.txt", requirements_txt_regex, "\g<1>v" + v)
+            _replace("requirements.txt", requirements_txt_regex, r"\g<1>v" + v)
         else:
             # Last number in version string is odd, so this is a development
             # version, so use development version of schemas
-            _replace("requirements.txt", requirements_txt_regex, "\g<1>develop")
+            _replace("requirements.txt", requirements_txt_regex, r"\g<1>develop")
 
     if tag:
         set_tag(c)
@@ -496,7 +499,7 @@ def tecli_run(c, script, queryParams=None, payload=None):
 
 @task
 def update_script_ids(c):
-    with open(c.gee.scripts_json_file, "r") as fin:
+    with open(c.gee.scripts_json_file) as fin:
         scripts = json.load(fin)
 
     dirs = next(os.walk(c.gee.script_dir))[1]
@@ -507,7 +510,7 @@ def update_script_ids(c):
         script_dir = os.path.join(c.gee.script_dir, dir)
 
         if os.path.exists(os.path.join(script_dir, "configuration.json")):
-            with open(os.path.join(script_dir, "configuration.json"), "r") as fin:
+            with open(os.path.join(script_dir, "configuration.json")) as fin:
                 config = json.load(fin)
             try:
                 script_name = re.compile("( [0-9]+(_[0-9]+)+$)").sub("", config["name"])
@@ -806,6 +809,43 @@ def _filter_excludes(root, items, c):
             items.remove(item)
 
     return items
+
+
+# Compile all ui and resource files - only used on CI so that gui can be loaded
+# on docker image
+@task(
+    help={
+        "clean": "remove existing install folder first",
+    }
+)
+def compile_files(c, clean=False):
+    pyrcc = "pyrcc5"
+    pyrcc_path = check_path(pyrcc)
+
+    if not pyrcc:
+        print(
+            "ERROR: {} is not in your path---unable to compile resource file(s)".format(
+                pyrcc
+            )
+        )
+        return
+    else:
+        res_files = c.plugin.resource_files
+        res_count = 0
+        skip_count = 0
+        for res in res_files:
+            if os.path.exists(res):
+                (base, ext) = os.path.splitext(res)
+                output = "{}.py".format(base)
+                if clean or file_changed(res, output):
+                    print("Compiling {} to {}".format(res, output))
+                    subprocess.check_call([pyrcc_path, "-o", output, res])
+                    res_count += 1
+                else:
+                    skip_count += 1
+            else:
+                print("{} does not exist---skipped".format(res))
+        print("Compiled {} resource files. Skipped {}.".format(res_count, skip_count))
 
 
 # Below is based on pb_tool:
@@ -1239,12 +1279,12 @@ def changelog_build(c):
         "This page lists the version history of |trends.earth|.\n",
     ]
 
-    with open(os.path.join(c.plugin.source_dir, "metadata.txt"), "r") as fin:
+    with open(os.path.join(c.plugin.source_dir, "metadata.txt")) as fin:
         metadata = fin.readlines()
 
     changelog_header_re = re.compile("^changelog=", re.IGNORECASE)
     version_header_re = re.compile(
-        "^[ ]*[0-9]+(\.[0-9]+){1,2}(rc[0-9]*)?", re.IGNORECASE
+        r"^[ ]*[0-9]+(\.[0-9]+){1,2}(rc[0-9]*)?", re.IGNORECASE
     )
 
     at_changelog = False
@@ -1509,7 +1549,7 @@ def _recursive_dir_create(d):
 def _get_s3_client():
     try:
         with open(
-            os.path.join(os.path.dirname(__file__), "aws_credentials.json"), "r"
+            os.path.join(os.path.dirname(__file__), "aws_credentials.json")
         ) as fin:
             keys = json.load(fin)
         client = boto3.client(
@@ -1517,7 +1557,7 @@ def _get_s3_client():
             aws_access_key_id=keys["access_key_id"],
             aws_secret_access_key=keys["secret_access_key"],
         )
-    except IOError:
+    except OSError:
         print(
             "Warning: AWS credentials file not found. Credentials must be in environment variable or in default AWS credentials location."
         )
@@ -1734,14 +1774,14 @@ def binaries_compile(c, clean=False, python="python"):
 
     v = get_version(c).replace(".", "-")
 
-    for folder in set([os.path.dirname(f) for f in c.plugin.numba.aot_files]):
+    for folder in {os.path.dirname(f) for f in c.plugin.numba.aot_files}:
         files = find_binaries(c, folder)
 
         for f in files:
             # Add version strings to the compiled files so they won't overwrite
             # files from other Trends.Earth versions when synced to S3
-            module_name_regex = re.compile("([a-zA-Z0-9_])\.(.*)")
-            out_file = module_name_regex.sub(f"\g<1>_{v}.\g<2>", os.path.basename(f))
+            module_name_regex = re.compile(r"([a-zA-Z0-9_])\.(.*)")
+            out_file = module_name_regex.sub(rf"\g<1>_{v}.\g<2>", os.path.basename(f))
             out_path_with_v = os.path.join(c.plugin.numba.binary_folder, out_file)
             shutil.move(os.path.join(folder, f), out_path_with_v)
 
@@ -1757,6 +1797,7 @@ ns = Collection(
     set_tag,
     plugin_setup,
     plugin_install,
+    compile_files,
     docs_build,
     docs_spellcheck,
     translate_pull,

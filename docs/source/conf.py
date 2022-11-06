@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # LDMP documentation build configuration file, created by
 # sphinx-quickstart on Sun Feb 12 17:11:03 2012.

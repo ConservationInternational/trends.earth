@@ -3,7 +3,6 @@ backoff>=2.1.0
 requests>=2.28.0
 pyqtgraph>=0.12.4
 openpyxl>=3.0.10
-typing-inspect==0.7.1
 marshmallow>=3.18.0
 marshmallow_dataclass[enum, union]==8.5.9
 git+https://github.com/ConservationInternational/trends.earth-schemas.git@develop

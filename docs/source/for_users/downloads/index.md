@@ -90,6 +90,7 @@ the default Trends.Earth method, and from FAO-WOCAT).
 | EGY | [EGY (JRC LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/EGY_NaturalEarth_SDG15_JRC-LPD-5.tar.gz) | [EGY (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/EGY_NaturalEarth_SDG15_TrendsEarth-LPD-5.tar.gz) | [EGY (FAO-WOCAT LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/EGY_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz) |
 | ERI | [ERI (JRC LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/ERI_NaturalEarth_SDG15_JRC-LPD-5.tar.gz) | [ERI (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/ERI_NaturalEarth_SDG15_TrendsEarth-LPD-5.tar.gz) | [ERI (FAO-WOCAT LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/ERI_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz) |
 | ESB | [ESB (JRC LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/ESB_NaturalEarth_SDG15_JRC-LPD-5.tar.gz) | [ESB (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/ESB_NaturalEarth_SDG15_TrendsEarth-LPD-5.tar.gz) | [ESB (FAO-WOCAT LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/ESB_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz) |
+| ESP | [ESP (JRC LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/ESP_NaturalEarth_SDG15_JRC-LPD-5.tar.gz) |  |  |
 | EST | [EST (JRC LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/EST_NaturalEarth_SDG15_JRC-LPD-5.tar.gz) | [EST (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/EST_NaturalEarth_SDG15_TrendsEarth-LPD-5.tar.gz) | [EST (FAO-WOCAT LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/EST_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz) |
 | ETH | [ETH (JRC LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/ETH_NaturalEarth_SDG15_JRC-LPD-5.tar.gz) | [ETH (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/ETH_NaturalEarth_SDG15_TrendsEarth-LPD-5.tar.gz) | [ETH (FAO-WOCAT LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/ETH_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz) |
 | FIN | [FIN (JRC LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/FIN_NaturalEarth_SDG15_JRC-LPD-5.tar.gz) | [FIN (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/FIN_NaturalEarth_SDG15_TrendsEarth-LPD-5.tar.gz) | [FIN (FAO-WOCAT LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/FIN_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz) |
@@ -200,6 +201,7 @@ the default Trends.Earth method, and from FAO-WOCAT).
 | ROU | [ROU (JRC LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/ROU_NaturalEarth_SDG15_JRC-LPD-5.tar.gz) | [ROU (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/ROU_NaturalEarth_SDG15_TrendsEarth-LPD-5.tar.gz) | [ROU (FAO-WOCAT LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/ROU_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz) |
 | RWA | [RWA (JRC LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/RWA_NaturalEarth_SDG15_JRC-LPD-5.tar.gz) | [RWA (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/RWA_NaturalEarth_SDG15_TrendsEarth-LPD-5.tar.gz) | [RWA (FAO-WOCAT LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/RWA_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz) |
 | SAH | [SAH (JRC LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/SAH_NaturalEarth_SDG15_JRC-LPD-5.tar.gz) | [SAH (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/SAH_NaturalEarth_SDG15_TrendsEarth-LPD-5.tar.gz) | [SAH (FAO-WOCAT LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/SAH_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz) |
+| SAU | [SAU (JRC LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/SAU_NaturalEarth_SDG15_JRC-LPD-5.tar.gz) |  |  |
 | SCR | [SCR (JRC LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/SCR_NaturalEarth_SDG15_JRC-LPD-5.tar.gz) |  | [SCR (FAO-WOCAT LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/SCR_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz) |
 | SDN |  |  | [SDN (FAO-WOCAT LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/SDN_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz) |
 | SDS | [SDS (JRC LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/SDS_NaturalEarth_SDG15_JRC-LPD-5.tar.gz) | [SDS (Trends.Earth LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/SDS_NaturalEarth_SDG15_TrendsEarth-LPD-5.tar.gz) | [SDS (FAO-WOCAT LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages/SDS_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz) |
@@ -312,7 +314,7 @@ exposure, and for reporting on UNCCD Strategic Objective 3.
 | CHN |  |
 | CIV | [CIV (Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/CIV_NaturalEarth_Drought.tar.gz) |
 | CLP | [CLP (Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/CLP_NaturalEarth_Drought.tar.gz) |
-| CMR |  |
+| CMR | [CMR (Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/CMR_NaturalEarth_Drought.tar.gz) |
 | CNM | [CNM (Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/CNM_NaturalEarth_Drought.tar.gz) |
 | COD |  |
 | COG | [COG (Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/COG_NaturalEarth_Drought.tar.gz) |
@@ -338,6 +340,7 @@ exposure, and for reporting on UNCCD Strategic Objective 3.
 | EGY | [EGY (Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/EGY_NaturalEarth_Drought.tar.gz) |
 | ERI | [ERI (Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/ERI_NaturalEarth_Drought.tar.gz) |
 | ESB | [ESB (Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/ESB_NaturalEarth_Drought.tar.gz) |
+| ESP |  |
 | EST | [EST (Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/EST_NaturalEarth_Drought.tar.gz) |
 | ETH | [ETH (Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/ETH_NaturalEarth_Drought.tar.gz) |
 | FIN | [FIN (Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/FIN_NaturalEarth_Drought.tar.gz) |
@@ -448,6 +451,7 @@ exposure, and for reporting on UNCCD Strategic Objective 3.
 | ROU | [ROU (Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/ROU_NaturalEarth_Drought.tar.gz) |
 | RWA | [RWA (Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/RWA_NaturalEarth_Drought.tar.gz) |
 | SAH | [SAH (Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/SAH_NaturalEarth_Drought.tar.gz) |
+| SAU |  |
 | SCR | [SCR (Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/SCR_NaturalEarth_Drought.tar.gz) |
 | SDN |  |
 | SDS | [SDS (Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/SDS_NaturalEarth_Drought.tar.gz) |

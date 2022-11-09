@@ -6823,6 +6823,16 @@ for running algorithms and their results.</source>
         <source>Tree cover, needleleaved, deciduous, open (15‐40%)</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="../lc_setup.py" line="76"/>
+        <source>Cropland, irrigated or post‐flooding</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../lc_setup.py" line="94"/>
+        <source>Tree cover, broadleaved, deciduous, open (15‐40%)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>tr_manager</name>

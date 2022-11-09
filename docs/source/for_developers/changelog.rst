@@ -3,18 +3,27 @@ Changelog
 
 This page lists the version history of |trends.earth|.
 
-`2.0.3 (October 19, 2022) <https://github.com/ConservationInternational/trends.earth/releases/tag/2.0.3>`_
+`2.0.7 (October 31, 2022) <https://github.com/ConservationInternational/trends.earth/releases/tag/2.0.7>`_
 -----------------------------------------------------------------------------------------------------------------------------
 
-    - Fix SDG summary when using JRC LPD or WOCAT LPD
+    - Enable Excel table generation for SDG 15.3.1 when using custom
+      classes - all the various minor bugs should now be worked out.
+    - Limit report generation to 3 tries - then quit trying to generate reports
+      until next restart (prevents Trends.Earth continually spawing processes
+      for report generation when they are failing).
+
+`2.0.5 (October 19, 2022) <https://github.com/ConservationInternational/trends.earth/releases/tag/2.0.5>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+    - Fix SDG summary generation when using JRC LPD or WOCAT LPD.
 
 `2.0.3 (October 19, 2022) <https://github.com/ConservationInternational/trends.earth/releases/tag/2.0.3>`_
 -----------------------------------------------------------------------------------------------------------------------------
 
     - Allow bypassing reset of land cover legend when choosing defaults in
-      the SDG tool
-    - Disable excel generation when child legend does not have 7 classes
-    - Fix report generation when using custom legend
+      the SDG tool.
+    - Disable excel generation when child legend does not have 7 classes.
+    - Fix report generation when using custom legend.
 
 `2.0.1 (October 13, 2022) <https://github.com/ConservationInternational/trends.earth/releases/tag/2.0.1>`_
 -----------------------------------------------------------------------------------------------------------------------------

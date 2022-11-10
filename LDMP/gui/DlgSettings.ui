@@ -46,7 +46,7 @@
         <x>0</x>
         <y>0</y>
         <width>579</width>
-        <height>627</height>
+        <height>596</height>
        </rect>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -59,7 +59,37 @@
           </size>
          </property>
          <property name="title">
-          <string>Trends.Earth login information</string>
+          <string>Custom Land Cover Classes</string>
+         </property>
+         <layout class="QVBoxLayout" name="lcc_layout">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupBox">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
          </property>
          <property name="collapsed">
           <bool>false</bool>
@@ -165,6 +195,9 @@
              </widget>
             </item>
            </layout>
+          </item>
+          <item>
+           <widget class="QgsAuthConfigSelect" name="authcfg_acs"/>
           </item>
          </layout>
         </widget>
@@ -279,6 +312,11 @@
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>QgsAuthConfigSelect</class>
+   <extends>QWidget</extends>
+   <header>qgsauthconfigselect.h</header>
+  </customwidget>
   <customwidget>
    <class>QgsCollapsibleGroupBox</class>
    <extends>QGroupBox</extends>

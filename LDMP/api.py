@@ -10,6 +10,8 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
+import typing
+
 from future import standard_library
 
 standard_library.install_aliases()
@@ -20,9 +22,12 @@ from urllib.parse import quote_plus
 import requests
 import backoff
 
-from qgis.core import QgsApplication, QgsTask
-from qgis.PyQt import QtCore, QtWidgets
+from dateutil import tz
+from qgis.core import QgsApplication, QgsTask, QgsNetworkAccessManager, QgsApplication, QgsSettings
+from qgis.PyQt import QtCore, QtWidgets, QtNetwork
+
 from qgis.utils import iface
+from qgis.gui import QgsAuthConfigSelect
 
 from . import auth, conf
 from .logger import log
@@ -52,8 +57,45 @@ class RequestTask(QgsTask):
         self.resp = None
 
     def run(self):
+
+        print('run')
+
         try:
+            settings = QgsSettings()
+            auth_id = settings.value('trendsearth/auth')
+
+            qurl = QtCore.QUrl(self.url)
+
+            network_manager = QgsNetworkAccessManager()
+            network_manager.setTimeout(TIMEOUT)
+
+            network_request = QtNetwork.QNetworkRequest(qurl)
+            network_request.setHeader(
+                QtNetwork.QNetworkRequest.ContentTypeHeader,
+                self.headers
+            )
+
+            auth_manager = QgsApplication.authManager()
+            auth_added, _ = auth_manager.updateNetworkRequest(
+                network_request,
+                auth_id
+            )
+
             if self.method == "get":
+
+                # print('get')
+                #
+                # self.resp = network_manager.get(network_request)
+                #
+                # print('after request')
+                # print(str(self.resp))
+                #
+                # print('error')
+                # print(str(self.resp.errorString()))
+                #
+                # print('read')
+                # print(str(self.resp.readAll()))
+
                 self.resp = requests.get(
                     self.url,
                     json=self.payload,
@@ -61,13 +103,31 @@ class RequestTask(QgsTask):
                     timeout=self.timeout,
                 )
             elif self.method == "post":
-                self.resp = requests.post(
-                    self.url,
-                    json=self.payload,
-                    headers=self.headers,
-                    timeout=self.timeout,
-                )
+
+                print('post')
+
+                # payload_str = ''
+                # payload_str_encoded = payload_str.encode()
+                # payload_qbytearray = QtCore.QByteArray(payload_str_encoded)
+
+                self.resp = network_manager.post(network_request, 1)
+
+                print('after request')
+                print(str(self.resp))
+
+                print('error')
+                print(str(self.resp.errorString()))
+
+                print('read')
+                print(str(self.resp.readAll()))
+
+                # self.resp = requests.post(
+                #     self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT
+                # )
             elif self.method == "update":
+
+                print('update')
+
                 self.resp = requests.update(
                     self.url,
                     json=self.payload,
@@ -75,6 +135,9 @@ class RequestTask(QgsTask):
                     timeout=self.timeout,
                 )
             elif self.method == "delete":
+
+                print('delete')
+
                 self.resp = requests.delete(
                     self.url,
                     json=self.payload,
@@ -82,6 +145,9 @@ class RequestTask(QgsTask):
                     timeout=self.timeout,
                 )
             elif self.method == "patch":
+
+                print('patch')
+
                 self.resp = requests.patch(
                     self.url,
                     json=self.payload,
@@ -89,6 +155,9 @@ class RequestTask(QgsTask):
                     timeout=self.timeout,
                 )
             elif self.method == "head":
+
+                print('head')
+
                 self.resp = requests.head(
                     self.url,
                     json=self.payload,
@@ -96,6 +165,9 @@ class RequestTask(QgsTask):
                     timeout=self.timeout,
                 )
             else:
+
+                print('valueerror')
+
                 self.exception = ValueError(
                     "Unrecognized method: {}".format(self.method)
                 )
@@ -107,13 +179,25 @@ class RequestTask(QgsTask):
         return True
 
     def finished(self, result):
+
+        print('finished')
+
         if result:
+
+            print('task completed')
+
             log("Task completed")
         else:
             if self.exception is None:
+
+                print(f"API {self.method} not successful - probably cancelled")
+
                 log(f"API {self.method} not successful - probably cancelled")
             else:
                 try:
+
+                    print(f"API {self.method} not successful - exception: {self.exception}")
+
                     log(
                         f"API {self.method} not successful - exception: {self.exception}"
                     )
@@ -129,8 +213,14 @@ class RequestTask(QgsTask):
                     )
 
         if self.resp is not None:
+
+            print(f'API response from "{self.method}" request: {self.resp.status_code}')
+
             log(f'API response from "{self.method}" request: {self.resp.status_code}')
         else:
+
+            print(f'API response from "{self.method}" request was None')
+
             log(f'API response from "{self.method}" request was None')
 
         # if conf.settings_manager.get_value(conf.Setting.DEBUG):

@@ -205,6 +205,13 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
         self.region_of_interest.setLayout(layout)
 
         # Load gui default value from settings
+        auth_id = settings.value('trendsearth/auth')
+        if auth_id is not None:
+            self.authcfg_acs.setConfigId(auth_id)
+        else:
+            print('no id')
+
+        # load gui default value from settings
         self.reloadAuthConfigurations()
 
         self.api_client = api.APIClient(API_URL, TIMEOUT)
@@ -328,6 +335,24 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
                 self.reloadAuthConfigurations()
                 # self.authConfigUpdated.emit()
 
+    def on_accept(self):
+
+        print('ACCEPT')
+
+        auth_id = self.authcfg_acs.configId()
+        if auth_id != '':
+            settings.setValue('trendsearth/auth', auth_id)
+        else:
+            print('no auth provided')
+
+        self.area_widget.save_settings()
+        self.widgetSettingsAdvanced.update_settings()
+        self.widget_settings_report.save_settings()
+        if not self.lcc_manager.save_settings():
+            print("Validation failed")
+            return
+
+        self.accept()
 
 class AreaWidgetSection(Flag):
     """

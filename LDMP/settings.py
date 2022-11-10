@@ -149,7 +149,12 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
         # LC configuration
         lcc_panel_stack = qgis.gui.QgsPanelWidgetStack()
         self.lcc_manager = LandCoverCustomClassesManager(
-            self.groupbox_lc_config, lcc_panel_stack, msg_bar=self.message_bar
+            self.groupbox_lc_config,
+            self.scroll_area,
+            self.groupBox,
+            self.region_of_interest,
+            lcc_panel_stack,
+            msg_bar=self.message_bar
         )
         lcc_panel_stack.setMainPanel(self.lcc_manager)
         self.lcc_layout.layout().insertWidget(0, lcc_panel_stack)
@@ -233,6 +238,9 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
         self.reloadAuthConfigurations()
 
     def collapsed_state_changed(self):
+
+        print('collapsed state changed')
+
         state = self.groupbox_lc_config.isCollapsed()
         if state:
             # Group box is closed, set size to 25
@@ -1484,13 +1492,16 @@ class DlgLandCoverRestore(QtWidgets.QDialog, Ui_DlgLandCoverRestore):
 class LandCoverCustomClassesManager(
     qgis.gui.QgsPanelWidget, Ui_WidgetLandCoverCustomClassesManager
 ):
-    def __init__(self, groupbox_lc_config, parent=None, msg_bar=None):
+    def __init__(self, groupbox_lc_config, scroll_area, group_box, region_of_interest, parent=None, msg_bar=None):
         super().__init__(parent)
         self.setupUi(self)
         self.setDockMode(True)
 
         self.groupbox_lc_config = groupbox_lc_config
 
+        self.scroll_area = scroll_area
+        self.group_box = group_box
+        self.region_of_interest = region_of_interest
         self.msg_bar = msg_bar
         self.editor = None
         self._last_clr = None
@@ -1501,6 +1512,8 @@ class LandCoverCustomClassesManager(
             self.on_restore_unccd
         )
         self.dlg_land_cover_restore.pb_restore_esa.clicked.connect(self.on_restore_esa)
+        self.current_scroll_pos = None
+        self.current_scroll_max = None
 
         # UI initialization
         self.model = QtGui.QStandardItemModel(self)
@@ -1698,6 +1711,8 @@ class LandCoverCustomClassesManager(
 
     def set_table_height(self):
 
+        print('set table height')
+
         table_row_count = self.model.rowCount()
         row_0_height = self.tb_classes.rowHeight(
             0
@@ -1760,15 +1775,32 @@ class LandCoverCustomClassesManager(
 
             self.openPanel(self.editor)
 
+            group_box_height = self.group_box.height()
+            roi_height = self.region_of_interest.height()
+            total_height = group_box_height + roi_height
+
+            vertical_scroll_bar = self.scroll_area.verticalScrollBar()
+
+            print('scroll bar size: ' + str(vertical_scroll_bar.maximum()))
+
+            self.current_scroll_pos = vertical_scroll_bar.value()
+            print("Current scroll height: " + str(self.current_scroll_pos))
+            self.current_scroll_max = vertical_scroll_bar.maximum()
+
             # Changes the size of the box to that of the
             # LC editor
             self.groupbox_lc_config.setFixedHeight(215)
+
+            vertical_scroll_bar.setValue(total_height)
 
             # Restore the viewport area
             if vs_bar is not None and vs_bar.value() == 0 and init_pos != -1:
                 vs_bar.setValue(init_pos)
 
     def on_editor_accepted(self, panel):
+
+        vertical_scroll_bar = self.scroll_area.verticalScrollBar()
+
         # Sets the size to the number of rows
         self.set_table_height()
 
@@ -1783,6 +1815,25 @@ class LandCoverCustomClassesManager(
             self.add_class_info_to_table(lc_cls_info)
 
         self._last_clr = QtGui.QColor(lc_cls_info.lcc.color)
+
+        # vertical_scroll_bar.setMaximum(self.current_scroll_max)
+        print('scroll bar size: ' + str(vertical_scroll_bar.maximum()))
+
+        diff = float(self.current_scroll_max) - float(vertical_scroll_bar.maximum())
+        print('diff: ' + str(diff))
+
+        if diff == 0:
+            print("set to: " + str(self.current_scroll_pos))
+            vertical_scroll_bar.setValue(self.current_scroll_pos)
+        else:
+            # diff_perc = diff / float(self.current_scroll_max)
+            # print("diff %: " + str(diff_perc))
+            # final = float(self.current_scroll_pos) * (1 - diff_perc)
+            # print('set to %: ' + str(final))
+            # vertical_scroll_bar.setValue(final)
+
+            # vertical_scroll_bar.setMaximum(self.current_scroll_max)
+            vertical_scroll_bar.setValue(self.current_scroll_pos)
 
     def update_class_info(self, lc_info: LCClassInfo):
         # Update existing LCClassInfo row.

@@ -143,10 +143,10 @@ def compute_biomass_restoration(
 
     biomass_job.results = RasterResults(
         name="biomass_restoration_summary",
-        uri=URI(uri=output_path, type="local"),
+        uri=URI(uri=output_path),
         rasters={
             DataType.INT16.value: Raster(
-                uri=URI(uri=output_path, type="local"),
+                uri=URI(uri=output_path),
                 bands=output_bands,
                 datatype=DataType.INT16,
                 filetype=RasterFileType.GEOTIFF,

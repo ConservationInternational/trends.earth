@@ -14,10 +14,10 @@ repos:
     rev: v3.9.0
     hooks:
     - id: reorder-python-imports
-  - repo: https://github.com/asottile/pyupgrade
-    rev: v3.2.0
-    hooks:
-    - id: pyupgrade
+  #- repo: https://github.com/asottile/pyupgrade
+  #  rev: v3.2.0
+  #  hooks:
+  #  - id: pyupgrade
   # - repo: https://github.com/jackdewinter/pymarkdown
   #   rev: v0.9.8
   #   hooks:

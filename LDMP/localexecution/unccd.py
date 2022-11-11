@@ -208,5 +208,5 @@ def compute_unccd_report(
 
     return FileResults(
         name="unccd_report",
-        uri=URI(uri=tar_gz_path, type="local"),
+        uri=URI(uri=tar_gz_path),
     )

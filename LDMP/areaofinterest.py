@@ -7,8 +7,8 @@ import qgis.core
 import qgis.gui
 from osgeo import gdal
 from osgeo import ogr
-from qgis.PyQt import QtWidgets
 from qgis.core import Qgis
+from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtCore import QCoreApplication
 from qgis.utils import iface as qgisiface
 

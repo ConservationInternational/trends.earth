@@ -34,8 +34,8 @@ from . import download
 from . import GetTempFilename
 from . import worker
 from .conf import AreaSetting
-from .conf import REMOTE_DATASETS
 from .conf import OPTIONS_TITLE
+from .conf import REMOTE_DATASETS
 from .conf import Setting
 from .conf import settings_manager
 from .logger import log

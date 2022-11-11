@@ -28,6 +28,7 @@ from . import about
 from . import conf
 from . import main_widget
 from .charts import calculate_error_recode_stats
+from .conf import OPTIONS_TITLE
 from .jobs.manager import job_manager
 from .lc_setup import LccInfoUtils
 from .logger import log
@@ -36,7 +37,6 @@ from .maptools import PolygonMapTool
 from .processing_provider.provider import Provider
 from .reports.expressions import ReportExpressionUtils
 from .reports.template_manager import template_manager
-from .conf import OPTIONS_TITLE
 from .settings import TrendsEarthOptionsFactory
 from .timeseries import show_time_series
 from .utils import FileUtils

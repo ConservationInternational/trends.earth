@@ -18,30 +18,30 @@ from enum import Flag
 from pathlib import Path
 
 import qgis.core
-from qgis.PyQt.QtGui import QIcon
 import qgis.gui
-from qgis.gui import QgsOptionsPageWidget, QgsOptionsWidgetFactory
+from qgis.gui import QgsOptionsPageWidget
+from qgis.gui import QgsOptionsWidgetFactory
 from qgis.PyQt import QtCore
 from qgis.PyQt import QtGui
 from qgis.PyQt import QtWidgets
 from qgis.PyQt import uic
-
+from qgis.PyQt.QtGui import QIcon
 from qgis.utils import iface
 from te_schemas.land_cover import LCClass
 
-
-from . import (
-    __version__,
-    api,
-    auth,
-    binaries_available,
-    binaries_name,
-    openFolder,
-    download,
-)
-from .conf import Setting, settings_manager, TR_ALL_REGIONS, OPTIONS_TITLE, OPTIONS_ICON
+from . import __version__
+from . import api
+from . import auth
+from . import binaries_available
+from . import binaries_name
 from . import conf
-
+from . import download
+from . import openFolder
+from .conf import OPTIONS_ICON
+from .conf import OPTIONS_TITLE
+from .conf import Setting
+from .conf import settings_manager
+from .conf import TR_ALL_REGIONS
 from .jobs.manager import job_manager
 from .lc_setup import get_default_esa_nesting
 from .lc_setup import LccInfoUtils
@@ -161,7 +161,7 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
             self.groupBox,
             self.region_of_interest,
             lcc_panel_stack,
-            msg_bar=self.message_bar
+            msg_bar=self.message_bar,
         )
         lcc_panel_stack.setMainPanel(self.lcc_manager)
         self.lcc_layout.layout().insertWidget(0, lcc_panel_stack)
@@ -1496,7 +1496,15 @@ class DlgLandCoverRestore(QtWidgets.QDialog, Ui_DlgLandCoverRestore):
 class LandCoverCustomClassesManager(
     qgis.gui.QgsPanelWidget, Ui_WidgetLandCoverCustomClassesManager
 ):
-    def __init__(self, groupbox_lc_config, scroll_area, group_box, region_of_interest, parent=None, msg_bar=None):
+    def __init__(
+        self,
+        groupbox_lc_config,
+        scroll_area,
+        group_box,
+        region_of_interest,
+        parent=None,
+        msg_bar=None,
+    ):
         super().__init__(parent)
         self.setupUi(self)
         self.setDockMode(True)

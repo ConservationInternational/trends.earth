@@ -6935,12 +6935,12 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_manager</name>
     <message>
-        <location filename="../jobs/manager.py" line="679"/>
+        <location filename="../jobs/manager.py" line="680"/>
         <source>Imported dataset</source>
         <translation>导入的数据集</translation>
     </message>
     <message>
-        <location filename="../jobs/manager.py" line="702"/>
+        <location filename="../jobs/manager.py" line="703"/>
         <source>False positive/negative</source>
         <translation>假阳性/阴性</translation>
     </message>

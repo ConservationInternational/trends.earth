@@ -1,31 +1,20 @@
-import os
-import math
 import enum
-from pathlib import Path
+import math
 
-from qgis.PyQt import (
-    QtWidgets,
-    QtGui,
-    QtCore,
-    uic,
-)
-from qgis.gui import (
-    QgsDoubleSpinBox,
-    QgsMapCanvas,
-    QgsVertexMarker,
-    QgsMapMouseEvent,
-    QgsMapToolCapture,
-    QgsMapToolDigitizeFeature,
-    QgsMapToolAdvancedDigitizing,
-)
-from qgis.core import (
-    QgsFeature,
-    QgsPoint,
-    QgsPolygon,
-    QgsGeometry,
-    QgsUnitTypes,
-    QgsVectorLayerUtils,
-)
+from qgis.core import QgsFeature
+from qgis.core import QgsGeometry
+from qgis.core import QgsUnitTypes
+from qgis.core import QgsVectorLayerUtils
+from qgis.gui import QgsDoubleSpinBox
+from qgis.gui import QgsMapCanvas
+from qgis.gui import QgsMapMouseEvent
+from qgis.gui import QgsMapToolAdvancedDigitizing
+from qgis.gui import QgsMapToolCapture
+from qgis.gui import QgsMapToolDigitizeFeature
+from qgis.gui import QgsVertexMarker
+from qgis.PyQt import QtCore
+from qgis.PyQt import QtGui
+from qgis.PyQt import QtWidgets
 from qgis.utils import iface
 
 

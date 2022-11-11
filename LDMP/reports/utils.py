@@ -2,14 +2,15 @@
 import os
 import typing
 
-from qgis.gui import QgisInterface
-
 from te_schemas.jobs import Job
 from te_schemas.results import Band as JobBand
 
 from ..jobs import manager
-from ..layers import get_band_title, styles
-from .models import ReportOutputOptions, slugify, TemplateType
+from ..layers import get_band_title
+from ..layers import styles
+from .models import ReportOutputOptions
+from .models import slugify
+from .models import TemplateType
 
 
 def job_report_directory(job: Job) -> str:

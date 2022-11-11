@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 /***************************************************************************
  LDMP - A QGIS plugin
@@ -11,23 +10,21 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
+from __future__ import annotations
 
 import json
 import os
 import re
-import typing
-from enum import Enum
 from copy import deepcopy
 from pathlib import Path
 
-from marshmallow_dataclass import dataclass
 from marshmallow.exceptions import ValidationError
+from marshmallow_dataclass import dataclass
+from qgis.core import QgsApplication
 from qgis.PyQt import QtCore
 from qgis.PyQt import QtGui
 from qgis.PyQt import QtWidgets
 from qgis.PyQt import uic
-from qgis.core import QgsApplication
-from qgis.utils import iface
 from te_schemas.land_cover import LCClass
 from te_schemas.land_cover import LCLegend
 from te_schemas.land_cover import LCLegendNesting
@@ -59,7 +56,7 @@ WidgetLandCoverSetupRemoteExecutionUi, _ = uic.loadUiType(
 )
 
 
-class tr_lc_setup(object):
+class tr_lc_setup:
     def tr(message):
         return QtCore.QCoreApplication.translate("tr_lc_setup", message)
 
@@ -179,7 +176,7 @@ def json_serial(obj):
 
 class RotatedHeaderView(QtWidgets.QHeaderView):
     def __init__(self, orientation, parent=None):
-        super(RotatedHeaderView, self).__init__(orientation, parent)
+        super().__init__(orientation, parent)
         self.setMinimumSectionSize(20)
 
     def paintSection(self, painter, rect, logicalIndex):
@@ -189,23 +186,23 @@ class RotatedHeaderView(QtWidgets.QHeaderView):
         painter.rotate(90)
         # and have parent code paint at this location
         newrect = QtCore.QRect(0, 0, rect.height(), rect.width())
-        super(RotatedHeaderView, self).paintSection(painter, newrect, logicalIndex)
+        super().paintSection(painter, newrect, logicalIndex)
         painter.restore()
 
     def minimumSizeHint(self):
-        size = super(RotatedHeaderView, self).minimumSizeHint()
+        size = super().minimumSizeHint()
         size.transpose()
         return size
 
     def sectionSizeFromContents(self, logicalIndex):
-        size = super(RotatedHeaderView, self).sectionSizeFromContents(logicalIndex)
+        size = super().sectionSizeFromContents(logicalIndex)
         size.transpose()
         return size
 
 
 class VerticalLabel(QtWidgets.QLabel):
     def __init__(self, parent=None):
-        super(VerticalLabel, self).__init__(parent)
+        super().__init__(parent)
 
     def paintEvent(self, paint_event):
         painter = QtGui.QPainter(self)
@@ -226,7 +223,7 @@ class VerticalLabel(QtWidgets.QLabel):
 
 class TransMatrixEdit(QtWidgets.QLineEdit):
     def __init__(self, parent=None):
-        super(TransMatrixEdit, self).__init__(parent)
+        super().__init__(parent)
 
         self.textChanged.connect(self.transition_cell_changed)
 
@@ -245,13 +242,13 @@ class TransMatrixEdit(QtWidgets.QLineEdit):
             )
 
     def focusInEvent(self, e):
-        super(TransMatrixEdit, self).focusInEvent(e)
+        super().focusInEvent(e)
         self.selectAll()
 
 
 class LCClassComboBox(QtWidgets.QComboBox):
     def __init__(self, nesting=None, parent=None):
-        super(LCClassComboBox, self).__init__(parent)
+        super().__init__(parent)
         self._nesting = nesting
 
         self.currentIndexChanged.connect(self.index_changed)
@@ -949,7 +946,7 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
         self.dlg_agg = None
 
     def showEvent(self, event):
-        super(DlgDataIOImportLC, self).showEvent(event)
+        super().showEvent(event)
 
         # Reset flags to avoid reloading of unique values when files haven't
         # changed:
@@ -993,12 +990,12 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
 
             return
 
-        ret = super(DlgDataIOImportLC, self).validate_input(value)
+        ret = super().validate_input(value)
 
         if not ret:
             return
 
-        super(DlgDataIOImportLC, self).done(value)
+        super().done(value)
 
         self.ok_clicked()
 
@@ -1427,10 +1424,10 @@ class LandCoverSetupRemoteExecutionWidget(
     def __init__(
         self,
         parent=None,
-        hide_min_year: typing.Optional[bool] = False,
-        hide_max_year: typing.Optional[bool] = False,
-        selected_min_year: typing.Optional[int] = 2001,
-        selected_max_year: typing.Optional[int] = 2015,
+        hide_min_year: bool | None = False,
+        hide_max_year: bool | None = False,
+        selected_min_year: int | None = 2001,
+        selected_max_year: int | None = 2015,
     ):
         super().__init__(parent)
         self.setupUi(self)
@@ -1482,9 +1479,7 @@ class LccInfoUtils:
     CUSTOM_LEGEND_NAME = "Custom Land Cover"
 
     @staticmethod
-    def save_settings(
-        lcc_infos: typing.List["LCClassInfo"] = [], restore_default=True
-    ) -> bool:
+    def save_settings(lcc_infos: list[LCClassInfo] = [], restore_default=True) -> bool:
         """
         Saves list of LCClassInfo objects to settings but if settings is
         empty and 'restore_default' is True then it will restore the default
@@ -1506,9 +1501,9 @@ class LccInfoUtils:
                 lcc_str = LCClassInfo.Schema().dumps(lcc)
                 infos.append(lcc_str)
             conf.settings_manager.write_value(conf.Setting.LC_CLASSES, infos)
-        except ValidationError as ve:
+        except ValidationError:
             status = False
-        except Exception as exc:
+        except Exception:
             status = False
 
         # Update transition matrix and land cover nesting with our new custom
@@ -1524,7 +1519,7 @@ class LccInfoUtils:
         return status
 
     @staticmethod
-    def load_settings() -> typing.Tuple[bool, typing.List["LCClassInfo"]]:
+    def load_settings() -> tuple[bool, list[LCClassInfo]]:
         """
         Loads LCCInfo objects from the settings.
         """
@@ -1537,16 +1532,16 @@ class LccInfoUtils:
                 lcc_info = LCClassInfo.Schema().loads(lcc_info_str)
                 lcc_infos.append(lcc_info)
 
-        except ValidationError as ve:
+        except ValidationError:
             status = False
 
-        except Exception as exc:
+        except Exception:
             status = False
 
         return status, lcc_infos
 
     @staticmethod
-    def save_file(file_path: str, lcc_infos: typing.List["LCClassInfo"]) -> bool:
+    def save_file(file_path: str, lcc_infos: list[LCClassInfo]) -> bool:
         # Saves the LC classes to JSON file.
         lc_cls_infos = []
         status = True
@@ -1554,9 +1549,9 @@ class LccInfoUtils:
             for lcc in lcc_infos:
                 lcc_dict = LCClassInfo.Schema().dump(lcc)
                 lc_cls_infos.append(lcc_dict)
-        except ValidationError as ve:
+        except ValidationError:
             status = False
-        except Exception as exc:
+        except Exception:
             status = False
 
         if not status:
@@ -1579,7 +1574,7 @@ class LccInfoUtils:
         return True
 
     @staticmethod
-    def load_file(file_path: str) -> typing.Tuple[bool, typing.List["LCClassInfo"]]:
+    def load_file(file_path: str) -> tuple[bool, list[LCClassInfo]]:
         # Load classes from file.
         fi = QtCore.QFileInfo(file_path)
         cls_dir = fi.dir().path()
@@ -1610,8 +1605,8 @@ class LccInfoUtils:
 
     @staticmethod
     def lcc_in_infos(
-        lcc: LCClass, lcc_infos: typing.List["LCClassInfo"]
-    ) -> typing.Tuple[bool, "LCClassInfo"]:
+        lcc: LCClass, lcc_infos: list[LCClassInfo]
+    ) -> tuple[bool, LCClassInfo]:
         """
         Checks if the given lc class is in the collection using
         code to compare.
@@ -1634,7 +1629,7 @@ class LccInfoUtils:
         return nesting
 
     @staticmethod
-    def sync_trans_matrix(ref_lcc_infos: typing.List["LCClassInfo"]):
+    def sync_trans_matrix(ref_lcc_infos: list[LCClassInfo]):
         """
         Update transition matrix in settings with custom classes in the
         reference list.
@@ -1715,7 +1710,7 @@ class LccInfoUtils:
             )
 
     @staticmethod
-    def save_lc_nesting_ipcc(ref_lcc_infos: typing.List["LCClassInfo"]):
+    def save_lc_nesting_ipcc(ref_lcc_infos: list[LCClassInfo]):
         """
         Save IPCC land cover nesting to settings.
 
@@ -1777,7 +1772,7 @@ class LccInfoUtils:
             )
 
     @staticmethod
-    def save_lc_nesting_esa(ref_lcc_infos: typing.List["LCClassInfo"]):
+    def save_lc_nesting_esa(ref_lcc_infos: list[LCClassInfo]):
         """
         Save ESA land cover nesting to settings.
 
@@ -1799,7 +1794,7 @@ class LccInfoUtils:
             current_nesting = None
         if current_nesting is None:
             current_nesting = get_default_esa_nesting()
-        new_nesting = deepcopy(current_nesting)
+        deepcopy(current_nesting)
 
         current_child_codes = [c.code for c in current_nesting.child.key]
         new_child_codes = [lcc.lcc.code for lcc in ref_lcc_infos]
@@ -1875,7 +1870,7 @@ class LccInfoUtils:
             )
 
     @staticmethod
-    def sync_lc_nesting(ref_lcc_infos: typing.List["LCClassInfo"]):
+    def sync_lc_nesting(ref_lcc_infos: list[LCClassInfo]):
         """
         Updates both IPCC and ESA land cover nestings in settings.
         """

@@ -1,36 +1,18 @@
-# -*- coding: utf-8 -*-
-"""
-/***************************************************************************
- LDMP - A QGIS plugin
- This plugin supports monitoring and reporting of land degradation to the UNCCD 
- and in support of the SDG Land Degradation Neutrality (LDN) target.
-                              -------------------
-        begin                : 2017-05-23
-        git sha              : $Format:%H$
-        copyright            : (C) 2017 by Conservation International
-        email                : trends.earth@conservation.org
- ***************************************************************************/
-"""
-
-from future import standard_library
-
-standard_library.install_aliases()
-from builtins import object
-import sys
-import time
-
 import qgis.gui
-from qgis.utils import iface
 from qgis.core import Qgis
-
 from qgis.PyQt import QtCore
-from qgis.PyQt.QtCore import QThread, Qt, QEventLoop, QCoreApplication
-from qgis.PyQt.QtWidgets import QProgressBar, QPushButton
+from qgis.PyQt.QtCore import QCoreApplication
+from qgis.PyQt.QtCore import QEventLoop
+from qgis.PyQt.QtCore import Qt
+from qgis.PyQt.QtCore import QThread
+from qgis.PyQt.QtWidgets import QProgressBar
+from qgis.PyQt.QtWidgets import QPushButton
+from qgis.utils import iface
 
 from .logger import log
 
 
-class tr_worker(object):
+class tr_worker:
     def tr(message):
         return QCoreApplication.translate("tr_worker", message)
 
@@ -168,7 +150,7 @@ def toggle_worker_cancel(show_cancel, cancel_button):
     cancel_button.setVisible(show_cancel)
 
 
-class StartWorker(object):
+class StartWorker:
     def __init__(self, worker_class, process_name, *args):
         self.exception = None
         self.success = None

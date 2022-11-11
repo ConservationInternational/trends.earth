@@ -11,7 +11,6 @@ from te_schemas.algorithms import ExecutionScript
 
 from . import download
 from .algorithms import models as algorithm_models
-from .logger import log
 from .reports.utils import default_report_disclaimer
 from .utils import FileUtils
 

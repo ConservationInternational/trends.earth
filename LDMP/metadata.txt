@@ -27,13 +27,19 @@ deprecated=False
 hasProcessingProvider=yes
 
 # Uncomment the following line and add your changelog:
-changelog=2.0.3 (October 19, 2022)
-    - Fix SDG summary when using JRC LPD or WOCAT LPD
+changelog=2.0.7 (October 31, 2022)
+    - Enable Excel table generation for SDG 15.3.1 when using custom
+      classes - all the various minor bugs should now be worked out.
+    - Limit report generation to 3 tries - then quit trying to generate reports
+      until next restart (prevents Trends.Earth continually spawing processes
+      for report generation when they are failing).
+  2.0.5 (October 19, 2022)
+    - Fix SDG summary generation when using JRC LPD or WOCAT LPD.
   2.0.3 (October 19, 2022)
     - Allow bypassing reset of land cover legend when choosing defaults in
-      the SDG tool
-    - Disable excel generation when child legend does not have 7 classes
-    - Fix report generation when using custom legend
+      the SDG tool.
+    - Disable excel generation when child legend does not have 7 classes.
+    - Fix report generation when using custom legend.
   2.0.1 (October 13, 2022)
     - Added ability to completely customize the land cover legend used in
       Trends.Earth, including the number, name, color, and coding of each 

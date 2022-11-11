@@ -9,7 +9,6 @@ from dataclasses import field
 from enum import Enum
 from uuid import uuid4
 
-from marshmallow import post_load
 from marshmallow_dataclass import dataclass
 
 from ..jobs.models import Job

@@ -2,11 +2,9 @@ import os
 import tempfile
 from pathlib import Path
 
-import qgis.core
-from qgis.PyQt import QtCore
-from qgis.PyQt import QtXml
-
 import lxml.etree as ET
+import qgis.core
+from qgis.PyQt import QtXml
 
 from .jobs import manager
 from .jobs.models import Job
@@ -38,7 +36,7 @@ def read_qmd(file_path):
         return md
 
     document = QtXml.QDomDocument("qgis")
-    with open(file_path, "r", encoding="utf-8") as f:
+    with open(file_path, encoding="utf-8") as f:
         if not document.setContent(f.read()):
             log("Could not read metadata from file {}".format(md_path))
             return md

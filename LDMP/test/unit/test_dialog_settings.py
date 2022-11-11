@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 /***************************************************************************
  LDMP - A QGIS plugin
@@ -11,18 +10,14 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
-
 import sys
-
-from qgis.testing import unittest
 
 from qgis.core import *
 from qgis.PyQt.QtCore import *
 from qgis.PyQt.QtTest import QTest
-from qgis.PyQt.QtWidgets import QApplication
+from qgis.testing import unittest
 
 from LDMP.settings import DlgSettingsLogin
-
 from LDMP.test import regular_keys
 
 
@@ -33,8 +28,8 @@ class DialogSettingsLoginTests(unittest.TestCase):
         d = DlgSettingsLogin()
         d.email.setText(regular_keys["email"])
         d.password.setText(regular_keys["password"])
-        self.assertEquals(regular_keys["email"], d.email.text())
-        self.assertEquals(regular_keys["password"], d.password.text())
+        self.assertEqual(regular_keys["email"], d.email.text())
+        self.assertEqual(regular_keys["password"], d.password.text())
         okWidget = d.buttonBox.button(d.buttonBox.Ok)
         QTest.mouseClick(okWidget, Qt.LeftButton)
         self.assertTrue(d.ok)
@@ -69,7 +64,11 @@ class DialogSettingsLoginTests(unittest.TestCase):
 
 def SettingsUnitSuite():
     suite = unittest.TestSuite()
-    suite.addTests(unittest.makeSuite(DialogSettingsLoginTests, "test"))
+    suite.addTests(
+        unittest.defaultTestLoader.loadTestsFromTestCase(
+            DialogSettingsLoginTests, "test"
+        )
+    )
     return suite
 
 

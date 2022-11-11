@@ -18,9 +18,9 @@ from te_schemas.results import URI
 from .. import areaofinterest
 from .. import calculate
 from .. import data_io
+from .. import logger
 from .. import summary
 from .. import utils
-from .. import logger
 from .. import worker
 from ..jobs.models import Job
 
@@ -223,7 +223,7 @@ def _save_summary_table(
     try:
         workbook.save(out_file)
         logger.log("Summary table saved to {}".format(out_file))
-    except IOError as exc:
+    except OSError as exc:
         raise RuntimeError(
             f"Error saving output table - check that {out_file} is accessible and "
             f"not already open. - {str(exc)}"

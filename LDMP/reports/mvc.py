@@ -6,7 +6,6 @@ from qgis.core import Qgis
 from qgis.gui import QgisInterface
 from qgis.PyQt.QtCore import QAbstractItemModel
 from qgis.PyQt.QtCore import QCoreApplication
-from qgis.PyQt.QtCore import QFileInfo
 from qgis.PyQt.QtCore import QModelIndex
 from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtCore import QUrl

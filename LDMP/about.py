@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 /***************************************************************************
  LDMP - A QGIS plugin
@@ -11,14 +10,14 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
-
-import os
-import sys
-
-from LDMP import __version__, __revision__, __release_date__
-
-from qgis.PyQt import QtWidgets, uic
 from pathlib import Path
+
+from qgis.PyQt import QtWidgets
+from qgis.PyQt import uic
+
+from LDMP import __release_date__
+from LDMP import __revision__
+from LDMP import __version__
 
 Ui_DlgAbout, _ = uic.loadUiType(str(Path(__file__).parent / "gui/DlgAbout.ui"))
 
@@ -26,7 +25,7 @@ Ui_DlgAbout, _ = uic.loadUiType(str(Path(__file__).parent / "gui/DlgAbout.ui"))
 class DlgAbout(QtWidgets.QDialog, Ui_DlgAbout):
     def __init__(self, parent=None):
         """Constructor."""
-        super(DlgAbout, self).__init__(parent)
+        super().__init__(parent)
 
         self.setupUi(self)
 

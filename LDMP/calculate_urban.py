@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 /***************************************************************************
  LDMP - A QGIS plugin
@@ -11,24 +10,18 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
-
-from pathlib import Path
 import json
+from pathlib import Path
 
-import numpy as np
-import qgis.gui
 import qgis.core
-from osgeo import gdal
-from qgis.PyQt import QtCore, QtWidgets, uic
-
+import qgis.gui
+from qgis.PyQt import QtCore
+from qgis.PyQt import QtWidgets
+from qgis.PyQt import uic
 from te_schemas.algorithms import ExecutionScript
 
-from . import (
-    calculate,
-    data_io,
-    summary,
-    worker,
-)
+from . import calculate
+from . import data_io
 from .jobs.manager import job_manager
 from .logger import log
 
@@ -40,7 +33,7 @@ DlgCalculateUrbanSummaryTableUi, _ = uic.loadUiType(
 )
 
 
-class tr_calculate_urban(object):
+class tr_calculate_urban:
     def tr(message):
         return QtCore.QCoreApplication.translate("tr_calculate_urban", message)
 
@@ -151,7 +144,7 @@ class DlgCalculateUrbanData(calculate.DlgCalculateBase, DlgCalculateUrbanDataUi)
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
         # as well.
-        ret = super(DlgCalculateUrbanData, self).btn_calculate()
+        ret = super().btn_calculate()
         if not ret:
             return
 

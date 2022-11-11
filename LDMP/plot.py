@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 /***************************************************************************
  LDMP - A QGIS plugin
@@ -11,14 +10,13 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
-
-import numpy as np
 from pathlib import Path
 
+import numpy as np
 import pyqtgraph as pg
-
 import qgis.gui
-from qgis.PyQt import QtWidgets, uic
+from qgis.PyQt import QtWidgets
+from qgis.PyQt import uic
 
 
 UiDlgPlot, _ = uic.loadUiType(str(Path(__file__).parent / "gui/DlgPlot.ui"))
@@ -26,7 +24,7 @@ UiDlgPlot, _ = uic.loadUiType(str(Path(__file__).parent / "gui/DlgPlot.ui"))
 
 class DlgPlot(QtWidgets.QDialog, UiDlgPlot):
     def __init__(self, parent=None):
-        super(DlgPlot, self).__init__(parent)
+        super().__init__(parent)
         self.setupUi(self)
 
         qgis.gui.QgsGui.enableAutoGeometryRestore(self)
@@ -67,7 +65,7 @@ def polyfit(x, y, degree):
 
 class DlgPlotTimeries(DlgPlot):
     def __init__(self, parent=None):
-        super(DlgPlotTimeries, self).__init__(parent)
+        super().__init__(parent)
 
     def plot_data(self, x, y, labels, autoSI=False):
         line = pg.PlotCurveItem(x, y, pen="b", brush="w")
@@ -104,7 +102,7 @@ class DlgPlotTimeries(DlgPlot):
 class DlgPlotBars(DlgPlot):
     def __init__(self, parent=None):
         """Constructor."""
-        super(DlgPlotBars, self).__init__(parent)
+        super().__init__(parent)
 
     def plot_data(self, x, y, labels, autoSI=False):
         # dict to handle string x-axis labels

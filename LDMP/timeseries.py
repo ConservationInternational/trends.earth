@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 /***************************************************************************
  LDMP - A QGIS plugin
@@ -19,7 +18,6 @@ from qgis.PyQt import QtWidgets
 from qgis.PyQt import uic
 from qgis.PyQt.QtCore import QDate
 from qgis.PyQt.QtCore import Qt
-from qgis.PyQt.QtCore import QTextCodec
 from te_schemas.algorithms import ExecutionScript
 
 from .calculate import (
@@ -170,8 +168,6 @@ class DlgTimeseries(DlgCalculateBase, Ui_DlgTimeseries):
     def update_time_bounds(self):
         # TODO: need to also account for GAEZ and/or CCI data dates for
         # stratification
-        start_year = QDate(self.start_year_ndvi, 1, 1)
-        end_year = QDate(self.end_year_ndvi, 12, 31)
 
         # Trajectory - needs to also account for climate data
         start_year_traj = QDate(

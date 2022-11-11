@@ -4,9 +4,6 @@ import subprocess
 import sys
 import tempfile
 import typing
-from datetime import datetime
-from datetime import timezone
-from functools import reduce
 from pathlib import Path
 
 import qgis.core

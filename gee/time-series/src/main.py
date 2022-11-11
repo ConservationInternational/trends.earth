@@ -2,22 +2,15 @@
 Code for calculating vegetation productivity trajectory.
 """
 # Copyright 2017 Conservation International
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-
 import json
 import random
 import re
-from builtins import str
-from builtins import zip
 
 import ee
+from te_algorithms.gee.productivity import productivity_series
 from te_schemas.schemas import TimeSeries
 from te_schemas.schemas import TimeSeriesTable
 from te_schemas.schemas import TimeSeriesTableSchema
-
-from te_algorithms.gee.productivity import productivity_series
 
 
 def zonal_stats(
@@ -69,7 +62,7 @@ def zonal_stats(
 
     years = [*range(year_initial, year_final + 1)]
     for key, value in list(res.items()):
-        re_groups = re.search("(\d*)_ndvi_(\w*)", key).groups()
+        re_groups = re.search(r"(\d*)_ndvi_(\w*)", key).groups()
         index = re_groups[0]
         year = years[int(index)]
         field = re_groups[1]

@@ -1,13 +1,11 @@
 import os
 from pathlib import Path
 
-import qgis.core
 from qgis.PyQt import QtCore
 from qgis.PyQt import QtGui
 from qgis.PyQt import QtWidgets
 from qgis.PyQt import uic
 
-from . import tr
 from .conf import Setting
 from .conf import settings_manager
 from .conf import OPTIONS_TITLE
@@ -23,7 +21,7 @@ class DlgSelectDataset(QtWidgets.QDialog, Ui_DlgSelectDS):
     changed_region: QtCore.pyqtSignal = QtCore.pyqtSignal()
 
     def __init__(self, parent=None):
-        super(DlgSelectDataset, self).__init__(parent)
+        super().__init__(parent)
         self.setupUi(self)
 
         self.update_current_region()

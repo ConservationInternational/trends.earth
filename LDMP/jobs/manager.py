@@ -6,9 +6,9 @@ import os
 import re
 import shutil
 import typing
-from copy import deepcopy
 import urllib.parse
 import uuid
+from copy import deepcopy
 from pathlib import Path
 from typing import List
 
@@ -48,7 +48,7 @@ from .models import Job
 logger = logging.getLogger(__name__)
 
 
-class tr_manager(object):
+class tr_manager:
     def tr(message):
         return QtCore.QCoreApplication.translate("tr_manager", message)
 
@@ -993,7 +993,7 @@ class JobManager(QtCore.QObject):
                         log(
                             f"Unable to decode file {job_metadata_path!r} as valid json"
                         )
-                except ValidationError as exc:
+                except ValidationError:
                     if conf.settings_manager.get_value(conf.Setting.DEBUG):
                         log(
                             f"Unable to decode file {job_metadata_path!r} - validation error decoding job"

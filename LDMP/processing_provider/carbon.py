@@ -1,19 +1,10 @@
 import numpy as np
-
-from osgeo import gdal, osr
-
-from qgis import processing
-from qgis.core import (
-    QgsGeometry,
-    QgsProcessing,
-    QgsProcessingAlgorithm,
-    QgsProcessingException,
-    QgsProcessingParameterFile,
-    QgsProcessingParameterFileDestination,
-    QgsProcessingParameterNumber,
-    QgsProcessingOutputString,
-    QgsProcessingOutputNumber,
-)
+from osgeo import gdal
+from qgis.core import QgsProcessingAlgorithm
+from qgis.core import QgsProcessingOutputNumber
+from qgis.core import QgsProcessingOutputString
+from qgis.core import QgsProcessingParameterFile
+from qgis.core import QgsProcessingParameterNumber
 from qgis.PyQt.QtCore import QCoreApplication
 
 from ..logger import log
@@ -106,7 +97,6 @@ class TCSummary(QgsProcessingAlgorithm):
         block_sizes = band_f_loss.GetBlockSize()
         xsize = band_f_loss.XSize
         ysize = band_f_loss.YSize
-        n_out_bands = 1
 
         x_block_size = block_sizes[0]
         y_block_size = block_sizes[1]

@@ -7,17 +7,15 @@ from typing import List
 from typing import Optional
 from typing import Union
 
+import te_algorithms.gdal.land_deg.config as ld_config
 from qgis.PyQt import QtWidgets
+from te_algorithms.gdal.land_deg.land_deg import summarise_land_degradation
 from te_schemas.aoi import AOI
 from te_schemas.productivity import ProductivityMode
 from te_schemas.results import Band as JobBand
 
-import te_algorithms.gdal.land_deg.config as ld_config
 from .. import data_io
-from .. import tr
 from ..jobs.models import Job
-from ..logger import log
-from te_algorithms.gdal.land_deg.land_deg import summarise_land_degradation
 
 NODATA_VALUE = -32768
 MASK_VALUE = -32767

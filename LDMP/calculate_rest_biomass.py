@@ -33,9 +33,6 @@ DlgCalculateRestBiomassSummaryTableUi, _ = uic.loadUiType(
 )
 
 
-from te_schemas.schemas import BandInfo, BandInfoSchema
-
-
 class DlgCalculateRestBiomassData(
     calculate.DlgCalculateBase, DlgCalculateRestBiomassDataUi
 ):
@@ -51,13 +48,13 @@ class DlgCalculateRestBiomassData(
         self._finish_initialization()
 
     def showEvent(self, event):
-        super(DlgCalculateRestBiomassData, self).showEvent(event)
+        super().showEvent(event)
 
     def btn_calculate(self):
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
         # as well.
-        ret = super(DlgCalculateRestBiomassData, self).btn_calculate()
+        ret = super().btn_calculate()
         if not ret:
             return
         self.calculate_on_GEE()

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 /***************************************************************************
  LDMP - A QGIS plugin
@@ -11,39 +10,28 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
-
-import os
 import sys
 
 import numpy as np
-
 from qgis.testing import unittest
 
+from LDMP.calculate import ldn_total_by_trans
+from LDMP.calculate import ldn_total_deg_f
 from LDMP.calculate_ldn import ldn_total_by_trans_merge
-
-from LDMP.test import add_default_bands_to_map
-
-from LDMP.calculate import (
-    ldn_make_prod5,
-    ldn_recode_state,
-    ldn_recode_traj,
-    ldn_total_by_trans,
-    ldn_total_deg_f,
-)
 
 
 class recode_stateTests(unittest.TestCase):
     def recode_to_deg(self):
         out = recode_state(np.array((-10, -2), dtype=np.int16))
-        self.assertEquals(out, np.array((-1, 1), dtype=np.int16))
+        self.assertEqual(out, np.array((-1, 1), dtype=np.int16))
 
     def recode_to_stable(self):
         out = recode_state(np.array((-1, 1), dtype=np.int16))
-        self.assertEquals(out, np.array((0, 0), dtype=np.int16))
+        self.assertEqual(out, np.array((0, 0), dtype=np.int16))
 
     def recode_to_improve(self):
         out = recode_state(np.array((2, 10), dtype=np.int16))
-        self.assertEquals(out, np.array((1, 1), dtype=np.int16))
+        self.assertEqual(out, np.array((1, 1), dtype=np.int16))
 
 
 class ldn_total_by_transTests(unittest.TestCase):
@@ -138,16 +126,28 @@ class ldn_total_deg_fTests(unittest.TestCase):
             np.zeros((10, 10), dtype=np.bool),
             np.zeros((10, 10), dtype=np.float32),
         )
-        self.assertEquals(np.shape(total), (4,))
-        self.assertEquals(np.sum(total), 0.0)
+        self.assertEqual(np.shape(total), (4,))
+        self.assertEqual(np.sum(total), 0.0)
 
 
 def CalculateLDNUnitSuite():
     suite = unittest.TestSuite()
-    suite.addTests(unittest.makeSuite(recode_stateTests, "test"))
-    suite.addTests(unittest.makeSuite(ldn_total_deg_fTests, "test"))
-    suite.addTests(unittest.makeSuite(ldn_total_by_transTests, "test"))
-    suite.addTests(unittest.makeSuite(ldn_total_by_trans_mergeTests, "test"))
+    suite.addTests(
+        unittest.defaultTestLoader.loadTestsFromTestCase(recode_stateTests, "test")
+    )
+    suite.addTests(
+        unittest.defaultTestLoader.loadTestsFromTestCase(ldn_total_deg_fTests, "test")
+    )
+    suite.addTests(
+        unittest.defaultTestLoader.loadTestsFromTestCase(
+            ldn_total_by_transTests, "test"
+        )
+    )
+    suite.addTests(
+        unittest.defaultTestLoader.loadTestsFromTestCase(
+            ldn_total_by_trans_mergeTests, "test"
+        )
+    )
     return suite
 
 

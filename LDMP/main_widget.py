@@ -31,7 +31,6 @@ from .jobs.models import TypeFilter
 from .landpks import DlgLandPKSDownload
 from .lc_setup import DlgDataIOImportLC
 from .logger import log
-from .utils import FileUtils
 from .utils import load_object
 from .visualization import DlgVisualizationBasemap
 

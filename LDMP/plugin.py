@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 /***************************************************************************
  LDMP - A QGIS plugin
@@ -12,22 +11,17 @@
  ***************************************************************************/
 """
 import os
-from builtins import object
 
-from qgis.core import Qgis
 from qgis.core import QgsApplication
 from qgis.core import QgsExpression
 from qgis.core import QgsMasterLayoutInterface
-from qgis.core import QgsMessageLog
 from qgis.gui import QgsLayoutDesignerInterface
 from qgis.PyQt.QtCore import QCoreApplication
-from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtCore import QLocale
+from qgis.PyQt.QtCore import Qt
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction
-from qgis.PyQt.QtWidgets import QApplication
 from qgis.PyQt.QtWidgets import QMenu
-from qgis.PyQt.QtWidgets import QMessageBox
 from qgis.PyQt.QtWidgets import QToolButton
 
 from . import about
@@ -58,12 +52,12 @@ if CURRENT_LOCALE != PRIOR_LOCALE:
     conf.settings_manager.write_value(conf.Setting.PRIOR_LOCALE, CURRENT_LOCALE)
 
 
-class tr_plugin(object):
+class tr_plugin:
     def tr(message):
         return QCoreApplication.translate("tr_plugin", message)
 
 
-class LDMPPlugin(object):
+class LDMPPlugin:
     """QGIS Plugin Implementation."""
 
     def __init__(self, iface):

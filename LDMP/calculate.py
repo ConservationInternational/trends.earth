@@ -22,12 +22,10 @@ from typing import Optional
 import qgis.core
 import qgis.gui
 from osgeo import gdal
-from osgeo import ogr
 from qgis.PyQt import QtCore
 from qgis.PyQt import QtGui
 from qgis.PyQt import QtWidgets
 from qgis.PyQt import uic
-from qgis.utils import iface
 from te_schemas.algorithms import AlgorithmRunMode
 from te_schemas.algorithms import ExecutionScript
 
@@ -35,7 +33,6 @@ from . import areaofinterest
 from . import download
 from . import GetTempFilename
 from . import worker
-from .algorithms import models
 from .conf import AreaSetting
 from .conf import REMOTE_DATASETS
 from .conf import OPTIONS_TITLE
@@ -62,7 +59,7 @@ WidgetCalculationOutputUi, _ = uic.loadUiType(
 )
 
 
-class tr_calculate(object):
+class tr_calculate:
     def tr(message):
         return QtCore.QCoreApplication.translate("tr_calculate", message)
 
@@ -134,19 +131,19 @@ class DlgCalculate(QtWidgets.QDialog, DlgCalculateUi):
 
     def btn_ld_clicked(self):
         self.close()
-        result = self.dlg_calculate_ld.exec_()
+        self.dlg_calculate_ld.exec_()
 
     def btn_tc_clicked(self):
         self.close()
-        result = self.dlg_calculate_tc.exec_()
+        self.dlg_calculate_tc.exec_()
 
     def btn_rest_biomass_clicked(self):
         self.close()
-        result = self.dlg_calculate_rest_biomass.exec_()
+        self.dlg_calculate_rest_biomass.exec_()
 
     def btn_urban_clicked(self):
         self.close()
-        result = self.dlg_calculate_urban.exec_()
+        self.dlg_calculate_urban.exec_()
 
 
 class DlgCalculateTC(QtWidgets.QDialog, DlgCalculateTCUi):
@@ -171,11 +168,11 @@ class DlgCalculateTC(QtWidgets.QDialog, DlgCalculateTCUi):
 
     def btn_calculate_carbon_change_clicked(self):
         self.close()
-        result = self.dlg_calculate_tc_data.exec_()
+        self.dlg_calculate_tc_data.exec_()
 
     def btn_summary_single_polygon_clicked(self):
         self.close()
-        result = self.dlg_calculate_tc_summary.exec_()
+        self.dlg_calculate_tc_summary.exec_()
 
 
 class DlgCalculateRestBiomass(QtWidgets.QDialog, DlgCalculateRestBiomassUi):
@@ -200,11 +197,11 @@ class DlgCalculateRestBiomass(QtWidgets.QDialog, DlgCalculateRestBiomassUi):
 
     def btn_calculate_rest_biomass_change_clicked(self):
         self.close()
-        result = self.dlg_calculate_rest_biomass_data.exec_()
+        self.dlg_calculate_rest_biomass_data.exec_()
 
     def btn_summary_single_polygon_clicked(self):
         self.close()
-        result = self.dlg_calculate_rest_biomass_summary.exec_()
+        self.dlg_calculate_rest_biomass_summary.exec_()
 
 
 class DlgCalculateUrban(QtWidgets.QDialog, DlgCalculateUrbanUi):
@@ -229,11 +226,11 @@ class DlgCalculateUrban(QtWidgets.QDialog, DlgCalculateUrbanUi):
 
     def btn_calculate_urban_change_clicked(self):
         self.close()
-        result = self.dlg_calculate_urban_data.exec_()
+        self.dlg_calculate_urban_data.exec_()
 
     def btn_summary_single_polygon_clicked(self):
         self.close()
-        result = self.dlg_calculate_urban_summary.exec_()
+        self.dlg_calculate_urban_summary.exec_()
 
 
 class CalculationOptionsWidget(QtWidgets.QWidget, WidgetCalculationOptionsUi):
@@ -306,7 +303,7 @@ class CalculationOptionsWidget(QtWidgets.QWidget, WidgetCalculationOptionsUi):
 
 class CalculationOutputWidget(QtWidgets.QWidget, WidgetCalculationOutputUi):
     def __init__(self, suffixes, subclass_name, parent=None):
-        super(CalculationOutputWidget, self).__init__(parent)
+        super().__init__(parent)
 
         self.output_suffixes = suffixes
         self.subclass_name = subclass_name
@@ -395,7 +392,7 @@ class CalculationHidedOutputWidget(QtWidgets.QWidget, WidgetCalculationOutputUi)
     process_datetime: dt.datetime
 
     def __init__(self, suffixes, subclass_name, parent=None):
-        super(CalculationHidedOutputWidget, self).__init__(parent)
+        super().__init__(parent)
 
         self.output_suffixes = suffixes
         self.subclass_name = subclass_name
@@ -547,7 +544,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
         self.update_current_region()
 
     def showEvent(self, event):
-        super(DlgCalculateBase, self).showEvent(event)
+        super().showEvent(event)
 
         if self._firstShowEvent:
             self._firstShowEvent = False

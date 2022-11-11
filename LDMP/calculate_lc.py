@@ -10,21 +10,18 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
-
 import json
 from pathlib import Path
 
-from qgis.PyQt import QtWidgets, uic
-
 import qgis.core
 import qgis.gui
+from qgis.PyQt import QtWidgets
+from qgis.PyQt import uic
+from te_schemas.algorithms import AlgorithmRunMode
+from te_schemas.algorithms import ExecutionScript
 
-from te_schemas.algorithms import AlgorithmRunMode, ExecutionScript
-
-from . import (
-    calculate,
-    lc_setup,
-)
+from . import calculate
+from . import lc_setup
 from .jobs.manager import job_manager
 
 
@@ -32,7 +29,6 @@ DlgCalculateLcUi, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgCalculateLC.ui")
 )
 
-from te_schemas.schemas import BandInfo, BandInfoSchema
 from te_schemas.land_cover import LCTransitionDefinitionDeg, LCLegendNesting
 
 
@@ -70,7 +66,7 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
         # Note that the super class has several tests in it - if they fail it
         # returns False, which would mean this function should stop execution
         # as well.
-        ret = super(DlgCalculateLC, self).btn_calculate()
+        ret = super().btn_calculate()
         if not ret:
             return
 

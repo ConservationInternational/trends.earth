@@ -7,8 +7,10 @@ import qgis.core
 import qgis.gui
 from osgeo import gdal
 from osgeo import ogr
+from qgis.core import Qgis
 from qgis.PyQt import QtWidgets
 from qgis.PyQt.QtCore import QCoreApplication
+from qgis.utils import iface as qgisiface
 
 from . import conf
 from . import download
@@ -487,6 +489,37 @@ class AOI:
         return geojson
 
 
+def qgs_error_message(error_title="Error", error_desciption="", timeout=0):
+    """Displays an error message on the QGIS message bar. A button is included which will open
+    the settings for the plugin.
+
+    :param error_title: Error message title
+    :type error_title: str
+
+    :param error_desciption: Error message description
+    :type error_desciption: str
+
+    :param timeout: Message bar timeout in seconds. 0 is infinite.
+    :type timeout: int
+    """
+
+    message_bar = qgisiface.messageBar()
+
+    msg_widget = message_bar.createMessage(error_title, error_desciption)
+
+    settings_btn = QtWidgets.QPushButton(msg_widget)
+    settings_btn.setText("Settings")
+    settings_btn.pressed.connect(open_settings)
+    msg_widget.layout().addWidget(settings_btn)
+
+    message_bar.pushWidget(msg_widget, level=Qgis.Info, duration=timeout)
+
+
+def open_settings():
+    """Opens the QGIS settings panel. The Trends.Earth tab will be selected."""
+    qgisiface.showOptionsDialog(currentPage=conf.OPTIONS_TITLE)
+
+
 def prepare_area_of_interest() -> AOI:
     if conf.settings_manager.get_value(conf.Setting.CUSTOM_CRS_ENABLED):
         crs_dst = qgis.core.QgsCoordinateReferenceSystem(
@@ -501,7 +534,11 @@ def prepare_area_of_interest() -> AOI:
     is_city = area_method == conf.AreaSetting.COUNTRY_CITY.value
     is_region = area_method == conf.AreaSetting.COUNTRY_REGION.value
     if is_city and not has_buffer:
-        raise RuntimeError("Calculations for cities require a buffer")
+        qgs_error_message(
+            "Buffer required",
+            "Calculations for cities require a buffer. This can be set in the Trend.Earth settings.",
+            60,
+        )
     elif is_city:
         geojson = get_city_geojson()
         area_of_interest.update_from_geojson(

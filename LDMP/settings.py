@@ -238,9 +238,6 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
         self.reloadAuthConfigurations()
 
     def collapsed_state_changed(self):
-
-        print('collapsed state changed')
-
         state = self.groupbox_lc_config.isCollapsed()
         if state:
             # Group box is closed, set size to 25
@@ -1710,9 +1707,6 @@ class LandCoverCustomClassesManager(
             self.add_class_info_to_table(lc_cls)
 
     def set_table_height(self):
-
-        print('set table height')
-
         table_row_count = self.model.rowCount()
         row_0_height = self.tb_classes.rowHeight(
             0
@@ -1781,10 +1775,7 @@ class LandCoverCustomClassesManager(
 
             vertical_scroll_bar = self.scroll_area.verticalScrollBar()
 
-            print('scroll bar size: ' + str(vertical_scroll_bar.maximum()))
-
             self.current_scroll_pos = vertical_scroll_bar.value()
-            print("Current scroll height: " + str(self.current_scroll_pos))
             self.current_scroll_max = vertical_scroll_bar.maximum()
 
             # Changes the size of the box to that of the
@@ -1816,23 +1807,11 @@ class LandCoverCustomClassesManager(
 
         self._last_clr = QtGui.QColor(lc_cls_info.lcc.color)
 
-        # vertical_scroll_bar.setMaximum(self.current_scroll_max)
-        print('scroll bar size: ' + str(vertical_scroll_bar.maximum()))
-
-        diff = float(self.current_scroll_max) - float(vertical_scroll_bar.maximum())
-        print('diff: ' + str(diff))
-
+        diff = self.current_scroll_max - vertical_scroll_bar.maximum()
         if diff == 0:
-            print("set to: " + str(self.current_scroll_pos))
             vertical_scroll_bar.setValue(self.current_scroll_pos)
         else:
-            # diff_perc = diff / float(self.current_scroll_max)
-            # print("diff %: " + str(diff_perc))
-            # final = float(self.current_scroll_pos) * (1 - diff_perc)
-            # print('set to %: ' + str(final))
-            # vertical_scroll_bar.setValue(final)
-
-            # vertical_scroll_bar.setMaximum(self.current_scroll_max)
+            vertical_scroll_bar.setMaximum(self.current_scroll_max)
             vertical_scroll_bar.setValue(self.current_scroll_pos)
 
     def update_class_info(self, lc_info: LCClassInfo):

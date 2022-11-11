@@ -19,7 +19,7 @@ homepage=http://trends.earth
 category=Plugins
 icon=trends_earth_logo_square_32x32.png
 # experimental flag
-experimental=True
+experimental=False
 
 # deprecated flag (applies to the whole plugin, not just a single version)
 deprecated=False
@@ -27,7 +27,13 @@ deprecated=False
 hasProcessingProvider=yes
 
 # Uncomment the following line and add your changelog:
-changelog=2.0.7 (October 31, 2022)
+changelog=2.1.0 (November 11, 2022)
+    - Moved plugin settings to live within main QGIS plugin settings window
+    - Bumped marshmallow-dataclass to 8.5.10 and marshmallow to 3.18.0. This
+      necessitated changes in trends.earth-schemas, so it is possible some old
+      jobs may not load in this new version (suggest re-running them if need
+      be).
+  2.0.7 (October 31, 2022)
     - Enable Excel table generation for SDG 15.3.1 when using custom
       classes - all the various minor bugs should now be worked out.
     - Limit report generation to 3 tries - then quit trying to generate reports

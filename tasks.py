@@ -605,21 +605,23 @@ def tecli_logs(c, script, since=1):
 ###############################################################################
 
 
+def not_comments(lines, s, e):
+    return [line for line in lines[s:e] if line[0] != "#"]
+
+
 def read_requirements():
     """Return a list of runtime and list of test requirements"""
     with open("requirements.txt") as f:
         lines = f.readlines()
-    lines = [l for l in [l.strip() for l in lines] if l]
+    lines = [line for line in [line.strip() for line in lines] if line]
     divider = "# test requirements"
 
     try:
         idx = lines.index(divider)
     except ValueError:
-        raise BuildFailure('Expected to find "{}" in requirements.txt'.format(divider))
+        raise Exception('Expected to find "{}" in requirements.txt'.format(divider))
 
-    not_comments = lambda s, e: [l for l in lines[s:e] if l[0] != "#"]
-
-    return not_comments(0, idx), not_comments(idx + 1, None)
+    return not_comments(lines, 0, idx), not_comments(lines, idx + 1, None)
 
 
 def _safe_remove_folder(rootdir):

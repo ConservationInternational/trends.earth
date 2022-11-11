@@ -25,6 +25,9 @@ tr_conf = tr_conf()
 
 TR_ALL_REGIONS = tr_conf.tr("All regions")
 
+OPTIONS_ICON = "trends_earth_logo_square_32x32.ico"
+OPTIONS_TITLE = "Trends.Earth"
+
 
 class AreaSetting(enum.Enum):
     COUNTRY_REGION = "country_region"

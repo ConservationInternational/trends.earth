@@ -19,19 +19,26 @@ from pathlib import Path
 
 import qgis.core
 import qgis.gui
+from qgis.gui import QgsOptionsPageWidget
+from qgis.gui import QgsOptionsWidgetFactory
 from qgis.PyQt import QtCore
 from qgis.PyQt import QtGui
 from qgis.PyQt import QtWidgets
 from qgis.PyQt import uic
+from qgis.PyQt.QtGui import QIcon
 from qgis.utils import iface
 from te_schemas.land_cover import LCClass
 
+from . import __version__
 from . import api
 from . import auth
 from . import binaries_available
 from . import binaries_name
+from . import conf
 from . import download
 from . import openFolder
+from .conf import OPTIONS_ICON
+from .conf import OPTIONS_TITLE
 from .conf import Setting
 from .conf import settings_manager
 from .conf import TR_ALL_REGIONS
@@ -128,17 +135,17 @@ def _get_user_email(auth_setup, warn=True):
         return email
 
 
-class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
+class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
     message_bar: qgis.gui.QgsMessageBar
 
     def __init__(self, parent=None):
-        super().__init__(parent)
+        QgsOptionsPageWidget.__init__(self, parent)
 
         self.setupUi(self)
         self.message_bar = qgis.gui.QgsMessageBar(self)
         self.layout().insertWidget(0, self.message_bar)
 
-        # add subcomponent widgets
+        # Add subcomponent widgets
         self.widgetSettingsAdvanced = WidgetSettingsAdvanced(
             message_bar=self.message_bar
         )
@@ -149,7 +156,12 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
         # LC configuration
         lcc_panel_stack = qgis.gui.QgsPanelWidgetStack()
         self.lcc_manager = LandCoverCustomClassesManager(
-            lcc_panel_stack, msg_bar=self.message_bar
+            self.groupbox_lc_config,
+            self.scroll_area,
+            self.groupBox,
+            self.region_of_interest,
+            lcc_panel_stack,
+            msg_bar=self.message_bar,
         )
         lcc_panel_stack.setMainPanel(self.lcc_manager)
         self.lcc_layout.layout().insertWidget(0, lcc_panel_stack)
@@ -160,7 +172,7 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
         )
         self.reports_layout.layout().insertWidget(0, self.widget_settings_report)
 
-        # set Dialog UIs
+        # Set Dialog UIs
         self.dlg_settings_register = DlgSettingsRegister()
         self.dlg_settings_login = DlgSettingsLogin()
 
@@ -175,7 +187,10 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
         self.pushButton_delete_user.clicked.connect(self.delete)
         self.pushButton_forgot_pwd.clicked.connect(self.forgot_pwd)
 
-        self.buttonBox.accepted.connect(self.on_accept)
+        self.groupbox_lc_config.collapsedStateChanged.connect(
+            self.collapsed_state_changed
+        )
+
         self.settings = qgis.core.QgsSettings()
 
         self.area_widget = AreaWidget()
@@ -185,8 +200,26 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
 
         self.region_of_interest.setLayout(layout)
 
-        # load gui default value from settings
+        # Load gui default value from settings
         self.reloadAuthConfigurations()
+
+    def apply(self):
+        """This is called on OK click in the QGIS options panel."""
+
+        old_base_dir = conf.settings_manager.get_value(conf.Setting.BASE_DIR)
+
+        self.area_widget.save_settings()
+        self.widgetSettingsAdvanced.update_settings()
+        self.widget_settings_report.save_settings()
+        if not self.lcc_manager.save_settings():
+            print("Validation failed")
+            return
+
+        new_base_dir = conf.settings_manager.get_value(conf.Setting.BASE_DIR)
+        if old_base_dir != new_base_dir:
+            job_manager.clear_known_jobs()
+            if hasattr(self, "dock_widget") and self.dock_widget.isVisible():
+                self.dock_widget.refresh_after_cache_update()
 
     def closeEvent(self, event):
         self.widgetSettingsAdvanced.closeEvent(event)
@@ -210,6 +243,15 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
 
     def selectDefaultAuthConfiguration(self, authConfigId):
         self.reloadAuthConfigurations()
+
+    def collapsed_state_changed(self):
+        state = self.groupbox_lc_config.isCollapsed()
+        if state:
+            # Group box is closed, set size to 25
+            self.groupbox_lc_config.setFixedHeight(25)
+        else:
+            # Group box is open, set accourding to table size
+            self.lcc_manager.set_table_height()
 
     def register(self):
         self.dlg_settings_register.exec_()
@@ -270,16 +312,6 @@ class DlgSettings(QtWidgets.QDialog, Ui_DlgSettings):
                 auth.remove_current_auth_config(auth.TE_API_AUTH_SETUP)
                 self.reloadAuthConfigurations()
                 # self.authConfigUpdated.emit()
-
-    def on_accept(self):
-        self.area_widget.save_settings()
-        self.widgetSettingsAdvanced.update_settings()
-        self.widget_settings_report.save_settings()
-        if not self.lcc_manager.save_settings():
-            print("Validation failed")
-            return
-
-        self.accept()
 
 
 class AreaWidgetSection(Flag):
@@ -1464,11 +1496,24 @@ class DlgLandCoverRestore(QtWidgets.QDialog, Ui_DlgLandCoverRestore):
 class LandCoverCustomClassesManager(
     qgis.gui.QgsPanelWidget, Ui_WidgetLandCoverCustomClassesManager
 ):
-    def __init__(self, parent=None, msg_bar=None):
+    def __init__(
+        self,
+        groupbox_lc_config,
+        scroll_area,
+        group_box,
+        region_of_interest,
+        parent=None,
+        msg_bar=None,
+    ):
         super().__init__(parent)
         self.setupUi(self)
         self.setDockMode(True)
 
+        self.groupbox_lc_config = groupbox_lc_config
+
+        self.scroll_area = scroll_area
+        self.group_box = group_box
+        self.region_of_interest = region_of_interest
         self.msg_bar = msg_bar
         self.editor = None
         self._last_clr = None
@@ -1479,6 +1524,8 @@ class LandCoverCustomClassesManager(
             self.on_restore_unccd
         )
         self.dlg_land_cover_restore.pb_restore_esa.clicked.connect(self.on_restore_esa)
+        self.current_scroll_pos = None
+        self.current_scroll_max = None
 
         # UI initialization
         self.model = QtGui.QStandardItemModel(self)
@@ -1674,6 +1721,25 @@ class LandCoverCustomClassesManager(
                 continue
             self.add_class_info_to_table(lc_cls)
 
+    def set_table_height(self):
+        table_row_count = self.model.rowCount()
+        row_0_height = self.tb_classes.rowHeight(
+            0
+        )  # There will always be atleast one class
+        btns_height = self.horizontalLayout.totalSizeHint().height()
+
+        # Step to avoid a too small group box. This is to accomodate the class editor
+        if table_row_count > 4:
+            # Adds 2 rows to the count, mostly to include the fields names row
+            rows_height = row_0_height * (table_row_count + 2)
+        else:
+            # Uses 6 rows as the minimum
+            rows_height = row_0_height * 6
+
+        # 10 is added as an additional precaution to avoid a scroll bar
+        final_height = rows_height + btns_height + 10
+        self.groupbox_lc_config.setFixedHeight(final_height)
+
     def _parent_scroll_area(self) -> qgis.gui.QgsScrollArea:
         # Returns the innermost parent scroll area that this widget might
         # belong to, else None.
@@ -1718,11 +1784,32 @@ class LandCoverCustomClassesManager(
 
             self.openPanel(self.editor)
 
+            group_box_height = self.group_box.height()
+            roi_height = self.region_of_interest.height()
+            total_height = group_box_height + roi_height
+
+            vertical_scroll_bar = self.scroll_area.verticalScrollBar()
+
+            self.current_scroll_pos = vertical_scroll_bar.value()
+            self.current_scroll_max = vertical_scroll_bar.maximum()
+
+            # Changes the size of the box to that of the
+            # LC editor
+            self.groupbox_lc_config.setFixedHeight(215)
+
+            vertical_scroll_bar.setValue(total_height)
+
             # Restore the viewport area
             if vs_bar is not None and vs_bar.value() == 0 and init_pos != -1:
                 vs_bar.setValue(init_pos)
 
     def on_editor_accepted(self, panel):
+
+        vertical_scroll_bar = self.scroll_area.verticalScrollBar()
+
+        # Sets the size to the number of rows
+        self.set_table_height()
+
         # Slot raised when editor panel has been accepted.
         lc_cls_info = panel.lc_class_info
         if lc_cls_info is None and not panel.updated:
@@ -1734,6 +1821,13 @@ class LandCoverCustomClassesManager(
             self.add_class_info_to_table(lc_cls_info)
 
         self._last_clr = QtGui.QColor(lc_cls_info.lcc.color)
+
+        diff = self.current_scroll_max - vertical_scroll_bar.maximum()
+        if diff == 0:
+            vertical_scroll_bar.setValue(self.current_scroll_pos)
+        else:
+            vertical_scroll_bar.setMaximum(self.current_scroll_max)
+            vertical_scroll_bar.setValue(self.current_scroll_pos)
 
     def update_class_info(self, lc_info: LCClassInfo):
         # Update existing LCClassInfo row.
@@ -1768,6 +1862,8 @@ class LandCoverCustomClassesManager(
 
         self.model.insertRow(rows, items)
         self._update_row_data(rows, lc_info)
+
+        self.set_table_height()
 
     def parent_child_codes(self) -> typing.Dict[str, list]:
         """
@@ -1946,6 +2042,8 @@ class LandCoverCustomClassesManager(
         self.selection_model.blockSignals(False)
         if not status:
             log(f"Unable to remove land cover class in row {row!s}")
+
+        self.set_table_height()
 
 
 class LandCoverCustomClassEditor(
@@ -2189,3 +2287,17 @@ class LandCoverCustomClassEditor(
         if status:
             self.updated = True
             self.acceptPanel()
+
+
+class TrendsEarthOptionsFactory(QgsOptionsWidgetFactory):
+    def __init__(self):  # pylint: disable=useless-super-delegation
+        super().__init__()
+        self.setTitle(OPTIONS_TITLE)
+
+    def icon(self):  # pylint: disable=missing-function-docstring
+        trends_earth_icon = os.path.join(ICON_PATH, OPTIONS_ICON)
+
+        return QIcon(trends_earth_icon)
+
+    def createWidget(self, parent):  # pylint: disable=missing-function-docstring
+        return TrendsEarthSettings(parent)

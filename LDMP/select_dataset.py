@@ -6,9 +6,9 @@ from qgis.PyQt import QtGui
 from qgis.PyQt import QtWidgets
 from qgis.PyQt import uic
 
+from .conf import OPTIONS_TITLE
 from .conf import Setting
 from .conf import settings_manager
-from .settings import DlgSettings
 
 Ui_DlgSelectDS, _ = uic.loadUiType(
     str(Path(__file__).parents[0] / "gui/DlgSelectDS.ui")
@@ -60,16 +60,11 @@ class DlgSelectDataset(QtWidgets.QDialog, Ui_DlgSelectDS):
     def soil_band(self):
         return self.combo_soil.get_current_band()
 
-    def sdg_band(self):
-        return self.combo_sdg.get_current_band()
-
     def update_current_region(self):
         region = settings_manager.get_value(Setting.AREA_NAME)
         self.region_la.setText(self.tr(f"Current region: {region}"))
         self.changed_region.emit()
 
     def run_settings(self):
-        dlg_settings = DlgSettings(parent=self)
-
-        if dlg_settings.exec_():
-            self.update_current_region()
+        self.iface.showOptionsDialog(currentPage=OPTIONS_TITLE)
+        self.update_current_region()

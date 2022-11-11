@@ -28,6 +28,7 @@ from . import about
 from . import conf
 from . import main_widget
 from .charts import calculate_error_recode_stats
+from .conf import OPTIONS_TITLE
 from .jobs.manager import job_manager
 from .lc_setup import LccInfoUtils
 from .logger import log
@@ -36,7 +37,7 @@ from .maptools import PolygonMapTool
 from .processing_provider.provider import Provider
 from .reports.expressions import ReportExpressionUtils
 from .reports.template_manager import template_manager
-from .settings import DlgSettings
+from .settings import TrendsEarthOptionsFactory
 from .timeseries import show_time_series
 from .utils import FileUtils
 from .visualization import download_base_map
@@ -91,6 +92,7 @@ class LDMPPlugin:
         self.start_action = None
         self.dock_widget = None
         self.time_series_dlg = None
+        self.options_factory = None
 
     def initProcessing(self):
         self.provider = Provider()
@@ -287,6 +289,10 @@ class LDMPPlugin:
             [self.action_polygon, self.action_buffer, self.ndvi_action]
         )
 
+        # Adds the settings to the QGIS options panel
+        self.options_factory = TrendsEarthOptionsFactory()
+        self.iface.registerOptionsWidgetFactory(self.options_factory)
+
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
         for action in self.actions:
@@ -326,8 +332,9 @@ class LDMPPlugin:
 
     def run_settings(self):
         old_base_dir = conf.settings_manager.get_value(conf.Setting.BASE_DIR)
-        dialog = DlgSettings(self.iface.mainWindow())
-        dialog.exec_()
+
+        self.iface.showOptionsDialog(currentPage=OPTIONS_TITLE)
+
         new_base_dir = conf.settings_manager.get_value(conf.Setting.BASE_DIR)
         if old_base_dir != new_base_dir:
             job_manager.clear_known_jobs()

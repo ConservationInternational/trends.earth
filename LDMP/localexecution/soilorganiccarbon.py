@@ -123,10 +123,10 @@ def compute_soil_organic_carbon(
 
         soc_job.results = RasterResults(
             name="soil_organic_carbon",
-            uri=URI(uri=dataset_output_path, type="local"),
+            uri=URI(uri=dataset_output_path),
             rasters={
                 DataType.INT16.value: Raster(
-                    uri=URI(uri=dataset_output_path, type="local"),
+                    uri=URI(uri=dataset_output_path),
                     bands=bands,
                     datatype=DataType.INT16,
                     filetype=RasterFileType.GEOTIFF,

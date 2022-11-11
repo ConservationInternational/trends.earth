@@ -111,10 +111,10 @@ def compute_land_cover(
         ]
         lc_job.results = RasterResults(
             name="land_cover",
-            uri=URI(uri=dataset_output_path, type="local"),
+            uri=URI(uri=dataset_output_path),
             rasters={
                 DataType.INT16.value: Raster(
-                    uri=URI(uri=dataset_output_path, type="local"),
+                    uri=URI(uri=dataset_output_path),
                     bands=bands,
                     datatype=DataType.INT16,
                     filetype=RasterFileType.GEOTIFF,

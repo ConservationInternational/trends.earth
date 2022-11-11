@@ -560,10 +560,11 @@ class JobManager(QtCore.QObject):
 
         if handler:
             handler: typing.Callable
-            output_path = handler(job)
+            output_uri = handler(job)
 
-            if output_path is not None:
-                job.results.uri = output_path
+            if output_uri is not None:
+                job.results.uri = output_uri
+                log(f"job.results.uri is {job.results.uri}")
                 self._change_job_status(
                     job, jobs.JobStatus.DOWNLOADED, force_rewrite=True
                 )
@@ -669,7 +670,7 @@ class JobManager(QtCore.QObject):
         now = dt.datetime.now(tz=dt.timezone.utc)
         rasters = {
             DataType.INT16.value: Raster(
-                uri=URI(uri=dataset_path, type="local"),
+                uri=URI(uri=dataset_path),
                 bands=[band_info],
                 datatype=DataType.INT16,
                 filetype=RasterFileType.GEOTIFF,
@@ -686,7 +687,7 @@ class JobManager(QtCore.QObject):
             results=RasterResults(
                 name=f"{band_name} results",
                 rasters=rasters,
-                uri=URI(uri=dataset_path, type="local"),
+                uri=URI(uri=dataset_path),
             ),
             task_name=tr_manager.tr("Imported dataset"),
             task_notes="",
@@ -746,11 +747,11 @@ class JobManager(QtCore.QObject):
                     os.path.pardir,
                     "data",
                     "error_recode",
-                    "error_recode_en.gpkg".format(locale),
+                    "error_recode_en.gpkg",
                 ),
                 output_path,
             )
-        job.results.vector.uri = URI(uri=output_path, type="local")
+        job.results.vector.uri = URI(uri=output_path)
 
     def _update_known_jobs_with_newly_submitted_job(self, job: Job):
         status = job.status
@@ -798,7 +799,7 @@ class JobManager(QtCore.QObject):
                     )
                     if not result:
                         return None
-                    tile_uris.append(results.URI(uri=out_file, type="local"))
+                    tile_uris.append(results.URI(uri=out_file))
 
                 raster.tile_uris = tile_uris
 
@@ -812,7 +813,7 @@ class JobManager(QtCore.QObject):
                     bands=raster.bands,
                     datatype=raster.datatype,
                     filetype=raster.filetype,
-                    uri=results.URI(uri=vrt_file, type="local"),
+                    uri=results.URI(uri=vrt_file),
                     type=results.RasterType.TILED_RASTER,
                 )
             else:
@@ -823,7 +824,7 @@ class JobManager(QtCore.QObject):
                 )
                 if not result:
                     return None
-                raster_uri = results.URI(uri=out_file, type="local")
+                raster_uri = results.URI(uri=out_file)
                 raster.uri = raster_uri
                 out_rasters[key] = results.Raster(
                     uri=raster_uri,
@@ -846,12 +847,13 @@ class JobManager(QtCore.QObject):
             vrt_file = base_output_path.parent / f"{base_output_path.name}.vrt"
             main_raster_file_paths = [raster.uri.uri for raster in out_rasters.values()]
             combine_all_bands_into_vrt(main_raster_file_paths, vrt_file)
-            job.results.uri = results.URI(uri=vrt_file, type="local")
+            job.results.uri = results.URI(uri=vrt_file)
         else:
             job.results.uri = [*job.results.rasters.values()][0].uri
 
         _set_results_extents_raster(job)
 
+        log(f"job.results.uri in download function is {job.results.uri!r}")
         return job.results.uri
 
     def _download_timeseries_table(self, job: Job) -> typing.Optional[Path]:

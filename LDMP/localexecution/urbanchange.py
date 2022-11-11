@@ -135,10 +135,10 @@ def compute_urban_change_summary_table(
 
     urban_change_job.results = RasterResults(
         name="urban_change_summary",
-        uri=URI(uri=output_path, type="local"),
+        uri=URI(uri=output_path),
         rasters={
             DataType.INT16.value: Raster(
-                uri=URI(uri=output_path, type="local"),
+                uri=URI(uri=output_path),
                 bands=bands,
                 datatype=DataType.INT16,
                 filetype=RasterFileType.GEOTIFF,

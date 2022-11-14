@@ -3,6 +3,15 @@ Changelog
 
 This page lists the version history of |trends.earth|.
 
+`2.1.0 (November 11, 2022) <https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.0>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+    - Moved plugin settings to live within main QGIS plugin settings window
+    - Bumped marshmallow-dataclass to 8.5.10 and marshmallow to 3.18.0. This
+      necessitated changes in trends.earth-schemas, so it is possible some old
+      jobs may not load in this new version (suggest re-running them if need
+      be).
+
 `2.0.7 (October 31, 2022) <https://github.com/ConservationInternational/trends.earth/releases/tag/2.0.7>`_
 -----------------------------------------------------------------------------------------------------------------------------
 

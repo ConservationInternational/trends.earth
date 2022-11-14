@@ -60,9 +60,16 @@ class RequestTask(QgsTask):
 
         print('run')
 
+        print(str(self.payload))
+        print(str(self.headers))
+
         try:
+
+            print(self.url)
+
             settings = QgsSettings()
             auth_id = settings.value('trendsearth/auth')
+            print(str(auth_id))
 
             qurl = QtCore.QUrl(self.url)
 
@@ -106,11 +113,18 @@ class RequestTask(QgsTask):
 
                 print('post')
 
-                # payload_str = ''
+                multi_part = QtNetwork.QHttpMultiPart(QtNetwork.QHttpMultiPart.FormDataType)
+
+                # payload_str = str(self.payload)
                 # payload_str_encoded = payload_str.encode()
                 # payload_qbytearray = QtCore.QByteArray(payload_str_encoded)
 
-                self.resp = network_manager.post(network_request, 1)
+                print(network_request.url())
+
+                # test1 = b'{\'email\': \'vermeulendivan@gmail.com\', \'password\': \'DJL91B1RYXQ0A5Q4DMAE\'}'
+                # test2 = b'[\'email\': \'vermeulendivan@gmail.com\', \'password\': \'DJL91B1RYXQ0A5Q4DMAE\']'
+
+                self.resp = network_manager.post(network_request, multi_part)
 
                 print('after request')
                 print(str(self.resp))
@@ -124,6 +138,9 @@ class RequestTask(QgsTask):
                 # self.resp = requests.post(
                 #     self.url, json=self.payload, headers=self.headers, timeout=TIMEOUT
                 # )
+                #
+                # print(str(self.resp))
+
             elif self.method == "update":
 
                 print('update')
@@ -381,9 +398,19 @@ class APIClient(QtCore.QObject):
     def _clean_payload(self, payload):
         clean_payload = payload.copy()
 
-        if "password" in clean_payload:
-            clean_payload["password"] = "**REMOVED**"
-        return clean_payload
+@backoff.on_predicate(
+    backoff.expo, lambda x: x is None, max_tries=3, on_backoff=backoff_hdlr
+)
+def _make_request(description, **kwargs):
+
+    print('make request')
+
+    api_task = RequestTask(description, **kwargs)
+    QgsApplication.taskManager().addTask(api_task)
+    result = api_task.waitForFinished((TIMEOUT + 1) * 1000)
+    if not result:
+        log("Request timed out")
+    return api_task.resp
 
     def call_api(self, endpoint, method="get", payload=None, use_token=False):
         if use_token:

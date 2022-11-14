@@ -71,6 +71,9 @@ class RequestTask(QgsTask):
             auth_id = settings.value('trendsearth/auth')
             print(str(auth_id))
 
+            settings = QgsSettings()
+            auth_id = settings.value('trendsearth/auth')
+
             qurl = QtCore.QUrl(self.url)
 
             network_manager = QgsNetworkAccessManager()
@@ -125,6 +128,9 @@ class RequestTask(QgsTask):
                 # test2 = b'[\'email\': \'vermeulendivan@gmail.com\', \'password\': \'DJL91B1RYXQ0A5Q4DMAE\']'
 
                 self.resp = network_manager.post(network_request, multi_part)
+                # payload_str = ''
+                # payload_str_encoded = payload_str.encode()
+                # payload_qbytearray = QtCore.QByteArray(payload_str_encoded)
 
                 print('after request')
                 print(str(self.resp))

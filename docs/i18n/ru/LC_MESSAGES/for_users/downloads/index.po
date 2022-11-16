@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 1.99.11\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-14 04:15+0000\n"
+"POT-Creation-Date: 2022-11-16 15:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3804,6 +3804,13 @@ msgstr ""
 
 #: ../../source/for_users/downloads/index.md
 msgid ""
+"[NAM (Trends.Earth "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/NAM_NaturalEarth_SDG15_TrendsEarth-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
 "[NAM (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
 "/NAM_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
@@ -3843,6 +3850,13 @@ msgid ""
 "[NER (JRC "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
 "/NER_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[NER (Trends.Earth "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/NER_NaturalEarth_SDG15_TrendsEarth-LPD-5.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -3958,6 +3972,13 @@ msgstr ""
 
 #: ../../source/for_users/downloads/index.md
 msgid ""
+"[NLD (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/NLD_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
 "[NLD (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
 "/NLD_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
@@ -4011,6 +4032,24 @@ msgid ""
 "[NRU (FAO-WOCAT "
 "LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
 "/NRU_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid "NZL"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[NZL (JRC "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/NZL_NaturalEarth_SDG15_JRC-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[NZL (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/NZL_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
@@ -5091,6 +5130,13 @@ msgid ""
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md
+msgid ""
+"[TCD (FAO-WOCAT "
+"LPD)](https://data.trends.earth/unccd_reporting/2016-2019/packages"
+"/TCD_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
 msgid "TGO"
 msgstr ""
 
@@ -5837,11 +5883,11 @@ msgid ""
 "/ZWE_NaturalEarth_SDG15_FAO-WOCAT-LPD-5.tar.gz)"
 msgstr ""
 
-#: ../../source/for_users/downloads/index.md:266
+#: ../../source/for_users/downloads/index.md:267
 msgid "Drought hazard, vulnerability and exposure (UNCCD Strategic Objective 3)"
 msgstr ""
 
-#: ../../source/for_users/downloads/index.md:268
+#: ../../source/for_users/downloads/index.md:269
 msgid ""
 "The below datasets can be used to support assessing drought hazard, "
 "vulnerability, and exposure, and for reporting on UNCCD Strategic "
@@ -6712,6 +6758,12 @@ msgstr ""
 
 #: ../../source/for_users/downloads/index.md
 msgid ""
+"[MRT "
+"(Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/MRT_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
 "[MSR "
 "(Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/MSR_NaturalEarth_Drought.tar.gz)"
 msgstr ""
@@ -6778,6 +6830,12 @@ msgstr ""
 
 #: ../../source/for_users/downloads/index.md
 msgid ""
+"[NLD "
+"(Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/NLD_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
 "[NPL "
 "(Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/NPL_NaturalEarth_Drought.tar.gz)"
 msgstr ""
@@ -6786,6 +6844,12 @@ msgstr ""
 msgid ""
 "[NRU "
 "(Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/NRU_NaturalEarth_Drought.tar.gz)"
+msgstr ""
+
+#: ../../source/for_users/downloads/index.md
+msgid ""
+"[NZL "
+"(Drought)](https://data.trends.earth/unccd_reporting/2016-2019/packages/NZL_NaturalEarth_Drought.tar.gz)"
 msgstr ""
 
 #: ../../source/for_users/downloads/index.md

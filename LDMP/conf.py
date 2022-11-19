@@ -73,7 +73,7 @@ class Setting(enum.Enum):
     REPORT_DISCLAIMER = "report/disclaimer"
     REPORT_LOG_WARNING = "report/log_warning"
     LC_CLASSES = "land_cover/user_classes"
-    LC_MAX_CLASSES = "land_cover/max_classes"
+    LC_MAX_CLASSES = "land_cover/max_classes_v2"
     LC_LAST_DIR = "land_cover/last_dir"
     LC_IPCC_NESTING = "land_cover/ipcc_nesting"
     LC_ESA_NESTING = "land_cover/esa_nesting"

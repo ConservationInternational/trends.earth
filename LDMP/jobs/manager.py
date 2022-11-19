@@ -653,7 +653,11 @@ class JobManager(QtCore.QObject):
         self.imported_job.emit(job)
 
     def create_job_from_dataset(
-        self, dataset_path: Path, band_name: str, band_metadata: typing.Dict
+        self,
+        dataset_path: Path,
+        band_name: str,
+        band_metadata: typing.Dict,
+        task_name: str,
     ) -> Job:
         band_info = JobBand(
             name=band_name, no_data_value=-32768.0, metadata=band_metadata.copy()
@@ -689,7 +693,7 @@ class JobManager(QtCore.QObject):
                 rasters=rasters,
                 uri=URI(uri=dataset_path),
             ),
-            task_name=tr_manager.tr("Imported dataset"),
+            task_name=task_name,
             task_notes="",
             script=script,
             end_date=now,

@@ -1256,12 +1256,16 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
             return False
 
         job = job_manager.create_job_from_dataset(
-            Path(out_file),
-            "Soil organic carbon",
-            {
+            dataset_path=Path(out_file),
+            band_name="Soil organic carbon",
+            band_metadata={
                 "year": int(self.input_widget.spinBox_data_year.text()),
                 "source": "custom data",
             },
+            task_name=tr_data_io.tr(
+                "Soil organic carbon "
+                f"({int(self.input_widget.spinBox_data_year.text())}, imported)"
+            ),
         )
         job_manager.import_job(job, Path(out_file))
 

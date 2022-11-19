@@ -1129,15 +1129,19 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
             return False
 
         job = job_manager.create_job_from_dataset(
-            Path(out_file),
-            "Land cover",
-            {
+            dataset_path=Path(out_file),
+            band_name="Land cover",
+            band_metadata={
                 "year": int(self.input_widget.spinBox_data_year.text()),
                 "nesting": LCLegendNesting.Schema().dumps(
                     ipcc_lc_nesting_from_settings()
                 ),
                 "source": "custom data",
             },
+            task_name=self.tr(
+                "Land cover "
+                f"({int(self.input_widget.spinBox_data_year.text())}, imported)"
+            ),
         )
         job_manager.import_job(job, Path(out_file))
 

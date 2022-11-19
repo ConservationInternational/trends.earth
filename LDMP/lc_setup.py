@@ -494,7 +494,7 @@ def _get_default_matrix():
         os.path.join(
             os.path.dirname(os.path.realpath(__file__)),
             "data",
-            f"land_cover_transition_matrix_UNCCD.json",
+            f"land_cover_transition_matrix_unccd.json",
         )
     )
 

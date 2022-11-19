@@ -26,9 +26,13 @@ deprecated=False
 hasProcessingProvider=yes
 
 changelog=2.1.2 (November 18, 2022)
-    - Ensure max number of land cover classes is set to 38 by default (ignoring
-      the previously set default value in qsettings, which used to be 32).
-    - Fix file name casing when code refers to land_cover_transition_matrix_unccd.json.
+    - Fixes #724 - ensure max number of land cover classes is set to 38 by
+      default (ignoring the previously set default value in qsettings, which
+      used to be 32).
+    - Fixes #722 - file name casing when code refers to
+      land_cover_transition_matrix_unccd.json.
+    - Fixes #726 - make dataset year visible in datasets window for imported
+      datasets
   2.1.0 (November 11, 2022)
     - Moved plugin settings to live within main QGIS plugin settings window
     - Bumped marshmallow-dataclass to 8.5.10 and marshmallow to 3.18.0. This

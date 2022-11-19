@@ -348,10 +348,11 @@ def set_tag(c, ext_libs=False):
     )
     subprocess.check_call(["git", "push", "origin", "v{}".format(v)])
 
-    for module in c.plugin.ext_libs.local_modules:
-        module_path = Path(module["path"]).parent
-        print(f"Also setting tag for {module['name']}")
-        subprocess.check_call(["invoke", "set-tag"], cwd=module_path)
+    if ext_libs:
+        for module in c.plugin.ext_libs.local_modules:
+            module_path = Path(module["path"]).parent
+            print(f"Also setting tag for {module['name']}")
+            subprocess.check_call(["invoke", "set-tag"], cwd=module_path)
 
 
 def check_tecli_python_version():

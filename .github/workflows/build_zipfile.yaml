@@ -1,6 +1,6 @@
 name: Build plugin zipfile
 
-on: [push]
+on: [push, workflow_dispatch]
 
 jobs:
   build_zipfile:

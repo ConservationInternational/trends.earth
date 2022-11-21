@@ -3,6 +3,26 @@ Changelog
 
 This page lists the version history of |trends.earth|.
 
+`2.1.4 (November 21, 2022) <https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.4>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+    - Fixes #691 (issue that arose if the base data directory was cleared).
+      When base directory is cleared plugin will now reset the value to the
+      default.
+    - Fix python error coming up when settings window was closed while datasets
+      screen was not open.
+
+`2.1.2 (November 18, 2022) <https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.2>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+    - Fixes #724 - ensure max number of land cover classes is set to 38 by
+      default (ignoring the previously set default value in qsettings, which
+      used to be 32).
+    - Fixes #722 - file name casing when code refers to
+      land_cover_transition_matrix_unccd.json.
+    - Fixes #726 - make dataset year visible in datasets window for imported
+      datasets
+
 `2.1.0 (November 11, 2022) <https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.0>`_
 -----------------------------------------------------------------------------------------------------------------------------
 

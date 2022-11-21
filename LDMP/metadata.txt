@@ -2,7 +2,7 @@
 name=trends.earth
 qgisMinimumVersion=3.22
 description=Analyze land change in support of sustainable land management, achieving the Land Degradation Neutrality (LDN) Sustainable Development Goal (SDG), and to support reporting to the Global Environment Facility (GEF) and United Nations Convention to Combat Desertification (UNCCD)
-version=2.1.2
+version=2.1.4
 author=Conservation International
 email=trends.earth@conservation.org
 
@@ -25,7 +25,13 @@ deprecated=False
 
 hasProcessingProvider=yes
 
-changelog=2.1.2 (November 18, 2022)
+changelog=2.1.4 (November 21, 2022)
+    - Fixes #691 (issue that arose if the base data directory was cleared).
+      When base directory is cleared plugin will now reset the value to the
+      default.
+    - Fix python error coming up when settings window was closed while datasets
+      screen was not open.
+  2.1.2 (November 18, 2022)
     - Fixes #724 - ensure max number of land cover classes is set to 38 by
       default (ignoring the previously set default value in qsettings, which
       used to be 32).

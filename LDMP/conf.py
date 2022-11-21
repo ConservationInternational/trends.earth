@@ -141,6 +141,13 @@ class SettingsManager:
             result = self.DEFAULT_SETTINGS[key]
         elif key == Setting.UPDATE_FREQUENCY_MILLISECONDS:
             result = self.DEFAULT_SETTINGS[key]
+        elif key == Setting.BASE_DIR:
+            type_ = type(self.DEFAULT_SETTINGS[key])
+            result = self._settings.value(
+                f"{self.base_path}/{key.value}", self.DEFAULT_SETTINGS[key], type=type_
+            )
+            if result == "" or result is None:
+                result = self.DEFAULT_SETTINGS[key]
         else:
             type_ = type(self.DEFAULT_SETTINGS[key])
             result = self._settings.value(

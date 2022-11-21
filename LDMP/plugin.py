@@ -338,7 +338,11 @@ class LDMPPlugin:
         new_base_dir = conf.settings_manager.get_value(conf.Setting.BASE_DIR)
         if old_base_dir != new_base_dir:
             job_manager.clear_known_jobs()
-            if hasattr(self, "dock_widget") and self.dock_widget.isVisible():
+            if (
+                hasattr(self, "dock_widget")
+                and self.dock_widget is not None
+                and self.dock_widget.isVisible()
+            ):
                 self.dock_widget.refresh_after_cache_update()
 
     def run_about(self):

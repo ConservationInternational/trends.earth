@@ -2989,6 +2989,11 @@ p, li { white-space: pre-wrap; }
         <source>Error reading data. Trends.Earth supports a maximum of 38 different land cover classes</source>
         <translation type="unfinished">Erro ao ler os dados. Trends.Earth suporta um máximo de 60 classes de cobertura terrestre diferentes {38 ?}</translation>
     </message>
+    <message>
+        <location filename="../lc_setup.py" line="1131"/>
+        <source>Land cover ({int(self.input_widget.spinBox_data_year.text())}, imported)</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>DlgDataIOImportProd</name>
@@ -4155,37 +4160,37 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>LCDefineDegradationWidget</name>
     <message>
-        <location filename="../lc_setup.py" line="1169"/>
+        <location filename="../lc_setup.py" line="1173"/>
         <source>Land cover in initial year </source>
         <translation>Cobertura da terra no ano inicial</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1247"/>
+        <location filename="../lc_setup.py" line="1251"/>
         <source>Select a transition matrix definition file</source>
         <translation>Selecione um arquivo de definição de matriz de transição</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1278"/>
+        <location filename="../lc_setup.py" line="1282"/>
         <source>Transition matrix definition (*.json)</source>
         <translation>Definição da matriz de transição (* .json)</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1291"/>
+        <location filename="../lc_setup.py" line="1295"/>
         <source>Error</source>
         <translation>Erro</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1260"/>
+        <location filename="../lc_setup.py" line="1264"/>
         <source>Cannot read {}. Choose a different file.</source>
         <translation>Não foi possível ler {}. Escolha um arquivo diferente.</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1278"/>
+        <location filename="../lc_setup.py" line="1282"/>
         <source>Choose where to save this transition matrix definition</source>
         <translation>Escolha onde salvar esta definição da matriz de transição</translation>
     </message>
     <message>
-        <location filename="../lc_setup.py" line="1291"/>
+        <location filename="../lc_setup.py" line="1295"/>
         <source>Cannot write to {}. Choose a different file.</source>
         <translation>Não foi possível escrever para {}. Escolha um arquivo diferente.</translation>
     </message>
@@ -5665,207 +5670,207 @@ for running algorithms and their results.</source>
         <translation>Todas as regiões</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="207"/>
+        <location filename="../conf.py" line="214"/>
         <source>Land degradation</source>
         <translation>Degradação do solo</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="211"/>
+        <location filename="../conf.py" line="218"/>
         <source>Sub-indicators for SDG 15.3.1</source>
         <translation>Sub-indicadores para ODS 15.3.1</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="212"/>
+        <location filename="../conf.py" line="219"/>
         <source>Calculate SDG 15.3.1 sub-indicators (required prior to 15.3.1 indicator calculation)</source>
         <translation>Calcular os sub-indicadores ODS 15.3.1 (necessário  antes do cálculo do indicador 15.3.1)</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="225"/>
+        <location filename="../conf.py" line="232"/>
         <source>Indicator for SDG 15.3.1</source>
         <translation>Indicador para ODS 15.3.1</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="226"/>
+        <location filename="../conf.py" line="233"/>
         <source>Spatial layer and summary table for total boundary</source>
         <translation>Camada espacial e tabela de resumo para a fronteira total</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="229"/>
+        <location filename="../conf.py" line="236"/>
         <source>Calculate SDG 15.3.1 indicator from productivity, land cover, and soil organic carbon sub-indicators</source>
         <translation>Calcule o indicador ODS 15.3.1 a partir dos sub-indicadores de produtividade, cobertura de solo e carbono orgânico do solo</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="259"/>
+        <location filename="../conf.py" line="266"/>
         <source>Land productivity</source>
         <translation>Produtividade do solo</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="260"/>
+        <location filename="../conf.py" line="267"/>
         <source>Land productivity is the biological productive capacity of land</source>
         <translation>A produtividade do solo é a capacidade produtiva biológica do solo</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="275"/>
+        <location filename="../conf.py" line="282"/>
         <source>Land cover change</source>
         <translation>Alteração de cobertura do solo</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="276"/>
+        <location filename="../conf.py" line="283"/>
         <source>Land cover is the physical material at the surface of the earth. </source>
         <translation>A cobertura do solo é o material física na superfície da terra.</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="293"/>
+        <location filename="../conf.py" line="300"/>
         <source>Soil Organic Carbon</source>
         <translation>Carbono Orgânico do Solo</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="294"/>
+        <location filename="../conf.py" line="301"/>
         <source>Soil organic carbon is a measure of soil organic matter</source>
         <translation>O carbono orgânico do solo é uma medida da matéria orgânica no solo</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="313"/>
+        <location filename="../conf.py" line="320"/>
         <source>Drought</source>
         <translation>Seca</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="314"/>
+        <location filename="../conf.py" line="321"/>
         <source>Vulnerability and exposure</source>
         <translation>Vulnerabilidade e exposição</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="318"/>
+        <location filename="../conf.py" line="325"/>
         <source>Drought vulnerability</source>
         <translation>Vulnerabilidade de seca</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="319"/>
+        <location filename="../conf.py" line="326"/>
         <source>Calculate indicators of drought vulnerability consistent with UNCCD SO3 Good Practice Guidance</source>
         <translation>Calcule indicadores de vulnerabilidade de seca de acordo com o Guia de Boas Práticas OE3 da UNCCD</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="332"/>
+        <location filename="../conf.py" line="339"/>
         <source>Drought vulnerability summary table</source>
         <translation>Tabela de resumo de vulnerabilidade de seca</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="333"/>
+        <location filename="../conf.py" line="340"/>
         <source>Summarize drought indicators in alignment with UNCCD SO3 reporting requirements</source>
         <translation>Resumir os indicadores de seca de acordo com os requisitos de reportagem do OE3 da UNCCD</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="347"/>
+        <location filename="../conf.py" line="354"/>
         <source>UNCCD Reporting</source>
         <translation>Relatório do UNCCD</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="348"/>
+        <location filename="../conf.py" line="355"/>
         <source>Summarize data for reporting</source>
         <translation>Resumir data para reportar</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="366"/>
+        <location filename="../conf.py" line="373"/>
         <source>Generate data package for UNCCD reporting</source>
         <translation>Gerar pacote de dados para relatório UNCCD</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="367"/>
+        <location filename="../conf.py" line="374"/>
         <source>Summarize Strategic Objective (SO) 1, SO2, and SO3 datasets in proper format for submission to UNCCD for 2021 reporting cycle</source>
         <translation>Resumir os conjuntos de dados do Objetivo Estratégico (OE) 1, OE2 e OE3 no formato apropriado para submissão à UNCCD para o ciclo de reportagem 2021</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="382"/>
+        <location filename="../conf.py" line="389"/>
         <source>SDG 11.3.1</source>
         <translation>ODS 11.3.1</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="383"/>
+        <location filename="../conf.py" line="390"/>
         <source>Urban change and land consumption</source>
         <translation>Alteração urbana e consumo do solo</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="387"/>
+        <location filename="../conf.py" line="394"/>
         <source>Urban change spatial layer</source>
         <translation>Camada espacial de alteração urbana</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="388"/>
+        <location filename="../conf.py" line="395"/>
         <source>Calculate indicators of change in urban extent (SDG 11.3.1 indicator)</source>
         <translation>Calcular indicadores de alteração da extensão urbana (indicador ODS 15.3.1)</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="401"/>
+        <location filename="../conf.py" line="408"/>
         <source>Urban change summary table for city</source>
         <translation>Tabela de resumo de alteração urbana para a cidade</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="402"/>
+        <location filename="../conf.py" line="409"/>
         <source>Calculate table summarizing SDG indicator 11.3.1</source>
         <translation>Calcular tabela que resume o indicador ODS 15.3.1</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="415"/>
+        <location filename="../conf.py" line="422"/>
         <source>Experimental</source>
         <translation>Experimental</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="418"/>
+        <location filename="../conf.py" line="425"/>
         <source>Calculate change in total carbon</source>
         <translation>Calcular mudança no carbono total</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="419"/>
+        <location filename="../conf.py" line="426"/>
         <source>Above and below ground, emissions and deforestation</source>
         <translation>Acima e abaixo do solo, emissões e desflorestação</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="425"/>
+        <location filename="../conf.py" line="432"/>
         <source>Calculate change in carbon</source>
         <translation>Calcular a mudança de carbono</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="426"/>
+        <location filename="../conf.py" line="433"/>
         <source>Calculate total carbon (above and below-ground) and emissions from deforestation</source>
         <translation>Calcular o carbono total (acima e abaixo do solo) e emissões causadas por desflorestação</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="444"/>
+        <location filename="../conf.py" line="451"/>
         <source>Change in carbon summary table</source>
         <translation>Mudança na tabela de resumo do carbono</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="445"/>
+        <location filename="../conf.py" line="452"/>
         <source>Calculate table summarizing change in total carbon</source>
         <translation>Calcular tabela que resume a mudança no carbono total</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="458"/>
+        <location filename="../conf.py" line="465"/>
         <source>Potential change in biomass due to restoration</source>
         <translation>Potencial alteração na biomassa devido à recuperação</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="459"/>
+        <location filename="../conf.py" line="466"/>
         <source>Above and below ground woody</source>
         <translation>Madeira acima e abaixo do solo</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="463"/>
+        <location filename="../conf.py" line="470"/>
         <source>Estimate potential impacts of restoration</source>
         <translation>Estime potenciais impactos da recuperação</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="464"/>
+        <location filename="../conf.py" line="471"/>
         <source>Estimate potential change in biomass due to restoration</source>
         <translation>Estimar potencial alteração na biomassa devido à recuperação</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="476"/>
+        <location filename="../conf.py" line="483"/>
         <source>Table summarizing likely changes in biomass</source>
         <translation>Tabela que resume as possíveis alterações na biomassa</translation>
     </message>
     <message>
-        <location filename="../conf.py" line="479"/>
+        <location filename="../conf.py" line="486"/>
         <source>Generate table summarizing potential change in biomass due to restoration</source>
         <translation>Gerar tabela que resume a potencial mudança em biomassa devido à recuperação</translation>
     </message>
@@ -5893,7 +5898,7 @@ for running algorithms and their results.</source>
         <translation>Ficheiro Raster (*.tif *.dat *.img *.vrt)</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1673"/>
+        <location filename="../data_io.py" line="1677"/>
         <source>Error</source>
         <translation>Erro</translation>
     </message>
@@ -5968,7 +5973,7 @@ for running algorithms and their results.</source>
         <translation>Importação do arquivo raster falhou.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1292"/>
+        <location filename="../data_io.py" line="1296"/>
         <source>Choose an output file.</source>
         <translation>Escolha um arquivo de saída.</translation>
     </message>
@@ -5998,39 +6003,44 @@ for running algorithms and their results.</source>
         <translation>O arquivo de entrada ({}) não parece ser um arquivo de entrada de carbono orgânico do solo válido. O valor máximo neste arquivo é {}. O valor máximo permitido é de 1000 toneladas/hectare.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1317"/>
+        <location filename="../data_io.py" line="1321"/>
         <source>The chosen field ({}) is not numeric. Choose a field that contains numbers.</source>
         <translation>O campo escolhido ({}) não é numérico. Escolha um campo que contenha números.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1331"/>
+        <location filename="../data_io.py" line="1335"/>
         <source>The input file ({}) does not appear to be a valid productivity input file.</source>
         <translation>O arquivo de entrada ({}) não parece ser um arquivo de entrada de produtividade válido.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1344"/>
+        <location filename="../data_io.py" line="1348"/>
         <source>Warning</source>
         <translation>Aviso</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1344"/>
+        <location filename="../data_io.py" line="1348"/>
         <source>The input file ({}) does not appear to be a valid productivity input file. Trends.Earth will load the file anyway, but review the map once it has loaded to ensure the values make sense. The only values allowed in a productivity input file are -32768, 1, 2, 3, 4 and 5. There are {} value(s) in the input file that were not recognized.</source>
         <translation>O arquivo de entrada ({}) não parece ser um arquivo de entrada de produtividade válido. O Trends.Earth carregará o arquivo de qualquer maneira, mas revisará o mapa depois que ele for carregado para garantir que os valores façam sentido. Os únicos valores permitidos em um arquivo de entrada de produtividade são -32768, 1, 2, 3, 4 e 5. Existem {} valor (es) no arquivo de entrada que não foram reconhecidos.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1456"/>
+        <location filename="../data_io.py" line="1460"/>
         <source>No layers available in this region</source>
         <translation>Sem estratos disponíveis nesta região</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1673"/>
+        <location filename="../data_io.py" line="1677"/>
         <source>Select a layer to load.</source>
         <translation>Selecione uma camada para carregar.</translation>
     </message>
     <message>
-        <location filename="../data_io.py" line="1710"/>
+        <location filename="../data_io.py" line="1714"/>
         <source>No datasets available in this region</source>
         <translation>Não existem bases de dados disponíveis nesta região</translation>
+    </message>
+    <message>
+        <location filename="../data_io.py" line="1258"/>
+        <source>Soil organic carbon ({int(self.input_widget.spinBox_data_year.text())}, imported)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6972,10 +6982,10 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../jobs/manager.py" line="680"/>
         <source>Imported dataset</source>
-        <translation>Conjunto de dados importados</translation>
+        <translation type="obsolete">Conjunto de dados importados</translation>
     </message>
     <message>
-        <location filename="../jobs/manager.py" line="703"/>
+        <location filename="../jobs/manager.py" line="707"/>
         <source>False positive/negative</source>
         <translation>Falso positivo/negativo</translation>
     </message>

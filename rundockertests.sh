@@ -4,6 +4,8 @@ cat .env
 
 source .env
 
+docker pull "qgis/qgis":${QGIS_VERSION_TAG}
+
 docker-compose up -d
 sleep 10
 

@@ -17,17 +17,17 @@ There are two approaches to open the Trends.Earth settings:
 
 1a. Click on the Trends.Earth toolbar within QGIS, and click on **Settings**.
 
-.. image:: D:/Coding/trends.earth/docs/resources/en/common/highlight_settings.png
+.. image:: ../../../resources/en/common/highlight_settings.png
    :align: center
 
 1b. Another approach is to click on **Settings** and then **Options**.
 
-.. image:: D:/Coding/trends.earth/docs/resources/en/common/highlight_settings_3.png
+.. image:: ../../../resources/en/common/highlight_settings_3.png
    :align: center
 
 2. The **Settings** menu will open in a new window.
 
-.. image:: D:/Coding/trends.earth/docs/resources/en/common/settings_dialog_qgis_options.png
+.. image:: ../../../resources/en/common/settings_dialog_qgis_options.png
    :align: center
 
 Trends.Earth login information
@@ -35,7 +35,7 @@ Trends.Earth login information
 Use this area to register and login to your Trends.Earth account. You can update your profile, reset
 a password or delete your account. Once you login, your login credentials will be saved.
 
-.. image:: D:/Coding/trends.earth/docs/resources/en/documentation/settings/settings_login.png
+.. image:: ../../../resources/en/documentation/settings/settings_login.png
    :align: center
 
 To register or login do the following:
@@ -46,18 +46,18 @@ You will receive an email.
 .. note::
     This step can be skipped if you already have an account.
 
-.. image:: D:/Coding/trends.earth/docs/resources/en/documentation/settings/settings_register.png
+.. image:: ../../../resources/en/documentation/settings/settings_register.png
    :align: center
 
 2. Once you have received confirmation that your account has been created, click on **Enter username and password**.
 Provide your credentials and click **OK**.
 
-.. image:: D:/Coding/trends.earth/docs/resources/en/documentation/settings/settings_login_dialog.png
+.. image:: ../../../resources/en/documentation/settings/settings_login_dialog.png
    :align: center
 
 3. When the login is a success you will receive the following message:
 
-.. image:: D:/Coding/trends.earth/docs/resources/en/documentation/settings/settings_login_confirmation.png
+.. image:: ../../../resources/en/documentation/settings/settings_login_confirmation.png
    :align: center
 
 .. note::
@@ -73,7 +73,7 @@ The region of interest can be set using one of three approaches:
 
 3. **Area from file**: Provide a vector file for the region of interest.
 
-.. image:: D:/Coding/trends.earth/docs/resources/en/documentation/settings/settings_region_of_interest.png
+.. image:: ../../../resources/en/documentation/settings/settings_region_of_interest.png
    :align: center
 
 Country/Region
@@ -115,7 +115,7 @@ Custom land cover classes
 Add, remove, or edit landcover classes. The landcover scheme can be exported using the **Save** option,
 and loaded from an existing file using the **Load** button.
 
-.. image:: D:/Coding/trends.earth/docs/resources/en/documentation/settings/custom_lc_classes.png
+.. image:: ../../../resources/en/documentation/settings/custom_lc_classes.png
    :align: center
 
 The landcover class editor will open when the user clicks on the **Add class** or select a class in the table.
@@ -131,7 +131,7 @@ Changes can be applied to the following parameters:
 
 Click **Done** once the changes has been made.
 
-.. image:: D:/Coding/trends.earth/docs/resources/en/documentation/settings/settings_LC_editor.png
+.. image:: ../../../resources/en/documentation/settings/settings_LC_editor.png
    :align: center
 
 .. _report_settings:
@@ -140,7 +140,7 @@ Reports
 ---------
 This contains configuration options for the Reports module.
 
-.. image:: D:/Coding/trends.earth/docs/resources/en/documentation/settings/settings_report_2.png
+.. image:: ../../../resources/en/documentation/settings/settings_report_2.png
    :align: center
 
 
@@ -190,7 +190,7 @@ Advanced
 
 Select the `Advanced` drop-down list to view more options within the Trends.Earth toolbox.
 
-.. image:: D:/Coding/trends.earth/docs/resources/en/documentation/settings/trends_earth_settings_window_advanced_2.png
+.. image:: ../../../resources/en/documentation/settings/trends_earth_settings_window_advanced_2.png
    :align: center
 
 Base data directory

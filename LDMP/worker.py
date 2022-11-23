@@ -105,7 +105,7 @@ def start_worker(worker, iface, message, with_progress=True):
         lambda result: worker_killed(result, thread, worker, iface, message_bar_item)
     )
 
-    worker.progress.connect(progress_bar.setValue)
+    worker.progress.connect(lambda value: progress_bar.setValue(int(value)))
     thread.started.connect(worker.run)
     thread.start()
 

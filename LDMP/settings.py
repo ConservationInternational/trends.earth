@@ -1759,7 +1759,7 @@ class LandCoverCustomClassesManager(
 
     def _open_editor(self, lc_cls_info=None):
         # Opens class editor
-        p = qgis.gui.QgsPanelWidget.findParentPanel(self)
+        p = qgis.PyQt.QtWidgets.QWidget.findParentPanel(self)
         if p and p.dockMode():
             self.editor = LandCoverCustomClassEditor(
                 self,
@@ -2047,7 +2047,7 @@ class LandCoverCustomClassesManager(
 
 
 class LandCoverCustomClassEditor(
-    qgis.gui.QgsPanelWidget, Ui_WidgetLandCoverCustomClassEditor
+    qgis.PyQt.QtWidgets.QWidget, Ui_WidgetLandCoverCustomClassEditor
 ):
     """
     Widget for defining new or edit existing custom land cover class.

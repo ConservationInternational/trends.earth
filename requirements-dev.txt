@@ -3,7 +3,6 @@ boto3
 sphinx
 sphinx-intl
 sphinx-rtd-theme
-sphinx-rtd-theme
 sphinxcontrib-spelling
 myst-parser
 linkify-it-py
@@ -12,4 +11,5 @@ pip>=10.0.0
 requests==2.26.0
 PyQt5
 black[jupyter]
+flake8
 reorder-python-imports

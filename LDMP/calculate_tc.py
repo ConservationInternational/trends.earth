@@ -160,7 +160,7 @@ class DlgCalculateTCData(calculate.DlgCalculateBase, DlgCalculateTcDataUi):
             # Ensure the special value text (set to " ") is displayed by
             # default
             self.hansen_fc_threshold.setSpecialValueText(" ")
-            self.hansen_fc_threshold.setValue(self.hansen_fc_threshold.minimum())
+            self.hansen_fc_threshold.setValue(int(self.hansen_fc_threshold.minimum()))
         self.use_hansen.toggled.connect(self.lc_source_changed)
         self.use_custom.toggled.connect(self.lc_source_changed)
         # Ensure that dialogs are enabled/disabled as appropriate

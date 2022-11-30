@@ -85,7 +85,7 @@ def init_auth_config(
             return None
 
     QtCore.QSettings().setValue(
-        f"trends_earth/{auth_setup.key}", currentAuthConfig.id()
+        f"trends_earth/{auth_setup.key}", int(currentAuthConfig.id())
     )
     return currentAuthConfig.id()
 

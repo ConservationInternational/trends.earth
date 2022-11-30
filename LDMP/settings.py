@@ -1494,7 +1494,7 @@ class DlgLandCoverRestore(QtWidgets.QDialog, Ui_DlgLandCoverRestore):
 
 
 class LandCoverCustomClassesManager(
-    qgis.PyQt.QtWidgets.QWidget, Ui_WidgetLandCoverCustomClassesManager
+    qgis.gui.QgsPanelWidget, Ui_WidgetLandCoverCustomClassesManager
 ):
     def __init__(
         self,
@@ -1759,7 +1759,7 @@ class LandCoverCustomClassesManager(
 
     def _open_editor(self, lc_cls_info=None):
         # Opens class editor
-        p = qgis.PyQt.QtWidgets.QWidget.findParentPanel(self)
+        p = qgis.gui.QgsPanelWidget.findParentPanel(self)
         if p and p.dockMode():
             self.editor = LandCoverCustomClassEditor(
                 self,
@@ -2047,7 +2047,7 @@ class LandCoverCustomClassesManager(
 
 
 class LandCoverCustomClassEditor(
-    qgis.PyQt.QtWidgets.QWidget, Ui_WidgetLandCoverCustomClassEditor
+    qgis.gui.QgsPanelWidget, Ui_WidgetLandCoverCustomClassEditor
 ):
     """
     Widget for defining new or edit existing custom land cover class.

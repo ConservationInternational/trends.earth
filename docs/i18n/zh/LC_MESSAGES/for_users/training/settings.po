@@ -1,299 +1,432 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) 2017-2022, Conservation International
-# This file is distributed under the same license as the Trends.Earth package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-# 
+# This file is distributed under the same license as the Trends.Earth
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2022.
+#
 # Translators:
 # Mariano Gonzalez-Roglich <mgonzalez-roglich@conservation.org>, 2022
 # Alex Zvoleff <azvoleff@conservation.org>, 2022
-# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Trends.Earth 2.0rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-27 21:58-0400\n"
+"POT-Creation-Date: 2022-11-28 04:02+0000\n"
 "PO-Revision-Date: 2022-05-26 11:58+0000\n"
 "Last-Translator: Alex Zvoleff <azvoleff@conservation.org>, 2022\n"
-"Language-Team: Chinese (https://www.transifex.com/conservation-international/teams/80165/zh/)\n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 "Language: zh\n"
+"Language-Team: Chinese (https://www.transifex.com/conservation-"
+"international/teams/80165/zh/)\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.11.0\n"
 
 #: ../../source/for_users/training/settings.rst:4
 msgid "Settings"
 msgstr "设置"
 
-#: ../../source/for_users/training/settings.rst:7
-msgid "Region of Interest"
-msgstr "感兴趣区域"
-
-#: ../../source/for_users/training/settings.rst:9
+#: ../../source/for_users/training/settings.rst:5
 msgid ""
-"**Objective**: Learn how to set up the environment for your analysis using "
-"Trends.Earth."
+"**Objective**: Learn how to set up the environment for your analysis "
+"using Trends.Earth."
 msgstr "**目标**：了解如何使用 Trends.Earth 设置分析环境。"
 
-#: ../../source/for_users/training/settings.rst:11
+#: ../../source/for_users/training/settings.rst:7
 msgid "**Estimated time of completion**: 5 minutes"
 msgstr "**预计完成时间**：5 分钟"
 
-#: ../../source/for_users/training/settings.rst:13
+#: ../../source/for_users/training/settings.rst:9
 msgid "**Internet access**: Required"
 msgstr "**互联网接入**：必填"
 
-#: ../../source/for_users/training/settings.rst:15
-msgid "Click on the Trends.Earth toolbar within QGIS, and click on settings."
+#: ../../source/for_users/training/settings.rst:12
+msgid "Introduction"
+msgstr ""
+
+#: ../../source/for_users/training/settings.rst:13
+msgid ""
+"This guide provides instructions on the settings the user can set, "
+"accompanied by short explanations of each setting. Screenshots is "
+"included to make it easier for the user to know what each description "
+"refer to."
+msgstr ""
+
+#: ../../source/for_users/training/settings.rst:16
+msgid "There are two approaches to open the Trends.Earth settings:"
+msgstr ""
+
+#: ../../source/for_users/training/settings.rst:18
+#, fuzzy
+msgid ""
+"1a. Click on the Trends.Earth toolbar within QGIS, and click on "
+"**Settings**."
 msgstr "单击 QGIS 中的 Trends.Earth 工具栏，然后单击设置。"
 
-#: ../../source/for_users/training/settings.rst:20
+#: ../../source/for_users/training/settings.rst:23
+msgid "1b. Another approach is to click on **Settings** and then **Options**."
+msgstr ""
+
+#: ../../source/for_users/training/settings.rst:28
 msgid "The **Settings** menu will open in a new window."
 msgstr "**设置**菜单将在新窗口中打开。"
 
-#: ../../source/for_users/training/settings.rst:26
-msgid "Country or Region"
+#: ../../source/for_users/training/settings.rst:34
+msgid "Trends.Earth login information"
+msgstr "Trends.Earth 登录信息"
+
+#: ../../source/for_users/training/settings.rst:35
+#, fuzzy
+msgid ""
+"Use this area to register and login to your Trends.Earth account. You can"
+" update your profile, reset a password or delete your account. Once you "
+"login, your login credentials will be saved."
+msgstr ""
+"使用此区域注册并登录您的 Trends.Earth "
+"账户。您可以随时更新您的个人资料、重置密码或删除账户。登录后，您的登录凭据将被保存，您无需每次登录即可使用 Trends.Earth（除非您升级 "
+"QGIS 或使用不同的计算机）。"
+
+#: ../../source/for_users/training/settings.rst:41
+msgid "To register or login do the following:"
+msgstr ""
+
+#: ../../source/for_users/training/settings.rst:43
+msgid ""
+"1. Click on Register for Trends.Earth to create an account. Provide the "
+"required information and click **OK**. You will receive an email."
+msgstr ""
+
+#: ../../source/for_users/training/settings.rst:47
+msgid "This step can be skipped if you already have an account."
+msgstr ""
+
+#: ../../source/for_users/training/settings.rst:52
+msgid ""
+"2. Once you have received confirmation that your account has been "
+"created, click on **Enter username and password**. Provide your "
+"credentials and click **OK**."
+msgstr ""
+
+#: ../../source/for_users/training/settings.rst:58
+msgid "When the login is a success you will receive the following message:"
+msgstr ""
+
+#: ../../source/for_users/training/settings.rst:64
+msgid ""
+"Refer to the :ref:`registration` for details on registering and logging "
+"into your Trends.Earth account."
+msgstr "关于注册和登录 Trends.Earth 账户的详细信息，请参阅 :ref:`registration`。"
+
+#: ../../source/for_users/training/settings.rst:67
+msgid "Region of Interest"
+msgstr "感兴趣区域"
+
+#: ../../source/for_users/training/settings.rst:68
+msgid "The region of interest can be set using one of three approaches:"
+msgstr ""
+
+#: ../../source/for_users/training/settings.rst:70
+msgid "**Country**: Select a country as the region of interest."
+msgstr ""
+
+#: ../../source/for_users/training/settings.rst:72
+msgid ""
+"**Point**: Latitude and longitude coordinates. This can be manually typed"
+" in, or selected as a point in the QGIS canvas."
+msgstr ""
+
+#: ../../source/for_users/training/settings.rst:74
+msgid "**Area from file**: Provide a vector file for the region of interest."
+msgstr ""
+
+#: ../../source/for_users/training/settings.rst:80
+#, fuzzy
+msgid "Country/Region"
 msgstr "国家或地区"
 
-#: ../../source/for_users/training/settings.rst:27
+#: ../../source/for_users/training/settings.rst:81
 msgid ""
 "Select a country from the **First level** drop-down list. Sub-national "
 "analysis is possible using the **Second level** selections to identify a "
 "province or city for your region of interest."
 msgstr "从**一级**下拉列表中选择一个国家。可以使用**二级**选择来确定感兴趣区域的省或市，从而进行次国家分析。"
 
-#: ../../source/for_users/training/settings.rst:31
+#: ../../source/for_users/training/settings.rst:85
 msgid ""
-"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth are "
-"in the `public domain`_. The boundaries and names used, and the designations"
-" used, in Trends.Earth do not imply official endorsement or acceptance by "
-"Conservation International Foundation, or by its partner organizations and "
-"contributors."
-msgstr ""
-"在Trends.Earth中提供的“自然地球行政边界”_在“公共领域”中。在Trends.Earth中使用的边界和名称以及使用的名称并不意味着保护国际基金会或其合作组织和贡献者的正式认可或接受。"
+"The `Natural Earth Administrative Boundaries`_ provided in Trends.Earth "
+"are in the `public domain`_. The boundaries and names used, and the "
+"designations used, in Trends.Earth do not imply official endorsement or "
+"acceptance by Conservation International Foundation, or by its partner "
+"organizations and contributors."
+msgstr "在Trends.Earth中提供的“自然地球行政边界”_在“公共领域”中。在Trends.Earth中使用的边界和名称以及使用的名称并不意味着保护国际基金会或其合作组织和贡献者的正式认可或接受。"
 
-#: ../../source/for_users/training/settings.rst:37
+#: ../../source/for_users/training/settings.rst:91
 msgid ""
-"If using Trends.Earth for official purposes, it is recommended that users "
-"choose an official boundary provided by the designated office of their "
+"If using Trends.Earth for official purposes, it is recommended that users"
+" choose an official boundary provided by the designated office of their "
 "country."
 msgstr "如果使用Trends.Earth作为官方用途，建议用户选择其国家指定办公室提供的官方边界。"
 
-#: ../../source/for_users/training/settings.rst:46
+#: ../../source/for_users/training/settings.rst:100
 msgid "Point"
 msgstr "点"
 
-#: ../../source/for_users/training/settings.rst:47
-msgid "Select this option to upload coordinates or select a point on the map."
+#: ../../source/for_users/training/settings.rst:101
+#, fuzzy
+msgid ""
+"Select this option to manually add coordinates or select a point on the "
+"map canvas."
 msgstr "选择此选项以上传坐标或在地图上选择一个点。"
 
-#: ../../source/for_users/training/settings.rst:50
+#: ../../source/for_users/training/settings.rst:104
 msgid "Area from file"
 msgstr "文件中的区域"
 
-#: ../../source/for_users/training/settings.rst:51
-msgid "Select this option to upload a point or polygon of your choice."
+#: ../../source/for_users/training/settings.rst:105
+#, fuzzy
+msgid ""
+"Select this option to upload a point or polygon of your choice. Supported"
+" formats includes shapefile, kml, kmz and geojson."
 msgstr "选择此选项以上传您选择的点或多边形。"
 
-#: ../../source/for_users/training/settings.rst:54
+#: ../../source/for_users/training/settings.rst:109
 msgid ""
-"Select **Apply a buffer to the chosen area** if you experience issues with "
-"geometries or want to"
+"Select **Apply a buffer to the chosen area** if you experience issues "
+"with geometries or want to"
 msgstr "如果您遇到几何问题或想要，请选择**将缓冲区应用到所选区域**"
 
-#: ../../source/for_users/training/settings.rst:55
-msgid ""
-"add a buffer around a point entered in the city or coordinates options."
+#: ../../source/for_users/training/settings.rst:110
+msgid "add a buffer around a point entered in the city or coordinates options."
 msgstr "在城市或坐标选项中输入的点周围添加缓冲区。"
 
-#: ../../source/for_users/training/settings.rst:58
-msgid "Trends.Earth login information"
-msgstr "Trends.Earth 登录信息"
-
-#: ../../source/for_users/training/settings.rst:59
-msgid ""
-"Use this area to register and login to your Trends.Earth account. You can "
-"update your profile, resset password or delete your account at any time. "
-"Once you login, your login credentials will be saved and you will not need "
-"to login each time to use Trends.Earth (unless you upgrade QGIS or use a "
-"different computer)."
+#: ../../source/for_users/training/settings.rst:114
+msgid "Custom land cover classes"
 msgstr ""
-"使用此区域注册并登录您的 Trends.Earth "
-"账户。您可以随时更新您的个人资料、重置密码或删除账户。登录后，您的登录凭据将被保存，您无需每次登录即可使用 Trends.Earth（除非您升级 "
-"QGIS 或使用不同的计算机）。"
 
-#: ../../source/for_users/training/settings.rst:65
+#: ../../source/for_users/training/settings.rst:115
 msgid ""
-"Refer to the :ref:`registration` for details on registering and logging into"
-" your Trends.Earth account."
-msgstr "关于注册和登录 Trends.Earth 账户的详细信息，请参阅 :ref:`registration`。"
+"Add, remove, or edit landcover classes. The landcover scheme can be "
+"exported using the **Save** option, and loaded from an existing file "
+"using the **Load** button."
+msgstr ""
 
-#: ../../source/for_users/training/settings.rst:71
+#: ../../source/for_users/training/settings.rst:121
+msgid ""
+"The landcover class editor will open when the user clicks on the **Add "
+"class** or select a class in the table. Changes can be applied to the "
+"following parameters:"
+msgstr ""
+
+#: ../../source/for_users/training/settings.rst:124
+msgid "**Name**: Title of the class"
+msgstr ""
+
+#: ../../source/for_users/training/settings.rst:126
+msgid "**Parent**: Parent class of the selected class"
+msgstr ""
+
+#: ../../source/for_users/training/settings.rst:128
+msgid "**Color**: Legend color for the class"
+msgstr ""
+
+#: ../../source/for_users/training/settings.rst:130
+msgid "**Code**: Unique ID given to the class"
+msgstr ""
+
+#: ../../source/for_users/training/settings.rst:132
+msgid "Click **Done** once the changes has been made."
+msgstr ""
+
+#: ../../source/for_users/training/settings.rst:140
 msgid "Reports"
 msgstr "报告"
 
-#: ../../source/for_users/training/settings.rst:72
+#: ../../source/for_users/training/settings.rst:141
 msgid "This contains configuration options for the Reports module."
 msgstr "这包含报告模块的配置选项。"
 
-#: ../../source/for_users/training/settings.rst:79
+#: ../../source/for_users/training/settings.rst:148
 msgid "Template Search Path"
 msgstr "模板搜索路径"
 
-#: ../../source/for_users/training/settings.rst:80
+#: ../../source/for_users/training/settings.rst:149
 msgid ""
-"An additional directory containing report templates (qpt files). If there "
-"are templates with the same name to those in "
-"`[base_data_directory]/reports/templates`, then the system will prioritize "
-"and use the ones in the search path."
+"An additional directory containing report templates (qpt files). If there"
+" are templates with the same name to those in "
+"`[base_data_directory]/reports/templates`, then the system will "
+"prioritize and use the ones in the search path."
 msgstr ""
 "包含报告模板（qpt 文件）的附加目录。如果存在与 `[base_data_directory]/reports/templates` "
 "中的模板同名的模板，则系统将优先使用搜索路径中的模板。"
 
-#: ../../source/for_users/training/settings.rst:84
+#: ../../source/for_users/training/settings.rst:153
 msgid "Common Report Information"
 msgstr "通用报告信息"
 
-#: ../../source/for_users/training/settings.rst:85
+#: ../../source/for_users/training/settings.rst:154
 msgid ""
 "Common contextual information that can be modified to suit the reporting "
-"context. Any changes to the settings under this category, will be applied in"
-" subsequent report generation tasks."
+"context. Any changes to the settings under this category, will be applied"
+" in subsequent report generation tasks."
 msgstr "可以修改以适应报告上下文的通用上下文信息。对此类别下的设置所做的任何更改，都将应用于后续的报告生成任务。"
 
-#: ../../source/for_users/training/settings.rst:89
+#: ../../source/for_users/training/settings.rst:158
 msgid ""
-"These are only applicable in those report templates where the corresponding "
-"variables are used. For the default templates (that ship with the toolbox), "
-"only the organization logo and disclaimer text variables are used."
+"These are only applicable in those report templates where the "
+"corresponding variables are used. For the default templates (that ship "
+"with the toolbox), only the organization logo and disclaimer text "
+"variables are used."
 msgstr "这些仅适用于使用相应变量的报告模板。对于默认模板（随工具箱提供），仅使用组织徽标和免责声明文本变量。"
 
-#: ../../source/for_users/training/settings.rst:95
+#: ../../source/for_users/training/settings.rst:164
 msgid ""
-"**a. Organization Logo** - This is a path to an image file that can be used "
-"as a logo in the reports. By default,"
+"**a. Organization Logo** - This is a path to an image file that can be "
+"used as a logo in the reports. By default,"
 msgstr "**a. 组织徽标**——这是可在报告中用作徽标的图像文件的路径。默认情况下，"
 
-#: ../../source/for_users/training/settings.rst:94
+#: ../../source/for_users/training/settings.rst:163
 msgid ""
-"it points to `trends_earth_logo_bl_small.png` that ships with the toolbox. "
-"It is available as a QGIS layout variable named "
+"it points to `trends_earth_logo_bl_small.png` that ships with the "
+"toolbox. It is available as a QGIS layout variable named "
 ":code:`te_report_organization_logo`."
 msgstr ""
 "它指向工具箱附带的`trends_earth_logo_bl_small.png`。它可以作为 QGIS 布局变量使用，名为 "
 ":code:`te_report_organization_logo`。"
 
-#: ../../source/for_users/training/settings.rst:98
+#: ../../source/for_users/training/settings.rst:167
 msgid ""
 "**b. Organization Name** - Free text corresponding to the name of the "
 "organization. It is empty by default. It is"
 msgstr "**b. 组织名称**——与组织名称相对应的自由文本。默认为空。它"
 
-#: ../../source/for_users/training/settings.rst:98
+#: ../../source/for_users/training/settings.rst:167
 msgid ""
 "available as a QGIS layout variable named "
 ":code:`te_report_organization_name`."
 msgstr "可用作名为 :code:`te_report_organization_name` 的 QGIS 布局变量。"
 
-#: ../../source/for_users/training/settings.rst:101
+#: ../../source/for_users/training/settings.rst:170
 msgid ""
 "**c. Footer Text** - Free text that can be used in the footer section of "
 "reports. It is empty by default. It is"
 msgstr "**c. 页脚文本**——可用于报告页脚部分的自由文本。默认为空。它"
 
-#: ../../source/for_users/training/settings.rst:101
+#: ../../source/for_users/training/settings.rst:170
 msgid "available as a QGIS layout variable named :code:`te_report_footer`."
 msgstr "可用作名为 :code:`te_report_footer` 的 QGIS 布局变量。"
 
-#: ../../source/for_users/training/settings.rst:104
+#: ../../source/for_users/training/settings.rst:173
 msgid ""
-"**d. Disclaimer Text** - Disclaimer statement that applies to one or more "
-"elements in the reports such as data."
+"**d. Disclaimer Text** - Disclaimer statement that applies to one or more"
+" elements in the reports such as data."
 msgstr "**d. 免责声明文本**——适用于报告中的一个或多个元素（例如数据）的免责声明。"
 
-#: ../../source/for_users/training/settings.rst:104
+#: ../../source/for_users/training/settings.rst:173
 msgid "The default statement reads:"
 msgstr "默认语句如下："
 
-#: ../../source/for_users/training/settings.rst:106
+#: ../../source/for_users/training/settings.rst:175
 msgid ""
 "`The provided boundaries are from Natural Earth, and are in the public "
-"domain. The boundaries, names and designations used in Trends.Earth do not "
-"imply official endorsement or acceptance by Conservation International "
-"Foundation, or by its partner organizations and contributors.`"
+"domain. The boundaries, names and designations used in Trends.Earth do "
+"not imply official endorsement or acceptance by Conservation "
+"International Foundation, or by its partner organizations and "
+"contributors.`"
 msgstr ""
 "“提供的边界来自自然地球，属于公共领域。Trends.Earth "
 "中使用的边界、名称和称号并不意味着保护国际基金会或其合作伙伴组织和贡献者的官方认可或接受。”"
 
-#: ../../source/for_users/training/settings.rst:110
+#: ../../source/for_users/training/settings.rst:179
 msgid ""
 "It is available as a QGIS layout variable named "
 ":code:`te_report_disclaimer`."
 msgstr "它可用作名为 :code:`te_report_disclaimer` 的 QGIS 布局变量。"
 
-#: ../../source/for_users/training/settings.rst:113
+#: ../../source/for_users/training/settings.rst:182
 msgid "Log warnings in output directory"
 msgstr "在输出目录中记录警告"
 
-#: ../../source/for_users/training/settings.rst:114
+#: ../../source/for_users/training/settings.rst:183
 msgid ""
-"When checked, the output report folder will contain a html file with details"
-" of any warning or errors that arose during the report generation process. "
-"It is useful for debugging purposes. By default, it is unchecked."
+"When checked, the output report folder will contain a html file with "
+"details of any warning or errors that arose during the report generation "
+"process. It is useful for debugging purposes. By default, it is "
+"unchecked."
 msgstr ""
-"选中后，输出报告文件夹将包含一个 html 文件，其中包含报告生成过程中出现的任何警告或错误的详细信息。它对于调试目的很有用。默认情况下，它未被选中。"
+"选中后，输出报告文件夹将包含一个 html "
+"文件，其中包含报告生成过程中出现的任何警告或错误的详细信息。它对于调试目的很有用。默认情况下，它未被选中。"
 
-#: ../../source/for_users/training/settings.rst:121
+#: ../../source/for_users/training/settings.rst:189
 msgid "Advanced"
 msgstr "高级"
 
-#: ../../source/for_users/training/settings.rst:123
+#: ../../source/for_users/training/settings.rst:191
 msgid ""
 "Select the `Advanced` drop-down list to view more options within the "
 "Trends.Earth toolbox."
 msgstr "选择“高级”下拉列表以查看 Trends.Earth 工具箱中的更多选项。"
 
-#: ../../source/for_users/training/settings.rst:129
+#: ../../source/for_users/training/settings.rst:197
 msgid "Base data directory"
 msgstr "基础数据目录"
 
-#: ../../source/for_users/training/settings.rst:130
+#: ../../source/for_users/training/settings.rst:198
 msgid ""
-"All data will be saved in the Base Data Folder. To change where data from "
-"Trends.Earth is stored select *...* button next to the Base data directory "
-"and select a folder to store your data."
+"All data will be saved in the Base Data Folder. To change where data from"
+" Trends.Earth is stored select *...* button next to the Base data "
+"directory and select a folder to store your data."
 msgstr ""
 "所有数据都将保存在基本数据文件夹中。要更改 Trends.Earth 中数据的存储位置，请选择基本数据目录旁边的 *...* "
 "按钮，然后选择一个文件夹来存储您的数据。"
 
-#: ../../source/for_users/training/settings.rst:133
+#: ../../source/for_users/training/settings.rst:201
 msgid ""
 "There are several check boxes to set your preference under the Base data "
 "directory selection."
 msgstr "在基本数据目录选择下，有几个复选框可以设置您的首选项。"
 
-#: ../../source/for_users/training/settings.rst:135
-msgid ""
-"Check the boxes to: 1) Filter remote jobs according to local base directory "
-"2) Enable debug mode - saves detailed logging information from your session "
-"3) Download remotely-generated datasets automatically - Do not check this if"
-" you have limited bandwidth or are working offline 4) Poll remote processing"
-" server periodically - This sets the frequency that the server will check "
-"for finished analyses to download automatically - Do not check this if you "
-"have limited bandwidth or are working offline 5) Use binaries for faster "
-"processing - Select folder to store binaries"
+#: ../../source/for_users/training/settings.rst:203
+msgid "Check the boxes to:"
 msgstr ""
-"选中复选框以：1) 根据本地基本目录过滤远程作业 2) 启用调试模式——保存会话中的详细日志记录信息 3) "
-"自动下载远程生成的数据集——如果您的带宽有限或离线工作，请勿选中此选项 4) "
-"定期轮询远程处理服务器——这将设置服务器检查完成分析以自动下载的频率——如果您的带宽有限或离线工作，请勿检查此项 5) "
-"使用二进制文件进行更快的处理——选择文件夹来存储二进制文件"
 
-#: ../../source/for_users/training/settings.rst:147
+#: ../../source/for_users/training/settings.rst:205
+msgid "Filter remote jobs according to local base directory"
+msgstr ""
+
+#: ../../source/for_users/training/settings.rst:207
+msgid "Enable debug mode - saves detailed logging information from your session"
+msgstr ""
+
+#: ../../source/for_users/training/settings.rst:209
+msgid "Download remotely-generated datasets automatically"
+msgstr ""
+
+#: ../../source/for_users/training/settings.rst:211
+#: ../../source/for_users/training/settings.rst:216
+msgid "Do not check this if you have limited bandwidth or are working offline"
+msgstr ""
+
+#: ../../source/for_users/training/settings.rst:213
+msgid "Poll remote processing server periodically"
+msgstr ""
+
+#: ../../source/for_users/training/settings.rst:215
+msgid ""
+"This sets the frequency that the server will check for finished analyses "
+"to download automatically"
+msgstr ""
+
+#: ../../source/for_users/training/settings.rst:218
+msgid "Use binaries for faster processing: Select folder to store binaries"
+msgstr ""
+
+#: ../../source/for_users/training/settings.rst:222
 msgid "LandPKS login information"
 msgstr "LandPKS 登录信息"
 
-#: ../../source/for_users/training/settings.rst:148
+#: ../../source/for_users/training/settings.rst:223
 msgid "**Coming soon**"
 msgstr "**即将推出**"
 
@@ -308,3 +441,28 @@ msgstr "iconReports"
 #: ../../../<rst_epilog>:6
 msgid "Trends.Earth"
 msgstr "Trends.Earth"
+
+#~ msgid ""
+#~ "Check the boxes to: 1) Filter "
+#~ "remote jobs according to local base "
+#~ "directory 2) Enable debug mode - "
+#~ "saves detailed logging information from "
+#~ "your session 3) Download remotely-"
+#~ "generated datasets automatically - Do "
+#~ "not check this if you have limited"
+#~ " bandwidth or are working offline 4)"
+#~ " Poll remote processing server periodically"
+#~ " - This sets the frequency that "
+#~ "the server will check for finished "
+#~ "analyses to download automatically - Do"
+#~ " not check this if you have "
+#~ "limited bandwidth or are working offline"
+#~ " 5) Use binaries for faster "
+#~ "processing - Select folder to store "
+#~ "binaries"
+#~ msgstr ""
+#~ "选中复选框以：1) 根据本地基本目录过滤远程作业 2) 启用调试模式——保存会话中的详细日志记录信息"
+#~ " 3) 自动下载远程生成的数据集——如果您的带宽有限或离线工作，请勿选中此选项 4) "
+#~ "定期轮询远程处理服务器——这将设置服务器检查完成分析以自动下载的频率——如果您的带宽有限或离线工作，请勿检查此项 5) "
+#~ "使用二进制文件进行更快的处理——选择文件夹来存储二进制文件"
+

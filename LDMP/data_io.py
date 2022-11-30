@@ -695,7 +695,7 @@ class ImportSelectFileInputWidget(
 
         # Ensure the special value text (set to " ") is displayed by default
         self.spinBox_data_year.setSpecialValueText(" ")
-        self.spinBox_data_year.setValue(self.spinBox_data_year.minimum())
+        self.spinBox_data_year.setValue(int(self.spinBox_data_year.minimum()))
 
     def radio_raster_input_toggled(self):
         has_file = False

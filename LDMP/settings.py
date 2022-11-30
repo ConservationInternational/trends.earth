@@ -1110,7 +1110,7 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
             Setting.POLL_REMOTE, self.polling_frequency_gb.isChecked()
         )
         settings_manager.write_value(
-            Setting.REMOTE_POLLING_FREQUENCY, self.polling_frequency_sb.value()
+            Setting.REMOTE_POLLING_FREQUENCY, int(self.polling_frequency_sb.value())
         )
         settings_manager.write_value(
             Setting.DOWNLOAD_RESULTS, self.download_remote_datasets_chb.isChecked()

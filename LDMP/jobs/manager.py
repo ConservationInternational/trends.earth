@@ -154,6 +154,8 @@ def _set_results_extents_vector(job):
 
 
 def set_results_extents(job):
+    if not job.results:
+        return
     if job.results.type == results.ResultType.RASTER_RESULTS and job.status in [
         jobs.JobStatus.DOWNLOADED,
         jobs.JobStatus.GENERATED_LOCALLY,

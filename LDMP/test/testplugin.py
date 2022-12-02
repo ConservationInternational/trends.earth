@@ -2,8 +2,8 @@ import sys
 
 from qgis.testing import unittest
 
-from LDMP.test.integration.test_calculate_ldn import CalculateLDNIntegrationSuite
-from LDMP.test.integration.test_calculate_urban import CalculateUrbanIntegrationSuite
+# from LDMP.test.integration.test_calculate_ldn import CalculateLDNIntegrationSuite
+# from LDMP.test.integration.test_calculate_urban import CalculateUrbanIntegrationSuite
 from LDMP.test.unit.test_calculate_ldn import CalculateLDNUnitSuite
 from LDMP.test.unit.test_dialog_settings import SettingsUnitSuite
 
@@ -17,8 +17,8 @@ def unitTests():
 
 def integrationTests():
     suite = unittest.TestSuite()
-    suite.addTest(CalculateLDNIntegrationSuite())
-    suite.addTest(CalculateUrbanIntegrationSuite())
+    # suite.addTest(CalculateLDNIntegrationSuite())
+    # suite.addTest(CalculateUrbanIntegrationSuite())
     return suite
 
 

@@ -45,6 +45,8 @@ from .. import utils
 from ..logger import log
 from .models import Job
 
+from .conf import API_URL, TIMEOUT
+
 logger = logging.getLogger(__name__)
 
 
@@ -460,7 +462,8 @@ class JobManager(QtCore.QObject):
             jobs.JobLocalContext().Schema().dump(_get_local_context())
         )
         url_fragment = f"/api/v1/script/{script_id}/run"
-        response = api.call_api(url_fragment, "post", final_params, use_token=True)
+        api_client = api.APIClient(API_URL, TIMEOUT)
+        response = api_client.call_api(url_fragment, "post", final_params, use_token=True)
         try:
             raw_job = response["data"]
         except TypeError:
@@ -1238,7 +1241,8 @@ def get_remote_jobs(end_date: typing.Optional[dt.datetime] = None) -> typing.Lis
         if conf.settings_manager.get_value(conf.Setting.DEBUG):
             log("Retrieving executions...")
 
-        response = api.call_api(
+        api_client = api.APIClient(API_URL, TIMEOUT)
+        response = api_client.call_api(
             f"/api/v1/execution?{urllib.parse.urlencode(query)}",
             method="get",
             use_token=True,

@@ -67,53 +67,6 @@ class tr_calculate:
 ICON_PATH = os.path.join(os.path.dirname(__file__), "icons")
 
 
-def get_local_script_metadata(script_name) -> Optional[dict]:
-    """Get a specific value from local_script dictionary."""
-    # main key acess is the name of the local processing GUI class.
-    metadata = local_scripts.get(script_name, None)
-
-    if not metadata:
-        # source value can be looked for into source value
-        metadata = next(
-            (
-                metadata
-                for metadata in local_scripts.values()
-                if metadata["source"] == script_name
-            ),
-            None,
-        )
-
-    return metadata
-
-
-def is_local_script(script_name: str = None) -> bool:
-    """check if the script name (aka source) is a local processed alg source."""
-
-    if script_name in local_scripts:
-        return True
-
-    if next(
-        (
-            metadata["source"]
-            for metadata in local_scripts.values()
-            if metadata["source"] == script_name
-        ),
-        None,
-    ):
-        return True
-
-    return False
-
-
-def json_geom_to_geojson(txt):
-    d = {
-        "type": "FeatureCollection",
-        "features": [{"type": "Feature", "geometry": json.loads(txt)}],
-    }
-
-    return d
-
-
 class DlgCalculate(QtWidgets.QDialog, DlgCalculateUi):
     def __init__(self, parent=None):
         super().__init__(parent)

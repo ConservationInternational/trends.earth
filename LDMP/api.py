@@ -435,3 +435,6 @@ class APIClient(QtCore.QObject):
             return resp["data"]
         else:
             return None
+
+
+default_api_client = APIClient(conf.API_URL, conf.TIMEOUT)

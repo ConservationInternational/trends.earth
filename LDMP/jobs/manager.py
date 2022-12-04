@@ -237,6 +237,7 @@ class JobManager(QtCore.QObject):
         self.clear_known_jobs()
         self.tm = QgsApplication.taskManager()
         self._state_update_mutex = QtCore.QMutex()
+        self.api_client = api.APIClient(API_URL, TIMEOUT)
 
     @property
     def known_jobs(self):
@@ -462,8 +463,7 @@ class JobManager(QtCore.QObject):
             jobs.JobLocalContext().Schema().dump(_get_local_context())
         )
         url_fragment = f"/api/v1/script/{script_id}/run"
-        api_client = api.APIClient(API_URL, TIMEOUT)
-        response = api_client.call_api(url_fragment, "post", final_params, use_token=True)
+        response = self.api_client.call_api(url_fragment, "post", final_params, use_token=True)
         try:
             raw_job = response["data"]
         except TypeError:
@@ -1241,8 +1241,7 @@ def get_remote_jobs(end_date: typing.Optional[dt.datetime] = None) -> typing.Lis
         if conf.settings_manager.get_value(conf.Setting.DEBUG):
             log("Retrieving executions...")
 
-        api_client = api.APIClient(API_URL, TIMEOUT)
-        response = api_client.call_api(
+        response = job_manager.api_client.call_api(
             f"/api/v1/execution?{urllib.parse.urlencode(query)}",
             method="get",
             use_token=True,

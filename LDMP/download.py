@@ -24,7 +24,7 @@ from qgis.PyQt import QtCore
 from qgis.PyQt import QtWidgets
 from qgis.utils import iface
 
-from .api import get_header
+from .api import default_api_client
 from .logger import log
 from .worker import AbstractWorker
 from .worker import start_worker
@@ -106,7 +106,7 @@ def local_check_hash_against_etag(path: Path, expected: str) -> bool:
 
 def check_hash_against_etag(url, filename, expected=None):
     if not expected:
-        h = get_header(url)
+        h = default_api_client.get_header(url)
         if not h:
             log("Failed to fetch expected hash for {}".format(filename))
             return False

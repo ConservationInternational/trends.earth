@@ -45,7 +45,7 @@ from .. import utils
 from ..logger import log
 from .models import Job
 
-from .conf import API_URL, TIMEOUT
+from ..constants import API_URL, TIMEOUT
 
 logger = logging.getLogger(__name__)
 

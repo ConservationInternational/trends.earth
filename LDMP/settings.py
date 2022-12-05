@@ -80,7 +80,7 @@ Ui_WidgetLandCoverCustomClassEditor, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/WidgetLCClassEditor.ui")
 )
 
-from .conf import API_URL, TIMEOUT
+from .constants import API_URL, TIMEOUT
 
 from .logger import log
 from .utils import FileUtils

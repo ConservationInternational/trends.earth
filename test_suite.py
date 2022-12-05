@@ -56,7 +56,7 @@ def _run_tests(test_suite, package_name, with_coverage=False):
             print(fin.read())
 
 
-def test_package(package=""):
+def test_package(package="test"):
     """Test package.
     This function is called by Github actions or travis without arguments.
     :param package: The package to test.

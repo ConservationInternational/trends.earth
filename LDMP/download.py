@@ -25,7 +25,8 @@ from qgis.PyQt import QtWidgets
 from qgis.utils import iface
 
 from .api import APIClient
-from .constants import API_URL, TIMEOUT
+from .constants import API_URL
+from .constants import TIMEOUT
 from .logger import log
 from .worker import AbstractWorker
 from .worker import start_worker

@@ -11,7 +11,7 @@ DATA_PATH = Path(__file__).parent / "data"
 
 @app.route("/api/v1")
 def index():
-    catalog = DATA_PATH / "algorithm_response.json"
+    catalog = DATA_PATH / "index.json"
 
     with catalog.open() as fl:
         return json.load(fl)

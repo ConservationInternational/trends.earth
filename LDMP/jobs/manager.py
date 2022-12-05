@@ -42,10 +42,10 @@ from .. import download as ldmp_download
 from .. import layers
 from .. import metadata
 from .. import utils
+from ..constants import API_URL
+from ..constants import TIMEOUT
 from ..logger import log
 from .models import Job
-
-from ..constants import API_URL, TIMEOUT
 
 logger = logging.getLogger(__name__)
 
@@ -463,7 +463,9 @@ class JobManager(QtCore.QObject):
             jobs.JobLocalContext().Schema().dump(_get_local_context())
         )
         url_fragment = f"/api/v1/script/{script_id}/run"
-        response = self.api_client.call_api(url_fragment, "post", final_params, use_token=True)
+        response = self.api_client.call_api(
+            url_fragment, "post", final_params, use_token=True
+        )
         try:
             raw_job = response["data"]
         except (TypeError, KeyError):

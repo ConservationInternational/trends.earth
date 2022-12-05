@@ -306,38 +306,31 @@ class DownloadWorker(AbstractWorker):
         self.toggle_show_progress.emit(True)
         self.toggle_show_cancel.emit(True)
 
-        # print('downloader work')
-        # settings = QgsSettings()
-        # auth_id = settings.value('trendsearth/auth')
-        #
-        # print(str(self.url))
-        # # print('headers: ' + str(self.headers))
-        # # print('payload: ' + str(self.payload))
-        #
-        # qurl = QtCore.QUrl(self.url)
-        #
-        # network_manager = QgsNetworkAccessManager()
-        # #network_manager.setTimeout(600000)
-        #
-        # network_request = QtNetwork.QNetworkRequest(qurl)
-        #
-        # auth_manager = QgsApplication.authManager()
-        # auth_added, _ = auth_manager.updateNetworkRequest(
-        #     network_request,
-        #     auth_id
-        # )
-        #
-        # print('worker get')
-        #
-        # resp = network_manager.blockingGet(qurl)
-        #
-        # print('worker response')
-        # print(str(resp))
+        settings = QgsSettings()
+        auth_id = settings.value('trendsearth/auth')
+        qurl = QtCore.QUrl(self.url)
+        network_manager = QgsNetworkAccessManager().instance()
+        network_manager.setTimeout(600000)
 
-        resp = requests.get(self.url, stream=True)
-        if resp.status_code != 200:
-            # log(u'Unexpected HTTP status code ({}) while trying to download {}.'.format(resp.status_code, self.url))
+        network_request = QtNetwork.QNetworkRequest(qurl)
+
+        auth_manager = QgsApplication.authManager()
+        auth_added, _ = auth_manager.updateNetworkRequest(
+            network_request,
+            auth_id
+        )
+        resp = network_manager.blockingGet(network_request)
+        status_code = resp.attribute(
+            QtNetwork.QNetworkRequest.HttpStatusCodeAttribute
+        )
+        if status_code != 200:
+            log(u'Unexpected HTTP status code ({}) while trying to download {}.'.format(status_code, self.url))
             raise DownloadError("Unable to start download of {}".format(self.url))
+
+        #resp = requests.get(self.url, stream=True)
+        # if resp.status_code != 200:
+        #     # log(u'Unexpected HTTP status code ({}) while trying to download {}.'.format(resp.status_code, self.url))
+        #     raise DownloadError("Unable to start download of {}".format(self.url))
 
         total_size = int(resp.headers["Content-length"])
         if total_size < 1e5:
@@ -348,7 +341,8 @@ class DownloadWorker(AbstractWorker):
         # log(u'Downloading {} ({}) to {}'.format(self.url, total_size_pretty, self.outfile))
 
         bytes_dl = 0
-        r = requests.get(self.url, stream=True)
+        #r = requests.get(self.url, stream=True)
+        r = network_manager.blockingGet(network_request)
         with open(self.outfile, "wb") as f:
             for chunk in r.iter_content(chunk_size=8192):
                 if self.killed == True:

@@ -10,14 +10,12 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
-import sys
 
-from qgis.testing import unittest
+import unittest
 
 from multiprocessing import Process
 
-from LDMP.test.mock.mock_http_server import MockApiServer
-from qgis.PyQt.QtTest import QSignalSpy
+from mock.mock_http_server import MockApiServer
 
 from LDMP.api import APIClient
 from LDMP.jobs.manager import job_manager
@@ -45,16 +43,10 @@ class CalculateLDNOneStep(unittest.TestCase):
 
         assert response['data']
 
-
-def CalculateLDNUnitSuite():
-    suite = unittest.TestSuite()
-    suite.addTests(
-        unittest.defaultTestLoader.loadTestsFromTestCase(CalculateLDNOneStep, "test")
-    )
-    return suite
+    def tearDown(self):
+        self.server.terminate()
+        self.server.join()
 
 
-def run_all():
-    _suite = unittest.TestSuite()
-    _suite.addTest(CalculateLDNUnitSuite())
-    unittest.TextTestRunner(verbosity=3, stream=sys.stdout).run(_suite)
+if __name__ == "__main__":
+    unittest.main()

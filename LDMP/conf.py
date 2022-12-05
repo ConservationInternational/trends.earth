@@ -28,10 +28,6 @@ TR_ALL_REGIONS = tr_conf.tr("All regions")
 OPTIONS_ICON = "trends_earth_logo_square_32x32.ico"
 OPTIONS_TITLE = "Trends.Earth"
 
-# API related constants
-API_URL = "https://api2.trends.earth"
-TIMEOUT = 30
-
 
 class AreaSetting(enum.Enum):
     COUNTRY_REGION = "country_region"

@@ -1204,6 +1204,16 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
             "QLineEdit {background: #FFFFE0;} QLineEdit:hover {border: 1px solid gray; background: #FFFFE0;}"
         )
 
+        table_header = self.deg_def_matrix.horizontalHeader()
+        header_height = table_header.height()
+
+        table_row_cnt = self.deg_def_matrix.rowCount()
+        table_row_height = self.deg_def_matrix.rowHeight(0)
+        # Table height with 10 added as an additional precaution to avoid the addition of a scroll bar
+        table_height = (table_row_height * table_row_cnt) + header_height + 10
+
+        self.deg_def_matrix.setFixedHeight(table_height)
+
     def setup_deg_def_matrix(self, legend):
         self.deg_def_matrix.setRowCount(len(legend.key))
         self.deg_def_matrix.setColumnCount(len(legend.key))

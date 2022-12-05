@@ -19,8 +19,6 @@ def index():
 @app.route("/auth", methods=['POST'])
 def auth():
     sample_token = '78euwd89'
-    print("SAMPLE TOKEN")
-    print(sample_token)
     resp = {"access_token": sample_token}
 
     return json.dumps(resp)
@@ -28,9 +26,6 @@ def auth():
 
 @app.route("/api/v1/script/<script_id>/run", methods=['GET', 'POST'])
 def script_run(script_id):
-    print("log script_id")
-
-    print(script_id)
 
     response = {}
     files = [
@@ -44,9 +39,6 @@ def script_run(script_id):
 
 @app.route("/api/v1/script/<script_id>", methods=['GET', 'POST'])
 def script_index(script_id):
-    print("log script_id")
-
-    print(script_id)
 
     response = {}
     files = [

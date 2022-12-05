@@ -180,7 +180,7 @@ class APIClient(QtCore.QObject):
         ):
             log("API unable to login - setup auth configuration before using")
 
-            return {'token': None, 'resp': None, "message": "no auth", "authconfig": authConfig}
+            return
 
         resp = self.call_api(
             "/auth",
@@ -202,21 +202,21 @@ class APIClient(QtCore.QObject):
                         "Unable to read token for Trends.Earth "
                         "server. Check username and password."
                     )
-                    ret = {'token': None, 'resp': resp}
+                    ret = None
             except KeyError:
                 log("API unable to login - check username and password")
                 error_message = tr_api.tr(
                     "Unable to login to Trends.Earth. " "Check username and password."
                 )
-                ret = {'token': None, 'resp': resp, 'message': 'KeyError during login'}
+                ret = None
             else:
-                ret = {'token': token, "message": "no response", "response": resp}
+                ret = None
         else:
             log("Unable to access Trends.Earth server")
             error_message = tr_api.tr(
                 "Unable to access Trends.Earth server. Check your " "internet connection"
             )
-            ret = {'token': None, 'resp': resp, 'message': 'Unable to access server, no response'}
+            ret = None
 
         if error_message:
             log(tr_api.tr(error_message))
@@ -276,12 +276,12 @@ class APIClient(QtCore.QObject):
         if use_token:
             token = self.login()
 
-            if token.get('token'):
+            if token:
                 if conf.settings_manager.get_value(conf.Setting.DEBUG):
                     log("API loaded token.")
                 headers = {"Authorization": f"Bearer {token}"}
             else:
-                return {'message': 'No token', "token": token, 'login_message': token.get('message'), "response": token.get("resp")}
+                return None
         else:
             if conf.settings_manager.get_value(conf.Setting.DEBUG):
                 log("API no token required.")
@@ -310,7 +310,7 @@ class APIClient(QtCore.QObject):
             )
 
         else:
-            resp = {'message': 'No token'}
+            resp = None
 
         if resp != None:
             if resp.status_code == 200:
@@ -324,9 +324,9 @@ class APIClient(QtCore.QObject):
                     "Trends.Earth", "Error: {} (status {}).".format(desc, status)
                 )
                 """
-                ret = {'message': 'Bad Request', 'status': resp.status_code, 'resp':resp}
+                ret = None
         else:
-            ret = {'message': 'No response from api'}
+            ret = None
 
         return ret
 
@@ -433,7 +433,6 @@ class APIClient(QtCore.QObject):
             resp = self.call_api("/api/v1/script", "get", use_token=True)
 
         if resp:
-            print(resp)
             return resp["data"]
         else:
             return None

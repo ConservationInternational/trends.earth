@@ -466,8 +466,8 @@ class JobManager(QtCore.QObject):
         response = self.api_client.call_api(url_fragment, "post", final_params, use_token=True)
         try:
             raw_job = response["data"]
-        except TypeError:
-            job = None
+        except (TypeError, KeyError):
+            job = {"fail": response}
         else:
             job = Job.Schema().load(raw_job)
             set_results_extents(job)

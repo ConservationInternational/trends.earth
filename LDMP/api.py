@@ -27,7 +27,6 @@ from qgis.utils import iface
 from . import auth, conf
 from .logger import log
 
-
 class tr_api:
     def tr(message):
         return QtCore.QCoreApplication.translate("tr_api", message)
@@ -301,7 +300,7 @@ class APIClient(QtCore.QObject):
                 log("API call payload: {}".format(clean_payload))
             resp = self._make_request(
                 "Trends.Earth API call",
-                url=API_URL + endpoint,
+                url=self.url + endpoint,
                 method=method,
                 payload=payload,
                 headers=headers,
@@ -435,6 +434,3 @@ class APIClient(QtCore.QObject):
             return resp["data"]
         else:
             return None
-
-
-default_api_client = APIClient(conf.API_URL, conf.TIMEOUT)

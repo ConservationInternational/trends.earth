@@ -1,5 +1,6 @@
 boto3
 black[jupyter]
+flask
 plotly
 pyqtgraph
 git+https://github.com/ConservationInternational/trends.earth-schemas.git@v2.1.2

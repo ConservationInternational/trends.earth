@@ -6,7 +6,11 @@ set MUTE_LOGS=false
 set IMAGE=qgis/qgis
 set ON_TRAVIS=false
 
-REM docker-compose down -v
+docker-compose down
+docker-compose rm
 docker-compose up -d
 
-docker-compose exec -T qgis-testing-environment qgis_testrunner.sh LDMP.test.testplugin
+docker-compose exec -T qgis-testing-environment sh -c "apt-get update"
+docker-compose exec -T qgis-testing-environment sh -c "apt-get install -y python3-opencv"
+sleep 10
+docker-compose exec -T qgis-testing-environment qgis_testrunner.sh test_suite.test_package

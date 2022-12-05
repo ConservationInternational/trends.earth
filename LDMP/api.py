@@ -29,6 +29,7 @@ from .logger import log
 
 from .constants import API_URL, TIMEOUT
 
+
 class tr_api:
     def tr(message):
         return QtCore.QCoreApplication.translate("tr_api", message)
@@ -54,27 +55,45 @@ class RequestTask(QgsTask):
         try:
             if self.method == "get":
                 self.resp = requests.get(
-                    self.url, json=self.payload, headers=self.headers, timeout=self.timeout
+                    self.url,
+                    json=self.payload,
+                    headers=self.headers,
+                    timeout=self.timeout,
                 )
             elif self.method == "post":
                 self.resp = requests.post(
-                    self.url, json=self.payload, headers=self.headers, timeout=self.timeout
+                    self.url,
+                    json=self.payload,
+                    headers=self.headers,
+                    timeout=self.timeout,
                 )
             elif self.method == "update":
                 self.resp = requests.update(
-                    self.url, json=self.payload, headers=self.headers, timeout=self.timeout
+                    self.url,
+                    json=self.payload,
+                    headers=self.headers,
+                    timeout=self.timeout,
                 )
             elif self.method == "delete":
                 self.resp = requests.delete(
-                    self.url, json=self.payload, headers=self.headers, timeout=self.timeout
+                    self.url,
+                    json=self.payload,
+                    headers=self.headers,
+                    timeout=self.timeout,
                 )
             elif self.method == "patch":
                 self.resp = requests.patch(
-                    self.url, json=self.payload, headers=self.headers, timeout=self.timeout
+                    self.url,
+                    json=self.payload,
+                    headers=self.headers,
+                    timeout=self.timeout,
                 )
             elif self.method == "head":
                 self.resp = requests.head(
-                    self.url, json=self.payload, headers=self.headers, timeout=self.timeout
+                    self.url,
+                    json=self.payload,
+                    headers=self.headers,
+                    timeout=self.timeout,
                 )
             else:
                 self.exception = ValueError(
@@ -124,6 +143,7 @@ class RequestTask(QgsTask):
 ###############################################################################
 # Other helper functions for api calls
 
+
 class APIClient(QtCore.QObject):
     url: str
 
@@ -171,12 +191,14 @@ class APIClient(QtCore.QObject):
         return (desc, status)
 
     def login(self, authConfigId=None):
-        authConfig = auth.get_auth_config(auth.TE_API_AUTH_SETUP, authConfigId=authConfigId)
+        authConfig = auth.get_auth_config(
+            auth.TE_API_AUTH_SETUP, authConfigId=authConfigId
+        )
 
         if (
-                not authConfig
-                or not authConfig.config("username")
-                or not authConfig.config("password")
+            not authConfig
+            or not authConfig.config("username")
+            or not authConfig.config("password")
         ):
             log("API unable to login - setup auth configuration before using")
 
@@ -214,7 +236,8 @@ class APIClient(QtCore.QObject):
         else:
             log("Unable to access Trends.Earth server")
             error_message = tr_api.tr(
-                "Unable to access Trends.Earth server. Check your " "internet connection"
+                "Unable to access Trends.Earth server. Check your "
+                "internet connection"
             )
             ret = None
 
@@ -233,7 +256,9 @@ class APIClient(QtCore.QObject):
             return True
         else:
             if not email or not password:
-                log("API unable to login during login test - check " "username/password")
+                log(
+                    "API unable to login during login test - check " "username/password"
+                )
                 QtWidgets.QMessageBox.critical(
                     None,
                     tr_api.tr("Error"),
@@ -247,7 +272,9 @@ class APIClient(QtCore.QObject):
 
     def backoff_hdlr(self, details):
         if details["kwargs"]["payload"]:
-            details["kwargs"]["payload"] = self._clean_payload(details["kwargs"]["payload"])
+            details["kwargs"]["payload"] = self._clean_payload(
+                details["kwargs"]["payload"]
+            )
         log(
             "Backing off {wait:0.1f} seconds after {tries} tries "
             "calling function {target} with args {args} and kwargs "
@@ -289,7 +316,7 @@ class APIClient(QtCore.QObject):
 
         # Only continue if don't need token or if token load was successful
 
-        if (not use_token) or token.get('token', None):
+        if (not use_token) or token.get("token", None):
             # Strip password out of payload for printing to QGIS logs
 
             if payload:
@@ -331,7 +358,14 @@ class APIClient(QtCore.QObject):
         return ret
 
     def get_header(self, url):
-        resp = self._make_request("Get head", url=url, method="head", payload=None, headers=None, timeout=self.timeout)
+        resp = self._make_request(
+            "Get head",
+            url=url,
+            method="head",
+            payload=None,
+            headers=None,
+            timeout=self.timeout,
+        )
 
         if resp != None:
             log(f'Response from "{url}" header request: {resp.status_code}')
@@ -359,7 +393,9 @@ class APIClient(QtCore.QObject):
         )
 
     def get_user(self, email="me"):
-        resp = self.call_api("/api/v1/user/{}".format(quote_plus(email)), use_token=True)
+        resp = self.call_api(
+            "/api/v1/user/{}".format(quote_plus(email)), use_token=True
+        )
 
         if resp:
             return resp["data"]
@@ -403,7 +439,10 @@ class APIClient(QtCore.QObject):
         }
 
         return self.call_api(
-            "/api/v1/user/{}".format(quote_plus(email)), "patch", payload, use_token=True
+            "/api/v1/user/{}".format(quote_plus(email)),
+            "patch",
+            payload,
+            use_token=True,
         )
 
     def get_execution(self, id=None, date=None):
@@ -417,7 +456,9 @@ class APIClient(QtCore.QObject):
             query.append("updated_at={}".format(date))
         query = "?" + "&".join(query)
 
-        resp = self.call_api("/api/v1/execution{}".format(query), method="get", use_token=True)
+        resp = self.call_api(
+            "/api/v1/execution{}".format(query), method="get", use_token=True
+        )
 
         if not resp:
             return None

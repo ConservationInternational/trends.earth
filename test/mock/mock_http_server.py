@@ -1,16 +1,17 @@
-import os
-import requests
-
 import multiprocessing
-
-from flask import jsonify, request
+import os
 from threading import Thread
+
+import requests
+from flask import jsonify
+from flask import request
 
 from .trends_api_server_app import app
 
 
 class MockApiServer(Thread):
-    """ Mock a live """
+    """Mock a live"""
+
     def __init__(self, port=5000):
         super().__init__()
         self.port = port
@@ -23,10 +24,10 @@ class MockApiServer(Thread):
             pass
 
     def _shutdown_server(self):
-        if not 'werkzeug.server.shutdown' in request.environ:
-            raise RuntimeError('Error shutting down server')
-        request.environ['werkzeug.server.shutdown']()
-        return 'Shutting down'
+        if not "werkzeug.server.shutdown" in request.environ:
+            raise RuntimeError("Error shutting down server")
+        request.environ["werkzeug.server.shutdown"]()
+        return "Shutting down"
 
     def shutdown_server(self):
         requests.get("http://localhost:%s/shutdown" % self.port)

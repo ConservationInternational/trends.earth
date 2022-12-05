@@ -1,8 +1,8 @@
 import json
-
 from pathlib import Path
 
-from flask import Flask, request
+from flask import Flask
+from flask import request
 
 app = Flask(__name__)
 
@@ -16,15 +16,16 @@ def index():
     with catalog.open() as fl:
         return json.load(fl)
 
-@app.route("/auth", methods=['POST'])
+
+@app.route("/auth", methods=["POST"])
 def auth():
-    sample_token = '78euwd89'
+    sample_token = "78euwd89"
     resp = {"access_token": sample_token}
 
     return json.dumps(resp)
 
 
-@app.route("/api/v1/script/<script_id>/run", methods=['GET', 'POST'])
+@app.route("/api/v1/script/<script_id>/run", methods=["GET", "POST"])
 def script_run(script_id):
 
     response = {}
@@ -37,7 +38,7 @@ def script_run(script_id):
     return response
 
 
-@app.route("/api/v1/script/<script_id>", methods=['GET', 'POST'])
+@app.route("/api/v1/script/<script_id>", methods=["GET", "POST"])
 def script_index(script_id):
 
     response = {}
@@ -50,7 +51,7 @@ def script_index(script_id):
     return response
 
 
-@app.route("/api/v1/script", methods=['GET', 'POST'])
+@app.route("/api/v1/script", methods=["GET", "POST"])
 def default_script():
     response = {}
     files = [

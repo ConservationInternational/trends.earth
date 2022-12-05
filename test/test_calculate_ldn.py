@@ -10,26 +10,24 @@
         email                : trends.earth@conservation.org
  ***************************************************************************/
 """
-
 import unittest
-
 from multiprocessing import Process
 
 from mock.mock_http_server import MockApiServer
-
-from LDMP.api import APIClient
-from LDMP.jobs.manager import job_manager
-from LDMP.auth import init_auth_config, AuthSetup
-
-from qgis.core import QgsApplication, QgsAuthManager, QgsAuthMethodConfig
-
+from qgis.core import QgsApplication
+from qgis.core import QgsAuthManager
+from qgis.core import QgsAuthMethodConfig
 from qgis.PyQt import QtCore
 
-from LDMP.auth import get_auth_config, TE_API_AUTH_SETUP
+from LDMP.api import APIClient
+from LDMP.auth import AuthSetup
+from LDMP.auth import get_auth_config
+from LDMP.auth import init_auth_config
+from LDMP.auth import TE_API_AUTH_SETUP
+from LDMP.jobs.manager import job_manager
 
 
 class CalculateLDNOneStep(unittest.TestCase):
-
     def setUp(self):
         self.app_server = MockApiServer()
 
@@ -41,7 +39,7 @@ class CalculateLDNOneStep(unittest.TestCase):
         self.error = None
 
     def set_auth_db(self):
-        AUTHDB_MASTERPWD = 'password'
+        AUTHDB_MASTERPWD = "password"
 
         print("Init script: %s" % __file__)
 
@@ -60,31 +58,27 @@ class CalculateLDNOneStep(unittest.TestCase):
 
         cfg = QgsAuthMethodConfig()
         cfg.setName(auth_setup.name)
-        cfg.setMethod('Basic')
-        cfg.setConfig('username', 'test')
-        cfg.setConfig('password', 'test')
+        cfg.setMethod("Basic")
+        cfg.setConfig("username", "test")
+        cfg.setConfig("password", "test")
         am.storeAuthenticationConfig(cfg)
 
-        QtCore.QSettings().setValue(
-            f"trends_earth/{auth_setup.key}", cfg.id()
-        )
+        QtCore.QSettings().setValue(f"trends_earth/{auth_setup.key}", cfg.id())
 
         return cfg.id()
 
     def test_job_submission(self):
-        ldn_one_step_script_id = '47b99c3d-f5b5-4df3-81e7-324a17a6e147'
+        ldn_one_step_script_id = "47b99c3d-f5b5-4df3-81e7-324a17a6e147"
 
         self.auth_id = self.set_auth_db()
 
         job_manager.api_client = self.api_client
-        job_dict = {
-            'task_notes': 'Test'
-        }
+        job_dict = {"task_notes": "Test"}
 
         response = job_manager.submit_remote_job(job_dict, ldn_one_step_script_id)
 
         self.assertIsNotNone(response)
-        self.assertIsNotNone(response['data'])
+        self.assertIsNotNone(response["data"])
 
     def tearDown(self):
         self.server.terminate()

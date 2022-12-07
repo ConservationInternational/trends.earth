@@ -73,7 +73,7 @@ class Setting(enum.Enum):
     REPORT_DISCLAIMER = "report/disclaimer"
     REPORT_LOG_WARNING = "report/log_warning"
     LC_CLASSES = "land_cover/user_classes"
-    LC_MAX_CLASSES = "land_cover/max_classes_v2"
+    LC_MAX_CLASSES = "land_cover/max_classes_v3"
     LC_LAST_DIR = "land_cover/last_dir"
     LC_IPCC_NESTING = "land_cover/ipcc_nesting"
     LC_ESA_NESTING = "land_cover/esa_nesting"
@@ -122,7 +122,7 @@ class SettingsManager:
         Setting.REPORT_DISCLAIMER: default_report_disclaimer(),
         Setting.REPORT_LOG_WARNING: False,
         Setting.LC_CLASSES: "",
-        Setting.LC_MAX_CLASSES: 38,
+        Setting.LC_MAX_CLASSES: 45,
         Setting.LC_LAST_DIR: "",
         Setting.LC_IPCC_NESTING: "",
         Setting.LC_ESA_NESTING: "",

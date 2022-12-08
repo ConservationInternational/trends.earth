@@ -479,7 +479,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         else:
             task_name = ""
         dlg_plot = DlgPlotTimeries(self.main_dock.iface.mainWindow())
-        dlg_plot.setWindowTitle(f"{base_title} - {task_name}")
+        self.set_widget_title(dlg_plot, base_title)
         labels = {
             "title": task_name,
             "bottom": self.tr("Time"),
@@ -488,11 +488,29 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
         dlg_plot.plot_data(data["time"], data["y"], labels)
         dlg_plot.exec_()
 
+    def set_widget_title(self, widget: QtWidgets.QWidget, base_title: str = None):
+        # Convenient function for setting the title of a widget.
+        if not base_title:
+            base_title = widget.windowTitle()
+
+        if self.job.task_name:
+            task_name = self.job.task_name
+        else:
+            task_name = ""
+
+        if not task_name:
+            win_title = base_title
+        else:
+            win_title = f"{base_title} - {task_name}"
+
+        widget.setWindowTitle(win_title)
+
     def edit_layer(self):
         if not self.has_connected_data():
             self.main_dock.pause_scheduler()
-            dlg = DlgSelectDataset(self)
-            if dlg.exec_():
+            dlg = DlgSelectDataset(self, validate_all=True)
+            self.set_widget_title(dlg)
+            if dlg.exec_() == QtWidgets.QDialog.Accepted:
                 prod = dlg.prod_band()
                 lc = dlg.lc_band()
                 soil = dlg.soil_band()

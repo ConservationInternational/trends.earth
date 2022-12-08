@@ -54,9 +54,9 @@ class CalculateLDNOneStep(unittest.TestCase):
 
         cfg = QgsAuthMethodConfig()
         cfg.setName(auth_setup.name)
-        cfg.setMethod('Basic')
-        cfg.setConfig('username', 'test')
-        cfg.setConfig('password', 'test')
+        cfg.setMethod("Basic")
+        cfg.setConfig("username", "test")
+        cfg.setConfig("password", "test")
         auth_manager.storeAuthenticationConfig(cfg)
 
         QtCore.QSettings().setValue(f"trends_earth/{auth_setup.key}", cfg.id())
@@ -64,17 +64,14 @@ class CalculateLDNOneStep(unittest.TestCase):
         return cfg.id()
 
     def test_job_submission(self):
-        ldn_one_step_script_name = 'sdg-15-3-1-sub-indicators'
+        ldn_one_step_script_name = "sdg-15-3-1-sub-indicators"
 
         self.auth_id = self.set_auth_db()
 
         job_manager.api_client = self.api_client
         job_dict = {"task_notes": "Test"}
 
-        response = job_manager.submit_remote_job(
-            job_dict,
-            ldn_one_step_script_name
-        )
+        response = job_manager.submit_remote_job(job_dict, ldn_one_step_script_name)
 
         self.assertIsNotNone(response)
         self.assertIsNotNone(response["data"])

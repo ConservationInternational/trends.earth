@@ -129,7 +129,7 @@ def _replace(file_path, regex, subst):
         "gee": "Also set versions for gee scripts",
     }
 )
-def set_version(c, v=None, ta=False, ts=False, tag=False, gee=False):
+def set_version(c, v=None, testing=False, ta=False, ts=False, tag=False, gee=False):
     # Validate the version matches the regex
 
     if not v:
@@ -252,16 +252,17 @@ def set_version(c, v=None, ta=False, ts=False, tag=False, gee=False):
                 r"\g<1>" + v,
             )
 
-        print("Setting version to {} in package requirements.txt".format(v))
+        requirements_file = "requirements.txt" if not testing else "requirements-testing.txt"
+        print("Setting version to {} in package {}".format(v, requirements_file))
 
         if ("rc" in v.split(".")[-1]) or (int(v.split(".")[-1]) % 2 == 0):
             # Last number in version string is even (or an RC), so use a tagged version
             # of schemas matching this version
-            _replace("requirements.txt", requirements_txt_regex, r"\g<1>v" + v)
+            _replace(requirements_file, requirements_txt_regex, r"\g<1>v" + v)
         else:
             # Last number in version string is odd, so this is a development
             # version, so use development version of schemas
-            _replace("requirements.txt", requirements_txt_regex, r"\g<1>develop")
+            _replace(requirements_file, requirements_txt_regex, r"\g<1>develop")
 
     if tag:
         set_tag(c)

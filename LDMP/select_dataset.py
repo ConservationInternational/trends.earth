@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 
+from qgis.utils import iface
 from qgis.PyQt import QtCore
 from qgis.PyQt import QtGui
 from qgis.PyQt import QtWidgets
@@ -66,5 +67,5 @@ class DlgSelectDataset(QtWidgets.QDialog, Ui_DlgSelectDS):
         self.changed_region.emit()
 
     def run_settings(self):
-        self.iface.showOptionsDialog(currentPage=OPTIONS_TITLE)
+        iface.showOptionsDialog(iface.mainWindow(), currentPage=OPTIONS_TITLE)
         self.update_current_region()

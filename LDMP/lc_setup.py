@@ -1209,8 +1209,10 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
         header_height = table_header.height()
 
         table_row_cnt = self.deg_def_matrix.rowCount()
-        table_row_height = self.deg_def_matrix.rowHeight(0)  # There will always be atleast one class
-        # Table height with 5 added as an additional precaution to avoid the addition of a scroll bar
+        # There will always be atleast one class
+        table_row_height = self.deg_def_matrix.rowHeight(0)
+        # Table height with 5 added as an additional precaution to
+        # avoid the addition of a scroll bar
         table_height = (table_row_height * table_row_cnt) + header_height + 5
         self.deg_def_matrix.setFixedHeight(table_height)
 
@@ -1259,7 +1261,10 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
                 self.deg_def_matrix.verticalHeader().setSectionResizeMode(
                     col, QtWidgets.QHeaderView.Fixed
                 )
-                self.deg_def_matrix.verticalHeader().resizeSection(col, conf.MINIMUM_ROW_HEIGHT)
+                self.deg_def_matrix.verticalHeader().resizeSection(
+                    col,
+                    conf.MINIMUM_ROW_HEIGHT
+                )
             else:
                 # Automatic resizing works perfect when there are a large number of rows
                 self.deg_def_matrix.verticalHeader().setSectionResizeMode(

@@ -252,7 +252,9 @@ def set_version(c, v=None, testing=False, ta=False, ts=False, tag=False, gee=Fal
                 r"\g<1>" + v,
             )
 
-        requirements_file = "requirements.txt" if not testing else "requirements-testing.txt"
+        requirements_file = (
+            "requirements.txt" if not testing else "requirements-testing.txt"
+        )
         print("Setting version to {} in package {}".format(v, requirements_file))
 
         if ("rc" in v.split(".")[-1]) or (int(v.split(".")[-1]) % 2 == 0):

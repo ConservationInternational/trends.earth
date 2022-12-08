@@ -34,6 +34,7 @@ RESIZE_NUM_ROWS = 5
 # This is the minimum row height value. 40 is the cell font minimum
 MINIMUM_ROW_HEIGHT = 40
 
+
 class AreaSetting(enum.Enum):
     COUNTRY_REGION = "country_region"
     COUNTRY_CITY = "country_city"

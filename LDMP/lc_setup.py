@@ -1262,8 +1262,7 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
                     col, QtWidgets.QHeaderView.Fixed
                 )
                 self.deg_def_matrix.verticalHeader().resizeSection(
-                    col,
-                    conf.MINIMUM_ROW_HEIGHT
+                    col, conf.MINIMUM_ROW_HEIGHT
                 )
             else:
                 # Automatic resizing works perfect when there are a large number of rows

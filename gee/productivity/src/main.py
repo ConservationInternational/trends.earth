@@ -105,21 +105,17 @@ def run(params, logger):
                 )
             )
 
-        # First need to deserialize the data that was prepared for output from
-        # the productivity functions, so that new urls can be appended
+        # Deserialize the data that was prepared for output from
+        # the productivity functions, so that new urls can be appended if need be
         schema = results.RasterResults.Schema()
         logger.debug("Deserializing")
         final_output = schema.load(outs[0])
+        if len(outs) > 1:
+            for n, out in enumerate(outs[1:], start=2):
+                logger.debug(f"Combining main output with output {n}")
+                final_output.combine(schema.load(out))
 
-        for o in outs[1:]:
-            this_out = schema.load(o)
-
-            for datatype, raster in this_out.data.items():
-                final_output.data[datatype].uri.extend(raster.uri)
-
-        # Now serialize the output again and return it
         logger.debug("Serializing")
-
         return schema.dump(final_output)
 
     elif prod_mode in (

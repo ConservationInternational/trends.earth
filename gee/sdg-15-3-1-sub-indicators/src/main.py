@@ -146,13 +146,13 @@ def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
                 executor.submit(_run_soc, params.get("soil_organic_carbon"), logger)
             )
 
-            out = None
+        out = None
 
-            for this_res in as_completed(res):
-                if out is None:
-                    out = this_res.result()
-                else:
-                    out.merge(this_res.result())
+        for this_res in as_completed(res):
+            if out is None:
+                out = this_res.result()
+            else:
+                out.merge(this_res.result())
 
         logger.debug("Setting up layers to add to the map.")
         out.setAddToMap(
@@ -187,23 +187,17 @@ def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
             )
         )
 
+    # Deserialize the data that was prepared for output from
+    # the productivity functions, so that new urls can be appended if need be
     schema = results.RasterResults.Schema()
-    logger.debug("Deserializing - setting up main output")
+    logger.debug("Deserializing")
     final_output = schema.load(outs[0])
-
-    logger.debug("Deserializing - Adding additional outs")
-
-    for o in outs[1:]:
-        # Ensure uris are included for each geojson if there is more than 1
-        this_out = schema.load(o)
-
-        for datatype, raster in this_out.data.items():
-            final_output.data[datatype].uri.extend(raster.uri)
+    if len(outs) > 1:
+        for n, out in enumerate(outs[1:], start=2):
+            logger.debug(f"Combining main output with output {n}")
+            final_output.combine(schema.load(out))
 
     logger.debug("Serializing")
-    # Now serialize the output again so the remaining layers can be
-    # added to it
-
     return schema.dump(final_output)
 
 

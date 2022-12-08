@@ -78,6 +78,8 @@ class DlgSelectDataset(QtWidgets.QDialog, Ui_DlgSelectDS):
         # Validate user selection
         status = True
 
+        self.msg_bar.clearWidgets()
+
         dataset_layer_refs = {
             'combo_dataset': self.tr('Dataset'),
             'combo_sdg': self.tr('SDG 15.3.1 Indicator'),

@@ -1,8 +1,10 @@
 import enum
 import math
 
+from qgis.core import Qgis
 from qgis.core import QgsFeature
 from qgis.core import QgsGeometry
+from qgis.core import QgsProject
 from qgis.core import QgsUnitTypes
 from qgis.core import QgsVectorLayerUtils
 from qgis.gui import QgsDoubleSpinBox
@@ -137,8 +139,24 @@ class PolygonMapTool(QgsMapToolDigitizeFeature):
         self.canvas = canvas
         self.widget = None
         self.active = False
+        self._intersection_mode = None
 
         self.digitizingCompleted.connect(self.digitized)
+
+    def _set_intersection_mode(self, avoid_overlaps: bool):
+        # Activate/de-activate intersection mode
+        project = QgsProject.instance()
+        if self._intersection_mode is None:
+            self._intersection_mode = project.avoidIntersectionsMode()
+
+        if avoid_overlaps:
+            project.setAvoidIntersectionsMode(
+                Qgis.AvoidIntersectionsMode.AvoidIntersectionsCurrentLayer
+            )
+        else:
+            # Restore original mode
+            if self._intersection_mode is not None:
+                project.setAvoidIntersectionsMode(self._intersection_mode)
 
     def create_widget(self):
         if self.canvas is None:
@@ -156,6 +174,7 @@ class PolygonMapTool(QgsMapToolDigitizeFeature):
 
     def deactivate(self):
         self.delete_widget()
+        self._set_intersection_mode(False)
         super().deactivate()
 
     def cadCanvasReleaseEvent(self, e: QgsMapMouseEvent):
@@ -172,6 +191,7 @@ class PolygonMapTool(QgsMapToolDigitizeFeature):
         if not self.active:
             self.create_widget()
             self.active = True
+            self._set_intersection_mode(True)
 
         super().cadCanvasReleaseEvent(e)
 

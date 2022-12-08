@@ -1204,14 +1204,14 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
             "QLineEdit {background: #FFFFE0;} QLineEdit:hover {border: 1px solid gray; background: #FFFFE0;}"
         )
 
+        # Sets the LC table size based on the row height
         table_header = self.deg_def_matrix.horizontalHeader()
         header_height = table_header.height()
 
         table_row_cnt = self.deg_def_matrix.rowCount()
-        table_row_height = self.deg_def_matrix.rowHeight(0)
-        # Table height with 10 added as an additional precaution to avoid the addition of a scroll bar
-        table_height = (table_row_height * table_row_cnt) + header_height + 10
-
+        table_row_height = self.deg_def_matrix.rowHeight(0)  # There will always be atleast one class
+        # Table height with 5 added as an additional precaution to avoid the addition of a scroll bar
+        table_height = (table_row_height * table_row_cnt) + header_height + 5
         self.deg_def_matrix.setFixedHeight(table_height)
 
     def setup_deg_def_matrix(self, legend):
@@ -1252,10 +1252,19 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
                 row, QtWidgets.QHeaderView.Stretch
             )
 
-        for col in range(0, self.deg_def_matrix.columnCount()):
-            self.deg_def_matrix.verticalHeader().setSectionResizeMode(
-                col, QtWidgets.QHeaderView.Stretch
-            )
+        num_of_col = self.deg_def_matrix.columnCount()
+        for col in range(0, num_of_col):
+            if num_of_col <= conf.RESIZE_NUM_ROWS:
+                # When there are only a few rows, it's better to use the minimum size
+                self.deg_def_matrix.verticalHeader().setSectionResizeMode(
+                    col, QtWidgets.QHeaderView.Fixed
+                )
+                self.deg_def_matrix.verticalHeader().resizeSection(col, conf.MINIMUM_ROW_HEIGHT)
+            else:
+                # Automatic resizing works perfect when there are a large number of rows
+                self.deg_def_matrix.verticalHeader().setSectionResizeMode(
+                    col, QtWidgets.QHeaderView.Stretch
+                )
 
     def trans_matrix_loadfile(self):
         f, _ = QtWidgets.QFileDialog.getOpenFileName(

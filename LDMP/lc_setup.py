@@ -1401,6 +1401,9 @@ class LandCoverSetupLocalExecutionWidget(
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setupUi(self)
+        self.populate_combos()
+
+    def populate_combos(self):
         self.initial_year_layer_cb.populate()
         self.target_year_layer_cb.populate()
 

@@ -66,6 +66,7 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
 
         if self.script.run_mode == AlgorithmRunMode.LOCAL:
             self.lc_setup_widget = lc_setup.LandCoverSetupLocalExecutionWidget(self)
+            self.changed_region.connect(self.lc_setup_widget.populate_combos)
         elif self.script.run_mode == AlgorithmRunMode.REMOTE:
             self.lc_setup_widget = lc_setup.LandCoverSetupRemoteExecutionWidget(
                 parent=self

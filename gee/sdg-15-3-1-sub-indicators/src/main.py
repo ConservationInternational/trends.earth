@@ -68,35 +68,28 @@ def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
     """Run indicators using Trends.Earth productivity"""
     proj = ee.ImageCollection(params["population"]["asset"]).toBands().projection()
 
-    # Need to loop over the geojsons, since performance takes in a
-    # geojson.
-    outs = []
-
     prod_params = params.get("productivity")
     prod_asset = prod_params.get("asset_productivity")
 
-    for geojson_num, geojson in enumerate(params.get("geojsons")):
-        with ThreadPoolExecutor(max_workers=max_workers) as executor:
-            res = []
-
-            res.append(
-                executor.submit(
-                    productivity_trajectory,
-                    prod_params.get("traj_year_initial"),
-                    prod_params.get("traj_year_final"),
-                    prod_params.get("traj_method"),
-                    prod_asset,
-                    prod_params.get("asset_climate"),
-                    logger,
-                )
+    # Need to loop over the geojsons, since performance takes in a
+    # geojson.
+    res = []
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        for n, geojson in enumerate(params.get("geojsons"), start=1):
+            out = productivity_trajectory(
+                prod_params.get("traj_year_initial"),
+                prod_params.get("traj_year_final"),
+                prod_params.get("traj_method"),
+                prod_asset,
+                prod_params.get("asset_climate"),
+                logger,
             )
 
             # TODO: pass performance a second geojson defining the entire
             # extent of all input geojsons so that the performance is
             # calculated the same over all input areas.
-            res.append(
-                executor.submit(
-                    productivity_performance,
+            out.merge(
+                productivity_performance(
                     prod_params.get("perf_year_initial"),
                     prod_params.get("perf_year_final"),
                     prod_asset,
@@ -105,9 +98,8 @@ def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
                 )
             )
 
-            res.append(
-                executor.submit(
-                    productivity_state,
+            out.merge(
+                productivity_state(
                     prod_params.get("state_year_bl_start"),
                     prod_params.get("state_year_bl_end"),
                     prod_params.get("state_year_tg_start"),
@@ -136,66 +128,59 @@ def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
             if prod_year_final not in lc_years:
                 additional_years.append(prod_year_final)
 
+            out.merge(_run_lc(params.get("land_cover"), additional_years, logger))
+
+            out.merge(_run_soc(params.get("soil_organic_carbon"), logger))
+
+            logger.debug("Setting up layers to add to the map.")
+            out.setAddToMap(
+                [
+                    "Soil organic carbon (degradation)",
+                    "Land cover (degradation)",
+                    "Productivity trajectory (significance)",
+                    "Productivity state (degradation)",
+                    "Productivity performance (degradation)",
+                ]
+            )
+
+            logger.debug("Converting output to TEImageV2 format")
+
+            # Need to use te_image_v2 to support adding another dataset
+            # (population) as float32
+            out = teimage_v1_to_teimage_v2(out)
+
+            logger.debug("Adding population data")
+            # Population needs to be saved as floats
+            out.add_image(**_get_population(params.get("population"), logger))
+
+            logger.debug("Exporting results")
+
             res.append(
                 executor.submit(
-                    _run_lc, params.get("land_cover"), additional_years, logger
+                    out.export,
+                    geojsons=[geojson],
+                    task_name="sdg_sub_indicators",
+                    crs=params.get("crs"),
+                    logger=logger,
+                    execution_id=str(EXECUTION_ID) + str(n),
+                    filetype=results.RasterFileType(
+                        params.get("filetype", results.RasterFileType.COG.value)
+                    ),
+                    proj=proj,
                 )
             )
 
-            res.append(
-                executor.submit(_run_soc, params.get("soil_organic_carbon"), logger)
-            )
-
-        out = None
-
-        for this_res in as_completed(res):
-            if out is None:
-                out = this_res.result()
-            else:
-                out.merge(this_res.result())
-
-        logger.debug("Setting up layers to add to the map.")
-        out.setAddToMap(
-            [
-                "Soil organic carbon (degradation)",
-                "Land cover (degradation)",
-                "Productivity trajectory (significance)",
-                "Productivity state (degradation)",
-                "Productivity performance (degradation)",
-            ]
-        )
-
-        logger.debug("Converting output to TEImageV2 format")
-        out = teimage_v1_to_teimage_v2(out)
-
-        logger.debug("Adding population data")
-        # Population needs to be saved as floats
-        out.add_image(**_get_population(params.get("population"), logger))
-
-        logger.debug("Exporting results")
-        outs.append(
-            out.export(
-                geojsons=[geojson],
-                task_name="sdg_sub_indicators",
-                crs=params.get("crs"),
-                logger=logger,
-                execution_id=str(EXECUTION_ID) + str(geojson_num),
-                filetype=results.RasterFileType(
-                    params.get("filetype", results.RasterFileType.COG.value)
-                ),
-                proj=proj,
-            )
-        )
-
-    # Deserialize the data that was prepared for output from
-    # the productivity functions, so that new urls can be appended if need be
+    final_output = None
     schema = results.RasterResults.Schema()
-    logger.debug("Deserializing")
-    final_output = schema.load(outs[0])
-    if len(outs) > 1:
-        for n, out in enumerate(outs[1:], start=2):
+    for n, this_res in enumerate(as_completed(res), start=1):
+        if final_output is None:
+            # Deserialize the data that was prepared for output from the
+            # productivity functions, so that new urls can be appended if need
+            # be from the next result (next geojson)
+            final_output = schema.load(this_res.result())
+        else:
             logger.debug(f"Combining main output with output {n}")
-            final_output.combine(schema.load(out))
+            final_output.combine(schema.load(this_res.result()))
 
     logger.debug("Serializing")
     return schema.dump(final_output)

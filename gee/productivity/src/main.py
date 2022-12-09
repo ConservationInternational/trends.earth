@@ -4,6 +4,8 @@ Code for calculating vegetation productivity.
 # Copyright 2017 Conservation International
 import json
 import random
+from concurrent.futures import as_completed
+from concurrent.futures import ThreadPoolExecutor
 
 import ee
 from te_algorithms.gdal.land_deg import config
@@ -49,72 +51,78 @@ def run(params, logger):
         ndvi_gee_dataset = params.get("ndvi_gee_dataset")
         climate_gee_dataset = params.get("climate_gee_dataset")
 
-        outs = []
+        res = []
+        with ThreadPoolExecutor(max_workers=4) as executor:
+            for n, geojson in enumerate(geojsons, start=1):
+                this_out = None
 
-        for geojson in geojsons:
-            this_out = None
+                if calc_traj:
+                    traj = productivity_trajectory(
+                        int(prod_traj_year_initial),
+                        int(prod_traj_year_final),
+                        prod_traj_method,
+                        ndvi_gee_dataset,
+                        climate_gee_dataset,
+                        logger,
+                    )
 
-            if calc_traj:
-                traj = productivity_trajectory(
-                    int(prod_traj_year_initial),
-                    int(prod_traj_year_final),
-                    prod_traj_method,
-                    ndvi_gee_dataset,
-                    climate_gee_dataset,
-                    logger,
+                    if not this_out:
+                        this_out = traj
+
+                if calc_perf:
+                    perf = productivity_performance(
+                        prod_perf_year_initial,
+                        prod_perf_year_final,
+                        ndvi_gee_dataset,
+                        geojson,
+                        logger,
+                    )
+
+                    if not this_out:
+                        this_out = perf
+                    else:
+                        this_out.merge(perf)
+
+                if calc_state:
+                    state = productivity_state(
+                        prod_state_year_bl_start,
+                        prod_state_year_bl_end,
+                        prod_state_year_tg_start,
+                        prod_state_year_tg_end,
+                        ndvi_gee_dataset,
+                        logger,
+                    )
+
+                    if not this_out:
+                        this_out = state
+                    else:
+                        this_out.merge(state)
+
+                logger.debug("Converting output to TEImageV2 format")
+                this_out = teimage_v1_to_teimage_v2(this_out)
+                proj = ee.Image(ndvi_gee_dataset).projection()
+                res.append(
+                    executor.submit(
+                        this_out.export,
+                        geojsons=[geojson],
+                        task_name="productivity",
+                        crs=crs,
+                        logger=logger,
+                        execution_id=str(EXECUTION_ID) + str(n),
+                        proj=proj,
+                    )
                 )
-
-                if not this_out:
-                    this_out = traj
-
-            if calc_perf:
-                perf = productivity_performance(
-                    prod_perf_year_initial,
-                    prod_perf_year_final,
-                    ndvi_gee_dataset,
-                    geojson,
-                    logger,
-                )
-
-                if not this_out:
-                    this_out = perf
-                else:
-                    this_out.merge(perf)
-
-            if calc_state:
-                state = productivity_state(
-                    prod_state_year_bl_start,
-                    prod_state_year_bl_end,
-                    prod_state_year_tg_start,
-                    prod_state_year_tg_end,
-                    ndvi_gee_dataset,
-                    logger,
-                )
-
-                if not this_out:
-                    this_out = state
-                else:
-                    this_out.merge(state)
-
-            logger.debug("Converting output to TEImageV2 format")
-            this_out = teimage_v1_to_teimage_v2(this_out)
-            proj = ee.Image(ndvi_gee_dataset).projection()
-            outs.append(
-                this_out.export(
-                    [geojson], "productivity", crs, logger, EXECUTION_ID, proj
-                )
-            )
-
-        # Deserialize the data that was prepared for output from
-        # the productivity functions, so that new urls can be appended if need be
+        final_output = None
         schema = results.RasterResults.Schema()
-        logger.debug("Deserializing")
-        final_output = schema.load(outs[0])
-        if len(outs) > 1:
-            for n, out in enumerate(outs[1:], start=2):
+        for n, this_res in enumerate(as_completed(res), start=1):
+            if final_output is None:
+                # Deserialize the data that was prepared for output from the
+                # productivity functions, so that new urls can be appended if need
+                # be from the next result (next geojson)
+                final_output = schema.load(this_res.result())
+            else:
                 logger.debug(f"Combining main output with output {n}")
-                final_output.combine(schema.load(out))
-
+                final_output.combine(schema.load(this_res.result()))
         logger.debug("Serializing")
         return schema.dump(final_output)
 

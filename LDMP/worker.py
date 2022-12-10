@@ -100,7 +100,7 @@ def start_worker(worker, iface, message, with_progress=True):
     worker.finished.connect(
         lambda result: worker_finished(result, thread, worker, iface, message_bar_item)
     )
-    worker.error.connect(lambda e: worker_error(e))
+    worker.error.connect(lambda e: worker_error(e, message))
     worker.was_killed.connect(
         lambda result: worker_killed(result, thread, worker, iface, message_bar_item)
     )
@@ -132,8 +132,8 @@ def worker_finished(result, thread, worker, iface, message_bar_item):
     thread.deleteLater()
 
 
-def worker_error(e):
-    log("Exception in worker thread: {}".format(e))
+def worker_error(e, message):
+    log(f"Exception in worker thread ({message}): {e}")
 
 
 def set_worker_message(message, message_bar_item):

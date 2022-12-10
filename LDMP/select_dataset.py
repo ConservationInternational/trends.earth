@@ -65,6 +65,10 @@ class DlgSelectDataset(QtWidgets.QDialog, Ui_DlgSelectDS):
     def soil_band(self):
         return self.combo_soil.get_current_band()
 
+    @property
+    def task_name(self) -> str:
+        return self.txt_task_name.text()
+
     def update_current_region(self):
         region = settings_manager.get_value(Setting.AREA_NAME)
         self.region_la.setText(self.tr(f"Current region: {region}"))
@@ -74,11 +78,26 @@ class DlgSelectDataset(QtWidgets.QDialog, Ui_DlgSelectDS):
         iface.showOptionsDialog(iface.mainWindow(), currentPage=OPTIONS_TITLE)
         self.update_current_region()
 
+    def _notify_warning(self, title, msg):
+        self.msg_bar.pushMessage(
+            title,
+            msg,
+            Qgis.MessageLevel.Warning,
+            4
+        )
+
     def validate_selection(self) -> bool:
         # Validate user selection
         status = True
 
         self.msg_bar.clearWidgets()
+
+        if not self.txt_task_name.text():
+            self._notify_warning(
+                self.tr('Task Name'),
+                self.tr('Task name is empty')
+            )
+            status = False
 
         dataset_layer_refs = {
             'combo_dataset': self.tr('Dataset'),
@@ -98,12 +117,7 @@ class DlgSelectDataset(QtWidgets.QDialog, Ui_DlgSelectDS):
                 no_ds_layer_msg = combo_widget.NO_LAYERS_MESSAGE
 
             if combo_widget.currentText() == no_ds_layer_msg:
-                self.msg_bar.pushMessage(
-                    lbl,
-                    warning_msg,
-                    Qgis.MessageLevel.Warning,
-                    4
-                )
+                self._notify_warning(lbl, warning_msg)
                 if status:
                     status = False
 

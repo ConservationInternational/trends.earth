@@ -799,7 +799,7 @@ def delete_layer_by_filename(f: str) -> bool:
     return result
 
 
-def add_vector_layer(layer_path: str, name: str):
+def add_vector_layer(layer_path: str, name: str) -> 'QgsVectorLayer':
     sublayers = (
         QgsProviderRegistry.instance()
         .providerMetadata("ogr")
@@ -830,6 +830,8 @@ def add_vector_layer(layer_path: str, name: str):
                 found = True
         if not found:
             layer = iface.addVectorLayer(layer_path, name, "ogr")
+
+    return layer
 
 
 def set_default_stats_value(v_path, band_datas):

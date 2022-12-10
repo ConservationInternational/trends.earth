@@ -627,7 +627,9 @@ class JobManager(QtCore.QObject):
 
     def display_error_recode_layer(self, job: Job):
         layer_path = job.results.vector.uri.uri
-        layers.add_vector_layer(str(layer_path), job.results.name)
+        layer = layers.add_vector_layer(str(layer_path), job.results.name)
+        if layer is not None:
+            layer.setCustomProperty('job_id', str(job.id))
 
     def edit_error_recode_layer(self, job: Job):
         layer_path = job.results.vector.uri.uri
@@ -701,7 +703,9 @@ class JobManager(QtCore.QObject):
 
         return job
 
-    def create_error_recode(self):
+    def create_error_recode(self, task_name, lc, soil, prod, sdg):
+        log("create_error_recode called")
+
         now = dt.datetime.now(dt.timezone.utc)
         job_id = uuid.uuid4()
         job = Job(
@@ -720,15 +724,94 @@ class JobManager(QtCore.QObject):
                 ),
                 uri=None,
             ),
-            task_name=tr_manager.tr("False positive/negative"),
+            task_name=task_name,
             task_notes="",
             end_date=now,
         )
+
+        if prod:
+            job.params["prod"] = {
+                "path": str(prod.path),
+                "band": prod.band_index,
+                "band_name": prod.band_info.name,
+                "uuid": str(prod.job.id),
+            }
+
+        if lc:
+            job.params["lc"] = {
+                "path": str(lc.path),
+                "band": lc.band_index,
+                "band_name": lc.band_info.name,
+                "uuid": str(lc.job.id),
+            }
+
+        if soil:
+            job.params["soil"] = {
+                "path": str(soil.path),
+                "band": soil.band_index,
+                "band_name": soil.band_info.name,
+                "uuid": str(soil.job.id),
+            }
 
         self._init_error_recode_layer(job)
         self.write_job_metadata_file(job)
         self.known_jobs[job.status][job.id] = job
         self.imported_job.emit(job)
+        self.display_error_recode_layer(job)
+
+        band_datas = [
+            {
+                "path": str(prod.path.as_posix()),
+                "name": prod.band_info.name,
+                "out_name": "land_productivity",
+                "index": prod.band_index,
+            },
+            {
+                "path": str(lc.path.as_posix()),
+                "name": lc.band_info.name,
+                "out_name": "land_cover",
+                "index": lc.band_index,
+            },
+            {
+                "path": str(soil.path.as_posix()),
+                "name": soil.band_info.name,
+                "out_name": "soil_organic_carbon",
+                "index": soil.band_index,
+            },
+            {
+                "path": str(sdg.path.as_posix()),
+                "name": sdg.band_info.name,
+                "out_name": "sdg",
+                "index": sdg.band_index,
+            },
+        ]
+
+        log("setting default stats value")
+
+        layers.set_default_stats_value(
+            str(job.results.vector.uri.uri), band_datas
+        )
+        self.edit_error_recode_layer(job)
+
+    def get_vector_result_jobs(self) -> List[Job]:
+        """
+        Returns a list of jobs whose results are of type 'VectorResults'.
+        """
+        return [
+            j for j in self.known_jobs[jobs.JobStatus.DOWNLOADED].values()
+            if j.is_vector()
+        ]
+
+    def get_vector_result_job_by_id(self, job_id: str) -> Job:
+        """
+        Returns a vector results job by the job ID or nNone if not found.
+        """
+        vr_jobs = self.get_vector_result_jobs()
+        m_jobs = [vrj for vrj in vr_jobs if str(vrj.id) == job_id]
+        if len(m_jobs) > 0:
+            return m_jobs[0]
+
+        return None
 
     def _init_error_recode_layer(self, job: Job):
         output_path = self.get_job_file_path(job).with_suffix(".gpkg")

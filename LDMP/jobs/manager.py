@@ -629,7 +629,7 @@ class JobManager(QtCore.QObject):
         layer_path = job.results.vector.uri.uri
         layer = layers.add_vector_layer(str(layer_path), job.results.name)
         if layer is not None:
-            layer.setCustomProperty('job_id', str(job.id))
+            layer.setCustomProperty("job_id", str(job.id))
 
     def edit_error_recode_layer(self, job: Job):
         layer_path = job.results.vector.uri.uri
@@ -788,9 +788,7 @@ class JobManager(QtCore.QObject):
 
         log("setting default stats value")
 
-        layers.set_default_stats_value(
-            str(job.results.vector.uri.uri), band_datas
-        )
+        layers.set_default_stats_value(str(job.results.vector.uri.uri), band_datas)
         self.edit_error_recode_layer(job)
 
     def get_vector_result_jobs(self) -> List[Job]:
@@ -798,7 +796,8 @@ class JobManager(QtCore.QObject):
         Returns a list of jobs whose results are of type 'VectorResults'.
         """
         return [
-            j for j in self.known_jobs[jobs.JobStatus.DOWNLOADED].values()
+            j
+            for j in self.known_jobs[jobs.JobStatus.DOWNLOADED].values()
             if j.is_vector()
         ]
 

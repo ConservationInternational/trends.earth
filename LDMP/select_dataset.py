@@ -79,12 +79,7 @@ class DlgSelectDataset(QtWidgets.QDialog, Ui_DlgSelectDS):
         self.update_current_region()
 
     def _notify_warning(self, title, msg):
-        self.msg_bar.pushMessage(
-            title,
-            msg,
-            Qgis.MessageLevel.Warning,
-            4
-        )
+        self.msg_bar.pushMessage(title, msg, Qgis.MessageLevel.Warning, 4)
 
     def validate_selection(self) -> bool:
         # Validate user selection
@@ -93,20 +88,17 @@ class DlgSelectDataset(QtWidgets.QDialog, Ui_DlgSelectDS):
         self.msg_bar.clearWidgets()
 
         if not self.txt_task_name.text():
-            self._notify_warning(
-                self.tr('Task Name'),
-                self.tr('Task name is empty')
-            )
+            self._notify_warning(self.tr("Task Name"), self.tr("Task name is empty"))
             status = False
 
         dataset_layer_refs = {
-            'combo_dataset': self.tr('Dataset'),
-            'combo_sdg': self.tr('SDG 15.3.1 Indicator'),
-            'combo_prod': self.tr('Productivity Degradation'),
-            'combo_lc': self.tr('Land Cover Degradation'),
-            'combo_soil': self.tr('Soil Organic Carbon Degradation')
+            "combo_dataset": self.tr("Dataset"),
+            "combo_sdg": self.tr("SDG 15.3.1 Indicator"),
+            "combo_prod": self.tr("Productivity Degradation"),
+            "combo_lc": self.tr("Land Cover Degradation"),
+            "combo_soil": self.tr("Soil Organic Carbon Degradation"),
         }
-        warning_msg = self.tr('No dataset or layer selected.')
+        warning_msg = self.tr("No dataset or layer selected.")
 
         for combo_name, lbl in dataset_layer_refs.items():
             combo_widget = getattr(self, combo_name)

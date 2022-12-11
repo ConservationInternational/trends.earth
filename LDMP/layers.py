@@ -799,7 +799,7 @@ def delete_layer_by_filename(f: str) -> bool:
     return result
 
 
-def add_vector_layer(layer_path: str, name: str) -> 'QgsVectorLayer':
+def add_vector_layer(layer_path: str, name: str) -> "QgsVectorLayer":
     sublayers = (
         QgsProviderRegistry.instance()
         .providerMetadata("ogr")

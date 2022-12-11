@@ -139,6 +139,7 @@ class GeomOpResult(enum.Enum):
     """
     Success result from a geometry operation.
     """
+
     TRUE = 0
     FALSE = 1
     UNKNOWN = -1
@@ -150,6 +151,7 @@ class TEMapToolMixin:
     raises warnings when digitization occurs outside the extents of
     the base raster layer.
     """
+
     def __init__(self, *args, **kwargs):
         self._intersection_mode = None
         self._geom_engine = None
@@ -169,9 +171,7 @@ class TEMapToolMixin:
             if not ext_geom.isGeosValid:
                 return
 
-            self._geom_engine = QgsGeometry.createGeometryEngine(
-                ext_geom.constGet()
-            )
+            self._geom_engine = QgsGeometry.createGeometryEngine(ext_geom.constGet())
             self._geom_engine.prepareGeometry()
 
     def intersects_with_base_extents(self, geom: QgsGeometry) -> GeomOpResult:
@@ -203,7 +203,7 @@ class TEMapToolMixin:
             if self._intersection_mode is not None:
                 project.setAvoidIntersectionsMode(self._intersection_mode)
 
-    def job_from_current_layer(self) -> 'Job':
+    def job_from_current_layer(self) -> "Job":
         """
         Returns the 'Job' object corresponding to the current vector layer
         being digitized.
@@ -212,7 +212,7 @@ class TEMapToolMixin:
         if layer is None:
             return None
 
-        job_id = layer.customProperty('job_id', None)
+        job_id = layer.customProperty("job_id", None)
         if job_id is None:
             return None
 
@@ -225,13 +225,13 @@ class TEMapToolMixin:
         """
         msg_bar = iface.messageBar()
         msg_bar.pushMessage(
-            self.tr('Warning'),
+            self.tr("Warning"),
             self.tr(
-                'Current cursor position is outside the extent of the base '
-                'source dataset.'
+                "Current cursor position is outside the extent of the base "
+                "source dataset."
             ),
             Qgis.MessageLevel.Warning,
-            2
+            2,
         )
 
     def base_layer_extents(self) -> QgsRectangle:
@@ -247,7 +247,7 @@ class TEMapToolMixin:
             return None
 
         related_job = list(job.params.values())[0]
-        path = related_job.get('path', None)
+        path = related_job.get("path", None)
         if path is None:
             return None
 

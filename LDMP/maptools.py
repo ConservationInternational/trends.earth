@@ -4,6 +4,7 @@ import math
 from qgis.core import Qgis
 from qgis.core import QgsFeature
 from qgis.core import QgsGeometry
+from qgis.core import QgsPointXY
 from qgis.core import QgsProject
 from qgis.core import QgsRasterLayer
 from qgis.core import QgsRectangle
@@ -225,7 +226,10 @@ class TEMapToolMixin:
         msg_bar = iface.messageBar()
         msg_bar.pushMessage(
             self.tr('Warning'),
-            self.tr('Cursor is outside the extent of the base raster layer'),
+            self.tr(
+                'Current cursor position is outside the extent of the base '
+                'source dataset.'
+            ),
             Qgis.MessageLevel.Warning,
             2
         )
@@ -252,6 +256,19 @@ class TEMapToolMixin:
             return None
 
         return base_layer.extent()
+
+    def warn_if_extents_outside(self, p: QgsPointXY):
+        """
+        Check if the point is within the extent of base layer and
+        warn accordingly.
+        """
+        iface.messageBar().clearWidgets()
+        p_geom = QgsGeometry.fromPointXY(p)
+        intersects = self.intersects_with_base_extents(p_geom)
+        if intersects == GeomOpResult.UNKNOWN:
+            return
+        elif intersects == GeomOpResult.FALSE:
+            self.notify_outside_extent()
 
 
 class PolygonMapTool(QgsMapToolDigitizeFeature, TEMapToolMixin):
@@ -302,6 +319,8 @@ class PolygonMapTool(QgsMapToolDigitizeFeature, TEMapToolMixin):
             self.active = True
             self._set_intersection_mode(True)
             self._prepare_base_reference_extent()
+            if e.button() == QtCore.Qt.LeftButton:
+                self.warn_if_extents_outside(e.mapPoint())
 
         elif self.active and e.button() == QtCore.Qt.RightButton:
             self.active = False
@@ -313,14 +332,7 @@ class PolygonMapTool(QgsMapToolDigitizeFeature, TEMapToolMixin):
 
         # Check if the cursor is within the extents of the base raster layer
         if self.active:
-            iface.messageBar().clearWidgets()
-            p_geom = QgsGeometry.fromPointXY (e.mapPoint())
-            intersects = self.intersects_with_base_extents(p_geom)
-
-            if intersects == GeomOpResult.UNKNOWN:
-                return
-            elif intersects == GeomOpResult.FALSE:
-                self.notify_outside_extent()
+            self.warn_if_extents_outside(e.mapPoint())
 
         # Disable until crash is resolved
         # if self.active:

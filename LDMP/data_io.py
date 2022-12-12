@@ -459,7 +459,7 @@ def get_unique_values_vector(l, field, max_unique=100):
     if len(values) > max_unique:
         return None
     else:
-        return values
+        return list(values)
 
 
 def _get_min_max_tuple(values, min_min, max_max, nodata):

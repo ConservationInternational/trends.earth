@@ -232,7 +232,6 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
             self.dock_widget.pushButton_download.setEnabled(True)
             self.dock_widget.setWindowTitle(DOCK_TITLE)
 
-
     def closeEvent(self, event):
         self.widgetSettingsAdvanced.closeEvent(event)
         self.area_widget.closeEvent(event)
@@ -1079,7 +1078,7 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
     message_bar: qgis.gui.QgsMessageBar
 
     def __init__(
-            self, group_box, dock_widget, message_bar: qgis.gui.QgsMessageBar, parent=None
+        self, group_box, dock_widget, message_bar: qgis.gui.QgsMessageBar, parent=None
     ):
         super().__init__(parent)
         self.setupUi(self)

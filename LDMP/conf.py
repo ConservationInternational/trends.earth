@@ -34,6 +34,9 @@ RESIZE_NUM_ROWS = 5
 # This is the minimum row height value. 40 is the cell font minimum
 MINIMUM_ROW_HEIGHT = 40
 
+DOCK_TITLE = 'Trends.Earth'
+DOCK_TITLE_OFFLINE = 'Trends.Earth (offline mode)'
+
 
 class AreaSetting(enum.Enum):
     COUNTRY_REGION = "country_region"
@@ -58,6 +61,7 @@ class Setting(enum.Enum):
     POLL_REMOTE = "advanced/poll_remote_server"
     REMOTE_POLLING_FREQUENCY = "advanced/remote_polling_frequency_seconds"
     DOWNLOAD_RESULTS = "advanced/download_remote_results_automatically"
+    OFFLINE_MODE = 'advanced/offline_mode'
     BUFFER_CHECKED = "region_of_interest/buffer_checked"
     AREA_FROM_OPTION = "region_of_interest/chosen_method"
     POINT_X = "region_of_interest/point/x"
@@ -98,6 +102,7 @@ class SettingsManager:
         Setting.REMOTE_POLLING_FREQUENCY: 3 * 60,
         Setting.DEBUG: False,
         Setting.FILTER_JOBS_BY_BASE_DIR: True,
+        Setting.OFFLINE_MODE: False,
         Setting.BINARIES_ENABLED: False,
         Setting.BINARIES_DIR: str(Path.home()),
         Setting.BASE_DIR: str(Path.home() / _base_data_path),

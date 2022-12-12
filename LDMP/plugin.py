@@ -316,6 +316,9 @@ class LDMPPlugin:
                 self.dock_widget.visibilityChanged.connect(
                     self.on_dock_visibility_changed
                 )
+
+                self.options_factory.set_dock_widget(self.dock_widget)
+
             self.dock_widget.show()
         else:
             if self.dock_widget is not None and self.dock_widget.isVisible():

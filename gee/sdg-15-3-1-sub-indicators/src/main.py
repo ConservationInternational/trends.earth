@@ -162,7 +162,7 @@ def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
                     task_name="sdg_sub_indicators",
                     crs=params.get("crs"),
                     logger=logger,
-                    execution_id=str(EXECUTION_ID) + str(n),
+                    execution_id=f"{EXECUTION_ID}_{n}",
                     filetype=results.RasterFileType(
                         params.get("filetype", results.RasterFileType.COG.value)
                     ),
@@ -172,15 +172,13 @@ def run_te_for_period(params, max_workers, EXECUTION_ID, logger):
 
     final_output = None
     schema = results.RasterResults.Schema()
-    for n, this_res in enumerate(as_completed(res), start=1):
-        if final_output is None:
-            # Deserialize the data that was prepared for output from the
-            # productivity functions, so that new urls can be appended if need
-            # be from the next result (next geojson)
-            final_output = schema.load(this_res.result())
-        else:
-            logger.debug(f"Combining main output with output {n}")
-            final_output.combine(schema.load(this_res.result()))
+    # Deserialize the data that was prepared for output from the
+    # productivity functions, so that new urls can be appended if need
+    # be from the next result (next geojson)
+    final_output = schema.load(res[0].result())
+    for n, this_res in enumerate(as_completed(res[1:]), start=1):
+        logger.debug(f"Combining main output with output {n}")
+        final_output.combine(schema.load(this_res.result()))
 
     logger.debug("Serializing")
     return schema.dump(final_output)

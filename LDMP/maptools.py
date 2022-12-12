@@ -1,8 +1,13 @@
 import enum
 import math
 
+from qgis.core import Qgis
 from qgis.core import QgsFeature
 from qgis.core import QgsGeometry
+from qgis.core import QgsPointXY
+from qgis.core import QgsProject
+from qgis.core import QgsRasterLayer
+from qgis.core import QgsRectangle
 from qgis.core import QgsUnitTypes
 from qgis.core import QgsVectorLayerUtils
 from qgis.gui import QgsDoubleSpinBox
@@ -16,6 +21,8 @@ from qgis.PyQt import QtCore
 from qgis.PyQt import QtGui
 from qgis.PyQt import QtWidgets
 from qgis.utils import iface
+
+from .jobs.manager import job_manager
 
 
 class BufferMode(enum.IntEnum):
@@ -128,7 +135,143 @@ class BufferWidget(QtWidgets.QWidget):
             self.radius_changed.emit(math.sqrt(value / math.pi))
 
 
-class PolygonMapTool(QgsMapToolDigitizeFeature):
+class GeomOpResult(enum.Enum):
+    """
+    Success result from a geometry operation.
+    """
+
+    TRUE = 0
+    FALSE = 1
+    UNKNOWN = -1
+
+
+class TEMapToolMixin:
+    """
+    Provides base functionality for preventing polygon overlaps and
+    raises warnings when digitization occurs outside the extents of
+    the base raster layer.
+    """
+
+    def __init__(self, *args, **kwargs):
+        self._intersection_mode = None
+        self._geom_engine = None
+
+    def _prepare_base_reference_extent(self):
+        """
+        Create geometry engine for the extent of the base layer for
+        subsequent operations for checking if digitized polygons
+        intersect with the base layer.
+        """
+        if self._geom_engine is None:
+            ext_rect = self.base_layer_extents()
+            if ext_rect is None:
+                return
+
+            ext_geom = QgsGeometry.fromRect(ext_rect)
+            if not ext_geom.isGeosValid:
+                return
+
+            self._geom_engine = QgsGeometry.createGeometryEngine(ext_geom.constGet())
+            self._geom_engine.prepareGeometry()
+
+    def intersects_with_base_extents(self, geom: QgsGeometry) -> GeomOpResult:
+        """
+        Assert if 'geom' is fully within the base layer extents. If the
+        base layer extent could not be determined due to different reasons
+        then this function will always return 'UNKNOWN'.
+        """
+        if self._geom_engine is None:
+            return GeomOpResult.UNKNOWN
+
+        if self._geom_engine.intersects(geom.constGet()):
+            return GeomOpResult.TRUE
+
+        return GeomOpResult.FALSE
+
+    def _set_intersection_mode(self, avoid_overlaps: bool):
+        # Activate/de-activate intersection mode
+        project = QgsProject.instance()
+        if self._intersection_mode is None:
+            self._intersection_mode = project.avoidIntersectionsMode()
+
+        if avoid_overlaps:
+            project.setAvoidIntersectionsMode(
+                Qgis.AvoidIntersectionsMode.AvoidIntersectionsCurrentLayer
+            )
+        else:
+            # Restore original mode
+            if self._intersection_mode is not None:
+                project.setAvoidIntersectionsMode(self._intersection_mode)
+
+    def job_from_current_layer(self) -> "Job":
+        """
+        Returns the 'Job' object corresponding to the current vector layer
+        being digitized.
+        """
+        layer = self.currentVectorLayer()
+        if layer is None:
+            return None
+
+        job_id = layer.customProperty("job_id", None)
+        if job_id is None:
+            return None
+
+        return job_manager.get_vector_result_job_by_id(job_id)
+
+    def notify_outside_extent(self):
+        """
+        Send a warning message that the digitizing is outside the base
+        layer extent.
+        """
+        msg_bar = iface.messageBar()
+        msg_bar.pushMessage(
+            self.tr("Warning"),
+            self.tr(
+                "Current cursor position is outside the extent of the base "
+                "source dataset."
+            ),
+            Qgis.MessageLevel.Warning,
+            2,
+        )
+
+    def base_layer_extents(self) -> QgsRectangle:
+        """
+        Returns the extents for the base raster layer defined in
+        the job's 'params' attribute.
+        """
+        job = self.job_from_current_layer()
+        if job is None:
+            return None
+
+        if len(job.params) == 0:
+            return None
+
+        related_job = list(job.params.values())[0]
+        path = related_job.get("path", None)
+        if path is None:
+            return None
+
+        base_layer = QgsRasterLayer(path)
+        if not base_layer.isValid():
+            return None
+
+        return base_layer.extent()
+
+    def warn_if_extents_outside(self, p: QgsPointXY):
+        """
+        Check if the point is within the extent of base layer and
+        warn accordingly.
+        """
+        iface.messageBar().clearWidgets()
+        p_geom = QgsGeometry.fromPointXY(p)
+        intersects = self.intersects_with_base_extents(p_geom)
+        if intersects == GeomOpResult.UNKNOWN:
+            return
+        elif intersects == GeomOpResult.FALSE:
+            self.notify_outside_extent()
+
+
+class PolygonMapTool(QgsMapToolDigitizeFeature, TEMapToolMixin):
     def __init__(self, canvas: QgsMapCanvas):
         super().__init__(
             canvas, iface.cadDockWidget(), QgsMapToolCapture.CapturePolygon
@@ -156,6 +299,8 @@ class PolygonMapTool(QgsMapToolDigitizeFeature):
 
     def deactivate(self):
         self.delete_widget()
+        self._set_intersection_mode(False)
+        self._geom_engine = None
         super().deactivate()
 
     def cadCanvasReleaseEvent(self, e: QgsMapMouseEvent):
@@ -172,11 +317,22 @@ class PolygonMapTool(QgsMapToolDigitizeFeature):
         if not self.active:
             self.create_widget()
             self.active = True
+            self._set_intersection_mode(True)
+            self._prepare_base_reference_extent()
+            if e.button() == QtCore.Qt.LeftButton:
+                self.warn_if_extents_outside(e.mapPoint())
+
+        elif self.active and e.button() == QtCore.Qt.RightButton:
+            self.active = False
 
         super().cadCanvasReleaseEvent(e)
 
     def cadCanvasMoveEvent(self, e: QgsMapMouseEvent):
         super().cadCanvasMoveEvent(e)
+
+        # Check if the cursor is within the extents of the base raster layer
+        if self.active:
+            self.warn_if_extents_outside(e.mapPoint())
 
         # Disable until crash is resolved
         # if self.active:
@@ -208,6 +364,7 @@ class PolygonMapTool(QgsMapToolDigitizeFeature):
         f = QgsVectorLayerUtils.createFeature(
             layer, g, attrs, layer.createExpressionContext()
         )
+
         if iface.openFeatureForm(layer, f):
             layer.addFeature(f)
 

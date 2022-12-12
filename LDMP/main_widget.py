@@ -31,6 +31,7 @@ from .jobs.models import TypeFilter
 from .landpks import DlgLandPKSDownload
 from .lc_setup import DlgDataIOImportLC
 from .logger import log
+from .select_dataset import DlgSelectDataset
 from .utils import load_object
 from .visualization import DlgVisualizationBasemap
 
@@ -523,8 +524,20 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.tabWidget.setCurrentIndex(self._SUB_INDICATORS_TAB_PAGE)
 
     def create_error_recode(self):
-        log("create_error_recode called")
-        job_manager.create_error_recode()
+        dlg = DlgSelectDataset(self, validate_all=True)
+        win_title = f'{dlg.windowTitle()} - {self.tr("False positive/negative")}'
+        dlg.setWindowTitle(win_title)
+        if dlg.exec_() == QtWidgets.QDialog.Accepted:
+            self.pause_scheduler()
+
+            prod = dlg.prod_band()
+            lc = dlg.lc_band()
+            soil = dlg.soil_band()
+            sdg = dlg.sdg_band()
+            task_name = dlg.task_name
+            job_manager.create_error_recode(task_name, lc, soil, prod, sdg)
+
+            self.resume_scheduler()
 
     def update_refresh_button_status(self):
         if self.remote_refresh_running:

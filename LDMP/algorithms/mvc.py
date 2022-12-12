@@ -7,6 +7,7 @@ from qgis.PyQt import QtGui
 from qgis.PyQt import QtWidgets
 from qgis.PyQt import uic
 from te_schemas.algorithms import AlgorithmRunMode
+from ..conf import settings_manager, Setting
 
 from . import models
 
@@ -249,6 +250,8 @@ class AlgorithmEditorWidget(QtWidgets.QWidget, WidgetAlgorithmLeafUi):
         self.open_execution_dialogue_tb.setToolButtonStyle(
             QtCore.Qt.ToolButtonTextBesideIcon
         )
+
+        offline_mode = settings_manager.get_value(Setting.OFFLINE_MODE)
         action_icon = QtGui.QIcon(":/images/themes/default/processingAlgorithm.svg")
         if len(algorithm.scripts) >= 2:
             self.open_execution_dialogue_tb.setPopupMode(
@@ -261,10 +264,26 @@ class AlgorithmEditorWidget(QtWidgets.QWidget, WidgetAlgorithmLeafUi):
                 action.triggered.connect(
                     functools.partial(execution_handler, algorithm, action_type)
                 )
-                self.open_execution_dialogue_tb.menu().addAction(action)
                 if action_type == AlgorithmRunMode.REMOTE:
-                    default_action = action
-            self.open_execution_dialogue_tb.setDefaultAction(default_action)
+                    if not offline_mode:
+                        # Enable the remote algorithm
+                        self.open_execution_dialogue_tb.menu().addAction(action)
+                        action.setEnabled(True)
+                        default_action = action
+                    else:
+                        # Disable the remote algorithm
+                        self.open_execution_dialogue_tb.menu().addAction(action)
+                        action.setEnabled(False)
+                else:
+                    # Local algorithms will always be enabled
+                    self.open_execution_dialogue_tb.menu().addAction(action)
+
+                    if offline_mode:
+                        # For offline mode the local execution algorithm will
+                        # be set as the default
+                        default_action = action
+            if default_action is not None:
+                self.open_execution_dialogue_tb.setDefaultAction(default_action)
         elif len(algorithm.scripts) == 1:
             run_mode = algorithm.scripts[0].script.run_mode
             action = QtWidgets.QAction(action_icon, action_labels[run_mode], self)
@@ -273,5 +292,11 @@ class AlgorithmEditorWidget(QtWidgets.QWidget, WidgetAlgorithmLeafUi):
             )
             self.open_execution_dialogue_tb.addAction(action)
             self.open_execution_dialogue_tb.setDefaultAction(action)
+
+            if offline_mode and run_mode == AlgorithmRunMode.REMOTE:
+                # Algorithm will be disabled if offline mode is active
+                action.setEnabled(False)
+            else:
+                action.setEnabled(True)
         else:
             self.open_execution_dialogue_tb.hide()

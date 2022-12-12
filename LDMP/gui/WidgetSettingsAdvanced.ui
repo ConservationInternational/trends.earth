@@ -99,6 +99,13 @@
     </widget>
    </item>
    <item>
+    <widget class="QCheckBox" name="cb_offline_mode">
+     <property name="text">
+      <string>Offline mode (all remote functionality will be disabled)</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="QCheckBox" name="download_remote_datasets_chb">
      <property name="text">
       <string>Download remotely-generated datasets automatically</string>

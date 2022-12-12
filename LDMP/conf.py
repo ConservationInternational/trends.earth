@@ -61,7 +61,7 @@ class Setting(enum.Enum):
     POLL_REMOTE = "advanced/poll_remote_server"
     REMOTE_POLLING_FREQUENCY = "advanced/remote_polling_frequency_seconds"
     DOWNLOAD_RESULTS = "advanced/download_remote_results_automatically"
-    OFFLINE_MODE = 'advanced/offline_mode'
+    OFFLINE_MODE = "advanced/offline_mode"
     BUFFER_CHECKED = "region_of_interest/buffer_checked"
     AREA_FROM_OPTION = "region_of_interest/chosen_method"
     POINT_X = "region_of_interest/point/x"

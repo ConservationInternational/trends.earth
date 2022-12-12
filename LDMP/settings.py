@@ -150,9 +150,7 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
 
         # Add subcomponent widgets
         self.widgetSettingsAdvanced = WidgetSettingsAdvanced(
-            self.groupBox,
-            self.dock_widget,
-            message_bar=self.message_bar
+            self.groupBox, self.dock_widget, message_bar=self.message_bar
         )
         self.verticalLayout_advanced.layout().insertWidget(
             0, self.widgetSettingsAdvanced
@@ -1081,11 +1079,7 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
     message_bar: qgis.gui.QgsMessageBar
 
     def __init__(
-            self,
-            group_box,
-            dock_widget,
-            message_bar: qgis.gui.QgsMessageBar,
-            parent=None
+            self, group_box, dock_widget, message_bar: qgis.gui.QgsMessageBar, parent=None
     ):
         super().__init__(parent)
         self.setupUi(self)
@@ -1148,7 +1142,9 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
             Setting.BINARIES_ENABLED, self.binaries_gb.isChecked()
         )
         settings_manager.write_value(Setting.BINARIES_DIR, self.binaries_dir_le.text())
-        settings_manager.write_value(Setting.OFFLINE_MODE, self.cb_offline_mode.isChecked())
+        settings_manager.write_value(
+            Setting.OFFLINE_MODE, self.cb_offline_mode.isChecked()
+        )
 
         old_base_dir = settings_manager.get_value(Setting.BASE_DIR)
         new_base_dir = self.qgsFileWidget_base_directory.filePath()
@@ -1185,7 +1181,7 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
         )
 
     def set_offline_mode_states(self):
-        """ This funtion is called when offline mode is enabled or disabled.
+        """This funtion is called when offline mode is enabled or disabled.
         If offline mode is enabled, then all settings related to online
         requests (e.g. download remote datasets or polling the server) will
         be disabled as well. The login section will also be disabled.

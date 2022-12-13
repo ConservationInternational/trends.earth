@@ -1145,7 +1145,6 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
         )
         job_manager.import_job(job, Path(out_file))
 
-
 class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
     def __init__(self, parent=None):
         super().__init__(parent)

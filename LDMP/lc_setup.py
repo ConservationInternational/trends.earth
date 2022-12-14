@@ -1204,7 +1204,7 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
             "QLineEdit {background: #FFFFE0;} QLineEdit:hover {border: 1px solid gray; background: #FFFFE0;}"
         )
 
-        # Sets the LC table size based on the row height
+        # Sets the LC table height based on the row height
         table_header = self.deg_def_matrix.horizontalHeader()
         header_height = table_header.height()
 
@@ -1215,6 +1215,18 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
         # avoid the addition of a scroll bar
         table_height = (table_row_height * table_row_cnt) + header_height + 5
         self.deg_def_matrix.setFixedHeight(table_height)
+
+        # Sets the LC table width based on the column width
+        table_vheader = self.deg_def_matrix.verticalHeader()
+        header_width = table_vheader.width()
+
+        table_column_cnt = self.deg_def_matrix.columnCount()
+        # There will always be atleast one class
+        table_column_width = self.deg_def_matrix.columnWidth(0)
+        # Table height with 5 added as an additional precaution to
+        # avoid the addition of a scroll bar
+        table_width = (table_column_width * table_column_cnt) + header_width + 5
+        self.deg_def_matrix.setFixedWidth(table_width)
 
     def setup_deg_def_matrix(self, legend):
         self.deg_def_matrix.setRowCount(len(legend.key))

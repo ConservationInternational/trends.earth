@@ -28,6 +28,12 @@ TR_ALL_REGIONS = tr_conf.tr("All regions")
 OPTIONS_ICON = "trends_earth_logo_square_32x32.ico"
 OPTIONS_TITLE = "Trends.Earth"
 
+# Degradation Landcover matrix size settings
+# If there are equal to less than this value rows than the row height will be decreased
+RESIZE_NUM_ROWS = 5
+# This is the minimum row height value. 40 is the cell font minimum
+MINIMUM_ROW_HEIGHT = 40
+
 
 class AreaSetting(enum.Enum):
     COUNTRY_REGION = "country_region"

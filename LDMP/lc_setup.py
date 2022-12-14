@@ -1251,6 +1251,10 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
                 line_edit = TransMatrixEdit()
                 line_edit.setValidator(QtGui.QRegExpValidator(QtCore.QRegExp("[-0+]")))
                 line_edit.setAlignment(QtCore.Qt.AlignHCenter)
+                line_edit.setToolTip(
+                    f"Initial: {legend.key[row].get_name_long()}, "
+                    f"<br>Final: {legend.key[col].get_name_long()}"
+                )
                 self.deg_def_matrix.setCellWidget(row, col, line_edit)
 
         self.deg_def_matrix.setStyleSheet("QTableWidget {border: 0px;}")

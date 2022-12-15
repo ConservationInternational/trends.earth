@@ -36,9 +36,6 @@ MINIMUM_ROW_HEIGHT = 40
 
 DOCK_TITLE = 'Trends.Earth'
 DOCK_TITLE_OFFLINE = 'Trends.Earth (offline mode)'
-=======
-DOCK_TITLE = "Trends.Earth"
-DOCK_TITLE_OFFLINE = "Trends.Earth (offline mode)"
 
 
 class AreaSetting(enum.Enum):

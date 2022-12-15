@@ -17,7 +17,7 @@
 <context>
     <name>AreaWidget</name>
     <message>
-        <location filename="../maptools.py" line="36"/>
+        <location filename="../maptools.py" line="43"/>
         <source>Area</source>
         <translation>Région</translation>
     </message>
@@ -62,12 +62,12 @@
         <translation>Impossible à lire {}. Choisissez un fichier différent.</translation>
     </message>
     <message>
-        <location filename="../maptools.py" line="48"/>
+        <location filename="../maptools.py" line="55"/>
         <source>{:.6g} km²</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../maptools.py" line="41"/>
+        <location filename="../maptools.py" line="48"/>
         <source>0.00 km²</source>
         <translation type="unfinished"></translation>
     </message>
@@ -75,7 +75,7 @@
 <context>
     <name>BufferMapTool</name>
     <message>
-        <location filename="../maptools.py" line="395"/>
+        <location filename="../maptools.py" line="552"/>
         <source>add feature</source>
         <translation>ajouter une fonction</translation>
     </message>
@@ -83,27 +83,22 @@
 <context>
     <name>BufferWidget</name>
     <message>
-        <location filename="../maptools.py" line="93"/>
+        <location filename="../maptools.py" line="100"/>
         <source> km</source>
         <translation>km</translation>
     </message>
     <message>
-        <location filename="../maptools.py" line="76"/>
+        <location filename="../maptools.py" line="83"/>
         <source>Radius</source>
         <translation>Radius</translation>
     </message>
     <message>
-        <location filename="../maptools.py" line="77"/>
+        <location filename="../maptools.py" line="84"/>
         <source>Area</source>
         <translation>Région</translation>
     </message>
     <message>
         <location filename="../maptools.py" line="98"/>
-        <source> kmÂ²</source>
-        <translation type="obsolete">kmÂ²</translation>
-    </message>
-    <message>
-        <location filename="../maptools.py" line="91"/>
         <source> km²</source>
         <translation type="unfinished"></translation>
     </message>
@@ -260,22 +255,22 @@
         <translation>NDVI x 10000</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="579"/>
+        <location filename="../jobs/mvc.py" line="597"/>
         <source>Dataset metadata</source>
         <translation>Métadonnées de l'ensemble de données</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="586"/>
+        <location filename="../jobs/mvc.py" line="604"/>
         <source>{} metadata</source>
         <translation>{} métadonnées</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="601"/>
+        <location filename="../jobs/mvc.py" line="619"/>
         <source>Add vector layer to map</source>
         <translation>Ajouter une couche vectorielle à la carte</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="605"/>
+        <location filename="../jobs/mvc.py" line="623"/>
         <source>Add raster layers to map</source>
         <translation>Ajouter des couches matricielles à la carte</translation>
     </message>
@@ -476,7 +471,7 @@
         <translation>Sélection des données</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSelectDS.ui" line="20"/>
+        <location filename="../gui/DlgSelectDS.ui" line="34"/>
         <source>sdg-15-3-1-summary</source>
         <translation>sdg-15-3-1-sommaire</translation>
     </message>
@@ -486,64 +481,74 @@
         <translation>Indicateur SDG 15.3.1 </translation>
     </message>
     <message>
-        <location filename="../gui/DlgSelectDS.ui" line="34"/>
+        <location filename="../gui/DlgSelectDS.ui" line="103"/>
         <source>Soil organic carbon degradation</source>
         <translation>Dégradation du carbone organique du sol</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSelectDS.ui" line="41"/>
+        <location filename="../gui/DlgSelectDS.ui" line="82"/>
         <source>Dataset</source>
         <translation>Série de données</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSelectDS.ui" line="48"/>
+        <location filename="../gui/DlgSelectDS.ui" line="68"/>
         <source>SDG 15.3.1 indicator</source>
         <translation>Indicateur ODD 15.3.1</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSelectDS.ui" line="63"/>
+        <location filename="../gui/DlgSelectDS.ui" line="118"/>
         <source>The current selected region of interest</source>
         <translation>La région d'intérêt actuellement sélectionnée</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSelectDS.ui" line="66"/>
+        <location filename="../gui/DlgSelectDS.ui" line="121"/>
         <source>region name</source>
         <translation>Nom de la région</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSelectDS.ui" line="76"/>
+        <location filename="../gui/DlgSelectDS.ui" line="131"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Ouvre le dialogue de paramétrage afin de modifier la région d'intérêt. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSelectDS.ui" line="79"/>
+        <location filename="../gui/DlgSelectDS.ui" line="134"/>
         <source>Change region</source>
         <translation>Changez de région</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSelectDS.ui" line="88"/>
+        <location filename="../gui/DlgSelectDS.ui" line="75"/>
         <source>Soil organic carbon (degradation)</source>
         <translation>Carbone organique du sol (dégradation)</translation>
     </message>
     <message>
         <location filename="../gui/DlgSelectDS.ui" line="95"/>
         <source>Land Productivity Dynamics (from JRC)</source>
-        <translation>Dynamique de la productivité des terres (du CCR)</translation>
+        <translation type="obsolete">Dynamique de la productivité des terres (du CCR)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSelectDS.ui" line="102"/>
+        <location filename="../gui/DlgSelectDS.ui" line="96"/>
         <source>Land cover (degradation)</source>
         <translation>Couverture terrestre (dégradation)</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSelectDS.ui" line="109"/>
+        <location filename="../gui/DlgSelectDS.ui" line="41"/>
         <source>Land cover degradation</source>
         <translation>Dégradation du couvert végétal</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSelectDS.ui" line="116"/>
+        <location filename="../gui/DlgSelectDS.ui" line="20"/>
         <source>Productivity degradation</source>
         <translation>Dégradation de la productivité</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSelectDS.ui" line="89"/>
+        <source>Land Productivity Dynamics (from JRC);Land Productivity Dynamics (from FAO-WOCAT);Land Productivity Dynamics (from Trends.Earth)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSelectDS.ui" line="143"/>
+        <source>Task name</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -755,42 +760,42 @@ p, li { white-space: pre-wrap; }
         <translation>Configuration avancée</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="186"/>
+        <location filename="../calculate_lc.py" line="187"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="118"/>
+        <location filename="../calculate_lc.py" line="119"/>
         <source>You must add an initial land cover layer to your map before you can run the calculation.</source>
         <translation>Vous devez ajouter une couche de couverture terrestre initiale à votre carte avant de pouvoir faire le calcul.</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="129"/>
+        <location filename="../calculate_lc.py" line="130"/>
         <source>You must add a final land cover layer to your map before you can run the calculation.</source>
         <translation>Vous devez ajouter une couche de couverture terrestre finale à votre carte avant de pouvoir faire le calcul.</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="143"/>
+        <location filename="../calculate_lc.py" line="144"/>
         <source>Warning</source>
         <translation>Attention</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="143"/>
+        <location filename="../calculate_lc.py" line="144"/>
         <source>The initial year ({}) is greater than or equal to the target year ({}) - this analysis might generate strange results.</source>
         <translation>L'année initiale ({}) est supérieure ou égale à l'année cible ({}) - cette analyse peut générer des résultats étranges.</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="156"/>
+        <location filename="../calculate_lc.py" line="157"/>
         <source>Area of interest is not entirely within the initial land cover layer.</source>
         <translation>La zone d'intérêt n'est pas entièrement comprise dans la couche de couverture terrestre initiale.</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="169"/>
+        <location filename="../calculate_lc.py" line="170"/>
         <source>Area of interest is not entirely within the final land cover layer.</source>
         <translation>La zone d'intérêt n'est pas entièrement comprise dans la couche de couverture terrestre finale.</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="186"/>
+        <location filename="../calculate_lc.py" line="187"/>
         <source>Nesting of land cover legends for initial and final land cover layer must be identical.</source>
         <translation>L'imbrication des légendes de couverture terrestre pour la couche de couverture terrestre initiale et finale doit être identique.</translation>
     </message>
@@ -2037,42 +2042,42 @@ p, li { white-space: pre-wrap; }
         <translation>Jeu de données sur le carbone organique du sol initial personnalisé</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="235"/>
+        <location filename="../calculate_soc.py" line="236"/>
         <source>Error</source>
         <translation>Erreur</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="154"/>
+        <location filename="../calculate_soc.py" line="155"/>
         <source>Due to the options you have chosen, this calculation must occur offline. You MUST select a custom soil organic carbon dataset.</source>
         <translation>En raison des options que vous avez choisies, ce calcul doit se produire hors connexion. Vous DEVEZ sélectionner un jeu de données personnalisé sur le carbone organique du sol.</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="164"/>
+        <location filename="../calculate_soc.py" line="165"/>
         <source>Due to the options you have chosen, this calculation must occur offline. You MUST select a custom land cover dataset.</source>
         <translation>En raison des options que vous avez choisies, ce calcul doit se produire hors connexion. Vous DEVEZ sélectionner un jeu de données de couverture terrestre personnalisé.</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="175"/>
+        <location filename="../calculate_soc.py" line="176"/>
         <source>You must add a soil organic carbon layer to your map before you can run the calculation.</source>
         <translation>Vous devez ajouter une couche de carbone organique du sol à votre carte avant de pouvoir effectuer le calcul.</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="188"/>
+        <location filename="../calculate_soc.py" line="189"/>
         <source>Warning</source>
         <translation>Avertissement</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="188"/>
+        <location filename="../calculate_soc.py" line="189"/>
         <source>The initial year ({year_initial}) is greater than or equal to the final year ({year_final}) - this analysis might generate strange results.</source>
         <translation>L'année initiale ({year_initial}) est supérieure ou égale à l'année finale ({year_final}) ; cette analyse pourrait générer des résultats étranges.</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="202"/>
+        <location filename="../calculate_soc.py" line="203"/>
         <source>Area of interest is not entirely within the initial land cover layer.</source>
         <translation>La zone d'intérêt ne se trouve pas entièrement dans la couche de couverture terrestre initiale.</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="216"/>
+        <location filename="../calculate_soc.py" line="217"/>
         <source>Area of interest is not entirely within the final land cover layer.</source>
         <translation>La zone d'intérêt ne se trouve pas entièrement dans la couche de couverture terrestre finale.</translation>
     </message>
@@ -2094,7 +2099,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="235"/>
+        <location filename="../calculate_soc.py" line="236"/>
         <source>Nesting of land cover legends for initial and final land cover layer must be identical.</source>
         <translation type="unfinished">L'imbrication des légendes de couverture terrestre pour la couche de couverture terrestre initiale et finale doit être identique.</translation>
     </message>
@@ -3530,9 +3535,49 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgSelectDataset</name>
     <message>
-        <location filename="../select_dataset.py" line="65"/>
+        <location filename="../select_dataset.py" line="74"/>
         <source>Current region: {region}</source>
         <translation>Région actuelle : {region}</translation>
+    </message>
+    <message>
+        <location filename="../select_dataset.py" line="91"/>
+        <source>Task Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../select_dataset.py" line="91"/>
+        <source>Task name is empty</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../select_dataset.py" line="95"/>
+        <source>Dataset</source>
+        <translation type="unfinished">Série de données</translation>
+    </message>
+    <message>
+        <location filename="../select_dataset.py" line="96"/>
+        <source>SDG 15.3.1 Indicator</source>
+        <translation type="unfinished">Indicateur SDG 15.3.1 </translation>
+    </message>
+    <message>
+        <location filename="../select_dataset.py" line="97"/>
+        <source>Productivity Degradation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../select_dataset.py" line="98"/>
+        <source>Land Cover Degradation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../select_dataset.py" line="99"/>
+        <source>Soil Organic Carbon Degradation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../select_dataset.py" line="101"/>
+        <source>No dataset or layer selected.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4328,47 +4373,47 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>MainWidget</name>
     <message>
-        <location filename="../main_widget.py" line="166"/>
+        <location filename="../main_widget.py" line="167"/>
         <source>All</source>
         <translation>Tous</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="171"/>
+        <location filename="../main_widget.py" line="172"/>
         <source>Raster</source>
         <translation>Trame</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="176"/>
+        <location filename="../main_widget.py" line="177"/>
         <source>Vector</source>
         <translation>Vecteur</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="189"/>
+        <location filename="../main_widget.py" line="190"/>
         <source>Load existing Trends.Earth output file...</source>
         <translation>Charger le fichier de sortie Trends.Earth existant...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="193"/>
+        <location filename="../main_widget.py" line="194"/>
         <source>Import custom Productivity dataset...</source>
         <translation>Importer un jeu de données Productivité personnalisé...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="199"/>
+        <location filename="../main_widget.py" line="200"/>
         <source>Import custom Land Cover dataset...</source>
         <translation>Importer un jeu de données personnalisé sur la couverture végétale...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="205"/>
+        <location filename="../main_widget.py" line="206"/>
         <source>Import custom Soil Organic Carbon dataset...</source>
         <translation>Importer un jeu de données personnalisé sur le carbone organique du sol...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="217"/>
+        <location filename="../main_widget.py" line="218"/>
         <source>Download raw dataset used in Trends.Earth...</source>
         <translation>Télécharger le jeu de données brutes utilisé dans Trends.Earth...</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="241"/>
+        <location filename="../main_widget.py" line="242"/>
         <source>Create false positive/negative layer</source>
         <translation>Créer une fausse couche positive/négative</translation>
     </message>
@@ -4389,7 +4434,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>PolygonMapTool</name>
     <message>
-        <location filename="../maptools.py" line="204"/>
+        <location filename="../maptools.py" line="360"/>
         <source>add feature</source>
         <translation>ajouter une fonctionnalité</translation>
     </message>
@@ -4552,6 +4597,19 @@ p, li { white-space: pre-wrap; }
         <location filename="../processing_provider/carbon.py" line="83"/>
         <source>Area of site in sq km</source>
         <translation>Superficie du site en km²</translation>
+    </message>
+</context>
+<context>
+    <name>TEMapToolMixin</name>
+    <message>
+        <location filename="../maptools.py" line="227"/>
+        <source>Warning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../maptools.py" line="227"/>
+        <source>Current cursor position is outside the extent of the base source dataset.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6994,7 +7052,7 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
     <message>
         <location filename="../jobs/manager.py" line="707"/>
         <source>False positive/negative</source>
-        <translation>Faux positif/faux négatif</translation>
+        <translation type="obsolete">Faux positif/faux négatif</translation>
     </message>
 </context>
 <context>
@@ -7104,7 +7162,7 @@ pour les algorithmes en cours d'exécution et leurs résultats.</translation>
 <context>
     <name>tr_worker</name>
     <message>
-        <location filename="../worker.py" line="165"/>
+        <location filename="../worker.py" line="168"/>
         <source>Processing: {}</source>
         <translation>En traitement: {}</translation>
     </message>

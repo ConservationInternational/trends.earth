@@ -3,7 +3,16 @@ Changelog
 
 This page lists the version history of |trends.earth|.
 
-`2.1.4 (November 21, 2022) <https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.4>`_
+`2.1.6 (December 8, 2022) <https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.6>`_
+-----------------------------------------------------------------------------------------------------------------------------
+
+    - Bumps maximum number of land cover classes to 45 (useful particularly for
+      users seeking to use Corine legend)
+    - Fix issue that was arising on Mac/Linux due to missing QgsPanelWidget ui
+      file
+    - Various more minor bug fixes
+
+`2.1.6 (November 21, 2022) <https://github.com/ConservationInternational/trends.earth/releases/tag/2.1.6>`_
 -----------------------------------------------------------------------------------------------------------------------------
 
     - Fixes #691 (issue that arose if the base data directory was cleared).

@@ -17,7 +17,7 @@
 <context>
     <name>AreaWidget</name>
     <message>
-        <location filename="../maptools.py" line="36"/>
+        <location filename="../maptools.py" line="43"/>
         <source>Area</source>
         <translation>区域</translation>
     </message>
@@ -62,12 +62,12 @@
         <translation>无法阅读 {}。选择一个不同的文件。</translation>
     </message>
     <message>
-        <location filename="../maptools.py" line="48"/>
+        <location filename="../maptools.py" line="55"/>
         <source>{:.6g} km²</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../maptools.py" line="41"/>
+        <location filename="../maptools.py" line="48"/>
         <source>0.00 km²</source>
         <translation type="unfinished"></translation>
     </message>
@@ -75,7 +75,7 @@
 <context>
     <name>BufferMapTool</name>
     <message>
-        <location filename="../maptools.py" line="395"/>
+        <location filename="../maptools.py" line="552"/>
         <source>add feature</source>
         <translation>添加功能</translation>
     </message>
@@ -83,27 +83,22 @@
 <context>
     <name>BufferWidget</name>
     <message>
-        <location filename="../maptools.py" line="93"/>
+        <location filename="../maptools.py" line="100"/>
         <source> km</source>
         <translation>km</translation>
     </message>
     <message>
-        <location filename="../maptools.py" line="76"/>
+        <location filename="../maptools.py" line="83"/>
         <source>Radius</source>
         <translation>半径</translation>
     </message>
     <message>
-        <location filename="../maptools.py" line="77"/>
+        <location filename="../maptools.py" line="84"/>
         <source>Area</source>
         <translation>区域</translation>
     </message>
     <message>
         <location filename="../maptools.py" line="98"/>
-        <source> kmÂ²</source>
-        <translation type="obsolete">kmÂ²</translation>
-    </message>
-    <message>
-        <location filename="../maptools.py" line="91"/>
         <source> km²</source>
         <translation type="unfinished"></translation>
     </message>
@@ -260,22 +255,22 @@
         <translation>NDVI x 10000</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="579"/>
+        <location filename="../jobs/mvc.py" line="597"/>
         <source>Dataset metadata</source>
         <translation>数据集元数据</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="586"/>
+        <location filename="../jobs/mvc.py" line="604"/>
         <source>{} metadata</source>
         <translation>{} 元数据</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="601"/>
+        <location filename="../jobs/mvc.py" line="619"/>
         <source>Add vector layer to map</source>
         <translation>将矢量图层添加到地图</translation>
     </message>
     <message>
-        <location filename="../jobs/mvc.py" line="605"/>
+        <location filename="../jobs/mvc.py" line="623"/>
         <source>Add raster layers to map</source>
         <translation>将栅格图层添加到地图</translation>
     </message>
@@ -476,7 +471,7 @@
         <translation>数据集选择</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSelectDS.ui" line="20"/>
+        <location filename="../gui/DlgSelectDS.ui" line="34"/>
         <source>sdg-15-3-1-summary</source>
         <translation>sdg-15-3-1-总结</translation>
     </message>
@@ -486,64 +481,74 @@
         <translation>SDG 15.3.1 指标</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSelectDS.ui" line="34"/>
+        <location filename="../gui/DlgSelectDS.ui" line="103"/>
         <source>Soil organic carbon degradation</source>
         <translation>土壤有机碳降解</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSelectDS.ui" line="41"/>
+        <location filename="../gui/DlgSelectDS.ui" line="82"/>
         <source>Dataset</source>
         <translation>数据集</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSelectDS.ui" line="48"/>
+        <location filename="../gui/DlgSelectDS.ui" line="68"/>
         <source>SDG 15.3.1 indicator</source>
         <translation>SDG 15.3.1 指标</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSelectDS.ui" line="63"/>
+        <location filename="../gui/DlgSelectDS.ui" line="118"/>
         <source>The current selected region of interest</source>
         <translation>当前选定的感兴趣区域</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSelectDS.ui" line="66"/>
+        <location filename="../gui/DlgSelectDS.ui" line="121"/>
         <source>region name</source>
         <translation>地区名称</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSelectDS.ui" line="76"/>
+        <location filename="../gui/DlgSelectDS.ui" line="131"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Opens settings dialog in order to change region of interest.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;打开设置对话框以更改感兴趣区域。&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSelectDS.ui" line="79"/>
+        <location filename="../gui/DlgSelectDS.ui" line="134"/>
         <source>Change region</source>
         <translation>更改区域</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSelectDS.ui" line="88"/>
+        <location filename="../gui/DlgSelectDS.ui" line="75"/>
         <source>Soil organic carbon (degradation)</source>
         <translation>土壤有机碳（降解）</translation>
     </message>
     <message>
         <location filename="../gui/DlgSelectDS.ui" line="95"/>
         <source>Land Productivity Dynamics (from JRC)</source>
-        <translation>土地生产力动态（来自 JRC）</translation>
+        <translation type="obsolete">土地生产力动态（来自 JRC）</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSelectDS.ui" line="102"/>
+        <location filename="../gui/DlgSelectDS.ui" line="96"/>
         <source>Land cover (degradation)</source>
         <translation>土地覆盖（退化）</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSelectDS.ui" line="109"/>
+        <location filename="../gui/DlgSelectDS.ui" line="41"/>
         <source>Land cover degradation</source>
         <translation>土地覆盖退化</translation>
     </message>
     <message>
-        <location filename="../gui/DlgSelectDS.ui" line="116"/>
+        <location filename="../gui/DlgSelectDS.ui" line="20"/>
         <source>Productivity degradation</source>
         <translation>生产力下降</translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSelectDS.ui" line="89"/>
+        <source>Land Productivity Dynamics (from JRC);Land Productivity Dynamics (from FAO-WOCAT);Land Productivity Dynamics (from Trends.Earth)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../gui/DlgSelectDS.ui" line="143"/>
+        <source>Task name</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -755,42 +760,42 @@ p, li { white-space: pre-wrap; }
         <translation>高级配置</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="186"/>
+        <location filename="../calculate_lc.py" line="187"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="118"/>
+        <location filename="../calculate_lc.py" line="119"/>
         <source>You must add an initial land cover layer to your map before you can run the calculation.</source>
         <translation>在运行计算之前，您必须在地图上添加初始土地覆盖图层。</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="129"/>
+        <location filename="../calculate_lc.py" line="130"/>
         <source>You must add a final land cover layer to your map before you can run the calculation.</source>
         <translation>在运行计算之前，您必须在地图上添加最终的土地覆盖图层。</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="143"/>
+        <location filename="../calculate_lc.py" line="144"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="143"/>
+        <location filename="../calculate_lc.py" line="144"/>
         <source>The initial year ({}) is greater than or equal to the target year ({}) - this analysis might generate strange results.</source>
         <translation>初始年份（{}）大于或等于目标年份（{}） - 此分析可能会产生奇怪的结果。</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="156"/>
+        <location filename="../calculate_lc.py" line="157"/>
         <source>Area of interest is not entirely within the initial land cover layer.</source>
         <translation>感兴趣的区域不完全在最初的土地覆盖层内。</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="169"/>
+        <location filename="../calculate_lc.py" line="170"/>
         <source>Area of interest is not entirely within the final land cover layer.</source>
         <translation>感兴趣的区域不完全在最终的土地覆盖层内。</translation>
     </message>
     <message>
-        <location filename="../calculate_lc.py" line="186"/>
+        <location filename="../calculate_lc.py" line="187"/>
         <source>Nesting of land cover legends for initial and final land cover layer must be identical.</source>
         <translation>初始和最终土地覆盖层的土地覆盖图例的嵌套必须相同。</translation>
     </message>
@@ -2035,42 +2040,42 @@ p, li { white-space: pre-wrap; }
         <translation>自定义初始土壤有机碳数据集</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="235"/>
+        <location filename="../calculate_soc.py" line="236"/>
         <source>Error</source>
         <translation>错误</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="154"/>
+        <location filename="../calculate_soc.py" line="155"/>
         <source>Due to the options you have chosen, this calculation must occur offline. You MUST select a custom soil organic carbon dataset.</source>
         <translation>由于您选择了这些选项，因此必须离线进行此计算。您必须选择自定义土壤有机碳数据集。</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="164"/>
+        <location filename="../calculate_soc.py" line="165"/>
         <source>Due to the options you have chosen, this calculation must occur offline. You MUST select a custom land cover dataset.</source>
         <translation>由于您选择了这些选项，因此必须离线进行此计算。您必须选择自定义土地覆盖数据集。</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="175"/>
+        <location filename="../calculate_soc.py" line="176"/>
         <source>You must add a soil organic carbon layer to your map before you can run the calculation.</source>
         <translation>在运行计算之前，您必须在地图上添加土壤有机碳层。</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="188"/>
+        <location filename="../calculate_soc.py" line="189"/>
         <source>Warning</source>
         <translation>警告</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="188"/>
+        <location filename="../calculate_soc.py" line="189"/>
         <source>The initial year ({year_initial}) is greater than or equal to the final year ({year_final}) - this analysis might generate strange results.</source>
         <translation>初始年份（{year_initial}）大于或等于最终年份（{year_final}）--这种分析可能产生奇怪的结果。</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="202"/>
+        <location filename="../calculate_soc.py" line="203"/>
         <source>Area of interest is not entirely within the initial land cover layer.</source>
         <translation>感兴趣的区域不完全在最初的土地覆盖层内。</translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="216"/>
+        <location filename="../calculate_soc.py" line="217"/>
         <source>Area of interest is not entirely within the final land cover layer.</source>
         <translation>感兴趣的区域不完全在最终的土地覆盖层内。</translation>
     </message>
@@ -2092,7 +2097,7 @@ p, li { white-space: pre-wrap; }
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../calculate_soc.py" line="235"/>
+        <location filename="../calculate_soc.py" line="236"/>
         <source>Nesting of land cover legends for initial and final land cover layer must be identical.</source>
         <translation type="unfinished">初始和最终土地覆盖层的土地覆盖图例的嵌套必须相同。</translation>
     </message>
@@ -3529,9 +3534,49 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DlgSelectDataset</name>
     <message>
-        <location filename="../select_dataset.py" line="65"/>
+        <location filename="../select_dataset.py" line="74"/>
         <source>Current region: {region}</source>
         <translation>当前区域：{region}</translation>
+    </message>
+    <message>
+        <location filename="../select_dataset.py" line="91"/>
+        <source>Task Name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../select_dataset.py" line="91"/>
+        <source>Task name is empty</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../select_dataset.py" line="95"/>
+        <source>Dataset</source>
+        <translation type="unfinished">数据集</translation>
+    </message>
+    <message>
+        <location filename="../select_dataset.py" line="96"/>
+        <source>SDG 15.3.1 Indicator</source>
+        <translation type="unfinished">SDG 15.3.1 指标</translation>
+    </message>
+    <message>
+        <location filename="../select_dataset.py" line="97"/>
+        <source>Productivity Degradation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../select_dataset.py" line="98"/>
+        <source>Land Cover Degradation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../select_dataset.py" line="99"/>
+        <source>Soil Organic Carbon Degradation</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../select_dataset.py" line="101"/>
+        <source>No dataset or layer selected.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -4327,47 +4372,47 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>MainWidget</name>
     <message>
-        <location filename="../main_widget.py" line="166"/>
+        <location filename="../main_widget.py" line="167"/>
         <source>All</source>
         <translation>全部</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="171"/>
+        <location filename="../main_widget.py" line="172"/>
         <source>Raster</source>
         <translation>光栅</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="176"/>
+        <location filename="../main_widget.py" line="177"/>
         <source>Vector</source>
         <translation>向量</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="189"/>
+        <location filename="../main_widget.py" line="190"/>
         <source>Load existing Trends.Earth output file...</source>
         <translation>加载现有 Trends.Earth 输出文件......</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="193"/>
+        <location filename="../main_widget.py" line="194"/>
         <source>Import custom Productivity dataset...</source>
         <translation>导入自定义生产力数据集......</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="199"/>
+        <location filename="../main_widget.py" line="200"/>
         <source>Import custom Land Cover dataset...</source>
         <translation>导入自定义土地覆盖数据集......</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="205"/>
+        <location filename="../main_widget.py" line="206"/>
         <source>Import custom Soil Organic Carbon dataset...</source>
         <translation>导入自定义土壤有机碳数据集......</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="217"/>
+        <location filename="../main_widget.py" line="218"/>
         <source>Download raw dataset used in Trends.Earth...</source>
         <translation>下载 Trends.Earth 中使用的原始数据集......</translation>
     </message>
     <message>
-        <location filename="../main_widget.py" line="241"/>
+        <location filename="../main_widget.py" line="242"/>
         <source>Create false positive/negative layer</source>
         <translation>创建假阳性/阴性层</translation>
     </message>
@@ -4388,7 +4433,7 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>PolygonMapTool</name>
     <message>
-        <location filename="../maptools.py" line="204"/>
+        <location filename="../maptools.py" line="360"/>
         <source>add feature</source>
         <translation>添加功能</translation>
     </message>
@@ -4551,6 +4596,19 @@ p, li { white-space: pre-wrap; }
         <location filename="../processing_provider/carbon.py" line="83"/>
         <source>Area of site in sq km</source>
         <translation>场地面积（平方公里）</translation>
+    </message>
+</context>
+<context>
+    <name>TEMapToolMixin</name>
+    <message>
+        <location filename="../maptools.py" line="227"/>
+        <source>Warning</source>
+        <translation type="unfinished">警告</translation>
+    </message>
+    <message>
+        <location filename="../maptools.py" line="227"/>
+        <source>Current cursor position is outside the extent of the base source dataset.</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6995,7 +7053,7 @@ for running algorithms and their results.</source>
     <message>
         <location filename="../jobs/manager.py" line="707"/>
         <source>False positive/negative</source>
-        <translation>假阳性/阴性</translation>
+        <translation type="obsolete">假阳性/阴性</translation>
     </message>
 </context>
 <context>
@@ -7105,7 +7163,7 @@ for running algorithms and their results.</source>
 <context>
     <name>tr_worker</name>
     <message>
-        <location filename="../worker.py" line="165"/>
+        <location filename="../worker.py" line="168"/>
         <source>Processing: {}</source>
         <translation>处理中：{}</translation>
     </message>

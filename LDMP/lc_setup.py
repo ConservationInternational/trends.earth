@@ -1204,6 +1204,30 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
             "QLineEdit {background: #FFFFE0;} QLineEdit:hover {border: 1px solid gray; background: #FFFFE0;}"
         )
 
+        # Sets the LC table height based on the row height
+        table_header = self.deg_def_matrix.horizontalHeader()
+        header_height = table_header.height()
+
+        table_row_cnt = self.deg_def_matrix.rowCount()
+        # There will always be atleast one class
+        table_row_height = self.deg_def_matrix.rowHeight(0)
+        # Table height with 5 added as an additional precaution to
+        # avoid the addition of a scroll bar
+        table_height = (table_row_height * table_row_cnt) + header_height + 5
+        self.deg_def_matrix.setFixedHeight(table_height)
+
+        # Sets the LC table width based on the column width
+        table_vheader = self.deg_def_matrix.verticalHeader()
+        header_width = table_vheader.width()
+
+        table_column_cnt = self.deg_def_matrix.columnCount()
+        # There will always be atleast one class
+        table_column_width = self.deg_def_matrix.columnWidth(0)
+        # Table height with 5 added as an additional precaution to
+        # avoid the addition of a scroll bar
+        table_width = (table_column_width * table_column_cnt) + header_width + 5
+        self.deg_def_matrix.setFixedWidth(table_width)
+
     def setup_deg_def_matrix(self, legend):
         self.deg_def_matrix.setRowCount(len(legend.key))
         self.deg_def_matrix.setColumnCount(len(legend.key))
@@ -1227,6 +1251,10 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
                 line_edit = TransMatrixEdit()
                 line_edit.setValidator(QtGui.QRegExpValidator(QtCore.QRegExp("[-0+]")))
                 line_edit.setAlignment(QtCore.Qt.AlignHCenter)
+                line_edit.setToolTip(
+                    f"Initial: {legend.key[row].get_name_long()}, "
+                    f"<br>Final: {legend.key[col].get_name_long()}"
+                )
                 self.deg_def_matrix.setCellWidget(row, col, line_edit)
 
         self.deg_def_matrix.setStyleSheet("QTableWidget {border: 0px;}")
@@ -1242,10 +1270,21 @@ class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
                 row, QtWidgets.QHeaderView.Stretch
             )
 
-        for col in range(0, self.deg_def_matrix.columnCount()):
-            self.deg_def_matrix.verticalHeader().setSectionResizeMode(
-                col, QtWidgets.QHeaderView.Stretch
-            )
+        num_of_col = self.deg_def_matrix.columnCount()
+        for col in range(0, num_of_col):
+            if num_of_col <= conf.RESIZE_NUM_ROWS:
+                # When there are only a few rows, it's better to use the minimum size
+                self.deg_def_matrix.verticalHeader().setSectionResizeMode(
+                    col, QtWidgets.QHeaderView.Fixed
+                )
+                self.deg_def_matrix.verticalHeader().resizeSection(
+                    col, conf.MINIMUM_ROW_HEIGHT
+                )
+            else:
+                # Automatic resizing works perfect when there are a large number of rows
+                self.deg_def_matrix.verticalHeader().setSectionResizeMode(
+                    col, QtWidgets.QHeaderView.Stretch
+                )
 
     def trans_matrix_loadfile(self):
         f, _ = QtWidgets.QFileDialog.getOpenFileName(

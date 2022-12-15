@@ -7,9 +7,10 @@ from qgis.PyQt import QtGui
 from qgis.PyQt import QtWidgets
 from qgis.PyQt import uic
 from te_schemas.algorithms import AlgorithmRunMode
-from ..conf import settings_manager, Setting
 
 from . import models
+from ..conf import Setting
+from ..conf import settings_manager
 
 WidgetAlgorithmLeafUi, _ = uic.loadUiType(
     str(Path(__file__).parents[1] / "gui/WidgetAlgorithmLeaf.ui")

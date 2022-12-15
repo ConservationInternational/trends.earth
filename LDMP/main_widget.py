@@ -16,11 +16,11 @@ from te_schemas.jobs import JobStatus
 from .algorithms import models as algorithm_models
 from .algorithms import mvc as algorithms_mvc
 from .conf import ALGORITHM_TREE
+from .conf import DOCK_TITLE
+from .conf import DOCK_TITLE_OFFLINE
 from .conf import KNOWN_SCRIPTS
 from .conf import Setting
 from .conf import settings_manager
-from .conf import DOCK_TITLE
-from .conf import DOCK_TITLE_OFFLINE
 from .data_io import DlgDataIOImportProd
 from .data_io import DlgDataIOImportSOC
 from .data_io import DlgDataIOLoadTE

@@ -34,8 +34,8 @@ RESIZE_NUM_ROWS = 5
 # This is the minimum row height value. 40 is the cell font minimum
 MINIMUM_ROW_HEIGHT = 40
 
-DOCK_TITLE = 'Trends.Earth'
-DOCK_TITLE_OFFLINE = 'Trends.Earth (offline mode)'
+DOCK_TITLE = "Trends.Earth"
+DOCK_TITLE_OFFLINE = "Trends.Earth (offline mode)"
 
 
 class AreaSetting(enum.Enum):

@@ -37,13 +37,13 @@ from . import binaries_name
 from . import conf
 from . import download
 from . import openFolder
+from .conf import DOCK_TITLE
+from .conf import DOCK_TITLE_OFFLINE
 from .conf import OPTIONS_ICON
 from .conf import OPTIONS_TITLE
 from .conf import Setting
 from .conf import settings_manager
 from .conf import TR_ALL_REGIONS
-from .conf import DOCK_TITLE
-from .conf import DOCK_TITLE_OFFLINE
 from .jobs.manager import job_manager
 from .lc_setup import get_default_esa_nesting
 from .lc_setup import LccInfoUtils

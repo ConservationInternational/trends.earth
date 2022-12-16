@@ -1156,7 +1156,8 @@ def find_job(target: Job, source: typing.List[Job]) -> typing.Optional[Job]:
 
 
 def _get_access_token():
-    login_reply = api.login()
+    api_client = api.APIClient(API_URL, TIMEOUT)
+    login_reply = api_client.login()
 
     return login_reply["access_token"]
 
@@ -1165,7 +1166,9 @@ def _get_user_id() -> uuid:
     if conf.settings_manager.get_value(conf.Setting.DEBUG):
         log("Retrieving user id...")
 
-    get_user_reply = api.get_user()
+    api_client = api.APIClient(API_URL, TIMEOUT)
+
+    get_user_reply = api_client.get_user()
 
     if get_user_reply:
         user_id = get_user_reply.get("id", None)

@@ -36,6 +36,7 @@ from . import conf
 from . import data_io
 from .jobs.manager import job_manager
 from .logger import log
+from .region_selector import RegionSelector
 
 
 DlgCalculateLCSetAggregationUi, _ = uic.loadUiType(
@@ -928,10 +929,13 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
     def __init__(self, parent=None):
         super().__init__(parent)
 
+        self.region_selector = RegionSelector()
+        self.verticalLayout.insertWidget(0, self.region_selector)
+
         # This needs to be inserted after the lc definition widget but before
         # the button box with ok/cancel
         self.output_widget = data_io.ImportSelectRasterOutput()
-        self.verticalLayout.insertWidget(2, self.output_widget)
+        self.verticalLayout.insertWidget(3, self.output_widget)
 
         self.input_widget.inputFileChanged.connect(self.input_changed)
         self.input_widget.inputTypeChanged.connect(self.input_changed)
@@ -1144,6 +1148,7 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
             ),
         )
         job_manager.import_job(job, Path(out_file))
+
 
 class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):
     def __init__(self, parent=None):

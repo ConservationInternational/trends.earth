@@ -825,6 +825,22 @@ class ImportSelectFileInputWidget(
             self.lineEdit_vector_file.text(), "vector file", "ogr"
         )
 
+    def get_raster_layer(self) -> qgis.core.QgsRasterLayer:
+        """
+        Returns the raster layer corresponding to the input file. If
+        a file path is not specified or if the layer is invalid then it
+        will return None.
+        """
+        raster_file = self.lineEdit_raster_file.text()
+        if not raster_file:
+            return None
+
+        l = qgis.core.QgsRasterLayer(raster_file)
+        if not l.isValid():
+            return None
+
+        return l
+
 
 class ImportSelectRasterOutput(
     QtWidgets.QWidget, Ui_WidgetDataIOImportSelectRasterOutput

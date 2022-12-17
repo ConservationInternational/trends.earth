@@ -15,6 +15,7 @@ import typing
 from pathlib import Path
 
 from qgis import processing
+from qgis.core import QgsFeatureRequest
 from qgis.core import QgsLayerDefinition
 from qgis.core import QgsProject
 from qgis.core import QgsReadWriteContext
@@ -144,6 +145,128 @@ def admin_one_name_from_code(country_name: str, sub_code: str) -> str:
     return admin_one_name
 
 
+def get_admin_bbox(
+        country_name: str,
+        admin_one: str = None,
+        is_admin_one_region: bool = True
+) -> QgsRectangle:
+    """
+    Returns the extents of the given country or sub-national city or region
+    else None if not found or if there is an issue in reading the relevant
+    data source layer(s).
+    If 'admin_one' is a region then 'is_admin_one_region' should be True
+    (default) else if it is a city then 'is_admin_one_region' should be False.
+    """
+    if not os.path.exists(country_data_path()):
+        return None
+
+    # Get the country code as defined in 'download.get_admin_bounds()'. We
+    # need this since some country names are partially abbreviated and in
+    # such a case, it will not be possible to locate them in the national
+    # data shapefile.
+    admin_bounds = download.get_admin_bounds()
+    country_info = admin_bounds.get(country_name, None)
+    if not country_info:
+        return None
+
+    country_code = country_info.code
+
+    # Country-level bounds
+    if not admin_one:
+        nl = QgsVectorLayer(country_data_path())
+        if not nl.isValid():
+            return None
+
+        feat_request = QgsFeatureRequest()
+        feat_exp = f'"ISO_A3"=\'{country_code}\''
+        feat_request.setFilterExpression(feat_exp)
+        feat_iter = nl.getFeatures(feat_request)
+        feat = next(feat_iter, None)
+        if feat is None:
+            return None
+
+        return feat.geometry().boundingBox()
+
+    else:
+        snl = QgsVectorLayer(sub_national_data_path())
+        if not snl.isValid():
+            return None
+
+        # Attribute name to get matching feature in admin1 layer
+        admin_one_attr = ""
+        admin_one_attr_val = ""
+
+        # City-level - get region from populated places layer
+        if not is_admin_one_region:
+            country_cities = download.get_cities().get(country_name, None)
+            if country_cities is None:
+                return None
+
+            # Get wof_id corresponding to the given city name
+            wof_ids = [
+                ci.wof_id for ci in country_cities.values()
+                if ci.name_en == admin_one
+            ]
+            if len(wof_ids) == 0:
+                return None
+
+            # Get 'adm1name' from wof_id in populated places layer
+            wof_id = wof_ids[0]
+            pl = QgsVectorLayer(places_data_path())
+            if not pl.isValid():
+                return None
+
+            feat_request = QgsFeatureRequest()
+            feat_exp = f'"wof_id"=\'{wof_id}\''
+            feat_request.setFilterExpression(feat_exp)
+            feat_iter = pl.getFeatures(feat_request)
+            feat = next(feat_iter, None)
+            if feat is None:
+                return None
+
+            admin_one_attr_val = feat['ADM1NAME']
+            admin_one_attr = 'name'
+
+        # Region-level
+        else:
+            # Use region code to retrieve feature
+            admin_one_attr_val = country_info.level1_regions.get(admin_one, None)
+            admin_one_attr = 'adm1_code'
+
+        feat_request = QgsFeatureRequest()
+        feat_exp = f'"{admin_one_attr}"=\'{admin_one_attr_val}\''
+        feat_request.setFilterExpression(feat_exp)
+        feat_iter = snl.getFeatures(feat_request)
+        feat = next(feat_iter, None)
+        if feat is None:
+            return None
+
+        return feat.geometry().boundingBox()
+
+
+def country_data_path() -> str:
+    """
+    Returns the path for the vector file containing country data.
+    """
+    return f"{FileUtils.plugin_dir()}/data/" f"ne_10m_admin_0_countries.shp"
+
+
+def sub_national_data_path() -> str:
+    """
+    Returns the path for the vector file containing sub-national data.
+    """
+    root_dir = FileUtils.plugin_dir()
+    return f"{root_dir}/data/" f"ne_10m_admin_1_states_provinces.shp"
+
+
+def places_data_path() -> str:
+    """
+    Returns the path for the vector file containing data on populated places.
+    """
+    root_dir = FileUtils.plugin_dir()
+    return f"{root_dir}/data/" f"ne_10m_populated_places.shp"
+
+
 class ExtractAdministrativeArea:
     """
     Uses a heuristic approach to try get the country name (and possibly
@@ -155,12 +278,8 @@ class ExtractAdministrativeArea:
 
     def __init__(self, extent: QgsRectangle):
         self._extent = extent
-        self._national_data_path = (
-            f"{FileUtils.plugin_dir()}/data/" f"ne_10m_admin_0_countries.shp"
-        )
-        self._sub_national_data_path = (
-            f"{FileUtils.plugin_dir()}/data/" f"ne_10m_admin_1_states_provinces.shp"
-        )
+        self._national_data_path = country_data_path()
+        self._sub_national_data_path = sub_national_data_path()
         self._extent_layer = None
         self._national_layer = None
         self._sub_nat_layer = None

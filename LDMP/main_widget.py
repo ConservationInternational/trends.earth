@@ -16,6 +16,8 @@ from te_schemas.jobs import JobStatus
 from .algorithms import models as algorithm_models
 from .algorithms import mvc as algorithms_mvc
 from .conf import ALGORITHM_TREE
+from .conf import DOCK_TITLE
+from .conf import DOCK_TITLE_OFFLINE
 from .conf import KNOWN_SCRIPTS
 from .conf import Setting
 from .conf import settings_manager
@@ -156,6 +158,14 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
             settings_manager.get_value(Setting.UPDATE_FREQUENCY_MILLISECONDS)
         )
 
+        offline_mode = settings_manager.get_value(Setting.OFFLINE_MODE)
+        if offline_mode:
+            self.pushButton_download.setEnabled(False)
+            self.setWindowTitle(DOCK_TITLE_OFFLINE)
+        else:
+            self.pushButton_download.setEnabled(True)
+            self.setWindowTitle(DOCK_TITLE)
+
     def setup_datasets_page_gui(self):
         self.pushButton_refresh.setIcon(
             QtGui.QIcon(os.path.join(ICON_PATH, "mActionRefresh.svg"))
@@ -258,6 +268,14 @@ class MainWidget(QtWidgets.QDockWidget, DockWidgetTrendsEarthUi):
         self.datasets_tv.setEditTriggers(QtWidgets.QAbstractItemView.AllEditTriggers)
         # self.datasets_tv.clicked.connect(self._manage_datasets_tree_view)
         self.datasets_tv.entered.connect(self._manage_datasets_tree_view)
+
+        offline_mode = settings_manager.get_value(Setting.OFFLINE_MODE)
+        if offline_mode:
+            self.pushButton_download.setEnabled(False)
+            self.setWindowTitle(DOCK_TITLE)
+        else:
+            self.pushButton_download.setEnabled(True)
+            self.setWindowTitle(DOCK_TITLE_OFFLINE)
 
     def refresh_after_cache_update(self):
         current_dataset_index = self.datasets_tv_delegate.current_index

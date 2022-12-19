@@ -334,6 +334,7 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
 
         self.delete_tb.setEnabled(True)
 
+        offline_mode = settings_manager.get_value(Setting.OFFLINE_MODE)
         # set visibility of progress bar and download button
         if self.job.is_vector():
             self.download_tb.hide()
@@ -374,7 +375,13 @@ class DatasetEditorWidget(QtWidgets.QWidget, WidgetDatasetItemUi):
                     self.download_tb.hide()
                 else:
                     self.download_tb.show()
-                    self.download_tb.setEnabled(True)
+
+                    if offline_mode:
+                        # Disable the download button so that the user cannot download
+                        self.download_tb.setEnabled(False)
+                    else:
+                        self.download_tb.setEnabled(True)
+
                     self.download_tb.clicked.connect(
                         functools.partial(manager.job_manager.download_job_results, job)
                     )

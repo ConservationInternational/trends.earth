@@ -393,19 +393,27 @@ class JobManager(QtCore.QObject):
 
         now = dt.datetime.now(tz=dt.timezone.utc)
         relevant_date = now - dt.timedelta(days=self._relevant_job_age_threshold_days)
-        remote_jobs = get_remote_jobs(end_date=relevant_date)
 
-        if conf.settings_manager.get_value(conf.Setting.FILTER_JOBS_BY_BASE_DIR):
-            relevant_remote_jobs = get_relevant_remote_jobs(remote_jobs)
+        offline_mode = conf.settings_manager.get_value(conf.Setting.OFFLINE_MODE)
+        if not offline_mode:
+            # Remote jobs will be taken into account
+            remote_jobs = get_remote_jobs(end_date=relevant_date)
+
+            if conf.settings_manager.get_value(conf.Setting.FILTER_JOBS_BY_BASE_DIR):
+                relevant_remote_jobs = get_relevant_remote_jobs(remote_jobs)
+            else:
+                relevant_remote_jobs = remote_jobs
+
+            self._refresh_local_deleted_jobs()
+
+            deleted_ids = self._known_deleted_jobs.keys()
+            relevant_remote_jobs = [
+                job for job in relevant_remote_jobs if job.id not in deleted_ids
+            ]
         else:
-            relevant_remote_jobs = remote_jobs
-
-        self._refresh_local_deleted_jobs()
-
-        deleted_ids = self._known_deleted_jobs.keys()
-        relevant_remote_jobs = [
-            job for job in relevant_remote_jobs if job.id not in deleted_ids
-        ]
+            # Remote jobs will be excluded
+            relevant_remote_jobs = []
+            self._refresh_local_deleted_jobs()
 
         self._refresh_local_running_jobs(relevant_remote_jobs)
         self._refresh_local_finished_jobs(relevant_remote_jobs)

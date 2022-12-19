@@ -6,6 +6,8 @@ qgis_setup.sh LDMP
 rm -rf  /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/trends.earth
 ln -sf /tests_directory/LDMP /root/.local/share/QGIS/QGIS3/profiles/default/python/plugins/trends.earth
 
+pip3 install invoke boto3
+
 # Updating trends.earth-schemas and trends.earth-algorithms versions in th requirements-testing file
 invoke set-version -v $(cat version.txt) --testing
 

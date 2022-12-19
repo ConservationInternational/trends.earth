@@ -37,6 +37,8 @@ from . import binaries_name
 from . import conf
 from . import download
 from . import openFolder
+from .conf import DOCK_TITLE
+from .conf import DOCK_TITLE_OFFLINE
 from .conf import OPTIONS_ICON
 from .conf import OPTIONS_TITLE
 from .conf import Setting
@@ -138,16 +140,17 @@ def _get_user_email(auth_setup, warn=True):
 class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
     message_bar: qgis.gui.QgsMessageBar
 
-    def __init__(self, parent=None):
+    def __init__(self, dock_widget, parent=None):
         QgsOptionsPageWidget.__init__(self, parent)
 
         self.setupUi(self)
         self.message_bar = qgis.gui.QgsMessageBar(self)
         self.layout().insertWidget(0, self.message_bar)
+        self.dock_widget = dock_widget
 
         # Add subcomponent widgets
         self.widgetSettingsAdvanced = WidgetSettingsAdvanced(
-            message_bar=self.message_bar
+            self.groupBox, self.dock_widget, message_bar=self.message_bar
         )
         self.verticalLayout_advanced.layout().insertWidget(
             0, self.widgetSettingsAdvanced
@@ -220,6 +223,14 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
             job_manager.clear_known_jobs()
             if hasattr(self, "dock_widget") and self.dock_widget.isVisible():
                 self.dock_widget.refresh_after_cache_update()
+
+        offline_mode = settings_manager.get_value(Setting.OFFLINE_MODE)
+        if offline_mode:
+            self.dock_widget.pushButton_download.setEnabled(False)
+            self.dock_widget.setWindowTitle(DOCK_TITLE_OFFLINE)
+        else:
+            self.dock_widget.pushButton_download.setEnabled(True)
+            self.dock_widget.setWindowTitle(DOCK_TITLE)
 
     def closeEvent(self, event):
         self.widgetSettingsAdvanced.closeEvent(event)
@@ -1066,10 +1077,14 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
 
     message_bar: qgis.gui.QgsMessageBar
 
-    def __init__(self, message_bar: qgis.gui.QgsMessageBar, parent=None):
+    def __init__(
+        self, group_box, dock_widget, message_bar: qgis.gui.QgsMessageBar, parent=None
+    ):
         super().__init__(parent)
         self.setupUi(self)
 
+        self.group_box = group_box
+        self.dock_widget = dock_widget
         self.message_bar = message_bar
 
         self.dlg_settings_login_landpks = DlgSettingsLoginLandPKS()
@@ -1082,6 +1097,7 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
             self.base_directory_changed
         )
         self.pushButton_open_base_directory.clicked.connect(self.open_base_directory)
+        self.cb_offline_mode.stateChanged.connect(self.set_offline_mode_states)
 
         # Flag that can be used to indicate if binary state has changed (i.e.
         # if new binaries have been downloaded)
@@ -1125,6 +1141,9 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
             Setting.BINARIES_ENABLED, self.binaries_gb.isChecked()
         )
         settings_manager.write_value(Setting.BINARIES_DIR, self.binaries_dir_le.text())
+        settings_manager.write_value(
+            Setting.OFFLINE_MODE, self.cb_offline_mode.isChecked()
+        )
 
         old_base_dir = settings_manager.get_value(Setting.BASE_DIR)
         new_base_dir = self.qgsFileWidget_base_directory.filePath()
@@ -1138,6 +1157,9 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
 
     def show_settings(self):
         self.debug_checkbox.setChecked(settings_manager.get_value(Setting.DEBUG))
+        self.cb_offline_mode.setChecked(
+            settings_manager.get_value(Setting.OFFLINE_MODE)
+        )
         self.filter_jobs_by_basedir_checkbox.setChecked(
             settings_manager.get_value(Setting.FILTER_JOBS_BY_BASE_DIR)
         )
@@ -1157,9 +1179,46 @@ class WidgetSettingsAdvanced(QtWidgets.QWidget, Ui_WidgetSettingsAdvanced):
             settings_manager.get_value(Setting.DOWNLOAD_RESULTS)
         )
 
+    def set_offline_mode_states(self):
+        """This funtion is called when offline mode is enabled or disabled.
+        If offline mode is enabled, then all settings related to online
+        requests (e.g. download remote datasets or polling the server) will
+        be disabled as well. The login section will also be disabled.
+        If offline mode is disabled, all of the above features will be
+        reenabled.
+        """
+
+        if self.cb_offline_mode.isChecked():
+            # Offline mode is enabled
+            self.download_remote_datasets_chb.setEnabled(False)
+            self.download_remote_datasets_chb.setChecked(False)
+
+            # Polling frequency settings
+            self.polling_frequency_gb.setEnabled(False)
+            self.polling_frequency_gb.setChecked(False)
+
+            # Login settings
+            self.group_box.setEnabled(False)
+
+            self.message_bar.pushWarning(
+                "Trends.Earth", self.tr("Offline mode is enabled.")
+            )
+        else:
+            # Offline mode is disabled
+            self.download_remote_datasets_chb.setEnabled(True)
+            self.download_remote_datasets_chb.setChecked(True)
+
+            # Polling frequency settings
+            self.polling_frequency_gb.setEnabled(True)
+            self.polling_frequency_gb.setChecked(True)
+
+            # Login settings
+            self.group_box.setEnabled(True)
+
     def showEvent(self, event):
         super().showEvent(event)
         self.show_settings()
+        self.set_offline_mode_states()
         binaries_checked = settings_manager.get_value(Setting.BINARIES_ENABLED)
         # TODO: Have this actually check if they are enabled in summary_numba
         # and calculate_numba. Right now this doesn't really check if they are
@@ -2292,6 +2351,8 @@ class LandCoverCustomClassEditor(
 class TrendsEarthOptionsFactory(QgsOptionsWidgetFactory):
     def __init__(self):  # pylint: disable=useless-super-delegation
         super().__init__()
+
+        self.dock_widget = None
         self.setTitle(OPTIONS_TITLE)
 
     def icon(self):  # pylint: disable=missing-function-docstring
@@ -2299,5 +2360,10 @@ class TrendsEarthOptionsFactory(QgsOptionsWidgetFactory):
 
         return QIcon(trends_earth_icon)
 
+    def set_dock_widget(self, dock_widget):
+        # Widget required to update the title for the dock based
+        # on the offline mode state
+        self.dock_widget = dock_widget
+
     def createWidget(self, parent):  # pylint: disable=missing-function-docstring
-        return TrendsEarthSettings(parent)
+        return TrendsEarthSettings(self.dock_widget, parent)

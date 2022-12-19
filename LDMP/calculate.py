@@ -67,6 +67,15 @@ class tr_calculate:
 ICON_PATH = os.path.join(os.path.dirname(__file__), "icons")
 
 
+def json_geom_to_geojson(txt):
+    d = {
+        "type": "FeatureCollection",
+        "features": [{"type": "Feature", "geometry": json.loads(txt)}],
+    }
+
+    return d
+
+
 class DlgCalculate(QtWidgets.QDialog, DlgCalculateUi):
     def __init__(self, parent=None):
         super().__init__(parent)

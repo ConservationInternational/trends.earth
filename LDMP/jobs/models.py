@@ -131,7 +131,7 @@ def get_remote_scripts():
 
     """
 
-    raw_remote = api.get_script()
+    raw_remote = api.default_api_client.get_script()
 
     if raw_remote is None:
         return

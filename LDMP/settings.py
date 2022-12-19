@@ -80,6 +80,7 @@ Ui_WidgetLandCoverCustomClassEditor, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/WidgetLCClassEditor.ui")
 )
 
+from .constants import API_URL, TIMEOUT
 
 from .logger import log
 from .utils import FileUtils
@@ -203,6 +204,8 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
         # Load gui default value from settings
         self.reloadAuthConfigurations()
 
+        self.api_client = api.APIClient(API_URL, TIMEOUT)
+
     def apply(self):
         """This is called on OK click in the QGIS options panel."""
 
@@ -273,7 +276,7 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
         dlg_settings_edit_forgot_password.exec_()
 
     def update_profile(self):
-        user = api.get_user()
+        user = self.api_client.get_user()
 
         if not user:
             return
@@ -299,7 +302,7 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
         )
 
         if reply == QtWidgets.QMessageBox.Yes:
-            resp = api.delete_user(email)
+            resp = self.api_client.delete_user(email)
 
             if resp:
                 QtWidgets.QMessageBox.information(
@@ -749,6 +752,8 @@ class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):
         self.buttonBox.accepted.connect(self.register)
         self.buttonBox.rejected.connect(self.close)
 
+        self.api_client = api.APIClient(API_URL, TIMEOUT)
+
     def register(self):
         if not self.email.text():
             QtWidgets.QMessageBox.critical(
@@ -775,7 +780,7 @@ class DlgSettingsRegister(QtWidgets.QDialog, Ui_DlgSettingsRegister):
 
             return
 
-        resp = api.register(
+        resp = self.api_client.register(
             self.email.text(),
             self.name.text(),
             self.organization.text(),
@@ -817,6 +822,7 @@ class DlgSettingsLogin(QtWidgets.QDialog, Ui_DlgSettingsLogin):
         self.buttonBox.rejected.connect(self.close)
 
         self.ok = False
+        self.api_client = api.APIClient(API_URL, TIMEOUT)
 
     def showEvent(self, event):
         super().showEvent(event)
@@ -840,7 +846,7 @@ class DlgSettingsLogin(QtWidgets.QDialog, Ui_DlgSettingsLogin):
 
             return
 
-        if api.login_test(self.email.text(), self.password.text()):
+        if self.api_client.login_test(self.email.text(), self.password.text()):
             QtWidgets.QMessageBox.information(
                 None,
                 self.tr("Success"),
@@ -935,6 +941,8 @@ class DlgSettingsEditForgotPassword(
 
         self.ok = False
 
+        self.api_client = api.APIClient(API_URL, TIMEOUT)
+
     def showEvent(self, event):
         super().showEvent(event)
 
@@ -966,7 +974,7 @@ class DlgSettingsEditForgotPassword(
         )
 
         if reply == QtWidgets.QMessageBox.Yes:
-            resp = api.recover_pwd(self.email.text())
+            resp = self.api_client.recover_pwd(self.email.text())
 
             if resp:
                 self.close()
@@ -1007,6 +1015,7 @@ class DlgSettingsEditUpdate(QtWidgets.QDialog, Ui_DlgSettingsEditUpdate):
         self.buttonBox.rejected.connect(self.close)
 
         self.ok = False
+        self.api_client = api.APIClient(API_URL, TIMEOUT)
 
     def update_profile(self):
         if not self.email.text():
@@ -1034,7 +1043,7 @@ class DlgSettingsEditUpdate(QtWidgets.QDialog, Ui_DlgSettingsEditUpdate):
 
             return
 
-        resp = api.update_user(
+        resp = self.api_client.update_user(
             self.email.text(),
             self.name.text(),
             self.organization.text(),

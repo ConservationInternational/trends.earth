@@ -42,6 +42,8 @@ from .. import download as ldmp_download
 from .. import layers
 from .. import metadata
 from .. import utils
+from ..constants import API_URL
+from ..constants import TIMEOUT
 from ..logger import log
 from .models import Job
 
@@ -235,6 +237,7 @@ class JobManager(QtCore.QObject):
         self.clear_known_jobs()
         self.tm = QgsApplication.taskManager()
         self._state_update_mutex = QtCore.QMutex()
+        self.api_client = api.APIClient(API_URL, TIMEOUT)
 
     @property
     def known_jobs(self):
@@ -468,10 +471,12 @@ class JobManager(QtCore.QObject):
             jobs.JobLocalContext().Schema().dump(_get_local_context())
         )
         url_fragment = f"/api/v1/script/{script_id}/run"
-        response = api.call_api(url_fragment, "post", final_params, use_token=True)
+        response = self.api_client.call_api(
+            url_fragment, "post", final_params, use_token=True
+        )
         try:
             raw_job = response["data"]
-        except TypeError:
+        except (TypeError, KeyError):
             job = None
         else:
             job = Job.Schema().load(raw_job)
@@ -1241,7 +1246,8 @@ def find_job(target: Job, source: typing.List[Job]) -> typing.Optional[Job]:
 
 
 def _get_access_token():
-    login_reply = api.login()
+    api_client = api.APIClient(API_URL, TIMEOUT)
+    login_reply = api_client.login()
 
     return login_reply["access_token"]
 
@@ -1250,7 +1256,9 @@ def _get_user_id() -> uuid:
     if conf.settings_manager.get_value(conf.Setting.DEBUG):
         log("Retrieving user id...")
 
-    get_user_reply = api.get_user()
+    api_client = api.APIClient(API_URL, TIMEOUT)
+
+    get_user_reply = api_client.get_user()
 
     if get_user_reply:
         user_id = get_user_reply.get("id", None)
@@ -1328,7 +1336,7 @@ def get_remote_jobs(end_date: typing.Optional[dt.datetime] = None) -> typing.Lis
         if conf.settings_manager.get_value(conf.Setting.DEBUG):
             log("Retrieving executions...")
 
-        response = api.call_api(
+        response = job_manager.api_client.call_api(
             f"/api/v1/execution?{urllib.parse.urlencode(query)}",
             method="get",
             use_token=True,

@@ -232,7 +232,7 @@ class APIClient(QtCore.QObject):
                 )
                 ret = None
             else:
-                ret = None
+                ret = token
         else:
             log("Unable to access Trends.Earth server")
             error_message = tr_api.tr(
@@ -316,7 +316,7 @@ class APIClient(QtCore.QObject):
 
         # Only continue if don't need token or if token load was successful
 
-        if (not use_token) or token.get("token", None):
+        if (not use_token) or token:
             # Strip password out of payload for printing to QGIS logs
 
             if payload:

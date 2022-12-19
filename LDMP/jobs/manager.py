@@ -469,7 +469,7 @@ class JobManager(QtCore.QObject):
         try:
             raw_job = response["data"]
         except (TypeError, KeyError):
-            job = {"fail": response}
+            job = None
         else:
             job = Job.Schema().load(raw_job)
             set_results_extents(job)

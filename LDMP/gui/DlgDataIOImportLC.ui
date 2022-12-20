@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>366</width>
+    <width>407</width>
     <height>257</height>
    </rect>
   </property>
@@ -26,16 +26,6 @@
    <bool>true</bool>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
-    <widget class="QgsMessageBar" name="msg_bar">
-     <property name="frameShape">
-      <enum>QFrame::StyledPanel</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
-     </property>
-    </widget>
-   </item>
    <item>
     <widget class="QGroupBox" name="groupBox_lc_agg">
      <property name="enabled">
@@ -150,14 +140,6 @@
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>QgsMessageBar</class>
-   <extends>QFrame</extends>
-   <header>qgis.gui</header>
-   <container>1</container>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections>
   <connection>

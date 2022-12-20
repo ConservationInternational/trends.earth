@@ -20,6 +20,7 @@ from pathlib import Path
 
 import numpy as np
 import qgis.core
+import qgis.gui
 import qgis.utils
 from osgeo import gdal
 from osgeo import osr
@@ -45,6 +46,8 @@ from .jobs.manager import set_results_extents
 from .jobs.manager import update_uris_if_needed
 from .jobs.models import Job
 from .logger import log
+from .region_selector import RegionSelector
+
 
 Ui_DlgDataIOLoadTE, _ = uic.loadUiType(
     str(Path(__file__).parents[0] / "gui/DlgDataIOLoadTE.ui")
@@ -164,6 +167,7 @@ class RemapVectorWorker(worker.AbstractWorker):
         in_data_type,
         out_res,
         out_data_type=gdal.GDT_Int16,
+        output_bounds=None
     ):
         worker.AbstractWorker.__init__(self)
 
@@ -174,6 +178,7 @@ class RemapVectorWorker(worker.AbstractWorker):
         self.in_data_type = in_data_type
         self.out_res = out_res
         self.out_data_type = out_data_type
+        self.output_bounds = output_bounds
 
     def work(self):
         self.toggle_show_progress.emit(True)
@@ -259,6 +264,7 @@ class RemapVectorWorker(worker.AbstractWorker):
             outputSRS="epsg:4326",
             outputType=self.out_data_type,
             creationOptions=["COMPRESS=LZW"],
+            outputBounds=self.output_bounds,
             callback=self.progress_callback,
         )
         os.remove(temp_shp)
@@ -445,7 +451,7 @@ class RemapRasterWorker(worker.AbstractWorker):
 
         if self.killed:
             del ds_out
-            os.remove(out_file)
+            os.remove(self.out_file)
 
             return None
         else:
@@ -820,7 +826,11 @@ class ImportSelectFileInputWidget(
 
             return True
 
-    def get_vector_layer(self):
+    def get_vector_layer(self) -> qgis.core.QgsVectorLayer:
+        vector_file = self.lineEdit_vector_file.text()
+        if not vector_file:
+            return None
+
         return qgis.core.QgsVectorLayer(
             self.lineEdit_vector_file.text(), "vector file", "ogr"
         )
@@ -840,6 +850,17 @@ class ImportSelectFileInputWidget(
             return None
 
         return l
+
+    def selected_file_type(self) -> str:
+        """
+        Returns if current selection is "raster" or "vector".
+        """
+        if self.radio_raster_input.isChecked():
+            return 'raster'
+        elif self.radio_polygon_input.isChecked():
+            return 'vector'
+
+        return ''
 
 
 class ImportSelectRasterOutput(
@@ -886,6 +907,27 @@ class ImportSelectRasterOutput(
                 return False
 
 
+def extents_within_tolerance(
+        ext1: qgis.core.QgsRectangle,
+        ext2: qgis.core.QgsRectangle
+) -> bool:
+    """
+    Check if the two extents are within the tolerance range set in the
+    tolerance setting.
+    """
+    x_diff = abs(ext1.xMinimum() - ext2.xMinimum())
+    y_diff = abs(ext1.yMinimum() - ext2.yMinimum())
+    v = qgis.core.QgsVector(x_diff, y_diff)
+
+    if v.length() < \
+            conf.settings_manager.get_value(
+                conf.Setting.IMPORT_EXTENT_TOLERANCE
+            ):
+        return True
+
+    return False
+
+
 class DlgDataIOImportBase(QtWidgets.QDialog):
     """Base class for individual data loading dialogs"""
 
@@ -898,8 +940,18 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         super().__init__(parent)
         self.setupUi(self)
 
+        # Message bar
+        self.msg_bar = qgis.gui.QgsMessageBar()
+        self.verticalLayout.insertWidget(0, self.msg_bar)
+
+        # Region selector
+        self.region_selector = RegionSelector()
+        self.region_selector.region_changed.connect(self.on_region_changed)
+        self.verticalLayout.insertWidget(1, self.region_selector)
+
         self.input_widget = ImportSelectFileInputWidget()
-        self.verticalLayout.insertWidget(0, self.input_widget)
+        self.input_widget.inputFileChanged.connect(self.on_input_file_changed)
+        self.verticalLayout.insertWidget(2, self.input_widget)
 
         # The datatype determines whether the dataset resampling is done with
         # nearest neighbor and mode or nearest neighbor and mean
@@ -911,11 +963,93 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         layout.insertWidget(0, self.btnMetadata)
         self.btnMetadata.clicked.connect(self.open_metadata_editor)
 
+    def on_region_changed(self, region_info):
+        """
+        Slot raised when the region has changed.
+        """
+        self.validate_extents()
+
+    def on_input_file_changed(self, success):
+        """
+        Slot raised when a raster or vector file has been uploaded.
+        """
+        if success:
+            self.validate_extents()
+
+    def validate_extents(self, user_warning=True) -> bool:
+        """
+        Asserts if the extents of the selected region and uploaded file are
+        the same. Sends a warning that the output will be expanded or clipped
+        if the extents are not the same.
+        Messaging will be sent if the child dialog contains a 'msg_bar'
+        attribute of type QMessageBar.
+        """
+        self.msg_bar.clearWidgets()
+
+        region_bbox = None
+        if self.region_selector.region_info:
+            region_bbox = self.region_selector.region_info.bounds
+
+        # No need to go further if the region extents cannot be determined.
+        if region_bbox is None:
+            return False
+
+        file_type = self.input_widget.selected_file_type()
+        if not file_type:
+            return False
+
+        input_layer = None
+        if file_type == 'raster':
+            input_layer = self.input_widget.get_raster_layer()
+        else:
+            input_layer = self.input_widget.get_vector_layer()
+
+        if input_layer is None:
+            return False
+
+        layer_bbox = input_layer.extent()
+
+        if region_bbox != layer_bbox:
+            # Check if within tolerance
+            if extents_within_tolerance(region_bbox, layer_bbox):
+                return True
+
+            # Notify user
+            if user_warning:
+                reg_name = self.region_selector.region_info.area_name
+                self.msg_bar.pushMessage(
+                    self.tr(f'The output file will be resized '
+                            f'to \'{reg_name}\' extent.'),
+                    qgis.core.Qgis.MessageLevel.Warning,
+                    8
+                )
+
+            return False
+
+        return True
+
+    def extent_as_list(self) -> list:
+        """
+        Returns the list containing xmin, ymin, xmax, ymax of the
+        region extent or an empty list of the extent could not be
+        determined.
+        """
+        bbox = None
+        if self.region_selector.region_info:
+            bbox = self.region_selector.region_info.bounds
+
+        if bbox is None:
+            return []
+
+        return [
+            bbox.xMinimum(), bbox.yMinimum(), bbox.xMaximum(), bbox.yMaximum()
+        ]
+
     def validate_input(self, value):
         if self.input_widget.radio_raster_input.isChecked():
             if self.input_widget.lineEdit_raster_file.text() == "":
                 QtWidgets.QMessageBox.critical(
-                    None,
+                    self,
                     tr_data_io.tr("Error"),
                     tr_data_io.tr("Choose an input raster file."),
                 )
@@ -926,7 +1060,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
 
             if in_file == "":
                 QtWidgets.QMessageBox.critical(
-                    None,
+                    self,
                     tr_data_io.tr("Error"),
                     tr_data_io.tr("Choose an input polygon dataset."),
                 )
@@ -1034,6 +1168,12 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
             )
         )
         log('Remap dict "{}"'.format(remap_dict))
+
+        target_bounds = self.extent_as_list()
+        if len(target_bounds) == 0:
+            log("Target bounds for remapping vector not available.")
+            target_bounds = None
+
         remap_vector_worker = worker.StartWorker(
             RemapVectorWorker,
             "rasterizing and remapping values",
@@ -1043,6 +1183,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
             remap_dict,
             self.vector_datatype,
             out_res,
+            target_bounds
         )
 
         if not remap_vector_worker.success:
@@ -1054,7 +1195,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         else:
             return True
 
-    def remap_raster(self, in_file, out_file, remap_list):
+    def remap_raster(self, out_file, remap_list):
         # First warp the raster to the correct CRS
         temp_tif = GetTempFilename(".tif")
         warp_ret = self.warp_raster(temp_tif)
@@ -1105,7 +1246,19 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         in_file = self.input_widget.lineEdit_raster_file.text()
         band_number = int(self.input_widget.comboBox_bandnumber.currentText())
         temp_vrt = GetTempFilename(".vrt")
-        gdal.BuildVRT(temp_vrt, in_file, bandList=[band_number])
+        target_bounds = self.extent_as_list()
+        if len(target_bounds) == 0:
+            log("Target bounds for warping raster not available.")
+            gdal.BuildVRT(temp_vrt, in_file, bandList=[band_number])
+        else:
+            ext_str = ','.join(map(str, target_bounds))
+            log(f"Target bounds for warped raster: {ext_str}")
+            gdal.BuildVRT(
+                temp_vrt,
+                in_file,
+                bandList=[band_number],
+                outputBounds=target_bounds
+            )
 
         log("Importing {} to {}".format(in_file, out_file))
 

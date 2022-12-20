@@ -36,7 +36,6 @@ from . import conf
 from . import data_io
 from .jobs.manager import job_manager
 from .logger import log
-from .region_selector import RegionSelector
 
 
 DlgCalculateLCSetAggregationUi, _ = uic.loadUiType(
@@ -929,13 +928,12 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
     def __init__(self, parent=None):
         super().__init__(parent)
 
-        self.region_selector = RegionSelector()
-        self.verticalLayout.insertWidget(0, self.region_selector)
-
         # This needs to be inserted after the lc definition widget but before
         # the button box with ok/cancel
-        self.output_widget = data_io.ImportSelectRasterOutput()
-        self.verticalLayout.insertWidget(3, self.output_widget)
+        self.txt_task_name = QtWidgets.QLineEdit()
+        self.txt_task_name.setMaxLength(100)
+        self.txt_task_name.setText('D:/Temp/Data/sample.tif')
+        # self.verticalLayout.insertWidget(3, self.txt_task_name)
 
         self.input_widget.inputFileChanged.connect(self.input_changed)
         self.input_widget.inputTypeChanged.connect(self.input_changed)
@@ -966,13 +964,6 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
             super().done(value)
 
     def validate_input(self, value):
-        if self.output_widget.lineEdit_output_file.text() == "":
-            QtWidgets.QMessageBox.critical(
-                None, self.tr("Error"), self.tr("Choose an output file.")
-            )
-
-            return
-
         if not self.dlg_agg:
             QtWidgets.QMessageBox.information(
                 None,
@@ -1115,12 +1106,11 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
         return int(self.input_widget.lineEdit_nodata.text())
 
     def ok_clicked(self):
-        out_file = self.output_widget.lineEdit_output_file.text()
+        out_file = self.txt_task_name.text()
 
         if self.input_widget.radio_raster_input.isChecked():
-            in_file = self.input_widget.lineEdit_raster_file.text()
             remap_ret = self.remap_raster(
-                in_file, out_file, self.dlg_agg.nesting.get_list()
+                out_file, self.dlg_agg.nesting.get_list()
             )
         else:
             attribute = self.input_widget.comboBox_fieldname.currentText()
@@ -1148,6 +1138,7 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
             ),
         )
         job_manager.import_job(job, Path(out_file))
+        job_manager.move_job_results(job)
 
 
 class LCDefineDegradationWidget(QtWidgets.QWidget, WidgetLcDefineDegradationUi):

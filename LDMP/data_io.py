@@ -963,6 +963,9 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         layout.insertWidget(0, self.btnMetadata)
         self.btnMetadata.clicked.connect(self.open_metadata_editor)
 
+        # Output raster file
+        self._output_raster_path = GetTempFilename(".tif")
+
     def on_region_changed(self, region_info):
         """
         Slot raised when the region has changed.
@@ -1280,7 +1283,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
 
         if not raster_import_worker.success:
             QtWidgets.QMessageBox.critical(
-                None, tr_data_io.tr("Error"), tr_data_io.tr("Raster import failed.")
+                self, tr_data_io.tr("Error"), tr_data_io.tr("Raster import failed.")
             )
 
             return False

@@ -928,13 +928,6 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
     def __init__(self, parent=None):
         super().__init__(parent)
 
-        # This needs to be inserted after the lc definition widget but before
-        # the button box with ok/cancel
-        self.txt_task_name = QtWidgets.QLineEdit()
-        self.txt_task_name.setMaxLength(100)
-        self.txt_task_name.setText('D:/Temp/Data/sample.tif')
-        # self.verticalLayout.insertWidget(3, self.txt_task_name)
-
         self.input_widget.inputFileChanged.connect(self.input_changed)
         self.input_widget.inputTypeChanged.connect(self.input_changed)
 
@@ -1106,7 +1099,7 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
         return int(self.input_widget.lineEdit_nodata.text())
 
     def ok_clicked(self):
-        out_file = self.txt_task_name.text()
+        out_file = self._output_raster_path
 
         if self.input_widget.radio_raster_input.isChecked():
             remap_ret = self.remap_raster(

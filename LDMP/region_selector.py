@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 
+from qgis.core import QgsGeometry
 from qgis.core import QgsRectangle
 from qgis.PyQt import QtCore
-from qgis.PyQt import QtGui
 from qgis.PyQt import QtWidgets
 from qgis.utils import iface
 
@@ -20,10 +20,10 @@ class RegionInfo:
     Contains region information including extents.
     """
     area_name: str
-    bounds: QgsRectangle
+    geom: QgsGeometry
     country: str
     sub_national_name: str
-    # Will only use city or region
+    # Will only use city or region in the enum
     sub_national_type: AreaSetting
 
 
@@ -89,13 +89,13 @@ class RegionSelector(QtWidgets.QWidget):
         if admin_one_name == 'All regions':
             temp_admin_one_name = None
 
-        bbox = get_admin_bbox(
+        geom = get_admin_bbox(
             country,
             temp_admin_one_name,
             is_region
         )
 
-        return RegionInfo(area_name, bbox, country, admin_one_name, area_type)
+        return RegionInfo(area_name, geom, country, admin_one_name, area_type)
 
     def on_run_settings(self):
         iface.showOptionsDialog(iface.mainWindow(), currentPage=OPTIONS_TITLE)

@@ -16,6 +16,7 @@ from pathlib import Path
 
 from qgis import processing
 from qgis.core import QgsFeatureRequest
+from qgis.core import QgsGeometry
 from qgis.core import QgsLayerDefinition
 from qgis.core import QgsProject
 from qgis.core import QgsReadWriteContext
@@ -149,9 +150,9 @@ def get_admin_bbox(
         country_name: str,
         admin_one: str = None,
         is_admin_one_region: bool = True
-) -> QgsRectangle:
+) -> QgsGeometry:
     """
-    Returns the extents of the given country or sub-national city or region
+    Returns the geometry of the given country or sub-national city or region
     else None if not found or if there is an issue in reading the relevant
     data source layer(s).
     If 'admin_one' is a region then 'is_admin_one_region' should be True
@@ -185,7 +186,7 @@ def get_admin_bbox(
         if feat is None:
             return None
 
-        return feat.geometry().boundingBox()
+        return feat.geometry()
 
     else:
         snl = QgsVectorLayer(sub_national_data_path())
@@ -241,7 +242,7 @@ def get_admin_bbox(
         if feat is None:
             return None
 
-        return feat.geometry().boundingBox()
+        return feat.geometry()
 
 
 def country_data_path() -> str:

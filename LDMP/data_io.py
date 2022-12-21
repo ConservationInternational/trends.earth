@@ -908,21 +908,35 @@ class ImportSelectRasterOutput(
 
 
 def extents_within_tolerance(
-        ext1: qgis.core.QgsRectangle,
-        ext2: qgis.core.QgsRectangle
+        geom1: qgis.core.QgsGeometry,
+        geom2: qgis.core.QgsGeometry
 ) -> bool:
     """
-    Check if the two extents are within the tolerance range set in the
-    tolerance setting.
+    Check if the two geometries are overlapping and to which extent based on
+    the tolerance setting, which is based on a ratio of the non-overlapping
+    area to the total area of the reference geometry.
+    Ensure the two geometries are in the same CRS.
     """
-    x_diff = abs(ext1.xMinimum() - ext2.xMinimum())
-    y_diff = abs(ext1.yMinimum() - ext2.yMinimum())
-    v = qgis.core.QgsVector(x_diff, y_diff)
+    if geom1.equals(geom2):
+        return True
 
-    if v.length() < \
-            conf.settings_manager.get_value(
-                conf.Setting.IMPORT_EXTENT_TOLERANCE
-            ):
+    diff_geom = geom1.difference(geom2)
+    if diff_geom.isNull():
+        return False
+    
+    # Cannot calculate tolerance based on area if not polygon based.
+    if diff_geom.type() != qgis.core.QgsWkbTypes.GeometryType.PolygonGeometry:
+        return False
+    
+    area_calculator = qgis.core.QgsDistanceArea()
+    diff_ratio = area_calculator.measureArea(diff_geom) \
+                 / area_calculator.measureArea(geom1)
+
+    tolerance = conf.settings_manager.get_value(
+        conf.Setting.IMPORT_AREA_TOLERANCE
+    )
+
+    if (1 - diff_ratio) > tolerance:
         return True
 
     return False
@@ -970,63 +984,102 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         """
         Slot raised when the region has changed.
         """
-        self.validate_extents()
+        self.validate_overlap()
 
     def on_input_file_changed(self, success):
         """
         Slot raised when a raster or vector file has been uploaded.
         """
         if success:
-            self.validate_extents()
+            self.validate_overlap()
 
-    def validate_extents(self, user_warning=True) -> bool:
+    def validate_overlap(self, user_warning=True) -> bool:
         """
-        Asserts if the extents of the selected region and uploaded file are
-        the same. Sends a warning that the output will be expanded or clipped
-        if the extents are not the same.
-        Messaging will be sent if the child dialog contains a 'msg_bar'
-        attribute of type QMessageBar.
+        Checks the range within which the geometry of the uploaded file
+        overlaps with that of the selected region. The allowed range should
+        be within the tolerance specified in the settings. Sends a warning
+        that the output will be expanded or clipped if the extents are not
+        the same. Messaging will be sent if the child dialog contains a
+        'msg_bar' attribute of type QMessageBar.
         """
         self.msg_bar.clearWidgets()
 
-        region_bbox = None
+        region_geom = None
         if self.region_selector.region_info:
-            region_bbox = self.region_selector.region_info.bounds
+            region_geom = self.region_selector.region_info.geom
 
-        # No need to go further if the region extents cannot be determined.
-        if region_bbox is None:
+        # No need to go further if the region geometry cannot be determined.
+        if region_geom is None:
             return False
 
         file_type = self.input_widget.selected_file_type()
         if not file_type:
             return False
 
-        input_layer = None
+        layer_bbox_geom = None
+        source_crs = None
         if file_type == 'raster':
-            input_layer = self.input_widget.get_raster_layer()
+            lyr = self.input_widget.get_raster_layer()
+            if lyr:
+                layer_bbox_geom = qgis.core.QgsGeometry.fromRect(lyr.extent())
+                source_crs = lyr.crs()
         else:
-            input_layer = self.input_widget.get_vector_layer()
+            lyr = self.input_widget.get_vector_layer()
+            if not lyr or not lyr.isValid():
+                return False
 
-        if input_layer is None:
+            source_crs = lyr.crs()
+
+            # Combine the geometry for all the features
+            feat_iter = lyr.getFeatures()
+            geoms = [
+                f.geometry() for f in feat_iter
+                if f.isValid() and not f.geometry().isNull()
+            ]
+            for g in geoms:
+                if layer_bbox_geom is None:
+                    layer_bbox_geom = g
+                    continue
+                layer_bbox_geom = layer_bbox_geom.combine(g)
+
+        if layer_bbox_geom is None:
             return False
 
-        layer_bbox = input_layer.extent()
-
-        if region_bbox != layer_bbox:
-            # Check if within tolerance
-            if extents_within_tolerance(region_bbox, layer_bbox):
-                return True
-
-            # Notify user
+        if source_crs is None or not source_crs.isValid():
             if user_warning:
-                reg_name = self.region_selector.region_info.area_name
                 self.msg_bar.pushMessage(
-                    self.tr(f'The output file will be resized '
-                            f'to \'{reg_name}\' extent.'),
+                    self.tr('Missing or invalid CRS for input file.'),
                     qgis.core.Qgis.MessageLevel.Warning,
                     8
                 )
 
+            return False
+
+        # Reproject the geometry to WGS if different from region
+        wgs84_crs = qgis.core.QgsCoordinateReferenceSystem.fromEpsgId(4326)
+        if source_crs != wgs84_crs:
+            transform_ctx = qgis.core.QgsProject.instance().transformContext()
+            ct = qgis.core.QgsCoordinateTransform(
+                source_crs,
+                wgs84_crs,
+                transform_ctx
+            )
+            result = layer_bbox_geom.transform(ct)
+            if result != qgis.core.Qgis.GeometryOperationResult.Success:
+                log('Unable to reproject source file geometry.')
+                return False
+
+        # Check if within tolerance
+        if not extents_within_tolerance(region_geom, layer_bbox_geom):
+            # Notify user
+            if user_warning:
+                reg_name = self.region_selector.region_info.area_name
+                self.msg_bar.pushMessage(
+                    self.tr(f'Output file will be resized '
+                            f'to \'{reg_name}\' extent.'),
+                    qgis.core.Qgis.MessageLevel.Warning,
+                    8
+                )
             return False
 
         return True
@@ -1034,12 +1087,12 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
     def extent_as_list(self) -> list:
         """
         Returns the list containing xmin, ymin, xmax, ymax of the
-        region extent or an empty list of the extent could not be
+        region extent or an empty list if the extent could not be
         determined.
         """
         bbox = None
         if self.region_selector.region_info:
-            bbox = self.region_selector.region_info.bounds
+            bbox = self.region_selector.region_info.geom.boundingBox()
 
         if bbox is None:
             return []

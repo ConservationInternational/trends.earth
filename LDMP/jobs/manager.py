@@ -657,7 +657,7 @@ class JobManager(QtCore.QObject):
 
     def move_job_results(self, job: Job):
         """
-        Move the datasets in results to the same folder as the job where
+        Move the datasets in results to the same folder as the job, where
         applicable.
         """
         if not hasattr(job.results, "uri") or not job.results.uri:
@@ -677,10 +677,12 @@ class JobManager(QtCore.QObject):
 
         # Job results
         job_path = self.get_job_file_path(job)
-        dest_path = f"{job_path.parent}/" \
-                    f"{job_path.stem}{job.results.uri.uri.suffix}"
-        if results_uri.exists():
-            target_path = results_uri.rename(Path(dest_path).resolve())
+        dest_path = Path(
+            f"{job_path.parent}/{job_path.stem}{job.results.uri.uri.suffix}"
+        ).resolve()
+        if results_uri.exists() and not dest_path.exists():
+            log(f"Updating results URI from {results_uri!s} to {dest_path!s}")
+            target_path = shutil.copy(results_uri, dest_path)
             moved_files[results_uri] = target_path
             job.results.uri.uri = target_path
 
@@ -693,17 +695,22 @@ class JobManager(QtCore.QObject):
             uris = [job.results.vector.uri]
         elif job.results.type == ResultType.FILE_RESULTS:
             uris = job.results.other_uris
-        
+
         if uris:
             for uri in uris:
                 if not uri:
                     continue
+
+                # File had already been moved so just update the uri
+                if uri.uri in moved_files:
+                    uri.uri = moved_files[uri.uri]
+                    continue
+
+                # Copy the rest
                 new_path = Path(f"{job_path.parent}/{uri.uri.name}").resolve()
                 if uri.uri.exists() and not new_path.exists():
-                    uri.uri.rename(f"{job_path.parent}/{uri.uri.name}")
+                    shutil.copy(uri.uri, new_path)
                     uri.uri = new_path
-                elif uri.uri in moved_files:
-                    uri.uri = moved_files[uri.uri]
                 else:
                     uri.uri = None
 

@@ -1482,21 +1482,14 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
         )
         job_manager.import_job(job, Path(out_file))
         job_manager.move_job_results(job)
-        
+
         super().save_metadata(job)
 
 
 class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
-    output_widget: ImportSelectRasterOutput
 
     def __init__(self, parent=None):
         super().__init__(parent)
-
-        # This needs to be inserted after the input widget but before the
-        # button box with ok/cancel
-        self.output_widget = ImportSelectRasterOutput()
-        self.verticalLayout.insertWidget(1, self.output_widget)
-
         self.input_widget.groupBox_year.hide()
 
     def done(self, value):
@@ -1506,13 +1499,6 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
             super().done(value)
 
     def validate_input(self, value):
-        if self.output_widget.lineEdit_output_file.text() == "":
-            QtWidgets.QMessageBox.critical(
-                None, tr_data_io.tr("Error"), tr_data_io.tr("Choose an output file.")
-            )
-
-            return
-
         ret = super().validate_input(value)
 
         if not ret:
@@ -1533,7 +1519,7 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
 
             if not l.fields().field(idx).isNumeric():
                 QtWidgets.QMessageBox.critical(
-                    None,
+                    self,
                     tr_data_io.tr("Error"),
                     tr_data_io.tr(
                         "The chosen field ({}) is not numeric. Choose a field that "
@@ -1547,7 +1533,7 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
 
         if not values:
             QtWidgets.QMessageBox.critical(
-                None,
+                self,
                 tr_data_io.tr("Error"),
                 tr_data_io.tr(
                     "The input file ({}) does not appear to be a valid productivity "
@@ -1560,7 +1546,7 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
 
         if len(invalid_values) > 0:
             QtWidgets.QMessageBox.warning(
-                None,
+                self,
                 tr_data_io.tr("Warning"),
                 tr_data_io.tr(
                     "The input file ({}) does not appear to be a valid productivity "
@@ -1577,7 +1563,7 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
         self.ok_clicked()
 
     def ok_clicked(self):
-        out_file = self.output_widget.lineEdit_output_file.text()
+        out_file = self._output_raster_path
 
         if self.input_widget.radio_raster_input.isChecked():
             ret = self.warp_raster(out_file)
@@ -1593,8 +1579,10 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
             Path(out_file),
             "Land Productivity Dynamics (LPD)",
             {"source": "custom data"},
+            task_name=self.tr("Land productivity (imported)")
         )
         job_manager.import_job(job, Path(out_file))
+        job_manager.move_job_results(job)
 
         super().save_metadata(job)
 

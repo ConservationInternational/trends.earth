@@ -147,9 +147,7 @@ def admin_one_name_from_code(country_name: str, sub_code: str) -> str:
 
 
 def get_admin_bbox(
-        country_name: str,
-        admin_one: str = None,
-        is_admin_one_region: bool = True
+    country_name: str, admin_one: str = None, is_admin_one_region: bool = True
 ) -> QgsGeometry:
     """
     Returns the geometry of the given country or sub-national city or region
@@ -179,7 +177,7 @@ def get_admin_bbox(
             return None
 
         feat_request = QgsFeatureRequest()
-        feat_exp = f'"ISO_A3"=\'{country_code}\''
+        feat_exp = f"\"ISO_A3\"='{country_code}'"
         feat_request.setFilterExpression(feat_exp)
         feat_iter = nl.getFeatures(feat_request)
         feat = next(feat_iter, None)
@@ -205,8 +203,7 @@ def get_admin_bbox(
 
             # Get wof_id corresponding to the given city name
             wof_ids = [
-                ci.wof_id for ci in country_cities.values()
-                if ci.name_en == admin_one
+                ci.wof_id for ci in country_cities.values() if ci.name_en == admin_one
             ]
             if len(wof_ids) == 0:
                 return None
@@ -218,24 +215,24 @@ def get_admin_bbox(
                 return None
 
             feat_request = QgsFeatureRequest()
-            feat_exp = f'"wof_id"=\'{wof_id}\''
+            feat_exp = f"\"wof_id\"='{wof_id}'"
             feat_request.setFilterExpression(feat_exp)
             feat_iter = pl.getFeatures(feat_request)
             feat = next(feat_iter, None)
             if feat is None:
                 return None
 
-            admin_one_attr_val = feat['ADM1NAME']
-            admin_one_attr = 'name'
+            admin_one_attr_val = feat["ADM1NAME"]
+            admin_one_attr = "name"
 
         # Region-level
         else:
             # Use region code to retrieve feature
             admin_one_attr_val = country_info.level1_regions.get(admin_one, None)
-            admin_one_attr = 'adm1_code'
+            admin_one_attr = "adm1_code"
 
         feat_request = QgsFeatureRequest()
-        feat_exp = f'"{admin_one_attr}"=\'{admin_one_attr_val}\''
+        feat_exp = f"\"{admin_one_attr}\"='{admin_one_attr_val}'"
         feat_request.setFilterExpression(feat_exp)
         feat_iter = snl.getFeatures(feat_request)
         feat = next(feat_iter, None)

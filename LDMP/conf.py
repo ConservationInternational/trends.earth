@@ -129,7 +129,7 @@ class SettingsManager:
         Setting.LC_IPCC_NESTING: "",
         Setting.LC_ESA_NESTING: "",
         Setting.LC_CUSTOM_IMPORT_NESTING: "",
-        Setting.IMPORT_AREA_TOLERANCE: 0.95
+        Setting.IMPORT_AREA_TOLERANCE: 0.95,
     }
 
     def __init__(self):

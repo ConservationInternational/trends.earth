@@ -157,6 +157,7 @@ def get_admin_bbox(
     (default) else if it is a city then 'is_admin_one_region' should be False.
     """
     if not os.path.exists(country_data_path()):
+        log(f"Path to country dataset does not exist - {country_data_path()}")
         return None
 
     # Get the country code as defined in 'download.get_admin_bounds()'. We
@@ -166,6 +167,7 @@ def get_admin_bbox(
     admin_bounds = download.get_admin_bounds()
     country_info = admin_bounds.get(country_name, None)
     if not country_info:
+        log(f"Country information could not be found for {country_name}")
         return None
 
     country_code = country_info.code
@@ -174,6 +176,7 @@ def get_admin_bbox(
     if not admin_one:
         nl = QgsVectorLayer(country_data_path())
         if not nl.isValid():
+            log("Country dataset is not valid")
             return None
 
         feat_request = QgsFeatureRequest()
@@ -182,6 +185,7 @@ def get_admin_bbox(
         feat_iter = nl.getFeatures(feat_request)
         feat = next(feat_iter, None)
         if feat is None:
+            log("Could not find the matching feature in the country layer.")
             return None
 
         return feat.geometry()
@@ -189,6 +193,7 @@ def get_admin_bbox(
     else:
         snl = QgsVectorLayer(sub_national_data_path())
         if not snl.isValid():
+            log("Sub-national layer is not valid.")
             return None
 
         # Attribute name to get matching feature in admin1 layer
@@ -199,6 +204,7 @@ def get_admin_bbox(
         if not is_admin_one_region:
             country_cities = download.get_cities().get(country_name, None)
             if country_cities is None:
+                log(f"Could not find cities information for {country_name}")
                 return None
 
             # Get wof_id corresponding to the given city name
@@ -206,12 +212,14 @@ def get_admin_bbox(
                 ci.wof_id for ci in country_cities.values() if ci.name_en == admin_one
             ]
             if len(wof_ids) == 0:
+                log(f"Wof_id for {admin_one} could not be found.")
                 return None
 
             # Get 'adm1name' from wof_id in populated places layer
             wof_id = wof_ids[0]
             pl = QgsVectorLayer(places_data_path())
             if not pl.isValid():
+                log("Places layer is invalid.")
                 return None
 
             feat_request = QgsFeatureRequest()
@@ -220,6 +228,7 @@ def get_admin_bbox(
             feat_iter = pl.getFeatures(feat_request)
             feat = next(feat_iter, None)
             if feat is None:
+                log(f"Place feature matching {wof_id} could not be found.")
                 return None
 
             admin_one_attr_val = feat["ADM1NAME"]
@@ -237,6 +246,10 @@ def get_admin_bbox(
         feat_iter = snl.getFeatures(feat_request)
         feat = next(feat_iter, None)
         if feat is None:
+            log(
+                f"Admin one feature could not be found in sub-national layer "
+                f"using expression: {feat_exp}."
+            )
             return None
 
         return feat.geometry()

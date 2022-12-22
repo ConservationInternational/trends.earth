@@ -664,8 +664,8 @@ class JobManager(QtCore.QObject):
             return
 
         if job.status not in (
-                jobs.JobStatus.GENERATED_LOCALLY,
-                jobs.JobStatus.DOWNLOADED
+            jobs.JobStatus.GENERATED_LOCALLY,
+            jobs.JobStatus.DOWNLOADED,
         ):
             return
 

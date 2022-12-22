@@ -167,7 +167,7 @@ class RemapVectorWorker(worker.AbstractWorker):
         in_data_type,
         out_res,
         out_data_type=gdal.GDT_Int16,
-        output_bounds=None
+        output_bounds=None,
     ):
         worker.AbstractWorker.__init__(self)
 
@@ -856,11 +856,11 @@ class ImportSelectFileInputWidget(
         Returns if current selection is "raster" or "vector".
         """
         if self.radio_raster_input.isChecked():
-            return 'raster'
+            return "raster"
         elif self.radio_polygon_input.isChecked():
-            return 'vector'
+            return "vector"
 
-        return ''
+        return ""
 
 
 class ImportSelectRasterOutput(
@@ -908,8 +908,7 @@ class ImportSelectRasterOutput(
 
 
 def extents_within_tolerance(
-        geom1: qgis.core.QgsGeometry,
-        geom2: qgis.core.QgsGeometry
+    geom1: qgis.core.QgsGeometry, geom2: qgis.core.QgsGeometry
 ) -> bool:
     """
     Check if the two geometries are overlapping and to which extent based on
@@ -923,18 +922,17 @@ def extents_within_tolerance(
     diff_geom = geom1.difference(geom2)
     if diff_geom.isNull():
         return False
-    
+
     # Cannot calculate tolerance based on area if not polygon based.
     if diff_geom.type() != qgis.core.QgsWkbTypes.GeometryType.PolygonGeometry:
         return False
-    
-    area_calculator = qgis.core.QgsDistanceArea()
-    diff_ratio = area_calculator.measureArea(diff_geom) \
-                 / area_calculator.measureArea(geom1)
 
-    tolerance = conf.settings_manager.get_value(
-        conf.Setting.IMPORT_AREA_TOLERANCE
+    area_calculator = qgis.core.QgsDistanceArea()
+    diff_ratio = area_calculator.measureArea(diff_geom) / area_calculator.measureArea(
+        geom1
     )
+
+    tolerance = conf.settings_manager.get_value(conf.Setting.IMPORT_AREA_TOLERANCE)
 
     if (1 - diff_ratio) > tolerance:
         return True
@@ -1019,7 +1017,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
 
         layer_bbox_geom = None
         source_crs = None
-        if file_type == 'raster':
+        if file_type == "raster":
             lyr = self.input_widget.get_raster_layer()
             if lyr:
                 layer_bbox_geom = qgis.core.QgsGeometry.fromRect(lyr.extent())
@@ -1034,7 +1032,8 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
             # Combine the geometry for all the features
             feat_iter = lyr.getFeatures()
             geoms = [
-                f.geometry() for f in feat_iter
+                f.geometry()
+                for f in feat_iter
                 if f.isValid() and not f.geometry().isNull()
             ]
             for g in geoms:
@@ -1049,9 +1048,9 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         if source_crs is None or not source_crs.isValid():
             if user_warning:
                 self.msg_bar.pushMessage(
-                    self.tr('Missing or invalid CRS for input file.'),
+                    self.tr("Missing or invalid CRS for input file."),
                     qgis.core.Qgis.MessageLevel.Warning,
-                    8
+                    8,
                 )
 
             return False
@@ -1060,14 +1059,10 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         wgs84_crs = qgis.core.QgsCoordinateReferenceSystem.fromEpsgId(4326)
         if source_crs != wgs84_crs:
             transform_ctx = qgis.core.QgsProject.instance().transformContext()
-            ct = qgis.core.QgsCoordinateTransform(
-                source_crs,
-                wgs84_crs,
-                transform_ctx
-            )
+            ct = qgis.core.QgsCoordinateTransform(source_crs, wgs84_crs, transform_ctx)
             result = layer_bbox_geom.transform(ct)
             if result != qgis.core.Qgis.GeometryOperationResult.Success:
-                log('Unable to reproject source file geometry.')
+                log("Unable to reproject source file geometry.")
                 return False
 
         # Check if within tolerance
@@ -1076,10 +1071,9 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
             if user_warning:
                 reg_name = self.region_selector.region_info.area_name
                 self.msg_bar.pushMessage(
-                    self.tr(f'Output file will be resized '
-                            f'to \'{reg_name}\' extent.'),
+                    self.tr(f"Output file will be resized " f"to '{reg_name}' extent."),
                     qgis.core.Qgis.MessageLevel.Warning,
-                    8
+                    8,
                 )
             return False
 
@@ -1098,9 +1092,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         if bbox is None:
             return []
 
-        return [
-            bbox.xMinimum(), bbox.yMinimum(), bbox.xMaximum(), bbox.yMaximum()
-        ]
+        return [bbox.xMinimum(), bbox.yMinimum(), bbox.xMaximum(), bbox.yMaximum()]
 
     def validate_input(self, value):
         if self.input_widget.radio_raster_input.isChecked():
@@ -1240,7 +1232,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
             remap_dict,
             self.vector_datatype,
             out_res,
-            target_bounds
+            target_bounds,
         )
 
         if not remap_vector_worker.success:
@@ -1308,13 +1300,10 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
             log("Target bounds for warping raster not available.")
             gdal.BuildVRT(temp_vrt, in_file, bandList=[band_number])
         else:
-            ext_str = ','.join(map(str, target_bounds))
+            ext_str = ",".join(map(str, target_bounds))
             log(f"Target bounds for warped raster: {ext_str}")
             gdal.BuildVRT(
-                temp_vrt,
-                in_file,
-                bandList=[band_number],
-                outputBounds=target_bounds
+                temp_vrt, in_file, bandList=[band_number], outputBounds=target_bounds
             )
 
         log("Importing {} to {}".format(in_file, out_file))
@@ -1488,7 +1477,6 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
 
 
 class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
-
     def __init__(self, parent=None):
         super().__init__(parent)
         self.input_widget.groupBox_year.hide()
@@ -1580,7 +1568,7 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
             Path(out_file),
             "Land Productivity Dynamics (LPD)",
             {"source": "custom data"},
-            task_name=self.tr("Land productivity (imported)")
+            task_name=self.tr("Land productivity (imported)"),
         )
         job_manager.import_job(job, Path(out_file))
         job_manager.move_job_results(job)

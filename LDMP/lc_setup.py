@@ -477,15 +477,12 @@ def ipcc_lc_nesting_from_settings() -> LCLegendNesting:
 
 def custom_lc_nesting_to_settings(nesting: dict):
     conf.settings_manager.write_value(
-        conf.Setting.LC_CUSTOM_IMPORT_NESTING,
-        json.dumps(nesting)
+        conf.Setting.LC_CUSTOM_IMPORT_NESTING, json.dumps(nesting)
     )
 
 
 def custom_lc_nesting_from_settings() -> dict:
-    nesting_str = conf.settings_manager.get_value(
-        conf.Setting.LC_CUSTOM_IMPORT_NESTING
-    )
+    nesting_str = conf.settings_manager.get_value(conf.Setting.LC_CUSTOM_IMPORT_NESTING)
     if not nesting_str:
         return {}
 
@@ -1052,13 +1049,10 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
 
             # We need to determine those codes that were unused (from
             # settings) and assign them to nodata.
-            used_codes = [cv for code_values in nest.values()
-                          for cv in code_values]
+            used_codes = [cv for code_values in nest.values() for cv in code_values]
             unused_codes = list(set(values) - set(used_codes))
             no_data_values = nest[default_nesting.child.nodata.code]
-            no_data_values.extend(
-                unused_codes
-            )
+            no_data_values.extend(unused_codes)
             nest[default_nesting.child.nodata.code] = no_data_values
 
         nesting = LCLegendNesting(
@@ -1143,9 +1137,7 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
         out_file = self._output_raster_path
 
         if self.input_widget.radio_raster_input.isChecked():
-            remap_ret = self.remap_raster(
-                out_file, self.dlg_agg.nesting.get_list()
-            )
+            remap_ret = self.remap_raster(out_file, self.dlg_agg.nesting.get_list())
         else:
             attribute = self.input_widget.comboBox_fieldname.currentText()
             l = self.input_widget.get_vector_layer()

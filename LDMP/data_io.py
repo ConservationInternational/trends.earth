@@ -977,7 +977,8 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         layout.insertWidget(0, self.btnMetadata)
         self.btnMetadata.clicked.connect(self.open_metadata_editor)
 
-        # Output raster file
+        # Output raster file - this should be moved once a job has been
+        # created by calling job_manager.move_job_results().
         self._output_raster_path = GetTempFilename(".tif")
 
     def on_region_changed(self, region_info):
@@ -1087,7 +1088,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
     def extent_as_list(self) -> list:
         """
         Returns the list containing xmin, ymin, xmax, ymax of the
-        region extent or an empty list if the extent could not be
+        region geom extent or an empty list if the extent could not be
         determined.
         """
         bbox = None

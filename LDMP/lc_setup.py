@@ -475,6 +475,23 @@ def ipcc_lc_nesting_from_settings() -> LCLegendNesting:
     return LCLegendNesting.Schema().loads(nesting_str)
 
 
+def custom_lc_nesting_to_settings(nesting: dict):
+    conf.settings_manager.write_value(
+        conf.Setting.LC_CUSTOM_IMPORT_NESTING,
+        json.dumps(nesting)
+    )
+
+
+def custom_lc_nesting_from_settings() -> dict:
+    nesting_str = conf.settings_manager.get_value(
+        conf.Setting.LC_CUSTOM_IMPORT_NESTING
+    )
+    if not nesting_str:
+        return {}
+
+    return json.loads(nesting_str)
+
+
 def esa_lc_nesting_to_settings(nesting: LCLegendNesting):
     conf.settings_manager.write_value(
         conf.Setting.LC_ESA_NESTING, LCLegendNesting.Schema().dumps(nesting)
@@ -1019,10 +1036,30 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
         nest = {c: [] for c in default_nesting.child.codes()}
         # The nodata code in the data being imported needs to be handled.
         # Nest this under the parent nodata code as well.
-
         if child_nodata_code not in values:
             values = values + [child_nodata_code]
         nest.update({default_nesting.child.nodata.code: values})
+
+        # Update nest based on previously saved values' mapping
+        settings_nest = custom_lc_nesting_from_settings()
+        if len(settings_nest) > 0:
+            for code, child_keys in nest.items():
+                st_codes = settings_nest.get(str(code), [])
+                if len(st_codes) == 0:
+                    continue
+                code_values = [s for s in st_codes if s in values]
+                nest[code] = code_values
+
+            # We need to determine those codes that were unused (from
+            # settings) and assign them to nodata.
+            used_codes = [cv for code_values in nest.values()
+                          for cv in code_values]
+            unused_codes = list(set(values) - set(used_codes))
+            no_data_values = nest[default_nesting.child.nodata.code]
+            no_data_values.extend(
+                unused_codes
+            )
+            nest[default_nesting.child.nodata.code] = no_data_values
 
         nesting = LCLegendNesting(
             parent=default_nesting.child,
@@ -1054,12 +1091,15 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
                 )
 
                 if not values:
+                    max_classes = conf.settings_manager.get_value(
+                        conf.Setting.LC_MAX_CLASSES
+                    )
                     QtWidgets.QMessageBox.critical(
-                        None,
+                        self,
                         self.tr("Error"),
                         self.tr(
-                            "Error reading data. Trends.Earth supports a maximum "
-                            "of 38 different land cover classes"
+                            f"Error reading data. Trends.Earth supports a maximum "
+                            f"of {max_classes!s} different land cover classes."
                         ),
                     )
 
@@ -1093,6 +1133,7 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
                 self.last_vector = f
                 self.last_idx = idx
                 self.load_agg(values, child_nodata_code=self.get_nodata_value())
+
         self.dlg_agg.exec_()
 
     def get_nodata_value(self):
@@ -1114,6 +1155,9 @@ class DlgDataIOImportLC(data_io.DlgDataIOImportBase, DlgDataIOImportLCUi):
 
         if not remap_ret:
             return False
+
+        # Save nesting definition to settings
+        custom_lc_nesting_to_settings(self.dlg_agg.nesting.nesting)
 
         job = job_manager.create_job_from_dataset(
             dataset_path=Path(out_file),

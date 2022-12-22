@@ -77,6 +77,7 @@ class Setting(enum.Enum):
     LC_LAST_DIR = "land_cover/last_dir"
     LC_IPCC_NESTING = "land_cover/ipcc_nesting"
     LC_ESA_NESTING = "land_cover/esa_nesting"
+    LC_CUSTOM_IMPORT_NESTING = "land_cover/custom_import_nesting"
     IMPORT_AREA_TOLERANCE = "import/extent_tolerance"
 
 
@@ -127,6 +128,7 @@ class SettingsManager:
         Setting.LC_LAST_DIR: "",
         Setting.LC_IPCC_NESTING: "",
         Setting.LC_ESA_NESTING: "",
+        Setting.LC_CUSTOM_IMPORT_NESTING: "",
         Setting.IMPORT_AREA_TOLERANCE: 0.95
     }
 

@@ -99,7 +99,7 @@ def init_layer_metadata(uri, metadata):
 
     md.setCrs(layer.dataProvider().crs())
     spatialExtent = qgis.core.QgsLayerMetadata.SpatialExtent()
-    spatialExtent.geom = qgis.core.QgsBox3d(layer.extent())
+    spatialExtent.bounds = qgis.core.QgsBox3d(layer.extent())
     spatialExtent.extentCrs = layer.dataProvider().crs()
     spatialExtents = [spatialExtent]
     extent = qgis.core.QgsLayerMetadata.Extent()

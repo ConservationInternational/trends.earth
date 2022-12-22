@@ -20,6 +20,7 @@ from pathlib import Path
 
 import numpy as np
 import qgis.core
+import qgis.gui
 import qgis.utils
 from osgeo import gdal
 from osgeo import osr
@@ -45,6 +46,8 @@ from .jobs.manager import set_results_extents
 from .jobs.manager import update_uris_if_needed
 from .jobs.models import Job
 from .logger import log
+from .region_selector import RegionSelector
+
 
 Ui_DlgDataIOLoadTE, _ = uic.loadUiType(
     str(Path(__file__).parents[0] / "gui/DlgDataIOLoadTE.ui")
@@ -164,6 +167,7 @@ class RemapVectorWorker(worker.AbstractWorker):
         in_data_type,
         out_res,
         out_data_type=gdal.GDT_Int16,
+        output_bounds=None,
     ):
         worker.AbstractWorker.__init__(self)
 
@@ -174,6 +178,7 @@ class RemapVectorWorker(worker.AbstractWorker):
         self.in_data_type = in_data_type
         self.out_res = out_res
         self.out_data_type = out_data_type
+        self.output_bounds = output_bounds
 
     def work(self):
         self.toggle_show_progress.emit(True)
@@ -259,6 +264,7 @@ class RemapVectorWorker(worker.AbstractWorker):
             outputSRS="epsg:4326",
             outputType=self.out_data_type,
             creationOptions=["COMPRESS=LZW"],
+            outputBounds=self.output_bounds,
             callback=self.progress_callback,
         )
         os.remove(temp_shp)
@@ -445,7 +451,7 @@ class RemapRasterWorker(worker.AbstractWorker):
 
         if self.killed:
             del ds_out
-            os.remove(out_file)
+            os.remove(self.out_file)
 
             return None
         else:
@@ -820,10 +826,41 @@ class ImportSelectFileInputWidget(
 
             return True
 
-    def get_vector_layer(self):
+    def get_vector_layer(self) -> qgis.core.QgsVectorLayer:
+        vector_file = self.lineEdit_vector_file.text()
+        if not vector_file:
+            return None
+
         return qgis.core.QgsVectorLayer(
             self.lineEdit_vector_file.text(), "vector file", "ogr"
         )
+
+    def get_raster_layer(self) -> qgis.core.QgsRasterLayer:
+        """
+        Returns the raster layer corresponding to the input file. If
+        a file path is not specified or if the layer is invalid then it
+        will return None.
+        """
+        raster_file = self.lineEdit_raster_file.text()
+        if not raster_file:
+            return None
+
+        l = qgis.core.QgsRasterLayer(raster_file)
+        if not l.isValid():
+            return None
+
+        return l
+
+    def selected_file_type(self) -> str:
+        """
+        Returns if current selection is "raster" or "vector".
+        """
+        if self.radio_raster_input.isChecked():
+            return "raster"
+        elif self.radio_polygon_input.isChecked():
+            return "vector"
+
+        return ""
 
 
 class ImportSelectRasterOutput(
@@ -870,6 +907,39 @@ class ImportSelectRasterOutput(
                 return False
 
 
+def extents_within_tolerance(
+    geom1: qgis.core.QgsGeometry, geom2: qgis.core.QgsGeometry
+) -> bool:
+    """
+    Check if the two geometries are overlapping and to which extent based on
+    the tolerance setting, which is based on a ratio of the non-overlapping
+    area to the total area of the reference geometry.
+    Ensure the two geometries are in the same CRS.
+    """
+    if geom1.equals(geom2):
+        return True
+
+    diff_geom = geom1.difference(geom2)
+    if diff_geom.isNull():
+        return False
+
+    # Cannot calculate tolerance based on area if not polygon based.
+    if diff_geom.type() != qgis.core.QgsWkbTypes.GeometryType.PolygonGeometry:
+        return False
+
+    area_calculator = qgis.core.QgsDistanceArea()
+    diff_ratio = area_calculator.measureArea(diff_geom) / area_calculator.measureArea(
+        geom1
+    )
+
+    tolerance = conf.settings_manager.get_value(conf.Setting.IMPORT_AREA_TOLERANCE)
+
+    if (1 - diff_ratio) > tolerance:
+        return True
+
+    return False
+
+
 class DlgDataIOImportBase(QtWidgets.QDialog):
     """Base class for individual data loading dialogs"""
 
@@ -882,8 +952,18 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         super().__init__(parent)
         self.setupUi(self)
 
+        # Message bar
+        self.msg_bar = qgis.gui.QgsMessageBar()
+        self.verticalLayout.insertWidget(0, self.msg_bar)
+
+        # Region selector
+        self.region_selector = RegionSelector()
+        self.region_selector.region_changed.connect(self.on_region_changed)
+        self.verticalLayout.insertWidget(1, self.region_selector)
+
         self.input_widget = ImportSelectFileInputWidget()
-        self.verticalLayout.insertWidget(0, self.input_widget)
+        self.input_widget.inputFileChanged.connect(self.on_input_file_changed)
+        self.verticalLayout.insertWidget(2, self.input_widget)
 
         # The datatype determines whether the dataset resampling is done with
         # nearest neighbor and mode or nearest neighbor and mean
@@ -895,11 +975,130 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         layout.insertWidget(0, self.btnMetadata)
         self.btnMetadata.clicked.connect(self.open_metadata_editor)
 
+        # Output raster file - this should be moved once a job has been
+        # created by calling job_manager.move_job_results().
+        self._output_raster_path = GetTempFilename(".tif")
+
+    def on_region_changed(self, region_info):
+        """
+        Slot raised when the region has changed.
+        """
+        self.validate_overlap()
+
+    def on_input_file_changed(self, success):
+        """
+        Slot raised when a raster or vector file has been uploaded.
+        """
+        if success:
+            self.validate_overlap()
+
+    def validate_overlap(self, user_warning=True) -> bool:
+        """
+        Checks the range within which the geometry of the uploaded file
+        overlaps with that of the selected region. The allowed range should
+        be within the tolerance specified in the settings. Sends a warning
+        that the output will be expanded or clipped if the extents are not
+        the same. Messaging will be sent if the child dialog contains a
+        'msg_bar' attribute of type QMessageBar.
+        """
+        self.msg_bar.clearWidgets()
+
+        region_geom = None
+        if self.region_selector.region_info:
+            region_geom = self.region_selector.region_info.geom
+
+        # No need to go further if the region geometry cannot be determined.
+        if region_geom is None:
+            return False
+
+        file_type = self.input_widget.selected_file_type()
+        if not file_type:
+            return False
+
+        layer_bbox_geom = None
+        source_crs = None
+        if file_type == "raster":
+            lyr = self.input_widget.get_raster_layer()
+            if lyr:
+                layer_bbox_geom = qgis.core.QgsGeometry.fromRect(lyr.extent())
+                source_crs = lyr.crs()
+        else:
+            lyr = self.input_widget.get_vector_layer()
+            if not lyr or not lyr.isValid():
+                return False
+
+            source_crs = lyr.crs()
+
+            # Combine the geometry for all the features
+            feat_iter = lyr.getFeatures()
+            geoms = [
+                f.geometry()
+                for f in feat_iter
+                if f.isValid() and not f.geometry().isNull()
+            ]
+            for g in geoms:
+                if layer_bbox_geom is None:
+                    layer_bbox_geom = g
+                    continue
+                layer_bbox_geom = layer_bbox_geom.combine(g)
+
+        if layer_bbox_geom is None:
+            return False
+
+        if source_crs is None or not source_crs.isValid():
+            if user_warning:
+                self.msg_bar.pushMessage(
+                    self.tr("Missing or invalid CRS for input file."),
+                    qgis.core.Qgis.MessageLevel.Warning,
+                    8,
+                )
+
+            return False
+
+        # Reproject the geometry to WGS if different from region
+        wgs84_crs = qgis.core.QgsCoordinateReferenceSystem.fromEpsgId(4326)
+        if source_crs != wgs84_crs:
+            transform_ctx = qgis.core.QgsProject.instance().transformContext()
+            ct = qgis.core.QgsCoordinateTransform(source_crs, wgs84_crs, transform_ctx)
+            result = layer_bbox_geom.transform(ct)
+            if result != qgis.core.Qgis.GeometryOperationResult.Success:
+                log("Unable to reproject source file geometry.")
+                return False
+
+        # Check if within tolerance
+        if not extents_within_tolerance(region_geom, layer_bbox_geom):
+            # Notify user
+            if user_warning:
+                reg_name = self.region_selector.region_info.area_name
+                self.msg_bar.pushMessage(
+                    self.tr(f"Output file will be resized " f"to '{reg_name}' extent."),
+                    qgis.core.Qgis.MessageLevel.Warning,
+                    8,
+                )
+            return False
+
+        return True
+
+    def extent_as_list(self) -> list:
+        """
+        Returns the list containing xmin, ymin, xmax, ymax of the
+        region geom extent or an empty list if the extent could not be
+        determined.
+        """
+        bbox = None
+        if self.region_selector.region_info:
+            bbox = self.region_selector.region_info.geom.boundingBox()
+
+        if bbox is None:
+            return []
+
+        return [bbox.xMinimum(), bbox.yMinimum(), bbox.xMaximum(), bbox.yMaximum()]
+
     def validate_input(self, value):
         if self.input_widget.radio_raster_input.isChecked():
             if self.input_widget.lineEdit_raster_file.text() == "":
                 QtWidgets.QMessageBox.critical(
-                    None,
+                    self,
                     tr_data_io.tr("Error"),
                     tr_data_io.tr("Choose an input raster file."),
                 )
@@ -910,7 +1109,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
 
             if in_file == "":
                 QtWidgets.QMessageBox.critical(
-                    None,
+                    self,
                     tr_data_io.tr("Error"),
                     tr_data_io.tr("Choose an input polygon dataset."),
                 )
@@ -1018,6 +1217,12 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
             )
         )
         log('Remap dict "{}"'.format(remap_dict))
+
+        target_bounds = self.extent_as_list()
+        if len(target_bounds) == 0:
+            log("Target bounds for remapping vector not available.")
+            target_bounds = None
+
         remap_vector_worker = worker.StartWorker(
             RemapVectorWorker,
             "rasterizing and remapping values",
@@ -1027,6 +1232,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
             remap_dict,
             self.vector_datatype,
             out_res,
+            target_bounds,
         )
 
         if not remap_vector_worker.success:
@@ -1038,7 +1244,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         else:
             return True
 
-    def remap_raster(self, in_file, out_file, remap_list):
+    def remap_raster(self, out_file, remap_list):
         # First warp the raster to the correct CRS
         temp_tif = GetTempFilename(".tif")
         warp_ret = self.warp_raster(temp_tif)
@@ -1089,7 +1295,16 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         in_file = self.input_widget.lineEdit_raster_file.text()
         band_number = int(self.input_widget.comboBox_bandnumber.currentText())
         temp_vrt = GetTempFilename(".vrt")
-        gdal.BuildVRT(temp_vrt, in_file, bandList=[band_number])
+        target_bounds = self.extent_as_list()
+        if len(target_bounds) == 0:
+            log("Target bounds for warping raster not available.")
+            gdal.BuildVRT(temp_vrt, in_file, bandList=[band_number])
+        else:
+            ext_str = ",".join(map(str, target_bounds))
+            log(f"Target bounds for warped raster: {ext_str}")
+            gdal.BuildVRT(
+                temp_vrt, in_file, bandList=[band_number], outputBounds=target_bounds
+            )
 
         log("Importing {} to {}".format(in_file, out_file))
 
@@ -1111,7 +1326,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
 
         if not raster_import_worker.success:
             QtWidgets.QMessageBox.critical(
-                None, tr_data_io.tr("Error"), tr_data_io.tr("Raster import failed.")
+                self, tr_data_io.tr("Error"), tr_data_io.tr("Raster import failed.")
             )
 
             return False
@@ -1130,11 +1345,6 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
 class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
     def __init__(self, parent=None):
         super().__init__(parent)
-
-        # This needs to be inserted after the input widget but before the
-        # button box with ok/cancel
-        self.output_widget = ImportSelectRasterOutput()
-        self.verticalLayout.insertWidget(1, self.output_widget)
         self.datatype = "continuous"
 
     def done(self, value):
@@ -1144,19 +1354,12 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
             super().done(value)
 
     def validate_input(self, value):
-        if self.output_widget.lineEdit_output_file.text() == "":
-            QtWidgets.QMessageBox.critical(
-                None, tr_data_io.tr("Error"), tr_data_io.tr("Choose an output file.")
-            )
-
-            return
-
         if (
             self.input_widget.spinBox_data_year.text()
             == self.input_widget.spinBox_data_year.specialValueText()
         ):
             QtWidgets.QMessageBox.critical(
-                None,
+                self,
                 tr_data_io.tr("Error"),
                 tr_data_io.tr("Enter the year of the input data."),
             )
@@ -1181,7 +1384,7 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
 
             if not l.fields().field(idx).isNumeric():
                 QtWidgets.QMessageBox.critical(
-                    None,
+                    self,
                     tr_data_io.tr("Error"),
                     tr_data_io.tr(
                         "The chosen field ({}) is not numeric. Choose a numeric field.".format(
@@ -1197,7 +1400,7 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
 
         if not stats:
             QtWidgets.QMessageBox.critical(
-                None,
+                self,
                 tr_data_io.tr("Error"),
                 tr_data_io.tr(
                     "The input file ({}) does not appear to be a valid soil organic "
@@ -1210,7 +1413,7 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
 
         if stats[0] < 0:
             QtWidgets.QMessageBox.critical(
-                None,
+                self,
                 tr_data_io.tr("Error"),
                 tr_data_io.tr(
                     "The input file ({}) does not appear to be a valid soil organic "
@@ -1225,7 +1428,7 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
 
         if stats[1] > 1000:
             QtWidgets.QMessageBox.critical(
-                None,
+                self,
                 tr_data_io.tr("Error"),
                 tr_data_io.tr(
                     "The input file ({}) does not appear to be a valid soil organic "
@@ -1243,7 +1446,7 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
         self.ok_clicked()
 
     def ok_clicked(self):
-        out_file = self.output_widget.lineEdit_output_file.text()
+        out_file = self._output_raster_path
 
         if self.input_widget.radio_raster_input.isChecked():
             ret = self.warp_raster(out_file)
@@ -1268,21 +1471,14 @@ class DlgDataIOImportSOC(DlgDataIOImportBase, Ui_DlgDataIOImportSOC):
             ),
         )
         job_manager.import_job(job, Path(out_file))
+        job_manager.move_job_results(job)
 
         super().save_metadata(job)
 
 
 class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
-    output_widget: ImportSelectRasterOutput
-
     def __init__(self, parent=None):
         super().__init__(parent)
-
-        # This needs to be inserted after the input widget but before the
-        # button box with ok/cancel
-        self.output_widget = ImportSelectRasterOutput()
-        self.verticalLayout.insertWidget(1, self.output_widget)
-
         self.input_widget.groupBox_year.hide()
 
     def done(self, value):
@@ -1292,13 +1488,6 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
             super().done(value)
 
     def validate_input(self, value):
-        if self.output_widget.lineEdit_output_file.text() == "":
-            QtWidgets.QMessageBox.critical(
-                None, tr_data_io.tr("Error"), tr_data_io.tr("Choose an output file.")
-            )
-
-            return
-
         ret = super().validate_input(value)
 
         if not ret:
@@ -1319,7 +1508,7 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
 
             if not l.fields().field(idx).isNumeric():
                 QtWidgets.QMessageBox.critical(
-                    None,
+                    self,
                     tr_data_io.tr("Error"),
                     tr_data_io.tr(
                         "The chosen field ({}) is not numeric. Choose a field that "
@@ -1333,7 +1522,7 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
 
         if not values:
             QtWidgets.QMessageBox.critical(
-                None,
+                self,
                 tr_data_io.tr("Error"),
                 tr_data_io.tr(
                     "The input file ({}) does not appear to be a valid productivity "
@@ -1346,7 +1535,7 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
 
         if len(invalid_values) > 0:
             QtWidgets.QMessageBox.warning(
-                None,
+                self,
                 tr_data_io.tr("Warning"),
                 tr_data_io.tr(
                     "The input file ({}) does not appear to be a valid productivity "
@@ -1363,7 +1552,7 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
         self.ok_clicked()
 
     def ok_clicked(self):
-        out_file = self.output_widget.lineEdit_output_file.text()
+        out_file = self._output_raster_path
 
         if self.input_widget.radio_raster_input.isChecked():
             ret = self.warp_raster(out_file)
@@ -1379,8 +1568,10 @@ class DlgDataIOImportProd(DlgDataIOImportBase, Ui_DlgDataIOImportProd):
             Path(out_file),
             "Land Productivity Dynamics (LPD)",
             {"source": "custom data"},
+            task_name=self.tr("Land productivity (imported)"),
         )
         job_manager.import_job(job, Path(out_file))
+        job_manager.move_job_results(job)
 
         super().save_metadata(job)
 

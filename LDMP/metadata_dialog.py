@@ -237,7 +237,7 @@ class DlgDatasetMetadata(QtWidgets.QDialog, Ui_DlgDatasetMetadata):
             self.metadata.setCrs(self.layer.dataProvider().crs())
 
             spatialExtent = qgis.core.QgsLayerMetadata.SpatialExtent()
-            spatialExtent.bounds = qgis.core.QgsBox3d(self.layer.extent())
+            spatialExtent.geom = qgis.core.QgsBox3d(self.layer.extent())
             spatialExtent.extentCrs = self.layer.dataProvider().crs()
             spatialExtents = [spatialExtent]
             extent = qgis.core.QgsLayerMetadata.Extent()

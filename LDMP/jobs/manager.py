@@ -664,10 +664,73 @@ class JobManager(QtCore.QObject):
             status = jobs.JobStatus.DOWNLOADED
         else:
             status = job.status
+
         log(f"job status is: {job.status}")
         log(f"emitting job {job.id}")
         self.known_jobs[status][job.id] = job
         self.imported_job.emit(job)
+
+    def move_job_results(self, job: Job):
+        """
+        Move the datasets in results to the same folder as the job, where
+        applicable.
+        """
+        if not hasattr(job.results, "uri") or not job.results.uri:
+            return
+
+        if job.status not in (
+            jobs.JobStatus.GENERATED_LOCALLY,
+            jobs.JobStatus.DOWNLOADED,
+        ):
+            return
+
+        results_uri = job.results.uri.uri
+        if not results_uri:
+            return
+
+        moved_files = {}
+
+        # Job results
+        job_path = self.get_job_file_path(job)
+        dest_path = Path(
+            f"{job_path.parent}/{job_path.stem}{job.results.uri.uri.suffix}"
+        ).resolve()
+        if results_uri.exists() and not dest_path.exists():
+            log(f"Updating results URI from {results_uri!s} to {dest_path!s}")
+            target_path = shutil.copy(results_uri, dest_path)
+            moved_files[results_uri] = target_path
+            job.results.uri.uri = target_path
+
+        # Result layers
+        uris = None
+
+        if job.results.type == ResultType.RASTER_RESULTS:
+            uris = job.results.get_main_uris()
+        elif job.results.type == ResultType.VECTOR_RESULTS:
+            uris = [job.results.vector.uri]
+        elif job.results.type == ResultType.FILE_RESULTS:
+            uris = job.results.other_uris
+
+        if uris:
+            for uri in uris:
+                if not uri:
+                    continue
+
+                # File had already been moved so just update the uri
+                if uri.uri in moved_files:
+                    uri.uri = moved_files[uri.uri]
+                    continue
+
+                # Copy the rest
+                new_path = Path(f"{job_path.parent}/{uri.uri.name}").resolve()
+                if uri.uri.exists() and not new_path.exists():
+                    shutil.copy(uri.uri, new_path)
+                    uri.uri = new_path
+                else:
+                    uri.uri = None
+
+        self._remove_job_metadata_file(job)
+        self.write_job_metadata_file(job)
 
     def create_job_from_dataset(
         self,
@@ -818,7 +881,7 @@ class JobManager(QtCore.QObject):
 
     def get_vector_result_job_by_id(self, job_id: str) -> Job:
         """
-        Returns a vector results job by the job ID or nNone if not found.
+        Returns a vector results job by the job ID or None if not found.
         """
         vr_jobs = self.get_vector_result_jobs()
         m_jobs = [vrj for vrj in vr_jobs if str(vrj.id) == job_id]

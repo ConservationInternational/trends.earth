@@ -998,8 +998,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         overlaps with that of the selected region. The allowed range should
         be within the tolerance specified in the settings. Sends a warning
         that the output will be expanded or clipped if the extents are not
-        the same. Messaging will be sent if the child dialog contains a
-        'msg_bar' attribute of type QMessageBar.
+        the same.
         """
         self.msg_bar.clearWidgets()
 

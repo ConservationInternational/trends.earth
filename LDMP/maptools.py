@@ -168,7 +168,7 @@ class TEMapToolMixin:
                 return
 
             ext_geom = QgsGeometry.fromRect(ext_rect)
-            if not ext_geom.isGeosValid:
+            if not ext_geom.isGeosValid():
                 return
 
             self._geom_engine = QgsGeometry.createGeometryEngine(ext_geom.constGet())

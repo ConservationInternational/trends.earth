@@ -416,7 +416,7 @@ def base_image(year, geojson, lang, gc_client, metadata):
     start_date = dt.datetime(year, 1, 1)
     end_date = dt.datetime(year, 12, 31)
     point = ee.Geometry(geojson)
-    region = point.buffer(BOX_SIDE / 2).bounds()
+    region = point.buffer(BOX_SIDE / 2).geom()
 
     # Mask out clouds and cloud-shadows in the Landsat image
     range_coll = OLI_SR_COLL.filterDate(
@@ -488,7 +488,7 @@ def greenness(year, geojson, lang, gc_client, metadata):
     start_date = dt.datetime(year, 1, 1)
     end_date = dt.datetime(year, 12, 31)
     point = ee.Geometry(geojson)
-    region = point.buffer(BOX_SIDE / 2).bounds()
+    region = point.buffer(BOX_SIDE / 2).geom()
     ndvi_mean = (
         OLI_SR_COLL.filterDate(
             start_date.strftime("%Y-%m-%d"), end_date.strftime("%Y-%m-%d")
@@ -569,7 +569,7 @@ def greenness_trend(year_start, year_end, geojson, lang, gc_client, metadata):
     start_date = dt.datetime(year_start, 1, 1)
     end_date = dt.datetime(year_end, 12, 31)
     point = ee.Geometry(geojson)
-    region = point.buffer(BOX_SIDE / 2).bounds()
+    region = point.buffer(BOX_SIDE / 2).geom()
     ndvi = []
 
     for y in range(year_start, year_end + 1):

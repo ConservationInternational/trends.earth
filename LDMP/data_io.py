@@ -832,7 +832,7 @@ class ImportSelectFileInputWidget(
             return None
 
         return qgis.core.QgsVectorLayer(
-            self.lineEdit_vector_file.text(), "vector file", "ogr"
+            vector_file, "vector file", "ogr"
         )
 
     def get_raster_layer(self) -> qgis.core.QgsRasterLayer:

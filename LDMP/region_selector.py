@@ -19,6 +19,7 @@ class RegionInfo:
     """
     Contains region information including extents.
     """
+
     area_name: str
     geom: QgsGeometry
     country: str
@@ -32,6 +33,7 @@ class RegionSelector(QtWidgets.QWidget):
     Convenience widget for selecting a region in settings. Emits a
     'region_changed' signal containing details of the selected region.
     """
+
     region_changed = QtCore.pyqtSignal(RegionInfo)
 
     def __init__(self, parent=None):
@@ -39,8 +41,8 @@ class RegionSelector(QtWidgets.QWidget):
         self.lbl_region = QtWidgets.QLabel()
 
         self.btn_region_select = QtWidgets.QPushButton()
-        self.btn_region_select.setText(self.tr('Change region'))
-        self.btn_region_select.setIcon(FileUtils.get_icon('wrench.svg'))
+        self.btn_region_select.setText(self.tr("Change region"))
+        self.btn_region_select.setIcon(FileUtils.get_icon("wrench.svg"))
         self.btn_region_select.clicked.connect(self.on_run_settings)
 
         self._layout = QtWidgets.QHBoxLayout()
@@ -57,9 +59,7 @@ class RegionSelector(QtWidgets.QWidget):
         region_info = self.region_info
         region_name = region_info.area_name
 
-        self.lbl_region.setText(
-            self.tr(f'Current region: {region_name}')
-        )
+        self.lbl_region.setText(self.tr(f"Current region: {region_name}"))
         if not region_info.area_name:
             return
 
@@ -76,7 +76,7 @@ class RegionSelector(QtWidgets.QWidget):
         area_name = settings_manager.get_value(Setting.AREA_NAME)
         country = settings_manager.get_value(Setting.COUNTRY_NAME)
         admin_method = settings_manager.get_value(Setting.AREA_FROM_OPTION)
-        if admin_method == 'country_region':
+        if admin_method == "country_region":
             is_region = True
             admin_one_name = settings_manager.get_value(Setting.REGION_NAME)
             area_type = AreaSetting.COUNTRY_REGION
@@ -86,14 +86,10 @@ class RegionSelector(QtWidgets.QWidget):
             area_type = AreaSetting.COUNTRY_CITY
 
         temp_admin_one_name = admin_one_name
-        if admin_one_name == 'All regions':
+        if admin_one_name == "All regions":
             temp_admin_one_name = None
 
-        geom = get_admin_bbox(
-            country,
-            temp_admin_one_name,
-            is_region
-        )
+        geom = get_admin_bbox(country, temp_admin_one_name, is_region)
 
         return RegionInfo(area_name, geom, country, admin_one_name, area_type)
 
@@ -103,4 +99,3 @@ class RegionSelector(QtWidgets.QWidget):
 
     def region_name(self) -> str:
         return self.lbl_region.text()
-

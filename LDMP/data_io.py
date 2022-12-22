@@ -1086,7 +1086,8 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         determined.
         """
         bbox = None
-        if self.region_selector.region_info:
+        if self.region_selector.region_info and \
+                self.region_selector.region_info.geom:
             bbox = self.region_selector.region_info.geom.boundingBox()
 
         if bbox is None:

@@ -690,7 +690,7 @@ class JobManager(QtCore.QObject):
         uris = None
 
         if job.results.type == ResultType.RASTER_RESULTS:
-            uris = job.results.get_main_uris()
+            uris = job.results.get_all_uris()
         elif job.results.type == ResultType.VECTOR_RESULTS:
             uris = [job.results.vector.uri]
         elif job.results.type == ResultType.FILE_RESULTS:
@@ -703,7 +703,9 @@ class JobManager(QtCore.QObject):
 
                 # File had already been moved so just update the uri
                 if uri.uri in moved_files:
-                    uri.uri = moved_files[uri.uri]
+                    new_uri = moved_files[uri.uri]
+                    if uri.uri != new_uri:
+                        uri.uri = new_uri
                     continue
 
                 # Copy the rest

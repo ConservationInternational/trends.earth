@@ -81,6 +81,9 @@ Ui_WidgetDataIOSelectTEDatasetExisting, _ = uic.loadUiType(
 )
 
 
+DEFAULT_NO_DATA=-32768
+
+
 class tr_data_io:
     def tr(message):
         return QtCore.QCoreApplication.translate("tr_data_io", message)
@@ -259,7 +262,7 @@ class RemapVectorWorker(worker.AbstractWorker):
             format="GTiff",
             xRes=self.out_res,
             yRes=-self.out_res,
-            noData=-32768,
+            noData=DEFAULT_NO_DATA,
             attribute="code",
             outputSRS="epsg:4326",
             outputType=self.out_data_type,
@@ -306,7 +309,7 @@ class RasterizeWorker(worker.AbstractWorker):
             format="GTiff",
             xRes=self.out_res,
             yRes=-self.out_res,
-            noData=-32768,
+            noData=DEFAULT_NO_DATA,
             attribute=self.attribute,
             outputSRS="epsg:4326",
             outputType=self.out_data_type,
@@ -351,7 +354,7 @@ class RasterImportWorker(worker.AbstractWorker):
                 format="GTiff",
                 xRes=self.out_res,
                 yRes=-self.out_res,
-                dstNodata=-32768,
+                dstNodata=DEFAULT_NO_DATA,
                 dstSRS="epsg:4326",
                 outputType=self.out_data_type,
                 resampleAlg=self.resample_mode,
@@ -363,7 +366,7 @@ class RasterImportWorker(worker.AbstractWorker):
                 self.out_file,
                 self.in_file,
                 format="GTiff",
-                dstNodata=-32768,
+                dstNodata=DEFAULT_NO_DATA,
                 dstSRS="epsg:4326",
                 outputType=self.out_data_type,
                 resampleAlg=self.resample_mode,
@@ -1300,7 +1303,11 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
             ext_str = ",".join(map(str, target_bounds))
             log(f"Target bounds for warped raster: {ext_str}")
             gdal.BuildVRT(
-                temp_vrt, in_file, bandList=[band_number], outputBounds=target_bounds
+                temp_vrt,
+                in_file,
+                bandList=[band_number],
+                outputBounds=target_bounds,
+                VRTNodata=DEFAULT_NO_DATA
             )
 
         log("Importing {} to {}".format(in_file, out_file))

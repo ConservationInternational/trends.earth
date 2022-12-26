@@ -1296,19 +1296,16 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         band_number = int(self.input_widget.comboBox_bandnumber.currentText())
         temp_vrt = GetTempFilename(".vrt")
         target_bounds = self.extent_as_list()
+        args = [temp_vrt, in_file]
+        kwargs = {"bandList": [band_number], "VRTNodata": DEFAULT_NO_DATA}
         if len(target_bounds) == 0:
             log("Target bounds for warping raster not available.")
-            gdal.BuildVRT(temp_vrt, in_file, bandList=[band_number])
+            gdal.BuildVRT(*args, **kwargs)
         else:
             ext_str = ",".join(map(str, target_bounds))
             log(f"Target bounds for warped raster: {ext_str}")
-            gdal.BuildVRT(
-                temp_vrt,
-                in_file,
-                bandList=[band_number],
-                outputBounds=target_bounds,
-                VRTNodata=DEFAULT_NO_DATA
-            )
+            kwargs["outputBounds"] = target_bounds
+            gdal.BuildVRT(*args, **kwargs)
 
         log("Importing {} to {}".format(in_file, out_file))
 

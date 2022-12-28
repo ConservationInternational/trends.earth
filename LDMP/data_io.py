@@ -81,7 +81,7 @@ Ui_WidgetDataIOSelectTEDatasetExisting, _ = uic.loadUiType(
 )
 
 
-DEFAULT_NO_DATA=-32768
+DEFAULT_NO_DATA = -32768
 
 
 class tr_data_io:
@@ -1301,7 +1301,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         kwargs = {
             "bandList": [band_number],
             "srcNodata": DEFAULT_NO_DATA,
-            "VRTNodata": DEFAULT_NO_DATA
+            "VRTNodata": DEFAULT_NO_DATA,
         }
 
         if len(target_bounds) == 0:

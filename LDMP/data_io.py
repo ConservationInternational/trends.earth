@@ -354,6 +354,7 @@ class RasterImportWorker(worker.AbstractWorker):
                 format="GTiff",
                 xRes=self.out_res,
                 yRes=-self.out_res,
+                srcNodata=DEFAULT_NO_DATA,
                 dstNodata=DEFAULT_NO_DATA,
                 dstSRS="epsg:4326",
                 outputType=self.out_data_type,
@@ -1297,15 +1298,20 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         temp_vrt = GetTempFilename(".vrt")
         target_bounds = self.extent_as_list()
         args = [temp_vrt, in_file]
-        kwargs = {"bandList": [band_number], "VRTNodata": DEFAULT_NO_DATA}
+        kwargs = {
+            "bandList": [band_number],
+            "srcNodata": DEFAULT_NO_DATA,
+            "VRTNodata": DEFAULT_NO_DATA
+        }
+
         if len(target_bounds) == 0:
             log("Target bounds for warping raster not available.")
-            gdal.BuildVRT(*args, **kwargs)
         else:
             ext_str = ",".join(map(str, target_bounds))
             log(f"Target bounds for warped raster: {ext_str}")
             kwargs["outputBounds"] = target_bounds
-            gdal.BuildVRT(*args, **kwargs)
+
+        gdal.BuildVRT(*args, **kwargs)
 
         log("Importing {} to {}".format(in_file, out_file))
 

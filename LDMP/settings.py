@@ -229,7 +229,6 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
         self.widget_settings_report.save_settings()
         self.widget_crs_settings.save_settings()
         if not self.lcc_manager.save_settings():
-            print("Validation failed")
             return
 
         new_base_dir = conf.settings_manager.get_value(conf.Setting.BASE_DIR)
@@ -1601,22 +1600,17 @@ class WidgetSettingsCrs(QtWidgets.QWidget, Ui_WidgetSettingsCrs):
         )
 
     def _load_crs_from_settings(self):
-        crs_str = settings_manager.get_value(Setting.DEFAULT_CRS)
-        if not crs_str:
-            # Default to WGS84 if settings was empty
-            settings_crs = qgis.core.QgsCoordinateReferenceSystem("EPSG:4326")
-        else:
-            settings_crs = qgis.core.QgsCoordinateReferenceSystem(crs_str)
-            if not settings_crs.isValid():
-                msg_level = qgis.core.Qgis.MessageLevel.Warning
-                msg = self.tr("Previously saved CRS is not valid.")
-                self.msg_bar.pushMessage(
-                    self.tr("CRS"),
-                    msg,
-                    msg_level,
-                    5
-                )
-        self.proj_selector.setCrs(settings_crs)
+        crs = conf.settings_crs()
+        if not crs:
+            msg_level = qgis.core.Qgis.MessageLevel.Warning
+            msg = self.tr("Previously saved CRS is not defined or invalid.")
+            self.msg_bar.pushMessage(
+                self.tr("CRS"),
+                msg,
+                msg_level,
+                5
+            )
+        self.proj_selector.setCrs(crs)
 
     def showEvent(self, event):
         super().showEvent(event)
@@ -1632,7 +1626,7 @@ class WidgetSettingsCrs(QtWidgets.QWidget, Ui_WidgetSettingsCrs):
             crs_str = crs.authid()
 
         settings_manager.write_value(
-            Setting.DEFAULT_CRS,
+            Setting.CUSTOM_CRS,
             crs_str
         )
 

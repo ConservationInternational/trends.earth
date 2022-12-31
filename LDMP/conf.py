@@ -87,7 +87,6 @@ class Setting(enum.Enum):
     LC_LAST_DIR = "land_cover/last_dir"
     LC_IPCC_NESTING = "land_cover/ipcc_nesting"
     LC_ESA_NESTING = "land_cover/esa_nesting"
-    DEFAULT_CRS = "crs/default"
 
 
 class SettingsManager:
@@ -137,8 +136,7 @@ class SettingsManager:
         Setting.LC_MAX_CLASSES: 45,
         Setting.LC_LAST_DIR: "",
         Setting.LC_IPCC_NESTING: "",
-        Setting.LC_ESA_NESTING: "",
-        Setting.DEFAULT_CRS: "EPSG:4326"
+        Setting.LC_ESA_NESTING: ""
     }
 
     def __init__(self):
@@ -203,6 +201,39 @@ def _load_algorithm_config(
 
     return algorithm_models.AlgorithmGroup(
         name="root", name_details="root_details", parent=None, groups=top_level_groups
+    )
+
+
+def settings_crs() -> qgis.core.QgsCoordinateReferenceSystem:
+    """
+    Returns the CRS stored in settings or None if settings is not defined
+    or if the CRS is invalid.
+    """
+    crs_str = settings_manager.get_value(Setting.CUSTOM_CRS)
+    if not crs_str:
+        return None
+
+    crs = qgis.core.QgsCoordinateReferenceSystem(crs_str)
+    if not crs.isValid():
+        return None
+
+    return crs
+
+
+def settings_crs_as_wkt():
+    """
+    Returns the CRS stored in settings as a WKT string or an empty string
+    if the CRS is not defined or is invalid.
+    The variant of the WKT is biased for use with the GDAL library, else
+    this can be changed by specifying the
+    QgsCoordinateReferenceSystem.WktVariant flag.
+    """
+    crs = settings_crs()
+    if not crs:
+        return ""
+
+    return crs.toWkt(
+        qgis.core.QgsCoordinateReferenceSystem.WktVariant.WKT_PREFERRED_GDAL
     )
 
 

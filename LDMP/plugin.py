@@ -336,7 +336,10 @@ class LDMPPlugin:
     def run_settings(self):
         old_base_dir = conf.settings_manager.get_value(conf.Setting.BASE_DIR)
 
-        self.iface.showOptionsDialog(currentPage=OPTIONS_TITLE)
+        self.iface.showOptionsDialog(
+            self.iface.mainWindow(),
+            currentPage=OPTIONS_TITLE
+        )
 
         new_base_dir = conf.settings_manager.get_value(conf.Setting.BASE_DIR)
         if old_base_dir != new_base_dir:

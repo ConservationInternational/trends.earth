@@ -183,6 +183,20 @@
         </widget>
        </item>
        <item>
+        <widget class="QgsCollapsibleGroupBox" name="groupbox_crs">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="title">
+          <string>CRS</string>
+         </property>
+         <layout class="QVBoxLayout" name="crs_layout"/>
+        </widget>
+       </item>
+       <item>
         <widget class="QgsCollapsibleGroupBox" name="groupbox_lc_config">
          <property name="minimumSize">
           <size>

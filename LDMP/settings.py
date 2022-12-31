@@ -238,6 +238,11 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
             if hasattr(self, "dock_widget") and self.dock_widget.isVisible():
                 self.dock_widget.refresh_after_cache_update()
 
+        # There are cases where you can modify settings without activating
+        # the dock widget.
+        if not hasattr(self, "dock_widget") or not self.dock_widget:
+            return
+
         offline_mode = settings_manager.get_value(Setting.OFFLINE_MODE)
         if offline_mode:
             self.dock_widget.pushButton_download.setEnabled(False)

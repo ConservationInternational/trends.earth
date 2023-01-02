@@ -25,6 +25,7 @@ from te_schemas.land_cover import LCTransitionDefinitionDeg
 from . import calculate
 from . import data_io
 from . import lc_setup
+from .conf import settings_crs
 from .jobs.manager import job_manager
 from .lc_setup import get_trans_matrix
 from .logger import log
@@ -191,7 +192,7 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
                 self.tr("Warning"),
                 self.tr(
                     f"The initial year ({year_initial}) is greater than or "
-                    "equal to the final year ({year_final}) - this analysis "
+                    f"equal to the final year ({year_final}) - this analysis "
                     "might generate strange results."
                 ),
             )
@@ -222,6 +223,15 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
                     "layer."
                 ),
             )
+            return
+
+        # Check layers' CRS
+        crs_check_defn = [
+            (initial_layer, self.tr("initial layer")),
+            (final_layer, self.tr("target layer"))
+        ]
+
+        if not self._validate_crs(crs_check_defn):
             return
 
         self.close()

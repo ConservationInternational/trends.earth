@@ -194,6 +194,15 @@ class DlgCalculateLC(calculate.DlgCalculateBase, DlgCalculateLcUi):
             )
             return
 
+        # Check layers' CRS
+        crs_check_defn = [
+            (initial_layer, self.tr("initial layer")),
+            (final_layer, self.tr("target layer"))
+        ]
+
+        if not self._validate_crs(crs_check_defn):
+            return
+
         self.close()
 
         trans_matrix = self.lc_define_deg_widget.get_trans_matrix_from_widget()

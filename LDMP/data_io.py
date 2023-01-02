@@ -1751,24 +1751,51 @@ class WidgetDataIOSelectTEDatasetExisting(
         else:
             return None
 
-    def get_current_extent(self):
+    def get_current_layer(self, band="any") -> qgis.core.QgsMapLayer:
+        # Use this to get general layer properties such as extent and crs.
         job = self.get_current_job()
-        if job:
-            if ResultType(job.results.type) == ResultType.RASTER_RESULTS:
-                band = self.get_bands("any")[0]
-                return qgis.core.QgsRasterLayer(
-                    str(band.path), "raster file", "gdal"
-                ).extent()
-            elif ResultType(job.results.type) == ResultType.VECTOR_RESULTS:
-                rect = qgis.core.QgsVectorLayer(
-                    str(self.get_current_data_file()), "vector file", "ogr"
-                ).extent()
-                return (
-                    rect.xMinimum(),
-                    rect.yMinimum(),
-                    rect.yMaximum(),
-                    rect.yMaximum(),
-                )
+        if not job:
+            return None
+
+        if ResultType(job.results.type) == ResultType.RASTER_RESULTS:
+            band = self.get_bands(band)[0]
+            return qgis.core.QgsRasterLayer(
+                str(band.path),
+                "raster file",
+                "gdal"
+            )
+
+        elif ResultType(job.results.type) == ResultType.VECTOR_RESULTS:
+            return qgis.core.QgsVectorLayer(
+                str(self.get_current_data_file()),
+                "vector file",
+                "ogr"
+            )
+
+        return None
+
+    def get_current_extent(self):
+        lyr = self.get_current_layer()
+        if not lyr:
+            return None
+
+        if isinstance(lyr, qgis.core.QgsVectorLayer):
+            rect = lyr.extent()
+            return (
+                rect.xMinimum(),
+                rect.yMinimum(),
+                rect.yMaximum(),
+                rect.yMaximum(),
+            )
+
+        return lyr.extent()
+
+    def get_crs(self) -> qgis.core.QgsCoordinateReferenceSystem:
+        lyr = self.get_current_layer()
+        if not lyr:
+            return None
+
+        return lyr.crs()
 
     def get_bands(self, band_name) -> Band:
         aoi = areaofinterest.prepare_area_of_interest()

@@ -899,8 +899,17 @@ class DlgCalculateLDNSummaryTableAdmin(
                 ),
             )
             return False
-        else:
-            return True
+
+        # Include check for CRS defined in settings
+        crs_check_defn = [
+            (model_layer, model_layer_name),
+            (check_layer, check_layer_name)
+        ]
+
+        if not self._validate_crs(crs_check_defn):
+            return False
+
+        return True
 
     def validate_layer_crs(self, combo_boxes, pop_mode):
         """check all layers have the same resolution and CRS"""

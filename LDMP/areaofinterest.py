@@ -521,12 +521,9 @@ def open_settings():
 
 
 def prepare_area_of_interest() -> AOI:
-    if conf.settings_manager.get_value(conf.Setting.CUSTOM_CRS_ENABLED):
-        crs_dst = qgis.core.QgsCoordinateReferenceSystem(
-            conf.settings_manager.get_value(conf.Setting.CUSTOM_CRS)
-        )
-    else:
-        crs_dst = qgis.core.QgsCoordinateReferenceSystem("epsg:4326")
+    crs_dst = conf.settings_crs()
+    if not crs_dst:
+        raise TypeError("Dataset CRS not defined or is invalid.")
 
     area_of_interest = AOI(crs_dst)
     area_method = conf.settings_manager.get_value(conf.Setting.AREA_FROM_OPTION)
@@ -549,7 +546,8 @@ def prepare_area_of_interest() -> AOI:
         if geojson is None:
             raise RuntimeError(error_msg)
         area_of_interest.update_from_geojson(
-            geojson=geojson, wrap=False  # FIXME: add the corresponding setting
+            geojson=geojson,
+            wrap=conf.settings_manager.get_value(conf.Setting.CUSTOM_CRS_WRAP)
         )
     elif area_method == conf.AreaSetting.VECTOR_LAYER.value:
         vector_path, error_msg = validate_vector_path()
@@ -557,7 +555,7 @@ def prepare_area_of_interest() -> AOI:
             raise RuntimeError(error_msg)
         area_of_interest.update_from_file(
             f=conf.settings_manager.get_value(conf.Setting.VECTOR_FILE_PATH),
-            wrap=False,  # FIXME: add the corresponding setting
+            wrap=conf.settings_manager.get_value(conf.Setting.CUSTOM_CRS_WRAP),
         )
     elif area_method == conf.AreaSetting.POINT.value:
         # Area from point
@@ -573,7 +571,7 @@ def prepare_area_of_interest() -> AOI:
         geojson = json.loads(qgis.core.QgsGeometry.fromPointXY(point).asJson())
         area_of_interest.update_from_geojson(
             geojson=geojson,
-            wrap=False,  # FIXME: add the corresponding setting
+            wrap=conf.settings_manager.get_value(conf.Setting.CUSTOM_CRS_WRAP),
             datatype="point",
         )
     else:

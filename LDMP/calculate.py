@@ -37,6 +37,7 @@ from .conf import AreaSetting
 from .conf import OPTIONS_TITLE
 from .conf import REMOTE_DATASETS
 from .conf import Setting
+from .conf import settings_crs
 from .conf import settings_manager
 from .logger import log
 
@@ -502,7 +503,10 @@ class DlgCalculateBase(QtWidgets.QDialog):
         self.changed_region.emit()
 
     def run_settings(self):
-        self.iface.showOptionsDialog(currentPage=OPTIONS_TITLE)
+        self.iface.showOptionsDialog(
+            self.iface.mainWindow(),
+            currentPage=OPTIONS_TITLE
+        )
         self.update_current_region()
 
     def showEvent(self, event):
@@ -522,7 +526,59 @@ class DlgCalculateBase(QtWidgets.QDialog):
         pass
 
     def settings_btn_clicked(self):
-        self.iface.showOptionsDialog(currentPage=OPTIONS_TITLE)
+        self.iface.showOptionsDialog(
+            self.iface.mainWindow(),
+            currentPage=OPTIONS_TITLE
+        )
+
+    def _validate_crs(self, layer_defn: list) -> bool:
+        """
+        Compares the CRS of the layer(s) in the given definition against
+        the one defined for datasets in settings.
+        Each item in 'layer_defn' should a tuple containing the QgsMapLayer
+        subclass and the corresponding friendly name to display in the user
+        message.
+        """
+        is_valid = True
+        dt_crs = settings_crs()
+        settings_crs_description = self._crs_description(dt_crs)
+        msgs = []
+        for ld in layer_defn:
+            if not ld[0]:
+                continue
+            lyr_crs = ld[0].crs()
+            layer_name = ld[1]
+            if lyr_crs != dt_crs:
+                crs_description = self._crs_description(lyr_crs)
+                tr_msg = tr_calculate.tr(
+                    f"CRS for {layer_name} ({crs_description}) does not match "
+                    f"the one defined in settings "
+                    f"({settings_crs_description})"
+                )
+                msgs.append(tr_msg)
+
+        num_msg = len(msgs)
+        if num_msg > 0:
+            is_valid = False
+            if num_msg == 1:
+                msg = msgs[0]
+            else:
+                s = "\n- ".join(msgs)
+                msg = f"- {s}"
+            QtWidgets.QMessageBox.critical(
+                self,
+                tr_calculate.tr("CRS Error"),
+                msg
+            )
+
+        return is_valid
+
+    @classmethod
+    def _crs_description(cls, crs) -> str:
+        if not crs:
+            return cls.tr_calculate.tr("Not defined")
+
+        return crs.userFriendlyIdentifier()
 
     def btn_calculate(self):
         area_method = settings_manager.get_value(Setting.AREA_FROM_OPTION)

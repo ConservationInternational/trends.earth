@@ -58,6 +58,7 @@ class Setting(enum.Enum):
     BASE_DIR = "advanced/base_data_directory"
     CUSTOM_CRS_ENABLED = "region_of_interest/custom_crs_enabled"
     CUSTOM_CRS = "region_of_interest/custom_crs"
+    CUSTOM_CRS_WRAP = "region_of_interest/custom_crs_wrap"
     POLL_REMOTE = "advanced/poll_remote_server"
     REMOTE_POLLING_FREQUENCY = "advanced/remote_polling_frequency_seconds"
     DOWNLOAD_RESULTS = "advanced/download_remote_results_automatically"
@@ -111,6 +112,7 @@ class SettingsManager:
         ),
         Setting.CUSTOM_CRS_ENABLED: False,
         Setting.CUSTOM_CRS: "epsg:4326",
+        Setting.CUSTOM_CRS_WRAP: False,
         Setting.POLL_REMOTE: True,
         Setting.DOWNLOAD_RESULTS: True,
         Setting.BUFFER_CHECKED: False,
@@ -233,7 +235,7 @@ def settings_crs_as_wkt():
         return ""
 
     return crs.toWkt(
-        qgis.core.QgsCoordinateReferenceSystem.WktVariant.WKT_PREFERRED_GDAL
+        qgis.core.QgsCoordinateReferenceSystem.WktVariant.WKT1_GDAL
     )
 
 

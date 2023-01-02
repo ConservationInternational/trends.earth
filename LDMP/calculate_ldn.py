@@ -906,7 +906,7 @@ class DlgCalculateLDNSummaryTableAdmin(
             (check_layer, check_layer_name)
         ]
 
-        if not self._validate_crs(crs_check_defn):
+        if not self._validate_crs_multi_layer(crs_check_defn):
             return False
 
         return True

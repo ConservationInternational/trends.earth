@@ -531,7 +531,7 @@ class DlgCalculateBase(QtWidgets.QDialog):
             currentPage=OPTIONS_TITLE
         )
 
-    def _validate_crs(self, layer_defn: list) -> bool:
+    def _validate_crs_multi_layer(self, layer_defn: list) -> bool:
         """
         Compares the CRS of the layer(s) in the given definition against
         the one defined for datasets in settings.

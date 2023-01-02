@@ -231,7 +231,7 @@ class DlgCalculateSOC(calculate.DlgCalculateBase, DlgCalculateSocUi):
             (final_layer, self.tr("target layer"))
         ]
 
-        if not self._validate_crs(crs_check_defn):
+        if not self._validate_crs_multi_layer(crs_check_defn):
             return
 
         self.close()

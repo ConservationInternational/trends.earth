@@ -164,6 +164,7 @@ class RemapVectorWorker(worker.AbstractWorker):
         in_data_type,
         out_res,
         out_data_type=gdal.GDT_Int16,
+        dst_srs=None
     ):
         worker.AbstractWorker.__init__(self)
 
@@ -175,6 +176,11 @@ class RemapVectorWorker(worker.AbstractWorker):
         self.out_res = out_res
         self.out_data_type = out_data_type
 
+        # TODO: Confirm if this should be optional and if we should have
+        #  a fallback option (WGS84)
+        if not dst_srs:
+            self.dst_srs = "epsg:4326"
+
     def work(self):
         self.toggle_show_progress.emit(True)
         self.toggle_show_cancel.emit(True)
@@ -182,7 +188,7 @@ class RemapVectorWorker(worker.AbstractWorker):
         crs_src_string = self.l.crs().toProj()
         crs_src = qgis.core.QgsCoordinateReferenceSystem()
         crs_src.createFromProj(crs_src_string)
-        crs_dst = qgis.core.QgsCoordinateReferenceSystem("epsg:4326")
+        crs_dst = qgis.core.QgsCoordinateReferenceSystem(self.dst_srs)
         t = qgis.core.QgsCoordinateTransform(
             crs_src, crs_dst, qgis.core.QgsProject.instance()
         )
@@ -256,7 +262,7 @@ class RemapVectorWorker(worker.AbstractWorker):
             yRes=-self.out_res,
             noData=-32768,
             attribute="code",
-            outputSRS="epsg:4326",
+            outputSRS=self.dst_srs,
             outputType=self.out_data_type,
             creationOptions=["COMPRESS=LZW"],
             callback=self.progress_callback,
@@ -279,7 +285,13 @@ class RemapVectorWorker(worker.AbstractWorker):
 
 class RasterizeWorker(worker.AbstractWorker):
     def __init__(
-        self, in_file, out_file, out_res, attribute, out_data_type=gdal.GDT_Int16
+            self,
+            in_file,
+            out_file,
+            out_res,
+            attribute,
+            out_data_type=gdal.GDT_Int16,
+            dst_srs=None
     ):
         worker.AbstractWorker.__init__(self)
 
@@ -289,6 +301,9 @@ class RasterizeWorker(worker.AbstractWorker):
         self.out_res = out_res
         self.out_data_type = out_data_type
         self.attribute = attribute
+
+        if not dst_srs:
+            self.dst_srs = "epsg:4326"
 
     def work(self):
         self.toggle_show_progress.emit(True)
@@ -302,7 +317,7 @@ class RasterizeWorker(worker.AbstractWorker):
             yRes=-self.out_res,
             noData=-32768,
             attribute=self.attribute,
-            outputSRS="epsg:4326",
+            outputSRS=self.dst_srs,
             outputType=self.out_data_type,
             creationOptions=["COMPRESS=LZW"],
             callback=self.progress_callback,
@@ -324,7 +339,13 @@ class RasterizeWorker(worker.AbstractWorker):
 
 class RasterImportWorker(worker.AbstractWorker):
     def __init__(
-        self, in_file, out_file, out_res, resample_mode, out_data_type=gdal.GDT_Int16
+        self,
+            in_file,
+            out_file,
+            out_res,
+            resample_mode,
+            out_data_type=gdal.GDT_Int16,
+            dst_srs=None
     ):
         worker.AbstractWorker.__init__(self)
 
@@ -333,6 +354,12 @@ class RasterImportWorker(worker.AbstractWorker):
         self.out_res = out_res
         self.resample_mode = resample_mode
         self.out_data_type = out_data_type
+        self.dst_srs = dst_srs
+
+        # See related comment on whether this should be optional and
+        # default option
+        if not dst_srs:
+            self.dst_srs = "epsg:4326"
 
     def work(self):
         self.toggle_show_progress.emit(True)
@@ -346,7 +373,7 @@ class RasterImportWorker(worker.AbstractWorker):
                 xRes=self.out_res,
                 yRes=-self.out_res,
                 dstNodata=-32768,
-                dstSRS="epsg:4326",
+                dstSRS=self.dst_srs,
                 outputType=self.out_data_type,
                 resampleAlg=self.resample_mode,
                 creationOptions=["COMPRESS=LZW"],
@@ -358,7 +385,7 @@ class RasterImportWorker(worker.AbstractWorker):
                 self.in_file,
                 format="GTiff",
                 dstNodata=-32768,
-                dstSRS="epsg:4326",
+                dstSRS=self.dst_srs,
                 outputType=self.out_data_type,
                 resampleAlg=self.resample_mode,
                 creationOptions=["COMPRESS=LZW"],
@@ -979,6 +1006,18 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
 
             return gdal.GRA_NearestNeighbour
 
+    @classmethod
+    def settings_crs(cls) -> qgis.core.QgsCoordinateReferenceSystem:
+        """
+        Defaults to WGS84 if settings CRS is not defined.
+        """
+        crs = conf.settings_crs()
+        # TODO: Do we need to default to this or none at all?
+        if not crs:
+            return qgis.core.QgsCoordinateReferenceSystem("EPSG:4326")
+
+        return crs
+
     def get_in_res_wgs84(self):
         ds_in = gdal.Open(self.input_widget.lineEdit_raster_file.text())
         wgs84_srs = osr.SpatialReference()
@@ -1011,7 +1050,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         return res / (111.325 * 1000)  # 111.325km in one degree
 
     def remap_vector(self, l, out_file, remap_dict, attribute):
-        out_res = self.get_out_res_wgs84()
+        out_res = None # self.get_out_res_wgs84()
         log(
             'Remapping and rasterizing {} using output resolution {}, and field "{}"'.format(
                 out_file, out_res, attribute
@@ -1073,6 +1112,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
             out_file,
             out_res,
             attribute,
+            self.settings_crs()
         )
 
         if not rasterize_worker.success:
@@ -1094,8 +1134,8 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         log("Importing {} to {}".format(in_file, out_file))
 
         if self.input_widget.groupBox_output_resolution.isChecked():
-            out_res = self.get_out_res_wgs84()
-            resample_mode = self.get_resample_mode(temp_vrt)
+            out_res = None # self.get_out_res_wgs84()
+            resample_mode = gdal.GRA_NearestNeighbour # self.get_resample_mode(temp_vrt)
         else:
             out_res = None
             resample_mode = gdal.GRA_NearestNeighbour
@@ -1106,6 +1146,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
             out_file,
             out_res,
             resample_mode,
+            self.settings_crs()
         )
         os.remove(temp_vrt)
 

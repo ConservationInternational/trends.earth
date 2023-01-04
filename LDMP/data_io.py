@@ -164,6 +164,7 @@ class RemapVectorWorker(worker.AbstractWorker):
         in_data_type,
         out_res,
         out_data_type=gdal.GDT_Int16,
+        dst_srs=None,
     ):
         worker.AbstractWorker.__init__(self)
 
@@ -175,6 +176,11 @@ class RemapVectorWorker(worker.AbstractWorker):
         self.out_res = out_res
         self.out_data_type = out_data_type
 
+        # TODO: Confirm if this should be optional and if we should have
+        #  a fallback option (WGS84)
+        if not dst_srs:
+            self.dst_srs = "epsg:4326"
+
     def work(self):
         self.toggle_show_progress.emit(True)
         self.toggle_show_cancel.emit(True)
@@ -182,7 +188,7 @@ class RemapVectorWorker(worker.AbstractWorker):
         crs_src_string = self.l.crs().toProj()
         crs_src = qgis.core.QgsCoordinateReferenceSystem()
         crs_src.createFromProj(crs_src_string)
-        crs_dst = qgis.core.QgsCoordinateReferenceSystem("epsg:4326")
+        crs_dst = qgis.core.QgsCoordinateReferenceSystem(self.dst_srs)
         t = qgis.core.QgsCoordinateTransform(
             crs_src, crs_dst, qgis.core.QgsProject.instance()
         )
@@ -256,7 +262,7 @@ class RemapVectorWorker(worker.AbstractWorker):
             yRes=-self.out_res,
             noData=-32768,
             attribute="code",
-            outputSRS="epsg:4326",
+            outputSRS=self.dst_srs,
             outputType=self.out_data_type,
             creationOptions=["COMPRESS=LZW"],
             callback=self.progress_callback,
@@ -279,7 +285,13 @@ class RemapVectorWorker(worker.AbstractWorker):
 
 class RasterizeWorker(worker.AbstractWorker):
     def __init__(
-        self, in_file, out_file, out_res, attribute, out_data_type=gdal.GDT_Int16
+        self,
+        in_file,
+        out_file,
+        out_res,
+        attribute,
+        out_data_type=gdal.GDT_Int16,
+        dst_srs=None,
     ):
         worker.AbstractWorker.__init__(self)
 
@@ -289,6 +301,9 @@ class RasterizeWorker(worker.AbstractWorker):
         self.out_res = out_res
         self.out_data_type = out_data_type
         self.attribute = attribute
+
+        if not dst_srs:
+            self.dst_srs = "epsg:4326"
 
     def work(self):
         self.toggle_show_progress.emit(True)
@@ -302,7 +317,7 @@ class RasterizeWorker(worker.AbstractWorker):
             yRes=-self.out_res,
             noData=-32768,
             attribute=self.attribute,
-            outputSRS="epsg:4326",
+            outputSRS=self.dst_srs,
             outputType=self.out_data_type,
             creationOptions=["COMPRESS=LZW"],
             callback=self.progress_callback,
@@ -324,7 +339,13 @@ class RasterizeWorker(worker.AbstractWorker):
 
 class RasterImportWorker(worker.AbstractWorker):
     def __init__(
-        self, in_file, out_file, out_res, resample_mode, out_data_type=gdal.GDT_Int16
+        self,
+        in_file,
+        out_file,
+        out_res,
+        resample_mode,
+        out_data_type=gdal.GDT_Int16,
+        dst_srs=None,
     ):
         worker.AbstractWorker.__init__(self)
 
@@ -333,6 +354,12 @@ class RasterImportWorker(worker.AbstractWorker):
         self.out_res = out_res
         self.resample_mode = resample_mode
         self.out_data_type = out_data_type
+        self.dst_srs = dst_srs
+
+        # See related comment on whether this should be optional and
+        # default option
+        if not dst_srs:
+            self.dst_srs = "epsg:4326"
 
     def work(self):
         self.toggle_show_progress.emit(True)
@@ -346,7 +373,7 @@ class RasterImportWorker(worker.AbstractWorker):
                 xRes=self.out_res,
                 yRes=-self.out_res,
                 dstNodata=-32768,
-                dstSRS="epsg:4326",
+                dstSRS=self.dst_srs,
                 outputType=self.out_data_type,
                 resampleAlg=self.resample_mode,
                 creationOptions=["COMPRESS=LZW"],
@@ -358,7 +385,7 @@ class RasterImportWorker(worker.AbstractWorker):
                 self.in_file,
                 format="GTiff",
                 dstNodata=-32768,
-                dstSRS="epsg:4326",
+                dstSRS=self.dst_srs,
                 outputType=self.out_data_type,
                 resampleAlg=self.resample_mode,
                 creationOptions=["COMPRESS=LZW"],
@@ -947,7 +974,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
 
     def get_resample_mode(self, f):
         in_res = self.get_in_res_wgs84()
-        out_res = self.get_out_res_wgs84()
+        out_res = self.get_out_res_in_metres()
 
         if in_res < out_res:
             if self.datatype == "categorical":
@@ -979,6 +1006,18 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
 
             return gdal.GRA_NearestNeighbour
 
+    @classmethod
+    def settings_crs(cls) -> qgis.core.QgsCoordinateReferenceSystem:
+        """
+        Defaults to WGS84 if settings CRS is not defined.
+        """
+        crs = conf.settings_crs()
+        # TODO: Do we need to default to this or none at all?
+        if not crs:
+            return qgis.core.QgsCoordinateReferenceSystem("EPSG:4326")
+
+        return crs
+
     def get_in_res_wgs84(self):
         ds_in = gdal.Open(self.input_widget.lineEdit_raster_file.text())
         wgs84_srs = osr.SpatialReference()
@@ -1004,14 +1043,18 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
 
         return ((lrx - ulx) / float(x_size) + (lry - uly) / float(y_size)) / 2
 
-    def get_out_res_wgs84(self):
+    def get_out_res_in_metres(self):
         # Calculate res in degrees from input which is in meters
+        crs = self.settings_crs()
         res = int(self.input_widget.spinBox_resolution.value())
+
+        if not crs.isGeographic():
+            return res
 
         return res / (111.325 * 1000)  # 111.325km in one degree
 
     def remap_vector(self, l, out_file, remap_dict, attribute):
-        out_res = self.get_out_res_wgs84()
+        out_res = self.get_out_res_in_metres()
         log(
             'Remapping and rasterizing {} using output resolution {}, and field "{}"'.format(
                 out_file, out_res, attribute
@@ -1061,7 +1104,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
             return True
 
     def rasterize_vector(self, in_file, out_file, attribute):
-        out_res = self.get_out_res_wgs84()
+        out_res = self.get_out_res_in_metres()
         log(
             f"Rasterizing {out_file} using output resolution {out_res}, "
             f'and field "{attribute}"'
@@ -1073,6 +1116,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
             out_file,
             out_res,
             attribute,
+            self.settings_crs(),
         )
 
         if not rasterize_worker.success:
@@ -1094,8 +1138,10 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
         log("Importing {} to {}".format(in_file, out_file))
 
         if self.input_widget.groupBox_output_resolution.isChecked():
-            out_res = self.get_out_res_wgs84()
-            resample_mode = self.get_resample_mode(temp_vrt)
+            out_res = None  # self.get_out_res_wgs84()
+            resample_mode = (
+                gdal.GRA_NearestNeighbour
+            )  # self.get_resample_mode(temp_vrt)
         else:
             out_res = None
             resample_mode = gdal.GRA_NearestNeighbour
@@ -1106,6 +1152,7 @@ class DlgDataIOImportBase(QtWidgets.QDialog):
             out_file,
             out_res,
             resample_mode,
+            self.settings_crs(),
         )
         os.remove(temp_vrt)
 
@@ -1751,24 +1798,45 @@ class WidgetDataIOSelectTEDatasetExisting(
         else:
             return None
 
-    def get_current_extent(self):
+    def get_current_layer(self, band="any") -> qgis.core.QgsMapLayer:
+        # Use this to get general layer properties such as extent and crs.
         job = self.get_current_job()
-        if job:
-            if ResultType(job.results.type) == ResultType.RASTER_RESULTS:
-                band = self.get_bands("any")[0]
-                return qgis.core.QgsRasterLayer(
-                    str(band.path), "raster file", "gdal"
-                ).extent()
-            elif ResultType(job.results.type) == ResultType.VECTOR_RESULTS:
-                rect = qgis.core.QgsVectorLayer(
-                    str(self.get_current_data_file()), "vector file", "ogr"
-                ).extent()
-                return (
-                    rect.xMinimum(),
-                    rect.yMinimum(),
-                    rect.yMaximum(),
-                    rect.yMaximum(),
-                )
+        if not job:
+            return None
+
+        if ResultType(job.results.type) == ResultType.RASTER_RESULTS:
+            band = self.get_bands(band)[0]
+            return qgis.core.QgsRasterLayer(str(band.path), "raster file", "gdal")
+
+        elif ResultType(job.results.type) == ResultType.VECTOR_RESULTS:
+            return qgis.core.QgsVectorLayer(
+                str(self.get_current_data_file()), "vector file", "ogr"
+            )
+
+        return None
+
+    def get_current_extent(self):
+        lyr = self.get_current_layer()
+        if not lyr:
+            return None
+
+        if isinstance(lyr, qgis.core.QgsVectorLayer):
+            rect = lyr.extent()
+            return (
+                rect.xMinimum(),
+                rect.yMinimum(),
+                rect.yMaximum(),
+                rect.yMaximum(),
+            )
+
+        return lyr.extent()
+
+    def get_crs(self) -> qgis.core.QgsCoordinateReferenceSystem:
+        lyr = self.get_current_layer()
+        if not lyr:
+            return None
+
+        return lyr.crs()
 
     def get_bands(self, band_name) -> Band:
         aoi = areaofinterest.prepare_area_of_interest()

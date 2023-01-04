@@ -54,6 +54,9 @@ Ui_DlgLandCoverRestore, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgLandCoverRestore.ui")
 )
 Ui_DlgSettings, _ = uic.loadUiType(str(Path(__file__).parent / "gui/DlgSettings.ui"))
+Ui_WidgetSettingsCrs, _ = uic.loadUiType(
+    str(Path(__file__).parent / "gui/WidgetSettingsCrs.ui")
+)
 Ui_DlgSettingsEditForgotPassword, _ = uic.loadUiType(
     str(Path(__file__).parent / "gui/DlgSettingsEditForgotPassword.ui")
 )
@@ -176,6 +179,10 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
         )
         self.reports_layout.layout().insertWidget(0, self.widget_settings_report)
 
+        # CRS settings
+        self.widget_crs_settings = WidgetSettingsCrs(self, message_bar=self.message_bar)
+        self.crs_layout.layout().insertWidget(0, self.widget_crs_settings)
+
         # Set Dialog UIs
         self.dlg_settings_register = DlgSettingsRegister()
         self.dlg_settings_login = DlgSettingsLogin()
@@ -217,8 +224,8 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
         self.area_widget.save_settings()
         self.widgetSettingsAdvanced.update_settings()
         self.widget_settings_report.save_settings()
+        self.widget_crs_settings.save_settings()
         if not self.lcc_manager.save_settings():
-            print("Validation failed")
             return
 
         new_base_dir = conf.settings_manager.get_value(conf.Setting.BASE_DIR)
@@ -226,6 +233,11 @@ class TrendsEarthSettings(Ui_DlgSettings, QgsOptionsPageWidget):
             job_manager.clear_known_jobs()
             if hasattr(self, "dock_widget") and self.dock_widget.isVisible():
                 self.dock_widget.refresh_after_cache_update()
+
+        # There are cases where you can modify settings without activating
+        # the dock widget.
+        if not hasattr(self, "dock_widget") or not self.dock_widget:
+            return
 
         offline_mode = settings_manager.get_value(Setting.OFFLINE_MODE)
         if offline_mode:
@@ -1559,6 +1571,51 @@ class DlgLandCoverRestore(QtWidgets.QDialog, Ui_DlgLandCoverRestore):
         super().__init__(parent)
         self.setupUi(self)
         self.buttonBox.rejected.connect(self.close)
+
+
+class WidgetSettingsCrs(QtWidgets.QWidget, Ui_WidgetSettingsCrs):
+    """
+    CRS settings widget.
+    """
+
+    proj_selector: qgis.gui.QgsProjectionSelectionWidget
+
+    def __init__(self, parent=None, message_bar=None):
+        super().__init__(parent)
+        self.setupUi(self)
+        self.msg_bar = message_bar
+
+        self._load_crs_from_settings()
+        self.proj_selector.setDialogTitle(self.tr("Specify Default Dataset CRS"))
+        self.proj_selector.setMessage(
+            self.tr(
+                "Specify the default CRS to be applied for new jobs and "
+                "dataset imports."
+            )
+        )
+
+    def _load_crs_from_settings(self):
+        crs = conf.settings_crs()
+        if not crs:
+            msg_level = qgis.core.Qgis.MessageLevel.Warning
+            msg = self.tr("Previously saved CRS is not defined or invalid.")
+            self.msg_bar.pushMessage(self.tr("CRS"), msg, msg_level, 5)
+        self.proj_selector.setCrs(crs)
+
+    def showEvent(self, event):
+        super().showEvent(event)
+        self._load_crs_from_settings()
+
+    def save_settings(self):
+        crs = self.proj_selector.crs()
+
+        if not crs:
+            crs_str = ""
+            log("Invalid CRS, will be saved as an empty string in settings.")
+        else:
+            crs_str = crs.authid()
+
+        settings_manager.write_value(Setting.CUSTOM_CRS, crs_str)
 
 
 class LandCoverCustomClassesManager(

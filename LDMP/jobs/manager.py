@@ -470,6 +470,7 @@ class JobManager(QtCore.QObject):
         final_params["local_context"] = (
             jobs.JobLocalContext().Schema().dump(_get_local_context())
         )
+        final_params["crs"] = conf.settings_crs_as_wkt()
         url_fragment = f"/api/v1/script/{script_id}/run"
         response = self.api_client.call_api(
             url_fragment, "post", final_params, use_token=True
